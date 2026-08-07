@@ -68,7 +68,8 @@ export function classifyStroke(stroke: Stroke): { features: StrokeFeatures; cand
       if (smooth && nCorners === 0) push('arc', 0.7)
     }
 
-    // polyline / caret: straight segments joined at sharp corners
+    // polyline / caret: straight segments joined at sharp corners.
+    // Confidence decays with corner count — many reversals reads as scribble.
     if (nCorners >= 1 && f.dcr >= 4.5) {
       if (nCorners === 1) {
         // caret candidate: two straight legs, sharp apex, apex above endpoints
@@ -80,11 +81,15 @@ export function classifyStroke(stroke: Stroke): { features: StrokeFeatures; cand
         if (angle > (110 * Math.PI) / 180 && apexAbove) push('caret', 0.8)
         push('polyline', 0.6)
       } else {
-        push('polyline', 0.7)
+        push('polyline', Math.max(0.4, 0.7 - 0.06 * (nCorners - 2)))
       }
     }
-    // zigzag strikethrough/scribble over content: many corners, elongated
+    // zigzag scribble (delete gesture): elongated few-corner slash…
     if (nCorners >= 3 && thin < 0.45) push('scribble', 0.5 + Math.min(0.4, nCorners * 0.05))
+    // …or a many-reversal zigzag of any aspect that retraces its hull
+    if (nCorners >= 4 && Tl_Pch > 1.05) {
+      push('scribble', 0.55 + Math.min(0.35, (nCorners - 4) * 0.06))
+    }
   }
 
   // ---- closed strokes (CALI trapezoids, published thresholds) ----

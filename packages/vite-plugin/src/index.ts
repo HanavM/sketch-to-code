@@ -1,6 +1,9 @@
 import { relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
+import type { DomSnapshot } from '@s2c/dom'
 import { stampJsxSource } from './jsx-source.js'
+import { createSseHub, readJsonBody, sendJson, type SseHub } from './middleware.js'
+import { bundleOverlayClient } from './overlay-bundle.js'
 
 export interface Sketch2CodeOptions {
   /** Allow running with uncommitted changes in the target repo. Default false. */
@@ -9,39 +12,66 @@ export interface Sketch2CodeOptions {
   extensions?: string[]
 }
 
+interface RawStroke {
+  id: string
+  points: Array<{ x: number; y: number; t: number }>
+}
+
+export interface RunRequest {
+  strokes: RawStroke[]
+  snapshot: DomSnapshot
+}
+
+/** Pipeline entry, attached by @s2c/pipeline (layer 4+). */
+export type RunHandler = (
+  req: RunRequest,
+  ctx: {
+    root: string
+    allowDirty: boolean
+    emit: (event: string, data: unknown) => void
+    /** Ask the browser for a fresh snapshot; resolves when it arrives. */
+    requestSnapshot: (runId: string) => Promise<DomSnapshot>
+  },
+) => Promise<{ summary: string }>
+
+let runHandler: RunHandler | null = null
+export function setRunHandler(h: RunHandler): void {
+  runHandler = h
+}
+
 const DEFAULT_EXTS = ['.jsx', '.tsx']
 
 /**
  * vite-plugin-sketch2code: dev-only.
  * - stamps JSX host elements with data-s2c="file:line:col"
- * - injects the overlay client into index.html
- * - mounts /@s2c/* middleware (snapshot intake, pipeline trigger, SSE events)
- *
- * The plugin no-ops entirely for builds (`vite build`), so neither the stamps
- * nor the overlay can ever reach production output.
+ * - injects + serves the overlay client
+ * - mounts /@s2c/* middleware (run intake, SSE progress, verify snapshots)
+ * apply:'serve' keeps every part of this out of production builds.
  */
 export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const exts = options.extensions ?? DEFAULT_EXTS
+  const allowDirty = options.allowDirty ?? false
   let root = process.cwd()
-  let isServe = false
+
+  const sse: SseHub = createSseHub()
+  const pendingSnapshots = new Map<string, (snap: DomSnapshot) => void>()
+  let running = false
 
   return {
     name: 'sketch2code',
-    apply: 'serve', // dev-only: never applies to `vite build`
-    enforce: 'pre', // run before @vitejs/plugin-react compiles JSX away
+    apply: 'serve',
+    enforce: 'pre',
 
     configResolved(config) {
       root = config.root
-      isServe = config.command === 'serve'
     },
 
     transform(code, id) {
-      if (!isServe) return null
       const clean = id.split('?')[0]!
       if (!exts.some((e) => clean.endsWith(e))) return null
       if (clean.includes('/node_modules/')) return null
       const rel = relative(root, clean)
-      if (rel.startsWith('..')) return null // outside the app root
+      if (rel.startsWith('..')) return null
       const res = stampJsxSource(code, rel)
       if (!res) return null
       return { code: res.code, map: res.map }
@@ -59,23 +89,76 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
     configureServer(server: ViteDevServer) {
       server.middlewares.use('/@s2c/ping', (_req, res) => {
-        res.setHeader('content-type', 'application/json')
-        res.end(JSON.stringify({ ok: true, root, allowDirty: options.allowDirty ?? false }))
+        sendJson(res, 200, { ok: true, root, allowDirty, hasPipeline: runHandler !== null })
       })
-      // Overlay client + pipeline endpoints are mounted by later layers via
-      // registerMiddleware; keep a stub so the injected script never 404s.
+
       server.middlewares.use('/@s2c/overlay.js', (_req, res) => {
-        res.setHeader('content-type', 'text/javascript')
-        res.end(overlayClientSource ?? 'console.warn("[s2c] overlay client not built yet")')
+        bundleOverlayClient()
+          .then((src) => {
+            res.setHeader('content-type', 'text/javascript')
+            res.end(src)
+          })
+          .catch((err: unknown) => {
+            res.setHeader('content-type', 'text/javascript')
+            res.end(`console.error("[s2c] overlay bundle failed:", ${JSON.stringify(String(err))})`)
+          })
+      })
+
+      server.middlewares.use('/@s2c/events', (req, res) => sse.handler(req, res))
+
+      server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        readJsonBody<{ runId: string; snapshot: DomSnapshot }>(req)
+          .then((body) => {
+            pendingSnapshots.get(body.runId)?.(body.snapshot)
+            pendingSnapshots.delete(body.runId)
+            sendJson(res, 200, { ok: true })
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/run', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'POST only' })
+        if (!runHandler) return sendJson(res, 501, { ok: false, error: 'pipeline not attached (start via s2c dev runner)' })
+        if (running) return sendJson(res, 409, { ok: false, error: 'a run is already in progress' })
+
+        readJsonBody<RunRequest>(req)
+          .then((body) => {
+            running = true
+            sendJson(res, 200, { ok: true })
+            const ctx = {
+              root,
+              allowDirty,
+              emit: (event: string, data: unknown) => sse.send(event, data),
+              requestSnapshot: (runId: string) =>
+                new Promise<DomSnapshot>((resolve, reject) => {
+                  const timer = setTimeout(() => {
+                    pendingSnapshots.delete(runId)
+                    reject(new Error('browser snapshot timed out'))
+                  }, 15_000)
+                  pendingSnapshots.set(runId, (snap) => {
+                    clearTimeout(timer)
+                    resolve(snap)
+                  })
+                  sse.send('resnapshot', { runId })
+                }),
+            }
+            runHandler!(body, ctx)
+              .then((result) => sse.send('done', { summary: result.summary }))
+              .catch((err: unknown) =>
+                sse.send('error-event', { message: err instanceof Error ? err.message : String(err) }),
+              )
+              .finally(() => {
+                running = false
+              })
+          })
+          .catch((err: unknown) => {
+            sendJson(res, 400, { ok: false, error: String(err) })
+          })
       })
     },
   }
 }
 
-/** Set by the overlay-client build (layer 3); stubbed until then. */
-export let overlayClientSource: string | null = null
-export function setOverlayClientSource(src: string): void {
-  overlayClientSource = src
-}
-
 export { stampJsxSource } from './jsx-source.js'
+export { createSseHub, readJsonBody, sendJson } from './middleware.js'

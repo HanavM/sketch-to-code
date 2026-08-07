@@ -3,11 +3,22 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "references": [
-    { "path": "../ink" },
-    { "path": "../dom" }
+    {
+      "path": "../ink"
+    },
+    {
+      "path": "../dom"
+    },
+    {
+      "path": "../overlay-client"
+    }
   ]
 }
