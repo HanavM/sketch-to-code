@@ -88,6 +88,19 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
     },
 
     configureServer(server: ViteDevServer) {
+      // attach the pipeline when it's installed; the plugin works without it
+      // (overlay + stamping only) so the demo app never hard-depends on it
+      import('@s2c/pipeline')
+        .then((m) => {
+          if (!runHandler) {
+            runHandler = (req, ctx) => m.runPipeline(req, ctx)
+            server.config.logger.info('[s2c] pipeline attached')
+          }
+        })
+        .catch(() => {
+          server.config.logger.warn('[s2c] @s2c/pipeline not installed — overlay runs in capture-only mode')
+        })
+
       server.middlewares.use('/@s2c/ping', (_req, res) => {
         sendJson(res, 200, { ok: true, root, allowDirty, hasPipeline: runHandler !== null })
       })

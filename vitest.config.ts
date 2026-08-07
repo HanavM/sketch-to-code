@@ -12,6 +12,8 @@ export default defineConfig({
       '@s2c/dom': pkg('dom'),
       '@s2c/intent': pkg('intent'),
       '@s2c/vite-plugin': pkg('vite-plugin'),
+      '@s2c/providers': pkg('providers'),
+      '@s2c/pipeline': pkg('pipeline'),
     },
   },
   test: {

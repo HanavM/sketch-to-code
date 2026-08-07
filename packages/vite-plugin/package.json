@@ -21,7 +21,8 @@
     "@s2c/ink": "*",
     "magic-string": "^0.30.0",
     "@s2c/overlay-client": "*",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "@s2c/pipeline": "*"
   },
   "devDependencies": {
     "@types/babel__traverse": "^7.20.0",
