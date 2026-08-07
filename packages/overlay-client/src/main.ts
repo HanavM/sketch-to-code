@@ -11,6 +11,12 @@ interface Stroke { id: string; points: Pt[] }
 type Mode = 'idle' | 'draw' | 'running'
 
 const HOST_ID = 's2c-overlay-host'
+/** Per-boot token injected ahead of this bundle by the dev middleware. */
+const TOKEN: string = (globalThis as Record<string, unknown>).__S2C_TOKEN__ as string ?? ''
+/** Identifies this tab so multi-tab SSE events don't cross-talk. */
+const CLIENT_ID = crypto.randomUUID()
+/** If no SSE event lands for this long while running, assume the run died. */
+const RUNNING_WATCHDOG_MS = 10 * 60_000
 
 function css(strings: TemplateStringsArray): string {
   return strings.join('')
@@ -96,11 +102,22 @@ class Overlay {
     this.clearBtn.addEventListener('click', () => { this.strokes = []; this.redraw(); this.sync() })
 
     window.addEventListener('keydown', (e) => {
+      // don't hijack typing in the host app's inputs
+      const target = e.composedPath()[0] as HTMLElement | undefined
+      const tag = target?.tagName?.toLowerCase()
+      if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) return
       if (e.altKey && (e.key === 'd' || e.key === 'D' || e.code === 'KeyD')) {
         e.preventDefault()
         this.toggleDraw()
       }
-      if (e.key === 'Escape' && this.mode === 'draw') this.setMode('idle')
+      if (e.key === 'Escape') {
+        if (this.mode === 'draw') this.setMode('idle')
+        else if (this.mode === 'running') {
+          // escape hatch: the server may have restarted mid-run
+          this.status('cancelled locally (server run may still finish)', true)
+          this.setMode('idle')
+        }
+      }
     })
     window.addEventListener('resize', () => this.resize())
     window.addEventListener('scroll', () => this.redraw(), { passive: true })
@@ -149,6 +166,7 @@ class Overlay {
 
   private onDown(e: PointerEvent) {
     if (this.mode !== 'draw') return
+    if (e.button !== 0) return // left button/pen tip only
     this.canvas.setPointerCapture(e.pointerId)
     this.live = { id: `s${this.strokeSeq++}`, points: [this.toPage(e)] }
   }
@@ -205,15 +223,32 @@ class Overlay {
     return takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
   }
 
+  private watchdog: ReturnType<typeof setTimeout> | null = null
+
+  private armWatchdog() {
+    if (this.watchdog) clearTimeout(this.watchdog)
+    this.watchdog = setTimeout(() => {
+      if (this.mode === 'running') {
+        this.status('no progress from server — resetting (run may have died)', true)
+        this.setMode('idle')
+      }
+    }, RUNNING_WATCHDOG_MS)
+  }
+
   private async run() {
     if (this.strokes.length === 0) return
     this.setMode('running')
     this.status('running…')
+    this.armWatchdog()
     try {
       const res = await fetch('/@s2c/run', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ strokes: this.strokes, snapshot: this.snapshot() }),
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          strokes: this.strokes,
+          snapshot: this.snapshot(),
+          clientId: CLIENT_ID,
+        }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
@@ -224,31 +259,41 @@ class Overlay {
     }
   }
 
+  /** Events carry the originating clientId; ignore other tabs' runs. */
+  private mine(d: { clientId?: string | null }): boolean {
+    return d.clientId == null || d.clientId === CLIENT_ID
+  }
+
   private connectEvents() {
     this.events = new EventSource('/@s2c/events')
     this.events.addEventListener('stage', (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string }
+      const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
+      if (!this.mine(d)) return
       this.status(`${d.stage}${d.detail ? `: ${d.detail}` : ''}`)
+      if (this.mode === 'running') this.armWatchdog()
     })
     this.events.addEventListener('resnapshot', async (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { runId: string }
+      const d = JSON.parse((e as MessageEvent).data) as { runId: string; clientId?: string }
+      if (!this.mine(d)) return
       // give HMR a beat to settle before snapshotting the edited page
       await new Promise((r) => setTimeout(r, 350))
       await fetch('/@s2c/verify-snapshot', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({ runId: d.runId, snapshot: this.snapshot() }),
       }).catch(() => {})
     })
     this.events.addEventListener('done', (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { summary?: string }
+      const d = JSON.parse((e as MessageEvent).data) as { summary?: string; clientId?: string }
+      if (!this.mine(d)) return
       this.status(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
       this.redraw()
       this.setMode('idle')
     })
     this.events.addEventListener('error-event', (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { message: string }
+      const d = JSON.parse((e as MessageEvent).data) as { message: string; clientId?: string }
+      if (!this.mine(d)) return
       this.status(`✗ ${d.message}`, true)
       this.setMode('idle')
     })

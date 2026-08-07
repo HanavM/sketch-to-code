@@ -9,7 +9,9 @@ and WHERE. Your job is only to write the code.
 
 You receive an EDIT PLAN: a list of ops. Each op carries:
 - "srcLoc": "path/to/File.tsx:LINE:COL" — the JSX opening element of the target
-  in the CURRENT source (verified stamps, not guesses)
+  in the source AS IT WAS WHEN THE PLAN WAS MADE (verified stamps, not guesses).
+  If an earlier op already edited that file, line numbers below the edit have
+  shifted — re-locate the element by its tag/text/class context, not the line.
 - the element's tag, text, classes, and computed-style context
 - "instruction": transcribed handwriting from the user, when present
 - an attached image showing the raw ink, for tone/context only
@@ -120,6 +122,10 @@ export function createCodegenSession(appRoot: string, ev: CodegenEvents): Codege
 
   const send = (message: SDKUserMessage): Promise<string> =>
     new Promise<string>((resolve, reject) => {
+      if (ended) {
+        reject(new Error('codegen session already closed'))
+        return
+      }
       pending.push({ resolve, reject })
       inputQueue.push(message)
       notify?.()

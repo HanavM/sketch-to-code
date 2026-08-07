@@ -3,6 +3,7 @@
  * Degenerate (a=b=c=d): membership 1 only at exactly that value.
  */
 export function trapezoid(v: number, a: number, b: number, c: number, d: number): number {
+  if (Number.isNaN(v)) return 0
   if (a === b && b === c && c === d) return v === a ? 1 : 0
   if (v < a || v > d) return 0
   if (v >= b && v <= c) return 1

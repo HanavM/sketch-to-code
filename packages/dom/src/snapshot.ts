@@ -35,11 +35,13 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
 
     const cs = win.getComputedStyle(el)
     const rect = el.getBoundingClientRect()
+    // zero-size elements are still emitted when they carry a source stamp —
+    // dropping them would make nearestSourced resolve to a wrong ancestor
+    const hasStamp = el.getAttribute(S2C_ATTR) !== null
     const visible =
       cs.display !== 'none' &&
       cs.visibility !== 'hidden' &&
-      rect.width >= 1 &&
-      rect.height >= 1
+      ((rect.width >= 1 && rect.height >= 1) || hasStamp)
     // invisible subtrees are skipped wholesale (display:none children have no boxes)
     if (cs.display === 'none') return
 

@@ -102,6 +102,18 @@ export async function runPipeline(
   }
 
   // ---- ④ codegen ----
+  // Order ops bottom-to-top per file so earlier edits don't shift the line
+  // numbers later ops' srcLocs point at.
+  const lineOf = (loc: string | null | undefined) => Number(loc?.split(':')[1] ?? 0)
+  const locOf = (o: (typeof plan.ops)[number]) =>
+    o.op === 'MOVE' ? o.source.srcLoc : o.op === 'ADD' || o.op === 'INSERT' ? o.container.srcLoc : o.target.srcLoc
+  plan.ops.sort((a, b) => {
+    const la = locOf(a), lb = locOf(b)
+    const fa = la?.split(':')[0] ?? '', fb = lb?.split(':')[0] ?? ''
+    if (fa !== fb) return fa < fb ? -1 : 1
+    return lineOf(lb) - lineOf(la) // descending line within a file
+  })
+
   const session = createCodegenSession(ctx.root, { onStage: stage })
   let best: VerifyResult | null = null
   const roundSummaries: string[] = []

@@ -1,14 +1,22 @@
 import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
 
-let cached: string | null = null
+let cached: Promise<string> | null = null
 
 /**
  * Bundle the overlay client (TS, plus its @s2c/dom import) to a single IIFE
- * with esbuild, on demand, cached for the dev-server lifetime.
+ * with esbuild, on demand, cached for the dev-server lifetime. The promise
+ * (not the result) is cached so N concurrent first requests share one build.
  */
-export async function bundleOverlayClient(): Promise<string> {
-  if (cached) return cached
+export function bundleOverlayClient(): Promise<string> {
+  cached ??= doBundle().catch((err: unknown) => {
+    cached = null // let a later request retry after a transient failure
+    throw err
+  })
+  return cached
+}
+
+async function doBundle(): Promise<string> {
   const require = createRequire(import.meta.url)
   const entry = require.resolve('@s2c/overlay-client')
   const domPkg = dirname(require.resolve('@s2c/dom/package.json'))
@@ -26,6 +34,5 @@ export async function bundleOverlayClient(): Promise<string> {
     sourcemap: 'inline',
     logLevel: 'silent',
   })
-  cached = result.outputFiles[0]!.text
-  return cached
+  return result.outputFiles[0]!.text
 }

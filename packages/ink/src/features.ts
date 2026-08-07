@@ -63,8 +63,15 @@ export function computeFeatures(stroke: Stroke): StrokeFeatures {
   // endpoint gap is small, close the loop and count the seam turns too.
   if (closedness < 0.2 && pts.length >= 4) {
     const n = pts.length
-    totalRot += turnAngle(pts[n - 2]!, pts[n - 1]!, pts[0]!)
-    totalRot += turnAngle(pts[n - 1]!, pts[0]!, pts[1]!)
+    const seamLen = dist(pts[n - 1]!, pts[0]!)
+    if (seamLen > 1.5) {
+      totalRot += turnAngle(pts[n - 2]!, pts[n - 1]!, pts[0]!)
+      totalRot += turnAngle(pts[n - 1]!, pts[0]!, pts[1]!)
+    } else {
+      // endpoints (nearly) coincide: a near-zero seam vector makes atan2
+      // garbage — bridge straight across the duplicate point instead
+      totalRot += turnAngle(pts[n - 2]!, pts[0]!, pts[1]!)
+    }
   }
   const revolutions = Math.abs(totalRot) / (2 * Math.PI)
 

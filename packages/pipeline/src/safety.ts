@@ -51,7 +51,15 @@ export function checkpoint(root: string, allowDirty: boolean): Checkpoint {
   } catch {
     /* ignore */
   }
-  if (!sha) sha = git(root, 'rev-parse', 'HEAD')
+  if (!sha) {
+    try {
+      sha = git(root, 'rev-parse', 'HEAD')
+    } catch {
+      throw new Error(
+        'refusing to edit: the repository has no commits yet — make an initial commit first.',
+      )
+    }
+  }
   return { sha, toplevel, dirtyBefore }
 }
 

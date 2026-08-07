@@ -128,27 +128,32 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
   })
   const raster: Raster = { width, height, data, toRaster }
 
+  // sub-pixel brushes can miss every pixel center on downscaled sketches
+  const effBrush = Math.max(0.9, brush * scale)
   for (const s of scene.strokes) {
     for (let i = 1; i < s.points.length; i++) {
       const a = toRaster(s.points[i - 1]!.x, s.points[i - 1]!.y)
       const b = toRaster(s.points[i]!.x, s.points[i]!.y)
-      drawLine(raster, a.x, a.y, b.x, b.y, brush * scale, ink)
+      drawLine(raster, a.x, a.y, b.x, b.y, effBrush, ink)
     }
     if (s.points.length === 1) {
       const p = toRaster(s.points[0]!.x, s.points[0]!.y)
-      stampDisc(raster, p.x, p.y, brush * scale, ink)
+      stampDisc(raster, p.x, p.y, effBrush, ink)
     }
   }
 
   if (opts.labels) {
     const labelScale = Math.max(2, Math.round(2 * scale))
+    // clamp inside the raster — a clipped badge means the transcription model
+    // can't see the region id at all
+    const labelY = (rawY: number) => Math.max(0, Math.min(height - 7 * labelScale, rawY))
     for (const n of scene.nodes) {
       const p = toRaster(n.bbox.x, n.bbox.y)
-      drawLabel(raster, n.id, p.x, p.y - 8 * labelScale, labelScale)
+      drawLabel(raster, n.id, Math.max(0, p.x), labelY(p.y - 8 * labelScale), labelScale)
     }
     for (const t of scene.textRegions) {
       const p = toRaster(t.bbox.x, t.bbox.y)
-      drawLabel(raster, t.id, p.x, p.y - 8 * labelScale, labelScale)
+      drawLabel(raster, t.id, Math.max(0, p.x), labelY(p.y - 8 * labelScale), labelScale)
     }
   }
   return raster
