@@ -1,6 +1,14 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/ink" }
+    {
+      "path": "packages/ink"
+    },
+    {
+      "path": "packages/dom"
+    },
+    {
+      "path": "packages/vite-plugin"
+    }
   ]
 }
