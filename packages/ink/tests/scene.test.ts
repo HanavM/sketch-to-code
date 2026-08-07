@@ -77,6 +77,19 @@ describe('mixed scene', () => {
   })
 })
 
+describe('mixed groups', () => {
+  it('circle + handwriting drawn in one breath split into shape + text', () => {
+    const circle = drawCircle(150, 150, 60, { seed: 11, t0: 0 })
+    let t = circle.points[circle.points.length - 1]!.t + 200 // fast, same group
+    const hw = drawHandwriting(230, 130, { seed: 12, glyphs: 4, glyphH: 16, t0: t })
+    const scene = analyzeStrokes([circle, ...hw])
+    expect(scene.textRegions).toHaveLength(1)
+    expect(scene.textRegions[0]!.strokeIds).toHaveLength(hw.length)
+    const kinds = scene.nodes.map((n) => n.kind)
+    expect(kinds.some((k) => k === 'circle' || k === 'ellipse')).toBe(true)
+  })
+})
+
 describe('render + png', () => {
   it('renders a labeled scene and encodes a valid PNG', () => {
     const rect = drawRect(50, 50, 150, 90, { seed: 1 })

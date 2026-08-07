@@ -121,7 +121,34 @@ export function buildEditPlan(scene: InkScene, snap: DomSnapshot): EditPlan {
       continue
     }
 
-    // lines / polylines / arcs / stray ink with no op semantics
+    // strikethrough over a DOM element: a roughly-horizontal line through the
+    // middle of a text-bearing element is a delete mark (proofreader's marks).
+    // A line in empty space stays unresolved (could be a divider sketch — the
+    // ambiguity we don't guess at).
+    if (node.kind === 'line' || node.kind === 'strikethrough') {
+      const cy = node.bbox.y + node.bbox.h / 2
+      const target = primaryTarget(snap, expand(node.bbox, 4))
+      const midBandOk =
+        target !== null &&
+        target.text.length > 0 &&
+        cy >= target.rect.y + target.rect.h * 0.2 &&
+        cy <= target.rect.y + target.rect.h * 0.8
+      const widthOk =
+        target !== null &&
+        node.bbox.w >= target.rect.w * 0.55 &&
+        node.bbox.w <= target.rect.w * 1.6
+      const flatOk = node.bbox.h <= Math.max(24, (target?.rect.h ?? 0) * 1.2)
+      if (target && midBandOk && widthOk && flatOk) {
+        const op: EditOp = {
+          op: 'DELETE', target: toTarget(snap, target), inkIds: [node.id], pendingTextIds: [],
+        }
+        ops.push(op)
+        opForInk.set(node.id, op)
+        continue
+      }
+    }
+
+    // remaining lines / polylines / arcs / stray ink with no op semantics
     unresolvedInkIds.push(node.id)
   }
 

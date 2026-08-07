@@ -31,19 +31,37 @@ export function analyzeStrokes(strokes: Stroke[], opts: AnalyzeOptions = {}): In
   const arrows: ArrowLink[] = []
 
   for (const group of groups) {
-    const groupStrokeList = group.strokeIds.map((id) => byId.get(id)!).filter(Boolean)
+    let groupStrokeList = group.strokeIds.map((id) => byId.get(id)!).filter(Boolean)
 
     // 1) text first: handwriting is many small dense strokes — per-stroke shape
     //    classification on letters is meaningless noise.
-    const pText = textProbability(groupStrokeList)
-    if (pText >= textThreshold) {
+    //    Mixed groups (a circle + a scribbled word drawn in one breath) are
+    //    split by stroke size first: letters are small, gestures are big.
+    const small = groupStrokeList.filter((s) => {
+      const b = bboxOf(s.points)
+      return Math.hypot(b.w, b.h) < 72
+    })
+    const large = groupStrokeList.filter((s) => !small.includes(s))
+    if (small.length >= 2 && large.length >= 1 && textProbability(small) >= textThreshold) {
+      const smallBoxes = small.map((s) => bboxOf(s.points))
       textRegions.push({
         id: nid('t'),
-        bbox: group.bbox,
-        strokeIds: [...group.strokeIds],
+        bbox: smallBoxes.reduce(bboxUnion),
+        strokeIds: small.map((s) => s.id),
         groupId: group.id,
       })
-      continue
+      groupStrokeList = large
+    } else {
+      const pText = textProbability(groupStrokeList)
+      if (pText >= textThreshold) {
+        textRegions.push({
+          id: nid('t'),
+          bbox: group.bbox,
+          strokeIds: [...group.strokeIds],
+          groupId: group.id,
+        })
+        continue
+      }
     }
 
     // 2) classify each stroke in the group
