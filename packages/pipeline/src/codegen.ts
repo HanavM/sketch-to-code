@@ -1,8 +1,10 @@
 import { query, type Query, type SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
-import { cleanEnv } from '@s2c/providers'
-import type { EditPlan } from '@s2c/intent'
+import { cleanEnv, type TokenUsage } from '@s2c/providers'
+import { SKETCH_SKILL } from './skill.js'
 
-const EDIT_CONTRACT = `
+export type RunMode = 'gesture' | 'design' | 'screenshot'
+
+const GESTURE_CONTRACT = `
 You are the codegen stage of sketch-to-code: the user drew editing gestures over
 their RUNNING app, and a deterministic pipeline already resolved WHAT to change
 and WHERE. Your job is only to write the code.
@@ -32,15 +34,68 @@ Rules:
 After editing, reply with one line per op: "op N: <what you did>".
 `.trim()
 
+const DESIGN_CONTRACT = `
+You are the codegen stage of sketch-to-code in DESIGN mode: the user sketched a
+piece of UI over their RUNNING app, and you implement that design in the app's
+real source code.
+
+You receive:
+- an image of the sketch, with numbered id badges on recognized shapes
+- a LEGEND: recognized shapes/text as JSON — {id, kind, bbox} plus transcribed
+  handwriting per text region. The bboxes are exact page coordinates.
+- DOM CONTEXT: the element(s) under/around the sketch region, with their source
+  locations (file:line:col), so you know exactly which file and container the
+  design belongs in.
+
+Rules:
+- Implement the sketched design at the sketched location in the app. Create or
+  extend components in the same style the app already uses.
+- The recognized-shape legend is ground truth for WHERE things are and WHAT the
+  handwriting says; the image is ground truth for what things LOOK like. When
+  they seem to conflict, trust the legend for geometry/text, the image for form.
+- Keep the rest of the page untouched. Never add dependencies.
+After editing, reply with: files changed, what you built, assumptions made.
+`.trim()
+
+const SCREENSHOT_CONTRACT = `
+You are the codegen stage of sketch-to-code in SCREENSHOT mode (benchmark): you
+get ONLY a screenshot of the user's browser — their running app with their
+hand-drawn ink on top. No recognized shapes, no DOM data, no source locations.
+
+- Work out what the ink is asking for (edit commands and/or a design sketch)
+  and find the right source files yourself (the app source is in your cwd;
+  JSX elements carry data-s2c="file:line:col" attributes in dev — you may grep
+  for text you see in the screenshot).
+- Then implement it, matching the app's existing code style.
+After editing, reply with: what you understood the ink to mean, files changed,
+and assumptions made.
+`.trim()
+
+const CONTRACTS: Record<RunMode, string> = {
+  gesture: GESTURE_CONTRACT,
+  design: DESIGN_CONTRACT,
+  screenshot: SCREENSHOT_CONTRACT,
+}
+
+export function contractFor(mode: RunMode): string {
+  return `${CONTRACTS[mode]}\n\n${SKETCH_SKILL}`
+}
+
 export interface CodegenEvents {
   onStage: (stage: string, detail?: string) => void
 }
 
+export interface UserContent {
+  text: string
+  /** base64 PNGs, sent before the text block. */
+  images?: string[]
+}
+
 export interface CodegenSession {
-  /** Send the initial edit plan; resolves with the assistant's summary. */
-  run: (plan: EditPlan, inkPngBase64: string) => Promise<string>
-  /** Follow-up repair round in the same session. */
-  followUp: (message: string) => Promise<string>
+  /** Send a user turn; resolves with the assistant's text reply. */
+  send: (content: UserContent) => Promise<string>
+  /** Cumulative token usage across all turns so far. */
+  usage: () => TokenUsage
   close: () => void
 }
 
@@ -49,11 +104,16 @@ interface QueueItem {
   reject: (e: Error) => void
 }
 
-export function createCodegenSession(appRoot: string, ev: CodegenEvents): CodegenSession {
+export function createCodegenSession(
+  appRoot: string,
+  mode: RunMode,
+  ev: CodegenEvents,
+): CodegenSession {
   const inputQueue: SDKUserMessage[] = []
   let notify: (() => void) | null = null
   let ended = false
   const pending: QueueItem[] = []
+  const usage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -76,7 +136,7 @@ export function createCodegenSession(appRoot: string, ev: CodegenEvents): Codege
       allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
       disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task'],
       settingSources: [],
-      systemPrompt: { type: 'preset', preset: 'claude_code', append: EDIT_CONTRACT },
+      systemPrompt: { type: 'preset', preset: 'claude_code', append: contractFor(mode) },
       persistSession: false,
       maxTurns: 40,
       env: cleanEnv(),
@@ -102,6 +162,10 @@ export function createCodegenSession(appRoot: string, ev: CodegenEvents): Codege
             }
           }
         } else if (msg.type === 'result') {
+          const u = msg.usage
+          usage.input += (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
+          usage.cacheRead += u.cache_read_input_tokens ?? 0
+          usage.output += u.output_tokens ?? 0
           const item = pending.shift()
           if (msg.subtype === 'success') {
             item?.resolve(buffer || msg.result)
@@ -111,7 +175,6 @@ export function createCodegenSession(appRoot: string, ev: CodegenEvents): Codege
           buffer = ''
         }
       }
-      // stream ended: fail anything still waiting
       for (const item of pending.splice(0)) item.reject(new Error('codegen session ended unexpectedly'))
     } catch (err) {
       for (const item of pending.splice(0)) {
@@ -120,47 +183,33 @@ export function createCodegenSession(appRoot: string, ev: CodegenEvents): Codege
     }
   })()
 
-  const send = (message: SDKUserMessage): Promise<string> =>
-    new Promise<string>((resolve, reject) => {
-      if (ended) {
-        reject(new Error('codegen session already closed'))
-        return
-      }
-      pending.push({ resolve, reject })
-      inputQueue.push(message)
-      notify?.()
-      notify = null
-    })
-
   return {
-    run(plan, inkPngBase64) {
-      ev.onStage('codegen', 'sending edit plan to Claude Code')
-      return send({
-        type: 'user',
-        parent_tool_use_id: null,
-        message: {
-          role: 'user',
-          content: [
-            {
-              type: 'image',
-              source: { type: 'base64', media_type: 'image/png', data: inkPngBase64 },
-            },
-            {
-              type: 'text',
-              text: `EDIT PLAN:\n${JSON.stringify(plan.ops, null, 2)}\n\nImplement every op now.`,
-            },
-          ],
-        },
+    send(content: UserContent): Promise<string> {
+      return new Promise<string>((resolve, reject) => {
+        if (ended) {
+          reject(new Error('codegen session already closed'))
+          return
+        }
+        pending.push({ resolve, reject })
+        inputQueue.push({
+          type: 'user',
+          parent_tool_use_id: null,
+          message: {
+            role: 'user',
+            content: [
+              ...(content.images ?? []).map((data) => ({
+                type: 'image' as const,
+                source: { type: 'base64' as const, media_type: 'image/png' as const, data },
+              })),
+              { type: 'text' as const, text: content.text },
+            ],
+          },
+        })
+        notify?.()
+        notify = null
       })
     },
-    followUp(message) {
-      ev.onStage('repair', 'sending follow-up')
-      return send({
-        type: 'user',
-        parent_tool_use_id: null,
-        message: { role: 'user', content: message },
-      })
-    },
+    usage: () => ({ ...usage }),
     close() {
       ended = true
       notify?.()

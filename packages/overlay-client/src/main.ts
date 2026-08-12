@@ -45,6 +45,9 @@ const STYLES = css`
   button.primary { background: #2563eb; }
   button.primary:hover { background: #1d4ed8; }
   button:disabled { opacity: 0.45; cursor: default; }
+  #modes { display: flex; gap: 2px; background: #1f2937; border-radius: 999px; padding: 2px; }
+  button.mode { padding: 4px 8px; background: transparent; }
+  button.mode.on { background: #2563eb; }
   #status { max-width: 380px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9ca3af; }
   #status.err { color: #f87171; }
 `
@@ -61,6 +64,7 @@ class Overlay {
   private clearBtn: HTMLButtonElement
 
   private mode: Mode = 'idle'
+  private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private strokes: Stroke[] = []
   private live: Stroke | null = null
   private strokeSeq = 0
@@ -84,6 +88,11 @@ class Overlay {
     hud.id = 'hud'
     hud.innerHTML = `
       <button id="draw" class="primary">✏️ Draw</button>
+      <span id="modes" title="gesture: mark up existing UI · design: sketch new UI · screenshot: pixels-only benchmark">
+        <button id="mode-gesture" class="mode on" title="gesture commands">✏️</button>
+        <button id="mode-design" class="mode" title="design sketch">🎨</button>
+        <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
+      </span>
       <button id="run" disabled>▶ Run</button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
@@ -96,6 +105,19 @@ class Overlay {
     this.undoBtn = this.shadow.getElementById('undo') as HTMLButtonElement
     this.clearBtn = this.shadow.getElementById('clear') as HTMLButtonElement
 
+    for (const m of ['gesture', 'design', 'screenshot'] as const) {
+      this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => {
+        this.runMode = m
+        for (const mm of ['gesture', 'design', 'screenshot']) {
+          this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === m)
+        }
+        this.status(
+          m === 'gesture' ? 'gesture mode: mark up existing UI'
+          : m === 'design' ? 'design mode: sketch new UI to build'
+          : 'screenshot mode: pixels-only benchmark (will ask to share this tab)',
+        )
+      })
+    }
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
     this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.redraw(); this.sync() })
@@ -235,12 +257,59 @@ class Overlay {
     }, RUNNING_WATCHDOG_MS)
   }
 
+  /**
+   * Screenshot-benchmark capture: one frame of this tab via getDisplayMedia.
+   * The HUD is hidden during capture; the ink canvas stays visible — the ink
+   * IS the payload. Downscaled to ≤1400px wide to keep image tokens sane.
+   */
+  private async captureScreen(): Promise<string> {
+    const hud = this.shadow.getElementById('hud')!
+    hud.style.visibility = 'hidden'
+    try {
+      const capture = (navigator.mediaDevices.getDisplayMedia as (
+        c: MediaStreamConstraints & { preferCurrentTab?: boolean },
+      ) => Promise<MediaStream>)({
+        video: { displaySurface: 'browser' } as MediaTrackConstraints,
+        audio: false,
+        preferCurrentTab: true,
+      })
+      const stream = await Promise.race([
+        capture,
+        new Promise<never>((_, rej) =>
+          setTimeout(() => rej(new Error('screen capture timed out (dialog dismissed?)')), 30_000),
+        ),
+      ])
+      try {
+        const video = document.createElement('video')
+        video.srcObject = stream
+        await video.play()
+        await new Promise((r) => setTimeout(r, 200)) // first real frame
+        const scale = Math.min(1, 1400 / video.videoWidth)
+        const canvas = document.createElement('canvas')
+        canvas.width = Math.round(video.videoWidth * scale)
+        canvas.height = Math.round(video.videoHeight * scale)
+        canvas.getContext('2d')!.drawImage(video, 0, 0, canvas.width, canvas.height)
+        return canvas.toDataURL('image/png').split(',')[1]!
+      } finally {
+        for (const t of stream.getTracks()) t.stop()
+      }
+    } finally {
+      hud.style.visibility = ''
+    }
+  }
+
   private async run() {
     if (this.strokes.length === 0) return
     this.setMode('running')
     this.status('running…')
     this.armWatchdog()
     try {
+      let screenshot: string | undefined
+      if (this.runMode === 'screenshot') {
+        this.status('capturing screen — pick this tab in the share dialog')
+        screenshot = await this.captureScreen()
+        this.status('running…')
+      }
       const res = await fetch('/@s2c/run', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
@@ -248,6 +317,8 @@ class Overlay {
           strokes: this.strokes,
           snapshot: this.snapshot(),
           clientId: CLIENT_ID,
+          mode: this.runMode,
+          screenshot,
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }

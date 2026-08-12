@@ -147,11 +147,24 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
     // clamp inside the raster — a clipped badge means the transcription model
     // can't see the region id at all
     const labelY = (rawY: number) => Math.max(0, Math.min(height - 7 * labelScale, rawY))
+    const badgeBlue: [number, number, number, number] = [37, 99, 235, 255]
+    // badge + thin outline box is Set-of-Mark's best-performing mark style:
+    // the box shows extent, the badge shows identity
+    const outline = (b: { x: number; y: number; w: number; h: number }) => {
+      const a = toRaster(b.x, b.y)
+      const c = toRaster(b.x + b.w, b.y + b.h)
+      drawLine(raster, a.x, a.y, c.x, a.y, 0.6, badgeBlue)
+      drawLine(raster, c.x, a.y, c.x, c.y, 0.6, badgeBlue)
+      drawLine(raster, c.x, c.y, a.x, c.y, 0.6, badgeBlue)
+      drawLine(raster, a.x, c.y, a.x, a.y, 0.6, badgeBlue)
+    }
     for (const n of scene.nodes) {
+      outline(n.bbox)
       const p = toRaster(n.bbox.x, n.bbox.y)
       drawLabel(raster, n.id, Math.max(0, p.x), labelY(p.y - 8 * labelScale), labelScale)
     }
     for (const t of scene.textRegions) {
+      outline(t.bbox)
       const p = toRaster(t.bbox.x, t.bbox.y)
       drawLabel(raster, t.id, Math.max(0, p.x), labelY(p.y - 8 * labelScale), labelScale)
     }

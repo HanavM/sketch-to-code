@@ -5,6 +5,7 @@ import type { DomSnapshot } from '@s2c/dom'
 import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
 import { bundleOverlayClient } from './overlay-bundle.js'
+import { runsViewer } from './runs-viewer.js'
 
 export interface Sketch2CodeOptions {
   /** Allow running with uncommitted changes in the target repo. Default false. */
@@ -24,6 +25,10 @@ export interface RunRequest {
   strokes: RawStroke[]
   snapshot: DomSnapshot
   clientId?: string
+  /** 'gesture' (default) | 'design' | 'screenshot'. */
+  mode?: 'gesture' | 'design' | 'screenshot'
+  /** base64 PNG of the whole browser screen (screenshot mode). */
+  screenshot?: string
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -129,6 +134,16 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       server.middlewares.use('/@s2c/events', (req, res) => sse.handler(req, res))
+
+      // read-only debug viewer: exactly what the agent saw, per run.
+      // Host-gated (rebound hosts fail); cross-origin reads blocked by SOP.
+      server.middlewares.use('/@s2c/runs', (req, res) => {
+        const host = String(req.headers.host ?? '').replace(/:\d+$/, '')
+        if (!['localhost', '127.0.0.1', '[::1]'].includes(host)) {
+          return sendJson(res, 403, { ok: false, error: 'non-local host rejected' })
+        }
+        runsViewer(root)(req, res)
+      })
 
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })

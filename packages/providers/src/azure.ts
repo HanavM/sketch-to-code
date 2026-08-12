@@ -1,5 +1,5 @@
 import { AzureOpenAI } from 'openai'
-import type { PerceptionProvider, TextRegionRef } from './types.js'
+import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
 export function azureConfigured(env = process.env): boolean {
   return Boolean(env.AZURE_OPENAI_ENDPOINT && env.AZURE_OPENAI_API_KEY && env.AZURE_OPENAI_DEPLOYMENT)
@@ -21,8 +21,8 @@ export function createAzureProvider(env = process.env): PerceptionProvider {
 
   return {
     name: `azure:${deployment}`,
-    async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<Record<string, string>> {
-      if (regions.length === 0) return {}
+    async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<TranscribeResult> {
+      if (regions.length === 0) return { texts: {}, usage: { input: 0, cacheRead: 0, output: 0 } }
       const schema = {
         type: 'object',
         additionalProperties: false,
@@ -70,7 +70,16 @@ export function createAzureProvider(env = process.env): PerceptionProvider {
       })
       const raw = res.choices[0]?.message?.content ?? '{"regions":[]}'
       const parsed = JSON.parse(raw) as { regions: Array<{ id: string; text: string }> }
-      return Object.fromEntries(parsed.regions.map((r) => [r.id, r.text]))
+      return {
+        texts: Object.fromEntries(parsed.regions.map((r) => [r.id, r.text])),
+        usage: {
+          input:
+            (res.usage?.prompt_tokens ?? 0) -
+            (res.usage?.prompt_tokens_details?.cached_tokens ?? 0),
+          cacheRead: res.usage?.prompt_tokens_details?.cached_tokens ?? 0,
+          output: res.usage?.completion_tokens ?? 0,
+        },
+      }
     },
   }
 }

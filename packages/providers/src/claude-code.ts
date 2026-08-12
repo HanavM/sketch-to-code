@@ -1,6 +1,6 @@
 import { query } from '@anthropic-ai/claude-agent-sdk'
 import type { SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
-import type { PerceptionProvider, TextRegionRef } from './types.js'
+import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
 /**
  * Perception via the user's Claude Code (subscription auth, no API key).
@@ -9,8 +9,8 @@ import type { PerceptionProvider, TextRegionRef } from './types.js'
 export function createClaudeCodeProvider(): PerceptionProvider {
   return {
     name: 'claude-code',
-    async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<Record<string, string>> {
-      if (regions.length === 0) return {}
+    async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<TranscribeResult> {
+      if (regions.length === 0) return { texts: {}, usage: { input: 0, cacheRead: 0, output: 0 } }
 
       async function* messages(): AsyncGenerator<SDKUserMessage> {
         yield {
@@ -73,14 +73,21 @@ export function createClaudeCodeProvider(): PerceptionProvider {
         },
       })
 
-      let out: Record<string, string> = {}
+      let texts: Record<string, string> = {}
+      const usage = { input: 0, cacheRead: 0, output: 0 }
       for await (const msg of q) {
-        if (msg.type === 'result' && msg.subtype === 'success') {
-          const so = msg.structured_output as { regions?: Array<{ id: string; text: string }> } | undefined
-          if (so?.regions) out = Object.fromEntries(so.regions.map((r) => [r.id, r.text]))
+        if (msg.type === 'result') {
+          if (msg.subtype === 'success') {
+            const so = msg.structured_output as { regions?: Array<{ id: string; text: string }> } | undefined
+            if (so?.regions) texts = Object.fromEntries(so.regions.map((r) => [r.id, r.text]))
+          }
+          const u = msg.usage
+          usage.input += (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
+          usage.cacheRead += u.cache_read_input_tokens ?? 0
+          usage.output += u.output_tokens ?? 0
         }
       }
-      return out
+      return { texts, usage }
     },
   }
 }

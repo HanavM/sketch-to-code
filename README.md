@@ -19,6 +19,19 @@ npm run dev            # boots examples/demo-app on :5199
 
 Open http://localhost:5199 — press **Alt+D** to enter draw mode, sketch, hit **▶ Run**.
 
+Three run modes (HUD selector):
+- **✏️ gesture** — mark up existing UI with command gestures (default). Auto-escalates
+  to design mode when the ink resolves to no commands.
+- **🎨 design** — sketch NEW UI in wireframe shorthand; the agent implements it in
+  source, guided by the sketch-interpretation skill (`docs/sketch-interpretation.md`).
+- **📸 screenshot** — benchmark mode: one screen capture of the tab, pixels only, no
+  recognized shapes, no DOM, no srcLocs. Exists to measure what the structure buys.
+
+Every run reports **token usage** (`fresh in + cache reads / out`) in the HUD summary
+and `result.json`. Inspect exactly what the agent saw per run at
+**http://localhost:5199/@s2c/runs** (ink render, prompt, plan/legend, replies,
+verification, tokens).
+
 Use it in your own Vite + React app:
 
 ```ts
@@ -93,6 +106,17 @@ node tests/e2e/live-add.mjs           # box + handwritten "cancel" → ADD
 ```
 
 All three live flows pass as of 2026-08-06 (real model, real edits, DOM-verified).
+
+## Benchmark: structure vs pixels (2026-08-12, same scribble-to-delete task)
+
+| mode | interpretation | tokens |
+|---|---|---|
+| gesture (structured) | ✓ deleted the right card, 1/1 verified | 10.1k in + 110.1k cached / 1.5k out |
+| screenshot (pixels only) | ✗ read the delete-scribble as a *sparkline to add* | 12.8k in + 89.9k cached / 2.8k out |
+
+Token cost is similar — the difference is interpretation. This matches the
+literature (SeeAct, OSWorld, DesignBench ablations: structured channels carry the
+signal for editing tasks; see `docs/sketch-interpretation.md` sources).
 
 ## Prototype status / known limits
 
