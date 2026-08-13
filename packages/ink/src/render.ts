@@ -115,16 +115,23 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
   }
   if (!box) box = { x: 0, y: 0, w: 1, h: 1 }
 
-  const scale = Math.min(1, maxSize / Math.max(1, Math.max(box.w, box.h) + pad * 2))
-  const width = Math.max(8, Math.ceil((box.w + pad * 2) * scale))
-  const height = Math.max(8, Math.ceil((box.h + pad * 2) * scale))
+  let scale = Math.min(1, maxSize / Math.max(1, Math.max(box.w, box.h) + pad * 2))
+  // with labels on, guarantee ≥18 post-scale px of headroom so id badges sit
+  // OUTSIDE the ink instead of clamping down onto it
+  let effPad = pad
+  if (opts.labels && scale < 1) {
+    effPad = Math.min(90, Math.max(pad, Math.ceil(18 / scale)))
+    scale = Math.min(1, maxSize / Math.max(1, Math.max(box.w, box.h) + effPad * 2))
+  }
+  const width = Math.max(8, Math.ceil((box.w + effPad * 2) * scale))
+  const height = Math.max(8, Math.ceil((box.h + effPad * 2) * scale))
   const data = new Uint8ClampedArray(width * height * 4)
   for (let i = 0; i < data.length; i += 4) {
     data[i] = bg[0]; data[i + 1] = bg[1]; data[i + 2] = bg[2]; data[i + 3] = bg[3]
   }
   const toRaster = (x: number, y: number) => ({
-    x: (x - box.x + pad) * scale,
-    y: (y - box.y + pad) * scale,
+    x: (x - box.x + effPad) * scale,
+    y: (y - box.y + effPad) * scale,
   })
   const raster: Raster = { width, height, data, toRaster }
 

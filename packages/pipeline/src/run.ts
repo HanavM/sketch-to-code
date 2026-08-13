@@ -107,6 +107,10 @@ export async function runPipeline(
   stage('ink', `analyzing ${input.strokes.length} strokes`)
   const scene = analyzeStrokes(input.strokes)
   if (input.overrides) {
+    // 'ignore' drops the stroke entirely; any other value re-kinds the node
+    // ('ink' = keep-as-drawn: geometry transmitted verbatim)
+    scene.nodes = scene.nodes.filter((n) => input.overrides![n.id] !== 'ignore')
+    scene.arrows = scene.arrows.filter((a) => scene.nodes.some((n) => n.id === a.nodeId))
     for (const node of scene.nodes) {
       const o = input.overrides[node.id]
       if (o && o !== node.kind) {
@@ -123,7 +127,9 @@ export async function runPipeline(
   stage('ink', `${scene.nodes.length} shapes, ${scene.textRegions.length} text regions, ${scene.arrows.length} arrows`)
 
   // ---- render ink once (labels on) ----
-  const raster = renderScene(scene, { labels: true, maxSize: mode === 'gesture' ? 800 : 640 })
+  // design sketches carry lexicon fine-detail (chevrons, checks, X-boxes) —
+  // they get the bigger raster; gesture marks are large and shrink-tolerant
+  const raster = renderScene(scene, { labels: true, maxSize: mode === 'gesture' ? 640 : 960 })
   const inkPng = encodePng(raster)
   writeFileSync(join(runDir, 'ink.png'), inkPng)
 
@@ -153,8 +159,11 @@ export async function runPipeline(
     plan?.textRefs ?? scene.textRegions.map((t) => ({ id: t.id, bbox: t.bbox, text: undefined as string | undefined }))
   if (textRefs.length > 0) {
     stage('perceive', `transcribing ${textRefs.length} handwriting region(s) via ${provider.name}`)
+    // transcription reads from a native-resolution render — the shrunk codegen
+    // raster makes small handwriting illegible
+    const rasterHi = renderScene(scene, { labels: true, maxSize: 1600 })
     const res = await provider.transcribe(
-      inkPng,
+      encodePng(rasterHi),
       textRefs.map((t) => ({ id: t.id, bbox: t.bbox })),
     )
     totalUsage = addUsage(totalUsage, res.usage)

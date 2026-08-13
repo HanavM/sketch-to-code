@@ -40,9 +40,13 @@ piece of UI over their RUNNING app, and you implement that design in the app's
 real source code.
 
 You receive:
-- an image of the sketch, with numbered id badges on recognized shapes
-- a LEGEND: recognized shapes/text as JSON — {id, kind, bbox} plus transcribed
-  handwriting per text region. The bboxes are exact page coordinates.
+- an image of the sketch, with id badges on recognized shapes (gestalt only)
+- a LEGEND: recognized shapes/text as JSON. Per shape: {id, kind, bbox} in
+  exact page coordinates, plus for unknown/organic shapes an exact "svgPath"
+  (fitted cubic beziers, bbox-local pixel coords — drop into
+  <svg viewBox="0 0 <bbox.w> <bbox.h>">), plus "layerHint" and overlap lists
+  (pathCrossesElements / enclosesElements). Transcribed handwriting per text
+  region.
 - DOM CONTEXT: the element(s) under/around the sketch region, with their source
   locations (file:line:col), so you know exactly which file and container the
   design belongs in.

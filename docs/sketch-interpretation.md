@@ -80,9 +80,11 @@ usually flow/annotation between sketched parts, NOT a move command.
 
 ### Organic & decorative shapes (waves, ribbons, blobs, underlines-as-flair)
 - Shapes the recognizer can't name arrive with kind "ink" AND an exact
-  `svgPath` (fitted cubics, bbox-local coordinates). That path IS the design:
-  reproduce it as real SVG geometry sized to the bbox — this is the one case
-  where you render the drawn form itself, not a rectified widget.
+  `svgPath` (fitted cubics, bbox-local coordinates). First rule out a
+  standard-widget reading: if the path approximates a lexicon shape (a sloppy
+  rectangle, a rough circle), rectify it into that widget. Otherwise the path
+  IS the design: reproduce it as real SVG geometry sized to the bbox — the one
+  case where you render the drawn form itself.
 - `layerHint: "background-overlay"` means the stroke travels ACROSS existing
   elements without enclosing them: implement as a decorative layer —
   absolutely positioned within the container, behind content (negative

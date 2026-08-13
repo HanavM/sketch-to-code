@@ -253,10 +253,10 @@ class Overlay {
     const hit = this.chipBoxes.find((c) => x >= c.x && x <= c.x + c.w && y >= c.y && y <= c.y + c.h)
     if (!hit || !this.preview) return
     const shape = this.preview.shapes.find((sh) => sh.id === hit.shapeId)
-    if (!shape || shape.candidates.length < 2) return
-    // cycle to the next candidate kind
+    if (!shape) return
+    // cycle: recognized candidates → 'ink' (keep as drawn) → 'ignore'
     const current = this.overrides[shape.id] ?? shape.kind
-    const kinds = shape.candidates.map((c) => c.kind)
+    const kinds = [...new Set([...shape.candidates.map((c) => c.kind), 'ink', 'ignore'])]
     const next = kinds[(kinds.indexOf(current) + 1) % kinds.length]!
     this.overrides[shape.id] = next
     shape.kind = next
@@ -297,7 +297,8 @@ class Overlay {
       ctx.setLineDash([5, 4])
       ctx.strokeRect(bx, by, sh.bbox.w, sh.bbox.h)
       ctx.setLineDash([])
-      const label = `${sh.id} ${sh.kind} ${(this.overrides[sh.id] ? '✎' : Math.round(sh.confidence * 100) + '%')}`
+      const kindLabel = sh.kind === 'ink' ? 'as-drawn' : sh.kind
+      const label = `${sh.id} ${this.overrides[sh.id] === 'ignore' ? '✕ ignored' : kindLabel} ${(this.overrides[sh.id] ? '✎' : Math.round(sh.confidence * 100) + '%')}`
       const w = ctx.measureText(label).width + 12
       const cy = Math.max(2, by - 20)
       ctx.fillStyle = '#059669'

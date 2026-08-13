@@ -200,5 +200,13 @@ export function toSvgPath(
   for (const b of beziers) {
     d += ` C${fmt(b[1].x)},${fmt(b[1].y)} ${fmt(b[2].x)},${fmt(b[2].y)} ${fmt(b[3].x)},${fmt(b[3].y)}`
   }
+  // closed strokes (endpoints meet) emit a closed path
+  const first = local[0]!
+  const last = local[local.length - 1]!
+  let len = 0
+  for (let i = 1; i < local.length; i++) {
+    len += Math.hypot(local[i]!.x - local[i - 1]!.x, local[i]!.y - local[i - 1]!.y)
+  }
+  if (len > 0 && Math.hypot(last.x - first.x, last.y - first.y) / len < 0.16) d += ' Z'
   return { d, segments: beziers.length }
 }

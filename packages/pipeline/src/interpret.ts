@@ -46,6 +46,8 @@ export function interpretStrokes(
 ): InterpretResult {
   const scene = analyzeStrokes(strokes)
   if (overrides) {
+    scene.nodes = scene.nodes.filter((n) => overrides[n.id] !== 'ignore')
+    scene.arrows = scene.arrows.filter((a) => scene.nodes.some((n) => n.id === a.nodeId))
     for (const node of scene.nodes) {
       const o = overrides[node.id]
       if (o && o !== node.kind) node.kind = o as ShapeKind
@@ -78,11 +80,24 @@ export function interpretStrokes(
       const target = op.op === 'MOVE' ? op.source : op.op === 'ADD' || op.op === 'INSERT' ? op.container : op.target
       const inkNodes = scene.nodes.filter((n) => op.inkIds.includes(n.id))
       const inkArea = inkNodes.reduce((a, n) => a + n.bbox.w * n.bbox.h, 0)
-      // destructive + wide: DELETE covering >35% of the viewport, or whose
-      // target is large — force attention regardless of confidence
+      // how many distinct sizable elements does the gesture ink touch?
+      const touched = new Set<string>()
+      for (const n of inkNodes) {
+        for (const el of snapshot.nodes) {
+          const r = el.rect
+          if (r.w * r.h < 400 || r.w * r.h > viewArea * 0.5) continue
+          const ix = Math.min(n.bbox.x + n.bbox.w, r.x + r.w) - Math.max(n.bbox.x, r.x)
+          const iy = Math.min(n.bbox.y + n.bbox.h, r.y + r.h) - Math.max(n.bbox.y, r.y)
+          if (ix > 0 && iy > 0 && (ix * iy) / (r.w * r.h) > 0.4) touched.add(el.id)
+        }
+      }
+      // destructive + wide: DELETE covering >35% of the viewport, a large
+      // target, or ink sweeping >=3 elements — force attention regardless
       const needsConfirm =
         op.op === 'DELETE' &&
-        (inkArea > viewArea * 0.35 || target.rect.w * target.rect.h > viewArea * 0.35)
+        (inkArea > viewArea * 0.35 ||
+          target.rect.w * target.rect.h > viewArea * 0.35 ||
+          touched.size >= 3)
       return {
         op: op.op,
         targetTag: target.tag,
