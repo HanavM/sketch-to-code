@@ -90,6 +90,14 @@ const fileBefore = readFileSync(`${DEMO_ROOT}src/components/StatCards.tsx`, 'utf
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('run').click()
 })
+// interpretation preview gates every structured run: wait for it, then confirm
+await page.waitForFunction(
+  () => document.getElementById('s2c-overlay-host').dataset.mode === 'preview',
+  { timeout: 20000 },
+)
+await page.evaluate(() => {
+  document.getElementById('s2c-overlay-host').shadowRoot.getElementById('confirm').click()
+})
 log('run clicked — waiting for pipeline (this invokes real Claude Code)…')
 
 // wait for done/err status in the HUD (long timeout: real model call)

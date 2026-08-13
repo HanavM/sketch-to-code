@@ -8,7 +8,23 @@ import { takeSnapshot } from '@s2c/dom'
 interface Pt { x: number; y: number; t: number }
 interface Stroke { id: string; points: Pt[] }
 
-type Mode = 'idle' | 'draw' | 'running'
+interface PreviewShape {
+  id: string
+  kind: string
+  confidence: number
+  candidates: Array<{ kind: string; confidence: number }>
+  bbox: { x: number; y: number; w: number; h: number }
+}
+interface PreviewData {
+  shapes: PreviewShape[]
+  textRegions: Array<{ id: string; bbox: { x: number; y: number; w: number; h: number } }>
+  arrows: Array<{ id: string; from: { x: number; y: number }; to: { x: number; y: number } }>
+  ops: Array<{ op: string; targetTag?: string; targetText?: string; rect?: { x: number; y: number; w: number; h: number }; needsConfirm: boolean }>
+  warnings: string[]
+  escalatesToDesign: boolean
+}
+
+type Mode = 'idle' | 'draw' | 'preview' | 'running'
 
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
@@ -30,6 +46,7 @@ const STYLES = css`
     pointer-events: none; touch-action: none;
   }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
+  :host([data-mode='preview']) #canvas { pointer-events: auto; cursor: pointer; }
   #hud {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 2147483001; display: flex; gap: 8px; align-items: center;
@@ -60,12 +77,17 @@ class Overlay {
   private statusEl: HTMLElement
   private drawBtn: HTMLButtonElement
   private runBtn: HTMLButtonElement
+  private confirmBtn: HTMLButtonElement
+  private cancelBtn: HTMLButtonElement
   private undoBtn: HTMLButtonElement
   private clearBtn: HTMLButtonElement
 
   private mode: Mode = 'idle'
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private strokes: Stroke[] = []
+  private preview: PreviewData | null = null
+  private overrides: Record<string, string> = {}
+  private chipBoxes: Array<{ x: number; y: number; w: number; h: number; shapeId: string }> = []
   private live: Stroke | null = null
   private strokeSeq = 0
   private events: EventSource | null = null
@@ -94,6 +116,8 @@ class Overlay {
         <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
       </span>
       <button id="run" disabled>▶ Run</button>
+      <button id="confirm" class="primary" style="display:none">✓ Go</button>
+      <button id="cancel" style="display:none">✗ Cancel</button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
       <span id="status">sketch2code · Alt+D to draw</span>
@@ -102,6 +126,8 @@ class Overlay {
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
+    this.confirmBtn = this.shadow.getElementById('confirm') as HTMLButtonElement
+    this.cancelBtn = this.shadow.getElementById('cancel') as HTMLButtonElement
     this.undoBtn = this.shadow.getElementById('undo') as HTMLButtonElement
     this.clearBtn = this.shadow.getElementById('clear') as HTMLButtonElement
 
@@ -120,6 +146,8 @@ class Overlay {
     }
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
+    this.confirmBtn.addEventListener('click', () => void this.proceed())
+    this.cancelBtn.addEventListener('click', () => this.exitPreview('cancelled'))
     this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.redraw(); this.sync() })
     this.clearBtn.addEventListener('click', () => { this.strokes = []; this.redraw(); this.sync() })
 
@@ -133,7 +161,8 @@ class Overlay {
         this.toggleDraw()
       }
       if (e.key === 'Escape') {
-        if (this.mode === 'draw') this.setMode('idle')
+        if (this.mode === 'preview') this.exitPreview('cancelled')
+        else if (this.mode === 'draw') this.setMode('idle')
         else if (this.mode === 'running') {
           // escape hatch: the server may have restarted mid-run
           this.status('cancelled locally (server run may still finish)', true)
@@ -169,10 +198,14 @@ class Overlay {
 
   private sync() {
     const busy = this.mode === 'running'
+    const previewing = this.mode === 'preview'
+    this.runBtn.style.display = previewing ? 'none' : ''
+    this.confirmBtn.style.display = previewing ? '' : 'none'
+    this.cancelBtn.style.display = previewing ? '' : 'none'
     this.runBtn.disabled = busy || this.strokes.length === 0
-    this.undoBtn.disabled = busy || this.strokes.length === 0
-    this.clearBtn.disabled = busy || this.strokes.length === 0
-    this.drawBtn.disabled = busy
+    this.undoBtn.disabled = busy || previewing || this.strokes.length === 0
+    this.clearBtn.disabled = busy || previewing || this.strokes.length === 0
+    this.drawBtn.disabled = busy || previewing
   }
 
   private status(msg: string, err = false) {
@@ -187,6 +220,10 @@ class Overlay {
   }
 
   private onDown(e: PointerEvent) {
+    if (this.mode === 'preview') {
+      this.onPreviewTap(e)
+      return
+    }
     if (this.mode !== 'draw') return
     if (e.button !== 0) return // left button/pen tip only
     this.canvas.setPointerCapture(e.pointerId)
@@ -208,6 +245,89 @@ class Overlay {
     this.live = null
     this.redraw()
     this.sync()
+  }
+
+  private async onPreviewTap(e: PointerEvent) {
+    const x = e.clientX
+    const y = e.clientY
+    const hit = this.chipBoxes.find((c) => x >= c.x && x <= c.x + c.w && y >= c.y && y <= c.y + c.h)
+    if (!hit || !this.preview) return
+    const shape = this.preview.shapes.find((sh) => sh.id === hit.shapeId)
+    if (!shape || shape.candidates.length < 2) return
+    // cycle to the next candidate kind
+    const current = this.overrides[shape.id] ?? shape.kind
+    const kinds = shape.candidates.map((c) => c.kind)
+    const next = kinds[(kinds.indexOf(current) + 1) % kinds.length]!
+    this.overrides[shape.id] = next
+    shape.kind = next
+    // re-interpret so the op list reflects the corrected kind
+    try {
+      const res = await fetch('/@s2c/interpret', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
+        }),
+      })
+      const body = (await res.json()) as { ok: boolean; result?: PreviewData }
+      if (body.ok && body.result) {
+        this.preview = body.result
+        for (const sh of this.preview.shapes) {
+          if (this.overrides[sh.id]) sh.kind = this.overrides[sh.id]!
+        }
+      }
+    } catch { /* keep local state */ }
+    this.status(`${shape.id} → ${next}`)
+    this.redraw()
+  }
+
+  private drawPreview() {
+    if (!this.preview) return
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    this.chipBoxes = []
+    ctx.save()
+    ctx.font = '11px ui-sans-serif, system-ui'
+    ctx.lineWidth = 1.5
+
+    for (const sh of this.preview.shapes) {
+      const bx = sh.bbox.x - sx, by = sh.bbox.y - sy
+      ctx.strokeStyle = '#059669'
+      ctx.setLineDash([5, 4])
+      ctx.strokeRect(bx, by, sh.bbox.w, sh.bbox.h)
+      ctx.setLineDash([])
+      const label = `${sh.id} ${sh.kind} ${(this.overrides[sh.id] ? '✎' : Math.round(sh.confidence * 100) + '%')}`
+      const w = ctx.measureText(label).width + 12
+      const cy = Math.max(2, by - 20)
+      ctx.fillStyle = '#059669'
+      ctx.beginPath()
+      ctx.roundRect(bx, cy, w, 17, 8)
+      ctx.fill()
+      ctx.fillStyle = '#fff'
+      ctx.fillText(label, bx + 6, cy + 12)
+      this.chipBoxes.push({ x: bx, y: cy, w, h: 17, shapeId: sh.id })
+    }
+    for (const t of this.preview.textRegions) {
+      ctx.strokeStyle = '#7c3aed'
+      ctx.setLineDash([3, 3])
+      ctx.strokeRect(t.bbox.x - sx, t.bbox.y - sy, t.bbox.w, t.bbox.h)
+      ctx.setLineDash([])
+      ctx.fillStyle = '#7c3aed'
+      ctx.fillText(`${t.id} text`, t.bbox.x - sx + 2, Math.max(10, t.bbox.y - sy - 6))
+    }
+    for (const op of this.preview.ops) {
+      if (!op.rect) continue
+      const color = op.op === 'DELETE' ? '#dc2626' : '#d97706'
+      ctx.strokeStyle = color
+      ctx.lineWidth = op.needsConfirm ? 3 : 1.5
+      ctx.strokeRect(op.rect.x - sx, op.rect.y - sy, op.rect.w, op.rect.h)
+      ctx.fillStyle = color
+      const lbl = `${op.needsConfirm ? '⚠ ' : ''}${op.op} <${op.targetTag ?? '?'}>${op.targetText ? ` "${op.targetText.slice(0, 18)}"` : ''}`
+      ctx.fillText(lbl, op.rect.x - sx + 4, op.rect.y - sy + 13)
+      ctx.lineWidth = 1.5
+    }
+    ctx.restore()
   }
 
   private resize() {
@@ -237,6 +357,7 @@ class Overlay {
       })
       ctx.stroke()
     }
+    if (this.mode === 'preview') this.drawPreview()
   }
 
   // ---- pipeline ----
@@ -298,8 +419,49 @@ class Overlay {
     }
   }
 
+  /**
+   * Run = interpret first. The deterministic reading is drawn back onto the
+   * canvas for confirmation/correction BEFORE any source file is touched —
+   * this is also the confirmation gate for destructive ops. Screenshot mode
+   * skips interpretation (pixels-only benchmark by definition).
+   */
   private async run() {
     if (this.strokes.length === 0) return
+    if (this.runMode === 'screenshot') return void this.proceed()
+    try {
+      const res = await fetch('/@s2c/interpret', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode }),
+      })
+      const body = (await res.json()) as { ok: boolean; error?: string; result?: PreviewData }
+      if (!res.ok || !body.ok || !body.result) throw new Error(body.error ?? `HTTP ${res.status}`)
+      this.preview = body.result
+      this.overrides = {}
+      this.setMode('preview')
+      const p = body.result
+      const needs = p.ops.filter((o) => o.needsConfirm).length
+      this.status(
+        p.escalatesToDesign
+          ? 'no commands recognized — will run as a DESIGN sketch. ✓ Go to proceed'
+          : `${p.ops.length ? `${p.ops.length} op(s)` : `${p.shapes.length} shape(s)`}` +
+            `${needs ? ` · ⚠ ${needs} wide DELETE — check the red boxes` : ''} · tap a chip to correct · ✓ Go`,
+      )
+      this.redraw()
+    } catch (err) {
+      this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  private exitPreview(msg: string) {
+    this.preview = null
+    this.overrides = {}
+    this.setMode('draw')
+    this.status(msg)
+    this.redraw()
+  }
+
+  private async proceed() {
     this.setMode('running')
     this.status('running…')
     this.armWatchdog()
@@ -319,10 +481,13 @@ class Overlay {
           clientId: CLIENT_ID,
           mode: this.runMode,
           screenshot,
+          overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
+      this.preview = null
+      this.redraw()
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {
       this.status(`failed: ${err instanceof Error ? err.message : String(err)}`, true)

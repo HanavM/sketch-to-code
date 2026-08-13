@@ -11,8 +11,8 @@ type. Never render the wobble.
 
 ### Channel authority (when inputs disagree)
 1. **Source code** — absolute truth for existing structure, tokens, naming.
-2. **Structured legend JSON** — truth for geometry (exact bboxes) and for what
-   handwriting says (transcribed).
+2. **Structured legend JSON** — truth for geometry: exact bboxes, exact SVG
+   paths for organic/unknown shapes, and what handwriting says (transcribed).
 3. **Ink raster image** — truth for visual gestalt and layout intent only.
 Never invent a shape id that isn't in the legend. If the image seems to show
 something the legend lacks, trust the legend for WHAT/WHERE and the image for
@@ -78,10 +78,27 @@ usually flow/annotation between sketched parts, NOT a move command.
 - Squiggle placeholders become SHORT realistic copy for this app's domain,
   never lorem ipsum walls.
 
+### Organic & decorative shapes (waves, ribbons, blobs, underlines-as-flair)
+- Shapes the recognizer can't name arrive with kind "ink" AND an exact
+  `svgPath` (fitted cubics, bbox-local coordinates). That path IS the design:
+  reproduce it as real SVG geometry sized to the bbox — this is the one case
+  where you render the drawn form itself, not a rectified widget.
+- `layerHint: "background-overlay"` means the stroke travels ACROSS existing
+  elements without enclosing them: implement as a decorative layer —
+  absolutely positioned within the container, behind content (negative
+  z-index or first child), `pointer-events-none`, sized per the bbox.
+- `layerHint: "container"` means the shape deliberately ENCLOSES existing
+  elements: it is a grouping/wrapper around them, not decoration.
+- A wavy line is a CHART only in chart context (axes, data labels, inside a
+  stat/data card). Spanning a section or page background = decoration.
+  When both readings are live, prefer decoration and say so in assumptions.
+
 ### Fidelity & scope
 - Read the neighboring source FIRST; reuse the app's existing components,
   Tailwind idiom, colors and type scale. The sketch inherits the app's design
   system — do not invent a new visual language or default to generic styles.
+  (Rectify-don't-reproduce applies to WIDGETS; provided svgPaths are content
+  and keep their drawn form.)
 - Preserve everything the sketch doesn't touch. Minimal diff: only what the
   ink indicates. Never add dependencies.
 - If unsure how something should work, make the most conventional choice for

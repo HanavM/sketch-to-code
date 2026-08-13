@@ -1,15 +1,15 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  analyzeStrokes, bboxOf, bboxUnion, cropRaster, encodePng, renderScene,
-  type BBox, type Stroke,
+  analyzeStrokes, bboxOf, bboxUnion, cropRaster, encodePng, renderScene, toSvgPath,
+  type BBox, type InkScene, type ShapeKind, type Stroke,
 } from '@s2c/ink'
 import { smallestContainingElement, type DomSnapshot } from '@s2c/dom'
-import { buildEditPlan, type EditPlan } from '@s2c/intent'
+import { analyzeOverlap, buildEditPlan, type EditPlan } from '@s2c/intent'
 import { addUsage, defaultPerceptionProvider, type PerceptionProvider, type TokenUsage } from '@s2c/providers'
 import { contractFor, createCodegenSession, type RunMode } from './codegen.js'
 import { changedFiles, checkpoint, type Checkpoint } from './safety.js'
-import { pageChanged, verifyOps, type VerifyResult } from './verify.js'
+import { pageChanged, verifyDesignPlacement, verifyOps, type VerifyResult } from './verify.js'
 
 export interface RunContext {
   root: string
@@ -24,6 +24,8 @@ export interface RunInput {
   mode?: RunMode
   /** base64 PNG of the whole browser screen (screenshot mode). */
   screenshot?: string
+  /** Per-ink-node kind corrections from the interpretation preview. */
+  overrides?: Record<string, string>
 }
 
 export interface RunResult {
@@ -104,6 +106,15 @@ export async function runPipeline(
   // ---- ① ink ----
   stage('ink', `analyzing ${input.strokes.length} strokes`)
   const scene = analyzeStrokes(input.strokes)
+  if (input.overrides) {
+    for (const node of scene.nodes) {
+      const o = input.overrides[node.id]
+      if (o && o !== node.kind) {
+        node.kind = o as ShapeKind
+        node.candidates.unshift({ kind: o as ShapeKind, confidence: 1 })
+      }
+    }
+  }
   save('scene.json', {
     nodes: scene.nodes.map((n) => ({ id: n.id, kind: n.kind, bbox: n.bbox })),
     textRegions: scene.textRegions.map((t) => ({ id: t.id, bbox: t.bbox })),
@@ -112,7 +123,7 @@ export async function runPipeline(
   stage('ink', `${scene.nodes.length} shapes, ${scene.textRegions.length} text regions, ${scene.arrows.length} arrows`)
 
   // ---- render ink once (labels on) ----
-  const raster = renderScene(scene, { labels: true, maxSize: 1400 })
+  const raster = renderScene(scene, { labels: true, maxSize: mode === 'gesture' ? 800 : 640 })
   const inkPng = encodePng(raster)
   writeFileSync(join(runDir, 'ink.png'), inkPng)
 
@@ -199,13 +210,22 @@ export async function runPipeline(
       const after = await ctx.requestSnapshot(runId)
 
       if (mode === 'design') {
-        designChanged = pageChanged(input.snapshot, after)
-        save(`verify-${round}.json`, { pageChanged: designChanged })
-        if (designChanged) break
+        const changed = pageChanged(input.snapshot, after)
+        const inkBox = sceneBBox(scene)
+        const placement = inkBox
+          ? verifyDesignPlacement(input.snapshot, after, inkBox)
+          : { satisfied: changed, reason: 'no ink bbox', unverifiable: true }
+        designChanged = placement.satisfied
+        save(`verify-${round}.json`, { pageChanged: changed, placement })
+        stage('verify', placement.reason)
+        if (placement.satisfied) break
         if (round >= 2) break
-        stage('repair', 'page unchanged — asking for implementation')
+        stage('repair', 'placement mismatch — sending measurements')
         reply = await session.send({
-          text: 'The live page shows no change. Implement the sketched design now — actually edit the files.',
+          text: changed
+            ? `The page changed, but placement verification failed: ${placement.reason}. ` +
+              `The implementation must appear where the sketch was drawn, at roughly its drawn size. Fix the placement/size.`
+            : 'The live page shows no change. Implement the sketched design now — actually edit the files.',
         })
         writeFileSync(join(runDir, `reply-${round + 1}.txt`), reply)
         continue
@@ -259,18 +279,29 @@ export async function runPipeline(
   return { summary }
 }
 
-/** Compose the design-mode brief: legend + DOM context, never raw coordinates in prose. */
+/** Union bbox of all ink in the scene. */
+export function sceneBBox(scene: InkScene): BBox | null {
+  let box: BBox | null = null
+  for (const st of scene.strokes) {
+    if (st.points.length === 0) continue
+    const b = bboxOf(st.points)
+    box = box ? bboxUnion(box, b) : b
+  }
+  return box
+}
+
+/**
+ * Compose the design-mode brief. Geometry the pipeline OWNS is transmitted,
+ * not inferred: unknown/organic shapes carry exact SVG paths (fitted cubics,
+ * bbox-local coords); every shape carries path-based overlap analysis and a
+ * layer hint. The raster's only remaining job is visual gestalt.
+ */
 function designBrief(
-  scene: ReturnType<typeof analyzeStrokes>,
+  scene: InkScene,
   textRefs: Array<{ id: string; bbox: BBox; text?: string }>,
   snap: DomSnapshot,
 ): string {
-  let inkBox: BBox | null = null
-  for (const s of scene.strokes) {
-    if (s.points.length === 0) continue
-    const b = bboxOf(s.points)
-    inkBox = inkBox ? bboxUnion(inkBox, b) : b
-  }
+  const inkBox = sceneBBox(scene)
   const region = inkBox ? smallestContainingElement(snap, inkBox, 0.6) : null
   const nearby = inkBox
     ? snap.nodes
@@ -278,15 +309,51 @@ function designBrief(
           const cx = n.rect.x + n.rect.w / 2
           const cy = n.rect.y + n.rect.h / 2
           return (
-            cx >= inkBox!.x - 80 && cx <= inkBox!.x + inkBox!.w + 80 &&
-            cy >= inkBox!.y - 80 && cy <= inkBox!.y + inkBox!.h + 80 && n.srcLoc
+            cx >= inkBox.x - 80 && cx <= inkBox.x + inkBox.w + 80 &&
+            cy >= inkBox.y - 80 && cy <= inkBox.y + inkBox.h + 80 && n.srcLoc
           )
         })
         .slice(0, 15)
     : []
 
+  const strokesById = new Map(scene.strokes.map((st) => [st.id, st]))
+  const shapes = scene.nodes.map((n) => {
+    const overlap = analyzeOverlap(n, scene.strokes, snap, {
+      w: snap.viewport.w,
+      h: snap.viewport.h,
+    })
+    const top = n.candidates[0]
+    const lowConfidence = !top || top.confidence < 0.6
+    const entry: Record<string, unknown> = {
+      id: n.id,
+      kind: n.kind,
+      bbox: n.bbox,
+      layerHint: overlap.layerHint,
+    }
+    if (overlap.crosses.length) entry.pathCrossesElements = overlap.crosses
+    if (overlap.contains.length) entry.enclosesElements = overlap.contains
+    // Unknown/organic/low-confidence shapes: the geometry IS the content —
+    // ship the exact fitted curve instead of a meaningless kind label.
+    if (n.kind === 'ink' || lowConfidence) {
+      const ds: string[] = []
+      for (const sid of n.strokeIds) {
+        const st = strokesById.get(sid)
+        if (!st) continue
+        const fit = toSvgPath(st.points, { tolerance: 2, origin: { x: n.bbox.x, y: n.bbox.y } })
+        if (fit) ds.push(fit.d)
+      }
+      if (ds.length) {
+        entry.svgPath = {
+          d: ds.join(' '),
+          coordinateSpace: 'bbox-local page pixels (origin = bbox top-left; scale the viewBox to bbox w×h)',
+        }
+      }
+    }
+    return entry
+  })
+
   const legend = {
-    shapes: scene.nodes.map((n) => ({ id: n.id, kind: n.kind, bbox: n.bbox })),
+    shapes,
     arrows: scene.arrows.map((a) => ({ id: a.id, from: a.from, to: a.to })),
     handwriting: textRefs.map((t) => ({ id: t.id, bbox: t.bbox, text: t.text ?? '' })),
   }
@@ -299,9 +366,13 @@ function designBrief(
     })),
   }
   return (
-    `The attached image is my design sketch (numbered badges = shape ids).\n\n` +
-    `LEGEND (recognized shapes — geometry and handwriting are ground truth):\n` +
+    `The attached image is my design sketch (id badges = shape ids; the image shows gestalt, the legend below is exact).\n\n` +
+    `LEGEND (recognized shapes — geometry, paths and handwriting are ground truth):\n` +
     `${JSON.stringify(legend, null, 2)}\n\n` +
+    `Layer hints: "background-overlay" = the stroke travels ACROSS existing elements without enclosing them — ` +
+    `implement as a decorative layer (absolutely positioned, behind content, pointer-events-none), reproducing any ` +
+    `provided svgPath as the actual SVG geometry. "container" = the shape deliberately encloses existing elements — ` +
+    `it is a grouping/container around them.\n\n` +
     `DOM CONTEXT (where on the live page I drew — put the implementation here):\n` +
     `${JSON.stringify(dom, null, 2)}\n\n` +
     `Implement this design in the app source now.`

@@ -159,7 +159,9 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
       drawLine(raster, a.x, c.y, a.x, a.y, 0.6, badgeBlue)
     }
     for (const n of scene.nodes) {
-      outline(n.bbox)
+      // unknown/organic shapes: the raster is the model's only view of the
+      // form — don't draw an outline box over it; badge sits outside the bbox
+      if (n.kind !== 'ink') outline(n.bbox)
       const p = toRaster(n.bbox.x, n.bbox.y)
       drawLabel(raster, n.id, Math.max(0, p.x), labelY(p.y - 8 * labelScale), labelScale)
     }

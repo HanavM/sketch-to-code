@@ -29,6 +29,8 @@ export interface RunRequest {
   mode?: 'gesture' | 'design' | 'screenshot'
   /** base64 PNG of the whole browser screen (screenshot mode). */
   screenshot?: string
+  /** Per-ink-node kind corrections from the interpretation preview. */
+  overrides?: Record<string, string>
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -153,6 +155,23 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             pendingSnapshots.get(body.runId)?.(body.snapshot)
             pendingSnapshots.delete(body.runId)
             sendJson(res, 200, { ok: true })
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/interpret', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<RunRequest>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const result = m.interpretStrokes(
+              body.strokes as Parameters<typeof m.interpretStrokes>[0],
+              body.snapshot,
+              body.mode ?? 'gesture',
+              body.overrides,
+            )
+            sendJson(res, 200, { ok: true, result })
           })
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })

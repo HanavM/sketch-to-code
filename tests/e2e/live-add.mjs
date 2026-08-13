@@ -85,6 +85,14 @@ const nodesBefore = await page.evaluate(() => document.querySelectorAll('*').len
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('run').click()
 })
+// interpretation preview gates every structured run: wait for it, then confirm
+await page.waitForFunction(
+  () => document.getElementById('s2c-overlay-host').dataset.mode === 'preview',
+  { timeout: 20000 },
+)
+await page.evaluate(() => {
+  document.getElementById('s2c-overlay-host').shadowRoot.getElementById('confirm').click()
+})
 log('run clicked…')
 
 const deadline = Date.now() + 420_000
