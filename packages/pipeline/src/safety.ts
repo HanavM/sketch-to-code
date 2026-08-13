@@ -63,9 +63,12 @@ export function checkpoint(root: string, allowDirty: boolean): Checkpoint {
   return { sha, toplevel, dirtyBefore }
 }
 
-/** Files changed since the checkpoint (relative to toplevel). */
+/** Files changed since the checkpoint, scoped to root (not the whole repo). */
 export function changedFiles(root: string, cp: Checkpoint): string[] {
-  const out = execFileSync('git', ['diff', '--name-only', cp.sha], { cwd: root, encoding: 'utf8' })
+  const out = execFileSync('git', ['diff', '--name-only', cp.sha, '--', '.'], {
+    cwd: root,
+    encoding: 'utf8',
+  })
   return out.split('\n').filter(Boolean)
 }
 
