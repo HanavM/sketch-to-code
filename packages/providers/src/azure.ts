@@ -1,7 +1,30 @@
+import { readFileSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import { AzureOpenAI } from 'openai'
 import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
-export function azureConfigured(env = process.env): boolean {
+/**
+ * Azure config resolution: process env wins; otherwise ~/.sketch2code/azure.env
+ * (KEY=VALUE lines) fills the gaps. Keeps secrets out of the repo and out of
+ * shell profiles.
+ */
+export function resolveAzureEnv(env = process.env): Record<string, string | undefined> {
+  const out: Record<string, string | undefined> = { ...env }
+  try {
+    const file = readFileSync(join(homedir(), '.sketch2code', 'azure.env'), 'utf8')
+    for (const line of file.split('\n')) {
+      const m = /^([A-Z0-9_]+)=(.*)$/.exec(line.trim())
+      if (m && !out[m[1]!]) out[m[1]!] = m[2]!
+    }
+  } catch {
+    /* no file — fine */
+  }
+  return out
+}
+
+export function azureConfigured(rawEnv = process.env): boolean {
+  const env = resolveAzureEnv(rawEnv)
   return Boolean(env.AZURE_OPENAI_ENDPOINT && env.AZURE_OPENAI_API_KEY && env.AZURE_OPENAI_DEPLOYMENT)
 }
 
@@ -10,7 +33,8 @@ export function azureConfigured(env = process.env): boolean {
  * AZURE_OPENAI_API_KEY and AZURE_OPENAI_DEPLOYMENT are set (deployment must be
  * a vision-capable model). Uses strict json_schema output.
  */
-export function createAzureProvider(env = process.env): PerceptionProvider {
+export function createAzureProvider(rawEnv = process.env): PerceptionProvider {
+  const env = resolveAzureEnv(rawEnv)
   const client = new AzureOpenAI({
     endpoint: env.AZURE_OPENAI_ENDPOINT!,
     apiKey: env.AZURE_OPENAI_API_KEY!,

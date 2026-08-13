@@ -2,6 +2,7 @@ import Navbar from './components/Navbar'
 import StatCards from './components/StatCards'
 import ContactForm from './components/ContactForm'
 import UserTable from './components/UserTable'
+import UsersList from './components/UsersList'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <ContactForm />
           <UserTable />
         </div>
+        <UsersList />
       </main>
     </div>
   )
