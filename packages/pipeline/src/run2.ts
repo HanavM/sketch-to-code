@@ -13,7 +13,8 @@ import {
 } from '@s2c/providers'
 import { createCodegenSession } from './codegen.js'
 import {
-  buildEvidence, groundInterpretation, INTERPRET_PROMPT, INTERPRETATION_SCHEMA,
+  buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
+  interpretationSchema,
   type GroundedAction, type GroundedInterpretation, type RawInterpretation,
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
@@ -35,6 +36,7 @@ export async function interpretV2(
   strokes: Stroke[],
   snapshot: DomSnapshot,
   provider: PerceptionProvider = defaultInterpreterProvider(),
+  mode: 'gesture' | 'design' = 'gesture',
 ): Promise<InterpretV2Result> {
   const ev = buildEvidence(strokes, snapshot)
   let tokens: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
@@ -43,15 +45,15 @@ export async function interpretV2(
     const res = await provider.interpretIntent({
       png: ev.png,
       brief: extra ? `${ev.brief}\n\n${extra}` : ev.brief,
-      prompt: INTERPRET_PROMPT,
-      schema: INTERPRETATION_SCHEMA as unknown as Record<string, unknown>,
+      prompt: mode === 'design' ? DESIGN_INTERPRET_PROMPT : INTERPRET_PROMPT,
+      schema: interpretationSchema(mode),
     })
     tokens = addUsage(tokens, res.usage)
     const raw = res.raw as RawInterpretation
     if (!raw || typeof raw.reading !== 'string' || !Array.isArray(raw.actions)) {
       throw new Error('interpreter returned malformed output')
     }
-    return { raw, interpretation: groundInterpretation(raw, ev, snapshot) }
+    return { raw, interpretation: groundInterpretation(raw, ev, snapshot, mode) }
   }
 
   let { raw, interpretation } = await ask('')
@@ -93,7 +95,7 @@ After editing, reply one line per action: "action N: <what you did>".
 `.trim()
 
 export async function runV2(
-  input: { strokes: Stroke[]; snapshot: DomSnapshot; rawInterpretation: RawInterpretation },
+  input: { strokes: Stroke[]; snapshot: DomSnapshot; rawInterpretation: RawInterpretation; mode?: 'gesture' | 'design' },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
 ): Promise<RunResult> {
@@ -114,7 +116,7 @@ export async function runV2(
   const ev = buildEvidence(input.strokes, input.snapshot)
   writeFileSync(join(runDir, 'evidence.png'), ev.png)
   writeFileSync(join(runDir, 'evidence.json'), ev.brief)
-  const interp = groundInterpretation(input.rawInterpretation, ev, input.snapshot)
+  const interp = groundInterpretation(input.rawInterpretation, ev, input.snapshot, input.mode ?? 'gesture')
   save('interpretation.json', interp)
   if (interp.actions.length === 0) {
     throw new Error(

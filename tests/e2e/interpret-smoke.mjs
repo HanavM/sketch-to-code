@@ -115,3 +115,14 @@ if (!ck.includes('delete')) throw new Error('CASE C FAIL: no delete action')
 const delTargets = c.interpretation.actions.find((x) => x.kind === 'delete').targets
 if (!delTargets.some((t) => t.text.includes('Active users'))) throw new Error('CASE C FAIL: wrong delete target')
 console.log('CASE C PASS')
+
+
+// ---- Case D: DESIGN MODE guarantee — delete-looking ink cannot delete ----
+console.log('\n=== CASE D: design mode is creation-only ===')
+const leftEdge = Array.from({ length: 30 }, (_, i) => ({ x: 15 + Math.sin(i / 4) * 10, y: 200 + i * 12, t: 600 + i * 12 }))
+const d = await interpretV2([zig, { id: 'l0', points: leftEdge }], snapshot, undefined, 'design')
+console.log('reading:', d.interpretation.reading.slice(0, 120))
+const dk = d.interpretation.actions.map((x) => x.kind)
+console.log(' kinds:', dk)
+if (dk.some((k) => !['add', 'design'].includes(k))) throw new Error('CASE D FAIL: destructive kind leaked into design mode')
+console.log('CASE D PASS')

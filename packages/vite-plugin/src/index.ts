@@ -194,6 +194,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               const v2 = await m.interpretV2(
                 body.strokes as Parameters<typeof m.interpretV2>[0],
                 body.snapshot,
+                undefined,
+                body.mode === 'design' ? 'design' : 'gesture',
               )
               sendJson(res, 200, {
                 ok: true,
@@ -253,6 +255,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     strokes: body.strokes as Parameters<typeof m.interpretV2>[0],
                     snapshot: body.snapshot,
                     rawInterpretation: body.rawInterpretation as Parameters<typeof m.runV2>[0]['rawInterpretation'],
+                    mode: body.mode === 'design' ? 'design' : 'gesture',
                   },
                   ctx,
                 )

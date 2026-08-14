@@ -47,6 +47,23 @@ export interface RawInterpretation {
 // and Claude structured outputs accept.
 const nullable = (t: Record<string, unknown>) => ({ anyOf: [t, { type: 'null' }] })
 
+export const DESIGN_KINDS = ['add', 'design'] as const
+export const GESTURE_KINDS = ['delete', 'modify', 'add', 'move', 'swap', 'design'] as const
+
+/**
+ * Schema is mode-dependent as a HARD guarantee: in design mode the enum
+ * itself contains only creative kinds — the model cannot emit a delete.
+ */
+export function interpretationSchema(mode: 'gesture' | 'design'): Record<string, unknown> {
+  const schema = JSON.parse(JSON.stringify(INTERPRETATION_SCHEMA)) as {
+    properties: { actions: { items: { properties: { kind: { enum: string[] } } } } }
+  }
+  if (mode === 'design') {
+    schema.properties.actions.items.properties.kind.enum = [...DESIGN_KINDS]
+  }
+  return schema as unknown as Record<string, unknown>
+}
+
 export const INTERPRETATION_SCHEMA = {
   type: 'object',
   additionalProperties: false,
@@ -217,6 +234,33 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot): Evidence {
   return { png: encodePng(raster), brief, elements, strokes: strokeMap }
 }
 
+export const DESIGN_INTERPRET_PROMPT = `
+You are the intent-reading stage of a sketch-to-code tool, in DESIGN mode:
+EVERYTHING the user drew is new UI to CREATE. Nothing is a command — there
+are no deletes, no moves, no modifications of existing elements in this mode.
+The image shows their ink (dark strokes) over a gray wireframe of the page's
+actual elements, to scale. The JSON lists each stroke (id, bbox, draw order,
+exact geometric features) and the page's element menu (id, tag, text, rect,
+source location). TRUST THE IMAGE for shape/form.
+
+Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
+labeled rounded rects = buttons, squiggly lines = text placeholders, circles
+= avatars/icons, a smooth wavy band = ONE decorative ribbon (even if drawn in
+several strokes), arrows here are FLOW/annotation between sketched parts.
+Handwriting = labels/copy for the new UI — transcribe it into instructions.
+Existing elements only matter as CONTEXT: which container the new UI goes in
+(destElement) and what it should sit near or span across (layer:
+background-overlay when a decoration sweeps across existing elements).
+
+Rules for your answer:
+- Only 'add' and 'design' actions exist in this mode.
+- Reference ONLY ids from the menus; never invent ids or output coordinates.
+  'destElement' takes a DOM element id (the container); stroke ids go in
+  'strokes' ONLY.
+- Prefer ONE composite action per coherent drawing.
+- reading: 1-2 plain sentences. Note real ambiguity in 'unclear'.
+`.trim()
+
 export const INTERPRET_PROMPT = `
 You are the intent-reading stage of a sketch-to-code tool. The user drew with
 a mouse on a transparent overlay over their RUNNING web app. The image shows
@@ -300,6 +344,7 @@ export function groundInterpretation(
   raw: RawInterpretation,
   ev: Evidence,
   snap: DomSnapshot,
+  mode: 'gesture' | 'design' = 'gesture',
 ): GroundedInterpretation {
   const rejected: string[] = []
   const viewArea = snap.viewport.w * snap.viewport.h
@@ -341,6 +386,11 @@ export function groundInterpretation(
 
   const actions: GroundedAction[] = []
   for (const a of raw.actions) {
+    // design mode is creation-only — belt to the schema's suspenders
+    if (mode === 'design' && !(DESIGN_KINDS as readonly string[]).includes(a.kind)) {
+      rejected.push(`'${a.kind}' is not allowed in design mode (creation only)`)
+      continue
+    }
     const targets = (a.elements ?? []).map(toTarget).filter((t): t is GroundedTarget => t !== null)
     const dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
 
@@ -360,7 +410,7 @@ export function groundInterpretation(
         const b = bboxOf(s.points)
         region = region ? bboxUnion(region, b) : b
       }
-      if (a.kind === 'design') {
+      if (a.kind === 'design' || a.kind === 'add') {
         for (const s of citedStrokes) {
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
           if (fit) svgPaths.push({ strokeId: s.id, d: fit.d })
