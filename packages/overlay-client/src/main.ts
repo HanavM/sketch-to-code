@@ -116,6 +116,7 @@ class Overlay {
   private mode: Mode = 'idle'
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private tweak: TweakState | null = null
+  private tweakHover: DOMRect | null = null
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -179,10 +180,14 @@ class Overlay {
       })
     }
     this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => {
-      if (this.mode === 'tweak') this.exitTweak('tweak off')
-      else {
+      const btn = this.shadow.getElementById('tweakBtn')!
+      if (this.mode === 'tweak') {
+        btn.classList.remove('primary')
+        this.exitTweak('tweak off')
+      } else {
+        btn.classList.add('primary')
         this.setMode('tweak')
-        this.status('tweak: click a flex/grid container or padded box')
+        this.status('tweak: hover shows targets — click one, then drag the blue gaps / purple padding')
       }
     })
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
@@ -439,6 +444,8 @@ class Overlay {
   private exitTweak(msg: string) {
     if (this.tweak) this.clearTweakPreview()
     this.tweak = null
+    this.tweakHover = null
+    this.shadow.getElementById('tweakBtn')?.classList.remove('primary')
     this.setMode('idle')
     this.status(msg)
     this.redraw()
@@ -554,13 +561,25 @@ class Overlay {
 
   private onTweakMove(e: PointerEvent) {
     const t = this.tweak
-    if (!t) return
+    if (!t) {
+      const el = this.pickTweakTarget(e.clientX, e.clientY)
+      this.tweakHover = el ? el.getBoundingClientRect() : null
+      this.canvas.style.cursor = el ? 'pointer' : 'default'
+      this.redraw()
+      return
+    }
     if (!t.drag) {
-      // hover affordance: pointer cursor over zones
+      // hover affordance: pointer cursor over zones + highlight the element
+      // the next click would select
       const over = t.zones.some(
         (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
       )
       this.canvas.style.cursor = over ? (t.direction === 'row' ? 'col-resize' : 'row-resize') : 'default'
+      if (!over) {
+        const el = this.pickTweakTarget(e.clientX, e.clientY)
+        this.tweakHover = el && el !== t.el ? el.getBoundingClientRect() : null
+        this.redraw()
+      }
       return
     }
     const { zone, startX, startY, startValue } = t.drag
@@ -623,9 +642,19 @@ class Overlay {
   }
 
   private drawTweak() {
+    const { ctx } = this
+    if (this.tweakHover) {
+      ctx.save()
+      ctx.strokeStyle = 'rgba(8,145,178,0.55)'
+      ctx.setLineDash([6, 4])
+      ctx.lineWidth = 1.5
+      const h = this.tweakHover
+      ctx.strokeRect(h.left, h.top, h.width, h.height)
+      ctx.setLineDash([])
+      ctx.restore()
+    }
     const t = this.tweak
     if (!t) return
-    const { ctx } = this
     const r = t.el.getBoundingClientRect()
     ctx.save()
     ctx.strokeStyle = '#0891b2'
