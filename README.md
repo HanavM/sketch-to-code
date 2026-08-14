@@ -107,6 +107,23 @@ node tests/e2e/live-add.mjs           # box + handwritten "cancel" → ADD
 
 All three live flows pass as of 2026-08-06 (real model, real edits, DOM-verified).
 
+## 🔧 Tweak mode: direct manipulation, phase 1 (2026-08-14)
+
+Ink remains the primary interface (creation, expression, relationships).
+Tweak mode adds deterministic direct manipulation for the adjustments where
+the affordance IS the disambiguation — starting with the two that produce
+single-declaration diffs by construction:
+- **gap handle** — click a flex/grid container, drag the space between
+  children; snaps to the Tailwind spacing scale live (`gap-6 (24px)`)
+- **padding ring** — drag any inner edge for `pt/pr/pb/pl`
+
+Release = one class edited at the element's CURRENT `data-s2c` stamp (live
+DOM at commit time — immune to positional staleness), git-checkpointed,
+**zero model calls**. Dynamic classNames (`clsx`/templates) are refused
+honestly with a pointer to the ink path. Free drag is deliberately absent:
+"move a flex child 40px right" isn't a thing flexbox can express, so the
+tool doesn't pretend it is.
+
 ## v2: model-led intent (2026-08-14)
 
 The deterministic gesture classifier proved brittle on real drawing (multi-

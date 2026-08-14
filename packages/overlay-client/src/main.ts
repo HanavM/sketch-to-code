@@ -39,7 +39,22 @@ interface PreviewData {
   escalatesToDesign: boolean
 }
 
-type Mode = 'idle' | 'draw' | 'preview' | 'running'
+type Mode = 'idle' | 'draw' | 'preview' | 'running' | 'tweak'
+
+interface TweakZone {
+  x: number; y: number; w: number; h: number
+  kind: 'gap' | 'pt' | 'pr' | 'pb' | 'pl'
+}
+interface TweakState {
+  el: HTMLElement
+  rect: DOMRect
+  display: string
+  direction: 'row' | 'column'
+  zones: TweakZone[]
+  drag: { zone: TweakZone; startX: number; startY: number; startValue: number } | null
+  /** current preview value px per prop */
+  preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
+}
 
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
@@ -62,6 +77,7 @@ const STYLES = css`
   }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
   :host([data-mode='preview']) #canvas { pointer-events: auto; cursor: pointer; }
+  :host([data-mode='tweak']) #canvas { pointer-events: auto; cursor: default; }
   #hud {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 2147483001; display: flex; gap: 8px; align-items: center;
@@ -99,6 +115,7 @@ class Overlay {
 
   private mode: Mode = 'idle'
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
+  private tweak: TweakState | null = null
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -131,6 +148,7 @@ class Overlay {
         <button id="mode-design" class="mode" title="design sketch">🎨</button>
         <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
       </span>
+      <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
@@ -160,6 +178,13 @@ class Overlay {
         )
       })
     }
+    this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => {
+      if (this.mode === 'tweak') this.exitTweak('tweak off')
+      else {
+        this.setMode('tweak')
+        this.status('tweak: click a flex/grid container or padded box')
+      }
+    })
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
@@ -177,7 +202,8 @@ class Overlay {
         this.toggleDraw()
       }
       if (e.key === 'Escape') {
-        if (this.mode === 'preview') this.exitPreview('cancelled')
+        if (this.mode === 'tweak') this.exitTweak('tweak off')
+        else if (this.mode === 'preview') this.exitPreview('cancelled')
         else if (this.mode === 'draw') this.setMode('idle')
         else if (this.mode === 'running') {
           // escape hatch: the server may have restarted mid-run
@@ -214,7 +240,7 @@ class Overlay {
 
   private sync() {
     const busy = this.mode === 'running'
-    const previewing = this.mode === 'preview'
+    const previewing = this.mode === 'preview' || this.mode === 'tweak'
     this.runBtn.style.display = previewing ? 'none' : ''
     this.confirmBtn.style.display = previewing ? '' : 'none'
     this.cancelBtn.style.display = previewing ? '' : 'none'
@@ -236,6 +262,10 @@ class Overlay {
   }
 
   private onDown(e: PointerEvent) {
+    if (this.mode === 'tweak') {
+      this.onTweakDown(e)
+      return
+    }
     if (this.mode === 'preview') {
       this.onPreviewTap(e)
       return
@@ -247,6 +277,10 @@ class Overlay {
   }
 
   private onMove(e: PointerEvent) {
+    if (this.mode === 'tweak') {
+      this.onTweakMove(e)
+      return
+    }
     if (!this.live) return
     // coalesced events give the full-resolution trace on fast moves
     const evs = 'getCoalescedEvents' in e ? e.getCoalescedEvents() : [e]
@@ -255,6 +289,10 @@ class Overlay {
   }
 
   private onUp(e: PointerEvent) {
+    if (this.mode === 'tweak') {
+      void this.onTweakUp(e)
+      return
+    }
     if (!this.live) return
     this.live.points.push(this.toPage(e))
     if (this.live.points.length > 2) this.strokes.push(this.live)
@@ -396,6 +434,213 @@ class Overlay {
     ctx.restore()
   }
 
+  // ---------- tweak mode: gap handle + padding ring (zero tokens) ----------
+
+  private exitTweak(msg: string) {
+    if (this.tweak) this.clearTweakPreview()
+    this.tweak = null
+    this.setMode('idle')
+    this.status(msg)
+    this.redraw()
+  }
+
+  private clearTweakPreview() {
+    const t = this.tweak
+    if (!t) return
+    t.el.style.removeProperty('gap')
+    t.el.style.removeProperty('padding-top')
+    t.el.style.removeProperty('padding-right')
+    t.el.style.removeProperty('padding-bottom')
+    t.el.style.removeProperty('padding-left')
+  }
+
+  private pickTweakTarget(x: number, y: number): HTMLElement | null {
+    this.canvas.style.pointerEvents = 'none'
+    let el = document.elementFromPoint(x, y) as HTMLElement | null
+    this.canvas.style.pointerEvents = ''
+    // climb to the nearest stamped element that is a flex/grid container or
+    // has padding — the thing the affordances can actually edit
+    while (el && el !== document.body) {
+      if (el.dataset.s2c) {
+        const cs = getComputedStyle(el)
+        const isContainer =
+          (cs.display === 'flex' || cs.display === 'grid') && el.children.length >= 2
+        const hasPad = ['Top', 'Right', 'Bottom', 'Left'].some(
+          (side) => parseFloat(cs.getPropertyValue('padding-' + side.toLowerCase())) > 0,
+        )
+        if (isContainer || hasPad || el.children.length >= 1) return el
+      }
+      el = el.parentElement
+    }
+    return null
+  }
+
+  private buildTweakState(el: HTMLElement): TweakState {
+    const cs = getComputedStyle(el)
+    const rect = el.getBoundingClientRect()
+    const direction = cs.flexDirection === 'column' ? 'column' : 'row'
+    const zones: TweakZone[] = []
+
+    // gap strips between children (flex/grid)
+    if ((cs.display === 'flex' || cs.display === 'grid') && el.children.length >= 2) {
+      const kids = [...el.children].map((c) => c.getBoundingClientRect()).filter((r) => r.width > 0)
+      const sorted = [...kids].sort((a, b) => (direction === 'row' ? a.left - b.left : a.top - b.top))
+      for (let i = 1; i < sorted.length; i++) {
+        const prev = sorted[i - 1]!
+        const cur = sorted[i]!
+        if (direction === 'row') {
+          const gx = prev.right
+          const gw = cur.left - prev.right
+          if (gw >= 2 && gw < 200) zones.push({ x: gx, y: rect.top, w: gw, h: rect.height, kind: 'gap' })
+        } else {
+          const gy = prev.bottom
+          const gh = cur.top - prev.bottom
+          if (gh >= 2 && gh < 200) zones.push({ x: rect.left, y: gy, w: rect.width, h: gh, kind: 'gap' })
+        }
+      }
+    }
+
+    // padding ring: a band along each inner edge (min 8px grab area)
+    const pad = (side: string) => parseFloat(cs.getPropertyValue('padding-' + side))
+    const bands: Array<['pt' | 'pr' | 'pb' | 'pl', number]> = [
+      ['pt', pad('top')], ['pr', pad('right')], ['pb', pad('bottom')], ['pl', pad('left')],
+    ]
+    for (const [kind, v] of bands) {
+      const grab = Math.max(8, v)
+      if (kind === 'pt') zones.push({ x: rect.left, y: rect.top, w: rect.width, h: grab, kind })
+      if (kind === 'pb') zones.push({ x: rect.left, y: rect.bottom - grab, w: rect.width, h: grab, kind })
+      if (kind === 'pl') zones.push({ x: rect.left, y: rect.top, w: grab, h: rect.height, kind })
+      if (kind === 'pr') zones.push({ x: rect.right - grab, y: rect.top, w: grab, h: rect.height, kind })
+    }
+
+    return { el, rect, display: cs.display, direction, zones, drag: null, preview: {} }
+  }
+
+  private onTweakDown(e: PointerEvent) {
+    if (e.button !== 0) return
+    const t = this.tweak
+    if (t) {
+      // hit a zone? start dragging it
+      const zone = t.zones.find(
+        (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
+      )
+      if (zone) {
+        const cs = getComputedStyle(t.el)
+        const startValue =
+          zone.kind === 'gap'
+            ? parseFloat(cs.gap) || 0
+            : parseFloat(cs.getPropertyValue(
+                { pt: 'padding-top', pr: 'padding-right', pb: 'padding-bottom', pl: 'padding-left' }[zone.kind],
+              )) || 0
+        t.drag = { zone, startX: e.clientX, startY: e.clientY, startValue }
+        this.canvas.setPointerCapture(e.pointerId)
+        return
+      }
+    }
+    // otherwise (re)select
+    const el = this.pickTweakTarget(e.clientX, e.clientY)
+    if (!el) {
+      this.status('nothing tweakable here — click a stamped container', true)
+      return
+    }
+    if (this.tweak) this.clearTweakPreview()
+    this.tweak = this.buildTweakState(el)
+    const label = this.tweak.display === 'flex' || this.tweak.display === 'grid'
+      ? `${this.tweak.display} ${this.tweak.direction}`
+      : this.tweak.display
+    this.status(`${el.dataset.s2c!.split(':')[0]} · ${label} · drag a gap strip or padding edge`)
+    this.redraw()
+  }
+
+  private onTweakMove(e: PointerEvent) {
+    const t = this.tweak
+    if (!t) return
+    if (!t.drag) {
+      // hover affordance: pointer cursor over zones
+      const over = t.zones.some(
+        (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
+      )
+      this.canvas.style.cursor = over ? (t.direction === 'row' ? 'col-resize' : 'row-resize') : 'default'
+      return
+    }
+    const { zone, startX, startY, startValue } = t.drag
+    const axisDelta =
+      zone.kind === 'gap'
+        ? (t.direction === 'row' ? e.clientX - startX : e.clientY - startY)
+        : zone.kind === 'pt' ? e.clientY - startY
+        : zone.kind === 'pb' ? startY - e.clientY
+        : zone.kind === 'pl' ? e.clientX - startX
+        : startX - e.clientX
+    const raw = Math.max(0, startValue + axisDelta)
+    // token detents: snap to 4px steps while dragging so the user FEELS the scale
+    const snapped = Math.round(raw / 4) * 4
+    t.preview[zone.kind] = snapped
+    const styleProp = zone.kind === 'gap'
+      ? 'gap'
+      : { pt: 'padding-top', pr: 'padding-right', pb: 'padding-bottom', pl: 'padding-left' }[zone.kind]
+    t.el.style.setProperty(styleProp, `${snapped}px`)
+    const cls = zone.kind === 'gap' ? 'gap' : zone.kind
+    this.status(`${cls}-${snapped % 4 === 0 ? snapped / 4 : `[${snapped}px]`} (${snapped}px) — release to commit`)
+    // zones move as layout shifts; rebuild lazily on next selection; just redraw ring
+    this.redraw()
+  }
+
+  private async onTweakUp(e: PointerEvent) {
+    const t = this.tweak
+    if (!t || !t.drag) return
+    const { zone } = t.drag
+    const px = t.preview[zone.kind]
+    t.drag = null
+    this.canvas.releasePointerCapture?.(e.pointerId)
+    if (px === undefined) return
+    const srcLoc = t.el.dataset.s2c
+    if (!srcLoc) return
+    this.status('committing…')
+    try {
+      const res = await fetch('/@s2c/manipulate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLoc, prop: zone.kind, px }),
+      })
+      const body = (await res.json()) as {
+        ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string
+      }
+      if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
+      this.clearTweakPreview()
+      this.status(`✓ ${body.change} in ${body.file} · 0 tokens · revert: git restore --source=${(body.checkpoint ?? '').slice(0, 10)}`)
+      // re-select after HMR settles so zones match the new layout
+      const el = t.el
+      setTimeout(() => {
+        if (this.mode === 'tweak' && document.contains(el)) {
+          this.tweak = this.buildTweakState(el)
+          this.redraw()
+        }
+      }, 500)
+    } catch (err) {
+      this.clearTweakPreview()
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  private drawTweak() {
+    const t = this.tweak
+    if (!t) return
+    const { ctx } = this
+    const r = t.el.getBoundingClientRect()
+    ctx.save()
+    ctx.strokeStyle = '#0891b2'
+    ctx.lineWidth = 2
+    ctx.strokeRect(r.left, r.top, r.width, r.height)
+    for (const z of t.zones) {
+      ctx.fillStyle = z.kind === 'gap' ? 'rgba(8,145,178,0.18)' : 'rgba(147,51,234,0.12)'
+      ctx.fillRect(z.x, z.y, z.w, z.h)
+    }
+    ctx.fillStyle = '#0891b2'
+    ctx.font = '11px ui-sans-serif, system-ui'
+    ctx.fillText('gaps = blue · padding = purple', r.left + 4, Math.max(12, r.top - 6))
+    ctx.restore()
+  }
+
   private resize() {
     const dpr = window.devicePixelRatio || 1
     this.canvas.width = window.innerWidth * dpr
@@ -424,6 +669,7 @@ class Overlay {
       ctx.stroke()
     }
     if (this.mode === 'preview') this.drawPreview()
+    if (this.mode === 'tweak') this.drawTweak()
   }
 
   // ---- pipeline ----

@@ -165,6 +165,25 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })
 
+      // Direct manipulation commit: deterministic Tailwind class edit at the
+      // element's CURRENT stamp. Zero model calls; checkpointed like any edit.
+      server.middlewares.use('/@s2c/manipulate', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string; prop: string; px: number }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.applyManipulation(root, {
+              srcLoc: body.srcLoc,
+              prop: body.prop as Parameters<typeof m.applyManipulation>[1]['prop'],
+              px: body.px,
+            })
+            sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/interpret', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
