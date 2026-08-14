@@ -90,11 +90,19 @@ const fileBefore = readFileSync(`${DEMO_ROOT}src/components/StatCards.tsx`, 'utf
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('run').click()
 })
-// interpretation preview gates every structured run: wait for it, then confirm
-await page.waitForFunction(
-  () => document.getElementById('s2c-overlay-host').dataset.mode === 'preview',
-  { timeout: 20000 },
-)
+// interpretation preview gates every structured run (model call: can take ~60s)
+{
+  const t0 = Date.now()
+  let ok = false
+  while (Date.now() - t0 < 150000) {
+    const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+    if (m === 'preview') { ok = true; break }
+    const st = await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent)
+    if (st.includes('failed') || st.startsWith("couldn't")) throw new Error('interpret failed: ' + st)
+    await page.waitForTimeout(1000)
+  }
+  if (!ok) throw new Error('preview never appeared')
+}
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('confirm').click()
 })
@@ -120,12 +128,14 @@ while (Date.now() < deadline) {
 }
 if (!finished) throw new Error('timed out waiting for pipeline')
 
-// give HMR a final beat
-await page.waitForTimeout(1200)
+// assert against a fresh load — the source of truth — rather than racing
+// the HMR client's apply window
+await page.waitForTimeout(1000)
+await page.reload({ waitUntil: 'networkidle' })
 
 // ---- assertions ----
 const fileAfter = readFileSync(`${DEMO_ROOT}src/components/StatCards.tsx`, 'utf8')
-const domHasCard = await page.evaluate(() => document.body.textContent.includes('Active users'))
+const domHasCard = await page.evaluate(() => [...document.querySelectorAll('[data-s2c*=StatCards]')].some((e) => e.textContent.includes('Active users')))
 
 const diffFiles = execFileSync(
   'git', ['diff', '--name-only', '--', '.'], { cwd: DEMO_ROOT, encoding: 'utf8' },

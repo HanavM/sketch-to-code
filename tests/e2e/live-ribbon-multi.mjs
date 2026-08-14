@@ -11,7 +11,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 
 const APP = 'http://localhost:5199/'
 const DEMO_ROOT = new URL('../../examples/demo-app/', import.meta.url).pathname
-const log = (...a) => console.log('[e2e-ribbon]', ...a)
+const log = (...a) => console.log('[e2e-ribbon-multi]', ...a)
 
 const b = await chromium.launch()
 const page = await b.newPage({ viewport: { width: 1280, height: 900 } })
@@ -36,20 +36,24 @@ await page.evaluate(() => {
 })
 await page.keyboard.press('Alt+KeyD')
 
-// one long wavy ribbon across the whole band
-const pts = []
+// THE USER'S ACTUAL FAILURE MODE: the ribbon drawn in FOUR separate strokes
+// (v1 classified the pieces as arrows and lines and fragmented the intent)
+const wavePoint = (i, N) => [
+  band.x + 10 + (i / N) * (band.w - 20),
+  band.y + band.h / 2 + Math.sin(i / 5.5) * (band.h * 0.42),
+]
 const N = 60
-for (let i = 0; i <= N; i++) {
-  pts.push([
-    band.x + 10 + (i / N) * (band.w - 20),
-    band.y + band.h / 2 + Math.sin(i / 5.5) * (band.h * 0.42),
-  ])
+const segments = [[0, 16], [15, 31], [30, 46], [45, 60]]
+for (const [a, b2] of segments) {
+  const pts = []
+  for (let i = a; i <= b2; i++) pts.push(wavePoint(i, N))
+  await page.mouse.move(pts[0][0], pts[0][1])
+  await page.mouse.down()
+  for (const [x, y] of pts.slice(1)) await page.mouse.move(x, y, { steps: 3 })
+  await page.mouse.up()
+  await page.waitForTimeout(350)
 }
-await page.mouse.move(pts[0][0], pts[0][1])
-await page.mouse.down()
-for (const [x, y] of pts.slice(1)) await page.mouse.move(x, y, { steps: 3 })
-await page.mouse.up()
-log('ribbon drawn')
+log('ribbon drawn in 4 strokes')
 
 const before = execSync('git status --porcelain -- src/', { cwd: DEMO_ROOT, encoding: 'utf8' })
 

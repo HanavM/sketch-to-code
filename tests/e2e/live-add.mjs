@@ -85,11 +85,19 @@ const nodesBefore = await page.evaluate(() => document.querySelectorAll('*').len
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('run').click()
 })
-// interpretation preview gates every structured run: wait for it, then confirm
-await page.waitForFunction(
-  () => document.getElementById('s2c-overlay-host').dataset.mode === 'preview',
-  { timeout: 20000 },
-)
+// interpretation preview gates every structured run (model call: can take ~60s)
+{
+  const t0 = Date.now()
+  let ok = false
+  while (Date.now() - t0 < 150000) {
+    const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+    if (m === 'preview') { ok = true; break }
+    const st = await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent)
+    if (st.includes('failed') || st.startsWith("couldn't")) throw new Error('interpret failed: ' + st)
+    await page.waitForTimeout(1000)
+  }
+  if (!ok) throw new Error('preview never appeared')
+}
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('confirm').click()
 })
