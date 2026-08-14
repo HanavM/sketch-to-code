@@ -1,6 +1,6 @@
 import { query } from '@anthropic-ai/claude-agent-sdk'
 import type { SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
-import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
+import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
 /**
  * Perception via the user's Claude Code (subscription auth, no API key).
@@ -9,6 +9,48 @@ import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './type
 export function createClaudeCodeProvider(): PerceptionProvider {
   return {
     name: 'claude-code',
+    async interpretIntent(req: InterpretRequest): Promise<InterpretResponse> {
+      async function* messages(): AsyncGenerator<SDKUserMessage> {
+        yield {
+          type: 'user',
+          parent_tool_use_id: null,
+          message: {
+            role: 'user',
+            content: [
+              {
+                type: 'image',
+                source: { type: 'base64', media_type: 'image/png', data: req.png.toString('base64') },
+              },
+              { type: 'text', text: req.brief },
+            ],
+          },
+        }
+      }
+      const q = query({
+        prompt: messages(),
+        options: {
+          tools: [],
+          maxTurns: 1,
+          persistSession: false,
+          settingSources: [],
+          systemPrompt: req.prompt,
+          env: cleanEnv(),
+          outputFormat: { type: 'json_schema', schema: req.schema },
+        },
+      })
+      let raw: unknown = {}
+      const usage = { input: 0, cacheRead: 0, output: 0 }
+      for await (const msg of q) {
+        if (msg.type === 'result') {
+          if (msg.subtype === 'success' && msg.structured_output) raw = msg.structured_output
+          const u = msg.usage
+          usage.input += (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
+          usage.cacheRead += u.cache_read_input_tokens ?? 0
+          usage.output += u.output_tokens ?? 0
+        }
+      }
+      return { raw, usage }
+    },
     async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<TranscribeResult> {
       if (regions.length === 0) return { texts: {}, usage: { input: 0, cacheRead: 0, output: 0 } }
 

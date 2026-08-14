@@ -14,6 +14,9 @@ export interface Sketch2CodeOptions {
   extensions?: string[]
   /** Hard wall-clock cap per run (ms). Default 12 minutes. */
   runTimeoutMs?: number
+  /** Intent engine: 'model' (multimodal interpretation, default) or 'rules'
+   *  (legacy deterministic classifier). */
+  engine?: 'model' | 'rules'
 }
 
 interface RawStroke {
@@ -29,8 +32,10 @@ export interface RunRequest {
   mode?: 'gesture' | 'design' | 'screenshot'
   /** base64 PNG of the whole browser screen (screenshot mode). */
   screenshot?: string
-  /** Per-ink-node kind corrections from the interpretation preview. */
+  /** Per-ink-node kind corrections from the interpretation preview (rules engine). */
   overrides?: Record<string, string>
+  /** Confirmed raw interpretation (model engine) — re-grounded server-side. */
+  rawInterpretation?: unknown
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -68,6 +73,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const exts = options.extensions ?? DEFAULT_EXTS
   const allowDirty = options.allowDirty ?? false
   const runTimeoutMs = options.runTimeoutMs ?? 12 * 60_000
+  const engine = options.engine ?? 'model'
   let root = process.cwd()
 
   const sse: SseHub = createSseHub()
@@ -119,7 +125,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         })
 
       server.middlewares.use('/@s2c/ping', (_req, res) => {
-        sendJson(res, 200, { ok: true, root, allowDirty, hasPipeline: runHandler !== null })
+        sendJson(res, 200, { ok: true, root, allowDirty, engine, hasPipeline: runHandler !== null })
       })
 
       server.middlewares.use('/@s2c/overlay.js', (_req, res) => {
@@ -165,6 +171,17 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<RunRequest>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
+            if (engine === 'model' && body.mode !== 'screenshot') {
+              const v2 = await m.interpretV2(
+                body.strokes as Parameters<typeof m.interpretV2>[0],
+                body.snapshot,
+              )
+              sendJson(res, 200, {
+                ok: true,
+                v2: { interpretation: v2.interpretation, raw: v2.raw, tokens: v2.tokens },
+              })
+              return
+            }
             const result = m.interpretStrokes(
               body.strokes as Parameters<typeof m.interpretStrokes>[0],
               body.snapshot,
@@ -209,9 +226,23 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const deadline = new Promise<never>((_, rej) =>
               setTimeout(() => rej(new Error(`run exceeded ${runTimeoutMs / 1000}s cap`)), runTimeoutMs),
             )
+            const exec = async () => {
+              if (engine === 'model' && body.rawInterpretation && body.mode !== 'screenshot') {
+                const m = await import('@s2c/pipeline')
+                return m.runV2(
+                  {
+                    strokes: body.strokes as Parameters<typeof m.interpretV2>[0],
+                    snapshot: body.snapshot,
+                    rawInterpretation: body.rawInterpretation as Parameters<typeof m.runV2>[0]['rawInterpretation'],
+                  },
+                  ctx,
+                )
+              }
+              return runHandler!(body, ctx)
+            }
             // Promise.resolve().then() so a synchronously-throwing handler
             // still flows into .catch/.finally
-            Promise.race([Promise.resolve().then(() => runHandler!(body, ctx)), deadline])
+            Promise.race([Promise.resolve().then(exec), deadline])
               .then((result) => sse.send('done', { summary: result.summary, clientId }))
               .catch((err: unknown) =>
                 sse.send('error-event', {

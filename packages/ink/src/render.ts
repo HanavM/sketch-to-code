@@ -10,6 +10,8 @@ export interface RenderOptions {
   maxSize?: number
   /** Draw node-id badges for set-of-mark prompting. */
   labels?: boolean
+  /** Page-element rects drawn as a light wireframe UNDER the ink (context). */
+  underlayRects?: Array<{ x: number; y: number; w: number; h: number }>
   background?: [number, number, number, number]
   ink?: [number, number, number, number]
 }
@@ -113,6 +115,10 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
     const b = bboxOf(s.points)
     box = box ? bboxUnion(box, b) : b
   }
+  // the composite must show the page context, not just the ink's corner
+  for (const r of opts.underlayRects ?? []) {
+    box = box ? bboxUnion(box, r) : { ...r }
+  }
   if (!box) box = { x: 0, y: 0, w: 1, h: 1 }
 
   let scale = Math.min(1, maxSize / Math.max(1, Math.max(box.w, box.h) + pad * 2))
@@ -134,6 +140,17 @@ export function renderScene(scene: InkScene, opts: RenderOptions = {}): Raster {
     y: (y - box.y + effPad) * scale,
   })
   const raster: Raster = { width, height, data, toRaster }
+
+  // page wireframe first, so ink draws over it
+  const gray: [number, number, number, number] = [203, 208, 216, 255]
+  for (const r of opts.underlayRects ?? []) {
+    const a = toRaster(r.x, r.y)
+    const c = toRaster(r.x + r.w, r.y + r.h)
+    drawLine(raster, a.x, a.y, c.x, a.y, 0.55, gray)
+    drawLine(raster, c.x, a.y, c.x, c.y, 0.55, gray)
+    drawLine(raster, c.x, c.y, a.x, c.y, 0.55, gray)
+    drawLine(raster, a.x, c.y, a.x, a.y, 0.55, gray)
+  }
 
   // sub-pixel brushes can miss every pixel center on downscaled sketches
   const effBrush = Math.max(0.9, brush * scale)

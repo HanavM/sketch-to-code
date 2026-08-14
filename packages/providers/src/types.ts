@@ -22,10 +22,28 @@ export interface TranscribeResult {
  * handwriting, and (optionally) break ties geometry can't. It is never asked
  * where anything is.
  */
+export interface InterpretRequest {
+  /** Composite evidence image (ink over page wireframe). */
+  png: Buffer
+  /** Evidence JSON (strokes, element menu, hints). */
+  brief: string
+  /** System-style instruction for the interpretation task. */
+  prompt: string
+  /** JSON schema the answer must satisfy. */
+  schema: Record<string, unknown>
+}
+
+export interface InterpretResponse {
+  raw: unknown
+  usage: TokenUsage
+}
+
 export interface PerceptionProvider {
   name: string
   /** Transcribe each labeled handwriting region in the PNG. */
   transcribe(png: Buffer, regions: TextRegionRef[]): Promise<TranscribeResult>
+  /** One-shot multimodal intent interpretation (structured output). */
+  interpretIntent(req: InterpretRequest): Promise<InterpretResponse>
 }
 
 export const ZERO_USAGE: TokenUsage = { input: 0, cacheRead: 0, output: 0 }

@@ -15,6 +15,21 @@ interface PreviewShape {
   candidates: Array<{ kind: string; confidence: number }>
   bbox: { x: number; y: number; w: number; h: number }
 }
+interface V2Target { rect: { x: number; y: number; w: number; h: number }; tag: string; text: string }
+interface V2Action {
+  kind: string
+  targets: V2Target[]
+  dest?: V2Target
+  region?: { x: number; y: number; w: number; h: number }
+  instruction: string
+  needsConfirm: boolean
+}
+interface V2Preview {
+  interpretation: { reading: string; unclear?: string; actions: V2Action[]; rejected: string[] }
+  raw: unknown
+  tokens: { input: number; cacheRead: number; output: number }
+}
+
 interface PreviewData {
   shapes: PreviewShape[]
   textRegions: Array<{ id: string; bbox: { x: number; y: number; w: number; h: number } }>
@@ -86,6 +101,7 @@ class Overlay {
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
+  private v2: V2Preview | null = null
   private overrides: Record<string, string> = {}
   private chipBoxes: Array<{ x: number; y: number; w: number; h: number; shapeId: string }> = []
   private live: Stroke | null = null
@@ -281,7 +297,56 @@ class Overlay {
     this.redraw()
   }
 
+  private drawV2Preview() {
+    if (!this.v2) return
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    ctx.save()
+    ctx.font = '12px ui-sans-serif, system-ui'
+    const COLORS: Record<string, string> = {
+      delete: '#dc2626', modify: '#d97706', move: '#2563eb',
+      swap: '#7c3aed', add: '#059669', design: '#059669',
+    }
+    for (const a of this.v2.interpretation.actions) {
+      const color = COLORS[a.kind] ?? '#374151'
+      ctx.strokeStyle = color
+      ctx.fillStyle = color
+      ctx.lineWidth = a.needsConfirm ? 3 : 2
+      for (const t of a.targets) {
+        ctx.strokeRect(t.rect.x - sx, t.rect.y - sy, t.rect.w, t.rect.h)
+        ctx.fillText(`${a.needsConfirm ? '⚠ ' : ''}${a.kind.toUpperCase()}`, t.rect.x - sx + 4, t.rect.y - sy + 14)
+      }
+      if (a.kind === 'swap' && a.targets.length === 2) {
+        const p = a.targets[0]!
+        const q = a.targets[1]!
+        ctx.beginPath()
+        ctx.moveTo(p.rect.x - sx + p.rect.w / 2, p.rect.y - sy + p.rect.h / 2)
+        ctx.lineTo(q.rect.x - sx + q.rect.w / 2, q.rect.y - sy + q.rect.h / 2)
+        ctx.stroke()
+      }
+      if (a.kind === 'move' && a.dest && a.targets[0]) {
+        const p = a.targets[0]
+        ctx.beginPath()
+        ctx.setLineDash([6, 4])
+        ctx.moveTo(p.rect.x - sx + p.rect.w / 2, p.rect.y - sy + p.rect.h / 2)
+        ctx.lineTo(a.dest.rect.x - sx + a.dest.rect.w / 2, a.dest.rect.y - sy + a.dest.rect.h / 2)
+        ctx.stroke()
+        ctx.setLineDash([])
+        ctx.strokeRect(a.dest.rect.x - sx, a.dest.rect.y - sy, a.dest.rect.w, a.dest.rect.h)
+      }
+      if ((a.kind === 'design' || a.kind === 'add') && a.region) {
+        ctx.setLineDash([8, 5])
+        ctx.strokeRect(a.region.x - sx, a.region.y - sy, a.region.w, a.region.h)
+        ctx.setLineDash([])
+        ctx.fillText(`${a.kind.toUpperCase()}: ${a.instruction.slice(0, 60)}`, a.region.x - sx + 4, a.region.y - sy - 6)
+      }
+    }
+    ctx.restore()
+  }
+
   private drawPreview() {
+    if (this.v2) return this.drawV2Preview()
     if (!this.preview) return
     const { ctx } = this
     const sx = window.scrollX
@@ -429,18 +494,44 @@ class Overlay {
   private async run() {
     if (this.strokes.length === 0) return
     if (this.runMode === 'screenshot') return void this.proceed()
+    this.status('reading your drawing…')
     try {
       const res = await fetch('/@s2c/interpret', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({ strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode }),
       })
-      const body = (await res.json()) as { ok: boolean; error?: string; result?: PreviewData }
-      if (!res.ok || !body.ok || !body.result) throw new Error(body.error ?? `HTTP ${res.status}`)
-      this.preview = body.result
+      const body = (await res.json()) as {
+        ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview
+      }
+      if (!res.ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${res.status}`)
       this.overrides = {}
+      if (body.v2) {
+        const it = body.v2.interpretation
+        if (it.actions.length === 0) {
+          this.status(
+            `couldn't turn that into actions${it.rejected.length ? ` (${it.rejected[0]})` : ''} — redraw or rephrase`,
+            true,
+          )
+          return
+        }
+        this.v2 = body.v2
+        this.preview = null
+        this.setMode('preview')
+        const needs = it.actions.filter((a) => a.needsConfirm).length
+        this.status(
+          `"${it.reading}"` +
+            (it.unclear ? ` · ⚠ ${it.unclear}` : '') +
+            (needs ? ` · ⚠ wide delete` : '') +
+            ' · ✓ Go / ✗ Cancel',
+        )
+        this.redraw()
+        return
+      }
+      this.preview = body.result!
+      this.v2 = null
       this.setMode('preview')
-      const p = body.result
+      const p = body.result!
       const needs = p.ops.filter((o) => o.needsConfirm).length
       this.status(
         p.escalatesToDesign
@@ -456,6 +547,7 @@ class Overlay {
 
   private exitPreview(msg: string) {
     this.preview = null
+    this.v2 = null
     this.overrides = {}
     this.setMode('draw')
     this.status(msg)
@@ -483,11 +575,13 @@ class Overlay {
           mode: this.runMode,
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
+          rawInterpretation: this.v2?.raw,
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
       this.preview = null
+      this.v2 = null
       this.redraw()
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {

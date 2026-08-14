@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { AzureOpenAI } from 'openai'
-import type { PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
+import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
 /**
  * Azure config resolution: process env wins; otherwise ~/.sketch2code/azure.env
@@ -42,9 +42,44 @@ export function createAzureProvider(rawEnv = process.env): PerceptionProvider {
     deployment: env.AZURE_OPENAI_DEPLOYMENT!,
   })
   const deployment = env.AZURE_OPENAI_DEPLOYMENT!
+  const interpretDeployment = env.AZURE_OPENAI_INTERPRET_DEPLOYMENT ?? deployment
 
   return {
     name: `azure:${deployment}`,
+    async interpretIntent(req: InterpretRequest): Promise<InterpretResponse> {
+      const res = await client.chat.completions.create({
+        model: interpretDeployment,
+        max_completion_tokens: 2000,
+        messages: [
+          { role: 'system', content: req.prompt },
+          {
+            role: 'user',
+            content: [
+              {
+                type: 'image_url',
+                image_url: { url: `data:image/png;base64,${req.png.toString('base64')}` },
+              },
+              { type: 'text', text: req.brief },
+            ],
+          },
+        ],
+        response_format: {
+          type: 'json_schema',
+          json_schema: { name: 'interpretation', strict: true, schema: req.schema },
+        },
+      })
+      const raw = JSON.parse(res.choices[0]?.message?.content ?? '{}') as unknown
+      return {
+        raw,
+        usage: {
+          input:
+            (res.usage?.prompt_tokens ?? 0) -
+            (res.usage?.prompt_tokens_details?.cached_tokens ?? 0),
+          cacheRead: res.usage?.prompt_tokens_details?.cached_tokens ?? 0,
+          output: res.usage?.completion_tokens ?? 0,
+        },
+      }
+    },
     async transcribe(png: Buffer, regions: TextRegionRef[]): Promise<TranscribeResult> {
       if (regions.length === 0) return { texts: {}, usage: { input: 0, cacheRead: 0, output: 0 } }
       const schema = {

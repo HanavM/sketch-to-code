@@ -112,6 +112,7 @@ export function createCodegenSession(
   appRoot: string,
   mode: RunMode,
   ev: CodegenEvents,
+  contractOverride?: string,
 ): CodegenSession {
   const inputQueue: SDKUserMessage[] = []
   let notify: (() => void) | null = null
@@ -140,7 +141,7 @@ export function createCodegenSession(
       allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
       disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task'],
       settingSources: [],
-      systemPrompt: { type: 'preset', preset: 'claude_code', append: contractFor(mode) },
+      systemPrompt: { type: 'preset', preset: 'claude_code', append: contractOverride ?? contractFor(mode) },
       persistSession: false,
       maxTurns: 40,
       env: cleanEnv(),

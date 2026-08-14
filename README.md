@@ -107,6 +107,25 @@ node tests/e2e/live-add.mjs           # box + handwritten "cancel" → ADD
 
 All three live flows pass as of 2026-08-06 (real model, real edits, DOM-verified).
 
+## v2: model-led intent (2026-08-14)
+
+The deterministic gesture classifier proved brittle on real drawing (multi-
+stroke shapes fragmented; composite gestures like swap-arrows misfired), so
+intent is now read by a multimodal model over an evidence pack the pipeline
+owns: the whole drawing rendered over a gray page wireframe, plus exact
+per-stroke features (touched elements, direction reversals, confinement) and
+the element menu (id/tag/text/rect/srcLoc). The model answers in ids only —
+every coordinate is still computed deterministically from the ids it cites,
+validated, and gated by the plain-words preview ("swap the Revenue and
+Conversion cards" · ✓ Go / ✗ Cancel). Interpretation defaults to your Claude
+Code (override: S2C_INTERPRETER=azure). The v1 rules engine remains at
+sketch2code({ engine: 'rules' }).
+
+Live results (2026-08-14): two arrows → one swap, nothing deleted;
+a ribbon drawn in 4 strokes → ONE background decoration; card-confined
+zigzag → delete of exactly that card. Interpretation costs ~3-4k in /
+~100-300 out tokens per run on top of codegen.
+
 ## Benchmark: structure vs pixels (2026-08-12, same scribble-to-delete task)
 
 | mode | interpretation | tokens |
