@@ -52,6 +52,14 @@ interface TweakState {
   direction: 'row' | 'column'
   zones: TweakZone[]
   drag: { zone: TweakZone; startX: number; startY: number; startValue: number } | null
+  /** reorder drag: the child follows the hand, detents into sibling slots */
+  childDrag: {
+    child: HTMLElement
+    fromIndex: number
+    proposedIndex: number
+    startX: number
+    startY: number
+  } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
 }
@@ -520,7 +528,7 @@ class Overlay {
       if (kind === 'pr') zones.push({ x: rect.right - grab, y: rect.top, w: grab, h: rect.height, kind })
     }
 
-    return { el, rect, display: cs.display, direction, zones, drag: null, preview: {} }
+    return { el, rect, display: cs.display, direction, zones, drag: null, childDrag: null, preview: {} }
   }
 
   private onTweakDown(e: PointerEvent) {
@@ -541,6 +549,27 @@ class Overlay {
               )) || 0
         t.drag = { zone, startX: e.clientX, startY: e.clientY, startValue }
         this.canvas.setPointerCapture(e.pointerId)
+        return
+      }
+    }
+    // a child of the current selection? start a reorder drag (quantized:
+    // the element follows the hand, then detents into legal slots)
+    if (t && (t.display === 'flex' || t.display === 'grid')) {
+      const kids = [...t.el.children] as HTMLElement[]
+      const idx = kids.findIndex((k) => {
+        const r = k.getBoundingClientRect()
+        return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom
+      })
+      if (idx >= 0) {
+        t.childDrag = {
+          child: kids[idx]!, fromIndex: idx, proposedIndex: idx,
+          startX: e.clientX, startY: e.clientY,
+        }
+        kids[idx]!.style.transition = 'none'
+        kids[idx]!.style.zIndex = '50'
+        kids[idx]!.style.position = 'relative'
+        this.canvas.setPointerCapture(e.pointerId)
+        this.status(`dragging child ${idx + 1} — release on a slot to reorder`)
         return
       }
     }
@@ -565,6 +594,39 @@ class Overlay {
       const el = this.pickTweakTarget(e.clientX, e.clientY)
       this.tweakHover = el ? el.getBoundingClientRect() : null
       this.canvas.style.cursor = el ? 'pointer' : 'default'
+      this.redraw()
+      return
+    }
+    if (t.childDrag) {
+      const cd = t.childDrag
+      const dx = e.clientX - cd.startX
+      const dy = e.clientY - cd.startY
+      cd.child.style.transform = `translate(${dx}px, ${dy}px)`
+      // detent: nearest OTHER sibling's center (the dragged child follows the
+      // cursor, so it must be excluded or it always wins). Landing on sibling
+      // j means "take j's place" — j is the final index for both directions.
+      const kids = [...t.el.children] as HTMLElement[]
+      let best = cd.fromIndex
+      let bestD = Infinity
+      kids.forEach((k, i) => {
+        if (i === cd.fromIndex) return
+        const r = k.getBoundingClientRect()
+        const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2))
+        if (d < bestD) { bestD = d; best = i }
+      })
+      // near the original slot? treat as unchanged (dead zone = half a sibling)
+      const selfR = kids[cd.fromIndex]!.getBoundingClientRect()
+      const origX = selfR.left + selfR.width / 2 - (e.clientX - cd.startX)
+      const origY = selfR.top + selfR.height / 2 - (e.clientY - cd.startY)
+      if (Math.hypot(e.clientX - origX, e.clientY - origY) < Math.min(selfR.width, selfR.height) / 2) {
+        best = cd.fromIndex
+      }
+      cd.proposedIndex = best
+      this.status(
+        best === cd.fromIndex
+          ? `position ${best + 1} (unchanged) — release to cancel`
+          : `→ position ${best + 1} — release to commit reorder`,
+      )
       this.redraw()
       return
     }
@@ -606,6 +668,42 @@ class Overlay {
 
   private async onTweakUp(e: PointerEvent) {
     const t = this.tweak
+    if (t?.childDrag) {
+      const cd = t.childDrag
+      t.childDrag = null
+      this.canvas.releasePointerCapture?.(e.pointerId)
+      cd.child.style.transform = ''
+      cd.child.style.zIndex = ''
+      cd.child.style.position = ''
+      cd.child.style.transition = ''
+      if (cd.proposedIndex === cd.fromIndex) {
+        this.status('reorder cancelled (same position)')
+        return
+      }
+      const srcLoc = t.el.dataset.s2c
+      if (!srcLoc) return
+      this.status('committing reorder…')
+      try {
+        const res = await fetch('/@s2c/manipulate', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+          body: JSON.stringify({ srcLoc, prop: 'reorder', from: cd.fromIndex, to: cd.proposedIndex }),
+        })
+        const body = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+        if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
+        this.status(`✓ ${body.change} in ${body.file} · 0 tokens · revert: git restore --source=${(body.checkpoint ?? '').slice(0, 10)}`)
+        const el = t.el
+        setTimeout(() => {
+          if (this.mode === 'tweak' && document.contains(el)) {
+            this.tweak = this.buildTweakState(el)
+            this.redraw()
+          }
+        }, 500)
+      } catch (err) {
+        this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      }
+      return
+    }
     if (!t || !t.drag) return
     const { zone } = t.drag
     const px = t.preview[zone.kind]

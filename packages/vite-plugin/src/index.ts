@@ -170,7 +170,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       server.middlewares.use('/@s2c/manipulate', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
-        readJsonBody<{ srcLoc: string; prop: string; px: number }>(req)
+        readJsonBody<{ srcLoc: string; prop: string; px?: number; from?: number; to?: number }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
             const cp = m.checkpoint(root, allowDirty)
@@ -178,6 +178,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               srcLoc: body.srcLoc,
               prop: body.prop as Parameters<typeof m.applyManipulation>[1]['prop'],
               px: body.px,
+              from: body.from,
+              to: body.to,
             })
             sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
           })

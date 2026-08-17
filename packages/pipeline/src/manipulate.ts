@@ -24,9 +24,12 @@ export type ManipulateProp = 'gap' | 'p' | 'pt' | 'pr' | 'pb' | 'pl'
 export interface ManipulateRequest {
   /** From the live element's data-s2c at commit time: "src/File.tsx:LINE:COL". */
   srcLoc: string
-  prop: ManipulateProp
-  /** Target value in CSS pixels (already what the user saw in preview). */
-  px: number
+  prop: ManipulateProp | 'reorder'
+  /** Target value in CSS pixels (spacing ops). */
+  px?: number
+  /** Reorder: child indices in DOM order. */
+  from?: number
+  to?: number
 }
 
 export interface ManipulateResult {
@@ -124,21 +127,27 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
   }
 
   let target: t.JSXOpeningElement | null = null
+  let targetParent: t.JSXElement | null = null
   traverse(ast, {
     JSXOpeningElement(path) {
       const loc = path.node.loc
       if (loc && loc.start.line === line && loc.start.column + 1 === col) {
         target = path.node
+        targetParent = path.parent as t.JSXElement
       }
     },
   })
   if (!target) return { ok: false, error: `no JSX element at ${rel}:${line}:${col} (stale stamp?)` }
 
+  if (req.prop === 'reorder') {
+    return applyReorder(code, file, rel!, targetParent, req.from ?? 0, req.to ?? 0)
+  }
+
   const attr = (target as t.JSXOpeningElement).attributes.find(
     (a): a is t.JSXAttribute =>
       a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.name.name === 'className',
   )
-  const { suffix } = snapSpacing(req.px)
+  const { suffix } = snapSpacing(req.px ?? 0)
 
   if (!attr) {
     // element has no className: insert one right after the tag name
@@ -184,4 +193,102 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
 
 export function manipulateRunDir(root: string): string {
   return join(root, '.sketch2code', 'manipulations.log')
+}
+
+
+/** Move a range-list element from→to, preserving the original separators. */
+function reorderRanges(
+  code: string,
+  ranges: Array<{ start: number; end: number }>,
+  from: number,
+  to: number,
+): string {
+  const seps: string[] = []
+  for (let i = 0; i < ranges.length - 1; i++) seps.push(code.slice(ranges[i]!.end, ranges[i + 1]!.start))
+  const parts = ranges.map((r) => code.slice(r.start, r.end))
+  const moved = parts.splice(from, 1)[0]!
+  parts.splice(to, 0, moved)
+  let out = ''
+  for (let i = 0; i < parts.length; i++) out += parts[i]! + (i < seps.length ? seps[i]! : '')
+  return code.slice(0, ranges[0]!.start) + out + code.slice(ranges[ranges.length - 1]!.end)
+}
+
+/**
+ * Reorder a container's children — the structural edit a drag detents into.
+ * Two honest cases:
+ *  (a) static JSX children → reorder the JSX nodes
+ *  (b) a single {ARRAY.map(...)} child with a same-file array literal →
+ *      reorder the DATA (DOM index maps 1:1 to array index)
+ * Anything else is refused with a pointer to the ink path.
+ */
+function applyReorder(
+  code: string,
+  file: string,
+  rel: string,
+  parent: t.JSXElement | null,
+  from: number,
+  to: number,
+): ManipulateResult {
+  if (!parent || parent.type !== 'JSXElement') return { ok: false, error: 'container has no JSX body' }
+  if (from === to) return { ok: true, file: rel, change: 'no change' }
+
+  const jsxKids = parent.children.filter(
+    (c): c is t.JSXElement => c.type === 'JSXElement',
+  )
+  if (jsxKids.length > Math.max(from, to)) {
+    const ranges = jsxKids.map((k) => ({ start: k.start!, end: k.end! }))
+    writeFileSync(file, reorderRanges(code, ranges, from, to))
+    return { ok: true, file: rel, change: `moved child ${from + 1} → position ${to + 1}` }
+  }
+
+  // .map() case: find {X.map(...)} and reorder X's array literal
+  const exprKids = parent.children.filter((c) => c.type === 'JSXExpressionContainer')
+  for (const ek of exprKids) {
+    const expr = (ek as t.JSXExpressionContainer).expression
+    if (
+      expr.type === 'CallExpression' &&
+      expr.callee.type === 'MemberExpression' &&
+      expr.callee.property.type === 'Identifier' &&
+      expr.callee.property.name === 'map' &&
+      expr.callee.object.type === 'Identifier'
+    ) {
+      const arrName = expr.callee.object.name
+      // find `const arrName = [ ... ]` at top level of the same file
+      const re = new RegExp(`(?:const|let|var)\\s+${arrName}\\s*(?::[^=]+)?=`, 'g')
+      const m2 = re.exec(code)
+      if (!m2) return { ok: false, error: `'${arrName}' is not a same-file array — use the ink path` }
+      // parse again to find the ArrayExpression precisely
+      const ast2 = parse(code, { sourceType: 'module', plugins: ['jsx', 'typescript'], errorRecovery: true })
+      let arr: t.ArrayExpression | null = null
+      const walk = (node: unknown): void => {
+        if (!node || typeof node !== 'object') return
+        const n = node as { type?: string; id?: t.Node; init?: t.Node } & Record<string, unknown>
+        if (
+          n.type === 'VariableDeclarator' &&
+          (n.id as t.Identifier | undefined)?.type === 'Identifier' &&
+          (n.id as t.Identifier).name === arrName &&
+          (n.init as t.Node | undefined)?.type === 'ArrayExpression'
+        ) {
+          arr = n.init as t.ArrayExpression
+          return
+        }
+        for (const k of Object.keys(n)) {
+          const v = n[k]
+          if (Array.isArray(v)) v.forEach(walk)
+          else if (v && typeof v === 'object' && (v as { type?: string }).type) walk(v)
+        }
+      }
+      walk((ast2 as unknown as { program: t.Node }).program)
+      if (!arr) return { ok: false, error: `'${arrName}' array literal not found — use the ink path` }
+      const els = (arr as t.ArrayExpression).elements.filter((e): e is t.Expression => e !== null)
+      if (els.length <= Math.max(from, to)) return { ok: false, error: 'index out of range for data array' }
+      const ranges = els.map((e) => ({ start: e.start!, end: e.end! }))
+      writeFileSync(file, reorderRanges(code, ranges, from, to))
+      return {
+        ok: true, file: rel,
+        change: `moved '${arrName}' entry ${from + 1} → position ${to + 1} (renders in that order)`,
+      }
+    }
+  }
+  return { ok: false, error: 'children are dynamic — use the ink path for this reorder' }
 }

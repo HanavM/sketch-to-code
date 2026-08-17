@@ -81,3 +81,68 @@ describe('applyManipulation', () => {
     expect(res.ok).toBe(false)
   })
 })
+
+describe('applyManipulation reorder', () => {
+  it('reorders static JSX children preserving separators', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-reord-'))
+    mkdirSync(join(root, 'src'))
+    const code = `const R = () => (
+  <div className="flex">
+    <a>one</a>
+    <b>two</b>
+    <c>three</c>
+  </div>
+)
+`
+    writeFileSync(join(root, 'src/R.tsx'), code)
+    const res = applyManipulation(root, { srcLoc: 'src/R.tsx:2:3', prop: 'reorder', from: 0, to: 2 })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/R.tsx'), 'utf8')
+    expect(after.indexOf('<b>')).toBeLessThan(after.indexOf('<c>'))
+    expect(after.indexOf('<c>')).toBeLessThan(after.indexOf('<a>'))
+    expect(after.split('\n').length).toBe(code.split('\n').length) // formatting preserved
+  })
+
+  it('reorders the data array behind a .map (the demo StatCards case)', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-reord-'))
+    mkdirSync(join(root, 'src'))
+    const code = `const stats = [
+  { label: 'Revenue' },
+  { label: 'Users' },
+  { label: 'Conversion' },
+]
+export default function S() {
+  return (
+    <section className="grid">
+      {stats.map((s) => (
+        <div key={s.label}>{s.label}</div>
+      ))}
+    </section>
+  )
+}
+`
+    writeFileSync(join(root, 'src/S.tsx'), code)
+    const res = applyManipulation(root, { srcLoc: 'src/S.tsx:8:5', prop: 'reorder', from: 0, to: 2 })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain("'stats' entry 1 → position 3")
+    const after = readFileSync(join(root, 'src/S.tsx'), 'utf8')
+    const order = ['Users', 'Conversion', 'Revenue'].map((l) => after.indexOf(`'${l}'`))
+    expect(order[0]).toBeLessThan(order[1]!)
+    expect(order[1]).toBeLessThan(order[2]!)
+  })
+
+  it('refuses dynamic children honestly', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-reord-'))
+    mkdirSync(join(root, 'src'))
+    const lines = [
+      'const T = ({ items }) => (',
+      '  <ul className="flex">{items.map((i) => <li key={i}>{i}</li>)}</ul>',
+      ')',
+      '',
+    ]
+    writeFileSync(join(root, 'src/T.tsx'), lines.join('\n'))
+    const res = applyManipulation(root, { srcLoc: 'src/T.tsx:2:3', prop: 'reorder', from: 0, to: 1 })
+    expect(res.ok).toBe(false)
+    expect(res.error).toContain('ink path')
+  })
+})
