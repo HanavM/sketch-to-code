@@ -26,7 +26,7 @@ const avatarColor = ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700',
 
 export default function WeeklySchedule() {
   return (
-    <section className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <section className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm pt-6 -mt-5">
       <h2 className="text-base font-semibold text-gray-900">Weekly Schedule</h2>
       <div className="mt-4 space-y-4">
         {schedule.map((s) => (

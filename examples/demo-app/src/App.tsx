@@ -2,6 +2,7 @@ import BackgroundFlourish from './components/BackgroundFlourish'
 import BrowserChrome from './components/BrowserChrome'
 import ChevronTrail from './components/ChevronTrail'
 import CornerBadge from './components/CornerBadge'
+import CrabDoodle from './components/CrabDoodle'
 import Navbar from './components/Navbar'
 import StatCards from './components/StatCards'
 import ContactForm from './components/ContactForm'
@@ -24,6 +25,7 @@ export default function App() {
               <UserTable />
             </div>
             <CornerBadge />
+            <CrabDoodle />
           </div>
         </BrowserChrome>
       </main>

@@ -428,7 +428,7 @@ export function groundInterpretation(
         const b = bboxOf(s.points)
         region = region ? bboxUnion(region, b) : b
       }
-      if ((a.kind === 'design' || a.kind === 'add') && a.fidelity !== 'recognized') {
+      if (a.kind === 'design' || a.kind === 'add') {
         for (const s of citedStrokes) {
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
           if (fit) svgPaths.push({ strokeId: s.id, d: fit.d })

@@ -5,7 +5,7 @@
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { Stroke } from '@s2c/ink'
+import { encodePng, renderScene, type Stroke } from '@s2c/ink'
 import type { DomSnapshot } from '@s2c/dom'
 import type { EditOp } from '@s2c/intent'
 import {
@@ -136,7 +136,22 @@ export async function runV2(
       `Implement every action now.`
     writeFileSync(join(runDir, 'prompt.txt'), brief)
     stage('codegen', 'Claude Code editing source')
-    let reply = await session.send({ text: brief, images: [ev.png.toString('base64')] })
+    // recognized depictions: attach a clean native-scale crop of just those
+    // strokes so the agent can match the sketch's composition
+    const images = [ev.png.toString('base64')]
+    for (const a of interp.actions) {
+      if (a.fidelity !== 'recognized' || !a.svgPaths?.length) continue
+      const ids = new Set(a.svgPaths.map((sp) => sp.strokeId))
+      const subset = input.strokes.filter((st) => ids.has(st.id))
+      if (!subset.length) continue
+      const crop = renderScene(
+        { strokes: subset, groups: [], nodes: [], textRegions: [], arrows: [] },
+        { labels: false, maxSize: 480, brush: 2.5 },
+      )
+      images.push(encodePng(crop).toString('base64'))
+      if (images.length >= 4) break
+    }
+    let reply = await session.send({ text: brief, images })
     writeFileSync(join(runDir, 'reply-1.txt'), reply)
 
     for (let round = 1; round <= 3; round++) {

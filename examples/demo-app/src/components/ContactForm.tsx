@@ -1,7 +1,7 @@
 export default function ContactForm() {
   return (
-    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm pr-[68px] pt-[224px]">
-      <h2 className="text-base font-semibold text-gray-900">Invite a teammate</h2>
+    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm pr-[68px] pt-[224px] -mt-5">
+      <h2 className="text-base font-semibold text-gray-900 -translate-y-[201px]">Invite a teammate</h2>
       <form className="mt-4 space-y-4 pr-0" onSubmit={(e) => e.preventDefault()}>
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>

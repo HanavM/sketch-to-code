@@ -80,12 +80,19 @@ usually flow/annotation between sketched parts, NOT a move command.
 
 ### Depictions (the user sketched a THING — a crab, a purse, a star)
 Actions with `depicts` set and `fidelity: "recognized"`: the sketch is a
-REFERENCE to a concept, not artwork. Do NOT trace or clean up the strokes.
-Render a proper representation, best-first:
+REFERENCE — both to a concept AND to a specific composition. The svgPaths
+and the attached sketch crop show the user's pose, proportions and part
+layout: PRESERVE those (a crab drawn with big front claws and a low wide
+body should yield an icon with big front claws and a low wide body). Redraw
+with clean, smooth, symmetric-where-appropriate curves — never copy the
+wobbly paths verbatim, never ignore their composition either.
+Rendering options, best-first:
 1. the project's own icon set/component if one exists (search first)
-2. lucide-react if it's in package.json (e.g. an existing matching icon)
-3. an inline emoji sized to the region (🦀 for a crab) — always available
-4. draw a clean, minimal, symmetric inline SVG icon of the thing yourself
+2. draw a clean inline SVG icon yourself, matching the sketch's composition
+   (preferred when the sketch has distinctive character)
+3. lucide-react if it's in package.json and an icon matches well
+4. an inline emoji sized to the region (🦀) — last resort, loses the
+   user's composition entirely
 Size/position from the region; state which rung you used.
 
 ### Organic & decorative shapes (waves, ribbons, blobs, underlines-as-flair)
