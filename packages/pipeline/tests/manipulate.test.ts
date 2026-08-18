@@ -169,14 +169,16 @@ describe('synthesizeMove ladder', () => {
     expect(synthesizeMove(20, 1, true)).toEqual({
       edits: [{ prop: 'ml', suffix: '5', negative: false }], cosmetic: false,
     })
-    expect(synthesizeMove(-20, 0, true)).toEqual({
-      edits: [{ prop: 'mr', suffix: '5', negative: false }], cosmetic: false,
-    })
     expect(synthesizeMove(2, 24, true)).toEqual({
       edits: [{ prop: 'mt', suffix: '6', negative: false }], cosmetic: false,
     })
+  })
+  it('rung (b): leftward/upward nudges use NEGATIVE leading margins (mr/mb would not move the element)', () => {
+    expect(synthesizeMove(-20, 0, true)).toEqual({
+      edits: [{ prop: 'ml', suffix: '5', negative: true }], cosmetic: false,
+    })
     expect(synthesizeMove(0, -16, true)).toEqual({
-      edits: [{ prop: 'mb', suffix: '4', negative: false }], cosmetic: false,
+      edits: [{ prop: 'mt', suffix: '4', negative: true }], cosmetic: false,
     })
   })
   it('rung (c): diagonal moves fall to translate — the gesture never fails', () => {

@@ -139,7 +139,10 @@ const MOVE_MARGIN_MAX = 64
 /**
  * Move ladder, rungs (b) and (c) — rung (a), sibling-slot reorder, is decided
  * client-side where the DOM geometry lives and arrives as prop:'reorder'.
- *  (b) small, axis-aligned, in flow → one margin utility (ml/mr/mt/mb)
+ *  (b) small, axis-aligned, in flow → one LEADING-edge margin utility
+ *      (ml/mt, negative for leftward/upward). Only leading margins move the
+ *      element itself in LTR flow — mr/mb would push its siblings instead,
+ *      leaving the dragged element exactly where it was.
  *  (c) anything else → translate-x/-y — the escape hatch that always works,
  *      flagged "(cosmetic transform)" in the receipt.
  * Returns null when the displacement is too small to mean anything.
@@ -155,9 +158,9 @@ export function synthesizeMove(
   const axisAligned = (ax >= MOVE_MIN && ay < MOVE_AXIS_EPS) || (ay >= MOVE_MIN && ax < MOVE_AXIS_EPS)
   if (inFlow && axisAligned && Math.max(ax, ay) <= MOVE_MARGIN_MAX) {
     if (ax >= ay) {
-      return { edits: [{ prop: dx > 0 ? 'ml' : 'mr', suffix: snapSpacing(ax).suffix, negative: false }], cosmetic: false }
+      return { edits: [{ prop: 'ml', suffix: snapSpacing(ax).suffix, negative: dx < 0 }], cosmetic: false }
     }
-    return { edits: [{ prop: dy > 0 ? 'mt' : 'mb', suffix: snapSpacing(ay).suffix, negative: false }], cosmetic: false }
+    return { edits: [{ prop: 'mt', suffix: snapSpacing(ay).suffix, negative: dy < 0 }], cosmetic: false }
   }
   const edits: ClassEdit[] = []
   if (ax >= MOVE_MIN) edits.push({ prop: 'translate-x', suffix: snapSpacing(ax).suffix, negative: dx < 0 })

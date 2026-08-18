@@ -88,6 +88,8 @@ interface TweakState {
     fromIndex: number
     /** sibling slot the cursor is currently inside; -1 = none */
     proposedIndex: number
+    /** element's own CSS transform at drag start ('' if none) — preserved */
+    baseTransform: string
   } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
@@ -609,17 +611,27 @@ class Overlay {
     return { left: r.left, top: r.top, width: r.width, height: r.height }
   }
 
-  /** The 8 Canva handles: corners + edge midpoints, viewport coords. */
+  /**
+   * The 8 Canva handles: corners + edge midpoints, viewport coords. On small
+   * elements the midpoints are dropped so the handle hit-boxes don't tile the
+   * whole rect and swallow body drags / drill-down clicks.
+   */
   private handlePoints(r: SelRect): Array<{ kind: HandleKind; x: number; y: number }> {
     const cx = r.left + r.width / 2
     const cy = r.top + r.height / 2
     const rt = r.left + r.width
     const bt = r.top + r.height
-    return [
-      { kind: 'nw', x: r.left, y: r.top }, { kind: 'n', x: cx, y: r.top }, { kind: 'ne', x: rt, y: r.top },
-      { kind: 'e', x: rt, y: cy }, { kind: 'se', x: rt, y: bt }, { kind: 's', x: cx, y: bt },
-      { kind: 'sw', x: r.left, y: bt }, { kind: 'w', x: r.left, y: cy },
+    const pts: Array<{ kind: HandleKind; x: number; y: number }> = [
+      { kind: 'nw', x: r.left, y: r.top }, { kind: 'ne', x: rt, y: r.top },
+      { kind: 'se', x: rt, y: bt }, { kind: 'sw', x: r.left, y: bt },
     ]
+    if (Math.min(r.width, r.height) >= HANDLE_HIT * 4) {
+      pts.push(
+        { kind: 'n', x: cx, y: r.top }, { kind: 'e', x: rt, y: cy },
+        { kind: 's', x: cx, y: bt }, { kind: 'w', x: r.left, y: cy },
+      )
+    }
+    return pts
   }
 
   private hitHandle(r: SelRect, x: number, y: number): { kind: HandleKind; x: number; y: number } | undefined {
@@ -664,6 +676,7 @@ class Overlay {
         parentSrcLoc = parent.dataset.s2c ?? null
       }
     }
+    const baseTransform = getComputedStyle(t.el).transform
     t.moveDrag = {
       startX: e.clientX,
       startY: e.clientY,
@@ -674,6 +687,7 @@ class Overlay {
       parentSrcLoc,
       fromIndex,
       proposedIndex: -1,
+      baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
     }
     t.el.style.willChange = 'transform'
     this.canvas.setPointerCapture(e.pointerId)
@@ -686,7 +700,7 @@ class Overlay {
     if (ax < 3 && ay < 3) return 'release to keep in place'
     const aligned = (ax >= 3 && ay < 6) || (ay >= 3 && ax < 6)
     if (inFlow && aligned && Math.max(ax, ay) <= 64) {
-      const prop = ax >= ay ? (dx > 0 ? 'ml' : 'mr') : (dy > 0 ? 'mt' : 'mb')
+      const prop = ax >= ay ? (dx > 0 ? 'ml' : '-ml') : (dy > 0 ? 'mt' : '-mt')
       return `${prop} ≈${Math.max(ax, ay)}px — release to nudge with margin`
     }
     return `translate ${Math.round(dx)}, ${Math.round(dy)} — release to commit (cosmetic transform)`
@@ -694,6 +708,12 @@ class Overlay {
 
   private onTweakDown(e: PointerEvent) {
     if (e.button !== 0) return
+    // an external edit's HMR may have remounted the selection: re-resolve via
+    // its stamp instead of hit-testing a detached element's 0×0 phantom rect
+    if (this.tweak && !document.contains(this.tweak.el)) {
+      const next = document.querySelector(`[data-s2c="${this.tweak.srcLoc}"]`) as HTMLElement | null
+      this.tweak = next ? this.buildTweakState(next) : null
+    }
     const t = this.tweak
     if (t) {
       const sr = this.selRect(t)
@@ -750,8 +770,9 @@ class Overlay {
       const md = t.moveDrag
       md.dx = e.clientX - md.startX
       md.dy = e.clientY - md.startY
-      // free move: the element follows the cursor exactly (compositor-only)
-      t.el.style.transform = `translate(${md.dx}px, ${md.dy}px)`
+      // free move: the element follows the cursor exactly (compositor-only);
+      // any transform it already had is preserved underneath
+      t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
       // slot detent: cursor inside another sibling's (cached) rect
       md.proposedIndex = -1
       for (const s of md.siblings) {
@@ -861,12 +882,20 @@ class Overlay {
 
   private async onTweakUp(e: PointerEvent) {
     const t = this.tweak
+    // pointercancel = the browser took the gesture away (pen left range,
+    // gesture takeover): abandon the drag, never commit from it
+    const aborted = e.type === 'pointercancel'
     if (t?.moveDrag) {
       const md = t.moveDrag
       t.moveDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
       t.el.style.removeProperty('transform')
       t.el.style.removeProperty('will-change')
+      if (aborted) {
+        this.status('move cancelled')
+        this.redraw()
+        return
+      }
       const dist = Math.hypot(md.dx, md.dy)
       if (dist < CLICK_SLOP) {
         // a click, not a drag: drill into whatever stamped element is here
@@ -896,6 +925,11 @@ class Overlay {
       this.canvas.releasePointerCapture?.(e.pointerId)
       t.el.style.removeProperty('width')
       t.el.style.removeProperty('height')
+      if (aborted) {
+        this.status('resize cancelled')
+        this.redraw()
+        return
+      }
       const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
       const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
       if (w === undefined && h === undefined) {
@@ -911,6 +945,12 @@ class Overlay {
     const px = t.preview[zone.kind]
     t.drag = null
     this.canvas.releasePointerCapture?.(e.pointerId)
+    if (aborted) {
+      this.clearTweakPreview()
+      this.status('adjustment cancelled')
+      this.redraw()
+      return
+    }
     if (px === undefined) return
     await this.commitManipulation({ srcLoc: t.srcLoc, prop: zone.kind, px }, t, 'committing…')
   }
@@ -952,7 +992,9 @@ class Overlay {
   private reselectAfterCommit(t: TweakState) {
     const { el, srcLoc } = t
     setTimeout(() => {
-      if (this.mode !== 'tweak') return
+      // the user may have selected something else (or deselected) meanwhile —
+      // never clobber a newer selection with the committed one
+      if (this.mode !== 'tweak' || this.tweak !== t) return
       const next = document.contains(el)
         ? el
         : (document.querySelector(`[data-s2c="${srcLoc}"]`) as HTMLElement | null)
