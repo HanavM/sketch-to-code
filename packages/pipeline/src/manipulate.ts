@@ -44,6 +44,18 @@ export interface ManipulateRequest {
   w?: number
   h?: number
   /**
+   * Resize anchoring: which edge must stay fixed. 'right'/'bottom' mean the
+   * user pulled the LEFT/TOP edge, so the committed size change needs a
+   * position compensation (ml-/mt- in flow, else translate) computed from
+   * the drag-start size — otherwise in-flow elements grow away from the
+   * dragged edge and "the right side moves".
+   */
+  anchorX?: 'left' | 'right'
+  anchorY?: 'top' | 'bottom'
+  /** Size at drag start (px) — needed to size the compensation. */
+  startW?: number
+  startH?: number
+  /**
    * Magnetic-guide snap flags. An axis marked exact was aligned to a guide in
    * the preview, so the committed value must be pixel-exact — no token
    * rounding (which drifts up to 2px and breaks the alignment).
@@ -162,6 +174,59 @@ export interface ClassEdit {
   prop: ManipulateProp
   suffix: string
   negative: boolean
+  /**
+   * Set for RELATIVE edits (anchor compensation): the signed px delta. When
+   * the class list already carries this utility, the delta ACCUMULATES with
+   * its value instead of replacing it — a replace would rewrite an absolute
+   * position with a relative shift and move the supposedly-fixed edge.
+   */
+  relativePx?: number
+}
+
+/** Signed px value of an existing utility class (-ml-10 → -40, mt-[33px] → 33). */
+export function classPx(cls: string): number | null {
+  const m = /^(-?)[a-z-]+-(?:\[(\d+(?:\.\d+)?)px\]|(\d+(?:\.\d+)?))$/.exec(cls)
+  if (!m) return null
+  const px = m[2] != null ? parseFloat(m[2]) : parseFloat(m[3]!) * 4
+  return m[1] === '-' ? -px : px
+}
+
+/**
+ * Apply a list of planned edits to a class string. Absolute edits replace or
+ * append via rewriteClassList; relative edits fold their delta into any
+ * existing value (an exact-zero total removes the class entirely). Existing
+ * classes we can't parse (ml-auto, translate-x-1/2) fall back to replacement.
+ */
+export function applyClassEdits(
+  classList: string,
+  edits: ClassEdit[],
+): { after: string; descr: string[] } {
+  let cur = classList
+  const descr: string[] = []
+  for (const ed of edits) {
+    let eff: ClassEdit = ed
+    if (ed.relativePx != null) {
+      const parts = cur.split(/\s+/).filter(Boolean)
+      const existing = parts.find((c) => CLASS_PATTERNS[ed.prop].test(c))
+      const basePx = existing ? classPx(existing) : 0
+      if (basePx != null) {
+        const total = basePx + ed.relativePx
+        if (Math.abs(total) < 1) {
+          if (existing) {
+            cur = parts.filter((c) => c !== existing).join(' ')
+            descr.push(`− ${existing}`)
+          }
+          continue
+        }
+        eff = { prop: ed.prop, suffix: snapSpacingExact(Math.abs(total)).suffix, negative: total < 0 }
+      }
+    }
+    const { after, replaced } = rewriteClassList(cur, eff.prop, eff.suffix, eff.negative)
+    const cls = `${eff.negative ? '-' : ''}${eff.prop}-${eff.suffix}`
+    descr.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
+    cur = after
+  }
+  return { after: cur, descr }
 }
 
 /** Displacement below this (px) on an axis counts as "didn't move". */
@@ -204,6 +269,47 @@ export function synthesizeMove(
   if (ax >= MOVE_MIN) edits.push({ prop: 'translate-x', suffix: snapX(ax).suffix, negative: dx < 0 })
   if (ay >= MOVE_MIN) edits.push({ prop: 'translate-y', suffix: snapY(ay).suffix, negative: dy < 0 })
   return { edits, cosmetic: true }
+}
+
+/**
+ * Anchor compensation for west/north-edge resizes: shift the element so the
+ * opposite edge stays pixel-fixed. Sized against the SNAPPED committed
+ * dimension (shift = start − snapped), and always pixel-exact — a tolerant
+ * token here would visibly move the anchored edge.
+ */
+export function synthesizeAnchorShift(req: {
+  w?: number; h?: number
+  exactW?: boolean; exactH?: boolean
+  anchorX?: 'left' | 'right'; anchorY?: 'top' | 'bottom'
+  startW?: number; startH?: number
+  inFlow?: boolean
+}): ClassEdit[] {
+  const edits: ClassEdit[] = []
+  if (req.anchorX === 'right' && req.w != null && req.startW != null) {
+    const snapped = (req.exactW ? snapSpacingExact : snapSpacing)(req.w).snappedPx
+    const shift = req.startW - snapped // negative → element moves left
+    if (Math.abs(shift) >= 1) {
+      edits.push({
+        prop: req.inFlow ? 'ml' : 'translate-x',
+        suffix: snapSpacingExact(Math.abs(shift)).suffix,
+        negative: shift < 0,
+        relativePx: shift,
+      })
+    }
+  }
+  if (req.anchorY === 'bottom' && req.h != null && req.startH != null) {
+    const snapped = (req.exactH ? snapSpacingExact : snapSpacing)(req.h).snappedPx
+    const shift = req.startH - snapped // negative → element moves up
+    if (Math.abs(shift) >= 1) {
+      edits.push({
+        prop: req.inFlow ? 'mt' : 'translate-y',
+        suffix: snapSpacingExact(Math.abs(shift)).suffix,
+        negative: shift < 0,
+        relativePx: shift,
+      })
+    }
+  }
+  return edits
 }
 
 /** Resize ladder: width → w-*, height → h-*, snapped to the spacing scale. */
@@ -273,7 +379,10 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
     edits = plan.edits
     cosmetic = plan.cosmetic
   } else if (req.prop === 'resize') {
-    edits = synthesizeResize(req.w, req.h, { w: req.exactW, h: req.exactH })
+    edits = [
+      ...synthesizeResize(req.w, req.h, { w: req.exactW, h: req.exactH }),
+      ...synthesizeAnchorShift(req),
+    ]
     if (edits.length === 0) return { ok: true, file: rel, change: 'no change (no axis given)' }
   } else {
     edits = [{ prop: req.prop, suffix: snapSpacing(req.px ?? 0).suffix, negative: false }]
@@ -334,14 +443,9 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
       const raw = hookQuasi.value.raw
       const trailing = /\s*$/.exec(raw)?.[0] ?? ''
       const staticBefore = raw.trim()
-      let curStatic = staticBefore
-      const parts: string[] = []
-      for (const ed of edits) {
-        const { after, replaced } = rewriteClassList(curStatic, ed.prop, ed.suffix, ed.negative)
-        const cls = clsOf(ed)
-        parts.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
-        curStatic = after
-      }
+      const appliedQ = applyClassEdits(staticBefore, edits)
+      const curStatic = appliedQ.after
+      const parts = appliedQ.descr
       if (curStatic === staticBefore) {
         return { ok: true, file: rel, change: 'no change (already at value)', className: { before: staticBefore, after: curStatic } }
       }
@@ -361,14 +465,9 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
   }
 
   const before = attr.value.value
-  let cur = before
-  const descr: string[] = []
-  for (const ed of edits) {
-    const { after, replaced } = rewriteClassList(cur, ed.prop, ed.suffix, ed.negative)
-    const cls = clsOf(ed)
-    descr.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
-    cur = after
-  }
+  const applied = applyClassEdits(before, edits)
+  const cur = applied.after
+  const descr = applied.descr
   if (cur === before) {
     return { ok: true, file: rel, change: 'no change (already at value)', className: { before, after: cur } }
   }
@@ -604,15 +703,9 @@ function applyPerInstance(
     return { ok: false, error: `'${arrName}' item ${instanceIndex + 1} has a non-string className — can't merge` }
   }
   const before = clsProp ? (clsProp.value as t.StringLiteral).value : ''
-  let cur = before
-  const descr: string[] = []
-  const clsOf = (ed: ClassEdit) => `${ed.negative ? '-' : ''}${ed.prop}-${ed.suffix}`
-  for (const ed of edits) {
-    const { after, replaced } = rewriteClassList(cur, ed.prop, ed.suffix, ed.negative)
-    const cls = clsOf(ed)
-    descr.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
-    cur = after
-  }
+  const appliedI = applyClassEdits(before, edits)
+  const cur = appliedI.after
+  const descr = appliedI.descr
   if (cur === before) {
     return { ok: true, file: rel, change: 'no change (already at value)', className: { before, after: cur } }
   }

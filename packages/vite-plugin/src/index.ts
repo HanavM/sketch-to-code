@@ -176,6 +176,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           srcLoc: string; prop: string; px?: number; from?: number; to?: number
           dx?: number; dy?: number; inFlow?: boolean; w?: number; h?: number
           exactX?: boolean; exactY?: boolean; exactW?: boolean; exactH?: boolean
+          anchorX?: 'left' | 'right'; anchorY?: 'top' | 'bottom'; startW?: number; startH?: number
           instanceIndex?: number; instanceCount?: number; choice?: 'all' | 'just-this-one'
         }>(req)
           .then(async (body) => {
@@ -196,6 +197,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               exactY: body.exactY,
               exactW: body.exactW,
               exactH: body.exactH,
+              anchorX: body.anchorX,
+              anchorY: body.anchorY,
+              startW: body.startW,
+              startH: body.startH,
               instanceIndex: body.instanceIndex,
               instanceCount: body.instanceCount,
               choice: body.choice,

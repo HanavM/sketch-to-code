@@ -3,7 +3,8 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
-  applyManipulation, rewriteClassList, snapSpacing, snapSpacingExact, synthesizeMove, synthesizeResize,
+  applyManipulation, rewriteClassList, snapSpacing, snapSpacingExact,
+  synthesizeAnchorShift, synthesizeMove, synthesizeResize,
 } from '../src/manipulate.js'
 
 describe('snapSpacing', () => {
@@ -212,6 +213,119 @@ describe('synthesizeResize', () => {
       { prop: 'h', suffix: '[150px]', negative: false },
     ])
     expect(synthesizeResize(24, undefined)).toEqual([{ prop: 'w', suffix: '6', negative: false }])
+  })
+})
+
+describe('synthesizeAnchorShift (west/north-edge resize anchoring)', () => {
+  it('left-edge grow in flow → negative ml sized against the SNAPPED width', () => {
+    // startW 340 → w 380: shift −40 → -ml-10 (exact token)
+    expect(synthesizeAnchorShift({ w: 380, anchorX: 'right', startW: 340, inFlow: true })).toEqual([
+      { prop: 'ml', suffix: '10', negative: true, relativePx: -40 },
+    ])
+  })
+  it('compensates the TOKEN-ROUNDED size, not the requested one', () => {
+    // w 25 tokens to 24px; shift = 40 − 24 = 16 → ml-4 keeps the right edge fixed
+    expect(synthesizeAnchorShift({ w: 25, anchorX: 'right', startW: 40, inFlow: true })).toEqual([
+      { prop: 'ml', suffix: '4', negative: false, relativePx: 16 },
+    ])
+  })
+  it('out-of-flow elements compensate with translate instead of margin', () => {
+    expect(synthesizeAnchorShift({ w: 380, anchorX: 'right', startW: 340, inFlow: false })).toEqual([
+      { prop: 'translate-x', suffix: '10', negative: true, relativePx: -40 },
+    ])
+  })
+  it('top-edge drags shift vertically; off-scale shifts stay pixel-exact', () => {
+    // startH 118 → h 151 ([151px]): shift −33 → -mt-[33px]
+    expect(synthesizeAnchorShift({ h: 151, anchorY: 'bottom', startH: 118, inFlow: true })).toEqual([
+      { prop: 'mt', suffix: '[33px]', negative: true, relativePx: -33 },
+    ])
+  })
+  it('east/south anchoring (the default grow direction) needs no shift', () => {
+    expect(synthesizeAnchorShift({ w: 380, anchorX: 'left', startW: 340, inFlow: true })).toEqual([])
+    expect(synthesizeAnchorShift({ w: 380, startW: 340, inFlow: true })).toEqual([])
+  })
+})
+
+describe('applyManipulation resize with anchoring', () => {
+  const mk = (code: string) => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-anchor-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/A.tsx'), code)
+    return root
+  }
+  it('west-edge resize lands w-* plus the ml compensation in one edit', () => {
+    const root = mk(`const A = () => <div className="rounded">x</div>\n`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 380, anchorX: 'right', startW: 340, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    expect(res.change).toBe('+ w-[380px] · + -ml-10')
+    expect(readFileSync(join(root, 'src/A.tsx'), 'utf8'))
+      .toContain('className="rounded w-[380px] -ml-10"')
+  })
+  it('north-edge resize lands h-* plus the mt compensation', () => {
+    const root = mk(`const A = () => <div className="rounded">x</div>\n`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      h: 151, anchorY: 'bottom', startH: 118, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    expect(readFileSync(join(root, 'src/A.tsx'), 'utf8'))
+      .toContain('className="rounded h-[151px] -mt-[33px]"')
+  })
+  it('SECOND west-edge resize ACCUMULATES the compensation instead of replacing it', () => {
+    // regression: the shift is a relative delta; replacing an existing -ml-10
+    // with a fresh -ml-10 would move the "fixed" right edge by 40px
+    const root = mk(`const A = () => <div className="rounded">x</div>\n`)
+    applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 380, anchorX: 'right', startW: 340, inFlow: true,
+    })
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 420, anchorX: 'right', startW: 380, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    // −40 + −40 = −80 → -ml-20; right edge net drift stays 0
+    expect(readFileSync(join(root, 'src/A.tsx'), 'utf8'))
+      .toContain('className="rounded w-[420px] -ml-20"')
+  })
+  it('shrinking back to the start size REMOVES the compensation class', () => {
+    const root = mk(`const A = () => <div className="rounded">x</div>\n`)
+    applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 380, anchorX: 'right', startW: 340, inFlow: true,
+    })
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 340, anchorX: 'right', startW: 380, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/A.tsx'), 'utf8')
+    expect(after).toContain('className="rounded w-[340px]"')
+    expect(after).not.toContain('ml-')
+  })
+  it('accumulates against an AUTHORED margin class too', () => {
+    const root = mk(`const A = () => <div className="ml-4 rounded">x</div>\n`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 380, anchorX: 'right', startW: 340, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    // 16 + (−40) = −24 → -ml-6
+    expect(readFileSync(join(root, 'src/A.tsx'), 'utf8'))
+      .toContain('className="-ml-6 rounded w-[380px]"')
+  })
+  it('a west-edge SHRINK compensates rightward (positive ml)', () => {
+    const root = mk(`const A = () => <div className="rounded">x</div>\n`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/A.tsx:1:17', prop: 'resize',
+      w: 300, anchorX: 'right', startW: 340, inFlow: true,
+    })
+    expect(res.ok).toBe(true)
+    expect(readFileSync(join(root, 'src/A.tsx'), 'utf8'))
+      .toContain('className="rounded w-[300px] ml-10"')
   })
 })
 

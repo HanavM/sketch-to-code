@@ -54,6 +54,18 @@ interface SelRect { left: number; top: number; width: number; height: number }
  * used to draw the pink line only as far as it's meaningful.
  */
 interface Guide { axis: 'v' | 'h'; pos: number; lo: number; hi: number }
+/** One extra (non-primary) member of a shift+click multi-selection. */
+interface ExtraSel { el: HTMLElement; srcLoc: string; instanceIndex: number }
+/** Per-element drag state for every member of a group move. */
+interface GroupMember {
+  el: HTMLElement
+  srcLoc: string
+  inFlow: boolean
+  startRect: SelRect
+  baseTransform: string
+  ghost: HTMLElement | null
+  prev: { opacity: string; position: string; zIndex: string }
+}
 interface TweakState {
   el: HTMLElement
   /** data-s2c stamp captured at selection time. */
@@ -89,6 +101,8 @@ interface TweakState {
     activeGuides: Guide[]
     snappedW: boolean
     snappedH: boolean
+    /** element's own CSS transform at drag start — anchor shift composes on top */
+    baseTransform: string
   } | null
   /**
    * Free-move drag: the element follows the cursor via transform (no file
@@ -125,6 +139,8 @@ interface TweakState {
     ghost: HTMLElement | null
     /** inline styles to restore on release */
     prev: { opacity: string; position: string; zIndex: string }
+    /** extra multi-selection members dragged along with the primary */
+    group: GroupMember[]
   } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
@@ -209,6 +225,8 @@ class Overlay {
   private tweakHover: DOMRect | null = null
   /** last still-click on the selected element — double-click scope toggle */
   private lastTweakClick: { el: HTMLElement; at: number } | null = null
+  /** shift+click multi-selection: extras beyond the primary (this.tweak) */
+  private multiSel: ExtraSel[] = []
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -334,6 +352,11 @@ class Overlay {
           tw.handleDrag = null
           tw.drag = null
           this.status('cancelled')
+          this.redraw()
+        }
+        else if (this.mode === 'tweak' && this.tweak && this.multiSel.length > 0) {
+          this.multiSel = []
+          this.status('multi-selection cleared')
           this.redraw()
         }
         else if (this.mode === 'tweak' && this.tweak?.scope === 'one') {
@@ -585,6 +608,7 @@ class Overlay {
     if (this.tweak) this.clearTweakPreview()
     this.tweak = null
     this.tweakHover = null
+    this.multiSel = []
     this.shadow.getElementById('tweakBtn')?.classList.remove('primary')
     this.setMode('idle')
     this.status(msg)
@@ -595,6 +619,7 @@ class Overlay {
     if (this.tweak) this.clearTweakPreview()
     this.tweak = null
     this.tweakHover = null
+    this.multiSel = []
     this.status(msg)
     this.redraw()
   }
@@ -620,6 +645,15 @@ class Overlay {
     t.el.style.zIndex = md.prev.zIndex
     t.el.style.removeProperty('transform')
     t.el.style.removeProperty('will-change')
+    for (const g of md.group) {
+      g.ghost?.remove()
+      g.ghost = null
+      g.el.style.opacity = g.prev.opacity
+      g.el.style.position = g.prev.position
+      g.el.style.zIndex = g.prev.zIndex
+      g.el.style.removeProperty('transform')
+      g.el.style.removeProperty('will-change')
+    }
   }
 
   /** Deepest stamped element under the point — anything stamped is fair game. */
@@ -780,16 +814,80 @@ class Overlay {
     }
   }
 
+  /**
+   * Multi-selection release: one manipulate POST per element, sequentially
+   * (each pushes the undo stack, so Ctrl+Z walks them back one at a time).
+   * Every receipt is logged; the status line collapses to one summary.
+   */
+  private async commitGroupMove(
+    t: TweakState,
+    md: NonNullable<TweakState['moveDrag']>,
+  ): Promise<void> {
+    const dx = Math.round(md.dx)
+    const dy = Math.round(md.dy)
+    const targets: Array<{ srcLoc: string; inFlow: boolean; el: HTMLElement; primary: boolean }> = [
+      { srcLoc: t.srcLoc, inFlow: t.inFlow, el: t.el, primary: true },
+      ...md.group.map((g) => ({ srcLoc: g.srcLoc, inFlow: g.inFlow, el: g.el, primary: false })),
+    ]
+    this.status(`committing ${targets.length} moves…`)
+    let done = 0
+    let firstErr: string | null = null
+    // two members of one .map() template both resolve to ONE 'all' template
+    // edit — committing it twice would report a phantom second receipt (and
+    // a phantom undo step, since the no-change repeat pushes nothing)
+    const committedTemplates = new Set<string>()
+    for (const tg of targets) {
+      // per-element shared-template scope: the primary honors its chosen
+      // scope; extras have no scope UI, so multi-instance extras edit their
+      // template ('all') — their siblings are visibly outlined anyway
+      const all = [...document.querySelectorAll(`[data-s2c="${tg.srcLoc}"]`)] as HTMLElement[]
+      const choice = tg.primary && t.scope === 'one' ? 'just-this-one' : 'all'
+      const inst = all.length > 1
+        ? { instanceIndex: Math.max(0, all.indexOf(tg.el)), instanceCount: all.length, choice }
+        : {}
+      if (choice === 'all' && committedTemplates.has(tg.srcLoc)) continue
+      try {
+        const res = await fetch('/@s2c/manipulate', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+          body: JSON.stringify({
+            srcLoc: tg.srcLoc, prop: 'move', dx, dy, inFlow: tg.inFlow,
+            exactX: md.snappedX, exactY: md.snappedY, ...inst,
+          }),
+        })
+        const out = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string }
+        if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${res.status}`)
+        console.debug(`[s2c] ✓ ${out.change} in ${out.file}`)
+        if (choice === 'all') committedTemplates.add(tg.srcLoc)
+        done++
+      } catch (err) {
+        firstErr ??= err instanceof Error ? err.message : String(err)
+      }
+    }
+    if (firstErr) {
+      this.status(`✗ moved ${done} of ${targets.length} elements — ${firstErr}`, true)
+      this.redraw()
+    } else {
+      this.status(`✓ moved ${done} element${done === 1 ? '' : 's'} · 0 tokens · Ctrl+Z reverts one at a time`)
+    }
+    this.reselectAfterCommit(t)
+  }
+
   /** Current visual selection rect — cached geometry during drags (no reads). */
   private selRect(t: TweakState): SelRect {
     if (t.handleDrag) {
       const hd = t.handleDrag
-      return {
-        left: hd.startRect.left,
-        top: hd.startRect.top,
-        width: hd.w ?? hd.startRect.width,
-        height: hd.h ?? hd.startRect.height,
-      }
+      const width = hd.w ?? hd.startRect.width
+      const height = hd.h ?? hd.startRect.height
+      const k = hd.handle
+      // pulling a west/north edge moves THAT edge: the opposite edge stays
+      const left = (k === 'w' || k === 'nw' || k === 'sw')
+        ? hd.startRect.left + hd.startRect.width - width
+        : hd.startRect.left
+      const top = (k === 'n' || k === 'ne' || k === 'nw')
+        ? hd.startRect.top + hd.startRect.height - height
+        : hd.startRect.top
+      return { left, top, width, height }
     }
     if (t.moveDrag) {
       const md = t.moveDrag
@@ -833,8 +931,9 @@ class Overlay {
     )
   }
 
-  private selectElement(el: HTMLElement) {
+  private selectElement(el: HTMLElement, keepSet = false) {
     if (this.tweak) this.clearTweakPreview()
+    if (!keepSet) this.multiSel = []
     this.tweak = this.buildTweakState(el)
     this.tweakHover = null
     const t = this.tweak
@@ -843,11 +942,45 @@ class Overlay {
     const linked = t.instanceEls.length > 1
       ? ` · ${t.instanceEls.length} linked (double-click: just this one)`
       : ''
+    const set = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
     this.status(
       `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ` +
-      `${t.srcLoc.split(':')[0]}${linked} — drag to move, handles to resize`,
+      `${t.srcLoc.split(':')[0]}${linked}${set} — drag to move, handles to resize`,
     )
     this.redraw()
+  }
+
+  /**
+   * Shift+click: toggle membership in the multi-selection. The clicked
+   * element becomes primary (handles live on the last-clicked); clicking a
+   * member again removes it. Esc clears the set.
+   */
+  private onShiftPick(e: PointerEvent) {
+    const el = this.pickAnyStamped(e.clientX, e.clientY)
+    if (!el) return
+    const t = this.tweak
+    if (!t) {
+      this.selectElement(el)
+      return
+    }
+    if (el === t.el) {
+      // remove the primary: promote the most recent extra, else deselect
+      const last = this.multiSel.pop()
+      const nextEl = last ? this.resolveExtra(last) : null
+      if (nextEl) this.selectElement(nextEl, true)
+      else this.deselect('deselected')
+      return
+    }
+    const idx = this.multiSel.findIndex((m) => this.resolveExtra(m) === el)
+    if (idx >= 0) {
+      this.multiSel.splice(idx, 1)
+      this.status(`removed from set · ${this.multiSel.length + 1} selected`)
+      this.redraw()
+      return
+    }
+    if (!t.srcLoc || !el.dataset.s2c) return
+    this.multiSel.push({ el: t.el, srcLoc: t.srcLoc, instanceIndex: t.instanceIndex })
+    this.selectElement(el, true)
   }
 
   /** Cache all geometry the move needs so pointermove never touches layout. */
@@ -875,11 +1008,66 @@ class Overlay {
     const cs = getComputedStyle(t.el)
     const baseTransform = cs.transform
     const guides = this.collectGuides(t.el)
-    const prev = { opacity: t.el.style.opacity, position: t.el.style.position, zIndex: t.el.style.zIndex }
-    // unclipped preview: ghost when an ancestor would clip, else lift in place
+    const lift = this.liftForDrag(t.el, r, cs)
+    // extra multi-selection members ride along, each with its own ghost/lift
+    const group: GroupMember[] = []
+    for (const m of this.multiSel) {
+      const mel = this.resolveExtra(m)
+      if (!mel || mel === t.el) continue
+      // ancestors/descendants of another member would DOUBLE-move: their
+      // translates compose through the tree and both would commit. Skip
+      // nested members (and duplicates a remount re-resolve can produce).
+      if (t.el.contains(mel) || mel.contains(t.el)) continue
+      if (group.some((g) => g.el === mel || g.el.contains(mel) || mel.contains(g.el))) continue
+      const mr = mel.getBoundingClientRect()
+      const mcs = getComputedStyle(mel)
+      const mlift = this.liftForDrag(mel, mr, mcs)
+      group.push({
+        el: mel,
+        srcLoc: m.srcLoc,
+        inFlow: mcs.position === 'static' || mcs.position === 'relative',
+        startRect: { left: mr.left, top: mr.top, width: mr.width, height: mr.height },
+        baseTransform: mcs.transform === 'none' ? '' : `${mcs.transform} `,
+        ghost: mlift.ghost,
+        prev: mlift.prev,
+      })
+    }
+    t.moveDrag = {
+      startX: e.clientX,
+      startY: e.clientY,
+      dx: 0,
+      dy: 0,
+      startRect: { left: r.left, top: r.top, width: r.width, height: r.height },
+      siblings,
+      parentSrcLoc,
+      fromIndex,
+      proposedIndex: -1,
+      baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
+      guides,
+      activeGuides: [],
+      snappedX: false,
+      snappedY: false,
+      ghost: lift.ghost,
+      prev: lift.prev,
+      group,
+    }
+    this.canvas.setPointerCapture(e.pointerId)
+  }
+
+  /**
+   * Make one element visually draggable anywhere: a document-level fixed
+   * ghost when an ancestor clips (original dims to 40%), else lift in place
+   * (position:relative if static + max z-index). Returns what to restore.
+   */
+  private liftForDrag(
+    el: HTMLElement,
+    r: SelRect,
+    cs: CSSStyleDeclaration,
+  ): { ghost: HTMLElement | null; prev: { opacity: string; position: string; zIndex: string } } {
+    const prev = { opacity: el.style.opacity, position: el.style.position, zIndex: el.style.zIndex }
     let ghost: HTMLElement | null = null
-    if (this.hasClippingAncestor(t.el)) {
-      ghost = t.el.cloneNode(true) as HTMLElement
+    if (this.hasClippingAncestor(el)) {
+      ghost = el.cloneNode(true) as HTMLElement
       ghost.removeAttribute('data-s2c')
       for (const d of ghost.querySelectorAll('[data-s2c]')) d.removeAttribute('data-s2c')
       ghost.setAttribute('data-s2c-ghost', '')
@@ -903,31 +1091,22 @@ class Overlay {
         transform: 'translate(0px, 0px)',
       } satisfies Partial<CSSStyleDeclaration>)
       document.body.appendChild(ghost)
-      t.el.style.opacity = '0.4'
+      el.style.opacity = '0.4'
     } else {
-      if (cs.position === 'static') t.el.style.position = 'relative'
-      t.el.style.zIndex = '2147482998'
-      t.el.style.willChange = 'transform'
+      if (cs.position === 'static') el.style.position = 'relative'
+      el.style.zIndex = '2147482998'
+      el.style.willChange = 'transform'
     }
-    t.moveDrag = {
-      startX: e.clientX,
-      startY: e.clientY,
-      dx: 0,
-      dy: 0,
-      startRect: { left: r.left, top: r.top, width: r.width, height: r.height },
-      siblings,
-      parentSrcLoc,
-      fromIndex,
-      proposedIndex: -1,
-      baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
-      guides,
-      activeGuides: [],
-      snappedX: false,
-      snappedY: false,
-      ghost,
-      prev,
-    }
-    this.canvas.setPointerCapture(e.pointerId)
+    return { ghost, prev }
+  }
+
+  /** Live element for an extra selection, re-resolved by stamp+index if remounted. */
+  private resolveExtra(m: ExtraSel): HTMLElement | null {
+    if (document.contains(m.el)) return m.el
+    const all = [...document.querySelectorAll(`[data-s2c="${m.srcLoc}"]`)] as HTMLElement[]
+    const next = all[Math.min(m.instanceIndex, all.length - 1)] ?? null
+    if (next) m.el = next
+    return next
   }
 
   /** Mirror of the server's move ladder, for the live status line only. */
@@ -954,17 +1133,24 @@ class Overlay {
       const next = all[Math.min(this.tweak.instanceIndex, all.length - 1)] ?? null
       this.tweak = next ? this.buildTweakState(next, this.tweak.scope) : null
     }
+    // shift+click: grow/shrink the multi-selection instead of dragging
+    if (e.shiftKey) {
+      this.onShiftPick(e)
+      return
+    }
     const t = this.tweak
     if (t) {
       const sr = this.selRect(t)
       // 1) resize handles win over everything
       const hp = this.hitHandle(sr, e.clientX, e.clientY)
       if (hp) {
+        const bt = getComputedStyle(t.el).transform
         t.handleDrag = {
           handle: hp.kind, startX: e.clientX, startY: e.clientY,
           startRect: sr, w: null, h: null,
           guides: this.collectGuides(t.el), activeGuides: [],
           snappedW: false, snappedH: false,
+          baseTransform: bt === 'none' ? '' : `${bt} `,
         }
         this.canvas.setPointerCapture(e.pointerId)
         return
@@ -1044,12 +1230,19 @@ class Overlay {
       // itself (lifted via z-index), any pre-existing transform preserved.
       if (md.ghost) md.ghost.style.transform = `translate(${dx}px, ${dy}px)`
       else t.el.style.transform = `${md.baseTransform}translate(${dx}px, ${dy}px)`
-      // slot detent: cursor inside another sibling's (cached) rect
+      for (const g of md.group) {
+        if (g.ghost) g.ghost.style.transform = `translate(${dx}px, ${dy}px)`
+        else g.el.style.transform = `${g.baseTransform}translate(${dx}px, ${dy}px)`
+      }
+      // slot detent: cursor inside another sibling's (cached) rect.
+      // Group moves never reorder — the set translates as one rigid body.
       md.proposedIndex = -1
-      for (const s of md.siblings) {
-        if (e.clientX >= s.left && e.clientX <= s.right && e.clientY >= s.top && e.clientY <= s.bottom) {
-          md.proposedIndex = s.index
-          break
+      if (md.group.length === 0) {
+        for (const s of md.siblings) {
+          if (e.clientX >= s.left && e.clientX <= s.right && e.clientY >= s.top && e.clientY <= s.bottom) {
+            md.proposedIndex = s.index
+            break
+          }
         }
       }
       if (Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
@@ -1057,7 +1250,9 @@ class Overlay {
         this.status(
           (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex
             ? `→ slot ${md.proposedIndex + 1} — release to reorder`
-            : this.moveLabel(md.dx, md.dy, t.inFlow)) + snap,
+            : md.group.length > 0
+              ? `moving ${md.group.length + 1} elements — release to commit`
+              : this.moveLabel(md.dx, md.dy, t.inFlow)) + snap,
         )
       }
       this.redraw()
@@ -1074,31 +1269,46 @@ class Overlay {
       if (k === 'w' || k === 'nw' || k === 'sw') w = hd.startRect.width - dx
       if (k === 's' || k === 'se' || k === 'sw') h = hd.startRect.height + dy
       if (k === 'n' || k === 'ne' || k === 'nw') h = hd.startRect.height - dy
-      // magnetic alignment on the moving edge (right/bottom of the preview rect)
+      const isWest = k === 'w' || k === 'nw' || k === 'sw'
+      const isNorth = k === 'n' || k === 'ne' || k === 'nw'
+      // magnetic alignment on the MOVING edge: right/bottom for east/south
+      // handles, left/top for west/north (where the opposite edge anchors)
       hd.activeGuides = []
       hd.snappedW = false
       hd.snappedH = false
       if (w !== null) {
-        const s = this.bestSnap(hd.guides, 'v', [hd.startRect.left + w])
+        const edge = isWest ? hd.startRect.left + hd.startRect.width - w : hd.startRect.left + w
+        const s = this.bestSnap(hd.guides, 'v', [edge])
         if (s) {
-          w += s.delta
+          w += isWest ? -s.delta : s.delta
           hd.snappedW = true
           hd.activeGuides.push(s.guide)
         }
       }
       if (h !== null) {
-        const s = this.bestSnap(hd.guides, 'h', [hd.startRect.top + h])
+        const edge = isNorth ? hd.startRect.top + hd.startRect.height - h : hd.startRect.top + h
+        const s = this.bestSnap(hd.guides, 'h', [edge])
         if (s) {
-          h += s.delta
+          h += isNorth ? -s.delta : s.delta
           hd.snappedH = true
           hd.activeGuides.push(s.guide)
         }
       }
       hd.w = w === null ? null : Math.max(8, Math.round(w))
       hd.h = h === null ? null : Math.max(8, Math.round(h))
-      // live preview via inline size; committed as w-*/h-* on release
+      // live preview via inline size; committed as w-*/h-* on release.
+      // West/north drags also shift the element so the dragged edge follows
+      // the cursor and the OPPOSITE edge stays pixel-fixed — in flow, a
+      // width change alone would grow rightward/downward from the anchor.
       if (hd.w !== null) t.el.style.width = `${hd.w}px`
       if (hd.h !== null) t.el.style.height = `${hd.h}px`
+      const compX = isWest && hd.w !== null ? hd.startRect.width - hd.w : 0
+      const compY = isNorth && hd.h !== null ? hd.startRect.height - hd.h : 0
+      if (compX !== 0 || compY !== 0) {
+        t.el.style.transform = `${hd.baseTransform}translate(${compX}px, ${compY}px)`
+      } else {
+        t.el.style.removeProperty('transform')
+      }
       const snap = hd.snappedW || hd.snappedH ? ' · ⌖ snapped' : ''
       this.status(
         `${t.el.tagName.toLowerCase()} · ` +
@@ -1197,6 +1407,11 @@ class Overlay {
         return
       }
       this.lastTweakClick = null
+      if (md.group.length > 0) {
+        // multi-selection: one manipulate call per element, receipts collapsed
+        await this.commitGroupMove(t, md)
+        return
+      }
       if (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && md.parentSrcLoc && md.fromIndex >= 0) {
         // ladder rung (a): dropped on a sibling's slot → structural reorder
         await this.commitManipulation(
@@ -1223,6 +1438,7 @@ class Overlay {
       this.canvas.releasePointerCapture?.(e.pointerId)
       t.el.style.removeProperty('width')
       t.el.style.removeProperty('height')
+      t.el.style.removeProperty('transform')
       if (aborted) {
         this.status('resize cancelled')
         this.redraw()
@@ -1235,10 +1451,21 @@ class Overlay {
         this.redraw()
         return
       }
+      const k2 = hd.handle
+      const isWest2 = k2 === 'w' || k2 === 'nw' || k2 === 'sw'
+      const isNorth2 = k2 === 'n' || k2 === 'ne' || k2 === 'nw'
       await this.commitManipulation(
         {
           srcLoc: t.srcLoc, prop: 'resize', w, h,
           exactW: w !== undefined && hd.snappedW, exactH: h !== undefined && hd.snappedH,
+          // west/north drags anchor the opposite edge: the server adds a
+          // position compensation (ml-/mt- or translate) sized against the
+          // SNAPPED committed dimension so that edge stays pixel-fixed
+          anchorX: w !== undefined && isWest2 ? 'right' as const : undefined,
+          anchorY: h !== undefined && isNorth2 ? 'bottom' as const : undefined,
+          startW: w !== undefined && isWest2 ? Math.round(hd.startRect.width) : undefined,
+          startH: h !== undefined && isNorth2 ? Math.round(hd.startRect.height) : undefined,
+          inFlow: t.inFlow,
           ...this.instanceFields(t),
         },
         t, 'committing resize…',
@@ -1381,6 +1608,26 @@ class Overlay {
     if (!t) return
     const r = this.selRect(t)
     ctx.save()
+    // multi-selection extras: solid outline each (handles stay on primary).
+    // During a group drag their cached start rects follow dx/dy — ghost
+    // members' originals don't move, so live rects would lag behind.
+    if (this.multiSel.length > 0) {
+      ctx.strokeStyle = '#0891b2'
+      ctx.lineWidth = 1.5
+      const md = t.moveDrag
+      if (md && md.group.length > 0) {
+        for (const g of md.group) {
+          ctx.strokeRect(g.startRect.left + md.dx, g.startRect.top + md.dy, g.startRect.width, g.startRect.height)
+        }
+      } else {
+        for (const m of this.multiSel) {
+          const mel = this.resolveExtra(m)
+          if (!mel || mel === t.el) continue
+          const mr = mel.getBoundingClientRect()
+          ctx.strokeRect(mr.left, mr.top, mr.width, mr.height)
+        }
+      }
+    }
     // linked instances of a shared template (.map()): lighter outlines while
     // scope is 'all' — the highlighting IS the "this affects all N" warning
     if (t.scope === 'all' && t.instanceEls.length > 1) {
@@ -1436,7 +1683,8 @@ class Overlay {
     const scopeNote = t.instanceEls.length > 1
       ? (t.scope === 'all' ? ` · ${t.instanceEls.length} linked` : ' · this one only')
       : ''
-    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${scopeNote}`
+    const setNote = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
+    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${scopeNote}${setNote}`
     ctx.font = '11px ui-sans-serif, system-ui'
     const lw = ctx.measureText(label).width + 12
     const lx = Math.max(2, Math.min(r.left, window.innerWidth - lw - 2))

@@ -12,6 +12,11 @@
  *      the other instances' geometry must not move
  *   5. magnetic snap: drop with the card's left edge ~4px from a sibling's
  *      left edge → pink-guide snap; the committed translate aligns exactly
+ *   6. anchored resize, left edge: pulling the W handle moves the LEFT edge
+ *      and keeps the right edge pixel-fixed (w-* + ml compensation)
+ *   7. anchored resize, top edge: same for N handle (h-* + mt compensation)
+ *   8. shift+click multi-select: two different components drag as one set,
+ *      one commit per element, Ctrl+Z reverts them one at a time
  * Demo src is restored via `git checkout -- examples/demo-app/src/` between
  * phases and at the end.
  *
@@ -280,6 +285,134 @@ await page.waitForTimeout(800)
   if (align > 1) throw new Error(`ASSERT: card left edge off the sibling guide by ${align}px after commit`)
 }
 restore()
+await page.waitForTimeout(600)
 
-log('E2E PASS — linked resize, ghost-drag past clip boundary, reorder, just-this-one per-item edit, exact magnetic snap — all zero tokens')
+// ---------- phase 6: anchored resize — pull the LEFT edge, right edge stays ----------
+await boot()
+cards = await cardRects()
+c = cards[0]
+await selectCard(c)
+await page.mouse.move(c.left, c.cy)
+await page.mouse.down()
+await page.mouse.move(c.left - 40, c.cy, { steps: 6 })
+log('during left-edge resize:', await status())
+await page.mouse.up()
+await waitReceipt('left-edge resize')
+await page.waitForTimeout(800)
+{
+  const after = readFileSync(CARDS, 'utf8')
+  const compOk = /-ml-(\[\d+px\]|[\d.]+)/.test(after)
+  log('phase 6 — ml compensation landed:', compOk)
+  if (!compOk) throw new Error('ASSERT: left-edge resize committed no ml compensation')
+  const now = await cardRects()
+  const rightDrift = Math.abs(now[0].right - c.right)
+  const leftMove = c.left - now[0].left
+  log('phase 6 — right-edge drift:', rightDrift.toFixed(2), 'px | left edge moved:', leftMove.toFixed(2), 'px')
+  if (rightDrift > 1) throw new Error(`ASSERT: right edge moved ${rightDrift}px on a left-edge drag (anchoring broken)`)
+  if (leftMove < 35 || leftMove > 45) throw new Error(`ASSERT: left edge moved ${leftMove}px, expected ≈40`)
+}
+restore()
+await page.waitForTimeout(600)
+
+// ---------- phase 7: anchored resize — pull the TOP edge, bottom edge stays ----------
+await boot()
+cards = await cardRects()
+c = cards[0]
+await selectCard(c)
+await page.mouse.move(c.cx, c.top)
+await page.mouse.down()
+await page.mouse.move(c.cx, c.top - 30, { steps: 6 })
+log('during top-edge resize:', await status())
+await page.mouse.up()
+await waitReceipt('top-edge resize')
+await page.waitForTimeout(800)
+{
+  const after = readFileSync(CARDS, 'utf8')
+  const compOk = /-mt-(\[\d+px\]|[\d.]+)/.test(after)
+  log('phase 7 — mt compensation landed:', compOk)
+  if (!compOk) throw new Error('ASSERT: top-edge resize committed no mt compensation')
+  const now = await cardRects()
+  const bottomDrift = Math.abs(now[0].bottom - c.bottom)
+  const topMove = c.top - now[0].top
+  log('phase 7 — bottom-edge drift:', bottomDrift.toFixed(2), 'px | top edge moved:', topMove.toFixed(2), 'px')
+  if (bottomDrift > 1) throw new Error(`ASSERT: bottom edge moved ${bottomDrift}px on a top-edge drag (anchoring broken)`)
+  if (topMove < 25 || topMove > 35) throw new Error(`ASSERT: top edge moved ${topMove}px, expected ≈30`)
+}
+restore()
+await page.waitForTimeout(600)
+
+// ---------- phase 8: shift+click multi-select — group move, per-element undo ----------
+const SCHEDULE = `${REPO_ROOT}examples/demo-app/src/components/WeeklySchedule.tsx`
+await boot()
+cards = await cardRects()
+c = cards[0]
+await selectCard(c)
+const ws = await page.evaluate(() => {
+  const r = document.querySelector('section[data-s2c*="WeeklySchedule"]').getBoundingClientRect()
+  return { left: r.left, top: r.top, cx: r.left + r.width / 2, cy: r.top + r.height / 2 }
+})
+await page.keyboard.down('Shift')
+await page.mouse.click(ws.left + 12, ws.top + 12)
+await page.keyboard.up('Shift')
+await page.waitForTimeout(150)
+{
+  const st = await status()
+  log('after shift+click:', st)
+  if (!/set of 2/.test(st)) throw new Error(`ASSERT: shift+click did not grow the set: ${st}`)
+}
+await page.mouse.move(ws.cx, ws.cy)
+await page.mouse.down()
+await page.mouse.move(ws.cx + 80, ws.cy + 40, { steps: 8 })
+{
+  const st = await status()
+  log('during group move:', st)
+  // exactly 2 ghosts DEPENDS on the demo App root staying overflow-hidden
+  // (App.tsx) — if that class is ever dropped, elements lift in place
+  // instead and this assertion (not the feature) needs updating
+  const ghosts = await page.evaluate(() => document.querySelectorAll('[data-s2c-ghost]').length)
+  log('phase 8 — ghosts during group drag:', ghosts)
+  if (ghosts !== 2) throw new Error(`ASSERT: expected one ghost per clipped element (2), got ${ghosts}`)
+  if (!/moving 2 elements/.test(st)) throw new Error(`ASSERT: group-drag status wrong: ${st}`)
+}
+await page.mouse.up()
+const groupReceipt = await waitReceipt('group move')
+if (!/moved 2 elements/.test(groupReceipt)) throw new Error('ASSERT: collapsed receipt missing element count')
+await page.waitForTimeout(800)
+{
+  const wsAfter = readFileSync(SCHEDULE, 'utf8')
+  const cardsAfter = readFileSync(CARDS, 'utf8')
+  const wsOk = /translate-x-/.test(wsAfter)
+  const cardsOk = /translate-x-/.test(cardsAfter)
+  log('phase 8 — WeeklySchedule translated:', wsOk, '| StatCards translated:', cardsOk)
+  if (!wsOk || !cardsOk) throw new Error('ASSERT: group move did not land translate classes in both files')
+  const ghostsGone = await page.evaluate(() => document.querySelectorAll('[data-s2c-ghost]').length)
+  if (ghostsGone !== 0) throw new Error(`ASSERT: ${ghostsGone} ghost(s) leaked after group release`)
+}
+// one Ctrl+Z reverts exactly ONE element (the most recent commit: the extra)
+await page.keyboard.press('Control+z')
+{
+  const deadline = Date.now() + 10000
+  let st = ''
+  while (Date.now() < deadline) {
+    st = await status()
+    if (/undid|undo failed/.test(st)) break
+    await page.waitForTimeout(150)
+  }
+  log('after Ctrl+Z:', st)
+  if (!/undid/.test(st)) throw new Error(`ASSERT: undo did not run: ${st}`)
+}
+await page.waitForTimeout(600)
+{
+  const wsAfter = readFileSync(SCHEDULE, 'utf8')
+  const cardsAfter = readFileSync(CARDS, 'utf8')
+  const cardsReverted = !/translate-x-/.test(cardsAfter)
+  const wsStill = /translate-x-/.test(wsAfter)
+  log('phase 8 — one undo: StatCards reverted:', cardsReverted, '| WeeklySchedule still moved:', wsStill)
+  if (!cardsReverted || !wsStill) {
+    throw new Error('ASSERT: Ctrl+Z should revert exactly the last element commit (StatCards), leaving the other')
+  }
+}
+restore()
+
+log('E2E PASS — linked resize, ghost-drag past clip boundary, reorder, just-this-one per-item edit, exact magnetic snap, anchored L/T-edge resize, shift+click group move with per-element undo — all zero tokens')
 await b.close()
