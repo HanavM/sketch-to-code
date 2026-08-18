@@ -59,6 +59,8 @@ export function setRunHandler(h: RunHandler): void {
 // and a closure-scoped flag would let a fresh instance accept a second run
 // while an orphaned pipeline is still editing files.
 let activeRun = false
+// undo stack: checkpoint SHAs of committed edits, most recent last
+const undoStack: Array<{ sha: string; label: string }> = []
 
 const DEFAULT_EXTS = ['.jsx', '.tsx']
 
@@ -194,6 +196,27 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })
 
+      server.middlewares.use('/@s2c/undo', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            while (undoStack.length) {
+              const entry = undoStack.pop()!
+              const cp = { sha: entry.sha, toplevel: root, dirtyBefore: true }
+              const files = m.changedFiles(root, cp)
+              if (files.length === 0) continue // that edit was already reverted
+              m.revertToCheckpoint(root, cp, files)
+              return sendJson(res, 200, { ok: true, undid: entry.label, files })
+            }
+            sendJson(res, 200, { ok: true, undid: null })
+          } catch (err) {
+            sendJson(res, 500, { ok: false, error: String(err) })
+          }
+        })()
+      })
+
       server.middlewares.use('/@s2c/interpret', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
@@ -257,7 +280,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const deadline = new Promise<never>((_, rej) =>
               setTimeout(() => rej(new Error(`run exceeded ${runTimeoutMs / 1000}s cap`)), runTimeoutMs),
             )
+            let runCp: { sha: string } | null = null
             const exec = async () => {
+              try {
+                const m0 = await import('@s2c/pipeline')
+                runCp = m0.checkpoint(root, allowDirty)
+              } catch { /* pipeline missing */ }
               if (engine === 'model' && body.rawInterpretation && body.mode !== 'screenshot') {
                 const m = await import('@s2c/pipeline')
                 return m.runV2(
@@ -275,7 +303,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             // Promise.resolve().then() so a synchronously-throwing handler
             // still flows into .catch/.finally
             Promise.race([Promise.resolve().then(exec), deadline])
-              .then((result) => sse.send('done', { summary: result.summary, clientId }))
+              .then((result) => {
+                if (runCp) undoStack.push({ sha: runCp.sha, label: 'sketch run' })
+                sse.send('done', { summary: result.summary, clientId })
+              })
               .catch((err: unknown) =>
                 sse.send('error-event', {
                   message: err instanceof Error ? err.message : String(err),

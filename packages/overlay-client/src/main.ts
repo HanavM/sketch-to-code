@@ -251,6 +251,31 @@ class Overlay {
       const target = e.composedPath()[0] as HTMLElement | undefined
       const tag = target?.tagName?.toLowerCase()
       if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) return
+      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) {
+        e.preventDefault()
+        if (this.mode === 'draw' && this.strokes.length > 0) {
+          this.strokes.pop()
+          this.redraw()
+          this.sync()
+          this.status('stroke undone')
+        } else if (this.mode !== 'running') {
+          void (async () => {
+            try {
+              const res = await fetch('/@s2c/undo', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+                body: '{}',
+              })
+              const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
+              if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
+              this.status(body.undid ? `↩ undid: ${body.undid}` : 'nothing to undo')
+            } catch (err) {
+              this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
+            }
+          })()
+        }
+        return
+      }
       if (e.altKey && (e.key === 'd' || e.key === 'D' || e.code === 'KeyD')) {
         e.preventDefault()
         this.toggleDraw()
