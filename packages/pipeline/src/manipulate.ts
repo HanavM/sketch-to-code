@@ -43,6 +43,25 @@ export interface ManipulateRequest {
   /** Target size in CSS pixels (prop: 'resize'); omit an axis to leave it. */
   w?: number
   h?: number
+  /**
+   * Magnetic-guide snap flags. An axis marked exact was aligned to a guide in
+   * the preview, so the committed value must be pixel-exact — no token
+   * rounding (which drifts up to 2px and breaks the alignment).
+   */
+  exactX?: boolean
+  exactY?: boolean
+  exactW?: boolean
+  exactH?: boolean
+  /**
+   * Shared-template guard: how many DOM instances the client counted for this
+   * srcLoc, which one was grabbed, and the user's chosen scope. When the
+   * stamp renders more than once (a .map()), a class edit on the template
+   * silently moves every instance — so without a choice we refuse with a
+   * structured shared:true response instead of editing.
+   */
+  instanceIndex?: number
+  instanceCount?: number
+  choice?: 'all' | 'just-this-one'
 }
 
 export interface ManipulateResult {
@@ -52,6 +71,10 @@ export interface ManipulateResult {
   change?: string
   className?: { before: string; after: string }
   error?: string
+  /** 409-style: the target renders N times and no scope was chosen. */
+  shared?: boolean
+  instanceCount?: number
+  options?: Array<'all' | 'just-this-one'>
 }
 
 /** Default Tailwind spacing scale (rem*4 = px units per step). */
@@ -74,6 +97,18 @@ export function snapSpacing(px: number): { suffix: string; snappedPx: number; on
     return { suffix, snappedPx: best * 4, onToken: true }
   }
   return { suffix: `[${Math.round(clamped)}px]`, snappedPx: Math.round(clamped), onToken: false }
+}
+
+/**
+ * px → suffix with NO tolerance: token only when the value sits exactly on
+ * the scale, else an arbitrary value at the exact pixel. Used for guide-
+ * snapped axes, where 2px of token rounding would visibly break alignment.
+ */
+export function snapSpacingExact(px: number): { suffix: string; snappedPx: number; onToken: boolean } {
+  const r = Math.round(Math.max(0, px))
+  const step = r / 4
+  if (SPACING_STEPS.includes(step)) return { suffix: String(step), snappedPx: r, onToken: true }
+  return { suffix: `[${r}px]`, snappedPx: r, onToken: false }
 }
 
 /** Per-prop matcher for the existing utility class to replace. */
@@ -151,28 +186,35 @@ export function synthesizeMove(
   dx: number,
   dy: number,
   inFlow: boolean,
+  exact?: { x?: boolean; y?: boolean },
 ): { edits: ClassEdit[]; cosmetic: boolean } | null {
   const ax = Math.abs(Math.round(dx))
   const ay = Math.abs(Math.round(dy))
+  const snapX = exact?.x ? snapSpacingExact : snapSpacing
+  const snapY = exact?.y ? snapSpacingExact : snapSpacing
   if (ax < MOVE_MIN && ay < MOVE_MIN) return null
   const axisAligned = (ax >= MOVE_MIN && ay < MOVE_AXIS_EPS) || (ay >= MOVE_MIN && ax < MOVE_AXIS_EPS)
   if (inFlow && axisAligned && Math.max(ax, ay) <= MOVE_MARGIN_MAX) {
     if (ax >= ay) {
-      return { edits: [{ prop: 'ml', suffix: snapSpacing(ax).suffix, negative: dx < 0 }], cosmetic: false }
+      return { edits: [{ prop: 'ml', suffix: snapX(ax).suffix, negative: dx < 0 }], cosmetic: false }
     }
-    return { edits: [{ prop: 'mt', suffix: snapSpacing(ay).suffix, negative: dy < 0 }], cosmetic: false }
+    return { edits: [{ prop: 'mt', suffix: snapY(ay).suffix, negative: dy < 0 }], cosmetic: false }
   }
   const edits: ClassEdit[] = []
-  if (ax >= MOVE_MIN) edits.push({ prop: 'translate-x', suffix: snapSpacing(ax).suffix, negative: dx < 0 })
-  if (ay >= MOVE_MIN) edits.push({ prop: 'translate-y', suffix: snapSpacing(ay).suffix, negative: dy < 0 })
+  if (ax >= MOVE_MIN) edits.push({ prop: 'translate-x', suffix: snapX(ax).suffix, negative: dx < 0 })
+  if (ay >= MOVE_MIN) edits.push({ prop: 'translate-y', suffix: snapY(ay).suffix, negative: dy < 0 })
   return { edits, cosmetic: true }
 }
 
 /** Resize ladder: width → w-*, height → h-*, snapped to the spacing scale. */
-export function synthesizeResize(w?: number, h?: number): ClassEdit[] {
+export function synthesizeResize(
+  w?: number,
+  h?: number,
+  exact?: { w?: boolean; h?: boolean },
+): ClassEdit[] {
   const edits: ClassEdit[] = []
-  if (w != null) edits.push({ prop: 'w', suffix: snapSpacing(w).suffix, negative: false })
-  if (h != null) edits.push({ prop: 'h', suffix: snapSpacing(h).suffix, negative: false })
+  if (w != null) edits.push({ prop: 'w', suffix: (exact?.w ? snapSpacingExact : snapSpacing)(w).suffix, negative: false })
+  if (h != null) edits.push({ prop: 'h', suffix: (exact?.h ? snapSpacingExact : snapSpacing)(h).suffix, negative: false })
   return edits
 }
 
@@ -204,39 +246,61 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
     return { ok: false, error: `cannot parse ${rel}` }
   }
 
-  let target: t.JSXOpeningElement | null = null
-  let targetParent: t.JSXElement | null = null
+  let found: NodePath<t.JSXOpeningElement> | null = null
   traverse(ast, {
     JSXOpeningElement(path) {
       const loc = path.node.loc
       if (loc && loc.start.line === line && loc.start.column + 1 === col) {
-        target = path.node
-        targetParent = path.parent as t.JSXElement
+        found = path
       }
     },
   })
-  if (!target) return { ok: false, error: `no JSX element at ${rel}:${line}:${col} (stale stamp?)` }
+  if (!found) return { ok: false, error: `no JSX element at ${rel}:${line}:${col} (stale stamp?)` }
+  const targetPath = found as NodePath<t.JSXOpeningElement>
+  const target: t.JSXOpeningElement = targetPath.node
+  const targetParent = targetPath.parent as t.JSXElement
 
   if (req.prop === 'reorder') {
-    return applyReorder(code, file, rel!, targetParent, req.from ?? 0, req.to ?? 0)
+    return applyReorder(code, file, rel!, targetPath, targetParent, req.from ?? 0, req.to ?? 0)
   }
 
   // plan the class writes: a single spacing utility, or a move/resize synthesis
   let edits: ClassEdit[]
   let cosmetic = false
   if (req.prop === 'move') {
-    const plan = synthesizeMove(req.dx ?? 0, req.dy ?? 0, req.inFlow ?? false)
+    const plan = synthesizeMove(req.dx ?? 0, req.dy ?? 0, req.inFlow ?? false, { x: req.exactX, y: req.exactY })
     if (!plan) return { ok: true, file: rel, change: 'no change (displacement too small)' }
     edits = plan.edits
     cosmetic = plan.cosmetic
   } else if (req.prop === 'resize') {
-    edits = synthesizeResize(req.w, req.h)
+    edits = synthesizeResize(req.w, req.h, { w: req.exactW, h: req.exactH })
     if (edits.length === 0) return { ok: true, file: rel, change: 'no change (no axis given)' }
   } else {
     edits = [{ prop: req.prop, suffix: snapSpacing(req.px ?? 0).suffix, negative: false }]
   }
   const cosmeticNote = cosmetic ? ' (cosmetic transform)' : ''
   const clsOf = (ed: ClassEdit) => `${ed.negative ? '-' : ''}${ed.prop}-${ed.suffix}`
+
+  // shared-template guard: this stamp renders more than once, and the planned
+  // edit is a class write on the shared template (move/resize gestures).
+  if ((req.prop === 'move' || req.prop === 'resize') && (req.instanceCount ?? 1) > 1) {
+    if (req.choice === 'just-this-one') {
+      return applyPerInstance(
+        code, file, rel!, targetPath, edits,
+        req.instanceIndex ?? 0, req.instanceCount ?? 1, cosmeticNote,
+      )
+    }
+    if (req.choice !== 'all') {
+      return {
+        ok: false,
+        shared: true,
+        instanceCount: req.instanceCount,
+        options: ['all', 'just-this-one'],
+        error: `this element renders ${req.instanceCount} times — editing the template moves them all; choose a scope`,
+      }
+    }
+    // choice === 'all': deliberate — fall through to the shared-template edit
+  }
 
   const attr = (target as t.JSXOpeningElement).attributes.find(
     (a): a is t.JSXAttribute =>
@@ -261,6 +325,34 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
   }
 
   if (!attr.value || attr.value.type !== 'StringLiteral') {
+    // one deliberate exception: OUR generated per-item hook template
+    // (`...static ${item.className ?? ''}`) stays editable in 'all' scope by
+    // rewriting its static part — otherwise 'just this one' would be a
+    // one-way door out of template edits
+    const hookQuasi = perItemHookQuasi(attr.value ?? null)
+    if (hookQuasi && hookQuasi.start != null && hookQuasi.end != null) {
+      const raw = hookQuasi.value.raw
+      const trailing = /\s*$/.exec(raw)?.[0] ?? ''
+      const staticBefore = raw.trim()
+      let curStatic = staticBefore
+      const parts: string[] = []
+      for (const ed of edits) {
+        const { after, replaced } = rewriteClassList(curStatic, ed.prop, ed.suffix, ed.negative)
+        const cls = clsOf(ed)
+        parts.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
+        curStatic = after
+      }
+      if (curStatic === staticBefore) {
+        return { ok: true, file: rel, change: 'no change (already at value)', className: { before: staticBefore, after: curStatic } }
+      }
+      const next2 = code.slice(0, hookQuasi.start) + escTemplate(curStatic) + (trailing || ' ') + code.slice(hookQuasi.end)
+      writeFileSync(file, next2)
+      return {
+        ok: true, file: rel,
+        change: `${parts.join(' · ')}${cosmeticNote}`,
+        className: { before: staticBefore, after: curStatic },
+      }
+    }
     // clsx()/template/dynamic className — out of deterministic scope, honestly
     return {
       ok: false,
@@ -327,6 +419,7 @@ function applyReorder(
   code: string,
   file: string,
   rel: string,
+  targetPath: NodePath<t.JSXOpeningElement>,
   parent: t.JSXElement | null,
   from: number,
   to: number,
@@ -355,34 +448,9 @@ function applyReorder(
       expr.callee.object.type === 'Identifier'
     ) {
       const arrName = expr.callee.object.name
-      // find `const arrName = [ ... ]` at top level of the same file
-      const re = new RegExp(`(?:const|let|var)\\s+${arrName}\\s*(?::[^=]+)?=`, 'g')
-      const m2 = re.exec(code)
-      if (!m2) return { ok: false, error: `'${arrName}' is not a same-file array — use the ink path` }
-      // parse again to find the ArrayExpression precisely
-      const ast2 = parse(code, { sourceType: 'module', plugins: ['jsx', 'typescript'], errorRecovery: true })
-      let arr: t.ArrayExpression | null = null
-      const walk = (node: unknown): void => {
-        if (!node || typeof node !== 'object') return
-        const n = node as { type?: string; id?: t.Node; init?: t.Node } & Record<string, unknown>
-        if (
-          n.type === 'VariableDeclarator' &&
-          (n.id as t.Identifier | undefined)?.type === 'Identifier' &&
-          (n.id as t.Identifier).name === arrName &&
-          (n.init as t.Node | undefined)?.type === 'ArrayExpression'
-        ) {
-          arr = n.init as t.ArrayExpression
-          return
-        }
-        for (const k of Object.keys(n)) {
-          const v = n[k]
-          if (Array.isArray(v)) v.forEach(walk)
-          else if (v && typeof v === 'object' && (v as { type?: string }).type) walk(v)
-        }
-      }
-      walk((ast2 as unknown as { program: t.Node }).program)
-      if (!arr) return { ok: false, error: `'${arrName}' array literal not found — use the ink path` }
-      const els = (arr as t.ArrayExpression).elements.filter((e): e is t.Expression => e !== null)
+      const arr = resolveArrayLiteral(targetPath, arrName)
+      if (!arr) return { ok: false, error: `'${arrName}' is not a same-file array literal — use the ink path` }
+      const els = arr.elements.filter((e): e is t.Expression => e !== null)
       if (els.length <= Math.max(from, to)) return { ok: false, error: 'index out of range for data array' }
       const ranges = els.map((e) => ({ start: e.start!, end: e.end! }))
       writeFileSync(file, reorderRanges(code, ranges, from, to))
@@ -393,4 +461,238 @@ function applyReorder(
     }
   }
   return { ok: false, error: 'children are dynamic — use the ink path for this reorder' }
+}
+
+/**
+ * Resolve NAME through babel's scope chain at `at` and return its array
+ * literal initializer, or null. Scope-aware on purpose: a whole-file name
+ * walk would happily return a DIFFERENT component's identically-named array
+ * and corrupt unrelated data.
+ */
+function resolveArrayLiteral(at: NodePath, name: string): t.ArrayExpression | null {
+  const binding = at.scope.getBinding(name)
+  const node = binding?.path.node as t.Node | undefined
+  if (node?.type !== 'VariableDeclarator') return null
+  const decl = node as t.VariableDeclarator
+  if (decl.init?.type !== 'ArrayExpression') return null
+  return decl.init
+}
+
+/** Does `obj.prop` appear anywhere inside this expression tree? */
+function hasMemberExpr(node: unknown, obj: string, prop: string): boolean {
+  if (!node || typeof node !== 'object') return false
+  const n = node as { type?: string } & Record<string, unknown>
+  if (
+    n.type === 'MemberExpression' &&
+    (n.object as t.Node | undefined)?.type === 'Identifier' &&
+    (n.object as t.Identifier).name === obj &&
+    !(n as unknown as t.MemberExpression).computed &&
+    (n.property as t.Node | undefined)?.type === 'Identifier' &&
+    (n.property as t.Identifier).name === prop
+  ) return true
+  for (const k of Object.keys(n)) {
+    const v = n[k]
+    if (Array.isArray(v)) {
+      if (v.some((c) => hasMemberExpr(c, obj, prop))) return true
+    } else if (v && typeof v === 'object' && (v as { type?: string }).type) {
+      if (hasMemberExpr(v, obj, prop)) return true
+    }
+  }
+  return false
+}
+
+/**
+ * Recognize the per-item hook template this module generates:
+ * {`STATIC ${item.className ?? ''}`} — one expression, member `.className`
+ * (optionally behind ??). Returns the static quasi so it can be edited.
+ */
+function perItemHookQuasi(v: t.JSXAttribute['value'] | null): t.TemplateElement | null {
+  if (!v || v.type !== 'JSXExpressionContainer') return null
+  const ex = v.expression
+  if (ex.type !== 'TemplateLiteral' || ex.expressions.length !== 1 || ex.quasis.length !== 2) return null
+  const isHook = (n: t.Node): boolean =>
+    (n.type === 'MemberExpression' && !n.computed &&
+      n.object.type === 'Identifier' &&
+      n.property.type === 'Identifier' && n.property.name === 'className') ||
+    (n.type === 'LogicalExpression' && n.operator === '??' && isHook(n.left))
+  return isHook(ex.expressions[0] as t.Node) ? ex.quasis[0]! : null
+}
+
+const escTemplate = (s: string): string =>
+  s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+const escSingle = (s: string): string => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+
+/**
+ * Per-instance class edit for a shared .map() template ('just this one').
+ * Works only when the target is rendered from `NAME.map((item) => ...)` over
+ * a same-file array literal whose items are object literals:
+ *   - the chosen item gains/extends a `className` string field
+ *   - the template's className grows a `${item.className ?? ''}` spread
+ *     (a string literal deliberately becomes a template literal here —
+ *     the one sanctioned crossing of the dynamic-className line)
+ * Other instances read `undefined ?? ''` and are pixel-for-pixel unchanged.
+ * Anything else refuses honestly.
+ */
+function applyPerInstance(
+  code: string,
+  file: string,
+  rel: string,
+  targetPath: NodePath<t.JSXOpeningElement>,
+  edits: ClassEdit[],
+  instanceIndex: number,
+  instanceCount: number,
+  cosmeticNote: string,
+): ManipulateResult {
+  // the enclosing NAME.map(...) call, if any
+  const mapPath = targetPath.findParent((p) => {
+    const n = p.node as t.Node
+    return (
+      n.type === 'CallExpression' &&
+      n.callee.type === 'MemberExpression' &&
+      !n.callee.computed &&
+      n.callee.property.type === 'Identifier' &&
+      n.callee.property.name === 'map' &&
+      n.callee.object.type === 'Identifier'
+    )
+  })
+  if (!mapPath) {
+    return {
+      ok: false,
+      error: "can't isolate this instance — it isn't rendered from a same-file .map(); apply to all or use the ink path",
+    }
+  }
+  const call = mapPath.node as t.CallExpression
+  const arrName = ((call.callee as t.MemberExpression).object as t.Identifier).name
+  const cb = call.arguments[0]
+  if (
+    !cb ||
+    (cb.type !== 'ArrowFunctionExpression' && cb.type !== 'FunctionExpression') ||
+    cb.params[0]?.type !== 'Identifier'
+  ) {
+    return {
+      ok: false,
+      error: `'${arrName}.map' callback has no simple item parameter — can't add a per-item hook`,
+    }
+  }
+  const param = cb.params[0].name
+
+  const arr = resolveArrayLiteral(mapPath, arrName)
+  if (!arr) {
+    return { ok: false, error: `'${arrName}' is not a same-file array literal — can't edit one item; apply to all or use the ink path` }
+  }
+  const els = arr.elements
+  if (els.length !== instanceCount) {
+    return {
+      ok: false,
+      error: `DOM shows ${instanceCount} instances but '${arrName}' has ${els.length} items — refusing a per-item edit`,
+    }
+  }
+  const item = els[instanceIndex]
+  if (!item || item.type !== 'ObjectExpression') {
+    return { ok: false, error: `'${arrName}' item ${instanceIndex + 1} is not an object literal — can't add a className field` }
+  }
+
+  // merge the planned utilities into the item's existing className (if any)
+  const clsProp = item.properties.find(
+    (p): p is t.ObjectProperty =>
+      p.type === 'ObjectProperty' &&
+      !p.computed &&
+      ((p.key.type === 'Identifier' && p.key.name === 'className') ||
+        (p.key.type === 'StringLiteral' && p.key.value === 'className')),
+  )
+  if (clsProp && clsProp.value.type !== 'StringLiteral') {
+    return { ok: false, error: `'${arrName}' item ${instanceIndex + 1} has a non-string className — can't merge` }
+  }
+  const before = clsProp ? (clsProp.value as t.StringLiteral).value : ''
+  let cur = before
+  const descr: string[] = []
+  const clsOf = (ed: ClassEdit) => `${ed.negative ? '-' : ''}${ed.prop}-${ed.suffix}`
+  for (const ed of edits) {
+    const { after, replaced } = rewriteClassList(cur, ed.prop, ed.suffix, ed.negative)
+    const cls = clsOf(ed)
+    descr.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
+    cur = after
+  }
+  if (cur === before) {
+    return { ok: true, file: rel, change: 'no change (already at value)', className: { before, after: cur } }
+  }
+
+  const attr = targetPath.node.attributes.find(
+    (a): a is t.JSXAttribute =>
+      a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.name.name === 'className',
+  )
+  // refuse when the template itself already pins one of these utilities on
+  // every instance: Tailwind resolves conflicting utilities by stylesheet
+  // order, not class order, so a per-item override could silently lose
+  const templateStatic =
+    attr?.value?.type === 'StringLiteral'
+      ? attr.value.value
+      : attr?.value?.type === 'JSXExpressionContainer' && attr.value.expression.type === 'TemplateLiteral'
+        ? attr.value.expression.quasis.map((q) => q.value.raw).join(' ')
+        : ''
+  const conflict = templateStatic.split(/\s+/).filter(Boolean)
+    .find((c) => edits.some((ed) => CLASS_PATTERNS[ed.prop].test(c)))
+  if (conflict) {
+    return {
+      ok: false,
+      error: `the template already sets '${conflict}' on every instance — a per-item override would clash; apply to all instead`,
+    }
+  }
+
+  const textEdits: Array<{ start: number; end: number; text: string }> = []
+
+  // 1) template hook: className must end up reading `${param}.className`
+  let hookNote = ''
+  if (!attr) {
+    const name = targetPath.node.name
+    if (name.type !== 'JSXIdentifier' || name.end == null) {
+      return { ok: false, error: 'unsupported element name node' }
+    }
+    textEdits.push({ start: name.end, end: name.end, text: ` className={${param}.className}` })
+    hookNote = ' (added per-item className hook)'
+  } else if (attr.value?.type === 'StringLiteral') {
+    if (attr.value.start == null || attr.value.end == null) {
+      return { ok: false, error: 'missing attribute location' }
+    }
+    textEdits.push({
+      start: attr.value.start,
+      end: attr.value.end,
+      text: `{\`${escTemplate(attr.value.value)} \${${param}.className ?? ''}\`}`,
+    })
+    hookNote = ' (added per-item className hook)'
+  } else if (attr.value?.type === 'JSXExpressionContainer' && hasMemberExpr(attr.value.expression, param, 'className')) {
+    // hook already present (a previous 'just this one' edit) — data-only edit
+  } else {
+    return {
+      ok: false,
+      error: "className is dynamic and has no per-item hook — apply to all or use the ink path",
+    }
+  }
+
+  // 2) data edit: set/extend the item's className field
+  if (clsProp) {
+    const v = clsProp.value as t.StringLiteral
+    if (v.start == null || v.end == null) return { ok: false, error: 'missing item location' }
+    const quote = code[v.start] ?? "'"
+    const escaped = quote === '"' ? cur.replace(/\\/g, '\\\\').replace(/"/g, '\\"') : escSingle(cur)
+    textEdits.push({ start: v.start, end: v.end, text: `${quote}${escaped}${quote}` })
+  } else if (item.properties.length > 0) {
+    const last = item.properties[item.properties.length - 1]!
+    if (last.end == null) return { ok: false, error: 'missing item location' }
+    textEdits.push({ start: last.end, end: last.end, text: `, className: '${escSingle(cur)}'` })
+  } else {
+    if (item.start == null) return { ok: false, error: 'missing item location' }
+    textEdits.push({ start: item.start + 1, end: item.start + 1, text: ` className: '${escSingle(cur)}' ` })
+  }
+
+  textEdits.sort((a, b) => b.start - a.start)
+  let next = code
+  for (const te of textEdits) next = next.slice(0, te.start) + te.text + next.slice(te.end)
+  writeFileSync(file, next)
+  return {
+    ok: true,
+    file: rel,
+    change: `just this one — '${arrName}' item ${instanceIndex + 1} of ${instanceCount}: ${descr.join(' · ')}${cosmeticNote}${hookNote}`,
+    className: { before, after: cur },
+  }
 }

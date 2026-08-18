@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
-  applyManipulation, rewriteClassList, snapSpacing, synthesizeMove, synthesizeResize,
+  applyManipulation, rewriteClassList, snapSpacing, snapSpacingExact, synthesizeMove, synthesizeResize,
 } from '../src/manipulate.js'
 
 describe('snapSpacing', () => {
@@ -263,6 +263,309 @@ describe('applyManipulation move', () => {
     expect(res.ok).toBe(true)
     expect(res.change).toContain('no change')
     expect(readFileSync(join(root, 'src/M.tsx'), 'utf8')).toBe(fixture)
+  })
+})
+
+describe('snapSpacingExact (magnetic-guide axes)', () => {
+  it('keeps guide-snapped values pixel-exact — no 2px token drift', () => {
+    // 25px is within 2px of token 6 (24px); tolerant snap would break alignment
+    expect(snapSpacingExact(25)).toEqual({ suffix: '[25px]', snappedPx: 25, onToken: false })
+    expect(snapSpacing(25).suffix).toBe('6') // the contrast that motivates it
+  })
+  it('still uses tokens when the exact value sits on the scale', () => {
+    expect(snapSpacingExact(24)).toEqual({ suffix: '6', snappedPx: 24, onToken: true })
+    expect(snapSpacingExact(2)).toEqual({ suffix: '0.5', snappedPx: 2, onToken: true })
+  })
+})
+
+describe('synthesizeMove/Resize with exact axes', () => {
+  it('exact axis produces the exact arbitrary value; the free axis still tokens', () => {
+    expect(synthesizeMove(25, -25, false, { x: true })).toEqual({
+      edits: [
+        { prop: 'translate-x', suffix: '[25px]', negative: false },
+        { prop: 'translate-y', suffix: '6', negative: true },
+      ],
+      cosmetic: true,
+    })
+  })
+  it('exact margin-rung nudges are pixel-exact too', () => {
+    expect(synthesizeMove(25, 0, true, { x: true })).toEqual({
+      edits: [{ prop: 'ml', suffix: '[25px]', negative: false }], cosmetic: false,
+    })
+  })
+  it('resize honors per-axis exactness', () => {
+    expect(synthesizeResize(25, 25, { w: true })).toEqual([
+      { prop: 'w', suffix: '[25px]', negative: false },
+      { prop: 'h', suffix: '6', negative: false },
+    ])
+  })
+})
+
+describe('shared templates (.map instances)', () => {
+  const mapFixture = `const stats = [
+  { label: 'Revenue', value: 1 },
+  { label: 'Users', value: 2 },
+  { label: 'Conversion', value: 3 },
+]
+export default function S() {
+  return (
+    <section className="grid">
+      {stats.map((s) => (
+        <div key={s.label} className="rounded p-5">{s.label}</div>
+      ))}
+    </section>
+  )
+}
+`
+  const mkRoot = (code = mapFixture) => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-shared-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/S.tsx'), code)
+    return root
+  }
+  // the mapped <div> opens at line 10, col 9
+  const DIV = 'src/S.tsx:10:9'
+
+  it('refuses with a structured shared:true response when no scope is chosen', () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: 40, dy: 30, inFlow: true,
+      instanceIndex: 1, instanceCount: 3,
+    })
+    expect(res.ok).toBe(false)
+    expect(res.shared).toBe(true)
+    expect(res.instanceCount).toBe(3)
+    expect(res.options).toEqual(['all', 'just-this-one'])
+    expect(readFileSync(join(root, 'src/S.tsx'), 'utf8')).toBe(mapFixture) // untouched
+  })
+
+  it("choice 'all' edits the shared template exactly as before", () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'resize', w: 300,
+      instanceIndex: 1, instanceCount: 3, choice: 'all',
+    })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/S.tsx'), 'utf8')
+    expect(after).toContain('className="rounded p-5 w-[300px]"')
+  })
+
+  it("'just this one' adds a per-item field + template spread; other items untouched", () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: 51, dy: -12, inFlow: true,
+      instanceIndex: 1, instanceCount: 3, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain("'stats' item 2 of 3")
+    expect(res.change).toContain('(cosmetic transform)')
+    const after = readFileSync(join(root, 'src/S.tsx'), 'utf8')
+    // item 2 gained the field; items 1 and 3 did not
+    expect(after).toContain("{ label: 'Users', value: 2, className: 'translate-x-[51px] -translate-y-3' },")
+    expect(after).toContain("{ label: 'Revenue', value: 1 },")
+    expect(after).toContain("{ label: 'Conversion', value: 3 },")
+    // template deliberately crossed into a template literal with the spread
+    expect(after).toContain('className={`rounded p-5 ${s.className ?? \'\'}`}')
+  })
+
+  it("'just this one' merges into an existing per-item className instead of duplicating", () => {
+    const root = mkRoot()
+    // first narrow edit installs the hook…
+    applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: 51, dy: 0, inFlow: false,
+      instanceIndex: 1, instanceCount: 3, choice: 'just-this-one',
+    })
+    // …the second must reuse it: data-only edit, no second template rewrite
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: -24, dy: 0, inFlow: false,
+      instanceIndex: 1, instanceCount: 3, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/S.tsx'), 'utf8')
+    expect(after).toContain("className: '-translate-x-6'")
+    expect(after.match(/\$\{s\.className \?\? ''\}/g)?.length).toBe(1)
+  })
+
+  it('refuses honestly when the array is not a same-file literal', () => {
+    const root = mkRoot(`export default function T({ items }: { items: string[] }) {
+  return (
+    <ul className="flex">
+      {items.map((i) => (
+        <li key={i} className="p-2">{i}</li>
+      ))}
+    </ul>
+  )
+}
+`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/S.tsx:5:9', prop: 'move', dx: 40, dy: 30, inFlow: true,
+      instanceIndex: 0, instanceCount: 2, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(false)
+    expect(res.error).toContain('same-file')
+    expect(res.error).toMatch(/apply to all|ink path/)
+  })
+
+  it('refuses when the DOM count disagrees with the array length', () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: 40, dy: 30, inFlow: true,
+      instanceIndex: 0, instanceCount: 6, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(false)
+    expect(res.error).toContain('6 instances')
+    expect(res.error).toContain('3 items')
+  })
+
+  it('single-instance elements never trip the shared gate', () => {
+    const root = mkRoot()
+    // the <section> itself renders once (line 8, col 5)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/S.tsx:8:5', prop: 'move', dx: 51, dy: -12, inFlow: true,
+      instanceIndex: 0, instanceCount: 1,
+    })
+    expect(res.ok).toBe(true)
+    expect(res.shared).toBeUndefined()
+  })
+
+  it('resolves the array through SCOPE — never another component\'s same-named array', () => {
+    const twoComps = `function A() {
+  const rows = [
+    { label: 'a' },
+    { label: 'b' },
+  ]
+  return (
+    <ul className="flex">
+      {rows.map((r) => (
+        <li key={r.label} className="p-2">{r.label}</li>
+      ))}
+    </ul>
+  )
+}
+export function B() {
+  const rows = [
+    { label: 'x' },
+    { label: 'y' },
+  ]
+  return (
+    <ul className="flex">
+      {rows.map((r) => (
+        <li key={r.label} className="p-1">{r.label}</li>
+      ))}
+    </ul>
+  )
+}
+`
+    const root = mkdtempSync(join(tmpdir(), 's2c-scope-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/C.tsx'), twoComps)
+    // B's <li> is at line 22, col 9
+    const res = applyManipulation(root, {
+      srcLoc: 'src/C.tsx:22:9', prop: 'move', dx: 51, dy: -12, inFlow: false,
+      instanceIndex: 1, instanceCount: 2, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/C.tsx'), 'utf8')
+    const aPart = after.slice(0, after.indexOf('function B'))
+    const bPart = after.slice(after.indexOf('function B'))
+    expect(bPart).toContain("{ label: 'y', className: 'translate-x-[51px] -translate-y-3' },")
+    // A's data and template are untouched
+    expect(aPart).toContain("{ label: 'a' },")
+    expect(aPart).toContain("{ label: 'b' },")
+    expect(aPart).not.toContain('className:')
+    expect(aPart).toContain('className="p-2"')
+  })
+
+  it('reorder resolves the array through scope too', () => {
+    const twoComps = `function A() {
+  const rows = [
+    { label: 'a' },
+    { label: 'b' },
+  ]
+  return (
+    <ul className="flex">
+      {rows.map((r) => (
+        <li key={r.label}>{r.label}</li>
+      ))}
+    </ul>
+  )
+}
+export function B() {
+  const rows = [
+    { label: 'x' },
+    { label: 'y' },
+  ]
+  return (
+    <ul className="flex">
+      {rows.map((r) => (
+        <li key={r.label}>{r.label}</li>
+      ))}
+    </ul>
+  )
+}
+`
+    const root = mkdtempSync(join(tmpdir(), 's2c-scope-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/D.tsx'), twoComps)
+    // B's <ul> opens at line 20, col 5
+    const res = applyManipulation(root, { srcLoc: 'src/D.tsx:20:5', prop: 'reorder', from: 0, to: 1 })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/D.tsx'), 'utf8')
+    const aPart = after.slice(0, after.indexOf('function B'))
+    const bPart = after.slice(after.indexOf('function B'))
+    expect(bPart.indexOf("'y'")).toBeLessThan(bPart.indexOf("'x'"))
+    expect(aPart.indexOf("'a'")).toBeLessThan(aPart.indexOf("'b'"))
+  })
+
+  it("refuses 'just this one' when the template already pins a conflicting utility", () => {
+    const root = mkRoot(`const stats = [
+  { label: 'Revenue' },
+  { label: 'Users' },
+]
+export default function S() {
+  return (
+    <section className="grid">
+      {stats.map((s) => (
+        <div key={s.label} className="rounded w-40">{s.label}</div>
+      ))}
+    </section>
+  )
+}
+`)
+    const res = applyManipulation(root, {
+      srcLoc: 'src/S.tsx:9:9', prop: 'resize', w: 300,
+      instanceIndex: 0, instanceCount: 2, choice: 'just-this-one',
+    })
+    expect(res.ok).toBe(false)
+    expect(res.error).toContain("'w-40'")
+    expect(res.error).toContain('apply to all')
+  })
+
+  it("'all' scope still works AFTER a per-instance edit installed the hook template", () => {
+    const root = mkRoot()
+    applyManipulation(root, {
+      srcLoc: DIV, prop: 'move', dx: 51, dy: 0, inFlow: false,
+      instanceIndex: 1, instanceCount: 3, choice: 'just-this-one',
+    })
+    const res = applyManipulation(root, {
+      srcLoc: DIV, prop: 'resize', w: 300,
+      instanceIndex: 0, instanceCount: 3, choice: 'all',
+    })
+    expect(res.ok).toBe(true)
+    const after = readFileSync(join(root, 'src/S.tsx'), 'utf8')
+    // static part gained w-[300px]; the per-item hook survived intact
+    expect(after).toContain('className={`rounded p-5 w-[300px] ${s.className ?? \'\'}`}')
+    expect(after).toContain("className: 'translate-x-[51px]'")
+  })
+
+  it("reorder is untouched by the gate (already single-instance semantics)", () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, {
+      srcLoc: 'src/S.tsx:8:5', prop: 'reorder', from: 0, to: 2,
+      instanceIndex: 0, instanceCount: 3,
+    })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain("'stats' entry 1 → position 3")
   })
 })
 

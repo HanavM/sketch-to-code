@@ -175,6 +175,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{
           srcLoc: string; prop: string; px?: number; from?: number; to?: number
           dx?: number; dy?: number; inFlow?: boolean; w?: number; h?: number
+          exactX?: boolean; exactY?: boolean; exactW?: boolean; exactH?: boolean
+          instanceIndex?: number; instanceCount?: number; choice?: 'all' | 'just-this-one'
         }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
@@ -190,11 +192,19 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               inFlow: body.inFlow,
               w: body.w,
               h: body.h,
+              exactX: body.exactX,
+              exactY: body.exactY,
+              exactW: body.exactW,
+              exactH: body.exactH,
+              instanceIndex: body.instanceIndex,
+              instanceCount: body.instanceCount,
+              choice: body.choice,
             })
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
               undoStack.push({ sha: cp.sha, label: result.change ?? 'edit' })
             }
-            sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
+            // shared templates answer 409 (choose a scope), other refusals 422
+            sendJson(res, result.ok ? 200 : result.shared ? 409 : 422, { ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })

@@ -48,6 +48,12 @@ interface TweakZone {
 type HandleKind = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 /** Viewport-coords rect (getBoundingClientRect shape, plain object). */
 interface SelRect { left: number; top: number; width: number; height: number }
+/**
+ * Magnetic alignment guide: a line at `pos` (viewport px) on the given axis,
+ * with the extent (lo..hi along the other axis) of the rect that donated it —
+ * used to draw the pink line only as far as it's meaningful.
+ */
+interface Guide { axis: 'v' | 'h'; pos: number; lo: number; hi: number }
 interface TweakState {
   el: HTMLElement
   /** data-s2c stamp captured at selection time. */
@@ -57,6 +63,15 @@ interface TweakState {
   direction: 'row' | 'column'
   /** In normal flow (static/relative) — margin nudges make sense here. */
   inFlow: boolean
+  /**
+   * Every live DOM instance of this stamp (a .map() renders it N times) and
+   * which one was clicked. scope 'all' = class edits hit the shared template
+   * (every instance, shown linked); 'one' (via double-click) = per-instance
+   * edit synthesized server-side.
+   */
+  instanceEls: HTMLElement[]
+  instanceIndex: number
+  scope: 'all' | 'one'
   zones: TweakZone[]
   /** gap-strip / padding-band drag (secondary affordances). */
   drag: { zone: TweakZone; startX: number; startY: number; startValue: number } | null
@@ -69,6 +84,11 @@ interface TweakState {
     /** live preview values (px); null = axis untouched by this handle */
     w: number | null
     h: number | null
+    /** magnetic guides cached at drag start + the ones currently snapped to */
+    guides: Guide[]
+    activeGuides: Guide[]
+    snappedW: boolean
+    snappedH: boolean
   } | null
   /**
    * Free-move drag: the element follows the cursor via transform (no file
@@ -79,6 +99,7 @@ interface TweakState {
   moveDrag: {
     startX: number
     startY: number
+    /** displacement AFTER magnetic snapping — what previews and commits */
     dx: number
     dy: number
     startRect: SelRect
@@ -90,6 +111,20 @@ interface TweakState {
     proposedIndex: number
     /** element's own CSS transform at drag start ('' if none) — preserved */
     baseTransform: string
+    /** magnetic guides cached at drag start + the ones currently snapped to */
+    guides: Guide[]
+    activeGuides: Guide[]
+    snappedX: boolean
+    snappedY: boolean
+    /**
+     * Unclipped preview: when an ancestor clips (overflow≠visible) the
+     * element can't visually leave it, so a document-level fixed ghost
+     * follows the cursor while the original dims to 40%. Otherwise the
+     * original itself is lifted (position:relative + huge z-index).
+     */
+    ghost: HTMLElement | null
+    /** inline styles to restore on release */
+    prev: { opacity: string; position: string; zIndex: string }
   } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
@@ -104,6 +139,12 @@ const HANDLE_CURSORS: Record<HandleKind, string> = {
 }
 /** Releases with less total travel than this are clicks, not drags. */
 const CLICK_SLOP = 4
+/** Magnetic alignment: snap when an edge/center is within this many px of a guide. */
+const SNAP_PX = 6
+/** Canva-pink guide lines. */
+const GUIDE_COLOR = '#ec4899'
+/** Two clicks on the selected element within this window toggle instance scope. */
+const DBLCLICK_MS = 450
 
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
@@ -166,6 +207,8 @@ class Overlay {
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private tweak: TweakState | null = null
   private tweakHover: DOMRect | null = null
+  /** last still-click on the selected element — double-click scope toggle */
+  private lastTweakClick: { el: HTMLElement; at: number } | null = null
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -281,7 +324,25 @@ class Overlay {
         this.toggleDraw()
       }
       if (e.key === 'Escape') {
-        if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
+        const tw = this.tweak
+        if (this.mode === 'tweak' && tw && (tw.moveDrag || tw.handleDrag || tw.drag)) {
+          // Esc DURING a drag cancels the drag — it must never fall through
+          // to the scope toggle (a 'one'-scope drag would silently commit
+          // as 'all' at release) or leak the ghost/dim/lift visuals
+          this.clearTweakPreview()
+          tw.moveDrag = null
+          tw.handleDrag = null
+          tw.drag = null
+          this.status('cancelled')
+          this.redraw()
+        }
+        else if (this.mode === 'tweak' && this.tweak?.scope === 'one') {
+          // step back out to all-instances scope before deselecting
+          this.tweak.scope = 'all'
+          this.status(`all ${this.tweak.instanceEls.length} linked — edits apply to every instance`)
+          this.redraw()
+        }
+        else if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
         else if (this.mode === 'tweak') this.exitTweak('tweak off')
         else if (this.mode === 'preview') this.exitPreview('cancelled')
         else if (this.mode === 'draw') this.setMode('idle')
@@ -541,10 +602,24 @@ class Overlay {
   private clearTweakPreview() {
     const t = this.tweak
     if (!t) return
+    if (t.moveDrag) this.endMoveVisuals(t) // Esc mid-drag: don't leak the ghost
     for (const p of [
       'gap', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
       'transform', 'width', 'height', 'will-change',
     ]) t.el.style.removeProperty(p)
+  }
+
+  /** Tear down free-move preview state: ghost, dimming, lift. Idempotent. */
+  private endMoveVisuals(t: TweakState) {
+    const md = t.moveDrag
+    if (!md) return
+    md.ghost?.remove()
+    md.ghost = null
+    t.el.style.opacity = md.prev.opacity
+    t.el.style.position = md.prev.position
+    t.el.style.zIndex = md.prev.zIndex
+    t.el.style.removeProperty('transform')
+    t.el.style.removeProperty('will-change')
   }
 
   /** Deepest stamped element under the point — anything stamped is fair game. */
@@ -559,9 +634,15 @@ class Overlay {
     return null
   }
 
-  private buildTweakState(el: HTMLElement): TweakState {
+  private buildTweakState(el: HTMLElement, scope: 'all' | 'one' = 'all'): TweakState {
     const cs = getComputedStyle(el)
     const rect = el.getBoundingClientRect()
+    // all live instances of this stamp — >1 means a shared template (.map())
+    const srcLoc = el.dataset.s2c ?? ''
+    const instanceEls = srcLoc
+      ? ([...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)] as HTMLElement[])
+      : [el]
+    const instanceIndex = Math.max(0, instanceEls.indexOf(el))
     const direction = cs.flexDirection === 'column' ? 'column' : 'row'
     const zones: TweakZone[] = []
 
@@ -599,16 +680,103 @@ class Overlay {
 
     return {
       el,
-      srcLoc: el.dataset.s2c ?? '',
+      srcLoc,
       rect,
       display: cs.display,
       direction,
       inFlow: cs.position === 'static' || cs.position === 'relative',
+      instanceEls,
+      instanceIndex,
+      scope: instanceEls.length > 1 ? scope : 'all',
       zones,
       drag: null,
       handleDrag: null,
       moveDrag: null,
       preview: {},
+    }
+  }
+
+  /**
+   * Magnetic guides for this element: sibling edges + centers, plus the
+   * parent's padding box. Viewport coords, cached at drag start (the pointer
+   * can't scroll mid-drag).
+   */
+  private collectGuides(el: HTMLElement): Guide[] {
+    const guides: Guide[] = []
+    const parent = el.parentElement
+    if (!parent) return guides
+    const pr = parent.getBoundingClientRect()
+    const pcs = getComputedStyle(parent)
+    const pad = (s: string) => parseFloat(pcs.getPropertyValue('padding-' + s)) || 0
+    const box = {
+      left: pr.left + pad('left'), right: pr.right - pad('right'),
+      top: pr.top + pad('top'), bottom: pr.bottom - pad('bottom'),
+    }
+    guides.push(
+      { axis: 'v', pos: box.left, lo: box.top, hi: box.bottom },
+      { axis: 'v', pos: box.right, lo: box.top, hi: box.bottom },
+      { axis: 'h', pos: box.top, lo: box.left, hi: box.right },
+      { axis: 'h', pos: box.bottom, lo: box.left, hi: box.right },
+    )
+    for (const k of parent.children) {
+      if (k === el || k === this.host) continue
+      const kr = k.getBoundingClientRect()
+      if (kr.width <= 0 && kr.height <= 0) continue
+      guides.push(
+        { axis: 'v', pos: kr.left, lo: kr.top, hi: kr.bottom },
+        { axis: 'v', pos: kr.left + kr.width / 2, lo: kr.top, hi: kr.bottom },
+        { axis: 'v', pos: kr.right, lo: kr.top, hi: kr.bottom },
+        { axis: 'h', pos: kr.top, lo: kr.left, hi: kr.right },
+        { axis: 'h', pos: kr.top + kr.height / 2, lo: kr.left, hi: kr.right },
+        { axis: 'h', pos: kr.bottom, lo: kr.left, hi: kr.right },
+      )
+    }
+    return guides
+  }
+
+  /**
+   * Best snap on one axis: smallest |guide − candidate| within SNAP_PX.
+   * Returns the correction to ADD to the displacement, and the guide (for
+   * the pink line).
+   */
+  private bestSnap(
+    guides: Guide[],
+    axis: 'v' | 'h',
+    candidates: number[],
+  ): { delta: number; guide: Guide } | null {
+    let best: { delta: number; guide: Guide } | null = null
+    for (const g of guides) {
+      if (g.axis !== axis) continue
+      for (const c of candidates) {
+        const d = g.pos - c
+        if (Math.abs(d) <= SNAP_PX && (!best || Math.abs(d) < Math.abs(best.delta))) {
+          best = { delta: d, guide: g }
+        }
+      }
+    }
+    return best
+  }
+
+  /** Does any ancestor clip its contents? Then a dragged child can't visually escape. */
+  private hasClippingAncestor(el: HTMLElement): boolean {
+    let p = el.parentElement
+    while (p && p !== document.documentElement) {
+      const cs = getComputedStyle(p)
+      for (const o of [cs.overflow, cs.overflowX, cs.overflowY]) {
+        if (o && o !== 'visible') return true
+      }
+      p = p.parentElement
+    }
+    return false
+  }
+
+  /** Instance fields for move/resize commit bodies (shared-template scope). */
+  private instanceFields(t: TweakState): Record<string, unknown> {
+    if (t.instanceEls.length <= 1) return {}
+    return {
+      instanceIndex: t.instanceIndex,
+      instanceCount: t.instanceEls.length,
+      choice: t.scope === 'one' ? 'just-this-one' : 'all',
     }
   }
 
@@ -672,9 +840,12 @@ class Overlay {
     const t = this.tweak
     const r = el.getBoundingClientRect()
     const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
+    const linked = t.instanceEls.length > 1
+      ? ` · ${t.instanceEls.length} linked (double-click: just this one)`
+      : ''
     this.status(
       `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ` +
-      `${t.srcLoc.split(':')[0]} — drag to move, handles to resize`,
+      `${t.srcLoc.split(':')[0]}${linked} — drag to move, handles to resize`,
     )
     this.redraw()
   }
@@ -701,7 +872,43 @@ class Overlay {
         parentSrcLoc = parent.dataset.s2c ?? null
       }
     }
-    const baseTransform = getComputedStyle(t.el).transform
+    const cs = getComputedStyle(t.el)
+    const baseTransform = cs.transform
+    const guides = this.collectGuides(t.el)
+    const prev = { opacity: t.el.style.opacity, position: t.el.style.position, zIndex: t.el.style.zIndex }
+    // unclipped preview: ghost when an ancestor would clip, else lift in place
+    let ghost: HTMLElement | null = null
+    if (this.hasClippingAncestor(t.el)) {
+      ghost = t.el.cloneNode(true) as HTMLElement
+      ghost.removeAttribute('data-s2c')
+      for (const d of ghost.querySelectorAll('[data-s2c]')) d.removeAttribute('data-s2c')
+      ghost.setAttribute('data-s2c-ghost', '')
+      Object.assign(ghost.style, {
+        position: 'fixed',
+        left: `${r.left}px`,
+        top: `${r.top}px`,
+        width: `${r.width}px`,
+        height: `${r.height}px`,
+        margin: '0',
+        boxSizing: 'border-box',
+        zIndex: '2147482999',
+        pointerEvents: 'none',
+        transition: 'none',
+        willChange: 'transform',
+        // the fixed left/top already include any class translate-*; zero the
+        // clone's own translate/transform so it isn't applied twice (Tailwind
+        // v4 sets the CSS `translate` property, which would COMPOSE with the
+        // inline transform written during the drag)
+        translate: 'none',
+        transform: 'translate(0px, 0px)',
+      } satisfies Partial<CSSStyleDeclaration>)
+      document.body.appendChild(ghost)
+      t.el.style.opacity = '0.4'
+    } else {
+      if (cs.position === 'static') t.el.style.position = 'relative'
+      t.el.style.zIndex = '2147482998'
+      t.el.style.willChange = 'transform'
+    }
     t.moveDrag = {
       startX: e.clientX,
       startY: e.clientY,
@@ -713,8 +920,13 @@ class Overlay {
       fromIndex,
       proposedIndex: -1,
       baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
+      guides,
+      activeGuides: [],
+      snappedX: false,
+      snappedY: false,
+      ghost,
+      prev,
     }
-    t.el.style.willChange = 'transform'
     this.canvas.setPointerCapture(e.pointerId)
   }
 
@@ -736,8 +948,11 @@ class Overlay {
     // an external edit's HMR may have remounted the selection: re-resolve via
     // its stamp instead of hit-testing a detached element's 0×0 phantom rect
     if (this.tweak && !document.contains(this.tweak.el)) {
-      const next = document.querySelector(`[data-s2c="${this.tweak.srcLoc}"]`) as HTMLElement | null
-      this.tweak = next ? this.buildTweakState(next) : null
+      // preserve WHICH instance and the chosen scope across the remount —
+      // grabbing the first match would silently retarget instance 1 / 'all'
+      const all = [...document.querySelectorAll(`[data-s2c="${this.tweak.srcLoc}"]`)] as HTMLElement[]
+      const next = all[Math.min(this.tweak.instanceIndex, all.length - 1)] ?? null
+      this.tweak = next ? this.buildTweakState(next, this.tweak.scope) : null
     }
     const t = this.tweak
     if (t) {
@@ -748,6 +963,8 @@ class Overlay {
         t.handleDrag = {
           handle: hp.kind, startX: e.clientX, startY: e.clientY,
           startRect: sr, w: null, h: null,
+          guides: this.collectGuides(t.el), activeGuides: [],
+          snappedW: false, snappedH: false,
         }
         this.canvas.setPointerCapture(e.pointerId)
         return
@@ -793,11 +1010,40 @@ class Overlay {
     const t = this.tweak
     if (t?.moveDrag) {
       const md = t.moveDrag
-      md.dx = e.clientX - md.startX
-      md.dy = e.clientY - md.startY
-      // free move: the element follows the cursor exactly (compositor-only);
-      // any transform it already had is preserved underneath
-      t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+      const rawDx = e.clientX - md.startX
+      const rawDy = e.clientY - md.startY
+      // magnetic alignment: edges + centers of the moving rect vs cached guides
+      md.activeGuides = []
+      md.snappedX = false
+      md.snappedY = false
+      let dx = rawDx
+      let dy = rawDy
+      if (Math.hypot(rawDx, rawDy) >= CLICK_SLOP) {
+        const mr = md.startRect
+        const sx = this.bestSnap(md.guides, 'v', [
+          mr.left + rawDx, mr.left + mr.width / 2 + rawDx, mr.left + mr.width + rawDx,
+        ])
+        if (sx) {
+          dx = rawDx + sx.delta
+          md.snappedX = true
+          md.activeGuides.push(sx.guide)
+        }
+        const sy = this.bestSnap(md.guides, 'h', [
+          mr.top + rawDy, mr.top + mr.height / 2 + rawDy, mr.top + mr.height + rawDy,
+        ])
+        if (sy) {
+          dy = rawDy + sy.delta
+          md.snappedY = true
+          md.activeGuides.push(sy.guide)
+        }
+      }
+      md.dx = dx
+      md.dy = dy
+      // free move: the preview follows the cursor exactly (compositor-only).
+      // Clipped ancestors → the document-level ghost moves; else the element
+      // itself (lifted via z-index), any pre-existing transform preserved.
+      if (md.ghost) md.ghost.style.transform = `translate(${dx}px, ${dy}px)`
+      else t.el.style.transform = `${md.baseTransform}translate(${dx}px, ${dy}px)`
       // slot detent: cursor inside another sibling's (cached) rect
       md.proposedIndex = -1
       for (const s of md.siblings) {
@@ -807,10 +1053,11 @@ class Overlay {
         }
       }
       if (Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
+        const snap = md.snappedX || md.snappedY ? ' · ⌖ snapped' : ''
         this.status(
-          md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex
+          (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex
             ? `→ slot ${md.proposedIndex + 1} — release to reorder`
-            : this.moveLabel(md.dx, md.dy, t.inFlow),
+            : this.moveLabel(md.dx, md.dy, t.inFlow)) + snap,
         )
       }
       this.redraw()
@@ -827,14 +1074,35 @@ class Overlay {
       if (k === 'w' || k === 'nw' || k === 'sw') w = hd.startRect.width - dx
       if (k === 's' || k === 'se' || k === 'sw') h = hd.startRect.height + dy
       if (k === 'n' || k === 'ne' || k === 'nw') h = hd.startRect.height - dy
+      // magnetic alignment on the moving edge (right/bottom of the preview rect)
+      hd.activeGuides = []
+      hd.snappedW = false
+      hd.snappedH = false
+      if (w !== null) {
+        const s = this.bestSnap(hd.guides, 'v', [hd.startRect.left + w])
+        if (s) {
+          w += s.delta
+          hd.snappedW = true
+          hd.activeGuides.push(s.guide)
+        }
+      }
+      if (h !== null) {
+        const s = this.bestSnap(hd.guides, 'h', [hd.startRect.top + h])
+        if (s) {
+          h += s.delta
+          hd.snappedH = true
+          hd.activeGuides.push(s.guide)
+        }
+      }
       hd.w = w === null ? null : Math.max(8, Math.round(w))
       hd.h = h === null ? null : Math.max(8, Math.round(h))
       // live preview via inline size; committed as w-*/h-* on release
       if (hd.w !== null) t.el.style.width = `${hd.w}px`
       if (hd.h !== null) t.el.style.height = `${hd.h}px`
+      const snap = hd.snappedW || hd.snappedH ? ' · ⌖ snapped' : ''
       this.status(
         `${t.el.tagName.toLowerCase()} · ` +
-        `${hd.w ?? Math.round(hd.startRect.width)}×${hd.h ?? Math.round(hd.startRect.height)} — release to commit`,
+        `${hd.w ?? Math.round(hd.startRect.width)}×${hd.h ?? Math.round(hd.startRect.height)} — release to commit${snap}`,
       )
       this.redraw()
       return
@@ -912,23 +1180,23 @@ class Overlay {
     const aborted = e.type === 'pointercancel'
     if (t?.moveDrag) {
       const md = t.moveDrag
+      this.endMoveVisuals(t) // ghost/dim/lift teardown before any commit
       t.moveDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
-      t.el.style.removeProperty('transform')
-      t.el.style.removeProperty('will-change')
       if (aborted) {
         this.status('move cancelled')
         this.redraw()
         return
       }
-      const dist = Math.hypot(md.dx, md.dy)
-      if (dist < CLICK_SLOP) {
-        // a click, not a drag: drill into whatever stamped element is here
-        const el = this.pickAnyStamped(e.clientX, e.clientY)
-        if (el && el !== t.el) this.selectElement(el)
-        else this.redraw()
+      // click-vs-drag on RAW travel: at rest a card already sits on sibling
+      // guides, so a small wiggle snaps back to (0,0) — judging the snapped
+      // displacement would misread such drags as (scope-toggling) clicks
+      const rawDist = Math.hypot(e.clientX - md.startX, e.clientY - md.startY)
+      if (rawDist < CLICK_SLOP) {
+        this.handleTweakClick(t, e)
         return
       }
+      this.lastTweakClick = null
       if (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && md.parentSrcLoc && md.fromIndex >= 0) {
         // ladder rung (a): dropped on a sibling's slot → structural reorder
         await this.commitManipulation(
@@ -939,7 +1207,12 @@ class Overlay {
       }
       // rungs (b)/(c): server decides margin nudge vs cosmetic translate
       await this.commitManipulation(
-        { srcLoc: t.srcLoc, prop: 'move', dx: Math.round(md.dx), dy: Math.round(md.dy), inFlow: t.inFlow },
+        {
+          srcLoc: t.srcLoc, prop: 'move',
+          dx: Math.round(md.dx), dy: Math.round(md.dy), inFlow: t.inFlow,
+          exactX: md.snappedX, exactY: md.snappedY,
+          ...this.instanceFields(t),
+        },
         t, 'committing move…',
       )
       return
@@ -962,7 +1235,14 @@ class Overlay {
         this.redraw()
         return
       }
-      await this.commitManipulation({ srcLoc: t.srcLoc, prop: 'resize', w, h }, t, 'committing resize…')
+      await this.commitManipulation(
+        {
+          srcLoc: t.srcLoc, prop: 'resize', w, h,
+          exactW: w !== undefined && hd.snappedW, exactH: h !== undefined && hd.snappedH,
+          ...this.instanceFields(t),
+        },
+        t, 'committing resize…',
+      )
       return
     }
     if (!t || !t.drag) return
@@ -976,8 +1256,47 @@ class Overlay {
       this.redraw()
       return
     }
-    if (px === undefined) return
+    if (px === undefined) {
+      // the "drag" never moved: it's a click that happened to land on a
+      // zone band — treat it like any other click (drill / scope toggle)
+      this.handleTweakClick(t, e)
+      return
+    }
     await this.commitManipulation({ srcLoc: t.srcLoc, prop: zone.kind, px }, t, 'committing…')
+  }
+
+  /**
+   * A still release inside the selection: drill into whatever stamped
+   * element is under the cursor, or — second click on the SELECTED element
+   * within the double-click window — toggle instance scope for shared
+   * templates (all linked ⇄ just this one).
+   */
+  private handleTweakClick(t: TweakState, e: PointerEvent) {
+    const el = this.pickAnyStamped(e.clientX, e.clientY)
+    const now = performance.now()
+    if (el && el === t.el) {
+      if (
+        this.lastTweakClick?.el === el &&
+        now - this.lastTweakClick.at < DBLCLICK_MS &&
+        t.instanceEls.length > 1
+      ) {
+        t.scope = t.scope === 'all' ? 'one' : 'all'
+        this.lastTweakClick = null
+        this.status(
+          t.scope === 'one'
+            ? `this one only — instance ${t.instanceIndex + 1} of ${t.instanceEls.length} (double-click or Esc to relink)`
+            : `all ${t.instanceEls.length} linked — edits apply to every instance`,
+        )
+      } else {
+        this.lastTweakClick = { el, at: now }
+      }
+      this.redraw()
+    } else if (el) {
+      this.selectElement(el)
+      this.lastTweakClick = { el, at: now }
+    } else {
+      this.redraw()
+    }
   }
 
   /**
@@ -999,8 +1318,18 @@ class Overlay {
       })
       const out = (await res.json()) as {
         ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string
+        shared?: boolean; instanceCount?: number
       }
-      if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${res.status}`)
+      if (!res.ok || !out.ok) {
+        if (out.shared) {
+          // structured 409: template renders N times and no scope was sent
+          // (normally pre-empted client-side by the linked/one selection state)
+          throw new Error(
+            `affects all ${out.instanceCount ?? '?'} instances — double-click the element for "just this one", or repeat to apply to all`,
+          )
+        }
+        throw new Error(out.error ?? `HTTP ${res.status}`)
+      }
       this.clearTweakPreview()
       this.status(
         `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`,
@@ -1020,10 +1349,16 @@ class Overlay {
       // the user may have selected something else (or deselected) meanwhile —
       // never clobber a newer selection with the committed one
       if (this.mode !== 'tweak' || this.tweak !== t) return
+      // …and never clobber an in-flight drag: rebuilding would orphan its
+      // ghost/dim/lift visuals with no release path
+      if (t.moveDrag || t.handleDrag || t.drag) return
+      // re-resolve by instance INDEX, not first match — after an HMR remount
+      // of a .map() the first instance is usually the wrong one
+      const all = [...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)] as HTMLElement[]
       const next = document.contains(el)
         ? el
-        : (document.querySelector(`[data-s2c="${srcLoc}"]`) as HTMLElement | null)
-      if (next?.dataset.s2c) this.tweak = this.buildTweakState(next)
+        : all[Math.min(t.instanceIndex, all.length - 1)] ?? null
+      if (next?.dataset.s2c) this.tweak = this.buildTweakState(next, t.scope)
       else this.tweak = null
       this.redraw()
     }, 500)
@@ -1046,10 +1381,40 @@ class Overlay {
     if (!t) return
     const r = this.selRect(t)
     ctx.save()
+    // linked instances of a shared template (.map()): lighter outlines while
+    // scope is 'all' — the highlighting IS the "this affects all N" warning
+    if (t.scope === 'all' && t.instanceEls.length > 1) {
+      ctx.strokeStyle = 'rgba(8,145,178,0.5)'
+      ctx.setLineDash([4, 3])
+      ctx.lineWidth = 1.5
+      for (const ie of t.instanceEls) {
+        if (ie === t.el || !document.contains(ie)) continue
+        const ir = ie.getBoundingClientRect()
+        ctx.strokeRect(ir.left, ir.top, ir.width, ir.height)
+      }
+      ctx.setLineDash([])
+    }
     // solid selection outline
     ctx.strokeStyle = '#0891b2'
     ctx.lineWidth = 2
     ctx.strokeRect(r.left, r.top, r.width, r.height)
+    // magnetic alignment guides (Canva-pink) while a drag is snapped
+    const activeGuides = t.moveDrag?.activeGuides ?? t.handleDrag?.activeGuides ?? []
+    if (activeGuides.length > 0) {
+      ctx.strokeStyle = GUIDE_COLOR
+      ctx.lineWidth = 1
+      for (const g of activeGuides) {
+        ctx.beginPath()
+        if (g.axis === 'v') {
+          ctx.moveTo(g.pos, Math.min(g.lo, r.top) - 4)
+          ctx.lineTo(g.pos, Math.max(g.hi, r.top + r.height) + 4)
+        } else {
+          ctx.moveTo(Math.min(g.lo, r.left) - 4, g.pos)
+          ctx.lineTo(Math.max(g.hi, r.left + r.width) + 4, g.pos)
+        }
+        ctx.stroke()
+      }
+    }
     // secondary affordances: gap strips (blue) + padding bands (purple).
     // Hidden while a move/resize drag is in flight — their cached geometry
     // no longer matches the layout.
@@ -1067,8 +1432,11 @@ class Overlay {
       ctx.fillRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
       ctx.strokeRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
     }
-    // floating label: tag · current size
-    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}`
+    // floating label: tag · current size · instance scope
+    const scopeNote = t.instanceEls.length > 1
+      ? (t.scope === 'all' ? ` · ${t.instanceEls.length} linked` : ' · this one only')
+      : ''
+    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${scopeNote}`
     ctx.font = '11px ui-sans-serif, system-ui'
     const lw = ctx.measureText(label).width + 12
     const lx = Math.max(2, Math.min(r.left, window.innerWidth - lw - 2))
