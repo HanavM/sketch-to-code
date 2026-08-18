@@ -1,8 +1,9 @@
 /**
  * Direct-manipulation synthesis: geometry delta → minimal idiomatic source
- * edit. Deterministic, zero model calls. Phase 1 scope: the two affordances
- * that produce single-declaration diffs by construction — the GAP handle and
- * the PADDING ring — on Tailwind string-literal classNames.
+ * edit. Deterministic, zero model calls. Scope: gap handle + padding ring,
+ * child reorder, free MOVE (sibling-slot reorder → margin nudge → translate
+ * escape hatch) and handle RESIZE (w-/h- utilities) — all on Tailwind
+ * string-literal classNames.
  *
  * The srcLoc arrives from the LIVE DOM at commit time (post-HMR stamps are
  * current), which sidesteps positional staleness entirely.
@@ -19,17 +20,29 @@ type TraverseFn = (
 ) => void
 const traverse = ((_traverse as unknown as { default?: unknown }).default ?? _traverse) as TraverseFn
 
-export type ManipulateProp = 'gap' | 'p' | 'pt' | 'pr' | 'pb' | 'pl'
+export type ManipulateProp =
+  | 'gap' | 'p' | 'pt' | 'pr' | 'pb' | 'pl'
+  | 'ml' | 'mr' | 'mt' | 'mb'
+  | 'w' | 'h'
+  | 'translate-x' | 'translate-y'
 
 export interface ManipulateRequest {
   /** From the live element's data-s2c at commit time: "src/File.tsx:LINE:COL". */
   srcLoc: string
-  prop: ManipulateProp | 'reorder'
+  prop: ManipulateProp | 'reorder' | 'move' | 'resize'
   /** Target value in CSS pixels (spacing ops). */
   px?: number
   /** Reorder: child indices in DOM order. */
   from?: number
   to?: number
+  /** Free-move displacement in CSS pixels (prop: 'move'). */
+  dx?: number
+  dy?: number
+  /** Whether the element sits in normal flow (client-computed at drag start). */
+  inFlow?: boolean
+  /** Target size in CSS pixels (prop: 'resize'); omit an axis to leave it. */
+  w?: number
+  h?: number
 }
 
 export interface ManipulateResult {
@@ -72,6 +85,16 @@ const CLASS_PATTERNS: Record<ManipulateProp, RegExp> = {
   pr: /^pr-\S+$/,
   pb: /^pb-\S+$/,
   pl: /^pl-\S+$/,
+  // margins may already be negative in source (-ml-2); we replace either sign
+  ml: /^-?ml-\S+$/,
+  mr: /^-?mr-\S+$/,
+  mt: /^-?mt-\S+$/,
+  mb: /^-?mb-\S+$/,
+  // w-40, w-[300px] — min-w-*/max-w-* start differently and never match
+  w: /^w-\S+$/,
+  h: /^h-\S+$/,
+  'translate-x': /^-?translate-x-\S+$/,
+  'translate-y': /^-?translate-y-\S+$/,
 }
 
 /** Rewrite a space-separated class string, replacing or appending the utility. */
@@ -79,8 +102,9 @@ export function rewriteClassList(
   classList: string,
   prop: ManipulateProp,
   suffix: string,
+  negative = false,
 ): { after: string; replaced: string | null } {
-  const next = `${prop}-${suffix}`
+  const next = `${negative ? '-' : ''}${prop}-${suffix}`
   const parts = classList.split(/\s+/).filter(Boolean)
   const pattern = CLASS_PATTERNS[prop]
   let replaced: string | null = null
@@ -96,6 +120,57 @@ export function rewriteClassList(
   const seen = new Set<string>()
   const deduped = out.filter((c) => (seen.has(c) ? false : (seen.add(c), true)))
   return { after: deduped.join(' '), replaced }
+}
+
+/** One planned utility-class write. */
+export interface ClassEdit {
+  prop: ManipulateProp
+  suffix: string
+  negative: boolean
+}
+
+/** Displacement below this (px) on an axis counts as "didn't move". */
+const MOVE_MIN = 3
+/** Cross-axis wobble below this (px) still counts as axis-aligned. */
+const MOVE_AXIS_EPS = 6
+/** Beyond this (px) a flow nudge stops reading as a margin tweak. */
+const MOVE_MARGIN_MAX = 64
+
+/**
+ * Move ladder, rungs (b) and (c) — rung (a), sibling-slot reorder, is decided
+ * client-side where the DOM geometry lives and arrives as prop:'reorder'.
+ *  (b) small, axis-aligned, in flow → one margin utility (ml/mr/mt/mb)
+ *  (c) anything else → translate-x/-y — the escape hatch that always works,
+ *      flagged "(cosmetic transform)" in the receipt.
+ * Returns null when the displacement is too small to mean anything.
+ */
+export function synthesizeMove(
+  dx: number,
+  dy: number,
+  inFlow: boolean,
+): { edits: ClassEdit[]; cosmetic: boolean } | null {
+  const ax = Math.abs(Math.round(dx))
+  const ay = Math.abs(Math.round(dy))
+  if (ax < MOVE_MIN && ay < MOVE_MIN) return null
+  const axisAligned = (ax >= MOVE_MIN && ay < MOVE_AXIS_EPS) || (ay >= MOVE_MIN && ax < MOVE_AXIS_EPS)
+  if (inFlow && axisAligned && Math.max(ax, ay) <= MOVE_MARGIN_MAX) {
+    if (ax >= ay) {
+      return { edits: [{ prop: dx > 0 ? 'ml' : 'mr', suffix: snapSpacing(ax).suffix, negative: false }], cosmetic: false }
+    }
+    return { edits: [{ prop: dy > 0 ? 'mt' : 'mb', suffix: snapSpacing(ay).suffix, negative: false }], cosmetic: false }
+  }
+  const edits: ClassEdit[] = []
+  if (ax >= MOVE_MIN) edits.push({ prop: 'translate-x', suffix: snapSpacing(ax).suffix, negative: dx < 0 })
+  if (ay >= MOVE_MIN) edits.push({ prop: 'translate-y', suffix: snapSpacing(ay).suffix, negative: dy < 0 })
+  return { edits, cosmetic: true }
+}
+
+/** Resize ladder: width → w-*, height → h-*, snapped to the spacing scale. */
+export function synthesizeResize(w?: number, h?: number): ClassEdit[] {
+  const edits: ClassEdit[] = []
+  if (w != null) edits.push({ prop: 'w', suffix: snapSpacing(w).suffix, negative: false })
+  if (h != null) edits.push({ prop: 'h', suffix: snapSpacing(h).suffix, negative: false })
+  return edits
 }
 
 /**
@@ -143,11 +218,27 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
     return applyReorder(code, file, rel!, targetParent, req.from ?? 0, req.to ?? 0)
   }
 
+  // plan the class writes: a single spacing utility, or a move/resize synthesis
+  let edits: ClassEdit[]
+  let cosmetic = false
+  if (req.prop === 'move') {
+    const plan = synthesizeMove(req.dx ?? 0, req.dy ?? 0, req.inFlow ?? false)
+    if (!plan) return { ok: true, file: rel, change: 'no change (displacement too small)' }
+    edits = plan.edits
+    cosmetic = plan.cosmetic
+  } else if (req.prop === 'resize') {
+    edits = synthesizeResize(req.w, req.h)
+    if (edits.length === 0) return { ok: true, file: rel, change: 'no change (no axis given)' }
+  } else {
+    edits = [{ prop: req.prop, suffix: snapSpacing(req.px ?? 0).suffix, negative: false }]
+  }
+  const cosmeticNote = cosmetic ? ' (cosmetic transform)' : ''
+  const clsOf = (ed: ClassEdit) => `${ed.negative ? '-' : ''}${ed.prop}-${ed.suffix}`
+
   const attr = (target as t.JSXOpeningElement).attributes.find(
     (a): a is t.JSXAttribute =>
       a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.name.name === 'className',
   )
-  const { suffix } = snapSpacing(req.px ?? 0)
 
   if (!attr) {
     // element has no className: insert one right after the tag name
@@ -155,13 +246,14 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
     if (name.type !== 'JSXIdentifier' || name.end == null) {
       return { ok: false, error: 'unsupported element name node' }
     }
-    const insertion = ` className="${req.prop}-${suffix}"`
+    const classes = edits.map(clsOf).join(' ')
+    const insertion = ` className="${classes}"`
     const next = code.slice(0, name.end) + insertion + code.slice(name.end)
     writeFileSync(file, next)
     return {
       ok: true, file: rel,
-      change: `+ ${req.prop}-${suffix}`,
-      className: { before: '', after: `${req.prop}-${suffix}` },
+      change: `+ ${classes}${cosmeticNote}`,
+      className: { before: '', after: classes },
     }
   }
 
@@ -174,20 +266,27 @@ export function applyManipulation(root: string, req: ManipulateRequest): Manipul
   }
 
   const before = attr.value.value
-  const { after, replaced } = rewriteClassList(before, req.prop, suffix)
-  if (after === before) {
-    return { ok: true, file: rel, change: 'no change (already at value)', className: { before, after } }
+  let cur = before
+  const descr: string[] = []
+  for (const ed of edits) {
+    const { after, replaced } = rewriteClassList(cur, ed.prop, ed.suffix, ed.negative)
+    const cls = clsOf(ed)
+    descr.push(replaced ? (replaced === cls ? `${cls} (unchanged)` : `${replaced} → ${cls}`) : `+ ${cls}`)
+    cur = after
+  }
+  if (cur === before) {
+    return { ok: true, file: rel, change: 'no change (already at value)', className: { before, after: cur } }
   }
   if (attr.value.start == null || attr.value.end == null) {
     return { ok: false, error: 'missing attribute location' }
   }
   const quote = code[attr.value.start] ?? '"'
-  const next = code.slice(0, attr.value.start) + quote + after + quote + code.slice(attr.value.end)
+  const next = code.slice(0, attr.value.start) + quote + cur + quote + code.slice(attr.value.end)
   writeFileSync(file, next)
   return {
     ok: true, file: rel,
-    change: replaced ? `${replaced} → ${req.prop}-${suffix}` : `+ ${req.prop}-${suffix}`,
-    className: { before, after },
+    change: `${descr.join(' · ')}${cosmeticNote}`,
+    className: { before, after: cur },
   }
 }
 

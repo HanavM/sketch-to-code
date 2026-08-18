@@ -45,24 +45,63 @@ interface TweakZone {
   x: number; y: number; w: number; h: number
   kind: 'gap' | 'pt' | 'pr' | 'pb' | 'pl'
 }
+type HandleKind = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+/** Viewport-coords rect (getBoundingClientRect shape, plain object). */
+interface SelRect { left: number; top: number; width: number; height: number }
 interface TweakState {
   el: HTMLElement
+  /** data-s2c stamp captured at selection time. */
+  srcLoc: string
   rect: DOMRect
   display: string
   direction: 'row' | 'column'
+  /** In normal flow (static/relative) — margin nudges make sense here. */
+  inFlow: boolean
   zones: TweakZone[]
+  /** gap-strip / padding-band drag (secondary affordances). */
   drag: { zone: TweakZone; startX: number; startY: number; startValue: number } | null
-  /** reorder drag: the child follows the hand, detents into sibling slots */
-  childDrag: {
-    child: HTMLElement
-    fromIndex: number
-    proposedIndex: number
+  /** Canva-style handle resize: live preview via inline width/height. */
+  handleDrag: {
+    handle: HandleKind
     startX: number
     startY: number
+    startRect: SelRect
+    /** live preview values (px); null = axis untouched by this handle */
+    w: number | null
+    h: number | null
+  } | null
+  /**
+   * Free-move drag: the element follows the cursor via transform (no file
+   * writes mid-drag). All geometry is cached at drag start so pointermove
+   * does zero layout reads. On release: sibling slot → reorder, else the
+   * server's move ladder (margin → translate) decides.
+   */
+  moveDrag: {
+    startX: number
+    startY: number
+    dx: number
+    dy: number
+    startRect: SelRect
+    /** OTHER children of the stamped flex/grid parent, rects cached at start */
+    siblings: Array<{ index: number; left: number; top: number; right: number; bottom: number }>
+    parentSrcLoc: string | null
+    fromIndex: number
+    /** sibling slot the cursor is currently inside; -1 = none */
+    proposedIndex: number
   } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
 }
+
+/** Canva-style handle rendering/hit-testing. */
+const HANDLE_SIZE = 8
+const HANDLE_HIT = 7
+const HANDLE_CURSORS: Record<HandleKind, string> = {
+  nw: 'nwse-resize', se: 'nwse-resize', ne: 'nesw-resize', sw: 'nesw-resize',
+  n: 'ns-resize', s: 'ns-resize', e: 'ew-resize', w: 'ew-resize',
+}
+/** Releases with less total travel than this are clicks, not drags. */
+const CLICK_SLOP = 4
 
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
@@ -195,7 +234,7 @@ class Overlay {
       } else {
         btn.classList.add('primary')
         this.setMode('tweak')
-        this.status('tweak: hover shows targets — click one, then drag the blue gaps / purple padding')
+        this.status('tweak: click any element — drag to move, handles to resize, gaps/padding to space')
       }
     })
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
@@ -215,7 +254,8 @@ class Overlay {
         this.toggleDraw()
       }
       if (e.key === 'Escape') {
-        if (this.mode === 'tweak') this.exitTweak('tweak off')
+        if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
+        else if (this.mode === 'tweak') this.exitTweak('tweak off')
         else if (this.mode === 'preview') this.exitPreview('cancelled')
         else if (this.mode === 'draw') this.setMode('idle')
         else if (this.mode === 'running') {
@@ -447,7 +487,11 @@ class Overlay {
     ctx.restore()
   }
 
-  // ---------- tweak mode: gap handle + padding ring (zero tokens) ----------
+  // ---------- tweak mode: Canva-style direct manipulation (zero tokens) ----------
+  // Every stamped element is selectable: solid outline + 8 drag handles.
+  // Body drag = free move (reorder / margin / translate ladder on release);
+  // handle drag = resize (w-*/h-*); gap strips + padding bands remain as
+  // secondary affordances on the selected element.
 
   private exitTweak(msg: string) {
     if (this.tweak) this.clearTweakPreview()
@@ -459,32 +503,30 @@ class Overlay {
     this.redraw()
   }
 
+  private deselect(msg: string) {
+    if (this.tweak) this.clearTweakPreview()
+    this.tweak = null
+    this.tweakHover = null
+    this.status(msg)
+    this.redraw()
+  }
+
   private clearTweakPreview() {
     const t = this.tweak
     if (!t) return
-    t.el.style.removeProperty('gap')
-    t.el.style.removeProperty('padding-top')
-    t.el.style.removeProperty('padding-right')
-    t.el.style.removeProperty('padding-bottom')
-    t.el.style.removeProperty('padding-left')
+    for (const p of [
+      'gap', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+      'transform', 'width', 'height', 'will-change',
+    ]) t.el.style.removeProperty(p)
   }
 
-  private pickTweakTarget(x: number, y: number): HTMLElement | null {
+  /** Deepest stamped element under the point — anything stamped is fair game. */
+  private pickAnyStamped(x: number, y: number): HTMLElement | null {
     this.canvas.style.pointerEvents = 'none'
     let el = document.elementFromPoint(x, y) as HTMLElement | null
     this.canvas.style.pointerEvents = ''
-    // climb to the nearest stamped element that is a flex/grid container or
-    // has padding — the thing the affordances can actually edit
     while (el && el !== document.body) {
-      if (el.dataset.s2c) {
-        const cs = getComputedStyle(el)
-        const isContainer =
-          (cs.display === 'flex' || cs.display === 'grid') && el.children.length >= 2
-        const hasPad = ['Top', 'Right', 'Bottom', 'Left'].some(
-          (side) => parseFloat(cs.getPropertyValue('padding-' + side.toLowerCase())) > 0,
-        )
-        if (isContainer || hasPad || el.children.length >= 1) return el
-      }
+      if (el.dataset.s2c) return el
       el = el.parentElement
     }
     return null
@@ -528,14 +570,144 @@ class Overlay {
       if (kind === 'pr') zones.push({ x: rect.right - grab, y: rect.top, w: grab, h: rect.height, kind })
     }
 
-    return { el, rect, display: cs.display, direction, zones, drag: null, childDrag: null, preview: {} }
+    return {
+      el,
+      srcLoc: el.dataset.s2c ?? '',
+      rect,
+      display: cs.display,
+      direction,
+      inFlow: cs.position === 'static' || cs.position === 'relative',
+      zones,
+      drag: null,
+      handleDrag: null,
+      moveDrag: null,
+      preview: {},
+    }
+  }
+
+  /** Current visual selection rect — cached geometry during drags (no reads). */
+  private selRect(t: TweakState): SelRect {
+    if (t.handleDrag) {
+      const hd = t.handleDrag
+      return {
+        left: hd.startRect.left,
+        top: hd.startRect.top,
+        width: hd.w ?? hd.startRect.width,
+        height: hd.h ?? hd.startRect.height,
+      }
+    }
+    if (t.moveDrag) {
+      const md = t.moveDrag
+      return {
+        left: md.startRect.left + md.dx,
+        top: md.startRect.top + md.dy,
+        width: md.startRect.width,
+        height: md.startRect.height,
+      }
+    }
+    const r = t.el.getBoundingClientRect()
+    return { left: r.left, top: r.top, width: r.width, height: r.height }
+  }
+
+  /** The 8 Canva handles: corners + edge midpoints, viewport coords. */
+  private handlePoints(r: SelRect): Array<{ kind: HandleKind; x: number; y: number }> {
+    const cx = r.left + r.width / 2
+    const cy = r.top + r.height / 2
+    const rt = r.left + r.width
+    const bt = r.top + r.height
+    return [
+      { kind: 'nw', x: r.left, y: r.top }, { kind: 'n', x: cx, y: r.top }, { kind: 'ne', x: rt, y: r.top },
+      { kind: 'e', x: rt, y: cy }, { kind: 'se', x: rt, y: bt }, { kind: 's', x: cx, y: bt },
+      { kind: 'sw', x: r.left, y: bt }, { kind: 'w', x: r.left, y: cy },
+    ]
+  }
+
+  private hitHandle(r: SelRect, x: number, y: number): { kind: HandleKind; x: number; y: number } | undefined {
+    return this.handlePoints(r).find(
+      (h) => Math.abs(x - h.x) <= HANDLE_HIT && Math.abs(y - h.y) <= HANDLE_HIT,
+    )
+  }
+
+  private selectElement(el: HTMLElement) {
+    if (this.tweak) this.clearTweakPreview()
+    this.tweak = this.buildTweakState(el)
+    this.tweakHover = null
+    const t = this.tweak
+    const r = el.getBoundingClientRect()
+    const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
+    this.status(
+      `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ` +
+      `${t.srcLoc.split(':')[0]} — drag to move, handles to resize`,
+    )
+    this.redraw()
+  }
+
+  /** Cache all geometry the move needs so pointermove never touches layout. */
+  private startMoveDrag(t: TweakState, e: PointerEvent) {
+    const r = t.el.getBoundingClientRect()
+    const siblings: Array<{ index: number; left: number; top: number; right: number; bottom: number }> = []
+    let parentSrcLoc: string | null = null
+    let fromIndex = -1
+    const parent = t.el.parentElement
+    if (parent?.dataset.s2c) {
+      const pd = getComputedStyle(parent).display
+      if (pd === 'flex' || pd === 'grid') {
+        const kids = [...parent.children]
+        fromIndex = kids.indexOf(t.el)
+        kids.forEach((k, i) => {
+          if (k === t.el) return
+          const kr = k.getBoundingClientRect()
+          if (kr.width > 0 || kr.height > 0) {
+            siblings.push({ index: i, left: kr.left, top: kr.top, right: kr.right, bottom: kr.bottom })
+          }
+        })
+        parentSrcLoc = parent.dataset.s2c ?? null
+      }
+    }
+    t.moveDrag = {
+      startX: e.clientX,
+      startY: e.clientY,
+      dx: 0,
+      dy: 0,
+      startRect: { left: r.left, top: r.top, width: r.width, height: r.height },
+      siblings,
+      parentSrcLoc,
+      fromIndex,
+      proposedIndex: -1,
+    }
+    t.el.style.willChange = 'transform'
+    this.canvas.setPointerCapture(e.pointerId)
+  }
+
+  /** Mirror of the server's move ladder, for the live status line only. */
+  private moveLabel(dx: number, dy: number, inFlow: boolean): string {
+    const ax = Math.abs(Math.round(dx))
+    const ay = Math.abs(Math.round(dy))
+    if (ax < 3 && ay < 3) return 'release to keep in place'
+    const aligned = (ax >= 3 && ay < 6) || (ay >= 3 && ax < 6)
+    if (inFlow && aligned && Math.max(ax, ay) <= 64) {
+      const prop = ax >= ay ? (dx > 0 ? 'ml' : 'mr') : (dy > 0 ? 'mt' : 'mb')
+      return `${prop} ≈${Math.max(ax, ay)}px — release to nudge with margin`
+    }
+    return `translate ${Math.round(dx)}, ${Math.round(dy)} — release to commit (cosmetic transform)`
   }
 
   private onTweakDown(e: PointerEvent) {
     if (e.button !== 0) return
     const t = this.tweak
     if (t) {
-      // hit a zone? start dragging it
+      const sr = this.selRect(t)
+      // 1) resize handles win over everything
+      const hp = this.hitHandle(sr, e.clientX, e.clientY)
+      if (hp) {
+        t.handleDrag = {
+          handle: hp.kind, startX: e.clientX, startY: e.clientY,
+          startRect: sr, w: null, h: null,
+        }
+        this.canvas.setPointerCapture(e.pointerId)
+        return
+      }
+      // 2) gap strips / padding bands (secondary affordances — unchanged)
       const zone = t.zones.find(
         (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
       )
@@ -551,99 +723,120 @@ class Overlay {
         this.canvas.setPointerCapture(e.pointerId)
         return
       }
-    }
-    // a child of the current selection? start a reorder drag (quantized:
-    // the element follows the hand, then detents into legal slots)
-    if (t && (t.display === 'flex' || t.display === 'grid')) {
-      const kids = [...t.el.children] as HTMLElement[]
-      const idx = kids.findIndex((k) => {
-        const r = k.getBoundingClientRect()
-        return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom
-      })
-      if (idx >= 0) {
-        t.childDrag = {
-          child: kids[idx]!, fromIndex: idx, proposedIndex: idx,
-          startX: e.clientX, startY: e.clientY,
-        }
-        kids[idx]!.style.transition = 'none'
-        kids[idx]!.style.zIndex = '50'
-        kids[idx]!.style.position = 'relative'
-        this.canvas.setPointerCapture(e.pointerId)
-        this.status(`dragging child ${idx + 1} — release on a slot to reorder`)
+      // 3) inside the selection body → free move (a still release is a click)
+      if (
+        e.clientX >= sr.left && e.clientX <= sr.left + sr.width &&
+        e.clientY >= sr.top && e.clientY <= sr.top + sr.height
+      ) {
+        this.startMoveDrag(t, e)
         return
       }
     }
-    // otherwise (re)select
-    const el = this.pickTweakTarget(e.clientX, e.clientY)
+    // 4) select whatever stamped element is under the cursor, or deselect
+    const el = this.pickAnyStamped(e.clientX, e.clientY)
     if (!el) {
-      this.status('nothing tweakable here — click a stamped container', true)
+      if (t) this.deselect('deselected')
+      else this.status('nothing stamped here — hover highlights what you can select')
       return
     }
-    if (this.tweak) this.clearTweakPreview()
-    this.tweak = this.buildTweakState(el)
-    const label = this.tweak.display === 'flex' || this.tweak.display === 'grid'
-      ? `${this.tweak.display} ${this.tweak.direction}`
-      : this.tweak.display
-    this.status(`${el.dataset.s2c!.split(':')[0]} · ${label} · drag a gap strip or padding edge`)
-    this.redraw()
+    this.selectElement(el)
+    // select + drag is one gesture; a still release keeps it a plain click
+    this.startMoveDrag(this.tweak!, e)
   }
 
   private onTweakMove(e: PointerEvent) {
     const t = this.tweak
+    if (t?.moveDrag) {
+      const md = t.moveDrag
+      md.dx = e.clientX - md.startX
+      md.dy = e.clientY - md.startY
+      // free move: the element follows the cursor exactly (compositor-only)
+      t.el.style.transform = `translate(${md.dx}px, ${md.dy}px)`
+      // slot detent: cursor inside another sibling's (cached) rect
+      md.proposedIndex = -1
+      for (const s of md.siblings) {
+        if (e.clientX >= s.left && e.clientX <= s.right && e.clientY >= s.top && e.clientY <= s.bottom) {
+          md.proposedIndex = s.index
+          break
+        }
+      }
+      if (Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
+        this.status(
+          md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex
+            ? `→ slot ${md.proposedIndex + 1} — release to reorder`
+            : this.moveLabel(md.dx, md.dy, t.inFlow),
+        )
+      }
+      this.redraw()
+      return
+    }
+    if (t?.handleDrag) {
+      const hd = t.handleDrag
+      const dx = e.clientX - hd.startX
+      const dy = e.clientY - hd.startY
+      const k = hd.handle
+      let w: number | null = null
+      let h: number | null = null
+      if (k === 'e' || k === 'ne' || k === 'se') w = hd.startRect.width + dx
+      if (k === 'w' || k === 'nw' || k === 'sw') w = hd.startRect.width - dx
+      if (k === 's' || k === 'se' || k === 'sw') h = hd.startRect.height + dy
+      if (k === 'n' || k === 'ne' || k === 'nw') h = hd.startRect.height - dy
+      hd.w = w === null ? null : Math.max(8, Math.round(w))
+      hd.h = h === null ? null : Math.max(8, Math.round(h))
+      // live preview via inline size; committed as w-*/h-* on release
+      if (hd.w !== null) t.el.style.width = `${hd.w}px`
+      if (hd.h !== null) t.el.style.height = `${hd.h}px`
+      this.status(
+        `${t.el.tagName.toLowerCase()} · ` +
+        `${hd.w ?? Math.round(hd.startRect.width)}×${hd.h ?? Math.round(hd.startRect.height)} — release to commit`,
+      )
+      this.redraw()
+      return
+    }
+    if (t && !t.drag) {
+      const sr = this.selRect(t)
+      const hp = this.hitHandle(sr, e.clientX, e.clientY)
+      if (hp) {
+        this.canvas.style.cursor = HANDLE_CURSORS[hp.kind]
+        this.tweakHover = null
+        this.redraw()
+        return
+      }
+      const over = t.zones.find(
+        (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
+      )
+      if (over) {
+        this.canvas.style.cursor =
+          over.kind === 'gap'
+            ? (t.direction === 'row' ? 'col-resize' : 'row-resize')
+            : (over.kind === 'pt' || over.kind === 'pb' ? 'ns-resize' : 'ew-resize')
+        this.tweakHover = null
+        this.redraw()
+        return
+      }
+      if (
+        e.clientX >= sr.left && e.clientX <= sr.left + sr.width &&
+        e.clientY >= sr.top && e.clientY <= sr.top + sr.height
+      ) {
+        this.canvas.style.cursor = 'move'
+        this.tweakHover = null
+        this.redraw()
+        return
+      }
+      const el = this.pickAnyStamped(e.clientX, e.clientY)
+      this.tweakHover = el && el !== t.el ? el.getBoundingClientRect() : null
+      this.canvas.style.cursor = el ? 'pointer' : 'default'
+      this.redraw()
+      return
+    }
     if (!t) {
-      const el = this.pickTweakTarget(e.clientX, e.clientY)
+      const el = this.pickAnyStamped(e.clientX, e.clientY)
       this.tweakHover = el ? el.getBoundingClientRect() : null
       this.canvas.style.cursor = el ? 'pointer' : 'default'
       this.redraw()
       return
     }
-    if (t.childDrag) {
-      const cd = t.childDrag
-      const dx = e.clientX - cd.startX
-      const dy = e.clientY - cd.startY
-      cd.child.style.transform = `translate(${dx}px, ${dy}px)`
-      // detent: nearest OTHER sibling's center (the dragged child follows the
-      // cursor, so it must be excluded or it always wins). Landing on sibling
-      // j means "take j's place" — j is the final index for both directions.
-      const kids = [...t.el.children] as HTMLElement[]
-      let best = cd.fromIndex
-      let bestD = Infinity
-      kids.forEach((k, i) => {
-        if (i === cd.fromIndex) return
-        const r = k.getBoundingClientRect()
-        const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2))
-        if (d < bestD) { bestD = d; best = i }
-      })
-      // near the original slot? treat as unchanged (dead zone = half a sibling)
-      const selfR = kids[cd.fromIndex]!.getBoundingClientRect()
-      const origX = selfR.left + selfR.width / 2 - (e.clientX - cd.startX)
-      const origY = selfR.top + selfR.height / 2 - (e.clientY - cd.startY)
-      if (Math.hypot(e.clientX - origX, e.clientY - origY) < Math.min(selfR.width, selfR.height) / 2) {
-        best = cd.fromIndex
-      }
-      cd.proposedIndex = best
-      this.status(
-        best === cd.fromIndex
-          ? `position ${best + 1} (unchanged) — release to cancel`
-          : `→ position ${best + 1} — release to commit reorder`,
-      )
-      this.redraw()
-      return
-    }
-    if (!t.drag) {
-      // hover affordance: pointer cursor over zones + highlight the element
-      // the next click would select
-      const over = t.zones.some(
-        (z) => e.clientX >= z.x && e.clientX <= z.x + z.w && e.clientY >= z.y && e.clientY <= z.y + z.h,
-      )
-      this.canvas.style.cursor = over ? (t.direction === 'row' ? 'col-resize' : 'row-resize') : 'default'
-      if (!over) {
-        const el = this.pickTweakTarget(e.clientX, e.clientY)
-        this.tweakHover = el && el !== t.el ? el.getBoundingClientRect() : null
-        this.redraw()
-      }
-      return
-    }
+    if (!t.drag) return
     const { zone, startX, startY, startValue } = t.drag
     const axisDelta =
       zone.kind === 'gap'
@@ -668,40 +861,49 @@ class Overlay {
 
   private async onTweakUp(e: PointerEvent) {
     const t = this.tweak
-    if (t?.childDrag) {
-      const cd = t.childDrag
-      t.childDrag = null
+    if (t?.moveDrag) {
+      const md = t.moveDrag
+      t.moveDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
-      cd.child.style.transform = ''
-      cd.child.style.zIndex = ''
-      cd.child.style.position = ''
-      cd.child.style.transition = ''
-      if (cd.proposedIndex === cd.fromIndex) {
-        this.status('reorder cancelled (same position)')
+      t.el.style.removeProperty('transform')
+      t.el.style.removeProperty('will-change')
+      const dist = Math.hypot(md.dx, md.dy)
+      if (dist < CLICK_SLOP) {
+        // a click, not a drag: drill into whatever stamped element is here
+        const el = this.pickAnyStamped(e.clientX, e.clientY)
+        if (el && el !== t.el) this.selectElement(el)
+        else this.redraw()
         return
       }
-      const srcLoc = t.el.dataset.s2c
-      if (!srcLoc) return
-      this.status('committing reorder…')
-      try {
-        const res = await fetch('/@s2c/manipulate', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
-          body: JSON.stringify({ srcLoc, prop: 'reorder', from: cd.fromIndex, to: cd.proposedIndex }),
-        })
-        const body = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
-        if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
-        this.status(`✓ ${body.change} in ${body.file} · 0 tokens · revert: git restore --source=${(body.checkpoint ?? '').slice(0, 10)}`)
-        const el = t.el
-        setTimeout(() => {
-          if (this.mode === 'tweak' && document.contains(el)) {
-            this.tweak = this.buildTweakState(el)
-            this.redraw()
-          }
-        }, 500)
-      } catch (err) {
-        this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      if (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && md.parentSrcLoc && md.fromIndex >= 0) {
+        // ladder rung (a): dropped on a sibling's slot → structural reorder
+        await this.commitManipulation(
+          { srcLoc: md.parentSrcLoc, prop: 'reorder', from: md.fromIndex, to: md.proposedIndex },
+          t, 'committing reorder…',
+        )
+        return
       }
+      // rungs (b)/(c): server decides margin nudge vs cosmetic translate
+      await this.commitManipulation(
+        { srcLoc: t.srcLoc, prop: 'move', dx: Math.round(md.dx), dy: Math.round(md.dy), inFlow: t.inFlow },
+        t, 'committing move…',
+      )
+      return
+    }
+    if (t?.handleDrag) {
+      const hd = t.handleDrag
+      t.handleDrag = null
+      this.canvas.releasePointerCapture?.(e.pointerId)
+      t.el.style.removeProperty('width')
+      t.el.style.removeProperty('height')
+      const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
+      const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
+      if (w === undefined && h === undefined) {
+        this.status('resize cancelled (no change)')
+        this.redraw()
+        return
+      }
+      await this.commitManipulation({ srcLoc: t.srcLoc, prop: 'resize', w, h }, t, 'committing resize…')
       return
     }
     if (!t || !t.drag) return
@@ -710,38 +912,60 @@ class Overlay {
     t.drag = null
     this.canvas.releasePointerCapture?.(e.pointerId)
     if (px === undefined) return
-    const srcLoc = t.el.dataset.s2c
-    if (!srcLoc) return
-    this.status('committing…')
+    await this.commitManipulation({ srcLoc: t.srcLoc, prop: zone.kind, px }, t, 'committing…')
+  }
+
+  /**
+   * POST to the token-gated manipulate endpoint. Deterministic, zero model
+   * calls; the receipt names exactly what was written + the revert SHA. After
+   * HMR settles (~500ms) the selection is re-resolved and rebuilt.
+   */
+  private async commitManipulation(
+    body: Record<string, unknown>,
+    t: TweakState,
+    note: string,
+  ): Promise<void> {
+    this.status(note)
     try {
       const res = await fetch('/@s2c/manipulate', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
-        body: JSON.stringify({ srcLoc, prop: zone.kind, px }),
+        body: JSON.stringify(body),
       })
-      const body = (await res.json()) as {
+      const out = (await res.json()) as {
         ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string
       }
-      if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
+      if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${res.status}`)
       this.clearTweakPreview()
-      this.status(`✓ ${body.change} in ${body.file} · 0 tokens · revert: git restore --source=${(body.checkpoint ?? '').slice(0, 10)}`)
-      // re-select after HMR settles so zones match the new layout
-      const el = t.el
-      setTimeout(() => {
-        if (this.mode === 'tweak' && document.contains(el)) {
-          this.tweak = this.buildTweakState(el)
-          this.redraw()
-        }
-      }, 500)
+      this.status(
+        `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`,
+      )
+      this.reselectAfterCommit(t)
     } catch (err) {
       this.clearTweakPreview()
       this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      this.redraw()
     }
+  }
+
+  /** After commit + HMR, re-resolve the element (it may have been remounted). */
+  private reselectAfterCommit(t: TweakState) {
+    const { el, srcLoc } = t
+    setTimeout(() => {
+      if (this.mode !== 'tweak') return
+      const next = document.contains(el)
+        ? el
+        : (document.querySelector(`[data-s2c="${srcLoc}"]`) as HTMLElement | null)
+      if (next?.dataset.s2c) this.tweak = this.buildTweakState(next)
+      else this.tweak = null
+      this.redraw()
+    }, 500)
   }
 
   private drawTweak() {
     const { ctx } = this
     if (this.tweakHover) {
+      // light outline on hover — every stamped element is interactable
       ctx.save()
       ctx.strokeStyle = 'rgba(8,145,178,0.55)'
       ctx.setLineDash([6, 4])
@@ -753,18 +977,41 @@ class Overlay {
     }
     const t = this.tweak
     if (!t) return
-    const r = t.el.getBoundingClientRect()
+    const r = this.selRect(t)
     ctx.save()
+    // solid selection outline
     ctx.strokeStyle = '#0891b2'
     ctx.lineWidth = 2
     ctx.strokeRect(r.left, r.top, r.width, r.height)
-    for (const z of t.zones) {
-      ctx.fillStyle = z.kind === 'gap' ? 'rgba(8,145,178,0.18)' : 'rgba(147,51,234,0.12)'
-      ctx.fillRect(z.x, z.y, z.w, z.h)
+    // secondary affordances: gap strips (blue) + padding bands (purple).
+    // Hidden while a move/resize drag is in flight — their cached geometry
+    // no longer matches the layout.
+    if (!t.moveDrag && !t.handleDrag) {
+      for (const z of t.zones) {
+        ctx.fillStyle = z.kind === 'gap' ? 'rgba(8,145,178,0.18)' : 'rgba(147,51,234,0.12)'
+        ctx.fillRect(z.x, z.y, z.w, z.h)
+      }
     }
-    ctx.fillStyle = '#0891b2'
+    // 8 Canva-style drag handles: white squares with a border
+    for (const hp of this.handlePoints(r)) {
+      ctx.fillStyle = '#fff'
+      ctx.strokeStyle = '#0891b2'
+      ctx.lineWidth = 1.5
+      ctx.fillRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
+      ctx.strokeRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
+    }
+    // floating label: tag · current size
+    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}`
     ctx.font = '11px ui-sans-serif, system-ui'
-    ctx.fillText('gaps = blue · padding = purple', r.left + 4, Math.max(12, r.top - 6))
+    const lw = ctx.measureText(label).width + 12
+    const lx = Math.max(2, Math.min(r.left, window.innerWidth - lw - 2))
+    const ly = r.top - 24 >= 2 ? r.top - 24 : r.top + r.height + 8
+    ctx.fillStyle = '#0891b2'
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, lw, 17, 8)
+    ctx.fill()
+    ctx.fillStyle = '#fff'
+    ctx.fillText(label, lx + 6, ly + 12)
     ctx.restore()
   }
 

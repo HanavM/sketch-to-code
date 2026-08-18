@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { applyManipulation, rewriteClassList, snapSpacing } from '../src/manipulate.js'
+import {
+  applyManipulation, rewriteClassList, snapSpacing, synthesizeMove, synthesizeResize,
+} from '../src/manipulate.js'
 
 describe('snapSpacing', () => {
   it('snaps to tokens within 2px', () => {
@@ -144,5 +146,150 @@ export default function S() {
     const res = applyManipulation(root, { srcLoc: 'src/T.tsx:2:3', prop: 'reorder', from: 0, to: 1 })
     expect(res.ok).toBe(false)
     expect(res.error).toContain('ink path')
+  })
+})
+
+describe('rewriteClassList — canva additions', () => {
+  it('edits w- without touching min-w/max-w', () => {
+    const r = rewriteClassList('max-w-md w-40 min-w-0', 'w', '[300px]')
+    expect(r.after).toBe('max-w-md w-[300px] min-w-0')
+    expect(r.replaced).toBe('w-40')
+  })
+  it('replaces negative translate classes in either direction', () => {
+    expect(rewriteClassList('-translate-x-2 flex', 'translate-x', '6', true).after).toBe('-translate-x-6 flex')
+    expect(rewriteClassList('translate-x-2 flex', 'translate-x', '4', true).after).toBe('-translate-x-4 flex')
+  })
+  it('a positive margin replaces an existing negative one', () => {
+    expect(rewriteClassList('-ml-2 flex', 'ml', '4').after).toBe('ml-4 flex')
+  })
+})
+
+describe('synthesizeMove ladder', () => {
+  it('rung (b): small axis-aligned in-flow moves become one margin utility', () => {
+    expect(synthesizeMove(20, 1, true)).toEqual({
+      edits: [{ prop: 'ml', suffix: '5', negative: false }], cosmetic: false,
+    })
+    expect(synthesizeMove(-20, 0, true)).toEqual({
+      edits: [{ prop: 'mr', suffix: '5', negative: false }], cosmetic: false,
+    })
+    expect(synthesizeMove(2, 24, true)).toEqual({
+      edits: [{ prop: 'mt', suffix: '6', negative: false }], cosmetic: false,
+    })
+    expect(synthesizeMove(0, -16, true)).toEqual({
+      edits: [{ prop: 'mb', suffix: '4', negative: false }], cosmetic: false,
+    })
+  })
+  it('rung (c): diagonal moves fall to translate — the gesture never fails', () => {
+    expect(synthesizeMove(51, -12, true)).toEqual({
+      edits: [
+        { prop: 'translate-x', suffix: '[51px]', negative: false },
+        { prop: 'translate-y', suffix: '3', negative: true },
+      ],
+      cosmetic: true,
+    })
+  })
+  it('rung (c): out-of-flow elements never get margin nudges', () => {
+    expect(synthesizeMove(20, 1, false)).toEqual({
+      edits: [{ prop: 'translate-x', suffix: '5', negative: false }], cosmetic: true,
+    })
+  })
+  it('rung (c): big aligned moves exceed the margin budget', () => {
+    const r = synthesizeMove(120, 0, true)
+    expect(r?.cosmetic).toBe(true)
+    expect(r?.edits).toEqual([{ prop: 'translate-x', suffix: '[120px]', negative: false }])
+  })
+  it('sub-threshold jitter synthesizes nothing', () => {
+    expect(synthesizeMove(1, -2, true)).toBeNull()
+  })
+})
+
+describe('synthesizeResize', () => {
+  it('snaps each axis independently (token or arbitrary)', () => {
+    expect(synthesizeResize(300, 150)).toEqual([
+      { prop: 'w', suffix: '[300px]', negative: false },
+      { prop: 'h', suffix: '[150px]', negative: false },
+    ])
+    expect(synthesizeResize(24, undefined)).toEqual([{ prop: 'w', suffix: '6', negative: false }])
+  })
+})
+
+describe('applyManipulation move', () => {
+  const fixture = `export default function M() {
+  return (
+    <section className="flex">
+      <div className="p-2">a</div>
+    </section>
+  )
+}
+`
+  const mkRoot = () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-move-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/M.tsx'), fixture)
+    return root
+  }
+  it('diagonal drop lands translate classes, flagged cosmetic', () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, { srcLoc: 'src/M.tsx:4:7', prop: 'move', dx: 51, dy: -12, inFlow: true })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain('(cosmetic transform)')
+    const after = readFileSync(join(root, 'src/M.tsx'), 'utf8')
+    expect(after).toContain('className="p-2 translate-x-[51px] -translate-y-3"')
+  })
+  it('small aligned in-flow drop lands a margin utility, not a transform', () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, { srcLoc: 'src/M.tsx:4:7', prop: 'move', dx: 20, dy: 1, inFlow: true })
+    expect(res.ok).toBe(true)
+    expect(res.change).toBe('+ ml-5')
+    const after = readFileSync(join(root, 'src/M.tsx'), 'utf8')
+    expect(after).toContain('className="p-2 ml-5"')
+    expect(after).not.toContain('translate')
+  })
+  it('replaces an existing translate instead of stacking a second one', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-move-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/N.tsx'), `const N = () => <div className="translate-x-2 p-1">x</div>\n`)
+    const res = applyManipulation(root, { srcLoc: 'src/N.tsx:1:17', prop: 'move', dx: -24, dy: 0, inFlow: false })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain('translate-x-2 → -translate-x-6')
+    const after = readFileSync(join(root, 'src/N.tsx'), 'utf8')
+    expect(after).toContain('className="-translate-x-6 p-1"')
+  })
+  it('sub-threshold moves are a no-op, not a junk class', () => {
+    const root = mkRoot()
+    const res = applyManipulation(root, { srcLoc: 'src/M.tsx:4:7', prop: 'move', dx: 1, dy: 2, inFlow: true })
+    expect(res.ok).toBe(true)
+    expect(res.change).toContain('no change')
+    expect(readFileSync(join(root, 'src/M.tsx'), 'utf8')).toBe(fixture)
+  })
+})
+
+describe('applyManipulation resize', () => {
+  it('width and height land as w-/h- classes in one edit', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-size-'))
+    mkdirSync(join(root, 'src'))
+    const code = `const R = () => <div className="rounded w-40">x</div>\n`
+    writeFileSync(join(root, 'src/R.tsx'), code)
+    const res = applyManipulation(root, { srcLoc: 'src/R.tsx:1:17', prop: 'resize', w: 300, h: 150 })
+    expect(res.ok).toBe(true)
+    expect(res.change).toBe('w-40 → w-[300px] · + h-[150px]')
+    const after = readFileSync(join(root, 'src/R.tsx'), 'utf8')
+    expect(after).toContain('className="rounded w-[300px] h-[150px]"')
+  })
+  it('inserts className when the element has none', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-size-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/B.tsx'), `const B = () => <div>x</div>\n`)
+    const res = applyManipulation(root, { srcLoc: 'src/B.tsx:1:17', prop: 'resize', w: 24 })
+    expect(res.ok).toBe(true)
+    expect(readFileSync(join(root, 'src/B.tsx'), 'utf8')).toContain('<div className="w-6">x</div>')
+  })
+  it('refuses dynamic classNames honestly (resize)', () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-size-'))
+    mkdirSync(join(root, 'src'))
+    writeFileSync(join(root, 'src/D.tsx'), `const D = () => <div className={clsx('a')}>x</div>\n`)
+    const res = applyManipulation(root, { srcLoc: 'src/D.tsx:1:17', prop: 'resize', w: 120 })
+    expect(res.ok).toBe(false)
+    expect(res.error).toContain('dynamic')
   })
 })
