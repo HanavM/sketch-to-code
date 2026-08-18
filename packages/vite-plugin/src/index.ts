@@ -191,6 +191,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               w: body.w,
               h: body.h,
             })
+            if (result.ok && !(result.change ?? '').startsWith('no change')) {
+              undoStack.push({ sha: cp.sha, label: result.change ?? 'edit' })
+            }
             sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
