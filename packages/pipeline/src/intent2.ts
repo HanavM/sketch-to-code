@@ -260,7 +260,9 @@ FIDELITY — decide per drawing, this matters most:
 - WIDGET: looks like a UI element from the lexicon → normal add/design.
 
 Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
-labeled rounded rects = buttons, squiggly lines = text placeholders, circles
+labeled rounded rects = buttons, squiggly lines = text placeholders,
+scribble/hatching between or inside boundary lines = a FILLED/shaded region
+(say so in the instruction — it is fill, not strokes), circles
 = avatars/icons, a smooth wavy band = ONE decorative ribbon (even if drawn in
 several strokes), arrows here are FLOW/annotation between sketched parts.
 Handwriting = labels/copy for the new UI — transcribe it into instructions.

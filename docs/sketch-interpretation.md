@@ -95,13 +95,28 @@ Rendering options, best-first:
    user's composition entirely
 Size/position from the region; state which rung you used.
 
+### Normalization — ink is shorthand, not artwork
+When rendering ANY drawn form (depiction or decoration), do not vectorize
+the strokes. Extract the salient features and REBUILD from them:
+- Scribble/zigzag hatching inside or between boundary strokes = a FILLED
+  region: render solid (or shaded) fill bounded by the clean boundary —
+  NEVER redraw the hatching strokes themselves.
+- Several rough, roughly-parallel or overdrawn strokes = ONE clean stroke.
+- Almost-straight → straight; almost-closed → closed; almost-symmetric →
+  symmetric; almost-aligned/equal → aligned/equal.
+- Then redraw the whole form with pristine geometry: smooth continuous
+  curves, uniform stroke width, clean joins, deliberate proportions taken
+  from the sketch. The result should look like a professional designer drew
+  the same subject — not like a vectorized scan of the sketch.
+
 ### Organic & decorative shapes (waves, ribbons, blobs, underlines-as-flair)
 - Shapes the recognizer can't name arrive with kind "ink" AND an exact
   `svgPath` (fitted cubics, bbox-local coordinates). First rule out a
   standard-widget reading: if the path approximates a lexicon shape (a sloppy
   rectangle, a rough circle), rectify it into that widget. Otherwise the path
-  IS the design: reproduce it as real SVG geometry sized to the bbox — the one
-  case where you render the drawn form itself.
+  IS the design: use it as the geometric reference for the form, normalized
+  per the rules above (merge overdraws, hatching = fill, smooth and
+  symmetrize), sized to the bbox.
 - `layerHint: "background-overlay"` means the stroke travels ACROSS existing
   elements without enclosing them: implement as a decorative layer —
   absolutely positioned within the container, behind content (negative

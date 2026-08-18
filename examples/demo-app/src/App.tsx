@@ -3,6 +3,7 @@ import BrowserChrome from './components/BrowserChrome'
 import ChevronTrail from './components/ChevronTrail'
 import CornerBadge from './components/CornerBadge'
 import CrabDoodle from './components/CrabDoodle'
+import GutterMarks from './components/GutterMarks'
 import Navbar from './components/Navbar'
 import StatCards from './components/StatCards'
 import ContactForm from './components/ContactForm'
@@ -26,6 +27,7 @@ export default function App() {
             </div>
             <CornerBadge />
             <CrabDoodle />
+            <GutterMarks />
           </div>
         </BrowserChrome>
       </main>
