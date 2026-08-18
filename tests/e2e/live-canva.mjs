@@ -17,6 +17,10 @@
  *   7. anchored resize, top edge: same for N handle (h-* + mt compensation)
  *   8. shift+click multi-select: two different components drag as one set,
  *      one commit per element, Ctrl+Z reverts them one at a time
+ *   9. tracking: the selection overlay must FOLLOW its element — after a
+ *      window scroll and after a viewport resize, the drawn rect (via the
+ *      __S2C_DEBUG__ getter) and the painted outline match the element's
+ *      live getBoundingClientRect within 2px
  * Demo src is restored via `git checkout -- examples/demo-app/src/` between
  * phases and at the end.
  *
@@ -413,6 +417,70 @@ await page.waitForTimeout(600)
   }
 }
 restore()
+await page.waitForTimeout(600)
 
-log('E2E PASS — linked resize, ghost-drag past clip boundary, reorder, just-this-one per-item edit, exact magnetic snap, anchored L/T-edge resize, shift+click group move with per-element undo — all zero tokens')
+// ---------- phase 9: overlays track their elements through scroll + resize ----------
+await boot()
+cards = await cardRects()
+c = cards[0]
+await selectCard(c)
+
+const liveCardRect = () =>
+  page.evaluate(() => {
+    const r = document.querySelectorAll('section[data-s2c*="StatCards"] > div')[0].getBoundingClientRect()
+    return { left: r.left, top: r.top, width: r.width, height: r.height }
+  })
+const drawnRect = () => page.evaluate(() => globalThis.__S2C_DEBUG__.selRect())
+const assertTracking = async (label) => {
+  const live = await liveCardRect()
+  const drawn = await drawnRect()
+  if (!drawn) throw new Error(`${label}: no selection rect exposed`)
+  for (const k of ['left', 'top', 'width', 'height']) {
+    const d = Math.abs(drawn[k] - live[k])
+    if (d > 2) {
+      throw new Error(`${label}: drawn ${k} off by ${d.toFixed(1)}px (drawn ${drawn[k]}, live ${live[k]})`)
+    }
+  }
+  // and the outline is actually PAINTED at the live top edge
+  const painted = await edgePainted({ cx: live.left + live.width / 2, top: live.top })
+  if (!painted) throw new Error(`${label}: no outline pixels at the element's live top edge`)
+  log(`${label}: drawn rect tracks live rect (Δ≤2px), outline painted at live edge`)
+}
+
+await assertTracking('phase 9 pre-scroll')
+// 120px keeps the card's top edge on-screen — the pixel probe can only
+// sample what's inside the canvas
+const scrolled = await page.evaluate(() => { window.scrollBy(0, 120); return new Promise((r) => setTimeout(() => r(window.scrollY), 120)) })
+log('phase 9 — window.scrollY after scrollBy:', scrolled)
+if (scrolled < 60) throw new Error(`ASSERT: page did not scroll (scrollY ${scrolled}) — fixture too short for the tracking test`)
+await page.waitForTimeout(150) // ≥2 frames for the tracking loop
+await assertTracking('phase 9 post-scroll')
+
+// the decisive case: a LAYOUT change with no scroll/resize event at all —
+// nothing but the rAF tracking loop can notice this one. Grow the padding
+// of the cards' container; the card shifts down ~66px silently.
+const preMutate = await liveCardRect()
+await page.evaluate(() => {
+  document.querySelector('section[data-s2c*="StatCards"]').parentElement.style.paddingTop = '90px'
+})
+await page.waitForTimeout(200)
+{
+  const live = await liveCardRect()
+  const moved = live.top - preMutate.top
+  log('phase 9 — silent layout shift moved card by:', moved.toFixed(1), 'px')
+  if (moved < 30) throw new Error('ASSERT: fixture mutation did not shift the card — test is vacuous')
+  await assertTracking('phase 9 post-silent-layout-shift')
+}
+await page.evaluate(() => {
+  document.querySelector('section[data-s2c*="StatCards"]').parentElement.style.paddingTop = ''
+})
+await page.waitForTimeout(150)
+
+await page.setViewportSize({ width: 1040, height: 720 })
+await page.waitForTimeout(300) // reflow + resize handler + tracking frames
+await assertTracking('phase 9 post-resize')
+await page.setViewportSize({ width: 1280, height: 900 })
+restore()
+
+log('E2E PASS — linked resize, ghost-drag past clip boundary, reorder, just-this-one per-item edit, exact magnetic snap, anchored L/T-edge resize, shift+click group move with per-element undo, overlay tracking through scroll/resize — all zero tokens')
 await b.close()

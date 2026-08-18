@@ -103,6 +103,9 @@ interface TweakState {
     snappedH: boolean
     /** element's own CSS transform at drag start — anchor shift composes on top */
     baseTransform: string
+    /** window scroll at drag start — deltas are computed in PAGE coords */
+    scrollStartX: number
+    scrollStartY: number
   } | null
   /**
    * Free-move drag: the element follows the cursor via transform (no file
@@ -111,9 +114,17 @@ interface TweakState {
    * server's move ladder (margin → translate) decides.
    */
   moveDrag: {
+    /** pointer-down position in PAGE coords (client + scroll): a scroll
+     *  mid-drag must not corrupt the committed delta */
     startX: number
     startY: number
-    /** displacement AFTER magnetic snapping — what previews and commits */
+    /** pointer-down position in CLIENT coords — click-vs-drag is judged on
+     *  pointer travel (a still click during scroll inertia is still a click) */
+    startClientX: number
+    startClientY: number
+    /** PAGE-coord displacement AFTER magnetic snapping — what commits and
+     *  what moves in-place previews; ghosts (position:fixed) subtract the
+     *  scroll-since-start to stay glued to the cursor */
     dx: number
     dy: number
     startRect: SelRect
@@ -141,6 +152,9 @@ interface TweakState {
     prev: { opacity: string; position: string; zIndex: string }
     /** extra multi-selection members dragged along with the primary */
     group: GroupMember[]
+    /** window scroll at drag start */
+    scrollStartX: number
+    scrollStartY: number
   } | null
   /** current preview value px per prop */
   preview: Partial<Record<'gap' | 'pt' | 'pr' | 'pb' | 'pl', number>>
@@ -222,7 +236,8 @@ class Overlay {
   private mode: Mode = 'idle'
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
   private tweak: TweakState | null = null
-  private tweakHover: DOMRect | null = null
+  /** hovered stamped element (rect read live at draw — it must track) */
+  private hoverEl: HTMLElement | null = null
   /** last still-click on the selected element — double-click scope toggle */
   private lastTweakClick: { el: HTMLElement; at: number } | null = null
   /** shift+click multi-selection: extras beyond the primary (this.tweak) */
@@ -377,7 +392,13 @@ class Overlay {
       }
     })
     window.addEventListener('resize', () => this.resize())
-    window.addEventListener('scroll', () => this.redraw(), { passive: true })
+    // capture: nested scroll containers' scroll events don't bubble, but a
+    // capture listener on window still sees them
+    window.addEventListener('scroll', () => {
+      const t = this.tweak
+      if (t?.moveDrag) this.applyMovePreview(t, t.moveDrag)
+      this.redraw()
+    }, { passive: true, capture: true })
 
     this.canvas.addEventListener('pointerdown', (e) => this.onDown(e))
     this.canvas.addEventListener('pointermove', (e) => this.onMove(e))
@@ -387,11 +408,21 @@ class Overlay {
     document.body.appendChild(this.host)
     this.resize()
     this.connectEvents()
+
+    // dev-only debug surface (the whole overlay is dev-only): lets e2e
+    // compare the drawn selection rect against the element's live rect
+    ;(globalThis as unknown as Record<string, unknown>).__S2C_DEBUG__ = {
+      selRect: () => (this.tweak ? this.selRect(this.tweak) : null),
+    }
   }
 
   private setMode(m: Mode) {
     this.mode = m
     this.host.dataset.mode = m
+    // tweak-mode overlays must TRACK their elements through scroll/zoom/
+    // layout churn; outside tweak mode the loop is stopped — zero idle cost
+    if (m === 'tweak') this.startTracking()
+    else this.stopTracking()
     this.drawBtn.textContent = m === 'draw' ? '✋ Done' : '✏️ Draw'
     this.drawBtn.classList.toggle('primary', m !== 'draw')
     this.sync()
@@ -607,7 +638,7 @@ class Overlay {
   private exitTweak(msg: string) {
     if (this.tweak) this.clearTweakPreview()
     this.tweak = null
-    this.tweakHover = null
+    this.hoverEl = null
     this.multiSel = []
     this.shadow.getElementById('tweakBtn')?.classList.remove('primary')
     this.setMode('idle')
@@ -618,7 +649,7 @@ class Overlay {
   private deselect(msg: string) {
     if (this.tweak) this.clearTweakPreview()
     this.tweak = null
-    this.tweakHover = null
+    this.hoverEl = null
     this.multiSel = []
     this.status(msg)
     this.redraw()
@@ -632,6 +663,25 @@ class Overlay {
       'gap', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
       'transform', 'width', 'height', 'will-change',
     ]) t.el.style.removeProperty(p)
+  }
+
+  /**
+   * Free-move preview transforms. In-place elements scroll WITH the page, so
+   * they take the page delta; position:fixed ghosts don't, so they take the
+   * client delta (page − scroll-since-start). Re-applied from the scroll
+   * listener too: a wheel scroll with a stationary pointer fires no
+   * pointermove, and a parked ghost would diverge from the outline AND from
+   * what the release commits.
+   */
+  private applyMovePreview(t: TweakState, md: NonNullable<TweakState['moveDrag']>) {
+    const csx = window.scrollX - md.scrollStartX
+    const csy = window.scrollY - md.scrollStartY
+    if (md.ghost) md.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
+    else t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+    for (const g of md.group) {
+      if (g.ghost) g.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
+      else g.el.style.transform = `${g.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+    }
   }
 
   /** Tear down free-move preview state: ghost, dimming, lift. Idempotent. */
@@ -656,6 +706,92 @@ class Overlay {
     }
   }
 
+  // ---- geometry tracking ----------------------------------------------
+  // Everything drawn on the overlay derives from LIVE rects at paint time;
+  // this rAF loop watches a cheap geometry signature (selection, linked
+  // instances, extras, hover, scroll/viewport) and, when it changes,
+  // re-derives the selection-time caches (zones) and repaints. Runs only in
+  // tweak mode; drags pause it (they repaint themselves every pointermove).
+
+  private trackRaf: number | null = null
+  private trackSig = ''
+
+  private startTracking() {
+    if (this.trackRaf == null) this.trackRaf = requestAnimationFrame(this.trackTick)
+  }
+
+  private stopTracking() {
+    if (this.trackRaf != null) cancelAnimationFrame(this.trackRaf)
+    this.trackRaf = null
+    this.trackSig = ''
+  }
+
+  private trackTick = (): void => {
+    this.trackRaf = null
+    if (this.mode !== 'tweak') {
+      this.trackSig = ''
+      return
+    }
+    this.trackRaf = requestAnimationFrame(this.trackTick)
+    const t = this.tweak
+    if (t && (t.moveDrag || t.handleDrag || t.drag)) return
+    // primary remounted (external edit + HMR): re-resolve by instance index.
+    // A transient EMPTY result (suspense fallback, error-boundary flash,
+    // mid-remount) is NOT a deselect — keep waiting; reselectAfterCommit's
+    // settle timer must stay in play for slow remounts.
+    if (t && !document.contains(t.el)) {
+      const all = [...document.querySelectorAll(`[data-s2c="${t.srcLoc}"]`)] as HTMLElement[]
+      if (all.length === 0) return
+      const next = all[Math.min(t.instanceIndex, all.length - 1)]!
+      this.tweak = this.buildTweakState(next, t.scope)
+      this.trackSig = ''
+      this.redraw()
+      return
+    }
+    const sig = this.trackSignature()
+    if (sig !== this.trackSig) {
+      this.trackSig = sig
+      if (t) this.refreshTweakGeometry(t)
+      this.redraw()
+    }
+  }
+
+  /** Cheap change detector: every rect the overlay renders from, plus the
+   *  scroll/viewport state that maps them to canvas space. */
+  private trackSignature(): string {
+    const vv = window.visualViewport
+    const parts: number[] = [
+      window.scrollX, window.scrollY, window.innerWidth, window.innerHeight,
+      vv?.scale ?? 1, vv?.offsetLeft ?? 0, vv?.offsetTop ?? 0,
+    ]
+    const push = (r: DOMRect) => parts.push(r.left, r.top, r.width, r.height)
+    const t = this.tweak
+    if (t && document.contains(t.el)) push(t.el.getBoundingClientRect())
+    if (t) {
+      for (const ie of t.instanceEls) {
+        if (ie !== t.el && document.contains(ie)) push(ie.getBoundingClientRect())
+      }
+    }
+    for (const m of this.multiSel) {
+      const el = this.resolveExtra(m)
+      if (el && el !== t?.el) push(el.getBoundingClientRect())
+    }
+    if (this.hoverEl && document.contains(this.hoverEl)) push(this.hoverEl.getBoundingClientRect())
+    return parts.join(',')
+  }
+
+  /** Re-derive the selection-time geometry caches from the live layout —
+   *  including style-derived fields: a breakpoint-crossing resize can flip
+   *  flex direction (gap-drag axis) or display, and inFlow rides commits. */
+  private refreshTweakGeometry(t: TweakState) {
+    const cs = getComputedStyle(t.el)
+    t.rect = t.el.getBoundingClientRect()
+    t.display = cs.display
+    t.direction = cs.flexDirection === 'column' ? 'column' : 'row'
+    t.inFlow = cs.position === 'static' || cs.position === 'relative'
+    t.zones = this.computeZones(t.el)
+  }
+
   /** Deepest stamped element under the point — anything stamped is fair game. */
   private pickAnyStamped(x: number, y: number): HTMLElement | null {
     this.canvas.style.pointerEvents = 'none'
@@ -668,15 +804,14 @@ class Overlay {
     return null
   }
 
-  private buildTweakState(el: HTMLElement, scope: 'all' | 'one' = 'all'): TweakState {
+  /**
+   * Gap strips + padding bands from the element's LIVE geometry. Called at
+   * selection time and again by the tracking loop whenever layout moves —
+   * stale zones would hit-test (and render) where the element used to be.
+   */
+  private computeZones(el: HTMLElement): TweakZone[] {
     const cs = getComputedStyle(el)
     const rect = el.getBoundingClientRect()
-    // all live instances of this stamp — >1 means a shared template (.map())
-    const srcLoc = el.dataset.s2c ?? ''
-    const instanceEls = srcLoc
-      ? ([...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)] as HTMLElement[])
-      : [el]
-    const instanceIndex = Math.max(0, instanceEls.indexOf(el))
     const direction = cs.flexDirection === 'column' ? 'column' : 'row'
     const zones: TweakZone[] = []
 
@@ -711,6 +846,20 @@ class Overlay {
       if (kind === 'pl') zones.push({ x: rect.left, y: rect.top, w: grab, h: rect.height, kind })
       if (kind === 'pr') zones.push({ x: rect.right - grab, y: rect.top, w: grab, h: rect.height, kind })
     }
+    return zones
+  }
+
+  private buildTweakState(el: HTMLElement, scope: 'all' | 'one' = 'all'): TweakState {
+    const cs = getComputedStyle(el)
+    const rect = el.getBoundingClientRect()
+    // all live instances of this stamp — >1 means a shared template (.map())
+    const srcLoc = el.dataset.s2c ?? ''
+    const instanceEls = srcLoc
+      ? ([...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)] as HTMLElement[])
+      : [el]
+    const instanceIndex = Math.max(0, instanceEls.indexOf(el))
+    const direction = cs.flexDirection === 'column' ? 'column' : 'row'
+    const zones = this.computeZones(el)
 
     return {
       el,
@@ -736,10 +885,15 @@ class Overlay {
    * can't scroll mid-drag).
    */
   private collectGuides(el: HTMLElement): Guide[] {
+    // PAGE coords: guides must survive a mid-drag scroll (converted back to
+    // client space only when drawn)
+    const sx = window.scrollX
+    const sy = window.scrollY
     const guides: Guide[] = []
     const parent = el.parentElement
     if (!parent) return guides
-    const pr = parent.getBoundingClientRect()
+    const pr0 = parent.getBoundingClientRect()
+    const pr = { left: pr0.left + sx, right: pr0.right + sx, top: pr0.top + sy, bottom: pr0.bottom + sy }
     const pcs = getComputedStyle(parent)
     const pad = (s: string) => parseFloat(pcs.getPropertyValue('padding-' + s)) || 0
     const box = {
@@ -754,8 +908,9 @@ class Overlay {
     )
     for (const k of parent.children) {
       if (k === el || k === this.host) continue
-      const kr = k.getBoundingClientRect()
-      if (kr.width <= 0 && kr.height <= 0) continue
+      const kr0 = k.getBoundingClientRect()
+      if (kr0.width <= 0 && kr0.height <= 0) continue
+      const kr = { left: kr0.left + sx, right: kr0.right + sx, top: kr0.top + sy, bottom: kr0.bottom + sy, width: kr0.width, height: kr0.height }
       guides.push(
         { axis: 'v', pos: kr.left, lo: kr.top, hi: kr.bottom },
         { axis: 'v', pos: kr.left + kr.width / 2, lo: kr.top, hi: kr.bottom },
@@ -881,19 +1036,22 @@ class Overlay {
       const height = hd.h ?? hd.startRect.height
       const k = hd.handle
       // pulling a west/north edge moves THAT edge: the opposite edge stays
-      const left = (k === 'w' || k === 'nw' || k === 'sw')
+      const csx = window.scrollX - hd.scrollStartX
+      const csy = window.scrollY - hd.scrollStartY
+      const left = ((k === 'w' || k === 'nw' || k === 'sw')
         ? hd.startRect.left + hd.startRect.width - width
-        : hd.startRect.left
-      const top = (k === 'n' || k === 'ne' || k === 'nw')
+        : hd.startRect.left) - csx
+      const top = ((k === 'n' || k === 'ne' || k === 'nw')
         ? hd.startRect.top + hd.startRect.height - height
-        : hd.startRect.top
+        : hd.startRect.top) - csy
       return { left, top, width, height }
     }
     if (t.moveDrag) {
       const md = t.moveDrag
+      // dx/dy are page deltas; the canvas draws in client space
       return {
-        left: md.startRect.left + md.dx,
-        top: md.startRect.top + md.dy,
+        left: md.startRect.left + md.dx - (window.scrollX - md.scrollStartX),
+        top: md.startRect.top + md.dy - (window.scrollY - md.scrollStartY),
         width: md.startRect.width,
         height: md.startRect.height,
       }
@@ -935,7 +1093,7 @@ class Overlay {
     if (this.tweak) this.clearTweakPreview()
     if (!keepSet) this.multiSel = []
     this.tweak = this.buildTweakState(el)
-    this.tweakHover = null
+    this.hoverEl = null
     const t = this.tweak
     const r = el.getBoundingClientRect()
     const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
@@ -999,7 +1157,12 @@ class Overlay {
           if (k === t.el) return
           const kr = k.getBoundingClientRect()
           if (kr.width > 0 || kr.height > 0) {
-            siblings.push({ index: i, left: kr.left, top: kr.top, right: kr.right, bottom: kr.bottom })
+            // page coords — the slot detent must survive a mid-drag scroll
+            siblings.push({
+              index: i,
+              left: kr.left + window.scrollX, top: kr.top + window.scrollY,
+              right: kr.right + window.scrollX, bottom: kr.bottom + window.scrollY,
+            })
           }
         })
         parentSrcLoc = parent.dataset.s2c ?? null
@@ -1033,8 +1196,10 @@ class Overlay {
       })
     }
     t.moveDrag = {
-      startX: e.clientX,
-      startY: e.clientY,
+      startX: e.clientX + window.scrollX,
+      startY: e.clientY + window.scrollY,
+      startClientX: e.clientX,
+      startClientY: e.clientY,
       dx: 0,
       dy: 0,
       startRect: { left: r.left, top: r.top, width: r.width, height: r.height },
@@ -1050,6 +1215,8 @@ class Overlay {
       ghost: lift.ghost,
       prev: lift.prev,
       group,
+      scrollStartX: window.scrollX,
+      scrollStartY: window.scrollY,
     }
     this.canvas.setPointerCapture(e.pointerId)
   }
@@ -1146,11 +1313,12 @@ class Overlay {
       if (hp) {
         const bt = getComputedStyle(t.el).transform
         t.handleDrag = {
-          handle: hp.kind, startX: e.clientX, startY: e.clientY,
+          handle: hp.kind, startX: e.clientX + window.scrollX, startY: e.clientY + window.scrollY,
           startRect: sr, w: null, h: null,
           guides: this.collectGuides(t.el), activeGuides: [],
           snappedW: false, snappedH: false,
           baseTransform: bt === 'none' ? '' : `${bt} `,
+          scrollStartX: window.scrollX, scrollStartY: window.scrollY,
         }
         this.canvas.setPointerCapture(e.pointerId)
         return
@@ -1167,7 +1335,7 @@ class Overlay {
             : parseFloat(cs.getPropertyValue(
                 { pt: 'padding-top', pr: 'padding-right', pb: 'padding-bottom', pl: 'padding-left' }[zone.kind],
               )) || 0
-        t.drag = { zone, startX: e.clientX, startY: e.clientY, startValue }
+        t.drag = { zone, startX: e.clientX + window.scrollX, startY: e.clientY + window.scrollY, startValue }
         this.canvas.setPointerCapture(e.pointerId)
         return
       }
@@ -1196,18 +1364,27 @@ class Overlay {
     const t = this.tweak
     if (t?.moveDrag) {
       const md = t.moveDrag
-      const rawDx = e.clientX - md.startX
-      const rawDy = e.clientY - md.startY
-      // magnetic alignment: edges + centers of the moving rect vs cached guides
+      // PAGE-coord deltas: a scroll mid-drag changes client coords but not
+      // the user's intent relative to the page content
+      const pageX = e.clientX + window.scrollX
+      const pageY = e.clientY + window.scrollY
+      const rawDx = pageX - md.startX
+      const rawDy = pageY - md.startY
+      // scroll since drag start — fixed-position ghosts live in client space
+      const csx = window.scrollX - md.scrollStartX
+      const csy = window.scrollY - md.scrollStartY
+      // magnetic alignment: edges + centers of the moving rect vs cached
+      // guides, all in page space
       md.activeGuides = []
       md.snappedX = false
       md.snappedY = false
       let dx = rawDx
       let dy = rawDy
       if (Math.hypot(rawDx, rawDy) >= CLICK_SLOP) {
-        const mr = md.startRect
+        const mrL = md.startRect.left + md.scrollStartX
+        const mrT = md.startRect.top + md.scrollStartY
         const sx = this.bestSnap(md.guides, 'v', [
-          mr.left + rawDx, mr.left + mr.width / 2 + rawDx, mr.left + mr.width + rawDx,
+          mrL + rawDx, mrL + md.startRect.width / 2 + rawDx, mrL + md.startRect.width + rawDx,
         ])
         if (sx) {
           dx = rawDx + sx.delta
@@ -1215,7 +1392,7 @@ class Overlay {
           md.activeGuides.push(sx.guide)
         }
         const sy = this.bestSnap(md.guides, 'h', [
-          mr.top + rawDy, mr.top + mr.height / 2 + rawDy, mr.top + mr.height + rawDy,
+          mrT + rawDy, mrT + md.startRect.height / 2 + rawDy, mrT + md.startRect.height + rawDy,
         ])
         if (sy) {
           dy = rawDy + sy.delta
@@ -1225,21 +1402,13 @@ class Overlay {
       }
       md.dx = dx
       md.dy = dy
-      // free move: the preview follows the cursor exactly (compositor-only).
-      // Clipped ancestors → the document-level ghost moves; else the element
-      // itself (lifted via z-index), any pre-existing transform preserved.
-      if (md.ghost) md.ghost.style.transform = `translate(${dx}px, ${dy}px)`
-      else t.el.style.transform = `${md.baseTransform}translate(${dx}px, ${dy}px)`
-      for (const g of md.group) {
-        if (g.ghost) g.ghost.style.transform = `translate(${dx}px, ${dy}px)`
-        else g.el.style.transform = `${g.baseTransform}translate(${dx}px, ${dy}px)`
-      }
-      // slot detent: cursor inside another sibling's (cached) rect.
-      // Group moves never reorder — the set translates as one rigid body.
+      this.applyMovePreview(t, md)
+      // slot detent: cursor inside another sibling's (cached, page-space)
+      // rect. Group moves never reorder — the set translates as one body.
       md.proposedIndex = -1
       if (md.group.length === 0) {
         for (const s of md.siblings) {
-          if (e.clientX >= s.left && e.clientX <= s.right && e.clientY >= s.top && e.clientY <= s.bottom) {
+          if (pageX >= s.left && pageX <= s.right && pageY >= s.top && pageY <= s.bottom) {
             md.proposedIndex = s.index
             break
           }
@@ -1260,8 +1429,8 @@ class Overlay {
     }
     if (t?.handleDrag) {
       const hd = t.handleDrag
-      const dx = e.clientX - hd.startX
-      const dy = e.clientY - hd.startY
+      const dx = e.clientX + window.scrollX - hd.startX
+      const dy = e.clientY + window.scrollY - hd.startY
       const k = hd.handle
       let w: number | null = null
       let h: number | null = null
@@ -1276,8 +1445,10 @@ class Overlay {
       hd.activeGuides = []
       hd.snappedW = false
       hd.snappedH = false
+      const startPageL = hd.startRect.left + hd.scrollStartX
+      const startPageT = hd.startRect.top + hd.scrollStartY
       if (w !== null) {
-        const edge = isWest ? hd.startRect.left + hd.startRect.width - w : hd.startRect.left + w
+        const edge = isWest ? startPageL + hd.startRect.width - w : startPageL + w
         const s = this.bestSnap(hd.guides, 'v', [edge])
         if (s) {
           w += isWest ? -s.delta : s.delta
@@ -1286,7 +1457,7 @@ class Overlay {
         }
       }
       if (h !== null) {
-        const edge = isNorth ? hd.startRect.top + hd.startRect.height - h : hd.startRect.top + h
+        const edge = isNorth ? startPageT + hd.startRect.height - h : startPageT + h
         const s = this.bestSnap(hd.guides, 'h', [edge])
         if (s) {
           h += isNorth ? -s.delta : s.delta
@@ -1322,7 +1493,7 @@ class Overlay {
       const hp = this.hitHandle(sr, e.clientX, e.clientY)
       if (hp) {
         this.canvas.style.cursor = HANDLE_CURSORS[hp.kind]
-        this.tweakHover = null
+        this.hoverEl = null
         this.redraw()
         return
       }
@@ -1334,7 +1505,7 @@ class Overlay {
           over.kind === 'gap'
             ? (t.direction === 'row' ? 'col-resize' : 'row-resize')
             : (over.kind === 'pt' || over.kind === 'pb' ? 'ns-resize' : 'ew-resize')
-        this.tweakHover = null
+        this.hoverEl = null
         this.redraw()
         return
       }
@@ -1343,32 +1514,34 @@ class Overlay {
         e.clientY >= sr.top && e.clientY <= sr.top + sr.height
       ) {
         this.canvas.style.cursor = 'move'
-        this.tweakHover = null
+        this.hoverEl = null
         this.redraw()
         return
       }
       const el = this.pickAnyStamped(e.clientX, e.clientY)
-      this.tweakHover = el && el !== t.el ? el.getBoundingClientRect() : null
+      this.hoverEl = el && el !== t.el ? el : null
       this.canvas.style.cursor = el ? 'pointer' : 'default'
       this.redraw()
       return
     }
     if (!t) {
       const el = this.pickAnyStamped(e.clientX, e.clientY)
-      this.tweakHover = el ? el.getBoundingClientRect() : null
+      this.hoverEl = el
       this.canvas.style.cursor = el ? 'pointer' : 'default'
       this.redraw()
       return
     }
     if (!t.drag) return
     const { zone, startX, startY, startValue } = t.drag
+    const px2 = e.clientX + window.scrollX
+    const py2 = e.clientY + window.scrollY
     const axisDelta =
       zone.kind === 'gap'
-        ? (t.direction === 'row' ? e.clientX - startX : e.clientY - startY)
-        : zone.kind === 'pt' ? e.clientY - startY
-        : zone.kind === 'pb' ? startY - e.clientY
-        : zone.kind === 'pl' ? e.clientX - startX
-        : startX - e.clientX
+        ? (t.direction === 'row' ? px2 - startX : py2 - startY)
+        : zone.kind === 'pt' ? py2 - startY
+        : zone.kind === 'pb' ? startY - py2
+        : zone.kind === 'pl' ? px2 - startX
+        : startX - px2
     const raw = Math.max(0, startValue + axisDelta)
     // token detents: snap to 4px steps while dragging so the user FEELS the scale
     const snapped = Math.round(raw / 4) * 4
@@ -1401,7 +1574,7 @@ class Overlay {
       // click-vs-drag on RAW travel: at rest a card already sits on sibling
       // guides, so a small wiggle snaps back to (0,0) — judging the snapped
       // displacement would misread such drags as (scope-toggling) clicks
-      const rawDist = Math.hypot(e.clientX - md.startX, e.clientY - md.startY)
+      const rawDist = Math.hypot(e.clientX - md.startClientX, e.clientY - md.startClientY)
       if (rawDist < CLICK_SLOP) {
         this.handleTweakClick(t, e)
         return
@@ -1593,13 +1766,14 @@ class Overlay {
 
   private drawTweak() {
     const { ctx } = this
-    if (this.tweakHover) {
-      // light outline on hover — every stamped element is interactable
+    if (this.hoverEl && document.contains(this.hoverEl)) {
+      // light outline on hover — every stamped element is interactable;
+      // rect read LIVE so the outline tracks scroll/layout
       ctx.save()
       ctx.strokeStyle = 'rgba(8,145,178,0.55)'
       ctx.setLineDash([6, 4])
       ctx.lineWidth = 1.5
-      const h = this.tweakHover
+      const h = this.hoverEl.getBoundingClientRect()
       ctx.strokeRect(h.left, h.top, h.width, h.height)
       ctx.setLineDash([])
       ctx.restore()
@@ -1616,8 +1790,13 @@ class Overlay {
       ctx.lineWidth = 1.5
       const md = t.moveDrag
       if (md && md.group.length > 0) {
+        const csx = window.scrollX - md.scrollStartX
+        const csy = window.scrollY - md.scrollStartY
         for (const g of md.group) {
-          ctx.strokeRect(g.startRect.left + md.dx, g.startRect.top + md.dy, g.startRect.width, g.startRect.height)
+          ctx.strokeRect(
+            g.startRect.left + md.dx - csx, g.startRect.top + md.dy - csy,
+            g.startRect.width, g.startRect.height,
+          )
         }
       } else {
         for (const m of this.multiSel) {
@@ -1648,16 +1827,19 @@ class Overlay {
     // magnetic alignment guides (Canva-pink) while a drag is snapped
     const activeGuides = t.moveDrag?.activeGuides ?? t.handleDrag?.activeGuides ?? []
     if (activeGuides.length > 0) {
+      // guides are cached in page coords; the canvas draws in client space
+      const gsx = window.scrollX
+      const gsy = window.scrollY
       ctx.strokeStyle = GUIDE_COLOR
       ctx.lineWidth = 1
       for (const g of activeGuides) {
         ctx.beginPath()
         if (g.axis === 'v') {
-          ctx.moveTo(g.pos, Math.min(g.lo, r.top) - 4)
-          ctx.lineTo(g.pos, Math.max(g.hi, r.top + r.height) + 4)
+          ctx.moveTo(g.pos - gsx, Math.min(g.lo - gsy, r.top) - 4)
+          ctx.lineTo(g.pos - gsx, Math.max(g.hi - gsy, r.top + r.height) + 4)
         } else {
-          ctx.moveTo(Math.min(g.lo, r.left) - 4, g.pos)
-          ctx.lineTo(Math.max(g.hi, r.left + r.width) + 4, g.pos)
+          ctx.moveTo(Math.min(g.lo - gsx, r.left) - 4, g.pos - gsy)
+          ctx.lineTo(Math.max(g.hi - gsx, r.left + r.width) + 4, g.pos - gsy)
         }
         ctx.stroke()
       }
