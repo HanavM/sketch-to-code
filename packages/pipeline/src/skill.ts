@@ -83,6 +83,16 @@ usually flow/annotation between sketched parts, NOT a move command.
 - Squiggle placeholders become SHORT realistic copy for this app's domain,
   never lorem ipsum walls.
 
+### Depictions (the user sketched a THING — a crab, a purse, a star)
+Actions with \`depicts\` set and \`fidelity: "recognized"\`: the sketch is a
+REFERENCE to a concept, not artwork. Do NOT trace or clean up the strokes.
+Render a proper representation, best-first:
+1. the project's own icon set/component if one exists (search first)
+2. lucide-react if it's in package.json (e.g. an existing matching icon)
+3. an inline emoji sized to the region (🦀 for a crab) — always available
+4. draw a clean, minimal, symmetric inline SVG icon of the thing yourself
+Size/position from the region; state which rung you used.
+
 ### Organic & decorative shapes (waves, ribbons, blobs, underlines-as-flair)
 - Shapes the recognizer can't name arrive with kind "ink" AND an exact
   \`svgPath\` (fitted cubics, bbox-local coordinates). First rule out a

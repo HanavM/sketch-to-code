@@ -32,6 +32,11 @@ export interface RawAction {
   /** Ink stroke ids this action derives from. */
   strokes?: string[] | null
   layer?: 'in-flow' | 'background-overlay' | 'container' | null
+  /** What the drawing DEPICTS when it's iconography ("crab", "purse"). */
+  depicts?: string | null
+  /** verbatim = trace the strokes (decoration); recognized = substitute a
+   *  proper icon/asset for the depicted concept. */
+  fidelity?: 'verbatim' | 'recognized' | null
 }
 
 export interface RawInterpretation {
@@ -76,7 +81,7 @@ export const INTERPRETATION_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['kind', 'elements', 'destElement', 'position', 'instruction', 'strokes', 'layer'],
+        required: ['kind', 'elements', 'destElement', 'position', 'instruction', 'strokes', 'layer', 'depicts', 'fidelity'],
         properties: {
           kind: { type: 'string', enum: ['delete', 'modify', 'add', 'move', 'swap', 'design'] },
           elements: nullable({ type: 'array', items: { type: 'string' } }),
@@ -85,6 +90,8 @@ export const INTERPRETATION_SCHEMA = {
           instruction: { type: 'string' },
           strokes: nullable({ type: 'array', items: { type: 'string' } }),
           layer: nullable({ type: 'string', enum: ['in-flow', 'background-overlay', 'container'] }),
+          depicts: nullable({ type: 'string' }),
+          fidelity: nullable({ type: 'string', enum: ['verbatim', 'recognized'] }),
         },
       },
     },
@@ -243,6 +250,15 @@ actual elements, to scale. The JSON lists each stroke (id, bbox, draw order,
 exact geometric features) and the page's element menu (id, tag, text, rect,
 source location). TRUST THE IMAGE for shape/form.
 
+FIDELITY — decide per drawing, this matters most:
+- DEPICTION: the sketch represents a recognizable thing (an animal, object,
+  symbol — a crab, a purse, a sun). Set depicts:"<the thing>" and
+  fidelity:"recognized". The user wants a proper icon/illustration of that
+  thing, NOT their wobbly outline cleaned up.
+- DECORATION: abstract form (wave, ribbon, blob) whose shape IS the point.
+  fidelity:"verbatim" — the exact path will be reproduced.
+- WIDGET: looks like a UI element from the lexicon → normal add/design.
+
 Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
 labeled rounded rects = buttons, squiggly lines = text placeholders, circles
 = avatars/icons, a smooth wavy band = ONE decorative ribbon (even if drawn in
@@ -329,6 +345,8 @@ export interface GroundedAction {
   /** Fitted svg paths of the cited strokes (design actions). */
   svgPaths?: Array<{ strokeId: string; d: string }>
   layer?: 'in-flow' | 'background-overlay' | 'container'
+  depicts?: string
+  fidelity?: 'verbatim' | 'recognized'
   needsConfirm: boolean
 }
 
@@ -410,7 +428,7 @@ export function groundInterpretation(
         const b = bboxOf(s.points)
         region = region ? bboxUnion(region, b) : b
       }
-      if (a.kind === 'design' || a.kind === 'add') {
+      if ((a.kind === 'design' || a.kind === 'add') && a.fidelity !== 'recognized') {
         for (const s of citedStrokes) {
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
           if (fit) svgPaths.push({ strokeId: s.id, d: fit.d })
@@ -450,6 +468,8 @@ export function groundInterpretation(
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,
       layer: a.layer ?? undefined,
+      depicts: a.depicts ?? undefined,
+      fidelity: a.fidelity ?? undefined,
       needsConfirm,
     })
   }

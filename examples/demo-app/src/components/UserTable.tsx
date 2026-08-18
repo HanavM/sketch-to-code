@@ -13,7 +13,7 @@ const statusColor: Record<string, string> = {
 
 export default function UserTable() {
   return (
-    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm pt-[60px] pb-5">
       <h2 className="text-base font-semibold text-gray-900">Team members</h2>
       <table className="mt-4 w-full text-left text-sm">
         <thead>
