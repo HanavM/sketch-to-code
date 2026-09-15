@@ -490,7 +490,7 @@ export function manipulateRunDir(root: string): string {
 
 
 /** Move a range-list element from→to, preserving the original separators. */
-function reorderRanges(
+export function reorderRanges(
   code: string,
   ranges: Array<{ start: number; end: number }>,
   from: number,
@@ -568,7 +568,7 @@ function applyReorder(
  * walk would happily return a DIFFERENT component's identically-named array
  * and corrupt unrelated data.
  */
-function resolveArrayLiteral(at: NodePath, name: string): t.ArrayExpression | null {
+export function resolveArrayLiteral(at: NodePath, name: string): t.ArrayExpression | null {
   const binding = at.scope.getBinding(name)
   const node = binding?.path.node as t.Node | undefined
   if (node?.type !== 'VariableDeclarator') return null

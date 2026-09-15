@@ -3,7 +3,7 @@
  * interpretV2()  — evidence → one multimodal call → grounded, validated intent
  * runV2()        — grounded intent → codegen → per-action verification
  */
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
 import type { DomSnapshot } from '@s2c/dom'
@@ -11,7 +11,8 @@ import type { EditOp } from '@s2c/intent'
 import {
   addUsage, defaultInterpreterProvider, defaultPerceptionProvider, type PerceptionProvider, type TokenUsage,
 } from '@s2c/providers'
-import { createCodegenSession } from './codegen.js'
+import { createCodegenSession, type CodegenSession } from './codegen.js'
+import { commitPlan, planStructuralEdits } from './codemod.js'
 import {
   buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
   interpretationSchema,
@@ -19,8 +20,14 @@ import {
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { changedFiles, checkpoint } from './safety.js'
+import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import type { RunContext, RunResult } from './run.js'
+
+/** Vite's watcher + HMR after an instant codemod write, before the first look. */
+const HMR_SETTLE_MS = 600
+/** One more look when a codemod-only run fails verification. */
+const HMR_RETRY_MS = 1500
 
 const fmtTokens = (u: TokenUsage) =>
   `${(u.input / 1000).toFixed(1)}k in +${(u.cacheRead / 1000).toFixed(1)}k cached / ${(u.output / 1000).toFixed(1)}k out`
@@ -125,41 +132,107 @@ export async function runV2(
   }
   stage('intent', interp.reading)
 
-  const session = createCodegenSession(ctx.root, 'design', { onStage: stage }, `${V2_CONTRACT}\n\n${SKETCH_SKILL}`)
-  writeFileSync(join(runDir, 'system.txt'), `${V2_CONTRACT}\n\n${SKETCH_SKILL}`)
+  // Structural actions (delete/move/swap) whose stamps resolve unambiguously
+  // are applied as AST text edits — no session, no tokens. The agent only
+  // sees what the codemod refused.
+  const plan = planStructuralEdits(ctx.root, interp.actions, input.snapshot)
+  const codemodFiles = commitPlan(ctx.root, plan)
+  save('codemod.json', { handled: plan.handled, refused: plan.refused, files: codemodFiles })
+  for (const h of plan.handled) stage('codemod', `action ${h.index}: ${h.change}`)
+  const handled = new Set(plan.handled.map((h) => h.index))
+  const pending = interp.actions.map((a, i) => ({ i, a })).filter(({ i }) => !handled.has(i))
+  const codemodNote = plan.handled.length
+    ? `ALREADY APPLIED by a deterministic codemod (do not redo; line numbers in these files have shifted):\n` +
+      plan.handled.map((h) => `- action ${h.index} in ${h.file}: ${h.change}`).join('\n') + '\n\n'
+    : ''
+
+  const system = `${V2_CONTRACT}\n\n${SKETCH_SKILL}`
+  let session: CodegenSession | null = null
+  const agent = (): CodegenSession => {
+    if (!session) {
+      session = createCodegenSession(ctx.root, 'design', { onStage: stage }, system)
+      writeFileSync(join(runDir, 'system.txt'), system)
+    }
+    return session
+  }
+  let replies = 0
+  const saveReply = (reply: string) => writeFileSync(join(runDir, `reply-${++replies}.txt`), reply)
+
   let bestScore = -1
   let lastVerify: unknown = null
-  try {
-    const brief =
-      `READING (user-confirmed): ${interp.reading}\n\n` +
-      `ACTIONS:\n${JSON.stringify(interp.actions, null, 2)}\n\n` +
-      `Implement every action now.`
-    writeFileSync(join(runDir, 'prompt.txt'), brief)
-    stage('codegen', 'Claude Code editing source')
-    // recognized depictions: attach a clean native-scale crop of just those
-    // strokes so the agent can match the sketch's composition
-    const images = [ev.png.toString('base64')]
-    for (const a of interp.actions) {
-      if (a.fidelity !== 'recognized' || !a.svgPaths?.length) continue
-      const ids = new Set(a.svgPaths.map((sp) => sp.strokeId))
-      const subset = input.strokes.filter((st) => ids.has(st.id))
-      if (!subset.length) continue
-      const crop = renderScene(
-        { strokes: subset, groups: [], nodes: [], textRegions: [], arrows: [] },
-        { labels: false, maxSize: 480, brush: 2.5 },
-      )
-      images.push(encodePng(crop).toString('base64'))
-      if (images.length >= 4) break
+  const verifyRound = async (round: number) => {
+    const after = await ctx.requestSnapshot(runId)
+    // read back what was just written, so composition can be scored against
+    // the ink without a screenshot or a model call
+    const sources: string[] = []
+    for (const rel of changedFiles(ctx.root, cp)) {
+      if (!/\.(tsx|jsx)$/.test(rel)) continue
+      try { sources.push(readFileSync(join(ctx.root, rel), 'utf8')) } catch { /* deleted */ }
     }
-    let reply = await session.send({ text: brief, images })
-    writeFileSync(join(runDir, 'reply-1.txt'), reply)
+    const result = verifyActions(interp.actions, input.snapshot, after, { strokes: input.strokes, sources })
+    lastVerify = result.detail
+    save(`verify-${round}.json`, result.detail)
+    return result
+  }
+  try {
+    if (pending.length > 0) {
+      // Measured composition per depiction. "Big front claws, low wide body" is
+      // a vibe the model has to guess at; these are numbers it can hit, and they
+      // are the same numbers verification will score it against afterwards.
+      const composition = pending
+        .map(({ a, i }) => {
+          if (!isDepiction(a)) return null
+          const ids = new Set(a.svgPaths!.map((sp) => sp.strokeId))
+          const drawn = input.strokes.filter((s) => ids.has(s.id))
+          if (drawn.length === 0) return null
+          return `action ${i} — measured composition of the drawn "${a.depicts ?? 'form'}":\n` +
+            compositionBrief(compositionFromStrokes(drawn))
+        })
+        .filter((s): s is string => s !== null)
+
+      const brief =
+        `READING (user-confirmed): ${interp.reading}\n\n` +
+        codemodNote +
+        `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
+        (composition.length
+          ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
+            `proportions your result will be checked against):\n${composition.join('\n\n')}\n\n`
+          : '') +
+        `Implement every action now.`
+      writeFileSync(join(runDir, 'prompt.txt'), brief)
+      stage('codegen', 'Claude Code editing source')
+      // recognized depictions: attach a clean native-scale crop of just those
+      // strokes so the agent can match the sketch's composition
+      const images = [ev.png.toString('base64')]
+      for (const { a } of pending) {
+        if (a.fidelity !== 'recognized' || !a.svgPaths?.length) continue
+        const ids = new Set(a.svgPaths.map((sp) => sp.strokeId))
+        const subset = input.strokes.filter((st) => ids.has(st.id))
+        if (!subset.length) continue
+        const crop = renderScene(
+          { strokes: subset, groups: [], nodes: [], textRegions: [], arrows: [] },
+          { labels: false, maxSize: 480, brush: 2.5 },
+        )
+        images.push(encodePng(crop).toString('base64'))
+        if (images.length >= 4) break
+      }
+      saveReply(await agent().send({ text: brief, images }))
+    } else {
+      // the codemod wrote milliseconds ago; the client only waits 350ms after
+      // the resnapshot event, which can beat Vite's watcher + HMR
+      await new Promise((r) => setTimeout(r, HMR_SETTLE_MS))
+    }
 
     for (let round = 1; round <= 3; round++) {
       stage('verify', `round ${round}: snapshotting edited page`)
-      const after = await ctx.requestSnapshot(runId)
-      const { score, failures, detail } = verifyActions(interp.actions, input.snapshot, after)
-      lastVerify = detail
-      save(`verify-${round}.json`, detail)
+      let result = await verifyRound(round)
+      if (result.score < 1 && !session && plan.handled.length > 0) {
+        // no agent has run: a failure here is far more likely an HMR race
+        // than a wrong AST edit — look again before spending tokens
+        await new Promise((r) => setTimeout(r, HMR_RETRY_MS))
+        result = await verifyRound(round)
+      }
+      const { score, failures } = result
       stage('verify', `${Math.round(score * 100)}% of actions satisfied`)
 
       if (score > bestScore) bestScore = score
@@ -169,16 +242,21 @@ export async function runV2(
       }
       if (score >= 1 || round === 3) break
       stage('repair', `round ${round + 1}`)
-      reply = await session.send({
+      const context = session
+        ? ''
+        : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
+          `ACTIONS:\n${JSON.stringify(interp.actions.map((a, i) => ({ action: i, ...a })), null, 2)}\n\n` +
+          `Check the codemod edits against the failures below before changing anything — ` +
+          `if an edit is already correct, leave it and say so.\n\n`
+      saveReply(await agent().send({
         text:
-          `Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
+          `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
           `Fix exactly these. Do not change anything already working.`,
-      })
-      writeFileSync(join(runDir, `reply-${round + 1}.txt`), reply)
+      }))
     }
-    totalUsage = addUsage(totalUsage, session.usage())
+    if (session) totalUsage = addUsage(totalUsage, (session as CodegenSession).usage())
   } finally {
-    session.close()
+    if (session) (session as CodegenSession).close()
   }
   void provider
 
@@ -186,19 +264,30 @@ export async function runV2(
   save('result.json', {
     engine: 'model', checkpoint: cp.sha, changedFiles: files,
     reading: interp.reading, verification: lastVerify, tokens: totalUsage,
+    codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
   })
   const summary =
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
+    (plan.handled.length ? `codemod ${plan.handled.length}/${interp.actions.length} actions · ` : '') +
     `${fmtTokens(totalUsage)} tokens · revert: git restore --source=${cp.sha.slice(0, 10)} -- <paths>`
   stage('done', summary)
   return { summary }
 }
+
+/**
+ * Depiction actions whose composition is worth measuring: the user drew a
+ * THING and asked for it rebuilt, so the drawn arrangement is the spec.
+ */
+const isDepiction = (a: GroundedAction): boolean =>
+  a.fidelity === 'recognized' && !!a.svgPaths?.length
 
 /** Map grounded actions onto the existing deterministic verifiers. */
 export function verifyActions(
   actions: GroundedAction[],
   before: DomSnapshot,
   after: DomSnapshot,
+  /** Ink + post-edit source, enabling the composition-fidelity check. */
+  depiction?: { strokes: Stroke[]; sources: string[] },
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -275,6 +364,38 @@ export function verifyActions(
       details.push({ kind: a.kind, index: i, verdict })
       if (verdict.satisfied) satisfied++
       else failures.push(`action ${i} (${a.kind}): ${verdict.reason}`)
+    }
+
+    // Placement says the thing is in the right PLACE. For a depiction that is
+    // only half the contract — the drawn arrangement is the spec too, and
+    // nothing measured it before: a lopsided crab could come back as a
+    // mirrored ellipse and still pass.
+    if (depiction && isDepiction(a)) {
+      const ids = new Set(a.svgPaths!.map((sp) => sp.strokeId))
+      const drawn = depiction.strokes.filter((s) => ids.has(s.id))
+      if (drawn.length > 0 && depiction.sources.length > 0) {
+        total++
+        const sketch = compositionFromStrokes(drawn)
+        // a run can touch several files; the depiction lives in whichever
+        // one scores best against the ink
+        let best = scoreComposition(sketch, compositionFromSource(depiction.sources[0]!))
+        for (const src of depiction.sources.slice(1)) {
+          const v = scoreComposition(sketch, compositionFromSource(src))
+          if (v.score > best.score) best = v
+        }
+        const ok = best.score >= 0.6
+        details.push({
+          kind: 'composition', index: i, score: best.score,
+          massSimilarity: best.massSimilarity, flaws: best.flaws, notes: best.notes,
+        })
+        if (ok) satisfied++
+        else {
+          failures.push(
+            `action ${i} (composition of "${a.depicts ?? 'the drawing'}", ` +
+            `${Math.round(best.score * 100)}% faithful): ${best.notes.join('; ')}`,
+          )
+        }
+      }
     }
   }
 

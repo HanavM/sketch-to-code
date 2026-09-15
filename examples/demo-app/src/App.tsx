@@ -1,6 +1,7 @@
 import BackgroundFlourish from './components/BackgroundFlourish'
 import BrowserChrome from './components/BrowserChrome'
 import ChevronTrail from './components/ChevronTrail'
+import CompanionDoodle from './components/CompanionDoodle'
 import CornerBadge from './components/CornerBadge'
 import CrabDoodle from './components/CrabDoodle'
 import GutterMarks from './components/GutterMarks'
@@ -27,6 +28,7 @@ export default function App() {
             </div>
             <CornerBadge />
             <CrabDoodle />
+            <CompanionDoodle />
             <GutterMarks />
           </div>
         </BrowserChrome>

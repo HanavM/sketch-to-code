@@ -13,5 +13,11 @@ export { interpretV2, runV2, verifyActions } from './run2.js'
 export type { InterpretV2Result } from './run2.js'
 export { buildEvidence, groundInterpretation, INTERPRET_PROMPT, INTERPRETATION_SCHEMA } from './intent2.js'
 export type { RawInterpretation, GroundedInterpretation, GroundedAction } from './intent2.js'
+export {
+  compositionFromStrokes, compositionFromSource, scoreComposition, compositionBrief, samplePath,
+} from './composition.js'
+export type { CompositionSignature, CompositionVerdict, CompositionFlaw } from './composition.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'
 export type { ManipulateRequest, ManipulateResult, ManipulateProp } from './manipulate.js'
+export { planStructuralEdits, commitPlan } from './codemod.js'
+export type { CodemodPlan } from './codemod.js'

@@ -82,7 +82,11 @@ strokes ─► ① ink analysis ─► ② DOM grounding ─► ③ intent ─�
   are set, else falls back to Claude Code.
 - **⑤ verify** — after HMR, the browser re-snapshots and per-op assertions check the edit
   landed (deleted → gone, modify → observably changed, add → grew, move → reordered).
-  Failures go back to the *same* session; best score kept; hard 3-round cap.
+  Depictions additionally get a **composition** score: the post-edit source is
+  parsed back into geometry and compared to the ink's own normalized shape
+  signature, so a lopsided sketch rebuilt as a mirrored ellipse fails even
+  though it sits in the right place. Failures go back to the *same* session as
+  numeric deltas; best score kept; hard 3-round cap.
 
 ## Safety
 
@@ -98,14 +102,27 @@ strokes ─► ① ink analysis ─► ② DOM grounding ─► ③ intent ─�
 ## Tests
 
 ```bash
-npm test                              # 71 unit tests (no network, no model calls)
-npm run dev &                         # then, each invokes real Claude Code:
+npm test                              # 184 unit tests (no network, no model calls)
+npm run dev &                         # zero-token flows — seconds, no model:
+node tests/e2e/live-tweak.mjs         # gap handle → gap-4 → gap-6
+node tests/e2e/live-canva.mjs         # select / resize / drag / reorder / undo
+                                      # then, each invokes real Claude Code:
 node tests/e2e/live-run.mjs           # scribble → DELETE (array-entry removal)
 node tests/e2e/live-modify.mjs        # circle + handwritten "red" → MODIFY
 node tests/e2e/live-add.mjs           # box + handwritten "cancel" → ADD
+node tests/e2e/live-design.mjs        # sketched card → implemented component
+node tests/e2e/live-swap.mjs          # two arrows → one swap
+node tests/e2e/live-ribbon.mjs        # wavy ribbon → background decoration
+node tests/e2e/live-screenshot.mjs    # pixels-only benchmark mode
 ```
 
-All three live flows pass as of 2026-08-06 (real model, real edits, DOM-verified).
+All three original live flows pass as of 2026-08-06 (real model, real edits,
+DOM-verified). `live-tweak` and `live-canva` make no model calls at all.
+
+> The live flows edit `examples/demo-app` in place and their artifacts have
+> repeatedly been committed by accident (`pt-[224px]`, `-translate-y-[197px]`,
+> `w-[293px]` on the fixtures). Check `git status` on the demo app before
+> committing anything.
 
 ## 🔧 Tweak mode: direct manipulation, phase 1 (2026-08-14)
 
@@ -143,6 +160,123 @@ a ribbon drawn in 4 strokes → ONE background decoration; card-confined
 zigzag → delete of exactly that card. Interpretation costs ~3-4k in /
 ~100-300 out tokens per run on top of codegen.
 
+## 🖐 Canva mode: every element directly manipulable (2026-08-18)
+
+Tweak mode's phase 1 grew into full direct manipulation — still **zero model
+calls**, still one class edited at the element's live `data-s2c` stamp:
+
+- **select anything** — hover highlighting, click to select; `shift+click`
+  builds a multi-selection that moves as a group
+- **resize** — eight handles, anchored to the opposite edge so the corner you
+  aren't dragging stays put; snaps to the spacing scale
+- **free drag** — a document-level ghost previews unclipped (it can cross a
+  clipping ancestor's boundary while the original dims), committing to a
+  `translate` escape hatch only where flow can't express the move
+- **reorder** — drag onto a sibling's slot and the underlying data array is
+  reordered: a structural edit, not a visual offset
+- **per-instance edits** — double-click an element rendered from `.map()` to
+  scope the change to *that one item* (a `className` field on the array entry
+  plus a `${s.className ?? ''}` spread in the template) instead of all of them
+- **magnetic snap** to sibling edges and centers
+- **`Cmd/Ctrl+Z`** — undoes strokes while drawing, committed edits otherwise
+- overlays track their elements through scroll, zoom and layout churn
+
+## 🎯 Composition fidelity: the sketch is the spec (2026-09-15)
+
+Depiction generations were failing in two opposite directions, and nothing
+measured either one:
+
+| | symptom | in this repo |
+|---|---|---|
+| **traced** | the fitted stroke paths are emitted verbatim — a vectorized scan of the sketch | `ChevronTrail`, `GutterMarks`, `CornerBadge` |
+| **over-regularized** | only the *noun* survives; the form is rebuilt from the model's symbolic prior | `CrabDoodle`, `CompanionDoodle` |
+
+The second is the expensive one. A code model draws with primitives it can
+reason about symbolically, so "rebuild pristine" — with no numeric handle on
+how far *almost*-symmetric went — collapses to a perfect `<ellipse>`, a
+ruler-straight spine, three cloned legs on a uniform 8px pitch, and one side
+mirrored with `scale(-1, 1)`. The skill *asked* for composition in prose
+("a crab drawn with big front claws should yield big front claws") but prose
+is not a measurement, so the prior won every time.
+
+`@s2c/pipeline`'s `composition.ts` measures it instead. Strokes and generated
+SVG reduce to the same signature — a 16×16 ink-mass grid normalized into the
+drawing's own bbox, plus the asymmetries and spacing irregularities that carry
+character. Normalizing into the own-bbox is the point: the skill *requires*
+snapping sizes to the app's spacing scale, so absolute-pixel IoU would punish
+correct work. Only the internal arrangement is judged.
+
+It runs at both ends, for **zero tokens**:
+
+- **before codegen** — the agent is handed the numbers it would otherwise have
+  to guess at (`left-right asymmetry 0.63 … 3 repeated parts, spacing
+  variation 0.19 … ink mass by quadrant — top-left 37%`)
+- **after HMR** — the same measurement scores what it wrote, and failures go
+  back through the existing repair loop as numeric deltas rather than prose
+
+Scoring the committed `CrabDoodle.tsx` against a realistically lopsided crab:
+
+```
+score 34%  ·  mass overlap 34%
+flaws: mirrored, displaced
+  → the sketch is lopsided left-to-right (asymmetry 0.63) but the output is
+    near-symmetric (0.01) — you mirrored one side; keep the two sides
+    different the way they were drawn
+```
+
+The two regimes separate cleanly on direction changes per unit length,
+calibrated on this repo's own output — rebuilt icons measure 0.00–1.11,
+paths fitted off the strokes measure 3.80–17.27:
+
+| component | detail density | lateral asymmetry | verdict |
+|---|---|---|---|
+| `CrabDoodle` | 0.00 | **0.007** | rebuilt, then mirrored away |
+| `CompanionDoodle` | 1.11 | 0.875 | rebuilt |
+| `CornerBadge` | 3.80 | 0.416 | traced |
+| `GutterMarks` | 6.83 | 0.869 | traced |
+| `ChevronTrail` | 17.27 | 1.000 | traced |
+
+This is deliberately **not** the image-model route. A diffusion/ControlNet
+finishing pass buys texture and shading, but the defect here isn't texture —
+it's that measurable structure the pipeline already owned was being discarded
+and never checked. Style is the next question; fidelity was this one.
+
+## ✂️ Structural codemods: no agent for delete / move / swap (2026-09-15)
+
+Run bundles showed where ink-run tokens actually went. The payload the
+pipeline authors (brief + contract + images) was ~5k tokens; the other
+100k+ was the agent session itself — preset system prompt and tool schemas
+re-read every turn, plus Read/Grep to find what the stamp already named.
+Pixels-to-structure had already been done; the agent loop was the cost.
+
+`codemod.ts` now resolves grounded delete/move/swap actions to AST sites and
+applies them as text edits before any session exists:
+
+- **`.map()` instance** → the matching entry of the same-file data array
+  (instance index from identical stamps in the snapshot, which must equal the
+  array length — otherwise it would hit every instance)
+- **static JSX child** → the node, with its line
+- **component root** → its call site, via the DOM parent: JSX children must map
+  1:1 onto rendered children, and the name must import from the stamped file
+
+Every edit is planned against the original text, checked for overlap and
+re-parsed before writing. Anything ambiguous (template children, derived
+arrays, `{children}`, conditionals, truncated snapshots) is refused with a
+reason and goes to the agent as before, alongside a note of what already
+landed. The agent session is created lazily — only for refused actions or a
+repair round.
+
+Live (2026-09-15, same gestures as before):
+
+| flow | before | now |
+|---|---|---|
+| two arrows → swap cards | 29.5k in + 279.6k cached / 7.4k out | **codemod 1/1 · 0 codegen tokens · ~1s** |
+| scribble → delete card | 10.1k in + 110.1k cached / 1.5k out | **codemod 1/1 · 0 codegen tokens** |
+| circle + "red" → modify | agent (unchanged) | 26.8k in + 52.5k cached / 0.5k out |
+
+Interpretation (~3-4k) is still a model call. Modify is the next target: a
+two-class change still pays for a full agent session.
+
 ## Benchmark: structure vs pixels (2026-08-12, same scribble-to-delete task)
 
 | mode | interpretation | tokens |
@@ -158,7 +292,15 @@ signal for editing tasks; see `docs/sketch-interpretation.md` sources).
 
 - React/JSX + Vite only (the stamp pass gates on `.jsx/.tsx`).
 - Repair loop is unit-designed but rarely exercised live — first-round success has been
-  the norm so far.
+  the norm so far. Composition failures are the first check that produces
+  numeric deltas specific enough to make a repair round worth spending.
 - `MODIFY` verification asserts "something observably changed", not semantic correctness
   of free-form instructions; a VLM judge hook is the natural next step.
-- Multi-select gestures, undo-after-accept UI, and non-Vite bundlers are out of scope.
+- Composition fidelity is scored against the post-edit **source**, so it covers
+  inline SVG the agent writes. A depiction rendered via an imported icon
+  component or an emoji has no local geometry to measure and is skipped.
+- `add`/`design` placement still verifies against one union bbox per action —
+  a composite sketch (card = heading + body + button) is not yet checked
+  part-by-part against its rendered counterparts.
+- Non-Vite bundlers are out of scope. (Multi-select and undo shipped in
+  canva rounds 3–4.)

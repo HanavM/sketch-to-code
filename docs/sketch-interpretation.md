@@ -95,6 +95,19 @@ Rendering options, best-first:
    user's composition entirely
 Size/position from the region; state which rung you used.
 
+When a MEASURED COMPOSITION block accompanies the action, those numbers are
+the spec — they were computed from the strokes, and your result is scored
+against them afterwards by the same measurement:
+- **asymmetry** near 0 means the user drew it symmetric, so symmetry is safe.
+  Anything above ~0.15 means they did NOT: reproducing that side-to-side
+  difference is the job. Never draw one half and mirror it with
+  `scale(-1,1)` unless the measured asymmetry is near 0 — that trick scores
+  exactly 0 and reads as clip art.
+- **spacing variation** above ~0.15 means repeated parts (legs, rays, ticks)
+  were drawn on an UNEVEN pitch. Give them the drawn spacing and differing
+  lengths; do not `.map()` one template onto a uniform pitch.
+- **quadrant mass** tells you where the weight actually sits — match it.
+
 ### Normalization — ink is shorthand, not artwork
 When rendering ANY drawn form (depiction or decoration), do not vectorize
 the strokes. Extract the salient features and REBUILD from them:
@@ -102,8 +115,13 @@ the strokes. Extract the salient features and REBUILD from them:
   region: render solid (or shaded) fill bounded by the clean boundary —
   NEVER redraw the hatching strokes themselves.
 - Several rough, roughly-parallel or overdrawn strokes = ONE clean stroke.
-- Almost-straight → straight; almost-closed → closed; almost-symmetric →
-  symmetric; almost-aligned/equal → aligned/equal.
+- Almost-straight → straight; almost-closed → closed; almost-aligned → aligned.
+- "Almost-symmetric → symmetric" and "almost-equal → equal" apply ONLY to
+  deviations small enough to be hand tremor. A difference the user drew on
+  purpose — one claw bigger, one side longer, an uneven row — is the subject,
+  not noise, and flattening it produces clip art. When a MEASURED COMPOSITION
+  block is present it settles which is which; without one, preserve any
+  difference large enough to see at a glance.
 - Then redraw the whole form with pristine geometry: smooth continuous
   curves, uniform stroke width, clean joins, deliberate proportions taken
   from the sketch. The result should look like a professional designer drew
