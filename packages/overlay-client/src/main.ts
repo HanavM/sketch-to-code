@@ -185,6 +185,64 @@ const HUD_STORE_KEY = 's2c:hud'
  */
 const HUD_KEEP = 56
 
+// ---- fidelity: how much the generated code should look like the drawing ----
+// The pipeline already MEASURES fidelity (asymmetry, spacing rhythm,
+// proportions, placement); these controls are the user's half of that
+// conversation — they ride along on every interpret/run request and the
+// server clamps/re-validates whatever arrives.
+
+/** Which drawn qualities survive into the code, one flag each. */
+interface FidelityKeep {
+  asymmetry: boolean
+  rhythm: boolean
+  proportions: boolean
+  placement: boolean
+}
+interface Fidelity {
+  /** 0..1 — the resemblance dial the four zones below name. */
+  resemblance: number
+  keep: FidelityKeep
+  /** 'app' snaps to the design system · 'sketch' keeps the hand-drawn look. */
+  palette: 'app' | 'sketch'
+}
+
+/** Iteration order for validation and for the always-visible summary. */
+const KEEP_KEYS = ['asymmetry', 'rhythm', 'proportions', 'placement'] as const
+/** Checkbox id suffix → label + the WHY that goes in its tooltip. */
+const KEEP_LABELS: Record<keyof FidelityKeep, { label: string; tip: string }> = {
+  asymmetry: { label: 'keep it lopsided', tip: 'never mirror one side onto the other to make it tidy' },
+  rhythm: { label: 'keep uneven spacing', tip: 'repeated parts keep the pitch you drew — no cloning one template onto a uniform grid' },
+  proportions: { label: 'keep proportions', tip: 'the width:height ratio you drew survives' },
+  placement: { label: 'keep placement', tip: 'parts stay where you drew them relative to each other' },
+}
+
+/**
+ * The four zones of the resemblance dial, ascending. The user drags a single
+ * number, so the zone name + line under it are the ONLY explanation of what
+ * that number buys — they have to carry the whole model.
+ */
+const FIDELITY_ZONES: Array<{ min: number; icon: string; name: string; hint: string }> = [
+  { min: 0, icon: '🪄', name: 'reinterpret', hint: 'the drawing is a hint — free to redesign it' },
+  { min: 0.35, icon: '📐', name: 'normalize', hint: 'rebuild with clean geometry, keep the composition' },
+  { min: 0.6, icon: '📏', name: 'rebuild', hint: 'smooth line, but every measured proportion preserved' },
+  { min: 0.85, icon: '✍️', name: 'trace', hint: 'reproduce the drawn line, wobble and all' },
+]
+
+/** A fresh install sends exactly this. Deep-cloned per read — the panel
+ *  mutates its copy, and a shared literal would drift the "default". */
+function defaultFidelity(): Fidelity {
+  return {
+    resemblance: 0.5,
+    keep: { asymmetry: true, rhythm: true, proportions: true, placement: true },
+    palette: 'app',
+  }
+}
+
+/** Where the fidelity settings survive a reload (same contract as s2c:hud). */
+const FIDELITY_STORE_KEY = 's2c:fidelity'
+/** Breathing room between the panel and both the bar and the viewport edge. */
+const PANEL_GAP = 10
+
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
 const TOKEN: string = (globalThis as Record<string, unknown>).__S2C_TOKEN__ as string ?? ''
@@ -271,6 +329,66 @@ const STYLES = css`
   button.mode.on { background: #2563eb; }
   #status { max-width: 380px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9ca3af; }
   #status.err { color: #f87171; }
+  /* ---- fidelity control: one pill button + a popover ------------------
+     The bar is a compact pill and has to stay one; five widgets inline
+     would double its width. So the bar carries only the glyph plus the
+     live "zone %" readout (so the user knows what will happen without
+     opening anything) and everything else lives in the panel. */
+  #fidelityBtn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; }
+  #fidelityBtn.on { background: #2563eb; }
+  /* Fixed width for the same reason as #fidelityZone, one level up: the pill
+     is width:max-content and centred with translateX(-50%), so a readout that
+     grew from 'trace 100%' to 'reinterpret 34%' would slide the WHOLE toolbar
+     sideways on every slider tick. Sized for the longest reachable string. */
+  #fidelityNow {
+    display: inline-block; width: 88px; text-align: left;
+    font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
+  }
+  #fidelityBtn.on #fidelityNow { color: #eff6ff; }
+  /* Absolutely positioned INSIDE #hud (which is position:fixed, so it's the
+     containing block): the panel then drags, hides and stacks with the bar
+     for free, and being out of flow it can't widen the pill. Only the left
+     offset and the above/below flip are computed — see layoutFidelityPanel. */
+  #fidelityPanel {
+    position: absolute; left: 0; bottom: calc(100% + 10px);
+    display: none; width: 300px; max-width: calc(100vw - 20px);
+    background: #111827fa; color: #f9fafb;
+    border: 1px solid #374151; border-radius: 12px;
+    box-shadow: 0 10px 34px rgb(0 0 0 / 0.5);
+    padding: 12px; font-size: 12px; line-height: 1.45;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #fidelityPanel.on { display: block; }
+  /* Near the top of the viewport there is no room above the bar. */
+  #fidelityPanel.below { bottom: auto; top: calc(100% + 10px); }
+  #fidelityPanel .fHead { color: #f9fafb; font-weight: 600; margin-bottom: 8px; }
+  #fidelityPanel .fSlider { display: flex; align-items: center; gap: 9px; }
+  /* accent-color is the whole dark-mode treatment for range + checkbox:
+     no custom thumb to keep in sync with the native hit area. */
+  #fidelityRange { flex: 1; min-width: 0; accent-color: #2563eb; height: 18px; margin: 0; }
+  /* FIXED width, not shrink-to-fit: the zone name changes on every input
+     event, and a label that resizes would resize the flex track next to it —
+     re-mapping cursor position to value UNDER the thumb the user is dragging.
+     Wide enough for the longest name ('reinterpret'). */
+  #fidelityZone {
+    flex: none; width: 100px; text-align: right;
+    font-size: 12px; font-weight: 600; color: #93c5fd; white-space: nowrap;
+  }
+  #fidelityPanel .fHint { color: #9ca3af; margin: 4px 0 2px; min-height: 2.9em; }
+  #fidelityPanel .fSect {
+    color: #6b7280; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    margin: 10px 0 5px; border-top: 1px solid #1f2937; padding-top: 8px;
+  }
+  #fidelityPanel .fCheck { display: flex; align-items: center; gap: 7px; padding: 2px 0; cursor: pointer; color: #e5e7eb; }
+  #fidelityPanel .fCheck input { accent-color: #2563eb; width: 13px; height: 13px; margin: 0; cursor: pointer; }
+  #fidelityPanel .fCheck:hover { color: #f9fafb; }
+  #fidelityPanel .fNote { color: #6b7280; font-size: 11px; margin-top: 6px; }
+  #fidelityPanel .fSeg { display: flex; gap: 2px; background: #1f2937; border-radius: 999px; padding: 2px; }
+  #fidelityPanel .fSegBtn {
+    flex: 1; padding: 5px 8px; font-size: 11px; background: transparent; color: #9ca3af;
+  }
+  #fidelityPanel .fSegBtn:hover { color: #f9fafb; background: #374151; }
+  #fidelityPanel .fSegBtn.on { background: #2563eb; color: #f9fafb; }
 `
 
 class Overlay {
@@ -293,6 +411,14 @@ class Overlay {
   /** null = still in the default centered-bottom slot, i.e. CSS owns placement. */
   private hudPos: { x: number; y: number } | null = null
   private hudHidden = false
+  /** Fidelity popover + its state. The settings object is the single source
+   *  of truth: the controls render FROM it and the request bodies read it. */
+  private fidelityBtn: HTMLButtonElement
+  private fidelityPanel: HTMLElement
+  private fidelityRange: HTMLInputElement
+  private keepBoxes = {} as Record<keyof FidelityKeep, HTMLInputElement>
+  private fidelityOpen = false
+  private fidelity: Fidelity = defaultFidelity()
   /** Live bar drag: origin is the bar's top-left at pointerdown, in client px. */
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
@@ -343,6 +469,7 @@ class Overlay {
         <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
       </span>
       <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
+      <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span></button>
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
@@ -350,6 +477,28 @@ class Overlay {
       <button id="clear" disabled>✕</button>
       <span id="status">sketch2code · Alt+D draw · Alt+H hide</span>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
+      <div id="fidelityPanel" role="dialog" aria-label="drawing fidelity">
+        <div class="fHead">How much should the result look like your drawing?</div>
+        <div class="fSlider">
+          <input id="fidelityRange" type="range" min="0" max="100" step="1" value="50"
+                 aria-label="resemblance to the drawing">
+          <span id="fidelityZone"></span>
+        </div>
+        <div id="fidelityHint" class="fHint"></div>
+        <div class="fSect">keep from the drawing</div>
+        <div id="fidelityKeep"></div>
+        <div class="fNote">
+          Unchecked = that aspect is free to be normalized, and is no longer scored when the
+          result is verified against your drawing.
+        </div>
+        <div class="fSect">look</div>
+        <div class="fSeg">
+          <button id="palette-app" class="fSegBtn"
+                  title="snap colour, stroke weight and spacing to the app's design system">app design system</button>
+          <button id="palette-sketch" class="fSegBtn"
+                  title="keep the drawing's own hand-drawn look — its colours, wobble and weight">hand-drawn</button>
+        </div>
+      </div>
     `
     this.shadow.appendChild(hud)
     this.hud = hud
@@ -365,6 +514,10 @@ class Overlay {
     this.cancelBtn = this.shadow.getElementById('cancel') as HTMLButtonElement
     this.undoBtn = this.shadow.getElementById('undo') as HTMLButtonElement
     this.clearBtn = this.shadow.getElementById('clear') as HTMLButtonElement
+    this.fidelityBtn = this.shadow.getElementById('fidelityBtn') as HTMLButtonElement
+    this.fidelityPanel = this.shadow.getElementById('fidelityPanel')!
+    this.fidelityRange = this.shadow.getElementById('fidelityRange') as HTMLInputElement
+    this.buildFidelityPanel()
 
     for (const m of ['gesture', 'design', 'screenshot'] as const) {
       this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => {
@@ -401,16 +554,41 @@ class Overlay {
     // The bar sits over the app the user is trying to look at, so it moves:
     // grip, status text and the bar's own padding are all drag surface. These
     // are the only pointer handlers outside the canvas, so nothing competes.
+    // …but the popover is NOT drag surface: its slider and checkboxes are not
+    // <button>s, so onHudDown would happily grab the bar out from under a
+    // slider drag. Stop the event before it reaches the bar's own handler.
+    // (Capture listeners on window — the click-outside check — already ran.)
+    this.fidelityPanel.addEventListener('pointerdown', (e) => e.stopPropagation())
     this.hud.addEventListener('pointerdown', (e) => this.onHudDown(e))
     this.hud.addEventListener('pointermove', (e) => this.onHudMove(e))
     this.hud.addEventListener('pointerup', (e) => this.onHudUp(e))
     this.hud.addEventListener('pointercancel', (e) => this.onHudUp(e))
 
+    // Click-outside dismissal. Capture on window so it runs before anything
+    // in the page (or the panel's own stopPropagation) can eat the event, and
+    // composedPath() — not e.target — because shadow DOM retargets: from the
+    // outside every press on the overlay looks like it hit the host div.
+    window.addEventListener('pointerdown', (e) => {
+      if (!this.fidelityOpen) return
+      const path = e.composedPath()
+      // the button toggles itself; closing here too would make its click a no-op
+      if (path.includes(this.fidelityPanel) || path.includes(this.fidelityBtn)) return
+      this.setFidelityOpen(false)
+    }, true)
+
     window.addEventListener('keydown', (e) => {
       // don't hijack typing in the host app's inputs
       const target = e.composedPath()[0] as HTMLElement | undefined
       const tag = target?.tagName?.toLowerCase()
-      if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) return
+      if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) {
+        // …except that Esc must still dismiss OUR popover when focus is
+        // sitting in its slider or a checkbox — otherwise the panel would be
+        // un-closable by keyboard the moment a control took focus. Every
+        // other key (arrows, space) still belongs to the control.
+        const ours = this.fidelityOpen && e.key === 'Escape' &&
+          target instanceof Node && this.fidelityPanel.contains(target)
+        if (!ours) return
+      }
       if ((e.metaKey || e.ctrlKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) {
         e.preventDefault()
         if (this.mode === 'draw' && this.strokes.length > 0) {
@@ -450,6 +628,14 @@ class Overlay {
         return
       }
       if (e.key === 'Escape') {
+        // TOP of the ladder: the popover is the newest, shallowest thing on
+        // screen, so Esc dismisses it and stops. Falling through would cancel
+        // a tweak drag or drop the selection underneath it — destroying work
+        // the user never aimed at while they were only closing a menu.
+        if (this.fidelityOpen) {
+          this.setFidelityOpen(false)
+          return
+        }
         const tw = this.tweak
         if (this.mode === 'tweak' && tw && (tw.moveDrag || tw.handleDrag || tw.drag)) {
           // Esc DURING a drag cancels the drag — it must never fall through
@@ -485,7 +671,8 @@ class Overlay {
         }
       }
     })
-    window.addEventListener('resize', () => { this.resize(); this.clampHud() })
+    // the panel is clamped against the viewport, so a resize has to re-run it
+    window.addEventListener('resize', () => { this.resize(); this.clampHud(); this.layoutFidelityPanel() })
     // capture: nested scroll containers' scroll events don't bubble, but a
     // capture listener on window still sees them
     window.addEventListener('scroll', () => {
@@ -504,6 +691,7 @@ class Overlay {
     // after the append: restoring clamps against measured widths, and an
     // un-laid-out element measures 0
     this.restoreHud()
+    this.restoreFidelity()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -664,6 +852,9 @@ class Overlay {
     // exactly under the cursor that grabbed it, every frame
     this.hudPos = this.clampHudPoint(d.originX + (e.clientX - d.startX), d.originY + (e.clientY - d.startY))
     this.applyHudPos()
+    // the panel rides along as a child, but its viewport clamp does not: a bar
+    // dragged into a corner would push an open panel off-screen
+    this.layoutFidelityPanel()
   }
 
   private onHudUp(e: PointerEvent) {
@@ -672,6 +863,178 @@ class Overlay {
     this.hudDrag = null
     if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
     this.saveHudState()
+  }
+
+  // ---- fidelity controls ------------------------------------------------
+  // The user's half of the fidelity contract: one dial for how much the
+  // output should resemble the drawing, four per-aspect switches, and a
+  // palette choice. All of it is chrome + a field on two request bodies —
+  // nothing here touches strokes, modes or the run lifecycle.
+
+  /** Checkbox rows are generated so the label and its WHY live in one table
+   *  (KEEP_LABELS) rather than being duplicated between markup and handlers. */
+  private buildFidelityPanel() {
+    const host = this.shadow.getElementById('fidelityKeep')!
+    for (const k of KEEP_KEYS) {
+      const row = document.createElement('label')
+      row.className = 'fCheck'
+      row.title = KEEP_LABELS[k].tip
+      const box = document.createElement('input')
+      box.type = 'checkbox'
+      box.id = `keep-${k}`
+      const text = document.createElement('span')
+      text.textContent = KEEP_LABELS[k].label
+      row.append(box, text)
+      host.appendChild(row)
+      this.keepBoxes[k] = box
+      box.addEventListener('change', () => {
+        this.fidelity.keep[k] = box.checked
+        this.syncFidelityUi()
+        this.saveFidelity()
+      })
+    }
+
+    this.fidelityBtn.addEventListener('click', () => this.setFidelityOpen(!this.fidelityOpen))
+    // 'input', not 'change': the zone name has to update WHILE the thumb
+    // moves — that live feedback is how the four zones become learnable
+    this.fidelityRange.addEventListener('input', () => {
+      this.fidelity.resemblance = Number(this.fidelityRange.value) / 100
+      this.syncFidelityUi()
+    })
+    // …but only commit to storage when the drag ends: one write per gesture
+    this.fidelityRange.addEventListener('change', () => this.saveFidelity())
+    for (const p of ['app', 'sketch'] as const) {
+      this.shadow.getElementById(`palette-${p}`)!.addEventListener('click', () => {
+        this.fidelity.palette = p
+        this.syncFidelityUi()
+        this.saveFidelity()
+      })
+    }
+  }
+
+  /** The zone the dial currently sits in — highest threshold it clears. */
+  private fidelityZone() {
+    let zone = FIDELITY_ZONES[0]!
+    for (const z of FIDELITY_ZONES) {
+      if (this.fidelity.resemblance >= z.min) zone = z
+    }
+    return zone
+  }
+
+  /** Render every control (and the always-visible bar readout) FROM state —
+   *  one path, so a restore from storage and a click look identical. */
+  private syncFidelityUi() {
+    const f = this.fidelity
+    const z = this.fidelityZone()
+    const pct = Math.round(f.resemblance * 100)
+    this.fidelityRange.value = String(pct)
+    this.shadow.getElementById('fidelityZone')!.textContent = `${z.icon} ${z.name}`
+    this.shadow.getElementById('fidelityHint')!.textContent = z.hint
+    for (const k of KEEP_KEYS) this.keepBoxes[k].checked = f.keep[k]
+    for (const p of ['app', 'sketch'] as const) {
+      this.shadow.getElementById(`palette-${p}`)!.classList.toggle('on', f.palette === p)
+    }
+    // Requirement: the user must be able to tell what will happen WITHOUT
+    // opening the panel — the bar carries the zone + %, and the full state
+    // (including which aspects are still being kept) hangs off the tooltip.
+    this.shadow.getElementById('fidelityNow')!.textContent = `${z.name} ${String(pct)}%`
+    const kept = KEEP_KEYS.filter((k) => f.keep[k]).map((k) => KEEP_LABELS[k].label.replace('keep ', ''))
+    const summary = `fidelity: ${z.name} ${String(pct)}% — ${z.hint}` +
+      ` · keeping: ${kept.length ? kept.join(', ') : 'nothing (everything may be normalized)'}` +
+      ` · ${f.palette === 'app' ? "app's design system" : 'hand-drawn look'}`
+    this.fidelityBtn.title = summary
+    this.fidelityBtn.setAttribute('aria-label', summary)
+  }
+
+  private setFidelityOpen(open: boolean) {
+    this.fidelityOpen = open
+    this.fidelityPanel.classList.toggle('on', open)
+    this.fidelityBtn.classList.toggle('on', open)
+    this.fidelityBtn.setAttribute('aria-expanded', String(open))
+    // after the class flip: a display:none panel measures 0 and would clamp
+    // to nonsense
+    if (open) this.layoutFidelityPanel()
+  }
+
+  /**
+   * Keep the popover on screen. The bar can be parked in any corner, so the
+   * panel gets clamped horizontally against the viewport and flipped below
+   * the bar when there is no room above it. Offsets are expressed relative to
+   * the bar (the panel's containing block) so the two stay glued together
+   * through drags without a second positioning system.
+   */
+  private layoutFidelityPanel() {
+    if (!this.fidelityOpen) return
+    // reset first: measuring while the last open's offset is still applied
+    // would make each call compound the one before it
+    this.fidelityPanel.style.left = '0px'
+    const hudR = this.hud.getBoundingClientRect()
+    const w = this.fidelityPanel.offsetWidth
+    const h = this.fidelityPanel.offsetHeight
+    const maxX = Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP)
+    const x = Math.min(Math.max(hudR.left, PANEL_GAP), maxX)
+    this.fidelityPanel.style.left = `${String(Math.round(x - hudR.left))}px`
+    // above is the default (the bar usually sits at the bottom); only flip
+    // when above genuinely doesn't fit AND below does
+    const fitsAbove = hudR.top - h - PANEL_GAP >= PANEL_GAP
+    const fitsBelow = hudR.bottom + h + PANEL_GAP <= window.innerHeight - PANEL_GAP
+    this.fidelityPanel.classList.toggle('below', !fitsAbove && fitsBelow)
+  }
+
+  /**
+   * Persisted settings, same contract as the HUD's: localStorage can throw
+   * outright (blocked storage, private mode) and its contents are
+   * user-editable, so every field is validated on its own and anything
+   * off-shape falls back to that field's default rather than dropping the
+   * whole object.
+   */
+  private restoreFidelity() {
+    const f = defaultFidelity()
+    try {
+      const raw = localStorage.getItem(FIDELITY_STORE_KEY)
+      const v = raw ? (JSON.parse(raw) as unknown) : null
+      if (v && typeof v === 'object') {
+        const o = v as Record<string, unknown>
+        const r = o.resemblance
+        if (typeof r === 'number' && Number.isFinite(r)) f.resemblance = Math.min(1, Math.max(0, r))
+        const keep = o.keep
+        if (keep && typeof keep === 'object') {
+          const ko = keep as Record<string, unknown>
+          for (const k of KEEP_KEYS) {
+            const kv = ko[k]
+            if (typeof kv === 'boolean') f.keep[k] = kv
+          }
+        }
+        const pal = o.palette
+        if (pal === 'app' || pal === 'sketch') f.palette = pal
+      }
+    } catch { /* unreadable storage just means the default settings */ }
+    this.fidelity = f
+    this.syncFidelityUi()
+  }
+
+  private saveFidelity() {
+    try {
+      localStorage.setItem(FIDELITY_STORE_KEY, JSON.stringify(this.fidelityPayload()))
+    } catch { /* quota/blocked: the defaults are a fine place to land */ }
+  }
+
+  /**
+   * The wire shape, rebuilt fresh for every request. Resemblance is snapped
+   * to 2dp so the number the panel shows and the number the server scores
+   * against are the same one — float noise off a raw slider ratio would make
+   * "70%" arrive as 0.7000000000000001.
+   */
+  private fidelityPayload(): Fidelity {
+    const f = this.fidelity
+    return {
+      resemblance: Math.round(Math.min(1, Math.max(0, f.resemblance)) * 100) / 100,
+      keep: {
+        asymmetry: f.keep.asymmetry, rhythm: f.keep.rhythm,
+        proportions: f.keep.proportions, placement: f.keep.placement,
+      },
+      palette: f.palette === 'sketch' ? 'sketch' : 'app',
+    }
   }
 
   // ---- drawing ----
@@ -768,6 +1131,9 @@ class Overlay {
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
           strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
+          // a chip correction re-reads the SAME drawing, so it must carry the
+          // same fidelity settings or the op list would shift under the user
+          fidelity: this.fidelityPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; result?: PreviewData }
@@ -2228,7 +2594,10 @@ class Overlay {
       const res = await fetch('/@s2c/interpret', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
-        body: JSON.stringify({ strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode }),
+        body: JSON.stringify({
+          strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode,
+          fidelity: this.fidelityPayload(),
+        }),
       })
       const body = (await res.json()) as {
         ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview
@@ -2313,6 +2682,9 @@ class Overlay {
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
+          // read at send time, not at preview time: the panel is still open
+          // for business between ▶ Run and ✓ Go, and the LAST word wins
+          fidelity: this.fidelityPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
