@@ -230,6 +230,11 @@ const STYLES = css`
     background: #111827ee; color: #f9fafb; padding: 8px 12px;
     border-radius: 999px; box-shadow: 0 4px 24px rgb(0 0 0 / 0.25);
     font-size: 13px; user-select: none; cursor: grab;
+    /* left:50% leaves shrink-to-fit only half the viewport to work with, so
+       the bar would squeeze the status line even on a wide screen. Size to
+       content and cap against the viewport instead — narrow windows still get
+       the graceful ellipsis, wide ones get the whole hint. */
+    width: max-content; max-width: calc(100vw - 24px);
   }
   /* Parked: the bar owns explicit left/top, so the centering transform MUST
      go — translateX(-50%) would shift every dragged position by half a bar —

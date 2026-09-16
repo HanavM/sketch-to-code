@@ -4,8 +4,18 @@ import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegio
 
 /**
  * Perception via the user's Claude Code (subscription auth, no API key).
- * One single-turn call transcribing all labeled regions at once.
+ * One call per question; no tools, so the model cannot wander.
+ *
+ * maxTurns is NOT 1: `outputFormat: json_schema` arrives through an end-turn
+ * tool (a tool_use carrier plus its tool_result), so a cap of 1 leaves ZERO
+ * headroom — any preamble turn or schema-validation retry ends the call in
+ * error_max_turns, which the SDK throws as "interpret failed". That made it
+ * intermittent: fine while the model answered in one step, broken the moment
+ * it took two. With tools:[] the model can't wander, so the extra turns buy
+ * nothing but that headroom.
  */
+const PERCEPTION_MAX_TURNS = 4
+
 export function createClaudeCodeProvider(): PerceptionProvider {
   return {
     name: 'claude-code',
@@ -30,7 +40,7 @@ export function createClaudeCodeProvider(): PerceptionProvider {
         prompt: messages(),
         options: {
           tools: [],
-          maxTurns: 1,
+          maxTurns: PERCEPTION_MAX_TURNS,
           persistSession: false,
           settingSources: [],
           systemPrompt: req.prompt,
@@ -85,7 +95,7 @@ export function createClaudeCodeProvider(): PerceptionProvider {
         prompt: messages(),
         options: {
           tools: [],
-          maxTurns: 1,
+          maxTurns: PERCEPTION_MAX_TURNS,
           persistSession: false,
           settingSources: [],
           systemPrompt: 'You transcribe handwriting precisely. No commentary.',
