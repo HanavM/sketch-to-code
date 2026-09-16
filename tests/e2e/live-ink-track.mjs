@@ -3,6 +3,65 @@
  * drawn over, through scroll and browser zoom, with zero tolerance.
  */
 import { chromium } from 'playwright'
+import { inflateSync } from 'node:zlib'
+
+/**
+ * Minimal PNG reader (8-bit RGB/RGBA, non-interlaced) — enough to count ink
+ * pixels in a screenshot. Rect assertions alone can't see ink: a zero-sized
+ * <svg> root disables rendering while getBoundingClientRect keeps reporting
+ * correct geometry, which is exactly how invisible strokes once shipped.
+ */
+function decodePng(buf) {
+  let pos = 8
+  let w = 0, h = 0, depth = 0, ctype = 0
+  const idat = []
+  while (pos < buf.length) {
+    const len = buf.readUInt32BE(pos)
+    const type = buf.toString('ascii', pos + 4, pos + 8)
+    const data = buf.subarray(pos + 8, pos + 8 + len)
+    if (type === 'IHDR') { w = data.readUInt32BE(0); h = data.readUInt32BE(4); depth = data[8]; ctype = data[9] }
+    else if (type === 'IDAT') idat.push(data)
+    else if (type === 'IEND') break
+    pos += 12 + len
+  }
+  if (depth !== 8 || (ctype !== 6 && ctype !== 2)) throw new Error(`unsupported png depth=${depth} color=${ctype}`)
+  const bpp = ctype === 6 ? 4 : 3
+  const raw = inflateSync(Buffer.concat(idat))
+  const stride = w * bpp
+  const out = Buffer.alloc(h * stride)
+  for (let y = 0; y < h; y++) {
+    const f = raw[y * (stride + 1)]
+    const line = raw.subarray(y * (stride + 1) + 1, y * (stride + 1) + 1 + stride)
+    for (let x = 0; x < stride; x++) {
+      const a = x >= bpp ? out[y * stride + x - bpp] : 0
+      const b = y > 0 ? out[(y - 1) * stride + x] : 0
+      const c = x >= bpp && y > 0 ? out[(y - 1) * stride + x - bpp] : 0
+      let v = line[x]
+      if (f === 1) v += a
+      else if (f === 2) v += b
+      else if (f === 3) v += (a + b) >> 1
+      else if (f === 4) {
+        const pp = a + b - c
+        const pa = Math.abs(pp - a), pb = Math.abs(pp - b), pc = Math.abs(pp - c)
+        v += pa <= pb && pa <= pc ? a : pb <= pc ? b : c
+      }
+      out[y * stride + x] = v & 0xff
+    }
+  }
+  return { w, h, bpp, data: out }
+}
+
+/** Pixels of sketch2code blue (#2563eb) in a screenshot. */
+function countInkPixels(png) {
+  let n = 0
+  for (let i = 0; i < png.data.length; i += png.bpp) {
+    const r = png.data[i], g = png.data[i + 1], b = png.data[i + 2]
+    if (b > 150 && b - r > 60 && b - g > 40) n++
+  }
+  return n
+}
+
+const inkPixelsIn = async (page, clip) => countInkPixels(decodePng(await page.screenshot({ clip })))
 
 const APP = 'http://localhost:5199/'
 const log = (...a) => console.log('[ink]', ...a)
@@ -53,6 +112,11 @@ const probe = () => page.evaluate(() => {
 const before = await probe()
 log('after draw:', JSON.stringify(before))
 if (before.paths !== 1) throw new Error(`ASSERT: expected 1 ink path, got ${before.paths}`)
+
+// the stroke must actually PAINT, not merely occupy the right rect
+const drawnPixels = await inkPixelsIn(page, { x: card.x, y: card.y, width: card.w, height: card.h })
+log('ink pixels over the card:', drawnPixels)
+if (drawnPixels < 100) throw new Error(`ASSERT: stroke is not visible (${drawnPixels} ink px)`)
 
 const maxScroll = await page.evaluate(() => {
   window.scrollTo(0, 400)
@@ -134,6 +198,9 @@ const after = await probe()
 log('after done:', done)
 log('ink after done:', JSON.stringify(after))
 if (after.paths !== 0) throw new Error(`ASSERT: sketch still on screen (${after.paths} paths)`)
+const leftover = await inkPixelsIn(page, { x: card2.x, y: card2.y, width: card2.w, height: card2.h })
+log('ink pixels after done:', leftover)
+if (leftover > 20) throw new Error(`ASSERT: sketch pixels remain after the edit landed (${leftover})`)
 if (!applying) throw new Error('ASSERT: ink was not dimmed while the run was in flight')
 
 log('PASS — ink tracks scroll/zoom, dims on Go, and vanishes when the edit lands')

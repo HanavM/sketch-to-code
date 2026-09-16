@@ -176,6 +176,15 @@ const GUIDE_COLOR = '#ec4899'
 /** Two clicks on the selected element within this window toggle instance scope. */
 const DBLCLICK_MS = 450
 
+/** Where the HUD's parked position + hidden state survive a reload. */
+const HUD_STORE_KEY = 's2c:hud'
+/**
+ * Px of the HUD that must stay inside the viewport. A bar dragged (or restored
+ * from a wider monitor) past the edge would be unreachable — no scroll can
+ * bring a position:fixed element back.
+ */
+const HUD_KEEP = 56
+
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
 const TOKEN: string = (globalThis as Record<string, unknown>).__S2C_TOKEN__ as string ?? ''
@@ -199,8 +208,14 @@ const STYLES = css`
      layer at the document origin, so the compositor moves it with the content.
      No scroll handler, no per-frame repaint, nothing to lag — and pinch/browser
      zoom scale it exactly like the elements it was drawn over. */
+  /* Size matters: a zero width or height DISABLES rendering of an <svg>
+     outright (SVG 1.1 §5.1.2) — the paths keep reporting correct geometry to
+     getBoundingClientRect while painting nothing. Percentages resolve against
+     the initial containing block (the viewport), and overflow:visible paints
+     the strokes that lie outside it, so the whole page's ink shows without
+     the box ever extending the scrollable area. */
   #ink {
-    position: absolute; left: 0; top: 0; width: 0; height: 0;
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
     overflow: visible; pointer-events: none; z-index: 2147482999;
   }
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -214,8 +229,30 @@ const STYLES = css`
     z-index: 2147483001; display: flex; gap: 8px; align-items: center;
     background: #111827ee; color: #f9fafb; padding: 8px 12px;
     border-radius: 999px; box-shadow: 0 4px 24px rgb(0 0 0 / 0.25);
-    font-size: 13px; user-select: none;
+    font-size: 13px; user-select: none; cursor: grab;
   }
+  /* Parked: the bar owns explicit left/top, so the centering transform MUST
+     go — translateX(-50%) would shift every dragged position by half a bar —
+     and bottom must stop fighting top. Set as a class so the default layout
+     stays entirely in CSS (nothing to restore when the user never drags). */
+  #hud.placed, #hudShow.placed { bottom: auto; transform: none; }
+  /* display:none, not detach: the HUD keeps its listeners and el.click()
+     still dispatches, so scripted/e2e clicks work on a hidden bar. */
+  #hud.off { display: none; }
+  #hudGrip { color: #6b7280; letter-spacing: -3px; font-size: 15px; padding: 0 2px; }
+  #hud:active { cursor: grabbing; }
+  button.icon { padding: 4px 9px; background: transparent; color: #9ca3af; }
+  button.icon:hover { background: #374151; color: #f9fafb; }
+  /* The restore affordance: a dot in the spot the bar was parked in, small
+     enough to stay out of the way of whatever the user wanted to see. */
+  #hudShow {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 2147483001; display: none; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 999px; cursor: pointer;
+    background: #111827cc; box-shadow: 0 2px 10px rgb(0 0 0 / 0.25);
+    font-size: 12px; line-height: 1; user-select: none;
+  }
+  #hudShow.on { display: flex; }
   button {
     border: 0; border-radius: 999px; padding: 6px 12px; font-size: 13px;
     background: #374151; color: #f9fafb; cursor: pointer;
@@ -245,6 +282,14 @@ class Overlay {
   private cancelBtn: HTMLButtonElement
   private undoBtn: HTMLButtonElement
   private clearBtn: HTMLButtonElement
+  private hud: HTMLElement
+  /** Compact restore dot shown wherever the bar was parked while it's hidden. */
+  private hudShow: HTMLElement
+  /** null = still in the default centered-bottom slot, i.e. CSS owns placement. */
+  private hudPos: { x: number; y: number } | null = null
+  private hudHidden = false
+  /** Live bar drag: origin is the bar's top-left at pointerdown, in client px. */
+  private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
   private mode: Mode = 'idle'
   private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
@@ -285,6 +330,7 @@ class Overlay {
     const hud = document.createElement('div')
     hud.id = 'hud'
     hud.innerHTML = `
+      <span id="hudGrip" title="drag to move this toolbar">⋮⋮</span>
       <button id="draw" class="primary">✏️ Draw</button>
       <span id="modes" title="gesture: mark up existing UI · design: sketch new UI · screenshot: pixels-only benchmark">
         <button id="mode-gesture" class="mode on" title="gesture commands">✏️</button>
@@ -297,9 +343,16 @@ class Overlay {
       <button id="cancel" style="display:none">✗ Cancel</button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
-      <span id="status">sketch2code · Alt+D to draw</span>
+      <span id="status">sketch2code · Alt+D draw · Alt+H hide</span>
+      <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
     `
     this.shadow.appendChild(hud)
+    this.hud = hud
+    this.hudShow = document.createElement('div')
+    this.hudShow.id = 'hudShow'
+    this.hudShow.title = 'show the sketch2code toolbar (Alt+H)'
+    this.hudShow.textContent = '✏️'
+    this.shadow.appendChild(this.hudShow)
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -338,6 +391,15 @@ class Overlay {
     this.cancelBtn.addEventListener('click', () => this.exitPreview('cancelled'))
     this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.renderInk(); this.sync() })
     this.clearBtn.addEventListener('click', () => { this.strokes = []; this.renderInk(); this.sync() })
+    this.shadow.getElementById('hudHide')!.addEventListener('click', () => this.setHudHidden(true))
+    this.hudShow.addEventListener('click', () => this.setHudHidden(false))
+    // The bar sits over the app the user is trying to look at, so it moves:
+    // grip, status text and the bar's own padding are all drag surface. These
+    // are the only pointer handlers outside the canvas, so nothing competes.
+    this.hud.addEventListener('pointerdown', (e) => this.onHudDown(e))
+    this.hud.addEventListener('pointermove', (e) => this.onHudMove(e))
+    this.hud.addEventListener('pointerup', (e) => this.onHudUp(e))
+    this.hud.addEventListener('pointercancel', (e) => this.onHudUp(e))
 
     window.addEventListener('keydown', (e) => {
       // don't hijack typing in the host app's inputs
@@ -372,6 +434,15 @@ class Overlay {
       if (e.altKey && (e.key === 'd' || e.key === 'D' || e.code === 'KeyD')) {
         e.preventDefault()
         this.toggleDraw()
+      }
+      // macOS turns Alt+H into '˙', so e.code is the reliable half (same
+      // reason as Alt+D above). Returns rather than falling through: the
+      // Escape ladder below must never see a handled key.
+      if (e.altKey && (e.key === 'h' || e.key === 'H' || e.code === 'KeyH')) {
+        e.preventDefault()
+        this.setHudHidden(!this.hudHidden)
+        if (!this.hudHidden) this.status('toolbar back · Alt+H hides it again')
+        return
       }
       if (e.key === 'Escape') {
         const tw = this.tweak
@@ -409,7 +480,7 @@ class Overlay {
         }
       }
     })
-    window.addEventListener('resize', () => this.resize())
+    window.addEventListener('resize', () => { this.resize(); this.clampHud() })
     // capture: nested scroll containers' scroll events don't bubble, but a
     // capture listener on window still sees them
     window.addEventListener('scroll', () => {
@@ -425,6 +496,9 @@ class Overlay {
 
     document.body.appendChild(this.host)
     this.resize()
+    // after the append: restoring clamps against measured widths, and an
+    // un-laid-out element measures 0
+    this.restoreHud()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -466,6 +540,133 @@ class Overlay {
   private status(msg: string, err = false) {
     this.statusEl.textContent = msg
     this.statusEl.classList.toggle('err', err)
+  }
+
+  // ---- HUD placement: draggable, hideable, remembered -------------------
+  // The bar is fixed on top of the app under inspection, so it must be
+  // movable out of the way and dismissible in one keystroke. Everything here
+  // is chrome state only — it never touches modes, strokes or runs.
+
+  /**
+   * Whichever of bar/dot is currently on screen: the hidden one measures 0,
+   * and clamping against 0 would strand the visible one at the edge.
+   */
+  private hudBox(): HTMLElement {
+    return this.hudHidden ? this.hudShow : this.hud
+  }
+
+  /** Clamp a candidate top-left so at least HUD_KEEP px stay in the viewport. */
+  private clampHudPoint(x: number, y: number): { x: number; y: number } {
+    const box = this.hudBox()
+    const w = box.offsetWidth
+    const h = box.offsetHeight
+    // keep-in px is capped by the element's own size, so a small dot can still
+    // sit flush against an edge while a wide bar always leaves a grab strip
+    const keepX = Math.min(w, HUD_KEEP)
+    const keepY = Math.min(h, HUD_KEEP)
+    return {
+      x: Math.min(Math.max(x, keepX - w), Math.max(0, window.innerWidth - keepX)),
+      y: Math.min(Math.max(y, 0), Math.max(0, window.innerHeight - keepY)),
+    }
+  }
+
+  /** Push hudPos onto both anchors. Empty strings hand placement back to the
+   *  stylesheet's centered-bottom default — no layout values to reconstruct. */
+  private applyHudPos() {
+    const p = this.hudPos
+    for (const el of [this.hud, this.hudShow]) {
+      el.classList.toggle('placed', p != null)
+      el.style.left = p ? `${p.x}px` : ''
+      el.style.top = p ? `${p.y}px` : ''
+    }
+  }
+
+  /** Re-clamp in place: a shrunk viewport (resize, devtools, rotation) or a
+   *  bar/dot swap must never leave the toolbar unreachable. */
+  private clampHud() {
+    if (!this.hudPos) return
+    this.hudPos = this.clampHudPoint(this.hudPos.x, this.hudPos.y)
+    this.applyHudPos()
+  }
+
+  private setHudHidden(hidden: boolean) {
+    this.hudHidden = hidden
+    this.hud.classList.toggle('off', hidden)
+    this.hudShow.classList.toggle('on', hidden)
+    this.clampHud() // the dot and the bar have very different footprints
+    this.saveHudState()
+  }
+
+  /**
+   * Persisted chrome state. localStorage throws outright in some embeddings
+   * (blocked third-party storage, Safari private mode) and its contents are
+   * user-editable, so every field is re-validated and anything off-shape
+   * falls back to the default centered-visible layout.
+   */
+  private restoreHud() {
+    let pos: { x: number; y: number } | null = null
+    let hidden = false
+    try {
+      const raw = localStorage.getItem(HUD_STORE_KEY)
+      const v = raw ? (JSON.parse(raw) as unknown) : null
+      if (v && typeof v === 'object') {
+        const o = v as Record<string, unknown>
+        const x = o.x
+        const y = o.y
+        if (typeof x === 'number' && typeof y === 'number' && Number.isFinite(x) && Number.isFinite(y)) {
+          pos = { x, y }
+        }
+        hidden = o.hidden === true
+      }
+    } catch { /* unreadable storage just means the default layout */ }
+    this.hudPos = pos
+    this.applyHudPos()
+    // via setHudHidden so the dot/bar classes and the re-clamp (the saved
+    // position may come from a wider window) go through one path
+    this.setHudHidden(hidden)
+  }
+
+  private saveHudState() {
+    try {
+      localStorage.setItem(HUD_STORE_KEY, JSON.stringify({
+        x: this.hudPos?.x ?? null, y: this.hudPos?.y ?? null, hidden: this.hudHidden,
+      }))
+    } catch { /* quota/blocked: placement is a nicety, not state we owe anyone */ }
+  }
+
+  private onHudDown(e: PointerEvent) {
+    if (e.button !== 0) return
+    // a press that lands on a control belongs to that control — buttons must
+    // keep behaving like buttons, so only the bar's own surface starts a drag
+    const src = e.composedPath()[0]
+    if (src instanceof Element && src.closest('button')) return
+    const r = this.hud.getBoundingClientRect()
+    // pin to the pixels it ALREADY occupies before the first move: swapping
+    // bottom/translateX(-50%) for left/top mid-drag would make it jump
+    this.hudPos = { x: r.left, y: r.top }
+    this.applyHudPos()
+    this.hudDrag = {
+      pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, originX: r.left, originY: r.top,
+    }
+    this.hud.setPointerCapture(e.pointerId)
+    e.preventDefault()
+  }
+
+  private onHudMove(e: PointerEvent) {
+    const d = this.hudDrag
+    if (!d || e.pointerId !== d.pointerId) return
+    // straight off the pointer delta — no rAF, no debounce: the bar has to be
+    // exactly under the cursor that grabbed it, every frame
+    this.hudPos = this.clampHudPoint(d.originX + (e.clientX - d.startX), d.originY + (e.clientY - d.startY))
+    this.applyHudPos()
+  }
+
+  private onHudUp(e: PointerEvent) {
+    const d = this.hudDrag
+    if (!d || e.pointerId !== d.pointerId) return
+    this.hudDrag = null
+    if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    this.saveHudState()
   }
 
   // ---- drawing ----
