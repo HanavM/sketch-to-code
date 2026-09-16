@@ -11,8 +11,12 @@ export { interpretStrokes } from './interpret.js'
 export type { InterpretResult, InterpretShape, InterpretOp } from './interpret.js'
 export { interpretV2, runV2, verifyActions } from './run2.js'
 export type { InterpretV2Result } from './run2.js'
-export { buildEvidence, groundInterpretation, INTERPRET_PROMPT, INTERPRETATION_SCHEMA } from './intent2.js'
-export type { RawInterpretation, GroundedInterpretation, GroundedAction } from './intent2.js'
+export { buildEvidence, groundInterpretation, resolveNotes, INTERPRET_PROMPT, INTERPRETATION_SCHEMA } from './intent2.js'
+export type {
+  RawInterpretation, GroundedInterpretation, GroundedAction, TypedNote, ResolvedNote,
+} from './intent2.js'
+export { appPalette, matchColor, parseCssColor, deltaE, colorDirective } from './palette.js'
+export type { PaletteEntry, ColorMatch } from './palette.js'
 export {
   compositionFromStrokes, compositionFromSource, scoreComposition, compositionBrief, samplePath,
 } from './composition.js'

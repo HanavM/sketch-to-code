@@ -14,6 +14,7 @@ import {
   type BBox, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
+import { appPalette, matchColor, type ColorMatch } from './palette.js'
 
 // ---------- model-facing output schema ----------
 
@@ -37,6 +38,35 @@ export interface RawAction {
   /** verbatim = trace the strokes (decoration); recognized = substitute a
    *  proper icon/asset for the depicted concept. */
   fidelity?: 'verbatim' | 'recognized' | null
+}
+
+/**
+ * A note the user TYPED while sketching, with what it was pointing at.
+ *
+ * Handwriting has to be read by a model and can be misread; typed text is
+ * exact, free and unambiguous, so it outranks any reading of the ink it
+ * annotates. The anchor is resolved here, never by the model: an element is
+ * addressed by its own build-time stamp plus the point the user was over, and
+ * ink by stroke ids we issued.
+ */
+export interface TypedNote {
+  id: string
+  text: string
+  at: { x: number; y: number }
+  anchor:
+    | { kind: 'element'; srcLoc: string }
+    | { kind: 'strokes'; strokeIds: string[] }
+    | { kind: 'run' }
+}
+
+/** A note after its anchor has been resolved against the live snapshot. */
+export interface ResolvedNote {
+  id: string
+  text: string
+  scope: 'element' | 'strokes' | 'run'
+  /** Element menu id, when it resolved to one. */
+  elementId?: string
+  strokeIds?: string[]
 }
 
 export interface RawInterpretation {
@@ -108,11 +138,58 @@ export interface Evidence {
   /** Menus for validation. */
   elements: Map<string, DomNode>
   strokes: Map<string, Stroke>
+  /** Typed notes, anchored to ids (never to coordinates from the model). */
+  notes: ResolvedNote[]
 }
 
 const MENU_CAP = 70
 
-export function buildEvidence(strokes: Stroke[], snap: DomSnapshot): Evidence {
+/**
+ * Resolve each typed note onto ids the interpretation stage can cite.
+ *
+ * An element note carries a srcLoc rather than a snapshot id because the note
+ * was typed before this snapshot existed. A srcLoc can render many times (a
+ * .map() template), so the point the user was actually over breaks the tie.
+ */
+export function resolveNotes(
+  notes: TypedNote[],
+  snap: DomSnapshot,
+  strokeIds: Set<string>,
+): ResolvedNote[] {
+  const out: ResolvedNote[] = []
+  for (const n of notes) {
+    const text = typeof n.text === 'string' ? n.text.trim() : ''
+    if (!text) continue
+    const anchor = n.anchor
+    if (anchor?.kind === 'element') {
+      const matches = snap.nodes.filter((e) => e.srcLoc === anchor.srcLoc)
+      const near = matches.sort((a, b) => distToRect(n.at, a.rect) - distToRect(n.at, b.rect))[0]
+      if (near) {
+        out.push({ id: n.id, text, scope: 'element', elementId: near.id })
+        continue
+      }
+      // the element is gone (or was never stamped): keep the words, lose the
+      // anchor — dropping what the user typed is never the right failure
+      out.push({ id: n.id, text, scope: 'run' })
+      continue
+    }
+    if (anchor?.kind === 'strokes') {
+      const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
+      out.push(ids.length ? { id: n.id, text, scope: 'strokes', strokeIds: ids } : { id: n.id, text, scope: 'run' })
+      continue
+    }
+    out.push({ id: n.id, text, scope: 'run' })
+  }
+  return out
+}
+
+const distToRect = (p: { x: number; y: number }, r: BBox): number => {
+  const dx = Math.max(r.x - p.x, 0, p.x - (r.x + r.w))
+  const dy = Math.max(r.y - p.y, 0, p.y - (r.y + r.h))
+  return Math.hypot(dx, dy)
+}
+
+export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
   let inkBox: BBox | null = null
   for (const s of strokes) {
     if (s.points.length === 0) continue
@@ -207,8 +284,12 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot): Evidence {
       touchesElements: [...touched].slice(0, 8),
       startsOnElement: first ? (elementsAt(first.x, first.y)?.id ?? null) : null,
       endsOnElement: last ? (elementsAt(last.x, last.y)?.id ?? null) : null,
+      // a deliberately chosen pen colour is an instruction; the default is not
+      ...(s.color ? { drawnColor: s.color } : {}),
     }
   })
+
+  const resolved = resolveNotes(notes, snap, new Set(strokes.map((s) => s.id)))
 
   const brief = JSON.stringify(
     {
@@ -217,6 +298,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot): Evidence {
         ? { x: Math.round(inkBox.x), y: Math.round(inkBox.y), w: Math.round(inkBox.w), h: Math.round(inkBox.h) }
         : null,
       strokes: strokeList,
+      typedNotes: resolved.length ? resolved : undefined,
       elementMenu: menu.map((n) => ({
         id: n.id,
         tag: n.tag,
@@ -238,7 +320,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot): Evidence {
     maxSize: 1100,
     underlayRects: menu.map((n) => n.rect),
   })
-  return { png: encodePng(raster), brief, elements, strokes: strokeMap }
+  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved }
 }
 
 export const DESIGN_INTERPRET_PROMPT = `
@@ -269,6 +351,21 @@ Handwriting = labels/copy for the new UI — transcribe it into instructions.
 Existing elements only matter as CONTEXT: which container the new UI goes in
 (destElement) and what it should sit near or span across (layer:
 background-overlay when a decoration sweeps across existing elements).
+
+
+TYPED NOTES outrank your reading of the ink. When the JSON carries
+"typedNotes", each is the user's own words, typed while sketching, already
+anchored for you: scope "element" names an element id, scope "strokes" names
+stroke ids, scope "run" applies to the whole drawing. They are exact — no
+transcription, no guesswork — so where a note and your reading of a gesture
+disagree, the note wins, and every note must be carried into the instruction
+of the action it is anchored to. A note can also be the ONLY intent: ink that
+would otherwise read as decoration becomes whatever the note says it is.
+
+A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
+That colour is an instruction about the result ("make this red"), not a
+description of the ink; say so in the instruction. Never invent a colour for
+ink that has no drawnColor.
 
 Rules for your answer:
 - Only 'add' and 'design' actions exist in this mode.
@@ -304,6 +401,21 @@ relative to the other; TWO arrows between the same two elements (or crossing)
 = swap them; shapes drawn in open space or over a region = a design to build
 (a multi-stroke wavy band is ONE ribbon/decoration, not several objects);
 handwriting = instructions or labels — transcribe it into the instruction.
+
+
+TYPED NOTES outrank your reading of the ink. When the JSON carries
+"typedNotes", each is the user's own words, typed while sketching, already
+anchored for you: scope "element" names an element id, scope "strokes" names
+stroke ids, scope "run" applies to the whole drawing. They are exact — no
+transcription, no guesswork — so where a note and your reading of a gesture
+disagree, the note wins, and every note must be carried into the instruction
+of the action it is anchored to. A note can also be the ONLY intent: ink that
+would otherwise read as decoration becomes whatever the note says it is.
+
+A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
+That colour is an instruction about the result ("make this red"), not a
+description of the ink; say so in the instruction. Never invent a colour for
+ink that has no drawnColor.
 
 Rules for your answer:
 - Reference ONLY ids from the menus. Never invent ids. Never output
@@ -349,6 +461,10 @@ export interface GroundedAction {
   layer?: 'in-flow' | 'background-overlay' | 'container'
   depicts?: string
   fidelity?: 'verbatim' | 'recognized'
+  /** Exactly what the user typed about this action — authoritative. */
+  notes?: string[]
+  /** Colour the strokes were drawn in, snapped to the app's own palette. */
+  color?: ColorMatch
   needsConfirm: boolean
 }
 
@@ -356,6 +472,8 @@ export interface GroundedInterpretation {
   reading: string
   unclear?: string
   actions: GroundedAction[]
+  /** Typed notes that matched no single action — they apply to the run. */
+  runNotes?: string[]
   /** Model references that failed validation (reported, never executed). */
   rejected: string[]
 }
@@ -368,6 +486,9 @@ export function groundInterpretation(
 ): GroundedInterpretation {
   const rejected: string[] = []
   const viewArea = snap.viewport.w * snap.viewport.h
+  const palette = appPalette(snap)
+  // notes that name no action of their own end up on the run
+  const attached = new Set<string>()
 
   const childrenOf = new Map<string | null, DomNode[]>()
   for (const n of snap.nodes) {
@@ -456,6 +577,30 @@ export function groundInterpretation(
       continue
     }
 
+    // Typed notes attach deterministically: an element note to the actions
+    // touching that element, an ink note to the actions citing those strokes.
+    // The model never decides which words apply where.
+    const citedIds = new Set(citedStrokes.map((s) => s.id))
+    const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
+    const notes: string[] = []
+    for (const note of ev.notes) {
+      const hit =
+        (note.scope === 'element' && note.elementId && targetIds.has(note.elementId)) ||
+        (note.scope === 'strokes' && (note.strokeIds ?? []).some((id) => citedIds.has(id)))
+      if (!hit) continue
+      notes.push(note.text)
+      attached.add(note.id)
+    }
+
+    // Colour intent: the pen colour the strokes were drawn in, snapped to a
+    // colour the app already uses. Majority wins when a drawing mixes pens.
+    const tally = new Map<string, number>()
+    for (const st of citedStrokes) {
+      if (st.color) tally.set(st.color, (tally.get(st.color) ?? 0) + 1)
+    }
+    const drawnColor = [...tally.entries()].sort((a, b) => b[1] - a[1])[0]?.[0]
+    const color = drawnColor ? (matchColor(drawnColor, palette) ?? undefined) : undefined
+
     // destructive-width gate is ours, not the model's
     const targetArea = targets.reduce((acc, t) => acc + t.rect.w * t.rect.h, 0)
     const needsConfirm =
@@ -472,9 +617,18 @@ export function groundInterpretation(
       layer: a.layer ?? undefined,
       depicts: a.depicts ?? undefined,
       fidelity: a.fidelity ?? undefined,
+      notes: notes.length ? notes : undefined,
+      color,
       needsConfirm,
     })
   }
 
-  return { reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected }
+  // A note the user typed must never be silently dropped because no action
+  // claimed it — an unattached one still describes this run.
+  const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
+
+  return {
+    reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected,
+    runNotes: runNotes.length ? runNotes : undefined,
+  }
 }

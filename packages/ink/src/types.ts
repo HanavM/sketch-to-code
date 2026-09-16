@@ -10,6 +10,9 @@ export interface Point {
 export interface Stroke {
   id: string
   points: Point[]
+  /** CSS colour the stroke was drawn in, when the user picked a pen colour.
+   *  Absent means the default ink, which carries no colour intent. */
+  color?: string
 }
 
 export interface BBox {

@@ -16,7 +16,7 @@ import { commitPlan, planStructuralEdits } from './codemod.js'
 import {
   buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
   interpretationSchema,
-  type GroundedAction, type GroundedInterpretation, type RawInterpretation,
+  type GroundedAction, type GroundedInterpretation, type RawInterpretation, type TypedNote,
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { changedFiles, checkpoint } from './safety.js'
@@ -48,8 +48,9 @@ export async function interpretV2(
   snapshot: DomSnapshot,
   provider: PerceptionProvider = defaultInterpreterProvider(),
   mode: 'gesture' | 'design' = 'gesture',
+  notes: TypedNote[] = [],
 ): Promise<InterpretV2Result> {
-  const ev = buildEvidence(strokes, snapshot)
+  const ev = buildEvidence(strokes, snapshot, notes)
   let tokens: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
   const ask = async (extra: string): Promise<{ raw: RawInterpretation; interpretation: ReturnType<typeof groundInterpretation> }> => {
@@ -102,6 +103,13 @@ Rules:
   container, sized/placed per "region". layer background-overlay = absolutely
   positioned decoration behind content (pointer-events-none), reproducing
   svgPath as real SVG geometry.
+- "notes" on an action is the user's OWN TYPED WORDS about it. Treat them as
+  the instruction of record: where they and the reading disagree, follow the
+  notes. Implement everything they ask for, including behaviour the ink cannot
+  express (animation, interaction, copy).
+- "color" is the pen colour the user deliberately drew in. Apply it to what the
+  action produces, preferring the named token when one is given — that token is
+  a colour this app already uses.
 After editing, reply one line per action: "action N: <what you did>".
 `.trim()
 
@@ -113,6 +121,8 @@ export async function runV2(
     mode?: 'gesture' | 'design'
     /** User's resemblance slider + per-aspect locks (validated here). */
     fidelity?: unknown
+    /** Notes the user typed while sketching, anchored client-side. */
+    notes?: TypedNote[]
   },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
@@ -131,7 +141,7 @@ export async function runV2(
 
   // re-ground the (client-echoed) raw interpretation server-side — the client
   // is not trusted to have preserved validation
-  const ev = buildEvidence(input.strokes, input.snapshot)
+  const ev = buildEvidence(input.strokes, input.snapshot, input.notes ?? [])
   writeFileSync(join(runDir, 'evidence.png'), ev.png)
   writeFileSync(join(runDir, 'evidence.json'), ev.brief)
   const interp = groundInterpretation(input.rawInterpretation, ev, input.snapshot, input.mode ?? 'gesture')
@@ -147,6 +157,7 @@ export async function runV2(
   }
   save('interpretation.json', interp)
   save('fidelity.json', fidelity)
+  if (ev.notes.length) save('notes.json', ev.notes)
   if (interp.actions.length === 0) {
     throw new Error(
       `no valid actions${interp.rejected.length ? ` (rejected: ${interp.rejected.join('; ')})` : ''}`,
@@ -218,6 +229,10 @@ export async function runV2(
         `READING (user-confirmed): ${interp.reading}\n\n` +
         codemodNote +
         `FIDELITY (set by the user for this run):\n${fidelityDirective(fidelity)}\n\n` +
+        (interp.runNotes?.length
+          ? `THE USER ALSO TYPED (applies to the whole run — their exact words, and they ` +
+            `outrank any reading of the ink):\n${interp.runNotes.map((n) => `- ${n}`).join('\n')}\n\n`
+          : '') +
         `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
         (composition.length
           ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +

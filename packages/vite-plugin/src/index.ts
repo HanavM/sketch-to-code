@@ -38,6 +38,8 @@ export interface RunRequest {
   rawInterpretation?: unknown
   /** Resemblance slider + per-aspect locks; validated in the pipeline. */
   fidelity?: unknown
+  /** Notes typed while sketching, each anchored to an element/strokes/the run. */
+  notes?: unknown
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -249,6 +251,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 body.snapshot,
                 undefined,
                 body.mode === 'design' ? 'design' : 'gesture',
+                body.notes as Parameters<typeof m.interpretV2>[4],
               )
               sendJson(res, 200, {
                 ok: true,
@@ -317,6 +320,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     // passed through unvalidated on purpose — the pipeline
                     // normalizes it, so the client can't widen its own licence
                     fidelity: body.fidelity,
+                    notes: body.notes as Parameters<typeof m.runV2>[0]['notes'],
                   },
                   ctx,
                 )
