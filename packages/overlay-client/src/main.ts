@@ -4,8 +4,9 @@
  * and styles are untouched (and the snapshot walker excludes it).
  */
 import { takeSnapshot } from '@s2c/dom'
+import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
+import type { Pt } from './stroke-capture.js'
 
-interface Pt { x: number; y: number; t: number }
 interface Stroke { id: string; points: Pt[] }
 
 interface PreviewShape {
@@ -439,6 +440,12 @@ class Overlay {
   private live: Stroke | null = null
   private strokeSeq = 0
   private events: EventSource | null = null
+  /** End point of the last committed stroke, for trackpad-hop bridging —
+   *  null whenever there's nothing eligible to continue. */
+  private lastStrokeEnd: Pt | null = null
+  /** Whether that stroke was gesture-sized (bbox diagonal ≥ BRIDGE_MIN_SPAN),
+   *  i.e. an actual bridge candidate rather than a stray letter stroke. */
+  private lastStrokeBig = false
 
   constructor() {
     this.host = document.createElement('div')
@@ -547,8 +554,8 @@ class Overlay {
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
     this.cancelBtn.addEventListener('click', () => this.exitPreview('cancelled'))
-    this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.renderInk(); this.sync() })
-    this.clearBtn.addEventListener('click', () => { this.strokes = []; this.renderInk(); this.sync() })
+    this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.resetBridge(); this.renderInk(); this.sync() })
+    this.clearBtn.addEventListener('click', () => { this.strokes = []; this.resetBridge(); this.renderInk(); this.sync() })
     this.shadow.getElementById('hudHide')!.addEventListener('click', () => this.setHudHidden(true))
     this.hudShow.addEventListener('click', () => this.setHudHidden(false))
     // The bar sits over the app the user is trying to look at, so it moves:
@@ -593,6 +600,7 @@ class Overlay {
         e.preventDefault()
         if (this.mode === 'draw' && this.strokes.length > 0) {
           this.strokes.pop()
+          this.resetBridge()
           this.renderInk()
           this.sync()
           this.status('stroke undone')
@@ -702,6 +710,7 @@ class Overlay {
   }
 
   private setMode(m: Mode) {
+    if (this.mode === 'draw' && m !== 'draw') this.resetBridge()
     this.mode = m
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
@@ -1038,14 +1047,14 @@ class Overlay {
   }
 
   // ---- drawing ----
+  // pathD/strokeDiagonal/shouldBridge live in stroke-capture.ts — pure math,
+  // testable without a browser (pointer capture can't be exercised outside one).
 
-  /** Page-space path data; one decimal is well under a device pixel. */
-  private pathD(points: Pt[]): string {
-    let d = ''
-    for (const [i, p] of points.entries()) {
-      d += `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`
-    }
-    return d
+  /** Forget the bridge candidate — call on anything that invalidates it
+   *  (undo, clear, a completed run, leaving draw mode). */
+  private resetBridge() {
+    this.lastStrokeEnd = null
+    this.lastStrokeBig = false
   }
 
   private inkPath(): SVGPathElement {
@@ -1057,7 +1066,7 @@ class Overlay {
   private renderInk() {
     this.ink.replaceChildren(...this.strokes.map((st) => {
       const path = this.inkPath()
-      path.setAttribute('d', this.pathD(st.points))
+      path.setAttribute('d', pathD(st.points))
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
@@ -1079,9 +1088,17 @@ class Overlay {
     if (this.mode !== 'draw') return
     if (e.button !== 0) return // left button/pen tip only
     this.canvas.setPointerCapture(e.pointerId)
-    this.live = { id: `s${this.strokeSeq++}`, points: [this.toPage(e)] }
+    const p = this.toPage(e)
+    // a trackpad hop: lands right back where the last gesture-sized stroke
+    // ended, right after it ended — resume it instead of starting a new one
+    if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) {
+      this.live = this.strokes.pop()!
+      this.live.points.push(p)
+    } else {
+      this.live = { id: `s${this.strokeSeq++}`, points: [p] }
+    }
     this.livePath = this.inkPath()
-    this.livePath.setAttribute('d', this.pathD(this.live.points))
+    this.livePath.setAttribute('d', pathD(this.live.points))
     this.ink.appendChild(this.livePath)
   }
 
@@ -1094,7 +1111,7 @@ class Overlay {
     // coalesced events give the full-resolution trace on fast moves
     const evs = 'getCoalescedEvents' in e ? e.getCoalescedEvents() : [e]
     for (const ev of evs) this.live.points.push(this.toPage(ev as PointerEvent))
-    this.livePath?.setAttribute('d', this.pathD(this.live.points))
+    this.livePath?.setAttribute('d', pathD(this.live.points))
   }
 
   private onUp(e: PointerEvent) {
@@ -1104,7 +1121,14 @@ class Overlay {
     }
     if (!this.live) return
     this.live.points.push(this.toPage(e))
-    if (this.live.points.length > 2) this.strokes.push(this.live)
+    if (this.live.points.length > 2) {
+      this.strokes.push(this.live)
+      const last = this.live.points[this.live.points.length - 1]!
+      this.lastStrokeEnd = last
+      this.lastStrokeBig = strokeDiagonal(this.live.points) >= BRIDGE_MIN_SPAN
+    } else {
+      this.resetBridge()
+    }
     this.live = null
     this.livePath = null
     this.renderInk()
@@ -2729,6 +2753,7 @@ class Overlay {
       if (!this.mine(d)) return
       this.status(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
+      this.resetBridge()
       this.clearApplying()
       this.renderInk()
       this.redraw()
