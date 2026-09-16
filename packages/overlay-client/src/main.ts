@@ -7,11 +7,33 @@ import { takeSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 
+/**
+ * The element a stroke was drawn over, and that element's box at the moment of
+ * drawing.
+ *
+ * Page coordinates are what make the ink perfect through scroll and zoom — the
+ * compositor moves page and ink together. They are exactly wrong for tweak
+ * mode, where the PAGE stands still and an element moves inside it: the card
+ * slides out from under a circle drawn around it. So a stroke remembers what
+ * it was drawn on, and rides along when that element's box changes.
+ */
+interface StrokeAnchor {
+  /** data-s2c of the element, plus which instance of a repeated template. */
+  src: string
+  index: number
+  /** The element's page-space box when the stroke was drawn. */
+  rect: { x: number; y: number; w: number; h: number }
+  /** Ancestor scaling in force when that box was measured (see layerScale). */
+  scale: number
+}
+
 interface Stroke {
   id: string
   points: Pt[]
   /** CSS colour this stroke was drawn in; absent = default ink, no intent. */
   color?: string
+  /** What this stroke is drawn on, so it can follow it. */
+  anchor?: StrokeAnchor
 }
 
 interface PreviewShape {
@@ -259,6 +281,15 @@ const FIDELITY_STORE_KEY = 's2c:fidelity'
  * Returns null for anything translucent: a 25%-alpha tint is a surface effect,
  * not a colour the user is asking the result to be.
  */
+const round1 = (v: number) => Math.round(v * 10) / 10
+const round3 = (v: number) => Math.round(v * 1000) / 1000
+
+/** An element's box in PAGE coordinates — the space ink lives in. */
+function pageRect(el: Element): { x: number; y: number; w: number; h: number } {
+  const r = el.getBoundingClientRect()
+  return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height }
+}
+
 let hexCanvas: CanvasRenderingContext2D | null = null
 function toHex(css: string): string | null {
   if (!css || css === 'transparent' || css === 'none') return null
@@ -401,6 +432,9 @@ const STYLES = css`
     position: absolute; left: 0; top: 0; width: 100%; height: 100%;
     overflow: visible; pointer-events: none; z-index: 2147482999;
   }
+  /* A known-size box: measuring it reveals any scaling applied to the layer
+     by an ancestor (CSS zoom/transform on the host page). */
+  #scaleProbe { position: absolute; left: 0; top: 0; width: 100px; height: 100px; visibility: hidden; pointer-events: none; }
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
@@ -624,6 +658,7 @@ class Overlay {
   private canvas: HTMLCanvasElement
   private ctx: CanvasRenderingContext2D
   private ink: SVGSVGElement
+  private scaleProbe: HTMLElement
   private livePath: SVGPathElement | null = null
   private statusEl: HTMLElement
   private drawBtn: HTMLButtonElement
@@ -705,6 +740,10 @@ class Overlay {
     const style = document.createElement('style')
     style.textContent = STYLES
     this.shadow.appendChild(style)
+
+    this.scaleProbe = document.createElement('i')
+    this.scaleProbe.id = 'scaleProbe'
+    this.shadow.appendChild(this.scaleProbe)
 
     this.ink = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.ink.id = 'ink'
@@ -929,6 +968,9 @@ class Overlay {
       // the wire, and assert the help overlay lists every binding there is
       notes: () => this.notesPayload(),
       keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
+      // what each stroke believes it is drawn on, so a drifting overlay can be
+      // told apart from a stroke that never anchored in the first place
+      strokes: () => this.strokes.map((st) => ({ id: st.id, color: st.color, anchor: st.anchor })),
     }
   }
 
@@ -938,7 +980,7 @@ class Overlay {
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
     // layout churn; outside tweak mode the loop is stopped — zero idle cost
-    if (m === 'tweak') this.startTracking()
+    if (m === 'tweak' || this.strokes.some((st) => st.anchor)) this.startTracking()
     else this.stopTracking()
     this.drawBtn.textContent = m === 'draw' ? '✋ Done' : '✏️ Draw'
     this.drawBtn.classList.toggle('primary', m !== 'draw')
@@ -2075,6 +2117,8 @@ class Overlay {
       // a stroke="" attribute: presentation attributes rank BELOW stylesheet
       // rules, so #ink path{stroke:…} would repaint every pen blue.
       if (st.color) path.style.stroke = st.color
+      const t = st.anchor ? this.anchorTransform(st.anchor) : null
+      if (t) path.setAttribute('transform', t)
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
@@ -2131,6 +2175,7 @@ class Overlay {
     if (!this.live) return
     this.live.points.push(this.toPage(e))
     if (this.live.points.length > 2) {
+      this.live.anchor = this.anchorFor(this.live.points) ?? undefined
       this.strokes.push(this.live)
       const last = this.live.points[this.live.points.length - 1]!
       this.lastStrokeEnd = last
@@ -2141,6 +2186,7 @@ class Overlay {
     this.live = null
     this.livePath = null
     this.renderInk()
+    if (this.strokes.some((st) => st.anchor)) this.startTracking()
     this.sync()
   }
 
@@ -2163,7 +2209,7 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
+          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
           // a chip correction re-reads the SAME drawing, so it must carry the
           // same fidelity settings and the same notes, or the op list would
           // shift under the user
@@ -2381,13 +2427,21 @@ class Overlay {
 
   private trackTick = (): void => {
     this.trackRaf = null
-    if (this.mode !== 'tweak') {
+    // Ink anchored to an element has to track it the same way tweak overlays
+    // do — the loop is no longer tweak's alone.
+    const anchored = this.strokes.some((st) => st.anchor)
+    if (this.mode !== 'tweak' && !anchored) {
       this.trackSig = ''
       return
     }
     this.trackRaf = requestAnimationFrame(this.trackTick)
     const t = this.tweak
-    if (t && (t.moveDrag || t.handleDrag || t.drag)) return
+    if (t && (t.moveDrag || t.handleDrag || t.drag)) {
+      // a drag repaints itself every pointermove, but the ink still has to
+      // ride along with whatever the hand is moving
+      if (anchored) this.followAnchors()
+      return
+    }
     // primary remounted (external edit + HMR): re-resolve by instance index.
     // A transient EMPTY result (suspense fallback, error-boundary flash,
     // mid-remount) is NOT a deselect — keep waiting; reselectAfterCommit's
@@ -2401,10 +2455,11 @@ class Overlay {
       this.redraw()
       return
     }
-    const sig = this.trackSignature()
+    const sig = `${this.trackSignature()}${this.anchorSignature()}`
     if (sig !== this.trackSig) {
       this.trackSig = sig
       if (t) this.refreshTweakGeometry(t)
+      if (anchored) this.followAnchors()
       this.redraw()
     }
   }
@@ -2446,6 +2501,150 @@ class Overlay {
   }
 
   /** Deepest stamped element under the point — anything stamped is fair game. */
+  /**
+   * What a stroke is drawn ON: the TIGHTEST stamped element that contains the
+   * whole stroke.
+   *
+   * Not the element under the ink's midpoint — a ring drawn around a card
+   * crosses that card's value line on its way past, and anchoring to the line
+   * makes the ring scale with a paragraph instead of with the card. Containing
+   * the ink is what "drawn on" means: a scribble inside a card anchors to the
+   * card, a ring around it anchors to the card, and an arrow between two cards
+   * anchors to the container both of them move within.
+   */
+  private anchorFor(points: Pt[]): StrokeAnchor | null {
+    const mid = points[Math.floor(points.length / 2)]
+    if (!mid) return null
+    const xs = points.map((p) => p.x)
+    const ys = points.map((p) => p.y)
+    const ink = { x: Math.min(...xs), y: Math.min(...ys), w: 0, h: 0 }
+    ink.w = Math.max(...xs) - ink.x
+    ink.h = Math.max(...ys) - ink.y
+
+    let el = this.pickAnyStamped(mid.x - window.scrollX, mid.y - window.scrollY)
+    // a few px of slack: ink drawn "around" something usually clears it by a
+    // hair, and demanding strict containment would walk up one level too far
+    const contains = (r: { x: number; y: number; w: number; h: number }) =>
+      r.x - 4 <= ink.x && r.y - 4 <= ink.y &&
+      r.x + r.w + 4 >= ink.x + ink.w && r.y + r.h + 4 >= ink.y + ink.h
+    while (el && !contains(pageRect(el))) {
+      let parent: HTMLElement | null = el.parentElement
+      while (parent && !parent.dataset.s2c) parent = parent.parentElement
+      if (!parent) break
+      el = parent
+    }
+    const src = el?.dataset.s2c
+    if (!el || !src) return null
+    const peers = [...document.querySelectorAll(`[data-s2c="${src}"]`)] as HTMLElement[]
+    return { src, index: Math.max(0, peers.indexOf(el)), rect: pageRect(el), scale: this.layerScale() }
+  }
+
+  /**
+   * How much an ancestor is scaling the overlay right now (CSS zoom on the
+   * host page, a transform on body, …), measured off a fixed-size probe.
+   *
+   * The ink layer lives in page space and is scaled by the same ancestors as
+   * the content, which is why zoom needs no handling at all. An anchor delta
+   * measured from getBoundingClientRect, though, ALSO carries that scale — and
+   * applying it on top double-counts it (a 1.25 zoom rendered ink at 1.56).
+   * Normalizing both boxes by the scale in force when each was measured leaves
+   * only the layout change the anchor is meant to track.
+   */
+  private layerScale(): number {
+    const w = this.scaleProbe.getBoundingClientRect().width
+    return w > 0.01 ? w / 100 : 1
+  }
+
+  /** The anchor's box and its current box, both in the layer's own units. */
+  private anchorBoxes(a: StrokeAnchor): { o: Box; now: Box } | null {
+    const el = this.anchorEl(a)
+    if (!el) return null
+    const k = this.layerScale() || 1
+    const s0 = a.scale || 1
+    const r = pageRect(el)
+    const o = { x: a.rect.x / s0, y: a.rect.y / s0, w: a.rect.w / s0, h: a.rect.h / s0 }
+    const now = { x: r.x / k, y: r.y / k, w: r.w / k, h: r.h / k }
+    if (o.w < 1 || o.h < 1 || now.w < 1 || now.h < 1) return null
+    return { o, now }
+  }
+
+  /** The element an anchor points at now, re-resolved after any remount. */
+  private anchorEl(a: StrokeAnchor): HTMLElement | null {
+    const peers = [...document.querySelectorAll(`[data-s2c="${a.src}"]`)] as HTMLElement[]
+    return peers[Math.min(a.index, peers.length - 1)] ?? null
+  }
+
+  /**
+   * How the anchor has moved and resized since the stroke was drawn, as an SVG
+   * transform about the old box's origin. Null when it hasn't moved — the
+   * common case, and worth skipping so an untouched page writes no attributes.
+   */
+  private anchorTransform(a: StrokeAnchor): string | null {
+    // a collapsed box (display:none mid-HMR) would scale the ink to nothing
+    const boxes = this.anchorBoxes(a)
+    if (!boxes) return null
+    const { o, now } = boxes
+    const sx = now.w / o.w
+    const sy = now.h / o.h
+    if (Math.abs(now.x - o.x) < 0.5 && Math.abs(now.y - o.y) < 0.5 &&
+        Math.abs(sx - 1) < 0.002 && Math.abs(sy - 1) < 0.002) return null
+    return `translate(${String(round1(now.x))} ${String(round1(now.y))}) scale(${String(round3(sx))} ${String(round3(sy))}) translate(${String(round1(-o.x))} ${String(round1(-o.y))})`
+  }
+
+  /** Apply the current anchor transforms to already-rendered paths. */
+  private followAnchors() {
+    const paths = this.ink.querySelectorAll('path')
+    this.strokes.forEach((st, i) => {
+      const path = paths[i]
+      if (!path) return
+      const t = st.anchor ? this.anchorTransform(st.anchor) : null
+      if (t) path.setAttribute('transform', t)
+      else path.removeAttribute('transform')
+    })
+  }
+
+  /** A cheap signature of where every anchored stroke's element sits now. */
+  private anchorSignature(): string {
+    let sig = ''
+    for (const st of this.strokes) {
+      if (!st.anchor) continue
+      const el = this.anchorEl(st.anchor)
+      if (!el) { sig += '|x'; continue }
+      const r = el.getBoundingClientRect()
+      sig += `|${String(round1(r.left))},${String(round1(r.top))},${String(round1(r.width))},${String(round1(r.height))}`
+    }
+    return sig
+  }
+
+  /**
+   * Bake the anchor transforms into the points themselves.
+   *
+   * The server hit-tests ink against a snapshot of the live DOM, so what it
+   * receives has to be where the ink IS, not where it was drawn. Called on the
+   * way out for exactly that reason.
+   */
+  private strokesForWire(): Stroke[] {
+    return this.strokes.map((st) => {
+      const a = st.anchor
+      if (!a) return st
+      const boxes = this.anchorBoxes(a)
+      if (!boxes) return st
+      const { o, now } = boxes
+      const sx = now.w / o.w
+      const sy = now.h / o.h
+      if (Math.abs(now.x - o.x) < 0.5 && Math.abs(now.y - o.y) < 0.5 &&
+          Math.abs(sx - 1) < 0.002 && Math.abs(sy - 1) < 0.002) return st
+      return {
+        ...st,
+        points: st.points.map((p) => ({
+          x: now.x + (p.x - o.x) * sx,
+          y: now.y + (p.y - o.y) * sy,
+          t: p.t,
+        })),
+      }
+    })
+  }
+
   private pickAnyStamped(x: number, y: number): HTMLElement | null {
     this.canvas.style.pointerEvents = 'none'
     let el = document.elementFromPoint(x, y) as HTMLElement | null
@@ -3630,7 +3829,7 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode,
+          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.runMode,
           fidelity: this.fidelityPayload(),
           // exact words beat inferred ones: whatever the reading makes of the
           // ink, the notes say what the user actually asked for
@@ -3713,7 +3912,7 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokes,
+          strokes: this.strokesForWire(),
           snapshot: this.snapshot(),
           clientId: CLIENT_ID,
           mode: this.runMode,
