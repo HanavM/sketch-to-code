@@ -7,7 +7,12 @@ import { takeSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 
-interface Stroke { id: string; points: Pt[] }
+interface Stroke {
+  id: string
+  points: Pt[]
+  /** CSS colour this stroke was drawn in; absent = default ink, no intent. */
+  color?: string
+}
 
 interface PreviewShape {
   id: string
@@ -241,8 +246,127 @@ function defaultFidelity(): Fidelity {
 
 /** Where the fidelity settings survive a reload (same contract as s2c:hud). */
 const FIDELITY_STORE_KEY = 's2c:fidelity'
+
+/**
+ * Any CSS colour → '#rrggbb', via the one parser guaranteed to agree with what
+ * the page actually paints.
+ *
+ * getComputedStyle hands back whatever syntax the stylesheet used — rgb() from
+ * plain CSS, oklch() from Tailwind v4, oklab() once a colour has been mixed —
+ * and a colour the server can't parse is a colour intent silently lost. Going
+ * through the canvas means only one syntax ever reaches the wire.
+ *
+ * Returns null for anything translucent: a 25%-alpha tint is a surface effect,
+ * not a colour the user is asking the result to be.
+ */
+let hexCanvas: CanvasRenderingContext2D | null = null
+function toHex(css: string): string | null {
+  if (!css || css === 'transparent' || css === 'none') return null
+  if (!CSS.supports('color', css)) return null
+  hexCanvas ??= document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+  const ctx = hexCanvas
+  if (!ctx) return null
+  ctx.clearRect(0, 0, 1, 1)
+  ctx.fillStyle = css
+  ctx.fillRect(0, 0, 1, 1)
+  const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data
+  if ((a ?? 0) < 230) return null
+  return `#${[r, g, b].map((v) => (v ?? 0).toString(16).padStart(2, '0')).join('')}`
+}
+/** Where the pen colour survives a reload. */
+const PEN_STORE_KEY = 's2c:pen'
+/** How many of the app's own colours the pen offers as swatches. */
+const PEN_SWATCHES = 10
 /** Breathing room between the panel and both the bar and the viewport edge. */
 const PANEL_GAP = 10
+
+// ---- typed notes: exact words, attached to what they're about ----------
+// A drawing is ambiguous by construction and every reading of it is a guess.
+// Typed text is not: it is exactly what the user meant, so it never goes near
+// a model for transcription and it outranks anything inferred from ink. The
+// only hard problem left is ATTACHMENT — what does the note refer to?
+
+/**
+ * Where a note hangs. An element anchor travels as its data-s2c stamp plus
+ * the page point, never as a DOM id: the server resolves it against ITS OWN
+ * snapshot, and snapshot ids don't exist yet at the moment the note is typed.
+ */
+type NoteAnchor =
+  | { kind: 'element'; srcLoc: string }
+  | { kind: 'strokes'; strokeIds: string[] }
+  | { kind: 'run' }
+
+interface Note {
+  /** 'n0', 'n1', … — stable for the session, never reused after a delete. */
+  id: string
+  /** Exactly what the user typed. Never trimmed, never rewritten. */
+  text: string
+  /** PAGE coords of the pointer when the note was opened. */
+  at: { x: number; y: number }
+  anchor: NoteAnchor
+}
+
+/** Page-space rect. Same {x,y,w,h} shape the ink and the snapshot both use. */
+interface Box { x: number; y: number; w: number; h: number }
+
+/**
+ * How far from the pointer a stroke's bbox may sit and still count as "this
+ * note is about that". Generous on purpose: people gesture NEAR the thing
+ * they mean, and the alternative (a run-level note) loses information.
+ */
+const NOTE_NEAR_PX = 120
+/** Two strokes belong to the same drawing if their boxes are this close… */
+const NOTE_CLUSTER_PX = 120
+/** …and were drawn this close in time. A shape drawn now on top of one drawn
+ *  five minutes ago is a different thought, however much they overlap. */
+const NOTE_CLUSTER_MS = 20_000
+/**
+ * A stamped element covering this much of the viewport in BOTH axes is the
+ * page wrapper, not something the user pointed at — "this note is about the
+ * root layout div" is never what anyone meant, so rule 1 declines it and the
+ * stroke/run rules get their turn.
+ */
+const NOTE_BG_COVER = 0.9
+
+// ---- keymap: one table, two consumers ---------------------------------
+// Every action the HUD offers has to be reachable without the mouse. Scattering
+// `if (e.altKey && …)` branches through the keydown handler is how bindings go
+// undocumented and start colliding, so there is exactly ONE table: the handler
+// walks it, and the help overlay is rendered from it. A binding that isn't in
+// the table cannot exist, and one that is, is automatically documented.
+
+interface KeyBind {
+  id: string
+  /** What the help overlay prints, e.g. 'Alt+Shift+N'. */
+  keys: string
+  label: string
+  group: string
+  match: (e: KeyboardEvent) => boolean
+  run: () => void
+}
+
+/**
+ * Alt+<letter>. macOS rewrites e.key while Alt is held (∂ for d, ˙ for h), so
+ * e.code is the reliable half and the letter is only the layout-independent
+ * fallback — the same pattern the original Alt+D binding used.
+ */
+function altBind(code: string, letter: string, shift = false): (e: KeyboardEvent) => boolean {
+  return (e) =>
+    e.altKey && !e.metaKey && !e.ctrlKey && e.shiftKey === shift &&
+    (e.code === code || e.key.toLowerCase() === letter)
+}
+
+/** A bare key with no modifiers at all (Esc). */
+function plainBind(code: string, key: string): (e: KeyboardEvent) => boolean {
+  return (e) => !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey && (e.code === code || e.key === key)
+}
+
+/** Cmd (or Ctrl) + <letter>, without Shift — the platform undo shape. */
+function metaBind(code: string, letter: string): (e: KeyboardEvent) => boolean {
+  return (e) =>
+    (e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey &&
+    (e.code === code || e.key.toLowerCase() === letter)
+}
 
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
@@ -278,6 +402,33 @@ const STYLES = css`
     overflow: visible; pointer-events: none; z-index: 2147482999;
   }
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  #penDot {
+    display: inline-block; width: 12px; height: 12px; border-radius: 999px;
+    border: 1.5px solid #f9fafb55; vertical-align: -1px;
+  }
+  /* Same anchoring as the fidelity popover: above the bar by default, flipped
+     below only when there is no room — a panel that merely sits at its flow
+     position lands on top of the bar and runs off the viewport. */
+  #penPanel {
+    position: absolute; left: 0; bottom: calc(100% + 10px);
+    display: none; width: 244px; max-width: calc(100vw - 20px);
+    padding: 12px; border-radius: 12px;
+    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.5;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #penPanel.on { display: block; }
+  #penPanel.below { bottom: auto; top: calc(100% + 10px); }
+  #penPanel .pHead { font-weight: 600; margin-bottom: 8px; }
+  #penPanel .pNote { color: #9ca3af; margin-top: 8px; }
+  #penRow { display: flex; flex-wrap: wrap; gap: 6px; }
+  .swatch {
+    width: 24px; height: 24px; border-radius: 999px; padding: 0;
+    border: 2px solid transparent; background-clip: padding-box; cursor: pointer;
+  }
+  .swatch.on { border-color: #f9fafb; }
+  .swatch.ink { background: #2563eb; }
+  #penCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -390,6 +541,81 @@ const STYLES = css`
   }
   #fidelityPanel .fSegBtn:hover { color: #f9fafb; background: #374151; }
   #fidelityPanel .fSegBtn.on { background: #2563eb; color: #f9fafb; }
+  /* ---- typed notes ----------------------------------------------------
+     Exactly the trick #ink uses: ONE absolutely positioned layer pinned at
+     the document origin, so chips and the editor are laid out in PAGE
+     coordinates and the compositor carries them with the content. No scroll
+     listener anywhere — a chip that drifts off its anchor when the page
+     scrolls is a bug, not a rounding error. */
+  #notes {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none; z-index: 2147483000;
+  }
+  .noteChip {
+    position: absolute; pointer-events: auto;
+    display: flex; align-items: center; gap: 6px;
+    max-width: 260px; padding: 3px 4px 3px 10px; border-radius: 999px;
+    background: #1d4ed8; color: #eff6ff; font-size: 11px; line-height: 1.6;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.35); cursor: pointer;
+  }
+  .noteChip:hover { background: #2563eb; }
+  .noteChip .noteText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .noteChip .noteDel {
+    flex: none; width: 17px; height: 17px; padding: 0; border-radius: 999px;
+    background: #1e3a8a; color: #bfdbfe; font-size: 11px; line-height: 1;
+  }
+  .noteChip .noteDel:hover { background: #ef4444; color: #fff; }
+  /* The editor: what it will attach to, then the field — opened AT the
+     pointer rather than as a modal, so the user types where they're looking. */
+  #noteBox {
+    position: absolute; pointer-events: auto; display: none;
+    flex-direction: column; gap: 4px; width: 320px; max-width: calc(100vw - 24px);
+  }
+  #noteBox.on { display: flex; }
+  #noteWhat {
+    align-self: flex-start; padding: 2px 9px; border-radius: 999px;
+    background: #0f172aee; color: #93c5fd;
+    font-size: 10px; letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  #noteInput {
+    width: 100%; padding: 8px 11px; border-radius: 10px;
+    border: 1px solid #3b82f6; background: #0f172afa; color: #f9fafb;
+    font-size: 13px; outline: none; box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+  }
+  #noteInput::placeholder { color: #64748b; }
+  /* The subject, outlined while the field is open: the ONLY way the user can
+     tell whether the note landed on the element, the strokes, or the run. */
+  #noteHi {
+    position: absolute; display: none; pointer-events: none;
+    border: 2px solid #38bdf8; border-radius: 6px; background: rgb(56 189 248 / 0.12);
+  }
+  #noteHi.on { display: block; }
+  /* ---- keyboard help --------------------------------------------------
+     Rendered from the keymap table, so it can never fall behind it. The
+     status line holds one hint; this holds all of them. */
+  #help {
+    position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    z-index: 2147483002; display: none;
+    width: 560px; max-width: calc(100vw - 32px); max-height: calc(100vh - 64px);
+    overflow: auto; background: #111827fa; color: #f9fafb;
+    border: 1px solid #374151; border-radius: 14px;
+    box-shadow: 0 18px 50px rgb(0 0 0 / 0.55);
+    padding: 16px 18px; font-size: 12px; line-height: 1.5; text-align: left;
+  }
+  #help.on { display: block; }
+  #help .hHead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  #help .hTitle { font-size: 14px; font-weight: 600; }
+  #help .hGroup {
+    color: #6b7280; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    margin: 12px 0 4px; border-top: 1px solid #1f2937; padding-top: 8px;
+  }
+  #help .hRow { display: flex; align-items: baseline; gap: 12px; padding: 2px 0; }
+  #help .hKeys {
+    flex: none; width: 104px; text-align: right; color: #93c5fd;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
+  }
+  #help .hLabel { color: #e5e7eb; }
+  #help .hFoot { color: #6b7280; margin-top: 12px; border-top: 1px solid #1f2937; padding-top: 8px; }
 `
 
 class Overlay {
@@ -414,12 +640,36 @@ class Overlay {
   private hudHidden = false
   /** Fidelity popover + its state. The settings object is the single source
    *  of truth: the controls render FROM it and the request bodies read it. */
+  private penBtn: HTMLButtonElement
+  private penPanel: HTMLElement
+  private penDot: HTMLElement
+  private penRow: HTMLElement
+  /** CSS colour the pen writes in; null = default ink, which asks for nothing. */
+  private pen: string | null = null
+  private penOpen = false
   private fidelityBtn: HTMLButtonElement
   private fidelityPanel: HTMLElement
   private fidelityRange: HTMLInputElement
   private keepBoxes = {} as Record<keyof FidelityKeep, HTMLInputElement>
   private fidelityOpen = false
   private fidelity: Fidelity = defaultFidelity()
+  /** Page-space layer holding the note chips, the editor and the highlight. */
+  private notesLayer: HTMLElement
+  private noteBox: HTMLElement
+  private noteWhat: HTMLElement
+  private noteInput: HTMLInputElement
+  private noteHi: HTMLElement
+  /** Open editor: null id = a new note, else the note being re-edited. */
+  private noteDraft: { id: string | null; at: { x: number; y: number }; anchor: NoteAnchor } | null = null
+  private notes: Note[] = []
+  private noteSeq = 0
+  /** Last pointer position in CLIENT coords — where Alt+N resolves against.
+   *  null until the pointer has moved at all (fresh tab, keyboard-only). */
+  private pointer: { x: number; y: number } | null = null
+  /** The keymap, and the overlay rendered from it. */
+  private binds: KeyBind[] = []
+  private helpEl: HTMLElement
+  private helpOpen = false
   /** Live bar drag: origin is the bar's top-left at pointerdown, in client px. */
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
@@ -465,6 +715,25 @@ class Overlay {
     this.shadow.appendChild(this.canvas)
     this.ctx = this.canvas.getContext('2d')!
 
+    // AFTER the canvas: same stacking level, so DOM order is what puts chips
+    // and the editor above it — in draw mode the canvas is pointer-events:auto
+    // across the whole viewport and would otherwise swallow every chip click.
+    this.notesLayer = document.createElement('div')
+    this.notesLayer.id = 'notes'
+    this.notesLayer.innerHTML = `
+      <div id="noteHi"></div>
+      <div id="noteBox">
+        <span id="noteWhat"></span>
+        <input id="noteInput" type="text" autocomplete="off" spellcheck="false"
+               placeholder="what should happen here? (Enter to attach · Esc to cancel)">
+      </div>
+    `
+    this.shadow.appendChild(this.notesLayer)
+    this.noteBox = this.shadow.getElementById('noteBox')!
+    this.noteWhat = this.shadow.getElementById('noteWhat')!
+    this.noteInput = this.shadow.getElementById('noteInput') as HTMLInputElement
+    this.noteHi = this.shadow.getElementById('noteHi')!
+
     const hud = document.createElement('div')
     hud.id = 'hud'
     hud.innerHTML = `
@@ -476,14 +745,26 @@ class Overlay {
         <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
       </span>
       <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
+      <button id="penBtn" aria-haspopup="dialog" aria-expanded="false" title="pen colour (Alt+P) — what you draw in is what it becomes"><span id="penDot"></span></button>
       <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span></button>
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
-      <span id="status">sketch2code · Alt+D draw · Alt+H hide</span>
+      <!-- the bar is width:max-content, so this string sizes the whole HUD:
+           keep it to the length it has always been and let ? carry the rest -->
+      <span id="status">sketch2code · Alt+D draw · ? all keys</span>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
+      <div id="penPanel" role="dialog" aria-label="pen colour">
+        <div class="pHead">Draw in a colour to ask for it</div>
+        <div id="penRow"></div>
+        <div class="pNote">
+          The colour you draw in becomes the instruction, and it snaps to the nearest
+          colour this app already uses. Swatches are sampled from the page.
+          <br>Alt+I picks up the colour under the pointer.
+        </div>
+      </div>
       <div id="fidelityPanel" role="dialog" aria-label="drawing fidelity">
         <div class="fHead">How much should the result look like your drawing?</div>
         <div class="fSlider">
@@ -514,6 +795,11 @@ class Overlay {
     this.hudShow.title = 'show the sketch2code toolbar (Alt+H)'
     this.hudShow.textContent = '✏️'
     this.shadow.appendChild(this.hudShow)
+    this.helpEl = document.createElement('div')
+    this.helpEl.id = 'help'
+    this.helpEl.setAttribute('role', 'dialog')
+    this.helpEl.setAttribute('aria-label', 'sketch2code keyboard shortcuts')
+    this.shadow.appendChild(this.helpEl)
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -521,41 +807,28 @@ class Overlay {
     this.cancelBtn = this.shadow.getElementById('cancel') as HTMLButtonElement
     this.undoBtn = this.shadow.getElementById('undo') as HTMLButtonElement
     this.clearBtn = this.shadow.getElementById('clear') as HTMLButtonElement
+    this.penBtn = this.shadow.getElementById('penBtn') as HTMLButtonElement
+    this.penPanel = this.shadow.getElementById('penPanel')!
+    this.penDot = this.shadow.getElementById('penDot')!
+    this.penRow = this.shadow.getElementById('penRow')!
     this.fidelityBtn = this.shadow.getElementById('fidelityBtn') as HTMLButtonElement
     this.fidelityPanel = this.shadow.getElementById('fidelityPanel')!
     this.fidelityRange = this.shadow.getElementById('fidelityRange') as HTMLInputElement
     this.buildFidelityPanel()
 
+    // Button handlers stay thin wrappers around named methods: every one of
+    // them is also a keybinding, and two code paths for one action is how the
+    // mouse and the keyboard drift apart.
     for (const m of ['gesture', 'design', 'screenshot'] as const) {
-      this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => {
-        this.runMode = m
-        for (const mm of ['gesture', 'design', 'screenshot']) {
-          this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === m)
-        }
-        this.status(
-          m === 'gesture' ? 'gesture mode: mark up existing UI'
-          : m === 'design' ? 'design mode: sketch new UI to build'
-          : 'screenshot mode: pixels-only benchmark (will ask to share this tab)',
-        )
-      })
+      this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => this.setRunMode(m))
     }
-    this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => {
-      const btn = this.shadow.getElementById('tweakBtn')!
-      if (this.mode === 'tweak') {
-        btn.classList.remove('primary')
-        this.exitTweak('tweak off')
-      } else {
-        btn.classList.add('primary')
-        this.setMode('tweak')
-        this.status('tweak: click any element — drag to move, handles to resize, gaps/padding to space')
-      }
-    })
+    this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => this.toggleTweak())
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
     this.cancelBtn.addEventListener('click', () => this.exitPreview('cancelled'))
-    this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.resetBridge(); this.renderInk(); this.sync() })
-    this.clearBtn.addEventListener('click', () => { this.strokes = []; this.resetBridge(); this.renderInk(); this.sync() })
+    this.undoBtn.addEventListener('click', () => this.undoStroke())
+    this.clearBtn.addEventListener('click', () => this.clearAll())
     this.shadow.getElementById('hudHide')!.addEventListener('click', () => this.setHudHidden(true))
     this.hudShow.addEventListener('click', () => this.setHudHidden(false))
     // The bar sits over the app the user is trying to look at, so it moves:
@@ -576,111 +849,57 @@ class Overlay {
     // composedPath() — not e.target — because shadow DOM retargets: from the
     // outside every press on the overlay looks like it hit the host div.
     window.addEventListener('pointerdown', (e) => {
-      if (!this.fidelityOpen) return
       const path = e.composedPath()
-      // the button toggles itself; closing here too would make its click a no-op
-      if (path.includes(this.fidelityPanel) || path.includes(this.fidelityBtn)) return
-      this.setFidelityOpen(false)
+      if (this.fidelityOpen) {
+        // the button toggles itself; closing here too would make its click a no-op
+        if (!path.includes(this.fidelityPanel) && !path.includes(this.fidelityBtn)) {
+          this.setFidelityOpen(false)
+        }
+      }
+      if (this.penOpen && !path.includes(this.penPanel) && !path.includes(this.penBtn)) this.setPenOpen(false)
+      if (this.helpOpen && !path.includes(this.helpEl)) this.setHelpOpen(false)
+      // An open note editor commits on a press elsewhere rather than
+      // vanishing: it is an inline field, not a modal, and silently throwing
+      // away words the user typed is the one unrecoverable outcome here.
+      if (this.noteDraft && !path.includes(this.noteBox)) this.commitNote()
     }, true)
 
-    window.addEventListener('keydown', (e) => {
-      // don't hijack typing in the host app's inputs
-      const target = e.composedPath()[0] as HTMLElement | undefined
-      const tag = target?.tagName?.toLowerCase()
-      if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) {
-        // …except that Esc must still dismiss OUR popover when focus is
-        // sitting in its slider or a checkbox — otherwise the panel would be
-        // un-closable by keyboard the moment a control took focus. Every
-        // other key (arrows, space) still belongs to the control.
-        const ours = this.fidelityOpen && e.key === 'Escape' &&
-          target instanceof Node && this.fidelityPanel.contains(target)
-        if (!ours) return
-      }
-      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) {
+    // Alt+N attaches the note to whatever is under the POINTER, which means
+    // the pointer's last resting place has to be known even while the user is
+    // on the keyboard. Capture, so nested scrollers and stopPropagation in the
+    // host app can't blind it; passive, so it never costs a frame.
+    window.addEventListener('pointermove', (e) => {
+      this.pointer = { x: e.clientX, y: e.clientY }
+    }, { capture: true, passive: true })
+
+    // Keystrokes inside the note field belong to the note — not to the overlay
+    // (they would toggle modes mid-sentence) and not to the host app (which
+    // may bind bare letters). Stopping propagation here is what buys both.
+    this.noteInput.addEventListener('keydown', (e) => {
+      e.stopPropagation()
+      if (e.key === 'Enter') {
         e.preventDefault()
-        if (this.mode === 'draw' && this.strokes.length > 0) {
-          this.strokes.pop()
-          this.resetBridge()
-          this.renderInk()
-          this.sync()
-          this.status('stroke undone')
-        } else if (this.mode !== 'running') {
-          void (async () => {
-            try {
-              const res = await fetch('/@s2c/undo', {
-                method: 'POST',
-                headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
-                body: '{}',
-              })
-              const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
-              if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
-              this.status(body.undid ? `↩ undid: ${body.undid}` : 'nothing to undo')
-            } catch (err) {
-              this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
-            }
-          })()
-        }
-        return
-      }
-      if (e.altKey && (e.key === 'd' || e.key === 'D' || e.code === 'KeyD')) {
+        this.commitNote()
+      } else if (e.key === 'Escape') {
         e.preventDefault()
-        this.toggleDraw()
-      }
-      // macOS turns Alt+H into '˙', so e.code is the reliable half (same
-      // reason as Alt+D above). Returns rather than falling through: the
-      // Escape ladder below must never see a handled key.
-      if (e.altKey && (e.key === 'h' || e.key === 'H' || e.code === 'KeyH')) {
-        e.preventDefault()
-        this.setHudHidden(!this.hudHidden)
-        if (!this.hudHidden) this.status('toolbar back · Alt+H hides it again')
-        return
-      }
-      if (e.key === 'Escape') {
-        // TOP of the ladder: the popover is the newest, shallowest thing on
-        // screen, so Esc dismisses it and stops. Falling through would cancel
-        // a tweak drag or drop the selection underneath it — destroying work
-        // the user never aimed at while they were only closing a menu.
-        if (this.fidelityOpen) {
-          this.setFidelityOpen(false)
-          return
-        }
-        const tw = this.tweak
-        if (this.mode === 'tweak' && tw && (tw.moveDrag || tw.handleDrag || tw.drag)) {
-          // Esc DURING a drag cancels the drag — it must never fall through
-          // to the scope toggle (a 'one'-scope drag would silently commit
-          // as 'all' at release) or leak the ghost/dim/lift visuals
-          this.clearTweakPreview()
-          tw.moveDrag = null
-          tw.handleDrag = null
-          tw.drag = null
-          this.status('cancelled')
-          this.redraw()
-        }
-        else if (this.mode === 'tweak' && this.tweak && this.multiSel.length > 0) {
-          this.multiSel = []
-          this.status('multi-selection cleared')
-          this.redraw()
-        }
-        else if (this.mode === 'tweak' && this.tweak?.scope === 'one') {
-          // step back out to all-instances scope before deselecting
-          this.tweak.scope = 'all'
-          this.status(`all ${this.tweak.instanceEls.length} linked — edits apply to every instance`)
-          this.redraw()
-        }
-        else if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
-        else if (this.mode === 'tweak') this.exitTweak('tweak off')
-        else if (this.mode === 'preview') this.exitPreview('cancelled')
-        else if (this.mode === 'draw') this.setMode('idle')
-        else if (this.mode === 'running') {
-          // escape hatch: the server may have restarted mid-run
-          this.status('cancelled locally (server run may still finish)', true)
-          this.clearApplying()
-          this.setMode('idle')
-        }
+        this.closeNote('note cancelled')
       }
     })
+    this.noteInput.addEventListener('keyup', (e) => e.stopPropagation())
+    this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
+
+    this.binds = this.buildKeymap()
+    this.buildHelp()
+    this.loadPen()
+
+    window.addEventListener('keydown', (e) => this.onKeyDown(e))
     // the panel is clamped against the viewport, so a resize has to re-run it
-    window.addEventListener('resize', () => { this.resize(); this.clampHud(); this.layoutFidelityPanel() })
+    window.addEventListener('resize', () => {
+      this.resize()
+      this.clampHud()
+      this.layoutFidelityPanel()
+      if (this.penOpen) this.layoutPanel(this.penPanel)
+    })
     // capture: nested scroll containers' scroll events don't bubble, but a
     // capture listener on window still sees them
     window.addEventListener('scroll', () => {
@@ -706,6 +925,10 @@ class Overlay {
     // compare the drawn selection rect against the element's live rect
     ;(globalThis as unknown as Record<string, unknown>).__S2C_DEBUG__ = {
       selRect: () => (this.tweak ? this.selRect(this.tweak) : null),
+      // lets e2e compare what the overlay BELIEVES against what it puts on
+      // the wire, and assert the help overlay lists every binding there is
+      notes: () => this.notesPayload(),
+      keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
     }
   }
 
@@ -727,21 +950,349 @@ class Overlay {
     this.setMode(this.mode === 'draw' ? 'idle' : 'draw')
   }
 
+  /** The three run modes, from the mode pills or from Alt+G / Alt+E / Alt+S. */
+  private setRunMode(m: 'gesture' | 'design' | 'screenshot') {
+    this.runMode = m
+    for (const mm of ['gesture', 'design', 'screenshot']) {
+      this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === m)
+    }
+    this.status(
+      m === 'gesture' ? 'gesture mode: mark up existing UI'
+      : m === 'design' ? 'design mode: sketch new UI to build'
+      : 'screenshot mode: pixels-only benchmark (will ask to share this tab)',
+    )
+  }
+
+  private toggleTweak() {
+    const btn = this.shadow.getElementById('tweakBtn')!
+    if (this.mode === 'tweak') {
+      btn.classList.remove('primary')
+      this.exitTweak('tweak off')
+    } else {
+      btn.classList.add('primary')
+      this.setMode('tweak')
+      this.status('tweak: click any element — drag to move, handles to resize, gaps/padding to space')
+    }
+  }
+
+  /** The ↩ button: drop the last stroke. */
+  private undoStroke() {
+    this.strokes.pop()
+    this.resetBridge()
+    this.renderInk()
+    this.sync()
+  }
+
+  /** The ✕ button: the drawing AND the words about it go together — a note
+   *  whose strokes are gone points at nothing. */
+  private clearAll() {
+    this.strokes = []
+    this.notes = []
+    if (this.noteDraft) this.closeNote('cleared')
+    this.resetBridge()
+    this.renderInk()
+    this.renderNotes()
+    this.sync()
+  }
+
+  /**
+   * Cmd/Ctrl+Z. While drawing it walks back the ink; otherwise it asks the
+   * server to revert the last edit it wrote.
+   */
+  private undo() {
+    if (this.mode === 'draw' && this.strokes.length > 0) {
+      this.undoStroke()
+      this.status('stroke undone')
+      return
+    }
+    if (this.mode === 'running') return
+    void (async () => {
+      try {
+        const res = await fetch('/@s2c/undo', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+          body: '{}',
+        })
+        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
+        if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
+        this.status(body.undid ? `↩ undid: ${body.undid}` : 'nothing to undo')
+      } catch (err) {
+        this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      }
+    })()
+  }
+
+  /** "Do I have anything to run?" — strokes OR notes. A typed note is the
+   *  least ambiguous input the pipeline can get; it is never dead weight. */
+  private hasWork(): boolean {
+    return this.strokes.length > 0 || this.notes.length > 0
+  }
+
   private sync() {
     const busy = this.mode === 'running'
     const previewing = this.mode === 'preview' || this.mode === 'tweak'
     this.runBtn.style.display = previewing ? 'none' : ''
     this.confirmBtn.style.display = previewing ? '' : 'none'
     this.cancelBtn.style.display = previewing ? '' : 'none'
-    this.runBtn.disabled = busy || this.strokes.length === 0
+    this.runBtn.disabled = busy || !this.hasWork()
     this.undoBtn.disabled = busy || previewing || this.strokes.length === 0
-    this.clearBtn.disabled = busy || previewing || this.strokes.length === 0
+    this.clearBtn.disabled = busy || previewing || !this.hasWork()
     this.drawBtn.disabled = busy || previewing
   }
 
   private status(msg: string, err = false) {
     this.statusEl.textContent = msg
     this.statusEl.classList.toggle('err', err)
+  }
+
+  // ---- the keymap -------------------------------------------------------
+  // Everything the bar can do, plus the two things only the keyboard can do
+  // (a note, and this list). Alt+<letter> throughout, to match the Alt+D the
+  // overlay shipped with; the fidelity keeps take digits because their four
+  // names (asymmetry / rhythm / proportions / placement) collide on letters.
+
+  private buildKeymap(): KeyBind[] {
+    const keep = (k: keyof FidelityKeep, digit: '1' | '2' | '3' | '4'): KeyBind => ({
+      id: `keep-${k}`,
+      keys: `Alt+${digit}`,
+      label: `fidelity: ${KEEP_LABELS[k].label}`,
+      group: 'fidelity',
+      match: altBind(`Digit${digit}`, digit),
+      run: () => this.toggleKeep(k),
+    })
+    return [
+      {
+        id: 'draw', keys: 'Alt+D', label: 'draw / stop drawing', group: 'drawing',
+        match: altBind('KeyD', 'd'), run: () => this.toggleDraw(),
+      },
+      {
+        id: 'mode-gesture', keys: 'Alt+G', label: 'gesture mode — mark up existing UI', group: 'drawing',
+        match: altBind('KeyG', 'g'), run: () => this.setRunMode('gesture'),
+      },
+      {
+        // D is already draw, so design takes the E of dEsign
+        id: 'mode-design', keys: 'Alt+E', label: 'design mode — sketch new UI to build', group: 'drawing',
+        match: altBind('KeyE', 'e'), run: () => this.setRunMode('design'),
+      },
+      {
+        id: 'mode-screenshot', keys: 'Alt+S', label: 'screenshot mode — pixels-only benchmark', group: 'drawing',
+        match: altBind('KeyS', 's'), run: () => this.setRunMode('screenshot'),
+      },
+      {
+        id: 'tweak', keys: 'Alt+T', label: 'tweak mode — move/resize/space elements, zero tokens', group: 'drawing',
+        match: altBind('KeyT', 't'), run: () => this.toggleTweak(),
+      },
+      {
+        id: 'undo', keys: 'Ctrl/⌘+Z', label: 'undo — last stroke while drawing, else the last edit written',
+        group: 'drawing', match: metaBind('KeyZ', 'z'), run: () => this.undo(),
+      },
+      {
+        id: 'clear', keys: 'Alt+X', label: 'clear the drawing and its notes', group: 'drawing',
+        // mirrors the button exactly, disabled state included: a keybinding
+        // that fires when its button can't is a second, divergent code path
+        match: altBind('KeyX', 'x'), run: () => { if (!this.clearBtn.disabled) this.clearAll() },
+      },
+      {
+        id: 'run', keys: 'Alt+R', label: 'run — read the drawing and preview what it means', group: 'run',
+        match: altBind('KeyR', 'r'), run: () => { if (!this.runBtn.disabled) void this.run() },
+      },
+      {
+        id: 'confirm', keys: 'Alt+Enter', label: 'go — apply the previewed edit', group: 'run',
+        match: altBind('Enter', 'enter'),
+        run: () => { if (this.confirmBtn.style.display !== 'none') void this.proceed() },
+      },
+      {
+        id: 'cancel', keys: 'Alt+C', label: 'cancel the preview', group: 'run',
+        match: altBind('KeyC', 'c'),
+        run: () => { if (this.cancelBtn.style.display !== 'none') this.exitPreview('cancelled') },
+      },
+      {
+        id: 'note', keys: 'Alt+N', label: 'note here — type words onto whatever is under the pointer', group: 'notes',
+        match: altBind('KeyN', 'n'), run: () => this.openNote(false),
+      },
+      {
+        id: 'note-run', keys: 'Alt+Shift+N', label: 'note about the whole sketch, whatever the pointer is over',
+        group: 'notes', match: altBind('KeyN', 'n', true), run: () => this.openNote(true),
+      },
+      {
+        id: 'fidelity', keys: 'Alt+F', label: 'open / close the fidelity panel', group: 'fidelity',
+        match: altBind('KeyF', 'f'), run: () => this.setFidelityOpen(!this.fidelityOpen),
+      },
+      {
+        id: 'fidelity-up', keys: 'Alt+↑', label: 'resemble the drawing more (+5%)', group: 'fidelity',
+        match: altBind('ArrowUp', 'arrowup'), run: () => this.nudgeFidelity(0.05),
+      },
+      {
+        id: 'fidelity-down', keys: 'Alt+↓', label: 'resemble the drawing less (−5%)', group: 'fidelity',
+        match: altBind('ArrowDown', 'arrowdown'), run: () => this.nudgeFidelity(-0.05),
+      },
+      keep('asymmetry', '1'),
+      keep('rhythm', '2'),
+      keep('proportions', '3'),
+      keep('placement', '4'),
+      {
+        id: 'pen', keys: 'Alt+P', label: 'pen colour — draw in a colour to ask for it', group: 'colour',
+        match: altBind('KeyP', 'p'), run: () => this.setPenOpen(!this.penOpen),
+      },
+      {
+        id: 'eyedrop', keys: 'Alt+I', label: 'pick up the colour under the pointer', group: 'colour',
+        match: altBind('KeyI', 'i'), run: () => this.eyedrop(),
+      },
+      {
+        id: 'pen-off', keys: 'Alt+0', label: 'back to the default ink (no colour asked for)', group: 'colour',
+        match: altBind('Digit0', '0'), run: () => this.setPen(null),
+      },
+      {
+        id: 'hud', keys: 'Alt+H', label: 'hide / show the toolbar', group: 'overlay',
+        match: altBind('KeyH', 'h'),
+        run: () => {
+          this.setHudHidden(!this.hudHidden)
+          if (!this.hudHidden) this.status('toolbar back · Alt+H hides it again')
+        },
+      },
+      {
+        id: 'help', keys: '?', label: 'show / hide this list', group: 'overlay',
+        // by e.key alone: '?' sits behind Shift on some layouts and AltGr on
+        // others, and the character is what the user actually pressed
+        match: (e) => !e.altKey && !e.metaKey && !e.ctrlKey && e.key === '?',
+        run: () => this.setHelpOpen(!this.helpOpen),
+      },
+      {
+        id: 'escape', keys: 'Esc', group: 'overlay',
+        label: 'close the top thing: note → this list → fidelity → preview / tweak / draw',
+        match: plainBind('Escape', 'Escape'), run: () => this.onEscape(),
+      },
+    ]
+  }
+
+  private onKeyDown(e: KeyboardEvent) {
+    // don't hijack typing in the host app's inputs
+    const target = e.composedPath()[0] as HTMLElement | undefined
+    const tag = target?.tagName?.toLowerCase()
+    if (tag === 'input' || tag === 'textarea' || target?.isContentEditable) {
+      // …except that Esc must still dismiss OUR popover when focus is
+      // sitting in its slider or a checkbox — otherwise the panel would be
+      // un-closable by keyboard the moment a control took focus. Every
+      // other key (arrows, space) still belongs to the control.
+      // (The note field never reaches here: it stops its own keystrokes.)
+      const ours = (this.fidelityOpen || this.penOpen) && e.key === 'Escape' &&
+        target instanceof Node && this.fidelityPanel.contains(target)
+      if (!ours) return
+    }
+    // first match wins; the table is small and the matchers are disjoint
+    for (const b of this.binds) {
+      if (!b.match(e)) continue
+      e.preventDefault()
+      b.run()
+      return
+    }
+  }
+
+  /**
+   * The Escape ladder, newest-and-shallowest first. Each rung RETURNS: falling
+   * through would cancel a tweak drag or drop the selection underneath a
+   * popover — destroying work the user never aimed at while they were only
+   * closing a menu.
+   */
+  private onEscape() {
+    if (this.noteDraft) {
+      this.closeNote('note cancelled')
+      return
+    }
+    if (this.helpOpen) {
+      this.setHelpOpen(false)
+      return
+    }
+    if (this.penOpen) {
+      this.setPenOpen(false)
+      return
+    }
+    if (this.fidelityOpen) {
+      this.setFidelityOpen(false)
+      return
+    }
+    const tw = this.tweak
+    if (this.mode === 'tweak' && tw && (tw.moveDrag || tw.handleDrag || tw.drag)) {
+      // Esc DURING a drag cancels the drag — it must never fall through
+      // to the scope toggle (a 'one'-scope drag would silently commit
+      // as 'all' at release) or leak the ghost/dim/lift visuals
+      this.clearTweakPreview()
+      tw.moveDrag = null
+      tw.handleDrag = null
+      tw.drag = null
+      this.status('cancelled')
+      this.redraw()
+    }
+    else if (this.mode === 'tweak' && this.tweak && this.multiSel.length > 0) {
+      this.multiSel = []
+      this.status('multi-selection cleared')
+      this.redraw()
+    }
+    else if (this.mode === 'tweak' && this.tweak?.scope === 'one') {
+      // step back out to all-instances scope before deselecting
+      this.tweak.scope = 'all'
+      this.status(`all ${this.tweak.instanceEls.length} linked — edits apply to every instance`)
+      this.redraw()
+    }
+    else if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
+    else if (this.mode === 'tweak') this.exitTweak('tweak off')
+    else if (this.mode === 'preview') this.exitPreview('cancelled')
+    else if (this.mode === 'draw') this.setMode('idle')
+    else if (this.mode === 'running') {
+      // escape hatch: the server may have restarted mid-run
+      this.status('cancelled locally (server run may still finish)', true)
+      this.clearApplying()
+      this.setMode('idle')
+    }
+  }
+
+  /** Rendered once FROM the keymap: the list can't drift from the bindings. */
+  private buildHelp() {
+    const head = document.createElement('div')
+    head.className = 'hHead'
+    const title = document.createElement('span')
+    title.className = 'hTitle'
+    title.textContent = 'sketch2code — keyboard'
+    const close = document.createElement('button')
+    close.id = 'helpClose'
+    close.textContent = 'close'
+    close.addEventListener('click', () => this.setHelpOpen(false))
+    head.append(title, close)
+    this.helpEl.replaceChildren(head)
+
+    let group = ''
+    for (const b of this.binds) {
+      if (b.group !== group) {
+        group = b.group
+        const g = document.createElement('div')
+        g.className = 'hGroup'
+        g.textContent = group
+        this.helpEl.appendChild(g)
+      }
+      const row = document.createElement('div')
+      row.className = 'hRow'
+      row.dataset.bind = b.id
+      const keys = document.createElement('span')
+      keys.className = 'hKeys'
+      keys.textContent = b.keys
+      const label = document.createElement('span')
+      label.className = 'hLabel'
+      label.textContent = b.label
+      row.append(keys, label)
+      this.helpEl.appendChild(row)
+    }
+    const foot = document.createElement('div')
+    foot.className = 'hFoot'
+    foot.textContent =
+      'Alt+N attaches to what the pointer is over: a stamped element, else the strokes near it, else the whole sketch. ' +
+      'Hold Shift to force the whole sketch.'
+    this.helpEl.appendChild(foot)
+  }
+
+  private setHelpOpen(open: boolean) {
+    this.helpOpen = open
+    this.helpEl.classList.toggle('on', open)
+    if (open) this.status(`${this.binds.length} shortcuts · Esc or ? to close`)
   }
 
   // ---- HUD placement: draggable, hideable, remembered -------------------
@@ -864,6 +1415,7 @@ class Overlay {
     // the panel rides along as a child, but its viewport clamp does not: a bar
     // dragged into a corner would push an open panel off-screen
     this.layoutFidelityPanel()
+    if (this.penOpen) this.layoutPanel(this.penPanel)
   }
 
   private onHudUp(e: PointerEvent) {
@@ -903,6 +1455,7 @@ class Overlay {
       })
     }
 
+    this.penBtn.addEventListener('click', () => this.setPenOpen(!this.penOpen))
     this.fidelityBtn.addEventListener('click', () => this.setFidelityOpen(!this.fidelityOpen))
     // 'input', not 'change': the zone name has to update WHILE the thumb
     // moves — that live feedback is how the four zones become learnable
@@ -966,12 +1519,184 @@ class Overlay {
   }
 
   /**
+   * Keyboard nudge of the resemblance dial. Snapped to the same 2dp the wire
+   * payload uses, so Alt+↑ twenty times lands on exactly 1.00 rather than on
+   * float dust, and routed through syncFidelityUi so the bar readout, the
+   * zone name and the slider thumb all move together.
+   */
+  private nudgeFidelity(delta: number) {
+    const next = Math.round(Math.min(1, Math.max(0, this.fidelity.resemblance + delta)) * 100) / 100
+    this.fidelity.resemblance = next
+    this.syncFidelityUi()
+    this.saveFidelity()
+    const z = this.fidelityZone()
+    this.status(`fidelity ${Math.round(next * 100)}% · ${z.icon} ${z.name} — ${z.hint}`)
+  }
+
+  private toggleKeep(k: keyof FidelityKeep) {
+    this.fidelity.keep[k] = !this.fidelity.keep[k]
+    this.syncFidelityUi()
+    this.saveFidelity()
+    this.status(`${KEEP_LABELS[k].label}: ${this.fidelity.keep[k] ? 'on' : 'off'} — ${KEEP_LABELS[k].tip}`)
+  }
+
+  /**
    * Keep the popover on screen. The bar can be parked in any corner, so the
    * panel gets clamped horizontally against the viewport and flipped below
    * the bar when there is no room above it. Offsets are expressed relative to
    * the bar (the panel's containing block) so the two stay glued together
    * through drags without a second positioning system.
    */
+  // ---- pen colour: the colour you draw in is the colour you're asking for ----
+  // Naming a colour ("make it red") goes through a model and comes back as
+  // whatever red it likes. Drawing in one states the value exactly — and the
+  // server snaps it to a colour this app already renders, so the result is a
+  // token from the project's own palette rather than a new arbitrary hue.
+
+  private setPenOpen(open: boolean) {
+    this.penOpen = open
+    this.penPanel.classList.toggle('on', open)
+    this.penBtn.classList.toggle('on', open)
+    this.penBtn.setAttribute('aria-expanded', String(open))
+    // swatches are sampled fresh on open: the page's palette is whatever the
+    // app renders right now, and it changes as the app is edited
+    if (open) {
+      this.renderPenSwatches()
+      this.layoutPanel(this.penPanel)
+    }
+  }
+
+  private setPen(color: string | null) {
+    this.pen = color
+    this.savePen()
+    this.syncPenUi()
+  }
+
+  private syncPenUi() {
+    this.penDot.style.background = this.pen ?? '#2563eb'
+    this.penBtn.title = this.pen
+      ? `pen colour ${this.pen} (Alt+P) — drawn colour becomes the instruction`
+      : 'pen colour: default ink (Alt+P) — drawing in a colour asks for that colour'
+    for (const el of this.penRow.querySelectorAll('.swatch')) {
+      el.classList.toggle('on', (el as HTMLElement).dataset.color === (this.pen ?? ''))
+    }
+  }
+
+  /**
+   * Colours the page actually renders, most-used first.
+   *
+   * Sampled from the live page rather than a fixed palette for the same reason
+   * the server snaps against the app's own colours: an offered swatch should
+   * be a colour this project already uses, so drawing with it asks for an
+   * existing token instead of introducing a new one.
+   */
+  private samplePageColors(): string[] {
+    const tally = new Map<string, number>()
+    const bump = (c: string) => {
+      const hex = toHex(c)
+      if (!hex) return
+      tally.set(hex, (tally.get(hex) ?? 0) + 1)
+    }
+    let seen = 0
+    for (const el of document.body.querySelectorAll('*')) {
+      if (seen++ > 1200) break // a big app shouldn't cost a long frame here
+      if (el === this.host || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      if (r.width < 4 || r.height < 4) continue
+      const cs = getComputedStyle(el)
+      bump(cs.color)
+      bump(cs.backgroundColor)
+    }
+    return [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, PEN_SWATCHES).map(([c]) => c)
+  }
+
+  private renderPenSwatches() {
+    const swatch = (color: string | null, label: string) => {
+      const b = document.createElement('button')
+      b.className = `swatch${color ? '' : ' ink'}`
+      b.dataset.color = color ?? ''
+      b.title = label
+      if (color) b.style.background = color
+      b.addEventListener('click', () => this.setPen(color))
+      return b
+    }
+    const kids: HTMLElement[] = [swatch(null, 'default ink — no colour asked for')]
+    for (const c of this.samplePageColors()) kids.push(swatch(c, `${c} — already used on this page`))
+    const custom = document.createElement('input')
+    custom.type = 'color'
+    custom.id = 'penCustom'
+    custom.title = 'any other colour'
+    custom.value = '#ef4444'
+    custom.addEventListener('input', () => this.setPen(custom.value))
+    kids.push(custom)
+    this.penRow.replaceChildren(...kids)
+    this.syncPenUi()
+  }
+
+  /**
+   * Eyedropper: take the colour under the pointer. Text colour when the
+   * element carries its own text (that is the colour the user is looking at),
+   * otherwise the nearest non-transparent background up the tree.
+   */
+  private eyedrop() {
+    const p = this.pointer
+    if (!p) {
+      this.status('move the pointer over a colour first')
+      return
+    }
+    const el = this.pickAnyStamped(p.x, p.y) ?? (document.elementFromPoint(p.x, p.y) as HTMLElement | null)
+    if (!el) {
+      this.status('nothing under the pointer to pick up')
+      return
+    }
+    const ownText = [...el.childNodes].some((n) => n.nodeType === 3 && (n.textContent ?? '').trim())
+    let picked = ownText ? getComputedStyle(el).color : ''
+    if (!picked) {
+      for (let node: HTMLElement | null = el; node; node = node.parentElement) {
+        const bg = getComputedStyle(node).backgroundColor
+        if (toHex(bg)) { picked = bg; break }
+      }
+    }
+    const hex = toHex(picked)
+    if (!hex) {
+      this.status('no colour to pick up there')
+      return
+    }
+    this.setPen(hex)
+    this.status(`pen: ${hex}`)
+  }
+
+  private savePen() {
+    try {
+      if (this.pen) localStorage.setItem(PEN_STORE_KEY, this.pen)
+      else localStorage.removeItem(PEN_STORE_KEY)
+    } catch { /* storage blocked — the pen just won't survive a reload */ }
+  }
+
+  private loadPen() {
+    try {
+      const raw = localStorage.getItem(PEN_STORE_KEY)
+      // only accept something the browser agrees is a colour: a junk value
+      // would paint nothing and send a colour intent the server can't read
+      if (raw && CSS.supports('color', raw)) this.pen = raw
+    } catch { /* ignore */ }
+    this.syncPenUi()
+  }
+
+  /** Clamp a popover under the bar, shared by both panels. */
+  private layoutPanel(panel: HTMLElement) {
+    panel.style.left = '0px'
+    const hudR = this.hud.getBoundingClientRect()
+    const w = panel.offsetWidth
+    const h = panel.offsetHeight
+    const maxX = Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP)
+    const x = Math.min(Math.max(hudR.left, PANEL_GAP), maxX)
+    panel.style.left = `${String(Math.round(x - hudR.left))}px`
+    const fitsAbove = hudR.top - h - PANEL_GAP >= PANEL_GAP
+    const fitsBelow = hudR.bottom + h + PANEL_GAP <= window.innerHeight - PANEL_GAP
+    panel.classList.toggle('below', !fitsAbove && fitsBelow)
+  }
+
   private layoutFidelityPanel() {
     if (!this.fidelityOpen) return
     // reset first: measuring while the last open's offset is still applied
@@ -1046,6 +1771,284 @@ class Overlay {
     }
   }
 
+  // ---- typed notes ------------------------------------------------------
+  // The user hovers something, hits Alt+N, types, hits Enter. What they typed
+  // is exact — no transcription, no model, no ambiguity — so the whole
+  // problem is deciding what the words are ABOUT. Three rules, in order:
+  //   1. a stamped element under the pointer (and not the page wrapper)
+  //   2. else the cluster of strokes near the pointer — "I just drew these,
+  //      the note is about them"
+  //   3. else the run as a whole
+  // Alt+SHIFT+N forces rule 3 outright, so a note about the whole drawing is
+  // always one keystroke away no matter where the pointer happens to rest.
+
+  /** Page-space bbox of one stroke (points are captured in page coords). */
+  private strokeBox(st: Stroke): Box {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+    for (const p of st.points) {
+      if (p.x < x0) x0 = p.x
+      if (p.y < y0) y0 = p.y
+      if (p.x > x1) x1 = p.x
+      if (p.y > y1) y1 = p.y
+    }
+    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+  }
+
+  /** Shortest distance from a point to a rect; 0 inside it. */
+  private boxDist(b: Box, x: number, y: number): number {
+    return Math.hypot(Math.max(b.x - x, 0, x - (b.x + b.w)), Math.max(b.y - y, 0, y - (b.y + b.h)))
+  }
+
+  /** Gap between two rects; 0 when they touch or overlap. */
+  private boxGap(a: Box, b: Box): number {
+    const dx = Math.max(a.x - (b.x + b.w), b.x - (a.x + a.w), 0)
+    const dy = Math.max(a.y - (b.y + b.h), b.y - (a.y + a.h), 0)
+    return Math.hypot(dx, dy)
+  }
+
+  /** When the stroke was finished — its last point's timestamp. */
+  private strokeTime(st: Stroke): number {
+    return st.points[st.points.length - 1]?.t ?? 0
+  }
+
+  /**
+   * Rule 2's stroke group. Seeded with the MOST RECENTLY DRAWN stroke within
+   * NOTE_NEAR_PX of the pointer — when two drawings are both in reach, the
+   * one the user just made is the one they are talking about — then grown
+   * transitively over strokes that are both spatially adjacent and drawn in
+   * the same sitting. That closure is what turns "the nearest stroke" into
+   * "the four strokes that make up the box I drew".
+   */
+  private clusterNear(x: number, y: number): Stroke[] {
+    const boxes = new Map<Stroke, Box>()
+    for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
+    let seed: Stroke | null = null
+    for (const st of this.strokes) {
+      // later strokes overwrite earlier ones: this.strokes is in draw order
+      if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
+    }
+    if (!seed) return []
+    const group = [seed]
+    for (;;) {
+      const next = this.strokes.find((st) =>
+        !group.includes(st) &&
+        group.some((g) =>
+          this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
+          Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS),
+      )
+      if (!next) break
+      group.push(next)
+    }
+    // report them in draw order, the order the user made them in
+    return group.sort((a, b) => this.strokes.indexOf(a) - this.strokes.indexOf(b))
+  }
+
+  /** See NOTE_BG_COVER: the stamped root wrapper is never the subject. */
+  private isPageBackground(el: HTMLElement): boolean {
+    if (el === document.body || el === document.documentElement) return true
+    const r = el.getBoundingClientRect()
+    return r.width >= window.innerWidth * NOTE_BG_COVER && r.height >= window.innerHeight * NOTE_BG_COVER
+  }
+
+  /** The three rules, applied in order, at the instant the key was pressed. */
+  private resolveAnchor(
+    clientX: number,
+    clientY: number,
+    forceRun: boolean,
+  ): { anchor: NoteAnchor; strokes: Stroke[]; el: HTMLElement | null } {
+    if (forceRun) return { anchor: { kind: 'run' }, strokes: [], el: null }
+    const el = this.pickAnyStamped(clientX, clientY)
+    const srcLoc = el?.dataset.s2c
+    if (el && srcLoc && !this.isPageBackground(el)) {
+      return { anchor: { kind: 'element', srcLoc }, strokes: [], el }
+    }
+    const group = this.clusterNear(clientX + window.scrollX, clientY + window.scrollY)
+    if (group.length > 0) {
+      return { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null }
+    }
+    return { anchor: { kind: 'run' }, strokes: [], el: null }
+  }
+
+  /** The tiny "what did this land on" line — the only feedback that says
+   *  which of the three rules fired. */
+  private anchorLabel(anchor: NoteAnchor, el: HTMLElement | null): string {
+    if (anchor.kind === 'element') {
+      return `on this element · ${el ? el.tagName.toLowerCase() : anchor.srcLoc.split(':')[0]}`
+    }
+    if (anchor.kind === 'strokes') {
+      const n = anchor.strokeIds.length
+      return n === 1 ? 'on this stroke' : `on these ${n} strokes`
+    }
+    return 'whole sketch'
+  }
+
+  /** Alt+N / Alt+Shift+N: resolve, then open the field at the pointer. */
+  private openNote(forceRun: boolean) {
+    if (this.mode === 'running') return
+    const p = this.pointer ?? { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+    const r = this.resolveAnchor(p.x, p.y, forceRun)
+    this.openEditor(null, { x: p.x + window.scrollX, y: p.y + window.scrollY }, r, '')
+  }
+
+  /** Clicking a chip re-opens its note, on its original anchor and point. */
+  private editNote(n: Note) {
+    const el = n.anchor.kind === 'element'
+      ? (document.querySelector(`[data-s2c="${n.anchor.srcLoc}"]`) as HTMLElement | null)
+      : null
+    const strokes = n.anchor.kind === 'strokes'
+      ? this.strokes.filter((s) => (n.anchor as { strokeIds: string[] }).strokeIds.includes(s.id))
+      : []
+    this.openEditor(n.id, n.at, { anchor: n.anchor, strokes, el }, n.text)
+  }
+
+  private openEditor(
+    id: string | null,
+    at: { x: number; y: number },
+    r: { anchor: NoteAnchor; strokes: Stroke[]; el: HTMLElement | null },
+    text: string,
+  ) {
+    this.noteDraft = { id, at, anchor: r.anchor }
+    this.noteWhat.textContent = this.anchorLabel(r.anchor, r.el)
+    this.showNoteHighlight(r)
+    // the box lives in PAGE space, so the clamp is against the viewport's
+    // current page window — it only has to be right at open time
+    const w = Math.min(320, window.innerWidth - 24)
+    const left = Math.min(
+      Math.max(at.x, window.scrollX + 12),
+      window.scrollX + window.innerWidth - w - 12,
+    )
+    this.noteBox.style.left = `${String(Math.round(left))}px`
+    this.noteBox.style.top = `${String(Math.round(at.y + 14))}px`
+    this.noteBox.classList.add('on')
+    this.noteInput.value = text
+    this.noteInput.focus()
+    this.noteInput.select()
+    this.status(`note ${this.noteWhat.textContent} · Enter attaches · Esc cancels`)
+  }
+
+  /** Outline the subject, in page space, so it stays on it through a scroll. */
+  private showNoteHighlight(r: { anchor: NoteAnchor; strokes: Stroke[]; el: HTMLElement | null }) {
+    let box: Box | null = null
+    if (r.el) {
+      const b = r.el.getBoundingClientRect()
+      box = { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
+    } else if (r.strokes.length > 0) {
+      const boxes = r.strokes.map((s) => this.strokeBox(s))
+      const x0 = Math.min(...boxes.map((b) => b.x))
+      const y0 = Math.min(...boxes.map((b) => b.y))
+      const x1 = Math.max(...boxes.map((b) => b.x + b.w))
+      const y1 = Math.max(...boxes.map((b) => b.y + b.h))
+      const PAD = 8
+      box = { x: x0 - PAD, y: y0 - PAD, w: x1 - x0 + PAD * 2, h: y1 - y0 + PAD * 2 }
+    }
+    // a run-level note has no subject to outline — the label carries it
+    if (!box) {
+      this.noteHi.classList.remove('on')
+      return
+    }
+    this.noteHi.style.left = `${String(Math.round(box.x))}px`
+    this.noteHi.style.top = `${String(Math.round(box.y))}px`
+    this.noteHi.style.width = `${String(Math.round(box.w))}px`
+    this.noteHi.style.height = `${String(Math.round(box.h))}px`
+    this.noteHi.classList.add('on')
+  }
+
+  private commitNote() {
+    const d = this.noteDraft
+    if (!d) return
+    // the raw value: "untrimmed of meaning" — trailing spaces are the user's
+    // business, and only an ENTIRELY blank field means "never mind"
+    const text = this.noteInput.value
+    if (text.trim() === '') {
+      if (d.id) this.deleteNote(d.id)
+      else this.closeNote('empty note discarded')
+      return
+    }
+    const existing = d.id ? this.notes.find((n) => n.id === d.id) : undefined
+    if (existing) existing.text = text
+    else this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor })
+    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}`)
+    this.renderNotes()
+    this.sync()
+  }
+
+  private closeNote(msg: string) {
+    this.noteDraft = null
+    this.noteBox.classList.remove('on')
+    this.noteHi.classList.remove('on')
+    this.noteInput.value = ''
+    this.noteInput.blur()
+    this.status(msg)
+  }
+
+  private deleteNote(id: string) {
+    this.notes = this.notes.filter((n) => n.id !== id)
+    if (this.noteDraft?.id === id) this.closeNote('note deleted')
+    else this.status('note deleted')
+    this.renderNotes()
+    this.sync()
+  }
+
+  /**
+   * Rebuild the chips. They are positioned in PAGE coordinates inside the
+   * page-space #notes layer — exactly like the ink — so scroll and zoom move
+   * them with their subject and there is no scroll listener to be late.
+   */
+  private renderNotes() {
+    for (const old of [...this.notesLayer.querySelectorAll('.noteChip')]) old.remove()
+    for (const n of this.notes) {
+      const chip = document.createElement('div')
+      chip.className = 'noteChip'
+      chip.dataset.note = n.id
+      // +10 so the chip sits beside the anchor point rather than under the
+      // cursor that placed it
+      chip.style.left = `${String(Math.round(n.at.x + 10))}px`
+      chip.style.top = `${String(Math.round(n.at.y + 10))}px`
+      chip.title = `${n.text}\n${this.anchorLabel(n.anchor, null)} — click to edit`
+      const text = document.createElement('span')
+      text.className = 'noteText'
+      text.textContent = n.text
+      const del = document.createElement('button')
+      del.className = 'noteDel'
+      del.textContent = '✕'
+      del.title = 'delete this note'
+      del.addEventListener('click', (e) => {
+        e.stopPropagation() // the chip itself opens the editor
+        this.deleteNote(n.id)
+      })
+      chip.append(text, del)
+      chip.addEventListener('click', () => this.editNote(n))
+      this.notesLayer.appendChild(chip)
+      // Flip to the other side of the anchor when the chip would run off the
+      // page. Clamped against the DOCUMENT's width, never the viewport's: a
+      // viewport clamp would have to be redone on every scroll, which is the
+      // drift bug this whole layer exists to avoid.
+      const pageW = document.documentElement.scrollWidth
+      const w = chip.offsetWidth
+      if (n.at.x + 10 + w > pageW - 8) {
+        chip.style.left = `${String(Math.max(8, Math.round(n.at.x - 10 - w)))}px`
+      }
+    }
+  }
+
+  /**
+   * The wire shape, rebuilt fresh per request (same contract as the fidelity
+   * payload). Page coords are rounded to whole pixels: sub-pixel precision
+   * means nothing to a server resolving the anchor against its own snapshot.
+   */
+  private notesPayload(): Note[] {
+    return this.notes.map((n) => ({
+      id: n.id,
+      text: n.text,
+      at: { x: Math.round(n.at.x), y: Math.round(n.at.y) },
+      anchor: n.anchor.kind === 'element'
+        ? { kind: 'element' as const, srcLoc: n.anchor.srcLoc }
+        : n.anchor.kind === 'strokes'
+          ? { kind: 'strokes' as const, strokeIds: [...n.anchor.strokeIds] }
+          : { kind: 'run' as const },
+    }))
+  }
+
   // ---- drawing ----
   // pathD/strokeDiagonal/shouldBridge live in stroke-capture.ts — pure math,
   // testable without a browser (pointer capture can't be exercised outside one).
@@ -1067,6 +2070,11 @@ class Overlay {
     this.ink.replaceChildren(...this.strokes.map((st) => {
       const path = this.inkPath()
       path.setAttribute('d', pathD(st.points))
+      // A coloured stroke paints in its own colour, so what the user sees on
+      // the page is exactly the colour the run will ask for. Inline style, not
+      // a stroke="" attribute: presentation attributes rank BELOW stylesheet
+      // rules, so #ink path{stroke:…} would repaint every pen blue.
+      if (st.color) path.style.stroke = st.color
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
@@ -1095,9 +2103,10 @@ class Overlay {
       this.live = this.strokes.pop()!
       this.live.points.push(p)
     } else {
-      this.live = { id: `s${this.strokeSeq++}`, points: [p] }
+      this.live = { id: `s${this.strokeSeq++}`, points: [p], ...(this.pen ? { color: this.pen } : {}) }
     }
     this.livePath = this.inkPath()
+    if (this.live.color) this.livePath.style.stroke = this.live.color
     this.livePath.setAttribute('d', pathD(this.live.points))
     this.ink.appendChild(this.livePath)
   }
@@ -1156,8 +2165,10 @@ class Overlay {
         body: JSON.stringify({
           strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
           // a chip correction re-reads the SAME drawing, so it must carry the
-          // same fidelity settings or the op list would shift under the user
+          // same fidelity settings and the same notes, or the op list would
+          // shift under the user
           fidelity: this.fidelityPayload(),
+          notes: this.notesPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; result?: PreviewData }
@@ -2611,7 +3622,7 @@ class Overlay {
    * skips interpretation (pixels-only benchmark by definition).
    */
   private async run() {
-    if (this.strokes.length === 0) return
+    if (!this.hasWork()) return
     if (this.runMode === 'screenshot') return void this.proceed()
     this.status('reading your drawing…')
     try {
@@ -2621,6 +3632,9 @@ class Overlay {
         body: JSON.stringify({
           strokes: this.strokes, snapshot: this.snapshot(), mode: this.runMode,
           fidelity: this.fidelityPayload(),
+          // exact words beat inferred ones: whatever the reading makes of the
+          // ink, the notes say what the user actually asked for
+          notes: this.notesPayload(),
         }),
       })
       const body = (await res.json()) as {
@@ -2709,6 +3723,7 @@ class Overlay {
           // read at send time, not at preview time: the panel is still open
           // for business between ▶ Run and ✓ Go, and the LAST word wins
           fidelity: this.fidelityPayload(),
+          notes: this.notesPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
@@ -2753,9 +3768,13 @@ class Overlay {
       if (!this.mine(d)) return
       this.status(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
+      // the ink is spent, and so are the words about it
+      this.notes = []
+      if (this.noteDraft) this.closeNote(`✓ ${d.summary ?? 'done'}`)
       this.resetBridge()
       this.clearApplying()
       this.renderInk()
+      this.renderNotes()
       this.redraw()
       this.setMode('idle')
     })
