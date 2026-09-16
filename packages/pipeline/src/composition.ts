@@ -26,6 +26,7 @@
  * Pure math over geometry we already own: no pixels, no model, no tokens.
  */
 import { bboxOf, bboxUnion, type BBox, type Stroke } from '@s2c/ink'
+import { DEFAULT_FIDELITY, detailBand, rungFor, type FidelityControls } from './fidelity.js'
 
 /** Grid resolution per axis. 16 is coarse enough to ignore stroke jitter and
  *  fine enough to separate a claw from a body. */
@@ -522,7 +523,7 @@ export function compositionFromSource(code: string): CompositionSignature {
 
 // ---------- comparison ----------
 
-export type CompositionFlaw = 'traced' | 'over-regularized' | 'mirrored' | 'evened' | 'displaced'
+export type CompositionFlaw = 'traced' | 'over-regularized' | 'mirrored' | 'evened' | 'displaced' | 'smoothed'
 
 export interface CompositionVerdict {
   /** 0..1 — how much of the drawn composition survived. */
@@ -540,14 +541,6 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
 const r2 = (v: number) => v.toFixed(2)
 
 /**
- * Direction changes per unit length above which an output reads as traced ink
- * rather than a rebuilt form. Calibrated on this repo's own generated
- * components: rebuilt icons measure 0.00–1.11, paths fitted straight off the
- * strokes measure 3.80–17.27.
- */
-const TRACED_TURNS_PER_UNIT = 2.5
-
-/**
  * Compare drawn vs rendered. Both signatures are normalized into their own
  * bounding box, so snapping to the app's spacing scale — which the skill
  * REQUIRES — costs nothing here; only the internal arrangement is judged.
@@ -555,6 +548,9 @@ const TRACED_TURNS_PER_UNIT = 2.5
 export function scoreComposition(
   sketch: CompositionSignature,
   rendered: CompositionSignature,
+  /** What the user asked to be preserved. The default reproduces the
+   *  original fixed contract: rebuild cleanly, keep every aspect. */
+  controls: FidelityControls = DEFAULT_FIDELITY,
 ): CompositionVerdict {
   const flaws: CompositionFlaw[] = []
   const notes: string[] = []
@@ -572,22 +568,29 @@ export function scoreComposition(
     }
   }
 
-  // ① the wobble was traced instead of rebuilt.
-  // Absolute, not relative to the sketch: "rectify, don't reproduce" holds
-  // however shaky the ink was, so a wobbly sketch never licenses a wobbly
-  // output. The threshold sits in the empirical gap between rebuilt icons
-  // (≤1.2 turns/unit) and paths fitted straight off the strokes (≥3.8).
-  if (rendered.detailDensity > TRACED_TURNS_PER_UNIT) {
+  // ① line treatment, judged against the band the slider asked for. Below the
+  // trace rung "rectify, don't reproduce" holds however shaky the ink was, so
+  // a wobbly sketch never licenses a wobbly output; at the trace rung the
+  // wobble IS the subject and smoothing it away is the failure instead.
+  const band = detailBand(controls, sketch.detailDensity)
+  if (rendered.detailDensity > band.max) {
     flaws.push('traced')
     notes.push(
       `the output traces the ink (${r2(rendered.detailDensity)} direction changes per unit length; a rebuilt ` +
-      `form sits near ${r2(sketch.detailDensity)} or below) — redraw it with smooth continuous curves ` +
-      `instead of emitting the fitted stroke paths`,
+      `form sits near ${r2(Math.min(sketch.detailDensity, band.max))} or below) — redraw it with smooth ` +
+      `continuous curves instead of emitting the fitted stroke paths`,
+    )
+  } else if (rendered.detailDensity < band.min) {
+    flaws.push('smoothed')
+    notes.push(
+      `a traced likeness was asked for, but the output is smoothed into primitives ` +
+      `(${r2(rendered.detailDensity)} direction changes per unit length against the drawn ` +
+      `${r2(sketch.detailDensity)}) — reproduce the drawn path, keeping its irregularity`,
     )
   }
 
   // ② lateral character flattened into a mirror
-  if (sketch.lateralAsymmetry > 0.12 && rendered.lateralAsymmetry < sketch.lateralAsymmetry * 0.45) {
+  if (controls.keep.asymmetry && sketch.lateralAsymmetry > 0.12 && rendered.lateralAsymmetry < sketch.lateralAsymmetry * 0.45) {
     flaws.push('mirrored')
     notes.push(
       `the sketch is lopsided left-to-right (asymmetry ${r2(sketch.lateralAsymmetry)}) but the output is ` +
@@ -595,7 +598,7 @@ export function scoreComposition(
       `the way they were drawn`,
     )
   }
-  if (sketch.verticalAsymmetry > 0.12 && rendered.verticalAsymmetry < sketch.verticalAsymmetry * 0.45) {
+  if (controls.keep.asymmetry && sketch.verticalAsymmetry > 0.12 && rendered.verticalAsymmetry < sketch.verticalAsymmetry * 0.45) {
     flaws.push('over-regularized')
     notes.push(
       `the sketch's mass sits unevenly top-to-bottom (asymmetry ${r2(sketch.verticalAsymmetry)}); the output ` +
@@ -606,7 +609,7 @@ export function scoreComposition(
   // ③ hand-drawn irregular pitch snapped to a machine-even one
   const sp = sketch.repeatPitchVariation
   const rp = rendered.repeatPitchVariation
-  if (sp !== null && sp > 0.15 && rp !== null && rp < sp * 0.35) {
+  if (controls.keep.rhythm && sp !== null && sp > 0.15 && rp !== null && rp < sp * 0.35) {
     flaws.push('evened')
     notes.push(
       `the ${sketch.repeatCount} repeated parts were drawn on an uneven pitch (variation ${r2(sp)}) and were ` +
@@ -616,7 +619,7 @@ export function scoreComposition(
 
   // ④ overall proportions lost
   const ar = sketch.aspect > 0 && rendered.aspect > 0 ? rendered.aspect / sketch.aspect : 1
-  if (ar > 1.6 || ar < 0.625) {
+  if (controls.keep.proportions && (ar > 1.6 || ar < 0.625)) {
     flaws.push('displaced')
     notes.push(
       `proportions changed: the sketch is ${r2(sketch.aspect)}:1 (w:h), the output ${r2(rendered.aspect)}:1`,
@@ -624,15 +627,19 @@ export function scoreComposition(
   }
 
   // ⑤ the arrangement itself moved
-  if (massSimilarity < 0.45) {
+  if (controls.keep.placement && massSimilarity < 0.45) {
     if (!flaws.includes('displaced')) flaws.push('displaced')
     notes.push(
       `only ${pct(massSimilarity)} of the drawn layout is reproduced — the parts are not where they were drawn`,
     )
   }
 
-  // mass overlap dominates; each distinct flaw costs a fixed slice
-  const score = Math.max(0, Math.min(1, massSimilarity * 0.7 + 0.3 - flaws.length * 0.1))
+  // Mass overlap dominates; each distinct flaw costs a fixed slice. With
+  // placement unlocked the layout term is dropped from the score rather than
+  // merely un-flagged — otherwise "parts may be rearranged" would still sink
+  // the score for rearranging them.
+  const base = controls.keep.placement ? massSimilarity * 0.7 + 0.3 : 1
+  const score = Math.max(0, Math.min(1, base - flaws.length * 0.1))
   return { score, massSimilarity, flaws, notes, sketch, rendered }
 }
 

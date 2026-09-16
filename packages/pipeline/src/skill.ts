@@ -100,6 +100,15 @@ Rendering options, best-first:
    user's composition entirely
 Size/position from the region; state which rung you used.
 
+When a FIDELITY block accompanies the run it is the USER'S OWN setting and it
+OVERRIDES the defaults in this section — including the "never trace" rule
+above. At TRACE the drawn line is the deliverable: emit the supplied svgPath
+geometry with its irregularity intact, and smoothing it into primitives is a
+verification failure. At REINTERPRET the outline is only a hint, so prefer a
+proper icon and do not labour over the drawn arrangement. The block also says
+which aspects are scored; the ones it lists as free to normalize will not be
+checked, so spend your effort on the ones that are.
+
 When a MEASURED COMPOSITION block accompanies the action, those numbers are
 the spec — they were computed from the strokes, and your result is scored
 against them afterwards by the same measurement:

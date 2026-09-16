@@ -21,6 +21,10 @@ import {
 import { SKETCH_SKILL } from './skill.js'
 import { changedFiles, checkpoint } from './safety.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
+import {
+  DEFAULT_FIDELITY, fidelityDirective, fidelitySummary, normalizeFidelity, passMark, rungFor,
+  type FidelityControls,
+} from './fidelity.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import type { RunContext, RunResult } from './run.js'
 
@@ -102,7 +106,14 @@ After editing, reply one line per action: "action N: <what you did>".
 `.trim()
 
 export async function runV2(
-  input: { strokes: Stroke[]; snapshot: DomSnapshot; rawInterpretation: RawInterpretation; mode?: 'gesture' | 'design' },
+  input: {
+    strokes: Stroke[]
+    snapshot: DomSnapshot
+    rawInterpretation: RawInterpretation
+    mode?: 'gesture' | 'design'
+    /** User's resemblance slider + per-aspect locks (validated here). */
+    fidelity?: unknown
+  },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
 ): Promise<RunResult> {
@@ -124,7 +135,18 @@ export async function runV2(
   writeFileSync(join(runDir, 'evidence.png'), ev.png)
   writeFileSync(join(runDir, 'evidence.json'), ev.brief)
   const interp = groundInterpretation(input.rawInterpretation, ev, input.snapshot, input.mode ?? 'gesture')
+  // The slider decides how literally a depiction is taken, so it overrides the
+  // interpreter's own verbatim/recognized guess — that guess was the tool's
+  // opinion of the user's intent, and the user has now stated it.
+  const fidelity = normalizeFidelity(input.fidelity)
+  const rung = rungFor(fidelity.resemblance)
+  for (const a of interp.actions) {
+    if (!a.svgPaths?.length) continue
+    if (rung === 'trace') a.fidelity = 'verbatim'
+    else if (rung === 'reinterpret') a.fidelity = 'recognized'
+  }
   save('interpretation.json', interp)
+  save('fidelity.json', fidelity)
   if (interp.actions.length === 0) {
     throw new Error(
       `no valid actions${interp.rejected.length ? ` (rejected: ${interp.rejected.join('; ')})` : ''}`,
@@ -169,7 +191,9 @@ export async function runV2(
       if (!/\.(tsx|jsx)$/.test(rel)) continue
       try { sources.push(readFileSync(join(ctx.root, rel), 'utf8')) } catch { /* deleted */ }
     }
-    const result = verifyActions(interp.actions, input.snapshot, after, { strokes: input.strokes, sources })
+    const result = verifyActions(
+      interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity },
+    )
     lastVerify = result.detail
     save(`verify-${round}.json`, result.detail)
     return result
@@ -181,7 +205,7 @@ export async function runV2(
       // are the same numbers verification will score it against afterwards.
       const composition = pending
         .map(({ a, i }) => {
-          if (!isDepiction(a)) return null
+          if (!isDepiction(a, fidelity)) return null
           const ids = new Set(a.svgPaths!.map((sp) => sp.strokeId))
           const drawn = input.strokes.filter((s) => ids.has(s.id))
           if (drawn.length === 0) return null
@@ -193,6 +217,7 @@ export async function runV2(
       const brief =
         `READING (user-confirmed): ${interp.reading}\n\n` +
         codemodNote +
+        `FIDELITY (set by the user for this run):\n${fidelityDirective(fidelity)}\n\n` +
         `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
         (composition.length
           ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -265,10 +290,12 @@ export async function runV2(
     engine: 'model', checkpoint: cp.sha, changedFiles: files,
     reading: interp.reading, verification: lastVerify, tokens: totalUsage,
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
+    fidelity,
   })
   const summary =
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
     (plan.handled.length ? `codemod ${plan.handled.length}/${interp.actions.length} actions · ` : '') +
+    (interp.actions.some((a) => a.svgPaths?.length) ? `${fidelitySummary(fidelity)} · ` : '') +
     `${fmtTokens(totalUsage)} tokens · revert: git restore --source=${cp.sha.slice(0, 10)} -- <paths>`
   stage('done', summary)
   return { summary }
@@ -277,9 +304,15 @@ export async function runV2(
 /**
  * Depiction actions whose composition is worth measuring: the user drew a
  * THING and asked for it rebuilt, so the drawn arrangement is the spec.
+ *
+ * At the trace rung this widens to every drawn form, abstract decoration
+ * included — "reproduce the line I drew" is the one instruction whose failure
+ * (a smoothed-away wobble) only the composition check can catch. Below that
+ * rung an abstract 'verbatim' decoration stays unmeasured: its fitted path IS
+ * the output, so there is nothing to compare it against.
  */
-const isDepiction = (a: GroundedAction): boolean =>
-  a.fidelity === 'recognized' && !!a.svgPaths?.length
+const isDepiction = (a: GroundedAction, controls: FidelityControls = DEFAULT_FIDELITY): boolean =>
+  !!a.svgPaths?.length && (a.fidelity === 'recognized' || rungFor(controls.resemblance) === 'trace')
 
 /** Map grounded actions onto the existing deterministic verifiers. */
 export function verifyActions(
@@ -287,7 +320,7 @@ export function verifyActions(
   before: DomSnapshot,
   after: DomSnapshot,
   /** Ink + post-edit source, enabling the composition-fidelity check. */
-  depiction?: { strokes: Stroke[]; sources: string[] },
+  depiction?: { strokes: Stroke[]; sources: string[]; fidelity?: FidelityControls },
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -370,7 +403,7 @@ export function verifyActions(
     // only half the contract — the drawn arrangement is the spec too, and
     // nothing measured it before: a lopsided crab could come back as a
     // mirrored ellipse and still pass.
-    if (depiction && isDepiction(a)) {
+    if (depiction && isDepiction(a, depiction.fidelity)) {
       const ids = new Set(a.svgPaths!.map((sp) => sp.strokeId))
       const drawn = depiction.strokes.filter((s) => ids.has(s.id))
       if (drawn.length > 0 && depiction.sources.length > 0) {
@@ -378,12 +411,15 @@ export function verifyActions(
         const sketch = compositionFromStrokes(drawn)
         // a run can touch several files; the depiction lives in whichever
         // one scores best against the ink
-        let best = scoreComposition(sketch, compositionFromSource(depiction.sources[0]!))
+        const controls = depiction.fidelity ?? DEFAULT_FIDELITY
+        let best = scoreComposition(sketch, compositionFromSource(depiction.sources[0]!), controls)
         for (const src of depiction.sources.slice(1)) {
-          const v = scoreComposition(sketch, compositionFromSource(src))
+          const v = scoreComposition(sketch, compositionFromSource(src), controls)
           if (v.score > best.score) best = v
         }
-        const ok = best.score >= 0.6
+        // the bar the user asked for: a free reinterpretation reports the
+        // measurement without failing on it
+        const ok = best.score >= passMark(controls)
         details.push({
           kind: 'composition', index: i, score: best.score,
           massSimilarity: best.massSimilarity, flaws: best.flaws, notes: best.notes,

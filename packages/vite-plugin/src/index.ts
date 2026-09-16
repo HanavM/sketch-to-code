@@ -36,6 +36,8 @@ export interface RunRequest {
   overrides?: Record<string, string>
   /** Confirmed raw interpretation (model engine) — re-grounded server-side. */
   rawInterpretation?: unknown
+  /** Resemblance slider + per-aspect locks; validated in the pipeline. */
+  fidelity?: unknown
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -312,6 +314,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     snapshot: body.snapshot,
                     rawInterpretation: body.rawInterpretation as Parameters<typeof m.runV2>[0]['rawInterpretation'],
                     mode: body.mode === 'design' ? 'design' : 'gesture',
+                    // passed through unvalidated on purpose — the pipeline
+                    // normalizes it, so the client can't widen its own licence
+                    fidelity: body.fidelity,
                   },
                   ctx,
                 )

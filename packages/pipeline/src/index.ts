@@ -17,6 +17,10 @@ export {
   compositionFromStrokes, compositionFromSource, scoreComposition, compositionBrief, samplePath,
 } from './composition.js'
 export type { CompositionSignature, CompositionVerdict, CompositionFlaw } from './composition.js'
+export {
+  DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
+} from './fidelity.js'
+export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'
 export type { ManipulateRequest, ManipulateResult, ManipulateProp } from './manipulate.js'
 export { planStructuralEdits, commitPlan } from './codemod.js'
