@@ -195,6 +195,17 @@ const STYLES = css`
     position: fixed; inset: 0; z-index: 2147483000;
     pointer-events: none; touch-action: none;
   }
+  /* Ink lives in PAGE space, not viewport space: an absolutely positioned
+     layer at the document origin, so the compositor moves it with the content.
+     No scroll handler, no per-frame repaint, nothing to lag — and pinch/browser
+     zoom scale it exactly like the elements it was drawn over. */
+  #ink {
+    position: absolute; left: 0; top: 0; width: 0; height: 0;
+    overflow: visible; pointer-events: none; z-index: 2147482999;
+  }
+  #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* confirmed and being applied — dimmed until the edit lands, then removed */
+  #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
   :host([data-mode='preview']) #canvas { pointer-events: auto; cursor: pointer; }
   :host([data-mode='tweak']) #canvas { pointer-events: auto; cursor: default; }
@@ -225,6 +236,8 @@ class Overlay {
   private shadow: ShadowRoot
   private canvas: HTMLCanvasElement
   private ctx: CanvasRenderingContext2D
+  private ink: SVGSVGElement
+  private livePath: SVGPathElement | null = null
   private statusEl: HTMLElement
   private drawBtn: HTMLButtonElement
   private runBtn: HTMLButtonElement
@@ -259,6 +272,10 @@ class Overlay {
     const style = document.createElement('style')
     style.textContent = STYLES
     this.shadow.appendChild(style)
+
+    this.ink = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    this.ink.id = 'ink'
+    this.shadow.appendChild(this.ink)
 
     this.canvas = document.createElement('canvas')
     this.canvas.id = 'canvas'
@@ -319,8 +336,8 @@ class Overlay {
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
     this.cancelBtn.addEventListener('click', () => this.exitPreview('cancelled'))
-    this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.redraw(); this.sync() })
-    this.clearBtn.addEventListener('click', () => { this.strokes = []; this.redraw(); this.sync() })
+    this.undoBtn.addEventListener('click', () => { this.strokes.pop(); this.renderInk(); this.sync() })
+    this.clearBtn.addEventListener('click', () => { this.strokes = []; this.renderInk(); this.sync() })
 
     window.addEventListener('keydown', (e) => {
       // don't hijack typing in the host app's inputs
@@ -331,7 +348,7 @@ class Overlay {
         e.preventDefault()
         if (this.mode === 'draw' && this.strokes.length > 0) {
           this.strokes.pop()
-          this.redraw()
+          this.renderInk()
           this.sync()
           this.status('stroke undone')
         } else if (this.mode !== 'running') {
@@ -387,6 +404,7 @@ class Overlay {
         else if (this.mode === 'running') {
           // escape hatch: the server may have restarted mid-run
           this.status('cancelled locally (server run may still finish)', true)
+          this.clearApplying()
           this.setMode('idle')
         }
       }
@@ -452,6 +470,30 @@ class Overlay {
 
   // ---- drawing ----
 
+  /** Page-space path data; one decimal is well under a device pixel. */
+  private pathD(points: Pt[]): string {
+    let d = ''
+    for (const [i, p] of points.entries()) {
+      d += `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`
+    }
+    return d
+  }
+
+  private inkPath(): SVGPathElement {
+    return document.createElementNS('http://www.w3.org/2000/svg', 'path')
+  }
+
+  /** Re-render committed strokes. Called only when the stroke SET changes —
+   *  never on scroll, zoom or resize: the layer moves with the page itself. */
+  private renderInk() {
+    this.ink.replaceChildren(...this.strokes.map((st) => {
+      const path = this.inkPath()
+      path.setAttribute('d', this.pathD(st.points))
+      return path
+    }))
+    if (this.live && this.livePath) this.ink.appendChild(this.livePath)
+  }
+
   private toPage(e: PointerEvent): Pt {
     return { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY, t: performance.now() }
   }
@@ -469,6 +511,9 @@ class Overlay {
     if (e.button !== 0) return // left button/pen tip only
     this.canvas.setPointerCapture(e.pointerId)
     this.live = { id: `s${this.strokeSeq++}`, points: [this.toPage(e)] }
+    this.livePath = this.inkPath()
+    this.livePath.setAttribute('d', this.pathD(this.live.points))
+    this.ink.appendChild(this.livePath)
   }
 
   private onMove(e: PointerEvent) {
@@ -480,7 +525,7 @@ class Overlay {
     // coalesced events give the full-resolution trace on fast moves
     const evs = 'getCoalescedEvents' in e ? e.getCoalescedEvents() : [e]
     for (const ev of evs) this.live.points.push(this.toPage(ev as PointerEvent))
-    this.redraw()
+    this.livePath?.setAttribute('d', this.pathD(this.live.points))
   }
 
   private onUp(e: PointerEvent) {
@@ -492,7 +537,8 @@ class Overlay {
     this.live.points.push(this.toPage(e))
     if (this.live.points.length > 2) this.strokes.push(this.live)
     this.live = null
-    this.redraw()
+    this.livePath = null
+    this.renderInk()
     this.sync()
   }
 
@@ -1897,16 +1943,7 @@ class Overlay {
     ctx.lineWidth = 2.5
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
-    const sx = window.scrollX
-    const sy = window.scrollY
-    for (const s of [...this.strokes, ...(this.live ? [this.live] : [])]) {
-      ctx.beginPath()
-      s.points.forEach((p, i) => {
-        if (i === 0) ctx.moveTo(p.x - sx, p.y - sy)
-        else ctx.lineTo(p.x - sx, p.y - sy)
-      })
-      ctx.stroke()
-    }
+    // strokes are NOT painted here — they live in the page-space #ink layer
     if (this.mode === 'preview') this.drawPreview()
     if (this.mode === 'tweak') this.drawTweak()
   }
@@ -1924,6 +1961,7 @@ class Overlay {
     this.watchdog = setTimeout(() => {
       if (this.mode === 'running') {
         this.status('no progress from server — resetting (run may have died)', true)
+        this.clearApplying()
         this.setMode('idle')
       }
     }, RUNNING_WATCHDOG_MS)
@@ -2039,9 +2077,17 @@ class Overlay {
     this.redraw()
   }
 
+  /** Ink returns to full strength (a run ended without landing an edit). */
+  private clearApplying() {
+    this.ink.classList.remove('applying')
+  }
+
   private async proceed() {
     this.setMode('running')
     this.status('running…')
+    // the drawing is now a request in flight: dim it, and drop it entirely
+    // once 'done' says the edit landed
+    this.ink.classList.add('applying')
     this.armWatchdog()
     try {
       let screenshot: string | undefined
@@ -2071,6 +2117,7 @@ class Overlay {
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {
       this.status(`failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      this.clearApplying()
       this.setMode('idle')
     }
   }
@@ -2104,6 +2151,8 @@ class Overlay {
       if (!this.mine(d)) return
       this.status(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
+      this.clearApplying()
+      this.renderInk()
       this.redraw()
       this.setMode('idle')
     })
@@ -2111,6 +2160,8 @@ class Overlay {
       const d = JSON.parse((e as MessageEvent).data) as { message: string; clientId?: string }
       if (!this.mine(d)) return
       this.status(`✗ ${d.message}`, true)
+      this.clearApplying()
+      this.redraw()
       this.setMode('idle')
     })
   }
