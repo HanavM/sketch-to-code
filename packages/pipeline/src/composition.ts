@@ -469,6 +469,14 @@ export function compositionFromSource(code: string): CompositionSignature {
     const items = [...(m[2] ?? '').matchAll(/['"`]([^'"`]*)['"`]/g)].map((x) => x[1]!)
     if (items.length) arrays.set(m[1]!, items)
   }
+  // …and single-string constants: `const head = 'M34,1 C…'` with `d={head}`.
+  // Hoisting the long path out of the JSX is the idiom a model reaches for on
+  // anything detailed, and missing it read as "no drawn geometry at all",
+  // which scored a perfectly good drawing 0 and masked every later check.
+  const strRe = /const\s+([A-Za-z_$][\w$]*)\s*=\s*['"`]\s*([Mm][^'"`]*)['"`]/g
+  for (let m = strRe.exec(code); m; m = strRe.exec(code)) {
+    if (!arrays.has(m[1]!)) arrays.set(m[1]!, [m[2]!])
+  }
 
   const parts: Part[] = []
   const push = (raw: Pt[], x: Xform) => {

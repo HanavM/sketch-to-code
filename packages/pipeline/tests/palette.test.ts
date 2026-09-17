@@ -90,3 +90,25 @@ describe('matchColor', () => {
     expect(hexOf({ r: 220, g: 38, b: 38 })).toBe('#dc2626')
   })
 })
+
+describe('hoisted path constants', () => {
+  it('are still geometry — a long path lifted out of the JSX is the common idiom', async () => {
+    const { compositionFromSource } = await import('../src/composition.js')
+    const src = `
+      const head = 'M34,1 C55,2 70,10 74,26 C76,32 68,38 68,44 C73,45 79,47 79,50 C79,54 67,55 66,58 Z'
+      const marks = ['M46,34 L56,33', 'M48,42 L55,44 L49,46']
+      export default function FaceDoodle() {
+        return (
+          <svg viewBox="-2 -2 84 108" fill="none">
+            <path d={head} />
+            {marks.map((d) => <path key={d} d={d} />)}
+          </svg>
+        )
+      }
+    `
+    const sig = compositionFromSource(src)
+    // without the single-string const, this scored 0 with "no drawn geometry"
+    expect(sig.partCount).toBeGreaterThanOrEqual(3)
+    expect(sig.fillRatio).toBe(0)
+  })
+})

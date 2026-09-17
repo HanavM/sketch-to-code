@@ -263,6 +263,9 @@ const want = {
   resemblance: 0.7,
   keep: { asymmetry: true, rhythm: false, proportions: true, placement: false },
   palette: 'sketch',
+  // the second axis (how filled-in the result is) rides in the same object and
+  // is covered on its own in live-fill.mjs; left at its default here
+  fill: 'filled',
 }
 s = await state()
 if (!eq(JSON.parse(s.stored), want)) throw new Error(`stored ${s.stored}, want ${JSON.stringify(want)}`)

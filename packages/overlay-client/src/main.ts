@@ -226,12 +226,26 @@ interface FidelityKeep {
   proportions: boolean
   placement: boolean
 }
+/**
+ * The SECOND fidelity axis: how finished the result is.
+ *
+ * Resemblance says how closely the drawn GEOMETRY is followed. It says nothing
+ * about whether what comes back is line art or a finished thing — and those are
+ * genuinely independent. Someone who sketches a side profile of a face at 100%
+ * resemblance still does not want their own outline re-emitted as strokes; they
+ * want an actual filled face. That is the difference between "turn this drawing
+ * into code" and "make me something like this", and it needs its own control.
+ */
+type FillMode = 'outline' | 'filled' | 'realized'
+
 interface Fidelity {
   /** 0..1 — the resemblance dial the four zones below name. */
   resemblance: number
   keep: FidelityKeep
   /** 'app' snaps to the design system · 'sketch' keeps the hand-drawn look. */
   palette: 'app' | 'sketch'
+  /** How filled-in the result is — line art, solid shapes, or a real picture. */
+  fill: FillMode
 }
 
 /** Iteration order for validation and for the always-visible summary. */
@@ -256,6 +270,39 @@ const FIDELITY_ZONES: Array<{ min: number; icon: string; name: string; hint: str
   { min: 0.85, icon: '✍️', name: 'trace', hint: 'reproduce the drawn line, wobble and all' },
 ]
 
+/** Iteration order for validation, for the segment, and for Alt+5/6/7. */
+const FILL_KEYS = ['outline', 'filled', 'realized'] as const
+/**
+ * Button label + the one-line hint under the segment + the tooltip WHY.
+ *
+ * The hint is the only place the three words are actually defined, so it has
+ * to say what comes back, not what the mode is called. `glyph` is the bar's
+ * always-visible token — a text symbol rather than an emoji so it occupies a
+ * predictable width in the pill (see #fillNow). `short` is the one-clause
+ * version the help overlay and the status line use, where a full sentence
+ * would wrap the row.
+ */
+const FILL_LABELS: Record<FillMode, { label: string; glyph: string; short: string; hint: string; tip: string }> = {
+  outline: {
+    label: 'outline', glyph: '◻',
+    short: 'line art, no fills',
+    hint: 'Line art: strokes, no fills — what the drawing literally is.',
+    tip: 'reproduce it as line art — strokes only, nothing filled in',
+  },
+  filled: {
+    label: 'filled', glyph: '◼',
+    short: 'solid shapes, not outlines',
+    hint: "Solid shapes, not outlines — closed forms get fills from the app's palette.",
+    tip: "solid shapes rather than outlines: closed forms get fills from the app's palette",
+  },
+  realized: {
+    label: 'realized', glyph: '✦',
+    short: 'a finished picture of what you drew',
+    hint: 'A finished illustration of what you drew — filled, shaded, detailed.',
+    tip: 'the drawing is the brief, the result is the artwork: a sketched face comes back as an actual face, not a line drawing of one',
+  },
+}
+
 /** A fresh install sends exactly this. Deep-cloned per read — the panel
  *  mutates its copy, and a shared literal would drift the "default". */
 function defaultFidelity(): Fidelity {
@@ -263,6 +310,10 @@ function defaultFidelity(): Fidelity {
     resemblance: 0.5,
     keep: { asymmetry: true, rhythm: true, proportions: true, placement: true },
     palette: 'app',
+    // 'filled', not 'outline': re-emitting someone's drawing as strokes is
+    // almost never what they asked for, and the outline is always one click
+    // away for the case where it is.
+    fill: 'filled',
   }
 }
 
@@ -531,6 +582,16 @@ const STYLES = css`
     font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
   }
   #fidelityBtn.on #fidelityNow { color: #eff6ff; }
+  /* The fill choice, visible without opening anything. Fixed width for exactly
+     the reason #fidelityNow is: its glyph changes with the selection, and a
+     shrink-to-fit slot in a width:max-content bar centred by translateX(-50%)
+     would slide the WHOLE toolbar sideways every time the user switched mode.
+     A text symbol (not an emoji) so the 14px actually holds it on every font. */
+  #fillNow {
+    flex: none; width: 14px; text-align: center;
+    font-size: 12px; line-height: 1; color: #d1d5db;
+  }
+  #fidelityBtn.on #fillNow { color: #eff6ff; }
   /* Absolutely positioned INSIDE #hud (which is position:fixed, so it's the
      containing block): the panel then drags, hides and stacks with the bar
      for free, and being out of flow it can't widen the pill. Only the left
@@ -575,6 +636,15 @@ const STYLES = css`
   }
   #fidelityPanel .fSegBtn:hover { color: #f9fafb; background: #374151; }
   #fidelityPanel .fSegBtn.on { background: #2563eb; color: #f9fafb; }
+  /* The fill hint rewrites itself on every selection, so its height is FIXED
+     rather than min-height: the panel is anchored to the bar's top edge and
+     grows UPWARD, so a hint reflowing from two lines to one would jump the
+     whole panel — and the segment buttons the user is clicking — several px
+     up under the cursor. 2.9em = two lines at this font-size/line-height, and
+     the longest of the three strings fits in two at the panel's 300px. */
+  #fidelityPanel .fFillHint {
+    color: #9ca3af; height: 2.9em; margin: 5px 0 0; overflow: hidden;
+  }
   /* ---- typed notes ----------------------------------------------------
      Exactly the trick #ink uses: ONE absolutely positioned layer pinned at
      the document origin, so chips and the editor are laid out in PAGE
@@ -785,7 +855,7 @@ class Overlay {
       </span>
       <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
       <button id="penBtn" aria-haspopup="dialog" aria-expanded="false" title="pen colour (Alt+P) — what you draw in is what it becomes"><span id="penDot"></span></button>
-      <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span></button>
+      <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span><span id="fillNow"></span></button>
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
@@ -824,6 +894,13 @@ class Overlay {
                   title="snap colour, stroke weight and spacing to the app's design system">app design system</button>
           <button id="palette-sketch" class="fSegBtn"
                   title="keep the drawing's own hand-drawn look — its colours, wobble and weight">hand-drawn</button>
+        </div>
+        <div class="fSect">result</div>
+        <div id="fillSeg" class="fSeg"></div>
+        <div id="fillHint" class="fFillHint"></div>
+        <div class="fNote">
+          The dial above says how closely your geometry is followed. This says what comes
+          back: line art, or a finished thing.
         </div>
       </div>
     `
@@ -1102,6 +1179,18 @@ class Overlay {
       match: altBind(`Digit${digit}`, digit),
       run: () => this.toggleKeep(k),
     })
+    // Digits again, continuing where the keeps stop: the three fill names
+    // (outline / filled / realized) collide on letters with existing binds
+    // (Alt+F is the panel itself), and 5/6/7 keep the whole fidelity block
+    // on one contiguous run of keys the user can learn as a row.
+    const fill = (k: FillMode, digit: '5' | '6' | '7'): KeyBind => ({
+      id: `fill-${k}`,
+      keys: `Alt+${digit}`,
+      label: `result: ${FILL_LABELS[k].label} — ${FILL_LABELS[k].short}`,
+      group: 'fidelity',
+      match: altBind(`Digit${digit}`, digit),
+      run: () => this.setFill(k),
+    })
     return [
       {
         id: 'draw', keys: 'Alt+D', label: 'draw / stop drawing', group: 'drawing',
@@ -1172,6 +1261,9 @@ class Overlay {
       keep('rhythm', '2'),
       keep('proportions', '3'),
       keep('placement', '4'),
+      fill('outline', '5'),
+      fill('filled', '6'),
+      fill('realized', '7'),
       {
         id: 'pen', keys: 'Alt+P', label: 'pen colour — draw in a colour to ask for it', group: 'colour',
         match: altBind('KeyP', 'p'), run: () => this.setPenOpen(!this.penOpen),
@@ -1514,6 +1606,20 @@ class Overlay {
         this.saveFidelity()
       })
     }
+
+    // The fill segment is generated for the same reason the checkboxes are:
+    // label, tooltip and hint all come from FILL_LABELS, so the markup can
+    // never disagree with what Alt+5/6/7 and the wire payload mean.
+    const seg = this.shadow.getElementById('fillSeg')!
+    for (const k of FILL_KEYS) {
+      const b = document.createElement('button')
+      b.id = `fill-${k}`
+      b.className = 'fSegBtn'
+      b.title = FILL_LABELS[k].tip
+      b.textContent = FILL_LABELS[k].label
+      b.addEventListener('click', () => this.setFill(k))
+      seg.appendChild(b)
+    }
   }
 
   /** The zone the dial currently sits in — highest threshold it clears. */
@@ -1538,14 +1644,24 @@ class Overlay {
     for (const p of ['app', 'sketch'] as const) {
       this.shadow.getElementById(`palette-${p}`)!.classList.toggle('on', f.palette === p)
     }
+    const fill = FILL_LABELS[f.fill]
+    for (const k of FILL_KEYS) {
+      this.shadow.getElementById(`fill-${k}`)!.classList.toggle('on', f.fill === k)
+    }
+    this.shadow.getElementById('fillHint')!.textContent = fill.hint
     // Requirement: the user must be able to tell what will happen WITHOUT
     // opening the panel — the bar carries the zone + %, and the full state
     // (including which aspects are still being kept) hangs off the tooltip.
     this.shadow.getElementById('fidelityNow')!.textContent = `${z.name} ${String(pct)}%`
+    // The fill axis rides along as one glyph in its own fixed-width slot: the
+    // second axis is invisible otherwise, and there is no room in the readout
+    // beside it for a fourth word.
+    this.shadow.getElementById('fillNow')!.textContent = fill.glyph
     const kept = KEEP_KEYS.filter((k) => f.keep[k]).map((k) => KEEP_LABELS[k].label.replace('keep ', ''))
     const summary = `fidelity: ${z.name} ${String(pct)}% — ${z.hint}` +
       ` · keeping: ${kept.length ? kept.join(', ') : 'nothing (everything may be normalized)'}` +
-      ` · ${f.palette === 'app' ? "app's design system" : 'hand-drawn look'}`
+      ` · ${f.palette === 'app' ? "app's design system" : 'hand-drawn look'}` +
+      ` · result: ${fill.label} — ${fill.short}`
     this.fidelityBtn.title = summary
     this.fidelityBtn.setAttribute('aria-label', summary)
   }
@@ -1580,6 +1696,23 @@ class Overlay {
     this.syncFidelityUi()
     this.saveFidelity()
     this.status(`${KEEP_LABELS[k].label}: ${this.fidelity.keep[k] ? 'on' : 'off'} — ${KEEP_LABELS[k].tip}`)
+  }
+
+  /**
+   * The fill axis, from the segment buttons or from Alt+5/6/7. Idempotent on
+   * purpose — the keybinding sets a value rather than cycling, so pressing
+   * Alt+6 twice leaves you where pressing it once did.
+   */
+  private setFill(k: FillMode) {
+    this.fidelity.fill = k
+    this.syncFidelityUi()
+    this.saveFidelity()
+    // Status ONLY when the panel is shut. #status is the bar's ellipsis
+    // surface and the bar is width:max-content, so writing to it resizes the
+    // pill — which, with the popover open, would shuffle the very buttons the
+    // user is clicking. While it IS open the hint under the segment has
+    // already said this, in more words and without moving anything.
+    if (!this.fidelityOpen) this.status(`result: ${FILL_LABELS[k].label} — ${FILL_LABELS[k].tip}`)
   }
 
   /**
@@ -1783,6 +1916,11 @@ class Overlay {
         }
         const pal = o.palette
         if (pal === 'app' || pal === 'sketch') f.palette = pal
+        // anything unknown (including a profile saved before this axis
+        // existed, which has no `fill` at all) keeps defaultFidelity()'s
+        // 'filled' rather than dropping the rest of the object
+        const fill = o.fill
+        if (FILL_KEYS.includes(fill as FillMode)) f.fill = fill as FillMode
       }
     } catch { /* unreadable storage just means the default settings */ }
     this.fidelity = f
@@ -1810,6 +1948,7 @@ class Overlay {
         proportions: f.keep.proportions, placement: f.keep.placement,
       },
       palette: f.palette === 'sketch' ? 'sketch' : 'app',
+      fill: FILL_KEYS.includes(f.fill) ? f.fill : 'filled',
     }
   }
 
