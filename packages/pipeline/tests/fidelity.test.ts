@@ -134,3 +134,71 @@ describe('fidelityDirective', () => {
     for (const r of [0, 0.4, 0.7, 1]) expect(fidelityDirective(controls({ resemblance: r }))).not.toMatch(/\{\w+\}/)
   })
 })
+
+describe('fill — "make me the thing", not a drawing of it', () => {
+  const LINE_ART = `
+    export default () => (
+      <svg viewBox="0 0 100 100" fill="none">
+        <path d="M20,80 C20,40 40,20 60,20 C80,20 85,50 70,80 Z" stroke="currentColor" />
+        <path d="M35,50 C40,45 45,45 50,50" stroke="currentColor" />
+      </svg>
+    )
+  `
+  const REALIZED = `
+    export default () => (
+      <svg viewBox="0 0 100 100">
+        <path d="M20,80 C20,40 40,20 60,20 C80,20 85,50 70,80 Z" fill="#f3d3b5" />
+        <ellipse cx="46" cy="46" rx="4" ry="5" fill="#2b2b2b" />
+        <path d="M36,38 C40,34 48,34 52,37" fill="#5b4636" />
+        <path d="M44,58 C48,62 54,62 58,58" fill="#c98b7a" />
+        <path d="M62,30 C74,36 78,52 70,66" fill="#e9c3a3" />
+      </svg>
+    )
+  `
+
+  it('measures whether the output is actually filled', () => {
+    expect(compositionFromSource(LINE_ART).fillRatio).toBe(0)
+    expect(compositionFromSource(REALIZED).fillRatio).toBe(1)
+  })
+
+  it('fails line art when solid shapes were asked for', () => {
+    const sketch = compositionFromStrokes(lopsided())
+    const v = scoreComposition(sketch, compositionFromSource(LINE_ART), controls({ fill: 'filled' }))
+    expect(v.flaws).toContain('unfilled')
+    expect(v.notes.join(' ')).toMatch(/solid shapes were asked for/)
+  })
+
+  it('accepts line art when line art was asked for', () => {
+    const sketch = compositionFromStrokes(lopsided())
+    const v = scoreComposition(sketch, compositionFromSource(LINE_ART), controls({ fill: 'outline' }))
+    expect(v.flaws).not.toContain('unfilled')
+  })
+
+  it('wants elaboration, not just fills, at the realized end', () => {
+    const sketch = compositionFromStrokes(lopsided())
+    const sparse = compositionFromSource(`
+      export default () => <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#f3d3b5" /></svg>
+    `)
+    const v = scoreComposition(sketch, sparse, controls({ fill: 'realized' }))
+    expect(v.flaws).toContain('unfilled')
+    expect(v.notes.join(' ')).toMatch(/ELABORATE/)
+
+    const rich = scoreComposition(sketch, compositionFromSource(REALIZED), controls({ fill: 'realized' }))
+    expect(rich.flaws).not.toContain('unfilled')
+  })
+
+  it('gives a finished illustration room for the detail it was told to add', () => {
+    const f = controls({ fill: 'realized' })
+    expect(detailBand(f, 8).max).toBeGreaterThan(detailBand(controls({ fill: 'outline' }), 8).max)
+    // …but solid shapes add fills, not wobble: tracing is still tracing
+    expect(detailBand(controls({ fill: 'filled' }), 8).max).toBe(detailBand(controls({ fill: 'outline' }), 8).max)
+    expect(passMark(f)).toBeLessThan(passMark(controls({ fill: 'filled' })))
+  })
+
+  it('states the result level in the directive, and defaults to solid', () => {
+    expect(DEFAULT_FIDELITY.fill).toBe('filled')
+    expect(fidelityDirective(controls({ fill: 'realized' }))).toMatch(/FINISHED ILLUSTRATION/)
+    expect(fidelityDirective(controls({ fill: 'outline' }))).toMatch(/LINE ART/)
+    expect(normalizeFidelity({ fill: 'nonsense' }).fill).toBe('filled')
+  })
+})

@@ -51,12 +51,49 @@ export interface CompositionSignature {
   detailDensity: number
   /** Number of distinct parts (stroke clusters / drawn primitives). */
   partCount: number
+  /**
+   * Fraction of the rendered shapes that carry a real fill, or null when the
+   * signature came from ink (strokes have no fill to measure). This is what
+   * separates "a drawing of a face" from "a face": asking for a filled result
+   * and getting line art is a measurable failure, not a matter of taste.
+   */
+  fillRatio: number | null
 }
 
 interface Pt { x: number; y: number }
 interface Part { points: Pt[]; box: BBox }
 
 // ---------- signature construction ----------
+
+/**
+ * How much of an SVG is actually FILLED.
+ *
+ * SVG's default fill is black, but hand-written icon components almost always
+ * declare fill="none" on the root and paint with strokes — so a shape counts
+ * as filled when it says so itself, or when nothing above it has opted out.
+ * Utility classes (fill-current, fill-none) are read too, since that is how
+ * this project's own components colour things.
+ */
+export function fillCoverage(code: string): { shapes: number; filled: number; ratio: number | null } {
+  const rootNone = /<svg\b[^>]*\bfill\s*=\s*["'{]?\s*none/i.test(code) ||
+    /<svg\b[^>]*class(?:Name)?\s*=\s*["'][^"']*\bfill-none\b/i.test(code)
+  let shapes = 0
+  let filled = 0
+  const tagRe = /<\s*(path|ellipse|circle|rect|polygon)\b([^>]*)>/gi
+  for (let m = tagRe.exec(code); m; m = tagRe.exec(code)) {
+    const body = m[2] ?? ''
+    shapes++
+    const attr = /\bfill\s*=\s*["'{]?\s*([^"'}\s>]+)/i.exec(body)?.[1]?.toLowerCase()
+    const cls = /class(?:Name)?\s*=\s*["']([^"']*)["']/i.exec(body)?.[1] ?? ''
+    const clsFilled = /\bfill-(?!none\b)[\w[\]#-]+/.test(cls)
+    const clsNone = /\bfill-none\b/.test(cls)
+    if (attr) {
+      if (attr !== 'none' && attr !== 'transparent') filled++
+    } else if (clsFilled) filled++
+    else if (!clsNone && !rootNone) filled++ // SVG's own default is a black fill
+  }
+  return { shapes, filled, ratio: shapes ? filled / shapes : null }
+}
 
 function emptySignature(): CompositionSignature {
   return {
@@ -68,6 +105,7 @@ function emptySignature(): CompositionSignature {
     repeatCount: 0,
     detailDensity: 0,
     partCount: 0,
+    fillRatio: null,
   }
 }
 
@@ -229,6 +267,8 @@ function signatureFromParts(parts: Part[]): CompositionSignature {
     repeatCount: count,
     detailDensity: detailDensity(unit),
     partCount: usable.length,
+    // ink carries no fill; compositionFromSource fills this in for rendered SVG
+    fillRatio: null,
   }
 }
 
@@ -421,6 +461,7 @@ const applyXform = (p: Pt, x: Xform): Pt => ({ x: x.tx + p.x * x.sx, y: x.ty + p
  * and mask the very symmetry collapse we're hunting.
  */
 export function compositionFromSource(code: string): CompositionSignature {
+  const coverage = fillCoverage(code)
   // string-array constants, so `{side.map(d => <path d={d}/>)}` resolves
   const arrays = new Map<string, string[]>()
   const arrayRe = /const\s+([A-Za-z_$][\w$]*)\s*=\s*\[([\s\S]*?)\]/g
@@ -518,12 +559,13 @@ export function compositionFromSource(code: string): CompositionSignature {
       }
     }
   }
-  return signatureFromParts(parts)
+  return { ...signatureFromParts(parts), fillRatio: coverage.ratio }
 }
 
 // ---------- comparison ----------
 
-export type CompositionFlaw = 'traced' | 'over-regularized' | 'mirrored' | 'evened' | 'displaced' | 'smoothed'
+export type CompositionFlaw =
+  | 'traced' | 'over-regularized' | 'mirrored' | 'evened' | 'displaced' | 'smoothed' | 'unfilled'
 
 export interface CompositionVerdict {
   /** 0..1 — how much of the drawn composition survived. */
@@ -589,6 +631,31 @@ export function scoreComposition(
     )
   }
 
+  // ①b a drawing of the thing, where the thing itself was asked for.
+  // The complaint this catches is "it's just lines": strokes tracing an
+  // outline when the request was for solid shapes or a finished illustration.
+  if (controls.fill !== 'outline' && rendered.fillRatio !== null && rendered.fillRatio < 0.25) {
+    flaws.push('unfilled')
+    notes.push(
+      controls.fill === 'realized'
+        ? `a finished illustration was asked for but the output is line art ` +
+          `(${pct(rendered.fillRatio)} of its shapes carry a fill) — build the subject out of ` +
+          `filled forms with shading, and add the interior detail it needs to read as that thing`
+        : `solid shapes were asked for but the output is outlines ` +
+          `(${pct(rendered.fillRatio)} of its shapes carry a fill) — give closed forms a fill ` +
+          `from the app's palette instead of stroking their edges`,
+    )
+  }
+  // a finished illustration means MORE parts than the gesture that briefed it
+  if (controls.fill === 'realized' && rendered.partCount < Math.max(3, sketch.partCount)) {
+    if (!flaws.includes('unfilled')) flaws.push('unfilled')
+    notes.push(
+      `the sketch has ${sketch.partCount} part(s) and the output ${rendered.partCount} — a finished ` +
+      `illustration should ELABORATE on the drawing (features, interior detail), not reproduce its ` +
+      `part count`,
+    )
+  }
+
   // ② lateral character flattened into a mirror
   if (controls.keep.asymmetry && sketch.lateralAsymmetry > 0.12 && rendered.lateralAsymmetry < sketch.lateralAsymmetry * 0.45) {
     flaws.push('mirrored')
@@ -627,7 +694,10 @@ export function scoreComposition(
   }
 
   // ⑤ the arrangement itself moved
-  if (controls.keep.placement && massSimilarity < 0.45) {
+  // elaboration moves ink mass around by design, so the "did the arrangement
+  // move" floor drops when a finished illustration was requested
+  const massFloor = controls.fill === 'realized' ? 0.3 : 0.45
+  if (controls.keep.placement && massSimilarity < massFloor) {
     if (!flaws.includes('displaced')) flaws.push('displaced')
     notes.push(
       `only ${pct(massSimilarity)} of the drawn layout is reproduced — the parts are not where they were drawn`,

@@ -104,6 +104,21 @@ proper icon and do not labour over the drawn arrangement. The block also says
 which aspects are scored; the ones it lists as free to normalize will not be
 checked, so spend your effort on the ones that are.
 
+The FIDELITY block also carries a RESULT level, and it decides whether you
+are producing a drawing or the thing itself:
+- LINE ART — strokes, no fills. The drawing, as a drawing.
+- SOLID — closed forms carry fills from the app's palette; reach for a stroke
+  only where a line is genuinely the subject. This is the default: a sketch is
+  shorthand for a thing, not a request for its outline.
+- FINISHED ILLUSTRATION — the sketch is a brief, not the artwork. Produce what
+  it DEPICTS: filled forms, tonal separation, and the interior detail the
+  subject implies but the ink only gestures at. A sketched side profile comes
+  back as a face — brow, eye, nose, lips, jaw — not a line drawing of one.
+  Read the subject from the reading, the handwriting and what surrounds it;
+  keep the drawn silhouette and proportions, and invent the interior. An
+  output whose shapes carry no fill fails verification here, as does one that
+  merely reproduces the sketch's part count instead of elaborating on it.
+
 When a MEASURED COMPOSITION block accompanies the action, those numbers are
 the spec — they were computed from the strokes, and your result is scored
 against them afterwards by the same measurement:

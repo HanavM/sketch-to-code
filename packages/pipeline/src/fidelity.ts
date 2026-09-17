@@ -35,6 +35,17 @@ export interface FidelityKeep {
   placement: boolean
 }
 
+/**
+ * How FINISHED the result should be — a separate axis from resemblance.
+ *
+ * Resemblance says how closely the drawn geometry is followed. It says nothing
+ * about whether the output is line art or a finished thing, and that is the
+ * difference between "turn this drawing into code" and "make me something like
+ * this". Someone who sketches a side profile wants a face, not their own
+ * outline re-emitted as strokes.
+ */
+export type FillLevel = 'outline' | 'filled' | 'realized'
+
 export interface FidelityControls {
   /**
    * 0 → reinterpret: substitute a proper icon/asset for the concept
@@ -43,6 +54,8 @@ export interface FidelityControls {
    */
   resemblance: number
   keep: FidelityKeep
+  /** Line art, solid shapes, or a finished illustration of the subject. */
+  fill: FillLevel
   /** 'app' snaps colour/size to the app's design system; 'sketch' keeps the
    *  drawing's own look (hand-drawn line, its own proportions). */
   palette: 'app' | 'sketch'
@@ -51,6 +64,9 @@ export interface FidelityControls {
 export const DEFAULT_FIDELITY: FidelityControls = {
   resemblance: 0.5,
   keep: { asymmetry: true, rhythm: true, proportions: true, placement: true },
+  // A sketch is shorthand for a thing, not a request for its outline: solid
+  // shapes are the useful default, and 'outline' is the opt-in for line art.
+  fill: 'filled',
   palette: 'app',
 }
 
@@ -77,6 +93,7 @@ export function normalizeFidelity(raw: unknown): FidelityControls {
       proportions: bool(keepRaw.proportions, DEFAULT_FIDELITY.keep.proportions),
       placement: bool(keepRaw.placement, DEFAULT_FIDELITY.keep.placement),
     },
+    fill: r.fill === 'outline' || r.fill === 'realized' ? r.fill : DEFAULT_FIDELITY.fill,
     palette: r.palette === 'sketch' ? 'sketch' : 'app',
   }
 }
@@ -107,9 +124,15 @@ const REBUILT_TURNS_PER_UNIT = 2.5
  */
 export function detailBand(f: FidelityControls, sketchDensity: number): { min: number; max: number } {
   const rung = rungFor(f.resemblance)
+  // Only a FINISHED illustration earns headroom here. It invents interior
+  // detail the ink never had, so the ceiling that catches "you traced the
+  // wobble" has to rise or every realized result is flagged for the detail it
+  // was told to add. Solid shapes add fills, not direction changes, so
+  // 'filled' keeps the same ceiling as line art — tracing is still tracing.
+  const room = f.fill === 'realized' ? 2.5 : 1
   if (rung === 'trace') return { min: sketchDensity * 0.5, max: Infinity }
-  if (rung === 'rebuild') return { min: 0, max: Math.max(REBUILT_TURNS_PER_UNIT, sketchDensity * 0.5) }
-  return { min: 0, max: REBUILT_TURNS_PER_UNIT }
+  if (rung === 'rebuild') return { min: 0, max: Math.max(REBUILT_TURNS_PER_UNIT, sketchDensity * 0.5) * room }
+  return { min: 0, max: REBUILT_TURNS_PER_UNIT * room }
 }
 
 /**
@@ -119,10 +142,10 @@ export function detailBand(f: FidelityControls, sketchDensity: number): { min: n
  */
 export function passMark(f: FidelityControls): number {
   const rung = rungFor(f.resemblance)
-  if (rung === 'reinterpret') return 0
-  if (rung === 'normalize') return 0.5
-  if (rung === 'rebuild') return 0.65
-  return 0.75
+  const base = rung === 'reinterpret' ? 0 : rung === 'normalize' ? 0.5 : rung === 'rebuild' ? 0.65 : 0.75
+  // added detail moves ink mass around by design; don't fail a realized
+  // illustration for the elaboration it was asked for
+  return f.fill === 'realized' ? Math.max(0, base - 0.1) : base
 }
 
 /** The instruction the codegen agent gets, stated as a rung plus its licences. */
@@ -160,7 +183,21 @@ export function fidelityDirective(f: FidelityControls): string {
     else free.push(freeText)
   })
 
-  const lines = [head[rung]]
+  const fill: Record<FillLevel, string> = {
+    outline:
+      `RESULT — LINE ART: strokes only, no fills. Reproduce it as the drawing is: lines.`,
+    filled:
+      `RESULT — SOLID: build it out of filled shapes, not outlines. Closed forms carry a fill ` +
+      `from the app's palette; use strokes only where a line is genuinely the subject.`,
+    realized:
+      `RESULT — FINISHED ILLUSTRATION: the drawing is the brief, not the artwork. Produce the ` +
+      `thing it depicts, complete: filled shapes, shading or tonal separation, and the detail ` +
+      `the subject implies but the sketch only gestures at — a sketched side profile comes back ` +
+      `as an actual face with brow, eye, nose, lips and jaw, not a line drawing of one. Read the ` +
+      `subject from the reading and from what surrounds it, and add what it needs to read as that ` +
+      `thing at a glance. Keep the drawn silhouette and proportions; invent the interior.`,
+  }
+  const lines = [head[rung], fill[f.fill]]
   if (kept.length) lines.push(`MUST SURVIVE (scored): ${kept.join('; ')}.`)
   if (free.length) lines.push(`Free to normalize (not scored): ${free.join('; ')}.`)
   lines.push(
@@ -175,7 +212,7 @@ export function fidelityDirective(f: FidelityControls): string {
 export function fidelitySummary(f: FidelityControls): string {
   const off = (Object.keys(f.keep) as Array<keyof FidelityKeep>).filter((k) => !f.keep[k])
   return (
-    `${rungFor(f.resemblance)} ${Math.round(f.resemblance * 100)}%` +
+    `${rungFor(f.resemblance)} ${Math.round(f.resemblance * 100)}% · ${f.fill}` +
     (off.length ? ` · free: ${off.join(',')}` : '') +
     (f.palette === 'sketch' ? ' · sketch styling' : '')
   )
