@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 import { relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
 import type { DomSnapshot } from '@s2c/dom'
@@ -40,6 +41,8 @@ export interface RunRequest {
   fidelity?: unknown
   /** Notes typed while sketching, each anchored to an element/strokes/the run. */
   notes?: unknown
+  /** Independent attempts to generate and score; the best one is kept. */
+  candidates?: number
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -149,15 +152,25 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
       server.middlewares.use('/@s2c/events', (req, res) => sse.handler(req, res))
 
-      // read-only debug viewer: exactly what the agent saw, per run.
-      // Host-gated (rebound hosts fail); cross-origin reads blocked by SOP.
-      server.middlewares.use('/@s2c/runs', (req, res) => {
+      // Read-only run history: the page, the raw bundle files, and the two
+      // JSON endpoints (/@s2c/runs.json, /@s2c/runs/<id>/settings.json).
+      // Same gate as before for every one of them — these are GET routes a
+      // browser reaches by navigation/img/fetch, so rejectUnauthorized's
+      // token+content-type check (which a navigation can't satisfy) would make
+      // the page unreachable. The guarantee that matters here is the same one
+      // the old viewer had: local Host only, so a rebound host fails, and
+      // cross-origin reads are blocked by the same-origin policy.
+      const gateRuns = (req: IncomingMessage, res: ServerResponse): void => {
         const host = String(req.headers.host ?? '').replace(/:\d+$/, '')
         if (!['localhost', '127.0.0.1', '[::1]'].includes(host)) {
           return sendJson(res, 403, { ok: false, error: 'non-local host rejected' })
         }
         runsViewer(root)(req, res)
-      })
+      }
+      // registered first: connect would otherwise route '/@s2c/runs.json' into
+      // the '/@s2c/runs' mount with req.url stripped to '.json'
+      server.middlewares.use('/@s2c/runs.json', gateRuns)
+      server.middlewares.use('/@s2c/runs', gateRuns)
 
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
@@ -321,6 +334,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     // normalizes it, so the client can't widen its own licence
                     fidelity: body.fidelity,
                     notes: body.notes as Parameters<typeof m.runV2>[0]['notes'],
+                    candidates: body.candidates,
                   },
                   ctx,
                 )

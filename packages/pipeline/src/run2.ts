@@ -368,7 +368,9 @@ export async function runV2(
   // and never shows up in a diff, so new files went unreported in the summary
   const files = touchedFiles(ctx.root, cp)
   save('result.json', {
-    engine: 'model', checkpoint: cp.sha, changedFiles: files,
+    // recorded, not inferred: the runs viewer had to guess design-vs-gesture
+    // from whether an action happened to be kind 'design'
+    engine: 'model', mode: input.mode ?? 'gesture', checkpoint: cp.sha, changedFiles: files,
     reading: interp.reading, verification: lastVerify, tokens: totalUsage,
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
     fidelity,
