@@ -25,6 +25,8 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export { APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles } from './candidates.js'
+export type { Attempt, Work } from './candidates.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'
 export type { ManipulateRequest, ManipulateResult, ManipulateProp } from './manipulate.js'
 export { planStructuralEdits, commitPlan } from './codemod.js'
