@@ -43,17 +43,45 @@ interface PreviewShape {
   candidates: Array<{ kind: string; confidence: number }>
   bbox: { x: number; y: number; w: number; h: number }
 }
-interface V2Target { rect: { x: number; y: number; w: number; h: number }; tag: string; text: string }
+interface V2Target {
+  /** The server's own menu id for this element — 'e2', 'e17'. Names the
+   *  target in the plan label, because it is what the reading cited. */
+  domId: string
+  srcLoc?: string | null
+  rect: { x: number; y: number; w: number; h: number }
+  tag: string
+  text: string
+  subtreeText?: string
+}
+/** A colour the strokes were drawn in, already snapped to the app's palette. */
+interface V2Color {
+  drawn: string
+  nearest?: { token: string; css: string }
+  distance?: number
+}
 interface V2Action {
   kind: string
   targets: V2Target[]
   dest?: V2Target
   region?: { x: number; y: number; w: number; h: number }
   instruction: string
+  /** Exactly what the user typed about this action. Shown verbatim — these
+   *  are their own words and they outrank every reading of the ink. */
+  notes?: string[]
+  color?: V2Color
+  depicts?: string
+  fidelity?: 'verbatim' | 'recognized'
   needsConfirm: boolean
 }
 interface V2Preview {
-  interpretation: { reading: string; unclear?: string; actions: V2Action[]; rejected: string[] }
+  interpretation: {
+    reading: string
+    unclear?: string
+    actions: V2Action[]
+    /** Typed notes that matched no single action — they apply to the run. */
+    runNotes?: string[]
+    rejected: string[]
+  }
   raw: unknown
   tokens: { input: number; cacheRead: number; output: number }
 }
@@ -318,6 +346,37 @@ function defaultFidelity(): Fidelity {
 }
 
 /** Where the fidelity settings survive a reload (same contract as s2c:hud). */
+/**
+ * Validate a fidelity object field by field, falling back per field.
+ *
+ * Shared by the stored settings and by a past run's bundle: both are untrusted
+ * shapes that may predate an axis, and neither should lose the rest of the
+ * object because one field is missing or wrong.
+ */
+function parseFidelity(v: unknown): Fidelity {
+  const f = defaultFidelity()
+  if (!v || typeof v !== 'object') return f
+  const o = v as Record<string, unknown>
+  const r = o.resemblance
+  if (typeof r === 'number' && Number.isFinite(r)) f.resemblance = Math.min(1, Math.max(0, r))
+  const keep = o.keep
+  if (keep && typeof keep === 'object') {
+    const ko = keep as Record<string, unknown>
+    for (const k of KEEP_KEYS) {
+      const kv = ko[k]
+      if (typeof kv === 'boolean') f.keep[k] = kv
+    }
+  }
+  const pal = o.palette
+  if (pal === 'app' || pal === 'sketch') f.palette = pal
+  // anything unknown (including a profile saved before this axis existed,
+  // which has no `fill` at all) keeps the default rather than dropping the
+  // rest of the object
+  const fill = o.fill
+  if (FILL_KEYS.includes(fill as FillMode)) f.fill = fill as FillMode
+  return f
+}
+
 const FIDELITY_STORE_KEY = 's2c:fidelity'
 
 /**
@@ -409,6 +468,69 @@ const NOTE_CLUSTER_MS = 20_000
  * stroke/run rules get their turn.
  */
 const NOTE_BG_COVER = 0.9
+
+// ---- the plan: show it before spending a single token -------------------
+// Everything needed to DRAW what a run will do is already in the interpret
+// response — targets with rects, destinations, regions, colours and the user's
+// own notes. A one-line summary in the status bar throws all of it away and
+// makes ✓ Go a leap of faith, so the plan is painted over the page itself:
+// every rect that will be touched, outlined where it actually sits.
+
+/** One colour and one word per action kind — the legend IS the outline. */
+const PLAN_KINDS: Record<string, { color: string; label: string }> = {
+  delete: { color: '#dc2626', label: 'DELETE' },
+  modify: { color: '#d97706', label: 'MODIFY' },
+  move: { color: '#2563eb', label: 'MOVE' },
+  swap: { color: '#7c3aed', label: 'SWAP' },
+  add: { color: '#059669', label: 'ADD' },
+  design: { color: '#0891b2', label: 'DESIGN' },
+}
+/** A kind the server grew that this client hasn't learned yet still draws. */
+const PLAN_FALLBACK = { color: '#4b5563', label: 'ACTION' }
+/** Gap between an outlined rect and the label sitting above it. */
+const PLAN_LABEL_GAP = 6
+/** How much of an action's instruction a label carries. The instruction is a
+ *  paraphrase (unlike a note), so trimming it loses nothing that matters. */
+const PLAN_INSTR_MAX = 100
+
+// ---- attempts: pay N times for one result, keep the best one ------------
+// The pipeline can generate N independent codegen attempts from the SAME
+// confirmed interpretation, score each against the drawing with the
+// composition measurement it already runs, and keep only the best. That is a
+// real improvement in faithfulness and a real, proportional bill — so the
+// choice is the user's, it defaults to 1, and the copy says both halves out
+// loud rather than selling the upside.
+
+/** Integer 1–3. Anything else on the wire or in storage falls back to 1. */
+type Candidates = 1 | 2 | 3
+const CANDIDATE_KEYS = [1, 2, 3] as const
+const DEFAULT_CANDIDATES: Candidates = 1
+/** Where the attempts count survives a reload (same contract as s2c:fidelity). */
+const CANDIDATES_STORE_KEY = 's2c:candidates'
+/**
+ * Button label + the hint under the segment + the tooltip WHY.
+ *
+ * The hint has to state the cost in the same breath as the benefit: an
+ * attempt is a FULL generation, so three attempts is three times the tokens
+ * and three times the wait, and two of the three are thrown away.
+ */
+const CANDIDATE_LABELS: Record<Candidates, { label: string; short: string; hint: string; tip: string }> = {
+  1: {
+    label: '1×', short: 'one attempt',
+    hint: 'One generation. Cheapest and fastest — what comes back is what you get.',
+    tip: 'one generation: the cheapest, fastest run, and the only one billed',
+  },
+  2: {
+    label: '2×', short: 'best of two',
+    hint: 'Two full generations, each scored against your drawing. The better one is kept — about 2× the tokens and 2× the wait.',
+    tip: 'two full generations, scored against your drawing; the better one is kept and the other discarded — about 2× the tokens and 2× the time',
+  },
+  3: {
+    label: '3×', short: 'best of three',
+    hint: 'Three full generations, each scored against your drawing. Only the best is kept — about 3× the tokens and 3× the wait.',
+    tip: 'three full generations, scored against your drawing; only the best is kept and the other two discarded — about 3× the tokens and 3× the time',
+  },
+}
 
 // ---- keymap: one table, two consumers ---------------------------------
 // Every action the HUD offers has to be reachable without the mouse. Scattering
@@ -596,9 +718,15 @@ const STYLES = css`
      containing block): the panel then drags, hides and stacks with the bar
      for free, and being out of flow it can't widen the pill. Only the left
      offset and the above/below flip are computed — see layoutFidelityPanel. */
+  /* The panel grew a third section (attempts). Cap it against the viewport and
+     scroll the overflow rather than letting the tallest section fall off the
+     top of a short window — a control that can't be reached is worse than one
+     that needs a scroll. No effect at all while it fits, which is the common
+     case, so no box moves on a normal screen. */
   #fidelityPanel {
     position: absolute; left: 0; bottom: calc(100% + 10px);
     display: none; width: 300px; max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 32px); overflow-y: auto;
     background: #111827fa; color: #f9fafb;
     border: 1px solid #374151; border-radius: 12px;
     box-shadow: 0 10px 34px rgb(0 0 0 / 0.5);
@@ -644,6 +772,14 @@ const STYLES = css`
      the longest of the three strings fits in two at the panel's 300px. */
   #fidelityPanel .fFillHint {
     color: #9ca3af; height: 2.9em; margin: 5px 0 0; overflow: hidden;
+  }
+  /* Same fixed-height contract as .fFillHint, and for the same reason: this
+     hint rewrites itself on every attempts click, and the panel grows upward
+     from the bar — a hint reflowing from three lines to two would yank the
+     segment out from under the cursor. 4.35em = three lines here, which the
+     longest of the three strings needs at the panel's 300px. */
+  #fidelityPanel .fCandHint {
+    color: #9ca3af; height: 4.35em; margin: 5px 0 0; overflow: hidden;
   }
   /* ---- typed notes ----------------------------------------------------
      Exactly the trick #ink uses: ONE absolutely positioned layer pinned at
@@ -694,6 +830,67 @@ const STYLES = css`
     border: 2px solid #38bdf8; border-radius: 6px; background: rgb(56 189 248 / 0.12);
   }
   #noteHi.on { display: block; }
+  /* ---- the plan overlay -----------------------------------------------
+     Third user of the page-space trick (#ink, #notes, now this): one
+     absolutely positioned layer at the document origin, so every outline and
+     every label is laid out in PAGE coordinates and the compositor carries
+     them with the content. Zero scroll handlers, and browser/pinch zoom
+     scales the plan exactly like the elements it is describing.
+     pointer-events:none throughout — the canvas underneath still has to
+     receive the per-shape correction tap. */
+  #plan {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none; z-index: 2147483000;
+    display: none;
+  }
+  #plan.on { display: block; }
+  /* Non-zero width/height is load-bearing: a 0×0 <svg> is not rendered at all
+     (SVG 1.1 §5.1.2) while its children keep reporting perfect geometry. */
+  #planSvg {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none;
+  }
+  #planSvg .pOutline { fill: none; stroke-width: 2.5; }
+  #planSvg .pOutline.wide { stroke-width: 4; }
+  #planSvg .pRegion { fill: none; stroke-width: 2.5; stroke-dasharray: 9 6; }
+  #planSvg .pLink { stroke-width: 2.5; stroke-dasharray: 7 5; }
+  #planSvg .pHead { stroke: none; }
+  .planLabel {
+    position: absolute; pointer-events: none; max-width: 280px;
+    padding: 4px 8px 5px; border-radius: 8px;
+    border-left: 3px solid var(--k, #4b5563);
+    background: #0b1220f2; color: #f3f4f6;
+    font-size: 11px; line-height: 1.45; text-align: left;
+    box-shadow: 0 3px 14px rgb(0 0 0 / 0.45);
+  }
+  .planLabel .pRow { display: flex; align-items: center; gap: 6px; }
+  .planLabel .pKind {
+    flex: none; padding: 0 6px; border-radius: 999px;
+    background: var(--k, #4b5563); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
+  }
+  .planLabel .pWhat {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
+    color: #e5e7eb; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .planLabel .pInstr { color: #9ca3af; margin-top: 2px; }
+  /* The swatch shows the RESOLVED colour, so it must paint the real value —
+     a border rather than a background would be a picture of a colour. */
+  .planLabel .pSwatch {
+    flex: none; width: 12px; height: 12px; border-radius: 3px;
+    border: 1px solid #ffffff55;
+  }
+  .planLabel .pToken {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
+    color: #a5b4fc;
+  }
+  /* The user's own words: loudest thing on the label, never truncated, never
+     ellipsised — the whole point of a typed note is that it is exact. */
+  .planLabel .pNote {
+    margin-top: 3px; padding: 2px 7px; border-radius: 6px;
+    background: #1d4ed8; color: #eff6ff;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
   /* ---- keyboard help --------------------------------------------------
      Rendered from the keymap table, so it can never fall behind it. The
      status line holds one hint; this holds all of them. */
@@ -758,6 +955,11 @@ class Overlay {
   private keepBoxes = {} as Record<keyof FidelityKeep, HTMLInputElement>
   private fidelityOpen = false
   private fidelity: Fidelity = defaultFidelity()
+  /** Page-space layer holding the plan outlines and their labels. */
+  private planLayer: HTMLElement
+  private planSvg: SVGSVGElement
+  /** How many independent codegen attempts one ✓ Go should pay for. */
+  private candidates: Candidates = DEFAULT_CANDIDATES
   /** Page-space layer holding the note chips, the editor and the highlight. */
   private notesLayer: HTMLElement
   private noteBox: HTMLElement
@@ -823,6 +1025,17 @@ class Overlay {
     this.canvas.id = 'canvas'
     this.shadow.appendChild(this.canvas)
     this.ctx = this.canvas.getContext('2d')!
+
+    // AFTER the canvas so DOM order paints the plan on top of it, but BEFORE
+    // the notes layer so a chip the user can click is never buried under a
+    // label they can't. The layer itself never takes pointer events — the
+    // canvas below it still has to receive the per-shape correction tap.
+    this.planLayer = document.createElement('div')
+    this.planLayer.id = 'plan'
+    this.planSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    this.planSvg.id = 'planSvg'
+    this.planLayer.appendChild(this.planSvg)
+    this.shadow.appendChild(this.planLayer)
 
     // AFTER the canvas: same stacking level, so DOM order is what puts chips
     // and the editor above it — in draw mode the canvas is pointer-events:auto
@@ -901,6 +1114,16 @@ class Overlay {
         <div class="fNote">
           The dial above says how closely your geometry is followed. This says what comes
           back: line art, or a finished thing.
+        </div>
+        <div class="fSect">attempts</div>
+        <div id="candSeg" class="fSeg"></div>
+        <div id="candHint" class="fCandHint"></div>
+        <div class="fNote">
+          Each attempt is a full, independent generation from the same confirmed reading,
+          measured against your drawing. Only the best-scoring one is kept — the rest are
+          discarded, and you pay for them anyway. More attempts = better odds of a faithful
+          result, proportionally more tokens and more waiting.
+          <br>Alt+8 and Alt+9 change this from the keyboard.
         </div>
       </div>
     `
@@ -1007,6 +1230,7 @@ class Overlay {
     this.binds = this.buildKeymap()
     this.buildHelp()
     this.loadPen()
+    void this.restoreFromRun()
 
     window.addEventListener('keydown', (e) => this.onKeyDown(e))
     // the panel is clamped against the viewport, so a resize has to re-run it
@@ -1034,6 +1258,9 @@ class Overlay {
     // after the append: restoring clamps against measured widths, and an
     // un-laid-out element measures 0
     this.restoreHud()
+    // before restoreFidelity: its syncFidelityUi writes the bar tooltip, and
+    // that string names the attempts count
+    this.restoreCandidates()
     this.restoreFidelity()
     this.connectEvents()
 
@@ -1048,6 +1275,15 @@ class Overlay {
       // what each stroke believes it is drawn on, so a drifting overlay can be
       // told apart from a stroke that never anchored in the first place
       strokes: () => this.strokes.map((st) => ({ id: st.id, color: st.color, anchor: st.anchor })),
+      // what the overlay BELIEVES it will spend, next to what it puts on the
+      // wire — the two drifting apart is the only way this control can lie
+      candidates: () => this.candidatesPayload(),
+      // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
+      // compared against the live rects of the elements it is describing
+      plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
+        const r = el.getBoundingClientRect()
+        return { text: el.textContent, x: r.left, y: r.top, w: r.width, h: r.height }
+      }),
     }
   }
 
@@ -1264,6 +1500,19 @@ class Overlay {
       fill('outline', '5'),
       fill('filled', '6'),
       fill('realized', '7'),
+      {
+        // 8/9 continue the fidelity digit row (1-4 keeps, 5-7 fill) rather
+        // than taking letters: Alt+A is free but "attempts" and "asymmetry"
+        // would be one typo apart on a control that spends money.
+        id: 'candidates-fewer', keys: 'Alt+8', group: 'fidelity',
+        label: 'fewer attempts — fewer tokens, less waiting, worse odds',
+        match: altBind('Digit8', '8'), run: () => this.nudgeCandidates(-1),
+      },
+      {
+        id: 'candidates-more', keys: 'Alt+9', group: 'fidelity',
+        label: 'more attempts — best of N scored against the drawing, N× the tokens and time',
+        match: altBind('Digit9', '9'), run: () => this.nudgeCandidates(1),
+      },
       {
         id: 'pen', keys: 'Alt+P', label: 'pen colour — draw in a colour to ask for it', group: 'colour',
         match: altBind('KeyP', 'p'), run: () => this.setPenOpen(!this.penOpen),
@@ -1620,6 +1869,20 @@ class Overlay {
       b.addEventListener('click', () => this.setFill(k))
       seg.appendChild(b)
     }
+
+    // The attempts segment, generated from CANDIDATE_LABELS for the same
+    // reason: the tradeoff copy is stated in exactly one place, so the button,
+    // its tooltip, the hint and Alt+8/9 can never say different things.
+    const cands = this.shadow.getElementById('candSeg')!
+    for (const n of CANDIDATE_KEYS) {
+      const b = document.createElement('button')
+      b.id = `cand-${String(n)}`
+      b.className = 'fSegBtn'
+      b.title = CANDIDATE_LABELS[n].tip
+      b.textContent = CANDIDATE_LABELS[n].label
+      b.addEventListener('click', () => this.setCandidates(n))
+      cands.appendChild(b)
+    }
   }
 
   /** The zone the dial currently sits in — highest threshold it clears. */
@@ -1661,9 +1924,75 @@ class Overlay {
     const summary = `fidelity: ${z.name} ${String(pct)}% — ${z.hint}` +
       ` · keeping: ${kept.length ? kept.join(', ') : 'nothing (everything may be normalized)'}` +
       ` · ${f.palette === 'app' ? "app's design system" : 'hand-drawn look'}` +
-      ` · result: ${fill.label} — ${fill.short}`
+      ` · result: ${fill.label} — ${fill.short}` +
+      // The attempts count rides in the TOOLTIP rather than in the bar: the
+      // pill is width:max-content and centred with translateX(-50%), so any
+      // new always-visible readout would slide the whole toolbar sideways the
+      // first time it changed. The tooltip costs no layout at all.
+      ` · ${CANDIDATE_LABELS[this.candidates].short}`
     this.fidelityBtn.title = summary
     this.fidelityBtn.setAttribute('aria-label', summary)
+  }
+
+  // ---- attempts: N generations, one survivor ----------------------------
+
+  /** Render the attempts segment FROM state — one path for restore and click. */
+  private syncCandidatesUi() {
+    for (const n of CANDIDATE_KEYS) {
+      this.shadow.getElementById(`cand-${String(n)}`)!.classList.toggle('on', this.candidates === n)
+    }
+    this.shadow.getElementById('candHint')!.textContent = CANDIDATE_LABELS[this.candidates].hint
+    // the always-visible summary names the count too
+    this.syncFidelityUi()
+  }
+
+  /**
+   * Set the attempts count, from the segment or from Alt+8/9. Idempotent for
+   * the same reason setFill is: the keys set a value, they don't cycle.
+   */
+  private setCandidates(n: Candidates) {
+    this.candidates = n
+    this.syncCandidatesUi()
+    this.saveCandidates()
+    // Status ONLY while the panel is shut — writing to #status resizes the
+    // width:max-content pill, which with the popover open would shuffle the
+    // very buttons the user is clicking. The hint under the segment has
+    // already said this, in more words and without moving anything.
+    if (!this.fidelityOpen) this.status(`attempts: ${CANDIDATE_LABELS[n].label} — ${CANDIDATE_LABELS[n].tip}`)
+  }
+
+  /** Alt+8 / Alt+9. Clamped rather than wrapped: wrapping from 3 back to 1
+   *  would silently triple or third the bill on one keystroke too many. */
+  private nudgeCandidates(delta: number) {
+    this.setCandidates(Math.min(3, Math.max(1, this.candidates + delta)) as Candidates)
+  }
+
+  /** Same contract as restoreFidelity: storage can throw and its contents are
+   *  user-editable, so anything off-shape falls back to the default of 1. */
+  private restoreCandidates() {
+    let n: Candidates = DEFAULT_CANDIDATES
+    try {
+      const raw = localStorage.getItem(CANDIDATES_STORE_KEY)
+      const v = raw ? (JSON.parse(raw) as unknown) : null
+      if (CANDIDATE_KEYS.includes(v as Candidates)) n = v as Candidates
+    } catch { /* unreadable storage just means one attempt */ }
+    this.candidates = n
+    this.syncCandidatesUi()
+  }
+
+  private saveCandidates() {
+    try {
+      localStorage.setItem(CANDIDATES_STORE_KEY, JSON.stringify(this.candidatesPayload()))
+    } catch { /* quota/blocked: one attempt is a safe place to land */ }
+  }
+
+  /**
+   * The wire value, re-validated at send time. Top-level on the run body, NOT
+   * inside `fidelity`: this is about how many times to pay for the same
+   * confirmed interpretation, not about what the result should look like.
+   */
+  private candidatesPayload(): Candidates {
+    return CANDIDATE_KEYS.includes(this.candidates) ? this.candidates : DEFAULT_CANDIDATES
   }
 
   private setFidelityOpen(open: boolean) {
@@ -1898,33 +2227,56 @@ class Overlay {
    * whole object.
    */
   private restoreFidelity() {
-    const f = defaultFidelity()
+    let v: unknown = null
     try {
       const raw = localStorage.getItem(FIDELITY_STORE_KEY)
-      const v = raw ? (JSON.parse(raw) as unknown) : null
-      if (v && typeof v === 'object') {
-        const o = v as Record<string, unknown>
-        const r = o.resemblance
-        if (typeof r === 'number' && Number.isFinite(r)) f.resemblance = Math.min(1, Math.max(0, r))
-        const keep = o.keep
-        if (keep && typeof keep === 'object') {
-          const ko = keep as Record<string, unknown>
-          for (const k of KEEP_KEYS) {
-            const kv = ko[k]
-            if (typeof kv === 'boolean') f.keep[k] = kv
-          }
-        }
-        const pal = o.palette
-        if (pal === 'app' || pal === 'sketch') f.palette = pal
-        // anything unknown (including a profile saved before this axis
-        // existed, which has no `fill` at all) keeps defaultFidelity()'s
-        // 'filled' rather than dropping the rest of the object
-        const fill = o.fill
-        if (FILL_KEYS.includes(fill as FillMode)) f.fill = fill as FillMode
-      }
+      v = raw ? (JSON.parse(raw) as unknown) : null
     } catch { /* unreadable storage just means the default settings */ }
-    this.fidelity = f
+    this.fidelity = parseFidelity(v)
     this.syncFidelityUi()
+  }
+
+  /**
+   * Re-enter a past run's settings from `?s2c-reuse=<runId>`.
+   *
+   * This is the other half of the runs page's "reuse": the settings a run used
+   * are already on disk in its bundle, so restoring them needs no clipboard
+   * and no retyping. The NOTES are deliberately not re-added — they were
+   * anchored to that run's ink, which no longer exists, so they are reported
+   * rather than resurrected.
+   */
+  private async restoreFromRun() {
+    const id = new URLSearchParams(location.search).get('s2c-reuse')
+    if (!id || !/^[\w.-]+$/.test(id)) return
+    // drop the parameter immediately: a reload should not silently re-apply
+    // settings the user may have changed since
+    const url = new URL(location.href)
+    url.searchParams.delete('s2c-reuse')
+    history.replaceState(null, '', url.toString())
+    try {
+      const res = await fetch(`/@s2c/runs/${encodeURIComponent(id)}/settings.json`)
+      if (!res.ok) {
+        this.status(`couldn't reuse ${id} — no such run`, true)
+        return
+      }
+      const body = (await res.json()) as { fidelity?: unknown; notes?: unknown; mode?: unknown }
+      if (body.fidelity) {
+        this.fidelity = parseFidelity(body.fidelity)
+        this.saveFidelity()
+        this.syncFidelityUi()
+      }
+      if (body.mode === 'gesture' || body.mode === 'design' || body.mode === 'screenshot') {
+        this.setRunMode(body.mode)
+      }
+      const notes = Array.isArray(body.notes) ? body.notes.filter((n) => typeof n === 'string') : []
+      this.status(
+        `settings from ${id}: ${this.fidelityZone().name} ` +
+        `${Math.round(this.fidelity.resemblance * 100)}% · ${FILL_LABELS[this.fidelity.fill].label}` +
+        (notes.length ? ` · that run also had ${notes.length} typed note(s) — draw and retype if you want them` : ''),
+      )
+    } catch {
+      this.status(`couldn't reach the run history for ${id}`, true)
+    }
   }
 
   private saveFidelity() {
@@ -2368,56 +2720,215 @@ class Overlay {
     this.redraw()
   }
 
-  private drawV2Preview() {
-    if (!this.v2) return
-    const { ctx } = this
-    const sx = window.scrollX
-    const sy = window.scrollY
-    ctx.save()
-    ctx.font = '12px ui-sans-serif, system-ui'
-    const COLORS: Record<string, string> = {
-      delete: '#dc2626', modify: '#d97706', move: '#2563eb',
-      swap: '#7c3aed', add: '#059669', design: '#059669',
+  // ---- the plan overlay -------------------------------------------------
+  // Painted in PAGE space (see the #plan styles), so it is rendered once when
+  // the interpretation arrives and then never again: scroll and zoom are the
+  // compositor's problem, exactly as they are for the ink. Nothing here reads
+  // window.scrollX — a plan that needed the scroll offset would be a plan that
+  // could drift from the thing it is describing.
+
+  private svgEl<K extends keyof SVGElementTagNameMap>(tag: K): SVGElementTagNameMap[K] {
+    return document.createElementNS('http://www.w3.org/2000/svg', tag)
+  }
+
+  /** One outlined box in page coords. */
+  private planRect(box: Box, color: string, cls: string): SVGRectElement {
+    const r = this.svgEl('rect')
+    r.setAttribute('class', cls)
+    r.setAttribute('x', String(round1(box.x)))
+    r.setAttribute('y', String(round1(box.y)))
+    r.setAttribute('width', String(Math.max(0, round1(box.w))))
+    r.setAttribute('height', String(Math.max(0, round1(box.h))))
+    // inline style, not a stroke="" attribute: presentation attributes rank
+    // BELOW stylesheet rules, so a #planSvg rule would repaint every kind the
+    // same colour (the exact trap #ink path already documents)
+    r.style.stroke = color
+    return r
+  }
+
+  /**
+   * The relationship, drawn: a dashed line between two box centres with a
+   * solid head at the destination (both ends for a swap, which has no
+   * direction). Skipped when the centres nearly coincide — a 4px arrow is
+   * noise, not information.
+   */
+  private planArrow(from: Box, to: Box, color: string, twoWay: boolean) {
+    const x1 = from.x + from.w / 2
+    const y1 = from.y + from.h / 2
+    const x2 = to.x + to.w / 2
+    const y2 = to.y + to.h / 2
+    const len = Math.hypot(x2 - x1, y2 - y1)
+    if (len < 24) return
+    const ux = (x2 - x1) / len
+    const uy = (y2 - y1) / len
+    const line = this.svgEl('line')
+    line.setAttribute('class', 'pLink')
+    line.setAttribute('x1', String(round1(x1 + ux * 10)))
+    line.setAttribute('y1', String(round1(y1 + uy * 10)))
+    line.setAttribute('x2', String(round1(x2 - ux * 10)))
+    line.setAttribute('y2', String(round1(y2 - uy * 10)))
+    line.style.stroke = color
+    this.planSvg.appendChild(line)
+    const head = (tipX: number, tipY: number, dx: number, dy: number) => {
+      const bx = tipX - dx * 14
+      const by = tipY - dy * 14
+      const p = this.svgEl('polygon')
+      p.setAttribute('class', 'pHead')
+      p.setAttribute('points', [
+        `${round1(tipX)},${round1(tipY)}`,
+        `${round1(bx - dy * 6)},${round1(by + dx * 6)}`,
+        `${round1(bx + dy * 6)},${round1(by - dx * 6)}`,
+      ].join(' '))
+      p.style.fill = color
+      this.planSvg.appendChild(p)
     }
-    for (const a of this.v2.interpretation.actions) {
-      const color = COLORS[a.kind] ?? '#374151'
-      ctx.strokeStyle = color
-      ctx.fillStyle = color
-      ctx.lineWidth = a.needsConfirm ? 3 : 2
+    head(x2 - ux * 8, y2 - uy * 8, ux, uy)
+    if (twoWay) head(x1 + ux * 8, y1 + uy * 8, -ux, -uy)
+  }
+
+  /**
+   * A label chip in page coords. `top` is provisional: the chip's height is
+   * only knowable once it is in the document, so callers collect the chips and
+   * one batched pass afterwards lifts each above its box.
+   */
+  private planChip(box: Box, color: string, kind: string, what: string): HTMLElement {
+    const el = document.createElement('div')
+    el.className = 'planLabel'
+    el.style.setProperty('--k', color)
+    el.style.left = `${String(Math.round(box.x))}px`
+    el.style.top = `${String(Math.round(box.y))}px`
+    const row = document.createElement('div')
+    row.className = 'pRow'
+    const k = document.createElement('span')
+    k.className = 'pKind'
+    k.textContent = kind
+    const w = document.createElement('span')
+    w.className = 'pWhat'
+    w.textContent = what
+    row.append(k, w)
+    el.appendChild(row)
+    return el
+  }
+
+  /** `e2 · <button> "Sign up"` — the id the reading cited, then what it is. */
+  private targetName(t: V2Target): string {
+    const text = (t.text || t.subtreeText || '').trim().replace(/\s+/g, ' ')
+    return `${t.domId} · <${t.tag}>${text ? ` "${text.slice(0, 24)}"` : ''}`
+  }
+
+  /**
+   * Everything the run will do, drawn over the page it will do it to. Called
+   * whenever the interpretation changes — never on scroll.
+   */
+  private renderPlan() {
+    for (const old of [...this.planLayer.querySelectorAll('.planLabel')]) old.remove()
+    this.planSvg.replaceChildren()
+    const it = this.v2?.interpretation
+    if (!it) {
+      this.planLayer.classList.remove('on')
+      return
+    }
+    this.planLayer.classList.add('on')
+    // chips are positioned against their box's TOP edge, which needs their
+    // own height — measured in one batch after everything is in the document
+    const lift: Array<{ el: HTMLElement; top: number }> = []
+    for (const a of it.actions) {
+      const spec = PLAN_KINDS[a.kind] ?? PLAN_FALLBACK
+      const color = spec.color
+      const kind = `${a.needsConfirm ? '⚠ ' : ''}${spec.label}`
+      // the action's detail (instruction, colour, the user's notes) hangs off
+      // ONE chip — repeating it on every target of a 6-element delete would
+      // paper over the page it is supposed to be explaining
+      let primary: HTMLElement | null = null
       for (const t of a.targets) {
-        ctx.strokeRect(t.rect.x - sx, t.rect.y - sy, t.rect.w, t.rect.h)
-        ctx.fillText(`${a.needsConfirm ? '⚠ ' : ''}${a.kind.toUpperCase()}`, t.rect.x - sx + 4, t.rect.y - sy + 14)
+        const el = this.planChip(t.rect, color, kind, this.targetName(t))
+        this.planSvg.appendChild(this.planRect(t.rect, color, `pOutline${a.needsConfirm ? ' wide' : ''}`))
+        this.planLayer.appendChild(el)
+        lift.push({ el, top: t.rect.y })
+        primary ??= el
       }
+      if (a.region) {
+        // where the new thing goes: dashed, because nothing is there yet
+        this.planSvg.appendChild(this.planRect(a.region, color, 'pRegion'))
+        const el = this.planChip(a.region, color, kind, a.depicts ? `new · ${a.depicts}` : 'new here')
+        this.planLayer.appendChild(el)
+        lift.push({ el, top: a.region.y })
+        primary ??= el
+      }
+      if (a.dest) {
+        // dest means two different things: for a move it is what the thing
+        // goes NEXT TO, for a creation it is the container it goes INSIDE
+        const word = a.kind === 'add' || a.kind === 'design' ? 'INTO' : 'TO'
+        this.planSvg.appendChild(this.planRect(a.dest.rect, color, 'pOutline'))
+        const el = this.planChip(a.dest.rect, color, word, this.targetName(a.dest))
+        this.planLayer.appendChild(el)
+        lift.push({ el, top: a.dest.rect.y })
+        if (a.targets[0]) this.planArrow(a.targets[0].rect, a.dest.rect, color, false)
+      }
+      // a swap has two targets and no direction — the arrow points both ways
       if (a.kind === 'swap' && a.targets.length === 2) {
-        const p = a.targets[0]!
-        const q = a.targets[1]!
-        ctx.beginPath()
-        ctx.moveTo(p.rect.x - sx + p.rect.w / 2, p.rect.y - sy + p.rect.h / 2)
-        ctx.lineTo(q.rect.x - sx + q.rect.w / 2, q.rect.y - sy + q.rect.h / 2)
-        ctx.stroke()
+        this.planArrow(a.targets[0]!.rect, a.targets[1]!.rect, color, true)
       }
-      if (a.kind === 'move' && a.dest && a.targets[0]) {
-        const p = a.targets[0]
-        ctx.beginPath()
-        ctx.setLineDash([6, 4])
-        ctx.moveTo(p.rect.x - sx + p.rect.w / 2, p.rect.y - sy + p.rect.h / 2)
-        ctx.lineTo(a.dest.rect.x - sx + a.dest.rect.w / 2, a.dest.rect.y - sy + a.dest.rect.h / 2)
-        ctx.stroke()
-        ctx.setLineDash([])
-        ctx.strokeRect(a.dest.rect.x - sx, a.dest.rect.y - sy, a.dest.rect.w, a.dest.rect.h)
+      if (!primary) continue
+      if (a.instruction) {
+        const instr = document.createElement('div')
+        instr.className = 'pInstr'
+        instr.textContent = a.instruction.length > PLAN_INSTR_MAX
+          ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
+          : a.instruction
+        primary.appendChild(instr)
       }
-      if ((a.kind === 'design' || a.kind === 'add') && a.region) {
-        ctx.setLineDash([8, 5])
-        ctx.strokeRect(a.region.x - sx, a.region.y - sy, a.region.w, a.region.h)
-        ctx.setLineDash([])
-        ctx.fillText(`${a.kind.toUpperCase()}: ${a.instruction.slice(0, 60)}`, a.region.x - sx + 4, a.region.y - sy - 6)
+      if (a.color) {
+        const row = document.createElement('div')
+        row.className = 'pRow'
+        const sw = document.createElement('span')
+        sw.className = 'pSwatch'
+        // the resolved colour itself, painted — a swatch that merely named a
+        // hex would be a picture of the answer rather than the answer
+        sw.style.background = a.color.nearest?.css ?? a.color.drawn
+        const tok = document.createElement('span')
+        tok.className = 'pToken'
+        tok.textContent = a.color.nearest ? a.color.nearest.token : a.color.drawn
+        row.append(sw, tok)
+        primary.appendChild(row)
+      }
+      // LAST and loudest: the user's own typed words, uncut. Everything above
+      // is a reading of the drawing; this is not a reading of anything.
+      for (const n of a.notes ?? []) {
+        const note = document.createElement('div')
+        note.className = 'pNote'
+        note.textContent = n
+        primary.appendChild(note)
       }
     }
-    ctx.restore()
+    const pageW = document.documentElement.scrollWidth
+    for (const { el, top } of lift) {
+      const h = el.offsetHeight
+      // above the box when there is room for it, else just inside the top
+      el.style.top = `${String(Math.round(top - h - PLAN_LABEL_GAP >= 2 ? top - h - PLAN_LABEL_GAP : top + 3))}px`
+      // clamped against the DOCUMENT's width, never the viewport's — a
+      // viewport clamp would have to be redone on every scroll, which is the
+      // drift this whole layer exists to avoid
+      const w = el.offsetWidth
+      const left = Number.parseFloat(el.style.left)
+      if (left + w > pageW - 4) el.style.left = `${String(Math.max(2, Math.round(pageW - w - 4)))}px`
+    }
+  }
+
+  /** The one place `this.v2` changes, so the plan can never outlive it. */
+  private setV2(v: V2Preview | null) {
+    this.v2 = v
+    this.renderPlan()
   }
 
   private drawPreview() {
-    if (this.v2) return this.drawV2Preview()
+    // v2's plan lives in the page-space #plan layer, not on this canvas.
+    // Clearing chipBoxes matters: they are viewport-space hit boxes from a
+    // previous v1 preview and would otherwise keep swallowing taps.
+    if (this.v2) {
+      this.chipBoxes = []
+      return
+    }
     if (!this.preview) return
     const { ctx } = this
     const sx = window.scrollX
@@ -3989,7 +4500,7 @@ class Overlay {
           )
           return
         }
-        this.v2 = body.v2
+        this.setV2(body.v2)
         this.preview = null
         this.setMode('preview')
         const needs = it.actions.filter((a) => a.needsConfirm).length
@@ -3997,13 +4508,18 @@ class Overlay {
           `"${it.reading}"` +
             (it.unclear ? ` · ⚠ ${it.unclear}` : '') +
             (needs ? ` · ⚠ wide delete` : '') +
+            // run-scope notes belong to no single action, so the plan has
+            // nowhere to draw them — but they are still the user's own words
+            (it.runNotes?.length ? ` · note: ${it.runNotes.join(' · ')}` : '') +
+            ` · ${it.actions.length} action(s) outlined on the page` +
+            (this.candidates > 1 ? ` · ${CANDIDATE_LABELS[this.candidates].short}` : '') +
             ' · ✓ Go / ✗ Cancel',
         )
         this.redraw()
         return
       }
       this.preview = body.result!
-      this.v2 = null
+      this.setV2(null)
       this.setMode('preview')
       const p = body.result!
       const needs = p.ops.filter((o) => o.needsConfirm).length
@@ -4021,7 +4537,7 @@ class Overlay {
 
   private exitPreview(msg: string) {
     this.preview = null
-    this.v2 = null
+    this.setV2(null)
     this.overrides = {}
     this.setMode('draw')
     this.status(msg)
@@ -4035,7 +4551,13 @@ class Overlay {
 
   private async proceed() {
     this.setMode('running')
-    this.status('running…')
+    // a multi-attempt run takes N times as long before ANYTHING lands, so say
+    // so up front rather than letting the first long silence read as a hang
+    this.status(
+      this.candidates > 1
+        ? `running ${String(this.candidates)} attempts — each one scored, only the best kept…`
+        : 'running…',
+    )
     // the drawing is now a request in flight: dim it, and drop it entirely
     // once 'done' says the edit landed
     this.ink.classList.add('applying')
@@ -4061,13 +4583,17 @@ class Overlay {
           // read at send time, not at preview time: the panel is still open
           // for business between ▶ Run and ✓ Go, and the LAST word wins
           fidelity: this.fidelityPayload(),
+          // TOP-LEVEL, deliberately not inside `fidelity`: this says how many
+          // times to generate the same confirmed interpretation, not what the
+          // result should look like
+          candidates: this.candidatesPayload(),
           notes: this.notesPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
       this.preview = null
-      this.v2 = null
+      this.setV2(null)
       this.redraw()
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {
@@ -4087,7 +4613,15 @@ class Overlay {
     this.events.addEventListener('stage', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
       if (!this.mine(d)) return
-      this.status(`${d.stage}${d.detail ? `: ${d.detail}` : ''}`)
+      // 'candidate' is the one stage whose raw "stage: detail" rendering would
+      // be actively misleading — "candidate: attempt 2/3: 71% faithful" reads
+      // like a result rather than progress through a run that is still going,
+      // and this is exactly the run that stays silent longest.
+      if (d.stage === 'candidate') {
+        this.status(`⟳ ${d.detail ?? 'generating attempts…'} · keeping the best one`)
+      } else {
+        this.status(`${d.stage}${d.detail ? `: ${d.detail}` : ''}`)
+      }
       if (this.mode === 'running') this.armWatchdog()
     })
     this.events.addEventListener('resnapshot', async (e) => {

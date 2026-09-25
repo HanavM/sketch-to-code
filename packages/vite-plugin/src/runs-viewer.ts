@@ -683,7 +683,9 @@ details.raw a{font:11.5px/1 var(--mono);text-decoration:none;border:1px solid va
 .cands .c{display:flex;justify-content:space-between;gap:6px;border:1px solid var(--line);
   border-radius:5px;padding:4px 6px;background:#fff;color:var(--dim)}
 .cands .c.win{border-color:var(--good);color:var(--good);background:#f2fbf7}
-.reuse{width:100%;background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600;padding:8px}
+.reuse{display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;
+  background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:6px;
+  font-weight:600;font-size:12px;padding:8px;cursor:pointer}
 .reuse:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .status{font-size:11px;color:var(--good);min-height:14px;display:block}
 .small{font-size:11px;color:var(--dim)}
@@ -887,8 +889,11 @@ function runCard(s: RunSummary): string {
     `<div><div class="k">tokens</div>${tokens}</div>` +
     fidelityBlock(s.fidelity) +
     candidatesBlock(s.candidates) +
-    `<div class="reuse-block"><button class="reuse" data-copy="${escapeHtml(payload)}" data-done="settings copied — paste into the overlay"` +
-    ` data-settings-url="${escapeHtml(settingsUrl)}" data-payload="${escapeHtml(payload)}">Reuse settings</button>` +
+    // The app reads ?s2c-reuse=<id> on boot and applies that run's settings,
+    // so reusing is a link rather than a clipboard round trip. The payload
+    // stays on the element for anything else that wants it.
+    `<div class="reuse-block"><a class="reuse" href="/?s2c-reuse=${encodeURIComponent(s.id)}"` +
+    ` data-settings-url="${escapeHtml(settingsUrl)}" data-payload="${escapeHtml(payload)}">Reuse settings →</a>` +
     `<span class="status" role="status"></span>` +
     `<div class="small"><a href="${escapeHtml(settingsUrl)}">settings.json</a></div></div>` +
     `</aside></article>`
