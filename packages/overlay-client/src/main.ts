@@ -1058,6 +1058,8 @@ class Overlay {
   private lastTweakClick: { el: HTMLElement; at: number } | null = null
   /** shift+click multi-selection: extras beyond the primary (this.tweak) */
   private multiSel: ExtraSel[] = []
+  /** Component written by the instant render, if one landed this run. */
+  private instant: string | null = null
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -1426,6 +1428,8 @@ class Overlay {
   private clearAll() {
     this.strokes = []
     this.notes = []
+    // a new drawing gets its own instant render
+    this.instant = null
     if (this.noteDraft) this.closeNote('cleared')
     this.resetBridge()
     this.renderInk()
@@ -4585,9 +4589,39 @@ class Overlay {
    * this is also the confirmation gate for destructive ops. Screenshot mode
    * skips interpretation (pixels-only benchmark by definition).
    */
+  /**
+   * The instant render: ask the server to turn the ink into a real mounted
+   * component before anything slow starts.
+   *
+   * Fires on the way into a run, so it only ever happens when the user has
+   * asked for one — the point is to collapse the wait, not to write code
+   * nobody requested. The server declines anything ambiguous, and a decline
+   * costs nothing: the normal interpreted path runs either way.
+   */
+  private async etch(): Promise<void> {
+    if (this.instant || this.strokes.length === 0) return
+    try {
+      const res = await fetch('/@s2c/instant', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          strokes: this.strokesForWire(), snapshot: this.snapshot(), fidelity: this.fidelityPayload(),
+        }),
+      })
+      const body = (await res.json()) as { ok: boolean; file?: string; name?: string; reason?: string }
+      if (body.ok && body.file) {
+        this.instant = body.file
+        this.status(`✏️ ${body.name ?? 'sketch'} is on the page — refining it now…`)
+      }
+    } catch { /* the slow path is the fallback, and it is already running */ }
+  }
+
   private async run() {
     if (!this.hasWork()) return
     if (this.runMode === 'screenshot') return void this.proceed()
+    // start the instant render and the reading together: neither waits on the
+    // other, and the drawing is usually on the page before the reading lands
+    const etching = this.etch()
     this.status('reading your drawing…')
     try {
       const res = await fetch('/@s2c/interpret', {
@@ -4605,6 +4639,7 @@ class Overlay {
         ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview
       }
       if (!res.ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${res.status}`)
+      await etching
       this.overrides = {}
       if (body.v2) {
         const it = body.v2.interpretation
@@ -4695,6 +4730,9 @@ class Overlay {
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
+          // the instant render already wrote and mounted this; the run should
+          // refine it in place, not create a second component for one drawing
+          instant: this.instant,
           // read at send time, not at preview time: the panel is still open
           // for business between ▶ Run and ✓ Go, and the LAST word wins
           fidelity: this.fidelityPayload(),
@@ -4982,6 +5020,7 @@ class Overlay {
       this.strokes = []
       // the ink is spent, and so are the words about it
       this.notes = []
+      this.instant = null
       if (this.noteDraft) this.closeNote(`✓ ${d.summary ?? 'done'}`)
       this.resetBridge()
       this.clearApplying()

@@ -125,14 +125,17 @@ export function buildScaffold(
     `  *\n` +
     `${note}\n` +
     `  */\n` +
-    `export default function ${name}() {\n` +
+    // takes className so whoever mounts it can place it — the instant render
+    // positions it at the ink's own offset, and dropping the prop would drop
+    // both the position and the draw-on animation
+    `export default function ${name}({ className = '' }: { className?: string }) {\n` +
     `  return (\n` +
     `    <svg\n` +
     `      aria-hidden\n` +
     `      viewBox="0 0 ${w} ${h}"\n` +
     `      width={${w}}\n` +
     `      height={${h}}\n` +
-    `      className="pointer-events-none${cls ? ` ${cls}` : ''}"\n` +
+    `      className={\`pointer-events-none${cls ? ` ${cls}` : ''} \${className}\`}\n` +
     `    >\n` +
     `${body}\n` +
     `    </svg>\n` +

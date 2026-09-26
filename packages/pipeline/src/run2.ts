@@ -131,6 +131,8 @@ export async function runV2(
     notes?: TypedNote[]
     /** Independent codegen attempts to generate and score (1-3, default 1). */
     candidates?: number
+    /** Component the instant render already wrote and mounted, if any. */
+    instant?: string | null
   },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
@@ -328,6 +330,13 @@ export async function runV2(
     try {
       if (pending.length > 0) {
         const scaffolds = layScaffolds()
+        const instantNote = input.instant
+          ? `ALREADY ON THE PAGE: ${input.instant} was written from the user's strokes and mounted\n` +
+            `the moment they stopped drawing — they are looking at it right now. REFINE THAT FILE.\n` +
+            `Keep its drawn paths, give it a name that says what it is, and finish it per the\n` +
+            `FIDELITY block. Do not create a second component for the same drawing, and do not\n` +
+            `leave the placeholder name in place.\n\n`
+          : ''
         const scaffoldNote = scaffolds.length
           ? `THE GEOMETRY IS ALREADY WRITTEN. These components exist now, built from the user's\n` +
             `own strokes — the paths in them ARE the drawing, measured, not a description of it:\n` +
@@ -339,7 +348,7 @@ export async function runV2(
             `drawn paths (fills, interior detail, shading) per the FIDELITY block. Delete a\n` +
             `scaffold only if its action genuinely does not need a component.\n\n`
           : ''
-        const brief = `${baseBrief}${scaffoldNote}${approach ? `${approach}\n\n` : ''}Implement every action now.`
+        const brief = `${baseBrief}${instantNote}${scaffoldNote}${approach ? `${approach}\n\n` : ''}Implement every action now.`
         writeFileSync(join(runDir, `prompt-${tag}.txt`), brief)
         stage('codegen', 'Claude Code editing source')
         saveReply(await agent().send({ text: brief, images }))

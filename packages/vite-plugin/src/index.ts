@@ -43,6 +43,8 @@ export interface RunRequest {
   notes?: unknown
   /** Independent attempts to generate and score; the best one is kept. */
   candidates?: number
+  /** Component the instant render already mounted, for codegen to refine. */
+  instant?: string | null
 }
 
 /** Pipeline entry, attached by @s2c/pipeline. */
@@ -171,6 +173,32 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       // the '/@s2c/runs' mount with req.url stripped to '.json'
       server.middlewares.use('/@s2c/runs.json', gateRuns)
       server.middlewares.use('/@s2c/runs', gateRuns)
+
+      /**
+       * The instant render: strokes in, a real mounted component out, with no
+       * model involved. Checkpointed and pushed onto the undo stack like any
+       * other edit, because it writes source — the speed is the point, not a
+       * reason to skip the safety the slow path gets.
+       */
+      server.middlewares.use('/@s2c/instant', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ strokes: unknown; snapshot: DomSnapshot; fidelity?: unknown }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const verdict = m.planInstant(
+              body.strokes as Parameters<typeof m.planInstant>[0],
+              body.snapshot,
+              m.normalizeFidelity(body.fidelity),
+            )
+            if (!verdict.ok) return sendJson(res, 200, { ok: false, reason: verdict.reason })
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.applyInstant(root, verdict.plan)
+            undoStack.push({ sha: cp.sha, label: `instant ${result.name}` })
+            sendJson(res, 200, { ok: true, ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, reason: String(err) }))
+      })
 
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
@@ -335,6 +363,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     fidelity: body.fidelity,
                     notes: body.notes as Parameters<typeof m.runV2>[0]['notes'],
                     candidates: body.candidates,
+                    instant: body.instant,
                   },
                   ctx,
                 )

@@ -25,6 +25,8 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export { planInstant, applyInstant, revertInstant, instantEligible, mountPoint } from './instant.js'
+export type { InstantPlan, InstantResult, InstantVerdict } from './instant.js'
 export { buildScaffold, componentName, scaffoldDir } from './scaffold.js'
 export type { Scaffold } from './scaffold.js'
 export { finishSource, paletteFor } from './finish.js'

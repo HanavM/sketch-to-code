@@ -277,6 +277,34 @@ Live (2026-09-15, same gestures as before):
 Interpretation (~3-4k) is still a model call. Modify is the next target: a
 two-class change still pays for a full agent session.
 
+## ⚡ The instant render: under a second, no model (2026-09-26)
+
+A run took ~136s, and the user spent all of it looking at a status line. But
+the slow part is the polish, not the shape — the shape is ours, it is exact,
+and it costs nothing. `scaffold.ts` was already writing the drawn geometry
+into a component before codegen; it was just hidden until the agent finished.
+
+`instant.ts` mounts it immediately instead. Strokes → fitted paths → a real
+`.tsx` component → inserted into the tightest POSITIONED stamped container at
+the ink's own offset, with an import, through `/@s2c/instant`. Zero model
+calls, checkpointed and undoable like any other edit. The component paints
+itself on (stroke-dashoffset), so it reads as etched rather than popped in.
+Measured live: **738ms from pen-up to a painted component**, against 136s for
+the full run, which then refines that same file in place.
+
+The hard part is restraint, not speed. Writing to someone's source unasked is
+only defensible when the drawing cannot mean anything else, so the gate
+refuses far more than it fires: a drawing whose CENTRE sits inside a content
+element is a mark about that element (a strike, a ring, a scribble), not a new
+thing; a dense back-and-forth is a scratch-out; ink under 24px is a slip. Each
+refusal costs nothing — the interpreted path runs anyway.
+
+Two bugs the live test caught that unit tests could not: the animation
+`<style>` first emitted as a sibling of the `<svg>` (invalid JSX, component
+crashed, page blank), and the mount landing inside `BackgroundFlourish` — a
+`pointer-events-none` decoration layer that is technically the tightest
+positioned ancestor and semantically the wrong host.
+
 ## Benchmark: structure vs pixels (2026-08-12, same scribble-to-delete task)
 
 | mode | interpretation | tokens |

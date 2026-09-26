@@ -45,7 +45,7 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(sc.code).toContain('M34,1 C55,2')
     expect(sc.code).toContain('M46,34 C49,31')
     expect(sc.code).toContain('viewBox="0 0 80 104"')
-    expect(sc.code).toContain('export default function SideProfile()')
+    expect(sc.code).toContain('export default function SideProfile({ className')
   })
 
   it('fills closed shapes and strokes open ones when a filled result is asked for', () => {
