@@ -94,7 +94,11 @@ export function buildScaffold(
 
   const w = Math.round(region.w)
   const h = Math.round(region.h)
-  const filled = fidelity.fill !== 'outline'
+  // the style is visible from the first frame: line art never fills, flat
+  // never interpolates. The instant render should already look like the thing
+  // that was asked for, not like a default that changes under the user later.
+  const filled = fidelity.fill !== 'outline' && fidelity.style !== 'line'
+  const gradientOk = fidelity.style !== 'flat'
   // a colour the user actually drew in beats currentColor; a token the app
   // already uses beats a literal
   const token = action.color?.nearest?.token
@@ -106,7 +110,7 @@ export function buildScaffold(
   // is the minimum that makes a shape look like it has form, and all of it is
   // derived, so it costs nothing.
   const gradId = `${name.toLowerCase()}-form`
-  const defs = filled
+  const defs = filled && gradientOk
     ? `      <defs>\n` +
       `        <linearGradient id="${gradId}" x1="0" y1="0" x2="0.35" y2="1">\n` +
       `          <stop offset="0%" stopColor="currentColor" stopOpacity="0.42" />\n` +
@@ -119,9 +123,11 @@ export function buildScaffold(
   const body = paths
     .map(({ d, strokeId }) => {
       const closed = isClosed(d)
+      const fillAttr = gradientOk ? `url(#${gradId})` : 'currentColor'
+      const flatOpacity = gradientOk ? '' : ' fillOpacity="0.26"'
       const attrs = filled && closed
         // filled AND outlined: the drawn edge survives as the form's contour
-        ? `fill="url(#${gradId})" stroke="currentColor" strokeOpacity="0.55" strokeWidth={1.5} strokeLinejoin="round"`
+        ? `fill="${fillAttr}"${flatOpacity} stroke="currentColor" strokeOpacity="0.55" strokeWidth={1.5} strokeLinejoin="round"`
         : 'fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"'
       return `      {/* ${strokeId}: drawn by the user — measured geometry, keep it */}\n` +
         `      <path d="${d}" ${attrs} />`

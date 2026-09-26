@@ -46,6 +46,8 @@ export interface FidelityKeep {
  */
 export type FillLevel = 'outline' | 'filled' | 'realized'
 
+import { normalizeStyle, STYLES, type StyleId } from './style.js'
+
 export interface FidelityControls {
   /**
    * 0 → reinterpret: substitute a proper icon/asset for the concept
@@ -56,6 +58,8 @@ export interface FidelityControls {
   keep: FidelityKeep
   /** Line art, solid shapes, or a finished illustration of the subject. */
   fill: FillLevel
+  /** What it should look like: flat, soft, line art, grain, glow, or the app's own. */
+  style: StyleId
   /** 'app' snaps colour/size to the app's design system; 'sketch' keeps the
    *  drawing's own look (hand-drawn line, its own proportions). */
   palette: 'app' | 'sketch'
@@ -67,6 +71,8 @@ export const DEFAULT_FIDELITY: FidelityControls = {
   // A sketch is shorthand for a thing, not a request for its outline: solid
   // shapes are the useful default, and 'outline' is the opt-in for line art.
   fill: 'filled',
+  // no aesthetic imposed until one is asked for
+  style: 'auto',
   palette: 'app',
 }
 
@@ -94,6 +100,7 @@ export function normalizeFidelity(raw: unknown): FidelityControls {
       placement: bool(keepRaw.placement, DEFAULT_FIDELITY.keep.placement),
     },
     fill: r.fill === 'outline' || r.fill === 'realized' ? r.fill : DEFAULT_FIDELITY.fill,
+    style: normalizeStyle(r.style),
     palette: r.palette === 'sketch' ? 'sketch' : 'app',
   }
 }
@@ -199,7 +206,7 @@ export function fidelityDirective(f: FidelityControls): string {
       `thing at a glance. Keep the drawn silhouette and proportions; invent the interior. Use at ` +
       `least three values — base, shadow, highlight — and gradients where a surface curves.`,
   }
-  const lines = [head[rung], fill[f.fill]]
+  const lines = [head[rung], fill[f.fill], STYLES[f.style].directive]
   if (kept.length) lines.push(`MUST SURVIVE (scored): ${kept.join('; ')}.`)
   if (free.length) lines.push(`Free to normalize (not scored): ${free.join('; ')}.`)
   lines.push(
@@ -219,6 +226,7 @@ export function fidelitySummary(f: FidelityControls): string {
   const off = (Object.keys(f.keep) as Array<keyof FidelityKeep>).filter((k) => !f.keep[k])
   return (
     `${rungFor(f.resemblance)} ${Math.round(f.resemblance * 100)}% · ${f.fill}` +
+    (f.style === 'auto' ? '' : ` · ${f.style}`) +
     (off.length ? ` · free: ${off.join(',')}` : '') +
     (f.palette === 'sketch' ? ' · sketch styling' : '')
   )

@@ -31,6 +31,7 @@ import {
   type FidelityControls,
 } from './fidelity.js'
 import { deltaE, parseCssColor } from './palette.js'
+import { styleFaults } from './style.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import type { RunContext, RunResult } from './run.js'
 
@@ -636,7 +637,13 @@ export function verifyActions(
         }
         // the bar the user asked for: a free reinterpretation reports the
         // measurement without failing on it
-        const ok = best.score >= passMark(controls)
+        // the aesthetic the user picked is part of the contract, and it is
+        // observable in the source: gradients, filters, whether anything is
+        // filled at all
+        const styleProblems = controls.style === 'auto'
+          ? []
+          : depiction.sources.flatMap((src) => styleFaults(controls.style, src, compositionFromSource(src).tones))
+        const ok = best.score >= passMark(controls) && styleProblems.length === 0
         details.push({
           kind: 'composition', index: i, score: best.score,
           massSimilarity: best.massSimilarity, flaws: best.flaws, notes: best.notes,
@@ -645,7 +652,7 @@ export function verifyActions(
         else {
           failures.push(
             `action ${i} (composition of "${a.depicts ?? 'the drawing'}", ` +
-            `${Math.round(best.score * 100)}% faithful): ${best.notes.join('; ')}`,
+            `${Math.round(best.score * 100)}% faithful): ${[...best.notes, ...styleProblems].join('; ')}`,
           )
         }
       }
