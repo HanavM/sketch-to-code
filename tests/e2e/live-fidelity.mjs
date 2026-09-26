@@ -266,6 +266,8 @@ const want = {
   // the second axis (how filled-in the result is) rides in the same object and
   // is covered on its own in live-fill.mjs; left at its default here
   fill: 'filled',
+  // likewise the aesthetic, covered in live-style.mjs
+  style: 'auto',
 }
 s = await state()
 if (!eq(JSON.parse(s.stored), want)) throw new Error(`stored ${s.stored}, want ${JSON.stringify(want)}`)

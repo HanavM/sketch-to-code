@@ -274,6 +274,8 @@ interface Fidelity {
   palette: 'app' | 'sketch'
   /** How filled-in the result is — line art, solid shapes, or a real picture. */
   fill: FillMode
+  /** The aesthetic: flat, soft, line art, grain, neon — or none imposed. */
+  style: StyleMode
 }
 
 /** Iteration order for validation and for the always-visible summary. */
@@ -331,6 +333,68 @@ const FILL_LABELS: Record<FillMode, { label: string; glyph: string; short: strin
   },
 }
 
+/**
+ * The THIRD fidelity axis: what the result should LOOK like.
+ *
+ * Resemblance says how closely the drawn GEOMETRY is followed; RESULT says how
+ * finished the thing is. Neither says anything about its aesthetic — the same
+ * sketch, traced exactly and fully realized, is a flat illustration or a neon
+ * sign or a risograph print, and the user cares about that difference as much
+ * as about either of the other two. So the aesthetic is its own axis, and it
+ * is chosen by FEEL: one word per look, one line saying what comes back.
+ */
+type StyleMode = 'auto' | 'flat' | 'soft' | 'line' | 'grain' | 'glow'
+
+/** Iteration order for validation, for the picker, and for Alt+Y's cycle. */
+const STYLE_KEYS = ['auto', 'flat', 'soft', 'line', 'grain', 'glow'] as const
+/**
+ * 'auto' imposes nothing: the result is meant to look like the app it is going
+ * into, which is what someone who never opens this control wants. Every other
+ * value is an aesthetic the user asked for on purpose — so an unknown or
+ * missing one lands here, never on a look nobody chose.
+ */
+const DEFAULT_STYLE: StyleMode = 'auto'
+/**
+ * One word for the picker, one clause beside it, one line of hint, one tooltip
+ * WHY — all from a single table, so the option, the hint, the bar tooltip, the
+ * status line and Alt+Y can never say different things.
+ *
+ * `hint` is a SINGLE line by contract (see .fStyleHint): the box is fixed and
+ * never grows, so every string here has to fit one line at the panel's 300px.
+ */
+const STYLE_LABELS: Record<StyleMode, { label: string; short: string; hint: string; tip: string }> = {
+  auto: {
+    label: 'auto', short: 'match the app',
+    hint: 'No look imposed — it matches the app.',
+    tip: 'no aesthetic of its own: the result is rendered to look like the app it is going into',
+  },
+  flat: {
+    label: 'flat', short: 'solid shapes',
+    hint: 'Solid shapes, no gradients — flat, modern.',
+    tip: 'modern flat illustration: solid shapes and hard edges, no gradients, no shadows',
+  },
+  soft: {
+    label: 'soft', short: 'gradients, shadows',
+    hint: 'Gradients and soft shadows — rounded, lit.',
+    tip: 'gradients, soft shadows, dimension — things look rounded and lit rather than cut out',
+  },
+  line: {
+    label: 'line', short: 'line art',
+    hint: 'Line art: uniform strokes, no fills.',
+    tip: 'line art: uniform strokes and nothing filled in',
+  },
+  grain: {
+    label: 'grain', short: 'flat + texture',
+    hint: 'Few flat colours, visible grain. Printed.',
+    tip: 'a few flat colours plus visible grain and texture — printed, risograph-ish',
+  },
+  glow: {
+    label: 'glow', short: 'neon',
+    hint: 'Dark ground, saturated colour, neon edges.',
+    tip: 'neon: a dark ground, saturated colour and luminous edges',
+  },
+}
+
 /** A fresh install sends exactly this. Deep-cloned per read — the panel
  *  mutates its copy, and a shared literal would drift the "default". */
 function defaultFidelity(): Fidelity {
@@ -342,6 +406,9 @@ function defaultFidelity(): Fidelity {
     // almost never what they asked for, and the outline is always one click
     // away for the case where it is.
     fill: 'filled',
+    // 'auto', because the honest default is "no aesthetic imposed": a look the
+    // user never asked for is a look they have to notice and undo.
+    style: DEFAULT_STYLE,
   }
 }
 
@@ -374,6 +441,11 @@ function parseFidelity(v: unknown): Fidelity {
   // rest of the object
   const fill = o.fill
   if (FILL_KEYS.includes(fill as FillMode)) f.fill = fill as FillMode
+  // same per-field fallback as `fill`: a profile saved before this axis existed
+  // has no `style` at all, and a value this client doesn't know is not a look
+  // the server can render — either way the REST of the object survives
+  const style = o.style
+  if (STYLE_KEYS.includes(style as StyleMode)) f.style = style as StyleMode
   return f
 }
 
@@ -839,6 +911,38 @@ const STYLES = css`
   #fidelityPanel .fCandHint {
     color: #9ca3af; height: 4.35em; margin: 5px 0 0; overflow: hidden;
   }
+  /* ---- the style axis: six looks, one row ------------------------------
+     Six options, where the segments above have two and three. Six pills do not
+     stay legible across the panel's 300px, and the 3x2 grid of buttons that
+     would (a section heading, two rows and a hint) costs ~100px of height this
+     panel does not own: it is already 768px tall, it must NOT scroll (the
+     e2e-guarded promise is that nothing in it moves, and a scrolled popover
+     hides controls instead), and past ~827px it stops fitting either above or
+     below a bar parked in a top corner — at which point layoutFidelityPanel
+     leaves it hanging off the screen. A <select> says the same thing in ONE
+     row: its popup is an OS window that costs no layout at all, the closed box
+     always reads as the current choice, and it cannot widen the panel. */
+  #fidelityPanel .fPick { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  #fidelityPanel .fPickLabel { flex: none; color: #9ca3af; }
+  /* flex:1 + min-width:0, so the box is the same width for every option: the
+     selected label is the text that changes here, and a shrink-to-fit control
+     would move its own neighbours every time the user picked something. */
+  #styleSel {
+    flex: 1; min-width: 0; height: 22px;
+    background: #1f2937; color: #f9fafb; border: 1px solid #374151; border-radius: 7px;
+    font-family: inherit; font-size: 11px; padding: 0 4px; cursor: pointer;
+  }
+  #styleSel:hover { background: #374151; }
+  /* The .fFillHint contract taken one step further. This hint rewrites itself
+     on every pick and sits one row UNDER the control being clicked, in a panel
+     anchored to the bar's top edge — so a string reflowing to a second line
+     would jump the picker out from under the cursor. Fixed height AND nowrap,
+     with an ellipsis rather than a half-clipped word if copy ever outgrows the
+     box (the e2e asserts no ellipsis ever actually shows). */
+  #fidelityPanel .fStyleHint {
+    color: #9ca3af; font-size: 11px; height: 16px; line-height: 16px;
+    margin: 4px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
   /* ---- typed notes ----------------------------------------------------
      Exactly the trick #ink uses: ONE absolutely positioned layer pinned at
      the document origin, so chips and the editor are laid out in PAGE
@@ -1010,6 +1114,8 @@ class Overlay {
   private fidelityBtn: HTMLButtonElement
   private fidelityPanel: HTMLElement
   private fidelityRange: HTMLInputElement
+  /** The style axis' picker. Options are generated from STYLE_LABELS. */
+  private styleSel: HTMLSelectElement
   private keepBoxes = {} as Record<keyof FidelityKeep, HTMLInputElement>
   private fidelityOpen = false
   private fidelity: Fidelity = defaultFidelity()
@@ -1184,6 +1290,12 @@ class Overlay {
           <button id="palette-sketch" class="fSegBtn"
                   title="keep the drawing's own hand-drawn look — its colours, wobble and weight">hand-drawn</button>
         </div>
+        <div class="fPick">
+          <span class="fPickLabel">style</span>
+          <select id="styleSel" aria-label="visual style"
+                  title="the look the result is rendered in — Alt+Y cycles, Alt+Shift+Y goes back"></select>
+        </div>
+        <div id="styleHint" class="fStyleHint"></div>
         <div class="fSect">result</div>
         <div id="fillSeg" class="fSeg"></div>
         <div id="fillHint" class="fFillHint"></div>
@@ -1229,6 +1341,7 @@ class Overlay {
     this.fidelityBtn = this.shadow.getElementById('fidelityBtn') as HTMLButtonElement
     this.fidelityPanel = this.shadow.getElementById('fidelityPanel')!
     this.fidelityRange = this.shadow.getElementById('fidelityRange') as HTMLInputElement
+    this.styleSel = this.shadow.getElementById('styleSel') as HTMLSelectElement
     this.autoBtn = this.shadow.getElementById('autoBtn') as HTMLButtonElement
     this.buildFidelityPanel()
 
@@ -1597,6 +1710,22 @@ class Overlay {
       fill('outline', '5'),
       fill('filled', '6'),
       fill('realized', '7'),
+      {
+        // A letter, not another digit: 1-4 are the keeps, 5-7 the fill and 8-9
+        // the attempts, so the row is full — and six styles would want six of
+        // them anyway. Y is free, and ONE key that cycles is the only shape
+        // that reaches six options without spending six bindings.
+        id: 'style-next', keys: 'Alt+Y', group: 'fidelity',
+        label: 'next visual style — auto / flat / soft / line / grain / glow',
+        match: altBind('KeyY', 'y'), run: () => this.cycleStyle(1),
+      },
+      {
+        // Shift reverses it, the shape Alt+Shift+N already established here —
+        // six options is far enough round the cycle for backwards to matter.
+        id: 'style-prev', keys: 'Alt+Shift+Y', group: 'fidelity',
+        label: 'previous visual style — the same cycle, backwards',
+        match: altBind('KeyY', 'y', true), run: () => this.cycleStyle(-1),
+      },
       {
         // 8/9 continue the fidelity digit row (1-4 keeps, 5-7 fill) rather
         // than taking letters: Alt+A is free but "attempts" and "asymmetry"
@@ -1980,6 +2109,23 @@ class Overlay {
       seg.appendChild(b)
     }
 
+    // The style options are generated from STYLE_LABELS for the same reason
+    // the fill segment is: label, tooltip, hint and Alt+Y all read one table,
+    // so the picker cannot disagree with what goes on the wire. Ids on the
+    // options (style-auto … style-glow) so each one is addressable, exactly
+    // like the buttons of the segments above.
+    for (const k of STYLE_KEYS) {
+      const o = document.createElement('option')
+      o.id = `style-${k}`
+      o.value = k
+      // word + clause: the closed box has ~230px, and the one-line hint under
+      // it carries the rest of the meaning
+      o.textContent = `${STYLE_LABELS[k].label} — ${STYLE_LABELS[k].short}`
+      o.title = STYLE_LABELS[k].tip
+      this.styleSel.appendChild(o)
+    }
+    this.styleSel.addEventListener('change', () => this.setStyle(this.styleSel.value as StyleMode))
+
     // The attempts segment, generated from CANDIDATE_LABELS for the same
     // reason: the tradeoff copy is stated in exactly one place, so the button,
     // its tooltip, the hint and Alt+8/9 can never say different things.
@@ -2022,6 +2168,12 @@ class Overlay {
       this.shadow.getElementById(`fill-${k}`)!.classList.toggle('on', f.fill === k)
     }
     this.shadow.getElementById('fillHint')!.textContent = fill.hint
+    // The select's own value IS the selection, so it is written FROM state like
+    // every other control here — a click, Alt+Y and a restore from storage all
+    // end up in the same place.
+    const style = STYLE_LABELS[f.style]
+    this.styleSel.value = f.style
+    this.shadow.getElementById('styleHint')!.textContent = style.hint
     // Requirement: the user must be able to tell what will happen WITHOUT
     // opening the panel — the bar carries the zone + %, and the full state
     // (including which aspects are still being kept) hangs off the tooltip.
@@ -2035,6 +2187,10 @@ class Overlay {
       ` · keeping: ${kept.length ? kept.join(', ') : 'nothing (everything may be normalized)'}` +
       ` · ${f.palette === 'app' ? "app's design system" : 'hand-drawn look'}` +
       ` · result: ${fill.label} — ${fill.short}` +
+      // The style axis rides in the TOOLTIP and nowhere else on the bar: the
+      // pill is already ~868px and two e2e suites hold it under 900, so a
+      // fourth always-visible readout is not available at any price.
+      ` · style: ${style.label} — ${style.short}` +
       // The attempts count rides in the TOOLTIP rather than in the bar: the
       // pill is width:max-content and centred with translateX(-50%), so any
       // new always-visible readout would slide the whole toolbar sideways the
@@ -2152,6 +2308,33 @@ class Overlay {
     // user is clicking. While it IS open the hint under the segment has
     // already said this, in more words and without moving anything.
     if (!this.fidelityOpen) this.status(`result: ${FILL_LABELS[k].label} — ${FILL_LABELS[k].tip}`)
+  }
+
+  /**
+   * The style axis, from the picker or from Alt+Y. Idempotent like setFill —
+   * the picker sets a value; only the keybinding walks the list.
+   */
+  private setStyle(k: StyleMode) {
+    this.fidelity.style = k
+    this.syncFidelityUi()
+    this.saveFidelity()
+    // Status ONLY while the panel is shut, for the reason setFill documents:
+    // #status sizes the width:max-content pill, so writing to it with the
+    // popover open would shuffle the very control the user is aiming at. With
+    // it open, the hint under the picker has already said this.
+    if (!this.fidelityOpen) this.status(`style: ${STYLE_LABELS[k].label} — ${STYLE_LABELS[k].tip}`)
+  }
+
+  /**
+   * Alt+Y / Alt+Shift+Y. WRAPS rather than clamps — the opposite of
+   * nudgeCandidates, and for the opposite reason: every style costs exactly the
+   * same, so there is nothing here to protect the user from, and one key that
+   * reaches all six beats six bindings on a digit row that has none left.
+   */
+  private cycleStyle(delta: number) {
+    const n = STYLE_KEYS.length
+    const i = Math.max(0, STYLE_KEYS.indexOf(this.fidelity.style))
+    this.setStyle(STYLE_KEYS[(((i + delta) % n) + n) % n]!)
   }
 
   /**
@@ -2411,6 +2594,7 @@ class Overlay {
       },
       palette: f.palette === 'sketch' ? 'sketch' : 'app',
       fill: FILL_KEYS.includes(f.fill) ? f.fill : 'filled',
+      style: STYLE_KEYS.includes(f.style) ? f.style : DEFAULT_STYLE,
     }
   }
 
