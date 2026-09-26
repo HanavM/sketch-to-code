@@ -3,8 +3,8 @@
  * interpretV2()  — evidence → one multimodal call → grounded, validated intent
  * runV2()        — grounded intent → codegen → per-action verification
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
 import type { DomSnapshot } from '@s2c/dom'
 import type { EditOp } from '@s2c/intent'
@@ -23,11 +23,14 @@ import { checkpoint } from './safety.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, type Attempt,
 } from './candidates.js'
+import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
+import { finishSource, paletteFor } from './finish.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
 import {
   DEFAULT_FIDELITY, fidelityDirective, fidelitySummary, normalizeFidelity, passMark, rungFor,
   type FidelityControls,
 } from './fidelity.js'
+import { deltaE, parseCssColor } from './palette.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import type { RunContext, RunResult } from './run.js'
 
@@ -233,9 +236,58 @@ export async function runV2(
     if (images.length >= 4) break
   }
 
+  /**
+   * Write the drawn geometry into real components BEFORE the model runs.
+   *
+   * The ControlNet lesson: structure is supplied, not requested. Each attempt
+   * re-lays these, because an attempt starts from the state the user
+   * confirmed and the previous attempt's files were reverted.
+   */
+  const layScaffolds = (): Scaffold[] => {
+    const taken = new Set<string>()
+    const out: Scaffold[] = []
+    for (const { a, i } of pending) {
+      if (!a.svgPaths?.length) continue
+      const sc = buildScaffold(a, i, fidelity, { dir: scaffoldDir(a.dest?.srcLoc), taken })
+      if (!sc) continue
+      const abs = join(ctx.root, sc.rel)
+      // never clobber something that already exists — a name collision with
+      // the user's own component would be an edit they never asked for
+      if (existsSync(abs)) continue
+      mkdirSync(dirname(abs), { recursive: true })
+      writeFileSync(abs, sc.code)
+      out.push(sc)
+    }
+    if (out.length) save('scaffolds.json', out.map((sc) => ({ action: sc.actionIndex, name: sc.name, rel: sc.rel })))
+    return out
+  }
+
+  const palette = paletteFor(input.snapshot)
+  let finishEdits: unknown[] = []
+  /**
+   * Cheap deterministic cleanup before anything is judged: a one-off colour
+   * literal the app already has a token for, geometry that renders nothing,
+   * a path emitted twice. None of it needs judgement, so none of it needs a
+   * model round — which is the only other way these got fixed.
+   */
+  const finishPass = () => {
+    for (const rel of touchedFiles(ctx.root, cp)) {
+      if (!/\.(tsx|jsx)$/.test(rel)) continue
+      const abs = join(ctx.root, rel)
+      let code: string
+      try { code = readFileSync(abs, 'utf8') } catch { continue }
+      const { code: next, edits } = finishSource(code, palette)
+      if (!edits.length || next === code) continue
+      writeFileSync(abs, next)
+      finishEdits.push({ file: rel, edits })
+      for (const e of edits) stage('finish', `${rel}: ${e.detail}`)
+    }
+  }
+
   let lastVerify: unknown = null
   /** Re-snapshot the live page and score every action against the drawing. */
   const verifyRound = async (tag: string) => {
+    finishPass()
     const after = await ctx.requestSnapshot(runId)
     // read back what was just written, so composition can be scored against
     // the ink without a screenshot or a model call
@@ -275,7 +327,19 @@ export async function runV2(
     let lastFailures: string[] = []
     try {
       if (pending.length > 0) {
-        const brief = `${baseBrief}${approach ? `${approach}\n\n` : ''}Implement every action now.`
+        const scaffolds = layScaffolds()
+        const scaffoldNote = scaffolds.length
+          ? `THE GEOMETRY IS ALREADY WRITTEN. These components exist now, built from the user's\n` +
+            `own strokes — the paths in them ARE the drawing, measured, not a description of it:\n` +
+            scaffolds.map((sc) => `- ${sc.rel} (${sc.name}) — action ${sc.actionIndex}`).join('\n') + '\n\n' +
+            `Keep those path elements. Do not replace them with shapes of your own and do not\n` +
+            `re-derive them from the svgPath data in the action — that is where they came from.\n` +
+            `Your job on those actions is everything else: mount the component where the action\n` +
+            `says, name and style it in the app's idiom, and build the finished result AROUND the\n` +
+            `drawn paths (fills, interior detail, shading) per the FIDELITY block. Delete a\n` +
+            `scaffold only if its action genuinely does not need a component.\n\n`
+          : ''
+        const brief = `${baseBrief}${scaffoldNote}${approach ? `${approach}\n\n` : ''}Implement every action now.`
         writeFileSync(join(runDir, `prompt-${tag}.txt`), brief)
         stage('codegen', 'Claude Code editing source')
         saveReply(await agent().send({ text: brief, images }))
@@ -375,6 +439,7 @@ export async function runV2(
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
     fidelity,
     candidates,
+    finishing: finishEdits,
   })
   const summary =
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
@@ -386,6 +451,51 @@ export async function runV2(
     `${fmtTokens(totalUsage)} tokens · revert: git restore --source=${cp.sha.slice(0, 10)} -- <paths>`
   stage('done', summary)
   return { summary }
+}
+
+/**
+ * Did the colour the user drew in actually reach the page?
+ *
+ * Deliberately generous about WHERE: the action's own region for a creation,
+ * the target's rect for an edit, and any element inside it counts. What it is
+ * strict about is the colour itself, in the perceptual space the palette
+ * snapping already uses — "close enough to the red you drew" is a measurement,
+ * not an opinion.
+ */
+export function verifyColor(
+  a: GroundedAction,
+  after: DomSnapshot,
+): { satisfied: boolean; reason: string; nearest?: number } {
+  const want = parseCssColor(a.color?.nearest?.css ?? a.color?.drawn ?? '')
+  if (!want) return { satisfied: true, reason: 'no readable colour intent to check' }
+  const box = a.region ?? a.targets[0]?.rect ?? a.dest?.rect
+  if (!box) return { satisfied: true, reason: 'nothing to look in' }
+
+  const inside = after.nodes.filter((n) => {
+    const cx = n.rect.x + n.rect.w / 2
+    const cy = n.rect.y + n.rect.h / 2
+    // a generous margin: a decoration is often positioned just outside the
+    // box the ink occupied
+    return cx >= box.x - 40 && cx <= box.x + box.w + 40 && cy >= box.y - 40 && cy <= box.y + box.h + 40
+  })
+  let best = Infinity
+  for (const n of inside) {
+    for (const css of [n.style.color, n.style.backgroundColor]) {
+      const got = css ? parseCssColor(css) : null
+      if (got) best = Math.min(best, deltaE(want, got))
+    }
+  }
+  const drawn = a.color?.drawn ?? '?'
+  if (best === Infinity) return { satisfied: false, reason: `nothing rendered near the drawing to carry ${drawn}` }
+  // the same threshold the palette uses to decide two colours are the same
+  const ok = best <= 25
+  return {
+    satisfied: ok,
+    nearest: Math.round(best * 10) / 10,
+    reason: ok
+      ? `${drawn} is on the page (ΔE ${best.toFixed(1)})`
+      : `nothing near the drawing is the colour that was drawn (${drawn}); closest is ΔE ${best.toFixed(1)} away`,
+  }
 }
 
 /**
@@ -484,6 +594,17 @@ export function verifyActions(
       details.push({ kind: a.kind, index: i, verdict })
       if (verdict.satisfied) satisfied++
       else failures.push(`action ${i} (${a.kind}): ${verdict.reason}`)
+    }
+
+    // A drawn colour is an instruction, and until now nothing checked it: a
+    // run could be asked for red, produce grey, and report 100%. Structure was
+    // measured richly while appearance was not measured at all.
+    if (a.color) {
+      total++
+      const verdict = verifyColor(a, after)
+      details.push({ kind: 'colour', index: i, ...verdict })
+      if (verdict.satisfied) satisfied++
+      else failures.push(`action ${i} (colour): ${verdict.reason}`)
     }
 
     // Placement says the thing is in the right PLACE. For a depiction that is

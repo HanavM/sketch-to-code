@@ -25,6 +25,10 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export { buildScaffold, componentName, scaffoldDir } from './scaffold.js'
+export type { Scaffold } from './scaffold.js'
+export { finishSource, paletteFor } from './finish.js'
+export type { FinishEdit, FinishResult } from './finish.js'
 export { APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles } from './candidates.js'
 export type { Attempt, Work } from './candidates.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'
