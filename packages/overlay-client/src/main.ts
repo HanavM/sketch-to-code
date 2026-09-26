@@ -532,6 +532,33 @@ const CANDIDATE_LABELS: Record<Candidates, { label: string; short: string; hint:
   },
 }
 
+// ---- auto mode: a finished drawing runs itself -------------------------
+// Everything else here is one click away from a run; this is zero. The whole
+// value is not pressing ✓ Go, so the only hard question is WHEN a drawing is
+// finished — and the answer cannot be pointerup, because a drawing is many
+// strokes. It is "the pen has stopped moving": the last stroke ended and
+// nothing new began for a while.
+
+/** Where the toggle survives a reload (same contract as s2c:fidelity). */
+const AUTO_STORE_KEY = 's2c:auto'
+/**
+ * How long the pen must rest before the drawing counts as finished.
+ *
+ * The gaps INSIDE one drawing are short — lifting to start the next side of a
+ * box, crossing a t, going back over a line — and they cluster well under half
+ * a second; the pause that means "there, done" is the long one. 900ms sits
+ * above the natural inter-stroke gap without making the tool feel asleep, and
+ * it is a floor rather than a guess: every stroke restarts the wait, and the
+ * countdown is cancellable, so guessing early costs an Esc rather than a run.
+ */
+const AUTO_SETTLE_MS = 900
+/**
+ * How often the countdown redraws. A tenth of a second, because with a
+ * sub-second settle a whole-second countdown would only ever read '1' — which
+ * tells the user nothing about whether it is about to fire.
+ */
+const AUTO_TICK_MS = 100
+
 // ---- keymap: one table, two consumers ---------------------------------
 // Every action the HUD offers has to be reachable without the mouse. Scattering
 // `if (e.altKey && …)` branches through the keydown handler is how bindings go
@@ -686,8 +713,39 @@ const STYLES = css`
   #modes { display: flex; gap: 2px; background: #1f2937; border-radius: 999px; padding: 2px; }
   button.mode { padding: 4px 8px; background: transparent; }
   button.mode.on { background: #2563eb; }
-  #status { max-width: 380px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9ca3af; }
+  /* The ellipsis budget, and the second half of the bar's width budget: with a
+     long message the status is ALL the slack there is, so this cap is what the
+     bar's widest state is made of. It came down by exactly the width of the ⚡
+     toggle, because the popovers are anchored to the bar's LEFT edge — a wider
+     bar is a bar whose centred left edge slides further left, dragging an open
+     panel across the viewport with it. Growing the pill is not a cosmetic
+     choice; it moves other people's controls. */
+  #status { max-width: 316px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9ca3af; }
   #status.err { color: #f87171; }
+  /* ---- auto mode -------------------------------------------------------
+     A toggle that spends tokens and edits source with no click, so its state
+     has to be readable at a glance: the word says it, the colour repeats it. */
+  #autoBtn { display: flex; align-items: center; gap: 3px; padding: 5px 8px; }
+  #autoBtn.on { background: #2563eb; }
+  /* FIXED width, for the reason #fidelityNow documents one level up: the bar is
+     width:max-content and centred with translateX(-50%), so a shrink-to-fit
+     'on'/'off' would slide the WHOLE toolbar sideways every time it flipped.
+     Sized for 'off', the wider of the two. */
+  #autoState {
+    display: inline-block; width: 18px; text-align: left;
+    font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
+  }
+  #autoBtn.on #autoState { color: #eff6ff; }
+  /* The countdown ticks ten times a second INSIDE the status line, and #status
+     sizes the bar — an un-boxed number would slide the whole toolbar sideways
+     on every tick, which is the one thing a "nothing moved, I promise" UI must
+     not do. Fixed width sized for '0.9s' (the unit rides inside the slot, so
+     the slack lands next to the separator rather than mid-number), tabular
+     digits so even that width is never re-measured. */
+  #autoCount {
+    display: inline-block; width: 30px; text-align: left;
+    font-variant-numeric: tabular-nums;
+  }
   /* ---- fidelity control: one pill button + a popover ------------------
      The bar is a compact pill and has to stay one; five widgets inline
      would double its width. So the bar carries only the glyph plus the
@@ -955,6 +1013,17 @@ class Overlay {
   private keepBoxes = {} as Record<keyof FidelityKeep, HTMLInputElement>
   private fidelityOpen = false
   private fidelity: Fidelity = defaultFidelity()
+  /** The auto-mode toggle and everything the settle timer needs.
+   *  OFF is the only safe default — see restoreAuto. */
+  private autoBtn: HTMLButtonElement
+  private auto = false
+  /** The settle timer, and the moment it is counting down to (performance.now
+   *  ms). Non-null timer == a run is pending, which is what Esc cancels. */
+  private autoTimer: ReturnType<typeof setInterval> | null = null
+  private autoDeadline = 0
+  /** The single-run lock: one auto-run at a time, start to finish. The mode
+   *  alone isn't enough — interpret and run are two awaits with a gap. */
+  private autoBusy = false
   /** Page-space layer holding the plan outlines and their labels. */
   private planLayer: HTMLElement
   private planSvg: SVGSVGElement
@@ -1069,14 +1138,19 @@ class Overlay {
       <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
       <button id="penBtn" aria-haspopup="dialog" aria-expanded="false" title="pen colour (Alt+P) — what you draw in is what it becomes"><span id="penDot"></span></button>
       <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span><span id="fillNow"></span></button>
+      <button id="autoBtn" aria-pressed="false">⚡<span id="autoState"></span></button>
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
-      <!-- the bar is width:max-content, so this string sizes the whole HUD:
-           keep it to the length it has always been and let ? carry the rest -->
-      <span id="status">sketch2code · Alt+D draw · ? all keys</span>
+      <!-- the bar is width:max-content, so this string sizes the whole HUD: it
+           is the bar's width BUDGET, not a sentence. The ⚡ toggle beside
+           ▶ Run was paid for out of it — 'sketch2code · ' went, because a new
+           control has to come from here or the pill stops being a pill, and a
+           name the user already knows buys less than a key they don't. ?
+           carries the rest, which is the whole reason ? exists. -->
+      <span id="status">Alt+D draw · ? all keys</span>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
       <div id="penPanel" role="dialog" aria-label="pen colour">
         <div class="pHead">Draw in a colour to ask for it</div>
@@ -1153,6 +1227,7 @@ class Overlay {
     this.fidelityBtn = this.shadow.getElementById('fidelityBtn') as HTMLButtonElement
     this.fidelityPanel = this.shadow.getElementById('fidelityPanel')!
     this.fidelityRange = this.shadow.getElementById('fidelityRange') as HTMLInputElement
+    this.autoBtn = this.shadow.getElementById('autoBtn') as HTMLButtonElement
     this.buildFidelityPanel()
 
     // Button handlers stay thin wrappers around named methods: every one of
@@ -1162,6 +1237,7 @@ class Overlay {
       this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => this.setRunMode(m))
     }
     this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => this.toggleTweak())
+    this.autoBtn.addEventListener('click', () => this.setAuto(!this.auto))
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
@@ -1262,6 +1338,7 @@ class Overlay {
     // that string names the attempts count
     this.restoreCandidates()
     this.restoreFidelity()
+    this.restoreAuto()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -1278,6 +1355,9 @@ class Overlay {
       // what the overlay BELIEVES it will spend, next to what it puts on the
       // wire — the two drifting apart is the only way this control can lie
       candidates: () => this.candidatesPayload(),
+      // auto mode fires with no click, so e2e has to be able to see the state
+      // it fires FROM: armed, counting down, or locked mid-run
+      auto: () => ({ on: this.auto, pending: this.autoTimer != null, busy: this.autoBusy }),
       // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
       // compared against the live rects of the elements it is describing
       plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
@@ -1336,6 +1416,9 @@ class Overlay {
     this.resetBridge()
     this.renderInk()
     this.sync()
+    // the drawing changed, so the "is it finished?" wait starts over — and if
+    // that was the last stroke, scheduleAuto drops the pending run entirely
+    this.scheduleAuto()
   }
 
   /** The ✕ button: the drawing AND the words about it go together — a note
@@ -1348,6 +1431,8 @@ class Overlay {
     this.renderInk()
     this.renderNotes()
     this.sync()
+    // nothing left to auto-run: this drops the pending countdown
+    this.scheduleAuto()
   }
 
   /**
@@ -1474,6 +1559,14 @@ class Overlay {
         run: () => { if (this.cancelBtn.style.display !== 'none') this.exitPreview('cancelled') },
       },
       {
+        // A is free, and it is the letter of the thing — unlike the attempts
+        // controls, which took digits precisely so that Alt+A could stay the
+        // one binding that means "auto".
+        id: 'auto', keys: 'Alt+A', group: 'run',
+        label: 'auto mode — stop drawing and the sketch runs itself, no ✓ Go',
+        match: altBind('KeyA', 'a'), run: () => this.setAuto(!this.auto),
+      },
+      {
         id: 'note', keys: 'Alt+N', label: 'note here — type words onto whatever is under the pointer', group: 'notes',
         match: altBind('KeyN', 'n'), run: () => this.openNote(false),
       },
@@ -1542,7 +1635,7 @@ class Overlay {
       },
       {
         id: 'escape', keys: 'Esc', group: 'overlay',
-        label: 'close the top thing: note → this list → fidelity → preview / tweak / draw',
+        label: 'close the top thing: pending auto-run → note → this list → fidelity → preview / tweak / draw',
         match: plainBind('Escape', 'Escape'), run: () => this.onEscape(),
       },
     ]
@@ -1578,6 +1671,19 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // The newest and shallowest rung of all: a run is about to fire on its
+    // own, and this is the keystroke the countdown advertises. It RETURNS like
+    // every other rung — falling through would also drop the user out of draw
+    // mode, i.e. the same Esc would both stop the run and throw away the
+    // context they were about to redraw in.
+    // …but only while the countdown is actually COUNTING. A wait that is held
+    // open behind a note or a panel is not the thing on top of the stack, and
+    // stealing Esc from the note editor would make a note uncancellable for as
+    // long as auto mode is armed.
+    if (this.autoTimer && !this.autoBlock()) {
+      this.cancelAuto('auto-run cancelled — draw again to restart the wait, Alt+A to turn it off')
+      return
+    }
     if (this.noteDraft) {
       this.closeNote('note cancelled')
       return
@@ -2630,6 +2736,11 @@ class Overlay {
     }
     if (this.mode !== 'draw') return
     if (e.button !== 0) return // left button/pen tip only
+    // the drawing isn't finished after all. Drop the pending auto-run HERE
+    // rather than at pointerup: one slow deliberate stroke takes longer than
+    // the settle period, and a run firing mid-line would read the drawing
+    // half-made.
+    this.cancelAuto()
     this.canvas.setPointerCapture(e.pointerId)
     const p = this.toPage(e)
     // a trackpad hop: lands right back where the last gesture-sized stroke
@@ -2679,6 +2790,10 @@ class Overlay {
     this.renderInk()
     if (this.strokes.some((st) => st.anchor)) this.startTracking()
     this.sync()
+    // The pen is up. If this was the LAST stroke of the drawing, the settle
+    // period that fires the auto-run starts now; if it wasn't, the next
+    // pointerdown cancels it again. That is the whole firing rule.
+    this.scheduleAuto()
   }
 
   private async onPreviewTap(e: PointerEvent) {
@@ -4601,6 +4716,231 @@ class Overlay {
       this.clearApplying()
       this.setMode('idle')
     }
+  }
+
+  // ---- auto mode: the trigger, not a second pipeline --------------------
+  // Everything below decides WHEN to pull the existing run() / proceed()
+  // levers. It deliberately owns no payload, no request and no interpretation
+  // of its own: a second copy of either path is a second place for the wire
+  // shape to drift, and the whole feature is supposed to be indistinguishable
+  // from a very fast, very punctual user.
+
+  private setAuto(on: boolean) {
+    this.auto = on
+    this.syncAutoUi()
+    this.saveAuto()
+    if (!on) {
+      this.cancelAuto()
+      this.status('auto mode off — nothing runs until you press ▶ Run')
+      return
+    }
+    // short enough to survive #status's ellipsis: the caveats (a wide delete
+    // still asks) are in the button's tooltip, where there is room for them
+    this.status(`auto mode on — pause ${String(AUTO_SETTLE_MS / 1000)}s and it runs itself · Esc cancels`)
+    // Arming it with a finished drawing already on the page starts the wait
+    // immediately: "turn it on and it runs" is the promise, and making the
+    // user add one more stroke to collect on it would be a riddle. The
+    // countdown then overwrites the line above — which is the more urgent of
+    // the two, because it is the one offering Esc.
+    this.scheduleAuto()
+  }
+
+  /** Render the toggle FROM state — one path for a restore and for a click. */
+  private syncAutoUi() {
+    this.autoBtn.classList.toggle('on', this.auto)
+    this.autoBtn.setAttribute('aria-pressed', String(this.auto))
+    this.shadow.getElementById('autoState')!.textContent = this.auto ? 'on' : 'off'
+    const tip = this.auto
+      ? `auto mode ON (Alt+A) — stop drawing for ${String(AUTO_SETTLE_MS / 1000)}s and the sketch is read and` +
+        ' applied with no ✓ Go. Esc cancels the pending run; a wide delete always stops for confirmation.'
+      : 'auto mode OFF (Alt+A) — turn it on and a finished drawing runs itself after a short pause.' +
+        ' It spends tokens and edits source without a click, so it starts off.'
+    this.autoBtn.title = tip
+    this.autoBtn.setAttribute('aria-label', tip)
+  }
+
+  /**
+   * Why an auto-run must not fire right now, or null.
+   *
+   * `hold` separates "the user is mid-something" from "the premise is gone".
+   * A note being typed or a panel being adjusted PAUSES the wait — those end,
+   * and when they do the drawing is still finished — whereas no ink, no draw
+   * mode or a run already in flight means there is nothing to wait for and the
+   * countdown is dropped.
+   */
+  private autoBlock(): { why: string; hold: boolean } | null {
+    if (!this.auto) return { why: 'auto mode is off', hold: false }
+    if (this.mode !== 'draw') return { why: `not drawing (${this.mode})`, hold: false }
+    if (this.strokes.length === 0) return { why: 'nothing drawn', hold: false }
+    if (this.autoBusy) return { why: 'a run is already in flight', hold: false }
+    if (this.noteDraft) return { why: 'a note is open', hold: true }
+    if (this.fidelityOpen || this.penOpen || this.helpOpen) return { why: 'a panel is open', hold: true }
+    return null
+  }
+
+  /**
+   * (Re)start the settle period. Called from every event that changes the
+   * drawing, so "any new stroke restarts the wait" is one line of behaviour
+   * rather than a rule to remember.
+   */
+  private scheduleAuto() {
+    this.cancelAuto()
+    if (this.autoBlock()) return
+    this.autoDeadline = performance.now() + AUTO_SETTLE_MS
+    // paint the first frame of the countdown NOW: waiting a tick to say
+    // anything is exactly the silence that makes a tool feel like it went off
+    // on its own
+    this.autoTick()
+    this.autoTimer = setInterval(() => this.autoTick(), AUTO_TICK_MS)
+  }
+
+  /** Drop a pending run. `msg` only when the user deserves to be told (Esc). */
+  private cancelAuto(msg?: string) {
+    if (!this.autoTimer) return
+    clearInterval(this.autoTimer)
+    this.autoTimer = null
+    if (msg) this.status(msg)
+    // A countdown left on the line when nothing is counting is the one status
+    // message that would actually lie: it promises something about the next
+    // second. Clear it even when there is nothing to announce.
+    else if (this.shadow.getElementById('autoCount')) {
+      this.status('auto mode on — pause when the drawing is done and it runs itself')
+    }
+  }
+
+  private autoTick() {
+    const block = this.autoBlock()
+    if (block?.hold) {
+      // Pause rather than cancel, and say nothing: the status line currently
+      // belongs to whatever the user is doing (the note they are typing, the
+      // slider they are dragging) and stomping on it ten times a second would
+      // be worse than useless. Pushing the deadline means the countdown
+      // resumes from full the moment they are done.
+      this.autoDeadline = performance.now() + AUTO_SETTLE_MS
+      return
+    }
+    if (block) {
+      this.cancelAuto()
+      return
+    }
+    const left = this.autoDeadline - performance.now()
+    if (left > 0) {
+      this.showAutoCountdown(left)
+      return
+    }
+    // stop the ticker BEFORE the run: the whole point of the lock is that the
+    // next tick must not stack a second interpret on top of this one
+    this.cancelAuto()
+    void this.autoRun()
+  }
+
+  /**
+   * The visible, cancellable window. Rebuilt once per countdown and then only
+   * the number is touched — see #autoCount for why that matters to the bar's
+   * width.
+   */
+  private showAutoCountdown(left: number) {
+    const secs = (Math.ceil(left / AUTO_TICK_MS) * AUTO_TICK_MS / 1000).toFixed(1)
+    let num = this.shadow.getElementById('autoCount')
+    if (!num) {
+      num = document.createElement('span')
+      num.id = 'autoCount'
+      // the unit rides INSIDE the fixed slot, so the slack sits next to the
+      // separator rather than as a gap in the middle of '0.9 s'
+      this.statusEl.replaceChildren(
+        document.createTextNode('⚡ auto-run in '),
+        num,
+        document.createTextNode('· Esc to cancel'),
+      )
+      this.statusEl.classList.remove('err')
+    }
+    num.textContent = `${secs}s `
+  }
+
+  /**
+   * How many elements this reading would delete behind the user's back.
+   *
+   * The server already draws this line for us: groundInterpretation sets
+   * needsConfirm on a delete of three or more elements, or of more than a third
+   * of the viewport. Auto mode is allowed to WRITE code without a click; it is
+   * not allowed to destroy things without one.
+   */
+  private autoDestroys(): number {
+    if (this.v2) {
+      const acts = this.v2.interpretation.actions.filter((a) => a.needsConfirm)
+      if (acts.length === 0) return 0
+      // one very large element trips the same gate, so never report 0 for a
+      // gate that did fire
+      return Math.max(acts.reduce((n, a) => n + a.targets.length, 0), 1)
+    }
+    return this.preview?.ops.filter((o) => o.needsConfirm).length ?? 0
+  }
+
+  /**
+   * Interpret, then — unless the reading is destructive — apply it with no
+   * ✓ Go. run() and proceed() are called as-is: they own the payloads, the
+   * status phases and the error handling, and this only decides whether the
+   * gate between them is skipped.
+   */
+  private async autoRun() {
+    if (this.autoBlock()) return
+    this.autoBusy = true
+    try {
+      // phase 2 of 4: run() writes 'reading your drawing…' itself, and on
+      // success leaves the plan painted and the mode in 'preview' — which is
+      // exactly the gate this has to make a decision about
+      await this.run()
+      if (this.mode === 'running') return // screenshot mode goes straight through
+      if (this.mode !== 'preview') {
+        // The reading failed or found no actions. run() has already said why,
+        // in red, and the ink is untouched — so append what it cannot know
+        // (that a run was pending and is not happening) and leave the drawing
+        // exactly where it is for another try.
+        const why = this.statusEl.textContent ?? 'the reading failed'
+        this.status(`${why} · auto-run stopped — your ink is still here, ▶ Run to retry`, true)
+        return
+      }
+      const destroys = this.autoDestroys()
+      if (destroys > 0) {
+        // Back to the normal gate, which is already standing: the plan is
+        // painted, ✓ Go and ✗ Cancel are already showing. All that is missing
+        // is the reason it stopped.
+        this.status(
+          `⚠ auto-run stopped — this would delete ${String(destroys)} element(s); confirm it yourself with ✓ Go`,
+          true,
+        )
+        return
+      }
+      // phase 3: proceed() writes 'running…', then the server's own stage
+      // events take over the line, and 'done' closes it out (phase 4)
+      await this.proceed()
+    } finally {
+      this.autoBusy = false
+    }
+  }
+
+  /**
+   * Restored with the same contract as s2c:fidelity — storage can throw
+   * outright and its contents are user-editable — but with a stricter rule:
+   * ONLY a literal `true` turns this on. Anything else (absent, garbage, a
+   * shape from some later version) lands on OFF, because this is the one
+   * setting that spends tokens and rewrites source with no click at all.
+   */
+  private restoreAuto() {
+    let on = false
+    try {
+      const raw = localStorage.getItem(AUTO_STORE_KEY)
+      const v = raw ? (JSON.parse(raw) as unknown) : null
+      if (v === true) on = true
+    } catch { /* unreadable storage just means off */ }
+    this.auto = on
+    this.syncAutoUi()
+  }
+
+  private saveAuto() {
+    try {
+      localStorage.setItem(AUTO_STORE_KEY, JSON.stringify(this.auto))
+    } catch { /* quota/blocked: off is the right place to land */ }
   }
 
   /** Events carry the originating clientId; ignore other tabs' runs. */
