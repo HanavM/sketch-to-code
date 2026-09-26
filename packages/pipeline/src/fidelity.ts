@@ -187,22 +187,28 @@ export function fidelityDirective(f: FidelityControls): string {
     outline:
       `RESULT — LINE ART: strokes only, no fills. Reproduce it as the drawing is: lines.`,
     filled:
-      `RESULT — SOLID: build it out of filled shapes, not outlines. Closed forms carry a fill ` +
-      `from the app's palette; use strokes only where a line is genuinely the subject.`,
+      `RESULT — SOLID: build it out of filled shapes, not outlines, in at least two values so the ` +
+      `form reads as an object rather than a flat cut-out — a body tone and a shadow side at ` +
+      `minimum. Use strokes only where a line is genuinely the subject.`,
     realized:
       `RESULT — FINISHED ILLUSTRATION: the drawing is the brief, not the artwork. Produce the ` +
       `thing it depicts, complete: filled shapes, shading or tonal separation, and the detail ` +
       `the subject implies but the sketch only gestures at — a sketched side profile comes back ` +
       `as an actual face with brow, eye, nose, lips and jaw, not a line drawing of one. Read the ` +
       `subject from the reading and from what surrounds it, and add what it needs to read as that ` +
-      `thing at a glance. Keep the drawn silhouette and proportions; invent the interior.`,
+      `thing at a glance. Keep the drawn silhouette and proportions; invent the interior. Use at ` +
+      `least three values — base, shadow, highlight — and gradients where a surface curves.`,
   }
   const lines = [head[rung], fill[f.fill]]
   if (kept.length) lines.push(`MUST SURVIVE (scored): ${kept.join('; ')}.`)
   if (free.length) lines.push(`Free to normalize (not scored): ${free.join('; ')}.`)
   lines.push(
     f.palette === 'app'
-      ? `Styling: use the app's existing palette, stroke weights and spacing scale.`
+      ? `Styling: use the app's existing palette, stroke weights and spacing scale for CHROME — ` +
+        `frames, borders, labels, anything that belongs to the UI. A depicted SUBJECT is not ` +
+        `chrome: give it the colours the thing actually has (skin, hair, foliage, metal, sky), ` +
+        `harmonised with the app rather than flattened into one of its greys. A palette is a ` +
+        `constraint on the interface, not a reason for a face to be grey.`
       : `Styling: keep the sketch's own look — hand-drawn line quality and its own colours — rather than snapping to the app's design tokens.`,
   )
   return lines.join('\n')

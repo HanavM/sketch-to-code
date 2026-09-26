@@ -3,6 +3,7 @@ import type { Stroke } from '@s2c/ink'
 import {
   compositionBrief, compositionFromSource, compositionFromStrokes, samplePath, scoreComposition,
 } from '../src/composition.js'
+import { DEFAULT_FIDELITY } from '../src/fidelity.js'
 
 const stroke = (id: string, pts: Array<[number, number]>): Stroke => ({
   id,
@@ -235,7 +236,9 @@ describe('scoreComposition', () => {
       <path d="M46,30 L10,30" />
       <path d="M12,30 L9,44" /><path d="M22,30 L20,44" /><path d="M38,30 L34,44" />
     </svg>`)
-    const v = scoreComposition(sig, rendered)
+    // scored as line art: this fixture is about STRUCTURE, and under the
+    // default 'filled' it would also (correctly) be told it is a flat cut-out
+    const v = scoreComposition(sig, rendered, { ...DEFAULT_FIDELITY, fill: 'outline' })
     expect(v.flaws).toEqual([])
     expect(v.score).toBeGreaterThan(0.85)
   })

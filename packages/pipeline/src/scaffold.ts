@@ -101,11 +101,27 @@ export function buildScaffold(
   const literal = action.color?.drawn
   const cls = token && /^text-|^fill-/.test(token) ? token : token ? `text-[${literal ?? 'currentColor'}]` : ''
 
+  // A flat one-colour cut-out reads as a wireframe, not as a thing. Even the
+  // instant version gets a body tone, a shadow side and a rim: three values
+  // is the minimum that makes a shape look like it has form, and all of it is
+  // derived, so it costs nothing.
+  const gradId = `${name.toLowerCase()}-form`
+  const defs = filled
+    ? `      <defs>\n` +
+      `        <linearGradient id="${gradId}" x1="0" y1="0" x2="0.35" y2="1">\n` +
+      `          <stop offset="0%" stopColor="currentColor" stopOpacity="0.42" />\n` +
+      `          <stop offset="60%" stopColor="currentColor" stopOpacity="0.26" />\n` +
+      `          <stop offset="100%" stopColor="currentColor" stopOpacity="0.16" />\n` +
+      `        </linearGradient>\n` +
+      `      </defs>\n`
+    : ''
+
   const body = paths
     .map(({ d, strokeId }) => {
       const closed = isClosed(d)
       const attrs = filled && closed
-        ? 'fill="currentColor"'
+        // filled AND outlined: the drawn edge survives as the form's contour
+        ? `fill="url(#${gradId})" stroke="currentColor" strokeOpacity="0.55" strokeWidth={1.5} strokeLinejoin="round"`
         : 'fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"'
       return `      {/* ${strokeId}: drawn by the user — measured geometry, keep it */}\n` +
         `      <path d="${d}" ${attrs} />`
@@ -137,7 +153,7 @@ export function buildScaffold(
     `      height={${h}}\n` +
     `      className={\`pointer-events-none${cls ? ` ${cls}` : ''} \${className}\`}\n` +
     `    >\n` +
-    `${body}\n` +
+    `${defs}${body}\n` +
     `    </svg>\n` +
     `  )\n` +
     `}\n`

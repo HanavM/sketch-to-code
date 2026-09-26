@@ -51,6 +51,8 @@ export interface CompositionSignature {
   detailDensity: number
   /** Number of distinct parts (stroke clusters / drawn primitives). */
   partCount: number
+  /** Distinct fill values in the rendered source — tonal range, or null for ink. */
+  tones: number | null
   /**
    * Fraction of the rendered shapes that carry a real fill, or null when the
    * signature came from ink (strokes have no fill to measure). This is what
@@ -74,6 +76,33 @@ interface Part { points: Pt[]; box: BBox }
  * Utility classes (fill-current, fill-none) are read too, since that is how
  * this project's own components colour things.
  */
+/**
+ * How many distinct FILL VALUES a drawing uses.
+ *
+ * "Does it have fills" was too weak a question: a single flat colour passes it
+ * while looking like a cut-out. What makes a shape read as an object is tonal
+ * range — a body value, a shadow side, a highlight — so count the distinct
+ * ones. Gradients count as the values they interpolate between, and an
+ * opacity variation on one colour counts too: shading by transparency is
+ * still shading.
+ */
+export function toneCount(code: string): number {
+  const tones = new Set<string>()
+  // explicit fills, including gradient stops
+  for (const m of code.matchAll(/(?:fill|stopColor|stop-color)\s*=\s*["'{]?\s*([^"'}\s>]+)/gi)) {
+    const v = m[1]!.toLowerCase()
+    if (v === 'none' || v === 'transparent') continue
+    tones.add(v)
+  }
+  // a colour reused at several opacities is several values to the eye
+  for (const m of code.matchAll(/(?:fillOpacity|fill-opacity|stopOpacity|stop-opacity|opacity)\s*=\s*["'{]?\s*([\d.]+)/gi)) {
+    tones.add(`a${m[1]!}`)
+  }
+  // utility-class colours (fill-gray-300, text-red-600 on a filled shape)
+  for (const m of code.matchAll(/\b(?:fill|text)-(?!none\b)[\w[\]#.-]+/gi)) tones.add(m[0]!.toLowerCase())
+  return tones.size
+}
+
 export function fillCoverage(code: string): { shapes: number; filled: number; ratio: number | null } {
   const rootNone = /<svg\b[^>]*\bfill\s*=\s*["'{]?\s*none/i.test(code) ||
     /<svg\b[^>]*class(?:Name)?\s*=\s*["'][^"']*\bfill-none\b/i.test(code)
@@ -106,6 +135,7 @@ function emptySignature(): CompositionSignature {
     detailDensity: 0,
     partCount: 0,
     fillRatio: null,
+    tones: null,
   }
 }
 
@@ -267,8 +297,9 @@ function signatureFromParts(parts: Part[]): CompositionSignature {
     repeatCount: count,
     detailDensity: detailDensity(unit),
     partCount: usable.length,
-    // ink carries no fill; compositionFromSource fills this in for rendered SVG
+    // ink carries no fill; compositionFromSource fills these in for rendered SVG
     fillRatio: null,
+    tones: null,
   }
 }
 
@@ -567,7 +598,11 @@ export function compositionFromSource(code: string): CompositionSignature {
       }
     }
   }
-  return { ...signatureFromParts(parts), fillRatio: coverage.ratio }
+  // a shape with no fill attribute still paints: SVG's default is black, so
+  // that is one tone, not none
+  const explicit = toneCount(code)
+  const tones = explicit === 0 && coverage.filled > 0 ? 1 : explicit
+  return { ...signatureFromParts(parts), fillRatio: coverage.ratio, tones }
 }
 
 // ---------- comparison ----------
@@ -654,6 +689,19 @@ export function scoreComposition(
           `from the app's palette instead of stroking their edges`,
     )
   }
+  // ①c flat: filled, but in one value. The complaint this catches is the one
+  // that "has fills" missed — a monochrome cut-out that technically passes
+  // every other test and still looks like a sticker, not a thing.
+  const wantTones = controls.fill === 'realized' ? 3 : controls.fill === 'filled' ? 2 : 0
+  if (wantTones > 0 && rendered.tones !== null && rendered.tones < wantTones) {
+    if (!flaws.includes('unfilled')) flaws.push('unfilled')
+    notes.push(
+      `the output uses ${rendered.tones} fill value(s) — that reads as a flat cut-out. Give the form ` +
+      `at least ${wantTones} values (a body tone, a shadow side, a highlight) so it reads as an ` +
+      `object rather than a silhouette`,
+    )
+  }
+
   // a finished illustration means MORE parts than the gesture that briefed it
   if (controls.fill === 'realized' && rendered.partCount < Math.max(3, sketch.partCount)) {
     if (!flaws.includes('unfilled')) flaws.push('unfilled')

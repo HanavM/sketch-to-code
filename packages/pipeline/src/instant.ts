@@ -231,7 +231,15 @@ export function applyInstant(root: string, plan: InstantPlan): InstantResult {
     `@keyframes s2cFade{from{opacity:0}to{opacity:1}}\n` +
     `.s2c-etch [stroke]{stroke-dasharray:2000;stroke-dashoffset:2000;animation:s2cDraw .7s ease-out forwards}\n` +
     `.s2c-etch [fill]:not([fill="none"]){animation:s2cFade .5s .25s ease-out backwards}\n` +
-    `@media (prefers-reduced-motion:reduce){.s2c-etch [stroke],.s2c-etch [fill]{animation:none;stroke-dashoffset:0}}\`}</style>\n`,
+    // The drawing is not REPLACED by the finished thing — it BECOMES it. The
+    // agent edits this same file, so every save hot-reloads a slightly more
+    // finished version of elements that are already on screen. Transitioning
+    // the paint properties makes colour, shading and opacity tween from what
+    // was there to what just arrived, so each refinement reads as the sketch
+    // developing rather than as a swap.
+    `.s2c-etch *{transition:fill .5s ease,stroke .5s ease,fill-opacity .5s ease,stroke-opacity .5s ease,opacity .5s ease}\n` +
+    `@media (prefers-reduced-motion:reduce){.s2c-etch [stroke],.s2c-etch [fill]{animation:none;stroke-dashoffset:0}\n` +
+    `.s2c-etch *{transition:none}}\`}</style>\n`,
   )
   // the container gets a parse check below; the component deserves the same,
   // and an unparseable one takes the whole page down with it

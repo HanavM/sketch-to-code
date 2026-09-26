@@ -52,14 +52,18 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     const sc = buildScaffold(action(), 0, controls({ fill: 'filled' }))!
     const closed = sc.code.split('\n').find((l) => l.includes('M34,1'))!
     const open = sc.code.split('\n').find((l) => l.includes('M46,34'))!
-    expect(closed).toContain('fill="currentColor"')
+    // a gradient, not a flat colour: three values is what makes a shape read
+    // as a form rather than a cut-out
+    expect(closed).toMatch(/fill="url\(#[\w-]+\)"/)
+    expect(sc.code).toContain('linearGradient')
     expect(open).toContain('fill="none"')
     expect(open).toContain('stroke="currentColor"')
   })
 
   it('strokes everything when line art is asked for', () => {
     const sc = buildScaffold(action(), 0, controls({ fill: 'outline' }))!
-    expect(sc.code).not.toContain('fill="currentColor"')
+    expect(sc.code).not.toContain('linearGradient')
+    expect(sc.code).not.toMatch(/fill="url/)
   })
 
   it('carries the drawn colour as the app token when there is one', () => {
