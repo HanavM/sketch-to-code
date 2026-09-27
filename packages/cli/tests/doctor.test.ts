@@ -21,8 +21,8 @@ describe('doctor on a project that has never been set up', () => {
     expect(report.exitCode).toBe(1)
     expect(level(report, 'dependency')).toEqual(['error'])
     expect(level(report, 'config')).toEqual(['error'])
-    expect(text(report, 'config')).toMatch(/sketch2code init/)
-    expect(report.nextSteps.join(' ')).toMatch(/sketch2code init/)
+    expect(text(report, 'config')).toMatch(/sketch-to-code init/)
+    expect(report.nextSteps.join(' ')).toMatch(/sketch-to-code init/)
   })
 
   it('reports git problems with the fix beside them', () => {
@@ -95,6 +95,6 @@ describe('the printed report', () => {
     initRepo(dir)
     const report = runDoctor({ dir, ...quiet })
     expect(report.port).toBeNull()
-    expect(formatDoctor(report)).toMatch(/localhost:5173|sketch2code init/)
+    expect(formatDoctor(report)).toMatch(/localhost:5173|sketch-to-code init/)
   })
 })

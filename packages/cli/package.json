@@ -1,12 +1,12 @@
 {
-  "name": "sketch2code",
+  "name": "sketch-to-code",
   "version": "0.1.0",
   "description": "Set up sketch-to-code (draw on your running app, it edits your source) in a Vite + React project.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "sketch2code": "./dist/bin.js",
+    "sketch-to-code": "./dist/bin.js",
     "s2c": "./dist/bin.js"
   },
   "exports": {

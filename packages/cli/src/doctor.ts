@@ -72,7 +72,7 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
 
   // dependency + config wiring
   if (project.hasPluginDep) add('dependency', 'ok', `${PLUGIN_PKG} in package.json`)
-  else add('dependency', 'error', `${PLUGIN_PKG} is not a dependency — run \`sketch2code init\``)
+  else add('dependency', 'error', `${PLUGIN_PKG} is not a dependency — run \`sketch-to-code init\``)
 
   const chain = resolveChain(dir)
   const resolved = chain.plugin
@@ -83,12 +83,12 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
   else add('pipeline', 'warn', '@s2c/pipeline not resolvable: the overlay will load in capture-only mode (no edits)')
 
   if (!project.viteConfigPath) {
-    add('config', 'error', 'no vite config found — run `sketch2code init`')
+    add('config', 'error', 'no vite config found — run `sketch-to-code init`')
   } else {
     const text = readFileSync(project.viteConfigPath, 'utf8')
     const rel = relative(dir, project.viteConfigPath)
     if (/sketch2code\s*\(/.test(text)) add('config', 'ok', `${rel} calls sketch2code()`)
-    else add('config', 'error', `${rel} does not call sketch2code() — run \`sketch2code init\``)
+    else add('config', 'error', `${rel} does not call sketch2code() — run \`sketch-to-code init\``)
   }
 
   let probe: Probe | null = null
@@ -139,7 +139,7 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
 
   const nextSteps = errors.length
     ? [
-        `fix the ${errors.length} error(s) above — \`sketch2code init\` handles the wiring ones`,
+        `fix the ${errors.length} error(s) above — \`sketch-to-code init\` handles the wiring ones`,
         ...gates.map((g) => g.fix),
       ]
     : [

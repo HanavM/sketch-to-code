@@ -109,14 +109,14 @@ export async function runInit(options: InitOptions): Promise<InitResult> {
     claude: null,
     gh: null,
     port: null,
-    nextSteps: ['fix the problem above, then re-run `sketch2code init` (`sketch2code help` lists the flags)'],
+    nextSteps: ['fix the problem above, then re-run `sketch-to-code init` (`sketch-to-code help` lists the flags)'],
     dryRun,
     ...partial,
   })
 
   // ── 1. is this even a project we can drive? ────────────────────────────────
   if (project.verdict === 'no-project') {
-    push('detect', 'failed', `no package.json in ${dir} — point init at your app's root (\`sketch2code init ./my-app\`)`)
+    push('detect', 'failed', `no package.json in ${dir} — point init at your app's root (\`sketch-to-code init ./my-app\`)`)
     return bail({})
   }
   if (project.verdict === 'unsupported') {

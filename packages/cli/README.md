@@ -1,10 +1,10 @@
-# sketch2code (CLI)
+# sketch-to-code (CLI)
 
 The way into sketch-to-code from a project that isn't this repo's demo app.
 
 ```bash
-npx sketch2code init [path]      # set it up
-npx sketch2code doctor [path]    # diagnose an existing install
+npx sketch-to-code init [path]      # set it up
+npx sketch-to-code doctor [path]    # diagnose an existing install
 ```
 
 `path` defaults to the current directory. Zero dependencies — node builtins,

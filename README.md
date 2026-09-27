@@ -35,9 +35,9 @@ verification, tokens).
 ## Use it in your own project
 
 ```bash
-npx sketch2code init             # or: npx sketch2code init ./my-app
+npx sketch-to-code init             # or: npx sketch-to-code init ./my-app
 npm run dev                      # then Alt+D, sketch, ▶ Run
-npx sketch2code doctor           # diagnose an existing install
+npx sketch-to-code doctor           # diagnose an existing install
 ```
 
 `init` does the whole setup and refuses to half-do it: it verifies the project is
@@ -135,7 +135,7 @@ strokes ─► ① ink analysis ─► ② DOM grounding ─► ③ intent ─�
 ```bash
 npm test                              # unit tests (no network, no model calls)
 npm run e2e:cli                       # onboarding, end to end: scaffolds a real Vite+React
-                                      # app in a temp dir, runs `sketch2code init` against it,
+                                      # app in a temp dir, runs `sketch-to-code init` against it,
                                       # boots ITS dev server and drives the overlay (no model)
 npm run dev &                         # zero-token flows — seconds, no model:
 node tests/e2e/live-tweak.mjs         # gap handle → gap-4 → gap-6

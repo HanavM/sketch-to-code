@@ -8,12 +8,12 @@ import { runInit, type Confirm, type InitResult } from './init.js'
 const require = createRequire(import.meta.url)
 const VERSION = (require('../package.json') as { version: string }).version
 
-const HELP = `sketch2code — draw on your running app, it edits your source.
+const HELP = `sketch-to-code — draw on your running app, it edits your source.
 
 Usage
-  npx sketch2code init [path] [options]     set up sketch-to-code in a project
-  npx sketch2code doctor [path]             diagnose an existing install
-  npx sketch2code help | --version
+  npx sketch-to-code init [path] [options]     set up sketch-to-code in a project
+  npx sketch-to-code doctor [path]             diagnose an existing install
+  npx sketch-to-code help | --version
 
   path defaults to the current directory. Vite + React/JSX projects only.
 
@@ -78,9 +78,9 @@ function printInit(result: InitResult): void {
 
 async function main(): Promise<number> {
   const args = parseArgs(process.argv.slice(2))
-  for (const e of args.errors) console.error(`sketch2code: ${e}`)
+  for (const e of args.errors) console.error(`sketch-to-code: ${e}`)
   if (args.errors.length) {
-    console.error('\nRun `sketch2code help` for the option list.')
+    console.error('\nRun `sketch-to-code help` for the option list.')
     return 2
   }
   if (args.bools.version) {
@@ -96,12 +96,12 @@ async function main(): Promise<number> {
   const portRaw = args.values.port
   const port = portRaw === undefined ? undefined : Number(portRaw)
   if (port !== undefined && !Number.isInteger(port)) {
-    console.error(`sketch2code: --port must be an integer, got ${portRaw}`)
+    console.error(`sketch-to-code: --port must be an integer, got ${portRaw}`)
     return 2
   }
   const github = args.values.github
   if (github !== undefined && !['create', 'connect', 'none'].includes(github)) {
-    console.error(`sketch2code: --github must be create, connect or none (got ${github})`)
+    console.error(`sketch-to-code: --github must be create, connect or none (got ${github})`)
     return 2
   }
 
@@ -135,7 +135,7 @@ async function main(): Promise<number> {
     return report.exitCode
   }
 
-  console.error(`sketch2code: unknown command "${args.command}"\n`)
+  console.error(`sketch-to-code: unknown command "${args.command}"\n`)
   console.log(HELP)
   return 2
 }
