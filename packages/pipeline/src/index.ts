@@ -25,6 +25,17 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export {
+  bumpUsed, captureEntry, entrySignature, entryThumbPath, findEntry, globalLibraryDir,
+  globalLibraryIndexPath, libraryDir, libraryIndexPath, listEntries, pruneLibrary, removeEntry,
+  signatureSimilarity,
+} from './library.js'
+export type {
+  EntryKind, EntryProp, LibraryEntry, ListedEntry,
+} from './library-types.js'
+export { ensureEntry, materialiseEntry, placeEntry } from './place.js'
+export type { PlaceRequest, PlaceResult, PlaceWhere } from './place.js'
+export { importAnchor } from './imports.js'
 export { moveData } from './dataflow.js'
 export {
   applyResponsive, bandFor, bandOrder, planResponsive, screensFor, utilityFamily,
