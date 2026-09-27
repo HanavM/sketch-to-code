@@ -286,12 +286,6 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
        * pipeline's messages ("those elements have others between them — select
        * a contiguous run") name the fix, so wrapping them in a generic
        * "extract failed" would throw away the only thing worth saying.
-       *
-       * One honest asymmetry: an undo restores the call site, but the NEW file
-       * is untracked, and `git diff` (hence changedFiles) does not see
-       * untracked paths — so it stays on disk, orphaned and imported by
-       * nothing. The overlay's receipt says so rather than promising a revert
-       * that only half happens.
        */
       server.middlewares.use('/@s2c/extract', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
@@ -303,6 +297,73 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const result = m.extractComponent(root, { srcLocs: body.srcLocs, name: body.name })
             if (result.ok) undoStack.push({ sha: cp.sha, label: `extract ${result.name ?? 'component'}` })
             sendJson(res, 200, { ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * Drawn rules. A sketch says "do this" and then disappears; a rule says
+       * "this stays true" and keeps watching. Four steps, all deterministic
+       * and all free: propose readings from a drawn line, save the one the
+       * user meant, check them against the live page, forget one.
+       *
+       * Rules are not source edits — they live in .sketch2code/constraints.json
+       * — so they are not checkpointed. Removing one is the undo.
+       */
+      server.middlewares.use('/@s2c/rules/propose', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ line: unknown; snapshot: DomSnapshot; under?: string[] }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const out = m.proposeConstraints(
+              body.line as Parameters<typeof m.proposeConstraints>[0],
+              body.snapshot,
+              body.under,
+            )
+            sendJson(res, 200, { ok: out.proposals.length > 0, ...out })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/rules/add', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{
+          kind: string; subjects: string[]; value?: number; tolerance?: number; note?: string
+        }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const out = m.addConstraint(root, {
+              kind: body.kind as Parameters<typeof m.addConstraint>[1]['kind'],
+              subjects: body.subjects,
+              value: body.value,
+              tolerance: body.tolerance ?? 0,
+              note: body.note,
+            })
+            sendJson(res, 200, out)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/rules/delete', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ id: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, m.removeConstraint(root, body.id))
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/rules/check', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ snapshot: DomSnapshot }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, { ok: true, rules: m.checkConstraints(root, body.snapshot) })
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
       })

@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import {
   constraintsPath, describeConstraint, evaluateConstraints, loadConstraints,
-  measureConstraint, saveConstraints, type Constraint,
+  measureConstraint, proposeConstraints, saveConstraints, type Constraint,
 } from '../src/constraints.js'
 
 const node = (srcLoc: string, rect: DomNode['rect']): DomNode => ({
@@ -130,5 +130,145 @@ describe('how a rule reads', () => {
     expect(describeConstraint(rule({ kind: 'gap', value: 16 }))).toMatch(/keep a 16px gap/)
     expect(describeConstraint(rule({ kind: 'aligned-top' }))).toMatch(/stay top-aligned/)
     expect(describeConstraint(rule({ kind: 'present', subjects: [A] }))).toBe('A.tsx:3:5 stays on the page')
+  })
+})
+
+// ── the gesture: a drawn line becomes a set of readings ──────────────────────
+
+/** Two cards side by side, left edges flush, 24px apart vertically. */
+const stacked = () => snap([
+  node('src/Page.tsx:1:1', { x: 0, y: 0, w: 1280, h: 900 }),
+  { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), tag: 'div', text: 'Revenue' },
+  { ...node(B, { x: 100, y: 204, w: 200, h: 80 }), tag: 'div', text: 'Costs' },
+])
+
+describe('proposing a rule from a drawn line', () => {
+  it('reads a line down two left edges as left-alignment, and says so in the elements’ own words', () => {
+    const { proposals, error } = proposeConstraints({ x0: 101, y0: 90, x1: 99, y1: 300 }, stacked())
+    expect(error).toBeUndefined()
+    expect(proposals[0]!.kind).toBe('aligned-left')
+    expect(proposals[0]!.subjects).toEqual([A, B])
+    expect(proposals[0]!.desc).toBe('div “Revenue” and div “Costs” stay left-aligned')
+    expect(proposals[0]!.reading).toBe('holds right now')
+  })
+
+  it('reads the same line down the RIGHT edges as right-alignment', () => {
+    const { proposals } = proposeConstraints({ x0: 299, y0: 90, x1: 301, y1: 300 }, stacked())
+    expect(proposals[0]!.kind).toBe('aligned-right')
+  })
+
+  it('reads a line across the space between them as the gap, measured off the page', () => {
+    const { proposals } = proposeConstraints({ x0: 200, y0: 182, x1: 200, y1: 202 }, stacked())
+    expect(proposals[0]!.kind).toBe('gap')
+    expect(proposals[0]!.value).toBe(24)
+    expect(proposals[0]!.desc).toContain('24px gap')
+    // a gap needs slack an edge does not: wrapping and font metrics move it
+    expect(proposals[0]!.tolerance).toBeGreaterThan(2)
+  })
+
+  it('offers the alternatives the line cannot distinguish, never silently picking one', () => {
+    const { proposals } = proposeConstraints({ x0: 101, y0: 90, x1: 99, y1: 300 }, stacked())
+    expect(proposals.map((p) => p.kind)).toContain('same-width')
+    expect(proposals.map((p) => p.kind)).toContain('order')
+    expect(new Set(proposals.map((p) => p.kind)).size).toBe(proposals.length)
+  })
+
+  it('says a rule is already broken rather than saving a surprise', () => {
+    const off = snap([
+      { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), text: 'Revenue' },
+      { ...node(B, { x: 117, y: 204, w: 200, h: 80 }), text: 'Costs' },
+    ])
+    const { proposals } = proposeConstraints({ x0: 108, y0: 90, x1: 108, y1: 300 }, off)
+    expect(proposals[0]!.kind).toBe('aligned-left')
+    expect(proposals[0]!.reading).toBe('right now: left edges are 17px apart (rule allows 2px)')
+  })
+
+  it('never pairs an element with its own child — that mis-hit has its own kind', () => {
+    const inner = 'src/A.tsx:5:9'
+    const nested = snap([
+      { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), text: 'Card' },
+      { ...node(inner, { x: 100, y: 110, w: 120, h: 20 }), parent: A, text: 'Title' },
+    ])
+    const { proposals } = proposeConstraints({ x0: 100, y0: 90, x1: 100, y1: 200 }, nested)
+    // one subject, so the readings are the ones about a single thing
+    expect(proposals.every((p) => p.subjects.length === 1 || p.kind === 'inside')).toBe(true)
+    expect(proposals[0]!.kind).toBe('present')
+  })
+
+  it('picks the inputs, not the <form> that shares their edge', () => {
+    // the shape every real form has: two inputs, each in a wrapper with no
+    // padding, inside a form — four boxes with the SAME left edge
+    const form = 'src/Form.tsx:5:5'
+    const w1 = 'src/Form.tsx:6:7'
+    const w2 = 'src/Form.tsx:10:7'
+    const i1 = 'src/Form.tsx:8:9'
+    const i2 = 'src/Form.tsx:12:9'
+    const real = snap([
+      node(form, { x: 100, y: 100, w: 300, h: 300 }),
+      { ...node(w1, { x: 100, y: 100, w: 300, h: 60 }), parent: form },
+      { ...node(i1, { x: 100, y: 122, w: 300, h: 38 }), parent: w1, tag: 'input' },
+      { ...node(w2, { x: 100, y: 176, w: 300, h: 60 }), parent: form },
+      { ...node(i2, { x: 100, y: 198, w: 300, h: 38 }), parent: w2, tag: 'input' },
+    ])
+    const { proposals } = proposeConstraints({ x0: 100, y0: 118, x1: 100, y1: 240 }, real)
+    expect(proposals[0]!.kind).toBe('aligned-left')
+    expect(proposals[0]!.subjects).toEqual([i1, i2])
+  })
+
+  it('lets what the pointer was ON settle a shared edge', () => {
+    const form = 'src/Form.tsx:5:5'
+    const l1 = 'src/Form.tsx:7:9'
+    const i1 = 'src/Form.tsx:8:9'
+    const l2 = 'src/Form.tsx:11:9'
+    const i2 = 'src/Form.tsx:12:9'
+    // labels and inputs share a left edge, and the labels are smaller — so
+    // geometry alone watches the labels while the inputs drift
+    const real = snap([
+      node(form, { x: 100, y: 100, w: 300, h: 300 }),
+      { ...node(l1, { x: 100, y: 100, w: 300, h: 20 }), parent: form, tag: 'label' },
+      { ...node(i1, { x: 100, y: 122, w: 300, h: 38 }), parent: form, tag: 'input' },
+      { ...node(l2, { x: 100, y: 176, w: 300, h: 20 }), parent: form, tag: 'label' },
+      { ...node(i2, { x: 100, y: 198, w: 300, h: 38 }), parent: form, tag: 'input' },
+    ])
+    const line = { x0: 100, y0: 130, x1: 100, y1: 230 }
+    expect(proposeConstraints(line, real).proposals[0]!.subjects).toEqual([l1, l2])
+    // …and with the hit test, the elements the pointer actually touched
+    const hinted = proposeConstraints(line, real, [i1, i2])
+    expect(hinted.proposals[0]!.kind).toBe('aligned-left')
+    expect(hinted.proposals[0]!.subjects).toEqual([i1, i2])
+  })
+
+  it('ignores a hint that says nothing — both ends on one element, or on a parent and its child', () => {
+    const outer = 'src/Card.tsx:3:5'
+    const inner = 'src/Card.tsx:4:7'
+    const two = snap([
+      { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), text: 'Revenue' },
+      { ...node(B, { x: 100, y: 204, w: 200, h: 80 }), text: 'Costs' },
+      { ...node(outer, { x: 600, y: 100, w: 200, h: 200 }) },
+      { ...node(inner, { x: 600, y: 120, w: 100, h: 40 }), parent: outer },
+    ])
+    const line = { x0: 100, y0: 90, x1: 100, y1: 300 }
+    // a hint of one element, and a hint of a box plus its own child, both fall
+    // back to the geometry rather than proposing a relation nobody drew
+    expect(proposeConstraints(line, two, [outer]).proposals[0]!.subjects).toEqual([A, B])
+    expect(proposeConstraints(line, two, [outer, inner]).proposals[0]!.subjects).toEqual([A, B])
+  })
+
+  it('refuses a line drawn over nothing, and says what would work', () => {
+    const { proposals, error } = proposeConstraints({ x0: 900, y0: 700, x1: 950, y1: 760 }, snap([
+      { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), text: 'Revenue' },
+    ]))
+    expect(proposals).toEqual([])
+    expect(error).toMatch(/down the edges, or across the gap/)
+  })
+
+  it('reads a horizontal line as the top/bottom pair, not the left/right one', () => {
+    const row = snap([
+      { ...node(A, { x: 100, y: 100, w: 200, h: 80 }), text: 'One' },
+      { ...node(B, { x: 340, y: 100, w: 200, h: 80 }), text: 'Two' },
+    ])
+    const { proposals } = proposeConstraints({ x0: 90, y0: 101, x1: 560, y1: 99 }, row)
+    expect(proposals[0]!.kind).toBe('aligned-top')
+    expect(proposals.map((p) => p.kind)).toContain('same-height')
   })
 })

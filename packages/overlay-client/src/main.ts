@@ -257,6 +257,62 @@ const LASSO_COLOR = '#8b5cf6'
 const LASSO_INSIDE = 0.75
 /** A lasso whose bbox diagonal never reaches this is an Alt+click, not a loop. */
 const LASSO_MIN_SPAN = 16
+
+// ---- drawn rules: the ink that stays ------------------------------------
+// Every other gesture here is an instruction — it happens, the ink goes. A
+// rule is the opposite: it is drawn once and then keeps being true, so its
+// mark stays on the page and turns red the moment reality stops matching.
+//
+// Green for holding, red for broken. Neither cyan (draggable) nor violet
+// (about to be extracted) nor amber (paintable): a rule promises a FOURTH
+// thing — that this relationship is being watched.
+const RULE_OK = '#10b981'
+const RULE_BROKEN = '#ef4444'
+/** A rule line shorter than this is a click, not a line down two edges. */
+const RULE_MIN_SPAN = 24
+
+/** One reading the server derived from the drawn line. */
+interface RuleProposal {
+  kind: string
+  subjects: string[]
+  value?: number
+  tolerance: number
+  desc: string
+  reading: string
+  labels: string[]
+}
+
+/** A saved rule plus where its subjects are right now. */
+interface RuleView {
+  id: string
+  kind: string
+  subjects: string[]
+  note?: string
+  value?: number
+  tolerance: number
+  desc: string
+  broken: boolean
+  message?: string
+  rects: ({ x: number; y: number; w: number; h: number } | null)[]
+}
+
+/** A bare page point. Not a Pt: a rule's geometry is measured, not drawn. */
+interface XY { x: number; y: number }
+
+/** Middle of a page rect — where a gap mark starts and ends. */
+const centre = (r: { x: number; y: number; w: number; h: number }): XY =>
+  ({ x: r.x + r.w / 2, y: r.y + r.h / 2 })
+
+/** The rule line in flight. PAGE coords, like the lasso's. */
+interface RuleDraw {
+  from: XY
+  to: XY
+  /** Stamps of what the pointer was actually over at each end (see `under`). */
+  under: string[]
+  drawing: boolean
+  proposals: RuleProposal[]
+  choice: number
+}
 /**
  * Where a successful extract's receipt waits out the reload it causes.
  *
@@ -920,6 +976,69 @@ const STYLES = css`
   #lassoCancel { background: #374151; color: #d1d5db; }
   #lassoCancel:hover { background: #4b5563; }
   #lassoPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  /* The rule confirmation: the readings a drawn line could mean, one of which
+     is about to be saved. Green-bordered, matching the marks on the page. */
+  #rulePanel {
+    position: fixed; left: 0; top: 0; z-index: 2147483001;
+    display: none; width: 288px; max-width: calc(100vw - 20px);
+    padding: 10px; border-radius: 12px;
+    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #047857; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #rulePanel.on { display: block; }
+  #rulePanel .qHead { font-weight: 600; margin-bottom: 7px; color: #6ee7b7; }
+  #ruleList { margin-bottom: 8px; max-height: 190px; overflow-y: auto; }
+  #ruleList button {
+    display: block; width: 100%; text-align: left; margin: 0 0 4px; padding: 5px 7px;
+    border-radius: 8px; border: 1px solid transparent; background: #1f2937;
+    color: #e5e7eb; font: inherit; font-size: 11px; line-height: 1.35; cursor: pointer;
+  }
+  #ruleList button:hover { background: #374151; }
+  #ruleList button[aria-checked='true'] { border-color: #10b981; background: #064e3b; }
+  #ruleList .rKey { color: #6ee7b7; font-weight: 600; margin-right: 5px; }
+  #ruleList .rRead { display: block; color: #9ca3af; }
+  #ruleNote {
+    width: 100%; box-sizing: border-box; padding: 5px 8px; margin-bottom: 6px;
+    border-radius: 7px; border: 1px solid #4b5563; background: #1f2937;
+    color: #f9fafb; font: inherit;
+  }
+  #ruleNote:focus { outline: none; border-color: #10b981; }
+  #ruleActions { display: flex; gap: 6px; }
+  #ruleActions button { flex: 1; padding: 5px 8px; border-radius: 999px; font-size: 11px; }
+  #ruleGo { background: #047857; color: #f9fafb; }
+  #ruleGo:hover { background: #10b981; }
+  #ruleCancel { background: #374151; color: #d1d5db; }
+  #ruleCancel:hover { background: #4b5563; }
+  #rulePanel .qNote { color: #9ca3af; margin-top: 8px; }
+  /* Everything being watched. Unlike the confirmation this is not anchored to
+     anything on the page, so it sits with the toolbar. */
+  #watchPanel {
+    position: fixed; right: 12px; bottom: 12px; z-index: 2147483000;
+    display: none; width: 300px; max-width: calc(100vw - 24px);
+    padding: 10px; border-radius: 12px;
+    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    text-align: left; white-space: normal;
+  }
+  #watchPanel.on { display: block; }
+  #watchPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #6ee7b7; }
+  #watchList { max-height: 208px; overflow-y: auto; }
+  #watchList .wRow {
+    display: flex; gap: 6px; align-items: flex-start; padding: 4px 0;
+    border-top: 1px solid #1f2937;
+  }
+  #watchList .wRow:first-child { border-top: 0; }
+  #watchList .wText { flex: 1; font-size: 11px; }
+  #watchList .wBroken { color: #fca5a5; }
+  #watchList .wOk { color: #9ca3af; }
+  #watchList .wNote { color: #d1d5db; font-style: italic; }
+  #watchList button {
+    flex: none; padding: 1px 6px; border-radius: 999px; background: #374151;
+    color: #d1d5db; font-size: 11px; line-height: 1.5;
+  }
+  #watchList button:hover { background: #7f1d1d; color: #fee2e2; }
+  #watchPanel .qNote { color: #9ca3af; margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -1316,6 +1435,23 @@ class Overlay {
   private lasso: LassoState | null = null
   /** Alt+L armed the NEXT drag as a lasso, for anyone not holding Alt. */
   private lassoArmed = false
+  /** The rule confirmation, and the panel listing everything being watched. */
+  private rulePanel: HTMLElement
+  private ruleWhat: HTMLElement
+  private ruleList: HTMLElement
+  private ruleNote: HTMLInputElement
+  private watchPanel: HTMLElement
+  private watchList: HTMLElement
+  private watchHead: HTMLElement
+  /** The rule line being drawn, or drawn and awaiting a choice. */
+  private ruleDraw: RuleDraw | null = null
+  /** Alt+Shift+R armed the next drag as a rule line. */
+  private ruleArmed = false
+  /** Every saved rule, as of the last check against the page. */
+  private rules: RuleView[] = []
+  /** Whether rules that HOLD are drawn. A broken one always is. */
+  private watching = false
+  private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
   /** Cached shape list for geometric hit-testing (see SHAPE_CACHE_MS). */
   private shapeCache: { at: number; els: SVGGeometryElement[] } | null = null
   private fidelityBtn: HTMLButtonElement
@@ -1615,6 +1751,76 @@ class Overlay {
     })
     this.lassoName.addEventListener('keyup', (e) => e.stopPropagation())
     this.lassoName.addEventListener('keypress', (e) => e.stopPropagation())
+
+    // The rule confirmation. A drawn line is unambiguous about WHICH elements
+    // and which axis, and ambiguous about the rule — down two left edges could
+    // mean aligned-left or same-width. So every reading the geometry allows is
+    // listed, each with what the page says right now, and one is chosen.
+    const rule = document.createElement('div')
+    rule.id = 'rulePanel'
+    rule.setAttribute('role', 'dialog')
+    rule.setAttribute('aria-label', 'what should this rule say')
+    rule.innerHTML = `
+      <div class="qHead" id="ruleWhat"></div>
+      <div id="ruleList" role="radiogroup" aria-label="readings"></div>
+      <input id="ruleNote" type="text" autocomplete="off" spellcheck="false"
+             aria-label="why this rule exists" placeholder="why (optional)">
+      <div id="ruleActions">
+        <button id="ruleGo" title="watch this from now on">watch it</button>
+        <button id="ruleCancel" title="save nothing (Esc)">cancel</button>
+      </div>
+      <div class="qNote">
+        1–5 picks a reading · Enter saves it · Esc cancels. From then on it is
+        checked against the live page — on every edit, and on every run.
+      </div>
+    `
+    this.shadow.appendChild(rule)
+    this.rulePanel = rule
+    this.ruleWhat = this.shadow.getElementById('ruleWhat')!
+    this.ruleList = this.shadow.getElementById('ruleList')!
+    this.ruleNote = this.shadow.getElementById('ruleNote') as HTMLInputElement
+    this.shadow.getElementById('ruleGo')!.addEventListener('click', () => void this.commitRule())
+    this.shadow.getElementById('ruleCancel')!.addEventListener('click', () =>
+      this.cancelRule('rule cancelled — nothing saved'))
+    rule.addEventListener('pointerdown', (e) => e.stopPropagation())
+    this.ruleNote.addEventListener('keydown', (e) => {
+      e.stopPropagation()
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        void this.commitRule()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        this.cancelRule('rule cancelled — nothing saved')
+      } else if (/^[1-9]$/.test(e.key)) {
+        // the number keys keep working while the note has focus: picking a
+        // reading and explaining it are one thought
+        e.preventDefault()
+        this.pickReading(Number(e.key) - 1)
+      }
+    })
+    this.ruleNote.addEventListener('keyup', (e) => e.stopPropagation())
+    this.ruleNote.addEventListener('keypress', (e) => e.stopPropagation())
+
+    // Everything being watched. Not anchored to the page: it is a list, and
+    // the rules in it are about elements all over the document.
+    const watch = document.createElement('div')
+    watch.id = 'watchPanel'
+    watch.setAttribute('role', 'dialog')
+    watch.setAttribute('aria-label', 'rules being watched')
+    watch.innerHTML = `
+      <div class="qHead" id="watchHead">watching</div>
+      <div id="watchList"></div>
+      <div class="qNote">
+        Alt+Shift+R draws another · Alt+W hides this. A broken rule shows on the
+        page whether this is open or not.
+      </div>
+    `
+    this.shadow.appendChild(watch)
+    this.watchPanel = watch
+    this.watchList = this.shadow.getElementById('watchList')!
+    this.watchHead = this.shadow.getElementById('watchHead')!
+    watch.addEventListener('pointerdown', (e) => e.stopPropagation())
+
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -1710,6 +1916,9 @@ class Overlay {
     this.buildHelp()
     this.loadPen()
     void this.restoreFromRun()
+    // Existing rules are watching from the moment the page loads, whether or
+    // not anyone opens the panel.
+    void this.refreshRules()
     void fetch('/@s2c/ide/status')
       .then((r) => r.json() as Promise<{ connected: boolean; editor?: string }>)
       .then((d) => this.setIdeEditor(d.connected ? (d.editor ?? 'editor') : null))
@@ -1722,6 +1931,38 @@ class Overlay {
       this.clampHud()
       this.layoutFidelityPanel()
       if (this.penOpen) this.layoutPanel(this.penPanel)
+      if (this.ruleDraw) this.layoutRulePanel()
+      // an alignment that holds at 1280px is exactly the thing that breaks at
+      // 900, so a resize is a real reason to re-check
+      if (this.rules.length) this.scheduleRuleCheck()
+    })
+
+    /**
+     * Re-check rules when the page's structure changes.
+     *
+     * The valuable case is not one of this overlay's own edits — those already
+     * re-check — but a change made in the EDITOR: someone reorders a flex
+     * container in their IDE, HMR remounts it, and the rule they drew last
+     * week turns red on the page without anyone asking it to. That is the
+     * difference between a rule and a comment.
+     *
+     * Attributes as well as children, and this is not a detail: React's Fast
+     * Refresh usually RECONCILES an edited component rather than remounting
+     * it, so adding a margin to an input changes one attribute and adds no
+     * nodes at all. Watching childList alone made rules blind to exactly the
+     * edits they exist to catch.
+     *
+     * Only while something is being watched, and never mid-drag: an app that
+     * draws no rules must not pay a fetch per mutation, and a drag's own live
+     * preview writes a style attribute on every frame.
+     */
+    new MutationObserver(() => {
+      if (!this.rules.length) return
+      const t = this.tweak
+      if (t?.moveDrag || t?.handleDrag || t?.drag) return
+      this.scheduleRuleCheck(600)
+    }).observe(document.body, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'],
     })
     // capture: nested scroll containers' scroll events don't bubble, but a
     // capture listener on window still sees them
@@ -1758,6 +1999,10 @@ class Overlay {
       // lets e2e compare what the overlay BELIEVES against what it puts on
       // the wire, and assert the help overlay lists every binding there is
       notes: () => this.notesPayload(),
+      // the snapshot AS SENT: every server-side geometry decision is made
+      // against this, so when a gesture picks the wrong element this is the
+      // only place that can say whether the page or the reading was wrong
+      snapshot: () => this.snapshot(),
       keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
       // what each stroke believes it is drawn on, so a drifting overlay can be
       // told apart from a stroke that never anchored in the first place
@@ -1789,6 +2034,24 @@ class Overlay {
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
       }),
+      // What the rule gesture is about to save, and what every saved rule
+      // currently reads. A rule that silently watches the WRONG elements is
+      // the failure mode worth being able to see from a test.
+      rules: () => ({
+        armed: this.ruleArmed,
+        watching: this.watching,
+        panelOpen: this.rulePanel.classList.contains('on'),
+        listOpen: this.watchPanel.classList.contains('on'),
+        drawing: this.ruleDraw?.drawing ?? null,
+        choice: this.ruleDraw?.choice ?? null,
+        proposals: this.ruleDraw?.proposals.map((p) => ({
+          kind: p.kind, desc: p.desc, reading: p.reading, subjects: p.subjects,
+        })) ?? [],
+        saved: this.rules.map((r) => ({
+          id: r.id, kind: r.kind, desc: r.desc, broken: r.broken, message: r.message,
+          note: r.note, subjects: r.subjects,
+        })),
+      }),
       // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
       // compared against the live rects of the elements it is describing
       plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
@@ -1806,10 +2069,13 @@ class Overlay {
     // …and neither may a lasso: it describes elements in tweak mode's own
     // coordinate system of "things you can select", and drawing continues over
     // the same canvas
-    if (m !== 'tweak' && (this.lasso || this.lassoArmed)) {
+    if (m !== 'tweak' && (this.lasso || this.lassoArmed || this.ruleDraw || this.ruleArmed)) {
       this.lasso = null
       this.lassoArmed = false
       this.lassoPanel.classList.remove('on')
+      this.ruleDraw = null
+      this.ruleArmed = false
+      this.rulePanel.classList.remove('on')
     }
     this.mode = m
     this.host.dataset.mode = m
@@ -1984,6 +2250,19 @@ class Overlay {
         id: 'lasso', keys: 'Alt+L',
         label: 'lasso: circle elements → extract a component (or just hold Alt and drag)',
         group: 'drawing', match: altBind('KeyL', 'l'), run: () => this.armLasso(),
+      },
+      {
+        // Alt+R runs; Alt+Shift+R writes down something that must KEEP being
+        // true. Same letter on purpose — one fires the pipeline once, the
+        // other makes a check that fires on every run after this one.
+        id: 'rule', keys: 'Alt+Shift+R', group: 'drawing',
+        label: 'rule: drag a line down two edges (or across a gap) → a check that keeps watching',
+        match: altBind('KeyR', 'r', true), run: () => this.armRule(),
+      },
+      {
+        id: 'watching', keys: 'Alt+W', group: 'drawing',
+        label: 'show / hide the rules being watched (a broken one shows itself anyway)',
+        match: altBind('KeyW', 'w'), run: () => this.toggleWatching(),
       },
       {
         id: 'undo', keys: 'Ctrl/⌘+Z', label: 'undo — last stroke while drawing, else the last edit written',
@@ -2161,6 +2440,20 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // A rule being drawn, or one waiting for a reading to be picked: same rung
+    // as the lasso, for the same reason — nothing is written yet and the user
+    // is still inside the gesture.
+    if (this.ruleDraw) {
+      this.cancelRule(
+        this.ruleDraw.drawing ? 'rule cancelled' : 'rule cancelled — nothing saved',
+      )
+      return
+    }
+    if (this.ruleArmed) {
+      this.ruleArmed = false
+      this.status('rule off — drag moves elements again')
+      return
+    }
     // The newest and shallowest rung there is: a loop being drawn, or one
     // waiting for a name. Neither has written anything, and both are gestures
     // the user is still inside — so Esc here means "not these", not "leave
@@ -3480,6 +3773,543 @@ class Overlay {
       fill: FILL_KEYS.includes(f.fill) ? f.fill : 'filled',
       style: STYLE_KEYS.includes(f.style) ? f.style : DEFAULT_STYLE,
     }
+  }
+
+  // ---- drawn rules: the ink that stays ----------------------------------
+  // Alt+Shift+R, then drag a line: down the two edges that should stay
+  // aligned, or across the gap that should stay. The server reads the
+  // geometry and answers with every rule that line could mean, each measured
+  // against the page; one of them is chosen and saved.
+  //
+  // After that the rule is checked on every edit and on every run, using the
+  // same evaluator the verification round uses — so a badge on the page and a
+  // failure in a run can never disagree.
+
+  /** Alt+Shift+R: arm the next drag as a rule line. */
+  private armRule() {
+    if (this.ruleDraw) {
+      this.cancelRule('rule cancelled — nothing saved')
+      return
+    }
+    // a rule is about elements, and only tweak mode is hit-testing them
+    if (this.mode !== 'tweak') this.toggleTweak()
+    this.ruleArmed = !this.ruleArmed
+    if (this.ruleArmed) this.lassoArmed = false
+    this.status(
+      this.ruleArmed
+        ? 'rule armed — drag a line down the edges that must stay aligned, or across a gap (Esc cancels)'
+        : 'rule off — drag moves elements again',
+    )
+  }
+
+  /**
+   * What the line actually runs along, in order of how much of the line each
+   * element accounts for.
+   *
+   * This answers the question geometry cannot. A form input, its wrapper div,
+   * its label and the <form> can all share the same left edge, because nothing
+   * pads them apart — a line down that edge is equally near all four, and the
+   * choice decides whether the rule watches the fields or some text above
+   * them. The hit test knows, because it respects stacking, visibility and
+   * pointer-events: it sees what the user saw.
+   *
+   * Sampled along the whole line rather than at its two ends, because where a
+   * drag STARTS is the least deliberate part of it — beginning four pixels
+   * high lands on the label and would quietly make the rule about that.
+   */
+  private stampsAlong(from: XY, to: XY): string[] {
+    const n = 24
+    const counts = new Map<string, number>()
+    // one pointer-events toggle for the whole batch, as lassoHits does: a
+    // style flush per sample is a frame's worth of work for nothing
+    this.canvas.style.pointerEvents = 'none'
+    for (let i = 0; i <= n; i++) {
+      const x = from.x + ((to.x - from.x) * i) / n - window.scrollX
+      const y = from.y + ((to.y - from.y) * i) / n - window.scrollY
+      let el: Element | null = document.elementFromPoint(x, y)
+      while (el) {
+        const stamp = (el as HTMLElement).dataset?.s2c
+        if (stamp && !this.host.contains(el)) {
+          counts.set(stamp, (counts.get(stamp) ?? 0) + 1)
+          break
+        }
+        el = el.parentElement
+      }
+    }
+    this.canvas.style.pointerEvents = ''
+    // ranked, and more than two: the server drops any that turn out to nest
+    // each other, and needs something left over when it does
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([s]) => s)
+  }
+
+  /** Alt+W: show/hide the rules that are HOLDING. Broken ones always show. */
+  private toggleWatching() {
+    this.watching = !this.watching
+    this.watchPanel.classList.toggle('on', this.watching)
+    if (this.watching) void this.refreshRules()
+    this.status(
+      this.watching
+        ? this.rulesSummary(true)
+        : 'rules hidden — a broken one will still show itself',
+    )
+    this.redraw()
+  }
+
+  /** True while a drawn line is waiting for a reading to be picked. */
+  private rulePending(): boolean {
+    return this.ruleDraw != null && !this.ruleDraw.drawing
+  }
+
+  private rulesSummary(verbose = false): string {
+    const n = this.rules.length
+    const bad = this.rules.filter((r) => r.broken).length
+    if (n === 0) {
+      return verbose ? 'no rules yet — Alt+Shift+R draws one' : ''
+    }
+    const head = `${String(n)} rule${n === 1 ? '' : 's'} watched`
+    if (bad === 0) return `${head} · all holding`
+    return `${head} · ${String(bad)} broken`
+  }
+
+  private startRuleLine(e: PointerEvent) {
+    if (this.paintOpen) this.setPaintOpen(false)
+    this.ruleArmed = false
+    this.hoverEl = null
+    const at = { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }
+    this.ruleDraw = { from: at, to: at, under: [], drawing: true, proposals: [], choice: 0 }
+    this.canvas.setPointerCapture(e.pointerId)
+    this.canvas.style.cursor = 'crosshair'
+    this.status('drawing a rule line — release it across what the rule is about')
+    this.redraw()
+  }
+
+  /**
+   * A rule line is STRAIGHT, anchored at the press.
+   *
+   * Freehand would be the wrong shape for this: a rule is about an axis, and
+   * the axis is the one thing the gesture has to state exactly. Rubber-banding
+   * from the press point says "this line, this direction" while it is still
+   * being aimed.
+   */
+  private moveRuleLine(e: PointerEvent) {
+    const r = this.ruleDraw
+    if (!r?.drawing) return
+    r.to = { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }
+    const dx = Math.abs(r.to.x - r.from.x)
+    const dy = Math.abs(r.to.y - r.from.y)
+    const span = Math.hypot(dx, dy)
+    this.status(
+      span < RULE_MIN_SPAN
+        ? 'rule line too short — drag it along the edges the rule is about'
+        : `rule line: ${dy > dx ? 'vertical' : 'horizontal'}, ${String(Math.round(span))}px`,
+    )
+    this.redraw()
+  }
+
+  private async endRuleLine(e: PointerEvent): Promise<void> {
+    const r = this.ruleDraw
+    if (!r?.drawing) return
+    this.canvas.releasePointerCapture?.(e.pointerId)
+    this.canvas.style.cursor = 'default'
+    if (e.type === 'pointercancel') {
+      this.cancelRule('rule cancelled')
+      return
+    }
+    const span = Math.hypot(r.to.x - r.from.x, r.to.y - r.from.y)
+    if (span < RULE_MIN_SPAN) {
+      this.cancelRule('rule line too short — drag it along the edges the rule is about')
+      return
+    }
+    r.drawing = false
+    // once, at release: the line is final, and 25 hit tests per pointermove
+    // would be a frame tax for an answer nobody has asked for yet
+    r.under = this.stampsAlong(r.from, r.to)
+    this.status('reading the line…')
+    this.redraw()
+    try {
+      const res = await fetch('/@s2c/rules/propose', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          line: { x0: r.from.x, y0: r.from.y, x1: r.to.x, y1: r.to.y },
+          under: r.under,
+          snapshot: this.snapshot(),
+        }),
+      })
+      const out = (await res.json()) as { ok: boolean; proposals?: RuleProposal[]; error?: string }
+      if (!out.ok || !out.proposals?.length) {
+        // the server's refusals name the fix ("draw it down the edges, or
+        // across the gap") so they travel word for word
+        this.cancelRule(`✗ ${out.error ?? 'nothing to make a rule about there'}`)
+        return
+      }
+      r.proposals = out.proposals
+      r.choice = 0
+      this.openRuleConfirm(r)
+    } catch (err) {
+      this.cancelRule(`✗ ${err instanceof Error ? err.message : String(err)}`)
+    }
+  }
+
+  private openRuleConfirm(r: RuleDraw) {
+    const subjects = [...new Set(r.proposals.flatMap((p) => p.labels))]
+    this.ruleWhat.textContent = subjects.length === 1
+      ? `a rule about ${subjects[0]!}`
+      : `a rule between ${subjects.slice(0, 2).join(' and ')}`
+    this.renderReadings(r)
+    this.ruleNote.value = ''
+    this.rulePanel.classList.add('on')
+    this.layoutRulePanel()
+    this.ruleNote.focus()
+    this.status(`${String(r.proposals.length)} readings — 1–5 picks one, Enter saves it, Esc cancels`)
+    this.redraw()
+  }
+
+  private renderReadings(r: RuleDraw) {
+    this.ruleList.replaceChildren(...r.proposals.map((p, i) => {
+      const b = document.createElement('button')
+      b.type = 'button'
+      b.setAttribute('role', 'radio')
+      b.setAttribute('aria-checked', String(i === r.choice))
+      b.dataset.kind = p.kind
+      const key = document.createElement('span')
+      key.className = 'rKey'
+      key.textContent = `${String(i + 1)}`
+      const read = document.createElement('span')
+      read.className = 'rRead'
+      read.textContent = p.reading
+      b.append(key, document.createTextNode(p.desc), read)
+      b.addEventListener('click', () => this.pickReading(i))
+      return b
+    }))
+  }
+
+  /** Choose which reading gets saved. Out-of-range keys are simply ignored. */
+  private pickReading(i: number) {
+    const r = this.ruleDraw
+    if (!r || r.drawing || i < 0 || i >= r.proposals.length) return
+    r.choice = i
+    this.renderReadings(r)
+    this.status(`${r.proposals[i]!.desc} — Enter saves it`)
+    this.redraw()
+  }
+
+  /** Keep the confirmation beside the line it describes (cf. layoutLassoPanel). */
+  private layoutRulePanel() {
+    const r = this.ruleDraw
+    if (!r || r.drawing) return
+    const xs = [r.from.x - window.scrollX, r.to.x - window.scrollX]
+    const ys = [r.from.y - window.scrollY, r.to.y - window.scrollY]
+    const w = this.rulePanel.offsetWidth
+    const h = this.rulePanel.offsetHeight
+    let x = Math.max(...xs) + PANEL_GAP
+    if (x + w > window.innerWidth - PANEL_GAP) x = Math.min(...xs) - w - PANEL_GAP
+    x = Math.min(Math.max(PANEL_GAP, x), Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP))
+    const y = Math.min(Math.max(PANEL_GAP, Math.min(...ys)), Math.max(PANEL_GAP, window.innerHeight - h - PANEL_GAP))
+    this.rulePanel.style.left = `${String(Math.round(x))}px`
+    this.rulePanel.style.top = `${String(Math.round(y))}px`
+  }
+
+  /** Drop the gesture with nothing saved. Idempotent. */
+  private cancelRule(msg: string) {
+    this.ruleDraw = null
+    this.ruleArmed = false
+    this.rulePanel.classList.remove('on')
+    this.canvas.style.cursor = 'default'
+    this.status(msg, msg.startsWith('✗'))
+    this.redraw()
+  }
+
+  private async commitRule(): Promise<void> {
+    const r = this.ruleDraw
+    if (!r || r.drawing) return
+    const p = r.proposals[r.choice]
+    if (!p) return
+    const note = this.ruleNote.value.trim()
+    this.rulePanel.classList.remove('on')
+    try {
+      const res = await fetch('/@s2c/rules/add', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          kind: p.kind, subjects: p.subjects, value: p.value, tolerance: p.tolerance,
+          ...(note ? { note } : {}),
+        }),
+      })
+      const out = (await res.json()) as { ok: boolean; error?: string }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      this.ruleDraw = null
+      // a rule you just drew is one you want to see: turn the marks on
+      this.watching = true
+      this.watchPanel.classList.add('on')
+      await this.refreshRules()
+      this.status(`✓ watching: ${p.desc} · 0 tokens · checked on every edit and every run`)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      if (this.ruleDraw) {
+        this.rulePanel.classList.add('on')
+        this.layoutRulePanel()
+      }
+    }
+    this.redraw()
+  }
+
+  /**
+   * Re-measure every rule against the page as it is now.
+   *
+   * Cheap (one snapshot, no model) and the answer is only meaningful after
+   * layout has settled, so callers debounce through scheduleRuleCheck rather
+   * than calling this on every mutation.
+   */
+  private async refreshRules(): Promise<void> {
+    try {
+      const res = await fetch('/@s2c/rules/check', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ snapshot: this.snapshot() }),
+      })
+      const out = (await res.json()) as { ok: boolean; rules?: RuleView[] }
+      if (!out.ok || !out.rules) return
+      const wasBroken = this.rules.filter((r) => r.broken).map((r) => r.id).join(',')
+      this.rules = out.rules
+      this.renderWatchList()
+      const nowBroken = this.rules.filter((r) => r.broken)
+      // Only SAY something when the answer changed: a rule that has been
+      // broken for ten edits should not narrate itself on each one, and a
+      // rule that just broke is the most important thing on screen.
+      if (nowBroken.length && nowBroken.map((r) => r.id).join(',') !== wasBroken) {
+        const first = nowBroken[0]!
+        this.status(
+          `⚠ ${first.desc} — ${first.message ?? 'broken'}${nowBroken.length > 1 ? ` (+${String(nowBroken.length - 1)} more)` : ''}`,
+          true,
+        )
+      }
+      this.redraw()
+    } catch { /* an older dev server without the rules endpoints just has none */ }
+  }
+
+  /** Coalesce the checks an edit's HMR, reflow and remount would each trigger. */
+  private scheduleRuleCheck(delay = 400) {
+    if (this.ruleCheckTimer) clearTimeout(this.ruleCheckTimer)
+    this.ruleCheckTimer = setTimeout(() => {
+      this.ruleCheckTimer = null
+      void this.refreshRules()
+    }, delay)
+  }
+
+  private renderWatchList() {
+    const n = this.rules.length
+    this.watchHead.textContent = n === 0 ? 'watching nothing yet' : this.rulesSummary()
+    if (n === 0) {
+      const empty = document.createElement('div')
+      empty.className = 'wRow wOk'
+      empty.textContent = 'Alt+Shift+R, then drag a line down two edges.'
+      this.watchList.replaceChildren(empty)
+      return
+    }
+    this.watchList.replaceChildren(...this.rules.map((r) => {
+      const row = document.createElement('div')
+      row.className = 'wRow'
+      const text = document.createElement('div')
+      text.className = 'wText'
+      const head = document.createElement('div')
+      head.className = r.broken ? 'wBroken' : 'wOk'
+      head.textContent = `${r.broken ? '⚠ ' : '✓ '}${r.desc}`
+      text.appendChild(head)
+      if (r.broken && r.message) {
+        const why = document.createElement('div')
+        why.className = 'wBroken'
+        why.textContent = r.message
+        text.appendChild(why)
+      }
+      if (r.note) {
+        const note = document.createElement('div')
+        note.className = 'wNote'
+        note.textContent = `“${r.note}”`
+        text.appendChild(note)
+      }
+      const del = document.createElement('button')
+      del.type = 'button'
+      del.textContent = '✕'
+      del.title = 'stop watching this'
+      del.dataset.ruleId = r.id
+      del.addEventListener('click', () => void this.forgetRule(r.id))
+      row.append(text, del)
+      return row
+    }))
+  }
+
+  private async forgetRule(id: string): Promise<void> {
+    const gone = this.rules.find((r) => r.id === id)
+    try {
+      await fetch('/@s2c/rules/delete', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ id }),
+      })
+      await this.refreshRules()
+      this.status(`stopped watching: ${gone?.desc ?? id}`)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  /**
+   * The rule line in flight, and every rule worth showing.
+   *
+   * A broken rule draws whether or not the user asked to see rules: that is
+   * the entire point of having drawn it. A holding one draws only while
+   * watching is on, because a page wearing every invariant it satisfies is
+   * unreadable.
+   */
+  private drawRules() {
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    for (const r of this.rules) {
+      if (!r.broken && !this.watching) continue
+      const rects = r.rects.filter((x): x is NonNullable<typeof x> => x != null)
+      if (rects.length === 0) continue
+      const colour = r.broken ? RULE_BROKEN : RULE_OK
+      ctx.save()
+      ctx.strokeStyle = colour
+      ctx.lineWidth = r.broken ? 2 : 1.5
+      ctx.setLineDash(r.broken ? [] : [5, 4])
+      const mark = this.ruleMark(r, rects)
+      ctx.beginPath()
+      for (const [a, b] of mark.lines) {
+        ctx.moveTo(a.x - sx, a.y - sy)
+        ctx.lineTo(b.x - sx, b.y - sy)
+      }
+      ctx.stroke()
+      ctx.setLineDash([])
+      // the label: what it says, and what reality says when they differ
+      const label = r.broken ? `${r.desc} — ${r.message ?? 'broken'}` : r.desc
+      this.ruleBadge(mark.at.x - sx, mark.at.y - sy, label, colour)
+      ctx.restore()
+    }
+
+    const d = this.ruleDraw
+    if (!d) return
+    ctx.save()
+    ctx.strokeStyle = RULE_OK
+    ctx.lineWidth = 2
+    ctx.setLineDash(d.drawing ? [7, 5] : [])
+    ctx.beginPath()
+    ctx.moveTo(d.from.x - sx, d.from.y - sy)
+    ctx.lineTo(d.to.x - sx, d.to.y - sy)
+    ctx.stroke()
+    ctx.setLineDash([])
+    // end caps, so a rule line reads as a measurement rather than a stroke
+    for (const p of [d.from, d.to]) {
+      ctx.beginPath()
+      ctx.arc(p.x - sx, p.y - sy, 3, 0, Math.PI * 2)
+      ctx.fillStyle = RULE_OK
+      ctx.fill()
+    }
+    if (!d.drawing && d.proposals[d.choice]) {
+      this.ruleBadge(d.to.x - sx, d.to.y - sy, d.proposals[d.choice]!.desc, RULE_OK)
+    }
+    ctx.restore()
+  }
+
+  /**
+   * Where a rule's mark goes: along the edge it is about, so the mark is the
+   * rule rather than a decoration near it.
+   */
+  private ruleMark(
+    r: RuleView,
+    rects: { x: number; y: number; w: number; h: number }[],
+  ): { lines: [XY, XY][]; at: XY } {
+    const [a, b] = rects as [typeof rects[0], typeof rects[0] | undefined]
+    const pad = 6
+    if (!b) {
+      // a rule about one element: ring its box
+      return {
+        lines: [
+          [{ x: a.x, y: a.y }, { x: a.x + a.w, y: a.y }],
+          [{ x: a.x + a.w, y: a.y }, { x: a.x + a.w, y: a.y + a.h }],
+          [{ x: a.x + a.w, y: a.y + a.h }, { x: a.x, y: a.y + a.h }],
+          [{ x: a.x, y: a.y + a.h }, { x: a.x, y: a.y }],
+        ],
+        at: { x: a.x, y: a.y },
+      }
+    }
+    const y0 = Math.min(a.y, b.y) - pad
+    const y1 = Math.max(a.y + a.h, b.y + b.h) + pad
+    const x0 = Math.min(a.x, b.x) - pad
+    const x1 = Math.max(a.x + a.w, b.x + b.w) + pad
+    switch (r.kind) {
+      case 'aligned-left':
+        return { lines: [[{ x: a.x, y: y0 }, { x: a.x, y: y1 }], [{ x: b.x, y: y0 }, { x: b.x, y: y1 }]], at: { x: Math.min(a.x, b.x), y: y0 } }
+      case 'aligned-right': {
+        const ra = a.x + a.w
+        const rb = b.x + b.w
+        return { lines: [[{ x: ra, y: y0 }, { x: ra, y: y1 }], [{ x: rb, y: y0 }, { x: rb, y: y1 }]], at: { x: Math.max(ra, rb), y: y0 } }
+      }
+      case 'aligned-top':
+        return { lines: [[{ x: x0, y: a.y }, { x: x1, y: a.y }], [{ x: x0, y: b.y }, { x: x1, y: b.y }]], at: { x: x0, y: Math.min(a.y, b.y) } }
+      case 'aligned-bottom': {
+        const ba = a.y + a.h
+        const bb = b.y + b.h
+        return { lines: [[{ x: x0, y: ba }, { x: x1, y: ba }], [{ x: x0, y: bb }, { x: x1, y: bb }]], at: { x: x0, y: Math.max(ba, bb) } }
+      }
+      case 'same-width':
+        return {
+          lines: [
+            [{ x: a.x, y: a.y + a.h + pad }, { x: a.x + a.w, y: a.y + a.h + pad }],
+            [{ x: b.x, y: b.y + b.h + pad }, { x: b.x + b.w, y: b.y + b.h + pad }],
+          ],
+          at: { x: a.x, y: a.y + a.h + pad },
+        }
+      case 'same-height':
+        return {
+          lines: [
+            [{ x: a.x + a.w + pad, y: a.y }, { x: a.x + a.w + pad, y: a.y + a.h }],
+            [{ x: b.x + b.w + pad, y: b.y }, { x: b.x + b.w + pad, y: b.y + b.h }],
+          ],
+          at: { x: a.x + a.w + pad, y: a.y },
+        }
+      case 'inside':
+        return {
+          lines: [
+            [{ x: b.x, y: b.y }, { x: b.x + b.w, y: b.y }],
+            [{ x: b.x + b.w, y: b.y }, { x: b.x + b.w, y: b.y + b.h }],
+            [{ x: b.x + b.w, y: b.y + b.h }, { x: b.x, y: b.y + b.h }],
+            [{ x: b.x, y: b.y + b.h }, { x: b.x, y: b.y }],
+          ],
+          at: { x: b.x, y: b.y },
+        }
+      default: {
+        // gap and order: the span between the two, along whichever axis
+        // actually separates them
+        const vertical = Math.abs(centre(a).y - centre(b).y) >= Math.abs(centre(a).x - centre(b).x)
+        const [lo, hi] = (vertical ? a.y <= b.y : a.x <= b.x) ? [a, b] : [b, a]
+        const p1 = vertical
+          ? { x: centre(lo).x, y: lo.y + lo.h }
+          : { x: lo.x + lo.w, y: centre(lo).y }
+        const p2 = vertical ? { x: centre(lo).x, y: hi.y } : { x: hi.x, y: centre(lo).y }
+        return { lines: [[p1, p2]], at: p1 }
+      }
+    }
+  }
+
+  /** A small rounded caption, clamped into the viewport (cf. drawLasso's). */
+  private ruleBadge(x: number, y: number, text: string, colour: string) {
+    const { ctx } = this
+    ctx.font = '11px ui-sans-serif, system-ui'
+    const label = text.length > 64 ? `${text.slice(0, 63)}…` : text
+    const w = ctx.measureText(label).width + 12
+    const lx = Math.max(2, Math.min(x, window.innerWidth - w - 2))
+    const ly = Math.max(2, Math.min(y - 22, window.innerHeight - 19))
+    ctx.fillStyle = colour
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, w, 17, 8)
+    ctx.fill()
+    ctx.fillStyle = '#0b1120'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(label, lx + 6, ly + 9)
+    ctx.textBaseline = 'alphabetic'
   }
 
   // ---- typed notes ------------------------------------------------------
@@ -5166,6 +5996,19 @@ class Overlay {
       this.cancelLasso('extract cancelled — nothing written')
       return
     }
+    // Same contract for a rule waiting to be read: pressing elsewhere means
+    // "not that line after all".
+    if (this.rulePending()) {
+      this.cancelRule('rule cancelled — nothing saved')
+      return
+    }
+    // A rule line is armed only by its keybind, never by a held modifier —
+    // Alt+drag is already the lasso, and one gesture per modifier is the only
+    // way either stays predictable.
+    if (this.ruleArmed) {
+      this.startRuleLine(e)
+      return
+    }
     // Alt+drag (or a drag after Alt+L) draws a lasso instead of moving things.
     if (e.altKey || this.lassoArmed) {
       this.startLasso(e)
@@ -5249,14 +6092,18 @@ class Overlay {
   }
 
   private onTweakMove(e: PointerEvent) {
+    if (this.ruleDraw?.drawing) {
+      this.moveRuleLine(e)
+      return
+    }
     if (this.lasso?.drawing) {
       this.moveLasso(e)
       return
     }
-    // A pending extract: the page is not hoverable while a confirmation is
-    // describing a set of boxes — a dashed outline round a different element
+    // A pending extract or rule: the page is not hoverable while a
+    // confirmation is describing a set of boxes — a dashed outline round a different element
     // would read as part of the selection being confirmed.
-    if (this.lassoPending()) {
+    if (this.lassoPending() || this.rulePending()) {
       this.canvas.style.cursor = 'default'
       if (this.hoverEl) {
         this.hoverEl = null
@@ -5472,6 +6319,10 @@ class Overlay {
   }
 
   private async onTweakUp(e: PointerEvent) {
+    if (this.ruleDraw?.drawing) {
+      await this.endRuleLine(e)
+      return
+    }
     if (this.lasso?.drawing) {
       this.endLasso(e)
       return
@@ -5848,6 +6699,9 @@ class Overlay {
     // after drawTweak: the lasso is the thing the user is doing RIGHT NOW, and
     // a selection ring drawn over it would hide which boxes it has caught
     if (this.mode === 'tweak') this.drawLasso()
+    // Rules draw in EVERY mode: a broken invariant is not a tweak-mode
+    // concern, it is the page being wrong.
+    this.drawRules()
   }
 
   // ---- pipeline ----

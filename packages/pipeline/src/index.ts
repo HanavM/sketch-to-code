@@ -26,9 +26,11 @@ export {
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
 export {
-  evaluateConstraints, loadConstraints, saveConstraints, measureConstraint, describeConstraint,
-  constraintsPath,
+  addConstraint, checkConstraints, constraintsPath, describeConstraint, evaluateConstraints,
+  loadConstraints, measureConstraint, nodeLabel, proposeConstraints, removeConstraint,
+  saveConstraints,
 } from './constraints.js'
+export type { Proposal, RuleLine, RuleView } from './constraints.js'
 export type { Constraint, ConstraintKind, Violation } from './constraints.js'
 export { extractComponent } from './extract.js'
 export type { ExtractRequest, ExtractResult } from './extract.js'
