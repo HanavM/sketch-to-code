@@ -25,6 +25,8 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export { extractComponent } from './extract.js'
+export type { ExtractRequest, ExtractResult } from './extract.js'
 export { paintShape } from './shape.js'
 export type { PaintRequest, PaintResult, PaintProp } from './shape.js'
 export { STYLES, STYLE_IDS, normalizeStyle, renderTraits, styleFaults } from './style.js'
