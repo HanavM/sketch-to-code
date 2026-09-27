@@ -302,6 +302,31 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       /**
+       * Copy a value from the element that shows it to one that should.
+       *
+       * Deterministic, so it is checkpointed and undoable like every other
+       * direct manipulation. The refusals matter more than the successes here
+       * — they are the difference between "that name only exists inside this
+       * list" and a plausible wrong value rendered silently — so they travel
+       * to the overlay verbatim.
+       */
+      server.middlewares.use('/@s2c/data', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ from: string; to: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.moveData(root, { from: body.from, to: body.to })
+            if (result.ok && result.change && !result.change.startsWith('no change')) {
+              undoStack.push({ sha: cp.sha, label: result.change })
+            }
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
        * Drawn rules. A sketch says "do this" and then disappears; a rule says
        * "this stays true" and keeps watching. Four steps, all deterministic
        * and all free: propose readings from a drawn line, save the one the

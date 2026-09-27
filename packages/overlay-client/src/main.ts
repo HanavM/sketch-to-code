@@ -296,6 +296,26 @@ interface RuleView {
   rects: ({ x: number; y: number; w: number; h: number } | null)[]
 }
 
+// ---- drag the data -------------------------------------------------------
+// Pink, and nothing else here is: this gesture is about a VALUE rather than a
+// box, and it has to be obvious mid-drag that what is travelling is the
+// number you can read, not the element around it.
+const DATA_COLOR = '#ec4899'
+
+/** One end of a value drag: the element, its stamp, and what to call it. */
+interface DataEnd { el: HTMLElement; srcLoc: string; label: string }
+
+/** A value being dragged from the thing that shows it to the thing that should. */
+interface DataDrag {
+  from: DataEnd
+  /** Whatever is under the pointer right now, if it is stamped. */
+  to: DataEnd | null
+  /** Pointer position, PAGE coords, so the line survives a scroll mid-drag. */
+  at: XY
+  /** The text the source element actually shows — what the user thinks they hold. */
+  value: string
+}
+
 /** A bare page point. Not a Pt: a rule's geometry is measured, not drawn. */
 interface XY { x: number; y: number }
 
@@ -360,8 +380,8 @@ function pointInPath(pts: Array<{ x: number; y: number }>, x: number, y: number)
   return inside
 }
 
-/** What to call a caught element in the status line and the confirm list. */
-function lassoLabel(el: HTMLElement): string {
+/** What to call an element in the status line and the confirm lists. */
+function elLabel(el: HTMLElement): string {
   const tag = el.tagName.toLowerCase()
   // its own text, if it has a short one: "a “Reports”" is recognizable on the
   // page in a way that "a · Navbar.tsx:7" is not
@@ -1452,6 +1472,9 @@ class Overlay {
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
+  /** The value drag in flight, and whether the next drag is one. */
+  private dataDrag: DataDrag | null = null
+  private dataArmed = false
   /** Cached shape list for geometric hit-testing (see SHAPE_CACHE_MS). */
   private shapeCache: { at: number; els: SVGGeometryElement[] } | null = null
   private fidelityBtn: HTMLButtonElement
@@ -2034,6 +2057,15 @@ class Overlay {
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
       }),
+      // Which two elements a value drag would put on the wire. Copying from
+      // or into a DIFFERENT element than the one outlined is the failure mode
+      // here, so both ends have to be observable.
+      data: () => ({
+        armed: this.dataArmed,
+        from: this.dataDrag?.from.srcLoc ?? null,
+        to: this.dataDrag?.to?.srcLoc ?? null,
+        value: this.dataDrag?.value ?? null,
+      }),
       // What the rule gesture is about to save, and what every saved rule
       // currently reads. A rule that silently watches the WRONG elements is
       // the failure mode worth being able to see from a test.
@@ -2069,7 +2101,10 @@ class Overlay {
     // …and neither may a lasso: it describes elements in tweak mode's own
     // coordinate system of "things you can select", and drawing continues over
     // the same canvas
-    if (m !== 'tweak' && (this.lasso || this.lassoArmed || this.ruleDraw || this.ruleArmed)) {
+    if (m !== 'tweak' && (this.lasso || this.lassoArmed || this.ruleDraw || this.ruleArmed ||
+        this.dataDrag || this.dataArmed)) {
+      this.dataDrag = null
+      this.dataArmed = false
       this.lasso = null
       this.lassoArmed = false
       this.lassoPanel.classList.remove('on')
@@ -2260,6 +2295,11 @@ class Overlay {
         match: altBind('KeyR', 'r', true), run: () => this.armRule(),
       },
       {
+        id: 'dragdata', keys: 'Alt+V', group: 'drawing',
+        label: 'drag a value — press on a value, drop it where it should also show',
+        match: altBind('KeyV', 'v'), run: () => this.armData(),
+      },
+      {
         id: 'watching', keys: 'Alt+W', group: 'drawing',
         label: 'show / hide the rules being watched (a broken one shows itself anyway)',
         match: altBind('KeyW', 'w'), run: () => this.toggleWatching(),
@@ -2440,6 +2480,17 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // A value in mid-air, or an armed-but-unused value drag: nothing has been
+    // written, and the user is still inside the gesture.
+    if (this.dataDrag) {
+      this.cancelData('value drag cancelled — nothing copied')
+      return
+    }
+    if (this.dataArmed) {
+      this.dataArmed = false
+      this.status('value drag off — drag moves elements again')
+      return
+    }
     // A rule being drawn, or one waiting for a reading to be picked: same rung
     // as the lasso, for the same reason — nothing is written yet and the user
     // is still inside the gesture.
@@ -3422,7 +3473,7 @@ class Overlay {
     this.canvas.style.pointerEvents = ''
     return caught
       .filter((c) => !caught.some((o) => o !== c && o.el.contains(c.el)))
-      .map((c) => ({ el: c.el, srcLoc: c.srcLoc, label: lassoLabel(c.el) }))
+      .map((c) => ({ el: c.el, srcLoc: c.srcLoc, label: elLabel(c.el) }))
   }
 
   private startLasso(e: PointerEvent) {
@@ -4310,6 +4361,189 @@ class Overlay {
     ctx.textBaseline = 'middle'
     ctx.fillText(label, lx + 6, ly + 9)
     ctx.textBaseline = 'alphabetic'
+  }
+
+  // ---- drag the data ----------------------------------------------------
+  // Alt+V, then drag from the thing that SHOWS a value onto the thing that
+  // should show it too. The page's contribution is the only one it can make
+  // and the server cannot: which two elements, resolved by hit test so that
+  // stacking and pointer-events are respected. Everything hard — what
+  // expression produces that value, whether the names it depends on even
+  // exist at the destination, whether they mean the same thing there — is
+  // decided from the AST, and its refusals are written to be read, so they
+  // land on the status line word for word.
+
+  /** Alt+V: arm the next drag as a value copy. */
+  private armData() {
+    if (this.dataDrag) {
+      this.cancelData('value drag cancelled')
+      return
+    }
+    if (this.mode !== 'tweak') this.toggleTweak()
+    this.dataArmed = !this.dataArmed
+    if (this.dataArmed) {
+      this.lassoArmed = false
+      this.ruleArmed = false
+    }
+    this.status(
+      this.dataArmed
+        ? 'value drag armed — press on the value you want, drag onto where it should also show (Esc cancels)'
+        : 'value drag off — drag moves elements again',
+    )
+  }
+
+  /** The stamped element under a viewport point, with what to call it. */
+  private pickStamped(x: number, y: number): DataEnd | null {
+    let el: Element | null = this.elementUnder(x, y)
+    while (el) {
+      const srcLoc = (el as HTMLElement).dataset?.s2c
+      if (srcLoc && !this.host.contains(el)) {
+        return { el: el as HTMLElement, srcLoc, label: elLabel(el as HTMLElement) }
+      }
+      el = el.parentElement
+    }
+    return null
+  }
+
+  private startDataDrag(e: PointerEvent) {
+    const from = this.pickStamped(e.clientX, e.clientY)
+    if (!from) {
+      this.cancelData('nothing stamped there — press on the element that shows the value')
+      return
+    }
+    if (this.paintOpen) this.setPaintOpen(false)
+    this.dataArmed = false
+    this.hoverEl = null
+    const value = (from.el.textContent ?? '').replace(/\s+/g, ' ').trim()
+    this.dataDrag = {
+      from,
+      to: null,
+      at: { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY },
+      value: value.length > 40 ? `${value.slice(0, 39)}…` : value,
+    }
+    this.canvas.setPointerCapture(e.pointerId)
+    this.canvas.style.cursor = 'copy'
+    this.status(`holding “${this.dataDrag.value}” — drop it on what should show it too`)
+    this.redraw()
+  }
+
+  private moveDataDrag(e: PointerEvent) {
+    const d = this.dataDrag
+    if (!d) return
+    d.at = { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }
+    const over = this.pickStamped(e.clientX, e.clientY)
+    d.to = over && over.el !== d.from.el ? over : null
+    this.status(
+      d.to
+        ? `“${d.value}” → ${d.to.label}`
+        : `holding “${d.value}” — drop it on what should show it too`,
+    )
+    this.redraw()
+  }
+
+  private async endDataDrag(e: PointerEvent): Promise<void> {
+    const d = this.dataDrag
+    if (!d) return
+    this.canvas.releasePointerCapture?.(e.pointerId)
+    this.canvas.style.cursor = 'default'
+    if (e.type === 'pointercancel') {
+      this.cancelData('value drag cancelled')
+      return
+    }
+    const to = this.pickStamped(e.clientX, e.clientY)
+    if (!to) {
+      this.cancelData('dropped on nothing stamped — the value stayed where it was')
+      return
+    }
+    // released where it started: a change of mind, not an edit, and worth
+    // saying differently from a drop that missed
+    if (to.el === d.from.el) {
+      this.cancelData('dropped where it started — nothing copied')
+      return
+    }
+    const label = to.label
+    this.dataDrag = null
+    this.canvas.style.cursor = 'default'
+    this.status(`copying “${d.value}” into ${label}…`)
+    this.redraw()
+    try {
+      const res = await fetch('/@s2c/data', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ from: d.from.srcLoc, to: to.srcLoc }),
+      })
+      const out = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      // the selection and hover point at elements this edit is about to
+      // replace: holding either would outline a box that no longer exists
+      this.tweak = null
+      this.multiSel = []
+      this.hoverEl = null
+      this.status(`✓ ${out.change ?? 'copied'} · 0 tokens · Ctrl+Z undoes it`)
+      // a value landing somewhere can change layout, and a rule may be about
+      // exactly that
+      if (this.rules.length) this.scheduleRuleCheck()
+    } catch (err) {
+      // the refusals are the valuable half of this gesture — they name the
+      // scope the value belongs to and what to do instead — so they are shown
+      // exactly as written
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+    this.redraw()
+  }
+
+  private cancelData(msg: string) {
+    this.dataDrag = null
+    this.dataArmed = false
+    this.canvas.style.cursor = 'default'
+    this.status(msg, msg.startsWith('✗'))
+    this.redraw()
+  }
+
+  /** The value in flight: both ends outlined, a line between them. */
+  private drawDataDrag() {
+    const d = this.dataDrag
+    if (!d) return
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    ctx.save()
+    ctx.strokeStyle = DATA_COLOR
+    ctx.fillStyle = 'rgba(236,72,153,0.10)'
+    ctx.lineWidth = 2
+    for (const end of [d.from, d.to]) {
+      if (!end || !document.contains(end.el)) continue
+      const r = end.el.getBoundingClientRect()
+      ctx.fillRect(r.left, r.top, r.width, r.height)
+      // the source is solid, the destination dashed: one is where the value
+      // IS, the other only where it might go
+      ctx.setLineDash(end === d.from ? [] : [6, 4])
+      ctx.strokeRect(r.left, r.top, r.width, r.height)
+    }
+    ctx.setLineDash([])
+    const r = d.from.el.getBoundingClientRect()
+    ctx.beginPath()
+    ctx.moveTo(r.left + r.width / 2, r.top + r.height / 2)
+    ctx.lineTo(d.at.x - sx, d.at.y - sy)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(d.at.x - sx, d.at.y - sy, 4, 0, Math.PI * 2)
+    ctx.fillStyle = DATA_COLOR
+    ctx.fill()
+    const label = d.to ? `“${d.value}” → ${d.to.label}` : `“${d.value}”`
+    ctx.font = '11px ui-sans-serif, system-ui'
+    const w = ctx.measureText(label).width + 12
+    const lx = Math.max(2, Math.min(d.at.x - sx + 10, window.innerWidth - w - 2))
+    const ly = Math.max(2, d.at.y - sy - 24)
+    ctx.fillStyle = DATA_COLOR
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, w, 17, 8)
+    ctx.fill()
+    ctx.fillStyle = '#fff'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(label, lx + 6, ly + 9)
+    ctx.textBaseline = 'alphabetic'
+    ctx.restore()
   }
 
   // ---- typed notes ------------------------------------------------------
@@ -6002,6 +6236,13 @@ class Overlay {
       this.cancelRule('rule cancelled — nothing saved')
       return
     }
+    // A value drag, like a rule line, is armed only by its keybind: holding a
+    // modifier is already the lasso, and one gesture per modifier is the only
+    // way any of them stays predictable.
+    if (this.dataArmed) {
+      this.startDataDrag(e)
+      return
+    }
     // A rule line is armed only by its keybind, never by a held modifier —
     // Alt+drag is already the lasso, and one gesture per modifier is the only
     // way either stays predictable.
@@ -6092,6 +6333,10 @@ class Overlay {
   }
 
   private onTweakMove(e: PointerEvent) {
+    if (this.dataDrag) {
+      this.moveDataDrag(e)
+      return
+    }
     if (this.ruleDraw?.drawing) {
       this.moveRuleLine(e)
       return
@@ -6319,6 +6564,10 @@ class Overlay {
   }
 
   private async onTweakUp(e: PointerEvent) {
+    if (this.dataDrag) {
+      await this.endDataDrag(e)
+      return
+    }
     if (this.ruleDraw?.drawing) {
       await this.endRuleLine(e)
       return
@@ -6698,7 +6947,10 @@ class Overlay {
     if (this.mode === 'tweak') this.drawTweak()
     // after drawTweak: the lasso is the thing the user is doing RIGHT NOW, and
     // a selection ring drawn over it would hide which boxes it has caught
-    if (this.mode === 'tweak') this.drawLasso()
+    if (this.mode === 'tweak') {
+      this.drawLasso()
+      this.drawDataDrag()
+    }
     // Rules draw in EVERY mode: a broken invariant is not a tweak-mode
     // concern, it is the page being wrong.
     this.drawRules()
