@@ -25,6 +25,8 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export { moveData } from './dataflow.js'
+export type { MoveDataRequest, MoveDataResult } from './dataflow.js'
 export {
   addConstraint, checkConstraints, constraintsPath, describeConstraint, evaluateConstraints,
   loadConstraints, measureConstraint, nodeLabel, proposeConstraints, removeConstraint,
