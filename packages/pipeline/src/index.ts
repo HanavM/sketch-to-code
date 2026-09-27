@@ -26,6 +26,14 @@ export {
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
 export { moveData } from './dataflow.js'
+export {
+  applyResponsive, bandFor, bandOrder, planResponsive, screensFor, utilityFamily,
+} from './responsive.js'
+export type { ResponsivePlan, ResponsiveRequest, ResponsiveResult, Screens } from './responsive.js'
+export { readComponentProps, setPropValue } from './props.js'
+export type {
+  CallSite, PropKind, PropSpec, ReadPropsResult, SetPropRequest, SetPropResult,
+} from './props.js'
 export type { MoveDataRequest, MoveDataResult } from './dataflow.js'
 export {
   addConstraint, checkConstraints, constraintsPath, describeConstraint, evaluateConstraints,
