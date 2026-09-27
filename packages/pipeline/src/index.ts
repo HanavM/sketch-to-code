@@ -30,6 +30,12 @@ export {
   applyResponsive, bandFor, bandOrder, planResponsive, screensFor, utilityFamily,
 } from './responsive.js'
 export type { ResponsivePlan, ResponsiveRequest, ResponsiveResult, Screens } from './responsive.js'
+export {
+  diffVersions, historyDir, historyIndexPath, listVersions, recordVersion, restoreVersion,
+} from './history.js'
+export type {
+  DiffResult, FileDelta, RecordRequest, RecordResult, RestoreResult, Version,
+} from './history.js'
 export { readComponentProps, setPropValue } from './props.js'
 export type {
   CallSite, PropKind, PropSpec, ReadPropsResult, SetPropRequest, SetPropResult,
