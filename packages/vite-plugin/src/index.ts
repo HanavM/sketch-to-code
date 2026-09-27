@@ -302,6 +302,28 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       /**
+       * The project's breakpoints, so the overlay can name the band a window
+       * width falls in — and name where the numbers came from. Someone
+       * demonstrating into a breakpoint deserves to know whether those are
+       * their own screens or Tailwind's defaults.
+       */
+      // POST with no body, like every other gated endpoint here: the token
+      // gate requires a JSON content-type, and a GET that fakes one to get
+      // past its own guard is worse than a verb that reads slightly oddly.
+      server.middlewares.use('/@s2c/screens', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, { ok: true, ...m.screensFor(root) })
+          } catch (err) {
+            sendJson(res, 200, { ok: false, error: String(err) })
+          }
+        })()
+      })
+
+      /**
        * The props panel's two halves: read a component's props out of its own
        * TypeScript types, and write one value at a chosen call site.
        *
@@ -450,6 +472,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           exactX?: boolean; exactY?: boolean; exactW?: boolean; exactH?: boolean
           anchorX?: 'left' | 'right'; anchorY?: 'top' | 'bottom'; startW?: number; startH?: number
           instanceIndex?: number; instanceCount?: number; choice?: 'all' | 'just-this-one'
+          /** Viewport width, present only while demonstrating responsively. */
+          width?: number
         }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
@@ -477,6 +501,59 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               instanceCount: body.instanceCount,
               choice: body.choice,
             })
+            /**
+             * Responsive by demonstration.
+             *
+             * The manipulation itself decides WHICH utility the gesture means
+             * — px snapped to the Tailwind scale, anchored resizes that write
+             * two classes — and only it can. So rather than reimplement that,
+             * this lets the ordinary edit happen, reads back the utilities it
+             * added, undoes it, and writes them again at the demonstrated
+             * band. Two writes for one gesture, and both through code that is
+             * already tested, which is the trade being made here.
+             *
+             * All-or-nothing: if any utility cannot be banded, the whole
+             * gesture goes back to the checkpoint and the refusal is returned.
+             * Half a demonstration is worse than none — the user would be
+             * looking at a layout that is right at this width and wrong at
+             * every other, with nothing saying so.
+             */
+            if (result.ok && typeof body.width === 'number' && result.className) {
+              const was = new Set(result.className.before.split(/\s+/).filter(Boolean))
+              const added = result.className.after.split(/\s+/).filter((c) => c && !was.has(c))
+              m.revertTouched(root, cp)
+              const changes: string[] = []
+              let band = ''
+              for (const utility of added) {
+                const r = m.applyResponsive(root, { srcLoc: body.srcLoc, utility, width: body.width })
+                if (!r.ok) {
+                  m.revertTouched(root, cp)
+                  return sendJson(res, 422, { ok: false, error: r.error, responsive: true })
+                }
+                if (r.change) changes.push(r.change)
+                band = r.band ?? band
+              }
+              if (changes.length === 0) {
+                // nothing to band (a manipulation that only removed classes):
+                // put the plain edit back rather than silently dropping it
+                m.applyManipulation(root, {
+                  srcLoc: body.srcLoc,
+                  prop: body.prop as Parameters<typeof m.applyManipulation>[1]['prop'],
+                  px: body.px, from: body.from, to: body.to, dx: body.dx, dy: body.dy,
+                  inFlow: body.inFlow, w: body.w, h: body.h,
+                  exactX: body.exactX, exactY: body.exactY, exactW: body.exactW, exactH: body.exactH,
+                  anchorX: body.anchorX, anchorY: body.anchorY,
+                  startW: body.startW, startH: body.startH,
+                  instanceIndex: body.instanceIndex, instanceCount: body.instanceCount,
+                  choice: body.choice,
+                })
+              }
+              const change = changes.join(' · ')
+              undoStack.push({ sha: cp.sha, label: change || (result.change ?? 'edit') })
+              return sendJson(res, 200, {
+                ...result, change: change || result.change, band, responsive: true, checkpoint: cp.sha,
+              })
+            }
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
               undoStack.push({ sha: cp.sha, label: result.change ?? 'edit' })
             }

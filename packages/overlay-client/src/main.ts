@@ -1086,6 +1086,15 @@ const STYLES = css`
   }
   #watchList button:hover { background: #7f1d1d; color: #fee2e2; }
   #watchPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  /* Responsive demonstration is the one mode here that changes what a NORMAL
+     gesture writes, so unlike every other toggle it has to be visible without
+     being used — otherwise a drag lands at a breakpoint nobody remembered
+     choosing. */
+  #bandChip {
+    background: #0e7490; color: #ecfeff; font-variant-numeric: tabular-nums;
+    cursor: default;
+  }
+  #bandChip:hover { background: #0e7490; }
   /* The props panel: controls derived from the component's own TypeScript
      types. Beside the element for the same reason the paint popover is — it is
      about THAT component — and slate rather than a gesture colour, because
@@ -1533,6 +1542,10 @@ class Overlay {
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
+  /** Responsive demonstration: while on, edits land at the current width's band. */
+  private responsive = false
+  private bandChip: HTMLButtonElement
+  private screens: { screens: Record<string, number>; source: string } | null = null
   /** The props panel: controls derived from the selected component's types. */
   private propsPanel: HTMLElement
   private propsHead: HTMLElement
@@ -1691,6 +1704,7 @@ class Overlay {
       <button id="run" disabled>▶ Run</button>
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
+      <button id="bandChip" style="display:none" title="responsive demonstration is on (Alt+M)"></button>
       <button id="undo" disabled>↩</button>
       <button id="clear" disabled>✕</button>
       <!-- the bar is width:max-content, so this string sizes the whole HUD: it
@@ -1960,6 +1974,7 @@ class Overlay {
     this.fidelityPanel = this.shadow.getElementById('fidelityPanel')!
     this.fidelityRange = this.shadow.getElementById('fidelityRange') as HTMLInputElement
     this.styleSel = this.shadow.getElementById('styleSel') as HTMLSelectElement
+    this.bandChip = this.shadow.getElementById('bandChip') as HTMLButtonElement
     this.autoBtn = this.shadow.getElementById('autoBtn') as HTMLButtonElement
     this.buildFidelityPanel()
 
@@ -2043,6 +2058,10 @@ class Overlay {
     // Existing rules are watching from the moment the page loads, whether or
     // not anyone opens the panel.
     void this.refreshRules()
+    // Breakpoints up front, not on first use: a band computed before they
+    // arrive reads 'base' at any width, so toggling the mode would flash a
+    // wrong answer and then correct itself.
+    void this.loadScreens()
     void fetch('/@s2c/ide/status')
       .then((r) => r.json() as Promise<{ connected: boolean; editor?: string }>)
       .then((d) => this.setIdeEditor(d.connected ? (d.editor ?? 'editor') : null))
@@ -2057,6 +2076,9 @@ class Overlay {
       if (this.penOpen) this.layoutPanel(this.penPanel)
       if (this.ruleDraw) this.layoutRulePanel()
       if (this.propsOpen) this.layoutPropsPanel()
+      // the whole gesture is "resize, then rearrange", so the band indicator
+      // has to track the window as it is being dragged
+      if (this.responsive) this.syncBandChip()
       // an alignment that holds at 1280px is exactly the thing that breaks at
       // 900, so a resize is a real reason to re-check
       if (this.rules.length) this.scheduleRuleCheck()
@@ -2159,6 +2181,15 @@ class Overlay {
         hits: this.lasso.hits.map((h) => ({ srcLoc: h.srcLoc, label: h.label })),
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
+      }),
+      // Whether a drag will be banded, and into which band — the mode that
+      // changes what an ordinary gesture writes has to be observable.
+      responsive: () => ({
+        on: this.responsive,
+        band: this.responsive ? this.band() : null,
+        width: window.innerWidth,
+        screens: this.screens?.screens ?? null,
+        source: this.screens?.source ?? null,
       }),
       // What the props panel read, and what it would write where. A control
       // that edits a DIFFERENT call site than the one named is the failure
@@ -2414,6 +2445,11 @@ class Overlay {
         id: 'rule', keys: 'Alt+Shift+R', group: 'drawing',
         label: 'rule: drag a line down two edges (or across a gap) → a check that keeps watching',
         match: altBind('KeyR', 'r', true), run: () => this.armRule(),
+      },
+      {
+        id: 'responsive', keys: 'Alt+M', group: 'drawing',
+        label: 'responsive demonstration — rearrange at this window width, get that breakpoint',
+        match: altBind('KeyM', 'm'), run: () => void this.toggleResponsive(),
       },
       {
         id: 'props', keys: 'Alt+O', group: 'drawing',
@@ -4495,6 +4531,96 @@ class Overlay {
     ctx.textBaseline = 'alphabetic'
   }
 
+  // ---- responsive by demonstration --------------------------------------
+  // Alt+M, then use the page exactly as usual: drag the window narrow,
+  // rearrange something, and the edit is written at the band that width falls
+  // in. Nothing about the gesture changes — which is the point. The only new
+  // thing to learn is the window itself.
+  //
+  // Mobile-first makes the narrow direction the surprising one: demonstrating
+  // on a phone means the new value becomes the UNPREFIXED class and the old one
+  // is pushed up to the next breakpoint. That is decided in the pipeline; all
+  // this has to do is send the width and say honestly which band it is.
+
+  private async toggleResponsive(): Promise<void> {
+    this.responsive = !this.responsive
+    if (this.responsive && !this.screens) {
+      // they are fetched at boot, so getting here means that failed or is
+      // still in flight — say so rather than name a band computed from nothing
+      this.status('working out this project’s breakpoints…')
+      await this.loadScreens()
+    }
+    this.syncBandChip()
+    if (!this.responsive) {
+      this.status('responsive demonstration off — edits apply at every width again')
+      return
+    }
+    // a mode that changes what every drag writes has to say what it will do
+    // BEFORE the first drag, not in the receipt afterwards
+    this.status(`${this.bandSentence()} · rearrange anything and the edit lands there`)
+  }
+
+  private async loadScreens(): Promise<void> {
+    try {
+      const res = await fetch('/@s2c/screens', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: '{}',
+      })
+      const out = (await res.json()) as {
+        ok: boolean; screens?: Record<string, number>; source?: string
+      }
+      if (out.ok && out.screens) this.screens = { screens: out.screens, source: out.source ?? '' }
+    } catch { /* an older dev server just leaves the band unnamed */ }
+  }
+
+  /** The band the current viewport width falls in, mobile-first. */
+  private band(): string {
+    const screens = this.screens?.screens ?? {}
+    let band = 'base'
+    let best = -1
+    for (const [name, min] of Object.entries(screens)) {
+      if (window.innerWidth >= min && min > best) {
+        best = min
+        band = name
+      }
+    }
+    return band
+  }
+
+  /** What this width means, in the words the pipeline will write it in. */
+  private bandSentence(): string {
+    const screens = this.screens?.screens ?? {}
+    const band = this.band()
+    const w = window.innerWidth
+    if (band === 'base') {
+      const smallest = Math.min(...Object.values(screens).filter((n) => n > 0))
+      return Number.isFinite(smallest)
+        ? `demonstrating at ${String(w)}px — below ${String(smallest)}px, so wider screens keep what they have`
+        : `demonstrating at ${String(w)}px`
+    }
+    return `demonstrating at ${String(w)}px — ${band} and up (from ${String(screens[band] ?? 0)}px)`
+  }
+
+  private syncBandChip() {
+    this.bandChip.style.display = this.responsive ? '' : 'none'
+    if (!this.responsive) return
+    const band = this.band()
+    this.bandChip.textContent = `📐 ${band === 'base' ? `<${String(this.smallestScreen())}` : band}`
+    this.bandChip.title = `${this.bandSentence()} · ${this.screens?.source ?? ''} · Alt+M turns this off`
+    this.clampHud()
+  }
+
+  private smallestScreen(): number {
+    const vals = Object.values(this.screens?.screens ?? {}).filter((n) => n > 0)
+    return vals.length ? Math.min(...vals) : 0
+  }
+
+  /** Sent with every manipulation while demonstrating, and never otherwise. */
+  private responsiveWidth(): { width?: number } {
+    return this.responsive ? { width: window.innerWidth } : {}
+  }
+
   // ---- props read off the types -----------------------------------------
   // Alt+O on a selection. The component that renders the selected element is
   // resolved from its stamp, its props are read out of its own TypeScript
@@ -6280,7 +6406,7 @@ class Overlay {
           headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
           body: JSON.stringify({
             srcLoc: tg.srcLoc, prop: 'move', dx, dy, inFlow: tg.inFlow,
-            exactX: md.snappedX, exactY: md.snappedY, ...inst,
+            exactX: md.snappedX, exactY: md.snappedY, ...inst, ...this.responsiveWidth(),
           }),
         })
         const out = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string }
@@ -7096,7 +7222,10 @@ class Overlay {
       const res = await fetch('/@s2c/manipulate', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
-        body: JSON.stringify(body),
+        // the width goes on the wire only while demonstrating: its presence IS
+        // the instruction to band the edit, so an ordinary drag stays the
+        // byte-for-byte request it always was
+        body: JSON.stringify({ ...body, ...this.responsiveWidth() }),
       })
       const out = (await res.json()) as {
         ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string
