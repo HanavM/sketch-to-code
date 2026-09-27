@@ -316,6 +316,15 @@ interface DataDrag {
   value: string
 }
 
+/** One moment on the timeline, as the server stores it. */
+interface HistoryVersion {
+  id: string
+  at: number
+  label: string
+  files: string[]
+  thumb?: string
+}
+
 // ---- props read off the types -------------------------------------------
 /** One prop, as the server derived it from the component's own type. */
 interface PropSpec {
@@ -405,6 +414,17 @@ function pointInPath(pts: Array<{ x: number; y: number }>, x: number, y: number)
     if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) inside = !inside
   }
   return inside
+}
+
+/** "4m ago" — a timeline is read in relative time, not clock time. */
+function ago(at: number): string {
+  const secs = Math.max(0, Math.round((Date.now() - at) / 1000))
+  if (secs < 45) return 'just now'
+  const mins = Math.round(secs / 60)
+  if (mins < 60) return `${String(mins)}m ago`
+  const hours = Math.round(mins / 60)
+  if (hours < 24) return `${String(hours)}h ago`
+  return `${String(Math.round(hours / 24))}d ago`
 }
 
 /** What to call an element in the status line and the confirm lists. */
@@ -1128,6 +1148,42 @@ const STYLES = css`
   #propsBody .pOff { color: #64748b; font-size: 11px; padding: 3px 0 5px; }
   #propsBody .pOff b { color: #94a3b8; font-weight: 600; }
   #propsNotes { color: #9ca3af; font-size: 11px; margin-top: 8px; }
+  /* The timeline. Bottom-left, opposite the watch panel, and wide rather than
+     tall: it is a strip of moments, and moments read left to right. */
+  #timePanel {
+    position: fixed; left: 12px; bottom: 12px; z-index: 2147483000;
+    display: none; width: 420px; max-width: calc(100vw - 24px);
+    padding: 10px; border-radius: 12px;
+    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    text-align: left; white-space: normal;
+  }
+  #timePanel.on { display: block; }
+  #timePanel .qHead { font-weight: 600; margin-bottom: 7px; color: #cbd5e1; }
+  #timeStrip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  #timeStrip .tCard {
+    flex: 0 0 82px; padding: 3px; border-radius: 8px; border: 1px solid #374151;
+    background: #0b1120; cursor: pointer; text-align: left;
+  }
+  #timeStrip .tCard:hover { border-color: #64748b; }
+  #timeStrip .tCard[aria-pressed='true'] { border-color: #38bdf8; background: #0c4a6e; }
+  #timeStrip .tCard img {
+    display: block; width: 100%; height: 54px; object-fit: cover; object-position: top;
+    border-radius: 5px; background: #1f2937;
+  }
+  #timeStrip .tCard .tNoShot {
+    display: flex; align-items: center; justify-content: center; height: 54px;
+    border-radius: 5px; background: #1f2937; color: #4b5563; font-size: 16px;
+  }
+  #timeStrip .tCard .tWhen { color: #94a3b8; font-size: 10px; margin-top: 3px; }
+  #timeStrip .tCard .tWhat {
+    color: #e5e7eb; font-size: 10px; line-height: 1.25; max-height: 25px; overflow: hidden;
+  }
+  #timeFoot { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+  #timeWhat { flex: 1; color: #9ca3af; font-size: 11px; min-width: 0; }
+  #timeGo { flex: none; padding: 4px 10px; border-radius: 999px; background: #0369a1; color: #f0f9ff; font-size: 11px; }
+  #timeGo:hover { background: #0284c7; }
+  #timeGo:disabled { background: #374151; color: #6b7280; }
   #propsPanel .qNote { color: #9ca3af; margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
@@ -1542,6 +1598,15 @@ class Overlay {
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
+  /** The timeline: entries as the server holds them, and which one is picked. */
+  private timePanel: HTMLElement
+  private timeHead: HTMLElement
+  private timeStrip: HTMLElement
+  private timeWhat: HTMLElement
+  private timeGo: HTMLButtonElement
+  private timeOpen = false
+  private versions: HistoryVersion[] = []
+  private timePick: string | null = null
   /** Responsive demonstration: while on, edits land at the current width's band. */
   private responsive = false
   private bandChip: HTMLButtonElement
@@ -1959,6 +2024,31 @@ class Overlay {
       props.addEventListener(ev, (e) => e.stopPropagation())
     }
 
+    // The timeline. Its cards are built from what the server holds, so there is
+    // nothing to declare here but the frame and the one button that writes.
+    const time = document.createElement('div')
+    time.id = 'timePanel'
+    time.setAttribute('role', 'dialog')
+    time.setAttribute('aria-label', 'visual history')
+    time.innerHTML = `
+      <div class="qHead" id="timeHead">history</div>
+      <div id="timeStrip"></div>
+      <div id="timeFoot">
+        <div id="timeWhat">pick a moment to see what it changed</div>
+        <button id="timeGo" disabled>put this back</button>
+      </div>
+    `
+    this.shadow.appendChild(time)
+    this.timePanel = time
+    this.timeHead = this.shadow.getElementById('timeHead')!
+    this.timeStrip = this.shadow.getElementById('timeStrip')!
+    this.timeWhat = this.shadow.getElementById('timeWhat')!
+    this.timeGo = this.shadow.getElementById('timeGo') as HTMLButtonElement
+    // two deliberate steps to rewrite files: picking a card only describes it,
+    // and a stray click on a 82px thumbnail must not rewrite someone's project
+    this.timeGo.addEventListener('click', () => void this.restoreVersion())
+    time.addEventListener('pointerdown', (e) => e.stopPropagation())
+
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -2058,6 +2148,10 @@ class Overlay {
     // Existing rules are watching from the moment the page loads, whether or
     // not anyone opens the panel.
     void this.refreshRules()
+    // A baseline moment, so the first edit has something to be a change FROM.
+    // Recorded once the page has actually laid out, or the thumbnail is a
+    // picture of an empty document.
+    setTimeout(() => void this.recordVersion('opened'), 1200)
     // Breakpoints up front, not on first use: a band computed before they
     // arrive reads 'base' at any width, so toggling the mode would flash a
     // wrong answer and then correct itself.
@@ -2181,6 +2275,17 @@ class Overlay {
         hits: this.lasso.hits.map((h) => ({ srcLoc: h.srcLoc, label: h.label })),
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
+      }),
+      // The timeline as the page sees it, plus the size of the picture it
+      // draws — a thumbnail that silently comes out blank would otherwise look
+      // exactly like a working one.
+      history: () => ({
+        open: this.timeOpen,
+        picked: this.timePick,
+        versions: this.versions.map((v) => ({
+          id: v.id, label: v.label, files: v.files, hasThumb: !!v.thumb,
+        })),
+        thumbBytes: (this.thumbnail() ?? '').length,
       }),
       // Whether a drag will be banded, and into which band — the mode that
       // changes what an ordinary gesture writes has to be observable.
@@ -2447,6 +2552,11 @@ class Overlay {
         match: altBind('KeyR', 'r', true), run: () => this.armRule(),
       },
       {
+        id: 'history', keys: 'Alt+B', group: 'overlay',
+        label: 'history — moments of this page you can put back (B for back)',
+        match: altBind('KeyB', 'b'), run: () => void this.setTimeOpen(!this.timeOpen),
+      },
+      {
         id: 'responsive', keys: 'Alt+M', group: 'drawing',
         label: 'responsive demonstration — rearrange at this window width, get that breakpoint',
         match: altBind('KeyM', 'm'), run: () => void this.toggleResponsive(),
@@ -2646,6 +2756,10 @@ class Overlay {
     // is describing: Esc here means "done with these controls", not "deselect".
     if (this.propsOpen) {
       void this.setPropsOpen(false)
+      return
+    }
+    if (this.timeOpen) {
+      void this.setTimeOpen(false)
       return
     }
     // A value in mid-air, or an armed-but-unused value drag: nothing has been
@@ -4529,6 +4643,214 @@ class Overlay {
     ctx.textBaseline = 'middle'
     ctx.fillText(label, lx + 6, ly + 9)
     ctx.textBaseline = 'alphabetic'
+  }
+
+  // ---- visual history ---------------------------------------------------
+  // A timeline of the page's own past, with pictures. Git answers "what changed
+  // in this commit"; the question someone has while looking at a page is "put
+  // back the version I liked", which is visual and happens between commits —
+  // including at the moments git cannot see, like a file saved by hand.
+  //
+  // The thumbnail is drawn by the page, from the DOM snapshot it already takes:
+  // boxes in their own background colours, text as grey bars. Not a photograph
+  // — a real screenshot would mean asking for screen-capture permission on
+  // every recording, or shipping a rasteriser — but recognisable, which is all
+  // a timeline needs, and free.
+
+  private async setTimeOpen(on: boolean): Promise<void> {
+    this.timeOpen = on
+    this.timePanel.classList.toggle('on', on)
+    if (!on) return
+    await this.loadVersions()
+    this.status(
+      this.versions.length === 0
+        ? 'no history yet — it records itself as you edit, including edits you make in your editor'
+        : `${String(this.versions.length)} moment${this.versions.length === 1 ? '' : 's'} — pick one to see what it changed`,
+    )
+  }
+
+  private async loadVersions(): Promise<void> {
+    try {
+      const res = await fetch('/@s2c/history/list', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: '{}',
+      })
+      const out = (await res.json()) as { ok: boolean; versions?: HistoryVersion[] }
+      this.versions = out.ok ? (out.versions ?? []) : []
+      this.renderTimeline()
+    } catch { /* an older dev server simply has no history */ }
+  }
+
+  /**
+   * A diagram of the page as it is now, as a PNG.
+   *
+   * Drawn from the snapshot rather than captured: every node's page rect and
+   * its own background colour are already there, so the result is the page's
+   * silhouette — enough to recognise "the version with the wide card" — with no
+   * permission prompt and no rasteriser.
+   */
+  private thumbnail(): string | undefined {
+    try {
+      const snap = this.snapshot()
+      const doc = document.scrollingElement ?? document.body
+      const pw = Math.max(doc.scrollWidth, window.innerWidth, 1)
+      const ph = Math.max(doc.scrollHeight, window.innerHeight, 1)
+      const w = 240
+      const h = Math.max(40, Math.min(420, Math.round((w * ph) / pw)))
+      const cv = document.createElement('canvas')
+      cv.width = w
+      cv.height = h
+      const g = cv.getContext('2d')
+      if (!g) return undefined
+      const k = w / pw
+      g.fillStyle = getComputedStyle(document.body).backgroundColor || '#ffffff'
+      g.fillRect(0, 0, w, h)
+      // shallowest first, so a child paints over the box that contains it —
+      // the same order the browser used
+      const nodes = [...snap.nodes].sort((a, b) => a.depth - b.depth)
+      for (const n of nodes) {
+        const x = n.rect.x * k
+        const y = n.rect.y * k
+        const bw = Math.max(1, n.rect.w * k)
+        const bh = Math.max(1, n.rect.h * k)
+        if (y > h || bw < 1.5 || bh < 1.5) continue
+        const bg = n.style.backgroundColor
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          g.fillStyle = bg
+          g.fillRect(x, y, bw, bh)
+        }
+        // text as a bar in its own colour: unreadable at this size either way,
+        // and a bar carries the layout, which is the whole point
+        if (n.text) {
+          g.fillStyle = n.style.color || '#6b7280'
+          g.globalAlpha = 0.55
+          const tw = Math.min(bw, Math.max(2, n.text.length * 4 * k * 1.6))
+          g.fillRect(x, y + bh / 2 - Math.max(1, bh * 0.18), tw, Math.max(1, bh * 0.36))
+          g.globalAlpha = 1
+        }
+      }
+      return cv.toDataURL('image/png')
+    } catch {
+      // a thumbnail is a nice-to-have; a recording without one is still a
+      // moment you can put back
+      return undefined
+    }
+  }
+
+  /** Record a moment. The server drops it if nothing actually changed. */
+  private async recordVersion(label: string): Promise<void> {
+    try {
+      const res = await fetch('/@s2c/history/record', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ label, thumbnail: this.thumbnail() }),
+      })
+      const out = (await res.json()) as { ok: boolean; unchanged?: boolean }
+      if (out.ok && !out.unchanged && this.timeOpen) await this.loadVersions()
+    } catch { /* nothing to do: the next edit will try again */ }
+  }
+
+  private renderTimeline() {
+    const n = this.versions.length
+    this.timeHead.textContent = n === 0 ? 'history — nothing recorded yet' : `history · ${String(n)} moments`
+    if (!this.versions.some((v) => v.id === this.timePick)) this.timePick = null
+    // oldest on the left: a timeline that runs backwards is a list, not a
+    // timeline
+    const cards = [...this.versions].reverse().map((v) => {
+      const card = document.createElement('button')
+      card.type = 'button'
+      card.className = 'tCard'
+      card.dataset.versionId = v.id
+      card.setAttribute('aria-pressed', String(v.id === this.timePick))
+      if (v.thumb) {
+        const img = document.createElement('img')
+        // through the plugin, not Vite's static serving: the history lives in a
+        // dot-directory, and relying on a dev server's file-serving rules for
+        // something the user sees would be a silent breakage waiting to happen
+        img.src = `/@s2c/history/thumb?id=${encodeURIComponent(v.id)}`
+        img.alt = v.label
+        card.appendChild(img)
+      } else {
+        const none = document.createElement('div')
+        none.className = 'tNoShot'
+        none.textContent = '◌'
+        card.appendChild(none)
+      }
+      const when = document.createElement('div')
+      when.className = 'tWhen'
+      when.textContent = ago(v.at)
+      const what = document.createElement('div')
+      what.className = 'tWhat'
+      what.textContent = v.label
+      card.append(when, what)
+      card.title = `${v.label} · ${new Date(v.at).toLocaleTimeString()}`
+      card.addEventListener('click', () => this.pickVersion(v.id))
+      return card
+    })
+    this.timeStrip.replaceChildren(...cards)
+    this.timeStrip.scrollLeft = this.timeStrip.scrollWidth
+    this.syncTimeFoot()
+  }
+
+  private pickVersion(id: string) {
+    this.timePick = this.timePick === id ? null : id
+    for (const c of this.timeStrip.querySelectorAll('.tCard')) {
+      c.setAttribute('aria-pressed', String((c as HTMLElement).dataset.versionId === this.timePick))
+    }
+    this.syncTimeFoot()
+  }
+
+  private syncTimeFoot() {
+    const v = this.versions.find((x) => x.id === this.timePick)
+    this.timeGo.disabled = !v
+    if (!v) {
+      this.timeWhat.textContent = this.versions.length
+        ? 'pick a moment to see what it changed'
+        : 'it records itself as you edit — including edits you make in your editor'
+      return
+    }
+    const files = v.files.length === 0
+      ? 'no file changes'
+      : `${v.files.length === 1 ? v.files[0]! : `${String(v.files.length)} files`}`
+    this.timeWhat.textContent = `${ago(v.at)} · ${files}`
+    this.timeWhat.title = v.files.join('\n')
+  }
+
+  /**
+   * Put the files back. Undoable twice over: the engine records the current
+   * state before replacing it, and the plugin pushes this onto the undo stack,
+   * so Ctrl+Z reaches it like any other edit.
+   */
+  private async restoreVersion(): Promise<void> {
+    const v = this.versions.find((x) => x.id === this.timePick)
+    if (!v) return
+    this.timeGo.disabled = true
+    this.status(`putting back: ${v.label}…`)
+    try {
+      const res = await fetch('/@s2c/history/restore', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ id: v.id, thumbnail: this.thumbnail() }),
+      })
+      const out = (await res.json()) as { ok: boolean; files?: string[]; error?: string }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      // the tree the selection pointed into has just been rewritten
+      this.tweak = null
+      this.multiSel = []
+      this.hoverEl = null
+      const n = out.files?.length ?? 0
+      this.status(
+        `✓ back to: ${v.label} · ${String(n)} file${n === 1 ? '' : 's'} · ` +
+        '0 tokens · Ctrl+Z undoes this too',
+      )
+      await this.loadVersions()
+      if (this.rules.length) this.scheduleRuleCheck()
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      this.syncTimeFoot()
+    }
+    this.redraw()
   }
 
   // ---- responsive by demonstration --------------------------------------
@@ -7941,6 +8263,12 @@ class Overlay {
     // The editor half of the bridge rides the SSE hub that already exists —
     // no second EventSource, and these carry no clientId so every tab sees
     // them, which is what you want for a cursor.
+    // The server saw a file change — ours or one typed in the user's editor —
+    // and cannot draw a picture of the page. So it asks.
+    this.events.addEventListener('history-due', (e) => {
+      const d = JSON.parse((e as MessageEvent<string>).data) as { label?: string }
+      void this.recordVersion(d.label ?? 'changed')
+    })
     this.events.addEventListener('ide-status', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { connected: boolean; editor?: string }
       this.setIdeEditor(d.connected ? (d.editor ?? 'editor') : null)

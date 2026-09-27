@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { relative } from 'node:path'
+import { join, relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
 import type { DomSnapshot } from '@s2c/dom'
 import { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.js'
@@ -71,6 +71,20 @@ export function setRunHandler(h: RunHandler): void {
 let activeRun = false
 // undo stack: checkpoint SHAs of committed edits, most recent last
 const undoStack: Array<{ sha: string; label: string }> = []
+/**
+ * The last edit THIS server wrote, and when.
+ *
+ * The visual history's file watcher sees our own writes and the user's editor
+ * saves as the same event, and the labels have to differ ("+ ml-4" versus
+ * "edited by hand · Navbar.tsx"). Every write already pushes an undo entry, so
+ * that is the one place that knows — which is why pushes go through pushEdit
+ * rather than touching this. Doing it per-handler missed most of them.
+ */
+let lastWrite = { label: '', at: 0 }
+const pushEdit = (sha: string, label: string): void => {
+  undoStack.push({ sha, label })
+  lastWrite = { label, at: Date.now() }
+}
 
 const DEFAULT_EXTS = ['.jsx', '.tsx']
 
@@ -248,7 +262,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             if (!verdict.ok) return sendJson(res, 200, { ok: false, reason: verdict.reason })
             const cp = m.checkpoint(root, allowDirty)
             const result = m.applyInstant(root, verdict.plan)
-            undoStack.push({ sha: cp.sha, label: `instant ${result.name}` })
+            pushEdit(cp.sha, `instant ${result.name}`)
             sendJson(res, 200, { ok: true, ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, reason: String(err) }))
@@ -269,7 +283,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const cp = m.checkpoint(root, allowDirty)
             const result = m.paintShape(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              undoStack.push({ sha: cp.sha, label: result.change })
+              pushEdit(cp.sha, result.change)
             }
             sendJson(res, 200, result)
           })
@@ -295,8 +309,125 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const cp = m.checkpoint(root, allowDirty)
             const result = m.extractComponent(root, { srcLocs: body.srcLocs, name: body.name })
-            if (result.ok) undoStack.push({ sha: cp.sha, label: `extract ${result.name ?? 'component'}` })
+            if (result.ok) pushEdit(cp.sha, `extract ${result.name ?? 'component'}`)
             sendJson(res, 200, { ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * Visual history.
+       *
+       * The trigger is the file watcher rather than the gesture handlers,
+       * because it is the one place that sees BOTH kinds of change: an edit
+       * this overlay wrote, and an edit the user made by hand in their editor.
+       * The second is the whole reason this feature exists — git only notices
+       * it when somebody remembers to commit — and no gesture handler will
+       * ever fire for it.
+       *
+       * The server cannot make the thumbnail (it has no page), so it asks:
+       * the watcher pushes an event, the browser draws its own picture and
+       * posts it back. recordVersion drops the duplicate when nothing actually
+       * changed, which is what makes a chatty watcher safe.
+       */
+      let historyTimer: ReturnType<typeof setTimeout> | null = null
+      const labelFor = (file: string): string => {
+        // a change landing right after one of our own writes is that write;
+        // anything else is someone typing in their editor, which deserves to
+        // be labelled as what it is rather than as "a change"
+        if (lastWrite.label && Date.now() - lastWrite.at < 2500) return lastWrite.label
+        return `edited by hand · ${file}`
+      }
+      server.watcher.on('change', (file: string) => {
+        const rel = relative(root, file)
+        // its own history directory must never trigger a recording of itself
+        if (rel.startsWith('..') || rel.includes('.sketch2code')) return
+        if (!/\.(tsx?|jsx?|css)$/.test(rel)) return
+        if (historyTimer) clearTimeout(historyTimer)
+        const label = labelFor(rel)
+        historyTimer = setTimeout(() => {
+          historyTimer = null
+          // the browser answers this by posting a thumbnail to /history/record
+          sse.send('history-due', { label })
+        }, 450)
+      })
+
+      server.middlewares.use('/@s2c/history/record', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ label: string; thumbnail?: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, m.recordVersion(root, body))
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * One thumbnail, as an image.
+       *
+       * A GET, and gated the way the runs viewer's images are: an <img src>
+       * cannot send a token header or a JSON content-type, so demanding them
+       * would make every picture on the timeline a broken icon. Local Host
+       * only, and the id is validated rather than pasted into a path — the
+       * whole request is a filename the page hands back to us.
+       */
+      server.middlewares.use('/@s2c/history/thumb', (req, res) => {
+        const host = String(req.headers.host ?? '').replace(/:\d+$/, '')
+        if (!['localhost', '127.0.0.1', '[::1]'].includes(host)) {
+          return sendJson(res, 403, { ok: false, error: 'non-local host rejected' })
+        }
+        const id = new URL(req.url ?? '/', 'http://x').searchParams.get('id') ?? ''
+        if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) {
+          return sendJson(res, 400, { ok: false, error: 'bad thumbnail id' })
+        }
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            const { readFile } = await import('node:fs/promises')
+            const png = await readFile(join(m.historyDir(root), `${id}.png`))
+            res.writeHead(200, {
+              'content-type': 'image/png',
+              // the file for an id never changes, but an id can be pruned and
+              // a stale cached image would outlive the moment it pictures
+              'cache-control': 'no-cache',
+              'content-length': String(png.byteLength),
+            })
+            res.end(png)
+          } catch {
+            sendJson(res, 404, { ok: false, error: 'no thumbnail for that moment' })
+          }
+        })()
+      })
+
+      server.middlewares.use('/@s2c/history/list', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, { ok: true, versions: m.listVersions(root) })
+          } catch (err) {
+            sendJson(res, 200, { ok: false, error: String(err) })
+          }
+        })()
+      })
+
+      /**
+       * Scrub back to a version. The engine records the current state first,
+       * so this is undoable by the same mechanism that got you here — and it
+       * is pushed onto the undo stack too, so Ctrl+Z reaches it like any edit.
+       */
+      server.middlewares.use('/@s2c/history/restore', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ id: string; thumbnail?: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const out = m.restoreVersion(root, body.id, { thumbnail: body.thumbnail })
+            if (out.ok) pushEdit(cp.sha, 'scrubbed back to an earlier version')
+            sendJson(res, 200, out)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
       })
@@ -350,7 +481,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const cp = m.checkpoint(root, allowDirty)
             const result = m.setPropValue(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              undoStack.push({ sha: cp.sha, label: result.change })
+              pushEdit(cp.sha, result.change)
             }
             sendJson(res, 200, result)
           })
@@ -375,7 +506,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const cp = m.checkpoint(root, allowDirty)
             const result = m.moveData(root, { from: body.from, to: body.to })
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              undoStack.push({ sha: cp.sha, label: result.change })
+              pushEdit(cp.sha, result.change)
             }
             sendJson(res, 200, result)
           })
@@ -549,13 +680,13 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 })
               }
               const change = changes.join(' · ')
-              undoStack.push({ sha: cp.sha, label: change || (result.change ?? 'edit') })
+              pushEdit(cp.sha, change || (result.change ?? 'edit'))
               return sendJson(res, 200, {
                 ...result, change: change || result.change, band, responsive: true, checkpoint: cp.sha,
               })
             }
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
-              undoStack.push({ sha: cp.sha, label: result.change ?? 'edit' })
+              pushEdit(cp.sha, result.change ?? 'edit')
             }
             // shared templates answer 409 (choose a scope), other refusals 422
             sendJson(res, result.ok ? 200 : result.shared ? 409 : 422, { ...result, checkpoint: cp.sha })
@@ -681,7 +812,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             // still flows into .catch/.finally
             Promise.race([Promise.resolve().then(exec), deadline])
               .then((result) => {
-                if (runCp) undoStack.push({ sha: runCp.sha, label: 'sketch run' })
+                if (runCp) pushEdit(runCp.sha, 'sketch run')
                 sse.send('done', { summary: result.summary, clientId })
               })
               .catch((err: unknown) =>
