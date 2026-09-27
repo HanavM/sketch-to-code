@@ -4690,12 +4690,19 @@ class Overlay {
    * silhouette — enough to recognise "the version with the wide card" — with no
    * permission prompt and no rasteriser.
    */
-  private thumbnail(): string | undefined {
+  private thumbnail(region?: HTMLElement): string | undefined {
     try {
       const snap = this.snapshot()
       const doc = document.scrollingElement ?? document.body
-      const pw = Math.max(doc.scrollWidth, window.innerWidth, 1)
-      const ph = Math.max(doc.scrollHeight, window.innerHeight, 1)
+      // a region's own box, or the whole page. The library wants a picture of
+      // ONE component, and the timeline wants the page — same drawing, two
+      // frames, so the difference is where the origin is rather than a second
+      // renderer that would drift from this one.
+      const box = region?.getBoundingClientRect()
+      const ox = box ? box.left + window.scrollX : 0
+      const oy = box ? box.top + window.scrollY : 0
+      const pw = Math.max(box ? box.width : Math.max(doc.scrollWidth, window.innerWidth), 1)
+      const ph = Math.max(box ? box.height : Math.max(doc.scrollHeight, window.innerHeight), 1)
       const w = 240
       const h = Math.max(40, Math.min(420, Math.round((w * ph) / pw)))
       const cv = document.createElement('canvas')
@@ -4704,17 +4711,24 @@ class Overlay {
       const g = cv.getContext('2d')
       if (!g) return undefined
       const k = w / pw
-      g.fillStyle = getComputedStyle(document.body).backgroundColor || '#ffffff'
+      g.fillStyle = (region ? getComputedStyle(region).backgroundColor : '') ||
+        getComputedStyle(document.body).backgroundColor || '#ffffff'
       g.fillRect(0, 0, w, h)
       // shallowest first, so a child paints over the box that contains it —
       // the same order the browser used
-      const nodes = [...snap.nodes].sort((a, b) => a.depth - b.depth)
+      const nodes = [...snap.nodes]
+        // a region's picture is what falls inside it: anything outside would
+        // draw the page around the component rather than the component
+        .filter((n) => !box || (
+          n.rect.x + n.rect.w > ox && n.rect.x < ox + pw &&
+          n.rect.y + n.rect.h > oy && n.rect.y < oy + ph))
+        .sort((a, b) => a.depth - b.depth)
       for (const n of nodes) {
-        const x = n.rect.x * k
-        const y = n.rect.y * k
+        const x = (n.rect.x - ox) * k
+        const y = (n.rect.y - oy) * k
         const bw = Math.max(1, n.rect.w * k)
         const bh = Math.max(1, n.rect.h * k)
-        if (y > h || bw < 1.5 || bh < 1.5) continue
+        if (y > h || y + bh < 0 || bw < 1.5 || bh < 1.5) continue
         const bg = n.style.backgroundColor
         if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
           g.fillStyle = bg
