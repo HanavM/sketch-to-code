@@ -3,6 +3,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import { relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
 import type { DomSnapshot } from '@s2c/dom'
+import { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.js'
 import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
 import { bundleOverlayClient } from './overlay-bundle.js'
@@ -153,6 +154,59 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       server.middlewares.use('/@s2c/events', (req, res) => sse.handler(req, res))
+
+      /**
+       * The editor bridge: click an element → the line opens in the editor;
+       * move the editor's cursor → the matching element highlights. Both
+       * directions are exact lookups, not guesses, because every JSX host
+       * element carries its own data-s2c="file:line:col".
+       *
+       * Protocol and the per-endpoint security reasoning: ./ide-protocol.ts.
+       * Cursor + status reach the browser over the EXISTING hub (`ide-cursor`,
+       * `ide-status`), so the overlay needs no second EventSource.
+       */
+      const ide = createIdeBridge({ root, broadcast: (event, data) => sse.send(event, data) })
+      server.httpServer?.on('close', () => ide.dispose())
+
+      // Editor-facing stream. No token: it is minted per boot and handed out in
+      // the overlay bundle, which an editor never fetches — see rejectNonEditor.
+      server.middlewares.use('/@s2c/ide/events', (req, res) => {
+        if (req.method !== 'GET') return sendJson(res, 405, { ok: false, error: 'GET only' })
+        if (rejectNonEditor(req, res)) return
+        ide.handleEvents(req, res)
+      })
+
+      // Editor → browser. Same gate as the stream, plus JSON content-type.
+      server.middlewares.use('/@s2c/ide/cursor', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'POST only' })
+        if (rejectNonEditor(req, res, { json: true })) return
+        readJsonBody<unknown>(req, 4 * 1024)
+          .then((body) => {
+            const r = ide.cursor(body)
+            sendJson(res, r.status, r.body)
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      // Browser → editor. The overlay has the token, so this gets the full gate
+      // every other overlay POST gets: a reveal opens files on the developer's
+      // machine, which is not something a page they merely visited may trigger.
+      server.middlewares.use('/@s2c/ide/reveal', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'POST only' })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<unknown>(req, 4 * 1024)
+          .then((body) => {
+            const r = ide.reveal(body)
+            sendJson(res, r.status, r.body)
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      // Read-only, secret-free: local Host only, like the /@s2c/runs GETs.
+      server.middlewares.use('/@s2c/ide/status', (req, res) => {
+        if (rejectNonLocal(req, res)) return
+        sendJson(res, 200, ide.status())
+      })
 
       // Read-only run history: the page, the raw bundle files, and the two
       // JSON endpoints (/@s2c/runs.json, /@s2c/runs/<id>/settings.json).
@@ -420,3 +474,6 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
 export { stampJsxSource } from './jsx-source.js'
 export { createSseHub, readJsonBody, rejectUnauthorized, sendJson } from './middleware.js'
+export { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.js'
+export type { IdeBridge, EditorSink } from './ide-bridge.js'
+export * from './ide-protocol.js'

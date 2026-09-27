@@ -1,0 +1,71 @@
+{
+  "name": "s2c-ide-bridge",
+  "displayName": "sketch-to-code: editor bridge",
+  "description": "Click an element in your running app to reveal its line here; move the cursor here to highlight the element there.",
+  "version": "0.1.0",
+  "private": true,
+  "publisher": "sketch-to-code",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "sketch-to-code bridge",
+      "properties": {
+        "sketch2code.devServerUrl": {
+          "type": "string",
+          "default": "http://localhost:5199",
+          "description": "Base URL of the Vite dev server running @s2c/vite-plugin."
+        },
+        "sketch2code.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Connect to the dev server's editor bridge."
+        },
+        "sketch2code.cursorSync": {
+          "type": "boolean",
+          "default": true,
+          "description": "Report the cursor position so the browser overlay highlights the matching element."
+        },
+        "sketch2code.cursorDebounceMs": {
+          "type": "number",
+          "default": 150,
+          "description": "How long the cursor must sit still before its position is reported."
+        },
+        "sketch2code.editorName": {
+          "type": "string",
+          "default": "VS Code",
+          "description": "Label the browser overlay shows for this editor."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "sketch2code.ide.reconnect",
+        "title": "sketch-to-code: Reconnect editor bridge"
+      },
+      {
+        "command": "sketch2code.ide.toggle",
+        "title": "sketch-to-code: Toggle editor bridge"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.6.0"
+  }
+}

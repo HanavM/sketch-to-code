@@ -487,6 +487,9 @@ function parseFidelity(v: unknown): Fidelity {
   return f
 }
 
+/** How long the editor's cursor stays painted on the page. */
+const IDE_CURSOR_MS = 1600
+
 const FIDELITY_STORE_KEY = 's2c:fidelity'
 
 /**
@@ -830,6 +833,10 @@ const STYLES = css`
      still dispatches, so scripted/e2e clicks work on a hidden bar. */
   #hud.off { display: none; }
   #hudGrip { color: #6b7280; letter-spacing: -3px; font-size: 15px; padding: 0 2px; }
+  /* Shown only while an editor is attached: an indicator for a thing that is
+     not connected is just noise on a toolbar that is already full. */
+  #ideDot { display: none; color: #34d399; font-size: 13px; padding: 0 2px; }
+  #ideDot.on { display: inline; }
   #hud:active { cursor: grabbing; }
   button.icon { padding: 4px 9px; background: transparent; color: #9ca3af; }
   button.icon:hover { background: #374151; color: #f9fafb; }
@@ -1244,6 +1251,10 @@ class Overlay {
   private multiSel: ExtraSel[] = []
   /** Component written by the instant render, if one landed this run. */
   private instant: string | null = null
+  /** An editor is attached to the dev server (pushed over the SSE hub). */
+  private ideEditor: string | null = null
+  /** Where the editor's cursor is, painted briefly so it can be seen. */
+  private ideHighlight: { rect: { x: number; y: number; w: number; h: number }; until: number } | null = null
   private strokes: Stroke[] = []
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -1337,6 +1348,7 @@ class Overlay {
            name the user already knows buys less than a key they don't. ?
            carries the rest, which is the whole reason ? exists. -->
       <span id="status">Alt+D draw · ? all keys</span>
+      <span id="ideDot" title="an editor is connected — click an element to reveal it there (Alt+J)">⌁</span>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
       <div id="penPanel" role="dialog" aria-label="pen colour">
         <div class="pHead">Draw in a colour to ask for it</div>
@@ -1529,6 +1541,10 @@ class Overlay {
     this.buildHelp()
     this.loadPen()
     void this.restoreFromRun()
+    void fetch('/@s2c/ide/status')
+      .then((r) => r.json() as Promise<{ connected: boolean; editor?: string }>)
+      .then((d) => this.setIdeEditor(d.connected ? (d.editor ?? 'editor') : null))
+      .catch(() => { /* an older dev server without the bridge just stays dark */ })
 
     window.addEventListener('keydown', (e) => this.onKeyDown(e))
     // the panel is clamped against the viewport, so a resize has to re-run it
@@ -1870,6 +1886,17 @@ class Overlay {
       {
         id: 'pen-off', keys: 'Alt+0', label: 'back to the default ink (no colour asked for)', group: 'colour',
         match: altBind('Digit0', '0'), run: () => this.setPen(null),
+      },
+      {
+        id: 'reveal', keys: 'Alt+J', label: 'reveal the selection in your editor', group: 'overlay',
+        match: altBind('KeyJ', 'j'),
+        run: () => {
+          const loc = this.tweak?.el.dataset.s2c ?? this.hoverEl?.dataset.s2c
+          if (!loc) return this.status('select something first')
+          if (!this.ideEditor) return this.status('no editor connected — see packages/vscode-extension', true)
+          this.revealInEditor(loc)
+          this.status(`revealed ${loc} in ${this.ideEditor}`)
+        },
       },
       {
         // K for "kolour"? No — P is the pen and C is cancel, and this is the
@@ -3897,6 +3924,68 @@ class Overlay {
     })
   }
 
+  private setIdeEditor(name: string | null) {
+    this.ideEditor = name
+    this.shadow.getElementById('ideDot')?.classList.toggle('on', name !== null)
+  }
+
+  /**
+   * Ask the editor to open the line behind an element.
+   *
+   * Fire-and-forget on purpose: this runs from a click, and a missing editor
+   * is a normal state rather than an error — the server answers
+   * delivered: 0 and the click still does whatever else it was doing.
+   */
+  private revealInEditor(srcLoc: string | null | undefined) {
+    if (!srcLoc || !this.ideEditor) return
+    const [file, line, col] = srcLoc.split(':')
+    if (!file || !line) return
+    void fetch('/@s2c/ide/reveal', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+      body: JSON.stringify({ file, line: Number(line), col: Number(col ?? 1) }),
+    }).catch(() => { /* the editor going away mid-click is not an error */ })
+  }
+
+  /**
+   * Paint where the editor's cursor is.
+   *
+   * The cursor almost never sits on an opening tag, so the element it is
+   * "in" is the one whose stamp is the LAST at or above that line — and the
+   * deepest such node, since a child's tag is always below its parent's.
+   */
+  private showIdeCursor(file: string, line: number) {
+    const candidates = [...document.querySelectorAll(`[data-s2c^="${CSS.escape(file)}:"]`)] as HTMLElement[]
+    let best: HTMLElement | null = null
+    let bestLine = -1
+    let bestDepth = -1
+    for (const el of candidates) {
+      const at = Number(el.dataset.s2c?.split(':')[1] ?? 0)
+      if (at > line) continue
+      let depth = 0
+      for (let n: HTMLElement | null = el; n; n = n.parentElement) depth++
+      if (at > bestLine || (at === bestLine && depth > bestDepth)) {
+        best = el
+        bestLine = at
+        bestDepth = depth
+      }
+    }
+    if (!best) return
+    const r = best.getBoundingClientRect()
+    this.ideHighlight = {
+      rect: { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height },
+      until: performance.now() + IDE_CURSOR_MS,
+    }
+    this.redraw()
+    // one repaint after it expires, so it clears itself without a ticker
+    window.setTimeout(() => {
+      if (this.ideHighlight && performance.now() >= this.ideHighlight.until) {
+        this.ideHighlight = null
+        this.redraw()
+      }
+    }, IDE_CURSOR_MS + 60)
+  }
+
   private pickAnyStamped(x: number, y: number): HTMLElement | null {
     let el = this.elementUnder(x, y) as HTMLElement | null
     while (el && el !== document.body) {
@@ -4282,6 +4371,10 @@ class Overlay {
     if (this.tweak) this.clearTweakPreview()
     if (!keepSet) this.multiSel = []
     this.tweak = this.buildTweakState(el)
+    // selecting something on the page IS pointing at a line of code, so an
+    // attached editor follows the selection rather than needing a second
+    // gesture for the same intent
+    this.revealInEditor(el.dataset.s2c)
     this.hoverEl = null
     const t = this.tweak
     const r = el.getBoundingClientRect()
@@ -5130,6 +5223,15 @@ class Overlay {
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
     // strokes are NOT painted here — they live in the page-space #ink layer
+    const hi = this.ideHighlight
+    if (hi && performance.now() < hi.until) {
+      ctx.save()
+      ctx.strokeStyle = '#34d399'
+      ctx.lineWidth = 2
+      ctx.setLineDash([6, 4])
+      ctx.strokeRect(hi.rect.x - window.scrollX, hi.rect.y - window.scrollY, hi.rect.w, hi.rect.h)
+      ctx.restore()
+    }
     if (this.mode === 'preview') this.drawPreview()
     if (this.mode === 'tweak') this.drawTweak()
   }
@@ -5623,6 +5725,17 @@ class Overlay {
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({ runId: d.runId, snapshot: this.snapshot() }),
       }).catch(() => {})
+    })
+    // The editor half of the bridge rides the SSE hub that already exists —
+    // no second EventSource, and these carry no clientId so every tab sees
+    // them, which is what you want for a cursor.
+    this.events.addEventListener('ide-status', (e) => {
+      const d = JSON.parse((e as MessageEvent).data) as { connected: boolean; editor?: string }
+      this.setIdeEditor(d.connected ? (d.editor ?? 'editor') : null)
+    })
+    this.events.addEventListener('ide-cursor', (e) => {
+      const c = JSON.parse((e as MessageEvent).data) as { file: string; line: number }
+      this.showIdeCursor(c.file, c.line)
     })
     this.events.addEventListener('done', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { summary?: string; clientId?: string }
