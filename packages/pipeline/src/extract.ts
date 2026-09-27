@@ -23,6 +23,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
 import { parse } from '@babel/parser'
 import _traverse, { type NodePath } from '@babel/traverse'
+import { importAnchor } from './imports.js'
 import type * as t from '@babel/types'
 
 type TraverseFn = (ast: unknown, visitor: Record<string, unknown>) => void
@@ -209,8 +210,7 @@ export function extractComponent(root: string, req: ExtractRequest): ExtractResu
   const callSite = `<${name}${attrs} />`
   const spec = relative(dirname(abs), newAbs).replace(/\\/g, '/').replace(/\.tsx?$/, '')
   const importLine = `import ${name} from '${spec.startsWith('.') ? spec : `./${spec}`}'\n`
-  const lastImport = [...code.matchAll(/^import [^\n]*\n/gm)].pop()
-  const at = lastImport ? lastImport.index! + lastImport[0].length : 0
+  const at = importAnchor(ast, code)
 
   // replace first (higher offset), then insert the import
   const replaced = code.slice(0, start) + callSite + code.slice(end)

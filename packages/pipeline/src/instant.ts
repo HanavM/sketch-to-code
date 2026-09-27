@@ -27,6 +27,7 @@ import _traverse, { type NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
 import { bboxOf, bboxUnion, pathLength, resampleBySpacing, toSvgPath, type BBox, type Stroke } from '@s2c/ink'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
+import { importAnchor } from './imports.js'
 import type { FidelityControls } from './fidelity.js'
 import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
 import type { GroundedAction } from './intent2.js'
@@ -271,8 +272,7 @@ export function applyInstant(root: string, plan: InstantPlan): InstantResult {
   // import specifier from the container's own directory, POSIX-style
   const spec = relative(dirname(file), join(root, scaffold.rel)).replace(/\\/g, '/').replace(/\.tsx?$/, '')
   const importLine = `import ${scaffold.name} from '${spec.startsWith('.') ? spec : `./${spec}`}'\n`
-  const lastImport = [...code.matchAll(/^import [^\n]*\n/gm)].pop()
-  const importAt = lastImport ? lastImport.index! + lastImport[0].length : 0
+  const importAt = importAnchor(ast, code)
 
   // child FIRST, import second: imports sit above the JSX, so inserting the
   // later offset first leaves the earlier one valid and no arithmetic is

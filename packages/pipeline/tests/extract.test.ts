@@ -131,3 +131,50 @@ describe('extracting a component from a selection', () => {
     }
   })
 })
+
+describe('a component that DISPLAYS code', () => {
+  it('puts the import above the file, not inside a template literal that looks like one', () => {
+    // The bug this pins: `/^import [^\n]*\n/gm` matched the `import` line
+    // inside SAMPLE, so the new import was written into the middle of a
+    // string. The file still parsed, so nothing caught it — and the component
+    // was never actually imported, so the page threw at runtime.
+    const root = mkdtempSync(join(tmpdir(), 's2c-docs-'))
+    mkdirSync(join(root, 'src'), { recursive: true })
+    const code = [
+      "import { useState } from 'react'",
+      '',
+      'const SAMPLE = `',
+      "import Thing from './thing'",
+      'export default Thing',
+      '`',
+      '',
+      'export default function Docs() {',
+      '  return (',
+      '    <div>',
+      '      <pre>{SAMPLE}</pre>',
+      '      <p className="a">one</p>',
+      '      <p className="b">two</p>',
+      '    </div>',
+      '  )',
+      '}',
+      '',
+    ].join('\n')
+    writeFileSync(join(root, 'src/Docs.tsx'), code)
+
+    const r = extractComponent(root, {
+      srcLocs: ['src/Docs.tsx:12:7', 'src/Docs.tsx:13:7'],
+      name: 'Pair',
+    })
+    expect(r.ok).toBe(true)
+
+    const after = readFileSync(join(root, 'src/Docs.tsx'), 'utf8').split('\n')
+    const line = after.findIndex((l) => l.includes("from './components/Pair'"))
+    // above the template literal, which starts on line 3 (index 2)
+    expect(line).toBe(1)
+    // and the displayed snippet is untouched (one line lower, since an import
+    // was added above it)
+    expect(after.slice(3, 7).join('\n')).toBe(
+      ['const SAMPLE = `', "import Thing from './thing'", 'export default Thing', '`'].join('\n'),
+    )
+  })
+})
