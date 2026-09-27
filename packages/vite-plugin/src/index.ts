@@ -200,6 +200,28 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 200, { ok: false, reason: String(err) }))
       })
 
+      /**
+       * Paint one shape. Canva mode moves and resizes elements; this reaches
+       * inside generated artwork, where the only previous route to a colour
+       * change was another model run. Deterministic, so it is checkpointed
+       * and undoable like every other direct manipulation.
+       */
+      server.middlewares.use('/@s2c/paint', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string; prop: 'fill' | 'stroke'; value: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.paintShape(root, body)
+            if (result.ok && result.change && !result.change.startsWith('no change')) {
+              undoStack.push({ sha: cp.sha, label: result.change })
+            }
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
