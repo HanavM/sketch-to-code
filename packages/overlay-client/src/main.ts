@@ -232,6 +232,44 @@ const GUIDE_COLOR = '#ec4899'
 /** Two clicks on the selected element within this window toggle instance scope. */
 const DBLCLICK_MS = 450
 
+// ---- shape painting: reach INSIDE the artwork ---------------------------
+// The dev plugin stamps every JSX host element, so every <path>, <circle> and
+// <rect> already carries its own file:line:col. That makes a drawn shape as
+// addressable as a card — one click resolves to an AST node — and recolouring
+// it is an attribute edit rather than another model run.
+
+/** The SVG tags a click can paint: exactly the SVGGeometryElement set, i.e.
+ *  everything that can hit-test itself with isPointInFill/isPointInStroke. */
+const SHAPE_TAGS = new Set(['path', 'circle', 'ellipse', 'rect', 'polygon', 'line', 'polyline'])
+/**
+ * Selection accent for a shape. Deliberately NOT the cyan of an element
+ * selection: a shape offers a palette, not eight resize handles, and one
+ * outline that means two different sets of affordances is a lie the user only
+ * discovers by dragging something that shouldn't move.
+ */
+const PAINT_ACCENT = '#f59e0b'
+/**
+ * How long the document's shape list is reused (ms). Hover hit-tests every
+ * pointermove, and a querySelectorAll over a big app on each one is a frame
+ * tax for a list that changes only when the app re-renders.
+ */
+const SHAPE_CACHE_MS = 400
+
+/** Is this a paintable SVG shape (as opposed to an HTML box or an <svg>/<g>)? */
+function isShapeEl(el: Element | null | undefined): el is SVGGeometryElement {
+  return (
+    el != null && el.namespaceURI === 'http://www.w3.org/2000/svg' &&
+    SHAPE_TAGS.has(el.tagName.toLowerCase())
+  )
+}
+
+/** The file part of a data-s2c stamp, e.g. 'HumanHead.tsx' — what the user
+ *  recognizes, where the full 'src/components/…:12:7' would eat the status. */
+function stampFile(srcLoc: string): string {
+  const path = srcLoc.split(':')[0] ?? srcLoc
+  return path.split('/').pop() ?? path
+}
+
 /** Where the HUD's parked position + hidden state survive a reload. */
 const HUD_STORE_KEY = 's2c:hud'
 /**
@@ -735,6 +773,37 @@ const STYLES = css`
   .swatch.on { border-color: #f9fafb; }
   .swatch.ink { background: #2563eb; }
   #penCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+  /* ---- paint popover: the swatches belong NEXT TO the shape ------------
+     Every other control in this overlay is a global setting, so it lives in
+     the bar. This one paints ONE shape, and a palette parked 600px away from
+     the thing it recolours makes the user look twice to check which shape is
+     selected. So it is position:fixed (the shadow root's fixed containing
+     block is the viewport) and layoutPaintPanel writes left/top from the
+     selection's LIVE rect on every repaint — it rides along through scroll,
+     zoom and the remount that HMR causes after each paint. Above the canvas'
+     z-index, or the tweak-mode hit layer would swallow every swatch click. */
+  #paintPanel {
+    position: fixed; left: 0; top: 0; z-index: 2147483001;
+    display: none; width: 214px; max-width: calc(100vw - 20px);
+    padding: 10px; border-radius: 12px;
+    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #b45309; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #paintPanel.on { display: block; }
+  /* amber, matching PAINT_ACCENT: the popover and the outline it belongs to
+     have to read as one object across the gap between them */
+  #paintPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #fcd34d; }
+  #paintSeg {
+    display: flex; gap: 2px; background: #1f2937; border-radius: 999px;
+    padding: 2px; margin-bottom: 8px;
+  }
+  #paintSeg .qSegBtn { flex: 1; padding: 4px 8px; font-size: 11px; background: transparent; color: #9ca3af; }
+  #paintSeg .qSegBtn:hover { color: #f9fafb; background: #374151; }
+  #paintSeg .qSegBtn.on { background: #f59e0b; color: #1f2937; }
+  #paintRow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  #paintCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+  #paintPanel .qNote { color: #9ca3af; margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -1111,6 +1180,15 @@ class Overlay {
   /** CSS colour the pen writes in; null = default ink, which asks for nothing. */
   private pen: string | null = null
   private penOpen = false
+  /** Shape-paint popover: anchored to the selected shape, not to the bar. */
+  private paintPanel: HTMLElement
+  private paintWhat: HTMLElement
+  private paintRow: HTMLElement
+  private paintOpen = false
+  /** Which attribute the next swatch click writes. */
+  private paintProp: 'fill' | 'stroke' = 'fill'
+  /** Cached shape list for geometric hit-testing (see SHAPE_CACHE_MS). */
+  private shapeCache: { at: number; els: SVGGeometryElement[] } | null = null
   private fidelityBtn: HTMLButtonElement
   private fidelityPanel: HTMLElement
   private fidelityRange: HTMLInputElement
@@ -1327,6 +1405,35 @@ class Overlay {
     this.helpEl.setAttribute('role', 'dialog')
     this.helpEl.setAttribute('aria-label', 'sketch2code keyboard shortcuts')
     this.shadow.appendChild(this.helpEl)
+    // OUTSIDE the HUD, on purpose: the bar is a width:max-content pill whose
+    // own comment calls its status line a width budget, and this popover
+    // belongs beside the shape it paints anyway (see #paintPanel).
+    const paint = document.createElement('div')
+    paint.id = 'paintPanel'
+    paint.setAttribute('role', 'dialog')
+    paint.setAttribute('aria-label', 'paint this shape')
+    paint.innerHTML = `
+      <div class="qHead" id="paintWhat"></div>
+      <div id="paintSeg">
+        <button id="paint-fill" class="qSegBtn" title="the next colour fills the shape">fill</button>
+        <button id="paint-stroke" class="qSegBtn" title="the next colour paints its outline">stroke</button>
+      </div>
+      <div id="paintRow"></div>
+      <div class="qNote">
+        Swatches are sampled from the page. A click writes the colour into source —
+        Ctrl+Z reverts it. Alt+K reopens this, Esc closes it.
+      </div>
+    `
+    this.shadow.appendChild(paint)
+    this.paintPanel = paint
+    this.paintWhat = this.shadow.getElementById('paintWhat')!
+    this.paintRow = this.shadow.getElementById('paintRow')!
+    for (const p of ['fill', 'stroke'] as const) {
+      this.shadow.getElementById(`paint-${p}`)!.addEventListener('click', () => this.setPaintProp(p))
+    }
+    // The panel sits over the tweak-mode hit canvas; a press inside it is a
+    // press on a control, never the start of a selection or a drag.
+    paint.addEventListener('pointerdown', (e) => e.stopPropagation())
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -1473,6 +1580,16 @@ class Overlay {
       // auto mode fires with no click, so e2e has to be able to see the state
       // it fires FROM: armed, counting down, or locked mid-run
       auto: () => ({ on: this.auto, pending: this.autoTimer != null, busy: this.autoBusy }),
+      // what the paint popover believes it is pointed at: the whole risk here
+      // is painting a DIFFERENT shape than the one outlined, so the stamp it
+      // would put on the wire has to be observable
+      paint: () => ({
+        open: this.paintOpen,
+        prop: this.paintProp,
+        shape: isShapeEl(this.tweak?.el),
+        tag: this.tweak?.el.tagName.toLowerCase() ?? null,
+        srcLoc: this.tweak?.srcLoc ?? null,
+      }),
       // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
       // compared against the live rects of the elements it is describing
       plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
@@ -1484,6 +1601,9 @@ class Overlay {
 
   private setMode(m: Mode) {
     if (this.mode === 'draw' && m !== 'draw') this.resetBridge()
+    // the paint popover describes a tweak-mode selection; it must not outlive
+    // the mode that owns it (it is position:fixed and would hang over the app)
+    if (m !== 'tweak' && this.paintOpen) this.setPaintOpen(false)
     this.mode = m
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
@@ -1752,6 +1872,15 @@ class Overlay {
         match: altBind('Digit0', '0'), run: () => this.setPen(null),
       },
       {
+        // K for "kolour"? No — P is the pen and C is cancel, and this is the
+        // only free letter next to them that nothing else claims. It opens the
+        // popover the shape click already opens, which is what makes it a
+        // reopen rather than a second way to do a new thing.
+        id: 'paint', keys: 'Alt+K', group: 'colour',
+        label: 'paint the selected shape — recolour one <path> in source, zero tokens',
+        match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
+      },
+      {
         id: 'hud', keys: 'Alt+H', label: 'hide / show the toolbar', group: 'overlay',
         match: altBind('KeyH', 'h'),
         run: () => {
@@ -1768,7 +1897,7 @@ class Overlay {
       },
       {
         id: 'escape', keys: 'Esc', group: 'overlay',
-        label: 'close the top thing: pending auto-run → note → this list → fidelity → preview / tweak / draw',
+        label: 'close the top thing: paint → pending auto-run → note → this list → fidelity → preview / tweak / draw',
         match: plainBind('Escape', 'Escape'), run: () => this.onEscape(),
       },
     ]
@@ -1784,8 +1913,11 @@ class Overlay {
       // un-closable by keyboard the moment a control took focus. Every
       // other key (arrows, space) still belongs to the control.
       // (The note field never reaches here: it stops its own keystrokes.)
-      const ours = (this.fidelityOpen || this.penOpen) && e.key === 'Escape' &&
-        target instanceof Node && this.fidelityPanel.contains(target)
+      const ours = e.key === 'Escape' && target instanceof Node && (
+        ((this.fidelityOpen || this.penOpen) && this.fidelityPanel.contains(target)) ||
+        // …and the same for the paint popover's native colour input
+        (this.paintOpen && this.paintPanel.contains(target))
+      )
       if (!ours) return
     }
     // first match wins; the table is small and the matchers are disjoint
@@ -1804,6 +1936,16 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // Above even the pending-run rung, and it costs that rung nothing: the
+    // paint popover only exists while a shape is selected in TWEAK mode, and
+    // autoBlock() already refuses to count down outside draw mode — so these
+    // two can never be on the stack together. What this ordering does buy is
+    // that Esc closes the palette WITHOUT also dropping the shape selection
+    // underneath it, which is the one thing the user was not aiming at.
+    if (this.paintOpen) {
+      this.setPaintOpen(false)
+      return
+    }
     // The newest and shallowest rung of all: a run is about to fire on its
     // own, and this is the keystroke the countdown advertises. It RETURNS like
     // every other rung — falling through would also drop the user out of draw
@@ -2407,16 +2549,25 @@ class Overlay {
     return [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, PEN_SWATCHES).map(([c]) => c)
   }
 
+  /**
+   * One round colour button. Shared by the pen panel and the shape-paint
+   * popover — they offer the same sampled palette for the same reason, and two
+   * builders would drift in exactly the details (hex in `data-color`, the
+   * null-is-default-ink swatch) that the e2e suites read.
+   */
+  private swatchButton(color: string | null, label: string, pick: () => void): HTMLButtonElement {
+    const b = document.createElement('button')
+    b.className = `swatch${color ? '' : ' ink'}`
+    b.dataset.color = color ?? ''
+    b.title = label
+    if (color) b.style.background = color
+    b.addEventListener('click', pick)
+    return b
+  }
+
   private renderPenSwatches() {
-    const swatch = (color: string | null, label: string) => {
-      const b = document.createElement('button')
-      b.className = `swatch${color ? '' : ' ink'}`
-      b.dataset.color = color ?? ''
-      b.title = label
-      if (color) b.style.background = color
-      b.addEventListener('click', () => this.setPen(color))
-      return b
-    }
+    const swatch = (color: string | null, label: string) =>
+      this.swatchButton(color, label, () => this.setPen(color))
     const kids: HTMLElement[] = [swatch(null, 'default ink — no colour asked for')]
     for (const c of this.samplePageColors()) kids.push(swatch(c, `${c} — already used on this page`))
     const custom = document.createElement('input')
@@ -2478,6 +2629,147 @@ class Overlay {
       if (raw && CSS.supports('color', raw)) this.pen = raw
     } catch { /* ignore */ }
     this.syncPenUi()
+  }
+
+  // ---- shape painting: click the shape, click a colour ------------------
+  // Canva mode could move and resize boxes but never reach inside generated
+  // artwork: changing one line of a drawn face meant another model run. The
+  // stamps make each shape addressable, so this is a click and an attribute
+  // edit — deterministic, checkpointed, undoable, zero tokens.
+
+  private setPaintOpen(open: boolean) {
+    if (!open) {
+      this.paintOpen = false
+      this.paintPanel.classList.remove('on')
+      return
+    }
+    const t = this.tweak
+    if (!t || !isShapeEl(t.el)) {
+      // Alt+K with no shape selected: say what to do rather than flashing an
+      // empty palette at a selection it cannot paint
+      this.status('select a shape first — in tweak mode, click any drawn line or filled region')
+      return
+    }
+    this.paintOpen = true
+    this.paintPanel.classList.add('on')
+    // Open on the prop that is actually PAINTING this shape: line art has
+    // fill:none, and a palette that defaults to fill there would make the
+    // user's first click land on an attribute they cannot see.
+    const cs = getComputedStyle(t.el)
+    this.paintProp = cs.fill === 'none' && cs.stroke !== 'none' ? 'stroke' : 'fill'
+    // sampled fresh on every open, like the pen panel: the app's palette is
+    // whatever it renders right now, and painting is what changes it
+    this.renderPaintSwatches()
+    this.syncPaintUi()
+    this.layoutPaintPanel()
+  }
+
+  private setPaintProp(prop: 'fill' | 'stroke') {
+    this.paintProp = prop
+    // the swatches carry the prop in their tooltips ("paint stroke #6a7282"),
+    // so they are rebuilt rather than left saying the opposite of what they do
+    this.renderPaintSwatches()
+    this.syncPaintUi()
+  }
+
+  private syncPaintUi() {
+    const t = this.tweak
+    if (!t) return
+    this.paintWhat.textContent = `paint <${t.el.tagName.toLowerCase()}> · ${stampFile(t.srcLoc)}`
+    for (const p of ['fill', 'stroke'] as const) {
+      this.shadow.getElementById(`paint-${p}`)?.classList.toggle('on', this.paintProp === p)
+    }
+  }
+
+  /**
+   * The palette, plus a native colour input for everything else.
+   *
+   * The shape's OWN current fill and stroke lead the row: recolouring artwork
+   * is mostly moving one shape to a colour already in the picture, and those
+   * two are the colours the user is looking at.
+   */
+  private renderPaintSwatches() {
+    const t = this.tweak
+    if (!t) return
+    const cs = getComputedStyle(t.el)
+    const own = [toHex(cs.fill), toHex(cs.stroke)].filter((c): c is string => c != null)
+    const seen = new Set<string>()
+    const kids: HTMLElement[] = []
+    for (const c of [...own, ...this.samplePageColors()]) {
+      if (seen.has(c)) continue
+      seen.add(c)
+      kids.push(this.swatchButton(
+        c, `paint ${this.paintProp} ${c}`, () => void this.paintShape(c),
+      ))
+    }
+    const custom = document.createElement('input')
+    custom.type = 'color'
+    custom.id = 'paintCustom'
+    custom.title = 'any other colour'
+    custom.value = own[0] ?? '#ef4444'
+    // 'change', not 'input': the native picker fires input on every drag of its
+    // gradient, and each one of those would be a source edit and an undo step
+    custom.addEventListener('change', () => void this.paintShape(custom.value))
+    kids.push(custom)
+    this.paintRow.replaceChildren(...kids)
+  }
+
+  /**
+   * Keep the popover beside its shape. Right of it by preference (that keeps
+   * the shape itself unobscured), flipped left when there is no room, and
+   * clamped into the viewport — re-run from drawTweak on every repaint, so it
+   * rides scroll, zoom and the HMR remount each paint causes.
+   */
+  private layoutPaintPanel() {
+    const t = this.tweak
+    if (!t || !this.paintOpen) return
+    const r = this.selRect(t)
+    const w = this.paintPanel.offsetWidth
+    const h = this.paintPanel.offsetHeight
+    let x = r.left + r.width + PANEL_GAP
+    if (x + w > window.innerWidth - PANEL_GAP) x = r.left - w - PANEL_GAP
+    x = Math.min(Math.max(PANEL_GAP, x), Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP))
+    const y = Math.min(
+      Math.max(PANEL_GAP, r.top),
+      Math.max(PANEL_GAP, window.innerHeight - h - PANEL_GAP),
+    )
+    this.paintPanel.style.left = `${String(Math.round(x))}px`
+    this.paintPanel.style.top = `${String(Math.round(y))}px`
+  }
+
+  /**
+   * Write the colour into source. The server owns the hard half: a literal
+   * attribute is swapped, a missing one is added, a gradient reference has its
+   * STOPS recoloured (shading kept) — and a value the page computes is refused,
+   * because there is no literal there to edit.
+   *
+   * Refusals land on the status line verbatim: "nothing happened" with no
+   * reason is the failure mode that makes a direct-manipulation tool feel
+   * broken, and this one has an honest reason to give.
+   */
+  private async paintShape(value: string): Promise<void> {
+    const t = this.tweak
+    if (!t) return
+    const prop = this.paintProp
+    this.status(`painting ${prop} ${value}…`)
+    try {
+      const res = await fetch('/@s2c/paint', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLoc: t.srcLoc, prop, value }),
+      })
+      const out = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string }
+      if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      this.status(`✓ ${out.change ?? 'painted'} in ${out.file ?? '?'} · 0 tokens · Ctrl+Z reverts`)
+      // Same re-resolve as every other commit: HMR remounts the shape and the
+      // selection has to survive it, or the second click of ten would paint
+      // nothing. The tracking loop catches a fast remount; this catches a slow
+      // one — and both keep the popover anchored, because it is laid out from
+      // whatever element the selection currently holds.
+      this.reselectAfterCommit(t)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
   }
 
   /** Clamp a popover under the bar, shared by both panels. */
@@ -3289,6 +3581,7 @@ class Overlay {
 
   private exitTweak(msg: string) {
     if (this.tweak) this.clearTweakPreview()
+    if (this.paintOpen) this.setPaintOpen(false)
     this.tweak = null
     this.hoverEl = null
     this.multiSel = []
@@ -3300,6 +3593,10 @@ class Overlay {
 
   private deselect(msg: string) {
     if (this.tweak) this.clearTweakPreview()
+    // the palette describes the selection; with nothing selected it has no
+    // subject, and a popover hanging over the app with no outline to belong to
+    // is the worst of both
+    if (this.paintOpen) this.setPaintOpen(false)
     this.tweak = null
     this.hoverEl = null
     this.multiSel = []
@@ -3450,7 +3747,9 @@ class Overlay {
     t.display = cs.display
     t.direction = cs.flexDirection === 'column' ? 'column' : 'row'
     t.inFlow = cs.position === 'static' || cs.position === 'relative'
-    t.zones = this.computeZones(t.el)
+    // same rule as buildTweakState: a shape has no bands to re-derive, and
+    // re-deriving them here would quietly put them back on the next scroll
+    t.zones = isShapeEl(t.el) ? [] : this.computeZones(t.el)
   }
 
   /** Deepest stamped element under the point — anything stamped is fair game. */
@@ -3599,14 +3898,96 @@ class Overlay {
   }
 
   private pickAnyStamped(x: number, y: number): HTMLElement | null {
-    this.canvas.style.pointerEvents = 'none'
-    let el = document.elementFromPoint(x, y) as HTMLElement | null
-    this.canvas.style.pointerEvents = ''
+    let el = this.elementUnder(x, y) as HTMLElement | null
     while (el && el !== document.body) {
       if (el.dataset.s2c) return el
       el = el.parentElement
     }
     return null
+  }
+
+  /** The raw topmost element under the point, with our own canvas taken out of
+   *  the way. Both pickers start here. */
+  private elementUnder(x: number, y: number): Element | null {
+    this.canvas.style.pointerEvents = 'none'
+    const el = document.elementFromPoint(x, y)
+    this.canvas.style.pointerEvents = ''
+    return el
+  }
+
+  /** Every stamped shape in the document, cached for SHAPE_CACHE_MS. */
+  private shapeEls(): SVGGeometryElement[] {
+    const now = performance.now()
+    if (this.shapeCache && now - this.shapeCache.at < SHAPE_CACHE_MS) return this.shapeCache.els
+    const sel = [...SHAPE_TAGS].map((t) => `svg ${t}[data-s2c]`).join(',')
+    const els = [...document.querySelectorAll(sel)].filter(isShapeEl)
+    this.shapeCache = { at: now, els }
+    return els
+  }
+
+  /**
+   * The SVG shape under the pointer, or null.
+   *
+   * Two things make this its own hit-test rather than a use of
+   * document.elementFromPoint. First, artwork is almost always
+   * pointer-events:none decoration, so elementFromPoint NEVER returns a
+   * <path> — it returns the HTML behind it. Second, a shape's real extent is
+   * its geometry, not its box: a 2px pen line across a 900px-wide bbox should
+   * be clickable on the line and nowhere else. isPointInStroke/isPointInFill
+   * answer exactly that, in the element's own user space (hence the screen
+   * CTM inverse), so a click lands on the stroke the user aimed at.
+   *
+   * Two guards keep this from stealing clicks that belong to the page:
+   *  - only PAINTED geometry counts. A fill:none outline is reachable by its
+   *    stroke alone, which is also the honest rule: you can click what you see.
+   *  - the shape must live INSIDE whatever the pointer actually hit. A
+   *    full-bleed decorative layer at -z-10 sits behind every card on the
+   *    page; without this, its invisible chevrons would swallow every click
+   *    on those cards.
+   */
+  private pickShape(x: number, y: number): SVGGeometryElement | null {
+    const under = this.elementUnder(x, y)
+    if (!under) return null
+    let best: SVGGeometryElement | null = null
+    let bestArea = Infinity
+    for (const el of this.shapeEls()) {
+      if (el !== under && !under.contains(el)) continue
+      const box = el.getBoundingClientRect()
+      // a couple of px of slack for the stroke's own width at the edges
+      if (x < box.left - 4 || x > box.right + 4 || y < box.top - 4 || y > box.bottom + 4) continue
+      const cs = getComputedStyle(el)
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue
+      const ctm = el.getScreenCTM()
+      if (!ctm) continue
+      const p = new DOMPoint(x, y).matrixTransform(ctm.inverse())
+      const hit =
+        (cs.stroke !== 'none' && el.isPointInStroke(p)) ||
+        (cs.fill !== 'none' && el.isPointInFill(p))
+      if (!hit) continue
+      // the tightest hit wins: a nose inside a face is the shape you clicked
+      const area = box.width * box.height
+      if (area < bestArea) {
+        best = el
+        bestArea = area
+      }
+    }
+    return best
+  }
+
+  /**
+   * What a tweak click selects: the shape under the pointer if there is one,
+   * else the deepest stamped element. Shapes go FIRST because a click that
+   * lands on a drawn line means that line — walking up to the <svg> or the
+   * card behind it is the answer to a question nobody asked.
+   *
+   * (Shift+click group moves deliberately keep using pickAnyStamped: a set of
+   * shapes to drag as one body is not a thing this offers, and a shape that
+   * joined a group move would commit a Tailwind position class onto a <path>.)
+   */
+  private pickTweakTarget(x: number, y: number): HTMLElement | null {
+    const shape = this.pickShape(x, y)
+    if (shape?.dataset.s2c) return shape as unknown as HTMLElement
+    return this.pickAnyStamped(x, y)
   }
 
   /**
@@ -3664,7 +4045,10 @@ class Overlay {
       : [el]
     const instanceIndex = Math.max(0, instanceEls.indexOf(el))
     const direction = cs.flexDirection === 'column' ? 'column' : 'row'
-    const zones = this.computeZones(el)
+    // A <path> has no gap and no padding, so it gets no bands: they would tile
+    // the whole of a small shape and turn every click on it into a padding
+    // drag that commits a spacing class onto a piece of artwork.
+    const zones = isShapeEl(el) ? [] : this.computeZones(el)
 
     return {
       el,
@@ -3901,10 +4285,24 @@ class Overlay {
     this.hoverEl = null
     const t = this.tweak
     const r = el.getBoundingClientRect()
-    const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
     const linked = t.instanceEls.length > 1
       ? ` · ${t.instanceEls.length} linked (double-click: just this one)`
       : ''
+    // A shape is a different kind of selection: it offers a colour, not eight
+    // handles, so it says so — and the palette opens with it, because "click a
+    // colour" is the whole interaction and making the user find a key for it
+    // would be a menu in front of a one-step job.
+    if (isShapeEl(el)) {
+      this.status(
+        `<${el.tagName.toLowerCase()}> in ${stampFile(t.srcLoc)} · ` +
+        `click a colour to paint it${linked}`,
+      )
+      this.setPaintOpen(true)
+      this.redraw()
+      return
+    }
+    if (this.paintOpen) this.setPaintOpen(false)
+    const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
     const set = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
     this.status(
       `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ` +
@@ -4113,8 +4511,9 @@ class Overlay {
     const t = this.tweak
     if (t) {
       const sr = this.selRect(t)
-      // 1) resize handles win over everything
-      const hp = this.hitHandle(sr, e.clientX, e.clientY)
+      // 1) resize handles win over everything — except on a shape, which has
+      //    none: a w-*/h-* class on a <path> resizes nothing but its box
+      const hp = isShapeEl(t.el) ? undefined : this.hitHandle(sr, e.clientX, e.clientY)
       if (hp) {
         const bt = getComputedStyle(t.el).transform
         t.handleDrag = {
@@ -4144,8 +4543,13 @@ class Overlay {
         this.canvas.setPointerCapture(e.pointerId)
         return
       }
-      // 3) inside the selection body → free move (a still release is a click)
+      // 3) inside the selection body → free move (a still release is a click).
+      //    Not for a shape: its bbox is mostly empty space belonging to the
+      //    page behind it, and a dragged <path> would commit a translate class
+      //    onto artwork. Falling through to (4) re-picks whatever shape or
+      //    element is actually under the pointer instead.
       if (
+        !isShapeEl(t.el) &&
         e.clientX >= sr.left && e.clientX <= sr.left + sr.width &&
         e.clientY >= sr.top && e.clientY <= sr.top + sr.height
       ) {
@@ -4153,16 +4557,18 @@ class Overlay {
         return
       }
     }
-    // 4) select whatever stamped element is under the cursor, or deselect
-    const el = this.pickAnyStamped(e.clientX, e.clientY)
+    // 4) select whatever is under the cursor (a shape first), or deselect
+    const el = this.pickTweakTarget(e.clientX, e.clientY)
     if (!el) {
       if (t) this.deselect('deselected')
       else this.status('nothing stamped here — hover highlights what you can select')
       return
     }
     this.selectElement(el)
-    // select + drag is one gesture; a still release keeps it a plain click
-    this.startMoveDrag(this.tweak!, e)
+    // select + drag is one gesture; a still release keeps it a plain click.
+    // A shape is the exception: selecting it opens a palette, and there is
+    // nothing to drag it into.
+    if (!isShapeEl(el)) this.startMoveDrag(this.tweak!, e)
   }
 
   private onTweakMove(e: PointerEvent) {
@@ -4295,7 +4701,10 @@ class Overlay {
     }
     if (t && !t.drag) {
       const sr = this.selRect(t)
-      const hp = this.hitHandle(sr, e.clientX, e.clientY)
+      // a shape has no handles and no body drag (see onTweakDown), so the
+      // cursor must not promise either
+      const shapeSel = isShapeEl(t.el)
+      const hp = shapeSel ? undefined : this.hitHandle(sr, e.clientX, e.clientY)
       if (hp) {
         this.canvas.style.cursor = HANDLE_CURSORS[hp.kind]
         this.hoverEl = null
@@ -4315,6 +4724,7 @@ class Overlay {
         return
       }
       if (
+        !shapeSel &&
         e.clientX >= sr.left && e.clientX <= sr.left + sr.width &&
         e.clientY >= sr.top && e.clientY <= sr.top + sr.height
       ) {
@@ -4323,14 +4733,14 @@ class Overlay {
         this.redraw()
         return
       }
-      const el = this.pickAnyStamped(e.clientX, e.clientY)
+      const el = this.pickTweakTarget(e.clientX, e.clientY)
       this.hoverEl = el && el !== t.el ? el : null
       this.canvas.style.cursor = el ? 'pointer' : 'default'
       this.redraw()
       return
     }
     if (!t) {
-      const el = this.pickAnyStamped(e.clientX, e.clientY)
+      const el = this.pickTweakTarget(e.clientX, e.clientY)
       this.hoverEl = el
       this.canvas.style.cursor = el ? 'pointer' : 'default'
       this.redraw()
@@ -4477,7 +4887,7 @@ class Overlay {
    * templates (all linked ⇄ just this one).
    */
   private handleTweakClick(t: TweakState, e: PointerEvent) {
-    const el = this.pickAnyStamped(e.clientX, e.clientY)
+    const el = this.pickTweakTarget(e.clientX, e.clientY)
     const now = performance.now()
     if (el && el === t.el) {
       if (
@@ -4573,9 +4983,11 @@ class Overlay {
     const { ctx } = this
     if (this.hoverEl && document.contains(this.hoverEl)) {
       // light outline on hover — every stamped element is interactable;
-      // rect read LIVE so the outline tracks scroll/layout
+      // rect read LIVE so the outline tracks scroll/layout. A shape hovers in
+      // its own accent, so the user can tell BEFORE clicking whether they are
+      // about to select a box or a paintable shape.
       ctx.save()
-      ctx.strokeStyle = 'rgba(8,145,178,0.55)'
+      ctx.strokeStyle = isShapeEl(this.hoverEl) ? 'rgba(245,158,11,0.75)' : 'rgba(8,145,178,0.55)'
       ctx.setLineDash([6, 4])
       ctx.lineWidth = 1.5
       const h = this.hoverEl.getBoundingClientRect()
@@ -4586,6 +4998,11 @@ class Overlay {
     const t = this.tweak
     if (!t) return
     const r = this.selRect(t)
+    // A selected shape reads as a DIFFERENT object: amber, no handles, and a
+    // palette beside it. Cyan + eight handles would promise a resize that a
+    // <path> cannot honour.
+    const shapeSel = isShapeEl(t.el)
+    const accent = shapeSel ? PAINT_ACCENT : '#0891b2'
     ctx.save()
     // multi-selection extras: solid outline each (handles stay on primary).
     // During a group drag their cached start rects follow dx/dy — ghost
@@ -4615,7 +5032,7 @@ class Overlay {
     // linked instances of a shared template (.map()): lighter outlines while
     // scope is 'all' — the highlighting IS the "this affects all N" warning
     if (t.scope === 'all' && t.instanceEls.length > 1) {
-      ctx.strokeStyle = 'rgba(8,145,178,0.5)'
+      ctx.strokeStyle = shapeSel ? 'rgba(245,158,11,0.5)' : 'rgba(8,145,178,0.5)'
       ctx.setLineDash([4, 3])
       ctx.lineWidth = 1.5
       for (const ie of t.instanceEls) {
@@ -4626,7 +5043,7 @@ class Overlay {
       ctx.setLineDash([])
     }
     // solid selection outline
-    ctx.strokeStyle = '#0891b2'
+    ctx.strokeStyle = accent
     ctx.lineWidth = 2
     ctx.strokeRect(r.left, r.top, r.width, r.height)
     // magnetic alignment guides (Canva-pink) while a drag is snapped
@@ -4658,31 +5075,41 @@ class Overlay {
         ctx.fillRect(z.x, z.y, z.w, z.h)
       }
     }
-    // 8 Canva-style drag handles: white squares with a border
-    for (const hp of this.handlePoints(r)) {
-      ctx.fillStyle = '#fff'
-      ctx.strokeStyle = '#0891b2'
-      ctx.lineWidth = 1.5
-      ctx.fillRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
-      ctx.strokeRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
+    // 8 Canva-style drag handles: white squares with a border. Not on a shape:
+    // it is painted, not resized, and eight handles would say otherwise.
+    if (!shapeSel) {
+      for (const hp of this.handlePoints(r)) {
+        ctx.fillStyle = '#fff'
+        ctx.strokeStyle = accent
+        ctx.lineWidth = 1.5
+        ctx.fillRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
+        ctx.strokeRect(hp.x - HANDLE_SIZE / 2, hp.y - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE)
+      }
     }
     // floating label: tag · current size · instance scope
     const scopeNote = t.instanceEls.length > 1
       ? (t.scope === 'all' ? ` · ${t.instanceEls.length} linked` : ' · this one only')
       : ''
     const setNote = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
-    const label = `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${scopeNote}${setNote}`
+    // a shape's size is its bbox, which says nothing useful about a line; the
+    // file is what the user needs to recognize it (and to find it in source)
+    const label = shapeSel
+      ? `${t.el.tagName.toLowerCase()} · ${stampFile(t.srcLoc)}${scopeNote}`
+      : `${t.el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${scopeNote}${setNote}`
     ctx.font = '11px ui-sans-serif, system-ui'
     const lw = ctx.measureText(label).width + 12
     const lx = Math.max(2, Math.min(r.left, window.innerWidth - lw - 2))
     const ly = r.top - 24 >= 2 ? r.top - 24 : r.top + r.height + 8
-    ctx.fillStyle = '#0891b2'
+    ctx.fillStyle = accent
     ctx.beginPath()
     ctx.roundRect(lx, ly, lw, 17, 8)
     ctx.fill()
-    ctx.fillStyle = '#fff'
+    ctx.fillStyle = shapeSel ? '#1f2937' : '#fff'
     ctx.fillText(label, lx + 6, ly + 12)
     ctx.restore()
+    // the popover is anchored to this rect, and this runs on every repaint the
+    // tracking loop asks for — so scroll, zoom and HMR remounts all carry it
+    if (this.paintOpen) this.layoutPaintPanel()
   }
 
   private resize() {
