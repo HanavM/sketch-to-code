@@ -32,7 +32,38 @@ and `result.json`. Inspect exactly what the agent saw per run at
 **http://localhost:5199/@s2c/runs** (ink render, prompt, plan/legend, replies,
 verification, tokens).
 
-Use it in your own Vite + React app:
+## Use it in your own project
+
+```bash
+npx sketch2code init             # or: npx sketch2code init ./my-app
+npm run dev                      # then Alt+D, sketch, ▶ Run
+npx sketch2code doctor           # diagnose an existing install
+```
+
+`init` does the whole setup and refuses to half-do it: it verifies the project is
+Vite + React (Next.js / CRA / Vue / Svelte / Astro are reported and rejected
+before anything is written), adds the dependency, wires `sketch2code()` into your
+vite config — `.ts` or `.js`, an existing `plugins` array, or a config that does
+not exist yet — and then **loads that config through Vite** to prove the plugin
+resolves. Every write is shown as a diff and confirmed; re-running changes
+nothing.
+
+It also checks the plugin's safety gates *up front* instead of letting you
+discover them on your first sketch: a repo must exist (it offers `git init` + an
+initial commit, since without a commit there is no checkpoint to revert to), the
+repo toplevel must not be your home directory, and the tree must be clean —
+so it offers to commit its own setup, or writes `allowDirty: true` if you pass
+`--allow-dirty`. `.sketch2code/` goes into `.gitignore`, because otherwise run
+bundles keep the tree permanently dirty. GitHub is optional and off by default
+(`--github create` / `--github connect --remote <url>`, never a push without
+asking in the same invocation).
+
+`doctor` reports the plugin's presence and whether Vite actually loads it, the
+git state, whether your Claude Code is reachable (no model call, zero tokens),
+the port the dev server will use, and what to run next. Full option list:
+[`packages/cli/README.md`](packages/cli/README.md).
+
+Doing it by hand instead:
 
 ```ts
 // vite.config.ts
@@ -102,7 +133,10 @@ strokes ─► ① ink analysis ─► ② DOM grounding ─► ③ intent ─�
 ## Tests
 
 ```bash
-npm test                              # 184 unit tests (no network, no model calls)
+npm test                              # unit tests (no network, no model calls)
+npm run e2e:cli                       # onboarding, end to end: scaffolds a real Vite+React
+                                      # app in a temp dir, runs `sketch2code init` against it,
+                                      # boots ITS dev server and drives the overlay (no model)
 npm run dev &                         # zero-token flows — seconds, no model:
 node tests/e2e/live-tweak.mjs         # gap handle → gap-4 → gap-6
 node tests/e2e/live-canva.mjs         # select / resize / drag / reorder / undo
