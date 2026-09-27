@@ -96,6 +96,20 @@ export function applyWork(root: string, work: Work): void {
 }
 
 /**
+ * Undo an edit completely, including files it CREATED.
+ *
+ * `git restore` alone cannot: a new component is untracked, so it appears in
+ * no diff and survives the revert as an orphan — which is how undoing an
+ * extract used to leave the new file behind after putting the call site back.
+ */
+export function revertTouched(root: string, cp: Checkpoint): string[] {
+  const work = captureWork(root, cp)
+  if (work.size === 0) return []
+  revertWork(root, cp, work)
+  return [...work.keys()]
+}
+
+/**
  * How each attempt is told to build the thing.
  *
  * Deliberately NOT variations of what the user asked for — the reading, the

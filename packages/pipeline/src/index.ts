@@ -42,7 +42,9 @@ export { buildScaffold, componentName, scaffoldDir } from './scaffold.js'
 export type { Scaffold } from './scaffold.js'
 export { finishSource, paletteFor } from './finish.js'
 export type { FinishEdit, FinishResult } from './finish.js'
-export { APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles } from './candidates.js'
+export {
+  APPROACHES, applyWork, captureWork, pickBest, revertTouched, revertWork, touchedFiles,
+} from './candidates.js'
 export type { Attempt, Work } from './candidates.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'
 export type { ManipulateRequest, ManipulateResult, ManipulateProp } from './manipulate.js'

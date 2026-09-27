@@ -232,6 +232,87 @@ const GUIDE_COLOR = '#ec4899'
 /** Two clicks on the selected element within this window toggle instance scope. */
 const DBLCLICK_MS = 450
 
+// ---- the lasso: circle elements, get a component ------------------------
+// "These belong together" is a thought people have while LOOKING at a page,
+// and the drawing gesture for it is to circle them. Every other tweak gesture
+// is already spoken for (body drag = move, handle = resize, band = spacing,
+// shift+click = multi-select, double-click = instance scope), so the lasso
+// takes the one modifier the overlay already owns: Alt. Alt+drag draws it;
+// Alt+L arms the next drag for anyone who would rather not hold a key.
+
+/**
+ * Violet, and neither cyan (a selection you can drag) nor amber (a shape you
+ * can paint): the lasso's outlines promise a THIRD thing — that these boxes
+ * are about to leave this file together.
+ */
+const LASSO_COLOR = '#8b5cf6'
+/**
+ * The hit rule, deliberately boring so it is predictable while drawing:
+ * an element is caught when its CENTRE lies inside the drawn path AND at least
+ * this much of its box lies inside the path's bounding box. The centre test is
+ * what the user feels ("I went round it"); the area test is what keeps a
+ * container the lasso merely passed THROUGH — the grid behind the two cards,
+ * the <section> behind that — out of a selection nobody circled.
+ */
+const LASSO_INSIDE = 0.75
+/** A lasso whose bbox diagonal never reaches this is an Alt+click, not a loop. */
+const LASSO_MIN_SPAN = 16
+/**
+ * Where a successful extract's receipt waits out the reload it causes.
+ *
+ * A new file in the module graph is more than React Fast Refresh can patch, so
+ * vite full-reloads the page — which tears down this overlay, its mode and its
+ * status line a second or two after the write lands. Without this handoff the
+ * user's reward for the whole gesture is a blank status bar and being dropped
+ * out of tweak mode: the one thing they need to read (what was written, and
+ * where) is destroyed by the thing that proves it worked. sessionStorage, not
+ * local: it belongs to this tab and this reload, and must never resurface days
+ * later in another window.
+ */
+const EXTRACT_STORE_KEY = 's2c:extracted'
+/** Older than this, the receipt is from some earlier reload — drop it. */
+const EXTRACT_RECEIPT_MS = 20_000
+/** One element the lasso caught: the live node, its stamp, and what to call it. */
+interface LassoHit { el: HTMLElement; srcLoc: string; label: string }
+/**
+ * The gesture in flight. Points are PAGE coords (a scroll mid-lasso must not
+ * move the loop relative to the content), and the candidate list + their rects
+ * are cached at press time: nothing in the page moves while a lasso is drawn,
+ * so re-reading layout on every pointermove would only cost frames.
+ */
+interface LassoState {
+  points: Array<{ x: number; y: number }>
+  cands: Array<{ el: HTMLElement; srcLoc: string; x: number; y: number; w: number; h: number }>
+  hits: LassoHit[]
+  /** false once the pointer is up and the confirm panel owns the gesture. */
+  drawing: boolean
+}
+
+/**
+ * Even-odd ray cast: is (x, y) inside the polygon the pointer traced? The path
+ * is treated as closed (last point back to first), because a hand-drawn loop
+ * never quite closes and refusing to catch anything until it does would make
+ * the gesture feel broken.
+ */
+function pointInPath(pts: Array<{ x: number; y: number }>, x: number, y: number): boolean {
+  let inside = false
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const a = pts[i]!
+    const b = pts[j]!
+    if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) inside = !inside
+  }
+  return inside
+}
+
+/** What to call a caught element in the status line and the confirm list. */
+function lassoLabel(el: HTMLElement): string {
+  const tag = el.tagName.toLowerCase()
+  // its own text, if it has a short one: "a “Reports”" is recognizable on the
+  // page in a way that "a · Navbar.tsx:7" is not
+  const text = (el.textContent ?? '').replace(/\s+/g, ' ').trim()
+  return text && text.length <= 24 ? `${tag} “${text}”` : tag
+}
+
 // ---- shape painting: reach INSIDE the artwork ---------------------------
 // The dev plugin stamps every JSX host element, so every <path>, <circle> and
 // <rect> already carries its own file:line:col. That makes a drawn shape as
@@ -807,6 +888,38 @@ const STYLES = css`
   #paintRow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   #paintCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
   #paintPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  /* The extract confirmation. Same reasoning as #paintPanel — it describes a
+     specific set of boxes on the page, so it sits beside them rather than in
+     the bar 600px away — but violet, matching LASSO_COLOR, and it is a
+     CONFIRMATION: nothing has been written when it appears. */
+  #lassoPanel {
+    position: fixed; left: 0; top: 0; z-index: 2147483001;
+    display: none; width: 250px; max-width: calc(100vw - 20px);
+    padding: 10px; border-radius: 12px;
+    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #6d28d9; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #lassoPanel.on { display: block; }
+  #lassoPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #c4b5fd; }
+  #lassoList {
+    margin-bottom: 8px; max-height: 108px; overflow-y: auto;
+    color: #d1d5db; font-size: 11px;
+  }
+  #lassoList div { padding: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #lassoName {
+    width: 100%; box-sizing: border-box; padding: 5px 8px; margin-bottom: 6px;
+    border-radius: 7px; border: 1px solid #4b5563; background: #1f2937;
+    color: #f9fafb; font: inherit;
+  }
+  #lassoName:focus { outline: none; border-color: #8b5cf6; }
+  #lassoActions { display: flex; gap: 6px; }
+  #lassoActions button { flex: 1; padding: 5px 8px; border-radius: 999px; font-size: 11px; }
+  #lassoGo { background: #7c3aed; color: #f9fafb; }
+  #lassoGo:hover { background: #8b5cf6; }
+  #lassoCancel { background: #374151; color: #d1d5db; }
+  #lassoCancel:hover { background: #4b5563; }
+  #lassoPanel .qNote { color: #9ca3af; margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -1194,6 +1307,15 @@ class Overlay {
   private paintOpen = false
   /** Which attribute the next swatch click writes. */
   private paintProp: 'fill' | 'stroke' = 'fill'
+  /** The extract confirmation, anchored to the lasso the same way. */
+  private lassoPanel: HTMLElement
+  private lassoWhat: HTMLElement
+  private lassoList: HTMLElement
+  private lassoName: HTMLInputElement
+  /** The lasso in flight: being drawn, or drawn and awaiting confirmation. */
+  private lasso: LassoState | null = null
+  /** Alt+L armed the NEXT drag as a lasso, for anyone not holding Alt. */
+  private lassoArmed = false
   /** Cached shape list for geometric hit-testing (see SHAPE_CACHE_MS). */
   private shapeCache: { at: number; els: SVGGeometryElement[] } | null = null
   private fidelityBtn: HTMLButtonElement
@@ -1446,6 +1568,53 @@ class Overlay {
     // The panel sits over the tweak-mode hit canvas; a press inside it is a
     // press on a control, never the start of a selection or a drag.
     paint.addEventListener('pointerdown', (e) => e.stopPropagation())
+
+    // The extract confirmation. Beside the lasso for the same reason the paint
+    // popover is beside its shape: it is about THESE boxes, and it has to be
+    // read next to them. Nothing is written until its button is pressed.
+    const lasso = document.createElement('div')
+    lasso.id = 'lassoPanel'
+    lasso.setAttribute('role', 'dialog')
+    lasso.setAttribute('aria-label', 'extract a component')
+    lasso.innerHTML = `
+      <div class="qHead" id="lassoWhat"></div>
+      <div id="lassoList"></div>
+      <input id="lassoName" type="text" autocomplete="off" spellcheck="false"
+             aria-label="component name" placeholder="Component name">
+      <div id="lassoActions">
+        <button id="lassoGo" title="move these elements into their own file">extract</button>
+        <button id="lassoCancel" title="write nothing (Esc)">cancel</button>
+      </div>
+      <div class="qNote">
+        These siblings move into a new file; a call site stays behind, and whatever
+        they needed from the surrounding scope is threaded through as props.
+        Enter extracts · Esc cancels.
+      </div>
+    `
+    this.shadow.appendChild(lasso)
+    this.lassoPanel = lasso
+    this.lassoWhat = this.shadow.getElementById('lassoWhat')!
+    this.lassoList = this.shadow.getElementById('lassoList')!
+    this.lassoName = this.shadow.getElementById('lassoName') as HTMLInputElement
+    this.shadow.getElementById('lassoGo')!.addEventListener('click', () => void this.commitExtract())
+    this.shadow.getElementById('lassoCancel')!.addEventListener('click', () =>
+      this.cancelLasso('extract cancelled — nothing written'))
+    lasso.addEventListener('pointerdown', (e) => e.stopPropagation())
+    // Same contract as the note field: the name belongs to this input, not to
+    // the overlay's keymap (Alt-less letters are free, but Escape and Enter
+    // are not) and not to the host app.
+    this.lassoName.addEventListener('keydown', (e) => {
+      e.stopPropagation()
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        void this.commitExtract()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        this.cancelLasso('extract cancelled — nothing written')
+      }
+    })
+    this.lassoName.addEventListener('keyup', (e) => e.stopPropagation())
+    this.lassoName.addEventListener('keypress', (e) => e.stopPropagation())
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -1577,6 +1746,9 @@ class Overlay {
     this.restoreCandidates()
     this.restoreFidelity()
     this.restoreAuto()
+    // last of the restores: it owns the status line, and it only fires on the
+    // one boot that follows an extract
+    this.restoreAfterExtract()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -1606,6 +1778,17 @@ class Overlay {
         tag: this.tweak?.el.tagName.toLowerCase() ?? null,
         srcLoc: this.tweak?.srcLoc ?? null,
       }),
+      // What the lasso believes it caught, and what it would put on the wire.
+      // The whole risk in this gesture is extracting DIFFERENT elements than
+      // the ones highlighted, so the highlight set has to be observable.
+      lasso: () => (this.lasso == null ? null : {
+        drawing: this.lasso.drawing,
+        armed: this.lassoArmed,
+        points: this.lasso.points.length,
+        hits: this.lasso.hits.map((h) => ({ srcLoc: h.srcLoc, label: h.label })),
+        srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
+        panelOpen: this.lassoPanel.classList.contains('on'),
+      }),
       // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
       // compared against the live rects of the elements it is describing
       plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
@@ -1620,6 +1803,14 @@ class Overlay {
     // the paint popover describes a tweak-mode selection; it must not outlive
     // the mode that owns it (it is position:fixed and would hang over the app)
     if (m !== 'tweak' && this.paintOpen) this.setPaintOpen(false)
+    // …and neither may a lasso: it describes elements in tweak mode's own
+    // coordinate system of "things you can select", and drawing continues over
+    // the same canvas
+    if (m !== 'tweak' && (this.lasso || this.lassoArmed)) {
+      this.lasso = null
+      this.lassoArmed = false
+      this.lassoPanel.classList.remove('on')
+    }
     this.mode = m
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
@@ -1786,6 +1977,13 @@ class Overlay {
       {
         id: 'tweak', keys: 'Alt+T', label: 'tweak mode — move/resize/space elements, zero tokens', group: 'drawing',
         match: altBind('KeyT', 't'), run: () => this.toggleTweak(),
+      },
+      {
+        // The gesture is Alt+drag; this key exists so it is discoverable HERE,
+        // and so the loop can be drawn without holding a modifier down.
+        id: 'lasso', keys: 'Alt+L',
+        label: 'lasso: circle elements → extract a component (or just hold Alt and drag)',
+        group: 'drawing', match: altBind('KeyL', 'l'), run: () => this.armLasso(),
       },
       {
         id: 'undo', keys: 'Ctrl/⌘+Z', label: 'undo — last stroke while drawing, else the last edit written',
@@ -1963,6 +2161,23 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // The newest and shallowest rung there is: a loop being drawn, or one
+    // waiting for a name. Neither has written anything, and both are gestures
+    // the user is still inside — so Esc here means "not these", not "leave
+    // tweak mode" and not "close the palette underneath".
+    if (this.lasso) {
+      this.cancelLasso(
+        this.lasso.drawing ? 'lasso cancelled' : 'extract cancelled — nothing written',
+      )
+      return
+    }
+    // …and an armed-but-undrawn lasso disarms rather than doing nothing: Alt+L
+    // with second thoughts should not need a drag to undo.
+    if (this.lassoArmed) {
+      this.lassoArmed = false
+      this.status('lasso off — drag moves elements again')
+      return
+    }
     // Above even the pending-run rung, and it costs that rung nothing: the
     // paint popover only exists while a shape is selected in TWEAK mode, and
     // autoBlock() already refuses to count down outside draw mode — so these
@@ -2799,6 +3014,356 @@ class Overlay {
     }
   }
 
+  // ---- the lasso: circle elements, get a component ----------------------
+  // The gesture: hold Alt in tweak mode and drag a loop around a few elements
+  // (Alt+L arms the next drag instead, for anyone who would rather not hold a
+  // key). Alt is the one modifier free here — plain drag moves, handle drag
+  // resizes, band drag spaces, shift+click multi-selects, double-click
+  // rescopes — and it is already the overlay's own namespace (Alt+T, Alt+K),
+  // so "hold the overlay's key and draw" reads as one idea rather than a
+  // second convention.
+  //
+  // What comes back is decided server-side (siblings, contiguous, one file),
+  // and its refusals are written for a human, so they are shown verbatim.
+
+  /**
+   * Pick the receipt back up after the reload the extract caused: say what was
+   * written, and put the user back in tweak mode, where they were and where
+   * the next lasso has to start. Runs once — the key is consumed.
+   */
+  private restoreAfterExtract() {
+    let parked: { receipt?: unknown; at?: unknown } | null = null
+    try {
+      const raw = sessionStorage.getItem(EXTRACT_STORE_KEY)
+      sessionStorage.removeItem(EXTRACT_STORE_KEY)
+      parked = raw ? (JSON.parse(raw) as { receipt?: unknown; at?: unknown }) : null
+    } catch { /* unreadable storage just means no receipt */ }
+    if (!parked || typeof parked.receipt !== 'string') return
+    // a stale key (an old tab restored from history) must not claim that
+    // something was just written
+    if (typeof parked.at !== 'number' || Date.now() - parked.at > EXTRACT_RECEIPT_MS) return
+    if (this.mode !== 'tweak') this.toggleTweak()
+    this.status(parked.receipt)
+  }
+
+  /** Alt+L: arm the next drag, entering tweak mode if we're not in it. */
+  private armLasso() {
+    if (this.lasso) {
+      this.cancelLasso('lasso cancelled')
+      return
+    }
+    // a lasso outside tweak mode has nothing to circle — the hit canvas isn't
+    // even taking pointer events there, so arming alone would do nothing
+    if (this.mode !== 'tweak') this.toggleTweak()
+    this.lassoArmed = !this.lassoArmed
+    this.status(
+      this.lassoArmed
+        ? 'lasso armed — drag a loop around the elements to extract (Esc cancels)'
+        : 'lasso off — drag moves elements again',
+    )
+  }
+
+  /** True while a drawn lasso is waiting for a name and a press. */
+  private lassoPending(): boolean {
+    return this.lasso != null && !this.lasso.drawing
+  }
+
+  /**
+   * Every stamped element that could be caught, with its PAGE rect, measured
+   * once at press time. Layout cannot move while a lasso is being drawn (the
+   * lasso writes nothing), so this is both cheaper and steadier than
+   * re-reading rects on every pointermove.
+   */
+  private lassoCandidates(): LassoState['cands'] {
+    const out: LassoState['cands'] = []
+    for (const el of document.querySelectorAll<HTMLElement>('[data-s2c]')) {
+      const srcLoc = el.dataset.s2c
+      if (!srcLoc || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      if (r.width < 1 || r.height < 1) continue
+      const cs = getComputedStyle(el)
+      if (cs.visibility === 'hidden' || cs.display === 'none') continue
+      out.push({ el, srcLoc, x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height })
+    }
+    return out
+  }
+
+  /**
+   * The hit rule, in three passes:
+   *
+   *  1. GEOMETRY (see LASSO_INSIDE): centre inside the drawn path, box mostly
+   *     inside the path's bounding box.
+   *  2. VISIBILITY: at its own centre, the element has to be what the pointer
+   *     would find — itself, something inside it, or (for pointer-events:none
+   *     artwork) something that contains it. This is pickShape's guard, for
+   *     pickShape's reason: the demo app has a full-bleed decorative SVG at
+   *     -z-10, and without this, circling two cards catches seven invisible
+   *     chevrons sitting BEHIND them — a selection spanning two files that the
+   *     user never saw and the server rightly refuses.
+   *  3. OUTERMOST only: circling two cards means the two cards, not also the
+   *     six paragraphs inside them.
+   */
+  private lassoHits(l: LassoState): LassoHit[] {
+    if (l.points.length < 3) return []
+    const xs = l.points.map((p) => p.x)
+    const ys = l.points.map((p) => p.y)
+    const bx0 = Math.min(...xs)
+    const by0 = Math.min(...ys)
+    const bx1 = Math.max(...xs)
+    const by1 = Math.max(...ys)
+    const geo = l.cands.filter((c) => {
+      if (!pointInPath(l.points, c.x + c.w / 2, c.y + c.h / 2)) return false
+      const ox = Math.max(0, Math.min(bx1, c.x + c.w) - Math.max(bx0, c.x))
+      const oy = Math.max(0, Math.min(by1, c.y + c.h) - Math.max(by0, c.y))
+      return ox * oy >= LASSO_INSIDE * c.w * c.h
+    })
+    // one pointer-events toggle for the whole batch: elementUnder flips it per
+    // call, and a style flush per candidate per pointermove is a frame tax
+    this.canvas.style.pointerEvents = 'none'
+    const caught = geo.filter((c) => {
+      const u = document.elementFromPoint(c.x + c.w / 2 - window.scrollX, c.y + c.h / 2 - window.scrollY)
+      // off-viewport (a scroll mid-lasso): geometry is the only evidence there is
+      if (!u) return true
+      return u === c.el || c.el.contains(u) || u.contains(c.el)
+    })
+    this.canvas.style.pointerEvents = ''
+    return caught
+      .filter((c) => !caught.some((o) => o !== c && o.el.contains(c.el)))
+      .map((c) => ({ el: c.el, srcLoc: c.srcLoc, label: lassoLabel(c.el) }))
+  }
+
+  private startLasso(e: PointerEvent) {
+    // a palette describing a selection we're about to replace is noise
+    if (this.paintOpen) this.setPaintOpen(false)
+    this.lassoArmed = false
+    this.hoverEl = null
+    this.lasso = {
+      points: [{ x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }],
+      cands: this.lassoCandidates(),
+      hits: [],
+      drawing: true,
+    }
+    this.canvas.setPointerCapture(e.pointerId)
+    this.canvas.style.cursor = 'crosshair'
+    this.status('drawing a lasso — circle the elements to extract')
+    this.redraw()
+  }
+
+  private moveLasso(e: PointerEvent) {
+    const l = this.lasso
+    if (!l?.drawing) return
+    const evs = 'getCoalescedEvents' in e ? e.getCoalescedEvents() : [e]
+    for (const ev of evs) {
+      l.points.push({ x: ev.clientX + window.scrollX, y: ev.clientY + window.scrollY })
+    }
+    l.hits = this.lassoHits(l)
+    // the count is the live feedback: it tells the user whether the loop is
+    // wide enough BEFORE they let go
+    this.status(
+      l.hits.length === 0
+        ? 'lasso: nothing caught yet — go all the way round the elements'
+        : `lasso: ${l.hits.length} element${l.hits.length === 1 ? '' : 's'} — ${l.hits.map((h) => h.label).join(', ')}`,
+    )
+    this.redraw()
+  }
+
+  private endLasso(e: PointerEvent) {
+    const l = this.lasso
+    if (!l?.drawing) return
+    this.canvas.releasePointerCapture?.(e.pointerId)
+    this.canvas.style.cursor = 'default'
+    if (e.type === 'pointercancel') {
+      this.cancelLasso('lasso cancelled')
+      return
+    }
+    const xs = l.points.map((p) => p.x)
+    const ys = l.points.map((p) => p.y)
+    const span = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys))
+    if (span < LASSO_MIN_SPAN) {
+      // an Alt+click, or a twitch: not a loop, and silently selecting whatever
+      // was under it would be a different gesture than the one attempted
+      this.cancelLasso('lasso too small — hold Alt and drag a loop around the elements')
+      return
+    }
+    l.hits = this.lassoHits(l)
+    if (l.hits.length === 0) {
+      this.cancelLasso('lasso caught nothing — the loop has to go round an element’s centre')
+      return
+    }
+    l.drawing = false
+    this.openLassoConfirm(l)
+  }
+
+  /**
+   * Show what is about to happen, then wait. A refactor that renames a file
+   * and rewrites a call site is not something to fire off the back of a mouse
+   * release — so the count, the elements, and the name are all on screen, and
+   * nothing is written until the button (or Enter) is pressed.
+   */
+  private openLassoConfirm(l: LassoState) {
+    const stamps = [...new Set(l.hits.map((h) => h.srcLoc))]
+    const n = l.hits.length
+    this.lassoWhat.textContent =
+      `extract ${String(n)} element${n === 1 ? '' : 's'} into a component`
+    this.lassoList.replaceChildren(...l.hits.map((h) => {
+      const row = document.createElement('div')
+      row.textContent = `${h.label} · ${stampFile(h.srcLoc)}`
+      row.title = h.srcLoc
+      return row
+    }))
+    // One stamp caught more than once = a .map() template: the extraction is
+    // of the TEMPLATE, so every instance moves. Saying so here is cheaper than
+    // the user discovering it from three cards changing at once.
+    if (stamps.length < n) {
+      const note = document.createElement('div')
+      note.textContent = `(${String(stamps.length)} template${stamps.length === 1 ? '' : 's'} — the others are repeats of it)`
+      note.style.color = '#c4b5fd'
+      this.lassoList.appendChild(note)
+    }
+    // Neutral on purpose: the server will PascalCase whatever lands here and
+    // fall back to exactly this when it is not a usable identifier.
+    this.lassoName.value = 'Extracted'
+    this.lassoPanel.classList.add('on')
+    this.layoutLassoPanel()
+    this.lassoName.focus()
+    this.lassoName.select()
+    this.status(`lasso: ${String(n)} element${n === 1 ? '' : 's'} — name it and press Enter, Esc cancels`)
+    this.redraw()
+  }
+
+  /** Keep the confirmation beside the loop it describes (cf. layoutPaintPanel). */
+  private layoutLassoPanel() {
+    const l = this.lasso
+    if (!l || l.drawing) return
+    const xs = l.points.map((p) => p.x - window.scrollX)
+    const ys = l.points.map((p) => p.y - window.scrollY)
+    const right = Math.max(...xs)
+    const top = Math.min(...ys)
+    const w = this.lassoPanel.offsetWidth
+    const h = this.lassoPanel.offsetHeight
+    let x = right + PANEL_GAP
+    if (x + w > window.innerWidth - PANEL_GAP) x = Math.min(...xs) - w - PANEL_GAP
+    x = Math.min(Math.max(PANEL_GAP, x), Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP))
+    const y = Math.min(Math.max(PANEL_GAP, top), Math.max(PANEL_GAP, window.innerHeight - h - PANEL_GAP))
+    this.lassoPanel.style.left = `${String(Math.round(x))}px`
+    this.lassoPanel.style.top = `${String(Math.round(y))}px`
+  }
+
+  /** Drop the gesture with nothing written. Idempotent. */
+  private cancelLasso(msg: string) {
+    this.lasso = null
+    this.lassoArmed = false
+    this.lassoPanel.classList.remove('on')
+    this.canvas.style.cursor = 'default'
+    this.status(msg)
+    this.redraw()
+  }
+
+  /**
+   * POST the stamps. The server owns every hard question — are these siblings,
+   * are they contiguous, which identifiers have to become props — and answers
+   * refusals in sentences written to be read, so they land on the status line
+   * WORD FOR WORD. "extract failed" would be the same information as nothing.
+   */
+  private async commitExtract(): Promise<void> {
+    const l = this.lasso
+    if (!l || l.drawing) return
+    // dedupe: three cards from one .map() are one JSX element, and sending the
+    // same stamp three times would only make the server dedupe it
+    const srcLocs = [...new Set(l.hits.map((h) => h.srcLoc))]
+    const name = this.lassoName.value.trim()
+    this.status(`extracting ${String(srcLocs.length)} element${srcLocs.length === 1 ? '' : 's'}…`)
+    this.lassoPanel.classList.remove('on')
+    try {
+      const res = await fetch('/@s2c/extract', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLocs, ...(name ? { name } : {}) }),
+      })
+      const out = (await res.json()) as {
+        ok: boolean; file?: string; name?: string; from?: string; props?: string[]; error?: string
+      }
+      if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      const props = out.props?.length ? ` · props: ${out.props.join(', ')}` : ''
+      const receipt =
+        `✓ ${out.name ?? 'component'} → ${out.file ?? '?'} · call site in ${out.from ?? '?'}${props} · ` +
+        '0 tokens · Ctrl+Z undoes it'
+      this.status(receipt)
+      // …and park it where the reload this write is about to cause can't
+      // destroy it (see EXTRACT_STORE_KEY)
+      try {
+        sessionStorage.setItem(EXTRACT_STORE_KEY, JSON.stringify({ receipt, at: Date.now() }))
+      } catch { /* blocked storage: the receipt is just shorter-lived */ }
+      // The page is about to hot-reload with a DIFFERENT tree: the elements
+      // that were circled no longer exist at those stamps. Holding any of it
+      // would leave the overlay outlining ghosts and pointing later edits at
+      // lines that moved.
+      this.lasso = null
+      this.lassoArmed = false
+      this.tweak = null
+      this.multiSel = []
+      this.hoverEl = null
+      this.lastTweakClick = null
+      this.redraw()
+    } catch (err) {
+      // keep the lasso and the panel: a refusal is usually fixable by drawing
+      // a slightly different loop, and dropping the selection would make the
+      // user start over to act on what they were just told
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      if (this.lasso) {
+        this.lassoPanel.classList.add('on')
+        this.layoutLassoPanel()
+      }
+      this.redraw()
+    }
+  }
+
+  /** The loop, the boxes it caught, and the count — violet throughout. */
+  private drawLasso() {
+    const l = this.lasso
+    if (!l) return
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    ctx.save()
+    // caught boxes first, so the loop draws over them
+    ctx.strokeStyle = LASSO_COLOR
+    ctx.fillStyle = 'rgba(139,92,246,0.12)'
+    ctx.lineWidth = 2
+    for (const h of l.hits) {
+      if (!document.contains(h.el)) continue
+      const r = h.el.getBoundingClientRect()
+      ctx.fillRect(r.left, r.top, r.width, r.height)
+      ctx.strokeRect(r.left, r.top, r.width, r.height)
+    }
+    // the loop itself: dashed while it is still being drawn (it is not a shape
+    // yet), closed and solid once it is waiting for confirmation
+    ctx.beginPath()
+    ctx.moveTo(l.points[0]!.x - sx, l.points[0]!.y - sy)
+    for (const p of l.points.slice(1)) ctx.lineTo(p.x - sx, p.y - sy)
+    if (!l.drawing) ctx.closePath()
+    ctx.strokeStyle = LASSO_COLOR
+    ctx.lineWidth = 2
+    ctx.setLineDash(l.drawing ? [7, 5] : [])
+    ctx.stroke()
+    ctx.setLineDash([])
+    // count badge at the loop's start, where the pointer began
+    const n = l.hits.length
+    const label = n === 0 ? 'lasso — nothing caught' : `${String(n)} to extract`
+    ctx.font = '11px ui-sans-serif, system-ui'
+    const lw = ctx.measureText(label).width + 12
+    const lx = Math.max(2, Math.min(l.points[0]!.x - sx, window.innerWidth - lw - 2))
+    const ly = Math.max(2, l.points[0]!.y - sy - 24)
+    ctx.fillStyle = LASSO_COLOR
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, lw, 17, 8)
+    ctx.fill()
+    ctx.fillStyle = '#fff'
+    ctx.fillText(label, lx + 6, ly + 12)
+    ctx.restore()
+    if (!l.drawing) this.layoutLassoPanel()
+  }
+
   /** Clamp a popover under the bar, shared by both panels. */
   private layoutPanel(panel: HTMLElement) {
     panel.style.left = '0px'
@@ -3609,6 +4174,13 @@ class Overlay {
   private exitTweak(msg: string) {
     if (this.tweak) this.clearTweakPreview()
     if (this.paintOpen) this.setPaintOpen(false)
+    // a loop (or a pending extract) is a tweak-mode gesture: leaving the mode
+    // takes it with us, and never commits it
+    if (this.lasso || this.lassoArmed) {
+      this.lasso = null
+      this.lassoArmed = false
+      this.lassoPanel.classList.remove('on')
+    }
     this.tweak = null
     this.hoverEl = null
     this.multiSel = []
@@ -4587,6 +5159,18 @@ class Overlay {
 
   private onTweakDown(e: PointerEvent) {
     if (e.button !== 0) return
+    // A pending extract owns the next press: pressing anywhere else means "not
+    // these after all", and starting a fresh selection underneath an open
+    // confirmation would leave the panel describing boxes nobody is looking at.
+    if (this.lassoPending()) {
+      this.cancelLasso('extract cancelled — nothing written')
+      return
+    }
+    // Alt+drag (or a drag after Alt+L) draws a lasso instead of moving things.
+    if (e.altKey || this.lassoArmed) {
+      this.startLasso(e)
+      return
+    }
     // an external edit's HMR may have remounted the selection: re-resolve via
     // its stamp instead of hit-testing a detached element's 0×0 phantom rect
     if (this.tweak && !document.contains(this.tweak.el)) {
@@ -4665,6 +5249,29 @@ class Overlay {
   }
 
   private onTweakMove(e: PointerEvent) {
+    if (this.lasso?.drawing) {
+      this.moveLasso(e)
+      return
+    }
+    // A pending extract: the page is not hoverable while a confirmation is
+    // describing a set of boxes — a dashed outline round a different element
+    // would read as part of the selection being confirmed.
+    if (this.lassoPending()) {
+      this.canvas.style.cursor = 'default'
+      if (this.hoverEl) {
+        this.hoverEl = null
+        this.redraw()
+      }
+      return
+    }
+    // Alt held with nothing drawn yet: the cursor has to say that this drag
+    // would draw a loop rather than move whatever is under it
+    if (!this.lasso && (e.altKey || this.lassoArmed)) {
+      this.canvas.style.cursor = 'crosshair'
+      this.hoverEl = null
+      this.redraw()
+      return
+    }
     const t = this.tweak
     if (t?.moveDrag) {
       const md = t.moveDrag
@@ -4865,6 +5472,10 @@ class Overlay {
   }
 
   private async onTweakUp(e: PointerEvent) {
+    if (this.lasso?.drawing) {
+      this.endLasso(e)
+      return
+    }
     const t = this.tweak
     // pointercancel = the browser took the gesture away (pen left range,
     // gesture takeover): abandon the drag, never commit from it
@@ -5234,6 +5845,9 @@ class Overlay {
     }
     if (this.mode === 'preview') this.drawPreview()
     if (this.mode === 'tweak') this.drawTweak()
+    // after drawTweak: the lasso is the thing the user is doing RIGHT NOW, and
+    // a selection ring drawn over it would hide which boxes it has caught
+    if (this.mode === 'tweak') this.drawLasso()
   }
 
   // ---- pipeline ----

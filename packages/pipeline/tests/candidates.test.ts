@@ -3,7 +3,9 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { applyWork, captureWork, pickBest, revertWork, touchedFiles, type Attempt } from '../src/candidates.js'
+import {
+  applyWork, captureWork, pickBest, revertTouched, revertWork, touchedFiles, type Attempt,
+} from '../src/candidates.js'
 import { checkpoint } from '../src/safety.js'
 
 const git = (cwd: string, ...args: string[]) => execFileSync('git', args, { cwd, encoding: 'utf8' })
@@ -38,6 +40,28 @@ describe('capturing an attempt', () => {
     const cp = checkpoint(app, true)
     rmSync(join(app, 'src/Existing.tsx'))
     expect(captureWork(app, cp).get('src/Existing.tsx')).toBeNull()
+  })
+})
+
+describe('undoing one edit, the way Ctrl+Z does', () => {
+  it('takes the created component with it, not just the call site', () => {
+    const { app } = repo()
+    const cp = checkpoint(app, true)
+    // the exact shape an extract leaves behind: a new component plus a call
+    // site pointing at it. Undo used to restore only the second, which left
+    // the page importing a file that no longer had any reason to exist.
+    writeFileSync(join(app, 'src/Card.tsx'), 'export default function Card() { return null }\n')
+    writeFileSync(join(app, 'src/Existing.tsx'), "import Card from './Card'\nexport const a = <Card />\n")
+
+    expect(revertTouched(app, cp).sort()).toEqual(['src/Card.tsx', 'src/Existing.tsx'])
+
+    expect(existsSync(join(app, 'src/Card.tsx'))).toBe(false)
+    expect(readFileSync(join(app, 'src/Existing.tsx'), 'utf8')).toBe('export const a = 1\n')
+  })
+
+  it('reports nothing when there is nothing to undo', () => {
+    const { app } = repo()
+    expect(revertTouched(app, checkpoint(app, true))).toEqual([])
   })
 })
 

@@ -276,6 +276,37 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
       })
 
+      /**
+       * Extract a component. The overlay circles a few elements; this moves
+       * that contiguous run of siblings into its own file and leaves a call
+       * site behind. Same treatment as every other write: token-gated,
+       * checkpointed, pushed onto the undo stack.
+       *
+       * The refusals are the interesting half, and they travel VERBATIM — the
+       * pipeline's messages ("those elements have others between them — select
+       * a contiguous run") name the fix, so wrapping them in a generic
+       * "extract failed" would throw away the only thing worth saying.
+       *
+       * One honest asymmetry: an undo restores the call site, but the NEW file
+       * is untracked, and `git diff` (hence changedFiles) does not see
+       * untracked paths — so it stays on disk, orphaned and imported by
+       * nothing. The overlay's receipt says so rather than promising a revert
+       * that only half happens.
+       */
+      server.middlewares.use('/@s2c/extract', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLocs: string[]; name?: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.extractComponent(root, { srcLocs: body.srcLocs, name: body.name })
+            if (result.ok) undoStack.push({ sha: cp.sha, label: `extract ${result.name ?? 'component'}` })
+            sendJson(res, 200, { ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
@@ -344,9 +375,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             while (undoStack.length) {
               const entry = undoStack.pop()!
               const cp = { sha: entry.sha, toplevel: root, dirtyBefore: true }
-              const files = m.changedFiles(root, cp)
+              // revertTouched, not changedFiles+restore: an edit that CREATED
+              // a file (an extract, the instant render) leaves that file
+              // untracked, so a diff never sees it and undo used to put the
+              // call site back while orphaning the component it referenced
+              const files = m.revertTouched(root, cp)
               if (files.length === 0) continue // that edit was already reverted
-              m.revertToCheckpoint(root, cp, files)
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
             sendJson(res, 200, { ok: true, undid: null })
