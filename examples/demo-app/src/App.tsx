@@ -6,6 +6,7 @@ import CornerBadge from './components/CornerBadge'
 import CrabDoodle from './components/CrabDoodle'
 import GutterMarks from './components/GutterMarks'
 import Navbar from './components/Navbar'
+import PlanCard from './components/PlanCard'
 import StatCards from './components/StatCards'
 import ContactForm from './components/ContactForm'
 import UserTable from './components/UserTable'
@@ -26,6 +27,7 @@ export default function App() {
               <WeeklySchedule />
               <UserTable />
             </div>
+            <PlanCard title="Team" seats={12} tone="accent" />
             <CornerBadge />
             <CrabDoodle />
             <CompanionDoodle />
