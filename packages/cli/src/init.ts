@@ -295,7 +295,7 @@ export async function runInit(options: InitOptions): Promise<InitResult> {
     const resolved = resolveFromProject(dir, dep.name)
     if (!resolved) {
       push('verify', 'failed', `${dep.name} is not resolvable from ${dir} — the config will throw on ` +
-        `\`npm run dev\`. Run \`npm install\`${dep.source === 'local-checkout' ? ' and `npm run build` in the checkout' : ''} and re-run \`sketch2code doctor\`.`)
+        `\`npm run dev\`. Run \`npm install\`${dep.source === 'local-checkout' ? ' and `npm run build` in the checkout' : ''} and re-run \`sketch-to-code doctor\`.`)
     } else {
       probe = probeViteConfig(dir, plan.action === 'none' ? project.viteConfigPath : plan.path)
       if (probe.ok && probe.hasSketch2code) {
