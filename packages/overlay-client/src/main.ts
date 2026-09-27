@@ -316,6 +316,33 @@ interface DataDrag {
   value: string
 }
 
+// ---- props read off the types -------------------------------------------
+/** One prop, as the server derived it from the component's own type. */
+interface PropSpec {
+  name: string
+  kind: 'string' | 'number' | 'boolean' | 'enum' | 'other'
+  options?: string[]
+  required: boolean
+  typeText: string
+  editable: boolean
+  why?: string
+}
+/** One place the component is used, and the literal values written there. */
+interface PropCallSite {
+  loc: string
+  values: Record<string, string>
+  expressions: string[]
+}
+interface PropsRead {
+  ok: boolean
+  component?: string
+  file?: string
+  props?: PropSpec[]
+  callSites?: PropCallSite[]
+  notes?: string[]
+  error?: string
+}
+
 /** A bare page point. Not a Pt: a rule's geometry is measured, not drawn. */
 interface XY { x: number; y: number }
 
@@ -1059,6 +1086,40 @@ const STYLES = css`
   }
   #watchList button:hover { background: #7f1d1d; color: #fee2e2; }
   #watchPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  /* The props panel: controls derived from the component's own TypeScript
+     types. Beside the element for the same reason the paint popover is — it is
+     about THAT component — and slate rather than a gesture colour, because
+     nothing here is a gesture. */
+  #propsPanel {
+    position: fixed; left: 0; top: 0; z-index: 2147483001;
+    display: none; width: 276px; max-width: calc(100vw - 20px);
+    padding: 10px; border-radius: 12px;
+    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #475569; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    cursor: default; text-align: left; white-space: normal;
+  }
+  #propsPanel.on { display: block; }
+  #propsPanel .qHead { font-weight: 600; margin-bottom: 2px; color: #cbd5e1; }
+  #propsWhere {
+    color: #94a3b8; font-size: 11px; margin-bottom: 8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #propsWhere select { width: 100%; margin-top: 4px; }
+  #propsBody { max-height: 260px; overflow-y: auto; }
+  #propsBody .pRow { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
+  #propsBody .pName { flex: 0 0 84px; color: #e5e7eb; font-size: 11px; }
+  #propsBody .pName i { color: #64748b; font-style: normal; }
+  #propsBody .pCtl { flex: 1; min-width: 0; }
+  #propsBody input[type='text'], #propsBody input[type='number'], #propsBody select {
+    width: 100%; box-sizing: border-box; padding: 3px 6px; border-radius: 6px;
+    border: 1px solid #475569; background: #1f2937; color: #f9fafb; font: inherit; font-size: 11px;
+  }
+  #propsBody input:focus, #propsBody select:focus { outline: none; border-color: #94a3b8; }
+  #propsBody input[type='checkbox'] { width: 14px; height: 14px; accent-color: #64748b; }
+  #propsBody .pOff { color: #64748b; font-size: 11px; padding: 3px 0 5px; }
+  #propsBody .pOff b { color: #94a3b8; font-weight: 600; }
+  #propsNotes { color: #9ca3af; font-size: 11px; margin-top: 8px; }
+  #propsPanel .qNote { color: #9ca3af; margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -1472,6 +1533,16 @@ class Overlay {
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
+  /** The props panel: controls derived from the selected component's types. */
+  private propsPanel: HTMLElement
+  private propsHead: HTMLElement
+  private propsWhere: HTMLElement
+  private propsBody: HTMLElement
+  private propsNotes: HTMLElement
+  private propsOpen = false
+  private propsData: PropsRead | null = null
+  /** Which call site the controls write to, when a component is used more than once. */
+  private propsSite = 0
   /** The value drag in flight, and whether the next drag is one. */
   private dataDrag: DataDrag | null = null
   private dataArmed = false
@@ -1844,6 +1915,36 @@ class Overlay {
     this.watchHead = this.shadow.getElementById('watchHead')!
     watch.addEventListener('pointerdown', (e) => e.stopPropagation())
 
+    // The props panel. Its contents are built entirely from what the server
+    // read out of the component's types, so there is nothing to declare here
+    // but the frame.
+    const props = document.createElement('div')
+    props.id = 'propsPanel'
+    props.setAttribute('role', 'dialog')
+    props.setAttribute('aria-label', 'component props')
+    props.innerHTML = `
+      <div class="qHead" id="propsHead"></div>
+      <div id="propsWhere"></div>
+      <div id="propsBody"></div>
+      <div id="propsNotes"></div>
+      <div class="qNote">
+        Read from this component's TypeScript types · every change is a real
+        edit at the call site · 0 tokens · Ctrl+Z undoes it.
+      </div>
+    `
+    this.shadow.appendChild(props)
+    this.propsPanel = props
+    this.propsHead = this.shadow.getElementById('propsHead')!
+    this.propsWhere = this.shadow.getElementById('propsWhere')!
+    this.propsBody = this.shadow.getElementById('propsBody')!
+    this.propsNotes = this.shadow.getElementById('propsNotes')!
+    props.addEventListener('pointerdown', (e) => e.stopPropagation())
+    // the controls own their keys: typing a title must not fire the overlay's
+    // single-letter bindings, and Escape belongs to the field being edited
+    for (const ev of ['keydown', 'keyup', 'keypress']) {
+      props.addEventListener(ev, (e) => e.stopPropagation())
+    }
+
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
@@ -1955,6 +2056,7 @@ class Overlay {
       this.layoutFidelityPanel()
       if (this.penOpen) this.layoutPanel(this.penPanel)
       if (this.ruleDraw) this.layoutRulePanel()
+      if (this.propsOpen) this.layoutPropsPanel()
       // an alignment that holds at 1280px is exactly the thing that breaks at
       // 900, so a resize is a real reason to re-check
       if (this.rules.length) this.scheduleRuleCheck()
@@ -1992,6 +2094,7 @@ class Overlay {
     window.addEventListener('scroll', () => {
       const t = this.tweak
       if (t?.moveDrag) this.applyMovePreview(t, t.moveDrag)
+      if (this.propsOpen) this.layoutPropsPanel()
       this.redraw()
     }, { passive: true, capture: true })
 
@@ -2057,6 +2160,19 @@ class Overlay {
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
       }),
+      // What the props panel read, and what it would write where. A control
+      // that edits a DIFFERENT call site than the one named is the failure
+      // mode here, so both have to be observable.
+      props: () => ({
+        open: this.propsOpen,
+        component: this.propsData?.component ?? null,
+        site: (this.propsData?.callSites ?? [])[this.propsSite]?.loc ?? null,
+        values: (this.propsData?.callSites ?? [])[this.propsSite]?.values ?? null,
+        specs: (this.propsData?.props ?? []).map((p) => ({
+          name: p.name, kind: p.kind, options: p.options, editable: p.editable, why: p.why,
+        })),
+        notes: this.propsData?.notes ?? [],
+      }),
       // Which two elements a value drag would put on the wire. Copying from
       // or into a DIFFERENT element than the one outlined is the failure mode
       // here, so both ends have to be observable.
@@ -2105,6 +2221,7 @@ class Overlay {
         this.dataDrag || this.dataArmed)) {
       this.dataDrag = null
       this.dataArmed = false
+      if (this.propsOpen) void this.setPropsOpen(false)
       this.lasso = null
       this.lassoArmed = false
       this.lassoPanel.classList.remove('on')
@@ -2201,6 +2318,10 @@ class Overlay {
         const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
         if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
         this.status(body.undid ? `↩ undid: ${body.undid}` : 'nothing to undo')
+        // an undo rewrites the files the panel and the rules read from, so
+        // both would otherwise keep showing the state that was just discarded
+        if (this.propsOpen) await this.readProps()
+        if (this.rules.length) this.scheduleRuleCheck()
       } catch (err) {
         this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
       }
@@ -2293,6 +2414,11 @@ class Overlay {
         id: 'rule', keys: 'Alt+Shift+R', group: 'drawing',
         label: 'rule: drag a line down two edges (or across a gap) → a check that keeps watching',
         match: altBind('KeyR', 'r', true), run: () => this.armRule(),
+      },
+      {
+        id: 'props', keys: 'Alt+O', group: 'drawing',
+        label: 'props panel — controls for the selected component, read off its own types',
+        match: altBind('KeyO', 'o'), run: () => void this.setPropsOpen(!this.propsOpen),
       },
       {
         id: 'dragdata', keys: 'Alt+V', group: 'drawing',
@@ -2480,6 +2606,12 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // The props panel closes before anything that would drop the selection it
+    // is describing: Esc here means "done with these controls", not "deselect".
+    if (this.propsOpen) {
+      void this.setPropsOpen(false)
+      return
+    }
     // A value in mid-air, or an armed-but-unused value drag: nothing has been
     // written, and the user is still inside the gesture.
     if (this.dataDrag) {
@@ -4363,6 +4495,231 @@ class Overlay {
     ctx.textBaseline = 'alphabetic'
   }
 
+  // ---- props read off the types -----------------------------------------
+  // Alt+O on a selection. The component that renders the selected element is
+  // resolved from its stamp, its props are read out of its own TypeScript
+  // types, and the controls follow from the types: a text field for a string,
+  // a number field for a number, a checkbox for a boolean, a dropdown for a
+  // union of string literals. Nothing is declared twice, and a prop no control
+  // can honestly represent is shown greyed WITH the reason rather than hidden.
+
+  private async setPropsOpen(on: boolean): Promise<void> {
+    if (on && !this.tweak) {
+      this.status('select something first — the panel reads the props of whatever renders it')
+      return
+    }
+    this.propsOpen = on
+    this.propsPanel.classList.toggle('on', on)
+    if (!on) {
+      this.propsData = null
+      return
+    }
+    await this.readProps()
+  }
+
+  /** Re-read the selected element's component. Cheap: one parse, no model. */
+  private async readProps(): Promise<void> {
+    const srcLoc = this.tweak?.srcLoc
+    if (!srcLoc) return
+    this.propsHead.textContent = 'reading the types…'
+    this.propsWhere.textContent = ''
+    this.propsBody.replaceChildren()
+    this.propsNotes.textContent = ''
+    this.layoutPropsPanel()
+    try {
+      const res = await fetch('/@s2c/props/read', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLoc }),
+      })
+      const out = (await res.json()) as PropsRead
+      this.propsData = out
+      this.propsSite = 0
+      this.renderProps()
+    } catch (err) {
+      this.propsData = null
+      this.propsHead.textContent = 'could not read the props'
+      this.propsNotes.textContent = err instanceof Error ? err.message : String(err)
+      this.layoutPropsPanel()
+    }
+  }
+
+  private renderProps() {
+    const d = this.propsData
+    if (!d) return
+    if (!d.ok) {
+      this.propsHead.textContent = 'no props here'
+      this.propsWhere.textContent = ''
+      this.propsBody.replaceChildren()
+      this.propsNotes.textContent = d.error ?? ''
+      this.layoutPropsPanel()
+      return
+    }
+    this.propsHead.textContent = d.component ?? 'component'
+    const sites = d.callSites ?? []
+    const site = sites[this.propsSite]
+    this.propsWhere.replaceChildren()
+    if (sites.length === 0) {
+      // resolvable but never used: worth saying, because empty controls with no
+      // explanation read as a broken panel
+      this.propsWhere.textContent = `${d.file ?? ''} · used nowhere yet, so there is no call site to edit`
+    } else if (sites.length === 1) {
+      this.propsWhere.textContent = `used in ${site!.loc}`
+    } else {
+      // more than one call site means "which of these did you mean?", and only
+      // the user knows — so it is a choice, not a guess
+      this.propsWhere.textContent = `used in ${String(sites.length)} places — editing:`
+      const sel = document.createElement('select')
+      sel.setAttribute('aria-label', 'which call site to edit')
+      for (const [i, s] of sites.entries()) {
+        const o = document.createElement('option')
+        o.value = String(i)
+        o.textContent = s.loc
+        sel.appendChild(o)
+      }
+      sel.value = String(this.propsSite)
+      sel.addEventListener('change', () => {
+        this.propsSite = Number(sel.value)
+        this.renderProps()
+      })
+      this.propsWhere.appendChild(sel)
+    }
+
+    const rows: HTMLElement[] = []
+    for (const p of d.props ?? []) {
+      if (!p.editable) {
+        const off = document.createElement('div')
+        off.className = 'pOff'
+        const b = document.createElement('b')
+        b.textContent = p.name
+        off.append(b, document.createTextNode(` — ${p.why ?? p.typeText}`))
+        rows.push(off)
+        continue
+      }
+      const row = document.createElement('div')
+      row.className = 'pRow'
+      const name = document.createElement('div')
+      name.className = 'pName'
+      name.textContent = p.name
+      name.title = `${p.name}: ${p.typeText}`
+      if (!p.required) {
+        const opt = document.createElement('i')
+        opt.textContent = '?'
+        name.appendChild(opt)
+      }
+      const ctl = document.createElement('div')
+      ctl.className = 'pCtl'
+      ctl.appendChild(this.propControl(p, site))
+      row.append(name, ctl)
+      rows.push(row)
+    }
+    if (rows.length === 0) {
+      const none = document.createElement('div')
+      none.className = 'pOff'
+      none.textContent = 'this component takes no props you can set from here'
+      rows.push(none)
+    }
+    this.propsBody.replaceChildren(...rows)
+    this.propsNotes.textContent = (d.notes ?? []).join(' · ')
+    this.layoutPropsPanel()
+  }
+
+  /**
+   * One control, chosen by the prop's kind.
+   *
+   * A prop wired to an EXPRESSION at this call site is shown but disabled: the
+   * server would refuse to overwrite it (that would unplug the wiring), and a
+   * control that looks live and then refuses is worse than one that says up
+   * front that this value comes from code.
+   */
+  private propControl(p: PropSpec, site: PropCallSite | undefined): HTMLElement {
+    const wired = site?.expressions.includes(p.name) ?? false
+    const current = site?.values[p.name]
+    const commit = (value: string | number | boolean) => void this.writeProp(p, value)
+
+    if (p.kind === 'boolean') {
+      const box = document.createElement('input')
+      box.type = 'checkbox'
+      box.checked = current === 'true' || current === ''
+      box.disabled = wired || !site
+      box.title = wired ? `${p.name} is wired to an expression here` : ''
+      box.addEventListener('change', () => commit(box.checked))
+      return box
+    }
+    if (p.kind === 'enum') {
+      const sel = document.createElement('select')
+      sel.disabled = wired || !site
+      // a prop that is not required can be absent, and "not set" is a real
+      // state the dropdown has to be able to show
+      if (!p.required) {
+        const none = document.createElement('option')
+        none.value = ''
+        none.textContent = '(not set)'
+        sel.appendChild(none)
+      }
+      for (const o of p.options ?? []) {
+        const opt = document.createElement('option')
+        opt.value = o
+        opt.textContent = o
+        sel.appendChild(opt)
+      }
+      sel.value = current ?? ''
+      sel.addEventListener('change', () => { if (sel.value !== '') commit(sel.value) })
+      return sel
+    }
+    const input = document.createElement('input')
+    input.type = p.kind === 'number' ? 'number' : 'text'
+    input.value = current ?? ''
+    input.disabled = wired || !site
+    input.placeholder = wired ? 'from code' : p.typeText
+    // change, not input: a write per keystroke would be a write per keystroke
+    input.addEventListener('change', () => {
+      commit(p.kind === 'number' ? Number(input.value) : input.value)
+    })
+    return input
+  }
+
+  private async writeProp(p: PropSpec, value: string | number | boolean): Promise<void> {
+    const site = (this.propsData?.callSites ?? [])[this.propsSite]
+    if (!site) return
+    try {
+      const res = await fetch('/@s2c/props/set', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ callSite: site.loc, name: p.name, value }),
+      })
+      const out = (await res.json()) as { ok: boolean; change?: string; error?: string }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      this.status(`✓ ${out.change ?? `${p.name} = ${String(value)}`} · 0 tokens · Ctrl+Z undoes it`)
+      // the file changed, so the call site's literal values did too — and a
+      // rule may be about what this value renders
+      await this.readProps()
+      if (this.rules.length) this.scheduleRuleCheck()
+    } catch (err) {
+      // the refusals name the fix ("wired to an expression here … change it
+      // where it comes from"), so they are shown as written
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+      await this.readProps()
+    }
+  }
+
+  /** Beside the selection it describes (cf. layoutPaintPanel). */
+  private layoutPropsPanel() {
+    if (!this.propsOpen) return
+    const t = this.tweak
+    const r = t && document.contains(t.el)
+      ? t.el.getBoundingClientRect()
+      : { right: window.innerWidth / 2, left: window.innerWidth / 2, top: 80 } as DOMRect
+    const w = this.propsPanel.offsetWidth
+    const h = this.propsPanel.offsetHeight
+    let x = r.right + PANEL_GAP
+    if (x + w > window.innerWidth - PANEL_GAP) x = r.left - w - PANEL_GAP
+    x = Math.min(Math.max(PANEL_GAP, x), Math.max(PANEL_GAP, window.innerWidth - w - PANEL_GAP))
+    const y = Math.min(Math.max(PANEL_GAP, r.top), Math.max(PANEL_GAP, window.innerHeight - h - PANEL_GAP))
+    this.propsPanel.style.left = `${String(Math.round(x))}px`
+    this.propsPanel.style.top = `${String(Math.round(y))}px`
+  }
+
   // ---- drag the data ----------------------------------------------------
   // Alt+V, then drag from the thing that SHOWS a value onto the thing that
   // should show it too. The page's contribution is the only one it can make
@@ -5260,6 +5617,8 @@ class Overlay {
     // subject, and a popover hanging over the app with no outline to belong to
     // is the worst of both
     if (this.paintOpen) this.setPaintOpen(false)
+    // …and with nothing selected it has no component to read
+    if (this.propsOpen) void this.setPropsOpen(false)
     this.tweak = null
     this.hoverEl = null
     this.multiSel = []
@@ -6031,6 +6390,10 @@ class Overlay {
       return
     }
     if (this.paintOpen) this.setPaintOpen(false)
+    // an open props panel follows the selection: it is about whatever is
+    // selected, and a panel describing the PREVIOUS element would be a lie
+    // that looks exactly like the truth
+    if (this.propsOpen) void this.readProps()
     const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
     const set = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
     this.status(

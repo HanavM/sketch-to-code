@@ -302,6 +302,40 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       /**
+       * The props panel's two halves: read a component's props out of its own
+       * TypeScript types, and write one value at a chosen call site.
+       *
+       * Reading is free and side-effect-free, so it is not checkpointed;
+       * writing is an ordinary source edit and is treated like every other one.
+       */
+      server.middlewares.use('/@s2c/props/read', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, m.readComponentProps(root, body.srcLoc))
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/props/set', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ callSite: string; name: string; value: string | number | boolean }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const cp = m.checkpoint(root, allowDirty)
+            const result = m.setPropValue(root, body)
+            if (result.ok && result.change && !result.change.startsWith('no change')) {
+              undoStack.push({ sha: cp.sha, label: result.change })
+            }
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
        * Copy a value from the element that shows it to one that should.
        *
        * Deterministic, so it is checkpointed and undoable like every other
