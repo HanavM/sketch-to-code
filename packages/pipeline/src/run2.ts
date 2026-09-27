@@ -32,6 +32,7 @@ import {
 } from './fidelity.js'
 import { deltaE, parseCssColor } from './palette.js'
 import { styleFaults } from './style.js'
+import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import type { RunContext, RunResult } from './run.js'
 
@@ -302,8 +303,25 @@ export async function runV2(
     const result = verifyActions(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity },
     )
-    lastVerify = result.detail
-    save(`verify-${tag}.json`, result.detail)
+
+    // Rules the user drew earlier are checked against the same snapshot. They
+    // are not about this edit, which is the point: an edit that quietly breaks
+    // an alignment somewhere else on the page should not pass just because it
+    // did what it was asked.
+    const rules = loadConstraints(ctx.root)
+    const broken = rules.length ? evaluateConstraints(rules, after) : []
+    if (broken.length) {
+      for (const v of broken) {
+        stage('rule', v.message)
+        result.failures.push(
+          `a rule you drew is broken (${v.kind}): ${v.message}` + (v.note ? ` — you wrote: "${v.note}"` : ''),
+        )
+      }
+      result.score = Math.min(result.score, 0.99)
+    }
+
+    lastVerify = broken.length ? { verified: result.detail, brokenRules: broken } : result.detail
+    save(`verify-${tag}.json`, lastVerify)
     return result
   }
 

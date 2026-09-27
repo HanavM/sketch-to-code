@@ -25,6 +25,11 @@ export {
   DEFAULT_FIDELITY, normalizeFidelity, rungFor, detailBand, passMark, fidelityDirective, fidelitySummary,
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
+export {
+  evaluateConstraints, loadConstraints, saveConstraints, measureConstraint, describeConstraint,
+  constraintsPath,
+} from './constraints.js'
+export type { Constraint, ConstraintKind, Violation } from './constraints.js'
 export { extractComponent } from './extract.js'
 export type { ExtractRequest, ExtractResult } from './extract.js'
 export { paintShape } from './shape.js'
