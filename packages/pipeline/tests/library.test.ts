@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import {
@@ -516,5 +518,49 @@ describe('staying bounded', () => {
     expect(ids).toContain(e.id)
     // the oldest of the equally-used rows is the one that went
     expect(ids).not.toContain('lfull0')
+  })
+})
+
+describe('the global library never turns out to be the project one', () => {
+  it('does not list a project entry twice when there is no usable home', () => {
+    const root = project({ 'src/Badge.tsx': PORTABLE })
+    captureEntry(root, { file: 'src/Badge.tsx', exportName: 'Badge', kind: 'drawn' })
+
+    // The trap: a relative fallback for "no global directory" resolves against
+    // the process CWD, and a dev server's CWD is the app itself — so the
+    // project's own library became its own global mirror and every entry came
+    // back twice. Reproduced by making the two paths coincide.
+    const old = process.env.XDG_DATA_HOME
+    try {
+      process.env.XDG_DATA_HOME = root
+      const listed = listEntries(root)
+      expect(listed.filter((e) => e.name === 'Badge')).toHaveLength(1)
+      expect(listed.every((e) => e.home === 'project')).toBe(true)
+    } finally {
+      if (old === undefined) delete process.env.XDG_DATA_HOME
+      else process.env.XDG_DATA_HOME = old
+    }
+  })
+
+  it('mirrors to a real global directory when it has one, and reads it back', () => {
+    const root = project({ 'src/Badge.tsx': PORTABLE })
+    const home = mkdtempSync(join(tmpdir(), 's2c-home-'))
+    const old = process.env.XDG_DATA_HOME
+    try {
+      process.env.XDG_DATA_HOME = home
+      const cap = captureEntry(root, { file: 'src/Badge.tsx', exportName: 'Badge', kind: 'drawn' })
+      expect(cap.ok).toBe(true)
+      expect(cap.entry!.portable).toBe(true)
+      expect(existsSync(join(home, 'sketch2code/library/index.json'))).toBe(true)
+
+      const listed = listEntries(root)
+      expect(listed.filter((e) => e.home === 'global')).toHaveLength(1)
+      // the same thing in both places is ONE thing, and the listing says so
+      expect(listed.find((e) => e.home === 'global')!.alreadyHere).toBe(true)
+    } finally {
+      if (old === undefined) delete process.env.XDG_DATA_HOME
+      else process.env.XDG_DATA_HOME = old
+      rmSync(home, { recursive: true, force: true })
+    }
   })
 })

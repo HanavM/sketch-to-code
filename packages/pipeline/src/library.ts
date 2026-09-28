@@ -822,7 +822,7 @@ export function captureEntry(root: string, req: CaptureRequest): CaptureResult {
   // Similar, not the same — offered so the UI can say "you drew this before",
   // and never allowed to decide anything on its own.
   const duplicateOf = signature
-    ? nearest(signature, [...entries, ...readIndex(globalLibraryDirSafe())].filter(
+    ? nearest(signature, [...entries, ...readIndex(globalLibraryDirSafe(root) ?? '')].filter(
         (e) => e.id !== id && !(e.file === rel && e.exportName === exportName),
       ))
     : undefined
@@ -830,13 +830,29 @@ export function captureEntry(root: string, req: CaptureRequest): CaptureResult {
   return { ok: true, entry, ...(duplicateOf ? { duplicateOf } : {}), ...(note ? { note } : {}) }
 }
 
-/** The global directory, or a path that simply will not exist. Never throws. */
-function globalLibraryDirSafe(): string {
+/**
+ * The global directory, or null when there isn't a usable one. Never throws.
+ *
+ * Null rather than a fallback path, because the obvious fallback is a relative
+ * one — and a relative path resolves against the host process's CWD, which for
+ * a Vite dev server is the app directory. That made "no home directory" mean
+ * "the project's own library IS the global library", so every entry came back
+ * twice: once as itself and once as its own global mirror. Nothing was
+ * corrupted, but the panel had to lean on `alreadyHere` to hide the nonsense.
+ *
+ * The same reasoning rules out the global dir COINCIDING with the project's,
+ * which is what happens if someone points XDG_DATA_HOME inside their app.
+ */
+function globalLibraryDirSafe(root?: string): string | null {
+  let dir: string
   try {
-    return globalLibraryDir()
+    dir = globalLibraryDir()
   } catch {
-    return join(STATE_DIR, LIBRARY_DIR)
+    return null
   }
+  if (!isAbsolute(dir)) return null
+  if (root && resolve(dir) === resolve(libraryDir(root))) return null
+  return dir
 }
 
 function nearest(signature: number[], pool: LibraryEntry[]): LibraryEntry | undefined {
@@ -905,7 +921,8 @@ function mirrorToGlobal(projectDir: string, entry: LibraryEntry): string | undef
  */
 export function listEntries(root: string): ListedEntry[] {
   const mine = readIndex(libraryDir(root))
-  const theirs = readIndex(globalLibraryDirSafe())
+  const globalDir = globalLibraryDirSafe(root)
+  const theirs = globalDir ? readIndex(globalDir) : []
   const names = new Set(mine.map((e) => e.name))
   const out: ListedEntry[] = [
     ...mine.map((e) => ({ ...e, home: 'project' as const })),
@@ -950,7 +967,9 @@ export function removeEntry(
   }
   const homes: ('project' | 'global')[] = opts.home ? [opts.home] : ['project', 'global']
   for (const home of homes) {
-    const dir = home === 'project' ? libraryDir(root) : globalLibraryDirSafe()
+    const dir = home === 'project' ? libraryDir(root) : globalLibraryDirSafe(root)
+    // no usable global library is not a failure to remove from it
+    if (!dir) continue
     const rows = readIndex(dir)
     if (!rows.some((e) => e.id === id)) continue
     try {
@@ -981,7 +1000,8 @@ export function removeEntry(
  */
 export function bumpUsed(root: string, id: string): void {
   if (typeof id !== 'string' || !ID_OK.test(id)) return
-  for (const dir of [libraryDir(root), globalLibraryDirSafe()]) {
+  for (const dir of [libraryDir(root), globalLibraryDirSafe(root)]) {
+    if (!dir) continue
     try {
       const rows = readIndex(dir)
       if (!rows.some((e) => e.id === id)) continue
@@ -1003,9 +1023,10 @@ export function bumpUsed(root: string, id: string): void {
  * times in favour of a shape they drew this morning and never placed again.
  */
 export function pruneLibrary(root: string, max: number = MAX_ENTRIES): { removed: string[] } {
+  const globalDir = globalLibraryDirSafe(root)
   const removed = [
     ...prune(libraryDir(root), max),
-    ...prune(globalLibraryDirSafe(), max),
+    ...(globalDir ? prune(globalDir, max) : []),
   ]
   return { removed }
 }
