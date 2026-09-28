@@ -10,7 +10,8 @@
  * is a real grounded interpretation rather than a shape of its own invention.
  *
  * Asserts:
- *   1. a fresh profile has it OFF, and OFF fires nothing however long you wait
+ *   1. a fresh profile has it ON (that is the default), and an explicit OFF is
+ *      remembered and fires nothing however long you wait
  *   2. Alt+A toggles it, the toolbar shows on/off without changing width, and
  *      the ? overlay lists the binding (it is rendered from the same table)
  *   3. THE FIRING RULE: a three-stroke drawing fires ONCE, after the settle
@@ -241,21 +242,34 @@ const waitFor = async (fn, ms = 4000, what = 'condition') => {
   throw new Error(`timed out waiting for ${what} · status: ${await status()}`)
 }
 
-// ---- 1. a fresh profile is OFF, and OFF means OFF -----------------------
+// ---- 1. a fresh profile is ON; an explicit OFF is remembered ------------
+// Drawing a thing and then hunting for ▶ Run and ✓ Go is the bulk this tool
+// exists to remove, so the default flipped. Only a literal false turns it off,
+// and this checks BOTH halves of that: the default, and that opting out sticks.
 await page.evaluate(() => {
   for (const k of ['s2c:auto', 's2c:hud', 's2c:fidelity', 's2c:candidates', 's2c:pen']) localStorage.removeItem(k)
 })
 await page.reload({ waitUntil: 'networkidle' })
 
 let u = await ui()
-if ((await auto()).on) throw new Error('auto mode is ON on a fresh profile')
-if (u.word !== 'off') throw new Error(`toggle reads ${JSON.stringify(u.word)}, want 'off'`)
-if (u.pressed !== 'false') throw new Error(`aria-pressed is ${u.pressed} on a fresh profile`)
-if (u.on) throw new Error('the toggle is painted as on while the state is off')
+if (!(await auto()).on) throw new Error('auto mode is OFF on a fresh profile — it is meant to be the default')
+if (u.word !== 'on') throw new Error(`toggle reads ${JSON.stringify(u.word)}, want 'on'`)
+if (u.pressed !== 'true') throw new Error(`aria-pressed is ${u.pressed} on a fresh profile`)
 if (!u.hitIsOverlay) throw new Error('#autoBtn reports a box but nothing is hit-testable there')
 if (u.btnBox.w < 30 || u.btnBox.h < 16) throw new Error(`#autoBtn is not painted: ${JSON.stringify(u.btnBox)}`)
-if (!/without a click/.test(u.title)) throw new Error(`the OFF tooltip does not say why it is off: ${u.title}`)
 if (u.hud.w > 900) throw new Error(`HUD is no longer a compact pill: ${Math.round(u.hud.w)}px`)
+
+// now opt out, the way a user would, and prove it is remembered across a reload
+await page.evaluate(`${sr()}.getElementById("autoBtn").click()`)
+await page.waitForTimeout(150)
+if ((await auto()).on) throw new Error('clicking the toggle did not turn it off')
+await page.reload({ waitUntil: 'networkidle' })
+u = await ui()
+if ((await auto()).on) throw new Error('an explicit OFF was not remembered across a reload')
+if (u.word !== 'off') throw new Error(`after opting out the toggle reads ${JSON.stringify(u.word)}`)
+if (!/ON by default/.test(u.title)) {
+  throw new Error(`the OFF tooltip does not say the default is on: ${u.title}`)
+}
 const offBox = u.btnBox
 await page.screenshot({
   path: `${SHOTS}/toggle-off.png`,
@@ -266,7 +280,7 @@ await ensureDraw()
 await stroke(0)
 await page.waitForTimeout(SETTLE * 2)
 if (interprets.length) throw new Error(`auto mode fired while OFF (${interprets.length} interpret calls)`)
-log('✓ fresh profile: off · nothing fired after', SETTLE * 2, 'ms of stillness · pill', Math.round(u.hud.w), 'px')
+log('✓ fresh profile: ON · opting out is remembered · nothing fired after', SETTLE * 2, 'ms · pill', Math.round(u.hud.w), 'px')
 await page.evaluate(`${sr()}.getElementById("clear").click()`)
 
 // ---- 2. Alt+A, the toolbar state, and the ? overlay --------------------
@@ -492,14 +506,20 @@ await setAuto(true)
 await page.reload({ waitUntil: 'networkidle' })
 u = await ui()
 if (!(await auto()).on || u.word !== 'on') throw new Error('the toggle did not survive a reload')
+// the rule is strict, pointing at the default: only a literal false opts out,
+// so garbage and an absent key both land ON rather than silently disabling the
+// thing the tool is for
 await page.evaluate(() => localStorage.setItem('s2c:auto', '"yes please"'))
 await page.reload({ waitUntil: 'networkidle' })
-if ((await auto()).on) throw new Error('garbage in s2c:auto turned auto mode ON')
-if ((await ui()).word !== 'off') throw new Error('garbage in storage left the toggle claiming on')
+if (!(await auto()).on) throw new Error('garbage in s2c:auto turned auto mode OFF')
+if ((await ui()).word !== 'on') throw new Error('garbage in storage left the toggle claiming off')
 await page.evaluate(() => localStorage.removeItem('s2c:auto'))
 await page.reload({ waitUntil: 'networkidle' })
-if ((await auto()).on) throw new Error('a missing key turned auto mode ON')
-log('✓ persists under s2c:auto · garbage and absence both land on OFF')
+if (!(await auto()).on) throw new Error('a missing key turned auto mode OFF')
+await page.evaluate(() => localStorage.setItem('s2c:auto', 'false'))
+await page.reload({ waitUntil: 'networkidle' })
+if ((await auto()).on) throw new Error('a literal false did not opt out')
+log('✓ persists under s2c:auto · only a literal false opts out; garbage and absence stay ON')
 
 await b.close()
 log('ALL GOOD')

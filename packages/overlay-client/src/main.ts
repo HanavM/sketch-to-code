@@ -2742,7 +2742,7 @@ class Overlay {
         // controls, which took digits precisely so that Alt+A could stay the
         // one binding that means "auto".
         id: 'auto', keys: 'Alt+A', group: 'run',
-        label: 'auto mode — stop drawing and the sketch runs itself, no ✓ Go',
+        label: 'auto mode (ON by default) — stop drawing and the sketch runs itself, no ✓ Go',
         match: altBind('KeyA', 'a'), run: () => this.setAuto(!this.auto),
       },
       {
@@ -8620,7 +8620,7 @@ class Overlay {
     this.saveAuto()
     if (!on) {
       this.cancelAuto()
-      this.status('auto mode off — nothing runs until you press ▶ Run')
+      this.status('auto mode off — nothing runs until you press ▶ Run (Alt+A turns it back on)')
       return
     }
     // short enough to survive #status's ellipsis: the caveats (a wide delete
@@ -8642,8 +8642,8 @@ class Overlay {
     const tip = this.auto
       ? `auto mode ON (Alt+A) — stop drawing for ${String(AUTO_SETTLE_MS / 1000)}s and the sketch is read and` +
         ' applied with no ✓ Go. Esc cancels the pending run; a wide delete always stops for confirmation.'
-      : 'auto mode OFF (Alt+A) — turn it on and a finished drawing runs itself after a short pause.' +
-        ' It spends tokens and edits source without a click, so it starts off.'
+      : 'auto mode OFF (Alt+A) — nothing runs until you press ▶ Run. It is ON by default;' +
+        ' turning it off here is remembered.'
     this.autoBtn.title = tip
     this.autoBtn.setAttribute('aria-label', tip)
   }
@@ -8809,19 +8809,27 @@ class Overlay {
   }
 
   /**
-   * Restored with the same contract as s2c:fidelity — storage can throw
-   * outright and its contents are user-editable — but with a stricter rule:
-   * ONLY a literal `true` turns this on. Anything else (absent, garbage, a
-   * shape from some later version) lands on OFF, because this is the one
-   * setting that spends tokens and rewrites source with no click at all.
+   * ON unless the user has said otherwise.
+   *
+   * This started OFF, on the reasoning that it is the one setting that spends
+   * tokens and rewrites source with no click. That reasoning has been overtaken:
+   * drawing a thing and then hunting for ▶ Run and ✓ Go is the bulk this whole
+   * tool exists to remove, and everything that made the caution necessary now
+   * exists — every edit is checkpointed and Ctrl+Z reaches it, the timeline
+   * keeps a picture of each state, a reading that would DELETE things still
+   * stops for confirmation, and the countdown is cancellable with Esc.
+   *
+   * So the rule inverts rather than relaxes: only a literal `false` turns it
+   * off, and that choice persists. Garbage, an absent key, or a shape from some
+   * later version all land on ON — the same strictness, pointing the other way.
    */
   private restoreAuto() {
-    let on = false
+    let on = true
     try {
       const raw = localStorage.getItem(AUTO_STORE_KEY)
       const v = raw ? (JSON.parse(raw) as unknown) : null
-      if (v === true) on = true
-    } catch { /* unreadable storage just means off */ }
+      if (v === false) on = false
+    } catch { /* unreadable storage just means the default */ }
     this.auto = on
     this.syncAutoUi()
   }

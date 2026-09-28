@@ -17,7 +17,10 @@ npm run build
 npm run dev            # boots examples/demo-app on :5199
 ```
 
-Open http://localhost:5199 — press **Alt+D** to enter draw mode, sketch, hit **▶ Run**.
+Open http://localhost:5199 — press **Alt+D** to enter draw mode and sketch. Stop
+drawing and it reads the sketch and applies it on its own, about a second later;
+**Esc** cancels while the countdown is showing, and **Alt+A** turns that off if
+you would rather press **▶ Run** yourself.
 
 Three run modes (HUD selector):
 - **✏️ gesture** — mark up existing UI with command gestures (default). Auto-escalates
@@ -36,7 +39,7 @@ verification, tokens).
 
 ```bash
 npx sketch-to-code init             # or: npx sketch-to-code init ./my-app
-npm run dev                      # then Alt+D, sketch, ▶ Run
+npm run dev                      # then Alt+D and sketch — it runs itself
 npx sketch-to-code doctor           # diagnose an existing install
 ```
 
