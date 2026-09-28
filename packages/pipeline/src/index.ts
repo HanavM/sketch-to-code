@@ -47,7 +47,7 @@ export {
 export type {
   DiffResult, FileDelta, RecordRequest, RecordResult, RestoreResult, Version,
 } from './history.js'
-export { readComponentProps, setPropValue } from './props.js'
+export { firstJsxStamp, readComponentProps, setPropValue } from './props.js'
 export type {
   CallSite, PropKind, PropSpec, ReadPropsResult, SetPropRequest, SetPropResult,
 } from './props.js'
@@ -72,7 +72,8 @@ export type { Scaffold } from './scaffold.js'
 export { finishSource, paletteFor } from './finish.js'
 export type { FinishEdit, FinishResult } from './finish.js'
 export {
-  APPROACHES, applyWork, captureWork, pickBest, revertTouched, revertWork, touchedFiles,
+  APPROACHES, applyWork, captureWork, createdFiles, pickBest, revertTouched, revertWork,
+  touchedFiles, untrackedFiles,
 } from './candidates.js'
 export type { Attempt, Work } from './candidates.js'
 export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.js'

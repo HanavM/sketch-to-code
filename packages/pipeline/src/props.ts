@@ -1016,3 +1016,45 @@ export function setPropValue(root: string, req: SetPropRequest): SetPropResult {
   writeFileSync(abs, next)
   return { ok: true, file: ctx.rel, change }
 }
+
+/**
+ * A stamp for the first JSX element a file renders.
+ *
+ * The inverse of what the rest of this module does, and needed by anything that
+ * has a FILE and wants the component in it: `readComponentProps` is addressed
+ * by a `data-s2c` stamp, because that is what a click on the page produces. A
+ * caller working from a file — the element library filing a component a run just
+ * created, with no page involved — has no stamp and cannot invent one, since
+ * line 1 column 1 is an import rather than an element.
+ */
+export function firstJsxStamp(root: string, rel: string): string | null {
+  const abs = resolve(root, rel)
+  if (!abs.startsWith(resolve(root))) return null
+  let code: string
+  try {
+    code = readFileSync(abs, 'utf8')
+  } catch {
+    return null
+  }
+  let ast
+  try {
+    ast = parse(code, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
+  } catch {
+    return null
+  }
+  let best: { line: number; col: number } | null = null
+  traverse(ast, {
+    JSXOpeningElement(path: NodePath<t.JSXOpeningElement>) {
+      const loc = path.node.loc
+      if (!loc) return
+      // the earliest by position: the component's own root, not whichever the
+      // traversal happens to reach first
+      if (!best || loc.start.line < best.line ||
+        (loc.start.line === best.line && loc.start.column + 1 < best.col)) {
+        best = { line: loc.start.line, col: loc.start.column + 1 }
+      }
+    },
+  })
+  const at = best as { line: number; col: number } | null
+  return at ? `${rel}:${String(at.line)}:${String(at.col)}` : null
+}

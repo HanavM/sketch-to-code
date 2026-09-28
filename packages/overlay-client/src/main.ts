@@ -316,6 +316,22 @@ interface DataDrag {
   value: string
 }
 
+/** One library entry, as the server holds it. */
+interface LibEntry {
+  id: string
+  name: string
+  alreadyHere?: boolean
+  kind: 'drawn' | 'extracted' | 'scanned'
+  file: string
+  exportName: string
+  props: { name: string; kind: string; required: boolean }[]
+  defaults: Record<string, string>
+  thumb?: string
+  portable: boolean
+  usedCount: number
+  home: 'project' | 'global'
+}
+
 /** One moment on the timeline, as the server stores it. */
 interface HistoryVersion {
   id: string
@@ -1179,6 +1195,48 @@ const STYLES = css`
   #timeStrip .tCard .tWhat {
     color: #e5e7eb; font-size: 10px; line-height: 1.25; max-height: 25px; overflow: hidden;
   }
+  /* The library. A grid rather than a strip: these are things to browse, not
+     moments in an order, and the picture is the index. */
+  #libPanel {
+    position: fixed; right: 12px; top: 12px; z-index: 2147483000;
+    display: none; width: 318px; max-width: calc(100vw - 24px);
+    padding: 10px; border-radius: 12px;
+    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    text-align: left; white-space: normal;
+  }
+  #libPanel.on { display: block; }
+  #libPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #cbd5e1; }
+  #libGrid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+    max-height: 330px; overflow-y: auto;
+  }
+  #libGrid .lCard {
+    position: relative; padding: 3px; border-radius: 8px; border: 1px solid #374151;
+    background: #0b1120; cursor: pointer; text-align: left;
+  }
+  #libGrid .lCard:hover { border-color: #64748b; }
+  #libGrid .lCard[aria-pressed='true'] { border-color: #a78bfa; background: #2e1065; }
+  #libGrid .lCard img, #libGrid .lCard .lNoShot {
+    display: block; width: 100%; height: 52px; border-radius: 5px; background: #1f2937;
+    object-fit: cover; object-position: top;
+  }
+  #libGrid .lCard .lNoShot {
+    display: flex; align-items: center; justify-content: center;
+    color: #4b5563; font-size: 15px;
+  }
+  #libGrid .lCard .lName {
+    color: #e5e7eb; font-size: 10px; margin-top: 3px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #libGrid .lCard .lMeta { color: #6b7280; font-size: 9px; }
+  #libGrid .lCard .lGlobe { color: #a78bfa; }
+  #libGrid .lDrop {
+    position: absolute; top: 2px; right: 2px; padding: 0 4px; border-radius: 999px;
+    background: #1f2937c0; color: #9ca3af; font-size: 10px; line-height: 1.5;
+  }
+  #libGrid .lDrop:hover { background: #7f1d1d; color: #fee2e2; }
+  #libFoot { color: #9ca3af; font-size: 11px; margin-top: 8px; }
   #timeFoot { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
   #timeWhat { flex: 1; color: #9ca3af; font-size: 11px; min-width: 0; }
   #timeGo { flex: none; padding: 4px 10px; border-radius: 999px; background: #0369a1; color: #f0f9ff; font-size: 11px; }
@@ -1598,6 +1656,15 @@ class Overlay {
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
+  /** The element library: entries, the one armed for placing, and the panel. */
+  private libPanel: HTMLElement
+  private libHead: HTMLElement
+  private libGrid: HTMLElement
+  private libFoot: HTMLElement
+  private libOpen = false
+  private entries: LibEntry[] = []
+  /** The entry the next click on the page will place. */
+  private libArmed: LibEntry | null = null
   /** The timeline: entries as the server holds them, and which one is picked. */
   private timePanel: HTMLElement
   private timeHead: HTMLElement
@@ -2024,6 +2091,24 @@ class Overlay {
       props.addEventListener(ev, (e) => e.stopPropagation())
     }
 
+    // The library. Cards are built from what the server holds; the frame is all
+    // there is to declare.
+    const lib = document.createElement('div')
+    lib.id = 'libPanel'
+    lib.setAttribute('role', 'dialog')
+    lib.setAttribute('aria-label', 'element library')
+    lib.innerHTML = `
+      <div class="qHead" id="libHead">library</div>
+      <div id="libGrid"></div>
+      <div id="libFoot">pick one, then click where it should go</div>
+    `
+    this.shadow.appendChild(lib)
+    this.libPanel = lib
+    this.libHead = this.shadow.getElementById('libHead')!
+    this.libGrid = this.shadow.getElementById('libGrid')!
+    this.libFoot = this.shadow.getElementById('libFoot')!
+    lib.addEventListener('pointerdown', (e) => e.stopPropagation())
+
     // The timeline. Its cards are built from what the server holds, so there is
     // nothing to declare here but the frame and the one button that writes.
     const time = document.createElement('div')
@@ -2275,6 +2360,19 @@ class Overlay {
         hits: this.lasso.hits.map((h) => ({ srcLoc: h.srcLoc, label: h.label })),
         srcLocs: [...new Set(this.lasso.hits.map((h) => h.srcLoc))],
         panelOpen: this.lassoPanel.classList.contains('on'),
+      }),
+      // What the library holds and what is being held — placing a DIFFERENT
+      // entry than the one lit up would look exactly like it working.
+      library: () => ({
+        open: this.libOpen,
+        armed: this.libArmed?.id ?? null,
+        armedName: this.libArmed?.name ?? null,
+        entries: this.entries.map((e) => ({
+          id: e.id, name: e.name, kind: e.kind, file: e.file, home: e.home,
+          portable: e.portable, hasThumb: !!e.thumb, usedCount: e.usedCount,
+          alreadyHere: e.alreadyHere ?? false,
+          props: e.props.map((p) => p.name),
+        })),
       }),
       // The timeline as the page sees it, plus the size of the picture it
       // draws — a thumbnail that silently comes out blank would otherwise look
@@ -2552,6 +2650,13 @@ class Overlay {
         match: altBind('KeyR', 'r', true), run: () => this.armRule(),
       },
       {
+        // Alt+L circles elements INTO a component; Alt+Shift+L is where those
+        // components live afterwards. Same letter, one idea.
+        id: 'library', keys: 'Alt+Shift+L', group: 'drawing',
+        label: 'element library — everything you have made, to put back on the page',
+        match: altBind('KeyL', 'l', true), run: () => void this.setLibOpen(!this.libOpen),
+      },
+      {
         id: 'history', keys: 'Alt+B', group: 'overlay',
         label: 'history — moments of this page you can put back (B for back)',
         match: altBind('KeyB', 'b'), run: () => void this.setTimeOpen(!this.timeOpen),
@@ -2752,6 +2857,20 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // Holding something from the library is the shallowest state there is: Esc
+    // puts it down, and must not also close the panel it came from.
+    if (this.libArmed) {
+      this.libArmed = null
+      this.renderLibrary()
+      this.libFoot.textContent = 'pick one, then click where it should go'
+      this.status('put it back — nothing placed')
+      this.redraw()
+      return
+    }
+    if (this.libOpen) {
+      void this.setLibOpen(false)
+      return
+    }
     // The props panel closes before anything that would drop the selection it
     // is describing: Esc here means "done with these controls", not "deselect".
     if (this.propsOpen) {
@@ -4643,6 +4762,278 @@ class Overlay {
     ctx.textBaseline = 'middle'
     ctx.fillText(label, lx + 6, ly + 9)
     ctx.textBaseline = 'alphabetic'
+  }
+
+  // ---- the element library ----------------------------------------------
+  // Alt+Shift+L. Entries file themselves: a sketch that became a component, a
+  // lasso that extracted one. An entry is a POINTER to a component that already
+  // compiles here, so placing it is an import and a JSX insert — which means
+  // using the same entry five times makes five usages of one component, rather
+  // than five copies that then drift apart.
+
+  private async setLibOpen(on: boolean): Promise<void> {
+    this.libOpen = on
+    this.libPanel.classList.toggle('on', on)
+    if (!on) {
+      this.libArmed = null
+      return
+    }
+    await this.loadEntries()
+    // A run files what it created without a picture, because only the page can
+    // draw one. This is where that debt gets paid.
+    void this.backfillThumbs()
+    this.status(
+      this.entries.length === 0
+        ? 'library is empty — sketch something, or lasso a few elements into a component'
+        : `${String(this.entries.length)} in the library — click one, then click where it should go`,
+    )
+  }
+
+  private async loadEntries(): Promise<void> {
+    try {
+      const res = await fetch('/@s2c/library/list', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: '{}',
+      })
+      const out = (await res.json()) as { ok: boolean; entries?: LibEntry[] }
+      // A portable entry lives in BOTH libraries — this project's and the
+      // global one that follows the user. They are one thing, and showing two
+      // cards for it invites picking "the wrong copy" of something that has no
+      // copies. The global row is dropped when the project already has it;
+      // global rows for things this project has never seen do show, because
+      // those are the entries that travelled here.
+      this.entries = (out.ok ? (out.entries ?? []) : [])
+        .filter((e) => !(e.home === 'global' && e.alreadyHere))
+      this.renderLibrary()
+    } catch { /* an older dev server simply has no library */ }
+  }
+
+  /**
+   * File a component that is on the page right now.
+   *
+   * The picture is the part only the page can supply, and the element has to
+   * have rendered before it can be drawn — so this waits for something stamped
+   * into that file to appear rather than assuming HMR has already landed.
+   */
+  private async captureToLibrary(
+    file: string,
+    kind: 'drawn' | 'extracted',
+    name?: string,
+  ): Promise<void> {
+    const el = await this.waitForStampedIn(file)
+    try {
+      await fetch('/@s2c/library/capture', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          file, kind, ...(name ? { name } : {}),
+          ...(el ? { thumbnail: this.thumbnail(el) } : {}),
+        }),
+      })
+      if (this.libOpen) await this.loadEntries()
+    } catch { /* the edit landed; filing it is a bonus */ }
+  }
+
+  /** The outermost element rendered by a given file, once it exists. */
+  private async waitForStampedIn(file: string, ms = 4000): Promise<HTMLElement | null> {
+    const deadline = performance.now() + ms
+    while (performance.now() < deadline) {
+      const all = [...document.querySelectorAll<HTMLElement>(`[data-s2c^="${file}:"]`)]
+        .filter((e) => !this.host.contains(e))
+      // outermost: a component's picture is the whole component, not its title
+      const outer = all.find((e) => !all.some((o) => o !== e && o.contains(e)))
+      if (outer) {
+        const r = outer.getBoundingClientRect()
+        if (r.width >= 1 && r.height >= 1) return outer
+      }
+      await new Promise((r) => setTimeout(r, 200))
+    }
+    return null
+  }
+
+  /** Give a picture to entries filed by the server, which has no page. */
+  private async backfillThumbs(): Promise<void> {
+    for (const e of this.entries) {
+      if (e.thumb || e.home !== 'project') continue
+      const el = await this.waitForStampedIn(e.file, 600)
+      if (!el) continue
+      try {
+        await fetch('/@s2c/library/capture', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+          body: JSON.stringify({
+            file: e.file, exportName: e.exportName, name: e.name, kind: e.kind,
+            thumbnail: this.thumbnail(el),
+          }),
+        })
+      } catch { break }
+    }
+    if (this.libOpen) await this.loadEntries()
+  }
+
+  private renderLibrary() {
+    const n = this.entries.length
+    this.libHead.textContent = n === 0 ? 'library — nothing filed yet' : `library · ${String(n)}`
+    if (n === 0) {
+      const empty = document.createElement('div')
+      empty.className = 'lMeta'
+      empty.textContent = 'Sketch something, or lasso elements into a component — whatever you make is filed here.'
+      this.libGrid.replaceChildren(empty)
+      return
+    }
+    this.libGrid.replaceChildren(...this.entries.map((e) => {
+      const card = document.createElement('button')
+      card.type = 'button'
+      card.className = 'lCard'
+      card.dataset.entryId = e.id
+      card.setAttribute('aria-pressed', String(this.libArmed?.id === e.id))
+      if (e.thumb) {
+        const img = document.createElement('img')
+        img.src = `/@s2c/library/thumb?id=${encodeURIComponent(e.id)}&home=${e.home}`
+        img.alt = e.name
+        card.appendChild(img)
+      } else {
+        const none = document.createElement('div')
+        none.className = 'lNoShot'
+        none.textContent = '◌'
+        card.appendChild(none)
+      }
+      const nm = document.createElement('div')
+      nm.className = 'lName'
+      nm.textContent = e.name
+      const meta = document.createElement('div')
+      meta.className = 'lMeta'
+      // the globe earns its place: it is the difference between an entry that
+      // follows you to the next project and one that cannot
+      meta.textContent = e.home === 'global' ? '🌐 anywhere' : (e.portable ? '🌐 travels' : e.kind)
+      const drop = document.createElement('button')
+      drop.type = 'button'
+      drop.className = 'lDrop'
+      drop.textContent = '✕'
+      drop.title = `forget ${e.name} (your component file is untouched)`
+      drop.dataset.forget = e.id
+      drop.addEventListener('click', (ev) => {
+        ev.stopPropagation()
+        void this.forgetEntry(e)
+      })
+      card.append(nm, meta, drop)
+      card.title = `${e.name} · ${e.file}${e.props.length ? ` · props: ${e.props.map((p) => p.name).join(', ')}` : ''}`
+      card.addEventListener('click', () => this.armEntry(e))
+      return card
+    }))
+  }
+
+  /** Pick one up. The next click on the page decides where it lands. */
+  private armEntry(e: LibEntry) {
+    this.libArmed = this.libArmed?.id === e.id ? null : e
+    for (const c of this.libGrid.querySelectorAll('.lCard')) {
+      c.setAttribute('aria-pressed', String((c as HTMLElement).dataset.entryId === this.libArmed?.id))
+    }
+    if (!this.libArmed) {
+      this.libFoot.textContent = 'pick one, then click where it should go'
+      this.status('nothing picked up')
+      return
+    }
+    // a placement needs somewhere to put it, and only tweak mode is hit-testing
+    if (this.mode !== 'tweak') this.toggleTweak()
+    const needs = e.props.filter((p) => p.required && !(p.name in e.defaults)).map((p) => p.name)
+    this.libFoot.textContent = needs.length
+      ? `${e.name} needs ${needs.join(', ')} — it will be placed without them`
+      : `click where ${e.name} should go`
+    this.status(`holding ${e.name} — click where it should go (Esc puts it back)`)
+    this.redraw()
+  }
+
+  private async placeArmed(at: string): Promise<void> {
+    const e = this.libArmed
+    if (!e) return
+    this.libArmed = null
+    this.renderLibrary()
+    this.status(`placing ${e.name}…`)
+    try {
+      const res = await fetch('/@s2c/library/place', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ id: e.id, at }),
+      })
+      const out = (await res.json()) as {
+        ok: boolean; jsx?: string; file?: string; name?: string; error?: string
+        needs?: string[]; aliased?: boolean; reusedImport?: boolean; materialised?: string
+      }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      // each of these is a thing the user would otherwise discover later
+      const notes = [
+        out.materialised ? `copied in as ${out.materialised}` : '',
+        out.aliased ? `renamed to ${out.name ?? '?'} (that name was taken)` : '',
+        out.reusedImport ? 'reused the import already there' : '',
+        out.needs?.length ? `still needs ${out.needs.join(', ')}` : '',
+      ].filter(Boolean)
+      this.tweak = null
+      this.hoverEl = null
+      this.status(
+        `✓ ${out.jsx ?? e.name} → ${out.file ?? '?'}${notes.length ? ` · ${notes.join(' · ')}` : ''} · ` +
+        '0 tokens · Ctrl+Z undoes it',
+      )
+      await this.loadEntries()
+      if (this.rules.length) this.scheduleRuleCheck()
+    } catch (err) {
+      // placement refusals name the container to drop onto instead, so they are
+      // worth showing exactly as written
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+    this.redraw()
+  }
+
+  private async forgetEntry(e: LibEntry): Promise<void> {
+    const drop = (home: 'project' | 'global') =>
+      fetch('/@s2c/library/forget', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ id: e.id, home }),
+      })
+    try {
+      await drop(e.home)
+      // a portable entry was mirrored to the global library, and forgetting
+      // only this project's copy would leave the card to reappear from there —
+      // which reads as the ✕ not working
+      if (e.home === 'project' && e.portable) await drop('global')
+      if (this.libArmed?.id === e.id) this.libArmed = null
+      await this.loadEntries()
+      this.status(`forgot ${e.name} — ${e.file} is untouched`)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  /** The drop target under the pointer, outlined while something is held. */
+  private drawLibDrop() {
+    const e = this.libArmed
+    if (!e || !this.hoverEl) return
+    const { ctx } = this
+    const r = this.hoverEl.getBoundingClientRect()
+    ctx.save()
+    ctx.strokeStyle = '#a78bfa'
+    ctx.fillStyle = 'rgba(167,139,250,0.12)'
+    ctx.lineWidth = 2
+    ctx.setLineDash([6, 4])
+    ctx.fillRect(r.left, r.top, r.width, r.height)
+    ctx.strokeRect(r.left, r.top, r.width, r.height)
+    ctx.setLineDash([])
+    const label = `${e.name} goes in here`
+    ctx.font = '11px ui-sans-serif, system-ui'
+    const w = ctx.measureText(label).width + 12
+    const lx = Math.max(2, Math.min(r.left, window.innerWidth - w - 2))
+    const ly = Math.max(2, r.top - 22)
+    ctx.fillStyle = '#a78bfa'
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, w, 17, 8)
+    ctx.fill()
+    ctx.fillStyle = '#1e1b4b'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(label, lx + 6, ly + 9)
+    ctx.textBaseline = 'alphabetic'
+    ctx.restore()
   }
 
   // ---- visual history ---------------------------------------------------
@@ -7061,6 +7452,16 @@ class Overlay {
       this.cancelRule('rule cancelled — nothing saved')
       return
     }
+    // Something held from the library owns the next press: that IS the gesture.
+    if (this.libArmed) {
+      const target = this.pickStamped(e.clientX, e.clientY)
+      if (!target) {
+        this.status('nothing stamped there — drop it on a container the app renders', true)
+        return
+      }
+      void this.placeArmed(target.srcLoc)
+      return
+    }
     // A value drag, like a rule line, is armed only by its keybind: holding a
     // modifier is already the lasso, and one gesture per modifier is the only
     // way any of them stays predictable.
@@ -7778,6 +8179,7 @@ class Overlay {
     if (this.mode === 'tweak') {
       this.drawLasso()
       this.drawDataDrag()
+      this.drawLibDrop()
     }
     // Rules draw in EVERY mode: a broken invariant is not a tweak-mode
     // concern, it is the page being wrong.
@@ -7873,6 +8275,9 @@ class Overlay {
       if (body.ok && body.file) {
         this.instant = body.file
         this.status(`✏️ ${body.name ?? 'sketch'} is on the page — refining it now…`)
+        // a shape drawn onto the page is a component now: file it, with the ink
+        // that made it as its picture
+        void this.captureToLibrary(body.file, 'drawn', body.name)
       }
     } catch { /* the slow path is the fallback, and it is already running */ }
   }

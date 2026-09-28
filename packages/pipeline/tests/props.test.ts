@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { readComponentProps, setPropValue, type PropSpec } from '../src/props.js'
+import { firstJsxStamp, readComponentProps, setPropValue, type PropSpec } from '../src/props.js'
 
 // ── a small app whose components are typed the way real ones are ────────────
 
@@ -427,5 +427,37 @@ describe('writing one value back at a call site', () => {
     expect(read(root, 'src/App.tsx')).toContain(`title='the "big" one'`)
     const back = readComponentProps(root, CARD_SECTION)
     expect(back.callSites?.find((c) => c.loc === CARD_1)?.values.title).toBe('the "big" one')
+  })
+})
+
+describe('finding a component from its file alone', () => {
+  it('points at the first element the file renders, not at line 1', () => {
+    const dir = mkdtempSync(join(tmpdir(), 's2c-stamp-'))
+    mkdirSync(join(dir, 'src'), { recursive: true })
+    writeFileSync(join(dir, 'src/Card.tsx'), [
+      "import { useState } from 'react'",
+      '',
+      'export default function Card() {',
+      '  return (',
+      '    <section className="a">',
+      '      <p>hi</p>',
+      '    </section>',
+      '  )',
+      '}',
+      '',
+    ].join('\n'))
+    // line 5, column 5 — the <section>, which is what a click on the page
+    // would have produced, and what readComponentProps can resolve
+    const stamp = firstJsxStamp(dir, 'src/Card.tsx')
+    expect(stamp).toBe('src/Card.tsx:5:5')
+    expect(readComponentProps(dir, stamp!).component).toBe('Card')
+  })
+
+  it('has nothing to point at in a file that renders nothing', () => {
+    const dir = mkdtempSync(join(tmpdir(), 's2c-stamp2-'))
+    writeFileSync(join(dir, 'util.ts'), 'export const add = (a: number, b: number) => a + b\n')
+    expect(firstJsxStamp(dir, 'util.ts')).toBeNull()
+    expect(firstJsxStamp(dir, 'missing.tsx')).toBeNull()
+    expect(firstJsxStamp(dir, '../escape.tsx')).toBeNull()
   })
 })

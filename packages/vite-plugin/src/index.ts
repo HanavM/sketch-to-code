@@ -70,7 +70,7 @@ export function setRunHandler(h: RunHandler): void {
 // while an orphaned pipeline is still editing files.
 let activeRun = false
 // undo stack: checkpoint SHAs of committed edits, most recent last
-const undoStack: Array<{ sha: string; label: string }> = []
+const undoStack: Array<{ sha: string; label: string; untracked: string[] }> = []
 /**
  * The last edit THIS server wrote, and when.
  *
@@ -81,8 +81,17 @@ const undoStack: Array<{ sha: string; label: string }> = []
  * rather than touching this. Doing it per-handler missed most of them.
  */
 let lastWrite = { label: '', at: 0 }
-const pushEdit = (sha: string, label: string): void => {
-  undoStack.push({ sha, label })
+/**
+ * `untracked` is what git was not tracking when the checkpoint was taken.
+ *
+ * Undo needs it to know which files are ITS to delete: a checkpoint records
+ * tracked state only, so a component an EARLIER edit created looks exactly like
+ * one this edit created, and undoing a later edit would delete it. Extract a
+ * component, do anything else, press undo once — gone. beginEdit captures it at
+ * the only moment it is true.
+ */
+const pushEdit = (sha: string, label: string, untracked: string[] = []): void => {
+  undoStack.push({ sha, label, untracked })
   lastWrite = { label, at: Date.now() }
 }
 
@@ -260,9 +269,13 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               m.normalizeFidelity(body.fidelity),
             )
             if (!verdict.ok) return sendJson(res, 200, { ok: false, reason: verdict.reason })
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.applyInstant(root, verdict.plan)
-            pushEdit(cp.sha, `instant ${result.name}`)
+            pushEdit(cp.sha, `instant ${result.name}`, untracked)
+            // a shape drawn onto the page is a component now, so it is filed
+            // the same way an extract is; the overlay adds the picture, which
+            // it can do here because this edit hot-reloads rather than navigates
+            if (result.file) captureInto(m, { file: result.file, kind: 'drawn', name: result.name })
             sendJson(res, 200, { ok: true, ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, reason: String(err) }))
@@ -280,10 +293,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{ srcLoc: string; prop: 'fill' | 'stroke'; value: string }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.paintShape(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change)
+              pushEdit(cp.sha, result.change, untracked)
             }
             sendJson(res, 200, result)
           })
@@ -307,12 +320,190 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{ srcLocs: string[]; name?: string }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.extractComponent(root, { srcLocs: body.srcLocs, name: body.name })
-            if (result.ok) pushEdit(cp.sha, `extract ${result.name ?? 'component'}`)
+            if (result.ok) pushEdit(cp.sha, `extract ${result.name ?? 'component'}`, untracked)
+            // Filed here rather than by the overlay: a successful extract
+            // reloads the page, and a capture started in the browser loses its
+            // JS context mid-flight. The picture comes later, from the panel's
+            // backfill — the row existing is what matters now.
+            if (result.ok && result.file) {
+              captureInto(m, { file: result.file, name: result.name, kind: 'extracted' })
+            }
             sendJson(res, 200, { ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * One way in, for both the overlay's captures and the run's own.
+       *
+       * The props a component declares are read off its types rather than sent
+       * by the client: the panel should say what an entry needs even when the
+       * thing that filed it never looked.
+       */
+      type Pipeline = typeof import('@s2c/pipeline')
+      /**
+       * Start an edit: the checkpoint, plus the untracked files that were
+       * already here. Both are only true BEFORE the edit runs, which is why
+       * they are taken together rather than separately at each call site.
+       */
+      const beginEdit = (m: Pipeline): {
+        cp: ReturnType<Pipeline['checkpoint']>
+        untracked: string[]
+      } => {
+        const cp = m.checkpoint(root, allowDirty)
+        let untracked: string[] = []
+        try {
+          untracked = m.untrackedFiles(root)
+        } catch { /* not a git repo: there is nothing to spare */ }
+        return { cp, untracked }
+      }
+      const captureInto = (
+        m: Pipeline,
+        req: {
+          file: string; exportName?: string; name?: string
+          kind?: 'drawn' | 'extracted' | 'scanned'
+          thumbnail?: string; signature?: number[]
+          defaults?: Record<string, string>
+        },
+      ): ReturnType<Pipeline['captureEntry']> => {
+        // a stamp of something the file actually renders: line 1 is an import,
+        // and readComponentProps is addressed by element, not by file
+        const stamp = m.firstJsxStamp(root, req.file)
+        const read = stamp
+          ? m.readComponentProps(root, stamp)
+          : { ok: false as const }
+        const site = read.ok ? (read.callSites ?? [])[0] : undefined
+        return m.captureEntry(root, {
+          file: req.file,
+          exportName: req.exportName,
+          name: req.name ?? read.component,
+          kind: req.kind ?? 'drawn',
+          thumbnail: req.thumbnail,
+          signature: req.signature,
+          // the values it was actually used with beat anything invented later
+          defaults: req.defaults ?? site?.values,
+          props: read.ok
+            ? (read.props ?? []).map((p) => ({
+                name: p.name,
+                kind: p.kind,
+                options: p.options,
+                required: p.required,
+              }))
+            : undefined,
+        })
+      }
+
+      /**
+       * The element library.
+       *
+       * An entry is a pointer to a component that already compiles here, so
+       * placing one is an import and a JSX insert — checkpointed and undoable
+       * like every other edit — rather than a paste. Listing and thumbnails
+       * are read-only and free.
+       */
+      server.middlewares.use('/@s2c/library/list', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, { ok: true, entries: m.listEntries(root) })
+          } catch (err) {
+            sendJson(res, 200, { ok: false, error: String(err) })
+          }
+        })()
+      })
+
+      server.middlewares.use('/@s2c/library/capture', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{
+          file: string; exportName?: string; name?: string
+          kind?: 'drawn' | 'extracted' | 'scanned'
+          thumbnail?: string; signature?: number[]
+          defaults?: Record<string, string>
+        }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, captureInto(m, body))
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * Place an entry where the user dropped it. `at` is an ordinary stamp, so
+       * the overlay does not have to know whether the entry's file is already
+       * in this project — placeEntry materialises a portable one first.
+       */
+      server.middlewares.use('/@s2c/library/place', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ id: string; at: string; where?: 'inside' | 'after' }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const entry = m.findEntry(root, body.id)
+            if (!entry) {
+              return sendJson(res, 200, {
+                ok: false,
+                error: 'that entry is not in the library any more — open the panel again.',
+              })
+            }
+            const { cp, untracked } = beginEdit(m)
+            const out = m.placeEntry(root, { entry, at: body.at, where: body.where })
+            if (out.ok) {
+              m.bumpUsed(root, body.id)
+              pushEdit(cp.sha, `placed ${out.name ?? entry.name}`, untracked)
+            }
+            sendJson(res, 200, out)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/library/forget', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ id: string; home?: 'project' | 'global' }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            sendJson(res, 200, m.removeEntry(root, body.id, { home: body.home }))
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * An entry's picture. A GET under the same gate as the timeline's
+       * thumbnails and the runs viewer's images: an <img src> can send neither
+       * a token header nor a JSON content-type.
+       */
+      server.middlewares.use('/@s2c/library/thumb', (req, res) => {
+        const host = String(req.headers.host ?? '').replace(/:\d+$/, '')
+        if (!['localhost', '127.0.0.1', '[::1]'].includes(host)) {
+          return sendJson(res, 403, { ok: false, error: 'non-local host rejected' })
+        }
+        const q = new URL(req.url ?? '/', 'http://x').searchParams
+        const id = q.get('id') ?? ''
+        const global = q.get('home') === 'global'
+        if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) {
+          return sendJson(res, 400, { ok: false, error: 'bad entry id' })
+        }
+        void (async () => {
+          try {
+            const m = await import('@s2c/pipeline')
+            const { readFile } = await import('node:fs/promises')
+            const dir = global ? m.globalLibraryDir() : m.libraryDir(root)
+            const png = await readFile(m.entryThumbPath(dir, id))
+            res.writeHead(200, {
+              'content-type': 'image/png',
+              'cache-control': 'no-cache',
+              'content-length': String(png.byteLength),
+            })
+            res.end(png)
+          } catch {
+            sendJson(res, 404, { ok: false, error: 'no picture for that entry' })
+          }
+        })()
       })
 
       /**
@@ -424,9 +615,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{ id: string; thumbnail?: string }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const out = m.restoreVersion(root, body.id, { thumbnail: body.thumbnail })
-            if (out.ok) pushEdit(cp.sha, 'scrubbed back to an earlier version')
+            if (out.ok) pushEdit(cp.sha, 'scrubbed back to an earlier version', untracked)
             sendJson(res, 200, out)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
@@ -478,10 +669,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{ callSite: string; name: string; value: string | number | boolean }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.setPropValue(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change)
+              pushEdit(cp.sha, result.change, untracked)
             }
             sendJson(res, 200, result)
           })
@@ -503,10 +694,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{ from: string; to: string }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.moveData(root, { from: body.from, to: body.to })
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change)
+              pushEdit(cp.sha, result.change, untracked)
             }
             sendJson(res, 200, result)
           })
@@ -608,7 +799,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
-            const cp = m.checkpoint(root, allowDirty)
+            const { cp, untracked } = beginEdit(m)
             const result = m.applyManipulation(root, {
               srcLoc: body.srcLoc,
               prop: body.prop as Parameters<typeof m.applyManipulation>[1]['prop'],
@@ -680,13 +871,13 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 })
               }
               const change = changes.join(' · ')
-              pushEdit(cp.sha, change || (result.change ?? 'edit'))
+              pushEdit(cp.sha, change || (result.change ?? 'edit'), untracked)
               return sendJson(res, 200, {
                 ...result, change: change || result.change, band, responsive: true, checkpoint: cp.sha,
               })
             }
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
-              pushEdit(cp.sha, result.change ?? 'edit')
+              pushEdit(cp.sha, result.change ?? 'edit', untracked)
             }
             // shared templates answer 409 (choose a scope), other refusals 422
             sendJson(res, result.ok ? 200 : result.shared ? 409 : 422, { ...result, checkpoint: cp.sha })
@@ -706,8 +897,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               // revertTouched, not changedFiles+restore: an edit that CREATED
               // a file (an extract, the instant render) leaves that file
               // untracked, so a diff never sees it and undo used to put the
-              // call site back while orphaning the component it referenced
-              const files = m.revertTouched(root, cp)
+              // call site back while orphaning the component it referenced.
+              // entry.untracked is what was already lying there at the time,
+              // which this revert must not touch — see pushEdit.
+              const files = m.revertTouched(root, cp, entry.untracked)
               if (files.length === 0) continue // that edit was already reverted
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
@@ -782,11 +975,22 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const deadline = new Promise<never>((_, rej) =>
               setTimeout(() => rej(new Error(`run exceeded ${runTimeoutMs / 1000}s cap`)), runTimeoutMs),
             )
-            let runCp: { sha: string } | null = null
+            let runCp: { sha: string; toplevel: string; dirtyBefore: boolean } | null = null
+            /**
+             * The untracked files that were already here.
+             *
+             * Needed to tell a file the run CREATED from one that was simply
+             * lying around untracked: a checkpoint is a `git stash create`,
+             * which records tracked state only, so both are absent from its
+             * tree. Without this, filing what a run made would also file
+             * somebody's scratch component.
+             */
+            let untrackedBefore: string[] = []
             const exec = async () => {
               try {
                 const m0 = await import('@s2c/pipeline')
                 runCp = m0.checkpoint(root, allowDirty)
+                untrackedBefore = m0.untrackedFiles(root)
               } catch { /* pipeline missing */ }
               if (engine === 'model' && body.rawInterpretation && body.mode !== 'screenshot') {
                 const m = await import('@s2c/pipeline')
@@ -811,8 +1015,22 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             // Promise.resolve().then() so a synchronously-throwing handler
             // still flows into .catch/.finally
             Promise.race([Promise.resolve().then(exec), deadline])
-              .then((result) => {
-                if (runCp) pushEdit(runCp.sha, 'sketch run')
+              .then(async (result) => {
+                if (runCp) pushEdit(runCp.sha, 'sketch run', untrackedBefore)
+                // A sketch that produced a new component files itself: that is
+                // the library's whole premise, and the run is the main way a
+                // drawing becomes code. Only CREATED files — a run that
+                // recoloured Navbar must not file Navbar — and without a
+                // picture, which only the page can draw; the panel backfills it.
+                if (runCp) {
+                  try {
+                    const m = await import('@s2c/pipeline')
+                    for (const rel of m.createdFiles(root, runCp, untrackedBefore)) {
+                      if (!/\.(tsx|jsx)$/.test(rel)) continue
+                      captureInto(m, { file: rel, kind: 'drawn' })
+                    }
+                  } catch { /* the edit landed; filing it is a bonus */ }
+                }
                 sse.send('done', { summary: result.summary, clientId })
               })
               .catch((err: unknown) =>
