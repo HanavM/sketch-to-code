@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "XDG_DATA_HOME=\"$PWD/.sketch2code/xdg\" vite",
     "build": "vite build",
     "preview": "vite preview",
     "predev": "lsof -ti :5199 | xargs kill 2>/dev/null; true"

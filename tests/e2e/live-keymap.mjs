@@ -90,6 +90,7 @@ const help = await page.evaluate(() => {
     groups: [...h.querySelectorAll('.hGroup')].map((g) => g.textContent),
     box: { x: r.left, y: r.top, w: r.width, h: r.height },
     bg: getComputedStyle(h).backgroundColor,
+    fg: getComputedStyle(h.querySelector('.hLabel') ?? h).color,
     opacity: getComputedStyle(h).opacity,
     // a rect is not proof of paint: hit-test the middle of the panel
     hitIsOverlay: document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)?.id === 's2c-overlay-host',
@@ -117,7 +118,30 @@ for (const x of binds) {
 }
 if (new Set(help.groups).size !== help.groups.length) throw new Error(`groups are not contiguous: ${help.groups.join(', ')}`)
 if (help.opacity !== '1') throw new Error('help overlay is transparent')
-if (!/rgba?\(17, 24, 39/.test(help.bg)) throw new Error(`help lost its chrome: ${help.bg}`)
+// Contrast, not a hex. The chrome has two skins and will have more; what has
+// to hold in every one of them is that the words are readable on the surface
+// they sit on, which is a number rather than a colour.
+const lum = (c) => {
+  const [r, g, b] = c.map((v) => {
+    const x = v / 255
+    return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4
+  })
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+}
+const parse = (s) => (s.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number)
+const ratio = (a, b) => {
+  const [x, y] = [lum(parse(a)), lum(parse(b))].sort((m, n) => n - m)
+  return (x + 0.05) / (y + 0.05)
+}
+const surface = parse(help.bg)
+if (surface.length !== 3) throw new Error(`help has no surface of its own: ${help.bg}`)
+const alpha = Number((help.bg.match(/[\d.]+/g) ?? [])[3] ?? 1)
+if (alpha < 0.5) throw new Error(`help surface is too transparent to read on: ${help.bg}`)
+const contrast = ratio(help.bg, help.fg)
+if (contrast < 4.5) {
+  throw new Error(`help text fails contrast on its own panel: ${contrast.toFixed(2)}:1 (${help.fg} on ${help.bg})`)
+}
+log(`help contrast ${contrast.toFixed(1)}:1 · surface ${help.bg}`)
 if (!help.hitIsOverlay) throw new Error('help centre is not hit-testable — something covers it')
 if (!help.onScreen) throw new Error(`help overlay is off-screen: ${JSON.stringify(help.box)}`)
 if (help.spill) throw new Error(`${help.spill} help rows overflow the panel horizontally`)

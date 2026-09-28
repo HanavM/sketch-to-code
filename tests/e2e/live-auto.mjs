@@ -81,6 +81,14 @@ const ui = () =>
       pressed: btn.getAttribute('aria-pressed'),
       title: btn.title,
       bg: cs.backgroundColor,
+      borderColor: cs.borderColor,
+      weight: getComputedStyle(s.getElementById('autoState')).fontWeight,
+      // an idle control to compare against: "lit" has to mean visibly unlike
+      // the buttons beside it, which is a comparison rather than a hex and so
+      // survives a change of skin
+      idleBg: getComputedStyle(s.getElementById('undo')).backgroundColor,
+      idleBorder: getComputedStyle(s.getElementById('undo')).borderColor,
+      idleWeight: getComputedStyle(s.getElementById('undo')).fontWeight,
       btnBox: { x: br.left, y: br.top, w: br.width, h: br.height },
       hud: { x: hr.left, y: hr.top, w: hr.width, h: hr.height },
       stored: localStorage.getItem('s2c:auto'),
@@ -319,7 +327,15 @@ if (!(await auto()).on) throw new Error('Alt+A did not come back round to auto')
 if (u.word !== 'auto') throw new Error(`switch reads ${JSON.stringify(u.word)} after Alt+A`)
 if (u.pressed !== 'true') throw new Error('aria-pressed did not follow the state')
 if (!u.on) throw new Error('the switch is not painted as acting on its own')
-if (!/rgba?\(37, 99, 235/.test(u.bg)) throw new Error(`the acting state has no colour of its own: ${u.bg}`)
+// A state you read, not the action you take: the switch is PRESSED rather than
+// filled, so what has to hold is that it looks different from an idle button —
+// which is a comparison, not a hex, and survives a change of skin.
+if (u.bg === u.idleBg) {
+  throw new Error(`the acting state looks identical to an idle button: ${u.bg}`)
+}
+if (u.weight === u.idleWeight && u.borderColor === u.idleBorder) {
+  throw new Error('the acting state differs only in background — too subtle to read')
+}
 if (u.stored !== '"auto"') throw new Error(`s2c:auto is ${u.stored}, want '"auto"'`)
 if (Math.abs(u.btnBox.w - offBox.w) > 0.5) {
   throw new Error(`the switch resized when it changed: ${offBox.w} → ${u.btnBox.w}`)

@@ -776,6 +776,15 @@ function toHex(css: string): string | null {
 }
 /** Where the pen colour survives a reload. */
 const PEN_STORE_KEY = 's2c:pen'
+const SKIN_STORE_KEY = 's2c:skin'
+/**
+ * How the chrome looks. Two, because they are answers to different rooms:
+ * `glass` floats over a busy page and gets out of the way; `paper` is flat
+ * white with a real line, for people who want an instrument rather than an
+ * effect (and for anyone whose browser makes a mess of backdrop-filter).
+ */
+type Skin = 'glass' | 'paper'
+const SKINS: Skin[] = ['glass', 'paper']
 /** How many of the app's own colours the pen offers as swatches. */
 const PEN_SWATCHES = 10
 /** Breathing room between the panel and both the bar and the viewport edge. */
@@ -996,7 +1005,66 @@ function css(strings: TemplateStringsArray): string {
 }
 
 const STYLES = css`
-  :host { all: initial; }
+  /*
+   * Two skins, one set of names.
+   *
+   * The chrome used to be a dark slab with a blue accent — legible, and heavy
+   * enough that it read as a THING sitting on the page rather than an
+   * instrument over it. Both skins here are light and quiet for the same
+   * reason: the page is the subject, and a toolbar that competes with it is a
+   * toolbar you notice instead of your design.
+   *
+   *   glass — frosted white, hairline edge, soft shadow. Floats.
+   *   paper — flat white, a real 1px black line, no blur, no glow. Prints.
+   *
+   * Every colour below is a token so the two differ in one block rather than
+   * in two hundred places. Accents stay semantic — green means a rule holds,
+   * red means it does not — but drop to ink-dark values that sit on white
+   * instead of the neon needed against near-black.
+   */
+  :host {
+    all: initial;
+    --s2c-surface: rgba(255, 255, 255, 0.78);
+    --s2c-blur: saturate(180%) blur(20px);
+    --s2c-solid: #ffffff;
+    --s2c-line: rgba(17, 17, 17, 0.14);
+    --s2c-line-strong: rgba(17, 17, 17, 0.32);
+    /* The outline of a floating surface, as distinct from the hairlines INSIDE
+       it. Glass barely draws one — the blur and the shadow already say where
+       the edge is. Paper draws a real black line, because on a white page
+       against a white app that line IS the design. */
+    --s2c-edge: rgba(17, 17, 17, 0.16);
+    --s2c-text: #111111;
+    --s2c-muted: rgba(17, 17, 17, 0.56);
+    --s2c-faint: rgba(17, 17, 17, 0.34);
+    --s2c-fill: rgba(17, 17, 17, 0.05);
+    --s2c-fill-hover: rgba(17, 17, 17, 0.10);
+    --s2c-active: #111111;
+    --s2c-on-active: #ffffff;
+    --s2c-shadow: 0 10px 34px rgba(17, 17, 17, 0.13), 0 1px 2px rgba(17, 17, 17, 0.10);
+    --s2c-shadow-sm: 0 4px 16px rgba(17, 17, 17, 0.12);
+    --s2c-radius: 14px;
+    --s2c-ok: #047857;
+    --s2c-ok-soft: rgba(4, 120, 87, 0.10);
+    --s2c-pick: #5b21b6;
+    --s2c-pick-soft: rgba(91, 33, 182, 0.10);
+    --s2c-danger: #b91c1c;
+    --s2c-danger-soft: rgba(185, 28, 28, 0.10);
+  }
+  /* Flat, opaque, and drawn with an actual line. Nothing blurs, nothing glows:
+     the edge is the whole design, so it is darker and the shadow goes away. */
+  :host([data-skin='paper']) {
+    --s2c-surface: #ffffff;
+    --s2c-blur: none;
+    --s2c-line: rgba(17, 17, 17, 0.30);
+    --s2c-line-strong: #111111;
+    --s2c-edge: #111111;
+    --s2c-fill: #ffffff;
+    --s2c-fill-hover: rgba(17, 17, 17, 0.06);
+    --s2c-shadow: 0 2px 10px rgba(17, 17, 17, 0.08);
+    --s2c-shadow-sm: 0 1px 6px rgba(17, 17, 17, 0.08);
+    --s2c-radius: 10px;
+  }
   * { box-sizing: border-box; font-family: ui-sans-serif, system-ui, sans-serif; }
   #canvas {
     position: fixed; inset: 0; z-index: 2147483000;
@@ -1022,7 +1090,7 @@ const STYLES = css`
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
-    border: 1.5px solid #f9fafb55; vertical-align: -1px;
+    border: 1.5px solid var(--s2c-line); vertical-align: -1px;
   }
   /* Same anchoring as the fidelity popover: above the bar by default, flipped
      below only when there is no room — a panel that merely sits at its flow
@@ -1031,20 +1099,20 @@ const STYLES = css`
     position: absolute; left: 0; bottom: calc(100% + 10px);
     display: none; width: 244px; max-width: calc(100vw - 20px);
     padding: 12px; border-radius: 12px;
-    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.5;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-line); color: var(--s2c-text); font-size: 12px; line-height: 1.5;
     cursor: default; text-align: left; white-space: normal;
   }
   #penPanel.on { display: block; }
   #penPanel.below { bottom: auto; top: calc(100% + 10px); }
   #penPanel .pHead { font-weight: 600; margin-bottom: 8px; }
-  #penPanel .pNote { color: #9ca3af; margin-top: 8px; }
+  #penPanel .pNote { color: var(--s2c-muted); margin-top: 8px; }
   #penRow { display: flex; flex-wrap: wrap; gap: 6px; }
   .swatch {
     width: 24px; height: 24px; border-radius: 999px; padding: 0;
     border: 2px solid transparent; background-clip: padding-box; cursor: pointer;
   }
-  .swatch.on { border-color: #f9fafb; }
+  .swatch.on { border-color: var(--s2c-text); }
   .swatch.ink { background: #2563eb; }
   #penCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
   /* ---- paint popover: the swatches belong NEXT TO the shape ------------
@@ -1060,8 +1128,8 @@ const STYLES = css`
     position: fixed; left: 0; top: 0; z-index: 2147483001;
     display: none; width: 214px; max-width: calc(100vw - 20px);
     padding: 10px; border-radius: 12px;
-    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #b45309; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid #b45309; color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     cursor: default; text-align: left; white-space: normal;
   }
   #paintPanel.on { display: block; }
@@ -1069,15 +1137,15 @@ const STYLES = css`
      have to read as one object across the gap between them */
   #paintPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #fcd34d; }
   #paintSeg {
-    display: flex; gap: 2px; background: #1f2937; border-radius: 999px;
+    display: flex; gap: 2px; background: var(--s2c-fill); border-radius: 999px;
     padding: 2px; margin-bottom: 8px;
   }
-  #paintSeg .qSegBtn { flex: 1; padding: 4px 8px; font-size: 11px; background: transparent; color: #9ca3af; }
-  #paintSeg .qSegBtn:hover { color: #f9fafb; background: #374151; }
-  #paintSeg .qSegBtn.on { background: #f59e0b; color: #1f2937; }
+  #paintSeg .qSegBtn { flex: 1; padding: 4px 8px; font-size: 11px; background: transparent; color: var(--s2c-muted); }
+  #paintSeg .qSegBtn:hover { color: var(--s2c-text); background: var(--s2c-line); }
+  #paintSeg .qSegBtn.on { background: #f59e0b; color: var(--s2c-text); }
   #paintRow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   #paintCustom { width: 34px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
-  #paintPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  #paintPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* The extract confirmation. Same reasoning as #paintPanel — it describes a
      specific set of boxes on the page, so it sits beside them rather than in
      the bar 600px away — but violet, matching LASSO_COLOR, and it is a
@@ -1086,102 +1154,102 @@ const STYLES = css`
     position: fixed; left: 0; top: 0; z-index: 2147483001;
     display: none; width: 250px; max-width: calc(100vw - 20px);
     padding: 10px; border-radius: 12px;
-    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #6d28d9; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-pick); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     cursor: default; text-align: left; white-space: normal;
   }
   #lassoPanel.on { display: block; }
-  #lassoPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #c4b5fd; }
+  #lassoPanel .qHead { font-weight: 600; margin-bottom: 7px; color: var(--s2c-pick); }
   #lassoList {
     margin-bottom: 8px; max-height: 108px; overflow-y: auto;
-    color: #d1d5db; font-size: 11px;
+    color: var(--s2c-muted); font-size: 11px;
   }
   #lassoList div { padding: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #lassoName {
     width: 100%; box-sizing: border-box; padding: 5px 8px; margin-bottom: 6px;
-    border-radius: 7px; border: 1px solid #4b5563; background: #1f2937;
-    color: #f9fafb; font: inherit;
+    border-radius: 7px; border: 1px solid var(--s2c-line); background: var(--s2c-solid);
+    color: var(--s2c-text); font: inherit;
   }
-  #lassoName:focus { outline: none; border-color: #8b5cf6; }
+  #lassoName:focus { outline: none; border-color: var(--s2c-line-strong); }
   #lassoActions { display: flex; gap: 6px; }
   #lassoActions button { flex: 1; padding: 5px 8px; border-radius: 999px; font-size: 11px; }
-  #lassoGo { background: #7c3aed; color: #f9fafb; }
-  #lassoGo:hover { background: #8b5cf6; }
-  #lassoCancel { background: #374151; color: #d1d5db; }
-  #lassoCancel:hover { background: #4b5563; }
-  #lassoPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  #lassoGo { background: var(--s2c-pick); color: var(--s2c-text); }
+  #lassoGo:hover { background: var(--s2c-pick); }
+  #lassoCancel { background: var(--s2c-line); color: var(--s2c-muted); }
+  #lassoCancel:hover { background: var(--s2c-fill-hover); }
+  #lassoPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* The rule confirmation: the readings a drawn line could mean, one of which
      is about to be saved. Green-bordered, matching the marks on the page. */
   #rulePanel {
     position: fixed; left: 0; top: 0; z-index: 2147483001;
     display: none; width: 288px; max-width: calc(100vw - 20px);
     padding: 10px; border-radius: 12px;
-    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #047857; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-ok); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     cursor: default; text-align: left; white-space: normal;
   }
   #rulePanel.on { display: block; }
-  #rulePanel .qHead { font-weight: 600; margin-bottom: 7px; color: #6ee7b7; }
+  #rulePanel .qHead { font-weight: 600; margin-bottom: 7px; color: var(--s2c-ok); }
   #ruleList { margin-bottom: 8px; max-height: 190px; overflow-y: auto; }
   #ruleList button {
     display: block; width: 100%; text-align: left; margin: 0 0 4px; padding: 5px 7px;
-    border-radius: 8px; border: 1px solid transparent; background: #1f2937;
-    color: #e5e7eb; font: inherit; font-size: 11px; line-height: 1.35; cursor: pointer;
+    border-radius: 8px; border: 1px solid var(--s2c-line); background: transparent;
+    color: var(--s2c-text); font: inherit; font-size: 11px; line-height: 1.35; cursor: pointer;
   }
-  #ruleList button:hover { background: #374151; }
-  #ruleList button[aria-checked='true'] { border-color: #10b981; background: #064e3b; }
-  #ruleList .rKey { color: #6ee7b7; font-weight: 600; margin-right: 5px; }
-  #ruleList .rRead { display: block; color: #9ca3af; }
+  #ruleList button:hover { background: var(--s2c-line); }
+  #ruleList button[aria-checked='true'] { border-color: var(--s2c-ok); background: var(--s2c-ok-soft); }
+  #ruleList .rKey { color: var(--s2c-ok); font-weight: 600; margin-right: 5px; }
+  #ruleList .rRead { display: block; color: var(--s2c-muted); }
   #ruleNote {
     width: 100%; box-sizing: border-box; padding: 5px 8px; margin-bottom: 6px;
-    border-radius: 7px; border: 1px solid #4b5563; background: #1f2937;
-    color: #f9fafb; font: inherit;
+    border-radius: 7px; border: 1px solid var(--s2c-line); background: var(--s2c-solid);
+    color: var(--s2c-text); font: inherit;
   }
-  #ruleNote:focus { outline: none; border-color: #10b981; }
+  #ruleNote:focus { outline: none; border-color: var(--s2c-line-strong); }
   #ruleActions { display: flex; gap: 6px; }
   #ruleActions button { flex: 1; padding: 5px 8px; border-radius: 999px; font-size: 11px; }
-  #ruleGo { background: #047857; color: #f9fafb; }
-  #ruleGo:hover { background: #10b981; }
-  #ruleCancel { background: #374151; color: #d1d5db; }
-  #ruleCancel:hover { background: #4b5563; }
-  #rulePanel .qNote { color: #9ca3af; margin-top: 8px; }
+  #ruleGo { background: var(--s2c-ok); color: var(--s2c-text); }
+  #ruleGo:hover { background: var(--s2c-ok); }
+  #ruleCancel { background: var(--s2c-line); color: var(--s2c-muted); }
+  #ruleCancel:hover { background: var(--s2c-fill-hover); }
+  #rulePanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* Everything being watched. Unlike the confirmation this is not anchored to
      anything on the page, so it sits with the toolbar. */
   #watchPanel {
     position: fixed; right: 12px; bottom: 12px; z-index: 2147483000;
     display: none; width: 300px; max-width: calc(100vw - 24px);
     padding: 10px; border-radius: 12px;
-    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-line); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     text-align: left; white-space: normal;
   }
   #watchPanel.on { display: block; }
-  #watchPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #6ee7b7; }
+  #watchPanel .qHead { font-weight: 600; margin-bottom: 7px; color: var(--s2c-ok); }
   #watchList { max-height: 208px; overflow-y: auto; }
   #watchList .wRow {
     display: flex; gap: 6px; align-items: flex-start; padding: 4px 0;
-    border-top: 1px solid #1f2937;
+    border-top: 1px solid var(--s2c-fill);
   }
   #watchList .wRow:first-child { border-top: 0; }
   #watchList .wText { flex: 1; font-size: 11px; }
-  #watchList .wBroken { color: #fca5a5; }
-  #watchList .wOk { color: #9ca3af; }
-  #watchList .wNote { color: #d1d5db; font-style: italic; }
+  #watchList .wBroken { color: var(--s2c-danger); }
+  #watchList .wOk { color: var(--s2c-muted); }
+  #watchList .wNote { color: var(--s2c-muted); font-style: italic; }
   #watchList button {
-    flex: none; padding: 1px 6px; border-radius: 999px; background: #374151;
-    color: #d1d5db; font-size: 11px; line-height: 1.5;
+    flex: none; padding: 1px 6px; border-radius: 999px; background: var(--s2c-line);
+    color: var(--s2c-muted); font-size: 11px; line-height: 1.5;
   }
-  #watchList button:hover { background: #7f1d1d; color: #fee2e2; }
-  #watchPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  #watchList button:hover { background: var(--s2c-danger); color: var(--s2c-on-active); }
+  #watchPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* Responsive demonstration is the one mode here that changes what a NORMAL
      gesture writes, so unlike every other toggle it has to be visible without
      being used — otherwise a drag lands at a breakpoint nobody remembered
      choosing. */
   #bandChip {
-    background: #0e7490; color: #ecfeff; font-variant-numeric: tabular-nums;
+    background: var(--s2c-active); color: #ecfeff; font-variant-numeric: tabular-nums;
     cursor: default;
   }
-  #bandChip:hover { background: #0e7490; }
+  #bandChip:hover { background: var(--s2c-active); }
   /* The props panel: controls derived from the component's own TypeScript
      types. Beside the element for the same reason the paint popover is — it is
      about THAT component — and slate rather than a gesture colour, because
@@ -1190,61 +1258,61 @@ const STYLES = css`
     position: fixed; left: 0; top: 0; z-index: 2147483001;
     display: none; width: 276px; max-width: calc(100vw - 20px);
     padding: 10px; border-radius: 12px;
-    background: #111827fa; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #475569; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-line); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     cursor: default; text-align: left; white-space: normal;
   }
   #propsPanel.on { display: block; }
-  #propsPanel .qHead { font-weight: 600; margin-bottom: 2px; color: #cbd5e1; }
+  #propsPanel .qHead { font-weight: 600; margin-bottom: 2px; color: var(--s2c-text); }
   #propsWhere {
-    color: #94a3b8; font-size: 11px; margin-bottom: 8px;
+    color: var(--s2c-muted); font-size: 11px; margin-bottom: 8px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   #propsWhere select { width: 100%; margin-top: 4px; }
   #propsBody { max-height: 260px; overflow-y: auto; }
   #propsBody .pRow { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
-  #propsBody .pName { flex: 0 0 84px; color: #e5e7eb; font-size: 11px; }
-  #propsBody .pName i { color: #64748b; font-style: normal; }
+  #propsBody .pName { flex: 0 0 84px; color: var(--s2c-text); font-size: 11px; }
+  #propsBody .pName i { color: var(--s2c-faint); font-style: normal; }
   #propsBody .pCtl { flex: 1; min-width: 0; }
   #propsBody input[type='text'], #propsBody input[type='number'], #propsBody select {
     width: 100%; box-sizing: border-box; padding: 3px 6px; border-radius: 6px;
-    border: 1px solid #475569; background: #1f2937; color: #f9fafb; font: inherit; font-size: 11px;
+    border: 1px solid var(--s2c-line); background: var(--s2c-solid); color: var(--s2c-text); font: inherit; font-size: 11px;
   }
-  #propsBody input:focus, #propsBody select:focus { outline: none; border-color: #94a3b8; }
-  #propsBody input[type='checkbox'] { width: 14px; height: 14px; accent-color: #64748b; }
-  #propsBody .pOff { color: #64748b; font-size: 11px; padding: 3px 0 5px; }
-  #propsBody .pOff b { color: #94a3b8; font-weight: 600; }
-  #propsNotes { color: #9ca3af; font-size: 11px; margin-top: 8px; }
+  #propsBody input:focus, #propsBody select:focus { outline: none; border-color: var(--s2c-line-strong); }
+  #propsBody input[type='checkbox'] { width: 14px; height: 14px; accent-color: var(--s2c-faint); }
+  #propsBody .pOff { color: var(--s2c-faint); font-size: 11px; padding: 3px 0 5px; }
+  #propsBody .pOff b { color: var(--s2c-muted); font-weight: 600; }
+  #propsNotes { color: var(--s2c-muted); font-size: 11px; margin-top: 8px; }
   /* The timeline. Bottom-left, opposite the watch panel, and wide rather than
      tall: it is a strip of moments, and moments read left to right. */
   #timePanel {
     position: fixed; left: 12px; bottom: 12px; z-index: 2147483000;
     display: none; width: 420px; max-width: calc(100vw - 24px);
     padding: 10px; border-radius: 12px;
-    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-line); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     text-align: left; white-space: normal;
   }
   #timePanel.on { display: block; }
-  #timePanel .qHead { font-weight: 600; margin-bottom: 7px; color: #cbd5e1; }
+  #timePanel .qHead { font-weight: 600; margin-bottom: 7px; color: var(--s2c-text); }
   #timeStrip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
   #timeStrip .tCard {
-    flex: 0 0 82px; padding: 3px; border-radius: 8px; border: 1px solid #374151;
-    background: #0b1120; cursor: pointer; text-align: left;
+    flex: 0 0 82px; padding: 3px; border-radius: 8px; border: 1px solid var(--s2c-line);
+    background: var(--s2c-solid); cursor: pointer; text-align: left;
   }
-  #timeStrip .tCard:hover { border-color: #64748b; }
-  #timeStrip .tCard[aria-pressed='true'] { border-color: #38bdf8; background: #0c4a6e; }
+  #timeStrip .tCard:hover { border-color: var(--s2c-faint); }
+  #timeStrip .tCard[aria-pressed='true'] { border-color: var(--s2c-line-strong); background: var(--s2c-fill-hover); }
   #timeStrip .tCard img {
     display: block; width: 100%; height: 54px; object-fit: cover; object-position: top;
-    border-radius: 5px; background: #1f2937;
+    border-radius: 5px; background: var(--s2c-fill);
   }
   #timeStrip .tCard .tNoShot {
     display: flex; align-items: center; justify-content: center; height: 54px;
-    border-radius: 5px; background: #1f2937; color: #4b5563; font-size: 16px;
+    border-radius: 5px; background: var(--s2c-fill); color: var(--s2c-faint); font-size: 16px;
   }
-  #timeStrip .tCard .tWhen { color: #94a3b8; font-size: 10px; margin-top: 3px; }
+  #timeStrip .tCard .tWhen { color: var(--s2c-muted); font-size: 10px; margin-top: 3px; }
   #timeStrip .tCard .tWhat {
-    color: #e5e7eb; font-size: 10px; line-height: 1.25; max-height: 25px; overflow: hidden;
+    color: var(--s2c-text); font-size: 10px; line-height: 1.25; max-height: 25px; overflow: hidden;
   }
   /* The library. A grid rather than a strip: these are things to browse, not
      moments in an order, and the picture is the index. */
@@ -1252,48 +1320,51 @@ const STYLES = css`
     position: fixed; right: 12px; top: 12px; z-index: 2147483000;
     display: none; width: 318px; max-width: calc(100vw - 24px);
     padding: 10px; border-radius: 12px;
-    background: #111827f2; box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-    border: 1px solid #374151; color: #f9fafb; font-size: 12px; line-height: 1.45;
+    background: var(--s2c-surface); box-shadow: 0 12px 40px rgba(17, 17, 17, 0.13);
+    border: 1px solid var(--s2c-line); color: var(--s2c-text); font-size: 12px; line-height: 1.45;
     text-align: left; white-space: normal;
   }
   #libPanel.on { display: block; }
-  #libPanel .qHead { font-weight: 600; margin-bottom: 7px; color: #cbd5e1; }
+  #libPanel .qHead { font-weight: 600; margin-bottom: 7px; color: var(--s2c-text); }
   #libGrid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
     max-height: 330px; overflow-y: auto;
   }
   #libGrid .lCard {
-    position: relative; padding: 3px; border-radius: 8px; border: 1px solid #374151;
-    background: #0b1120; cursor: pointer; text-align: left;
+    position: relative; padding: 3px; border-radius: 8px; border: 1px solid var(--s2c-line);
+    background: var(--s2c-solid); cursor: pointer; text-align: left;
   }
-  #libGrid .lCard:hover { border-color: #64748b; }
-  #libGrid .lCard[aria-pressed='true'] { border-color: #a78bfa; background: #2e1065; }
+  #libGrid .lCard:hover { border-color: var(--s2c-faint); }
+  #libGrid .lCard[aria-pressed='true'] { border-color: var(--s2c-pick); background: var(--s2c-pick-soft); }
   #libGrid .lCard img, #libGrid .lCard .lNoShot {
-    display: block; width: 100%; height: 52px; border-radius: 5px; background: #1f2937;
+    display: block; width: 100%; height: 52px; border-radius: 5px; background: var(--s2c-fill);
     object-fit: cover; object-position: top;
   }
   #libGrid .lCard .lNoShot {
     display: flex; align-items: center; justify-content: center;
-    color: #4b5563; font-size: 15px;
+    color: var(--s2c-fill-hover); font-size: 15px;
   }
   #libGrid .lCard .lName {
-    color: #e5e7eb; font-size: 10px; margin-top: 3px;
+    color: var(--s2c-text); font-size: 10px; margin-top: 3px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  #libGrid .lCard .lMeta { color: #6b7280; font-size: 9px; }
-  #libGrid .lCard .lGlobe { color: #a78bfa; }
+  #libGrid .lCard .lMeta { color: var(--s2c-faint); font-size: 9px; }
+  /* the empty state is prose, not a card: it spans the track rather than
+     wrapping two words at a time inside one column of three */
+  #libGrid > .lMeta { grid-column: 1 / -1; color: var(--s2c-muted); font-size: 11px; }
+  #libGrid .lCard .lGlobe { color: var(--s2c-pick); }
   #libGrid .lDrop {
     position: absolute; top: 2px; right: 2px; padding: 0 4px; border-radius: 999px;
-    background: #1f2937c0; color: #9ca3af; font-size: 10px; line-height: 1.5;
+    background: var(--s2c-fill)c0; color: var(--s2c-muted); font-size: 10px; line-height: 1.5;
   }
-  #libGrid .lDrop:hover { background: #7f1d1d; color: #fee2e2; }
-  #libFoot { color: #9ca3af; font-size: 11px; margin-top: 8px; }
+  #libGrid .lDrop:hover { background: var(--s2c-danger); color: var(--s2c-on-active); }
+  #libFoot { color: var(--s2c-muted); font-size: 11px; margin-top: 8px; }
   #timeFoot { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
-  #timeWhat { flex: 1; color: #9ca3af; font-size: 11px; min-width: 0; }
-  #timeGo { flex: none; padding: 4px 10px; border-radius: 999px; background: #0369a1; color: #f0f9ff; font-size: 11px; }
-  #timeGo:hover { background: #0284c7; }
-  #timeGo:disabled { background: #374151; color: #6b7280; }
-  #propsPanel .qNote { color: #9ca3af; margin-top: 8px; }
+  #timeWhat { flex: 1; color: var(--s2c-muted); font-size: 11px; min-width: 0; }
+  #timeGo { flex: none; padding: 4px 10px; border-radius: 999px; background: var(--s2c-active); color: var(--s2c-on-active); font-size: 11px; }
+  #timeGo:hover { background: var(--s2c-text); }
+  #timeGo:disabled { background: var(--s2c-line); color: var(--s2c-faint); }
+  #propsPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
@@ -1302,8 +1373,10 @@ const STYLES = css`
   #hud {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 2147483001; display: flex; gap: 8px; align-items: center;
-    background: #111827ee; color: #f9fafb; padding: 8px 12px;
-    border-radius: 999px; box-shadow: 0 4px 24px rgb(0 0 0 / 0.25);
+    background: var(--s2c-surface); color: var(--s2c-text); padding: 7px 11px;
+    border: 1px solid var(--s2c-edge); border-radius: 999px;
+    box-shadow: var(--s2c-shadow);
+    -webkit-backdrop-filter: var(--s2c-blur); backdrop-filter: var(--s2c-blur);
     font-size: 13px; user-select: none; cursor: grab;
     /* left:50% leaves shrink-to-fit only half the viewport to work with, so
        the bar would squeeze the status line even on a wide screen. Size to
@@ -1315,39 +1388,66 @@ const STYLES = css`
      go — translateX(-50%) would shift every dragged position by half a bar —
      and bottom must stop fighting top. Set as a class so the default layout
      stays entirely in CSS (nothing to restore when the user never drags). */
+  /* One rule for every floating surface: the panels differ in where they sit
+     and what they hold, never in what they are made of. */
+  #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow {
+    background: var(--s2c-surface);
+    border: 1px solid var(--s2c-edge);
+    box-shadow: var(--s2c-shadow);
+    -webkit-backdrop-filter: var(--s2c-blur); backdrop-filter: var(--s2c-blur);
+    color: var(--s2c-text);
+  }
+  #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox {
+    border-radius: var(--s2c-radius);
+  }
   #hud.placed, #hudShow.placed { bottom: auto; transform: none; }
   /* display:none, not detach: the HUD keeps its listeners and el.click()
      still dispatches, so scripted/e2e clicks work on a hidden bar. */
   #hud.off { display: none; }
-  #hudGrip { color: #6b7280; letter-spacing: -3px; font-size: 15px; padding: 0 2px; }
+  #hudGrip { color: var(--s2c-faint); letter-spacing: -3px; font-size: 15px; padding: 0 2px; }
   /* Shown only while an editor is attached: an indicator for a thing that is
      not connected is just noise on a toolbar that is already full. */
-  #ideDot { display: none; color: #34d399; font-size: 13px; padding: 0 2px; }
+  #ideDot { display: none; color: var(--s2c-ok); font-size: 13px; padding: 0 2px; }
   #ideDot.on { display: inline; }
   #hud:active { cursor: grabbing; }
-  button.icon { padding: 4px 9px; background: transparent; color: #9ca3af; }
-  button.icon:hover { background: #374151; color: #f9fafb; }
+  button.icon { padding: 4px 9px; background: transparent; color: var(--s2c-muted); }
+  button.icon:hover { background: var(--s2c-line); color: var(--s2c-text); }
   /* The restore affordance: a dot in the spot the bar was parked in, small
      enough to stay out of the way of whatever the user wanted to see. */
   #hudShow {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 2147483001; display: none; align-items: center; justify-content: center;
     width: 26px; height: 26px; border-radius: 999px; cursor: pointer;
-    background: #111827cc; box-shadow: 0 2px 10px rgb(0 0 0 / 0.25);
+    background: var(--s2c-surface); box-shadow: 0 2px 10px rgba(17, 17, 17, 0.10);
     font-size: 12px; line-height: 1; user-select: none;
   }
   #hudShow.on { display: flex; }
+  /* Outlined, not filled. A row of filled grey buttons is a row of equal
+     shouting; a hairline says "a control is here" and lets the one that
+     matters — the primary — be the only solid thing on the bar. */
   button {
-    border: 0; border-radius: 999px; padding: 6px 12px; font-size: 13px;
-    background: #374151; color: #f9fafb; cursor: pointer;
+    border: 1px solid var(--s2c-line); border-radius: 999px;
+    /* one pixel narrower each side than the old borderless button, because the
+       border itself now costs two: the bar's width is a budget, and a wider
+       bar drags every panel anchored to its left edge across the viewport */
+    padding: 5px 10px; font-size: 13px; line-height: 1.35;
+    background: transparent; color: var(--s2c-text); cursor: pointer;
+    transition: background 90ms linear, border-color 90ms linear;
   }
-  button:hover { background: #4b5563; }
-  button.primary { background: #2563eb; }
-  button.primary:hover { background: #1d4ed8; }
-  button:disabled { opacity: 0.45; cursor: default; }
-  #modes { display: flex; gap: 2px; background: #1f2937; border-radius: 999px; padding: 2px; }
+  button:hover { background: var(--s2c-fill-hover); border-color: var(--s2c-line-strong); }
+  button:focus-visible { outline: 2px solid var(--s2c-line-strong); outline-offset: 1px; }
+  button.primary {
+    background: var(--s2c-active); color: var(--s2c-on-active);
+    border-color: var(--s2c-active);
+  }
+  button.primary:hover { background: var(--s2c-text); border-color: var(--s2c-text); }
+  button:disabled { opacity: 0.35; cursor: default; }
+  button:disabled:hover { background: transparent; border-color: var(--s2c-line); }
+  #modes { display: flex; gap: 2px; background: var(--s2c-fill); border-radius: 999px; padding: 2px; }
   button.mode { padding: 4px 8px; background: transparent; }
-  button.mode.on { background: #2563eb; }
+  button.mode.on { background: var(--s2c-active); }
   /* The ellipsis budget, and the second half of the bar's width budget: with a
      long message the status is ALL the slack there is, so this cap is what the
      bar's widest state is made of. It came down by exactly the width of the ⚡
@@ -1355,22 +1455,28 @@ const STYLES = css`
      bar is a bar whose centred left edge slides further left, dragging an open
      panel across the viewport with it. Growing the pill is not a cosmetic
      choice; it moves other people's controls. */
-  #status { max-width: 316px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9ca3af; }
-  #status.err { color: #f87171; }
+  #status { max-width: 316px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--s2c-muted); }
+  #status.err { color: var(--s2c-danger); }
   /* ---- auto mode -------------------------------------------------------
      A toggle that spends tokens and edits source with no click, so its state
      has to be readable at a glance: the word says it, the colour repeats it. */
   #autoBtn { display: flex; align-items: center; gap: 3px; padding: 5px 8px; }
-  #autoBtn.on { background: #2563eb; }
+  /* PRESSED, not primary: a state you read, rather than the action you take.
+     Solid black is reserved for ✓ Go and for the segmented mode you are in —
+     three filled pills in one bar is the equal-shouting this design removed. */
+  #autoBtn.on {
+    background: var(--s2c-fill-hover); color: var(--s2c-text);
+    border-color: var(--s2c-line-strong);
+  }
   /* FIXED width, for the reason #fidelityNow documents one level up: the bar is
      width:max-content and centred with translateX(-50%), so a shrink-to-fit
      word would slide the WHOLE toolbar sideways every time the mode changed.
      Sized for 'review', the longest of the three. */
   #autoState {
     display: inline-block; width: 42px; text-align: left;
-    font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
+    font-size: 11px; color: var(--s2c-muted); letter-spacing: 0.2px;
   }
-  #autoBtn.on #autoState { color: #eff6ff; }
+  #autoBtn.on #autoState { color: var(--s2c-text); font-weight: 600; }
   /* The countdown ticks ten times a second INSIDE the status line, and #status
      sizes the bar — an un-boxed number would slide the whole toolbar sideways
      on every tick, which is the one thing a "nothing moved, I promise" UI must
@@ -1387,16 +1493,16 @@ const STYLES = css`
      live "zone %" readout (so the user knows what will happen without
      opening anything) and everything else lives in the panel. */
   #fidelityBtn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; }
-  #fidelityBtn.on { background: #2563eb; }
+  #fidelityBtn.on { background: var(--s2c-active); }
   /* Fixed width for the same reason as #fidelityZone, one level up: the pill
      is width:max-content and centred with translateX(-50%), so a readout that
      grew from 'trace 100%' to 'reinterpret 34%' would slide the WHOLE toolbar
      sideways on every slider tick. Sized for the longest reachable string. */
   #fidelityNow {
     display: inline-block; width: 88px; text-align: left;
-    font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
+    font-size: 11px; color: var(--s2c-muted); letter-spacing: 0.2px;
   }
-  #fidelityBtn.on #fidelityNow { color: #eff6ff; }
+  #fidelityBtn.on #fidelityNow { color: var(--s2c-on-active); }
   /* The fill choice, visible without opening anything. Fixed width for exactly
      the reason #fidelityNow is: its glyph changes with the selection, and a
      shrink-to-fit slot in a width:max-content bar centred by translateX(-50%)
@@ -1404,9 +1510,9 @@ const STYLES = css`
      A text symbol (not an emoji) so the 14px actually holds it on every font. */
   #fillNow {
     flex: none; width: 14px; text-align: center;
-    font-size: 12px; line-height: 1; color: #d1d5db;
+    font-size: 12px; line-height: 1; color: var(--s2c-muted);
   }
-  #fidelityBtn.on #fillNow { color: #eff6ff; }
+  #fidelityBtn.on #fillNow { color: var(--s2c-on-active); }
   /* Absolutely positioned INSIDE #hud (which is position:fixed, so it's the
      containing block): the panel then drags, hides and stacks with the bar
      for free, and being out of flow it can't widen the pill. Only the left
@@ -1420,43 +1526,43 @@ const STYLES = css`
     position: absolute; left: 0; bottom: calc(100% + 10px);
     display: none; width: 300px; max-width: calc(100vw - 20px);
     max-height: calc(100vh - 32px); overflow-y: auto;
-    background: #111827fa; color: #f9fafb;
-    border: 1px solid #374151; border-radius: 12px;
-    box-shadow: 0 10px 34px rgb(0 0 0 / 0.5);
+    background: var(--s2c-surface); color: var(--s2c-text);
+    border: 1px solid var(--s2c-line); border-radius: 12px;
+    box-shadow: 0 10px 34px rgba(17, 17, 17, 0.14);
     padding: 12px; font-size: 12px; line-height: 1.45;
     cursor: default; text-align: left; white-space: normal;
   }
   #fidelityPanel.on { display: block; }
   /* Near the top of the viewport there is no room above the bar. */
   #fidelityPanel.below { bottom: auto; top: calc(100% + 10px); }
-  #fidelityPanel .fHead { color: #f9fafb; font-weight: 600; margin-bottom: 8px; }
+  #fidelityPanel .fHead { color: var(--s2c-text); font-weight: 600; margin-bottom: 8px; }
   #fidelityPanel .fSlider { display: flex; align-items: center; gap: 9px; }
   /* accent-color is the whole dark-mode treatment for range + checkbox:
      no custom thumb to keep in sync with the native hit area. */
-  #fidelityRange { flex: 1; min-width: 0; accent-color: #2563eb; height: 18px; margin: 0; }
+  #fidelityRange { flex: 1; min-width: 0; accent-color: var(--s2c-active); height: 18px; margin: 0; }
   /* FIXED width, not shrink-to-fit: the zone name changes on every input
      event, and a label that resizes would resize the flex track next to it —
      re-mapping cursor position to value UNDER the thumb the user is dragging.
      Wide enough for the longest name ('reinterpret'). */
   #fidelityZone {
     flex: none; width: 100px; text-align: right;
-    font-size: 12px; font-weight: 600; color: #93c5fd; white-space: nowrap;
+    font-size: 12px; font-weight: 600; color: var(--s2c-muted); white-space: nowrap;
   }
-  #fidelityPanel .fHint { color: #9ca3af; margin: 4px 0 2px; min-height: 2.9em; }
+  #fidelityPanel .fHint { color: var(--s2c-muted); margin: 4px 0 2px; min-height: 2.9em; }
   #fidelityPanel .fSect {
-    color: #6b7280; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
-    margin: 10px 0 5px; border-top: 1px solid #1f2937; padding-top: 8px;
+    color: var(--s2c-faint); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    margin: 10px 0 5px; border-top: 1px solid var(--s2c-fill); padding-top: 8px;
   }
-  #fidelityPanel .fCheck { display: flex; align-items: center; gap: 7px; padding: 2px 0; cursor: pointer; color: #e5e7eb; }
-  #fidelityPanel .fCheck input { accent-color: #2563eb; width: 13px; height: 13px; margin: 0; cursor: pointer; }
-  #fidelityPanel .fCheck:hover { color: #f9fafb; }
-  #fidelityPanel .fNote { color: #6b7280; font-size: 11px; margin-top: 6px; }
-  #fidelityPanel .fSeg { display: flex; gap: 2px; background: #1f2937; border-radius: 999px; padding: 2px; }
+  #fidelityPanel .fCheck { display: flex; align-items: center; gap: 7px; padding: 2px 0; cursor: pointer; color: var(--s2c-text); }
+  #fidelityPanel .fCheck input { accent-color: var(--s2c-active); width: 13px; height: 13px; margin: 0; cursor: pointer; }
+  #fidelityPanel .fCheck:hover { color: var(--s2c-text); }
+  #fidelityPanel .fNote { color: var(--s2c-faint); font-size: 11px; margin-top: 6px; }
+  #fidelityPanel .fSeg { display: flex; gap: 2px; background: var(--s2c-fill); border-radius: 999px; padding: 2px; }
   #fidelityPanel .fSegBtn {
-    flex: 1; padding: 5px 8px; font-size: 11px; background: transparent; color: #9ca3af;
+    flex: 1; padding: 5px 8px; font-size: 11px; background: transparent; color: var(--s2c-muted);
   }
-  #fidelityPanel .fSegBtn:hover { color: #f9fafb; background: #374151; }
-  #fidelityPanel .fSegBtn.on { background: #2563eb; color: #f9fafb; }
+  #fidelityPanel .fSegBtn:hover { color: var(--s2c-text); background: var(--s2c-line); }
+  #fidelityPanel .fSegBtn.on { background: var(--s2c-active); color: var(--s2c-text); }
   /* The fill hint rewrites itself on every selection, so its height is FIXED
      rather than min-height: the panel is anchored to the bar's top edge and
      grows UPWARD, so a hint reflowing from two lines to one would jump the
@@ -1464,7 +1570,7 @@ const STYLES = css`
      up under the cursor. 2.9em = two lines at this font-size/line-height, and
      the longest of the three strings fits in two at the panel's 300px. */
   #fidelityPanel .fFillHint {
-    color: #9ca3af; height: 2.9em; margin: 5px 0 0; overflow: hidden;
+    color: var(--s2c-muted); height: 2.9em; margin: 5px 0 0; overflow: hidden;
   }
   /* Same fixed-height contract as .fFillHint, and for the same reason: this
      hint rewrites itself on every attempts click, and the panel grows upward
@@ -1472,7 +1578,7 @@ const STYLES = css`
      segment out from under the cursor. 4.35em = three lines here, which the
      longest of the three strings needs at the panel's 300px. */
   #fidelityPanel .fCandHint {
-    color: #9ca3af; height: 4.35em; margin: 5px 0 0; overflow: hidden;
+    color: var(--s2c-muted); height: 4.35em; margin: 5px 0 0; overflow: hidden;
   }
   /* ---- the style axis: six looks, one row ------------------------------
      Six options, where the segments above have two and three. Six pills do not
@@ -1486,16 +1592,16 @@ const STYLES = css`
      row: its popup is an OS window that costs no layout at all, the closed box
      always reads as the current choice, and it cannot widen the panel. */
   #fidelityPanel .fPick { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-  #fidelityPanel .fPickLabel { flex: none; color: #9ca3af; }
+  #fidelityPanel .fPickLabel { flex: none; color: var(--s2c-muted); }
   /* flex:1 + min-width:0, so the box is the same width for every option: the
      selected label is the text that changes here, and a shrink-to-fit control
      would move its own neighbours every time the user picked something. */
   #styleSel {
     flex: 1; min-width: 0; height: 22px;
-    background: #1f2937; color: #f9fafb; border: 1px solid #374151; border-radius: 7px;
+    background: var(--s2c-fill); color: var(--s2c-text); border: 1px solid var(--s2c-line); border-radius: 7px;
     font-family: inherit; font-size: 11px; padding: 0 4px; cursor: pointer;
   }
-  #styleSel:hover { background: #374151; }
+  #styleSel:hover { background: var(--s2c-line); }
   /* The .fFillHint contract taken one step further. This hint rewrites itself
      on every pick and sits one row UNDER the control being clicked, in a panel
      anchored to the bar's top edge — so a string reflowing to a second line
@@ -1503,7 +1609,7 @@ const STYLES = css`
      with an ellipsis rather than a half-clipped word if copy ever outgrows the
      box (the e2e asserts no ellipsis ever actually shows). */
   #fidelityPanel .fStyleHint {
-    color: #9ca3af; font-size: 11px; height: 16px; line-height: 16px;
+    color: var(--s2c-muted); font-size: 11px; height: 16px; line-height: 16px;
     margin: 4px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   /* ---- typed notes ----------------------------------------------------
@@ -1520,10 +1626,10 @@ const STYLES = css`
     position: absolute; pointer-events: auto;
     display: flex; align-items: center; gap: 6px;
     max-width: 260px; padding: 3px 4px 3px 10px; border-radius: 999px;
-    background: #1d4ed8; color: #eff6ff; font-size: 11px; line-height: 1.6;
+    background: var(--s2c-text); color: var(--s2c-on-active); font-size: 11px; line-height: 1.6;
     box-shadow: 0 2px 10px rgb(0 0 0 / 0.35); cursor: pointer;
   }
-  .noteChip:hover { background: #2563eb; }
+  .noteChip:hover { background: var(--s2c-active); }
   .noteChip .noteText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .noteChip .noteDel {
     flex: none; width: 17px; height: 17px; padding: 0; border-radius: 999px;
@@ -1539,20 +1645,20 @@ const STYLES = css`
   #noteBox.on { display: flex; }
   #noteWhat {
     align-self: flex-start; padding: 2px 9px; border-radius: 999px;
-    background: #0f172aee; color: #93c5fd;
+    background: #0f172aee; color: var(--s2c-muted);
     font-size: 10px; letter-spacing: 0.4px; text-transform: uppercase;
   }
   #noteInput {
     width: 100%; padding: 8px 11px; border-radius: 10px;
-    border: 1px solid #3b82f6; background: #0f172afa; color: #f9fafb;
-    font-size: 13px; outline: none; box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+    border: 1px solid #3b82f6; background: #0f172afa; color: var(--s2c-text);
+    font-size: 13px; outline: none; box-shadow: 0 10px 30px rgba(17, 17, 17, 0.14);
   }
-  #noteInput::placeholder { color: #64748b; }
+  #noteInput::placeholder { color: var(--s2c-faint); }
   /* The subject, outlined while the field is open: the ONLY way the user can
      tell whether the note landed on the element, the strokes, or the run. */
   #noteHi {
     position: absolute; display: none; pointer-events: none;
-    border: 2px solid #38bdf8; border-radius: 6px; background: rgb(56 189 248 / 0.12);
+    border: 2px solid var(--s2c-line-strong); border-radius: 6px; background: rgb(56 189 248 / 0.12);
   }
   #noteHi.on { display: block; }
   /* ---- the plan overlay -----------------------------------------------
@@ -1583,22 +1689,22 @@ const STYLES = css`
   .planLabel {
     position: absolute; pointer-events: none; max-width: 280px;
     padding: 4px 8px 5px; border-radius: 8px;
-    border-left: 3px solid var(--k, #4b5563);
+    border-left: 3px solid var(--k, var(--s2c-fill-hover));
     background: #0b1220f2; color: #f3f4f6;
     font-size: 11px; line-height: 1.45; text-align: left;
-    box-shadow: 0 3px 14px rgb(0 0 0 / 0.45);
+    box-shadow: 0 3px 14px rgba(17, 17, 17, 0.13);
   }
   .planLabel .pRow { display: flex; align-items: center; gap: 6px; }
   .planLabel .pKind {
     flex: none; padding: 0 6px; border-radius: 999px;
-    background: var(--k, #4b5563); color: #fff;
+    background: var(--k, var(--s2c-fill-hover)); color: #fff;
     font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
   }
   .planLabel .pWhat {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
-    color: #e5e7eb; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: var(--s2c-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .planLabel .pInstr { color: #9ca3af; margin-top: 2px; }
+  .planLabel .pInstr { color: var(--s2c-muted); margin-top: 2px; }
   /* The swatch shows the RESOLVED colour, so it must paint the real value —
      a border rather than a background would be a picture of a colour. */
   .planLabel .pSwatch {
@@ -1613,7 +1719,7 @@ const STYLES = css`
      ellipsised — the whole point of a typed note is that it is exact. */
   .planLabel .pNote {
     margin-top: 3px; padding: 2px 7px; border-radius: 6px;
-    background: #1d4ed8; color: #eff6ff;
+    background: var(--s2c-text); color: var(--s2c-on-active);
     white-space: pre-wrap; overflow-wrap: anywhere;
   }
   /* ---- keyboard help --------------------------------------------------
@@ -1623,8 +1729,8 @@ const STYLES = css`
     position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
     z-index: 2147483002; display: none;
     width: 560px; max-width: calc(100vw - 32px); max-height: calc(100vh - 64px);
-    overflow: auto; background: #111827fa; color: #f9fafb;
-    border: 1px solid #374151; border-radius: 14px;
+    overflow: auto; background: var(--s2c-surface); color: var(--s2c-text);
+    border: 1px solid var(--s2c-line); border-radius: 14px;
     box-shadow: 0 18px 50px rgb(0 0 0 / 0.55);
     padding: 16px 18px; font-size: 12px; line-height: 1.5; text-align: left;
   }
@@ -1632,16 +1738,16 @@ const STYLES = css`
   #help .hHead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   #help .hTitle { font-size: 14px; font-weight: 600; }
   #help .hGroup {
-    color: #6b7280; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
-    margin: 12px 0 4px; border-top: 1px solid #1f2937; padding-top: 8px;
+    color: var(--s2c-faint); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    margin: 12px 0 4px; border-top: 1px solid var(--s2c-fill); padding-top: 8px;
   }
   #help .hRow { display: flex; align-items: baseline; gap: 12px; padding: 2px 0; }
   #help .hKeys {
-    flex: none; width: 104px; text-align: right; color: #93c5fd;
+    flex: none; width: 104px; text-align: right; color: var(--s2c-muted);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
   }
-  #help .hLabel { color: #e5e7eb; }
-  #help .hFoot { color: #6b7280; margin-top: 12px; border-top: 1px solid #1f2937; padding-top: 8px; }
+  #help .hLabel { color: var(--s2c-text); }
+  #help .hFoot { color: var(--s2c-faint); margin-top: 12px; border-top: 1px solid var(--s2c-fill); padding-top: 8px; }
 `
 
 class Overlay {
@@ -1728,6 +1834,8 @@ class Overlay {
   private timeOpen = false
   private versions: HistoryVersion[] = []
   private timePick: string | null = null
+  /** Which skin the chrome wears. See SKIN_STORE_KEY. */
+  private skin: Skin = 'glass'
   /** Responsive demonstration: while on, edits land at the current width's band. */
   private responsive = false
   private bandChip: HTMLButtonElement
@@ -2280,6 +2388,7 @@ class Overlay {
     this.noteInput.addEventListener('keyup', (e) => e.stopPropagation())
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
 
+    this.restoreSkin()
     this.binds = this.buildKeymap()
     this.buildHelp()
     this.loadPen()
@@ -2395,6 +2504,7 @@ class Overlay {
       // it fires FROM: armed, counting down, or locked mid-run
       // `on` stays "fires AND applies", which is what it always meant; `mode`
       // is the thing with three values
+      skin: () => this.skin,
       auto: () => ({
         on: this.autoMode === 'auto', mode: this.autoMode,
         pending: this.autoTimer != null, busy: this.autoBusy,
@@ -2868,6 +2978,11 @@ class Overlay {
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
       },
       {
+        id: 'skin', keys: 'Alt+U', group: 'overlay',
+        label: 'look — glass (frosted) or paper (flat white, one black line)',
+        match: altBind('KeyU', 'u'), run: () => this.cycleSkin(),
+      },
+      {
         id: 'hud', keys: 'Alt+H', label: 'hide / show the toolbar', group: 'overlay',
         match: altBind('KeyH', 'h'),
         run: () => {
@@ -3078,7 +3193,21 @@ class Overlay {
     this.helpEl.replaceChildren(head)
 
     let group = ''
+    // Grouped, not merely segmented by a change in the group name: the keymap
+    // is ordered by when each binding was written, so a new one lands wherever
+    // it was added and used to split its group in two — the list showed
+    // DRAWING, then OVERLAY, then DRAWING again. Group order is still first
+    // appearance, so the familiar sections stay where they were.
+    const order: string[] = []
+    const byGroup = new Map<string, typeof this.binds>()
     for (const b of this.binds) {
+      if (!byGroup.has(b.group)) {
+        order.push(b.group)
+        byGroup.set(b.group, [])
+      }
+      byGroup.get(b.group)!.push(b)
+    }
+    for (const b of order.flatMap((g) => byGroup.get(g) ?? [])) {
       if (b.group !== group) {
         group = b.group
         const g = document.createElement('div')
@@ -5484,6 +5613,35 @@ class Overlay {
   // on a phone means the new value becomes the UNPREFIXED class and the old one
   // is pushed up to the next breakpoint. That is decided in the pipeline; all
   // this has to do is send the width and say honestly which band it is.
+
+  private cycleSkin() {
+    const next = SKINS[(SKINS.indexOf(this.skin) + 1) % SKINS.length]!
+    this.setSkin(next)
+    this.status(
+      next === 'glass'
+        ? 'glass — frosted, hairline edge, floats over the page'
+        : 'paper — flat white and a real black line, no blur',
+    )
+  }
+
+  private setSkin(skin: Skin) {
+    this.skin = skin
+    // on the HOST, so every panel in the shadow root inherits the tokens
+    this.host.dataset.skin = skin
+    try {
+      localStorage.setItem(SKIN_STORE_KEY, JSON.stringify(skin))
+    } catch { /* unreadable storage just means the default next time */ }
+  }
+
+  private restoreSkin() {
+    let skin: Skin = 'glass'
+    try {
+      const raw = localStorage.getItem(SKIN_STORE_KEY)
+      const v = raw ? (JSON.parse(raw) as unknown) : null
+      if (typeof v === 'string' && (SKINS as string[]).includes(v)) skin = v as Skin
+    } catch { /* the default is a fine place to land */ }
+    this.setSkin(skin)
+  }
 
   private async toggleResponsive(): Promise<void> {
     this.responsive = !this.responsive
