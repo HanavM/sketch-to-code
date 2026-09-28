@@ -4,7 +4,8 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
-  applyWork, captureWork, pickBest, revertTouched, revertWork, touchedFiles, type Attempt,
+  applyWork, captureWork, createdFiles, pickBest, revertTouched, revertWork, touchedFiles,
+  untrackedFiles, type Attempt,
 } from '../src/candidates.js'
 import { checkpoint } from '../src/safety.js'
 
@@ -132,5 +133,66 @@ describe('picking the winner', () => {
   })
   it('is null when there is nothing to pick', () => {
     expect(pickBest([])).toBeNull()
+  })
+})
+
+describe('telling a created file from a changed one', () => {
+  it('reports only what did not exist before — the library depends on the difference', () => {
+    const { app } = repo()
+    const cp = checkpoint(app, true)
+    writeFileSync(join(app, 'src/Existing.tsx'), 'export const a = 99\n') // changed
+    writeFileSync(join(app, 'src/Fresh.tsx'), 'export default () => null\n') // created
+    expect(touchedFiles(app, cp).sort()).toEqual(['src/Existing.tsx', 'src/Fresh.tsx'])
+    expect(createdFiles(app, cp)).toEqual(['src/Fresh.tsx'])
+  })
+
+  it('does not call a pre-existing untracked file "created", given what was there', () => {
+    const { app } = repo()
+    // untracked before the edit: a scratch file, a local note, anything
+    writeFileSync(join(app, 'src/Scratch.tsx'), 'export const s = 1\n')
+    const before = untrackedFiles(app)
+    expect(before).toContain('src/Scratch.tsx')
+    const cp = checkpoint(app, true)
+    writeFileSync(join(app, 'src/Fresh.tsx'), 'export default () => null\n')
+
+    expect(createdFiles(app, cp, before)).toEqual(['src/Fresh.tsx'])
+    // and without the list, the two are genuinely indistinguishable — a
+    // checkpoint records tracked state only, so this is a limitation to be
+    // stated rather than a bug to be hidden
+    expect(createdFiles(app, cp).sort()).toEqual(['src/Fresh.tsx', 'src/Scratch.tsx'])
+  })
+
+  it('does not report a file the edit deleted', () => {
+    const { app } = repo()
+    const cp = checkpoint(app, true)
+    rmSync(join(app, 'src/Existing.tsx'))
+    expect(createdFiles(app, cp)).toEqual([])
+  })
+})
+
+describe('undoing one edit when an earlier one created a file', () => {
+  it('leaves the earlier edit’s untracked file alone', () => {
+    const { app } = repo()
+    // edit 1: creates a component and leaves it untracked, as an extract does
+    writeFileSync(join(app, 'src/NavPair.tsx'), 'export default () => null\n')
+
+    // edit 2: checkpointed AFTER that, so NavPair is already here
+    const before = untrackedFiles(app)
+    const cp2 = checkpoint(app, true)
+    writeFileSync(join(app, 'src/Existing.tsx'), "import NavPair from './NavPair'\n")
+
+    const reverted = revertTouched(app, cp2, before)
+
+    // the point: edit 2 is undone and edit 1 survives it
+    expect(readFileSync(join(app, 'src/Existing.tsx'), 'utf8')).toBe('export const a = 1\n')
+    expect(existsSync(join(app, 'src/NavPair.tsx'))).toBe(true)
+    expect(reverted).toEqual(['src/Existing.tsx'])
+
+    // and without the list it is genuinely indistinguishable — which is the
+    // bug this exists to prevent, not a subtlety to leave implicit
+    const cp3 = checkpoint(app, true)
+    writeFileSync(join(app, 'src/Existing.tsx'), 'export const a = 2\n')
+    revertTouched(app, cp3)
+    expect(existsSync(join(app, 'src/NavPair.tsx'))).toBe(false)
   })
 })

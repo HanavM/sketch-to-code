@@ -63,18 +63,18 @@ export function captureWork(root: string, cp: Checkpoint): Work {
  * exist there are deleted outright, because `git restore` has nothing to
  * restore them to and would leave them in place.
  */
-export function revertWork(root: string, cp: Checkpoint, work: Work): void {
+export function revertWork(root: string, cp: Checkpoint, work: Work, keep?: string[]): void {
   const prefix = git(root, 'rev-parse', '--show-prefix')
+  const spare = new Set(keep ?? [])
   for (const rel of work.keys()) {
-    const inCheckpoint = (() => {
-      try {
-        execFileSync('git', ['cat-file', '-e', `${cp.sha}:${prefix}${rel}`], { cwd: root, stdio: 'ignore' })
-        return true
-      } catch {
-        return false
-      }
-    })()
-    if (inCheckpoint) {
+    // A file that was ALREADY here untracked when the checkpoint was taken is
+    // not this edit's to delete. A checkpoint is a `git stash create`, which
+    // records tracked state only, so such a file is missing from its tree for
+    // the same reason a brand-new one is — and without this list, undoing one
+    // edit deletes the component an EARLIER edit created. Extract something,
+    // do anything else, press undo once, and it would be gone.
+    if (spare.has(rel)) continue
+    if (inCheckpoint(root, cp, rel, prefix)) {
       execFileSync('git', ['restore', '--source', cp.sha, '--', rel], { cwd: root })
     } else {
       rmSync(join(root, rel), { force: true })
@@ -95,6 +95,47 @@ export function applyWork(root: string, work: Work): void {
   }
 }
 
+/** Was this path in the checkpoint's tree at all? */
+function inCheckpoint(root: string, cp: Checkpoint, rel: string, prefix: string): boolean {
+  try {
+    execFileSync('git', ['cat-file', '-e', `${cp.sha}:${prefix}${rel}`], { cwd: root, stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+/** Everything git is not tracking, so a caller can record it before an edit. */
+export function untrackedFiles(root: string): string[] {
+  return execFileSync('git', ['ls-files', '--others', '--exclude-standard'], {
+    cwd: root, encoding: 'utf8',
+  }).split('\n').filter(Boolean)
+}
+
+/**
+ * Only the files an edit CREATED, not the ones it changed.
+ *
+ * The element library needs this distinction and nothing else here does: a
+ * sketch that recolours Navbar.tsx should not file Navbar in the library, while
+ * a sketch that produced a new component is exactly what the library is for.
+ *
+ * `before` is the project's untracked files as they were BEFORE the edit, and
+ * leaving it out is a real limitation rather than a default: a checkpoint is a
+ * `git stash create`, which captures tracked state only, so a file that was
+ * already sitting there untracked is absent from the checkpoint's tree for the
+ * same reason a brand-new one is. Without the list they are indistinguishable,
+ * and this would call someone's scratch component "created" every time.
+ */
+export function createdFiles(root: string, cp: Checkpoint, before?: string[]): string[] {
+  const prefix = git(root, 'rev-parse', '--show-prefix')
+  const existed = new Set(before ?? [])
+  return touchedFiles(root, cp).filter(
+    (rel) => existsSync(join(root, rel)) &&
+      !existed.has(rel) &&
+      !inCheckpoint(root, cp, rel, prefix),
+  )
+}
+
 /**
  * Undo an edit completely, including files it CREATED.
  *
@@ -102,11 +143,13 @@ export function applyWork(root: string, work: Work): void {
  * no diff and survives the revert as an orphan — which is how undoing an
  * extract used to leave the new file behind after putting the call site back.
  */
-export function revertTouched(root: string, cp: Checkpoint): string[] {
+export function revertTouched(root: string, cp: Checkpoint, keep?: string[]): string[] {
   const work = captureWork(root, cp)
-  if (work.size === 0) return []
-  revertWork(root, cp, work)
-  return [...work.keys()]
+  const spare = new Set(keep ?? [])
+  const mine = [...work.keys()].filter((rel) => !spare.has(rel))
+  if (mine.length === 0) return []
+  revertWork(root, cp, work, keep)
+  return mine
 }
 
 /**
