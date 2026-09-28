@@ -912,6 +912,30 @@ const AUTO_STORE_KEY = 's2c:auto'
  * countdown is cancellable, so guessing early costs an Esc rather than a run.
  */
 const AUTO_SETTLE_MS = 900
+
+/**
+ * What happens when you stop drawing. Three modes, because there are exactly
+ * three answers to "who decides that the drawing is finished and right":
+ *
+ *   auto    — nobody. Stop drawing and it is read AND applied. No clicks.
+ *   review  — you do, once. Stop drawing and it is read; the plan is painted and
+ *             waits for ✓ Go. This is the mode manual used to be, minus the
+ *             pointless ▶ Run click that only said "yes, I did finish drawing".
+ *   manual  — you do, twice. Nothing happens until ▶ Run, then ✓ Go.
+ *
+ * One switch cycling forward through them, because they are one axis: how much
+ * of the handoff you want to keep.
+ */
+type AutoMode = 'auto' | 'review' | 'manual'
+const AUTO_MODES: AutoMode[] = ['auto', 'review', 'manual']
+const AUTO_WORD: Record<AutoMode, string> = { auto: 'auto', review: 'review', manual: 'manual' }
+const AUTO_TIP: Record<AutoMode, string> = {
+  auto: 'AUTO (Alt+A) — stop drawing and the sketch is read and applied, no clicks.' +
+    ' Esc cancels while the countdown shows; a reading that would delete things still asks.',
+  review: 'REVIEW (Alt+A) — stop drawing and the sketch is read on its own, then waits' +
+    ' for ✓ Go so you see the plan before anything is written.',
+  manual: 'MANUAL (Alt+A) — nothing happens until you press ▶ Run, then ✓ Go.',
+}
 /**
  * How often the countdown redraws. A tenth of a second, because with a
  * sub-second settle a whole-second countdown would only ever read '1' — which
@@ -1340,10 +1364,10 @@ const STYLES = css`
   #autoBtn.on { background: #2563eb; }
   /* FIXED width, for the reason #fidelityNow documents one level up: the bar is
      width:max-content and centred with translateX(-50%), so a shrink-to-fit
-     'on'/'off' would slide the WHOLE toolbar sideways every time it flipped.
-     Sized for 'off', the wider of the two. */
+     word would slide the WHOLE toolbar sideways every time the mode changed.
+     Sized for 'review', the longest of the three. */
   #autoState {
-    display: inline-block; width: 18px; text-align: left;
+    display: inline-block; width: 42px; text-align: left;
     font-size: 11px; color: #d1d5db; letter-spacing: 0.2px;
   }
   #autoBtn.on #autoState { color: #eff6ff; }
@@ -1734,7 +1758,7 @@ class Overlay {
   /** The auto-mode toggle and everything the settle timer needs.
    *  OFF is the only safe default — see restoreAuto. */
   private autoBtn: HTMLButtonElement
-  private auto = false
+  private autoMode: AutoMode = 'auto'
   /** The settle timer, and the moment it is counting down to (performance.now
    *  ms). Non-null timer == a run is pending, which is what Esc cancels. */
   private autoTimer: ReturnType<typeof setInterval> | null = null
@@ -2190,7 +2214,7 @@ class Overlay {
       this.shadow.getElementById(`mode-${m}`)!.addEventListener('click', () => this.setRunMode(m))
     }
     this.shadow.getElementById('tweakBtn')!.addEventListener('click', () => this.toggleTweak())
-    this.autoBtn.addEventListener('click', () => this.setAuto(!this.auto))
+    this.autoBtn.addEventListener('click', () => this.cycleAuto(1))
     this.drawBtn.addEventListener('click', () => this.toggleDraw())
     this.runBtn.addEventListener('click', () => void this.run())
     this.confirmBtn.addEventListener('click', () => void this.proceed())
@@ -2369,7 +2393,12 @@ class Overlay {
       candidates: () => this.candidatesPayload(),
       // auto mode fires with no click, so e2e has to be able to see the state
       // it fires FROM: armed, counting down, or locked mid-run
-      auto: () => ({ on: this.auto, pending: this.autoTimer != null, busy: this.autoBusy }),
+      // `on` stays "fires AND applies", which is what it always meant; `mode`
+      // is the thing with three values
+      auto: () => ({
+        on: this.autoMode === 'auto', mode: this.autoMode,
+        pending: this.autoTimer != null, busy: this.autoBusy,
+      }),
       // what the paint popover believes it is pointed at: the whole risk here
       // is painting a DIFFERENT shape than the one outlined, so the stamp it
       // would put on the wire has to be observable
@@ -2742,8 +2771,13 @@ class Overlay {
         // controls, which took digits precisely so that Alt+A could stay the
         // one binding that means "auto".
         id: 'auto', keys: 'Alt+A', group: 'run',
-        label: 'auto mode (ON by default) — stop drawing and the sketch runs itself, no ✓ Go',
-        match: altBind('KeyA', 'a'), run: () => this.setAuto(!this.auto),
+        label: 'handoff mode — auto (let go, it applies) → review (let go, you press ✓ Go) → manual',
+        match: altBind('KeyA', 'a'), run: () => this.cycleAuto(1),
+      },
+      {
+        id: 'auto-back', keys: 'Alt+Shift+A', group: 'run',
+        label: 'previous mode — the same three, backwards',
+        match: altBind('KeyA', 'a', true), run: () => this.cycleAuto(-1),
       },
       {
         id: 'note', keys: 'Alt+N', label: 'note here — type words onto whatever is under the pointer', group: 'notes',
@@ -2975,7 +3009,7 @@ class Overlay {
     // stealing Esc from the note editor would make a note uncancellable for as
     // long as auto mode is armed.
     if (this.autoTimer && !this.autoBlock()) {
-      this.cancelAuto('auto-run cancelled — draw again to restart the wait, Alt+A to turn it off')
+      this.cancelAuto('auto-run cancelled — draw again to restart the wait, Alt+A for review or manual')
       return
     }
     if (this.noteDraft) {
@@ -8614,18 +8648,29 @@ class Overlay {
   // shape to drift, and the whole feature is supposed to be indistinguishable
   // from a very fast, very punctual user.
 
-  private setAuto(on: boolean) {
-    this.auto = on
+  /** Forward through the three, or backwards with shift. */
+  private cycleAuto(dir: 1 | -1) {
+    const i = AUTO_MODES.indexOf(this.autoMode)
+    const next = AUTO_MODES[(i + dir + AUTO_MODES.length) % AUTO_MODES.length]!
+    this.setAutoMode(next)
+  }
+
+  private setAutoMode(mode: AutoMode) {
+    this.autoMode = mode
     this.syncAutoUi()
     this.saveAuto()
-    if (!on) {
+    if (mode === 'manual') {
       this.cancelAuto()
-      this.status('auto mode off — nothing runs until you press ▶ Run (Alt+A turns it back on)')
+      this.status('manual — nothing runs until you press ▶ Run, then ✓ Go (Alt+A cycles)')
       return
     }
     // short enough to survive #status's ellipsis: the caveats (a wide delete
     // still asks) are in the button's tooltip, where there is room for them
-    this.status(`auto mode on — pause ${String(AUTO_SETTLE_MS / 1000)}s and it runs itself · Esc cancels`)
+    this.status(
+      mode === 'auto'
+        ? `auto — stop drawing for ${String(AUTO_SETTLE_MS / 1000)}s and it runs itself · Esc cancels`
+        : `review — stop drawing and it reads the sketch, then waits for ✓ Go · Esc cancels`,
+    )
     // Arming it with a finished drawing already on the page starts the wait
     // immediately: "turn it on and it runs" is the promise, and making the
     // user add one more stroke to collect on it would be a riddle. The
@@ -8636,14 +8681,13 @@ class Overlay {
 
   /** Render the toggle FROM state — one path for a restore and for a click. */
   private syncAutoUi() {
-    this.autoBtn.classList.toggle('on', this.auto)
-    this.autoBtn.setAttribute('aria-pressed', String(this.auto))
-    this.shadow.getElementById('autoState')!.textContent = this.auto ? 'on' : 'off'
-    const tip = this.auto
-      ? `auto mode ON (Alt+A) — stop drawing for ${String(AUTO_SETTLE_MS / 1000)}s and the sketch is read and` +
-        ' applied with no ✓ Go. Esc cancels the pending run; a wide delete always stops for confirmation.'
-      : 'auto mode OFF (Alt+A) — nothing runs until you press ▶ Run. It is ON by default;' +
-        ' turning it off here is remembered.'
+    // 'on' paints the button lit: both modes that fire on their own qualify,
+    // because what the colour answers is "will this act without me?"
+    this.autoBtn.classList.toggle('on', this.autoMode !== 'manual')
+    this.autoBtn.setAttribute('aria-pressed', String(this.autoMode !== 'manual'))
+    this.autoBtn.dataset.mode = this.autoMode
+    this.shadow.getElementById('autoState')!.textContent = AUTO_WORD[this.autoMode]
+    const tip = `${AUTO_TIP[this.autoMode]} Alt+A cycles auto → review → manual.`
     this.autoBtn.title = tip
     this.autoBtn.setAttribute('aria-label', tip)
   }
@@ -8658,7 +8702,7 @@ class Overlay {
    * countdown is dropped.
    */
   private autoBlock(): { why: string; hold: boolean } | null {
-    if (!this.auto) return { why: 'auto mode is off', hold: false }
+    if (this.autoMode === 'manual') return { why: 'manual mode', hold: false }
     if (this.mode !== 'draw') return { why: `not drawing (${this.mode})`, hold: false }
     if (this.strokes.length === 0) return { why: 'nothing drawn', hold: false }
     if (this.autoBusy) return { why: 'a run is already in flight', hold: false }
@@ -8789,6 +8833,13 @@ class Overlay {
         this.status(`${why} · auto-run stopped — your ink is still here, ▶ Run to retry`, true)
         return
       }
+      if (this.autoMode === 'review') {
+        // The gate is already painted — the plan, ✓ Go, ✗ Cancel — so this only
+        // has to say whose turn it is. The ▶ Run click is what review mode
+        // removes; the decision is exactly what it keeps.
+        this.status('read it — ✓ Go applies, ✗ Cancel drops it (Esc too)')
+        return
+      }
       const destroys = this.autoDestroys()
       if (destroys > 0) {
         // Back to the normal gate, which is already standing: the plan is
@@ -8809,34 +8860,37 @@ class Overlay {
   }
 
   /**
-   * ON unless the user has said otherwise.
+   * AUTO unless the user has chosen otherwise.
    *
-   * This started OFF, on the reasoning that it is the one setting that spends
-   * tokens and rewrites source with no click. That reasoning has been overtaken:
-   * drawing a thing and then hunting for ▶ Run and ✓ Go is the bulk this whole
-   * tool exists to remove, and everything that made the caution necessary now
-   * exists — every edit is checkpointed and Ctrl+Z reaches it, the timeline
-   * keeps a picture of each state, a reading that would DELETE things still
-   * stops for confirmation, and the countdown is cancellable with Esc.
+   * It defaulted to off once, on the reasoning that this is the one setting that
+   * spends tokens and rewrites source with no click. That has been overtaken:
+   * drawing a thing and then hunting for ▶ Run and ✓ Go is the bulk this tool
+   * exists to remove, and everything that made the caution necessary now exists
+   * — every edit is checkpointed and Ctrl+Z reaches it, the timeline keeps a
+   * picture of each state, a reading that would DELETE things still stops for
+   * confirmation, and the countdown is cancellable with Esc. Someone who wants
+   * the decision back has two modes to move to and one key to do it with.
    *
-   * So the rule inverts rather than relaxes: only a literal `false` turns it
-   * off, and that choice persists. Garbage, an absent key, or a shape from some
-   * later version all land on ON — the same strictness, pointing the other way.
+   * The old key held a boolean, so it is migrated rather than discarded: `true`
+   * was this behaviour, and `false` was two clicks, which is `manual`. Anything
+   * unrecognised lands on the default, because silently disabling the thing the
+   * tool is for is its own kind of failure.
    */
   private restoreAuto() {
-    let on = true
+    let mode: AutoMode = 'auto'
     try {
       const raw = localStorage.getItem(AUTO_STORE_KEY)
       const v = raw ? (JSON.parse(raw) as unknown) : null
-      if (v === false) on = false
+      if (typeof v === 'string' && (AUTO_MODES as string[]).includes(v)) mode = v as AutoMode
+      else if (v === false) mode = 'manual'
     } catch { /* unreadable storage just means the default */ }
-    this.auto = on
+    this.autoMode = mode
     this.syncAutoUi()
   }
 
   private saveAuto() {
     try {
-      localStorage.setItem(AUTO_STORE_KEY, JSON.stringify(this.auto))
+      localStorage.setItem(AUTO_STORE_KEY, JSON.stringify(this.autoMode))
     } catch { /* quota/blocked: off is the right place to land */ }
   }
 

@@ -17,10 +17,17 @@ npm run build
 npm run dev            # boots examples/demo-app on :5199
 ```
 
-Open http://localhost:5199 — press **Alt+D** to enter draw mode and sketch. Stop
-drawing and it reads the sketch and applies it on its own, about a second later;
-**Esc** cancels while the countdown is showing, and **Alt+A** turns that off if
-you would rather press **▶ Run** yourself.
+Open http://localhost:5199 — press **Alt+D** to enter draw mode and sketch.
+
+**Alt+A** picks who decides the drawing is finished:
+
+| mode | what happens when you stop drawing |
+| --- | --- |
+| **auto** (default) | it is read and applied, about a second later. No clicks. **Esc** cancels while the countdown shows. |
+| **review** | it is read on its own and waits — you see the plan, then press **✓ Go**. |
+| **manual** | nothing, until you press **▶ Run**, then **✓ Go**. |
+
+In auto, a reading that would *delete* things still stops and asks.
 
 Three run modes (HUD selector):
 - **✏️ gesture** — mark up existing UI with command gestures (default). Auto-escalates

@@ -10,8 +10,8 @@
  * is a real grounded interpretation rather than a shape of its own invention.
  *
  * Asserts:
- *   1. a fresh profile has it ON (that is the default), and an explicit OFF is
- *      remembered and fires nothing however long you wait
+ *   1. a fresh profile is in AUTO (the default); cycling to MANUAL is remembered
+ *      and fires nothing however long you wait
  *   2. Alt+A toggles it, the toolbar shows on/off without changing width, and
  *      the ? overlay lists the binding (it is rendered from the same table)
  *   3. THE FIRING RULE: a three-stroke drawing fires ONCE, after the settle
@@ -200,7 +200,21 @@ await page.route('**/@s2c/run', async (route) => {
 
 // ---- helpers over the overlay -------------------------------------------
 const ensureDraw = async () => { if ((await mode()) !== 'draw') await press('Alt+KeyD') }
-const setAuto = async (on) => { if ((await auto()).on !== on) await press('Alt+KeyA') }
+/**
+ * Land on a named mode.
+ *
+ * Alt+A cycles auto → review → manual now, so a single press no longer flips a
+ * boolean: from review, one press lands on manual, which is how this test
+ * started asserting that auto mode had stopped working.
+ */
+const setMode = async (want) => {
+  for (let i = 0; i < 4; i++) {
+    if ((await auto()).mode === want) return
+    await press('Alt+KeyA')
+    await page.waitForTimeout(120)
+  }
+  throw new Error(`could not reach ${want} — stuck in ${(await auto()).mode}`)
+}
 
 /** One scribble, over the given target, in the CURRENT mode. */
 async function stroke(i = 0, dx = 0) {
@@ -223,7 +237,7 @@ async function finishRun(summary = 'wrote 1 file') {
 
 /** Back to a blank, quiet slate — auto off, nothing open, no ink. */
 async function reset() {
-  await setAuto(false)
+  await setMode('manual')
   await press('Escape')
   if ((await mode()) === 'preview') await press('Escape')
   await ensureDraw()
@@ -253,22 +267,36 @@ await page.reload({ waitUntil: 'networkidle' })
 
 let u = await ui()
 if (!(await auto()).on) throw new Error('auto mode is OFF on a fresh profile — it is meant to be the default')
-if (u.word !== 'on') throw new Error(`toggle reads ${JSON.stringify(u.word)}, want 'on'`)
+if ((await auto()).mode !== 'auto') throw new Error(`fresh profile is in ${(await auto()).mode}`)
+if (u.word !== 'auto') throw new Error(`switch reads ${JSON.stringify(u.word)}, want 'auto'`)
 if (u.pressed !== 'true') throw new Error(`aria-pressed is ${u.pressed} on a fresh profile`)
 if (!u.hitIsOverlay) throw new Error('#autoBtn reports a box but nothing is hit-testable there')
 if (u.btnBox.w < 30 || u.btnBox.h < 16) throw new Error(`#autoBtn is not painted: ${JSON.stringify(u.btnBox)}`)
 if (u.hud.w > 900) throw new Error(`HUD is no longer a compact pill: ${Math.round(u.hud.w)}px`)
 
-// now opt out, the way a user would, and prove it is remembered across a reload
-await page.evaluate(`${sr()}.getElementById("autoBtn").click()`)
-await page.waitForTimeout(150)
-if ((await auto()).on) throw new Error('clicking the toggle did not turn it off')
+// cycle the whole way round, the way a user would, and check the width never
+// moves — the switch sits in a centred pill, so a shrink-to-fit word would slide
+// the entire toolbar sideways on every change
+const widths = []
+for (const want of ['review', 'manual', 'auto']) {
+  await page.evaluate(`${sr()}.getElementById("autoBtn").click()`)
+  await page.waitForTimeout(150)
+  const now = await ui()
+  widths.push(Math.round(now.btnBox.w))
+  if ((await auto()).mode !== want) throw new Error(`cycling landed on ${(await auto()).mode}, want ${want}`)
+  if (now.word !== want) throw new Error(`switch reads ${JSON.stringify(now.word)}, want ${want}`)
+}
+if (new Set(widths).size !== 1) throw new Error(`the switch changes width across modes: ${widths}`)
+log('✓ Alt+A cycles auto → review → manual → auto · switch width fixed at', widths[0], 'px')
+
+// park it in manual and prove that survives a reload
+await page.evaluate(() => localStorage.setItem('s2c:auto', '"manual"'))
 await page.reload({ waitUntil: 'networkidle' })
 u = await ui()
-if ((await auto()).on) throw new Error('an explicit OFF was not remembered across a reload')
-if (u.word !== 'off') throw new Error(`after opting out the toggle reads ${JSON.stringify(u.word)}`)
-if (!/ON by default/.test(u.title)) {
-  throw new Error(`the OFF tooltip does not say the default is on: ${u.title}`)
+if ((await auto()).mode !== 'manual') throw new Error('manual was not remembered across a reload')
+if (u.word !== 'manual') throw new Error(`after opting out the switch reads ${JSON.stringify(u.word)}`)
+if (!/Alt\+A cycles/.test(u.title)) {
+  throw new Error(`the tooltip does not say the key cycles: ${u.title}`)
 }
 const offBox = u.btnBox
 await page.screenshot({
@@ -280,24 +308,25 @@ await ensureDraw()
 await stroke(0)
 await page.waitForTimeout(SETTLE * 2)
 if (interprets.length) throw new Error(`auto mode fired while OFF (${interprets.length} interpret calls)`)
-log('✓ fresh profile: ON · opting out is remembered · nothing fired after', SETTLE * 2, 'ms · pill', Math.round(u.hud.w), 'px')
+log('✓ fresh profile: auto · manual is remembered · nothing fired after', SETTLE * 2, 'ms · pill', Math.round(u.hud.w), 'px')
 await page.evaluate(`${sr()}.getElementById("clear").click()`)
 
-// ---- 2. Alt+A, the toolbar state, and the ? overlay --------------------
+// ---- 2. Alt+A back to auto, the toolbar state, and the ? overlay -------
+// from manual, one press lands on auto (the cycle wraps)
 await press('Alt+KeyA')
 u = await ui()
-if (!(await auto()).on) throw new Error('Alt+A did not turn auto mode on')
-if (u.word !== 'on') throw new Error(`toggle reads ${JSON.stringify(u.word)} after Alt+A`)
+if (!(await auto()).on) throw new Error('Alt+A did not come back round to auto')
+if (u.word !== 'auto') throw new Error(`switch reads ${JSON.stringify(u.word)} after Alt+A`)
 if (u.pressed !== 'true') throw new Error('aria-pressed did not follow the state')
-if (!u.on) throw new Error('the toggle is not painted as on')
-if (!/rgba?\(37, 99, 235/.test(u.bg)) throw new Error(`the ON state has no colour of its own: ${u.bg}`)
-if (u.stored !== 'true') throw new Error(`s2c:auto is ${u.stored}, want 'true'`)
+if (!u.on) throw new Error('the switch is not painted as acting on its own')
+if (!/rgba?\(37, 99, 235/.test(u.bg)) throw new Error(`the acting state has no colour of its own: ${u.bg}`)
+if (u.stored !== '"auto"') throw new Error(`s2c:auto is ${u.stored}, want '"auto"'`)
 if (Math.abs(u.btnBox.w - offBox.w) > 0.5) {
-  throw new Error(`the toggle resized when it flipped: ${offBox.w} → ${u.btnBox.w}`)
+  throw new Error(`the switch resized when it changed: ${offBox.w} → ${u.btnBox.w}`)
 }
 let st = await status()
-if (!/auto mode on/.test(st)) throw new Error(`Alt+A said nothing useful: ${st}`)
-if (!/0\.9s/.test(st)) throw new Error(`the ON message never names the settle period: ${st}`)
+if (!/^auto —/.test(st)) throw new Error(`Alt+A said nothing useful: ${st}`)
+if (!/0\.9s/.test(st)) throw new Error(`the auto message never names the settle period: ${st}`)
 await page.screenshot({
   path: `${SHOTS}/toggle-on.png`,
   clip: { x: Math.round(u.hud.x - 8), y: Math.round(u.hud.y - 8), width: Math.round(u.hud.w + 16), height: Math.round(u.hud.h + 16) },
@@ -322,7 +351,7 @@ log('✓ Alt+A on/off · same width · listed in ? as', JSON.stringify(`${row.ke
 
 // ---- 3. THE FIRING RULE: once, after the settle, HUD immobile -----------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await watchStatus()
 await stroke(0, 0)
@@ -362,7 +391,7 @@ log('✓ 3 strokes → 1 run, ' + delay + 'ms after the last one · countdown ti
 
 // ---- 3b. the countdown, painted -----------------------------------------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 await waitFor(async () => /auto-run in/.test(await status()), 2000, 'the countdown')
@@ -376,7 +405,7 @@ await press('Escape')
 
 // ---- 4. any new stroke restarts the wait --------------------------------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 const firstUp = Date.now()
@@ -394,7 +423,7 @@ log('✓ a new stroke restarts the wait ·', total, 'ms after the first stroke,'
 
 // ---- 5. Esc cancels, and does NOT fall through the ladder ---------------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 await waitFor(async () => (await auto()).pending, 2000, 'a pending run')
@@ -417,13 +446,21 @@ if (interprets.length) throw new Error('auto mode fired with the note editor ope
 if (!(await page.evaluate(`getComputedStyle(${sr()}.getElementById("noteBox")).display !== "none"`))) {
   throw new Error('the note editor never opened, so that proved nothing')
 }
-await setAuto(false) // so closing the note cannot resume the held wait mid-check
+// Esc closes the note; the held wait then resumes, which would fire mid-check.
+// The mode has to change BEFORE that, and it cannot be changed with a key while
+// the note has focus — the editor stops keystrokes so a note can contain the
+// letter a — so this clicks the switch instead.
+for (let i = 0; i < 4 && (await auto()).mode !== 'manual'; i++) {
+  await page.evaluate(`${sr()}.getElementById("autoBtn").click()`)
+  await page.waitForTimeout(120)
+}
+if ((await auto()).mode !== 'manual') throw new Error('could not reach manual while a note was open')
 await press('Escape')
-log('✓ a note being typed holds the run back')
+log('✓ a note being typed holds the run back · the switch is clickable through it')
 
 // (b) a panel
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 await press('Alt+KeyF')
@@ -432,13 +469,13 @@ if (!(await page.evaluate(`getComputedStyle(${sr()}.getElementById("fidelityPane
 }
 await page.waitForTimeout(SETTLE * 2)
 if (interprets.length) throw new Error('auto mode fired with the fidelity panel open')
-await setAuto(false)
+await setMode('manual')
 await press('Alt+KeyF')
 log('✓ an open panel holds the run back (the user is adjusting settings, not finishing a drawing)')
 
 // (c) outside draw mode
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 await press('Alt+KeyD')
@@ -450,7 +487,7 @@ log('✓ nothing fires outside draw mode')
 
 // ---- 7. the single-run lock ---------------------------------------------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 interpretMs = 1400 // longer than the settle: a real in-flight window
 await stroke(0)
@@ -470,7 +507,7 @@ log('✓ one run at a time: a stroke during an in-flight interpret starts nothin
 // ---- 8. a destructive reading falls back to the preview gate ------------
 await reset()
 reading = DESTRUCTIVE
-await setAuto(true)
+await setMode('auto')
 await ensureDraw()
 await stroke(0)
 await waitFor(async () => (await mode()) === 'preview', 5000, 'the preview gate')
@@ -500,26 +537,55 @@ await waitFor(async () => runs.length === 1, 4000, 'the hand-confirmed run')
 await finishRun()
 log('✓ destructive reading stops at the gate:', JSON.stringify(st))
 
+// ---- 8b. REVIEW: it reads on its own, then waits for you ----------------
+// The mode that exists because "manual" used to cost two clicks, one of which
+// only said "yes, I did stop drawing". Review removes that one and keeps the
+// decision — so the read must happen unprompted and the WRITE must not.
+await reset()
+reading = SAFE
+await setMode('review')
+await ensureDraw()
+await stroke(0)
+await waitFor(async () => interprets.length > 0, 4000, 'review to read the sketch on its own')
+await page.waitForTimeout(400)
+if (runs.length) throw new Error('review mode applied the plan without being asked')
+if ((await mode()) !== 'preview') throw new Error(`review left the overlay in ${await mode()}`)
+const goShown = await page.evaluate(`${sr()}.getElementById("confirm").style.display !== "none"`)
+if (!goShown) throw new Error('review read the sketch but never offered ✓ Go')
+st = await status()
+if (!/✓ Go/.test(st)) throw new Error(`review did not say whose turn it is: ${st}`)
+// and pressing it applies, with no second reading
+const before = interprets.length
+await page.evaluate(`${sr()}.getElementById("confirm").click()`)
+await waitFor(async () => runs.length > 0, 4000, '✓ Go to apply what was already read')
+if (interprets.length !== before) throw new Error('✓ Go re-read the drawing instead of applying it')
+log('✓ review: read unprompted, waited for ✓ Go, applied on the one click')
+
 // ---- 9. persistence ------------------------------------------------------
 await reset()
-await setAuto(true)
+await setMode('auto')
 await page.reload({ waitUntil: 'networkidle' })
 u = await ui()
-if (!(await auto()).on || u.word !== 'on') throw new Error('the toggle did not survive a reload')
-// the rule is strict, pointing at the default: only a literal false opts out,
-// so garbage and an absent key both land ON rather than silently disabling the
+if (!(await auto()).on || u.word !== 'auto') throw new Error('the mode did not survive a reload')
+// review is the interesting one to persist: it is a deliberate middle choice,
+// not the default and not the opt-out
+await setMode('review')
+await page.reload({ waitUntil: 'networkidle' })
+if ((await auto()).mode !== 'review') throw new Error('review did not survive a reload')
+if ((await ui()).word !== 'review') throw new Error('the switch lost the word review')
+// unrecognised values land on the default rather than silently disabling the
 // thing the tool is for
 await page.evaluate(() => localStorage.setItem('s2c:auto', '"yes please"'))
 await page.reload({ waitUntil: 'networkidle' })
-if (!(await auto()).on) throw new Error('garbage in s2c:auto turned auto mode OFF')
-if ((await ui()).word !== 'on') throw new Error('garbage in storage left the toggle claiming off')
+if ((await auto()).mode !== 'auto') throw new Error('garbage in s2c:auto changed the mode')
 await page.evaluate(() => localStorage.removeItem('s2c:auto'))
 await page.reload({ waitUntil: 'networkidle' })
-if (!(await auto()).on) throw new Error('a missing key turned auto mode OFF')
+if ((await auto()).mode !== 'auto') throw new Error('a missing key changed the mode')
+// the old key held a boolean; false meant two clicks, which is manual now
 await page.evaluate(() => localStorage.setItem('s2c:auto', 'false'))
 await page.reload({ waitUntil: 'networkidle' })
-if ((await auto()).on) throw new Error('a literal false did not opt out')
-log('✓ persists under s2c:auto · only a literal false opts out; garbage and absence stay ON')
+if ((await auto()).mode !== 'manual') throw new Error('an old `false` did not migrate to manual')
+log('✓ persists under s2c:auto · garbage and absence stay in auto · an old `false` becomes manual')
 
 await b.close()
 log('ALL GOOD')
