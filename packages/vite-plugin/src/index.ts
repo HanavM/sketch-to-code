@@ -275,7 +275,11 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             // a shape drawn onto the page is a component now, so it is filed
             // the same way an extract is; the overlay adds the picture, which
             // it can do here because this edit hot-reloads rather than navigates
-            if (result.file) captureInto(m, { file: result.file, kind: 'drawn', name: result.name })
+            if (result.file) {
+              captureInto(m, {
+                file: result.file, kind: 'drawn', name: result.name, strokes: body.strokes,
+              })
+            }
             sendJson(res, 200, { ok: true, ...result, checkpoint: cp.sha })
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, reason: String(err) }))
@@ -364,10 +368,37 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         req: {
           file: string; exportName?: string; name?: string
           kind?: 'drawn' | 'extracted' | 'scanned'
-          thumbnail?: string; signature?: number[]
+          thumbnail?: string; signature?: number[]; aspect?: number
           defaults?: Record<string, string>
+          /** Strokes that produced it — a drawn entry's truest shape. */
+          strokes?: unknown
+          /** Outlines of the rendered boxes, for one that was never drawn. */
+          outlines?: { x: number; y: number }[][]
         },
       ): ReturnType<Pipeline['captureEntry']> => {
+        /**
+         * The shape the library will be searched by.
+         *
+         * Ink first and by a distance: the strokes are what the user meant,
+         * where the generated source is only what came out. Outlines from the
+         * page come second, and they are the only option for something never
+         * drawn — an extracted card has no ink, and a component of plain divs
+         * has no SVG geometry for the source reader to find either, so without
+         * them it could never be found by drawing at all.
+         */
+        let shape: { signature?: number[]; aspect?: number } = {
+          signature: req.signature, aspect: req.aspect,
+        }
+        if (!shape.signature) {
+          try {
+            const sig = req.strokes
+              ? m.shapeFromStrokes(req.strokes as Parameters<Pipeline['shapeFromStrokes']>[0])
+              : req.outlines?.length
+                ? m.shapeSignature(req.outlines)
+                : null
+            if (sig) shape = { signature: sig.grid, aspect: sig.aspect }
+          } catch { /* a shapeless entry is still an entry */ }
+        }
         // a stamp of something the file actually renders: line 1 is an import,
         // and readComponentProps is addressed by element, not by file
         const stamp = m.firstJsxStamp(root, req.file)
@@ -381,7 +412,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           name: req.name ?? read.component,
           kind: req.kind ?? 'drawn',
           thumbnail: req.thumbnail,
-          signature: req.signature,
+          signature: shape.signature,
+          aspect: shape.aspect,
           // the values it was actually used with beat anything invented later
           defaults: req.defaults ?? site?.values,
           props: read.ok
@@ -422,8 +454,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         readJsonBody<{
           file: string; exportName?: string; name?: string
           kind?: 'drawn' | 'extracted' | 'scanned'
-          thumbnail?: string; signature?: number[]
+          thumbnail?: string; signature?: number[]; aspect?: number
           defaults?: Record<string, string>
+          outlines?: { x: number; y: number }[][]
         }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
@@ -437,6 +470,38 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
        * the overlay does not have to know whether the entry's file is already
        * in this project — placeEntry materialises a portable one first.
        */
+      /**
+       * Search the library by drawing at it.
+       *
+       * The strokes go over the wire rather than a signature computed in the
+       * page: the measurement that decides what matches is the same one that
+       * scores a generated depiction against the ink that asked for it, and
+       * having two implementations of it would mean two answers.
+       */
+      server.middlewares.use('/@s2c/library/search', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ strokes: unknown }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const sig = m.shapeFromStrokes(
+              body.strokes as Parameters<typeof m.shapeFromStrokes>[0],
+            )
+            if (!sig) {
+              return sendJson(res, 200, {
+                ok: false,
+                error: 'that sketch has no shape to match — draw a rough outline of the thing you want.',
+              })
+            }
+            const hits = m.searchLibrary(root, { signature: sig.grid })
+            sendJson(res, 200, {
+              ok: true,
+              matches: hits.map((h) => ({ ...h.entry, score: h.score })),
+            })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/library/place', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
@@ -1027,7 +1092,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     const m = await import('@s2c/pipeline')
                     for (const rel of m.createdFiles(root, runCp, untrackedBefore)) {
                       if (!/\.(tsx|jsx)$/.test(rel)) continue
-                      captureInto(m, { file: rel, kind: 'drawn' })
+                      // the ink that asked for it, so it can be found later by
+                      // drawing roughly the same thing again
+                      captureInto(m, { file: rel, kind: 'drawn', strokes: body.strokes })
                     }
                   } catch { /* the edit landed; filing it is a bonus */ }
                 }

@@ -18,7 +18,8 @@ export type {
 export { appPalette, matchColor, parseCssColor, deltaE, colorDirective } from './palette.js'
 export type { PaletteEntry, ColorMatch } from './palette.js'
 export {
-  compositionFromStrokes, compositionFromSource, scoreComposition, compositionBrief, samplePath,
+  compositionFromOutlines, compositionFromStrokes, compositionFromSource, scoreComposition,
+  compositionBrief, samplePath,
 } from './composition.js'
 export type { CompositionSignature, CompositionVerdict, CompositionFlaw } from './composition.js'
 export {
@@ -26,10 +27,13 @@ export {
 } from './fidelity.js'
 export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
 export {
-  bumpUsed, captureEntry, entrySignature, entryThumbPath, findEntry, globalLibraryDir,
+  bumpUsed, captureEntry, entrySignature, matchScore, searchLibrary, entryThumbPath, findEntry, globalLibraryDir,
   globalLibraryIndexPath, libraryDir, libraryIndexPath, listEntries, pruneLibrary, removeEntry,
   signatureSimilarity,
 } from './library.js'
+export type { LibraryMatch } from './library.js'
+export { shapeFromStrokes, shapeSignature } from './shape-signature.js'
+export type { ShapePoint, ShapeSignature } from './shape-signature.js'
 export type {
   EntryKind, EntryProp, LibraryEntry, ListedEntry,
 } from './library-types.js'

@@ -330,6 +330,8 @@ interface LibEntry {
   portable: boolean
   usedCount: number
   home: 'project' | 'global'
+  /** Present only in search results: 0..1 against the current sketch. */
+  score?: number
 }
 
 /** One moment on the timeline, as the server stores it. */
@@ -430,6 +432,31 @@ function pointInPath(pts: Array<{ x: number; y: number }>, x: number, y: number)
     if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) inside = !inside
   }
   return inside
+}
+
+/**
+ * The page-space box covering several elements.
+ *
+ * A component that renders a FRAGMENT has no single root — an extracted run of
+ * siblings is exactly that, and it is the commonest thing the lasso produces.
+ * Measuring "the outermost stamped element" then measures one of them: for a row
+ * of three nav links, one link, which is a 3:1 box standing in for a 10:1 row.
+ */
+function unionRect(els: HTMLElement[]): { x: number; y: number; w: number; h: number } {
+  let x0 = Infinity
+  let y0 = Infinity
+  let x1 = -Infinity
+  let y1 = -Infinity
+  for (const el of els) {
+    const r = el.getBoundingClientRect()
+    if (r.width < 1 && r.height < 1) continue
+    x0 = Math.min(x0, r.left + window.scrollX)
+    y0 = Math.min(y0, r.top + window.scrollY)
+    x1 = Math.max(x1, r.right + window.scrollX)
+    y1 = Math.max(y1, r.bottom + window.scrollY)
+  }
+  if (!Number.isFinite(x0)) return { x: 0, y: 0, w: 0, h: 0 }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
 }
 
 /** "4m ago" — a timeline is read in relative time, not clock time. */
@@ -1665,6 +1692,9 @@ class Overlay {
   private entries: LibEntry[] = []
   /** The entry the next click on the page will place. */
   private libArmed: LibEntry | null = null
+  /** True while the panel is showing matches for the current ink. */
+  private libSearching = false
+  private libSearchTimer: ReturnType<typeof setTimeout> | null = null
   /** The timeline: entries as the server holds them, and which one is picked. */
   private timePanel: HTMLElement
   private timeHead: HTMLElement
@@ -2100,7 +2130,7 @@ class Overlay {
     lib.innerHTML = `
       <div class="qHead" id="libHead">library</div>
       <div id="libGrid"></div>
-      <div id="libFoot">pick one, then click where it should go</div>
+      <div id="libFoot">draw something to search by shape</div>
     `
     this.shadow.appendChild(lib)
     this.libPanel = lib
@@ -2365,12 +2395,13 @@ class Overlay {
       // entry than the one lit up would look exactly like it working.
       library: () => ({
         open: this.libOpen,
+        searching: this.libSearching,
         armed: this.libArmed?.id ?? null,
         armedName: this.libArmed?.name ?? null,
         entries: this.entries.map((e) => ({
           id: e.id, name: e.name, kind: e.kind, file: e.file, home: e.home,
           portable: e.portable, hasThumb: !!e.thumb, usedCount: e.usedCount,
-          alreadyHere: e.alreadyHere ?? false,
+          alreadyHere: e.alreadyHere ?? false, score: e.score ?? null,
           props: e.props.map((p) => p.name),
         })),
       }),
@@ -2520,6 +2551,7 @@ class Overlay {
   private clearAll() {
     this.strokes = []
     this.notes = []
+    this.endSketchSearch()
     // a new drawing gets its own instant render
     this.instant = null
     if (this.noteDraft) this.closeNote('cleared')
@@ -4771,6 +4803,20 @@ class Overlay {
   // using the same entry five times makes five usages of one component, rather
   // than five copies that then drift apart.
 
+  /** Ink gone, query gone: the panel goes back to the whole library. */
+  private endSketchSearch() {
+    if (this.libSearchTimer) clearTimeout(this.libSearchTimer)
+    this.libSearchTimer = null
+    if (!this.libSearching) return
+    this.libSearching = false
+    // drop the scores here rather than waiting for the reload: otherwise there
+    // is a window where nothing is being searched and every entry still carries
+    // a match percentage from a sketch that no longer exists
+    this.entries = this.entries.map(({ score: _score, ...rest }) => rest)
+    this.renderLibrary()
+    if (this.libOpen) void this.loadEntries()
+  }
+
   private async setLibOpen(on: boolean): Promise<void> {
     this.libOpen = on
     this.libPanel.classList.toggle('on', on)
@@ -4780,12 +4826,18 @@ class Overlay {
     }
     await this.loadEntries()
     // A run files what it created without a picture, because only the page can
-    // draw one. This is where that debt gets paid.
+    // draw one. This is where that debt gets paid — along with the outlines that
+    // make a component findable by drawing at it.
     void this.backfillThumbs()
+    if (this.strokes.length > 0) {
+      // there is ink on the page: that IS the query
+      await this.searchBySketch()
+      return
+    }
     this.status(
       this.entries.length === 0
         ? 'library is empty — sketch something, or lasso a few elements into a component'
-        : `${String(this.entries.length)} in the library — click one, then click where it should go`,
+        : `${String(this.entries.length)} in the library · draw something to search by shape`,
     )
   }
 
@@ -4821,60 +4873,184 @@ class Overlay {
     kind: 'drawn' | 'extracted',
     name?: string,
   ): Promise<void> {
-    const el = await this.waitForStampedIn(file)
+    const els = await this.waitForStampedIn(file)
     try {
       await fetch('/@s2c/library/capture', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
           file, kind, ...(name ? { name } : {}),
-          ...(el ? { thumbnail: this.thumbnail(el) } : {}),
+          ...(els.length ? { thumbnail: this.thumbnail(unionRect(els)) } : {}),
         }),
       })
       if (this.libOpen) await this.loadEntries()
     } catch { /* the edit landed; filing it is a bonus */ }
   }
 
-  /** The outermost element rendered by a given file, once it exists. */
-  private async waitForStampedIn(file: string, ms = 4000): Promise<HTMLElement | null> {
+  /**
+   * Every root a given file renders, once they exist.
+   *
+   * A set, not one element: a component can return a FRAGMENT, and an extracted
+   * run of siblings always does. Taking the first root then measures a third of
+   * a nav row and calls it the component.
+   */
+  private async waitForStampedIn(file: string, ms = 4000): Promise<HTMLElement[]> {
     const deadline = performance.now() + ms
     while (performance.now() < deadline) {
       const all = [...document.querySelectorAll<HTMLElement>(`[data-s2c^="${file}:"]`)]
         .filter((e) => !this.host.contains(e))
-      // outermost: a component's picture is the whole component, not its title
-      const outer = all.find((e) => !all.some((o) => o !== e && o.contains(e)))
-      if (outer) {
-        const r = outer.getBoundingClientRect()
-        if (r.width >= 1 && r.height >= 1) return outer
-      }
+      // the outermost ones: a component's picture is the whole component, not
+      // the paragraphs inside it
+      const roots = all.filter((e) => !all.some((o) => o !== e && o.contains(e)))
+        .filter((e) => {
+          const r = e.getBoundingClientRect()
+          return r.width >= 1 && r.height >= 1
+        })
+      if (roots.length) return roots
       await new Promise((r) => setTimeout(r, 200))
     }
-    return null
+    return []
   }
 
   /** Give a picture to entries filed by the server, which has no page. */
   private async backfillThumbs(): Promise<void> {
+    let filled = false
     for (const e of this.entries) {
-      if (e.thumb || e.home !== 'project') continue
-      const el = await this.waitForStampedIn(e.file, 600)
-      if (!el) continue
+      // a drawn entry already has the truest shape there is — its ink — so only
+      // the picture is missing; one that was never drawn needs both
+      const wantsThumb = !e.thumb
+      const wantsShape = e.kind !== 'drawn'
+      if (e.home !== 'project' || (!wantsThumb && !wantsShape)) continue
+      const els = await this.waitForStampedIn(e.file, 600)
+      if (els.length === 0) continue
       try {
         await fetch('/@s2c/library/capture', {
           method: 'POST',
           headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
           body: JSON.stringify({
             file: e.file, exportName: e.exportName, name: e.name, kind: e.kind,
-            thumbnail: this.thumbnail(el),
+            ...(wantsThumb ? { thumbnail: this.thumbnail(unionRect(els)) } : {}),
+            ...(wantsShape ? { outlines: this.outlinesOf(els) } : {}),
           }),
         })
+        filled = true
       } catch { break }
     }
-    if (this.libOpen) await this.loadEntries()
+    if (filled && this.libOpen) {
+      if (this.libSearching) await this.searchBySketch()
+      else await this.loadEntries()
+    }
+  }
+
+
+  /**
+   * The outlines of a rendered component: its own box, the boxes inside it, and
+   * its text as single bars.
+   *
+   * This is what makes a component findable by drawing at it. Ink is the best
+   * shape an entry can have, but an extracted card was never drawn, and a
+   * component of plain divs has no SVG geometry for the source reader to find
+   * either — so without this, half the library could never be searched. Edges
+   * rather than filled areas, because that is what people draw: a solid block
+   * and a sketched rectangle score poorly against each other, while every solid
+   * block scores well against every other.
+   *
+   * Element-local coordinates: the signature is normalised to its own bounding
+   * box anyway, and sending page coordinates would only invite a reader to think
+   * position mattered.
+   */
+  private outlinesOf(els: HTMLElement[], cap = 60): { x: number; y: number }[][] {
+    const base = unionRect(els)
+    if (base.w < 1 || base.h < 1) return []
+    const out: { x: number; y: number }[][] = []
+    const push = (r: DOMRect) => {
+      const x = r.left + window.scrollX - base.x
+      const y = r.top + window.scrollY - base.y
+      out.push([
+        { x, y }, { x: x + r.width, y }, { x: x + r.width, y: y + r.height },
+        { x, y: y + r.height }, { x, y },
+      ])
+    }
+    for (const el of els) {
+      if (out.length >= cap) break
+      push(el.getBoundingClientRect())
+      for (const child of el.querySelectorAll<HTMLElement>('*')) {
+        if (out.length >= cap) break
+        if (this.host.contains(child)) continue
+        const r = child.getBoundingClientRect()
+        if (r.width < 4 || r.height < 4) continue
+        const cs = getComputedStyle(child)
+        if (cs.visibility === 'hidden' || cs.display === 'none') continue
+        // text becomes one bar through its middle, which is how a person
+        // sketches a line of text; everything else keeps its edges
+        const ownText = [...child.childNodes]
+          .some((n) => n.nodeType === Node.TEXT_NODE && (n.textContent ?? '').trim().length > 0)
+        if (ownText && child.children.length === 0) {
+          const y = r.top + window.scrollY - base.y + r.height / 2
+          out.push([
+            { x: r.left + window.scrollX - base.x, y },
+            { x: r.right + window.scrollX - base.x, y },
+          ])
+        } else {
+          push(r)
+        }
+      }
+    }
+    return out
+  }
+
+  /**
+   * Rank the library against what is drawn right now.
+   *
+   * Runs on its own when the panel opens with ink on the page, and again as the
+   * drawing grows: the whole point is that you do not have to remember what you
+   * called something, so making it a second deliberate action would give the
+   * feature back its problem.
+   */
+  private async searchBySketch(): Promise<void> {
+    if (this.strokes.length === 0) {
+      if (this.libSearching) {
+        this.libSearching = false
+        await this.loadEntries()
+      }
+      return
+    }
+    try {
+      const res = await fetch('/@s2c/library/search', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ strokes: this.strokesForWire() }),
+      })
+      const out = (await res.json()) as { ok: boolean; matches?: LibEntry[]; error?: string }
+      if (!out.ok || !out.matches) return
+      this.libSearching = true
+      this.entries = out.matches.filter((e) => !(e.home === 'global' && e.alreadyHere))
+      this.renderLibrary()
+      const best = this.entries[0]
+      if (best && (best.score ?? 0) > 0) {
+        this.status(
+          `closest to your sketch: ${best.name} (${String(Math.round((best.score ?? 0) * 100))}%) — ` +
+          'click it, then click where it should go',
+        )
+      }
+    } catch { /* an older dev server just cannot search */ }
+  }
+
+  /** Coalesce the searches a fast scribble would otherwise fire. */
+  private scheduleSketchSearch(delay = 500) {
+    if (!this.libOpen) return
+    if (this.libSearchTimer) clearTimeout(this.libSearchTimer)
+    this.libSearchTimer = setTimeout(() => {
+      this.libSearchTimer = null
+      void this.searchBySketch()
+    }, delay)
   }
 
   private renderLibrary() {
     const n = this.entries.length
-    this.libHead.textContent = n === 0 ? 'library — nothing filed yet' : `library · ${String(n)}`
+    this.libHead.textContent = n === 0
+      ? 'library — nothing filed yet'
+      : this.libSearching ? `library · closest to your sketch` : `library · ${String(n)}`
     if (n === 0) {
       const empty = document.createElement('div')
       empty.className = 'lMeta'
@@ -4906,7 +5082,10 @@ class Overlay {
       meta.className = 'lMeta'
       // the globe earns its place: it is the difference between an entry that
       // follows you to the next project and one that cannot
-      meta.textContent = e.home === 'global' ? '🌐 anywhere' : (e.portable ? '🌐 travels' : e.kind)
+      meta.textContent = this.libSearching
+        // while searching, how well it matches is the only thing worth the row
+        ? ((e.score ?? 0) > 0 ? `${String(Math.round((e.score ?? 0) * 100))}% match` : 'no shape on file')
+        : (e.home === 'global' ? '🌐 anywhere' : (e.portable ? '🌐 travels' : e.kind))
       const drop = document.createElement('button')
       drop.type = 'button'
       drop.className = 'lDrop'
@@ -4931,7 +5110,9 @@ class Overlay {
       c.setAttribute('aria-pressed', String((c as HTMLElement).dataset.entryId === this.libArmed?.id))
     }
     if (!this.libArmed) {
-      this.libFoot.textContent = 'pick one, then click where it should go'
+      this.libFoot.textContent = this.libSearching
+        ? 'ranked by how much each one looks like your sketch'
+        : 'pick one, then click where it should go'
       this.status('nothing picked up')
       return
     }
@@ -5081,19 +5262,21 @@ class Overlay {
    * silhouette — enough to recognise "the version with the wide card" — with no
    * permission prompt and no rasteriser.
    */
-  private thumbnail(region?: HTMLElement): string | undefined {
+  private thumbnail(region?: XY & { w: number; h: number }): string | undefined {
     try {
       const snap = this.snapshot()
       const doc = document.scrollingElement ?? document.body
-      // a region's own box, or the whole page. The library wants a picture of
-      // ONE component, and the timeline wants the page — same drawing, two
-      // frames, so the difference is where the origin is rather than a second
-      // renderer that would drift from this one.
-      const box = region?.getBoundingClientRect()
-      const ox = box ? box.left + window.scrollX : 0
-      const oy = box ? box.top + window.scrollY : 0
-      const pw = Math.max(box ? box.width : Math.max(doc.scrollWidth, window.innerWidth), 1)
-      const ph = Math.max(box ? box.height : Math.max(doc.scrollHeight, window.innerHeight), 1)
+      // a region in PAGE coordinates, or the whole page. The library wants a
+      // picture of one component, and the timeline wants the page — same
+      // drawing, two frames, so the difference is where the origin is rather
+      // than a second renderer that would drift from this one. A rect rather
+      // than an element because a component can render a FRAGMENT, which has
+      // several roots and no single box.
+      const box = region
+      const ox = box ? box.x : 0
+      const oy = box ? box.y : 0
+      const pw = Math.max(box ? box.w : Math.max(doc.scrollWidth, window.innerWidth), 1)
+      const ph = Math.max(box ? box.h : Math.max(doc.scrollHeight, window.innerHeight), 1)
       const w = 240
       const h = Math.max(40, Math.min(420, Math.round((w * ph) / pw)))
       const cv = document.createElement('canvas')
@@ -5102,8 +5285,7 @@ class Overlay {
       const g = cv.getContext('2d')
       if (!g) return undefined
       const k = w / pw
-      g.fillStyle = (region ? getComputedStyle(region).backgroundColor : '') ||
-        getComputedStyle(document.body).backgroundColor || '#ffffff'
+      g.fillStyle = getComputedStyle(document.body).backgroundColor || '#ffffff'
       g.fillRect(0, 0, w, h)
       // shallowest first, so a child paints over the box that contains it —
       // the same order the browser used
@@ -6135,6 +6317,9 @@ class Overlay {
     this.livePath = null
     this.renderInk()
     if (this.strokes.some((st) => st.anchor)) this.startTracking()
+    // an open library is showing matches for what is drawn, so the drawing
+    // growing is a new query
+    this.scheduleSketchSearch()
     this.sync()
     // The pen is up. If this was the LAST stroke of the drawing, the settle
     // period that fires the auto-run starts now; if it wasn't, the next
@@ -8701,6 +8886,7 @@ class Overlay {
       if (!this.mine(d)) return
       this.status(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
+      this.endSketchSearch()
       // the ink is spent, and so are the words about it
       this.notes = []
       this.instant = null

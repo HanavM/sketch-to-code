@@ -59,6 +59,17 @@ export interface LibraryEntry {
    * what they mean, and the store must not care.
    */
   signature?: number[]
+  /**
+   * Whole-shape aspect ratio (w/h), stored alongside the grid.
+   *
+   * The grid is normalised to each shape's own bounding box, which is what makes
+   * a small sketch comparable to a big component — and also throws away the most
+   * obvious thing about a drawing. A card and a nav row are both "a box with
+   * bars in it" once you discard their proportions, and they score within a few
+   * points of each other on the grid alone. Keeping the aspect separately lets
+   * the search put it back.
+   */
+  aspect?: number
   /** Thumbnail file inside the library directory, e.g. 'l7x3f2.png'. */
   thumb?: string
   /** No relative imports ⇒ it can be written into any project. */

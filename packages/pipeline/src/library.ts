@@ -66,6 +66,8 @@ export interface CaptureRequest {
    * the source is only what came out.
    */
   signature?: number[]
+  /** Whole-shape aspect ratio for that signature — see LibraryEntry.aspect. */
+  aspect?: number
   /** Prop values the component demonstrably rendered with, where captured. */
   defaults?: Record<string, string>
   /** Flattened from readComponentProps, which owns reading them off the types. */
@@ -236,6 +238,9 @@ function coerceEntry(dir: string, raw: unknown): LibraryEntry | null {
     props: coerceProps(o.props),
     defaults: coerceDefaults(o.defaults),
     signature: coerceSignature(o.signature),
+    aspect: typeof o.aspect === 'number' && Number.isFinite(o.aspect) && o.aspect > 0
+      ? o.aspect
+      : undefined,
     thumb,
     // portable is load-bearing at placement time, so an index that does not
     // say `true` is read as "we don't know, treat it as local".
@@ -770,8 +775,21 @@ export function captureEntry(root: string, req: CaptureRequest): CaptureResult {
 
   // The caller's signature wins: an ink signature is what the user drew, and
   // one derived from generated source is only what came out the other end.
+  /**
+   * A shape comes from the caller or not at all.
+   *
+   * It used to fall back to compositionFromSource, and that was wrong in a way
+   * worth recording: composition grids are normalised into each shape's own
+   * box, so they are not comparable with the letterboxed descriptor the search
+   * uses (see shape-signature.ts), and mixing the two formats in one field
+   * would have made a wide row and a tall form score 0.99 against each other.
+   * Ink or the page's own outlines, both letterboxed, or nothing — and nothing
+   * is honest: it means "cannot be found by drawing at it", which the panel says.
+   */
   const signature = coerceSignature(req.signature)
-    ?? entrySignature(compositionFromSource(declSource))
+  const aspect = signature && typeof req.aspect === 'number' && req.aspect > 0
+    ? req.aspect
+    : undefined
 
   const name = (req.name ?? '').trim() ||
     (resolved.local === '' ? nameFromFile(rel) : resolved.local)
@@ -801,6 +819,7 @@ export function captureEntry(root: string, req: CaptureRequest): CaptureResult {
     props: coerceProps(req.props),
     defaults: coerceDefaults(req.defaults),
     signature,
+    aspect,
     thumb,
     portable,
     source,
@@ -1051,4 +1070,54 @@ function prune(dir: string, max: number, keepId?: string): string[] {
   } catch {
     return []
   }
+}
+
+// ── searching by drawing ────────────────────────────────────────────────────
+
+export interface LibraryMatch {
+  entry: ListedEntry
+  /** 0..1 against the sketch, where 1 would be identical. */
+  score: number
+}
+
+/**
+ * How well a sketch matches an entry: the grids, and nothing else.
+ *
+ * There was a weighted aspect term here, added because the old composition grid
+ * normalised proportion away and left a card and a nav row indistinguishable.
+ * The letterboxed descriptor puts proportion INSIDE the grid, so a second term
+ * for it would double-count the same fact — and would do it with an arbitrary
+ * weight. Measured on real components, the grid alone separates a wide row from
+ * a tall stack by an order of magnitude (0.85 against 0.07).
+ */
+export function matchScore(
+  sketch: { signature: number[] },
+  entry: { signature?: number[] },
+): number {
+  return entry.signature ? signatureSimilarity(sketch.signature, entry.signature) : 0
+}
+
+/**
+ * Rank the library against a drawing.
+ *
+ * The premise of the whole feature: you do not remember what you called a thing,
+ * but you remember roughly what it looked like — and this pipeline already
+ * measures "roughly what something looks like" for a different purpose, when it
+ * scores a generated depiction against the ink that asked for it. So the search
+ * key is a sketch, and no naming or tagging is involved.
+ *
+ * Entries WITHOUT a signature are returned too, scored 0 and last. Hiding them
+ * would make the panel look like it had lost things whenever a search ran, and
+ * a component of plain divs whose page never supplied outlines genuinely cannot
+ * be matched by shape — that is a gap to show, not to conceal.
+ */
+export function searchLibrary(
+  root: string,
+  sketch: { signature: number[] },
+): LibraryMatch[] {
+  const entries = listEntries(root)
+  if (sketch.signature.length === 0) return entries.map((entry) => ({ entry, score: 0 }))
+  return entries
+    .map((entry) => ({ entry, score: matchScore(sketch, entry) }))
+    .sort((a, b) => b.score - a.score || b.entry.usedCount - a.entry.usedCount)
 }

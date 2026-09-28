@@ -5,9 +5,11 @@ import {
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import {
-  bumpUsed, captureEntry, entryThumbPath, findEntry, globalLibraryDir, libraryDir,
-  libraryIndexPath, listEntries, pruneLibrary, removeEntry, signatureSimilarity,
+  bumpUsed, captureEntry, entrySignature, entryThumbPath, findEntry, globalLibraryDir,
+  libraryDir, libraryIndexPath, listEntries, matchScore, pruneLibrary, removeEntry,
+  searchLibrary, signatureSimilarity,
 } from '../src/library.js'
+import { shapeFromStrokes, shapeSignature } from '../src/shape-signature.js'
 
 /**
  * A project is just files on disk here: nothing in the store needs git, and
@@ -275,16 +277,28 @@ describe('signatures', () => {
     expect(e.signature).toEqual(ink)
   })
 
-  it('derives one from the source when there is drawn geometry in it', () => {
+  it('takes a shape from the caller, and has none otherwise — even with SVG in the file', () => {
     const root = project({
       'src/Blob.tsx':
         'export default function Blob() {\n' +
         '  return <svg viewBox="0 0 10 10"><path d="M1,1 L9,1 L9,9 Z" /></svg>\n' +
         '}\n',
     })
-    const e = captureEntry(root, { file: 'src/Blob.tsx', kind: 'drawn' }).entry!
-    expect(e.signature!.length).toBeGreaterThan(0)
+    // It used to derive one from the source. That is deliberately gone: a
+    // composition grid is normalised into each shape's own box, so it is not
+    // comparable with the letterboxed descriptor the search uses, and two
+    // formats in one field made a wide row and a tall form score 0.99 against
+    // each other. No shape means "cannot be found by drawing at it", which the
+    // panel says out loud.
+    expect(captureEntry(root, { file: 'src/Blob.tsx', kind: 'drawn' }).entry!.signature)
+      .toBeUndefined()
+
+    const drawn = shapeSignature([[{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 8 }]])!
+    const e = captureEntry(root, {
+      file: 'src/Blob.tsx', kind: 'drawn', signature: drawn.grid, aspect: drawn.aspect,
+    }).entry!
     expect(e.signature!.some((n) => n > 0)).toBe(true)
+    expect(e.aspect).toBeCloseTo(10 / 8, 5)
   })
 
   it('leaves the signature absent rather than storing a row of zeros', () => {
@@ -562,5 +576,76 @@ describe('the global library never turns out to be the project one', () => {
       else process.env.XDG_DATA_HOME = old
       rmSync(home, { recursive: true, force: true })
     }
+  })
+})
+
+describe('searching the library by drawing at it', () => {
+  const box = (x: number, y: number, w: number, h: number) =>
+    [{ x, y }, { x: x + w, y }, { x: x + w, y: y + h }, { x, y: y + h }, { x, y }]
+  const bar = (x: number, y: number, w: number) => [{ x, y }, { x: x + w, y }]
+  const stroke = (pts: { x: number; y: number }[]) =>
+    ({ id: 's', color: null, points: pts.map((p, i) => ({ ...p, t: i })) })
+
+  /** How the page reports a component: the outlines of its boxes and its text. */
+  const CARD = shapeSignature([box(0, 0, 300, 120), bar(20, 30, 140), bar(20, 70, 90)])!
+  const NAV = shapeSignature([
+    box(0, 0, 600, 40), bar(30, 20, 60), bar(120, 20, 60), bar(210, 20, 60),
+  ])!
+
+  it('ranks the card-shaped component first, by a margin worth ranking on', () => {
+    const sketch = shapeFromStrokes([
+      stroke(box(5, 3, 290, 118)), stroke(bar(25, 33, 130)), stroke(bar(22, 68, 95)),
+    ])!
+    const sk = { signature: sketch.grid }
+    const card = matchScore(sk, { signature: CARD.grid })
+    const nav = matchScore(sk, { signature: NAV.grid })
+    // an order of magnitude, not a few points: proportion lives inside the grid,
+    // so a 2.5:1 card and a 15:1 row do not resemble each other at all
+    expect(card).toBeGreaterThan(0.8)
+    expect(nav).toBeLessThan(0.3)
+  })
+
+  it('ranks the other way for a wide, short sketch — same library', () => {
+    const wide = shapeFromStrokes([
+      stroke(box(2, 1, 596, 38)), stroke(bar(32, 21, 56)), stroke(bar(122, 19, 58)),
+      stroke(bar(208, 20, 62)),
+    ])!
+    const sk = { signature: wide.grid }
+    expect(matchScore(sk, { signature: NAV.grid }))
+      .toBeGreaterThan(matchScore(sk, { signature: CARD.grid }))
+  })
+
+  it('matches the same shape at a different size, which is the part that must keep working', () => {
+    const small = shapeFromStrokes([stroke(box(0, 0, 150, 60)), stroke(bar(10, 15, 70))])!
+    const big = shapeSignature([box(0, 0, 600, 240), bar(40, 60, 280)])!
+    expect(matchScore({ signature: small.grid }, { signature: big.grid })).toBeGreaterThan(0.8)
+  })
+
+  it('scores an entry with no signature at zero, and still lists it', () => {
+    const root = project({ 'src/Chip.tsx': LOCAL })
+    // Chip is the file's DEFAULT export, so no exportName — and it renders a
+    // <span> with a component inside, i.e. no SVG geometry for a signature to
+    // come from, which is the case this test is about
+    const cap = captureEntry(root, { file: 'src/Chip.tsx', kind: 'extracted' })
+    expect(cap.ok).toBe(true)
+    expect(cap.entry!.signature).toBeUndefined()
+    const sketch = shapeFromStrokes([stroke(box(0, 0, 100, 50))])!
+    const hits = searchLibrary(root, { signature: sketch.grid })
+    // listed, not hidden: a component of plain divs whose page never supplied
+    // outlines genuinely cannot be matched by shape, and dropping it from the
+    // panel would look like the library had lost it
+    expect(hits).toHaveLength(1)
+    expect(hits[0]!.score).toBe(0)
+  })
+
+  it('remembers the proportions it was captured with', () => {
+    const root = project({ 'src/Badge.tsx': PORTABLE })
+    const sketch = shapeFromStrokes([stroke(box(0, 0, 300, 120))])!
+    const cap = captureEntry(root, {
+      file: 'src/Badge.tsx', exportName: 'Badge', kind: 'drawn',
+      signature: sketch.grid, aspect: sketch.aspect,
+    })
+    expect(cap.entry!.aspect).toBeCloseTo(2.5, 1)
+    expect(listEntries(root)[0]!.aspect).toBeCloseTo(2.5, 1)
   })
 })

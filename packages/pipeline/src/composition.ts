@@ -318,6 +318,35 @@ export function compositionFromStrokes(strokes: Stroke[]): CompositionSignature 
   return signatureFromParts(parts)
 }
 
+/**
+ * A signature from OUTLINES rather than ink — how a rendered component would
+ * look if someone had sketched it.
+ *
+ * This is what makes the library searchable by drawing. A component built of
+ * divs has no SVG geometry, so compositionFromSource finds nothing in it, and a
+ * grid of its filled areas would not resemble a sketch anyway: people draw the
+ * EDGES of boxes, not their interiors, so a solid block and a drawn rectangle
+ * score poorly against each other while every solid block scores well against
+ * every other. Handed the outlines of an element and the boxes inside it, this
+ * measures the same thing the ink path measures, on the same terms, through the
+ * same code — so a rectangle with two bars in it really does match a card.
+ *
+ * Only the page can produce those outlines, which is why they arrive as an
+ * argument rather than being read from source here.
+ */
+export function compositionFromOutlines(outlines: Pt[][]): CompositionSignature {
+  const parts: Part[] = outlines
+    .filter((pts) => pts.length >= 2)
+    // bboxOf wants timestamped points; an outline has no time, and t plays no
+    // part in a bounding box (cf. the source path above)
+    .map((pts) => ({
+      points: pts.map((p) => ({ x: p.x, y: p.y })),
+      box: bboxOf(pts.map((p) => ({ ...p, t: 0 }))),
+    }))
+  if (parts.length === 0) return emptySignature()
+  return signatureFromParts(parts)
+}
+
 // ---------- reading geometry back out of generated source ----------
 
 const NUM = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi
