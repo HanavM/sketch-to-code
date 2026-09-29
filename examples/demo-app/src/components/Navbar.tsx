@@ -7,7 +7,7 @@ export default function Navbar() {
           <a href="#" className="text-sm text-gray-600 hover:text-gray-900">Overview</a>
           <a href="#" className="text-sm text-gray-600 hover:text-gray-900">Reports</a>
           <a href="#" className="text-sm text-gray-600 hover:text-gray-900">Settings</a>
-          <button className="rounded-md bg-gradient-to-b from-red-500 to-red-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-red-600 hover:to-red-800">
+          <button className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700">
             Sign out
           </button>
         </div>

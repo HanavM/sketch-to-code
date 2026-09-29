@@ -6,7 +6,7 @@ const stats = [
 
 export default function StatCards() {
   return (
-    <section className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-x-10">
+    <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {stats.map((s) => (
         <div key={s.label} className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-sm text-gray-500">{s.label}</p>

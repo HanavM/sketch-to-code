@@ -11,7 +11,6 @@ import StatCards from './components/StatCards'
 import ContactForm from './components/ContactForm'
 import UserTable from './components/UserTable'
 import WeeklySchedule from './components/WeeklySchedule'
-import SketchShape from './components/SketchShape'
 
 export default function App() {
   return (
@@ -21,7 +20,6 @@ export default function App() {
       <main className="relative mx-auto max-w-5xl px-6 py-8">
         <BrowserChrome>
           <div className="relative isolate space-y-8 bg-gray-50 p-6">
-      <SketchShape className="absolute left-[267px] top-[385px] s2c-etch" />
             <ChevronTrail />
             <StatCards />
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
