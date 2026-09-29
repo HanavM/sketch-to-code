@@ -81,6 +81,7 @@ const ui = () =>
       pressed: btn.getAttribute('aria-pressed'),
       title: btn.title,
       bg: cs.backgroundColor,
+      shown: cs.display !== 'none',
       borderColor: cs.borderColor,
       weight: getComputedStyle(s.getElementById('autoState')).fontWeight,
       // an idle control to compare against: "lit" has to mean visibly unlike
@@ -278,24 +279,34 @@ if (!(await auto()).on) throw new Error('auto mode is OFF on a fresh profile —
 if ((await auto()).mode !== 'auto') throw new Error(`fresh profile is in ${(await auto()).mode}`)
 if (u.word !== 'auto') throw new Error(`switch reads ${JSON.stringify(u.word)}, want 'auto'`)
 if (u.pressed !== 'true') throw new Error(`aria-pressed is ${u.pressed} on a fresh profile`)
-if (!u.hitIsOverlay) throw new Error('#autoBtn reports a box but nothing is hit-testable there')
-if (u.btnBox.w < 30 || u.btnBox.h < 16) throw new Error(`#autoBtn is not painted: ${JSON.stringify(u.btnBox)}`)
-if (u.hud.w > 900) throw new Error(`HUD is no longer a compact pill: ${Math.round(u.hud.w)}px`)
+// The bar carries the primary action plus whatever DIFFERS from default, so in
+// auto — the default — the switch is not on it at all. That is the design: a
+// control for a setting nobody changed is a permanent strip of screen spent on
+// nothing. It comes back the moment the mode stops being the obvious one.
+if (u.shown) throw new Error('the auto switch is on the bar while auto is the default')
+if (u.hud.w > 620) throw new Error(`the bar is no longer lean: ${Math.round(u.hud.w)}px`)
 
 // cycle the whole way round, the way a user would, and check the width never
-// moves — the switch sits in a centred pill, so a shrink-to-fit word would slide
-// the entire toolbar sideways on every change
+// moves ONCE IT IS SHOWING — the switch sits in a centred pill, so a
+// shrink-to-fit word would slide the entire toolbar sideways on every change
 const widths = []
 for (const want of ['review', 'manual', 'auto']) {
   await page.evaluate(`${sr()}.getElementById("autoBtn").click()`)
-  await page.waitForTimeout(150)
+  await page.waitForTimeout(180)
   const now = await ui()
-  widths.push(Math.round(now.btnBox.w))
   if ((await auto()).mode !== want) throw new Error(`cycling landed on ${(await auto()).mode}, want ${want}`)
   if (now.word !== want) throw new Error(`switch reads ${JSON.stringify(now.word)}, want ${want}`)
+  if (want === 'auto') {
+    if (now.shown) throw new Error('back in auto and the switch stayed on the bar')
+    continue
+  }
+  if (!now.shown) throw new Error(`in ${want}, the switch is not on the bar to say so`)
+  if (!now.hitIsOverlay) throw new Error('the switch reports a box but nothing is hit-testable there')
+  if (now.btnBox.w < 30 || now.btnBox.h < 16) throw new Error(`the switch is not painted: ${JSON.stringify(now.btnBox)}`)
+  widths.push(Math.round(now.btnBox.w))
 }
 if (new Set(widths).size !== 1) throw new Error(`the switch changes width across modes: ${widths}`)
-log('✓ Alt+A cycles auto → review → manual → auto · switch width fixed at', widths[0], 'px')
+log('✓ Alt+A cycles auto → review → manual → auto · hidden on the default · fixed at', widths[0], 'px when shown')
 
 // park it in manual and prove that survives a reload
 await page.evaluate(() => localStorage.setItem('s2c:auto', '"manual"'))
@@ -327,19 +338,33 @@ if (!(await auto()).on) throw new Error('Alt+A did not come back round to auto')
 if (u.word !== 'auto') throw new Error(`switch reads ${JSON.stringify(u.word)} after Alt+A`)
 if (u.pressed !== 'true') throw new Error('aria-pressed did not follow the state')
 if (!u.on) throw new Error('the switch is not painted as acting on its own')
-// A state you read, not the action you take: the switch is PRESSED rather than
-// filled, so what has to hold is that it looks different from an idle button —
-// which is a comparison, not a hex, and survives a change of skin.
-if (u.bg === u.idleBg) {
-  throw new Error(`the acting state looks identical to an idle button: ${u.bg}`)
+if (u.stored !== '"auto"') throw new Error(`s2c:auto is ${u.stored}, want '"auto"'`)
+if (u.shown) throw new Error('the switch is on the bar in auto, which is the default')
+
+// The PRESSED look is a state you read, not an action you take, so what has to
+// hold is that it looks unlike an idle button — a comparison rather than a hex,
+// which survives a change of skin. Checked where the switch is actually on the
+// bar: in review, where it is telling you the tool will wait for you.
+await press('Alt+KeyA')
+await page.waitForTimeout(160)
+const shownUi = await ui()
+if (shownUi.word !== 'review' || !shownUi.shown) {
+  throw new Error(`expected a visible review switch, got ${JSON.stringify({ w: shownUi.word, shown: shownUi.shown })}`)
 }
-if (u.weight === u.idleWeight && u.borderColor === u.idleBorder) {
+if (shownUi.bg === shownUi.idleBg) {
+  throw new Error(`the acting state looks identical to an idle button: ${shownUi.bg}`)
+}
+if (shownUi.weight === shownUi.idleWeight && shownUi.borderColor === shownUi.idleBorder) {
   throw new Error('the acting state differs only in background — too subtle to read')
 }
-if (u.stored !== '"auto"') throw new Error(`s2c:auto is ${u.stored}, want '"auto"'`)
-if (Math.abs(u.btnBox.w - offBox.w) > 0.5) {
-  throw new Error(`the switch resized when it changed: ${offBox.w} → ${u.btnBox.w}`)
+if (Math.abs(shownUi.btnBox.w - offBox.w) > 0.5) {
+  throw new Error(`the switch resized between modes: ${offBox.w} → ${shownUi.btnBox.w}`)
 }
+// back to auto for the rest of this suite
+await press('Alt+KeyA')
+await press('Alt+KeyA')
+await page.waitForTimeout(160)
+u = await ui()
 let st = await status()
 if (!/^auto —/.test(st)) throw new Error(`Alt+A said nothing useful: ${st}`)
 if (!/0\.9s/.test(st)) throw new Error(`the auto message never names the settle period: ${st}`)

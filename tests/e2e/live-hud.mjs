@@ -79,7 +79,7 @@ log('✓ dragged to', Math.round(placed.x), Math.round(placed.y), 'and stayed')
 // ---- 2. a press on a button is a click, not a drag --------------------
 const btn = await page.evaluate(() => {
   const r = document.getElementById('s2c-overlay-host').shadowRoot
-    .getElementById('tweakBtn').getBoundingClientRect()
+    .getElementById('draw').getBoundingClientRect()
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
 })
 // press on the button and wander 30px: the bar must not follow the pointer
@@ -97,9 +97,12 @@ now = await rects()
 if (!near(now.hud.x, placed.x) || !near(now.hud.y, placed.y)) {
   throw new Error(`button click moved the bar to ${now.hud.x},${now.hud.y}`)
 }
+// The bar carries only the primary action and whatever differs from default
+// now, so this drives the button that is always there. Same question: does a
+// press on a control stay a press when the whole bar is draggable?
 const mode = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
-if (mode !== 'tweak') throw new Error(`tweakBtn click did not fire (mode=${mode})`)
-await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('tweakBtn').click())
+if (mode !== 'draw') throw new Error(`draw click did not fire (mode=${mode})`)
+await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('draw').click())
 log('✓ button press stayed a click; bar unmoved')
 
 // ---- 3. Alt+H hides and restores --------------------------------------

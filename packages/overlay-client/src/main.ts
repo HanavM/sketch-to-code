@@ -1507,6 +1507,24 @@ const STYLES = css`
      still dispatches, so scripted/e2e clicks work on a hidden bar. */
   #hud.off { display: none; }
   #hudGrip { color: var(--s2c-faint); letter-spacing: -3px; font-size: 15px; padding: 0 2px; }
+  /*
+   * The bar shows the primary action, and anything that DIFFERS FROM DEFAULT.
+   * Nothing else.
+   *
+   * It used to carry a control per capability — sixteen of them — which is the
+   * same mistake the keymap made: it asks the user to remember where a thing
+   * lives, and charges them a permanent strip of screen for the privilege.
+   * Everything tucked away here is one ⌘K and a word away, and the ones that
+   * come back do so because their state has stopped being obvious: a pen that
+   * is not the default colour, a handoff mode that will not act on its own, a
+   * fidelity that is no longer neutral.
+   *
+   * Hidden, never detached — the precedent #hud.off sets: listeners stay live
+   * and el.click() still dispatches, so nothing that drives this by script has
+   * to know which controls are currently on screen.
+   */
+  #hud .tucked { display: none; }
+  #cmdBtn { font-size: 11px; letter-spacing: 0.3px; }
   /* Shown only while an editor is attached: an indicator for a thing that is
      not connected is just noise on a toolbar that is already full. */
   #ideDot { display: none; color: var(--s2c-ok); font-size: 13px; padding: 0 2px; }
@@ -2194,7 +2212,7 @@ class Overlay {
         <button id="mode-design" class="mode" title="design sketch">🎨</button>
         <button id="mode-screenshot" class="mode" title="screenshot benchmark">📸</button>
       </span>
-      <button id="tweakBtn" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
+      <button id="tweakBtn" class="tucked" title="tweak: click a container, drag its gaps and padding — zero tokens">🔧</button>
       <button id="penBtn" aria-haspopup="dialog" aria-expanded="false" title="pen colour (Alt+P) — what you draw in is what it becomes"><span id="penDot"></span></button>
       <button id="fidelityBtn" aria-haspopup="dialog" aria-expanded="false">🎚<span id="fidelityNow"></span><span id="fillNow"></span></button>
       <button id="autoBtn" aria-pressed="false">⚡<span id="autoState"></span></button>
@@ -2202,16 +2220,17 @@ class Overlay {
       <button id="confirm" class="primary" style="display:none">✓ Go</button>
       <button id="cancel" style="display:none">✗ Cancel</button>
       <button id="bandChip" style="display:none" title="responsive demonstration is on (Alt+M)"></button>
-      <button id="undo" disabled>↩</button>
-      <button id="clear" disabled>✕</button>
+      <button id="undo" class="tucked" disabled>↩</button>
+      <button id="clear" class="tucked" disabled>✕</button>
       <!-- the bar is width:max-content, so this string sizes the whole HUD: it
            is the bar's width BUDGET, not a sentence. The ⚡ toggle beside
            ▶ Run was paid for out of it — 'sketch2code · ' went, because a new
            control has to come from here or the pill stops being a pill, and a
            name the user already knows buys less than a key they don't. ?
            carries the rest, which is the whole reason ? exists. -->
-      <span id="status">Alt+D draw · ? all keys</span>
+      <span id="status">Alt+D to draw · ⌘K for anything else</span>
       <span id="ideDot" title="an editor is connected — click an element to reveal it there (Alt+J)">⌁</span>
+      <button id="cmdBtn" class="icon" title="commands — type what you want instead of finding a button">⌘K</button>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
       <div id="penPanel" role="dialog" aria-label="pen colour">
         <div class="pHead">Draw in a colour to ask for it</div>
@@ -2516,6 +2535,11 @@ class Overlay {
     this.styleSel = this.shadow.getElementById('styleSel') as HTMLSelectElement
     this.bandChip = this.shadow.getElementById('bandChip') as HTMLButtonElement
     this.autoBtn = this.shadow.getElementById('autoBtn') as HTMLButtonElement
+    const cmdBtn = this.shadow.getElementById('cmdBtn')!
+    // the key it names differs by platform, and a button that lies about its
+    // own shortcut teaches the wrong thing
+    cmdBtn.textContent = navigator.platform.toLowerCase().includes('mac') ? '⌘K' : '^K'
+    cmdBtn.addEventListener('click', () => this.setCmdOpen(!this.cmdOpen))
     this.buildFidelityPanel()
 
     // Button handlers stay thin wrappers around named methods: every one of
@@ -2592,6 +2616,7 @@ class Overlay {
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
 
     this.restoreSkin()
+    this.syncBar()
     this.binds = this.buildKeymap()
     this.buildHelp()
     this.loadPen()
@@ -2863,6 +2888,7 @@ class Overlay {
     // the plan card asks "is a person being asked to read this?", which only
     // becomes true here
     this.syncPlanCard()
+    this.syncBar()
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
     // layout churn; outside tweak mode the loop is stopped — zero idle cost
@@ -2881,6 +2907,7 @@ class Overlay {
   /** The three run modes, from the mode pills or from Alt+G / Alt+E / Alt+S. */
   private setRunMode(m: 'gesture' | 'design' | 'screenshot') {
     this.runMode = m
+    this.syncBar()
     for (const mm of ['gesture', 'design', 'screenshot']) {
       this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === m)
     }
@@ -3764,6 +3791,7 @@ class Overlay {
       ` · ${CANDIDATE_LABELS[this.candidates].short}`
     this.fidelityBtn.title = summary
     this.fidelityBtn.setAttribute('aria-label', summary)
+      this.syncBar()
   }
 
   // ---- attempts: N generations, one survivor ----------------------------
@@ -3936,6 +3964,7 @@ class Overlay {
   }
 
   private syncPenUi() {
+    this.syncBar()
     this.penDot.style.background = this.pen ?? '#2563eb'
     this.penBtn.title = this.pen
       ? `pen colour ${this.pen} (Alt+P) — drawn colour becomes the instruction`
@@ -9351,9 +9380,33 @@ class Overlay {
   }
 
   /** Render the toggle FROM state — one path for a restore and for a click. */
+  /**
+   * Put on the bar only what is not obvious, plus the thing you are about to
+   * press. Called from every setter that changes one of those answers.
+   */
+  private syncBar() {
+    const f = this.fidelity
+    const d = defaultFidelity()
+    const fidelityIsDefault =
+      f.resemblance === d.resemblance && f.palette === d.palette &&
+      f.fill === d.fill && f.style === d.style &&
+      (Object.keys(d.keep) as (keyof FidelityKeep)[]).every((k) => f.keep[k] === d.keep[k])
+    const show: Array<[HTMLElement | null, boolean]> = [
+      // gesture is the default reading; design and screenshot are not
+      [this.shadow.getElementById('modes'), this.runMode !== 'gesture'],
+      // a colour you chose is a colour the next stroke will ask for
+      [this.penBtn, this.pen !== null],
+      [this.fidelityBtn, !fidelityIsDefault],
+      // auto acts on its own, which is the expectation; the other two change it
+      [this.autoBtn, this.autoMode !== 'auto'],
+    ]
+    for (const [el, on] of show) el?.classList.toggle('tucked', !on)
+  }
+
   private syncAutoUi() {
     // 'on' paints the button lit: both modes that fire on their own qualify,
     // because what the colour answers is "will this act without me?"
+    this.syncBar()
     this.autoBtn.classList.toggle('on', this.autoMode !== 'manual')
     this.autoBtn.setAttribute('aria-pressed', String(this.autoMode !== 'manual'))
     this.autoBtn.dataset.mode = this.autoMode
