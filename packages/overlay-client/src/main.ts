@@ -2075,7 +2075,16 @@ class Overlay {
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
   private mode: Mode = 'idle'
-  private runMode: 'gesture' | 'design' | 'screenshot' = 'gesture'
+  /**
+   * What the sketch is FOR, and by default nobody has to say.
+   *
+   * 'gesture' (mark up what is there) and 'design' (draw what is not) were two
+   * buttons the user had to understand before drawing a line — and the
+   * difference is visible in the ink itself: marks over existing elements are
+   * markup, marks in empty space are a new thing. 'auto' infers it per run;
+   * the explicit values stay as an override for the times the guess is wrong.
+   */
+  private runMode: 'auto' | 'gesture' | 'design' | 'screenshot' = 'auto'
   private tweak: TweakState | null = null
   /** hovered stamped element (rect read live at draw — it must track) */
   private hoverEl: HTMLElement | null = null
@@ -2904,16 +2913,65 @@ class Overlay {
     this.setMode(this.mode === 'draw' ? 'idle' : 'draw')
   }
 
+
+  /**
+   * Is this sketch marking up what exists, or drawing what does not?
+   *
+   * Decided from where the ink landed, because that is where the answer has
+   * always been: strokes over real elements are markup; strokes over empty
+   * space are a new thing. A page-sized wrapper counts as empty — the user drew
+   * on the background, whatever the DOM says is technically under there.
+   *
+   * The threshold is low on purpose. A circle round a button with a word beside
+   * it is mostly empty space by area, and it is obviously markup, so a third of
+   * the samples landing on something is enough.
+   */
+  private inferRunMode(): 'gesture' | 'design' {
+    const pts: XY[] = []
+    for (const st of this.strokes) {
+      const step = Math.max(1, Math.ceil(st.points.length / 8))
+      for (let i = 0; i < st.points.length; i += step) pts.push(st.points[i]!)
+    }
+    if (pts.length === 0) return 'gesture'
+    // one toggle for the whole batch, as lassoHits does
+    this.canvas.style.pointerEvents = 'none'
+    const viewArea = window.innerWidth * window.innerHeight
+    let onContent = 0
+    for (const p of pts) {
+      let el: Element | null = document.elementFromPoint(p.x - window.scrollX, p.y - window.scrollY)
+      while (el) {
+        const stamp = (el as HTMLElement).dataset?.s2c
+        if (stamp && !this.host.contains(el)) break
+        el = el.parentElement
+      }
+      if (!el) continue
+      const r = el.getBoundingClientRect()
+      if (r.width * r.height < viewArea * 0.5) onContent++
+    }
+    this.canvas.style.pointerEvents = ''
+    return onContent / pts.length >= 0.33 ? 'gesture' : 'design'
+  }
+
+  /** What actually goes on the wire: the override, or what the ink says. */
+  private effectiveRunMode(): 'gesture' | 'design' | 'screenshot' {
+    return this.runMode === 'auto' ? this.inferRunMode() : this.runMode
+  }
+
   /** The three run modes, from the mode pills or from Alt+G / Alt+E / Alt+S. */
   private setRunMode(m: 'gesture' | 'design' | 'screenshot') {
-    this.runMode = m
+    // pressing the mode you are already in hands the decision back: an override
+    // you cannot leave is a mode, which is the thing being removed here
+    const next: 'auto' | 'gesture' | 'design' | 'screenshot' = this.runMode === m ? 'auto' : m
+    this.runMode = next
     this.syncBar()
     for (const mm of ['gesture', 'design', 'screenshot']) {
-      this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === m)
+      this.shadow.getElementById(`mode-${mm}`)!.classList.toggle('on', mm === next)
     }
     this.status(
-      m === 'gesture' ? 'gesture mode: mark up existing UI'
-      : m === 'design' ? 'design mode: sketch new UI to build'
+      next === 'auto'
+        ? 'reading your sketch automatically again — marks on things are edits, marks on space are new UI'
+      : next === 'gesture' ? 'always read as markup on existing UI (press again to go back to automatic)'
+      : next === 'design' ? 'always read as new UI to build (press again to go back to automatic)'
       : 'screenshot mode: pixels-only benchmark (will ask to share this tab)',
     )
   }
@@ -3045,12 +3103,14 @@ class Overlay {
         match: altBind('KeyD', 'd'), run: () => this.toggleDraw(),
       },
       {
-        id: 'mode-gesture', keys: 'Alt+G', label: 'gesture mode — mark up existing UI', group: 'drawing',
+        id: 'mode-gesture', keys: 'Alt+G', group: 'drawing',
+        label: 'always read sketches as markup (normally worked out from where you drew)',
         match: altBind('KeyG', 'g'), run: () => this.setRunMode('gesture'),
       },
       {
         // D is already draw, so design takes the E of dEsign
-        id: 'mode-design', keys: 'Alt+E', label: 'design mode — sketch new UI to build', group: 'drawing',
+        id: 'mode-design', keys: 'Alt+E', group: 'drawing',
+        label: 'always read sketches as new UI (normally worked out from where you drew)',
         match: altBind('KeyE', 'e'), run: () => this.setRunMode('design'),
       },
       {
@@ -6843,7 +6903,8 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.runMode, overrides: this.overrides,
+          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.effectiveRunMode(),
+          overrides: this.overrides,
           // a chip correction re-reads the SAME drawing, so it must carry the
           // same fidelity settings and the same notes, or the op list would
           // shift under the user
@@ -7092,6 +7153,85 @@ class Overlay {
     }
   }
 
+  /**
+   * An actual pointer, cut into four diagonal bands that slide as it works.
+   *
+   * It was a dot, which says "a thing is here" and nothing else. A cursor says
+   * someone is doing this — and the slicing is what makes it look alive: the
+   * arrow is drawn four times, each time clipped to one diagonal strip and
+   * offset a couple of pixels along that diagonal, on a sine with a different
+   * phase per band. The silhouette stays a cursor; its edges shear and settle
+   * like something liquid holding a shape.
+   *
+   * Only while it is working. Travelling, the offsets fall to zero and it is a
+   * plain arrow again, because motion that never stops stops meaning anything.
+   */
+  private drawPointer(x: number, y: number, color: string, t: number) {
+    const { ctx } = this
+    const S = 1.55
+    // the classic arrow, in its own coordinates, nose at the origin
+    const arrow: [number, number][] = [
+      [0, 0], [0, 17.5], [4.3, 13.4], [7.1, 19.8], [9.9, 18.5], [7.1, 12.3], [12.4, 12.3],
+    ]
+    const path = () => {
+      ctx.beginPath()
+      for (const [px, py] of arrow) {
+        const ax = x + px * S
+        const ay = y + py * S
+        if (px === 0 && py === 0) ctx.moveTo(ax, ay)
+        else ctx.lineTo(ax, ay)
+      }
+      ctx.closePath()
+    }
+    // no slicing while travelling: a cursor that shimmers constantly is noise
+    if (t <= 0) {
+      path()
+      ctx.fillStyle = color
+      ctx.fill()
+      ctx.strokeStyle = 'rgba(255,255,255,0.92)'
+      ctx.lineWidth = 1.4
+      ctx.stroke()
+      return
+    }
+    const BANDS = 4
+    /*
+     * Where the diagonal strips sit, which is not a free choice.
+     *
+     * The arrow occupies roughly x∈[0,12.4], y∈[0,19.8] from its nib. Rotated
+     * -45°, that maps to a band of y' from about -13 to +22 — mostly POSITIVE.
+     * Strips laid out symmetrically about the origin clip three quarters of the
+     * shape away and leave a sliver, which is exactly what it did.
+     */
+    const top = -14 * S
+    const slice = (37 * S) / BANDS
+    const span = 60 * S
+    for (let i = 0; i < BANDS; i++) {
+      // Each band lags the one before it, so the shear reads as a wave passing
+      // through the shape rather than the whole thing wobbling. The amplitude
+      // is deliberately small: past about two pixels the arrow stops looking
+      // liquid and starts looking broken.
+      const off = Math.sin(t * 6.5 + i * 1.1) * 1.5
+      ctx.save()
+      // the strip: a wide rectangle rotated 45°, positioned down the diagonal
+      ctx.translate(x, y)
+      ctx.rotate(-Math.PI / 4)
+      ctx.beginPath()
+      // +0.5 so neighbouring strips overlap by half a pixel: an exact seam
+      // between two clips shows as a hairline gap when they slide apart
+      ctx.rect(-span, top + i * slice - 0.5, span * 2, slice + 1)
+      ctx.clip()
+      ctx.rotate(Math.PI / 4)
+      ctx.translate(-x + off, -y)
+      path()
+      ctx.fillStyle = color
+      ctx.fill()
+      ctx.strokeStyle = 'rgba(255,255,255,0.92)'
+      ctx.lineWidth = 1.4
+      ctx.stroke()
+      ctx.restore()
+    }
+  }
+
   /** The pen, its tail, and one small caption for where it is. */
   private drawCursor() {
     const c = this.cursor
@@ -7103,33 +7243,36 @@ class Overlay {
     ctx.save()
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
-    // the tail tapers in width AND alpha: one alone reads as a stick, the two
-    // together read as a stroke drying out behind the nib
-    for (let i = 1; i < c.trail.length; i++) {
-      const p0 = c.trail[i - 1]!
-      const p1 = c.trail[i]!
-      const f = i / c.trail.length
-      ctx.strokeStyle = tint(stop.color, 0.04 + f * 0.5)
-      ctx.lineWidth = 0.5 + f * 4
+    /*
+     * The tail, in three passes rather than one stroke per segment.
+     *
+     * Per-segment strokes with round caps and a growing width bead up at every
+     * vertex — at 26 points over a short distance the caps overlap and the
+     * trail reads as a caterpillar rather than a line. Three whole paths, each
+     * shorter, darker and thicker than the last, give the same taper with no
+     * joins to show.
+     */
+    for (const [from, alpha, width] of [[0, 0.1, 1.1], [0.55, 0.26, 1.9], [0.8, 0.5, 2.6]] as const) {
+      const start = Math.floor(c.trail.length * from)
+      if (c.trail.length - start < 2) continue
+      ctx.strokeStyle = tint(stop.color, alpha)
+      ctx.lineWidth = width
       ctx.beginPath()
-      ctx.moveTo(p0.x - sx, p0.y - sy)
-      ctx.lineTo(p1.x - sx, p1.y - sy)
+      for (let i = start; i < c.trail.length; i++) {
+        const pt = c.trail[i]!
+        if (i === start) ctx.moveTo(pt.x - sx, pt.y - sy)
+        else ctx.lineTo(pt.x - sx, pt.y - sy)
+      }
       ctx.stroke()
     }
     const x = c.x - sx
     const y = c.y - sy
-    // halo, so the nib stays findable over a busy page
-    ctx.beginPath()
-    ctx.arc(x, y, 13, 0, Math.PI * 2)
-    ctx.fillStyle = tint(stop.color, 0.16)
-    ctx.fill()
-    ctx.beginPath()
-    ctx.arc(x, y, 5.5, 0, Math.PI * 2)
-    ctx.fillStyle = stop.color
-    ctx.fill()
-    ctx.strokeStyle = 'rgba(255,255,255,0.9)'
-    ctx.lineWidth = 1.5
-    ctx.stroke()
+    // a soft shadow under the pointer, so it stays findable over a busy page
+    // without a ring around it that would read as a second shape
+    ctx.shadowColor = tint(stop.color, 0.45)
+    ctx.shadowBlur = 14
+    this.drawPointer(x, y, stop.color, c.phase === 'work' ? c.t : 0)
+    ctx.shadowBlur = 0
 
     // the caption rides with the pen rather than sitting on the element, so a
     // six-target delete is one moving word instead of six stacked slabs
@@ -7140,8 +7283,10 @@ class Overlay {
     const label = `${stop.kind} ${short}`
     ctx.font = '11px ui-sans-serif, system-ui'
     const w = ctx.measureText(label).width + 14
-    const lx = Math.max(4, Math.min(x + 16, window.innerWidth - w - 4))
-    const ly = Math.max(4, Math.min(y - 9, window.innerHeight - 22))
+    // below-right of the nib: a pointer's own shape extends down-right from its
+    // tip, so a caption anywhere else sits on top of the thing it names
+    const lx = Math.max(4, Math.min(x + 26, window.innerWidth - w - 4))
+    const ly = Math.max(4, Math.min(y + 24, window.innerHeight - 22))
     ctx.fillStyle = stop.color
     ctx.beginPath()
     ctx.roundRect(lx, ly, w, 18, 9)
@@ -9213,7 +9358,7 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.runMode,
+          strokes: this.strokesForWire(), snapshot: this.snapshot(), mode: this.effectiveRunMode(),
           fidelity: this.fidelityPayload(),
           // exact words beat inferred ones: whatever the reading makes of the
           // ink, the notes say what the user actually asked for
@@ -9311,7 +9456,7 @@ class Overlay {
           strokes: this.strokesForWire(),
           snapshot: this.snapshot(),
           clientId: CLIENT_ID,
-          mode: this.runMode,
+          mode: this.effectiveRunMode(),
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
@@ -9393,7 +9538,7 @@ class Overlay {
       (Object.keys(d.keep) as (keyof FidelityKeep)[]).every((k) => f.keep[k] === d.keep[k])
     const show: Array<[HTMLElement | null, boolean]> = [
       // gesture is the default reading; design and screenshot are not
-      [this.shadow.getElementById('modes'), this.runMode !== 'gesture'],
+      [this.shadow.getElementById('modes'), this.runMode !== 'auto'],
       // a colour you chose is a colour the next stroke will ask for
       [this.penBtn, this.pen !== null],
       [this.fidelityBtn, !fidelityIsDefault],
