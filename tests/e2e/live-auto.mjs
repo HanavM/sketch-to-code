@@ -538,12 +538,17 @@ const gate = await page.evaluate(() => {
     confirm: s.getElementById('confirm').style.display !== 'none',
     cancel: s.getElementById('cancel').style.display !== 'none',
     plan: getComputedStyle(s.getElementById('plan')).display !== 'none',
-    labels: s.querySelectorAll('.planLabel').length,
+    // the plan's words live in one card now, and the cursor carries "where" —
+    // what matters here is unchanged: the user can see what was about to happen
+    card: getComputedStyle(s.getElementById('planCard')).display !== 'none',
+    rows: s.querySelectorAll('#planCard .cRow').length,
+    stops: window.__S2C_DEBUG__.plan().length,
     err: s.getElementById('status').classList.contains('err'),
   }
 })
 if (!gate.confirm || !gate.cancel) throw new Error('the normal preview gate is not showing')
-if (!gate.plan || gate.labels < 1) throw new Error('the plan was not painted for the user to check')
+if (!gate.plan || gate.stops < 1) throw new Error('the plan was not painted for the user to check')
+if (!gate.card || gate.rows < 1) throw new Error('the stopped plan says nothing about what it would have done')
 if (!gate.err) throw new Error('the stop is not flagged as something to look at')
 await page.waitForTimeout(SETTLE * 2)
 if (runs.length) throw new Error('the destructive run went ahead a moment later')

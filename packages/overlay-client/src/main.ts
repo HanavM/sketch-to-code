@@ -1466,7 +1466,7 @@ const STYLES = css`
   /* One rule for every floating surface: the panels differ in where they sit
      and what they hold, never in what they are made of. */
   #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
-  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow, #planCard {
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow, #planCard, #cmdPanel {
     background-color: var(--s2c-surface);
     background-image: var(--s2c-sheen);
     border: 1px solid var(--s2c-edge);
@@ -1475,7 +1475,7 @@ const STYLES = css`
     color: var(--s2c-text);
   }
   #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
-  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #planCard {
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #planCard, #cmdPanel {
     border-radius: var(--s2c-radius);
   }
   /*
@@ -1786,6 +1786,44 @@ const STYLES = css`
   #planSvg .pRegion { fill: none; stroke-width: 2.5; stroke-dasharray: 9 6; }
   #planSvg .pLink { stroke-width: 2.5; stroke-dasharray: 7 5; }
   #planSvg .pHead { stroke: none; }
+  /*
+   * One key, then type what you want.
+   *
+   * The toolbar grew a control per capability and the keymap grew a binding
+   * per capability, and both are the same mistake: they ask the user to
+   * remember where a thing lives. This asks them to remember one key and then
+   * describe the thing, which is what they were going to do anyway.
+   */
+  #cmdPanel {
+    position: fixed; left: 50%; top: 14vh; transform: translateX(-50%);
+    z-index: 2147483002; display: none;
+    width: 460px; max-width: calc(100vw - 24px);
+    padding: 8px; text-align: left;
+  }
+  #cmdPanel.on { display: block; }
+  #cmdInput {
+    width: 100%; box-sizing: border-box; padding: 9px 11px;
+    border: 1px solid var(--s2c-line); border-radius: 9px;
+    background: var(--s2c-solid); color: var(--s2c-text);
+    font: inherit; font-size: 14px;
+  }
+  #cmdInput:focus { outline: none; border-color: var(--s2c-line-strong); }
+  #cmdList { margin-top: 7px; max-height: 46vh; overflow-y: auto; }
+  #cmdList .kRow {
+    display: flex; gap: 10px; align-items: baseline; width: 100%;
+    padding: 6px 8px; border-radius: 8px; border: 1px solid transparent;
+    background: transparent; color: var(--s2c-text); cursor: pointer;
+    font: inherit; font-size: 12.5px; text-align: left;
+  }
+  #cmdList .kRow[aria-selected='true'] {
+    background: var(--s2c-fill-hover); border-color: var(--s2c-line);
+  }
+  #cmdList .kLabel { flex: 1; min-width: 0; }
+  #cmdList .kKeys {
+    flex: none; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; color: var(--s2c-muted);
+  }
+  #cmdEmpty { padding: 10px 8px; color: var(--s2c-muted); font-size: 12px; }
   /* The plan in words, in ONE place. There used to be a dark slab over every
      touched element, which buried the page it was explaining — and after the
      chrome went light, buried it in near-black text on near-black too. The
@@ -1983,6 +2021,12 @@ class Overlay {
   private autoBusy = false
   /** Page-space layer holding the plan outlines and their labels. */
   private planLayer: HTMLElement
+  private cmdPanel: HTMLElement
+  private cmdInput: HTMLInputElement
+  private cmdList: HTMLElement
+  private cmdOpen = false
+  private cmdMatches: KeyBind[] = []
+  private cmdIndex = 0
   private planCard: HTMLElement
   private planDetail: PlanDetail[] = []
   /** Where the work is, in order — what the cursor visits. */
@@ -2074,6 +2118,47 @@ class Overlay {
     this.planSvg.id = 'planSvg'
     this.planLayer.appendChild(this.planSvg)
     this.shadow.appendChild(this.planLayer)
+    // One key, then type. See #cmdPanel.
+    const cmd = document.createElement('div')
+    cmd.id = 'cmdPanel'
+    cmd.setAttribute('role', 'dialog')
+    cmd.setAttribute('aria-label', 'commands')
+    cmd.innerHTML = `
+      <input id="cmdInput" type="text" autocomplete="off" spellcheck="false"
+             aria-label="what do you want to do" placeholder="what do you want to do?">
+      <div id="cmdList" role="listbox"></div>
+    `
+    this.shadow.appendChild(cmd)
+    this.cmdPanel = cmd
+    this.cmdInput = this.shadow.getElementById('cmdInput') as HTMLInputElement
+    this.cmdList = this.shadow.getElementById('cmdList')!
+    cmd.addEventListener('pointerdown', (e) => e.stopPropagation())
+    // the field owns its keys — the overlay's single-letter bindings must not
+    // fire while someone is typing the name of one
+    for (const ev of ['keyup', 'keypress']) {
+      cmd.addEventListener(ev, (e) => e.stopPropagation())
+    }
+    this.cmdInput.addEventListener('input', () => {
+      this.cmdIndex = 0
+      this.renderCommands()
+    })
+    this.cmdInput.addEventListener('keydown', (e) => {
+      e.stopPropagation()
+      if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
+        e.preventDefault()
+        this.moveCommand(1)
+      } else if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
+        e.preventDefault()
+        this.moveCommand(-1)
+      } else if (e.key === 'Enter') {
+        e.preventDefault()
+        this.runCommand(this.cmdIndex)
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        this.setCmdOpen(false)
+      }
+    })
+
     // The plan in words: one card above the bar rather than a slab per target.
     this.planCard = document.createElement('div')
     this.planCard.id = 'planCard'
@@ -2625,6 +2710,12 @@ class Overlay {
       // `on` stays "fires AND applies", which is what it always meant; `mode`
       // is the thing with three values
       skin: () => this.skin,
+      commands: () => ({
+        open: this.cmdOpen,
+        query: this.cmdInput.value,
+        index: this.cmdIndex,
+        matches: this.cmdMatches.map((b) => b.id),
+      }),
       auto: () => ({
         on: this.autoMode === 'auto', mode: this.autoMode,
         pending: this.autoTimer != null, busy: this.autoBusy,
@@ -3116,6 +3207,11 @@ class Overlay {
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
       },
       {
+        id: 'commands', keys: 'Ctrl/⌘+K', group: 'overlay',
+        label: 'commands — type what you want instead of finding the button',
+        match: metaBind('KeyK', 'k'), run: () => this.setCmdOpen(!this.cmdOpen),
+      },
+      {
         id: 'skin', keys: 'Alt+U', group: 'overlay',
         label: 'look — glass (frosted) or paper (flat white, one black line)',
         match: altBind('KeyU', 'u'), run: () => this.cycleSkin(),
@@ -3176,6 +3272,11 @@ class Overlay {
    * closing a menu.
    */
   private onEscape() {
+    // The palette sits over everything and writes nothing: it closes first.
+    if (this.cmdOpen) {
+      this.setCmdOpen(false)
+      return
+    }
     // Holding something from the library is the shallowest state there is: Esc
     // puts it down, and must not also close the panel it came from.
     if (this.libArmed) {
@@ -6815,6 +6916,83 @@ class Overlay {
    * Everything the run will do, drawn over the page it will do it to. Called
    * whenever the interpretation changes — never on scroll.
    */
+  // ---- one key, then type -----------------------------------------------
+  // Forty-five bindings and a toolbar control per capability are the same
+  // mistake twice: both ask where a thing lives. This asks for the thing.
+
+  private setCmdOpen(on: boolean) {
+    this.cmdOpen = on
+    this.cmdPanel.classList.toggle('on', on)
+    if (!on) return
+    this.cmdInput.value = ''
+    this.cmdIndex = 0
+    this.renderCommands()
+    this.cmdInput.focus()
+    this.cmdInput.select()
+  }
+
+  /**
+   * Every word must appear somewhere in the entry — order-free, so "colour
+   * pen" finds the same row as "pen colour", which is the whole reason a
+   * person types instead of hunting.
+   */
+  private matchCommands(q: string): KeyBind[] {
+    const words = q.toLowerCase().split(/\s+/).filter(Boolean)
+    if (words.length === 0) return this.binds
+    return this.binds.filter((b) => {
+      const hay = `${b.label} ${b.keys} ${b.group} ${b.id}`.toLowerCase()
+      return words.every((w) => hay.includes(w))
+    })
+  }
+
+  private renderCommands() {
+    this.cmdMatches = this.matchCommands(this.cmdInput.value)
+    if (this.cmdMatches.length === 0) {
+      const none = document.createElement('div')
+      none.id = 'cmdEmpty'
+      none.textContent = 'nothing matches that'
+      this.cmdList.replaceChildren(none)
+      return
+    }
+    this.cmdIndex = Math.max(0, Math.min(this.cmdIndex, this.cmdMatches.length - 1))
+    this.cmdList.replaceChildren(...this.cmdMatches.map((b, i) => {
+      const row = document.createElement('button')
+      row.type = 'button'
+      row.className = 'kRow'
+      row.dataset.cmd = b.id
+      row.setAttribute('role', 'option')
+      row.setAttribute('aria-selected', String(i === this.cmdIndex))
+      const label = document.createElement('span')
+      label.className = 'kLabel'
+      label.textContent = b.label
+      const keys = document.createElement('span')
+      keys.className = 'kKeys'
+      // the shortcut rides along, so using this teaches the faster way rather
+      // than replacing it
+      keys.textContent = b.keys
+      row.append(label, keys)
+      row.addEventListener('click', () => this.runCommand(i))
+      return row
+    }))
+  }
+
+  private moveCommand(dir: 1 | -1) {
+    if (this.cmdMatches.length === 0) return
+    this.cmdIndex = (this.cmdIndex + dir + this.cmdMatches.length) % this.cmdMatches.length
+    this.renderCommands()
+    const row = this.cmdList.querySelectorAll('.kRow')[this.cmdIndex]
+    row?.scrollIntoView({ block: 'nearest' })
+  }
+
+  private runCommand(i: number) {
+    const b = this.cmdMatches[i]
+    if (!b) return
+    // closed FIRST: a command that opens a panel, enters a mode or takes the
+    // pointer must not have to fight a palette still sitting over the page
+    this.setCmdOpen(false)
+    b.run()
+  }
+
   // ---- the working cursor -----------------------------------------------
   // What the plan used to say with a slab of text over every touched element,
   // it now says with one pen: it travels to each place the edit lands, scribbles
@@ -9349,6 +9527,12 @@ class Overlay {
       await this.proceed()
     } finally {
       this.autoBusy = false
+      // The card is hidden while the auto sequence is mid-flight, so that its
+      // momentary preview does not flicker past. The sequence ENDING is
+      // therefore a reason to ask again — and the case that matters most is the
+      // destructive gate, which stops here precisely so a person can read what
+      // it was about to do.
+      this.syncPlanCard()
     }
   }
 
