@@ -783,8 +783,8 @@ const SKIN_STORE_KEY = 's2c:skin'
  * white with a real line, for people who want an instrument rather than an
  * effect (and for anyone whose browser makes a mess of backdrop-filter).
  */
-type Skin = 'glass' | 'paper'
-const SKINS: Skin[] = ['glass', 'paper']
+type Skin = 'glass' | 'paper' | 'dock'
+const SKINS: Skin[] = ['glass', 'paper', 'dock']
 /** How many of the app's own colours the pen offers as swatches. */
 const PEN_SWATCHES = 10
 /** Breathing room between the panel and both the bar and the viewport edge. */
@@ -1014,8 +1014,11 @@ const STYLES = css`
    * reason: the page is the subject, and a toolbar that competes with it is a
    * toolbar you notice instead of your design.
    *
-   *   glass — frosted white, hairline edge, soft shadow. Floats.
+   *   glass — frosted white, lit top edge, heavy blur. Floats.
    *   paper — flat white, a real 1px black line, no blur, no glow. Prints.
+   *   dock  — a full-width bar along the bottom that the PAGE MAKES ROOM FOR
+   *           rather than being covered by. Not a skin so much as a different
+   *           answer to where a toolbar belongs.
    *
    * Every colour below is a token so the two differ in one block rather than
    * in two hundred places. Accents stay semantic — green means a rule holds,
@@ -1024,8 +1027,15 @@ const STYLES = css`
    */
   :host {
     all: initial;
-    --s2c-surface: rgba(255, 255, 255, 0.78);
-    --s2c-blur: saturate(180%) blur(20px);
+    /* Actually glass: enough of the page comes through to see it move under
+       there, and the blur is heavy enough that what comes through is colour
+       rather than content. The lit top edge and the top-down sheen are what
+       sell it — a flat translucent panel reads as a weak panel, not as glass. */
+    --s2c-surface: rgba(255, 255, 255, 0.55);
+    --s2c-blur: saturate(200%) blur(30px);
+    --s2c-sheen: linear-gradient(
+      to bottom, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.14) 46%, rgba(255, 255, 255, 0.05));
+    --s2c-inner: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(17, 17, 17, 0.04);
     --s2c-solid: #ffffff;
     --s2c-line: rgba(17, 17, 17, 0.14);
     --s2c-line-strong: rgba(17, 17, 17, 0.32);
@@ -1053,7 +1063,7 @@ const STYLES = css`
   }
   /* Flat, opaque, and drawn with an actual line. Nothing blurs, nothing glows:
      the edge is the whole design, so it is darker and the shadow goes away. */
-  :host([data-skin='paper']) {
+  :host([data-skin='paper']), :host([data-skin='dock']) {
     --s2c-surface: #ffffff;
     --s2c-blur: none;
     --s2c-line: rgba(17, 17, 17, 0.30);
@@ -1064,6 +1074,14 @@ const STYLES = css`
     --s2c-shadow: 0 2px 10px rgba(17, 17, 17, 0.08);
     --s2c-shadow-sm: 0 1px 6px rgba(17, 17, 17, 0.08);
     --s2c-radius: 10px;
+  }
+  /* The dock keeps paper's flatness — it is ATTACHED to the page, and a
+     frosted pane attached to something is a contradiction — but its edge is
+     the single line along the top, so the surfaces above it stay quiet. */
+  :host([data-skin='dock']) {
+    --s2c-line: rgba(17, 17, 17, 0.16);
+    --s2c-edge: rgba(17, 17, 17, 0.22);
+    --s2c-shadow: 0 -2px 14px rgba(17, 17, 17, 0.06);
   }
   * { box-sizing: border-box; font-family: ui-sans-serif, system-ui, sans-serif; }
   #canvas {
@@ -1373,9 +1391,10 @@ const STYLES = css`
   #hud {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 2147483001; display: flex; gap: 8px; align-items: center;
-    background: var(--s2c-surface); color: var(--s2c-text); padding: 7px 11px;
+    background-color: var(--s2c-surface); background-image: var(--s2c-sheen);
+    color: var(--s2c-text); padding: 7px 11px;
     border: 1px solid var(--s2c-edge); border-radius: 999px;
-    box-shadow: var(--s2c-shadow);
+    box-shadow: var(--s2c-shadow), var(--s2c-inner);
     -webkit-backdrop-filter: var(--s2c-blur); backdrop-filter: var(--s2c-blur);
     font-size: 13px; user-select: none; cursor: grab;
     /* left:50% leaves shrink-to-fit only half the viewport to work with, so
@@ -1392,9 +1411,10 @@ const STYLES = css`
      and what they hold, never in what they are made of. */
   #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
   #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow {
-    background: var(--s2c-surface);
+    background-color: var(--s2c-surface);
+    background-image: var(--s2c-sheen);
     border: 1px solid var(--s2c-edge);
-    box-shadow: var(--s2c-shadow);
+    box-shadow: var(--s2c-shadow), var(--s2c-inner);
     -webkit-backdrop-filter: var(--s2c-blur); backdrop-filter: var(--s2c-blur);
     color: var(--s2c-text);
   }
@@ -1402,6 +1422,30 @@ const STYLES = css`
   #timePanel, #libPanel, #fidelityPanel, #help, #noteBox {
     border-radius: var(--s2c-radius);
   }
+  /*
+   * Docked: not a pill parked over the page but a strip the page ends above.
+   * Square, full width, one line along the top, and the shadow points UP
+   * because the light source it implies is the page above it rather than the
+   * viewport behind it.
+   *
+   * The reserving is done in script — body padding — because CSS in a shadow
+   * root cannot reach the host document's layout, and because the amount has
+   * to be measured rather than assumed.
+   */
+  :host([data-skin='dock']) #hud {
+    left: 0; right: 0; bottom: 0; width: auto; max-width: none;
+    transform: none; border-radius: 0;
+    border: 0; border-top: 1px solid var(--s2c-edge);
+    padding: 8px 14px; cursor: default;
+    justify-content: flex-start;
+  }
+  /* dragging a full-width bar has nowhere to go, so the grip stops pretending */
+  :host([data-skin='dock']) #hudGrip { display: none; }
+  /* the status line was capped to protect the pill's width budget; a bar that
+     already spans the window has no such budget and can say more */
+  :host([data-skin='dock']) #status { max-width: none; flex: 1; }
+  /* parked coordinates from float mode would drag the strip off its edge */
+  :host([data-skin='dock']) #hud.placed { left: 0; top: auto; bottom: 0; }
   #hud.placed, #hudShow.placed { bottom: auto; transform: none; }
   /* display:none, not detach: the HUD keeps its listeners and el.click()
      still dispatches, so scripted/e2e clicks work on a hidden bar. */
@@ -1836,6 +1880,8 @@ class Overlay {
   private timePick: string | null = null
   /** Which skin the chrome wears. See SKIN_STORE_KEY. */
   private skin: Skin = 'glass'
+  /** The page's own padding-bottom, held while the dock borrows it. */
+  private dockPrevPad: string | null = null
   /** Responsive demonstration: while on, edits land at the current width's band. */
   private responsive = false
   private bandChip: HTMLButtonElement
@@ -2418,6 +2464,8 @@ class Overlay {
       if (this.penOpen) this.layoutPanel(this.penPanel)
       if (this.ruleDraw) this.layoutRulePanel()
       if (this.propsOpen) this.layoutPropsPanel()
+      // the bar wraps differently at a narrow width, so its height changes
+      this.syncDock()
       // the whole gesture is "resize, then rearrange", so the band indicator
       // has to track the window as it is being dragged
       if (this.responsive) this.syncBandChip()
@@ -3292,6 +3340,9 @@ class Overlay {
     this.hudHidden = hidden
     this.hud.classList.toggle('off', hidden)
     this.hudShow.classList.toggle('on', hidden)
+    // a hidden dock must give the page its floor back, or the app keeps a strip
+    // of empty space reserved for a bar that is not there
+    this.syncDock()
     this.clampHud() // the dot and the bar have very different footprints
     this.saveHudState()
   }
@@ -5618,9 +5669,9 @@ class Overlay {
     const next = SKINS[(SKINS.indexOf(this.skin) + 1) % SKINS.length]!
     this.setSkin(next)
     this.status(
-      next === 'glass'
-        ? 'glass — frosted, hairline edge, floats over the page'
-        : 'paper — flat white and a real black line, no blur',
+      next === 'glass' ? 'glass — frosted, lit edge, floats over the page'
+        : next === 'paper' ? 'paper — flat white and a real black line, no blur'
+        : 'docked — a strip along the bottom; the page ends above it rather than under it',
     )
   }
 
@@ -5628,9 +5679,43 @@ class Overlay {
     this.skin = skin
     // on the HOST, so every panel in the shadow root inherits the tokens
     this.host.dataset.skin = skin
+    this.syncDock()
     try {
       localStorage.setItem(SKIN_STORE_KEY, JSON.stringify(skin))
     } catch { /* unreadable storage just means the default next time */ }
+  }
+
+  /**
+   * Make the page end above the dock, instead of continuing behind it.
+   *
+   * This is the whole difference between a dock and a bar that merely sits at
+   * the bottom: nothing of the app is ever underneath it. The page keeps its
+   * own scrolling and its own layout; it simply gains a floor.
+   *
+   * Padding on <body>, and written into a custom property as well so an app
+   * that wants to react (a sticky footer of its own, a full-height pane) has
+   * something to read. It is REMOVED rather than zeroed when the dock goes
+   * away, so a page that never docked is byte-identical to one that never met
+   * this tool — and the previous value is remembered, because clobbering a
+   * padding-bottom the app set itself would be a layout bug we caused.
+   */
+  private syncDock() {
+    const docked = this.skin === 'dock' && !this.hudHidden
+    const body = document.body
+    if (!docked) {
+      if (this.dockPrevPad !== null) {
+        body.style.paddingBottom = this.dockPrevPad
+        this.dockPrevPad = null
+      }
+      document.documentElement.style.removeProperty('--s2c-dock-height')
+      return
+    }
+    // measured, not assumed: the bar's height follows its font and its buttons
+    const h = Math.ceil(this.hud.getBoundingClientRect().height)
+    if (h < 1) return
+    if (this.dockPrevPad === null) this.dockPrevPad = body.style.paddingBottom
+    body.style.paddingBottom = `${String(h)}px`
+    document.documentElement.style.setProperty('--s2c-dock-height', `${String(h)}px`)
   }
 
   private restoreSkin() {
