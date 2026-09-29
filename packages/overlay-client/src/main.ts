@@ -334,6 +334,42 @@ interface LibEntry {
   score?: number
 }
 
+/** One place the plan touches: where it is, what is happening, in what colour. */
+interface PlanStop {
+  x: number
+  y: number
+  rect: { x: number; y: number; w: number; h: number }
+  color: string
+  kind: string
+  name: string
+}
+
+/** One row of "here is what I am about to do", for the plan card. */
+interface PlanDetail {
+  kind: string
+  color: string
+  needsConfirm: boolean
+  what: string
+  instruction: string
+  swatch: string
+  token: string
+  notes: string[]
+}
+
+/** The pen Claude is holding: where it is, where it is going, and its tail. */
+interface WorkCursor {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  /** Index into planStops. */
+  i: number
+  phase: 'travel' | 'work'
+  /** Seconds in the current phase. */
+  t: number
+  trail: XY[]
+}
+
 /** One moment on the timeline, as the server stores it. */
 interface HistoryVersion {
   id: string
@@ -457,6 +493,13 @@ function unionRect(els: HTMLElement[]): { x: number; y: number; w: number; h: nu
   }
   if (!Number.isFinite(x0)) return { x: 0, y: 0, w: 0, h: 0 }
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+}
+
+/** A plan colour at some opacity. The kinds are hex, so this is the cheap way. */
+function tint(hex: string, alpha: number): string {
+  const h = hex.replace('#', '')
+  const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16)
+  return `rgba(${String((n >> 16) & 255)}, ${String((n >> 8) & 255)}, ${String(n & 255)}, ${String(alpha)})`
 }
 
 /** "4m ago" — a timeline is read in relative time, not clock time. */
@@ -856,8 +899,21 @@ const PLAN_KINDS: Record<string, { color: string; label: string }> = {
 }
 /** A kind the server grew that this client hasn't learned yet still draws. */
 const PLAN_FALLBACK = { color: '#4b5563', label: 'ACTION' }
-/** Gap between an outlined rect and the label sitting above it. */
-const PLAN_LABEL_GAP = 6
+/**
+ * How the working cursor moves.
+ *
+ * It is a pen, so it should not slide on rails: a spring gets it there with a
+ * little overshoot and settle, and while it is over a target it wanders on two
+ * frequencies that do not divide into each other, so the loop never repeats and
+ * reads as scribbling rather than as an orbit.
+ */
+const CURSOR_PULL_TRAVEL = 0.10
+const CURSOR_PULL_WORK = 0.30
+const CURSOR_DAMP = 0.76
+/** Seconds spent scribbling over one target before moving to the next. */
+const CURSOR_DWELL = 1.5
+/** How many positions the tail remembers. Longer trails read as faster motion. */
+const CURSOR_TRAIL = 26
 /** How much of an action's instruction a label carries. The instruction is a
  *  paraphrase (unlike a note), so trimming it loses nothing that matters. */
 const PLAN_INSTR_MAX = 100
@@ -1410,7 +1466,7 @@ const STYLES = css`
   /* One rule for every floating surface: the panels differ in where they sit
      and what they hold, never in what they are made of. */
   #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
-  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow {
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #hudShow, #planCard {
     background-color: var(--s2c-surface);
     background-image: var(--s2c-sheen);
     border: 1px solid var(--s2c-edge);
@@ -1419,7 +1475,7 @@ const STYLES = css`
     color: var(--s2c-text);
   }
   #penPanel, #paintPanel, #lassoPanel, #rulePanel, #watchPanel, #propsPanel,
-  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox {
+  #timePanel, #libPanel, #fidelityPanel, #help, #noteBox, #planCard {
     border-radius: var(--s2c-radius);
   }
   /*
@@ -1730,38 +1786,43 @@ const STYLES = css`
   #planSvg .pRegion { fill: none; stroke-width: 2.5; stroke-dasharray: 9 6; }
   #planSvg .pLink { stroke-width: 2.5; stroke-dasharray: 7 5; }
   #planSvg .pHead { stroke: none; }
-  .planLabel {
-    position: absolute; pointer-events: none; max-width: 280px;
-    padding: 4px 8px 5px; border-radius: 8px;
-    border-left: 3px solid var(--k, var(--s2c-fill-hover));
-    background: #0b1220f2; color: #f3f4f6;
-    font-size: 11px; line-height: 1.45; text-align: left;
-    box-shadow: 0 3px 14px rgba(17, 17, 17, 0.13);
+  /* The plan in words, in ONE place. There used to be a dark slab over every
+     touched element, which buried the page it was explaining — and after the
+     chrome went light, buried it in near-black text on near-black too. The
+     cursor says where; this says what. */
+  #planCard {
+    position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%);
+    z-index: 2147483001; display: none;
+    width: 360px; max-width: calc(100vw - 24px); max-height: 40vh; overflow-y: auto;
+    padding: 9px 11px; font-size: 12px; line-height: 1.45; text-align: left;
   }
-  .planLabel .pRow { display: flex; align-items: center; gap: 6px; }
-  .planLabel .pKind {
-    flex: none; padding: 0 6px; border-radius: 999px;
-    background: var(--k, var(--s2c-fill-hover)); color: #fff;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
+  #planCard.on { display: block; }
+  :host([data-skin='dock']) #planCard { bottom: 68px; }
+  #planCard .cRow { padding: 5px 0; border-top: 1px solid var(--s2c-line); }
+  #planCard .cRow:first-child { border-top: 0; padding-top: 0; }
+  #planCard .cHead { display: flex; align-items: center; gap: 6px; }
+  #planCard .cDot { flex: none; width: 8px; height: 8px; border-radius: 999px; }
+  #planCard .cKind {
+    flex: none; font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
+    color: var(--s2c-muted);
   }
-  .planLabel .pWhat {
+  #planCard .cWhat {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
     color: var(--s2c-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .planLabel .pInstr { color: var(--s2c-muted); margin-top: 2px; }
-  /* The swatch shows the RESOLVED colour, so it must paint the real value —
-     a border rather than a background would be a picture of a colour. */
-  .planLabel .pSwatch {
+  #planCard .cInstr { color: var(--s2c-muted); margin-top: 2px; }
+  /* the RESOLVED colour, painted: naming a hex would be a picture of it */
+  #planCard .cSwatch {
     flex: none; width: 12px; height: 12px; border-radius: 3px;
-    border: 1px solid #ffffff55;
+    border: 1px solid var(--s2c-line);
   }
-  .planLabel .pToken {
+  #planCard .cToken {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
-    color: #a5b4fc;
+    color: var(--s2c-muted);
   }
-  /* The user's own words: loudest thing on the label, never truncated, never
-     ellipsised — the whole point of a typed note is that it is exact. */
-  .planLabel .pNote {
+  /* The user's own words: loudest line here, never truncated — the whole point
+     of a typed note is that it is exact. */
+  #planCard .cNote {
     margin-top: 3px; padding: 2px 7px; border-radius: 6px;
     background: var(--s2c-text); color: var(--s2c-on-active);
     white-space: pre-wrap; overflow-wrap: anywhere;
@@ -1922,6 +1983,12 @@ class Overlay {
   private autoBusy = false
   /** Page-space layer holding the plan outlines and their labels. */
   private planLayer: HTMLElement
+  private planCard: HTMLElement
+  private planDetail: PlanDetail[] = []
+  /** Where the work is, in order — what the cursor visits. */
+  private planStops: PlanStop[] = []
+  private cursor: WorkCursor | null = null
+  private cursorRaf: number | null = null
   private planSvg: SVGSVGElement
   /** How many independent codegen attempts one ✓ Go should pay for. */
   private candidates: Candidates = DEFAULT_CANDIDATES
@@ -2007,6 +2074,11 @@ class Overlay {
     this.planSvg.id = 'planSvg'
     this.planLayer.appendChild(this.planSvg)
     this.shadow.appendChild(this.planLayer)
+    // The plan in words: one card above the bar rather than a slab per target.
+    this.planCard = document.createElement('div')
+    this.planCard.id = 'planCard'
+    this.planCard.setAttribute('role', 'status')
+    this.shadow.appendChild(this.planCard)
 
     // AFTER the canvas: same stacking level, so DOM order is what puts chips
     // and the editor above it — in draw mode the canvas is pointer-events:auto
@@ -2652,11 +2724,26 @@ class Overlay {
           note: r.note, subjects: r.subjects,
         })),
       }),
-      // the plan as painted, in VIEWPORT coords, so a drifting overlay can be
-      // compared against the live rects of the elements it is describing
-      plan: () => [...this.planLayer.querySelectorAll('.planLabel')].map((el) => {
-        const r = el.getBoundingClientRect()
-        return { text: el.textContent, x: r.left, y: r.top, w: r.width, h: r.height }
+      // Where the plan believes the work is, in VIEWPORT coords, so a drifting
+      // overlay can be compared against the live rects of the elements it
+      // describes. This used to enumerate the text slabs painted over each
+      // target; the slabs are gone and the cursor visits these instead, but the
+      // question a test needs to ask is the same one.
+      plan: () => this.planStops.map((st) => ({
+        text: `${st.kind} ${st.name}`,
+        x: st.rect.x - window.scrollX,
+        y: st.rect.y - window.scrollY,
+        w: st.rect.w,
+        h: st.rect.h,
+      })),
+      cursor: () => (this.cursor == null ? null : {
+        x: this.cursor.x - window.scrollX,
+        y: this.cursor.y - window.scrollY,
+        phase: this.cursor.phase,
+        stop: this.cursor.i,
+        stops: this.planStops.length,
+        trail: this.cursor.trail.length,
+        color: this.planStops[this.cursor.i % Math.max(1, this.planStops.length)]?.color ?? null,
       }),
     }
   }
@@ -2682,6 +2769,9 @@ class Overlay {
       this.rulePanel.classList.remove('on')
     }
     this.mode = m
+    // the plan card asks "is a person being asked to read this?", which only
+    // becomes true here
+    this.syncPlanCard()
     this.host.dataset.mode = m
     // tweak-mode overlays must TRACK their elements through scroll/zoom/
     // layout churn; outside tweak mode the loop is stopped — zero idle cost
@@ -6714,24 +6804,6 @@ class Overlay {
    * only knowable once it is in the document, so callers collect the chips and
    * one batched pass afterwards lifts each above its box.
    */
-  private planChip(box: Box, color: string, kind: string, what: string): HTMLElement {
-    const el = document.createElement('div')
-    el.className = 'planLabel'
-    el.style.setProperty('--k', color)
-    el.style.left = `${String(Math.round(box.x))}px`
-    el.style.top = `${String(Math.round(box.y))}px`
-    const row = document.createElement('div')
-    row.className = 'pRow'
-    const k = document.createElement('span')
-    k.className = 'pKind'
-    k.textContent = kind
-    const w = document.createElement('span')
-    w.className = 'pWhat'
-    w.textContent = what
-    row.append(k, w)
-    el.appendChild(row)
-    return el
-  }
 
   /** `e2 · <button> "Sign up"` — the id the reading cited, then what it is. */
   private targetName(t: V2Target): string {
@@ -6743,99 +6815,276 @@ class Overlay {
    * Everything the run will do, drawn over the page it will do it to. Called
    * whenever the interpretation changes — never on scroll.
    */
+  // ---- the working cursor -----------------------------------------------
+  // What the plan used to say with a slab of text over every touched element,
+  // it now says with one pen: it travels to each place the edit lands, scribbles
+  // there, and moves on. Colour carries the KIND — red is a delete, amber a
+  // modify — so "where" and "what" arrive together without a word on the page.
+  //
+  // The detail that a slab used to carry (the instruction, the resolved colour,
+  // the user's own typed words) is not lost; it moved to one card, which is
+  // easier to read in one place than in six places at once.
+
+  private startCursor() {
+    if (this.cursorRaf != null || this.planStops.length === 0) return
+    const first = this.planStops[0]!
+    this.cursor = {
+      // starts at the pen's last position when there is one: the cursor is
+      // meant to read as a continuation of the user's own hand
+      x: this.lastStrokeEnd?.x ?? first.x,
+      y: this.lastStrokeEnd?.y ?? first.y,
+      vx: 0, vy: 0, i: 0, phase: 'travel', t: 0, trail: [],
+    }
+    const tick = () => {
+      this.cursorRaf = requestAnimationFrame(tick)
+      this.stepCursor()
+      this.redraw()
+    }
+    this.cursorRaf = requestAnimationFrame(tick)
+  }
+
+  private stopCursor() {
+    if (this.cursorRaf != null) cancelAnimationFrame(this.cursorRaf)
+    this.cursorRaf = null
+    this.cursor = null
+    this.planStops = []
+  }
+
+  private stepCursor() {
+    const c = this.cursor
+    const stop = this.planStops[c ? c.i % this.planStops.length : 0]
+    if (!c || !stop) return
+    c.t += 1 / 60
+
+    let tx = stop.x
+    let ty = stop.y
+    if (c.phase === 'work') {
+      // two incommensurable frequencies per axis: the path never closes, so it
+      // looks like someone shading rather than a dot going round a circle
+      const a = c.t * 5.5
+      tx += Math.cos(a) * Math.min(stop.rect.w * 0.32, 46) + Math.cos(a * 0.53) * 7
+      ty += Math.sin(a * 1.31) * Math.min(stop.rect.h * 0.3, 30) + Math.sin(a * 0.77) * 5
+    }
+    const pull = c.phase === 'work' ? CURSOR_PULL_WORK : CURSOR_PULL_TRAVEL
+    c.vx = (c.vx + (tx - c.x) * pull) * CURSOR_DAMP
+    c.vy = (c.vy + (ty - c.y) * pull) * CURSOR_DAMP
+    c.x += c.vx
+    c.y += c.vy
+    c.trail.push({ x: c.x, y: c.y })
+    if (c.trail.length > CURSOR_TRAIL) c.trail.shift()
+
+    if (c.phase === 'travel') {
+      if (Math.hypot(stop.x - c.x, stop.y - c.y) < 16) {
+        c.phase = 'work'
+        c.t = 0
+      }
+    } else if (c.t > CURSOR_DWELL) {
+      c.phase = 'travel'
+      c.t = 0
+      c.i = (c.i + 1) % this.planStops.length
+    }
+  }
+
+  /** The pen, its tail, and one small caption for where it is. */
+  private drawCursor() {
+    const c = this.cursor
+    const stop = c ? this.planStops[c.i % this.planStops.length] : undefined
+    if (!c || !stop) return
+    const { ctx } = this
+    const sx = window.scrollX
+    const sy = window.scrollY
+    ctx.save()
+    ctx.lineCap = 'round'
+    ctx.lineJoin = 'round'
+    // the tail tapers in width AND alpha: one alone reads as a stick, the two
+    // together read as a stroke drying out behind the nib
+    for (let i = 1; i < c.trail.length; i++) {
+      const p0 = c.trail[i - 1]!
+      const p1 = c.trail[i]!
+      const f = i / c.trail.length
+      ctx.strokeStyle = tint(stop.color, 0.04 + f * 0.5)
+      ctx.lineWidth = 0.5 + f * 4
+      ctx.beginPath()
+      ctx.moveTo(p0.x - sx, p0.y - sy)
+      ctx.lineTo(p1.x - sx, p1.y - sy)
+      ctx.stroke()
+    }
+    const x = c.x - sx
+    const y = c.y - sy
+    // halo, so the nib stays findable over a busy page
+    ctx.beginPath()
+    ctx.arc(x, y, 13, 0, Math.PI * 2)
+    ctx.fillStyle = tint(stop.color, 0.16)
+    ctx.fill()
+    ctx.beginPath()
+    ctx.arc(x, y, 5.5, 0, Math.PI * 2)
+    ctx.fillStyle = stop.color
+    ctx.fill()
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)'
+    ctx.lineWidth = 1.5
+    ctx.stroke()
+
+    // the caption rides with the pen rather than sitting on the element, so a
+    // six-target delete is one moving word instead of six stacked slabs
+    // Short on purpose. The card carries the full name and the instruction;
+    // a caption that travels has to be readable at a glance while moving, and
+    // an element's own text content dragged along behind the pen is neither.
+    const short = stop.name.length > 22 ? `${stop.name.slice(0, 21)}…` : stop.name
+    const label = `${stop.kind} ${short}`
+    ctx.font = '11px ui-sans-serif, system-ui'
+    const w = ctx.measureText(label).width + 14
+    const lx = Math.max(4, Math.min(x + 16, window.innerWidth - w - 4))
+    const ly = Math.max(4, Math.min(y - 9, window.innerHeight - 22))
+    ctx.fillStyle = stop.color
+    ctx.beginPath()
+    ctx.roundRect(lx, ly, w, 18, 9)
+    ctx.fill()
+    ctx.fillStyle = '#fff'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(label, lx + 7, ly + 9.5)
+    ctx.textBaseline = 'alphabetic'
+    ctx.restore()
+  }
+
+  /**
+   * The plan in words, in one place.
+   *
+   * Shown while the plan is WAITING FOR A PERSON — which is not the same as
+   * "the mode is review". Pressing ▶ Run in auto mode is a person asking to
+   * look, and hiding the words then would answer the wrong question. What it
+   * skips is the auto sequence's own momentary preview, on its way to applying
+   * itself: a card nobody has time to read is a card that only flickers.
+   */
+  private renderPlanCard(rows: PlanDetail[]) {
+    // Built once, shown when the mode says a person is being asked. The two are
+    // separate because the plan is rendered BEFORE the overlay enters preview —
+    // deciding visibility here would decide it a moment too early, every time.
+    this.planDetail = rows
+    this.syncPlanCard()
+    if (rows.length === 0) return
+    this.planCard.replaceChildren(...rows.map((r) => {
+      const row = document.createElement('div')
+      row.className = 'cRow'
+      const head = document.createElement('div')
+      head.className = 'cHead'
+      const dot = document.createElement('span')
+      dot.className = 'cDot'
+      dot.style.background = r.color
+      const kind = document.createElement('span')
+      kind.className = 'cKind'
+      kind.textContent = `${r.needsConfirm ? '⚠ ' : ''}${r.kind}`
+      const what = document.createElement('span')
+      what.className = 'cWhat'
+      what.textContent = r.what
+      head.append(dot, kind, what)
+      row.appendChild(head)
+      if (r.instruction) {
+        const i = document.createElement('div')
+        i.className = 'cInstr'
+        i.textContent = r.instruction
+        row.appendChild(i)
+      }
+      if (r.swatch) {
+        const c = document.createElement('div')
+        c.className = 'cHead'
+        const sw = document.createElement('span')
+        sw.className = 'cSwatch'
+        // the resolved colour itself, painted — naming a hex would be a
+        // picture of the answer rather than the answer
+        sw.style.background = r.swatch
+        const tok = document.createElement('span')
+        tok.className = 'cToken'
+        tok.textContent = r.token
+        c.append(sw, tok)
+        row.appendChild(c)
+      }
+      for (const n of r.notes) {
+        const note = document.createElement('div')
+        note.className = 'cNote'
+        note.textContent = n
+        row.appendChild(note)
+      }
+      return row
+    }))
+  }
+
+  /** Visible exactly while a person is being asked to read it. */
+  private syncPlanCard() {
+    const waiting = this.mode === 'preview' && !this.autoBusy && this.planDetail.length > 0
+    this.planCard.classList.toggle('on', waiting)
+  }
+
   private renderPlan() {
     for (const old of [...this.planLayer.querySelectorAll('.planLabel')]) old.remove()
     this.planSvg.replaceChildren()
     const it = this.v2?.interpretation
     if (!it) {
       this.planLayer.classList.remove('on')
+      this.planCard.classList.remove('on')
+      this.stopCursor()
       return
     }
     this.planLayer.classList.add('on')
-    // chips are positioned against their box's TOP edge, which needs their
-    // own height — measured in one batch after everything is in the document
-    const lift: Array<{ el: HTMLElement; top: number }> = []
+    // The outlines say WHERE, in the kind's own colour. Nothing is written on
+    // the page any more: a slab per target buried the very thing it described,
+    // and six of them buried the page. The cursor visits these in order and
+    // carries the words with it.
+    const stops: PlanStop[] = []
+    const detail: PlanDetail[] = []
     for (const a of it.actions) {
       const spec = PLAN_KINDS[a.kind] ?? PLAN_FALLBACK
       const color = spec.color
       const kind = `${a.needsConfirm ? '⚠ ' : ''}${spec.label}`
-      // the action's detail (instruction, colour, the user's notes) hangs off
-      // ONE chip — repeating it on every target of a 6-element delete would
-      // paper over the page it is supposed to be explaining
-      let primary: HTMLElement | null = null
+      const add = (rect: { x: number; y: number; w: number; h: number }, name: string) => {
+        stops.push({
+          x: rect.x + rect.w / 2, y: rect.y + rect.h / 2, rect, color, kind, name,
+        })
+      }
       for (const t of a.targets) {
-        const el = this.planChip(t.rect, color, kind, this.targetName(t))
         this.planSvg.appendChild(this.planRect(t.rect, color, `pOutline${a.needsConfirm ? ' wide' : ''}`))
-        this.planLayer.appendChild(el)
-        lift.push({ el, top: t.rect.y })
-        primary ??= el
+        add(t.rect, this.targetName(t))
       }
       if (a.region) {
         // where the new thing goes: dashed, because nothing is there yet
         this.planSvg.appendChild(this.planRect(a.region, color, 'pRegion'))
-        const el = this.planChip(a.region, color, kind, a.depicts ? `new · ${a.depicts}` : 'new here')
-        this.planLayer.appendChild(el)
-        lift.push({ el, top: a.region.y })
-        primary ??= el
+        add(a.region, a.depicts ? `new · ${a.depicts}` : 'new here')
       }
       if (a.dest) {
         // dest means two different things: for a move it is what the thing
         // goes NEXT TO, for a creation it is the container it goes INSIDE
         const word = a.kind === 'add' || a.kind === 'design' ? 'INTO' : 'TO'
         this.planSvg.appendChild(this.planRect(a.dest.rect, color, 'pOutline'))
-        const el = this.planChip(a.dest.rect, color, word, this.targetName(a.dest))
-        this.planLayer.appendChild(el)
-        lift.push({ el, top: a.dest.rect.y })
+        add(a.dest.rect, `${word.toLowerCase()} ${this.targetName(a.dest)}`)
         if (a.targets[0]) this.planArrow(a.targets[0].rect, a.dest.rect, color, false)
       }
       // a swap has two targets and no direction — the arrow points both ways
       if (a.kind === 'swap' && a.targets.length === 2) {
         this.planArrow(a.targets[0]!.rect, a.targets[1]!.rect, color, true)
       }
-      if (!primary) continue
-      if (a.instruction) {
-        const instr = document.createElement('div')
-        instr.className = 'pInstr'
-        instr.textContent = a.instruction.length > PLAN_INSTR_MAX
-          ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
-          : a.instruction
-        primary.appendChild(instr)
-      }
-      if (a.color) {
-        const row = document.createElement('div')
-        row.className = 'pRow'
-        const sw = document.createElement('span')
-        sw.className = 'pSwatch'
-        // the resolved colour itself, painted — a swatch that merely named a
-        // hex would be a picture of the answer rather than the answer
-        sw.style.background = a.color.nearest?.css ?? a.color.drawn
-        const tok = document.createElement('span')
-        tok.className = 'pToken'
-        tok.textContent = a.color.nearest ? a.color.nearest.token : a.color.drawn
-        row.append(sw, tok)
-        primary.appendChild(row)
-      }
-      // LAST and loudest: the user's own typed words, uncut. Everything above
-      // is a reading of the drawing; this is not a reading of anything.
-      for (const n of a.notes ?? []) {
-        const note = document.createElement('div')
-        note.className = 'pNote'
-        note.textContent = n
-        primary.appendChild(note)
-      }
+      // The words go in ONE card rather than onto the page. The user's typed
+      // notes are the loudest line in it, for the same reason they were the
+      // loudest line on a chip: everything else is a reading of the drawing,
+      // and a typed note is not a reading of anything.
+      detail.push({
+        kind: spec.label,
+        color,
+        needsConfirm: a.needsConfirm === true,
+        what: a.targets.map((t) => this.targetName(t)).join(', ') ||
+          (a.region ? (a.depicts ? `new · ${a.depicts}` : 'new here') : ''),
+        instruction: a.instruction
+          ? (a.instruction.length > PLAN_INSTR_MAX
+              ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
+              : a.instruction)
+          : '',
+        swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
+        token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
+        notes: a.notes ?? [],
+      })
     }
-    const pageW = document.documentElement.scrollWidth
-    for (const { el, top } of lift) {
-      const h = el.offsetHeight
-      // above the box when there is room for it, else just inside the top
-      el.style.top = `${String(Math.round(top - h - PLAN_LABEL_GAP >= 2 ? top - h - PLAN_LABEL_GAP : top + 3))}px`
-      // clamped against the DOCUMENT's width, never the viewport's — a
-      // viewport clamp would have to be redone on every scroll, which is the
-      // drift this whole layer exists to avoid
-      const w = el.offsetWidth
-      const left = Number.parseFloat(el.style.left)
-      if (left + w > pageW - 4) el.style.left = `${String(Math.max(2, Math.round(pageW - w - 4)))}px`
-    }
+    this.planStops = stops
+    this.renderPlanCard(detail)
+    if (stops.length > 0) this.startCursor()
+    else this.stopCursor()
   }
 
   /** The one place `this.v2` changes, so the plan can never outlive it. */
@@ -8646,6 +8895,7 @@ class Overlay {
     // Rules draw in EVERY mode: a broken invariant is not a tweak-mode
     // concern, it is the page being wrong.
     this.drawRules()
+    this.drawCursor()
   }
 
   // ---- pipeline ----

@@ -213,6 +213,29 @@ const plan = () =>
         x2: +l.getAttribute('x2'), y2: +l.getAttribute('y2'),
       })),
       heads: [...svg.querySelectorAll('polygon')].map((p) => ({ fill: getComputedStyle(p).fill, ...box(p) })),
+      // The plan's words used to be a slab over every target; they are one card
+      // now, and a travelling cursor carries "where". Same questions, two
+      // surfaces: the card must NAME each action and the cursor must VISIT the
+      // right rects.
+      card: [...(document.getElementById('s2c-overlay-host').shadowRoot
+        .querySelectorAll('#planCard .cRow'))].map((el) => {
+        const sw = el.querySelector('.cSwatch')
+        return {
+          kind: el.querySelector('.cKind')?.textContent ?? null,
+          what: el.querySelector('.cWhat')?.textContent ?? null,
+          instr: el.querySelector('.cInstr')?.textContent ?? null,
+          token: el.querySelector('.cToken')?.textContent ?? null,
+          swatch: sw ? { bg: getComputedStyle(sw).backgroundColor, ...box(sw) } : null,
+          notes: [...el.querySelectorAll('.cNote')].map((n) => n.textContent),
+          ...box(el),
+        }
+      }),
+      stops: window.__S2C_DEBUG__.plan(),
+      cardBox: (() => {
+        const c = document.getElementById('s2c-overlay-host').shadowRoot.getElementById('planCard')
+        const cs = getComputedStyle(c)
+        return { shown: cs.display !== 'none', bg: cs.backgroundColor, ...box(c) }
+      })(),
       labels: [...layer.querySelectorAll('.planLabel')].map((el) => {
         const cs = getComputedStyle(el)
         const sw = el.querySelector('.pSwatch')
@@ -282,43 +305,71 @@ const modRect = p.rects.find((r) => r.stroke === KIND_RGB.modify)
 if (delRect.sw <= modRect.sw) throw new Error(`wide delete is not heavier: ${delRect.sw} vs ${modRect.sw}`)
 log(`✓ ${p.rects.length} outlines on the live rects, colour-coded · region dashed · ⚠ delete ${delRect.sw}px vs ${modRect.sw}px`)
 
-// ---- 2. labels name the action and the target, and are legible ----------
-if (p.labels.length !== 6) {
-  throw new Error(`expected 6 labels (2 delete + move + TO + modify + design), got ${p.labels.length}`)
+// ---- 2. the card names every action; the cursor visits every target -----
+// There are no labels on the page at all now, and that is the point: a slab
+// over each target buried the page it was explaining.
+if (p.labels.length !== 0) {
+  throw new Error(`${p.labels.length} slabs are still painted over the page`)
 }
-for (const l of p.labels) {
-  if (l.w < 40 || l.h < 12) throw new Error(`label "${l.kind} ${l.what}" is unreadably small: ${l.w}x${l.h}`)
-  if (l.visibility !== 'visible' || l.opacity < 0.9) throw new Error(`label is not visible: ${JSON.stringify(l)}`)
-  if (l.fontSize < 10) throw new Error(`label font is ${l.fontSize}px`)
-  if (l.bg === 'rgba(0, 0, 0, 0)' || /,\s*0\)$/.test(l.bg)) throw new Error(`label background is transparent: ${l.bg}`)
+if (!p.cardBox.shown) throw new Error('the plan card is not shown while a plan waits')
+// one row per ACTION (not per target): delete, move, modify, design
+if (p.card.length !== 4) {
+  throw new Error(`expected 4 card rows (delete, move, modify, design), got ${p.card.length}: ` +
+    JSON.stringify(p.card.map((c) => c.kind)))
 }
-const named = p.labels.map((l) => `${l.kind}|${l.what}`)
-for (const want of [
-  `⚠ DELETE|${picked[0].domId} · <${picked[0].tag}>`,
-  `⚠ DELETE|${picked[1].domId} · <${picked[1].tag}>`,
-  `MOVE|${picked[2].domId} · <${picked[2].tag}>`,
-  `TO|${picked[3].domId} · <${picked[3].tag}>`,
-  `MODIFY|${picked[4].domId} · <${picked[4].tag}>`,
-  'DESIGN|new · ribbon',
-]) {
-  if (!named.some((n) => n.startsWith(want))) throw new Error(`no label "${want}" among ${JSON.stringify(named)}`)
+for (const l of p.card) {
+  if (l.w < 100 || l.h < 12) throw new Error(`card row "${l.kind} ${l.what}" is unreadably small: ${l.w}x${l.h}`)
 }
-if (!p.labels.some((l) => (l.instr ?? '').includes('move it above'))) throw new Error('labels carry no instruction')
-log('✓ labels:', JSON.stringify(named))
+const named = p.card.map((l) => `${l.kind}|${l.what}`)
+for (const want of ['DELETE|', 'MOVE|', 'MODIFY|', 'DESIGN|']) {
+  // the wide delete keeps its ⚠, which is the point of the marker
+  if (!named.some((n) => n.replace(/^⚠ /, '').startsWith(want))) {
+    throw new Error(`no card row "${want}" among ${JSON.stringify(named)}`)
+  }
+}
+// one row for a two-target delete, naming both: the consolidation is the whole
+// reason the slabs went away
+const del = p.card.find((l) => l.kind.includes('DELETE'))
+if (!/e1 .*e2/s.test(del.what)) throw new Error(`the delete row does not name both targets: ${del.what}`)
+if (!p.card.some((l) => (l.instr ?? '').includes('move it above'))) throw new Error('the card carries no instruction')
+log('✓ card rows:', JSON.stringify(named))
 
-// A rect is not paint. Clip a screenshot to one label's own box, hide the
-// layer, shoot the identical box again: identical bytes mean nothing was ever
-// painted there.
-const probe = p.labels.find((l) => l.notes.length > 0) ?? p.labels[0]
-const clip = { x: Math.round(probe.x), y: Math.round(probe.y), width: Math.round(probe.w), height: Math.round(probe.h) }
-const withPlan = await page.screenshot({ clip })
-await page.evaluate(`${sr()}.getElementById("plan").style.display = "none"`)
-const withoutPlan = await page.screenshot({ clip })
-await page.evaluate(`${sr()}.getElementById("plan").style.display = ""`)
-if (Buffer.compare(withPlan, withoutPlan) === 0) {
-  throw new Error('hiding the plan changed nothing inside a label box — it paints nothing')
+// the cursor: one stop per TARGET, each on the live rect of the thing it means
+const stops = await page.evaluate(() => window.__S2C_DEBUG__.plan())
+if (stops.length !== 6) {
+  throw new Error(`expected 6 cursor stops (2 delete + move + TO + modify + design), got ${stops.length}`)
 }
-log(`✓ a label really paints (${clip.width}x${clip.height} clip: ${withPlan.length} vs ${withoutPlan.length} bytes)`)
+const cur = await page.evaluate(() => window.__S2C_DEBUG__.cursor())
+if (!cur) throw new Error('a plan is showing and no cursor is working it')
+if (cur.stops !== 6) throw new Error(`the cursor knows ${cur.stops} stops, not 6`)
+log('✓ cursor:', JSON.stringify({ phase: cur.phase, stops: cur.stops, colour: cur.color }))
+
+// it MOVES, and its tail grows — a cursor that computes a position and paints
+// nothing would satisfy every assertion above
+const first = await page.evaluate(() => window.__S2C_DEBUG__.cursor())
+await page.waitForTimeout(700)
+const later = await page.evaluate(() => window.__S2C_DEBUG__.cursor())
+if (Math.hypot(later.x - first.x, later.y - first.y) < 2) {
+  throw new Error(`the cursor is frozen at ${JSON.stringify(first)}`)
+}
+if (later.trail < 5) throw new Error(`the cursor leaves no trail (${later.trail} points)`)
+log(`✓ the cursor moves (${Math.round(Math.hypot(later.x - first.x, later.y - first.y))}px in 0.7s) and trails ${later.trail} points`)
+
+// A rect is not paint: clip a box around the cursor, hide the canvas, shoot
+// again. Identical bytes mean nothing was ever drawn there.
+const at = await page.evaluate(() => window.__S2C_DEBUG__.cursor())
+const clip = {
+  x: Math.max(0, Math.round(at.x) - 30), y: Math.max(0, Math.round(at.y) - 30),
+  width: 60, height: 60,
+}
+const withCursor = await page.screenshot({ clip })
+await page.evaluate(`${sr()}.getElementById("canvas").style.display = "none"`)
+const withoutCursor = await page.screenshot({ clip })
+await page.evaluate(`${sr()}.getElementById("canvas").style.display = ""`)
+if (Buffer.compare(withCursor, withoutCursor) === 0) {
+  throw new Error('hiding the canvas changed nothing where the cursor is — it paints nothing')
+}
+log(`✓ the cursor really paints (${withCursor.length} vs ${withoutCursor.length} bytes)`)
 
 // ---- 3. move draws the relationship ------------------------------------
 const arrow = p.lines.find((l) => l.stroke === KIND_RGB.move)
@@ -335,17 +386,17 @@ if (!head || head.w < 3 || head.h < 3) throw new Error(`arrow has no visible hea
 log('✓ move arrow: source centre → destination centre, with a painted head')
 
 // ---- 4. colour swatch + token name --------------------------------------
-const rose = p.labels.find((l) => l.token === 'bg-rose-600')
-if (!rose) throw new Error(`no label carries the resolved token: ${JSON.stringify(p.labels.map((l) => l.token))}`)
+const rose = p.card.find((l) => l.token === 'bg-rose-600')
+if (!rose) throw new Error(`no card row carries the resolved token: ${JSON.stringify(p.card.map((l) => l.token))}`)
 if (!rose.swatch) throw new Error('token shown without a swatch')
 if (rose.swatch.bg !== 'rgb(225, 29, 72)') throw new Error(`swatch paints ${rose.swatch.bg}, want rgb(225, 29, 72)`)
 if (rose.swatch.w < 8 || rose.swatch.h < 8) throw new Error(`swatch is ${rose.swatch.w}x${rose.swatch.h}`)
-const sky = p.labels.find((l) => l.token === 'text-sky-500')
+const sky = p.card.find((l) => l.token === 'text-sky-500')
 if (!sky?.swatch || sky.swatch.bg !== 'rgb(14, 165, 233)') throw new Error('design action lost its colour')
 log('✓ swatches paint the resolved colour and name the token: bg-rose-600, text-sky-500')
 
 // ---- 5. notes render verbatim -------------------------------------------
-const allNotes = p.labels.flatMap((l) => l.notes)
+const allNotes = p.card.flatMap((l) => l.notes)
 if (!allNotes.includes(NOTE_A)) throw new Error(`note A not verbatim: ${JSON.stringify(allNotes)}`)
 if (!allNotes.includes(NOTE_B)) throw new Error(`note B not verbatim: ${JSON.stringify(allNotes)}`)
 if (!(await status()).includes('do not touch the header')) {
@@ -375,13 +426,16 @@ for (let i = 0; i < beforePlan.rects.length; i++) {
     throw new Error(`outline ${i} drifted: ${a.x},${a.y} → ${z.x},${z.y} over ${scrolled}px`)
   }
 }
-for (let i = 0; i < beforePlan.labels.length; i++) {
-  const a = beforePlan.labels[i], z = afterPlan.labels[i]
+// the cursor's stops are viewport coords too, so they must track the same way
+const stopsBefore = beforePlan.stops ?? []
+const stopsAfter = afterPlan.stops ?? []
+for (let i = 0; i < stopsBefore.length; i++) {
+  const a = stopsBefore[i], z = stopsAfter[i]
   if (Math.abs(z.y - (a.y - scrolled)) > 1 || Math.abs(z.x - a.x) > 1) {
-    throw new Error(`label ${i} drifted: ${a.x},${a.y} → ${z.x},${z.y} over ${scrolled}px`)
+    throw new Error(`cursor stop ${i} drifted: ${a.x},${a.y} → ${z.x},${z.y} over ${scrolled}px`)
   }
 }
-log(`✓ zero drift across ${scrolled}px of scroll — outlines and labels both`)
+log(`✓ zero drift across ${scrolled}px of scroll — outlines and the cursor's stops both`)
 await page.evaluate(() => window.scrollTo(0, 0))
 await page.waitForTimeout(150)
 
@@ -430,7 +484,7 @@ await click('cancel')
 await page.waitForTimeout(150)
 if ((await mode()) !== 'draw') throw new Error(`cancel left mode ${await mode()}`)
 const cancelled = await plan()
-if (cancelled.on || cancelled.labels.length || cancelled.rects.length) throw new Error('cancel left the plan on screen')
+if (cancelled.on || cancelled.stops.length || cancelled.rects.length) throw new Error('cancel left the plan on screen')
 log('✓ ✗ Cancel clears the plan and returns to draw')
 
 // ---- 8. the attempts control --------------------------------------------
@@ -570,7 +624,7 @@ runBody = null
 await scribble()
 await preview()
 if (!(await status()).includes('best of three')) throw new Error(`preview does not warn about the bill: ${await status()}`)
-if ((await plan()).labels.length !== 6) throw new Error('second preview drew no plan')
+if ((await plan()).stops.length !== 6) throw new Error('second preview drew no plan')
 await click('confirm')
 for (let i = 0; i < 40 && !runBody; i++) await page.waitForTimeout(100)
 if (!runBody) throw new Error('✓ Go sent no run')
@@ -582,11 +636,11 @@ if (typeof runBody.fidelity?.resemblance !== 'number' || !runBody.fidelity.keep 
 if (!runBody.rawInterpretation) throw new Error('✓ Go dropped the confirmed interpretation')
 // the stub answers before the client has processed the response, so poll
 let gone = await plan()
-for (let i = 0; i < 30 && (gone.on || gone.labels.length); i++) {
+for (let i = 0; i < 30 && (gone.on || gone.stops.length); i++) {
   await page.waitForTimeout(100)
   gone = await plan()
 }
-if (gone.on || gone.labels.length) throw new Error('the plan outlived ✓ Go')
+if (gone.on || gone.stops.length) throw new Error('the plan outlived ✓ Go')
 log('✓ ✓ Go posts top-level candidates:3 · fidelity untouched:', JSON.stringify(runBody.fidelity))
 
 // ---- 9. a candidate stage event reaches the status line ------------------
