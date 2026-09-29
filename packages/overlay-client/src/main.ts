@@ -819,6 +819,20 @@ function toHex(css: string): string | null {
 }
 /** Where the pen colour survives a reload. */
 const PEN_STORE_KEY = 's2c:pen'
+const SURFACE_STORE_KEY = 's2c:surface'
+/**
+ * The only mode there is.
+ *
+ * `design` — the tool is live: draw on the page, drag things, ask for changes.
+ * `test`   — it gets out of the way completely. Links follow, forms type,
+ *            buttons press. Nothing of the overlay takes a pointer event.
+ *
+ * Everything that used to be a mode — draw, tweak, gesture, design-vs-markup —
+ * is either inferred or decided by what the pointer did. This is the one choice
+ * left, because it is the one a person actually has: am I building it, or am I
+ * using it?
+ */
+type Surface = 'design' | 'test'
 const SKIN_STORE_KEY = 's2c:skin'
 /**
  * How the chrome looks. Two, because they are answers to different rooms:
@@ -1441,6 +1455,13 @@ const STYLES = css`
   #propsPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
+  /* Test: the tool is not there. The canvas cannot take a pointer whatever the
+     inner mode says, the ink and the plan are hidden, and what is left is the
+     bar — which the user can also hide. */
+  :host([data-surface='test']) #canvas { pointer-events: none !important; }
+  :host([data-surface='test']) #ink,
+  :host([data-surface='test']) #plan,
+  :host([data-surface='test']) #planCard { display: none !important; }
   :host([data-mode='draw']) #canvas { pointer-events: auto; cursor: crosshair; }
   :host([data-mode='preview']) #canvas { pointer-events: auto; cursor: pointer; }
   :host([data-mode='tweak']) #canvas { pointer-events: auto; cursor: default; }
@@ -1921,6 +1942,7 @@ class Overlay {
   private livePath: SVGPathElement | null = null
   private statusEl: HTMLElement
   private drawBtn: HTMLButtonElement
+  private surfaceBtn: HTMLButtonElement
   private runBtn: HTMLButtonElement
   private confirmBtn: HTMLButtonElement
   private cancelBtn: HTMLButtonElement
@@ -1995,6 +2017,10 @@ class Overlay {
   private timeOpen = false
   private versions: HistoryVersion[] = []
   private timePick: string | null = null
+  /** design or test — see Surface. */
+  private surface: Surface = 'design'
+  /** Where a draw-mode press started, for telling a click from a stroke. */
+  private pressAt: { x: number; y: number; t: number } | null = null
   /** Which skin the chrome wears. See SKIN_STORE_KEY. */
   private skin: Skin = 'glass'
   /** The page's own padding-bottom, held while the dock borrows it. */
@@ -2215,7 +2241,8 @@ class Overlay {
     hud.id = 'hud'
     hud.innerHTML = `
       <span id="hudGrip" title="drag to move this toolbar">⋮⋮</span>
-      <button id="draw" class="primary">✏️ Draw</button>
+      <button id="surfaceBtn" class="primary">✏️ Design</button>
+      <button id="draw" class="tucked primary">✏️ Draw</button>
       <span id="modes" title="gesture: mark up existing UI · design: sketch new UI · screenshot: pixels-only benchmark">
         <button id="mode-gesture" class="mode on" title="gesture commands">✏️</button>
         <button id="mode-design" class="mode" title="design sketch">🎨</button>
@@ -2529,6 +2556,9 @@ class Overlay {
 
     this.statusEl = this.shadow.getElementById('status')!
     this.drawBtn = this.shadow.getElementById('draw') as HTMLButtonElement
+    this.surfaceBtn = this.shadow.getElementById('surfaceBtn') as HTMLButtonElement
+    this.surfaceBtn.addEventListener('click', () =>
+      this.setSurface(this.surface === 'design' ? 'test' : 'design'))
     this.runBtn = this.shadow.getElementById('run') as HTMLButtonElement
     this.confirmBtn = this.shadow.getElementById('confirm') as HTMLButtonElement
     this.cancelBtn = this.shadow.getElementById('cancel') as HTMLButtonElement
@@ -2625,6 +2655,7 @@ class Overlay {
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
 
     this.restoreSkin()
+    this.restoreSurface()
     this.syncBar()
     this.binds = this.buildKeymap()
     this.buildHelp()
@@ -2743,6 +2774,7 @@ class Overlay {
       // it fires FROM: armed, counting down, or locked mid-run
       // `on` stays "fires AND applies", which is what it always meant; `mode`
       // is the thing with three values
+      surface: () => this.surface,
       skin: () => this.skin,
       commands: () => ({
         open: this.cmdOpen,
@@ -3292,6 +3324,12 @@ class Overlay {
         id: 'paint', keys: 'Alt+K', group: 'colour',
         label: 'paint the selected shape — recolour one <path> in source, zero tokens',
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
+      },
+      {
+        id: 'surface', keys: 'Alt+Space', group: 'drawing',
+        label: 'design ⇄ test — build it, or use it like anyone else would',
+        match: (e) => e.altKey && (e.code === 'Space' || e.key === ' '),
+        run: () => this.setSurface(this.surface === 'design' ? 'test' : 'design'),
       },
       {
         id: 'commands', keys: 'Ctrl/⌘+K', group: 'overlay',
@@ -6341,6 +6379,19 @@ class Overlay {
     )
   }
 
+  /**
+   * Is this the page's own backdrop rather than something in it?
+   *
+   * A page-sized element is the background as far as anyone is concerned:
+   * somebody pressing on it pressed on nothing, whatever the DOM says is
+   * technically under there. Selecting a 1280x1312 wrapper is never what was
+   * meant, and treating it as empty is what lets a press out there be a stroke.
+   */
+  private isBackdrop(el: Element): boolean {
+    const r = el.getBoundingClientRect()
+    return r.width * r.height >= window.innerWidth * window.innerHeight * 0.5
+  }
+
   /** The stamped element under a viewport point, with what to call it. */
   private pickStamped(x: number, y: number): DataEnd | null {
     let el: Element | null = this.elementUnder(x, y)
@@ -6827,6 +6878,9 @@ class Overlay {
     // half-made.
     this.cancelAuto()
     this.canvas.setPointerCapture(e.pointerId)
+    // a press that never travels is a click, and a click means "pick that up"
+    // rather than "draw a dot" — see onUp
+    this.pressAt = { x: e.clientX, y: e.clientY, t: performance.now() }
     const p = this.toPage(e)
     // a trackpad hop: lands right back where the last gesture-sized stroke
     // ended, right after it ended — resume it instead of starting a new one
@@ -6860,6 +6914,45 @@ class Overlay {
       return
     }
     if (!this.live) return
+    /*
+     * A press that never travelled is a click, and a click picks something up.
+     *
+     * This is the other half of the merge: drawing and selecting used to be two
+     * modes the user switched between, and the switch was pure overhead because
+     * the gesture already says which one was meant. A drag is a stroke. A tap is
+     * "that one". Nothing to choose, nothing to remember.
+     */
+    const press = this.pressAt
+    this.pressAt = null
+    if (press) {
+      /*
+       * How far the pointer TRAVELLED, not how far it ended up.
+       *
+       * Displacement is the obvious measure and it is wrong for the most
+       * important gesture in this tool: a circle round something comes back to
+       * where it started, so press-to-release is nearly zero and a perfectly
+       * good lasso would be read as a click on whatever it went round.
+       */
+      let travel = 0
+      const pts = this.live.points
+      for (let i = 1; i < pts.length; i++) {
+        travel += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+      }
+      if (travel <= CLICK_SLOP) {
+        const target = this.pickTweakTarget(e.clientX, e.clientY)
+        if (target && !this.isBackdrop(target)) {
+          // throw the dot away: it was a click, and a stray point would be read
+          // as a mark on whatever was under it
+          this.livePath?.remove()
+          this.live = null
+          this.livePath = null
+          this.canvas.releasePointerCapture?.(e.pointerId)
+          this.setMode('tweak')
+          this.selectElement(target)
+          return
+        }
+      }
+    }
     this.live.points.push(this.toPage(e))
     if (this.live.points.length > 2) {
       this.live.anchor = this.anchorFor(this.live.points) ?? undefined
@@ -7006,6 +7099,60 @@ class Overlay {
    * Everything the run will do, drawn over the page it will do it to. Called
    * whenever the interpretation changes — never on scroll.
    */
+  // ---- design or test ----------------------------------------------------
+  // The one mode left. Everything else the user used to choose between is
+  // inferred (markup vs new UI) or decided by what the pointer did (a click
+  // selects, a drag draws), so this is the only question with two real
+  // answers: am I building it, or am I using it?
+
+  private setSurface(next: Surface) {
+    this.surface = next
+    this.host.dataset.surface = next
+    try {
+      localStorage.setItem(SURFACE_STORE_KEY, JSON.stringify(next))
+    } catch { /* the default is a fine place to land */ }
+    if (next === 'test') {
+      // everything in flight belongs to design: a pending run, a half-drawn
+      // rule, a held library entry. None of it should survive into a mode
+      // whose promise is that the tool is not there.
+      this.cancelAuto()
+      this.libArmed = null
+      this.setMode('idle')
+      this.deselect('test — the page is yours; ⌘K or the switch to come back')
+      this.status('test — click, type and scroll the page as it really is')
+    } else {
+      this.setMode('draw')
+      this.status('design — drag to draw, click to pick something up')
+    }
+    this.syncSurfaceUi()
+    this.redraw()
+  }
+
+  private syncSurfaceUi() {
+    const test = this.surface === 'test'
+    this.surfaceBtn.textContent = test ? '▶ Test' : '✏️ Design'
+    this.surfaceBtn.classList.toggle('primary', !test)
+    this.surfaceBtn.title = test
+      ? 'TEST — the tool is out of the way; the page behaves as itself. Click to go back to designing.'
+      : 'DESIGN — drag to draw, click to pick something up. Click to switch to using the page.'
+    this.syncBar()
+  }
+
+  private restoreSurface() {
+    let next: Surface = 'design'
+    try {
+      const raw = localStorage.getItem(SURFACE_STORE_KEY)
+      if (JSON.parse(raw ?? 'null') === 'test') next = 'test'
+    } catch { /* the default is a fine place to land */ }
+    this.surface = next
+    this.host.dataset.surface = next
+    // design means the tool is LIVE — the canvas takes the pointer, and a drag
+    // draws. Restoring the surface without restoring that leaves a page that
+    // looks like it is in design mode and behaves like it is not.
+    this.setMode(next === 'test' ? 'idle' : 'draw')
+    this.syncSurfaceUi()
+  }
+
   // ---- one key, then type -----------------------------------------------
   // Forty-five bindings and a toolbar control per capability are the same
   // mistake twice: both ask where a thing lives. This asks for the thing.
@@ -8609,9 +8756,13 @@ class Overlay {
     }
     // 4) select whatever is under the cursor (a shape first), or deselect
     const el = this.pickTweakTarget(e.clientX, e.clientY)
-    if (!el) {
-      if (t) this.deselect('deselected')
-      else this.status('nothing stamped here — hover highlights what you can select')
+    if (!el || this.isBackdrop(el)) {
+      // Nothing under the pointer, so this press belongs to the pen. Drawing
+      // and selecting stopped being two modes: what you DO decides which one
+      // you meant, and pressing on empty space means you are about to draw.
+      if (t) this.deselect('')
+      this.setMode('draw')
+      this.onDown(e)
       return
     }
     this.selectElement(el)
@@ -9538,7 +9689,7 @@ class Overlay {
       (Object.keys(d.keep) as (keyof FidelityKeep)[]).every((k) => f.keep[k] === d.keep[k])
     const show: Array<[HTMLElement | null, boolean]> = [
       // gesture is the default reading; design and screenshot are not
-      [this.shadow.getElementById('modes'), this.runMode !== 'auto'],
+      [this.shadow.getElementById('modes'), this.runMode !== 'auto' && this.surface === 'design'],
       // a colour you chose is a colour the next stroke will ask for
       [this.penBtn, this.pen !== null],
       [this.fidelityBtn, !fidelityIsDefault],

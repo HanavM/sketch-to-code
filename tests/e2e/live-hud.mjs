@@ -79,7 +79,7 @@ log('✓ dragged to', Math.round(placed.x), Math.round(placed.y), 'and stayed')
 // ---- 2. a press on a button is a click, not a drag --------------------
 const btn = await page.evaluate(() => {
   const r = document.getElementById('s2c-overlay-host').shadowRoot
-    .getElementById('draw').getBoundingClientRect()
+    .getElementById('surfaceBtn').getBoundingClientRect()
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
 })
 // press on the button and wander 30px: the bar must not follow the pointer
@@ -97,12 +97,16 @@ now = await rects()
 if (!near(now.hud.x, placed.x) || !near(now.hud.y, placed.y)) {
   throw new Error(`button click moved the bar to ${now.hud.x},${now.hud.y}`)
 }
-// The bar carries only the primary action and whatever differs from default
-// now, so this drives the button that is always there. Same question: does a
-// press on a control stay a press when the whole bar is draggable?
-const mode = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
-if (mode !== 'draw') throw new Error(`draw click did not fire (mode=${mode})`)
-await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('draw').click())
+// The bar carries the primary action and whatever differs from default, so
+// this drives the one control that is always on it — the design/test switch.
+// Same question: does a press on a control stay a press when the whole bar is
+// draggable? (A click that fell THROUGH to the canvas would now select
+// something instead, which is how this caught itself.)
+const surface = await page.evaluate(() => window.__S2C_DEBUG__.surface())
+if (surface !== 'test') throw new Error(`the switch click did not fire (surface=${surface})`)
+// back to design: that click put the tool away, and everything after this
+// needs a live canvas
+await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('surfaceBtn').click())
 log('✓ button press stayed a click; bar unmoved')
 
 // ---- 3. Alt+H hides and restores --------------------------------------
@@ -143,7 +147,13 @@ log('✓ hidden + position survived reload')
 // draw one stroke so #run is enabled (a disabled button swallows .click()),
 // then stub the interpret call — we only care that the click ARRIVES.
 await page.keyboard.press('Alt+KeyH') // show (the reload left it hidden)
-await page.keyboard.press('Alt+KeyD')
+// design mode is live on load now, so Alt+D would toggle drawing OFF
+for (let i = 0; i < 3; i++) {
+  const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+  if (m === 'draw') break
+  await page.keyboard.press('Alt+KeyD')
+  await page.waitForTimeout(150)
+}
 await page.mouse.move(400, 500)
 await page.mouse.down()
 for (let i = 1; i <= 8; i++) await page.mouse.move(400 + i * 14, 500 + (i % 2 ? 10 : 0), { steps: 2 })

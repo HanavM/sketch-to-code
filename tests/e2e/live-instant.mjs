@@ -12,6 +12,13 @@ import { execSync } from 'node:child_process'
 
 const APP = process.env.S2C_APP ?? 'http://localhost:5199/'
 const log = (...a) => console.log('[e2e-instant]', ...a)
+
+// Start from a known page, BEFORE anything else. This suite refuses to run if
+// something is already mounted — which is the right check — but a previous run
+// that failed part-way leaves exactly that behind, so without this the first
+// failure makes every later run fail for a different reason than the first one.
+execSync('git checkout -- examples/demo-app/src/', { cwd: process.cwd() })
+execSync('git clean -fdq examples/demo-app/src/', { cwd: process.cwd() })
 const b = await chromium.launch()
 const page = await b.newPage({ viewport: { width: 1280, height: 900 } })
 await page.route('**/@s2c/interpret', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":false,"error":"stubbed"}' }))
@@ -26,7 +33,14 @@ const draw = async (pts) => {
 }
 
 // ---- a drawing in empty space, to the right of the content column ----
-await page.keyboard.press('Alt+KeyD')
+// design mode is live on load now, so a blind Alt+D toggles drawing OFF
+await page.waitForFunction(() => window.__S2C_DEBUG__ != null, { timeout: 15000 })
+for (let i = 0; i < 3; i++) {
+  const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+  if (m === 'draw') break
+  await page.keyboard.press('Alt+KeyD')
+  await page.waitForTimeout(140)
+}
 const cx = 1180, cy = 300
 const ring = []
 for (let i = 0; i <= 28; i++) {
@@ -88,5 +102,11 @@ log('scratch-out over a card → components etched:', etched)
 if (etched !== 0) throw new Error('ASSERT: a scratch-out was etched — that gesture usually means delete')
 log('✓ the gate refused a mark drawn on an element')
 
-log('ALL INSTANT CHECKS PASSED')
+// Put the app back the way it was found. This test MOUNTS a component, and an
+// instant render left behind is the one thing that stops the next run of this
+// suite before it starts ("something was already mounted"). git checkout alone
+// cannot do it: the component it wrote is untracked.
+execSync('git checkout -- examples/demo-app/src/', { cwd: process.cwd() })
+execSync('git clean -fdq examples/demo-app/src/', { cwd: process.cwd() })
+log('ALL INSTANT CHECKS PASSED · demo app restored')
 await b.close()

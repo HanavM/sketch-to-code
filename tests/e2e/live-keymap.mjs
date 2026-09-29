@@ -251,7 +251,11 @@ await page.route('**/@s2c/run', (route) => {
 
 await press('Alt+KeyR')
 if (!(await state()).runDisabled) throw new Error('▶ Run was enabled with nothing drawn')
-await press('Alt+KeyD')
+// design mode is live on load, so Alt+D pressed blind can toggle drawing OFF
+for (let i = 0; i < 3 && (await state()).mode !== 'draw'; i++) {
+  await press('Alt+KeyD')
+  await page.waitForTimeout(140)
+}
 await page.mouse.move(420, 520)
 await page.mouse.down()
 for (let i = 1; i <= 8; i++) await page.mouse.move(420 + i * 14, 520 + (i % 2 ? 10 : 0), { steps: 2 })

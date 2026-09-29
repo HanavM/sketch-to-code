@@ -168,7 +168,13 @@ await page.route('**/@s2c/run', (route) => {
 
 /** One scribble over the first target, so ▶ Run has work to do. */
 async function scribble() {
-  await page.keyboard.press('Alt+KeyD')
+  // design mode is live on load now, so a blind Alt+D toggles drawing OFF
+  for (let i = 0; i < 3; i++) {
+    const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+    if (m === 'draw') break
+    await page.keyboard.press('Alt+KeyD')
+    await page.waitForTimeout(140)
+  }
   const { x, y } = picked[0].rect
   await page.mouse.move(x + 20, y + 20)
   await page.mouse.down()

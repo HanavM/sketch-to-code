@@ -42,8 +42,14 @@ await page.evaluate((c) => {
   const root = document.getElementById('s2c-overlay-host').shadowRoot
   root.getElementById('penPanel').querySelector(`.swatch[data-color="${c}"]`).click()
   window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', bubbles: true }))
-  root.getElementById('draw').click()
 }, pick)
+// design mode is live on load, so clicking #draw would toggle drawing OFF
+for (let i = 0; i < 3; i++) {
+  const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+  if (m === 'draw') break
+  await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('draw').click())
+  await page.waitForTimeout(140)
+}
 
 await page.mouse.move(300, 300)
 await page.mouse.down()
