@@ -44,6 +44,8 @@ export { promoteToApi } from './api.js'
 export type { PromoteRequest, PromoteResult } from './api.js'
 export { makeFormReal } from './form.js'
 export type { FormRequest, FormResult } from './form.js'
+export { stubRoute, isGeneratedRoute } from './stub.js'
+export type { StubRequest, StubResult } from './stub.js'
 export { moveData } from './dataflow.js'
 export {
   applyResponsive, bandFor, bandOrder, planResponsive, screensFor, utilityFamily,

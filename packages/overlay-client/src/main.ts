@@ -1999,6 +1999,13 @@ class Overlay {
   private ruleArmed = false
   /** Every saved rule, as of the last check against the page. */
   private rules: RuleView[] = []
+  /**
+   * Paths the page asked for that nothing answered, in the order they happened,
+   * with how each one failed. Insertion-ordered because the most recent miss is
+   * the one the user is looking at; deduplicated because a component that
+   * re-renders asks again, and being told twice is noise.
+   */
+  private apiMisses = new Map<string, 'page' | '404'>()
   /** Whether rules that HOLD are drawn. A broken one always is. */
   private watching = false
   private ruleCheckTimer: ReturnType<typeof setTimeout> | null = null
@@ -2756,6 +2763,7 @@ class Overlay {
     // last of the restores: it owns the status line, and it only fires on the
     // one boot that follows an extract
     this.restoreReloadReceipt()
+    this.watchForMissingEndpoints()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -2770,6 +2778,9 @@ class Overlay {
       // only place that can say whether the page or the reading was wrong
       snapshot: () => this.snapshot(),
       keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
+      // which /api paths the page asked for and nothing answered, and how each
+      // one failed — the only observable side of the fetch watcher
+      apiMisses: () => [...this.apiMisses.entries()].map(([path, how]) => ({ path, how })),
       // what each stroke believes it is drawn on, so a drifting overlay can be
       // told apart from a stroke that never anchored in the first place
       strokes: () => this.strokes.map((st) => ({ id: st.id, color: st.color, anchor: st.anchor })),
@@ -3335,6 +3346,13 @@ class Overlay {
         id: 'paint', keys: 'Alt+K', group: 'colour',
         label: 'paint the selected shape — recolour one <path> in source, zero tokens',
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
+      },
+      {
+        id: 'endpoint', keys: '⌘K only', group: 'run',
+        label: 'create the endpoint — write a route for a URL the page asked for and nothing answered',
+        // no key of its own: this happens to you a few times a project, not a
+        // few times an hour, and it announces itself when it happens
+        match: () => false, run: () => void this.createMissingEndpoint(),
       },
       {
         // One command, not two. Which backend move this is — a list becoming an
@@ -7144,6 +7162,90 @@ class Overlay {
   // should be asked, because the pointer has already answered it: a click
   // inside a <form> means the form, and a click on anything else means the
   // data behind it. Asking again would be a mode wearing a different hat.
+
+  /**
+   * Watch what the page asks the server for, and notice the one failure that
+   * never explains itself.
+   *
+   * A dev server answers an unknown path with index.html so that client-side
+   * routing works — so a fetch to an endpoint that does not exist comes back
+   * **200, text/html**, and the app throws `Unexpected token '<'` on a line that
+   * mentions neither the URL nor the real problem. That error has cost everyone
+   * who has ever prototyped against a dev server an afternoon.
+   *
+   * This is the third backend move and the only one that starts from something
+   * you cannot point at, because the thing that went wrong is a request rather
+   * than an element. Nothing is written here: it watches, and it offers.
+   *
+   * Wrapping fetch is intrusive enough to be worth stating the limits of. The
+   * original is called exactly once and its result is returned untouched, so a
+   * page that reads the body itself is unaffected; only the content-type header
+   * is inspected, never the body, so nothing is consumed; and it is wrapped once
+   * per overlay boot, with no re-entry.
+   */
+  private watchForMissingEndpoints() {
+    const original = window.fetch.bind(window)
+    window.fetch = async (...args: Parameters<typeof fetch>) => {
+      const res = await original(...args)
+      try {
+        this.noteIfEndpointMissing(args[0], res)
+      } catch { /* watching must never break the page's own request */ }
+      return res
+    }
+  }
+
+  private noteIfEndpointMissing(input: RequestInfo | URL, res: Response) {
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url
+    let path: string
+    try {
+      path = new URL(url, location.href).pathname
+    } catch { return }
+    // only this app's own /api, and never our own middleware
+    if (!path.startsWith('/api/') || path.startsWith('/@s2c/')) return
+    const type = res.headers.get('content-type') ?? ''
+    // The signature of the SPA fallback: a 200 that is a page. A 404 counts
+    // too, but it is the 200 that needs help — a 404 at least says something.
+    const fellThrough = res.ok && /text\/html/i.test(type)
+    if (!fellThrough && res.status !== 404) return
+    if (this.apiMisses.has(path)) return // said once; repeating it is noise
+    this.apiMisses.set(path, fellThrough ? 'page' : '404')
+    this.status(
+      `⚠ ${path} is not answered by anything — the page got ` +
+      `${fellThrough ? 'this page\'s HTML back with a 200, which is why the error says "Unexpected token \'<\'"' : 'a 404'}` +
+      ` · ⌘K → "create the endpoint" writes it`,
+      true,
+    )
+  }
+
+  /**
+   * Create the most recently missed endpoint. Offered through the palette
+   * rather than a key of its own: it is a thing that happens to you a few times
+   * a project, not a gesture, and the bar has no room for another button.
+   */
+  private async createMissingEndpoint(): Promise<void> {
+    const paths = [...this.apiMisses.keys()]
+    const path = paths[paths.length - 1]
+    if (!path) {
+      this.status('nothing has asked for a missing endpoint yet — this offers itself when something does')
+      return
+    }
+    this.status(`writing a route for ${path}…`)
+    try {
+      const res = await fetch('/@s2c/api/stub', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ path }),
+      })
+      const out = (await res.json()) as { ok: boolean; route?: string; change?: string; error?: string }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      // it exists now, so the miss is stale — and leaving it would offer to
+      // create the same route again
+      this.apiMisses.delete(path)
+      this.receipt(`✓ ${out.change ?? `created ${out.route ?? path}`} · 0 tokens · Ctrl+Z undoes it`)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
 
   private async makeRealSelection(): Promise<void> {
     const el = this.tweak?.el

@@ -473,6 +473,27 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
        * one Ctrl+Z can take back.
        */
       /**
+       * Create the endpoint the page asked for and nothing answered.
+       *
+       * The overlay knows the URL and that the reply was HTML, which is all this
+       * needs — see stub.ts for why that combination, rather than a 404, is the
+       * thing worth recognising.
+       */
+      server.middlewares.use('/@s2c/api/stub', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ path: string; kind?: 'list' | 'object' }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const { cp, untracked } = beginEdit(m)
+            const result = m.stubRoute(root, { path: body.path, kind: body.kind })
+            if (result.ok) pushEdit(cp.sha, result.change ?? 'created an endpoint', untracked)
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
        * The other half: a form that looks finished and throws everything away
        * becomes one that keeps what people type. Mechanical for the same reason
        * promote is — the form's own fields are the record's shape — so it is an
