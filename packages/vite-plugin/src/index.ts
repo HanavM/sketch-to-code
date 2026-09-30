@@ -71,7 +71,7 @@ export function setRunHandler(h: RunHandler): void {
 // while an orphaned pipeline is still editing files.
 let activeRun = false
 // undo stack: checkpoint SHAs of committed edits, most recent last
-const undoStack: Array<{ sha: string; label: string; untracked: string[] }> = []
+const undoStack: Array<{ sha: string; label: string; untracked: string[]; after: string[] | null }> = []
 /**
  * The last edit THIS server wrote, and when.
  *
@@ -90,11 +90,39 @@ let lastWrite = { label: '', at: 0 }
  * one this edit created, and undoing a later edit would delete it. Extract a
  * component, do anything else, press undo once — gone. beginEdit captures it at
  * the only moment it is true.
+ *
+ * `after` is the same list one moment LATER, and it draws the other boundary:
+ * anything untracked that shows up after this returns was not written by this
+ * edit, so undo must leave it alone. That is not a hypothetical — a form made
+ * real starts saving submissions into server/data/, and undoing the code change
+ * was deleting the records people had typed in since. An undo reverses an edit;
+ * it does not get to throw away data that arrived afterwards.
  */
 const pushEdit = (sha: string, label: string, untracked: string[] = []): void => {
-  undoStack.push({ sha, label, untracked })
+  // taken here rather than passed in by each endpoint: pushEdit is called at
+  // exactly the moment "the edit has finished" is true, and an invariant that
+  // every future endpoint has to remember to pass along is one that will be
+  // forgotten by the next one
+  undoStack.push({ sha, label, untracked, after: snapshotUntracked() })
   lastWrite = { label, at: Date.now() }
 }
+/**
+ * Assigned once the server knows its root; see pushEdit's `after`.
+ *
+ * Returns null for "could not tell", which undo reads as a reason to spare
+ * nothing extra rather than as an empty set — an empty set would mean "every
+ * untracked file appeared after this edit", which would spare all of them and
+ * quietly turn undo into a no-op.
+ */
+let snapshotUntracked: () => string[] | null = () => null
+/**
+ * The pipeline module, cached by beginEdit.
+ *
+ * pushEdit is synchronous — every caller uses it as a statement — and the only
+ * thing it needs from the pipeline is one git read. Every edit calls beginEdit
+ * first, so by the time anything is pushed this is set.
+ */
+let pipelineForSnapshot: typeof import('@s2c/pipeline') | null = null
 
 const DEFAULT_EXTS = ['.jsx', '.tsx']
 
@@ -124,6 +152,13 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
     configResolved(config) {
       root = config.root
+      snapshotUntracked = () => {
+        try {
+          // a dynamic import would make this async and pushEdit is not; the
+          // module is already loaded by the time any edit has been made
+          return pipelineForSnapshot?.untrackedFiles(root) ?? null
+        } catch { return null /* not a git repo */ }
+      }
     },
 
     transform(code, id) {
@@ -357,6 +392,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         cp: ReturnType<Pipeline['checkpoint']>
         untracked: string[]
       } => {
+        pipelineForSnapshot = m
         const cp = m.checkpoint(root, allowDirty)
         let untracked: string[] = []
         try {
@@ -436,6 +472,26 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
        * and rewrites a component, and the only acceptable version of that is
        * one Ctrl+Z can take back.
        */
+      /**
+       * The other half: a form that looks finished and throws everything away
+       * becomes one that keeps what people type. Mechanical for the same reason
+       * promote is — the form's own fields are the record's shape — so it is an
+       * AST edit and costs nothing.
+       */
+      server.middlewares.use('/@s2c/api/form', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string; name?: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const { cp, untracked } = beginEdit(m)
+            const result = m.makeFormReal(root, { srcLoc: body.srcLoc, name: body.name })
+            if (result.ok) pushEdit(cp.sha, result.change ?? 'made a form real', untracked)
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/api/promote', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
@@ -1054,8 +1110,16 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               // untracked, so a diff never sees it and undo used to put the
               // call site back while orphaning the component it referenced.
               // entry.untracked is what was already lying there at the time,
-              // which this revert must not touch — see pushEdit.
-              const files = m.revertTouched(root, cp, entry.untracked)
+              // which this revert must not touch — see pushEdit. Spared too:
+              // anything untracked that has appeared SINCE the edit, which by
+              // definition the edit did not write (the records a form made real
+              // has been collecting, a cache, a log).
+              let appeared: string[] = []
+              try {
+                const after = entry.after
+                if (after) appeared = m.untrackedFiles(root).filter((rel) => !after.includes(rel))
+              } catch { /* not a git repo: nothing to spare */ }
+              const files = m.revertTouched(root, cp, [...entry.untracked, ...appeared])
               if (files.length === 0) continue // that edit was already reverted
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
@@ -1145,6 +1209,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               try {
                 const m0 = await import('@s2c/pipeline')
                 runCp = m0.checkpoint(root, allowDirty)
+                pipelineForSnapshot = m0
                 untrackedBefore = m0.untrackedFiles(root)
               } catch { /* pipeline missing */ }
               if (engine === 'model' && body.rawInterpretation && body.mode !== 'screenshot') {

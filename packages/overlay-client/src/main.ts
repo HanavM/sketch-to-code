@@ -3337,9 +3337,12 @@ class Overlay {
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
       },
       {
-        id: 'promote', keys: 'Alt+Shift+D', group: 'run',
-        label: 'make this data real — move the selected list into an endpoint the page fetches',
-        match: altBind('KeyD', 'd', true), run: () => void this.promoteSelection(),
+        // One command, not two. Which backend move this is — a list becoming an
+        // endpoint, or a form starting to save — is a question the pointer has
+        // already answered, so asking it again would be a mode by another name.
+        id: 'real', keys: 'Alt+Shift+D', group: 'run',
+        label: 'make this real — a list becomes an endpoint, a form starts saving',
+        match: altBind('KeyD', 'd', true), run: () => void this.makeRealSelection(),
       },
       {
         id: 'surface', keys: 'Alt+Space', group: 'drawing',
@@ -7129,21 +7132,37 @@ class Overlay {
    * Everything the run will do, drawn over the page it will do it to. Called
    * whenever the interpretation changes — never on scroll.
    */
-  // ---- making the data real ----------------------------------------------
-  // The one backend move that is entirely mechanical, and the one every
-  // prototype needs: the list on the screen is hardcoded, and it should be an
-  // endpoint. Everything needed to do it is already here — the element points
-  // at a line of source, and this dev server can host what gets written.
+  // ---- making it real ----------------------------------------------------
+  // The backend moves that are entirely mechanical, and the ones every
+  // prototype needs: the list on the screen is hardcoded and should be an
+  // endpoint, and the form looks finished but throws away everything typed
+  // into it. Everything needed to do either was already here — the element
+  // points at a line of source, and this dev server can host what gets
+  // written — so both cost nothing and neither asks a model anything.
+  //
+  // They are ONE command. Which of the two this is, is not a question the user
+  // should be asked, because the pointer has already answered it: a click
+  // inside a <form> means the form, and a click on anything else means the
+  // data behind it. Asking again would be a mode wearing a different hat.
 
-  private async promoteSelection(): Promise<void> {
+  private async makeRealSelection(): Promise<void> {
+    const el = this.tweak?.el
     const srcLoc = this.tweak?.srcLoc
-    if (!srcLoc) {
-      this.status('click a row of the list first — the data to move is the data you can see')
+    if (!el || !srcLoc) {
+      this.status('point at something first — a list to serve, or a form to save')
       return
     }
-    this.status('moving that data into an endpoint…')
+    // the LIVE dom decides, not a guess about the source: closest() is exactly
+    // the question "is this thing part of a form", and it is already true or
+    // false on the page in front of the user
+    const isForm = el.closest('form') != null
+    await this.makeReal(isForm ? 'form' : 'promote', srcLoc)
+  }
+
+  private async makeReal(kind: 'form' | 'promote', srcLoc: string): Promise<void> {
+    this.status(kind === 'form' ? 'giving that form somewhere to save to…' : 'moving that data into an endpoint…')
     try {
-      const res = await fetch('/@s2c/api/promote', {
+      const res = await fetch(`/@s2c/api/${kind}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({ srcLoc }),
@@ -7172,8 +7191,9 @@ class Overlay {
       // is exactly the kind of thing that should be re-checked
       if (this.rules.length) this.scheduleRuleCheck()
     } catch (err) {
-      // the refusals here are unusually good — each names the shape the data
-      // would have to be in — so they land word for word
+      // the refusals from both engines are unusually good — each names the
+      // specific thing that stopped it and what the code would have to look
+      // like instead — so they land word for word rather than being summarised
       this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
     }
   }
