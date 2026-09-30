@@ -424,7 +424,7 @@ interface RuleDraw {
   choice: number
 }
 /**
- * Where a successful extract's receipt waits out the reload it causes.
+ * Where a receipt waits out the reload its own edit causes.
  *
  * A new file in the module graph is more than React Fast Refresh can patch, so
  * vite full-reloads the page — which tears down this overlay, its mode and its
@@ -434,10 +434,16 @@ interface RuleDraw {
  * where) is destroyed by the thing that proves it worked. sessionStorage, not
  * local: it belongs to this tab and this reload, and must never resurface days
  * later in another window.
+ *
+ * Every edit that changes the set of modules needs this, not just the first one
+ * that did — extracting a component and making data real both write a file the
+ * page has never imported, and undoing either one deletes it again. The rule is
+ * simple enough to apply without thinking about it: if an action can create or
+ * remove a file, park its receipt.
  */
-const EXTRACT_STORE_KEY = 's2c:extracted'
+const RELOAD_RECEIPT_KEY = 's2c:receipt'
 /** Older than this, the receipt is from some earlier reload — drop it. */
-const EXTRACT_RECEIPT_MS = 20_000
+const RELOAD_RECEIPT_MS = 20_000
 /** One element the lasso caught: the live node, its stamp, and what to call it. */
 interface LassoHit { el: HTMLElement; srcLoc: string; label: string }
 /**
@@ -2749,7 +2755,7 @@ class Overlay {
     this.restoreAuto()
     // last of the restores: it owns the status line, and it only fires on the
     // one boot that follows an extract
-    this.restoreAfterExtract()
+    this.restoreReloadReceipt()
     this.connectEvents()
 
     // dev-only debug surface (the whole overlay is dev-only): lets e2e
@@ -3068,7 +3074,12 @@ class Overlay {
         })
         const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
         if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
-        this.status(body.undid ? `↩ undid: ${body.undid}` : 'nothing to undo')
+        // parked, for the same reason the edits themselves are: undoing an
+        // edit that added a file DELETES that file, which is just as far past
+        // what Fast Refresh can patch — so a successful undo would otherwise
+        // announce itself into a status line the reload is about to blank
+        if (body.undid) this.receipt(`↩ undid: ${body.undid}`)
+        else this.status('nothing to undo')
         // an undo rewrites the files the panel and the rules read from, so
         // both would otherwise keep showing the state that was just discarded
         if (this.propsOpen) await this.readProps()
@@ -3324,6 +3335,11 @@ class Overlay {
         id: 'paint', keys: 'Alt+K', group: 'colour',
         label: 'paint the selected shape — recolour one <path> in source, zero tokens',
         match: altBind('KeyK', 'k'), run: () => this.setPaintOpen(!this.paintOpen),
+      },
+      {
+        id: 'promote', keys: 'Alt+Shift+D', group: 'run',
+        label: 'make this data real — move the selected list into an endpoint the page fetches',
+        match: altBind('KeyD', 'd', true), run: () => void this.promoteSelection(),
       },
       {
         id: 'surface', keys: 'Alt+Space', group: 'drawing',
@@ -4336,23 +4352,42 @@ class Overlay {
   // and its refusals are written for a human, so they are shown verbatim.
 
   /**
-   * Pick the receipt back up after the reload the extract caused: say what was
-   * written, and put the user back in tweak mode, where they were and where
-   * the next lasso has to start. Runs once — the key is consumed.
+   * Pick the receipt back up after the reload the edit caused: say what was
+   * written, and put the user back where they were pointing at the page, which
+   * is where the next gesture has to start. Runs once — the key is consumed.
    */
-  private restoreAfterExtract() {
-    let parked: { receipt?: unknown; at?: unknown } | null = null
+  private restoreReloadReceipt() {
+    let parked: { receipt?: unknown; at?: unknown; resume?: unknown } | null = null
     try {
-      const raw = sessionStorage.getItem(EXTRACT_STORE_KEY)
-      sessionStorage.removeItem(EXTRACT_STORE_KEY)
-      parked = raw ? (JSON.parse(raw) as { receipt?: unknown; at?: unknown }) : null
+      const raw = sessionStorage.getItem(RELOAD_RECEIPT_KEY)
+      sessionStorage.removeItem(RELOAD_RECEIPT_KEY)
+      parked = raw ? (JSON.parse(raw) as { receipt?: unknown; at?: unknown; resume?: unknown }) : null
     } catch { /* unreadable storage just means no receipt */ }
     if (!parked || typeof parked.receipt !== 'string') return
     // a stale key (an old tab restored from history) must not claim that
     // something was just written
-    if (typeof parked.at !== 'number' || Date.now() - parked.at > EXTRACT_RECEIPT_MS) return
-    if (this.mode !== 'tweak') this.toggleTweak()
+    if (typeof parked.at !== 'number' || Date.now() - parked.at > RELOAD_RECEIPT_MS) return
+    if (parked.resume === true && this.mode !== 'tweak') this.toggleTweak()
     this.status(parked.receipt)
+  }
+
+  /**
+   * Say it, and park it where the reload this write may cause cannot destroy it
+   * (see RELOAD_RECEIPT_KEY). Every write path that can add or remove a file
+   * goes through here instead of calling status() directly.
+   *
+   * `resume` puts the user back in tweak mode afterwards, and is opt-in for a
+   * reason: it is right for an edit made WHILE pointing at the page, where the
+   * next gesture has to start from the same place — and wrong for anything
+   * else. Undo in particular must not move someone to a different mode as a
+   * side effect of undoing; an action that reverses an edit should not also
+   * make one.
+   */
+  private receipt(text: string, resume = false) {
+    this.status(text)
+    try {
+      sessionStorage.setItem(RELOAD_RECEIPT_KEY, JSON.stringify({ receipt: text, at: Date.now(), resume }))
+    } catch { /* blocked storage: the receipt is just shorter-lived */ }
   }
 
   /** Alt+L: arm the next drag, entering tweak mode if we're not in it. */
@@ -4597,12 +4632,7 @@ class Overlay {
       const receipt =
         `✓ ${out.name ?? 'component'} → ${out.file ?? '?'} · call site in ${out.from ?? '?'}${props} · ` +
         '0 tokens · Ctrl+Z undoes it'
-      this.status(receipt)
-      // …and park it where the reload this write is about to cause can't
-      // destroy it (see EXTRACT_STORE_KEY)
-      try {
-        sessionStorage.setItem(EXTRACT_STORE_KEY, JSON.stringify({ receipt, at: Date.now() }))
-      } catch { /* blocked storage: the receipt is just shorter-lived */ }
+      this.receipt(receipt, true)
       // The page is about to hot-reload with a DIFFERENT tree: the elements
       // that were circled no longer exist at those stamps. Holding any of it
       // would leave the overlay outlining ghosts and pointing later edits at
@@ -7099,6 +7129,55 @@ class Overlay {
    * Everything the run will do, drawn over the page it will do it to. Called
    * whenever the interpretation changes — never on scroll.
    */
+  // ---- making the data real ----------------------------------------------
+  // The one backend move that is entirely mechanical, and the one every
+  // prototype needs: the list on the screen is hardcoded, and it should be an
+  // endpoint. Everything needed to do it is already here — the element points
+  // at a line of source, and this dev server can host what gets written.
+
+  private async promoteSelection(): Promise<void> {
+    const srcLoc = this.tweak?.srcLoc
+    if (!srcLoc) {
+      this.status('click a row of the list first — the data to move is the data you can see')
+      return
+    }
+    this.status('moving that data into an endpoint…')
+    try {
+      const res = await fetch('/@s2c/api/promote', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLoc }),
+      })
+      const out = (await res.json()) as {
+        ok: boolean; route?: string; files?: string[]; count?: number
+        change?: string; error?: string
+      }
+      if (!out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      // receipt(), not status(): this writes a route file and a hook the page
+      // has never imported, so vite is about to full-reload and take the status
+      // line with it — and this is a receipt the user really does need to read,
+      // because it names a file that did not exist a second ago
+      this.receipt(
+        `✓ ${out.change ?? `now served from ${out.route ?? 'an endpoint'}`} · ` +
+        `${String(out.files?.length ?? 0)} file(s) · 0 tokens · Ctrl+Z undoes it`,
+        true,
+      )
+      // the component is about to be a different tree at different lines, so
+      // the row that was selected is a stale stamp — same reason extract drops
+      // its lasso
+      this.tweak = null
+      this.multiSel = []
+      this.hoverEl = null
+      // the page re-renders from the endpoint now, and a rule about that list
+      // is exactly the kind of thing that should be re-checked
+      if (this.rules.length) this.scheduleRuleCheck()
+    } catch (err) {
+      // the refusals here are unusually good — each names the shape the data
+      // would have to be in — so they land word for word
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
   // ---- design or test ----------------------------------------------------
   // The one mode left. Everything else the user used to choose between is
   // inferred (markup vs new UI) or decided by what the pointer did (a click

@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
+import { existsSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
 import type { DomSnapshot } from '@s2c/dom'
@@ -426,6 +427,95 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             : undefined,
         })
       }
+
+      /**
+       * Make the data behind a rendered list real.
+       *
+       * An ordinary source edit, so it is checkpointed and undoable like every
+       * other one — which matters more here than usual: this writes three files
+       * and rewrites a component, and the only acceptable version of that is
+       * one Ctrl+Z can take back.
+       */
+      server.middlewares.use('/@s2c/api/promote', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string; name?: string }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const { cp, untracked } = beginEdit(m)
+            const result = m.promoteToApi(root, { srcLoc: body.srcLoc, name: body.name })
+            if (result.ok) pushEdit(cp.sha, result.change ?? 'made data real', untracked)
+            sendJson(res, 200, result)
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      /**
+       * Serve the project's own `server/api/*` during development.
+       *
+       * This is the cheap half of making backend work reachable from the page,
+       * and it is cheap because of an accident worth naming: this tool already
+       * IS a dev server. A route generated from the page can therefore answer a
+       * request immediately — no framework to install, no config, no second
+       * process — which is the difference between "here is a file, go wire it
+       * up" and a page that simply starts fetching its own data.
+       *
+       * The file is a plain module, not a framework's route: it exports a GET
+       * handler and its data, so the same file can later be mounted in Express,
+       * a Next route, or anything else. Loaded through Vite's own module
+       * pipeline so it can be TypeScript and can import from the project.
+       *
+       * The boundary, stated because it would otherwise be a trap: this serves
+       * in DEV ONLY. Nothing here deploys anything, and a production server is
+       * still the project's own business.
+       */
+      server.middlewares.use('/api', (req, res, next) => {
+        const path = (req.url ?? '/').split('?')[0] ?? '/'
+        const name = path.replace(/^\//, '').replace(/\/$/, '')
+        // one flat segment, and a conservative charset: this becomes a file path
+        if (!/^[A-Za-z0-9_-]{1,64}$/.test(name)) return next()
+        const file = join(root, 'server', 'api', `${name}.ts`)
+        if (!existsSync(file)) return next() // the app's own handler, or a 404
+        void (async () => {
+          try {
+            const mod = await server.ssrLoadModule(file) as Record<string, unknown>
+            const method = (req.method ?? 'GET').toUpperCase()
+            const handler = mod[method] ?? mod.default
+            if (typeof handler !== 'function' && mod.data === undefined) {
+              // A server/api directory that belongs to some OTHER framework:
+              // its files will not export our shape, and answering anyway would
+              // shadow routes the project already has. Let it through instead.
+              return next()
+            }
+            // A write handler wants the record, not a stream to drain — so the
+            // body is parsed here and passed as the second argument. It stays a
+            // second argument rather than replacing `req` so the same file can
+            // be mounted anywhere: in Express this is `POST(req, req.body)`.
+            // GET and HEAD have no body to wait for, and waiting on 'end' for
+            // one that is never coming would hang the request.
+            const sent = await (async () => {
+              if (method === 'GET' || method === 'HEAD') return undefined
+              try {
+                return await readJsonBody<unknown>(req, 1024 * 1024)
+              } catch {
+                // no body, or not JSON: the handler decides whether it needed one
+                return undefined
+              }
+            })()
+            const body = typeof handler === 'function'
+              ? await (handler as (r: IncomingMessage, b: unknown) => unknown)(req, sent)
+              : mod.data
+            res.writeHead(200, { 'content-type': 'application/json' })
+            res.end(JSON.stringify(body))
+          } catch (err) {
+            // the route's own error, not ours — say which file threw
+            sendJson(res, 500, {
+              ok: false,
+              error: `server/api/${name}.ts threw: ${err instanceof Error ? err.message : String(err)}`,
+            })
+          }
+        })()
+      })
 
       /**
        * The element library.

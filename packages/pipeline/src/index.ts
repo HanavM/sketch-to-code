@@ -40,6 +40,8 @@ export type {
 export { ensureEntry, materialiseEntry, placeEntry } from './place.js'
 export type { PlaceRequest, PlaceResult, PlaceWhere } from './place.js'
 export { importAnchor } from './imports.js'
+export { promoteToApi } from './api.js'
+export type { PromoteRequest, PromoteResult } from './api.js'
 export { moveData } from './dataflow.js'
 export {
   applyResponsive, bandFor, bandOrder, planResponsive, screensFor, utilityFamily,
