@@ -8,6 +8,7 @@ export default function ContactForm() {
           <input
             id="name"
             type="text"
+            required
             placeholder="Ada Lovelace"
             className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
           />
@@ -17,6 +18,7 @@ export default function ContactForm() {
           <input
             id="email"
             type="email"
+            required
             placeholder="ada@example.com"
             className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
           />
