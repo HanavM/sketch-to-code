@@ -115,6 +115,12 @@ Rules:
   the instruction of record: where they and the reading disagree, follow the
   notes. Implement everything they ask for, including behaviour the ink cannot
   express (animation, interaction, copy).
+- A note may contain tokens like "@1", "@2". Each one is an element the user
+  pointed at while typing that sentence, and the action's "refs" resolves it:
+  token, label, and the source location to edit. They are pointers, not
+  descriptions — take the element from refs, never by searching the page for
+  something whose text matches the label. A ref with no srcLoc is one whose
+  element could not be found; say so rather than guessing at a substitute.
 - "color" is the pen colour the user deliberately drew in. Apply it to what the
   action produces, preferring the named token when one is given — that token is
   a colour this app already uses.

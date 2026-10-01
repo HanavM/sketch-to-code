@@ -168,3 +168,157 @@ describe('grounding — the pen colour is the instruction', () => {
     expect(g.actions[0]!.color).toBeUndefined()
   })
 })
+
+/**
+ * Elements the sentence NAMES, by pointing at them while typing.
+ *
+ * The anchor says what a note is about; refs say what it mentions. The whole
+ * value is that the token is already resolved — the person pointed at it — so
+ * these check that the resolution happens here and not by anything matching on
+ * a label, and that a ref stays out of `targets`, where it would be mistaken
+ * for a thing being acted on.
+ */
+describe('resolveNotes — elements named inside the sentence', () => {
+  it('resolves each token to the element the user pointed at', () => {
+    const { a, c, snap } = page()
+    const notes: TypedNote[] = [{
+      id: 'n0',
+      text: 'when @1 is clicked add the row to @2',
+      at: { x: 150, y: 150 },
+      anchor: { kind: 'element', srcLoc: 'src/Card.tsx:4:5' },
+      refs: [
+        { token: '@1', srcLoc: 'src/Card.tsx:4:5', label: '<button> "Send"' },
+        { token: '@2', srcLoc: 'src/Other.tsx:2:3', label: '<table> "Team"' },
+      ],
+    }]
+    const [out] = resolveNotes(notes, snap, new Set())
+    expect(out!.elementId).toBe(a.id)
+    expect(out!.refs).toEqual([
+      { token: '@1', elementId: a.id, label: '<button> "Send"' },
+      { token: '@2', elementId: c.id, label: '<table> "Team"' },
+    ])
+  })
+
+  it('picks the instance nearest where the note was typed, like the anchor does', () => {
+    // one .map() template, two renders, one stamp: the sentence was written on
+    // the right-hand one, so @1 is that one
+    const { b, snap } = page()
+    const notes: TypedNote[] = [{
+      id: 'n0', text: 'copy @1 into the sidebar', at: { x: 450, y: 150 },
+      anchor: { kind: 'run' },
+      refs: [{ token: '@1', srcLoc: 'src/Card.tsx:4:5', label: '<div> "card"' }],
+    }]
+    expect(resolveNotes(notes, snap, new Set())[0]!.refs).toEqual([
+      { token: '@1', elementId: b.id, label: '<div> "card"' },
+    ])
+  })
+
+  it('a run-scope note can still name elements', () => {
+    const { c, snap } = page()
+    const notes: TypedNote[] = [{
+      id: 'n0', text: 'everything should feed @1', at: { x: 10, y: 10 },
+      anchor: { kind: 'run' },
+      refs: [{ token: '@1', srcLoc: 'src/Other.tsx:2:3', label: '<table> "Team"' }],
+    }]
+    const [out] = resolveNotes(notes, snap, new Set())
+    expect(out!.scope).toBe('run')
+    expect(out!.refs).toEqual([{ token: '@1', elementId: c.id, label: '<table> "Team"' }])
+  })
+
+  it('drops a token the user deleted back out of the sentence', () => {
+    // the words are what was meant; a reference nobody mentions any more would
+    // have the model acting on an element the sentence never names
+    const { snap } = page()
+    const notes: TypedNote[] = [{
+      id: 'n0', text: 'just save it', at: { x: 150, y: 150 },
+      anchor: { kind: 'run' },
+      refs: [{ token: '@1', srcLoc: 'src/Other.tsx:2:3', label: '<table> "Team"' }],
+    }]
+    expect(resolveNotes(notes, snap, new Set())[0]!.refs).toBeUndefined()
+  })
+
+  it('keeps the words when a referenced element is gone, and says it has no id', () => {
+    const { snap } = page()
+    const notes: TypedNote[] = [{
+      id: 'n0', text: 'send it to @1', at: { x: 150, y: 150 },
+      anchor: { kind: 'run' },
+      refs: [{ token: '@1', srcLoc: 'src/Deleted.tsx:9:9', label: '<ul> "old list"' }],
+    }]
+    const [out] = resolveNotes(notes, snap, new Set())
+    expect(out!.text).toBe('send it to @1')
+    expect(out!.refs).toEqual([{ token: '@1', label: '<ul> "old list"' }])
+  })
+
+  it('survives a note with no refs field at all', () => {
+    const { a, snap } = page()
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'make it red', at: { x: 150, y: 150 }, anchor: { kind: 'element', srcLoc: 'src/Card.tsx:4:5' } },
+    ]
+    expect(resolveNotes(notes, snap, new Set())).toEqual([
+      { id: 'n0', text: 'make it red', scope: 'element', elementId: a.id },
+    ])
+  })
+})
+
+describe('grounding — a named element rides with the action, but is not a target', () => {
+  const inkOn = (n: DomNode): Stroke => stroke('s1', n.rect.x + 10, n.rect.y + 10)
+
+  it('attaches the refs of the note that attached, with their source locations', () => {
+    const { a, c, snap } = page()
+    const strokes = [inkOn(a)]
+    const notes: TypedNote[] = [{
+      id: 'n0',
+      text: 'when this is clicked, add the name to @1',
+      at: { x: 150, y: 150 },
+      anchor: { kind: 'element', srcLoc: 'src/Card.tsx:4:5' },
+      refs: [{ token: '@1', srcLoc: 'src/Other.tsx:2:3', label: '<table> "Team"' }],
+    }]
+    const ev = buildEvidence(strokes, snap, notes)
+    const g = groundInterpretation(
+      { reading: 'wire the click to the table', actions: [{ kind: 'modify', elements: [a.id], instruction: 'save on click', strokes: ['s1'] }] },
+      ev, snap,
+    )
+    const act = g.actions[0]!
+    expect(act.notes).toEqual(['when this is clicked, add the name to @1'])
+    expect(act.refs).toEqual([
+      { token: '@1', label: '<table> "Team"', domId: c.id, srcLoc: 'src/Other.tsx:2:3' },
+    ])
+    // the point of keeping them separate: the action is on the card, not on the
+    // table it merely mentions
+    expect(act.targets.map((t) => t.domId)).toEqual([a.id])
+  })
+
+  it('does not inflate a delete toward its confirmation gate', () => {
+    // three targets trips the destructive gate; a delete that MENTIONS two
+    // other elements has one target and must not be gated as if it had three
+    const { a, b, c, snap } = page()
+    const strokes = [inkOn(a)]
+    const notes: TypedNote[] = [{
+      id: 'n0', text: 'remove this, @1 and @2 stay', at: { x: 150, y: 150 },
+      anchor: { kind: 'element', srcLoc: 'src/Card.tsx:4:5' },
+      refs: [
+        { token: '@1', srcLoc: 'src/Card.tsx:4:5', label: '<div> "b"' },
+        { token: '@2', srcLoc: 'src/Other.tsx:2:3', label: '<div> "c"' },
+      ],
+    }]
+    const ev = buildEvidence(strokes, snap, notes)
+    const g = groundInterpretation(
+      { reading: 'delete the card', actions: [{ kind: 'delete', elements: [a.id], instruction: 'remove it', strokes: ['s1'] }] },
+      ev, snap,
+    )
+    expect(g.actions[0]!.needsConfirm).toBe(false)
+    expect(g.actions[0]!.refs).toHaveLength(2)
+    expect([b.id, c.id]).toContain(g.actions[0]!.refs![1]!.domId)
+  })
+
+  it('leaves refs off an action no note attached to', () => {
+    const { a, snap } = page()
+    const strokes = [inkOn(a)]
+    const ev = buildEvidence(strokes, snap, [])
+    const g = groundInterpretation(
+      { reading: 'delete it', actions: [{ kind: 'delete', elements: [a.id], instruction: 'remove', strokes: ['s1'] }] },
+      ev, snap,
+    )
+    expect(g.actions[0]!.refs).toBeUndefined()
+  })
+})

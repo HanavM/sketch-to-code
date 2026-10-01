@@ -125,7 +125,21 @@ log('✓ Escape cancels, Enter commits')
 // ---- 3. rule 2: the cluster of strokes near the pointer ----------------
 // left gutter (x < 128) is bare page wrapper: rule 1 must decline it, which
 // is exactly the "not merely the page background" clause
-await page.keyboard.press('Alt+KeyD')
+//
+// Alt+D TOGGLES, and the design surface is live on load, so pressing it blind
+// turns drawing OFF and the strokes below are never recorded — which showed up
+// here as "whole sketch" instead of "on these 3 strokes", a failure that looks
+// like broken note anchoring and is actually an empty canvas.
+const setDraw = async (want) => {
+  for (let i = 0; i < 3; i++) {
+    const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+    if ((m === 'draw') === want) return
+    await page.keyboard.press('Alt+KeyD')
+    await page.waitForTimeout(200)
+  }
+  throw new Error(`could not turn draw mode ${want ? 'on' : 'off'}`)
+}
+await setDraw(true)
 const stroke = async (x0, y0) => {
   await page.mouse.move(x0, y0)
   await page.mouse.down()
@@ -136,7 +150,11 @@ await stroke(30, 700)
 await stroke(30, 742)
 await stroke(30, 784)
 await stroke(880, 250) // a separate drawing, far away — must NOT be swept in
-await page.keyboard.press('Alt+KeyD')
+await setDraw(false)
+// and the strokes really are there, so a later "whole sketch" can only mean the
+// anchoring rule declined them, never that nothing was drawn
+const drew = await page.evaluate(() => window.__S2C_DEBUG__.strokes().length)
+if (drew !== 4) throw new Error(`ASSERT: ${drew} strokes recorded, want 4 — the canvas was not in draw mode`)
 
 await page.mouse.move(45, 745)
 await page.keyboard.press('Alt+KeyN')

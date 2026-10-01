@@ -869,6 +869,28 @@ type NoteAnchor =
   | { kind: 'strokes'; strokeIds: string[] }
   | { kind: 'run' }
 
+/**
+ * An element named INSIDE a sentence, by pointing at it while typing.
+ *
+ * The anchor says what a note is about; this says what it mentions. "when this
+ * is clicked, add the row to the team table" needs two elements, and only one
+ * of them is the thing you started on — so the second one is picked up the same
+ * way the first was, by pointing, and lands in the text as `@2`.
+ *
+ * The token is what makes this different from describing the element in words.
+ * A description ("the table at the bottom") is something a model has to resolve
+ * and can resolve wrongly; `@2` is already resolved, to a build-time stamp, by
+ * the person who pointed at it. The label exists so the sentence stays readable
+ * to a human later, not so anything has to match on it.
+ */
+interface NoteRef {
+  /** '@1', '@2', … — unique within one note, and reused if you point twice. */
+  token: string
+  srcLoc: string
+  /** For the legend under the field: `<button> "Send invite"`. */
+  label: string
+}
+
 interface Note {
   /** 'n0', 'n1', … — stable for the session, never reused after a delete. */
   id: string
@@ -877,6 +899,8 @@ interface Note {
   /** PAGE coords of the pointer when the note was opened. */
   at: { x: number; y: number }
   anchor: NoteAnchor
+  /** Elements the text points at by token. Empty for most notes. */
+  refs: NoteRef[]
 }
 
 /** Page-space rect. Same {x,y,w,h} shape the ink and the snapshot both use. */
@@ -1806,6 +1830,34 @@ const STYLES = css`
     border: 2px solid var(--s2c-line-strong); border-radius: 6px; background: rgb(56 189 248 / 0.12);
   }
   #noteHi.on { display: block; }
+  /*
+   * Elements the SENTENCE points at, outlined while it is being written.
+   *
+   * A different colour from #noteHi on purpose: one of these is what the note
+   * is about and the others are things it mentions, and a person needs to see
+   * which is which without reading anything. Dashed, because these are
+   * references rather than the subject.
+   */
+  #noteRefHi { position: absolute; display: none; pointer-events: none; }
+  #noteRefHi.on { display: block; }
+  #noteRefHi .refBox {
+    position: absolute; border: 2px dashed #a855f7; border-radius: 6px;
+    background: rgb(168 85 247 / 0.10);
+  }
+  #noteRefHi .refTag {
+    position: absolute; transform: translateY(-100%);
+    padding: 1px 6px; border-radius: 999px 999px 0 0;
+    background: #a855f7; color: #fff; font-size: 10px; font-weight: 600;
+  }
+  /* The legend: what each token in the sentence actually points at. */
+  #noteRefs { display: none; flex-direction: column; gap: 2px; }
+  #noteRefs.on { display: flex; }
+  #noteRefs .refRow {
+    display: flex; gap: 6px; align-items: baseline;
+    padding: 2px 9px; border-radius: 8px; background: #0f172aee;
+    font-size: 11px; color: var(--s2c-muted);
+  }
+  #noteRefs .refTok { color: #c084fc; font-weight: 700; }
   /* ---- the plan overlay -----------------------------------------------
      Third user of the page-space trick (#ink, #notes, now this): one
      absolutely positioned layer at the document origin, so every outline and
@@ -2097,10 +2149,17 @@ class Overlay {
   private notesLayer: HTMLElement
   private noteBox: HTMLElement
   private noteWhat: HTMLElement
+  private noteRefHi!: HTMLElement
+  private noteRefs!: HTMLElement
   private noteInput: HTMLInputElement
   private noteHi: HTMLElement
   /** Open editor: null id = a new note, else the note being re-edited. */
-  private noteDraft: { id: string | null; at: { x: number; y: number }; anchor: NoteAnchor } | null = null
+  private noteDraft: {
+    id: string | null
+    at: { x: number; y: number }
+    anchor: NoteAnchor
+    refs: NoteRef[]
+  } | null = null
   private notes: Note[] = []
   private noteSeq = 0
   /** Last pointer position in CLIENT coords — where Alt+N resolves against.
@@ -2238,10 +2297,12 @@ class Overlay {
     this.notesLayer.id = 'notes'
     this.notesLayer.innerHTML = `
       <div id="noteHi"></div>
+      <div id="noteRefHi"></div>
       <div id="noteBox">
         <span id="noteWhat"></span>
         <input id="noteInput" type="text" autocomplete="off" spellcheck="false"
                placeholder="what should happen here? (Enter to attach · Esc to cancel)">
+        <div id="noteRefs"></div>
       </div>
     `
     this.shadow.appendChild(this.notesLayer)
@@ -2249,6 +2310,8 @@ class Overlay {
     this.noteWhat = this.shadow.getElementById('noteWhat')!
     this.noteInput = this.shadow.getElementById('noteInput') as HTMLInputElement
     this.noteHi = this.shadow.getElementById('noteHi')!
+    this.noteRefHi = this.shadow.getElementById('noteRefHi')!
+    this.noteRefs = this.shadow.getElementById('noteRefs')!
 
     const hud = document.createElement('div')
     hud.id = 'hud'
@@ -2637,10 +2700,34 @@ class Overlay {
       }
       if (this.penOpen && !path.includes(this.penPanel) && !path.includes(this.penBtn)) this.setPenOpen(false)
       if (this.helpOpen && !path.includes(this.helpEl)) this.setHelpOpen(false)
-      // An open note editor commits on a press elsewhere rather than
-      // vanishing: it is an inline field, not a modal, and silently throwing
-      // away words the user typed is the one unrecoverable outcome here.
-      if (this.noteDraft && !path.includes(this.noteBox)) this.commitNote()
+      // A press elsewhere, while a sentence is open, means one of two things.
+      //
+      // On the PAGE it names that element in the sentence — the whole
+      // point-at-it-while-typing interaction. On the overlay's own chrome (a
+      // panel, a toolbar button) it still commits, which is the older
+      // behaviour and worth keeping: this is an inline field rather than a
+      // modal, and silently throwing away words somebody typed is the one
+      // unrecoverable outcome here.
+      //
+      // The discriminator is what the press actually landed on. In design mode
+      // the canvas is the topmost thing over the page, so "the canvas, or
+      // anything outside this shadow root" is the page; everything else in the
+      // shadow root is chrome. This has to be decided HERE, in the window
+      // capture phase, because this listener runs before the canvas's own —
+      // handling it in onDown would be too late, the note already committed.
+      if (this.noteDraft && !path.includes(this.noteBox)) {
+        const top = path[0]
+        const onChrome = top instanceof Node && this.shadow.contains(top) && top !== this.canvas
+        const el = onChrome ? null : this.pickAnyStamped(e.clientX, e.clientY)
+        if (el && this.pickNoteRef(el)) {
+          // and the press stops here: it must not also draw a dot, select the
+          // element, or follow a link in the host app
+          e.preventDefault()
+          e.stopPropagation()
+        } else {
+          this.commitNote()
+        }
+      }
     }, true)
 
     // Alt+N attaches the note to whatever is under the POINTER, which means
@@ -2663,6 +2750,12 @@ class Overlay {
         e.preventDefault()
         this.closeNote('note cancelled')
       }
+    })
+    // deleting a token out of the sentence un-references its element, and the
+    // legend and the outlines have to agree with the words immediately — this
+    // is the only feedback that a reference is gone
+    this.noteInput.addEventListener('input', () => {
+      if (this.noteDraft) this.renderNoteRefs()
     })
     this.noteInput.addEventListener('keyup', (e) => e.stopPropagation())
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
@@ -6724,7 +6817,7 @@ class Overlay {
     const strokes = n.anchor.kind === 'strokes'
       ? this.strokes.filter((s) => (n.anchor as { strokeIds: string[] }).strokeIds.includes(s.id))
       : []
-    this.openEditor(n.id, n.at, { anchor: n.anchor, strokes, el }, n.text)
+    this.openEditor(n.id, n.at, { anchor: n.anchor, strokes, el }, n.text, n.refs)
   }
 
   private openEditor(
@@ -6732,8 +6825,9 @@ class Overlay {
     at: { x: number; y: number },
     r: { anchor: NoteAnchor; strokes: Stroke[]; el: HTMLElement | null },
     text: string,
+    refs: NoteRef[] = [],
   ) {
-    this.noteDraft = { id, at, anchor: r.anchor }
+    this.noteDraft = { id, at, anchor: r.anchor, refs: refs.map((x) => ({ ...x })) }
     this.noteWhat.textContent = this.anchorLabel(r.anchor, r.el)
     this.showNoteHighlight(r)
     // the box lives in PAGE space, so the clamp is against the viewport's
@@ -6749,7 +6843,122 @@ class Overlay {
     this.noteInput.value = text
     this.noteInput.focus()
     this.noteInput.select()
-    this.status(`note ${this.noteWhat.textContent} · Enter attaches · Esc cancels`)
+    this.renderNoteRefs()
+    this.status(
+      `note ${this.noteWhat.textContent} · click anything to name it in the sentence · Enter attaches · Esc cancels`,
+    )
+  }
+
+  /**
+   * Point at something while the sentence is open, and it becomes `@n` in it.
+   *
+   * Returns false when there is nothing stamped under the pointer, so the
+   * caller can fall through to whatever a click normally does. The same element
+   * picked twice reuses its token rather than making a second one — people
+   * refer to the same thing twice in a sentence, and two tokens for one element
+   * would read as two different things.
+   */
+  private pickNoteRef(el: HTMLElement): boolean {
+    const d = this.noteDraft
+    if (!d) return false
+    const srcLoc = el.dataset.s2c
+    if (!srcLoc) return false
+    // the page wrapper is never what someone pointed at — same judgement the
+    // note anchor makes, and for the same reason
+    if (this.isBackdrop(el)) {
+      this.status('that is the page itself — point at something inside it')
+      return true
+    }
+    const existing = d.refs.find((r) => r.srcLoc === srcLoc)
+    const ref = existing ?? {
+      token: `@${String(d.refs.length + 1)}`,
+      srcLoc,
+      label: this.refLabel(el),
+    }
+    if (!existing) d.refs.push(ref)
+    this.insertAtCaret(ref.token)
+    this.renderNoteRefs()
+    this.status(`${ref.token} = ${ref.label} · keep typing, or Enter to attach`)
+    return true
+  }
+
+  /** `<button> "Send invite"` — enough for a person to recognise it later. */
+  private refLabel(el: HTMLElement): string {
+    const text = (el.textContent ?? '').replace(/\s+/g, ' ').trim()
+    const tag = `<${el.tagName.toLowerCase()}>`
+    return text ? `${tag} "${text.slice(0, 32)}${text.length > 32 ? '…' : ''}"` : tag
+  }
+
+  /**
+   * Put the token where the caret is, not at the end.
+   *
+   * Mid-sentence is the normal case — "when this is clicked, add it to " then
+   * point — and appending would put it in the wrong place the moment someone
+   * goes back to fix a word.
+   *
+   * The trailing space is unconditional, which is not fussiness: a token is a
+   * word, and at the END of the field there is no following text to separate it
+   * from — so without it the next thing typed fuses onto the token and "@1and
+   * announce it" is one meaningless word where two were meant. The caret goes
+   * after the space so typing just continues.
+   */
+  private insertAtCaret(token: string) {
+    const input = this.noteInput
+    const value = input.value
+    const start = input.selectionStart ?? value.length
+    const end = input.selectionEnd ?? start
+    const before = value.slice(0, start)
+    const after = value.slice(end)
+    const lead = before && !/\s$/.test(before) ? ' ' : ''
+    const tail = /^\s/.test(after) ? '' : ' '
+    input.value = `${before}${lead}${token}${tail}${after}`
+    const caret = before.length + lead.length + token.length + tail.length
+    input.setSelectionRange(caret, caret)
+    input.focus()
+  }
+
+  /** The legend under the field, and an outline on each referenced element. */
+  private renderNoteRefs() {
+    const refs = this.noteDraft?.refs ?? []
+    // only the ones still named in the sentence: deleting `@2` out of the text
+    // un-references it, and a legend listing it would be lying
+    const text = this.noteInput.value
+    const live = refs.filter((r) => text.includes(r.token))
+    this.noteRefs.textContent = ''
+    for (const r of live) {
+      const row = document.createElement('div')
+      row.className = 'refRow'
+      row.dataset.ref = r.token
+      const tok = document.createElement('span')
+      tok.className = 'refTok'
+      tok.textContent = r.token
+      const lab = document.createElement('span')
+      lab.textContent = r.label
+      row.append(tok, lab)
+      this.noteRefs.appendChild(row)
+    }
+    this.noteRefs.classList.toggle('on', live.length > 0)
+
+    this.noteRefHi.textContent = ''
+    for (const r of live) {
+      const el = document.querySelector(`[data-s2c="${r.srcLoc}"]`)
+      if (!el) continue
+      const b = el.getBoundingClientRect()
+      const box = document.createElement('div')
+      box.className = 'refBox'
+      box.style.left = `${String(Math.round(b.left + window.scrollX))}px`
+      box.style.top = `${String(Math.round(b.top + window.scrollY))}px`
+      box.style.width = `${String(Math.round(b.width))}px`
+      box.style.height = `${String(Math.round(b.height))}px`
+      const tag = document.createElement('span')
+      tag.className = 'refTag'
+      tag.textContent = r.token
+      tag.style.left = '0px'
+      tag.style.top = '0px'
+      box.appendChild(tag)
+      this.noteRefHi.appendChild(box)
+    }
+    this.noteRefHi.classList.toggle('on', live.length > 0)
   }
 
   /** Outline the subject, in page space, so it stays on it through a scroll. */
@@ -6790,9 +6999,17 @@ class Overlay {
       else this.closeNote('empty note discarded')
       return
     }
+    // only the tokens that survived editing: a reference whose token the user
+    // deleted out of the sentence is no longer referred to, and sending it
+    // would have the model acting on an element nobody mentions
+    const refs = d.refs.filter((r) => text.includes(r.token))
     const existing = d.id ? this.notes.find((n) => n.id === d.id) : undefined
-    if (existing) existing.text = text
-    else this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor })
+    if (existing) {
+      existing.text = text
+      existing.refs = refs
+    } else {
+      this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs })
+    }
     this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}`)
     this.renderNotes()
     this.sync()
@@ -6802,6 +7019,8 @@ class Overlay {
     this.noteDraft = null
     this.noteBox.classList.remove('on')
     this.noteHi.classList.remove('on')
+    this.noteRefHi.classList.remove('on')
+    this.noteRefs.classList.remove('on')
     this.noteInput.value = ''
     this.noteInput.blur()
     this.status(msg)
@@ -6872,6 +7091,7 @@ class Overlay {
         : n.anchor.kind === 'strokes'
           ? { kind: 'strokes' as const, strokeIds: [...n.anchor.strokeIds] }
           : { kind: 'run' as const },
+      refs: n.refs.map((r) => ({ ...r })),
     }))
   }
 

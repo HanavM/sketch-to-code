@@ -49,6 +49,26 @@ export interface RawAction {
  * addressed by its own build-time stamp plus the point the user was over, and
  * ink by stroke ids we issued.
  */
+/**
+ * An element the sentence names by token, because the user pointed at it while
+ * typing.
+ *
+ * The anchor says what a note is ABOUT; these say what it MENTIONS, and the
+ * distinction carries real information: "when this is clicked, add the row to
+ * @2" is one instruction involving two elements, and only the first is the one
+ * the person was standing on. Without this the second element has to be
+ * described in words and resolved by guesswork, which is exactly the step this
+ * tool exists to remove — the stamp was already known at the moment somebody
+ * pointed at it.
+ */
+export interface NoteRef {
+  /** '@1', '@2', … as it appears in the text. */
+  token: string
+  srcLoc: string
+  /** How it read on screen, for the brief: `<button> "Send invite"`. */
+  label: string
+}
+
 export interface TypedNote {
   id: string
   text: string
@@ -57,6 +77,8 @@ export interface TypedNote {
     | { kind: 'element'; srcLoc: string }
     | { kind: 'strokes'; strokeIds: string[] }
     | { kind: 'run' }
+  /** Elements named inside `text` by token. Usually empty. */
+  refs?: NoteRef[]
 }
 
 /** A note after its anchor has been resolved against the live snapshot. */
@@ -67,6 +89,12 @@ export interface ResolvedNote {
   /** Element menu id, when it resolved to one. */
   elementId?: string
   strokeIds?: string[]
+  /**
+   * Tokens in `text`, each already resolved to a menu id the model can target.
+   * A ref whose element is gone keeps its label and loses its id, so the
+   * sentence still reads — the words are never dropped for a stale stamp.
+   */
+  refs?: Array<{ token: string; elementId?: string; label: string }>
 }
 
 export interface RawInterpretation {
@@ -161,24 +189,41 @@ export function resolveNotes(
     const text = typeof n.text === 'string' ? n.text.trim() : ''
     if (!text) continue
     const anchor = n.anchor
+    // Tokens resolve the same way the anchor does, and independently of it: a
+    // run-scope note can still name elements, and a note whose own subject has
+    // been remounted away should not lose the things it mentions.
+    const refs = (n.refs ?? [])
+      .filter((r) => r && typeof r.token === 'string' && text.includes(r.token))
+      .map((r) => {
+        const hits = snap.nodes.filter((e) => e.srcLoc === r.srcLoc)
+        // nearest to where the note was typed, for the same reason the anchor
+        // does it: one .map() template renders N times and they share a stamp
+        const near = hits.sort((a, b) => distToRect(n.at, a.rect) - distToRect(n.at, b.rect))[0]
+        return near
+          ? { token: r.token, elementId: near.id, label: r.label }
+          : { token: r.token, label: r.label }
+      })
+    const withRefs = refs.length > 0 ? { refs } : {}
     if (anchor?.kind === 'element') {
       const matches = snap.nodes.filter((e) => e.srcLoc === anchor.srcLoc)
       const near = matches.sort((a, b) => distToRect(n.at, a.rect) - distToRect(n.at, b.rect))[0]
       if (near) {
-        out.push({ id: n.id, text, scope: 'element', elementId: near.id })
+        out.push({ id: n.id, text, scope: 'element', elementId: near.id, ...withRefs })
         continue
       }
       // the element is gone (or was never stamped): keep the words, lose the
       // anchor — dropping what the user typed is never the right failure
-      out.push({ id: n.id, text, scope: 'run' })
+      out.push({ id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
-      out.push(ids.length ? { id: n.id, text, scope: 'strokes', strokeIds: ids } : { id: n.id, text, scope: 'run' })
+      out.push(ids.length
+        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...withRefs }
+        : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
-    out.push({ id: n.id, text, scope: 'run' })
+    out.push({ id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
 }
@@ -362,6 +407,18 @@ disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
 would otherwise read as decoration becomes whatever the note says it is.
 
+A note's "refs" are elements the SENTENCE names, as against the one element it
+is about. Each ref gives a token exactly as it appears in the text ("@1"), the
+element id it resolves to, and how it read on screen. The user pointed at each
+of these while typing, so the token is already resolved: never re-guess which
+element "@2" means from its label, and never match it by text. A sentence like
+"when this is clicked, add the name to @2" is ONE action — the note's own
+element is what it acts on, and @2 is something that action has to know about,
+so carry the whole sentence, tokens included, into the instruction. Do not
+invent a separate action per token. A ref with no element id is one whose
+element is gone: keep the words and say in "unclear" that it could not be
+found, rather than silently picking something else.
+
 A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
 description of the ink; say so in the instruction. Never invent a colour for
@@ -411,6 +468,18 @@ transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
 would otherwise read as decoration becomes whatever the note says it is.
+
+A note's "refs" are elements the SENTENCE names, as against the one element it
+is about. Each ref gives a token exactly as it appears in the text ("@1"), the
+element id it resolves to, and how it read on screen. The user pointed at each
+of these while typing, so the token is already resolved: never re-guess which
+element "@2" means from its label, and never match it by text. A sentence like
+"when this is clicked, add the name to @2" is ONE action — the note's own
+element is what it acts on, and @2 is something that action has to know about,
+so carry the whole sentence, tokens included, into the instruction. Do not
+invent a separate action per token. A ref with no element id is one whose
+element is gone: keep the words and say in "unclear" that it could not be
+found, rather than silently picking something else.
 
 A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
@@ -463,6 +532,18 @@ export interface GroundedAction {
   fidelity?: 'verbatim' | 'recognized'
   /** Exactly what the user typed about this action — authoritative. */
   notes?: string[]
+  /**
+   * Elements the notes NAME by token, resolved here.
+   *
+   * Kept out of `targets` on purpose. A target is a thing the action is being
+   * done to, and the counting and gating downstream mean it: the destructive
+   * confirmation counts targets, swap requires exactly two, verification checks
+   * that each one changed. An element merely mentioned in a sentence is none of
+   * those things — folding it into targets would make "add the row to the team
+   * table" look like an action on the team table, and a delete that mentions
+   * another element would ask for confirmation at the wrong threshold.
+   */
+  refs?: Array<{ token: string; label: string; domId?: string; srcLoc?: string }>
   /** Colour the strokes were drawn in, snapped to the app's own palette. */
   color?: ColorMatch
   needsConfirm: boolean
@@ -583,6 +664,7 @@ export function groundInterpretation(
     const citedIds = new Set(citedStrokes.map((s) => s.id))
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
+    const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
         (note.scope === 'element' && note.elementId && targetIds.has(note.elementId)) ||
@@ -590,6 +672,18 @@ export function groundInterpretation(
       if (!hit) continue
       notes.push(note.text)
       attached.add(note.id)
+      // the sentence came with this action, so the elements it names come too —
+      // including the source location, which is what codegen actually needs
+      for (const r of note.refs ?? []) {
+        if (refs.some((x) => x.token === r.token)) continue
+        const node = r.elementId ? snap.nodes.find((n) => n.id === r.elementId) : undefined
+        refs.push({
+          token: r.token,
+          label: r.label,
+          ...(r.elementId ? { domId: r.elementId } : {}),
+          ...(node?.srcLoc ? { srcLoc: node.srcLoc } : {}),
+        })
+      }
     }
 
     // Colour intent: the pen colour the strokes were drawn in, snapped to a
@@ -618,6 +712,7 @@ export function groundInterpretation(
       depicts: a.depicts ?? undefined,
       fidelity: a.fidelity ?? undefined,
       notes: notes.length ? notes : undefined,
+      refs: refs.length ? refs : undefined,
       color,
       needsConfirm,
     })
