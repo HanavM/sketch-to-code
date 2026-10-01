@@ -940,6 +940,10 @@ const PLAN_KINDS: Record<string, { color: string; label: string }> = {
   swap: { color: '#7c3aed', label: 'SWAP' },
   add: { color: '#059669', label: 'ADD' },
   design: { color: '#0891b2', label: 'DESIGN' },
+  // the two about where data lives rather than how the page looks — one colour
+  // for both, because to a person reading the plan they are the same promise
+  serve: { color: '#be185d', label: 'SERVE' },
+  save: { color: '#be185d', label: 'SAVE' },
 }
 /** A kind the server grew that this client hasn't learned yet still draws. */
 const PLAN_FALLBACK = { color: '#4b5563', label: 'ACTION' }
@@ -4483,6 +4487,18 @@ class Overlay {
     if (typeof parked.at !== 'number' || Date.now() - parked.at > RELOAD_RECEIPT_MS) return
     if (parked.resume === true && this.mode !== 'tweak') this.toggleTweak()
     this.status(parked.receipt)
+    // Put it back, keeping the ORIGINAL timestamp.
+    //
+    // One edit can reload the page more than once — an action that writes two
+    // modules the app never imported gets a reload per file — and consuming the
+    // receipt on the first of them meant the second wiped it and left the idle
+    // hint. The bigger the edit, the more reliably its receipt was lost, which
+    // is precisely backwards. Re-parking it lets every reload in the burst show
+    // the same words; the original timestamp is what still bounds it, so it
+    // ages out on schedule rather than living a fresh 20 seconds each time.
+    try {
+      sessionStorage.setItem(RELOAD_RECEIPT_KEY, JSON.stringify(parked))
+    } catch { /* blocked storage: the receipt was shown once, which is enough */ }
   }
 
   /**
@@ -7081,7 +7097,14 @@ class Overlay {
    * payload). Page coords are rounded to whole pixels: sub-pixel precision
    * means nothing to a server resolving the anchor against its own snapshot.
    */
-  private notesPayload(): Note[] {
+  /**
+   * A note as it goes on the wire.
+   *
+   * Not `Note`: `refs` is required in the model (always an array, possibly
+   * empty) and optional here, because an empty one is not worth sending. The two
+   * shapes being different is the honest description of that.
+   */
+  private notesPayload(): Array<Omit<Note, 'refs'> & { refs?: NoteRef[] }> {
     return this.notes.map((n) => ({
       id: n.id,
       text: n.text,
@@ -7091,7 +7114,11 @@ class Overlay {
         : n.anchor.kind === 'strokes'
           ? { kind: 'strokes' as const, strokeIds: [...n.anchor.strokeIds] }
           : { kind: 'run' as const },
-      refs: n.refs.map((r) => ({ ...r })),
+      // omitted when there are none, which is most notes: an empty array on
+      // every note is noise on the wire and in the model's brief, and it also
+      // means a note that references nothing is byte-identical to one written
+      // before this existed
+      ...(n.refs.length ? { refs: n.refs.map((r) => ({ ...r })) } : {}),
     }))
   }
 
@@ -10393,7 +10420,13 @@ class Overlay {
     this.events.addEventListener('done', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { summary?: string; clientId?: string }
       if (!this.mine(d)) return
-      this.status(`✓ ${d.summary ?? 'done'}`)
+      // receipt(), not status(): a run can add a module the page never imported
+      // — a scaffolded component, the hook behind "make this real" — and that is
+      // past what Fast Refresh patches, so vite full-reloads and takes this line
+      // with it. The summary names the files and says what was verified, which
+      // is the one thing worth surviving. Same rule as every other write path:
+      // if it can create a file, park the receipt.
+      this.receipt(`✓ ${d.summary ?? 'done'}`)
       this.strokes = []
       this.endSketchSearch()
       // the ink is spent, and so are the words about it

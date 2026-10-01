@@ -13,6 +13,8 @@ import {
 } from '@s2c/providers'
 import { createCodegenSession, type CodegenSession } from './codegen.js'
 import { commitPlan, planStructuralEdits } from './codemod.js'
+import { promoteToApi } from './api.js'
+import { makeFormReal } from './form.js'
 import {
   buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
   interpretationSchema,
@@ -182,6 +184,16 @@ export async function runV2(
     )
   }
   stage('intent', interp.reading)
+  /**
+   * Actions that did not survive grounding, said out loud.
+   *
+   * Until now a rejection was only reported when EVERY action was rejected —
+   * a partial one was dropped in silence, so asking for two things, getting
+   * one, and being told "100% verified" was a reachable outcome. That is the
+   * worst available failure: it reports success for work that did not happen,
+   * and the user has no reason to look.
+   */
+  for (const r of interp.rejected) stage('rule', `could not be carried out: ${r}`)
 
   // Structural actions (delete/move/swap) whose stamps resolve unambiguously
   // are applied as AST text edits — no session, no tokens. The agent only
@@ -191,10 +203,54 @@ export async function runV2(
   save('codemod.json', { handled: plan.handled, refused: plan.refused, files: codemodFiles })
   for (const h of plan.handled) stage('codemod', `action ${h.index}: ${h.change}`)
   const handled = new Set(plan.handled.map((h) => h.index))
+
+  /**
+   * The two actions about where data lives, applied by the engines that already
+   * implement them — the same ones the keyboard shortcut calls.
+   *
+   * Deliberately NOT handed to the codegen model. Both are mechanical and both
+   * are already tested end to end, so routing them through a model would buy
+   * variation and nothing else: a differently-shaped route each time, the hook
+   * in module scope where it throws on import, a literal deleted instead of
+   * kept as the seed that makes the change invisible. The model's job here is
+   * to recognise which verb a sentence is, which is exactly what it is good at.
+   *
+   * A refusal is kept and shown rather than swallowed: these engines explain
+   * what the code would have to look like instead, and that sentence is more
+   * use to the user than a silent fallback to the model guessing.
+   */
+  const backend: Array<{ index: number; change: string; files: string[] }> = []
+  const backendRefused: string[] = []
+  for (const [i, a] of interp.actions.entries()) {
+    if (handled.has(i)) continue
+    if (a.kind !== 'serve' && a.kind !== 'save') continue
+    const srcLoc = a.targets[0]?.srcLoc
+    if (!srcLoc) continue // grounding already rejected these; belt and braces
+    const out = a.kind === 'serve'
+      ? promoteToApi(ctx.root, { srcLoc })
+      : makeFormReal(ctx.root, { srcLoc })
+    if (out.ok) {
+      handled.add(i)
+      backend.push({ index: i, change: out.change ?? a.kind, files: out.files ?? [] })
+      stage('codemod', `action ${i}: ${out.change ?? a.kind}`)
+    } else {
+      handled.add(i) // the model must not be asked to "try anyway"
+      backendRefused.push(`action ${i} (${a.kind}): ${out.error ?? 'refused'}`)
+      stage('codemod', `action ${i} refused: ${out.error ?? 'refused'}`)
+    }
+  }
+  if (backend.length || backendRefused.length) {
+    save('backend.json', { applied: backend, refused: backendRefused })
+  }
+
   const pending = interp.actions.map((a, i) => ({ i, a })).filter(({ i }) => !handled.has(i))
-  const codemodNote = plan.handled.length
+  const appliedNote = [
+    ...plan.handled.map((h) => `- action ${h.index} in ${h.file}: ${h.change}`),
+    ...backend.map((b) => `- action ${b.index}: ${b.change} (wrote ${b.files.join(', ')})`),
+  ]
+  const codemodNote = appliedNote.length
     ? `ALREADY APPLIED by a deterministic codemod (do not redo; line numbers in these files have shifted):\n` +
-      plan.handled.map((h) => `- action ${h.index} in ${h.file}: ${h.change}`).join('\n') + '\n\n'
+      appliedNote.join('\n') + '\n\n'
     : ''
 
   const system = `${V2_CONTRACT}\n\n${SKETCH_SKILL}`
@@ -471,12 +527,24 @@ export async function runV2(
     engine: 'model', mode: input.mode ?? 'gesture', checkpoint: cp.sha, changedFiles: files,
     reading: interp.reading, verification: lastVerify, tokens: totalUsage,
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
+    backend: { applied: backend, refused: backendRefused },
     fidelity,
     candidates,
     finishing: finishEdits,
   })
   const summary =
+    // first, because a dropped action is the thing most worth knowing and a
+    // verified percentage reads as "it all worked"
+    (interp.rejected.length
+      ? `⚠ ${String(interp.rejected.length)} not carried out: ${interp.rejected.join('; ')} · `
+      : '') +
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
+    // the backend engines write their own receipts, and they name a file that
+    // did not exist a moment ago — more use to the user than a count
+    backend.map((b) => `${b.change} · `).join('') +
+    // a refusal explains what the code would have to look like instead, so it
+    // travels word for word rather than as "1 action refused"
+    backendRefused.map((r) => `✗ ${r} · `).join('') +
     (plan.handled.length ? `codemod ${plan.handled.length}/${interp.actions.length} actions · ` : '') +
     (interp.actions.some((a) => a.svgPaths?.length) ? `${fidelitySummary(fidelity)} · ` : '') +
     (candidates

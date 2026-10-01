@@ -18,7 +18,24 @@ import { appPalette, matchColor, type ColorMatch } from './palette.js'
 
 // ---------- model-facing output schema ----------
 
-export type ActionKind = 'delete' | 'modify' | 'add' | 'move' | 'swap' | 'design'
+/**
+ * Everything a sentence or a gesture is allowed to mean.
+ *
+ * The first six change what the page looks like. The last two change where its
+ * data lives, and they are here rather than left to the codegen model on
+ * purpose: both are mechanical, both already have a tested implementation that
+ * writes the route, the hook and the rewrite, and both are the kind of thing a
+ * model asked to "make this save" would otherwise invent from scratch — a
+ * different shape every time, unverified, usually with the hook in the wrong
+ * scope. A named verb backed by one implementation is the cheaper and safer
+ * half of this: the model's job shrinks to recognising which verb it is.
+ */
+export type ActionKind =
+  | 'delete' | 'modify' | 'add' | 'move' | 'swap' | 'design'
+  /** This list should come from the server instead of being written in. */
+  | 'serve'
+  /** This form should keep what people type into it. */
+  | 'save'
 
 /** What the model returns. Ids only — no coordinates, no free geometry. */
 export interface RawAction {
@@ -111,7 +128,17 @@ export interface RawInterpretation {
 const nullable = (t: Record<string, unknown>) => ({ anyOf: [t, { type: 'null' }] })
 
 export const DESIGN_KINDS = ['add', 'design'] as const
-export const GESTURE_KINDS = ['delete', 'modify', 'add', 'move', 'swap', 'design'] as const
+export const GESTURE_KINDS = [
+  'delete', 'modify', 'add', 'move', 'swap', 'design', 'serve', 'save',
+] as const
+/**
+ * The two that change where data lives rather than how the page looks.
+ *
+ * Applied deterministically before the model is asked anything, by the same
+ * engines the keyboard shortcut uses — so a sentence and a keypress produce
+ * byte-identical edits, and neither spends a token.
+ */
+export const BACKEND_KINDS = ['serve', 'save'] as const
 
 /**
  * Schema is mode-dependent as a HARD guarantee: in design mode the enum
@@ -141,7 +168,7 @@ export const INTERPRETATION_SCHEMA = {
         additionalProperties: false,
         required: ['kind', 'elements', 'destElement', 'position', 'instruction', 'strokes', 'layer', 'depicts', 'fidelity'],
         properties: {
-          kind: { type: 'string', enum: ['delete', 'modify', 'add', 'move', 'swap', 'design'] },
+          kind: { type: 'string', enum: [...GESTURE_KINDS] },
           elements: nullable({ type: 'array', items: { type: 'string' } }),
           destElement: nullable({ type: 'string' }),
           position: nullable({ type: 'string', enum: ['before', 'after', 'into'] }),
@@ -257,10 +284,40 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
     const dy = Math.max(0, Math.max(inkBox.y - cy, cy - (inkBox.y + inkBox.h)))
     return Math.hypot(dx, dy)
   }
-  const menu = candidates
-    .sort((a, b) => dist(a) - dist(b))
-    .slice(0, MENU_CAP)
-    .sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)
+  /**
+   * Elements somebody POINTED AT are never trimmed away.
+   *
+   * The cap ranks by distance to the ink, which is the right ranking when there
+   * is ink. A typed sentence need not have any — "point at this and say what
+   * should happen" is a complete interaction on its own — and then every
+   * distance is zero, the ranking is meaningless, and the cap keeps whatever
+   * the first seventy nodes happen to be. The one element that certainly
+   * matters, the one a person deliberately pointed at, can fall outside it.
+   *
+   * What that looks like downstream is worse than it sounds: the note still
+   * reaches the model, carrying an element id the model has no entry for, so it
+   * is being told about something it cannot name and therefore cannot act on.
+   * No error, no refusal — the sentence just quietly does nothing.
+   *
+   * So the anchors and the tokens are pinned into the menu first, and the
+   * distance ranking fills what is left.
+   */
+  const resolvedForMenu = resolveNotes(notes, snap, new Set(strokes.map((st) => st.id)))
+  const pinnedIds = new Set<string>()
+  for (const n of resolvedForMenu) {
+    if (n.elementId) pinnedIds.add(n.elementId)
+    for (const r of n.refs ?? []) if (r.elementId) pinnedIds.add(r.elementId)
+  }
+  // from snap.nodes, not candidates: a pointed-at element is wanted whatever
+  // its size, including one bigger than the area filter allows
+  const pinned = snap.nodes.filter((n) => pinnedIds.has(n.id))
+  const menu = [
+    ...pinned,
+    ...candidates
+      .filter((n) => !pinnedIds.has(n.id))
+      .sort((a, b) => dist(a) - dist(b))
+      .slice(0, Math.max(0, MENU_CAP - pinned.length)),
+  ].sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)
 
   const elements = new Map(menu.map((n) => [n.id, n]))
   const strokeMap = new Map(strokes.map((s) => [s.id, s]))
@@ -334,7 +391,8 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
     }
   })
 
-  const resolved = resolveNotes(notes, snap, new Set(strokes.map((s) => s.id)))
+  // already resolved, to build the menu — the same list, not a second reading
+  const resolved = resolvedForMenu
 
   const brief = JSON.stringify(
     {
@@ -468,6 +526,28 @@ transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
 would otherwise read as decoration becomes whatever the note says it is.
+
+TWO ACTIONS ARE ABOUT DATA RATHER THAN APPEARANCE, and they exist because
+people ask for them constantly in words:
+
+- "serve" — this list should come from the server instead of being written into
+  the component. Use it for "load this from the server", "this should come from
+  the database", "make this data real", "this shouldn't be hardcoded". One
+  target: the element showing the data (a row, a cell, a card — anything
+  rendered from the list). Something already fetching does not need it.
+- "save" — this form should keep what people type into it. Use it for "this
+  should actually save", "submitting should store it", "make this form real",
+  "this should persist". One target: the form, or any field or button inside it.
+
+Both are applied mechanically, so emit the verb and nothing else — do not also
+emit a "modify" describing how to write a server, and do not put the
+implementation in the instruction. Say what the user asked for in the
+instruction and let the verb carry it. If a sentence asks for BOTH ("submissions
+from this form should show up in that table"), that is two actions: a "save" on
+the form and a "serve" on the list. Only reach for "modify" when what is wanted
+is neither of these — a specific endpoint shape, an authentication rule,
+anything with its own logic — and say in "unclear" that it needs real backend
+work rather than one of these two.
 
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
@@ -656,6 +736,21 @@ export function groundInterpretation(
     if ((a.kind === 'add' || a.kind === 'design') && !dest && !region) {
       rejected.push(`${a.kind} action with neither container nor strokes`)
       continue
+    }
+    // Both backend verbs act on exactly one thing, and the engines behind them
+    // need a source location: "serve" has to find the literal the element was
+    // rendered from, "save" has to find the enclosing <form>. A target without
+    // a stamp cannot be either, and refusing here is how that stays a refusal
+    // the user reads instead of a mysterious no-op later.
+    if (a.kind === 'serve' || a.kind === 'save') {
+      if (targets.length !== 1) {
+        rejected.push(`${a.kind} action needs exactly 1 target, got ${targets.length}`)
+        continue
+      }
+      if (!targets[0]!.srcLoc) {
+        rejected.push(`${a.kind} action targets an element with no source location`)
+        continue
+      }
     }
 
     // Typed notes attach deterministically: an element note to the actions

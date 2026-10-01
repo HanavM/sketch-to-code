@@ -334,7 +334,10 @@ if (!eq(sent.notes, model)) {
 }
 for (const note of sent.notes) {
   const keys = Object.keys(note).sort().join(',')
-  if (keys !== 'anchor,at,id,text') throw new Error(`note has the wrong fields: ${keys}`)
+  // `refs` rides along only when the sentence named something by pointing at it
+  if (keys !== 'anchor,at,id,text' && keys !== 'anchor,at,id,refs,text') {
+    throw new Error(`note has the wrong fields: ${keys}`)
+  }
   if (typeof note.at?.x !== 'number' || typeof note.at?.y !== 'number') throw new Error('note.at is not a point')
   if (!['element', 'strokes', 'run'].includes(note.anchor.kind)) throw new Error('bad anchor kind')
   if (note.anchor.kind === 'element' && typeof note.anchor.srcLoc !== 'string') throw new Error('element anchor has no srcLoc')

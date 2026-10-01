@@ -322,3 +322,201 @@ describe('grounding — a named element rides with the action, but is not a targ
     expect(g.actions[0]!.refs).toBeUndefined()
   })
 })
+
+/**
+ * The two verbs about where data lives.
+ *
+ * These are grounded like any other action but applied by the engines rather
+ * than the model, so what matters here is that grounding refuses the shapes the
+ * engines cannot act on — one target, and a target with a source location —
+ * because a refusal the user reads beats a mysterious no-op later.
+ */
+describe('grounding — serve and save', () => {
+  const inkOn = (n: DomNode): Stroke => stroke('s1', n.rect.x + 10, n.rect.y + 10)
+
+  for (const kind of ['serve', 'save'] as const) {
+    it(`${kind} grounds to one target with its source location`, () => {
+      const { a, snap } = page()
+      const strokes = [inkOn(a)]
+      const ev = buildEvidence(strokes, snap, [])
+      const g = groundInterpretation(
+        { reading: 'x', actions: [{ kind, elements: [a.id], instruction: 'make it real', strokes: ['s1'] }] },
+        ev, snap,
+      )
+      expect(g.rejected).toEqual([])
+      expect(g.actions).toHaveLength(1)
+      expect(g.actions[0]!.kind).toBe(kind)
+      expect(g.actions[0]!.targets[0]!.srcLoc).toBe('src/Card.tsx:4:5')
+    })
+
+    it(`${kind} is refused with two targets, naming the count`, () => {
+      const { a, c, snap } = page()
+      const strokes = [stroke('s1', 110, 110), stroke('s2', 110, 410)]
+      const ev = buildEvidence(strokes, snap, [])
+      const g = groundInterpretation(
+        { reading: 'x', actions: [{ kind, elements: [a.id, c.id], instruction: 'both', strokes: ['s1', 's2'] }] },
+        ev, snap,
+      )
+      expect(g.actions).toHaveLength(0)
+      expect(g.rejected[0]).toMatch(new RegExp(`${kind} action needs exactly 1 target, got 2`))
+    })
+
+    it(`${kind} is refused when its target has no source location`, () => {
+      // an element the build never stamped: neither engine can find the code
+      const bare = node('e9', null, { x: 100, y: 100, w: 200, h: 120 })
+      const snap = snapshot([bare])
+      const strokes = [inkOn(bare)]
+      const ev = buildEvidence(strokes, snap, [])
+      const g = groundInterpretation(
+        { reading: 'x', actions: [{ kind, elements: ['e9'], instruction: 'make it real', strokes: ['s1'] }] },
+        ev, snap,
+      )
+      expect(g.actions).toHaveLength(0)
+      expect(g.rejected[0]).toMatch(/no source location/)
+    })
+  }
+
+  it('a sentence asking for both is two actions, each on its own element', () => {
+    const { a, c, snap } = page()
+    const strokes = [stroke('s1', 110, 110), stroke('s2', 110, 410)]
+    const ev = buildEvidence(strokes, snap, [])
+    const g = groundInterpretation(
+      {
+        reading: 'submissions show up in the list',
+        actions: [
+          { kind: 'save', elements: [a.id], instruction: 'keep what is typed', strokes: ['s1'] },
+          { kind: 'serve', elements: [c.id], instruction: 'read them back', strokes: ['s2'] },
+        ],
+      },
+      ev, snap,
+    )
+    expect(g.actions.map((x) => x.kind)).toEqual(['save', 'serve'])
+    expect(g.actions.map((x) => x.targets[0]!.domId)).toEqual([a.id, c.id])
+  })
+
+  it('neither trips the destructive confirmation', () => {
+    // nothing is removed by either, whatever the area involved
+    const { a, snap } = page()
+    const ev = buildEvidence([inkOn(a)], snap, [])
+    const g = groundInterpretation(
+      { reading: 'x', actions: [{ kind: 'serve', elements: [a.id], instruction: 'real', strokes: ['s1'] }] },
+      ev, snap,
+    )
+    expect(g.actions[0]!.needsConfirm).toBe(false)
+  })
+})
+
+describe('the schema the model answers in', () => {
+  it('offers both verbs in gesture mode', async () => {
+    const { interpretationSchema } = await import('../src/intent2.js')
+    const kinds = (interpretationSchema('gesture') as {
+      properties: { actions: { items: { properties: { kind: { enum: string[] } } } } }
+    }).properties.actions.items.properties.kind.enum
+    expect(kinds).toContain('serve')
+    expect(kinds).toContain('save')
+  })
+
+  it('offers neither in design mode, where there is nothing yet to make real', () => {
+    // design mode builds UI that does not exist; a form you are still drawing
+    // has no code to rewrite, so the enum itself excludes them
+    return import('../src/intent2.js').then(({ interpretationSchema }) => {
+      const kinds = (interpretationSchema('design') as {
+        properties: { actions: { items: { properties: { kind: { enum: string[] } } } } }
+      }).properties.actions.items.properties.kind.enum
+      expect(kinds).toEqual(['add', 'design'])
+    })
+  })
+})
+
+/**
+ * The element menu, when there is no ink to rank it by.
+ *
+ * The cap keeps the 70 elements nearest the drawing. A typed sentence need not
+ * have a drawing — pointing at something and saying what should happen is a
+ * complete interaction — and then every distance is zero and the cap keeps an
+ * arbitrary 70. These check that the element somebody actually pointed at is
+ * never one of the ones thrown away, because the failure is silent: the model
+ * is handed a note citing an id it has no entry for, so the sentence does
+ * nothing and says nothing.
+ */
+describe('buildEvidence — what the model is allowed to name', () => {
+  /** A page with far more elements than the menu can hold. */
+  const crowded = (extra = 200) => {
+    const nodes: DomNode[] = []
+    for (let i = 0; i < extra; i++) {
+      nodes.push(node(`e${i}`, `src/Filler.tsx:${i}:1`, { x: (i % 10) * 60, y: Math.floor(i / 10) * 30, w: 50, h: 20 }))
+    }
+    // the one the user points at, last in document order so a naive cap drops it
+    const wanted = node('target', 'src/Deep.tsx:9:3', { x: 20, y: 9000, w: 120, h: 40 })
+    const other = node('other', 'src/Else.tsx:4:2', { x: 200, y: 9100, w: 120, h: 40 })
+    nodes.push(wanted, other)
+    return { wanted, other, snap: snapshot(nodes) }
+  }
+
+  const menuIds = (ev: ReturnType<typeof buildEvidence>) => [...ev.elements.keys()]
+
+  it('without the fix the pointed-at element would be trimmed — check it is not', () => {
+    const { wanted, snap } = crowded()
+    const ev = buildEvidence([], snap, [
+      { id: 'n0', text: 'this list should come from the server', at: { x: 80, y: 9020 },
+        anchor: { kind: 'element', srcLoc: 'src/Deep.tsx:9:3' } },
+    ])
+    expect(menuIds(ev)).toContain(wanted.id)
+  })
+
+  it('and so is every element the sentence names by token', () => {
+    const { wanted, other, snap } = crowded()
+    const ev = buildEvidence([], snap, [
+      { id: 'n0', text: 'when this is clicked add it to @1', at: { x: 80, y: 9020 },
+        anchor: { kind: 'element', srcLoc: 'src/Deep.tsx:9:3' },
+        refs: [{ token: '@1', srcLoc: 'src/Else.tsx:4:2', label: '<div> "else"' }] },
+    ])
+    expect(menuIds(ev)).toContain(wanted.id)
+    expect(menuIds(ev)).toContain(other.id)
+  })
+
+  it('still respects the cap — pinning takes places, it does not add them', () => {
+    const { snap } = crowded()
+    const ev = buildEvidence([], snap, [
+      { id: 'n0', text: 'about this', at: { x: 80, y: 9020 },
+        anchor: { kind: 'element', srcLoc: 'src/Deep.tsx:9:3' } },
+    ])
+    expect(menuIds(ev).length).toBeLessThanOrEqual(70)
+  })
+
+  it('a pinned element too large for the usual size filter is kept anyway', () => {
+    // the filter drops anything over 90% of the viewport as page furniture; an
+    // element somebody deliberately pointed at is not furniture
+    const big = node('big', 'src/Hero.tsx:2:2', { x: 0, y: 0, w: 1190, h: 790 })
+    const snap = snapshot([big, node('e1', 'src/A.tsx:1:1', { x: 10, y: 10, w: 40, h: 20 })])
+    const ev = buildEvidence([], snap, [
+      { id: 'n0', text: 'this whole thing', at: { x: 500, y: 400 },
+        anchor: { kind: 'element', srcLoc: 'src/Hero.tsx:2:2' } },
+    ])
+    expect(menuIds(ev)).toContain('big')
+  })
+
+  it('and the model can then actually target it', () => {
+    // the end of the chain: pinned into the menu, so grounding resolves the id
+    const { wanted, snap } = crowded()
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'this list should come from the server', at: { x: 80, y: 9020 },
+        anchor: { kind: 'element', srcLoc: 'src/Deep.tsx:9:3' } },
+    ]
+    const ev = buildEvidence([], snap, notes)
+    const g = groundInterpretation(
+      { reading: 'serve it', actions: [{ kind: 'serve', elements: [wanted.id], instruction: 'from the server', strokes: [] }] },
+      ev, snap,
+    )
+    expect(g.rejected).toEqual([])
+    expect(g.actions[0]!.targets[0]!.srcLoc).toBe('src/Deep.tsx:9:3')
+    expect(g.actions[0]!.notes).toEqual(['this list should come from the server'])
+  })
+
+  it('no notes, no pinning — the ink ranking is untouched', () => {
+    const { snap } = crowded()
+    const ev = buildEvidence([stroke('s1', 100, 100)], snap, [])
+    expect(menuIds(ev).length).toBeLessThanOrEqual(70)
+    expect(menuIds(ev)).not.toContain('target')
+  })
+})
