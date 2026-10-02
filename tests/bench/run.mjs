@@ -325,9 +325,15 @@ for (const spec of chosen) {
     })
     row.score = await scorePage(page, spec)
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-result.png`), fullPage: true })
+    // order prints as — when there were fewer than two comparable regions:
+    // "0%" there means "could not be measured", and printing that as a zero
+    // drags an average down with a number that was never an observation
+    const ord = row.score.orderPairs > 0 && row.score.order !== null
+      ? `${(row.score.order * 100).toFixed(0)}%`
+      : '—'
     log(`regions ${row.score.matched.length}/${spec.regions.length} · ` +
       `score ${(row.score.regionScore * 100).toFixed(0)}% · must ${(row.score.mustScore * 100).toFixed(0)}% · ` +
-      `order ${(row.score.order * 100).toFixed(0)}% · ${row.score.elements} elements`)
+      `order ${ord} · ${row.score.elements} elements`)
     if (row.score.missed.length) log('missed:', row.score.missed.map((m) => m.role).join(', '))
 
     const real = errs.filter((e) => !/ResizeObserver/.test(e))
@@ -353,7 +359,12 @@ const agg = summarise(results)
 log('\n──────── totals ────────')
 log(`pages: ${results.length}  ·  failed: ${results.filter((r) => r.error).length}` +
   `${results.some((r) => r.dry) ? `  ·  dry: ${results.filter((r) => r.dry).length}` : ''}`)
-log(`mean region score: ${(agg.regionScore * 100).toFixed(0)}%  ·  must: ${(agg.mustScore * 100).toFixed(0)}%  ·  order: ${(agg.order * 100).toFixed(0)}%`)
+const ordered = results.filter((r) => (r.score?.orderPairs ?? 0) > 0)
+const ordMean = ordered.length
+  ? ordered.reduce((a, r) => a + r.score.order, 0) / ordered.length
+  : null
+log(`mean region score: ${(agg.regionScore * 100).toFixed(0)}%  ·  must: ${(agg.mustScore * 100).toFixed(0)}%  ·  ` +
+  `order: ${ordMean === null ? '—' : `${(ordMean * 100).toFixed(0)}% (of ${String(ordered.length)} measurable)`}`)
 const tok = results.reduce((a, r) => a + (r.tokens ? r.tokens.input + r.tokens.output : 0), 0)
 const cacheRead = results.reduce((a, r) => a + (r.tokens?.cacheRead ?? 0), 0)
 log(`tokens: ${tok.toLocaleString()} billed-ish (+${cacheRead.toLocaleString()} cache reads)`)

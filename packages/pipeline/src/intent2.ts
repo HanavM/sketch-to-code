@@ -443,7 +443,7 @@ ids is not.
 
 TRUST THE IMAGE for shape/form.
 
-FIDELITY — decide per drawing, this matters most:
+FIDELITY — decide PER ACTION, not once for the drawing, this matters most:
 - DEPICTION: the sketch represents a recognizable thing (an animal, object,
   symbol — a crab, a purse, a sun). Set depicts:"<the thing>" and
   fidelity:"recognized". The user wants a proper icon/illustration of that
@@ -451,6 +451,20 @@ FIDELITY — decide per drawing, this matters most:
 - DECORATION: abstract form (wave, ribbon, blob) whose shape IS the point.
   fidelity:"verbatim" — the exact path will be reproduced.
 - WIDGET: looks like a UI element from the lexicon → normal add/design.
+
+One drawing routinely mixes all three — a hero with a wavy divider, an icon and
+three lines of copy is one of each — so a single fidelity for the whole sketch is
+wrong. Set it on the action it applies to.
+
+NEVER verbatim: marks that STAND FOR TEXT. A squiggly line, a row of short
+squiggles, a wavy line sitting where a heading or a sentence belongs — these are
+text placeholders, and tracing them produces a wavy line on the page where words
+were meant. That is the single most common way to ruin a result. A text
+placeholder is a WIDGET: emit real copy for it (take the words from a typed note
+if there is one, otherwise write plausible copy that suits the page). Length and
+thickness tell you heading versus body, not whether it is decoration. Only call a
+curve DECORATION when it is doing a decorative job — a divider, a background
+band, a blob behind content — and never when it sits in a text slot.
 
 Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
 labeled rounded rects = buttons, squiggly lines = text placeholders,
