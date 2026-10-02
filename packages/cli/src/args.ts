@@ -5,7 +5,7 @@
  */
 
 /** Flags that consume the next token as their value. */
-const VALUE_FLAGS = ['dep', 'github', 'remote', 'repo-name', 'port', 'commit-message'] as const
+const VALUE_FLAGS = ['dep', 'github', 'remote', 'repo-name', 'port', 'commit-message', 'timeout'] as const
 /** Flags that are booleans; `--no-x` sets x to false. */
 const BOOL_FLAGS = [
   'yes',
@@ -17,6 +17,9 @@ const BOOL_FLAGS = [
   'push',
   'gitignore',
   'probe',
+  // sketch: `open` defaults to true, so --no-open is the useful spelling
+  'open',
+  'keep-open',
   'help',
   'version',
   'json',

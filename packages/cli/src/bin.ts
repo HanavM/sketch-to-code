@@ -11,11 +11,26 @@ const VERSION = (require('../package.json') as { version: string }).version
 const HELP = `sketch-to-code — draw on your running app, it edits your source.
 
 Usage
+  npx sketch-to-code sketch [path] [options]   draw once, change nothing else
   npx sketch-to-code init [path] [options]     set up sketch-to-code in a project
   npx sketch-to-code doctor [path]             diagnose an existing install
   npx sketch-to-code help | --version
 
   path defaults to the current directory. Vite + React/JSX projects only.
+
+sketch — for when you want one component, not a new setup
+  Starts a second dev server on a spare port using YOUR vite and YOUR config,
+  adds the overlay to it in memory, opens a browser, waits for one run, and
+  stops. Your vite config, package.json and node_modules are untouched; the
+  plugin comes with this command and npx throws it away afterwards. Your SOURCE
+  is edited — that is the point — and Ctrl+Z in the overlay undoes it.
+
+sketch options
+  --port <n>            pin the throwaway server's port (default: a free one)
+  --no-open             print the url instead of opening a browser
+  --keep-open           stay up and keep applying edits until Ctrl+C
+  --timeout <seconds>   give up waiting (default 900)
+  --json                machine-readable result
 
 init options
   -y, --yes             accept every local write without asking (never pushes)
@@ -103,6 +118,44 @@ async function main(): Promise<number> {
   if (github !== undefined && !['create', 'connect', 'none'].includes(github)) {
     console.error(`sketch-to-code: --github must be create, connect or none (got ${github})`)
     return 2
+  }
+
+  if (args.command === 'sketch' || args.command === 'draw') {
+    const { sketchOnce } = await import('./sketch.js')
+    const result = await sketchOnce({
+      dir,
+      port,
+      open: args.bools.open,
+      until: args.bools['keep-open'] ? 'quit' : 'first-edit',
+      ...(args.values.timeout ? { timeoutMs: Number(args.values.timeout) * 1000 } : {}),
+      onEvent: ({ kind, message }) => {
+        if (kind === 'ready') {
+          console.log(`sketch-to-code: drawing on ${dir}`)
+          console.log(`  ${message}  ← opening this; your own dev server is untouched`)
+          console.log('  draw, then press ▶ Run. Esc cancels. Ctrl+C quits without waiting.')
+        } else console.log(`  ${kind}: ${message}`)
+      },
+    })
+    if (args.bools.json) {
+      console.log(JSON.stringify(result, null, 2))
+      return result.ok ? 0 : 1
+    }
+    if (result.reason === 'refused') {
+      console.error('sketch-to-code: cannot draw on this project')
+      for (const b of result.blockers ?? []) console.error(`  ✗ ${b.message}`)
+      return 2
+    }
+    if (result.reason === 'timeout') {
+      console.error('sketch-to-code: nothing was drawn in time — nothing was written')
+      return 1
+    }
+    if (!result.ok) {
+      console.error(`sketch-to-code: ${result.error ?? 'the run failed'}`)
+      return 1
+    }
+    if (result.summary) console.log(`✓ ${result.summary}`)
+    console.log('nothing was installed; your vite config is unchanged. Ctrl+Z in the overlay undoes the edit.')
+    return 0
   }
 
   if (args.command === 'init') {

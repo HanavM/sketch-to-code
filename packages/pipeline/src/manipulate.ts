@@ -329,7 +329,33 @@ export function synthesizeResize(
  * the stamped line:col, edits its string-literal className in place (exact
  * character range — no reformatting of anything else).
  */
+/**
+ * Every prop this will act on, as a runtime set.
+ *
+ * The type says the same thing, but the type is gone by the time a request
+ * arrives over HTTP from a client this engine does not control. Without this
+ * check an unknown prop walked all the way into the class-pattern lookup and
+ * came back out as `Cannot read properties of undefined (reading 'test')` — a
+ * stack trace where every other refusal in this codebase is a sentence.
+ */
+const PROPS = new Set<string>([
+  'gap', 'p', 'pt', 'pr', 'pb', 'pl',
+  'ml', 'mr', 'mt', 'mb',
+  'w', 'h',
+  'translate-x', 'translate-y',
+  'reorder', 'move', 'resize',
+])
+
 export function applyManipulation(root: string, req: ManipulateRequest): ManipulateResult {
+  if (!PROPS.has(req.prop)) {
+    return {
+      ok: false,
+      error:
+        `"${String(req.prop)}" is not something this can change. It takes a Tailwind spacing ` +
+        `prop (gap, p, pt, pr, pb, pl, ml, mr, mt, mb, w, h, translate-x, translate-y) or one ` +
+        `of the gestures (move, resize, reorder) — not a CSS property name.`,
+    }
+  }
   const m = /^(.+):(\d+):(\d+)$/.exec(req.srcLoc)
   if (!m) return { ok: false, error: `bad srcLoc "${req.srcLoc}"` }
   const [, rel, lineS, colS] = m

@@ -712,3 +712,59 @@ describe('applyManipulation resize', () => {
     expect(res.error).toContain('dynamic')
   })
 })
+
+/**
+ * An unknown prop is a refusal, not a stack trace.
+ *
+ * The TYPE already says which props exist, but the type is gone by the time a
+ * request arrives over HTTP from a client this engine does not control — and
+ * the per-prop regex lookup then returned undefined and `pattern.test(c)` threw
+ * `Cannot read properties of undefined (reading 'test')`. Found by passing a CSS
+ * property name instead of a Tailwind prop from an end-to-end test.
+ */
+describe('an unknown prop', () => {
+  const app = () => {
+    const root = mkdtempSync(join(tmpdir(), 's2c-prop-'))
+    mkdirSync(join(root, 'src'), { recursive: true })
+    writeFileSync(
+      join(root, 'src/App.jsx'),
+      'export default function App() {\n  return <h1 className="text-xl">Hi</h1>\n}\n',
+    )
+    return root
+  }
+
+  it('is refused in a sentence that names what it does take', () => {
+    const root = app()
+    const out = applyManipulation(root, { srcLoc: 'src/App.jsx:2:10', prop: 'margin-left' as never, px: 16 })
+    expect(out.ok).toBe(false)
+    expect(out.error).toContain('"margin-left" is not something this can change')
+    // the point: it tells you the vocabulary instead of leaking an internal
+    expect(out.error).toMatch(/ml/)
+    expect(out.error).not.toMatch(/Cannot read properties|TypeError|undefined/)
+  })
+
+  it('writes nothing when it refuses', () => {
+    const root = app()
+    const before = readFileSync(join(root, 'src/App.jsx'), 'utf8')
+    applyManipulation(root, { srcLoc: 'src/App.jsx:2:10', prop: 'colour' as never, px: 4 })
+    expect(readFileSync(join(root, 'src/App.jsx'), 'utf8')).toBe(before)
+  })
+
+  it('is checked before the file is even read, so a bad prop never reports a missing file', () => {
+    const out = applyManipulation('/nonexistent-root', { srcLoc: 'src/A.jsx:1:1', prop: 'nope' as never })
+    expect(out.error).toContain('not something this can change')
+  })
+
+  it('still accepts every prop it documents', () => {
+    const root = app()
+    for (const prop of ['gap', 'p', 'pt', 'pr', 'pb', 'pl', 'ml', 'mr', 'mt', 'mb', 'w', 'h',
+      'translate-x', 'translate-y'] as const) {
+      const out = applyManipulation(root, { srcLoc: 'src/App.jsx:2:10', prop, px: 16 })
+      expect(out.ok, `${prop} should be accepted`).toBe(true)
+    }
+    for (const prop of ['move', 'resize', 'reorder'] as const) {
+      const out = applyManipulation(root, { srcLoc: 'src/App.jsx:2:10', prop, dx: 20, dy: 0, from: 0, to: 0 })
+      expect(out.ok, `${prop} should be accepted`).toBe(true)
+    }
+  })
+})

@@ -1,7 +1,7 @@
 {
   "name": "sketch-to-code",
   "version": "0.1.0",
-  "description": "Set up sketch-to-code (draw on your running app, it edits your source) in a Vite + React project.",
+  "description": "Draw on your running app and it edits your source. `sketch` for a one-off with no install; `init` to keep it.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,5 +19,15 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@s2c/vite-plugin": "*"
+  },
+  "peerDependencies": {
+    "vite": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": false
+    }
+  }
 }
