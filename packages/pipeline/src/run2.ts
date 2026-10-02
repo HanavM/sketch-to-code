@@ -533,11 +533,16 @@ export async function runV2(
     finishing: finishEdits,
   })
   const summary =
-    // first, because a dropped action is the thing most worth knowing and a
-    // verified percentage reads as "it all worked"
-    (interp.rejected.length
-      ? `⚠ ${String(interp.rejected.length)} not carried out: ${interp.rejected.join('; ')} · `
-      : '') +
+    // A dropped action leads, because it is the thing most worth knowing and a
+    // verified percentage reads as "it all worked". But only a DROPPED action
+    // earns that billing: `rejected` also collects reasons from actions that ran
+    // perfectly well after one unusable id was ignored, and counting those as
+    // failures turned a healthy run into "11 not carried out".
+    ((interp.droppedActions ?? 0) > 0
+      ? `⚠ ${String(interp.droppedActions)} action(s) not carried out: ${interp.rejected.join('; ')} · `
+      : interp.rejected.length
+        ? `(${String(interp.rejected.length)} detail(s) ignored: ${interp.rejected[0]}${interp.rejected.length > 1 ? ', …' : ''}) · `
+        : '') +
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
     // the backend engines write their own receipts, and they name a file that
     // did not exist a moment ago — more use to the user than a count

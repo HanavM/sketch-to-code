@@ -20,6 +20,19 @@ export interface Sketch2CodeOptions {
   /** Intent engine: 'model' (multimodal interpretation, default) or 'rules'
    *  (legacy deterministic classifier). */
   engine?: 'model' | 'rules'
+  /**
+   * The instant render — scaffolding a drawn shape into a real mounted
+   * component the moment Run is pressed, before the reading comes back.
+   * Default true.
+   *
+   * Turn it off when a speculative source write at Run would be in the way.
+   * One case is measurement: it writes and mounts a component, which makes vite
+   * full-reload, and a reload takes the in-flight reading down with the page it
+   * was requested from. A benchmark trying to time the reading cannot do it with
+   * this on. The race is real for users too, and this option is a workaround for
+   * it rather than a fix — see docs/findings.md.
+   */
+  instant?: boolean
 }
 
 interface RawStroke {
@@ -138,6 +151,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const allowDirty = options.allowDirty ?? false
   const runTimeoutMs = options.runTimeoutMs ?? 12 * 60_000
   const engine = options.engine ?? 'model'
+  const instant = options.instant ?? true
   let root = process.cwd()
 
   const sse: SseHub = createSseHub()
@@ -296,6 +310,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       server.middlewares.use('/@s2c/instant', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
+        // declining is a first-class answer here: the client treats it exactly
+        // like the server judging the sketch too ambiguous to scaffold, and the
+        // interpreted path runs either way
+        if (!instant) return sendJson(res, 200, { ok: false, reason: 'the instant render is turned off' })
         readJsonBody<{ strokes: unknown; snapshot: DomSnapshot; fidelity?: unknown }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')

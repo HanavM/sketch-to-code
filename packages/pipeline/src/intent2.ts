@@ -433,7 +433,15 @@ are no deletes, no moves, no modifications of existing elements in this mode.
 The image shows their ink (dark strokes) over a gray wireframe of the page's
 actual elements, to scale. The JSON lists each stroke (id, bbox, draw order,
 exact geometric features) and the page's element menu (id, tag, text, rect,
-source location). TRUST THE IMAGE for shape/form.
+source location). "elements" and "strokes" are different namespaces and must never be mixed.
+"elements" takes ids from the element menu below; "strokes" takes the stroke ids
+you were given ("s0", "s1", …). Putting a stroke id in "elements" names nothing
+and is dropped. When you are building NEW UI on empty space there is often no
+element worth citing at all — leave "elements" empty and let "strokes" and
+"destElement" carry the action. An empty list is correct there; a list of stroke
+ids is not.
+
+TRUST THE IMAGE for shape/form.
 
 FIDELITY — decide per drawing, this matters most:
 - DEPICTION: the sketch represents a recognizable thing (an animal, object,
@@ -497,6 +505,14 @@ a mouse on a transparent overlay over their RUNNING web app. The image shows
 their ink (dark strokes) over a gray wireframe of the page's actual elements,
 to scale. The JSON lists: each stroke (id, bbox, draw order, exact geometric
 features) and the page's element menu (id, tag, text, rect, source location).
+"elements" and "strokes" are different namespaces and must never be mixed.
+"elements" takes ids from the element menu below; "strokes" takes the stroke ids
+you were given ("s0", "s1", …). Putting a stroke id in "elements" names nothing
+and is dropped. When you are building NEW UI on empty space there is often no
+element worth citing at all — leave "elements" empty and let "strokes" and
+"destElement" carry the action. An empty list is correct there; a list of stroke
+ids is not.
+
 TRUST THE IMAGE for shape/form. Each stroke's touchesElements / startsOnElement /
 endsOnElement fields are computed EXACTLY from geometry — your element choices
 MUST be grounded in them: an action's targets must come from the elements its
@@ -631,6 +647,17 @@ export interface GroundedAction {
 
 export interface GroundedInterpretation {
   reading: string
+  /**
+   * How many of the model's actions did not survive grounding at all.
+   *
+   * Separate from `rejected`, which is a list of REASONS and mixes two very
+   * different things: an action thrown away whole, and an action that ran fine
+   * after one unusable id was ignored. Reporting the reason count as if it were
+   * the action count is actively misleading — it read as "11 of 12 actions were
+   * dropped" when every action had in fact run, each carrying one junk element
+   * id. A number shown to a user has to mean one thing.
+   */
+  droppedActions?: number
   unclear?: string
   actions: GroundedAction[]
   /** Typed notes that matched no single action — they apply to the run. */
@@ -819,6 +846,7 @@ export function groundInterpretation(
 
   return {
     reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected,
+    droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
   }
 }
