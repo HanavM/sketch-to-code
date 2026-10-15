@@ -2,13 +2,13 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 8
-lock: {run: cloud-20261015T0755, until: "2026-10-15T09:10Z"}
+next_id: 12
+lock: null
 
 nodes:
 - id: s2c-000
   parent: null
-  title: "SEED: sketch-to-code ready for strangers (see SEED.md)"
+  title: "SEED: rough sketches + a few words become real code, usable by non-coders (see SEED.md)"
   why: "The owner's outline; everything below serves it."
   done_when: "Every item in SEED.md 'Definition of done' is met."
   status: seed
@@ -24,25 +24,28 @@ nodes:
   outputs: []
   log:
   - "2026-10-15: planted from README + docs/findings.md (pre-existing work: 67+ commits, bench in tests/bench)."
+  - "2026-10-15: owner rewrote SEED.md around accessibility (INBOX). Tree re-planned: s2c-006 value 3->4; added s2c-009 rough-sketch bench, s2c-010 non-coder walkthrough, s2c-011 plain-language misread explanation + undo. Nothing pruned: no open node serves precise drawing only."
   - "2026-10-15: cloud baseline after npm ci: vitest 781/784 pass. 3 failures look environment-specific (cli deps.test linked plugin, init.test gh-create offer when gh is present, library.test unwritable home as root). Treat as baseline; never add new failures."
 
 - id: s2c-001
   parent: s2c-000
   title: "Replace the benchmark's primary metric (structure, content, order)"
   why: "findings.md says the IoU number can't tell a good page from a bad one; every later change needs a trustworthy ruler."
-  done_when: "tests/bench reports a structure/content/order score per page (IoU kept as secondary), with unit tests for the scorer, and a re-scored table of the 15 existing pages in docs/findings.md."
-  status: open
+  done_when: "tests/bench reports a structure/content/order score per page (IoU kept as secondary), with unit tests for the scorer. (The re-scored table of the 15 real pages was split off to s2c-008: it needs a live, quota-spending run.)"
+  status: done
   needs: cloud
   value: 5
   effort: 2
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T08:05Z"
   blocked_on: null
-  outputs: []
-  log: []
+  outputs:
+  - "bcf27f5 tests/bench/lib/intent.mjs (scoreIntent: structure/content/order -> intent, realized); score.mjs readElements reads parent/children/innerText/type/bg; scorePage+summarise+report+run.mjs lead with realized %; tests/bench/intent.test.ts (13); tests/bench/intent-check.mjs (zero-token, real browser); docs/findings.md 'The ruler, replaced'"
+  log:
+  - "2026-10-15: built the intent score. Real-browser check on hand-written HTML: page 12 correct-but-moved intent 1.00 realized (IoU 0%); page 05 traced squiggles 0.64 NOT realized (IoU 25%); page 05 fixed 0.93 realized (IoU 20%) — IoU ranked broken above fixed, intent splits them. vitest 799/802 (same 3 env failures), tsc -b clean. First real-DOM pass exposed text matching by area (eyebrow took the figcaption); fixed to reading-order + own-words. Done_when split: 15-page re-score -> s2c-008 (needs quota)."
 
 - id: s2c-002
   parent: s2c-000
@@ -121,11 +124,11 @@ nodes:
 - id: s2c-006
   parent: s2c-000
   title: "Make the one-word note cheap"
-  why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter."
+  why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter. Re-scored 3->4 for the accessibility seed: 'a rough sketch plus a few words' is the product."
   done_when: "Labelling a just-drawn shape takes one keystroke to start typing, with an e2e (zero-token) test."
   status: open
   needs: cloud
-  value: 3
+  value: 4
   effort: 2
   confidence: 0.7
   momentum: 0.5
@@ -148,6 +151,78 @@ nodes:
   confidence: 0.5
   momentum: 0.5
   depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-008
+  parent: s2c-001
+  title: "Re-score the 15 bench pages (x3 runs) with the intent score"
+  why: "Gives the first real 'realized %' against SEED done #1 (>=80% across 3 runs) and the baseline every later change is judged by."
+  done_when: "docs/findings.md has a per-page realized/intent table for 15 pages x 3 runs from tests/bench/run.mjs, with the IoU column beside it."
+  status: blocked-on-human
+  needs: local
+  value: 5
+  effort: 1
+  confidence: 0.8
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: "OK to spend model quota on the bench? One 15-page run was ~690k billed tokens; 3 runs ~2M. Reply 'yes, N runs' (it then runs on the Mac with instant:false as before) or 'no'."
+  outputs: []
+  log: []
+
+- id: s2c-009
+  parent: s2c-000
+  title: "Rough-sketch benchmark: deliberately loose, partial, messy sketches"
+  why: "SEED done #1 is measured on rough sketches, and the current 15 are tidy synthetic drawings. Real users scribble, skip marks, overlap and redraw."
+  done_when: "tests/bench has a 'rough' set (>=10 sketches: heavy jitter, missing/partial marks, overlaps, mostly words) selectable with a flag, each drawing and scoring end-to-end in --dry mode (zero tokens), with a unit test that the rough generators stay within stroke budget and are rougher than the tidy set by a stated measure."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 2
+  confidence: 0.7
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-010
+  parent: s2c-000
+  title: "Non-coder walkthrough (SEED done #2): audit the path, then prove it"
+  why: "The seed's test is whether someone with no React knowledge can make 3 meaningful changes. First find every step that forces them to read code or an error."
+  done_when: "docs/walkthrough-noncoder.md walks running app -> add a section, change styling, add a working form, each step checked against the current CLI/overlay (zero-token e2e where possible); every point that needs code or error-reading is listed and filed as a child node."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 3
+  confidence: 0.5
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-011
+  parent: s2c-000
+  title: "Plain-language explanation + one-click undo when a sketch is misread"
+  why: "SEED done #4: a misread sketch must say what it understood in plain words and be undoable in one step, or non-coders lose trust on the first miss."
+  done_when: "Every run with dropped/rejected actions or failed verification shows a jargon-free sentence (no ids, paths or stack traces) and an Undo that restores the files; unit tests for the message builder and a zero-token e2e for undo."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 3
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
   watered: 0
   last_watered: null
   blocked_on: null
