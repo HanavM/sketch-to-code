@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-15 06:05 PT — sketch-to-code / s2c-014 Scaffold only depictions and decorations, never widgets
+Picked because: priority 2.90 (next: s2c-002 1.65, s2c-007 1.50; fashion killed, s2c-008/013 blocked on you)
+Did: `buildScaffold` ignored fidelity, so at the default slider a plain card box or button outline was written into a `SketchShape` component labelled "drawn by the user, keep it", while the prompt said to rectify widgets. It now scaffolds only `recognized` (a drawn thing) or `verbatim` (a decoration). The trace rung still scaffolds widgets on purpose, because at resemblance ≥0.85 you asked for a copy.
+Result: 4 tests (the 2 widget tests fail on the old code). Exposure on the bench's own ink with a worst-case reading: 20/20 design pages got a box-tracing scaffold before, 0 after. Real multi-action readings are unmeasured. vitest 843/845 (same 2 env), typecheck clean. momentum 0.5 → 0.7
+New branches: none. s2c-002 (reload bug) re-scored value 5→3: the bench runs with instant off, so it can't affect the kill test.
+Pruned/done: s2c-014 done.
+Needs you: s2c-013 kill-test quota. Reply "yes" (~3M tokens), "pilot" (~1M) or "no". After s2c-007, nothing left in the cloud is worth doing without that answer, and the gardener will say so instead of inventing work.
+
 ## 2026-10-15 05:35 PT — sketch-to-code / s2c-003 Per-group fidelity (text never traced)
 Picked because: priority 1.81 (next: s2c-002 1.61, s2c-007 1.46; fashion killed, s2c-008/013 blocked on you)
 Did: the page-05 fix was prompt-only. Four deterministic parts still traced text: grounding fitted a path for every cited stroke, the pre-codegen scaffold wrote those as "keep these paths", the trace rung forced verbatim on everything, and the trace-rung composition check penalised squiggles that came back as words. The instant render also mounted squiggles as SVG. New `textmark.ts` decides from the ink (level, thin, oscillating hard). Text strokes become `textMarks` with no path, so none of those parts see them.

@@ -84,6 +84,44 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(buildScaffold(action({ region: undefined }), 0, controls())).toBeNull()
   })
 
+  /**
+   * A card box or a button outline is a WIDGET: the interpreter leaves its
+   * fidelity unset and the contract says rectify it, don't reproduce it. Before
+   * s2c-014 the default rung still wrote its wobbly outline into a component
+   * labelled "drawn by the user, keep it".
+   */
+  describe('widgets are rectified, not scaffolded', () => {
+    const box = 'M2,3 L118,1 L121,62 L4,66'          // a rough, unclosed card
+    const widget = (over: Partial<GroundedAction> = {}) => action({
+      region: { x: 40, y: 200, w: 124, h: 68 },
+      svgPaths: [{ strokeId: 's3', d: box }],
+      depicts: undefined, fidelity: undefined,
+      instruction: 'pricing card', ...over,
+    })
+
+    it('a widget design action gets no scaffold at the default rung', () => {
+      expect(buildScaffold(widget(), 0, controls())).toBeNull()
+      expect(buildScaffold(widget({ kind: 'add' }), 0, controls())).toBeNull()
+    })
+
+    it('nor at normalize or rebuild', () => {
+      expect(buildScaffold(widget(), 0, controls({ resemblance: 0.4 }))).toBeNull()
+      expect(buildScaffold(widget(), 0, controls({ resemblance: 0.7 }))).toBeNull()
+    })
+
+    it('a depiction and a decoration still do, at the same rung', () => {
+      expect(buildScaffold(action(), 0, controls())).not.toBeNull()
+      const wave = buildScaffold(widget({ fidelity: 'verbatim', depicts: 'wave' }), 0, controls())!
+      expect(wave.code).toContain(box)
+    })
+
+    it("at the trace rung run2 marks every drawn form 'verbatim', widgets included, and they are scaffolded", () => {
+      // mirrors run2: rung === 'trace' -> a.fidelity = 'verbatim' for any action with paths
+      const traced = widget({ fidelity: 'verbatim' })
+      expect(buildScaffold(traced, 0, controls({ resemblance: 0.9 }))).not.toBeNull()
+    })
+  })
+
   it('never reuses a name already taken in the same run', () => {
     const taken = new Set<string>()
     const a = buildScaffold(action(), 0, controls(), { dir: 'src/components', taken })!

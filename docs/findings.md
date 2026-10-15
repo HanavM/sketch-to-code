@@ -332,6 +332,26 @@ much this moves realized % on a live run. That needs quota (s2c-008/s2c-013),
 and it matters for the kill test, because the structured arm was being handed
 traced squiggles on every design page.
 
+### Widgets were scaffolded too (seed2tree s2c-014)
+
+The same scaffold had a second leak: it ignored `fidelity` entirely. A card
+box or a button outline is a widget (the interpreter leaves fidelity unset and
+the contract says *rectify, don't reproduce*), yet at the default rung
+(resemblance 0.5, normalize) its wobbly outline went into a `SketchShape`
+component marked "drawn by the user, keep it". `buildScaffold` now returns
+null unless the action is `recognized` (a drawn thing) or `verbatim` (a
+decoration). The trace rung is unchanged on purpose: run2 marks every action
+with paths `verbatim` there, so at resemblance >= 0.85 widgets are traced,
+which is what that slider position asks for.
+
+Exposure, measured on the bench's own ink with a worst-case reading (one
+design action over the whole page, fidelity unset, default rung): **20 of 20**
+design pages (15 tidy, 5 rough new-UI) got a box-tracing scaffold before; 0
+after. The 6 rough edit pages are gestures and never scaffold. Real readings
+split pages into several actions, so the true count is lower and still
+unmeasured without a saved run. 4 tests in `scaffold.test.ts`; the two
+widget tests fail on the old code.
+
 ## Honest limits of this study
 
 - **One run per page.** Model output varies; two runs of page 01 scored 40% and

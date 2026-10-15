@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 15
-lock: {run: cloud-20261015T1255, until: "2026-10-15T14:10Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -56,7 +56,7 @@ nodes:
   done_when: "With instant render on, a run whose page reloads mid-interpret still completes; covered by a unit/integration test that simulates the reload."
   status: open
   needs: cloud
-  value: 5
+  value: 3
   effort: 3
   confidence: 0.6
   momentum: 0.5
@@ -65,7 +65,8 @@ nodes:
   last_watered: null
   blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: re-scored value 5->3 (s2c-014 run). The bench runs with instant:false, so this bug cannot affect the kill test (s2c-013); it only matters if the kill test says PURSUE. Do not water before that verdict unless nothing else is open."
 
 - id: s2c-003
   parent: s2c-000
@@ -287,16 +288,18 @@ nodes:
   title: "Scaffold only depictions and decorations, never widgets"
   why: "Found in s2c-003: layScaffolds writes a 'keep these paths' SVG component for EVERY add/design action with paths, including widget actions (fidelity null: a card box, a button outline). That contradicts the prompt's rectify-don't-reproduce rule for widgets and hands the structured arm traced boxes on every design page of the kill test."
   done_when: "buildScaffold (or layScaffolds) skips actions whose fidelity is not 'recognized'/'verbatim', with a test that a widget design action gets no scaffold at the default rung while a depiction still does; trace-rung behaviour decided and stated in a comment."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T13:05Z"
   blocked_on: null
-  outputs: []
+  outputs:
+  - "packages/pipeline/src/scaffold.ts buildScaffold returns null unless fidelity is recognized|verbatim (trace-rung behaviour stated in comment); packages/pipeline/tests/scaffold.test.ts +4 (widgets are rectified, not scaffolded); docs/findings.md 'Widgets were scaffolded too'"
   log:
   - "2026-10-15: added by s2c-003. Read from code, not observed in a run: check a saved .sketch2code/runs/*/scaffolds.json from a bench run if one exists on the Mac before trusting the size of the effect."
+  - "2026-10-15: fixed at buildScaffold (covers run2 layScaffolds; instant already passes recognized). Widget (fidelity unset) -> no scaffold at reinterpret/normalize/rebuild; depiction + decoration still scaffold; trace rung still scaffolds widgets because run2 rewrites all path actions to verbatim there (deliberate: resemblance>=0.85 = reproduce). The 2 widget tests fail on old code. Exposure on bench ink, worst-case reading (one design action, fidelity unset, default rung): 20/20 design pages (15 tidy + 5 rough) scaffolded a traced box before, 0 after; real multi-action readings unmeasured. vitest 843/845 (same 2 env failures), typecheck clean. done_when met."

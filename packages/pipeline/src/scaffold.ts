@@ -82,6 +82,17 @@ export function buildScaffold(
   const region: BBox | undefined = action.region
   if (paths.length === 0 || !region || region.w < 1 || region.h < 1) return null
   if (rungFor(fidelity.resemblance) === 'reinterpret') return null
+  // Only a drawn THING or a drawn decoration has geometry worth keeping. A
+  // widget (fidelity unset: a card box, a button outline, an input line) is a
+  // request for the app's own component, and the contract says rectify it,
+  // don't reproduce it. Writing its wobbly outline as "the user's strokes,
+  // keep them" would hand codegen a traced box on every design page.
+  //
+  // Trace rung: run2 rewrites every action with paths to 'verbatim' before
+  // this is called, so widgets ARE scaffolded there. That is deliberate: at
+  // resemblance >= 0.85 the user has said "reproduce what I drew", widgets
+  // included. Text squiggles are still never in `paths` (grounding drops them).
+  if (action.fidelity !== 'recognized' && action.fidelity !== 'verbatim') return null
 
   let name = componentName(action.depicts)
   const taken = opts.taken ?? new Set<string>()
