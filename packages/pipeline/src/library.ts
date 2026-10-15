@@ -35,7 +35,7 @@
  * a volume that vanished; none of that is a reason to lose the capture they
  * just made, so the mirror degrades to project-only and says so in a `note`.
  */
-import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { parse } from '@babel/parser'
@@ -841,7 +841,10 @@ export function captureEntry(root: string, req: CaptureRequest): CaptureResult {
   // Similar, not the same — offered so the UI can say "you drew this before",
   // and never allowed to decide anything on its own.
   const duplicateOf = signature
-    ? nearest(signature, [...entries, ...readIndex(globalLibraryDirSafe(root) ?? '')].filter(
+    ? nearest(signature, [
+        ...entries.filter((e) => staleReason(root, e) === undefined),
+        ...readIndex(globalLibraryDirSafe(root) ?? ''),
+      ].filter(
         (e) => e.id !== id && !(e.file === rel && e.exportName === exportName),
       ))
     : undefined
@@ -928,6 +931,68 @@ function mirrorToGlobal(projectDir: string, entry: LibraryEntry): string | undef
   }
 }
 
+// ── is a project entry still true of the source? ────────────────────────────
+
+/**
+ * Why a project entry no longer describes this project, or nothing if it does.
+ *
+ * `.sketch2code/` is gitignored, so the library outlives `git clean`, a branch
+ * switch, a revert, or a file deleted by hand. The benchmark found what that
+ * costs: a row left over from an earlier session turned a scratch-out — the
+ * gesture for *delete* — into a placed component. An entry is a POINTER at code
+ * (library-types.ts); a pointer at code that is not there is not an entry, it
+ * is a memory, and a memory must not decide what lands in someone's source.
+ *
+ * So every read checks the pointer against the file as it is now: the file
+ * must exist inside the project and still declare the export as a component.
+ * Stale rows are HIDDEN, not deleted — a `git checkout` can bring the file
+ * back, and then the row, its thumbnail and its use count are simply live
+ * again. Global rows are not checked: their `file` names a path in whichever
+ * project captured them, and a portable entry carries its own source.
+ *
+ * Cached on path + mtime + size so the per-stroke search does not re-parse a
+ * whole library on every pen-up.
+ */
+const liveCache = new Map<string, { stamp: string; reason: string | undefined }>()
+
+export function staleReason(root: string, entry: Pick<LibraryEntry, 'file' | 'exportName'>): string | undefined {
+  if (!safeRel(entry.file)) return `${entry.file} is not a path inside this project.`
+  const rootAbs = resolve(root)
+  const abs = resolve(rootAbs, entry.file)
+  if (!abs.startsWith(rootAbs + sep)) return `${entry.file} is not a path inside this project.`
+  let stamp: string
+  try {
+    const st = statSync(abs)
+    if (!st.isFile()) return `${entry.file} is no longer a file.`
+    stamp = `${String(st.mtimeMs)}:${String(st.size)}`
+  } catch {
+    return `${entry.file} no longer exists.`
+  }
+  const key = `${abs}\0${entry.exportName}`
+  const hit = liveCache.get(key)
+  if (hit && hit.stamp === stamp) return hit.reason
+  let reason: string | undefined
+  try {
+    const code = readFileSync(abs, 'utf8')
+    const ast = parse(code, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
+    const { resolved, error } = resolveExport(code, ast.program.body, entry.file, entry.exportName)
+    reason = resolved ? undefined : error ?? `${entry.file} no longer declares "${entry.exportName}".`
+  } catch {
+    // Mid-edit files fail to parse all the time. The file is there and the
+    // user is typing in it; hiding their component for a keystroke would make
+    // the panel flicker, so an unparseable file counts as live.
+    reason = undefined
+  }
+  if (liveCache.size > 1000) liveCache.clear()
+  liveCache.set(key, { stamp, reason })
+  return reason
+}
+
+/** This project's own rows that still point at real code. */
+function liveProjectEntries(root: string): LibraryEntry[] {
+  return readIndex(libraryDir(root)).filter((e) => staleReason(root, e) === undefined)
+}
+
 // ── reading the library ─────────────────────────────────────────────────────
 
 /**
@@ -939,7 +1004,8 @@ function mirrorToGlobal(projectDir: string, entry: LibraryEntry): string | undef
  * leave the panel unable to say "you already have this".
  */
 export function listEntries(root: string): ListedEntry[] {
-  const mine = readIndex(libraryDir(root))
+  // stale rows are hidden here, and so from find, search and place — see staleReason
+  const mine = liveProjectEntries(root)
   const globalDir = globalLibraryDirSafe(root)
   const theirs = globalDir ? readIndex(globalDir) : []
   const names = new Set(mine.map((e) => e.name))

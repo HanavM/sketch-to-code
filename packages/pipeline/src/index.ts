@@ -29,7 +29,7 @@ export type { FidelityControls, FidelityKeep, RenderRung } from './fidelity.js'
 export {
   bumpUsed, captureEntry, entrySignature, matchScore, searchLibrary, entryThumbPath, findEntry, globalLibraryDir,
   globalLibraryIndexPath, libraryDir, libraryIndexPath, listEntries, pruneLibrary, removeEntry,
-  signatureSimilarity,
+  signatureSimilarity, staleReason,
 } from './library.js'
 export type { LibraryMatch } from './library.js'
 export { shapeFromStrokes, shapeSignature } from './shape-signature.js'

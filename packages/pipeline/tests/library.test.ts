@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path'
 import {
   bumpUsed, captureEntry, entrySignature, entryThumbPath, findEntry, globalLibraryDir,
   libraryDir, libraryIndexPath, listEntries, matchScore, pruneLibrary, removeEntry,
-  searchLibrary, signatureSimilarity,
+  searchLibrary, signatureSimilarity, staleReason,
 } from '../src/library.js'
 import { shapeFromStrokes, shapeSignature } from '../src/shape-signature.js'
 
@@ -527,7 +527,9 @@ describe('staying bounded', () => {
     writeFileSync(libraryIndexPath(root), JSON.stringify(full))
 
     const e = captureEntry(root, { file: 'src/Badge.tsx', exportName: 'Badge', kind: 'drawn' }).entry!
-    const ids = listEntries(root).filter((r) => r.home === 'project').map((r) => r.id)
+    // read the index itself: these rows point at files that were never written,
+    // so listEntries would (rightly) hide them as stale
+    const ids = (JSON.parse(readFileSync(libraryIndexPath(root), 'utf8')) as { id: string }[]).map((r) => r.id)
     expect(ids).toHaveLength(200)
     expect(ids).toContain(e.id)
     // the oldest of the equally-used rows is the one that went
@@ -647,5 +649,71 @@ describe('searching the library by drawing at it', () => {
     })
     expect(cap.entry!.aspect).toBeCloseTo(2.5, 1)
     expect(listEntries(root)[0]!.aspect).toBeCloseTo(2.5, 1)
+  })
+})
+
+describe('an entry whose code is gone (the library outlives git clean)', () => {
+  // .sketch2code/ is gitignored, so the index survives the files it points at
+  const card = `export function Card() {\n  return <div className="card">card</div>\n}\n`
+  const grid = Array.from({ length: 16 }, (_, i) => (i % 3 === 0 ? 1 : 0))
+
+  it('hides a row whose file was deleted, from list, find and search alike', () => {
+    const root = project({ 'src/Card.tsx': card, 'src/Keep.tsx': PORTABLE.replace(/Badge/g, 'Keep') })
+    const gone = captureEntry(root, { file: 'src/Card.tsx', exportName: 'Card', kind: 'drawn', signature: grid })
+    const kept = captureEntry(root, { file: 'src/Keep.tsx', exportName: 'Keep', kind: 'drawn', signature: grid })
+    expect(gone.ok && kept.ok).toBe(true)
+    // what `git clean -fd` does to a component a run created
+    rmSync(join(root, 'src/Card.tsx'))
+
+    const project_ = listEntries(root).filter((e) => e.home === 'project')
+    expect(project_.map((e) => e.name)).toEqual(['Keep'])
+    // placement goes through findEntry: the stale project row cannot be placed
+    const found = findEntry(root, gone.entry!.id)
+    expect(found?.home).not.toBe('project')
+    expect(searchLibrary(root, { signature: grid }).some((m) => m.entry.home === 'project' && m.entry.name === 'Card')).toBe(false)
+    expect(staleReason(root, gone.entry!)).toContain('no longer exists')
+  })
+
+  it('hides a row whose file no longer exports the component', () => {
+    const root = project({ 'src/Card.tsx': card })
+    const r = captureEntry(root, { file: 'src/Card.tsx', exportName: 'Card', kind: 'drawn' })
+    expect(r.ok).toBe(true)
+    writeFileSync(join(root, 'src/Card.tsx'), `export function Panel() {\n  return <div>panel</div>\n}\n`)
+    expect(listEntries(root).filter((e) => e.home === 'project')).toEqual([])
+    expect(staleReason(root, r.entry!)).toContain('Card')
+  })
+
+  it('does not delete the row: when the file comes back, so does the entry and its use count', () => {
+    const root = project({ 'src/Card.tsx': card })
+    const r = captureEntry(root, { file: 'src/Card.tsx', exportName: 'Card', kind: 'drawn' })
+    bumpUsed(root, r.entry!.id)
+    rmSync(join(root, 'src/Card.tsx'))
+    expect(listEntries(root).some((e) => e.home === 'project')).toBe(false)
+    expect(existsSync(libraryIndexPath(root))).toBe(true)
+    writeFileSync(join(root, 'src/Card.tsx'), card)
+    const back = listEntries(root).find((e) => e.home === 'project')
+    expect(back?.id).toBe(r.entry!.id)
+    expect(back?.usedCount).toBe(1)
+  })
+
+  it('treats a file that is mid-edit (does not parse) as live rather than flickering', () => {
+    const root = project({ 'src/Card.tsx': card })
+    const r = captureEntry(root, { file: 'src/Card.tsx', exportName: 'Card', kind: 'drawn' })
+    writeFileSync(join(root, 'src/Card.tsx'), `export function Card() {\n  return <div className=\n`)
+    expect(staleReason(root, r.entry!)).toBeUndefined()
+    expect(listEntries(root).some((e) => e.id === r.entry!.id)).toBe(true)
+  })
+
+  it('does not offer a stale project row as "you drew this before"', () => {
+    // a relative import keeps it out of the global library, which carries its
+    // own source and is not checked against this project's files
+    const local = `import './card.css'\n${card}`
+    const root = project({ 'src/Card.tsx': local, 'src/Card2.tsx': local.replace('Card()', 'Card2()') })
+    const first = captureEntry(root, { file: 'src/Card.tsx', exportName: 'Card', kind: 'drawn', signature: grid })
+    expect(first.ok).toBe(true)
+    rmSync(join(root, 'src/Card.tsx'))
+    const second = captureEntry(root, { file: 'src/Card2.tsx', exportName: 'Card2', kind: 'drawn', signature: grid })
+    expect(second.ok).toBe(true)
+    expect(second.duplicateOf).toBeUndefined()
   })
 })

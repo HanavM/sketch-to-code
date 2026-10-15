@@ -171,6 +171,12 @@ All three were found by *instrumenting* the system, not by the measurements.
   gitignored. A stale entry from an earlier session turned a scratch-out — a
   gesture that means *delete* — into a placed component. For a user this is worse
   than for a test: your scribble silently becomes something you drew last week.
+  *Fixed on `seed2tree` (s2c-004):* every library read now checks a project
+  row against the file as it is now (exists, still declares the export as a
+  component) and hides it otherwise; hidden, not deleted, so a checkout brings
+  it back. Not yet established: which path carried the stale row into that run
+  — the store is now the gate for list/search/place, but the codegen agent can
+  still `Read`/`Grep` `.sketch2code/` directly (s2c-007).
 - **Partial-rejection reporting conflated two things** and I nearly fixed the
   wrong bug because of it. `rejected` is a list of reasons; an unresolvable
   element id does not kill a design action, whose region comes from its strokes.
