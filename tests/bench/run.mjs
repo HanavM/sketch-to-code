@@ -37,12 +37,20 @@
  *   node tests/bench/run.mjs --limit 1            # calibrate cost on one page
  *   node tests/bench/run.mjs --dry                # draw and score, never Run (free)
  *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
+ *   node tests/bench/run.mjs --set rough          # the loose/partial/edit set (s2c-009)
+ *
+ * In --dry mode every page is also SCORED as it stands, untouched. No sketch
+ * has been realized yet, so a page that scores realized there has a vacuous
+ * answer key, and the runner fails it: that is the zero-token check that each
+ * spec measures the change it asks for and not something the page already had.
  */
 import { chromium } from 'playwright'
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
-import specs from './sketches/index.mjs'
+import tidy from './sketches/index.mjs'
+import rough from './sketches/rough/index.mjs'
+import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
 import { toStrokes } from './lib/draw.mjs'
 import { makeApp } from './lib/app.mjs'
 import { execFileSync } from 'node:child_process'
@@ -73,6 +81,10 @@ const APP_DIR = String(arg('app', join(tmpdir(), 's2c-bench-app')))
 const PORT = Number(arg('port', 5301))
 const DRY = has('dry')
 const MODE = parseMode(arg('mode'))
+const SETS = { tidy, rough }
+const SET = String(arg('set', 'tidy'))
+if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
+const specs = SETS[SET]
 const log = (...a) => console.log('[bench]', ...a)
 
 const only = arg('only')
@@ -88,7 +100,7 @@ if (chosen.length === 0) throw new Error(`no specs matched --only ${String(only)
 mkdirSync(OUT, { recursive: true })
 mkdirSync(join(OUT, 'shots'), { recursive: true })
 
-log(`${chosen.length} page(s) · mode ${MODE}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
+log(`${chosen.length} page(s) · set ${SET} · mode ${MODE}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
 log('building the throwaway app…')
 const app = await makeApp({ dir: APP_DIR, port: PORT })
 log('app:', APP_DIR)
@@ -156,8 +168,30 @@ async function drawPolyline(page, points) {
  * clean — the run history, the drawn rules, and the component library, which
  * would otherwise let page 7 build out of parts page 1 happened to leave behind.
  */
+const GIT_ID = ['-c', 'user.name=bench', '-c', 'user.email=bench@localhost', '-c', 'commit.gpgsign=false']
+/**
+ * The blank app's commit. An edit page commits its base page on top of it
+ * (prepareBase) so the model's checkpoint and changedFiles() see the base as
+ * the starting point; every reset goes back here. Found by message rather than
+ * as HEAD, so a run that died mid-page cannot make a base page the new blank.
+ */
+function blankCommit(dir) {
+  const out = execFileSync('git', ['log', '--format=%H %s', '-50'], { cwd: dir, encoding: 'utf8' })
+  const line = out.split('\n').find((l) => l && !/ bench: base for /.test(l))
+  if (!line) throw new Error('no blank commit in the scratch app')
+  return line.split(' ')[0]
+}
+
+function prepareBase(dir, spec) {
+  if (!spec.base) return
+  writeFileSync(join(dir, 'src', 'App.tsx'), spec.base)
+  execFileSync('git', [...GIT_ID, 'add', 'src'], { cwd: dir, stdio: 'pipe' })
+  execFileSync('git', [...GIT_ID, 'commit', '-q', '-m', `bench: base for ${spec.id}`], { cwd: dir, stdio: 'pipe' })
+}
+
 function resetSrc(dir) {
   const git = (...args) => execFileSync('git', args, { cwd: dir, stdio: 'pipe' })
+  git('reset', '-q', '--hard', blankCommit(dir))
   git('checkout', '--', 'src')
   git('clean', '-fdq', 'src')
   for (const gone of ['server', '.sketch2code/runs', '.sketch2code/library', '.sketch2code/rules.json']) {
@@ -218,6 +252,7 @@ for (const spec of chosen) {
     // parts page 1 happened to leave lying around, which is a benchmark
     // measuring itself.
     resetSrc(APP_DIR)
+    prepareBase(APP_DIR, spec)
     server = await app.start()
     await page.goto(server.url, { waitUntil: 'networkidle' })
     await page.waitForFunction(() => window.__S2C_DEBUG__ != null, { timeout: 20000 })
@@ -225,6 +260,14 @@ for (const spec of chosen) {
     // and if it still went away, say so as itself rather than as a TypeError
     const alive = () => page.evaluate(() => window.__S2C_DEBUG__ != null)
     if (!(await alive())) throw new Error('the overlay was not ready on a freshly started server')
+
+    // an edit page's marks are hard-coded onto the base page's layout: if that
+    // layout moved, the marks land on the wrong things and the page measures
+    // nothing. Refuse rather than score it.
+    if (spec.anchors?.length) {
+      const drift = driftedAnchors(await measureAnchors(page, spec.anchors))
+      if (drift.length) throw new Error(`base page layout drifted, marks would miss: ${drift.join('; ')}`)
+    }
 
     // manual, so nothing fires while the sketch is still being drawn
     for (let i = 0; i < 4; i++) {
@@ -302,6 +345,16 @@ for (const spec of chosen) {
     if (DRY) {
       // not an error: a dry page did exactly what was asked of it
       row.dry = true
+      // ...and score the page untouched: nothing was built, so nothing can be
+      // realized. If it is, the spec's answer key is vacuous.
+      await page.evaluate(() => {
+        const h = document.getElementById('s2c-overlay-host')
+        if (h) h.style.display = 'none'
+      })
+      row.score = await scorePage(page, spec)
+      const s = row.score
+      log(`untouched page: intent ${s.intent === null ? '—' : s.intent.toFixed(2)} · realized ${String(s.realized)}`)
+      if (s.realized) row.error = 'the untouched page already scores realized: this spec measures nothing'
       results.push(row)
       await page.close()
       continue

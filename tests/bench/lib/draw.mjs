@@ -108,7 +108,7 @@ export const NOISE = 0.9
 // ---------------------------------------------------------------------------
 
 /** mulberry32 — small, fast, deterministic. */
-function rngFrom(seed) {
+export function rngFrom(seed) {
   let a = seed >>> 0
   return function next() {
     a = (a + 0x6d2b79f5) | 0
@@ -134,7 +134,7 @@ export function seedFrom(...nums) {
  * point every `period` samples, cosine-interpolated. White noise per sample
  * would be a tremor at 60Hz, which no hand has.
  */
-function smoothSeries(n, rng, period = 5) {
+export function smoothSeries(n, rng, period = 5) {
   const ctrl = []
   for (let i = 0; i < Math.ceil(n / period) + 2; i++) ctrl.push(rng() * 2 - 1)
   const out = []
@@ -163,7 +163,7 @@ function dropDuplicates(pts, eps = 0.01) {
 
 /** Walk a waypoint path at ~`spacing` px, keeping every waypoint exactly (so
  *  corners stay sharp — the classifier counts corners to tell rect from blob). */
-function walk(waypoints, spacing) {
+export function walk(waypoints, spacing) {
   const wp = dropDuplicates(waypoints)
   if (wp.length < 2) return wp.slice()
   const out = [{ x: wp[0].x, y: wp[0].y }]
@@ -184,11 +184,11 @@ function walk(waypoints, spacing) {
  * Applied by default inside every primitive; exported so specs can wobble their
  * own paths. `amount` is the peak offset in px (see the header for the ceiling).
  */
-export function jitter(points, amount = NOISE, seed = 1) {
+export function jitter(points, amount = NOISE, seed = 1, period = 5) {
   if (amount <= 0 || points.length < 2) return points.map((p) => ({ x: p.x, y: p.y }))
   const rng = rngFrom(seed)
   const n = points.length
-  const series = smoothSeries(n, rng)
+  const series = smoothSeries(n, rng, period)
   const out = []
   for (let i = 0; i < n; i++) {
     const a = points[Math.max(0, i - 1)]

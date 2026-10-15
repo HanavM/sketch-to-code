@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 14
-lock: {run: cloud-20261015T1055, until: "2026-10-15T12:10Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -27,6 +27,7 @@ nodes:
   - "2026-10-15: owner rewrote SEED.md around accessibility (INBOX). Tree re-planned: s2c-006 value 3->4; added s2c-009 rough-sketch bench, s2c-010 non-coder walkthrough, s2c-011 plain-language misread explanation + undo. Nothing pruned: no open node serves precise drawing only."
   - "2026-10-15: cloud baseline after npm ci: vitest 781/784 pass. 3 failures look environment-specific (cli deps.test linked plugin, init.test gh-create offer when gh is present, library.test unwritable home as root). Treat as baseline; never add new failures."
   - "2026-10-15: s2c-012 validation verdict PIVOT (seed2tree/VALIDATION.md). Non-coder/launch framing stopped: Cursor Design Mode, Lovable draw-annotation, v0/Bolt visual edits, Onlook, Annotask already ship it. Remaining question: does structured grounding beat screenshot-style input on rough sketches (s2c-013, kill criterion >=15 pts). Pruned s2c-005/006/010/011."
+  - "2026-10-15: s2c-009 rough set done (11 pages, 6 gesture edits). The kill test s2c-013 now waits only on the owner's quota answer."
 
 - id: s2c-001
   parent: s2c-000
@@ -184,19 +185,21 @@ nodes:
   title: "Rough-sketch benchmark: deliberately loose, partial, messy sketches"
   why: "SEED done #1 is measured on rough sketches, and the current 15 are tidy synthetic drawings. Real users scribble, skip marks, overlap and redraw."
   done_when: "tests/bench has a 'rough' set (>=10 sketches: heavy jitter, missing/partial marks, overlaps, mostly words) selectable with a flag, of which >=4 are EDITS on an existing page (auto mode must send gesture for them — the current 15 all read as design), each drawing and scoring end-to-end in --dry mode (zero tokens), with a unit test that the rough generators stay within stroke budget and are rougher than the tidy set by a stated measure."
-  status: open
+  status: done
   needs: cloud
   value: 5
   effort: 2
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T11:15Z"
   blocked_on: null
-  outputs: []
+  outputs:
+  - "tests/bench/lib/rough.mjs (rbox/rline/rring/rtext/rscribble/rarrow + sharpTurns/deviation/closingGap); tests/bench/sketches/rough/ (base.mjs landing page + measured ANCHORS, r01-r11); run.mjs --set tidy|rough, prepareBase (commits the base page on the blank app), anchor-drift guard, --dry now scores the untouched page and fails a vacuous spec; intent.mjs scoreEdits (absent/present/kept/above/bg) + hueOf; score.mjs records bg; tests/bench/rough.test.ts (24); tests/bench/rough-check.mjs (zero-token, real browser); docs/findings.md 'The rough set'"
   log:
   - "2026-10-15: s2c-012 found all current bench pages read as design in auto mode, so the gesture grammar (the only unclaimed feature) is never measured; done_when now requires >=4 edit-on-existing-UI pages. Now the prerequisite for s2c-013."
+  - "2026-10-15: built the rough set: 11 pages, <=4 marks each, 6 EDITS on a committed base landing page (scribble-delete card, strike+rewrite headline, ring+restyle button green, arrow-move quote, 3-sided box add newsletter in footer, X-out nav link) + 5 new-UI pages (mostly words, partial pricing, overdrawn form, unclosed skewed cards, sloppy nav+hero). --set rough --dry: 11/11 draw, all 6 edits send gesture and 5 send design in auto, all score NOT realized untouched. rough-check.mjs: every edit spec fails untouched and passes when the change is made by hand. Rougher: deviation from intended shape >=3x tidy for box/line/ring, boxes leave >8px closing gap; 2.7 note words/mark vs 1.8. Every rough non-scribble mark stays <4 sharp turns by the reader's own resampler, so roughness never turns a ring into a delete. vitest 829/831 (same 2 env failures), tsc clean. LIMIT: roughness is synthetic, my model of a hurried hand, not recorded human sketches. done_when met."
 
 - id: s2c-010
   parent: s2c-000
@@ -273,6 +276,6 @@ nodes:
   depth: 2
   watered: 0
   last_watered: null
-  blocked_on: "needs s2c-009 first, and spends quota (~4M billed tokens for 2 arms x 3 runs at the tidy set's ~0.69M/run) — same yes/no as s2c-008."
+  blocked_on: "s2c-009 is done; only quota remains. Rough set = 11 pages x 2 arms (auto, screenshot) x 3 runs. Pages are smaller than the tidy ones; estimate ~0.5M billed tokens per arm-run, ~3M total, unmeasured. Reply 'yes' (run on the Mac: node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot, x3; calibrate with --limit 1 first), 'pilot' (1 run each arm, ~1M), or 'no'."
   outputs: []
   log: []

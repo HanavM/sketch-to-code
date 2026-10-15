@@ -196,6 +196,68 @@ a `kind:`; when two regions are the same kind (two headings), they are matched
 in reading order, so a swap of two same-kind blocks is invisible to `order` —
 a person couldn't tell those apart either without reading the words.
 
+## The rough set (seed2tree s2c-009)
+
+*Added 2026-10-15.* The fifteen tidy pages are careful drawings: closed boxes,
+square corners, up to 12 marks a page. SEED.md says real users won't draw like
+that, and s2c-012 found something worse: every tidy page is drawn on a blank
+page, so all fifteen read as `design` in auto mode and **the gesture grammar —
+delete, rewrite, restyle, move — has never been measured at all.**
+
+`node tests/bench/run.mjs --set rough` runs eleven new pages, at most 4 marks
+each, drawn with `tests/bench/lib/rough.mjs` (boxes that don't close, corners
+that overshoot, sides that bow and skew, partial boxes, a drifting ring, a
+one-stroke arrow, a loose scribble):
+
+| page | what is drawn | auto sends |
+|---|---|---|
+| r01 | one scribble over the third feature card, no words | gesture |
+| r02 | sloppy strike-through on the headline + "say: Sketch it. Ship it." | gesture |
+| r03 | lopsided ring round the button + "bigger and green" | gesture |
+| r04 | one wobbly arrow from the testimonial up to the features + a note | gesture |
+| r05 | three-sided box on the footer + "newsletter: email box + Subscribe button" | gesture |
+| r06 | two-stroke X over the "Pricing" nav link, no words | gesture |
+| r07 | a hero from one line, one box and two notes | design |
+| r08 | two pricing boxes and an L-shaped third; the note says three tiers | design |
+| r09 | a signup form with one field drawn twice, one-word labels | design |
+| r10 | three skewed unclosed cards under a squiggle; the note names them | design |
+| r11 | nav + hero from an unclosed bar, a dented ring, a squiggle, a 3-sided button | design |
+
+r01–r06 start from an ordinary landing page (`sketches/rough/base.mjs`) that
+the runner commits on top of the blank app before drawing, so the model's
+checkpoint sees it as the starting point. Their marks are hard-coded to where
+that page renders; the runner re-measures those elements first and refuses the
+page if anything moved by more than 12 px.
+
+**Scoring an edit.** Presence is meaningless on an edit page (the base already
+has every block), so edit specs list facts about the page afterwards instead:
+`absent` (deleted), `present` (added, by kind and words), `kept` (no collateral
+damage), `above` (moved), `bg` (restyled, by hue; Tailwind v4 reports oklch).
+Realized = ≥ 0.8 of the checks hold and every `must` holds.
+
+**Rougher by a stated measure** (`tests/bench/rough.test.ts`): mean distance
+of the stroke from the shape it stands for is ≥ 3× the tidy primitive's for
+boxes, lines and rings, and rough boxes leave a closing gap > 8 px (tidy: < 1).
+The set is also wordier: 2.7 typed words per mark against the tidy set's 1.8.
+
+**Roughness never changes the meaning of a mark.** The reader treats ≥ 4 sharp
+turns confined to one element as DELETE. Every rough box, line, ring and arrow
+stays under 4 by the reader's own count (checked against `@s2c/ink`'s
+resampler over 20 sizes each); the scribble stays over it. More tremor would
+have turned "restyle this button" into "delete this button".
+
+**Zero-token checks, all passing:**
+
+- `--set rough --dry`: all 11 pages draw (every mark registers), the 6 edits
+  send `gesture` and the 5 new-UI pages send `design` in auto mode, and every
+  page scores **not realized untouched** (the runner now fails any page whose
+  untouched state scores realized: a vacuous answer key).
+- `node tests/bench/rough-check.mjs`: on a real DOM, each edit spec fails on
+  the base page and passes once the asked-for change is made by hand.
+
+Not done: no paid run. The rough set is the input to s2c-013, the
+structure-vs-screenshot kill test, which still waits on a quota decision.
+
 ## Bugs found while building this
 
 All three were found by *instrumenting* the system, not by the measurements.

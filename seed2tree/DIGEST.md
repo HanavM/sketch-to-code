@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-15 04:15 PT — sketch-to-code / s2c-009 Rough-sketch benchmark
+Picked because: priority 2.31 (next: s2c-003 1.76, s2c-002 1.56; fashion is killed, nothing to water there)
+Did: `--set rough`: 11 pages at most 4 marks each, drawn with new loose primitives (unclosed/skewed/partial boxes, drifting ring, one-stroke arrow, scribble). 6 are EDITS on a committed base landing page (delete card, rewrite headline, restyle button, move quote, add newsletter, X-out nav link): the first time the gesture grammar is in the bench at all. Edit pages are scored by checks (absent/present/kept/above/bg). Commit below.
+Result: zero-token only. --dry: 11/11 draw; auto sends gesture on all 6 edits, design on the 5 new-UI pages; every page scores NOT realized untouched (runner now fails a vacuous spec). rough-check.mjs: every edit spec passes once the change is made by hand. Rougher by stated measure (>=3x shape deviation, open boxes, 2.7 vs 1.8 words/mark) without crossing the reader's delete threshold. Caveat: the roughness is my synthetic model of a hurried hand, not recorded human sketches. vitest 829/831 (same 2 env), tsc clean. momentum 0.5 → 0.7
+New branches: none. The next useful step is the kill test (s2c-013), and that is your quota call, not more building.
+Pruned/done: s2c-009 done.
+Needs you: s2c-013 kill test is now unblocked except quota: reply "yes" (~3M tokens, 2 arms x 3 runs, on the Mac), "pilot" (~1M, 1 run each arm) or "no". Without it, remaining open work (s2c-002/003/007) is polishing a product the validation said loses.
+
 ## 2026-10-15 02:05 PT — sketch-to-code / s2c-012 VALIDATE — verdict: **PIVOT** (product framing is dead)
 Picked because: validate node, priority 4.98 (next: fash-007 validate 4.35, s2c-009 2.31)
 Did: competitor sweep with links in seed2tree/VALIDATION.md. Drawing on a running app to edit code already ships: Cursor Design Mode (draw over live UI, Jun 2026), Lovable Draw annotation (cleans rough shapes, aimed at non-coders), v0 annotations, Bolt visual edits, Onlook (Vite, 26k stars), Annotask (MIT Vite plugin, same idea), Claude Code Desktop element-select. Non-coders use those hosted tools and won't run a local Vite plugin; devs already have Cursor. "Sketch2Code" is also a NAACL'25 benchmark's name. Built bench `--mode auto|gesture|design|screenshot` so the one open question can be measured (commit below).

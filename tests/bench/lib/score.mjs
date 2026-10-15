@@ -250,6 +250,7 @@ async function readElements(page, { shellSelector, overlayHostId }) {
         value: typeof el.value === 'string' ? el.value : '',
         ariaRole: el.getAttribute('role'),
         bgImage: cs.backgroundImage !== 'none',
+        bg,
         filled: (bg && bg !== 'transparent' && !/rgba\(.*,\s*0\)$/.test(bg)) || parseFloat(cs.borderTopWidth) > 0,
         inSvg: !!el.closest('svg') && tag !== 'svg',
         tag,

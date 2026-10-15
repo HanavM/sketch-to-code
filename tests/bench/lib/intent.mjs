@@ -274,6 +274,7 @@ export function countSquiggles(elements) {
  * the mean of what is not null.
  */
 export function scoreIntent(spec, elements) {
+  if (spec.edits) return scoreEdits(spec, elements)
   const regions = spec.regions ?? []
   const notes = []
   if (!regions.length) {
@@ -318,4 +319,119 @@ export function scoreIntent(spec, elements) {
   if (order === null && regions.length > 1) notes.push('order not measurable: fewer than two vertically ordered regions were found')
 
   return { structure, content, order, intent, realized, mustStructure, regions: rows, notes }
+}
+
+// ── edits on an existing page ───────────────────────────────────────────────
+
+/**
+ * An EDIT sketch (tests/bench/sketches/rough) changes a page that already has
+ * content, so "is every asked-for block present" is meaningless: the base page
+ * passes it before anyone draws. What was asked is a CHANGE, and it is checked
+ * as a list of facts about the page afterwards, each judged on visible text:
+ *
+ *   { check: 'absent', text }            nothing visible says this any more (delete)
+ *   { check: 'present', text?, kind? }   an element of that kind (and text) exists
+ *   { check: 'kept', text }              untouched content survived (no collateral damage)
+ *   { check: 'above', a, b }             the element saying `a` sits above the one saying `b`
+ *   { check: 'bg', text, hue: [lo, hi] } the element saying `text` (or its nearest filled
+ *                                        ancestor) has a background in that hue range
+ *
+ * `text` is a case-insensitive substring. Every edit spec marks the checks that
+ * ARE the change `must: true`, so the untouched base page can never be realized
+ * (run.mjs --dry asserts that on the real page). Score = fraction of checks
+ * that hold; realized = score >= REALIZED_MIN and every must holds.
+ */
+export function scoreEdits(spec, elements) {
+  const checks = spec.edits ?? []
+  const has = (el, t) => {
+    const own = el.text && words(el.text) ? el.text : TEXT_TAGS.has(el.tag) || el.tag === 'button' ? allText(el) : ''
+    return own.toLowerCase().includes(String(t).toLowerCase())
+  }
+  const visible = elements.filter((el) => !isSvgPart(el))
+  const sayers = (t) => visible.filter((el) => has(el, t))
+  /** smallest element that says it: the h1, not the section around it */
+  const sayer = (t) => sayers(t).sort((a, b) => a.rect.w * a.rect.h - b.rect.w * b.rect.h)[0] ?? null
+  const rows = checks.map((c) => {
+    let pass = false
+    let found = null
+    if (c.check === 'absent') {
+      found = sayer(c.text)
+      // allText too: a deleted card whose words survive inside a wrapper is not deleted
+      pass = !found && !visible.some((el) => allText(el).toLowerCase().includes(String(c.text).toLowerCase()) && (el.children ?? 0) === 0)
+    } else if (c.check === 'kept') {
+      found = sayer(c.text)
+      pass = !!found
+    } else if (c.check === 'present') {
+      const pred = c.kind ? PREDICATES[c.kind] ?? PREDICATES.container : () => true
+      found = visible.find((el) => pred(el, {}) && (!c.text || allText(el).toLowerCase().includes(String(c.text).toLowerCase()))) ?? null
+      pass = !!found
+    } else if (c.check === 'above') {
+      const a = sayer(c.a)
+      const b = sayer(c.b)
+      found = a
+      pass = !!a && !!b && a.rect.y + a.rect.h / 2 < b.rect.y
+    } else if (c.check === 'bg') {
+      const el = sayer(c.text)
+      found = el
+      let cur = el
+      while (cur && !(cur.bg && hueOf(cur.bg) !== null)) cur = cur.parent >= 0 ? elements[cur.parent] : null
+      const h = cur ? hueOf(cur.bg) : null
+      pass = h !== null && h >= c.hue[0] && h <= c.hue[1]
+    } else {
+      throw new Error(`unknown edit check "${String(c.check)}"`)
+    }
+    return {
+      role: c.label ?? `${c.check} ${c.text ?? `${c.a} > ${c.b}`}`,
+      must: !!c.must,
+      kind: c.check,
+      found: pass,
+      textual: false,
+      real: null,
+      el: found ? { tag: found.tag, text: allText(found).slice(0, 60), srcLoc: found.srcLoc ?? null } : null,
+    }
+  })
+  if (!rows.length) {
+    return { structure: null, content: null, order: null, intent: null, realized: false, mustStructure: null, regions: [], notes: ['edit spec declares no checks'] }
+  }
+  const structure = rows.filter((r) => r.found).length / rows.length
+  const musts = rows.filter((r) => r.must)
+  const mustStructure = musts.length ? musts.filter((r) => r.found).length / musts.length : null
+  const realized = structure >= REALIZED_MIN && (mustStructure === null || mustStructure === 1)
+  const failed = rows.filter((r) => !r.found).map((r) => r.role)
+  const notes = failed.length ? [`edit checks failed: ${failed.join('; ')}`] : []
+  return { structure, content: null, order: null, intent: structure, realized, mustStructure, regions: rows, notes }
+}
+
+/**
+ * Hue in degrees of a CSS color string, or null when it is transparent or too
+ * grey or dark to have one (saturation < 0.25, or max channel < 60). Handles rgb()/rgba() and, for
+ * Tailwind v4's defaults, oklch().
+ */
+export function hueOf(css) {
+  const s = String(css ?? '').trim()
+  let m = /^rgba?\(([^)]+)\)$/.exec(s)
+  if (m) {
+    const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).filter(Boolean).map(Number)
+    if (a === 0) return null
+    const mx = Math.max(r, g, b)
+    const mn = Math.min(r, g, b)
+    // near-black or near-grey has no hue a person would name
+    if (mx < 60 || (mx - mn) / mx < 0.25) return null
+    const d = mx - mn
+    let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4
+    h *= 60
+    return h < 0 ? h + 360 : h
+  }
+  m = /^oklch\(([^)]+)\)$/.exec(s)
+  if (m) {
+    const parts = m[1].split(/[ /]+/).filter(Boolean)
+    const c = parseFloat(parts[1])
+    const h = parseFloat(parts[2])
+    const alpha = parts[3] !== undefined ? parseFloat(parts[3]) : 1
+    if (!Number.isFinite(h) || c < 0.05 || alpha === 0) return null
+    // oklch hue is not sRGB hue; close enough to bucket red/green/blue, and the
+    // specs use wide ranges. Map the few anchor points: oklch green ~ 140-150.
+    return h
+  }
+  return null
 }
