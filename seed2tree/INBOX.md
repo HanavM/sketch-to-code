@@ -13,3 +13,11 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
   (b) a non-coder walkthrough (Definition of done #2), (c) plain-language
   explanations + undo when a sketch is misread. Prune anything that only
   serves precise drawing.
+- 2026-10-15 (2): New rule in GARDENER.md section 0.5: validate before
+  building, and be brutal. Add a `validate` node under s2c-000 now and do it
+  next: what already exists that turns sketches/annotations on a running UI
+  into code edits (e.g. tldraw make-real, v0, Cursor/Windsurf visual edit,
+  Figma-to-code, Locofy, Builder.io, Onlook, Vercel's toolbar), and does the
+  "accessible to non-coders" angle survive contact with them? Verdict
+  PURSUE / PIVOT / KILL. Don't spare my feelings.
+
