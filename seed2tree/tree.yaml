@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 14
-lock: {run: cloud-20261015T1155, until: "2026-10-15T13:10Z"}
+next_id: 15
+lock: null
 
 nodes:
 - id: s2c-000
@@ -72,18 +72,20 @@ nodes:
   title: "Per-group fidelity — a group that reads as text is never traced verbatim"
   why: "Only item in findings.md 'what to change next' that fixes an actual defect (page 05)."
   done_when: "Fix in the interpretation path + a test reproducing page 05's failure that now passes."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T12:35Z"
   blocked_on: null
-  outputs: []
-  log: []
+  outputs:
+  - "packages/pipeline/src/textmark.ts (isTextMark/measureTextMark: level, thin, travel>=0.35, >=3 crests); intent2.ts grounding lists text strokes as GroundedAction.textMarks with no svgPath, drops 'verbatim' on text-only actions; instant.ts declines drawings containing a text mark; run2.ts brief explains textMarks; packages/pipeline/tests/textmark.test.ts (10); docs/findings.md 'The prompt fix was not the whole fix'"
+  log:
+  - "2026-10-15: the page-05 prompt fix (dc11732) left 4 deterministic paths that still traced text: grounding fitted svgPaths for every cited stroke -> scaffold wrote them as 'keep these paths' before codegen (every rung but reinterpret), trace rung forced verbatim on every action with paths, trace-rung composition scored the squiggle as a likeness; instant render mounted squiggles as SVG. Fixed once at grounding from the ink. Calibrated on bench generators: all text squiggles on 15 tidy + rough pages flagged; decor waves 08/14 (travel 0.14-0.15 vs ~0.5), rough lines, boxes, rings, arrows, hatch not. Replaying page 05's failing reading: paths only for 5 logo boxes + avatar; trace scaffold has no text stroke. vitest 839/841 (2 env failures), tsc -b clean. LIMIT: effect on realized % unmeasured (needs quota). done_when met for the deterministic path; the model's own tracing was already fixed by the prompt."
 
 - id: s2c-004
   parent: s2c-000
@@ -279,3 +281,22 @@ nodes:
   blocked_on: "s2c-009 is done; only quota remains. Rough set = 11 pages x 2 arms (auto, screenshot) x 3 runs. Pages are smaller than the tidy ones; estimate ~0.5M billed tokens per arm-run, ~3M total, unmeasured. Reply 'yes' (run on the Mac: node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot, x3; calibrate with --limit 1 first), 'pilot' (1 run each arm, ~1M), or 'no'."
   outputs: []
   log: []
+
+- id: s2c-014
+  parent: s2c-003
+  title: "Scaffold only depictions and decorations, never widgets"
+  why: "Found in s2c-003: layScaffolds writes a 'keep these paths' SVG component for EVERY add/design action with paths, including widget actions (fidelity null: a card box, a button outline). That contradicts the prompt's rectify-don't-reproduce rule for widgets and hands the structured arm traced boxes on every design page of the kill test."
+  done_when: "buildScaffold (or layScaffolds) skips actions whose fidelity is not 'recognized'/'verbatim', with a test that a widget design action gets no scaffold at the default rung while a depiction still does; trace-rung behaviour decided and stated in a comment."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-15: added by s2c-003. Read from code, not observed in a run: check a saved .sketch2code/runs/*/scaffolds.json from a bench run if one exists on the Mac before trusting the size of the effect."

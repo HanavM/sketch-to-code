@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-15 05:35 PT — sketch-to-code / s2c-003 Per-group fidelity (text never traced)
+Picked because: priority 1.81 (next: s2c-002 1.61, s2c-007 1.46; fashion killed, s2c-008/013 blocked on you)
+Did: the page-05 fix was prompt-only. Four deterministic parts still traced text: grounding fitted a path for every cited stroke, the pre-codegen scaffold wrote those as "keep these paths", the trace rung forced verbatim on everything, and the trace-rung composition check penalised squiggles that came back as words. The instant render also mounted squiggles as SVG. New `textmark.ts` decides from the ink (level, thin, oscillating hard). Text strokes become `textMarks` with no path, so none of those parts see them.
+Result: calibrated on bench generators. Every text squiggle on the tidy and rough pages is flagged; decorative waves (08, 14), lines, boxes, rings, arrows and hatch are not. Replaying page 05's failing reading gives paths only for the logos and avatar. 10 tests, vitest 839/841 (2 env), tsc clean. Live effect is unmeasured. momentum 0.5 → 0.7
+Why it matters despite the PIVOT: the structured arm of the kill test (s2c-013) was being handed traced squiggles on every design page. Without this, a KILL could have been caused by our own bug, not by structure losing.
+New branches: s2c-014 scaffolds are also written for plain widgets (card/button boxes as "keep these paths"); same class of bug, effort 1.
+Pruned/done: s2c-003 done.
+Needs you: s2c-013 kill test quota, reply "yes" (~3M), "pilot" (~1M) or "no". Every remaining cloud node is now pre-kill-test hygiene; after s2c-014 there's little left worth doing without that answer.
+
 ## 2026-10-15 04:15 PT — sketch-to-code / s2c-009 Rough-sketch benchmark
 Picked because: priority 2.31 (next: s2c-003 1.76, s2c-002 1.56; fashion is killed, nothing to water there)
 Did: `--set rough`: 11 pages at most 4 marks each, drawn with new loose primitives (unclosed/skewed/partial boxes, drifting ring, one-stroke arrow, scribble). 6 are EDITS on a committed base landing page (delete card, rewrite headline, restyle button, move quote, add newsletter, X-out nav link): the first time the gesture grammar is in the bench at all. Edit pages are scored by checks (absent/present/kept/above/bg). Commit below.

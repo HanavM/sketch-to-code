@@ -123,6 +123,10 @@ Rules:
   descriptions — take the element from refs, never by searching the page for
   something whose text matches the label. A ref with no srcLoc is one whose
   element could not be found; say so rather than guessing at a substitute.
+- "textMarks" lists strokes that are squiggles standing for lines of text. Each one
+  is a line of REAL copy (from a typed note when there is one, otherwise plausible
+  words for the page); its length and height say body versus heading. They are
+  never drawn as SVG, whatever the FIDELITY block says, and they have no svgPath.
 - "color" is the pen colour the user deliberately drew in. Apply it to what the
   action produces, preferring the named token when one is given — that token is
   a colour this app already uses.

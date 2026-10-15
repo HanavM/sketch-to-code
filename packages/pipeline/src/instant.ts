@@ -30,6 +30,7 @@ import type { DomNode, DomSnapshot } from '@s2c/dom'
 import { importAnchor } from './imports.js'
 import type { FidelityControls } from './fidelity.js'
 import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
+import { isTextMark } from './textmark.js'
 import type { GroundedAction } from './intent2.js'
 
 export interface InstantPlan {
@@ -114,6 +115,11 @@ export function instantEligible(strokes: Stroke[], snap: DomSnapshot): InstantVe
     if (turns >= SCRIBBLE_REVERSALS && len > 0 && (turns / len) * 100 > 2) {
       return { ok: false, reason: 'that looks like a scratch-out, which usually means delete' }
     }
+  }
+  // a squiggle standing for words would be mounted as a wavy line — the exact
+  // page-05 failure, shown instantly. The interpreted path writes real copy.
+  if (strokes.some((s) => s.points.length >= 4 && isTextMark(s.points))) {
+    return { ok: false, reason: 'part of it reads as a line of text, which needs words, not a drawing' }
   }
   return { ok: 'maybe' }
 }

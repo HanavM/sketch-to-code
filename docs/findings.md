@@ -287,6 +287,51 @@ All three were found by *instrumenting* the system, not by the measurements.
   "11 not carried out" was false — every action ran. Now `droppedActions` is
   counted separately.
 
+## The prompt fix was not the whole fix (seed2tree s2c-003)
+
+*Added 2026-10-15.* Page 05 was fixed by rewording the prompt: fidelity per
+action, text placeholders never verbatim. But the prompt is not the only thing
+that turns ink into paths, and four deterministic parts of the pipeline were
+still pushing the other way:
+
+- **Grounding fitted an `svgPath` for every stroke an add/design action cited**,
+  squiggles included.
+- **The scaffold** (`scaffold.ts`, written before codegen at every rung but
+  reinterpret) put each of those paths in a component labelled *"these paths
+  ARE the drawing … keep them"*. So on page 05 the model was told in the same
+  brief never to trace the quote and to keep the traced quote.
+- **The trace rung** set `fidelity: 'verbatim'` on every action with paths,
+  overriding the per-action decision the prompt fix asked for.
+- **The composition check** at the trace rung scored every drawn form, so a
+  squiggle that correctly came back as words counted as a failed likeness and
+  pushed candidate selection toward tracing.
+- **The instant render** mounted squiggles drawn in empty space as SVG.
+
+The fix decides it once, from the ink: `textmark.ts` calls a stroke a line of
+text when it is level (tilt <= 25 deg), thin (<= 40px across its chord) and
+oscillates hard (perpendicular travel >= 0.35 per px, >= 3 crests). Grounding
+then keeps those strokes cited (they still set the region) but lists them as
+`textMarks` with no path, so the scaffold, the trace override and the
+composition check never see them. An action made only of text marks loses
+`verbatim`. The codegen brief says what `textMarks` means, and the instant
+render declines any drawing that contains one.
+
+Calibrated on the bench's own generators: every text squiggle on the 15 tidy
+pages and the rough set is flagged. Both decorative waves (pages 08, 14) are
+not (travel 0.14–0.15 against ~0.5 for text), and neither are straight or
+hurried lines, boxes, rings, arrows or hatching. Known overlap: a delete zigzag
+also measures as text. That is harmless, because delete actions never get paths
+and the instant render's scratch-out check runs first. A short wavy *underline
+drawn as decoration* would be read as text. I accept that cost.
+
+Tested (`packages/pipeline/tests/textmark.test.ts`) by replaying page 05's
+failing reading (one design action over the whole drawing, `verbatim`):
+grounding fits paths for the 5 logo boxes and the avatar only, and the
+trace-rung scaffold contains none of the 4 text strokes. **Not measured:** how
+much this moves realized % on a live run. That needs quota (s2c-008/s2c-013),
+and it matters for the kill test, because the structured arm was being handed
+traced squiggles on every design page.
+
 ## Honest limits of this study
 
 - **One run per page.** Model output varies; two runs of page 01 scored 40% and

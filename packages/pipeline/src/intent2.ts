@@ -15,6 +15,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
+import { isTextMark } from './textmark.js'
 
 // ---------- model-facing output schema ----------
 
@@ -635,8 +636,12 @@ export interface GroundedAction {
   instruction: string
   /** Region computed from the cited strokes (never from the model). */
   region?: BBox
-  /** Fitted svg paths of the cited strokes (design actions). */
+  /** Fitted svg paths of the cited strokes (design actions). Never includes a
+   *  stroke that reads as a line of text — those are in `textMarks`. */
   svgPaths?: Array<{ strokeId: string; d: string }>
+  /** Cited strokes that are text squiggles: each stands for a line of real
+   *  copy. Decided from the ink (textmark.ts), not by the model. */
+  textMarks?: string[]
   layer?: 'in-flow' | 'background-overlay' | 'container'
   depicts?: string
   fidelity?: 'verbatim' | 'recognized'
@@ -741,6 +746,7 @@ export function groundInterpretation(
     // from the model
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
+    const textMarks: string[] = []
     const citedStrokes = (a.strokes ?? [])
       .map((id) => {
         const s = ev.strokes.get(id)
@@ -755,6 +761,13 @@ export function groundInterpretation(
       }
       if (a.kind === 'design' || a.kind === 'add') {
         for (const s of citedStrokes) {
+          // a squiggle that stands for words never becomes a path: not in the
+          // scaffold, not in the composition check, not under the trace rung.
+          // It still sets the region and stays cited (textmark.ts).
+          if (isTextMark(s.points)) {
+            textMarks.push(s.id)
+            continue
+          }
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
           if (fit) svgPaths.push({ strokeId: s.id, d: fit.d })
         }
@@ -844,9 +857,14 @@ export function groundInterpretation(
       instruction: a.instruction,
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,
+      textMarks: textMarks.length ? textMarks : undefined,
       layer: a.layer ?? undefined,
       depicts: a.depicts ?? undefined,
-      fidelity: a.fidelity ?? undefined,
+      // 'verbatim' on an action whose every mark stands for text is the page-05
+      // failure stated as a field; there is nothing left to trace
+      fidelity: a.fidelity === 'verbatim' && textMarks.length && !svgPaths.length
+        ? undefined
+        : (a.fidelity ?? undefined),
       notes: notes.length ? notes : undefined,
       refs: refs.length ? refs : undefined,
       color,
