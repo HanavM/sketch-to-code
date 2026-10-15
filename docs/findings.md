@@ -154,6 +154,48 @@ typing more**: shapes for structure, words for content.
    number cannot tell a good page from a bad one, which is the only thing a
    benchmark is for.
 
+## The ruler, replaced (seed2tree s2c-001)
+
+*Added 2026-10-15.* Item 4 above is done in code: the bench's primary score is
+now `tests/bench/lib/intent.mjs`, and IoU is reported beside it as a secondary,
+positional signal.
+
+It asks what a person asks, and never where things landed:
+
+- **structure** — is each region there as the *kind* of thing it asked for? The
+  kind comes from the role name (`headline` is text, `cta` a clickable control,
+  `email-input` an input, `avatar` media, `tier-1..3` three alike siblings) or
+  an explicit `kind` in the spec.
+- **content** — do the regions that stand for words carry real words, not a
+  placeholder and not a squiggle traced as an SVG path?
+- **order** — top-to-bottom order, judged on the elements chosen above.
+
+A page is **realized** when the mean of those is ≥ 0.8 and every `must` region
+is present. The share of realized pages is the number SEED.md's definition of
+done counts.
+
+Checked against the cases this document caught the old ruler getting wrong,
+rendered as plain HTML in a real browser (`node tests/bench/intent-check.mjs`,
+zero tokens) and as 13 unit tests (`tests/bench/intent.test.ts`):
+
+| page | intent | realized | old IoU score |
+|---|---|---|---|
+| 12, correct but centred higher than drawn | 1.00 | yes | 0% |
+| 05, quote and attribution traced as squiggles | 0.64 | no — quote, attribution not found as text | 25% |
+| 05, after the fidelity fix | 0.93 | yes | 20% |
+
+The IoU score ranked the broken page 05 *above* the fixed one. The intent score
+puts them on opposite sides of the line.
+
+**Not done yet: the fifteen real pages are not re-scored.** The table above
+("Every page") was measured from DOMs that were not kept, so re-scoring needs a
+fresh live run, which spends model quota. That run is the owner's call.
+
+Known limits: kinds come from role names, so a new role word may need a rule or
+a `kind:`; when two regions are the same kind (two headings), they are matched
+in reading order, so a swap of two same-kind blocks is invisible to `order` —
+a person couldn't tell those apart either without reading the words.
+
 ## Bugs found while building this
 
 All three were found by *instrumenting* the system, not by the measurements.

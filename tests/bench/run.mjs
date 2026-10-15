@@ -363,7 +363,9 @@ const ordered = results.filter((r) => (r.score?.orderPairs ?? 0) > 0)
 const ordMean = ordered.length
   ? ordered.reduce((a, r) => a + r.score.order, 0) / ordered.length
   : null
-log(`mean region score: ${(agg.regionScore * 100).toFixed(0)}%  ·  must: ${(agg.mustScore * 100).toFixed(0)}%  ·  ` +
+log(`REALIZED: ${agg.realized === null ? '—' : `${(agg.realized * 100).toFixed(0)}% (${agg.realizedPages} of ${agg.judgedPages} pages)`}  ·  ` +
+  `intent ${agg.intent === null ? '—' : agg.intent.toFixed(2)} (structure ${agg.structure?.toFixed(2) ?? '—'}, content ${agg.content?.toFixed(2) ?? '—'}, order ${agg.intentOrder?.toFixed(2) ?? '—'})`)
+log(`secondary, positional — mean region score: ${(agg.regionScore * 100).toFixed(0)}%  ·  must: ${(agg.mustScore * 100).toFixed(0)}%  ·  ` +
   `order: ${ordMean === null ? '—' : `${(ordMean * 100).toFixed(0)}% (of ${String(ordered.length)} measurable)`}`)
 const tok = results.reduce((a, r) => a + (r.tokens ? r.tokens.input + r.tokens.output : 0), 0)
 const cacheRead = results.reduce((a, r) => a + (r.tokens?.cacheRead ?? 0), 0)

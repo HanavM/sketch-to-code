@@ -44,6 +44,10 @@
  */
 export const MATCH_IOU = 0.35
 
+// intent.mjs imports identifyScore/orderScore back from here; the cycle is safe
+// because both sides only use hoisted function declarations at call time.
+import { scoreIntent } from './intent.mjs'
+
 /** Elements that exist before any sketch runs, and so can never be credit. */
 const SHELL_SELECTOR = 'html, body, #root'
 /** The overlay's own shadow host — its UI is not the app's output. */
@@ -217,6 +221,7 @@ async function readElements(page, { shellSelector, overlayHostId }) {
     const shell = new Set(document.querySelectorAll(shellSelector))
     const host = document.getElementById(overlayHostId)
     const out = []
+    const indexOf = new Map()
     for (const el of document.querySelectorAll('*')) {
       const tag = el.tagName.toLowerCase()
       if (['script', 'style', 'link', 'meta', 'noscript', 'head', 'title', 'template', 'br'].includes(tag)) continue
@@ -229,7 +234,24 @@ async function readElements(page, { shellSelector, overlayHostId }) {
       if (r.width < 1 || r.height < 1) continue
       let text = ''
       for (const c of el.childNodes) if (c.nodeType === 3) text += c.textContent ?? ''
+      // nearest ancestor that is itself a recorded element: repeat groups and
+      // containers (intent.mjs) are read off this tree
+      let p = el.parentElement
+      while (p && !indexOf.has(p)) p = p.parentElement
+      const parent = p ? indexOf.get(p) : -1
+      if (parent >= 0) out[parent].children++
+      indexOf.set(el, out.length)
+      const bg = cs.backgroundColor
       out.push({
+        parent,
+        children: 0,
+        allText: (el.innerText ?? el.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, 200),
+        type: (el.getAttribute('type') ?? '').toLowerCase(),
+        value: typeof el.value === 'string' ? el.value : '',
+        ariaRole: el.getAttribute('role'),
+        bgImage: cs.backgroundImage !== 'none',
+        filled: (bg && bg !== 'transparent' && !/rgba\(.*,\s*0\)$/.test(bg)) || parseFloat(cs.borderTopWidth) > 0,
+        inSvg: !!el.closest('svg') && tag !== 'svg',
         tag,
         rect: { x: r.left + sx, y: r.top + sy, w: r.width, h: r.height },
         srcLoc: el.getAttribute('data-s2c'),
@@ -252,6 +274,8 @@ async function readElements(page, { shellSelector, overlayHostId }) {
  * box by the same wrong amount.
  */
 export async function scorePage(page, spec, { threshold = MATCH_IOU } = {}) {
+  // PRIMARY: intent (structure, content, order), position-blind — see intent.mjs.
+  // Everything else this function computes is the secondary, positional signal.
   const regions = spec.regions ?? []
   await page.evaluate(() => window.scrollTo(0, 0))
   const elements = await readElements(page, {
@@ -321,7 +345,18 @@ export async function scorePage(page, spec, { threshold = MATCH_IOU } = {}) {
     notes.push('order measured from box positions only (no element named itself after a role), so a same-shape scramble would score 1.0')
   }
 
+  const intent = scoreIntent(spec, elements)
+
   return {
+    // primary
+    intent: intent.intent,
+    realized: intent.realized,
+    structure: intent.structure,
+    content: intent.content,
+    intentOrder: intent.order,
+    intentRegions: intent.regions,
+    intentNotes: intent.notes,
+    // secondary (positional)
     matched,
     missed,
     regionScore,
@@ -357,6 +392,11 @@ export function summarise(results) {
     return {
       id: r.id ?? s.id ?? null,
       title: r.title ?? s.title ?? null,
+      intent: s.intent ?? null,
+      realized: typeof s.realized === 'boolean' ? s.realized : null,
+      structure: s.structure ?? null,
+      content: s.content ?? null,
+      intentOrder: s.intentOrder ?? null,
       regionScore: s.regionScore ?? null,
       mustScore: s.mustScore ?? null,
       order: s.order ?? null,
@@ -366,8 +406,17 @@ export function summarise(results) {
     }
   })
   const ranked = rows.filter((r) => typeof r.regionScore === 'number').sort((a, b) => a.regionScore - b.regionScore)
+  const judged = rows.filter((r) => typeof r.realized === 'boolean')
   return {
     pages: rows.length,
+    // primary: the share of pages whose intent was realized (SEED.md DoD #1)
+    realized: judged.length ? judged.filter((r) => r.realized).length / judged.length : null,
+    realizedPages: judged.filter((r) => r.realized).length,
+    judgedPages: judged.length,
+    intent: mean(rows.map((r) => r.intent)),
+    structure: mean(rows.map((r) => r.structure)),
+    content: mean(rows.map((r) => r.content)),
+    intentOrder: mean(rows.map((r) => r.intentOrder)),
     regionScore: mean(rows.map((r) => r.regionScore)),
     mustScore: mean(rows.map((r) => r.mustScore)),
     order: mean(rows.map((r) => r.order)),

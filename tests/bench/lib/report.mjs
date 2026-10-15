@@ -75,15 +75,16 @@ function tokenCell(r) {
 
 function table(results) {
   const head = [
-    '| id | title | strokes | secs | tokens (in / cacheRead / out) | verified | regionScore | mustScore | order | elements |',
-    '| --- | --- | --: | --: | --: | --: | --: | --: | --: | --: |',
+    '| id | title | strokes | secs | tokens (in / cacheRead / out) | realized | intent | structure | content | order | verified | regionScore (IoU) | mustScore | elements |',
+    '| --- | --- | --: | --: | --: | :-: | --: | --: | --: | --: | --: | --: | --: | --: |',
   ]
   const rows = results.map((r) => {
     const s = r.score ?? {}
     const title = r.error ? `${escapeCell(r.title ?? '')} **(failed)**` : escapeCell(r.title ?? '')
     return `| \`${escapeCell(r.id)}\` | ${title} | ${int(r.strokes ?? r.strokeCount)} | ${fixed(secondsOf(r), 2)} | ` +
-      `${tokenCell(r)} | ${pct(r.verified)} | ${fixed(s.regionScore, 3)} | ${fixed(s.mustScore, 3)} | ` +
-      `${fixed(s.order, 3)} | ${int(s.elements)} |`
+      `${tokenCell(r)} | ${typeof s.realized === 'boolean' ? (s.realized ? 'yes' : 'no') : MISSING} | ` +
+      `${fixed(s.intent, 3)} | ${fixed(s.structure, 3)} | ${fixed(s.content, 3)} | ${fixed(s.intentOrder, 3)} | ` +
+      `${pct(r.verified)} | ${fixed(s.regionScore, 3)} | ${fixed(s.mustScore, 3)} | ${int(s.elements)} |`
   })
   return [...head, ...rows].join('\n')
 }
@@ -130,6 +131,15 @@ function perPageSections(results) {
     const s = r.score ?? {}
     const lines = [`### \`${r.id}\`${r.title ? ` — ${r.title}` : ''}`, '']
     if (r.error) lines.push(`- **failed:** ${escapeCell(r.error)}`, '')
+    if (s.intentRegions) {
+      lines.push(`- intent: **${s.realized ? 'realized' : 'not realized'}** (${fixed(s.intent, 3)}) — each region as the kind of thing it asked for:`)
+      for (const ir of s.intentRegions) {
+        const what = ir.el ? `\`<${ir.el.tag}>\`${ir.el.text ? ` "${escapeCell(ir.el.text)}"` : ''}` : '**not found**'
+        lines.push(`  - \`${ir.role}\`${ir.must ? ' (must)' : ''} as ${ir.kind} → ${what}${ir.real === false && ir.el ? ' — no real words' : ''}`)
+      }
+      for (const n of s.intentNotes ?? []) lines.push(`- intent note: ${escapeCell(n)}`)
+      lines.push('- positional (IoU, secondary):')
+    }
     const missed = s.missed ?? []
     if (!s.missed) {
       lines.push('- not scored (no score recorded for this page)')
@@ -179,8 +189,13 @@ order, a page that failed) rather than counting them as 0.
 
 | metric | value | over |
 | --- | --: | --: |
+| **realized** (primary: intent ≥ 0.8 and every \`must\` present) | ${pct(agg.realized)} (${int(agg.realizedPages)} of ${int(agg.judgedPages)}) | ${int(agg.judgedPages)} page(s) |
+| intent (mean of structure, content, order) | ${fixed(agg.intent, 3)} | ${agg.rows.filter((r) => isNum(r.intent)).length} page(s) |
+| structure | ${fixed(agg.structure, 3)} | ${agg.rows.filter((r) => isNum(r.structure)).length} page(s) |
+| content | ${fixed(agg.content, 3)} | ${agg.rows.filter((r) => isNum(r.content)).length} page(s) |
+| order (intent-matched) | ${fixed(agg.intentOrder, 3)} | ${agg.rows.filter((r) => isNum(r.intentOrder)).length} page(s) |
 | verified (the pipeline's own score) | ${pct(verifiedMean)} | ${t.verified.length} page(s) |
-| regionScore (mean IoU, independent) | ${fixed(agg.regionScore, 3)} | ${agg.rows.filter((r) => isNum(r.regionScore)).length} page(s) |
+| regionScore (mean IoU, secondary: position only) | ${fixed(agg.regionScore, 3)} | ${agg.rows.filter((r) => isNum(r.regionScore)).length} page(s) |
 | mustScore | ${fixed(agg.mustScore, 3)} | ${agg.rows.filter((r) => isNum(r.mustScore)).length} page(s) |
 | order | ${fixed(agg.order, 3)} | ${agg.rows.filter((r) => isNum(r.order)).length} page(s) |
 | elements rendered | ${fixed(agg.elements, 1)} | ${agg.rows.filter((r) => isNum(r.elements)).length} page(s) |
@@ -205,8 +220,11 @@ ${perPageSections(results) || '_no pages_'}
 
 ---
 
-\`regionScore\`, \`mustScore\` and \`order\` are measured from the rendered DOM by
-\`tests/bench/lib/score.mjs\`, independently of the pipeline. \`verified\` is the
+\`realized\`, \`intent\`, \`structure\`, \`content\` and \`order\` are the primary
+score (\`tests/bench/lib/intent.mjs\`): was the sketch's intent realized, wherever
+the page put it. \`regionScore\` and \`mustScore\` are positional (IoU) and kept as a
+secondary signal (\`tests/bench/lib/score.mjs\`). All are measured from the
+rendered DOM, independently of the pipeline. \`verified\` is the
 pipeline's own opinion of its own actions and is reported for comparison only.
 Scores are truncated, never rounded up; \`${MISSING}\` means not measured.
 `
