@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 15
-lock: {run: cloud-20261015T1355, until: "2026-10-15T15:10Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -28,6 +28,7 @@ nodes:
   - "2026-10-15: cloud baseline after npm ci: vitest 781/784 pass. 3 failures look environment-specific (cli deps.test linked plugin, init.test gh-create offer when gh is present, library.test unwritable home as root). Treat as baseline; never add new failures."
   - "2026-10-15: s2c-012 validation verdict PIVOT (seed2tree/VALIDATION.md). Non-coder/launch framing stopped: Cursor Design Mode, Lovable draw-annotation, v0/Bolt visual edits, Onlook, Annotask already ship it. Remaining question: does structured grounding beat screenshot-style input on rough sketches (s2c-013, kill criterion >=15 pts). Pruned s2c-005/006/010/011."
   - "2026-10-15: s2c-009 rough set done (11 pages, 6 gesture edits). The kill test s2c-013 now waits only on the owner's quota answer."
+  - "2026-10-15: s2c-007 done (codegen agent denied .sketch2code/). Only open cloud node left is s2c-002 (value 3, explicitly not worth watering before the kill-test verdict). Cloud runs have nothing worth doing until the owner answers s2c-013."
 
 - id: s2c-001
   parent: s2c-000
@@ -151,18 +152,21 @@ nodes:
   title: "Find how the stale library row reached a run; keep the codegen agent out of .sketch2code/"
   why: "s2c-004 gates the store, but placement is manual-only; the scratch-out->component in the bench came some other way. The codegen agent has Read/Glob/Grep over the project root, and .sketch2code/library/index.json stores portable component source."
   done_when: "The path is identified from code (or ruled out with evidence), and if it is the agent reading .sketch2code/, codegen denies that directory with a test asserting the option/prompt."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T14:35Z"
   blocked_on: null
-  outputs: []
-  log: []
+  outputs:
+  - "packages/pipeline/src/codegen.ts codegenToolOptions(): Read(./.sketch2code/**) + Edit(./.sketch2code/**) in disallowedTools; packages/pipeline/tests/codegen.test.ts (4, all fail on old code); tests/e2e/codegen-private-state.mjs (real CLI binary vs mocked Messages API, zero tokens); docs/findings.md 'The codegen agent could read and write the library'"
+  log:
+  - "2026-10-15: incident path RULED OUT for the agent: it was caught by live-instant, which stubs /@s2c/interpret and /@s2c/run, so no codegen agent ran. No deterministic code reads the library into a run (interpret/run2/instant/scaffold never import library.ts; /@s2c/library/* is panel-only, place is a click). The library attribution in 14fda87 has no code path; true cause unknown, likely a live-instant leak between halves (mid-test reset is checkout + rm of one filename, not git clean). Not reproduced, not worth chasing."
+  - "2026-10-15: exposure CONFIRMED and closed anyway: bundled CLI Glob runs rg --no-ignore --hidden, so Glob **/* listed .sketch2code/library/index.json + run bundles even when gitignored; Read returned stored component source; Write overwrote the index. Deny rules fix all four (Read rules filter Glob/Grep); app source still readable. e2e fails on old rules at Glob. vitest 847/849 (same 2 env), typecheck clean. done_when met."
 
 - id: s2c-008
   parent: s2c-001

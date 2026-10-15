@@ -85,6 +85,33 @@ export function contractFor(mode: RunMode): string {
   return `${CONTRACTS[mode]}\n\n${SKETCH_SKILL}`
 }
 
+/**
+ * `.sketch2code/` is this tool's memory, not the user's code, and the codegen
+ * agent must neither read it nor write it.
+ *
+ * It holds the component library (index.json carries portable component
+ * SOURCE), every past run's prompts, replies and scaffolds, and the drawn
+ * rules. Gitignoring it does not hide it: the agent's Glob runs ripgrep with
+ * --no-ignore --hidden, so `**\/*` lists it in any project, and Read/Write take
+ * any path under cwd. Checked against the bundled CLI with a mocked model
+ * (seed2tree s2c-007): before this, Glob listed the library and old run
+ * bundles, Read returned a stale entry's source, and Write overwrote the
+ * library index. That is a route by which last week's drawing can turn up in
+ * today's edit, and by which the agent could corrupt the library outright.
+ *
+ * Deny rules rather than a prompt line: rules are enforced by the tool layer
+ * (Read rules also filter Glob and Grep), a sentence is a request.
+ */
+export const PRIVATE_STATE_DENY = ['Read(./.sketch2code/**)', 'Edit(./.sketch2code/**)'] as const
+
+/** The codegen agent's tool permissions; exported so tests can assert them. */
+export function codegenToolOptions(): { allowedTools: string[]; disallowedTools: string[] } {
+  return {
+    allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
+    disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task', ...PRIVATE_STATE_DENY],
+  }
+}
+
 export interface CodegenEvents {
   onStage: (stage: string, detail?: string) => void
 }
@@ -138,8 +165,7 @@ export function createCodegenSession(
     options: {
       cwd: appRoot,
       permissionMode: 'acceptEdits',
-      allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
-      disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task'],
+      ...codegenToolOptions(),
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: contractOverride ?? contractFor(mode) },
       persistSession: false,

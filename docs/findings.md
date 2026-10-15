@@ -278,9 +278,9 @@ All three were found by *instrumenting* the system, not by the measurements.
   *Fixed on `seed2tree` (s2c-004):* every library read now checks a project
   row against the file as it is now (exists, still declares the export as a
   component) and hides it otherwise; hidden, not deleted, so a checkout brings
-  it back. Not yet established: which path carried the stale row into that run
-  — the store is now the gate for list/search/place, but the codegen agent can
-  still `Read`/`Grep` `.sketch2code/` directly (s2c-007).
+  it back. Which path carried the stale row into that run is still not
+  established, and the original explanation is doubtful: see "The codegen
+  agent could read and write the library" below (s2c-007).
 - **Partial-rejection reporting conflated two things** and I nearly fixed the
   wrong bug because of it. `rejected` is a list of reasons; an unresolvable
   element id does not kill a design action, whose region comes from its strokes.
@@ -365,3 +365,44 @@ widget tests fail on the old code.
   configuration, because the default cannot be measured (see the race above).
 - **Generic archetypes only.** No real company's layout, branding or copy was
   reproduced; these are structural patterns.
+
+## The codegen agent could read and write the library (seed2tree s2c-007)
+
+*Added 2026-10-15.* The question was how a stale library row reached the run
+that turned a scratch-out into a component. Two findings, one negative.
+
+**The incident was not the agent, and probably not the library.** It was
+caught by `live-instant`, which stubs both `/@s2c/interpret` and `/@s2c/run`:
+no model and no codegen agent ran. Nothing deterministic reads the library
+into a run either. `interpret`, `run2`, `instant` and `scaffold` never import
+`library.ts`. The plugin only writes to it after a run (`captureInto`) and
+reads it through `/@s2c/library/*`, which only the panel calls, and placing
+from the panel is a click. So "a stale library row was placed" has no code
+path. The cause is unknown. A leak between the test's two halves is the more
+likely suspect (the mid-test reset is `git checkout` plus `rm` of one
+hard-coded filename, not `git clean`). Not reproduced.
+
+**But the agent could, and now cannot.** Gitignoring `.sketch2code/` does not
+hide it from the agent. The bundled CLI's Glob runs ripgrep with
+`--no-ignore --hidden` by default (`CLAUDE_CODE_GLOB_NO_IGNORE` defaults to
+true), and Read/Write accept any path under cwd. Checked against the real
+binary with a mocked Messages API (zero tokens). `Glob **/*` listed
+`.sketch2code/library/index.json` and old run bundles. Read returned a
+stored entry's component source. Write replaced the library index. Grep
+without a path respects .gitignore, but with `path: .sketch2code` it read
+everything. So the agent could find last week's drawing and use it, or
+corrupt the library. The screenshot arm of the kill test is told to "find the
+files yourself", so it is the most exposed.
+
+Fixed with permission rules, not prompt text: `Read(./.sketch2code/**)` and
+`Edit(./.sketch2code/**)` are now in the codegen agent's `disallowedTools`
+(`codegenToolOptions`). The CLI applies Read deny rules to Glob and Grep as
+exclusions. After the fix, Glob omits the directory, Grep/Read/Write into it
+are refused, the index is byte-identical, and app source still reads.
+`tests/e2e/codegen-private-state.mjs` reproduces this. It fails on the old
+rules at the Glob step. `packages/pipeline/tests/codegen.test.ts` asserts that
+every mode's session gets the rules.
+
+Not covered: the global library (`~/.sketch2code` or `$XDG_DATA_HOME`) sits
+outside cwd, where acceptEdits has no grant and nothing can approve a
+prompt. The bench's reset does not clear it, but nothing automatic reads it.

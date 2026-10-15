@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-15 07:10 PT — sketch-to-code / s2c-007 Codegen agent kept out of .sketch2code/
+Picked because: priority 1.54 (next: s2c-002 1.29; s2c-000 is the root container; fashion killed; s2c-008/013 blocked on you)
+Did: traced how a stale library row reached a run. **The agent is ruled out for that incident**: live-instant, which caught it, stubs both model routes, and no deterministic code reads the library into a run. The "stale library" explanation in 14fda87 has no code path behind it. Cause unknown, not worth chasing. **The exposure is real anyway**: with the real CLI binary against a mocked API (zero tokens), Glob listed `.sketch2code/` despite .gitignore (it runs rg --no-ignore --hidden), Read returned stored component source, and Write overwrote the library index. Codegen now denies `Read/Edit(./.sketch2code/**)`.
+Result: 4 unit tests plus `tests/e2e/codegen-private-state.mjs`, both failing on the old rules. vitest 847/849 (same 2 env), typecheck clean. This matters for the kill test: the screenshot arm is told to find files itself, so it was the most exposed. momentum 0.5 → 0.7
+New branches: none. Nothing here is worth a node.
+Pruned/done: s2c-007 done.
+Needs you: **s2c-013 quota: reply "yes" (~3M tokens), "pilot" (~1M) or "no".** The cloud has run out of useful work. The only open node is s2c-002 (value 3), which shouldn't be built before the verdict. Until you answer, cloud runs will log "idle" and won't invent work. If you'd rather stop paying for hourly runs, pause the task.
+
 ## 2026-10-15 06:05 PT — sketch-to-code / s2c-014 Scaffold only depictions and decorations, never widgets
 Picked because: priority 2.90 (next: s2c-002 1.65, s2c-007 1.50; fashion killed, s2c-008/013 blocked on you)
 Did: `buildScaffold` ignored fidelity, so at the default slider a plain card box or button outline was written into a `SketchShape` component labelled "drawn by the user, keep it", while the prompt said to rectify widgets. It now scaffolds only `recognized` (a drawn thing) or `verbatim` (a decoration). The trace rung still scaffolds widgets on purpose, because at resemblance ≥0.85 you asked for a copy.
