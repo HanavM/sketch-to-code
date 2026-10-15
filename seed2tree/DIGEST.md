@@ -1,6 +1,6 @@
 # DIGEST — newest first
 
-## 2026-10-15 07:55 PT — sketch-to-code / (idle, no watering) — repeated 09:55, 10:55 and 11:55 PT, state unchanged
+## 2026-10-15 07:55 PT — sketch-to-code / (idle, no watering) — repeated 09:55, 10:55, 11:55 and 12:55 PT, state unchanged
 Picked because: nothing worth watering. Candidates: s2c-002 1.29 (value 3, parked until the kill-test verdict: it fixes instant render, which the bench doesn't use); s2c-008/013 blocked on you; fashion killed. No new INBOX items in either garden.
 Did: synced both gardens, checked locks (none), read INBOX/tree. No code changed. Building s2c-002 now would polish a product that VALIDATION.md says loses, and it would be wasted if s2c-013 says KILL.
 Needs you: **s2c-013 quota: reply "yes" (~3M tokens), "pilot" (~1M) or "no" in INBOX.** Until then every hourly cloud run is idle; pause the scheduled task if you don't want to pay for that.
