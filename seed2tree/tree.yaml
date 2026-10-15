@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 12
-lock: {run: cloud-20261015T0855, until: "2026-10-15T10:10Z"}
+next_id: 14
+lock: null
 
 nodes:
 - id: s2c-000
@@ -26,6 +26,7 @@ nodes:
   - "2026-10-15: planted from README + docs/findings.md (pre-existing work: 67+ commits, bench in tests/bench)."
   - "2026-10-15: owner rewrote SEED.md around accessibility (INBOX). Tree re-planned: s2c-006 value 3->4; added s2c-009 rough-sketch bench, s2c-010 non-coder walkthrough, s2c-011 plain-language misread explanation + undo. Nothing pruned: no open node serves precise drawing only."
   - "2026-10-15: cloud baseline after npm ci: vitest 781/784 pass. 3 failures look environment-specific (cli deps.test linked plugin, init.test gh-create offer when gh is present, library.test unwritable home as root). Treat as baseline; never add new failures."
+  - "2026-10-15: s2c-012 validation verdict PIVOT (seed2tree/VALIDATION.md). Non-coder/launch framing stopped: Cursor Design Mode, Lovable draw-annotation, v0/Bolt visual edits, Onlook, Annotask already ship it. Remaining question: does structured grounding beat screenshot-style input on rough sketches (s2c-013, kill criterion >=15 pts). Pruned s2c-005/006/010/011."
 
 - id: s2c-001
   parent: s2c-000
@@ -108,7 +109,7 @@ nodes:
   title: "Onboarding on real third-party repos"
   why: "SEED done-criterion 1. init/doctor are tested on one scaffolded app only."
   done_when: "e2e:cli-style script runs init + doctor against ≥5 real open-source Vite+React repos (cloned from GitHub) and records pass/fail + fixes in docs/."
-  status: open
+  status: pruned
   needs: cloud
   value: 4
   effort: 3
@@ -119,14 +120,15 @@ nodes:
   last_watered: null
   blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: PRUNED by s2c-012 PIVOT: onboarding 5 real repos is launch prep for a product that loses to Cursor/Lovable/Onlook. Owner can overrule in INBOX with a reason."
 
 - id: s2c-006
   parent: s2c-000
   title: "Make the one-word note cheap"
   why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter. Re-scored 3->4 for the accessibility seed: 'a rough sketch plus a few words' is the product."
   done_when: "Labelling a just-drawn shape takes one keystroke to start typing, with an e2e (zero-token) test."
-  status: open
+  status: pruned
   needs: cloud
   value: 4
   effort: 2
@@ -137,7 +139,8 @@ nodes:
   last_watered: null
   blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: PRUNED by s2c-012 PIVOT: one-keystroke note is UX polish; Cursor/Lovable already do click+type. Owner can overrule in INBOX with a reason."
 
 - id: s2c-007
   parent: s2c-004
@@ -173,13 +176,14 @@ nodes:
   last_watered: null
   blocked_on: "OK to spend model quota on the bench? One 15-page run was ~690k billed tokens; 3 runs ~2M. Reply 'yes, N runs' (it then runs on the Mac with instant:false as before) or 'no'."
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: can now run per arm: --mode auto|gesture|design|screenshot (s2c-012). If approved, run auto AND screenshot so the tidy set gives a first head-to-head."
 
 - id: s2c-009
   parent: s2c-000
   title: "Rough-sketch benchmark: deliberately loose, partial, messy sketches"
   why: "SEED done #1 is measured on rough sketches, and the current 15 are tidy synthetic drawings. Real users scribble, skip marks, overlap and redraw."
-  done_when: "tests/bench has a 'rough' set (>=10 sketches: heavy jitter, missing/partial marks, overlaps, mostly words) selectable with a flag, each drawing and scoring end-to-end in --dry mode (zero tokens), with a unit test that the rough generators stay within stroke budget and are rougher than the tidy set by a stated measure."
+  done_when: "tests/bench has a 'rough' set (>=10 sketches: heavy jitter, missing/partial marks, overlaps, mostly words) selectable with a flag, of which >=4 are EDITS on an existing page (auto mode must send gesture for them — the current 15 all read as design), each drawing and scoring end-to-end in --dry mode (zero tokens), with a unit test that the rough generators stay within stroke budget and are rougher than the tidy set by a stated measure."
   status: open
   needs: cloud
   value: 5
@@ -191,14 +195,15 @@ nodes:
   last_watered: null
   blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: s2c-012 found all current bench pages read as design in auto mode, so the gesture grammar (the only unclaimed feature) is never measured; done_when now requires >=4 edit-on-existing-UI pages. Now the prerequisite for s2c-013."
 
 - id: s2c-010
   parent: s2c-000
   title: "Non-coder walkthrough (SEED done #2): audit the path, then prove it"
   why: "The seed's test is whether someone with no React knowledge can make 3 meaningful changes. First find every step that forces them to read code or an error."
   done_when: "docs/walkthrough-noncoder.md walks running app -> add a section, change styling, add a working form, each step checked against the current CLI/overlay (zero-token e2e where possible); every point that needs code or error-reading is listed and filed as a child node."
-  status: open
+  status: pruned
   needs: cloud
   value: 4
   effort: 3
@@ -209,14 +214,15 @@ nodes:
   last_watered: null
   blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-15: PRUNED by s2c-012 PIVOT: non-coders are served by Lovable/v0/Bolt hosted tools and will not run a local Vite plugin. Owner can overrule in INBOX with a reason."
 
 - id: s2c-011
   parent: s2c-000
   title: "Plain-language explanation + one-click undo when a sketch is misread"
   why: "SEED done #4: a misread sketch must say what it understood in plain words and be undoable in one step, or non-coders lose trust on the first miss."
   done_when: "Every run with dropped/rejected actions or failed verification shows a jargon-free sentence (no ids, paths or stack traces) and an Undo that restores the files; unit tests for the message builder and a zero-token e2e for undo."
-  status: open
+  status: pruned
   needs: cloud
   value: 5
   effort: 3
@@ -226,5 +232,47 @@ nodes:
   watered: 0
   last_watered: null
   blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-15: PRUNED by s2c-012 PIVOT: undo + explanation is launch polish; every competitor has checkpoints. Owner can overrule in INBOX with a reason."
+
+- id: s2c-012
+  parent: s2c-000
+  kind: validate
+  title: "VALIDATE: does sketch-to-code survive Cursor Design Mode, Lovable, v0, Onlook & co.?"
+  why: "GARDENER 0.5 + owner INBOX 2026-10-15: no more building until novelty/importance/edge are checked."
+  done_when: "seed2tree/VALIDATION.md with linked evidence and a PURSUE/PIVOT/KILL verdict."
+  status: done
+  needs: cloud
+  value: 5
+  effort: 1
+  confidence: 0.8
+  momentum: 0.7
+  depth: 1
+  watered: 1
+  last_watered: "2026-10-15T09:05Z"
+  blocked_on: null
+  outputs:
+  - "seed2tree/VALIDATION.md (verdict PIVOT)"
+  - "tests/bench/lib/mode.mjs + run.mjs --mode auto|gesture|design|screenshot (asserts the override holds, records mode sent, probes tab capture before paying); __S2C_DEBUG__.runMode()/captureProbe(); tests/bench/mode.test.ts (5)"
+  log:
+  - "2026-10-15: researched ~15 competitors (Cursor Design Mode draws over the live app since 2026-06; Lovable 'Draw annotation' cleans up rough shapes for non-coders; v0 annotations 2026-06; Bolt visual edits 2026-09; Onlook 26k stars on Vite/Next; Annotask = MIT Vite plugin doing annotate->agent; Claude Code Desktop element select + auto-verify; Sketch2Code NAACL'25 paper owns the name). Verdict PIVOT: product/non-coder framing loses; only open question is structure vs screenshot on rough sketches. Built bench --mode; dry real-browser check: gesture->gesture, screenshot->screenshot with 131,740-char headless tab capture, auto->design on page 03. vitest 805/807 (2 env failures, baseline had 3), tsc clean."
+
+- id: s2c-013
+  parent: s2c-012
+  kind: validate
+  title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (kill test)"
+  why: "The pivot's whole case. Screenshot mode is a lower bound on what Cursor/Lovable send; if structure can't clearly beat even that, the seed is dead."
+  done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise KILL the seed."
+  status: blocked-on-human
+  needs: local
+  value: 5
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: "needs s2c-009 first, and spends quota (~4M billed tokens for 2 arms x 3 runs at the tidy set's ~0.69M/run) — same yes/no as s2c-008."
   outputs: []
   log: []

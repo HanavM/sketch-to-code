@@ -36,6 +36,7 @@
  *   node tests/bench/run.mjs --only 01,04         # just those ids (prefix match)
  *   node tests/bench/run.mjs --limit 1            # calibrate cost on one page
  *   node tests/bench/run.mjs --dry                # draw and score, never Run (free)
+ *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
  */
 import { chromium } from 'playwright'
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
@@ -48,6 +49,7 @@ import { execFileSync } from 'node:child_process'
 import { rmSync } from 'node:fs'
 import { scorePage, summarise } from './lib/score.mjs'
 import { writeReport } from './lib/report.mjs'
+import { parseMode, keyFor, launchArgs, modeHolds } from './lib/mode.mjs'
 
 const arg = (name, fallback = null) => {
   const i = process.argv.indexOf(`--${name}`)
@@ -70,6 +72,7 @@ const OUT = join(REPO, 'tests/bench/out')
 const APP_DIR = String(arg('app', join(tmpdir(), 's2c-bench-app')))
 const PORT = Number(arg('port', 5301))
 const DRY = has('dry')
+const MODE = parseMode(arg('mode'))
 const log = (...a) => console.log('[bench]', ...a)
 
 const only = arg('only')
@@ -85,12 +88,16 @@ if (chosen.length === 0) throw new Error(`no specs matched --only ${String(only)
 mkdirSync(OUT, { recursive: true })
 mkdirSync(join(OUT, 'shots'), { recursive: true })
 
-log(`${chosen.length} page(s)${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
+log(`${chosen.length} page(s) · mode ${MODE}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
 log('building the throwaway app…')
 const app = await makeApp({ dir: APP_DIR, port: PORT })
 log('app:', APP_DIR)
 
-const browser = await chromium.launch()
+// S2C_CHROMIUM: a browser other than playwright's pinned one (as intent-check.mjs)
+const browser = await chromium.launch({
+  args: launchArgs(MODE),
+  ...(process.env.S2C_CHROMIUM ? { executablePath: process.env.S2C_CHROMIUM } : {}),
+})
 const results = []
 
 /**
@@ -177,7 +184,7 @@ function readRunRecord(dir) {
 for (const spec of chosen) {
   log(`\n── ${spec.id} · ${spec.title}`)
   const row = {
-    id: spec.id, title: spec.title, strokes: spec.strokes.length,
+    id: spec.id, title: spec.title, mode: MODE, sentMode: null, strokes: spec.strokes.length,
     drawMs: null, runMs: null, tokens: null, verified: null, score: null, error: null,
   }
   const page = await browser.newPage({ viewport: spec.viewport })
@@ -235,6 +242,20 @@ for (const spec of chosen) {
       await page.waitForTimeout(200)
     }
 
+    // the arm under test. Set before drawing: the pills persist, and auto must
+    // see a cleared override or it is not measuring what a user gets
+    for (let i = 0; i < 3; i++) {
+      const st = await page.evaluate(() => window.__S2C_DEBUG__.runMode())
+      if (modeHolds(MODE, st)) break
+      // an override we did not ask for is cleared by pressing its own key
+      const key = keyFor(MODE) ?? keyFor(st.chosen)
+      await page.keyboard.press(key)
+      await page.waitForTimeout(150)
+    }
+    if (!modeHolds(MODE, await page.evaluate(() => window.__S2C_DEBUG__.runMode()))) {
+      throw new Error(`could not put the overlay in ${MODE} mode`)
+    }
+
     // ── the drawing, timed on its own ────────────────────────────────────
     const drawStart = Date.now()
     for (const line of spec.strokes) await drawPolyline(page, line)
@@ -266,6 +287,17 @@ for (const spec of chosen) {
       throw new Error(`only ${row.captured} of ${spec.strokes.length} marks registered — the canvas was not drawing`)
     }
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-sketch.png`) })
+
+    row.sentMode = (await page.evaluate(() => window.__S2C_DEBUG__.runMode())).effective
+    log(`mode ${MODE} → sends ${row.sentMode}`)
+    if (MODE === 'screenshot') {
+      // a capture that fails costs nothing to find out here and a paid
+      // reading to find out after Run
+      const bytes = await page.evaluate(() => window.__S2C_DEBUG__.captureProbe())
+      if (!(bytes > 1000)) throw new Error(`tab capture came back empty (${String(bytes)} chars)`)
+      row.captureChars = bytes
+      log(`tab capture ok (${bytes} base64 chars)`)
+    }
 
     if (DRY) {
       // not an error: a dry page did exactly what was asked of it
@@ -348,7 +380,7 @@ for (const spec of chosen) {
   results.push(row)
   // write after every page: a long benchmark that loses everything to one crash
   // on page 12 is worse than no benchmark
-  writeReport(join(OUT, 'report.md'), { results, meta: { app: APP_DIR, port: PORT, dry: DRY } })
+  writeReport(join(OUT, 'report.md'), { results, meta: { app: APP_DIR, port: PORT, dry: DRY, extra: { mode: MODE } } })
   writeFileSync(join(OUT, 'results.json'), JSON.stringify(results, null, 2))
 }
 

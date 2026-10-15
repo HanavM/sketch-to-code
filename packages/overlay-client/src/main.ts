@@ -2890,6 +2890,12 @@ class Overlay {
       // is the thing with three values
       surface: () => this.surface,
       skin: () => this.skin,
+      // which run mode a benchmark actually measured: the override it set,
+      // and what goes on the wire once auto has read the ink
+      runMode: () => ({ chosen: this.runMode, effective: this.effectiveRunMode() }),
+      // screenshot mode's capture, without a model call: a bench that cannot
+      // grab the tab would otherwise find out after paying for the reading
+      captureProbe: async () => (await this.captureScreen()).length,
       commands: () => ({
         open: this.cmdOpen,
         query: this.cmdInput.value,
