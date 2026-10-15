@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 7
-lock: {run: cloud-20261015T0655, until: "2026-10-15T08:10:57Z"}
+next_id: 8
+lock: null
 
 nodes:
 - id: s2c-000
@@ -85,18 +85,20 @@ nodes:
   title: "Component library must not outlive git clean (stale entries turn scribbles into components)"
   why: "Bug in findings.md; for a user, a delete gesture silently placing last week's component is trust-destroying."
   done_when: "Library entries are validated against the current source (or scoped to a commit) and a test shows a stale entry is ignored."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 1
   confidence: 0.8
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-15T06:59Z"
   blocked_on: null
-  outputs: []
-  log: []
+  outputs:
+  - "aa01bf7 packages/pipeline/src/library.ts staleReason + listEntries/capture gate; 5 tests in library.test.ts; docs/findings.md note"
+  log:
+  - "2026-10-15: project rows are now checked against the current file (exists + still declares the export as a component) on every read; stale rows hidden from list/find/place/search and duplicate hints, not deleted. 5 tests pass; suite 786/789 (same 3 env failures). done_when met. Did NOT find the exact path that carried the stale row into the bench run -> s2c-007."
 
 - id: s2c-005
   parent: s2c-000
@@ -128,6 +130,24 @@ nodes:
   confidence: 0.7
   momentum: 0.5
   depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-007
+  parent: s2c-004
+  title: "Find how the stale library row reached a run; keep the codegen agent out of .sketch2code/"
+  why: "s2c-004 gates the store, but placement is manual-only; the scratch-out->component in the bench came some other way. The codegen agent has Read/Glob/Grep over the project root, and .sketch2code/library/index.json stores portable component source."
+  done_when: "The path is identified from code (or ruled out with evidence), and if it is the agent reading .sketch2code/, codegen denies that directory with a test asserting the option/prompt."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
   watered: 0
   last_watered: null
   blocked_on: null
