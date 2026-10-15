@@ -1,0 +1,135 @@
+# seed2tree tree for sketch-to-code. Maintained by the gardener (see GARDENER.md).
+# Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
+garden: sketch-to-code
+prefix: s2c
+next_id: 7
+lock: null
+
+nodes:
+- id: s2c-000
+  parent: null
+  title: "SEED: sketch-to-code ready for strangers (see SEED.md)"
+  why: "The owner's outline; everything below serves it."
+  done_when: "Every item in SEED.md 'Definition of done' is met."
+  status: seed
+  needs: cloud
+  value: 5
+  effort: 5
+  confidence: 0.6
+  momentum: 0.5
+  depth: 0
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-15: planted from README + docs/findings.md (pre-existing work: 67+ commits, bench in tests/bench)."
+  - "2026-10-15: cloud baseline after npm ci: vitest 781/784 pass. 3 failures look environment-specific (cli deps.test linked plugin, init.test gh-create offer when gh is present, library.test unwritable home as root). Treat as baseline; never add new failures."
+
+- id: s2c-001
+  parent: s2c-000
+  title: "Replace the benchmark's primary metric (structure, content, order)"
+  why: "findings.md says the IoU number can't tell a good page from a bad one; every later change needs a trustworthy ruler."
+  done_when: "tests/bench reports a structure/content/order score per page (IoU kept as secondary), with unit tests for the scorer, and a re-scored table of the 15 existing pages in docs/findings.md."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 2
+  confidence: 0.7
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-002
+  parent: s2c-000
+  title: "Make the reading survive the instant-render reload"
+  why: "Top bug in findings.md — the cleaner the sketch, the likelier the run dies ('interpret failed: Failed to fetch'). Default config is unmeasurable because of it."
+  done_when: "With instant render on, a run whose page reloads mid-interpret still completes; covered by a unit/integration test that simulates the reload."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 3
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-003
+  parent: s2c-000
+  title: "Per-group fidelity — a group that reads as text is never traced verbatim"
+  why: "Only item in findings.md 'what to change next' that fixes an actual defect (page 05)."
+  done_when: "Fix in the interpretation path + a test reproducing page 05's failure that now passes."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-004
+  parent: s2c-000
+  title: "Component library must not outlive git clean (stale entries turn scribbles into components)"
+  why: "Bug in findings.md; for a user, a delete gesture silently placing last week's component is trust-destroying."
+  done_when: "Library entries are validated against the current source (or scoped to a commit) and a test shows a stale entry is ignored."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.8
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-005
+  parent: s2c-000
+  title: "Onboarding on real third-party repos"
+  why: "SEED done-criterion 1. init/doctor are tested on one scaffolded app only."
+  done_when: "e2e:cli-style script runs init + doctor against ≥5 real open-source Vite+React repos (cloned from GitHub) and records pass/fail + fixes in docs/."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 3
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
+
+- id: s2c-006
+  parent: s2c-000
+  title: "Make the one-word note cheap"
+  why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter."
+  done_when: "Labelling a just-drawn shape takes one keystroke to start typing, with an e2e (zero-token) test."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.7
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log: []
