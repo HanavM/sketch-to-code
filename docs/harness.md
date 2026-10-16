@@ -220,8 +220,20 @@ shown) PASSED when the arrow pointed at its card, and a theme switch (only the
 card's classes change) FAILED. Now the region is read without the trigger in
 it, and classes/styles count as the look. Wired toggle, theme switch and a
 dismiss that unmounts the region pass; a button with no handler and the
-label-only flip fail. Known false pass: a region with something that changes
-by itself (a ticking clock, an autoplaying carousel) will pass any click.
+label-only flip fail.
+**A region that changes by itself (s2c-028).** That used to be a false pass:
+a dead button in a card with a ticking clock PASSED, because the clock moved
+the card during the settle window (the e2e was red on exactly this). Now a
+click probe first watches the region for 1.1 s with nobody touching it (a
+once-a-second clock ticks inside that). If it changes, the trigger is not
+clicked and the verdict is *unverified*: "the card changes by itself (a
+clock, a countdown or a slideshow in it), so a click on "Show stats" can't
+be told apart from that. Point the arrow at the part that should change."
+A wired toggle in a ticking card is unverified too: honest, not clever. The
+same dead button with the arrow at its own panel (clock outside it) still
+FAILS. Cost: 1.1 s per click probe. Still blind: something that changes
+less often than once per 1.1 s (a 5 s carousel) and happens to change in the
+settle window after the click.
 Not yet: the page residue a probe leaves (a toggle stays toggled, the "Saved"
 line stays until reload), a key a user can press to re-test a behaviour, and
 run2's probe step driven by a real reading (only by unit tests).

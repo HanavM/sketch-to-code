@@ -26,6 +26,8 @@ export interface ProbeObservationWire {
   before: string
   after: string
   unhandledSubmit?: boolean
+  /** Click probes: the region changed while nobody touched it (a clock, a slideshow). */
+  selfChanged?: boolean
   ms: number
 }
 
@@ -111,7 +113,32 @@ function setNative(f: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
 
-export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000): Promise<ProbeObservationWire> {
+/** Which mutations of `region` count, leaving out the trigger's own subtree. */
+const regionMutations = (kind: ProbeSpecWire['kind']): MutationObserverInit => ({
+  childList: true, characterData: true, subtree: true,
+  ...(kind === 'click' ? { attributes: true, attributeFilter: ['class', 'style', 'hidden', 'open'] } : {}),
+})
+
+/**
+ * Watch `region` for `ms` with nobody touching it. True when it changed by
+ * itself: a ticking clock, a countdown, an autoplay slideshow, a spinner.
+ * Such a region changes during any click's settle window, so "it changed"
+ * says nothing about the click. 1.1 s by default, so a once-a-second clock
+ * ticks at least once inside it.
+ */
+export async function changesByItself(region: Element, skip: Element | null, ms = 1100): Promise<boolean> {
+  let moved = 0
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) if (!(skip && skip.contains(m.target))) moved++
+  })
+  const before = fingerprint(region, skip)
+  mo.observe(region, regionMutations('click'))
+  await sleep(ms)
+  mo.disconnect()
+  return moved > 0 || fingerprint(region, skip) !== before
+}
+
+export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000, idleWatchMs = 1100): Promise<ProbeObservationWire> {
   const t0 = performance.now()
   const fail = (error: string): ProbeObservationWire =>
     ({ ran: false, error, requests: [], before: '', after: '', ms: Math.round(performance.now() - t0) })
@@ -122,6 +149,13 @@ export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000
   if (spec.kind === 'submit' && !form) return fail(`${spec.trigger.label} is not inside a form`)
   const region = spec.kind === 'submit' ? form : (spec.effect ? stamped(spec.effect.srcLoc) : null)
   if (spec.kind === 'click' && !region) return fail(`${spec.effect?.label ?? 'the region'} is not on the page`)
+
+  // A click probe judges "the region changed after the click". If it changes
+  // with nobody touching it, that judgement is worthless: a dead button next
+  // to a clock would pass. Look first; if it moves by itself, don't click.
+  if (spec.kind === 'click' && await changesByItself(region!, trigger, idleWatchMs)) {
+    return { ran: true, requests: [], before: '', after: '', selfChanged: true, ms: Math.round(performance.now() - t0) }
+  }
 
   // ── watch the network: fetch and XHR, the two ways a page sends anything
   const requests: ProbeObservationWire['requests'] = []
@@ -193,10 +227,7 @@ export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000
       for (const m of ms) if (!(skip && skip.contains(m.target))) reacted++
     })
     if (region) {
-      mo.observe(region, {
-        childList: true, characterData: true, subtree: true,
-        ...(spec.kind === 'click' ? { attributes: true, attributeFilter: ['class', 'style', 'hidden', 'open'] } : {}),
-      })
+      mo.observe(region, regionMutations(spec.kind))
     }
     if (spec.kind === 'submit') {
       for (const f of [...form!.querySelectorAll('input, textarea, select')] as Array<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {

@@ -17,6 +17,15 @@
  *   E. a dismiss button that unmounts the region (React's usual
  *      conditional render)                                     → PASSED
  *   F. A again with the arrow pointing at the whole card       → PASSED
+ *   G. a button with no handler in a card with a ticking clock;
+ *      the arrow points at the card                            → UNVERIFIED
+ *      (the clock changes the card during any settle window,
+ *      so a dead button would pass on a naive before/after)
+ *   H. a wired toggle in a card with a ticking clock           → UNVERIFIED
+ *      (honest: the click can't be told apart from the tick)
+ *   I. G's dead button with the arrow at its own panel, which
+ *      does not hold the clock                                 → FAILED
+ *      (the idle watch only looks at the region, not the page)
  *   and: no navigation, no page errors, no request leaves the dev server.
  *
  * Zero tokens: the fixture component is written to disk by this test and
@@ -39,9 +48,19 @@ const restore = () => {
 }
 const assert = (ok, msg) => { if (!ok) throw new Error(`ASSERT: ${msg}`) }
 
-const FIXTURE = `import { useState } from 'react'
+const FIXTURE = `import { useEffect, useState } from 'react'
+
+function Clock() {
+  const [t, setT] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setT((n) => n + 1), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return <span className="tabular-nums">{t}s</span>
+}
 
 export default function ProbeToggles() {
+  const [stats, setStats] = useState(false)
   const [open, setOpen] = useState(false)
   const [tips, setTips] = useState(false)
   const [dark, setDark] = useState(false)
@@ -67,6 +86,16 @@ export default function ProbeToggles() {
       <div id="pt-e" className="rounded border p-3">
         <button id="pt-e-btn" onClick={() => setNote(false)}>Dismiss</button>
         {note && <p id="pt-e-note">A note you can dismiss</p>}
+      </div>
+      <div id="pt-g" className="rounded border p-3">
+        <button id="pt-g-btn">Show stats</button>
+        <p id="pt-g-panel" className="hidden">Stats here</p>
+        <p>Updated <Clock /> ago</p>
+      </div>
+      <div id="pt-h" className="rounded border p-3">
+        <button id="pt-h-btn" onClick={() => setStats((s) => !s)}>Show stats</button>
+        <p id="pt-h-panel" className={stats ? 'block' : 'hidden'}>Stats here</p>
+        <p>Updated <Clock /> ago</p>
       </div>
     </section>
   )
@@ -128,6 +157,9 @@ try {
     ['D theme switch (classes only)', 'pt-d-btn', 'pt-d', 'passed'],
     ['E dismiss unmounts the region', 'pt-e-btn', 'pt-e-note', 'passed'],
     ['F wired toggle, arrow at the whole card', 'pt-a-btn', 'pt-a', 'passed'],
+    ['G dead button, card with a clock', 'pt-g-btn', 'pt-g', 'unverified'],
+    ['H wired toggle, card with a clock', 'pt-h-btn', 'pt-h', 'unverified'],
+    ['I dead button, arrow at its panel (clock outside)', 'pt-g-btn', 'pt-g-panel', 'failed'],
   ]
   const wrong = []
   for (const [name, t, e, want] of cases) {
@@ -142,7 +174,7 @@ try {
   assert(wrong.length === 0, `wrong verdicts:\n  ${wrong.join('\n  ')}`)
   assert(errs.length === 0, `page errors: ${errs.join(' | ')}`)
   assert(offsite.length === 0, `requests left the dev server: ${offsite.join(', ')}`)
-  log('✓ wired passes, no-op fails, label-only fails, class-only passes, unmount passes · 0 tokens')
+  log('✓ wired passes, no-op fails, label-only fails, class-only passes, unmount passes, a ticking region is unverified · 0 tokens')
 } finally {
   await b.close()
   restore()

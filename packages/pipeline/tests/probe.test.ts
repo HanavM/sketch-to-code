@@ -143,6 +143,15 @@ describe('judgeProbe: a dead form never passes', () => {
     expect(judgeProbe(click, obs({ after: 'y' }), clean)).toMatchObject({ status: 'passed', actionIndex: 2 })
     expect(judgeProbe(click, obs({}), clean).reason).toBe('clicking "More" changed nothing in "Details"')
   })
+  it('a region that changes by itself is unverified, never passed, even when before/after differ', () => {
+    const v = judgeProbe(click, obs({ selfChanged: true, before: 'a', after: 'b' }), clean)
+    expect(v.status).toBe('unverified')
+    expect(v.reason).toMatch(/^couldn't test it: "Details" changes by itself .* a click on "More" can't be told apart/)
+    expect(v.reason).toMatch(/Point the arrow at the part that should change/)
+  })
+  it('selfChanged only speaks for click probes: a submit is still judged by what was stored', () => {
+    expect(judgeProbe(submit, obs({ selfChanged: true }), clean).status).toBe('failed')
+  })
 })
 
 describe('the data guard puts every byte back', () => {

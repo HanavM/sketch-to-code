@@ -55,6 +55,11 @@ export interface ProbeObservation {
   after: string
   /** A submit nothing handled: it would have navigated away, and was stopped. */
   unhandledSubmit?: boolean
+  /**
+   * Click probes: the effect region changed while nobody touched it, before
+   * the click (a clock, a countdown, a slideshow). The trigger was not clicked.
+   */
+  selfChanged?: boolean
   ms: number
 }
 
@@ -171,6 +176,9 @@ export function judgeProbe(spec: ProbeSpec, obs: ProbeObservation, data: DataDel
     return v('passed', `a test submit was stored in ${data.changed.join(', ')} and the page said so (the test record was removed again)`)
   }
   // click
+  if (obs.selfChanged) {
+    return v('unverified', `couldn't test it: ${spec.effect?.label ?? 'the region you pointed at'} changes by itself (a clock, a countdown or a slideshow in it), so a click on ${spec.trigger.label} can't be told apart from that. Point the arrow at the part that should change, not the part that ticks`)
+  }
   if (!changed) return v('failed', `clicking ${spec.trigger.label} changed nothing in ${spec.effect?.label ?? 'the region you pointed at'}`)
   return v('passed', `clicking ${spec.trigger.label} changed ${spec.effect?.label ?? 'the region you pointed at'}`)
 }
