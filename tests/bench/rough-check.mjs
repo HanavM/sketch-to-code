@@ -1,6 +1,6 @@
 /**
  * Zero-token check that every rough EDIT spec's answer key can be passed and
- * can be failed, on a real DOM. For each of r01-r06: the base page as plain
+ * can be failed, on a real DOM. For each edit page (r01-r06, r12-r14): the base page as plain
  * HTML must score NOT realized, and the same page with the intended change
  * applied by hand (a few DOM lines, below) must score realized. A check that
  * nothing could pass, or that the base already passes, would make the rough
@@ -51,6 +51,18 @@ const APPLY = {
     f.insertAdjacentHTML('beforeend', '<form><input type="email" placeholder="you@example.com"><button>Subscribe</button></form>')
   },
   'r06-x-out-nav-link': () => document.querySelector('a[href="#p"]').remove(),
+  'r12-green-pen-ring-button': () => {
+    // green only: r12 asks for nothing else
+    document.querySelector('button').style.background = 'oklch(0.627 0.194 149.214)'
+  },
+  'r13-two-arrows-swap-cards': () => {
+    const [first, second, third] = document.querySelectorAll('#features article')
+    second.before(third)
+    second.after(first)
+  },
+  'r14-caret-insert-nav-link': () => {
+    document.querySelector('a[href="#f"]').insertAdjacentHTML('afterend', '<a href="#b">Blog</a>')
+  },
 }
 
 const browser = await chromium.launch(process.env.S2C_CHROMIUM ? { executablePath: process.env.S2C_CHROMIUM } : {})

@@ -333,6 +333,8 @@ export function scoreIntent(spec, elements) {
  *   { check: 'present', text?, kind? }   an element of that kind (and text) exists
  *   { check: 'kept', text }              untouched content survived (no collateral damage)
  *   { check: 'above', a, b }             the element saying `a` sits above the one saying `b`
+ *   { check: 'leftOf', a, b }            `a` comes before `b` in reading order: same row and
+ *                                        left of it, or on an earlier row (swap, insert)
  *   { check: 'bg', text, hue: [lo, hi] } the element saying `text` (or its nearest filled
  *                                        ancestor) has a background in that hue range
  *
@@ -370,6 +372,16 @@ export function scoreEdits(spec, elements) {
       const b = sayer(c.b)
       found = a
       pass = !!a && !!b && a.rect.y + a.rect.h / 2 < b.rect.y
+    } else if (c.check === 'leftOf') {
+      const a = sayer(c.a)
+      const b = sayer(c.b)
+      found = a
+      if (a && b) {
+        const ay = a.rect.y + a.rect.h / 2
+        const by = b.rect.y + b.rect.h / 2
+        const sameRow = Math.abs(ay - by) < Math.max(a.rect.h, b.rect.h) / 2
+        pass = sameRow ? a.rect.x + a.rect.w / 2 < b.rect.x + b.rect.w / 2 : ay < by
+      }
     } else if (c.check === 'bg') {
       const el = sayer(c.text)
       found = el

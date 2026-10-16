@@ -60,6 +60,7 @@ import { scorePage, summarise } from './lib/score.mjs'
 import { writeReport } from './lib/report.mjs'
 import { parseMode, keyFor, launchArgs, modeHolds } from './lib/mode.mjs'
 import { parseWords, notesFor, wordsTyped, answerKey, wordSummary } from './lib/words.mjs'
+import { pensFor, penChanges, penMismatch } from './lib/pen.mjs'
 
 const arg = (name, fallback = null) => {
   const i = process.argv.indexOf(`--${name}`)
@@ -100,7 +101,7 @@ if (only) {
 if (limit) chosen = chosen.slice(0, Number(limit))
 if (chosen.length === 0) throw new Error(`no specs matched --only ${String(only)}`)
 // before the app is built: an unclassified note in content mode is a spec bug, not a run failure
-for (const s of chosen) notesFor(s, WORDS)
+for (const s of chosen) { notesFor(s, WORDS); pensFor(s) }
 
 mkdirSync(OUT, { recursive: true })
 mkdirSync(join(OUT, 'shots'), { recursive: true })
@@ -156,6 +157,31 @@ async function drawPolyline(page, points) {
   // deterministic — and is also what a hand actually does, since moving the pen
   // somewhere else takes longer than this.
   await page.waitForTimeout(450)
+}
+
+/**
+ * Pick a pen colour the way a user does: Alt+P opens the pen panel, the custom
+ * colour input takes any #rrggbb, Alt+P closes it again. null = Alt+0, the
+ * default ink. (lib/pen.mjs; s2c-015)
+ */
+async function setPen(page, color) {
+  if (!color) {
+    await page.keyboard.press('Alt+0')
+    await page.waitForTimeout(100)
+    return
+  }
+  await page.keyboard.press('Alt+p')
+  await page.waitForTimeout(200)
+  const ok = await page.evaluate((c) => {
+    const input = document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('penCustom')
+    if (!input) return false
+    input.value = c
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    return true
+  }, color)
+  await page.keyboard.press('Alt+p')
+  await page.waitForTimeout(150)
+  if (!ok) throw new Error('the pen panel has no custom colour input')
 }
 
 /**
@@ -318,8 +344,15 @@ for (const spec of chosen) {
     }
 
     // ── the drawing, timed on its own ────────────────────────────────────
+    // default ink first: the pen persists in localStorage across pages
+    await page.keyboard.press('Alt+0')
+    await page.waitForTimeout(100)
+    const pens = new Map(penChanges(spec).map((c) => [c.at, c.color]))
     const drawStart = Date.now()
-    for (const line of spec.strokes) await drawPolyline(page, line)
+    for (const [i, line] of spec.strokes.entries()) {
+      if (pens.has(i)) await setPen(page, pens.get(i))
+      await drawPolyline(page, line)
+    }
     for (const note of notesFor(spec, WORDS)) {
       await page.mouse.move(note.at.x, note.at.y)
       await page.waitForTimeout(120)
@@ -342,7 +375,10 @@ for (const spec of chosen) {
     if (!(await alive())) {
       throw new Error('the page reloaded while the sketch was being drawn — the strokes are gone')
     }
-    row.captured = await page.evaluate(() => window.__S2C_DEBUG__.strokes().length)
+    const capturedStrokes = await page.evaluate(() => window.__S2C_DEBUG__.strokes())
+    row.captured = capturedStrokes.length
+    const penBad = penMismatch(spec, capturedStrokes)
+    if (penBad) throw new Error(`the pen did not take: ${penBad}`)
     log(`drew ${spec.strokes.length} marks → ${row.captured} strokes in ${(row.drawMs / 1000).toFixed(1)}s`)
     if (row.captured < Math.ceil(spec.strokes.length / 2)) {
       throw new Error(`only ${row.captured} of ${spec.strokes.length} marks registered — the canvas was not drawing`)

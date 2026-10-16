@@ -452,3 +452,34 @@ tests.
 Not done: no paid run. The live numbers ride on the s2c-013 quota. For the
 pilot, the cheapest thesis test is r04 + r05 + r08 in `--words content`
 (three pages, about a fifth of a full arm).
+
+## The visual language, checked against the readers (seed2tree s2c-015)
+
+*Added 2026-10-16.* Full table: `docs/visual-language.md`. 16 common edits.
+A mark alone carries 7 of them (delete, move, reorder, swap, colour,
+add-another, add-new-UI). 4 need words for *what*: size/weight, wrap, a
+condition, a link. 4 lose to a drag or a button: short moves, resize, align,
+"make it work". The drawing-first claim is strongest for delete, add, swap
+and colour.
+
+Three things the check turned up, none measured with tokens:
+
+1. **s2c-016 was wrong that restyle needs words.** The overlay has had a pen
+   colour for a while (Alt+P, `palette.ts`: "the pen colour IS the
+   instruction"). The bench could not draw in colour, so r03 looked
+   ungradeable with no words. The bench now has `pens:` (set through the real
+   UI, verified on the captured strokes). **r12** is r03's ring in green ink
+   with no words, and it is judged in `--words none`.
+2. **Long arrows lost their heads.** `ink/scene.ts` simplifies at 3.5% of a
+   stroke's diagonal, so on shafts over ~600 px the head vanished and the
+   arrow read as a plain line. r13's card-1-to-card-3 arrow did this. Fixed
+   with a 6 px retry. Only v1 and other `scene.arrows` readers were affected:
+   the live v2 reader only renders the scene for the model.
+3. **v1 gets swap and X wrong.** Opposite arrows give two MOVEs, which end
+   2-3-1, not a swap. An X over a link gives no op at all. v1 is the legacy
+   handler, so this is recorded, not fixed. v2 has both in its prompt.
+
+New pages: r12 (green-pen ring), r13 (two arrows, swap), r14 (caret + "Blog").
+`rough-check.mjs` passes all three with and without words, and
+`run.mjs --dry` draws them in Chromium. `tests/bench/language.test.ts` has 16
+tests.

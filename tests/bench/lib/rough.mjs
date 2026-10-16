@@ -175,6 +175,21 @@ export function rarrow(x1, y1, x2, y2, opts = {}) {
   return [...shaft, ...tip.slice(1)]
 }
 
+/**
+ * A caret (^) drawn under a gap: two quick legs meeting at an apex ABOVE the
+ * ends, the proofreader's "insert here". `x, y` is the apex. The classifier
+ * (packages/ink/src/classify.ts) wants a turn sharper than 110° at the apex,
+ * so the legs stay steep: half-width `w/2` under ~0.55 of the height.
+ */
+export function rcaret(x, y, w = 18, h = 16, opts = {}) {
+  const seed = opts.seed ?? seedFrom(x, y, w, h, 29)
+  const r = rngFrom(seed)
+  const lean = (r() * 2 - 1) * 2
+  const a = { x: x - w / 2 + lean, y: y + h + (r() * 2 - 1) * 2 }
+  const b = { x: x + w / 2 + lean, y: y + h + (r() * 2 - 1) * 2 }
+  return walk([a, { x, y }, b], 3)
+}
+
 // ── measures ────────────────────────────────────────────────────────────────
 
 function resample(points, spacing) {

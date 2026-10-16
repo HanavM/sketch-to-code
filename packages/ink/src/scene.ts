@@ -82,7 +82,15 @@ export function analyzeStrokes(strokes: Stroke[], opts: AnalyzeOptions = {}): In
       const top = c.candidates[0]
       // closed shapes are never arrows
       if (top && ['rect', 'rounded-rect', 'ellipse', 'circle', 'triangle', 'diamond'].includes(top.kind)) continue
-      const det = detectSingleStrokeArrow(c.features, c.verts)
+      // RDP's tolerance scales with the stroke (3.5% of its diagonal), so on a
+      // long arrow it is wider than the head: a 780px shaft gets ~27px, and a
+      // normal 28px head simplifies away into a plain line (s2c-015, bench
+      // r13). Retry at a tolerance capped to head scale before giving up.
+      const det =
+        detectSingleStrokeArrow(c.features, c.verts) ??
+        (Math.hypot(c.features.bbox.w, c.features.bbox.h) * 0.035 > 6
+          ? detectSingleStrokeArrow(c.features, rdp(c.features.resampled, 6))
+          : null)
       if (det && det.confidence >= 0.6) {
         const nodeId = nid('n')
         nodes.push({
