@@ -57,13 +57,39 @@ const consoleErrors = []
 page.on('console', (m) => { if (m.type() === 'error') consoleErrors.push(m.text()) })
 page.on('pageerror', (e) => consoleErrors.push(`pageerror: ${e.message}`))
 
+/**
+ * A read that waits out a reload instead of dying in it.
+ *
+ * An extract writes a module the page has never imported, so vite full-reloads
+ * the page a beat later, and when that lands is up to the file watcher, not the
+ * test. A read that straddles it fails with "Execution context was destroyed",
+ * and one that runs before the new overlay has booted finds no host. Both mean
+ * "ask again in a moment", never "the product is broken": the product's half is
+ * asserted below (the receipt and tweak mode must survive the reload). Anything
+ * else is re-thrown at once, and the retry is bounded so a page that never comes
+ * back still fails.
+ */
+let reloadsSeen = 0
+page.on('framenavigated', (f) => { if (f === page.mainFrame()) reloadsSeen++ })
+const RELOADING = /Execution context was destroyed|navigation|Cannot read properties of (null|undefined)|__S2C_DEBUG__ is not defined/
+const settled = async (fn, ms = 10000) => {
+  const deadline = Date.now() + ms
+  for (;;) {
+    try {
+      return await fn()
+    } catch (e) {
+      if (!RELOADING.test(String(e?.message)) || Date.now() > deadline) throw e
+      await page.waitForTimeout(150)
+    }
+  }
+}
 const shadow = (id, prop = 'textContent') =>
-  page.evaluate(
+  settled(() => page.evaluate(
     ([i, p]) => document.getElementById('s2c-overlay-host').shadowRoot.getElementById(i)[p],
     [id, prop],
-  )
+  ))
 const status = () => shadow('status')
-const dbg = () => page.evaluate(() => globalThis.__S2C_DEBUG__.lasso())
+const dbg = () => settled(() => page.evaluate(() => globalThis.__S2C_DEBUG__.lasso()))
 const waitStatus = async (re, ms = 15000) => {
   const deadline = Date.now() + ms
   while (Date.now() < deadline) {
@@ -91,8 +117,9 @@ const drawLasso = async (pts, { stopBefore = 0 } = {}) => {
  * before drawing the next loop.
  */
 const ensureTweak = async () => {
-  await page.waitForFunction(() => globalThis.__S2C_DEBUG__ != null, { timeout: 15000 })
-  const mode = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+  await settled(() => page.waitForFunction(() => globalThis.__S2C_DEBUG__ != null, { timeout: 15000 }), 15000)
+  const mode = await settled(() =>
+    page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode))
   if (mode !== 'tweak') {
     await page.evaluate(() => {
       document.getElementById('s2c-overlay-host').shadowRoot.getElementById('tweakBtn').click()
@@ -206,6 +233,7 @@ try {
   nav = await navRects()
   await drawLasso(loopAround(nav.Overview, nav.Reports))
   await page.waitForTimeout(150)
+  const navsBeforeExtract = reloadsSeen
   await page.keyboard.type('NavLinks')
   await page.keyboard.press('Enter')
   const ok = await waitStatus(/^[✓✗]/)
@@ -226,17 +254,17 @@ try {
   if (/>Overview</.test(navAfter)) throw new Error('ASSERT: the original elements were not moved out')
 
   // the page has to still BE the page: HMR remounts with the new tree
-  await page.waitForFunction(
+  await settled(() => page.waitForFunction(
     () => [...document.querySelectorAll('nav a')].some((a) => a.textContent.trim() === 'Overview'),
     { timeout: 10000 },
-  )
-  const links = await page.evaluate(() =>
-    [...document.querySelectorAll('nav a')].map((a) => a.textContent.trim()))
+  ))
+  const links = await settled(() => page.evaluate(() =>
+    [...document.querySelectorAll('nav a')].map((a) => a.textContent.trim())))
   log('links on the page after HMR:', links.join(', '))
   if (!links.includes('Overview') || !links.includes('Reports') || !links.includes('Settings')) {
     throw new Error(`ASSERT: the page lost elements: ${links.join(', ')}`)
   }
-  const bodyText = await page.evaluate(() => document.body.innerText.length)
+  const bodyText = await settled(() => page.evaluate(() => document.body.innerText.length))
   if (bodyText < 200) throw new Error('ASSERT: blank screen after the extract')
   if (consoleErrors.length) throw new Error(`ASSERT: console errors: ${consoleErrors.join(' | ')}`)
 
@@ -245,13 +273,14 @@ try {
   // boot, back in tweak mode. Without that the user's whole reward for the
   // gesture is wiped a second after it lands.
   await page.waitForTimeout(2500)
-  const modeAfter = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
-  const after = await page.evaluate(() => ({
+  const modeAfter = await settled(() =>
+    page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode))
+  const after = await settled(() => page.evaluate(() => ({
     debug: globalThis.__S2C_DEBUG__ != null,
     lasso: globalThis.__S2C_DEBUG__?.lasso() ?? null,
     sel: globalThis.__S2C_DEBUG__?.selRect() ?? null,
     status: document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent,
-  }))
+  })))
   if (after.lasso !== null || after.sel !== null) {
     throw new Error(`ASSERT: stale selection survived the extract: ${JSON.stringify(after)}`)
   }
@@ -259,6 +288,11 @@ try {
   if (!after.status.startsWith('✓')) {
     throw new Error(`ASSERT: the receipt did not survive the reload: ${after.status}`)
   }
+  // The reload is the point of this block: with none, nothing above proved the
+  // receipt survives one. (It can't be missed by timing: phase 3 waits 2.5 s.)
+  const extractReloads = reloadsSeen - navsBeforeExtract
+  if (extractReloads < 1) throw new Error('ASSERT: the extract caused no reload — the survival checks proved nothing')
+  log('reloads caused by the extract:', extractReloads)
   log('after the reload: mode', modeAfter, '· selection', JSON.stringify(after.lasso), after.sel,
     '· status still:', after.status.slice(0, 48) + '…')
 
@@ -269,11 +303,11 @@ try {
   if (!/undid: extract NavLinks/.test(undone)) throw new Error(`ASSERT: undo did not name the extract: ${undone}`)
   await page.waitForTimeout(600)
   if (readFileSync(NAVBAR, 'utf8') !== NAVBAR_BEFORE) throw new Error('ASSERT: Navbar.tsx was not restored')
-  await page.waitForFunction(
+  await settled(() => page.waitForFunction(
     () => [...document.querySelectorAll('nav a')].map((a) => a.textContent.trim()).join(',') ===
       'Overview,Reports,Settings',
     { timeout: 10000 },
-  )
+  ))
   // the half `git restore` cannot do on its own: the new component is
   // untracked, so no diff mentions it. Undo has to delete it outright or the
   // page is left importing a file nothing asked for.
@@ -284,11 +318,11 @@ try {
   // nothing in the page moves while a loop is being drawn. An HMR landing
   // mid-drag is the one exception, and restoring the file from git is exactly
   // that — so let the remount finish before drawing the next one.
-  await page.waitForFunction(
+  await settled(() => page.waitForFunction(
     () => [...document.querySelectorAll('nav a')].map((a) => a.textContent.trim()).join(',') ===
       'Overview,Reports,Settings',
     { timeout: 10000 },
-  )
+  ))
   await page.waitForTimeout(1200)
   // deleting the extracted file takes the module graph with it, so this
   // restore full-reloads too
