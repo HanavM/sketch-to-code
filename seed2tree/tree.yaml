@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 27
-lock: {run: cloud-20261016T1455, until: '2026-10-16T16:10:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -243,6 +243,7 @@ nodes:
   - "2026-10-16: from s2c-011: the walkthrough should hit one deliberate misread and judge the misread card (its sentence + Undo) as a non-coder would; the bar's status line still shows the developer summary, list it if it gets in the way."
   - "2026-10-16: watering 1. Audited the path on today's real `npm create vite --template react` (Vite 8.3, plugin-react 6.1, plain CSS) with init from the checkout + Playwright, zero-token except one accident. Init + stamping work on Vite 8 (49 stamped). FOUND: (1) HARD BLOCKER for done #2: change #2 is refused (checkpoint refuses a dirty tree, init leaves allowDirty unset, nothing commits after a run) and the refusal lands after the paid interpret; the demo app's allowDirty:true hides it from every e2e -> s2c-024. (2) init/doctor/READMEs/bar said 'press Alt+D to draw' but the page opens drawing, so following it turned drawing OFF; init-real-project e2e was red on it. FIXED; e2e now asserts live-on-load, Alt+D pauses (bar says so), resumes; all CLI checks pass. (3) clicking your own app selects (jargon line 'button 120x33 flex row src/App.jsx') and a drag after a click nudges the selection instead of drawing -> s2c-025. (4) reading took ~10.5s before codegen (1 sample). (5) ACCIDENT: cloud Claude Code is signed in via the host even under env -i, so one probe made a real paid run (killed ~45s, no file written); never submit unstubbed sketches from the cloud. REMAINING for done_when: stub /@s2c/interpret with a recorded interpretation and walk all 3 changes; needs s2c-024 first."
   - "2026-10-16: s2c-024 done (9264bd6): change #2/#3 are no longer refused on an init'd project. Next watering: stub /@s2c/interpret + run with a recorded interpretation and walk all 3 changes (incl. a form) end to end on the real Vite 8 starter."
+  - "2026-10-16: s2c-026 done (46499cb): Ctrl+Z no longer erases a hand edit made after a sketch edit (reverts only the files the edit wrote; refuses in words when one of those was changed by hand). Coder-facing; doesn't move the non-coder path. Next watering unchanged: stubbed interpret, 3 changes end to end."
 
 - id: s2c-011
   parent: s2c-000
@@ -580,16 +581,21 @@ nodes:
   title: "Undo must not throw away a hand edit made after the tool's edit"
   why: "s2c-024 now refuses to EDIT over a hand edit, but /@s2c/undo still runs `git restore --source=<checkpoint>` on every file the edit touched, with no dirt check. A coder who tweaks App.jsx by hand after a sketch and then presses Ctrl+Z loses the tweak silently. Same trust class as s2c-022."
   done_when: "Unit + zero-token e2e: tool edit, hand edit to the same file, Ctrl+Z -> either the hand edit survives (3-way: reverse only the tool's hunk) or undo refuses in plain words naming the file and changes nothing; undo on an owned tree behaves as today; vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T15:20:00Z'
   blocked_on: null
-  outputs: []
+  outputs:
+  - 46499cb
+  - packages/pipeline/src/safety.ts
+  - packages/pipeline/tests/undo-hand-edit.test.ts
+  - packages/cli/tests/e2e/init-real-project.mjs
   log:
   - "2026-10-16: added by s2c-024. Value 3: hits coders, not the non-coder path. The cheap version (refuse when the tree isn't an owned state) is a few lines using dirtReason; the 3-way version is nicer but more code. Start with refuse."
+  - "2026-10-16: watering 1 -> DONE (46499cb). FOUND it was worse than filed: undo reverted EVERY file differing from the checkpoint (touchedFiles = diff vs cp + all untracked), so a hand tweak to ANY tracked file made after a sketch was erased by Ctrl+Z, not just the edited file. Fix: (1) UndoEntry.touched = files the edit wrote, taken in pushEdit; undo reverts only those (hand edits elsewhere survive). (2) safety.ts undoReason: if a file undo is about to restore/delete changed by hand since the tool's last owned state (handChanges = diff-tree last owned vs worktreeId), refuse 'Undo stopped: src/App.jsx was changed by hand... Nothing was changed', entry stays on the stack; a hand change already committed (worktree == HEAD for that path) doesn't block. (3) an undo only records an owned state if the tree was owned before it, so it can't launder a hand edit past dirtReason. (4) overlay shows the refusal as a sentence, not 'undo failed:'. Old undo.json entries without touched fall back to the full revert, guarded by undoReason. Chose refuse over 3-way hunk reversal (more code, merge conflicts to explain). Verified: undo-hand-edit.test.ts 11 tests; init-real-project e2e (Vite 8 starter, allowDirty unset, 0 tokens) new checks: same-file hand edit -> refused + nothing changed; tweak removed -> undo reverts only src/App.jsx; hand edit to main.jsx survives; ALL PASS. vitest 1017/1019 (same 2 env failures), build + typecheck clean, live-misread + live-keymap green. NOT checked: the overlay refusal line in a browser (only the endpoint); a real agent run's touched list (only codemods); history scrub (restoreVersion records the current state first, so hand edits are kept on the timeline - no bug there)."
