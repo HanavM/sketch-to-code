@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-16 10:50 UTC — sketch-to-code / s2c-020 Bare ring asks — **done**: a ring with no words and no colour gets a question, not a paid guess
+Picked because: priority 1.71 (next: s2c-023 1.61, s2c-021 1.54; s2c-000 seed 1.91 skipped: it is the umbrella, not a task; s2c-013 local, skipped; fashion killed, no overrule)
+Did: commit 783cd3e. v2 had no ask path; `unclear` only shows after the paid call. Now the overlay checks before /@s2c/interpret. If the sketch is only closed default-ink rings/boxes around existing elements, with no note, in a gesture reading, it asks: "What should change about "Get started"? Type a word … or redraw it in a pen colour (Alt+P). ▶ Run again sends it as it is." A note opens on the ring, so the answer is just typing. In auto mode, answering re-arms the run.
+Result: 18 unit tests on the bench's own strokes. With every word removed, only r03 asks; r01/02/04/05/06/12/13/14/15 do not. An empty box in an empty slot (r15) is "add here" and never asks. New `tests/e2e/live-ask.mjs`: 5 live checks, 0 interpret calls where it asks. live-label/auto/notes/misread/keymap/noterefs/pen still green. vitest 946/948 (same 2 env failures); build + typecheck clean. momentum 0.5 → 0.7
+Found: the ink classifier calls r05's three-sided box closed, and a box that runs past its start a "diamond". I worked around both with a closing-gap check and left the classifier alone (v1 is legacy).
+Blunt: this saves a token spend and a wrong edit on one narrow case. It is not proof the thesis works. A box drawn as 4 separate strokes still goes to the model. Nobody has seen the question yet, so whether people answer it or just hit Run again is unknown (s2c-010).
+New branches: none.
+Pruned/done: s2c-020 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: the formula says s2c-023 image drop (1.62), but I'd take s2c-021 behaviour probes (1.55, value 5). It is the bigger unlock: today a button that does nothing reports "verified". Bump it in INBOX if you agree.
+
 ## 2026-10-16 09:10 UTC — sketch-to-code / s2c-022 Stop means stop — **done**: the cap and Esc now actually stop the agent
 Picked because: priority 3.50 (next: s2c-000 seed 1.90, s2c-020 1.70; s2c-013 local, skipped; fashion killed, no overrule)
 Did: commit 456255f. One AbortSignal now runs from `/@s2c/run` into runV2/runPipeline and the SDK's `abortController`. Esc calls a new `/@s2c/run/abort`. The plugin sends `error-event`, takes the undo entry and frees the slot only **after** the pipeline has returned. The codemods, scaffolds, finishing pass and HMR waits check the signal too. The undo stack is saved to `.sketch2code/undo.json` (validated on load). Checkpoints are pinned under `refs/s2c/cp/`, so `git gc` can't delete them.

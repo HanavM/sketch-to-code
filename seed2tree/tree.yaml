@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 24
-lock: {run: cloud-20261016T0956, until: "2026-10-16T11:11:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -452,20 +452,21 @@ nodes:
   title: "A bare ring (default ink, no words) asks a question instead of spending a model call"
   why: "visual-language.md conflict 6: a ring with no colour and no note means 'modify this' with nothing saying how. Today it goes to the model, which guesses. For a non-coder a one-line prompt ('what should change? type a word or pick a pen colour') is better, and it costs zero tokens."
   done_when: "Overlay detects, before Run/auto fires, a sketch whose only marks are closed rings/boxes around existing elements in default ink with no notes, and prompts for a word or a pen colour instead of calling the server; unit test on the detector (r03 strokes without notes -> prompt; r12 green -> no prompt; r01 scribble -> no prompt; r05 box in empty footer space -> no prompt); vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-16T10:45Z"
   blocked_on: null
-  outputs: []
+  outputs: [783cd3e, packages/overlay-client/src/bare-ring.ts, packages/overlay-client/tests/bare-ring.test.ts, tests/e2e/live-ask.mjs]
   log:
   - "2026-10-16: added by s2c-015. Check first how v2 handles an empty modify today (read run2/intent2 for an 'unclear' path) so this does not duplicate an existing guard."
   - "2026-10-16: from s2c-006: in auto mode an empty box/ring gets only the 0.9s settle before it is read without its word. Asking here (instead of a paid guess) also gives type-to-label the time it needs; include a bare empty box (r15-style) in the detector's cases, deciding explicitly whether it prompts."
+  - "2026-10-16: DONE (783cd3e). v2 had no ask path: 'unclear' is only shown after the paid call. Now the overlay asks before /@s2c/interpret when the sketch is only closed default-ink rings/boxes around existing elements, no notes, gesture reading: question names the target by its text, a note opens on the ring, Run again sends it as is, answering re-arms auto. Bare empty box (r15) explicitly does NOT ask (it is add-here). 18 unit tests on bench strokes (with all words removed only r03 asks) + live-ask.mjs 5 checks, zero tokens. Found: ink classifier calls r05's 3-sided box closed and an overlapping rbox a diamond; worked around with a closing-gap check, classifier not changed. Not covered: a box drawn as 4 separate strokes (goes to the model as before); whether people answer the question rather than hit Run again is unmeasured (s2c-010)."
 
 - id: s2c-021
   parent: s2c-017
