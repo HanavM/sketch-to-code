@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 27
-lock: {run: cloud-20261016T1555, until: 2026-10-16T17:10:00Z}
+next_id: 28
+lock: null
 
 nodes:
 - id: s2c-000
@@ -244,6 +244,7 @@ nodes:
   - "2026-10-16: watering 1. Audited the path on today's real `npm create vite --template react` (Vite 8.3, plugin-react 6.1, plain CSS) with init from the checkout + Playwright, zero-token except one accident. Init + stamping work on Vite 8 (49 stamped). FOUND: (1) HARD BLOCKER for done #2: change #2 is refused (checkpoint refuses a dirty tree, init leaves allowDirty unset, nothing commits after a run) and the refusal lands after the paid interpret; the demo app's allowDirty:true hides it from every e2e -> s2c-024. (2) init/doctor/READMEs/bar said 'press Alt+D to draw' but the page opens drawing, so following it turned drawing OFF; init-real-project e2e was red on it. FIXED; e2e now asserts live-on-load, Alt+D pauses (bar says so), resumes; all CLI checks pass. (3) clicking your own app selects (jargon line 'button 120x33 flex row src/App.jsx') and a drag after a click nudges the selection instead of drawing -> s2c-025. (4) reading took ~10.5s before codegen (1 sample). (5) ACCIDENT: cloud Claude Code is signed in via the host even under env -i, so one probe made a real paid run (killed ~45s, no file written); never submit unstubbed sketches from the cloud. REMAINING for done_when: stub /@s2c/interpret with a recorded interpretation and walk all 3 changes; needs s2c-024 first."
   - "2026-10-16: s2c-024 done (9264bd6): change #2/#3 are no longer refused on an init'd project. Next watering: stub /@s2c/interpret + run with a recorded interpretation and walk all 3 changes (incl. a form) end to end on the real Vite 8 starter."
   - "2026-10-16: s2c-026 done (46499cb): Ctrl+Z no longer erases a hand edit made after a sketch edit (reverts only the files the edit wrote; refuses in words when one of those was changed by hand). Coder-facing; doesn't move the non-coder path. Next watering unchanged: stubbed interpret, 3 changes end to end."
+  - "2026-10-16: s2c-025 done (41efb67): clicking your own button now says in plain words what was picked up and how to switch to Test; a drag after a click draws. Walkthrough rows 3-4 updated. Next watering unchanged: stubbed interpret, 3 changes end to end (incl. a form)."
 
 - id: s2c-011
   parent: s2c-000
@@ -561,19 +562,24 @@ nodes:
   title: "First five minutes in Design: your own clicks, a drag after a click, the selection line in plain words"
   why: "walkthrough-noncoder.md steps 3-4: a non-coder clicks their app and nothing works (it selects), the bar reads 'button · 120×33 · flex row · src/App.jsx', and the next drag nudges the selection instead of drawing."
   done_when: "Zero-token e2e on a starter-app fixture: click an element, then drag elsewhere -> a stroke is drawn, not a pending nudge; the default selection line has no px/flex/file path; the first click on an interactive element tells you how to use the page (Test); vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T16:40Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - 41efb67
+  - packages/overlay-client/src/plain-selection.ts
+  - packages/overlay-client/tests/plain-selection.test.ts
+  - packages/cli/tests/e2e/init-real-project.mjs
   log:
   - "2026-10-16: added by s2c-010. Value 3, not 5: it confuses, it doesn't block. Do s2c-024 first."
+  - "2026-10-16: watering 1 -> DONE (41efb67). Reproduced first: new zero-token phase in init-real-project.mjs (starter-shaped fixture, interpret/run/instant stubbed + counted) failed 8 checks on the old overlay: line 'button · 46×21 · src/App.jsx — drag to move, handles to resize'; a drag starting on the h1 after clicking the button became 'mt ≈14px — release to nudge with margin', 0 strokes; Esc said 'Esc again to leave tweak'. Fix: (1) tweakImplicit flag = selection made by a click from drawing (not Alt+T); then onTweakDown step 4 hands any press not on the selection body/handles/zones to the pen (deselect, draw, onDown), so a drag draws and a still click re-picks via onUp's click path; Esc puts it down and returns to draw. Alt+T keeps select+drag on anything. (2) plain-selection.ts: 'picked up the button “Save” — drag it to move, pull a corner to resize, drag anywhere else to draw'; copies/sets in words; shapes 'picked up a shape — click a colour to paint it'; tag/size/layout/full stamp moved to the status tooltip. (3) first click per page load on button/link/input/role=button adds 'to use it instead of designing it, switch “✏️ Design” to “▶ Test” in the bar'. Verified: 11 unit tests; init-real-project ALL PASS (stroke drawn, h1/button styles untouched, hint once, Esc back to draw, 0 model calls attempted); live-surface, live-tweak (now reads layout from the tooltip), live-paint (new wording), live-keymap green; vitest 1028/1030 (same 2 env failures); build + typecheck clean. NOT checked: a real person; touch/pen input; a drag starting INSIDE a large picked-up container still moves it (by design, the line says so). FOUND, not mine: live-lasso.mjs is red on seed2tree with and without this change ('Execution context was destroyed' after the extract's reload) -> s2c-027."
 
 - id: s2c-026
   parent: s2c-024
@@ -599,3 +605,23 @@ nodes:
   log:
   - "2026-10-16: added by s2c-024. Value 3: hits coders, not the non-coder path. The cheap version (refuse when the tree isn't an owned state) is a few lines using dirtReason; the 3-way version is nicer but more code. Start with refuse."
   - "2026-10-16: watering 1 -> DONE (46499cb). FOUND it was worse than filed: undo reverted EVERY file differing from the checkpoint (touchedFiles = diff vs cp + all untracked), so a hand tweak to ANY tracked file made after a sketch was erased by Ctrl+Z, not just the edited file. Fix: (1) UndoEntry.touched = files the edit wrote, taken in pushEdit; undo reverts only those (hand edits elsewhere survive). (2) safety.ts undoReason: if a file undo is about to restore/delete changed by hand since the tool's last owned state (handChanges = diff-tree last owned vs worktreeId), refuse 'Undo stopped: src/App.jsx was changed by hand... Nothing was changed', entry stays on the stack; a hand change already committed (worktree == HEAD for that path) doesn't block. (3) an undo only records an owned state if the tree was owned before it, so it can't launder a hand edit past dirtReason. (4) overlay shows the refusal as a sentence, not 'undo failed:'. Old undo.json entries without touched fall back to the full revert, guarded by undoReason. Chose refuse over 3-way hunk reversal (more code, merge conflicts to explain). Verified: undo-hand-edit.test.ts 11 tests; init-real-project e2e (Vite 8 starter, allowDirty unset, 0 tokens) new checks: same-file hand edit -> refused + nothing changed; tweak removed -> undo reverts only src/App.jsx; hand edit to main.jsx survives; ALL PASS. vitest 1017/1019 (same 2 env failures), build + typecheck clean, live-misread + live-keymap green. NOT checked: the overlay refusal line in a browser (only the endpoint); a real agent run's touched list (only codemods); history scrub (restoreVersion records the current state first, so hand edits are kept on the timeline - no bug there)."
+
+- id: s2c-027
+  parent: s2c-000
+  kind: build
+  title: "live-lasso e2e is red: the test dies after the extract's HMR reload"
+  why: "A red zero-token e2e hides regressions in extract-to-component (lasso). Found by s2c-025: fails identically with and without its change, after 'links on the page after HMR' with 'page.evaluate: Execution context was destroyed'."
+  done_when: "tests/e2e/live-lasso.mjs passes 3/3 against the demo app on :5199 (S2C_APP), zero tokens; root cause written in the log (test waiting wrong vs a real reload the overlay should survive); if it is a real overlay bug, fixed with the e2e asserting it."
+  status: open
+  needs: cloud
+  value: 2
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-025. Value 2: test hygiene, not the seed. Check first whether the reload is the overlay's own (extract writes a new file -> full reload) and the test just needs a waitForLoadState."
