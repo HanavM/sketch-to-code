@@ -32,13 +32,51 @@ export interface ProbeObservationWire {
 const stamped = (srcLoc: string): HTMLElement | null =>
   document.querySelector(`[data-s2c="${CSS.escape(srcLoc)}"]`) as HTMLElement | null
 
-/** Visible text + structure + visibility: what a person would notice change. */
-export function fingerprint(el: Element | null): string {
+/**
+ * Visible text + structure + visibility + look: what a person would notice
+ * change.
+ *
+ * `skip` is the trigger of a click probe. When the region the arrow points
+ * at contains the button, the button's own label flipping ("Show tips" ↔
+ * "Hide tips") is not the effect: a button that only renames itself would
+ * otherwise pass. Its subtree is left out of the text, the count and the look.
+ *
+ * Classes and inline styles are part of the look: a theme switch changes no
+ * text and hides nothing, only the region's classes.
+ */
+export function fingerprint(el: Element | null, skip?: Element | null): string {
   if (!el || !el.isConnected) return 'gone'
   const h = el as HTMLElement
   const shown = h.getClientRects().length > 0 && getComputedStyle(h).visibility !== 'hidden'
-  const text = (h.innerText ?? h.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, 2000)
-  return `${shown ? 'shown' : 'hidden'}|${el.querySelectorAll('*').length}|${text}`
+  const all = [...el.querySelectorAll('*')].filter((n) => !(skip && skip !== el && skip.contains(n)))
+  const inside = !!skip && skip !== el && el.contains(skip)
+  const text = (inside ? visibleText(el, skip!) : (h.innerText ?? h.textContent ?? ''))
+    .replace(/\s+/g, ' ').trim().slice(0, 2000)
+  const look = [el, ...all].map((n) => {
+    const shownN = (n as HTMLElement).getClientRects().length > 0 ? 1 : 0
+    return `${n.getAttribute('class') ?? ''}~${n.getAttribute('style') ?? ''}~${shownN}`
+  }).join('|')
+  return `${shown ? 'shown' : 'hidden'}|${all.length}|${text}|${hash(look)}`
+}
+
+/** The rendered text of `el`, leaving out everything inside `skip`. */
+function visibleText(el: Element, skip: Element): string {
+  const parts: string[] = []
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    const parent = n.parentElement
+    if (!parent || skip.contains(parent)) continue
+    // what innerText would drop: text in something not laid out
+    if (parent.getClientRects().length === 0) continue
+    parts.push(n.textContent ?? '')
+  }
+  return parts.join(' ')
+}
+
+const hash = (s: string): string => {
+  let h = 2166136261
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) }
+  return (h >>> 0).toString(36)
 }
 
 /** A value each field type accepts, so the browser's own validation passes. */
@@ -140,14 +178,26 @@ export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000
 
   const saved: Array<[HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, string]> = []
   try {
-    const before = fingerprint(region)
+    // a click probe looks at the region without the trigger in it (see
+    // fingerprint): the button renaming itself is not the effect
+    const skip = spec.kind === 'click' ? trigger : null
+    const before = fingerprint(region, skip)
     // Before/after alone misses a page that already shows the answer: the
     // second test submit of a form whose status line still says "Saved" from
     // the first. Any text or node the region re-renders while the probe runs
     // is the page reacting, so it counts too.
+    // For a click, only what changed outside the trigger counts, and a
+    // class or style flip counts as much as new text.
     let reacted = 0
-    const mo = new MutationObserver((ms) => { reacted += ms.length })
-    if (region) mo.observe(region, { childList: true, characterData: true, subtree: true })
+    const mo = new MutationObserver((ms) => {
+      for (const m of ms) if (!(skip && skip.contains(m.target))) reacted++
+    })
+    if (region) {
+      mo.observe(region, {
+        childList: true, characterData: true, subtree: true,
+        ...(spec.kind === 'click' ? { attributes: true, attributeFilter: ['class', 'style', 'hidden', 'open'] } : {}),
+      })
+    }
     if (spec.kind === 'submit') {
       for (const f of [...form!.querySelectorAll('input, textarea, select')] as Array<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         if (f.disabled) continue
@@ -168,7 +218,9 @@ export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000
       if (inflight === 0 && performance.now() - lastActivity >= settleMs) break
     }
     mo.disconnect()
-    const after = fingerprint(spec.kind === 'submit' ? form : stamped(spec.effect!.srcLoc))
+    const after = spec.kind === 'submit'
+      ? fingerprint(form)
+      : fingerprint(stamped(spec.effect!.srcLoc), stamped(spec.trigger.srcLoc) ?? trigger)
     return {
       ran: true, requests, before,
       // a region that re-rendered to the same text still reacted

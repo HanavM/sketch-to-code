@@ -74,7 +74,7 @@ export interface ProbeVerdict {
   reason: string
 }
 
-const BEHAVIOUR = /\b(shows?|hides?|toggles?|reveals?|opens?|closes?|expands?|collapses?|switch(es)?|adds?\s+(a\s+)?(row|item|entry|card|one)|removes?\s+(the\s+)?(row|item|entry|card)|counts?|increments?|appears?|disappears?|when\s+clicked|on\s+click)\b/i
+const BEHAVIOUR = /\b(shows?|hides?|toggles?|reveals?|opens?|closes?|dismiss(es)?|expands?|collapses?|filters?|sorts?|switch(es)?|adds?\s+(a\s+)?(row|item|entry|card|one)|removes?\s+(the\s+)?(row|item|entry|card)|counts?|increments?|appears?|disappears?|when\s+clicked|on\s+click)\b/i
 const CLICKABLE = new Set(['button', 'a', 'summary', 'input', 'label'])
 
 const labelOf = (t: { text?: string; subtreeText?: string; tag: string }): string => {

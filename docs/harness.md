@@ -212,9 +212,19 @@ The first probe found a real bug: Tailwind v4 scans `server/data/*.json`, so
 every write there full-reloaded the page — every submit of a form made real
 here reloaded the app and wiped its "Saved" line. Fixed in the plugin
 (`handleHotUpdate` + `hotUpdate` ignore `server/data/`).
-Not yet: a toggle fixture for the click probe live, the page residue a probe
-leaves (the "Saved" line stays until reload), a key a user can press to
-re-test a behaviour.
+**Click probe, live (s2c-021 watering 2).** `tests/e2e/live-probe-click.mjs`
+writes a toggle fixture and probes six arrows through `/@s2c/probe`, 0 tokens.
+It was red on the first overlay in two ways a before/after diff gets wrong:
+a button that only renamed itself ("Show tips" ↔ "Hide tips", tips never
+shown) PASSED when the arrow pointed at its card, and a theme switch (only the
+card's classes change) FAILED. Now the region is read without the trigger in
+it, and classes/styles count as the look. Wired toggle, theme switch and a
+dismiss that unmounts the region pass; a button with no handler and the
+label-only flip fail. Known false pass: a region with something that changes
+by itself (a ticking clock, an autoplaying carousel) will pass any click.
+Not yet: the page residue a probe leaves (a toggle stays toggled, the "Saved"
+line stays until reload), a key a user can press to re-test a behaviour, and
+run2's probe step driven by a real reading (only by unit tests).
 
 ## 4. Data and backend
 

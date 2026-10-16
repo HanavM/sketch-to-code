@@ -39,6 +39,15 @@ describe('deriveProbes: the ink names the test', () => {
     expect(p.map((x) => x.kind)).toEqual(['click'])
   })
 
+  it('dismiss, filter and sort are behaviours too (the ways a click changes a list or a note)', () => {
+    for (const w of ['dismisses the banner', 'filter the list', 'sorts by name']) {
+      expect(deriveProbes([act({
+        kind: 'modify', instruction: w,
+        targets: [tgt('a:1:1', 'button', 'Go')], dest: tgt('a:2:1', 'ul'),
+      })]).map((x) => x.kind), w).toEqual(['click'])
+    }
+  })
+
   it('a move arrow is layout, not behaviour, and is left to the static verifier', () => {
     expect(deriveProbes([act({
       kind: 'move', instruction: 'show this above the footer',
