@@ -184,6 +184,25 @@ reported as unverified, never as passed.
 **Decision: build it, first.** It's the one item here that is a real
 capability gap and not polish, and the ink makes it uniquely cheap.
 
+**Built so far (s2c-021, 2026-10-16).** `pipeline/src/probe.ts` derives probes
+from grounded actions (a `save` → submit its form; a clickable target + a dest
++ a behaviour word → click the tail, watch the head), judges what the browser
+saw, and guards `server/data/` byte for byte. `overlay-client/src/probe-exec.ts`
+fills and submits / clicks through React's own events, cancels a submit
+nothing handles, and puts the fields back. The plugin runs probes over SSE
+(`/@s2c/probe`, `ctx.requestProbes`), never clicking a component that calls
+another host. `verifyActions` counts passed/failed; unverified is reported and
+the plain-language card never says "Done." for it. `tests/e2e/live-probe.mjs`:
+dead form fails, real form passes, store byte-identical, no navigation,
+unsafe handler never clicked, 0 tokens.
+The first probe found a real bug: Tailwind v4 scans `server/data/*.json`, so
+every write there full-reloaded the page — every submit of a form made real
+here reloaded the app and wiped its "Saved" line. Fixed in the plugin
+(`handleHotUpdate` + `hotUpdate` ignore `server/data/`).
+Not yet: a toggle fixture for the click probe live, the page residue a probe
+leaves (the "Saved" line stays until reload), a key a user can press to
+re-test a behaviour.
+
 ## 4. Data and backend
 
 **Exists today.** `serve` moves a `.map()` literal to `server/api/<name>.ts`

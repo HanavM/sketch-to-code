@@ -39,6 +39,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
+import { deriveProbes, type ProbeVerdict } from './probe.js'
 
 /** Vite's watcher + HMR after an instant codemod write, before the first look. */
 const HMR_SETTLE_MS = 600
@@ -375,8 +376,22 @@ export async function runV2(
       if (!/\.(tsx|jsx)$/.test(rel)) continue
       try { sources.push(readFileSync(join(ctx.root, rel), 'utf8')) } catch { /* deleted */ }
     }
+    // behaviour: act on the page the drawing named, then look. Only after the
+    // static snapshot, so the probe's own residue (a "Saved" line) is never
+    // what the static checks measure.
+    const specs = deriveProbes(interp.actions)
+    let probes: ProbeVerdict[] = []
+    if (specs.length) {
+      if (ctx.requestProbes) {
+        stage('verify', `testing ${specs.length} behaviour(s) in the page`)
+        probes = await untilStopped(ctx.requestProbes(specs), ctx.signal)
+        for (const v of probes) stage('verify', `${v.status}: ${v.reason}`)
+      } else {
+        probes = specs.map((sp) => ({ actionIndex: sp.actionIndex, status: 'unverified' as const, reason: "couldn't test it: this host can't drive the page" }))
+      }
+    }
     const result = verifyActions(
-      interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity },
+      interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
     )
 
     // Rules the user drew earlier are checked against the same snapshot. They
@@ -665,6 +680,13 @@ export function verifyActions(
   after: DomSnapshot,
   /** Ink + post-edit source, enabling the composition-fidelity check. */
   depiction?: { strokes: Stroke[]; sources: string[]; fidelity?: FidelityControls },
+  /**
+   * Behaviour probe verdicts (probe.ts). A static diff can't tell a working
+   * form from a dead one; these can. Passed and failed count toward the score.
+   * Unverified (unsafe to click, page gone) is reported but not counted:
+   * it is neither a pass nor something a repair round could fix.
+   */
+  probes: ProbeVerdict[] = [],
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -794,6 +816,17 @@ export function verifyActions(
         }
       }
     }
+  }
+
+  for (const v of probes) {
+    details.push({ kind: 'behaviour', index: v.actionIndex, status: v.status, reason: v.reason })
+    if (v.status === 'unverified') {
+      failures.push(`action ${v.actionIndex} (behaviour, not tested): ${v.reason}`)
+      continue
+    }
+    total++
+    if (v.status === 'passed') satisfied++
+    else failures.push(`action ${v.actionIndex} (behaviour): ${v.reason}`)
   }
 
   return { score: total > 0 ? satisfied / total : 1, failures, detail: details }

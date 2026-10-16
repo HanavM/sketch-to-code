@@ -8,6 +8,7 @@ import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-c
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
+import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
@@ -10720,6 +10721,20 @@ class Overlay {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({ runId: d.runId, snapshot: this.snapshot() }),
+      }).catch(() => {})
+    })
+    // A behaviour probe: the server wants the page USED, not looked at — a
+    // form filled in and submitted, a trigger clicked — to learn whether the
+    // edit actually does something. The answer goes straight back; the
+    // server puts the data store back itself.
+    this.events.addEventListener('probe', async (e) => {
+      const d = JSON.parse((e as MessageEvent).data) as { probeId: string; spec: ProbeSpecWire; clientId?: string }
+      if (!this.mine(d)) return
+      const observation = await runProbe(d.spec)
+      await fetch('/@s2c/probe-result', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ probeId: d.probeId, observation }),
       }).catch(() => {})
     })
     // The editor half of the bridge rides the SSE hub that already exists —

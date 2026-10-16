@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import type { Plugin, ViteDevServer } from 'vite'
 import type { DomSnapshot } from '@s2c/dom'
+import type { ProbeObservation, ProbeSpec, ProbeVerdict } from '@s2c/pipeline'
 import { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.js'
 import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
@@ -11,6 +12,12 @@ import { bundleOverlayClient } from './overlay-bundle.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
 import { loadUndo, MAX_UNDO, saveUndo, type UndoEntry } from './undo-store.js'
+
+/** A file under the app's `server/data/`, where generated routes keep records. */
+export function isDataStoreFile(root: string, file: string): boolean {
+  const rel = relative(root, file).replace(/\\/g, '/')
+  return rel.startsWith('server/data/')
+}
 
 export interface Sketch2CodeOptions {
   /** Allow running with uncommitted changes in the target repo. Default false. */
@@ -174,6 +181,38 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
   const sse: SseHub = createSseHub()
   const pendingSnapshots = new Map<string, (snap: DomSnapshot) => void>()
+  const pendingProbes = new Map<string, (obs: ProbeObservation) => void>()
+
+  /**
+   * Run behaviour probes in the originating tab, one at a time, with the data
+   * store guarded: whatever a test submit writes under server/data/ is put
+   * back byte for byte before the verdict is returned. A trigger whose
+   * component reaches off the dev server is never clicked (probe.ts).
+   */
+  const runProbes = async (specs: ProbeSpec[], clientId: string | null): Promise<ProbeVerdict[]> => {
+    const m = await import('@s2c/pipeline')
+    const verdicts: ProbeVerdict[] = []
+    for (const spec of specs) {
+      let src = ''
+      try { src = readFileSync(join(root, spec.trigger.srcLoc.replace(/:\d+:\d+$/, '')), 'utf8') } catch { /* unreadable: judged by the page */ }
+      const unsafe = m.unsafeReason(src)
+      if (unsafe) {
+        verdicts.push({ actionIndex: spec.actionIndex, status: 'unverified', reason: `couldn't test it: ${unsafe}` })
+        continue
+      }
+      const { value: obs, data } = await m.guardData(root, () => new Promise<ProbeObservation>((resolve) => {
+        const probeId = randomUUID()
+        const timer = setTimeout(() => {
+          pendingProbes.delete(probeId)
+          resolve({ ran: false, error: 'the page did not answer the test (is the tab still open?)', requests: [], before: '', after: '', ms: 15_000 })
+        }, 15_000)
+        pendingProbes.set(probeId, (o) => { clearTimeout(timer); resolve(o) })
+        sse.send('probe', { probeId, spec, clientId })
+      }))
+      verdicts.push(m.judgeProbe(spec, obs, data))
+    }
+    return verdicts
+  }
   // per-boot token embedded in the overlay bundle; required on state-changing POSTs
   const token = randomUUID()
 
@@ -208,6 +247,28 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       const res = stampJsxSource(code, rel)
       if (!res) return null
       return { code: res.code, map: res.map }
+    },
+
+    /**
+     * The data store is data, not source: never hot-reload the page for it.
+     *
+     * Found by the first behaviour probe (s2c-021). Tailwind v4 scans every
+     * project file for class names, so `server/data/*.json` joins the client
+     * module graph, and each write to it full-reloaded the page: every submit
+     * of a form made real here reloaded the app, wiping the "Saved" line the
+     * user was meant to read and whatever else they had on screen. The route
+     * reads the file fresh on each request, so nothing needs to reload.
+     */
+    handleHotUpdate(ctx) {
+      if (isDataStoreFile(root, ctx.file)) return []
+      return undefined
+    },
+    // Vite 6+: the per-environment hook, which (unlike handleHotUpdate) also
+    // sees a file being created or deleted — and restoring the store after a
+    // probe deletes one
+    hotUpdate(opts) {
+      if (isDataStoreFile(root, opts.file)) return []
+      return undefined
     },
 
     transformIndexHtml() {
@@ -1068,6 +1129,41 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
       })
 
+      /**
+       * Test a behaviour now: `{ srcLoc }` of anything inside a form submits
+       * it (the "does this form actually save?" question), or explicit specs.
+       * Answers with plain-language verdicts; the data store is left exactly
+       * as it was.
+       */
+      server.middlewares.use('/@s2c/probe', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc?: string; specs?: ProbeSpec[]; clientId?: string }>(req)
+          .then(async (body) => {
+            const specs: ProbeSpec[] = body.specs ?? (body.srcLoc
+              ? [{
+                  actionIndex: -1, kind: 'submit', trigger: { srcLoc: body.srcLoc, label: 'the form' },
+                  claim: 'submitting the form stores what was typed, and the page says so',
+                }]
+              : [])
+            if (!specs.length) return sendJson(res, 400, { ok: false, error: 'nothing to test' })
+            sendJson(res, 200, { ok: true, verdicts: await runProbes(specs, body.clientId ?? null) })
+          })
+          .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
+      })
+
+      server.middlewares.use('/@s2c/probe-result', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ probeId: string; observation: ProbeObservation }>(req)
+          .then((body) => {
+            pendingProbes.get(body.probeId)?.(body.observation)
+            pendingProbes.delete(body.probeId)
+            sendJson(res, 200, { ok: true })
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/verify-snapshot', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
@@ -1289,6 +1385,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                   })
                   sse.send('resnapshot', { runId, clientId })
                 }),
+              requestProbes: (specs: ProbeSpec[]) => runProbes(specs, clientId),
             }
             let runCp: { sha: string; toplevel: string; dirtyBefore: boolean } | null = null
             /**

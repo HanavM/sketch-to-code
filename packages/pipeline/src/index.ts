@@ -44,6 +44,10 @@ export { importAnchor } from './imports.js'
 export { promoteToApi } from './api.js'
 export type { PromoteRequest, PromoteResult } from './api.js'
 export { makeFormReal } from './form.js'
+export {
+  deriveProbes, judgeProbe, unsafeReason, snapshotData, restoreData, guardData, DATA_DIR,
+  type ProbeSpec, type ProbeObservation, type ProbeVerdict, type ProbeStatus, type DataDelta, type DataSnapshot,
+} from './probe.js'
 export type { FormRequest, FormResult } from './form.js'
 export { stubRoute, isGeneratedRoute } from './stub.js'
 export type { StubRequest, StubResult } from './stub.js'

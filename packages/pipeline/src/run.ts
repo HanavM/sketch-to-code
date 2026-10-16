@@ -11,12 +11,19 @@ import { contractFor, createCodegenSession, type RunMode } from './codegen.js'
 import { changedFiles, checkpoint, type Checkpoint } from './safety.js'
 import { settleSession, throwIfStopped, untilStopped } from './abort.js'
 import { pageChanged, verifyDesignPlacement, verifyOps, type VerifyResult } from './verify.js'
+import type { ProbeSpec, ProbeVerdict } from './probe.js'
 
 export interface RunContext {
   root: string
   allowDirty: boolean
   emit: (event: string, data: unknown) => void
   requestSnapshot: (runId: string) => Promise<DomSnapshot>
+  /**
+   * Act on the live page to test a behaviour (probe.ts): submit a form, click
+   * a trigger. Optional — a host that can't drive the page leaves behaviour
+   * unverified, which is reported, never counted as a pass.
+   */
+  requestProbes?: (specs: ProbeSpec[]) => Promise<ProbeVerdict[]>
   /**
    * Told to stop (the run cap, or the user pressed Esc). The run must reject
    * soon after with the signal's reason and write nothing more once it has:

@@ -72,6 +72,8 @@ const PHRASE: Record<string, (a: GroundedAction) => string> = {
 const CHECK: Record<string, string> = {
   colour: 'in the colour you drew',
   composition: 'looking like your drawing',
+  // behaviour probes (probe.ts): the page was used, not just looked at
+  behaviour: '— I tried it in the page and it didn\'t work',
 }
 
 /**
@@ -132,6 +134,7 @@ export function explainRun(input: ExplainInput): RunExplanation {
   const seen = new Set<string>()
   let ruleBroken = false
   const failedActions = new Set<number>()
+  const untested: string[] = []
 
   const note = (phrase: string) => {
     if (!seen.has(phrase)) {
@@ -148,6 +151,13 @@ export function explainRun(input: ExplainInput): RunExplanation {
     if (!p) continue
     const a = input.actions[p.index]
     if (!a) continue
+    if (p.check === 'behaviour, not tested') {
+      // the change may well be right; what's missing is the proof, and a
+      // non-coder has no other way to get it, so it is never "Done."
+      const base = PHRASE[a.kind]?.(a)
+      if (base && !untested.includes(base)) untested.push(base)
+      continue
+    }
     failedActions.add(p.index)
     const base = PHRASE[a.kind]?.(a) ?? 'make one of the changes'
     note(CHECK[p.check] ? `${base} ${CHECK[p.check]}` : base)
@@ -158,7 +168,7 @@ export function explainRun(input: ExplainInput): RunExplanation {
   const reading = scrub(input.reading).replace(/[.!\s]+$/, '')
   const understood = reading ? `I read your sketch as: ${reading.charAt(0).toLowerCase()}${reading.slice(1)}.` : ''
 
-  if (missed.length === 0 && dropped === 0 && !ruleBroken) {
+  if (missed.length === 0 && dropped === 0 && !ruleBroken && untested.length === 0) {
     const did = input.actions.map((a) => PHRASE[a.kind]?.(a)).filter((p): p is string => !!p).map(past)
     const sentence = did.length ? `Done: ${list([...new Set(did)])}.` : 'Done.'
     return { problem: false, sentence: finalize(sentence), undoable }
@@ -175,6 +185,13 @@ export function explainRun(input: ExplainInput): RunExplanation {
     )
   }
   if (ruleBroken) parts.push('This change also breaks a rule you drew earlier.')
+  if (untested.length) {
+    parts.push(
+      untested.length === 1
+        ? "I didn't try the change out in the page, because it wasn't safe to, so check yourself that it works before you rely on it."
+        : `I didn't try ${untested.length} of the changes out in the page, because it wasn't safe to, so check yourself that they work before you rely on them.`,
+    )
+  }
   parts.push(
     undoable
       ? 'Undo puts your files back the way they were.'
