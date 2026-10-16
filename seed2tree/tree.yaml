@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 24
-lock: {run: cloud-20261016T1055, until: '2026-10-16T12:10:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -515,16 +515,17 @@ nodes:
   title: "Drop or paste an image onto a drawn placeholder"
   why: "harness.md §5: no paste/drop/upload exists; 'put my logo here' is impossible without an editor. The X-box is already read as an image placeholder; placing a file is deterministic, zero tokens."
   done_when: "Dropping/pasting a PNG/JPEG/SVG onto an X-box placeholder (or an existing placeholder found by stamp) copies it into the app's asset dir (existing pattern, else public/), rewires the element to show it, and one Undo reverts it and deletes the copied file; size cap + content-hash dedupe; zero-token e2e on the scratch app; vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-16T11:40Z"
   blocked_on: null
-  outputs: []
+  outputs: [92551e4, packages/pipeline/src/asset.ts, packages/pipeline/tests/asset.test.ts, tests/e2e/live-image.mjs, docs/harness.md]
   log:
   - "2026-10-16: added by s2c-017. Ranked below s2c-022 (trust before features); jump it ahead if s2c-010 shows a non-coder's first wish is an image."
+  - "2026-10-16: watered (92551e4). Drop or paste onto a stamped box: bytes sniffed (PNG/JPEG/GIF/WebP/SVG), unsafe SVG + >5 MB refused, copied to src/assets (import) or public/ under a content-hash name (same picture = one file), box -> <img> keeping size classes (+object-cover on tailwind). A box with a heading/button/component is refused in words. Undo reverts source and deletes the copy (existing untracked-file path; no new undo code). 19 unit tests; live-image.mjs 5 checks, 0 interpret calls, two Ctrl+Z -> App.tsx byte-identical, public/ empty. live-paint/misread/ask/props/keymap green; vitest 965/967 (same 2 env failures). DONE on the 'existing placeholder found by stamp' half; NOT covered: dropping onto ink that has not been built yet (user must run the sketch first), not listed in the ? keymap. Not worth a branch until s2c-010 shows someone tries it."

@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 11:40 UTC — sketch-to-code / s2c-023 Picture into a box — **done**: drop or paste an image onto a placeholder, zero tokens
+Picked because: priority 1.62 (next: s2c-021 1.55, s2c-010 1.54; s2c-000 seed 1.92 skipped: umbrella, not a task; s2c-013 local, skipped; fashion killed, no overrule). Last run preferred s2c-021; no INBOX bump, so the formula decided.
+Did: commit 92551e4. New `pipeline/src/asset.ts` + `/@s2c/place-image` + overlay drop/paste handlers. The bytes are sniffed, not the file name. Unsafe SVGs (script, onload=, javascript:, foreignObject, entities) and files over 5 MB are refused. The file goes to `src/assets/` (imported) when the app has it, else `public/`, named by content hash, so the same picture twice is one file. The box becomes an `<img>` that keeps its size classes. Dropping on the box's "Logo" label fills the box, not the label.
+Result: 19 unit tests. New `tests/e2e/live-image.mjs`: real DragEvent and ClipboardEvent, 5 checks, 0 interpret calls. The PNG and JPEG decode at 160×96. A PDF and a card with a heading + button are refused in words with nothing written. Two Ctrl+Z leave App.tsx byte-identical and public/ empty. live-paint/misread/ask/props/keymap still green. vitest 965/967 (same 2 env failures); build + typecheck clean. momentum 0.5 → 0.7
+Blunt: this is a convenience feature every visual builder already has (Lovable, v0, Onlook all take image uploads). It says nothing about whether drawing-as-instruction works. Not covered: dropping onto an X-box that hasn't been built yet; you have to run the sketch first. It isn't in the `?` keymap either. An app's own image-paste handler outside an input gets pre-empted by the overlay.
+New branches: none. A "drop on unbuilt ink" branch isn't worth adding until s2c-010 shows someone actually tries it.
+Pruned/done: s2c-023 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-021 behaviour probes (value 5, now top of the cloud list). It's the one that tests whether a drawn trigger→effect actually works.
+
 ## 2026-10-16 10:50 UTC — sketch-to-code / s2c-020 Bare ring asks — **done**: a ring with no words and no colour gets a question, not a paid guess
 Picked because: priority 1.71 (next: s2c-023 1.61, s2c-021 1.54; s2c-000 seed 1.91 skipped: it is the umbrella, not a task; s2c-013 local, skipped; fashion killed, no overrule)
 Did: commit 783cd3e. v2 had no ask path; `unclear` only shows after the paid call. Now the overlay checks before /@s2c/interpret. If the sketch is only closed default-ink rings/boxes around existing elements, with no note, in a gesture reading, it asks: "What should change about "Get started"? Type a word … or redraw it in a pen colour (Alt+P). ▶ Run again sends it as it is." A note opens on the ring, so the answer is just typing. In auto mode, answering re-arms the run.
