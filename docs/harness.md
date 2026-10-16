@@ -229,6 +229,16 @@ first edit they'd want and today it's impossible without an editor. It is
 also mostly deterministic: no model is needed to place a file into a box the
 user drew, once the box has been built.
 
+**Built (s2c-023, 2026-10-16).** Drop or paste a PNG/JPEG/GIF/WebP/SVG onto
+a stamped box: `packages/pipeline/src/asset.ts` sniffs the bytes, refuses
+unsafe SVGs and files over 5 MB, copies the file to `src/assets/` (imported)
+or `public/` (content-hash name, so the same picture is one file), and turns
+the box into an `<img>` that keeps its size classes. A box holding real
+content (a heading, a button, a component) is refused in words. One Ctrl+Z
+reverts the source and deletes the copy. `tests/e2e/live-image.mjs`.
+Not done: dropping onto ink that hasn't been built yet (run the sketch
+first), and it isn't listed in the `?` keymap.
+
 **Hardest risk.** Small. Pick where the file goes (`public/` vs
 `src/assets/`, following the app's existing pattern), keep a size cap,
 dedupe by content hash, and make undo delete the copied file (the

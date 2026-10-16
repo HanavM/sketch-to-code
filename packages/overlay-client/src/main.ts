@@ -2844,6 +2844,11 @@ class Overlay {
       .catch(() => { /* an older dev server without the bridge just stays dark */ })
 
     window.addEventListener('keydown', (e) => this.onKeyDown(e))
+    // a picture dropped or pasted onto a placeholder box goes into source (s2c-023)
+    window.addEventListener('dragover', (e) => this.onImageDragOver(e), true)
+    window.addEventListener('drop', (e) => { void this.onImageDrop(e) }, true)
+    window.addEventListener('paste', (e) => { void this.onImagePaste(e) }, true)
+    window.addEventListener('pointermove', (e) => { this.lastPointer = { x: e.clientX, y: e.clientY } }, true)
     // the panel is clamped against the viewport, so a resize has to re-run it
     window.addEventListener('resize', () => {
       this.resize()
@@ -4568,6 +4573,101 @@ class Overlay {
       // one — and both keep the popover anchored, because it is laid out from
       // whatever element the selection currently holds.
       this.reselectAfterCommit(t)
+    } catch (err) {
+      this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  // ---- pictures: drop or paste an image onto a placeholder box ----------
+  // "Put my logo here" without an editor. The box is already a stamped
+  // element, so the drop resolves to source; the server copies the file into
+  // the app and points the box at it. Zero tokens; one Ctrl+Z puts the box
+  // back and deletes the copied file. What the server refuses (not a picture,
+  // a box with real content in it) it says in words, and that goes on the
+  // status line verbatim.
+
+  private lastPointer: { x: number; y: number } | null = null
+
+  /** The stamped page element a picture dropped at (x, y) should fill. */
+  private imageTargetAt(x: number, y: number): HTMLElement | null {
+    const host = document.getElementById(HOST_ID)
+    let el: Element | null = null
+    for (const hit of document.elementsFromPoint(x, y)) {
+      if (host && (hit === host || host.contains(hit))) continue
+      el = hit.closest('[data-s2c]')
+      if (el) break
+    }
+    // a word or an icon inside the box is not the box: climb to the nearest
+    // block, so the placeholder's "Image" label doesn't become the picture
+    const INNER = new Set(['span', 'svg', 'i', 'small', 'path', 'circle', 'rect', 'line', 'g', 'polyline', 'polygon', 'ellipse'])
+    while (el && el.tagName.toLowerCase() !== 'img' && INNER.has(el.tagName.toLowerCase())) {
+      const up: Element | null = el.parentElement?.closest('[data-s2c]') ?? null
+      if (!up) break
+      el = up
+    }
+    return el as HTMLElement | null
+  }
+
+  private static imageFiles(list: DataTransferItemList | FileList | null | undefined): File[] {
+    const out: File[] = []
+    if (!list) return out
+    for (const it of Array.from(list as ArrayLike<DataTransferItem | File>)) {
+      const f = it instanceof File ? it : it.kind === 'file' ? it.getAsFile() : null
+      if (f && (f.type.startsWith('image/') || /\.(png|jpe?g|gif|webp|svg)$/i.test(f.name))) out.push(f)
+    }
+    return out
+  }
+
+  private onImageDragOver(e: DragEvent) {
+    if (!e.dataTransfer || !Array.from(e.dataTransfer.types).includes('Files')) return
+    // without this the browser opens the file in place of the app
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'copy'
+  }
+
+  private async onImageDrop(e: DragEvent) {
+    if (!e.dataTransfer || !Array.from(e.dataTransfer.types).includes('Files')) return
+    e.preventDefault()
+    e.stopPropagation()
+    const files = Overlay.imageFiles(e.dataTransfer.files)
+    if (files.length === 0) return this.status('✗ that is not a picture (PNG, JPEG, GIF, WebP or SVG)', true)
+    await this.placeImageAt(files[0]!, e.clientX, e.clientY, files.length)
+  }
+
+  private async onImagePaste(e: ClipboardEvent) {
+    // typing into a note, a page input or the command line pastes text as usual
+    const path = e.composedPath()
+    if (path.some((n) => n instanceof HTMLElement && (n.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(n.tagName)))) return
+    const files = Overlay.imageFiles(e.clipboardData?.items)
+    if (files.length === 0) return
+    const at = this.lastPointer
+    if (!at) return this.status('✗ point at the box first, then paste the picture', true)
+    e.preventDefault()
+    await this.placeImageAt(files[0]!, at.x, at.y, files.length)
+  }
+
+  private async placeImageAt(file: File, x: number, y: number, count = 1) {
+    const target = this.imageTargetAt(x, y)
+    const srcLoc = target?.dataset.s2c
+    if (!target || !srcLoc) return this.status('✗ drop the picture onto a box on the page', true)
+    if (file.size > 5 * 1024 * 1024) return this.status('✗ that picture is over 5 MB — use a smaller one', true)
+    this.status(`placing ${file.name || 'picture'} into ${elLabel(target)}…`)
+    try {
+      const data = await new Promise<string>((resolveData, reject) => {
+        const r = new FileReader()
+        r.onload = () => resolveData(String(r.result).replace(/^data:[^,]*,/, ''))
+        r.onerror = () => reject(new Error('could not read the file'))
+        r.readAsDataURL(file)
+      })
+      const res = await fetch('/@s2c/place-image', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ srcLoc, name: file.name, data }),
+      })
+      const out = (await res.json()) as { ok: boolean; change?: string; file?: string; error?: string }
+      if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${String(res.status)}`)
+      const extra = count > 1 ? ` (used the first of ${String(count)} pictures)` : ''
+      this.status(`✓ ${out.change ?? 'picture placed'} in ${out.file ?? '?'}${extra} · 0 tokens · Ctrl+Z reverts`)
     } catch (err) {
       this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
     }

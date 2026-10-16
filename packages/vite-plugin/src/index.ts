@@ -386,6 +386,29 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       })
 
       /**
+       * Put a dropped or pasted picture into a placeholder box. Deterministic
+       * and zero-token, so it is checkpointed and undoable like every other
+       * direct manipulation. The copied file is new and untracked, so the
+       * ordinary undo deletes it; a reused (identical) file was already there
+       * and is left alone. Refusals travel verbatim: they say what to do.
+       */
+      server.middlewares.use('/@s2c/place-image', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{ srcLoc: string; name?: string; data: string }>(req, 8 * 1024 * 1024)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const { cp, untracked } = beginEdit(m)
+            const result = m.placeImage(root, body)
+            if (result.ok && result.change && !result.change.startsWith('no change')) {
+              pushEdit(cp.sha, result.change, untracked)
+            }
+            sendJson(res, result.ok ? 200 : 422, result)
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      /**
        * Extract a component. The overlay circles a few elements; this moves
        * that contiguous run of siblings into its own file and leaves a call
        * site behind. Same treatment as every other write: token-gated,
