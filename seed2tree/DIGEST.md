@@ -4,7 +4,7 @@
 Picked because: priority 4.12 (next: s2c-006 2.20, s2c-017 1.80 / s2c-011 1.80; s2c-013 local, skipped; fashion killed)
 Did: commit 50be541. New `BASE_LIST_APP`: three tiles in a four-column grid, so there is an empty slot. **r15** is one loose empty box in that slot, no words. New `siblings` edit check: the list now has ≥4 items, whatever tag the new one uses. 6 unit tests, plus v1 reads r15 as ADD into the row.
 Result: r15 fails untouched (0.80) and passes edited, with and without words. `--dry` draws all 15 rough pages in Chromium, 0 failed. Fixed a bench bug: reusing the scratch app on a new port baked any leftover `src/` edits into the "blank" app. vitest 889/891 (same 2 env failures); typecheck clean. momentum 0.7 → 0.82
-Blunt: that's 4 no-words mark-alone pages (r12, r13, r15, plus r01/r04/r06) and zero tokens spent. More bench pages are now busywork. Nothing here says the thesis works until the s2c-013 pilot runs on the Mac.
+Blunt: the bench now has 6 pages judged with no words (r01, r04, r06, r12, r13, r15) and zero tokens spent. More bench pages are now busywork. Nothing here says the thesis works until the s2c-013 pilot runs on the Mac.
 New branches: none.
 Pruned/done: s2c-015 done (16/16 edits mapped; the bare-ring conflict is s2c-020).
 Needs you: nothing new. Mac pilot: `--set rough --only r12,r13,r15 --words none` is the purest "the mark is the command" test. Next cloud run: s2c-006 one-key note.
