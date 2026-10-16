@@ -10261,7 +10261,14 @@ class Overlay {
         }),
       })
       const body = (await res.json()) as {
-        ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview
+        ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview; refused?: boolean
+      }
+      // s2c-024: the server refused before paying for the read (files changed
+      // by hand since the last edit). Its sentence is already plain words.
+      if (body.refused) {
+        await etching.catch(() => undefined)
+        this.status(`✗ ${(body.error ?? 'refused').replace(/^refusing to edit: /, 'not editing: ')}`, true)
+        return
       }
       if (!res.ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${res.status}`)
       await etching

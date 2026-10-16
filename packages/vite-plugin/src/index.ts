@@ -143,7 +143,13 @@ const pushEdit = (sha: string, label: string, untracked: string[] = []): void =>
   if (undoStack.length > MAX_UNDO) undoStack.splice(0, undoStack.length - MAX_UNDO)
   persistUndo()
   lastWrite = { label, at: Date.now() }
+  // the whole tree is now as sketch2code left it, so the NEXT edit may start
+  // on it without a commit (safety.ts dirtReason). Without this every second
+  // change in an init'd project was refused.
+  recordOwned()
 }
+/** Assigned once the server knows its root; see safety.ts recordOwnedState. */
+let recordOwned: () => void = () => {}
 /**
  * Assigned once the server knows its root; see pushEdit's `after`.
  *
@@ -228,6 +234,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         // skips entries with nothing left to revert, so stale ones are harmless
         undoStack.splice(0, undoStack.length, ...loadUndo(root))
         undoRoot = root
+      }
+      recordOwned = () => {
+        try { pipelineForSnapshot?.recordOwnedState(root) } catch { /* best-effort */ }
       }
       snapshotUntracked = () => {
         try {
@@ -1304,6 +1313,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               const files = m.revertTouched(root, cp, [...entry.untracked, ...appeared])
               if (files.length === 0) continue // that edit was already reverted
               persistUndo()
+              pipelineForSnapshot = m
+              recordOwned() // an undone tree is the tool's doing too
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
             persistUndo()
@@ -1321,6 +1332,14 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
             if (engine === 'model' && body.mode !== 'screenshot') {
+              // Ask BEFORE paying for the read: an edit that checkpoint() will
+              // refuse anyway must not cost a model call first.
+              let refusal: string | null = null
+              try { refusal = m.dirtReason(root, allowDirty) } catch { /* not a repo: the run says so */ }
+              if (refusal) {
+                sendJson(res, 200, { ok: false, refused: true, error: refusal })
+                return
+              }
               const v2 = await m.interpretV2(
                 body.strokes as Parameters<typeof m.interpretV2>[0],
                 body.snapshot,

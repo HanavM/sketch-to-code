@@ -218,6 +218,61 @@ try {
   const back = await drawState()
   check('Alt+D again brings drawing back', back.mode === 'draw' && back.pointer === 'auto', JSON.stringify(back))
 
+  // ── s2c-024: change #2 and #3 are not refused on an init'd project ─────────
+  // init writes sketch2code() with allowDirty unset and nothing commits after
+  // an edit, so this used to refuse every edit after the first. Zero tokens:
+  // manipulate is a deterministic codemod; /@s2c/interpret is only ever called
+  // once the tree is hand-dirtied AND the pipeline itself says it will refuse.
+  const post = (path, body) => page.evaluate(async ([p, b]) => {
+    const r = await fetch(p, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-s2c-token': globalThis.__S2C_TOKEN__ },
+      body: JSON.stringify(b),
+    })
+    return r.json()
+  }, [path, body])
+  const appSrc = () => readFileSync(join(dir, 'src/App.jsx'), 'utf8')
+  const settle = () => page.waitForTimeout(700)
+  const btnLoc = await page.evaluate(() => document.querySelector('main button')?.getAttribute('data-s2c'))
+  const original = appSrc()
+  const widths = [160, 200, 240]
+  const results = []
+  for (const w of widths) {
+    results.push(await post('/@s2c/manipulate', { srcLoc: btnLoc, prop: 'resize', w }))
+    await settle()
+  }
+  check('change #1 lands', results[0]?.ok === true, JSON.stringify(results[0]))
+  check('change #2 is not refused', results[1]?.ok === true, JSON.stringify(results[1]))
+  check('change #3 is not refused', results[2]?.ok === true, JSON.stringify(results[2]))
+  check('the tree is dirty and allowDirty is unset', run('git', ['status', '--porcelain'], { cwd: dir }).out.includes('src/App.jsx') &&
+    !readFileSync(join(dir, 'vite.config.js'), 'utf8').includes('allowDirty'))
+  const after3 = appSrc()
+  const u1 = await post('/@s2c/undo', {})
+  await settle()
+  const after2 = appSrc()
+  check('undo steps back one change', u1?.ok === true && after2 !== after3 && after2 !== original, JSON.stringify(u1))
+  const r4 = await post('/@s2c/manipulate', { srcLoc: btnLoc, prop: 'resize', w: 280 })
+  await settle()
+  check('an edit after an undo is not refused', r4?.ok === true, JSON.stringify(r4))
+  for (let i = 0; i < 5; i++) { await post('/@s2c/undo', {}); await settle() }
+  check('undo all the way back restores the committed file', appSrc() === original)
+
+  // a hand edit since the tool's last state IS refused, in words, before paying
+  writeFileSync(join(dir, 'src/App.jsx'), original.replace('Sketch me', 'Sketch me (edited by hand)'))
+  await settle()
+  const pipeline = await import(join(REPO, 'packages', 'pipeline', 'dist', 'index.js'))
+  const why = pipeline.dirtReason(dir, false)
+  check('the pipeline refuses the hand edit, naming the file', /src\/App\.jsx/.test(why ?? ''), why)
+  if (why) {
+    const strokes = [{ id: 's1', color: '#111827', width: 3, points: [{ x: 10, y: 10, t: 0 }, { x: 60, y: 10, t: 10 }, { x: 60, y: 40, t: 20 }] }]
+    const ip = await post('/@s2c/interpret', { strokes, snapshot: { url: '/', viewport: { w: 1280, h: 900 }, elements: [] }, mode: 'gesture' })
+    check('/@s2c/interpret refuses before any model call', ip?.ok === false && ip?.refused === true && /src\/App\.jsx/.test(ip?.error ?? ''), JSON.stringify(ip))
+    const r5 = await post('/@s2c/manipulate', { srcLoc: btnLoc, prop: 'resize', w: 300 })
+    check('a zero-token edit is refused too, and writes nothing', r5?.ok === false && /changed outside sketch2code/.test(r5?.error ?? '') && appSrc().includes('edited by hand') && !/300/.test(appSrc()), JSON.stringify(r5))
+  } else {
+    check('skipped the interpret refusal check (would have paid)', false)
+  }
+
   const runsPage = await page.evaluate(() => fetch('/@s2c/runs').then((r) => r.status))
   check('/@s2c/runs is reachable', runsPage === 200, `status ${runsPage}`)
   check('no page errors', errors.length === 0, errors.join(' | '))

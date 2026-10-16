@@ -1,6 +1,6 @@
 export { runPipeline } from './run.js'
 export type { RunContext, RunInput, RunResult } from './run.js'
-export { checkpoint, changedFiles, revertToCheckpoint, pinCheckpoint, PIN_PREFIX } from './safety.js'
+export { checkpoint, changedFiles, revertToCheckpoint, pinCheckpoint, PIN_PREFIX, dirtReason, recordOwnedState, worktreeId, ownedFile, OWNED_EXCLUDES } from './safety.js'
 export type { Checkpoint } from './safety.js'
 export { verifyOps, pageChanged, verifyDesignPlacement } from './verify.js'
 export type { VerifyResult, OpVerdict, DesignVerdict } from './verify.js'

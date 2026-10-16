@@ -113,7 +113,15 @@ describe('ignoring run bundles', () => {
 
   it('recognizes the entry in other spellings', () => {
     const dir = scaffoldViteReact()
-    writeFileSync(join(dir, '.gitignore'), '.sketch2code\n')
+    writeFileSync(join(dir, '.gitignore'), '.sketch2code\n/node_modules\n')
+    expect(ensureGitignore(dir).changed).toBe(false)
+  })
+
+  it('adds node_modules/ when nothing ignores it (s2c-024: Vite cache dirt)', () => {
+    const dir = scaffoldViteReact()
+    writeFileSync(join(dir, '.gitignore'), '.sketch2code/\n')
+    expect(ensureGitignore(dir).changed).toBe(true)
+    expect(readFileSync(join(dir, '.gitignore'), 'utf8')).toMatch(/^node_modules\/$/m)
     expect(ensureGitignore(dir).changed).toBe(false)
   })
 })

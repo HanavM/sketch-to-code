@@ -141,10 +141,15 @@ export function ensureGitignore(dir: string): { changed: boolean; path: string }
   const entry = '.sketch2code/'
   const existing = existsSync(path) ? readFileSync(path, 'utf8') : ''
   const lines = existing.split('\n').map((l) => l.trim())
-  if (lines.includes(entry) || lines.includes('.sketch2code') || lines.includes('/.sketch2code/')) {
-    return { changed: false, path }
-  }
+  const has = (name: string): boolean => lines.some((l) => l.replace(/^\//, '').replace(/\/$/, '') === name)
+  let add = ''
+  if (!has('.sketch2code')) add += `\n# sketch-to-code run bundles (strokes, prompts, transcripts)\n${entry}\n`
+  // s2c-024: a project with no .gitignore at all got node_modules into the
+  // initial commit init makes, and Vite's own cache (node_modules/.vite) then
+  // dirtied the tree before the first sketch, so the first edit was refused.
+  if (!has('node_modules')) add += '\n# dependencies (added by sketch-to-code: the tree must stay clean)\nnode_modules/\n'
+  if (!add) return { changed: false, path }
   const prefix = existing.length === 0 || existing.endsWith('\n') ? '' : '\n'
-  writeFileSync(path, `${existing}${prefix}\n# sketch-to-code run bundles (strokes, prompts, transcripts)\n${entry}\n`)
+  writeFileSync(path, `${existing}${prefix}${add}`)
   return { changed: true, path }
 }
