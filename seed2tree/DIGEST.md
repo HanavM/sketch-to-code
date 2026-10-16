@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 20:30 UTC — sketch-to-code / s2c-021 Behaviour probes — **done**: the click probe is judged live, and it was wrong twice before this
+Picked because: priority 1.47 (next: s2c-010 1.34; s2c-000 seed 1.98 skipped: umbrella; s2c-013 3.03 local, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit 6d9fbbf. New e2e `live-probe-click.mjs` writes a toggle fixture and probes 6 arrows through `/@s2c/probe`, 0 tokens. **Red on the old overlay in 2 of 6.** A button that only renamed itself ("Show tips" ↔ "Hide tips", the tips never appear) PASSED when the arrow pointed at its card. A theme switch (only the card's classes change) FAILED. Fix: the click probe reads the region without the trigger inside it, and classes and styles now count as a change. dismiss/filter/sort now count as behaviour words.
+Result: wired toggle, theme switch, dismiss-that-unmounts and arrow-at-whole-card pass; no-handler and label-only fail. 4/4 green; live-probe (form) and live-form still green. vitest 1048/1050 (same 2 env failures); `tsc -b` clean. momentum 0.7 → 0.82
+Blunt: this means "verified" no longer lies about a toggle. It doesn't make a single sketch read better. run2's probe step has still never run after a real reading (only unit tests). Known false pass: a region with anything that changes by itself (a clock, a carousel) passes any click → s2c-028. Also: `npm run typecheck` (`tsc -b --noEmit`) fails TS6310 on main too, before this change. `tsc -b` is the real check.
+New branches: s2c-028 a self-changing region makes a click probe unverified (value 3, effort 1). It's cheap, so it will likely top the formula next. **s2c-010 (non-coder walkthrough, SEED done #2) is still the node that moves the seed.** Write "boost s2c-010" in INBOX to send the next run there.
+Pruned/done: s2c-021 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot.
+
 ## 2026-10-16 19:20 UTC — sketch-to-code / s2c-002 Reading survives the reload — **done**: the instant render's reload no longer kills the reading
 Picked because: priority 1.53 (next: s2c-021 1.46, s2c-010 1.33; s2c-000 seed 1.98 skipped: umbrella; s2c-013 local, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
 Did: commit 6d7cef1. Before asking, the overlay parks the ink, the notes and a reading id in sessionStorage. The instant component's file is added once it lands. The server keeps the reply under that id for 5 min: the model call never stopped when the page died, its answer just had nowhere to go. The page after the reload puts the drawing back and long-polls `/@s2c/interpret/result`, so you reach the preview, and ✓ Go still refines the instant component instead of writing a second one. If the server restarted and lost the id, the drawing is back and the line says to press ▶ Run again.

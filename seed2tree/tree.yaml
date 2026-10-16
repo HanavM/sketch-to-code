@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 28
-lock: {run: cloud-20261016T1954, until: 2026-10-16T21:09Z}
+next_id: 29
+lock: null
 
 nodes:
 - id: s2c-000
@@ -481,20 +481,21 @@ nodes:
   title: "Behaviour probes: the drawn trigger->effect pair is the acceptance test"
   why: "harness.md §3: the verifier compares static snapshots, so a button that does nothing reports verified, and a non-coder can't read the diff. The ink names the trigger (arrow tail / ringed button) and the effect region (arrow head), which is exactly a probe."
   done_when: "Verifier has a probe step the overlay executes (click/type on a stamped element, wait for HMR/idle, re-snapshot); verifyActions scores save via a probe; zero-token e2e on the live-form fixture: handler removed -> FAILS, real -> passes, server/data/*.json byte-identical before/after the probe; a toggle fixture passes wired and fails as a no-op; unit tests deriving trigger/effect from ink; vitest + typecheck green."
-  status: active
+  status: done
   needs: cloud
   value: 5
   effort: 3
   confidence: 0.5
-  momentum: 0.7
+  momentum: 0.82
   depth: 2
-  watered: 1
-  last_watered: 2026-10-16T12:30Z
+  watered: 2
+  last_watered: '2026-10-16T20:30Z'
   blocked_on: null
-  outputs: [0a8a7b0, packages/pipeline/src/probe.ts, packages/overlay-client/src/probe-exec.ts, tests/e2e/live-probe.mjs]
+  outputs: [0a8a7b0, 6d9fbbf, packages/pipeline/src/probe.ts, packages/overlay-client/src/probe-exec.ts, tests/e2e/live-probe.mjs, tests/e2e/live-probe-click.mjs]
   log:
   - "2026-10-16: added by s2c-017. Start with save (deterministic, live-form.mjs fixture exists) before any model-written behaviour. Side effects: restore data file, reload after probe, never probe a target that fetches off the dev server; unsafe = unverified, never passed."
   - "2026-10-16: watering 1 (0a8a7b0). Built the probe step end to end for save: probe.ts (deriveProbes from grounded actions: save -> submit; clickable target + dest + behaviour word -> click tail/watch head; judgeProbe; byte-exact server/data guard), probe-exec.ts in the overlay (fills fields via native setter, requestSubmit, watches fetch/XHR, MutationObserver on the region, cancels an unhandled submit, puts fields back), plugin /@s2c/probe + /@s2c/probe-result + ctx.requestProbes, never clicks a component that calls another host. verifyActions counts passed/failed, unverified reported not counted; explain.ts never says Done. for untested behaviour. live-probe.mjs 6 phases 0 tokens, 3/3 green: dead form FAILS, made-real PASSES, store byte-identical (absent and pre-seeded), handler removed FAILS, no handler FAILS without navigating, third-party fetch UNVERIFIED and never sent. FOUND + FIXED: Tailwind v4 puts server/data/*.json in the client graph, so every submit of a made-real form full-reloaded the page (live-form only checked the first submit, and only for add). 28 unit tests; vitest 995/997 (same 2 env failures). REMAINING for done_when: a toggle fixture (click probe live: wired passes, no-op fails); run2's probe path is unit-tested via verifyActions but not run live (needs a paid run or a stub provider). Known gap: probe residue (the Saved line) stays on the page until reload."
+  - "2026-10-16: watering 2 -> DONE (6d9fbbf). Toggle fixture live: tests/e2e/live-probe-click.mjs writes ProbeToggles.tsx into the demo app and probes 6 arrows via /@s2c/probe, 0 tokens. RED on the old overlay in 2 of 6: (C) a button that only flips its own label (Show tips <-> Hide tips, tips never shown) PASSED when the arrow head was its card, because the card text includes the button; (D) a theme switch that only changes the card classes FAILED, because the fingerprint ignored classes and the observer ignored attributes. Fix in probe-exec.ts: click fingerprint leaves the trigger subtree out (text via a TreeWalker skipping unlaid-out text, node count, look), look = hash of class/style/laid-out per node, MutationObserver ignores records inside the trigger and watches class/style/hidden/open for clicks. Now A wired toggle pass, B no handler fail, C label-only fail, D theme pass, E dismiss-unmount pass, F arrow at whole card pass; 4/4 green incl. 3 back-to-back; live-probe (form) + live-form green. dismiss/filter/sort added to BEHAVIOUR (+1 unit test, 31 in probe.test.ts). vitest 1048/1050 (same 2 env failures: gh present, root home writable); tsc -b clean. NOTE: npm run typecheck (tsc -b --noEmit) fails TS6310 on main too, pre-existing, not from this change. NOT done: probe residue (toggle stays toggled), run2 probe step with a real or stubbed reading, a self-changing region (clock/carousel) false-passes any click -> s2c-028."
 
 - id: s2c-022
   parent: s2c-017
@@ -629,3 +630,23 @@ nodes:
   log:
   - "2026-10-16: added by s2c-025. Value 2: test hygiene, not the seed. Check first whether the reload is the overlay's own (extract writes a new file -> full reload) and the test just needs a waitForLoadState."
   - "2026-10-16: watered (cloud-20261016T1655). Root cause: TEST waiting wrong, not an overlay bug. The extract writes a module the page never imported, so vite full-reloads at a moment the file watcher picks; any page.evaluate straddling it died ('Execution context was destroyed'), most often in waitStatus right after Enter (5/6 runs red here; s2c-025 saw it one step later). The overlay already parks the receipt in sessionStorage and resumes tweak mode, and the test asserts that. Fix: reads go through settled() (retry only on reload-shaped errors, bounded 10 s) + a new assert that the extract really caused >=1 reload, so the survival checks can't pass vacuously. 10/10 green on :5240, 0 tokens; live-data + live-image 3/3 each (no same flake). vitest 1028/1030 (same 2 env failures), typecheck clean. Cloud env note: playwright 1.62 wants chromium_headless_shell-1234, the image has -1194; symlinked chrome-linux/headless_shell into the expected path for this run (env-only, not committed). Done."
+
+- id: s2c-028
+  parent: s2c-021
+  kind: build
+  title: "A region that changes on its own must make a click probe unverified, not passed"
+  why: "Found by s2c-021 watering 2: the click probe passes whenever the arrow's region changes during the settle window. A ticking clock, a countdown, an autoplay carousel or a spinner in that region passes a dead button. For a non-coder the verdict is the only judge, so a false pass is worse than no probe."
+  done_when: "probe-exec watches the region for one settle window BEFORE clicking; if it changes with nobody touching it, the verdict is unverified with a plain reason ('it changes by itself, so a click can't be told apart'); live-probe-click.mjs gains a ticking-region case (no-op button next to a clock -> unverified, never passed) and stays green; probe.test.ts covers the judge path."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-021. Cheap (one pre-click watch, one new judge branch, one fixture case). Costs settleMs per probe; acceptable."
