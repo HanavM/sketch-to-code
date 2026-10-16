@@ -622,3 +622,25 @@ Checked (cloud, 0 tokens): `--set rough --dry --mode auto` 15/15, same as before
 never answered" and r11 hung after the relaunch. That is still open, and it may be specific to
 the cloud container. Tests in tests/bench: 84/84. **Not checked:** whether macOS Chromium crashes
 on tab capture at all.
+
+**Update (seed2tree s2c-029, cloud 2026-10-16): the hang was the capture, and it is fixed.** The
+probe did not crash; it never returned. `getDisplayMedia` was bounded at 30 s, but `video.play()`
+was not, and tab capture only sends a frame when the page repaints. On a page that sits still, a
+granted capture can stay frameless forever. Measured in the cloud container, 0 tokens:
+
+| setup | captures that never showed a frame |
+|---|---|
+| bare page, one browser reused across pages | 4 of 10 |
+| bare page, fresh browser per capture | 1 of 20 |
+| overlay page, fresh browser, 3 captures in a row | 3 of 8 browsers by the 3rd capture |
+| overlay page, same, with a 1 px repaint nudge | 0 of 32 captures |
+
+Fix: `captureScreen` flips one pixel at 1% opacity every frame until the picture is taken, bounds
+`play()` at 10 s, and rejects a frame with no width. The error now says "try ▶ Run again" instead of
+leaving the HUD on "capturing screen" forever (a real user in screenshot mode could hit this too).
+The bench (lib/crash.mjs) gives the screenshot arm a fresh browser per page, bounds the probe at
+45 s, and retries a wedged capture once before Run, like a crash. Result: `--set rough --dry --mode
+screenshot` 15/15 twice in a row with no retries needed (before: the runner hung in both of 2 tries,
+at r03 and r01; with only the bound, 4 of 15 pages failed). `--mode auto` dry still 15/15. "vite never answered" (r10 on
+the Mac run) did not come back in 3 full runs here; it may have been a side effect of the hung probe, but that
+is a guess, not checked. **Not checked:** macOS Chromium.

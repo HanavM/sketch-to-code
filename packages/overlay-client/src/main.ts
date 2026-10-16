@@ -10236,6 +10236,25 @@ class Overlay {
   private async captureScreen(): Promise<string> {
     const hud = this.shadow.getElementById('hud')!
     hud.style.visibility = 'hidden'
+    // Tab capture only sends a frame when something on the page repaints. On a
+    // page that sits still, a granted capture can stay frameless, and play()
+    // below never resolves. Measured headless (seed2tree s2c-029): without
+    // this, 3 of 8 fresh browsers had a capture never show a frame by the third
+    // try; with it, 32 of 32 captures were fine. One pixel at 1% opacity
+    // flips colour every frame until the picture is taken: invisible in the
+    // capture, and removed straight after.
+    const nudge = document.createElement('div')
+    nudge.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:2147483647'
+    document.documentElement.append(nudge)
+    let nudging = true
+    let flip = false
+    const repaint = () => {
+      if (!nudging) return
+      flip = !flip
+      nudge.style.background = flip ? '#000' : '#fff'
+      requestAnimationFrame(repaint)
+    }
+    repaint()
     try {
       const capture = (navigator.mediaDevices.getDisplayMedia as (
         c: MediaStreamConstraints & { preferCurrentTab?: boolean },
@@ -10252,9 +10271,21 @@ class Overlay {
       ])
       try {
         const video = document.createElement('video')
+        video.muted = true
         video.srcObject = stream
-        await video.play()
+        // Bounded, like the share dialog above. A capture stream can be granted
+        // and still never deliver a frame: play() then neither resolves nor
+        // rejects, and the run sat on "capturing screen" forever. Seen in
+        // headless Chromium when an earlier tab in the same browser had
+        // captured (4 of 10 there; seed2tree s2c-029).
+        await Promise.race([
+          video.play(),
+          new Promise<never>((_, rej) =>
+            setTimeout(() => rej(new Error('screen capture started but never showed a frame — try ▶ Run again')), 10_000),
+          ),
+        ])
         await new Promise((r) => setTimeout(r, 200)) // first real frame
+        if (!video.videoWidth) throw new Error('screen capture came back with no picture — try ▶ Run again')
         const scale = Math.min(1, 1400 / video.videoWidth)
         const canvas = document.createElement('canvas')
         canvas.width = Math.round(video.videoWidth * scale)
@@ -10265,6 +10296,8 @@ class Overlay {
         for (const t of stream.getTracks()) t.stop()
       }
     } finally {
+      nudging = false
+      nudge.remove()
       hud.style.visibility = ''
     }
   }

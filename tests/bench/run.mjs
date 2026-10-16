@@ -61,6 +61,7 @@ import { writeReport } from './lib/report.mjs'
 import { parseMode, keyFor, launchArgs, modeHolds } from './lib/mode.mjs'
 import { parseWords, notesFor, wordsTyped, answerKey, wordSummary } from './lib/words.mjs'
 import { pensFor, penChanges, penMismatch } from './lib/pen.mjs'
+import { browserSpoiled, freshBrowserPerPage, retryable, withTimeout } from './lib/crash.mjs'
 
 const arg = (name, fallback = null) => {
   const i = process.argv.indexOf(`--${name}`)
@@ -119,17 +120,17 @@ const launchBrowser = () => chromium.launch({
 let browser = await launchBrowser()
 
 /**
- * The whole browser dying, not one page failing.
+ * The whole browser dying or wedging, not one page failing (lib/crash.mjs).
  *
- * Screenshot mode's tab capture (getDisplayMedia) takes Chromium down with it
- * now and then: r01 alone, --dry, 2 crashes in 7 tries on Linux headless and
- * the same under xvfb headed (seed2tree s2c-013, 2026-10-16). Before this, one
- * crash failed that page and every page after it, and the run then hung. Only
- * a crash BEFORE Run is retried: nothing has been paid for yet. After Run the
+ * Screenshot mode's tab capture (getDisplayMedia) can take Chromium down, or
+ * be granted and never show a frame, which hung the run with no timeout
+ * (seed2tree s2c-013, s2c-029). Reusing one browser across pages is what
+ * wedges it, so the screenshot arm gets a fresh browser per page. Only a
+ * failure BEFORE Run is retried: nothing has been paid for yet. After Run the
  * reading may already be billed, so a retry could pay twice; that page fails
  * and the run moves on in a fresh browser.
  */
-const BROWSER_GONE = /Target page, context or browser has been closed|Target crashed|Browser closed|browser has disconnected/i
+const CAPTURE_PROBE_MS = 45_000
 const retried = new Set()
 const results = []
 
@@ -282,9 +283,10 @@ while (queue.length) {
     if (DRY) row.dry = true
     continue
   }
-  if (!browser.isConnected()) {
-    log('the browser died on the last page; launching a fresh one')
-    await browser.close().catch(() => undefined)
+  if (!browser.isConnected() || freshBrowserPerPage(MODE) && results.length + retried.size > 0) {
+    if (!browser.isConnected()) log('the browser died on the last page; launching a fresh one')
+    // bounded: closing a browser whose capture wedged must not become the new hang
+    await withTimeout(browser.close(), 10_000, 'close').catch(() => undefined)
     browser = await launchBrowser()
   }
   const page = await browser.newPage({ viewport: spec.viewport })
@@ -414,7 +416,11 @@ while (queue.length) {
     if (MODE === 'screenshot') {
       // a capture that fails costs nothing to find out here and a paid
       // reading to find out after Run
-      const bytes = await page.evaluate(() => window.__S2C_DEBUG__.captureProbe())
+      const bytes = await withTimeout(
+        page.evaluate(() => window.__S2C_DEBUG__.captureProbe()),
+        CAPTURE_PROBE_MS,
+        `tab capture hung: no answer in ${CAPTURE_PROBE_MS / 1000}s`,
+      )
       if (!(bytes > 1000)) throw new Error(`tab capture came back empty (${String(bytes)} chars)`)
       row.captureChars = bytes
       log(`tab capture ok (${bytes} base64 chars)`)
@@ -505,16 +511,20 @@ while (queue.length) {
     if (real.length) row.error = `page error: ${real[0]}`
   } catch (err) {
     row.error = err instanceof Error ? err.message : String(err)
-    if (BROWSER_GONE.test(row.error) && !pressedRun && !retried.has(spec.id)) {
+    const spoiled = browserSpoiled(row.error)
+    if (retryable(row.error, { pressedRun, alreadyRetried: retried.has(spec.id) })) {
       retried.add(spec.id)
       retry = true
-      log(`the browser died before Run (${row.error}); nothing was paid, retrying this page once`)
+      log(`the browser died or wedged before Run (${row.error.split('\n')[0]}); nothing was paid, retrying this page once in a fresh browser`)
     } else {
-      if (BROWSER_GONE.test(row.error)) row.error = `browser died${pressedRun ? ' after Run (not retried: the reading may be billed)' : ' again on retry'}: ${row.error}`
+      if (spoiled) row.error = `browser died or wedged${pressedRun ? ' after Run (not retried: the reading may be billed)' : ' again on retry'}: ${row.error}`
       log('FAILED:', row.error)
     }
+    // a wedged capture leaves the browser connected but useless: drop it, so
+    // the next page (or the retry) gets a fresh one
+    if (spoiled) await withTimeout(browser.close(), 10_000, 'close').catch(() => undefined)
   } finally {
-    await page.close().catch(() => undefined)
+    await withTimeout(page.close(), 10_000, 'close').catch(() => undefined)
     await server?.stop().catch(() => undefined)
   }
   if (retry) {
