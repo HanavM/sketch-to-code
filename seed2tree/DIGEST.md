@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 07:07 UTC — sketch-to-code / s2c-011 Misread explanation + undo — **done**
+Picked because: priority 1.83, tied with s2c-017 1.83; picked 011 because it ships tested code for SEED done #4 (next: s2c-020 1.68, s2c-010 1.49; s2c-013 local, skipped; fashion killed, no overrule)
+Did: commit d7e88a9. A run that misses part of a sketch now shows a card: "I read your sketch as: … But I couldn't move the section with "Team members". Undo puts your files back the way they were." with **↩ Undo** (one click) and Keep it. The sentence comes from the action kind and the visible text, never from the verifier's reasons. The card survives the reload and the next run clears it. Bug fixed: a run that crashed part way was never pushed onto the undo stack, so Ctrl+Z reverted your *previous* edit and left the broken one in place.
+Result: 15 unit tests + `tests/e2e/live-misread.mjs` (6 live checks, zero tokens: real write, reload, click Undo, App.tsx byte-identical). live-label/notes/props still green. vitest 913/915 (same 2 env failures); tsc -b clean. momentum 0.5 → 0.7
+Blunt: this is trust plumbing, not the thesis. Every competitor has checkpoints and undo. It matters only because SEED #4 demands it. The sentences are templates no non-coder has read. Legacy v1 runs get nothing. The bar still shows `[v2] 50% verified · … git restore`.
+New branches: none. Rewording the status line is busywork until s2c-010 shows it confuses someone.
+Pruned/done: s2c-011 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-017 harness design doc, then s2c-020.
+
 ## 2026-10-16 06:20 UTC — sketch-to-code / s2c-006 One-key note — **done**: draw, then just type
 Picked because: priority 2.21 (next: s2c-011 1.81 / s2c-017 1.81, s2c-020 1.66; s2c-013 2.91 local, skipped; fashion killed, no overrule)
 Did: commit 54ab6ac. The first printable key after a stroke opens a note on that drawing's stroke cluster, not on whatever the pointer is over, with the key already typed. Enter attaches. A word on a shape went from 4 steps to 2. One-shot: label, undo, Clear, a click or the test surface hands keys back to the host page. `?` still opens help. In auto mode, typing during the countdown holds the run.

@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 21
-lock: {run: cloud-20261016T0705, until: "2026-10-16T08:20Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -33,6 +33,7 @@ nodes:
   - "2026-10-16: s2c-018 done. New evidence per owner rule (3).3: Skema (hackathon, Jan 2026) already does scribble-delete + sketch-to-React on a live localhost app. Not re-litigating the seed (hackathon demo, not a product), but the idea is not unclaimed; the defensible part is grounding + DOM verification measured on rough ink, which needs s2c-013/016 numbers to be worth anything."
   - "2026-10-16: s2c-019 CORRECTS s2c-018: Skema's code requires typed words on every annotation and its scribble only erases overlay ink. No known shipped/open-source tool on a live codebase acts on a mark alone. Claim stronger; still not a moat (easy to add); edge remains execution, unmeasured until s2c-013/016."
   - "2026-10-16: s2c-015 visual language: 7/16 common edits are mark-alone; the claim is strongest for delete, add, swap and colour (pen). Not every edit should be a gesture: resize/align/short moves lose to drags."
+  - "2026-10-16: s2c-011 done: SEED done #4's misread half is met for the model engine (plain sentence + one-click Undo, tested). Reading-dies-on-reload (s2c-002) is the remaining #4 bug."
 
 - id: s2c-001
   parent: s2c-000
@@ -238,26 +239,33 @@ nodes:
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: non-coders are served by Lovable/v0/Bolt hosted tools and will not run a local Vite plugin. Owner can overrule in INBOX with a reason."
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): non-coder walkthrough is SEED done #2 again."
+  - "2026-10-16: from s2c-011: the walkthrough should hit one deliberate misread and judge the misread card (its sentence + Undo) as a non-coder would; the bar's status line still shows the developer summary, list it if it gets in the way."
 
 - id: s2c-011
   parent: s2c-000
   title: "Plain-language explanation + one-click undo when a sketch is misread"
   why: "SEED done #4: a misread sketch must say what it understood in plain words and be undoable in one step, or non-coders lose trust on the first miss."
   done_when: "Every run with dropped/rejected actions or failed verification shows a jargon-free sentence (no ids, paths or stack traces) and an Undo that restores the files; unit tests for the message builder and a zero-token e2e for undo."
-  status: open
+  status: done
   needs: cloud
   value: 5
   effort: 3
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T07:07Z'
   blocked_on: null
-  outputs: []
+  outputs:
+  - "commit d7e88a9"
+  - packages/pipeline/src/explain.ts
+  - packages/pipeline/tests/explain.test.ts
+  - tests/e2e/live-misread.mjs
+  - "docs/findings.md §A misread, said in plain words, with one Undo"
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: undo + explanation is launch polish; every competitor has checkpoints. Owner can overrule in INBOX with a reason."
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): misread explanation + undo is SEED done #4 again."
+  - "2026-10-16: DONE (d7e88a9). explain.ts: sentence built from action kind + visible target text, never from verifier reasons (ids/coords/paths); reading scrubbed; isPlain() oracle. runV2 returns explanation (last verify round = what is on disk; dropped marks, colour/composition misses, broken drawn rules, refused backend actions). Overlay card: sentence + one-click Undo (existing undo stack) + Keep it; parked across reload; next run clears it; no Undo when nothing of this run's own changed (pre-existing untracked excluded, else Undo would pop past it and revert the PREVIOUS edit). BUG FIXED: a run that threw part way pushed nothing on the undo stack, so Ctrl+Z reverted the edit before it. 15 unit + live-misread.mjs 6 live checks (real props write, reload, click Undo, App.tsx byte-identical) green; live-label/notes/props green; vitest 913/915 (same 2 env failures); tsc -b clean. LIMITS: v1 engine (non-model) runs get no explanation; status line still shows the dev summary; sentences are templates no non-coder has read yet (s2c-010)."
 
 - id: s2c-012
   parent: s2c-000
