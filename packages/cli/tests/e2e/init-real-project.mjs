@@ -187,17 +187,36 @@ try {
   check('JSX elements were stamped with file:line:col', overlay.stamped > 0, `${overlay.stamped} stamped`)
   check('the h1 stamp points at App.jsx', /src\/App\.jsx:\d+:\d+/.test(overlay.stampSample ?? ''), overlay.stampSample)
 
-  // Alt+D is the documented entry point — assert it actually toggles draw mode
-  await page.keyboard.down('Alt')
-  await page.keyboard.press('KeyD')
-  await page.keyboard.up('Alt')
-  await page.waitForTimeout(400)
-  const drawing = await page.evaluate(() => {
-    const root = document.getElementById('s2c-overlay-host').shadowRoot
-    const canvas = root.querySelector('canvas')
-    return { canvas: !!canvas, pointer: canvas ? getComputedStyle(canvas).pointerEvents : null }
+  // The page opens in design, ready to draw: what init and doctor now tell the
+  // user. Alt+D pauses drawing and brings it back. (This check used to press
+  // Alt+D first and expect drawing, which is the opposite since design became
+  // the default surface: following the old printed instruction turned
+  // drawing OFF.)
+  const drawState = () => page.evaluate(() => {
+    const host = document.getElementById('s2c-overlay-host')
+    const canvas = host.shadowRoot.getElementById('canvas')
+    return {
+      mode: host.dataset.mode,
+      pointer: canvas ? getComputedStyle(canvas).pointerEvents : null,
+      status: host.shadowRoot.getElementById('status')?.textContent ?? '',
+    }
   })
-  check('Alt+D produces a live drawing surface', drawing.canvas && drawing.pointer !== 'none', JSON.stringify(drawing))
+  const altD = async () => {
+    await page.keyboard.down('Alt')
+    await page.keyboard.press('KeyD')
+    await page.keyboard.up('Alt')
+    await page.waitForTimeout(400)
+  }
+  const onLoad = await drawState()
+  check('the page opens with a live drawing surface', onLoad.mode === 'draw' && onLoad.pointer === 'auto', JSON.stringify(onLoad))
+  check('the bar does not tell you to press Alt+D to draw', !/Alt\+D to draw/.test(onLoad.status), onLoad.status)
+  await altD()
+  const paused = await drawState()
+  check('Alt+D pauses drawing', paused.mode === 'idle' && paused.pointer === 'none', JSON.stringify(paused))
+  check('the bar says drawing is paused', /paused/.test(paused.status), paused.status)
+  await altD()
+  const back = await drawState()
+  check('Alt+D again brings drawing back', back.mode === 'draw' && back.pointer === 'auto', JSON.stringify(back))
 
   const runsPage = await page.evaluate(() => fetch('/@s2c/runs').then((r) => r.status))
   check('/@s2c/runs is reachable', runsPage === 200, `status ${runsPage}`)

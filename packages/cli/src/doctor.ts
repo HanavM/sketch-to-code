@@ -144,7 +144,7 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
       ]
     : [
         `${devScript} — then open ${url}`,
-        'Alt+D toggles draw mode; ▶ Run sends the sketch',
+        'the page opens ready to draw: drag to sketch, then type a few words; it runs by itself (Alt+D pauses drawing)',
         `run history: ${url}/@s2c/runs (and .sketch2code/runs/<id>/ on disk)`,
       ]
 

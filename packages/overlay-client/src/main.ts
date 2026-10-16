@@ -2401,7 +2401,7 @@ class Overlay {
            control has to come from here or the pill stops being a pill, and a
            name the user already knows buys less than a key they don't. ?
            carries the rest, which is the whole reason ? exists. -->
-      <span id="status">Alt+D to draw · ⌘K for anything else</span>
+      <span id="status">drag to draw · ⌘K for anything else</span>
       <span id="ideDot" title="an editor is connected — click an element to reveal it there (Alt+J)">⌁</span>
       <button id="cmdBtn" class="icon" title="commands — type what you want instead of finding a button">⌘K</button>
       <button id="hudHide" class="icon" title="hide the toolbar (Alt+H)">–</button>
@@ -3136,7 +3136,13 @@ class Overlay {
 
   private toggleDraw() {
     if (this.mode === 'running') return
-    this.setMode(this.mode === 'draw' ? 'idle' : 'draw')
+    const next = this.mode === 'draw' ? 'idle' : 'draw'
+    this.setMode(next)
+    // the bar must say which one you are in: the opening line promises
+    // "drag to draw", and after Alt+D a drag no longer does
+    this.status(next === 'idle'
+      ? 'drawing paused, the page is yours · Alt+D to draw again'
+      : 'drag to draw · ⌘K for anything else')
   }
 
 
@@ -7880,6 +7886,9 @@ class Overlay {
     // draws. Restoring the surface without restoring that leaves a page that
     // looks like it is in design mode and behaves like it is not.
     this.setMode(next === 'test' ? 'idle' : 'draw')
+    // the bar's opening line says "drag to draw"; a page restored into test
+    // does not draw, so it must not open on that promise
+    if (next === 'test') this.status('test — click, type and scroll the page as it really is')
     this.syncSurfaceUi()
   }
 

@@ -17,7 +17,8 @@ npm run build
 npm run dev            # boots examples/demo-app on :5199
 ```
 
-Open http://localhost:5199 — press **Alt+D** to enter draw mode and sketch.
+Open http://localhost:5199. The page opens ready to draw: drag to sketch, type a
+few words if the sketch needs them. **Alt+D** pauses drawing so you can use the page.
 
 **Alt+A** picks who decides the drawing is finished:
 

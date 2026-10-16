@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 24
-lock: {run: cloud-20261016T1256, until: '2026-10-16T14:11Z'}
+next_id: 26
+lock: null
 
 nodes:
 - id: s2c-000
@@ -226,21 +226,22 @@ nodes:
   title: "Non-coder walkthrough (SEED done #2): audit the path, then prove it"
   why: "The seed's test is whether someone with no React knowledge can make 3 meaningful changes. First find every step that forces them to read code or an error."
   done_when: "docs/walkthrough-noncoder.md walks running app -> add a section, change styling, add a working form, each step checked against the current CLI/overlay (zero-token e2e where possible); every point that needs code or error-reading is listed and filed as a child node."
-  status: open
+  status: active
   needs: cloud
   value: 4
   effort: 3
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.58
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T13:45Z
   blocked_on: null
-  outputs: []
+  outputs: [docs/walkthrough-noncoder.md, packages/cli/tests/e2e/init-real-project.mjs]
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: non-coders are served by Lovable/v0/Bolt hosted tools and will not run a local Vite plugin. Owner can overrule in INBOX with a reason."
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): non-coder walkthrough is SEED done #2 again."
   - "2026-10-16: from s2c-011: the walkthrough should hit one deliberate misread and judge the misread card (its sentence + Undo) as a non-coder would; the bar's status line still shows the developer summary, list it if it gets in the way."
+  - "2026-10-16: watering 1. Audited the path on today's real `npm create vite --template react` (Vite 8.3, plugin-react 6.1, plain CSS) with init from the checkout + Playwright, zero-token except one accident. Init + stamping work on Vite 8 (49 stamped). FOUND: (1) HARD BLOCKER for done #2: change #2 is refused (checkpoint refuses a dirty tree, init leaves allowDirty unset, nothing commits after a run) and the refusal lands after the paid interpret; the demo app's allowDirty:true hides it from every e2e -> s2c-024. (2) init/doctor/READMEs/bar said 'press Alt+D to draw' but the page opens drawing, so following it turned drawing OFF; init-real-project e2e was red on it. FIXED; e2e now asserts live-on-load, Alt+D pauses (bar says so), resumes; all CLI checks pass. (3) clicking your own app selects (jargon line 'button 120x33 flex row src/App.jsx') and a drag after a click nudges the selection instead of drawing -> s2c-025. (4) reading took ~10.5s before codegen (1 sample). (5) ACCIDENT: cloud Claude Code is signed in via the host even under env -i, so one probe made a real paid run (killed ~45s, no file written); never submit unstubbed sketches from the cloud. REMAINING for done_when: stub /@s2c/interpret with a recorded interpretation and walk all 3 changes; needs s2c-024 first."
 
 - id: s2c-011
   parent: s2c-000
@@ -530,3 +531,43 @@ nodes:
   log:
   - "2026-10-16: added by s2c-017. Ranked below s2c-022 (trust before features); jump it ahead if s2c-010 shows a non-coder's first wish is an image."
   - "2026-10-16: watered (92551e4). Drop or paste onto a stamped box: bytes sniffed (PNG/JPEG/GIF/WebP/SVG), unsafe SVG + >5 MB refused, copied to src/assets (import) or public/ under a content-hash name (same picture = one file), box -> <img> keeping size classes (+object-cover on tailwind). A box with a heading/button/component is refused in words. Undo reverts source and deletes the copy (existing untracked-file path; no new undo code). 19 unit tests; live-image.mjs 5 checks, 0 interpret calls, two Ctrl+Z -> App.tsx byte-identical, public/ empty. live-paint/misread/ask/props/keymap green; vitest 965/967 (same 2 env failures). DONE on the 'existing placeholder found by stamp' half; NOT covered: dropping onto ink that has not been built yet (user must run the sketch first), not listed in the ? keymap. Not worth a branch until s2c-010 shows someone tries it."
+
+- id: s2c-024
+  parent: s2c-010
+  kind: build
+  title: "Change #2 must not be refused: the tool's own edits don't make the tree 'dirty'"
+  why: "walkthrough-noncoder.md step 6: in an init'd project (allowDirty unset) every second sketch ends in 'refusing to edit: working tree has uncommitted changes', after paying for the interpret. SEED done #2 needs 3 changes; today a non-coder gets 1."
+  done_when: "In a project set up by `init` with no allowDirty, runs 2 and 3 proceed (stubbed agent, zero tokens); Undo still restores each step; dirt the tool can't account for is either handled or refused BEFORE /@s2c/interpret, in plain words; a zero-token e2e covers run #2 on a non-allowDirty project; vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 2
+  confidence: 0.7
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-010. Options: init writes allowDirty:true (cheapest; checkpoints are git stash create and the history timeline already runs allowDirty, history.ts:378), or refuse only dirt the history did not write. Either way move the dirty check before the paid interpret."
+
+- id: s2c-025
+  parent: s2c-010
+  kind: build
+  title: "First five minutes in Design: your own clicks, a drag after a click, the selection line in plain words"
+  why: "walkthrough-noncoder.md steps 3-4: a non-coder clicks their app and nothing works (it selects), the bar reads 'button · 120×33 · flex row · src/App.jsx', and the next drag nudges the selection instead of drawing."
+  done_when: "Zero-token e2e on a starter-app fixture: click an element, then drag elsewhere -> a stroke is drawn, not a pending nudge; the default selection line has no px/flex/file path; the first click on an interactive element tells you how to use the page (Test); vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-010. Value 3, not 5: it confuses, it doesn't block. Do s2c-024 first."

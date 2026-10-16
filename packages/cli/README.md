@@ -95,7 +95,7 @@ sketch-to-code doctor — /path/to/app
 
 Healthy. Next:
   → npm run dev — then open http://localhost:5173
-  → Alt+D toggles draw mode; ▶ Run sends the sketch
+  → the page opens ready to draw: drag to sketch, then type a few words; it runs by itself (Alt+D pauses drawing)
   → run history: http://localhost:5173/@s2c/runs (and .sketch2code/runs/<id>/ on disk)
 ```
 

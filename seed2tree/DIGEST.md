@@ -1,5 +1,17 @@
 # DIGEST — newest first
 
+## 2026-10-16 13:45 UTC — sketch-to-code / s2c-010 Non-coder walkthrough — watering 1: **a non-coder gets exactly one change, then it refuses**
+Picked because: priority 1.56 (next: s2c-021 1.43, s2c-002 1.49; s2c-000 seed skipped: umbrella; s2c-013/008 local, skipped; fashion killed, no overrule)
+Did: docs/walkthrough-noncoder.md. Walked today's real `npm create vite --template react` (Vite 8, plain CSS) through init → dev → click → sketch with Playwright. Init and stamping work on Vite 8.
+**Blocker:** change #2 is refused. checkpoint refuses a dirty tree, `init` leaves `allowDirty` unset, nothing commits after a run. So the 2nd sketch ends in "refusing to edit: working tree has uncommitted changes… set sketch2code({ allowDirty: true })", *after* paying for the read. Every e2e uses the demo app's `allowDirty: true`, so none caught it. SEED done #2 needs 3 changes.
+**Fixed:** init/doctor/READMEs/the bar said "press Alt+D to draw", but the page already opens drawing, so following it turned drawing OFF. The CLI e2e was red on exactly this. Now it says the page opens ready and Alt+D pauses; the bar says "drawing paused". CLI e2e all green; keymap + ask green; vitest 995/997 (same 2 env failures); typecheck clean.
+Also: clicking your own app only selects it ("button · 120×33 · flex row · src/App.jsx"), and a drag after a click nudges the selection instead of drawing. Reading took ~10.5 s before codegen (1 sample).
+Blunt: the real non-coder wall is step 0: Node, a terminal, Claude Code installed and signed in. Hosted tools don't have it. Nothing in this repo fixes that.
+Accident: cloud Claude Code is signed in through the host even with a wiped env, so one probe made a **real paid run** (killed at ~45 s, nothing written). Logged so no cloud run repeats it. momentum 0.5 → 0.58
+New branches: s2c-024 change #2 must not be refused (value 5, ~2.5 priority, next), s2c-025 first five minutes in Design (value 3)
+Pruned/done: nothing; s2c-010 stays active (3 changes not yet walked end to end; needs s2c-024 + a stubbed interpret).
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot.
+
 ## 2026-10-16 12:30 UTC — sketch-to-code / s2c-021 Behaviour probes — watering 1: a dead form now fails verification, and the probe found a real reload bug
 Picked because: priority 1.54 (next: s2c-010 1.53, s2c-002 1.46; s2c-000 seed skipped: umbrella; s2c-013 local, skipped; fashion killed, no overrule)
 Did: commit 0a8a7b0. The verifier now *uses* the page. A `save` is tested by filling in the form and submitting it in the browser. The plugin sends a probe over SSE, the overlay acts through React's own events, and the server restores `server/data/` byte for byte. A submit nothing handles is cancelled instead of navigating away. A component that calls another host is never clicked; it is reported as unverified, never passed. `verifyActions` counts the result, and the card never says "Done." for an untested behaviour.

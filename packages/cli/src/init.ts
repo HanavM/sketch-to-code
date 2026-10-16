@@ -400,10 +400,10 @@ export async function runInit(options: InitOptions): Promise<InitResult> {
     ? ['this was a dry run — nothing was written. Re-run without --dry-run (add --yes to skip the prompts).']
     : [
         `start the dev server: ${devScript}${port !== null ? '' : ' (Vite prints the port it picked)'}`,
-        `open ${url} and press Alt+D to enter draw mode`,
-        'sketch: circle a button and write "red", scribble over a card to delete it, ' +
-          'or box empty space and write what belongs there',
-        'hit ▶ Run in the HUD; simple shapes mount instantly, the rest goes to Claude Code',
+        `open ${url}: the page opens ready to draw (Alt+D pauses drawing so you can use the page)`,
+        'sketch: circle a button and type "red", scribble over a card to delete it, ' +
+          'or box empty space and type what belongs there',
+        'stop drawing and it runs by itself about a second later (Esc cancels); the edit goes to Claude Code',
         `every run is recorded at ${url}/@s2c/runs (ink, prompt, plan, replies, verification, tokens)`,
         'run bundles on disk: .sketch2code/runs/<id>/ ; every run prints its own revert command',
       ]
