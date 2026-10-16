@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 06:20 UTC — sketch-to-code / s2c-006 One-key note — **done**: draw, then just type
+Picked because: priority 2.21 (next: s2c-011 1.81 / s2c-017 1.81, s2c-020 1.66; s2c-013 2.91 local, skipped; fashion killed, no overrule)
+Did: commit 54ab6ac. The first printable key after a stroke opens a note on that drawing's stroke cluster, not on whatever the pointer is over, with the key already typed. Enter attaches. A word on a shape went from 4 steps to 2. One-shot: label, undo, Clear, a click or the test surface hands keys back to the host page. `?` still opens help. In auto mode, typing during the countdown holds the run.
+Result: 9 unit tests + new `tests/e2e/live-label.mjs` (6 live checks, zero tokens) green. live-notes/keymap/noterefs/auto still green. vitest 898/900 (same 2 env failures); typecheck clean. momentum 0.5 → 0.7
+Blunt: this is ergonomics, not the thesis. It makes "sketch + a few words" cheaper, but it says nothing about whether the reading is right. Weak spot: in auto mode you get 0.9 s to start typing. Pause longer and an empty box is read without its word. That belongs in s2c-020, and is logged there.
+New branches: none. A bench driver for the new path would be busywork.
+Pruned/done: s2c-006 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-011 misread explanation + undo, or s2c-017 harness design (tied).
+
 ## 2026-10-16 05:25 UTC — sketch-to-code / s2c-015 Visual language — **done** (row 9 page added)
 Picked because: priority 4.12 (next: s2c-006 2.20, s2c-017 1.80 / s2c-011 1.80; s2c-013 local, skipped; fashion killed)
 Did: commit 50be541. New `BASE_LIST_APP`: three tiles in a four-column grid, so there is an empty slot. **r15** is one loose empty box in that slot, no words. New `siblings` edit check: the list now has ≥4 items, whatever tag the new one uses. 6 unit tests, plus v1 reads r15 as ADD into the row.

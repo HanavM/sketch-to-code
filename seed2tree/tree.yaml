@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 21
-lock: {run: cloud-20261016T0556, until: '2026-10-16T07:12:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -137,20 +137,26 @@ nodes:
   title: "Make the one-word note cheap"
   why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter. Re-scored 3->4 for the accessibility seed: 'a rough sketch plus a few words' is the product."
   done_when: "Labelling a just-drawn shape takes one keystroke to start typing, with an e2e (zero-token) test."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T06:20Z'
   blocked_on: null
-  outputs: []
+  outputs:
+  - "commit 54ab6ac"
+  - packages/overlay-client/src/type-to-label.ts
+  - packages/overlay-client/tests/type-to-label.test.ts
+  - tests/e2e/live-label.mjs
+  - "docs/findings.md §The one-word note, made cheap"
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: one-keystroke note is UX polish; Cursor/Lovable already do click+type. Owner can overrule in INBOX with a reason."
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): one-key note serves sketch-first-text-as-support."
+  - "2026-10-16: DONE (commit 54ab6ac). Draw, then just type: first printable key after a stroke opens a note on that stroke cluster with the key kept; Enter attaches (4 steps -> 2). One-shot, disarmed by label/undo/clear/click/test surface; bound keys (?) win; holds auto while typing. 9 unit + live-label.mjs 6 checks green; live-notes/keymap/noterefs/auto still green; vitest 898/900 (same 2 env failures); typecheck clean. Caveat: in auto mode the window to start typing is the 0.9s settle -> fed to s2c-020."
 
 - id: s2c-007
   parent: s2c-004
@@ -449,3 +455,4 @@ nodes:
   outputs: []
   log:
   - "2026-10-16: added by s2c-015. Check first how v2 handles an empty modify today (read run2/intent2 for an 'unclear' path) so this does not duplicate an existing guard."
+  - "2026-10-16: from s2c-006: in auto mode an empty box/ring gets only the 0.9s settle before it is read without its word. Asking here (instead of a paid guess) also gives type-to-label the time it needs; include a bare empty box (r15-style) in the detector's cases, deciding explicitly whether it prompts."
