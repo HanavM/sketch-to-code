@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 24
-lock: {run: cloud-20261016T0855, until: '2026-10-16T10:10:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -493,19 +493,20 @@ nodes:
   title: "Stop means stop: timeout/Esc abort the agent; undo survives a dev-server restart"
   why: "harness.md §1: the 12-min deadline is a Promise.race with no AbortSignal, so an orphaned agent keeps editing after the undo entry is taken and activeRun is freed; Undo can be overwritten. Undo stack is memory-only; stash shas are gc-able."
   done_when: "AbortSignal from /@s2c/run into runV2 and the codegen query (interrupted); deadline or Esc (new /@s2c/run/abort) awaits pipeline exit before pushing undo and clearing activeRun; unit test with a fake handler that keeps writing after the deadline: no write lands after done/error-event; undo stack saved to .sketch2code/undo.json and reloaded (test: restart plugin, undo reverts); stash shas pinned under refs/s2c/ (test survives git gc --prune=now); vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T09:10Z'
   blocked_on: null
-  outputs: []
+  outputs: [456255f, packages/vite-plugin/src/run-supervisor.ts, packages/vite-plugin/src/undo-store.ts, packages/pipeline/src/abort.ts, packages/pipeline/tests/stop.test.ts, packages/vite-plugin/tests/stop-run.test.ts]
   log:
   - "2026-10-16: added by s2c-017. Correctness bug, ships regardless of s2c-013's numbers. Check the SDK query() interrupt/abortController option in providers before designing."
+  - "2026-10-16: watered (456255f). One AbortSignal from /@s2c/run + new /@s2c/run/abort (Esc) into runV2/runPipeline and the SDK query abortController; plugin's superviseRun reports stop/undo/frees slot only after the pipeline returns (a run that finishes after a stop is still reported as stopped). Non-agent writes (codemods, scaffolds, finishPass, HMR waits) check the signal. Undo stack -> .sketch2code/undo.json, validated on load, cap 50. Checkpoints pinned under refs/s2c/cp/ (cap 200). Tests: 10 pipeline (fake agent that keeps editing; gc control proves unpinned stash objects die) + 5 plugin over real HTTP (deadline: file at error-event == file 80ms later, 409 while stopping, Undo restores; Esc; ignored signal; restart + gc then undo). vitest 928/930 (2 known env failures), build + typecheck clean, live-misread/label/keymap green. NOT verified: the real SDK subprocess teardown timing (needs a paid run), and no browser e2e for Esc. -> done."
 
 - id: s2c-023
   parent: s2c-017

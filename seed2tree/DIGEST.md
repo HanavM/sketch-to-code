@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 09:10 UTC — sketch-to-code / s2c-022 Stop means stop — **done**: the cap and Esc now actually stop the agent
+Picked because: priority 3.50 (next: s2c-000 seed 1.90, s2c-020 1.70; s2c-013 local, skipped; fashion killed, no overrule)
+Did: commit 456255f. One AbortSignal now runs from `/@s2c/run` into runV2/runPipeline and the SDK's `abortController`. Esc calls a new `/@s2c/run/abort`. The plugin sends `error-event`, takes the undo entry and frees the slot only **after** the pipeline has returned. The codemods, scaffolds, finishing pass and HMR waits check the signal too. The undo stack is saved to `.sketch2code/undo.json` (validated on load). Checkpoints are pinned under `refs/s2c/cp/`, so `git gc` can't delete them.
+Result: 15 new tests, zero tokens. A fake agent keeps editing and honours the stop 60ms late; the file at `error-event` matches the file 80ms later. A second run gets 409 while the first is stopping. Undo restores after a restart plus `gc --prune=now`. A control test shows unpinned stash objects really do die under gc. vitest 928/930 (2 known env failures); build + typecheck clean; live-misread/label/keymap green. momentum 0.5 → 0.7
+Blunt: this closes the one path where Undo could lie. It is not the thesis. Not checked: how fast the real SDK subprocess dies (that needs a paid run), and there is no browser e2e for Esc. A run that ignores the signal now holds the slot until it returns. That is correct, but a hung handler means restarting the dev server.
+New branches: none. Rewording the "stopping…" status line would be busywork.
+Pruned/done: s2c-022 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-020 bare ring asks instead of guessing (1.70), or s2c-021 behaviour probes (1.53, value 5: the bigger unlock).
+
 ## 2026-10-16 08:20 UTC — sketch-to-code / s2c-017 Harness design doc — **done**: the verifier can't see behaviour, and the run timeout doesn't stop the run
 Picked because: priority 1.84 (next: s2c-020 1.69, s2c-010 1.50; s2c-013 local, skipped; fashion killed, no overrule)
 Did: docs/harness.md (commit 12ba0ec). History, multi-step builds, behaviour, data and assets, each checked against the code with path:line citations. Every section ends in a decision, not a wish list.
