@@ -12,6 +12,7 @@ import { bundleOverlayClient } from './overlay-bundle.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
 import { loadUndo, MAX_UNDO, saveUndo, type UndoEntry } from './undo-store.js'
+import { createReadingStore, isReadingId, type ReadingReply } from './readings.js'
 
 /** A file under the app's `server/data/`, where generated routes keep records. */
 export function isDataStoreFile(root: string, file: string): boolean {
@@ -92,6 +93,16 @@ export type RunHandler = (
 let runHandler: RunHandler | null = null
 export function setRunHandler(h: RunHandler): void {
   runHandler = h
+}
+
+/**
+ * Test seam for /@s2c/interpret (s2c-002), like setRunHandler: replaces the
+ * reading itself (dirt check + model call) so tests never reach a model.
+ */
+export type ReadingHandler = (req: RunRequest) => Promise<ReadingReply>
+let readingHandler: ReadingHandler | null = null
+export function setReadingHandler(h: ReadingHandler | null): void {
+  readingHandler = h
 }
 
 // Module scope on purpose: a vite config-reload re-instantiates the plugin,
@@ -303,6 +314,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
     },
 
     configureServer(server: ViteDevServer) {
+      // s2c-002: readings in flight or just finished, by the overlay's id
+      const readings = createReadingStore()
       // attach the pipeline when it's installed; the plugin works without it
       import('@s2c/pipeline')
         .then((m) => {
@@ -1360,44 +1373,71 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         })()
       })
 
-      server.middlewares.use('/@s2c/interpret', (req, res) => {
+      // s2c-002. Registered BEFORE '/@s2c/interpret' (connect matches by path
+      // prefix, so the reading route would swallow this one). The page that
+      // comes back after an instant-render reload collects the reading here,
+      // by the id it parked before asking. POST + JSON for the same guard as
+      // every other route: a reading names elements of the user's app.
+      server.middlewares.use('/@s2c/interpret/result', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
-        readJsonBody<RunRequest>(req)
+        readJsonBody<{ readingId?: unknown; waitMs?: unknown }>(req)
           .then(async (body) => {
-            const m = await import('@s2c/pipeline')
-            if (engine === 'model' && body.mode !== 'screenshot') {
-              // Ask BEFORE paying for the read: an edit that checkpoint() will
-              // refuse anyway must not cost a model call first.
-              let refusal: string | null = null
-              try { refusal = m.dirtReason(root, allowDirty) } catch { /* not a repo: the run says so */ }
-              if (refusal) {
-                sendJson(res, 200, { ok: false, refused: true, error: refusal })
-                return
-              }
-              const v2 = await m.interpretV2(
-                body.strokes as Parameters<typeof m.interpretV2>[0],
-                body.snapshot,
-                undefined,
-                body.mode === 'design' ? 'design' : 'gesture',
-                body.notes as Parameters<typeof m.interpretV2>[4],
-              )
-              sendJson(res, 200, {
-                ok: true,
-                v2: { interpretation: v2.interpretation, raw: v2.raw, tokens: v2.tokens },
-              })
-              return
+            if (!isReadingId(body.readingId)) return sendJson(res, 400, { ok: false, error: 'bad readingId' })
+            const waitMs = typeof body.waitMs === 'number' ? Math.min(Math.max(body.waitMs, 0), 30_000) : 0
+            const found = await readings.wait(body.readingId, waitMs)
+            if (found.state === 'done') {
+              const r = found.reply
+              return sendJson(res, 200, { state: 'done', status: r.status, reply: r.body })
             }
-            const result = m.interpretStrokes(
-              body.strokes as Parameters<typeof m.interpretStrokes>[0],
-              body.snapshot,
-              body.mode ?? 'gesture',
-              body.overrides,
-            )
-            sendJson(res, 200, { ok: true, result })
+            sendJson(res, 200, { state: found.state })
           })
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })
+
+      server.middlewares.use('/@s2c/interpret', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<RunRequest & { readingId?: unknown }>(req)
+          .then(async (body) => {
+            const work = readStrokes(body)
+            // with an id, the reply is kept for the page that survives a reload
+            // (s2c-002); the live request still gets it the usual way
+            const reply = await (isReadingId(body.readingId) ? readings.begin(body.readingId, work) : work)
+            // the requesting page may be gone by now: that is what readings is
+            // for, and writing to a closed socket is harmless
+            sendJson(res, reply.status, reply.body)
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
+      /** One reading of one sketch, as the HTTP reply it becomes. */
+      async function readStrokes(body: RunRequest): Promise<ReadingReply> {
+        if (readingHandler) return readingHandler(body)
+        const m = await import('@s2c/pipeline')
+        if (engine === 'model' && body.mode !== 'screenshot') {
+          // Ask BEFORE paying for the read: an edit that checkpoint() will
+          // refuse anyway must not cost a model call first.
+          let refusal: string | null = null
+          try { refusal = m.dirtReason(root, allowDirty) } catch { /* not a repo: the run says so */ }
+          if (refusal) return { status: 200, body: { ok: false, refused: true, error: refusal } }
+          const v2 = await m.interpretV2(
+            body.strokes as Parameters<typeof m.interpretV2>[0],
+            body.snapshot,
+            undefined,
+            body.mode === 'design' ? 'design' : 'gesture',
+            body.notes as Parameters<typeof m.interpretV2>[4],
+          )
+          return { status: 200, body: { ok: true, v2: { interpretation: v2.interpretation, raw: v2.raw, tokens: v2.tokens } } }
+        }
+        const result = m.interpretStrokes(
+          body.strokes as Parameters<typeof m.interpretStrokes>[0],
+          body.snapshot,
+          body.mode ?? 'gesture',
+          body.overrides,
+        )
+        return { status: 200, body: { ok: true, result } }
+      }
 
       // Registered BEFORE '/@s2c/run': connect matches mounts by path prefix,
       // so '/@s2c/run' would swallow this one.

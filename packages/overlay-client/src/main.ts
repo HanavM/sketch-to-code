@@ -10,6 +10,7 @@ import { labelArmed, startsLabel } from './type-to-label.js'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
+import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
@@ -453,6 +454,8 @@ const MISREAD_KEY = 's2c:misread'
 
 /** Mirrors @s2c/pipeline RunExplanation (explain.ts); the overlay bundles no pipeline code. */
 interface RunExplanation { problem: boolean; sentence: string; undoable: boolean }
+/** The interpret endpoint's reply, live or collected after a reload (s2c-002). */
+interface ReadingBody { ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview; refused?: boolean }
 interface RunDoneEvent { summary?: string; explanation?: RunExplanation | null; clientId?: string }
 interface RunErrorEvent { message: string; explanation?: RunExplanation | null; clientId?: string }
 /** One element the lasso caught: the live node, its stamp, and what to call it. */
@@ -2260,6 +2263,10 @@ class Overlay {
   private multiSel: ExtraSel[] = []
   /** Component written by the instant render, if one landed this run. */
   private instant: string | null = null
+  /** s2c-002: the reading this drawing is waiting on, by its server-side id. */
+  private readingId: string | null = null
+  /** The page is going away (a reload, usually ours): its fetches dying is expected. */
+  private unloading = false
   /** An editor is attached to the dev server (pushed over the SSE hub). */
   private ideEditor: string | null = null
   /** Where the editor's cursor is, painted briefly so it can be seen. */
@@ -2947,6 +2954,11 @@ class Overlay {
     // one boot that follows an extract
     this.restoreReloadReceipt()
     this.restoreMisread()
+    // s2c-002: a reading the instant render's reload cut off. After the other
+    // restores: it owns the status line while it waits.
+    void this.resumeReading()
+    window.addEventListener('pagehide', () => { this.unloading = true })
+    window.addEventListener('beforeunload', () => { this.unloading = true })
     this.watchForMissingEndpoints()
     this.connectEvents()
 
@@ -3265,6 +3277,8 @@ class Overlay {
     this.endSketchSearch()
     // a new drawing gets its own instant render
     this.instant = null
+    // …and its own reading: an answer about the ink just cleared is no answer
+    this.dropReading()
     if (this.noteDraft) this.closeNote('cleared')
     this.resetBridge()
     this.renderInk()
@@ -10283,6 +10297,9 @@ class Overlay {
       const body = (await res.json()) as { ok: boolean; file?: string; name?: string; reason?: string }
       if (body.ok && body.file) {
         this.instant = body.file
+        // the reload this write causes is coming: the page after it must know
+        // the component is already there, or the run makes a second one
+        this.updateParkedInstant(body.file)
         this.status(`✏️ ${body.name ?? 'sketch'} is on the page — refining it now…`)
         // a shape drawn onto the page is a component now: file it, with the ink
         // that made it as its picture
@@ -10301,6 +10318,11 @@ class Overlay {
     if (this.askBareRing()) return 'asked'
     // start the instant render and the reading together: neither waits on the
     // other, and the drawing is usually on the page before the reading lands
+    // park BEFORE the instant render can write anything: its reload may land
+    // before this fetch is even sent (s2c-002)
+    const readingId = newReadingId()
+    this.readingId = readingId
+    this.parkReading(readingId)
     const etching = this.etch()
     this.status('reading your drawing…')
     try {
@@ -10313,11 +10335,26 @@ class Overlay {
           // exact words beat inferred ones: whatever the reading makes of the
           // ink, the notes say what the user actually asked for
           notes: this.notesPayload(),
+          readingId,
         }),
       })
-      const body = (await res.json()) as {
-        ok: boolean; error?: string; result?: PreviewData; v2?: V2Preview; refused?: boolean
-      }
+      const body = (await res.json()) as ReadingBody
+      if (this.readingId !== readingId) return // cleared, or a newer run owns the page
+      this.dropReading()
+      await this.applyReading(res.ok, res.status, body, etching)
+    } catch (err) {
+      // the page is going away under this fetch, usually because the instant
+      // render just reloaded it: the next page collects the answer, so this
+      // one says nothing (and keeps the park)
+      if (this.unloading) return
+      if (this.readingId === readingId) this.dropReading()
+      this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  /** What /@s2c/interpret answers, live or collected after a reload. */
+  private async applyReading(ok: boolean, httpStatus: number, body: ReadingBody, etching: Promise<void>): Promise<void> {
+    try {
       // s2c-024: the server refused before paying for the read (files changed
       // by hand since the last edit). Its sentence is already plain words.
       if (body.refused) {
@@ -10325,7 +10362,7 @@ class Overlay {
         this.status(`✗ ${(body.error ?? 'refused').replace(/^refusing to edit: /, 'not editing: ')}`, true)
         return
       }
-      if (!res.ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${res.status}`)
+      if (!ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${httpStatus}`)
       await etching
       this.overrides = {}
       if (body.v2) {
@@ -10369,6 +10406,98 @@ class Overlay {
       this.redraw()
     } catch (err) {
       this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
+    }
+  }
+
+  // ---- s2c-002: a reading survives the reload ------------------------------
+
+  private parkReading(id: string) {
+    const parked: ParkedReading = {
+      id,
+      at: Date.now(),
+      strokes: this.strokes.map((st) => ({ ...st, points: st.points.map((p) => ({ x: p.x, y: p.y, t: p.t })) })),
+      notes: this.notes.map((n) => ({ ...n, refs: n.refs.map((r) => ({ ...r })) })),
+      instant: this.instant,
+    }
+    try {
+      sessionStorage.setItem(READING_KEY, JSON.stringify(parked))
+    } catch { /* blocked storage: a reload still loses the reading, as before */ }
+  }
+
+  private updateParkedInstant(file: string) {
+    try {
+      const p = parseParked(sessionStorage.getItem(READING_KEY), Date.now())
+      if (!p || p.id !== this.readingId) return
+      sessionStorage.setItem(READING_KEY, JSON.stringify({ ...p, instant: file }))
+    } catch { /* see parkReading */ }
+  }
+
+  /** Forget the reading: answered, failed for real, or its ink was cleared. */
+  private dropReading() {
+    this.readingId = null
+    try { sessionStorage.removeItem(READING_KEY) } catch { /* nothing parked */ }
+  }
+
+  /**
+   * The page came back from a reload with a reading parked: put the drawing
+   * back where it was, then collect the answer the dev server kept for it.
+   * Long-polls, so a 10 s reading costs a couple of requests, not a hundred.
+   */
+  private async resumeReading(): Promise<void> {
+    let p: ParkedReading | null = null
+    try { p = parseParked(sessionStorage.getItem(READING_KEY), Date.now()) } catch { /* no storage */ }
+    if (!p) {
+      try { sessionStorage.removeItem(READING_KEY) } catch { /* nothing to drop */ }
+      return
+    }
+    const id = p.id
+    this.readingId = id
+    this.strokes = p.strokes.map((st) => ({ ...st }))
+    this.notes = p.notes.map((n) => ({ ...n }))
+    this.strokeSeq = nextSeq(this.strokes.map((st) => st.id), 's', this.strokeSeq)
+    this.noteSeq = nextSeq(this.notes.map((n) => n.id), 'n', this.noteSeq)
+    this.instant = p.instant
+    this.renderInk()
+    this.renderNotes()
+    this.sync()
+    this.redraw()
+    this.status('the page reloaded — still reading your drawing…')
+    const deadline = p.at + READING_PARK_MS
+    while (Date.now() < deadline) {
+      if (this.readingId !== id) return // cleared, or a newer run
+      let got: { state?: string; status?: number; reply?: ReadingBody }
+      try {
+        const res = await fetch('/@s2c/interpret/result', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+          body: JSON.stringify({ readingId: id, waitMs: Math.min(20_000, Math.max(0, deadline - Date.now())) }),
+        })
+        got = (await res.json()) as typeof got
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      } catch {
+        // another reload (keep the park: the next page resumes), or the dev
+        // server is briefly away: try again shortly
+        if (this.unloading) return
+        await new Promise((r) => setTimeout(r, 1000))
+        continue
+      }
+      if (this.readingId !== id) return
+      if (got.state === 'done' && got.reply) {
+        this.dropReading()
+        const st = got.status ?? 200
+        await this.applyReading(st >= 200 && st < 300, st, got.reply, Promise.resolve())
+        return
+      }
+      if (got.state === 'unknown') {
+        this.dropReading()
+        this.status(lostSentence('lost'), true)
+        return
+      }
+      // pending: the reading is still running; ask again
+    }
+    if (this.readingId === id) {
+      this.dropReading()
+      this.status(lostSentence('expired'), true)
     }
   }
 
@@ -10566,6 +10695,10 @@ class Overlay {
     if (this.mode !== 'draw') return { why: `not drawing (${this.mode})`, hold: false }
     if (this.strokes.length === 0) return { why: 'nothing drawn', hold: false }
     if (this.autoBusy) return { why: 'a run is already in flight', hold: false }
+    // ▶ Run pressed inside the settle window, or a reading resumed after a
+    // reload (s2c-002): the countdown must not start a second, paid, reading
+    // of the same ink
+    if (this.readingId) return { why: 'a reading is already in flight', hold: false }
     if (this.noteDraft) return { why: 'a note is open', hold: true }
     if (this.fidelityOpen || this.penOpen || this.helpOpen) return { why: 'a panel is open', hold: true }
     return null

@@ -271,6 +271,25 @@ All three were found by *instrumenting* the system, not by the measurements.
   valuable (it must not need the model); the real fix is for the reading to
   survive a reload. `instant: false` exists now as a measurement workaround and
   is labelled as one.
+  *Fixed on `seed2tree` (s2c-002):* before asking, the overlay parks the ink,
+  the notes and a reading id in sessionStorage (and the instant component's
+  file once it lands). The dev server files the reply under that id for 5
+  minutes (`readings.ts`), because the model call never stopped when the page
+  died; only its answer had nowhere to go. The page after the reload puts the
+  drawing back and long-polls `/@s2c/interpret/result` for it, so the run
+  goes on to the preview and ✓ Go still refines the instant component in
+  place. If the server no longer has the id (it restarted), the drawing is
+  back and the line says to press ▶ Run again. Tests: `readings.test.ts`,
+  `reading-reload.test.ts` (the request is aborted mid-reading, the next
+  page gets the same answer, the model is asked once), `reading-park.test.ts`,
+  and `tests/e2e/live-reload-reading.mjs` (real instant render, real reload,
+  reading stubbed in the browser; red on the old overlay, 4/4 green). Vite
+  does not always full-reload for the new module: on a cold dev server it
+  sometimes hot-updates instead, so the e2e reloads by hand when it doesn't.
+  *Found on the way:* in auto mode (the default), pressing ▶ Run inside the
+  0.9 s settle window started a **second paid reading** of the same ink when
+  the countdown ran out, because the countdown only knew about its own runs.
+  It now waits while any reading is in flight.
 - **The component library outlives `git clean`**, because `.sketch2code/` is
   gitignored. A stale entry from an earlier session turned a scratch-out — a
   gesture that means *delete* — into a placed component. For a user this is worse
