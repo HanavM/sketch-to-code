@@ -43,8 +43,12 @@ await page.waitForTimeout(300)
 let status = await page.evaluate(
   () => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent,
 )
-log('selected:', status)
-if (!/grid|flex/.test(status)) throw new Error(`selection failed: ${status}`)
+// the bar speaks plain words (s2c-025); the layout detail moved to its tooltip
+const detail = await page.evaluate(
+  () => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').title,
+)
+log('selected:', status, '· detail:', detail)
+if (!/picked up/.test(status) || !/grid|flex/.test(detail)) throw new Error(`selection failed: ${status} · ${detail}`)
 
 // drag the gap strip +8px (16px → 24px = gap-6)
 await page.mouse.move(section.gapX, section.midY)

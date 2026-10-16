@@ -140,7 +140,7 @@ try {
 
   const line = await status()
   log('status:', line)
-  if (!/^<path> in BackgroundFlourish\.tsx · click a colour to paint it/.test(line)) {
+  if (!/^picked up a shape\b.*click a colour to paint it/.test(line)) {
     throw new Error(`ASSERT: the status line does not say what is selected: ${line}`)
   }
 
@@ -257,7 +257,7 @@ try {
   const boxSel = await paintState()
   log('an ordinary element:', JSON.stringify(boxSel), '·', await status())
   if (boxSel.shape || boxSel.open) throw new Error('ASSERT: a box selection opened the paint popover')
-  if (!/drag to move, handles to resize/.test(await status())) {
+  if (!/drag it to move, pull a corner to resize/.test(await status())) {
     throw new Error('ASSERT: the ordinary selection lost its own status line')
   }
 

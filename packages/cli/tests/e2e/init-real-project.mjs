@@ -218,6 +218,85 @@ try {
   const back = await drawState()
   check('Alt+D again brings drawing back', back.mode === 'draw' && back.pointer === 'auto', JSON.stringify(back))
 
+  // ── s2c-025: the first five minutes in design ──────────────────────────────
+  // A non-coder clicks their own button (to see it work), then draws a box.
+  // That used to select the button with a developer line ("button · 120×33 ·
+  // flex row · src/App.jsx") and turn the box into a margin nudge of whatever
+  // it started on. Zero tokens: every model route is stubbed and counted, so
+  // an auto-run after the stroke can never become a paid call.
+  {
+    const paid = []
+    const stub = (name) => (route) => {
+      paid.push(name)
+      return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":false,"error":"stubbed by e2e"}' })
+    }
+    await page.route('**/@s2c/interpret', stub('interpret'))
+    await page.route('**/@s2c/run', stub('run'))
+    await page.route('**/@s2c/instant', stub('instant'))
+    const boxes = await page.evaluate(() => {
+      const r = (el) => { const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height } }
+      return { btn: r(document.querySelector('main button')), h1: r(document.querySelector('#title')) }
+    })
+    const look = () => page.evaluate(() => {
+      const host = document.getElementById('s2c-overlay-host')
+      const sh = host.shadowRoot
+      const h1 = document.querySelector('#title')
+      return {
+        mode: host.dataset.mode,
+        status: sh.getElementById('status')?.textContent ?? '',
+        strokes: sh.getElementById('ink')?.querySelectorAll('path').length ?? 0,
+        h1Style: h1.getAttribute('style') ?? '',
+        btnStyle: document.querySelector('main button').getAttribute('style') ?? '',
+      }
+    })
+    const before = await look()
+    // 1) click your own button
+    await page.mouse.click(boxes.btn.x + boxes.btn.w / 2, boxes.btn.y + boxes.btn.h / 2)
+    await page.waitForTimeout(300)
+    const picked = await look()
+    check('a click on your own button picks it up', picked.mode === 'tweak', JSON.stringify(picked))
+    check('the selection line has no px, size, layout or file path',
+      !/\d+×\d+|\bpx\b|\bflex\b|\bgrid\b|\.jsx|src\/|:\d+:\d+/.test(picked.status), picked.status)
+    check('…and says what was picked up in words', /picked up the button “Save”/.test(picked.status), picked.status)
+    check('the first click on a button says how to use the page (Test)', /▶ Test/.test(picked.status), picked.status)
+    // 2) now drag a box that starts on the heading (not the picked-up button)
+    const x0 = boxes.h1.x + 4
+    const y0 = boxes.h1.y + boxes.h1.h / 2
+    await page.mouse.move(x0, y0)
+    await page.mouse.down()
+    for (const [dx, dy] of [[60, 0], [120, 0], [120, 50], [60, 50], [0, 50], [0, 2]]) {
+      await page.mouse.move(x0 + dx, y0 + dy, { steps: 4 })
+    }
+    const mid = await look()
+    await page.mouse.up()
+    await page.waitForTimeout(300)
+    const drawn = await look()
+    check('a drag after a click draws a stroke', drawn.strokes === before.strokes + 1 && drawn.mode === 'draw', JSON.stringify(drawn))
+    check('…not a nudge of what it started on', !/nudge|translate|reorder|release to/.test(mid.status) &&
+      drawn.h1Style === before.h1Style && drawn.btnStyle === before.btnStyle, `mid: ${mid.status}`)
+    // 3) a click on something else still picks it up, and the hint is said once
+    await page.mouse.click(boxes.h1.x + boxes.h1.w / 2, boxes.h1.y + boxes.h1.h / 2)
+    await page.waitForTimeout(300)
+    const again = await look()
+    check('a click after drawing still picks something up', again.mode === 'tweak' && /picked up the heading/.test(again.status), again.status)
+    await page.mouse.click(boxes.btn.x + boxes.btn.w / 2, boxes.btn.y + boxes.btn.h / 2)
+    await page.waitForTimeout(300)
+    const twice = await look()
+    check('the Test hint is said once, not on every click', /picked up the button/.test(twice.status) && !/▶ Test/.test(twice.status), twice.status)
+    // 4) Esc puts it down and goes back to the pen
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(200)
+    const down = await look()
+    check('Esc puts the selection down and drawing is back', down.mode === 'draw' && !/tweak/.test(down.status), JSON.stringify(down))
+    // clean up: the stroke goes, the stubs go (the checks below talk to the real server)
+    await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('clear')?.click())
+    await page.waitForTimeout(1500) // longer than the auto-run's settle period
+    check('no model call was made (all stubbed)', true, paid.length ? `stubbed: ${paid.join(', ')}` : 'none attempted')
+    await page.unroute('**/@s2c/interpret')
+    await page.unroute('**/@s2c/run')
+    await page.unroute('**/@s2c/instant')
+  }
+
   // ── s2c-024: change #2 and #3 are not refused on an init'd project ─────────
   // init writes sketch2code() with allowDirty unset and nothing commits after
   // an edit, so this used to refuse every edit after the first. Zero tokens:

@@ -9,6 +9,7 @@ import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
+import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
@@ -567,6 +568,20 @@ function isShapeEl(el: Element | null | undefined): el is SVGGeometryElement {
     el != null && el.namespaceURI === 'http://www.w3.org/2000/svg' &&
     SHAPE_TAGS.has(el.tagName.toLowerCase())
   )
+}
+
+/** The few facts plain-selection.ts words a selection from. */
+function plainElOf(el: HTMLElement): PlainEl {
+  const text = el.innerText ?? el.textContent ?? ''
+  return {
+    tag: el.tagName.toLowerCase(),
+    type: el.getAttribute('type'),
+    role: el.getAttribute('role'),
+    href: el.hasAttribute('href'),
+    // a big container's innerText is the whole page; quoting it says nothing
+    text: text.length <= 80 ? text : '',
+    label: el.getAttribute('aria-label') ?? el.getAttribute('alt') ?? el.getAttribute('placeholder'),
+  }
 }
 
 /** The file part of a data-s2c stamp, e.g. 'HumanHead.tsx' — what the user
@@ -2117,6 +2132,15 @@ class Overlay {
   private surface: Surface = 'design'
   /** Where a draw-mode press started, for telling a click from a stroke. */
   private pressAt: { x: number; y: number; t: number } | null = null
+  /**
+   * True while the selection was made by a plain click from drawing (not by
+   * Alt+T). Then the pen is still the default: a drag that doesn't start on
+   * the picked-up element (or its handles) draws, and Esc goes back to
+   * drawing. Explicit tweak mode keeps select+drag on anything.
+   */
+  private tweakImplicit = false
+  /** the "to use it, switch to Test" hint is said once per page load */
+  private testHintShown = false
   /** Which skin the chrome wears. See SKIN_STORE_KEY. */
   private skin: Skin = 'glass'
   /** The page's own padding-bottom, held while the dock borrows it. */
@@ -3119,6 +3143,7 @@ class Overlay {
       this.ruleArmed = false
       this.rulePanel.classList.remove('on')
     }
+    if (m !== 'tweak') this.tweakImplicit = false
     this.mode = m
     // the plan card asks "is a person being asked to read this?", which only
     // becomes true here
@@ -3216,6 +3241,7 @@ class Overlay {
     } else {
       btn.classList.add('primary')
       this.setMode('tweak')
+      this.tweakImplicit = false
       this.status('tweak: click any element — drag to move, handles to resize, gaps/padding to space')
     }
   }
@@ -3307,6 +3333,8 @@ class Overlay {
 
   private status(msg: string, err = false) {
     this.statusEl.textContent = msg
+    // a tooltip belongs to the line it explains (selectElement sets one)
+    this.statusEl.title = ''
     this.statusEl.classList.toggle('err', err)
   }
 
@@ -3766,6 +3794,12 @@ class Overlay {
       this.tweak.scope = 'all'
       this.status(`all ${this.tweak.instanceEls.length} linked — edits apply to every instance`)
       this.redraw()
+    }
+    else if (this.mode === 'tweak' && this.tweakImplicit) {
+      // picked up by a click from drawing: letting go IS going back to the pen
+      this.deselect('')
+      this.setMode('draw')
+      this.status('put down — drag to draw, click to pick something up')
     }
     else if (this.mode === 'tweak' && this.tweak) this.deselect('deselected — Esc again to leave tweak')
     else if (this.mode === 'tweak') this.exitTweak('tweak off')
@@ -7531,6 +7565,7 @@ class Overlay {
           this.livePath = null
           this.canvas.releasePointerCapture?.(e.pointerId)
           this.setMode('tweak')
+          this.tweakImplicit = true
           this.selectElement(target)
           return
         }
@@ -9186,10 +9221,7 @@ class Overlay {
     // colour" is the whole interaction and making the user find a key for it
     // would be a menu in front of a one-step job.
     if (isShapeEl(el)) {
-      this.status(
-        `<${el.tagName.toLowerCase()}> in ${stampFile(t.srcLoc)} · ` +
-        `click a colour to paint it${linked}`,
-      )
+      this.status(shapeLine({ linked: t.instanceEls.length }))
       this.setPaintOpen(true)
       this.redraw()
       return
@@ -9199,12 +9231,21 @@ class Overlay {
     // selected, and a panel describing the PREVIOUS element would be a lie
     // that looks exactly like the truth
     if (this.propsOpen) void this.readProps()
+    // The bar speaks to the person, not the developer: what they picked up in
+    // their own words, and what they can do with it. The developer detail
+    // (tag, size, layout, file) lives in the tooltip and the props panel; an
+    // attached editor already jumps to the line (revealInEditor above).
+    const plain = plainElOf(el)
+    const hint = !this.testHintShown && this.surface !== 'test' && isInteractive(plain)
+    if (hint) this.testHintShown = true
+    this.status(selectionLine(plain, {
+      linked: t.instanceEls.length,
+      setSize: this.multiSel.length + 1,
+      testHint: hint,
+    }))
     const layout = t.display === 'flex' || t.display === 'grid' ? ` · ${t.display} ${t.direction}` : ''
-    const set = this.multiSel.length > 0 ? ` · set of ${this.multiSel.length + 1}` : ''
-    this.status(
-      `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ` +
-      `${t.srcLoc.split(':')[0]}${linked}${set} — drag to move, handles to resize`,
-    )
+    this.statusEl.title =
+      `${el.tagName.toLowerCase()} · ${Math.round(r.width)}×${Math.round(r.height)}${layout} · ${t.srcLoc}${linked}`
     this.redraw()
   }
 
@@ -9496,7 +9537,18 @@ class Overlay {
         return
       }
     }
-    // 4) select whatever is under the cursor (a shape first), or deselect
+    // 4) picked up by a click from drawing: the pen is still the default. A
+    //    press anywhere but the picked-up element is the start of a stroke,
+    //    and a still release there picks the other thing up (onUp's click
+    //    path). Without this, "click something, then draw a box" grabbed
+    //    whatever the box started on and nudged it — the walkthrough's trap.
+    if (this.tweakImplicit) {
+      if (t) this.deselect('')
+      this.setMode('draw')
+      this.onDown(e)
+      return
+    }
+    // 5) select whatever is under the cursor (a shape first), or deselect
     const el = this.pickTweakTarget(e.clientX, e.clientY)
     if (!el || this.isBackdrop(el)) {
       // Nothing under the pointer, so this press belongs to the pen. Drawing
