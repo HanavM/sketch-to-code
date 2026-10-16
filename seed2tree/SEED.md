@@ -53,10 +53,11 @@ And how does it feel faster and more natural than typing to an agent?
 - Keep the deterministic spine: ink analysis → DOM grounding (data-s2c
   stamps) → typed intent → Claude Code edits → DOM verification. The model
   interprets intent and writes code. It never guesses geometry.
-- **Interpret, don't trace.** Sketches are structure and intent; findings
-  show that words beat drawn marks for content ("draw less, type more").
-  Lean into loose sketches + short words, and make the system robust to
-  messy, partial, hand-drawn input.
+- **Interpret, don't trace.** Sketches carry structure and intent, not
+  pixels. Earlier findings said typed words beat drawn marks for *content*
+  (labels, copy), so words stay available for content, but every *action*
+  should be expressible by drawing alone. Make the system robust to messy,
+  partial, hand-drawn input.
 - Measure before changing: the sketch benchmark (`tests/bench`) is the
   ruler. Its primary metric should score whether the *intent* was realized
   (structure, content, order), not IoU. Add sketches that are deliberately
