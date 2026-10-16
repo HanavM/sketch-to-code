@@ -600,3 +600,25 @@ Undo is offered only over files this run changed or created, not over
 untracked files that were already there. An Undo with nothing of its own
 would pop the stack past this run and revert the edit before it. Ctrl+Z
 after a run that wrote nothing still does that, as it always has.
+
+## The screenshot arm can crash the browser (seed2tree s2c-013, Mac run 2026-10-16)
+
+Found while trying to run the approved s2c-013 pilot. **The pilot did not run.** Two separate reasons:
+
+1. **The Mac run can't pay for it.** The pipeline signs in through Claude Code (`cleanEnv` strips
+   `ANTHROPIC_API_KEY` on purpose), and the gardener's Mac shell is a Linux VM. In that VM, the
+   only `claude` is a wrapper that accepts just `claude -p "<prompt>"`, with no Claude Code login.
+   The Mac's `node_modules` is darwin-arm64, and Playwright's browser CDN is blocked (403). So the
+   approved ~1M tokens can only be spent by running the commands on macOS itself.
+2. **The screenshot arm was flaky in a way that would have wasted a paid run.** `captureProbe`
+   (getDisplayMedia) sometimes takes all of Chromium down: r01 alone, `--dry`, crashed 2 of 7
+   times headless and also crashed under xvfb headed. Before this fix, one crash failed that page
+   and every page after it, and then the run hung. Now the runner launches a fresh browser and
+   retries a page once, **but only if the crash came before Run** (nothing paid yet). A crash after
+   Run fails that page without a retry (the reading may already be billed), and the run goes on.
+
+Checked (cloud, 0 tokens): `--set rough --dry --mode auto` 15/15, same as before. In
+`--mode screenshot --dry`, r08's crash was retried and passed. Later in that run, r10 got "vite
+never answered" and r11 hung after the relaunch. That is still open, and it may be specific to
+the cloud container. Tests in tests/bench: 84/84. **Not checked:** whether macOS Chromium crashes
+on tab capture at all.

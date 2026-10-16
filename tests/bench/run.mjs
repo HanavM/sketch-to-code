@@ -112,10 +112,25 @@ const app = await makeApp({ dir: APP_DIR, port: PORT })
 log('app:', APP_DIR)
 
 // S2C_CHROMIUM: a browser other than playwright's pinned one (as intent-check.mjs)
-const browser = await chromium.launch({
+const launchBrowser = () => chromium.launch({
   args: launchArgs(MODE),
   ...(process.env.S2C_CHROMIUM ? { executablePath: process.env.S2C_CHROMIUM } : {}),
 })
+let browser = await launchBrowser()
+
+/**
+ * The whole browser dying, not one page failing.
+ *
+ * Screenshot mode's tab capture (getDisplayMedia) takes Chromium down with it
+ * now and then: r01 alone, --dry, 2 crashes in 7 tries on Linux headless and
+ * the same under xvfb headed (seed2tree s2c-013, 2026-10-16). Before this, one
+ * crash failed that page and every page after it, and the run then hung. Only
+ * a crash BEFORE Run is retried: nothing has been paid for yet. After Run the
+ * reading may already be billed, so a retry could pay twice; that page fails
+ * and the run moves on in a fresh browser.
+ */
+const BROWSER_GONE = /Target page, context or browser has been closed|Target crashed|Browser closed|browser has disconnected/i
+const retried = new Set()
 const results = []
 
 /**
@@ -246,7 +261,9 @@ function readRunRecord(dir) {
   return null
 }
 
-for (const spec of chosen) {
+const queue = [...chosen]
+while (queue.length) {
+  const spec = queue.shift()
   log(`\n── ${spec.id} · ${spec.title}`)
   const row = {
     id: spec.id, title: spec.title, mode: MODE, sentMode: null, strokes: spec.strokes.length,
@@ -265,7 +282,14 @@ for (const spec of chosen) {
     if (DRY) row.dry = true
     continue
   }
+  if (!browser.isConnected()) {
+    log('the browser died on the last page; launching a fresh one')
+    await browser.close().catch(() => undefined)
+    browser = await launchBrowser()
+  }
   const page = await browser.newPage({ viewport: spec.viewport })
+  let pressedRun = false
+  let retry = false
   const errs = []
   page.on('pageerror', (e) => errs.push(String(e)))
 
@@ -416,6 +440,7 @@ for (const spec of chosen) {
 
     // ── Run, confirm, and wait ───────────────────────────────────────────
     const runStart = Date.now()
+    pressedRun = true
     await page.keyboard.press('Alt+r')
     let ready = false
     for (let i = 0; i < 400; i++) {
@@ -480,11 +505,23 @@ for (const spec of chosen) {
     if (real.length) row.error = `page error: ${real[0]}`
   } catch (err) {
     row.error = err instanceof Error ? err.message : String(err)
-    log('FAILED:', row.error)
+    if (BROWSER_GONE.test(row.error) && !pressedRun && !retried.has(spec.id)) {
+      retried.add(spec.id)
+      retry = true
+      log(`the browser died before Run (${row.error}); nothing was paid, retrying this page once`)
+    } else {
+      if (BROWSER_GONE.test(row.error)) row.error = `browser died${pressedRun ? ' after Run (not retried: the reading may be billed)' : ' again on retry'}: ${row.error}`
+      log('FAILED:', row.error)
+    }
   } finally {
     await page.close().catch(() => undefined)
     await server?.stop().catch(() => undefined)
   }
+  if (retry) {
+    queue.unshift(spec)
+    continue
+  }
+  if (retried.has(spec.id)) row.retriedAfterCrash = true
   results.push(row)
   // write after every page: a long benchmark that loses everything to one crash
   // on page 12 is worse than no benchmark
@@ -494,7 +531,7 @@ for (const spec of chosen) {
   writeFileSync(join(OUT, `results.${MODE}.words-${WORDS}.json`), JSON.stringify(results, null, 2))
 }
 
-await browser.close()
+await browser.close().catch(() => undefined)
 try { resetSrc(APP_DIR) } catch { /* the app is a throwaway anyway */ }
 
 const agg = summarise(results)
