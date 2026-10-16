@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 04:10 UTC — sketch-to-code / s2c-015 Visual language spec, checked against the readers
+Picked because: priority 2.26 (next: s2c-006 2.16, s2c-011 1.76 / s2c-017 1.76; s2c-013 local, skipped; fashion killed)
+Did: docs/visual-language.md (commit e5ba440). 16 common edits, each mapped to a mark or to the reason there isn't one, and checked against both readers. Only **7/16 are carried by a mark alone** (delete, move, reorder, swap, colour, add another, add new UI). 4 need words for *what*. 4 lose outright to a drag or a button (resize, align, short moves, "make it work"). Don't build gestures for those.
+Found: (1) **s2c-016 was wrong**: restyle colour needs no words. The overlay pen colour (Alt+P) already carries the value; the bench just couldn't draw in colour. It can now (`pens:`, set through the real UI). r12 = r03 with zero words. (2) Arrows over ~600px lost their heads in ink/scene.ts and read as plain lines. Fixed and tested. (3) The legacy v1 reader turns a swap into 2-3-1 and ignores an X. Recorded, not fixed.
+Result: new pages r12 green-pen ring, r13 two-arrow swap, r14 caret + "Blog". All pass rough-check with and without words, and --dry draws them in Chromium. vitest 877/880 (same 3 env failures); `tsc -p` clean. Still zero tokens, so this measures nothing live. momentum 0.5 → 0.7
+New branches: s2c-020 a bare ring (default ink, no words) asks a question instead of a paid guess
+Pruned/done: s2c-015 active, not done: a page for "add one more to a list" needs a base page with an empty slot (one short watering).
+Needs you: nothing new. For the Mac pilot, r12 + r13 in `--words none` are now the purest test of "the mark is the command".
+
 ## 2026-10-16 03:20 UTC — sketch-to-code / s2c-016 Sketch-alone scoring — bench now separates what the ink carries from what the words carry
 Picked because: priority 2.26, tied with s2c-015 2.26 (next: s2c-006 2.16; s2c-013 local, skipped; fashion killed). Picked 016 because it ships tested code, and the Mac pilot can use it.
 Did: `--words all|content|none` (commit 80dcdf3). Each rough note now declares its `content`: the words no mark could carry. The rough set types 64 words in all, 32 in content, 0 in none. r04's arrow types nothing in content mode. With no words, checks only words can pass are dropped. r03 then can't be graded (a ring can't say "green"), so it is not judged and not run. `words-compare.mjs` reports realized %, words typed and words per realized page for each arm.
