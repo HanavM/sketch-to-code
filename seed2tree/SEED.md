@@ -31,15 +31,34 @@ What that means for the product:
 - **Fast enough to feel like thinking out loud.** Sketch → change visible
   should feel immediate, faster than typing a prompt.
 
+## The bigger ambition (owner, 2026-10-15)
+
+sketch-to-code is not a feature, it's **a whole product: a drawing-first
+harness, a drawing-first Cursor.** In Cursor's Design Mode and Lovable's
+Draw, the drawing is a pointer and the *instruction is text or voice*: you
+circle something and then tell it what to do. Here **the drawing IS the
+instruction**: a scribble deletes, an arrow moves, a sketched wireframe is
+the new UI, a mark is a command. **Sketch first, text prompts as
+support**: you can always add a few typed words to clarify or extend any
+sketch, but the sketch leads and carries the intent. Lovable treats sketching as a toolbar mode; this treats it
+as the fundamental way you build software.
+
+The product therefore has to answer, over time: what's the full visual
+language (gestures for every common edit, not just markup)? What does the
+whole harness look like when you never need to open a code editor (history,
+branching/undo, multi-step builds, state and behaviour, backend, files)?
+And how does it feel faster and more natural than typing to an agent?
+
 ## Technical direction
 
 - Keep the deterministic spine: ink analysis → DOM grounding (data-s2c
   stamps) → typed intent → Claude Code edits → DOM verification. The model
   interprets intent and writes code. It never guesses geometry.
-- **Interpret, don't trace.** Sketches are structure and intent; findings
-  show that words beat drawn marks for content ("draw less, type more").
-  Lean into loose sketches + short words, and make the system robust to
-  messy, partial, hand-drawn input.
+- **Interpret, don't trace.** Sketches carry structure and intent, not
+  pixels. Sketch first, text as support: the sketch should carry the action
+  on its own wherever it can, and typed words clarify, name, or add content
+  (labels, copy, behaviour details). Make the system robust to messy,
+  partial, hand-drawn input.
 - Measure before changing: the sketch benchmark (`tests/bench`) is the
   ruler. Its primary metric should score whether the *intent* was realized
   (structure, content, order), not IoU. Add sketches that are deliberately
