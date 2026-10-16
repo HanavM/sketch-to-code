@@ -501,3 +501,37 @@ in `src/` (a crashed run, a hand measurement) became part of the "blank" app
 every later page starts from. Here it made r15's base commit fail with
 "nothing to commit". It now resets first.
 
+
+## The one-word note, made cheap (seed2tree s2c-006)
+
+*Added 2026-10-16.* Item 2 of "What to change next" is done in the overlay.
+**Draw, then just start typing.** The first printable key after a stroke
+opens a note on that drawing, with the key already in the field. Enter
+attaches it. A word on a just-drawn box went from four steps (pointer back
+on the shape, Alt+N, type, Enter) to two (type, Enter).
+
+- **Subject:** the cluster the newest stroke belongs to, using the same
+  space-and-time clustering as Alt+N's rule 2. It is *not* whatever is under
+  the pointer. You drew a box and typed "Pricing", so the box is what
+  "Pricing" is about.
+- **One-shot.** It is armed while the newest stroke is unlabelled. A label,
+  an undo, a Clear, a click, leaving draw mode or the test surface all hand
+  the keyboard back to the host page. The rule is one identity check
+  (`type-to-label.ts`), so no disarm path can be forgotten.
+- **Bound keys win.** It runs after the keymap, so `?` still opens help.
+  Space never starts a label (it scrolls the page), and neither does any key
+  with Alt/Ctrl/⌘ or an IME composition in progress.
+- **Auto mode:** a key typed during the 0.9 s settle countdown holds the run,
+  as any open note does. Enter releases it, and the interpret request
+  carries the label. **The window is still 0.9 s.** If you pause longer
+  before typing, auto has already read the bare shape. That suits a mark
+  that carries its own action (scribble, arrow). It does not suit an empty
+  box, which needs its word. s2c-020 (ask, don't guess, on a bare mark) is
+  where to fix that.
+
+Tests: `packages/overlay-client/tests/type-to-label.test.ts` (9 unit) and
+`tests/e2e/live-label.mjs` (6 live checks, zero tokens). The existing
+live-notes, live-keymap, live-noterefs and live-auto suites still pass.
+Not measured: whether real users find it without being told. The status
+line says "start typing to label it" after a stroke in review/manual mode.
+In auto mode the countdown overwrites it.

@@ -6,6 +6,7 @@
 import { takeSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
+import { labelArmed, startsLabel } from './type-to-label.js'
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
@@ -2165,6 +2166,12 @@ class Overlay {
     refs: NoteRef[]
   } | null = null
   private notes: Note[] = []
+  /**
+   * The stroke type-to-label is armed on: the newest stroke, until a label is
+   * typed onto it. See type-to-label.ts for why identity with the newest
+   * stroke is the whole disarm rule.
+   */
+  private labelStrokeId: string | null = null
   private noteSeq = 0
   /** Last pointer position in CLIENT coords — where Alt+N resolves against.
    *  null until the pointer has moved at all (fresh tab, keyboard-only). */
@@ -3490,6 +3497,14 @@ class Overlay {
         },
       },
       {
+        // No key of its own, so it can't collide with anything: the matcher
+        // never fires and onKeyDown handles it AFTER this table, so every real
+        // binding (? included) still wins. Listed so the help says it exists.
+        id: 'label', keys: 'just type', group: 'notes',
+        label: 'label what you just drew — start typing right after a stroke, Enter attaches',
+        match: () => false, run: () => undefined,
+      },
+      {
         id: 'help', keys: '?', label: 'show / hide this list', group: 'overlay',
         // by e.key alone: '?' sits behind Shift on some layouts and AltGr on
         // others, and the character is what the user actually pressed
@@ -3527,6 +3542,12 @@ class Overlay {
       e.preventDefault()
       b.run()
       return
+    }
+    // After the table, never before it: a bare key the overlay already binds
+    // (?) keeps its meaning, and only an unclaimed printable key becomes a label.
+    if (startsLabel(e) && this.labelReady()) {
+      e.preventDefault()
+      this.startLabel(e.key)
     }
   }
 
@@ -6769,6 +6790,13 @@ class Overlay {
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
     }
     if (!seed) return []
+    return this.clusterFrom(seed)
+  }
+
+  /** The drawing `seed` belongs to: strokes close in space AND in time. */
+  private clusterFrom(seed: Stroke): Stroke[] {
+    const boxes = new Map<Stroke, Box>()
+    for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
     const group = [seed]
     for (;;) {
       const next = this.strokes.find((st) =>
@@ -6823,6 +6851,49 @@ class Overlay {
     return 'whole sketch'
   }
 
+  /** Everything that already owns the keyboard, so a bare key is not ours. */
+  private labelReady(): boolean {
+    return labelArmed({
+      mode: this.mode,
+      surface: this.surface,
+      armedStrokeId: this.labelStrokeId,
+      lastStrokeId: this.strokes[this.strokes.length - 1]?.id ?? null,
+      busy: this.noteDraft != null || this.cmdOpen || this.helpOpen || this.penOpen ||
+        this.fidelityOpen || this.paintOpen || this.propsOpen || this.timeOpen ||
+        this.libOpen || this.libArmed != null || this.lasso != null || this.lassoArmed ||
+        this.ruleDraw != null,
+    })
+  }
+
+  /**
+   * Type-to-label: the first key after a stroke opens a note ON THAT DRAWING,
+   * with the key already typed. The subject is the cluster the newest stroke
+   * belongs to (same clustering as Alt+N's rule 2), not whatever the pointer
+   * happens to be over: you drew a box and typed "pricing", so the box is what
+   * "pricing" is about, even if the pointer drifted onto a button on the way.
+   */
+  private startLabel(first: string) {
+    const seed = this.strokes[this.strokes.length - 1]
+    if (!seed) return
+    const group = this.clusterFrom(seed)
+    // hang the field just under the drawing's left edge, where the eye already is
+    let x = Infinity, bottom = -Infinity
+    for (const st of group) {
+      const b = this.strokeBox(st)
+      x = Math.min(x, b.x)
+      bottom = Math.max(bottom, b.y + b.h)
+    }
+    this.labelStrokeId = null
+    this.openEditor(
+      null,
+      { x, y: bottom },
+      { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null },
+      first,
+      [],
+      true,
+    )
+  }
+
   /** Alt+N / Alt+Shift+N: resolve, then open the field at the pointer. */
   private openNote(forceRun: boolean) {
     if (this.mode === 'running') return
@@ -6848,6 +6919,9 @@ class Overlay {
     r: { anchor: NoteAnchor; strokes: Stroke[]; el: HTMLElement | null },
     text: string,
     refs: NoteRef[] = [],
+    /** Typing has already begun (type-to-label): caret after the text, not a
+     *  selection the next key would overwrite. */
+    caretEnd = false,
   ) {
     this.noteDraft = { id, at, anchor: r.anchor, refs: refs.map((x) => ({ ...x })) }
     this.noteWhat.textContent = this.anchorLabel(r.anchor, r.el)
@@ -6864,7 +6938,8 @@ class Overlay {
     this.noteBox.classList.add('on')
     this.noteInput.value = text
     this.noteInput.focus()
-    this.noteInput.select()
+    if (caretEnd) this.noteInput.setSelectionRange(text.length, text.length)
+    else this.noteInput.select()
     this.renderNoteRefs()
     this.status(
       `note ${this.noteWhat.textContent} · click anything to name it in the sentence · Enter attaches · Esc cancels`,
@@ -7261,6 +7336,8 @@ class Overlay {
     if (this.live.points.length > 2) {
       this.live.anchor = this.anchorFor(this.live.points) ?? undefined
       this.strokes.push(this.live)
+      // the next printable key labels THIS drawing (type-to-label.ts)
+      this.labelStrokeId = this.live.id
       const last = this.live.points[this.live.points.length - 1]!
       this.lastStrokeEnd = last
       this.lastStrokeBig = strokeDiagonal(this.live.points) >= BRIDGE_MIN_SPAN
@@ -7275,6 +7352,10 @@ class Overlay {
     // growing is a new query
     this.scheduleSketchSearch()
     this.sync()
+    // Say once that words can follow. In auto mode the countdown repaints
+    // the line straight after, and that is fine: the hint is for the modes
+    // where the line would otherwise sit silent.
+    if (this.labelStrokeId && this.labelReady()) this.status('drawn · start typing to label it, or keep drawing')
     // The pen is up. If this was the LAST stroke of the drawing, the settle
     // period that fires the auto-run starts now; if it wasn't, the next
     // pointerdown cancels it again. That is the whole firing rule.
