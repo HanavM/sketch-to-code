@@ -1,4 +1,156 @@
-# VALIDATION — sketch-to-code (s2c-012)
+# VALIDATION — sketch-to-code
+
+Two validations live here, newest first. **s2c-018** (2026-10-16) checks the
+owner's thesis after his overrule. **s2c-012** (2026-10-15, below) is the
+original PIVOT verdict, overruled by the owner on 2026-10-15 (INBOX (3)); it is
+kept for the record.
+
+---
+
+# s2c-018 — is "the drawing IS the instruction" actually different?
+
+Written 2026-10-16 by the cloud gardener. Sources read on that date; anything
+not read first-hand is marked *(unverified)*. No tool was used hands-on: every
+"what the user must do" cell for another product comes from its own docs, not
+from trying it.
+
+## Verdict: **the claim holds, narrowly. It is not a moat.**
+
+- **Against Cursor Design Mode and Lovable Draw, the claim is true and
+  documented.** Lovable's own docs: "A sketch shows the where, and your
+  description explains the what"; the steps include "Type a message
+  describing what you want Lovable to do", and Lovable receives "your message
+  and the annotated screenshot" ([Lovable preview toolbar](https://docs.lovable.dev/features/preview-toolbar)).
+  Cursor's docs: drawing identifies "the area of the page your instruction
+  applies to", over a frozen frame; no gesture meaning is documented
+  ([Cursor Design Mode](https://cursor.com/docs/agent/design-mode)). Neither
+  doc says a drawing can be sent with no words; neither says it can't.
+- **The idea itself is not new, and one project already ships the core of it
+  on a live codebase.** New evidence the owner asked for (INBOX (3).3):
+  **[Skema](https://devpost.com/software/skema-wta8kn)** (ConUHacks X, started
+  2026-01-25, two Waterloo SYDE students; npm `skema-core`): turns your
+  localhost app into a tldraw canvas; **a zig-zag scribble over an element
+  marks it for deletion while you draw**; sketch a new card/form/hero and it
+  becomes React code that a CLI agent applies as a diff, then hot-reloads.
+  Gemini 2.5 Flash reads a PNG of the sketch + DOM context. That is "the mark
+  is the command, on a live codebase". It's a hackathon demo: I could not
+  open the [repo](https://github.com/petersenmatthew/skema) (fetch blocked),
+  so stars, activity and how much works are *unverified*. It doesn't kill
+  the seed. It does kill any pitch that says the *idea* is unclaimed. If two
+  students built the core in a weekend, Cursor or Lovable can add
+  "scribble = delete" in a sprint the day it matters.
+- **The gesture grammar is old prior art.** Microsoft Word's Ink Editor has
+  shipped proofreader's marks as commands for years: circle to select, cross
+  out or squiggle to delete, caret to insert written words, curve to join,
+  vertical line to split, backwards-L for a new line
+  ([Microsoft support](https://support.microsoft.com/en-us/Word/edit-your-document-with-natural-gestures)).
+  This repo's README calls its own vocabulary "proofreader's marks". The
+  novel part is pointing those marks at UI and source code, not the marks.
+- **Research has already measured this on code, and it found the weak
+  spot.** [Code Shaping](https://arxiv.org/abs/2502.03719) (Yen, Zhao, Vogel,
+  Waterloo; venue *unverified*, [Waterloo news](https://uwaterloo.ca/computer-science/news/new-ai-system-turns-sketches-code)):
+  free-form sketches on code and console output, read by AI, applied as code
+  edits; 18 programmers in 3 stages. Findings that apply directly here:
+  **arrows were ambiguous** (used as commands, parameters and targets);
+  participants rated how clear their sketches' effect was at a median of
+  3.5/7; 23.2% of sketches needed another pass; in the last stage 5/6
+  participants didn't need the keyboard, deleting with strikethroughs and
+  accepting/rejecting with check/cross marks. Design lessons: show the
+  interpretation before committing (this repo already has the plain-words
+  ✓ Go / ✗ Cancel preview) and make the link from each mark to the affected
+  code visible.
+- **Marking up output as the next prompt exists too**, minus the codebase:
+  tldraw make real lets you "draw on top of the website" it generated and
+  re-run with your annotations; the old HTML goes back to the model. It's a
+  throwaway prototype, not your repo
+  ([tldraw blog](https://tldraw.dev/blog/make-real-the-story-so-far)).
+- **The pointer-only tools are converging on "no words" from the other
+  side.** [Frontman](https://frontman.sh/docs/using/annotations/): click
+  elements, comments optional, "the agent will either use your comments or
+  ask what you want changed". [v0 annotations](https://www.createwith.com/tool/v0/updates/v0-introduces-annotations-for-visual-feedback-on-generated-uis):
+  click and comment. [DrawTalking](https://arxiv.org/abs/2401.05631) (Adobe/NYU):
+  sketches are the objects, **speech** is the instruction, and participants
+  strongly preferred speaking.
+
+## The tasks
+
+For each task: the least a user must do. **Marks** = ink only; **+words** =
+typed or written text required; "?" = the docs don't say. "Here" is what the
+current grammar and bench say (README gesture table, docs/PIPELINE-LOGIC.md
+§4, tests/bench/sketches/rough). It has not been measured live: s2c-013 is
+the first measurement.
+
+| # | task | here | Cursor Design Mode | Lovable Draw | tldraw make real | Skema (hackathon) |
+|---|---|---|---|---|---|---|
+| 1 | delete a card | **marks**: scribble (r01, no words) | circle + words | draw + words | scribble on its own prototype; model guesses; no repo | **marks**: scribble-delete |
+| 2 | remove a nav link | **marks**: X (r06, no words) | circle + words | draw + words | same as 1 | **marks** (scribble) |
+| 3 | delete a line of text | **marks**: strikethrough | circle + words | draw + words | same as 1 | marks? |
+| 4 | move a section above another | **marks** in the grammar (arrow A→B = MOVE); but bench r04 adds "move the quote up here" | words (Cursor's [browser visual editor](https://cursor.com/blog/browser-visual-editor) does drag-and-drop: **no words, no drawing**) | draw + words | arrow, model guesses | arrows + ? |
+| 5 | swap two cards | marks in theory (two arrows); v1's rules engine misfired on these (README), v2 unmeasured | drag-and-drop or words | draw + words | ? | ? |
+| 6 | add a section from a wireframe (newsletter: field + button) | **mostly marks**: wireframe lexicon (rect = input, small rect = button); words only for copy. Bench r05 still writes the whole thing as a note | draw region + words | draw + words | **marks** (its core feature), no repo | **marks**: sketch → React |
+| 7 | add an image / avatar slot | **marks**: rect with an X = image, circle at card top = avatar (lexicon) | words | words | marks | marks? |
+| 8 | insert an item at a spot | **marks**: caret | words | words | ? | ? |
+| 9 | rewrite a headline | **+words** (strike + "say: …", r02) | inline/words | **inline text edit**: click and type, fewer steps | +words | +words |
+| 10 | restyle: bigger and green | **+words** (ring + "bigger and green", r03) | **sliders, no words** (visual editor) | select + style controls or words | +words | +words |
+| 11 | duplicate a card | **+words**: no gesture exists | words | words | ? | ? |
+| 12 | resize a column / widen a card | **+words**: no gesture exists | drag handles / sliders | words | ? | ? |
+| 13 | make a button open a dialog (behaviour) | **+words**; a flow arrow to a sketched dialog might carry it in design mode, unmeasured | words | words | arrows + notes, prototype only | ? |
+| 14 | accept / reject the edit | buttons (✓ Go / ✗ Cancel) | buttons | buttons | n/a | ? (undo is on its roadmap) |
+
+Tally for "here": marks alone carry **8 of 14** (1, 2, 3, 4, 6, 7, 8 by
+design; 5 unproven); words are required for 6 (9–14). Against Cursor/Lovable
+the marks-only rows are the edge. Against direct manipulation (drag-and-drop,
+sliders, inline text) the edge is gone on 4, 5, 9, 10 and 12. Those tools
+need neither words nor drawing there, and they're more precise.
+
+## Which gestures are the real edge
+
+1. **Delete (scribble, X, strike).** Clearest edge vs Cursor/Lovable, and the
+   cheapest: no words, unambiguous, two bench pages (r01, r06) already words-free.
+   Also the one Skema shipped first, so it's table stakes, not a moat.
+2. **Add by wireframe on the live app, with the lexicon** (image X-box,
+   avatar circle, squiggle = body text, rect = input/card). Nobody shipped
+   offers this *on your codebase* except Skema's demo. This is where "sketch
+   first, words as support" pays off most: the ink carries structure, the
+   words carry copy. **The bench under-uses it**: r05 spells the newsletter
+   out in a note instead of drawing an input and a button.
+3. **Caret insert and the image/avatar symbols.** Small, unclaimed, cheap.
+
+Not an edge: **move/swap by arrow** (Code Shaping: arrows are the most
+ambiguous mark; drag-and-drop already needs no words), and **restyle/copy**
+(words or direct manipulation win; a ring + "bigger and green" is a prompt
+with extra steps). Don't sell those as drawing-first wins. Either find a mark
+that beats a slider (s2c-015's job) or concede them to words.
+
+The thing nobody else has, and the only defensible part: **a deterministic
+spine that grounds every mark to DOM ids and verifies the edit in the DOM**,
+measured on rough ink. That's execution, not an idea. It only counts if
+s2c-013/016 show it working, and it's worth nothing as a claim until then.
+
+## What this changes in the tree
+
+- s2c-015 (visual language): must name, for each property edit (resize,
+  restyle, reorder), whether a mark beats direct manipulation, and concede
+  the ones where it doesn't. Arrow-move needs a disambiguation rule
+  (Code Shaping's main failure).
+- s2c-016 (sketch alone vs with words): r04's note ("move the quote up here")
+  and r05's note restate what the marks should already say. Strip them first.
+  That's the cheapest test of the thesis.
+- New s2c-019: read Skema's code and docs and say what it really does
+  (gesture set, verification, undo, how it does on rough ink). It's the one
+  competitor that shares the thesis.
+
+## What would change my mind
+
+- **Toward KILL of the edge:** Cursor or Lovable documents a mark that acts
+  with no words, or Skema turns out to be maintained and robust on rough ink.
+- **Toward a real edge:** s2c-016 shows the rough edit pages realized with
+  notes stripped at ≥ the with-notes rate, and the wireframe pages realized
+  from ink + copy only.
+
+---
+
+# s2c-012 — original validation (verdict PIVOT, overruled)
 
 Written 2026-10-15 by the cloud gardener, per GARDENER.md §0.5 and the owner's
 INBOX note of 2026-10-15 ("Don't spare my feelings"). Every claim below was

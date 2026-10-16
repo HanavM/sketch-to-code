@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 19
-lock: {run: cloud-20261016T0055, until: "2026-10-16T02:10Z"}
+next_id: 20
+lock: null
 
 nodes:
 - id: s2c-000
@@ -30,6 +30,7 @@ nodes:
   - "2026-10-15: s2c-009 rough set done (11 pages, 6 gesture edits). The kill test s2c-013 now waits only on the owner's quota answer."
   - "2026-10-15: s2c-007 done (codegen agent denied .sketch2code/). Only open cloud node left is s2c-002 (value 3, explicitly not worth watering before the kill-test verdict). Cloud runs have nothing worth doing until the owner answers s2c-013."
   - "2026-10-16: OWNER OVERRULED the s2c-012 PIVOT (INBOX 2026-10-15 (3)+(4)): seed is PURSUE. Reason: in Cursor Design Mode / Lovable Draw the drawing only points and the instruction is typed or spoken; here the drawing IS the instruction (scribble deletes, arrow moves, wireframe is the UI), sketch first with text as support. Ambition: a drawing-first harness, not a feature. Tree re-planned: s2c-006/010/011 un-pruned; added s2c-015..018. s2c-005 stays pruned (launch prep; revisit after s2c-018)."
+  - "2026-10-16: s2c-018 done. New evidence per owner rule (3).3: Skema (hackathon, Jan 2026) already does scribble-delete + sketch-to-React on a live localhost app. Not re-litigating the seed (hackathon demo, not a product), but the idea is not unclaimed; the defensible part is grounding + DOM verification measured on rough ink, which needs s2c-013/016 numbers to be worth anything."
 
 - id: s2c-001
   parent: s2c-000
@@ -334,6 +335,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-16: added from owner INBOX (3)(a)."
+  - "2026-10-16: s2c-018 input: for each property edit (resize, restyle, reorder) state whether a mark beats direct manipulation (drag, sliders, inline text) and concede the ones where it doesn't; arrow-move needs a disambiguation rule (Code Shaping: arrows were the most ambiguous mark)."
 
 - id: s2c-016
   parent: s2c-000
@@ -354,6 +356,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-16: added from owner INBOX (3)(b) + (4)."
+  - "2026-10-16: s2c-018 input: r04's note ('move the quote up here') and r05's newsletter note restate what the marks should already carry. Strip those first: cheapest test of the thesis."
 
 - id: s2c-017
   parent: s2c-000
@@ -381,16 +384,38 @@ nodes:
   title: "VALIDATE the differentiation: drawing alone here vs Cursor Design Mode vs Lovable Draw vs tldraw make-real, on concrete tasks"
   why: "INBOX (3)(d) keeps the differentiation honest. Also the one new-evidence check the owner allowed: is there a shipped product where the mark itself is the command on a live codebase? tldraw make-real (drawing -> new UI) and pen-gesture editors (scratch-out-to-delete) are the closest priors and must be checked."
   done_when: "seed2tree/VALIDATION.md section: >=10 concrete edit tasks, for each what the user must do in each tool (marks only? words required?), with linked docs/videos as evidence; a list of any product found where drawing is the instruction; verdict on whether the 'drawing IS the instruction' claim holds, and which gestures are the real edge."
-  status: open
+  status: done
   needs: cloud
   value: 5
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
+  watered: 1
+  last_watered: "2026-10-16T01:40Z"
+  blocked_on: null
+  outputs:
+  - "seed2tree/VALIDATION.md s2c-018 section (14-task table, verdict: claim holds narrowly, not a moat)"
+  log:
+  - "2026-10-16: added from owner INBOX (3)(d). Validate node: +1.0 priority, should be watered next."
+  - "2026-10-16: researched Cursor Design Mode + Lovable Draw docs (drawing = where, words = what, confirmed in their own docs), tldraw make real, Frontman, v0, Word Ink Editor (proofreader marks as commands, shipped for years), Code Shaping (Waterloo, sketches on code; arrows ambiguous, 23.2% needed iteration), DrawTalking. NEW EVIDENCE: Skema (ConUHacks X hackathon, Jan 2026): scribble-delete + sketch-to-React on a live localhost app with diffs applied. Repo not opened (fetch blocked). Verdict: the claim holds vs Cursor/Lovable but the idea is not unclaimed; real edge = delete marks + wireframe-add with lexicon + caret; move/restyle/copy are not edges vs direct manipulation. Marks alone carry 8/14 tasks here. done_when met."
+
+- id: s2c-019
+  parent: s2c-018
+  kind: validate
+  title: "Inspect Skema (hackathon, Jan 2026): what does the one thesis-sharing competitor really do?"
+  why: "s2c-018 found Skema ships scribble-delete + sketch-to-React on a live localhost app. Before claiming anything, know its gesture set, whether it verifies edits, undo, and how robust it is on rough ink."
+  done_when: "VALIDATION.md note with the repo read first-hand: stars, last commit, gesture list from code, whether a typed prompt is ever required, verification/undo yes/no, and a one-line call: toy or real competitor. If it can be run with zero spend, run it on 2 rough edit pages (r01, r06); otherwise say why not."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-16: added from owner INBOX (3)(d). Validate node: +1.0 priority, should be watered next."
+  - "2026-10-16: added by s2c-018. WebFetch to github.com/petersenmatthew/skema was blocked this run; try a shallow git clone (read only, never run its code without review) or the npm page for skema-core."

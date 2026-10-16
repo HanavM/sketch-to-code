@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-16 01:40 UTC — sketch-to-code / s2c-018 VALIDATE differentiation — verdict: **claim holds narrowly, not a moat**
+Picked because: validate node, priority 5.22 (next: s2c-013 2.82 local, skipped; s2c-015 2.22, s2c-016 2.22)
+Did: 14-task table in seed2tree/VALIDATION.md (here vs Cursor Design Mode vs Lovable Draw vs tldraw make real vs Skema), from docs, not hands-on. Cursor's and Lovable's own docs confirm that the drawing says where and the words say what. **New evidence: [Skema](https://devpost.com/software/skema-wta8kn)**, a Jan 2026 hackathon project, already does scribble-delete and sketch-to-React on a live localhost app, with diffs applied. Word's Ink Editor has shipped proofreader marks as commands for years. Code Shaping (Waterloo) found arrows are the most ambiguous mark.
+Result: marks alone carry 8/14 tasks here. The real edge is delete marks, wireframe-add with the symbol lexicon, and the caret. Move, restyle and copy are not edges: drag-and-drop, sliders and inline text need no words either. The idea is not unclaimed. What's defensible is grounding + DOM verification on rough ink, and it's worth nothing until s2c-013/016 measure it. The bench's own r04/r05 notes restate what the ink should say. No code changed, so no tests were run. momentum 0.5 → 0.7
+New branches: s2c-019 inspect Skema first-hand (fetch was blocked this run)
+Pruned/done: s2c-018 done. Seed not re-litigated: Skema is a demo, not a product.
+Needs you: nothing. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-015 or s2c-016 (tied at 2.22), then s2c-019.
+
 ## 2026-10-16 — sketch-to-code / re-plan: owner overrule applied, seed is PURSUE
 Did: applied INBOX (3)+(4) and your chat message. My PIVOT was wrong on the framing: every competitor I found uses the sketch as a **pointer** plus a typed or spoken instruction. Here the **mark is the command**, sketch first with text as support. Recorded in s2c-000/012. s2c-013 is now a measurement, not a kill gate (pilot still approved).
 Un-pruned: s2c-006 one-key note, s2c-010 non-coder walkthrough, s2c-011 misread explanation + undo. s2c-005 (5 real repos) stays pruned until the language and harness exist.
