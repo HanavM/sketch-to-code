@@ -1,5 +1,12 @@
 # DIGEST — newest first
 
+## 2026-10-16 — sketch-to-code / re-plan: owner overrule applied, seed is PURSUE
+Did: applied INBOX (3)+(4) and your chat message. My PIVOT was wrong on the framing: every competitor I found uses the sketch as a **pointer** plus a typed or spoken instruction. Here the **mark is the command**, sketch first with text as support. Recorded in s2c-000/012. s2c-013 is now a measurement, not a kill gate (pilot still approved).
+Un-pruned: s2c-006 one-key note, s2c-010 non-coder walkthrough, s2c-011 misread explanation + undo. s2c-005 (5 real repos) stays pruned until the language and harness exist.
+New: s2c-015 visual-language spec (a gesture for every common edit), s2c-016 sketch-alone vs sketch+words score, s2c-017 harness design (history, multi-step, behaviour, no editor), s2c-018 VALIDATE the differentiation on 10+ concrete tasks vs Cursor / Lovable / tldraw make-real.
+Next cloud run: s2c-018 (validate +1.0), then s2c-015. No more idle runs.
+Needs you: nothing. s2c-008 tidy re-score quota is still open but not urgent.
+
 ## 2026-10-16 — sketch-to-code / s2c-013 unblocked: kill-test PILOT approved
 Did: you answered in chat: **pilot, ~1M tokens**. s2c-013 is now open (needs: local) with the run recipe in its log. No code changed.
 Next: the local (Mac) run picks it: 1 run of --mode auto and 1 of --mode screenshot on the rough set, then a pilot table + provisional verdict. If it lands near the 15-point bar, it will ask for the other 2 runs.

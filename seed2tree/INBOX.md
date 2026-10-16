@@ -20,7 +20,7 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
   Figma-to-code, Locofy, Builder.io, Onlook, Vercel's toolbar), and does the
   "accessible to non-coders" angle survive contact with them? Verdict
   PURSUE / PIVOT / KILL. Don't spare my feelings.
-- 2026-10-15 (3): **OWNER OVERRULES the s2c-012 PIVOT. The seed is PURSUE.**
+- [handled 2026-10-16: overrule recorded in s2c-000/012; s2c-013 now a measurement; s2c-006/010/011 un-pruned; s2c-015..018 added] 2026-10-15 (3): **OWNER OVERRULES the s2c-012 PIVOT. The seed is PURSUE.**
   Reason, in my words: Cursor Design Mode and Lovable Draw are not what this
   is. In both, the drawing only points and references; the instruction is
   typed or spoken. Lovable treats sketching as a feature/toolbar mode. My
@@ -47,7 +47,7 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
      a product where drawing itself is the instruction.
   4. Don't sit idle: if the top node is blocked, pick or add the next most
      valuable cloud-doable branch toward the ambition.
-- 2026-10-15 (4): Precise framing: **sketch first, text prompts as support.**
+- [handled 2026-10-16: s2c-016 scores sketch-alone vs sketch+words] 2026-10-15 (4): Precise framing: **sketch first, text prompts as support.**
   Not "drawing only". Text is always available to clarify or extend a
   sketch, but the sketch leads. Design and measure for that (e.g. score how
   much of the intent the sketch alone carries, and how little text is needed).

@@ -2,7 +2,7 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 15
+next_id: 19
 lock: null
 
 nodes:
@@ -29,6 +29,7 @@ nodes:
   - "2026-10-15: s2c-012 validation verdict PIVOT (seed2tree/VALIDATION.md). Non-coder/launch framing stopped: Cursor Design Mode, Lovable draw-annotation, v0/Bolt visual edits, Onlook, Annotask already ship it. Remaining question: does structured grounding beat screenshot-style input on rough sketches (s2c-013, kill criterion >=15 pts). Pruned s2c-005/006/010/011."
   - "2026-10-15: s2c-009 rough set done (11 pages, 6 gesture edits). The kill test s2c-013 now waits only on the owner's quota answer."
   - "2026-10-15: s2c-007 done (codegen agent denied .sketch2code/). Only open cloud node left is s2c-002 (value 3, explicitly not worth watering before the kill-test verdict). Cloud runs have nothing worth doing until the owner answers s2c-013."
+  - "2026-10-16: OWNER OVERRULED the s2c-012 PIVOT (INBOX 2026-10-15 (3)+(4)): seed is PURSUE. Reason: in Cursor Design Mode / Lovable Draw the drawing only points and the instruction is typed or spoken; here the drawing IS the instruction (scribble deletes, arrow moves, wireframe is the UI), sketch first with text as support. Ambition: a drawing-first harness, not a feature. Tree re-planned: s2c-006/010/011 un-pruned; added s2c-015..018. s2c-005 stays pruned (launch prep; revisit after s2c-018)."
 
 - id: s2c-001
   parent: s2c-000
@@ -133,7 +134,7 @@ nodes:
   title: "Make the one-word note cheap"
   why: "findings.md — words beat marks for content, but typing a label costs pointer move + Alt+N + type + Enter. Re-scored 3->4 for the accessibility seed: 'a rough sketch plus a few words' is the product."
   done_when: "Labelling a just-drawn shape takes one keystroke to start typing, with an e2e (zero-token) test."
-  status: pruned
+  status: open
   needs: cloud
   value: 4
   effort: 2
@@ -146,6 +147,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: one-keystroke note is UX polish; Cursor/Lovable already do click+type. Owner can overrule in INBOX with a reason."
+  - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): one-key note serves sketch-first-text-as-support."
 
 - id: s2c-007
   parent: s2c-004
@@ -213,7 +215,7 @@ nodes:
   title: "Non-coder walkthrough (SEED done #2): audit the path, then prove it"
   why: "The seed's test is whether someone with no React knowledge can make 3 meaningful changes. First find every step that forces them to read code or an error."
   done_when: "docs/walkthrough-noncoder.md walks running app -> add a section, change styling, add a working form, each step checked against the current CLI/overlay (zero-token e2e where possible); every point that needs code or error-reading is listed and filed as a child node."
-  status: pruned
+  status: open
   needs: cloud
   value: 4
   effort: 3
@@ -226,13 +228,14 @@ nodes:
   outputs: []
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: non-coders are served by Lovable/v0/Bolt hosted tools and will not run a local Vite plugin. Owner can overrule in INBOX with a reason."
+  - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): non-coder walkthrough is SEED done #2 again."
 
 - id: s2c-011
   parent: s2c-000
   title: "Plain-language explanation + one-click undo when a sketch is misread"
   why: "SEED done #4: a misread sketch must say what it understood in plain words and be undoable in one step, or non-coders lose trust on the first miss."
   done_when: "Every run with dropped/rejected actions or failed verification shows a jargon-free sentence (no ids, paths or stack traces) and an Undo that restores the files; unit tests for the message builder and a zero-token e2e for undo."
-  status: pruned
+  status: open
   needs: cloud
   value: 5
   effort: 3
@@ -245,6 +248,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: undo + explanation is launch polish; every competitor has checkpoints. Owner can overrule in INBOX with a reason."
+  - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): misread explanation + undo is SEED done #4 again."
 
 - id: s2c-012
   parent: s2c-000
@@ -267,13 +271,14 @@ nodes:
   - "tests/bench/lib/mode.mjs + run.mjs --mode auto|gesture|design|screenshot (asserts the override holds, records mode sent, probes tab capture before paying); __S2C_DEBUG__.runMode()/captureProbe(); tests/bench/mode.test.ts (5)"
   log:
   - "2026-10-15: researched ~15 competitors (Cursor Design Mode draws over the live app since 2026-06; Lovable 'Draw annotation' cleans up rough shapes for non-coders; v0 annotations 2026-06; Bolt visual edits 2026-09; Onlook 26k stars on Vite/Next; Annotask = MIT Vite plugin doing annotate->agent; Claude Code Desktop element select + auto-verify; Sketch2Code NAACL'25 paper owns the name). Verdict PIVOT: product/non-coder framing loses; only open question is structure vs screenshot on rough sketches. Built bench --mode; dry real-browser check: gesture->gesture, screenshot->screenshot with 131,740-char headless tab capture, auto->design on page 03. vitest 805/807 (2 env failures, baseline had 3), tsc clean."
+  - "2026-10-16: verdict OVERRULED by owner -> PURSUE (see s2c-000). The gardener's PIVOT conflated 'sketching on a live app' with 'sketch as instruction'; the competitors found all use the sketch as a pointer + typed prompt. Re-litigate only on new evidence: a shipped product where the mark itself is the command on a live codebase."
 
 - id: s2c-013
   parent: s2c-012
   kind: validate
-  title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (kill test)"
+  title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (measurement, not a kill gate)"
   why: "The pivot's whole case. Screenshot mode is a lower bound on what Cursor/Lovable send; if structure can't clearly beat even that, the seed is dead."
-  done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise KILL the seed."
+  done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise record where structure loses (owner overrule 2026-10-15: this no longer kills the seed)."
   status: open
   needs: local
   value: 5
@@ -287,6 +292,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-16: owner answered in chat (session 01DyZbW9): PILOT approved, ~1M tokens. Run 1x each arm on the Mac: calibrate with --limit 1, then node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot. A pilot cannot meet done_when (3 runs); write the pilot table + a provisional verdict, and if the gap is within ~10 points of the 15-pt bar, block again asking for the remaining 2 runs."
+  - "2026-10-16: owner reconfirmed in chat; per INBOX (3) this is now a MEASUREMENT of where structured grounding beats screenshots, not a kill gate. Pilot (1 run/arm) still approved. Also report the 6 edit pages separately: that is the first measurement of the gesture grammar (feeds s2c-016)."
 
 - id: s2c-014
   parent: s2c-003
@@ -308,3 +314,83 @@ nodes:
   log:
   - "2026-10-15: added by s2c-003. Read from code, not observed in a run: check a saved .sketch2code/runs/*/scaffolds.json from a bench run if one exists on the Mac before trusting the size of the effect."
   - "2026-10-15: fixed at buildScaffold (covers run2 layScaffolds; instant already passes recognized). Widget (fidelity unset) -> no scaffold at reinterpret/normalize/rebuild; depiction + decoration still scaffold; trace rung still scaffolds widgets because run2 rewrites all path actions to verbatim there (deliberate: resemblance>=0.85 = reproduce). The 2 widget tests fail on old code. Exposure on bench ink, worst-case reading (one design action, fidelity unset, default rung): 20/20 design pages (15 tidy + 5 rough) scaffolded a traced box before, 0 after; real multi-action readings unmeasured. vitest 843/845 (same 2 env failures), typecheck clean. done_when met."
+
+- id: s2c-015
+  parent: s2c-000
+  kind: build
+  title: "Spec the visual language: a gesture for every common edit, no words required"
+  why: "The thesis is that the mark IS the command. Today the grammar is ~6 gestures (scribble-delete, strike, ring, arrow, box-add, X). A drawing-first harness needs a complete, learnable vocabulary, and each gesture must be distinguishable from the others in rough ink."
+  done_when: "docs/visual-language.md: every common edit (delete, move, reorder, resize, restyle colour/size/weight, duplicate, wrap/group, swap, add from wireframe, align, hide/show, link/navigate) mapped to a gesture or marked 'needs words' with a reason; each existing gesture checked against the reader code (what packages/pipeline recognises today vs spec); conflicts between gestures named; and >=1 new rough-bench page drafted for each gesture the bench doesn't cover yet."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added from owner INBOX (3)(a)."
+
+- id: s2c-016
+  parent: s2c-000
+  kind: build
+  title: "Score how much the sketch carries alone (sketch-only vs sketch+words)"
+  why: "INBOX (4): sketch first, text as support. The bench must show how much intent the ink alone carries and how few words it needs, not just whether the page came out right."
+  done_when: "tests/bench can run each rough page with its notes stripped (--notes off), reports realized % with and without words and words-per-realized-edit; unit tests for the stripping; zero-token --dry check that every page still draws. Live numbers ride on s2c-013's quota."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added from owner INBOX (3)(b) + (4)."
+
+- id: s2c-017
+  parent: s2c-000
+  kind: build
+  title: "Harness beyond markup: design doc for history, multi-step builds, behaviour/state, no-editor workflow"
+  why: "INBOX (3)(c). Markup edits on one page are a feature; a harness has to cover what you'd otherwise open an editor for."
+  done_when: "docs/harness.md: for each of history/branching+undo, multi-step builds, behaviour/state (e.g. a working form, a toggle), data/backend, and files/assets: what exists today in code, the sketch-first interaction proposed, the hardest technical risk, and a ranked list of 3 buildable nodes with done_when. A decision, not a wish list."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added from owner INBOX (3)(c)."
+
+- id: s2c-018
+  parent: s2c-000
+  kind: validate
+  title: "VALIDATE the differentiation: drawing alone here vs Cursor Design Mode vs Lovable Draw vs tldraw make-real, on concrete tasks"
+  why: "INBOX (3)(d) keeps the differentiation honest. Also the one new-evidence check the owner allowed: is there a shipped product where the mark itself is the command on a live codebase? tldraw make-real (drawing -> new UI) and pen-gesture editors (scratch-out-to-delete) are the closest priors and must be checked."
+  done_when: "seed2tree/VALIDATION.md section: >=10 concrete edit tasks, for each what the user must do in each tool (marks only? words required?), with linked docs/videos as evidence; a list of any product found where drawing is the instruction; verdict on whether the 'drawing IS the instruction' claim holds, and which gestures are the real edge."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added from owner INBOX (3)(d). Validate node: +1.0 priority, should be watered next."
