@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-16 12:30 UTC — sketch-to-code / s2c-021 Behaviour probes — watering 1: a dead form now fails verification, and the probe found a real reload bug
+Picked because: priority 1.54 (next: s2c-010 1.53, s2c-002 1.46; s2c-000 seed skipped: umbrella; s2c-013 local, skipped; fashion killed, no overrule)
+Did: commit 0a8a7b0. The verifier now *uses* the page. A `save` is tested by filling in the form and submitting it in the browser. The plugin sends a probe over SSE, the overlay acts through React's own events, and the server restores `server/data/` byte for byte. A submit nothing handles is cancelled instead of navigating away. A component that calls another host is never clicked; it is reported as unverified, never passed. `verifyActions` counts the result, and the card never says "Done." for an untested behaviour.
+Result: new `tests/e2e/live-probe.mjs`, 6 phases, 0 tokens, 3/3 green. Dead form: FAILS ("sends what was typed nowhere"). Made real: PASSES. Store byte-identical, both absent and pre-seeded. Handler removed: FAILS. No handler: FAILS, no navigation. Third-party fetch: UNVERIFIED, request never sent. 28 unit tests. vitest 995/997 (same 2 env failures); build + typecheck clean; live-form/misread/api/ask/image/keymap green. momentum 0.5 → 0.7
+**Found + fixed a shipped bug:** Tailwind v4 scans `server/data/*.json`, so *every submit of a form made real here full-reloaded the app*. That wiped the "Saved" line and anything else on screen. live-form missed it because it only checked the first submit. The plugin now ignores `server/data/` for HMR.
+Blunt: only `save` is proven live. The click probe (arrow from button to region + "shows") is unit-tested but has no live fixture. run2's probe path hasn't run against a real model. A probe leaves its "Saved" line on the page until reload. This verifies; it doesn't make behaviour easier to draw.
+New branches: none. The toggle fixture is the rest of this node's done_when.
+Pruned/done: nothing.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: the formula now puts s2c-010 non-coder walkthrough (~1.54) narrowly ahead of finishing s2c-021 (~1.42).
+
 ## 2026-10-16 11:40 UTC — sketch-to-code / s2c-023 Picture into a box — **done**: drop or paste an image onto a placeholder, zero tokens
 Picked because: priority 1.62 (next: s2c-021 1.55, s2c-010 1.54; s2c-000 seed 1.92 skipped: umbrella, not a task; s2c-013 local, skipped; fashion killed, no overrule). Last run preferred s2c-021; no INBOX bump, so the formula decided.
 Did: commit 92551e4. New `pipeline/src/asset.ts` + `/@s2c/place-image` + overlay drop/paste handlers. The bytes are sniffed, not the file name. Unsafe SVGs (script, onload=, javascript:, foreignObject, entities) and files over 5 MB are refused. The file goes to `src/assets/` (imported) when the app has it, else `public/`, named by content hash, so the same picture twice is one file. The box becomes an `<img>` that keeps its size classes. Dropping on the box's "Logo" label fills the box, not the label.

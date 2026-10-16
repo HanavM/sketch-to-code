@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 24
-lock: {run: cloud-20261016T1156, until: '2026-10-16T13:11:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -474,19 +474,20 @@ nodes:
   title: "Behaviour probes: the drawn trigger->effect pair is the acceptance test"
   why: "harness.md §3: the verifier compares static snapshots, so a button that does nothing reports verified, and a non-coder can't read the diff. The ink names the trigger (arrow tail / ringed button) and the effect region (arrow head), which is exactly a probe."
   done_when: "Verifier has a probe step the overlay executes (click/type on a stamped element, wait for HMR/idle, re-snapshot); verifyActions scores save via a probe; zero-token e2e on the live-form fixture: handler removed -> FAILS, real -> passes, server/data/*.json byte-identical before/after the probe; a toggle fixture passes wired and fails as a no-op; unit tests deriving trigger/effect from ink; vitest + typecheck green."
-  status: open
+  status: active
   needs: cloud
   value: 5
   effort: 3
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T12:30Z
   blocked_on: null
-  outputs: []
+  outputs: [0a8a7b0, packages/pipeline/src/probe.ts, packages/overlay-client/src/probe-exec.ts, tests/e2e/live-probe.mjs]
   log:
   - "2026-10-16: added by s2c-017. Start with save (deterministic, live-form.mjs fixture exists) before any model-written behaviour. Side effects: restore data file, reload after probe, never probe a target that fetches off the dev server; unsafe = unverified, never passed."
+  - "2026-10-16: watering 1 (0a8a7b0). Built the probe step end to end for save: probe.ts (deriveProbes from grounded actions: save -> submit; clickable target + dest + behaviour word -> click tail/watch head; judgeProbe; byte-exact server/data guard), probe-exec.ts in the overlay (fills fields via native setter, requestSubmit, watches fetch/XHR, MutationObserver on the region, cancels an unhandled submit, puts fields back), plugin /@s2c/probe + /@s2c/probe-result + ctx.requestProbes, never clicks a component that calls another host. verifyActions counts passed/failed, unverified reported not counted; explain.ts never says Done. for untested behaviour. live-probe.mjs 6 phases 0 tokens, 3/3 green: dead form FAILS, made-real PASSES, store byte-identical (absent and pre-seeded), handler removed FAILS, no handler FAILS without navigating, third-party fetch UNVERIFIED and never sent. FOUND + FIXED: Tailwind v4 puts server/data/*.json in the client graph, so every submit of a made-real form full-reloaded the page (live-form only checked the first submit, and only for add). 28 unit tests; vitest 995/997 (same 2 env failures). REMAINING for done_when: a toggle fixture (click probe live: wired passes, no-op fails); run2's probe path is unit-tested via verifyActions but not run live (needs a paid run or a stub provider). Known gap: probe residue (the Saved line) stays on the page until reload."
 
 - id: s2c-022
   parent: s2c-017
