@@ -1,9 +1,59 @@
 # VALIDATION — sketch-to-code
 
-Two validations live here, newest first. **s2c-018** (2026-10-16) checks the
+Validations live here, newest first. **s2c-019** (2026-10-16) reads Skema's
+code first-hand and corrects s2c-018. **s2c-018** (2026-10-16) checks the
 owner's thesis after his overrule. **s2c-012** (2026-10-15, below) is the
 original PIVOT verdict, overruled by the owner on 2026-10-15 (INBOX (3)); it is
 kept for the record.
+
+---
+
+# s2c-019 — Skema, read first-hand: **a pointer tool, not the thesis**
+
+Written 2026-10-16 by the cloud gardener from a read-only shallow clone of
+[petersenmatthew/skema](https://github.com/petersenmatthew/skema) at
+`976bc26` (2026-09-30). None of its code was run. Facts below come from the
+source unless marked.
+
+**Call: a toy-to-small real tool, in the same category as Lovable Draw. It
+does NOT share the thesis. s2c-018 overstated it, and I'm correcting that
+here.** s2c-018 relied on the Devpost write-up, and the code says otherwise:
+
+| question | answer from the code |
+|---|---|
+| activity | 79 files, ~11.5k lines TS. Commits: 22 in Feb 2026 (hackathon), 8 in Mar, 5 in Apr, 2 on 2026-09-30 (live model picker). npm `skema-core` 2.1.2, 7 versions, created 2026-01-25, last publish 2026-02-13 (registry.npmjs.org). Stars: *unverified* (GitHub API not reachable from this run). Still being touched, at a low rate. |
+| is a typed prompt ever optional? | **No. Every annotation needs typed words.** All submissions (`dom_selection` and `drawing`) go through `AnnotationPopup.onSubmit(text)`, and the submit button is `disabled={!text.trim()}` (`components/AnnotationPopup.tsx:282,428`). The drawing is exported as SVG + PNG and sent *with the comment* (`Skema.tsx:619-665`). That's "sketch says where/what shape, words say what": Lovable's model. |
+| scribble-delete | **It erases your own overlay ink, not page elements.** `useScribbleDelete` detects a zig-zag (direction changes + compactness) and calls `editor.deleteShapes(overlappingIds)` on tldraw shapes, then drops their annotations (`hooks/useScribbleDelete.ts`). No source file or DOM node is touched. It's an eraser gesture. |
+| gesture set | One recognizer: scribble (`utils/gesture-recognizer.ts`). A `gesture` annotation type (`'scribble_delete' \| 'circle' \| 'rectangle' \| 'arrow'`) exists in `types.ts` and has a server prompt, but **no client code ever creates one** (grep: only the type, the sidebar label and the server branch). That's dead code. No arrow-move, no X, no strike, no caret, no symbol lexicon. |
+| how the drawing is read | PNG → vision model (Gemini/Claude via their CLIs) → free-text description → a CLI agent edits files on its own. Prompt: "Interpret, Don't Transcribe" (`server/prompts.ts:280`). No DOM grounding of marks beyond a selector/bounding box. |
+| verification | **None, by instruction.** The prompt tells the agent: "STOP immediately after making the file changes. Do not verify, do not run tests" (`server/prompts.ts:38,101`). |
+| undo | **Yes, partly.** Per-annotation snapshot with `git stash create` (or HEAD), and revert runs `git checkout <ref> -- <file>` on each file in `git diff --name-only <ref>` (`server/daemon.ts:165-202`). Untracked files the agent created are in neither, so a reverted "sketch → new component" leaves the new file behind (read from code, not run). |
+| tests | None in the repo. |
+| frameworks | Next.js first (README), any React app with a `<Skema/>` component + a daemon on :9999. Also an MCP mode that queues annotations for Cursor/Claude Desktop. |
+| run on r01/r06? | **Not run.** It needs a Gemini or Claude CLI logged in (model spend), and its daemon spawns an agent with write access. Running unreviewed third-party code with spend is outside this run's rules. It would also be pointless: neither r01 (scribble-delete) nor r06 (X-out link) can be submitted without typing words, so both fail the "sketch alone" test by construction. |
+
+**What this changes:**
+
+- **s2c-018's table rows 1–3 for Skema were wrong** ("marks: scribble-delete").
+  Corrected below: Skema needs words for every task. The "drawing IS the
+  instruction" claim now has **no known shipped or open-source competitor on a
+  live codebase**. The prior art is still Word's Ink Editor (documents) and
+  Code Shaping (research, code text), as in s2c-018.
+- That makes the claim stronger, not a moat. Skema shows two students reached
+  Lovable's model in a weekend. Adding "scribble over an element = delete it"
+  to any of these tools is a small step. The edge is still execution:
+  grounding + DOM verification measured on rough ink (s2c-013/016). Skema
+  has neither, so it's no evidence either way on whether that execution wins.
+- **Nothing to copy.** Its undo is `git stash create`, which this repo already
+  uses, and Skema's version has the bug `packages/pipeline/src/history.ts`
+  documents: stash create doesn't see untracked files, so reverting a
+  "sketch → new component" leaves the new file behind. Here captureWork/
+  revertWork fingerprint untracked files. s2c-011's undo should build on
+  that, not on Skema.
+- s2c-018's "what would change my mind → toward KILL: Skema turns out to be
+  maintained and robust on rough ink": checked. It's maintained at a low rate.
+  It has no rough-ink robustness to speak of because it never acts on a mark
+  alone. That condition is **not met**.
 
 ---
 
@@ -82,9 +132,9 @@ the first measurement.
 
 | # | task | here | Cursor Design Mode | Lovable Draw | tldraw make real | Skema (hackathon) |
 |---|---|---|---|---|---|---|
-| 1 | delete a card | **marks**: scribble (r01, no words) | circle + words | draw + words | scribble on its own prototype; model guesses; no repo | **marks**: scribble-delete |
-| 2 | remove a nav link | **marks**: X (r06, no words) | circle + words | draw + words | same as 1 | **marks** (scribble) |
-| 3 | delete a line of text | **marks**: strikethrough | circle + words | draw + words | same as 1 | marks? |
+| 1 | delete a card | **marks**: scribble (r01, no words) | circle + words | draw + words | scribble on its own prototype; model guesses; no repo | ~~marks: scribble-delete~~ draw/select + words (s2c-019: scribble only erases overlay ink) |
+| 2 | remove a nav link | **marks**: X (r06, no words) | circle + words | draw + words | same as 1 | select + words (s2c-019) |
+| 3 | delete a line of text | **marks**: strikethrough | circle + words | draw + words | same as 1 | select + words (s2c-019) |
 | 4 | move a section above another | **marks** in the grammar (arrow A→B = MOVE); but bench r04 adds "move the quote up here" | words (Cursor's [browser visual editor](https://cursor.com/blog/browser-visual-editor) does drag-and-drop: **no words, no drawing**) | draw + words | arrow, model guesses | arrows + ? |
 | 5 | swap two cards | marks in theory (two arrows); v1's rules engine misfired on these (README), v2 unmeasured | drag-and-drop or words | draw + words | ? | ? |
 | 6 | add a section from a wireframe (newsletter: field + button) | **mostly marks**: wireframe lexicon (rect = input, small rect = button); words only for copy. Bench r05 still writes the whole thing as a note | draw region + words | draw + words | **marks** (its core feature), no repo | **marks**: sketch → React |

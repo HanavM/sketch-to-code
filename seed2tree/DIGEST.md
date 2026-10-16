@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-16 02:20 UTC — sketch-to-code / s2c-019 Skema inspected — **correction: it's a pointer tool, not your thesis**
+Picked because: validate node, priority 3.39 (next: s2c-015 2.24, s2c-016 2.24; s2c-013 local, skipped; fashion killed)
+Did: read-only shallow clone of Skema at 976bc26. None of its code was run. Findings in seed2tree/VALIDATION.md §s2c-019.
+Result: **last run's s2c-018 was wrong about Skema.** Every annotation needs typed words: the submit button is disabled on empty text. Its "scribble-delete" erases your own overlay ink, not page elements. Its `gesture` type is dead code. The prompt tells the agent not to verify. Undo is `git stash create`, which leaves agent-created files behind. It has no tests. So no known shipped or open-source tool on a live codebase acts on a mark alone. Your claim is stronger, but it's still not a moat: adding that step to any of these tools is small. npm last publish 2026-02-13, commits through 2026-09-30, stars unverified. No code changed here, so no tests were run. momentum 0.5 → 0.7
+New branches: none. Nothing in Skema is worth copying: this repo's history.ts undo already handles untracked files.
+Pruned/done: s2c-019 done; s2c-018 table rows 1–3 corrected.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-015 visual-language spec or s2c-016 notes-off scoring (tied).
+
 ## 2026-10-16 01:40 UTC — sketch-to-code / s2c-018 VALIDATE differentiation — verdict: **claim holds narrowly, not a moat**
 Picked because: validate node, priority 5.22 (next: s2c-013 2.82 local, skipped; s2c-015 2.22, s2c-016 2.22)
 Did: 14-task table in seed2tree/VALIDATION.md (here vs Cursor Design Mode vs Lovable Draw vs tldraw make real vs Skema), from docs, not hands-on. Cursor's and Lovable's own docs confirm that the drawing says where and the words say what. **New evidence: [Skema](https://devpost.com/software/skema-wta8kn)**, a Jan 2026 hackathon project, already does scribble-delete and sketch-to-React on a live localhost app, with diffs applied. Word's Ink Editor has shipped proofreader marks as commands for years. Code Shaping (Waterloo) found arrows are the most ambiguous mark.

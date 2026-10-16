@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 20
-lock: {run: cloud-20261016T0155, until: "2026-10-16T03:10Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -31,6 +31,7 @@ nodes:
   - "2026-10-15: s2c-007 done (codegen agent denied .sketch2code/). Only open cloud node left is s2c-002 (value 3, explicitly not worth watering before the kill-test verdict). Cloud runs have nothing worth doing until the owner answers s2c-013."
   - "2026-10-16: OWNER OVERRULED the s2c-012 PIVOT (INBOX 2026-10-15 (3)+(4)): seed is PURSUE. Reason: in Cursor Design Mode / Lovable Draw the drawing only points and the instruction is typed or spoken; here the drawing IS the instruction (scribble deletes, arrow moves, wireframe is the UI), sketch first with text as support. Ambition: a drawing-first harness, not a feature. Tree re-planned: s2c-006/010/011 un-pruned; added s2c-015..018. s2c-005 stays pruned (launch prep; revisit after s2c-018)."
   - "2026-10-16: s2c-018 done. New evidence per owner rule (3).3: Skema (hackathon, Jan 2026) already does scribble-delete + sketch-to-React on a live localhost app. Not re-litigating the seed (hackathon demo, not a product), but the idea is not unclaimed; the defensible part is grounding + DOM verification measured on rough ink, which needs s2c-013/016 numbers to be worth anything."
+  - "2026-10-16: s2c-019 CORRECTS s2c-018: Skema's code requires typed words on every annotation and its scribble only erases overlay ink. No known shipped/open-source tool on a live codebase acts on a mark alone. Claim stronger; still not a moat (easy to add); edge remains execution, unmeasured until s2c-013/016."
 
 - id: s2c-001
   parent: s2c-000
@@ -406,16 +407,18 @@ nodes:
   title: "Inspect Skema (hackathon, Jan 2026): what does the one thesis-sharing competitor really do?"
   why: "s2c-018 found Skema ships scribble-delete + sketch-to-React on a live localhost app. Before claiming anything, know its gesture set, whether it verifies edits, undo, and how robust it is on rough ink."
   done_when: "VALIDATION.md note with the repo read first-hand: stars, last commit, gesture list from code, whether a typed prompt is ever required, verification/undo yes/no, and a one-line call: toy or real competitor. If it can be run with zero spend, run it on 2 rough edit pages (r01, r06); otherwise say why not."
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-16T02:20Z"
   blocked_on: null
-  outputs: []
+  outputs:
+  - "seed2tree/VALIDATION.md s2c-019 section (Skema read first-hand at 976bc26); s2c-018 table rows 1-3 corrected"
   log:
   - "2026-10-16: added by s2c-018. WebFetch to github.com/petersenmatthew/skema was blocked this run; try a shallow git clone (read only, never run its code without review) or the npm page for skema-core."
+  - "2026-10-16: read-only shallow clone, code not run. Skema needs typed words for EVERY annotation (popup submit disabled on empty text); its scribble-delete erases overlay ink, not page elements; 'gesture' annotation type is dead code (never produced); prompt says 'do not verify'; undo = git stash create per annotation (misses untracked files); no tests; npm skema-core 2.1.2, last publish 2026-02-13, commits through 2026-09-30, stars unverified. Call: Lovable-Draw-shaped pointer tool, not the thesis. s2c-018 overstated it. Not run on r01/r06: needs a logged-in model CLI (spend) and would fail by construction (words required). done_when met."
