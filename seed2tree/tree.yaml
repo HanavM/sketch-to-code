@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 21
-lock: {run: cloud-20261016T0456, until: '2026-10-16T06:11:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -325,22 +325,23 @@ nodes:
   title: "Spec the visual language: a gesture for every common edit, no words required"
   why: "The thesis is that the mark IS the command. Today the grammar is ~6 gestures (scribble-delete, strike, ring, arrow, box-add, X). A drawing-first harness needs a complete, learnable vocabulary, and each gesture must be distinguishable from the others in rough ink."
   done_when: "docs/visual-language.md: every common edit (delete, move, reorder, resize, restyle colour/size/weight, duplicate, wrap/group, swap, add from wireframe, align, hide/show, link/navigate) mapped to a gesture or marked 'needs words' with a reason; each existing gesture checked against the reader code (what packages/pipeline recognises today vs spec); conflicts between gestures named; and >=1 new rough-bench page drafted for each gesture the bench doesn't cover yet."
-  status: active
+  status: done
   needs: cloud
   value: 5
   effort: 1
   confidence: 0.6
-  momentum: 0.7
+  momentum: 0.82
   depth: 1
-  watered: 1
-  last_watered: "2026-10-16T04:10Z"
+  watered: 2
+  last_watered: "2026-10-16T05:25Z"
   blocked_on: null
-  outputs: [e5ba440, docs/visual-language.md, tests/bench/lib/pen.mjs, tests/bench/language.test.ts, r12-green-pen-ring-button, r13-two-arrows-swap-cards, r14-caret-insert-nav-link, "docs/findings.md#the-visual-language-checked-against-the-readers-seed2tree-s2c-015"]
+  outputs: [e5ba440, docs/visual-language.md, tests/bench/lib/pen.mjs, tests/bench/language.test.ts, r12-green-pen-ring-button, r13-two-arrows-swap-cards, r14-caret-insert-nav-link, "docs/findings.md#the-visual-language-checked-against-the-readers-seed2tree-s2c-015", 50be541, r15-box-one-more-tile, tests/bench/sketches/rough/base.mjs#BASE_LIST_APP, "tests/bench/lib/intent.mjs#listSize"]
   log:
   - "2026-10-16: added from owner INBOX (3)(a)."
   - "2026-10-16: s2c-018 input: for each property edit (resize, restyle, reorder) state whether a mark beats direct manipulation (drag, sliders, inline text) and concede the ones where it doesn't; arrow-move needs a disambiguation rule (Code Shaping: arrows were the most ambiguous mark)."
   - "2026-10-16: s2c-016 input: with no words a ring round a button cannot be graded at all (r03 not judged: nothing says green). Treat restyle as 'needs words' (a value) unless the spec proposes a mark that carries a value, e.g. a colour swatch stroke."
   - "2026-10-16: WATERED (e5ba440). docs/visual-language.md: 16 edits, each checked against v1 plan.ts (code) and v2 INTERPRET_PROMPT (prose; the live path). Mark-alone 7/16 (delete, move, reorder, swap, colour, add-another, add-new-UI); words for what 4 (size/weight, wrap, condition, link); concede to drag/button 4 (short move, resize, align, make-it-work). 7 conflicts named. Found: (1) pen colour (Alt+P, palette.ts) already carries a value, so s2c-016 r03 conclusion was a bench limit; bench now has pens: through the real UI, r12 = green ring, no words, judged in none. (2) long arrows (>~600px) lost their heads in ink/scene.ts RDP (r13): fixed with a 6px retry, tested 300-1000px both ways, lines never become arrows. (3) v1 swap -> 2-3-1 and v1 X -> no op (legacy, recorded not fixed). New pages r12/r13/r14; rough-check passes with and without words; run.mjs --dry draws them in Chromium and r12 arrives green. vitest 877/880 (same 3 env failures: cli deps linked plugin, init gh present, library root home); tsc -p clean; tsc -b has 14 pre-existing config errors, unchanged. REMAINING for done_when: a page for row 9 (add-another-to-a-list) needs a base page with an empty slot beside a list. One short watering."
+  - "2026-10-16: WATERED 2 (50be541), DONE. Row 9 page: BASE_LIST_APP = base + a three-tile row in a 4-col grid (empty 4th cell x954-1232 y591-681, in viewport; anchors measured in Chromium/Tailwind v4, nav/hero/feature anchors unchanged). r15 = one loose empty box in that cell, no words; auto routes it to gesture; v1 -> ADD container=row (language.test). New edit check siblings/listSize: counts list items by size, any two boxes match whatever their tags, leaf text tags only match the same tag; 6 unit tests (4th div/article/li passes, banner and card-elsewhere do not, nav links are a list). rough-check: r15 fails untouched (0.80) and passes edited, with and without words. run.mjs --set rough --dry: all 15 pages drawn, 0 failed. Bench bug fixed: makeApp committed a dirty src/ into the blank app when repointing the port (reset now runs first; reproduced and verified). vitest 889/891 (2 env failures: init gh present, library root home); tsc -b --noEmit clean. done_when met: 16/16 edits mapped, readers checked, conflicts named, every mark-alone row has a page; conflict 6 (bare ring) is s2c-020."
 
 - id: s2c-016
   parent: s2c-000
