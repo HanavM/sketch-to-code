@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 21:25 UTC — sketch-to-code / s2c-028 Ticking region vs click probe — **done**: a dead button next to a clock no longer passes
+Picked because: priority 2.74 (next: s2c-010 1.34; s2c-000 seed 1.99 skipped: umbrella; s2c-013 3.04 local, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit a4e53f0. Before clicking, the probe watches the region for 1.1 s with nobody touching it. If it changes by itself, the trigger isn't clicked and the verdict is **unverified**: "the card changes by itself (a clock, a countdown or a slideshow in it), so a click on "Show stats" can't be told apart from that. Point the arrow at the part that should change." live-probe-click.mjs gained 3 cases. **Red on the old overlay:** a dead button in a card with a clock PASSED.
+Result: dead button + clock → unverified; wired toggle + clock → unverified (honest, not clever); the same dead button with the arrow at its own panel → failed. 3/3 green with a 250 ms clock, 3/3 with a 1 s clock; live-probe + live-form green; vitest 1050/1052 (same 2 env failures); `tsc -b` clean; 0 tokens. momentum 0.5 → 0.7
+Blunt: ~20 min of work, closes a false pass a non-coder would trust. Zero progress on whether drawing works. Costs 1.1 s per click probe. Still blind to a region that changes less often than 1.1 s (a 5 s carousel) and happens to change right after the click.
+New branches: none. Nothing in the probe line is worth more than s2c-010 now; probe residue (a toggle stays toggled) is cosmetic.
+Pruned/done: s2c-028 done. **The only open cloud node left is s2c-010 (non-coder walkthrough, SEED done #2). The next cloud run goes there by default.**
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot.
+
 ## 2026-10-16 20:30 UTC — sketch-to-code / s2c-021 Behaviour probes — **done**: the click probe is judged live, and it was wrong twice before this
 Picked because: priority 1.47 (next: s2c-010 1.34; s2c-000 seed 1.98 skipped: umbrella; s2c-013 3.03 local, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
 Did: commit 6d9fbbf. New e2e `live-probe-click.mjs` writes a toggle fixture and probes 6 arrows through `/@s2c/probe`, 0 tokens. **Red on the old overlay in 2 of 6.** A button that only renamed itself ("Show tips" ↔ "Hide tips", the tips never appear) PASSED when the arrow pointed at its card. A theme switch (only the card's classes change) FAILED. Fix: the click probe reads the region without the trigger inside it, and classes and styles now count as a change. dismiss/filter/sort now count as behaviour words.

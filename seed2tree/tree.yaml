@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 29
-lock: {run: cloud-2026-10-16T2056Z, until: "2026-10-16T22:11Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -637,16 +637,18 @@ nodes:
   title: "A region that changes on its own must make a click probe unverified, not passed"
   why: "Found by s2c-021 watering 2: the click probe passes whenever the arrow's region changes during the settle window. A ticking clock, a countdown, an autoplay carousel or a spinner in that region passes a dead button. For a non-coder the verdict is the only judge, so a false pass is worse than no probe."
   done_when: "probe-exec watches the region for one settle window BEFORE clicking; if it changes with nobody touching it, the verdict is unverified with a plain reason ('it changes by itself, so a click can't be told apart'); live-probe-click.mjs gains a ticking-region case (no-op button next to a clock -> unverified, never passed) and stays green; probe.test.ts covers the judge path."
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T21:25Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - "a4e53f0 probe-exec idle watch + judgeProbe selfChanged + live-probe-click cases G/H/I + docs/harness.md"
   log:
   - "2026-10-16: added by s2c-021. Cheap (one pre-click watch, one new judge branch, one fixture case). Costs settleMs per probe; acceptable."
+  - "2026-10-16 21:25Z: watering 1 -> DONE. probe-exec watches the region 1.1 s before clicking; if it changes by itself the trigger is not clicked and the verdict is unverified with a plain reason + what to do. live-probe-click.mjs G (dead button + 1 s clock) / H (wired toggle + clock) / I (dead button, arrow at its panel, clock outside): red on old overlay (G,H passed), 3/3 green after with a 250 ms and 3/3 with a 1 s clock. live-probe + live-form green; vitest 1050/1052 (same 2 env failures); tsc -b clean. 0 tokens. Cost 1.1 s per click probe. Still blind to things that change slower than 1.1 s."
