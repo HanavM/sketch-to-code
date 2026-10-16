@@ -30,6 +30,8 @@ export interface RunInput {
 
 export interface RunResult {
   summary: string
+  /** The same run in plain words, for someone who doesn't read code (explain.ts). */
+  explanation?: import('./explain.js').RunExplanation
 }
 
 const MAX_ROUNDS = 3

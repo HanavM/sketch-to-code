@@ -445,6 +445,13 @@ interface RuleDraw {
 const RELOAD_RECEIPT_KEY = 's2c:receipt'
 /** Older than this, the receipt is from some earlier reload — drop it. */
 const RELOAD_RECEIPT_MS = 20_000
+/** A run's plain-language misread card, parked across the reload (see showMisread). */
+const MISREAD_KEY = 's2c:misread'
+
+/** Mirrors @s2c/pipeline RunExplanation (explain.ts); the overlay bundles no pipeline code. */
+interface RunExplanation { problem: boolean; sentence: string; undoable: boolean }
+interface RunDoneEvent { summary?: string; explanation?: RunExplanation | null; clientId?: string }
+interface RunErrorEvent { message: string; explanation?: RunExplanation | null; clientId?: string }
 /** One element the lasso caught: the live node, its stamp, and what to call it. */
 interface LassoHit { el: HTMLElement; srcLoc: string; label: string }
 /**
@@ -1937,6 +1944,23 @@ const STYLES = css`
     padding: 9px 11px; font-size: 12px; line-height: 1.45; text-align: left;
   }
   #planCard.on { display: block; }
+  /* A misread run, in plain words, with the one button that fixes it. Sits
+     where the plan card sat: the plan is spent by the time this appears. */
+  #misread {
+    position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%);
+    z-index: 2147483002; display: none;
+    width: 360px; max-width: calc(100vw - 24px);
+    padding: 10px 12px; font-size: 13px; line-height: 1.45; text-align: left;
+    background-color: var(--s2c-surface); background-image: var(--s2c-sheen);
+    border: 1px solid var(--s2c-edge); border-radius: var(--s2c-radius);
+    box-shadow: var(--s2c-shadow), var(--s2c-inner);
+    -webkit-backdrop-filter: var(--s2c-blur); backdrop-filter: var(--s2c-blur);
+    color: var(--s2c-text);
+  }
+  #misread.on { display: block; }
+  :host([data-skin='dock']) #misread { bottom: 68px; }
+  #misread .mRow { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+  #misread button { font: inherit; padding: 4px 10px; border-radius: 999px; cursor: pointer; }
   :host([data-skin='dock']) #planCard { bottom: 68px; }
   #planCard .cRow { padding: 5px 0; border-top: 1px solid var(--s2c-line); }
   #planCard .cRow:first-child { border-top: 0; padding-top: 0; }
@@ -2142,6 +2166,8 @@ class Overlay {
   private cmdMatches: KeyBind[] = []
   private cmdIndex = 0
   private planCard: HTMLElement
+  /** Plain-language card for a run that did not do everything (see showMisread). */
+  private misreadCard: HTMLElement
   private planDetail: PlanDetail[] = []
   /** Where the work is, in order — what the cursor visits. */
   private planStops: PlanStop[] = []
@@ -2300,6 +2326,23 @@ class Overlay {
     this.planCard.id = 'planCard'
     this.planCard.setAttribute('role', 'status')
     this.shadow.appendChild(this.planCard)
+
+    // What went wrong, in words a non-coder can act on, and one button that
+    // puts the files back. The status line can't hold it: it is a 316px
+    // ellipsis, and "action 1 (move): source not inside dest" is not a sentence.
+    this.misreadCard = document.createElement('div')
+    this.misreadCard.id = 'misread'
+    this.misreadCard.setAttribute('role', 'alert')
+    this.misreadCard.innerHTML =
+      `<div id="misreadText"></div>` +
+      `<div class="mRow"><button id="misreadKeep">Keep it</button>` +
+      `<button id="misreadUndo" class="primary">↩ Undo</button></div>`
+    this.shadow.appendChild(this.misreadCard)
+    this.misreadCard.querySelector('#misreadUndo')!.addEventListener('click', () => {
+      this.hideMisread()
+      this.undo()
+    })
+    this.misreadCard.querySelector('#misreadKeep')!.addEventListener('click', () => this.hideMisread())
 
     // AFTER the canvas: same stacking level, so DOM order is what puts chips
     // and the editor above it — in draw mode the canvas is pointer-events:auto
@@ -2867,6 +2910,7 @@ class Overlay {
     // last of the restores: it owns the status line, and it only fires on the
     // one boot that follows an extract
     this.restoreReloadReceipt()
+    this.restoreMisread()
     this.watchForMissingEndpoints()
     this.connectEvents()
 
@@ -2874,6 +2918,15 @@ class Overlay {
     // compare the drawn selection rect against the element's live rect
     ;(globalThis as unknown as Record<string, unknown>).__S2C_DEBUG__ = {
       selRect: () => (this.tweak ? this.selRect(this.tweak) : null),
+      // a finished or failed run, fed in without a server run, so e2e can check
+      // the plain-language card and its Undo at zero tokens
+      runDone: (d: RunDoneEvent) => this.onRunDone(d),
+      runError: (d: RunErrorEvent) => this.onRunError(d),
+      misread: () => ({
+        open: this.misreadCard.classList.contains('on'),
+        text: this.misreadCard.querySelector('#misreadText')!.textContent ?? '',
+        undo: (this.misreadCard.querySelector('#misreadUndo') as HTMLElement).style.display !== 'none',
+      }),
       // lets e2e compare what the overlay BELIEVES against what it puts on
       // the wire, and assert the help overlay lists every binding there is
       notes: () => this.notesPayload(),
@@ -10034,6 +10087,8 @@ class Overlay {
 
   private async run() {
     if (!this.hasWork()) return
+    // a new run answers the last one's misread; the card is about a run that is over
+    this.hideMisread()
     if (this.runMode === 'screenshot') return void this.proceed()
     // start the instant render and the reading together: neither waits on the
     // other, and the drawing is usually on the page before the reading lands
@@ -10505,36 +10560,90 @@ class Overlay {
       this.showIdeCursor(c.file, c.line)
     })
     this.events.addEventListener('done', (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { summary?: string; clientId?: string }
+      const d = JSON.parse((e as MessageEvent).data) as RunDoneEvent
       if (!this.mine(d)) return
-      // receipt(), not status(): a run can add a module the page never imported
-      // — a scaffolded component, the hook behind "make this real" — and that is
-      // past what Fast Refresh patches, so vite full-reloads and takes this line
-      // with it. The summary names the files and says what was verified, which
-      // is the one thing worth surviving. Same rule as every other write path:
-      // if it can create a file, park the receipt.
-      this.receipt(`✓ ${d.summary ?? 'done'}`)
-      this.strokes = []
-      this.endSketchSearch()
-      // the ink is spent, and so are the words about it
-      this.notes = []
-      this.instant = null
-      if (this.noteDraft) this.closeNote(`✓ ${d.summary ?? 'done'}`)
-      this.resetBridge()
-      this.clearApplying()
-      this.renderInk()
-      this.renderNotes()
-      this.redraw()
-      this.setMode('idle')
+      this.onRunDone(d)
     })
     this.events.addEventListener('error-event', (e) => {
-      const d = JSON.parse((e as MessageEvent).data) as { message: string; clientId?: string }
+      const d = JSON.parse((e as MessageEvent).data) as RunErrorEvent
       if (!this.mine(d)) return
-      this.status(`✗ ${d.message}`, true)
-      this.clearApplying()
-      this.redraw()
-      this.setMode('idle')
+      this.onRunError(d)
     })
+  }
+
+  private onRunDone(d: RunDoneEvent) {
+    // receipt(), not status(): a run can add a module the page never imported
+    // — a scaffolded component, the hook behind "make this real" — and that is
+    // past what Fast Refresh patches, so vite full-reloads and takes this line
+    // with it. The summary names the files and says what was verified, which
+    // is the one thing worth surviving. Same rule as every other write path:
+    // if it can create a file, park the receipt.
+    this.receipt(`✓ ${d.summary ?? 'done'}`)
+    this.strokes = []
+    this.endSketchSearch()
+    // the ink is spent, and so are the words about it
+    this.notes = []
+    this.instant = null
+    if (this.noteDraft) this.closeNote(`✓ ${d.summary ?? 'done'}`)
+    this.resetBridge()
+    this.clearApplying()
+    this.renderInk()
+    this.renderNotes()
+    this.redraw()
+    this.setMode('idle')
+    if (d.explanation?.problem) this.showMisread(d.explanation)
+    else this.hideMisread()
+  }
+
+  private onRunError(d: RunErrorEvent) {
+    // the raw message is for whoever debugs this; the user gets the sentence
+    if (d.explanation) {
+      console.debug(`[s2c] run failed: ${d.message}`)
+      this.status(`✗ ${d.explanation.sentence}`, true)
+      this.showMisread(d.explanation)
+    } else {
+      this.status(`✗ ${d.message}`, true)
+    }
+    this.clearApplying()
+    this.redraw()
+    this.setMode('idle')
+  }
+
+  /**
+   * Show a run that did not do everything it was asked, in plain words.
+   *
+   * Parked like a receipt: the run may have created a file, which full-reloads
+   * the page, and a misread the reload erased is a misread nobody undoes.
+   */
+  private showMisread(ex: RunExplanation, park = true) {
+    this.misreadCard.querySelector('#misreadText')!.textContent = ex.sentence
+    ;(this.misreadCard.querySelector('#misreadUndo') as HTMLElement).style.display = ex.undoable ? '' : 'none'
+    ;(this.misreadCard.querySelector('#misreadKeep') as HTMLElement).textContent = ex.undoable ? 'Keep it' : 'OK'
+    this.misreadCard.classList.add('on')
+    if (!park) return
+    try {
+      sessionStorage.setItem(MISREAD_KEY, JSON.stringify({ ex, at: Date.now() }))
+    } catch { /* blocked storage: shown until the next reload */ }
+  }
+
+  private hideMisread() {
+    this.misreadCard.classList.remove('on')
+    try { sessionStorage.removeItem(MISREAD_KEY) } catch { /* nothing parked */ }
+  }
+
+  /** Put a parked misread card back after the reload its run caused. */
+  private restoreMisread() {
+    try {
+      const raw = sessionStorage.getItem(MISREAD_KEY)
+      if (!raw) return
+      const parked = JSON.parse(raw) as { ex?: RunExplanation; at?: number }
+      // the same bound as the receipt: an old tab must not claim a fresh miss
+      if (!parked.ex || typeof parked.at !== 'number' || Date.now() - parked.at > RELOAD_RECEIPT_MS) {
+        sessionStorage.removeItem(MISREAD_KEY)
+        return
+      }
+      this.showMisread(parked.ex, false)
+    } catch { /* unreadable storage: no card */ }
   }
 }
 

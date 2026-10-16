@@ -72,7 +72,7 @@ export type RunHandler = (
     /** Ask the originating browser tab for a fresh snapshot. */
     requestSnapshot: (runId: string) => Promise<DomSnapshot>
   },
-) => Promise<{ summary: string }>
+) => Promise<{ summary: string; explanation?: unknown }>
 
 let runHandler: RunHandler | null = null
 export function setRunHandler(h: RunHandler): void {
@@ -1292,14 +1292,30 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     }
                   } catch { /* the edit landed; filing it is a bonus */ }
                 }
-                sse.send('done', { summary: result.summary, clientId })
+                sse.send('done', { summary: result.summary, explanation: result.explanation, clientId })
               })
-              .catch((err: unknown) =>
-                sse.send('error-event', {
-                  message: err instanceof Error ? err.message : String(err),
-                  clientId,
-                }),
-              )
+              .catch(async (err: unknown) => {
+                const message = err instanceof Error ? err.message : String(err)
+                // A run that dies part way can leave edits on disk. Until now it
+                // pushed nothing, so Ctrl+Z skipped it and reverted the edit
+                // BEFORE it instead, leaving the broken one in place. Push it
+                // like a finished run; undo skips an entry with nothing to revert.
+                let changed = false
+                if (runCp) {
+                  pushEdit(runCp.sha, 'sketch run (stopped part way)', untrackedBefore)
+                  try {
+                    const m = await import('@s2c/pipeline')
+                    const before = new Set(untrackedBefore)
+                    changed = m.touchedFiles(root, runCp).some((rel) => !before.has(rel) && !rel.startsWith('.sketch2code/'))
+                  } catch { /* could not tell: say nothing changed is wrong, so offer undo */ changed = true }
+                }
+                let explanation: unknown = null
+                try {
+                  const m = await import('@s2c/pipeline')
+                  explanation = m.explainError(message, changed)
+                } catch { /* pipeline missing: the raw message is all there is */ }
+                sse.send('error-event', { message, explanation, clientId })
+              })
               .finally(() => {
                 activeRun = false
               })

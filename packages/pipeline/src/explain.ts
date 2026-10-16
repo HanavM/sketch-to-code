@@ -1,0 +1,214 @@
+/**
+ * What a run did, said the way a person who doesn't read code would say it.
+ *
+ * The run summary (`[v2] 50% verified · 2 file(s) · codemod 1/2 actions ·
+ * revert: git restore --source=…`) is written for the person who built this
+ * tool. Someone who sketched a box on their app can't act on "action 1 (move):
+ * source not inside dest". They need three things: what the tool understood,
+ * which part didn't happen, and one button that puts things back.
+ *
+ * So this is built from STRUCTURE, never from the verifier's reason strings:
+ * the action's kind and the visible text of what it touched. The reasons are
+ * jargon by construction (ids, coordinates, file names) and they stay in the
+ * run folder for whoever debugs it. The only free text that reaches the
+ * sentence is the model's reading (written to be plain, scrubbed anyway) and
+ * the page's own visible text.
+ */
+import type { GroundedAction, GroundedTarget } from './intent2.js'
+
+export interface RunExplanation {
+  /** True when something the user asked for did not happen. */
+  problem: boolean
+  /** One or two plain sentences, no ids, paths, code or stack traces. */
+  sentence: string
+  /** True when files were changed, so Undo has something to put back. */
+  undoable: boolean
+}
+
+export interface ExplainInput {
+  reading: string
+  actions: GroundedAction[]
+  /** Whole actions the reading proposed that could not be tied to the page. */
+  droppedActions?: number
+  /** Verifier failures, formatted `action N (kind): reason` (run2/verifyActions). */
+  failures: string[]
+  /** Backend actions that were refused (`action N (kind): why`). */
+  refused?: string[]
+  /** Files the run changed or created. */
+  files: string[]
+}
+
+const NOUN: Record<string, string> = {
+  a: 'link', button: 'button', img: 'image', svg: 'picture', picture: 'image',
+  h1: 'heading', h2: 'heading', h3: 'heading', h4: 'heading', h5: 'heading', h6: 'heading',
+  p: 'text', span: 'text', li: 'item', nav: 'menu', header: 'header', footer: 'footer',
+  form: 'form', input: 'field', textarea: 'field', select: 'dropdown', label: 'label',
+  ul: 'list', ol: 'list', table: 'table', blockquote: 'quote', figure: 'figure',
+  section: 'section', article: 'card', aside: 'side panel',
+}
+
+/** A short, visible label for an element: `the "Pricing" link`, `the image`. */
+export function describeTarget(t: GroundedTarget | undefined): string {
+  if (!t) return 'that part of the page'
+  const noun = NOUN[t.tag.toLowerCase()] ?? 'part'
+  const words = scrub((t.text || t.subtreeText || '').replace(/\s+/g, ' ').trim())
+  if (!words) return `the ${noun}`
+  const cut = words.length > 28 ? `${words.slice(0, 26).replace(/\s+\S*$/, '')}…` : words
+  return `the ${noun} with "${cut}"`.replace(/^the text with /, 'the text ')
+}
+
+const PHRASE: Record<string, (a: GroundedAction) => string> = {
+  delete: (a) => `remove ${describeTarget(a.targets[0])}`,
+  modify: (a) => `change ${describeTarget(a.targets[0])}`,
+  move: (a) => `move ${describeTarget(a.targets[0])}`,
+  swap: (a) => `swap ${describeTarget(a.targets[0])} and ${describeTarget(a.targets[1])}`,
+  add: (a) => (a.depicts ? `add the ${scrub(a.depicts)} you drew` : 'add what you drew'),
+  design: (a) => (a.depicts ? `add the ${scrub(a.depicts)} you drew` : 'add what you drew'),
+  serve: (a) => `load ${describeTarget(a.targets[0])} from the server`,
+  save: (a) => `make ${describeTarget(a.targets[0])} keep what people type`,
+}
+
+/** What went wrong with one check, by its kind only (the reason is not shown). */
+const CHECK: Record<string, string> = {
+  colour: 'in the colour you drew',
+  composition: 'looking like your drawing',
+}
+
+/**
+ * Remove anything that only a developer can read: element ids, source paths
+ * and line numbers, `action 3`, code fences, stack frames. What is left is
+ * still meaningful because the reading is mostly words about the page.
+ */
+export function scrub(s: string): string {
+  return s
+    .replace(/\s+at\s+\S+\s+\([^)]*\)/g, '') // stack frames
+    .replace(/`[^`]*`/g, '')
+    .replace(/\b[\w./-]+\.(tsx|jsx|ts|js|css|json|html)(:\d+)*(:\d+)?\b/gi, 'the page')
+    .replace(/\bdata-s2c\b/gi, '')
+    .replace(/\b(element|stroke|id)\s*"?[a-z]{1,2}\d+"?/gi, '')
+    .replace(/\(\s*[a-z]{1,2}\d+(\s*,\s*[a-z]{1,2}\d+)*\s*\)/gi, '')
+    .replace(/\b(action|step)\s+#?\d+\b/gi, 'part')
+    .replace(/<\/?[a-z][a-z0-9]*>/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([.,;:])/g, '$1')
+    .trim()
+}
+
+/** True when a sentence carries none of the developer-only tokens scrub removes. */
+export function isPlain(s: string): boolean {
+  return !(
+    /\.(tsx|jsx|ts|js|css)\b/i.test(s) ||
+    /:\d+:\d+/.test(s) ||
+    /\baction\s+\d/i.test(s) ||
+    /\b(e|s|el)\d+\b/.test(s) ||
+    /\b(srcLoc|domId|data-s2c|codemod|svgPath|undefined|null|NaN|Error:|TypeError|stack)\b/.test(s) ||
+    /\s+at\s+\S+\s+\(/.test(s) ||
+    /[{}[\]<>`]/.test(s) ||
+    /git\s+(restore|stash|checkout)/i.test(s)
+  )
+}
+
+const list = (xs: string[]): string =>
+  xs.length <= 1 ? (xs[0] ?? '') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`
+
+const sentenceCase = (s: string): string => (s ? s[0]!.toUpperCase() + s.slice(1) : s)
+
+/** Past tense of a phrase, for the success sentence. */
+const past = (p: string): string =>
+  p.replace(/^remove /, 'removed ').replace(/^change /, 'changed ').replace(/^move /, 'moved ')
+    .replace(/^swap /, 'swapped ').replace(/^add /, 'added ').replace(/^load /, 'now loading ')
+    .replace(/^make /, 'made ')
+
+/** Parse `action N (kind): …` into the action index and the check kind. */
+function failedIndex(f: string): { index: number; check: string } | null {
+  const m = /^action (\d+) \(([^)]*)\)/.exec(f)
+  if (!m) return null
+  const check = m[2]!.startsWith('composition') ? 'composition' : m[2]!.toLowerCase()
+  return { index: Number(m[1]), check }
+}
+
+export function explainRun(input: ExplainInput): RunExplanation {
+  const missed: string[] = []
+  const seen = new Set<string>()
+  let ruleBroken = false
+  const failedActions = new Set<number>()
+
+  const note = (phrase: string) => {
+    if (!seen.has(phrase)) {
+      seen.add(phrase)
+      missed.push(phrase)
+    }
+  }
+  for (const f of [...input.failures, ...(input.refused ?? [])]) {
+    if (/^a rule you drew is broken/.test(f)) {
+      ruleBroken = true
+      continue
+    }
+    const p = failedIndex(f)
+    if (!p) continue
+    const a = input.actions[p.index]
+    if (!a) continue
+    failedActions.add(p.index)
+    const base = PHRASE[a.kind]?.(a) ?? 'make one of the changes'
+    note(CHECK[p.check] ? `${base} ${CHECK[p.check]}` : base)
+  }
+
+  const dropped = input.droppedActions ?? 0
+  const undoable = input.files.length > 0
+  const reading = scrub(input.reading).replace(/[.!\s]+$/, '')
+  const understood = reading ? `I read your sketch as: ${reading.charAt(0).toLowerCase()}${reading.slice(1)}.` : ''
+
+  if (missed.length === 0 && dropped === 0 && !ruleBroken) {
+    const did = input.actions.map((a) => PHRASE[a.kind]?.(a)).filter((p): p is string => !!p).map(past)
+    const sentence = did.length ? `Done: ${list([...new Set(did)])}.` : 'Done.'
+    return { problem: false, sentence: finalize(sentence), undoable }
+  }
+
+  const parts: string[] = []
+  if (understood) parts.push(understood)
+  if (missed.length) parts.push(`But I couldn't ${list(missed)}.`)
+  if (dropped > 0) {
+    parts.push(
+      dropped === 1
+        ? `${missed.length ? 'Also, one' : 'But one'} of your marks didn't match anything on the page, so I skipped it.`
+        : `${missed.length ? 'Also, ' : 'But '}${dropped} of your marks didn't match anything on the page, so I skipped them.`,
+    )
+  }
+  if (ruleBroken) parts.push('This change also breaks a rule you drew earlier.')
+  parts.push(
+    undoable
+      ? 'Undo puts your files back the way they were.'
+      : 'Nothing was changed.',
+  )
+  return { problem: true, sentence: finalize(parts.join(' ')), undoable }
+}
+
+/**
+ * A run that never got as far as writing anything, or died part way.
+ *
+ * The thrown message is never shown: it can be a stack, a path, or an HTTP
+ * status. What the user gets is which of three situations they are in.
+ */
+export function explainError(message: string, filesChanged: boolean): RunExplanation {
+  let sentence: string
+  if (/no valid actions/i.test(message)) {
+    sentence = "I couldn't tell what to change from that sketch, so nothing was changed. " +
+      'Try a clearer mark, or type a word or two about what you want.'
+  } else if (/exceeded .*cap|timed out/i.test(message)) {
+    sentence = 'That took too long and I stopped.'
+  } else if (/already in progress/i.test(message)) {
+    sentence = 'Another change is still being made. Wait for it to finish, then try again.'
+  } else {
+    sentence = 'Something went wrong while making that change.'
+  }
+  if (!/nothing was changed|still being made/i.test(sentence)) {
+    sentence += filesChanged ? ' Undo puts your files back the way they were.' : ' Nothing was changed.'
+  }
+  return { problem: true, sentence: finalize(sentence), undoable: filesChanged }
+}
+
+/** Last line of defence: a sentence that still isn't plain loses the offending words. */
+function finalize(s: string): string {
+  const out = sentenceCase(s.replace(/\s{2,}/g, ' ').trim())
+  return isPlain(out) ? out : sentenceCase(scrub(out).replace(/[{}[\]<>`]/g, ''))
+}

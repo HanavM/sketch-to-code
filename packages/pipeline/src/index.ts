@@ -10,6 +10,7 @@ export { SKETCH_SKILL } from './skill.js'
 export { interpretStrokes } from './interpret.js'
 export type { InterpretResult, InterpretShape, InterpretOp } from './interpret.js'
 export { interpretV2, runV2, verifyActions } from './run2.js'
+export { explainRun, explainError, describeTarget, isPlain, type RunExplanation } from './explain.js'
 export type { InterpretV2Result } from './run2.js'
 export { buildEvidence, groundInterpretation, resolveNotes, INTERPRET_PROMPT, INTERPRETATION_SCHEMA } from './intent2.js'
 export type {

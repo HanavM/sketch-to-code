@@ -535,3 +535,49 @@ live-notes, live-keymap, live-noterefs and live-auto suites still pass.
 Not measured: whether real users find it without being told. The status
 line says "start typing to label it" after a stroke in review/manual mode.
 In auto mode the countdown overwrites it.
+
+## A misread, said in plain words, with one Undo (seed2tree s2c-011)
+
+*Added 2026-10-16.* SEED done #4 asks that every misread sketch produce a
+plain-language explanation and a one-click undo. Before this, a run that did
+half of what was asked ended on `[v2] 50% verified · 1 file(s) · codemod 1/2
+actions · … · revert: git restore --source=<sha> -- <paths>`, in a status line
+that cuts off at 316px. The per-action reason (`action 1 (MOVE): source not
+inside dest`) only reached the repair prompt and the run folder. A non-coder
+could not tell what went wrong, and the only way back was Ctrl+Z, which
+nothing on screen mentioned.
+
+- **`packages/pipeline/src/explain.ts`** builds the sentence from structure:
+  each failed action's *kind* and the *visible text* of what it touched
+  (`move the section with "Team members"`). The verifier's reasons are never
+  shown, because they are jargon by construction (ids, coordinates, file
+  names). The model's reading is the only free text, and it is scrubbed of
+  ids, paths and `action N`. `isPlain()` is the test oracle, and a last guard
+  before anything is shown.
+- **runV2** returns `explanation` next to `summary` (also saved as
+  `explanation.json` in the run folder). It uses the *last* verification
+  round, which describes what is on disk, not the best score seen. Dropped
+  marks, colour and composition misses, broken drawn rules and refused
+  backend actions each get their own words.
+- **The overlay** shows a card above the bar: the sentence, **↩ Undo** (the
+  existing undo stack, one click) and **Keep it**. The card is parked across
+  the full reload a run that creates a file causes, and the next run clears
+  it. With no files changed, Undo is not offered and the card says so.
+- **Bug fixed on the way:** a run that *threw* part way (timeout, crash)
+  pushed nothing onto the undo stack. Ctrl+Z then skipped it and reverted the
+  edit *before* it, leaving the broken one in place. Failed runs are now
+  pushed too (undo already skips an entry with nothing to revert), and the
+  error event carries a plain sentence. The raw message goes to the console.
+
+Tests: `packages/pipeline/tests/explain.test.ts` (15 unit tests: real
+verifier strings in, no ids, paths, `action N`, ΔE or git out) and
+`tests/e2e/live-misread.mjs` (6 live checks, zero tokens). The e2e makes a
+real undoable write through the props endpoint, feeds a run outcome built by
+the real builder, survives a reload, and clicks Undo. App.tsx comes back byte
+for byte. live-label, live-notes and live-props still pass.
+**Not covered:** the status line still shows the developer summary. The
+sentences are templates, and nobody outside this repo has read one yet.
+Undo is offered only over files this run changed or created, not over
+untracked files that were already there. An Undo with nothing of its own
+would pop the stack past this run and revert the edit before it. Ctrl+Z
+after a run that wrote nothing still does that, as it always has.

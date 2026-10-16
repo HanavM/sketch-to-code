@@ -23,7 +23,7 @@ import {
 import { SKETCH_SKILL } from './skill.js'
 import { checkpoint } from './safety.js'
 import {
-  APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, type Attempt,
+  APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
 import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
 import { finishSource, paletteFor } from './finish.js'
@@ -36,6 +36,7 @@ import { deltaE, parseCssColor } from './palette.js'
 import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
+import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
 
 /** Vite's watcher + HMR after an instant codemod write, before the first look. */
@@ -162,6 +163,10 @@ export async function runV2(
   stage('safety', 'git checkpoint')
   const cp = checkpoint(ctx.root, ctx.allowDirty)
   writeFileSync(join(runDir, 'checkpoint.txt'), `${cp.sha}\n`)
+  // What was already lying around untracked. Undo spares these, so they must
+  // not count as "something Undo can put back" either (see explanation below).
+  let untrackedBefore: Set<string>
+  try { untrackedBefore = new Set(untrackedFiles(ctx.root)) } catch { untrackedBefore = new Set() }
 
   // re-ground the (client-echoed) raw interpretation server-side — the client
   // is not trusted to have preserved validation
@@ -485,11 +490,13 @@ export async function runV2(
   }
 
   let bestScore = -1
+  let finalFailures: string[] = []
   let candidates: Array<{ index: number; score: number; files: string[]; chosen: boolean }> | null = null
 
   if (attempts === 1) {
     const only = await runAttempt('', '1')
     bestScore = only.score
+    finalFailures = only.failures
   } else {
     // Generate each attempt from the SAME confirmed interpretation, score it,
     // then put the tree back so the next one starts where this one did.
@@ -514,6 +521,7 @@ export async function runV2(
       await new Promise((r) => setTimeout(r, HMR_SETTLE_MS))
       const confirmed = await verifyRound('final')
       bestScore = confirmed.score
+      finalFailures = confirmed.failures
     }
     candidates = tries.map((t) => ({
       index: t.index, score: t.score, files: t.files, chosen: t.index === winner?.index,
@@ -560,8 +568,22 @@ export async function runV2(
       ? `best of ${candidates.length} (${candidates.map((c) => `${Math.round(c.score * 100)}%`).join('/')}) · `
       : '') +
     `${fmtTokens(totalUsage)} tokens · revert: git restore --source=${cp.sha.slice(0, 10)} -- <paths>`
+  // The same outcome for someone who doesn't read code: what was understood,
+  // which part didn't happen, and whether Undo has anything to put back.
+  const explanation = explainRun({
+    reading: interp.reading,
+    actions: interp.actions,
+    droppedActions: interp.droppedActions,
+    // the last round, not the best: it describes what is on disk now
+    failures: finalFailures,
+    refused: backendRefused,
+    // only what Undo would really revert: an Undo offered over nothing of this
+    // run's own would pop the stack past it and revert the edit BEFORE it
+    files: files.filter((f) => !untrackedBefore.has(f) && !f.startsWith('.sketch2code/')),
+  })
+  save('explanation.json', explanation)
   stage('done', summary)
-  return { summary }
+  return { summary, explanation }
 }
 
 /**
