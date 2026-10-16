@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-16 23:40 UTC — sketch-to-code / s2c-029 Screenshot-arm dry run — **done**: the capture can't hang any more; rough dry 15/15 twice
+Picked because: priority 2.45 (next: s2c-000 seed 2.00 skipped: umbrella; s2c-010 1.35; s2c-013 local + blocked, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit d1ea0b3. Reproduced: the screenshot dry run hung in both of 2 tries (r03, then r01). **It was not the port and mostly not a crash: `captureProbe` never returned.** The share dialog was bounded at 30 s, `video.play()` wasn't, and tab capture only sends a frame when the page repaints. Measured (0 tokens): one browser reused across pages, 4/10 captures never got a frame; overlay page in a fresh browser, 3/8 browsers frameless by the 3rd capture; with a 1 px repaint nudge, 0/32. Fix: the overlay flips one 1%-opacity pixel each frame while capturing, bounds play() at 10 s and says "try ▶ Run again". The bench gives screenshot mode a fresh browser per page, bounds the probe at 45 s and retries a wedge once before Run (lib/crash.mjs, 5 tests).
+Result: `--set rough --dry --mode screenshot` 15/15 twice, 0 retries needed; `--mode auto` dry 15/15; vitest 1055/1057 (same 2 env failures); `tsc -b` clean. momentum 0.5 → 0.7
+Blunt: plumbing for a measurement nobody has paid for yet. It also fixes a real-user bug: screenshot mode could sit on "capturing screen" forever. "vite never answered" didn't recur in 3 runs and I didn't explain it. macOS Chromium untested.
+New branches: none. The cloud list is down to s2c-010 (non-coder walkthrough, SEED done #2), and the next cloud run goes there.
+Pruned/done: s2c-029 done.
+**Needs you (s2c-013):** the paid pilot is now ready on both arms. Either run it on macOS (commands in s2c-013 `blocked_on`) or give the run a `CLAUDE_CODE_OAUTH_TOKEN`. Still open: fr-005 (fine-routing).
+
 ## 2026-10-16 22:40 UTC (Mac run): sketch-to-code / s2c-013 Head-to-head pilot. **Not run: blocked.** The Mac run can't spend the approved quota.
 Picked because: it was the only waterable node. s2c-013 scored ~3.0 (validate +1.0, needs: local); fine-routing is fully killed, with fr-005 waiting on you; fashion is all killed or done.
 Why not run: the Mac shell is a Linux VM. It has no Claude Code login (the pipeline strips API keys on purpose, and the VM's `claude` only does `-p`), node_modules is darwin-arm64, and Playwright's CDN returns 403. The ~1M tokens you approved can only be spent on macOS itself, or here if you give a token.

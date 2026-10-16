@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 30
-lock: {run: cloud-2026-10-16T2255Z, until: '2026-10-17T00:10Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -320,6 +320,7 @@ nodes:
   - "2026-10-16: owner reconfirmed in chat; per INBOX (3) this is now a MEASUREMENT of where structured grounding beats screenshots, not a kill gate. Pilot (1 run/arm) still approved. Also report the 6 edit pages separately: that is the first measurement of the gesture grammar (feeds s2c-016)."
   - "2026-10-16: s2c-016 landed --words. Optional inside the SAME approved ~1M budget, only if the two auto/screenshot arms leave room: node tests/bench/run.mjs --set rough --only r04,r05,r08 --words content, then words-compare.mjs. Do not exceed the approved budget for it."
   - '2026-10-16 22:40Z (Mac run): PILOT NOT RUN. The VM has no Claude Code auth (cleanEnv strips API keys; /opt/cowork claude wrapper is -p only), Mac node_modules are darwin-arm64, Playwright CDN 403. Did the zero-token prep instead: rough set (now 15 pages) --dry auto 15/15 in cloud; found screenshot arm captureProbe crashes Chromium ~2/7 (headless and xvfb headed) and then failed every later page + hung. Fix ebdc5b8: relaunch the browser and retry a page once if it died before Run (never after: could double-bill). Retry verified on r08. Still open: in screenshot dry, r10 got vite never answered and r11 hung after the relaunch (-> s2c-029). momentum 0.5 -> 0.5.'
+  - '2026-10-16 23:40Z (cloud): s2c-029 done (d1ea0b3): the screenshot arm''s dry run now finishes 15/15 twice with no retries in the cloud container. The paid pilot is still blocked only on who spends it (see blocked_on).'
 - id: s2c-014
   parent: s2c-003
   title: "Scaffold only depictions and decorations, never widgets"
@@ -659,16 +660,21 @@ nodes:
   why: "The paid s2c-013 screenshot arm runs all 15 rough pages unattended. A hang after a crash costs a re-run (quota) or leaves the arm half-measured."
   done_when: "node tests/bench/run.mjs --set rough --dry --mode screenshot exits 0 with 15/15 pages (crashes retried) twice in a row in the cloud container, or the hang is shown to be container-only with evidence; bench vitest green."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T23:40Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - d1ea0b3
+  - packages/overlay-client/src/main.ts (captureScreen repaint nudge, bounded play)
+  - tests/bench/lib/crash.mjs + crash.test.ts
+  - docs/findings.md#the-screenshot-arm-can-crash-the-browser (update)
   log:
   - "2026-10-16: from s2c-013 Mac run. Full screenshot dry: r01-r09 ok (r08 crash retried ok), r10 FAILED 'vite never answered on :5301', r11 hung after the relaunch until a 10-min timeout. Suspect: chromium leftovers or the port after a crash; app.start/page.goto without a bound."
+  - "2026-10-16 23:40Z (cloud): DONE. Root cause was not the port: captureProbe never returned. getDisplayMedia was bounded (30s) but video.play() was not, and tab capture only sends frames on repaint. Measured 0 tokens: bare page, reused browser 4/10 frameless; fresh browser 1/20; overlay page fresh browser 3/8 browsers frameless by 3rd capture; with a 1px repaint nudge 0/32. Fix d1ea0b3: overlay nudges a 1px 1%-opacity pixel each frame during capture, bounds play() 10s, rejects zero-width; bench gets a fresh browser per page in screenshot mode, 45s bound on the probe, wedge retried once pre-Run like a crash. rough --dry --mode screenshot 15/15 twice (0 retries); --mode auto dry 15/15; vitest 1055/1057 (same 2 env failures); tsc -b clean. 'vite never answered' did not recur in 3 full runs (not explained). macOS not tested. momentum 0.5 -> 0.7."
