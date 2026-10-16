@@ -68,6 +68,13 @@ Don't build branches, a run planner, or a backend story.
   while a second run is editing too. Pressing Undo at that point restores
   the checkpoint, and then the orphan writes over it. Esc during a run has
   the same shape: it resets only the UI (`overlay-client/src/main.ts:3751-3756`).
+  **Fixed in s2c-022 (2026-10-16):** the cap and Esc (`POST /@s2c/run/abort`)
+  now abort one `AbortSignal` that reaches `runV2`, `runPipeline` and the
+  agent's `query()`; the plugin takes the undo entry, sends `error-event` and
+  frees the slot only after the pipeline has returned
+  (`vite-plugin/src/run-supervisor.ts`). The undo stack is saved to
+  `.sketch2code/undo.json`, and every checkpoint is pinned under
+  `refs/s2c/cp/` so `git gc` can't collect it.
 
 **Sketch-first interaction.** History is already the right shape: a strip of
 thumbnails where you click a picture to go back. No gesture is needed for

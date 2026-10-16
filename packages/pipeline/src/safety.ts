@@ -60,7 +60,36 @@ export function checkpoint(root: string, allowDirty: boolean): Checkpoint {
       )
     }
   }
+  pinCheckpoint(root, sha)
   return { sha, toplevel, dirtyBefore }
+}
+
+/** Where checkpoint objects are pinned so `git gc` can't collect them. */
+export const PIN_PREFIX = 'refs/s2c/cp/'
+/**
+ * How many pins to keep. History caps at 50 entries and the undo stack at 50,
+ * so 200 leaves room for runs that took a checkpoint and never got filed.
+ */
+export const MAX_PINS = 200
+
+/**
+ * Pin a checkpoint under refs/s2c/cp/ so it stays reachable.
+ *
+ * `git stash create` writes a commit that nothing points at. It looks fine
+ * until the user's next `git gc` (or git's own auto-gc after enough commits),
+ * which deletes it — and then Undo and the history strip quietly lose the
+ * ability to restore that entry. A ref under refs/s2c/ is outside branches,
+ * tags and the stash list, so it never shows up in `git branch`, `git log` or
+ * a push of the usual refspecs. Best-effort: a checkpoint that could not be
+ * pinned is still a checkpoint, so a failure here never blocks an edit.
+ */
+export function pinCheckpoint(root: string, sha: string): void {
+  try {
+    git(root, 'update-ref', `${PIN_PREFIX}${sha}`, sha)
+    const pins = git(root, 'for-each-ref', '--sort=-committerdate', '--format=%(refname)', PIN_PREFIX)
+      .split('\n').filter(Boolean)
+    for (const ref of pins.slice(MAX_PINS)) git(root, 'update-ref', '-d', ref)
+  } catch { /* not pinned: same as before this existed */ }
 }
 
 /** Files changed since the checkpoint, scoped to root (not the whole repo). */

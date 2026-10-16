@@ -9,6 +9,8 @@ import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
 import { bundleOverlayClient } from './overlay-bundle.js'
 import { runsViewer } from './runs-viewer.js'
+import { superviseRun } from './run-supervisor.js'
+import { loadUndo, MAX_UNDO, saveUndo, type UndoEntry } from './undo-store.js'
 
 export interface Sketch2CodeOptions {
   /** Allow running with uncommitted changes in the target repo. Default false. */
@@ -71,6 +73,12 @@ export type RunHandler = (
     emit: (event: string, data: unknown) => void
     /** Ask the originating browser tab for a fresh snapshot. */
     requestSnapshot: (runId: string) => Promise<DomSnapshot>
+    /**
+     * Aborted by the run cap or Esc. Reject soon after, and write nothing once
+     * it fires: the undo entry is taken and the slot freed only after the
+     * returned promise settles (run-supervisor.ts).
+     */
+    signal: AbortSignal
   },
 ) => Promise<{ summary: string; explanation?: unknown }>
 
@@ -83,8 +91,16 @@ export function setRunHandler(h: RunHandler): void {
 // and a closure-scoped flag would let a fresh instance accept a second run
 // while an orphaned pipeline is still editing files.
 let activeRun = false
-// undo stack: checkpoint SHAs of committed edits, most recent last
-const undoStack: Array<{ sha: string; label: string; untracked: string[]; after: string[] | null }> = []
+/** Stops the active run (run-supervisor.ts); null when none is running. */
+let stopActiveRun: ((reason: string) => boolean) | null = null
+// undo stack: checkpoint SHAs of committed edits, most recent last. Mirrored
+// to .sketch2code/undo.json so a dev-server restart doesn't empty it.
+const undoStack: UndoEntry[] = []
+/** The root undoStack was loaded from; saves go back to the same place. */
+let undoRoot: string | null = null
+const persistUndo = (): void => {
+  if (undoRoot) saveUndo(undoRoot, undoStack)
+}
 /**
  * The last edit THIS server wrote, and when.
  *
@@ -117,6 +133,8 @@ const pushEdit = (sha: string, label: string, untracked: string[] = []): void =>
   // every future endpoint has to remember to pass along is one that will be
   // forgotten by the next one
   undoStack.push({ sha, label, untracked, after: snapshotUntracked() })
+  if (undoStack.length > MAX_UNDO) undoStack.splice(0, undoStack.length - MAX_UNDO)
+  persistUndo()
   lastWrite = { label, at: Date.now() }
 }
 /**
@@ -166,6 +184,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
     configResolved(config) {
       root = config.root
+      if (undoRoot !== root) {
+        // a restarted server picks up where the last one left off; undo
+        // skips entries with nothing left to revert, so stale ones are harmless
+        undoStack.splice(0, undoStack.length, ...loadUndo(root))
+        undoRoot = root
+      }
       snapshotUntracked = () => {
         try {
           // a dynamic import would make this async and pushEdit is not; the
@@ -1160,8 +1184,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               } catch { /* not a git repo: nothing to spare */ }
               const files = m.revertTouched(root, cp, [...entry.untracked, ...appeared])
               if (files.length === 0) continue // that edit was already reverted
+              persistUndo()
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
+            persistUndo()
             sendJson(res, 200, { ok: true, undid: null })
           } catch (err) {
             sendJson(res, 500, { ok: false, error: String(err) })
@@ -1200,6 +1226,17 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })
 
+      // Registered BEFORE '/@s2c/run': connect matches mounts by path prefix,
+      // so '/@s2c/run' would swallow this one.
+      server.middlewares.use('/@s2c/run/abort', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'POST only' })
+        if (rejectUnauthorized(req, res, token)) return
+        // stopping: true means a run is now stopping and will end with the
+        // usual error-event once the agent has exited; false, nothing to stop
+        const stopping = stopActiveRun?.('stopped by you') ?? false
+        sendJson(res, 200, { ok: true, stopping })
+      })
+
       server.middlewares.use('/@s2c/run', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'POST only' })
         if (rejectUnauthorized(req, res, token)) return
@@ -1230,9 +1267,6 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                   sse.send('resnapshot', { runId, clientId })
                 }),
             }
-            const deadline = new Promise<never>((_, rej) =>
-              setTimeout(() => rej(new Error(`run exceeded ${runTimeoutMs / 1000}s cap`)), runTimeoutMs),
-            )
             let runCp: { sha: string; toplevel: string; dirtyBefore: boolean } | null = null
             /**
              * The untracked files that were already here.
@@ -1244,7 +1278,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
              * somebody's scratch component.
              */
             let untrackedBefore: string[] = []
-            const exec = async () => {
+            const exec = async (signal: AbortSignal) => {
               try {
                 const m0 = await import('@s2c/pipeline')
                 runCp = m0.checkpoint(root, allowDirty)
@@ -1266,14 +1300,26 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     candidates: body.candidates,
                     instant: body.instant,
                   },
-                  ctx,
+                  { ...ctx, signal },
                 )
               }
-              return runHandler!(body, ctx)
+              return runHandler!(body, { ...ctx, signal })
             }
-            // Promise.resolve().then() so a synchronously-throwing handler
-            // still flows into .catch/.finally
-            Promise.race([Promise.resolve().then(exec), deadline])
+            const run = superviseRun(exec, {
+              timeoutMs: runTimeoutMs,
+              // the overlay is still in its running state; say why it's waiting
+              onStopping: (reason) =>
+                sse.send('stage', { stage: 'stopping', detail: `${reason}; waiting for the agent to exit`, clientId }),
+            })
+            stopActiveRun = run.stop
+            // Everything below runs only after exec has RETURNED — never on the
+            // deadline itself — so no write from this run can land after the
+            // undo entry is taken, the user is told, or the slot is freed.
+            run.settled
+              .then((outcome) => {
+                if (!outcome.ok) throw outcome.error
+                return outcome.value
+              })
               .then(async (result) => {
                 if (runCp) pushEdit(runCp.sha, 'sketch run', untrackedBefore)
                 // A sketch that produced a new component files itself: that is
@@ -1317,6 +1363,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 sse.send('error-event', { message, explanation, clientId })
               })
               .finally(() => {
+                stopActiveRun = null
                 activeRun = false
               })
           })

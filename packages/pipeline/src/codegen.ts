@@ -128,6 +128,19 @@ export interface CodegenSession {
   /** Cumulative token usage across all turns so far. */
   usage: () => TokenUsage
   close: () => void
+  /**
+   * Resolves once the agent's message loop has ended, i.e. the subprocess is
+   * gone and can't write any more. close() only asks; this is how a caller
+   * waits for the answer before telling the user the run has stopped.
+   */
+  closed: Promise<void>
+}
+
+/** The error a run rejects with when it was told to stop. */
+export function abortError(signal: AbortSignal): Error {
+  const r: unknown = signal.reason
+  if (r instanceof Error) return r
+  return new Error(typeof r === 'string' ? r : 'run stopped')
 }
 
 interface QueueItem {
@@ -140,6 +153,8 @@ export function createCodegenSession(
   mode: RunMode,
   ev: CodegenEvents,
   contractOverride?: string,
+  /** Aborting it kills the agent: pending turns reject, no further edits. */
+  signal?: AbortSignal,
 ): CodegenSession {
   const inputQueue: SDKUserMessage[] = []
   let notify: (() => void) | null = null
@@ -160,9 +175,13 @@ export function createCodegenSession(
     }
   }
 
+  // The SDK's own cancel: aborting it tears the subprocess down, which is the
+  // only thing that actually stops an Edit tool call already queued.
+  const abortController = new AbortController()
   const q: Query = query({
     prompt: input(),
     options: {
+      abortController,
       cwd: appRoot,
       permissionMode: 'acceptEdits',
       ...codegenToolOptions(),
@@ -179,7 +198,7 @@ export function createCodegenSession(
   })
 
   // single consumer loop dispatches results to pending waiters
-  ;(async () => {
+  const closed = (async () => {
     try {
       let buffer = ''
       for await (const msg of q) {
@@ -206,17 +225,38 @@ export function createCodegenSession(
           buffer = ''
         }
       }
-      for (const item of pending.splice(0)) item.reject(new Error('codegen session ended unexpectedly'))
+      for (const item of pending.splice(0)) {
+        item.reject(signal?.aborted ? abortError(signal) : new Error('codegen session ended unexpectedly'))
+      }
     } catch (err) {
       for (const item of pending.splice(0)) {
-        item.reject(err instanceof Error ? err : new Error(String(err)))
+        item.reject(signal?.aborted ? abortError(signal) : err instanceof Error ? err : new Error(String(err)))
       }
     }
   })()
 
+  const close = (): void => {
+    ended = true
+    notify?.()
+    q.close()
+  }
+  const onAbort = (): void => {
+    // reject first: the caller is awaiting send(), and must see WHY it ended
+    for (const item of pending.splice(0)) item.reject(abortError(signal!))
+    abortController.abort(signal!.reason)
+    close()
+  }
+  if (signal?.aborted) queueMicrotask(onAbort)
+  else signal?.addEventListener('abort', onAbort, { once: true })
+  void closed.finally(() => signal?.removeEventListener('abort', onAbort))
+
   return {
     send(content: UserContent): Promise<string> {
       return new Promise<string>((resolve, reject) => {
+        if (signal?.aborted) {
+          reject(abortError(signal))
+          return
+        }
         if (ended) {
           reject(new Error('codegen session already closed'))
           return
@@ -241,10 +281,7 @@ export function createCodegenSession(
       })
     },
     usage: () => ({ ...usage }),
-    close() {
-      ended = true
-      notify?.()
-      q.close()
-    },
+    close,
+    closed,
   }
 }

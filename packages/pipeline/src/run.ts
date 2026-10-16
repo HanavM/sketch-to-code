@@ -9,6 +9,7 @@ import { analyzeOverlap, buildEditPlan, type EditPlan } from '@s2c/intent'
 import { addUsage, defaultPerceptionProvider, type PerceptionProvider, type TokenUsage } from '@s2c/providers'
 import { contractFor, createCodegenSession, type RunMode } from './codegen.js'
 import { changedFiles, checkpoint, type Checkpoint } from './safety.js'
+import { settleSession, throwIfStopped, untilStopped } from './abort.js'
 import { pageChanged, verifyDesignPlacement, verifyOps, type VerifyResult } from './verify.js'
 
 export interface RunContext {
@@ -16,6 +17,13 @@ export interface RunContext {
   allowDirty: boolean
   emit: (event: string, data: unknown) => void
   requestSnapshot: (runId: string) => Promise<DomSnapshot>
+  /**
+   * Told to stop (the run cap, or the user pressed Esc). The run must reject
+   * soon after with the signal's reason and write nothing more once it has:
+   * the caller takes the undo entry and frees the run slot only after this
+   * promise settles. See abort.ts.
+   */
+  signal?: AbortSignal
 }
 
 export interface RunInput {
@@ -71,7 +79,7 @@ export async function runPipeline(
   if (mode === 'screenshot') {
     if (!input.screenshot) throw new Error('screenshot mode without a screenshot')
     writeFileSync(join(runDir, 'screenshot.png'), Buffer.from(input.screenshot, 'base64'))
-    const session = createCodegenSession(ctx.root, 'screenshot', { onStage: stage })
+    const session = createCodegenSession(ctx.root, 'screenshot', { onStage: stage }, undefined, ctx.signal)
     writeFileSync(join(runDir, 'system.txt'), contractFor('screenshot'))
     let changed = false
     try {
@@ -86,7 +94,7 @@ export async function runPipeline(
       writeFileSync(join(runDir, 'reply.txt'), reply)
 
       stage('verify', 'snapshotting edited page')
-      const after = await ctx.requestSnapshot(runId)
+      const after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
       changed = pageChanged(input.snapshot, after)
       totalUsage = addUsage(totalUsage, session.usage())
       save('result.json', {
@@ -95,7 +103,9 @@ export async function runPipeline(
       })
     } finally {
       session.close()
+      await settleSession(session.closed)
     }
+    throwIfStopped(ctx.signal)
     const files = changedFiles(ctx.root, cp)
     const summary =
       `[screenshot] ${changed ? 'page changed' : '⚠ no page change'} · ${files.length} file(s) · ` +
@@ -187,7 +197,7 @@ export async function runPipeline(
   }
 
   // ---- ④ codegen ----
-  const session = createCodegenSession(ctx.root, mode, { onStage: stage })
+  const session = createCodegenSession(ctx.root, mode, { onStage: stage }, undefined, ctx.signal)
   writeFileSync(join(runDir, 'system.txt'), contractFor(mode))
   let best: VerifyResult | null = null
   let designChanged = false
@@ -218,7 +228,7 @@ export async function runPipeline(
     // ---- ⑤ verify (+ repair rounds, monotonic, capped) ----
     for (let round = 1; round <= MAX_ROUNDS; round++) {
       stage('verify', `round ${round}: snapshotting edited page`)
-      const after = await ctx.requestSnapshot(runId)
+      const after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
 
       if (mode === 'design') {
         const changed = pageChanged(input.snapshot, after)
@@ -270,7 +280,9 @@ export async function runPipeline(
     totalUsage = addUsage(totalUsage, session.usage())
   } finally {
     session.close()
+    await settleSession(session.closed)
   }
+  throwIfStopped(ctx.signal)
 
   const files = changedFiles(ctx.root, cp)
   save('result.json', {

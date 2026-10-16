@@ -12,6 +12,7 @@ import {
   addUsage, defaultInterpreterProvider, defaultPerceptionProvider, type PerceptionProvider, type TokenUsage,
 } from '@s2c/providers'
 import { createCodegenSession, type CodegenSession } from './codegen.js'
+import { settleSession, sleepUnlessStopped, throwIfStopped, untilStopped } from './abort.js'
 import { commitPlan, planStructuralEdits } from './codemod.js'
 import { promoteToApi } from './api.js'
 import { makeFormReal } from './form.js'
@@ -207,6 +208,7 @@ export async function runV2(
   // Structural actions (delete/move/swap) whose stamps resolve unambiguously
   // are applied as AST text edits — no session, no tokens. The agent only
   // sees what the codemod refused.
+  throwIfStopped(ctx.signal)
   const plan = planStructuralEdits(ctx.root, interp.actions, input.snapshot)
   const codemodFiles = commitPlan(ctx.root, plan)
   save('codemod.json', { handled: plan.handled, refused: plan.refused, files: codemodFiles })
@@ -362,8 +364,10 @@ export async function runV2(
   let lastVerify: unknown = null
   /** Re-snapshot the live page and score every action against the drawing. */
   const verifyRound = async (tag: string) => {
+    // finishPass writes source: never after a stop
+    throwIfStopped(ctx.signal)
     finishPass()
-    const after = await ctx.requestSnapshot(runId)
+    const after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
     // read back what was just written, so composition can be scored against
     // the ink without a screenshot or a model call
     const sources: string[] = []
@@ -407,7 +411,7 @@ export async function runV2(
     let session: CodegenSession | null = null
     const agent = (): CodegenSession => {
       if (!session) {
-        session = createCodegenSession(ctx.root, 'design', { onStage: stage }, system)
+        session = createCodegenSession(ctx.root, 'design', { onStage: stage }, system, ctx.signal)
         writeFileSync(join(runDir, 'system.txt'), system)
       }
       return session
@@ -418,6 +422,8 @@ export async function runV2(
     let best = -1
     let lastFailures: string[] = []
     try {
+      // scaffolds are written next: a stopped run must not start an attempt
+      throwIfStopped(ctx.signal)
       if (pending.length > 0) {
         const scaffolds = layScaffolds()
         const instantNote = input.instant
@@ -445,7 +451,7 @@ export async function runV2(
       } else {
         // the codemod wrote milliseconds ago; the client only waits 350ms after
         // the resnapshot event, which can beat Vite's watcher + HMR
-        await new Promise((r) => setTimeout(r, HMR_SETTLE_MS))
+        await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
       }
 
       for (let round = 1; round <= 3; round++) {
@@ -454,7 +460,7 @@ export async function runV2(
         if (result.score < 1 && !session && plan.handled.length > 0) {
           // no agent has run: a failure here is far more likely an HMR race
           // than a wrong AST edit — look again before spending tokens
-          await new Promise((r) => setTimeout(r, HMR_RETRY_MS))
+          await sleepUnlessStopped(HMR_RETRY_MS, ctx.signal)
           result = await verifyRound(`${tag}-${round}`)
         }
         const { score, failures } = result
@@ -484,6 +490,9 @@ export async function runV2(
       if (session) {
         totalUsage = addUsage(totalUsage, (session as CodegenSession).usage())
         ;(session as CodegenSession).close()
+        // the agent may have an Edit in flight; it lands, or it doesn't,
+        // before anyone is told this attempt is over
+        await settleSession((session as CodegenSession).closed)
       }
     }
     return { score: Math.max(0, best), failures: lastFailures, detail: lastVerify }
@@ -504,6 +513,7 @@ export async function runV2(
     for (let i = 0; i < attempts; i++) {
       stage('candidate', `attempt ${i + 1}/${attempts}: generating`)
       const r = await runAttempt(APPROACHES[i] ?? '', `${i + 1}`)
+      throwIfStopped(ctx.signal)
       const work = captureWork(ctx.root, cp)
       tries.push({
         index: i, score: r.score, detail: r.detail, failures: r.failures,
@@ -513,12 +523,13 @@ export async function runV2(
       revertWork(ctx.root, cp, work)
     }
     const winner = pickBest(tries)
+    throwIfStopped(ctx.signal)
     if (winner) {
       stage('candidate', `keeping attempt ${winner.index + 1} (${Math.round(winner.score * 100)}%)`)
       applyWork(ctx.root, winner.work)
       // the chosen work only just hit disk; verify it in place rather than
       // trusting the score it earned before the revert
-      await new Promise((r) => setTimeout(r, HMR_SETTLE_MS))
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
       const confirmed = await verifyRound('final')
       bestScore = confirmed.score
       finalFailures = confirmed.failures
@@ -529,6 +540,9 @@ export async function runV2(
     save('candidates.json', candidates)
   }
   void provider
+  // the last step that could still be writing has returned; a stop that
+  // arrived during it wins over reporting success
+  throwIfStopped(ctx.signal)
 
   // touchedFiles, not changedFiles: a component the run CREATED is untracked
   // and never shows up in a diff, so new files went unreported in the summary

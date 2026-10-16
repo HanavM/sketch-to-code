@@ -2210,6 +2210,8 @@ class Overlay {
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
   private mode: Mode = 'idle'
+  /** Esc was pressed once during this run and /@s2c/run/abort was asked. */
+  private stopRequested = false
   /**
    * What the sketch is FOR, and by default nobody has to say.
    *
@@ -3086,6 +3088,8 @@ class Overlay {
   }
 
   private setMode(m: Mode) {
+    // a stop request belongs to one run: entering or leaving 'running' ends it
+    if (m !== this.mode && (m === 'running' || this.mode === 'running')) this.stopRequested = false
     if (this.mode === 'draw' && m !== 'draw') this.resetBridge()
     // the paint popover describes a tweak-mode selection; it must not outlive
     // the mode that owns it (it is position:fixed and would hang over the app)
@@ -3749,10 +3753,38 @@ class Overlay {
     else if (this.mode === 'preview') this.exitPreview('cancelled')
     else if (this.mode === 'draw') this.setMode('idle')
     else if (this.mode === 'running') {
-      // escape hatch: the server may have restarted mid-run
-      this.status('cancelled locally (server run may still finish)', true)
-      this.clearApplying()
-      this.setMode('idle')
+      // First Esc asks the server to stop the run, and the run ends the
+      // usual way: an error-event, sent only once the agent has exited, so
+      // the Undo it offers can't be overwritten by a straggling edit. A
+      // second Esc, or a server that doesn't answer (it restarted mid-run),
+      // is the old escape hatch: reset the overlay and stop waiting.
+      if (this.stopRequested) {
+        this.stopRequested = false
+        this.status('cancelled locally (server run may still finish)', true)
+        this.clearApplying()
+        this.setMode('idle')
+        return
+      }
+      this.stopRequested = true
+      this.status('stopping… waiting for the agent to stop (Esc again to stop waiting)')
+      void (async () => {
+        let stopping = false
+        try {
+          const res = await fetch('/@s2c/run/abort', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+            body: '{}',
+          })
+          const body = (await res.json()) as { ok: boolean; stopping?: boolean }
+          stopping = res.ok && body.ok && body.stopping === true
+        } catch { /* server gone: nothing to wait for */ }
+        if (!stopping && this.mode === 'running') {
+          this.stopRequested = false
+          this.status('cancelled locally (no run on the server to stop)', true)
+          this.clearApplying()
+          this.setMode('idle')
+        }
+      })()
     }
   }
 

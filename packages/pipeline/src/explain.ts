@@ -196,6 +196,8 @@ export function explainError(message: string, filesChanged: boolean): RunExplana
       'Try a clearer mark, or type a word or two about what you want.'
   } else if (/exceeded .*cap|timed out/i.test(message)) {
     sentence = 'That took too long and I stopped.'
+  } else if (/^stopped by you$/i.test(message)) {
+    sentence = 'Stopped, as you asked.'
   } else if (/already in progress/i.test(message)) {
     sentence = 'Another change is still being made. Wait for it to finish, then try again.'
   } else {
