@@ -1,5 +1,10 @@
 # DIGEST — newest first
 
+## 2026-10-16 — sketch-to-code / s2c-013 unblocked: kill-test PILOT approved
+Did: you answered in chat: **pilot, ~1M tokens**. s2c-013 is now open (needs: local) with the run recipe in its log. No code changed.
+Next: the local (Mac) run picks it: 1 run of --mode auto and 1 of --mode screenshot on the rough set, then a pilot table + provisional verdict. If it lands near the 15-point bar, it will ask for the other 2 runs.
+Needs you: Mac awake for the local run. s2c-008 (tidy-set re-score) is still blocked on its own quota question; it is not part of the pilot.
+
 ## 2026-10-15 07:55 PT — sketch-to-code / (idle, no watering) — repeated 09:55, 10:55, 11:55, 12:55, 13:55, 14:55, 15:55 and 16:55 PT, state unchanged
 Picked because: nothing worth watering. Candidates: s2c-002 1.29 (value 3, parked until the kill-test verdict: it fixes instant render, which the bench doesn't use); s2c-008/013 blocked on you; fashion killed. No new INBOX items in either garden.
 Did: synced both gardens, checked locks (none), read INBOX/tree. No code changed. Building s2c-002 now would polish a product that VALIDATION.md says loses, and it would be wasted if s2c-013 says KILL.

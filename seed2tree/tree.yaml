@@ -274,7 +274,7 @@ nodes:
   title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (kill test)"
   why: "The pivot's whole case. Screenshot mode is a lower bound on what Cursor/Lovable send; if structure can't clearly beat even that, the seed is dead."
   done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise KILL the seed."
-  status: blocked-on-human
+  status: open
   needs: local
   value: 5
   effort: 2
@@ -283,9 +283,10 @@ nodes:
   depth: 2
   watered: 0
   last_watered: null
-  blocked_on: "s2c-009 is done; only quota remains. Rough set = 11 pages x 2 arms (auto, screenshot) x 3 runs. Pages are smaller than the tidy ones; estimate ~0.5M billed tokens per arm-run, ~3M total, unmeasured. Reply 'yes' (run on the Mac: node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot, x3; calibrate with --limit 1 first), 'pilot' (1 run each arm, ~1M), or 'no'."
+  blocked_on: null
   outputs: []
-  log: []
+  log:
+  - "2026-10-16: owner answered in chat (session 01DyZbW9): PILOT approved, ~1M tokens. Run 1x each arm on the Mac: calibrate with --limit 1, then node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot. A pilot cannot meet done_when (3 runs); write the pilot table + a provisional verdict, and if the gap is within ~10 points of the 15-pt bar, block again asking for the remaining 2 runs."
 
 - id: s2c-014
   parent: s2c-003
