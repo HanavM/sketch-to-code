@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 28
-lock: {run: cloud-20261016T1655, until: '2026-10-16T18:10:00Z'}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -612,16 +612,17 @@ nodes:
   title: "live-lasso e2e is red: the test dies after the extract's HMR reload"
   why: "A red zero-token e2e hides regressions in extract-to-component (lasso). Found by s2c-025: fails identically with and without its change, after 'links on the page after HMR' with 'page.evaluate: Execution context was destroyed'."
   done_when: "tests/e2e/live-lasso.mjs passes 3/3 against the demo app on :5199 (S2C_APP), zero tokens; root cause written in the log (test waiting wrong vs a real reload the overlay should survive); if it is a real overlay bug, fixed with the e2e asserting it."
-  status: open
+  status: done
   needs: cloud
   value: 2
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T17:20Z'
   blocked_on: null
-  outputs: []
+  outputs: [ad683b1, tests/e2e/live-lasso.mjs]
   log:
   - "2026-10-16: added by s2c-025. Value 2: test hygiene, not the seed. Check first whether the reload is the overlay's own (extract writes a new file -> full reload) and the test just needs a waitForLoadState."
+  - "2026-10-16: watered (cloud-20261016T1655). Root cause: TEST waiting wrong, not an overlay bug. The extract writes a module the page never imported, so vite full-reloads at a moment the file watcher picks; any page.evaluate straddling it died ('Execution context was destroyed'), most often in waitStatus right after Enter (5/6 runs red here; s2c-025 saw it one step later). The overlay already parks the receipt in sessionStorage and resumes tweak mode, and the test asserts that. Fix: reads go through settled() (retry only on reload-shaped errors, bounded 10 s) + a new assert that the extract really caused >=1 reload, so the survival checks can't pass vacuously. 10/10 green on :5240, 0 tokens; live-data + live-image 3/3 each (no same flake). vitest 1028/1030 (same 2 env failures), typecheck clean. Cloud env note: playwright 1.62 wants chromium_headless_shell-1234, the image has -1194; symlinked chrome-linux/headless_shell into the expected path for this run (env-only, not committed). Done."
