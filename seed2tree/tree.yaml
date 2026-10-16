@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 26
-lock: {run: cloud-20261016T1355, until: '2026-10-16T15:10:00Z'}
+next_id: 27
+lock: null
 
 nodes:
 - id: s2c-000
@@ -242,6 +242,7 @@ nodes:
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): non-coder walkthrough is SEED done #2 again."
   - "2026-10-16: from s2c-011: the walkthrough should hit one deliberate misread and judge the misread card (its sentence + Undo) as a non-coder would; the bar's status line still shows the developer summary, list it if it gets in the way."
   - "2026-10-16: watering 1. Audited the path on today's real `npm create vite --template react` (Vite 8.3, plugin-react 6.1, plain CSS) with init from the checkout + Playwright, zero-token except one accident. Init + stamping work on Vite 8 (49 stamped). FOUND: (1) HARD BLOCKER for done #2: change #2 is refused (checkpoint refuses a dirty tree, init leaves allowDirty unset, nothing commits after a run) and the refusal lands after the paid interpret; the demo app's allowDirty:true hides it from every e2e -> s2c-024. (2) init/doctor/READMEs/bar said 'press Alt+D to draw' but the page opens drawing, so following it turned drawing OFF; init-real-project e2e was red on it. FIXED; e2e now asserts live-on-load, Alt+D pauses (bar says so), resumes; all CLI checks pass. (3) clicking your own app selects (jargon line 'button 120x33 flex row src/App.jsx') and a drag after a click nudges the selection instead of drawing -> s2c-025. (4) reading took ~10.5s before codegen (1 sample). (5) ACCIDENT: cloud Claude Code is signed in via the host even under env -i, so one probe made a real paid run (killed ~45s, no file written); never submit unstubbed sketches from the cloud. REMAINING for done_when: stub /@s2c/interpret with a recorded interpretation and walk all 3 changes; needs s2c-024 first."
+  - "2026-10-16: s2c-024 done (9264bd6): change #2/#3 are no longer refused on an init'd project. Next watering: stub /@s2c/interpret + run with a recorded interpretation and walk all 3 changes (incl. a form) end to end on the real Vite 8 starter."
 
 - id: s2c-011
   parent: s2c-000
@@ -538,19 +539,20 @@ nodes:
   title: "Change #2 must not be refused: the tool's own edits don't make the tree 'dirty'"
   why: "walkthrough-noncoder.md step 6: in an init'd project (allowDirty unset) every second sketch ends in 'refusing to edit: working tree has uncommitted changes', after paying for the interpret. SEED done #2 needs 3 changes; today a non-coder gets 1."
   done_when: "In a project set up by `init` with no allowDirty, runs 2 and 3 proceed (stubbed agent, zero tokens); Undo still restores each step; dirt the tool can't account for is either handled or refused BEFORE /@s2c/interpret, in plain words; a zero-token e2e covers run #2 on a non-allowDirty project; vitest + typecheck green."
-  status: open
+  status: done
   needs: cloud
   value: 5
   effort: 2
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-16T14:40:00Z'
   blocked_on: null
-  outputs: []
+  outputs: [9264bd6, packages/pipeline/src/safety.ts, packages/pipeline/tests/owned-dirt.test.ts, packages/cli/tests/e2e/init-real-project.mjs]
   log:
   - "2026-10-16: added by s2c-010. Options: init writes allowDirty:true (cheapest; checkpoints are git stash create and the history timeline already runs allowDirty, history.ts:378), or refuse only dirt the history did not write. Either way move the dirty check before the paid interpret."
+  - "2026-10-16: watering 1 -> DONE (9264bd6). Chose 'refuse only dirt the tool did not write' over init writing allowDirty:true (that would silently let Undo clobber a coder's hand edits). safety.ts: worktreeId = git tree hash of the worktree incl. untracked, built in a throwaway index; recordOwnedState after every pushEdit and every undo (.sketch2code/owned.json, last 200); dirtReason allows a tree identical to a recorded one, else refuses naming the files. .sketch2code/, server/data/ (form submissions), node_modules/ never count. /@s2c/interpret asks dirtReason first -> refusal costs no model call; overlay shows the sentence. FOUND+FIXED: (a) pathspec-excluding a gitignored dir makes git add exit 1 -> every id null in a real project (unit test on the init layout); (b) a project with no .gitignore got node_modules committed by init, and Vite's cache dirtied the tree before change #1 -> ensureGitignore adds node_modules/. Verified: owned-dirt.test.ts 10 tests; init-real-project e2e on an init'd non-allowDirty app: changes 1-3 land, undo steps back, edit after undo lands, undo to committed file, hand edit refused by codemod AND /@s2c/interpret (only called after the pipeline confirmed it would refuse), 0 tokens, ALL PASS. vitest 1006/1008 (same 2 env), typecheck clean, live-ask/image/misread/keymap green. NOT checked: a real agent run (codegen) as change #2 - only codemods; worktreeId cost on a big repo (git add -A into a temp index on every edit)."
 
 - id: s2c-025
   parent: s2c-010
@@ -571,3 +573,23 @@ nodes:
   outputs: []
   log:
   - "2026-10-16: added by s2c-010. Value 3, not 5: it confuses, it doesn't block. Do s2c-024 first."
+
+- id: s2c-026
+  parent: s2c-024
+  kind: build
+  title: "Undo must not throw away a hand edit made after the tool's edit"
+  why: "s2c-024 now refuses to EDIT over a hand edit, but /@s2c/undo still runs `git restore --source=<checkpoint>` on every file the edit touched, with no dirt check. A coder who tweaks App.jsx by hand after a sketch and then presses Ctrl+Z loses the tweak silently. Same trust class as s2c-022."
+  done_when: "Unit + zero-token e2e: tool edit, hand edit to the same file, Ctrl+Z -> either the hand edit survives (3-way: reverse only the tool's hunk) or undo refuses in plain words naming the file and changes nothing; undo on an owned tree behaves as today; vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-024. Value 3: hits coders, not the non-coder path. The cheap version (refuse when the tree isn't an owned state) is a few lines using dirtReason; the 3-way version is nicer but more code. Start with refuse."

@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-16 14:40 UTC — sketch-to-code / s2c-024 Change #2 must not be refused — **done**: a non-coder now gets change #2, #3, …; a hand edit is still refused, before the paid read
+Picked because: priority 2.50 (next: s2c-002 1.50, s2c-025 1.50; s2c-000 seed skipped: umbrella; s2c-013/008 local, skipped; fashion killed, no overrule)
+Did: commit 9264bd6. Didn't take the cheap fix (init writes allowDirty:true): that would let Undo silently overwrite a coder's hand edits. Instead the tool remembers every tree it left behind, after each edit and each undo, as a git tree hash built in a throwaway index. A dirty tree that matches one of those is allowed. Anything else is refused, and the refusal names the file: "src/App.jsx changed outside sketch2code since its last edit… commit it, or set allowDirty". `/@s2c/interpret` now checks this first, so a refusal no longer costs a model call. `.sketch2code/`, `server/data/` (form submissions) and `node_modules/` never count.
+Result: 10 unit tests. `init-real-project.mjs` now runs on an init'd app with allowDirty unset: changes #1–#3 land, undo steps back, an edit after the undo lands, undo returns the committed file, and a hand edit is refused by both a codemod and `/@s2c/interpret`. All checks pass, 0 tokens. vitest 1006/1008 (same 2 env failures); typecheck clean; live-ask/image/misread/keymap green. momentum 0.5 → 0.7
+**Found + fixed on the way:** (1) My first version passed its unit tests and was dead in a real project. Excluding a gitignored folder by pathspec makes `git add` exit 1, so every tree id came back null. The e2e caught it. (2) A project with no `.gitignore` got `node_modules` committed by init, and Vite's cache then dirtied the tree, so even change #1 was refused. init now ignores `node_modules/`.
+Blunt: only zero-token codemods were tested as change #2. A real agent run as change #2 hasn't been tested (cloud can't pay). Hashing the tree on every edit is fine on a starter app; on a big monorepo it isn't measured. This removes a wall; it says nothing about whether drawing works.
+New branches: s2c-026 Undo must not throw away a hand edit made after the tool's edit (value 3: today Ctrl+Z restores the checkpoint over it, silently)
+Pruned/done: s2c-024 done. s2c-010 is unblocked: next is walking all 3 changes with a stubbed interpret.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot.
+
 ## 2026-10-16 13:45 UTC — sketch-to-code / s2c-010 Non-coder walkthrough — watering 1: **a non-coder gets exactly one change, then it refuses**
 Picked because: priority 1.56 (next: s2c-021 1.43, s2c-002 1.49; s2c-000 seed skipped: umbrella; s2c-013/008 local, skipped; fashion killed, no overrule)
 Did: docs/walkthrough-noncoder.md. Walked today's real `npm create vite --template react` (Vite 8, plain CSS) through init → dev → click → sketch with Playwright. Init and stamping work on Vite 8.
