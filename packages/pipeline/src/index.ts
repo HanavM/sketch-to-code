@@ -1,6 +1,6 @@
 export { runPipeline } from './run.js'
 export type { RunContext, RunInput, RunResult } from './run.js'
-export { checkpoint, changedFiles, revertToCheckpoint, pinCheckpoint, PIN_PREFIX, dirtReason, recordOwnedState, worktreeId, ownedFile, OWNED_EXCLUDES } from './safety.js'
+export { checkpoint, changedFiles, revertToCheckpoint, pinCheckpoint, PIN_PREFIX, dirtReason, handChanges, undoReason, recordOwnedState, worktreeId, ownedFile, OWNED_EXCLUDES } from './safety.js'
 export type { Checkpoint } from './safety.js'
 export { verifyOps, pageChanged, verifyDesignPlacement } from './verify.js'
 export type { VerifyResult, OpVerdict, DesignVerdict } from './verify.js'
@@ -89,7 +89,7 @@ export type { Scaffold } from './scaffold.js'
 export { finishSource, paletteFor } from './finish.js'
 export type { FinishEdit, FinishResult } from './finish.js'
 export {
-  APPROACHES, applyWork, captureWork, createdFiles, pickBest, revertTouched, revertWork,
+  APPROACHES, applyWork, captureWork, createdFiles, pickBest, revertTouched, revertWork, wouldRevert,
   touchedFiles, untrackedFiles,
 } from './candidates.js'
 export type { Attempt, Work } from './candidates.js'

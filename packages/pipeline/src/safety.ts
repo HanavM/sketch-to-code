@@ -188,6 +188,73 @@ export function recordOwnedState(root: string): string | null {
   return id
 }
 
+/**
+ * What changed by hand since the tool's last state, as paths relative to root.
+ *
+ * `owned`: the tree right now is one sketch2code itself left behind, so there
+ * is no hand edit at all. `changed`: the paths that differ between the most
+ * recent such state and now, or null when git can't say (no state recorded
+ * yet, the worktree id failed, or the remembered tree was gc'd).
+ */
+export function handChanges(root: string): { owned: boolean; changed: string[] | null } {
+  const states = loadOwned(root)
+  const now = worktreeId(root)
+  if (now && states.includes(now)) return { owned: true, changed: [] }
+  if (!now || states.length === 0) return { owned: false, changed: null }
+  try {
+    const prefix = git(root, 'rev-parse', '--show-prefix')
+    const changed = git(root, 'diff-tree', '-r', '--name-only', states[states.length - 1]!, now)
+      .split('\n').filter(Boolean)
+      .map((p) => (prefix && p.startsWith(prefix) ? p.slice(prefix.length) : p))
+    return { owned: false, changed }
+  } catch {
+    return { owned: false, changed: null }
+  }
+}
+
+/**
+ * Whether Undo may revert `files` (the ones it is about to restore or delete),
+ * as a plain-words refusal or null. s2c-026.
+ *
+ * Undo restores every file an edit touched to its checkpoint. A hand edit made
+ * to one of those files AFTER the tool's edit is in none of the checkpoints, so
+ * the restore would silently throw it away. Refused: a file in `files` that
+ * changed since the tool's last state. Allowed: a tree the tool left exactly as
+ * it is, and hand edits to files this undo doesn't touch (they survive it).
+ * When git can't say what changed (no state recorded: a project from before
+ * s2c-024), undo behaves as it always did rather than going dead.
+ *
+ * Independent of allowDirty: that option lets an EDIT start on top of your
+ * changes, which keeps them (they are in its checkpoint). Undo has no such
+ * excuse; nothing it restores to has seen an edit made after it.
+ */
+export function undoReason(root: string, files: string[]): string | null {
+  if (files.length === 0) return null
+  const { owned, changed } = handChanges(root)
+  if (owned || changed === null) return null
+  const touched = new Set(files)
+  // a hand change already committed is safe in git: undo may overwrite the
+  // working copy, `git log` still has it. That is what makes the advice below true.
+  const lost = changed.filter((p) => touched.has(p) && !committedAsIs(root, p))
+  if (lost.length === 0) return null
+  const one = lost.length === 1
+  return `Undo stopped: ${listOf(lost)} ${one ? 'was' : 'were'} changed by hand after sketch2code's last edit, ` +
+    `and undoing would throw ${one ? 'that change' : 'those changes'} away. Nothing was changed. ` +
+    'Save your changes in git first (git add -A && git commit -m "my edits") and undo again, ' +
+    'or put the file back the way you want it by hand.'
+}
+
+/** The working copy of `rel` is exactly what HEAD has (tracked, nothing uncommitted). */
+function committedAsIs(root: string, rel: string): boolean {
+  try {
+    if (!git(root, 'ls-files', '--', rel)) return false // untracked: not in git at all
+    execFileSync('git', ['diff', '--quiet', 'HEAD', '--', rel], { cwd: root, stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
 function dirtyPaths(root: string): string[] {
   try {
     return execFileSync('git', ['status', '--porcelain', '--', '.', ...OWNED_EXCLUDES.map((p) => `:(exclude)${p}`)], {

@@ -18,6 +18,14 @@ export interface UndoEntry {
   label: string
   untracked: string[]
   after: string[] | null
+  /**
+   * The files this edit wrote, taken the moment it finished (s2c-026). Undo
+   * reverts only these. Without it undo restored EVERY file that differed from
+   * the checkpoint, so a hand change to any other file made after the edit was
+   * silently thrown away too. Null for entries written before it existed: undo
+   * falls back to the old behaviour, guarded by undoReason.
+   */
+  touched?: string[] | null
 }
 
 /** Entries kept. History keeps 50 too, and every checkpoint is pinned (safety.ts). */
@@ -42,7 +50,9 @@ export function loadUndo(root: string): UndoEntry[] {
     if (!e || typeof e.sha !== 'string' || !SHA.test(e.sha)) continue
     if (!strings(e.untracked)) continue
     if (e.after !== null && !strings(e.after)) continue
+    const touched = strings(e.touched) ? e.touched : null
     out.push({
+      touched,
       sha: e.sha,
       label: typeof e.label === 'string' ? e.label : 'edit',
       untracked: e.untracked,

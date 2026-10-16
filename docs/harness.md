@@ -75,6 +75,19 @@ Don't build branches, a run planner, or a backend story.
   (`vite-plugin/src/run-supervisor.ts`). The undo stack is saved to
   `.sketch2code/undo.json`, and every checkpoint is pinned under
   `refs/s2c/cp/` so `git gc` can't collect it.
+- **Trust bug: Undo erased hand edits made after the tool's edit.** Undo
+  restored *every* file that differed from the edit's checkpoint. A tweak
+  you made by hand afterwards, to the edited file or to any other tracked
+  file, is in no checkpoint, so Ctrl+Z threw it away without a word.
+  **Fixed in s2c-026 (2026-10-16):** each undo entry now records the files
+  that edit wrote (`UndoEntry.touched`), and undo reverts only those, so a
+  hand edit elsewhere survives. If one of *those* files changed by hand
+  since the tool's last state, undo refuses in words, naming the file, and
+  changes nothing (`safety.ts` `undoReason`); a hand change already
+  committed doesn't block it, since git still has it. Old entries without
+  `touched` fall back to the full revert, guarded by the same refusal.
+  Covered by `pipeline/tests/undo-hand-edit.test.ts` and
+  `init-real-project.mjs`.
 
 **Sketch-first interaction.** History is already the right shape: a strip of
 thumbnails where you click a picture to go back. No gesture is needed for

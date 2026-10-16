@@ -257,6 +257,34 @@ try {
   for (let i = 0; i < 5; i++) { await post('/@s2c/undo', {}); await settle() }
   check('undo all the way back restores the committed file', appSrc() === original)
 
+  // ── s2c-026: Ctrl+Z must not throw away a hand edit made after the edit ────
+  // It used to restore every file that differed from the checkpoint, so a
+  // tweak to App.jsx, or to any other file, made after the tool's edit was
+  // erased without a word.
+  const mainPath = join(dir, 'src/main.jsx')
+  const mainOriginal = readFileSync(mainPath, 'utf8')
+  const r6 = await post('/@s2c/manipulate', { srcLoc: btnLoc, prop: 'resize', w: 320 })
+  await settle()
+  const toolState = appSrc()
+  check('a tool edit lands before the hand edit', r6?.ok === true && toolState !== original, JSON.stringify(r6))
+  writeFileSync(join(dir, 'src/App.jsx'), toolState + '\n// my tweak\n')
+  writeFileSync(mainPath, mainOriginal + '\n// my other tweak\n')
+  await settle()
+  const u6 = await post('/@s2c/undo', {})
+  await settle()
+  check('undo over a hand edit to the same file is refused in words', u6?.ok === false && u6?.refused === true &&
+    /^Undo stopped: src\/App\.jsx was changed by hand/.test(u6?.error ?? ''), JSON.stringify(u6))
+  check('…and changes nothing', appSrc().endsWith('// my tweak\n') && readFileSync(mainPath, 'utf8').endsWith('// my other tweak\n'))
+  writeFileSync(join(dir, 'src/App.jsx'), toolState) // the user takes their tweak back out
+  await settle()
+  const u7 = await post('/@s2c/undo', {})
+  await settle()
+  check('then undo goes ahead and reverts only the file the edit wrote', u7?.ok === true && appSrc() === original &&
+    JSON.stringify(u7?.files) === JSON.stringify(['src/App.jsx']), JSON.stringify(u7))
+  check('a hand edit to another file survives the undo', readFileSync(mainPath, 'utf8').endsWith('// my other tweak\n'))
+  writeFileSync(mainPath, mainOriginal)
+  await settle()
+
   // a hand edit since the tool's last state IS refused, in words, before paying
   writeFileSync(join(dir, 'src/App.jsx'), original.replace('Sketch me', 'Sketch me (edited by hand)'))
   await settle()

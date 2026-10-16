@@ -3266,7 +3266,10 @@ class Overlay {
           headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
           body: '{}',
         })
-        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string }
+        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string; refused?: boolean }
+        // a refusal is a sentence for the user, not a failure: undo would have
+        // thrown away a hand edit, so it changed nothing and says why (s2c-026)
+        if (body.refused && body.error) { this.status(body.error, true); return }
         if (!res.ok || !body.ok) throw new Error(body.error ?? String(res.status))
         // parked, for the same reason the edits themselves are: undoing an
         // edit that added a file DELETES that file, which is just as far past

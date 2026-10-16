@@ -143,6 +143,12 @@ export function createdFiles(root: string, cp: Checkpoint, before?: string[]): s
  * no diff and survives the revert as an orphan — which is how undoing an
  * extract used to leave the new file behind after putting the call site back.
  */
+/** The files revertTouched(root, cp, keep) would restore or delete, without touching them. */
+export function wouldRevert(root: string, cp: Checkpoint, keep?: string[]): string[] {
+  const spare = new Set(keep ?? [])
+  return touchedFiles(root, cp).filter((rel) => !spare.has(rel))
+}
+
 export function revertTouched(root: string, cp: Checkpoint, keep?: string[]): string[] {
   const work = captureWork(root, cp)
   const spare = new Set(keep ?? [])

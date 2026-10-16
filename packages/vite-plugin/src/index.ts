@@ -139,7 +139,7 @@ const pushEdit = (sha: string, label: string, untracked: string[] = []): void =>
   // exactly the moment "the edit has finished" is true, and an invariant that
   // every future endpoint has to remember to pass along is one that will be
   // forgotten by the next one
-  undoStack.push({ sha, label, untracked, after: snapshotUntracked() })
+  undoStack.push({ sha, label, untracked, after: snapshotUntracked(), touched: snapshotTouched(sha, untracked) })
   if (undoStack.length > MAX_UNDO) undoStack.splice(0, undoStack.length - MAX_UNDO)
   persistUndo()
   lastWrite = { label, at: Date.now() }
@@ -159,6 +159,12 @@ let recordOwned: () => void = () => {}
  * quietly turn undo into a no-op.
  */
 let snapshotUntracked: () => string[] | null = () => null
+/**
+ * Assigned once the server knows its root; see UndoEntry.touched. The files
+ * that differ from the checkpoint right now, minus what was already lying there
+ * untracked. Null for "could not tell", which undo reads as "revert as before".
+ */
+let snapshotTouched: (sha: string, untracked: string[]) => string[] | null = () => null
 /**
  * The pipeline module, cached by beginEdit.
  *
@@ -244,6 +250,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           // module is already loaded by the time any edit has been made
           return pipelineForSnapshot?.untrackedFiles(root) ?? null
         } catch { return null /* not a git repo */ }
+      }
+      snapshotTouched = (sha, untracked) => {
+        try {
+          const all = pipelineForSnapshot?.touchedFiles(root, { sha, toplevel: root, dirtyBefore: true })
+          return all ? all.filter((rel) => !untracked.includes(rel)) : null
+        } catch { return null }
       }
     },
 
@@ -1310,11 +1322,34 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 const after = entry.after
                 if (after) appeared = m.untrackedFiles(root).filter((rel) => !after.includes(rel))
               } catch { /* not a git repo: nothing to spare */ }
-              const files = m.revertTouched(root, cp, [...entry.untracked, ...appeared])
-              if (files.length === 0) continue // that edit was already reverted
+              let keep = [...entry.untracked, ...appeared]
+              // only what THIS edit wrote: a file that differs from the
+              // checkpoint for any other reason was changed by someone else
+              // after it, and is not undo's to restore (s2c-026)
+              const touched = entry.touched
+              if (touched) keep = [...keep, ...m.wouldRevert(root, cp, keep).filter((rel) => !touched.includes(rel))]
+              const pending = m.wouldRevert(root, cp, keep)
+              if (pending.length === 0) continue // that edit was already reverted
+              // a hand edit made AFTER the tool's edit, to a file this undo
+              // restores, is in no checkpoint: the restore would silently
+              // throw it away. Refuse in words and leave everything as it is,
+              // entry included, so Ctrl+Z works once the user has saved it.
+              const refusal = m.undoReason(root, pending)
+              if (refusal) {
+                undoStack.push(entry)
+                persistUndo()
+                return sendJson(res, 200, { ok: false, refused: true, error: refusal })
+              }
+              // only a tree that was the tool's before the undo is the tool's
+              // after it: recording one that still carries a hand edit to an
+              // UNtouched file would launder that edit, and the next sketch
+              // would no longer be refused over it (safety.ts dirtReason)
+              const wasOwned = m.handChanges(root).owned
+              const files = m.revertTouched(root, cp, keep)
+              if (files.length === 0) continue
               persistUndo()
               pipelineForSnapshot = m
-              recordOwned() // an undone tree is the tool's doing too
+              if (wasOwned) recordOwned() // an undone tree is the tool's doing too
               return sendJson(res, 200, { ok: true, undid: entry.label, files })
             }
             persistUndo()
