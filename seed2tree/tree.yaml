@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 29
-lock: {run: mac-2026-10-16T2140Z, until: '2026-10-16T22:55Z'}
+next_id: 30
+lock: null
 
 nodes:
 - id: s2c-000
@@ -304,22 +304,22 @@ nodes:
   title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (measurement, not a kill gate)"
   why: "The pivot's whole case. Screenshot mode is a lower bound on what Cursor/Lovable send; if structure can't clearly beat even that, the seed is dead."
   done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise record where structure loses (owner overrule 2026-10-15: this no longer kills the seed)."
-  status: open
+  status: blocked-on-human
   needs: local
   value: 5
   effort: 2
   confidence: 0.5
   momentum: 0.5
   depth: 2
-  watered: 0
-  last_watered: null
-  blocked_on: null
-  outputs: []
+  watered: 1
+  last_watered: 2026-10-16T22:40Z
+  blocked_on: "Pilot approved, but the Mac run can't spend it. Its shell is a Linux VM with no Claude Code login: the pipeline strips API keys, and the VM's claude only does -p. Either (a) run it yourself on macOS: git checkout seed2tree && npm ci && npm run build && node tests/bench/run.mjs --set rough --limit 1 (calibrate), then --set rough --mode auto, then --set rough --mode screenshot; tests/bench/out/results.*.json then go into a commit on seed2tree and the next run writes the table; or (b) say so and put a CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) somewhere the run can read, so it runs it here. Which?"
+  outputs: [ebdc5b8, tests/bench/run.mjs (browser-crash retry before Run), docs/findings.md#the-screenshot-arm-can-crash-the-browser]
   log:
   - "2026-10-16: owner answered in chat (session 01DyZbW9): PILOT approved, ~1M tokens. Run 1x each arm on the Mac: calibrate with --limit 1, then node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot. A pilot cannot meet done_when (3 runs); write the pilot table + a provisional verdict, and if the gap is within ~10 points of the 15-pt bar, block again asking for the remaining 2 runs."
   - "2026-10-16: owner reconfirmed in chat; per INBOX (3) this is now a MEASUREMENT of where structured grounding beats screenshots, not a kill gate. Pilot (1 run/arm) still approved. Also report the 6 edit pages separately: that is the first measurement of the gesture grammar (feeds s2c-016)."
   - "2026-10-16: s2c-016 landed --words. Optional inside the SAME approved ~1M budget, only if the two auto/screenshot arms leave room: node tests/bench/run.mjs --set rough --only r04,r05,r08 --words content, then words-compare.mjs. Do not exceed the approved budget for it."
-
+  - '2026-10-16 22:40Z (Mac run): PILOT NOT RUN. The VM has no Claude Code auth (cleanEnv strips API keys; /opt/cowork claude wrapper is -p only), Mac node_modules are darwin-arm64, Playwright CDN 403. Did the zero-token prep instead: rough set (now 15 pages) --dry auto 15/15 in cloud; found screenshot arm captureProbe crashes Chromium ~2/7 (headless and xvfb headed) and then failed every later page + hung. Fix ebdc5b8: relaunch the browser and retry a page once if it died before Run (never after: could double-bill). Retry verified on r08. Still open: in screenshot dry, r10 got vite never answered and r11 hung after the relaunch (-> s2c-029). momentum 0.5 -> 0.5.'
 - id: s2c-014
   parent: s2c-003
   title: "Scaffold only depictions and decorations, never widgets"
@@ -652,3 +652,23 @@ nodes:
   log:
   - "2026-10-16: added by s2c-021. Cheap (one pre-click watch, one new judge branch, one fixture case). Costs settleMs per probe; acceptable."
   - "2026-10-16 21:25Z: watering 1 -> DONE. probe-exec watches the region 1.1 s before clicking; if it changes by itself the trigger is not clicked and the verdict is unverified with a plain reason + what to do. live-probe-click.mjs G (dead button + 1 s clock) / H (wired toggle + clock) / I (dead button, arrow at its panel, clock outside): red on old overlay (G,H passed), 3/3 green after with a 250 ms and 3/3 with a 1 s clock. live-probe + live-form green; vitest 1050/1052 (same 2 env failures); tsc -b clean. 0 tokens. Cost 1.1 s per click probe. Still blind to things that change slower than 1.1 s."
+
+- id: s2c-029
+  parent: s2c-013
+  title: "Screenshot-arm dry run must finish: no 'vite never answered' or hang after a browser relaunch"
+  why: "The paid s2c-013 screenshot arm runs all 15 rough pages unattended. A hang after a crash costs a re-run (quota) or leaves the arm half-measured."
+  done_when: "node tests/bench/run.mjs --set rough --dry --mode screenshot exits 0 with 15/15 pages (crashes retried) twice in a row in the cloud container, or the hang is shown to be container-only with evidence; bench vitest green."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: from s2c-013 Mac run. Full screenshot dry: r01-r09 ok (r08 crash retried ok), r10 FAILED 'vite never answered on :5301', r11 hung after the relaunch until a 10-min timeout. Suspect: chromium leftovers or the port after a crash; app.start/page.goto without a bound."
