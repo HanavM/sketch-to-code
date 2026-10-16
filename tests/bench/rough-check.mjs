@@ -1,6 +1,6 @@
 /**
  * Zero-token check that every rough EDIT spec's answer key can be passed and
- * can be failed, on a real DOM. For each edit page (r01-r06, r12-r14): the base page as plain
+ * can be failed, on a real DOM. For each edit page (r01-r06, r12-r15): the base page as plain
  * HTML must score NOT realized, and the same page with the intended change
  * applied by hand (a few DOM lines, below) must score realized. A check that
  * nothing could pass, or that the base already passes, would make the rough
@@ -17,6 +17,7 @@ import { chromium } from 'playwright'
 import { scorePage } from './lib/score.mjs'
 import rough from './sketches/rough/index.mjs'
 import { answerKey } from './lib/words.mjs'
+import { BASE_LIST_APP } from './sketches/rough/base.mjs'
 
 // the base page's structure (sketches/rough/base.mjs) with inline styles, no Tailwind
 const BASE = `<!doctype html><html><head><style>body{margin:0;font-family:sans-serif}
@@ -31,6 +32,13 @@ article{border:1px solid #ddd;border-radius:12px;padding:24px}button{background:
 <article id="c3"><h3>Usage-based billing</h3><p>Pay for the minutes you run, nothing when idle.</p></article></section>
 <section id="quote" style="background:#f8fafc"><blockquote>"We cut our release time in half."</blockquote><p>Priya N., CTO at Fieldnote</p></section>
 <footer><span>© 2026 Acme Inc.</span></footer></main></div></body></html>`
+
+// BASE_LIST_APP: the same page with a three-tile row in a four-column grid under the features
+const TILE = (name, line) => `<div class="tile"><h3>${name}</h3><p>${line}</p></div>`
+const BASE_LIST = BASE.replace('<section id="quote"', `<section id="integrations" style="text-align:left"><h2>Works with your stack</h2>
+<div class="row" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px">${TILE('GitHub', 'Deploy on every push.')}${TILE('GitLab', 'Merge requests get previews.')}${TILE('Slack', 'Deploy alerts in your channel.')}</div></section>
+<style>.tile{border:1px solid #ddd;border-radius:12px;padding:20px}</style><section id="quote"`)
+const htmlFor = (spec) => (spec.base === BASE_LIST_APP ? BASE_LIST : BASE)
 
 /** The change each edit sketch asks for, done by hand. */
 const APPLY = {
@@ -63,6 +71,11 @@ const APPLY = {
   'r14-caret-insert-nav-link': () => {
     document.querySelector('a[href="#f"]').insertAdjacentHTML('afterend', '<a href="#b">Blog</a>')
   },
+  'r15-box-one-more-tile': () => {
+    // a model is free to pick a different tag for the new tile; an <article> must still count
+    document.querySelector('#integrations .row').insertAdjacentHTML('beforeend',
+      '<article class="tile"><h3>Discord</h3><p>Ship notes to your server.</p></article>')
+  },
 }
 
 const browser = await chromium.launch(process.env.S2C_CHROMIUM ? { executablePath: process.env.S2C_CHROMIUM } : {})
@@ -71,7 +84,7 @@ const wrong = []
 for (const spec of rough.filter((s) => s.edits)) {
   const apply = APPLY[spec.id]
   if (!apply) { wrong.push(`${spec.id}: no hand-applied change in rough-check.mjs`); continue }
-  await page.setContent(BASE)
+  await page.setContent(htmlFor(spec))
   const before = await scorePage(page, spec)
   await page.evaluate(apply)
   const after = await scorePage(page, spec)
@@ -83,7 +96,7 @@ for (const spec of rough.filter((s) => s.edits)) {
     console.log(`${''.padEnd(24)} --words none: not judged (needs words: ${bare.dropped.join('; ')})`)
     continue
   }
-  await page.setContent(BASE)
+  await page.setContent(htmlFor(spec))
   const b0 = await scorePage(page, bare.spec)
   await page.evaluate(apply)
   const b1 = await scorePage(page, bare.spec)

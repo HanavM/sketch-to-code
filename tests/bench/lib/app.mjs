@@ -303,8 +303,12 @@ export async function makeApp({ dir, port }) {
   const warm = isUsable(dir, port)
   if (warm) {
     const stamp = JSON.parse(readFileSync(join(dir, STAMP), 'utf8'))
-    if (stamp.port !== port) repoint(dir, port, entry)
+    // reset BEFORE repointing: repoint commits the whole tree, so whatever a
+    // crashed run (or a hand measurement) left in src/ would otherwise become
+    // part of the "blank" app every later page starts from (s2c-015: it did,
+    // and the next page's base commit failed with nothing to commit)
     await resetApp(dir)
+    if (stamp.port !== port) repoint(dir, port, entry)
     log(`reusing ${dir} (port ${port})`)
   } else {
     log(`creating ${dir} (port ${port}, ${PLUGIN_PKG} <- ${entry})`)

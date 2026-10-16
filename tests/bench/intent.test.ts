@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 // @ts-expect-error — plain .mjs bench module, no types
-import { kindOf, memberOf, scoreIntent, assignRegions, REALIZED_MIN } from './lib/intent.mjs'
+import { kindOf, memberOf, scoreIntent, assignRegions, REALIZED_MIN, scoreEdits, listSize } from './lib/intent.mjs'
 // @ts-expect-error — plain .mjs bench module, no types
 import { matchRegions } from './lib/score.mjs'
 // @ts-expect-error — plain .mjs bench module, no types
@@ -191,5 +191,48 @@ describe('repeat groups', () => {
     const s = scoreIntent(page04, els)
     const tiers = s.regions.filter((r: any) => /^tier-/.test(r.role))
     expect(tiers.filter((r: any) => r.found).length).toBe(2)
+  })
+})
+
+describe("scoreEdits 'siblings' / listSize (s2c-015 row 9: add one more of a list)", () => {
+  const tile = (x: number, name: string, tag = 'div') =>
+    n(tag, [x, 591, 278, 90], '', [n('h3', [x + 21, 612, 236, 24], name), n('p', [x + 21, 640, 236, 20], 'One line of copy here.')])
+  const page = (tiles: Node[], extra: Node[] = []) => flatten([
+    n('main', [0, 0, 1280, 900], '', [
+      n('section', [0, 520, 1280, 180], '', [n('h2', [48, 535, 1184, 32], 'Works with your stack'), n('div', [48, 591, 1184, 90], '', tiles)]),
+      ...extra,
+    ]),
+  ])
+  const three = [tile(48, 'GitHub'), tile(350, 'GitLab'), tile(652, 'Slack')]
+  const spec = { edits: [{ check: 'siblings', text: 'Slack', min: 4, must: true }, { check: 'kept', text: 'GitHub', must: true }] }
+  const slack = (els: any[]) => els.find((e) => e.text === 'Slack')
+
+  it('counts the tiles in the row, not the heading and paragraph inside one tile', () => {
+    const els = page(three)
+    expect(listSize(slack(els), els)).toBe(3)
+    expect(scoreEdits(spec, els).realized).toBe(false)
+  })
+  it('a fourth tile passes, whatever tag the model picked for it', () => {
+    for (const tag of ['div', 'article', 'li']) {
+      const els = page([...three, tile(954, 'Discord', tag)])
+      expect(listSize(slack(els), els)).toBe(4)
+      expect(scoreEdits(spec, els).realized).toBe(true)
+    }
+  })
+  it('a full-width banner dropped into the row is not "one more tile"', () => {
+    const els = page([...three, n('div', [48, 700, 1184, 300], '', [n('p', [60, 710, 600, 20], 'Integrations coming soon')])])
+    expect(listSize(slack(els), els)).toBe(3)
+  })
+  it('a new card elsewhere on the page does not add to this row', () => {
+    const els = page(three, [n('div', [954, 720, 278, 90], '', [n('h3', [975, 741, 236, 24], 'Discord')])])
+    expect(listSize(slack(els), els)).toBe(3)
+  })
+  it('same-tag text items are a list (nav links)', () => {
+    const els = flatten([n('nav', [0, 0, 1280, 68], '', [n('a', [1025, 24, 57, 20], 'Features'), n('a', [1114, 24, 46, 20], 'Pricing'), n('a', [1193, 24, 39, 20], 'About')])])
+    expect(listSize(els.find((e) => e.text === 'Pricing'), els)).toBe(3)
+  })
+  it('an element in no list is a list of one', () => {
+    const els = flatten([n('section', [0, 0, 1280, 400], '', [n('h1', [48, 40, 1184, 48], 'Ship faster'), n('p', [300, 100, 680, 28], 'Some subhead copy')])])
+    expect(listSize(els.find((e) => e.text === 'Ship faster'), els)).toBe(1)
   })
 })

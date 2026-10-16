@@ -56,6 +56,38 @@ export const BASE_APP = `export default function App() {
 }
 `
 
+/**
+ * The base page with a LIST that has room for one more (s2c-015, row 9 of
+ * docs/visual-language.md: "add one more of a list"). BASE_APP has no empty
+ * slot beside any list, so a box drawn "as the fourth card" would land on a
+ * card or in the margin. Here a "Works with" row of three tiles sits in a
+ * four-column grid right under the feature cards, leaving the fourth cell
+ * empty and inside the 900 px viewport. Everything above it is BASE_APP
+ * unchanged, so the nav/hero/feature anchors still hold on this base.
+ */
+export const BASE_LIST_APP = BASE_APP.replace(
+  `      <section className="bg-slate-50 px-12 py-12 text-center">`,
+  `      <section id="integrations" className="px-12 pb-12">
+        <h2 className="text-2xl font-semibold">Works with your stack</h2>
+        <div className="mt-6 grid grid-cols-4 gap-6">
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold">GitHub</h3>
+            <p className="mt-1 text-sm text-slate-600">Deploy on every push.</p>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold">GitLab</h3>
+            <p className="mt-1 text-sm text-slate-600">Merge requests get previews.</p>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold">Slack</h3>
+            <p className="mt-1 text-sm text-slate-600">Deploy alerts in your channel.</p>
+          </div>
+        </div>
+      </section>
+      <section className="bg-slate-50 px-12 py-12 text-center">`,
+)
+if (BASE_LIST_APP === BASE_APP) throw new Error('BASE_LIST_APP: insertion point not found in BASE_APP')
+
 export const ANCHOR_TOLERANCE = 12
 
 /**
@@ -73,6 +105,13 @@ export const ANCHORS = {
   'Pay for the minutes': { x: 884, y: 442, w: 323, h: 20 },
   'We cut our release time': { x: 48, y: 583, w: 1184, h: 32 },
   '© 2026 Acme Inc.': { x: 0, y: 695, w: 1280, h: 68 },
+  // BASE_LIST_APP only (measured 2026-10-16, s2c-015). Nav, hero and feature
+  // anchors above are unchanged on that base; the quote and footer move down.
+  // The empty fourth cell of its grid is x 954-1232, y 591-681.
+  'Works with your stack': { x: 48, y: 535, w: 1184, h: 32 },
+  'GitHub': { x: 69, y: 612, w: 236, h: 24 },
+  'GitLab': { x: 371, y: 612, w: 236, h: 24 },
+  'Slack': { x: 673, y: 612, w: 236, h: 24 },
 }
 
 /**

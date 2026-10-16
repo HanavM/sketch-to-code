@@ -33,7 +33,7 @@ s2c-013 pilot runs. "bench" names the rough page that will measure it.
 | 6 | resize | — | — | — | — | tweak handles (`manipulate.ts`, w-/h-) | — | **Concede.** A handle drag states the value; no mark can. "bigger" as a word is the fallback. |
 | 7 | restyle: colour | draw the ring (or any mark) **in that colour** (Alt+P pen) | none | — | yes, `drawnColor` = "make it this colour", snapped to the app palette (`palette.ts`) | eyedropper (Alt+I), paint SVG path (Alt+K) | **r12 (new)** | **Mark carries the value.** s2c-016 was wrong that restyle "needs words": that was a bench limit (it could not draw in colour). r12 = r03 minus every word. |
 | 8 | restyle: size / weight / font | — | **yes** ("bolder", "smaller") | — | ring + note = modify | props panel (Alt+O) | r03 ("bigger") | **Needs words or the panel.** Proofreader underlines (wavy = bold) exist, but nobody outside print knows them; not worth a gesture. |
-| 9 | duplicate / add one more of a list | draw one more rough box in the list's empty slot | none (copy is invented) or "x3" | ADD into container | lexicon: repeated boxes = a list | element library (Alt+Shift+L) | none yet | **Plausible, unmeasured.** The base page has no empty slot beside a list, so no page could be drawn this run. |
+| 9 | duplicate / add one more of a list | draw one more rough box in the list's empty slot | none (copy is invented) or "x3" | ADD into the list container (tested on r15: `container` = the row) | lexicon: repeated boxes = a list; one box beside three is untested | element library (Alt+Shift+L) | **r15 (new)** | **Plausible, unmeasured.** v1 reads it right. Whether v2 makes a fourth tile *like the others* rather than a new kind of card is what r15 measures. |
 | 10 | wrap / group | ring around several elements | **yes** (what the wrapper is) | **wrong**: picks one target, MODIFY | `layerHint: container` in design mode only | lasso (Alt+L) extracts a component | — | **Needs words.** A bare ring means "modify this" (row 7/8), so a ring over many is ambiguous. Lasso already exists for the structural case. |
 | 11 | add new UI | wireframe in empty space, symbol lexicon | content only (labels, copy) | ADD | `design` | — | r05, r07–r11 | **Mark wins**, the strongest row (s2c-018). |
 | 12 | insert at a point | caret ^ under the gap | **content** (what goes there) | INSERT | in the skill text, not the verb list (lands as `add`) | — | **r14 (new)** | Mark says *where* precisely; words say *what*. Fine as is. |
@@ -101,5 +101,21 @@ and colour, and those are the ones to make excellent.
   with and without words. `run.mjs --dry` draws all three in Chromium, and
   r12's stroke arrives green.
 
-Still uncovered by any page: duplicate (row 9, needs a base with an empty
-slot) and the ring-with-no-words question (conflict 6).
+Still uncovered by any page: the ring-with-no-words question (conflict 6),
+which is s2c-020.
+
+## Second pass (2026-10-16, row 9)
+
+- `BASE_LIST_APP` (sketches/rough/base.mjs): the base page plus a "Works with
+  your stack" row of three tiles in a four-column grid, under the feature
+  cards. The fourth cell (x 954–1232, y 591–681) is empty and inside the
+  900 px viewport. Nav, hero and feature anchors are unchanged on it.
+- **r15**: one loose empty box in that cell, no words. In `auto` mode it
+  routes to `gesture`. v1 reads it as ADD into the row.
+- New edit check `siblings` (`lib/intent.mjs` `listSize`): the list holding
+  `text` has at least `min` items. Items are counted by size, and any two
+  boxes match whatever their tags, so a fourth `<article>` beside three
+  `<div>`s counts. A banner dropped into the row, or a card elsewhere on the
+  page, does not.
+- What r15 does not check: whether the new tile *looks* like the other three.
+  The count is the claim; the screenshot in the report shows the rest.

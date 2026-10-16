@@ -483,3 +483,21 @@ New pages: r12 (green-pen ring), r13 (two arrows, swap), r14 (caret + "Blog").
 `rough-check.mjs` passes all three with and without words, and
 `run.mjs --dry` draws them in Chromium. `tests/bench/language.test.ts` has 16
 tests.
+
+### Row 9, add one more of a list (s2c-015, second pass)
+
+*Added 2026-10-16.* The last row with no page. **r15** draws one loose empty
+box, no words, in the empty fourth cell of a three-tile row (new base
+`BASE_LIST_APP`). v1 reads it as ADD into the row. The new `siblings` check
+fails the untouched page (3 tiles) and passes a fourth tile whatever its tag,
+in unit tests and on a real DOM (`rough-check.mjs`, with and without words).
+`run.mjs --set rough --dry` draws all 15 rough pages in Chromium with every
+anchor in place. Zero tokens, so this says nothing yet about whether the live
+reader makes "one more of these".
+
+One bench bug fixed on the way: when the scratch app was reused on a new
+port, `makeApp` committed the whole tree *before* resetting it. Anything left
+in `src/` (a crashed run, a hand measurement) became part of the "blank" app
+every later page starts from. Here it made r15's base commit fail with
+"nothing to commit". It now resets first.
+

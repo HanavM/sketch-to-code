@@ -1,6 +1,6 @@
 /**
  * s2c-015: the gestures docs/visual-language.md says the reader already knows,
- * held to the reader's own code. Each new rough page (r12-r14) draws one, and
+ * held to the reader's own code. Each new rough page (r12-r15) draws one, and
  * its marks must classify as that gesture in packages/ink and resolve to the
  * right op in packages/intent (v1, deterministic). The v2 model reader is not
  * exercised here: that costs tokens and rides on the s2c-013 pilot.
@@ -12,7 +12,7 @@ import type { DomNode, DomSnapshot } from '../../packages/dom/src/index'
 // @ts-expect-error — plain .mjs bench module, no types
 import { pensFor, penChanges, penMismatch } from './lib/pen.mjs'
 // @ts-expect-error — plain .mjs bench module, no types
-import { rarrow, rcaret, rline, sharpTurns } from './lib/rough.mjs'
+import { rarrow, rcaret, rline, sharpTurns, closingGap } from './lib/rough.mjs'
 // @ts-expect-error — plain .mjs bench module, no types
 import { scoreEdits } from './lib/intent.mjs'
 // @ts-expect-error — plain .mjs bench module, no types
@@ -138,6 +138,41 @@ describe('r14: a caret says where, the words say what', () => {
   })
   it('is not judged with no words: the link text is content', () => {
     expect(answerKey(spec('r14'), 'none').judged).toBe(false)
+  })
+})
+
+/** BASE_LIST_APP: the base plus a three-tile row in a 4-column grid (rects from base.mjs). */
+function listSnapshot(): DomSnapshot {
+  const snap = baseSnapshot() as unknown as { nodes: Array<Record<string, unknown>> }
+  const add = (id: string, tag: string, text: string, rect: object, parent: string, depth: number) =>
+    snap.nodes.push({ id, tag, text, classes: [], rect, srcLoc: `src/App.tsx:${snap.nodes.length + 1}:1`, parent, children: [], depth })
+  add('integrations', 'section', '', { x: 0, y: 519, w: 1280, h: 210 }, 'main', 1)
+  add('row', 'div', '', { x: 48, y: 591, w: 1184, h: 90 }, 'integrations', 2)
+  add('t-github', 'div', 'GitHub', { x: 48, y: 591, w: 278, h: 90 }, 'row', 3)
+  add('t-gitlab', 'div', 'GitLab', { x: 350, y: 591, w: 278, h: 90 }, 'row', 3)
+  add('t-slack', 'div', 'Slack', { x: 652, y: 591, w: 278, h: 90 }, 'row', 3)
+  return snap as unknown as DomSnapshot
+}
+
+describe('r15: one empty box in the empty slot of a list = one more of these', () => {
+  it('is one closed-ish box in the empty fourth cell, touching no tile, with no words', () => {
+    const s = spec('r15')
+    expect(s.notes).toEqual([])
+    expect(s.strokes).toHaveLength(1)
+    const xs = s.strokes[0].map((p: P) => p.x)
+    expect(Math.min(...xs)).toBeGreaterThan(930) // Slack's tile ends at 930
+    expect(Math.max(...xs)).toBeLessThan(1240)
+    expect(closingGap(s.strokes[0])).toBeLessThan(40)
+  })
+  it('the box resolves to ADD into the row, not a modify or delete of a tile (v1 reader)', () => {
+    const plan = buildEditPlan(analyzeStrokes(toStrokes(spec('r15').strokes)), listSnapshot())
+    expect(plan.ops.map((o) => o.op)).toEqual(['ADD'])
+    expect((plan.ops[0] as unknown as { container: { domId: string } }).container.domId).toBe('row')
+  })
+  it('is judged with no words, and nothing is dropped from its key', () => {
+    const k = answerKey(spec('r15'), 'none')
+    expect(k.judged).toBe(true)
+    expect(k.dropped).toEqual([])
   })
 })
 

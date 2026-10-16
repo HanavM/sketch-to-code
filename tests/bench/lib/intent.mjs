@@ -337,6 +337,8 @@ export function scoreIntent(spec, elements) {
  *                                        left of it, or on an earlier row (swap, insert)
  *   { check: 'bg', text, hue: [lo, hi] } the element saying `text` (or its nearest filled
  *                                        ancestor) has a background in that hue range
+ *   { check: 'siblings', text, min }     the list item holding `text` has at least `min`
+ *                                        items in its list, itself included (add one more)
  *
  * `text` is a case-insensitive substring. Every edit spec marks the checks that
  * ARE the change `must: true`, so the untouched base page can never be realized
@@ -389,6 +391,11 @@ export function scoreEdits(spec, elements) {
       while (cur && !(cur.bg && hueOf(cur.bg) !== null)) cur = cur.parent >= 0 ? elements[cur.parent] : null
       const h = cur ? hueOf(cur.bg) : null
       pass = h !== null && h >= c.hue[0] && h <= c.hue[1]
+    } else if (c.check === 'siblings') {
+      const el = sayer(c.text)
+      found = el
+      const n = el ? listSize(el, elements) : 0
+      pass = n >= c.min
     } else {
       throw new Error(`unknown edit check "${String(c.check)}"`)
     }
@@ -412,6 +419,34 @@ export function scoreEdits(spec, elements) {
   const failed = rows.filter((r) => !r.found).map((r) => r.role)
   const notes = failed.length ? [`edit checks failed: ${failed.join('; ')}`] : []
   return { structure, content: null, order: null, intent: structure, realized, mustStructure, regions: rows, notes }
+}
+
+/**
+ * How many items are in the list that `el` sits in, counting its own item.
+ *
+ * Climbs from `el` (the "GitHub" heading) to the first ancestor whose parent
+ * holds at least one other child like it: that ancestor is the list item (the
+ * tile) and the parent is the list (the grid). "Like it" = comparable size
+ * (half to double its width and height) and the same tag, except that two
+ * boxes (elements holding other elements) count as alike whatever their tags:
+ * a model asked for "one more tile" may well write an <article> or <li> next
+ * to three <div>s, and that is still one more tile. Two different leaf tags
+ * never match, so a tile's own heading and paragraph are not mistaken for a
+ * two-item list.
+ * Returns 1 when `el` is in no list at all.
+ */
+export function listSize(el, elements) {
+  let item = el
+  while (item && item.parent != null && item.parent >= 0) {
+    const kids = elements.filter((e) => e.parent === item.parent && !isSvgPart(e))
+    const box = (e) => (e.children ?? 0) > 0
+    const sameKind = (e) => e.tag === item.tag || (box(e) && box(item))
+    const sized = (e) => e.rect.w >= item.rect.w / 2 && e.rect.h >= item.rect.h / 2 && e.rect.w <= item.rect.w * 2 && e.rect.h <= item.rect.h * 2
+    const alike = kids.filter((e) => sameKind(e) && sized(e))
+    if (alike.length >= 2) return alike.length
+    item = elements[item.parent]
+  }
+  return 1
 }
 
 /**
