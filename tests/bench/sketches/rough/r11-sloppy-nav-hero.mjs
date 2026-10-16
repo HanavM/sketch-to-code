@@ -19,8 +19,8 @@ export default {
     rbox(560, 340, 160, 50, { sides: 3 }),
   ],
   notes: [
-    { at: { x: 900, y: 46 }, text: 'nav: Docs, Pricing, Sign in on the right' },
-    { at: { x: 640, y: 262 }, text: 'headline: Your notes, everywhere' },
-    { at: { x: 640, y: 365 }, text: 'Get the app' },
+    { at: { x: 900, y: 46 }, text: 'nav: Docs, Pricing, Sign in on the right', content: 'Docs, Pricing, Sign in' },
+    { at: { x: 640, y: 262 }, text: 'headline: Your notes, everywhere', content: 'Your notes, everywhere' },
+    { at: { x: 640, y: 365 }, text: 'Get the app', content: 'Get the app' },
   ],
 }

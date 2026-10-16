@@ -19,6 +19,6 @@ export default {
     rbox(860, 196, 320, 262, { skew: 0.04 }),
   ],
   notes: [
-    { at: { x: 640, y: 330 }, text: 'features: Fast, Safe, Cheap. icon + title + one line each' },
+    { at: { x: 640, y: 330 }, text: 'features: Fast, Safe, Cheap. icon + title + one line each', content: 'Fast, Safe, Cheap' },
   ],
 }

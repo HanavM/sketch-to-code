@@ -6,12 +6,17 @@
  * nothing could pass, or that the base already passes, would make the rough
  * set's realized % meaningless before a single paid run.
  *
+ * The same holds for the --words none answer key (lib/words.mjs, s2c-016),
+ * which drops the checks only typed words can pass: what is left must still
+ * fail untouched and pass edited, or the page must say it is not judged.
+ *
  *   node tests/bench/rough-check.mjs
  *   S2C_CHROMIUM=/path/to/chrome node tests/bench/rough-check.mjs
  */
 import { chromium } from 'playwright'
 import { scorePage } from './lib/score.mjs'
 import rough from './sketches/rough/index.mjs'
+import { answerKey } from './lib/words.mjs'
 
 // the base page's structure (sketches/rough/base.mjs) with inline styles, no Tailwind
 const BASE = `<!doctype html><html><head><style>body{margin:0;font-family:sans-serif}
@@ -61,10 +66,22 @@ for (const spec of rough.filter((s) => s.edits)) {
   console.log(`${spec.id.padEnd(24)} untouched ${before.intent.toFixed(2)} realized=${before.realized} · edited ${after.intent.toFixed(2)} realized=${after.realized}`)
   if (before.realized) wrong.push(`${spec.id}: untouched page already realized`)
   if (!after.realized) wrong.push(`${spec.id}: correct edit NOT realized (${after.intentNotes.join(' / ')})`)
+  const bare = answerKey(spec, 'none')
+  if (!bare.judged) {
+    console.log(`${''.padEnd(24)} --words none: not judged (needs words: ${bare.dropped.join('; ')})`)
+    continue
+  }
+  await page.setContent(BASE)
+  const b0 = await scorePage(page, bare.spec)
+  await page.evaluate(apply)
+  const b1 = await scorePage(page, bare.spec)
+  console.log(`${''.padEnd(24)} --words none: untouched realized=${b0.realized} · edited realized=${b1.realized}${bare.dropped.length ? ` (dropped ${bare.dropped.join('; ')})` : ''}`)
+  if (b0.realized) wrong.push(`${spec.id}: --words none key passes the untouched page`)
+  if (!b1.realized) wrong.push(`${spec.id}: --words none key fails the correct edit (${b1.intentNotes.join(' / ')})`)
 }
 await browser.close()
 if (wrong.length) {
   console.error('FAIL:\n  ' + wrong.join('\n  '))
   process.exit(1)
 }
-console.log('ok: every rough edit spec fails untouched and passes when the change is made')
+console.log('ok: every rough edit spec fails untouched and passes when the change is made, with and without words')

@@ -19,6 +19,6 @@ export default {
     rbox(840, 180, 320, 420, { sides: 2 }),
   ],
   notes: [
-    { at: { x: 640, y: 390 }, text: '3 pricing tiers, middle one highlighted, each: price + Choose button' },
+    { at: { x: 640, y: 390 }, text: '3 pricing tiers, middle one highlighted, each: price + Choose button', content: 'pricing, Choose' },
   ],
 }

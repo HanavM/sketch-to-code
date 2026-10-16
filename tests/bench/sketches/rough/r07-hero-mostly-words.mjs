@@ -15,7 +15,7 @@ export default {
     rbox(560, 300, 160, 50),
   ],
   notes: [
-    { at: { x: 640, y: 200 }, text: 'headline: Plan trips with friends' },
-    { at: { x: 640, y: 325 }, text: 'button: Start planning' },
+    { at: { x: 640, y: 200 }, text: 'headline: Plan trips with friends', content: 'Plan trips with friends' },
+    { at: { x: 640, y: 325 }, text: 'button: Start planning', content: 'Start planning' },
   ],
 }

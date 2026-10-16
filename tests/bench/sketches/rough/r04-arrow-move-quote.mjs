@@ -10,7 +10,7 @@ export default {
   base: BASE_APP,
   anchors: ['We cut our release time', 'Instant previews'],
   strokes: [rarrow(660, 600, 630, 372)],
-  notes: [{ at: { x: 700, y: 500 }, text: 'move the quote up here' }],
+  notes: [{ at: { x: 700, y: 500 }, text: 'move the quote up here', content: null }],
   edits: [
     { check: 'above', a: 'We cut our release time', b: 'Instant previews', must: true },
     { check: 'above', a: 'Ship faster with Acme', b: 'We cut our release time' },

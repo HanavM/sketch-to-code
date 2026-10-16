@@ -18,8 +18,8 @@ export default {
     rbox(540, 360, 200, 52, { close: 'overlap' }),
   ],
   notes: [
-    { at: { x: 640, y: 224 }, text: 'name' },
-    { at: { x: 640, y: 304 }, text: 'email' },
-    { at: { x: 640, y: 386 }, text: 'Sign up' },
+    { at: { x: 640, y: 224 }, text: 'name', content: 'name' },
+    { at: { x: 640, y: 304 }, text: 'email', content: 'email' },
+    { at: { x: 640, y: 386 }, text: 'Sign up', content: 'Sign up' },
   ],
 }

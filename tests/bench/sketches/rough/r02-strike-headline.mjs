@@ -10,10 +10,10 @@ export default {
   base: BASE_APP,
   anchors: ['Ship faster with Acme'],
   strokes: [rline(420, 160, 860, 154, { slop: 10 })],
-  notes: [{ at: { x: 640, y: 157 }, text: 'say: Sketch it. Ship it.' }],
+  notes: [{ at: { x: 640, y: 157 }, text: 'say: Sketch it. Ship it.', content: 'Sketch it. Ship it.' }],
   edits: [
     { check: 'absent', text: 'Ship faster with Acme', must: true },
-    { check: 'present', kind: 'text', text: 'Sketch it', must: true },
+    { check: 'present', kind: 'text', text: 'Sketch it', must: true, needsWords: true },
     { check: 'kept', text: 'Get started' },
     { check: 'kept', text: 'Instant previews' },
   ],

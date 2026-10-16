@@ -38,6 +38,7 @@
  *   node tests/bench/run.mjs --dry                # draw and score, never Run (free)
  *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
  *   node tests/bench/run.mjs --set rough          # the loose/partial/edit set (s2c-009)
+ *   node tests/bench/run.mjs --words content      # typed words: all|content|none (s2c-016, lib/words.mjs)
  *
  * In --dry mode every page is also SCORED as it stands, untouched. No sketch
  * has been realized yet, so a page that scores realized there has a vacuous
@@ -58,6 +59,7 @@ import { rmSync } from 'node:fs'
 import { scorePage, summarise } from './lib/score.mjs'
 import { writeReport } from './lib/report.mjs'
 import { parseMode, keyFor, launchArgs, modeHolds } from './lib/mode.mjs'
+import { parseWords, notesFor, wordsTyped, answerKey, wordSummary } from './lib/words.mjs'
 
 const arg = (name, fallback = null) => {
   const i = process.argv.indexOf(`--${name}`)
@@ -81,6 +83,7 @@ const APP_DIR = String(arg('app', join(tmpdir(), 's2c-bench-app')))
 const PORT = Number(arg('port', 5301))
 const DRY = has('dry')
 const MODE = parseMode(arg('mode'))
+const WORDS = parseWords(arg('words'))
 const SETS = { tidy, rough }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
@@ -96,11 +99,13 @@ if (only) {
 }
 if (limit) chosen = chosen.slice(0, Number(limit))
 if (chosen.length === 0) throw new Error(`no specs matched --only ${String(only)}`)
+// before the app is built: an unclassified note in content mode is a spec bug, not a run failure
+for (const s of chosen) notesFor(s, WORDS)
 
 mkdirSync(OUT, { recursive: true })
 mkdirSync(join(OUT, 'shots'), { recursive: true })
 
-log(`${chosen.length} page(s) · set ${SET} · mode ${MODE}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
+log(`${chosen.length} page(s) · set ${SET} · mode ${MODE} · words ${WORDS}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
 log('building the throwaway app…')
 const app = await makeApp({ dir: APP_DIR, port: PORT })
 log('app:', APP_DIR)
@@ -220,6 +225,19 @@ for (const spec of chosen) {
   const row = {
     id: spec.id, title: spec.title, mode: MODE, sentMode: null, strokes: spec.strokes.length,
     drawMs: null, runMs: null, tokens: null, verified: null, score: null, error: null,
+    words: WORDS, wordsTyped: wordsTyped(spec, WORDS), judged: true, dropped: [],
+  }
+  // the answer key for this words arm: with no words, checks only words can pass are dropped
+  const key = answerKey(spec, WORDS)
+  row.judged = key.judged
+  row.dropped = key.dropped
+  if (!key.judged) {
+    // not run at all: a paid run of a page nobody can grade is quota for nothing,
+    // and scoring it on its `kept` checks alone would pass the untouched page
+    log(`not judged with --words ${WORDS}: without ${key.dropped.join('; ')} nothing left tells the change apart`)
+    results.push(row)
+    if (DRY) row.dry = true
+    continue
   }
   const page = await browser.newPage({ viewport: spec.viewport })
   const errs = []
@@ -302,7 +320,7 @@ for (const spec of chosen) {
     // ── the drawing, timed on its own ────────────────────────────────────
     const drawStart = Date.now()
     for (const line of spec.strokes) await drawPolyline(page, line)
-    for (const note of spec.notes ?? []) {
+    for (const note of notesFor(spec, WORDS)) {
       await page.mouse.move(note.at.x, note.at.y)
       await page.waitForTimeout(120)
       await page.keyboard.press('Alt+n')
@@ -351,10 +369,10 @@ for (const spec of chosen) {
         const h = document.getElementById('s2c-overlay-host')
         if (h) h.style.display = 'none'
       })
-      row.score = await scorePage(page, spec)
+      row.score = await scorePage(page, key.spec)
       const s = row.score
       log(`untouched page: intent ${s.intent === null ? '—' : s.intent.toFixed(2)} · realized ${String(s.realized)}`)
-      if (s.realized) row.error = 'the untouched page already scores realized: this spec measures nothing'
+      if (s.realized && key.judged) row.error = 'the untouched page already scores realized: this spec measures nothing'
       results.push(row)
       await page.close()
       continue
@@ -408,7 +426,8 @@ for (const spec of chosen) {
       const h = document.getElementById('s2c-overlay-host')
       if (h) h.style.display = 'none'
     })
-    row.score = await scorePage(page, spec)
+    row.score = await scorePage(page, key.spec)
+    row.realized = key.judged ? !!row.score.realized : null
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-result.png`), fullPage: true })
     // order prints as — when there were fewer than two comparable regions:
     // "0%" there means "could not be measured", and printing that as a zero
@@ -433,8 +452,10 @@ for (const spec of chosen) {
   results.push(row)
   // write after every page: a long benchmark that loses everything to one crash
   // on page 12 is worse than no benchmark
-  writeReport(join(OUT, 'report.md'), { results, meta: { app: APP_DIR, port: PORT, dry: DRY, extra: { mode: MODE } } })
+  writeReport(join(OUT, 'report.md'), { results, meta: { app: APP_DIR, port: PORT, dry: DRY, extra: { mode: MODE, words: WORDS } } })
   writeFileSync(join(OUT, 'results.json'), JSON.stringify(results, null, 2))
+  // one file per arm too, so words-compare.mjs can set the arms side by side
+  writeFileSync(join(OUT, `results.${MODE}.words-${WORDS}.json`), JSON.stringify(results, null, 2))
 }
 
 await browser.close()
@@ -457,4 +478,8 @@ const cacheRead = results.reduce((a, r) => a + (r.tokens?.cacheRead ?? 0), 0)
 log(`tokens: ${tok.toLocaleString()} billed-ish (+${cacheRead.toLocaleString()} cache reads)`)
 const secs = results.reduce((a, r) => a + (r.runMs ?? 0), 0) / 1000
 log(`time: ${(secs / 60).toFixed(1)} min of run time, ${(results.reduce((a, r) => a + (r.drawMs ?? 0), 0) / 1000).toFixed(0)}s of drawing`)
+const ws = wordSummary(results.filter((r) => !r.dry && !r.error))
+log(`words ${WORDS}: realized ${ws.realizedPct === null ? '—' : `${(ws.realizedPct * 100).toFixed(0)}%`} of ${ws.judged} judged` +
+  `${ws.notJudged ? ` (${ws.notJudged} not judged without words)` : ''} · ${ws.wordsTyped} words typed · ` +
+  `${ws.wordsPerRealized === null ? '—' : ws.wordsPerRealized.toFixed(1)} words per realized page`)
 log(`report: ${join(OUT, 'report.md')}`)

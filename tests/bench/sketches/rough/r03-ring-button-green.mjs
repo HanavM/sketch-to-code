@@ -10,10 +10,10 @@ export default {
   base: BASE_APP,
   anchors: ['Get started'],
   strokes: [rring(640, 309, 96, 38)],
-  notes: [{ at: { x: 640, y: 309 }, text: 'bigger and green' }],
+  notes: [{ at: { x: 640, y: 309 }, text: 'bigger and green', content: 'green' }],
   edits: [
     // Tailwind v4 computes oklch(): green-500/600 sit at ~145-150; sRGB green ~120
-    { check: 'bg', text: 'Get started', hue: [90, 170], must: true },
+    { check: 'bg', text: 'Get started', hue: [90, 170], must: true, needsWords: true },
     { check: 'kept', text: 'Get started', must: true },
     { check: 'kept', text: 'Ship faster with Acme' },
   ],

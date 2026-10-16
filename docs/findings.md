@@ -406,3 +406,49 @@ every mode's session gets the rules.
 Not covered: the global library (`~/.sketch2code` or `$XDG_DATA_HOME`) sits
 outside cwd, where acceptEdits has no grant and nothing can approve a
 prompt. The bench's reset does not clear it, but nothing automatic reads it.
+
+## How much does the sketch carry alone? (seed2tree s2c-016)
+
+*Added 2026-10-16.* SEED.md says "sketch first, text as support". The bench
+could not test that: it typed every note in full, so a page that came out
+right might have been carried by "move the quote up here" with the arrow as
+decoration. `--words` now runs the same page three ways
+(`tests/bench/lib/words.mjs`):
+
+| arm | what is typed | rough-set words |
+|---|---|---|
+| `all` (default) | every note as written, the old behaviour | 64 |
+| `content` | only words no mark can carry: new copy, labels, a colour | 32 |
+| `none` | nothing | 0 |
+
+Each rough note now declares its `content`, the claim being measured. It is
+written into the spec so it can be argued with. r04's arrow types **nothing**
+in `content` mode, and r08's "3 pricing tiers, middle one highlighted, each:
+price + Choose button" shrinks to "pricing, Choose". `content` mode refuses an
+unclassified note rather than guessing, so the tidy set (unclassified) cannot
+run in it yet.
+
+With no words, checks that only typed words can pass (`needsWords: true`:
+r02's new headline text, r03's green, r05's "Subscribe" label) are dropped.
+r02 without words is then asked for a plain delete, which is what a bare
+strike-through means. **r03 is not judged in `none`**: a ring cannot say
+"green", and the only check left (`kept`) passes on the untouched page. It is
+not run, so no quota is spent on a page nobody can grade, and it is reported
+as `n/j`, never as a pass or a fail.
+
+Every run also writes `out/results.<mode>.words-<arm>.json`.
+`node tests/bench/words-compare.mjs` puts the arms side by side: realized %,
+words typed, **words per realized page**, and a page-by-arm matrix. The
+number to watch is the drop from `all` to `content`. Those are the pages that
+only worked because a note spelled out what the ink should already have said.
+
+**Zero-token checks, all passing:** `--set rough --dry` with each of the three
+arms draws every page (every mark registers). Auto mode routes the same in all
+three (r01–r06 gesture, r07–r11 design), so words don't decide the mode.
+`rough-check.mjs` confirms that the `none` key still fails each untouched edit
+page and passes the hand-made change. `tests/bench/words.test.ts` has 17
+tests.
+
+Not done: no paid run. The live numbers ride on the s2c-013 quota. For the
+pilot, the cheapest thesis test is r04 + r05 + r08 in `--words content`
+(three pages, about a fifth of a full arm).
