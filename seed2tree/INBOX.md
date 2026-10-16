@@ -47,4 +47,8 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
      a product where drawing itself is the instruction.
   4. Don't sit idle: if the top node is blocked, pick or add the next most
      valuable cloud-doable branch toward the ambition.
+- 2026-10-15 (4): Precise framing: **sketch first, text prompts as support.**
+  Not "drawing only". Text is always available to clarify or extend a
+  sketch, but the sketch leads. Design and measure for that (e.g. score how
+  much of the intent the sketch alone carries, and how little text is needed).
 

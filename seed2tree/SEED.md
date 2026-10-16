@@ -38,8 +38,9 @@ harness, a drawing-first Cursor.** In Cursor's Design Mode and Lovable's
 Draw, the drawing is a pointer and the *instruction is text or voice*: you
 circle something and then tell it what to do. Here **the drawing IS the
 instruction**: a scribble deletes, an arrow moves, a sketched wireframe is
-the new UI, a mark is a command. Words are an optional supplement, not the
-primary channel. Lovable treats sketching as a toolbar mode; this treats it
+the new UI, a mark is a command. **Sketch first, text prompts as
+support**: you can always add a few typed words to clarify or extend any
+sketch, but the sketch leads and carries the intent. Lovable treats sketching as a toolbar mode; this treats it
 as the fundamental way you build software.
 
 The product therefore has to answer, over time: what's the full visual
@@ -54,9 +55,9 @@ And how does it feel faster and more natural than typing to an agent?
   stamps) → typed intent → Claude Code edits → DOM verification. The model
   interprets intent and writes code. It never guesses geometry.
 - **Interpret, don't trace.** Sketches carry structure and intent, not
-  pixels. Earlier findings said typed words beat drawn marks for *content*
-  (labels, copy), so words stay available for content, but every *action*
-  should be expressible by drawing alone. Make the system robust to messy,
+  pixels. Sketch first, text as support: the sketch should carry the action
+  on its own wherever it can, and typed words clarify, name, or add content
+  (labels, copy, behaviour details). Make the system robust to messy,
   partial, hand-drawn input.
 - Measure before changing: the sketch benchmark (`tests/bench`) is the
   ruler. Its primary metric should score whether the *intent* was realized
