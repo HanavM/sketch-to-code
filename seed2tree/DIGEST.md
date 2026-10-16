@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-16 08:20 UTC — sketch-to-code / s2c-017 Harness design doc — **done**: the verifier can't see behaviour, and the run timeout doesn't stop the run
+Picked because: priority 1.84 (next: s2c-020 1.69, s2c-010 1.50; s2c-013 local, skipped; fashion killed, no overrule)
+Did: docs/harness.md (commit 12ba0ec). History, multi-step builds, behaviour, data and assets, each checked against the code with path:line citations. Every section ends in a decision, not a wish list.
+Found: (1) **Behaviour is never verified.** The verifier diffs static DOM snapshots, and `verifyActions` has no branch for save/serve. A "make this button add a row" that does nothing reports verified, and a non-coder has no way to tell. (2) **Trust bug:** the 12-min run cap is a `Promise.race` with no AbortSignal anywhere. On timeout or Esc the agent keeps editing after the undo entry is taken and the run slot is freed, so Undo can be overwritten. (3) The undo stack is memory-only (lost on dev-server restart), and history stash objects can be gc'd.
+Result: doc only. vitest 912/915 (the 3 known env failures, fresh container); build + typecheck clean. momentum 0.5 → 0.7
+Blunt: history and data are closer to done than the tree implied. Don't build branches, a run planner, a draw-during-run queue, auth/db/deploy, or routes before behaviour probes. Each is either Cursor/Lovable's turf or speeds up a step nobody has measured working.
+New branches: s2c-021 behaviour probes (the drawn trigger→effect is the acceptance test), s2c-022 stop means stop + undo survives restart, s2c-023 drop an image onto a drawn placeholder
+Pruned/done: s2c-017 done.
+Needs you: nothing new. The Mac run still owes the s2c-013 pilot. Next cloud run: s2c-022 (priority ~3.5, a correctness bug).
+
 ## 2026-10-16 07:07 UTC — sketch-to-code / s2c-011 Misread explanation + undo — **done**
 Picked because: priority 1.83, tied with s2c-017 1.83; picked 011 because it ships tested code for SEED done #4 (next: s2c-020 1.68, s2c-010 1.49; s2c-013 local, skipped; fashion killed, no overrule)
 Did: commit d7e88a9. A run that misses part of a sketch now shows a card: "I read your sketch as: … But I couldn't move the section with "Team members". Undo puts your files back the way they were." with **↩ Undo** (one click) and Keep it. The sentence comes from the action kind and the visible text, never from the verifier's reasons. The card survives the reload and the next run clears it. Bug fixed: a run that crashed part way was never pushed onto the undo stack, so Ctrl+Z reverted your *previous* edit and left the broken one in place.

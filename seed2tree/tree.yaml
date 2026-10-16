@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 21
-lock: {run: cloud-20261016T0755, until: "2026-10-16T09:10Z"}
+next_id: 24
+lock: null
 
 nodes:
 - id: s2c-000
@@ -34,6 +34,7 @@ nodes:
   - "2026-10-16: s2c-019 CORRECTS s2c-018: Skema's code requires typed words on every annotation and its scribble only erases overlay ink. No known shipped/open-source tool on a live codebase acts on a mark alone. Claim stronger; still not a moat (easy to add); edge remains execution, unmeasured until s2c-013/016."
   - "2026-10-16: s2c-015 visual language: 7/16 common edits are mark-alone; the claim is strongest for delete, add, swap and colour (pen). Not every edit should be a gesture: resize/align/short moves lose to drags."
   - "2026-10-16: s2c-011 done: SEED done #4's misread half is met for the model engine (plain sentence + one-click Undo, tested). Reading-dies-on-reload (s2c-002) is the remaining #4 bug."
+  - "2026-10-16: s2c-017 harness doc: the verifier is blind to behaviour (static DOM diff; save/serve unscored), and the run timeout never stops the agent (undo can be overwritten). Added s2c-021 behaviour probes, s2c-022 stop-means-stop + persistent undo, s2c-023 image drop. Refused: branches, planner, draw-during-run queue, routes (after probes), auth/db/deploy."
 
 - id: s2c-001
   parent: s2c-000
@@ -386,19 +387,20 @@ nodes:
   title: "Harness beyond markup: design doc for history, multi-step builds, behaviour/state, no-editor workflow"
   why: "INBOX (3)(c). Markup edits on one page are a feature; a harness has to cover what you'd otherwise open an editor for."
   done_when: "docs/harness.md: for each of history/branching+undo, multi-step builds, behaviour/state (e.g. a working form, a toggle), data/backend, and files/assets: what exists today in code, the sketch-first interaction proposed, the hardest technical risk, and a ranked list of 3 buildable nodes with done_when. A decision, not a wish list."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-16T08:20Z"
   blocked_on: null
-  outputs: []
+  outputs: [12ba0ec, docs/harness.md]
   log:
   - "2026-10-16: added from owner INBOX (3)(c)."
+  - "2026-10-16: DONE (12ba0ec). docs/harness.md, every 'exists' claim cited path:line and spot-checked. History: stash checkpoints + 50-entry thumbnail timeline exist; undo stack memory-only, no redo, stash objects gc-able, no branches. FOUND a trust bug: /@s2c/run deadline is a Promise.race, no AbortSignal anywhere in run2/codegen/plugin, so on timeout (and Esc) the agent keeps writing after the undo entry is taken and activeRun is freed. Multi-step: nothing carries between runs, no routes (snapshot.url unread), can't draw during a run. Behaviour: no verb, verifier static, verifyActions has no serve/save branch, so 'make it work' is never verified. Data: serve/save + dev-server route mount exist; stop there. Assets: nothing (no paste/drop). Decision: s2c-021 behaviour probes (ink = trigger->effect = acceptance test), s2c-022 stop-means-stop + undo persists, s2c-023 image drop; refused branches, planner, queue, routes-before-probes, auth/db/deploy. Doc-only: vitest 912/915 (the 3 known env failures, fresh container), build + typecheck clean."
 
 - id: s2c-018
   parent: s2c-000
@@ -464,3 +466,63 @@ nodes:
   log:
   - "2026-10-16: added by s2c-015. Check first how v2 handles an empty modify today (read run2/intent2 for an 'unclear' path) so this does not duplicate an existing guard."
   - "2026-10-16: from s2c-006: in auto mode an empty box/ring gets only the 0.9s settle before it is read without its word. Asking here (instead of a paid guess) also gives type-to-label the time it needs; include a bare empty box (r15-style) in the detector's cases, deciding explicitly whether it prompts."
+
+- id: s2c-021
+  parent: s2c-017
+  kind: build
+  title: "Behaviour probes: the drawn trigger->effect pair is the acceptance test"
+  why: "harness.md §3: the verifier compares static snapshots, so a button that does nothing reports verified, and a non-coder can't read the diff. The ink names the trigger (arrow tail / ringed button) and the effect region (arrow head), which is exactly a probe."
+  done_when: "Verifier has a probe step the overlay executes (click/type on a stamped element, wait for HMR/idle, re-snapshot); verifyActions scores save via a probe; zero-token e2e on the live-form fixture: handler removed -> FAILS, real -> passes, server/data/*.json byte-identical before/after the probe; a toggle fixture passes wired and fails as a no-op; unit tests deriving trigger/effect from ink; vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 5
+  effort: 3
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-017. Start with save (deterministic, live-form.mjs fixture exists) before any model-written behaviour. Side effects: restore data file, reload after probe, never probe a target that fetches off the dev server; unsafe = unverified, never passed."
+
+- id: s2c-022
+  parent: s2c-017
+  kind: build
+  title: "Stop means stop: timeout/Esc abort the agent; undo survives a dev-server restart"
+  why: "harness.md §1: the 12-min deadline is a Promise.race with no AbortSignal, so an orphaned agent keeps editing after the undo entry is taken and activeRun is freed; Undo can be overwritten. Undo stack is memory-only; stash shas are gc-able."
+  done_when: "AbortSignal from /@s2c/run into runV2 and the codegen query (interrupted); deadline or Esc (new /@s2c/run/abort) awaits pipeline exit before pushing undo and clearing activeRun; unit test with a fake handler that keeps writing after the deadline: no write lands after done/error-event; undo stack saved to .sketch2code/undo.json and reloaded (test: restart plugin, undo reverts); stash shas pinned under refs/s2c/ (test survives git gc --prune=now); vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-017. Correctness bug, ships regardless of s2c-013's numbers. Check the SDK query() interrupt/abortController option in providers before designing."
+
+- id: s2c-023
+  parent: s2c-017
+  kind: build
+  title: "Drop or paste an image onto a drawn placeholder"
+  why: "harness.md §5: no paste/drop/upload exists; 'put my logo here' is impossible without an editor. The X-box is already read as an image placeholder; placing a file is deterministic, zero tokens."
+  done_when: "Dropping/pasting a PNG/JPEG/SVG onto an X-box placeholder (or an existing placeholder found by stamp) copies it into the app's asset dir (existing pattern, else public/), rewires the element to show it, and one Undo reverts it and deletes the copied file; size cap + content-hash dedupe; zero-token e2e on the scratch app; vitest + typecheck green."
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-16: added by s2c-017. Ranked below s2c-022 (trust before features); jump it ahead if s2c-010 shows a non-coder's first wish is an image."
