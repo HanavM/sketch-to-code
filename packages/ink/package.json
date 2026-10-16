@@ -9,6 +9,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./classify": {
+      "types": "./dist/classify.d.ts",
+      "default": "./dist/classify.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

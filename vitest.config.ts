@@ -8,6 +8,8 @@ const pkg = (name: string) => resolve(__dirname, `packages/${name}/src/index.ts`
 export default defineConfig({
   resolve: {
     alias: {
+      // before '@s2c/ink': a string alias also matches its subpaths
+      '@s2c/ink/classify': resolve(__dirname, 'packages/ink/src/classify.ts'),
       '@s2c/ink': pkg('ink'),
       '@s2c/dom': pkg('dom'),
       '@s2c/intent': pkg('intent'),

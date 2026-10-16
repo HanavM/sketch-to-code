@@ -80,7 +80,14 @@ and colour, and those are the ones to make excellent.
    existing UI = delete (r06). Only v2 knows the X; v1 drops both diagonals.
 6. **Ring with no words and default ink.** It means "modify this" with nothing
    saying how. That is an empty command. It should get a question back, not a
-   guess. Whether v2 asks or guesses is unmeasured.
+   guess. **Settled (s2c-020):** before any call, the overlay checks
+   (`overlay-client/src/bare-ring.ts`) whether the sketch is *only* closed
+   rings/boxes in the default ink around existing elements, with no note
+   anywhere, in a gesture reading. If so it asks "What should change about
+   "Get started"?" and opens a note on the ring. ▶ Run again sends it as it
+   is. A coloured ring (r12), an empty box in empty space (r15), a partial box
+   (r05) or any other mark never asks. On the rough bench with every word
+   removed, only r03 asks. Measured zero-token in `tests/e2e/live-ask.mjs`.
 7. **Straight line: strike vs underline vs rule vs divider.** Strike = mid-band
    of a text element (v1 checks 20–80% of its height). A line in empty space
    stays unresolved on purpose (could be a divider). The rule tool lives in its
@@ -101,8 +108,8 @@ and colour, and those are the ones to make excellent.
   with and without words. `run.mjs --dry` draws all three in Chromium, and
   r12's stroke arrives green.
 
-Still uncovered by any page: the ring-with-no-words question (conflict 6),
-which is s2c-020.
+The ring-with-no-words question (conflict 6) is now asked by the overlay
+before any call (s2c-020), so no bench page needs to cover it.
 
 ## Second pass (2026-10-16, row 9)
 

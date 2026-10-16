@@ -7,6 +7,7 @@ import { takeSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
+import { askKey, askSentence, bareRing } from './bare-ring.js'
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
@@ -2198,6 +2199,9 @@ class Overlay {
    * stroke is the whole disarm rule.
    */
   private labelStrokeId: string | null = null
+  /** The bare-ring question (s2c-020) was asked about exactly these strokes.
+   *  ▶ Run on the same sketch again sends it as it is: a question, not a wall. */
+  private askedKey: string | null = null
   private noteSeq = 0
   /** Last pointer position in CLIENT coords — where Alt+N resolves against.
    *  null until the pointer has moved at all (fresh tab, keyboard-only). */
@@ -7195,6 +7199,11 @@ class Overlay {
     this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}`)
     this.renderNotes()
     this.sync()
+    // that note answered the bare-ring question: in auto mode, carry on
+    if (this.askedKey) {
+      this.askedKey = null
+      this.scheduleAuto()
+    }
   }
 
   private closeNote(msg: string) {
@@ -10117,11 +10126,14 @@ class Overlay {
     } catch { /* the slow path is the fallback, and it is already running */ }
   }
 
-  private async run() {
+  private async run(): Promise<'asked' | undefined> {
     if (!this.hasWork()) return
     // a new run answers the last one's misread; the card is about a run that is over
     this.hideMisread()
     if (this.runMode === 'screenshot') return void this.proceed()
+    // a ring with no words and no pen colour says "change this" and not how:
+    // ask, for free, rather than pay the model to guess
+    if (this.askBareRing()) return 'asked'
     // start the instant render and the reading together: neither waits on the
     // other, and the drawing is usually on the page before the reading lands
     const etching = this.etch()
@@ -10186,6 +10198,40 @@ class Overlay {
     } catch (err) {
       this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
     }
+  }
+
+  /**
+   * s2c-020: the sketch is only rings around existing things, in the default
+   * ink, with no words. Open a note on the rings (so the answer is just typing)
+   * and say what is missing. Returns false when there is nothing to ask, or
+   * this exact sketch was already asked about.
+   */
+  private askBareRing(): boolean {
+    const ring = bareRing(this.strokesForWire(), this.notes.length, this.snapshot(), this.effectiveRunMode())
+    if (!ring) {
+      this.askedKey = null
+      return false
+    }
+    const key = askKey(ring.strokeIds)
+    if (this.askedKey === key) return false
+    this.askedKey = key
+    const group = this.strokes.filter((st) => ring.strokeIds.includes(st.id))
+    let x = Infinity, bottom = -Infinity
+    for (const st of group) {
+      const b = this.strokeBox(st)
+      x = Math.min(x, b.x)
+      bottom = Math.max(bottom, b.y + b.h)
+    }
+    this.labelStrokeId = null
+    this.openEditor(
+      null,
+      { x, y: bottom },
+      { anchor: { kind: 'strokes', strokeIds: ring.strokeIds }, strokes: group, el: null },
+      '',
+    )
+    // after openEditor: its own hint would bury the question
+    this.status(askSentence(ring.names))
+    return true
   }
 
   private exitPreview(msg: string) {
@@ -10464,7 +10510,9 @@ class Overlay {
       // phase 2 of 4: run() writes 'reading your drawing…' itself, and on
       // success leaves the plan painted and the mode in 'preview' — which is
       // exactly the gate this has to make a decision about
-      await this.run()
+      // asked instead of guessing: the question is on the line, the note is
+      // open, and answering it re-arms the countdown (commitNote)
+      if (await this.run() === 'asked') return
       if (this.mode === 'running') return // screenshot mode goes straight through
       if (this.mode !== 'preview') {
         // The reading failed or found no actions. run() has already said why,
