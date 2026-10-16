@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 20
-lock: {run: cloud-20261016T0300, until: "2026-10-16T04:15Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -295,6 +295,7 @@ nodes:
   log:
   - "2026-10-16: owner answered in chat (session 01DyZbW9): PILOT approved, ~1M tokens. Run 1x each arm on the Mac: calibrate with --limit 1, then node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot. A pilot cannot meet done_when (3 runs); write the pilot table + a provisional verdict, and if the gap is within ~10 points of the 15-pt bar, block again asking for the remaining 2 runs."
   - "2026-10-16: owner reconfirmed in chat; per INBOX (3) this is now a MEASUREMENT of where structured grounding beats screenshots, not a kill gate. Pilot (1 run/arm) still approved. Also report the 6 edit pages separately: that is the first measurement of the gesture grammar (feeds s2c-016)."
+  - "2026-10-16: s2c-016 landed --words. Optional inside the SAME approved ~1M budget, only if the two auto/screenshot arms leave room: node tests/bench/run.mjs --set rough --only r04,r05,r08 --words content, then words-compare.mjs. Do not exceed the approved budget for it."
 
 - id: s2c-014
   parent: s2c-003
@@ -337,6 +338,7 @@ nodes:
   log:
   - "2026-10-16: added from owner INBOX (3)(a)."
   - "2026-10-16: s2c-018 input: for each property edit (resize, restyle, reorder) state whether a mark beats direct manipulation (drag, sliders, inline text) and concede the ones where it doesn't; arrow-move needs a disambiguation rule (Code Shaping: arrows were the most ambiguous mark)."
+  - "2026-10-16: s2c-016 input: with no words a ring round a button cannot be graded at all (r03 not judged: nothing says green). Treat restyle as 'needs words' (a value) unless the spec proposes a mark that carries a value, e.g. a colour swatch stroke."
 
 - id: s2c-016
   parent: s2c-000
@@ -344,20 +346,21 @@ nodes:
   title: "Score how much the sketch carries alone (sketch-only vs sketch+words)"
   why: "INBOX (4): sketch first, text as support. The bench must show how much intent the ink alone carries and how few words it needs, not just whether the page came out right."
   done_when: "tests/bench can run each rough page with its notes stripped (--notes off), reports realized % with and without words and words-per-realized-edit; unit tests for the stripping; zero-token --dry check that every page still draws. Live numbers ride on s2c-013's quota."
-  status: open
+  status: done
   needs: cloud
   value: 5
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-16T03:20Z
   blocked_on: null
-  outputs: []
+  outputs: [80dcdf3, tests/bench/lib/words.mjs, tests/bench/words.test.ts, tests/bench/words-compare.mjs, "docs/findings.md#how-much-does-the-sketch-carry-alone-seed2tree-s2c-016"]
   log:
   - "2026-10-16: added from owner INBOX (3)(b) + (4)."
   - "2026-10-16: s2c-018 input: r04's note ('move the quote up here') and r05's newsletter note restate what the marks should already carry. Strip those first: cheapest test of the thesis."
+  - "2026-10-16: DONE (80dcdf3). --words all|content|none (named --words, not --notes off: a middle arm was needed). Each rough note declares `content`, the words no mark can carry; rough set types 64 words in all, 32 in content, 0 in none. r04 types nothing in content. none drops needsWords checks (r02 headline text, r03 green, r05 Subscribe); r03 is then not judged and not run. Per-arm results.<mode>.words-<arm>.json + words-compare.mjs (realized %, words typed, words/realized page, page matrix). Zero-token: 3 arms x --dry draw all pages, auto routing identical across arms; rough-check.mjs passes the none key on a real DOM; words.test.ts 17 tests; vitest 864/866 (same 2 env failures), typecheck clean. Live numbers ride on s2c-013."
 
 - id: s2c-017
   parent: s2c-000

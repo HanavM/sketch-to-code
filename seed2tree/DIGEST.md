@@ -1,5 +1,13 @@
 # DIGEST — newest first
 
+## 2026-10-16 03:20 UTC — sketch-to-code / s2c-016 Sketch-alone scoring — bench now separates what the ink carries from what the words carry
+Picked because: priority 2.26, tied with s2c-015 2.26 (next: s2c-006 2.16; s2c-013 local, skipped; fashion killed). Picked 016 because it ships tested code, and the Mac pilot can use it.
+Did: `--words all|content|none` (commit 80dcdf3). Each rough note now declares its `content`: the words no mark could carry. The rough set types 64 words in all, 32 in content, 0 in none. r04's arrow types nothing in content mode. With no words, checks only words can pass are dropped. r03 then can't be graded (a ring can't say "green"), so it is not judged and not run. `words-compare.mjs` reports realized %, words typed and words per realized page for each arm.
+Result: zero-token only. All 3 arms draw every page in --dry, and auto routing is identical across arms. rough-check proves the no-words key on a real DOM. 17 new tests; vitest 864/866 (same 2 env failures); typecheck clean. Blunt caveat: the content/action split per note is my judgement, written into each spec so you can argue with it. Until a paid run, this measures nothing about the thesis. momentum 0.5 → 0.7
+New branches: none. A tidy-set classification would be busywork until the rough numbers exist. r03's finding was fed to s2c-015: restyle is "needs words" unless a mark can carry a value.
+Pruned/done: s2c-016 done.
+Needs you: nothing new. Optional for the Mac pilot, inside the approved ~1M only: `--only r04,r05,r08 --words content`. Next cloud run: s2c-015 visual-language spec.
+
 ## 2026-10-16 02:20 UTC — sketch-to-code / s2c-019 Skema inspected — **correction: it's a pointer tool, not your thesis**
 Picked because: validate node, priority 3.39 (next: s2c-015 2.24, s2c-016 2.24; s2c-013 local, skipped; fashion killed)
 Did: read-only shallow clone of Skema at 976bc26. None of its code was run. Findings in seed2tree/VALIDATION.md §s2c-019.
