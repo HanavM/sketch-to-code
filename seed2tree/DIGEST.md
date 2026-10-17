@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-17 02:15 UTC — sketch-to-code / s2c-030 Plain progress lines — **done**: nothing a run shows on the bar is developer text any more
+Picked because: priority 3.22 (next: s2c-032 2.92; s2c-013 2.74 local + blocked, skipped; s2c-000 seed 2.02 skipped: umbrella). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit 747d61c. The walkthrough now records every bar line (MutationObserver), not a 200 ms sample. **The sample had been hiding most of it: ~8 developer lines per change, not 1**: "safety: git checkpoint", "codegen: Claude Code editing source", "done: [v2] … revert: git restore …", "1 action(s) outlined". It now fails on developer words in any line; red on the old overlay 4/4. Fix: a fixed sentence per stage ("Saving a restore point first, so this can be undone…", "Making the change…", "Checking the page matches your sketch…", "Trying it out in the page…"), never the detail; raw line on the tooltip + console. A failed reading now says the drawing is still there and to press ▶ Run.
+Result: walkthrough green, 4/4 changes plain in every line; vitest 1071/1073 (same 2 env failures, +7 new); `tsc -b` clean; live-preview, live-auto, live-keymap green; 0 tokens. momentum 0.5 → 0.7
+Blunt: ~25 min of polish. It removes the last developer words a non-coder sees on the happy path, but it doesn't make one sketch read better. Not checked: the error paths' wording beyond "reading failed", and the 8 paid live e2e files I touched (one-line ✗ check) weren't run.
+New branches: none. s2c-032 (Done sentence names "red"/"testimonials") is the last open child of s2c-010; it closes done #2 as far as a script can.
+Pruned/done: s2c-030 done.
+**Needs you (s2c-013):** unchanged. The paid pilot needs a macOS run or a `CLAUDE_CODE_OAUTH_TOKEN`. sidequest/fine-routing still can't be cloned from the cloud run: add them to this task's repo access if you want them gardened.
+
 ## 2026-10-17 01:03 UTC — sketch-to-code / s2c-031 Form save is tried out — **done**: all 4 walkthrough sketches now end on ✓
 Picked because: priority 3.61 (next: s2c-030 3.21; s2c-000 seed 2.01 skipped: umbrella; s2c-010 1.33; s2c-013/008 local + blocked). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
 Did: commit 74b0075. Reproduced 3b's "⚠ … because it wasn't safe to". The cause was a stale stamp, not safety: the save engine adds lines above the form, and the probe looked the form up by its old line. Probes are now re-resolved in the after-edit snapshot (same file + tag, then own text, then nearest), and an untested card gives the real reason. "Unsafe" is reserved for code that leaves the dev server.

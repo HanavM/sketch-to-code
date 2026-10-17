@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 33
-lock: {run: cloud-2026-10-17T0156Z-s2c-030, until: "2026-10-17T03:11:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -250,6 +250,7 @@ nodes:
   - "2026-10-16: s2c-025 done (41efb67): clicking your own button now says in plain words what was picked up and how to switch to Test; a drag after a click draws. Walkthrough rows 3-4 updated. Next watering unchanged: stubbed interpret, 3 changes end to end (incl. a form)."
   - "2026-10-17: watering 2. New zero-token e2e walkthrough-noncoder.mjs walks the real create-vite 9.2.1 starter (Vite 8.3) through init + 4 sketches (testimonials section, red heading, signup form, 'save it') with only pen/keyboard/bar; the model is scripted in-process (@s2c/providers setScriptedModel; real provider throws while set). Found 3 bugs on the path every user takes, all fixed: (1) every run ended in idle, so the SECOND sketch drew nothing (now rests in draw on the Design surface); (2) placement verification failed in-flow content the layout centred, so a visible new section got 'I couldn't add what you drew' + Undo (verifyDesignPlacement now accepts right band + size + touching or centred in parent; 5 asserts); (3) every change ended on '✓ [v2] 0% verified … revert: git restore …' (bar now ends on the plain explanation sentence; dev summary in tooltip/console). Now 3/4 sketches end on ✓ in plain words. NOT done: 3b's save probe can't find the form after the engine shifts its stamp, and the card blames safety -> s2c-031; progress lines are dev text -> s2c-030. live-keymap updated (its Esc step was red before); live-auto green; live-misread red before and after (pre-existing). vitest 1056/1058 (same 2 env failures); tsc -b clean; init-real-project green."
   - "2026-10-17: s2c-031 done (74b0075): 3b ends on ✓, the save is submitted in the page. All 4 walkthrough sketches now end on ✓ in plain words. Remaining open child: s2c-030 (developer progress lines), s2c-032 (Done sentence says what changed). Done when those close."
+  - "2026-10-17: s2c-030 done (747d61c): every bar line during a run is now plain words, and the walkthrough fails on developer words in any line. Last open child: s2c-032."
 
 - id: s2c-030
   parent: s2c-010
@@ -257,19 +258,24 @@ nodes:
   why: "The lines a non-coder watches during a run are developer text ('verify: round 1: snapshotting edited page', 'codemod: action 0: App now saves email to server/data/apps.json through POST /api/apps'). The walkthrough counts them; nothing fixes them."
   done_when: "walkthrough-noncoder.mjs fails on developer words in ANY bar line (not only the last), and passes; stage detail stays available in the runs viewer/console."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.8
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T02:10Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - 747d61c
+  - packages/overlay-client/src/plain-progress.ts
+  - packages/overlay-client/tests/plain-progress.test.ts
+  - packages/cli/tests/e2e/walkthrough-noncoder.mjs
   log:
   - "2026-10-17: filed by s2c-010 watering 2."
+  - "2026-10-17: watering 1 (747d61c). DONE. The walkthrough now records every bar line with a MutationObserver (the 200 ms poll saw ~1 progress line per change; the observer sees ~8: safety: git checkpoint, intent: <reading>, codegen: Claude Code editing source, verify: round 1: snapshotting edited page, done: [v2] … revert: git restore …, plus the preview's '1 action(s) outlined') and fails on developer words in any of them; RED on the old overlay in 4/4 changes. Fix: plain-progress.ts maps each stage to a fixed sentence and never echoes the detail (model/code text); raw line on the bar tooltip + console.debug; runs viewer untouched. Preview line drops 'action(s)'; 'wide delete' -> 'this removes a lot: check the red boxes'; 'interpret failed: <err>' -> a plain line saying the drawing is still there and to press Run. 7 unit tests; vitest 1071/1073 (same 2 env failures); tsc -b clean; walkthrough, live-preview (updated for the plain candidate line + tooltip), live-auto, live-keymap green. 8 paid live e2e files now also treat a bar line starting with ✗ as a failed reading (not run: paid). Unexplained: a 'Checking the page…' line shows before 'Saving a restore point' on change 1; harmless, not chased. live-runs-viewer not run (needs its own server on 5203). Cloud env note: Playwright 1.62 wants headless shell build 1234, sandbox has 1194; ran with PLAYWRIGHT_BROWSERS_PATH pointing at a symlink dir."
 
 - id: s2c-031
   parent: s2c-010
