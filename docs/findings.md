@@ -796,3 +796,37 @@ codegen both throw if called, and the demo is green with zero model calls for
 shots 2 and 3. Not checked: real users' coloured rings (s2c-013), and a
 Tailwind app end to end (the engine's class path is unit-tested only).
 
+
+## The coloured ring on a Tailwind app, in a browser (s2c-051, 2026-10-17)
+
+`tests/e2e/ring-tailwind.mjs` runs examples/demo-app (Tailwind v4) in-process
+with the real overlay, pen, plain reader, engine, verification and undo, and a
+model that throws if called. A green ring round the "Team members" heading:
+`text-gray-900` → `text-green-600`. A green ring round the navbar "Sign out"
+button: `bg-blue-600` → `bg-green-600`. Both end on "✓ Done", zero model calls,
+the page renders green (oklch, checked by painting the computed colour), and
+two Ctrl+Z put both files back byte for byte.
+
+**Found: the green button went blue under the pointer.** The button also had
+`hover:bg-blue-700`, which the engine kept, because `hover:bg-…` doesn't start
+with `bg-`. Every Tailwind button ships a hover colour, so this would have hit
+nearly every button anyone ringed. The engine now moves interaction-state
+colours (hover:, focus:, focus-visible:, focus-within:, active:, group-/peer-
+hover…) with the new colour: same hue, same step as before
+(`hover:bg-blue-700` next to `bg-blue-600` → `hover:bg-green-700`). If it can't
+work that out (an arbitrary new colour, a shade off the 50–950 scale, a state
+colour in another hue), it drops the state colour, so the button stays the
+colour the user drew. A colour under any other variant (`dark:`, `md:`,
+`md:hover:`) means the colour depends on the theme or screen size, and one swap
+can't be right for all of them, so the engine refuses and the model takes it.
+The e2e was red on the old engine (hovered: `rgb(20,71,230)`, blue) and is
+green now (`rgb(0,130,54)`, green-700).
+
+Test note: a real pointer never reaches `:hover` while the overlay's canvas is
+up, and Tailwind v4 wraps `hover:` in `@media (hover: hover)`, which headless
+Chromium reports as none. The e2e forces both over CDP. Without that, a hover
+check passes on any colour.
+
+Checked: 5 new unit tests in recolor.test.ts; vitest 1254/1256 (same 2 env
+failures); `tsc -b` clean; `npm run demo` green. Not checked: real users'
+rings (s2c-013).

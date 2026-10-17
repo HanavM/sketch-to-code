@@ -104,3 +104,47 @@ describe('recolorElement: refuses (and codegen takes it) when the write is not o
     expect(recolorElement('/tmp/x', { srcLoc: '../etc/passwd:1:1', prop: 'color', color: GREEN, tailwind: false }).ok).toBe(false)
   })
 })
+
+describe('recolorElement: interaction states follow the new colour (s2c-051)', () => {
+  const BG_GREEN: ColorMatch = { ...SNAPPED, nearest: { ...SNAPPED.nearest!, token: 'bg-green-600' } }
+  it('the demo navbar button: hover:bg-blue-700 becomes hover:bg-green-700 (found in the browser)', () => {
+    const src = 'const A = () => <button className="rounded-md bg-blue-600 px-3 text-white hover:bg-blue-700">Sign out</button>\n'
+    const { out, code } = run(src, 1, { tailwind: true, prop: 'backgroundColor', color: BG_GREEN })
+    expect(out.ok).toBe(true)
+    expect(code).toContain('className="rounded-md px-3 text-white hover:bg-green-700 bg-green-600"')
+    expect(out.change).toBe('bg-blue-600 → bg-green-600; hover:bg-blue-700 → hover:bg-green-700')
+  })
+  it('keeps the step: a lighter hover stays lighter, focus/active/group-hover too', () => {
+    const src = 'const A = () => <a className="text-gray-600 hover:text-gray-900 focus:text-gray-500 group-hover:text-gray-700">x</a>\n'
+    const { code } = run(src, 1, { tailwind: true, color: SNAPPED })
+    expect(code).toContain('className="hover:text-green-900 focus:text-green-500 group-hover:text-green-700 text-green-600"')
+  })
+  it('drops a state colour it cannot place: an arbitrary new colour, a shade off the scale, another hue', () => {
+    const arb = run('const A = () => <a className="text-gray-600 hover:text-gray-900">x</a>\n', 1, { tailwind: true, color: GREEN })
+    expect(arb.code).toContain('className="text-[#16a34a]"')
+    const off = run('const A = () => <a className="text-gray-600 hover:text-gray-950">x</a>\n', 1, {
+      tailwind: true, color: { ...SNAPPED, nearest: { ...SNAPPED.nearest!, token: 'text-green-900' } },
+    })
+    expect(off.code).toContain('className="text-green-900"')
+    const hue = run('const A = () => <a className="text-gray-600 hover:text-red-600">x</a>\n', 1, { tailwind: true, color: SNAPPED })
+    expect(hue.code).toContain('className="text-green-600"')
+    expect(hue.out.change).toContain('− hover:text-red-600')
+  })
+  it('leaves non-colour state utilities and the other prefix alone', () => {
+    const src = 'const A = () => <button className="bg-blue-600 hover:underline hover:text-blue-100">x</button>\n'
+    const { code } = run(src, 1, { tailwind: true, prop: 'backgroundColor', color: BG_GREEN })
+    expect(code).toContain('className="hover:underline hover:text-blue-100 bg-green-600"')
+  })
+  it('refuses when the colour also depends on theme or screen (dark:, md:, md:hover:): one swap cannot be right for all', () => {
+    for (const v of ['dark:bg-blue-400', 'md:bg-blue-500', 'md:hover:bg-blue-700']) {
+      const src = `const A = () => <button className="bg-blue-600 ${v}">x</button>\n`
+      const { out, code } = run(src, 1, { tailwind: true, prop: 'backgroundColor', color: BG_GREEN })
+      expect(out.ok).toBe(false)
+      expect(out.error).toContain(v)
+      expect(code).toBe(src)
+    }
+    // dark: on the OTHER prefix is not this colour
+    const ok = run('const A = () => <button className="bg-blue-600 dark:text-white">x</button>\n', 1, { tailwind: true, prop: 'backgroundColor', color: BG_GREEN })
+    expect(ok.out.ok).toBe(true)
+  })
+})

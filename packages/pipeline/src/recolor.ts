@@ -109,6 +109,56 @@ const attrNamed = (opening: AstNode, name: string): AstNode | undefined =>
     (a) => a.type === 'JSXAttribute' && (a.name as AstNode).type === 'JSXIdentifier' && (a.name as AstNode).name === name,
   )
 
+/** Variants that are the same element in another moment, not another theme or size. */
+const STATE_VARIANTS = /^((?:group-|peer-)?(?:hover|focus|focus-visible|focus-within|active)):/
+
+/**
+ * Re-point an element's interaction-state colours (hover:, focus:, active:)
+ * at the new colour. `hover:bg-blue-700` next to `bg-blue-600` becomes
+ * `hover:bg-green-700` next to `bg-green-600`: same hue as the new colour,
+ * same step darker or lighter as before. When that can't be worked out (the
+ * new colour is an arbitrary value, a shade would leave 50–950) the state
+ * colour is dropped, so the element stays the colour the user drew instead
+ * of flashing the old one. A colour under any other variant (dark:, md:,
+ * md:hover:) means the colour depends on the theme or the screen: one literal
+ * swap can't be right for all of them, so `refuse` is set and the model
+ * edits it.
+ */
+export function followStates(
+  classes: string[],
+  removed: string[],
+  want: string,
+  prefix: 'text-' | 'bg-',
+): { classes: string[]; note: string; refuse?: string } {
+  const shade = (c: string): { hue: string; n: number } | null => {
+    const m = new RegExp(`^${prefix}([a-z]+)-(\\d{2,3})$`).exec(c)
+    return m ? { hue: m[1]!, n: Number(m[2]) } : null
+  }
+  const base = removed.length === 1 ? shade(removed[0]!) : null
+  const next = shade(want)
+  const out: string[] = []
+  const changed: string[] = []
+  for (const c of classes) {
+    const v = STATE_VARIANTS.exec(c)
+    const util = v ? c.slice(v[0].length) : ''
+    if (!v && c.includes(':') && isColorUtility(c.slice(c.lastIndexOf(':') + 1), prefix)) {
+      return { classes, note: '', refuse: `${c} sets this colour for another theme or screen size: the model edits this one` }
+    }
+    if (!v || !isColorUtility(util, prefix)) { out.push(c); continue }
+    const was = shade(util)
+    const n = base && next && was && was.hue === base.hue ? next.n + (was.n - base.n) : null
+    const ok = n != null && [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].includes(n)
+    if (ok) {
+      const to = `${v[1]}:${prefix}${next!.hue}-${n}`
+      out.push(to)
+      changed.push(`${c} → ${to}`)
+    } else {
+      changed.push(`− ${c}`)
+    }
+  }
+  return { classes: out, note: changed.length ? `; ${changed.join(', ')}` : '' }
+}
+
 export function recolorElement(root: string, req: RecolorRequest): RecolorResult {
   const prefix = PREFIX[req.prop]
   const key = CSS_KEY[req.prop]
@@ -156,11 +206,15 @@ export function recolorElement(root: string, req: RecolorRequest): RecolorResult
     const kept = before.split(/\s+/).filter((c) => c && !isColorUtility(c, prefix))
     const removed = before.split(/\s+/).filter((c) => c && isColorUtility(c, prefix))
     if (removed.length === 1 && removed[0] === want) return { ok: true, file: rel, change: 'no change (already that colour)' }
-    const after = [...kept, want].join(' ')
+    // s2c-051: hover:bg-blue-700 on a button made green would flash blue
+    // under the pointer. Interaction states follow the new colour.
+    const states = followStates(kept, removed, want, prefix)
+    if (states.refuse) return { ok: false, error: states.refuse }
+    const after = [...states.classes, want].join(' ')
     const q = code[classValue.start] ?? '"'
     return write(
       code.slice(0, classValue.start) + q + after + q + code.slice(classValue.end),
-      removed.length ? `${removed.join(' ')} → ${want}` : `+ ${want}`,
+      (removed.length ? `${removed.join(' ')} → ${want}` : `+ ${want}`) + states.note,
     )
   }
   if (req.tailwind && classAttr) {
