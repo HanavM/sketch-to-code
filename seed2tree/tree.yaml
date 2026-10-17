@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 36
-lock: {run: cloud-202610170555, until: "2026-10-17T07:10:10Z"}
+next_id: 37
+lock: null
 
 nodes:
 - id: s2c-000
@@ -378,6 +378,8 @@ nodes:
   - "2026-10-16: s2c-016 landed --words. Optional inside the SAME approved ~1M budget, only if the two auto/screenshot arms leave room: node tests/bench/run.mjs --set rough --only r04,r05,r08 --words content, then words-compare.mjs. Do not exceed the approved budget for it."
   - '2026-10-16 22:40Z (Mac run): PILOT NOT RUN. The VM has no Claude Code auth (cleanEnv strips API keys; /opt/cowork claude wrapper is -p only), Mac node_modules are darwin-arm64, Playwright CDN 403. Did the zero-token prep instead: rough set (now 15 pages) --dry auto 15/15 in cloud; found screenshot arm captureProbe crashes Chromium ~2/7 (headless and xvfb headed) and then failed every later page + hung. Fix ebdc5b8: relaunch the browser and retry a page once if it died before Run (never after: could double-bill). Retry verified on r08. Still open: in screenshot dry, r10 got vite never answered and r11 hung after the relaunch (-> s2c-029). momentum 0.5 -> 0.5.'
   - '2026-10-16 23:40Z (cloud): s2c-029 done (d1ea0b3): the screenshot arm''s dry run now finishes 15/15 twice with no retries in the cloud container. The paid pilot is still blocked only on who spends it (see blocked_on).'
+  - "2026-10-17 06:25Z (cloud): s2c-034 found the cloud container CAN reach a model: live-ink-track (unstubbed ▶ Run) completed a real reading + edit here, with no CLAUDE_CODE_OAUTH_TOKEN set. So (b) may need no token; it still spends your quota, so the question is only whether to spend it here. Not tested further on purpose."
+
 - id: s2c-014
   parent: s2c-003
   title: "Scaffold only depictions and decorations, never widgets"
@@ -788,19 +790,20 @@ nodes:
   why: "live-misread step 6 passed nothing for a day: its key action silently no-oped. Other e2e may assert on a run that never started; every DoD claim leans on them."
   done_when: "Every tests/e2e/*.mjs and packages/*/tests/e2e/*.mjs classified paid/zero-token in docs/; every zero-token one run on seed2tree with result recorded; each red one fixed or filed as a node; each step that can no-op (no stroke landed, button disabled) gets an assert that its action happened."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: "2026-10-17T06:25Z"
   blocked_on: null
-  outputs: []
+  outputs: [4345233, docs/e2e-suite.md, tests/e2e/lib/pen.mjs]
   log:
   - "2026-10-17: filed by s2c-033 watering. Note for the run: this container's Playwright wants chromium 1234 but /opt has 1194; a PLAYWRIGHT_BROWSERS_PATH dir with copied symlinks works (see DIGEST). Also restart vite after an overlay change: the bundle is cached per dev server."
+  - "2026-10-17 06:25Z (cloud): 4345233. 57 files classified (11 paid incl. live-ink-track, unmarked); 42 zero-token run, 36 green after fixes, 6 red filed as s2c-036. 13 files pressed Alt+D on a pen-on page and drew nothing (ink-track/follow red, instant gate vacuous, all 9 paid drivers dead): lib/pen.mjs ensureDraw/assertInk. Real bug: 🎚 un-tucked mid-choice, bar +155 px, panel slid away (fill/style red) -> stays shown while its panel is open. Done sentence 'the a ...' fixed. vitest 1088/1090 (same 2 env), tsc clean, walkthrough + misread green. Note: live-ink-track spent ONE real reading+edit in this container (the dev server reached a model)."
 
 - id: s2c-035
   parent: s2c-005
@@ -821,3 +824,23 @@ nodes:
   outputs: []
   log:
   - "2026-10-17: filed by s2c-005 watering. The harness is ready: a project is one entry in PROJECTS (create + optional server kind)."
+
+- id: s2c-036
+  parent: s2c-034
+  title: "Six zero-token e2e files red on seed2tree"
+  why: "s2c-034's sweep left 6 red: until each is green or deleted, their DoD claims (canvas select, mode inference, lasso extract, say-what, runs viewer, editor bridge) rest on nothing."
+  done_when: "live-canva, live-infer, live-lasso, live-saywhat, live-runs-viewer, live-ide-bridge each green on seed2tree in the cloud container (fixture/build steps scripted), or deleted with a reason in docs/e2e-suite.md; any product bug found fixed with a red-before/green-after check."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-034. Leads: canva expects the old 'div · WxH' selection line (copy changed); infer: a box in empty space reads as markup on 'Overview', no interpret (could be a real mode-inference regression, check first); lasso: the extract caused no full reload; saywhat: a null selector; runs-viewer needs 3 fixture runs; ide-bridge needs packages/vscode-extension built (out/). Runner: one vite per port, see docs/e2e-suite.md."
