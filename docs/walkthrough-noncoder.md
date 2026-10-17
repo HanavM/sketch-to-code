@@ -111,19 +111,22 @@ a real person finds it easy.
 | 1 add a section | box in empty space + "testimonials" | ✓ Done: added what you drew. | 3.6 s |
 | 2 styling | ring the heading + "red" | ✓ Done: changed the heading with "Get started". | 3.8 s |
 | 3a a form | box + "email signup" | ✓ Done: added what you drew. | 3.7 s |
-| 3b make it work | ring the form + "save it" | ⚠ I read your sketch as: make the signup form keep what people type. I didn't try the change out in the page, because it wasn't safe to, so check yourself … | 4.3 s |
+| 3b make it work | ring the form + "save it" | ✓ Done: made the form with "Sign up" keep what people type. (a test submit was stored, the page said so, the record was removed again) | ~4 s |
 
 (Times have no model in them: a real reading adds ~10 s, plus codegen.)
 
 **Still wrong, filed:**
 
-- **3b (s2c-031).** The save engine adds an import and a hook above the form,
-  so every stamp below it shifts two lines, and the probe looks the form up by
-  its old stamp: "the form is not on the page any more". The edit is right
-  (the form is wired to `useForm('/api/apps')`). The run just can't prove it, and
-  the card gives the **wrong reason** ("it wasn't safe to"). A non-coder is
-  told to check by themselves a thing they can't check. Done #2's "working
-  form" isn't proven until this is fixed.
+- ~~**3b (s2c-031).**~~ **Fixed 2026-10-17.** The save engine adds an import
+  and a hook above the form, so every stamp below it shifted, and the probe
+  looked the form up by its old stamp ("the form is not on the page any
+  more"), so the card said it "wasn't safe to" try it. Probes are now
+  re-resolved against the after-edit snapshot (same file + tag, then own
+  text, then nearest to where it was: `relocateProbes` in
+  `pipeline/src/probe.ts`), and an untested behaviour's card gives the real
+  reason (`whyUntested` in `explain.ts`): "unsafe" only when the code really
+  reaches off the dev server. The e2e now fails if 3b doesn't end on ✓ or
+  mentions safety.
 - **Progress lines (s2c-030).** What flashes by while it runs is developer
   text: `verify: round 1: snapshotting edited page`, `codemod: action 0: App
   now saves email to server/data/apps.json through POST /api/apps`. The e2e
@@ -139,9 +142,10 @@ a real person finds it easy.
 ## What's left for this node
 
 Done #2 says "a written walkthrough shows someone … going to ≥ 3 meaningful
-changes". The path is now walked and green, except the proof that the form
-works (s2c-031). After that, the walkthrough is complete as far as a script can
-take it. What a script can't give is a real model's readings on these four
+changes". The path is now walked and green, all four sketches ending on ✓,
+including the proof that the form works (the save is submitted in the page and
+checked on disk). The walkthrough is complete as far as a script can take it,
+except the developer progress lines (s2c-030). What a script can't give is a real model's readings on these four
 sketches (fold into the s2c-013 pilot: 4 readings, cheap) and a real
 non-coder (owner's call).
 

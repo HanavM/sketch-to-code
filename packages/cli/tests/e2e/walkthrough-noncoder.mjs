@@ -271,14 +271,14 @@ try {
   const form = await rectOf('form.signup')
   if (form) {
     const seen3b = await walk('3b make it save', ringAround(form, 12), 'save it')
-    // KNOWN BUG (s2c-031): the save engine adds an import and a hook above
-    // the form, every stamp below shifts two lines, and the probe looks the
-    // form up by its old stamp: "the form is not on the page any more". The
-    // edit itself is right; the run can't prove it, so it ends on ⚠. Logged,
-    // not failed, until s2c-031 lands; then make this a check.
+    // s2c-031: the save engine adds an import and a hook above the form, so
+    // every stamp below shifts. The probe used to look the form up by its old
+    // stamp, find nothing, and end on "I didn't try the change out in the
+    // page, because it wasn't safe to". It is now re-resolved after the edit,
+    // so the save is actually submitted and the run can end on a tick.
     const end3b = seen3b.filter((x) => !x.startsWith('[card]')).at(-1) ?? ''
-    if (/^✓ /.test(end3b)) log('3b now ends on ✓: s2c-031 looks fixed, turn this into a check')
-    else log(`KNOWN (s2c-031): 3b ends on ⚠, the save was not tried out: ${end3b.slice(0, 90)}…`)
+    check('change 3b ends on a tick: the save was tried out in the page', /^✓ /.test(end3b), end3b)
+    check('change 3b never blames safety for a test it could run', !/safe to/.test(seen3b.join(' ')))
     const saved = readFileSync(app(), 'utf8')
     check('change 3b: the form is wired to save (on disk)', /onSubmit=\{form\.onSubmit\}/.test(saved) && /useForm\(/.test(saved))
   } else {

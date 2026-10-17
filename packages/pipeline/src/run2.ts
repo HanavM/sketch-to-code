@@ -39,7 +39,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
-import { deriveProbes, type ProbeVerdict } from './probe.js'
+import { deriveProbes, relocateProbes, type ProbeVerdict } from './probe.js'
 
 /** Vite's watcher + HMR after an instant codemod write, before the first look. */
 const HMR_SETTLE_MS = 600
@@ -379,7 +379,9 @@ export async function runV2(
     // behaviour: act on the page the drawing named, then look. Only after the
     // static snapshot, so the probe's own residue (a "Saved" line) is never
     // what the static checks measure.
-    const specs = deriveProbes(interp.actions)
+    // stamps are positional and the edit shifted them: look the elements up
+    // where they are now, not where they were when the sketch was read
+    const specs = relocateProbes(deriveProbes(interp.actions), interp.actions, after)
     let probes: ProbeVerdict[] = []
     if (specs.length) {
       if (ctx.requestProbes) {

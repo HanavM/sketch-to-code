@@ -249,3 +249,81 @@ describe('the plain-language card says when behaviour failed or was not tested',
     expect(e.sentence).toMatch(/didn't try the change out in the page.*check yourself that it works/)
   })
 })
+
+describe('relocateProbes: probes look elements up where they are after the edit', () => {
+  const node = (srcLoc: string | null, tag: string, text = '', y = 0) => ({
+    id: srcLoc ?? 'x', tag, srcLoc, text, classes: [], parent: null, depth: 1,
+    rect: { x: 0, y, w: 100, h: 20 },
+    style: {} as never,
+  })
+  const snap = (nodes: ReturnType<typeof node>[]) =>
+    ({ nodes, viewport: { w: 800, h: 600, scrollX: 0, scrollY: 0 }, url: '/', takenAt: 0, truncated: false }) as never
+  const at = (srcLoc: string, tag: string, text = '', y = 0): GroundedTarget =>
+    ({ ...tgt(srcLoc, tag, text), rect: { x: 0, y, w: 100, h: 20 } })
+
+  it('a save that added lines above the form still finds the form (the walkthrough bug)', async () => {
+    const { relocateProbes } = await import('../src/probe.js')
+    const actions = [act({ kind: 'save', targets: [at('src/App.jsx:41:7', 'form', '', 300)] })]
+    const specs = deriveProbes(actions)
+    // the engine added an import and a hook: every stamp below moved 3 lines
+    const after = snap([node('src/App.jsx:30:5', 'section', '', 0), node('src/App.jsx:44:7', 'form', '', 300), node('src/App.jsx:45:9', 'input', '', 305)])
+    expect(relocateProbes(specs, actions, after)[0]!.trigger.srcLoc).toBe('src/App.jsx:44:7')
+  })
+
+  it('a stale stamp that now lands on another element of the same tag is not trusted over the text', async () => {
+    const { relocateProbes } = await import('../src/probe.js')
+    const actions = [act({
+      kind: 'modify', instruction: 'clicking this shows the tips',
+      targets: [at('src/A.tsx:10:7', 'button', 'Show tips', 100)], dest: at('src/A.tsx:20:7', 'div', 'Tips', 200),
+    })]
+    const after = snap([
+      node('src/A.tsx:10:7', 'button', 'Reset', 50), // the old stamp, now a different button
+      node('src/A.tsx:14:7', 'button', 'Show tips', 100),
+      node('src/A.tsx:24:7', 'div', 'Tips', 200),
+    ])
+    const [p] = relocateProbes(deriveProbes(actions), actions, after)
+    expect(p!.trigger.srcLoc).toBe('src/A.tsx:14:7')
+    expect(p!.effect!.srcLoc).toBe('src/A.tsx:24:7')
+  })
+
+  it('two forms in a file: the one nearest where the drawn one was', async () => {
+    const { relocate } = await import('../src/probe.js')
+    const after = snap([node('src/A.tsx:12:5', 'form', '', 0), node('src/A.tsx:40:5', 'form', '', 400)])
+    expect(relocate(at('src/A.tsx:37:5', 'form', '', 390), after)).toBe('src/A.tsx:40:5')
+  })
+
+  it('nothing of that tag left in the file: keeps the old stamp, so the page says it is gone', async () => {
+    const { relocateProbes } = await import('../src/probe.js')
+    const actions = [act({ kind: 'save', targets: [at('src/A.tsx:9:5', 'form')] })]
+    const specs = deriveProbes(actions)
+    const after = snap([node('src/B.tsx:9:5', 'form'), node('src/A.tsx:3:5', 'div')])
+    expect(relocateProbes(specs, actions, after)[0]!.trigger.srcLoc).toBe('src/A.tsx:9:5')
+  })
+})
+
+describe('an untested behaviour says the real reason, not "it wasn\'t safe to"', () => {
+  const save = act({ kind: 'save', targets: [{ ...tgt('a:1:1', 'form'), text: '' }] })
+  const card = async (reason: string) => {
+    const { explainRun, isPlain } = await import('../src/explain.js')
+    const e = explainRun({ reading: 'save the form', actions: [save], failures: [`action 0 (behaviour, not tested): ${reason}`], files: ['src/C.tsx'] } as never)
+    expect(e.problem).toBe(true)
+    expect(isPlain(e.sentence)).toBe(true)
+    return e.sentence
+  }
+  it('form not found after the change', async () => {
+    const s = await card("couldn't test it: the form is not on the page any more")
+    expect(s).toMatch(/because I couldn't find the form on the page after the change/)
+    expect(s).not.toMatch(/safe/)
+  })
+  it('a third-party call really is unsafe, and says so', async () => {
+    expect(await card("couldn't test it: its code calls https://api.example.com, which is not this dev server, so it was not clicked"))
+      .toMatch(/wasn't safe to: it would reach outside your app/)
+  })
+  it('a tab that did not answer', async () => {
+    expect(await card("couldn't test it: the page did not answer the test (is the tab still open?)")).toMatch(/the page didn't answer when I tried/)
+  })
+  it('a ticking region', async () => {
+    expect(await card(`couldn't test it: "Stats" changes by itself (a clock, a countdown or a slideshow in it), so a click on "Show" can't be told apart from that.`))
+      .toMatch(/changes by itself/)
+  })
+})

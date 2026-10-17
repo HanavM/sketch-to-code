@@ -27,7 +27,8 @@
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
-import type { GroundedAction } from './intent2.js'
+import type { DomNode, DomSnapshot } from '@s2c/dom'
+import type { GroundedAction, GroundedTarget } from './intent2.js'
 
 export type ProbeKind = 'submit' | 'click'
 
@@ -123,6 +124,54 @@ export function deriveProbes(actions: GroundedAction[]): ProbeSpec[] {
     })
   })
   return out
+}
+
+/**
+ * Point each probe at where its elements are NOW.
+ *
+ * Stamps are positional (file:line:col), and probes run after the edit. Any
+ * write above the trigger shifts its stamp: the save engine adds an import and
+ * a hook above every form it wires, so a submit probe looked up by its
+ * plan-time stamp always found nothing ("the form is not on the page any
+ * more") and the run said it wasn't safe to try. The same holds for a click
+ * probe whose button sits below anything the edit added.
+ *
+ * Re-resolved structurally, like verify.ts does for its own checks: same file
+ * and tag in the after snapshot, then the same own text when the target had
+ * any, then the one nearest where the target was. A target with no such
+ * element keeps its old stamp, so the page still says it is gone.
+ */
+export function relocateProbes(specs: ProbeSpec[], actions: GroundedAction[], after: DomSnapshot): ProbeSpec[] {
+  return specs.map((sp) => {
+    const a = actions[sp.actionIndex]
+    if (!a) return sp
+    const trigger = relocate(a.targets[0], after)
+    const effect = sp.effect && a.dest ? relocate(a.dest, after) : null
+    return {
+      ...sp,
+      trigger: trigger ? { ...sp.trigger, srcLoc: trigger } : sp.trigger,
+      ...(sp.effect ? { effect: effect ? { ...sp.effect, srcLoc: effect } : sp.effect } : {}),
+    }
+  })
+}
+
+const centre = (r: { x: number; y: number; w: number; h: number }) => ({ x: r.x + r.w / 2, y: r.y + r.h / 2 })
+
+/** The after-snapshot stamp of a plan-time target, or null when nothing fits. */
+export function relocate(t: GroundedTarget | undefined, after: DomSnapshot): string | null {
+  if (!t?.srcLoc) return null
+  const file = t.srcLoc.replace(/:\d+:\d+$/, '')
+  const tag = t.tag.toLowerCase()
+  const same = after.nodes.filter((n): n is DomNode & { srcLoc: string } =>
+    !!n.srcLoc && n.srcLoc.replace(/:\d+:\d+$/, '') === file && n.tag.toLowerCase() === tag)
+  if (!same.length) return null
+  const byText = t.text ? same.filter((n) => n.text === t.text) : []
+  const pool = byText.length ? byText : same
+  if (pool.length === 1) return pool[0]!.srcLoc
+  const c = centre(t.rect)
+  const d = (n: DomNode) => { const m = centre(n.rect); return Math.hypot(m.x - c.x, m.y - c.y) }
+  // equal distance: the stamp it already had wins, then document order
+  return [...pool].sort((x, y) => d(x) - d(y) || Number(y.srcLoc === t.srcLoc) - Number(x.srcLoc === t.srcLoc))[0]!.srcLoc
 }
 
 /**

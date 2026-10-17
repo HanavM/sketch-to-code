@@ -129,12 +129,34 @@ function failedIndex(f: string): { index: number; check: string } | null {
   return { index: Number(m[1]), check }
 }
 
+/**
+ * Why a behaviour wasn't tried, in words for the card. The verdict's reason
+ * (probe.ts / probe-exec.ts / the plugin) names what happened; this keeps the
+ * true cause and drops what only a developer reads. "It wasn't safe to" is
+ * said only when that is what happened: telling someone a test was unsafe
+ * when the page simply couldn't find the form sends them looking for a
+ * danger that isn't there.
+ */
+export function whyUntested(reason: string): string {
+  const r = reason.replace(/^couldn't test it:\s*/i, '').replace(/\s*\(and the test data[^)]*\)\s*$/, '')
+  if (/not this dev server|navigates away/i.test(r)) return "it wasn't safe to: it would reach outside your app"
+  if (/changes by itself/i.test(r)) return 'the part you pointed at changes by itself, so I couldn\'t tell what the click did'
+  if (/not on the page|not inside a form/i.test(r)) {
+    const what = /^(the form|"[^"]{1,40}"|the \w+)/.exec(r)?.[1] ?? 'it'
+    return `I couldn't find ${what} on the page after the change`
+  }
+  if (/did not answer|can't drive the page/i.test(r)) return "the page didn't answer when I tried"
+  if (/threw/i.test(r)) return 'the page hit an error when I tried'
+  return "I couldn't run the test"
+}
+
 export function explainRun(input: ExplainInput): RunExplanation {
   const missed: string[] = []
   const seen = new Set<string>()
   let ruleBroken = false
   const failedActions = new Set<number>()
   const untested: string[] = []
+  const untestedWhy: string[] = []
 
   const note = (phrase: string) => {
     if (!seen.has(phrase)) {
@@ -155,7 +177,10 @@ export function explainRun(input: ExplainInput): RunExplanation {
       // the change may well be right; what's missing is the proof, and a
       // non-coder has no other way to get it, so it is never "Done."
       const base = PHRASE[a.kind]?.(a)
-      if (base && !untested.includes(base)) untested.push(base)
+      if (base && !untested.includes(base)) {
+        untested.push(base)
+        untestedWhy.push(whyUntested(f.replace(/^action \d+ \([^)]*\):\s*/, '')))
+      }
       continue
     }
     failedActions.add(p.index)
@@ -186,10 +211,11 @@ export function explainRun(input: ExplainInput): RunExplanation {
   }
   if (ruleBroken) parts.push('This change also breaks a rule you drew earlier.')
   if (untested.length) {
+    const why = [...new Set(untestedWhy)]
     parts.push(
       untested.length === 1
-        ? "I didn't try the change out in the page, because it wasn't safe to, so check yourself that it works before you rely on it."
-        : `I didn't try ${untested.length} of the changes out in the page, because it wasn't safe to, so check yourself that they work before you rely on them.`,
+        ? `I didn't try the change out in the page, because ${why[0]}, so check yourself that it works before you rely on it.`
+        : `I didn't try ${untested.length} of the changes out in the page, because ${list(why)}, so check yourself that they work before you rely on them.`,
     )
   }
   parts.push(
