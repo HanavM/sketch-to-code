@@ -110,12 +110,69 @@ Not checked: a real model reading the arrow (the reading is stubbed: SEED
 done #1 still has no real readings, s2c-013); Firefox/Safari; an app with its
 own `#root`-less mount.
 
-## Not done yet (next waterings)
+## The screen's contents (2026-10-17, s2c-040)
 
-3. **The screen's contents.** The engine writes a heading and a back button.
-   Anything sketched inside the box should go to codegen as an `add` into the
-   new screen. This needs a second pass after the file exists.
+People don't draw an empty box. They sketch what the screen should have on
+it. Before this, that sketch went to codegen as an ordinary `add` placed on
+the page it was drawn on, so a form drawn inside the "Reports" box landed on
+the **home** page beside the link: the opposite of what the drawing says.
+
+Now (`pipeline/src/screen-contents.ts`), after the navigate engine has
+written the screen file, run2 retargets every add whose ink lies inside the
+screen's box:
+
+- **Which stroke is the box:** of the strokes the navigate cites (grounding
+  now keeps them as `strokeIds`), the largest one that closes on itself. The
+  arrow doesn't close. No closed stroke → nothing is retargeted, which is the
+  old behaviour rather than a new guess.
+- **Inside** = at least 80% of the add's ink area is in the box. A sketch
+  that pokes over the edge counts; one drawn beside the box doesn't. The box
+  cited twice (as the add's own strokes) is never "inside itself".
+- **The retarget:** destination = the screen's `<main>` stamp, position
+  `into`, `onScreen = {name, route, file, navIndex}`, and the instruction is
+  prefixed `ON THE "Reports" SCREEN, not the page it was drawn on: build this
+  inside the <main> of src/screens/Reports.tsx, below its heading and the ←
+  Back button`. The reader prompt now asks for the inner sketch as its own
+  `add` citing only the inner strokes.
+- **Verification:** the page the user drew on can't show the result, so the
+  placement check is skipped for these. The navigate probe, while the screen
+  is open, counts what it shows besides the heading and Back
+  (`screenContent`), and the add passes only if that is more than nothing.
+  Colour isn't measured for them (it would be measured on the wrong page).
+- **Receipt:** "✓ Done: made the link with "Reports" open a "Reports" screen
+  and put what you drew in its box on the "Reports" screen." A typed word
+  that is just the screen's name isn't echoed back as the content. On a miss:
+  "I couldn't put what you drew in its box on the "Reports" screen."
+
+**Found on the way: a snapshot request lost to a reload.** A navigate edits
+`main.tsx`, which full-reloads the page. A fast codegen write followed by the
+verify snapshot could reach the old page a moment before it died; nobody
+answered, and the run failed 15 s later as "That took too long". The SSE
+greeting for a reconnecting run tab now re-asks any snapshot the run is still
+waiting for (an answered one is gone from the map, and a late second answer
+is dropped). Red 2/2 without it in the e2e below, green after. Real codegen
+takes seconds, so this mostly bit fast runs, but it's the same class as
+s2c-037.
+
+**e2e `tests/e2e/live-navigate-contents.mjs`** (zero tokens, the demo app's
+own vite in-process so codegen is scripted too, ~60 s): real ink (arrow from
+"Reports", a box, a field and a button inside it) → the brief points the add
+at `src/screens/Reports.tsx` → the form is there and App.tsx is untouched →
+the probe passes and the add's verdict is satisfied by what it saw on the
+screen → tick receipt naming both → by hand → one undo restores all → **not
+hollow:** a codegen that ignores the brief and builds on the home page fails
+the add ("the "Reports" screen opened, but nothing you drew in its box is on
+it") and the run doesn't end on a tick. 5/5 green back to back.
+
+Not checked: a real model reading the inner sketch as its own `add` (the
+reading is scripted; s2c-013); a box drawn as several strokes (no single
+closed stroke → no retarget, falls back to the old behaviour).
+
+## Not done yet
+
 4. `goBack()` counts in-app opens. A user who mixes the browser's back with
    the page's "← Back" can leave the counter one high, and the next "← Back"
    then steps back one entry too far. Harmless inside the app, but it isn't
    exact.
+5. A box drawn in two or more strokes (common when sketching fast) isn't
+   recognised as the screen, so its contents fall back to the home page.

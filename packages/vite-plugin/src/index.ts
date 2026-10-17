@@ -208,9 +208,19 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   // s2c-038: a page that reloads mid-run (the run wrote a new module) comes
   // back in its resting state, saying "drag to draw" while the run is still
   // writing. Its stream tells it the run is still going, and how far it got.
+  //
+  // s2c-040: and any snapshot the run is still waiting for is asked again.
+  // A request sent a moment before the reload reached the page that was
+  // about to die, so nobody answered it and the run failed 15 s later with
+  // "browser snapshot timed out" (a navigate writes main.tsx, so its reload
+  // races a fast codegen write). If the old page did answer, the request is
+  // gone from the map and nothing is re-sent; a late double answer is dropped.
   const sse: SseHub = createSseHub(Date.now, (tab) =>
     activeRun && tab != null && tab === activeRunTab
-      ? [{ event: 'running', data: { ...(activeRunStage ?? {}), clientId: tab } }]
+      ? [
+          { event: 'running', data: { ...(activeRunStage ?? {}), clientId: tab } },
+          ...[...pendingSnapshots.keys()].map((runId) => ({ event: 'resnapshot', data: { runId, clientId: tab } })),
+        ]
       : [],
   )
   const pendingSnapshots = new Map<string, (snap: DomSnapshot) => void>()

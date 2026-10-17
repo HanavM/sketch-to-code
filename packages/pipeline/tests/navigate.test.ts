@@ -221,6 +221,8 @@ describe('navigate — grounding', () => {
     expect(g.actions[0]!.kind).toBe('navigate')
     expect(g.actions[0]!.screen).toBe('Pricing')
     expect(g.actions[0]!.targets[0]!.srcLoc).toBe('src/Hero.tsx:5:7')
+    // s2c-040: the cited strokes are kept, so run2 can find the box among them
+    expect(g.actions[0]!.strokeIds).toEqual(['s0'])
   })
 
   it('a navigate with no screen name is rejected out loud', () => {

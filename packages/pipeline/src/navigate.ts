@@ -63,6 +63,10 @@ export interface NavigateResult {
   files?: string[]
   /** True when the screen was already there and only the link was added. */
   reused?: boolean
+  /** The screen's file, repo-relative, new or already there (s2c-040 builds into it). */
+  screenAt?: string
+  /** The screen's name as its heading shows it. */
+  title?: string
   change?: string
   error?: string
 }
@@ -367,10 +371,13 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
   }
 
   const label = screenTitle(raw)
+  const existing = reused ? registryEntries(registry ?? '').find((e) => e.slug === slug) : undefined
   return {
     ok: true,
     route,
     screenFile: reused ? undefined : screenRel,
+    screenAt: existing ? `src/screens/${existing.component}.tsx` : screenRel,
+    title: label,
     files,
     reused,
     change: reused

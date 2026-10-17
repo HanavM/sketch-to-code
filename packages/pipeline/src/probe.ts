@@ -60,6 +60,8 @@ export interface NavObservation {
   back: 'button' | 'browser' | null
   /** After going back the address was the old one and the trigger visible again. */
   backOk: boolean
+  /** s2c-040: what the open screen showed besides its heading and Back. */
+  contents?: { count: number; sample: string }
 }
 
 /** What the browser saw. Produced by overlay-client/src/probe-exec.ts. */
@@ -98,6 +100,13 @@ export interface ProbeVerdict {
   status: ProbeStatus
   /** Plain language, ready to show as is. */
   reason: string
+  /**
+   * navigate: what the opened screen showed besides its heading and Back
+   * (s2c-040). Things sketched inside the screen's box are built there, out of
+   * sight of the page the user drew on, so this is the only place they can be
+   * checked.
+   */
+  screenContent?: { count: number; sample: string }
 }
 
 const BEHAVIOUR = /\b(shows?|hides?|toggles?|reveals?|opens?|closes?|dismiss(es)?|expands?|collapses?|filters?|sorts?|switch(es)?|adds?\s+(a\s+)?(row|item|entry|card|one)|removes?\s+(the\s+)?(row|item|entry|card)|counts?|increments?|appears?|disappears?|when\s+clicked|on\s+click)\b/i
@@ -272,9 +281,11 @@ export function judgeProbe(spec: ProbeSpec, obs: ProbeObservation, data: DataDel
         (n.triggerGone ? '' : ' (the page you clicked on was still there)'))
     }
     if (!n.backOk) {
-      return v('failed', `clicking ${spec.trigger.label} opened ${name}, but going back didn't return to the page you started on`)
+      const bad = v('failed', `clicking ${spec.trigger.label} opened ${name}, but going back didn't return to the page you started on`)
+      return n.contents ? { ...bad, screenContent: n.contents } : bad
     }
-    return v('passed', `clicking ${spec.trigger.label} opened ${name}, and ${n.back === 'button' ? '← Back' : "the browser's back"} came home again`)
+    const ok = v('passed', `clicking ${spec.trigger.label} opened ${name}, and ${n.back === 'button' ? '← Back' : "the browser's back"} came home again`)
+    return n.contents ? { ...ok, screenContent: n.contents } : ok
   }
   // click
   if (obs.selfChanged) {

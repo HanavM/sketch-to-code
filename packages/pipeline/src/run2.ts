@@ -17,6 +17,7 @@ import { commitPlan, planStructuralEdits } from './codemod.js'
 import { promoteToApi } from './api.js'
 import { makeFormReal } from './form.js'
 import { linkToScreen } from './navigate.js'
+import { retargetIntoScreens, type AppliedScreen } from './screen-contents.js'
 import {
   buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
   interpretationSchema,
@@ -234,6 +235,7 @@ export async function runV2(
    */
   const backend: Array<{ index: number; change: string; files: string[] }> = []
   const backendRefused: string[] = []
+  const screensWritten: AppliedScreen[] = []
   for (const [i, a] of interp.actions.entries()) {
     if (handled.has(i)) continue
     if (a.kind !== 'serve' && a.kind !== 'save' && a.kind !== 'navigate') continue
@@ -247,6 +249,9 @@ export async function runV2(
     if (out.ok) {
       handled.add(i)
       backend.push({ index: i, change: out.change ?? a.kind, files: out.files ?? [] })
+      if (a.kind === 'navigate' && 'screenAt' in out && out.screenAt && out.route) {
+        screensWritten.push({ index: i, file: out.screenAt, route: out.route, title: out.title ?? a.screen ?? '' })
+      }
       stage('codemod', `action ${i}: ${out.change ?? a.kind}`)
     } else {
       handled.add(i) // the model must not be asked to "try anyway"
@@ -256,6 +261,14 @@ export async function runV2(
   }
   if (backend.length || backendRefused.length) {
     save('backend.json', { applied: backend, refused: backendRefused })
+  }
+  // What was sketched inside a new screen's box goes on that screen, not on
+  // the page it was drawn on (s2c-040). Only now: the screen file has to exist
+  // before anything can be pointed into it.
+  if (screensWritten.length) {
+    const moved = retargetIntoScreens(ctx.root, interp.actions, input.strokes, screensWritten, handled)
+    for (const m of moved) stage('codemod', `action ${m.index}: goes on the screen in ${m.file}`)
+    if (moved.length) save('screen-contents.json', moved)
   }
 
   const pending = interp.actions.map((a, i) => ({ i, a })).filter(({ i }) => !handled.has(i))
@@ -759,7 +772,21 @@ export function verifyActions(
       else failures.push(`action ${i} (swap): ${reason}`)
       details.push({ kind: 'swap', index: i, satisfied: ok, reason })
     }
-    if (a.kind === 'add' || a.kind === 'design') {
+    if ((a.kind === 'add' || a.kind === 'design') && a.onScreen) {
+      // built on another screen, so the page it was drawn on can't show it:
+      // the navigate probe opened that screen and counted what was there
+      total++
+      const seen = probes.find((p) => p.actionIndex === a.onScreen!.navIndex)
+      const c = seen?.screenContent
+      const verdict = !seen || seen.status === 'unverified' || !c
+        ? { satisfied: false, reason: `couldn't open the "${a.onScreen.name}" screen to check it` }
+        : c.count > 0
+          ? { satisfied: true, reason: `the "${a.onScreen.name}" screen shows it (${c.sample || `${c.count} new things`})` }
+          : { satisfied: false, reason: `the "${a.onScreen.name}" screen opened, but nothing you drew in its box is on it` }
+      details.push({ kind: a.kind, index: i, onScreen: a.onScreen.route, verdict })
+      if (verdict.satisfied) satisfied++
+      else failures.push(`action ${i} (${a.kind}): ${verdict.reason}`)
+    } else if (a.kind === 'add' || a.kind === 'design') {
       total++
       const region = a.region ?? a.dest?.rect
       if (!region) {
@@ -775,7 +802,8 @@ export function verifyActions(
     // A drawn colour is an instruction, and until now nothing checked it: a
     // run could be asked for red, produce grey, and report 100%. Structure was
     // measured richly while appearance was not measured at all.
-    if (a.color) {
+    // a colour on another screen can't be measured from this one (s2c-040)
+    if (a.color && !a.onScreen) {
       total++
       const verdict = verifyColor(a, after)
       details.push({ kind: 'colour', index: i, ...verdict })

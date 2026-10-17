@@ -591,8 +591,10 @@ a second page — means: clicking this opens a new screen with that name. Emit
 "navigate" with one target (the button or link the arrow starts at) and
 "screen" set to the name exactly as written. It is applied mechanically: do not
 also emit an "add" for the box. An arrow between two existing elements that
-names no screen is still a "move". Put anything drawn INSIDE the box in the
-instruction; the screen's contents are built afterwards.
+names no screen is still a "move". The navigate cites the arrow, the box and
+the name. Anything drawn INSIDE the box (a form, cards, a list) is the screen's
+content: emit it as its own "add" citing only those inner strokes, described as
+usual. It is built on the new screen automatically, never on this page.
 
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
@@ -677,6 +679,14 @@ export interface GroundedAction {
   color?: ColorMatch
   /** navigate: the screen's name, as written. */
   screen?: string
+  /**
+   * add/design drawn inside a navigate's screen box: built into that screen,
+   * not the page it was drawn on (screen-contents.ts, s2c-040). Set by run2
+   * after the navigate engine has written the screen file.
+   */
+  onScreen?: { name: string; route: string; file: string; navIndex: number }
+  /** navigate: every stroke it cites (arrow, box, name). Paths are only fitted for creations. */
+  strokeIds?: string[]
   needsConfirm: boolean
 }
 
@@ -895,6 +905,8 @@ export function groundInterpretation(
       refs: refs.length ? refs : undefined,
       color,
       ...(a.kind === 'navigate' && a.screen ? { screen: a.screen.trim() } : {}),
+      // the arrow and the box: run2 finds the screen's box among these (s2c-040)
+      ...(a.kind === 'navigate' && citedStrokes.length ? { strokeIds: citedStrokes.map((st) => st.id) } : {}),
       needsConfirm,
     })
   }

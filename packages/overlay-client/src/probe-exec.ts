@@ -28,6 +28,8 @@ export interface NavObservationWire {
   headingShown: boolean
   back: 'button' | 'browser' | null
   backOk: boolean
+  /** s2c-040: what the open screen showed besides its heading and Back. */
+  contents?: { count: number; sample: string }
 }
 
 export interface ProbeObservationWire {
@@ -169,6 +171,26 @@ async function until(ok: () => boolean, ms: number): Promise<boolean> {
 const normHash = (h: string): string => (h === '#' ? '' : h)
 
 /**
+ * What the open screen shows besides the two things the engine writes, its
+ * heading and its "← Back" (s2c-040). Something sketched inside the screen's
+ * box is built into the screen, and this is how a run tells that it got
+ * there: it can't be seen from the page the user drew on.
+ */
+const CONTENT = 'input, textarea, select, button, a, img, svg, p, li, label, td, blockquote, form, h1, h2, h3, h4, h5, h6'
+function screenContents(app: Element, heading: string): { count: number; sample: string } {
+  const isBack = (el: Element) => /^(button|a)$/i.test(el.tagName) && /^\W*back\b/i.test((el as HTMLElement).innerText.trim())
+  const isHeading = (el: Element) => /^H[1-6]$/.test(el.tagName) &&
+    (el as HTMLElement).innerText.replace(/\s+/g, ' ').trim().toLowerCase() === heading
+  const skip = (el: Element | null) => !!el && (isBack(el) || isHeading(el))
+  // an icon inside the back button or a span inside the heading is not content
+  const counted = [...app.querySelectorAll(CONTENT)].filter((el) =>
+    isShown(el) && !skip(el) && !skip(el.parentElement))
+  const sample = counted.map((el) => (el as HTMLElement).innerText?.trim() || (el as HTMLInputElement).placeholder || el.tagName.toLowerCase())
+    .filter(Boolean).join(' · ').replace(/\s+/g, ' ').slice(0, 80)
+  return { count: counted.length, sample }
+}
+
+/**
  * The navigate probe (s2c-039): an arrow from a button to a named box claims
  * "clicking this opens that screen". So: click it the way a person would, and
  * check the three things a person would see — the address is the screen's,
@@ -200,6 +222,7 @@ async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: n
     const hashAfter = normHash(location.hash)
     const triggerGone = !isShown(stamped(srcLoc))
     const shown = headingShown()
+    const contents = hashAfter === route ? screenContents(app, heading) : undefined
     let back: NavObservationWire['back'] = null
     let backOk = false
     if (hashAfter !== hashBefore) {
@@ -210,7 +233,7 @@ async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: n
     }
     return {
       ran: true, requests: [], before: hashBefore, after: hashAfter,
-      nav: { hashBefore, hashAfter, triggerGone, headingShown: shown, back, backOk },
+      nav: { hashBefore, hashAfter, triggerGone, headingShown: shown, back, backOk, ...(contents ? { contents } : {}) },
       ms: Math.round(performance.now() - t0),
     }
   } catch (err) {

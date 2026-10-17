@@ -59,13 +59,17 @@ export function describeTarget(t: GroundedTarget | undefined): string {
   return `the ${noun} with "${cut}"`.replace(/^the text with /, 'the text ')
 }
 
+/** A sketch inside a new screen's box, built on that screen (s2c-040). */
+const onScreenPhrase = (a: GroundedAction): string =>
+  `put ${a.depicts ? `the ${noArticle(a.depicts)} you drew` : 'what you drew in its box'} on the "${noArticle(a.onScreen!.name)}" screen`
+
 const PHRASE: Record<string, (a: GroundedAction) => string> = {
   delete: (a) => `remove ${describeTarget(a.targets[0])}`,
   modify: (a) => `change ${describeTarget(a.targets[0])}`,
   move: (a) => `move ${describeTarget(a.targets[0])}`,
   swap: (a) => `swap ${describeTarget(a.targets[0])} and ${describeTarget(a.targets[1])}`,
-  add: (a) => (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
-  design: (a) => (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
+  add: (a) => a.onScreen ? onScreenPhrase(a) : (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
+  design: (a) => a.onScreen ? onScreenPhrase(a) : (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
   serve: (a) => `load ${describeTarget(a.targets[0])} from the server`,
   save: (a) => `make ${describeTarget(a.targets[0])} keep what people type`,
   navigate: (a) => `make ${describeTarget(a.targets[0])} open ${a.screen ? `a "${noArticle(a.screen)}" screen` : 'a new screen'}`,
@@ -182,6 +186,13 @@ function donePhrase(a: GroundedAction, words: string): string | undefined {
     // the default pen has no colour at all; any colour here was picked on purpose
     if (hue) return `made ${target} ${hue}`
     return past(base)
+  }
+  // drawn inside a new screen's box: built on that screen (s2c-040)
+  if ((a.kind === 'add' || a.kind === 'design') && a.onScreen) {
+    // the word typed with the gesture is often just the screen's own name,
+    // and "put "reports" on the "Reports" screen" says nothing
+    const own = words && words.trim().toLowerCase() !== a.onScreen.name.trim().toLowerCase()
+    return own ? `put "${words}" on the "${noArticle(a.onScreen.name)}" screen` : onScreenPhrase(a)
   }
   if ((a.kind === 'add' || a.kind === 'design') && words) {
     if (a.depicts && scrub(a.depicts).toLowerCase().includes(words.toLowerCase())) return past(base)
