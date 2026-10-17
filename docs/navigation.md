@@ -66,14 +66,52 @@ capture/revert restores all of them in one step, created files included.
   and pressing "← Back" stays in the app. `#features` still shows home. No
   page errors. Generated files pass `tsc --strict --noUncheckedIndexedAccess`.
 
+## The probe (2026-10-17, watering 2)
+
+A run that adds a screen now tries it in the page, like a save or a toggle.
+`deriveProbes` turns a `navigate` action into a `navigate` probe carrying the
+route and the heading `linkToScreen` writes (`screenSlug`/`screenTitle`, the
+same functions, so they can't drift). In the browser (`probe-exec.ts`):
+
+1. click the trigger the way a person would (a `#…` link is allowed to
+   change the address; any other link is still stopped);
+2. wait up to 2.5 s for all three things a person would see: the address is
+   the route, the page they clicked on is gone, a heading with the screen's
+   name is visible inside `#root`;
+3. go back the way they would: the screen's own "← Back" if there is one
+   (that is what exercises `goBack()`), else the browser's back;
+4. wait for the old address and the trigger to be visible again;
+5. whatever happened, leave the page at the address it had.
+
+Verdicts, in plain words: *didn't open the "X" screen: the page stayed where
+it was* (a dead button); *changed the address, but the "X" screen didn't
+show* (a route nothing renders, the easy way to fake it); *going back didn't
+return to the page you started on*; else *opened the "X" screen, and ← Back
+came home again*. A page that never answers is `unverified`, never passed.
+
+**e2e `tests/e2e/live-navigate.mjs`** (zero-token, port 5199, ~25 s): a
+stubbed reading of `navigate` on the navbar's "Reports" link → the engine
+writes the screen, registry, lib, mount and `href="#/reports"` → the run's own
+probe **passed** → receipt "✓ Done: made the link with "Reports" open a
+"Reports" screen." → by hand: click → Reports, ← Back → home → **one Ctrl+Z
+removes all three files and puts `main.tsx` and `Navbar.tsx` back byte for
+byte** → then two negatives straight through `/@s2c/probe`: an `href="#/reports"`
+with no `<Screens>` mounted fails, and the dead "Sign out" button fails.
+Green 5/5 back to back (phase 6 added for the last 2).
+
+It found one bug outside this feature: **undo left the folders an edit
+created** (`src/screens/`, and `server/api/` after a serve). `revertWork` now
+removes a folder that is empty after the edit's files are gone, up to and not
+including the app root. Git tracks no folders, so an empty folder the user
+had *before* the edit and that one of its files went into would go too;
+that is the accepted cost.
+
+Not checked: a real model reading the arrow (the reading is stubbed: SEED
+done #1 still has no real readings, s2c-013); Firefox/Safari; an app with its
+own `#root`-less mount.
+
 ## Not done yet (next waterings)
 
-1. **The probe.** `deriveProbes` has no `navigate` case, so a run that adds a
-   screen is not tried in the page. Add a `navigate` probe: click the trigger,
-   expect `location.hash === route` and the screen's heading visible, then
-   `history.back()` and expect the trigger visible again.
-2. **The zero-token e2e** on the demo app: a stubbed reading → engine → probe
-   passes → receipt sentence → one undo removes all five files.
 3. **The screen's contents.** The engine writes a heading and a back button.
    Anything sketched inside the box should go to codegen as an `add` into the
    new screen. This needs a second pass after the file exists.

@@ -101,3 +101,10 @@ overlay enters running mode on it. The `stopping` stage had no plain line and
 showed "Working…" right after Esc; it now says "Stopping…", and the Esc line
 uses the same sentence. Red on 7b870e4 (`draw` + idle hint), green 4/4 after;
 live-saywhat, live-auto, live-misread, live-keymap, walkthrough green.
+
+## s2c-039: live-navigate (new, zero-token, 5199)
+
+Draw a link end to end with the reading stubbed: engine → the run's own
+navigate probe passes → receipt → by-hand click and ← Back → one undo
+restores every byte → an unrendered route and a dead button both fail the
+probe. Green 5/5 (phase 6 in the last 2). Caught: undo left the empty folders an edit had created.

@@ -14,9 +14,20 @@
  */
 
 export interface ProbeSpecWire {
-  kind: 'submit' | 'click'
+  kind: 'submit' | 'click' | 'navigate'
   trigger: { srcLoc: string; label: string }
   effect?: { srcLoc: string; label: string }
+  /** navigate: the route the trigger must open and the heading it must show. */
+  screen?: { route: string; heading: string }
+}
+
+export interface NavObservationWire {
+  hashBefore: string
+  hashAfter: string
+  triggerGone: boolean
+  headingShown: boolean
+  back: 'button' | 'browser' | null
+  backOk: boolean
 }
 
 export interface ProbeObservationWire {
@@ -28,6 +39,7 @@ export interface ProbeObservationWire {
   unhandledSubmit?: boolean
   /** Click probes: the region changed while nobody touched it (a clock, a slideshow). */
   selfChanged?: boolean
+  nav?: NavObservationWire
   ms: number
 }
 
@@ -138,6 +150,81 @@ export async function changesByItself(region: Element, skip: Element | null, ms 
   return moved > 0 || fingerprint(region, skip) !== before
 }
 
+/** Laid out and not hidden: what a person would call "on the screen". */
+const isShown = (el: Element | null): boolean =>
+  !!el && el.isConnected && (el as HTMLElement).getClientRects().length > 0 &&
+  getComputedStyle(el as HTMLElement).visibility !== 'hidden'
+
+/** Poll until `ok()` or `ms` pass; true when it held. */
+async function until(ok: () => boolean, ms: number): Promise<boolean> {
+  const t0 = performance.now()
+  while (performance.now() - t0 < ms) {
+    if (ok()) return true
+    await sleep(40)
+  }
+  return ok()
+}
+
+/** '' and '#' are the same address: the home page. */
+const normHash = (h: string): string => (h === '#' ? '' : h)
+
+/**
+ * The navigate probe (s2c-039): an arrow from a button to a named box claims
+ * "clicking this opens that screen". So: click it the way a person would, and
+ * check the three things a person would see — the address is the screen's,
+ * the page they clicked on is gone, the screen's heading is there. Then go
+ * back the way they would (the screen's own "← Back", else the browser's) and
+ * check they land where they started. Whatever happens, the page is left at
+ * the address it had, so the probe leaves no trace.
+ *
+ * Only the app's own root is searched for the heading: the overlay lives in a
+ * shadow root, but the page around the app might carry the same words.
+ */
+async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: number, waitMs: number): Promise<ProbeObservationWire> {
+  const route = spec.screen?.route ?? ''
+  const heading = (spec.screen?.heading ?? '').trim().toLowerCase()
+  const app = document.getElementById('root') ?? document.body
+  const hashBefore = normHash(location.hash)
+  const srcLoc = spec.trigger.srcLoc
+  const headingShown = () => !!heading && [...app.querySelectorAll('h1, h2, h3, [role="heading"]')]
+    .some((h) => isShown(h) && (h as HTMLElement).innerText.replace(/\s+/g, ' ').trim().toLowerCase() === heading)
+  // a link whose href is not an in-page address would leave the page
+  const onClick = (e: Event) => {
+    const a = (e.target as Element | null)?.closest?.('a[href]')
+    if (a && !(a.getAttribute('href') ?? '').startsWith('#') && !e.defaultPrevented) e.preventDefault()
+  }
+  window.addEventListener('click', onClick)
+  try {
+    trigger.click()
+    await until(() => normHash(location.hash) === route && !isShown(stamped(srcLoc)) && headingShown(), waitMs)
+    const hashAfter = normHash(location.hash)
+    const triggerGone = !isShown(stamped(srcLoc))
+    const shown = headingShown()
+    let back: NavObservationWire['back'] = null
+    let backOk = false
+    if (hashAfter !== hashBefore) {
+      const btn = [...app.querySelectorAll('button, a')]
+        .find((b) => isShown(b) && /^\W*back\b/i.test((b as HTMLElement).innerText.trim())) as HTMLElement | undefined
+      if (btn) { back = 'button'; btn.click() } else { back = 'browser'; history.back() }
+      backOk = await until(() => normHash(location.hash) === hashBefore && isShown(stamped(srcLoc)), waitMs)
+    }
+    return {
+      ran: true, requests: [], before: hashBefore, after: hashAfter,
+      nav: { hashBefore, hashAfter, triggerGone, headingShown: shown, back, backOk },
+      ms: Math.round(performance.now() - t0),
+    }
+  } catch (err) {
+    return { ran: false, error: `the page threw while it was being tested: ${err instanceof Error ? err.message : String(err)}`, requests: [], before: '', after: '', ms: Math.round(performance.now() - t0) }
+  } finally {
+    window.removeEventListener('click', onClick)
+    // leave the page at the address it had, whatever the app did
+    if (normHash(location.hash) !== hashBefore) {
+      location.hash = hashBefore
+      await until(() => isShown(stamped(srcLoc)), waitMs)
+    }
+  }
+}
+
 export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000, idleWatchMs = 1100): Promise<ProbeObservationWire> {
   const t0 = performance.now()
   const fail = (error: string): ProbeObservationWire =>
@@ -145,6 +232,7 @@ export async function runProbe(spec: ProbeSpecWire, settleMs = 400, maxMs = 5000
 
   const trigger = stamped(spec.trigger.srcLoc)
   if (!trigger) return fail(`${spec.trigger.label} is not on the page any more`)
+  if (spec.kind === 'navigate') return runNavigateProbe(spec, trigger, t0, Math.min(maxMs, 2500))
   const form = spec.kind === 'submit' ? trigger.closest('form') : null
   if (spec.kind === 'submit' && !form) return fail(`${spec.trigger.label} is not inside a form`)
   const region = spec.kind === 'submit' ? form : (spec.effect ? stamped(spec.effect.srcLoc) : null)

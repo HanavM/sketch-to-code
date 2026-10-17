@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
-  deriveProbes, guardData, judgeProbe, restoreData, snapshotData, unsafeReason,
+  deriveProbes, guardData, judgeProbe, relocateProbes, restoreData, snapshotData, unsafeReason,
   type ProbeObservation, type ProbeSpec,
 } from '../src/probe.js'
 import type { GroundedAction, GroundedTarget } from '../src/intent2.js'
@@ -325,5 +325,62 @@ describe('an untested behaviour says the real reason, not "it wasn\'t safe to"',
   it('a ticking region', async () => {
     expect(await card(`couldn't test it: "Stats" changes by itself (a clock, a countdown or a slideshow in it), so a click on "Show" can't be told apart from that.`))
       .toMatch(/changes by itself/)
+  })
+})
+
+describe('navigate probes (s2c-039): the arrow to a named box is tested by clicking it', () => {
+  const nav = (screen = 'Get started') => act({
+    kind: 'navigate', instruction: `clicking this opens ${screen}`, screen,
+    targets: [tgt('src/App.tsx:20:9', 'button', 'Get started')],
+  })
+  const spec: ProbeSpec = {
+    actionIndex: 0, kind: 'navigate', trigger: { srcLoc: 'src/App.tsx:20:9', label: '"Get started"' },
+    screen: { route: '#/get-started', heading: 'Get started' }, claim: '',
+  }
+  const navObs = (p: Partial<NonNullable<ProbeObservation['nav']>>): ProbeObservation => obs({
+    nav: { hashBefore: '', hashAfter: '#/get-started', triggerGone: true, headingShown: true, back: 'button', backOk: true, ...p },
+  })
+
+  it('derives one navigate probe with the route and heading navigate.ts will write', () => {
+    const [p, ...rest] = deriveProbes([nav('sign up')])
+    expect(rest).toHaveLength(0)
+    expect(p).toMatchObject({ kind: 'navigate', screen: { route: '#/sign-up', heading: 'Sign up' } })
+    expect(p!.effect).toBeUndefined()
+    expect(p!.claim).toContain('"Sign up" screen')
+  })
+
+  it('derives nothing for a navigate with no screen name (grounding refuses those)', () => {
+    expect(deriveProbes([nav('')])).toHaveLength(0)
+    expect(deriveProbes([nav(' !! ')])).toHaveLength(0)
+  })
+
+  it('passes only when the address, the page, the heading and Back all hold', () => {
+    const ok = judgeProbe(spec, navObs({}), clean)
+    expect(ok.status).toBe('passed')
+    expect(ok.reason).toMatch(/opened the "Get started" screen, and ← Back came home/)
+    expect(judgeProbe(spec, navObs({ back: 'browser' }), clean).reason).toMatch(/the browser's back/)
+  })
+
+  it('fails a button that does nothing, a hash nobody renders, a home page left showing, and a dead Back', () => {
+    const r = (p: Partial<NonNullable<ProbeObservation['nav']>>) => judgeProbe(spec, navObs(p), clean)
+    expect(r({ hashAfter: '' })).toMatchObject({ status: 'failed', reason: expect.stringMatching(/didn't open the "Get started" screen/) })
+    expect(r({ headingShown: false })).toMatchObject({ status: 'failed', reason: expect.stringMatching(/changed the address, but the "Get started" screen didn't show/) })
+    expect(r({ triggerGone: false }).reason).toMatch(/was still there/)
+    expect(r({ backOk: false })).toMatchObject({ status: 'failed', reason: expect.stringMatching(/going back didn't return/) })
+  })
+
+  it('is unverified, not passed, when the page never ran it or said nothing', () => {
+    expect(judgeProbe(spec, obs({ ran: false, error: '"Get started" is not on the page any more' }), clean).status).toBe('unverified')
+    expect(judgeProbe(spec, obs({}), clean).status).toBe('unverified')
+  })
+
+  it('relocates the trigger after the engine shifted its stamp', () => {
+    const a = nav()
+    const after = { url: '', viewport: { w: 1280, h: 800 }, nodes: [
+      { id: 1, tag: 'button', text: 'Get started', srcLoc: 'src/App.tsx:21:9', rect: a.targets[0]!.rect },
+    ] } as unknown as Parameters<typeof relocateProbes>[2]
+    const [p] = relocateProbes(deriveProbes([a]), [a], after)
+    expect(p!.trigger.srcLoc).toBe('src/App.tsx:21:9')
+    expect(p!.screen?.route).toBe('#/get-started')
   })
 })

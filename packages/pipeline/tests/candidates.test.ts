@@ -60,6 +60,23 @@ describe('undoing one edit, the way Ctrl+Z does', () => {
     expect(readFileSync(join(app, 'src/Existing.tsx'), 'utf8')).toBe('export const a = 1\n')
   })
 
+  it('takes the folders it created with it, and only those (s2c-039)', () => {
+    const { app } = repo()
+    mkdirSync(join(app, 'src/lib'))
+    writeFileSync(join(app, 'src/lib/keep.ts'), 'export {}\n') // untracked, already here
+    const cp = checkpoint(app, true)
+    mkdirSync(join(app, 'src/screens/deep'), { recursive: true })
+    writeFileSync(join(app, 'src/screens/deep/Reports.tsx'), 'export default () => null\n')
+    writeFileSync(join(app, 'src/lib/screens.tsx'), 'export {}\n')
+
+    revertTouched(app, cp, ['src/lib/keep.ts'])
+
+    expect(existsSync(join(app, 'src/screens'))).toBe(false)
+    expect(existsSync(join(app, 'src/lib/screens.tsx'))).toBe(false)
+    expect(existsSync(join(app, 'src/lib/keep.ts'))).toBe(true)
+    expect(existsSync(join(app, 'src/Existing.tsx'))).toBe(true)
+  })
+
   it('reports nothing when there is nothing to undo', () => {
     const { app } = repo()
     expect(revertTouched(app, checkpoint(app, true))).toEqual([])

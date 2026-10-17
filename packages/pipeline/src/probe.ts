@@ -29,8 +29,9 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, wri
 import { join, relative } from 'node:path'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction, GroundedTarget } from './intent2.js'
+import { screenSlug, screenTitle } from './navigate.js'
 
-export type ProbeKind = 'submit' | 'click'
+export type ProbeKind = 'submit' | 'click' | 'navigate'
 
 export interface ProbeSpec {
   /** The grounded action this probe tests, or -1 when asked for directly. */
@@ -40,8 +41,25 @@ export interface ProbeSpec {
   trigger: { srcLoc: string; label: string }
   /** Where the effect must show. Absent for a submit: the form is the region. */
   effect?: { srcLoc: string; label: string }
+  /** navigate: the screen the trigger must open (navigate.ts writes both). */
+  screen?: { route: string; heading: string }
   /** The claim under test, in words a non-coder can read. */
   claim: string
+}
+
+/** What a navigate probe saw, step by step (probe-exec.ts). */
+export interface NavObservation {
+  /** location.hash before the click and right after it settled. */
+  hashBefore: string
+  hashAfter: string
+  /** The trigger left the page (the home screen was swapped out). */
+  triggerGone: boolean
+  /** The screen's heading was visible in the app after the click. */
+  headingShown: boolean
+  /** How it went back: the screen's own Back button, or the browser's. */
+  back: 'button' | 'browser' | null
+  /** After going back the address was the old one and the trigger visible again. */
+  backOk: boolean
 }
 
 /** What the browser saw. Produced by overlay-client/src/probe-exec.ts. */
@@ -61,6 +79,8 @@ export interface ProbeObservation {
    * the click (a clock, a countdown, a slideshow). The trigger was not clicked.
    */
   selfChanged?: boolean
+  /** Navigate probes. */
+  nav?: NavObservation
   ms: number
 }
 
@@ -93,6 +113,10 @@ const labelOf = (t: { text?: string; subtreeText?: string; tag: string }): strin
  *
  * - `save`: the target is inside a form; submitting it must store a record
  *   and the page must say so.
+ * - `navigate` (navigate.ts): clicking the button must open the named screen
+ *   (the address becomes its route, the home page goes, its heading shows),
+ *   and Back must come home again. A screen that only *looks* linked — the
+ *   button writes the hash but nothing renders it — fails here.
  * - an action with a trigger (target) and an effect (dest) whose words name a
  *   behaviour — "shows", "toggles", "adds a row" — on a clickable trigger:
  *   clicking the trigger must change the effect region. This is the arrow
@@ -109,6 +133,18 @@ export function deriveProbes(actions: GroundedAction[]): ProbeSpec[] {
         actionIndex: i, kind: 'submit',
         trigger: { srcLoc: t.srcLoc, label: 'the form' },
         claim: 'submitting the form stores what was typed, and the page says so',
+      })
+      return
+    }
+    if (a.kind === 'navigate') {
+      const slug = a.screen ? screenSlug(a.screen) : ''
+      if (!slug) return // grounding rejects these; nothing to test
+      const name = screenTitle(a.screen!)
+      out.push({
+        actionIndex: i, kind: 'navigate',
+        trigger: { srcLoc: t.srcLoc, label: labelOf(t) },
+        screen: { route: `#/${slug}`, heading: name },
+        claim: `clicking ${labelOf(t)} opens the "${name}" screen, and Back comes home`,
       })
       return
     }
@@ -223,6 +259,22 @@ export function judgeProbe(spec: ProbeSpec, obs: ProbeObservation, data: DataDel
       return v('failed', 'a test submit was stored, but the page does not say so, so someone filling it in can\'t tell it worked')
     }
     return v('passed', `a test submit was stored in ${data.changed.join(', ')} and the page said so (the test record was removed again)`)
+  }
+  if (spec.kind === 'navigate') {
+    const n = obs.nav
+    const name = `the "${spec.screen?.heading ?? 'new'}" screen`
+    if (!n) return v('unverified', "couldn't test it: the page did not say what the click did")
+    if (n.hashAfter !== spec.screen?.route) {
+      return v('failed', `clicking ${spec.trigger.label} didn't open ${name}: the page stayed where it was`)
+    }
+    if (!n.triggerGone || !n.headingShown) {
+      return v('failed', `clicking ${spec.trigger.label} changed the address, but ${name} didn't show` +
+        (n.triggerGone ? '' : ' (the page you clicked on was still there)'))
+    }
+    if (!n.backOk) {
+      return v('failed', `clicking ${spec.trigger.label} opened ${name}, but going back didn't return to the page you started on`)
+    }
+    return v('passed', `clicking ${spec.trigger.label} opened ${name}, and ${n.back === 'button' ? '← Back' : "the browser's back"} came home again`)
   }
   // click
   if (obs.selfChanged) {

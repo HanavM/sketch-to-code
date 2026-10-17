@@ -95,7 +95,7 @@ function pascal(slug: string): string {
 }
 
 /** 'sign-up' → 'Sign up', for the screen's heading when the user wrote it in lower case. */
-function title(raw: string): string {
+export function screenTitle(raw: string): string {
   const words = raw.trim().replace(/\s+/g, ' ')
   return words[0]!.toUpperCase() + words.slice(1)
 }
@@ -337,7 +337,7 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
     }
     writes.push({
       abs: screenAbs, rel: screenRel,
-      text: screenSource(component, title(raw), usesTailwind(root), specifierFor(dirname(screenAbs), libAbs)),
+      text: screenSource(component, screenTitle(raw), usesTailwind(root), specifierFor(dirname(screenAbs), libAbs)),
     })
     const entries = registry == null ? [] : registryEntries(registry)
     if (registry != null && entries.length === 0) {
@@ -366,7 +366,7 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
     if (!files.includes(w.rel)) files.push(w.rel)
   }
 
-  const label = title(raw)
+  const label = screenTitle(raw)
   return {
     ok: true,
     route,

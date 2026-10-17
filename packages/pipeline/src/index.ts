@@ -44,11 +44,11 @@ export { importAnchor } from './imports.js'
 export { promoteToApi } from './api.js'
 export type { PromoteRequest, PromoteResult } from './api.js'
 export { makeFormReal } from './form.js'
-export { linkToScreen, screenSlug, existingRouter } from './navigate.js'
+export { linkToScreen, screenSlug, screenTitle, existingRouter } from './navigate.js'
 export type { NavigateRequest, NavigateResult } from './navigate.js'
 export {
   deriveProbes, relocateProbes, judgeProbe, unsafeReason, snapshotData, restoreData, guardData, DATA_DIR,
-  type ProbeSpec, type ProbeObservation, type ProbeVerdict, type ProbeStatus, type DataDelta, type DataSnapshot,
+  type ProbeSpec, type ProbeObservation, type NavObservation, type ProbeVerdict, type ProbeStatus, type DataDelta, type DataSnapshot,
 } from './probe.js'
 export type { FormRequest, FormResult } from './form.js'
 export { stubRoute, isGeneratedRoute } from './stub.js'

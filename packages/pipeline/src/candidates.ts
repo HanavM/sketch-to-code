@@ -18,8 +18,8 @@
  * confirmed, and the winner is written back at the end.
  */
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmdirSync, rmSync, writeFileSync } from 'node:fs'
+import { dirname, join, resolve, sep } from 'node:path'
 import type { Checkpoint } from './safety.js'
 
 /** A file the attempt touched: its content, or null when it deleted it. */
@@ -78,7 +78,28 @@ export function revertWork(root: string, cp: Checkpoint, work: Work, keep?: stri
       execFileSync('git', ['restore', '--source', cp.sha, '--', rel], { cwd: root })
     } else {
       rmSync(join(root, rel), { force: true })
+      pruneEmptyDirs(root, dirname(join(root, rel)))
     }
+  }
+}
+
+/**
+ * Remove `dir` and its parents while they are empty, never `root` itself.
+ *
+ * An edit that created `src/screens/Reports.tsx` also created `src/screens/`.
+ * Deleting the file alone left an empty folder in the user's project after
+ * every undo of a new screen, route or hook (s2c-039's e2e caught it). Git
+ * tracks no directories, so it can't say whether an empty one was there
+ * before; a folder that is empty now and held one of this edit's files is
+ * taken to be the edit's.
+ */
+function pruneEmptyDirs(root: string, dir: string): void {
+  const top = resolve(root)
+  for (let d = resolve(dir); d.startsWith(top + sep); d = dirname(d)) {
+    try {
+      if (readdirSync(d).length > 0) return
+      rmdirSync(d)
+    } catch { return }
   }
 }
 
