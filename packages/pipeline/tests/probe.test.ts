@@ -349,6 +349,23 @@ describe('navigate probes (s2c-039): the arrow to a named box is tested by click
     expect(p!.claim).toContain('"Sign up" screen')
   })
 
+  it('takes the engine route when it ran: a react-router page is /pricing, not #/pricing (s2c-041)', () => {
+    const [p] = deriveProbes([nav('Pricing')], new Map([[0, '/pricing']]))
+    expect(p).toMatchObject({ kind: 'navigate', screen: { route: '/pricing', heading: 'Pricing' } })
+    const ok = judgeProbe({ ...spec, screen: { route: '/pricing', heading: 'Pricing' } },
+      navObs({ hashBefore: '/', hashAfter: '/pricing' }), clean)
+    expect(ok.status).toBe('passed')
+  })
+
+  it('a nav-bar trigger that stays (a shared layout) passes only with layoutKept; one that leads elsewhere says where', () => {
+    const r = { ...spec, screen: { route: '/pricing', heading: 'Pricing' } }
+    expect(judgeProbe(r, navObs({ hashBefore: '/', hashAfter: '/pricing', triggerGone: false }), clean).status).toBe('failed')
+    expect(judgeProbe(r, navObs({ hashBefore: '/', hashAfter: '/pricing', triggerGone: false, layoutKept: true }), clean).status).toBe('passed')
+    const away = judgeProbe(r, navObs({ hashBefore: '/', hashAfter: '/about' }), clean)
+    expect(away.status).toBe('failed')
+    expect(away.reason).toMatch(/went to \/about, not the "Pricing" screen/)
+  })
+
   it('derives nothing for a navigate with no screen name (grounding refuses those)', () => {
     expect(deriveProbes([nav('')])).toHaveLength(0)
     expect(deriveProbes([nav(' !! ')])).toHaveLength(0)

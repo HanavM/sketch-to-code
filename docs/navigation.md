@@ -37,11 +37,11 @@ becomes `<Screens home={<App />} screens={screens} />`. The registry
 time (it's ours). App's own code is never edited, so the home screen is
 exactly the page the user was drawing on.
 
-**An app that already has a router is refused, by name** (react-router-dom,
-react-router, @tanstack/react-router, wouter, @reach/router). Its routes are
+**An app that already has a router never gets hash screens.** Its routes are
 the truth about its screens. A second, parallel set of screens beside them
-would give two answers to "what's on this URL". Writing into react-router's
-own route table is its own branch.
+would give two answers to "what's on this URL". A react-router app gets a page
+in its own route table instead (below, s2c-041). @tanstack/react-router,
+wouter and @reach/router are still refused by name.
 
 **Refusals change nothing and say why in plain words:** no name in the box;
 the start isn't a button or link; the button already has an `onClick`; the
@@ -182,6 +182,67 @@ last one ended into a single stroke (the trackpad-hop rule), so those were
 never two strokes. Not handled: a box whose sides are cited across two
 different actions, and a rounded box drawn in pieces (pieces of an oval
 don't lie on their bounding box).
+
+## Apps that already use react-router (s2c-041, 2026-10-17)
+
+`linkToScreen` hands a react-router-dom / react-router app to
+`pipeline/src/navigate-router.ts` (`linkToRouterScreen`), after the same
+trigger checks (a button or link, no `onClick`, no real `href`). Same rules:
+every write planned first, every changed file re-parsed before anything is
+written, a plain-words refusal with nothing changed otherwise.
+
+- **Which table:** exactly one route list in `src/`:
+  `createBrowserRouter/createHashRouter/createMemoryRouter([...])` or
+  `useRoutes([...])` (inline, a `const` in the same file, or a name imported
+  from another file such as `routes.tsx`), a JSX `<Routes>` with `<Route>`
+  children, or `createRoutesFromElements(<Route>…)`. **Two lists are refused**
+  ("I won't guess which one a new page belongs in"), and so is a list built
+  in code (`createBrowserRouter(makeRoutes())`).
+- **Where in it:** the shallowest list holding the home page (an index route
+  or a `/` page). In a layout app that is the layout's `children`, so the new
+  page keeps the nav bar and footer every other page has. It goes before a
+  `*` catch-all if there is one, else after the last route, at their indent.
+- **Path:** `/pricing` at the top level, `pricing` inside a layout's children.
+  A page whose path is already there only gets the link.
+- **The page file:** `src/pages/Pricing.tsx` when the app has `src/pages/`,
+  else `src/screens/`. "← Back" uses react-router's own history index:
+  `navigate(-1)` when the user came from inside the app, `navigate('/')` when
+  they opened the page directly. That is exact, unlike the hash version's
+  counter (item 4 below).
+- **The trigger:** `<a href="#">` becomes `<Link to="/docs">` (closing tag
+  too). A button gets `onClick={() => navigate('/pricing')}` and its component
+  gets `const navigate = useNavigate()` at the top; an arrow-bodied component
+  `() => (…)` gets a block body for it; an existing `useNavigate()` in the
+  component is reused. Imports merge into an existing `react-router(-dom)`
+  import. **A button in the component that renders the router itself**
+  (`<BrowserRouter>` in App) is refused: the hook can't run there.
+- **The probe:** the run's navigate probe now takes the engine's route
+  (`deriveProbes(actions, navRoutes)`), compares `location.pathname` for a
+  `/…` route (the hash for `#/…`), and steps back with `history.back()`. A nav
+  bar button stays visible when its page opens (it's in the layout), so for a
+  path route "the page you clicked on is gone" may instead be "the heading
+  wasn't on the page before the click and is now" (`layoutKept`). A probe that
+  lands on a different address now says where it went instead of "the page
+  stayed where it was".
+
+**Verified:** 11 unit tests (`navigate-router.test.ts`: the three shapes,
+reuse, route + trigger in one file, hash router, four refusals byte-identical,
+other routers refused); 2 probe tests. **`tests/e2e/navigate-router-real.mjs`**
+(zero tokens, needs `npm i` once): the three shapes as real Vite 7 + React 19 +
+react-router 7 apps → engine → `tsc --strict --noUncheckedIndexedAccess` →
+`vite build` → Chromium: click opens the page (address, heading, home gone,
+layout kept), ← Back home, direct entry + ← Back home, **the run's own probe
+passes**, a probe for a page it doesn't open fails, no page errors. 3/3 shapes
+green. It caught one real bug before it shipped: the probe failed every
+nav-bar trigger in a layout app (the trigger never disappears), fixed by
+`layoutKept`.
+
+Not checked: a full overlay run (stubbed reading → engine → probe → receipt →
+undo) on a react-router app; that's the rest of s2c-041. An app served under a
+base path or `basename` (the probe compares the whole pathname). React Router
+v7 **framework mode**, which is what `npx create-react-router` scaffolds
+(`app/routes.ts` with `route()`/`index()`, SSR, no `src/main.tsx`): not read
+at all, and probably not supported by `init` either (s2c-043).
 
 ## Not done yet
 

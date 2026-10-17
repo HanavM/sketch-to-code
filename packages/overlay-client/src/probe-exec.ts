@@ -26,6 +26,8 @@ export interface NavObservationWire {
   hashAfter: string
   triggerGone: boolean
   headingShown: boolean
+  /** s2c-041: the trigger stayed because it's in a layout every page shares (a nav bar), and the heading is new. */
+  layoutKept?: boolean
   back: 'button' | 'browser' | null
   backOk: boolean
   /** s2c-040: what the open screen showed besides its heading and Back. */
@@ -204,9 +206,12 @@ function screenContents(app: Element, heading: string): { count: number; sample:
  */
 async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: number, waitMs: number): Promise<ProbeObservationWire> {
   const route = spec.screen?.route ?? ''
+  // '#/pricing' (the hash screens) or '/pricing' (a react-router page, s2c-041)
+  const byPath = route.startsWith('/')
+  const addr = (): string => (byPath ? location.pathname.replace(/(.)\/+$/, '$1') : normHash(location.hash))
   const heading = (spec.screen?.heading ?? '').trim().toLowerCase()
   const app = document.getElementById('root') ?? document.body
-  const hashBefore = normHash(location.hash)
+  const hashBefore = addr()
   const srcLoc = spec.trigger.srcLoc
   const headingShown = () => !!heading && [...app.querySelectorAll('h1, h2, h3, [role="heading"]')]
     .some((h) => isShown(h) && (h as HTMLElement).innerText.replace(/\s+/g, ' ').trim().toLowerCase() === heading)
@@ -216,12 +221,17 @@ async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: n
     if (a && !(a.getAttribute('href') ?? '').startsWith('#') && !e.defaultPrevented) e.preventDefault()
   }
   window.addEventListener('click', onClick)
+  // a router app's nav bar is in a layout every page shares, so a button in it
+  // stays when its page opens. The page still has to change: the heading must
+  // be one the page didn't show before the click.
+  const headingBefore = headingShown()
   try {
     trigger.click()
-    await until(() => normHash(location.hash) === route && !isShown(stamped(srcLoc)) && headingShown(), waitMs)
-    const hashAfter = normHash(location.hash)
+    await until(() => addr() === route && headingShown() && (!isShown(stamped(srcLoc)) || (byPath && !headingBefore)), waitMs)
+    const hashAfter = addr()
     const triggerGone = !isShown(stamped(srcLoc))
     const shown = headingShown()
+    const layoutKept = byPath && !triggerGone && !headingBefore && shown
     const contents = hashAfter === route ? screenContents(app, heading) : undefined
     let back: NavObservationWire['back'] = null
     let backOk = false
@@ -229,11 +239,11 @@ async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: n
       const btn = [...app.querySelectorAll('button, a')]
         .find((b) => isShown(b) && /^\W*back\b/i.test((b as HTMLElement).innerText.trim())) as HTMLElement | undefined
       if (btn) { back = 'button'; btn.click() } else { back = 'browser'; history.back() }
-      backOk = await until(() => normHash(location.hash) === hashBefore && isShown(stamped(srcLoc)), waitMs)
+      backOk = await until(() => addr() === hashBefore && isShown(stamped(srcLoc)), waitMs)
     }
     return {
       ran: true, requests: [], before: hashBefore, after: hashAfter,
-      nav: { hashBefore, hashAfter, triggerGone, headingShown: shown, back, backOk, ...(contents ? { contents } : {}) },
+      nav: { hashBefore, hashAfter, triggerGone, headingShown: shown, ...(layoutKept ? { layoutKept } : {}), back, backOk, ...(contents ? { contents } : {}) },
       ms: Math.round(performance.now() - t0),
     }
   } catch (err) {
@@ -241,9 +251,11 @@ async function runNavigateProbe(spec: ProbeSpecWire, trigger: HTMLElement, t0: n
   } finally {
     window.removeEventListener('click', onClick)
     // leave the page at the address it had, whatever the app did
-    if (normHash(location.hash) !== hashBefore) {
-      location.hash = hashBefore
-      await until(() => isShown(stamped(srcLoc)), waitMs)
+    if (addr() !== hashBefore) {
+      // a router page can't be left by setting the hash; step back the way it came
+      if (byPath) history.back()
+      else location.hash = hashBefore
+      await until(() => addr() === hashBefore && isShown(stamped(srcLoc)), waitMs)
     }
   }
 }

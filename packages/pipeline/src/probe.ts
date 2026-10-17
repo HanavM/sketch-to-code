@@ -56,6 +56,11 @@ export interface NavObservation {
   triggerGone: boolean
   /** The screen's heading was visible in the app after the click. */
   headingShown: boolean
+  /**
+   * s2c-041: the trigger stayed because it's in a layout every page shares (a
+   * router app's nav bar), and the heading wasn't on the page before the click.
+   */
+  layoutKept?: boolean
   /** How it went back: the screen's own Back button, or the browser's. */
   back: 'button' | 'browser' | null
   /** After going back the address was the old one and the trigger visible again. */
@@ -132,7 +137,7 @@ const labelOf = (t: { text?: string; subtreeText?: string; tag: string }): strin
  *   from a button to a region. A plain move arrow names no behaviour and is
  *   left to the static verifier, which already checks it.
  */
-export function deriveProbes(actions: GroundedAction[]): ProbeSpec[] {
+export function deriveProbes(actions: GroundedAction[], routes?: ReadonlyMap<number, string>): ProbeSpec[] {
   const out: ProbeSpec[] = []
   actions.forEach((a, i) => {
     const t = a.targets[0]
@@ -152,7 +157,9 @@ export function deriveProbes(actions: GroundedAction[]): ProbeSpec[] {
       out.push({
         actionIndex: i, kind: 'navigate',
         trigger: { srcLoc: t.srcLoc, label: labelOf(t) },
-        screen: { route: `#/${slug}`, heading: name },
+        // the engine's own route when it ran: a react-router app's page is
+        // '/pricing', not '#/pricing' (s2c-041)
+        screen: { route: routes?.get(i) ?? `#/${slug}`, heading: name },
         claim: `clicking ${labelOf(t)} opens the "${name}" screen, and Back comes home`,
       })
       return
@@ -274,9 +281,11 @@ export function judgeProbe(spec: ProbeSpec, obs: ProbeObservation, data: DataDel
     const name = `the "${spec.screen?.heading ?? 'new'}" screen`
     if (!n) return v('unverified', "couldn't test it: the page did not say what the click did")
     if (n.hashAfter !== spec.screen?.route) {
-      return v('failed', `clicking ${spec.trigger.label} didn't open ${name}: the page stayed where it was`)
+      return v('failed', n.hashAfter !== n.hashBefore
+        ? `clicking ${spec.trigger.label} went to ${n.hashAfter || 'the home page'}, not ${name}`
+        : `clicking ${spec.trigger.label} didn't open ${name}: the page stayed where it was`)
     }
-    if (!n.triggerGone || !n.headingShown) {
+    if (!(n.triggerGone || n.layoutKept) || !n.headingShown) {
       return v('failed', `clicking ${spec.trigger.label} changed the address, but ${name} didn't show` +
         (n.triggerGone ? '' : ' (the page you clicked on was still there)'))
     }

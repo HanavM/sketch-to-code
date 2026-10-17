@@ -236,6 +236,8 @@ export async function runV2(
   const backend: Array<{ index: number; change: string; files: string[] }> = []
   const backendRefused: string[] = []
   const screensWritten: AppliedScreen[] = []
+  /** Every navigate the engine applied, by action: the route its probe must reach. */
+  const navRoutes = new Map<number, string>()
   for (const [i, a] of interp.actions.entries()) {
     if (handled.has(i)) continue
     if (a.kind !== 'serve' && a.kind !== 'save' && a.kind !== 'navigate') continue
@@ -249,6 +251,7 @@ export async function runV2(
     if (out.ok) {
       handled.add(i)
       backend.push({ index: i, change: out.change ?? a.kind, files: out.files ?? [] })
+      if (a.kind === 'navigate' && 'route' in out && out.route) navRoutes.set(i, out.route)
       if (a.kind === 'navigate' && 'screenAt' in out && out.screenAt && out.route) {
         screensWritten.push({ index: i, file: out.screenAt, route: out.route, title: out.title ?? a.screen ?? '' })
       }
@@ -397,7 +400,7 @@ export async function runV2(
     // what the static checks measure.
     // stamps are positional and the edit shifted them: look the elements up
     // where they are now, not where they were when the sketch was read
-    const specs = relocateProbes(deriveProbes(interp.actions), interp.actions, after)
+    const specs = relocateProbes(deriveProbes(interp.actions, navRoutes), interp.actions, after)
     let probes: ProbeVerdict[] = []
     if (specs.length) {
       if (ctx.requestProbes) {

@@ -22,10 +22,11 @@
  * open / back, and adding `react-router-dom` to someone's package.json is an
  * install step that can fail, behind a gesture that should be instant.
  *
- * An app that already has a router is refused, by name. Its routes are the
- * truth about its screens, and a second, parallel system of screens next to
- * them is two answers to "what's on this URL". Writing into react-router's
- * own route table is the right fix and a separate piece of work.
+ * An app that already has a router never gets these hash screens: its routes
+ * are the truth about its screens, and a second, parallel system next to them
+ * is two answers to "what's on this URL". react-router apps get a page in
+ * their own route table instead (navigate-router.ts, s2c-041); other routers
+ * (TanStack, wouter, reach) are refused by name.
  *
  * The page is switched where the app is mounted, not inside App. `main.tsx`'s
  * `<App />` becomes `<Screens home={<App />} screens={screens} />`: App's code
@@ -42,6 +43,7 @@ import { parse } from '@babel/parser'
 import _traverse, { type NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
 import { importAnchor } from './imports.js'
+import { linkToRouterScreen } from './navigate-router.js'
 
 type TraverseFn = (ast: unknown, visitor: Record<string, unknown>) => void
 const traverse = ((_traverse as unknown as { default?: unknown }).default ?? _traverse) as TraverseFn
@@ -244,7 +246,8 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
   if (slug.length > 40) return { ok: false, error: `"${raw.slice(0, 40)}…" is too long for a screen name — a word or two is enough` }
 
   const router = existingRouter(root)
-  if (router) {
+  const reactRouter = router === 'react-router-dom' || router === 'react-router'
+  if (router && !reactRouter) {
     return {
       ok: false,
       error: `this app already uses ${router} to decide what is on each page, and adding screens to it isn't built yet. ` +
@@ -254,8 +257,8 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
 
   // ── where the app is mounted ──
   const mainRel = MAIN_CANDIDATES.find((f) => existsSync(join(root, f)))
-  if (!mainRel) return { ok: false, error: 'I couldn\'t find where the app starts (src/main.tsx), so I can\'t add a second screen. Nothing was changed.' }
-  const mainAbs = join(root, mainRel)
+  if (!mainRel && !reactRouter) return { ok: false, error: 'I couldn\'t find where the app starts (src/main.tsx), so I can\'t add a second screen. Nothing was changed.' }
+  const mainAbs = mainRel ? join(root, mainRel) : ''
 
   // ── the trigger ──
   let code: string
@@ -309,6 +312,14 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
     return { ok: false, error: 'that button is in the file that starts the app, which I keep out of the way. Nothing was changed.' }
   }
 
+  // An app with react-router: the page goes into its own route table (s2c-041).
+  if (reactRouter) {
+    return linkToRouterScreen(
+      { root, rel, abs, code, open, tag, pkg: router!, slug, component: pascal(slug), title: screenTitle(raw) },
+      usesTailwind(root),
+    )
+  }
+
   const component = pascal(slug)
   const libAbs = join(root, LIB_FILE)
   const regAbs = join(root, REGISTRY_FILE)
@@ -357,7 +368,7 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
   if (!/\bScreens\b/.test(mainCode)) {
     const mounted = mountScreens(mainCode, dirname(mainAbs), libAbs, regAbs)
     if (typeof mounted !== 'string') return { ok: false, error: mounted.error }
-    writes.push({ abs: mainAbs, rel: mainRel, text: mounted })
+    writes.push({ abs: mainAbs, rel: mainRel!, text: mounted })
   }
 
   // the trigger itself

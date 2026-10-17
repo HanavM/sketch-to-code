@@ -135,9 +135,9 @@ describe('linkToScreen — draw a link to a new screen', () => {
       untouched(root)
     })
     it('the app already has a router', () => {
-      const root = app({}, { react: '^19', 'react-router-dom': '^7' })
+      const root = app({}, { react: '^19', wouter: '^3' })
       const out = linkToScreen(root, { srcLoc: 'src/Hero.tsx:5:7', screen: 'Pricing' })
-      expect(out.error).toMatch(/already uses react-router-dom/)
+      expect(out.error).toMatch(/already uses wouter/)
       untouched(root)
     })
     it('not a button or link', () => {
