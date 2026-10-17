@@ -1,4 +1,4 @@
-# Non-coder walkthrough — audit (s2c-010, watering 1)
+# Non-coder walkthrough (s2c-010)
 
 SEED done #2: someone with no React knowledge goes from a running app to ≥ 3
 meaningful changes (add a section, change styling, add a working form) with
@@ -61,13 +61,89 @@ here or filed as a node in `seed2tree/tree.yaml`.
 - `npx sketch-to-code` needs the packages published: owner's call (SEED: out of
   scope without asking).
 
+## Watering 2 (2026-10-17): the path walked end to end, zero tokens
+
+`packages/cli/tests/e2e/walkthrough-noncoder.mjs` does the whole thing as a
+person would: `npm create vite@9.2.1 -- --template react` (Vite 8.3, plain
+CSS), `init` from the checkout, the app's own vite, then only the pen, the
+keyboard and the bar. The model is **scripted** (`setScriptedModel` in
+`@s2c/providers`, in-process only, no env switch): the script answers the
+reading from the real evidence brief by element text, and writes the files a
+model would write. Grounding, the save engine, verification, probes, the
+cards and undo are all real. While a script is set, the real Claude Code
+provider throws, so a cloud run can't pay by accident again.
+
+What this proves: the path works and ends in plain words. What it does not:
+that a model reads these sketches well (that's s2c-013's paid pilot), or that
+a real person finds it easy.
+
+**Three bugs it found on the first walk, all on the path every user takes:**
+
+1. **The second sketch drew nothing.** Every run ended with the tool in
+   `idle`, left over from when drawing was switched on with Alt+D. Since the
+   page opens in Design, that meant change #2's ring just dragged across the
+   page, and the bar still showed change #1's line. No e2e saw it because they
+   all press Alt+D or call the debug hook. Fixed: a run that ends (done,
+   failed, stopped, watchdog) comes back to drawing in Design, idle in Test
+   (`restingMode()`). `live-keymap.mjs` asserted the old idle and now pauses
+   with Alt+D before typing into the page, like a person would. (That
+   test's "Esc resets a running overlay" step was red before this change.)
+2. **A visible success was reported as a failure.** In the starter's centred
+   column, a box drawn left of centre comes out centred. Placement
+   verification wanted the new element's centre within 120 px of the box, so
+   change #1 ended on *"But I couldn't add what you drew. Undo puts your files
+   back"* with the new section right there on screen, and Undo one click
+   away. Fixed in `verifyDesignPlacement`: in-flow (non-decorative) content in
+   the right band and at the right size passes if it touches the drawing or
+   sits centred in its parent. Still a miss: off to one side, another band,
+   6× the size (`ribbon.test.ts`, 5 new asserts).
+3. **Every change ended on a developer line with a tick**: `✓ [v2] 0%
+   verified · 1 file(s) · normalize 50% · filled · 0.0k in … · revert: git
+   restore --source=3614ae3f27 -- <paths>`, a ✓ next to "0% verified". The bar
+   now ends on the plain sentence the run already built (`✓ Done: added what
+   you drew.` / `⚠ I read your sketch as …`). The developer summary moved to
+   the line's tooltip and the console.
+
+**The walk now (bar lines as seen, countdown lines dropped):**
+
+| change | sketch + words | bar ends on | time |
+|---|---|---|---|
+| 1 add a section | box in empty space + "testimonials" | ✓ Done: added what you drew. | 3.6 s |
+| 2 styling | ring the heading + "red" | ✓ Done: changed the heading with "Get started". | 3.8 s |
+| 3a a form | box + "email signup" | ✓ Done: added what you drew. | 3.7 s |
+| 3b make it work | ring the form + "save it" | ⚠ I read your sketch as: make the signup form keep what people type. I didn't try the change out in the page, because it wasn't safe to, so check yourself … | 4.3 s |
+
+(Times have no model in them: a real reading adds ~10 s, plus codegen.)
+
+**Still wrong, filed:**
+
+- **3b (s2c-031).** The save engine adds an import and a hook above the form,
+  so every stamp below it shifts two lines, and the probe looks the form up by
+  its old stamp: "the form is not on the page any more". The edit is right
+  (the form is wired to `useForm('/api/apps')`). The run just can't prove it, and
+  the card gives the **wrong reason** ("it wasn't safe to"). A non-coder is
+  told to check by themselves a thing they can't check. Done #2's "working
+  form" isn't proven until this is fixed.
+- **Progress lines (s2c-030).** What flashes by while it runs is developer
+  text: `verify: round 1: snapshotting edited page`, `codemod: action 0: App
+  now saves email to server/data/apps.json through POST /api/apps`. The e2e
+  counts these but doesn't fail on them.
+- Wording, judged by eye, not filed: "changed the heading with "Get
+  started"" should say what changed (red). "added what you drew" is vague
+  when the words said "testimonials". The endpoint is named after the
+  component (`/api/apps`), not the form.
+- `live-misread.mjs` fails "starting a run left the old card up", **with and
+  without this change** (checked by stashing it). Not caused here. Not
+  investigated.
+
 ## What's left for this node
 
-The three changes have not been shown end to end on the starter app. The next
-watering should stub `/@s2c/interpret` in Playwright with a recorded
-interpretation (the run bundle keeps `interpretation.json`), so the whole
-non-coder path runs without a model, and only codegen stays live (Mac run or
-owner's quota). Do it after s2c-024, or change #2 cannot land.
+Done #2 says "a written walkthrough shows someone … going to ≥ 3 meaningful
+changes". The path is now walked and green, except the proof that the form
+works (s2c-031). After that, the walkthrough is complete as far as a script can
+take it. What a script can't give is a real model's readings on these four
+sketches (fold into the s2c-013 pilot: 4 readings, cheap) and a real
+non-coder (owner's call).
 
 ## Accident, recorded
 

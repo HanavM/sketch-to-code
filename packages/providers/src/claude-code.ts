@@ -1,5 +1,6 @@
 import { query } from '@anthropic-ai/claude-agent-sdk'
 import type { SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
+import { scriptedModel } from './scripted.js'
 import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegionRef, TranscribeResult } from './types.js'
 
 /**
@@ -17,6 +18,7 @@ import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegio
 const PERCEPTION_MAX_TURNS = 4
 
 export function createClaudeCodeProvider(): PerceptionProvider {
+  if (scriptedModel()) throw new Error('a scripted model is set: the real Claude Code provider is unreachable')
   return {
     name: 'claude-code',
     async interpretIntent(req: InterpretRequest): Promise<InterpretResponse> {

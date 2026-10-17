@@ -1,5 +1,5 @@
 import { query, type Query, type SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
-import { cleanEnv, type TokenUsage } from '@s2c/providers'
+import { cleanEnv, scriptedModel, type ScriptedModel, type TokenUsage } from '@s2c/providers'
 import { SKETCH_SKILL } from './skill.js'
 
 export type RunMode = 'gesture' | 'design' | 'screenshot'
@@ -156,6 +156,8 @@ export function createCodegenSession(
   /** Aborting it kills the agent: pending turns reject, no further edits. */
   signal?: AbortSignal,
 ): CodegenSession {
+  const script = scriptedModel()
+  if (script) return scriptedSession(script, appRoot, ev, signal)
   const inputQueue: SDKUserMessage[] = []
   let notify: (() => void) | null = null
   let ended = false
@@ -283,5 +285,35 @@ export function createCodegenSession(
     usage: () => ({ ...usage }),
     close,
     closed,
+  }
+}
+
+/**
+ * The codegen session while a scripted model is set (tests only, see
+ * @s2c/providers scripted.ts): each turn is handed to the script, which writes
+ * files the way the agent would. Same abort contract as the real one.
+ */
+function scriptedSession(
+  script: ScriptedModel,
+  appRoot: string,
+  ev: CodegenEvents,
+  signal?: AbortSignal,
+): CodegenSession {
+  let ended = false
+  let turn = 0
+  return {
+    async send(content: UserContent): Promise<string> {
+      if (signal?.aborted) throw abortError(signal)
+      if (ended) throw new Error('codegen session already closed')
+      script.onCall?.('codegen', content.text.slice(0, 200))
+      if (!script.codegen) throw new Error('scripted model: codegen is not scripted')
+      ev.onStage('codegen', 'scripted edit')
+      const reply = await script.codegen({ root: appRoot, text: content.text, turn: ++turn })
+      if (signal?.aborted) throw abortError(signal)
+      return reply
+    },
+    usage: () => ({ input: 0, cacheRead: 0, output: 0 }),
+    close: () => { ended = true },
+    closed: Promise.resolve(),
   }
 }

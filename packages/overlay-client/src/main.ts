@@ -3829,7 +3829,7 @@ class Overlay {
         this.stopRequested = false
         this.status('cancelled locally (server run may still finish)', true)
         this.clearApplying()
-        this.setMode('idle')
+        this.setMode(this.restingMode())
         return
       }
       this.stopRequested = true
@@ -3849,7 +3849,7 @@ class Overlay {
           this.stopRequested = false
           this.status('cancelled locally (no run on the server to stop)', true)
           this.clearApplying()
-          this.setMode('idle')
+          this.setMode(this.restingMode())
         }
       })()
     }
@@ -7926,6 +7926,19 @@ class Overlay {
     this.syncBar()
   }
 
+  /**
+   * Where the tool comes to rest when a run ends (done, failed, stopped).
+   *
+   * It used to be 'idle' everywhere, from when drawing was something you
+   * switched on with Alt+D. Since design became the surface the page opens
+   * on, idle after a run meant the second sketch drew nothing: the pen just
+   * dragged across the page, and the bar still showed the last run's line.
+   * Found by the non-coder walkthrough (s2c-010): change #2 never started.
+   */
+  private restingMode(): Mode {
+    return this.surface === 'design' ? 'draw' : 'idle'
+  }
+
   private restoreSurface() {
     let next: Surface = 'design'
     try {
@@ -10223,7 +10236,7 @@ class Overlay {
       if (this.mode === 'running') {
         this.status('no progress from server — resetting (run may have died)', true)
         this.clearApplying()
-        this.setMode('idle')
+        this.setMode(this.restingMode())
       }
     }, RUNNING_WATCHDOG_MS)
   }
@@ -10635,7 +10648,7 @@ class Overlay {
     } catch (err) {
       this.status(`failed: ${err instanceof Error ? err.message : String(err)}`, true)
       this.clearApplying()
-      this.setMode('idle')
+      this.setMode(this.restingMode())
     }
   }
 
@@ -11010,19 +11023,30 @@ class Overlay {
     // with it. The summary names the files and says what was verified, which
     // is the one thing worth surviving. Same rule as every other write path:
     // if it can create a file, park the receipt.
-    this.receipt(`✓ ${d.summary ?? 'done'}`)
+    //
+    // The line is the plain sentence when the run has one (s2c-010: the bar
+    // used to end every change on "✓ [v2] 0% verified · … · revert: git
+    // restore --source=…", a tick next to a failure, in developer words). The
+    // developer summary is kept on the line's tooltip and in the console.
+    const ex = d.explanation
+    const line = ex?.sentence ? `${ex.problem ? '⚠' : '✓'} ${ex.sentence}` : `✓ ${d.summary ?? 'done'}`
+    this.receipt(line)
+    if (d.summary) {
+      this.statusEl.title = d.summary
+      console.debug(`[s2c] run done: ${d.summary}`)
+    }
     this.strokes = []
     this.endSketchSearch()
     // the ink is spent, and so are the words about it
     this.notes = []
     this.instant = null
-    if (this.noteDraft) this.closeNote(`✓ ${d.summary ?? 'done'}`)
+    if (this.noteDraft) this.closeNote(line)
     this.resetBridge()
     this.clearApplying()
     this.renderInk()
     this.renderNotes()
     this.redraw()
-    this.setMode('idle')
+    this.setMode(this.restingMode())
     if (d.explanation?.problem) this.showMisread(d.explanation)
     else this.hideMisread()
   }
@@ -11038,7 +11062,7 @@ class Overlay {
     }
     this.clearApplying()
     this.redraw()
-    this.setMode('idle')
+    this.setMode(this.restingMode())
   }
 
   /**

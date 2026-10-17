@@ -279,7 +279,8 @@ s = await state()
 if (!ranPost) throw new Error('Alt+Enter did not POST /@s2c/run')
 if (s.mode !== 'running') throw new Error(`Alt+Enter did not start the run: ${s.mode}`)
 await press('Escape') // the local escape hatch — the stub sends no SSE 'done'
-if ((await state()).mode !== 'idle') throw new Error('Escape did not reset a running overlay')
+// back to where design rests (s2c-010: drawing, not idle, or the next sketch draws nothing)
+if ((await state()).mode !== 'draw') throw new Error(`Escape did not reset a running overlay to drawing: ${(await state()).mode}`)
 await page.unroute('**/@s2c/interpret')
 await page.unroute('**/@s2c/run')
 
@@ -289,7 +290,10 @@ if (!s.runDisabled) throw new Error('Alt+X did not clear the drawing')
 log('✓ Alt+Enter → run · Esc resets · Alt+X clears')
 
 // ---- 5. the guards -----------------------------------------------------
-// the host app's own inputs keep their keystrokes
+// the host app's own inputs keep their keystrokes. A run now ends back on
+// drawing, so pause it first to use the page, as a person would (Alt+D).
+await press('Alt+KeyD')
+if ((await state()).mode !== 'idle') throw new Error('Alt+D did not pause drawing after the run')
 await page.evaluate(() => {
   window.__hostKeys = 0
   document.addEventListener('keydown', () => { window.__hostKeys++ })

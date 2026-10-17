@@ -105,4 +105,30 @@ describe('ribbon regression', () => {
     expect(ok.satisfied).toBe(true)
     expect(ok.reason).toContain('matches')
   })
+
+  it('design placement: in-flow content the layout centred still passes if it overlaps the sketch (s2c-010)', () => {
+    // the starter app: a box drawn left of centre, the new section centred
+    const sketch = { x: 150, y: 480, w: 300, h: 70 }
+    const before = snap()
+    const centred = snap([N('sec', 422, 436, 437, 179, 'main', 2, 'src/App.jsx:31:9', 'section', 'What people say')])
+    const ok = verifyDesignPlacement(before, centred, sketch)
+    expect(ok.satisfied).toBe(true)
+    expect(ok.reason).toContain('placed by the page layout')
+    // same section, but nowhere near the drawing: still a miss
+    const across = snap([N('sec', 700, 436, 437, 179, 'main', 2, 'src/App.jsx:31:9', 'section')])
+    expect(verifyDesignPlacement(before, across, sketch).satisfied).toBe(false)
+    // centred by its parent, just below the drawing (the starter's signup form)
+    const form = snap([N('f', 517, 640, 246, 26, 'main', 2, 'src/App.jsx:40:9', 'form')])
+    const formSketch = { x: 138, y: 545, w: 300, h: 55 }
+    expect(verifyDesignPlacement(before, form, formSketch).satisfied).toBe(true)
+    // the same form pushed to the right edge of its parent: not centred, not touching
+    const offCentre = snap([N('f', 900, 640, 246, 26, 'main', 2, 'src/App.jsx:40:9', 'form')])
+    expect(verifyDesignPlacement(before, offCentre, formSketch).satisfied).toBe(false)
+    // overlapping but in another band (drawn low, landed at the top): a miss
+    const high = snap([N('sec', 300, 60, 437, 179, 'main', 2, 'src/App.jsx:31:9', 'section')])
+    expect(verifyDesignPlacement(before, high, { x: 150, y: 600, w: 300, h: 70 }).satisfied).toBe(false)
+    // overlapping, right band, but 6x the drawn size: a miss
+    const huge = snap([N('sec', 100, 300, 1000, 400, 'main', 2, 'src/App.jsx:31:9', 'section')])
+    expect(verifyDesignPlacement(before, huge, sketch).satisfied).toBe(false)
+  })
 })
