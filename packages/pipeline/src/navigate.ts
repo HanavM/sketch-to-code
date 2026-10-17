@@ -44,6 +44,7 @@ import _traverse, { type NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
 import { importAnchor } from './imports.js'
 import { linkToRouterScreen } from './navigate-router.js'
+import { frameworkApp, linkToFrameworkScreen } from './navigate-framework.js'
 
 type TraverseFn = (ast: unknown, visitor: Record<string, unknown>) => void
 const traverse = ((_traverse as unknown as { default?: unknown }).default ?? _traverse) as TraverseFn
@@ -313,11 +314,12 @@ export function linkToScreen(root: string, req: NavigateRequest): NavigateResult
   }
 
   // An app with react-router: the page goes into its own route table (s2c-041).
+  // Framework mode (what create-react-router makes) lists them in app/routes.ts (s2c-044).
   if (reactRouter) {
-    return linkToRouterScreen(
-      { root, rel, abs, code, open, tag, pkg: router!, slug, component: pascal(slug), title: screenTitle(raw) },
-      usesTailwind(root),
-    )
+    const input = { root, rel, abs, code, open, tag, pkg: router!, slug, component: pascal(slug), title: screenTitle(raw) } as const
+    const fw = frameworkApp(root)
+    if (fw) return linkToFrameworkScreen({ ...input }, fw, usesTailwind(root))
+    return linkToRouterScreen({ ...input }, usesTailwind(root))
   }
 
   const component = pascal(slug)

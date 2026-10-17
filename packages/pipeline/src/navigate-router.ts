@@ -43,9 +43,9 @@ import type * as t from '@babel/types'
 import { importAnchor } from './imports.js'
 
 type TraverseFn = (ast: unknown, visitor: Record<string, unknown>) => void
-const traverse = ((_traverse as unknown as { default?: unknown }).default ?? _traverse) as TraverseFn
+export const traverse = ((_traverse as unknown as { default?: unknown }).default ?? _traverse) as TraverseFn
 
-const parseTs = (code: string): ReturnType<typeof parse> =>
+export const parseTs = (code: string): ReturnType<typeof parse> =>
   parse(code, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
 
 export interface RouterLinkInput {
@@ -79,7 +79,7 @@ const ROUTER_PKGS = ['react-router-dom', 'react-router']
 const ARRAY_FACTORIES = new Set(['createBrowserRouter', 'createHashRouter', 'createMemoryRouter', 'useRoutes'])
 const HASH_MARKERS = /\b(createHashRouter|HashRouter)\b/
 
-interface Edit { start: number; end: number; text: string }
+export interface Edit { start: number; end: number; text: string }
 
 /** One route as the table writes it. */
 interface RouteInfo {
@@ -104,7 +104,7 @@ interface Container {
 
 interface Table { file: string; abs: string; code: string; ast: ReturnType<typeof parse>; top: Container; hash?: boolean }
 
-const joinPath = (base: string, p: string): string => {
+export const joinPath = (base: string, p: string): string => {
   if (p.startsWith('/')) return p.replace(/\/+$/, '') || '/'
   const b = base.replace(/\/+$/, '')
   return `${b}/${p}`.replace(/\/+/g, '/').replace(/\/+$/, '') || '/'
@@ -333,7 +333,7 @@ function allRoutes(c: Container, out: RouteInfo[] = []): RouteInfo[] {
 }
 
 /** The line's leading whitespace at `pos`. */
-const indentAt = (code: string, pos: number): string => {
+export const indentAt = (code: string, pos: number): string => {
   const ls = code.lastIndexOf('\n', pos - 1) + 1
   return /^[ \t]*/.exec(code.slice(ls))![0]
 }
@@ -363,7 +363,7 @@ function routeEdit(code: string, list: Container, path: string, el: string): Edi
  * The local name `name` is imported under from react-router(-dom), adding the
  * import when it isn't there. Returns the edit (or none) and the local name.
  */
-function ensureNamedImport(code: string, ast: ReturnType<typeof parse>, pkg: string, name: string): { edit: Edit | null; local: string } {
+export function ensureNamedImport(code: string, ast: ReturnType<typeof parse>, pkg: string, name: string): { edit: Edit | null; local: string } {
   let local: string | null = null
   let into: t.ImportDeclaration | null = null
   traverse(ast, {
@@ -396,7 +396,7 @@ function defaultImportEdit(code: string, ast: ReturnType<typeof parse>, local: s
   return { start: at, end: at, text: `${nl}import ${local} from '${spec}'\n` }
 }
 
-const apply = (code: string, edits: Edit[]): string =>
+export const apply = (code: string, edits: Edit[]): string =>
   edits.slice().sort((a, b) => b.start - a.start || b.end - a.end)
     .reduce((s, e) => s.slice(0, e.start) + e.text + s.slice(e.end), code)
 
@@ -442,7 +442,7 @@ function rendersRouter(fn: NodePath<t.Function>): boolean {
   return hit
 }
 
-function triggerEdits(
+export function triggerEdits(
   inp: RouterLinkInput, ast: ReturnType<typeof parse>, full: string,
 ): Edit[] | { error: string } {
   const { code, open, tag, pkg } = inp
@@ -657,7 +657,7 @@ export function linkToRouterScreen(inp: RouterLinkInput, tailwind: boolean): Rou
  * Two new `import { X } from 'react-router-dom'` lines planned at the same
  * spot (Route for the table, useNavigate for the trigger, one file) become one.
  */
-function mergeImportEdits(edits: Edit[]): Edit[] {
+export function mergeImportEdits(edits: Edit[]): Edit[] {
   const re = /^(\n?)import \{ ([^}]+) \} from '([^']+)'\n$/
   const out: Edit[] = []
   for (const e of edits) {

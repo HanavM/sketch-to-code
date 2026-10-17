@@ -699,3 +699,13 @@ init → ✓ in 15.1 s (was 253.7 s with nothing to draw on). Verdict:
 **support** the marking; drawing a *link* there needs `app/routes.ts`
 (s2c-044). Details in docs/onboarding-real-projects.md.
 
+## Draw a link on React Router's own starter (s2c-044, 2026-10-17)
+
+Framework mode lists pages in `app/routes.ts`, not in `src/`. The arrow
+refused there, pointing at a folder the app doesn't have. Now it adds
+`route("pricing", "routes/pricing.tsx")` beside `index()` (or writes the file
+alone under `flatRoutes()`), plus a route module with a `meta` title and an
+exact Back. On create-react-router 8.4.0, 3 shapes (starter, layout() +
+catch-all, flatRoutes): typegen + tsc strict clean, SSR dev in Chromium:
+click, Back, direct entry + Back, the run's probe passed, no hydration
+errors. 3/3 green. Details in docs/navigation.md.

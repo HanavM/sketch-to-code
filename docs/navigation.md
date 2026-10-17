@@ -240,9 +240,62 @@ nav-bar trigger in a layout app (the trigger never disappears), fixed by
 Not checked: a full overlay run (stubbed reading → engine → probe → receipt →
 undo) on a react-router app; that's the rest of s2c-041. An app served under a
 base path or `basename` (the probe compares the whole pathname). React Router
-v7 **framework mode**, which is what `npx create-react-router` scaffolds
-(`app/routes.ts` with `route()`/`index()`, SSR, no `src/main.tsx`): not read
-at all, and probably not supported by `init` either (s2c-043).
+v7 **framework mode**, which is what `npx create-react-router` scaffolds:
+handled since s2c-044, below.
+
+## Framework-mode apps: `app/routes.ts` (s2c-044, 2026-10-17)
+
+`npx create-react-router` makes framework mode: no `src/`, no
+`createBrowserRouter`, no `<Routes>`. Its pages are listed in `app/routes.ts`
+with `index()` / `route()` / `layout()` / `...prefix()` from
+`@react-router/dev/routes`, or found on disk by `flatRoutes()`. Before this,
+the arrow refused there with a sentence about `src/`, a folder those apps
+don't have. `navigate-framework.ts` now takes them when the app has an
+`<appDirectory>/routes.ts` and depends on `@react-router/dev` (or has a
+`react-router.config.*`; a plain string `appDirectory` there is honoured).
+
+- **The list** is routes.ts's default export: an array (inline, `satisfies`/
+  `as RouteConfig`, or a const), or `flatRoutes()`. A list built by a function,
+  or partly by a spread of one (`...pages.map(...)`), is refused in plain
+  words naming `app/routes.ts`, with every byte left alone. `...prefix()` is
+  read for its paths (so "Docs" under `prefix("docs", [index(...)])` is reused).
+- **Where**: beside home, as in s2c-041 (the shallowest list with `index()`
+  or a `/` route), so a page added under a `layout()` keeps its nav. Before a
+  catch-all `route("*", …)` in that list, else after the last element. A
+  one-line list (the starter's) stays on one line. The path is written
+  relative, the way framework mode writes them: `route("pricing",
+  "routes/pricing.tsx")`. `route` joins the existing import from
+  `@react-router/dev/routes` when it isn't there; the file's own quotes.
+- **The screen** is `app/routes/<slug>.tsx`, the starter's own convention: a
+  route module with `meta()` (the page's `<title>`), a default-export page,
+  and the same exact "← Back". It deliberately doesn't import `./+types/…`,
+  so it type-checks before typegen has run.
+- **flatRoutes()**: the new file *is* the route. routes.ts isn't touched; an
+  existing `routes/<slug>.tsx` or `routes/<slug>/route.tsx` is reused.
+- **The trigger**: s2c-041's, unchanged (`<a href="#">` → `<Link>`, a button
+  → `useNavigate()`, from `react-router`).
+
+Verified: 11 unit tests (`navigate-framework.test.ts`). The starter's own
+routes.ts verbatim, `<a>` → `<Link>`, layout() + catch-all, catch-all at top,
+prefix() reuse + insert after the spread, flatRoutes add + reuse,
+`appDirectory: "web"`, and three byte-identical refusals.
+`tests/e2e/navigate-framework-real.mjs` puts three shapes on
+create-react-router 8.4.0 (the starter's routes.ts, a layout() with a catch-all,
+flatRoutes()). Each one: engine → the app's own `npm run typecheck` (typegen +
+tsc strict) → `react-router dev` (SSR) in Chromium. Click → address and heading,
+"← Back" → home, opened directly (server-rendered) → "← Back" → home, the page's
+`<title>`, **the run's own probe passed**, a wrong-route probe fails, no page
+or hydration errors. 3/3 green, 0 tokens. Harness note: the starter's
+node_modules is hard-linked into each copy. A symlink resolves outside Vite's
+`server.fs.allow`, the client entry 403s, and the page never hydrates: a
+test artefact, not an app bug.
+
+Not handled: `flatRoutes()` dot-paths and pathless `_layout.` prefixes (the
+file goes at the top of `routes/`, i.e. under root, not inside a flat layout);
+a `routes.ts` whose default export is a function call other than
+`flatRoutes()`; mixing `...(await flatRoutes())` with `route()` (refused as
+partly built in code). Same as s2c-041: no full overlay run, no real model
+reading of the arrow (s2c-013).
 
 ## Not done yet
 
