@@ -60,6 +60,10 @@ const JARGON = [
   [/\be\d{1,3}\b|\baction \d+\b|\bs\d+\b/, 'an internal id'],
   [/\bgit\b|\bstash\b|\bcommit\b|\bcheckpoint\b/, 'git'],
   [/\bHMR\b|\bAST\b|\bcodemod\b|\bDOM\b|\bsrcLoc\b|\bprops?\b/, 'internals'],
+  // s2c-030: the shapes the old progress lines took
+  [/^(safety|intent|rule|codemod|codegen|finish|candidate|verify|repair|done):/, 'a pipeline stage'],
+  [/\b(POST|GET|PUT)\b|\/api\/|\.json\b/, 'an HTTP route or data file'],
+  [/\bround \d|\(s\)|\bsnapshot/, 'developer narration'],
 ]
 const jargonIn = (line) => JARGON.filter(([re]) => re.test(line)).map(([, what]) => what)
 
@@ -78,7 +82,7 @@ for (let p = 5240; p <= 5249 && PORT === null; p++) if (await portFree(p)) PORT 
 if (PORT === null) throw new Error('no free port in 5240-5249')
 
 const transcript = []
-const progressJargon = []
+const progressLines = []
 let server = null
 let browser = null
 const modelCalls = []
@@ -209,6 +213,22 @@ try {
   }
   const rectOf = (sel) => page.evaluate((s) => { const b = document.querySelector(s)?.getBoundingClientRect(); return b ? { x: b.x, y: b.y, w: b.width, h: b.height } : null }, sel)
 
+  // s2c-030: every line the bar shows, not only the ones a 200 ms poll lands
+  // on. A MutationObserver on the status line logs each change in the page;
+  // drain() (re)installs it, since an instant render can reload the page, and
+  // hands back what it saw since the last call.
+  const drain = () => page.evaluate(() => {
+    const el = document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')
+    if (!el) return []
+    if (globalThis.__s2cLinesEl !== el) {
+      globalThis.__s2cLinesEl = el
+      globalThis.__s2cLines = []
+      new MutationObserver(() => { globalThis.__s2cLines.push(el.textContent ?? '') })
+        .observe(el, { childList: true, characterData: true, subtree: true })
+    }
+    return globalThis.__s2cLines.splice(0)
+  }).catch(() => [])
+
   /** Draw, type the words, press Enter, and watch the bar until it settles. */
   const walk = async (name, stroke, words) => {
     current = words
@@ -221,11 +241,13 @@ try {
     check(`${name}: the pen draws`, inkAfter.strokes > inkBefore.strokes || inkAfter.strokes > 0, `before ${JSON.stringify(inkBefore)} after ${JSON.stringify(inkAfter)}`)
     await page.keyboard.type(words, { delay: 25 })
     note(await status())
+    await drain()
     await page.keyboard.press('Enter')
     const t0 = Date.now()
     let quiet = 0
     while (Date.now() - t0 < 30_000) {
       await page.waitForTimeout(200)
+      for (const x of await drain()) note(x)
       const s = await status()
       if (s === seen[seen.length - 1]) quiet++
       else { quiet = 0; note(s) }
@@ -240,14 +262,17 @@ try {
     log(`${name}:`)
     for (const s of seen) console.log(`      │ ${s}`)
     // Strict on what the person is left looking at: the bar's last line and
-    // the card. The progress lines in between ("verify: round 1: …") are
-    // counted, not failed: they flash by, and fixing them is s2c-030.
+    // the card. s2c-030: and on every progress line in between, which used to
+    // be developer narration ("verify: round 1: snapshotting edited page").
     const last = seen.filter((x) => !x.startsWith('[card]')).at(-1) ?? ''
     for (const s of [last, ...seen.filter((x) => x.startsWith('[card]'))]) {
       const j = jargonIn(s)
       check(`${name}: plain words where it ends`, j.length === 0, j.length ? `${j.join(', ')} in “${s}”` : s)
     }
-    for (const s of seen) if (s !== last && jargonIn(s).length) progressJargon.push(`${name}: ${s}`)
+    const progress = seen.filter((x) => x !== last && !x.startsWith('[card]'))
+    const bad = progress.filter((x) => jargonIn(x).length).map((x) => `${jargonIn(x).join(', ')} in “${x}”`)
+    check(`${name}: plain words while it works (${progress.length} lines)`, bad.length === 0, bad.join(' | '))
+    progressLines.push(...progress)
     return seen
   }
 
@@ -289,7 +314,9 @@ try {
   check('no model call reached a real model', modelCalls.every((c) => c.kind !== 'transcribe'), JSON.stringify(modelCalls.map((c) => `${c.kind}:${c.change}`)))
   check('no page errors', pageErrors.length === 0, pageErrors.join(' | '))
   check('the user never had to open a file', true, 'by construction: only pen, keyboard and the bar')
-  if (progressJargon.length) log(`progress lines with developer words (not failed, s2c-030): ${progressJargon.length}\n      ${progressJargon.join('\n      ')}`)
+  // s2c-030: the run's own stages must have shown up at least once, or the
+  // strict check above is passing on an empty list
+  check('progress lines were seen at all', progressLines.some((x) => /Checking|Making|Trying/.test(x)), `${progressLines.length} lines`)
   check('App.jsx changed from the committed starter', readFileSync(app(), 'utf8') !== committed)
 } catch (err) {
   failures++

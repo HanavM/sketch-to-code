@@ -9,6 +9,7 @@ import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
+import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -3343,6 +3344,14 @@ class Overlay {
     this.undoBtn.disabled = busy || previewing || this.strokes.length === 0
     this.clearBtn.disabled = busy || previewing || !this.hasWork()
     this.drawBtn.disabled = busy || previewing
+  }
+
+  /** A reading that didn't come back: plain words on the bar, the cause on its tooltip. */
+  private readingFailed(err: unknown) {
+    const why = `interpret failed: ${err instanceof Error ? err.message : String(err)}`
+    console.debug(`[s2c] ${why}`)
+    this.status(readingFailedLine(), true)
+    this.statusEl.title = why
   }
 
   private status(msg: string, err = false) {
@@ -10394,7 +10403,7 @@ class Overlay {
       // one says nothing (and keeps the park)
       if (this.unloading) return
       if (this.readingId === readingId) this.dropReading()
-      this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      this.readingFailed(err)
     }
   }
 
@@ -10427,11 +10436,12 @@ class Overlay {
         this.status(
           `"${it.reading}"` +
             (it.unclear ? ` · ⚠ ${it.unclear}` : '') +
-            (needs ? ` · ⚠ wide delete` : '') +
+            (needs ? ' · ⚠ this removes a lot: check the red boxes' : '') +
             // run-scope notes belong to no single action, so the plan has
             // nowhere to draw them — but they are still the user's own words
             (it.runNotes?.length ? ` · note: ${it.runNotes.join(' · ')}` : '') +
-            ` · ${it.actions.length} action(s) outlined on the page` +
+            // s2c-030: "1 action(s)" was the one developer word left here
+            ` · ${it.actions.length === 1 ? 'outlined' : `${it.actions.length} changes outlined`} on the page` +
             (this.candidates > 1 ? ` · ${CANDIDATE_LABELS[this.candidates].short}` : '') +
             ' · ✓ Go / ✗ Cancel',
         )
@@ -10451,7 +10461,7 @@ class Overlay {
       )
       this.redraw()
     } catch (err) {
-      this.status(`interpret failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      this.readingFailed(err)
     }
   }
 
@@ -10951,14 +10961,15 @@ class Overlay {
     this.events.addEventListener('stage', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
       if (!this.mine(d)) return
-      // 'candidate' is the one stage whose raw "stage: detail" rendering would
-      // be actively misleading — "candidate: attempt 2/3: 71% faithful" reads
-      // like a result rather than progress through a run that is still going,
-      // and this is exactly the run that stays silent longest.
-      if (d.stage === 'candidate') {
-        this.status(`⟳ ${d.detail ?? 'generating attempts…'} · keeping the best one`)
-      } else {
-        this.status(`${d.stage}${d.detail ? `: ${d.detail}` : ''}`)
+      // s2c-030: the bar says what is happening in a fixed set of plain
+      // sentences; the raw "stage: detail" (file paths, action numbers, HTTP
+      // routes) stays on the tooltip, in the console and in the runs viewer.
+      const raw = rawStage(d)
+      console.debug(`[s2c] ${raw}`)
+      const plain = plainStage(d)
+      if (plain) {
+        this.status(plain)
+        this.statusEl.title = raw
       }
       if (this.mode === 'running') this.armWatchdog()
     })

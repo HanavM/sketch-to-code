@@ -657,7 +657,10 @@ await page.evaluate(() => {
 })
 await page.waitForTimeout(80)
 const st = await status()
-if (!st.includes('attempt 2/3: 71% faithful')) throw new Error(`candidate progress never reached the status line: ${st}`)
+// s2c-030: the bar says it in plain words; the raw detail rides the tooltip
+if (!st.includes('version 2 of 3')) throw new Error(`candidate progress never reached the status line: ${st}`)
+const tip = await page.evaluate(`${sr()}.getElementById("status").title`)
+if (!tip.includes('attempt 2/3: 71% faithful')) throw new Error(`the raw candidate detail is not on the tooltip: ${tip}`)
 if (!st.toLowerCase().includes('best')) throw new Error(`status does not say only the best is kept: ${st}`)
 log('✓ candidate stage in the status line:', JSON.stringify(st))
 

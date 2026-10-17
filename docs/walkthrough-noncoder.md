@@ -127,10 +127,22 @@ a real person finds it easy.
   reason (`whyUntested` in `explain.ts`): "unsafe" only when the code really
   reaches off the dev server. The e2e now fails if 3b doesn't end on ✓ or
   mentions safety.
-- **Progress lines (s2c-030).** What flashes by while it runs is developer
-  text: `verify: round 1: snapshotting edited page`, `codemod: action 0: App
-  now saves email to server/data/apps.json through POST /api/apps`. The e2e
-  counts these but doesn't fail on them.
+- ~~**Progress lines (s2c-030).**~~ **Fixed 2026-10-17.** What flashed by
+  while it ran was developer text: `safety: git checkpoint`, `verify: round 1:
+  snapshotting edited page`, `codemod: action 0: App now saves email to
+  server/data/apps.json through POST /api/apps`, and the preview's `1
+  action(s) outlined on the page`. The old 200 ms poll saw 1 of these per
+  change; a MutationObserver on the bar saw **~8 per change**. The bar now
+  speaks a fixed set of sentences, one per stage, and never echoes the
+  stage's detail ("Saving a restore point first, so this can be undone…",
+  "Making the change…", "Checking the page matches your sketch…", "Trying it
+  out in the page…", "Not quite right yet. Fixing it (try 2)…";
+  `overlay-client/src/plain-progress.ts`). The raw line is on the bar's
+  tooltip and in the console; the runs viewer is unchanged. A reading that
+  fails says "✗ I couldn't read that sketch just now. Your drawing is still
+  here: press ▶ Run to try again." instead of `interpret failed: HTTP 500`.
+  The e2e now records **every** bar line and fails on developer words in
+  any of them (red on the old overlay: 4 of 4 changes).
 - Wording, judged by eye, not filed: "changed the heading with "Get
   started"" should say what changed (red). "added what you drew" is vague
   when the words said "testimonials". The endpoint is named after the
@@ -144,8 +156,8 @@ a real person finds it easy.
 Done #2 says "a written walkthrough shows someone … going to ≥ 3 meaningful
 changes". The path is now walked and green, all four sketches ending on ✓,
 including the proof that the form works (the save is submitted in the page and
-checked on disk). The walkthrough is complete as far as a script can take it,
-except the developer progress lines (s2c-030). What a script can't give is a real model's readings on these four
+checked on disk), and every line the bar shows on the way is plain words
+(s2c-030). The walkthrough is complete as far as a script can take it. What a script can't give is a real model's readings on these four
 sketches (fold into the s2c-013 pilot: 4 readings, cheap) and a real
 non-coder (owner's call).
 

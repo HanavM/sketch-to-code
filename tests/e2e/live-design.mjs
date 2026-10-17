@@ -98,7 +98,7 @@ await page.evaluate(() => {
     const m = await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
     if (m === 'preview') { ok = true; break }
     const st = await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent)
-    if (st.includes('failed') || st.startsWith("couldn't")) throw new Error('interpret failed: ' + st)
+    if (st.includes('failed') || st.startsWith("couldn't") || st.startsWith('✗')) throw new Error('interpret failed: ' + st)
     await page.waitForTimeout(1000)
   }
   if (!ok) throw new Error('preview never appeared')
