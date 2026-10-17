@@ -8,7 +8,7 @@ import type { ProbeObservation, ProbeSpec, ProbeVerdict } from '@s2c/pipeline'
 import { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.js'
 import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
-import { bundleOverlayClient } from './overlay-bundle.js'
+import { bundleOverlayClient, overlayFailedScript } from './overlay-bundle.js'
 import { findRootRoute, isReactRouterFramework, OVERLAY_LOADER } from './framework-entry.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
@@ -267,6 +267,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
     name: 'sketch2code',
     apply: 'serve',
     enforce: 'pre',
+    // s2c-047: doctor and init build the overlay through this, so a drawing
+    // layer that can't be built is caught before anyone opens the page
+    api: { bundleOverlay: () => bundleOverlayClient().then((src) => src.length) },
 
     configResolved(config) {
       root = config.root
@@ -369,7 +372,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           })
           .catch((err: unknown) => {
             res.setHeader('content-type', 'text/javascript')
-            res.end(`console.error("[s2c] overlay bundle failed:", ${JSON.stringify(String(err))})`)
+            res.end(overlayFailedScript(String(err)))
           })
       })
 

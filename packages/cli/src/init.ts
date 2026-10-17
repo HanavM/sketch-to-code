@@ -7,7 +7,7 @@ import { addDevDependency, resolveDepSpec, resolveFromProject, runInstall, type 
 import { detectProject, type ProjectInfo } from './detect.js'
 import { commitAll, ensureGitignore, evaluateGates, gitInit, gitState, type Gate, type GitState } from './git.js'
 import { connectRemote, createRemote, ghState, type GhState } from './github.js'
-import { devServerPort, probeViteConfig, scriptPort, type Probe } from './probe.js'
+import { devServerPort, overlayFinding, probeViteConfig, scriptPort, type Probe } from './probe.js'
 
 export interface Question {
   id: string
@@ -298,7 +298,9 @@ export async function runInit(options: InitOptions): Promise<InitResult> {
         `\`npm run dev\`. Run \`npm install\`${dep.source === 'local-checkout' ? ' and `npm run build` in the checkout' : ''} and re-run \`sketch-to-code doctor\`.`)
     } else {
       probe = probeViteConfig(dir, plan.action === 'none' ? project.viteConfigPath : plan.path)
-      if (probe.ok && probe.hasSketch2code) {
+      if (probe.ok && probe.hasSketch2code && probe.overlay === 'failed') {
+        push('verify', 'failed', overlayFinding(probe)!.message)
+      } else if (probe.ok && probe.hasSketch2code) {
         push('verify', 'ok', `vite loaded the config; plugins: ${probe.plugins.join(', ')}`)
       } else if (probe.ok) {
         push('verify', 'failed', `config loads but sketch2code is NOT in the resolved plugin list ` +

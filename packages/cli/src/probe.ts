@@ -11,6 +11,13 @@ export interface Probe {
   /** Machine-readable failure: no vite installed, config threw, no marker back. */
   reason: 'ok' | 'vite-missing' | 'config-error' | 'no-output' | 'spawn-failed'
   detail: string
+  /**
+   * s2c-047: did the installed plugin build the drawing layer? 'unknown' when
+   * the plugin is missing or too old to say. A published install once loaded
+   * fine here and still served a page with no overlay.
+   */
+  overlay: 'ok' | 'failed' | 'unknown'
+  overlayDetail: string
 }
 
 const MARKER = '__S2C_PROBE__'
@@ -27,6 +34,13 @@ const out = {
   plugins: cfg.plugins.map((p) => p && p.name).filter(Boolean),
   port: cfg.server && cfg.server.port != null ? cfg.server.port : null,
   strictPort: !!(cfg.server && cfg.server.strictPort),
+  overlay: 'unknown',
+  overlayDetail: '',
+}
+const s2c = cfg.plugins.find((p) => p && p.name === 'sketch2code')
+if (s2c && s2c.api && typeof s2c.api.bundleOverlay === 'function') {
+  try { await s2c.api.bundleOverlay(); out.overlay = 'ok' }
+  catch (err) { out.overlay = 'failed'; out.overlayDetail = String(err && err.message || err).split('\\n').slice(0, 4).join('\\n') }
 }
 // exit once the line is out: some plugins start watchers in configResolved
 // (React Router framework mode watches react-router.config), which kept this
@@ -51,6 +65,8 @@ export function probeViteConfig(dir: string, configFile: string | null, timeoutM
       plugins: string[]
       port: number | null
       strictPort: boolean
+      overlay?: Probe['overlay']
+      overlayDetail?: string
     }
     return {
       ok: true,
@@ -60,12 +76,15 @@ export function probeViteConfig(dir: string, configFile: string | null, timeoutM
       strictPort: parsed.strictPort,
       reason: 'ok',
       detail: '',
+      overlay: parsed.overlay ?? 'unknown',
+      overlayDetail: parsed.overlayDetail ?? '',
     }
   }
 
   const detail = `${stderr}${stdout}`.trim().split('\n').slice(-6).join('\n')
   const fail = (reason: Probe['reason']): Probe => ({
     ok: false, plugins: [], hasSketch2code: false, port: null, strictPort: false, reason, detail,
+    overlay: 'unknown', overlayDetail: '',
   })
   if (res.error) return fail('spawn-failed')
   if (/Cannot find (package|module) 'vite'|ERR_MODULE_NOT_FOUND.*vite/.test(detail)) return fail('vite-missing')
@@ -88,4 +107,22 @@ export function scriptPort(script: string | null | undefined): number | null {
 /** The dev-server URL a `vite` run will land on, port default included. */
 export function devServerPort(probe: Probe): number {
   return probe.port ?? 5173
+}
+
+/**
+ * s2c-047: the drawing layer is built on the first page load, so a broken one
+ * used to pass every check here and leave the page with nothing to draw on.
+ * Null when the plugin is too old to answer (no claim either way).
+ */
+export function overlayFinding(probe: Pick<Probe, 'overlay' | 'overlayDetail'>): { level: 'ok' | 'error'; message: string } | null {
+  if (probe.overlay === 'ok') return { level: 'ok', message: 'the drawing layer builds' }
+  if (probe.overlay === 'failed') {
+    return {
+      level: 'error',
+      message: 'the drawing layer cannot be built, so the page will open with nothing to draw on. ' +
+        'Reinstall with `npm install`; if it still fails, this is a sketch-to-code bug, so please report it with this line: ' +
+        probe.overlayDetail.split('\n')[0],
+    }
+  }
+  return null
 }

@@ -98,3 +98,16 @@ describe('the printed report', () => {
     expect(formatDoctor(report)).toMatch(/localhost:5173|sketch-to-code init/)
   })
 })
+
+describe('overlayFinding (s2c-047)', () => {
+  it('a drawing layer that cannot be built is an error, in words', async () => {
+    const { overlayFinding } = await import('../src/probe.js')
+    const f = overlayFinding({ overlay: 'failed', overlayDetail: 'Build failed with 3 errors:\nmore' })
+    expect(f?.level).toBe('error')
+    expect(f?.message).toMatch(/nothing to draw on/)
+    expect(f?.message).toMatch(/Build failed with 3 errors:$/)
+    expect(overlayFinding({ overlay: 'ok', overlayDetail: '' })?.level).toBe('ok')
+    // an older plugin can't answer: no claim either way
+    expect(overlayFinding({ overlay: 'unknown', overlayDetail: '' })).toBeNull()
+  })
+})

@@ -165,7 +165,7 @@ try {
   server = await vite.createServer({ root: dir, configFile: join(dir, 'vite.config.js'), logLevel: 'error', server: { port: PORT, strictPort: true } })
   await server.listen()
 
-  browser = await chromium.launch()
+  browser = await chromium.launch().catch(() => chromium.launch({ executablePath: process.env.S2C_CHROMIUM ?? '/opt/pw-browsers/chromium' }))
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } })
   const pageErrors = []
   page.on('pageerror', (e) => pageErrors.push(String(e)))

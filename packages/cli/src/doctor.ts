@@ -6,7 +6,7 @@ import { resolveChain } from './deps.js'
 import { detectProject, type ProjectInfo } from './detect.js'
 import { evaluateGates, gitState, type Gate, type GitState } from './git.js'
 import { ghState, type GhState } from './github.js'
-import { devServerPort, probeViteConfig, scriptPort, type Probe } from './probe.js'
+import { devServerPort, overlayFinding, probeViteConfig, scriptPort, type Probe } from './probe.js'
 
 export interface Finding {
   id: string
@@ -96,8 +96,11 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
     add('load', 'warn', 'config load check skipped')
   } else if (project.viteConfigPath && resolved) {
     probe = probeViteConfig(dir, project.viteConfigPath)
-    if (probe.ok && probe.hasSketch2code) add('load', 'ok', `vite resolves plugins: ${probe.plugins.join(', ')}`)
-    else if (probe.ok) add('load', 'error', `config loads but sketch2code is missing from the plugin list (${probe.plugins.join(', ')})`)
+    if (probe.ok && probe.hasSketch2code) {
+      add('load', 'ok', `vite resolves plugins: ${probe.plugins.join(', ')}`)
+      const o = overlayFinding(probe)
+      if (o) add('overlay', o.level, o.message)
+    } else if (probe.ok) add('load', 'error', `config loads but sketch2code is missing from the plugin list (${probe.plugins.join(', ')})`)
     else add('load', 'error', `vite could not load ${relative(dir, project.viteConfigPath)} (${probe.reason}): ${probe.detail}`)
   } else {
     add('load', 'warn', 'skipped the config load check — the plugin is not installed yet')
@@ -172,3 +175,4 @@ export function formatDoctor(report: DoctorReport): string {
   for (const n of report.nextSteps) lines.push(`  → ${n}`)
   return lines.join('\n')
 }
+

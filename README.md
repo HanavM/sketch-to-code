@@ -38,7 +38,8 @@ node packages/cli/dist/bin.js init ../my-app   # sets everything up, asks before
 cd ../my-app && npm run dev                     # open the address it prints
 ```
 
-Once it's published this becomes `npx sketch-to-code init`. If anything seems off,
+Once it's published this becomes `npx sketch-to-code init` (rehearsed against a
+local registry by `npm run e2e:published`). If anything seems off,
 `node packages/cli/dist/bin.js doctor ../my-app` checks the setup and says what to
 run next.
 

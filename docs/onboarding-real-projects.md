@@ -84,6 +84,42 @@ person would see said yes, and the product did nothing:
    before, under 1 s after). This one isn't React Router–specific: any
    plugin that starts a timer or watcher at config time did the same.
 
+## Installed from a registry: healthy on paper, no overlay (s2c-047)
+
+Every shape above installs the plugin from this checkout (`file:` link or
+workspace), so none of them tests what `npx sketch-to-code init` will do once
+the packages are on npm. `packages/cli/tests/e2e/published-install.mjs` does,
+without publishing anything: it `npm pack`s all eight packages, publishes them
+to a throwaway verdaccio on 127.0.0.1 (temp storage, temp npm cache, npmjs as
+uplink for everything else), then runs `npx sketch-to-code@0.1.0 init --yes`
+in a fresh create-vite react-ts app that only knows that registry.
+
+| step | before | after |
+|---|---|---|
+| `npx sketch-to-code init --yes` | ✓ wrote `"@s2c/vite-plugin": "^0.1.0"`, installed, committed | same |
+| `doctor` | ✓ "Healthy" | ✓ "Healthy", plus `overlay  the drawing layer builds` |
+| overlay on the page | **✗ never appears**; one `console.error` | ✓ |
+| ring + "red" → ✓ Done | impossible | ✓ "made the heading with "Get started" red", red on the page |
+
+The plugin builds the drawing layer with esbuild on the first page load and
+pointed `@s2c/dom` and `@s2c/ink/classify` at their `src/*.ts`, so a checkout
+needs no prebuild. npm only ships `dist/`, so every published install would
+have failed that build. Fixes (packages/vite-plugin/src/overlay-bundle.ts):
+alias to source only when the source file exists, otherwise resolve through the
+package's exports like any dependency; `@s2c/overlay-client` gets a `files`
+list so it stops shipping its tests. Two guards so this class of failure can't
+be silent again: the config check now asks the plugin to build the drawing
+layer (`api.bundleOverlay`), and doctor and init report it in words when it
+can't; and a failed build puts a plain sentence on the page ("could not start
+its drawing layer … run `npx sketch-to-code doctor`") instead of only logging.
+The e2e was red on the old code (doctor ✓, no overlay) and green after;
+init → ✓ took 59.5 s with a cold npm cache.
+
+Checked on the way (2026-10-17): `sketch-to-code` and `@s2c/*` are all 404 on
+npmjs.org and no `s2c` org exists. Whoever claims the `@s2c` scope first
+decides what `init`'s `^0.1.0` installs, so claim it before the README says
+`npx`. (Publishing is the owner's call; nothing was published.)
+
 ## The bug it found (first five shapes)
 
 `create-tsrouter-app`'s dev script is `vite dev --port 3000`. init and

@@ -685,6 +685,14 @@ SSR template, and an npm workspace) and takes each from `init` to "✓ Done" in
 `scriptPort()`. These are starters, not people's apps; details and limits in
 docs/onboarding-real-projects.md.
 
+## Installed from npm, it would have had no overlay (s2c-047, 2026-10-17)
+
+Rehearsed the published install against a local registry (nothing published).
+`npx sketch-to-code init` and doctor both said ✓, and the page had nothing to
+draw on: the overlay build reached for `@s2c/dom` / `@s2c/ink` source, which npm
+never ships. Fixed, and doctor/init now build the drawing layer themselves and
+say so in words when they can't. Details: docs/onboarding-real-projects.md.
+
 ## React Router's own starter: healthy on paper, no overlay (s2c-043, 2026-10-17)
 
 `npx create-react-router` (8.4.0) makes a framework-mode app: no index.html,

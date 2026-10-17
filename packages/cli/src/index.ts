@@ -13,5 +13,5 @@ export {
 } from './git.js'
 export { connectRemote, createRemote, ghState, type GhState, type RemoteResult } from './github.js'
 export { runInit, type Confirm, type InitOptions, type InitResult, type Question, type Step } from './init.js'
-export { devServerPort, probeViteConfig, type Probe } from './probe.js'
+export { devServerPort, overlayFinding, probeViteConfig, type Probe } from './probe.js'
 export { sketchOnce, type SketchOptions, type SketchResult } from './sketch.js'
