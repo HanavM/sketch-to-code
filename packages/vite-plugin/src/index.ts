@@ -32,6 +32,13 @@ export interface Sketch2CodeOptions {
    *  (legacy deterministic classifier). */
   engine?: 'model' | 'rules'
   /**
+   * Answer a sketch that is only delete scribbles, each confined to one
+   * element, without asking the model (s2c-049): the reading prompt's own rule
+   * already decides it. Default true. Turn it off to measure the model on
+   * those pages.
+   */
+  plainReadings?: boolean
+  /**
    * The instant render — scaffolding a drawn shape into a real mounted
    * component the moment Run is pressed, before the reading comes back.
    * Default true.
@@ -204,6 +211,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const runTimeoutMs = options.runTimeoutMs ?? 12 * 60_000
   const engine = options.engine ?? 'model'
   const instant = options.instant ?? true
+  const plainReadings = options.plainReadings ?? true
   let root = process.cwd()
   // s2c-043: React Router framework mode has no index.html; the overlay loads
   // from this module instead (framework-entry.ts)
@@ -1452,6 +1460,25 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           let refusal: string | null = null
           try { refusal = m.dirtReason(root, allowDirty) } catch { /* not a repo: the run says so */ }
           if (refusal) return { status: 200, body: { ok: false, refused: true, error: refusal } }
+          const mode = body.mode === 'design' ? 'design' : 'gesture'
+          if (plainReadings) {
+            // s2c-049: a sketch the prompt's own rule decides costs no call
+            let plain: ReturnType<typeof m.plainReading> | null = null
+            try {
+              plain = m.plainReading(
+                body.strokes as Parameters<typeof m.plainReading>[0],
+                body.snapshot,
+                mode,
+                (body.notes ?? []) as Parameters<typeof m.plainReading>[3],
+              )
+            } catch { /* odd input: the model reads it, as before */ }
+            if (plain?.ok) {
+              return {
+                status: 200,
+                body: { ok: true, v2: { interpretation: plain.interpretation, raw: plain.raw, tokens: plain.tokens, plain: plain.rule } },
+              }
+            }
+          }
           const v2 = await m.interpretV2(
             body.strokes as Parameters<typeof m.interpretV2>[0],
             body.snapshot,

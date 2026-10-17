@@ -99,3 +99,5 @@ export { applyManipulation, rewriteClassList, snapSpacing } from './manipulate.j
 export type { ManipulateRequest, ManipulateResult, ManipulateProp } from './manipulate.js'
 export { planStructuralEdits, commitPlan } from './codemod.js'
 export type { CodemodPlan } from './codemod.js'
+export { plainReading, SCRIBBLE_MIN_REVERSALS, SCRIBBLE_MIN_COVER } from './plain-reading.js'
+export type { PlainReading } from './plain-reading.js'

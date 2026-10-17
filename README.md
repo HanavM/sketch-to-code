@@ -64,9 +64,11 @@ normally.
 
 [`docs/demo-60s.md`](docs/demo-60s.md) is the shot list, and
 `npm run demo` (or `node tests/demo/record-60s.mjs --out demo/`) plays it on a fresh Vite starter and
-records `demo-60s.webm`. In that recording **the reading of each drawing is
-scripted**, and the video says so on screen: it shows what using it looks like, not
-how well a model reads your handwriting.
+records `demo-60s.webm`. In that recording **the readings of the ring and the
+box are scripted**, and the video says so on screen: it shows what using it looks
+like, not how well a model reads your handwriting. The scribble is real: a
+scratch-out over one thing, with nothing else drawn and no words, is read by a
+fixed rule and never reaches a model, so it costs nothing and doesn't wait.
 
 ---
 

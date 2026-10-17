@@ -57,7 +57,7 @@ the date given.
 
 | README claim | Proof |
 |---|---|
-| scribble over something deletes it | `tests/demo/record-60s.mjs` shot 2 (scripted, codemod real); v1 rule in `packages/intent` unit tests |
+| scribble over something deletes it | `tests/demo/record-60s.mjs` shot 2 (**not scripted** since s2c-049: read by `plain-reading.ts` with no model call, deleted by the codemod; the demo fails if the model is asked); rule unit tests in `packages/pipeline/tests/plain-reading.test.ts` |
 | a ring in a colour makes it that colour, no words | record-60s shot 3 (scripted); pen capture in `tests/e2e/live-pen.mjs`; colour snapped to the palette in `packages/pipeline/src/intent2.ts` (`drawnColor` → `matchColor`) |
 | a rough box + a word adds something there | record-60s shot 4, `walkthrough-noncoder.mjs` change 1 (scripted) |
 | a ring in normal ink + a word changes it | `walkthrough-noncoder.mjs` change 2 "red" (scripted) |

@@ -91,14 +91,9 @@ try {
   const EDIT_LINE = /\n\s*<p>\n\s*Edit <code>src\/App\.jsx<\/code> and save to test <code>HMR<\/code>\n\s*<\/p>/
   const SCRIPT = {
     scribble: {
-      interpret: (ev) => ({
-        reading: 'Delete the line under the heading.',
-        actions: [{
-          kind: 'delete', elements: [find(ev.elementMenu, 'p', 'save to test')?.id], destElement: null, position: null,
-          instruction: 'remove this line', strokes: ev.strokes.map((s) => s.id), layer: null, depicts: null, fidelity: null,
-        }],
-        unclear: null,
-      }),
+      // s2c-049: a scratch-out confined to one element is read by the reader's
+      // own rule, with no model. Being asked here means that broke.
+      interpret: () => { throw new Error('the scribble reached the model') },
       codegen: () => edit((s) => s.replace(EDIT_LINE, '')),
     },
     ring: {
@@ -151,7 +146,7 @@ try {
       if (document.getElementById('demo-label')) return
       const d = document.createElement('div')
       d.id = 'demo-label'
-      d.textContent = 'Demo recording · the reading of each drawing is scripted, not a live model'
+      d.textContent = 'Demo recording · the ring and box readings are scripted, not a live model; the scribble needs none'
       d.setAttribute('style', 'position:fixed;left:12px;top:10px;z-index:2147483646;pointer-events:none;font:12px system-ui;background:#111c;color:#fff;padding:4px 8px;border-radius:6px')
       document.documentElement.appendChild(d)
     }
@@ -268,6 +263,7 @@ try {
   await page.waitForTimeout(2000)
 
   check('no page errors', pageErrors.length === 0, pageErrors.join(' | '))
+  check('shot 2: the scribble was read with no model call (s2c-049)', !calls.some((c) => c.endsWith(':scribble')), calls.join(' '))
   check('every model call was scripted', calls.length > 0 && calls.every((c) => /^(interpret|codegen):/.test(c)), calls.join(' '))
   check('App.jsx differs from the starter', readFileSync(app(), 'utf8') !== committed)
 } catch (err) {
@@ -289,7 +285,7 @@ try {
   } catch (e) { log('no video:', e.message) }
   const total = shots.at(-1)?.end ?? 0
   const lines = shots.map((s) => `| ${s.at.toFixed(1)}–${s.end.toFixed(1)} s | ${s.name} | ${s.last.replace(/\|/g, '/')} |`)
-  writeFileSync(join(outDir, 'demo-60s-shots.md'), `| time | shot | the bar's last line |\n|---|---|---|\n${lines.join('\n')}\n\nTotal recorded: ${total.toFixed(1)} s (scripted reading)\n`)
+  writeFileSync(join(outDir, 'demo-60s-shots.md'), `| time | shot | the bar's last line |\n|---|---|---|\n${lines.join('\n')}\n\nTotal recorded: ${total.toFixed(1)} s (ring and box readings scripted; the scribble needs no model)\n`)
   log(`shots: ${join(outDir, 'demo-60s-shots.md')} · recorded ${total.toFixed(1)} s · wall ${((Date.now() - t0) / 1000).toFixed(0)} s`)
   if (KEEP || !OUT) log('keeping', parent)
   else rmSync(parent, { recursive: true, force: true })

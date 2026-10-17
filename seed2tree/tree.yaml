@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 49
-lock: {run: cloud-2026-10-17T2058Z, until: "2026-10-17T22:15:00Z"}
+next_id: 51
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1145,3 +1145,42 @@ nodes:
   outputs: []
   log:
   - "2026-10-17: filed by s2c-047. Blocked by design: publishing and licensing are the owner's (GARDENER 0, SEED out of scope)."
+- id: s2c-049
+  parent: s2c-000
+  title: "A scratch-out is read without a model: the prompt's own delete rule, applied before the call"
+  why: "SEED: sketch → change should feel immediate. The reading prompt already says reversals ≥ 4 + confined = DELETE, outranking any other reading, and those features exist before the call. Paying ~10 s and tokens to apply a fixed rule is waste, and it made the demo's delete shot scripted."
+  done_when: "A sketch of only scratch-outs on single elements, no words, gets a reading from the server with zero model calls, in the same shape the model returns; everything else still goes to the model; the README demo's scribble shot runs with its scripted reading removed (it throws if asked) and is green; unit tests cover each decline."
+  kind: build
+  status: done
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.9
+  depth: 1
+  watered: 1
+  last_watered: 2026-10-17T21:40Z
+  blocked_on: null
+  outputs: [packages/pipeline/src/plain-reading.ts, packages/pipeline/tests/plain-reading.test.ts, tests/demo/record-60s.mjs, "docs/findings.md#a-scratch-out-needs-no-model-s2c-049-2026-10-17"]
+  log:
+  - "2026-10-17: filed by the cloud run. Everything else was blocked on the owner; this serves the SEED's speed goal and needs no quota."
+  - "2026-10-17 21:40Z: DONE. plainReading() in the /@s2c/interpret handler before interpretV2 (plugin option plainReadings, default true). Declines on words, non-scribbles, unconfined ink, cover < 25%, ink circling a child, nested targets, design mode, no stamp. The demo's own scribble first DECLINED twice: (1) inline <code> children split confinement; (2) a loose 48px-tooth zigzag has 0 turns > 60°. Both fixed in the plain reader only (ancestor credit; up/down turns ≥ 25% of height); the model brief unchanged. 16 unit tests; demo shot 2 scripted reading removed (throws if called) → green, interpret:scribble gone from the call log. vitest 1220/1222 (same 2 env failures); tsc -b clean; walkthrough green. Paid e2e not run."
+- id: s2c-050
+  parent: s2c-049
+  title: "A ring in a colour, no words: recoloured with zero model calls (plain reading + the props engine)"
+  why: "Row 7 of the visual language: the pen colour carries the value, so ring + colour + one element is as decided as a scratch-out. Today it pays a reading AND a codegen session (the demo's shot 3 scripts both)."
+  done_when: "Plain reader returns modify+color for one closed ring in a non-default pen round one stamped element, no words; the colour is applied by the existing zero-token style engine (props/set or codemod), not codegen; demo shot 3 runs with both scripted calls removed and is green; declines tested (default ink → bare-ring question still; two elements; words)."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-049. Check first that the props engine can set text colour on both a Tailwind class and a plain CSS element; if it can't, the codegen half stays and the value drops to 2."

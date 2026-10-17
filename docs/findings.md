@@ -717,3 +717,41 @@ exact Back. On create-react-router 8.4.0, 3 shapes (starter, layout() +
 catch-all, flatRoutes): typegen + tsc strict clean, SSR dev in Chromium:
 click, Back, direct entry + Back, the run's probe passed, no hydration
 errors. 3/3 green. Details in docs/navigation.md.
+
+## A scratch-out needs no model (s2c-049, 2026-10-17)
+
+The reading prompt states one rule as outranking every other reading: ≥ 4
+direction reversals, confined to one element = delete that element. The
+features it decides on are computed before the call. So a sketch that is only
+scratch-outs was paying a reading (~10 s, a few thousand tokens) to be told
+what we already knew, or to be told something wrong.
+
+`packages/pipeline/src/plain-reading.ts` now answers those sketches itself, in
+the model's own RawInterpretation shape, so the rest of the run is unchanged:
+the reading still shows before anything is touched, `/@s2c/run` re-grounds it,
+the codemod deletes, the DOM check verifies, one Ctrl+Z undoes. It declines
+(and the model reads as before) on: any typed word, any stroke that isn't a
+scribble, a scribble not confined to one element (counting its inline
+children), one covering < 25% of its element, ink that circles a child
+instead of crossing it, scribbles on nested elements, design mode, no source
+stamp. Plugin option `plainReadings: false` turns it off.
+
+Two things the existing features got wrong, found on the README demo's own
+scribble (shot 2), which used to be scripted:
+
+- **Confinement split by inline children.** A scratch-out across
+  `Edit <code>src/App.jsx</code> and save` lands partly on the `<code>`s, so
+  `mostlyInsideElement` (innermost element only) said "not confined". The
+  plain reader credits a point to the element and its ancestors.
+- **A loose zigzag has no "sharp" turns.** Teeth 48 px apart and 16 px tall
+  turn ~36°, under the 60° threshold, so `directionReversals` was 0. The plain
+  reader also counts up/down turns over a quarter of the stroke's height.
+  This is a deliberate widening of the prompt's rule. The brief the model sees
+  is unchanged; changing it would be a separate, measured change.
+
+Checked: 16 unit tests (plain-reading.test.ts), including a triple ring round
+a button inside a small card (declined: circles, doesn't cross) and the
+re-grounding a run does. `npm run demo`: shot 2's scripted reading now throws
+if called, and the demo is green with the scribble never reaching a model.
+Not checked: how often real users' scratch-outs pass these gates. That needs
+real ink (s2c-013's pilot).

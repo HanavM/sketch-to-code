@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-17 21:40 UTC — sketch-to-code / s2c-049 A scratch-out is read without a model — **done**
+Picked because: new node, priority 3.15 (s2c-000 seed 2.08 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. The last run's "queue empty" was wrong a second time: the reading prompt's own delete rule was being paid for on every scratch-out.
+Did: `plain-reading.ts`, called in /@s2c/interpret before the model. A sketch that is only scratch-outs on single elements, with no words, gets its reading from the rule: 0 tokens, no ~10 s wait. Same reading shape as the model's, so the preview, re-grounding, codemod delete, DOM check and undo are all unchanged. Anything else still goes to the model. Off switch: `plainReadings: false`.
+Found: the README demo's own scribble **failed both of the model's delete features**. Inline `<code>` children split "confined", and a loose 48 px zigzag has 0 turns sharper than 60°. The model was being told that the demo's scratch-out wasn't one. I fixed both in the plain reader only, which is a deliberate widening of the rule. The brief the model sees is unchanged.
+Result: 16 unit tests, including a scribbly triple ring round a button (declined: it circles, it doesn't cross). Demo shot 2's scripted reading now throws if called, and the demo is green: **shot 2 is real now**, no longer scripted. README + demo label say so. vitest 1220/1222 (same 2 env failures), `tsc -b` clean, walkthrough green, 0 tokens. momentum → 0.9
+Blunt: this is speed and cost on one gesture, not the core risk. Nobody knows yet how often *real* scratch-outs pass these gates, and DoD #1 still waits on s2c-013.
+New branches: s2c-050 coloured ring, no words → recoloured with zero model calls (value 3, effort 2).
+Pruned/done: s2c-049 done.
+**Needs you:** unchanged. (1) s2c-013: "spend the pilot in the cloud". (2) s2c-035: yes/no to cloning 5 public repos read-only. (3) s2c-048: "yes, MIT" / "not yet".
+
 ## 2026-10-17 20:12 UTC — sketch-to-code / s2c-047 Rehearse the published install — **done**: from npm, the page would have had no overlay. Fixed.
 Picked because: new node, priority 2.24 (s2c-000 seed 2.08 skipped: umbrella; s2c-008/013 local + blocked; s2c-035 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. Last run said the cloud queue was empty. That was wrong: the `npx` install path the README promises had never been run once.
 Did: commit 18d33aa. I packed all 8 packages and published them to a throwaway verdaccio on localhost (nothing public). Then `npx sketch-to-code init --yes` on a fresh create-vite app. **init ✓, doctor "Healthy", no overlay**: the plugin builds the overlay from @s2c/dom and @s2c/ink `src/*.ts`, and npm only ships `dist/`. The only trace was a console.error. Fixed. Doctor and init now build the drawing layer themselves and say in words when they can't, and a failed build puts a plain sentence on the page.
