@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 42
-lock: {run: cloud-20261017-1156, until: "2026-10-17T13:11Z"}
+next_id: 43
+lock: null
 
 nodes:
 - id: s2c-000
@@ -933,20 +933,27 @@ nodes:
   why: "s2c-039 writes a heading and a back button. A person who sketched a form or three cards inside the box expects them on the new screen. Without this the arrow only half-carries the intent."
   done_when: "zero-token e2e: stubbed reading = navigate + an add whose strokes lie inside the box; after the run the add lands inside src/screens/<Name>.tsx (not App), the probe still passes, and the receipt names both. Unit test: run2 retargets an add whose region is inside a navigate's box to the new screen file."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T12:25Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - 5a5b8ca packages/pipeline/src/screen-contents.ts (screenBox, insideShare, screenMainStamp, retargetIntoScreens) + run2 wiring
+  - navigate probe counts the open screen's contents (probe-exec screenContents -> ProbeVerdict.screenContent); verifyActions judges onScreen adds by it
+  - grounding keeps a navigate's cited strokes (strokeIds); reader prompt asks for the inner sketch as its own add
+  - vite-plugin re-asks pending snapshots on a run tab's reconnect (lost-to-reload snapshot fix)
+  - tests/e2e/live-navigate-contents.mjs (zero-token, in-process vite, scripted reading + codegen) + 13 unit tests
+  - docs/navigation.md 'The screen's contents'
   log:
   - "2026-10-17: filed by s2c-039 watering 1. Waits until s2c-039's probe + e2e land. Real codegen output can't be measured without a paid reading, so the e2e stubs the codegen write too."
   - "2026-10-17: unblocked: s2c-039 probe + e2e landed (10a9735). live-navigate.mjs is the harness to extend."
+  - "2026-10-17 (cloud): watering 1, commit 5a5b8ca. DONE. Box = largest closed stroke among the navigate's cited strokes (grounding now keeps strokeIds; it fitted no paths for navigate, so the first e2e found no box). Add retargeted when >=80% of its ink is in the box: dest = screen <main> stamp, position into, onScreen, instruction prefixed. Verified by the navigate probe counting what the open screen shows besides heading+Back; colour check skipped for these. Receipt: '...open a \"Reports\" screen and put what you drew in its box on the \"Reports\" screen.' e2e red first on a real bug: a snapshot request sent just before main.tsx's reload was lost -> 'took too long'; SSE greeting now re-asks pending snapshots (red 2/2 without, green after). e2e 5/5 incl. negative (codegen builds on home -> add fails in plain words). vitest 1133/1135 (same 2 env failures); tsc -b clean; live-navigate, saywhat, reload-running, api, walkthrough green; 0 tokens. Reading still scripted."
 
 - id: s2c-041
   parent: s2c-039
@@ -967,3 +974,23 @@ nodes:
   outputs: []
   log:
   - "2026-10-17: filed by s2c-039 watering 1. Lower value than finishing s2c-039: do after its probe/e2e."
+
+- id: s2c-042
+  parent: s2c-040
+  title: "A screen box drawn in two or more strokes is still the screen"
+  why: "Fast, rough boxes are often 2-4 strokes (two Ls, four sides). screenBox only recognises one closed stroke, so a rough box falls back to the old behaviour and its contents land on the home page. SEED: if a user has to draw carefully, that's a bug."
+  done_when: "unit tests: a box drawn as 2 strokes (two Ls), 4 separate sides, and an overshooting 1-stroke box are all found; an arrow plus a name never form a box. live-navigate-contents gains a phase with a 2-stroke box that passes the same checks."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 4
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-040. Found by reading screenBox against SEED's 'rough sketches' rule, not by a failing run."
