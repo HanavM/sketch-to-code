@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 34
-lock: {run: cloud-2026-10-17T0356Z, until: "2026-10-17T05:11:00Z"}
+next_id: 35
+lock: null
 
 nodes:
 - id: s2c-000
@@ -766,16 +766,36 @@ nodes:
   why: "A non-coder who gets a misread card and draws again sees the stale card claim the old reading while the new run works. Red on main and seed2tree since at least 2026-10-17 00:55, never investigated."
   done_when: "tests/e2e/live-misread.mjs green (zero-token or scripted); the cause named in docs/findings.md; a unit or e2e assert that the card hides when a run starts."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
+  watered: 1
+  last_watered: 2026-10-17T04:05Z
+  blocked_on: null
+  outputs: ["0195f33", packages/overlay-client/src/main.ts, tests/e2e/live-misread.mjs, docs/findings.md]
+  log:
+  - "2026-10-17: filed by s2c-032 watering (left over in docs/walkthrough-noncoder.md). Check first whether the test spends tokens; if it does, port it to setScriptedModel before running."
+  - "2026-10-17 04:05: cause was the test, not the card: it pressed Alt+D on a page that opens drawing, so the stroke never landed and Run did nothing. With the stroke landing, found a real bug: Run inside the auto countdown left it armed, so a fast-failing reading was followed by a 2nd paid reading + instant render (2/2 from one click). run() now cancels the countdown. Step 6 asserts stroke, card, exactly 1 reading: red on old overlay, green 3/3. live-auto/keymap/preview + walkthrough green; vitest 1083/1085 (same 2 env); tsc clean; 0 tokens. DONE."
+- id: s2c-034
+  parent: s2c-000
+  title: "Sweep the zero-token e2e suite for red and vacuous tests"
+  why: "live-misread step 6 passed nothing for a day: its key action silently no-oped. Other e2e may assert on a run that never started; every DoD claim leans on them."
+  done_when: "Every tests/e2e/*.mjs and packages/*/tests/e2e/*.mjs classified paid/zero-token in docs/; every zero-token one run on seed2tree with result recorded; each red one fixed or filed as a node; each step that can no-op (no stroke landed, button disabled) gets an assert that its action happened."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-032 watering (left over in docs/walkthrough-noncoder.md). Check first whether the test spends tokens; if it does, port it to setScriptedModel before running."
+  - "2026-10-17: filed by s2c-033 watering. Note for the run: this container's Playwright wants chromium 1234 but /opt has 1194; a PLAYWRIGHT_BROWSERS_PATH dir with copied symlinks works (see DIGEST). Also restart vite after an overlay change: the bundle is cached per dev server."

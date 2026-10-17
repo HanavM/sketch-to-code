@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-17 04:05 UTC — sketch-to-code / s2c-033 live-misread red — **done**: the test was hollow, and it hid a real double-reading bug
+Picked because: priority 2.63 (next: s2c-005 2.18; s2c-000 seed 2.03 skipped: umbrella; s2c-013/008 local + blocked, skipped). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit 0195f33. The card was never the bug. Step 6 pressed Alt+D on a page that opens drawing, so it *paused* the pen: no stroke, ▶ Run disabled, click did nothing. With the stroke landing it found a real one: **▶ Run inside the 0.7 s auto countdown left the countdown armed.** The bar kept "⚡ auto-run in 0.4s" during the reading, and when the reading ended first (fast failure, quick decline) it fired a **second paid reading + second instant render** of the same ink. Measured 2 and 2 from one click. Fix: `run()` cancels a pending countdown (7 lines).
+Result: step 6 now asserts the stroke landed, the card survives drawing, the run closes it, exactly 1 reading in 1.5 s. Red on old overlay, green 3/3. live-auto, live-keymap, live-preview, walkthrough green; vitest 1083/1085 (same 2 env failures); `tsc -b` clean; 0 tokens. momentum 0.5 → 0.7
+Blunt: ~10 min of real work. The bug only bites when a reading fails fast, so it wasted money on failures, not on successes. The worse news is that an e2e cited as proof of SEED done #4 had been asserting nothing for a day. Not checked: real model, the Alt+R path inside the window.
+New branches: s2c-034 sweep the zero-token e2e suite for red and vacuous tests (value 3, effort 2).
+Pruned/done: s2c-033 done.
+**Needs you (s2c-013):** unchanged and still the bottleneck. Done #1 has zero real measurements. Run the pilot on macOS (commands in s2c-013 `blocked_on`) or give the run a `CLAUDE_CODE_OAUTH_TOKEN`. sidequest/fine-routing can't be cloned from this task: add them to its repo access if you want them gardened.
+
 ## 2026-10-17 03:20 UTC — sketch-to-code / s2c-032 The Done sentence names what you asked for — **done**; s2c-010 (SEED done #2 walkthrough) closed
 Picked because: priority 2.92, the only open cloud node (s2c-013 local + blocked, skipped; s2c-000 seed skipped: umbrella). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
 Did: commit 8859518. The success sentence now carries the words typed with the mark: "✓ Done: added "testimonials" where you drew it." and "✓ Done: made the heading with "Get started" red." (were "added what you drew" / "changed the heading"). Short look-words become "made … bigger / bold and blue"; instruction-like words are quoted; a coloured pen with no words names the colour. Cut at 6 words; failure sentences untouched.
