@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 35
-lock: {run: cloud-2026-10-17T0456Z, until: "2026-10-17T06:11Z"}
+next_id: 36
+lock: null
 
 nodes:
 - id: s2c-000
@@ -123,20 +123,22 @@ nodes:
   title: "Onboarding on real third-party repos"
   why: "SEED done-criterion 1. init/doctor are tested on one scaffolded app only."
   done_when: "Zero-token e2e (scripted model, like walkthrough-noncoder.mjs) clones ≥5 real open-source Vite+React repos, runs init + doctor, and makes one scripted sketch edit on each; docs/ records per repo: init pass/fail, minutes to first ✓, and every failure filed or fixed (SEED done #3)."
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T05:20Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - "e5200fc: packages/cli/tests/e2e/onboard-real-projects.mjs (npm run e2e:onboard), packages/cli/src/probe.ts scriptPort() used by init.ts + doctor.ts, packages/cli/tests/probe-port.test.ts (4), docs/onboarding-real-projects.md, docs/findings.md section"
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: onboarding 5 real repos is launch prep for a product that loses to Cursor/Lovable/Onlook. Owner can overrule in INBOX with a reason."
   - "2026-10-17: UN-PRUNED. The pruning reason was the s2c-012 PIVOT, which the owner overruled; its own log said revisit after s2c-018 (done). With s2c-010 closed this is the next SEED done item (#3) a cloud run can move without spending money. Rescoped to zero-token via setScriptedModel; effort 3 -> 2."
+  - "2026-10-17: WATERED (e5200fc). This run may only read its own repo, so no GitHub clones: used 5 published starters, each scaffolded fresh from its pinned npm generator: create-vite 9.2.1 react-ts + react-compiler-ts, create-tsrouter-app 0.54.45 (Tailwind v4, file routes, `const config = defineConfig`, dev `vite dev --port 3000`), create-vite-extra 5.0.3 ssr-react-ts (`node server`, vite middleware mode), react-ts in an npm workspace with the git root above and hoisted deps. Each: doctor before (non-zero), init --yes, doctor after (0), tree clean, boot like npm run dev, open the printed URL, ring h1 + \"red\", wait for ✓. Result 5/5 ✓ in 10.8-13.8 s init→✓. ONE BUG: TanStack init/doctor said open :5173 but the app is on :3000; fixed with scriptPort() (dev-script --port wins over config). Red before, green after. vitest 1087/1089 (same 2 env failures), tsc -b clean, init-real-project + walkthrough green. 0 tokens. DONE for starters; the literal done_when (people's real OSS apps) moved to s2c-035, which needs the owner to allow public clones."
 
 - id: s2c-006
   parent: s2c-000
@@ -799,3 +801,23 @@ nodes:
   outputs: []
   log:
   - "2026-10-17: filed by s2c-033 watering. Note for the run: this container's Playwright wants chromium 1234 but /opt has 1194; a PLAYWRIGHT_BROWSERS_PATH dir with copied symlinks works (see DIGEST). Also restart vite after an overlay change: the bundle is cached per dev server."
+
+- id: s2c-035
+  parent: s2c-005
+  title: "Onboarding on 5 people's real OSS Vite+React apps (not starters)"
+  why: "s2c-005 proved init on published starters only. Real apps break init in ways starters can't: CSS-in-JS, a vite.config built from another file, pnpm/Turborepo monorepos, odd index.html. That is SEED done #3 as written."
+  done_when: "onboard-real-projects.mjs gets a --repos list of ≥5 public Vite+React apps pinned to a commit (incl. ≥1 pnpm monorepo and ≥1 with a component library); each: install, init, doctor, one scripted edit to ✓; docs/onboarding-real-projects.md table extended; every failure fixed or filed."
+  kind: build
+  status: blocked-on-human
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: "May the gardener clone ~5 public GitHub Vite+React apps (read-only, into temp dirs, never pushed to or contacted)? This task's GitHub access is scoped to your own repos, so either say yes in INBOX and add read access for those repos, or name 5 repos you want tested."
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-005 watering. The harness is ready: a project is one entry in PROJECTS (create + optional server kind)."
