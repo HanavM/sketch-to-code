@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 30
-lock: {run: cloud-2026-10-16T2355Z, until: "2026-10-17T01:10:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -234,12 +234,12 @@ nodes:
   value: 4
   effort: 3
   confidence: 0.5
-  momentum: 0.58
+  momentum: 0.75
   depth: 1
-  watered: 1
-  last_watered: 2026-10-16T13:45Z
+  watered: 2
+  last_watered: 2026-10-17T00:55Z
   blocked_on: null
-  outputs: [docs/walkthrough-noncoder.md, packages/cli/tests/e2e/init-real-project.mjs]
+  outputs: [docs/walkthrough-noncoder.md, packages/cli/tests/e2e/init-real-project.mjs, packages/cli/tests/e2e/walkthrough-noncoder.mjs, packages/providers/src/scripted.ts]
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: non-coders are served by Lovable/v0/Bolt hosted tools and will not run a local Vite plugin. Owner can overrule in INBOX with a reason."
   - "2026-10-16: UN-PRUNED by owner overrule (INBOX 2026-10-15 (3)): non-coder walkthrough is SEED done #2 again."
@@ -248,6 +248,47 @@ nodes:
   - "2026-10-16: s2c-024 done (9264bd6): change #2/#3 are no longer refused on an init'd project. Next watering: stub /@s2c/interpret + run with a recorded interpretation and walk all 3 changes (incl. a form) end to end on the real Vite 8 starter."
   - "2026-10-16: s2c-026 done (46499cb): Ctrl+Z no longer erases a hand edit made after a sketch edit (reverts only the files the edit wrote; refuses in words when one of those was changed by hand). Coder-facing; doesn't move the non-coder path. Next watering unchanged: stubbed interpret, 3 changes end to end."
   - "2026-10-16: s2c-025 done (41efb67): clicking your own button now says in plain words what was picked up and how to switch to Test; a drag after a click draws. Walkthrough rows 3-4 updated. Next watering unchanged: stubbed interpret, 3 changes end to end (incl. a form)."
+  - "2026-10-17: watering 2. New zero-token e2e walkthrough-noncoder.mjs walks the real create-vite 9.2.1 starter (Vite 8.3) through init + 4 sketches (testimonials section, red heading, signup form, 'save it') with only pen/keyboard/bar; the model is scripted in-process (@s2c/providers setScriptedModel; real provider throws while set). Found 3 bugs on the path every user takes, all fixed: (1) every run ended in idle, so the SECOND sketch drew nothing (now rests in draw on the Design surface); (2) placement verification failed in-flow content the layout centred, so a visible new section got 'I couldn't add what you drew' + Undo (verifyDesignPlacement now accepts right band + size + touching or centred in parent; 5 asserts); (3) every change ended on '✓ [v2] 0% verified … revert: git restore …' (bar now ends on the plain explanation sentence; dev summary in tooltip/console). Now 3/4 sketches end on ✓ in plain words. NOT done: 3b's save probe can't find the form after the engine shifts its stamp, and the card blames safety -> s2c-031; progress lines are dev text -> s2c-030. live-keymap updated (its Esc step was red before); live-auto green; live-misread red before and after (pre-existing). vitest 1056/1058 (same 2 env failures); tsc -b clean; init-real-project green."
+
+- id: s2c-030
+  parent: s2c-010
+  title: "Plain progress lines while a run works"
+  why: "The lines a non-coder watches during a run are developer text ('verify: round 1: snapshotting edited page', 'codemod: action 0: App now saves email to server/data/apps.json through POST /api/apps'). The walkthrough counts them; nothing fixes them."
+  done_when: "walkthrough-noncoder.mjs fails on developer words in ANY bar line (not only the last), and passes; stage detail stays available in the runs viewer/console."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.8
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-010 watering 2."
+
+- id: s2c-031
+  parent: s2c-010
+  title: "A form made to save is tried out, not 'not safe to'"
+  why: "SEED done #2's third change (a working form) is unproven: the save engine adds an import + hook above the form, every stamp below shifts, the submit probe looks up the old stamp ('the form is not on the page any more'), and the card tells the user it wasn't safe to try. They're told to check something they can't check."
+  done_when: "walkthrough-noncoder.mjs 3b ends on '✓' with the save probe passing (the KNOWN log line turned into a check); unit test: probe trigger re-resolved after a write that shifts lines; an unverified probe's card says the real reason."
+  kind: build
+  status: open
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-010 watering 2 (reproduced in the walkthrough e2e; on-disk edit is correct)."
 
 - id: s2c-011
   parent: s2c-000
