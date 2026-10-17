@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 47
-lock: {run: cloud-2026-10-17T1956Z, until: 2026-10-17T21:11:00Z}
+next_id: 49
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1106,3 +1106,42 @@ nodes:
   log:
   - "2026-10-17: filed by s2c-045. Small and real (it is on screen in the demo), not more than that."
   - "2026-10-17: watered 1 -> done. Root cause was in the DOM snapshot, not explain.ts: own text skips inline children and subtreeText is not in reading order, so the hole was invisible. Snapshot now records textRuns; explain.ts + the ring question quote \"Edit … and save to test\"; record-60s shot 2 asserts it (red before the snapshot change, green after). Undo: editLabel(kind) for all 13 non-run pushEdit sites (they pushed engine strings like \"+ w-64 h-12\", \"fill: #111 → #ef4444\", \"instant PricingCard\"); old on-disk labels load as \"an earlier change\". Tested against the shared JARGON list + a source scan of every pushEdit. vitest 1188/1190 (same 2 env), tsc clean, demo + walkthrough green."
+- id: s2c-047
+  parent: s2c-000
+  title: "Rehearse the published install: npx sketch-to-code init from a registry, not a checkout"
+  why: "SEED done #3 says `npx sketch-to-code init`, and every onboarding test so far linked the plugin from this checkout. The registry path (resolveDepSpec 'registry') had never run once."
+  done_when: "An e2e packs every package, publishes to a local throwaway registry (nothing public), and on a fresh create-vite app runs npx init → doctor healthy → overlay on the page → ring + 'red' → ✓ with zero tokens; any packaging bug it finds is fixed with a test that is red before."
+  kind: build
+  status: done
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.6
+  momentum: 0.82
+  depth: 1
+  watered: 1
+  last_watered: 2026-10-17T20:12Z
+  blocked_on: null
+  outputs: [18d33aa, packages/cli/tests/e2e/published-install.mjs, packages/vite-plugin/tests/overlay-bundle.test.ts, docs/onboarding-real-projects.md#installed-from-a-registry-healthy-on-paper-no-overlay-s2c-047]
+  log:
+  - "2026-10-17: filed and watered by the cloud run (queue otherwise all blocked on the owner). Not polish: the install path the README promises had never been executed."
+  - "2026-10-17 20:12Z: DONE (18d33aa). verdaccio on 127.0.0.1 + npm pack of all 8 packages. Before: init ✓, doctor 'Healthy', NO OVERLAY (bundle aliased @s2c/dom and @s2c/ink/classify to src/*.ts; npm ships dist only; the only trace was a console.error). Fix: alias only when source exists, else resolve via exports; overlay-client gets files: [src]. Guards: probe asks the plugin to build the drawing layer (api.bundleOverlay), doctor adds an 'overlay' finding and init's verify fails in words; a failed build shows a plain banner on the page. e2e red on old code (doctor ✓, overlay ✗), green after: ring + 'red' → ✓, red, no page errors, init → ✓ 59.5 s cold cache. 16 unit tests (packaging: every entry point inside files). vitest 1204/1206 (same 2 env failures); tsc -b clean; onboard vite-react-ts + react-router-framework green; walkthrough green after giving it the same Chromium fallback as the other e2e files. Also checked: sketch-to-code and @s2c/* are 404 on npmjs, no s2c org; no LICENSE file and no license field in any package."
+- id: s2c-048
+  parent: s2c-047
+  title: "Publish 0.1.0 to npm so step 1 of the README is one command (owner's call)"
+  why: "The README's install is git clone + build + a path into the checkout: a non-coder bounces there (DoD #2/#3). s2c-047 shows the npm path now works end to end."
+  done_when: "Owner answers; if yes, a run prepares the publish (license/repository/engines fields, version, a dry-run `npm publish --dry-run` per package) and the owner runs the publish himself."
+  kind: build
+  status: blocked-on-human
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: "Publish to npm? Three things only you can decide: (1) claim the @s2c scope (free today; whoever claims it first controls what `init` installs), (2) a license (the repo has none, so nobody may legally use a published copy), (3) public package = public source. Reply 'yes, MIT' (or another license) and the next run prepares everything for you to run `npm publish`; or 'not yet'."
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-047. Blocked by design: publishing and licensing are the owner's (GARDENER 0, SEED out of scope)."
