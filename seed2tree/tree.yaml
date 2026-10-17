@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 38
-lock: {run: cloud-2026-10-17T0756Z, until: '2026-10-17T09:11:00Z'}
+next_id: 39
+lock: null
 
 nodes:
 - id: s2c-000
@@ -852,16 +852,42 @@ nodes:
   why: "The say-what path (a sentence becomes a server route / a saving form, zero tokens) is the only e2e proof of behaviour edits; while it fails at random points it proves nothing, and the failure may be a real lost receipt after a 4-file write."
   done_when: "live-saywhat green 3/3 back to back in the cloud container; if the cause is the product (receipt lost or never parked across the reload burst), fixed with a red-before/green-after check."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
+  watered: 1
+  last_watered: 2026-10-17T08:40Z
+  blocked_on: null
+  outputs:
+  - 151948d
+  - packages/vite-plugin/src/middleware.ts
+  - packages/vite-plugin/tests/sse-hub.test.ts
+  - packages/pipeline/src/explain.ts (whyRefused)
+  - docs/e2e-suite.md
+  log:
+  - "2026-10-17: filed by s2c-036. Seen in 4 runs: phase 3 status back to idle/hint ('drag to draw · ⌘K…' or the Test tooltip) with no ✓/✗; phase 2 same once; once the overlay host was null mid-reload inside triggerRun's busy check. First step: record every status line across reloads (MutationObserver re-attached on framenavigated, as walkthrough does) plus /@s2c/run events, and see whether the receipt was ever parked."
+  - "2026-10-17 08:40Z: DONE (151948d). NOT flake: a product bug. A write that adds a module full-reloads the page mid-run; CLIENT_ID was per page load and the SSE hub only wrote to open streams, so the reloaded page never answered its own run's resnapshot. SSE capture: reload at 04.26, resnapshot to the old id at 04.70, error-event ('browser snapshot timed out') 15 s later, also to the dead id; the bar showed the idle hint. Green runs were the ones where vite hot-patched. Fix: tab id in sessionStorage (duplicated tab detected via a live flag cleared on pagehide, gets a new id; checked in Chromium); hub holds events for a tab with no open stream (30 s, 50 max) and delivers them once on reconnect, never resending what reached an open stream (probes submit forms). Phase 4 then exposed a 2nd bug: a refused save said 'I didn't try the change out ... because I couldn't find the form after the change' next to 'Nothing was changed', and never said why; whyRefused() now gives the reason in words for 5 user-fixable refusals and drops the bogus 'untested'. live-saywhat 8/8 green (old product + new test red 2/2, cloud 0/3 before); sse-hub.test red before/green after; vitest 1094/1096 (same 2 env failures); tsc -b clean; live-api/form/endpoint/auto/preview/misread + walkthrough green; 0 tokens."
+
+- id: s2c-038
+  parent: s2c-037
+  title: "After a mid-run reload the bar says the run is still going, and Esc still stops it"
+  why: "s2c-037 makes the receipt arrive after the reload, but between the reload and 'done' the new page shows the idle hint ('drag to draw') while the run is still writing. A non-coder reads that as finished or failed, draws again, and gets 'a run is already in progress'."
+  done_when: "e2e (zero-token, saywhat-style serve run that full-reloads): after the reload and before the receipt, the status shows a progress line, not the idle hint, and the overlay is in its running mode; Esc in that window stops the run (stage 'stopping' then the stopped sentence). Red on 151948d, green after."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 4
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-036. Seen in 4 runs: phase 3 status back to idle/hint ('drag to draw · ⌘K…' or the Test tooltip) with no ✓/✗; phase 2 same once; once the overlay host was null mid-reload inside triggerRun's busy check. First step: record every status line across reloads (MutationObserver re-attached on framenavigated, as walkthrough does) plus /@s2c/run events, and see whether the receipt was ever parked."
+  - "2026-10-17: filed by s2c-037. Likely shape: the server tells a reconnecting tab that its run is active (a 'running' frame on connect, or GET /@s2c/run/state), and the overlay enters running mode + armWatchdog on it."
