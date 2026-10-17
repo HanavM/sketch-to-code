@@ -1,15 +1,77 @@
 # sketch-to-code
 
-Draw on your running app — it edits your source.
+**Draw on your running app, and it changes the real code.** Scribble over something
+to delete it. Circle something in a colour to make it that colour. Draw a rough box
+where you want something new and write a word saying what. You never open the code.
 
-A Vite dev plugin injects a transparent drawing overlay into your React app. Circle a
-button and scribble "red" → the button's classes change in your `.tsx`. Scribble out a
-card → the array entry is deleted. Sketch a rectangle in empty space and write "cancel"
-→ a styled button appears in your source. Codegen runs through **your local Claude Code**
-(subscription auth — no API key). Vite HMR shows the result in place, and the pipeline
-verifies against the live DOM that the edit actually happened.
+The drawing is the instruction. Words are there to help, not to carry the whole
+thing: most edits need none, and the rest need one or two ("testimonials", "red").
+Your marks can be messy. If you have to draw carefully, that's a bug.
 
-## Quick start
+## What you can draw
+
+| You draw | It does | Words needed |
+|---|---|---|
+| a scribble over something | deletes it | none |
+| a ring around something, **in a colour** (Alt+P picks the pen) | makes it that colour | none |
+| a rough box in empty space | adds something new there | what it is: "testimonials", "email signup" |
+| a ring around something, normal ink | changes it | how: "bigger", "red" |
+| an arrow from one thing to where it should go | moves it there | none |
+| two arrows, one each way | swaps the two | none |
+| an arrow from a button + a page name | makes the button open a new page | the page name: "Pricing" |
+| a ring around a form + "save it" | makes the form keep what people type | "save it" |
+
+Some edits are better as a drag than a drawing (resizing, small nudges, lining
+things up), and those are drags. The full list, and which edits need words and why,
+is in [`docs/visual-language.md`](docs/visual-language.md).
+
+## Try it on your app
+
+You need [Node](https://nodejs.org), a terminal, and [Claude Code](https://claude.com/claude-code)
+installed and signed in. Your app has to be a Vite + React app. Not on npm yet,
+so for now it runs from a copy of this repo:
+
+```bash
+git clone https://github.com/HanavM/sketch-to-code && cd sketch-to-code
+npm install && npm run build
+node packages/cli/dist/bin.js init ../my-app   # sets everything up, asks before each change
+cd ../my-app && npm run dev                     # open the address it prints
+```
+
+Once it's published this becomes `npx sketch-to-code init`. If anything seems off,
+`node packages/cli/dist/bin.js doctor ../my-app` checks the setup and says what to
+run next.
+
+The page opens ready to draw. Draw, type a word if it needs one, and let go: about a
+second later it reads the drawing, edits your code, and checks on the page that the
+change really happened. **Alt+D** pauses drawing so you can click around your app
+normally.
+
+## When it gets it wrong
+
+- **Ctrl+Z** (⌘Z on a Mac) undoes the last change: every file it touched goes back.
+  It refuses, and says which file, if you edited that file by hand since.
+- If it can't do what you drew, or did something different, it says so in one plain
+  sentence and offers **Undo** right there.
+- If you ring something with no words and no colour, it asks what should change
+  instead of guessing.
+- Anything that would delete a lot at once waits for you to press **✓ Go**.
+- It only edits a project that's in git, and undo still works after a reload or a
+  restart of your dev server.
+
+## The 60-second demo
+
+[`docs/demo-60s.md`](docs/demo-60s.md) is the shot list, and
+`npm run demo` (or `node tests/demo/record-60s.mjs --out demo/`) plays it on a fresh Vite starter and
+records `demo-60s.webm`. In that recording **the reading of each drawing is
+scripted**, and the video says so on screen: it shows what using it looks like, not
+how well a model reads your handwriting.
+
+---
+
+*Everything below is for people working on sketch-to-code itself.*
+
+## Quick start (this repo, the demo app)
 
 ```bash
 npm install

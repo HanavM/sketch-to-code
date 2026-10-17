@@ -12,7 +12,7 @@ import { bundleOverlayClient } from './overlay-bundle.js'
 import { findRootRoute, isReactRouterFramework, OVERLAY_LOADER } from './framework-entry.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
-import { loadUndo, MAX_UNDO, saveUndo, type UndoEntry } from './undo-store.js'
+import { loadUndo, MAX_UNDO, runUndoLabel, saveUndo, type UndoEntry } from './undo-store.js'
 import { createReadingStore, isReadingId, type ReadingReply } from './readings.js'
 
 /** A file under the app's `server/data/`, where generated routes keep records. */
@@ -1569,7 +1569,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 return outcome.value
               })
               .then(async (result) => {
-                if (runCp) pushEdit(runCp.sha, 'sketch run', untrackedBefore)
+                if (runCp) pushEdit(runCp.sha, runUndoLabel((result as { explanation?: { problem?: boolean; sentence?: string } }).explanation), untrackedBefore)
                 // A sketch that produced a new component files itself: that is
                 // the library's whole premise, and the run is the main way a
                 // drawing becomes code. Only CREATED files — a run that
@@ -1596,7 +1596,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 // like a finished run; undo skips an entry with nothing to revert.
                 let changed = false
                 if (runCp) {
-                  pushEdit(runCp.sha, 'sketch run (stopped part way)', untrackedBefore)
+                  pushEdit(runCp.sha, runUndoLabel(null, true), untrackedBefore)
                   try {
                     const m = await import('@s2c/pipeline')
                     const before = new Set(untrackedBefore)

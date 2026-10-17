@@ -149,7 +149,7 @@ describe('the run cap and Esc stop the run before anyone is told (s2c-022)', () 
     expect(readFileSync(join(root, 'src/App.tsx'), 'utf8')).toBe(err.at)
 
     const undo = await post(b, '/@s2c/undo')
-    expect(undo.body.undid).toBe('sketch run (stopped part way)')
+    expect(undo.body.undid).toBe('your last sketch (stopped part way)')
     await tick(40)
     expect(readFileSync(join(root, 'src/App.tsx'), 'utf8')).toBe(ORIGINAL)
   })
@@ -218,7 +218,7 @@ describe('undo survives a dev-server restart (s2c-022)', () => {
     open.push(b2)
     git(root, 'gc', '-q', '--prune=now') // and git tidied up in between
     const undo = await post(b2, '/@s2c/undo')
-    expect(undo.body).toMatchObject({ ok: true, undid: 'sketch run' })
+    expect(undo.body).toMatchObject({ ok: true, undid: 'your last sketch' })
     expect(readFileSync(join(root, 'src/App.tsx'), 'utf8')).toBe(ORIGINAL)
     expect((await post(b2, '/@s2c/undo')).body.undid).toBe(null) // popped, and saved popped
   })

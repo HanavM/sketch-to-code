@@ -72,3 +72,21 @@ export function saveUndo(root: string, entries: UndoEntry[]): void {
     renameSync(tmp, file)
   } catch { /* undo still works for this session; only the restart loses it */ }
 }
+
+/**
+ * What Ctrl+Z says it undid after a sketch run (s2c-045). It used to say
+ * "↩ undid: sketch run", developer words on the one line a non-coder reads
+ * when they change their mind. A run that went as drawn already has a plain
+ * sentence ("Done: added "testimonials" where you drew it."), so undo reuses
+ * what it did; anything else is "your last sketch". Never a file or an id.
+ */
+export function runUndoLabel(
+  explanation: { problem?: boolean; sentence?: string } | null | undefined,
+  stopped = false,
+): string {
+  if (stopped) return 'your last sketch (stopped part way)'
+  const m = explanation && explanation.problem === false
+    ? /^\s*(?:✓\s*)?Done:\s*(.+?)[.\s]*$/.exec(explanation.sentence ?? '')
+    : null
+  return m && m[1] ? m[1] : 'your last sketch'
+}
