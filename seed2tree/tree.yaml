@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 45
-lock: {run: cloud-2026-10-17T1655Z, until: "2026-10-17T18:10Z"}
+next_id: 46
+lock: null
 
 nodes:
 - id: s2c-000
@@ -961,15 +961,15 @@ nodes:
   why: "s2c-039 refuses router apps by name. Most real Vite+React apps past a starter use react-router (SEED done #3 is about real apps), so the arrow fails exactly where it would be used."
   done_when: "unit tests on 3 fixtures (createBrowserRouter object routes, <Routes><Route> JSX, nested layout route): a new route + screen file + <Link>/navigate() on the trigger; a shape it can't read is refused in plain words with nothing changed. One zero-token e2e of a full overlay run (stubbed reading -> engine -> the run's probe passed -> receipt -> one undo restores every byte) on a Vite + React + react-router app. (Amended 2026-10-17: the original 'starter scaffolded by its own generator' is impossible as meant: npx create-react-router scaffolds framework mode, a different shape, now s2c-043.)"
   kind: build
-  status: active
+  status: done
   needs: cloud
   value: 3
   effort: 3
   confidence: 0.7
-  momentum: 0.7
+  momentum: 0.82
   depth: 3
-  watered: 1
-  last_watered: 2026-10-17T14:15Z
+  watered: 2
+  last_watered: 2026-10-17T17:30Z
   blocked_on: null
   outputs:
   - "653b3e1 packages/pipeline/src/navigate-router.ts (linkToRouterScreen, findRouteTable); navigate.ts dispatches react-router(-dom) apps to it"
@@ -977,9 +977,12 @@ nodes:
   - "packages/pipeline/tests/navigate-router.test.ts (11), probe.test.ts (+2)"
   - "tests/e2e/navigate-router-real.mjs: 3 shapes as real react-router 7 apps, tsc strict + vite build + Chromium + the run's own probe"
   - "docs/navigation.md: 'Apps that already use react-router'"
+  - "a66af2c tests/e2e/navigate-router-overlay.mjs: full overlay run on a react-router-dom 7 app the repo didn't set up (init --no-install + npm i --ignore-scripts, doctor, in-process vite, arrow + 'Pricing', scripted reading only)"
+  - "docs/navigation.md: 'Full overlay run'"
   log:
   - "2026-10-17: filed by s2c-039 watering 1. Lower value than finishing s2c-039: do after its probe/e2e."
   - "2026-10-17 14:15Z (cloud, watering 1): engine + probe done. Unit part of done_when met (3 shapes + imported routes.tsx + reuse + hash router + 4 refusals byte-identical). Real-app e2e (engine level, not a full overlay run): 3/3 shapes green incl. the run's own probe passing and a wrong-route probe failing. It caught a probe bug: every nav-bar trigger in a layout app failed ('the page you clicked on was still there'); fixed with layoutKept. Remaining for done: the full overlay-run e2e on a react-router app. momentum 0.5 -> 0.7."
+  - "2026-10-17 17:30Z (cloud, watering 2): DONE. tests/e2e/navigate-router-overlay.mjs: temp react-router-dom 7 app (layout route from src/routes.tsx, <button>Pricing</button> in the layout nav), committed; init --yes --no-install + npm i --ignore-scripts; doctor healthy; vite dev in-process with only the reading scripted. Arrow drawn off the button + 'Pricing' typed -> auto-run -> '✓ Done: made the button with \"Pricing\" open a \"Pricing\" screen.'; the run's own verify file: probe passed; page left at /; by hand /pricing inside the layout, ← Back home; one Ctrl+Z: every tracked file byte-identical, page file gone, git status clean, button dead again; model asked once (interpret), never codegen; no page errors. 3/3 runs green. No product code changed: it held on the first try. vitest 1173/1175 (same 2 env failures); tsc -b clean; 0 tokens. Not checked: a mutation proving this e2e goes red when the engine breaks (the engine-level e2e and live-navigate already have their not-hollow probes); basename apps."
 
 - id: s2c-043
   parent: s2c-041
@@ -1056,3 +1059,23 @@ nodes:
   log:
   - "2026-10-17: filed by s2c-040. Found by reading screenBox against SEED's 'rough sketches' rule, not by a failing run."
   - "2026-10-17 (cloud): watering 1, commit 5297d9c. DONE. drawsRect over subsets (<=4) of the <=10 largest cited strokes; tolerance a tenth of the short side, 6-24 px; largest box wins, single closed stroke still accepted (ovals). Negatives: arrow+name, L-shaped arrow, U-bracket with the name written under the gap (first version accepted that one: the name filled the bare side, so every side now needs >=60%). e2e phase 8 red on the old screenBox (no retarget, form on home, warning receipt), 3/3 green after. First attempt drew the Ls end-to-start and the pen's trackpad-hop bridge merged them into one closed stroke, which made the phase hollow; redrawn from the same corner. vitest 1139/1141 (same 2 env failures); tsc -b clean; live-navigate + walkthrough green; 0 tokens. Not handled: an oval drawn in pieces; box sides split across two actions."
+
+- id: s2c-045
+  parent: s2c-000
+  title: "README + 60-second demo script for a non-coder (SEED done #5), launch-ready draft"
+  why: "SEED done #5 has no node. The README opens with 'Circle a button and scribble red ... your .tsx' and a Quick start of npm/build/dev in this repo: it speaks to React devs, not to the person SEED is for, and doesn't show the drawing-first thesis (arrow = link, box = screen, scribble = delete). Cloud-doable now; everything else open waits on the owner."
+  done_when: "README top section rewritten for someone with an idea and a running app: what it is in one line, the gestures that need no words (from docs/visual-language), install via npx sketch-to-code init, and how undo/misread explanations work; every command and gesture named in it checked against the code/e2e that proves it (a list in the commit). Plus docs/demo-60s.md: a shot-by-shot 60-second script using only gestures that have a green e2e, and a zero-token Playwright recording script that plays it on the demo app with the reading scripted, labelled as scripted. The real recording and launch stay the owner's."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 1
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-041 watering 2. The cloud queue was otherwise empty; this is SEED done #5, not polish. Honest limit: a demo with a scripted reading proves the UI, not that a model reads rough ink (s2c-013)."

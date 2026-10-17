@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-17 17:30 UTC — sketch-to-code / s2c-041 Draw a link in a react-router app — **done**: full overlay run green on an app the repo didn't set up
+Picked because: priority 1.22, the only open cloud node (s2c-000 seed skipped: umbrella; s2c-008/013 local + blocked; s2c-035 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit a66af2c. New `tests/e2e/navigate-router-overlay.mjs`: a react-router-dom 7 app in a temp dir (layout route in src/routes.tsx, `<button>Pricing</button>` in the nav), `init --yes`, doctor healthy, its own vite dev server, only the reading scripted. Arrow off the button + "Pricing" → auto-run → "✓ Done: made the button with "Pricing" open a "Pricing" screen."
+Result: the run's own probe **passed**, by hand /pricing opens inside the layout and ← Back comes home, and one Ctrl+Z puts every tracked file back byte for byte with git status clean. One interpret call, no codegen, no page errors. 3/3 runs green. vitest 1173/1175 (same 2 env failures); `tsc -b` clean; 0 tokens. momentum 0.7 → 0.82
+Blunt: no product code changed. It held on the first try, so this run confirmed the work rather than finding anything. That ends the arrow-gesture thread in the cloud. Seven runs on one gesture, and still no model has read a real arrow. Note: the auto-mode classifier blocked plain `npm ci` this run; `--ignore-scripts` works, and the new e2e installs that way.
+New branches: s2c-045 README + 60-second demo script for a non-coder (SEED done #5; value 3, effort 2). It's the one cloud-doable DoD item left. A scripted demo proves the UI, not the reading.
+Pruned/done: s2c-041 done.
+**Needs you:** (1) s2c-013: write "spend the pilot in the cloud" in INBOX and the next run spends ~45 readings on your quota. Every DoD #1 claim waits on it. (2) s2c-035: yes/no to cloning 5 public Vite+React repos read-only.
+
 ## 2026-10-17 16:20 UTC — sketch-to-code / s2c-044 Draw a link in React Router framework mode — **done**: the arrow works on React Router's own starter
 Picked because: priority 1.47 (s2c-041 1.22; s2c-000 seed 2.07 skipped: umbrella; s2c-008/013 local + blocked; s2c-035 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit fb3489c. New `navigate-framework.ts`: framework-mode apps (app/routes.ts + @react-router/dev) get `route("pricing", "routes/pricing.tsx")` beside `index()`. Inside a `layout()` it keeps the nav, and it goes before a catch-all. Under `flatRoutes()` it writes only the file. Plus `app/routes/pricing.tsx` with a `meta` title and an exact Back. `...prefix()` is read for reuse, `appDirectory` is honoured, and a list built in code is refused naming app/routes.ts, byte-identical.
