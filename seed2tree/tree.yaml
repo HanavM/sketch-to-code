@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 46
-lock: {run: cloud-2026-10-17T1756Z, until: "2026-10-17T19:11:00Z"}
+next_id: 47
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1066,11 +1066,37 @@ nodes:
   why: "SEED done #5 has no node. The README opens with 'Circle a button and scribble red ... your .tsx' and a Quick start of npm/build/dev in this repo: it speaks to React devs, not to the person SEED is for, and doesn't show the drawing-first thesis (arrow = link, box = screen, scribble = delete). Cloud-doable now; everything else open waits on the owner."
   done_when: "README top section rewritten for someone with an idea and a running app: what it is in one line, the gestures that need no words (from docs/visual-language), install via npx sketch-to-code init, and how undo/misread explanations work; every command and gesture named in it checked against the code/e2e that proves it (a list in the commit). Plus docs/demo-60s.md: a shot-by-shot 60-second script using only gestures that have a green e2e, and a zero-token Playwright recording script that plays it on the demo app with the reading scripted, labelled as scripted. The real recording and launch stay the owner's."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
+  momentum: 0.7
+  depth: 1
+  watered: 1
+  last_watered: 2026-10-17T18:15Z
+  blocked_on: null
+  outputs:
+  - commit 5c37cee
+  - README.md (top section, for a non-coder)
+  - docs/demo-60s.md
+  - tests/demo/record-60s.mjs (npm run demo)
+  - packages/vite-plugin/src/undo-store.ts runUndoLabel
+  - packages/vite-plugin/tests/undo-label.test.ts
+  log:
+  - "2026-10-17: filed by s2c-041 watering 2. The cloud queue was otherwise empty; this is SEED done #5, not polish. Honest limit: a demo with a scripted reading proves the UI, not that a model reads rough ink (s2c-013)."
+  - "2026-10-17 18:15Z: DONE (5c37cee). README top rewritten for someone with a running app: one line, a table of what you draw / what it does / words needed (8 rows, from visual-language), install from a checkout (honest: not on npm), what happens on a misread. Every claim mapped to a green test (list in the commit and docs/demo-60s.md); dropped 'an X deletes it' (prompt-only, untested). docs/demo-60s.md: 5 shots on the stock create-vite starter, captions, measured times. tests/demo/record-60s.mjs: plays + records them in Chromium (webm), zero tokens, scripted reading, banner on every frame, every shot asserted on page and disk: ALL CHECKS PASSED, 43.6 s recorded. FIXED: Ctrl+Z said '↩ undid: sketch run'; now reuses the Done sentence (runUndoLabel, 4 unit tests). FOUND, filed s2c-046: the delete sentence quotes 'Edit and save to test' (code words scrubbed out of the middle). vitest 1177/1179 (same 2 env failures); tsc -b clean; walkthrough-noncoder + navigate-router-overlay green. Limit: the video proves the UI, not the reading (s2c-013)."
+- id: s2c-046
+  parent: s2c-000
+  title: "Plain words audit of the last two lines a non-coder reads: the delete sentence and every undo label"
+  why: "Found by s2c-045's recording: deleting the starter's 'Edit <code>src/App.jsx</code> and save to test <code>HMR</code>' says 'removed the text \"Edit and save to test\"' (scrub drops code words mid-quote, so it reads broken). Undo labels other than sketch runs (tweak, paint, endpoint, instant) were not audited and may still be developer text."
+  done_when: "explain.ts quotes a line whose scrubbed text lost words by describing it instead (e.g. 'the line under the heading'), with unit tests; every pushEdit label in vite-plugin/src/index.ts is checked by a test against the walkthrough's JARGON list; record-60s shot 2 asserts the new sentence."
+  kind: build
+  status: open
+  needs: cloud
+  value: 2
+  effort: 1
+  confidence: 0.7
   momentum: 0.5
   depth: 1
   watered: 0
@@ -1078,4 +1104,4 @@ nodes:
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-041 watering 2. The cloud queue was otherwise empty; this is SEED done #5, not polish. Honest limit: a demo with a scripted reading proves the UI, not that a model reads rough ink (s2c-013)."
+  - "2026-10-17: filed by s2c-045. Small and real (it is on screen in the demo), not more than that."
