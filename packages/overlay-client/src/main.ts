@@ -10367,6 +10367,13 @@ class Overlay {
     if (!this.hasWork()) return
     // a new run answers the last one's misread; the card is about a run that is over
     this.hideMisread()
+    // ▶ Run pressed while the auto countdown is still pending: this run IS the
+    // one it was waiting to start. Left armed, the countdown kept "⚡ auto-run
+    // in 0.4s" on the line during the reading and, when the reading ended
+    // before it (a fast failure, a quick decline), fired a second paid
+    // reading and a second instant render of the same ink (s2c-033).
+    // autoRun() has already cancelled it by the time it calls this.
+    this.cancelAuto()
     if (this.runMode === 'screenshot') return void this.proceed()
     // a ring with no words and no pen colour says "change this" and not how:
     // ask, for free, rather than pay the model to guess

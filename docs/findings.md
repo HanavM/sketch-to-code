@@ -601,6 +601,36 @@ untracked files that were already there. An Undo with nothing of its own
 would pop the stack past this run and revert the edit before it. Ctrl+Z
 after a run that wrote nothing still does that, as it always has.
 
+### ▶ Run inside the auto countdown read the sketch twice (seed2tree s2c-033)
+
+*Added 2026-10-17.* `live-misread.mjs` step 6 had been red since at least
+2026-10-17 00:55 ("starting a run left the old card up"). **The card was never
+the bug.** The step pressed Alt+D to start drawing, but the page opens with the
+pen on (the s2c-010 audit), so Alt+D *paused* drawing. The stroke never landed,
+▶ Run stayed disabled, the click did nothing, and the card stayed up because
+no run had started. The test had been checking nothing.
+
+With the stroke landing, the step found a real bug next to it. Auto mode is the
+default, so a stroke starts a 0.7 s countdown. If a user pressed ▶ Run inside
+that window, `run()` started a reading and left the countdown armed. The status
+line kept saying "⚡ auto-run in 0.4s" during the reading. If the reading ended
+before the countdown did (a fast failure, a quick decline, the server down), the
+countdown then fired a **second paid reading and a second instant render** of
+the same ink. Measured with stubbed endpoints: 2 readings and 2 instant renders
+from one click. A slow real reading was mostly safe, because `autoBlock()` sees
+`readingId` and drops the countdown.
+
+Fix: `run()` cancels a pending countdown first, since a manual run is the run
+the countdown was waiting to start. `autoRun()` already cancels it before it
+calls `run()`, so nothing changes on that path. Step 6 now asserts the stroke
+landed, that drawing alone leaves the card up, that the run closes it, and that
+one click sends exactly one reading over a 1.5 s wait. It was red on the old
+overlay (2 and 2) and is green 3/3 with the fix. live-auto, live-keymap,
+live-preview and the non-coder walkthrough still pass.
+**Not checked:** a real model (stubs only), and the Alt+R key path. Alt+R calls
+the same `run()`, so it should be covered, but no test presses it inside the
+window.
+
 ## The screenshot arm can crash the browser (seed2tree s2c-013, Mac run 2026-10-16)
 
 Found while trying to run the approved s2c-013 pilot. **The pilot did not run.** Two separate reasons:

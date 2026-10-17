@@ -13,7 +13,8 @@
  *   3. one click on Undo puts App.tsx back byte for byte and closes the card
  *   4. a run that changed nothing says so, and offers no Undo
  *   5. a clean run shows no card
- *   6. starting the next run clears a stale card
+ *   6. starting the next run clears a stale card, and ▶ Run inside the auto
+ *      countdown is the only reading sent (no second one when the countdown ends)
  *
  * Boot first: cd examples/demo-app && npx vite --port 5215
  * Run FROM THE REPO ROOT: node tests/e2e/live-misread.mjs
@@ -134,17 +135,42 @@ try {
   if ((await card()).open) fail('a clean run opened the card')
   log('5 ok: clean run, no card')
 
-  // ── 6. the next run clears a stale card ───────────────────────────────
+  // ── 6. the next run clears a stale card, and is the only run ──────────
+  // The page opens with the pen on (s2c-010 audit), so there is no Alt+D
+  // here: pressing it PAUSED drawing, the stroke never landed, ▶ Run stayed
+  // disabled and the click did nothing. That is why this step was red
+  // (s2c-033). The stroke is asserted now, so that can't hide again.
   await sh((d) => window.__S2C_DEBUG__.runError(d), { message: 'x', explanation: explainError('boom', false) })
   if (!(await card()).open) fail('card did not open for 6')
-  await page.route('**/@s2c/interpret', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":false,"error":"stubbed"}' }))
-  await page.keyboard.press('Alt+d')
+  let readings = 0
+  let renders = 0
+  await page.route('**/@s2c/interpret', (r) => {
+    readings++
+    return r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":false,"error":"stubbed"}' })
+  })
+  // the instant render writes source on success: decline it, and count it
+  await page.route('**/@s2c/instant', (r) => {
+    renders++
+    return r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":false,"reason":"stubbed"}' })
+  })
   await page.mouse.move(300, 300); await page.mouse.down(); await page.mouse.move(400, 360, { steps: 6 }); await page.mouse.up()
   await page.waitForTimeout(200)
+  const inked = await sh(() => window.__S2C_DEBUG__.strokes().length)
+  if (inked !== 1) fail(`the stroke did not land (${inked} strokes): is the pen on at load?`)
+  if (!(await card()).open) fail('drawing alone closed the card (only a run should)')
+  // ▶ Run INSIDE the auto settle window: the run must replace the countdown
+  const pending = await sh(() => window.__S2C_DEBUG__.auto?.().pending)
   await clickIn('run')
   await page.waitForTimeout(400)
   if ((await card()).open) fail('starting a run left the old card up')
-  log('6 ok: a new run clears it')
+  // the stubbed reading fails at once; wait out the whole settle window to
+  // see whether the countdown fires a second, paid, reading of the same ink
+  await page.waitForTimeout(1500)
+  if (readings !== 1 || renders > 1) {
+    fail(`one ▶ Run sent ${readings} reading(s) and ${renders} instant render(s) (countdown was ${pending ? 'pending' : 'idle'})`)
+  }
+  if (/auto-run in/.test(await status())) fail(`a countdown is still on the line: ${await status()}`)
+  log(`6 ok: a new run clears it · 1 reading, countdown ${pending ? 'was pending and was dropped' : 'idle'}`)
 
   if (errs.length) fail(`page errors: ${errs.join(' | ')}`)
   log('ALL OK')

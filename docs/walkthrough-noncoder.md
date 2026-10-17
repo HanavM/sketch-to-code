@@ -159,9 +159,9 @@ a real person finds it easy.
   looked for quotes on the page.
 - Wording, judged by eye, not filed: the endpoint is named after the
   component (`/api/apps`), not the form.
-- `live-misread.mjs` fails "starting a run left the old card up", **with and
-  without this change** (checked by stashing it). Not caused here. Not
-  investigated.
+- `live-misread.mjs` used to fail "starting a run left the old card up". The
+  test pressed Alt+D on a page that opens drawing. Fixed in s2c-033, along with
+  a real double-reading bug it exposed (docs/findings.md).
 
 ## What's left for this node
 
