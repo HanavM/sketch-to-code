@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 51
-lock: {run: cloud-2026-10-17T2155Z, until: "2026-10-17T23:10Z"}
+next_id: 52
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1171,16 +1171,44 @@ nodes:
   why: "Row 7 of the visual language: the pen colour carries the value, so ring + colour + one element is as decided as a scratch-out. Today it pays a reading AND a codegen session (the demo's shot 3 scripts both)."
   done_when: "Plain reader returns modify+color for one closed ring in a non-default pen round one stamped element, no words; the colour is applied by the existing zero-token style engine (props/set or codemod), not codegen; demo shot 3 runs with both scripted calls removed and is green; declines tested (default ink → bare-ring question still; two elements; words)."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
+  watered: 1
+  last_watered: 2026-10-17T22:35Z
+  blocked_on: null
+  outputs:
+  - packages/pipeline/src/recolor.ts
+  - packages/pipeline/src/plain-reading.ts (ringRecolor, isRing squash)
+  - packages/overlay-client/src/bare-ring.ts (isRing squash)
+  - packages/pipeline/tests/plain-ring.test.ts
+  - packages/pipeline/tests/recolor.test.ts
+  - tests/demo/record-60s.mjs
+  - docs/findings.md#a-coloured-ring-needs-no-model-either-s2c-050-2026-10-17
+  - commit 540ed14
+  log:
+  - "2026-10-17: filed by s2c-049. Check first that the props engine can set text colour on both a Tailwind class and a plain CSS element; if it can't, the codegen half stays and the value drops to 2."
+  - "2026-10-17 22:35Z: DONE (commit 540ed14). The props engine could NOT set colour (props/set writes component props only), so the node's own check said value 2; built a small recolour engine instead (recolor.ts), which keeps it at 3. Plain reader: one coloured closed ring round one element, no words -> modify; own fill -> background (matches r12's scoring), text with no fill -> words, else declined. Engine: Tailwind class swap or inline style; refuses components/dynamic/shorthand/.map templates/stale stamps -> codegen as before. FOUND: rings >= ~5:1 (round a heading) classified as 'ink' (CALI Pch2/Ach ~35 > 30), so bare-ring never asked on wide headings either; both readers now squash the box square and reclassify (strike/zigzag/open bracket still not rings, tested). 29 unit tests; vitest 1249/1251 (same 2 env); tsc -b clean; demo green with shot 3 reading+codegen throwing if called; walkthrough + live-ask green. Not checked: Tailwind path in a browser (filed s2c-051), real users' rings (s2c-013)."
+- id: s2c-051
+  parent: s2c-050
+  title: 'Coloured ring on a Tailwind app, in a browser: class swapped, palette token used, verified, undone'
+  why: The recolour engine's Tailwind path (swap text-/bg- utility for the snapped token) is unit-tested only. The demo is plain CSS. Most apps people would point this at use Tailwind.
+  done_when: 'An e2e on examples/demo-app (Tailwind): green pen ring round a heading and round a filled button, no words -> zero model calls (scripted model throws), the className holds a palette token or arbitrary value with the old colour utility gone, the bar ends on a tick, Ctrl+Z restores the file byte-for-byte.'
+  kind: build
+  status: open
+  needs: cloud
+  value: 2
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 3
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-049. Check first that the props engine can set text colour on both a Tailwind class and a plain CSS element; if it can't, the codegen half stays and the value drops to 2."
+  - '2026-10-17: filed by s2c-050. Verification of shipped code, not new capability: value 2. Note the e2e scripts call chromium.launch() bare and fail here (no headless shell 1234); s2c-050 ran live-ask through a wrapper that passes executablePath /opt/pw-browsers/chromium.'

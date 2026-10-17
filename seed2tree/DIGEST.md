@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-17 22:35 UTC — sketch-to-code / s2c-050 A coloured ring, no words: read and written with no model — **done**
+Picked because: the only open cloud node, priority 1.64 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 540ed14. The node assumed the props engine could set a colour. It can't (it only writes component props), so I wrote `recolor.ts`: a Tailwind colour-class swap to the snapped palette token, or an inline style in a plain-CSS app. It refuses components, dynamic className/style and `.map` templates, and those go to codegen as before. The plain reader decides which colour from the page: a button or anything with its own fill gets its background changed (that's how the bench's r12 is scored). Plain text gets its words recoloured. Anything else goes to the model.
+Found: **a ring round a heading wasn't a ring.** The ink classifier calls anything flatter than ~5:1 "ink", so the bare-ring question never fired on wide headings and they went to the model. Both ring readers now squash the box square and check again. Strikes, zigzags and open brackets are still not rings (tested).
+Result: demo shot 3 is real now. Its scripted reading and codegen both throw if called, and the demo is green with 0 model calls for shots 2 and 3. 29 new unit tests. vitest 1249/1251 (same 2 env failures), `tsc -b` clean, walkthrough and live-ask green. 0 tokens. momentum → 0.7
+Blunt: this is speed and cost on a second gesture, same as s2c-049. It doesn't touch the core risk: nobody has measured how well a model reads real rough sketches (s2c-013). The Tailwind path is unit-tested only. After s2c-051 I don't see another plain-reading rule worth building. Arrows and swaps really need interpreting, so they stay with the model.
+New branches: s2c-051 Tailwind e2e for the coloured ring (value 2, effort 1, verification only).
+Pruned/done: s2c-050 done.
+**Needs you:** unchanged. (1) s2c-013: "spend the pilot in the cloud". (2) s2c-035: yes/no to cloning 5 public repos read-only. (3) s2c-048: "yes, MIT" / "not yet".
+
 ## 2026-10-17 21:40 UTC — sketch-to-code / s2c-049 A scratch-out is read without a model — **done**
 Picked because: new node, priority 3.15 (s2c-000 seed 2.08 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. The last run's "queue empty" was wrong a second time: the reading prompt's own delete rule was being paid for on every scratch-out.
 Did: `plain-reading.ts`, called in /@s2c/interpret before the model. A sketch that is only scratch-outs on single elements, with no words, gets its reading from the rule: 0 tokens, no ~10 s wait. Same reading shape as the model's, so the preview, re-grounding, codemod delete, DOM check and undo are all unchanged. Anything else still goes to the model. Off switch: `plainReadings: false`.
