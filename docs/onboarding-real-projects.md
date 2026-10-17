@@ -115,5 +115,7 @@ tests.
 - npm only; pnpm/yarn/bun installs not tried. Linux Chromium only.
 - **Framework mode: only the marking works.** Drawing a link there
   (s2c-041's arrow-to-a-named-box) reads `createBrowserRouter`/`<Routes>`
-  tables, not `app/routes.ts`; it should refuse by name, not checked. Loaders,
+  tables, not `app/routes.ts`. On this starter `findRouteTable` refuses
+  with nothing changed, but its sentence points at `src/`, which framework
+  mode doesn't have (s2c-044). Loaders,
   actions and server-only modules are untouched by any edit tried here.

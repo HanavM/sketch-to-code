@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 44
-lock: {run: cloud-20261017T1455-s2c-043, until: 2026-10-17T16:10Z}
+next_id: 45
+lock: null
 
 nodes:
 - id: s2c-000
@@ -987,10 +987,36 @@ nodes:
   why: "React Router's own generator now scaffolds framework mode (app/routes.ts with route()/index(), SSR, no src/main.tsx). If init/doctor/the overlay don't work there, a growing share of new apps can't use the product at all, and draw-a-link there needs a third engine shape."
   done_when: "docs/findings.md section: npx sketch-to-code init + doctor + the overlay loading + one zero-token instant edit tried on a fresh create-react-router starter, each step pass/fail with the exact error; a verdict: support (with a scoped next node), refuse by name in init with a plain message, or ignore (with why)."
   kind: validate
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
+  confidence: 0.6
+  momentum: 0.7
+  depth: 4
+  watered: 1
+  last_watered: 2026-10-17T15:40Z
+  blocked_on: null
+  outputs:
+  - "78f0e20 packages/vite-plugin/src/framework-entry.ts (+ index.ts wiring): in framework mode the overlay loads from the root route's client module after window load"
+  - "packages/cli/src/probe.ts: the config-check child exits once it has answered (was held open by plugin watchers until the 120 s timeout)"
+  - "packages/vite-plugin/tests/framework-entry.test.ts (9), packages/cli/tests/probe-exit.test.ts (1, red 30 s before / green after)"
+  - "packages/cli/tests/e2e/onboard-real-projects.mjs: shape 6 react-router-framework (create-react-router 8.4.0), per-shape mark target"
+  - "docs/onboarding-real-projects.md 'Two bugs React Router's own starter found'; docs/findings.md section"
+  log:
+  - "2026-10-17: filed by s2c-041 watering 1, after create-react-router@8.4 produced framework mode instead of a Vite SPA."
+  - "2026-10-17 15:40Z (cloud, watering 1): DONE, verdict SUPPORT. By hand on create-react-router 8.4.0 (Vite 8, SSR, Tailwind v4): doctor-before 4 errors (right); init exit 0 and doctor 'Healthy', but each took 2 min (config probe child kept alive by React Router's watcher until the 120 s timeout); page 200, 23 stamps, no hydration errors; **overlay never loaded** (only injected via transformIndexHtml; no index.html in framework mode), so nothing could be drawn while every check said ready. Fixed both: loader appended to app/root.tsx client module (after load, script tag, not SSR/other routes/route-chunks); probe child exits after writing its line. e2e shape 6: ring 'What's next?' + 'red' -> '✓ Done: made the text \"What's next?\" red', red on page, no page errors; init->✓ 253.7 s before the probe fix, 15.1 s after. All 6 shapes green. SPA mode (ssr:false) by hand: overlay + stamps, no errors. vitest 1162/1164 (same 2 env failures); tsc -b clean; walkthrough, live-navigate, live-instant, live-probe-click green; 0 tokens. Draw-a-link there: findRouteTable refuses with nothing changed but says 'in src/' -> s2c-044."
+
+- id: s2c-044
+  parent: s2c-041
+  title: "Draw a link in a React Router framework-mode app: add route() to app/routes.ts"
+  why: "create-react-router now makes framework mode by default, so new React Router apps have app/routes.ts (route()/index()/layout()), not createBrowserRouter or <Routes>. Today the arrow refuses there with a sentence that points at src/, which doesn't exist."
+  done_when: "unit tests: index()-only routes.ts, a layout() with children, and flatRoutes() (file routes) each get the right result: a route('pricing', 'routes/pricing.tsx') + app/routes/pricing.tsx with a Back <Link>, the trigger turned into a <Link>; flatRoutes adds the file only; a computed list is refused in plain words naming app/routes.ts, byte-identical. Engine-level real-app check on the create-react-router 8.4.0 starter: react-router typegen + tsc + vite dev in Chromium, click, Back, the run's own probe passes."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
   confidence: 0.6
   momentum: 0.5
   depth: 4
@@ -999,7 +1025,7 @@ nodes:
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-041 watering 1, after create-react-router@8.4 produced framework mode instead of a Vite SPA."
+  - "2026-10-17: filed by s2c-043 (verdict support). Lower value than any real model reading (s2c-013): it extends a gesture no model has been seen to emit."
 
 - id: s2c-042
   parent: s2c-040
