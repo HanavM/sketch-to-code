@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 39
-lock: {run: cloud-2026-10-17T0855Z, until: "2026-10-17T10:10:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -878,16 +878,43 @@ nodes:
   why: "s2c-037 makes the receipt arrive after the reload, but between the reload and 'done' the new page shows the idle hint ('drag to draw') while the run is still writing. A non-coder reads that as finished or failed, draws again, and gets 'a run is already in progress'."
   done_when: "e2e (zero-token, saywhat-style serve run that full-reloads): after the reload and before the receipt, the status shows a progress line, not the idle hint, and the overlay is in its running mode; Esc in that window stops the run (stage 'stopping' then the stopped sentence). Red on 151948d, green after."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 4
+  watered: 1
+  last_watered: "2026-10-17T09:15Z"
+  blocked_on: null
+  outputs:
+  - 6801bfc
+  - packages/vite-plugin/src/middleware.ts (createSseHub onConnect)
+  - packages/vite-plugin/src/index.ts (activeRunTab/activeRunStage, 'running' frame)
+  - packages/overlay-client/src/main.ts ('running' listener)
+  - packages/overlay-client/src/plain-progress.ts ('stopping' line)
+  - tests/e2e/live-reload-running.mjs
+  - docs/e2e-suite.md#s2c-038-live-reload-running-new-zero-token-5199
+  log:
+  - "2026-10-17: filed by s2c-037. Likely shape: the server tells a reconnecting tab that its run is active (a 'running' frame on connect, or GET /@s2c/run/state), and the overlay enters running mode + armWatchdog on it."
+  - "2026-10-17 09:15Z: DONE (6801bfc). Server remembers the active run's tab + last stage; a stream opening for that tab gets a 'running' frame after anything held (createSseHub onConnect); the overlay enters running mode on it, shows the stage's plain line, arms the watchdog, and keeps a stop already under way. Also: the 'stopping' stage had no plain line and showed 'Working…' right after Esc; now 'Stopping…', and Esc's own line uses it (no 'agent'). New zero-token e2e live-reload-running holds the serve run's verify-snapshot, reloads, asserts mode running + no idle hint, then Esc -> Stopping -> 'Stopped, as you asked.'. Red on 7b870e4 (mode draw, 'drag to draw · ⌘K…'), green 4/4 after. Note: vite did not reload on its own in 4/4 serve runs here, so the test forces the reload. sse-hub + plain-progress unit tests added; vitest 1096/1098 (same 2 env failures); tsc -b clean; live-saywhat, live-auto, live-misread, live-keymap, walkthrough green; 0 tokens."
+- id: s2c-039
+  parent: s2c-017
+  title: "Draw a link: an arrow from a button to a sketched second screen adds the screen and the navigation, verified by clicking it"
+  why: "harness.md held routes/multi-screen back until behaviour was verifiable; s2c-021 probes now are. Multi-screen is the first thing a non-coder builds past one page, and an arrow is the drawing-first way to say 'this goes there' with no words. Today the snapshot's url is unread and the pipeline knows no routes."
+  done_when: "zero-token e2e on the demo app: a stubbed reading of a 'navigate' action (arrow from a button to a box labelled with a screen name) makes an engine write the second screen + the navigation without a router dependency the app doesn't have; a click probe on the button passes (the new screen is visible, back returns), the receipt says it in plain words, and one undo removes both. A design note first decides hash vs history routing and how an app that already uses react-router is handled."
+  kind: build
+  status: open
+  needs: cloud
+  value: 4
+  effort: 3
+  confidence: 0.5
+  momentum: 0.5
+  depth: 2
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-037. Likely shape: the server tells a reconnecting tab that its run is active (a 'running' frame on connect, or GET /@s2c/run/state), and the overlay enters running mode + armWatchdog on it."
+  - "2026-10-17: filed by s2c-038 (only cloud node left was done; harness.md's own gate on routes, behaviour probes, is now met). Honest caveat: this builds on a reader whose realized % on rough sketches is still unmeasured (s2c-013). If that pilot comes back under 60%, this waits."
