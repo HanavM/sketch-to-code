@@ -108,9 +108,9 @@ a real person finds it easy.
 
 | change | sketch + words | bar ends on | time |
 |---|---|---|---|
-| 1 add a section | box in empty space + "testimonials" | ✓ Done: added what you drew. | 3.6 s |
-| 2 styling | ring the heading + "red" | ✓ Done: changed the heading with "Get started". | 3.8 s |
-| 3a a form | box + "email signup" | ✓ Done: added what you drew. | 3.7 s |
+| 1 add a section | box in empty space + "testimonials" | ✓ Done: added "testimonials" where you drew it. | 3.6 s |
+| 2 styling | ring the heading + "red" | ✓ Done: made the heading with "Get started" red. | 3.8 s |
+| 3a a form | box + "email signup" | ✓ Done: added "email signup" where you drew it. | 3.7 s |
 | 3b make it work | ring the form + "save it" | ✓ Done: made the form with "Sign up" keep what people type. (a test submit was stored, the page said so, the record was removed again) | ~4 s |
 
 (Times have no model in them: a real reading adds ~10 s, plus codegen.)
@@ -143,9 +143,21 @@ a real person finds it easy.
   here: press ▶ Run to try again." instead of `interpret failed: HTTP 500`.
   The e2e now records **every** bar line and fails on developer words in
   any of them (red on the old overlay: 4 of 4 changes).
-- Wording, judged by eye, not filed: "changed the heading with "Get
-  started"" should say what changed (red). "added what you drew" is vague
-  when the words said "testimonials". The endpoint is named after the
+- ~~**The Done sentence (s2c-032).**~~ **Fixed 2026-10-17.** "changed the
+  heading with "Get started"" didn't say it was red now, and "added what you
+  drew" didn't say testimonials, so the tick couldn't tell the user whether
+  their words were understood. The success sentence now carries the words
+  typed with the mark (`donePhrase` in `explain.ts`): a short look-word
+  becomes "made … red / bigger / bold and blue"; anything that reads as an
+  instruction is quoted ("changed the button with "Buy now": "say Order
+  today instead""); an add says "added "testimonials" where you drew it"; a
+  modify drawn in a coloured pen with no words names the pen's colour. Notes
+  are cut at 6 words. Failure sentences are unchanged. The e2e now fails if
+  change 1's tick doesn't say "testimonials" or change 2's doesn't say "red".
+  Still a limit: the words are echoed, not checked. "added "testimonials""
+  is said because the user typed it and the run passed, not because anything
+  looked for quotes on the page.
+- Wording, judged by eye, not filed: the endpoint is named after the
   component (`/api/apps`), not the form.
 - `live-misread.mjs` fails "starting a run left the old card up", **with and
   without this change** (checked by stashing it). Not caused here. Not

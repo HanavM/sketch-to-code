@@ -280,6 +280,8 @@ try {
   const c1 = await walk('1 add a section', boxAt(150, 480, 450, 550), 'testimonials')
   check('change 1 is on the page', await page.locator('text=What people say').count() > 0)
   check('change 1 ends on a tick, not a misread card', /^✓ /.test(c1.at(-1) ?? ''), c1.at(-1))
+  // s2c-032: the tick says what it understood, in the user's own word
+  check('change 1: the Done sentence names "testimonials"', /testimonials/i.test(c1.at(-1) ?? ''), c1.at(-1))
 
   // change 2: styling
   const h1 = await rectOf('h1')
@@ -287,6 +289,7 @@ try {
   const color = await page.evaluate(() => getComputedStyle(document.querySelector('h1')).color)
   check('change 2 is on the page (heading is red)', color === 'rgb(255, 0, 0)', color)
   check('change 2 ends on a tick', /^✓ /.test(c2.at(-1) ?? ''), c2.at(-1))
+  check('change 2: the Done sentence names "red"', /\bred\b/i.test(c2.at(-1) ?? ''), c2.at(-1))
 
   // change 3: a working form, in two sketches
   const spacer = await rectOf('#center')

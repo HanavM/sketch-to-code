@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { describeTarget, explainError, explainRun, isPlain, scrub } from '../src/explain.js'
+import { colourName, describeTarget, explainError, explainRun, isPlain, scrub, userWords } from '../src/explain.js'
 import type { GroundedAction, GroundedTarget } from '../src/intent2.js'
 
 const T = (tag: string, text: string, srcLoc = 'src/App.tsx:42:7'): GroundedTarget => ({
@@ -128,5 +128,95 @@ describe('describeTarget / scrub / isPlain', () => {
       expect(isPlain(bad), bad).toBe(false)
     }
     expect(isPlain('I read your sketch as: delete the Pro card. Undo puts your files back the way they were.')).toBe(true)
+  })
+})
+
+// s2c-032: the Done sentence names what the user asked for, in their words
+describe('the Done sentence says what changed', () => {
+  const words = (s: string) => s.split(/\s+/).length
+  const done = (a: GroundedAction, extra: { runNotes?: string[] } = {}) =>
+    explainRun({ reading: 'x', actions: [a], failures: [], files: ['src/App.jsx'], ...extra })
+
+  it('a modify with a colour word names the colour', () => {
+    const ex = done(A('modify', [T('h1', 'Get started')], { notes: ['red'] }))
+    expect(ex).toEqual({ problem: false, sentence: 'Done: made the heading with "Get started" red.', undoable: true })
+  })
+
+  it('a modify with a size word, typed as "make it …", reads as one change', () => {
+    expect(done(A('modify', [T('button', 'Buy now')], { notes: ['make it bigger'] })).sentence)
+      .toBe('Done: made the button with "Buy now" bigger.')
+    expect(done(A('modify', [T('h2', 'Pricing')], { notes: ['bold and blue'] })).sentence)
+      .toBe('Done: made the heading with "Pricing" bold and blue.')
+  })
+
+  it('a modify whose words are an instruction quotes them instead of bending the grammar', () => {
+    const ex = done(A('modify', [T('button', 'Buy now')], { notes: ['say Order today instead'] }))
+    expect(ex.sentence).toBe('Done: changed the button with "Buy now": "say Order today instead".')
+    expect(isPlain(ex.sentence)).toBe(true)
+  })
+
+  it('a modify drawn in a coloured pen with no words names the pen colour', () => {
+    const ex = done(A('modify', [T('button', 'Buy now')], { color: { drawn: '#22c55e' } }))
+    expect(ex.sentence).toBe('Done: made the button with "Buy now" green.')
+  })
+
+  it('an add with typed words names them', () => {
+    const ex = done(A('add', [], { notes: ['testimonials'] }))
+    expect(ex.sentence).toBe('Done: added "testimonials" where you drew it.')
+  })
+
+  it('an add whose drawing was recognised keeps the drawing and adds the words', () => {
+    expect(done(A('add', [], { depicts: 'card', notes: ['testimonials'] })).sentence)
+      .toBe('Done: added the card you drew ("testimonials").')
+    expect(done(A('add', [], { depicts: 'testimonials section', notes: ['testimonials'] })).sentence)
+      .toBe('Done: added the testimonials section you drew.')
+  })
+
+  it('a note no action claimed belongs to the only action', () => {
+    expect(done(A('add', []), { runNotes: ['testimonials'] }).sentence).toBe('Done: added "testimonials" where you drew it.')
+    // two actions: nobody can say which one it meant, so it is not guessed
+    const two = explainRun({
+      reading: 'x', failures: [], files: ['a.jsx'], runNotes: ['red'],
+      actions: [A('modify', [T('h1', 'Hi')]), A('delete', [T('p', 'old')])],
+    })
+    expect(two.sentence).toBe('Done: changed the heading with "Hi" and removed the text "old".')
+  })
+
+  it('long notes are cut, scrubbed, and never push a sentence past ~20 words', () => {
+    const ex = done(A('add', [], { notes: ['three short quotes from happy users with photos and stars under each one'] }))
+    expect(ex.sentence).toBe('Done: added "three short quotes from happy…" where you drew it.')
+    expect(words(ex.sentence)).toBeLessThanOrEqual(20)
+    const dirty = done(A('modify', [T('h1', 'Get started')], { notes: ['make `e12` in src/App.jsx:4:2 red'] }))
+    expect(isPlain(dirty.sentence)).toBe(true)
+    for (const s of ['red', 'make it bigger', 'say Order today instead', 'bold and blue']) {
+      expect(words(done(A('modify', [T('button', 'Start your free trial today')], { notes: [s] })).sentence)).toBeLessThanOrEqual(20)
+    }
+  })
+
+  it('without words or colour the sentence is unchanged', () => {
+    expect(done(A('modify', [T('h1', 'Get started')])).sentence).toBe('Done: changed the heading with "Get started".')
+    expect(done(A('add', [])).sentence).toBe('Done: added what you drew.')
+  })
+
+  it('a failure sentence is not touched by the words', () => {
+    const ex = explainRun({
+      reading: 'Make the heading red', failures: ['action 0 (colour): far'], files: ['a.jsx'],
+      actions: [A('modify', [T('h1', 'Get started')], { notes: ['red'] })],
+    })
+    expect(ex.problem).toBe(true)
+    expect(ex.sentence).toContain("couldn't change the heading with \"Get started\" in the colour you drew")
+  })
+})
+
+describe('colourName / userWords', () => {
+  it('names the pen colours', () => {
+    expect(['#dc2626', '#f97316', '#eab308', '#22c55e', '#14b8a6', '#2563eb', '#7c3aed', '#ec4899', '#111111', '#9ca3af', '#ffffff']
+      .map(colourName)).toEqual(['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'purple', 'pink', 'black', 'grey', 'white'])
+    expect(colourName(undefined)).toBe('')
+    expect(colourName('rgb(1,2,3)')).toBe('')
+  })
+  it('joins several notes and drops trailing punctuation', () => {
+    expect(userWords(['red', 'bigger.'])).toBe('red, bigger')
+    expect(userWords([])).toBe('')
   })
 })

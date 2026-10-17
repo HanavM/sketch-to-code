@@ -605,6 +605,8 @@ export async function runV2(
     reading: interp.reading,
     actions: interp.actions,
     droppedActions: interp.droppedActions,
+    // words the user typed that no action claimed: the Done sentence names them
+    runNotes: interp.runNotes,
     // the last round, not the best: it describes what is on disk now
     failures: finalFailures,
     refused: backendRefused,

@@ -36,6 +36,8 @@ export interface ExplainInput {
   refused?: string[]
   /** Files the run changed or created. */
   files: string[]
+  /** Typed notes no single action claimed (GroundedInterpretation.runNotes). */
+  runNotes?: string[]
 }
 
 const NOUN: Record<string, string> = {
@@ -121,6 +123,72 @@ const past = (p: string): string =>
     .replace(/^swap /, 'swapped ').replace(/^add /, 'added ').replace(/^load /, 'now loading ')
     .replace(/^make /, 'made ')
 
+/**
+ * The user's own words for an action, cut short and scrubbed: what they typed
+ * next to the mark. These are the words they will look for in the sentence.
+ */
+export function userWords(notes: string[] | undefined): string {
+  const raw = scrub((notes ?? []).join(', ').replace(/\s+/g, ' ').trim()).replace(/[.!\s]+$/, '')
+  if (!raw) return ''
+  const words = raw.split(' ')
+  return words.length > 6 ? `${words.slice(0, 5).join(' ')}…` : raw
+}
+
+/** Verbs that start an instruction, not a description of how it should look. */
+const VERB = /^(add|remove|delete|move|put|change|swap|replace|show|hide|say|use|link|insert|drop|let|have|give|open|go|send|save|load|rename|write|call|center|centre|align)\b/i
+
+/**
+ * "red" -> "made the heading with "Get started" red"; "make it bigger" -> "made
+ * … bigger". Anything that isn't a short look-word is quoted instead of bent
+ * into grammar it doesn't fit.
+ */
+function modifyDone(target: string, words: string): string {
+  const look = words.replace(/^(please\s+)?(make|turn|set)\s+(it|this|that|them|these|those)\s+/i, '')
+  if (look.split(' ').length <= 3 && !VERB.test(look) && !/["“”]/.test(look)) return `made ${target} ${look}`
+  return `changed ${target}: "${words}"`
+}
+
+/** A colour drawn with the pen, by name, when nothing was typed. */
+const HUES: Array<[number, string]> = [
+  [15, 'red'], [40, 'orange'], [65, 'yellow'], [160, 'green'], [190, 'teal'], [255, 'blue'], [290, 'purple'], [340, 'pink'], [360, 'red'],
+]
+export function colourName(hex: string | undefined): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex ?? '')
+  if (!m) return ''
+  const n = parseInt(m[1]!, 16)
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => v / 255) as [number, number, number]
+  const max = Math.max(r, g, b); const min = Math.min(r, g, b); const l = (max + min) / 2
+  const sat = max === min ? 0 : (max - min) / (1 - Math.abs(2 * l - 1))
+  if (sat < 0.2) return l < 0.2 ? 'black' : l > 0.85 ? 'white' : 'grey'
+  let h = max === r ? ((g - b) / (max - min)) % 6 : max === g ? (b - r) / (max - min) + 2 : (r - g) / (max - min) + 4
+  h = (h * 60 + 360) % 360
+  return HUES.find(([top]) => h < top)?.[1] ?? 'red'
+}
+
+/**
+ * What a finished action did, for the success sentence, naming what the user
+ * asked for: their typed words, or the pen colour they drew in. A non-coder
+ * reads "Done: changed the heading" and can't tell whether it understood
+ * "red"; "Done: made the heading … red" tells them.
+ */
+function donePhrase(a: GroundedAction, words: string): string | undefined {
+  const base = PHRASE[a.kind]?.(a)
+  if (!base) return undefined
+  const target = describeTarget(a.targets[0])
+  if (a.kind === 'modify') {
+    if (words) return modifyDone(target, words)
+    const hue = colourName(a.color?.drawn)
+    // the default pen has no colour at all; any colour here was picked on purpose
+    if (hue) return `made ${target} ${hue}`
+    return past(base)
+  }
+  if ((a.kind === 'add' || a.kind === 'design') && words) {
+    if (a.depicts && scrub(a.depicts).toLowerCase().includes(words.toLowerCase())) return past(base)
+    return a.depicts ? `added the ${scrub(a.depicts)} you drew ("${words}")` : `added "${words}" where you drew it`
+  }
+  return past(base)
+}
+
 /** Parse `action N (kind): …` into the action index and the check kind. */
 function failedIndex(f: string): { index: number; check: string } | null {
   const m = /^action (\d+) \(([^)]*)\)/.exec(f)
@@ -194,7 +262,11 @@ export function explainRun(input: ExplainInput): RunExplanation {
   const understood = reading ? `I read your sketch as: ${reading.charAt(0).toLowerCase()}${reading.slice(1)}.` : ''
 
   if (missed.length === 0 && dropped === 0 && !ruleBroken && untested.length === 0) {
-    const did = input.actions.map((a) => PHRASE[a.kind]?.(a)).filter((p): p is string => !!p).map(past)
+    // a note nobody claimed belongs to the only action there is
+    const spare = input.actions.length === 1 ? input.runNotes : undefined
+    const did = input.actions
+      .map((a) => donePhrase(a, userWords(a.notes?.length ? a.notes : spare)))
+      .filter((p): p is string => !!p)
     const sentence = did.length ? `Done: ${list([...new Set(did)])}.` : 'Done.'
     return { problem: false, sentence: finalize(sentence), undoable }
   }
