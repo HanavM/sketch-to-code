@@ -237,8 +237,23 @@ green. It caught one real bug before it shipped: the probe failed every
 nav-bar trigger in a layout app (the trigger never disappears), fixed by
 `layoutKept`.
 
-Not checked: a full overlay run (stubbed reading → engine → probe → receipt →
-undo) on a react-router app; that's the rest of s2c-041. An app served under a
+**Full overlay run (2026-10-17, `tests/e2e/navigate-router-overlay.mjs`):** a
+react-router-dom 7 app written to a temp dir (layout route from `src/routes.tsx`,
+a `<button>Pricing</button>` in the layout's nav), committed, `init --yes
+--no-install` + one `npm i --ignore-scripts`, doctor healthy, its own vite dev
+server in-process with only the reading scripted (`navigate` on the button,
+screen "Pricing"). In Chromium an arrow is drawn off the button and "Pricing"
+typed; auto-run ends on "✓ Done: made the button with "Pricing" open a
+"Pricing" screen.", the run's own verify file says the probe **passed**
+("clicking "Pricing" opened the "Pricing" screen, and ← Back came home again"),
+the page is left at `/`. By hand: /pricing inside the layout (nav kept), ← Back
+home. One Ctrl+Z: every tracked file byte-identical, the page file gone, `git
+status` clean, the button dead again. Model asked once (interpret), never for
+code; no page errors. 3/3 runs green. Nothing in the product changed for it:
+the engine, probe, receipt and undo already held on an app the repo didn't set
+up. Still not checked: a real model reading the arrow (s2c-013).
+
+Not checked: an app served under a
 base path or `basename` (the probe compares the whole pathname). React Router
 v7 **framework mode**, which is what `npx create-react-router` scaffolds:
 handled since s2c-044, below.
