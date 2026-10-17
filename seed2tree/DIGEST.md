@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-17 01:03 UTC — sketch-to-code / s2c-031 Form save is tried out — **done**: all 4 walkthrough sketches now end on ✓
+Picked because: priority 3.61 (next: s2c-030 3.21; s2c-000 seed 2.01 skipped: umbrella; s2c-010 1.33; s2c-013/008 local + blocked). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
+Did: commit 74b0075. Reproduced 3b's "⚠ … because it wasn't safe to". The cause was a stale stamp, not safety: the save engine adds lines above the form, and the probe looked the form up by its old line. Probes are now re-resolved in the after-edit snapshot (same file + tag, then own text, then nearest), and an untested card gives the real reason. "Unsafe" is reserved for code that leaves the dev server.
+Result: walkthrough 3b → "✓ Done: made the form with "Sign up" keep what people type." The test submit is stored, the page says so, and the record is put back. The e2e now fails on ⚠ or any "safe" wording. 8 new unit tests; vitest 1064/1066 (same 2 env failures); `tsc -b` clean; live-probe, live-probe-click and live-form green; 0 tokens. momentum 0.5 → 0.7
+Blunt: SEED done #2's three changes are now proven end to end, but only with scripted readings. Whether a real model reads these 4 sketches right is still unmeasured (the s2c-013 pilot). A ~20-min bug fix: it was the card lying to the user, and it had been since the probe shipped.
+New branches: s2c-032 the Done sentence says what changed ("red", "testimonials"); value 3, effort 1.
+Pruned/done: s2c-031 done. s2c-010 closes once s2c-030 and s2c-032 land.
+**Needs you (s2c-013):** unchanged. To run the paid pilot, either run it on macOS or give this run a `CLAUDE_CODE_OAUTH_TOKEN`. Gardens sidequest/fine-routing can't be cloned from the cloud run (no auth for those repos in this session).
+
 ## 2026-10-17 00:55 UTC — sketch-to-code / s2c-010 Non-coder walkthrough — **3 path bugs fixed; 3 of 4 sketches now end on ✓ in plain words**
 Picked because: priority 1.35, the only open cloud node (s2c-000 seed 2.01 skipped: umbrella; s2c-013 local + blocked). Fashion killed, no overrule. sidequest/fine-routing: clone needs auth this run isn't granted, skipped.
 Did: commit c8f16e1. New zero-token e2e `walkthrough-noncoder.mjs`: today's `npm create vite` starter (Vite 8.3) → init → 4 sketches using only the pen, keyboard and bar. The model is scripted in-process (`setScriptedModel`), and the real provider throws while a script is set, so no accidental spend. **First walk found 3 bugs every user hits:** (1) after any run the tool went idle, so **the second sketch drew nothing**; (2) a new section the layout centred failed placement verification, so the user saw it on screen and was told "I couldn't add what you drew" with Undo offered; (3) every change ended on `✓ [v2] 0% verified … revert: git restore --source=…`. All three fixed.

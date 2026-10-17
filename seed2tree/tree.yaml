@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 32
-lock: {run: cloud-2026-10-17T0056Z, until: "2026-10-17T02:11:00Z"}
+next_id: 33
+lock: null
 
 nodes:
 - id: s2c-000
@@ -249,6 +249,7 @@ nodes:
   - "2026-10-16: s2c-026 done (46499cb): Ctrl+Z no longer erases a hand edit made after a sketch edit (reverts only the files the edit wrote; refuses in words when one of those was changed by hand). Coder-facing; doesn't move the non-coder path. Next watering unchanged: stubbed interpret, 3 changes end to end."
   - "2026-10-16: s2c-025 done (41efb67): clicking your own button now says in plain words what was picked up and how to switch to Test; a drag after a click draws. Walkthrough rows 3-4 updated. Next watering unchanged: stubbed interpret, 3 changes end to end (incl. a form)."
   - "2026-10-17: watering 2. New zero-token e2e walkthrough-noncoder.mjs walks the real create-vite 9.2.1 starter (Vite 8.3) through init + 4 sketches (testimonials section, red heading, signup form, 'save it') with only pen/keyboard/bar; the model is scripted in-process (@s2c/providers setScriptedModel; real provider throws while set). Found 3 bugs on the path every user takes, all fixed: (1) every run ended in idle, so the SECOND sketch drew nothing (now rests in draw on the Design surface); (2) placement verification failed in-flow content the layout centred, so a visible new section got 'I couldn't add what you drew' + Undo (verifyDesignPlacement now accepts right band + size + touching or centred in parent; 5 asserts); (3) every change ended on '✓ [v2] 0% verified … revert: git restore …' (bar now ends on the plain explanation sentence; dev summary in tooltip/console). Now 3/4 sketches end on ✓ in plain words. NOT done: 3b's save probe can't find the form after the engine shifts its stamp, and the card blames safety -> s2c-031; progress lines are dev text -> s2c-030. live-keymap updated (its Esc step was red before); live-auto green; live-misread red before and after (pre-existing). vitest 1056/1058 (same 2 env failures); tsc -b clean; init-real-project green."
+  - "2026-10-17: s2c-031 done (74b0075): 3b ends on ✓, the save is submitted in the page. All 4 walkthrough sketches now end on ✓ in plain words. Remaining open child: s2c-030 (developer progress lines), s2c-032 (Done sentence says what changed). Done when those close."
 
 - id: s2c-030
   parent: s2c-010
@@ -276,19 +277,24 @@ nodes:
   why: "SEED done #2's third change (a working form) is unproven: the save engine adds an import + hook above the form, every stamp below shifts, the submit probe looks up the old stamp ('the form is not on the page any more'), and the card tells the user it wasn't safe to try. They're told to check something they can't check."
   done_when: "walkthrough-noncoder.mjs 3b ends on '✓' with the save probe passing (the KNOWN log line turned into a check); unit test: probe trigger re-resolved after a write that shifts lines; an unverified probe's card says the real reason."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T01:03Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - commit 74b0075
+  - packages/pipeline/src/probe.ts (relocateProbes, relocate)
+  - packages/pipeline/src/explain.ts (whyUntested)
+  - packages/cli/tests/e2e/walkthrough-noncoder.mjs (3b is a check now)
   log:
   - "2026-10-17: filed by s2c-010 watering 2 (reproduced in the walkthrough e2e; on-disk edit is correct)."
+  - "2026-10-17: watering 1 (74b0075). DONE. Reproduced: 3b ended on '⚠ … because it wasn't safe to'. Fix: run2 re-resolves probe trigger/effect stamps in the after-edit snapshot (relocateProbes: same file+tag, then own text, then nearest to the old rect; nothing found keeps the old stamp so the page still says gone). The card gives the real reason (whyUntested): 'unsafe' only for code that leaves the dev server; else 'couldn't find the form on the page after the change', 'the page didn't answer', etc. walkthrough 3b now ends on '✓ Done: made the form with \"Sign up\" keep what people type.' and the e2e fails if it doesn't or if it mentions safety. 8 new unit tests; vitest 1064/1066 (same 2 env failures); tsc -b clean; live-probe, live-probe-click, live-form green; 0 tokens. Not checked: a real model reading of the form (scripted), a form whose tag changes in the edit."
 
 - id: s2c-011
   parent: s2c-000
@@ -719,3 +725,23 @@ nodes:
   log:
   - "2026-10-16: from s2c-013 Mac run. Full screenshot dry: r01-r09 ok (r08 crash retried ok), r10 FAILED 'vite never answered on :5301', r11 hung after the relaunch until a 10-min timeout. Suspect: chromium leftovers or the port after a crash; app.start/page.goto without a bound."
   - "2026-10-16 23:40Z (cloud): DONE. Root cause was not the port: captureProbe never returned. getDisplayMedia was bounded (30s) but video.play() was not, and tab capture only sends frames on repaint. Measured 0 tokens: bare page, reused browser 4/10 frameless; fresh browser 1/20; overlay page fresh browser 3/8 browsers frameless by 3rd capture; with a 1px repaint nudge 0/32. Fix d1ea0b3: overlay nudges a 1px 1%-opacity pixel each frame during capture, bounds play() 10s, rejects zero-width; bench gets a fresh browser per page in screenshot mode, 45s bound on the probe, wedge retried once pre-Run like a crash. rough --dry --mode screenshot 15/15 twice (0 retries); --mode auto dry 15/15; vitest 1055/1057 (same 2 env failures); tsc -b clean. 'vite never answered' did not recur in 3 full runs (not explained). macOS not tested. momentum 0.5 -> 0.7."
+
+- id: s2c-032
+  parent: s2c-010
+  title: "The Done sentence says what changed, in the user's words"
+  why: "The walkthrough's ticks are vague where it matters to a non-coder: ring the heading + 'red' ends on 'changed the heading with \"Get started\"' (not that it's red now); box + 'testimonials' ends on 'added what you drew'. They can't tell from the sentence whether it understood them."
+  done_when: "walkthrough-noncoder.mjs checks that change 1's sentence names 'testimonials' and change 2's names 'red'; explain unit tests: a modify with a colour/size word and an add with typed words name them; isPlain holds; no sentence grows past ~20 words."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-031 watering 1 (from the walkthrough doc's 'wording, judged by eye, not filed')."
