@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-17 23:20 UTC — sketch-to-code / s2c-051 Coloured ring on a Tailwind app, in a browser — **done**; found and fixed a hover bug
+Picked because: the only open cloud node, priority 1.21 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 5942dfb. `npm run e2e:ring-tw` runs examples/demo-app (Tailwind v4) with the real overlay, plain reader, engine and undo, and a model that throws if it's called. Green ring round "Team members": `text-gray-900` → `text-green-600`. Green ring round "Sign out": `bg-blue-600` → `bg-green-600`. Both ✓, 0 model calls, green on the page, and two Ctrl+Z restore both files byte for byte.
+Found: **the green button turned blue under the pointer.** The engine kept `hover:bg-blue-700`, and nearly every Tailwind button has one. Now hover/focus/active colours follow the new colour (`hover:bg-green-700`). One it can't place is dropped. If `dark:`/`md:` also set that colour, the engine refuses and the model takes it. The e2e failed on the old engine (hovered blue, rgb(20,71,230)) and passes now.
+Result: 5 new unit tests. vitest 1254/1256 (same 2 env failures), `tsc -b` clean, demo green, 0 tokens. momentum → 0.7
+Blunt: this is verification, and it found a real bug, so it was worth one run. **The cloud queue in this garden is now empty for real.** Every remaining node needs you or the Mac. I'm not adding busywork branches. Until you answer one of the three questions below, hourly cloud runs here will find nothing worth doing.
+New branches: none, on purpose.
+Pruned/done: s2c-051 done.
+**Needs you:** (1) s2c-013: "spend the pilot in the cloud" (the only thing that tests the core risk). (2) s2c-035: yes/no to cloning 5 public repos read-only. (3) s2c-048: "yes, MIT" / "not yet". Or pause the hourly task, or plant sidequest/fine-routing and give this task access to them.
+
 ## 2026-10-17 22:35 UTC — sketch-to-code / s2c-050 A coloured ring, no words: read and written with no model — **done**
 Picked because: the only open cloud node, priority 1.64 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 540ed14. The node assumed the props engine could set a colour. It can't (it only writes component props), so I wrote `recolor.ts`: a Tailwind colour-class swap to the snapped palette token, or an inline style in a plain-CSS app. It refuses components, dynamic className/style and `.map` templates, and those go to codegen as before. The plain reader decides which colour from the page: a button or anything with its own fill gets its background changed (that's how the bench's r12 is scored). Plain text gets its words recoloured. Anything else goes to the model.

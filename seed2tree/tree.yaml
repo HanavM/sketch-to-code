@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 52
-lock: {run: cloud-2026-10-17T2256Z, until: "2026-10-18T00:11:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1199,16 +1199,21 @@ nodes:
   why: The recolour engine's Tailwind path (swap text-/bg- utility for the snapped token) is unit-tested only. The demo is plain CSS. Most apps people would point this at use Tailwind.
   done_when: 'An e2e on examples/demo-app (Tailwind): green pen ring round a heading and round a filled button, no words -> zero model calls (scripted model throws), the className holds a palette token or arbitrary value with the old colour utility gone, the bar ends on a tick, Ctrl+Z restores the file byte-for-byte.'
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 2
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T23:20Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - 5942dfb
+  - tests/e2e/ring-tailwind.mjs (npm run e2e:ring-tw)
+  - packages/pipeline/src/recolor.ts followStates
+  - docs/findings.md "The coloured ring on a Tailwind app, in a browser"
   log:
   - '2026-10-17: filed by s2c-050. Verification of shipped code, not new capability: value 2. Note the e2e scripts call chromium.launch() bare and fail here (no headless shell 1234); s2c-050 ran live-ask through a wrapper that passes executablePath /opt/pw-browsers/chromium.'
+  - "2026-10-17 23:20Z: DONE (commit 5942dfb). e2e on examples/demo-app (Tailwind v4), scripted model throws: green ring round 'Team members' h2 -> text-green-600, round navbar 'Sign out' -> bg-green-600; both tick, 0 model calls, rendered green, 2x Ctrl+Z byte-for-byte. Green on first try for done_when. FOUND: button kept hover:bg-blue-700 and went blue under the pointer (nearly every Tailwind button has one). recolor.ts followStates: hover/focus/active colours follow (same hue, same step -> hover:bg-green-700), unplaceable ones dropped, dark:/md: colour variants -> refuse to model. e2e red on old engine (hovered rgb(20,71,230)), green now (rgb(0,130,54)); hover needs CDP forcePseudoState + hover media emulation or the check is vacuous. 5 unit tests; vitest 1254/1256 (same 2 env); tsc -b clean; demo green."
