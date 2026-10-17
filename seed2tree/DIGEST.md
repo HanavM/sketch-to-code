@@ -1,7 +1,7 @@
 # DIGEST — newest first
 
 ## 2026-10-17 23:20 UTC — sketch-to-code / s2c-051 Coloured ring on a Tailwind app, in a browser — **done**; found and fixed a hover bug
-Picked because: the only open cloud node, priority 1.21 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Picked because: the only open cloud node, priority 2.15 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 5942dfb. `npm run e2e:ring-tw` runs examples/demo-app (Tailwind v4) with the real overlay, plain reader, engine and undo, and a model that throws if it's called. Green ring round "Team members": `text-gray-900` → `text-green-600`. Green ring round "Sign out": `bg-blue-600` → `bg-green-600`. Both ✓, 0 model calls, green on the page, and two Ctrl+Z restore both files byte for byte.
 Found: **the green button turned blue under the pointer.** The engine kept `hover:bg-blue-700`, and nearly every Tailwind button has one. Now hover/focus/active colours follow the new colour (`hover:bg-green-700`). One it can't place is dropped. If `dark:`/`md:` also set that colour, the engine refuses and the model takes it. The e2e failed on the old engine (hovered blue, rgb(20,71,230)) and passes now.
 Result: 5 new unit tests. vitest 1254/1256 (same 2 env failures), `tsc -b` clean, demo green, 0 tokens. momentum → 0.7
