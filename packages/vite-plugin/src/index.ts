@@ -9,6 +9,7 @@ import { createIdeBridge, rejectNonEditor, rejectNonLocal } from './ide-bridge.j
 import { stampJsxSource } from './jsx-source.js'
 import { createSseHub, readJsonBody, rejectUnauthorized, sendJson, type SseHub } from './middleware.js'
 import { bundleOverlayClient } from './overlay-bundle.js'
+import { findRootRoute, isReactRouterFramework, OVERLAY_LOADER } from './framework-entry.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
 import { loadUndo, MAX_UNDO, saveUndo, type UndoEntry } from './undo-store.js'
@@ -204,6 +205,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const engine = options.engine ?? 'model'
   const instant = options.instant ?? true
   let root = process.cwd()
+  // s2c-043: React Router framework mode has no index.html; the overlay loads
+  // from this module instead (framework-entry.ts)
+  let frameworkRoot: string | null = null
 
   // s2c-038: a page that reloads mid-run (the run wrote a new module) comes
   // back in its resting state, saying "drag to draw" while the run is still
@@ -266,6 +270,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
 
     configResolved(config) {
       root = config.root
+      frameworkRoot = isReactRouterFramework((config.plugins ?? []).map((p) => p.name)) ? findRootRoute(root) : null
       if (undoRoot !== root) {
         // a restarted server picks up where the last one left off; undo
         // skips entries with nothing left to revert, so stale ones are harmless
@@ -290,15 +295,18 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
       }
     },
 
-    transform(code, id) {
+    transform(code, id, opts) {
       const clean = id.split('?')[0]!
-      if (!exts.some((e) => clean.endsWith(e))) return null
+      // the root route's own client module (not a ?route-chunk split of it)
+      const loadOverlay = frameworkRoot !== null && id === frameworkRoot && opts?.ssr !== true
+      if (!exts.some((e) => clean.endsWith(e))) return loadOverlay ? { code: code + OVERLAY_LOADER, map: null } : null
       if (clean.includes('/node_modules/')) return null
       const rel = relative(root, clean)
       if (rel.startsWith('..')) return null
       const res = stampJsxSource(code, rel)
-      if (!res) return null
-      return { code: res.code, map: res.map }
+      if (!res) return loadOverlay ? { code: code + OVERLAY_LOADER, map: null } : null
+      // appended after the stamped code, so the map's lines are unchanged
+      return { code: loadOverlay ? res.code + OVERLAY_LOADER : res.code, map: res.map }
     },
 
     /**

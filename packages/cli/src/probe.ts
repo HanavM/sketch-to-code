@@ -28,7 +28,11 @@ const out = {
   port: cfg.server && cfg.server.port != null ? cfg.server.port : null,
   strictPort: !!(cfg.server && cfg.server.strictPort),
 }
-console.log('${MARKER}' + JSON.stringify(out))
+// exit once the line is out: some plugins start watchers in configResolved
+// (React Router framework mode watches react-router.config), which kept this
+// child alive until the 120 s timeout, so init and doctor each took 2 min.
+// The callback form, because a pipe is async on macOS and exit would cut it.
+process.stdout.write('${MARKER}' + JSON.stringify(out) + '\\n', () => process.exit(0))
 `
 
 export function probeViteConfig(dir: string, configFile: string | null, timeoutMs = 120_000): Probe {

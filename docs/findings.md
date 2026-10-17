@@ -684,3 +684,18 @@ SSR template, and an npm workspace) and takes each from `init` to "✓ Done" in
 (`vite dev --port 3000`), init and doctor still said "open :5173". Fixed in
 `scriptPort()`. These are starters, not people's apps; details and limits in
 docs/onboarding-real-projects.md.
+
+## React Router's own starter: healthy on paper, no overlay (s2c-043, 2026-10-17)
+
+`npx create-react-router` (8.4.0) makes a framework-mode app: no index.html,
+`app/root.tsx` renders `<html>`, every page server-rendered. On it, init and
+doctor both said ✓ and the page was stamped, but **the overlay never
+appeared** (it was only injected through `transformIndexHtml`), and init and
+doctor each took **2 minutes** (the config check waited for a child that
+React Router's watcher kept alive). Both fixed: the overlay now loads from the
+root route's client module after `load`, and the check exits once it has its
+answer. Added as shape 6 of `onboard-real-projects.mjs`: 6/6 green, this one
+init → ✓ in 15.1 s (was 253.7 s with nothing to draw on). Verdict:
+**support** the marking; drawing a *link* there needs `app/routes.ts`
+(s2c-044). Details in docs/onboarding-real-projects.md.
+

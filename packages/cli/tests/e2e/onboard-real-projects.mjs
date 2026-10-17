@@ -14,6 +14,9 @@
  *                               `node server`: express + vite in middleware mode)
  *   5. npm-workspace            #1 moved to apps/web of an npm workspace whose git root
  *                               is the workspace, deps hoisted (most company repos)
+ *   6. react-router-framework   create-react-router 8.4.0 default template: framework mode
+ *                               (app/root.tsx renders <html>, SSR, no index.html, Vite 8).
+ *                               Its home page has no <h1>: the "What's next?" line is marked.
  *
  * Per project, the way a person would: doctor (before), `init --yes`, doctor
  * (after), boot the dev server the way `npm run dev` does (in this process so
@@ -120,21 +123,33 @@ const PROJECTS = [
       return { ...r, dir, root, install: false }
     },
   },
+  {
+    name: 'react-router-framework',
+    // the starter's only text on the home page that isn't a link
+    target: { sel: 'nav p', tag: 'p', src: /<p(?=[\s>])/, mark: /What&apos;s next\?/ },
+    create: (parent) => {
+      const r = run('npx', ['--yes', 'create-react-router@8.4.0', 'app', '--yes', '--no-git-init', '--no-install'], { cwd: parent, input: '' })
+      return { ...r, dir: join(parent, 'app'), install: true }
+    },
+  },
 ]
+
+const H1 = { sel: 'h1', tag: 'h1', src: /<h1(?=[\s>])/, mark: /<h1[\s>]/ }
 
 /** The URL `init` told the person to open, from its "Next:" lines. */
 const printedUrl = (out) => out.match(/open (http:\/\/localhost:\d+)/)?.[1] ?? null
 
-/** First file under src/ with an <h1, the scripted codegen's target. */
-const findH1 = (dir) => {
+/** First source file holding the marked element, the scripted codegen's target (src/, or app/ in framework mode). */
+const findTarget = (dir, target) => {
   const walk = (d) => {
+    if (!existsSync(d)) return null
     for (const e of readdirSync(d)) {
       const p = join(d, e)
-      if (statSync(p).isDirectory()) { const f = walk(p); if (f) return f } else if (/\.[jt]sx$/.test(e) && /<h1[\s>]/.test(readFileSync(p, 'utf8'))) return p
+      if (statSync(p).isDirectory()) { const f = walk(p); if (f) return f } else if (/\.[jt]sx$/.test(e) && target.mark.test(readFileSync(p, 'utf8'))) return p
     }
     return null
   }
-  return walk(join(dir, 'src'))
+  return walk(join(dir, 'src')) ?? walk(join(dir, 'app'))
 }
 
 const parent0 = realpathSync(mkdtempSync(join(realpathSync(tmpdir()), 's2c-onboard-')))
@@ -144,11 +159,12 @@ providers.setScriptedModel({
   onCall: (kind) => modelCalls.push({ kind, project: cur?.name }),
   interpret: (req) => {
     const ev = JSON.parse(req.brief)
-    const h1 = ev.elementMenu.find((e) => e.tag === 'h1')
+    const tag = (cur?.target ?? H1).tag
+    const el = ev.elementMenu.find((e) => e.tag === tag)
     return {
       reading: 'Make the main heading red.',
       actions: [{
-        kind: 'modify', elements: [h1?.id], destElement: null, position: null,
+        kind: 'modify', elements: [el?.id], destElement: null, position: null,
         instruction: 'Make the heading text red.', strokes: ev.strokes.map((s) => s.id), layer: null, depicts: null, fidelity: null,
       }],
       unclear: null,
@@ -156,20 +172,21 @@ providers.setScriptedModel({
   },
   codegen: ({ turn }) => {
     if (turn === 1 && cur?.dir) {
-      const f = findH1(cur.dir)
-      if (f) writeFileSync(f, readFileSync(f, 'utf8').replace(/<h1(?=[\s>])/, "<h1 style={{ color: 'red' }}"))
+      const t = cur.target ?? H1
+      const f = findTarget(cur.dir, t)
+      if (f) writeFileSync(f, readFileSync(f, 'utf8').replace(t.src, `<${t.tag} style={{ color: 'red' }}`))
     }
     return 'Done.'
   },
 })
 
-const browser = await chromium.launch()
+const browser = await chromium.launch().catch(() => chromium.launch({ executablePath: process.env.S2C_CHROMIUM ?? '/opt/pw-browsers/chromium' }))
 let nextPort = 5260
 const servers = []
 try {
   for (const P of PROJECTS) {
     if (ONLY && !ONLY.includes(P.name)) continue
-    cur = { name: P.name, fails: [], times: {} }
+    cur = { name: P.name, fails: [], times: {}, target: P.target ?? H1 }
     results.push(cur)
     console.log(`\n── ${P.name}`)
     const parent = join(parent0, P.name)
@@ -244,8 +261,9 @@ try {
 
       const status = () => page.evaluate(() => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '').catch(() => '')
       const strokes = () => page.evaluate(() => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('ink')?.querySelectorAll('path').length ?? 0).catch(() => 0)
-      const r = await page.evaluate(() => { const b = document.querySelector('h1')?.getBoundingClientRect(); return b ? { x: b.x, y: b.y, w: b.width, h: b.height } : null })
-      if (!check('there is a heading to mark', !!r)) throw new Error('no h1')
+      const sel = cur.target.sel
+      const r = await page.evaluate((q) => { const b = document.querySelector(q)?.getBoundingClientRect(); return b ? { x: b.x, y: b.y, w: b.width, h: b.height } : null }, sel)
+      if (!check(`there is a ${sel} to mark`, !!r)) throw new Error(`no ${sel}`)
       const cx = r.x + r.w / 2; const cy = r.y + r.h / 2; const rx = r.w / 2 + 14; const ry = r.h / 2 + 14
       const ring = Array.from({ length: 25 }, (_, i) => [cx + rx * Math.cos((i / 24) * 2 * Math.PI * 1.04), cy + ry * Math.sin((i / 24) * 2 * Math.PI * 1.04)])
       const tSketch = Date.now()
@@ -271,8 +289,8 @@ try {
       cur.last = seen.at(-1) ?? ''
       for (const s of seen) console.log(`      │ ${s}`)
       check('the run ends on ✓', /^✓ /.test(cur.last), cur.last)
-      const color = await page.evaluate(() => getComputedStyle(document.querySelector('h1')).color).catch(() => '')
-      check('the heading is red on the page', color === 'rgb(255, 0, 0)', color)
+      const color = await page.evaluate((q) => getComputedStyle(document.querySelector(q)).color, sel).catch(() => '')
+      check(`the ${sel} is red on the page`, color === 'rgb(255, 0, 0)', color)
       check('no page errors', pageErrors.length === 0, pageErrors.slice(0, 2).join(' | '))
       cur.toFirstTick = Date.now() - tInit
       await page.close()
