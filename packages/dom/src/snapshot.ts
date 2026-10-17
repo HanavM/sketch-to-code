@@ -52,10 +52,21 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
 
       // own text only: direct text children, so labels don't smear up the tree
       let text = ''
+      // the runs of own text either side of an element child (s2c-046):
+      // 'Edit <code>src/App.jsx</code> and save' is own text "Edit and save",
+      // words that are not next to each other on the screen
+      const runs: string[] = ['']
       for (const child of el.childNodes) {
-        if (child.nodeType === 3 /* TEXT_NODE */) text += child.textContent ?? ''
+        if (child.nodeType === 3 /* TEXT_NODE */) {
+          text += child.textContent ?? ''
+          runs[runs.length - 1] += child.textContent ?? ''
+        } else if (
+          // only a child with words of its own leaves a gap: a <br> or an icon doesn't
+          child.nodeType === 1 /* ELEMENT_NODE */ && (child.textContent ?? '').trim() && runs[runs.length - 1]!.trim()
+        ) runs.push('')
       }
       text = text.replace(/\s+/g, ' ').trim().slice(0, maxTextLen)
+      const textRuns = runs.map((r) => r.replace(/\s+/g, ' ').trim()).filter(Boolean)
 
       nodes.push({
         id: myId,
@@ -68,6 +79,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           h: rect.height,
         },
         text,
+        ...(textRuns.length > 1 ? { textRuns: textRuns.map((r) => r.slice(0, maxTextLen)) } : {}),
         classes: typeof el.className === 'string' ? el.className.split(/\s+/).filter(Boolean).slice(0, 24) : [],
         style: {
           display: cs.display,

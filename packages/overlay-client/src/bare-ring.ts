@@ -147,7 +147,10 @@ export function firstText(snap: DomSnapshot, node: DomNode): string | undefined 
 
 /** What to call a target in a sentence a non-coder reads. */
 export function targetName(n: DomNode, subtreeText?: string): string {
-  const text = (n.text || subtreeText || '').trim().replace(/\s+/g, ' ')
+  // an inline child between two runs of the text is marked, not closed up
+  // (s2c-046): "Edit … and save to test", not "Edit and save to test"
+  const own = n.text && n.textRuns && n.textRuns.length > 1 ? n.textRuns.join(' … ') : n.text
+  const text = (own || subtreeText || '').trim().replace(/\s+/g, ' ')
   if (text) return `"${text.length > 32 ? `${text.slice(0, 31)}…` : text}"`
   const kind: Record<string, string> = {
     button: 'button', a: 'link', img: 'image', input: 'field', textarea: 'field',

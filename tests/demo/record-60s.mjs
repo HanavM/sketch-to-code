@@ -213,6 +213,9 @@ try {
   // light DOM only: a `text=` locator also reads the bar, which quotes the line
   check('shot 2: the line is gone from the page', await page.evaluate(() => !document.body.innerText.includes('save to test')))
   check('shot 2: ends on a tick', /^✓/.test(s2.at(-1) ?? ''), s2.at(-1))
+  // s2c-046: it used to say "removed the text "Edit and save to test"", words
+  // that are not next to each other on the screen
+  check('shot 2: quotes the line with its gap marked', /removed the text "Edit … and save to test"/.test(s2.at(-1) ?? ''), s2.at(-1))
   await page.waitForTimeout(DWELL)
 
   // 3. green pen, ring the heading: no words

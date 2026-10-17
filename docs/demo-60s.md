@@ -36,7 +36,7 @@ Words typed: one, in shot 4. Everything else is the drawing alone.
 | # | time (measured) | What you see | Caption / voice-over |
 |---|---|---|---|
 | 1 | 0–7 s | The stock Vite + React starter, running. The drawing bar at the bottom: "drag to draw". | "This is a real app, running. No code editor open." |
-| 2 | 7–17 s | A quick zigzag over "Edit src/App.jsx and save to test HMR". About 2 s later the line is gone. Bar: "✓ Done: removed the text "Edit and save to test"." | "Scribble over it. It's gone, from the code too." |
+| 2 | 7–17 s | A quick zigzag over "Edit src/App.jsx and save to test HMR". About 2 s later the line is gone. Bar: "✓ Done: removed the text "Edit … and save to test"." | "Scribble over it. It's gone, from the code too." |
 | 3 | 17–31 s | Alt+P, pick green, a loose ring around "Get started". The heading turns green. Bar: "✓ Done: made the heading with "Get started" green." | "Circle it in green. No words." |
 | 4 | 31–42 s | A wobbly box under the button, type "testimonials", Enter. A "What people say" section with two quotes appears where the box was. Bar: "✓ Done: added "testimonials" where you drew it." | "A box where you want something, and one word for what." |
 | 5 | 42–47 s | Ctrl+Z. The section disappears; the green heading and the deleted line stay as they were. Bar: "↩ undid: added "testimonials" where you drew it". | "Wrong idea? One undo, and the files go back." |

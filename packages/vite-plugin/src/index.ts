@@ -12,7 +12,7 @@ import { bundleOverlayClient } from './overlay-bundle.js'
 import { findRootRoute, isReactRouterFramework, OVERLAY_LOADER } from './framework-entry.js'
 import { runsViewer } from './runs-viewer.js'
 import { superviseRun } from './run-supervisor.js'
-import { loadUndo, MAX_UNDO, runUndoLabel, saveUndo, type UndoEntry } from './undo-store.js'
+import { editLabel, loadUndo, MAX_UNDO, runUndoLabel, saveUndo, type UndoEntry } from './undo-store.js'
 import { createReadingStore, isReadingId, type ReadingReply } from './readings.js'
 
 /** A file under the app's `server/data/`, where generated routes keep records. */
@@ -472,7 +472,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             if (!verdict.ok) return sendJson(res, 200, { ok: false, reason: verdict.reason })
             const { cp, untracked } = beginEdit(m)
             const result = m.applyInstant(root, verdict.plan)
-            pushEdit(cp.sha, `instant ${result.name}`, untracked)
+            pushEdit(cp.sha, editLabel('instant', { name: result.name }), untracked)
             // a shape drawn onto the page is a component now, so it is filed
             // the same way an extract is; the overlay adds the picture, which
             // it can do here because this edit hot-reloads rather than navigates
@@ -501,7 +501,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const { cp, untracked } = beginEdit(m)
             const result = m.paintShape(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change, untracked)
+              pushEdit(cp.sha, editLabel('paint'), untracked)
             }
             sendJson(res, 200, result)
           })
@@ -524,7 +524,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const { cp, untracked } = beginEdit(m)
             const result = m.placeImage(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change, untracked)
+              pushEdit(cp.sha, editLabel('image'), untracked)
             }
             sendJson(res, result.ok ? 200 : 422, result)
           })
@@ -550,7 +550,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const { cp, untracked } = beginEdit(m)
             const result = m.extractComponent(root, { srcLocs: body.srcLocs, name: body.name })
-            if (result.ok) pushEdit(cp.sha, `extract ${result.name ?? 'component'}`, untracked)
+            if (result.ok) pushEdit(cp.sha, editLabel('extract', { name: result.name }), untracked)
             // Filed here rather than by the overlay: a successful extract
             // reloads the page, and a capture started in the browser loses its
             // JS context mid-flight. The picture comes later, from the panel's
@@ -675,7 +675,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const { cp, untracked } = beginEdit(m)
             const result = m.stubRoute(root, { path: body.path, kind: body.kind })
-            if (result.ok) pushEdit(cp.sha, result.change ?? 'created an endpoint', untracked)
+            if (result.ok) pushEdit(cp.sha, editLabel('endpoint'), untracked)
             sendJson(res, 200, result)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
@@ -695,7 +695,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const { cp, untracked } = beginEdit(m)
             const result = m.makeFormReal(root, { srcLoc: body.srcLoc, name: body.name })
-            if (result.ok) pushEdit(cp.sha, result.change ?? 'made a form real', untracked)
+            if (result.ok) pushEdit(cp.sha, editLabel('form'), untracked)
             sendJson(res, 200, result)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
@@ -709,7 +709,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const { cp, untracked } = beginEdit(m)
             const result = m.promoteToApi(root, { srcLoc: body.srcLoc, name: body.name })
-            if (result.ok) pushEdit(cp.sha, result.change ?? 'made data real', untracked)
+            if (result.ok) pushEdit(cp.sha, editLabel('data-real'), untracked)
             sendJson(res, 200, result)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
@@ -874,7 +874,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const out = m.placeEntry(root, { entry, at: body.at, where: body.where })
             if (out.ok) {
               m.bumpUsed(root, body.id)
-              pushEdit(cp.sha, `placed ${out.name ?? entry.name}`, untracked)
+              pushEdit(cp.sha, editLabel('place', { name: out.name ?? entry.name }), untracked)
             }
             sendJson(res, 200, out)
           })
@@ -1037,7 +1037,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const m = await import('@s2c/pipeline')
             const { cp, untracked } = beginEdit(m)
             const out = m.restoreVersion(root, body.id, { thumbnail: body.thumbnail })
-            if (out.ok) pushEdit(cp.sha, 'scrubbed back to an earlier version', untracked)
+            if (out.ok) pushEdit(cp.sha, editLabel('restore'), untracked)
             sendJson(res, 200, out)
           })
           .catch((err: unknown) => sendJson(res, 200, { ok: false, error: String(err) }))
@@ -1092,7 +1092,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const { cp, untracked } = beginEdit(m)
             const result = m.setPropValue(root, body)
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change, untracked)
+              pushEdit(cp.sha, editLabel('setting'), untracked)
             }
             sendJson(res, 200, result)
           })
@@ -1117,7 +1117,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const { cp, untracked } = beginEdit(m)
             const result = m.moveData(root, { from: body.from, to: body.to })
             if (result.ok && result.change && !result.change.startsWith('no change')) {
-              pushEdit(cp.sha, result.change, untracked)
+              pushEdit(cp.sha, editLabel('data-move'), untracked)
             }
             sendJson(res, 200, result)
           })
@@ -1326,13 +1326,13 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                 })
               }
               const change = changes.join(' · ')
-              pushEdit(cp.sha, change || (result.change ?? 'edit'), untracked)
+              pushEdit(cp.sha, editLabel(change ? 'responsive' : 'manipulate', { prop: body.prop }), untracked)
               return sendJson(res, 200, {
                 ...result, change: change || result.change, band, responsive: true, checkpoint: cp.sha,
               })
             }
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
-              pushEdit(cp.sha, result.change ?? 'edit', untracked)
+              pushEdit(cp.sha, editLabel('manipulate', { prop: body.prop }), untracked)
             }
             // shared templates answer 409 (choose a scope), other refusals 422
             sendJson(res, result.ok ? 200 : result.shared ? 409 : 422, { ...result, checkpoint: cp.sha })

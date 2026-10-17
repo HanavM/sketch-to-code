@@ -637,6 +637,8 @@ export interface GroundedTarget {
   srcLoc: string | null
   tag: string
   text: string
+  /** Own text split around inline children (DomNode.textRuns), when it is. */
+  textRuns?: string[]
   /** Own + descendant text, first 80 chars — identity for empty-own-text
    *  containers (a section's own text is usually ''). */
   subtreeText: string
@@ -752,6 +754,7 @@ export function groundInterpretation(
       srcLoc: sourced?.srcLoc ?? null,
       tag: n.tag,
       text: n.text,
+      ...(n.textRuns && n.textRuns.length > 1 ? { textRuns: n.textRuns } : {}),
       subtreeText: subtreeText(n),
       classes: n.classes,
       rect: n.rect,

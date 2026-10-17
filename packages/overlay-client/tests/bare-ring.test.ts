@@ -154,6 +154,11 @@ describe('the question', () => {
     expect(targetName(n('div'))).toBe('this part')
     expect(targetName(n('p', 'x'.repeat(50)))).toHaveLength(34)
   })
+  it('marks where an inline child sat instead of joining the words around it (s2c-046)', () => {
+    const p = { tag: 'p', text: 'Edit and save to test', textRuns: ['Edit', 'and save to test'] } as DomNode
+    expect(targetName(p)).toBe('"Edit … and save to test"')
+    expect(askSentence([targetName(p)])).toMatch(/^What should change about "Edit … and save to test"\?/)
+  })
   it('gives both answers and the way past it, on one line', () => {
     const s = askSentence(['"Get started"'])
     expect(s).toMatch(/^What should change about "Get started"\?/)

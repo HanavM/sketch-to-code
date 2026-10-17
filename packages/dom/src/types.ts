@@ -8,6 +8,13 @@ export interface DomNode {
   rect: { x: number; y: number; w: number; h: number }
   /** Own direct text (not descendants'), trimmed, capped. */
   text: string
+  /**
+   * Own text split where an element child sits between two runs of it, only
+   * when there is such a split (s2c-046): ['Edit', 'and save to test'] for
+   * 'Edit <code>src/App.jsx</code> and save to test'. For quoting it as it
+   * reads on the screen; `text` stays the identity everything else matches on.
+   */
+  textRuns?: string[]
   classes: string[]
   style: {
     display: string

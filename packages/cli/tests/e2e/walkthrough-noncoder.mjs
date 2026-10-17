@@ -31,6 +31,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chromium } from 'playwright'
+import { jargonIn } from './jargon.mjs'
 
 const REPO = realpathSync(new URL('../../../..', import.meta.url).pathname)
 const CLI = join(REPO, 'packages', 'cli', 'dist', 'bin.js')
@@ -48,24 +49,6 @@ const check = (label, ok, extra = '') => {
   if (!ok) failures++
 }
 
-/**
- * What a non-coder cannot be expected to read. Deliberately narrow: words like
- * "component" are judged in the doc by a person, this only catches the
- * mechanical leaks.
- */
-const JARGON = [
-  [/\bsrc\/|\.jsx?\b|\.tsx?\b/, 'a file path'],
-  [/\b[a-z]+\.[a-z]+:\d+:\d+/, 'a source location'],
-  [/\bError:|TypeError|ReferenceError|\bat \w+ \(/, 'an exception'],
-  [/\be\d{1,3}\b|\baction \d+\b|\bs\d+\b/, 'an internal id'],
-  [/\bgit\b|\bstash\b|\bcommit\b|\bcheckpoint\b/, 'git'],
-  [/\bHMR\b|\bAST\b|\bcodemod\b|\bDOM\b|\bsrcLoc\b|\bprops?\b/, 'internals'],
-  // s2c-030: the shapes the old progress lines took
-  [/^(safety|intent|rule|codemod|codegen|finish|candidate|verify|repair|done):/, 'a pipeline stage'],
-  [/\b(POST|GET|PUT)\b|\/api\/|\.json\b/, 'an HTTP route or data file'],
-  [/\bround \d|\(s\)|\bsnapshot/, 'developer narration'],
-]
-const jargonIn = (line) => JARGON.filter(([re]) => re.test(line)).map(([, what]) => what)
 
 // ── 1. the starter app ───────────────────────────────────────────────────────
 const parent = realpathSync(mkdtempSync(join(realpathSync(tmpdir()), 's2c-walk-')))

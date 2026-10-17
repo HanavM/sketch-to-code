@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { colourName, describeTarget, explainError, explainRun, isPlain, scrub, userWords, whyRefused } from '../src/explain.js'
+import { colourName, describeTarget, visibleQuote, explainError, explainRun, isPlain, scrub, userWords, whyRefused } from '../src/explain.js'
 import type { GroundedAction, GroundedTarget } from '../src/intent2.js'
 
 const T = (tag: string, text: string, srcLoc = 'src/App.tsx:42:7'): GroundedTarget => ({
@@ -249,5 +249,42 @@ describe('colourName / userWords', () => {
   it('joins several notes and drops trailing punctuation', () => {
     expect(userWords(['red', 'bigger.'])).toBe('red, bigger')
     expect(userWords([])).toBe('')
+  })
+})
+
+describe('visibleQuote / describeTarget (s2c-046): a quote never closes a gap', () => {
+  // the Vite starter: <p>Edit <code>src/App.jsx</code> and save to test <code>HMR</code></p>
+  const viteLine: GroundedTarget = {
+    ...T('p', 'Edit and save to test'),
+    textRuns: ['Edit', 'and save to test'],
+    // as intent2 builds it: own text first, then children, not in reading order
+    subtreeText: 'Edit and save to test HMR src/App.jsx',
+  }
+  it('marks where an inline child was left out, instead of joining the words around it', () => {
+    expect(visibleQuote(viteLine)).toBe('Edit … and save to test')
+    const ex = explainRun({ reading: 'remove that line', actions: [A('delete', [viteLine])], failures: [], files: ['src/App.jsx'] })
+    expect(ex.sentence).toBe('Done: removed the text "Edit … and save to test".')
+    expect(ex.sentence).not.toContain('"Edit and save')
+    expect(isPlain(ex.sentence)).toBe(true)
+  })
+  it('a developer-only word in the own text becomes "…", not a silent join', () => {
+    expect(visibleQuote({ text: 'Open src/main.tsx to start', subtreeText: 'Open src/main.tsx to start' })).toBe('Open … to start')
+    expect(visibleQuote({ text: 'Saved e12 ok', subtreeText: '' })).toBe('Saved … ok')
+  })
+  it('leaves ordinary elements exactly as before', () => {
+    // no split recorded (a child only at the end, an icon): the own text
+    expect(visibleQuote({ text: 'Buy', subtreeText: 'Buy now' })).toBe('Buy')
+    // a container with no own text uses everything inside it
+    expect(visibleQuote({ text: '', subtreeText: 'Pro plan $29/month' })).toBe('Pro plan $29/month')
+    expect(describeTarget(T('button', 'Sign up'))).toBe('the button with "Sign up"')
+  })
+  it('nothing but developer words: describes the element instead of quoting', () => {
+    expect(visibleQuote({ text: 'src/App.jsx', subtreeText: 'src/App.jsx' })).toBe('')
+    expect(describeTarget({ ...T('p', 'src/App.jsx') })).toBe('the text')
+  })
+  it('a long quote with a hole is cut cleanly, never ending on "… …"', () => {
+    const d = describeTarget({ ...T('p', 'Edit and save to test the whole page now please'), textRuns: ['Edit', 'and save to test the whole page now please'] })
+    expect(d).toMatch(/^the text "Edit … and save to test[^"]*…"$/)
+    expect(d).not.toMatch(/… …|……/)
   })
 })

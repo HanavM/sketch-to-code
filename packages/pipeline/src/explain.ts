@@ -53,10 +53,39 @@ const NOUN: Record<string, string> = {
 export function describeTarget(t: GroundedTarget | undefined): string {
   if (!t) return 'that part of the page'
   const noun = NOUN[t.tag.toLowerCase()] ?? 'part'
-  const words = scrub((t.text || t.subtreeText || '').replace(/\s+/g, ' ').trim())
+  const words = visibleQuote(t)
   if (!words) return `the ${noun}`
-  const cut = words.length > 28 ? `${words.slice(0, 26).replace(/\s+\S*$/, '')}…` : words
+  const cut = words.length > 28 ? `${words.slice(0, 26).replace(/\s+\S*$/, '').replace(/[\s…]+$/, '')}…` : words
   return `the ${noun} with "${cut}"`.replace(/^the text with /, 'the text ')
+}
+
+const norm = (s: string | undefined): string => (s ?? '').replace(/\s+/g, ' ').trim()
+
+/**
+ * The words to quote for an element, as they sit on the page (s2c-046). An
+ * element's own text skips its inline children, so the Vite starter's
+ * 'Edit <code>src/App.jsx</code> and save to test <code>HMR</code>' was quoted
+ * as "Edit and save to test": words that are not next to each other on the
+ * screen, reading as broken English. Now each place a child sat between two
+ * runs of the text (the snapshot's textRuns), and each word only a developer
+ * reads (a file path, an id), shows as "…", the way a person quotes with words
+ * missing: "Edit … and save to test". The child's own words are not pulled
+ * in: in a line like that one they are the code, which is why it was split.
+ * (subtreeText can't be used for this: it is not in reading order.)
+ */
+export function visibleQuote(t: Pick<GroundedTarget, 'text' | 'subtreeText' | 'textRuns'>): string {
+  const own = norm(t.text)
+  const laid: Array<string | null> = own && t.textRuns && t.textRuns.length > 1
+    ? t.textRuns.flatMap((r, i) => [...(i ? [null] : []), ...norm(r).split(' ').filter(Boolean)])
+    : (own || norm(t.subtreeText)).split(' ').filter(Boolean)
+  const out: string[] = []
+  for (const w of laid) {
+    const dev = w === null || scrub(w) !== w || !isPlain(w)
+    if (!dev) out.push(w)
+    else if (out.length && out[out.length - 1] !== '…') out.push('…')
+  }
+  while (out[out.length - 1] === '…') out.pop()
+  return out.join(' ')
 }
 
 /** A sketch inside a new screen's box, built on that screen (s2c-040). */
