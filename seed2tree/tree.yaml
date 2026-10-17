@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 47
-lock: {run: cloud-2026-10-17T1900Z, until: 2026-10-17T20:10:43Z}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1092,16 +1092,17 @@ nodes:
   why: "Found by s2c-045's recording: deleting the starter's 'Edit <code>src/App.jsx</code> and save to test <code>HMR</code>' says 'removed the text \"Edit and save to test\"' (scrub drops code words mid-quote, so it reads broken). Undo labels other than sketch runs (tweak, paint, endpoint, instant) were not audited and may still be developer text."
   done_when: "explain.ts quotes a line whose scrubbed text lost words by describing it instead (e.g. 'the line under the heading'), with unit tests; every pushEdit label in vite-plugin/src/index.ts is checked by a test against the walkthrough's JARGON list; record-60s shot 2 asserts the new sentence."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 2
   effort: 1
   confidence: 0.7
-  momentum: 0.5
+  momentum: 0.7
   depth: 1
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T19:15Z
   blocked_on: null
-  outputs: []
+  outputs: [08f4b55, packages/cli/tests/e2e/jargon.mjs]
   log:
   - "2026-10-17: filed by s2c-045. Small and real (it is on screen in the demo), not more than that."
+  - "2026-10-17: watered 1 -> done. Root cause was in the DOM snapshot, not explain.ts: own text skips inline children and subtreeText is not in reading order, so the hole was invisible. Snapshot now records textRuns; explain.ts + the ring question quote \"Edit … and save to test\"; record-60s shot 2 asserts it (red before the snapshot change, green after). Undo: editLabel(kind) for all 13 non-run pushEdit sites (they pushed engine strings like \"+ w-64 h-12\", \"fill: #111 → #ef4444\", \"instant PricingCard\"); old on-disk labels load as \"an earlier change\". Tested against the shared JARGON list + a source scan of every pushEdit. vitest 1188/1190 (same 2 env), tsc clean, demo + walkthrough green."
