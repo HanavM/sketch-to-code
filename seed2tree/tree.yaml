@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 39
-lock: null
+next_id: 40
+lock: {run: cloud-2026-10-17T0956Z, until: '2026-10-17T11:11:00Z'}
 
 nodes:
 - id: s2c-000
