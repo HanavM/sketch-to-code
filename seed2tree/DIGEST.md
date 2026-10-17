@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-17 13:25 UTC — sketch-to-code / s2c-042 Multi-stroke screen box — **done**: a box drawn as two Ls or four sides is still the screen
+Picked because: priority 2.36 (s2c-041 1.21; s2c-000 seed skipped: umbrella; s2c-008/013 local + blocked; s2c-035 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 5297d9c. `screenBox` now also takes up to 4 cited strokes that together outline a rectangle (≥85% of their ink on the outline, ≥85% of the outline inked, every side ≥60%). Two Ls, four gappy sides, an overshooting one-stroke box: found. Arrow + name, an L-shaped arrow, a bracket with the name written under its gap: refused. The first version accepted that last one, because the name filled the bare side. 6 unit tests.
+Result: live-navigate-contents gains phase 8 (box as two wobbly Ls): **red on the old code** (no retarget, form on the home page, ⚠ receipt), 3/3 green after. vitest 1139/1141 (same 2 env failures); `tsc -b` clean; live-navigate, walkthrough green; 0 tokens. momentum 0.5 → 0.7
+Found on the way: my first phase 8 drew the Ls end-to-start, and the pen's trackpad-hop rule merged them into one closed stroke. So the test passed on the old code and proved nothing. It's redrawn from the same corner now. Worth knowing: a fast end-to-start box was already handled by that bridge.
+Blunt: small, correct, and the 4th run on one gesture whose reader has never seen real ink. The cloud queue now holds just s2c-041 (react-router apps), and it's worth less than a single real reading. Not handled: an oval drawn in pieces.
+New branches: none. Adding more scripted-reading polish would be busywork.
+Pruned/done: s2c-042 done.
+**Needs you:** (1) s2c-013: write "spend the pilot in the cloud" in INBOX and the next run spends ~45 readings on your quota. It's the only thing that tells us whether any gesture works on real rough ink. (2) s2c-035: yes/no to cloning 5 public Vite+React repos read-only.
+
 ## 2026-10-17 12:25 UTC — sketch-to-code / s2c-040 Screen box contents — **done**: what you sketch inside the box now goes on the new screen, not the home page
 Picked because: priority 1.47 (s2c-041 1.22; s2c-000 seed 2.07 skipped: umbrella; s2c-008/013 local + blocked; s2c-035 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 5a5b8ca. After the navigate engine writes the screen, run2 moves every add whose ink is ≥80% inside the box (the largest closed stroke the navigate cites) into the screen's `<main>`, and tells codegen so in words. The navigate probe now counts what the open screen shows besides heading + Back, and that count is the add's check (the home page can't show it). Receipt: "made the link with "Reports" open a "Reports" screen and put what you drew in its box on the "Reports" screen."

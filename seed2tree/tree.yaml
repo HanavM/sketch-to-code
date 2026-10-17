@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 43
-lock: {run: cloud-2026-10-17T1256Z, until: "2026-10-17T14:11Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -981,16 +981,21 @@ nodes:
   why: "Fast, rough boxes are often 2-4 strokes (two Ls, four sides). screenBox only recognises one closed stroke, so a rough box falls back to the old behaviour and its contents land on the home page. SEED: if a user has to draw carefully, that's a bug."
   done_when: "unit tests: a box drawn as 2 strokes (two Ls), 4 separate sides, and an overshooting 1-stroke box are all found; an arrow plus a name never form a box. live-navigate-contents gains a phase with a 2-stroke box that passes the same checks."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 4
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T13:25Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - "5297d9c packages/pipeline/src/screen-contents.ts: screenBox also accepts 1-4 cited strokes outlining a rectangle (drawsRect: >=85% ink on outline, >=85% outline inked, every side >=60%)"
+  - "packages/pipeline/tests/screen-contents.test.ts: 6 tests (two Ls, four sides, overshoot, extra cited strokes, 3 negatives, retarget with a 2-stroke box)"
+  - "tests/e2e/live-navigate-contents.mjs phase 8 (box drawn as two Ls)"
+  - "docs/navigation.md: 'Which strokes are the box', 'Multi-stroke boxes'"
   log:
   - "2026-10-17: filed by s2c-040. Found by reading screenBox against SEED's 'rough sketches' rule, not by a failing run."
+  - "2026-10-17 (cloud): watering 1, commit 5297d9c. DONE. drawsRect over subsets (<=4) of the <=10 largest cited strokes; tolerance a tenth of the short side, 6-24 px; largest box wins, single closed stroke still accepted (ovals). Negatives: arrow+name, L-shaped arrow, U-bracket with the name written under the gap (first version accepted that one: the name filled the bare side, so every side now needs >=60%). e2e phase 8 red on the old screenBox (no retarget, form on home, warning receipt), 3/3 green after. First attempt drew the Ls end-to-start and the pen's trackpad-hop bridge merged them into one closed stroke, which made the phase hollow; redrawn from the same corner. vitest 1139/1141 (same 2 env failures); tsc -b clean; live-navigate + walkthrough green; 0 tokens. Not handled: an oval drawn in pieces; box sides split across two actions."
