@@ -23,6 +23,7 @@ const EMITTED: Array<[string, string?]> = [
   ['candidate', 'attempt 2/3: generating'],
   ['candidate', 'attempt 2/3: 71% faithful'],
   ['candidate', 'keeping attempt 2 (71%)'],
+  ['stopping', 'stopped by you; waiting for the agent to exit'],
   ['something-new', 'TypeError: x is undefined at foo (src/a.ts:1:2)'],
 ]
 
@@ -33,6 +34,9 @@ describe('plainStage', () => {
       expect(line, `${stage}: ${detail}`).toBeTruthy()
       expect(line!, `${stage}: ${detail}`).not.toMatch(JARGON)
     }
+  })
+  it('says a stop is under way, instead of "Working…" right after Esc (s2c-038)', () => {
+    expect(plainStage({ stage: 'stopping', detail: 'stopped by you; waiting for the agent to exit' })).toMatch(/^Stopping/)
   })
   it('never echoes the detail (model- or code-written text)', () => {
     const line = plainStage({ stage: 'intent', detail: 'Make the heading red' })

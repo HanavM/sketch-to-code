@@ -112,4 +112,29 @@ describe('SSE hub across a mid-run reload (s2c-037)', () => {
     expect(anon.events).toEqual(['done', 'ide-status'])
     await anon.close()
   })
+
+  it("tells a tab that reconnects mid-run that its run is still going, after what was held (s2c-038)", async () => {
+    let active: string | null = 'tab-A'
+    const hub = createSseHub(Date.now, (tab) =>
+      active != null && tab === active ? [{ event: 'running', data: { stage: 'verify', clientId: tab } }] : [])
+    const port = await serve(hub)
+    hub.send('resnapshot', { runId: 'r1', clientId: 'tab-A' }) // sent during the reload: held
+    const back = open(port, '?client=tab-A')
+    await back.ready
+    await tick(30)
+    // red before s2c-038: ['resnapshot'] — the page came back in its resting state
+    expect(back.events).toEqual(['resnapshot', 'running'])
+    const other = open(port, '?client=tab-B')
+    await other.ready
+    await tick(30)
+    expect(other.events).toEqual([]) // another tab's run is not this tab's
+    await back.close()
+    await other.close()
+    active = null
+    const after = open(port, '?client=tab-A')
+    await after.ready
+    await tick(30)
+    expect(after.events).toEqual([]) // the run is over: nothing to say
+    await after.close()
+  })
 })

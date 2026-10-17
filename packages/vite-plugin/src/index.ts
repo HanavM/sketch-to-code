@@ -111,6 +111,9 @@ export function setReadingHandler(h: ReadingHandler | null): void {
 let activeRun = false
 /** Stops the active run (run-supervisor.ts); null when none is running. */
 let stopActiveRun: ((reason: string) => boolean) | null = null
+/** The tab that started the active run, and the last stage it was told. */
+let activeRunTab: string | null = null
+let activeRunStage: { stage: string; detail?: string } | null = null
 // undo stack: checkpoint SHAs of committed edits, most recent last. Mirrored
 // to .sketch2code/undo.json so a dev-server restart doesn't empty it.
 const undoStack: UndoEntry[] = []
@@ -202,7 +205,14 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
   const instant = options.instant ?? true
   let root = process.cwd()
 
-  const sse: SseHub = createSseHub()
+  // s2c-038: a page that reloads mid-run (the run wrote a new module) comes
+  // back in its resting state, saying "drag to draw" while the run is still
+  // writing. Its stream tells it the run is still going, and how far it got.
+  const sse: SseHub = createSseHub(Date.now, (tab) =>
+    activeRun && tab != null && tab === activeRunTab
+      ? [{ event: 'running', data: { ...(activeRunStage ?? {}), clientId: tab } }]
+      : [],
+  )
   const pendingSnapshots = new Map<string, (snap: DomSnapshot) => void>()
   const pendingProbes = new Map<string, (obs: ProbeObservation) => void>()
 
@@ -1462,11 +1472,15 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .then((body) => {
             sendJson(res, 200, { ok: true })
             const clientId = body.clientId ?? null
+            activeRunTab = clientId
+            activeRunStage = null
             const ctx = {
               root,
               allowDirty,
-              emit: (event: string, data: unknown) =>
-                sse.send(event, { ...(data as object), clientId }),
+              emit: (event: string, data: unknown) => {
+                if (event === 'stage') activeRunStage = data as { stage: string; detail?: string }
+                sse.send(event, { ...(data as object), clientId })
+              },
               requestSnapshot: (runId: string) =>
                 new Promise<DomSnapshot>((resolve, reject) => {
                   const timer = setTimeout(() => {
@@ -1522,8 +1536,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const run = superviseRun(exec, {
               timeoutMs: runTimeoutMs,
               // the overlay is still in its running state; say why it's waiting
-              onStopping: (reason) =>
-                sse.send('stage', { stage: 'stopping', detail: `${reason}; waiting for the agent to exit`, clientId }),
+              onStopping: (reason) => {
+                activeRunStage = { stage: 'stopping', detail: `${reason}; waiting for the agent to exit` }
+                sse.send('stage', { ...activeRunStage, clientId })
+              },
             })
             stopActiveRun = run.stop
             // Everything below runs only after exec has RETURNED — never on the
@@ -1578,6 +1594,8 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               })
               .finally(() => {
                 stopActiveRun = null
+                activeRunTab = null
+                activeRunStage = null
                 activeRun = false
               })
           })

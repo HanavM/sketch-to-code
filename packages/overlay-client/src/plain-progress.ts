@@ -55,6 +55,10 @@ export function plainStage(d: StageEvent): string | null {
       const m = /round (\d+)/.exec(detail)
       return m ? `Not quite right yet. Fixing it (try ${m[1]})…` : 'Not quite right yet. Fixing it…'
     }
+    case 'stopping':
+      // the run is winding down after Esc (or its time limit); "Working…"
+      // here read as if the Esc had been ignored
+      return 'Stopping… waiting for the change in progress to stop (Esc again to stop waiting)'
     case 'done':
       return null
     default:

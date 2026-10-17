@@ -3885,7 +3885,7 @@ class Overlay {
         return
       }
       this.stopRequested = true
-      this.status('stopping… waiting for the agent to stop (Esc again to stop waiting)')
+      this.status(plainStage({ stage: 'stopping' })!)
       void (async () => {
         let stopping = false
         try {
@@ -11027,6 +11027,24 @@ class Overlay {
         this.statusEl.title = raw
       }
       if (this.mode === 'running') this.armWatchdog()
+    })
+    // s2c-038: this tab's run is still going. Sent only to a stream that has
+    // just opened, which in practice means the page reloaded mid-run (the run
+    // wrote a module the page never imported). Without it the reloaded page
+    // sat in its resting state saying "drag to draw" while files were still
+    // being written: read as finished, drawn on again, and answered with "a
+    // run is already in progress". Esc couldn't stop it either.
+    this.events.addEventListener('running', (e) => {
+      const d = JSON.parse((e as MessageEvent).data) as { stage?: string; detail?: string; clientId?: string }
+      if (d.clientId !== CLIENT_ID) return
+      if (this.mode !== 'running') this.setMode('running')
+      // a stop asked for before the reload still holds: the next Esc is the
+      // "stop waiting" one, not a second abort
+      if (d.stage === 'stopping') this.stopRequested = true
+      const plain = d.stage ? plainStage({ stage: d.stage, detail: d.detail }) : null
+      this.status(plain ?? 'Still making your change… (Esc stops it)')
+      if (d.stage) this.statusEl.title = rawStage({ stage: d.stage, detail: d.detail })
+      this.armWatchdog()
     })
     this.events.addEventListener('resnapshot', async (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { runId: string; clientId?: string }

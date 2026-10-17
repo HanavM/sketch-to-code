@@ -87,3 +87,17 @@ reading happened). 5 of 6 green; 1 still red.
 | live-saywhat | **was a product bug, not flake (s2c-037).** A write that adds a module full-reloads the page mid-run. The overlay's tab id was per page load, and the SSE hub sent only to open streams, so the page that came back ignored, or never got, its own run's `resnapshot`, probes and `done`. The server waited 15 s for a snapshot nobody was asked for, ended in "browser snapshot timed out" (SSE capture: `resnapshot` 440 ms after the reload, `error-event` 15 s later, both to the dead id), and the user saw the idle hint. Green runs were the ones where vite hot-patched instead of reloading. Phase 4 then showed a second bug: a refused save said "I didn't try the change out … because I couldn't find the form after the change" next to "Nothing was changed", and never said why. | tab id kept in sessionStorage (a duplicated tab takes a new one); the hub holds events for a tab with no open stream for 30 s and delivers them once on reconnect; refused actions say why in words (`whyRefused`) and aren't also "untested"; the test's busy check tolerates the reload | 8/8 green across two servers (was 0/3 on this container); old product + new test red 2/2 |
 
 Not touched: the 2 vitest env failures (init GitHub prompt, home-dir library).
+
+## s2c-038: live-reload-running (new, zero-token, 5199)
+
+After s2c-037 the reloaded page got its run's events, but it came back in its
+resting state: `mode draw`, bar "drag to draw · ⌘K for anything else", while
+the run was still writing. Esc did nothing to the run. The test makes that
+window deterministic: the serve run from live-saywhat, the page's
+`verify-snapshot` answer held, then `page.reload()` the way vite does it.
+Fix: the server remembers the active run's tab and last stage, and a stream
+that opens for that tab gets a `running` frame (after anything held); the
+overlay enters running mode on it. The `stopping` stage had no plain line and
+showed "Working…" right after Esc; it now says "Stopping…", and the Esc line
+uses the same sentence. Red on 7b870e4 (`draw` + idle hint), green 4/4 after;
+live-saywhat, live-auto, live-misread, live-keymap, walkthrough green.

@@ -37,7 +37,15 @@ function clientOf(url: string | undefined): string | null {
  * an open stream is never sent again, so a probe (which submits a form) can't
  * run twice.
  */
-export function createSseHub(now: () => number = Date.now): SseHub {
+export function createSseHub(
+  now: () => number = Date.now,
+  /**
+   * Frames for a stream that just opened, written to it alone after anything
+   * held for its tab (s2c-038). The reloaded page comes back with no idea a
+   * run is still going; this is where the server tells it.
+   */
+  onConnect?: (tab: string | null) => { event: string; data: unknown }[],
+): SseHub {
   const clients = new Set<ServerResponse>()
   const tabOf = new Map<ServerResponse, string | null>()
   const orphans = new Map<string, { at: number; frame: string }[]>()
@@ -80,6 +88,7 @@ export function createSseHub(now: () => number = Date.now): SseHub {
         orphans.delete(tab)
         for (const o of held) res.write(o.frame)
       }
+      for (const f of onConnect?.(tab) ?? []) res.write(`event: ${f.event}\ndata: ${JSON.stringify(f.data)}\n\n`)
       // forget the stream everywhere, so the next event to its tab is held
       const drop = () => {
         clients.delete(res)
