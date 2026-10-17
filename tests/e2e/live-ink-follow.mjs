@@ -11,6 +11,7 @@
  * is "the element's box changed", whatever moved it. No model calls.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 
 const APP = process.env.S2C_APP ?? 'http://localhost:5199/'
 const log = (...a) => console.log('[e2e-follow]', ...a)
@@ -34,7 +35,7 @@ const card = await page.evaluate(() => {
 log('card at', JSON.stringify(card))
 
 // a ring drawn around the card's contents
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 await page.mouse.move(card.x + 30, card.y + card.h / 2)
 await page.mouse.down()
 for (let i = 1; i <= 18; i++) {
@@ -43,6 +44,7 @@ for (let i = 1; i <= 18; i++) {
 }
 await page.mouse.up()
 await page.waitForTimeout(150)
+await assertInk(page, 1, 'the ring')
 
 const probe = () => page.evaluate(() => {
   const root = document.getElementById('s2c-overlay-host').shadowRoot

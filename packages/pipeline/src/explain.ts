@@ -64,8 +64,8 @@ const PHRASE: Record<string, (a: GroundedAction) => string> = {
   modify: (a) => `change ${describeTarget(a.targets[0])}`,
   move: (a) => `move ${describeTarget(a.targets[0])}`,
   swap: (a) => `swap ${describeTarget(a.targets[0])} and ${describeTarget(a.targets[1])}`,
-  add: (a) => (a.depicts ? `add the ${scrub(a.depicts)} you drew` : 'add what you drew'),
-  design: (a) => (a.depicts ? `add the ${scrub(a.depicts)} you drew` : 'add what you drew'),
+  add: (a) => (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
+  design: (a) => (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
   serve: (a) => `load ${describeTarget(a.targets[0])} from the server`,
   save: (a) => `make ${describeTarget(a.targets[0])} keep what people type`,
 }
@@ -184,9 +184,15 @@ function donePhrase(a: GroundedAction, words: string): string | undefined {
   }
   if ((a.kind === 'add' || a.kind === 'design') && words) {
     if (a.depicts && scrub(a.depicts).toLowerCase().includes(words.toLowerCase())) return past(base)
-    return a.depicts ? `added the ${scrub(a.depicts)} you drew ("${words}")` : `added "${words}" where you drew it`
+    return a.depicts ? `added the ${noArticle(a.depicts)} you drew ("${words}")` : `added "${words}" where you drew it`
   }
   return past(base)
+}
+
+
+/** "the" + a model's "a wavy ribbon" read as "the a wavy ribbon" (s2c-034). */
+function noArticle(d: string): string {
+  return scrub(d).replace(/^(?:a|an|the)\s+/i, '')
 }
 
 /** Parse `action N (kind): …` into the action index and the check kind. */

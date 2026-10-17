@@ -20,6 +20,7 @@
  * Set S2C_APP to point at a dev server on another port.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 
 const APP = process.env.S2C_APP ?? 'http://localhost:5199/'
 const log = (...a) => console.log('[e2e-fidelity]', ...a)
@@ -294,7 +295,7 @@ page.on('request', (req) => {
   }
 })
 // a real stroke: a 2-point drag is discarded as noise, so draw a proper one
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 await page.mouse.move(420, 520)
 await page.mouse.down()
 for (let i = 1; i <= 10; i++) await page.mouse.move(420 + i * 16, 520 + (i % 2 ? 12 : -8), { steps: 2 })

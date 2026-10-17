@@ -172,6 +172,15 @@ describe('the Done sentence says what changed', () => {
       .toBe('Done: added the testimonials section you drew.')
   })
 
+  it('a recognised drawing that starts with an article is not "the a …" (s2c-034)', () => {
+    expect(done(A('design', [], { depicts: 'a wavy decorative ribbon' })).sentence)
+      .toBe('Done: added the wavy decorative ribbon you drew.')
+    expect(done(A('add', [], { depicts: 'An image', notes: ['logo'] })).sentence)
+      .toBe('Done: added the image you drew ("logo").')
+    // a word that merely starts with the letters stays whole
+    expect(done(A('add', [], { depicts: 'avatar' })).sentence).toBe('Done: added the avatar you drew.')
+  })
+
   it('a note no action claimed belongs to the only action', () => {
     expect(done(A('add', []), { runNotes: ['testimonials'] }).sentence).toBe('Done: added "testimonials" where you drew it.')
     // two actions: nobody can say which one it meant, so it is not guessed

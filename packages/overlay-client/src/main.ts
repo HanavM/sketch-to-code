@@ -4280,6 +4280,11 @@ class Overlay {
     this.fidelityPanel.classList.toggle('on', open)
     this.fidelityBtn.classList.toggle('on', open)
     this.fidelityBtn.setAttribute('aria-expanded', String(open))
+    // the button owns the open panel, so it stays on the bar while it is open:
+    // otherwise the first non-default pick un-tucks it, the centred bar widens
+    // by its width, and the anchored panel slides out from under the cursor
+    // mid-choice (s2c-034: live-fill/live-style, +155 px, 77 px left)
+    this.syncBar()
     // after the class flip: a display:none panel measures 0 and would clamp
     // to nonsense
     if (open) this.layoutFidelityPanel()
@@ -10724,7 +10729,7 @@ class Overlay {
       [this.shadow.getElementById('modes'), this.runMode !== 'auto' && this.surface === 'design'],
       // a colour you chose is a colour the next stroke will ask for
       [this.penBtn, this.pen !== null],
-      [this.fidelityBtn, !fidelityIsDefault],
+      [this.fidelityBtn, !fidelityIsDefault || this.fidelityOpen],
       // auto acts on its own, which is the expectation; the other two change it
       [this.autoBtn, this.autoMode !== 'auto'],
     ]

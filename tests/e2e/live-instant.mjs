@@ -8,6 +8,7 @@
  * are stubbed: this path must not need them.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 import { execSync } from 'node:child_process'
 
 const APP = process.env.S2C_APP ?? 'http://localhost:5199/'
@@ -85,7 +86,7 @@ await page.screenshot({ path: '/tmp/instant.png', clip: { x: cx - 120, y: cy - 1
 // ---- the gate: a mark drawn ON an element must NOT be etched ----
 execSync('git checkout -- examples/demo-app/src && rm -f examples/demo-app/src/components/SketchShape.tsx', { cwd: process.cwd() })
 await page.goto(APP, { waitUntil: 'networkidle' })
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 const card = await page.evaluate(() => {
   const el = [...document.querySelectorAll('[data-s2c*="StatCards"]')]
     .filter((e) => e.textContent.includes('Active users') && e.getBoundingClientRect().height >= 60)[0]
@@ -95,6 +96,8 @@ const card = await page.evaluate(() => {
 const zig = []
 for (let i = 0; i <= 14; i++) zig.push([card.x + 20 + i * ((card.w - 40) / 14), card.y + card.h / 2 + (i % 2 ? 20 : -20)])
 await draw(zig)
+// without this the gate check passed with no stroke at all: 0 etched of nothing
+await assertInk(page, 1, 'the scratch-out')
 await page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('run').click())
 await page.waitForTimeout(2500)
 const etched = await page.evaluate(() => document.querySelectorAll('.s2c-etch').length)

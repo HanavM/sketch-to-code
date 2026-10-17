@@ -1,9 +1,13 @@
 /**
  * Ink-tracking check: the drawn stroke must stay locked to the element it was
  * drawn over, through scroll and browser zoom, with zero tolerance.
+ *
+ * PAID: it presses ▶ Run with /@s2c/run un-stubbed, so it spends one real
+ * reading and one real edit (~3 min). Found by the s2c-034 sweep.
  */
 import { chromium } from 'playwright'
 import { inflateSync } from 'node:zlib'
+import { ensureDraw } from './lib/pen.mjs'
 
 /**
  * Minimal PNG reader (8-bit RGB/RGBA, non-interlaced) — enough to count ink
@@ -82,7 +86,7 @@ const card = await page.evaluate(() => {
   return { x: r.left, y: r.top, w: r.width, h: r.height }
 })
 
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page)
 await page.mouse.move(card.x + 20, card.y + 20)
 await page.mouse.down()
 for (let i = 1; i <= 10; i++) {

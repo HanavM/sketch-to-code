@@ -5,6 +5,7 @@
  * pixels and locate the source itself. Compares token cost vs structured runs.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 import { execSync } from 'node:child_process'
 
 const APP = 'http://localhost:5199/'
@@ -31,7 +32,7 @@ for (let i = 0; i < 20; i++) {
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('mode-screenshot').click()
 })
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 
 // find the Revenue card (smallest stamped element ≥60px tall containing the label)
 const card = await page.evaluate(() => {

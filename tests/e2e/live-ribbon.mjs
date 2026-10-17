@@ -6,6 +6,7 @@
  * placed/sized where it was drawn (geometric placement verified server-side).
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 import { execSync } from 'node:child_process'
 import { readFileSync, readdirSync } from 'node:fs'
 
@@ -34,7 +35,7 @@ log('card band:', JSON.stringify(band))
 await page.evaluate(() => {
   document.getElementById('s2c-overlay-host').shadowRoot.getElementById('mode-design').click()
 })
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 
 // one long wavy ribbon across the whole band
 const pts = []

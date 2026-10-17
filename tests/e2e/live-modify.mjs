@@ -5,6 +5,7 @@
  * verify. Expects the demo dev server on 5199.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 import { readFileSync } from 'node:fs'
 
 const APP = 'http://localhost:5199/'
@@ -34,7 +35,7 @@ const btn = await page.evaluate(() => {
 })
 log('button:', JSON.stringify(btn))
 
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 
 async function draw(points) {
   await page.mouse.move(points[0][0], points[0][1])

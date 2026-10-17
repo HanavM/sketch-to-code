@@ -5,6 +5,7 @@
  * in source and DOM, with nothing deleted.
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 
 const APP = 'http://localhost:5199/'
 const log = (...a) => console.log('[e2e-swap]', ...a)
@@ -35,7 +36,7 @@ const cards = await page.evaluate(() => {
 })
 log('cards:', JSON.stringify(cards))
 
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 async function draw(points, pause = 300) {
   await page.mouse.move(points[0][0], points[0][1])
   await page.mouse.down()

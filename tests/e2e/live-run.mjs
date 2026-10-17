@@ -7,6 +7,7 @@
  *   node tests/e2e/live-run.mjs [--gesture=scribble|circle-modify]
  */
 import { chromium } from 'playwright'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 
@@ -49,7 +50,7 @@ const card = await page.evaluate(() => {
 log('target card:', JSON.stringify(card))
 
 // enter draw mode
-await page.keyboard.press('Alt+KeyD')
+await ensureDraw(page) // the pen opens ON: a bare Alt+D paused it (s2c-034)
 
 async function drawPath(points) {
   await page.mouse.move(points[0][0], points[0][1])
