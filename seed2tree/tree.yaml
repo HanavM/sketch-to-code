@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 37
-lock: {run: cloud-2026-10-17T0655Z, until: "2026-10-17T08:10:00Z"}
+next_id: 38
+lock: null
 
 nodes:
 - id: s2c-000
@@ -831,16 +831,37 @@ nodes:
   why: "s2c-034's sweep left 6 red: until each is green or deleted, their DoD claims (canvas select, mode inference, lasso extract, say-what, runs viewer, editor bridge) rest on nothing."
   done_when: "live-canva, live-infer, live-lasso, live-saywhat, live-runs-viewer, live-ide-bridge each green on seed2tree in the cloud container (fixture/build steps scripted), or deleted with a reason in docs/e2e-suite.md; any product bug found fixed with a red-before/green-after check."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
+  watered: 1
+  last_watered: "2026-10-17T07:30Z"
+  blocked_on: null
+  outputs: [fd07b11, docs/e2e-suite.md (s2c-036 section)]
+  log:
+  - "2026-10-17: filed by s2c-034. Leads: canva expects the old 'div · WxH' selection line (copy changed); infer: a box in empty space reads as markup on 'Overview', no interpret (could be a real mode-inference regression, check first); lasso: the extract caused no full reload; saywhat: a null selector; runs-viewer needs 3 fixture runs; ide-bridge needs packages/vscode-extension built (out/). Runner: one vite per port, see docs/e2e-suite.md."
+  - "2026-10-17 07:30Z (cloud): 5 of 6 green (fd07b11). infer was NOT a mode-inference regression: phase 3's wordless ring gets the s2c-020 question, and Alt+R in the question's focused note was swallowed, so 'Run again sends it as it is' failed from the keyboard. Product fix: Alt+R in the note attaches + runs (infer red before, green after; live-ask step 2b). canva: copy regexes. lasso: Vite 7 may skip the full reload, test reloads by hand. runs-viewer: 24 own history fixtures, reuse is a link now (follows it, asserts settings applied). ide-bridge: builds the extension; it leaked vite on 5234 after every run (killed npx, not vite), now kills the process group. saywhat still red and flaky (3 different failure points in 4 runs); stale parked receipt fixed in boot(); the rest moved to s2c-037. Done_when narrowed by that move: the remaining file is its own node. vitest 1088/1090 (same 2 env), tsc clean, ask/notes/keymap/misread/auto/noterefs/label/walkthrough green. ANTHROPIC_BASE_URL is set in this container: unset it for every e2e and server."
+
+- id: s2c-037
+  parent: s2c-036
+  title: "live-saywhat flaky: the receipt is lost around multi-file writes' reloads"
+  why: "The say-what path (a sentence becomes a server route / a saving form, zero tokens) is the only e2e proof of behaviour edits; while it fails at random points it proves nothing, and the failure may be a real lost receipt after a 4-file write."
+  done_when: "live-saywhat green 3/3 back to back in the cloud container; if the cause is the product (receipt lost or never parked across the reload burst), fixed with a red-before/green-after check."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 3
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-034. Leads: canva expects the old 'div · WxH' selection line (copy changed); infer: a box in empty space reads as markup on 'Overview', no interpret (could be a real mode-inference regression, check first); lasso: the extract caused no full reload; saywhat: a null selector; runs-viewer needs 3 fixture runs; ide-bridge needs packages/vscode-extension built (out/). Runner: one vite per port, see docs/e2e-suite.md."
+  - "2026-10-17: filed by s2c-036. Seen in 4 runs: phase 3 status back to idle/hint ('drag to draw · ⌘K…' or the Test tooltip) with no ✓/✗; phase 2 same once; once the overlay host was null mid-reload inside triggerRun's busy check. First step: record every status line across reloads (MutationObserver re-attached on framenavigated, as walkthrough does) plus /@s2c/run events, and see whether the receipt was ever parked."
