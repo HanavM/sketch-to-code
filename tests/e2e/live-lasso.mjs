@@ -291,8 +291,23 @@ try {
   // The reload is the point of this block: with none, nothing above proved the
   // receipt survives one. (It can't be missed by timing: phase 3 waits 2.5 s.)
   const extractReloads = reloadsSeen - navsBeforeExtract
-  if (extractReloads < 1) throw new Error('ASSERT: the extract caused no reload — the survival checks proved nothing')
   log('reloads caused by the extract:', extractReloads)
+  if (extractReloads < 1) {
+    // Vite 7 hot-swaps Navbar with its new import and never full-reloads, so on
+    // today's demo app the extract causes no reload and the checks above only
+    // prove HMR. The product still parks the receipt for the reload an older
+    // Vite (or another file layout) does cause, and a user can always press
+    // refresh, so cause the reload here and hold the same two promises.
+    await page.reload({ waitUntil: 'networkidle' })
+    await settled(() => page.waitForFunction(() => globalThis.__S2C_DEBUG__ != null, { timeout: 10000 }))
+    await page.waitForTimeout(500)
+    const m2 = await settled(() =>
+      page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode))
+    const s2 = await status()
+    if (m2 !== 'tweak') throw new Error(`ASSERT: a reload after the extract dropped tweak mode (${m2})`)
+    if (!s2.startsWith('✓') || !/NavLinks/.test(s2)) throw new Error(`ASSERT: the receipt did not survive a reload: ${s2}`)
+    log('no reload from vite, so reloaded by hand: still tweak, receipt still', s2.slice(0, 40) + '…')
+  }
   log('after the reload: mode', modeAfter, '· selection', JSON.stringify(after.lasso), after.sel,
     '· status still:', after.status.slice(0, 48) + '…')
 

@@ -25,7 +25,8 @@
  * Starts and kills its own dev server on port 5234.
  * Run FROM THE REPO ROOT:  node tests/e2e/live-ide-bridge.mjs
  */
-import { spawn } from 'node:child_process'
+import { execFileSync, spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { chromium } from 'playwright'
 
@@ -61,10 +62,19 @@ let vite
 let browser
 try {
   // ── boot a real dev server ───────────────────────────────────────────────
+  // A server already on the port is a leftover from an earlier run, and
+  // talking to it (its own boot token, its own editor list) fails phase 6 in a
+  // way that looks like a bridge bug. Say what it is instead.
+  const stale = await fetch(`${BASE}/@s2c/ping`).then((r) => r.ok, () => false)
+  if (stale) throw new Error(`port ${PORT} already has a dev server (a leftover run?): kill it first`)
+  // detached = its own process group, so the finally below can kill vite and
+  // not just the npx wrapper. Killing npx alone left vite on the port after
+  // EVERY run, green ones included, and the next run failed (s2c-036).
   vite = spawn('npx', ['vite', '--port', String(PORT)], {
     cwd: APP_DIR,
     stdio: ['ignore', 'pipe', 'pipe'],
     env: process.env,
+    detached: true,
   })
   vite.stdout.on('data', (d) => process.env.S2C_VERBOSE && process.stdout.write(`[vite] ${d}`))
   vite.stderr.on('data', (d) => process.stdout.write(`[vite!] ${d}`))
@@ -121,6 +131,12 @@ try {
   )
 
   // ── 3. attach the editor, using the extension's own compiled client ─────
+  // The extension's out/ is gitignored and the root `tsc -b` doesn't build it,
+  // so a fresh clone had nothing to require (s2c-036). Build it when it isn't
+  // there; it's one tsc call, a few seconds, and it's the code that ships.
+  if (!existsSync(`${REPO_ROOT}packages/vscode-extension/out/client.js`)) {
+    execFileSync('npm', ['run', 'build', '-w', 'packages/vscode-extension'], { cwd: REPO_ROOT, stdio: 'inherit' })
+  }
   const { IdeBridgeClient } = require(`${REPO_ROOT}packages/vscode-extension/out/client.js`)
   const { createNodeTransport } = require(`${REPO_ROOT}packages/vscode-extension/out/node-transport.js`)
   const reveals = []
@@ -239,9 +255,10 @@ try {
 } finally {
   await browser?.close().catch(() => {})
   if (vite) {
-    vite.kill('SIGTERM')
-    await sleep(300)
-    if (!vite.killed) vite.kill('SIGKILL')
+    const group = (sig) => { try { process.kill(-vite.pid, sig) } catch { /* already gone */ } }
+    group('SIGTERM')
+    await sleep(500)
+    group('SIGKILL')
   }
 }
 

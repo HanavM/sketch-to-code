@@ -249,6 +249,12 @@ async function sayAtNaming(at, text, also) {
 }
 
 async function boot() {
+  // The overlay parks each receipt in sessionStorage for 20 s so it survives
+  // the reload a write causes, and re-shows it on every load inside that
+  // window. Without this, the next phase's runReceipt() matched the LAST
+  // phase's "✓ Done" the moment the page opened and never waited for its own
+  // (s2c-036: phase 2 "passed" on phase 1's sentence).
+  await page.evaluate(() => sessionStorage.clear()).catch(() => {})
   restore()
   await page.goto(APP, { waitUntil: 'networkidle' })
   await page.waitForFunction(() => window.__S2C_DEBUG__ != null, { timeout: 15000 })

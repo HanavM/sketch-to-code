@@ -2842,6 +2842,15 @@ class Overlay {
       } else if (e.key === 'Escape') {
         e.preventDefault()
         this.closeNote('note cancelled')
+      } else if (altBind('KeyR', 'r')(e)) {
+        // The bare-ring question opens this field with focus and says "▶ Run
+        // again sends it as it is". Swallowed here, Alt+R did nothing (and
+        // typed "®" on a Mac), so a keyboard user could not do what the
+        // sentence told them. Alt+R keeps its meaning: whatever is typed is
+        // attached (blank is discarded), then the sketch runs.
+        e.preventDefault()
+        this.commitNote()
+        if (!this.runBtn.disabled) void this.run()
       }
     })
     // deleting a token out of the sentence un-references its element, and the

@@ -92,7 +92,7 @@ async function selectCard(c) {
   await page.waitForTimeout(150)
   const st = await status()
   log('selected:', st)
-  if (!/^div · \d+×\d+/.test(st)) throw new Error(`card selection failed: ${st}`)
+  if (!/^picked up the /.test(st)) throw new Error(`card selection failed: ${st}`)
   return st
 }
 
@@ -114,7 +114,7 @@ let cards = await cardRects()
 let c = cards[0]
 {
   const st = await selectCard(c)
-  if (!/3 linked/.test(st)) throw new Error(`ASSERT: expected "3 linked" in selection status: ${st}`)
+  if (!/appears 3 times/.test(st)) throw new Error(`ASSERT: expected "appears 3 times" in selection status: ${st}`)
   const linkedOutlines = (await edgePainted(cards[1])) && (await edgePainted(cards[2]))
   log('phase 1 — sibling instances outlined:', linkedOutlines)
   if (!linkedOutlines) throw new Error('ASSERT: linked instances not outlined on select')
@@ -362,7 +362,7 @@ await page.waitForTimeout(150)
 {
   const st = await status()
   log('after shift+click:', st)
-  if (!/set of 2/.test(st)) throw new Error(`ASSERT: shift+click did not grow the set: ${st}`)
+  if (!/2 picked up together/.test(st)) throw new Error(`ASSERT: shift+click did not grow the set: ${st}`)
 }
 await page.mouse.move(ws.cx, ws.cy)
 await page.mouse.down()

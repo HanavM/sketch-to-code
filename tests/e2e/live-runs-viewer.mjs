@@ -6,7 +6,8 @@
  *  - GET /@s2c/runs.json returns the documented summary shape, newest-first
  *  - GET /@s2c/runs/<id>/settings.json returns {fidelity, notes, mode}
  *  - the page lists runs with ink thumbnails that actually paint
- *  - the per-run "Reuse settings" control yields exactly the settings payload
+ *  - the per-run "Reuse settings" link carries exactly the settings payload,
+ *    and following it applies that run's settings in the app
  *  - model-written text is escaped: a <script> in a run's `reading` renders
  *    as text and does not execute
  *
@@ -16,7 +17,7 @@ import { chromium } from 'playwright'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const BASE = 'http://localhost:5203'
+const BASE = (process.env.S2C_APP ?? 'http://localhost:5203/').replace(/\/$/, '')
 const RUNS = new URL('../../examples/demo-app/.sketch2code/runs/', import.meta.url).pathname
 const log = (...a) => console.log('[e2e]', ...a)
 const ok = (cond, msg) => {
@@ -57,11 +58,44 @@ const COMP_ID = 'run-1799999999997-comp'
 mkdirSync(join(RUNS, COMP_ID), { recursive: true })
 writeFileSync(join(RUNS, COMP_ID, 'verify-1.json'),
   JSON.stringify([{ kind: 'composition', index: 0, score: 0.71, flaws: ['traced'], notes: [] }]))
-const FIXTURES = [dir, join(RUNS, BAD_ID), join(RUNS, COMP_ID)]
+// ── a run history, so the page has something to list on a fresh clone ──────
+// The checks below were written against the owner's Mac, which has 40+ real
+// bundles. A fresh checkout (the cloud container, CI) has none, and every
+// "> 20 thumbnails" / "a verified run exists" check failed for that reason
+// alone (s2c-036). These 24 are shaped like real bundles: an evidence.png that
+// decodes, a checkpoint, a two-action verify, notes on some, fidelity on some
+// and none on the rest (the pre-fidelity case).
+const PNG = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAFklEQVR4nGNk+M/wn4EIwDiqkL4KAX/zBf3uXVy5AAAAAElFTkSuQmCC',
+  'base64')
+const HISTORY = []
+for (let i = 0; i < 24; i++) {
+  const id = `run-17999999990${String(i).padStart(2, '0')}-hist`
+  const d = join(RUNS, id)
+  mkdirSync(d, { recursive: true })
+  writeFileSync(join(d, 'evidence.png'), PNG)
+  writeFileSync(join(d, 'result.json'), JSON.stringify({
+    engine: 'model',
+    mode: i % 3 === 0 ? 'design' : 'gesture',
+    checkpoint: `${String(i).padStart(2, '0')}c0ffee1234567890abcdef`,
+    changedFiles: ['src/components/StatCards.tsx'],
+    reading: `history fixture ${i}`,
+    tokens: { input: 100 + i, cacheRead: 0, output: 10 },
+    ...(i % 2 === 0
+      ? { fidelity: { resemblance: 0.5, keep: { asymmetry: true, rhythm: false, proportions: true, placement: true }, fill: 'realized', palette: 'sketch' } }
+      : {}),
+  }))
+  if (i % 4 === 0) writeFileSync(join(d, 'notes.json'), JSON.stringify([{ id: 'n0', text: `make it bigger ${i}`, scope: 'run' }]))
+  writeFileSync(join(d, 'verify-1.json'), JSON.stringify([
+    { kind: 'modify', index: 0, verdict: { satisfied: true } },
+    { kind: 'add', index: 1, verdict: { satisfied: i % 5 !== 0 } },
+  ]))
+  HISTORY.push(d)
+}
+const FIXTURES = [dir, join(RUNS, BAD_ID), join(RUNS, COMP_ID), ...HISTORY]
 
 const browser = await chromium.launch()
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 } })
-await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: BASE })
 const page = await ctx.newPage()
 const pageErrors = []
 page.on('pageerror', (e) => pageErrors.push(String(e)))
@@ -71,7 +105,8 @@ try {
   const listRes = await page.request.get(`${BASE}/@s2c/runs.json`)
   ok(listRes.status() === 200, 'GET /@s2c/runs.json → 200')
   const runs = await listRes.json()
-  ok(Array.isArray(runs) && runs.length > 40, `runs.json is an array of ${runs.length} runs`)
+  // the 3 fixtures above, plus whatever history this checkout has (the owner's Mac: 40+, a fresh clone: none)
+  ok(Array.isArray(runs) && runs.length >= FIXTURES.length, `runs.json is an array of ${runs.length} runs`)
 
   const KEYS = ['id', 'at', 'mode', 'reading', 'summaryScore', 'tokens', 'changedFiles',
     'fidelity', 'notes', 'codemod', 'candidates']
@@ -177,17 +212,28 @@ try {
 
   // ── the reuse control ────────────────────────────────────────────────────
   const card = page.locator(`article.run[data-run="${withFidelity.id}"]`)
-  const btn = card.locator('button.reuse')
+  // Reuse is a link since d13d837: the app reads ?s2c-reuse=<id> on boot and
+  // applies that run's settings, so there is no clipboard round trip to test.
+  const btn = card.locator('a.reuse')
   const payloadAttr = await btn.getAttribute('data-payload')
   ok(JSON.stringify(JSON.parse(payloadAttr)) === JSON.stringify(settings),
-    'data-payload on the reuse button is byte-identical to settings.json')
+    'data-payload on the reuse link is byte-identical to settings.json')
   ok(await btn.getAttribute('data-settings-url') === `/@s2c/runs/${withFidelity.id}/settings.json`,
-    'reuse button carries the settings endpoint url')
+    'reuse link carries the settings endpoint url')
+  ok(await btn.getAttribute('href') === `/?s2c-reuse=${encodeURIComponent(withFidelity.id)}`,
+    'reuse link points the app at this run')
+  // follow it, then come back for the escaping checks
   await btn.click()
-  await page.waitForTimeout(250)
-  const clip = await page.evaluate(() => navigator.clipboard.readText())
-  ok(JSON.stringify(JSON.parse(clip)) === JSON.stringify(settings), 'clicking Reuse settings copies the payload')
-  ok((await card.locator('.status').textContent()).includes('copied'), 'the control reports what it did')
+  await page.waitForFunction(() => {
+    const h = document.getElementById('s2c-overlay-host')
+    return /^settings from /.test(h?.shadowRoot?.getElementById('status')?.textContent ?? '')
+  }, null, { timeout: 15000 })
+  const applied = await page.evaluate(() =>
+    document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent)
+  ok(applied.includes(withFidelity.id) && applied.includes('50%'),
+    `following Reuse applies that run's settings in the app: "${applied.slice(0, 70)}"`)
+  ok(!new URL(page.url()).searchParams.has('s2c-reuse'), 'the app drops ?s2c-reuse once applied (a reload does not re-apply)')
+  await page.goto(`${BASE}/@s2c/runs`, { waitUntil: 'networkidle' })
 
   // ── escaping ─────────────────────────────────────────────────────────────
   const xssCard = page.locator(`article.run[data-run="${XSS_ID}"]`)

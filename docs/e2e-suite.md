@@ -25,7 +25,7 @@ the dev server in this container could reach a model. Its header now says PAID.
 | result | files |
 |---|---|
 | green | codegen-private-state, live-api, live-ask, live-auto, live-commands, live-data, live-dock, live-endpoint, live-fill\*, live-form, live-history, live-hud, live-ide-overlay, live-image, live-ink-follow\*, live-instant\*, live-keymap, live-label, live-library, live-libsearch, live-misread, live-noterefs, live-notes, live-paint, live-pen, live-preview, live-probe-click, live-probe, live-props, live-reload-reading, live-responsive, live-reuse, live-rules, live-style\*, live-surface, live-tweak; cli: walkthrough-noncoder, sketch-no-install |
-| red, filed as s2c-036 | live-canva (expects the old `div · W×H` selection line; the bar now says "picked up the box …"), live-infer (a box drawn in empty space reads as markup on "Overview": no interpret fires), live-lasso (the extract caused no full reload, so its survival checks prove nothing), live-saywhat (a selector returns null), live-runs-viewer (expects 3 fixture runs; this container has none), live-ide-bridge (needs `packages/vscode-extension/out`, which `tsc -b` doesn't build) |
+| red, filed as s2c-036 (5 of 6 green since, see below) | live-canva (expects the old `div · W×H` selection line; the bar now says "picked up the box …"), live-infer (a box drawn in empty space reads as markup on "Overview": no interpret fires), live-lasso (the extract caused no full reload, so its survival checks prove nothing), live-saywhat (a selector returns null), live-runs-viewer (expects 3 fixture runs; this container has none), live-ide-bridge (needs `packages/vscode-extension/out`, which `tsc -b` doesn't build) |
 | not run this sweep | init-real-project, onboard-real-projects (green 2 h earlier in s2c-005, no code they touch changed) |
 
 \* red, or hollow, before this change. See below.
@@ -70,3 +70,20 @@ Red before (both files, same numbers), green after.
 - The Done sentence read "added the a wavy decorative ribbon …" in the one real
   run: the s2c-032 phrasing doubled an article when the model's description
   started with "a". Fixed in `explain.ts` (`noArticle`), 1 unit test.
+
+## s2c-036: the six red files (2026-10-17, cloud container)
+
+Run against fresh vite servers on 5199/5211/5215 with `ANTHROPIC_BASE_URL`
+unset (it is **set** in this container; that is how s2c-034's accidental paid
+reading happened). 5 of 6 green; 1 still red.
+
+| file | cause | fix | now |
+|---|---|---|---|
+| live-infer | **Not a mode-inference bug.** Phases 1–2 were right. Phase 3 (a wordless circle round a nav link) gets s2c-020's bare-ring question, and pressing Alt+R again did nothing, because the question opens the note field focused and the note field swallows every key. **Product bug:** the question says "▶ Run again sends it as it is", and the keyboard path couldn't do it without an Esc nobody is told about (on a Mac, Alt+R typed "®" into the note). | `noteInput` keydown: Alt+R attaches what's typed (blank is discarded) and runs. The test now expects the question on phase 3 and answers it with Alt+R. live-ask gained step 2b (Alt+R straight from the focused note → 1 call, no notes, note closed). | green; red before the fix with the same test |
+| live-canva | copy: the selection line became plain words in s2c-025 (`picked up the box …`, `it appears 3 times`, `2 picked up together`) | 3 regexes | green |
+| live-lasso | Vite 7 sometimes hot-swaps the new import instead of full-reloading (0 or 1 reloads, varies by run), so "the extract caused no reload" failed on timing | when Vite doesn't reload, the test reloads by hand and asserts the same two promises (still in tweak, receipt still there) | green on both paths (seen 0 and 1 reloads) |
+| live-runs-viewer | assumed the owner's Mac's 40+ run bundles; a fresh clone has none. Also still clicked a `button.reuse` that has been an `a.reuse` link since d13d837 | writes 24 history fixtures shaped like real bundles (decodable evidence.png, checkpoint, 2-action verify, notes/fidelity on some), removed afterwards; reuse checks the link's payload + href, follows it, and asserts the app says "settings from <id>: … 50%" and drops `?s2c-reuse` | green; `S2C_APP` now honoured |
+| live-ide-bridge | (1) `packages/vscode-extension/out` is gitignored and not built by `tsc -b`; (2) **it leaked its dev server after every run, green ones included**: `kill` hit the `npx` wrapper, vite kept port 5234, and the next run talked to the stale server and failed phase 6 ("timed out waiting for ide-cursor") | builds the extension when `out/` is missing; spawns vite detached and kills the process group; refuses to start if 5234 is already served | green 3/3 back to back, nothing left on 5234 (was: pass, then 3 fails) |
+| live-saywhat | **still red, and not deterministically.** 4 runs, 3 different failure points (phase 3 receipt never seen: status back to idle hint; phase 2 same; once the overlay host was null mid-reload). One cause found and fixed: `boot()` didn't clear the parked receipt, so phase 2's `runReceipt()` matched phase 1's "✓ Done" on page open and never waited for its own. The rest looks like a race between multi-file writes' full reloads and the receipt, which might be a product bug (a receipt lost after a 4-file write) or the test's polling. Not resolved. | sessionStorage cleared in `boot()` | red (flaky) |
+
+Not touched: the 2 vitest env failures (init GitHub prompt, home-dir library).

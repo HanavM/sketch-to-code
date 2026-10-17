@@ -8,7 +8,7 @@
  *      asks what should change about the ringed button, by its text, and a note
  *      is open on the ring, focused and empty, so the answer is just typing
  *   2. Esc, then ▶ Run again: the same sketch is sent as it is (a question, not
- *      a wall), with no notes
+ *      a wall), with no notes; and Alt+R straight from the focused note does the same
  *   3. answering: type "red", Enter, ▶ Run: one interpret call carrying "red" on
  *      the ring's stroke
  *   4. a ring in empty space is not asked about (that is "add here")
@@ -129,6 +129,23 @@ await waitCalls(1)
 if (interprets.length !== 1) throw new Error(`▶ Run again: ${interprets.length} interpret calls, want 1`)
 if ((interprets[0].notes ?? []).length) throw new Error(`sent as is should carry no notes: ${JSON.stringify(interprets[0].notes)}`)
 log('✓ Esc · ▶ Run again: sent as it is, 1 call, no words')
+
+// ---- 2b. Alt+R straight from the focused note: also sent as it is -------------
+// The question opens the note focused, and the note field swallows keys. Alt+R
+// did nothing there until s2c-036, so the keyboard path the question names
+// needed an Esc nobody is told about.
+await page.keyboard.press('Alt+KeyX')
+await ringBtn()
+interprets.length = 0
+await page.keyboard.press('Alt+KeyR')
+await page.waitForTimeout(400)
+if (interprets.length || !(await ui()).focused) throw new Error('2b: the ring was not asked about with the note focused')
+await page.keyboard.press('Alt+KeyR')
+await waitCalls(1)
+if (interprets.length !== 1) throw new Error(`Alt+R in the question's note: ${interprets.length} interpret calls, want 1`)
+if ((interprets[0].notes ?? []).length) throw new Error(`Alt+R in a blank note should send no notes: ${JSON.stringify(interprets[0].notes)}`)
+if ((await ui()).open) throw new Error('the blank note stayed open after Alt+R sent the sketch')
+log('✓ Alt+R from the focused note: sent as it is, 1 call, note closed')
 
 // ---- 3. answer it -------------------------------------------------------------
 await page.keyboard.press('Alt+KeyX')

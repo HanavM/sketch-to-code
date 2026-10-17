@@ -14,6 +14,7 @@
  *   1. scribble ON a card → posts gesture
  *   2. draw a box in EMPTY space → posts design
  *   3. a circle round a small element, mostly empty by area → still gesture
+ *      (wordless, so it asks first: s2c-020's bare-ring question; ▶ Run again sends it)
  *   4. an override sticks, and pressing it again hands the decision back
  *   5. the mode segment is off the bar until somebody overrides
  *
@@ -31,6 +32,8 @@ page.on('pageerror', (e) => errs.push(String(e)))
 
 /** Every mode the client posts, in order. */
 const posted = []
+/** posted.length at each bare-ring question (only a gesture reading asks). */
+const asked = []
 await page.route('**/@s2c/interpret', async (route) => {
   posted.push(JSON.parse(route.request().postData() ?? '{}').mode)
   await route.fulfill({
@@ -80,6 +83,15 @@ async function sketchAndRun(pts) {
   const before = posted.length
   await page.keyboard.press('Alt+r')
   for (let i = 0; i < 60 && posted.length === before; i++) await page.waitForTimeout(100)
+  // A wordless ring round an element asks first (s2c-020, bare-ring.ts), and
+  // it only ever asks in a gesture reading. The question is the answer to
+  // "which mode", so note it, then send the sketch as it is the way a user
+  // would: ▶ Run again.
+  if (posted.length === before && /^What should change about/.test(await status())) {
+    asked.push(posted.length)
+    await page.keyboard.press('Alt+r')
+    for (let i = 0; i < 60 && posted.length === before; i++) await page.waitForTimeout(100)
+  }
   if (posted.length === before) throw new Error(`no interpret fired · status: ${await status()}`)
   await page.keyboard.press('Escape')
   await page.waitForTimeout(200)
@@ -141,8 +153,10 @@ for (let i = 0; i <= 12; i++) {
   ring.push([link.x + Math.cos(a) * (link.w * 0.9 + 14), link.y + Math.sin(a) * (link.h * 0.9 + 14)])
 }
 const circled = await sketchAndRun(ring)
-log('circle round a nav link →', circled)
+log('circle round a nav link →', circled, asked.length ? '(asked what to change first)' : '')
 if (circled !== 'gesture') throw new Error(`circling an element posted "${circled}"`)
+// with no words, a ring round an element is the bare-ring question, every time
+if (asked.length !== 1) throw new Error(`expected the bare-ring question once (the nav ring), got ${asked.length}`)
 
 // ── 4. an override sticks, and lets go ────────────────────────────────
 await page.keyboard.press('Alt+e') // always design
