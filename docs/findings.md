@@ -755,3 +755,44 @@ re-grounding a run does. `npm run demo`: shot 2's scripted reading now throws
 if called, and the demo is green with the scribble never reaching a model.
 Not checked: how often real users' scratch-outs pass these gates. That needs
 real ink (s2c-013's pilot).
+
+## A coloured ring needs no model either (s2c-050, 2026-10-17)
+
+Row 7 of the visual language: a ring drawn in a pen colour, no words, means
+"make it this colour". The pen colour is the value, so the reading has nothing
+left to interpret, and the write is one literal in one attribute. Before this,
+it paid a reading *and* a codegen session (shot 3 of the demo scripted both).
+
+- `plain-reading.ts` reads one closed ring in a picked (non-default) pen round
+  one element, no words, gesture mode. Which colour it means comes from the
+  page: an element with its own fill (a button, a badge) → background, which is
+  what the rough bench's r12 scores; text with no fill anywhere inside it →
+  the words; anything else (a clear box holding buttons) → declined, the model
+  reads it. Two rings, default ink, empty space, design mode, an open box: all
+  declined.
+- `recolor.ts` writes it. Tailwind pages: swap the text-/bg- colour utility
+  for the palette token the colour snapped to (or `text-[#hex]`), keeping
+  `text-sm` / `bg-cover`. Otherwise an inline `style={{ color }}` merged into a
+  static style object. It refuses on a component tag, a dynamic className or
+  style, the `background` shorthand, a template rendered more than once, a
+  stale stamp; a refused action goes to codegen exactly as before.
+- run2 only routes an action to the engine when its instruction is one of the
+  two exact sentences the plain reader writes (`RECOLOR_INSTRUCTION`). A model
+  reading never takes that path.
+
+**Found on the way: long rings weren't rings.** The ink classifier's hull
+ratios (CALI) are tuned for round-ish shapes; a ring round a heading or a line
+of text is 5:1 and flatter, and it came back as `ink` (Pch²/Ach ≈ 35 against a
+cut-off of 30). So the overlay's bare-ring question also never fired on a
+wide heading, which went to the model instead. Both ring readers now squash a
+≥ 2.5:1 stroke's box square and classify again: an ellipse becomes a circle, a
+strike or a zigzag stays what it is (tested). The classifier itself and the
+model's brief are unchanged.
+
+Checked: 14 tests in plain-ring.test.ts (r12 itself reads as "background
+green"; the ported ring reader matches the overlay's on every bench edit
+page), 15 in recolor.test.ts. `npm run demo`: shot 3's scripted reading and
+codegen both throw if called, and the demo is green with zero model calls for
+shots 2 and 3. Not checked: real users' coloured rings (s2c-013), and a
+Tailwind app end to end (the engine's class path is unit-tested only).
+

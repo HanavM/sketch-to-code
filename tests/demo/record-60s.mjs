@@ -97,15 +97,11 @@ try {
       codegen: () => edit((s) => s.replace(EDIT_LINE, '')),
     },
     ring: {
-      interpret: (ev) => ({
-        reading: 'Make the heading the colour it was circled in.',
-        actions: [{
-          kind: 'modify', elements: [find(ev.elementMenu, 'h1', 'Get started')?.id], destElement: null, position: null,
-          instruction: 'make it this colour', strokes: ev.strokes.map((s) => s.id), layer: null, depicts: null, fidelity: null,
-        }],
-        unclear: null,
-      }),
-      codegen: () => edit((s) => s.replace('<h1>Get started</h1>', "<h1 style={{ color: '#16a34a' }}>Get started</h1>")),
+      // s2c-050: a green ring round the heading, no words, is read by the
+      // pen-colour rule and written by the recolour engine. Neither call
+      // should happen; being asked here means that broke.
+      interpret: () => { throw new Error('the green ring reached the model') },
+      codegen: () => { throw new Error('the green ring reached codegen') },
     },
     box: {
       interpret: (ev) => ({
@@ -146,7 +142,7 @@ try {
       if (document.getElementById('demo-label')) return
       const d = document.createElement('div')
       d.id = 'demo-label'
-      d.textContent = 'Demo recording · the ring and box readings are scripted, not a live model; the scribble needs none'
+      d.textContent = 'Demo recording · the box reading is scripted, not a live model; the scribble and the green ring need none'
       d.setAttribute('style', 'position:fixed;left:12px;top:10px;z-index:2147483646;pointer-events:none;font:12px system-ui;background:#111c;color:#fff;padding:4px 8px;border-radius:6px')
       document.documentElement.appendChild(d)
     }
@@ -264,6 +260,7 @@ try {
 
   check('no page errors', pageErrors.length === 0, pageErrors.join(' | '))
   check('shot 2: the scribble was read with no model call (s2c-049)', !calls.some((c) => c.endsWith(':scribble')), calls.join(' '))
+  check('shot 3: the green ring was read and applied with no model call (s2c-050)', !calls.some((c) => c.endsWith(':ring')), calls.join(' '))
   check('every model call was scripted', calls.length > 0 && calls.every((c) => /^(interpret|codegen):/.test(c)), calls.join(' '))
   check('App.jsx differs from the starter', readFileSync(app(), 'utf8') !== committed)
 } catch (err) {
@@ -285,7 +282,7 @@ try {
   } catch (e) { log('no video:', e.message) }
   const total = shots.at(-1)?.end ?? 0
   const lines = shots.map((s) => `| ${s.at.toFixed(1)}–${s.end.toFixed(1)} s | ${s.name} | ${s.last.replace(/\|/g, '/')} |`)
-  writeFileSync(join(outDir, 'demo-60s-shots.md'), `| time | shot | the bar's last line |\n|---|---|---|\n${lines.join('\n')}\n\nTotal recorded: ${total.toFixed(1)} s (ring and box readings scripted; the scribble needs no model)\n`)
+  writeFileSync(join(outDir, 'demo-60s-shots.md'), `| time | shot | the bar's last line |\n|---|---|---|\n${lines.join('\n')}\n\nTotal recorded: ${total.toFixed(1)} s (box reading scripted; the scribble and the green ring need no model)\n`)
   log(`shots: ${join(outDir, 'demo-60s-shots.md')} · recorded ${total.toFixed(1)} s · wall ${((Date.now() - t0) / 1000).toFixed(0)} s`)
   if (KEEP || !OUT) log('keeping', parent)
   else rmSync(parent, { recursive: true, force: true })

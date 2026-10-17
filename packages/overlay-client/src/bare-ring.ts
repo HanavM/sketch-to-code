@@ -90,7 +90,22 @@ export function isRing(stroke: RingInput): boolean {
   // a frame for something new, so the gap is judged against the ring's own size.
   const b = bbox(stroke.points)
   if (closingGap(stroke.points) > Math.max(24, 0.4 * Math.min(b.w, b.h))) return false
-  const { candidates } = classifyStroke({ id: stroke.id, points: stroke.points })
+  if (closedShape(stroke.id, stroke.points)) return true
+  // A ring round a heading or a line of text is long and flat (5:1 and more),
+  // and the classifier's hull ratios are tuned for round-ish shapes: it calls
+  // that ring "ink". Squash the box square and ask again; an ellipse becomes a
+  // circle and a box a square, while a scribble or a strike stays what it is.
+  // (s2c-050: found when the ring-recolour reading missed every heading.)
+  const long = Math.max(b.w, b.h)
+  const short = Math.min(b.w, b.h)
+  if (short <= 0 || long / short < 2.5) return false
+  const sx = b.w > b.h ? short / long : 1
+  const sy = b.h > b.w ? short / long : 1
+  return closedShape(stroke.id, stroke.points.map((p) => ({ ...p, x: b.x + (p.x - b.x) * sx, y: b.y + (p.y - b.y) * sy })))
+}
+
+function closedShape(id: string, points: RingInput['points']): boolean {
+  const { candidates } = classifyStroke({ id, points })
   const top = [...candidates].sort((a, b) => b.confidence - a.confidence)[0]
   return top != null && RING_KINDS.has(top.kind) && top.confidence >= 0.5
 }

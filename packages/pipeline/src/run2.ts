@@ -35,7 +35,9 @@ import {
   DEFAULT_FIDELITY, fidelityDirective, fidelitySummary, normalizeFidelity, passMark, rungFor,
   type FidelityControls,
 } from './fidelity.js'
-import { deltaE, parseCssColor } from './palette.js'
+import { appPalette, deltaE, parseCssColor } from './palette.js'
+import { recolorElement } from './recolor.js'
+import { recolorPropOf } from './plain-reading.js'
 import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
@@ -238,6 +240,33 @@ export async function runV2(
   const screensWritten: AppliedScreen[] = []
   /** Every navigate the engine applied, by action: the route its probe must reach. */
   const navRoutes = new Map<number, string>()
+  // s2c-050: a coloured ring the plain reader decided ("make it this colour",
+  // no words) is one literal in one attribute. The engine writes it; when it
+  // can't (a component, a dynamic className, a .map template), the action goes
+  // to codegen exactly as before, so a refusal is a cost, never a failure.
+  const tailwind = appPalette(input.snapshot).length > 0
+  for (const [i, a] of interp.actions.entries()) {
+    if (handled.has(i)) continue
+    const prop = a.kind === 'modify' ? recolorPropOf(a.instruction) : null
+    if (!prop || !a.color || a.notes?.length) continue
+    const t = a.targets.length === 1 ? a.targets[0] : undefined
+    if (!t?.srcLoc) continue
+    const out = recolorElement(ctx.root, {
+      srcLoc: t.srcLoc,
+      prop,
+      color: a.color,
+      tailwind,
+      instanceCount: input.snapshot.nodes.filter((n) => n.srcLoc === t.srcLoc).length,
+    })
+    if (out.ok) {
+      handled.add(i)
+      backend.push({ index: i, change: out.change ?? 'recoloured', files: out.file ? [out.file] : [] })
+      stage('codemod', `action ${i}: ${out.change ?? 'recoloured'}`)
+    } else {
+      stage('codemod', `action ${i}: recolour left to the model (${out.error ?? 'refused'})`)
+    }
+  }
+
   for (const [i, a] of interp.actions.entries()) {
     if (handled.has(i)) continue
     if (a.kind !== 'serve' && a.kind !== 'save' && a.kind !== 'navigate') continue
@@ -493,7 +522,7 @@ export async function runV2(
       for (let round = 1; round <= 3; round++) {
         stage('verify', `round ${round}: snapshotting edited page`)
         let result = await verifyRound(`${tag}-${round}`)
-        if (result.score < 1 && !session && plan.handled.length > 0) {
+        if (result.score < 1 && !session && (plan.handled.length > 0 || backend.length > 0)) {
           // no agent has run: a failure here is far more likely an HMR race
           // than a wrong AST edit — look again before spending tokens
           await sleepUnlessStopped(HMR_RETRY_MS, ctx.signal)
