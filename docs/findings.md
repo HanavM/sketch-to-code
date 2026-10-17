@@ -674,3 +674,13 @@ screenshot` 15/15 twice in a row with no retries needed (before: the runner hung
 at r03 and r01; with only the bound, 4 of 15 pages failed). `--mode auto` dry still 15/15. "vite never answered" (r10 on
 the Mac run) did not come back in 3 full runs here; it may have been a side effect of the hung probe, but that
 is a guess, not checked. **Not checked:** macOS Chromium.
+
+## init on five projects we didn't write (2026-10-17)
+
+`onboard-real-projects.mjs` scaffolds five published Vite + React starters
+(create-vite react-ts and react-compiler-ts, TanStack Router, the vite-extra
+SSR template, and an npm workspace) and takes each from `init` to "✓ Done" in
+11–14 s, zero tokens. It found one real bug: when the dev script pins a port
+(`vite dev --port 3000`), init and doctor still said "open :5173". Fixed in
+`scriptPort()`. These are starters, not people's apps; details and limits in
+docs/onboarding-real-projects.md.

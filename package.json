@@ -13,7 +13,8 @@
     "dev": "npm run dev -w examples/demo-app",
     "typecheck": "tsc -b --noEmit",
     "e2e": "node tests/e2e/live-run.mjs && node tests/e2e/live-modify.mjs && node tests/e2e/live-add.mjs",
-    "e2e:cli": "node packages/cli/tests/e2e/init-real-project.mjs"
+    "e2e:cli": "node packages/cli/tests/e2e/init-real-project.mjs",
+    "e2e:onboard": "node packages/cli/tests/e2e/onboard-real-projects.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

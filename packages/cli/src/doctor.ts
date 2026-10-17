@@ -6,7 +6,7 @@ import { resolveChain } from './deps.js'
 import { detectProject, type ProjectInfo } from './detect.js'
 import { evaluateGates, gitState, type Gate, type GitState } from './git.js'
 import { ghState, type GhState } from './github.js'
-import { devServerPort, probeViteConfig, type Probe } from './probe.js'
+import { devServerPort, probeViteConfig, scriptPort, type Probe } from './probe.js'
 
 export interface Finding {
   id: string
@@ -132,7 +132,7 @@ export function runDoctor(options: DoctorOptions): DoctorReport {
       (git.remotes.length ? `remote: ${git.remotes.map((r) => `${r.name} → ${r.url}`).join(', ')}` : 'no remote (optional)')
     : `gh not installed (optional); ${git.remotes.length ? `remote: ${git.remotes.map((r) => r.url).join(', ')}` : 'no remote'}`)
 
-  const port = probe ? devServerPort(probe) : null
+  const port = scriptPort(project.pkg?.scripts?.dev) ?? (probe ? devServerPort(probe) : null)
   const url = `http://localhost:${port ?? 5173}`
   const errors = findings.filter((f) => f.level === 'error')
   const devScript = project.pkg?.scripts?.dev ? 'npm run dev' : 'npx vite'

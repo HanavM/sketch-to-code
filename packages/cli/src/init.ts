@@ -7,7 +7,7 @@ import { addDevDependency, resolveDepSpec, resolveFromProject, runInstall, type 
 import { detectProject, type ProjectInfo } from './detect.js'
 import { commitAll, ensureGitignore, evaluateGates, gitInit, gitState, type Gate, type GitState } from './git.js'
 import { connectRemote, createRemote, ghState, type GhState } from './github.js'
-import { devServerPort, probeViteConfig, type Probe } from './probe.js'
+import { devServerPort, probeViteConfig, scriptPort, type Probe } from './probe.js'
 
 export interface Question {
   id: string
@@ -391,7 +391,7 @@ export async function runInit(options: InitOptions): Promise<InitResult> {
     git = gitState(dir)
   }
 
-  const port = probe ? devServerPort(probe) : options.port ?? null
+  const port = scriptPort(project.pkg?.scripts?.dev) ?? (probe ? devServerPort(probe) : options.port ?? null)
   const failed = steps.filter((s) => s.status === 'failed')
   const devScript = project.pkg?.scripts?.dev ? 'npm run dev' : 'npx vite'
   const url = `http://localhost:${port ?? 5173}`

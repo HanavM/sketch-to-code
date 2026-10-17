@@ -69,6 +69,18 @@ export function probeViteConfig(dir: string, configFile: string | null, timeoutM
   return fail('no-output')
 }
 
+/**
+ * The port a dev script pins on the command line (`vite dev --port 3000`,
+ * `vite --port=4000`), which wins over the config file. Null when the script
+ * doesn't run vite or doesn't pass one. s2c-005: TanStack's starter runs
+ * `vite dev --port 3000` and init told people to open :5173.
+ */
+export function scriptPort(script: string | null | undefined): number | null {
+  if (!script || !/\bvite\b/.test(script)) return null
+  const m = script.match(/(?:^|\s)--port(?:=|\s+)(\d{2,5})(?=\s|$|&|;)/)
+  return m ? Number(m[1]) : null
+}
+
 /** The dev-server URL a `vite` run will land on, port default included. */
 export function devServerPort(probe: Probe): number {
   return probe.port ?? 5173
