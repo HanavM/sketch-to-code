@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 45
-lock: {run: cloud-2026-10-17T1555, until: "2026-10-17T17:10:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1013,19 +1013,24 @@ nodes:
   why: "create-react-router now makes framework mode by default, so new React Router apps have app/routes.ts (route()/index()/layout()), not createBrowserRouter or <Routes>. Today the arrow refuses there with a sentence that points at src/, which doesn't exist."
   done_when: "unit tests: index()-only routes.ts, a layout() with children, and flatRoutes() (file routes) each get the right result: a route('pricing', 'routes/pricing.tsx') + app/routes/pricing.tsx with a Back <Link>, the trigger turned into a <Link>; flatRoutes adds the file only; a computed list is refused in plain words naming app/routes.ts, byte-identical. Engine-level real-app check on the create-react-router 8.4.0 starter: react-router typegen + tsc + vite dev in Chromium, click, Back, the run's own probe passes."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 4
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-17T16:20Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - "fb3489c packages/pipeline/src/navigate-framework.ts (frameworkApp, linkToFrameworkScreen); navigate.ts dispatches framework-mode apps to it; navigate-router.ts exports its helpers"
+  - "packages/pipeline/tests/navigate-framework.test.ts (11)"
+  - "tests/e2e/navigate-framework-real.mjs: 3 shapes on create-react-router 8.4.0 (starter routes.ts, layout()+catch-all, flatRoutes()), typegen+tsc, react-router dev SSR in Chromium, the run's probe"
+  - "docs/navigation.md 'Framework-mode apps'; docs/findings.md section"
   log:
   - "2026-10-17: filed by s2c-043 (verdict support). Lower value than any real model reading (s2c-013): it extends a gesture no model has been seen to emit."
+  - "2026-10-17 16:20Z (cloud, watering 1): DONE. Unit: starter routes.ts verbatim -> one-line route(\"pricing\", \"routes/pricing.tsx\") + route joins the import; <a> -> Link; layout() + catch-all; top catch-all; prefix() reuse + insert after the spread; flatRoutes add (routes.ts untouched) + reuse; appDirectory \"web\"; 3 byte-identical refusals naming app/routes.ts (partly computed, built in code, module file exists). 11/11. Real app: 3/3 shapes green on create-react-router 8.4.0: npm run typecheck clean, SSR dev, click/Back/direct+Back, meta title, the run's probe passed, wrong-route probe fails, no hydration errors. Harness trap found: a symlinked node_modules is outside Vite's fs.allow, so the client never hydrates (test artefact; hard-linked instead). vitest 1173/1175 (same 2 env failures); tsc -b clean; navigate-router-real, live-navigate, live-navigate-contents green; 0 tokens. Not handled: flatRoutes dot/pathless-layout nesting, flatRoutes mixed with route()."
 
 - id: s2c-042
   parent: s2c-040
