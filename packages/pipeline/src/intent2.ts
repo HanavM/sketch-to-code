@@ -37,6 +37,8 @@ export type ActionKind =
   | 'serve'
   /** This form should keep what people type into it. */
   | 'save'
+  /** Clicking this button/link opens another screen (navigate.ts). */
+  | 'navigate'
 
 /** What the model returns. Ids only — no coordinates, no free geometry. */
 export interface RawAction {
@@ -56,6 +58,8 @@ export interface RawAction {
   /** verbatim = trace the strokes (decoration); recognized = substitute a
    *  proper icon/asset for the depicted concept. */
   fidelity?: 'verbatim' | 'recognized' | null
+  /** navigate: the screen's name as written in the box the arrow points at. */
+  screen?: string | null
 }
 
 /**
@@ -130,7 +134,7 @@ const nullable = (t: Record<string, unknown>) => ({ anyOf: [t, { type: 'null' }]
 
 export const DESIGN_KINDS = ['add', 'design'] as const
 export const GESTURE_KINDS = [
-  'delete', 'modify', 'add', 'move', 'swap', 'design', 'serve', 'save',
+  'delete', 'modify', 'add', 'move', 'swap', 'design', 'serve', 'save', 'navigate',
 ] as const
 /**
  * The two that change where data lives rather than how the page looks.
@@ -167,7 +171,7 @@ export const INTERPRETATION_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['kind', 'elements', 'destElement', 'position', 'instruction', 'strokes', 'layer', 'depicts', 'fidelity'],
+        required: ['kind', 'elements', 'destElement', 'position', 'instruction', 'strokes', 'layer', 'depicts', 'fidelity', 'screen'],
         properties: {
           kind: { type: 'string', enum: [...GESTURE_KINDS] },
           elements: nullable({ type: 'array', items: { type: 'string' } }),
@@ -178,6 +182,7 @@ export const INTERPRETATION_SCHEMA = {
           layer: nullable({ type: 'string', enum: ['in-flow', 'background-overlay', 'container'] }),
           depicts: nullable({ type: 'string' }),
           fidelity: nullable({ type: 'string', enum: ['verbatim', 'recognized'] }),
+          screen: nullable({ type: 'string' }),
         },
       },
     },
@@ -580,6 +585,15 @@ is neither of these — a specific endpoint shape, an authentication rule,
 anything with its own logic — and say in "unclear" that it needs real backend
 work rather than one of these two.
 
+ONE ACTION ADDS A SCREEN. An arrow from a button or link to a box with a name
+written in it ("Pricing", "Sign up") — the box often drawn off to the side, like
+a second page — means: clicking this opens a new screen with that name. Emit
+"navigate" with one target (the button or link the arrow starts at) and
+"screen" set to the name exactly as written. It is applied mechanically: do not
+also emit an "add" for the box. An arrow between two existing elements that
+names no screen is still a "move". Put anything drawn INSIDE the box in the
+instruction; the screen's contents are built afterwards.
+
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
 element id it resolves to, and how it read on screen. The user pointed at each
@@ -661,6 +675,8 @@ export interface GroundedAction {
   refs?: Array<{ token: string; label: string; domId?: string; srcLoc?: string }>
   /** Colour the strokes were drawn in, snapped to the app's own palette. */
   color?: ColorMatch
+  /** navigate: the screen's name, as written. */
+  screen?: string
   needsConfirm: boolean
 }
 
@@ -806,6 +822,16 @@ export function groundInterpretation(
         continue
       }
     }
+    if (a.kind === 'navigate') {
+      if (targets.length !== 1 || !targets[0]!.srcLoc) {
+        rejected.push(`navigate action needs exactly 1 button or link to start from, got ${targets.length}`)
+        continue
+      }
+      if (!a.screen || !a.screen.trim()) {
+        rejected.push(`navigate action names no screen ("${a.instruction.slice(0, 50)}")`)
+        continue
+      }
+    }
 
     // Typed notes attach deterministically: an element note to the actions
     // touching that element, an ink note to the actions citing those strokes.
@@ -868,6 +894,7 @@ export function groundInterpretation(
       notes: notes.length ? notes : undefined,
       refs: refs.length ? refs : undefined,
       color,
+      ...(a.kind === 'navigate' && a.screen ? { screen: a.screen.trim() } : {}),
       needsConfirm,
     })
   }

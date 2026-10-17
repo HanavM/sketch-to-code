@@ -973,6 +973,7 @@ const PLAN_KINDS: Record<string, { color: string; label: string }> = {
   // for both, because to a person reading the plan they are the same promise
   serve: { color: '#be185d', label: 'SERVE' },
   save: { color: '#be185d', label: 'SAVE' },
+  navigate: { color: '#4f46e5', label: 'NEW SCREEN' },
 }
 /** A kind the server grew that this client hasn't learned yet still draws. */
 const PLAN_FALLBACK = { color: '#4b5563', label: 'ACTION' }

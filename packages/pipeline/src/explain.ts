@@ -68,6 +68,7 @@ const PHRASE: Record<string, (a: GroundedAction) => string> = {
   design: (a) => (a.depicts ? `add the ${noArticle(a.depicts)} you drew` : 'add what you drew'),
   serve: (a) => `load ${describeTarget(a.targets[0])} from the server`,
   save: (a) => `make ${describeTarget(a.targets[0])} keep what people type`,
+  navigate: (a) => `make ${describeTarget(a.targets[0])} open ${a.screen ? `a "${noArticle(a.screen)}" screen` : 'a new screen'}`,
 }
 
 /** What went wrong with one check, by its kind only (the reason is not shown). */
@@ -243,6 +244,11 @@ export function whyRefused(reason: string): string | null {
     return "it isn't one of the rows of a list. Point at one of the rows instead"
   }
   if (/already comes from an endpoint/i.test(r)) return 'that list already comes from the server'
+  // navigate.ts writes its refusals for the card already; drop the trailing
+  // reassurance (the card says nothing changed itself) and the final stop
+  if (/the arrow points at has no name|to decide what is on each page|has to start at a button or a link|already does something when it is clicked|that link already goes somewhere/i.test(r)) {
+    return r.replace(/\s*Nothing was changed\.?\s*$/, '').replace(/\.\s*$/, '')
+  }
   return null
 }
 

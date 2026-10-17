@@ -16,6 +16,7 @@ import { settleSession, sleepUnlessStopped, throwIfStopped, untilStopped } from 
 import { commitPlan, planStructuralEdits } from './codemod.js'
 import { promoteToApi } from './api.js'
 import { makeFormReal } from './form.js'
+import { linkToScreen } from './navigate.js'
 import {
   buildEvidence, DESIGN_INTERPRET_PROMPT, groundInterpretation, INTERPRET_PROMPT,
   interpretationSchema,
@@ -235,12 +236,14 @@ export async function runV2(
   const backendRefused: string[] = []
   for (const [i, a] of interp.actions.entries()) {
     if (handled.has(i)) continue
-    if (a.kind !== 'serve' && a.kind !== 'save') continue
+    if (a.kind !== 'serve' && a.kind !== 'save' && a.kind !== 'navigate') continue
     const srcLoc = a.targets[0]?.srcLoc
     if (!srcLoc) continue // grounding already rejected these; belt and braces
     const out = a.kind === 'serve'
       ? promoteToApi(ctx.root, { srcLoc })
-      : makeFormReal(ctx.root, { srcLoc })
+      : a.kind === 'navigate'
+        ? linkToScreen(ctx.root, { srcLoc, screen: a.screen ?? '' })
+        : makeFormReal(ctx.root, { srcLoc })
     if (out.ok) {
       handled.add(i)
       backend.push({ index: i, change: out.change ?? a.kind, files: out.files ?? [] })
