@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 40
-lock: {run: cloud-2026-10-17T0956Z, until: '2026-10-17T11:11:00Z'}
+next_id: 42
+lock: null
 
 nodes:
 - id: s2c-000
@@ -905,16 +905,60 @@ nodes:
   why: "harness.md held routes/multi-screen back until behaviour was verifiable; s2c-021 probes now are. Multi-screen is the first thing a non-coder builds past one page, and an arrow is the drawing-first way to say 'this goes there' with no words. Today the snapshot's url is unread and the pipeline knows no routes."
   done_when: "zero-token e2e on the demo app: a stubbed reading of a 'navigate' action (arrow from a button to a box labelled with a screen name) makes an engine write the second screen + the navigation without a router dependency the app doesn't have; a click probe on the button passes (the new screen is visible, back returns), the receipt says it in plain words, and one undo removes both. A design note first decides hash vs history routing and how an app that already uses react-router is handled."
   kind: build
-  status: open
+  status: active
   needs: cloud
   value: 4
   effort: 3
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
+  watered: 1
+  last_watered: '2026-10-17T10:10Z'
+  blocked_on: null
+  outputs:
+  - 995ac90 packages/pipeline/src/navigate.ts (linkToScreen) + 'navigate' verb in intent2/run2/explain/overlay
+  - packages/pipeline/tests/navigate.test.ts (18 tests)
+  - docs/navigation.md (design note: hash routes, no router dep, router apps refused)
+  log:
+  - "2026-10-17: filed by s2c-038 (only cloud node left was done; harness.md's own gate on routes, behaviour probes, is now met). Honest caveat: this builds on a reader whose realized % on rough sketches is still unmeasured (s2c-013). If that pilot comes back under 60%, this waits."
+  - "2026-10-17 (cloud): watering 1, commit 995ac90. Design note decided hash routes (#/name: no host fallback needed, browser back free, clear of #anchors), no router dependency, mount at main.tsx (<Screens home={<App />}>; App untouched), apps that already have a router refused by name. Engine linkToScreen + 'navigate' verb (schema field `screen`, grounding rejects a nameless one, run2 applies it before codegen like save/serve, receipt phrase, plan colour). 18 unit tests; vitest 1114/1116 (same 2 env failures); tsc -b clean; walkthrough green. By hand in Chromium on a demo-app copy: click -> #/get-started + heading, Back and browser back return home, direct entry Back stays in app, no page errors. NOT DONE (done_when): navigate probe in deriveProbes + probe-exec, and the zero-token e2e with undo. Resume there."
+
+- id: s2c-040
+  parent: s2c-039
+  title: "What's drawn inside the screen box becomes the new screen's content"
+  why: "s2c-039 writes a heading and a back button. A person who sketched a form or three cards inside the box expects them on the new screen. Without this the arrow only half-carries the intent."
+  done_when: "zero-token e2e: stubbed reading = navigate + an add whose strokes lie inside the box; after the run the add lands inside src/screens/<Name>.tsx (not App), the probe still passes, and the receipt names both. Unit test: run2 retargets an add whose region is inside a navigate's box to the new screen file."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 3
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-038 (only cloud node left was done; harness.md's own gate on routes, behaviour probes, is now met). Honest caveat: this builds on a reader whose realized % on rough sketches is still unmeasured (s2c-013). If that pilot comes back under 60%, this waits."
+  - "2026-10-17: filed by s2c-039 watering 1. Waits until s2c-039's probe + e2e land. Real codegen output can't be measured without a paid reading, so the e2e stubs the codegen write too."
+
+- id: s2c-041
+  parent: s2c-039
+  title: "Draw a link in an app that already uses react-router: add a <Route> to its own table"
+  why: "s2c-039 refuses router apps by name. Most real Vite+React apps past a starter use react-router (SEED done #3 is about real apps), so the arrow fails exactly where it would be used."
+  done_when: "unit tests on 3 fixtures (createBrowserRouter object routes, <Routes><Route> JSX, nested layout route): a new route + screen file + <Link>/navigate() on the trigger; a shape it can't read is refused in plain words with nothing changed. One zero-token e2e on a react-router starter scaffolded by its own generator."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 3
+  confidence: 0.5
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - "2026-10-17: filed by s2c-039 watering 1. Lower value than finishing s2c-039: do after its probe/e2e."
