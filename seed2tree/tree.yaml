@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 43
-lock: {run: cloud-20261017T1355, until: 2026-10-17T15:10Z}
+next_id: 44
+lock: null
 
 nodes:
 - id: s2c-000
@@ -959,21 +959,47 @@ nodes:
   parent: s2c-039
   title: "Draw a link in an app that already uses react-router: add a <Route> to its own table"
   why: "s2c-039 refuses router apps by name. Most real Vite+React apps past a starter use react-router (SEED done #3 is about real apps), so the arrow fails exactly where it would be used."
-  done_when: "unit tests on 3 fixtures (createBrowserRouter object routes, <Routes><Route> JSX, nested layout route): a new route + screen file + <Link>/navigate() on the trigger; a shape it can't read is refused in plain words with nothing changed. One zero-token e2e on a react-router starter scaffolded by its own generator."
+  done_when: "unit tests on 3 fixtures (createBrowserRouter object routes, <Routes><Route> JSX, nested layout route): a new route + screen file + <Link>/navigate() on the trigger; a shape it can't read is refused in plain words with nothing changed. One zero-token e2e of a full overlay run (stubbed reading -> engine -> the run's probe passed -> receipt -> one undo restores every byte) on a Vite + React + react-router app. (Amended 2026-10-17: the original 'starter scaffolded by its own generator' is impossible as meant: npx create-react-router scaffolds framework mode, a different shape, now s2c-043.)"
   kind: build
-  status: open
+  status: active
   needs: cloud
   value: 3
   effort: 3
-  confidence: 0.5
-  momentum: 0.5
+  confidence: 0.7
+  momentum: 0.7
   depth: 3
+  watered: 1
+  last_watered: 2026-10-17T14:15Z
+  blocked_on: null
+  outputs:
+  - "653b3e1 packages/pipeline/src/navigate-router.ts (linkToRouterScreen, findRouteTable); navigate.ts dispatches react-router(-dom) apps to it"
+  - "packages/pipeline/src/probe.ts + overlay-client/src/probe-exec.ts: probe takes the engine's route, path routes compare location.pathname, layoutKept for nav-bar triggers, 'went to X, not Y' wording"
+  - "packages/pipeline/tests/navigate-router.test.ts (11), probe.test.ts (+2)"
+  - "tests/e2e/navigate-router-real.mjs: 3 shapes as real react-router 7 apps, tsc strict + vite build + Chromium + the run's own probe"
+  - "docs/navigation.md: 'Apps that already use react-router'"
+  log:
+  - "2026-10-17: filed by s2c-039 watering 1. Lower value than finishing s2c-039: do after its probe/e2e."
+  - "2026-10-17 14:15Z (cloud, watering 1): engine + probe done. Unit part of done_when met (3 shapes + imported routes.tsx + reuse + hash router + 4 refusals byte-identical). Real-app e2e (engine level, not a full overlay run): 3/3 shapes green incl. the run's own probe passing and a wrong-route probe failing. It caught a probe bug: every nav-bar trigger in a layout app failed ('the page you clicked on was still there'); fixed with layoutKept. Remaining for done: the full overlay-run e2e on a react-router app. momentum 0.5 -> 0.7."
+
+- id: s2c-043
+  parent: s2c-041
+  title: "Measure: does sketch-to-code work at all on a React Router v7 framework-mode app (what npx create-react-router makes)?"
+  why: "React Router's own generator now scaffolds framework mode (app/routes.ts with route()/index(), SSR, no src/main.tsx). If init/doctor/the overlay don't work there, a growing share of new apps can't use the product at all, and draw-a-link there needs a third engine shape."
+  done_when: "docs/findings.md section: npx sketch-to-code init + doctor + the overlay loading + one zero-token instant edit tried on a fresh create-react-router starter, each step pass/fail with the exact error; a verdict: support (with a scoped next node), refuse by name in init with a plain message, or ignore (with why)."
+  kind: validate
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 4
   watered: 0
   last_watered: null
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-039 watering 1. Lower value than finishing s2c-039: do after its probe/e2e."
+  - "2026-10-17: filed by s2c-041 watering 1, after create-react-router@8.4 produced framework mode instead of a Vite SPA."
 
 - id: s2c-042
   parent: s2c-040
