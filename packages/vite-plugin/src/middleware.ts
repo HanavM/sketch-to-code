@@ -5,21 +5,63 @@ export interface SseHub {
   handler: (req: IncomingMessage, res: ServerResponse) => void
 }
 
-/** Minimal SSE broadcast hub for /@s2c/events. */
-export function createSseHub(): SseHub {
+/**
+ * How long an event addressed to a tab with no open stream waits for it.
+ *
+ * A run that writes a module the page never imported makes vite full-reload
+ * the page MID-RUN. The page that comes back opens a new stream a second or
+ * so later, and everything sent to its tab in that gap — the request for the
+ * snapshot that verifies the edit, a behaviour probe, the final `done` — used
+ * to go nowhere. The run then waited 15 s for a snapshot no page was asked
+ * for, failed with "browser snapshot timed out", and the user saw the idle
+ * hint instead of a receipt (s2c-037). The bigger the edit, the surer the
+ * reload, so the more it did the less you were told.
+ */
+const ORPHAN_TTL_MS = 30_000
+/** Bound per tab, so a tab that never comes back can't grow this. */
+const ORPHAN_MAX = 50
+
+/** The tab a stream belongs to: `/@s2c/events?client=<id>`. */
+function clientOf(url: string | undefined): string | null {
+  const m = /[?&]client=([^&]+)/.exec(url ?? '')
+  return m ? decodeURIComponent(m[1]!) : null
+}
+
+/**
+ * Minimal SSE broadcast hub for /@s2c/events.
+ *
+ * Events carrying a `clientId` are still broadcast (each tab filters its
+ * own), but if no stream for that tab is open at the moment they're sent,
+ * they're held for ORPHAN_TTL_MS and delivered, once, in order, when a
+ * stream for that tab opens. Held, not replayed: an event already written to
+ * an open stream is never sent again, so a probe (which submits a form) can't
+ * run twice.
+ */
+export function createSseHub(now: () => number = Date.now): SseHub {
   const clients = new Set<ServerResponse>()
+  const tabOf = new Map<ServerResponse, string | null>()
+  const orphans = new Map<string, { at: number; frame: string }[]>()
+  const fresh = <T extends { at: number }>(q: T[]): T[] => q.filter((o) => now() - o.at <= ORPHAN_TTL_MS)
   return {
     send(event, data) {
       const frame = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`
+      const to = (data as { clientId?: unknown } | null)?.clientId
+      if (typeof to === 'string' && to !== '' && ![...tabOf.values()].includes(to)) {
+        const q = fresh(orphans.get(to) ?? [])
+        q.push({ at: now(), frame })
+        orphans.set(to, q.slice(-ORPHAN_MAX))
+      }
       for (const res of clients) {
         try {
           if (!res.write(frame)) {
             // backpressure from a dead-ish socket: drop the client
             clients.delete(res)
+            tabOf.delete(res)
             res.destroy()
           }
         } catch {
           clients.delete(res)
+          tabOf.delete(res)
         }
       }
     },
@@ -30,18 +72,30 @@ export function createSseHub(): SseHub {
         connection: 'keep-alive',
       })
       res.write(': connected\n\n')
+      const tab = clientOf(req.url)
       clients.add(res)
-      res.on('error', () => clients.delete(res))
+      tabOf.set(res, tab)
+      if (tab) {
+        const held = fresh(orphans.get(tab) ?? [])
+        orphans.delete(tab)
+        for (const o of held) res.write(o.frame)
+      }
+      // forget the stream everywhere, so the next event to its tab is held
+      const drop = () => {
+        clients.delete(res)
+        tabOf.delete(res)
+      }
+      res.on('error', drop)
       const heartbeat = setInterval(() => {
         try {
           res.write(': ping\n\n')
         } catch {
-          clients.delete(res)
+          drop()
         }
       }, 25_000)
       req.on('close', () => {
         clearInterval(heartbeat)
-        clients.delete(res)
+        drop()
       })
     },
   }

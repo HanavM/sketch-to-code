@@ -1128,8 +1128,42 @@ function metaBind(code: string, letter: string): (e: KeyboardEvent) => boolean {
 const HOST_ID = 's2c-overlay-host'
 /** Per-boot token injected ahead of this bundle by the dev middleware. */
 const TOKEN: string = (globalThis as Record<string, unknown>).__S2C_TOKEN__ as string ?? ''
-/** Identifies this tab so multi-tab SSE events don't cross-talk. */
-const CLIENT_ID = crypto.randomUUID()
+/**
+ * Identifies this tab so multi-tab SSE events don't cross-talk.
+ *
+ * Per TAB, not per page load (s2c-037). A run that writes a new module makes
+ * vite full-reload the page mid-run; with a fresh id the page that came back
+ * ignored its own run's snapshot request, probes and `done`, so the run timed
+ * out waiting for a snapshot and the receipt never showed. sessionStorage is
+ * this tab's and survives the reload; the server holds events sent while the
+ * tab had no stream open (createSseHub) and delivers them on reconnect.
+ */
+const CLIENT_ID: string = (() => {
+  const KEY = 's2c:client'
+  // A DUPLICATED tab starts with a copy of this tab's sessionStorage, id and
+  // all, and two tabs on one id would both answer a probe (a form submitted
+  // twice). A page sets LIVE while it's up and clears it on pagehide, which a
+  // reload fires first; finding it still set means another page with this
+  // storage is alive, so this one takes a new id.
+  const LIVE = 's2c:client-live'
+  try {
+    const kept = sessionStorage.getItem(KEY)
+    const dup = sessionStorage.getItem(LIVE) === '1'
+    const id = kept && !dup ? kept : crypto.randomUUID()
+    sessionStorage.setItem(KEY, id)
+    sessionStorage.setItem(LIVE, '1')
+    addEventListener('pagehide', () => {
+      try { sessionStorage.removeItem(LIVE) } catch { /* gone with the page */ }
+    })
+    // back from the bfcache: alive again
+    addEventListener('pageshow', (e) => {
+      if (e.persisted) try { sessionStorage.setItem(LIVE, '1') } catch { /* no storage */ }
+    })
+    return id
+  } catch {
+    return crypto.randomUUID() // blocked storage: per load, as before
+  }
+})()
 /** If no SSE event lands for this long while running, assume the run died. */
 const RUNNING_WATCHDOG_MS = 10 * 60_000
 
@@ -10978,7 +11012,7 @@ class Overlay {
   }
 
   private connectEvents() {
-    this.events = new EventSource('/@s2c/events')
+    this.events = new EventSource(`/@s2c/events?client=${encodeURIComponent(CLIENT_ID)}`)
     this.events.addEventListener('stage', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
       if (!this.mine(d)) return

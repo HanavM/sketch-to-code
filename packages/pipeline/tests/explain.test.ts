@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { colourName, describeTarget, explainError, explainRun, isPlain, scrub, userWords } from '../src/explain.js'
+import { colourName, describeTarget, explainError, explainRun, isPlain, scrub, userWords, whyRefused } from '../src/explain.js'
 import type { GroundedAction, GroundedTarget } from '../src/intent2.js'
 
 const T = (tag: string, text: string, srcLoc = 'src/App.tsx:42:7'): GroundedTarget => ({
@@ -77,6 +77,28 @@ describe('explainRun', () => {
     })
     expect(ex.sentence).toContain(`couldn't load the list with "Ana Bo Cy" from the server`)
     expect(isPlain(ex.sentence)).toBe(true)
+  })
+
+  it('a refusal the user can act on says why, and is not also "not tried out" (s2c-037)', () => {
+    const ex = explainRun({
+      reading: 'Make the heading save',
+      actions: [A('save', [T('h2', 'Invite a teammate')])],
+      // the probe still runs for a refused action and finds no form
+      failures: ["action 0 (behaviour, not tested): couldn't test it: the form is not on the page"],
+      refused: ['action 0 (save): that element is not inside a <form>, so there is nothing to submit. Wrap the fields in a <form> element and point at it — or at any field inside it — again.'],
+      files: [],
+    })
+    expect(ex.sentence).toContain(`couldn't make the heading with "Invite a teammate" keep what people type, because it isn't inside a form`)
+    expect(ex.sentence).toContain("Point at one of the form's boxes instead.")
+    expect(ex.sentence).not.toMatch(/didn't try|after the change/)
+    expect(ex.sentence).toMatch(/Nothing was changed\.$/)
+    expect(isPlain(ex.sentence)).toBe(true)
+  })
+
+  it('whyRefused: plain words for what the user can fix, nothing for code-shaped reasons', () => {
+    expect(whyRefused('action 1 (serve): that element is not rendered by a list, so there are no records to move.')).toMatch(/rows of a list/)
+    expect(whyRefused('action 0 (save): that form is already real: it posts to /api/x')).toBe('that form already keeps what people type')
+    expect(whyRefused('action 0 (serve): `team` is imported from \'./data\', so the literal is not in App.tsx')).toBeNull()
   })
 
   it('success is one plain sentence in the past tense and is not a problem', () => {

@@ -122,10 +122,10 @@ async function waitStatus(re, ms = 90000) {
  * it and sometimes catching the idle hint.
  */
 async function runReceipt() {
-  const first = await waitStatus(/verified|✓|✗|refus|codemod/i)
+  const first = await waitStatus(/verified|✓|✗|⚠|refus|codemod/i)
   await page.waitForTimeout(2200)
   const settled = await status()
-  return /verified|✓|✗|refus|codemod/i.test(settled) ? settled : first
+  return /verified|✓|✗|⚠|refus|codemod/i.test(settled) ? settled : first
 }
 
 const spot = (sel) =>
@@ -192,9 +192,9 @@ async function triggerRun() {
       const s = await status()
       if (/already in progress/i.test(s)) break // let the lock clear, then retry
       ready = await sh(() => {
-        const c = document.getElementById('s2c-overlay-host').shadowRoot.getElementById('confirm')
-        return getComputedStyle(c).display !== 'none' && !c.disabled
-      })
+        const c = document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('confirm')
+        return c != null && getComputedStyle(c).display !== 'none' && !c.disabled
+      }).catch(() => false) // the page is reloading under us
       if (ready) break
       await page.waitForTimeout(200)
     }
@@ -209,7 +209,13 @@ async function triggerRun() {
         continue
       }
       for (let i = 0; i < 300; i++) {
-        const busy = await sh(() => document.getElementById('s2c-overlay-host').dataset.mode === 'running')
+        // A write that adds a module full-reloads the page mid-run: for a
+        // moment there is no overlay (or no page to ask). That is "not over
+        // yet", not a crash; the receipt reaches the new page (s2c-037).
+        const busy = await sh(() => {
+          const host = document.getElementById('s2c-overlay-host')
+          return host == null || host.dataset.mode === 'running'
+        }).catch(() => true)
         if (!busy) break
         await page.waitForTimeout(200)
       }
@@ -391,8 +397,15 @@ plan.grounded = await groundLocally(plan.actions)
 await sayAt(heading, 'this should save what people type')
 const r4 = await runReceipt()
 log('refusal →', r4.slice(0, 220))
-if (!/not inside a <form>|<form>/.test(r4)) {
+// The bar carries the plain sentence (s2c-010), so the reason has to be in it
+// in words: before s2c-037 it said only "I couldn't make the heading … keep
+// what people type", plus "I didn't try the change out … because I couldn't
+// find the form after the change" for a change that never happened.
+if (!/isn't inside a form/.test(r4)) {
   throw new Error(`ASSERT: the refusal does not say what was wrong: ${r4}`)
+}
+if (/didn't try|after the change/.test(r4)) {
+  throw new Error(`ASSERT: a refused action is reported as untested: ${r4}`)
 }
 if (existsSync(`${APPDIR}/server/api`)) {
   throw new Error('ASSERT: a refused action still wrote something')

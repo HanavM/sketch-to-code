@@ -224,6 +224,28 @@ export function whyUntested(reason: string): string {
   return "I couldn't run the test"
 }
 
+/**
+ * Why a backend engine said no, in words for the card (s2c-037), or null when
+ * the reason is about the code's shape and only a developer can act on it
+ * (the developer summary keeps it word for word). Before this the card said
+ * only "I couldn't make the heading keep what people type", with no why, so
+ * the one thing the user could do differently (point at a field of the form)
+ * was never said.
+ */
+export function whyRefused(reason: string): string | null {
+  const r = reason.replace(/^action \d+ \([^)]*\):\s*/, '')
+  if (/is not inside a <form>|which is a component rather than a real <form>/i.test(r)) {
+    return "it isn't inside a form, so there is nothing to send. Point at one of the form's boxes instead"
+  }
+  if (/has no fields in it/i.test(r)) return 'that form has nothing to type into yet. Add the boxes first'
+  if (/that form is already real/i.test(r)) return 'that form already keeps what people type'
+  if (/not rendered by a list|not a `?\.map\(\)/i.test(r)) {
+    return "it isn't one of the rows of a list. Point at one of the rows instead"
+  }
+  if (/already comes from an endpoint/i.test(r)) return 'that list already comes from the server'
+  return null
+}
+
 export function explainRun(input: ExplainInput): RunExplanation {
   const missed: string[] = []
   const seen = new Set<string>()
@@ -238,6 +260,14 @@ export function explainRun(input: ExplainInput): RunExplanation {
       missed.push(phrase)
     }
   }
+  // An action an engine refused changed nothing, so nothing of it can be
+  // "tried out in the page". Its probe still ran (and found no form), and the
+  // card said both "I couldn't …" and "I didn't try the change out, because I
+  // couldn't find the form on the page after the change", next to "Nothing
+  // was changed" (s2c-037).
+  const refusedIdx = new Set(
+    (input.refused ?? []).map((f) => failedIndex(f)?.index).filter((i): i is number => i != null),
+  )
   for (const f of [...input.failures, ...(input.refused ?? [])]) {
     if (/^a rule you drew is broken/.test(f)) {
       ruleBroken = true
@@ -248,6 +278,7 @@ export function explainRun(input: ExplainInput): RunExplanation {
     const a = input.actions[p.index]
     if (!a) continue
     if (p.check === 'behaviour, not tested') {
+      if (refusedIdx.has(p.index)) continue
       // the change may well be right; what's missing is the proof, and a
       // non-coder has no other way to get it, so it is never "Done."
       const base = PHRASE[a.kind]?.(a)
@@ -259,7 +290,8 @@ export function explainRun(input: ExplainInput): RunExplanation {
     }
     failedActions.add(p.index)
     const base = PHRASE[a.kind]?.(a) ?? 'make one of the changes'
-    note(CHECK[p.check] ? `${base} ${CHECK[p.check]}` : base)
+    const why = (input.refused ?? []).includes(f) ? whyRefused(f) : null
+    note(why ? `${base}, because ${why}` : CHECK[p.check] ? `${base} ${CHECK[p.check]}` : base)
   }
 
   const dropped = input.droppedActions ?? 0
