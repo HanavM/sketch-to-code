@@ -76,6 +76,72 @@ describe('screenBox: which stroke is the screen', () => {
   })
 })
 
+describe('screenBox: a box drawn fast, in pieces (s2c-042)', () => {
+  // the same box as BOX (620,60)-(1000,460), drawn the ways people draw fast,
+  // with hand wobble: sides a few px off, corners that don't quite meet
+  const nav = (ids: string[]): GroundedAction => ({ ...navAction(), strokeIds: ['s1', ...ids, 's3'] })
+  const S = (id: string, pts: Array<[number, number]>): Stroke => ({ id, points: pts.map(([x, y]) => ({ x, y })) })
+  const want = (b: { x: number; y: number; w: number; h: number } | null) => {
+    expect(b).not.toBeNull()
+    expect(Math.abs(b!.x - 620)).toBeLessThan(12)
+    expect(Math.abs(b!.y - 60)).toBeLessThan(12)
+    expect(Math.abs(b!.x + b!.w - 1000)).toBeLessThan(12)
+    expect(Math.abs(b!.y + b!.h - 460)).toBeLessThan(12)
+  }
+
+  it('two Ls: down-and-across, then up-and-back', () => {
+    const l1 = S('b1', [[622, 58], [618, 250], [621, 461], [800, 457], [998, 462]])
+    const l2 = S('b2', [[1003, 455], [999, 260], [1001, 64], [820, 61], [628, 57]])
+    want(screenBox(nav(['b1', 'b2']), [ARROW, NAME, l1, l2]))
+  })
+
+  it('four separate sides with gaps at the corners', () => {
+    const sides = [
+      S('t', [[630, 61], [800, 58], [992, 62]]),
+      S('r', [[1001, 70], [998, 260], [1002, 452]]),
+      S('b', [[990, 459], [810, 462], [628, 458]]),
+      S('l', [[619, 450], [622, 250], [618, 68]]),
+    ]
+    want(screenBox(nav(sides.map((x) => x.id)), [ARROW, NAME, ...sides]))
+  })
+
+  it('one stroke that overshoots its start along the top edge', () => {
+    const over = S('o', [[620, 60], [1000, 60], [1000, 460], [620, 460], [622, 70], [640, 59], [900, 61]])
+    want(screenBox(nav(['o']), [ARROW, NAME, over]))
+  })
+
+  it('still finds the box when the reader cited the arrow, the name and the sketch inside it too', () => {
+    const l1 = S('b1', [[622, 58], [618, 461], [998, 462]])
+    const l2 = S('b2', [[1003, 455], [1001, 64], [628, 57]])
+    const b = screenBox({ ...navAction(), strokeIds: ['s1', 'b1', 'b2', 's3', 's4', 's5'] }, [ARROW, NAME, FIELD, SUBMIT, l1, l2])
+    want(b)
+  })
+
+  it('an arrow plus a name, an L-shaped arrow, or three sides of a box are never a box', () => {
+    expect(screenBox({ ...navAction(), strokeIds: ['s1', 's3'] }, STROKES)).toBeNull()
+    const lArrow = S('la', [[200, 100], [600, 100], [600, 400], [590, 385], [600, 400], [610, 385]])
+    expect(screenBox({ ...navAction(), strokeIds: ['la', 's3'] }, [lArrow, NAME])).toBeNull()
+    const u = [
+      S('l', [[620, 60], [620, 460]]), S('b', [[620, 460], [1000, 460]]), S('r', [[1000, 460], [1000, 60]]),
+    ]
+    expect(screenBox(nav(['l', 'b', 'r']), [ARROW, NAME, ...u])).toBeNull()
+  })
+
+  it('a two-stroke box moves the sketch inside it onto the screen', () => {
+    const root = app()
+    const out = linkToScreen(root, { srcLoc: 'src/Hero.tsx:4:7', screen: 'Pricing' })
+    const applied = [{ index: 0, file: out.screenAt!, route: out.route!, title: out.title! }]
+    const l1 = S('b1', [[622, 58], [618, 461], [998, 462]])
+    const l2 = S('b2', [[1003, 455], [1001, 64], [628, 57]])
+    const inside = addAction(['s4', 's5'], { x: 660, y: 160, w: 280, h: 110 })
+    const sides = addAction(['b1', 'b2'], { x: 618, y: 57, w: 385, h: 405 })
+    const moved = retargetIntoScreens(root, [nav(['b1', 'b2']), inside, sides], [ARROW, NAME, FIELD, SUBMIT, l1, l2], applied, new Set([0]))
+    expect(moved.map((m) => m.index)).toEqual([1])
+    expect(inside.onScreen?.name).toBe('Pricing')
+    expect(sides.onScreen).toBeUndefined()
+  })
+})
+
 describe('insideShare', () => {
   const box = { x: 0, y: 0, w: 100, h: 100 }
   it('measures how much of a region lies in the box', () => {

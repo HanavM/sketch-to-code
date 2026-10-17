@@ -29,6 +29,8 @@
  *   6. one undo removes everything
  *   7. not hollow: a codegen that ignores the brief and builds on the home
  *      page makes the run FAIL the add in plain words
+ *   8. (s2c-042) the same gesture with the box drawn fast as two Ls: the
+ *      sketch inside still lands on the screen
  *   and: no page errors, zero real model calls
  *
  * Run FROM THE REPO ROOT: node tests/e2e/live-navigate-contents.mjs
@@ -77,6 +79,8 @@ const FORM = `      <form className="mt-6 flex gap-2" onSubmit={(e) => e.prevent
 `
 /** Where the script builds: wherever the brief says, the way a model would. */
 let honest = true
+/** How many strokes the screen box is drawn in (phase 8 draws it as two Ls, s2c-042). */
+let boxStrokes = 1
 const briefs = []
 const modelCalls = []
 let providers = null
@@ -92,14 +96,15 @@ try {
       const ids = ev.strokes.map((s) => s.id)
       const link = ev.elementMenu.find((e) => e.tag === 'a' && /Reports/.test(e.text))
       if (!link) throw new Error('the Reports link is not in the element menu')
-      // drawing order: the arrow, the box, then the field and the button inside it
+      // drawing order: the arrow, the box (1 or 2 strokes), then the field and the button inside it
+      const nav = 1 + boxStrokes
       return {
         reading: 'The Reports link opens a Reports screen with a search box on it.',
         actions: [
           { kind: 'navigate', elements: [link.id], destElement: null, position: null, instruction: 'clicking Reports opens the Reports screen',
-            strokes: ids.slice(0, 2), layer: null, depicts: null, fidelity: null, screen: 'Reports' },
+            strokes: ids.slice(0, nav), layer: null, depicts: null, fidelity: null, screen: 'Reports' },
           { kind: 'add', elements: null, destElement: null, position: null, instruction: 'a search field with a Search button',
-            strokes: ids.slice(2), layer: 'in-flow', depicts: null, fidelity: null, screen: null },
+            strokes: ids.slice(nav), layer: 'in-flow', depicts: null, fidelity: null, screen: null },
         ],
         unclear: null,
       }
@@ -162,11 +167,20 @@ try {
     // the Reports link sits at the right of the navbar: the box goes below and to the left of it
     await pen([[link.x, link.y], [link.x - 60, link.y + 120], [link.x - 140, link.y + 240], [link.x - 120, link.y + 225], [link.x - 140, link.y + 240], [link.x - 145, link.y + 215]])
     const box = { x0: link.x - 560, y0: link.y + 260, x1: link.x - 160, y1: link.y + 560 }
-    await pen(boxAt(box.x0, box.y0, box.x1, box.y1))
+    if (boxStrokes === 2) {
+      // drawn fast: two Ls from the top-left corner, across-and-down then
+      // down-and-across, with a little wobble and corners that don't quite meet.
+      // (Not end-to-start: the pen bridges a stroke that starts where the last
+      // one ended into one stroke, so that wouldn't be two strokes at all.)
+      await pen([[box.x0 + 3, box.y0 - 2], [box.x0 + 200, box.y0 + 3], [box.x1 + 2, box.y0 - 1], [box.x1 - 3, box.y0 + 150], [box.x1 + 1, box.y1 - 6]])
+      await pen([[box.x0 - 2, box.y0 + 6], [box.x0 + 2, box.y0 + 150], [box.x0 - 1, box.y1 + 2], [box.x0 + 200, box.y1 - 3], [box.x1 - 7, box.y1 + 1]])
+    } else {
+      await pen(boxAt(box.x0, box.y0, box.x1, box.y1))
+    }
     await pen(boxAt(box.x0 + 30, box.y0 + 60, box.x1 - 120, box.y0 + 100))
     await pen(boxAt(box.x1 - 100, box.y0 + 60, box.x1 - 30, box.y0 + 100))
     const after = await inkCount(page)
-    check(`${words}: four strokes landed`, after - before === 4, `${before} → ${after}`)
+    check(`${words}: ${3 + boxStrokes} strokes landed`, after - before === 3 + boxStrokes, `${before} → ${after}`)
     await page.keyboard.type(words, { delay: 20 })
     await page.keyboard.press('Enter')
     // settle: a terminal line that stays put for 2 s
@@ -263,6 +277,25 @@ try {
   const add7 = dir7 ? verdicts(dir7).find((d) => d?.kind === 'add') : null
   check('7. building on the home page instead FAILS the add', add7?.verdict?.satisfied === false && /nothing you drew in its box is on it/.test(add7.verdict.reason ?? ''), add7 ? add7.verdict?.reason : 'no add verdict')
   check('7. and the run does not end on a tick', !/^✓/.test(seen7.at(-1) ?? ''), seen7.at(-1))
+
+  // ── 8. a box drawn fast, as two strokes, is still the screen (s2c-042) ────
+  honest = true
+  boxStrokes = 2
+  briefs.length = 0
+  await boot()
+  before = new Set(runsNow())
+  const seen8 = await sketch('reports')
+  for (const s of seen8) console.log(`      │ ${s}`)
+  const dir8 = lastRunDir(before)
+  const sc8 = dir8 && existsSync(join(dir8, 'screen-contents.json')) ? JSON.parse(readFileSync(join(dir8, 'screen-contents.json'), 'utf8')) : []
+  check('8. two-stroke box: run2 recorded the retarget', sc8.length === 1 && sc8[0].file === 'src/screens/Reports.tsx', JSON.stringify(sc8))
+  const screen8 = existsSync(join(APPDIR, 'src/screens/Reports.tsx')) ? readFileSync(join(APPDIR, 'src/screens/Reports.tsx'), 'utf8') : ''
+  check('8. two-stroke box: the form is on the Reports screen, home untouched',
+    /placeholder="Search reports"/.test(screen8) && readFileSync(join(APPDIR, 'src/App.tsx'), 'utf8') === original['src/App.tsx'])
+  const vs8 = dir8 ? verdicts(dir8) : []
+  const add8 = vs8.find((d) => d?.kind === 'add')
+  check('8. two-stroke box: the add is satisfied on the screen', add8?.onScreen === '#/reports' && add8?.verdict?.satisfied === true, add8 ? add8.verdict?.reason : 'no add verdict')
+  check('8. two-stroke box: the receipt ends on a tick and names the screen', /^✓/.test(seen8.at(-1) ?? '') && /put what you drew in its box on the "Reports" screen/.test(seen8.at(-1) ?? ''), seen8.at(-1))
 
   const real = pageErrors.filter((e) => !/ResizeObserver/.test(e))
   check('no page errors', real.length === 0, real.join(' | '))

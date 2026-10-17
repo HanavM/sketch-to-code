@@ -121,10 +121,17 @@ Now (`pipeline/src/screen-contents.ts`), after the navigate engine has
 written the screen file, run2 retargets every add whose ink lies inside the
 screen's box:
 
-- **Which stroke is the box:** of the strokes the navigate cites (grounding
-  now keeps them as `strokeIds`), the largest one that closes on itself. The
-  arrow doesn't close. No closed stroke → nothing is retargeted, which is the
-  old behaviour rather than a new guess.
+- **Which strokes are the box:** of the strokes the navigate cites (grounding
+  now keeps them as `strokeIds`), the largest box they draw: one stroke that
+  closes on itself, or (s2c-042) up to four strokes that together outline a
+  rectangle. "Outline a rectangle" = ≥ 85% of their ink is within a tolerance
+  (a tenth of the short side, 6–24 px) of their joint bounding box's outline,
+  ≥ 85% of that outline is inked, and every side is at least 60% inked. So
+  two Ls, four separate sides, and a one-stroke box that overshoots its start
+  all count; an arrow (L-shaped or not) plus the name doesn't, and neither
+  does a bracket open on one side with the name written just under the gap.
+  No box → nothing is retargeted, which is the old behaviour rather than a
+  new guess.
 - **Inside** = at least 80% of the add's ink area is in the box. A sketch
   that pokes over the edge counts; one drawn beside the box doesn't. The box
   cited twice (as the add's own strokes) is never "inside itself".
@@ -165,8 +172,16 @@ the add ("the "Reports" screen opened, but nothing you drew in its box is on
 it") and the run doesn't end on a tick. 5/5 green back to back.
 
 Not checked: a real model reading the inner sketch as its own `add` (the
-reading is scripted; s2c-013); a box drawn as several strokes (no single
-closed stroke → no retarget, falls back to the old behaviour).
+reading is scripted; s2c-013).
+
+**Multi-stroke boxes (s2c-042).** Phase 8 of the same e2e draws the box as
+two Ls from the top-left corner (wobbly, corners not meeting). Red on the old
+`screenBox` (no retarget, form built on the home page, ⚠ receipt), 3/3 green
+after. Not end-to-start Ls: the pen bridges a stroke that starts where the
+last one ended into a single stroke (the trackpad-hop rule), so those were
+never two strokes. Not handled: a box whose sides are cited across two
+different actions, and a rounded box drawn in pieces (pieces of an oval
+don't lie on their bounding box).
 
 ## Not done yet
 
@@ -174,5 +189,5 @@ closed stroke → no retarget, falls back to the old behaviour).
    the page's "← Back" can leave the counter one high, and the next "← Back"
    then steps back one entry too far. Harmless inside the app, but it isn't
    exact.
-5. A box drawn in two or more strokes (common when sketching fast) isn't
-   recognised as the screen, so its contents fall back to the home page.
+5. ~~A box drawn in two or more strokes isn't recognised~~ — done (s2c-042).
+   A rounded box drawn in pieces still isn't.
