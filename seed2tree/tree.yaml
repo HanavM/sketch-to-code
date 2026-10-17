@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 33
-lock: {run: cloud-202610170255-s2c-032, until: 2026-10-17T04:10Z}
+next_id: 34
+lock: null
 
 nodes:
 - id: s2c-000
@@ -122,11 +122,11 @@ nodes:
   parent: s2c-000
   title: "Onboarding on real third-party repos"
   why: "SEED done-criterion 1. init/doctor are tested on one scaffolded app only."
-  done_when: "e2e:cli-style script runs init + doctor against ≥5 real open-source Vite+React repos (cloned from GitHub) and records pass/fail + fixes in docs/."
-  status: pruned
+  done_when: "Zero-token e2e (scripted model, like walkthrough-noncoder.mjs) clones ≥5 real open-source Vite+React repos, runs init + doctor, and makes one scripted sketch edit on each; docs/ records per repo: init pass/fail, minutes to first ✓, and every failure filed or fixed (SEED done #3)."
+  status: open
   needs: cloud
   value: 4
-  effort: 3
+  effort: 2
   confidence: 0.6
   momentum: 0.5
   depth: 1
@@ -136,6 +136,7 @@ nodes:
   outputs: []
   log:
   - "2026-10-15: PRUNED by s2c-012 PIVOT: onboarding 5 real repos is launch prep for a product that loses to Cursor/Lovable/Onlook. Owner can overrule in INBOX with a reason."
+  - "2026-10-17: UN-PRUNED. The pruning reason was the s2c-012 PIVOT, which the owner overruled; its own log said revisit after s2c-018 (done). With s2c-010 closed this is the next SEED done item (#3) a cloud run can move without spending money. Rescoped to zero-token via setScriptedModel; effort 3 -> 2."
 
 - id: s2c-006
   parent: s2c-000
@@ -229,7 +230,7 @@ nodes:
   title: "Non-coder walkthrough (SEED done #2): audit the path, then prove it"
   why: "The seed's test is whether someone with no React knowledge can make 3 meaningful changes. First find every step that forces them to read code or an error."
   done_when: "docs/walkthrough-noncoder.md walks running app -> add a section, change styling, add a working form, each step checked against the current CLI/overlay (zero-token e2e where possible); every point that needs code or error-reading is listed and filed as a child node."
-  status: active
+  status: done
   needs: cloud
   value: 4
   effort: 3
@@ -251,6 +252,7 @@ nodes:
   - "2026-10-17: watering 2. New zero-token e2e walkthrough-noncoder.mjs walks the real create-vite 9.2.1 starter (Vite 8.3) through init + 4 sketches (testimonials section, red heading, signup form, 'save it') with only pen/keyboard/bar; the model is scripted in-process (@s2c/providers setScriptedModel; real provider throws while set). Found 3 bugs on the path every user takes, all fixed: (1) every run ended in idle, so the SECOND sketch drew nothing (now rests in draw on the Design surface); (2) placement verification failed in-flow content the layout centred, so a visible new section got 'I couldn't add what you drew' + Undo (verifyDesignPlacement now accepts right band + size + touching or centred in parent; 5 asserts); (3) every change ended on '✓ [v2] 0% verified … revert: git restore …' (bar now ends on the plain explanation sentence; dev summary in tooltip/console). Now 3/4 sketches end on ✓ in plain words. NOT done: 3b's save probe can't find the form after the engine shifts its stamp, and the card blames safety -> s2c-031; progress lines are dev text -> s2c-030. live-keymap updated (its Esc step was red before); live-auto green; live-misread red before and after (pre-existing). vitest 1056/1058 (same 2 env failures); tsc -b clean; init-real-project green."
   - "2026-10-17: s2c-031 done (74b0075): 3b ends on ✓, the save is submitted in the page. All 4 walkthrough sketches now end on ✓ in plain words. Remaining open child: s2c-030 (developer progress lines), s2c-032 (Done sentence says what changed). Done when those close."
   - "2026-10-17: s2c-030 done (747d61c): every bar line during a run is now plain words, and the walkthrough fails on developer words in any line. Last open child: s2c-032."
+  - "2026-10-17: DONE. Last children s2c-030/031/032 landed: all 4 walkthrough sketches end on ✓ in plain words that name what was asked, every bar line plain, form save tried in the page. done_when met as far as a script can; real readings fold into s2c-013, a real non-coder is the owner's call. Left over and filed: live-misread red (s2c-033)."
 
 - id: s2c-030
   parent: s2c-010
@@ -738,11 +740,37 @@ nodes:
   why: "The walkthrough's ticks are vague where it matters to a non-coder: ring the heading + 'red' ends on 'changed the heading with \"Get started\"' (not that it's red now); box + 'testimonials' ends on 'added what you drew'. They can't tell from the sentence whether it understood them."
   done_when: "walkthrough-noncoder.mjs checks that change 1's sentence names 'testimonials' and change 2's names 'red'; explain unit tests: a modify with a colour/size word and an add with typed words name them; isPlain holds; no sentence grows past ~20 words."
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 1
   confidence: 0.7
+  momentum: 0.7
+  depth: 2
+  watered: 1
+  last_watered: 2026-10-17T03:20Z
+  blocked_on: null
+  outputs:
+  - 8859518
+  - packages/pipeline/src/explain.ts#donePhrase
+  - packages/pipeline/tests/explain.test.ts
+  - packages/cli/tests/e2e/walkthrough-noncoder.mjs
+  - docs/walkthrough-noncoder.md
+  log:
+  - "2026-10-17: filed by s2c-031 watering 1 (from the walkthrough doc's 'wording, judged by eye, not filed')."
+  - "2026-10-17: DONE (8859518). Success sentence now carries the words typed with the mark (action notes; a lone unclaimed runNote goes to a lone action): short look-word -> 'made <target> red/bigger/bold and blue' (strips 'make it'); instruction-like words quoted; add -> 'added \"testimonials\" where you drew it'; coloured pen + no words -> hue name. Notes cut at 6 words; failure sentences unchanged. Walkthrough: change 1 ends '✓ Done: added \"testimonials\" where you drew it.', change 2 '✓ Done: made the heading with \"Get started\" red.'; both new checks green, ALL CHECKS PASSED. 12 new unit tests; vitest 1083/1085 (same 2 env failures); tsc -b clean; 0 tokens. Limit: words are echoed, not verified on the page."
+
+- id: s2c-033
+  parent: s2c-011
+  title: "live-misread e2e is red: starting a new run leaves the old misread card up"
+  why: "A non-coder who gets a misread card and draws again sees the stale card claim the old reading while the new run works. Red on main and seed2tree since at least 2026-10-17 00:55, never investigated."
+  done_when: "tests/e2e/live-misread.mjs green (zero-token or scripted); the cause named in docs/findings.md; a unit or e2e assert that the card hides when a run starts."
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.6
   momentum: 0.5
   depth: 2
   watered: 0
@@ -750,4 +778,4 @@ nodes:
   blocked_on: null
   outputs: []
   log:
-  - "2026-10-17: filed by s2c-031 watering 1 (from the walkthrough doc's 'wording, judged by eye, not filed')."
+  - "2026-10-17: filed by s2c-032 watering (left over in docs/walkthrough-noncoder.md). Check first whether the test spends tokens; if it does, port it to setScriptedModel before running."
