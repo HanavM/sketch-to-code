@@ -23,7 +23,8 @@
     "e2e:optimistic-ring": "node tests/e2e/optimistic-ring.mjs",
     "e2e:optimistic-preview": "node tests/e2e/optimistic-preview.mjs",
     "e2e:optimistic-reconcile": "node tests/e2e/optimistic-preview-reconcile.mjs",
-    "e2e:optimistic-preview-live": "node tests/e2e/optimistic-preview-live.mjs"
+    "e2e:optimistic-preview-live": "node tests/e2e/optimistic-preview-live.mjs",
+    "e2e:optimistic-queue": "node tests/e2e/optimistic-queue.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

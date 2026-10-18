@@ -22,8 +22,8 @@
  *      (draw mode and the ink survive), and nothing runs afterwards
  *   6. it never fires while the note editor is open, while a panel is open, or
  *      outside draw mode
- *   7. the single-run lock: a second stroke during an in-flight interpret does
- *      not start a second run
+ *   7. the single-run lock: a drawing finished during an in-flight run does
+ *      not start a second run alongside it: it waits its turn, then runs (n10)
  *   8. a destructive reading (needsConfirm) falls back to the normal preview
  *      gate and says why — auto mode may write code, not destroy things
  *   9. the toggle persists under 's2c:auto', and garbage in storage means OFF
@@ -425,7 +425,7 @@ if (runs.length !== 1) throw new Error(`${runs.length} runs posted for one drawi
 if ((runs[0].strokes ?? []).length !== 3) throw new Error(`the run carried ${runs[0].strokes?.length} strokes, want 3`)
 if (!runs[0].fidelity || runs[0].candidates !== 1) throw new Error('the auto-run payload lost fidelity/candidates')
 await waitFor(async () => /running/.test(await status()), 3000, "the 'running' phase")
-if ((await mode()) !== 'running') throw new Error(`mode is ${await mode()} with a run in flight`)
+if ((await mode()) !== 'running' && !(await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.flight))) throw new Error(`mode is ${await mode()} with a run in flight`)
 await finishRun('auto: wrote Card.tsx')
 if (!/auto: wrote Card\.tsx/.test(await status())) throw new Error(`the done phase never landed: ${await status()}`)
 log('✓ 3 strokes → 1 run, ' + delay + 'ms after the last one · countdown ticked', nums.join(' → '), '· HUD immobile')
@@ -538,12 +538,18 @@ if ((await mode()) !== 'draw') throw new Error('mode changed before interpret an
 await stroke(0, 60) // a stroke DURING the in-flight interpret
 await page.waitForTimeout(SETTLE * 2)
 if (interprets.length !== 1) throw new Error(`${interprets.length} interprets — the lock let a second run in`)
-if ((await auto()).pending) throw new Error('a countdown was scheduled while a run was in flight')
+if ((await auto()).pending) throw new Error('a countdown is still pending once the second drawing settled')
+// goal loop n10: the second drawing is its own change, and waits its turn
+if ((await auto()).queued.length !== 1) throw new Error(`the second drawing is not waiting its turn: ${JSON.stringify(await auto())}`)
 await waitFor(async () => runs.length > 0, 5000, 'the locked run to post')
 if (runs.length !== 1) throw new Error(`${runs.length} runs posted`)
+if ((runs[0].strokes ?? []).length !== 1) throw new Error(`the first run carried ${runs[0].strokes?.length} strokes, want only its own 1`)
+await finishRun()
+await waitFor(async () => runs.length === 2, 5000, 'the waiting drawing to run once the first landed')
+if (interprets.length !== 2) throw new Error(`${interprets.length} interprets, want 2`)
 await finishRun()
 interpretMs = 250
-log('✓ one run at a time: a stroke during an in-flight interpret starts nothing')
+log('✓ one run at a time: a drawing finished during an in-flight run waits, then runs on its own')
 
 // ---- 8. a destructive reading falls back to the preview gate ------------
 await reset()

@@ -102,7 +102,8 @@ try {
   }, text)
   const pendingN = () => page.evaluate(() =>
     document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length)
-  const mode = () => page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)
+  // n10: in auto mode a run goes on in the background and the pen stays in draw mode
+  const mode = () => page.evaluate(() => { const h = document.getElementById('s2c-overlay-host'); return h.dataset.flight ? 'running' : h.dataset.mode })
   const draw = async (pts) => {
     await page.mouse.move(pts[0][0], pts[0][1])
     await page.mouse.down()
