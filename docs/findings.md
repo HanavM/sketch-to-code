@@ -881,6 +881,50 @@ bracket.
 Limits: the marks are my generators, not people's. The base page is one
 layout. "Missed" costs a model call (~10 s), it doesn't break anything.
 
+## Overdrawn rings, fixed in the classifier (s2c-053, 2026-10-18)
+
+A person circling something often goes round 1.15–1.5 times. The pen then
+ends a quarter-lap past where it started, so `@s2c/ink`'s closedness test
+(endpoint gap < 16% of length) called the stroke open, and it came out as a
+line or polyline. Two things saw that wrong kind: the ring reading (which then
+paid for a model call) and the model's own brief (told "line" for a loop).
+
+Fix, in `classifyStroke`: when an open stroke turns 0.9–1.75 laps in one
+direction, find where the pen comes back nearest its start after 0.75–1.25
+laps. If that gap is under 16% of the lap and every later point lies on the
+lap already drawn, classify the first lap. A ring with a tail heading off, a
+zigzag (its turning cancels) and anything past 1.75 laps keep the old rules.
+
+A trap found on the way: `features.revolutions` bridges the seam between the
+two ends as if the shape were closed. On an overshoot that seam is a U-turn,
+so a 1.3-lap ring measured **2.0** laps. The new check sums the pen's own
+turning instead. First version used `revolutions` and stalled at 77%.
+
+| plain sweep, n=200/target | before | after |
+|---|---|---|
+| ring > 1.15 turns (overdrawn), read free | 42% | **98%** (339/346) |
+| ring, all 800, read free | 60% | **84%** |
+| ring 0.95–1.15 / < 0.95 turns | 92% / 48% | unchanged |
+| scratch-outs read free | 68% (953) | unchanged |
+| bad fires, all 4,400 marks incl. 1,000 probes | 0 | **0** |
+
+`run.mjs --set rough --dry --plain`: unchanged (2 right, 1 missed, 12
+declined, 0 bad). Auto routing is the overlay's DOM-hit test, which doesn't
+use the classifier: rough sends the same mode per page as the s2c-013 runs,
+tidy sends design on all 15. 4 new classify tests, 3 red on the old code (the
+tail guard passes on both).
+
+What else changes: the model's brief now says ellipse/rect for these loops,
+and the overlay's bare-ring check (`bare-ring.ts`) uses the same classifier,
+so a default-ink ring drawn round 1.3 times now gets the ring treatment there
+too. Both are the intended reading; neither was measured with a model.
+
+Still open: very flat rings (40:1 and more, round a whole paragraph line) are
+a back-and-forth line to the classifier at any lap count. The ring reading
+gets them right by squashing the box first; the brief still says line. A
+tight loop drawn 2.5+ times reads as an ellipse (it did before too), which a
+person might mean as a scratch-out.
+
 ## Structured reading vs a screenshot, on rough sketches (s2c-013, 2026-10-18)
 
 The test the seed was waiting on. The 15 rough pages (s2c-009) were run 3

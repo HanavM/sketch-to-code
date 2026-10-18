@@ -1,7 +1,7 @@
 import { computeFeatures } from './features.js'
 import { BIG, trapezoid } from './fuzzy.js'
-import { turnAngle } from './geometry.js'
-import type { ShapeCandidate, Stroke, StrokeFeatures } from './types.js'
+import { bboxOf, dist, turnAngle } from './geometry.js'
+import type { Point, ShapeCandidate, Stroke, StrokeFeatures } from './types.js'
 
 /**
  * Single-stroke shape classification.
@@ -49,6 +49,21 @@ export function classifyStroke(stroke: Stroke): { features: StrokeFeatures; cand
   // disjunct covers seam-turn sign cancellation on noisy closures.
   const closed = f.closedness < 0.16 && (f.revolutions > 0.6 || Pch2_Ach < 35)
   const nCorners = f.corners.length
+
+  // Overdrawn loop: a person circling something often goes round 1.15–1.5
+  // times, so the pen ends a quarter-turn past where it started and the
+  // endpoint test calls it open (then a line or polyline: s2c-053 found 137
+  // of 200 such rings misread). Read the first full lap as the shape, but only
+  // when the overshoot retraces that lap, so a ring with a tail, a spiral or a
+  // many-lap scribble stays what it is.
+  if (!closed) {
+    const lap = firstLap(f.resampled)
+    if (lap) {
+      const inner = classifyStroke({ ...stroke, points: lap })
+      const top = inner.candidates[0]
+      if (top && CLOSED_KINDS.has(top.kind)) return { features: f, candidates: inner.candidates }
+    }
+  }
 
   // ---- open strokes ----
   if (!closed) {
@@ -141,4 +156,56 @@ export function classifyStroke(stroke: Stroke): { features: StrokeFeatures; cand
 
   candidates.sort((a, b) => b.confidence - a.confidence)
   return { features: f, candidates }
+}
+
+const CLOSED_KINDS = new Set<ShapeCandidate['kind']>(['circle', 'ellipse', 'rect', 'rounded-rect', 'diamond', 'triangle'])
+
+/** Most laps an overdrawn ring may sweep in all; more reads as a loopy scratch-out. */
+const MAX_OVERDRAW_REVOLUTIONS = 1.75
+
+/**
+ * The points of the first full lap of an overdrawn loop, or null.
+ *
+ * Walks the stroke, summing signed turning, and looks for where the pen comes
+ * back closest to its start once it has turned 0.75–1.25 laps. That point must
+ * be close (gap < 0.16 of the lap's length, PaleoSketch's closedness bound),
+ * the turning must be one-way (a zigzag cancels itself out), and every point
+ * after it must lie near the lap already drawn: the overshoot retraces, it
+ * does not head off somewhere (a ring with a tail is a ring plus an arrow).
+ */
+function firstLap(pts: Point[]): Point[] | null {
+  const n = pts.length
+  if (n < 12) return null
+  // Turning along the pen's own path. Not features.revolutions: that one
+  // bridges the seam between the ends as if the shape were closed, which on an
+  // overshoot adds a phantom U-turn (a 1.3-lap ring measured 2.0).
+  let total = 0
+  for (let i = 2; i < n; i++) total += turnAngle(pts[i - 2]!, pts[i - 1]!, pts[i]!)
+  const laps = Math.abs(total) / (2 * Math.PI)
+  if (laps < 0.9 || laps > MAX_OVERDRAW_REVOLUTIONS) return null
+  let rot = 0
+  let len = 0
+  let best = -1
+  let bestGap = Infinity
+  const lens: number[] = [0, dist(pts[0]!, pts[1]!)]
+  for (let i = 2; i < n; i++) {
+    rot += turnAngle(pts[i - 2]!, pts[i - 1]!, pts[i]!)
+    len = lens[i - 1]! + dist(pts[i - 1]!, pts[i]!)
+    lens.push(len)
+    const laps = Math.abs(rot) / (2 * Math.PI)
+    if (laps < 0.75) continue
+    if (laps > 1.25) break
+    const gap = dist(pts[i]!, pts[0]!)
+    if (gap < bestGap) { bestGap = gap; best = i }
+  }
+  if (best < 0 || bestGap >= 0.16 * lens[best]!) return null
+  const lap = pts.slice(0, best + 1)
+  const box = bboxOf(lap)
+  const near = Math.max(6, 0.15 * Math.min(box.w, box.h))
+  for (let i = best + 1; i < n; i++) {
+    let d = Infinity
+    for (const q of lap) d = Math.min(d, dist(pts[i]!, q))
+    if (d > near) return null
+  }
+  return lap
 }
