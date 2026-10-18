@@ -1,12 +1,19 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
-now: "Teaching the page to hide a scribbled-out element, or recolour a ringed one, the moment the pen lifts."
-lock: {by: session_0154jy3uq7WBCuzTyxTFo8rx-run2, until: "2026-10-18T08:38:52Z"}
+now: "A scribbled-out element now vanishes the instant the pen lifts (on a test branch); next, the same for recolouring with a coloured pen."
+lock: null
 asks: []
 handled: []
+notes:
+  - "Overlay bundle may import only @s2c/ink/classify, never @s2c/ink (node:zlib); a bad import shows as no overlay in e2e."
+  - "The vite plugin caches the overlay bundle per dev-server boot: restart the demo server after overlay edits."
+  - "Playwright here wants headless_shell-1234; point PLAYWRIGHT_BROWSERS_PATH at a dir linking chrome-headless-shell to /opt/pw-browsers/chromium."
+  - "Quick reading must match plain-reading.ts exactly; on big pages the server menu cap (MENU_CAP) could still diverge: a false hide is rolled back, a miss just waits for the run."
+  - "Spent so far: about 3 interpret model calls (first e2e drafts), a few thousand tokens."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
 criteria:
-  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open, evidence: null}
+  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open,
+     evidence: "On try/n1 (not yet on agent): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
   - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open, evidence: null}
   - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open, evidence: null}
   - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open, evidence: null}
@@ -22,4 +29,6 @@ nodes:
      branch: try/n3-instant-source, result: null}
   - {id: n4, parent: n1, kind: step, title: "Gesture reader + reversible patch module (scribble hides, coloured ring recolours) with unit tests", status: done,
      result: "optimistic.ts reads both gestures in-browser; parity with server reading on all 15 rough sketches; undo exact. Commit 03ac934."}
-  - {id: n5, parent: n1, kind: step, title: "Wire it into pen lift: patch instantly, run with no Go, drop patch on reload, undo on failure; e2e timing", status: active, result: null}
+  - {id: n5, parent: n1, kind: step, title: "Wire it into pen lift: patch instantly, run with no Go, drop patch on reload, undo on failure; e2e timing", status: done,
+     result: "Scribble hides 15-34 ms after lift; failed run restores exactly; live delete lands, no flash. Commit 6564743."}
+  - {id: n6, parent: n1, kind: step, title: "Coloured-ring recolour e2e (lift-to-visible, rollback, live land) plus Ctrl+Z after each lands", status: open, result: null}
