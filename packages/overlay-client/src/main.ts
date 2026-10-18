@@ -3035,6 +3035,9 @@ class Overlay {
         mode: this.effectiveRunMode(), notes: this.notesPayload(),
       }),
       keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
+      // the last reading's outcome, as the server answered it: lets the bench's
+      // --read-only mode measure readings without paying for codegen (s2c-056)
+      reading: () => this.lastReading,
       // which /api paths the page asked for and nothing answered, and how each
       // one failed — the only observable side of the fetch watcher
       apiMisses: () => [...this.apiMisses.entries()].map(([path, how]) => ({ path, how })),
@@ -3396,6 +3399,9 @@ class Overlay {
     this.clearBtn.disabled = busy || previewing || !this.hasWork()
     this.drawBtn.disabled = busy || previewing
   }
+
+  /** What the last reading came back as (see __S2C_DEBUG__.reading). */
+  private lastReading: { ok: boolean; ms: number; httpStatus: number; error?: string; tokens?: unknown; plain?: unknown; actions?: number; resumed?: boolean } | null = null
 
   /** A reading that didn't come back: plain words on the bar, the cause on its tooltip. */
   private readingFailed(err: unknown) {
@@ -10443,6 +10449,8 @@ class Overlay {
     this.parkReading(readingId)
     const etching = this.etch()
     this.status('reading your drawing…')
+    const askedAt = Date.now()
+    this.lastReading = null
     try {
       const res = await fetch('/@s2c/interpret', {
         method: 'POST',
@@ -10457,6 +10465,7 @@ class Overlay {
         }),
       })
       const body = (await res.json()) as ReadingBody
+      this.lastReading = readingOutcome(res.ok, res.status, body, Date.now() - askedAt)
       if (this.readingId !== readingId) return // cleared, or a newer run owns the page
       this.dropReading()
       await this.applyReading(res.ok, res.status, body, etching)
@@ -10465,6 +10474,7 @@ class Overlay {
       // render just reloaded it: the next page collects the answer, so this
       // one says nothing (and keeps the park)
       if (this.unloading) return
+      this.lastReading = { ok: false, ms: Date.now() - askedAt, httpStatus: 0, error: `fetch: ${err instanceof Error ? err.message : String(err)}` }
       if (this.readingId === readingId) this.dropReading()
       this.readingFailed(err)
     }
@@ -10604,10 +10614,12 @@ class Overlay {
       if (got.state === 'done' && got.reply) {
         this.dropReading()
         const st = got.status ?? 200
+        this.lastReading = { ...readingOutcome(st >= 200 && st < 300, st, got.reply, Date.now() - p.at), resumed: true }
         await this.applyReading(st >= 200 && st < 300, st, got.reply, Promise.resolve())
         return
       }
       if (got.state === 'unknown') {
+        this.lastReading = { ok: false, ms: Date.now() - p.at, httpStatus: 0, error: 'lost: the server no longer had this reading', resumed: true }
         this.dropReading()
         this.status(lostSentence('lost'), true)
         return
@@ -11200,5 +11212,19 @@ if (!document.getElementById(HOST_ID)) {
     document.addEventListener('DOMContentLoaded', () => new Overlay())
   } else {
     new Overlay()
+  }
+}
+
+/** One reading's outcome in a few fields the bench can keep (s2c-056). */
+function readingOutcome(ok: boolean, httpStatus: number, body: ReadingBody, ms: number) {
+  const v2 = body.v2 as (V2Preview & { tokens?: unknown; plain?: unknown }) | undefined
+  return {
+    ok: ok && body.ok && !!(body.result || body.v2),
+    ms,
+    httpStatus,
+    ...(body.error ? { error: body.error } : {}),
+    ...(v2?.tokens ? { tokens: v2.tokens } : {}),
+    ...(v2?.plain ? { plain: v2.plain } : {}),
+    ...(v2 ? { actions: v2.interpretation.actions.length } : {}),
   }
 }

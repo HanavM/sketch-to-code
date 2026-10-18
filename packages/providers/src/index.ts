@@ -5,7 +5,7 @@ import { scriptedModel, scriptedProvider } from './scripted.js'
 
 export * from './types.js'
 export { azureConfigured, createAzureProvider, resolveAzureEnv } from './azure.js'
-export { createClaudeCodeProvider, cleanEnv } from './claude-code.js'
+export { createClaudeCodeProvider, cleanEnv, readingFailure, perceptionTimeoutMs, PerceptionFailure, type ResultLike } from './claude-code.js'
 export { setScriptedModel, scriptedModel, scriptedProvider, type ScriptedModel } from './scripted.js'
 
 /** Azure when configured, else the user's Claude Code. Works out of the box. */

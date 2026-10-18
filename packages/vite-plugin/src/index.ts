@@ -1439,7 +1439,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         if (rejectUnauthorized(req, res, token)) return
         readJsonBody<RunRequest & { readingId?: unknown }>(req)
           .then(async (body) => {
-            const work = readStrokes(body)
+            // s2c-056: a failed reading reached only the page's tooltip; the
+            // terminal running the dev server now says why, too
+            const work = readStrokes(body).catch((err: unknown) => {
+              server.config.logger.warn(`[s2c] reading failed: ${err instanceof Error ? err.message : String(err)}`, { timestamp: true })
+              throw err
+            })
             // with an id, the reply is kept for the page that survives a reload
             // (s2c-002); the live request still gets it the usual way
             const reply = await (isReadingId(body.readingId) ? readings.begin(body.readingId, work) : work)

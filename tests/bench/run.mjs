@@ -39,6 +39,7 @@
  *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
  *   node tests/bench/run.mjs --set rough          # the loose/partial/edit set (s2c-009)
  *   node tests/bench/run.mjs --words content      # typed words: all|content|none (s2c-016, lib/words.mjs)
+ *   node tests/bench/run.mjs --read-only --repeat 5 --only r04,r11,r14   # readings only, no codegen (s2c-056)
  *
  * In --dry mode every page is also SCORED as it stands, untouched. No sketch
  * has been realized yet, so a page that scores realized there has a vacuous
@@ -63,6 +64,7 @@ import { parseWords, notesFor, wordsTyped, answerKey, wordSummary } from './lib/
 import { pensFor, penChanges, penMismatch } from './lib/pen.mjs'
 import { judgePlain, tallyPlain } from './lib/plain.mjs'
 import { browserSpoiled, freshBrowserPerPage, retryable, withTimeout } from './lib/crash.mjs'
+import { readingSummary } from './lib/readings.mjs'
 
 const arg = (name, fallback = null) => {
   const i = process.argv.indexOf(`--${name}`)
@@ -89,7 +91,14 @@ const DRY = has('dry')
 // in-process, and judge it against the answer key. Zero tokens (s2c-052).
 const PLAIN = has('plain')
 if (PLAIN && !DRY) throw new Error('--plain only runs with --dry: it must never press Run')
+// --read-only: press Run, record what the reading came back as (ok, cause,
+// time, tokens), then stop. No Go, so no codegen: a reading costs ~5k billed
+// tokens against ~16k for a whole page. For counting failed readings (s2c-056).
+// --repeat N runs each chosen page N times.
+const READ_ONLY = has('read-only')
+if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does: pick one')
 const MODE = parseMode(arg('mode'))
+if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
 const SETS = { tidy, rough }
 const SET = String(arg('set', 'tidy'))
@@ -105,6 +114,8 @@ if (only) {
   chosen = specs.filter((s) => want.some((w) => s.id.startsWith(w)))
 }
 if (limit) chosen = chosen.slice(0, Number(limit))
+const REPEAT = Math.max(1, Number(arg('repeat', 1)) || 1)
+if (REPEAT > 1) chosen = chosen.flatMap((s) => Array.from({ length: REPEAT }, () => s))
 if (chosen.length === 0) throw new Error(`no specs matched --only ${String(only)}`)
 // before the app is built: an unclassified note in content mode is a spec bug, not a run failure
 for (const s of chosen) { notesFor(s, WORDS); pensFor(s) }
@@ -112,7 +123,7 @@ for (const s of chosen) { notesFor(s, WORDS); pensFor(s) }
 mkdirSync(OUT, { recursive: true })
 mkdirSync(join(OUT, 'shots'), { recursive: true })
 
-log(`${chosen.length} page(s) · set ${SET} · mode ${MODE} · words ${WORDS}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}`)
+log(`${chosen.length} page(s) · set ${SET} · mode ${MODE} · words ${WORDS}${DRY ? ' · DRY: drawing and scoring only, no model call' : ''}${READ_ONLY ? ` · READ-ONLY: readings only, no codegen${REPEAT > 1 ? `, ${REPEAT}× each` : ''}` : ''}`)
 log('building the throwaway app…')
 const app = await makeApp({ dir: APP_DIR, port: PORT })
 log('app:', APP_DIR)
@@ -148,6 +159,11 @@ const results = []
  * context was destroyed" — which is not a failure, it is the feature working.
  * So every poll after Run goes through here.
  */
+/** The dev server's "[s2c] reading failed: …" lines (s2c-056), newest last. */
+function readingFailures(serverLog) {
+  return serverLog.split('\n').filter((l) => l.includes('[s2c] reading failed')).map((l) => l.replace(/\x1b\[[0-9;]*m/g, '').trim()).slice(-3)
+}
+
 async function safeEval(page, fn, tries = 40) {
   for (let i = 0; i < tries; i++) {
     try {
@@ -472,18 +488,53 @@ while (queue.length) {
     // model with the picture (main.ts autoRun -> proceed). Waiting for a
     // Confirm button there failed every page after paying for it (s2c-013).
     let ready = MODE === 'screenshot'
-    for (let i = 0; i < 400 && !ready; i++) {
-      ready = await safeEval(page, () => {
+    let readFailed = false
+    // ~150 s: past the reading's own 2-minute limit, so a slow reading that
+    // lands isn't scored as a failure, and one that doesn't arrives with its cause
+    for (let i = 0; i < 600 && !ready; i++) {
+      const st = await safeEval(page, () => {
         const h = document.getElementById('s2c-overlay-host')
         const c = h?.shadowRoot?.getElementById('confirm')
-        return c ? getComputedStyle(c).display !== 'none' && !c.disabled : false
+        const s = h?.shadowRoot?.getElementById('status')
+        return {
+          ready: c ? getComputedStyle(c).display !== 'none' && !c.disabled : false,
+          // the overlay's "couldn't read" line: stop waiting, it won't change
+          failed: !!s && s.classList.contains('err') && /couldn.t read/.test(s.textContent ?? ''),
+        }
       })
-      if (ready) break
+      ready = !!st?.ready
+      readFailed = !!st?.failed
+      if (ready || readFailed) break
       await page.waitForTimeout(250)
     }
     const statusNow = () => safeEval(page, () => document.getElementById('s2c-overlay-host')
       ?.shadowRoot?.getElementById('status')?.textContent ?? '')
-    if (!ready) throw new Error(`no reading within 100s · ${await statusNow()}`)
+    if (READ_ONLY) {
+      // the outcome is the data, a failure included: never Go, never codegen
+      row.readOnly = true
+      row.readingMs = Date.now() - runStart
+      row.reading = (await safeEval(page, () => window.__S2C_DEBUG__?.reading?.() ?? null)) ?? { ok: false, error: `no answer within ${(row.readingMs / 1000).toFixed(0)}s (still waiting)` }
+      if (!row.reading.ok) {
+        row.readingError = await safeEval(page, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.title ?? '') || null
+        row.serverSaid = readingFailures(server?.log?.() ?? '')
+      }
+      const t = row.reading.tokens
+      log(`reading ${row.reading.ok ? 'ok' : 'FAILED'} in ${(row.readingMs / 1000).toFixed(0)}s${row.reading.plain ? ` (no model: ${row.reading.plain})` : ''}${t ? ` · tokens in ${t.input} cache ${t.cacheRead} out ${t.output}` : ''}${row.reading.ok ? '' : ` · ${row.reading.error ?? row.readingError ?? '?'}`}`)
+      results.push(row)
+      writeFileSync(join(OUT, 'readings.json'), JSON.stringify(results, null, 2))
+      continue
+    }
+    if (!ready) {
+      // s2c-056: the bar's sentence is the same for every cause; the cause is
+      // on its tooltip ("interpret failed: …", from the dev server's reply)
+      const cause = await safeEval(page, () => document.getElementById('s2c-overlay-host')
+        ?.shadowRoot?.getElementById('status')?.title ?? '')
+      row.readingError = cause || null
+      row.readingMs = Date.now() - runStart
+      // and what the dev server logged about it (one server per page)
+      row.serverSaid = readingFailures(server?.log?.() ?? '')
+      throw new Error(`${readFailed ? 'reading failed' : 'no reading within 150s'} after ${(row.readingMs / 1000).toFixed(0)}s · ${await statusNow()}${cause ? ` · cause: ${cause}` : ''}`)
+    }
     if (MODE !== 'screenshot') await safeEval(page, `${sr()}.getElementById('confirm').click()`)
 
     for (let i = 0; i < 1600; i++) { // up to ~13 min, the plugin's own cap
@@ -567,6 +618,16 @@ while (queue.length) {
 
 await browser.close().catch(() => undefined)
 try { resetSrc(APP_DIR) } catch { /* the app is a throwaway anyway */ }
+
+if (READ_ONLY) {
+  const r = readingSummary(results)
+  log('\n──────── readings ────────')
+  log(`readings: ${r.total} · ok ${r.ok} · failed ${r.failed}${r.noModel ? ` · ${r.noModel} read with no model` : ''}`)
+  for (const [cause, n] of r.causes) log(`  ${n}× ${cause}`)
+  log(`time: median ${(r.medianMs / 1000).toFixed(0)}s, slowest ${(r.maxMs / 1000).toFixed(0)}s · tokens: ${r.billed.toLocaleString()} billed-ish (+${r.cacheRead.toLocaleString()} cache reads)`)
+  log(`results: ${join(OUT, 'readings.json')}`)
+  process.exit(0)
+}
 
 const agg = summarise(results)
 log('\n──────── totals ────────')

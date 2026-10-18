@@ -934,3 +934,47 @@ paying for them (~100k billed tokens wasted, then re-run).
 Limits: 15 pages, synthetic rough marks, one model, 3 runs. One page flipping
 moves an arm ~2 points. The 11-point gap is real in direction on edits
 (26 vs 20) and not distinguishable from noise on new UI (10 vs 11).
+
+## Why structured readings failed: the cause was thrown away (s2c-056, 2026-10-18)
+
+s2c-013 reported 4 of 45 structured readings ending in "I couldn't read that
+sketch just now". The result files show **3** rows with that error (r04 run 3,
+r11 and r14 run 2), so the rate is 3/45, about 7%. Screenshot: 0 of 45.
+The cause of those four **cannot be recovered**: nothing recorded it. Three
+places dropped it:
+
+- the provider turned an SDK error result (max turns, schema retries, an API
+  error) into an empty answer, which `interpretV2` then reported as
+  "interpreter returned malformed output", and the tokens it cost were lost;
+- the dev server sent the error to the page and logged nothing;
+- the bench recorded the bar's sentence, which is the same for every cause.
+  The cause was only on the bar's tooltip.
+
+Fixed, zero tokens:
+
+- `readingFailure()` names the cause: "the model's reading ended in
+  error_max_turns after 4 turns, 41s: <first error>". It is thrown as a
+  `PerceptionFailure` that keeps the usage.
+- The dev server logs `[s2c] reading failed: <cause>`.
+- A bench row that fails to read keeps `readingError` (the tooltip) and
+  `serverSaid` (the server's line). It stops waiting as soon as the bar says
+  it failed, and otherwise waits 150 s, past the new 2-minute limit below.
+
+**Found while testing it: a reading had no time limit.** With the API
+unreachable (proxy pointed at a closed port), the bench page sat on "reading
+your drawing…" for the full 100 s. A bare provider call only threw "Unable to
+connect to API" after **179 s**. For a non-coder that is three minutes of a
+spinner. Perception calls now give up after 2 minutes (`S2C_READING_TIMEOUT_MS`
+overrides it) with "the model didn't answer within 120s (is Claude Code signed
+in, and is this machine online?)". Checked end to end with network blocked and
+a 20 s limit: the r04 page failed in 22 s, and the row, tooltip and server log
+all carried that sentence. 0 tokens.
+
+This does **not** explain the s2c-013 four: those failed *inside* 100 s, so
+they were not this hang. Naming them needs paid readings. `run.mjs
+--read-only` makes that cheap. It presses Run, records the reading's outcome,
+cause, time and tokens, and never presses Go, so there's no codegen. That's
+~5k billed tokens a reading against ~16k a page. At that ~7% failure
+rate, `--read-only --repeat 5 --only r04,r11,r14,r10,r08,r05` (30 readings,
+~150k tokens) should catch about 2 failures with their causes. Not run: that's
+the owner's quota.
