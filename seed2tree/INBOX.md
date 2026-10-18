@@ -51,4 +51,4 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
   Not "drawing only". Text is always available to clarify or extend a
   sketch, but the sketch leads. Design and measure for that (e.g. score how
   much of the intent the sketch alone carries, and how little text is needed).
-
+- 2026-10-17 23:30 (dashboard): do 1, 2, 4. for 3, yes replan the tree towards drawing first harness.
