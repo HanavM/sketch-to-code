@@ -336,6 +336,14 @@ export function explainRun(input: ExplainInput): RunExplanation {
     }
     failedActions.add(p.index)
     const base = PHRASE[a.kind]?.(a) ?? 'make one of the changes'
+    // it was added, just not where the mark said: name the two neighbours,
+    // which is how the user knows the spot (s2c-055)
+    if (p.check === 'place' && a.insertSlot) {
+      const q = (t: string) => `"${t.length > 30 ? `${t.slice(0, 29)}…` : t}"`
+      const went = /went ((?:after|before) "[^"]*")/.exec(f)?.[1]
+      note(`put it between ${q(a.insertSlot.after.text)} and ${q(a.insertSlot.before.text)}, where you marked it${went ? ` (it went ${went})` : ''}`)
+      continue
+    }
     const why = (input.refused ?? []).includes(f) ? whyRefused(f) : null
     note(why ? `${base}, because ${why}` : CHECK[p.check] ? `${base} ${CHECK[p.check]}` : base)
   }

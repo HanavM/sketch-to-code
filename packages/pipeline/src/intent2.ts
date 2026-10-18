@@ -16,6 +16,7 @@ import {
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
 import { isTextMark } from './textmark.js'
+import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
 
@@ -687,6 +688,12 @@ export interface GroundedAction {
    * after the navigate engine has written the screen file.
    */
   onScreen?: { name: string; route: string; file: string; navIndex: number }
+  /**
+   * add/design drawn in the gap between two children of a row or column (a
+   * caret between two nav links): the two it goes between, from geometry,
+   * never from the model (insert-slot.ts, s2c-055).
+   */
+  insertSlot?: InsertSlot
   /** navigate: every stroke it cites (arrow, box, name). Paths are only fitted for creations. */
   strokeIds?: string[]
   needsConfirm: boolean
@@ -888,11 +895,20 @@ export function groundInterpretation(
     const needsConfirm =
       a.kind === 'delete' && (targets.length >= 3 || targetArea > viewArea * 0.35)
 
+    // Where in the row: a reading that anchors to a sibling (before/after
+    // Features) already says it; one that names only the container does not,
+    // and codegen then appends (s2c-055).
+    const anchoredToSibling = !!dest && (a.position === 'before' || a.position === 'after')
+    const insertSlot = (a.kind === 'add' || a.kind === 'design') && region && !anchoredToSibling
+      ? findInsertSlot(snap, region, dest?.domId)
+      : undefined
+
     actions.push({
       kind: a.kind,
       targets,
       dest,
       position: a.position ?? undefined,
+      ...(insertSlot ? { insertSlot } : {}),
       instruction: a.instruction,
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,

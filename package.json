@@ -17,7 +17,8 @@
     "e2e:onboard": "node packages/cli/tests/e2e/onboard-real-projects.mjs",
     "demo": "node tests/demo/record-60s.mjs --out demo",
     "e2e:published": "node packages/cli/tests/e2e/published-install.mjs",
-    "e2e:ring-tw": "node tests/e2e/ring-tailwind.mjs"
+    "e2e:ring-tw": "node tests/e2e/ring-tailwind.mjs",
+    "e2e:caret": "node tests/e2e/caret-insert.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

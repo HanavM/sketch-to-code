@@ -41,6 +41,7 @@ import { recolorPropOf } from './plain-reading.js'
 import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
+import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
 import { deriveProbes, relocateProbes, type ProbeVerdict } from './probe.js'
@@ -134,6 +135,10 @@ Rules:
   is a line of REAL copy (from a typed note when there is one, otherwise plausible
   words for the page); its length and height say body versus heading. They are
   never drawn as SVG, whatever the FIDELITY block says, and they have no svgPath.
+- "insertSlot" on an add/design action: the user drew it in the gap between
+  two siblings. Put the new element in the source right after "after" and
+  right before "before" (both carry srcLoc), inside the same parent. Never
+  append it at the end of the container instead.
 - "color" is the pen colour the user deliberately drew in. Apply it to what the
   action produces, preferring the named token when one is given — that token is
   a colour this app already uses.
@@ -829,6 +834,17 @@ export function verifyActions(
       details.push({ kind: a.kind, index: i, verdict })
       if (verdict.satisfied) satisfied++
       else failures.push(`action ${i} (${a.kind}): ${verdict.reason}`)
+      // "near the mark" is not "where the mark said": the end of a short nav
+      // is near a caret drawn in its middle (s2c-055, r14 said Done twice)
+      if (a.insertSlot) {
+        const slot = verifyInsertSlot(a.insertSlot, before, after)
+        details.push({ kind: 'place', index: i, verdict: slot })
+        if (!slot.unverifiable) {
+          total++
+          if (slot.satisfied) satisfied++
+          else failures.push(`action ${i} (place): ${slot.reason}`)
+        }
+      }
     }
 
     // A drawn colour is an instruction, and until now nothing checked it: a

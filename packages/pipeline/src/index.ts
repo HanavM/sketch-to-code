@@ -4,6 +4,8 @@ export { checkpoint, changedFiles, revertToCheckpoint, pinCheckpoint, PIN_PREFIX
 export type { Checkpoint } from './safety.js'
 export { verifyOps, pageChanged, verifyDesignPlacement } from './verify.js'
 export type { VerifyResult, OpVerdict, DesignVerdict } from './verify.js'
+export { findInsertSlot, verifyInsertSlot } from './insert-slot.js'
+export type { InsertSlot, SlotNeighbour, SlotVerdict } from './insert-slot.js'
 export { createCodegenSession, contractFor, codegenToolOptions, PRIVATE_STATE_DENY, abortError } from './codegen.js'
 export type { RunMode, CodegenSession, UserContent } from './codegen.js'
 export { SKETCH_SKILL } from './skill.js'
