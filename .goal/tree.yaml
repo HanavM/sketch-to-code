@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
 now: "Teaching the page to hide a scribbled-out element, or recolour a ringed one, the moment the pen lifts."
-lock: null
+lock: {by: session_0154jy3uq7WBCuzTyxTFo8rx-run2, until: "2026-10-18T08:38:52Z"}
 asks: []
 handled: []
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
@@ -22,4 +22,4 @@ nodes:
      branch: try/n3-instant-source, result: null}
   - {id: n4, parent: n1, kind: step, title: "Gesture reader + reversible patch module (scribble hides, coloured ring recolours) with unit tests", status: done,
      result: "optimistic.ts reads both gestures in-browser; parity with server reading on all 15 rough sketches; undo exact. Commit 03ac934."}
-  - {id: n5, parent: n1, kind: step, title: "Wire it into pen lift: patch instantly, run with no Go, drop patch on reload, undo on failure; e2e timing", status: open, result: null}
+  - {id: n5, parent: n1, kind: step, title: "Wire it into pen lift: patch instantly, run with no Go, drop patch on reload, undo on failure; e2e timing", status: active, result: null}
