@@ -14,6 +14,12 @@
  * children the mark sits between. Codegen is told the two neighbours by source
  * location, and verification checks that what was added really landed between
  * them on the page.
+ *
+ * s2c-059: a grid that wraps onto several rows is searched row by row (the
+ * mark must sit inside one row's band; the strip between two rows is no
+ * slot), and the tick compares reading order (rows top to bottom, then left
+ * to right), not x: a tile inserted mid-row pushes the last one onto the next
+ * row, and comparing x called that correct insert wrong.
  */
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 
@@ -29,8 +35,9 @@ export interface SlotNeighbour {
 }
 
 export interface InsertSlot {
-  /** row: children left to right; column: top to bottom. */
-  axis: 'row' | 'column'
+  /** row: children left to right; column: top to bottom; grid: rows of a
+   *  wrapping grid, the slot is between two tiles of one row. */
+  axis: 'row' | 'column' | 'grid'
   container: { domId: string; srcLoc: string | null; tag: string }
   /** The child the new element goes right AFTER (in reading order). */
   after: SlotNeighbour
@@ -83,6 +90,36 @@ function axisOf(children: DomNode[]): 'row' | 'column' | null {
   return null
 }
 
+/** Children in reading order: rows (by shared vertical band) top to bottom,
+ *  each left to right. A column is one child per row; a row is one row. */
+function readingRows(children: DomNode[]): DomNode[][] {
+  const rows: DomNode[][] = []
+  for (const c of [...children].sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)) {
+    const row = rows[rows.length - 1]
+    const f = row?.[0]
+    if (f && c.rect.y < f.rect.y + f.rect.h && f.rect.y < c.rect.y + c.rect.h) row!.push(c)
+    else rows.push([c])
+  }
+  for (const r of rows) r.sort((a, b) => a.rect.x - b.rect.x)
+  return rows
+}
+
+const readingOrder = (children: DomNode[]) => readingRows(children).flat()
+
+/** The rows of a wrapping grid (two or more rows, the first with two or more
+ *  tiles, each row a clean row, rows not overlapping), or null. */
+function gridRows(children: DomNode[]): DomNode[][] | null {
+  if (children.length < 3) return null
+  const rows = readingRows(children)
+  if (rows.length < 2 || rows[0]!.length < 2) return null
+  for (const r of rows) if (r.length > 1 && axisOf(r) !== 'row') return null
+  for (let i = 1; i < rows.length; i++) {
+    const top = Math.min(...rows[i]!.map((k) => k.rect.y))
+    if (rows[i - 1]!.some((k) => k.rect.y + k.rect.h > top + 1)) return null
+  }
+  return rows
+}
+
 const isWithin = (snap: Map<string, DomNode>, n: DomNode, rootId: string): boolean => {
   let cur: DomNode | undefined = n
   while (cur) {
@@ -108,22 +145,25 @@ export function findInsertSlot(snap: DomSnapshot, region: Box, destId?: string):
   const cx = region.x + region.w / 2
   const cy = region.y + region.h / 2
   let best: { slot: InsertSlot; area: number } | undefined
-  for (const c of snap.nodes) {
-    if (destId && !isWithin(byId, c, destId)) continue
-    const children = (kids.get(c.id) ?? []).filter(inFlow)
-    const axis = axisOf(children)
-    if (!axis) continue
+  const n = (x: DomNode): SlotNeighbour => ({
+    domId: x.id, srcLoc: x.srcLoc, tag: x.tag, text: textOf(x, kids), rect: x.rect,
+  })
+  /** The two consecutive children of `line` the mark's centre sits between.
+   *  pad < 0: the mark's centre must be inside the band (grid rows). */
+  const gapIn = (axis: 'row' | 'column', line: DomNode[], pad: number) => {
     const [along, size, across, acrossSize] = axis === 'row'
       ? (['x', 'w', 'y', 'h'] as const)
       : (['y', 'h', 'x', 'w'] as const)
     const centre = axis === 'row' ? cx : cy
-    // across the axis the mark must touch the row's band, with a little room:
-    // a caret is drawn UNDER the line it inserts into, its apex at the text
-    const pad = Math.max(12, c.rect[acrossSize] * 0.5)
-    const lo = Math.min(...children.map((k) => k.rect[across]))
-    const hi = Math.max(...children.map((k) => k.rect[across] + k.rect[acrossSize]))
-    if (region[across] + region[acrossSize] < lo - pad || region[across] > hi + pad) continue
-    const sorted = [...children].sort((a, b) => a.rect[along] - b.rect[along])
+    const lo = Math.min(...line.map((k) => k.rect[across]))
+    const hi = Math.max(...line.map((k) => k.rect[across] + k.rect[acrossSize]))
+    if (pad >= 0) {
+      if (region[across] + region[acrossSize] < lo - pad || region[across] > hi + pad) return undefined
+    } else {
+      const mid = axis === 'row' ? cy : cx
+      if (mid < lo || mid > hi) return undefined
+    }
+    const sorted = [...line].sort((a, b) => a.rect[along] - b.rect[along])
     for (let i = 0; i + 1 < sorted.length; i++) {
       const a = sorted[i]!
       const b = sorted[i + 1]!
@@ -138,12 +178,37 @@ export function findInsertSlot(snap: DomSnapshot, region: Box, destId?: string):
       const overA = Math.max(0, gapLo - region[along])
       const overB = Math.max(0, region[along] + region[size] - gapHi)
       if (Math.min(overA, markLen) > markLen * 0.5 || Math.min(overB, markLen) > markLen * 0.5) continue
-      const n = (x: DomNode): SlotNeighbour => ({
-        domId: x.id, srcLoc: x.srcLoc, tag: x.tag, text: textOf(x, kids), rect: x.rect,
-      })
+      return { after: n(a), before: n(b) }
+    }
+    return undefined
+  }
+  for (const c of snap.nodes) {
+    if (destId && !isWithin(byId, c, destId)) continue
+    const children = (kids.get(c.id) ?? []).filter(inFlow)
+    const axis = axisOf(children)
+    // the runs of children to look for a gap in: the one row/column, or each
+    // row of a wrapping grid (s2c-059)
+    let lines: { axis: 'row' | 'column'; kids: DomNode[]; pad: number }[]
+    let slotAxis: InsertSlot['axis']
+    if (axis) {
+      // across the axis the mark must touch the row's band, with a little room:
+      // a caret is drawn UNDER the line it inserts into, its apex at the text
+      const acrossSize = axis === 'row' ? 'h' : 'w'
+      lines = [{ axis, kids: children, pad: Math.max(12, c.rect[acrossSize] * 0.5) }]
+      slotAxis = axis
+    } else {
+      const rows = gridRows(children)
+      if (!rows) continue
+      // in a grid the strip between two rows belongs to neither: no room
+      lines = rows.filter((r) => r.length > 1).map((r) => ({ axis: 'row' as const, kids: r, pad: -0.5 }))
+      slotAxis = 'grid'
+    }
+    for (const line of lines) {
+      const slot = gapIn(line.axis, line.kids, line.pad)
+      if (!slot) continue
       const area = c.rect.w * c.rect.h
       if (!best || area < best.area) {
-        best = { slot: { axis, container: { domId: c.id, srcLoc: c.srcLoc, tag: c.tag }, after: n(a), before: n(b) }, area }
+        best = { slot: { axis: slotAxis, container: { domId: c.id, srcLoc: c.srcLoc, tag: c.tag }, ...slot }, area }
       }
       break
     }
@@ -198,12 +263,14 @@ export function verifyInsertSlot(slot: InsertSlot, before: DomSnapshot, after: D
   if (fresh.length === 0) {
     return { satisfied: false, reason: `nothing new appeared between ${quote(slot.after.text)} and ${quote(slot.before.text)}` }
   }
-  const along = slot.axis === 'row' ? 'x' : 'y'
-  const size = slot.axis === 'row' ? 'w' : 'h'
-  const mid = (n: DomNode) => n.rect[along] + n.rect[size] / 2
-  const lo = Math.min(mid(a), mid(b))
-  const hi = Math.max(mid(a), mid(b))
-  const between = fresh.find((f) => mid(f) > lo && mid(f) < hi)
+  // reading order, not x or y alone: in a wrapping grid a tile inserted
+  // mid-row pushes the next one onto the row below (s2c-059)
+  const order = readingOrder(siblings)
+  const ia = order.indexOf(a)
+  const ib = order.indexOf(b)
+  const lo = Math.min(ia, ib)
+  const hi = Math.max(ia, ib)
+  const between = fresh.find((f) => order.indexOf(f) > lo && order.indexOf(f) < hi)
   const name = (f: DomNode) => {
     const t = textOf(f, kidsA)
     return t ? quote(t) : `new <${f.tag}>`
@@ -213,7 +280,6 @@ export function verifyInsertSlot(slot: InsertSlot, before: DomSnapshot, after: D
   }
   const f = fresh[0]!
   // say where it went instead, in terms of what it now sits next to
-  const order = [...siblings].sort((x, y) => mid(x) - mid(y))
   const at = order.indexOf(f)
   const prev = at > 0 ? order[at - 1] : undefined
   const next = at < order.length - 1 ? order[at + 1] : undefined
