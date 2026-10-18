@@ -1,6 +1,7 @@
 # DIGEST — newest first
 
 ## 2026-10-18 06:20 UTC — sketch-to-code / s2c-059 Insert slot on grids and lists — **done**; found a false-⚠ bug
+Plain: When you mark a spot inside a grid of cards (for example "put one here, between these two"), the tool can now find that spot even when the grid has more than one row. It also stopped falsely warning "that went in the wrong place" when a correct insert pushed a card onto the next row. Small polish.
 Picked because: priority 1.96 (next: s2c-053 done; s2c-057 1.51 needs quota for its point; s2c-060 1.46; s2c-054 1.11). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 142990c. One-row grids (the list base) and stacked lists already got a slot; now tested. **Two-row grids got no slot at all**: now each row is searched; the strip between two rows is no slot.
 Found: the placement tick compared x positions, so a **correct** insert between GitLab and Slack in a 3-column grid, which pushes Slack onto the next row, was reported as "went before Slack": a false ⚠ on a right answer. It now compares reading order.
@@ -10,6 +11,7 @@ New branches: none; nothing worth adding without your yes. Pruned/done: s2c-059 
 **Needs you:** unchanged. (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. Cloud queue without a yes: s2c-060, s2c-054 (value 2), s2c-057's zero-token switch.
 
 ## 2026-10-18 05:30 UTC — sketch-to-code / s2c-053 Overdrawn ring read as a line — **done**: free reads 42% → 98%
+Plain: If you circle something by going around it a bit more than once, like people naturally do, the tool used to think you drew a line. Now it recognises it as a circle almost every time, so colour changes by circling work instantly and for free much more often.
 Picked because: s2c-059 scored 1.96 but its own note says skip while a value-3 node is open; s2c-053 1.51 (value 3), s2c-057 1.51 needs quota, s2c-054 1.11. Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 36c6601. `classifyStroke` now reads the first lap of an open stroke that turns 0.9–1.75 laps one way, returns within 16% of the lap to its start, and whose overshoot stays on the lap. A tail heading off, a zigzag, or 1.75+ laps keep the old rules.
 Found: `features.revolutions` bridges the seam between the two ends, so a 1.3-lap ring measured **2.0**. The first version trusted it and stalled at 77%. The lap check now sums the pen's own turning.
@@ -19,6 +21,7 @@ New branches: s2c-060 flat rings in the classifier (value 2). Pruned/done: s2c-0
 **Needs you:** unchanged. (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. Cloud queue without a yes: s2c-059, s2c-054, s2c-060 (all value 2).
 
 ## 2026-10-18 04:40 UTC — sketch-to-code / s2c-055 Caret insert lands at the caret — **done**; the tick now checks where
+Plain: When you draw a little ^ mark to say "insert it here" in a menu, the new item used to get stuck at the end instead, and the tool still said "Done". It now puts it where you pointed, and if it can't, it tells you honestly instead of claiming success.
 Picked because: priority ~2.1 (next: s2c-053 1.5, s2c-059 ~1.2; s2c-057/056 need quota). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 08bcc00. Cause: the grounded add carried only the container and the caret's 18 px box, never which two siblings it sat between, so codegen appended. Verify accepted anything new within ~120 px, which the end of a short nav is. That's why r14 said Done 2/2.
 Fix: `insert-slot.ts` finds the gap the mark sits in from geometry and hands codegen both neighbours' source lines. Verify adds a placement check by text. The bar says: "I couldn't put it between "Features" and "Pricing", where you marked it (it went after "About")."
@@ -29,6 +32,7 @@ Pruned/done: s2c-055 done.
 **Needs you:** (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. With no yes, the cloud queue here is down to value-2 polish (s2c-053/054/059).
 
 ## 2026-10-18 03:20 UTC — sketch-to-code / s2c-056 Why readings failed — **cause unrecoverable; logging fixed; found a 3-minute hang, now capped at 2 min**
+Plain: It tried to find out why a few sketches failed in the big test, but the reason hadn't been saved anywhere. Now failures are recorded in plain words. It also found the page could sit on "reading your drawing…" for three minutes if the internet dropped; it now gives up after two with a clear message.
 Picked because: priority 3.3 (next: s2c-055 2.1, s2c-053/057 1.5). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 9c02f7b. The s2c-013 failures can't be explained after the fact. Nothing kept the cause: the provider turned SDK error results into "malformed output", the server logged nothing, and the bench saved only the bar's sentence. Also, it was **3/45, not 4**. Now the cause is named and kept in all three places. Bench rows record it, and stop waiting once the bar says it failed.
 Found: **a reading had no time limit.** With the API unreachable, the page sat on "reading your drawing…" for over 100 s, and a bare call only threw at **179 s**. Perception calls now give up at 120 s with "is Claude Code signed in, and is this machine online?". Checked end to end with the network blocked: failed in 22 s at a 20 s limit, with the cause in the row, the tooltip and the server log. 0 tokens.
@@ -39,6 +43,7 @@ New branches: none. Pruned/done: none; s2c-056 → blocked on quota.
 **Needs you:** (1) s2c-056: "yes, read-only" to spend ~150k tokens on 30 readings that name the failures. (2) s2c-035: add 5 public Vite+React repos to this task's access, or fork 5 and name them. (3) Publish per docs/publishing.md when ready. Next cloud run: s2c-055 (caret insert lands where drawn), zero-token.
 
 ## 2026-10-18 02:30 UTC — sketch-to-code / s2c-013 Structured vs screenshot, measured — **bar NOT MET (+11, needed +15); +20 on edits**. Also s2c-048 ready to publish.
+Plain: The big test ran: reading sketches the structured way (this tool's approach) vs. just sending a screenshot to the AI. Structured won overall, 80% vs 69%, and clearly won on quick edits like scribble-to-delete or circle-to-recolour (87% vs 67%). But it lost slightly on drawing brand-new sections, and fell just short of the 15-point margin set as the bar. It also got the project ready to publish (licence and package set up), without actually publishing.
 Picked because: owner said "yes" in chat to s2c-013 (spend the pilot in the cloud), s2c-035 and s2c-048.
 Did: s2c-013, rough set, **3 runs per arm** (the full done_when, not the 1-run pilot). auto **80%** (87/80/73) vs screenshot **69%** (67/73/67). Edits **87% vs 67%**, new UI 67% vs 73%. Commit 1f5cd66.
 Found: structure 9/9 vs 0/9 on the no-word gestures (scribble, green ring, swap arrows). It loses the caret insert 0/3 vs 2/3: "Blog" went to the end of the nav and **the bar said Done**. It loses unclosed cards 0/3 vs 2/3. It had 4/45 failed readings vs 0, and costs ~3.4× the tokens. Harness bugs from the first live run: the screenshot arm waited for a Confirm that never comes (12/15 failed after billing, ~100k tokens wasted, then re-run), and edit pages crashed the log line. Both fixed.
@@ -50,6 +55,7 @@ Pruned/done: s2c-013, s2c-048 done.
 **Needs you:** (1) s2c-035: add 5 public Vite+React repos to this task's GitHub access, or fork 5 into HanavM/ and name them. (2) Publish per docs/publishing.md when ready. (3) s2c-057: OK to spend ~0.6M tokens measuring the router? (later; s2c-055/056 come first)
 
 ## 2026-10-18 00:20 UTC — sketch-to-code / s2c-052 The no-model readings on 4,400 rough marks — **done**; found and fixed a wrong-delete bug
+Plain: It tested the tool on thousands of quick, messy scribbles and found that a scribble drawn slightly too long could delete the things next to it, like neighbouring menu links, without asking. That's fixed: it now only deletes what's actually under your pen.
 Picked because: new node, priority ~2.3 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. Last run said the queue was empty. Wrong again: nobody had checked how often the free readings act *wrongly*, and a free reading skips the model, so nothing catches it.
 Did: commit f6dbf8a. `run.mjs --set rough --dry --plain` judges the no-model rules against every rough page's answer key. `plain-sweep.mjs` puts 4,400 rough marks through them on the bench page's real snapshot. 0 tokens.
 Found: **10 of 1,400 rough scratch-outs deleted their neighbours.** A scribble running ~8 px past the "Pricing" link deleted Features and About too. One spilling off a card title deleted the card's text. Fixed: everything with words inside what gets deleted must be under the ink, or the model reads it. **0 bad fires in 4,400 after**, free reads unchanged. Both tests were red on the old rule.
@@ -60,6 +66,7 @@ Pruned/done: s2c-052 done.
 **Needs you:** unchanged. (1) s2c-013: "spend the pilot in the cloud". (2) s2c-035: yes/no to cloning 5 public repos read-only. (3) s2c-048: "yes, MIT" / "not yet".
 
 ## 2026-10-17 23:20 UTC — sketch-to-code / s2c-051 Coloured ring on a Tailwind app, in a browser — **done**; found and fixed a hover bug
+Plain: Checked circling a button with a green pen on a real styled app: it turns green with no AI call. Found and fixed a bug where the button turned back to blue when you hovered over it.
 Picked because: the only open cloud node, priority 2.15 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 5942dfb. `npm run e2e:ring-tw` runs examples/demo-app (Tailwind v4) with the real overlay, plain reader, engine and undo, and a model that throws if it's called. Green ring round "Team members": `text-gray-900` → `text-green-600`. Green ring round "Sign out": `bg-blue-600` → `bg-green-600`. Both ✓, 0 model calls, green on the page, and two Ctrl+Z restore both files byte for byte.
 Found: **the green button turned blue under the pointer.** The engine kept `hover:bg-blue-700`, and nearly every Tailwind button has one. Now hover/focus/active colours follow the new colour (`hover:bg-green-700`). One it can't place is dropped. If `dark:`/`md:` also set that colour, the engine refuses and the model takes it. The e2e failed on the old engine (hovered blue, rgb(20,71,230)) and passes now.
