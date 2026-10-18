@@ -52,6 +52,23 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
   sketch, but the sketch leads. Design and measure for that (e.g. score how
   much of the intent the sketch alone carries, and how little text is needed).
 - 2026-10-17 23:30 (dashboard): do 1, 2, 4. for 3, yes replan the tree towards drawing first harness.
-- 2026-10-17 23:41 (dashboard): Owner wants drawn changes to feel literally instantaneous: the page should visibly change as soon as the mark is made (ideally while drawing), without waiting for the AI coding agent to finish writing code; the code change catches up afterwards. Make this a top-priority branch: start with the free marks (scribble-delete, coloured circle) updating the page immediately, then extend instant previews or placeholders to the other gestures, and measure the time from pen-up to visible change.
-- 2026-10-17 23:41 (dashboard): Owner wants drawn changes to feel literally instantaneous: the page should visibly change as soon as the mark is made (ideally while drawing), without waiting for the AI coding agent to finish writing code; the code change catches up afterwards. Make this a top-priority branch: start with the free marks (scribble-delete, coloured circle) updating the page immediately, then extend instant previews or placeholders to the other gestures, and measure the time from pen-up to visible change.
-- 2026-10-17 23:41 (dashboard): Owner wants drawn changes to feel literally instantaneous: the page should visibly change as soon as the mark is made (ideally while drawing), without waiting for the AI coding agent to finish writing code; the code change catches up afterwards. Make this a top-priority branch: start with the free marks (scribble-delete, coloured circle) updating the page immediately, then extend instant previews or placeholders to the other gestures, and measure the time from pen-up to visible change.
+- 2026-10-17 23:41 (dashboard chat) **TOP PRIORITY: drawn changes must feel instantaneous.**
+  Owner's words: "when you draw updates, how instantaneous are the changes. i want them
+  to be literally instantaneous. as soon as you draw they first just get changed. so it
+  should not be waiting for the ai coding agent to finish updating the code to show
+  visually the update."
+  Today (per the chat agent): free marks (scribble-delete, coloured ring) show ~1 s after
+  pen-up + Go and a reload; an empty-space box shows a rough placeholder in <1 s; everything
+  else shows nothing until the AI finishes (tens of seconds to minutes), and you can't draw
+  the next change meanwhile.
+  What to do: make "change the page first, write the code after" the default.
+  1. Free marks (scribble-delete, coloured ring) change the live page immediately, ideally
+     while the pen is still down or on pen-up with no Go, and the code catches up behind.
+  2. Extend instant previews/placeholders to the other gestures (move/arrow, insert caret,
+     new section): show the best-guess result at once, styled clearly as "what I think you
+     mean" until the code lands and verifies; then it snaps to the real thing, or rolls back
+     visibly if the AI did something different.
+  3. Let the owner keep drawing the next change while earlier ones are still being coded
+     (a queue), instead of blocking.
+  4. Measure and report time from pen-up to visible change per gesture, before and after.
+  Re-plan the tree around this; it outranks the remaining polish branches.
