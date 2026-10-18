@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
 now: "The instant-change work is now folded into the main agent branch with tests passing. Next: a skeptical final check of every goal point from a fresh copy."
-lock: null
+lock: {by: run-n13-0848, until: 2026-10-18T10:18:47Z}
 asks: []
 handled: []
 notes:
@@ -63,4 +63,4 @@ nodes:
      result: "Before 1.2 s to 142 s; after 13-45 ms for all five gestures. docs/latency/before-after.md, commit af3d5e4."}
   - {id: n12, parent: n1, kind: step, title: "Mark n1 proven: merge try/n1 into agent, tests green on agent, move criteria evidence to agent", status: done,
      result: "Clean merge 97691b9; build clean; npm test 1331 pass, 2 known env fails; ring and queue e2e pass."}
-  - {id: n13, parent: n0, kind: verify, title: "Verify from a fresh checkout of agent: re-run every GOAL.md check (all optimistic e2e, undo, npm test, table) and try to break it", status: open, result: null}
+  - {id: n13, parent: n0, kind: verify, title: "Verify from a fresh checkout of agent: re-run every GOAL.md check (all optimistic e2e, undo, npm test, table) and try to break it", status: active, result: null}
