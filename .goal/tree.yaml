@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
-now: "Previews now vanish the moment the real change appears, and are cleared if the code does something else; next, drawing a new change while earlier ones are still being made."
-lock: {by: run-0808, until: 2026-10-18T09:38:08Z}
+now: "You can now keep drawing while earlier changes are being made; three back-to-back changes all landed. Next: the before/after timing table."
+lock: null
 asks: []
 handled: []
 notes:
@@ -17,6 +17,10 @@ notes:
   - "The model reading (/@s2c/interpret) runs even when /@s2c/run is stubbed and can take 20+ s on a cold server: give e2e waits 60-90 s."
   - "Never draw on the demo in auto mode without stubbing /@s2c/run: a real run writes the demo source (git checkout + remove untracked files after)."
   - "__S2C_DEBUG__.runDone / runError end a run from e2e with no server run (used by optimistic-preview-reconcile.mjs)."
+  - "n10: in auto mode a run goes on in the background (host data-flight / data-queued, mode stays draw); e2e that waited for mode 'running' must accept data-flight."
+  - "n10 gap: a run that full-reloads the page (new module) loses queued drawings and their instant changes; park the queue in sessionStorage if it matters."
+  - "optimistic-queue.mjs and optimistic-ring.mjs start their own vite on :5199 with a throwing scripted model: stop the demo dev server first."
+  - "Spent today: n9 + n10 reconcile runs used ~6 model readings each; still well under 300k."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
 criteria:
   - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open,
@@ -24,7 +28,8 @@ criteria:
   - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open, evidence: null}
   - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open,
      evidence: "Partial, try/n1: optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. n9 (optimistic-preview-reconcile.mjs): preview down 55-60 ms after the real change shows, mid-run; code does something else: held, removed at run end."}
-  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open, evidence: null}
+  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open,
+     evidence: "On try/n1 (d0b4be5): tests/e2e/optimistic-queue.mjs, ring+ring+scribble back to back, two queued behind the first, all land live, 20-40 ms to visible, Ctrl+Z x3 exact."}
   - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open,
      evidence: "Partial, try/n1: Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
   - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: open, evidence: null}
@@ -48,4 +53,6 @@ nodes:
      result: "All three land live; preview held until done, then removed; Ctrl+Z restores source. Commit 36dc65b. 'Something else' case not yet tested."}
   - {id: n9, parent: n1, kind: step, title: "e2e: preview removed when the code lands something different; take the preview down as soon as the real change shows (now overlaps 3-5 s)", status: done,
      result: "Preview drops ~60 ms after the real change shows, mid-run; other edits: held, then removed at run end. Commit c74261f."}
-  - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: open, result: null}
+  - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: done,
+     result: "Pen stays free; queued drawings keep their change on the page; ring, ring, scribble all land in order. Commit d0b4be5."}
+  - {id: n11, parent: n1, kind: step, title: "Before/after table: pen lift to visible change per gesture on the demo app (old flow at agent vs try/n1)", status: open, result: null}
