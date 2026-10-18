@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
-goal_state: working
-now: "The instant-change work is now folded into the main agent branch with tests passing. Next: a skeptical final check of every goal point from a fresh copy."
-lock: {by: run-n13-0848, until: 2026-10-18T10:18:47Z}
+goal_state: met
+now: "Done: every goal point was re-checked from a fresh copy and passes. Drawn changes show in 13-38 ms. Nothing left to do until a new goal."
+lock: null
 asks: []
 handled: []
 notes:
@@ -23,22 +23,24 @@ notes:
   - "Spent today: n9 + n10 reconcile runs used ~6 model readings each; still well under 300k."
   - "n11 ran 3 live runs on the old flow (move, insert, section; the section run took 142 s). Today's total is uncertain, maybe 200k: avoid more live runs today unless verify needs them."
   - "latency-table.mjs runs on any checkout; for the old flow copy it in. S2C_STUB_MODEL=1 holds the server calls open (no tokens)."
+  - "n13: new-section runs on the demo end on a ⚠ placement tick: findInsertSlot slots between decorative BackgroundFlourish svgs. Pre-existing, outside the goal."
+  - "n13: tests/e2e/verify-preview-scripted.mjs covers move/insert/section land + undo with a scripted model (no tokens, own vite on 5261)."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
 criteria:
-  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open,
-     evidence: "On agent (97691b9): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
-  - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open,
-     evidence: "On agent (97691b9): tests/e2e/optimistic-ring.mjs re-run after merge, recolour 14-19 ms after lift, rollback exact, lands, undo exact."}
-  - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open,
-     evidence: "On agent (97691b9): optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. n9 (optimistic-preview-reconcile.mjs): preview down 55-60 ms after the real change shows, mid-run; code does something else: held, removed at run end."}
-  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open,
-     evidence: "On agent (97691b9), re-run after merge: tests/e2e/optimistic-queue.mjs, ring+ring+scribble back to back, two queued behind the first, all land live, 20-40 ms to visible, Ctrl+Z x3 exact."}
-  - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open,
-     evidence: "On agent (97691b9): npm test 1331 pass, 2 pre-existing env fails (cli init gh, library home-dir); Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
-  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: open,
-     evidence: "On agent (97691b9): docs/latency/before-after.md via tests/e2e/latency-table.mjs. Before 1.2 s (scribble, ring), 17/62/142 s (move/insert/section); after 13-45 ms."}
+  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
+  - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): tests/e2e/optimistic-ring.mjs re-run after merge, recolour 14-19 ms after lift, rollback exact, lands, undo exact."}
+  - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. n9 (optimistic-preview-reconcile.mjs): preview down 55-60 ms after the real change shows, mid-run; code does something else: held, removed at run end."}
+  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9), re-run after merge: tests/e2e/optimistic-queue.mjs, ring+ring+scribble back to back, two queued behind the first, all land live, 20-40 ms to visible, Ctrl+Z x3 exact."}
+  - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): npm test 1331 pass, 2 pre-existing env fails (cli init gh, library home-dir); Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
+  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): docs/latency/before-after.md via tests/e2e/latency-table.mjs. Before 1.2 s (scribble, ring), 17/62/142 s (move/insert/section); after 13-45 ms."}
 nodes:
-  - {id: n0, parent: null, kind: goal, title: "Drawn changes feel instant: page changes on pen lift, code catches up", status: open}
+  - {id: n0, parent: null, kind: goal, title: "Drawn changes feel instant: page changes on pen lift, code catches up", status: done}
   - {id: n1, parent: n0, kind: approach, title: "Browser-side read + reversible DOM patch on pen lift, reconciled when the code lands", status: proven,
      branch: try/n1-client-optimistic, result: "All six points covered; merged into agent at 97691b9."}
   - {id: n2, parent: n0, kind: approach, title: "Tiny server round trip: deterministic gesture endpoint returns a patch the page applies", status: pruned,
@@ -63,4 +65,5 @@ nodes:
      result: "Before 1.2 s to 142 s; after 13-45 ms for all five gestures. docs/latency/before-after.md, commit af3d5e4."}
   - {id: n12, parent: n1, kind: step, title: "Mark n1 proven: merge try/n1 into agent, tests green on agent, move criteria evidence to agent", status: done,
      result: "Clean merge 97691b9; build clean; npm test 1331 pass, 2 known env fails; ring and queue e2e pass."}
-  - {id: n13, parent: n0, kind: verify, title: "Verify from a fresh checkout of agent: re-run every GOAL.md check (all optimistic e2e, undo, npm test, table) and try to break it", status: active, result: null}
+  - {id: n13, parent: n0, kind: verify, title: "Verify from a fresh checkout of agent: re-run every GOAL.md check (all optimistic e2e, undo, npm test, table) and try to break it", status: done,
+     result: "Every check re-run from a fresh clone passes; added scripted move/insert/section undo e2e. ATTEST.md written."}

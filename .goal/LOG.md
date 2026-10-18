@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-18T09:02:47Z | Verify every goal point from a fresh copy | All six re-checked and passing; changes show in 13-38 ms; goal met, ATTEST.md written.
+
 2026-10-18T08:48:15Z | Fold the instant-change work into the agent branch | Merged cleanly; build and tests pass (2 known setup-only failures); ring and queue e2e re-pass.
 
 2026-10-18T08:43:33Z | Before/after timing table | Changes now show 13-45 ms after lift, versus 1.2 s to 142 s before; table in docs/latency.
