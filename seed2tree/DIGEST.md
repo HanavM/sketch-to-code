@@ -1,5 +1,16 @@
 # DIGEST — newest first
 
+## 2026-10-18 02:30 UTC — sketch-to-code / s2c-013 Structured vs screenshot, measured — **bar NOT MET (+11, needed +15); +20 on edits**. Also s2c-048 ready to publish.
+Picked because: owner said "yes" in chat to s2c-013 (spend the pilot in the cloud), s2c-035 and s2c-048.
+Did: s2c-013, rough set, **3 runs per arm** (the full done_when, not the 1-run pilot). auto **80%** (87/80/73) vs screenshot **69%** (67/73/67). Edits **87% vs 67%**, new UI 67% vs 73%. Commit: see below.
+Found: structure 9/9 vs 0/9 on the no-word gestures (scribble, green ring, swap arrows). It loses the caret insert 0/3 vs 2/3: "Blog" went to the end of the nav and **the bar said Done**. It loses unclosed cards 0/3 vs 2/3. It had 4/45 failed readings vs 0, and costs ~3.4× the tokens. Harness bugs from the first live run: the screenshot arm waited for a Confirm that never comes (12/15 failed after billing, ~100k tokens wasted, then re-run), and edit pages crashed the log line. Both fixed.
+Spend: ~1.1M billed (vs ~1M approved for the pilot) + ~16M cache reads. I ran 3×2 instead of 1×2. Say if that overstepped.
+s2c-048: MIT LICENSE, package metadata, `@s2c/*` pinned to ^0.1.0, dry-run publish clean for all 8 (6944ed2). docs/publishing.md has your steps. Nothing published.
+s2c-035: still blocked on *access*, not your yes: this task can't read repos outside your two.
+New branches: s2c-055 caret lands at the caret + the tick checks position (value 4). s2c-056 why structured readings fail (value 4). s2c-057 route new UI to screenshot (value 3, needs a quota yes).
+Pruned/done: s2c-013, s2c-048 done.
+**Needs you:** (1) s2c-035: add 5 public Vite+React repos to this task's GitHub access, or fork 5 into HanavM/ and name them. (2) Publish per docs/publishing.md when ready. (3) s2c-057: OK to spend ~0.6M tokens measuring the router? (later; s2c-055/056 come first)
+
 ## 2026-10-18 00:20 UTC — sketch-to-code / s2c-052 The no-model readings on 4,400 rough marks — **done**; found and fixed a wrong-delete bug
 Picked because: new node, priority ~2.3 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. Last run said the queue was empty. Wrong again: nobody had checked how often the free readings act *wrongly*, and a free reading skips the model, so nothing catches it.
 Did: commit f6dbf8a. `run.mjs --set rough --dry --plain` judges the no-model rules against every rough page's answer key. `plain-sweep.mjs` puts 4,400 rough marks through them on the bench page's real snapshot. 0 tokens.

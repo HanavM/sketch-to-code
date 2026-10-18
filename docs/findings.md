@@ -880,3 +880,57 @@ bracket.
 
 Limits: the marks are my generators, not people's. The base page is one
 layout. "Missed" costs a model call (~10 s), it doesn't break anything.
+
+## Structured reading vs a screenshot, on rough sketches (s2c-013, 2026-10-18)
+
+The test the seed was waiting on. The 15 rough pages (s2c-009) were run 3
+times with `--mode auto` (the structured reader: ink + DOM + stamps) and 3
+times with `--mode screenshot` (a picture of the page and the drawing to the
+model, no structure). This was the owner's quota, spent in the cloud with his
+yes, through the real overlay and plugin. Raw results are in
+`tests/bench/results/s2c-013/`. `node tests/bench/mode-compare.mjs
+tests/bench/results/s2c-013` rebuilds these tables.
+
+| arm | run 1 | run 2 | run 3 | **all** | pages that errored | billed tokens / page | median s / page |
+|---|---|---|---|---|---|---|---|
+| auto (structured) | 87% | 80% | 73% | **80%** (36/45) | 4 | ~16k | 35–54 |
+| screenshot | 67% | 73% | 67% | **69%** (31/45) | 0 | ~4.7k | 21–22 |
+
+**The pre-registered test is NOT MET.** It asked for auto ≥ 60% (met, 80%)
+AND a lead of ≥ 15 points (got 11). Under the owner's overrule this no longer
+kills the seed. It says where structure earns its cost, and that isn't
+everywhere:
+
+| | auto | screenshot | gap |
+|---|---|---|---|
+| **edits on an existing page** (10 pages × 3) | **87%** (26/30) | 67% (20/30) | **+20** |
+| new UI from a sketch (5 pages × 3) | 67% (10/15) | 73% (11/15) | −7 |
+
+- **Structure wins outright on marks with no words**: scratch-out (r01), green
+  ring (r12), swap arrows (r13). Auto 9/9, screenshot 0/9. Two of those
+  three cost auto nothing (the plain readings). A screenshot model shown a
+  scribble over a card didn't delete it once.
+- **Structure loses on the caret insert (r14)**: auto 0/3, screenshot 2/3.
+  Auto added "Blog" at the end of the nav, not at the caret, and **the bar
+  said "✓ Done"** both times. The DOM check confirms the link exists, not
+  where it is. That's a misleading tick a non-coder can't catch.
+- **And on unclosed cards (r10)**: auto 0/3 (order wrong every time),
+  screenshot 2/3.
+- **Auto is less reliable**: 4 of 45 pages ended in "I couldn't read that
+  sketch just now" (r04, r11, r14 twice). Screenshot errored 0 times. The
+  cause wasn't logged. The bench only records the overlay's sentence.
+- **Auto costs ~3.4× the tokens and ~2× the time per page** (median 35–54 s vs 21–22 s).
+
+Blunt: a router that sends edits to the structured reader and new UI to
+the screenshot arm would have scored 82% (37/45) on these runs, for less
+money. Picked after seeing the data, so it needs its own run before
+anyone believes it.
+
+Harness bugs the first live run found (fixed): edit pages crashed the log
+line (no `regions`). The screenshot arm waited for a Confirm button that
+screenshot mode never shows, so its first run failed 12 of 15 pages after
+paying for them (~100k billed tokens wasted, then re-run).
+
+Limits: 15 pages, synthetic rough marks, one model, 3 runs. One page flipping
+moves an arm ~2 points. The 11-point gap is real in direction on edits
+(26 vs 20) and not distinguishable from noise on new UI (10 vs 11).

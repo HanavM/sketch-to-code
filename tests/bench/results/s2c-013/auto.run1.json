@@ -1,0 +1,1893 @@
+[
+  {
+    "id": "r01-scribble-out-card",
+    "title": "EDIT: a single loose scribble over the third feature card (delete it)",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 1936,
+    "runMs": 2811,
+    "tokens": {
+      "input": 0,
+      "cacheRead": 0,
+      "output": 0,
+      "interpret": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      },
+      "codegen": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "absent Usage-based billing",
+          "must": true,
+          "kind": "absent",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": null
+        },
+        {
+          "role": "kept Instant previews",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Instant previews",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        },
+        {
+          "role": "kept One-click rollbacks",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "One-click rollbacks",
+            "srcLoc": "src/App.tsx:23:11"
+          }
+        },
+        {
+          "role": "kept Get started",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 22,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 0,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r02-strike-headline",
+    "title": "EDIT: a sloppy strike-through on the headline + the new words",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 2347,
+    "runMs": 12134,
+    "tokens": {
+      "input": 8694,
+      "cacheRead": 111271,
+      "output": 705,
+      "interpret": {
+        "input": 3960,
+        "cacheRead": 3336,
+        "output": 361
+      },
+      "codegen": {
+        "input": 4734,
+        "cacheRead": 107935,
+        "output": 344
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "absent Ship faster with Acme",
+          "must": true,
+          "kind": "absent",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": null
+        },
+        {
+          "role": "present Sketch it",
+          "must": true,
+          "kind": "present",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h1",
+            "text": "Sketch it. Ship it.",
+            "srcLoc": "src/App.tsx:13:9"
+          }
+        },
+        {
+          "role": "kept Get started",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        },
+        {
+          "role": "kept Instant previews",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Instant previews",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 5,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r03-ring-button-green",
+    "title": "EDIT: a lopsided ring around the button + \"bigger and green\"",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 2940,
+    "runMs": 12626,
+    "tokens": {
+      "input": 9639,
+      "cacheRead": 112030,
+      "output": 769,
+      "interpret": {
+        "input": 3958,
+        "cacheRead": 3336,
+        "output": 258
+      },
+      "codegen": {
+        "input": 5681,
+        "cacheRead": 108694,
+        "output": 511
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "bg Get started",
+          "must": true,
+          "kind": "bg",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        },
+        {
+          "role": "kept Get started",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        },
+        {
+          "role": "kept Ship faster with Acme",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h1",
+            "text": "Ship faster with Acme",
+            "srcLoc": "src/App.tsx:13:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 3,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r04-arrow-move-quote",
+    "title": "EDIT: one wobbly arrow from the testimonial up above the feature cards",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 1982,
+    "runMs": 84052,
+    "tokens": {
+      "input": 15775,
+      "cacheRead": 112469,
+      "output": 6920,
+      "interpret": {
+        "input": 3987,
+        "cacheRead": 3336,
+        "output": 480
+      },
+      "codegen": {
+        "input": 11788,
+        "cacheRead": 109133,
+        "output": 6440
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "above We cut our release time > Instant previews",
+          "must": true,
+          "kind": "above",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "blockquote",
+            "text": "\"We cut our release time in half.\"",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        },
+        {
+          "role": "above Ship faster with Acme > We cut our release time",
+          "must": false,
+          "kind": "above",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h1",
+            "text": "Ship faster with Acme",
+            "srcLoc": "src/App.tsx:13:9"
+          }
+        },
+        {
+          "role": "kept Priya N.",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "p",
+            "text": "Priya N., CTO at Fieldnote",
+            "srcLoc": "src/App.tsx:20:11"
+          }
+        },
+        {
+          "role": "kept Usage-based billing",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Usage-based billing",
+            "srcLoc": "src/App.tsx:31:11"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 5,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r05-footer-newsletter",
+    "title": "EDIT: a three-sided box on the footer + \"email + Subscribe button\"",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 3560,
+    "runMs": 64443,
+    "tokens": {
+      "input": 15870,
+      "cacheRead": 198362,
+      "output": 5442,
+      "interpret": {
+        "input": 3963,
+        "cacheRead": 3336,
+        "output": 440
+      },
+      "codegen": {
+        "input": 11907,
+        "cacheRead": 195026,
+        "output": 5002
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "present undefined > undefined",
+          "must": true,
+          "kind": "present",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "input",
+            "text": "",
+            "srcLoc": "src/App.tsx:42:13"
+          }
+        },
+        {
+          "role": "present subscribe",
+          "must": true,
+          "kind": "present",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Subscribe",
+            "srcLoc": "src/App.tsx:48:13"
+          }
+        },
+        {
+          "role": "kept © 2026 Acme",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "span",
+            "text": "© 2026 Acme Inc.",
+            "srcLoc": "src/App.tsx:38:9"
+          }
+        },
+        {
+          "role": "kept Priya N.",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "p",
+            "text": "Priya N., CTO at Fieldnote",
+            "srcLoc": "src/App.tsx:35:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 32,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 5,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 2,
+    "realized": true
+  },
+  {
+    "id": "r06-x-out-nav-link",
+    "title": "EDIT: a quick two-stroke X over the \"Pricing\" nav link",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 2,
+    "drawMs": 1256,
+    "runMs": 7348,
+    "tokens": {
+      "input": 4078,
+      "cacheRead": 3336,
+      "output": 341,
+      "interpret": {
+        "input": 4078,
+        "cacheRead": 3336,
+        "output": 341
+      },
+      "codegen": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "absent Pricing",
+          "must": true,
+          "kind": "absent",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": null
+        },
+        {
+          "role": "kept Features",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Features",
+            "srcLoc": "src/App.tsx:7:11"
+          }
+        },
+        {
+          "role": "kept About",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "About",
+            "srcLoc": "src/App.tsx:8:11"
+          }
+        },
+        {
+          "role": "kept Ship faster with Acme",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h1",
+            "text": "Ship faster with Acme",
+            "srcLoc": "src/App.tsx:12:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 24,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 0,
+    "judged": true,
+    "dropped": [],
+    "captured": 2,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r07-hero-mostly-words",
+    "title": "NEW: a hero from one line, one sloppy box and two typed notes",
+    "mode": "auto",
+    "sentMode": "design",
+    "strokes": 2,
+    "drawMs": 4847,
+    "runMs": 54363,
+    "tokens": {
+      "input": 12258,
+      "cacheRead": 301311,
+      "output": 4404,
+      "interpret": {
+        "input": 4387,
+        "cacheRead": 3727,
+        "output": 1016
+      },
+      "codegen": {
+        "input": 7871,
+        "cacheRead": 297584,
+        "output": 3388
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": 1,
+      "intentOrder": 1,
+      "intentRegions": [
+        {
+          "role": "hero-headline",
+          "must": true,
+          "kind": "text",
+          "found": true,
+          "textual": true,
+          "real": true,
+          "el": {
+            "tag": "h1",
+            "text": "Plan trips with friends",
+            "srcLoc": "src/App.tsx:4:7"
+          }
+        },
+        {
+          "role": "cta-primary",
+          "must": true,
+          "kind": "control",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Start planning",
+            "srcLoc": "src/App.tsx:7:7"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [
+        {
+          "role": "hero-headline",
+          "iou": 0.43873821060290236,
+          "rect": {
+            "x": 300,
+            "y": 170,
+            "w": 680,
+            "h": 64
+          },
+          "found": {
+            "tag": "h1",
+            "rect": {
+              "x": 397.484375,
+              "y": 192,
+              "w": 485.015625,
+              "h": 48
+            },
+            "srcLoc": "src/App.tsx:4:7"
+          }
+        }
+      ],
+      "missed": [
+        {
+          "role": "cta-primary",
+          "rect": {
+            "x": 550,
+            "y": 290,
+            "w": 180,
+            "h": 60
+          },
+          "must": true
+        }
+      ],
+      "regionScore": 0.21936910530145118,
+      "mustScore": 0.5,
+      "order": null,
+      "elements": 3,
+      "notes": [
+        "must regions missed: cta-primary",
+        "order not measurable: fewer than two vertically ordered regions were placed"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 2
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 8,
+    "judged": true,
+    "dropped": [],
+    "captured": 2,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r08-partial-pricing",
+    "title": "NEW: pricing from two loose boxes and half of a third; the note says three tiers",
+    "mode": "auto",
+    "sentMode": "design",
+    "strokes": 4,
+    "drawMs": 14504,
+    "runMs": 119012,
+    "tokens": {
+      "input": 19355,
+      "cacheRead": 301803,
+      "output": 10130,
+      "interpret": {
+        "input": 1866,
+        "cacheRead": 2793,
+        "output": 879
+      },
+      "codegen": {
+        "input": 17489,
+        "cacheRead": 299010,
+        "output": 9251
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": 1,
+      "intentOrder": 1,
+      "intentRegions": [
+        {
+          "role": "heading",
+          "must": false,
+          "kind": "text",
+          "found": true,
+          "textual": true,
+          "real": true,
+          "el": {
+            "tag": "h2",
+            "text": "Choose Your Plan",
+            "srcLoc": "src/components/PricingSection.tsx:12:7"
+          }
+        },
+        {
+          "role": "tier-1",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Starter $9 /mo Choose",
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        },
+        {
+          "role": "tier-2",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Most Popular Pro $29 /mo Choose",
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        },
+        {
+          "role": "tier-3",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Enterprise $99 /mo Choose",
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [
+        {
+          "role": "tier-1",
+          "iou": 0.5357280395647606,
+          "rect": {
+            "x": 120,
+            "y": 180,
+            "w": 320,
+            "h": 420
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 88,
+              "y": 164,
+              "w": 346.65625,
+              "h": 268
+            },
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        },
+        {
+          "role": "tier-2",
+          "iou": 0.5558467110773199,
+          "rect": {
+            "x": 480,
+            "y": 160,
+            "w": 320,
+            "h": 460
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 457.98944091796875,
+              "y": 157.3000030517578,
+              "w": 364.00543212890625,
+              "h": 281.4000244140625
+            },
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        },
+        {
+          "role": "tier-3",
+          "iou": 0.535768895382595,
+          "rect": {
+            "x": 840,
+            "y": 180,
+            "w": 320,
+            "h": 420
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 845.328125,
+              "y": 164,
+              "w": 346.65625,
+              "h": 268
+            },
+            "srcLoc": "src/components/PricingSection.tsx:19:13"
+          }
+        }
+      ],
+      "missed": [
+        {
+          "role": "heading",
+          "rect": {
+            "x": 440,
+            "y": 80,
+            "w": 400,
+            "h": 60
+          },
+          "must": false
+        }
+      ],
+      "regionScore": 0.4068359115061689,
+      "mustScore": 1,
+      "order": null,
+      "elements": 28,
+      "notes": [
+        "25 visible elements beyond the 3 matched — possible bloat",
+        "order not measurable: fewer than two vertically ordered regions were placed"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 4
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 10,
+    "judged": true,
+    "dropped": [],
+    "captured": 4,
+    "changedFiles": 3,
+    "realized": true
+  },
+  {
+    "id": "r09-overdrawn-form",
+    "title": "NEW: a signup form, one field overdrawn twice, one-word labels",
+    "mode": "auto",
+    "sentMode": "design",
+    "strokes": 4,
+    "drawMs": 12821,
+    "runMs": 224064,
+    "tokens": {
+      "input": 38649,
+      "cacheRead": 653304,
+      "output": 19389,
+      "interpret": {
+        "input": 1366,
+        "cacheRead": 2793,
+        "output": 1114
+      },
+      "codegen": {
+        "input": 37283,
+        "cacheRead": 650511,
+        "output": 18275
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": 1,
+      "intentRegions": [
+        {
+          "role": "name-input",
+          "must": true,
+          "kind": "input",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "input",
+            "text": "",
+            "srcLoc": "src/App.tsx:24:11"
+          }
+        },
+        {
+          "role": "email-input",
+          "must": true,
+          "kind": "input",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "input",
+            "text": "",
+            "srcLoc": "src/App.tsx:40:11"
+          }
+        },
+        {
+          "role": "submit-button",
+          "must": true,
+          "kind": "control",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Sign up",
+            "srcLoc": "src/App.tsx:53:11"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [
+        {
+          "role": "name-input",
+          "iou": 0.761958553866135,
+          "rect": {
+            "x": 440,
+            "y": 200,
+            "w": 400,
+            "h": 48
+          },
+          "found": {
+            "tag": "path",
+            "rect": {
+              "x": 434.1689147949219,
+              "y": 198.09022521972656,
+              "w": 414.6810607910156,
+              "h": 60.76530456542969
+            },
+            "srcLoc": "src/components/SketchShape.tsx:24:7"
+          }
+        },
+        {
+          "role": "email-input",
+          "iou": 0.7650689789021162,
+          "rect": {
+            "x": 440,
+            "y": 280,
+            "w": 400,
+            "h": 48
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 435.84375,
+              "y": 273.203125,
+              "w": 411.828125,
+              "h": 60.9375
+            },
+            "srcLoc": "src/App.tsx:32:9"
+          }
+        },
+        {
+          "role": "submit-button",
+          "iou": 0.5932466057777817,
+          "rect": {
+            "x": 540,
+            "y": 360,
+            "w": 200,
+            "h": 52
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 536.046875,
+              "y": 336.625,
+              "w": 211.53125,
+              "h": 82.875
+            },
+            "srcLoc": "src/App.tsx:48:9"
+          }
+        }
+      ],
+      "missed": [],
+      "regionScore": 0.7067580461820109,
+      "mustScore": 1,
+      "order": 1,
+      "elements": 17,
+      "notes": [
+        "14 visible elements beyond the 3 matched — possible bloat"
+      ],
+      "orderBasis": "role",
+      "orderPairs": 3,
+      "threshold": 0.35,
+      "regions": 3
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 4,
+    "judged": true,
+    "dropped": [],
+    "captured": 4,
+    "changedFiles": 4,
+    "realized": true
+  },
+  {
+    "id": "r10-unclosed-cards",
+    "title": "NEW: three skewed unclosed boxes under a squiggle; the note names the features",
+    "mode": "auto",
+    "sentMode": "design",
+    "strokes": 4,
+    "drawMs": 13357,
+    "runMs": 119773,
+    "tokens": {
+      "input": 17885,
+      "cacheRead": 315303,
+      "output": 10413,
+      "interpret": {
+        "input": 1685,
+        "cacheRead": 2793,
+        "output": 1857
+      },
+      "codegen": {
+        "input": 16200,
+        "cacheRead": 312510,
+        "output": 8556
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 0.6666666666666666,
+      "realized": false,
+      "structure": 1,
+      "content": 1,
+      "intentOrder": 0,
+      "intentRegions": [
+        {
+          "role": "section-heading",
+          "must": false,
+          "kind": "text",
+          "found": true,
+          "textual": true,
+          "real": true,
+          "el": {
+            "tag": "p",
+            "text": "Pages load in under a second, every time.",
+            "srcLoc": "src/App.tsx:84:15"
+          }
+        },
+        {
+          "role": "card-1",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Fast Pages load in under a second, every time.",
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        },
+        {
+          "role": "card-2",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Safe Your data is encrypted and backed up daily.",
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        },
+        {
+          "role": "card-3",
+          "must": true,
+          "kind": "repeat",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "Cheap Full access for less than a cup of coffee a month.",
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [
+        {
+          "role": "card-1",
+          "iou": 0.4644251454067405,
+          "rect": {
+            "x": 100,
+            "y": 200,
+            "w": 320,
+            "h": 260
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 152,
+              "y": 164,
+              "w": 304,
+              "h": 210
+            },
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        },
+        {
+          "role": "card-2",
+          "iou": 0.561862678450034,
+          "rect": {
+            "x": 480,
+            "y": 200,
+            "w": 320,
+            "h": 260
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 488,
+              "y": 164,
+              "w": 304,
+              "h": 210
+            },
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        },
+        {
+          "role": "card-3",
+          "iou": 0.4644251454067405,
+          "rect": {
+            "x": 860,
+            "y": 200,
+            "w": 320,
+            "h": 260
+          },
+          "found": {
+            "tag": "div",
+            "rect": {
+              "x": 824,
+              "y": 164,
+              "w": 304,
+              "h": 210
+            },
+            "srcLoc": "src/App.tsx:76:13"
+          }
+        }
+      ],
+      "missed": [
+        {
+          "role": "section-heading",
+          "rect": {
+            "x": 480,
+            "y": 100,
+            "w": 320,
+            "h": 50
+          },
+          "must": false
+        }
+      ],
+      "regionScore": 0.37267824231587876,
+      "mustScore": 1,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "22 visible elements beyond the 3 matched — possible bloat",
+        "order not measurable: fewer than two vertically ordered regions were placed"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 4
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 9,
+    "judged": true,
+    "dropped": [],
+    "captured": 4,
+    "changedFiles": 1,
+    "realized": false
+  },
+  {
+    "id": "r11-sloppy-nav-hero",
+    "title": "NEW: nav + hero from an unclosed bar, a dented ring, one squiggle and a 3-sided button",
+    "mode": "auto",
+    "sentMode": "design",
+    "strokes": 4,
+    "drawMs": 15289,
+    "runMs": 48854,
+    "tokens": {
+      "input": 12938,
+      "cacheRead": 236930,
+      "output": 4450,
+      "interpret": {
+        "input": 2843,
+        "cacheRead": 7300,
+        "output": 1575
+      },
+      "codegen": {
+        "input": 10095,
+        "cacheRead": 229630,
+        "output": 2875
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": 1,
+      "intentOrder": 1,
+      "intentRegions": [
+        {
+          "role": "topbar",
+          "must": true,
+          "kind": "container",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "nav",
+            "text": "Docs Pricing Sign in",
+            "srcLoc": "src/App.tsx:4:7"
+          }
+        },
+        {
+          "role": "logo",
+          "must": false,
+          "kind": "media",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "div",
+            "text": "",
+            "srcLoc": "src/App.tsx:5:9"
+          }
+        },
+        {
+          "role": "hero-headline",
+          "must": true,
+          "kind": "text",
+          "found": true,
+          "textual": true,
+          "real": true,
+          "el": {
+            "tag": "h1",
+            "text": "Your notes, everywhere",
+            "srcLoc": "src/App.tsx:20:9"
+          }
+        },
+        {
+          "role": "cta",
+          "must": true,
+          "kind": "control",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get the app",
+            "srcLoc": "src/App.tsx:23:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [
+        {
+          "role": "topbar",
+          "iou": 0.7445708376421923,
+          "rect": {
+            "x": 20,
+            "y": 16,
+            "w": 1240,
+            "h": 60
+          },
+          "found": {
+            "tag": "nav",
+            "rect": {
+              "x": 64,
+              "y": 0,
+              "w": 1152,
+              "h": 76
+            },
+            "srcLoc": "src/App.tsx:4:7"
+          }
+        }
+      ],
+      "missed": [
+        {
+          "role": "logo",
+          "rect": {
+            "x": 40,
+            "y": 26,
+            "w": 40,
+            "h": 40
+          },
+          "must": false
+        },
+        {
+          "role": "hero-headline",
+          "rect": {
+            "x": 320,
+            "y": 230,
+            "w": 640,
+            "h": 64
+          },
+          "must": true
+        },
+        {
+          "role": "cta",
+          "rect": {
+            "x": 560,
+            "y": 340,
+            "w": 160,
+            "h": 50
+          },
+          "must": true
+        }
+      ],
+      "regionScore": 0.18614270941054809,
+      "mustScore": 0.3333333333333333,
+      "order": null,
+      "elements": 10,
+      "notes": [
+        "must regions missed: hero-headline, cta",
+        "9 visible elements beyond the 1 matched — possible bloat",
+        "order not measurable: fewer than two vertically ordered regions were placed"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 4
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 15,
+    "judged": true,
+    "dropped": [],
+    "captured": 4,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r12-green-pen-ring-button",
+    "title": "EDIT: a lopsided ring around the button, drawn in a green pen, no words",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 2679,
+    "runMs": 2803,
+    "tokens": {
+      "input": 0,
+      "cacheRead": 0,
+      "output": 0,
+      "interpret": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      },
+      "codegen": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "bg Get started",
+          "must": true,
+          "kind": "bg",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        },
+        {
+          "role": "kept Get started",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "button",
+            "text": "Get started",
+            "srcLoc": "src/App.tsx:15:9"
+          }
+        },
+        {
+          "role": "kept Ship faster with Acme",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h1",
+            "text": "Ship faster with Acme",
+            "srcLoc": "src/App.tsx:13:9"
+          }
+        },
+        {
+          "role": "kept Instant previews",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Instant previews",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 0,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r13-two-arrows-swap-cards",
+    "title": "EDIT: two wobbly arrows, card 1 to card 3 and back (swap them), no words",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 2,
+    "drawMs": 5746,
+    "runMs": 12643,
+    "tokens": {
+      "input": 4772,
+      "cacheRead": 10809,
+      "output": 844,
+      "interpret": {
+        "input": 4772,
+        "cacheRead": 10809,
+        "output": 844
+      },
+      "codegen": {
+        "input": 0,
+        "cacheRead": 0,
+        "output": 0
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "leftOf Usage-based billing > One-click rollbacks",
+          "must": true,
+          "kind": "leftOf",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Usage-based billing",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        },
+        {
+          "role": "leftOf One-click rollbacks > Instant previews",
+          "must": true,
+          "kind": "leftOf",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "One-click rollbacks",
+            "srcLoc": "src/App.tsx:23:11"
+          }
+        },
+        {
+          "role": "kept Instant previews",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Instant previews",
+            "srcLoc": "src/App.tsx:27:11"
+          }
+        },
+        {
+          "role": "kept Usage-based billing",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Usage-based billing",
+            "srcLoc": "src/App.tsx:19:11"
+          }
+        },
+        {
+          "role": "kept We cut our release time",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "blockquote",
+            "text": "\"We cut our release time in half.\"",
+            "srcLoc": "src/App.tsx:32:9"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 25,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 0,
+    "judged": true,
+    "dropped": [],
+    "captured": 2,
+    "changedFiles": 1,
+    "realized": true
+  },
+  {
+    "id": "r14-caret-insert-nav-link",
+    "title": "EDIT: a quick caret between two nav links + \"Blog\"",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 1273,
+    "runMs": 60168,
+    "tokens": {
+      "input": 15780,
+      "cacheRead": 172000,
+      "output": 5294,
+      "interpret": {
+        "input": 5208,
+        "cacheRead": 18670,
+        "output": 1173
+      },
+      "codegen": {
+        "input": 10572,
+        "cacheRead": 153330,
+        "output": 4121
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 0.8,
+      "realized": false,
+      "structure": 0.8,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "present Blog",
+          "must": true,
+          "kind": "present",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Blog",
+            "srcLoc": "src/App.tsx:12:11"
+          }
+        },
+        {
+          "role": "leftOf Features > Blog",
+          "must": true,
+          "kind": "leftOf",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Features",
+            "srcLoc": "src/App.tsx:9:11"
+          }
+        },
+        {
+          "role": "leftOf Blog > Pricing",
+          "must": true,
+          "kind": "leftOf",
+          "found": false,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Blog",
+            "srcLoc": "src/App.tsx:12:11"
+          }
+        },
+        {
+          "role": "kept Features",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Features",
+            "srcLoc": "src/App.tsx:9:11"
+          }
+        },
+        {
+          "role": "kept Pricing",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "a",
+            "text": "Pricing",
+            "srcLoc": "src/App.tsx:10:11"
+          }
+        }
+      ],
+      "intentNotes": [
+        "edit checks failed: leftOf Blog > Pricing"
+      ],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 28,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 1,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 2,
+    "realized": false
+  },
+  {
+    "id": "r15-box-one-more-tile",
+    "title": "EDIT: one loose empty box in the empty slot after three tiles (add one more), no words",
+    "mode": "auto",
+    "sentMode": "gesture",
+    "strokes": 1,
+    "drawMs": 2338,
+    "runMs": 60178,
+    "tokens": {
+      "input": 17462,
+      "cacheRead": 156010,
+      "output": 4950,
+      "interpret": {
+        "input": 5320,
+        "cacheRead": 3336,
+        "output": 638
+      },
+      "codegen": {
+        "input": 12142,
+        "cacheRead": 152674,
+        "output": 4312
+      }
+    },
+    "verified": null,
+    "score": {
+      "intent": 1,
+      "realized": true,
+      "structure": 1,
+      "content": null,
+      "intentOrder": null,
+      "intentRegions": [
+        {
+          "role": "siblings Slack",
+          "must": true,
+          "kind": "siblings",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Slack",
+            "srcLoc": "src/App.tsx:45:13"
+          }
+        },
+        {
+          "role": "kept GitHub",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "GitHub",
+            "srcLoc": "src/App.tsx:37:13"
+          }
+        },
+        {
+          "role": "kept GitLab",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "GitLab",
+            "srcLoc": "src/App.tsx:41:13"
+          }
+        },
+        {
+          "role": "kept Slack",
+          "must": true,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Slack",
+            "srcLoc": "src/App.tsx:45:13"
+          }
+        },
+        {
+          "role": "kept Instant previews",
+          "must": false,
+          "kind": "kept",
+          "found": true,
+          "textual": false,
+          "real": null,
+          "el": {
+            "tag": "h3",
+            "text": "Instant previews",
+            "srcLoc": "src/App.tsx:21:11"
+          }
+        }
+      ],
+      "intentNotes": [],
+      "matched": [],
+      "missed": [],
+      "regionScore": null,
+      "mustScore": null,
+      "order": null,
+      "elements": 42,
+      "notes": [
+        "spec declares no regions — nothing to score"
+      ],
+      "orderBasis": null,
+      "orderPairs": 0,
+      "threshold": 0.35,
+      "regions": 0
+    },
+    "error": null,
+    "words": "all",
+    "wordsTyped": 0,
+    "judged": true,
+    "dropped": [],
+    "captured": 1,
+    "changedFiles": 2,
+    "realized": true
+  }
+]

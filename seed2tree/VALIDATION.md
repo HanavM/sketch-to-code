@@ -339,3 +339,26 @@ owner's next few hours; a public launch (SEED done #5) is not.
   meaningful numbers (I found none).
 - The owner deciding the point is a learning project and a launch is off the
   table — in which case the pivot is already the plan.
+
+## s2c-013 measured, 2026-10-18: the kill test, now a measurement
+
+Run in the cloud on the owner's quota (his yes, 2026-10-18). Rough set, 3 runs
+per arm. **auto 80% (36/45) vs screenshot 69% (31/45): +11 points. The
+pre-registered bar (≥ 15 points AND auto ≥ 60%) is NOT MET.** Per the owner's
+overrule of 2026-10-15 this doesn't kill the seed. Details in docs/findings.md.
+
+Where structure earns its keep: **edits, +20 points** (87% vs 67%), and it
+owns the no-word gestures outright (scribble, coloured ring, swap arrows:
+9/9 vs 0/9). That's the drawing-first thesis, and it holds where the owner
+said it would.
+
+Where it loses: **new UI, −7 points** (67% vs 73%), the caret insert (0/3 vs
+2/3, with a false "✓ Done"), 4/45 failed readings vs 0, and ~3.4× the
+tokens.
+
+Verdict for the tree: **PURSUE, narrowed.** The structured reader's job is
+edits on a running page. For drawing new UI from scratch, the evidence
+says a screenshot is as good and cheaper. Route new-UI sketches to the
+screenshot arm unless a re-run says otherwise, and fix the caret, the
+false tick and the reading failures before claiming SEED done #1.
+

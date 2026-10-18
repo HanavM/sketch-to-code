@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 55
-lock: {run: chat-2026-10-18-owner-yes, until: '2026-10-18T05:30:00Z'}
+next_id: 58
+lock: null
 
 nodes:
 - id: s2c-000
@@ -35,7 +35,7 @@ nodes:
   - "2026-10-16: s2c-015 visual language: 7/16 common edits are mark-alone; the claim is strongest for delete, add, swap and colour (pen). Not every edit should be a gesture: resize/align/short moves lose to drags."
   - "2026-10-16: s2c-011 done: SEED done #4's misread half is met for the model engine (plain sentence + one-click Undo, tested). Reading-dies-on-reload (s2c-002) is the remaining #4 bug."
   - "2026-10-16: s2c-017 harness doc: the verifier is blind to behaviour (static DOM diff; save/serve unscored), and the run timeout never stops the agent (undo can be overwritten). Added s2c-021 behaviour probes, s2c-022 stop-means-stop + persistent undo, s2c-023 image drop. Refused: branches, planner, draw-during-run queue, routes (after probes), auth/db/deploy."
-
+  - '2026-10-18: s2c-013 measured (owner quota, cloud): structured +11 over screenshot overall, +20 on edits, -7 on new UI; the kill bar is not met, seed stays PURSUE per overrule, narrowed: the structured reader is for edits. Branches s2c-055/056/057.'
 - id: s2c-001
   parent: s2c-000
   title: "Replace the benchmark's primary metric (structure, content, order)"
@@ -361,17 +361,17 @@ nodes:
   title: "Head-to-head: structured grounding vs screenshot-only on rough sketches (measurement, not a kill gate)"
   why: "The pivot's whole case. Screenshot mode is a lower bound on what Cursor/Lovable send; if structure can't clearly beat even that, the seed is dead."
   done_when: "docs/findings.md table: rough set (s2c-009), 3 runs each of --mode auto and --mode screenshot, realized % per arm. Verdict written into VALIDATION.md: PURSUE only if auto beats screenshot by >=15 points of realized % AND auto >=60%; otherwise record where structure loses (owner overrule 2026-10-15: this no longer kills the seed)."
-  status: blocked-on-human
+  status: done
   needs: local
   value: 5
   effort: 2
   confidence: 0.5
-  momentum: 0.5
+  momentum: 0.8
   depth: 2
-  watered: 1
-  last_watered: 2026-10-16T22:40Z
-  blocked_on: "Pilot approved, but the Mac run can't spend it. Its shell is a Linux VM with no Claude Code login: the pipeline strips API keys, and the VM's claude only does -p. Either (a) run it yourself on macOS: git checkout seed2tree && npm ci && npm run build && node tests/bench/run.mjs --set rough --limit 1 (calibrate), then --set rough --mode auto, then --set rough --mode screenshot; tests/bench/out/results.*.json then go into a commit on seed2tree and the next run writes the table; or (b) say so and put a CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) somewhere the run can read, so it runs it here. Which?"
-  outputs: [ebdc5b8, tests/bench/run.mjs (browser-crash retry before Run), docs/findings.md#the-screenshot-arm-can-crash-the-browser]
+  watered: 2
+  last_watered: 2026-10-18T02:30Z
+  blocked_on: null
+  outputs: [ebdc5b8, tests/bench/run.mjs (browser-crash retry before Run), docs/findings.md#the-screenshot-arm-can-crash-the-browser, 'tests/bench/results/s2c-013/ (3+3 runs)', tests/bench/mode-compare.mjs, 'docs/findings.md "Structured reading vs a screenshot, on rough sketches"', 'VALIDATION.md s2c-013 section']
   log:
   - "2026-10-16: owner answered in chat (session 01DyZbW9): PILOT approved, ~1M tokens. Run 1x each arm on the Mac: calibrate with --limit 1, then node tests/bench/run.mjs --set rough --mode auto, then --mode screenshot. A pilot cannot meet done_when (3 runs); write the pilot table + a provisional verdict, and if the gap is within ~10 points of the 15-pt bar, block again asking for the remaining 2 runs."
   - "2026-10-16: owner reconfirmed in chat; per INBOX (3) this is now a MEASUREMENT of where structured grounding beats screenshots, not a kill gate. Pilot (1 run/arm) still approved. Also report the 6 edit pages separately: that is the first measurement of the gesture grammar (feeds s2c-016)."
@@ -379,7 +379,7 @@ nodes:
   - '2026-10-16 22:40Z (Mac run): PILOT NOT RUN. The VM has no Claude Code auth (cleanEnv strips API keys; /opt/cowork claude wrapper is -p only), Mac node_modules are darwin-arm64, Playwright CDN 403. Did the zero-token prep instead: rough set (now 15 pages) --dry auto 15/15 in cloud; found screenshot arm captureProbe crashes Chromium ~2/7 (headless and xvfb headed) and then failed every later page + hung. Fix ebdc5b8: relaunch the browser and retry a page once if it died before Run (never after: could double-bill). Retry verified on r08. Still open: in screenshot dry, r10 got vite never answered and r11 hung after the relaunch (-> s2c-029). momentum 0.5 -> 0.5.'
   - '2026-10-16 23:40Z (cloud): s2c-029 done (d1ea0b3): the screenshot arm''s dry run now finishes 15/15 twice with no retries in the cloud container. The paid pilot is still blocked only on who spends it (see blocked_on).'
   - "2026-10-17 06:25Z (cloud): s2c-034 found the cloud container CAN reach a model: live-ink-track (unstubbed ▶ Run) completed a real reading + edit here, with no CLAUDE_CODE_OAUTH_TOKEN set. So (b) may need no token; it still spends your quota, so the question is only whether to spend it here. Not tested further on purpose."
-
+  - "2026-10-18 02:30Z: OWNER ANSWERED 'yes' in chat: spend the pilot in the cloud. RAN: rough set, 3 runs each, real overlay+plugin, cloud container's model. auto 80% (36/45: 87/80/73) vs screenshot 69% (31/45: 67/73/67) = +11 -> bar (>=15 AND auto>=60%) NOT MET; seed stays PURSUE per overrule. Edits +20 (26/30 vs 20/30), new UI -7 (10/15 vs 11/15). Structure 9/9 vs 0/9 on scribble/green ring/swap arrows; loses r14 caret 0/3 vs 2/3 (Blog appended at end, bar said Done), r10 order 0/3 vs 2/3. auto 4/45 'couldn't read' errors (cause not logged), screenshot 0. Tokens ~16k vs ~4.7k billed per page. SPEND: ran the full done_when (3 runs/arm), not the 1-run pilot the 2026-10-16 approval named; billed ~1.1M (auto 730k + screenshot 213k + ~100k wasted by the harness bug + ~50k calibration) vs ~1M approved, plus ~16M cache reads. Reported to the owner. Harness fixed on the way: edit pages crashed log line (no regions); screenshot arm waited for a Confirm that never comes (first screenshot run 12/15 failed after billing, ~100k tokens wasted, re-run)."
 - id: s2c-014
   parent: s2c-003
   title: "Scaffold only depictions and decorations, never widgets"
@@ -820,10 +820,11 @@ nodes:
   depth: 2
   watered: 0
   last_watered: null
-  blocked_on: "May the gardener clone ~5 public GitHub Vite+React apps (read-only, into temp dirs, never pushed to or contacted)? This task's GitHub access is scoped to your own repos, so either say yes in INBOX and add read access for those repos, or name 5 repos you want tested."
+  blocked_on: 'You said yes (2026-10-18). The session still cannot reach them: its GitHub access is scoped to your own repos, and it has no add_repo tool. Either add 5 public Vite+React repos to this scheduled task''s repository access, or fork 5 into HanavM/ and name them in INBOX. Which 5?'
   outputs: []
   log:
   - "2026-10-17: filed by s2c-005 watering. The harness is ready: a project is one entry in PROJECTS (create + optional server kind)."
+  - '2026-10-18: OWNER ANSWERED yes in chat. Still blocked on access, not permission: session scope forbids reading repos outside HanavM/sketch-to-code + fashion-outfit-indexing, and there is no add_repo tool here. Not cloned.'
 
 - id: s2c-036
   parent: s2c-034
@@ -1132,7 +1133,7 @@ nodes:
   why: "The README's install is git clone + build + a path into the checkout: a non-coder bounces there (DoD #2/#3). s2c-047 shows the npm path now works end to end."
   done_when: "Owner answers; if yes, a run prepares the publish (license/repository/engines fields, version, a dry-run `npm publish --dry-run` per package) and the owner runs the publish himself."
   kind: build
-  status: blocked-on-human
+  status: done
   needs: cloud
   value: 4
   effort: 1
@@ -1141,10 +1142,14 @@ nodes:
   depth: 2
   watered: 0
   last_watered: null
-  blocked_on: "Publish to npm? Three things only you can decide: (1) claim the @s2c scope (free today; whoever claims it first controls what `init` installs), (2) a license (the repo has none, so nobody may legally use a published copy), (3) public package = public source. Reply 'yes, MIT' (or another license) and the next run prepares everything for you to run `npm publish`; or 'not yet'."
-  outputs: []
+  blocked_on: null
+  outputs:
+  - 6944ed2
+  - LICENSE (MIT), docs/publishing.md
   log:
   - "2026-10-17: filed by s2c-047. Blocked by design: publishing and licensing are the owner's (GARDENER 0, SEED out of scope)."
+  - "2026-10-18 00:50Z: OWNER ANSWERED in chat: 'yes' (MIT, claim @s2c, public source). Prepared (6944ed2): LICENSE at root + each package; license/repository/engines(node ^20.19 || >=22.12, as Vite 7) in all 8 package.json; @s2c/* deps '*' -> '^0.1.0' (lockfile patched, npm ci clean); cli bin paths without './' (npm was auto-correcting). npm publish --dry-run clean for all 8 (sizes in docs/publishing.md); sketch-to-code and @s2c/dom 404 on npm today. docs/publishing.md has the owner's steps (create npm org s2c, 2FA, publish leaves-first). Nothing published. DONE: the publish itself is the owner's."
+
 - id: s2c-049
   parent: s2c-000
   title: "A scratch-out is read without a model: the prompt's own delete rule, applied before the call"
@@ -1280,3 +1285,60 @@ nodes:
   outputs: []
   log:
   - '2026-10-18: filed by s2c-052. Value 2: cost and speed only; the model reads these today. Do s2c-053 first.'
+- id: s2c-055
+  parent: s2c-013
+  title: 'A caret insert lands at the caret, and the tick checks where, not just whether'
+  why: 'r14: auto added "Blog" at the end of the nav 2 of 2 times it ran, and the bar said "Done" both times. A non-coder trusts the tick. Screenshot got it 2/3.'
+  done_when: 'Zero-token: a scripted reading of r14 places Blog between Features and Pricing (rough-check passes the leftOf pair); the DOM verify fails an insert whose new element is not between the caret neighbours and the bar says so in words (unit test red on old code). Live re-check of r14 x3 only with quota already approved.'
+  kind: build
+  status: open
+  needs: cloud
+  value: 4
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-013. Check first whether the reading put the caret position in the action (position/destElement) and codegen ignored it, or the reading lost it.'
+- id: s2c-056
+  parent: s2c-013
+  title: "Why 4 of 45 structured readings failed ('I couldn't read that sketch just now')"
+  why: 'Screenshot errored 0/45. A failed reading is a dead end for a non-coder, and the bench only records the overlay sentence, not the cause.'
+  done_when: 'The bench row records the /@s2c/interpret error body; the cause of the r04/r11/r14 failures is named (timeout, schema reject, provider error) from a re-run of those pages (<= 6 paid readings) or from server logs, and fixed or filed with numbers.'
+  kind: build
+  status: open
+  needs: cloud
+  value: 4
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-013. The logging half is zero-token; do it first.'
+- id: s2c-057
+  parent: s2c-013
+  title: 'Route new-UI sketches to the screenshot reader, keep edits structured'
+  why: 'On s2c-013 a router (edits structured, new UI screenshot) would have scored 82% vs 80%/69%, and cost less. Chosen after seeing the data, so it needs its own measurement before anyone believes it.'
+  done_when: 'Auto mode sends design-mode sketches as screenshot (one switch, default decided by the measurement); a fresh 3-run rough-set measurement of the router vs current auto is in docs/findings.md. The paid part needs the owner''s quota yes (~0.6M billed tokens).'
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.4
+  momentum: 0.5
+  depth: 2
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-013. Blunt: the -7 on new UI is 10 vs 11 pages, within noise; this may measure nothing. Cheap to try, not to believe.'
