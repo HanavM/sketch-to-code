@@ -830,3 +830,53 @@ check passes on any colour.
 Checked: 5 new unit tests in recolor.test.ts; vitest 1254/1256 (same 2 env
 failures); `tsc -b` clean; `npm run demo` green. Not checked: real users'
 rings (s2c-013).
+
+## The no-model readings on 4,400 rough marks (s2c-052, 2026-10-18)
+
+s2c-049/050 made a scratch-out and a coloured ring cost nothing: a rule reads
+them, and the model is never asked. Each had been tested on a handful of tidy
+marks. A rule that skips the model has no second opinion, so the question is
+how often it acts wrongly on marks a hurried hand makes.
+
+`node tests/bench/run.mjs --set rough --dry --plain` asks the rules about
+every rough page, using the exact request body Run would send (new
+`__S2C_DEBUG__.wire()`), and judges the answer against the page's answer key.
+`node tests/bench/plain-sweep.mjs --n 200` draws 4,400 marks with the bench's
+own rough generators on the base page's real snapshot
+(`tests/bench/fixtures/base-snapshot.json`), and runs each through
+`plainReading`. Zero tokens, no browser for the sweep.
+
+**Found: 10 of 1,400 rough scratch-outs deleted more than they crossed out.**
+A scribble over the "Pricing" nav link that ran ~8 px past either end was
+no longer 85% on the link. The deepest element holding it was the row of
+links, so the rule deleted Features, Pricing and About. A scribble on a card's
+title that spilled onto the card deleted the card's body too. Fix: a delete
+must have every worded element inside its target at least 20% under the ink,
+otherwise the model reads it. After: **0 bad fires in 4,400**. Free reads
+unchanged (953). Both unit tests were red on the old rule.
+
+| family (n) | read free | missed (model pays) | bad fires |
+|---|---|---|---|
+| scratch-out, 7 elements (1,400) | 68% | 32% | 10 → **0** |
+| · spans 75–100% of the element | 91% | 9% | 0 |
+| · spans < 75% | 62% | 38% (covers < 25%) | 0 |
+| · overshoots the element | 52% | 48% | 10 → 0 |
+| coloured ring, 4 elements (800) | 60% | 40% | 0 |
+| · 0.95–1.15 turns | 92% | 8% | 0 |
+| · < 0.95 turns (open) | 48% | 52% (closing gap) | 0 |
+| · > 1.15 turns (overdrawn) | 42% | 58% | 0 |
+| probes: default-ink ring, very wobbly ring, coloured arrow, 3-sided box, underline (1,000) | n/a | n/a | **0** |
+| gaps: two-stroke X, strike-through with no words (400) | 0% | 100% | 0 |
+
+On the bench itself: words all, 2 right (r01, r12), 1 missed (r06's X), 12
+correctly declined. Words none: 2 right, 2 missed (r02's strike, r06's X), 9
+declined.
+
+Why the rings miss: an overdrawn loop (1.15–1.4 turns) is classified by
+`@s2c/ink` as **line** (79 of 200) or **polyline** (58). The model's brief
+gets those same kinds, so this is a reading problem, not just a cost one.
+Open rings fail the closing-gap check. That is arguably right: a C can be a
+bracket.
+
+Limits: the marks are my generators, not people's. The base page is one
+layout. "Missed" costs a model call (~10 s), it doesn't break anything.

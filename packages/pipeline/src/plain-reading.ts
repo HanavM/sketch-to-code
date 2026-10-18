@@ -34,6 +34,12 @@ import {
 export const SCRIBBLE_MIN_REVERSALS = 4
 /** Share of the element's area the scribbles' box must cover to mean "this". */
 export const SCRIBBLE_MIN_COVER = 0.25
+/**
+ * Share of each worded element INSIDE the target the ink's box must cover, or
+ * the reading is left to the model (s2c-052). Low on purpose: a scratch-out
+ * across a card's title and the top of its body still means the card.
+ */
+export const SCRIBBLE_MIN_INNER_COVER = 0.2
 
 export type PlainReading =
   | {
@@ -179,6 +185,22 @@ export function plainReading(
     const cover = overlap(inkBox, r) / area
     if (cover < SCRIBBLE_MIN_COVER) {
       return no(`the scribble covers ${Math.round(cover * 100)}% of its element: too little to mean "this"`)
+    }
+    // s2c-052: a delete removes everything inside its element, so everything
+    // with words inside it must be under the ink. A scratch-out over one nav
+    // link that runs a few px past it is confined only to the row of links,
+    // and deleting that row took "Features" and "About" with it, with no
+    // model asked (plain-sweep.mjs: 10 of 1,400 rough scribbles). Spilling
+    // past what you cross out is not crossing out its neighbours; the model
+    // reads those.
+    for (const c of menu) {
+      if (c.id === id || !c.text || !ancestors(c.id).has(id)) continue
+      const cr = c.rect
+      const ca = cr.w * cr.h
+      if (ca <= 0) continue
+      if (overlap(inkBox, cr) / ca < SCRIBBLE_MIN_INNER_COVER) {
+        return no(`the scribble on ${id} misses "${c.text.slice(0, 40)}" inside it: it may mean only part`)
+      }
     }
     actions.push({
       kind: 'delete',

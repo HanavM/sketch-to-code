@@ -1,0 +1,896 @@
+{
+"nodes": [
+{
+"id": "e0",
+"tag": "body",
+"srcLoc": null,
+"rect": {
+"x": 0,
+"y": 0,
+"w": 1280,
+"h": 900
+},
+"text": "",
+"classes": [],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "rgb(0, 0, 0)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": null,
+"depth": 0
+},
+{
+"id": "e1",
+"tag": "div",
+"srcLoc": null,
+"rect": {
+"x": 0,
+"y": 0,
+"w": 1280,
+"h": 900
+},
+"text": "",
+"classes": [],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "rgb(0, 0, 0)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e0",
+"depth": 1
+},
+{
+"id": "e2",
+"tag": "main",
+"srcLoc": "src/App.tsx:3:5",
+"rect": {
+"x": 0,
+"y": 0,
+"w": 1280,
+"h": 900
+},
+"text": "",
+"classes": [
+"min-h-screen",
+"bg-white",
+"text-slate-900"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgb(255, 255, 255)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e1",
+"depth": 2
+},
+{
+"id": "e3",
+"tag": "nav",
+"srcLoc": "src/App.tsx:4:7",
+"rect": {
+"x": 0,
+"y": 0,
+"w": 1280,
+"h": 69
+},
+"text": "",
+"classes": [
+"flex",
+"items-center",
+"justify-between",
+"border-b",
+"border-slate-200",
+"px-12",
+"py-5"
+],
+"style": {
+"display": "flex",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "20px 48px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e2",
+"depth": 3
+},
+{
+"id": "e4",
+"tag": "span",
+"srcLoc": "src/App.tsx:5:9",
+"rect": {
+"x": 48,
+"y": 20,
+"w": 56.40625,
+"h": 28
+},
+"text": "Acme",
+"classes": [
+"text-xl",
+"font-bold"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "20px",
+"fontWeight": "700",
+"borderRadius": "0px"
+},
+"parent": "e3",
+"depth": 4
+},
+{
+"id": "e5",
+"tag": "div",
+"srcLoc": "src/App.tsx:6:9",
+"rect": {
+"x": 1025.109375,
+"y": 24,
+"w": 206.890625,
+"h": 20
+},
+"text": "",
+"classes": [
+"flex",
+"gap-8",
+"text-sm",
+"text-slate-600"
+],
+"style": {
+"display": "flex",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "32px",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e3",
+"depth": 4
+},
+{
+"id": "e6",
+"tag": "a",
+"srcLoc": "src/App.tsx:7:11",
+"rect": {
+"x": 1025.109375,
+"y": 24,
+"w": 57.328125,
+"h": 20
+},
+"text": "Features",
+"classes": [],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e5",
+"depth": 5
+},
+{
+"id": "e7",
+"tag": "a",
+"srcLoc": "src/App.tsx:8:11",
+"rect": {
+"x": 1114.4375,
+"y": 24,
+"w": 46.078125,
+"h": 20
+},
+"text": "Pricing",
+"classes": [],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e5",
+"depth": 5
+},
+{
+"id": "e8",
+"tag": "a",
+"srcLoc": "src/App.tsx:9:11",
+"rect": {
+"x": 1192.515625,
+"y": 24,
+"w": 39.484375,
+"h": 20
+},
+"text": "About",
+"classes": [],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e5",
+"depth": 5
+},
+{
+"id": "e9",
+"tag": "section",
+"srcLoc": "src/App.tsx:12:7",
+"rect": {
+"x": 0,
+"y": 69,
+"w": 1280,
+"h": 312
+},
+"text": "",
+"classes": [
+"px-12",
+"pt-16",
+"pb-12",
+"text-center"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "64px 48px 48px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e2",
+"depth": 3
+},
+{
+"id": "e10",
+"tag": "h1",
+"srcLoc": "src/App.tsx:13:9",
+"rect": {
+"x": 48,
+"y": 133,
+"w": 1184,
+"h": 48
+},
+"text": "Ship faster with Acme",
+"classes": [
+"text-5xl",
+"font-bold"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "48px",
+"fontWeight": "700",
+"borderRadius": "0px"
+},
+"parent": "e9",
+"depth": 4
+},
+{
+"id": "e11",
+"tag": "p",
+"srcLoc": "src/App.tsx:14:9",
+"rect": {
+"x": 352,
+"y": 197,
+"w": 576,
+"h": 56
+},
+"text": "The deploy platform for small teams who would rather build than babysit servers.",
+"classes": [
+"mx-auto",
+"mt-4",
+"max-w-xl",
+"text-lg",
+"text-slate-600"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "16px 304px 0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "18px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e9",
+"depth": 4
+},
+{
+"id": "e12",
+"tag": "button",
+"srcLoc": "src/App.tsx:15:9",
+"rect": {
+"x": 573.890625,
+"y": 285,
+"w": 132.21875,
+"h": 48
+},
+"text": "Get started",
+"classes": [
+"mt-8",
+"rounded-lg",
+"bg-slate-900",
+"px-6",
+"py-3",
+"text-white"
+],
+"style": {
+"display": "inline-block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "12px 24px",
+"margin": "32px 0px 0px",
+"backgroundColor": "oklch(0.208 0.042 265.755)",
+"color": "rgb(255, 255, 255)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "8px"
+},
+"parent": "e9",
+"depth": 4
+},
+{
+"id": "e13",
+"tag": "section",
+"srcLoc": "src/App.tsx:17:7",
+"rect": {
+"x": 0,
+"y": 381,
+"w": 1280,
+"h": 154
+},
+"text": "",
+"classes": [
+"grid",
+"grid-cols-3",
+"gap-8",
+"px-12",
+"pb-12"
+],
+"style": {
+"display": "grid",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "32px",
+"padding": "0px 48px 48px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e2",
+"depth": 3
+},
+{
+"id": "e14",
+"tag": "article",
+"srcLoc": "src/App.tsx:18:9",
+"rect": {
+"x": 48,
+"y": 381,
+"w": 373.328125,
+"h": 106
+},
+"text": "",
+"classes": [
+"rounded-xl",
+"border",
+"border-slate-200",
+"p-6"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "24px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "12px"
+},
+"parent": "e13",
+"depth": 4
+},
+{
+"id": "e15",
+"tag": "h3",
+"srcLoc": "src/App.tsx:19:11",
+"rect": {
+"x": 73,
+"y": 406,
+"w": 323.328125,
+"h": 28
+},
+"text": "Instant previews",
+"classes": [
+"text-lg",
+"font-semibold"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "18px",
+"fontWeight": "600",
+"borderRadius": "0px"
+},
+"parent": "e14",
+"depth": 5
+},
+{
+"id": "e16",
+"tag": "p",
+"srcLoc": "src/App.tsx:20:11",
+"rect": {
+"x": 73,
+"y": 442,
+"w": 323.328125,
+"h": 20
+},
+"text": "Every branch gets its own live URL in seconds.",
+"classes": [
+"mt-2",
+"text-sm",
+"text-slate-600"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "8px 0px 0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e14",
+"depth": 5
+},
+{
+"id": "e17",
+"tag": "article",
+"srcLoc": "src/App.tsx:22:9",
+"rect": {
+"x": 453.328125,
+"y": 381,
+"w": 373.328125,
+"h": 106
+},
+"text": "",
+"classes": [
+"rounded-xl",
+"border",
+"border-slate-200",
+"p-6"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "24px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "12px"
+},
+"parent": "e13",
+"depth": 4
+},
+{
+"id": "e18",
+"tag": "h3",
+"srcLoc": "src/App.tsx:23:11",
+"rect": {
+"x": 478.328125,
+"y": 406,
+"w": 323.328125,
+"h": 28
+},
+"text": "One-click rollbacks",
+"classes": [
+"text-lg",
+"font-semibold"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "18px",
+"fontWeight": "600",
+"borderRadius": "0px"
+},
+"parent": "e17",
+"depth": 5
+},
+{
+"id": "e19",
+"tag": "p",
+"srcLoc": "src/App.tsx:24:11",
+"rect": {
+"x": 478.328125,
+"y": 442,
+"w": 323.328125,
+"h": 20
+},
+"text": "Undo a bad deploy without touching a terminal.",
+"classes": [
+"mt-2",
+"text-sm",
+"text-slate-600"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "8px 0px 0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e17",
+"depth": 5
+},
+{
+"id": "e20",
+"tag": "article",
+"srcLoc": "src/App.tsx:26:9",
+"rect": {
+"x": 858.65625,
+"y": 381,
+"w": 373.34375,
+"h": 106
+},
+"text": "",
+"classes": [
+"rounded-xl",
+"border",
+"border-slate-200",
+"p-6"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "24px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "12px"
+},
+"parent": "e13",
+"depth": 4
+},
+{
+"id": "e21",
+"tag": "h3",
+"srcLoc": "src/App.tsx:27:11",
+"rect": {
+"x": 883.65625,
+"y": 406,
+"w": 323.34375,
+"h": 28
+},
+"text": "Usage-based billing",
+"classes": [
+"text-lg",
+"font-semibold"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "18px",
+"fontWeight": "600",
+"borderRadius": "0px"
+},
+"parent": "e20",
+"depth": 5
+},
+{
+"id": "e22",
+"tag": "p",
+"srcLoc": "src/App.tsx:28:11",
+"rect": {
+"x": 883.65625,
+"y": 442,
+"w": 323.34375,
+"h": 20
+},
+"text": "Pay for the minutes you run, nothing when idle.",
+"classes": [
+"mt-2",
+"text-sm",
+"text-slate-600"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "8px 0px 0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.446 0.043 257.281)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e20",
+"depth": 5
+},
+{
+"id": "e23",
+"tag": "section",
+"srcLoc": "src/App.tsx:31:7",
+"rect": {
+"x": 0,
+"y": 535,
+"w": 1280,
+"h": 160
+},
+"text": "",
+"classes": [
+"bg-slate-50",
+"px-12",
+"py-12",
+"text-center"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "48px",
+"margin": "0px",
+"backgroundColor": "oklch(0.984 0.003 247.858)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "16px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e2",
+"depth": 3
+},
+{
+"id": "e24",
+"tag": "blockquote",
+"srcLoc": "src/App.tsx:32:9",
+"rect": {
+"x": 48,
+"y": 583,
+"w": 1184,
+"h": 32
+},
+"text": "\"We cut our release time in half.\"",
+"classes": [
+"text-2xl",
+"font-medium"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.208 0.042 265.755)",
+"fontSize": "24px",
+"fontWeight": "500",
+"borderRadius": "0px"
+},
+"parent": "e23",
+"depth": 4
+},
+{
+"id": "e25",
+"tag": "p",
+"srcLoc": "src/App.tsx:33:9",
+"rect": {
+"x": 48,
+"y": 627,
+"w": 1184,
+"h": 20
+},
+"text": "Priya N., CTO at Fieldnote",
+"classes": [
+"mt-3",
+"text-sm",
+"text-slate-500"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "0px",
+"margin": "12px 0px 0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.554 0.046 257.417)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e23",
+"depth": 4
+},
+{
+"id": "e26",
+"tag": "footer",
+"srcLoc": "src/App.tsx:35:7",
+"rect": {
+"x": 0,
+"y": 695,
+"w": 1280,
+"h": 68
+},
+"text": "\u00a9 2026 Acme Inc.",
+"classes": [
+"px-12",
+"py-6",
+"text-sm",
+"text-slate-500"
+],
+"style": {
+"display": "block",
+"position": "static",
+"zIndex": "auto",
+"flexDirection": "row",
+"gap": "normal",
+"padding": "24px 48px",
+"margin": "0px",
+"backgroundColor": "rgba(0, 0, 0, 0)",
+"color": "oklch(0.554 0.046 257.417)",
+"fontSize": "14px",
+"fontWeight": "400",
+"borderRadius": "0px"
+},
+"parent": "e2",
+"depth": 3
+}
+],
+"viewport": {
+"w": 1280,
+"h": 900,
+"scrollX": 0,
+"scrollY": 0
+},
+"url": "http://localhost:5301/",
+"takenAt": 1792281494074,
+"truncated": false
+}

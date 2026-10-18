@@ -61,6 +61,7 @@ import { writeReport } from './lib/report.mjs'
 import { parseMode, keyFor, launchArgs, modeHolds } from './lib/mode.mjs'
 import { parseWords, notesFor, wordsTyped, answerKey, wordSummary } from './lib/words.mjs'
 import { pensFor, penChanges, penMismatch } from './lib/pen.mjs'
+import { judgePlain, tallyPlain } from './lib/plain.mjs'
 import { browserSpoiled, freshBrowserPerPage, retryable, withTimeout } from './lib/crash.mjs'
 
 const arg = (name, fallback = null) => {
@@ -84,6 +85,10 @@ const OUT = join(REPO, 'tests/bench/out')
 const APP_DIR = String(arg('app', join(tmpdir(), 's2c-bench-app')))
 const PORT = Number(arg('port', 5301))
 const DRY = has('dry')
+// --plain (with --dry): ask the server's no-model rules what they would read,
+// in-process, and judge it against the answer key. Zero tokens (s2c-052).
+const PLAIN = has('plain')
+if (PLAIN && !DRY) throw new Error('--plain only runs with --dry: it must never press Run')
 const MODE = parseMode(arg('mode'))
 const WORDS = parseWords(arg('words'))
 const SETS = { tidy, rough }
@@ -429,6 +434,21 @@ while (queue.length) {
     if (DRY) {
       // not an error: a dry page did exactly what was asked of it
       row.dry = true
+      if (PLAIN) {
+        const wire = await page.evaluate(() => window.__S2C_DEBUG__.wire())
+        mkdirSync(join(OUT, 'plain'), { recursive: true })
+        writeFileSync(join(OUT, 'plain', `${spec.id}.words-${WORDS}.wire.json`), JSON.stringify(wire))
+        const { plainReading } = await import('@s2c/pipeline')
+        let plain
+        try {
+          plain = plainReading(wire.strokes, wire.snapshot, wire.mode === 'design' ? 'design' : 'gesture', wire.notes ?? [])
+        } catch (err) {
+          // the server catches this too and asks the model: a decline
+          plain = { ok: false, reason: `threw: ${String(err)}` }
+        }
+        row.plain = judgePlain(key.spec, wire, plain)
+        log(`plain reading: ${row.plain.outcome} (want ${row.plain.want ?? 'none'}, got ${row.plain.got ?? `declined: ${row.plain.reason}`})${row.plain.why ? ` · ${row.plain.why}` : ''}`)
+      }
       // ...and score the page untouched: nothing was built, so nothing can be
       // realized. If it is, the spec's answer key is vacuous.
       await page.evaluate(() => {
@@ -566,3 +586,11 @@ log(`words ${WORDS}: realized ${ws.realizedPct === null ? '—' : `${(ws.realize
   `${ws.notJudged ? ` (${ws.notJudged} not judged without words)` : ''} · ${ws.wordsTyped} words typed · ` +
   `${ws.wordsPerRealized === null ? '—' : ws.wordsPerRealized.toFixed(1)} words per realized page`)
 log(`report: ${join(OUT, 'report.md')}`)
+if (PLAIN) {
+  const pr = results.filter((r) => r.plain)
+  const t = tallyPlain(pr.map((r) => r.plain))
+  log(`plain readings (no model): ${t.right} right · ${t.wrong} wrong · ${t.missed} missed · ${t['false-fire']} false fires · ${t.declined} correctly declined, of ${t.total}` +
+    ` · read free: ${t.freeRate === null ? '—' : `${(t.freeRate * 100).toFixed(0)}% of the ${t.able} pages a rule could take`}`)
+  for (const r of pr) log(`  ${r.id.padEnd(30)} ${r.plain.outcome.padEnd(10)} want ${String(r.plain.want).padEnd(15)} ${r.plain.got ?? `declined: ${r.plain.reason}`}`)
+  writeFileSync(join(OUT, `plain.words-${WORDS}.json`), JSON.stringify({ tally: t, rows: pr.map((r) => ({ id: r.id, ...r.plain })) }, null, 2))
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Stroke } from '@s2c/ink'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { plainReading, SCRIBBLE_MIN_COVER, zigzags } from '../src/plain-reading.js'
+import { plainReading, SCRIBBLE_MIN_COVER, SCRIBBLE_MIN_INNER_COVER, zigzags } from '../src/plain-reading.js'
 import { buildEvidence, groundInterpretation } from '../src/intent2.js'
 
 const dnode = (id: string, tag: string, srcLoc: string, text: string, rect: DomNode['rect'], parent: string | null = null): DomNode => ({
@@ -175,5 +175,49 @@ describe('plainReading: a scribble the prompt rule already decides (s2c-049)', (
     const bare = { ...button, srcLoc: null as unknown as string }
     const r = plainReading([zigzag('s0', 110, 325, 120, 28)], { ...snap, nodes: [section, heading, bare, other] })
     expect(r.ok).toBe(false)
+  })
+})
+
+describe('plainReading: a delete must cross out everything it removes (s2c-052)', () => {
+  // the rough bench's nav: a row of three links, 32 px apart (tests/bench/fixtures)
+  const nav = dnode('n1', 'nav', 'src/App.tsx:5:5', '', { x: 0, y: 0, w: 1280, h: 69 })
+  const links = dnode('n2', 'div', 'src/App.tsx:7:7', '', { x: 1025, y: 24, w: 207, h: 20 }, 'n1')
+  const features = dnode('n3', 'a', 'src/App.tsx:8:9', 'Features', { x: 1025, y: 24, w: 57, h: 20 }, 'n2')
+  const pricing = dnode('n4', 'a', 'src/App.tsx:9:9', 'Pricing', { x: 1114, y: 24, w: 46, h: 20 }, 'n2')
+  const about = dnode('n5', 'a', 'src/App.tsx:10:9', 'About', { x: 1193, y: 24, w: 39, h: 20 }, 'n2')
+  const card = dnode('c1', 'article', 'src/App.tsx:20:7', '', { x: 48, y: 381, w: 373, h: 106 }, 'n1')
+  const title = dnode('c2', 'h3', 'src/App.tsx:21:9', 'Instant previews', { x: 73, y: 406, w: 323, h: 28 }, 'c1')
+  const body = dnode('c3', 'p', 'src/App.tsx:22:9', 'Every branch gets its own live URL.', { x: 73, y: 442, w: 323, h: 20 }, 'c1')
+  const page: DomSnapshot = {
+    nodes: [nav, links, features, pricing, about, card, title, body], truncated: false, url: 'http://x/', takenAt: 0,
+    viewport: { w: 1280, h: 900, scrollX: 0, scrollY: 0 },
+  }
+
+  it('a scratch-out on one nav link that runs past it does not delete the whole row of links', () => {
+    // 8 px past each side of "Pricing": no longer 85% on the link, so the
+    // deepest element holding it is the row. The old reading deleted the row.
+    const r = plainReading([zigzag('s0', 1106, 25, 62, 18, 6)], page)
+    expect(r.ok).toBe(false)
+    if (r.ok) return
+    expect(r.reason).toMatch(/misses "Features"/)
+  })
+
+  it('the same scratch-out kept on the link still deletes just the link', () => {
+    const r = plainReading([zigzag('s0', 1116, 26, 42, 16, 5)], page)
+    if (!r.ok) throw new Error(r.reason)
+    expect(r.interpretation.actions[0]!.targets[0]!.srcLoc).toBe('src/App.tsx:9:9')
+  })
+
+  it(`a scratch-out across a card's title and the top of its body still deletes the card (each part ≥ ${SCRIBBLE_MIN_INNER_COVER * 100}% under the ink)`, () => {
+    const r = plainReading([zigzag('s0', 60, 400, 350, 50, 10)], page)
+    if (!r.ok) throw new Error(r.reason)
+    expect(r.interpretation.actions[0]!.targets[0]!.srcLoc).toBe('src/App.tsx:20:7')
+  })
+
+  it("a scratch-out on a card's title that spills onto the card does not take the body with it", () => {
+    const r = plainReading([zigzag('s0', 56, 399, 360, 38, 10)], page)
+    expect(r.ok).toBe(false)
+    if (r.ok) return
+    expect(r.reason).toMatch(/misses "Every branch/)
   })
 })

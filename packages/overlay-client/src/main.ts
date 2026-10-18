@@ -3027,6 +3027,13 @@ class Overlay {
       // against this, so when a gesture picks the wrong element this is the
       // only place that can say whether the page or the reading was wrong
       snapshot: () => this.snapshot(),
+      // the reading request's body exactly as Run would send it, with nothing
+      // sent: a zero-token bench can then ask the server's no-model rules
+      // (plain-reading.ts) what they would answer (s2c-052)
+      wire: () => ({
+        strokes: this.strokesForWire(), snapshot: this.snapshot(),
+        mode: this.effectiveRunMode(), notes: this.notesPayload(),
+      }),
       keymap: () => this.binds.map((b) => ({ id: b.id, keys: b.keys, label: b.label, group: b.group })),
       // which /api paths the page asked for and nothing answered, and how each
       // one failed — the only observable side of the fetch watcher
