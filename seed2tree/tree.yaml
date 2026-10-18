@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 61
-lock: {run: cloud-2026-10-18T0556Z, until: "2026-10-18T07:11:00Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1383,19 +1383,23 @@ nodes:
   why: 'The slot code handles columns, but only the nav row is tested. A new card or list row drawn between two existing ones is the next most common insert, and multi-row grids return no slot at all.'
   done_when: 'Unit tests on the bench''s list base (s2c-015) and a 2-row grid: a box drawn in the gap between items 2 and 3 grounds to that slot and verify fails an append; a box over an item or in open space gets none. Zero tokens.'
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 2
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 3
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-18T06:20Z'
   blocked_on: null
-  outputs: []
+  outputs:
+  - commit 142990c
+  - packages/pipeline/src/insert-slot.ts (gridRows, readingOrder)
+  - packages/pipeline/tests/insert-slot-stacked.test.ts
   log:
   - '2026-10-18: filed by s2c-055. Value 2: helpful, not core. Skip it if anything with value >= 3 is open.'
+  - '2026-10-18 06:20Z (cloud): DONE. One-row grid (the list base) and stacked lists already worked; untested before, now covered. Two-row grids returned NO slot (axisOf needs a single row/column): now each row of a wrapping grid is searched, the mark centre must be inside a row band (the strip between rows is no slot). FOUND a second bug: verifyInsertSlot compared x/y midpoints, so a CORRECT mid-row insert in a 3-col grid that pushed Slack onto row 2 was reported wrong (went before "Slack"); now compares reading order (rows top-down, then left-right). 13 tests on synthetic snapshots built from the list base geometry (5 red on old code). r15 empty-4th-cell box still no slot. e2e:caret green. vitest 1304/1306 (same 2 env failures), tsc -b clean. 0 tokens. NOT checked: real model, real browser on a wrapping grid. momentum 0.5 -> 0.7.'
 - id: s2c-060
   parent: s2c-053
   title: 'A ring round a whole line of text (40:1 and flatter) is still a line to the classifier, so the brief says line'

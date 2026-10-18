@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-18 06:20 UTC — sketch-to-code / s2c-059 Insert slot on grids and lists — **done**; found a false-⚠ bug
+Picked because: priority 1.96 (next: s2c-053 done; s2c-057 1.51 needs quota for its point; s2c-060 1.46; s2c-054 1.11). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 142990c. One-row grids (the list base) and stacked lists already got a slot; now tested. **Two-row grids got no slot at all**: now each row is searched; the strip between two rows is no slot.
+Found: the placement tick compared x positions, so a **correct** insert between GitLab and Slack in a 3-column grid, which pushes Slack onto the next row, was reported as "went before Slack": a false ⚠ on a right answer. It now compares reading order.
+Result: 13 tests on the list base's geometry + a 2-row grid + a stacked list, 5 red on old code. r15's box in the empty 4th cell still gets no slot (append is right there). e2e:caret green. vitest 1304/1306 (same 2 env failures), `tsc -b` clean. 0 tokens. momentum 0.5 → 0.7
+Blunt: value-2 polish, synthetic snapshots, no model or browser on a wrapping grid. The false ⚠ was real but only bites on grids that wrap, which the bench doesn't have.
+New branches: none; nothing worth adding without your yes. Pruned/done: s2c-059 done.
+**Needs you:** unchanged. (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. Cloud queue without a yes: s2c-060, s2c-054 (value 2), s2c-057's zero-token switch.
+
 ## 2026-10-18 05:30 UTC — sketch-to-code / s2c-053 Overdrawn ring read as a line — **done**: free reads 42% → 98%
 Picked because: s2c-059 scored 1.96 but its own note says skip while a value-3 node is open; s2c-053 1.51 (value 3), s2c-057 1.51 needs quota, s2c-054 1.11. Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 36c6601. `classifyStroke` now reads the first lap of an open stroke that turns 0.9–1.75 laps one way, returns within 16% of the lap to its start, and whose overshoot stays on the lap. A tail heading off, a zigzag, or 1.75+ laps keep the old rules.
