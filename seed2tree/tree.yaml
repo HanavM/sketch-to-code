@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 58
-lock: {run: cloud-2026-10-18T0400Z, until: "2026-10-18T05:15:00Z"}
+next_id: 60
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1291,19 +1291,24 @@ nodes:
   why: 'r14: auto added "Blog" at the end of the nav 2 of 2 times it ran, and the bar said "Done" both times. A non-coder trusts the tick. Screenshot got it 2/3.'
   done_when: 'Zero-token: a scripted reading of r14 places Blog between Features and Pricing (rough-check passes the leftOf pair); the DOM verify fails an insert whose new element is not between the caret neighbours and the bar says so in words (unit test red on old code). Live re-check of r14 x3 only with quota already approved.'
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 4
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: '2026-10-18T04:40Z'
   blocked_on: null
-  outputs: []
+  outputs:
+  - commit 08bcc00
+  - packages/pipeline/src/insert-slot.ts
+  - packages/pipeline/tests/insert-slot.test.ts
+  - tests/e2e/caret-insert.mjs (npm run e2e:caret)
   log:
   - '2026-10-18: filed by s2c-013. Check first whether the reading put the caret position in the action (position/destElement) and codegen ignored it, or the reading lost it.'
+  - '2026-10-18 04:40Z (cloud): CAUSE: the grounded add carried only the container + the caret''s 18 px box, nothing about which siblings it sat between, so codegen appended; verifyDesignPlacement accepts anything new within ~120 px, and the end of a short nav is. (Whether the reading said into-the-nav or codegen ignored a region can''t be told from the s2c-013 rows; either way nothing named the slot.) FIX: insert-slot.ts computes the gap from geometry (row/column container, two consecutive children, mark centre in the gap, mostly not on either) for add/design not anchored to a sibling; GroundedAction.insertSlot goes to codegen with both neighbours'' srcLoc + a contract line; verifyActions adds a (place) check, by text, multiset of the container''s children; explain says "I couldn''t put it between "Features" and "Pricing", where you marked it (it went after "About")". 10 unit tests on the bench''s real base snapshot + r14''s caret (9 red on old code). e2e:caret on demo-app (Tailwind), scripted model: slot in brief, Blog renders Overview,Blog,Reports,Settings, bar ✓, undo byte-exact; an appending codegen now gets ⚠ with that sentence instead of Done. live-navigate-contents still green. vitest 1287/1289 (same 2 env failures), tsc -b clean. 0 tokens. NOT checked: whether the real codegen model obeys insertSlot (s2c-058). Done_when''s rough-check leftOf was checked as DOM order on the demo app, not via run.mjs (the bench spawns vite out of process, so it can''t be scripted). momentum 0.5 -> 0.7.'
 - id: s2c-056
   parent: s2c-013
   title: "Why 3 of 45 structured readings failed ('I couldn't read that sketch just now')"
@@ -1348,3 +1353,41 @@ nodes:
   outputs: []
   log:
   - '2026-10-18: filed by s2c-013. Blunt: the -7 on new UI is 10 vs 11 pages, within noise; this may measure nothing. Cheap to try, not to believe.'
+- id: s2c-058
+  parent: s2c-055
+  title: 'Does the real codegen obey the insert slot? r14 live x3'
+  why: 's2c-055 fixed the plumbing and the tick with a scripted model. Whether Claude actually puts Blog after the named line is untested; if it does, r14 goes from 0/3 to ~3/3 and the auto arm gains ~2 points.'
+  done_when: 'run.mjs --set rough --only r14 --repeat 3 (auto): leftOf Blog>Pricing passes in >= 2/3 and no run says Done with Blog in the wrong place. Paid: ~50k billed tokens; needs the owner''s yes.'
+  kind: build
+  status: blocked-on-human
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: 'OK to spend ~50k tokens running r14 (caret insert) 3 times live? Reply "yes, r14".'
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-055. Can ride along with s2c-056''s read-only readings if both get a yes.'
+- id: s2c-059
+  parent: s2c-055
+  title: 'Insert slot on stacked layouts: a box drawn between two cards or list items'
+  why: 'The slot code handles columns, but only the nav row is tested. A new card or list row drawn between two existing ones is the next most common insert, and multi-row grids return no slot at all.'
+  done_when: 'Unit tests on the bench''s list base (s2c-015) and a 2-row grid: a box drawn in the gap between items 2 and 3 grounds to that slot and verify fails an append; a box over an item or in open space gets none. Zero tokens.'
+  kind: build
+  status: open
+  needs: cloud
+  value: 2
+  effort: 1
+  confidence: 0.6
+  momentum: 0.5
+  depth: 3
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-055. Value 2: helpful, not core. Skip it if anything with value >= 3 is open.'

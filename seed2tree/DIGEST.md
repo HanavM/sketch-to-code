@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-18 04:40 UTC — sketch-to-code / s2c-055 Caret insert lands at the caret — **done**; the tick now checks where
+Picked because: priority ~2.1 (next: s2c-053 1.5, s2c-059 ~1.2; s2c-057/056 need quota). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 08bcc00. Cause: the grounded add carried only the container and the caret's 18 px box, never which two siblings it sat between, so codegen appended. Verify accepted anything new within ~120 px, which the end of a short nav is. That's why r14 said Done 2/2.
+Fix: `insert-slot.ts` finds the gap the mark sits in from geometry and hands codegen both neighbours' source lines. Verify adds a placement check by text. The bar says: "I couldn't put it between "Features" and "Pricing", where you marked it (it went after "About")."
+Result: 10 unit tests on the bench's real base snapshot and r14's caret (9 red on old code). `npm run e2e:caret` on demo-app with a scripted model: Blog renders Overview, Blog, Reports, Settings with a ✓. Undo is byte-exact. An appending codegen now gets ⚠ instead of Done. live-navigate-contents still green. vitest 1287/1289 (same 2 env failures), `tsc -b` clean. 0 tokens. momentum 0.5 → 0.7
+Blunt: the tick lying was the real bug, and that's fixed for certain. Whether Claude actually obeys the slot is untested. The rough-check leftOf was checked as DOM order on demo-app, not through run.mjs (the bench runs vite out of process, so it can't be scripted).
+New branches: s2c-058 r14 live x3 (value 3, blocked on ~50k tokens). s2c-059 slots on stacked cards/lists (value 2).
+Pruned/done: s2c-055 done.
+**Needs you:** (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. With no yes, the cloud queue here is down to value-2 polish (s2c-053/054/059).
+
 ## 2026-10-18 03:20 UTC — sketch-to-code / s2c-056 Why readings failed — **cause unrecoverable; logging fixed; found a 3-minute hang, now capped at 2 min**
 Picked because: priority 3.3 (next: s2c-055 2.1, s2c-053/057 1.5). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 9c02f7b. The s2c-013 failures can't be explained after the fact. Nothing kept the cause: the provider turned SDK error results into "malformed output", the server logged nothing, and the bench saved only the bar's sentence. Also, it was **3/45, not 4**. Now the cause is named and kept in all three places. Bench rows record it, and stop waiting once the bar says it failed.
