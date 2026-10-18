@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
-now: "Moves, inserts and new sections now show a dashed pending preview the instant the pen lifts (on a test branch); next, check the preview turns into the real change when the code lands."
-lock: {by: run-0738, until: 2026-10-18T09:08:59Z}
+now: "Moves, inserts and new sections now preview instantly and turn into the real change when the code lands (tested live); next, check the preview also goes away when the code does something different."
+lock: null
 asks: []
 handled: []
 notes:
@@ -9,7 +9,9 @@ notes:
   - "The vite plugin caches the overlay bundle per dev-server boot: restart the demo server after overlay edits."
   - "Playwright here wants headless_shell-1234; point PLAYWRIGHT_BROWSERS_PATH at a dir linking chrome-headless-shell to /opt/pw-browsers/chromium."
   - "Quick reading must match plain-reading.ts exactly; on big pages the server menu cap (MENU_CAP) could still diverge: a false hide is rolled back, a miss just waits for the run."
-  - "Spent so far: about 3 interpret model calls (first e2e drafts), a few thousand tokens. n7 used none (run stubbed)."
+  - "Spent so far: n8 ran 3 live runs (move, insert, section) through Claude Code; estimate under 100k tokens today. Earlier steps a few thousand."
+  - "optimistic-preview.mjs flaked once on the first run after a fresh dev-server boot (insert: run never started); passed on rerun."
+  - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium (simpler than the PLAYWRIGHT_BROWSERS_PATH symlink)."
   - "Move/insert/section are model readings; the preview is drawn in the overlay's own #pending layer, never in the app DOM. A box counts as empty space if no worded element or stamped leaf is under its centre or 20% under it."
   - "Don't pkill -f with a pattern that appears in your own command line: it kills the shell. Use fuser -k 5199/tcp."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
@@ -18,7 +20,7 @@ criteria:
      evidence: "On try/n1 (not yet on agent): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
   - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open, evidence: null}
   - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open,
-     evidence: "Partial, try/n1: tests/e2e/optimistic-preview.mjs, previews 12-26 ms after lift, labelled pending, removed on failure. Live landing not yet shown."}
+     evidence: "Partial, try/n1: optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. Not yet shown: code does something else."}
   - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open, evidence: null}
   - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open,
      evidence: "Partial, try/n1: Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
@@ -39,4 +41,7 @@ nodes:
      result: "Ring recolours 15-24 ms after lift; rollback exact; lands with no flash; Ctrl+Z works for ring and scribble. Commit 88ea4ca."}
   - {id: n7, parent: n1, kind: step, title: "Pending-marked previews at pen lift for arrow (move), caret (insert) and box in empty space (new section), removed or made real when code lands", status: done,
      result: "Dashed pending previews 12-26 ms after lift for all three; app DOM untouched; removed on failure. Commit 64aea0a."}
-  - {id: n8, parent: n1, kind: step, title: "Live e2e: each preview gives way to the real change when the code lands (model runs), and is removed when the code does something else", status: open, result: null}
+  - {id: n8, parent: n1, kind: step, title: "Live e2e: each preview gives way to the real change when the code lands (model runs), and is removed when the code does something else", status: done,
+     result: "All three land live; preview held until done, then removed; Ctrl+Z restores source. Commit 36dc65b. 'Something else' case not yet tested."}
+  - {id: n9, parent: n1, kind: step, title: "e2e: preview removed when the code lands something different; take the preview down as soon as the real change shows (now overlaps 3-5 s)", status: open, result: null}
+  - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: open, result: null}
