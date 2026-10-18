@@ -22,6 +22,7 @@
     "e2e:optimistic": "node tests/e2e/optimistic-scribble.mjs",
     "e2e:optimistic-ring": "node tests/e2e/optimistic-ring.mjs",
     "e2e:optimistic-preview": "node tests/e2e/optimistic-preview.mjs",
+    "e2e:optimistic-reconcile": "node tests/e2e/optimistic-preview-reconcile.mjs",
     "e2e:optimistic-preview-live": "node tests/e2e/optimistic-preview-live.mjs"
   },
   "devDependencies": {

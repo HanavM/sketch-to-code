@@ -3,7 +3,7 @@
  * Framework-free; lives entirely inside a shadow root so the host app's DOM
  * and styles are untouched (and the snapshot walker excludes it).
  */
-import { takeSnapshot } from '@s2c/dom'
+import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
@@ -12,7 +12,7 @@ import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
-import { previewReading, type Preview } from './preview.js'
+import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 /**
@@ -2342,7 +2342,10 @@ class Overlay {
    * Goal loop n7: a pending preview of a move / insert / new section the
    * drawing asks for (preview.ts), shown until the code lands or fails.
    */
-  private pendingPreview: { key: string; preview: Preview } | null = null
+  private pendingPreview: { key: string; preview: Preview; before: DomSnapshot } | null = null
+  /** n9: watches the page while a preview is up, to take it down the moment the code's result shows. */
+  private previewWatch: MutationObserver | null = null
+  private previewCheck: ReturnType<typeof setTimeout> | null = null
   private pendingLayer!: HTMLDivElement
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
@@ -10415,7 +10418,8 @@ class Overlay {
     const snap = takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
     const preview = previewReading(this.strokes, snap)
     if (!preview) return
-    this.pendingPreview = { key, preview }
+    this.pendingPreview = { key, preview, before: snap }
+    this.watchPreview()
     this.pendingLayer.replaceChildren(...preview.boxes.map((b, i) => {
       const d = document.createElement('div')
       d.className = `pg ${b.role}`
@@ -10439,9 +10443,39 @@ class Overlay {
   }
 
   private dropPreview() {
+    this.previewWatch?.disconnect()
+    this.previewWatch = null
+    if (this.previewCheck) clearTimeout(this.previewCheck)
+    this.previewCheck = null
     if (!this.pendingPreview) return
     this.pendingPreview = null
     this.pendingLayer.replaceChildren()
+  }
+
+  /**
+   * n9: while the code is being written, any change to the page (hot reload)
+   * is checked against what the preview promised. The moment the real result
+   * shows, the preview comes down, instead of overlapping it until the run's
+   * checks finish. Anything else the code does leaves the preview up until
+   * the run ends, which takes it down (onRunDone / onRunError).
+   */
+  private watchPreview() {
+    this.previewWatch?.disconnect()
+    this.previewWatch = new MutationObserver((records) => {
+      if (records.every((r) => r.target === this.host || this.host.contains(r.target))) return
+      if (this.previewCheck) return
+      // coalesce a hot reload's burst of mutations into one look, after layout
+      this.previewCheck = setTimeout(() => {
+        this.previewCheck = null
+        const pv = this.pendingPreview
+        if (!pv || this.mode !== 'running') return
+        const now = takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+        if (!previewLanded(pv.preview, pv.before, now)) return
+        this.dropPreview()
+        ;(window as unknown as { __s2cPreviewLanded?: unknown }).__s2cPreviewLanded = { kind: pv.preview.kind, at: performance.now() }
+      }, 60)
+    })
+    this.previewWatch.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['class', 'style'] })
   }
 
   /** Take the instant change off the page (the element is exactly as before). */

@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 import type { DomSnapshot } from '@s2c/dom'
 import { findInsertSlot as serverSlot } from '../../pipeline/src/insert-slot.js'
 import { findInsertSlot } from '../src/insert-slot-copy.js'
-import { previewReading } from '../src/preview.js'
+import { previewLanded, previewReading } from '../src/preview.js'
 import type { QStroke } from '../src/optimistic.js'
 // @ts-expect-error — plain .mjs bench module, no types
 import { rarrow, rbox, rcaret, rring, rscribble } from '../../../tests/bench/lib/rough.mjs'
@@ -97,5 +97,51 @@ describe('a box inside a container but on no content', () => {
     // the features section spans y 381-535; the band under its cards (487-535) is empty
     expect(previewReading(toInput([rbox(300, 492, 500, 38, { seed: 4 })]), BASE)?.kind).toBe('section')
     expect(previewReading(toInput([rbox(60, 392, 340, 80, { seed: 5 })]), BASE)).toBeNull()
+  })
+})
+
+describe('previewLanded (n9): the preview comes down when the real change shows', () => {
+  const clone = (): DomSnapshot => JSON.parse(JSON.stringify(BASE))
+  const stamp = (snap: DomSnapshot, like: DomSnapshot['nodes'][number], over: Partial<DomSnapshot['nodes'][number]>) => {
+    snap.nodes.push({ ...JSON.parse(JSON.stringify(like)), id: `new${String(snap.nodes.length)}`, ...over })
+  }
+  const byText = (snap: DomSnapshot, t: string) => snap.nodes.find((n) => n.text === t)!
+
+  it('insert: a new link between Features and Pricing lands it; one elsewhere, or none, does not', () => {
+    const p = previewReading(toInput(spec('r14').strokes), BASE)!
+    expect(previewLanded(p, BASE, BASE)).toBe(false)
+    const after = clone()
+    const feat = byText(after, 'Features')
+    const pricing = byText(after, 'Pricing')
+    for (const n of after.nodes) if (n.rect.y < 80 && n.rect.x >= pricing.rect.x) n.rect.x += 50
+    stamp(after, feat, { text: 'Blog', srcLoc: 'src/App.tsx:9:9', rect: { ...feat.rect, x: pricing.rect.x - 4, w: 40 } })
+    expect(previewLanded(p, BASE, after)).toBe(true)
+    // something else: the same link added far away (in the footer band)
+    const other = clone()
+    stamp(other, byText(other, 'Features'), { text: 'Blog', rect: { x: 200, y: 800, w: 40, h: 20 } })
+    expect(previewLanded(p, BASE, other)).toBe(false)
+  })
+
+  it('move: the quote near the ghost lands it; the quote left in place does not', () => {
+    const p = previewReading(toInput(spec('r04').strokes), BASE)!
+    const ghost = p.boxes.find((b) => b.role === 'ghost')!.rect
+    const after = clone()
+    const q = after.nodes.find((n) => n.id === p.fromId)!
+    q.rect = { ...q.rect, x: ghost.x + 5, y: ghost.y + 20 }
+    expect(previewLanded(p, BASE, after)).toBe(true)
+    const other = clone()
+    other.nodes.find((n) => n.text && n.id !== p.fromId)!.text = 'changed words'
+    expect(previewLanded(p, BASE, other)).toBe(false)
+  })
+
+  it('section: a new heading in the drawn band lands it; one at the top of the page does not', () => {
+    const p = previewReading(toInput([rbox(200, 780, 600, 90, { seed: 7 })]), BASE)!
+    const h = BASE.nodes.find((n) => n.tag === 'h2' && n.srcLoc) ?? BASE.nodes.find((n) => n.text && n.srcLoc)!
+    const after = clone()
+    stamp(after, h, { text: 'FAQ', rect: { x: 220, y: 770, w: 300, h: 30 } })
+    expect(previewLanded(p, BASE, after)).toBe(true)
+    const other = clone()
+    stamp(other, h, { text: 'FAQ', rect: { x: 220, y: 60, w: 300, h: 30 } })
+    expect(previewLanded(p, BASE, other)).toBe(false)
   })
 })

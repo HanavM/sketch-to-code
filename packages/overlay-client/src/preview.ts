@@ -39,6 +39,8 @@ export interface Preview {
   /** Source location of the element moved, or the insert's container. */
   srcLoc: string | null
   slot?: InsertSlot
+  /** move: the moved element's node id in the snapshot the preview was read from. */
+  fromId?: string
 }
 
 /** Smallest box a new section may be: below this it's a mark, not a section. */
@@ -95,7 +97,7 @@ function readMove(strokes: QStroke[], snap: DomSnapshot, viewArea: number): Prev
   return {
     kind: 'move', label: 'move · pending',
     boxes: [{ rect: { ...r }, role: 'from' }, { rect: ghost, role: 'ghost' }],
-    ink: node.bbox, srcLoc: from.srcLoc,
+    ink: node.bbox, srcLoc: from.srcLoc, fromId: from.id,
   }
 }
 
@@ -176,4 +178,95 @@ export function previewReading(strokes: QStroke[], snap: DomSnapshot): Preview |
   if (strokes.length === 0 || snap.truncated) return null
   const viewArea = snap.viewport.w * snap.viewport.h
   return readMove(strokes, snap, viewArea) ?? readInsert(strokes, snap) ?? readSection(strokes, snap, viewArea)
+}
+
+// ---- goal loop n9: has the code's own result shown up yet? -------------------
+
+/** What an element is, across a hot reload: its srcLoc line can shift, this can't. */
+const sig = (n: { tag: string; text: string; classes?: string[] }) =>
+  `${n.tag}|${n.text}|${(n.classes ?? []).join('.')}`
+const centre = (b: Box) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 })
+const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.hypot(a.x - b.x, a.y - b.y)
+
+/** Stamped, visible nodes of `after` whose kind (tag, own text, classes) is more common than in `before`. */
+function added(before: DomSnapshot, after: DomSnapshot): DomNode[] {
+  const count = new Map<string, number>()
+  for (const n of before.nodes) if (n.srcLoc && area(n.rect) > 0) count.set(sig(n), (count.get(sig(n)) ?? 0) + 1)
+  const now = new Map<string, number>()
+  for (const n of after.nodes) if (n.srcLoc && area(n.rect) > 0) now.set(sig(n), (now.get(sig(n)) ?? 0) + 1)
+  return after.nodes.filter((n) => n.srcLoc && area(n.rect) > 0 && (now.get(sig(n)) ?? 0) > (count.get(sig(n)) ?? 0))
+}
+
+/** The node in `snap` that is the same element as `n`, nearest where it was. */
+function sameAs(snap: DomSnapshot, n: { tag: string; text: string; rect: Box }): DomNode | null {
+  let best: DomNode | null = null
+  for (const m of snap.nodes) {
+    if (m.tag !== n.tag || m.text !== n.text || area(m.rect) === 0) continue
+    if (!best || dist(centre(m.rect), centre(n.rect)) < dist(centre(best.rect), centre(n.rect))) best = m
+  }
+  return best
+}
+
+/**
+ * True once the page (`after`, as hot reload left it) shows what the preview
+ * promised, read against the page the preview was drawn on (`before`):
+ *   move    - the moved element now sits nearer the ghost than half its old distance
+ *   insert  - a new element sits between the two neighbours of the caret's gap
+ *   section - a new element sits where the box was drawn (a band of the box's
+ *             height either side, since the new section flows into place)
+ * The preview comes down at that moment instead of overlapping the real thing
+ * until the run's checks finish. False is the safe answer: the preview then
+ * stays until the run ends, which takes it down whatever the code did.
+ */
+export function previewLanded(p: Preview, before: DomSnapshot, after: DomSnapshot): boolean {
+  const ghost = p.boxes.find((b) => b.role === 'ghost')?.rect
+  if (!ghost || before.truncated || after.truncated) return false
+  if (p.kind === 'move') {
+    const from = before.nodes.find((n) => n.id === p.fromId)
+    if (!from) return false
+    const g = centre(ghost)
+    const far = dist(centre(from.rect), g)
+    const was = new Set(before.nodes.filter((n) => sig(n) === sig(from)).map((n) => centre(n.rect)))
+    return after.nodes.some((n) => {
+      if (sig(n) !== sig(from) || area(n.rect) === 0) return false
+      if (Math.abs(n.rect.w - from.rect.w) > from.rect.w * 0.25 + 4 || Math.abs(n.rect.h - from.rect.h) > from.rect.h * 0.25 + 4) return false
+      const c = centre(n.rect)
+      // one already standing there before is not the moved element
+      for (const w of was) if (dist(w, c) < 8) return false
+      return dist(c, g) < far * 0.5
+    })
+  }
+  const fresh = added(before, after)
+  if (fresh.length === 0) return false
+  if (p.kind === 'insert') {
+    const slot = p.slot
+    if (!slot) return false
+    const a = sameAs(after, slot.after)
+    const b = sameAs(after, slot.before)
+    if (!a || !b) return false
+    const ca = centre(a.rect)
+    const cb = centre(b.rect)
+    return fresh.some((n) => {
+      if (n.id === a.id || n.id === b.id) return false
+      const c = centre(n.rect)
+      if (slot.axis === 'column') {
+        return c.y > Math.min(ca.y, cb.y) && c.y < Math.max(ca.y, cb.y)
+          && n.rect.x < Math.max(a.rect.x + a.rect.w, b.rect.x + b.rect.w) && n.rect.x + n.rect.w > Math.min(a.rect.x, b.rect.x)
+      }
+      if (slot.axis === 'row') {
+        return c.x > Math.min(ca.x, cb.x) && c.x < Math.max(ca.x, cb.x)
+          && n.rect.y < Math.max(a.rect.y + a.rect.h, b.rect.y + b.rect.h) && n.rect.y + n.rect.h > Math.min(a.rect.y, b.rect.y)
+      }
+      // grid: reading order, rows banded by the neighbour's height
+      const band = Math.max(8, a.rect.h)
+      const key = (q: { x: number; y: number }) => Math.floor(q.y / band) * 1e6 + q.x
+      return key(c) > Math.min(key(ca), key(cb)) && key(c) < Math.max(key(ca), key(cb))
+    })
+  }
+  // section
+  return fresh.some((n) => {
+    const c = centre(n.rect)
+    return c.y >= ghost.y - ghost.h && c.y <= ghost.y + 2 * ghost.h
+      && n.rect.x < ghost.x + ghost.w && n.rect.x + n.rect.w > ghost.x
+  })
 }

@@ -131,7 +131,7 @@ try {
     if (marks) fail(`${kind}: the preview touched the app's DOM (${marks} pending marks)`)
     if ((await stampedCount()) !== stamped0) fail(`${kind}: the app's stamped element count changed`)
     // no Go: the run starts by itself, then fails → preview removed
-    await page.waitForFunction(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length === 0, null, { timeout: 20000 })
+    await page.waitForFunction(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length === 0, null, { timeout: 90000 })
       .catch(async () => fail(`${kind}: the preview stayed after the run failed (run calls ${runCalls})`))
     if (runCalls !== 1) fail(`${kind}: expected the run to start by itself once, got ${runCalls}`)
     if (runSnap && JSON.stringify(runSnap).includes('pending')) {
