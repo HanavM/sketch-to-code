@@ -20,7 +20,8 @@
     "e2e:ring-tw": "node tests/e2e/ring-tailwind.mjs",
     "e2e:caret": "node tests/e2e/caret-insert.mjs",
     "e2e:optimistic": "node tests/e2e/optimistic-scribble.mjs",
-    "e2e:optimistic-ring": "node tests/e2e/optimistic-ring.mjs"
+    "e2e:optimistic-ring": "node tests/e2e/optimistic-ring.mjs",
+    "e2e:optimistic-preview": "node tests/e2e/optimistic-preview.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

@@ -35,6 +35,9 @@ export function overlayAliases(
   const classifySrc = resolve(inkPkg, 'src/classify.ts')
   if (exists(domSrc)) alias['@s2c/dom'] = domSrc
   if (exists(classifySrc)) alias['@s2c/ink/classify'] = classifySrc
+  // the stroke scene (arrows), zlib-free like the classifier (goal loop n7)
+  const sceneSrc = resolve(inkPkg, 'src/scene.ts')
+  if (exists(sceneSrc)) alias['@s2c/ink/scene'] = sceneSrc
   return alias
 }
 
@@ -54,7 +57,7 @@ async function doBundle(): Promise<string> {
     format: 'iife',
     platform: 'browser',
     target: 'es2022',
-    // Only ink's classifier, never ink's index: it pulls node:zlib (png.ts).
+    // Only ink's classifier and scene, never ink's index: it pulls node:zlib (png.ts).
     alias: overlayAliases(domPkg, inkPkg),
     minify: false,
     sourcemap: 'inline',

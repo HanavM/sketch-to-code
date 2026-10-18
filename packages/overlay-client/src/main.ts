@@ -12,6 +12,7 @@ import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
+import { previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 /**
@@ -1275,6 +1276,24 @@ const STYLES = css`
      by an ancestor (CSS zoom/transform on the host page). */
   #scaleProbe { position: absolute; left: 0; top: 0; width: 100px; height: 100px; visibility: hidden; pointer-events: none; }
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* Goal loop n7: where a drawn move / insert / new section is expected to
+     land, shown at pen lift and clearly not real yet. Page-space like #ink. */
+  #pending {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none; z-index: 2147482998;
+  }
+  #pending .pg {
+    position: absolute; box-sizing: border-box; border-radius: 6px;
+    border: 2px dashed #f59e0b; background: #f59e0b1f;
+    animation: s2cPendingPulse 1.2s ease-in-out infinite alternate;
+  }
+  #pending .pg.from { border-color: #94a3b8; background: #94a3b81a; animation: none; }
+  #pending .pgLabel {
+    position: absolute; left: 0; top: -20px; white-space: nowrap;
+    font: 600 11px/16px system-ui, sans-serif; color: #fff; background: #b45309;
+    padding: 1px 6px; border-radius: 4px;
+  }
+  @keyframes s2cPendingPulse { from { opacity: 0.55; } to { opacity: 1; } }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
     border: 1.5px solid var(--s2c-line); vertical-align: -1px;
@@ -2319,6 +2338,12 @@ class Overlay {
   private optimisticBlocked: string | null = null
   /** event.timeStamp of the last pen lift, for the lift-to-visible timing. */
   private liftAt = 0
+  /**
+   * Goal loop n7: a pending preview of a move / insert / new section the
+   * drawing asks for (preview.ts), shown until the code lands or fails.
+   */
+  private pendingPreview: { key: string; preview: Preview } | null = null
+  private pendingLayer!: HTMLDivElement
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
   private overrides: Record<string, string> = {}
@@ -2349,6 +2374,10 @@ class Overlay {
     this.ink = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.ink.id = 'ink'
     this.shadow.appendChild(this.ink)
+
+    this.pendingLayer = document.createElement('div')
+    this.pendingLayer.id = 'pending'
+    this.shadow.appendChild(this.pendingLayer)
 
     this.canvas = document.createElement('canvas')
     this.canvas.id = 'canvas'
@@ -10360,7 +10389,7 @@ class Overlay {
     // a run in flight owns the page until it ends (onRunDone / onRunError)
     if (this.mode === 'running' && this.strokes.length > 0) return
     const key = this.optimisticKey()
-    if (this.optimistic?.key === key) return
+    if (this.optimistic?.key === key || this.pendingPreview?.key === key) return
     this.dropOptimistic()
     if (this.strokes.length === 0 || key === this.optimisticBlocked) return
     // only where the change would run by itself: in review and manual modes a
@@ -10368,7 +10397,10 @@ class Overlay {
     if (this.autoMode !== 'auto' || this.runMode === 'design' || this.runMode === 'screenshot') return
     const cands = this.optimisticCands()
     const reading = quickReading(this.strokes, cands, window.innerWidth * window.innerHeight, this.notes.length > 0)
-    if (!reading) return
+    if (!reading) {
+      this.showPreview(key)
+      return
+    }
     const applied = applyPatch(reading)
     this.optimistic = { key, reading, applied }
     const ms = this.liftAt ? performance.now() - this.liftAt : null
@@ -10377,9 +10409,45 @@ class Overlay {
     }
   }
 
+  /** A pending preview for what the drawing asks, if it plainly asks one. */
+  private showPreview(key: string) {
+    if (this.pendingPreview?.key === key) return
+    const snap = takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+    const preview = previewReading(this.strokes, snap)
+    if (!preview) return
+    this.pendingPreview = { key, preview }
+    this.pendingLayer.replaceChildren(...preview.boxes.map((b, i) => {
+      const d = document.createElement('div')
+      d.className = `pg ${b.role}`
+      d.dataset.kind = preview.kind
+      d.style.left = `${String(b.rect.x)}px`
+      d.style.top = `${String(b.rect.y)}px`
+      d.style.width = `${String(Math.max(4, b.rect.w))}px`
+      d.style.height = `${String(Math.max(4, b.rect.h))}px`
+      if (b.role === 'ghost' || (i === 0 && preview.boxes.length === 1)) {
+        const l = document.createElement('span')
+        l.className = 'pgLabel'
+        l.textContent = preview.label
+        d.appendChild(l)
+      }
+      return d
+    }))
+    const ms = this.liftAt ? performance.now() - this.liftAt : null
+    ;(window as unknown as { __s2cPreview?: unknown }).__s2cPreview = {
+      kind: preview.kind, srcLoc: preview.srcLoc, liftToPreviewMs: ms,
+    }
+  }
+
+  private dropPreview() {
+    if (!this.pendingPreview) return
+    this.pendingPreview = null
+    this.pendingLayer.replaceChildren()
+  }
+
   /** Take the instant change off the page (the element is exactly as before). */
   private dropOptimistic(block = false) {
     if (block) this.optimisticBlocked = this.optimistic?.key ?? this.optimisticKey()
+    this.dropPreview()
     if (!this.optimistic) return
     this.optimistic.applied.undo()
     this.optimistic = null
