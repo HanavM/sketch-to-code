@@ -1,6 +1,15 @@
 {
   "name": "@s2c/intent",
   "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanavM/sketch-to-code.git",
+    "directory": "packages/intent"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,10 +21,11 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "dependencies": {
-    "@s2c/dom": "*",
-    "@s2c/ink": "*"
+    "@s2c/dom": "^0.1.0",
+    "@s2c/ink": "^0.1.0"
   }
 }

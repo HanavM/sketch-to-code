@@ -522,10 +522,11 @@ while (queue.length) {
     const ord = row.score.orderPairs > 0 && row.score.order !== null
       ? `${(row.score.order * 100).toFixed(0)}%`
       : '—'
-    log(`regions ${row.score.matched.length}/${spec.regions.length} · ` +
+    // an edit page has no regions, only its answer key (s2c-009): never run live before s2c-013
+    log(`regions ${row.score.matched?.length ?? 0}/${spec.regions?.length ?? 0} · ` +
       `score ${(row.score.regionScore * 100).toFixed(0)}% · must ${(row.score.mustScore * 100).toFixed(0)}% · ` +
       `order ${ord} · ${row.score.elements} elements`)
-    if (row.score.missed.length) log('missed:', row.score.missed.map((m) => m.role).join(', '))
+    if (row.score.missed?.length) log('missed:', row.score.missed.map((m) => m.role).join(', '))
 
     const real = errs.filter((e) => !/ResizeObserver/.test(e))
     if (real.length) row.error = `page error: ${real[0]}`

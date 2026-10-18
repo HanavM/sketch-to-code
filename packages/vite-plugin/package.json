@@ -1,6 +1,15 @@
 {
   "name": "@s2c/vite-plugin",
   "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanavM/sketch-to-code.git",
+    "directory": "packages/vite-plugin"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,17 +21,18 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "dependencies": {
     "@babel/parser": "^7.26.0",
     "@babel/traverse": "^7.26.0",
-    "@s2c/dom": "*",
-    "@s2c/ink": "*",
+    "@s2c/dom": "^0.1.0",
+    "@s2c/ink": "^0.1.0",
     "magic-string": "^0.30.0",
-    "@s2c/overlay-client": "*",
+    "@s2c/overlay-client": "^0.1.0",
     "esbuild": "^0.25.0",
-    "@s2c/pipeline": "*"
+    "@s2c/pipeline": "^0.1.0"
   },
   "devDependencies": {
     "@types/babel__traverse": "^7.20.0",
