@@ -52,3 +52,4 @@ acts on it, and marks each item `[handled <date>]` on its own branch.
   sketch, but the sketch leads. Design and measure for that (e.g. score how
   much of the intent the sketch alone carries, and how little text is needed).
 - 2026-10-17 23:30 (dashboard): do 1, 2, 4. for 3, yes replan the tree towards drawing first harness.
+- 2026-10-17 23:41 (dashboard): Owner wants drawn changes to feel literally instantaneous: the page should visibly change as soon as the mark is made (ideally while drawing), without waiting for the AI coding agent to finish writing code; the code change catches up afterwards. Make this a top-priority branch: start with the free marks (scribble-delete, coloured circle) updating the page immediately, then extend instant previews or placeholders to the other gestures, and measure the time from pen-up to visible change.
