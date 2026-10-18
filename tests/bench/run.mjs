@@ -468,8 +468,11 @@ while (queue.length) {
     const runStart = Date.now()
     pressedRun = true
     await page.keyboard.press('Alt+r')
-    let ready = false
-    for (let i = 0; i < 400; i++) {
+    // screenshot mode has no reading to confirm: Run goes straight to the
+    // model with the picture (main.ts autoRun -> proceed). Waiting for a
+    // Confirm button there failed every page after paying for it (s2c-013).
+    let ready = MODE === 'screenshot'
+    for (let i = 0; i < 400 && !ready; i++) {
       ready = await safeEval(page, () => {
         const h = document.getElementById('s2c-overlay-host')
         const c = h?.shadowRoot?.getElementById('confirm')
@@ -481,7 +484,7 @@ while (queue.length) {
     const statusNow = () => safeEval(page, () => document.getElementById('s2c-overlay-host')
       ?.shadowRoot?.getElementById('status')?.textContent ?? '')
     if (!ready) throw new Error(`no reading within 100s · ${await statusNow()}`)
-    await safeEval(page, `${sr()}.getElementById('confirm').click()`)
+    if (MODE !== 'screenshot') await safeEval(page, `${sr()}.getElementById('confirm').click()`)
 
     for (let i = 0; i < 1600; i++) { // up to ~13 min, the plugin's own cap
       const busy = await safeEval(page, () => document.getElementById('s2c-overlay-host')?.dataset.mode === 'running')
