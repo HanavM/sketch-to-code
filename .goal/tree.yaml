@@ -1,0 +1,23 @@
+goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
+goal_state: working
+now: "Setting up: planning three ways to make drawn changes show up on the page instantly."
+lock: {by: session_0154jy3uq7WBCuzTyxTFo8rx, until: "2026-10-18T08:33:24Z"}
+asks: []
+handled: []
+baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). npm run typecheck fails with TS6310 (project refs + --noEmit) and a missing @s2c/vite-plugin d.ts. Treat these as pre-existing, not regressions."
+criteria:
+  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open, evidence: null}
+  - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open, evidence: null}
+  - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open, evidence: null}
+  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open, evidence: null}
+  - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open, evidence: null}
+  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: open, evidence: null}
+nodes:
+  - {id: n0, parent: null, kind: goal, title: "Drawn changes feel instant: page changes on pen lift, code catches up", status: open}
+  - {id: n1, parent: n0, kind: approach, title: "Browser-side read + reversible DOM patch on pen lift, reconciled when the code lands", status: active,
+     branch: try/n1-client-optimistic, result: null}
+  - {id: n2, parent: n0, kind: approach, title: "Tiny server round trip: deterministic gesture endpoint returns a patch the page applies", status: open,
+     branch: try/n2-server-gesture, result: null}
+  - {id: n3, parent: n0, kind: approach, title: "Write the source change deterministically at pen lift and let hot reload show it; model only verifies", status: open,
+     branch: try/n3-instant-source, result: null}
+  - {id: n4, parent: n1, kind: step, title: "Gesture reader + reversible patch module (scribble hides, coloured ring recolours) with unit tests", status: active, result: null}
