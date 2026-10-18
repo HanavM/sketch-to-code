@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 52
-lock: {run: cloud-2026-10-17T2355Z, until: '2026-10-18T01:10:00Z'}
+next_id: 55
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1217,3 +1217,66 @@ nodes:
   log:
   - '2026-10-17: filed by s2c-050. Verification of shipped code, not new capability: value 2. Note the e2e scripts call chromium.launch() bare and fail here (no headless shell 1234); s2c-050 ran live-ask through a wrapper that passes executablePath /opt/pw-browsers/chromium.'
   - "2026-10-17 23:20Z: DONE (commit 5942dfb). e2e on examples/demo-app (Tailwind v4), scripted model throws: green ring round 'Team members' h2 -> text-green-600, round navbar 'Sign out' -> bg-green-600; both tick, 0 model calls, rendered green, 2x Ctrl+Z byte-for-byte. Green on first try for done_when. FOUND: button kept hover:bg-blue-700 and went blue under the pointer (nearly every Tailwind button has one). recolor.ts followStates: hover/focus/active colours follow (same hue, same step -> hover:bg-green-700), unplaceable ones dropped, dark:/md: colour variants -> refuse to model. e2e red on old engine (hovered rgb(20,71,230)), green now (rgb(0,130,54)); hover needs CDP forcePseudoState + hover media emulation or the check is vacuous. 5 unit tests; vitest 1254/1256 (same 2 env); tsc -b clean; demo green."
+- id: s2c-052
+  parent: s2c-049
+  title: 'The no-model readings measured on rough marks: how often right, missed, or wrong'
+  why: A plain reading skips the model, so a wrong one is applied with no second opinion. s2c-049/050 were tested on a handful of hand-made marks; nobody knew how they behave on a hurried hand.
+  done_when: 'run.mjs --dry --plain judges plainReading against every rough page answer key (zero tokens); a seeded sweep of >=1,000 rough scratch-outs and rings on the base page snapshot reports right / missed / wrong / false-fire per family; every bad fire found is fixed or the rule declines it, with a test red on the old rule.'
+  kind: build
+  status: done
+  needs: cloud
+  value: 3
+  effort: 1
+  confidence: 0.7
+  momentum: 0.9
+  depth: 3
+  watered: 1
+  last_watered: 2026-10-18T00:20Z
+  blocked_on: null
+  outputs:
+  - f6dbf8a
+  - tests/bench/plain-sweep.mjs, tests/bench/lib/plain.mjs, tests/bench/fixtures/base-snapshot.json
+  - run.mjs --plain; overlay __S2C_DEBUG__.wire()
+  - packages/pipeline/src/plain-reading.ts SCRIBBLE_MIN_INNER_COVER
+  - docs/findings.md "The no-model readings on 4,400 rough marks"
+  log:
+  - '2026-10-18: filed and watered by the cloud run. Every other node needs the owner or the Mac; this is zero-token and tests the one thing the free path can get badly wrong.'
+  - "2026-10-18 00:20Z: DONE (commit f6dbf8a). Bench --dry --plain: words all 2 right (r01, r12), 1 missed (r06 X), 12 declined, 0 bad; words none 2 right, 2 missed (r02 strike, r06 X). Sweep n=200/target, 4,400 marks: FOUND 10/1,400 scratch-outs deleting neighbours (scribble ~8 px past the Pricing link is confined only to the links row -> deleted Features+About; card title spill -> deleted body). Fix: every worded element inside the delete target must be >= 20% under the ink, else model. After: 0 bad fires in 4,400; free reads unchanged 953. Free rate: scribble 68% (91% when it spans 75-100% of the element), ring 60% (92% at 0.95-1.15 turns, 42% overdrawn: @s2c/ink calls 79/200 of those 'line' and 58 'polyline'). X and no-word strike: 0% free. 12 new tests (2 red on old rule); vitest 1266/1268 (same 2 env); tsc -b clean. Synthetic marks, one layout."
+- id: s2c-053
+  parent: s2c-052
+  title: 'An overdrawn ring (1.15-1.4 turns) is classified as a line: fix the ink classifier'
+  why: 'The sweep found @s2c/ink calls 137 of 200 overdrawn loops line/polyline. The model brief carries those kinds too, so a person who circles twice is described to the model as drawing a line. It also sends 58% of overdrawn coloured rings to a paid reading.'
+  done_when: 'plain-sweep ring overdrawn bucket read free >= 85% (from 42%), probes still 0 fires, scratch-out bad fires still 0; a classify test with a 1.3-turn rough loop -> ellipse/rect top candidate; the tidy and rough --dry bench routing unchanged (auto mode sends the same mode per page).'
+  kind: build
+  status: open
+  needs: cloud
+  value: 3
+  effort: 2
+  confidence: 0.6
+  momentum: 0.5
+  depth: 4
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-052. Check first where the brief uses classifyStroke kinds, so a fix for the plain gate does not silently change what the model is told without being said.'
+- id: s2c-054
+  parent: s2c-052
+  title: 'A two-stroke X or a lone strike-through with no words: is it a delete, and read free?'
+  why: 'Both are the commonest delete marks after a scribble (r06, r02 in --words none), the visual language lists them, and 400/400 sweep samples go to the model. The README dropped "an X deletes it" because nothing tested it.'
+  done_when: 'Either a plain rule (X = two crossing lines whose crossing sits on one element, both confined to it; strike = one line through >= 70% of one text element, no words) with sweep samples >= 80% right and 0 bad fires across all probes, or a written reason in docs/visual-language.md why a strike must stay with the model (e.g. it means rewrite more often than delete).'
+  kind: build
+  status: open
+  needs: cloud
+  value: 2
+  effort: 2
+  confidence: 0.5
+  momentum: 0.5
+  depth: 4
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-052. Value 2: cost and speed only; the model reads these today. Do s2c-053 first.'

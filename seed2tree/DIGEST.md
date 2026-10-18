@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-18 00:20 UTC — sketch-to-code / s2c-052 The no-model readings on 4,400 rough marks — **done**; found and fixed a wrong-delete bug
+Picked because: new node, priority ~2.3 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped. Last run said the queue was empty. Wrong again: nobody had checked how often the free readings act *wrongly*, and a free reading skips the model, so nothing catches it.
+Did: commit f6dbf8a. `run.mjs --set rough --dry --plain` judges the no-model rules against every rough page's answer key. `plain-sweep.mjs` puts 4,400 rough marks through them on the bench page's real snapshot. 0 tokens.
+Found: **10 of 1,400 rough scratch-outs deleted their neighbours.** A scribble running ~8 px past the "Pricing" link deleted Features and About too. One spilling off a card title deleted the card's text. Fixed: everything with words inside what gets deleted must be under the ink, or the model reads it. **0 bad fires in 4,400 after**, free reads unchanged. Both tests were red on the old rule.
+Result: free-read rate: scratch-outs 68% (91% when they span most of the element), coloured rings 60% (42% if circled more than once). X and strike-through: 0%. 12 new tests. vitest 1266/1268 (same 2 env failures), `tsc -b` clean. momentum → 0.9
+Blunt: this was a real launch bug (silent wrong deletes), found by measurement. Still synthetic marks on one layout, and still not the core risk (s2c-013).
+New branches: s2c-053 the ink classifier calls a twice-circled loop a "line", which also misleads the model's brief (value 3). s2c-054 X / strike as free deletes, or a written reason not to (value 2).
+Pruned/done: s2c-052 done.
+**Needs you:** unchanged. (1) s2c-013: "spend the pilot in the cloud". (2) s2c-035: yes/no to cloning 5 public repos read-only. (3) s2c-048: "yes, MIT" / "not yet".
+
 ## 2026-10-17 23:20 UTC — sketch-to-code / s2c-051 Coloured ring on a Tailwind app, in a browser — **done**; found and fixed a hover bug
 Picked because: the only open cloud node, priority 2.15 (s2c-000 seed 2.09 skipped: umbrella; s2c-008/013 local + blocked; s2c-035/048 blocked on you). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 5942dfb. `npm run e2e:ring-tw` runs examples/demo-app (Tailwind v4) with the real overlay, plain reader, engine and undo, and a model that throws if it's called. Green ring round "Team members": `text-gray-900` → `text-green-600`. Green ring round "Sign out": `bg-blue-600` → `bg-green-600`. Both ✓, 0 model calls, green on the page, and two Ctrl+Z restore both files byte for byte.
