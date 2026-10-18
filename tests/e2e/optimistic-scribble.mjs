@@ -10,6 +10,8 @@
  *      the delete codemod run for real; the element stays hidden throughout
  *      and is gone from the DOM when the run is done. The demo app's source
  *      is restored afterwards (git checkout) whatever happens.
+ *   C. UNDO — Ctrl+Z after B: the source is back as it was and the element
+ *      is on the page again.
  *
  * Timing is measured in the page: pen-lift event timestamp → the first
  * animation frame after the element went display:none. Asserted < 100 ms.
@@ -180,6 +182,20 @@ try {
     if (!diff) fail('B: the code never changed')
     if (!gone) fail('B: the element is back after the run — the code did not delete it')
     log('✓ B: hid at lift, code deleted it, no flash back')
+    // C: Ctrl+Z takes the landed delete back: source and page as before
+    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+z' : 'Control+z')
+    let undoLine = ''
+    for (let i = 0; i < 50 && !/undid|nothing to undo/i.test(undoLine); i++) { await page.waitForTimeout(200); undoLine = await statusLine() }
+    log('C: undo:', undoLine)
+    if (!/undid/i.test(undoLine)) fail(`C: Ctrl+Z did not undo (${undoLine})`)
+    await page.waitForTimeout(1200) // HMR
+    const diffAfterUndo = execFileSync('git', ['diff', '--stat', '--', DEMO_SRC]).toString().trim()
+    if (diffAfterUndo) fail(`C: source still changed after undo: ${diffAfterUndo}`)
+    const back = await page.evaluate(({ src, text }) => [...document.querySelectorAll('[data-s2c]')].some((el) =>
+      el.getAttribute('data-s2c') === src && (el.textContent ?? '').trim() === text &&
+      getComputedStyle(el).display !== 'none'), { src: tB.src, text: tB.text })
+    if (!back) fail('C: the deleted element is not back on the page after undo')
+    log('✓ C: Ctrl+Z put the source and the element back')
   } finally {
     restoreSource()
   }
