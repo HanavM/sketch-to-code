@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
-now: "Moves, inserts and new sections now preview instantly and turn into the real change when the code lands (tested live); next, check the preview also goes away when the code does something different."
-lock: {by: "run-2026-10-18T07:53Z (n9)", until: "2026-10-18T09:23:00Z"}
+now: "Previews now vanish the moment the real change appears, and are cleared if the code does something else; next, drawing a new change while earlier ones are still being made."
+lock: null
 asks: []
 handled: []
 notes:
@@ -14,13 +14,16 @@ notes:
   - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium (simpler than the PLAYWRIGHT_BROWSERS_PATH symlink)."
   - "Move/insert/section are model readings; the preview is drawn in the overlay's own #pending layer, never in the app DOM. A box counts as empty space if no worded element or stamped leaf is under its centre or 20% under it."
   - "Don't pkill -f with a pattern that appears in your own command line: it kills the shell. Use fuser -k 5199/tcp."
+  - "The model reading (/@s2c/interpret) runs even when /@s2c/run is stubbed and can take 20+ s on a cold server: give e2e waits 60-90 s."
+  - "Never draw on the demo in auto mode without stubbing /@s2c/run: a real run writes the demo source (git checkout + remove untracked files after)."
+  - "__S2C_DEBUG__.runDone / runError end a run from e2e with no server run (used by optimistic-preview-reconcile.mjs)."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
 criteria:
   - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open,
      evidence: "On try/n1 (not yet on agent): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
   - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: open, evidence: null}
   - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: open,
-     evidence: "Partial, try/n1: optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. Not yet shown: code does something else."}
+     evidence: "Partial, try/n1: optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. n9 (optimistic-preview-reconcile.mjs): preview down 55-60 ms after the real change shows, mid-run; code does something else: held, removed at run end."}
   - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: open, evidence: null}
   - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open,
      evidence: "Partial, try/n1: Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
@@ -43,5 +46,6 @@ nodes:
      result: "Dashed pending previews 12-26 ms after lift for all three; app DOM untouched; removed on failure. Commit 64aea0a."}
   - {id: n8, parent: n1, kind: step, title: "Live e2e: each preview gives way to the real change when the code lands (model runs), and is removed when the code does something else", status: done,
      result: "All three land live; preview held until done, then removed; Ctrl+Z restores source. Commit 36dc65b. 'Something else' case not yet tested."}
-  - {id: n9, parent: n1, kind: step, title: "e2e: preview removed when the code lands something different; take the preview down as soon as the real change shows (now overlaps 3-5 s)", status: open, result: null}
+  - {id: n9, parent: n1, kind: step, title: "e2e: preview removed when the code lands something different; take the preview down as soon as the real change shows (now overlaps 3-5 s)", status: done,
+     result: "Preview drops ~60 ms after the real change shows, mid-run; other edits: held, then removed at run end. Commit c74261f."}
   - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: open, result: null}

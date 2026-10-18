@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-18T08:25:00Z | Preview gives way the moment the real change shows | Preview vanishes about 60 ms after the code lands; cleared at run end if code does something else.
+
 2026-10-18T07:49:45Z | Live e2e: previews give way to the real change | Move, insert and new section all landed live; preview held until done, then removed; undo works.
 
 2026-10-18T07:38:01Z | Pending previews for move, insert, new section | Dashed pending preview 12-26 ms after lift for all three; removed on failure; tests pass.
