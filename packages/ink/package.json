@@ -22,6 +22,10 @@
       "types": "./dist/classify.d.ts",
       "default": "./dist/classify.js"
     },
+    "./scene": {
+      "types": "./dist/scene.d.ts",
+      "default": "./dist/scene.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

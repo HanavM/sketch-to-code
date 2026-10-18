@@ -3,7 +3,7 @@
  * Framework-free; lives entirely inside a shadow root so the host app's DOM
  * and styles are untouched (and the snapshot walker excludes it).
  */
-import { takeSnapshot } from '@s2c/dom'
+import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
@@ -11,6 +11,8 @@ import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
+import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
+import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 /**
@@ -102,6 +104,24 @@ interface PreviewData {
 }
 
 type Mode = 'idle' | 'draw' | 'preview' | 'running' | 'tweak'
+
+/** Goal loop n1: an instant change on the page, ahead of the code. */
+type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied: Applied }
+/** Goal loop n7: a pending preview, in its own box inside #pending. */
+type PendingPv = {
+  key: string; preview: Preview; before: DomSnapshot; el: HTMLDivElement
+  watch: MutationObserver | null; check: ReturnType<typeof setTimeout> | null
+}
+/**
+ * Goal loop n10: a drawing handed off to the code. It carries its own ink,
+ * notes and instant change, so the pen is free for the next one at once.
+ */
+type Job = {
+  id: number; strokes: Stroke[]; notes: Note[]
+  optimistic: OptimisticRec | null; pendingPreview: PendingPv | null
+  /** the reading came back with something to apply */
+  read: boolean
+}
 
 interface TweakZone {
   x: number; y: number; w: number; h: number
@@ -1274,6 +1294,24 @@ const STYLES = css`
      by an ancestor (CSS zoom/transform on the host page). */
   #scaleProbe { position: absolute; left: 0; top: 0; width: 100px; height: 100px; visibility: hidden; pointer-events: none; }
   #ink path { fill: none; stroke: #2563eb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* Goal loop n7: where a drawn move / insert / new section is expected to
+     land, shown at pen lift and clearly not real yet. Page-space like #ink. */
+  #pending {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none; z-index: 2147482998;
+  }
+  #pending .pg {
+    position: absolute; box-sizing: border-box; border-radius: 6px;
+    border: 2px dashed #f59e0b; background: #f59e0b1f;
+    animation: s2cPendingPulse 1.2s ease-in-out infinite alternate;
+  }
+  #pending .pg.from { border-color: #94a3b8; background: #94a3b81a; animation: none; }
+  #pending .pgLabel {
+    position: absolute; left: 0; top: -20px; white-space: nowrap;
+    font: 600 11px/16px system-ui, sans-serif; color: #fff; background: #b45309;
+    padding: 1px 6px; border-radius: 4px;
+  }
+  @keyframes s2cPendingPulse { from { opacity: 0.55; } to { opacity: 1; } }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
     border: 1.5px solid var(--s2c-line); vertical-align: -1px;
@@ -1553,6 +1591,7 @@ const STYLES = css`
   #propsPanel .qNote { color: var(--s2c-muted); margin-top: 8px; }
   /* confirmed and being applied — dimmed until the edit lands, then removed */
   #ink.applying { opacity: 0.22; }
+  #ink path.held { opacity: 0.25; }
   /* Test: the tool is not there. The canvas cannot take a pointer whatever the
      inner mode says, the ink and the plan are hidden, and what is left is the
      bar — which the user can also hide. */
@@ -2308,6 +2347,32 @@ class Overlay {
   /** Where the editor's cursor is, painted briefly so it can be seen. */
   private ideHighlight: { rect: { x: number; y: number; w: number; h: number }; until: number } | null = null
   private strokes: Stroke[] = []
+  /**
+   * Goal loop n1: the change the drawing asks for, already on the page while
+   * the code catches up (optimistic.ts). Keyed by the drawing it was read
+   * from; any edit to the drawing re-reads it.
+   */
+  private optimistic: OptimisticRec | null = null
+  /** A drawing whose instant change was taken back (the run failed or stopped). */
+  private optimisticBlocked: string | null = null
+  /** event.timeStamp of the last pen lift, for the lift-to-visible timing. */
+  private liftAt = 0
+  /**
+   * Goal loop n7: a pending preview of a move / insert / new section the
+   * drawing asks for (preview.ts), shown until the code lands or fails.
+   */
+  private pendingPreview: PendingPv | null = null
+  /**
+   * Goal loop n10: drawings handed off to the code. `flight` is the one being
+   * read or coded now; `queue` holds finished drawings waiting their turn.
+   * Each keeps its instant change or preview on the page while it waits, and
+   * the pen stays free for the next change. Only in auto mode: review and
+   * manual keep the one-at-a-time flow, where a person decides each run.
+   */
+  private flight: Job | null = null
+  private queue: Job[] = []
+  private jobSeq = 0
+  private pendingLayer!: HTMLDivElement
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
   private overrides: Record<string, string> = {}
@@ -2338,6 +2403,10 @@ class Overlay {
     this.ink = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.ink.id = 'ink'
     this.shadow.appendChild(this.ink)
+
+    this.pendingLayer = document.createElement('div')
+    this.pendingLayer.id = 'pending'
+    this.shadow.appendChild(this.pendingLayer)
 
     this.canvas = document.createElement('canvas')
     this.canvas.id = 'canvas'
@@ -3068,6 +3137,7 @@ class Overlay {
       auto: () => ({
         on: this.autoMode === 'auto', mode: this.autoMode,
         pending: this.autoTimer != null, busy: this.autoBusy,
+        flight: this.flight ? this.flight.id : null, queued: this.queue.map((j) => j.id),
       }),
       // what the paint popover believes it is pointed at: the whole risk here
       // is painting a DIFFERENT shape than the one outlined, so the stamp it
@@ -3250,9 +3320,9 @@ class Overlay {
    * it is mostly empty space by area, and it is obviously markup, so a third of
    * the samples landing on something is enough.
    */
-  private inferRunMode(): 'gesture' | 'design' {
+  private inferRunMode(strokes: Stroke[] = this.strokes): 'gesture' | 'design' {
     const pts: XY[] = []
-    for (const st of this.strokes) {
+    for (const st of strokes) {
       const step = Math.max(1, Math.ceil(st.points.length / 8))
       for (let i = 0; i < st.points.length; i += step) pts.push(st.points[i]!)
     }
@@ -3277,8 +3347,8 @@ class Overlay {
   }
 
   /** What actually goes on the wire: the override, or what the ink says. */
-  private effectiveRunMode(): 'gesture' | 'design' | 'screenshot' {
-    return this.runMode === 'auto' ? this.inferRunMode() : this.runMode
+  private effectiveRunMode(strokes: Stroke[] = this.strokes): 'gesture' | 'design' | 'screenshot' {
+    return this.runMode === 'auto' ? this.inferRunMode(strokes) : this.runMode
   }
 
   /** The three run modes, from the mode pills or from Alt+G / Alt+E / Alt+S. */
@@ -3330,10 +3400,12 @@ class Overlay {
     this.strokes = []
     this.notes = []
     this.endSketchSearch()
-    // a new drawing gets its own instant render
-    this.instant = null
-    // …and its own reading: an answer about the ink just cleared is no answer
-    this.dropReading()
+    // a new drawing gets its own instant render (n10: the one being coded keeps its own)
+    if (!this.flight) {
+      this.instant = null
+      // …and its own reading: an answer about the ink just cleared is no answer
+      this.dropReading()
+    }
     if (this.noteDraft) this.closeNote('cleared')
     this.resetBridge()
     this.renderInk()
@@ -7508,8 +7580,8 @@ class Overlay {
    * empty) and optional here, because an empty one is not worth sending. The two
    * shapes being different is the honest description of that.
    */
-  private notesPayload(): Array<Omit<Note, 'refs'> & { refs?: NoteRef[] }> {
-    return this.notes.map((n) => ({
+  private notesPayload(notes: Note[] = this.notes): Array<Omit<Note, 'refs'> & { refs?: NoteRef[] }> {
+    return notes.map((n) => ({
       id: n.id,
       text: n.text,
       at: { x: Math.round(n.at.x), y: Math.round(n.at.y) },
@@ -7544,7 +7616,9 @@ class Overlay {
   /** Re-render committed strokes. Called only when the stroke SET changes —
    *  never on scroll, zoom or resize: the layer moves with the page itself. */
   private renderInk() {
-    this.ink.replaceChildren(...this.strokes.map((st) => {
+    const held = [...(this.flight?.strokes ?? []), ...this.queue.flatMap((j) => j.strokes)]
+    const heldSet = new Set(held)
+    this.ink.replaceChildren(...[...held, ...this.strokes].map((st) => {
       const path = this.inkPath()
       path.setAttribute('d', pathD(st.points))
       // A coloured stroke paints in its own colour, so what the user sees on
@@ -7554,9 +7628,12 @@ class Overlay {
       if (st.color) path.style.stroke = st.color
       const t = st.anchor ? this.anchorTransform(st.anchor) : null
       if (t) path.setAttribute('transform', t)
+      // n10: handed off to the code, waiting or being made: shown, but faint
+      if (heldSet.has(st)) path.classList.add('held')
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
+    this.refreshOptimistic()
   }
 
   private toPage(e: PointerEvent): Pt {
@@ -7657,6 +7734,7 @@ class Overlay {
       }
     }
     this.live.points.push(this.toPage(e))
+    this.liftAt = e.timeStamp
     if (this.live.points.length > 2) {
       this.live.anchor = this.anchorFor(this.live.points) ?? undefined
       this.strokes.push(this.live)
@@ -8835,8 +8913,8 @@ class Overlay {
    * receives has to be where the ink IS, not where it was drawn. Called on the
    * way out for exactly that reason.
    */
-  private strokesForWire(): Stroke[] {
-    return this.strokes.map((st) => {
+  private strokesForWire(strokes: Stroke[] = this.strokes): Stroke[] {
+    return strokes.map((st) => {
       const a = st.anchor
       if (!a) return st
       const boxes = this.anchorBoxes(a)
@@ -10296,7 +10374,315 @@ class Overlay {
   // ---- pipeline ----
 
   private snapshot() {
-    return takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+    // the server reads, grounds and verifies against the CODE's page: a
+    // pending instant change is taken off for the walk and put straight back
+    // (synchronous, so nothing paints in between)
+    return this.unpatched(() => takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID }))
+  }
+
+  // ---- goal loop n1: the page changes at pen lift ---------------------------
+
+  private optimisticKey(): string {
+    return `${this.strokes.map((st) => `${st.id}:${String(st.points.length)}:${st.color ?? ''}`).join(',')}|${String(this.notes.length)}`
+  }
+
+  /** Every stamped, visible element, in page coordinates, for optimistic.ts. */
+  private optimisticCands(): Cand<HTMLElement>[] {
+    const out: Cand<HTMLElement>[] = []
+    const index = new Map<Element, number>()
+    const sx = window.scrollX
+    const sy = window.scrollY
+    for (const el of document.querySelectorAll<HTMLElement>('[data-s2c]')) {
+      if (el.id === HOST_ID || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      if (r.width < 1 || r.height < 1) continue
+      const cs = getComputedStyle(el)
+      if (cs.visibility === 'hidden') continue
+      index.set(el, out.length)
+      const bg = cs.backgroundColor
+      out.push({
+        ref: el,
+        rect: { x: r.left + sx, y: r.top + sy, w: r.width, h: r.height },
+        srcLoc: el.getAttribute('data-s2c') ?? '',
+        parent: -1,
+        filled: !(bg === 'transparent' || /^rgba\(.*,\s*0\)$/.test(bg)),
+        worded: [...el.childNodes].some((n) => n.nodeType === 3 && (n.textContent ?? '').trim() !== ''),
+      })
+    }
+    for (const c of out) {
+      let p = c.ref.parentElement
+      while (p && !index.has(p)) p = p.parentElement
+      c.parent = p ? index.get(p)! : -1
+    }
+    return out
+  }
+
+  /**
+   * Bring the page in line with the drawing: apply the change it plainly asks
+   * for, or take back one it no longer asks for. Cheap when nothing changed.
+   */
+  private refreshOptimistic() {
+    // a run in flight owns the page until it ends (onRunDone / onRunError)
+    if (this.mode === 'running' && this.strokes.length > 0) return
+    const key = this.optimisticKey()
+    if (this.optimistic?.key === key || this.pendingPreview?.key === key) return
+    this.dropOptimistic()
+    if (this.strokes.length === 0 || key === this.optimisticBlocked) return
+    // only where the change would run by itself: in review and manual modes a
+    // person decides first, and design/screenshot runs build, not edit
+    if (this.autoMode !== 'auto' || this.runMode === 'design' || this.runMode === 'screenshot') return
+    const cands = this.optimisticCands()
+    const reading = quickReading(this.strokes, cands, window.innerWidth * window.innerHeight, this.notes.length > 0)
+    if (!reading) {
+      this.showPreview(key)
+      return
+    }
+    const applied = applyPatch(reading)
+    this.optimistic = { key, reading, applied }
+    const ms = this.liftAt ? performance.now() - this.liftAt : null
+    ;(window as unknown as { __s2cOptimistic?: unknown }).__s2cOptimistic = {
+      kind: reading.kind, srcLoc: reading.target.srcLoc, liftToPatchMs: ms,
+    }
+  }
+
+  /** A pending preview for what the drawing asks, if it plainly asks one. */
+  private showPreview(key: string) {
+    if (this.pendingPreview?.key === key) return
+    const snap = takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+    const preview = previewReading(this.strokes, snap)
+    if (!preview) return
+    const el = document.createElement('div')
+    el.className = 'pv'
+    const pv: PendingPv = { key, preview, before: snap, el, watch: null, check: null }
+    this.pendingPreview = pv
+    this.watchPreview(pv)
+    this.pendingLayer.appendChild(el)
+    el.replaceChildren(...preview.boxes.map((b, i) => {
+      const d = document.createElement('div')
+      d.className = `pg ${b.role}`
+      d.dataset.kind = preview.kind
+      d.style.left = `${String(b.rect.x)}px`
+      d.style.top = `${String(b.rect.y)}px`
+      d.style.width = `${String(Math.max(4, b.rect.w))}px`
+      d.style.height = `${String(Math.max(4, b.rect.h))}px`
+      if (b.role === 'ghost' || (i === 0 && preview.boxes.length === 1)) {
+        const l = document.createElement('span')
+        l.className = 'pgLabel'
+        l.textContent = preview.label
+        d.appendChild(l)
+      }
+      return d
+    }))
+    const ms = this.liftAt ? performance.now() - this.liftAt : null
+    ;(window as unknown as { __s2cPreview?: unknown }).__s2cPreview = {
+      kind: preview.kind, srcLoc: preview.srcLoc, liftToPreviewMs: ms,
+    }
+  }
+
+  private dropPreview() {
+    this.dropPv(this.pendingPreview)
+    this.pendingPreview = null
+  }
+
+  private dropPv(pv: PendingPv | null) {
+    if (!pv) return
+    pv.watch?.disconnect()
+    pv.watch = null
+    if (pv.check) clearTimeout(pv.check)
+    pv.check = null
+    pv.el.remove()
+  }
+
+  /**
+   * n9: while the code is being written, any change to the page (hot reload)
+   * is checked against what the preview promised. The moment the real result
+   * shows, the preview comes down, instead of overlapping it until the run's
+   * checks finish. Anything else the code does leaves the preview up until
+   * the run ends, which takes it down (onRunDone / onRunError).
+   */
+  private watchPreview(pv: PendingPv) {
+    pv.watch?.disconnect()
+    pv.watch = new MutationObserver((records) => {
+      if (records.every((r) => r.target === this.host || this.host.contains(r.target))) return
+      if (pv.check) return
+      // coalesce a hot reload's burst of mutations into one look, after layout
+      pv.check = setTimeout(() => {
+        pv.check = null
+        // only the drawing being coded right now can land (n10: a queued one waits its turn)
+        const coding = this.flight
+          ? this.flight.pendingPreview === pv
+          : this.mode === 'running' && this.pendingPreview === pv
+        if (!coding) return
+        const now = takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+        if (!previewLanded(pv.preview, pv.before, now)) return
+        this.dropPv(pv)
+        if (this.flight?.pendingPreview === pv) this.flight.pendingPreview = null
+        if (this.pendingPreview === pv) this.pendingPreview = null
+        ;(window as unknown as { __s2cPreviewLanded?: unknown }).__s2cPreviewLanded = { kind: pv.preview.kind, at: performance.now() }
+      }, 60)
+    })
+    pv.watch.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['class', 'style'] })
+  }
+
+  /** Take the instant change off the page (the element is exactly as before). */
+  private dropOptimistic(block = false) {
+    if (block) this.optimisticBlocked = this.optimistic?.key ?? this.optimisticKey()
+    this.dropPreview()
+    if (!this.optimistic) return
+    this.optimistic.applied.undo()
+    this.optimistic = null
+  }
+
+  /** Run `fn` against the page as the code has it, with no instant change on. */
+  private unpatched<T>(fn: () => T): T {
+    const restore = this.liftPatches()
+    try {
+      return fn()
+    } finally {
+      restore()
+    }
+  }
+
+  /**
+   * Take every instant change off the page (the one being coded, the queued
+   * ones, the one on the pen), newest first; the returned function puts back
+   * the ones still owned and still on the page, oldest first.
+   */
+  private liftPatches(): () => void {
+    const held: Array<{ o: OptimisticRec; owned: () => boolean; drop: () => void }> = []
+    for (const j of [...(this.flight ? [this.flight] : []), ...this.queue]) {
+      const o = j.optimistic
+      if (o) held.push({ o, owned: () => j.optimistic === o, drop: () => { if (j.optimistic === o) j.optimistic = null } })
+    }
+    const s = this.optimistic
+    if (s) held.push({ o: s, owned: () => this.optimistic === s, drop: () => { if (this.optimistic === s) this.optimistic = null } })
+    if (held.length === 0) return () => undefined
+    for (let i = held.length - 1; i >= 0; i--) held[i]!.o.applied.undo()
+    return () => {
+      for (const h of held) {
+        if (!h.owned()) continue
+        if (h.o.reading.target.ref.isConnected) h.o.applied = applyPatch(h.o.reading)
+        else h.drop()
+      }
+    }
+  }
+
+  // ---- goal loop n10: draw the next change while earlier ones are coded ------
+
+  /** Hand the drawing on the pen to the code: it keeps its change on the page. */
+  private detachSurface(): Job {
+    const job: Job = {
+      id: ++this.jobSeq, strokes: this.strokes, notes: this.notes,
+      optimistic: this.optimistic, pendingPreview: this.pendingPreview, read: false,
+    }
+    this.strokes = []
+    this.notes = []
+    this.optimistic = null
+    this.pendingPreview = null
+    this.optimisticBlocked = null
+    this.resetBridge()
+    this.renderInk()
+    this.renderNotes()
+    this.sync()
+    return job
+  }
+
+  /** A finished drawing while another is being coded: it waits its turn. */
+  private enqueueSurface() {
+    const job = this.detachSurface()
+    this.queue.push(job)
+    this.syncFlight()
+    this.status(`queued: ${String(this.queue.length)} change${this.queue.length === 1 ? '' : 's'} waiting · keep drawing`)
+  }
+
+  /** Take a drawing's instant change and preview off the page. */
+  private rollbackJob(job: Job) {
+    job.optimistic?.applied.undo()
+    job.optimistic = null
+    this.dropPv(job.pendingPreview)
+    job.pendingPreview = null
+  }
+
+  private syncFlight() {
+    if (this.flight) this.host.dataset.flight = String(this.flight.id)
+    else delete this.host.dataset.flight
+    if (this.queue.length) this.host.dataset.queued = String(this.queue.length)
+    else delete this.host.dataset.queued
+  }
+
+  /**
+   * The drawing being coded is over, landed or not. Either way its instant
+   * change comes off: the code's own result shows from here, or the page goes
+   * back to what the code has. Then the next queued drawing starts.
+   */
+  private endFlight() {
+    const job = this.flight
+    if (!job) return
+    this.rollbackJob(job)
+    this.flight = null
+    this.instant = null
+    this.stopRequested = false
+    if (this.watchdog) clearTimeout(this.watchdog)
+    this.watchdog = null
+    this.renderInk()
+    this.syncFlight()
+    const next = this.queue.shift()
+    if (!next) {
+      // the pen may have finished a drawing while this was busy
+      this.scheduleAuto()
+      return
+    }
+    this.flight = next
+    this.syncFlight()
+    void this.runFlight()
+  }
+
+  /** Read and apply `this.flight`, with no Go: auto mode's run, off the pen. */
+  private async runFlight() {
+    const job = this.flight
+    if (!job) return
+    this.autoBusy = true
+    try {
+      await this.run(true)
+      if (this.flight !== job) return
+      if (!job.read) {
+        const why = this.statusEl.textContent ?? 'the reading failed'
+        this.status(`${why} · that change was not made`, true)
+        this.endFlight()
+        return
+      }
+      const destroys = this.autoDestroys()
+      if (destroys > 0) {
+        if (!this.hasWork() && this.queue.length === 0) {
+          // nothing else on the pen or waiting: put it back on the pen at the
+          // normal gate, plan painted, for a person to confirm with ✓ Go
+          this.flight = null
+          this.syncFlight()
+          this.strokes = job.strokes
+          this.notes = job.notes
+          this.optimistic = job.optimistic
+          this.pendingPreview = job.pendingPreview
+          this.renderInk()
+          this.renderNotes()
+          this.setMode('preview')
+          this.redraw()
+          this.status(
+            `⚠ auto-run stopped — this would delete ${String(destroys)} element(s); confirm it yourself with ✓ Go`,
+            true,
+          )
+          return
+        }
+        this.setV2(null)
+        this.preview = null
+        this.status(`⚠ not done automatically: it would delete ${String(destroys)} element(s) — draw it again and confirm with ✓ Go`, true)
+        this.endFlight()
+        return
+      }
+      await this.proceed()
+    } finally {
+      // endFlight may already have started the next drawing, which owns the flag now
+      if (this.flight === job || this.flight === null) this.autoBusy = false
+    }
   }
 
   private watchdog: ReturnType<typeof setTimeout> | null = null
@@ -10304,8 +10690,14 @@ class Overlay {
   private armWatchdog() {
     if (this.watchdog) clearTimeout(this.watchdog)
     this.watchdog = setTimeout(() => {
+      if (this.flight) {
+        this.status('no progress from server — that change was dropped (run may have died)', true)
+        this.endFlight()
+        return
+      }
       if (this.mode === 'running') {
         this.status('no progress from server — resetting (run may have died)', true)
+        this.dropOptimistic(true)
         this.clearApplying()
         this.setMode(this.restingMode())
       }
@@ -10402,13 +10794,14 @@ class Overlay {
    * costs nothing: the normal interpreted path runs either way.
    */
   private async etch(): Promise<void> {
-    if (this.instant || this.strokes.length === 0) return
+    const strokes = this.flight?.strokes ?? this.strokes
+    if (this.instant || strokes.length === 0) return
     try {
       const res = await fetch('/@s2c/instant', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokesForWire(), snapshot: this.snapshot(), fidelity: this.fidelityPayload(),
+          strokes: this.strokesForWire(strokes), snapshot: this.snapshot(), fidelity: this.fidelityPayload(),
         }),
       })
       const body = (await res.json()) as { ok: boolean; file?: string; name?: string; reason?: string }
@@ -10425,10 +10818,64 @@ class Overlay {
     } catch { /* the slow path is the fallback, and it is already running */ }
   }
 
-  private async run(): Promise<'asked' | undefined> {
-    if (!this.hasWork()) return
+  /** run()'s reading, for a drawing handed off to the code (n10). */
+  private async readFlight(job: Job): Promise<void> {
+    const readingId = newReadingId()
+    this.readingId = readingId
+    const etching = this.etch()
+    this.status(this.queue.length ? `reading your drawing… (${String(this.queue.length)} more waiting)` : 'reading your drawing…')
+    const askedAt = Date.now()
+    this.lastReading = null
+    try {
+      const res = await fetch('/@s2c/interpret', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          strokes: this.strokesForWire(job.strokes), snapshot: this.snapshot(), mode: this.effectiveRunMode(job.strokes),
+          fidelity: this.fidelityPayload(), notes: this.notesPayload(job.notes), readingId,
+        }),
+      })
+      const body = (await res.json()) as ReadingBody
+      this.lastReading = readingOutcome(res.ok, res.status, body, Date.now() - askedAt)
+      if (this.readingId === readingId) this.readingId = null
+      if (this.flight !== job) return
+      if (body.refused) {
+        await etching.catch(() => undefined)
+        this.status(`✗ ${(body.error ?? 'refused').replace(/^refusing to edit: /, 'not editing: ')}`, true)
+        return
+      }
+      if (!res.ok || !body.ok || (!body.result && !body.v2)) throw new Error(body.error ?? `HTTP ${res.status}`)
+      await etching
+      this.overrides = {}
+      if (body.v2) {
+        if (body.v2.interpretation.actions.length === 0) {
+          this.status("couldn't turn that into actions — redraw or rephrase", true)
+          return
+        }
+        this.setV2(body.v2)
+        this.preview = null
+      } else {
+        this.preview = body.result!
+        this.setV2(null)
+      }
+      job.read = true
+    } catch (err) {
+      if (this.readingId === readingId) this.readingId = null
+      this.readingFailed(err)
+    }
+  }
+
+  private async run(forFlight = false): Promise<'asked' | undefined> {
+    // n10: ▶ Run while another drawing is being coded puts this one in line
+    if (this.flight && !forFlight) {
+      if (this.hasWork()) this.enqueueSurface()
+      return
+    }
+    const job = forFlight ? this.flight : null
+    if (!job && !this.hasWork()) return
     // a new run answers the last one's misread; the card is about a run that is over
     this.hideMisread()
+    if (job) return void (await this.readFlight(job))
     // ▶ Run pressed while the auto countdown is still pending: this run IS the
     // one it was waiting to start. Left armed, the countdown kept "⚡ auto-run
     // in 0.4s" on the line during the reading and, when the reading ended
@@ -10681,7 +11128,9 @@ class Overlay {
   }
 
   private async proceed() {
-    this.setMode('running')
+    // n10: a drawing handed off to the code runs in the background; the pen stays free
+    const job = this.flight
+    if (!job) this.setMode('running')
     // a multi-attempt run takes N times as long before ANYTHING lands, so say
     // so up front rather than letting the first long silence read as a hang
     this.status(
@@ -10691,7 +11140,7 @@ class Overlay {
     )
     // the drawing is now a request in flight: dim it, and drop it entirely
     // once 'done' says the edit landed
-    this.ink.classList.add('applying')
+    if (!job) this.ink.classList.add('applying')
     this.armWatchdog()
     try {
       let screenshot: string | undefined
@@ -10700,14 +11149,14 @@ class Overlay {
         screenshot = await this.captureScreen()
         this.status('running…')
       }
-      const res = await fetch('/@s2c/run', {
+      const send = () => fetch('/@s2c/run', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
         body: JSON.stringify({
-          strokes: this.strokesForWire(),
+          strokes: this.strokesForWire(job?.strokes),
           snapshot: this.snapshot(),
           clientId: CLIENT_ID,
-          mode: this.effectiveRunMode(),
+          mode: this.effectiveRunMode(job?.strokes),
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
@@ -10721,9 +11170,17 @@ class Overlay {
           // times to generate the same confirmed interpretation, not what the
           // result should look like
           candidates: this.candidatesPayload(),
-          notes: this.notesPayload(),
+          notes: this.notesPayload(job?.notes),
         }),
       })
+      let res = await send()
+      // n10: the server frees its one run slot just after it says 'done';
+      // a queued drawing that starts in that gap waits a moment and asks again
+      for (let i = 0; job && res.status === 409 && i < 20; i++) {
+        await new Promise((r) => setTimeout(r, 250))
+        if (this.flight !== job) return
+        res = await send()
+      }
       const body = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`)
       this.preview = null
@@ -10732,6 +11189,11 @@ class Overlay {
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {
       this.status(`failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      if (job) {
+        if (this.flight === job) this.endFlight()
+        return
+      }
+      this.dropOptimistic(true)
       this.clearApplying()
       this.setMode(this.restingMode())
     }
@@ -10825,11 +11287,12 @@ class Overlay {
     if (this.autoMode === 'manual') return { why: 'manual mode', hold: false }
     if (this.mode !== 'draw') return { why: `not drawing (${this.mode})`, hold: false }
     if (this.strokes.length === 0) return { why: 'nothing drawn', hold: false }
-    if (this.autoBusy) return { why: 'a run is already in flight', hold: false }
+    // n10: a drawing handed off to the code does not hold up the next one
+    if (this.autoBusy && !this.flight) return { why: 'a run is already in flight', hold: false }
     // ▶ Run pressed inside the settle window, or a reading resumed after a
     // reload (s2c-002): the countdown must not start a second, paid, reading
     // of the same ink
-    if (this.readingId) return { why: 'a reading is already in flight', hold: false }
+    if (this.readingId && !this.flight) return { why: 'a reading is already in flight', hold: false }
     if (this.noteDraft) return { why: 'a note is open', hold: true }
     if (this.fidelityOpen || this.penOpen || this.helpOpen) return { why: 'a panel is open', hold: true }
     return null
@@ -10941,6 +11404,21 @@ class Overlay {
    */
   private async autoRun() {
     if (this.autoBlock()) return
+    // n10: in auto mode a finished drawing is handed to the code and the pen
+    // is free at once; one already being coded makes this one wait its turn
+    if (this.autoMode === 'auto' && this.runMode !== 'screenshot') {
+      if (this.askBareRing()) return
+      if (this.flight) {
+        this.enqueueSurface()
+        return
+      }
+      this.cancelAuto()
+      this.flight = this.detachSurface()
+      this.syncFlight()
+      await this.runFlight()
+      this.syncPlanCard()
+      return
+    }
     this.autoBusy = true
     try {
       // phase 2 of 4: run() writes 'reading your drawing…' itself, and on
@@ -10955,6 +11433,8 @@ class Overlay {
         // in red, and the ink is untouched — so append what it cannot know
         // (that a run was pending and is not happening) and leave the drawing
         // exactly where it is for another try.
+        // nothing is going to write this: the page goes back to the code's
+        this.dropOptimistic(true)
         const why = this.statusEl.textContent ?? 'the reading failed'
         this.status(`${why} · auto-run stopped — your ink is still here, ▶ Run to retry`, true)
         return
@@ -11046,7 +11526,7 @@ class Overlay {
         this.status(plain)
         this.statusEl.title = raw
       }
-      if (this.mode === 'running') this.armWatchdog()
+      if (this.mode === 'running' || this.flight) this.armWatchdog()
     })
     // s2c-038: this tab's run is still going. Sent only to a stream that has
     // just opened, which in practice means the page reloaded mid-run (the run
@@ -11084,7 +11564,10 @@ class Overlay {
     this.events.addEventListener('probe', async (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { probeId: string; spec: ProbeSpecWire; clientId?: string }
       if (!this.mine(d)) return
+      // a probe uses the page as the code built it
+      const restore = this.liftPatches()
       const observation = await runProbe(d.spec)
+      restore()
       await fetch('/@s2c/probe-result', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
@@ -11121,6 +11604,18 @@ class Overlay {
   }
 
   private onRunDone(d: RunDoneEvent) {
+    if (this.flight) {
+      const ex = d.explanation
+      const line = ex?.sentence ? `${ex.problem ? '⚠' : '✓'} ${ex.sentence}` : `✓ ${d.summary ?? 'done'}`
+      this.receipt(this.queue.length ? `${line} · next change starting` : line)
+      if (d.summary) this.statusEl.title = d.summary
+      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
+      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: true, at: performance.now() })
+      this.endFlight()
+      if (ex?.problem) this.showMisread(ex)
+      else this.hideMisread()
+      return
+    }
     // receipt(), not status(): a run can add a module the page never imported
     // — a scaffolded component, the hook behind "make this real" — and that is
     // past what Fast Refresh patches, so vite full-reloads and takes this line
@@ -11139,6 +11634,11 @@ class Overlay {
       this.statusEl.title = d.summary
       console.debug(`[s2c] run done: ${d.summary}`)
     }
+    // the edit is verified on the page itself by now (resnapshot comes after
+    // hot reload), so the code's own result is what shows from here; if the
+    // code did something else, this is also where the guess is taken back
+    this.dropOptimistic()
+    this.optimisticBlocked = null
     this.strokes = []
     this.endSketchSearch()
     // the ink is spent, and so are the words about it
@@ -11156,6 +11656,15 @@ class Overlay {
   }
 
   private onRunError(d: RunErrorEvent) {
+    if (this.flight) {
+      this.status(`✗ ${d.explanation?.sentence ?? d.message}`, true)
+      if (d.explanation) this.showMisread(d.explanation)
+      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
+      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: false, at: performance.now() })
+      // the code did not land: that drawing's change comes off the page
+      this.endFlight()
+      return
+    }
     // the raw message is for whoever debugs this; the user gets the sentence
     if (d.explanation) {
       console.debug(`[s2c] run failed: ${d.message}`)
@@ -11164,6 +11673,8 @@ class Overlay {
     } else {
       this.status(`✗ ${d.message}`, true)
     }
+    // the code did not land: put the page back
+    this.dropOptimistic(true)
     this.clearApplying()
     this.redraw()
     this.setMode(this.restingMode())
