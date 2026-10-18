@@ -1,7 +1,7 @@
 goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
 goal_state: working
-now: "You can now keep drawing while earlier changes are being made; three back-to-back changes all landed. Next: the before/after timing table."
-lock: {by: run-2026-10-18T08:29Z-n11, until: '2026-10-18T09:59:00Z'}
+now: "Timing table done: changes now show in 13-45 ms instead of 1 s to 2+ minutes. Next: fold the work into the main agent branch, then a skeptical final check."
+lock: null
 asks: []
 handled: []
 notes:
@@ -21,6 +21,8 @@ notes:
   - "n10 gap: a run that full-reloads the page (new module) loses queued drawings and their instant changes; park the queue in sessionStorage if it matters."
   - "optimistic-queue.mjs and optimistic-ring.mjs start their own vite on :5199 with a throwing scripted model: stop the demo dev server first."
   - "Spent today: n9 + n10 reconcile runs used ~6 model readings each; still well under 300k."
+  - "n11 ran 3 live runs on the old flow (move, insert, section; the section run took 142 s). Today's total is uncertain, maybe 200k: avoid more live runs today unless verify needs them."
+  - "latency-table.mjs runs on any checkout; for the old flow copy it in. S2C_STUB_MODEL=1 holds the server calls open (no tokens)."
 baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
 criteria:
   - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: open,
@@ -32,7 +34,8 @@ criteria:
      evidence: "On try/n1 (d0b4be5): tests/e2e/optimistic-queue.mjs, ring+ring+scribble back to back, two queued behind the first, all land live, 20-40 ms to visible, Ctrl+Z x3 exact."}
   - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: open,
      evidence: "Partial, try/n1: Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
-  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: open, evidence: null}
+  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: open,
+     evidence: "On try/n1 (af3d5e4): docs/latency/before-after.md via tests/e2e/latency-table.mjs. Before 1.2 s (scribble, ring), 17/62/142 s (move/insert/section); after 13-45 ms."}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "Drawn changes feel instant: page changes on pen lift, code catches up", status: open}
   - {id: n1, parent: n0, kind: approach, title: "Browser-side read + reversible DOM patch on pen lift, reconciled when the code lands", status: active,
@@ -55,4 +58,6 @@ nodes:
      result: "Preview drops ~60 ms after the real change shows, mid-run; other edits: held, then removed at run end. Commit c74261f."}
   - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: done,
      result: "Pen stays free; queued drawings keep their change on the page; ring, ring, scribble all land in order. Commit d0b4be5."}
-  - {id: n11, parent: n1, kind: step, title: "Before/after table: pen lift to visible change per gesture on the demo app (old flow at agent vs try/n1)", status: open, result: null}
+  - {id: n11, parent: n1, kind: step, title: "Before/after table: pen lift to visible change per gesture on the demo app (old flow at agent vs try/n1)", status: done,
+     result: "Before 1.2 s to 142 s; after 13-45 ms for all five gestures. docs/latency/before-after.md, commit af3d5e4."}
+  - {id: n12, parent: n1, kind: step, title: "Mark n1 proven: merge try/n1 into agent, tests green on agent, move criteria evidence to agent", status: open, result: null}

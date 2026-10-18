@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-18T08:43:33Z | Before/after timing table | Changes now show 13-45 ms after lift, versus 1.2 s to 142 s before; table in docs/latency.
+
 2026-10-18T08:28:41Z | Draw while earlier changes are being coded | Pen stays free; three back-to-back changes queued and all landed in order; undo restores all.
 
 2026-10-18T08:07:25Z | Preview gives way the moment the real change shows | Preview vanishes about 60 ms after the code lands; cleared at run end if code does something else.
