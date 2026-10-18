@@ -2,7 +2,7 @@
 
 ## 2026-10-18 02:30 UTC — sketch-to-code / s2c-013 Structured vs screenshot, measured — **bar NOT MET (+11, needed +15); +20 on edits**. Also s2c-048 ready to publish.
 Picked because: owner said "yes" in chat to s2c-013 (spend the pilot in the cloud), s2c-035 and s2c-048.
-Did: s2c-013, rough set, **3 runs per arm** (the full done_when, not the 1-run pilot). auto **80%** (87/80/73) vs screenshot **69%** (67/73/67). Edits **87% vs 67%**, new UI 67% vs 73%. Commit: see below.
+Did: s2c-013, rough set, **3 runs per arm** (the full done_when, not the 1-run pilot). auto **80%** (87/80/73) vs screenshot **69%** (67/73/67). Edits **87% vs 67%**, new UI 67% vs 73%. Commit 1f5cd66.
 Found: structure 9/9 vs 0/9 on the no-word gestures (scribble, green ring, swap arrows). It loses the caret insert 0/3 vs 2/3: "Blog" went to the end of the nav and **the bar said Done**. It loses unclosed cards 0/3 vs 2/3. It had 4/45 failed readings vs 0, and costs ~3.4× the tokens. Harness bugs from the first live run: the screenshot arm waited for a Confirm that never comes (12/15 failed after billing, ~100k tokens wasted, then re-run), and edit pages crashed the log line. Both fixed.
 Spend: ~1.1M billed (vs ~1M approved for the pilot) + ~16M cache reads. I ran 3×2 instead of 1×2. Say if that overstepped.
 s2c-048: MIT LICENSE, package metadata, `@s2c/*` pinned to ^0.1.0, dry-run publish clean for all 8 (6944ed2). docs/publishing.md has your steps. Nothing published.
