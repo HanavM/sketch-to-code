@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-18T08:25:00Z | Preview gives way the moment the real change shows | Preview vanishes about 60 ms after the code lands; cleared at run end if code does something else.
+2026-10-18T08:07:25Z | Preview gives way the moment the real change shows | Preview vanishes about 60 ms after the code lands; cleared at run end if code does something else.
 
 2026-10-18T07:49:45Z | Live e2e: previews give way to the real change | Move, insert and new section all landed live; preview held until done, then removed; undo works.
 
