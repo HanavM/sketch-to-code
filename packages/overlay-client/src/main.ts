@@ -11,6 +11,7 @@ import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
+import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 /**
@@ -2308,6 +2309,16 @@ class Overlay {
   /** Where the editor's cursor is, painted briefly so it can be seen. */
   private ideHighlight: { rect: { x: number; y: number; w: number; h: number }; until: number } | null = null
   private strokes: Stroke[] = []
+  /**
+   * Goal loop n1: the change the drawing asks for, already on the page while
+   * the code catches up (optimistic.ts). Keyed by the drawing it was read
+   * from; any edit to the drawing re-reads it.
+   */
+  private optimistic: { key: string; reading: QuickReading<HTMLElement>; applied: Applied } | null = null
+  /** A drawing whose instant change was taken back (the run failed or stopped). */
+  private optimisticBlocked: string | null = null
+  /** event.timeStamp of the last pen lift, for the lift-to-visible timing. */
+  private liftAt = 0
   private preview: PreviewData | null = null
   private v2: V2Preview | null = null
   private overrides: Record<string, string> = {}
@@ -7557,6 +7568,7 @@ class Overlay {
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
+    this.refreshOptimistic()
   }
 
   private toPage(e: PointerEvent): Pt {
@@ -7657,6 +7669,7 @@ class Overlay {
       }
     }
     this.live.points.push(this.toPage(e))
+    this.liftAt = e.timeStamp
     if (this.live.points.length > 2) {
       this.live.anchor = this.anchorFor(this.live.points) ?? undefined
       this.strokes.push(this.live)
@@ -10296,7 +10309,93 @@ class Overlay {
   // ---- pipeline ----
 
   private snapshot() {
-    return takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID })
+    // the server reads, grounds and verifies against the CODE's page: a
+    // pending instant change is taken off for the walk and put straight back
+    // (synchronous, so nothing paints in between)
+    return this.unpatched(() => takeSnapshot(document, { exclude: (el) => this.host.contains(el) || el.id === HOST_ID }))
+  }
+
+  // ---- goal loop n1: the page changes at pen lift ---------------------------
+
+  private optimisticKey(): string {
+    return `${this.strokes.map((st) => `${st.id}:${String(st.points.length)}:${st.color ?? ''}`).join(',')}|${String(this.notes.length)}`
+  }
+
+  /** Every stamped, visible element, in page coordinates, for optimistic.ts. */
+  private optimisticCands(): Cand<HTMLElement>[] {
+    const out: Cand<HTMLElement>[] = []
+    const index = new Map<Element, number>()
+    const sx = window.scrollX
+    const sy = window.scrollY
+    for (const el of document.querySelectorAll<HTMLElement>('[data-s2c]')) {
+      if (el.id === HOST_ID || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      if (r.width < 1 || r.height < 1) continue
+      const cs = getComputedStyle(el)
+      if (cs.visibility === 'hidden') continue
+      index.set(el, out.length)
+      const bg = cs.backgroundColor
+      out.push({
+        ref: el,
+        rect: { x: r.left + sx, y: r.top + sy, w: r.width, h: r.height },
+        srcLoc: el.getAttribute('data-s2c') ?? '',
+        parent: -1,
+        filled: !(bg === 'transparent' || /^rgba\(.*,\s*0\)$/.test(bg)),
+        worded: [...el.childNodes].some((n) => n.nodeType === 3 && (n.textContent ?? '').trim() !== ''),
+      })
+    }
+    for (const c of out) {
+      let p = c.ref.parentElement
+      while (p && !index.has(p)) p = p.parentElement
+      c.parent = p ? index.get(p)! : -1
+    }
+    return out
+  }
+
+  /**
+   * Bring the page in line with the drawing: apply the change it plainly asks
+   * for, or take back one it no longer asks for. Cheap when nothing changed.
+   */
+  private refreshOptimistic() {
+    // a run in flight owns the page until it ends (onRunDone / onRunError)
+    if (this.mode === 'running' && this.strokes.length > 0) return
+    const key = this.optimisticKey()
+    if (this.optimistic?.key === key) return
+    this.dropOptimistic()
+    if (this.strokes.length === 0 || key === this.optimisticBlocked) return
+    // only where the change would run by itself: in review and manual modes a
+    // person decides first, and design/screenshot runs build, not edit
+    if (this.autoMode !== 'auto' || this.runMode === 'design' || this.runMode === 'screenshot') return
+    const cands = this.optimisticCands()
+    const reading = quickReading(this.strokes, cands, window.innerWidth * window.innerHeight, this.notes.length > 0)
+    if (!reading) return
+    const applied = applyPatch(reading)
+    this.optimistic = { key, reading, applied }
+    const ms = this.liftAt ? performance.now() - this.liftAt : null
+    ;(window as unknown as { __s2cOptimistic?: unknown }).__s2cOptimistic = {
+      kind: reading.kind, srcLoc: reading.target.srcLoc, liftToPatchMs: ms,
+    }
+  }
+
+  /** Take the instant change off the page (the element is exactly as before). */
+  private dropOptimistic(block = false) {
+    if (block) this.optimisticBlocked = this.optimistic?.key ?? this.optimisticKey()
+    if (!this.optimistic) return
+    this.optimistic.applied.undo()
+    this.optimistic = null
+  }
+
+  /** Run `fn` against the page as the code has it, with no instant change on. */
+  private unpatched<T>(fn: () => T): T {
+    const o = this.optimistic
+    if (!o) return fn()
+    o.applied.undo()
+    try {
+      return fn()
+    } finally {
+      if (o.reading.target.ref.isConnected) o.applied = applyPatch(o.reading)
+      else this.optimistic = null
+    }
   }
 
   private watchdog: ReturnType<typeof setTimeout> | null = null
@@ -10306,6 +10405,7 @@ class Overlay {
     this.watchdog = setTimeout(() => {
       if (this.mode === 'running') {
         this.status('no progress from server — resetting (run may have died)', true)
+        this.dropOptimistic(true)
         this.clearApplying()
         this.setMode(this.restingMode())
       }
@@ -10732,6 +10832,7 @@ class Overlay {
       // completion arrives over SSE ('done'/'error'); keep running state
     } catch (err) {
       this.status(`failed: ${err instanceof Error ? err.message : String(err)}`, true)
+      this.dropOptimistic(true)
       this.clearApplying()
       this.setMode(this.restingMode())
     }
@@ -10955,6 +11056,8 @@ class Overlay {
         // in red, and the ink is untouched — so append what it cannot know
         // (that a run was pending and is not happening) and leave the drawing
         // exactly where it is for another try.
+        // nothing is going to write this: the page goes back to the code's
+        this.dropOptimistic(true)
         const why = this.statusEl.textContent ?? 'the reading failed'
         this.status(`${why} · auto-run stopped — your ink is still here, ▶ Run to retry`, true)
         return
@@ -11084,7 +11187,13 @@ class Overlay {
     this.events.addEventListener('probe', async (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { probeId: string; spec: ProbeSpecWire; clientId?: string }
       if (!this.mine(d)) return
+      // a probe uses the page as the code built it
+      const held = this.optimistic
+      if (held) this.dropOptimistic()
       const observation = await runProbe(d.spec)
+      if (held && !this.optimistic && held.reading.target.ref.isConnected && this.optimisticKey() === held.key) {
+        this.optimistic = { ...held, applied: applyPatch(held.reading) }
+      }
       await fetch('/@s2c/probe-result', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
@@ -11139,6 +11248,11 @@ class Overlay {
       this.statusEl.title = d.summary
       console.debug(`[s2c] run done: ${d.summary}`)
     }
+    // the edit is verified on the page itself by now (resnapshot comes after
+    // hot reload), so the code's own result is what shows from here; if the
+    // code did something else, this is also where the guess is taken back
+    this.dropOptimistic()
+    this.optimisticBlocked = null
     this.strokes = []
     this.endSketchSearch()
     // the ink is spent, and so are the words about it
@@ -11164,6 +11278,8 @@ class Overlay {
     } else {
       this.status(`✗ ${d.message}`, true)
     }
+    // the code did not land: put the page back
+    this.dropOptimistic(true)
     this.clearApplying()
     this.redraw()
     this.setMode(this.restingMode())

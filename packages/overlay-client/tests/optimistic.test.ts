@@ -61,6 +61,7 @@ function candsOf(snap: DomSnapshot): Cand<string>[] {
     srcLoc: n.srcLoc!,
     parent: n.parent ? index.get(n.parent) ?? -1 : -1,
     filled: !/rgba\(0, 0, 0, 0\)|transparent/.test(n.style.backgroundColor),
+    worded: !!n.text,
   }))
 }
 
@@ -107,6 +108,40 @@ describe('quickReading agrees with the server reading', () => {
     if (process.env.S2C_ROWS) console.log(rows.join("\n"))
     expect(rows.length).toBe((rough as Spec[]).length)
   })
+
+  it('agrees on a sweep of 600 random scribbles over the page (both ways, same element)', () => {
+    const snap = baseSnapshot()
+    const cands = candsOf(snap)
+    let seed = 7
+    const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648 }
+    let fired = 0
+    for (let k = 0; k < 600; k++) {
+      const n = snap.nodes[1 + Math.floor(rnd() * (snap.nodes.length - 1))]!
+      const r = n.rect
+      // anywhere from a corner nick to a scratch-out spilling past the edges
+      const fx0 = -0.1 + rnd() * 0.5, fx1 = 0.5 + rnd() * 0.6
+      const fy0 = -0.1 + rnd() * 0.5, fy1 = 0.5 + rnd() * 0.6
+      const x0 = r.x + r.w * fx0, x1 = r.x + r.w * fx1, y0 = r.y + r.h * fy0, y1 = r.y + r.h * fy1
+      const zigs = 4 + Math.floor(rnd() * 6)
+      const pts: P[] = []
+      for (let i = 0; i <= zigs; i++) {
+        const ax = x0 + ((x1 - x0) * i) / zigs, ay = i % 2 ? y1 : y0
+        const bx = x0 + ((x1 - x0) * (i + 1)) / zigs, by = i % 2 ? y0 : y1
+        for (let j = 0; j < 8 && i < zigs; j++) pts.push({ x: ax + ((bx - ax) * j) / 8 + (rnd() - 0.5) * 2, y: ay + ((by - ay) * j) / 8 + (rnd() - 0.5) * 2 })
+      }
+      const strokes = toInput([pts])
+      const quick = quickReading(strokes, cands, VIEW)
+      const plain = plainReading(strokes, snap, 'gesture', [])
+      const plainTarget = plain.ok ? plain.interpretation.actions[0]?.targets[0]?.srcLoc ?? null : null
+      const tag = `#${String(k)} on ${n.id}: quick=${quick?.target.srcLoc ?? '-'} plain=${plain.ok ? plainTarget : plain.reason}`
+      if (!!quick !== plain.ok && process.env.S2C_ROWS) { const { buildEvidence } = require('@s2c/pipeline'); console.log(tag, (buildEvidence(strokes, snap, []).brief)) }
+      expect(!!quick, tag).toBe(plain.ok)
+      if (quick) { fired++; expect(quick.target.srcLoc, tag).toBe(plainTarget) }
+    }
+    // the sweep has to exercise both outcomes to mean anything
+    expect(fired).toBeGreaterThan(30)
+    expect(fired).toBeLessThan(570)
+  }, 60000)
 
   it('a multi-lap ring is not a scribble', () => {
     const pts = []
@@ -160,5 +195,18 @@ describe('applyPatch', () => {
     expect(el.style.getPropertyValue('color')).toBe('red')
     expect(el.style.getPropertyPriority('color')).toBe('')
     expect(el.getAttribute(PENDING_ATTR)).toBeNull()
+  })
+})
+
+describe('resample is the ink package’s, point for point', () => {
+  it('matches resampleBySpacing on random strokes', async () => {
+    const { resampleBySpacing } = await import('@s2c/ink')
+    const { resample } = await import('../src/optimistic.js')
+    let seed = 3
+    const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648 }
+    for (let k = 0; k < 200; k++) {
+      const pts = Array.from({ length: 2 + Math.floor(rnd() * 60) }, (_, i) => ({ x: rnd() * 300, y: rnd() * 300, t: i * 16 }))
+      expect(resample(pts)).toEqual(resampleBySpacing(pts, 8))
+    }
   })
 })

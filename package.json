@@ -18,7 +18,8 @@
     "demo": "node tests/demo/record-60s.mjs --out demo",
     "e2e:published": "node packages/cli/tests/e2e/published-install.mjs",
     "e2e:ring-tw": "node tests/e2e/ring-tailwind.mjs",
-    "e2e:caret": "node tests/e2e/caret-insert.mjs"
+    "e2e:caret": "node tests/e2e/caret-insert.mjs",
+    "e2e:optimistic": "node tests/e2e/optimistic-scribble.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

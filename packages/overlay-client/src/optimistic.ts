@@ -35,6 +35,8 @@ export interface Cand<E = unknown> {
   parent: number
   /** Has a background fill of its own (not transparent). */
   filled: boolean
+  /** Has words of its own (direct text), like the snapshot's `text`. */
+  worded?: boolean
 }
 
 export type QuickReading<E = unknown> =
@@ -45,6 +47,8 @@ export type QuickReading<E = unknown> =
 const MIN_REVERSALS = 4
 const CONFINED = 0.85
 const MIN_COVER = 0.25
+/** plain-reading.ts SCRIBBLE_MIN_INNER_COVER (s2c-052). */
+const MIN_INNER_COVER = 0.2
 /** Ring box padding and coverage, as bare-ring.ts. */
 const PAD = 6
 const RING_COVER = 0.8
@@ -67,25 +71,34 @@ export function bboxOfPoints(points: QPoint[]): Box {
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
 }
 
-/** Points every `step` px along the path (same spacing the server reads at). */
+/**
+ * Points every `step` px along the path, endpoint kept: a copy of the ink
+ * package's resampleBySpacing. Copied, not imported: the overlay bundle may
+ * take only ink's classifier (ink's index pulls node:zlib). The server counts
+ * on these exact points, so the parity tests hold the two together.
+ */
 export function resample(points: QPoint[], step = 8): QPoint[] {
-  if (points.length === 0) return []
+  if (points.length < 2 || step <= 0) return [...points]
   const out: QPoint[] = [points[0]!]
-  let carry = 0
+  let acc = 0
+  let prev = points[0]!
   for (let i = 1; i < points.length; i++) {
-    let a = points[i - 1]!
-    const b = points[i]!
-    let seg = Math.hypot(b.x - a.x, b.y - a.y)
-    while (carry + seg >= step) {
-      const k = (step - carry) / seg
-      const p = { x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k, t: a.t + (b.t - a.t) * k }
-      out.push(p)
-      a = p
-      seg = Math.hypot(b.x - a.x, b.y - a.y)
-      carry = 0
+    const cur = points[i]!
+    let d = Math.hypot(cur.x - prev.x, cur.y - prev.y)
+    while (acc + d >= step && d > 0) {
+      const k = (step - acc) / d
+      const np = { x: prev.x + k * (cur.x - prev.x), y: prev.y + k * (cur.y - prev.y), t: prev.t + k * (cur.t - prev.t) }
+      out.push(np)
+      prev = np
+      d = Math.hypot(cur.x - prev.x, cur.y - prev.y)
+      acc = 0
     }
-    carry += seg
+    acc += d
+    prev = cur
   }
+  const last = points[points.length - 1]!
+  const tail = out[out.length - 1]!
+  if (tail.x !== last.x || tail.y !== last.y) out.push(last)
   return out
 }
 
@@ -169,6 +182,26 @@ export function confinedTo<E>(st: QStroke, cands: Cand<E>[], viewArea: number): 
   return pick
 }
 
+/** The innermost candidate under ≥ 85% of the stroke, ancestors not counted. */
+export function mostlyInside<E>(st: QStroke, cands: Cand<E>[], viewArea: number): number {
+  const rs = resample(st.points)
+  if (rs.length === 0) return -1
+  const cap = viewArea > 0 ? viewArea * 0.5 : Infinity
+  const counts = new Map<number, number>()
+  for (const p of rs) {
+    let best = -1
+    for (let i = 0; i < cands.length; i++) {
+      const r = cands[i]!.rect
+      if (area(r) > cap || !inside(r, p.x, p.y)) continue
+      if (best < 0 || area(r) < area(cands[best]!.rect)) best = i
+    }
+    if (best >= 0) counts.set(best, (counts.get(best) ?? 0) + 1)
+  }
+  let pick = -1
+  for (const [i, c] of counts) if (c / rs.length >= CONFINED) pick = i
+  return pick
+}
+
 /** The biggest candidate a ring encloses (bare-ring.ts ringTarget). */
 export function ringed<E>(st: QStroke, cands: Cand<E>[], viewArea: number): number {
   const b = bboxOfPoints(st.points)
@@ -208,7 +241,10 @@ export function quickReading<E>(
   let ink: Box | null = null
   for (const st of strokes) {
     if (!isScribble(st)) return null
-    const i = confinedTo(st, cands, viewArea)
+    // the server asks the innermost-only question first and, when it has an
+    // answer, does not fall back (intent2.ts mostlyInsideElement)
+    const m = mostlyInside(st, cands, viewArea)
+    const i = m >= 0 ? m : confinedTo(st, cands, viewArea)
     if (i < 0 || (on >= 0 && i !== on)) return null
     on = i
     const b = bboxOfPoints(st.points)
@@ -217,6 +253,28 @@ export function quickReading<E>(
   if (on < 0 || !ink) return null
   const t = cands[on]!
   if (area(t.rect) <= 0 || inter(ink, t.rect) / area(t.rect) < MIN_COVER) return null
+  // the server's two guards on "crossed out", in its order (plain-reading.ts):
+  // ink that goes AROUND a child rather than through it is a ring, and a
+  // delete takes every worded thing inside, so each must be under the ink
+  const samples = strokes.flatMap((st) => resample(st.points))
+  const under = (i: number): boolean => {
+    for (let p = cands[i]!.parent; p >= 0; p = cands[p]!.parent) if (p === on) return true
+    return false
+  }
+  for (let i = 0; i < cands.length; i++) {
+    if (i === on || !under(i)) continue
+    const cr = cands[i]!.rect
+    const ca = area(cr)
+    if (ca <= 0 || inter(ink, cr) / ca < 0.5) continue
+    const hit = samples.filter((p) => inside(cr, p.x, p.y)).length
+    if (hit / Math.max(1, samples.length) < 0.1) return null
+  }
+  for (let i = 0; i < cands.length; i++) {
+    if (i === on || !cands[i]!.worded || !under(i)) continue
+    const cr = cands[i]!.rect
+    const ca = area(cr)
+    if (ca > 0 && inter(ink, cr) / ca < MIN_INNER_COVER) return null
+  }
   return { kind: 'hide', target: t, ink }
 }
 
@@ -261,6 +319,8 @@ export function applyPatch(r: QuickReading<Patchable>): Applied {
   const value = r.kind === 'hide' ? 'none' : r.color
   const before = { v: el.style.getPropertyValue(prop), p: el.style.getPropertyPriority(prop) }
   const hadMark = el.getAttribute(PENDING_ATTR)
+  // an element with no style attribute must not be left with an empty one
+  const hadStyle = el.getAttribute('style') !== null
   el.style.setProperty(prop, value, 'important')
   el.setAttribute(PENDING_ATTR, r.kind)
   let done = false
@@ -272,6 +332,7 @@ export function applyPatch(r: QuickReading<Patchable>): Applied {
       done = true
       if (before.v) el.style.setProperty(prop, before.v, before.p)
       else el.style.removeProperty(prop)
+      if (!hadStyle && !(el.getAttribute('style') ?? '').trim()) el.removeAttribute('style')
       if (hadMark === null) el.removeAttribute(PENDING_ATTR)
       else el.setAttribute(PENDING_ATTR, hadMark)
     },
