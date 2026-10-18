@@ -2,8 +2,8 @@
 # Owner: edit freely — change value/status, prune, or add nodes. Keep ids unique.
 garden: sketch-to-code
 prefix: s2c
-next_id: 60
-lock: {run: cloud-2026-10-18T0500Z, until: "2026-10-18T06:15:00Z"}
+next_id: 61
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1253,19 +1253,24 @@ nodes:
   why: 'The sweep found @s2c/ink calls 137 of 200 overdrawn loops line/polyline. The model brief carries those kinds too, so a person who circles twice is described to the model as drawing a line. It also sends 58% of overdrawn coloured rings to a paid reading.'
   done_when: 'plain-sweep ring overdrawn bucket read free >= 85% (from 42%), probes still 0 fires, scratch-out bad fires still 0; a classify test with a 1.3-turn rough loop -> ellipse/rect top candidate; the tidy and rough --dry bench routing unchanged (auto mode sends the same mode per page).'
   kind: build
-  status: open
+  status: done
   needs: cloud
   value: 3
   effort: 2
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 4
-  watered: 0
-  last_watered: null
+  watered: 1
+  last_watered: 2026-10-18T05:30Z
   blocked_on: null
-  outputs: []
+  outputs:
+  - 36c6601
+  - packages/ink/src/classify.ts firstLap()
+  - packages/ink/tests/classify.test.ts 'overdrawn loops'
+  - docs/findings.md "Overdrawn rings, fixed in the classifier"
   log:
   - '2026-10-18: filed by s2c-052. Check first where the brief uses classifyStroke kinds, so a fix for the plain gate does not silently change what the model is told without being said.'
+  - '2026-10-18 05:30Z: DONE (commit 36c6601). classifyStroke reads the first lap of an open stroke that turns 0.9-1.75 laps one way, comes back within 16% of the lap to its start, and whose overshoot stays on the lap. Plain sweep n=200: overdrawn rings read free 42% -> 98% (339/346); all rings 60% -> 84%; scratch-outs unchanged 953; 0 bad fires in 4,400 incl. 1,000 probes. Trap: features.revolutions bridges the seam, so a 1.3-lap ring measured 2.0 laps; first try used it and stalled at 77%. rough --dry --plain unchanged (2 right, 1 missed, 12 declined, 0 bad); auto routing never uses the classifier (overlay DOM-hit test): rough modes identical to s2c-013 run1, tidy 15/15 design. 4 tests, 3 red on old code. vitest 1291/1293 (same 2 env), tsc -b clean. Side effects, said in findings: the brief now says ellipse for these loops; the overlay bare-ring check uses the same classifier. Not done: 40:1 flat rings still read as line in the brief (filed s2c-060).'
 - id: s2c-054
   parent: s2c-052
   title: 'A two-stroke X or a lone strike-through with no words: is it a delete, and read free?'
@@ -1391,3 +1396,22 @@ nodes:
   outputs: []
   log:
   - '2026-10-18: filed by s2c-055. Value 2: helpful, not core. Skip it if anything with value >= 3 is open.'
+- id: s2c-060
+  parent: s2c-053
+  title: 'A ring round a whole line of text (40:1 and flatter) is still a line to the classifier, so the brief says line'
+  why: 'The ring reading squashes the box first and gets these right, but @s2c/ink (and so the model brief and bare-ring) calls them line at any lap count: at 6 px resampling the ends of a 1600x34 loop are cusps. Rings round headings and paragraphs are the commonest flat ones.'
+  done_when: 'classifyStroke on a 1.0-1.4-lap ring at 20:1-60:1 -> ellipse/rounded-rect top (test red on old code), a straight rough line and an underline still line, plain sweep bad fires still 0 and ring free rate not lower than 84%.'
+  kind: build
+  status: open
+  needs: cloud
+  value: 2
+  effort: 1
+  confidence: 0.5
+  momentum: 0.5
+  depth: 5
+  watered: 0
+  last_watered: null
+  blocked_on: null
+  outputs: []
+  log:
+  - '2026-10-18: filed by s2c-053. Value 2: the free path already handles it; this is only what the model is told. Do it only when nothing with value >= 3 is cloud-doable.'

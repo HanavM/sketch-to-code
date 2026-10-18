@@ -1,5 +1,14 @@
 # DIGEST — newest first
 
+## 2026-10-18 05:30 UTC — sketch-to-code / s2c-053 Overdrawn ring read as a line — **done**: free reads 42% → 98%
+Picked because: s2c-059 scored 1.96 but its own note says skip while a value-3 node is open; s2c-053 1.51 (value 3), s2c-057 1.51 needs quota, s2c-054 1.11. Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 36c6601. `classifyStroke` now reads the first lap of an open stroke that turns 0.9–1.75 laps one way, returns within 16% of the lap to its start, and whose overshoot stays on the lap. A tail heading off, a zigzag, or 1.75+ laps keep the old rules.
+Found: `features.revolutions` bridges the seam between the two ends, so a 1.3-lap ring measured **2.0**. The first version trusted it and stalled at 77%. The lap check now sums the pen's own turning.
+Result: plain sweep n=200: overdrawn rings 42% → **98%** free, all rings 60% → 84%, scratch-outs unchanged, **0 bad fires** in 4,400. `run.mjs --set rough --dry --plain` unchanged. Routing never touches the classifier: rough modes identical to s2c-013, tidy 15/15 design. 4 tests, 3 red on the old code. vitest 1291/1293 (same 2 env failures), `tsc -b` clean. 0 tokens. momentum 0.5 → 0.7
+Blunt: also changes what the model is told (ellipse, not line) and the overlay's bare-ring check. That's the intended reading, but nothing was measured with a model. Synthetic marks, one layout. Flat 40:1 rings round a text line still say "line" in the brief.
+New branches: s2c-060 flat rings in the classifier (value 2). Pruned/done: s2c-053 done.
+**Needs you:** unchanged. (1) "yes, r14" (~50k tokens) and/or "yes, read-only" for s2c-056 (~150k). (2) s2c-035: 5 public Vite+React repos in this task's access. (3) Publish per docs/publishing.md. Cloud queue without a yes: s2c-059, s2c-054, s2c-060 (all value 2).
+
 ## 2026-10-18 04:40 UTC — sketch-to-code / s2c-055 Caret insert lands at the caret — **done**; the tick now checks where
 Picked because: priority ~2.1 (next: s2c-053 1.5, s2c-059 ~1.2; s2c-057/056 need quota). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
 Did: commit 08bcc00. Cause: the grounded add carried only the container and the caret's 18 px box, never which two siblings it sat between, so codegen appended. Verify accepted anything new within ~120 px, which the end of a short nav is. That's why r14 said Done 2/2.
