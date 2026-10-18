@@ -1,5 +1,15 @@
 # DIGEST — newest first
 
+## 2026-10-18 03:20 UTC — sketch-to-code / s2c-056 Why readings failed — **cause unrecoverable; logging fixed; found a 3-minute hang, now capped at 2 min**
+Picked because: priority 3.3 (next: s2c-055 2.1, s2c-053/057 1.5). Fashion killed, no overrule. sidequest/fine-routing: no add_repo tool, clone needs auth, skipped.
+Did: commit 9c02f7b. The s2c-013 failures can't be explained after the fact. Nothing kept the cause: the provider turned SDK error results into "malformed output", the server logged nothing, and the bench saved only the bar's sentence. Also, it was **3/45, not 4**. Now the cause is named and kept in all three places. Bench rows record it, and stop waiting once the bar says it failed.
+Found: **a reading had no time limit.** With the API unreachable, the page sat on "reading your drawing…" for over 100 s, and a bare call only threw at **179 s**. Perception calls now give up at 120 s with "is Claude Code signed in, and is this machine online?". Checked end to end with the network blocked: failed in 22 s at a 20 s limit, with the cause in the row, the tooltip and the server log. 0 tokens.
+New: `run.mjs --read-only --repeat N` presses Run and never Go, so a reading costs ~5k tokens instead of ~16k for a whole page.
+Result: 11 new tests (red on the old provider). vitest 1277/1279 (same 2 env failures), `tsc -b` clean. momentum 0.5 → 0.7.
+Blunt: the hang is a real fix for a non-coder. But the 3 bench failures came back inside 100 s, so they weren't this hang, and their cause is still unknown.
+New branches: none. Pruned/done: none; s2c-056 → blocked on quota.
+**Needs you:** (1) s2c-056: "yes, read-only" to spend ~150k tokens on 30 readings that name the failures. (2) s2c-035: add 5 public Vite+React repos to this task's access, or fork 5 and name them. (3) Publish per docs/publishing.md when ready. Next cloud run: s2c-055 (caret insert lands where drawn), zero-token.
+
 ## 2026-10-18 02:30 UTC — sketch-to-code / s2c-013 Structured vs screenshot, measured — **bar NOT MET (+11, needed +15); +20 on edits**. Also s2c-048 ready to publish.
 Picked because: owner said "yes" in chat to s2c-013 (spend the pilot in the cloud), s2c-035 and s2c-048.
 Did: s2c-013, rough set, **3 runs per arm** (the full done_when, not the 1-run pilot). auto **80%** (87/80/73) vs screenshot **69%** (67/73/67). Edits **87% vs 67%**, new UI 67% vs 73%. Commit 1f5cd66.

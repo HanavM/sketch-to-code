@@ -3,7 +3,7 @@
 garden: sketch-to-code
 prefix: s2c
 next_id: 58
-lock: {run: cloud-2026-10-18T0255Z, until: "2026-10-18T04:10Z"}
+lock: null
 
 nodes:
 - id: s2c-000
@@ -1306,23 +1306,29 @@ nodes:
   - '2026-10-18: filed by s2c-013. Check first whether the reading put the caret position in the action (position/destElement) and codegen ignored it, or the reading lost it.'
 - id: s2c-056
   parent: s2c-013
-  title: "Why 4 of 45 structured readings failed ('I couldn't read that sketch just now')"
+  title: "Why 3 of 45 structured readings failed ('I couldn't read that sketch just now')"
   why: 'Screenshot errored 0/45. A failed reading is a dead end for a non-coder, and the bench only records the overlay sentence, not the cause.'
   done_when: 'The bench row records the /@s2c/interpret error body; the cause of the r04/r11/r14 failures is named (timeout, schema reject, provider error) from a re-run of those pages (<= 6 paid readings) or from server logs, and fixed or filed with numbers.'
   kind: build
-  status: open
+  status: blocked-on-human
   needs: cloud
   value: 4
   effort: 1
   confidence: 0.6
-  momentum: 0.5
+  momentum: 0.7
   depth: 2
-  watered: 0
-  last_watered: null
-  blocked_on: null
-  outputs: []
+  watered: 1
+  last_watered: 2026-10-18T03:20Z
+  blocked_on: 'OK to spend ~150k tokens of your quota on 30 readings-only (no codegen) to catch and name the failures? Command: node tests/bench/run.mjs --set rough --read-only --repeat 5 --only r04,r11,r14,r10,r08,r05. Reply "yes, read-only" or "no".'
+  outputs:
+  - 9c02f7b
+  - packages/providers/src/claude-code.ts (readingFailure, PerceptionFailure, 120 s perception timeout)
+  - tests/bench/run.mjs --read-only --repeat
+  - tests/bench/lib/readings.mjs
+  - docs/findings.md "Why structured readings failed"
   log:
   - '2026-10-18: filed by s2c-013. The logging half is zero-token; do it first.'
+  - '2026-10-18 03:20Z (cloud): the s2c-013 causes are UNRECOVERABLE: provider turned SDK error results into raw {} ("malformed output"), server logged nothing, bench kept only the bar sentence (cause was on the tooltip). Result files show 3/45 failures, not 4. Fixed all three (PerceptionFailure with subtype/turns/error + usage; server logs "[s2c] reading failed"; bench rows keep readingError + serverSaid, stop waiting on failure). FOUND: no time limit on perception calls: with API unreachable the bench page hung 100 s and a bare call only threw "Unable to connect to API" at 179 s. Added 120 s timeout (S2C_READING_TIMEOUT_MS). Verified e2e at 0 tokens, network blocked, 20 s limit: r04 failed in 22 s with the cause in row/tooltip/server log. New --read-only bench mode (~5k tokens/reading vs ~16k/page). 11 new tests (red on old provider). vitest 1277/1279 (same 2 env failures), tsc -b clean. The 3 s2c-013 failures were inside 100 s, so not this hang; naming them needs paid readings -> blocked on quota. momentum 0.5 -> 0.7.'
 - id: s2c-057
   parent: s2c-013
   title: 'Route new-UI sketches to the screenshot reader, keep edits structured'

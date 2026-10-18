@@ -1,7 +1,7 @@
 # sketch-to-code: project brief
 
 ## Right now
-The big test finally ran. It compared this tool's way of reading a sketch against just sending a screenshot to an AI. This tool won by a clear margin on changes to an existing page and lost slightly on drawing brand-new screens. Next is fixing the cases it got wrong.
+Looking into why the tool sometimes says "I couldn't read that sketch". It turned out nobody was keeping the reason, so the reason for the earlier failures is lost. Now it's kept. Next is making "insert here" marks land where you drew them.
 
 ## The idea
 You build and change an app by drawing on it, not by writing code or typing long instructions. Scribble over something and it's gone. Circle a button with a green pen and it turns green. Draw an arrow from a button to a box you sketched and you get a new page linked to that button. Words are only for filling in details. The goal is a "drawing-first Cursor" that someone who doesn't code can use.
@@ -16,12 +16,12 @@ You build and change an app by drawing on it, not by writing code or typing long
 - **Ready to publish:** licence and package details are in place. Publishing is one short list of steps for you.
 
 ## Lately
-On rough, hurried sketches, this tool got 80% of the requests right and the screenshot approach got 69%. On edits to an existing page the gap was much bigger (87% vs 67%), and wordless marks like scribbles and coloured circles worked every time here and never with a screenshot. But it cost about three times as much, failed to read a sketch 4 times in 45, and once said "Done" when it had put a new link in the wrong spot.
+On rough, hurried sketches this tool got 80% right and the screenshot approach got 69%. On edits to an existing page it was 87% vs 67%. Since then: when the AI can't be reached, the tool used to show "reading your drawing…" for about three minutes. Now it gives up after two minutes and says what to check (signed in? online?). Failed readings now keep their reason, so the next ones can be explained.
 
 ## What's next
-Make "insert here" marks land where you drew them, and stop the "Done" tick from claiming success when the position is wrong. Then find out why some readings fail. After that, maybe send brand-new screens through the cheaper screenshot route.
+Make "insert here" marks land where you drew them, and stop the "Done" tick from claiming success when the spot is wrong. With your OK, a small test to catch the occasional failed reading and name its cause.
 
 ## Waiting on you
-1. **Trying it on 5 real people's apps:** your yes is noted, but this task can only see your own repos. Add 5 public projects to its GitHub access, or copy 5 into your account and name them.
-2. **Publishing:** follow the steps in the publishing guide when you're ready (create the "s2c" organisation on npm, then publish).
-3. **The test spend:** the full test used about 1.1M tokens, a bit over the ~1M you approved, because it ran three rounds instead of one. Tell me if that was too much.
+1. **A small test of failed readings:** about 150k tokens (roughly a seventh of the last big test). It reads 30 sketches without building anything, to catch the occasional failure and see why it happens. Reply "yes, read-only" or "no".
+2. **Trying it on 5 real people's apps:** this task can only see your own repos. Add 5 public projects to its GitHub access, or copy 5 into your account and name them.
+3. **Publishing:** follow the steps in the publishing guide when you're ready.
