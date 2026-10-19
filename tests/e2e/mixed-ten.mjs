@@ -367,7 +367,7 @@ try {
   const srcDiff = execSync('git diff --stat -- examples/demo-app/src/', { cwd: ROOT }).toString().trim()
   const undoneReloaded = await fresh()
   const ufr = undone.fr
-  if (process.env.S2C_NAV_DEBUG) writeFileSync(process.env.S2C_NAV_DEBUG, JSON.stringify({ keys: undone.keys, fr: ufr.map((f) => ({ at: f.at, nav: f.nav })) }))
+  if (process.env.S2C_NAV_DEBUG) writeFileSync(process.env.S2C_NAV_DEBUG, JSON.stringify({ keys: undone.keys, fr: ufr.map((f) => ({ at: f.at, nav: f.nav, boxes: f.boxes })) }))
   const undoRows = undone.keys.map((at, i) => {
     const prev = [...ufr].reverse().find((f) => f.at < at)
     const next = undone.keys[i + 1] ?? Infinity

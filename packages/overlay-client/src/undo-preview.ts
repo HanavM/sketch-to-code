@@ -22,15 +22,17 @@ import { EASE, FADE_MS, flipFrom, GLIDE_MS, reducedMotion, steady } from './moti
 import { contentKeys, LiveReorder } from './live-reorder.js'
 
 export type VisualEdit =
-  | { kind: 'class'; srcLoc: string; before: string[] }
+  | { kind: 'class'; srcLoc: string; before: string[]; els?: HTMLElement[] }
   | { kind: 'order'; parent: HTMLElement; key: string; from: number; to: number }
-  | { kind: 'restore'; srcLoc: string; like: string; count: number; ghost: HTMLElement; parent: ParentRef; index: number }
+  | { kind: 'restore'; srcLoc: string; like: string; count: number; ghost: HTMLElement; parent: ParentRef; index: number; wasClass: string; prev: string | null; next: string | null }
   | { kind: 'unadd'; el: HTMLElement; like: string; count: number }
 
 /** Where an erased element lived: its parent node, and how to find that parent again after a remount. */
 export interface ParentRef { node: HTMLElement; srcLoc: string | null; instance: number }
 
 const GHOST = 'data-s2c-ghost'
+/** n21: the copy an erase undo will fade back in, by the node it was taken from */
+const ghostOf = new WeakMap<Element, HTMLElement>()
 const isGhost = (e: Element) => e.hasAttribute(GHOST)
 /** Element children the code put there (an undo ghost is not one). */
 const realKids = (p: Element) => [...p.children].filter((k) => !isGhost(k) && k.id !== 's2c-overlay-host')
@@ -65,9 +67,16 @@ export function captureErase(srcLoc: string, el: HTMLElement): (() => VisualEdit
   // stamps (snapshots, picks, selection) may find it
   for (const n of [ghost, ...ghost.querySelectorAll<HTMLElement>('[data-s2c]')]) n.removeAttribute('data-s2c')
   ghost.setAttribute(GHOST, srcLoc)
+  ghostOf.set(el, ghost)
+  const wasClass = ghost.className
+  // its neighbours as seen, so it comes back between them even if the row
+  // around it has shifted (n21)
+  const kids = realKids(parentNode)
+  const prev = index > 0 ? lookOf(kids[index - 1]!) : null
+  const next = index < kids.length - 1 ? lookOf(kids[index + 1]!) : null
   return () => {
     const p = findParent(parent)
-    return p && countLike(p, like) === count - 1 ? { kind: 'restore', srcLoc, like, count, ghost, parent, index } : null
+    return p && countLike(p, like) === count - 1 ? { kind: 'restore', srcLoc, like, count, ghost, parent, index, wasClass, prev, next } : null
   }
 }
 
@@ -124,14 +133,38 @@ export function captureBefore(body: Record<string, unknown>, el: HTMLElement): (
   const els = instancesOf(srcLoc)
   if (!els.includes(el)) return null
   const before = els.map((e) => e.className)
+  const nodes = [...els]
   return () => {
-    const now = instancesOf(srcLoc)
-    return now.length === before.length && now.some((e, i) => e.className !== before[i]) ? { kind: 'class', srcLoc, before } : null
+    let now = slotsOf(srcLoc)
+    if (now.length !== before.length) {
+      // n21: an earlier undo's code has not landed yet, so the stamps still
+      // carry its line numbers; the nodes themselves (or the ghost standing in
+      // for one an erase took) are still the ones this edit changed
+      const alt = nodes.map((n) => {
+        if (n.isConnected) return n
+        const g = ghostOf.get(n)
+        return g?.isConnected && g.getAttribute(GHOST) ? g : null
+      })
+      if (!alt.every(Boolean)) return null
+      now = alt as HTMLElement[]
+    }
+    return now.some((e, i) => e.className !== before[i]) ? { kind: 'class', srcLoc, before, els: now } : null
   }
 }
 
 function instancesOf(srcLoc: string): HTMLElement[] {
   return [...document.querySelectorAll<HTMLElement>(`[data-s2c="${CSS.escape(srcLoc)}"]`)]
+}
+
+/**
+ * n21: the instances of a source location as the page shows them: an erase
+ * undo's ghost stands in for the instance whose code has not landed yet, in
+ * document order, so a class undo of a mapped element (stat cards) right after
+ * an erase undo of one of its siblings still counts the same boxes.
+ */
+function slotsOf(srcLoc: string): HTMLElement[] {
+  const q = CSS.escape(srcLoc)
+  return [...document.querySelectorAll<HTMLElement>(`[data-s2c="${q}"], [${GHOST}="${q}"]`)]
 }
 
 /** Overlay nodes and ghosts are never measured or glided. */
@@ -149,8 +182,25 @@ function playRestore(e: Extract<VisualEdit, { kind: 'restore' }>, holdMs: number
   const ghost = e.ghost
   const skip = motionSkip(ghost)
   const flip = flipFrom(document.body, skip)
-  const before = realKids(parent)[e.index] ?? null
+  const { before, anchor } = slotBefore(parent, e)
+  // a reorder still held on this row places its children by inline order: the
+  // ghost shares its anchor's, and DOM order puts it on the right side of it
+  let mine = ghost.style.getPropertyValue('order')
+  const syncOrder = () => {
+    if (!anchor) return
+    const has = ghost.style.getPropertyValue('order')
+    // a reorder preview of the ghost itself owns its order now
+    if (has !== mine) { orders.disconnect(); return }
+    const o = anchor.isConnected ? anchor.style.getPropertyValue('order') : ''
+    if (o === has) return
+    if (o) ghost.style.setProperty('order', o, 'important')
+    else ghost.style.removeProperty('order')
+    mine = o
+  }
+  const orders = new MutationObserver(syncOrder)
+  syncOrder()
   parent.insertBefore(ghost, before)
+  if (anchor) orders.observe(anchor, { attributes: true, attributeFilter: ['style'] })
   const smooth = !reducedMotion() && typeof ghost.animate === 'function'
   if (smooth) {
     flip.play()
@@ -164,9 +214,23 @@ function playRestore(e: Extract<VisualEdit, { kind: 'restore' }>, holdMs: number
   let done = false
   let timer: ReturnType<typeof setTimeout> | null = null
   const back = () => parent.isConnected ? countLike(parent, e.like) >= e.count : true
-  const stop = () => { done = true; mo.disconnect(); if (timer) clearTimeout(timer) }
+  const stop = () => { done = true; mo.disconnect(); orders.disconnect(); if (timer) clearTimeout(timer) }
   // exact, in the hot reload's own task: the real element takes the ghost's place
-  const land = () => { if (done) return; stop(); ghost.remove() }
+  const land = () => { if (done) return; stop(); handOver(); ghost.remove() }
+  /**
+   * n21: a later undo eased the ghost's classes (a resize of the whole mapped
+   * row) before this reload landed: the element arriving has the code's
+   * classes from before that undo, so it takes the look the ghost had; that
+   * undo's own reload then writes the same classes.
+   */
+  const handOver = () => {
+    if (ghost.className === e.wasClass || !parent.isConnected) return
+    const kids = realKids(parent) as HTMLElement[]
+    const same = kids.filter((k) => lookOf(k) === e.like)
+    if (!same.length) return
+    const it = same.reduce((a, k) => (Math.abs(kids.indexOf(k) - e.index) < Math.abs(kids.indexOf(a) - e.index) ? k : a))
+    if (it.className !== ghost.className) it.className = ghost.className
+  }
   const mo = new MutationObserver(() => { if (back()) land() })
   mo.observe(document.body, { childList: true, subtree: true })
   return {
@@ -184,9 +248,30 @@ function playRestore(e: Extract<VisualEdit, { kind: 'restore' }>, holdMs: number
   }
 }
 
+/**
+ * n21: where an erase's ghost goes back: after the neighbour it followed (or
+ * before the one it preceded), by what they say, since an unkeyed row may have
+ * shifted words and an undone addition may still sit hidden in it. The index
+ * is the fallback, counting only what is shown.
+ */
+function slotBefore(parent: HTMLElement, e: Extract<VisualEdit, { kind: 'restore' }>): { before: Element | null; anchor: HTMLElement | null } {
+  const kids = realKids(parent).filter((k) => !k.hasAttribute(UNADD))
+  const near = (look: string) => {
+    const same = kids.filter((k) => lookOf(k) === look)
+    return same.length ? same.reduce((a, k) => (Math.abs(kids.indexOf(k) - e.index) < Math.abs(kids.indexOf(a) - e.index) ? k : a)) : null
+  }
+  const p = e.prev ? near(e.prev) : null
+  if (p) return { before: p.nextElementSibling, anchor: p as HTMLElement }
+  const n = e.next ? near(e.next) : null
+  if (n) return { before: n, anchor: n as HTMLElement }
+  return { before: kids[e.index] ?? null, anchor: null }
+}
+
 /** Take a ghost off smoothly: it fades, then its neighbours glide into the gap. */
 function fadeAway(ghost: HTMLElement): void {
   if (!ghost.isConnected) return
+  // on its way out it no longer stands in for anything
+  if (ghost.getAttribute(GHOST) !== 'unadd') ghost.setAttribute(GHOST, '')
   if (reducedMotion() || typeof ghost.animate !== 'function') { ghost.remove(); return }
   const a = ghost.animate([{ opacity: getComputedStyle(ghost).opacity }, { opacity: '0' }], { duration: FADE_MS, easing: 'ease-out', fill: 'forwards' })
   a.finished.then(() => {
@@ -230,7 +315,7 @@ function easeClasses(els: HTMLElement[], to: string[], srcLoc?: string): void {
     }
     // width/height/margins ease on the main thread: paced by frames, so a stall never leaps (n18)
     // and a reload that remounts it mid-way carries the ease over to its new node
-    if (any) steady(e.animate([k0, k1], { duration: GLIDE_MS, easing: EASE }), srcLoc ? () => instancesOf(srcLoc)[i] ?? null : undefined)
+    if (any) steady(e.animate([k0, k1], { duration: GLIDE_MS, easing: EASE }), srcLoc ? () => slotsOf(srcLoc)[i] ?? null : undefined)
   })
 }
 
@@ -241,12 +326,19 @@ export interface Played {
   revert(): void
 }
 
-/** Play an edit's inverse right now. Null when its elements are gone. */
-export function playInverse(e: VisualEdit, holdMs = 4000): Played | null {
+/**
+ * Play an edit's inverse right now. Null when its elements are gone.
+ *
+ * `holdMs` is how long a confirmed preview waits for its hot reload: the
+ * server did undo it, so the reload is coming, and on a loaded machine with
+ * several undos queued it can take 5 s or more (n21); giving up early shows the
+ * old page for a moment and then jumps when the code lands.
+ */
+export function playInverse(e: VisualEdit, holdMs = 10000): Played | null {
   if (e.kind === 'restore') return playRestore(e, holdMs)
   if (e.kind === 'unadd') return playUnadd(e, holdMs)
   if (e.kind === 'class') {
-    const els = instancesOf(e.srcLoc)
+    const els = e.els?.every((x) => x.isConnected) ? e.els : slotsOf(e.srcLoc)
     if (els.length !== e.before.length) return null
     const after = els.map((x) => x.className)
     easeClasses(els, e.before, e.srcLoc)
@@ -275,11 +367,13 @@ export function playInverse(e: VisualEdit, holdMs = 4000): Played | null {
   let mo: MutationObserver | null = null
   let timer: ReturnType<typeof setTimeout> | null = null
   const stop = () => { done = true; mo?.disconnect(); if (timer) clearTimeout(timer) }
-  const backInOrder = () => {
-    const now = [...parent.children]
-    return contentKeys(now).indexOf(key) === from
-  }
+  // what the code renders: an erase undo's ghost still waiting for its own
+  // reload would shift every index after it (n21)
+  const backInOrder = () => contentKeys(realKids(parent)).indexOf(key) === from
   const finish = () => { if (done) return; stop(); live.settle(seen) }
+  // no reload in time: the row glides from where it is shown now, not from
+  // where it was when the undo began (n21)
+  const giveUp = () => { if (done) return; stop(); live.settle(live.seen()) }
   // watching from now: the revert's hot reload can beat the server's reply
   mo = new MutationObserver(() => { if (backInOrder()) finish() })
   mo.observe(parent, { childList: true, subtree: true, characterData: true })
@@ -287,7 +381,7 @@ export function playInverse(e: VisualEdit, holdMs = 4000): Played | null {
     confirm() {
       if (done) return
       if (backInOrder()) { finish(); return }
-      timer = setTimeout(finish, holdMs)
+      timer = setTimeout(giveUp, holdMs)
     },
     revert() {
       if (done) return
@@ -351,7 +445,8 @@ function playUnadd(e: Extract<VisualEdit, { kind: 'unadd' }>, holdMs: number): P
     const o = getComputedStyle(ghost).opacity
     // the first painted frame already shows it going
     ghost.animate(
-      [{ opacity: String(Number(o) * 0.7), transform: 'scale(0.99)' }, { opacity: '0', transform: 'scale(0.9)' }],
+      // (half gone at once: a 30% fade was easy to miss on the first frame, n21)
+      [{ opacity: String(Number(o) * 0.45), transform: 'scale(0.97)' }, { opacity: '0', transform: 'scale(0.9)' }],
       { duration: FADE_MS, easing: 'ease-out', fill: 'forwards' },
     ).finished.then(dropGhost, () => undefined)
   } else dropGhost()
@@ -367,15 +462,14 @@ function playUnadd(e: Extract<VisualEdit, { kind: 'unadd' }>, holdMs: number): P
   }
   const back = () => !parent.isConnected || countLike(parent, e.like) < e.count
   const stop = () => { done = true; mo.disconnect(); cancelAnimationFrame(raf); if (timer) clearTimeout(timer) }
-  const land = () => {
-    if (done) return
-    stop()
-    unhide()
+  /** nodes a reload rewrote in place glide from where their words were last painted */
+  const glideShifted = () => {
     if (!smooth || !parent.isConnected) return
-    // nodes the reload rewrote in place glide from where their words were painted
     for (const k of realKids(parent) as HTMLElement[]) {
       const now = lookOf(k)
       if (said.get(k) === now) continue
+      said.set(k, now)
+      if (k.hasAttribute(UNADD)) continue
       const from = painted.get(now)?.shift()
       if (!from) continue
       for (const a of k.getAnimations()) a.cancel()
@@ -385,7 +479,37 @@ function playUnadd(e: Extract<VisualEdit, { kind: 'unadd' }>, holdMs: number): P
       k.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: GLIDE_MS * 0.7, easing: EASE })
     }
   }
-  const mo = new MutationObserver(() => { if (back()) land() })
+  const land = () => {
+    if (done) return
+    stop()
+    unhide()
+    glideShifted()
+  }
+  /**
+   * n21: another edit's late reload (an earlier undo's reorder, say) rewrote
+   * the unkeyed row's words without dropping the addition: the hide now sits
+   * on a node that says something else. It moves to the node that says the
+   * addition now, in the same task, so nothing blinks out or doubles.
+   */
+  const follow = () => {
+    if (!parent.isConnected) return
+    const hidden = (realKids(parent) as HTMLElement[]).filter((k) => k.hasAttribute(UNADD))
+    if (hidden.length !== 1 || lookOf(hidden[0]!) === e.like) return
+    const h = hidden[0]!
+    const kids = realKids(parent) as HTMLElement[]
+    const same = kids.filter((k) => k !== h && lookOf(k) === e.like)
+    if (!same.length) return
+    const at = kids.indexOf(h)
+    const to = same.reduce((a, k) => (Math.abs(kids.indexOf(k) - at) < Math.abs(kids.indexOf(a) - at) ? k : a))
+    for (const a of to.getAnimations()) a.cancel()
+    h.removeAttribute(UNADD)
+    if (h === el && wasDisplay) h.style.setProperty('display', wasDisplay, wasPrio)
+    else h.style.removeProperty('display')
+    to.style.setProperty('display', 'none', 'important')
+    to.setAttribute(UNADD, '')
+    glideShifted()
+  }
+  const mo = new MutationObserver(() => { if (back()) land(); else follow() })
   mo.observe(document.body, { childList: true, subtree: true, characterData: true })
   const showAgain = () => {
     stop()
