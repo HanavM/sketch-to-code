@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T02:47:00Z | Erase and recolour write the code without the AI | 8/8 land in code in about 1.1 s, 0 tokens, no flash when the code arrives.
+
 2026-10-19T02:29:00Z | Shared-plane test set, 22 edits | 22/22 drag edits land as seen, no flash; linked cards resize together; erase hitch fixed.
 
 2026-10-19T02:05:00Z | New things grow in, colours fade | Added link visible 9 ms, grows over 12 frames, neighbour glides; recolour eases both ways, 60 fps.
