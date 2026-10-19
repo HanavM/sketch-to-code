@@ -76,13 +76,27 @@ export function captureErase(srcLoc: string, el: HTMLElement): (() => VisualEdit
  * addition grew in as (null until the hot reload brought it); undo takes that
  * element back off the page.
  */
-export function captureInsert(get: () => HTMLElement | null): () => VisualEdit | null {
-  return () => {
-    const el = get()
-    const p = el?.parentElement
-    if (!el || !p || !el.isConnected) return null
-    const like = lookOf(el)
-    return { kind: 'unadd', el, like, count: countLike(p, like) }
+export function captureInsert(get: () => HTMLElement | null): { grew(): void; take: () => VisualEdit | null } {
+  // what the addition said when it grew in: a later hot reload of an unkeyed
+  // row rewrites words in place, so by undo time that node may say something
+  // else (a reorder's undo moved "Docs" onto another node) (n20)
+  let said: string | null = null
+  return {
+    grew() { const el = get(); if (el?.isConnected) said = lookOf(el) },
+    take: () => {
+      let el = get()
+      const p = el?.parentElement
+      if (!el || !p || !el.isConnected) return null
+      if (said && lookOf(el) !== said) {
+        const kids = realKids(p) as HTMLElement[]
+        const at = kids.indexOf(el)
+        const same = kids.filter((k) => lookOf(k) === said)
+        if (!same.length) return null
+        el = same.reduce((a, k) => (Math.abs(kids.indexOf(k) - at) < Math.abs(kids.indexOf(a) - at) ? k : a))
+      }
+      const like = lookOf(el)
+      return { kind: 'unadd', el, like, count: countLike(p, like) }
+    },
   }
 }
 

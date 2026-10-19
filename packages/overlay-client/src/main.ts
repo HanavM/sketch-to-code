@@ -11318,12 +11318,14 @@ class Overlay {
     // n15: Ctrl+Z shows the addition gone at once (it shrinks out, the row
     // glides back). On the stack now, in commit order; the element itself is
     // found when undo asks (it exists once the reload has grown it in)
-    if (out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take: captureInsert(() => pv.grewEl ?? null) })
+    const unadd = captureInsert(() => pv.grewEl ?? null)
+    if (out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take: unadd.take })
     // the ghost holds the gap until the hot reload puts the real one there
     const deadline = performance.now() + 4000
     while (job.pendingPreview === pv && !pv.grown && performance.now() < deadline) {
       await new Promise((r) => setTimeout(r, 25))
     }
+    if (pv.grown) unadd.grew()
     ;(window as unknown as { __s2cDirect?: unknown[] }).__s2cDirect ??= []
     ;(window as unknown as { __s2cDirect: unknown[] }).__s2cDirect.push({
       kind: 'insert', text, change: out.change, how: pv.grown ? 'grew' : 'timeout', wroteMs, landMs: Math.round(performance.now() - t0),
