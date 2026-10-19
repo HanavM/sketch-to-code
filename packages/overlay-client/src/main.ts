@@ -11,7 +11,8 @@ import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
-import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
+import { quickReading, type Cand, type QuickReading } from './optimistic.js'
+import { applyMoving, type Moving } from './motion.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -106,7 +107,7 @@ interface PreviewData {
 type Mode = 'idle' | 'draw' | 'preview' | 'running' | 'tweak'
 
 /** Goal loop n1: an instant change on the page, ahead of the code. */
-type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied: Applied }
+type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied: Moving }
 /** Goal loop n7: a pending preview, in its own box inside #pending. */
 type PendingPv = {
   key: string; preview: Preview; before: DomSnapshot; el: HTMLDivElement
@@ -2353,6 +2354,8 @@ class Overlay {
    * from; any edit to the drawing re-reads it.
    */
   private optimistic: OptimisticRec | null = null
+  /** The overlay's own nodes never glide with the page (motion.ts). */
+  private readonly motionSkip = (el: Element): boolean => el.id === HOST_ID || el === this.host || this.host.contains(el)
   /** A drawing whose instant change was taken back (the run failed or stopped). */
   private optimisticBlocked: string | null = null
   /** event.timeStamp of the last pen lift, for the lift-to-visible timing. */
@@ -10437,7 +10440,7 @@ class Overlay {
       this.showPreview(key)
       return
     }
-    const applied = applyPatch(reading)
+    const applied = applyMoving(reading, { skip: this.motionSkip })
     this.optimistic = { key, reading, applied }
     const ms = this.liftAt ? performance.now() - this.liftAt : null
     ;(window as unknown as { __s2cOptimistic?: unknown }).__s2cOptimistic = {
@@ -10525,11 +10528,14 @@ class Overlay {
   }
 
   /** Take the instant change off the page (the element is exactly as before). */
-  private dropOptimistic(block = false) {
+  private dropOptimistic(block = false, smooth = block) {
     if (block) this.optimisticBlocked = this.optimistic?.key ?? this.optimisticKey()
     this.dropPreview()
     if (!this.optimistic) return
-    this.optimistic.applied.undo()
+    // a change taken back (failure, the code did otherwise) glides back in;
+    // one replaced by the next reading of the same drawing swaps at once
+    if (smooth) this.optimistic.applied.undoSmooth()
+    else this.optimistic.applied.undo()
     this.optimistic = null
   }
 
@@ -10557,13 +10563,16 @@ class Overlay {
     const s = this.optimistic
     if (s) held.push({ o: s, owned: () => this.optimistic === s, drop: () => { if (this.optimistic === s) this.optimistic = null } })
     if (held.length === 0) return () => undefined
-    for (let i = held.length - 1; i >= 0; i--) held[i]!.o.applied.undo()
+    // suspend, not undo: each change comes off exactly and goes back on at the
+    // same point of its motion (synchronous, so nothing paints in between)
+    const resume: Array<() => void> = []
+    for (let i = held.length - 1; i >= 0; i--) resume[i] = held[i]!.o.applied.suspend()
     return () => {
-      for (const h of held) {
-        if (!h.owned()) continue
-        if (h.o.reading.target.ref.isConnected) h.o.applied = applyPatch(h.o.reading)
-        else h.drop()
-      }
+      held.forEach((h, i) => {
+        if (!h.owned()) return
+        if (h.o.reading.target.ref.isConnected) resume[i]!()
+        else { h.o.applied.undo(); h.drop() }
+      })
     }
   }
 
@@ -10597,7 +10606,7 @@ class Overlay {
 
   /** Take a drawing's instant change and preview off the page. */
   private rollbackJob(job: Job) {
-    job.optimistic?.applied.undo()
+    job.optimistic?.applied.undoSmooth()
     job.optimistic = null
     this.dropPv(job.pendingPreview)
     job.pendingPreview = null
@@ -11637,7 +11646,7 @@ class Overlay {
     // the edit is verified on the page itself by now (resnapshot comes after
     // hot reload), so the code's own result is what shows from here; if the
     // code did something else, this is also where the guess is taken back
-    this.dropOptimistic()
+    this.dropOptimistic(false, true)
     this.optimisticBlocked = null
     this.strokes = []
     this.endSketchSearch()

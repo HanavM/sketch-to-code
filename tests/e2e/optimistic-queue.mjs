@@ -148,7 +148,7 @@ try {
     globalThis.__SEEN__[tag] = null
     const obs = new MutationObserver(() => {
       if (globalThis.__SEEN__[tag] != null) return
-      const changed = prop ? getComputedStyle(el)[prop] !== before : (!el.isConnected || getComputedStyle(el).display === 'none')
+      const changed = prop ? getComputedStyle(el)[prop] !== before : (!el.isConnected || getComputedStyle(el).display === 'none' || Number(getComputedStyle(el).opacity) < 0.97)
       if (changed) {
         const lift = globalThis.__LIFT__.at(-1)
         requestAnimationFrame(() => { globalThis.__SEEN__[tag] = performance.now() - lift })
