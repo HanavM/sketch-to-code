@@ -3,10 +3,10 @@
   {
    "key": "erase",
    "name": "erase stat card \"Revenue\"",
-   "visibleMs": 15.1,
+   "visibleMs": 17.4,
    "file": "proof/erase.gif",
-   "kb": 495,
-   "seconds": 2.6,
+   "kb": 529,
+   "seconds": 2.4,
    "crop": {
     "x": 0,
     "y": 0,
@@ -17,10 +17,10 @@
   {
    "key": "add",
    "name": "add nav link \"Docs\" after \"Overview\"",
-   "visibleMs": 46.6,
+   "visibleMs": 18.1,
    "file": "proof/add.gif",
-   "kb": 319,
-   "seconds": 2.5,
+   "kb": 274,
+   "seconds": 2.4,
    "crop": {
     "x": 320,
     "y": 0,
@@ -31,10 +31,10 @@
   {
    "key": "reorder",
    "name": "reorder card 1→3",
-   "visibleMs": 8.5,
+   "visibleMs": 6,
    "file": "proof/reorder.gif",
-   "kb": 669,
-   "seconds": 2.9,
+   "kb": 635,
+   "seconds": 2.8,
    "crop": {
     "x": 0,
     "y": 0,
@@ -45,9 +45,9 @@
   {
    "key": "move",
    "name": "move form down",
-   "visibleMs": 1.9,
+   "visibleMs": 1.1,
    "file": "proof/move.gif",
-   "kb": 1261,
+   "kb": 970,
    "seconds": 2.5,
    "crop": {
     "x": 0,
@@ -59,10 +59,10 @@
   {
    "key": "resize",
    "name": "resize card taller",
-   "visibleMs": 2.3,
+   "visibleMs": 2,
    "file": "proof/resize.gif",
-   "kb": 833,
-   "seconds": 2.6,
+   "kb": 887,
+   "seconds": 2.5,
    "crop": {
     "x": 40,
     "y": 0,
@@ -73,10 +73,10 @@
   {
    "key": "recolour",
    "name": "recolour \"Team members\" green",
-   "visibleMs": 43.2,
+   "visibleMs": 19.4,
    "file": "proof/recolour.gif",
-   "kb": 396,
-   "seconds": 5.1,
+   "kb": 289,
+   "seconds": 4.5,
    "crop": {
     "x": 138,
     "y": 0,
@@ -89,8 +89,8 @@
    "name": "ten undos (10 named)",
    "visibleMs": null,
    "file": "proof/undo.gif",
-   "kb": 2384,
-   "seconds": 10,
+   "kb": 2399,
+   "seconds": 9.9,
    "crop": {
     "x": 0,
     "y": 0,
@@ -104,282 +104,282 @@
    {
     "name": "reorder card 1→3",
     "kind": "drag",
-    "startMs": 1861,
-    "releaseMs": 3045,
-    "visibleMs": 8.5,
+    "startMs": 1624,
+    "releaseMs": 2731,
+    "visibleMs": 6,
     "frames": {
-     "frames": 41,
-     "fps": 40.6,
-     "p50": 26,
-     "p95": 42.3,
-     "max": 49.5,
-     "over20": 27
+     "frames": 51,
+     "fps": 50.5,
+     "p50": 18.7,
+     "p95": 37.8,
+     "max": 40.4,
+     "over20": 20
     }
    },
    {
     "name": "erase nav link \"Reports\"",
     "kind": "direct",
-    "startMs": 4647,
-    "releaseMs": 5821,
-    "visibleMs": 12,
+    "startMs": 4335,
+    "releaseMs": 5311,
+    "visibleMs": 10.2,
     "frames": {
-     "frames": 51,
-     "fps": 51.2,
-     "p50": 16.9,
-     "p95": 42.6,
-     "max": 53.5,
-     "over20": 19
+     "frames": 60,
+     "fps": 59.7,
+     "p50": 16.7,
+     "p95": 21.9,
+     "max": 29.7,
+     "over20": 7
     }
    },
    {
     "name": "resize card taller",
     "kind": "drag",
-    "startMs": 7421,
-    "releaseMs": 8299,
-    "visibleMs": 2.3,
+    "startMs": 6912,
+    "releaseMs": 7714,
+    "visibleMs": 2,
     "frames": {
-     "frames": 49,
-     "fps": 48.4,
-     "p50": 16.8,
-     "p95": 35.3,
-     "max": 45,
-     "over20": 14
+     "frames": 56,
+     "fps": 55.3,
+     "p50": 16.7,
+     "p95": 32.2,
+     "max": 57.9,
+     "over20": 12
     }
    },
    {
     "name": "recolour \"Team members\" green",
     "kind": "direct",
-    "startMs": 9900,
-    "releaseMs": 13314,
-    "visibleMs": 43.2,
+    "startMs": 9316,
+    "releaseMs": 12110,
+    "visibleMs": 19.4,
     "frames": {
-     "frames": 54,
-     "fps": 55.7,
-     "p50": 16.8,
-     "p95": 28.5,
-     "max": 37.2,
-     "over20": 14
+     "frames": 60,
+     "fps": 61,
+     "p50": 16.6,
+     "p95": 21.8,
+     "max": 23.2,
+     "over20": 4
     }
    },
    {
     "name": "add nav link \"Docs\" after \"Overview\"",
     "kind": "add",
-    "startMs": 14914,
-    "releaseMs": 15705,
-    "visibleMs": 46.6,
+    "startMs": 13711,
+    "releaseMs": 14364,
+    "visibleMs": 18.1,
     "frames": {
-     "frames": 47,
-     "fps": 48.7,
-     "p50": 19,
-     "p95": 34.5,
-     "max": 39.4,
-     "over20": 18
+     "frames": 56,
+     "fps": 56,
+     "p50": 16.9,
+     "p95": 26.8,
+     "max": 35,
+     "over20": 13
     }
    },
    {
     "name": "erase stat card \"Revenue\"",
     "kind": "direct",
-    "startMs": 17306,
-    "releaseMs": 18235,
-    "visibleMs": 15.1,
+    "startMs": 15965,
+    "releaseMs": 16672,
+    "visibleMs": 17.4,
     "frames": {
-     "frames": 54,
-     "fps": 54.3,
-     "p50": 16.8,
-     "p95": 35.7,
-     "max": 40.7,
-     "over20": 14
+     "frames": 59,
+     "fps": 59.4,
+     "p50": 16.7,
+     "p95": 25.5,
+     "max": 29.3,
+     "over20": 6
     }
    },
    {
     "name": "move form down",
     "kind": "drag",
-    "startMs": 19836,
-    "releaseMs": 20628,
-    "visibleMs": 1.9,
+    "startMs": 18273,
+    "releaseMs": 19048,
+    "visibleMs": 1.1,
     "frames": {
-     "frames": 44,
-     "fps": 44,
-     "p50": 16.8,
-     "p95": 48,
-     "max": 63.7,
+     "frames": 56,
+     "fps": 55.4,
+     "p50": 16.7,
+     "p95": 29.7,
+     "max": 37.1,
      "over20": 13
     }
    },
    {
     "name": "recolour nav link \"Settings\" green",
     "kind": "direct",
-    "startMs": 22230,
-    "releaseMs": 24992,
-    "visibleMs": 22.9,
+    "startMs": 20650,
+    "releaseMs": 22839,
+    "visibleMs": 16.5,
     "frames": {
-     "frames": 57,
-     "fps": 58.1,
-     "p50": 16.9,
-     "p95": 27.4,
-     "max": 37.9,
-     "over20": 12
+     "frames": 59,
+     "fps": 59.3,
+     "p50": 16.8,
+     "p95": 24.3,
+     "max": 27.7,
+     "over20": 9
     }
    },
    {
     "name": "reorder nav link 1→2",
     "kind": "drag",
-    "startMs": 26594,
-    "releaseMs": 27629,
-    "visibleMs": 1.6,
+    "startMs": 24439,
+    "releaseMs": 25450,
+    "visibleMs": 1,
     "frames": {
-     "frames": 38,
-     "fps": 37.4,
-     "p50": 24.7,
-     "p95": 47.4,
-     "max": 77.6,
-     "over20": 27
+     "frames": 55,
+     "fps": 54.3,
+     "p50": 17,
+     "p95": 32.5,
+     "max": 52.3,
+     "over20": 14
     }
    },
    {
     "name": "resize grid item taller",
     "kind": "drag",
-    "startMs": 29230,
-    "releaseMs": 29947,
-    "visibleMs": 1.5,
+    "startMs": 27051,
+    "releaseMs": 27734,
+    "visibleMs": 1.3,
     "frames": {
-     "frames": 51,
-     "fps": 50.6,
-     "p50": 16.8,
-     "p95": 41.4,
-     "max": 80.3,
+     "frames": 52,
+     "fps": 51.3,
+     "p50": 16.7,
+     "p95": 40.4,
+     "max": 45.3,
      "over20": 12
     }
    }
   ],
   "undos": [
    {
-    "ms": 38596,
+    "ms": 36163,
     "undid": "resized that part",
-    "visibleMs": 24.2,
-    "frames": {
-     "frames": 44,
-     "fps": 47.9,
-     "p50": 16.7,
-     "p95": 45.5,
-     "max": 75.4,
-     "over20": 10
-    }
-   },
-   {
-    "ms": 39515,
-    "undid": "changed the order",
-    "visibleMs": 21.5,
-    "frames": {
-     "frames": 53,
-     "fps": 56.9,
-     "p50": 16.7,
-     "p95": 24.4,
-     "max": 46.3,
-     "over20": 6
-    }
-   },
-   {
-    "ms": 40445,
-    "undid": "changed the colour you painted",
     "visibleMs": 4.9,
     "frames": {
-     "frames": 53,
-     "fps": 57.8,
+     "frames": 42,
+     "fps": 44.8,
      "p50": 16.7,
-     "p95": 29.5,
-     "max": 52,
-     "over20": 3
+     "p95": 52,
+     "max": 79.7,
+     "over20": 9
     }
    },
    {
-    "ms": 41363,
-    "undid": "moved that part",
-    "visibleMs": 28.1,
+    "ms": 37084,
+    "undid": "changed the order",
+    "visibleMs": 59.7,
     "frames": {
-     "frames": 46,
-     "fps": 50,
-     "p50": 16.8,
-     "p95": 38.8,
-     "max": 44.5,
-     "over20": 11
-    }
-   },
-   {
-    "ms": 42274,
-    "undid": "removed what you crossed out",
-    "visibleMs": 10.7,
-    "frames": {
-     "frames": 44,
-     "fps": 47.9,
-     "p50": 16.8,
-     "p95": 41.5,
-     "max": 77.1,
-     "over20": 11
-    }
-   },
-   {
-    "ms": 43192,
-    "undid": "added what you drew",
-    "visibleMs": 50.9,
-    "frames": {
-     "frames": 55,
-     "fps": 60.1,
-     "p50": 16.8,
-     "p95": 26.7,
-     "max": 32,
-     "over20": 7
-    }
-   },
-   {
-    "ms": 44104,
-    "undid": "changed the colour you painted",
-    "visibleMs": 12.7,
-    "frames": {
-     "frames": 44,
-     "fps": 48.7,
-     "p50": 16.8,
-     "p95": 41.3,
-     "max": 46.1,
-     "over20": 11
-    }
-   },
-   {
-    "ms": 45016,
-    "undid": "resized that part",
-    "visibleMs": 31,
-    "frames": {
-     "frames": 45,
-     "fps": 48.8,
-     "p50": 16.8,
-     "p95": 44.5,
-     "max": 49.2,
-     "over20": 12
-    }
-   },
-   {
-    "ms": 45931,
-    "undid": "removed what you crossed out",
-    "visibleMs": 6.4,
-    "frames": {
-     "frames": 54,
-     "fps": 59.2,
+     "frames": 51,
+     "fps": 56.6,
      "p50": 16.7,
-     "p95": 24,
-     "max": 41.5,
+     "p95": 22.2,
+     "max": 44.9,
      "over20": 5
     }
    },
    {
-    "ms": 46848,
-    "undid": "changed the order",
-    "visibleMs": 19.6,
+    "ms": 37991,
+    "undid": "changed the colour you painted",
+    "visibleMs": 8.5,
     "frames": {
-     "frames": 49,
-     "fps": 49,
-     "p50": 16.8,
-     "p95": 41,
-     "max": 63.6,
+     "frames": 54,
+     "fps": 60,
+     "p50": 16.7,
+     "p95": 27.9,
+     "max": 40.8,
+     "over20": 5
+    }
+   },
+   {
+    "ms": 38898,
+    "undid": "moved that part",
+    "visibleMs": 3.7,
+    "frames": {
+     "frames": 50,
+     "fps": 53.6,
+     "p50": 16.7,
+     "p95": 30.4,
+     "max": 39.1,
+     "over20": 12
+    }
+   },
+   {
+    "ms": 39823,
+    "undid": "removed what you crossed out",
+    "visibleMs": 11,
+    "frames": {
+     "frames": 53,
+     "fps": 57.8,
+     "p50": 16.7,
+     "p95": 25.3,
+     "max": 33.8,
+     "over20": 9
+    }
+   },
+   {
+    "ms": 40735,
+    "undid": "added what you drew",
+    "visibleMs": 16.4,
+    "frames": {
+     "frames": 52,
+     "fps": 57.9,
+     "p50": 16.7,
+     "p95": 36.6,
+     "max": 46,
+     "over20": 6
+    }
+   },
+   {
+    "ms": 41647,
+    "undid": "changed the colour you painted",
+    "visibleMs": 2.2,
+    "frames": {
+     "frames": 48,
+     "fps": 51.3,
+     "p50": 16.7,
+     "p95": 34.2,
+     "max": 63.2,
+     "over20": 10
+    }
+   },
+   {
+    "ms": 42567,
+    "undid": "resized that part",
+    "visibleMs": 16.7,
+    "frames": {
+     "frames": 47,
+     "fps": 52.1,
+     "p50": 16.7,
+     "p95": 41.4,
+     "max": 56.8,
+     "over20": 7
+    }
+   },
+   {
+    "ms": 43476,
+    "undid": "removed what you crossed out",
+    "visibleMs": 7.4,
+    "frames": {
+     "frames": 54,
+     "fps": 58.9,
+     "p50": 16.7,
+     "p95": 22.7,
+     "max": 44,
+     "over20": 5
+    }
+   },
+   {
+    "ms": 44395,
+    "undid": "changed the order",
+    "visibleMs": 38.6,
+    "frames": {
+     "frames": 54,
+     "fps": 53.9,
+     "p50": 16.7,
+     "p95": 30.7,
+     "max": 40.4,
      "over20": 12
     }
    }

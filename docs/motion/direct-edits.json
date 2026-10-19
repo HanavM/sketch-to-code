@@ -15,18 +15,18 @@
     "srcLoc": "src/components/StatCards.tsx:11:9",
     "change": "removed 'stats' entry 2",
     "how": "landed",
-    "wroteMs": 113,
-    "landMs": 169
+    "wroteMs": 102,
+    "landMs": 178
    },
-   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=a0740f78ec",
+   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=75e95b859a",
    "optimistic": {
     "kind": "hide",
     "srcLoc": "src/components/StatCards.tsx:11:9",
-    "liftToPatchMs": 11.899999999906868
+    "liftToPatchMs": 8.700000000011642
    },
    "codeChanged": true,
-   "liftToVisibleMs": 13.7,
-   "liftToLandMs": 1092,
+   "liftToVisibleMs": 11.2,
+   "liftToLandMs": 1094,
    "issues": [],
    "pass": true
   },
@@ -39,18 +39,18 @@
     "srcLoc": "src/components/StatCards.tsx:10:9",
     "change": "removed 'stats' entry 2",
     "how": "landed",
-    "wroteMs": 138,
-    "landMs": 192
+    "wroteMs": 114,
+    "landMs": 173
    },
-   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=067b73ccca",
+   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=5d060708fc",
    "optimistic": {
     "kind": "hide",
     "srcLoc": "src/components/StatCards.tsx:10:9",
-    "liftToPatchMs": 13.199999999953434
+    "liftToPatchMs": 3.5
    },
    "codeChanged": true,
-   "liftToVisibleMs": 14.9,
-   "liftToLandMs": 1114,
+   "liftToVisibleMs": 13.5,
+   "liftToLandMs": 1082,
    "issues": [],
    "pass": true
   },
@@ -63,18 +63,18 @@
     "srcLoc": "src/components/Navbar.tsx:8:11",
     "change": "removed <a> (child 2)",
     "how": "landed",
-    "wroteMs": 114,
-    "landMs": 202
+    "wroteMs": 118,
+    "landMs": 169
    },
-   "status": "✓ removed <a> (child 2) in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=cb6c68e29d",
+   "status": "✓ removed <a> (child 2) in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=80d12cb2e8",
    "optimistic": {
     "kind": "hide",
     "srcLoc": "src/components/Navbar.tsx:8:11",
-    "liftToPatchMs": 4.900000000023283
+    "liftToPatchMs": 4.7000000000116415
    },
    "codeChanged": true,
-   "liftToVisibleMs": 13.5,
-   "liftToLandMs": 1112,
+   "liftToVisibleMs": 10.8,
+   "liftToLandMs": 1082,
    "issues": [],
    "pass": true
   },
@@ -87,18 +87,18 @@
     "srcLoc": "src/components/ContactForm.tsx:26:9",
     "change": "removed <div> (child 3)",
     "how": "landed",
-    "wroteMs": 116,
-    "landMs": 171
+    "wroteMs": 123,
+    "landMs": 179
    },
-   "status": "✓ removed <div> (child 3) in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=30fbb81973",
+   "status": "✓ removed <div> (child 3) in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=78dc2225b5",
    "optimistic": {
     "kind": "hide",
     "srcLoc": "src/components/ContactForm.tsx:26:9",
-    "liftToPatchMs": 2.800000000046566
+    "liftToPatchMs": 5.800000000046566
    },
    "codeChanged": true,
-   "liftToVisibleMs": 13.4,
-   "liftToLandMs": 1080,
+   "liftToVisibleMs": 13.5,
+   "liftToLandMs": 1094,
    "issues": [],
    "pass": true
   },
@@ -111,18 +111,18 @@
     "srcLoc": "src/components/StatCards.tsx:9:9",
     "change": "removed 'stats' entry 1",
     "how": "landed",
-    "wroteMs": 136,
-    "landMs": 193
+    "wroteMs": 135,
+    "landMs": 229
    },
-   "status": "✓ removed 'stats' entry 1 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=74ecf5bbdd",
+   "status": "✓ removed 'stats' entry 1 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=4f4b68d5c3",
    "optimistic": {
     "kind": "hide",
     "srcLoc": "src/components/StatCards.tsx:9:9",
-    "liftToPatchMs": 5.799999999930151
+    "liftToPatchMs": 4.7000000000116415
    },
    "codeChanged": true,
-   "liftToVisibleMs": 11.9,
-   "liftToLandMs": 1107,
+   "liftToVisibleMs": 12.4,
+   "liftToLandMs": 1145,
    "issues": [],
    "pass": true
   },
@@ -135,18 +135,18 @@
     "srcLoc": "src/components/UserTable.tsx:17:7",
     "change": "text-gray-900 → text-green-700",
     "how": "landed",
-    "wroteMs": 173,
-    "landMs": 352
+    "wroteMs": 140,
+    "landMs": 226
    },
-   "status": "✓ text-gray-900 → text-green-700 in src/components/UserTable.tsx · 0 tokens · revert: git restore --source=fff515410f",
+   "status": "✓ text-gray-900 → text-green-700 in src/components/UserTable.tsx · 0 tokens · revert: git restore --source=e5b5a30f23",
    "optimistic": {
     "kind": "recolour",
     "srcLoc": "src/components/UserTable.tsx:17:7",
-    "liftToPatchMs": 22.300000000046566
+    "liftToPatchMs": 8.800000000046566
    },
    "codeChanged": true,
-   "liftToVisibleMs": 30.4,
-   "liftToLandMs": 1285,
+   "liftToVisibleMs": 27.4,
+   "liftToLandMs": 1139,
    "finalColour": "rgba(0, 0, 0, 0)",
    "issues": [],
    "pass": true
@@ -160,18 +160,18 @@
     "srcLoc": "src/components/ContactForm.tsx:4:7",
     "change": "text-gray-900 → text-green-700",
     "how": "landed",
-    "wroteMs": 121,
-    "landMs": 220
+    "wroteMs": 126,
+    "landMs": 183
    },
-   "status": "✓ text-gray-900 → text-green-700 in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=ad0e3bf38e",
+   "status": "✓ text-gray-900 → text-green-700 in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=42cea5f6d7",
    "optimistic": {
     "kind": "recolour",
     "srcLoc": "src/components/ContactForm.tsx:4:7",
-    "liftToPatchMs": 13.79999999993015
+    "liftToPatchMs": 3.7000000000116415
    },
    "codeChanged": true,
-   "liftToVisibleMs": 34.6,
-   "liftToLandMs": 1138,
+   "liftToVisibleMs": 30.3,
+   "liftToLandMs": 1090,
    "finalColour": "rgba(0, 0, 0, 0)",
    "issues": [],
    "pass": true
@@ -185,18 +185,18 @@
     "srcLoc": "src/components/Navbar.tsx:8:11",
     "change": "text-gray-600 → text-green-700; − hover:text-gray-900",
     "how": "landed",
-    "wroteMs": 141,
-    "landMs": 212
+    "wroteMs": 112,
+    "landMs": 166
    },
-   "status": "✓ text-gray-600 → text-green-700; − hover:text-gray-900 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=e163d3949c",
+   "status": "✓ text-gray-600 → text-green-700; − hover:text-gray-900 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=1715193195",
    "optimistic": {
     "kind": "recolour",
     "srcLoc": "src/components/Navbar.tsx:8:11",
-    "liftToPatchMs": 7.5
+    "liftToPatchMs": 4.400000000023283
    },
    "codeChanged": true,
-   "liftToVisibleMs": 28.2,
-   "liftToLandMs": 1128,
+   "liftToVisibleMs": 30.2,
+   "liftToLandMs": 1077,
    "finalColour": "rgba(0, 0, 0, 0)",
    "issues": [],
    "pass": true

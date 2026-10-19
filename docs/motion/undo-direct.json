@@ -2,7 +2,7 @@
  "summary": {
   "edits": 5,
   "landed": 5,
-  "editMs": 13890,
+  "editMs": 13787,
   "undos": 5,
   "undoPassed": 5,
   "sourceBack": true,
@@ -23,8 +23,8 @@
     "srcLoc": "src/components/StatCards.tsx:11:9",
     "change": "removed 'stats' entry 2",
     "how": "landed",
-    "wroteMs": 109,
-    "landMs": 167
+    "wroteMs": 119,
+    "landMs": 186
    },
    "landed": true
   },
@@ -41,8 +41,8 @@
     "srcLoc": "src/components/Navbar.tsx:8:11",
     "change": "removed <a> (child 2)",
     "how": "landed",
-    "wroteMs": 134,
-    "landMs": 173
+    "wroteMs": 115,
+    "landMs": 155
    },
    "landed": true
   },
@@ -59,8 +59,8 @@
     "srcLoc": "src/components/StatCards.tsx:10:9",
     "change": "removed 'stats' entry 1",
     "how": "landed",
-    "wroteMs": 100,
-    "landMs": 144
+    "wroteMs": 107,
+    "landMs": 152
    },
    "landed": true
   },
@@ -77,8 +77,8 @@
     "srcLoc": "src/components/UserTable.tsx:17:7",
     "change": "text-gray-900 → text-green-700",
     "how": "landed",
-    "wroteMs": 109,
-    "landMs": 169
+    "wroteMs": 118,
+    "landMs": 189
    },
    "landed": true
   },
@@ -95,8 +95,8 @@
     "srcLoc": "src/components/Navbar.tsx:8:11",
     "change": "text-gray-600 → text-green-700; − hover:text-gray-900",
     "how": "landed",
-    "wroteMs": 120,
-    "landMs": 161
+    "wroteMs": 113,
+    "landMs": 187
    },
    "landed": true
   }
@@ -107,13 +107,13 @@
    "kind": "recolour",
    "key": "A|Settings",
    "server": {
-    "at": 16131.599999999977,
+    "at": 15889.400000000023,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
-   "keyToVisibleMs": 3.7,
-   "keyToFirstDomChangeMs": 1,
+   "keyToVisibleMs": 3.5,
+   "keyToFirstDomChangeMs": 2,
    "colourSteps": 14,
    "issues": [],
    "pass": true
@@ -123,14 +123,14 @@
    "kind": "recolour",
    "key": "H2|Team members",
    "server": {
-    "at": 17147.599999999977,
+    "at": 16938.79999999999,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
-   "keyToVisibleMs": 14.5,
+   "keyToVisibleMs": 14,
    "keyToFirstDomChangeMs": 1,
-   "colourSteps": 15,
+   "colourSteps": 14,
    "issues": [],
    "pass": true
   },
@@ -139,13 +139,13 @@
    "kind": "erase",
    "key": "DIV|Revenue$48,210+12.4% vs ",
    "server": {
-    "at": 18179.899999999907,
+    "at": 18024.79999999999,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
-   "keyToVisibleMs": 12.9,
-   "keyToFirstDomChangeMs": 4,
+   "keyToVisibleMs": 13,
+   "keyToFirstDomChangeMs": 5,
    "fadeInFrames": 9,
    "issues": [],
    "pass": true
@@ -155,12 +155,12 @@
    "kind": "erase",
    "key": "A|Reports",
    "server": {
-    "at": 19227.5,
+    "at": 19116,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
-   "keyToVisibleMs": 10.4,
+   "keyToVisibleMs": 9.9,
    "keyToFirstDomChangeMs": 4,
    "fadeInFrames": 10,
    "issues": [],
@@ -171,12 +171,12 @@
    "kind": "erase",
    "key": "DIV|Active users3,904+3.1% v",
    "server": {
-    "at": 20277.5,
+    "at": 20172.29999999999,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
-   "keyToVisibleMs": 6.3,
+   "keyToVisibleMs": 5.1,
    "keyToFirstDomChangeMs": 4,
    "fadeInFrames": 9,
    "issues": [],

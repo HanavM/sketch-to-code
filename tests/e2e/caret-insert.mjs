@@ -113,6 +113,9 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } })
   const pageErrors = []
   page.on('pageerror', (e) => pageErrors.push(String(e)))
+  // goal n25: since n11 a plain caret+word lands by the direct (0-token) insert; tests/e2e/direct-insert.mjs covers that.
+  // This test is about the model path (the slot in the codegen brief, the honest/hollow verdict), so refuse the direct write.
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   const status = () => page.evaluate(() => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '').catch(() => '')
   const links = () => page.evaluate(() => [...document.querySelectorAll('nav a')]
     .map((a) => { const r = a.getBoundingClientRect(); return { t: a.textContent.trim(), x: r.x, w: r.width, y: r.y, h: r.height } }))
