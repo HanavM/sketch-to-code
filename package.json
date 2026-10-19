@@ -27,7 +27,8 @@
     "e2e:optimistic-queue": "node tests/e2e/optimistic-queue.mjs",
     "e2e:verify-preview": "node tests/e2e/verify-preview-scripted.mjs",
     "e2e:motion-erase": "node tests/e2e/motion-erase.mjs",
-    "e2e:motion-reorder": "node tests/e2e/motion-reorder.mjs"
+    "e2e:motion-reorder": "node tests/e2e/motion-reorder.mjs",
+    "e2e:motion-resize": "node tests/e2e/motion-resize.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

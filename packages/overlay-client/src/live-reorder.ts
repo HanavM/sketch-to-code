@@ -178,3 +178,66 @@ export function holdUntilLanded(
     const timer = setTimeout(() => finish('timeout'), timeoutMs)
   })
 }
+
+/**
+ * n6: hold a resize (or a move) until the code lands. The boxes that can be
+ * pushed around by one element changing size: the element, its siblings, and
+ * each ancestor's later siblings a few levels up (a taller card pushes the
+ * next section down). Keyed by identity: the codemods only rewrite classes,
+ * so the hot reload keeps these nodes.
+ */
+export function pushedBy(el: HTMLElement, levels = 4): HTMLElement[] {
+  const out = new Set<HTMLElement>([el])
+  let at: HTMLElement | null = el
+  for (let i = 0; at && at !== document.body && i < levels; i++) {
+    const parent: HTMLElement | null = at.parentElement
+    if (!parent) break
+    for (const k of parent.children) {
+      if (k instanceof HTMLElement && k.id !== 's2c-overlay-host') out.add(k)
+    }
+    at = parent
+  }
+  return [...out]
+}
+
+export type Boxes = Map<HTMLElement, Box>
+export function boxesOf(els: HTMLElement[]): Boxes {
+  return new Map(els.filter((e) => e.isConnected).map((e) => [e, rectOf(e)] as const))
+}
+
+const near = (a: number, b: number) => Math.abs(a - b) < 0.75
+
+/**
+ * From what was on screen (`before`) to the layout now, smoothly. If `focus`
+ * changed size, its size eases from the old one (the rest of the page rides
+ * along with the real layout, frame by frame); otherwise every box that ended
+ * up somewhere else glides there. Returns how many boxes differed.
+ */
+export function settleBoxes(before: Boxes, focus: HTMLElement, duration = GLIDE_MS): number {
+  let differed = 0
+  for (const [el, b] of before) {
+    if (!el.isConnected) continue
+    const a = rectOf(el)
+    if (!(near(a.x, b.x) && near(a.y, b.y) && near(a.w, b.w) && near(a.h, b.h))) differed++
+  }
+  if (differed === 0 || reducedMotion()) return differed
+  const fb = before.get(focus)
+  const fa = focus.isConnected ? rectOf(focus) : null
+  if (fb && fa && (!near(fa.w, fb.w) || !near(fa.h, fb.h)) && typeof focus.animate === 'function') {
+    const kf: Keyframe[] = [{}, {}]
+    if (!near(fa.w, fb.w)) { kf[0]!.width = `${fb.w}px`; kf[1]!.width = `${fa.w}px` }
+    if (!near(fa.h, fb.h)) { kf[0]!.height = `${fb.h}px`; kf[1]!.height = `${fa.h}px` }
+    focus.animate(kf, { duration, easing: EASE })
+    return differed
+  }
+  for (const [el, b] of before) {
+    if (!el.isConnected || typeof el.animate !== 'function') continue
+    const a = rectOf(el)
+    if (near(a.x, b.x) && near(a.y, b.y)) continue
+    el.animate(
+      [{ transform: `translate(${b.x - a.x}px, ${b.y - a.y}px)` }, { transform: 'none' }],
+      { duration, easing: EASE, composite: 'add' },
+    )
+  }
+  return differed
+}

@@ -13,7 +13,7 @@ import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
 import { applyMoving, EASE, GLIDE_MS, type Moving } from './motion.js'
-import { holdUntilLanded, LiveReorder, type HoldResult } from './live-reorder.js'
+import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -10067,8 +10067,14 @@ class Overlay {
       // rungs (b)/(c): server decides margin nudge vs cosmetic translate.
       // n5: an in-place move keeps its spot on screen until the code lands
       // (no snap back to where it started, then forward on hot reload)
-      const holdMove = !md.ghost
-      if (holdMove) t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+      // n6: a clipped element dragged as a ghost takes the ghost's spot too,
+      // so the drop never flashes back to the start before the code lands
+      const holdMove = true
+      if (!md.ghost) t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+      else {
+        const now = t.el.getBoundingClientRect()
+        t.el.style.transform = `${md.baseTransform}translate(${seenAt.left - now.left}px, ${seenAt.top - now.top}px)`
+      }
       await this.commitManipulation(
         {
           srcLoc: t.srcLoc, prop: 'move',
@@ -10097,17 +10103,31 @@ class Overlay {
       const hd = t.handleDrag
       t.handleDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
-      t.el.style.removeProperty('width')
-      t.el.style.removeProperty('height')
-      t.el.style.removeProperty('transform')
+      // n6: the size you dragged to stays on screen until the code lands;
+      // taking it off (cancel, failure, landing) eases instead of snapping
+      const el = t.el
+      const pushed = pushedBy(el)
+      const unsize = () => {
+        el.style.removeProperty('width')
+        el.style.removeProperty('height')
+        el.style.removeProperty('transform')
+        if (el.getAttribute('style') === '') el.removeAttribute('style')
+      }
+      const easeBack = () => {
+        const shown = boxesOf(pushed)
+        unsize()
+        settleBoxes(shown, el)
+      }
+      const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
+      const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
       if (aborted) {
+        easeBack()
         this.status('resize cancelled')
         this.redraw()
         return
       }
-      const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
-      const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
       if (w === undefined && h === undefined) {
+        easeBack()
         this.status('resize cancelled (no change)')
         this.redraw()
         return
@@ -10130,6 +10150,12 @@ class Overlay {
           ...this.instanceFields(t),
         },
         t, 'committing resize…',
+        {
+          root: el.parentElement ?? document.body,
+          capture: () => boxesOf(pushed),
+          release: (seen) => { unsize(); return settleBoxes(seen, el) },
+          fail: easeBack,
+        },
       )
       return
     }
