@@ -1427,7 +1427,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
               persistUndo()
               pipelineForSnapshot = m
               if (wasOwned) recordOwned() // an undone tree is the tool's doing too
-              return sendJson(res, 200, { ok: true, undid: entry.label, files })
+              return sendJson(res, 200, { ok: true, undid: entry.label, files, sha: entry.sha })
             }
             persistUndo()
             sendJson(res, 200, { ok: true, undid: null })

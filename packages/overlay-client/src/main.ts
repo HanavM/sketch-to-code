@@ -14,6 +14,7 @@ import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-s
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
 import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
+import { captureBefore, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -2385,6 +2386,12 @@ class Overlay {
    * manual keep the one-at-a-time flow, where a person decides each run.
    */
   private flight: Job | null = null
+  /** n9: the visual inverse of each direct edit that committed, newest last */
+  private visualUndo: Array<{ checkpoint: string; take: () => VisualEdit | null }> = []
+  /** n9: direct edits still committing (undo waits for them, so it undoes the right one) */
+  private commitsInFlight = new Set<Promise<void>>()
+  /** n9: server undos run one after another, however fast Ctrl+Z is pressed */
+  private undoChain: Promise<void> = Promise.resolve()
   private queue: Job[] = []
   private jobSeq = 0
   private pendingLayer!: HTMLDivElement
@@ -3441,14 +3448,42 @@ class Overlay {
       return
     }
     if (this.mode === 'running') return
-    void (async () => {
+    // n9: the page goes back first, right now; the server's revert follows.
+    // While a direct edit is still committing, the preview waits for it (the
+    // server's newest entry is that edit, not the one on top of this stack).
+    const pending = [...this.commitsInFlight]
+    const begin = (): { expect: string | null; played: Played | null; put: () => void } => {
+      const rec = this.visualUndo.pop()
+      if (!rec) return { expect: null, played: null, put: () => undefined }
+      const edit = rec.take()
+      const played = edit ? playInverse(edit) : null
+      return { expect: rec.checkpoint, played, put: () => this.visualUndo.push(rec) }
+    }
+    let early = pending.length === 0 ? begin() : null
+    if (early?.played) {
+      this.status('↩ undoing…')
+      ;(window as unknown as { __s2cUndo?: unknown[] }).__s2cUndo?.push({ at: performance.now(), preview: true })
+    }
+    this.undoChain = this.undoChain.then(async () => {
+      if (pending.length) await Promise.allSettled(pending)
+      const step = early ?? begin()
+      early = null
       try {
         const res = await fetch('/@s2c/undo', {
           method: 'POST',
           headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
           body: '{}',
         })
-        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string; refused?: boolean }
+        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string; refused?: boolean; sha?: string }
+        const exact = res.ok && body.ok && !!body.undid && !!step.expect && body.sha === step.expect
+        if (exact) step.played?.confirm()
+        else {
+          // shown something the code did not do: take it back, smoothly
+          step.played?.revert()
+          // still on the server's stack unless it was this one that went
+          if (step.expect && !(res.ok && body.ok && body.sha === step.expect)) step.put()
+        }
+        ;(window as unknown as { __s2cUndo?: unknown[] }).__s2cUndo?.push({ at: performance.now(), exact, undid: body.undid ?? null, previewed: !!step.played })
         // a refusal is a sentence for the user, not a failure: undo would have
         // thrown away a hand edit, so it changed nothing and says why (s2c-026)
         if (body.refused && body.error) { this.status(body.error, true); return }
@@ -3464,9 +3499,10 @@ class Overlay {
         if (this.propsOpen) await this.readProps()
         if (this.rules.length) this.scheduleRuleCheck()
       } catch (err) {
+        step.played?.revert()
         this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
       }
-    })()
+    })
   }
 
   /** "Do I have anything to run?" — strokes OR notes. A typed note is the
@@ -10267,7 +10303,20 @@ class Overlay {
       fail: () => void
     },
   ): Promise<void> {
+    const run = this.commitManipulationNow(body, t, note, hold)
+    this.commitsInFlight.add(run)
+    try { await run } finally { this.commitsInFlight.delete(run) }
+  }
+
+  private async commitManipulationNow<S>(
+    body: Record<string, unknown>,
+    t: TweakState,
+    note: string,
+    hold?: { root: Element; capture: () => S; release: (seen: S) => number; fail: () => void },
+  ): Promise<void> {
     this.status(note)
+    // n9: what this edit changes, so Ctrl+Z can show it undone at once
+    const take = captureBefore(body, t.el)
     try {
       const res = await fetch('/@s2c/manipulate', {
         method: 'POST',
@@ -10292,6 +10341,7 @@ class Overlay {
         throw new Error(out.error ?? `HTTP ${res.status}`)
       }
       const receipt = `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+      if (take && out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take })
       if (hold) {
         // n5: what you saw stays until the code's version is on the page
         const seen = hold.capture()
