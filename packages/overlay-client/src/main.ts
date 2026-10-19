@@ -12,7 +12,7 @@ import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
-import { applyMoving, EASE, GLIDE_MS, type Moving } from './motion.js'
+import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
@@ -113,6 +113,8 @@ type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied:
 type PendingPv = {
   key: string; preview: Preview; before: DomSnapshot; el: HTMLDivElement
   watch: MutationObserver | null; check: ReturnType<typeof setTimeout> | null
+  /** goal n7 (motion): the page's boxes at pen lift, so the code's addition can push its neighbours smoothly. */
+  flip: Flip | null; grown: boolean
 }
 /**
  * Goal loop n10: a drawing handed off to the code. It carries its own ink,
@@ -1311,7 +1313,7 @@ const STYLES = css`
   #pending .pg {
     position: absolute; box-sizing: border-box; border-radius: 6px;
     border: 2px dashed #f59e0b; background: #f59e0b1f;
-    animation: s2cPendingPulse 1.2s ease-in-out infinite alternate;
+    animation: s2cGhostIn 160ms cubic-bezier(0.2, 0, 0, 1) both, s2cPendingPulse 1.2s ease-in-out 160ms infinite alternate-reverse;
   }
   #pending .pg.from { border-color: #94a3b8; background: #94a3b81a; animation: none; }
   #pending .pgLabel {
@@ -1320,6 +1322,9 @@ const STYLES = css`
     padding: 1px 6px; border-radius: 4px;
   }
   @keyframes s2cPendingPulse { from { opacity: 0.55; } to { opacity: 1; } }
+  /* n7 (motion): an addition's ghost grows in at pen lift, already visible on its first frame */
+  @keyframes s2cGhostIn { from { opacity: 0.6; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { #pending .pg { animation: none; } }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
     border: 1.5px solid var(--s2c-line); vertical-align: -1px;
@@ -10572,7 +10577,11 @@ class Overlay {
     if (!preview) return
     const el = document.createElement('div')
     el.className = 'pv'
-    const pv: PendingPv = { key, preview, before: snap, el, watch: null, check: null }
+    const pv: PendingPv = {
+      key, preview, before: snap, el, watch: null, check: null, grown: false,
+      // an addition pushes what follows it: remember where everything stood
+      flip: preview.kind === 'move' ? null : flipFrom(document.body, this.motionSkip),
+    }
     this.pendingPreview = pv
     this.watchPreview(pv)
     this.pendingLayer.appendChild(el)
@@ -10623,6 +10632,7 @@ class Overlay {
     pv.watch?.disconnect()
     pv.watch = new MutationObserver((records) => {
       if (records.every((r) => r.target === this.host || this.host.contains(r.target))) return
+      this.growLanded(pv, records)
       if (pv.check) return
       // coalesce a hot reload's burst of mutations into one look, after layout
       pv.check = setTimeout(() => {
@@ -10641,6 +10651,31 @@ class Overlay {
       }, 60)
     })
     pv.watch.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['class', 'style'] })
+  }
+
+  /**
+   * goal n7 (motion): the code's addition grows in. This runs in the hot
+   * reload's own MutationObserver task, before it paints: the new element
+   * starts small and faint and grows into place, and everything it pushed
+   * glides from where it stood at pen lift instead of jumping. The ghost
+   * fades as the real thing takes its place. Only for the drawing being
+   * coded, and only for a burst that adds a few elements (a remount is not
+   * an addition).
+   */
+  private growLanded(pv: PendingPv, records: MutationRecord[]) {
+    if (pv.grown || !pv.flip) return
+    const coding = this.flight ? this.flight.pendingPreview === pv : this.mode === 'running' && this.pendingPreview === pv
+    if (!coding) return
+    const fresh = freshAdded(records, this.motionSkip)
+    if (fresh.length === 0 || fresh.length > 6) return
+    pv.grown = true
+    const glides = pv.flip.play()
+    pv.flip = null
+    for (const el of fresh) growIn(el)
+    pv.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: 'ease-out', fill: 'forwards' })
+    ;(window as unknown as { __s2cGrown?: unknown }).__s2cGrown = {
+      kind: pv.preview.kind, added: fresh.length, glided: glides.length, at: performance.now(),
+    }
   }
 
   /** Take the instant change off the page (the element is exactly as before). */

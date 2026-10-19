@@ -113,13 +113,18 @@ export interface Flip {
 /** Take the "First" measurement; call play() right after the layout change. */
 export function flipFrom(root: Element, skip: (el: Element) => boolean): Flip {
   const before = layoutBoxes(root, skip)
+  // page coordinates: a scroll between the two measurements is not a move
+  const sx0 = typeof scrollX === 'number' ? scrollX : 0
+  const sy0 = typeof scrollY === 'number' ? scrollY : 0
   return {
     play(duration = GLIDE_MS) {
       const after = new Map<Element, Box>()
+      const ddx = (typeof scrollX === 'number' ? scrollX : 0) - sx0
+      const ddy = (typeof scrollY === 'number' ? scrollY : 0) - sy0
       for (const el of before.keys()) {
         if (!el.isConnected) continue
         const r = el.getBoundingClientRect()
-        after.set(el, { x: r.left, y: r.top, w: r.width, h: r.height })
+        after.set(el, { x: r.left + ddx, y: r.top + ddy, w: r.width, h: r.height })
       }
       const anims: Animation[] = []
       const parentOf = (el: Element): Element | null => {
@@ -189,6 +194,7 @@ function freeze(anims: Animation[]): () => Animation[] {
 export function applyMoving(r: QuickReading<Patchable>, opts: MotionOpts): Moving {
   const instant = opts.instant ?? reducedMotion()
   const el = r.target.ref as unknown as HTMLElement
+  if (r.kind === 'recolour' && !instant && canMix()) return recolourMoving(r, el)
   if (r.kind !== 'hide' || instant || typeof el.animate !== 'function') {
     let a = applyPatch(r)
     return {
@@ -286,4 +292,153 @@ const PENDING = 'data-s2c-pending'
 function baseTransform(el: HTMLElement): string {
   const t = getComputedStyle(el).transform
   return t === 'none' ? '' : t
+}
+
+// ---- n7: recolour eases, additions grow in ------------------------------------
+
+export const RECOLOUR_MS = 160
+export const GROW_MS = 200
+/** How far toward the new colour the very first frame already is. */
+export const RECOLOUR_FIRST = 0.55
+
+/** p in [0,1] of the way from `from` to `to`, as one CSS colour. */
+export function mixColour(from: string, to: string, p: number): string {
+  if (p >= 1) return to
+  if (p <= 0) return from
+  return `color-mix(in srgb, ${to} ${(p * 100).toFixed(1)}%, ${from})`
+}
+
+/** Ease-out progress of a colour change at `t` ms: already RECOLOUR_FIRST at 0. */
+export function recolourProgress(t: number, duration = RECOLOUR_MS): number {
+  if (t >= duration) return 1
+  const u = Math.max(0, t) / duration
+  return RECOLOUR_FIRST + (1 - RECOLOUR_FIRST) * (1 - (1 - u) ** 3)
+}
+
+function canMix(): boolean {
+  try { return typeof CSS !== 'undefined' && CSS.supports('color', 'color-mix(in srgb, red 50%, blue)') } catch { return false }
+}
+
+/**
+ * A recolour that cross-fades instead of popping. The patch goes on at once
+ * (inline !important, pending mark) at a colour already most of the way
+ * there, then eases to the exact colour over a few frames. Animations can't
+ * beat an !important inline value, so the frames write the inline value
+ * themselves: one element, one property, cheap.
+ */
+function recolourMoving(r: Extract<QuickReading<Patchable>, { kind: 'recolour' }>, el: HTMLElement): Moving {
+  const prop = r.prop
+  const from = getComputedStyle(el).getPropertyValue(prop)
+  let a: Applied | null = applyPatch(r)
+  let raf = 0
+  let t0 = performance.now()
+  let undone = false
+  let settle: () => void = () => undefined
+  const settled = new Promise<void>((res) => { settle = res })
+  const paint = (p: number) => { el.style.setProperty(prop, mixColour(from, r.color, p), 'important') }
+  const tick = () => {
+    raf = 0
+    if (undone || !a) return
+    const p = recolourProgress(performance.now() - t0)
+    paint(p)
+    if (p < 1) raf = requestAnimationFrame(tick)
+    else settle()
+  }
+  paint(RECOLOUR_FIRST)
+  raf = requestAnimationFrame(tick)
+  const stop = () => { if (raf) cancelAnimationFrame(raf); raf = 0 }
+  const undo = () => {
+    if (undone) return
+    undone = true
+    stop()
+    a?.undo()
+    a = null
+    settle()
+  }
+  return {
+    kind: r.kind, srcLoc: r.target.srcLoc, undo, settled,
+    suspend() {
+      if (undone || !a) return () => undefined
+      const elapsed = performance.now() - t0
+      stop()
+      a.undo()
+      a = null
+      return () => {
+        if (undone) return
+        a = applyPatch(r)
+        t0 = performance.now() - elapsed
+        paint(recolourProgress(elapsed))
+        if (elapsed < RECOLOUR_MS) raf = requestAnimationFrame(tick)
+      }
+    },
+    undoSmooth() {
+      if (undone) return
+      if (!a || !el.isConnected) { undo(); return }
+      stop()
+      const shown = getComputedStyle(el).getPropertyValue(prop)
+      const patched = a
+      // what the page has without the patch: the old colour, or the code's
+      // new one if it landed (then this is a no-op ease from X to X)
+      patched.undo()
+      const target = getComputedStyle(el).getPropertyValue(prop)
+      if (target === shown) { a = null; undone = true; settle(); return }
+      a = applyPatch(r)
+      const back = performance.now()
+      const step = () => {
+        raf = 0
+        if (undone || !a) return
+        const p = recolourProgress(performance.now() - back)
+        if (p >= 1) { undo(); return }
+        el.style.setProperty(prop, mixColour(shown, target, p), 'important')
+        raf = requestAnimationFrame(step)
+      }
+      el.style.setProperty(prop, mixColour(shown, target, RECOLOUR_FIRST), 'important')
+      raf = requestAnimationFrame(step)
+    },
+  }
+}
+
+const textKey = (el: Element) => `${el.tagName}|${(el.textContent ?? '').replace(/\s+/g, ' ').trim()}`
+
+/**
+ * Elements a burst of DOM changes (a hot reload) really ADDED: outermost
+ * added elements that are on the page, have a box, and are not one that was
+ * removed in the same burst (a remount puts the same element back: that is
+ * not new and must not grow in).
+ */
+export function freshAdded(records: MutationRecord[], skip: (el: Element) => boolean): HTMLElement[] {
+  const added = new Set<HTMLElement>()
+  const gone = new Map<string, number>()
+  for (const rec of records) {
+    for (const n of rec.removedNodes) if (n.nodeType === 1) { const k = textKey(n as Element); gone.set(k, (gone.get(k) ?? 0) + 1) }
+    for (const n of rec.addedNodes) if (n.nodeType === 1) added.add(n as HTMLElement)
+  }
+  const out: HTMLElement[] = []
+  for (const el of added) {
+    if (!el.isConnected || skip(el)) continue
+    let nested = false
+    for (let p = el.parentElement; p; p = p.parentElement) if (added.has(p as HTMLElement)) { nested = true; break }
+    if (nested) continue
+    const k = textKey(el)
+    const g = gone.get(k) ?? 0
+    if (g > 0) { gone.set(k, g - 1); continue }
+    const r = el.getBoundingClientRect()
+    if (r.width === 0 && r.height === 0) continue
+    out.push(el)
+  }
+  return out
+}
+
+/** A new element grows into place: the first frame already shows it arriving. */
+export function growIn(el: HTMLElement, duration = GROW_MS): Animation | null {
+  if (typeof el.animate !== 'function' || reducedMotion()) return null
+  const base = baseTransform(el)
+  const o = getComputedStyle(el).opacity
+  return el.animate(
+    [
+      { opacity: String(Number(o) * 0.25), transform: `${base} scale(0.94)`.trim(), transformOrigin: 'center top' },
+      { opacity: o, transform: base || 'none', transformOrigin: 'center top' },
+    ],
+    { duration, easing: EASE },
+  )
 }

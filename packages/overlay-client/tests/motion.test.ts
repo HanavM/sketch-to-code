@@ -71,3 +71,20 @@ describe('contentKeys', () => {
     expect(contentKeys([el('DIV', ' A  b '), el('DIV', 'c'), el('DIV', 'A b')])).toEqual(['DIV|A b#0', 'DIV|c#0', 'DIV|A b#1'])
   })
 })
+
+describe('recolour ease (n7)', () => {
+  it('the first frame is already most of the way to the new colour, and it ends exact', async () => {
+    const { recolourProgress, RECOLOUR_FIRST, RECOLOUR_MS } = await import('../src/motion.js')
+    expect(recolourProgress(0)).toBe(RECOLOUR_FIRST)
+    expect(RECOLOUR_FIRST).toBeGreaterThanOrEqual(0.5)
+    let last = 0
+    for (let t = 0; t <= RECOLOUR_MS; t += 16) { const p = recolourProgress(t); expect(p).toBeGreaterThanOrEqual(last); last = p }
+    expect(recolourProgress(RECOLOUR_MS)).toBe(1)
+  })
+  it('mixes as one CSS colour and lands on the exact target', async () => {
+    const { mixColour } = await import('../src/motion.js')
+    expect(mixColour('rgb(0, 0, 0)', '#16a34a', 0.5)).toBe('color-mix(in srgb, #16a34a 50.0%, rgb(0, 0, 0))')
+    expect(mixColour('rgb(0, 0, 0)', '#16a34a', 1)).toBe('#16a34a')
+    expect(mixColour('rgb(0, 0, 0)', '#16a34a', 0)).toBe('rgb(0, 0, 0)')
+  })
+})
