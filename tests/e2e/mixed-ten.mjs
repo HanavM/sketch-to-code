@@ -22,10 +22,15 @@
  *   - the source is back to the start, and the page (settled and fresh) too
  *
  * Writes docs/motion/mixed-ten.json. Starts its own vite on :5269.
+ *
+ * S2C_RECORD=<dir> (n14): also records the whole run as video (with a visible
+ * pointer dot) and writes <dir>/mixed-ten.webm plus <dir>/marks.json, the
+ * video time of every gesture and undo; tests/e2e/motion-proof.mjs cuts one
+ * GIF per gesture from them.
  */
 import { chromium } from 'playwright'
 import { spawn, execSync } from 'node:child_process'
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync, renameSync } from 'node:fs'
 import { ensureDraw, assertInk } from './lib/pen.mjs'
 
 const PORT = 5269
@@ -37,6 +42,7 @@ const restore = () => execSync('git checkout -- examples/demo-app/src/', { cwd: 
 const GAP = Number(process.env.S2C_GAP_MS ?? 250)
 const UNDO_GAP = Number(process.env.S2C_UNDO_GAP_MS ?? 350)
 const GREEN = '#16a34a'
+const RECORD = process.env.S2C_RECORD ? new URL(process.env.S2C_RECORD.replace(/\/?$/, '/'), `file://${process.cwd()}/`).pathname : null
 
 const vite = spawn(`${ROOT}node_modules/.bin/vite`, ['--port', String(PORT), '--strictPort'], {
   cwd: `${ROOT}examples/demo-app`, env: { ...process.env, S2C_STUB_MODEL: '1' }, stdio: ['ignore', 'pipe', 'pipe'],
@@ -81,8 +87,25 @@ const KEYS = `
 
 const b = await chromium.launch(process.env.S2C_CHROMIUM ? { executablePath: process.env.S2C_CHROMIUM } : {})
 let report
+let ctx = null
+let vt0 = 0
 try {
-  const page = await b.newPage({ viewport: { width: 1280, height: 1000 } })
+  ctx = await b.newContext({ viewport: { width: 1280, height: 1000 }, ...(RECORD ? { recordVideo: { dir: `${RECORD}raw/`, size: { width: Number(process.env.S2C_RECORD_W ?? 800), height: Math.round(Number(process.env.S2C_RECORD_W ?? 800) * 0.78125) } } } : {}) })
+  const page = await ctx.newPage()
+  vt0 = Date.now()
+  if (RECORD) {
+    // headless video has no cursor: draw one (outside every measured selector)
+    await page.addInitScript(() => addEventListener('DOMContentLoaded', () => {
+      const d = document.createElement('div')
+      d.setAttribute('data-s2c-cursor', '')
+      d.style.cssText = 'position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:rgba(220,38,38,.55);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.4);pointer-events:none;z-index:2147483647;transition:transform .08s'
+      document.documentElement.appendChild(d)
+      const at = (e) => { d.style.left = e.clientX + 'px'; d.style.top = e.clientY + 'px' }
+      addEventListener('pointermove', at, true)
+      addEventListener('pointerdown', (e) => { at(e); d.style.transform = 'scale(.7)' }, true)
+      addEventListener('pointerup', () => { d.style.transform = '' }, true)
+    }))
+  }
   const errors = []
   page.on('pageerror', (e) => errors.push(String(e)))
   await page.addInitScript(() => { try { localStorage.setItem('s2c:auto', 'auto') } catch { /* default */ } })
@@ -266,7 +289,7 @@ try {
     const s0 = Date.now()
     await gesture()
     const rel = await page.evaluate((k) => k === 'drag' ? globalThis.__MV__.at(-1) : globalThis.__REL__.at(-1), kind)
-    marks.push({ name, kind, startMs: s0 - t0, releaseMs: Date.now() - t0, rel, status: await status() })
+    marks.push({ name, kind, startMs: s0 - t0, releaseMs: Date.now() - t0, rel, status: await status(), video: { start: s0 - vt0, release: Date.now() - vt0 } })
     await page.waitForTimeout(GAP)
   }
   const totalMs = Date.now() - t0
@@ -292,6 +315,14 @@ try {
   }
   const reloaded = await fresh()
 
+  // rAF cadence in a window: how many frames, the gaps between them, fps
+  const frameStats = (fr, a, z) => {
+    const at = fr.filter((f) => f.at >= a && f.at < z).map((f) => f.at)
+    const gaps = at.slice(1).map((t, i) => t - at[i]).sort((x, y) => x - y)
+    if (!gaps.length) return null
+    const q = (p) => +gaps[Math.min(gaps.length - 1, Math.floor(p * gaps.length))].toFixed(1)
+    return { frames: at.length, fps: +(1000 * gaps.length / (at.at(-1) - at[0])).toFixed(1), p50: q(0.5), p95: q(0.95), max: +gaps.at(-1).toFixed(1), over20: gaps.filter((g) => g > 20).length }
+  }
   const differs = (p, q) => Object.keys({ ...p, ...q }).some((k) => !p[k] || !q[k] || [0, 1, 2, 3, 4].some((j) => Math.abs(p[k][j] - q[k][j]) > 0.5) || p[k][5] !== q[k][5])
   // edit → visible: first frame after the release that differs from the frame before it
   const efr = settled.fr
@@ -299,7 +330,7 @@ try {
     const prev = [...efr].reverse().find((f) => f.at < m.rel)
     const win = efr.filter((f) => f.at >= m.rel && f.at < m.rel + 2000)
     const first = m.kind === 'add' ? win.find((f) => f.ghost != null && f.ghost > 0.3) : prev ? win.find((f) => differs(prev.boxes, f.boxes)) : null
-    return { name: m.name, visibleMs: first ? +(first.at - m.rel).toFixed(1) : null }
+    return { name: m.name, visibleMs: first ? +(first.at - m.rel).toFixed(1) : null, frames: frameStats(efr, m.rel, m.rel + 1000) }
   })
 
   // ---- undo all ten ---------------------------------------------------------
@@ -311,7 +342,9 @@ try {
   ` })
   await page.waitForTimeout(300)
   const u0 = Date.now()
+  const undoVideo = []
   for (let i = 0; i < EDITS.length; i++) {
+    undoVideo.push(Date.now() - vt0)
     await page.keyboard.press('Control+z')
     await page.waitForTimeout(UNDO_GAP)
   }
@@ -348,7 +381,7 @@ try {
         }
       }
     }
-    return { visibleMs: first ? +(first.at - at).toFixed(1) : null, jump }
+    return { visibleMs: first ? +(first.at - at).toFixed(1) : null, jump, frames: frameStats(ufr, at, Math.min(next, at + 1000)) }
   })
   const cmp = (a, bb) => {
     const off = []
@@ -393,8 +426,19 @@ try {
   log(`SUMMARY: ${EDITS.length} mixed edits in ${(totalMs / 1000).toFixed(1)} s, ${okCommits} drags + ${landed} pen edits in code${issues.length ? ` | ${issues.join(' | ')}` : ''}`)
   mkdirSync(OUT, { recursive: true })
   writeFileSync(`${OUT}mixed-ten.json`, JSON.stringify(report, null, 1))
+  if (RECORD) {
+    const video = page.video()
+    await ctx.close(); ctx = null
+    renameSync(await video.path(), `${RECORD}mixed-ten.webm`)
+    writeFileSync(`${RECORD}marks.json`, JSON.stringify({
+      edits: marks.map((m, i) => ({ name: m.name, kind: m.kind, startMs: m.video.start, releaseMs: m.video.release, visibleMs: editRows[i].visibleMs, frames: editRows[i].frames })),
+      undos: undoVideo.map((ms, i) => ({ ms, undid: undone.log.filter((x) => !x.preview)[i]?.undid ?? null, visibleMs: undoRows[i]?.visibleMs ?? null, frames: undoRows[i]?.frames ?? null })),
+    }, null, 1))
+    log(`video: ${RECORD}mixed-ten.webm`)
+  }
   if (issues.length) { log('FAILED'); process.exitCode = 1 } else log('ALL CHECKS PASSED')
 } finally {
+  if (ctx) await ctx.close().catch(() => {})
   await b.close()
   vite.kill()
   restore()
