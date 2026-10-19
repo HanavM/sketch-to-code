@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "Ten mixed edits in a row (drags, erases, recolours) now all land in the code in 14 s, and ten quick undos each show at once; next, drawn additions without the AI."
-lock: {by: run-2026-10-19T04:08Z, until: 2026-10-19T05:38:00Z}
+now: "Drawing a caret and typing a word now adds a new link straight into the code with no AI, and it grows in smoothly; next, making undo of an addition just as instant."
+lock: null
 asks: []
 handled: []
 notes:
@@ -24,9 +24,10 @@ notes:
   - "n9: undo-preview.ts records each committed manipulate edit's visual inverse (class swap eased by WAAPI; reorder by inline order, released when the children are back in order). /@s2c/undo now returns sha; a mismatching preview is reverted. tests/e2e/ten-in-a-row.mjs starts vite on :5267; aim at stable boxes (glides in flight make picks miss)."
   - "n12: undo-preview.ts captureErase keeps a ghost copy (stamps stripped, data-s2c-ghost) and matches it back by tag+text, not srcLoc (per-line stamps shift after a delete). tests/e2e/undo-direct.mjs starts vite on :5268. landDirect now joins commitsInFlight."
   - "n13: tests/e2e/mixed-ten.mjs starts vite on :5269. Leaving draw for tweak flushes a pending plain erase/recolour (flushAuto). __s2cLanded is an object after a manipulate commit, a list after drawings (pushLanded). motion-resize can flake under load right after other e2es; rerun alone."
+  - "n11: POST /@s2c/direct kind insert (insert-copy.ts) copies the slot neighbour (plain leaf, written once) with the typed note; landInsert (main.ts) waits for growLanded. Unkeyed rows reload by shifting text: Flip.playShifted glides by words. tests/e2e/direct-insert.mjs starts vite on :5270. caret-insert.mjs now takes the direct path too."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
-  - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: null}
+  - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: "partial: erase 12 ms, move/reorder 27 ms, resize 10 ms, recolour <50 ms, add ghost 12-21 ms (n4-n7, n11 direct-insert.mjs on try/n2-codemod-follow); not yet re-run on agent"}
   - {id: c2, text: "Smooth, not jumps: erase fades out and neighbours glide into the gap; move glides; add grows in. Measured at 60 fps on the demo app.", state: open, evidence: null}
   - {id: c3, text: "Canva-style direct manipulation: drag to move or reorder, drag edges to resize; page reflows live during the drag; code follows after release.", state: open, evidence: null}
   - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: open, evidence: "partial: shared-plane.mjs 22/22 drag edits (n8) + direct-erase-recolour.mjs 8/8 erase/recolour with no flash (n10, try/n2-codemod-follow); drawn additions still model-only"}
@@ -58,5 +59,7 @@ nodes:
      result: "5/5 erase and recolour undos show in 10-16 ms, fade or ease back, no jump or double; code restored. Commit 755cf25."}
   - {id: n13, parent: n2, kind: step, title: "Mixed ten-in-a-row: drags, resizes, erases and recolours interleaved under 20 s, all land in code, then undo all ten instantly and smoothly (e2e)", status: done,
      result: "10 mixed edits in 14 s all in code, 0 model calls; 10 undos visible 6-38 ms, smooth; 3/3 runs. Commit 7667862."}
-  - {id: n11, parent: n2, kind: step, title: "Drawn additions (link, button, text) land without the model when the drawing is plain: insert codemod from the pending preview", status: open, result: null}
+  - {id: n11, parent: n2, kind: step, title: "Drawn additions (link, button, text) land without the model when the drawing is plain: insert codemod from the pending preview", status: done,
+     result: "Caret plus a word: 3/3 nav additions in code ~0.1 s, no model; grows in, row glides. Commit 32d5be9."}
+  - {id: n15, parent: n2, kind: step, title: "Instant smooth undo for a direct addition (shrinks out, neighbours glide back), and a drawn addition inside mixed-ten", status: open, result: null}
   - {id: n14, parent: n1, kind: step, title: "Proof to watch: a short GIF per gesture (erase, add, move, recolour, resize, undo) plus one frame-timing report page from the e2e JSON", status: open, result: null}
