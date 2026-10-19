@@ -11,7 +11,10 @@ import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
-import { applyPatch, quickReading, type Applied, type Cand, type QuickReading } from './optimistic.js'
+import { bboxOfPoints, quickReading, type Cand, type QuickReading } from './optimistic.js'
+import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
+import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
+import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -106,11 +109,15 @@ interface PreviewData {
 type Mode = 'idle' | 'draw' | 'preview' | 'running' | 'tweak'
 
 /** Goal loop n1: an instant change on the page, ahead of the code. */
-type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied: Applied }
+type OptimisticRec = { key: string; reading: QuickReading<HTMLElement>; applied: Moving }
 /** Goal loop n7: a pending preview, in its own box inside #pending. */
 type PendingPv = {
   key: string; preview: Preview; before: DomSnapshot; el: HTMLDivElement
   watch: MutationObserver | null; check: ReturnType<typeof setTimeout> | null
+  /** goal n7 (motion): the page's boxes at pen lift, so the code's addition can push its neighbours smoothly. */
+  flip: Flip | null; grown: boolean
+  /** goal n15: the element the code's addition grew in as (for an instant undo). */
+  grewEl?: HTMLElement | null
 }
 /**
  * Goal loop n10: a drawing handed off to the code. It carries its own ink,
@@ -216,6 +223,12 @@ interface TweakState {
     fromIndex: number
     /** sibling slot the cursor is currently inside; -1 = none */
     proposedIndex: number
+    /** n5: the row reflows live to show the drop (flex/grid children only) */
+    live: LiveReorder | null
+    /** how far the element's own slot moved in that reflow (its transform subtracts it) */
+    slotShift: { x: number; y: number }
+    /** the element's own slot at drag start, PAGE coords (dropping back there = no reorder) */
+    ownSlot: { left: number; top: number; right: number; bottom: number } | null
     /** element's own CSS transform at drag start ('' if none) — preserved */
     baseTransform: string
     /** magnetic guides cached at drag start + the ones currently snapped to */
@@ -1303,7 +1316,7 @@ const STYLES = css`
   #pending .pg {
     position: absolute; box-sizing: border-box; border-radius: 6px;
     border: 2px dashed #f59e0b; background: #f59e0b1f;
-    animation: s2cPendingPulse 1.2s ease-in-out infinite alternate;
+    animation: s2cGhostIn 160ms cubic-bezier(0.2, 0, 0, 1) both, s2cPendingPulse 1.2s ease-in-out 160ms infinite alternate-reverse;
   }
   #pending .pg.from { border-color: #94a3b8; background: #94a3b81a; animation: none; }
   #pending .pgLabel {
@@ -1312,6 +1325,9 @@ const STYLES = css`
     padding: 1px 6px; border-radius: 4px;
   }
   @keyframes s2cPendingPulse { from { opacity: 0.55; } to { opacity: 1; } }
+  /* n7 (motion): an addition's ghost grows in at pen lift, already visible on its first frame */
+  @keyframes s2cGhostIn { from { opacity: 0.6; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { #pending .pg { animation: none; } }
   #penDot {
     display: inline-block; width: 12px; height: 12px; border-radius: 999px;
     border: 1.5px solid var(--s2c-line); vertical-align: -1px;
@@ -2114,6 +2130,19 @@ const STYLES = css`
   #help .hFoot { color: var(--s2c-faint); margin-top: 12px; border-top: 1px solid var(--s2c-fill); padding-top: 8px; }
 `
 
+
+/**
+ * Test hook: the drawings that landed, in order. A direct-manipulation commit
+ * puts a single record in the same slot (motion-* e2e wait on it), so start a
+ * fresh list rather than push onto that object — a throw here would leave the
+ * flight stuck and every later drawing queued behind it (n13).
+ */
+function pushLanded(rec: unknown) {
+  const w = window as unknown as { __s2cLanded?: unknown }
+  if (!Array.isArray(w.__s2cLanded)) w.__s2cLanded = []
+  ;(w.__s2cLanded as unknown[]).push(rec)
+}
+
 class Overlay {
   private host: HTMLElement
   private shadow: ShadowRoot
@@ -2353,6 +2382,8 @@ class Overlay {
    * from; any edit to the drawing re-reads it.
    */
   private optimistic: OptimisticRec | null = null
+  /** The overlay's own nodes never glide with the page (motion.ts). */
+  private readonly motionSkip = (el: Element): boolean => el.id === HOST_ID || el === this.host || this.host.contains(el)
   /** A drawing whose instant change was taken back (the run failed or stopped). */
   private optimisticBlocked: string | null = null
   /** event.timeStamp of the last pen lift, for the lift-to-visible timing. */
@@ -2370,6 +2401,12 @@ class Overlay {
    * manual keep the one-at-a-time flow, where a person decides each run.
    */
   private flight: Job | null = null
+  /** n9: the visual inverse of each direct edit that committed, newest last */
+  private visualUndo: Array<{ checkpoint: string; take: () => VisualEdit | null }> = []
+  /** n9: direct edits still committing (undo waits for them, so it undoes the right one) */
+  private commitsInFlight = new Set<Promise<void>>()
+  /** n9: server undos run one after another, however fast Ctrl+Z is pressed */
+  private undoChain: Promise<void> = Promise.resolve()
   private queue: Job[] = []
   private jobSeq = 0
   private pendingLayer!: HTMLDivElement
@@ -3376,6 +3413,11 @@ class Overlay {
       btn.classList.remove('primary')
       this.exitTweak('tweak off')
     } else {
+      // n13: picking up the tweak tool means the drawing is done. A plain
+      // erase or recolour already showing on the page is handed to the code
+      // now, instead of its countdown dying with draw mode (it would stay on
+      // the page, never written, and the next stroke would join it)
+      this.flushAuto()
       btn.classList.add('primary')
       this.setMode('tweak')
       this.tweakImplicit = false
@@ -3426,14 +3468,42 @@ class Overlay {
       return
     }
     if (this.mode === 'running') return
-    void (async () => {
+    // n9: the page goes back first, right now; the server's revert follows.
+    // While a direct edit is still committing, the preview waits for it (the
+    // server's newest entry is that edit, not the one on top of this stack).
+    const pending = [...this.commitsInFlight]
+    const begin = (): { expect: string | null; played: Played | null; put: () => void } => {
+      const rec = this.visualUndo.pop()
+      if (!rec) return { expect: null, played: null, put: () => undefined }
+      const edit = rec.take()
+      const played = edit ? playInverse(edit) : null
+      return { expect: rec.checkpoint, played, put: () => this.visualUndo.push(rec) }
+    }
+    let early = pending.length === 0 ? begin() : null
+    if (early?.played) {
+      this.status('↩ undoing…')
+      ;(window as unknown as { __s2cUndo?: unknown[] }).__s2cUndo?.push({ at: performance.now(), preview: true })
+    }
+    this.undoChain = this.undoChain.then(async () => {
+      if (pending.length) await Promise.allSettled(pending)
+      const step = early ?? begin()
+      early = null
       try {
         const res = await fetch('/@s2c/undo', {
           method: 'POST',
           headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
           body: '{}',
         })
-        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string; refused?: boolean }
+        const body = (await res.json()) as { ok: boolean; undid?: string | null; files?: string[]; error?: string; refused?: boolean; sha?: string }
+        const exact = res.ok && body.ok && !!body.undid && !!step.expect && body.sha === step.expect
+        if (exact) step.played?.confirm()
+        else {
+          // shown something the code did not do: take it back, smoothly
+          step.played?.revert()
+          // still on the server's stack unless it was this one that went
+          if (step.expect && !(res.ok && body.ok && body.sha === step.expect)) step.put()
+        }
+        ;(window as unknown as { __s2cUndo?: unknown[] }).__s2cUndo?.push({ at: performance.now(), exact, undid: body.undid ?? null, previewed: !!step.played })
         // a refusal is a sentence for the user, not a failure: undo would have
         // thrown away a hand edit, so it changed nothing and says why (s2c-026)
         if (body.refused && body.error) { this.status(body.error, true); return }
@@ -3449,9 +3519,10 @@ class Overlay {
         if (this.propsOpen) await this.readProps()
         if (this.rules.length) this.scheduleRuleCheck()
       } catch (err) {
+        step.played?.revert()
         this.status(`undo failed: ${err instanceof Error ? err.message : String(err)}`, true)
       }
-    })()
+    })
   }
 
   /** "Do I have anything to run?" — strokes OR notes. A typed note is the
@@ -7655,12 +7726,17 @@ class Overlay {
     // rather than at pointerup: one slow deliberate stroke takes longer than
     // the settle period, and a run firing mid-line would read the drawing
     // half-made.
-    this.cancelAuto()
+    const p = this.toPage(e)
+    // n16: a plain change already showing (an erase, a recolour, a caret with
+    // its word) and a press somewhere else: that drawing is done, so it goes
+    // to the code now, and this stroke starts a new one. Otherwise the two
+    // would join, and the pair is no longer plain (the model gets asked, and
+    // the edit you already saw waits on it)
+    if (!this.handOffElsewhere(p)) this.cancelAuto()
     this.canvas.setPointerCapture(e.pointerId)
     // a press that never travels is a click, and a click means "pick that up"
     // rather than "draw a dot" — see onUp
     this.pressAt = { x: e.clientX, y: e.clientY, t: performance.now() }
-    const p = this.toPage(e)
     // a trackpad hop: lands right back where the last gesture-sized stroke
     // ended, right after it ended — resume it instead of starting a new one
     if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) {
@@ -8645,7 +8721,10 @@ class Overlay {
   private clearTweakPreview() {
     const t = this.tweak
     if (!t) return
-    if (t.moveDrag) this.endMoveVisuals(t) // Esc mid-drag: don't leak the ghost
+    if (t.moveDrag) {
+      t.moveDrag.live?.restore() // n5: the live reflow goes back too
+      this.endMoveVisuals(t) // Esc mid-drag: don't leak the ghost
+    }
     for (const p of [
       'gap', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
       'transform', 'width', 'height', 'will-change',
@@ -8664,7 +8743,7 @@ class Overlay {
     const csx = window.scrollX - md.scrollStartX
     const csy = window.scrollY - md.scrollStartY
     if (md.ghost) md.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
-    else t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+    else t.el.style.transform = `${md.baseTransform}translate(${md.dx - md.slotShift.x}px, ${md.dy - md.slotShift.y}px)`
     for (const g of md.group) {
       if (g.ghost) g.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
       else g.el.style.transform = `${g.baseTransform}translate(${md.dx}px, ${md.dy}px)`
@@ -9248,6 +9327,12 @@ class Overlay {
     return false
   }
 
+  /** The other instances a resize of this shared template also sizes (scope 'all'). */
+  private sizeTwins(t: TweakState): HTMLElement[] {
+    if (t.scope !== 'all' || t.instanceEls.length < 2) return []
+    return t.instanceEls.filter((x) => x !== t.el && x.isConnected)
+  }
+
   /** Instance fields for move/resize commit bodies (shared-template scope). */
   private instanceFields(t: TweakState): Record<string, unknown> {
     if (t.instanceEls.length <= 1) return {}
@@ -9524,6 +9609,11 @@ class Overlay {
       parentSrcLoc,
       fromIndex,
       proposedIndex: -1,
+      live: parentSrcLoc && fromIndex >= 0 && group.length === 0 ? new LiveReorder(t.el) : null,
+      slotShift: { x: 0, y: 0 },
+      ownSlot: parentSrcLoc && fromIndex >= 0
+        ? { left: r.left + window.scrollX, top: r.top + window.scrollY, right: r.right + window.scrollX, bottom: r.bottom + window.scrollY }
+        : null,
       baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
       guides,
       activeGuides: [],
@@ -9815,7 +9905,6 @@ class Overlay {
       }
       md.dx = dx
       md.dy = dy
-      this.applyMovePreview(t, md)
       // slot detent: cursor inside another sibling's (cached, page-space)
       // rect. Group moves never reorder — the set translates as one body.
       md.proposedIndex = -1
@@ -9826,7 +9915,18 @@ class Overlay {
             break
           }
         }
+        const o = md.ownSlot
+        if (md.proposedIndex < 0 && o && pageX >= o.left && pageX <= o.right && pageY >= o.top && pageY <= o.bottom) {
+          md.proposedIndex = md.fromIndex
+        }
       }
+      // n5: the row shows the drop live — siblings glide aside to open the
+      // slot; outside every slot it is the row as the code has it
+      if (md.live && Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
+        const sh = md.live.set(md.proposedIndex >= 0 ? md.proposedIndex : md.fromIndex)
+        md.slotShift = { x: md.slotShift.x + sh.dx, y: md.slotShift.y + sh.dy }
+      }
+      this.applyMovePreview(t, md)
       if (Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
         const snap = md.snappedX || md.snappedY ? ' · ⌖ snapped' : ''
         this.status(
@@ -9884,14 +9984,20 @@ class Overlay {
       // West/north drags also shift the element so the dragged edge follows
       // the cursor and the OPPOSITE edge stays pixel-fixed — in flow, a
       // width change alone would grow rightward/downward from the anchor.
-      if (hd.w !== null) t.el.style.width = `${hd.w}px`
-      if (hd.h !== null) t.el.style.height = `${hd.h}px`
+      // n8: a shared template (.map()) resizes as one: the code's class lands
+      // on every instance, so every linked instance shows the size live too
+      // (otherwise the row keeps its old height and jumps when the code lands)
       const compX = isWest && hd.w !== null ? hd.startRect.width - hd.w : 0
       const compY = isNorth && hd.h !== null ? hd.startRect.height - hd.h : 0
-      if (compX !== 0 || compY !== 0) {
-        t.el.style.transform = `${hd.baseTransform}translate(${compX}px, ${compY}px)`
-      } else {
-        t.el.style.removeProperty('transform')
+      for (const sized of [t.el, ...this.sizeTwins(t)]) {
+        if (hd.w !== null) sized.style.width = `${hd.w}px`
+        if (hd.h !== null) sized.style.height = `${hd.h}px`
+        if (sized !== t.el) continue
+        if (compX !== 0 || compY !== 0) {
+          sized.style.transform = `${hd.baseTransform}translate(${compX}px, ${compY}px)`
+        } else {
+          sized.style.removeProperty('transform')
+        }
       }
       const snap = hd.snappedW || hd.snappedH ? ' · ⌖ snapped' : ''
       this.status(
@@ -9992,9 +10098,13 @@ class Overlay {
     const aborted = e.type === 'pointercancel'
     if (t?.moveDrag) {
       const md = t.moveDrag
+      // n5: where the element is on screen right now (ghost or lifted original)
+      const seenAt = (md.ghost ?? t.el).getBoundingClientRect()
       this.endMoveVisuals(t) // ghost/dim/lift teardown before any commit
       t.moveDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
+      const reorder = md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && !!md.parentSrcLoc && md.fromIndex >= 0
+      if (!reorder) md.live?.restore()
       if (aborted) {
         this.status('move cancelled')
         this.redraw()
@@ -10014,15 +10124,35 @@ class Overlay {
         await this.commitGroupMove(t, md)
         return
       }
-      if (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && md.parentSrcLoc && md.fromIndex >= 0) {
-        // ladder rung (a): dropped on a sibling's slot → structural reorder
+      if (reorder && md.parentSrcLoc) {
+        // ladder rung (a): dropped on a sibling's slot → structural reorder.
+        // n5: the element glides from under the pointer into its open slot,
+        // and the row stays as shown until the code's own version shows up
+        this.glideIn(t.el, seenAt)
+        const live = md.live
         await this.commitManipulation(
           { srcLoc: md.parentSrcLoc, prop: 'reorder', from: md.fromIndex, to: md.proposedIndex },
           t, 'committing reorder…',
+          live ? {
+            root: live.parent,
+            capture: () => live.seen(),
+            release: (seen) => live.settle(seen),
+            fail: () => live.restore(),
+          } : undefined,
         )
         return
       }
-      // rungs (b)/(c): server decides margin nudge vs cosmetic translate
+      // rungs (b)/(c): server decides margin nudge vs cosmetic translate.
+      // n5: an in-place move keeps its spot on screen until the code lands
+      // (no snap back to where it started, then forward on hot reload)
+      // n6: a clipped element dragged as a ghost takes the ghost's spot too,
+      // so the drop never flashes back to the start before the code lands
+      const holdMove = true
+      if (!md.ghost) t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+      else {
+        const now = t.el.getBoundingClientRect()
+        t.el.style.transform = `${md.baseTransform}translate(${seenAt.left - now.left}px, ${seenAt.top - now.top}px)`
+      }
       await this.commitManipulation(
         {
           srcLoc: t.srcLoc, prop: 'move',
@@ -10031,6 +10161,19 @@ class Overlay {
           ...this.instanceFields(t),
         },
         t, 'committing move…',
+        holdMove ? {
+          root: t.el.parentElement ?? document.body,
+          capture: () => t.el.getBoundingClientRect(),
+          release: (seen) => {
+            this.clearTweakPreview()
+            return this.glideIn(t.el, seen) ? 1 : 0
+          },
+          fail: () => {
+            const at = t.el.getBoundingClientRect()
+            this.clearTweakPreview()
+            this.glideIn(t.el, at)
+          },
+        } : undefined,
       )
       return
     }
@@ -10038,17 +10181,34 @@ class Overlay {
       const hd = t.handleDrag
       t.handleDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
-      t.el.style.removeProperty('width')
-      t.el.style.removeProperty('height')
-      t.el.style.removeProperty('transform')
+      // n6: the size you dragged to stays on screen until the code lands;
+      // taking it off (cancel, failure, landing) eases instead of snapping
+      const el = t.el
+      const twins = this.sizeTwins(t)
+      const pushed = [...new Set([...pushedBy(el), ...twins.flatMap((x) => pushedBy(x))])]
+      const unsize = () => {
+        for (const sized of [el, ...twins]) {
+          sized.style.removeProperty('width')
+          sized.style.removeProperty('height')
+          if (sized === el) sized.style.removeProperty('transform')
+          if (sized.getAttribute('style') === '') sized.removeAttribute('style')
+        }
+      }
+      const easeBack = () => {
+        const shown = boxesOf(pushed)
+        unsize()
+        settleBoxes(shown, el)
+      }
+      const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
+      const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
       if (aborted) {
+        easeBack()
         this.status('resize cancelled')
         this.redraw()
         return
       }
-      const w = hd.w !== null && Math.abs(hd.w - hd.startRect.width) >= 2 ? hd.w : undefined
-      const h = hd.h !== null && Math.abs(hd.h - hd.startRect.height) >= 2 ? hd.h : undefined
       if (w === undefined && h === undefined) {
+        easeBack()
         this.status('resize cancelled (no change)')
         this.redraw()
         return
@@ -10071,6 +10231,12 @@ class Overlay {
           ...this.instanceFields(t),
         },
         t, 'committing resize…',
+        {
+          root: el.parentElement ?? document.body,
+          capture: () => boxesOf(pushed),
+          release: (seen) => { unsize(); return settleBoxes(seen, el) },
+          fail: easeBack,
+        },
       )
       return
     }
@@ -10133,12 +10299,49 @@ class Overlay {
    * calls; the receipt names exactly what was written + the revert SHA. After
    * HMR settles (~500ms) the selection is re-resolved and rebuilt.
    */
-  private async commitManipulation(
+  /**
+   * FLIP one element from where it was seen to where the layout has it now.
+   * Additive, so it composes with any transform it already has. Returns
+   * whether there was anything to glide.
+   */
+  private glideIn(el: HTMLElement, from: { left: number; top: number }): boolean {
+    const now = el.getBoundingClientRect()
+    const dx = from.left - now.left, dy = from.top - now.top
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return false
+    if (typeof el.animate !== 'function') return false
+    el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: GLIDE_MS, easing: EASE, composite: 'add' })
+    return true
+  }
+
+  private async commitManipulation<S>(
     body: Record<string, unknown>,
     t: TweakState,
     note: string,
+    hold?: {
+      /** where the hot reload will show up */
+      root: Element
+      /** what is on screen when the code is written */
+      capture: () => S
+      /** take the visual edit off, in the hot reload's own task; count of boxes that still glided */
+      release: (seen: S) => number
+      /** the code did not take it: put the page back */
+      fail: () => void
+    },
+  ): Promise<void> {
+    const run = this.commitManipulationNow(body, t, note, hold)
+    this.commitsInFlight.add(run)
+    try { await run } finally { this.commitsInFlight.delete(run) }
+  }
+
+  private async commitManipulationNow<S>(
+    body: Record<string, unknown>,
+    t: TweakState,
+    note: string,
+    hold?: { root: Element; capture: () => S; release: (seen: S) => number; fail: () => void },
   ): Promise<void> {
     this.status(note)
+    // n9: what this edit changes, so Ctrl+Z can show it undone at once
+    const take = captureBefore(body, t.el)
     try {
       const res = await fetch('/@s2c/manipulate', {
         method: 'POST',
@@ -10162,12 +10365,23 @@ class Overlay {
         }
         throw new Error(out.error ?? `HTTP ${res.status}`)
       }
-      this.clearTweakPreview()
-      this.status(
-        `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`,
-      )
+      const receipt = `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+      if (take && out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take })
+      if (hold) {
+        // n5: what you saw stays until the code's version is on the page
+        const seen = hold.capture()
+        this.status(receipt)
+        const res: HoldResult = await holdUntilLanded(hold.root, () => hold.release(seen))
+        ;(window as unknown as { __s2cLanded?: unknown }).__s2cLanded = { prop: body.prop, ...res }
+        if (res.how === 'timeout') console.debug('[s2c] hot reload not seen in time; released the held edit anyway')
+        if (res.glided > 0) this.status(`${receipt} · the code placed ${String(res.glided)} box${res.glided === 1 ? '' : 'es'} differently — glided to it`)
+      } else {
+        this.clearTweakPreview()
+        this.status(receipt)
+      }
       this.reselectAfterCommit(t)
     } catch (err) {
+      if (hold) hold.fail()
       this.clearTweakPreview()
       this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
       this.redraw()
@@ -10437,7 +10651,7 @@ class Overlay {
       this.showPreview(key)
       return
     }
-    const applied = applyPatch(reading)
+    const applied = applyMoving(reading, { skip: this.motionSkip })
     this.optimistic = { key, reading, applied }
     const ms = this.liftAt ? performance.now() - this.liftAt : null
     ;(window as unknown as { __s2cOptimistic?: unknown }).__s2cOptimistic = {
@@ -10453,7 +10667,11 @@ class Overlay {
     if (!preview) return
     const el = document.createElement('div')
     el.className = 'pv'
-    const pv: PendingPv = { key, preview, before: snap, el, watch: null, check: null }
+    const pv: PendingPv = {
+      key, preview, before: snap, el, watch: null, check: null, grown: false,
+      // an addition pushes what follows it: remember where everything stood
+      flip: preview.kind === 'move' ? null : flipFrom(document.body, this.motionSkip),
+    }
     this.pendingPreview = pv
     this.watchPreview(pv)
     this.pendingLayer.appendChild(el)
@@ -10504,6 +10722,7 @@ class Overlay {
     pv.watch?.disconnect()
     pv.watch = new MutationObserver((records) => {
       if (records.every((r) => r.target === this.host || this.host.contains(r.target))) return
+      this.growLanded(pv, records)
       if (pv.check) return
       // coalesce a hot reload's burst of mutations into one look, after layout
       pv.check = setTimeout(() => {
@@ -10524,12 +10743,45 @@ class Overlay {
     pv.watch.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['class', 'style'] })
   }
 
+  /**
+   * goal n7 (motion): the code's addition grows in. This runs in the hot
+   * reload's own MutationObserver task, before it paints: the new element
+   * starts small and faint and grows into place, and everything it pushed
+   * glides from where it stood at pen lift instead of jumping. The ghost
+   * fades as the real thing takes its place. Only for the drawing being
+   * coded, and only for a burst that adds a few elements (a remount is not
+   * an addition).
+   */
+  private growLanded(pv: PendingPv, records: MutationRecord[]) {
+    if (pv.grown || !pv.flip) return
+    const coding = this.flight ? this.flight.pendingPreview === pv : this.mode === 'running' && this.pendingPreview === pv
+    if (!coding) return
+    const fresh = freshAdded(records, this.motionSkip)
+    if (fresh.length === 0 || fresh.length > 6) return
+    pv.grown = true
+    // n11: an unkeyed row adds by rewriting its later items in place; glide
+    // them by their words and grow the item whose words are new
+    const shifted = pv.preview.kind === 'insert' ? pv.flip.playShifted(fresh) : null
+    const glides = shifted ? shifted.anims : pv.flip.play()
+    pv.flip = null
+    const grew = shifted ? shifted.grow : fresh
+    for (const el of grew) growIn(el)
+    pv.grewEl = grew.length === 1 ? grew[0]! : null
+    pv.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: 'ease-out', fill: 'forwards' })
+    ;(window as unknown as { __s2cGrown?: unknown }).__s2cGrown = {
+      kind: pv.preview.kind, added: fresh.length, glided: glides.length, at: performance.now(),
+    }
+  }
+
   /** Take the instant change off the page (the element is exactly as before). */
-  private dropOptimistic(block = false) {
+  private dropOptimistic(block = false, smooth = block) {
     if (block) this.optimisticBlocked = this.optimistic?.key ?? this.optimisticKey()
     this.dropPreview()
     if (!this.optimistic) return
-    this.optimistic.applied.undo()
+    // a change taken back (failure, the code did otherwise) glides back in;
+    // one replaced by the next reading of the same drawing swaps at once
+    if (smooth) this.optimistic.applied.undoSmooth()
+    else this.optimistic.applied.undo()
     this.optimistic = null
   }
 
@@ -10557,13 +10809,16 @@ class Overlay {
     const s = this.optimistic
     if (s) held.push({ o: s, owned: () => this.optimistic === s, drop: () => { if (this.optimistic === s) this.optimistic = null } })
     if (held.length === 0) return () => undefined
-    for (let i = held.length - 1; i >= 0; i--) held[i]!.o.applied.undo()
+    // suspend, not undo: each change comes off exactly and goes back on at the
+    // same point of its motion (synchronous, so nothing paints in between)
+    const resume: Array<() => void> = []
+    for (let i = held.length - 1; i >= 0; i--) resume[i] = held[i]!.o.applied.suspend()
     return () => {
-      for (const h of held) {
-        if (!h.owned()) continue
-        if (h.o.reading.target.ref.isConnected) h.o.applied = applyPatch(h.o.reading)
-        else h.drop()
-      }
+      held.forEach((h, i) => {
+        if (!h.owned()) return
+        if (h.o.reading.target.ref.isConnected) resume[i]!()
+        else { h.o.applied.undo(); h.drop() }
+      })
     }
   }
 
@@ -10597,7 +10852,7 @@ class Overlay {
 
   /** Take a drawing's instant change and preview off the page. */
   private rollbackJob(job: Job) {
-    job.optimistic?.applied.undo()
+    job.optimistic?.applied.undoSmooth()
     job.optimistic = null
     this.dropPv(job.pendingPreview)
     job.pendingPreview = null
@@ -10643,6 +10898,17 @@ class Overlay {
     if (!job) return
     this.autoBusy = true
     try {
+      // goal n10: a plain erase or recolour goes straight into the code;
+      // n11: so does a caret plus one typed word (a copy of its neighbour)
+      const direct = (await this.landInsert(job)) ?? await this.landDirect(job.optimistic, job.notes.length > 0)
+      if (direct) {
+        if (this.flight !== job) return
+        job.optimistic = null // handed over: it comes off when the code lands
+        pushLanded({ job: job.id, ok: true, direct: true, at: performance.now() })
+        this.endFlight()
+        this.status(direct)
+        return
+      }
       await this.run(true)
       if (this.flight !== job) return
       if (!job.read) {
@@ -10887,6 +11153,9 @@ class Overlay {
     // a ring with no words and no pen colour says "change this" and not how:
     // ask, for free, rather than pay the model to guess
     if (this.askBareRing()) return 'asked'
+    // goal n10: a plain erase or recolour the page already shows goes straight
+    // into the code, no reading; anything the engines refuse reads as before
+    if (await this.landDirectSurface()) return
     // start the instant render and the reading together: neither waits on the
     // other, and the drawing is usually on the page before the reading lands
     // park BEFORE the instant render can write anything: its reload may land
@@ -10925,6 +11194,152 @@ class Overlay {
       if (this.readingId === readingId) this.dropReading()
       this.readingFailed(err)
     }
+  }
+
+  /**
+   * goal n10: the drawing plainly asked to erase or recolour one element, and
+   * the page already shows it (`o`, its instant change). Write that same
+   * change into the code with the deterministic engines (POST /@s2c/direct):
+   * no reading, no tokens, about a second. On success the caller hands `o`
+   * over: it stays on the page until the code's version shows up, then comes
+   * off in the hot reload's own task, so nothing flashes. Null (and nothing
+   * written) when there is no such change or the engines refuse.
+   */
+  private async landDirect(o: OptimisticRec | null, hasNotes: boolean): Promise<string | null> {
+    if (!o || hasNotes || this.runMode === 'design' || this.runMode === 'screenshot') return null
+    const r = o.reading
+    const el = r.target.ref
+    const srcLoc = r.target.srcLoc
+    if (!srcLoc || !el.isConnected) return null
+    const instanceIndex = [...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)].indexOf(el)
+    if (instanceIndex < 0) return null
+    const what = r.kind === 'hide'
+      ? { kind: 'delete' as const }
+      : { kind: 'recolor' as const, color: r.color, prop: r.prop === 'color' ? 'color' : 'backgroundColor' }
+    // n12: what this edit changes, so Ctrl+Z can show it undone at once. An
+    // erase keeps a copy of the element as the code has it (the fade lifted
+    // for this one synchronous read; nothing paints in between)
+    let take: (() => VisualEdit | null) | null = null
+    if (what.kind === 'delete') {
+      const resume = o.applied.suspend()
+      try { take = captureErase(srcLoc, el) } finally { resume() }
+    } else {
+      take = captureBefore({ srcLoc }, el)
+    }
+    const t0 = performance.now()
+    let out: { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+    let settle: () => void = () => undefined
+    const inFlight = new Promise<void>((res) => { settle = res })
+    this.commitsInFlight.add(inFlight)
+    try {
+      const res = await fetch('/@s2c/direct', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ ...what, srcLoc, instanceIndex, snapshot: this.snapshot() }),
+      })
+      out = (await res.json()) as typeof out
+      if (!res.ok || !out.ok) {
+        console.debug(`[s2c] direct ${what.kind} refused, reading instead: ${out.error ?? `HTTP ${String(res.status)}`}`)
+        return null
+      }
+    } catch {
+      return null
+    } finally {
+      this.commitsInFlight.delete(inFlight)
+      settle()
+    }
+    if (take && out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take })
+    const wroteMs = Math.round(performance.now() - t0)
+    void holdUntilLanded(document.body, () => {
+      // exact, not smooth: the code now shows what the instant change showed
+      o.applied.undo()
+      return 0
+    }, 4000).then((hold) => {
+      ;(window as unknown as { __s2cDirect?: unknown[] }).__s2cDirect ??= []
+      ;(window as unknown as { __s2cDirect: unknown[] }).__s2cDirect.push({
+        kind: what.kind, srcLoc, change: out.change, how: hold.how, wroteMs, landMs: Math.round(performance.now() - t0),
+      })
+    })
+    return `✓ ${out.change ?? 'done'} in ${out.file ?? 'the code'} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+  }
+
+  /**
+   * goal n11: a caret in the gap between two siblings plus one typed word is
+   * a plain addition: one more of the neighbour, saying that word. The server
+   * copies the neighbour's element in the source (POST /@s2c/direct, kind
+   * insert: no reading, no tokens). The pending ghost stays up meanwhile and
+   * the hot reload's new element grows in (growLanded); this waits for that,
+   * so the flight ends only once the page shows the code's result. Null (and
+   * nothing written) when the drawing isn't that plain or the copy is refused.
+   */
+  private async landInsert(job: Job): Promise<string | null> {
+    const pv = job.pendingPreview
+    if (job.optimistic || !pv || pv.preview.kind !== 'insert' || !pv.preview.slot) return null
+    if (job.notes.length !== 1 || job.strokes.length !== 1) return null
+    if (this.runMode === 'design' || this.runMode === 'screenshot') return null
+    const text = job.notes[0]!.text.trim()
+    if (!text || text.length > 40 || /[\n{}<>`]/.test(text)) return null
+    const slot = pv.preview.slot
+    const t0 = performance.now()
+    let out: { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+    let settle: () => void = () => undefined
+    const inFlight = new Promise<void>((res) => { settle = res })
+    this.commitsInFlight.add(inFlight)
+    try {
+      const res = await fetch('/@s2c/direct', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          kind: 'insert', srcLoc: slot.container.srcLoc ?? '', after: slot.after.srcLoc, before: slot.before.srcLoc,
+          text, snapshot: this.snapshot(),
+        }),
+      })
+      out = (await res.json()) as typeof out
+      if (!res.ok || !out.ok) {
+        console.debug(`[s2c] direct insert refused, reading instead: ${out.error ?? `HTTP ${String(res.status)}`}`)
+        return null
+      }
+    } catch {
+      return null
+    } finally {
+      this.commitsInFlight.delete(inFlight)
+      settle()
+    }
+    const wroteMs = Math.round(performance.now() - t0)
+    // n15: Ctrl+Z shows the addition gone at once (it shrinks out, the row
+    // glides back). On the stack now, in commit order; the element itself is
+    // found when undo asks (it exists once the reload has grown it in)
+    if (out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take: captureInsert(() => pv.grewEl ?? null) })
+    // the ghost holds the gap until the hot reload puts the real one there
+    const deadline = performance.now() + 4000
+    while (job.pendingPreview === pv && !pv.grown && performance.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 25))
+    }
+    ;(window as unknown as { __s2cDirect?: unknown[] }).__s2cDirect ??= []
+    ;(window as unknown as { __s2cDirect: unknown[] }).__s2cDirect.push({
+      kind: 'insert', text, change: out.change, how: pv.grown ? 'grew' : 'timeout', wroteMs, landMs: Math.round(performance.now() - t0),
+    })
+    return `✓ ${out.change ?? 'added'} in ${out.file ?? 'the code'} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+  }
+
+  /** landDirect for the drawing on the pen (▶ Run): the ink is spent, its change handed over. */
+  private async landDirectSurface(): Promise<boolean> {
+    const o = this.optimistic
+    if (!o || o.key !== this.optimisticKey()) return false
+    const receipt = await this.landDirect(o, this.notes.length > 0)
+    if (!receipt) return false
+    if (this.optimistic === o) this.optimistic = null
+    this.optimisticBlocked = null
+    this.strokes = []
+    this.notes = []
+    this.endSketchSearch()
+    this.resetBridge()
+    this.renderInk()
+    this.renderNotes()
+    this.redraw()
+    this.setMode(this.restingMode())
+    this.status(receipt)
+    return true
   }
 
   /** What /@s2c/interpret answers, live or collected after a reload. */
@@ -11314,6 +11729,42 @@ class Overlay {
     this.autoTimer = setInterval(() => this.autoTick(), AUTO_TICK_MS)
   }
 
+  /**
+   * n13: run a pending auto countdown right now, if it carries an instant
+   * change (scribble hide, ring recolour) that the direct path can write.
+   * Called before leaving draw mode, which would otherwise cancel it.
+   */
+  private flushAuto() {
+    if (!this.autoTimer || this.autoMode !== 'auto' || !this.optimistic) return
+    if (this.autoBlock()) return
+    this.cancelAuto()
+    void this.autoRun()
+  }
+
+  /**
+   * n16: hand the counting drawing to the code if it is a plain change already
+   * on the page and `p` lands clear of it (24 px margin). True when handed off.
+   */
+  private handOffElsewhere(p: Pt): boolean {
+    if (!this.autoTimer || this.autoMode !== 'auto' || this.runMode === 'design' || this.runMode === 'screenshot') return false
+    if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) return false
+    const key = this.optimisticKey()
+    const pv = this.pendingPreview
+    const boxes: Box[] = []
+    if (this.optimistic?.key === key) boxes.push(this.optimistic.reading.ink, this.optimistic.reading.target.rect)
+    // the preview is keyed at lift, before its word was typed: same strokes is enough
+    else if (pv && pv.key.split('|')[0] === key.split('|')[0] && pv.preview.kind === 'insert' && this.notes.length === 1) {
+      boxes.push(...pv.preview.boxes.map((b) => b.rect))
+      for (const st of this.strokes) boxes.push(bboxOfPoints(st.points))
+    } else return false
+    const M = 24
+    if (boxes.some((b) => p.x >= b.x - M && p.x <= b.x + b.w + M && p.y >= b.y - M && p.y <= b.y + b.h + M)) return false
+    if (this.autoBlock()) return false
+    this.cancelAuto()
+    void this.autoRun()
+    return true
+  }
+
   /** Drop a pending run. `msg` only when the user deserves to be told (Esc). */
   private cancelAuto(msg?: string) {
     if (!this.autoTimer) return
@@ -11609,8 +12060,7 @@ class Overlay {
       const line = ex?.sentence ? `${ex.problem ? '⚠' : '✓'} ${ex.sentence}` : `✓ ${d.summary ?? 'done'}`
       this.receipt(this.queue.length ? `${line} · next change starting` : line)
       if (d.summary) this.statusEl.title = d.summary
-      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
-      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: true, at: performance.now() })
+      pushLanded({ job: this.flight.id, ok: true, at: performance.now() })
       this.endFlight()
       if (ex?.problem) this.showMisread(ex)
       else this.hideMisread()
@@ -11637,7 +12087,7 @@ class Overlay {
     // the edit is verified on the page itself by now (resnapshot comes after
     // hot reload), so the code's own result is what shows from here; if the
     // code did something else, this is also where the guess is taken back
-    this.dropOptimistic()
+    this.dropOptimistic(false, true)
     this.optimisticBlocked = null
     this.strokes = []
     this.endSketchSearch()
@@ -11659,8 +12109,7 @@ class Overlay {
     if (this.flight) {
       this.status(`✗ ${d.explanation?.sentence ?? d.message}`, true)
       if (d.explanation) this.showMisread(d.explanation)
-      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
-      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: false, at: performance.now() })
+      pushLanded({ job: this.flight.id, ok: false, at: performance.now() })
       // the code did not land: that drawing's change comes off the page
       this.endFlight()
       return

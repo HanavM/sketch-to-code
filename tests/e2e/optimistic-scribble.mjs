@@ -14,7 +14,8 @@
  *      is on the page again.
  *
  * Timing is measured in the page: pen-lift event timestamp → the first
- * animation frame after the element went display:none. Asserted < 100 ms.
+ * animation frame after the element visibly went (fading, motion.ts, or
+ * display:none). Asserted < 100 ms.
  * Set S2C_APP to point at a dev server on another port.
  */
 import { chromium } from 'playwright'
@@ -73,7 +74,7 @@ try {
     globalThis.__HIDOBS__?.disconnect()
     const check = () => {
       if (globalThis.__HID__ != null) return
-      if (!el.isConnected || getComputedStyle(el).display === 'none') {
+      if (!el.isConnected || getComputedStyle(el).display === 'none' || Number(getComputedStyle(el).opacity) < 0.97) {
         requestAnimationFrame(() => { globalThis.__HID__ = performance.now() })
       }
     }
@@ -97,7 +98,7 @@ try {
   const statusLine = () => page.evaluate(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status').textContent)
   const hidden = () => page.evaluate(() => {
     const el = document.querySelector('[data-e2e-target]')
-    return !el || !el.isConnected || getComputedStyle(el).display === 'none'
+    return !el || !el.isConnected || getComputedStyle(el).display === 'none' || Number(getComputedStyle(el).opacity) < 0.97
   })
   const liftToVisible = () => page.evaluate(() => {
     const lift = globalThis.__LIFT__.at(-1)
@@ -108,6 +109,8 @@ try {
   await open()
   let serverSawTarget = null
   let liftWall = 0
+  // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   await page.route('**/@s2c/run', async (route) => {
     log(`A: /@s2c/run called ${Date.now() - liftWall} ms after lift`)
     const body = JSON.parse(route.request().postData() ?? '{}')
@@ -132,7 +135,8 @@ try {
   // no Go press: the run starts by itself, and fails
   await page.waitForFunction(() => {
     const el = document.querySelector('[data-e2e-target]')
-    return el && getComputedStyle(el).display !== 'none'
+    // back in the layout and fully faded back in (motion.ts takes it back smoothly)
+    return el && getComputedStyle(el).display !== 'none' && el.getAnimations().length === 0 && Number(getComputedStyle(el).opacity) >= 0.99
   }, null, { timeout: 20000 }).catch(async () => fail(`A: the failed run never put the element back (status: ${await statusLine()}, mode: ${await page.evaluate(() => document.getElementById('s2c-overlay-host').dataset.mode)}, run called: ${serverSawTarget !== null})`))
   log(`A: back ${Date.now() - liftWall} ms after lift`)
   if (serverSawTarget !== true) fail(`A: the run's snapshot did not include the target (${serverSawTarget}) — the patch leaked into it`)

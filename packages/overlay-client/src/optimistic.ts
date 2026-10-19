@@ -140,10 +140,12 @@ export function zigzags(points: QPoint[]): number {
 export function isScribble(st: QStroke): boolean {
   if (st.points.length < 3) return false
   if (sharpTurns(st.points) >= MIN_REVERSALS || zigzags(st.points) >= MIN_REVERSALS) {
-    // a ring drawn in several laps also turns a lot: a closed round shape is a ring
+    // a ring drawn in several laps also turns a lot: a closed round shape is a
+    // ring. An open stroke can't be one, so the (costly, ~15 ms) classifier
+    // only runs for closed ones: the pen-lift frame stays clear.
+    if (closingGap(st.points) >= 12) return true
     const top = [...classifyStroke({ id: st.id, points: st.points }).candidates].sort((a, b) => b.confidence - a.confidence)[0]
-    if (top && (top.kind === 'circle' || top.kind === 'ellipse') && top.confidence >= 0.7 &&
-      closingGap(st.points) < 12) return false
+    if (top && (top.kind === 'circle' || top.kind === 'ellipse') && top.confidence >= 0.7) return false
     return true
   }
   return false

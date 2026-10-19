@@ -78,6 +78,8 @@ try {
     runs.push({ at: Date.now(), strokes: (body.strokes ?? []).map((s) => s.id), colors: (body.strokes ?? []).map((s) => s.color ?? null) })
   })
   // the code takes as long as a model-written change would
+  // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   await page.route('**/@s2c/run', async (route) => {
     await new Promise((r) => setTimeout(r, 5000))
     await route.continue()
@@ -148,7 +150,7 @@ try {
     globalThis.__SEEN__[tag] = null
     const obs = new MutationObserver(() => {
       if (globalThis.__SEEN__[tag] != null) return
-      const changed = prop ? getComputedStyle(el)[prop] !== before : (!el.isConnected || getComputedStyle(el).display === 'none')
+      const changed = prop ? getComputedStyle(el)[prop] !== before : (!el.isConnected || getComputedStyle(el).display === 'none' || Number(getComputedStyle(el).opacity) < 0.97)
       if (changed) {
         const lift = globalThis.__LIFT__.at(-1)
         requestAnimationFrame(() => { globalThis.__SEEN__[tag] = performance.now() - lift })

@@ -1,0 +1,29 @@
+{
+ "msToReflow": 11.399999999906868,
+ "dragged": 182,
+ "codeH": 182,
+ "easeFrames": 0,
+ "landed": {
+  "prop": "resize",
+  "how": "landed",
+  "glided": 0,
+  "ms": 80.09999999997672
+ },
+ "frames": {
+  "p50": 16.699999999999818,
+  "p95": 16.700000000000273,
+  "max": 16.800000000000182,
+  "under20": 1,
+  "n": 90
+ },
+ "cancelEase": 10,
+ "move": {
+  "landed": {
+   "prop": "move",
+   "how": "landed",
+   "glided": 0,
+   "ms": 62.40000000002328
+  },
+  "snapBackFrames": 0
+ }
+}

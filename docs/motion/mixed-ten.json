@@ -1,0 +1,352 @@
+{
+ "summary": {
+  "edits": 10,
+  "totalMs": 13076,
+  "committed": 5,
+  "direct": 5,
+  "modelCalls": 0,
+  "undoKeysMs": 3607,
+  "pass": true,
+  "issues": [],
+  "finalStatus": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=8e08f49b05"
+ },
+ "edits": [
+  {
+   "name": "reorder card 1→3",
+   "visibleMs": 2.5
+  },
+  {
+   "name": "erase nav link \"Reports\"",
+   "visibleMs": 14.6
+  },
+  {
+   "name": "resize card taller",
+   "visibleMs": 1.4
+  },
+  {
+   "name": "recolour \"Team members\" green",
+   "visibleMs": 15.3
+  },
+  {
+   "name": "add nav link \"Docs\" after \"Overview\"",
+   "visibleMs": 13.8
+  },
+  {
+   "name": "erase stat card \"Revenue\"",
+   "visibleMs": 12.8
+  },
+  {
+   "name": "move form down",
+   "visibleMs": 1.1
+  },
+  {
+   "name": "recolour nav link \"Settings\" green",
+   "visibleMs": 13.9
+  },
+  {
+   "name": "reorder nav link 1→2",
+   "visibleMs": 0.8
+  },
+  {
+   "name": "resize grid item taller",
+   "visibleMs": 1.9
+  }
+ ],
+ "marks": [
+  {
+   "name": "reorder card 1→3",
+   "kind": "drag",
+   "startMs": 0,
+   "releaseMs": 964,
+   "rel": 1954.0999999999767,
+   "status": "committing reorder…"
+  },
+  {
+   "name": "erase nav link \"Reports\"",
+   "kind": "direct",
+   "startMs": 1233,
+   "releaseMs": 2090,
+   "rel": 3558,
+   "status": "⚡ auto-run in 0.9s · Esc to cancel"
+  },
+  {
+   "name": "resize card taller",
+   "kind": "drag",
+   "startMs": 2343,
+   "releaseMs": 3088,
+   "rel": 4320.599999999977,
+   "status": "committing resize…"
+  },
+  {
+   "name": "recolour \"Team members\" green",
+   "kind": "direct",
+   "startMs": 3340,
+   "releaseMs": 5938,
+   "rel": 7390.099999999977,
+   "status": "⚡ auto-run in 0.9s · Esc to cancel"
+  },
+  {
+   "name": "add nav link \"Docs\" after \"Overview\"",
+   "kind": "add",
+   "startMs": 6189,
+   "releaseMs": 6785,
+   "rel": 7989.900000000023,
+   "status": "note attached — on this stroke"
+  },
+  {
+   "name": "erase stat card \"Revenue\"",
+   "kind": "direct",
+   "startMs": 7037,
+   "releaseMs": 7676,
+   "rel": 9140.900000000023,
+   "status": "⚡ auto-run in 0.9s · Esc to cancel"
+  },
+  {
+   "name": "move form down",
+   "kind": "drag",
+   "startMs": 7941,
+   "releaseMs": 8655,
+   "rel": 9903.70000000007,
+   "status": "committing move…"
+  },
+  {
+   "name": "recolour nav link \"Settings\" green",
+   "kind": "direct",
+   "startMs": 8907,
+   "releaseMs": 10835,
+   "rel": 12290.800000000047,
+   "status": "⚡ auto-run in 0.9s · Esc to cancel"
+  },
+  {
+   "name": "reorder nav link 1→2",
+   "kind": "drag",
+   "startMs": 11086,
+   "releaseMs": 11989,
+   "rel": 13053.599999999977,
+   "status": "committing reorder…"
+  },
+  {
+   "name": "resize grid item taller",
+   "kind": "drag",
+   "startMs": 12241,
+   "releaseMs": 12822,
+   "rel": 14053.599999999977,
+   "status": "committing resize…"
+  }
+ ],
+ "commits": [
+  {
+   "at": 1792384547237,
+   "ok": true,
+   "change": "moved 'stats' entry 1 → position 3 (renders in that order)"
+  },
+  {
+   "at": 1792384549371,
+   "ok": true,
+   "change": "+ h-[166px]"
+  },
+  {
+   "at": 1792384554936,
+   "ok": true,
+   "change": "+ mt-9"
+  },
+  {
+   "at": 1792384558287,
+   "ok": true,
+   "change": "moved child 1 → position 2"
+  },
+  {
+   "at": 1792384559094,
+   "ok": true,
+   "change": "h-full → h-[768px]"
+  }
+ ],
+ "direct": [
+  {
+   "kind": "delete",
+   "srcLoc": "src/components/Navbar.tsx:8:11",
+   "change": "removed <a> (child 2)",
+   "how": "landed",
+   "wroteMs": 109,
+   "landMs": 144
+  },
+  {
+   "kind": "recolor",
+   "srcLoc": "src/components/UserTable.tsx:17:7",
+   "change": "text-gray-900 → text-green-600",
+   "how": "landed",
+   "wroteMs": 97,
+   "landMs": 143
+  },
+  {
+   "kind": "insert",
+   "text": "Docs",
+   "change": "added <a> \"Docs\" after \"Overview\"",
+   "how": "grew",
+   "wroteMs": 124,
+   "landMs": 175
+  },
+  {
+   "kind": "delete",
+   "srcLoc": "src/components/StatCards.tsx:11:9",
+   "change": "removed 'stats' entry 3",
+   "how": "landed",
+   "wroteMs": 119,
+   "landMs": 172
+  },
+  {
+   "kind": "recolor",
+   "srcLoc": "src/components/Navbar.tsx:9:11",
+   "change": "text-gray-600 → text-green-600; hover:text-gray-900 → hover:text-green-900",
+   "how": "landed",
+   "wroteMs": 108,
+   "landMs": 169
+  }
+ ],
+ "undo": {
+  "rows": [
+   {
+    "visibleMs": 32.6,
+    "jump": null
+   },
+   {
+    "visibleMs": 28.8,
+    "jump": null
+   },
+   {
+    "visibleMs": 16.6,
+    "jump": null
+   },
+   {
+    "visibleMs": 25.6,
+    "jump": null
+   },
+   {
+    "visibleMs": 11.2,
+    "jump": null
+   },
+   {
+    "visibleMs": 33.9,
+    "jump": null
+   },
+   {
+    "visibleMs": 4,
+    "jump": null
+   },
+   {
+    "visibleMs": 23.4,
+    "jump": null
+   },
+   {
+    "visibleMs": 11.1,
+    "jump": null
+   },
+   {
+    "visibleMs": 34,
+    "jump": null
+   }
+  ],
+  "log": [
+   {
+    "at": 20472.599999999977,
+    "preview": true
+   },
+   {
+    "at": 20633.900000000023,
+    "exact": true,
+    "undid": "resized that part",
+    "previewed": true
+   },
+   {
+    "at": 20829.300000000047,
+    "preview": true
+   },
+   {
+    "at": 20978.300000000047,
+    "exact": true,
+    "undid": "changed the order",
+    "previewed": true
+   },
+   {
+    "at": 21188.300000000047,
+    "preview": true
+   },
+   {
+    "at": 21327.70000000007,
+    "exact": true,
+    "undid": "changed the colour you painted",
+    "previewed": true
+   },
+   {
+    "at": 21545.400000000023,
+    "preview": true
+   },
+   {
+    "at": 21697.599999999977,
+    "exact": true,
+    "undid": "moved that part",
+    "previewed": true
+   },
+   {
+    "at": 21914.400000000023,
+    "preview": true
+   },
+   {
+    "at": 22041.400000000023,
+    "exact": true,
+    "undid": "removed what you crossed out",
+    "previewed": true
+   },
+   {
+    "at": 22271.300000000047,
+    "preview": true
+   },
+   {
+    "at": 22418.20000000007,
+    "exact": true,
+    "undid": "added what you drew",
+    "previewed": true
+   },
+   {
+    "at": 22633.400000000023,
+    "preview": true
+   },
+   {
+    "at": 22784.800000000047,
+    "exact": true,
+    "undid": "changed the colour you painted",
+    "previewed": true
+   },
+   {
+    "at": 22998.599999999977,
+    "preview": true
+   },
+   {
+    "at": 23155.5,
+    "exact": true,
+    "undid": "resized that part",
+    "previewed": true
+   },
+   {
+    "at": 23364.599999999977,
+    "preview": true
+   },
+   {
+    "at": 23490.800000000047,
+    "exact": true,
+    "undid": "removed what you crossed out",
+    "previewed": true
+   },
+   {
+    "at": 23722.599999999977,
+    "preview": true
+   },
+   {
+    "at": 23878.300000000047,
+    "exact": true,
+    "undid": "changed the order",
+    "previewed": true
+   }
+  ]
+ }
+}

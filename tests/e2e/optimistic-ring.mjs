@@ -143,6 +143,8 @@ try {
   await open()
   let snapColour = null
   let runCalled = false
+  // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   await page.route('**/@s2c/run', async (route) => {
     runCalled = true
     const body = JSON.parse(route.request().postData() ?? '{}')
