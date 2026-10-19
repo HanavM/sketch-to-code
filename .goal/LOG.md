@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T04:45:00Z | Instant undo for drawn additions | 3/3 undos show in 8-14 ms; the link fades out, the row glides shut, code back.
+
 2026-10-19T04:16:00Z | Drawn additions without the AI | Caret plus a typed word: 3/3 new nav links in code in ~0.1 s, grow in, row glides.
 
 2026-10-19T04:32:00Z | Ten mixed edits in a row, with undo | Drags, erases, recolours: all 10 in code in 14 s, no AI; undos show in 6-38 ms.
