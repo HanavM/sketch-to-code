@@ -109,6 +109,8 @@ try {
   await open()
   let serverSawTarget = null
   let liftWall = 0
+  // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   await page.route('**/@s2c/run', async (route) => {
     log(`A: /@s2c/run called ${Date.now() - liftWall} ms after lift`)
     const body = JSON.parse(route.request().postData() ?? '{}')

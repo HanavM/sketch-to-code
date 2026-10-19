@@ -87,6 +87,8 @@ try {
   const holdRun = async () => {
     await page.unroute('**/@s2c/run').catch(() => {})
     const held = new Promise((r) => { releaseRun = r })
+    // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+    await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
     await page.route('**/@s2c/run', async (route) => {
       await held
       await route.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'stubbed failure' }) })

@@ -104,7 +104,7 @@ export function runUndoLabel(
  */
 export type EditKind =
   | 'instant' | 'paint' | 'image' | 'extract' | 'endpoint' | 'form' | 'data-real'
-  | 'place' | 'restore' | 'setting' | 'data-move' | 'manipulate' | 'responsive'
+  | 'place' | 'restore' | 'setting' | 'data-move' | 'manipulate' | 'responsive' | 'erase'
 
 /** "PricingCard" -> "pricing card"; anything that isn't a plain name -> ''. */
 export function nameWords(name: string | null | undefined): string {
@@ -125,6 +125,7 @@ export function editLabel(kind: EditKind, info: { name?: string | null; prop?: s
   switch (kind) {
     case 'instant': return name ? `added the ${name} you drew` : 'added what you drew'
     case 'paint': return 'changed the colour you painted'
+    case 'erase': return 'removed what you crossed out'
     case 'image': return 'put in the picture'
     case 'extract': return name ? `made the ${name} a reusable piece` : 'made that part a reusable piece'
     case 'endpoint': return 'set up the server for that part'

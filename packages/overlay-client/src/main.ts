@@ -10818,6 +10818,17 @@ class Overlay {
     if (!job) return
     this.autoBusy = true
     try {
+      // goal n10: a plain erase or recolour goes straight into the code
+      const direct = await this.landDirect(job.optimistic, job.notes.length > 0)
+      if (direct) {
+        if (this.flight !== job) return
+        job.optimistic = null // handed over: it comes off when the code lands
+        ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
+        ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: job.id, ok: true, direct: true, at: performance.now() })
+        this.endFlight()
+        this.status(direct)
+        return
+      }
       await this.run(true)
       if (this.flight !== job) return
       if (!job.read) {
@@ -11062,6 +11073,9 @@ class Overlay {
     // a ring with no words and no pen colour says "change this" and not how:
     // ask, for free, rather than pay the model to guess
     if (this.askBareRing()) return 'asked'
+    // goal n10: a plain erase or recolour the page already shows goes straight
+    // into the code, no reading; anything the engines refuse reads as before
+    if (await this.landDirectSurface()) return
     // start the instant render and the reading together: neither waits on the
     // other, and the drawing is usually on the page before the reading lands
     // park BEFORE the instant render can write anything: its reload may land
@@ -11100,6 +11114,76 @@ class Overlay {
       if (this.readingId === readingId) this.dropReading()
       this.readingFailed(err)
     }
+  }
+
+  /**
+   * goal n10: the drawing plainly asked to erase or recolour one element, and
+   * the page already shows it (`o`, its instant change). Write that same
+   * change into the code with the deterministic engines (POST /@s2c/direct):
+   * no reading, no tokens, about a second. On success the caller hands `o`
+   * over: it stays on the page until the code's version shows up, then comes
+   * off in the hot reload's own task, so nothing flashes. Null (and nothing
+   * written) when there is no such change or the engines refuse.
+   */
+  private async landDirect(o: OptimisticRec | null, hasNotes: boolean): Promise<string | null> {
+    if (!o || hasNotes || this.runMode === 'design' || this.runMode === 'screenshot') return null
+    const r = o.reading
+    const el = r.target.ref
+    const srcLoc = r.target.srcLoc
+    if (!srcLoc || !el.isConnected) return null
+    const instanceIndex = [...document.querySelectorAll(`[data-s2c="${srcLoc}"]`)].indexOf(el)
+    if (instanceIndex < 0) return null
+    const what = r.kind === 'hide'
+      ? { kind: 'delete' as const }
+      : { kind: 'recolor' as const, color: r.color, prop: r.prop === 'color' ? 'color' : 'backgroundColor' }
+    const t0 = performance.now()
+    let out: { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+    try {
+      const res = await fetch('/@s2c/direct', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({ ...what, srcLoc, instanceIndex, snapshot: this.snapshot() }),
+      })
+      out = (await res.json()) as typeof out
+      if (!res.ok || !out.ok) {
+        console.debug(`[s2c] direct ${what.kind} refused, reading instead: ${out.error ?? `HTTP ${String(res.status)}`}`)
+        return null
+      }
+    } catch {
+      return null
+    }
+    const wroteMs = Math.round(performance.now() - t0)
+    void holdUntilLanded(document.body, () => {
+      // exact, not smooth: the code now shows what the instant change showed
+      o.applied.undo()
+      return 0
+    }, 4000).then((hold) => {
+      ;(window as unknown as { __s2cDirect?: unknown[] }).__s2cDirect ??= []
+      ;(window as unknown as { __s2cDirect: unknown[] }).__s2cDirect.push({
+        kind: what.kind, srcLoc, change: out.change, how: hold.how, wroteMs, landMs: Math.round(performance.now() - t0),
+      })
+    })
+    return `✓ ${out.change ?? 'done'} in ${out.file ?? 'the code'} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+  }
+
+  /** landDirect for the drawing on the pen (▶ Run): the ink is spent, its change handed over. */
+  private async landDirectSurface(): Promise<boolean> {
+    const o = this.optimistic
+    if (!o || o.key !== this.optimisticKey()) return false
+    const receipt = await this.landDirect(o, this.notes.length > 0)
+    if (!receipt) return false
+    if (this.optimistic === o) this.optimistic = null
+    this.optimisticBlocked = null
+    this.strokes = []
+    this.notes = []
+    this.endSketchSearch()
+    this.resetBridge()
+    this.renderInk()
+    this.renderNotes()
+    this.redraw()
+    this.setMode(this.restingMode())
+    this.status(receipt)
+    return true
   }
 
   /** What /@s2c/interpret answers, live or collected after a reload. */

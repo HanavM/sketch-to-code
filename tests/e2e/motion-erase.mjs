@@ -45,6 +45,8 @@ try {
   let snapshotRect = null
   let releaseRun = () => undefined
   const runHeld = new Promise((r) => { releaseRun = r })
+  // goal n10: these runs exercise the model path; refuse the direct (0-token) write so nothing lands in the demo source
+  await page.route('**/@s2c/direct', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'e2e: model path' }) }))
   await page.route('**/@s2c/run', async (route) => {
     const body = JSON.parse(route.request().postData() ?? '{}')
     const src = await page.evaluate(() => document.querySelector('[data-e2e-target]')?.getAttribute('data-s2c'))

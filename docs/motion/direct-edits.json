@@ -1,0 +1,205 @@
+{
+ "summary": {
+  "edits": 8,
+  "passed": 8,
+  "modelCalls": 0,
+  "pageErrors": []
+ },
+ "results": [
+  {
+   "name": "erase stat card \"Active users\"",
+   "kind": "erase",
+   "src": "src/components/StatCards.tsx:11:9",
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/StatCards.tsx:11:9",
+    "change": "removed 'stats' entry 2",
+    "how": "landed",
+    "wroteMs": 111,
+    "landMs": 186
+   },
+   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=7efb0615db",
+   "optimistic": {
+    "kind": "hide",
+    "srcLoc": "src/components/StatCards.tsx:11:9",
+    "liftToPatchMs": 15.900000000023283
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 18.5,
+   "liftToLandMs": 1109,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "erase stat card \"Conversion\"",
+   "kind": "erase",
+   "src": "src/components/StatCards.tsx:10:9",
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/StatCards.tsx:10:9",
+    "change": "removed 'stats' entry 2",
+    "how": "landed",
+    "wroteMs": 103,
+    "landMs": 160
+   },
+   "status": "✓ removed 'stats' entry 2 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=72012c1fc3",
+   "optimistic": {
+    "kind": "hide",
+    "srcLoc": "src/components/StatCards.tsx:10:9",
+    "liftToPatchMs": 6.099999999976717
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 12.3,
+   "liftToLandMs": 1072,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "erase nav link \"Reports\"",
+   "kind": "erase",
+   "src": "src/components/Navbar.tsx:8:11",
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "change": "removed <a> (child 2)",
+    "how": "landed",
+    "wroteMs": 142,
+    "landMs": 182
+   },
+   "status": "✓ removed <a> (child 2) in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=329213b2ce",
+   "optimistic": {
+    "kind": "hide",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "liftToPatchMs": 3.7999999999883585
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 13.2,
+   "liftToLandMs": 1091,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "erase the form's \"Role\" field",
+   "kind": "erase",
+   "src": "src/components/ContactForm.tsx:26:9",
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/ContactForm.tsx:26:9",
+    "change": "removed <div> (child 3)",
+    "how": "landed",
+    "wroteMs": 129,
+    "landMs": 201
+   },
+   "status": "✓ removed <div> (child 3) in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=cf84238b70",
+   "optimistic": {
+    "kind": "hide",
+    "srcLoc": "src/components/ContactForm.tsx:26:9",
+    "liftToPatchMs": 4
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 13.8,
+   "liftToLandMs": 1111,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "erase stat card \"Revenue\"",
+   "kind": "erase",
+   "src": "src/components/StatCards.tsx:9:9",
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/StatCards.tsx:9:9",
+    "change": "removed 'stats' entry 1",
+    "how": "landed",
+    "wroteMs": 133,
+    "landMs": 181
+   },
+   "status": "✓ removed 'stats' entry 1 in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=7a719f16b5",
+   "optimistic": {
+    "kind": "hide",
+    "srcLoc": "src/components/StatCards.tsx:9:9",
+    "liftToPatchMs": 4.299999999930151
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 12.9,
+   "liftToLandMs": 1094,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "recolour \"Team members\" heading green",
+   "kind": "recolour",
+   "src": "src/components/UserTable.tsx:17:7",
+   "direct": {
+    "kind": "recolor",
+    "srcLoc": "src/components/UserTable.tsx:17:7",
+    "change": "text-gray-900 → text-green-700",
+    "how": "landed",
+    "wroteMs": 108,
+    "landMs": 163
+   },
+   "status": "✓ text-gray-900 → text-green-700 in src/components/UserTable.tsx · 0 tokens · revert: git restore --source=67fc42db33",
+   "optimistic": {
+    "kind": "recolour",
+    "srcLoc": "src/components/UserTable.tsx:17:7",
+    "liftToPatchMs": 12.5
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 31.7,
+   "liftToLandMs": 1080,
+   "finalColour": "rgba(0, 0, 0, 0)",
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "recolour the contact form heading green",
+   "kind": "recolour",
+   "src": "src/components/ContactForm.tsx:4:7",
+   "direct": {
+    "kind": "recolor",
+    "srcLoc": "src/components/ContactForm.tsx:4:7",
+    "change": "text-gray-900 → text-green-700",
+    "how": "landed",
+    "wroteMs": 154,
+    "landMs": 243
+   },
+   "status": "✓ text-gray-900 → text-green-700 in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=78b30436c4",
+   "optimistic": {
+    "kind": "recolour",
+    "srcLoc": "src/components/ContactForm.tsx:4:7",
+    "liftToPatchMs": 9.5
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 28.2,
+   "liftToLandMs": 1161,
+   "finalColour": "rgba(0, 0, 0, 0)",
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "recolour nav link \"Settings\" green",
+   "kind": "recolour",
+   "src": "src/components/Navbar.tsx:8:11",
+   "direct": {
+    "kind": "recolor",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "change": "text-gray-600 → text-green-700; − hover:text-gray-900",
+    "how": "landed",
+    "wroteMs": 150,
+    "landMs": 225
+   },
+   "status": "✓ text-gray-600 → text-green-700; − hover:text-gray-900 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=e422608fa1",
+   "optimistic": {
+    "kind": "recolour",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "liftToPatchMs": 12.599999999976717
+   },
+   "codeChanged": true,
+   "liftToVisibleMs": 28.5,
+   "liftToLandMs": 1142,
+   "finalColour": "rgba(0, 0, 0, 0)",
+   "issues": [],
+   "pass": true
+  }
+ ]
+}

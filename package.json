@@ -26,6 +26,7 @@
     "e2e:optimistic-preview-live": "node tests/e2e/optimistic-preview-live.mjs",
     "e2e:optimistic-queue": "node tests/e2e/optimistic-queue.mjs",
     "e2e:verify-preview": "node tests/e2e/verify-preview-scripted.mjs",
+    "e2e:direct": "node tests/e2e/direct-erase-recolour.mjs",
     "e2e:motion-erase": "node tests/e2e/motion-erase.mjs",
     "e2e:motion-reorder": "node tests/e2e/motion-reorder.mjs",
     "e2e:motion-resize": "node tests/e2e/motion-resize.mjs",

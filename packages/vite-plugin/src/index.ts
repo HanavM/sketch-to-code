@@ -1351,6 +1351,31 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
       })
 
+      // goal n10: a plain erase or recolour the page already showed at pen
+      // lift, written by the deterministic engines with no model reading.
+      // A refusal (422) writes nothing; the overlay then runs the model.
+      server.middlewares.use('/@s2c/direct', (req, res) => {
+        if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
+        if (rejectUnauthorized(req, res, token)) return
+        readJsonBody<{
+          kind: 'delete' | 'recolor'; srcLoc: string; instanceIndex?: number; snapshot: DomSnapshot
+          color?: string; prop?: 'color' | 'backgroundColor'
+        }>(req)
+          .then(async (body) => {
+            const m = await import('@s2c/pipeline')
+            const { cp, untracked } = beginEdit(m)
+            const result = m.applyDirectEdit(root, {
+              kind: body.kind, srcLoc: body.srcLoc, instanceIndex: body.instanceIndex ?? 0,
+              snapshot: body.snapshot, color: body.color, prop: body.prop,
+            })
+            if (result.ok && !(result.change ?? '').startsWith('no change')) {
+              pushEdit(cp.sha, editLabel(body.kind === 'delete' ? 'erase' : 'paint'), untracked)
+            }
+            sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
+          })
+          .catch((err: unknown) => sendJson(res, 400, { ok: false, error: String(err) }))
+      })
+
       server.middlewares.use('/@s2c/undo', (req, res) => {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
