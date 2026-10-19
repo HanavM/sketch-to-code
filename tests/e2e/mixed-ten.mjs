@@ -75,6 +75,7 @@ const KEYS = `
     }
     return out
   }
+  globalThis.__navDbg = () => [...document.querySelectorAll('nav a')].map((a) => { const r = a.getBoundingClientRect(); const cs = getComputedStyle(a); return [a.textContent.trim(), Math.round(r.left), cs.display, +(+cs.opacity).toFixed(2), a.hasAttribute('data-s2c-unadd') ? 'U' : '', a.getAttribute('data-s2c-ghost') ?? '', a.style.transform || '', a.getAnimations().length] })
   globalThis.__snap = () => {
     const boxes = {}
     for (const [k, el] of globalThis.__keys()) {
@@ -344,7 +345,7 @@ try {
   await page.addScriptTag({ content: `
     globalThis.__s2cUndo = []; globalThis.__FR__ = []; globalThis.__REC__ = true; globalThis.__KEYS_AT__ = []
     addEventListener('keydown', (e) => { if (e.key === 'z') globalThis.__KEYS_AT__.push(performance.now()) }, true)
-    { const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
+    { const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap(), nav: globalThis.__navDbg?.() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
       requestAnimationFrame(tick) }
   ` })
   await page.waitForTimeout(300)
@@ -366,6 +367,7 @@ try {
   const srcDiff = execSync('git diff --stat -- examples/demo-app/src/', { cwd: ROOT }).toString().trim()
   const undoneReloaded = await fresh()
   const ufr = undone.fr
+  if (process.env.S2C_NAV_DEBUG) writeFileSync(process.env.S2C_NAV_DEBUG, JSON.stringify({ keys: undone.keys, fr: ufr.map((f) => ({ at: f.at, nav: f.nav })) }))
   const undoRows = undone.keys.map((at, i) => {
     const prev = [...ufr].reverse().find((f) => f.at < at)
     const next = undone.keys[i + 1] ?? Infinity
@@ -375,13 +377,15 @@ try {
     if (prev && win.length) {
       const end = win.at(-1).boxes
       outer: for (const k of Object.keys(end)) {
-        if (!prev.boxes[k] || prev.boxes[k][4] < 0.5) continue
+        // a box nobody can see (display none, faded out) cannot visibly jump (n20:
+        // an undone addition's node stays hidden until the reload drops it)
+        if (!prev.boxes[k] || prev.boxes[k][4] < 0.5 || end[k][4] < 0.05) continue
         for (let j = 0; j < 4; j++) {
           const travel = Math.abs(end[k][j] - prev.boxes[k][j])
           if (travel <= 8) continue
           let last = prev.boxes[k][j]
           for (const f of win) {
-            const v = f.boxes[k]?.[j]; if (v == null) continue
+            const v = f.boxes[k]?.[j]; if (v == null || f.boxes[k][4] < 0.05) continue
             if (Math.abs(v - last) > 0.6 * travel) { jump = `${k.split('|')[1]} ${'xywh'[j]} ${Math.abs(v - last).toFixed(0)}/${travel.toFixed(0)} px in one frame at +${(f.at - at).toFixed(0)} ms`; break outer }
             last = v
           }
