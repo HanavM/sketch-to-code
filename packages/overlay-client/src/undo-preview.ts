@@ -18,7 +18,7 @@
  * A preview that turns out wrong (the server undid something else, or
  * refused) is taken back smoothly.
  */
-import { EASE, FADE_MS, flipFrom, GLIDE_MS, reducedMotion } from './motion.js'
+import { EASE, FADE_MS, flipFrom, GLIDE_MS, reducedMotion, steady } from './motion.js'
 import { contentKeys, LiveReorder } from './live-reorder.js'
 
 export type VisualEdit =
@@ -197,13 +197,16 @@ const styleOf = (el: HTMLElement) => {
 }
 
 /** Swap classes, easing every changed property from its old value (WAAPI, no layout jumps). */
-function easeClasses(els: HTMLElement[], to: string[]): void {
+function easeClasses(els: HTMLElement[], to: string[], srcLoc?: string): void {
   const was = els.map(styleOf)
   els.forEach((e, i) => { if (to[i] !== undefined) e.className = to[i]! })
   if (reducedMotion()) return
+  // every end value is read before any ease starts: an ease on one box holds
+  // the row it sits in, and a sibling read after that would aim short (n18)
+  const ends = els.map(styleOf)
   els.forEach((e, i) => {
     if (typeof e.animate !== 'function') return
-    const now = styleOf(e)
+    const now = ends[i]!
     const k0: Keyframe = {}, k1: Keyframe = {}
     let any = false
     for (const p of EASED) {
@@ -211,7 +214,9 @@ function easeClasses(els: HTMLElement[], to: string[]): void {
       // auto sizes resolve to px in computed style, so both ends are animatable
       k0[p] = was[i]![p]!; k1[p] = now[p]!; any = true
     }
-    if (any) e.animate([k0, k1], { duration: GLIDE_MS, easing: EASE })
+    // width/height/margins ease on the main thread: paced by frames, so a stall never leaps (n18)
+    // and a reload that remounts it mid-way carries the ease over to its new node
+    if (any) steady(e.animate([k0, k1], { duration: GLIDE_MS, easing: EASE }), srcLoc ? () => instancesOf(srcLoc)[i] ?? null : undefined)
   })
 }
 
@@ -230,10 +235,10 @@ export function playInverse(e: VisualEdit, holdMs = 4000): Played | null {
     const els = instancesOf(e.srcLoc)
     if (els.length !== e.before.length) return null
     const after = els.map((x) => x.className)
-    easeClasses(els, e.before)
+    easeClasses(els, e.before, e.srcLoc)
     return {
       confirm() {},
-      revert: () => { const live = els.filter((x) => x.isConnected); if (live.length === els.length) easeClasses(els, after) },
+      revert: () => { const live = els.filter((x) => x.isConnected); if (live.length === els.length) easeClasses(els, after, e.srcLoc) },
     }
   }
   const { parent, key, from } = e

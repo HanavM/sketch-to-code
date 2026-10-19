@@ -4,7 +4,7 @@
  * not moved twice.
  */
 import { describe, expect, it } from 'vitest'
-import { flipDeltas } from '../src/motion.js'
+import { flipDeltas, frameStep, STEP_CAP_MS } from '../src/motion.js'
 import type { Box } from '../src/optimistic.js'
 
 const box = (x: number, y: number, w = 100, h = 40): Box => ({ x, y, w, h })
@@ -86,5 +86,18 @@ describe('recolour ease (n7)', () => {
     expect(mixColour('rgb(0, 0, 0)', '#16a34a', 0.5)).toBe('color-mix(in srgb, #16a34a 50.0%, rgb(0, 0, 0))')
     expect(mixColour('rgb(0, 0, 0)', '#16a34a', 1)).toBe('#16a34a')
     expect(mixColour('rgb(0, 0, 0)', '#16a34a', 0)).toBe('rgb(0, 0, 0)')
+  })
+})
+
+describe('frameStep (n18: layout animations paced by painted frames)', () => {
+  it('moves on by the frame time when frames are on time', () => {
+    expect(frameStep(16.7)).toBeCloseTo(16.7)
+  })
+  it('never moves more than the cap after a stall', () => {
+    expect(frameStep(54)).toBe(STEP_CAP_MS)
+    expect(frameStep(500)).toBe(STEP_CAP_MS)
+  })
+  it('never goes backwards', () => {
+    expect(frameStep(-3)).toBe(0)
   })
 })

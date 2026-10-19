@@ -30,6 +30,89 @@ export const GLIDE_MS = 220
 /** Standard decelerate: quick off the mark, soft landing. */
 export const EASE = 'cubic-bezier(0.2, 0, 0, 1)'
 
+/** The most of its curve a steadied animation may move on in one painted frame. */
+export const STEP_CAP_MS = 25
+const FIRST_STEP_MS = 1000 / 60
+
+/**
+ * n18: layout animations (width, height, margins: what a resize or its undo
+ * eases) run on the main thread, and WAAPI times them by the clock, not by the
+ * frames painted. When the browser misses frames (a busy machine: the dev
+ * server writing the code on the same cores), the next frame catches up the
+ * whole stall at once and the box leaps 60% of its way. A steadied animation
+ * is paused and paced by painted frames instead: each frame moves it on by the
+ * time since the last frame, but never more than STEP_CAP_MS of its curve. It
+ * takes a little longer on a stalling machine, and never jumps. (Compositor
+ * animations, transform and opacity, keep running through a main-thread
+ * stall, so they are left on the clock.)
+ */
+interface Steadied { t: number; relocate?: () => Element | null }
+const steadied = new Map<Animation, Steadied>()
+let steadyRaf = 0
+let lastFrame = 0
+let remountWatch: MutationObserver | null = null
+/**
+ * Pace `a` by painted frames. `relocate` finds its element again when a hot
+ * reload remounts it mid-way (the code's own node replaces the one being
+ * eased): the ease carries on, on the new node, from where it was, in the
+ * reload's own task, so no frame shows the end state early.
+ */
+export function steady(a: Animation | null, relocate?: () => Element | null): Animation | null {
+  if (!a || typeof requestAnimationFrame !== 'function') return a
+  // the first painted frame already shows it on its way (one frame in)
+  a.pause()
+  a.currentTime = FIRST_STEP_MS
+  steadied.set(a, { t: FIRST_STEP_MS, relocate })
+  if (relocate && !remountWatch && typeof MutationObserver === 'function' && typeof document !== 'undefined') {
+    remountWatch = new MutationObserver(carryOver)
+    remountWatch.observe(document.body, { childList: true, subtree: true })
+  }
+  if (!steadyRaf) {
+    lastFrame = performance.now()
+    steadyRaf = requestAnimationFrame(steadyTick)
+  }
+  return a
+}
+/** An eased element was replaced: start the same ease on its replacement, at the same point. */
+function carryOver(): void {
+  for (const [a, s] of [...steadied]) {
+    const fx = a.effect as KeyframeEffect | null
+    const old = fx?.target
+    if (!s.relocate || !old || old.isConnected) continue
+    const now = s.relocate()
+    steadied.delete(a)
+    if (!now || now === old || typeof (now as HTMLElement).animate !== 'function') continue
+    const b = (now as HTMLElement).animate(fx.getKeyframes(), fx.getTiming() as KeyframeAnimationOptions)
+    b.pause()
+    b.currentTime = s.t
+    steadied.set(b, s)
+    remounts++
+  }
+}
+/** How many eases moved to a remounted node (tests read it as __s2cRemounts). */
+let remounts = 0
+export const remountCount = () => remounts
+/** How much of its curve a steadied animation moves on in a frame `gap` ms after the last. */
+export function frameStep(gap: number, cap = STEP_CAP_MS): number {
+  return Math.max(0, Math.min(gap, cap))
+}
+function steadyTick(now: number): void {
+  const step = frameStep(now - lastFrame)
+  lastFrame = now
+  carryOver()
+  for (const [a, s] of steadied) {
+    // cancelled, finished or taken over (played again) by someone else
+    if (a.playState !== 'paused' || Math.abs(Number(a.currentTime) - s.t) > 0.5) { steadied.delete(a); continue }
+    const end = Number(a.effect?.getComputedTiming().endTime ?? 0)
+    const t = s.t + step
+    if (t >= end) { steadied.delete(a); a.finish(); continue }
+    a.currentTime = t
+    s.t = t
+  }
+  if (steadied.size) steadyRaf = requestAnimationFrame(steadyTick)
+  else { steadyRaf = 0; remountWatch?.disconnect(); remountWatch = null }
+}
+
 // ---- the pure part -----------------------------------------------------------
 
 export interface Delta<K> { key: K; dx: number; dy: number }
