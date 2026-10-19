@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T07:05:00Z | Undo of a drawn addition jumps under load | Undo was fading out the wrong link; fixed. Late code updates still make a link hop.
+
 2026-10-19T06:55:00Z | Quick pen edits after drawing something new | Fixed: they stayed waiting under load; now direct and visible in 8-13 ms, 4/4 runs.
 
 2026-10-19T06:40:00Z | Undo of a resize sometimes jumps | Fixed: eases now move with painted frames and aim right; 3/3 runs glide, no jumps.

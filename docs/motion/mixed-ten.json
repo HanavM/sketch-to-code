@@ -1,154 +1,154 @@
 {
  "summary": {
   "edits": 10,
-  "totalMs": 13274,
+  "totalMs": 13670,
   "committed": 5,
   "direct": 5,
   "modelCalls": 0,
-  "undoKeysMs": 3654,
+  "undoKeysMs": 3666,
   "pass": true,
   "issues": [],
-  "finalStatus": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=b0ab94c79f"
+  "finalStatus": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=ee4045fb53"
  },
  "edits": [
   {
    "name": "reorder card 1→3",
-   "visibleMs": 2.7,
-   "shown": "page",
-   "pageMovedMs": 2.7,
+   "visibleMs": 7.8,
+   "shown": "lifted copy",
+   "pageMovedMs": 219.7,
    "frames": {
-    "frames": 61,
-    "fps": 60.3,
-    "p50": 16.6,
-    "p95": 20.5,
-    "max": 23.1,
+    "frames": 59,
+    "fps": 59.5,
+    "p50": 16.7,
+    "p95": 20.4,
+    "max": 30.5,
     "over20": 3
    }
   },
   {
    "name": "erase nav link \"Reports\"",
-   "visibleMs": 11.7,
+   "visibleMs": 10.9,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
-    "frames": 60,
-    "fps": 60,
-    "p50": 16.7,
-    "p95": 22.9,
-    "max": 26.3,
-    "over20": 5
+    "frames": 59,
+    "fps": 59.2,
+    "p50": 16.6,
+    "p95": 28,
+    "max": 38.1,
+    "over20": 8
    }
   },
   {
    "name": "resize card taller",
-   "visibleMs": 2.6,
+   "visibleMs": 2,
    "shown": "page",
-   "pageMovedMs": 2.6,
+   "pageMovedMs": 2,
    "frames": {
-    "frames": 60,
-    "fps": 60.2,
+    "frames": 59,
+    "fps": 59.2,
     "p50": 16.7,
-    "p95": 21.3,
-    "max": 26.3,
-    "over20": 5
-   }
-  },
-  {
-   "name": "recolour \"Team members\" green",
-   "visibleMs": 24.1,
-   "shown": "page",
-   "pageMovedMs": null,
-   "frames": {
-    "frames": 60,
-    "fps": 60.7,
-    "p50": 16.6,
-    "p95": 19.3,
-    "max": 22.9,
-    "over20": 1
-   }
-  },
-  {
-   "name": "add nav link \"Docs\" after \"Overview\"",
-   "visibleMs": 13.2,
-   "shown": "ghost",
-   "pageMovedMs": null,
-   "frames": {
-    "frames": 60,
-    "fps": 60,
-    "p50": 16.6,
-    "p95": 19.3,
-    "max": 26.5,
-    "over20": 1
-   }
-  },
-  {
-   "name": "erase stat card \"Revenue\"",
-   "visibleMs": 13.4,
-   "shown": "page",
-   "pageMovedMs": null,
-   "frames": {
-    "frames": 60,
-    "fps": 60,
-    "p50": 16.7,
-    "p95": 23.6,
-    "max": 25.6,
+    "p95": 26.9,
+    "max": 30.4,
     "over20": 6
    }
   },
   {
-   "name": "move form down",
-   "visibleMs": 1.4,
+   "name": "recolour \"Team members\" green",
+   "visibleMs": 17.4,
    "shown": "page",
-   "pageMovedMs": 1.4,
+   "pageMovedMs": null,
    "frames": {
-    "frames": 61,
-    "fps": 60.1,
-    "p50": 16.7,
-    "p95": 20.9,
-    "max": 23.5,
+    "frames": 59,
+    "fps": 59.4,
+    "p50": 16.6,
+    "p95": 20.8,
+    "max": 33,
     "over20": 4
    }
   },
   {
-   "name": "recolour nav link \"Settings\" green",
-   "visibleMs": 12.5,
+   "name": "add nav link \"Docs\" after \"Overview\"",
+   "visibleMs": 24.9,
+   "shown": "ghost",
+   "pageMovedMs": null,
+   "frames": {
+    "frames": 58,
+    "fps": 58.9,
+    "p50": 16.7,
+    "p95": 26.6,
+    "max": 33,
+    "over20": 6
+   }
+  },
+  {
+   "name": "erase stat card \"Revenue\"",
+   "visibleMs": 23,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
     "frames": 60,
-    "fps": 59.9,
+    "fps": 61.1,
+    "p50": 16.6,
+    "p95": 24.5,
+    "max": 29.8,
+    "over20": 9
+   }
+  },
+  {
+   "name": "move form down",
+   "visibleMs": 1.3,
+   "shown": "page",
+   "pageMovedMs": 1.3,
+   "frames": {
+    "frames": 60,
+    "fps": 60,
+    "p50": 16.6,
+    "p95": 23.9,
+    "max": 28.2,
+    "over20": 5
+   }
+  },
+  {
+   "name": "recolour nav link \"Settings\" green",
+   "visibleMs": 10.2,
+   "shown": "page",
+   "pageMovedMs": null,
+   "frames": {
+    "frames": 60,
+    "fps": 59.8,
     "p50": 16.7,
-    "p95": 22.3,
-    "max": 26.4,
-    "over20": 3
+    "p95": 22.1,
+    "max": 28.9,
+    "over20": 4
    }
   },
   {
    "name": "reorder nav link 1→2",
-   "visibleMs": 0.9,
+   "visibleMs": 1.6,
    "shown": "page",
-   "pageMovedMs": 0.9,
+   "pageMovedMs": 1.6,
    "frames": {
-    "frames": 60,
+    "frames": 61,
     "fps": 60.1,
-    "p50": 16.7,
-    "p95": 21.3,
-    "max": 26.4,
-    "over20": 3
+    "p50": 16.6,
+    "p95": 23.5,
+    "max": 25.6,
+    "over20": 5
    }
   },
   {
    "name": "resize grid item taller",
-   "visibleMs": 2.2,
+   "visibleMs": 1.4,
    "shown": "page",
-   "pageMovedMs": 2.2,
+   "pageMovedMs": 1.4,
    "frames": {
     "frames": 60,
-    "fps": 59.1,
+    "fps": 60.1,
     "p50": 16.7,
-    "p95": 24.5,
-    "max": 27,
-    "over20": 3
+    "p95": 24.9,
+    "max": 30.3,
+    "over20": 8
    }
   }
  ],
@@ -157,146 +157,146 @@
    "name": "reorder card 1→3",
    "kind": "drag",
    "startMs": 0,
-   "releaseMs": 991,
-   "rel": 2021.3000000000466,
+   "releaseMs": 1060,
+   "rel": 2243.0999999999767,
    "status": "committing reorder…",
    "video": {
-    "start": 1564,
-    "release": 2556
+    "start": 1739,
+    "release": 2810
    }
   },
   {
    "name": "erase nav link \"Reports\"",
    "kind": "direct",
-   "startMs": 1243,
-   "releaseMs": 2093,
-   "rel": 3623.3000000000466,
+   "startMs": 1322,
+   "releaseMs": 2219,
+   "rel": 3919.6999999999534,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 2807,
-    "release": 3658
+    "start": 3061,
+    "release": 3959
    }
   },
   {
    "name": "resize card taller",
    "kind": "drag",
-   "startMs": 2345,
-   "releaseMs": 3143,
-   "rel": 4401.800000000047,
+   "startMs": 2471,
+   "releaseMs": 3262,
+   "rel": 4695.199999999953,
    "status": "committing resize…",
    "video": {
-    "start": 3909,
-    "release": 4711
+    "start": 4210,
+    "release": 5005
    }
   },
   {
    "name": "recolour \"Team members\" green",
    "kind": "direct",
-   "startMs": 3398,
-   "releaseMs": 6054,
-   "rel": 7539.5,
+   "startMs": 3519,
+   "releaseMs": 6175,
+   "rel": 7866,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 4962,
-    "release": 7620
+    "start": 5258,
+    "release": 7917
    }
   },
   {
    "name": "add nav link \"Docs\" after \"Overview\"",
    "kind": "add",
-   "startMs": 6307,
-   "releaseMs": 6918,
-   "rel": 8172.5,
+   "startMs": 6430,
+   "releaseMs": 7132,
+   "rel": 8514.599999999977,
    "status": "note attached — on this stroke",
    "video": {
-    "start": 7871,
-    "release": 8483
+    "start": 8169,
+    "release": 8872
    }
   },
   {
    "name": "erase stat card \"Revenue\"",
    "kind": "direct",
-   "startMs": 7170,
-   "releaseMs": 7826,
-   "rel": 9354.900000000023,
+   "startMs": 7384,
+   "releaseMs": 8087,
+   "rel": 9771.099999999977,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 8734,
-    "release": 9391
+    "start": 9123,
+    "release": 9827
    }
   },
   {
    "name": "move form down",
    "kind": "drag",
-   "startMs": 8077,
-   "releaseMs": 8807,
-   "rel": 10118.300000000047,
+   "startMs": 8339,
+   "releaseMs": 9102,
+   "rel": 10576.399999999907,
    "status": "committing move…",
    "video": {
-    "start": 9641,
-    "release": 10372
+    "start": 10078,
+    "release": 10849
    }
   },
   {
    "name": "recolour nav link \"Settings\" green",
    "kind": "direct",
-   "startMs": 9059,
-   "releaseMs": 10976,
-   "rel": 12505.400000000023,
+   "startMs": 9361,
+   "releaseMs": 11319,
+   "rel": 13032.699999999953,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 10623,
-    "release": 12541
+    "start": 11100,
+    "release": 13067
    }
   },
   {
    "name": "reorder nav link 1→2",
    "kind": "drag",
-   "startMs": 11228,
-   "releaseMs": 12146,
-   "rel": 13251.400000000023,
+   "startMs": 11580,
+   "releaseMs": 12507,
+   "rel": 13792.899999999907,
    "status": "committing reorder…",
    "video": {
-    "start": 12792,
-    "release": 13718
+    "start": 13319,
+    "release": 14247
    }
   },
   {
    "name": "resize grid item taller",
    "kind": "drag",
-   "startMs": 12405,
-   "releaseMs": 13021,
-   "rel": 14284.599999999977,
+   "startMs": 12759,
+   "releaseMs": 13412,
+   "rel": 14826.199999999953,
    "status": "committing resize…",
    "video": {
-    "start": 13969,
-    "release": 14587
+    "start": 14498,
+    "release": 15158
    }
   }
  ],
  "commits": [
   {
-   "at": 1792392367189,
+   "at": 1792393253696,
    "ok": true,
    "change": "moved 'stats' entry 1 → position 3 (renders in that order)"
   },
   {
-   "at": 1792392369329,
+   "at": 1792393255880,
    "ok": true,
    "change": "+ h-[166px]"
   },
   {
-   "at": 1792392374999,
+   "at": 1792393261732,
    "ok": true,
    "change": "+ mt-9"
   },
   {
-   "at": 1792392378348,
+   "at": 1792393265153,
    "ok": true,
    "change": "moved child 1 → position 2"
   },
   {
-   "at": 1792392379216,
+   "at": 1792393266038,
    "ok": true,
    "change": "h-full → h-[768px]"
   }
@@ -307,58 +307,70 @@
    "srcLoc": "src/components/Navbar.tsx:8:11",
    "change": "removed <a> (child 2)",
    "how": "landed",
-   "wroteMs": 158,
-   "landMs": 205
+   "wroteMs": 180,
+   "landMs": 249
   },
   {
    "kind": "recolor",
    "srcLoc": "src/components/UserTable.tsx:17:7",
    "change": "text-gray-900 → text-green-600",
    "how": "landed",
-   "wroteMs": 136,
-   "landMs": 190
+   "wroteMs": 214,
+   "landMs": 330
   },
   {
    "kind": "insert",
    "text": "Docs",
    "change": "added <a> \"Docs\" after \"Overview\"",
    "how": "grew",
-   "wroteMs": 126,
-   "landMs": 214
+   "wroteMs": 231,
+   "landMs": 291
   },
   {
    "kind": "delete",
    "srcLoc": "src/components/StatCards.tsx:11:9",
    "change": "removed 'stats' entry 3",
    "how": "landed",
-   "wroteMs": 152,
-   "landMs": 202
+   "wroteMs": 185,
+   "landMs": 250
   },
   {
    "kind": "recolor",
    "srcLoc": "src/components/Navbar.tsx:9:11",
    "change": "text-gray-600 → text-green-600; hover:text-gray-900 → hover:text-green-900",
    "how": "landed",
-   "wroteMs": 131,
-   "landMs": 178
+   "wroteMs": 161,
+   "landMs": 210
   }
  ],
  "undo": {
   "rows": [
    {
-    "visibleMs": 10.7,
+    "visibleMs": 12.1,
     "jump": null,
     "frames": {
-     "frames": 21,
-     "fps": 57.3,
-     "p50": 16.6,
-     "p95": 34.1,
-     "max": 34.1,
-     "over20": 2
+     "frames": 14,
+     "fps": 38.9,
+     "p50": 23.4,
+     "p95": 64.5,
+     "max": 64.5,
+     "over20": 9
     }
    },
    {
-    "visibleMs": 30.9,
+    "visibleMs": 26.7,
+    "jump": null,
+    "frames": {
+     "frames": 23,
+     "fps": 60.7,
+     "p50": 16.6,
+     "p95": 21.5,
+     "max": 22.8,
+     "over20": 4
+    }
+   },
+   {
+    "visibleMs": 15.3,
     "jump": null,
     "frames": {
      "frames": 21,
@@ -366,30 +378,18 @@
      "p50": 16.7,
      "p95": 25,
      "max": 25,
-     "over20": 2
-    }
-   },
-   {
-    "visibleMs": 4.9,
-    "jump": null,
-    "frames": {
-     "frames": 23,
-     "fps": 60.6,
-     "p50": 16.6,
-     "p95": 18.4,
-     "max": 22.2,
      "over20": 1
     }
    },
    {
-    "visibleMs": 9.8,
+    "visibleMs": 6.2,
     "jump": null,
     "frames": {
-     "frames": 21,
-     "fps": 60.1,
-     "p50": 16.7,
-     "p95": 21.9,
-     "max": 21.9,
+     "frames": 22,
+     "fps": 60.2,
+     "p50": 16.8,
+     "p95": 20.5,
+     "max": 22.5,
      "over20": 2
     }
    },
@@ -398,171 +398,171 @@
     "jump": null,
     "frames": {
      "frames": 23,
-     "fps": 60.9,
+     "fps": 60.1,
+     "p50": 16.8,
+     "p95": 20.3,
+     "max": 29.6,
+     "over20": 2
+    }
+   },
+   {
+    "visibleMs": 37,
+    "jump": null,
+    "frames": {
+     "frames": 21,
+     "fps": 60,
+     "p50": 16.6,
+     "p95": 24.3,
+     "max": 24.3,
+     "over20": 3
+    }
+   },
+   {
+    "visibleMs": 5.8,
+    "jump": null,
+    "frames": {
+     "frames": 21,
+     "fps": 57.8,
      "p50": 16.7,
-     "p95": 19.7,
-     "max": 24.6,
-     "over20": 1
+     "p95": 28.7,
+     "max": 28.7,
+     "over20": 2
+    }
+   },
+   {
+    "visibleMs": 6.5,
+    "jump": null,
+    "frames": {
+     "frames": 22,
+     "fps": 58.2,
+     "p50": 17.3,
+     "p95": 24.8,
+     "max": 27.1,
+     "over20": 5
+    }
+   },
+   {
+    "visibleMs": 14,
+    "jump": null,
+    "frames": {
+     "frames": 20,
+     "fps": 54.4,
+     "p50": 16.7,
+     "p95": 45.5,
+     "max": 45.5,
+     "over20": 4
     }
    },
    {
     "visibleMs": 24.6,
     "jump": null,
     "frames": {
-     "frames": 22,
-     "fps": 60.2,
-     "p50": 16.6,
-     "p95": 20.8,
-     "max": 21.9,
-     "over20": 2
-    }
-   },
-   {
-    "visibleMs": 10.6,
-    "jump": null,
-    "frames": {
-     "frames": 22,
-     "fps": 60.1,
-     "p50": 16.7,
-     "p95": 18.7,
-     "max": 24.9,
-     "over20": 1
-    }
-   },
-   {
-    "visibleMs": 15.7,
-    "jump": null,
-    "frames": {
-     "frames": 20,
-     "fps": 57.1,
-     "p50": 16.8,
-     "p95": 46,
-     "max": 46,
-     "over20": 2
-    }
-   },
-   {
-    "visibleMs": 7.6,
-    "jump": null,
-    "frames": {
-     "frames": 22,
-     "fps": 60.4,
-     "p50": 16.7,
-     "p95": 22.6,
-     "max": 23.1,
-     "over20": 3
-    }
-   },
-   {
-    "visibleMs": 22.6,
-    "jump": null,
-    "frames": {
      "frames": 60,
-     "fps": 60,
-     "p50": 16.7,
-     "p95": 19.2,
-     "max": 24.2,
-     "over20": 1
+     "fps": 60.1,
+     "p50": 16.6,
+     "p95": 22.1,
+     "max": 26.7,
+     "over20": 3
     }
    }
   ],
   "log": [
    {
-    "at": 21143.400000000023,
+    "at": 21801.099999999977,
     "preview": true
    },
    {
-    "at": 21316.800000000047,
+    "at": 22068.899999999907,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 21508.900000000023,
+    "at": 22161.29999999993,
     "preview": true
    },
    {
-    "at": 21678.900000000023,
+    "at": 22400.399999999907,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 21867.599999999977,
+    "at": 22528.29999999993,
     "preview": true
    },
    {
-    "at": 22036.699999999953,
+    "at": 22733.699999999953,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
    {
-    "at": 22242.599999999977,
+    "at": 22888.699999999953,
     "preview": true
    },
    {
-    "at": 22378.599999999977,
+    "at": 23101,
     "exact": true,
     "undid": "moved that part",
     "previewed": true
    },
    {
-    "at": 22604.400000000023,
+    "at": 23257.199999999953,
     "preview": true
    },
    {
-    "at": 22763.199999999953,
+    "at": 23451.5,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
    {
-    "at": 22978.400000000023,
+    "at": 23631.199999999953,
     "preview": true
    },
    {
-    "at": 23139.400000000023,
+    "at": 23804.79999999993,
     "exact": true,
     "undid": "added what you drew",
     "previewed": true
    },
    {
-    "at": 23341.800000000047,
+    "at": 23991,
     "preview": true
    },
    {
-    "at": 23506.5,
+    "at": 24197.399999999907,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
    {
-    "at": 23704.199999999953,
+    "at": 24360.399999999907,
     "preview": true
    },
    {
-    "at": 23900.300000000047,
+    "at": 24623.199999999953,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 24068.099999999977,
+    "at": 24733.599999999977,
     "preview": true
    },
    {
-    "at": 24228.099999999977,
+    "at": 24982.5,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
    {
-    "at": 24432.5,
+    "at": 25102.599999999977,
     "preview": true
    },
    {
-    "at": 24582.800000000047,
+    "at": 25306.29999999993,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
