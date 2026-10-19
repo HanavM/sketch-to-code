@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T09:05:00Z | Quick pen edits after drawing something new, on a busy machine | Fixed: a finishing edit cancelled the wait; now 4/4 loaded runs stay off the AI.
+
 2026-10-19T08:45:00Z | Late code updates after a quick undo streak | Fixed four races; undo stays smooth under load. Pen edits after a drawn addition still slip to the AI.
 
 2026-10-19T07:05:00Z | Undo of a drawn addition jumps under load | Undo was fading out the wrong link; fixed. Late code updates still make a link hop.
