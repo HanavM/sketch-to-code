@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T10:40:00Z | First use of every gesture on a busy machine | Nothing slow on first use: all show in 1-29 ms, 4/4 runs; next, full skeptical re-check.
+
 2026-10-19T09:35:00Z | First drawn addition shows its placeholder late | Its code ran cold on first use; now warmed while idle. 20-31 ms, 5/5 runs.
 
 2026-10-19T09:05:00Z | Quick pen edits after drawing something new, on a busy machine | Fixed: a finishing edit cancelled the wait; now 4/4 loaded runs stay off the AI.
