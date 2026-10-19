@@ -2128,6 +2128,19 @@ const STYLES = css`
   #help .hFoot { color: var(--s2c-faint); margin-top: 12px; border-top: 1px solid var(--s2c-fill); padding-top: 8px; }
 `
 
+
+/**
+ * Test hook: the drawings that landed, in order. A direct-manipulation commit
+ * puts a single record in the same slot (motion-* e2e wait on it), so start a
+ * fresh list rather than push onto that object — a throw here would leave the
+ * flight stuck and every later drawing queued behind it (n13).
+ */
+function pushLanded(rec: unknown) {
+  const w = window as unknown as { __s2cLanded?: unknown }
+  if (!Array.isArray(w.__s2cLanded)) w.__s2cLanded = []
+  ;(w.__s2cLanded as unknown[]).push(rec)
+}
+
 class Overlay {
   private host: HTMLElement
   private shadow: ShadowRoot
@@ -3398,6 +3411,11 @@ class Overlay {
       btn.classList.remove('primary')
       this.exitTweak('tweak off')
     } else {
+      // n13: picking up the tweak tool means the drawing is done. A plain
+      // erase or recolour already showing on the page is handed to the code
+      // now, instead of its countdown dying with draw mode (it would stay on
+      // the page, never written, and the next stroke would join it)
+      this.flushAuto()
       btn.classList.add('primary')
       this.setMode('tweak')
       this.tweakImplicit = false
@@ -10873,8 +10891,7 @@ class Overlay {
       if (direct) {
         if (this.flight !== job) return
         job.optimistic = null // handed over: it comes off when the code lands
-        ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
-        ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: job.id, ok: true, direct: true, at: performance.now() })
+        pushLanded({ job: job.id, ok: true, direct: true, at: performance.now() })
         this.endFlight()
         this.status(direct)
         return
@@ -11640,6 +11657,18 @@ class Overlay {
     this.autoTimer = setInterval(() => this.autoTick(), AUTO_TICK_MS)
   }
 
+  /**
+   * n13: run a pending auto countdown right now, if it carries an instant
+   * change (scribble hide, ring recolour) that the direct path can write.
+   * Called before leaving draw mode, which would otherwise cancel it.
+   */
+  private flushAuto() {
+    if (!this.autoTimer || this.autoMode !== 'auto' || !this.optimistic) return
+    if (this.autoBlock()) return
+    this.cancelAuto()
+    void this.autoRun()
+  }
+
   /** Drop a pending run. `msg` only when the user deserves to be told (Esc). */
   private cancelAuto(msg?: string) {
     if (!this.autoTimer) return
@@ -11935,8 +11964,7 @@ class Overlay {
       const line = ex?.sentence ? `${ex.problem ? '⚠' : '✓'} ${ex.sentence}` : `✓ ${d.summary ?? 'done'}`
       this.receipt(this.queue.length ? `${line} · next change starting` : line)
       if (d.summary) this.statusEl.title = d.summary
-      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
-      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: true, at: performance.now() })
+      pushLanded({ job: this.flight.id, ok: true, at: performance.now() })
       this.endFlight()
       if (ex?.problem) this.showMisread(ex)
       else this.hideMisread()
@@ -11985,8 +12013,7 @@ class Overlay {
     if (this.flight) {
       this.status(`✗ ${d.explanation?.sentence ?? d.message}`, true)
       if (d.explanation) this.showMisread(d.explanation)
-      ;(window as unknown as { __s2cLanded?: unknown[] }).__s2cLanded ??= []
-      ;(window as unknown as { __s2cLanded: unknown[] }).__s2cLanded.push({ job: this.flight.id, ok: false, at: performance.now() })
+      pushLanded({ job: this.flight.id, ok: false, at: performance.now() })
       // the code did not land: that drawing's change comes off the page
       this.endFlight()
       return

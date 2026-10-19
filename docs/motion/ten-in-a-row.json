@@ -1,17 +1,25 @@
 {
  "undo": {
-  "keysMs": 3688,
+  "keysMs": 3610,
   "rows": [
    {
-    "visibleMs": 21.4,
+    "visibleMs": 32.2,
     "jump": null
    },
    {
-    "visibleMs": 25,
+    "visibleMs": 21.3,
     "jump": null
    },
    {
-    "visibleMs": 25.6,
+    "visibleMs": 24.9,
+    "jump": null
+   },
+   {
+    "visibleMs": 32.5,
+    "jump": null
+   },
+   {
+    "visibleMs": 28.6,
     "jump": null
    },
    {
@@ -19,127 +27,119 @@
     "jump": null
    },
    {
-    "visibleMs": 24.4,
+    "visibleMs": 23.2,
     "jump": null
    },
    {
-    "visibleMs": 20.7,
+    "visibleMs": 26.6,
     "jump": null
    },
    {
-    "visibleMs": 23.9,
+    "visibleMs": 34.6,
     "jump": null
    },
    {
-    "visibleMs": 46.9,
-    "jump": null
-   },
-   {
-    "visibleMs": 27.8,
-    "jump": null
-   },
-   {
-    "visibleMs": 20.8,
+    "visibleMs": 22.3,
     "jump": null
    }
   ],
   "log": [
    {
-    "at": 18337.29999999993,
+    "at": 17613.599999999977,
     "preview": true
    },
    {
-    "at": 18502.199999999953,
+    "at": 17816.599999999977,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 18704.599999999977,
+    "at": 17972.300000000047,
     "preview": true
    },
    {
-    "at": 18889.29999999993,
+    "at": 18149.800000000047,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 19073,
+    "at": 18336.300000000047,
     "preview": true
    },
    {
-    "at": 19232.699999999953,
+    "at": 18485,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 19439.099999999977,
+    "at": 18693.20000000007,
     "preview": true
    },
    {
-    "at": 19619.900000000023,
+    "at": 18831.599999999977,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 19807.400000000023,
+    "at": 19050.5,
     "preview": true
    },
    {
-    "at": 19987.79999999993,
+    "at": 19218.400000000023,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 20202.699999999953,
+    "at": 19407.300000000047,
     "preview": true
    },
    {
-    "at": 20364.79999999993,
+    "at": 19582.800000000047,
     "exact": true,
     "undid": "moved that part",
     "previewed": true
    },
    {
-    "at": 20567.599999999977,
+    "at": 19772.70000000007,
     "preview": true
    },
    {
-    "at": 20745.5,
+    "at": 19916.099999999977,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 20927.599999999977,
+    "at": 20133.5,
     "preview": true
    },
    {
-    "at": 21133.29999999993,
+    "at": 20288.599999999977,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 21286.599999999977,
+    "at": 20494.099999999977,
     "preview": true
    },
    {
-    "at": 21487.699999999953,
+    "at": 20653.300000000047,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 21655.5,
+    "at": 20856.400000000023,
     "preview": true
    },
    {
-    "at": 21817.900000000023,
+    "at": 21017.5,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
@@ -148,123 +148,123 @@
  },
  "summary": {
   "edits": 10,
-  "totalMs": 10166,
+  "totalMs": 9846,
   "committed": 10,
   "modelCalls": 0,
   "pass": true,
   "issues": [],
-  "finalStatus": "✓ h-[166px] → h-[142px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=6081343a2e"
+  "finalStatus": "✓ h-[166px] → h-[142px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=c8af0b124f"
  },
  "marks": [
   {
    "name": "reorder card 1→3",
    "startMs": 0,
-   "releaseMs": 860,
+   "releaseMs": 831,
    "status": "committing reorder…"
   },
   {
    "name": "resize card taller",
-   "startMs": 1123,
-   "releaseMs": 1774,
+   "startMs": 1089,
+   "releaseMs": 1717,
    "status": "committing resize…"
   },
   {
    "name": "reorder grid 1→3",
-   "startMs": 2029,
-   "releaseMs": 2913,
+   "startMs": 1977,
+   "releaseMs": 2812,
    "status": "committing reorder…"
   },
   {
    "name": "reorder nav link 1→3",
-   "startMs": 3173,
-   "releaseMs": 3993,
+   "startMs": 3068,
+   "releaseMs": 3857,
    "status": "committing reorder…"
   },
   {
    "name": "move form down",
-   "startMs": 4247,
-   "releaseMs": 4858,
+   "startMs": 4110,
+   "releaseMs": 4734,
    "status": "committing move…"
   },
   {
    "name": "reorder card 3→1",
-   "startMs": 5112,
-   "releaseMs": 5962,
+   "startMs": 4991,
+   "releaseMs": 5792,
    "status": "committing reorder…"
   },
   {
    "name": "resize grid item taller",
-   "startMs": 6217,
-   "releaseMs": 6842,
+   "startMs": 6045,
+   "releaseMs": 6659,
    "status": "committing resize…"
   },
   {
    "name": "reorder nav link 3→1",
-   "startMs": 7099,
-   "releaseMs": 7927,
+   "startMs": 6912,
+   "releaseMs": 7677,
    "status": "committing reorder…"
   },
   {
    "name": "reorder grid 2→1",
-   "startMs": 8186,
-   "releaseMs": 9033,
+   "startMs": 7929,
+   "releaseMs": 8742,
    "status": "committing reorder…"
   },
   {
    "name": "resize card shorter",
-   "startMs": 9288,
-   "releaseMs": 9909,
+   "startMs": 8997,
+   "releaseMs": 9593,
    "status": "committing resize…"
   }
  ],
  "commits": [
   {
-   "at": 1792379486493,
+   "at": 1792382554694,
    "ok": true,
    "change": "moved 'stats' entry 1 → position 3 (renders in that order)"
   },
   {
-   "at": 1792379487377,
+   "at": 1792382555561,
    "ok": true,
    "change": "+ h-[166px]"
   },
   {
-   "at": 1792379488523,
+   "at": 1792382556652,
    "ok": true,
    "change": "moved child 1 → position 3"
   },
   {
-   "at": 1792379489603,
+   "at": 1792382557741,
    "ok": true,
    "change": "moved child 1 → position 3"
   },
   {
-   "at": 1792379490472,
+   "at": 1792382558581,
    "ok": true,
    "change": "+ mt-9"
   },
   {
-   "at": 1792379491573,
+   "at": 1792382559643,
    "ok": true,
    "change": "moved 'stats' entry 3 → position 1 (renders in that order)"
   },
   {
-   "at": 1792379492434,
+   "at": 1792382560511,
    "ok": true,
    "change": "+ h-[768px]"
   },
   {
-   "at": 1792379493597,
+   "at": 1792382561533,
    "ok": true,
    "change": "moved child 3 → position 1"
   },
   {
-   "at": 1792379494656,
+   "at": 1792382562595,
    "ok": true,
    "change": "moved child 2 → position 1"
   },
   {
-   "at": 1792379495501,
+   "at": 1792382563444,
    "ok": true,
    "change": "h-[166px] → h-[142px]"
   }

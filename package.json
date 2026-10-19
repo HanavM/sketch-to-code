@@ -32,7 +32,8 @@
     "e2e:motion-resize": "node tests/e2e/motion-resize.mjs",
     "e2e:motion-add-recolour": "node tests/e2e/motion-add-recolour.mjs",
     "e2e:shared-plane": "node tests/e2e/shared-plane.mjs",
-    "e2e:ten": "node tests/e2e/ten-in-a-row.mjs"
+    "e2e:ten": "node tests/e2e/ten-in-a-row.mjs",
+    "e2e:mixed": "node tests/e2e/mixed-ten.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
