@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "New things now grow into place and push their neighbours aside smoothly, and colour changes fade instead of popping; next, a 20-edit test that the page never flashes when the code lands."
-lock: {by: run-n8-20261019T0202, until: "2026-10-19T03:32:00Z"}
+now: "Twenty-two drag, resize and move edits in a row now land in the code exactly as you saw them, with no flash; next, making erase and recolour land in the code without the AI so they join that test."
+lock: null
 asks: []
 handled: []
 notes:
@@ -19,12 +19,13 @@ notes:
   - "n6: tests/e2e/motion-resize.mjs starts its own vite on :5263 (stat card height pull, cancel, ContactForm move hold). live-reorder.ts pushedBy/boxesOf/settleBoxes hold any inline-styled edit."
   - "n7: tests/e2e/motion-add-recolour.mjs starts its own vite on :5264; it simulates the hot reload by inserting the new link itself. growLanded (main.ts) grows fresh nodes in the reload's MO task."
   - "n7: motion-erase fails p95 (33 ms) in this sandbox on the agent baseline too: the first frame after lift is held 33 ms. To fix in n8."
+  - "n8: tests/e2e/shared-plane.mjs starts its own vite on :5265, chains 22 manipulate edits, writes docs/motion/shared-plane.json. PlanCard refuses move/resize (dynamic className): codemod gap. optimistic-ring/queue start their own vite on :5199: free the port first."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
   - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: null}
   - {id: c2, text: "Smooth, not jumps: erase fades out and neighbours glide into the gap; move glides; add grows in. Measured at 60 fps on the demo app.", state: open, evidence: null}
   - {id: c3, text: "Canva-style direct manipulation: drag to move or reorder, drag edges to resize; page reflows live during the drag; code follows after release.", state: open, evidence: null}
-  - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: open, evidence: null}
+  - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: open, evidence: "partial (n8): tests/e2e/shared-plane.mjs 22/22 reorder/resize/move edits on try/n1-motion-layer; erase/recolour/add landing still model-only, not in the set"}
   - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: open, evidence: null}
   - {id: c6, text: "Proof to watch: a short screen recording or GIF per gesture, plus a frame-timing report.", state: open, evidence: null}
 nodes:
@@ -43,5 +44,7 @@ nodes:
      result: "Page reflows 10 ms into the pull; size held until reload, code matched, cancel eases back; moves hold too. Commit e8d170c."}
   - {id: n7, parent: n1, kind: step, title: "Add grows in and recolour eases: inserted/drawn elements scale+fade in, recolour cross-fades, held until the code lands; e2e frame timing", status: done,
      result: "Ghost 9 ms, new link grows over 12 frames, neighbour glides 11 spots; recolour eases both ways. Commit e4d8791."}
-  - {id: n8, parent: n1, kind: step, title: "Shared-plane test set: 20+ scripted edits of every kind land with no flash or jump (>=95%); fix the erase lift-frame hitch (p95 33 ms here)", status: open, result: null}
+  - {id: n8, parent: n1, kind: step, title: "Shared-plane test set: 20+ scripted edits of every kind land with no flash or jump (>=95%); fix the erase lift-frame hitch (p95 33 ms here)", status: done,
+     result: "22/22 drag edits land matching, no flash (twice); linked cards resize together; erase p95 16.7 ms. Commit 4a5f8b3."}
+  - {id: n10, parent: n2, kind: step, title: "Codemods for erase (delete element) and recolour so they land in code in ~1 s with 0 tokens; add them (and add/insert if feasible) to the shared-plane set", status: open, result: null}
   - {id: n9, parent: n1, kind: step, title: "Ten edits in a row under 20 s all land in code; undo of each is instant and smooth (e2e)", status: open, result: null}
