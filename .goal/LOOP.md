@@ -57,7 +57,7 @@ On the `agent` branch (yours):
    a `verify` node. Run it as a skeptic, from a fresh checkout of `agent`:
    re-run every check in GOAL.md yourself, and try to break it. All
    criteria pass: write ATTEST.md (each criterion, the evidence, and how
-   to see it yourself) and set `goal_state: met`. Anything fails: reopen
+   to see it yourself), write REVIEW.md (below), and set `goal_state: met`. Anything fails: reopen
    that criterion and add nodes.
 9. **Report.** Set `now:` to one plain sentence for the owner's dashboard
    (what you're working on, no jargon). Prepend one line to LOG.md:
@@ -67,6 +67,23 @@ On the `agent` branch (yours):
     open node is blocked on the owner, start the next run now by firing
     this scheduled task (its id is in your prompt). Exactly one fire per
     run.
+
+## REVIEW.md (written when the goal is met; the owner reads it first)
+A short, plain brief shown on his dashboard. No ids, file paths in prose,
+commit hashes or jargon. Sections, in order:
+- `# <goal in a few words>`, then one line: **Met.**, how many steps,
+  and how long it took.
+- `## Watch it`: one line per gesture or feature, each followed by its
+  GIF, image or video as `![name](path/in/repo)`. Media must be committed
+  on `agent`, with GIFs under about 1 MB each. Film every user-visible
+  result: this is how he judges the work.
+- `## How it did`: a table with one row per check, giving the result in
+  plain words.
+- `## What's new for you`: 2–4 bullets on what he can do now.
+- `## How it got there`: approaches kept and cut, one line each, with the reason.
+- `## Worth knowing`: honest limits, untested areas, and anything that
+  differs from what he asked for. Always say whether the work is merged to main.
+- `## Ideas for the next goal`: 2–4 bullets.
 
 ## Questions for the owner
 Add them to `tree.yaml` `asks:` as one plain sentence each, answerable in
