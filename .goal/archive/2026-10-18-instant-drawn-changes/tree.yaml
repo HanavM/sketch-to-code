@@ -1,0 +1,69 @@
+goal_hash: cea990b77d2e353981deb0adf745cfedf63fa462
+goal_state: met
+now: "Done: every goal point was re-checked from a fresh copy and passes. Drawn changes show in 13-38 ms. Nothing left to do until a new goal."
+lock: null
+asks: []
+handled: []
+notes:
+  - "Overlay bundle may import only @s2c/ink/classify, never @s2c/ink (node:zlib); a bad import shows as no overlay in e2e."
+  - "The vite plugin caches the overlay bundle per dev-server boot: restart the demo server after overlay edits."
+  - "Playwright here wants headless_shell-1234; point PLAYWRIGHT_BROWSERS_PATH at a dir linking chrome-headless-shell to /opt/pw-browsers/chromium."
+  - "Quick reading must match plain-reading.ts exactly; on big pages the server menu cap (MENU_CAP) could still diverge: a false hide is rolled back, a miss just waits for the run."
+  - "Spent so far: n8 ran 3 live runs (move, insert, section) through Claude Code; estimate under 100k tokens today. Earlier steps a few thousand."
+  - "optimistic-preview.mjs flaked once on the first run after a fresh dev-server boot (insert: run never started); passed on rerun."
+  - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium (simpler than the PLAYWRIGHT_BROWSERS_PATH symlink)."
+  - "Move/insert/section are model readings; the preview is drawn in the overlay's own #pending layer, never in the app DOM. A box counts as empty space if no worded element or stamped leaf is under its centre or 20% under it."
+  - "Don't pkill -f with a pattern that appears in your own command line: it kills the shell. Use fuser -k 5199/tcp."
+  - "The model reading (/@s2c/interpret) runs even when /@s2c/run is stubbed and can take 20+ s on a cold server: give e2e waits 60-90 s."
+  - "Never draw on the demo in auto mode without stubbing /@s2c/run: a real run writes the demo source (git checkout + remove untracked files after)."
+  - "__S2C_DEBUG__.runDone / runError end a run from e2e with no server run (used by optimistic-preview-reconcile.mjs)."
+  - "n10: in auto mode a run goes on in the background (host data-flight / data-queued, mode stays draw); e2e that waited for mode 'running' must accept data-flight."
+  - "n10 gap: a run that full-reloads the page (new module) loses queued drawings and their instant changes; park the queue in sessionStorage if it matters."
+  - "optimistic-queue.mjs and optimistic-ring.mjs start their own vite on :5199 with a throwing scripted model: stop the demo dev server first."
+  - "Spent today: n9 + n10 reconcile runs used ~6 model readings each; still well under 300k."
+  - "n11 ran 3 live runs on the old flow (move, insert, section; the section run took 142 s). Today's total is uncertain, maybe 200k: avoid more live runs today unless verify needs them."
+  - "latency-table.mjs runs on any checkout; for the old flow copy it in. S2C_STUB_MODEL=1 holds the server calls open (no tokens)."
+  - "n13: new-section runs on the demo end on a ⚠ placement tick: findInsertSlot slots between decorative BackgroundFlourish svgs. Pre-existing, outside the goal."
+  - "n13: tests/e2e/verify-preview-scripted.mjs covers move/insert/section land + undo with a scripted model (no tokens, own vite on 5261)."
+baseline_notes: "On agent at 36c6700: npm test 1303 pass / 3 fail (cli deps+init, pipeline library home-dir; look environment-specific: run as root). The npm run typecheck script is broken (tsc -b with --noEmit gives TS6310); npm run build (tsc -b) is clean and is the real type check. Treat these as pre-existing."
+criteria:
+  - {id: c1, text: "Scribble over an element hides it within 100 ms of pen lift, no Go; code follows and is verified; failure puts it back.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): tests/e2e/optimistic-scribble.mjs, hidden 15-34 ms after lift, rollback exact, live delete lands."}
+  - {id: c2, text: "Circling an element with a coloured pen recolours it within 100 ms of pen lift, with the same catch-up and rollback.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): tests/e2e/optimistic-ring.mjs re-run after merge, recolour 14-19 ms after lift, rollback exact, lands, undo exact."}
+  - {id: c3, text: "Arrow (move), caret (insert) and box in empty space (new section) each show a pending-marked preview within 300 ms; preview becomes real when code lands, or is removed if code does otherwise.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): optimistic-preview.mjs (stubbed) previews 12-26 ms, removed on failure; optimistic-preview-live.mjs (live model) all three land, preview held until done then removed, 15-19 ms to preview. n9 (optimistic-preview-reconcile.mjs): preview down 55-60 ms after the real change shows, mid-run; code does something else: held, removed at run end."}
+  - {id: c4, text: "Next change can be drawn while earlier ones are being coded; three back-to-back changes all land correctly (e2e).", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9), re-run after merge: tests/e2e/optimistic-queue.mjs, ring+ring+scribble back to back, two queued behind the first, all land live, 20-40 ms to visible, Ctrl+Z x3 exact."}
+  - {id: c5, text: "Undo still works for each, and the existing tests still pass.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): npm test 1331 pass, 2 pre-existing env fails (cli init gh, library home-dir); Ctrl+Z after a landed scribble delete and after both ring recolours restores source byte for byte and the page."}
+  - {id: c6, text: "Before/after table of pen-lift-to-visible time per gesture, measured on the demo app.", state: met,
+     evidence: "Re-run in n13 from a fresh clone of agent, all pass (see ATTEST.md). On agent (97691b9): docs/latency/before-after.md via tests/e2e/latency-table.mjs. Before 1.2 s (scribble, ring), 17/62/142 s (move/insert/section); after 13-45 ms."}
+nodes:
+  - {id: n0, parent: null, kind: goal, title: "Drawn changes feel instant: page changes on pen lift, code catches up", status: done}
+  - {id: n1, parent: n0, kind: approach, title: "Browser-side read + reversible DOM patch on pen lift, reconciled when the code lands", status: proven,
+     branch: try/n1-client-optimistic, result: "All six points covered; merged into agent at 97691b9."}
+  - {id: n2, parent: n0, kind: approach, title: "Tiny server round trip: deterministic gesture endpoint returns a patch the page applies", status: pruned,
+     branch: try/n2-server-gesture, result: "Pruned: n1 already meets every point in the browser; a server round trip only adds delay."}
+  - {id: n3, parent: n0, kind: approach, title: "Write the source change deterministically at pen lift and let hot reload show it; model only verifies", status: pruned,
+     branch: try/n3-instant-source, result: "Pruned: n1 already meets every point; writing source at lift is riskier and slower to show."}
+  - {id: n4, parent: n1, kind: step, title: "Gesture reader + reversible patch module (scribble hides, coloured ring recolours) with unit tests", status: done,
+     result: "optimistic.ts reads both gestures in-browser; parity with server reading on all 15 rough sketches; undo exact. Commit 03ac934."}
+  - {id: n5, parent: n1, kind: step, title: "Wire it into pen lift: patch instantly, run with no Go, drop patch on reload, undo on failure; e2e timing", status: done,
+     result: "Scribble hides 15-34 ms after lift; failed run restores exactly; live delete lands, no flash. Commit 6564743."}
+  - {id: n6, parent: n1, kind: step, title: "Coloured-ring recolour e2e (lift-to-visible, rollback, live land) plus Ctrl+Z after each lands", status: done,
+     result: "Ring recolours 15-24 ms after lift; rollback exact; lands with no flash; Ctrl+Z works for ring and scribble. Commit 88ea4ca."}
+  - {id: n7, parent: n1, kind: step, title: "Pending-marked previews at pen lift for arrow (move), caret (insert) and box in empty space (new section), removed or made real when code lands", status: done,
+     result: "Dashed pending previews 12-26 ms after lift for all three; app DOM untouched; removed on failure. Commit 64aea0a."}
+  - {id: n8, parent: n1, kind: step, title: "Live e2e: each preview gives way to the real change when the code lands (model runs), and is removed when the code does something else", status: done,
+     result: "All three land live; preview held until done, then removed; Ctrl+Z restores source. Commit 36dc65b. 'Something else' case not yet tested."}
+  - {id: n9, parent: n1, kind: step, title: "e2e: preview removed when the code lands something different; take the preview down as soon as the real change shows (now overlaps 3-5 s)", status: done,
+     result: "Preview drops ~60 ms after the real change shows, mid-run; other edits: held, then removed at run end. Commit c74261f."}
+  - {id: n10, parent: n1, kind: step, title: "Draw while earlier changes are being coded: queue runs, three back-to-back changes all land (e2e)", status: done,
+     result: "Pen stays free; queued drawings keep their change on the page; ring, ring, scribble all land in order. Commit d0b4be5."}
+  - {id: n11, parent: n1, kind: step, title: "Before/after table: pen lift to visible change per gesture on the demo app (old flow at agent vs try/n1)", status: done,
+     result: "Before 1.2 s to 142 s; after 13-45 ms for all five gestures. docs/latency/before-after.md, commit af3d5e4."}
+  - {id: n12, parent: n1, kind: step, title: "Mark n1 proven: merge try/n1 into agent, tests green on agent, move criteria evidence to agent", status: done,
+     result: "Clean merge 97691b9; build clean; npm test 1331 pass, 2 known env fails; ring and queue e2e pass."}
+  - {id: n13, parent: n0, kind: verify, title: "Verify from a fresh checkout of agent: re-run every GOAL.md check (all optimistic e2e, undo, npm test, table) and try to break it", status: done,
+     result: "Every check re-run from a fresh clone passes; added scripted move/insert/section undo e2e. ATTEST.md written."}
