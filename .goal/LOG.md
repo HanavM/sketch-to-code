@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T05:15:00Z | First drag starts late? | Not late: the card moves as a lifted copy from 3 ms; timing fixed, GIFs and report re-made.
+
 2026-10-19T05:08:00Z | GIF per gesture and a frame-timing page | 7 GIFs from one filmed run plus REPORT.md; found the first drag starts ~0.2 s late.
 
 2026-10-19T04:50:00Z | Ten mixed edits with a drawn addition; merged | 10 edits incl. addition in 13 s, all in code; back-to-back pen edits no longer merge.
