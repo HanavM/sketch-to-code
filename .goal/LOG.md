@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T03:05:00Z | Ten edits in a row, with instant undo | 10 drags land in code in 10 s; each undo shows in 20-35 ms, glides, code back to start.
+
 2026-10-19T02:47:00Z | Erase and recolour write the code without the AI | 8/8 land in code in about 1.1 s, 0 tokens, no flash when the code arrives.
 
 2026-10-19T02:29:00Z | Shared-plane test set, 22 edits | 22/22 drag edits land as seen, no flash; linked cards resize together; erase hitch fixed.
