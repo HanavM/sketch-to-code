@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
 now: "Twenty-two drag, resize and move edits in a row now land in the code exactly as you saw them, with no flash; next, making erase and recolour land in the code without the AI so they join that test."
-lock: null
+lock: {by: run-20261019T0230, until: "2026-10-19T04:00:04Z"}
 asks: []
 handled: []
 notes:
@@ -46,5 +46,5 @@ nodes:
      result: "Ghost 9 ms, new link grows over 12 frames, neighbour glides 11 spots; recolour eases both ways. Commit e4d8791."}
   - {id: n8, parent: n1, kind: step, title: "Shared-plane test set: 20+ scripted edits of every kind land with no flash or jump (>=95%); fix the erase lift-frame hitch (p95 33 ms here)", status: done,
      result: "22/22 drag edits land matching, no flash (twice); linked cards resize together; erase p95 16.7 ms. Commit 4a5f8b3."}
-  - {id: n10, parent: n2, kind: step, title: "Codemods for erase (delete element) and recolour so they land in code in ~1 s with 0 tokens; add them (and add/insert if feasible) to the shared-plane set", status: open, result: null}
+  - {id: n10, parent: n2, kind: step, title: "Codemods for erase (delete element) and recolour so they land in code in ~1 s with 0 tokens; add them (and add/insert if feasible) to the shared-plane set", status: active, result: null}
   - {id: n9, parent: n1, kind: step, title: "Ten edits in a row under 20 s all land in code; undo of each is instant and smooth (e2e)", status: open, result: null}
