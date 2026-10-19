@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T09:35:00Z | First drawn addition shows its placeholder late | Its code ran cold on first use; now warmed while idle. 20-31 ms, 5/5 runs.
+
 2026-10-19T09:05:00Z | Quick pen edits after drawing something new, on a busy machine | Fixed: a finishing edit cancelled the wait; now 4/4 loaded runs stay off the AI.
 
 2026-10-19T08:45:00Z | Late code updates after a quick undo streak | Fixed four races; undo stays smooth under load. Pen edits after a drawn addition still slip to the AI.
