@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "Ten drags, resizes and moves in a row land in the code in about 10 seconds, and undo snaps each one back smoothly at once; next, the same instant undo for erasing and recolouring."
-lock: {by: run-2026-10-19T0303, until: "2026-10-19T04:33:00Z"}
+now: "Undo now brings an erased element back at once, fading in while its neighbours make room, and eases a colour back; next, ten mixed edits in a row (drags, erases, recolours) with undo."
+lock: null
 asks: []
 handled: []
 notes:
@@ -22,13 +22,14 @@ notes:
   - "n8: tests/e2e/shared-plane.mjs starts its own vite on :5265, chains 22 manipulate edits, writes docs/motion/shared-plane.json. PlanCard refuses move/resize (dynamic className): codemod gap. optimistic-ring/queue start their own vite on :5199: free the port first."
   - "n10: try/n2-codemod-follow is cut from try/n1-motion-layer (needs its motion + shared-plane work). POST /@s2c/direct writes plain erase/recolour (applyDirectEdit); runFlight tries it before /@s2c/interpret. Tests that want the model path must refuse /@s2c/direct (see motion-erase). tests/e2e/direct-erase-recolour.mjs starts vite on :5266. Large erases (>35% viewport) and drawn additions still go to the model."
   - "n9: undo-preview.ts records each committed manipulate edit's visual inverse (class swap eased by WAAPI; reorder by inline order, released when the children are back in order). /@s2c/undo now returns sha; a mismatching preview is reverted. tests/e2e/ten-in-a-row.mjs starts vite on :5267; aim at stable boxes (glides in flight make picks miss)."
+  - "n12: undo-preview.ts captureErase keeps a ghost copy (stamps stripped, data-s2c-ghost) and matches it back by tag+text, not srcLoc (per-line stamps shift after a delete). tests/e2e/undo-direct.mjs starts vite on :5268. landDirect now joins commitsInFlight."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
   - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: null}
   - {id: c2, text: "Smooth, not jumps: erase fades out and neighbours glide into the gap; move glides; add grows in. Measured at 60 fps on the demo app.", state: open, evidence: null}
   - {id: c3, text: "Canva-style direct manipulation: drag to move or reorder, drag edges to resize; page reflows live during the drag; code follows after release.", state: open, evidence: null}
   - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: open, evidence: "partial: shared-plane.mjs 22/22 drag edits (n8) + direct-erase-recolour.mjs 8/8 erase/recolour with no flash (n10, try/n2-codemod-follow); drawn additions still model-only"}
-  - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: open, evidence: "partial: ten-in-a-row.mjs (n9, try/n2-codemod-follow b9fc0c0) 10 drag/resize/move edits in 10.3 s all in code, 10 undos visible 20-35 ms, glide, source back to start, 3/3 runs; erase/recolour undo still server-only"}
+  - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: open, evidence: "partial: ten-in-a-row.mjs (n9, try/n2-codemod-follow b9fc0c0) 10 drag/resize/move edits in 10.3 s all in code, 10 undos visible 20-35 ms, glide, source back to start, 3/3 runs; erase/recolour undo instant too: undo-direct.mjs (n12, 755cf25) 5/5 undos visible 10-16 ms, smooth, source back; mixed sequence not yet run"}
   - {id: c6, text: "Proof to watch: a short screen recording or GIF per gesture, plus a frame-timing report.", state: open, evidence: null}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "Edits feel instant and physical like Canva: the page moves first, the code follows", status: open}
@@ -36,8 +37,8 @@ nodes:
      branch: try/n1-motion-layer, result: null}
   - {id: n2, parent: n0, kind: approach, title: "Deterministic code for every gesture: codemods (delete, move/reorder, recolour, resize, insert) land the source in about a second, model only as fallback", status: active,
      branch: try/n2-codemod-follow, result: null}
-  - {id: n3, parent: n0, kind: approach, title: "Design layer as source of truth: visual edits live in a persistent style/order layer the page renders from, compiled into code behind", status: open,
-     branch: try/n3-design-layer, result: null}
+  - {id: n3, parent: n0, kind: approach, title: "Design layer as source of truth: visual edits live in a persistent style/order layer the page renders from, compiled into code behind", status: pruned,
+     branch: try/n3-design-layer, result: "Pruned: n1 holds plus n2 codemods already make the visual edit what you see; a second layer adds sync risk."}
   - {id: n4, parent: n1, kind: step, title: "motion.ts: FLIP erase (fade out, neighbours glide into gap) with reversible undo; wire scribble-erase to it; e2e frame timing on the demo", status: done,
      result: "Erase fades 12 ms after lift, neighbour glides 124 px over 11 frames, p95 16.7 ms; take-back smooth, exact. Commit 5d70b57."}
   - {id: n5, parent: n1, kind: step, title: "Drag to move/reorder: neighbours glide aside live during the drag, element glides into place on release, code via /@s2c/manipulate reorder, no jump when it lands (e2e)", status: done,
@@ -52,5 +53,7 @@ nodes:
      result: "8/8 erases and recolours land in code with no model, ~1.1 s, no flash; regressions green. Commit c68f629."}
   - {id: n9, parent: n2, kind: step, title: "Ten edits in a row (drag, resize, erase, recolour) under 20 s all land in code; undo of each is instant and smooth (e2e), on try/n2-codemod-follow", status: done,
      result: "10 drag edits in 10 s all in code; 10 undos show in 20-35 ms, glide, code back to start. Commit b9fc0c0."}
-  - {id: n12, parent: n2, kind: step, title: "Instant smooth undo for erase and recolour (fade back in, colour eases back), then a mixed ten-in-a-row (drags + erases + recolours) with undo", status: open, result: null}
+  - {id: n12, parent: n2, kind: step, title: "Instant smooth undo for erase and recolour (fade back in, colour eases back), then a mixed ten-in-a-row (drags + erases + recolours) with undo", status: done,
+     result: "5/5 erase and recolour undos show in 10-16 ms, fade or ease back, no jump or double; code restored. Commit 755cf25."}
+  - {id: n13, parent: n2, kind: step, title: "Mixed ten-in-a-row: drags, resizes, erases and recolours interleaved under 20 s, all land in code, then undo all ten instantly and smoothly (e2e)", status: open, result: null}
   - {id: n11, parent: n2, kind: step, title: "Drawn additions (link, button, text) land without the model when the drawing is plain: insert codemod from the pending preview", status: open, result: null}

@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T03:40:00Z | Instant undo for erasing and recolouring | 5/5 undos show in 10-16 ms; erased items fade back in, neighbours glide, colours ease back.
+
 2026-10-19T03:05:00Z | Ten edits in a row, with instant undo | 10 drags land in code in 10 s; each undo shows in 20-35 ms, glides, code back to start.
 
 2026-10-19T02:47:00Z | Erase and recolour write the code without the AI | 8/8 land in code in about 1.1 s, 0 tokens, no flash when the code arrives.
