@@ -107,7 +107,15 @@ function layoutBoxes(root: Element, skip: (el: Element) => boolean, cap = 1500):
 
 export interface Flip {
   /** Measure again and glide everything that moved from where it was. */
-  play(duration?: number): Animation[]
+  play(duration?: number, exclude?: (el: Element) => boolean): Animation[]
+  /**
+   * n11: a hot reload of an unkeyed list adds by SHIFTING: React rewrites each
+   * later sibling's words in place and appends one node at the end, so the
+   * node that is new is not the item that is new. Glide the siblings of
+   * `fresh` by what they SAY (each from where those words stood at lift) and
+   * return the one whose words are new, to grow in. Null when nothing shifted.
+   */
+  playShifted(fresh: HTMLElement[], duration?: number): { anims: Animation[]; grow: HTMLElement[] } | null
 }
 
 /** Take the "First" measurement; call play() right after the layout change. */
@@ -116,13 +124,22 @@ export function flipFrom(root: Element, skip: (el: Element) => boolean): Flip {
   // page coordinates: a scroll between the two measurements is not a move
   const sx0 = typeof scrollX === 'number' ? scrollX : 0
   const sy0 = typeof scrollY === 'number' ? scrollY : 0
-  return {
-    play(duration = GLIDE_MS) {
+  // words at lift, for the small leaves an unkeyed reload may rewrite in place
+  const said = new Map<Element, string>()
+  const parentAt = new Map<Element, Element | null>()
+  for (const el of before.keys()) {
+    if (el.childElementCount > 2) continue
+    said.set(el, textKey(el))
+    parentAt.set(el, el.parentElement)
+  }
+  const flip: Flip = {
+    play(duration = GLIDE_MS, exclude) {
       const after = new Map<Element, Box>()
       const ddx = (typeof scrollX === 'number' ? scrollX : 0) - sx0
       const ddy = (typeof scrollY === 'number' ? scrollY : 0) - sy0
       for (const el of before.keys()) {
         if (!el.isConnected) continue
+        if (exclude?.(el)) continue
         const r = el.getBoundingClientRect()
         after.set(el, { x: r.left + ddx, y: r.top + ddy, w: r.width, h: r.height })
       }
@@ -144,7 +161,48 @@ export function flipFrom(root: Element, skip: (el: Element) => boolean): Flip {
       }
       return anims
     },
+    playShifted(fresh, duration = GLIDE_MS) {
+      const box = fresh[0]?.parentElement
+      if (!box || fresh.some((f) => f.parentElement !== box)) return null
+      const kids = [...box.children]
+      // shifted: an old node now says something else, or a node the row had
+      // at lift was swapped for a new one (a remount when a type changed)
+      const shifted = kids.some((k) => !fresh.includes(k as HTMLElement) &&
+        (said.has(k) ? said.get(k) !== textKey(k) : !before.has(k)))
+      if (!shifted) return null
+      const ddx = (typeof scrollX === 'number' ? scrollX : 0) - sx0
+      const ddy = (typeof scrollY === 'number' ? scrollY : 0) - sy0
+      // where each thing the row said stood at lift
+      const pool = new Map<string, Box[]>()
+      // (by the row as it stood at lift: a remount took some of its nodes away)
+      for (const [k, w] of said) {
+        const b = before.get(k)
+        if (parentAt.get(k) !== box || !b) continue
+        pool.set(w, [...(pool.get(w) ?? []), b])
+      }
+      const anims = flip.play(duration, (el) => box.contains(el) && el !== box)
+      const grow: HTMLElement[] = []
+      for (const k of kids) {
+        const el = k as HTMLElement
+        const from = pool.get(textKey(el))?.shift()
+        if (!from) { grow.push(el); continue }
+        if (typeof el.animate !== 'function') continue
+        const r = el.getBoundingClientRect()
+        const dx = from.x - (r.left + ddx)
+        const dy = from.y - (r.top + ddy)
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) continue
+        const cs = getComputedStyle(el)
+        if (cs.display === 'inline' || cs.display === 'contents') continue
+        const base = cs.transform === 'none' ? '' : cs.transform
+        anims.push(el.animate(
+          [{ transform: `translate(${dx}px, ${dy}px) ${base}`.trim() }, { transform: base || 'none' }],
+          { duration, easing: EASE },
+        ))
+      }
+      return { anims, grow }
+    },
   }
+  return flip
 }
 
 export interface Moving extends Applied {

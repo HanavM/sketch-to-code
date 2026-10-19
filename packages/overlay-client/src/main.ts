@@ -10752,9 +10752,12 @@ class Overlay {
     const fresh = freshAdded(records, this.motionSkip)
     if (fresh.length === 0 || fresh.length > 6) return
     pv.grown = true
-    const glides = pv.flip.play()
+    // n11: an unkeyed row adds by rewriting its later items in place; glide
+    // them by their words and grow the item whose words are new
+    const shifted = pv.preview.kind === 'insert' ? pv.flip.playShifted(fresh) : null
+    const glides = shifted ? shifted.anims : pv.flip.play()
     pv.flip = null
-    for (const el of fresh) growIn(el)
+    for (const el of shifted ? shifted.grow : fresh) growIn(el)
     pv.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: 'ease-out', fill: 'forwards' })
     ;(window as unknown as { __s2cGrown?: unknown }).__s2cGrown = {
       kind: pv.preview.kind, added: fresh.length, glided: glides.length, at: performance.now(),
@@ -10886,8 +10889,9 @@ class Overlay {
     if (!job) return
     this.autoBusy = true
     try {
-      // goal n10: a plain erase or recolour goes straight into the code
-      const direct = await this.landDirect(job.optimistic, job.notes.length > 0)
+      // goal n10: a plain erase or recolour goes straight into the code;
+      // n11: so does a caret plus one typed word (a copy of its neighbour)
+      const direct = (await this.landInsert(job)) ?? await this.landDirect(job.optimistic, job.notes.length > 0)
       if (direct) {
         if (this.flight !== job) return
         job.optimistic = null // handed over: it comes off when the code lands
@@ -11248,6 +11252,61 @@ class Overlay {
       })
     })
     return `✓ ${out.change ?? 'done'} in ${out.file ?? 'the code'} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+  }
+
+  /**
+   * goal n11: a caret in the gap between two siblings plus one typed word is
+   * a plain addition: one more of the neighbour, saying that word. The server
+   * copies the neighbour's element in the source (POST /@s2c/direct, kind
+   * insert: no reading, no tokens). The pending ghost stays up meanwhile and
+   * the hot reload's new element grows in (growLanded); this waits for that,
+   * so the flight ends only once the page shows the code's result. Null (and
+   * nothing written) when the drawing isn't that plain or the copy is refused.
+   */
+  private async landInsert(job: Job): Promise<string | null> {
+    const pv = job.pendingPreview
+    if (job.optimistic || !pv || pv.preview.kind !== 'insert' || !pv.preview.slot) return null
+    if (job.notes.length !== 1 || job.strokes.length !== 1) return null
+    if (this.runMode === 'design' || this.runMode === 'screenshot') return null
+    const text = job.notes[0]!.text.trim()
+    if (!text || text.length > 40 || /[\n{}<>`]/.test(text)) return null
+    const slot = pv.preview.slot
+    const t0 = performance.now()
+    let out: { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+    let settle: () => void = () => undefined
+    const inFlight = new Promise<void>((res) => { settle = res })
+    this.commitsInFlight.add(inFlight)
+    try {
+      const res = await fetch('/@s2c/direct', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-s2c-token': TOKEN },
+        body: JSON.stringify({
+          kind: 'insert', srcLoc: slot.container.srcLoc ?? '', after: slot.after.srcLoc, before: slot.before.srcLoc,
+          text, snapshot: this.snapshot(),
+        }),
+      })
+      out = (await res.json()) as typeof out
+      if (!res.ok || !out.ok) {
+        console.debug(`[s2c] direct insert refused, reading instead: ${out.error ?? `HTTP ${String(res.status)}`}`)
+        return null
+      }
+    } catch {
+      return null
+    } finally {
+      this.commitsInFlight.delete(inFlight)
+      settle()
+    }
+    const wroteMs = Math.round(performance.now() - t0)
+    // the ghost holds the gap until the hot reload puts the real one there
+    const deadline = performance.now() + 4000
+    while (job.pendingPreview === pv && !pv.grown && performance.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 25))
+    }
+    ;(window as unknown as { __s2cDirect?: unknown[] }).__s2cDirect ??= []
+    ;(window as unknown as { __s2cDirect: unknown[] }).__s2cDirect.push({
+      kind: 'insert', text, change: out.change, how: pv.grown ? 'grew' : 'timeout', wroteMs, landMs: Math.round(performance.now() - t0),
+    })
+    return `✓ ${out.change ?? 'added'} in ${out.file ?? 'the code'} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
   }
 
   /** landDirect for the drawing on the pen (▶ Run): the ink is spent, its change handed over. */

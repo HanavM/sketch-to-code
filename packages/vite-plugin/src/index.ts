@@ -1358,8 +1358,9 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
         if (req.method !== 'POST') return sendJson(res, 405, { ok: false })
         if (rejectUnauthorized(req, res, token)) return
         readJsonBody<{
-          kind: 'delete' | 'recolor'; srcLoc: string; instanceIndex?: number; snapshot: DomSnapshot
+          kind: 'delete' | 'recolor' | 'insert'; srcLoc: string; instanceIndex?: number; snapshot: DomSnapshot
           color?: string; prop?: 'color' | 'backgroundColor'
+          after?: string | null; before?: string | null; text?: string
         }>(req)
           .then(async (body) => {
             const m = await import('@s2c/pipeline')
@@ -1367,9 +1368,10 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
             const result = m.applyDirectEdit(root, {
               kind: body.kind, srcLoc: body.srcLoc, instanceIndex: body.instanceIndex ?? 0,
               snapshot: body.snapshot, color: body.color, prop: body.prop,
+              after: body.after, before: body.before, text: body.text,
             })
             if (result.ok && !(result.change ?? '').startsWith('no change')) {
-              pushEdit(cp.sha, editLabel(body.kind === 'delete' ? 'erase' : 'paint'), untracked)
+              pushEdit(cp.sha, editLabel(body.kind === 'delete' ? 'erase' : body.kind === 'insert' ? 'instant' : 'paint'), untracked)
             }
             sendJson(res, result.ok ? 200 : 422, { ...result, checkpoint: cp.sha })
           })

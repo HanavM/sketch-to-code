@@ -14,11 +14,12 @@ import type { DomSnapshot } from '@s2c/dom'
 import { commitPlan, planStructuralEdits } from './codemod.js'
 import type { GroundedAction } from './intent2.js'
 import { appPalette, matchColor } from './palette.js'
+import { insertCopy } from './insert-copy.js'
 import { recolorElement } from './recolor.js'
 
 export interface DirectEditRequest {
-  kind: 'delete' | 'recolor'
-  /** Stamp of the element the overlay changed. */
+  kind: 'delete' | 'recolor' | 'insert'
+  /** Stamp of the element the overlay changed (insert: unused). */
   srcLoc: string
   /** Which of the elements carrying that stamp, in document order. */
   instanceIndex: number
@@ -28,6 +29,10 @@ export interface DirectEditRequest {
   color?: string
   /** recolor: which colour, the words or the fill. */
   prop?: 'color' | 'backgroundColor'
+  /** insert (n11): the caret's gap, by its neighbours' stamps, and the typed words. */
+  after?: string | null
+  before?: string | null
+  text?: string
 }
 
 export interface DirectEditResult {
@@ -40,6 +45,9 @@ export interface DirectEditResult {
 export function applyDirectEdit(root: string, req: DirectEditRequest): DirectEditResult {
   const snap = req.snapshot
   if (!snap || !Array.isArray(snap.nodes)) return { ok: false, error: 'no page snapshot' }
+  if (req.kind === 'insert') {
+    return insertCopy(root, { afterSrcLoc: req.after ?? null, beforeSrcLoc: req.before ?? null, text: req.text ?? '', snapshot: snap })
+  }
   const instances = snap.nodes.filter((n) => n.srcLoc === req.srcLoc)
   const node = instances[req.instanceIndex]
   if (!node) return { ok: false, error: `the page has no element ${req.instanceIndex + 1} at ${req.srcLoc}` }
