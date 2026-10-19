@@ -16,6 +16,7 @@ import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, remountCount
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
+import { warmInIdle, warmStrokes } from './warm-pen.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 // n18: how many undo eases a hot reload's remount handed to the new node (e2e reads it)
@@ -3096,6 +3097,8 @@ class Overlay {
 
     document.body.appendChild(this.host)
     this.resize()
+    // n23: the first lift should not be the one that compiles the readings
+    setTimeout(() => this.warmPen(), 1200)
     // after the append: restoring clamps against measured widths, and an
     // un-laid-out element measures 0
     this.restoreHud()
@@ -3321,6 +3324,7 @@ class Overlay {
       this.rulePanel.classList.remove('on')
     }
     if (m !== 'tweak') this.tweakImplicit = false
+    if (m === 'draw') this.warmPen()
     this.mode = m
     // the plan card asks "is a person being asked to read this?", which only
     // becomes true here
@@ -10660,6 +10664,54 @@ class Overlay {
     ;(window as unknown as { __s2cOptimistic?: unknown }).__s2cOptimistic = {
       kind: reading.kind, srcLoc: reading.target.srcLoc, liftToPatchMs: ms,
     }
+  }
+
+  private penWarmed = false
+
+  /**
+   * n23: run the lift path's pure readings once, on made-up strokes, while the
+   * browser is idle, so the first real lift doesn't compile them (first caret
+   * placeholder was 31-57 ms after lift, later ones 12-20 ms). Nothing is
+   * shown or changed; results are thrown away.
+   */
+  private warmPen() {
+    if (this.penWarmed) return
+    this.penWarmed = true
+    const exclude = (el: Element) => this.host.contains(el) || el.id === HOST_ID
+    const x = window.innerWidth / 2
+    const y = Math.min(120, window.innerHeight / 3)
+    const sets = warmStrokes(x, y)
+    const view = window.innerWidth * window.innerHeight
+    let snap: DomSnapshot | null = null
+    warmInIdle([
+      () => { snap = takeSnapshot(document, { exclude }) },
+      ...sets.map((strokes) => () => { if (snap) previewReading(strokes, snap) }),
+      () => {
+        const cands = this.optimisticCands()
+        for (const strokes of sets) quickReading(strokes, cands, view, false)
+      },
+      () => { flipFrom(document.body, this.motionSkip) },
+      // the first placeholder's own style, layout, label text and animation
+      // were cold too (~14 ms native after the lift handler): draw one
+      // nearly-transparent ghost for two frames
+      () => {
+        const pv = document.createElement('div')
+        pv.className = 'pv'
+        pv.dataset.s2cWarm = '1'
+        pv.style.opacity = '0.001'
+        const d = document.createElement('div')
+        d.className = 'pg warm'
+        d.dataset.kind = 'insert'
+        Object.assign(d.style, { left: `${String(x)}px`, top: `${String(y + window.scrollY)}px`, width: '16px', height: '24px' })
+        const l = document.createElement('span')
+        l.className = 'pgLabel'
+        l.textContent = 'new · pending'
+        d.appendChild(l)
+        pv.appendChild(d)
+        this.pendingLayer.appendChild(pv)
+        requestAnimationFrame(() => requestAnimationFrame(() => pv.remove()))
+      },
+    ])
   }
 
   /** A pending preview for what the drawing asks, if it plainly asks one. */
