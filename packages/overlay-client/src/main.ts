@@ -14,7 +14,7 @@ import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-s
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
 import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
-import { captureBefore, captureErase, playInverse, type Played, type VisualEdit } from './undo-preview.js'
+import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -116,6 +116,8 @@ type PendingPv = {
   watch: MutationObserver | null; check: ReturnType<typeof setTimeout> | null
   /** goal n7 (motion): the page's boxes at pen lift, so the code's addition can push its neighbours smoothly. */
   flip: Flip | null; grown: boolean
+  /** goal n15: the element the code's addition grew in as (for an instant undo). */
+  grewEl?: HTMLElement | null
 }
 /**
  * Goal loop n10: a drawing handed off to the code. It carries its own ink,
@@ -10757,7 +10759,9 @@ class Overlay {
     const shifted = pv.preview.kind === 'insert' ? pv.flip.playShifted(fresh) : null
     const glides = shifted ? shifted.anims : pv.flip.play()
     pv.flip = null
-    for (const el of shifted ? shifted.grow : fresh) growIn(el)
+    const grew = shifted ? shifted.grow : fresh
+    for (const el of grew) growIn(el)
+    pv.grewEl = grew.length === 1 ? grew[0]! : null
     pv.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: 'ease-out', fill: 'forwards' })
     ;(window as unknown as { __s2cGrown?: unknown }).__s2cGrown = {
       kind: pv.preview.kind, added: fresh.length, glided: glides.length, at: performance.now(),
@@ -11297,6 +11301,10 @@ class Overlay {
       settle()
     }
     const wroteMs = Math.round(performance.now() - t0)
+    // n15: Ctrl+Z shows the addition gone at once (it shrinks out, the row
+    // glides back). On the stack now, in commit order; the element itself is
+    // found when undo asks (it exists once the reload has grown it in)
+    if (out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take: captureInsert(() => pv.grewEl ?? null) })
     // the ghost holds the gap until the hot reload puts the real one there
     const deadline = performance.now() + 4000
     while (job.pendingPreview === pv && !pv.grown && performance.now() < deadline) {
