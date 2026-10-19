@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T04:50:00Z | Ten mixed edits with a drawn addition; merged | 10 edits incl. addition in 13 s, all in code; back-to-back pen edits no longer merge.
+
 2026-10-19T04:45:00Z | Instant undo for drawn additions | 3/3 undos show in 8-14 ms; the link fades out, the row glides shut, code back.
 
 2026-10-19T04:16:00Z | Drawn additions without the AI | Caret plus a typed word: 3/3 new nav links in code in ~0.1 s, grow in, row glides.
