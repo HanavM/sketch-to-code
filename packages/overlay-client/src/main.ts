@@ -14,7 +14,7 @@ import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-s
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
 import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
-import { captureBefore, playInverse, type Played, type VisualEdit } from './undo-preview.js'
+import { captureBefore, captureErase, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -11186,8 +11186,21 @@ class Overlay {
     const what = r.kind === 'hide'
       ? { kind: 'delete' as const }
       : { kind: 'recolor' as const, color: r.color, prop: r.prop === 'color' ? 'color' : 'backgroundColor' }
+    // n12: what this edit changes, so Ctrl+Z can show it undone at once. An
+    // erase keeps a copy of the element as the code has it (the fade lifted
+    // for this one synchronous read; nothing paints in between)
+    let take: (() => VisualEdit | null) | null = null
+    if (what.kind === 'delete') {
+      const resume = o.applied.suspend()
+      try { take = captureErase(srcLoc, el) } finally { resume() }
+    } else {
+      take = captureBefore({ srcLoc }, el)
+    }
     const t0 = performance.now()
     let out: { ok: boolean; change?: string; file?: string; error?: string; checkpoint?: string }
+    let settle: () => void = () => undefined
+    const inFlight = new Promise<void>((res) => { settle = res })
+    this.commitsInFlight.add(inFlight)
     try {
       const res = await fetch('/@s2c/direct', {
         method: 'POST',
@@ -11201,7 +11214,11 @@ class Overlay {
       }
     } catch {
       return null
+    } finally {
+      this.commitsInFlight.delete(inFlight)
+      settle()
     }
+    if (take && out.checkpoint) this.visualUndo.push({ checkpoint: out.checkpoint, take })
     const wroteMs = Math.round(performance.now() - t0)
     void holdUntilLanded(document.body, () => {
       // exact, not smooth: the code now shows what the instant change showed

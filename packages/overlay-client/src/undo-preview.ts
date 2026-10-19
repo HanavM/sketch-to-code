@@ -18,12 +18,57 @@
  * A preview that turns out wrong (the server undid something else, or
  * refused) is taken back smoothly.
  */
-import { EASE, GLIDE_MS, reducedMotion } from './motion.js'
+import { EASE, FADE_MS, flipFrom, GLIDE_MS, reducedMotion } from './motion.js'
 import { contentKeys, LiveReorder } from './live-reorder.js'
 
 export type VisualEdit =
   | { kind: 'class'; srcLoc: string; before: string[] }
   | { kind: 'order'; parent: HTMLElement; key: string; from: number; to: number }
+  | { kind: 'restore'; srcLoc: string; like: string; count: number; ghost: HTMLElement; parent: ParentRef; index: number }
+
+/** Where an erased element lived: its parent node, and how to find that parent again after a remount. */
+export interface ParentRef { node: HTMLElement; srcLoc: string | null; instance: number }
+
+const GHOST = 'data-s2c-ghost'
+const isGhost = (e: Element) => e.hasAttribute(GHOST)
+/** Element children the code put there (an undo ghost is not one). */
+const realKids = (p: Element) => [...p.children].filter((k) => !isGhost(k) && k.id !== 's2c-overlay-host')
+/** What an element looks like, for "is it back?" (stamps are line numbers: a sibling can inherit one) */
+const lookOf = (el: Element) => `${el.tagName}|${(el.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, 120)}`
+const countLike = (p: Element, like: string) => realKids(p).filter((k) => lookOf(k) === like).length
+
+function findParent(p: ParentRef): HTMLElement | null {
+  if (p.node.isConnected) return p.node
+  if (!p.srcLoc) return null
+  return instancesOf(p.srcLoc)[p.instance] ?? null
+}
+
+/**
+ * n12: what a direct erase is about to remove, taken just before it commits.
+ * `el` must show the page as the code has it (the caller lifts the instant
+ * fade first): the copy kept here is what undo fades back in, so it must be
+ * the element as it was, not as it was going.
+ */
+export function captureErase(srcLoc: string, el: HTMLElement): (() => VisualEdit | null) | null {
+  const parentNode = el.parentElement
+  if (!parentNode) return null
+  const like = lookOf(el)
+  const count = countLike(parentNode, like)
+  const index = realKids(parentNode).indexOf(el)
+  if (index < 0) return null
+  const pLoc = parentNode.dataset.s2c ?? null
+  const parent: ParentRef = { node: parentNode, srcLoc: pLoc, instance: pLoc ? instancesOf(pLoc).indexOf(parentNode) : 0 }
+  const ghost = el.cloneNode(true) as HTMLElement
+  ghost.removeAttribute('data-s2c-pending')
+  // a ghost is not part of the page the code renders: nothing that reads
+  // stamps (snapshots, picks, selection) may find it
+  for (const n of [ghost, ...ghost.querySelectorAll<HTMLElement>('[data-s2c]')]) n.removeAttribute('data-s2c')
+  ghost.setAttribute(GHOST, srcLoc)
+  return () => {
+    const p = findParent(parent)
+    return p && countLike(p, like) === count - 1 ? { kind: 'restore', srcLoc, like, count, ghost, parent, index } : null
+  }
+}
 
 /**
  * What a direct edit is about to change, taken just before it commits; the
@@ -57,6 +102,68 @@ export function captureBefore(body: Record<string, unknown>, el: HTMLElement): (
 
 function instancesOf(srcLoc: string): HTMLElement[] {
   return [...document.querySelectorAll<HTMLElement>(`[data-s2c="${CSS.escape(srcLoc)}"]`)]
+}
+
+/** Overlay nodes and ghosts are never measured or glided. */
+const motionSkip = (g: Element) => (e: Element) => e.id === 's2c-overlay-host' || e === g || g.contains(e)
+
+/**
+ * n12: undo of an erase. The element fades back in where it was while its
+ * neighbours glide apart to make room (FLIP), as a ghost copy; when the
+ * revert's hot reload puts the real element back, the ghost comes off in that
+ * same task, so nothing flashes or doubles.
+ */
+function playRestore(e: Extract<VisualEdit, { kind: 'restore' }>, holdMs: number): Played | null {
+  const parent = findParent(e.parent)
+  if (!parent) return null
+  const ghost = e.ghost
+  const skip = motionSkip(ghost)
+  const flip = flipFrom(document.body, skip)
+  const before = realKids(parent)[e.index] ?? null
+  parent.insertBefore(ghost, before)
+  const smooth = !reducedMotion() && typeof ghost.animate === 'function'
+  if (smooth) {
+    flip.play()
+    const o = getComputedStyle(ghost).opacity
+    // the first painted frame already shows it coming back
+    ghost.animate(
+      [{ opacity: String(Number(o) * 0.3), transform: 'scale(0.97)' }, { opacity: o, transform: 'none' }],
+      { duration: GLIDE_MS, easing: EASE },
+    )
+  }
+  let done = false
+  let timer: ReturnType<typeof setTimeout> | null = null
+  const back = () => parent.isConnected ? countLike(parent, e.like) >= e.count : true
+  const stop = () => { done = true; mo.disconnect(); if (timer) clearTimeout(timer) }
+  // exact, in the hot reload's own task: the real element takes the ghost's place
+  const land = () => { if (done) return; stop(); ghost.remove() }
+  const mo = new MutationObserver(() => { if (back()) land() })
+  mo.observe(document.body, { childList: true, subtree: true })
+  return {
+    confirm() {
+      if (done) return
+      if (back()) { land(); return }
+      // the code says it is back; if no reload shows it, stop pretending
+      timer = setTimeout(() => { if (!done) { stop(); fadeAway(ghost) } }, holdMs)
+    },
+    revert() {
+      if (done) return
+      stop()
+      fadeAway(ghost)
+    },
+  }
+}
+
+/** Take a ghost off smoothly: it fades, then its neighbours glide into the gap. */
+function fadeAway(ghost: HTMLElement): void {
+  if (!ghost.isConnected) return
+  if (reducedMotion() || typeof ghost.animate !== 'function') { ghost.remove(); return }
+  const a = ghost.animate([{ opacity: getComputedStyle(ghost).opacity }, { opacity: '0' }], { duration: FADE_MS, easing: 'ease-out', fill: 'forwards' })
+  a.finished.then(() => {
+    const flip = flipFrom(document.body, motionSkip(ghost))
+    ghost.remove()
+    flip.play()
+  }, () => ghost.remove())
 }
 
 /** Layout and colour a class swap can change, eased so the page rides along frame by frame. */
@@ -101,6 +208,7 @@ export interface Played {
 
 /** Play an edit's inverse right now. Null when its elements are gone. */
 export function playInverse(e: VisualEdit, holdMs = 4000): Played | null {
+  if (e.kind === 'restore') return playRestore(e, holdMs)
   if (e.kind === 'class') {
     const els = instancesOf(e.srcLoc)
     if (els.length !== e.before.length) return null

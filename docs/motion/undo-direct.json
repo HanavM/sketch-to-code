@@ -1,0 +1,186 @@
+{
+ "summary": {
+  "edits": 5,
+  "landed": 5,
+  "editMs": 14032,
+  "undos": 5,
+  "undoPassed": 5,
+  "sourceBack": true,
+  "modelCalls": 0,
+  "pageErrors": []
+ },
+ "edits": [
+  {
+   "name": "erase stat card \"Active users\"",
+   "kind": "erase",
+   "key": "DIV|Active users3,904+3.1% v",
+   "at": {
+    "sel": "section[data-s2c*=\"StatCards\"] > div",
+    "text": "Active users"
+   },
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/StatCards.tsx:11:9",
+    "change": "removed 'stats' entry 2",
+    "how": "landed",
+    "wroteMs": 129,
+    "landMs": 206
+   },
+   "landed": true
+  },
+  {
+   "name": "erase nav link \"Reports\"",
+   "kind": "erase",
+   "key": "A|Reports",
+   "at": {
+    "sel": "nav a",
+    "text": "Reports"
+   },
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "change": "removed <a> (child 2)",
+    "how": "landed",
+    "wroteMs": 149,
+    "landMs": 214
+   },
+   "landed": true
+  },
+  {
+   "name": "erase stat card \"Revenue\"",
+   "kind": "erase",
+   "key": "DIV|Revenue$48,210+12.4% vs ",
+   "at": {
+    "sel": "section[data-s2c*=\"StatCards\"] > div",
+    "text": "Revenue"
+   },
+   "direct": {
+    "kind": "delete",
+    "srcLoc": "src/components/StatCards.tsx:10:9",
+    "change": "removed 'stats' entry 1",
+    "how": "landed",
+    "wroteMs": 148,
+    "landMs": 193
+   },
+   "landed": true
+  },
+  {
+   "name": "recolour \"Team members\" heading green",
+   "kind": "recolour",
+   "key": "H2|Team members",
+   "at": {
+    "sel": "section h2",
+    "text": "Team members"
+   },
+   "direct": {
+    "kind": "recolor",
+    "srcLoc": "src/components/UserTable.tsx:17:7",
+    "change": "text-gray-900 → text-green-700",
+    "how": "landed",
+    "wroteMs": 151,
+    "landMs": 218
+   },
+   "landed": true
+  },
+  {
+   "name": "recolour nav link \"Settings\" green",
+   "kind": "recolour",
+   "key": "A|Settings",
+   "at": {
+    "sel": "nav a",
+    "text": "Settings"
+   },
+   "direct": {
+    "kind": "recolor",
+    "srcLoc": "src/components/Navbar.tsx:8:11",
+    "change": "text-gray-600 → text-green-700; − hover:text-gray-900",
+    "how": "landed",
+    "wroteMs": 138,
+    "landMs": 194
+   },
+   "landed": true
+  }
+ ],
+ "undos": [
+  {
+   "name": "undo: recolour nav link \"Settings\" green",
+   "kind": "recolour",
+   "key": "A|Settings",
+   "server": {
+    "at": 16227.800000000047,
+    "exact": true,
+    "undid": "changed the colour you painted",
+    "previewed": true
+   },
+   "keyToVisibleMs": 13.7,
+   "keyToFirstDomChangeMs": 2,
+   "colourSteps": 15,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "undo: recolour \"Team members\" heading green",
+   "kind": "recolour",
+   "key": "H2|Team members",
+   "server": {
+    "at": 17325.800000000047,
+    "exact": true,
+    "undid": "changed the colour you painted",
+    "previewed": true
+   },
+   "keyToVisibleMs": 13.9,
+   "keyToFirstDomChangeMs": 1,
+   "colourSteps": 15,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "undo: erase stat card \"Revenue\"",
+   "kind": "erase",
+   "key": "DIV|Revenue$48,210+12.4% vs ",
+   "server": {
+    "at": 18410.5,
+    "exact": true,
+    "undid": "removed what you crossed out",
+    "previewed": true
+   },
+   "keyToVisibleMs": 13.3,
+   "keyToFirstDomChangeMs": 4,
+   "fadeInFrames": 9,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "undo: erase nav link \"Reports\"",
+   "kind": "erase",
+   "key": "A|Reports",
+   "server": {
+    "at": 19519.5,
+    "exact": true,
+    "undid": "removed what you crossed out",
+    "previewed": true
+   },
+   "keyToVisibleMs": 7.5,
+   "keyToFirstDomChangeMs": 4,
+   "fadeInFrames": 10,
+   "issues": [],
+   "pass": true
+  },
+  {
+   "name": "undo: erase stat card \"Active users\"",
+   "kind": "erase",
+   "key": "DIV|Active users3,904+3.1% v",
+   "server": {
+    "at": 20639.600000000035,
+    "exact": true,
+    "undid": "removed what you crossed out",
+    "previewed": true
+   },
+   "keyToVisibleMs": 12.7,
+   "keyToFirstDomChangeMs": 4,
+   "fadeInFrames": 9,
+   "issues": [],
+   "pass": true
+  }
+ ]
+}
