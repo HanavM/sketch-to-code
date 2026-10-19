@@ -49,3 +49,25 @@ describe('flipDeltas', () => {
     expect(flipDeltas(before, after, () => null)).toEqual([])
   })
 })
+
+import { contentKeys, orderFor } from '../src/live-reorder.js'
+
+describe('orderFor (live reorder)', () => {
+  it('moving the first of three to the end', () => {
+    expect(orderFor(3, 0, 2)).toEqual([2, 0, 1])
+  })
+  it('moving the last to the front', () => {
+    expect(orderFor(4, 3, 0)).toEqual([1, 2, 3, 0])
+  })
+  it('no move, or out of range, is the natural order', () => {
+    expect(orderFor(3, 1, 1)).toEqual([0, 1, 2])
+    expect(orderFor(3, 5, 0)).toEqual([0, 1, 2])
+  })
+})
+
+describe('contentKeys', () => {
+  it('names children by what they say, numbering repeats', () => {
+    const el = (tag: string, text: string) => ({ tagName: tag, textContent: text }) as unknown as Element
+    expect(contentKeys([el('DIV', ' A  b '), el('DIV', 'c'), el('DIV', 'A b')])).toEqual(['DIV|A b#0', 'DIV|c#0', 'DIV|A b#1'])
+  })
+})

@@ -12,7 +12,8 @@ import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { quickReading, type Cand, type QuickReading } from './optimistic.js'
-import { applyMoving, type Moving } from './motion.js'
+import { applyMoving, EASE, GLIDE_MS, type Moving } from './motion.js'
+import { holdUntilLanded, LiveReorder, type HoldResult } from './live-reorder.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -217,6 +218,12 @@ interface TweakState {
     fromIndex: number
     /** sibling slot the cursor is currently inside; -1 = none */
     proposedIndex: number
+    /** n5: the row reflows live to show the drop (flex/grid children only) */
+    live: LiveReorder | null
+    /** how far the element's own slot moved in that reflow (its transform subtracts it) */
+    slotShift: { x: number; y: number }
+    /** the element's own slot at drag start, PAGE coords (dropping back there = no reorder) */
+    ownSlot: { left: number; top: number; right: number; bottom: number } | null
     /** element's own CSS transform at drag start ('' if none) — preserved */
     baseTransform: string
     /** magnetic guides cached at drag start + the ones currently snapped to */
@@ -8648,7 +8655,10 @@ class Overlay {
   private clearTweakPreview() {
     const t = this.tweak
     if (!t) return
-    if (t.moveDrag) this.endMoveVisuals(t) // Esc mid-drag: don't leak the ghost
+    if (t.moveDrag) {
+      t.moveDrag.live?.restore() // n5: the live reflow goes back too
+      this.endMoveVisuals(t) // Esc mid-drag: don't leak the ghost
+    }
     for (const p of [
       'gap', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
       'transform', 'width', 'height', 'will-change',
@@ -8667,7 +8677,7 @@ class Overlay {
     const csx = window.scrollX - md.scrollStartX
     const csy = window.scrollY - md.scrollStartY
     if (md.ghost) md.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
-    else t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
+    else t.el.style.transform = `${md.baseTransform}translate(${md.dx - md.slotShift.x}px, ${md.dy - md.slotShift.y}px)`
     for (const g of md.group) {
       if (g.ghost) g.ghost.style.transform = `translate(${md.dx - csx}px, ${md.dy - csy}px)`
       else g.el.style.transform = `${g.baseTransform}translate(${md.dx}px, ${md.dy}px)`
@@ -9527,6 +9537,11 @@ class Overlay {
       parentSrcLoc,
       fromIndex,
       proposedIndex: -1,
+      live: parentSrcLoc && fromIndex >= 0 && group.length === 0 ? new LiveReorder(t.el) : null,
+      slotShift: { x: 0, y: 0 },
+      ownSlot: parentSrcLoc && fromIndex >= 0
+        ? { left: r.left + window.scrollX, top: r.top + window.scrollY, right: r.right + window.scrollX, bottom: r.bottom + window.scrollY }
+        : null,
       baseTransform: baseTransform === 'none' ? '' : `${baseTransform} `,
       guides,
       activeGuides: [],
@@ -9818,7 +9833,6 @@ class Overlay {
       }
       md.dx = dx
       md.dy = dy
-      this.applyMovePreview(t, md)
       // slot detent: cursor inside another sibling's (cached, page-space)
       // rect. Group moves never reorder — the set translates as one body.
       md.proposedIndex = -1
@@ -9829,7 +9843,18 @@ class Overlay {
             break
           }
         }
+        const o = md.ownSlot
+        if (md.proposedIndex < 0 && o && pageX >= o.left && pageX <= o.right && pageY >= o.top && pageY <= o.bottom) {
+          md.proposedIndex = md.fromIndex
+        }
       }
+      // n5: the row shows the drop live — siblings glide aside to open the
+      // slot; outside every slot it is the row as the code has it
+      if (md.live && Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
+        const sh = md.live.set(md.proposedIndex >= 0 ? md.proposedIndex : md.fromIndex)
+        md.slotShift = { x: md.slotShift.x + sh.dx, y: md.slotShift.y + sh.dy }
+      }
+      this.applyMovePreview(t, md)
       if (Math.hypot(md.dx, md.dy) >= CLICK_SLOP) {
         const snap = md.snappedX || md.snappedY ? ' · ⌖ snapped' : ''
         this.status(
@@ -9995,9 +10020,13 @@ class Overlay {
     const aborted = e.type === 'pointercancel'
     if (t?.moveDrag) {
       const md = t.moveDrag
+      // n5: where the element is on screen right now (ghost or lifted original)
+      const seenAt = (md.ghost ?? t.el).getBoundingClientRect()
       this.endMoveVisuals(t) // ghost/dim/lift teardown before any commit
       t.moveDrag = null
       this.canvas.releasePointerCapture?.(e.pointerId)
+      const reorder = md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && !!md.parentSrcLoc && md.fromIndex >= 0
+      if (!reorder) md.live?.restore()
       if (aborted) {
         this.status('move cancelled')
         this.redraw()
@@ -10017,15 +10046,29 @@ class Overlay {
         await this.commitGroupMove(t, md)
         return
       }
-      if (md.proposedIndex >= 0 && md.proposedIndex !== md.fromIndex && md.parentSrcLoc && md.fromIndex >= 0) {
-        // ladder rung (a): dropped on a sibling's slot → structural reorder
+      if (reorder && md.parentSrcLoc) {
+        // ladder rung (a): dropped on a sibling's slot → structural reorder.
+        // n5: the element glides from under the pointer into its open slot,
+        // and the row stays as shown until the code's own version shows up
+        this.glideIn(t.el, seenAt)
+        const live = md.live
         await this.commitManipulation(
           { srcLoc: md.parentSrcLoc, prop: 'reorder', from: md.fromIndex, to: md.proposedIndex },
           t, 'committing reorder…',
+          live ? {
+            root: live.parent,
+            capture: () => live.seen(),
+            release: (seen) => live.settle(seen),
+            fail: () => live.restore(),
+          } : undefined,
         )
         return
       }
-      // rungs (b)/(c): server decides margin nudge vs cosmetic translate
+      // rungs (b)/(c): server decides margin nudge vs cosmetic translate.
+      // n5: an in-place move keeps its spot on screen until the code lands
+      // (no snap back to where it started, then forward on hot reload)
+      const holdMove = !md.ghost
+      if (holdMove) t.el.style.transform = `${md.baseTransform}translate(${md.dx}px, ${md.dy}px)`
       await this.commitManipulation(
         {
           srcLoc: t.srcLoc, prop: 'move',
@@ -10034,6 +10077,19 @@ class Overlay {
           ...this.instanceFields(t),
         },
         t, 'committing move…',
+        holdMove ? {
+          root: t.el.parentElement ?? document.body,
+          capture: () => t.el.getBoundingClientRect(),
+          release: (seen) => {
+            this.clearTweakPreview()
+            return this.glideIn(t.el, seen) ? 1 : 0
+          },
+          fail: () => {
+            const at = t.el.getBoundingClientRect()
+            this.clearTweakPreview()
+            this.glideIn(t.el, at)
+          },
+        } : undefined,
       )
       return
     }
@@ -10136,10 +10192,34 @@ class Overlay {
    * calls; the receipt names exactly what was written + the revert SHA. After
    * HMR settles (~500ms) the selection is re-resolved and rebuilt.
    */
-  private async commitManipulation(
+  /**
+   * FLIP one element from where it was seen to where the layout has it now.
+   * Additive, so it composes with any transform it already has. Returns
+   * whether there was anything to glide.
+   */
+  private glideIn(el: HTMLElement, from: { left: number; top: number }): boolean {
+    const now = el.getBoundingClientRect()
+    const dx = from.left - now.left, dy = from.top - now.top
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return false
+    if (typeof el.animate !== 'function') return false
+    el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: GLIDE_MS, easing: EASE, composite: 'add' })
+    return true
+  }
+
+  private async commitManipulation<S>(
     body: Record<string, unknown>,
     t: TweakState,
     note: string,
+    hold?: {
+      /** where the hot reload will show up */
+      root: Element
+      /** what is on screen when the code is written */
+      capture: () => S
+      /** take the visual edit off, in the hot reload's own task; count of boxes that still glided */
+      release: (seen: S) => number
+      /** the code did not take it: put the page back */
+      fail: () => void
+    },
   ): Promise<void> {
     this.status(note)
     try {
@@ -10165,12 +10245,22 @@ class Overlay {
         }
         throw new Error(out.error ?? `HTTP ${res.status}`)
       }
-      this.clearTweakPreview()
-      this.status(
-        `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`,
-      )
+      const receipt = `✓ ${out.change} in ${out.file} · 0 tokens · revert: git restore --source=${(out.checkpoint ?? '').slice(0, 10)}`
+      if (hold) {
+        // n5: what you saw stays until the code's version is on the page
+        const seen = hold.capture()
+        this.status(receipt)
+        const res: HoldResult = await holdUntilLanded(hold.root, () => hold.release(seen))
+        ;(window as unknown as { __s2cLanded?: unknown }).__s2cLanded = { prop: body.prop, ...res }
+        if (res.how === 'timeout') console.debug('[s2c] hot reload not seen in time; released the held edit anyway')
+        if (res.glided > 0) this.status(`${receipt} · the code placed ${String(res.glided)} box${res.glided === 1 ? '' : 'es'} differently — glided to it`)
+      } else {
+        this.clearTweakPreview()
+        this.status(receipt)
+      }
       this.reselectAfterCommit(t)
     } catch (err) {
+      if (hold) hold.fail()
       this.clearTweakPreview()
       this.status(`✗ ${err instanceof Error ? err.message : String(err)}`, true)
       this.redraw()
