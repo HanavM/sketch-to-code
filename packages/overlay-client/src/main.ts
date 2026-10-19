@@ -10886,6 +10886,12 @@ class Overlay {
     this.syncFlight()
     const next = this.queue.shift()
     if (!next) {
+      // n19: the run is over, so the pen's drawing may count down now. Left
+      // set, autoBlock reads 'a run is already in flight' and drops the
+      // countdown: a drawing finished while this one was landing (a caret
+      // drawn as the last recolour wrote) then never ran, and the next pen
+      // edit joined it and went to the model
+      this.autoBusy = false
       // the pen may have finished a drawing while this was busy
       this.scheduleAuto()
       return
