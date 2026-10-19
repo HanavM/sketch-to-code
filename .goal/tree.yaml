@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "The first drag was never late (the timing missed the floating copy you drag); next, fixing a rare jump when undoing a resize, then a full skeptical re-check of every goal point."
-lock: {by: run-2026-10-19T05:54Z, until: "2026-10-19T07:25:00Z"}
+now: "Undoing a resize now glides every time, even on a busy machine; next, fixing quick pen edits right after a drawn addition that fall back to the slow AI path."
+lock: null
 asks: []
 handled: []
 notes:
@@ -32,13 +32,15 @@ notes:
   - "n14 finding: in mixed-ten the FIRST drag (reorder card 1->3) shows 190-320 ms after the first move in 5 of 6 runs today, agent baseline too (later drags 1-5 ms). Frames keep coming (no long task), so the reorder waits on something on first use: n17."
   - "n17: a card in a clipping row drags as a fixed copy on <body> (data-s2c-ghost); mixed-ten counts it (frame.lift) and reports shown/pageMovedMs. The old 190-320 ms was the row reflow on reaching slot 3, not a delay."
   - "n17 finding: 1 of 4 mixed-ten runs failed undo 1 (resize grid item): 'Invite a teammate' h jumped 25/40 px in one frame at +77 ms: n18."
+  - "n18: motion.steady(anim, relocate?) paces main-thread (width/height) eases by painted frames (<=25 ms of curve per frame); easeClasses + settleBoxes focus use it. Read all end values before starting any ease. Clear examples/demo-app/.sketch2code between e2e runs (history piles up)."
+  - "n18 finding: in this sandbox today, mixed-ten pen edits after the drawn addition (erase Revenue, recolour Settings) show only at ~760 ms (auto-run countdown) and go to the model in ~4 of 5 runs, agent baseline too: n19. ten-in-a-row commits 8-9/10 here on baseline too."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
   - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: "partial: erase 12 ms, move/reorder 27 ms, resize 10 ms, recolour <50 ms, add ghost 12-21 ms (n4-n7, n11 direct-insert.mjs on try/n2-codemod-follow); not yet re-run on agent"}
   - {id: c2, text: "Smooth, not jumps: erase fades out and neighbours glide into the gap; move glides; add grows in. Measured at 60 fps on the demo app.", state: open, evidence: null}
   - {id: c3, text: "Canva-style direct manipulation: drag to move or reorder, drag edges to resize; page reflows live during the drag; code follows after release.", state: open, evidence: null}
   - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: open, evidence: "partial: shared-plane.mjs 22/22 drag edits (n8) + direct-erase-recolour.mjs 8/8 erase/recolour with no flash (n10, try/n2-codemod-follow); drawn additions still model-only"}
-  - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: met, evidence: "Re-run on agent 7621382: mixed-ten.mjs 2 reorders + 2 resizes + move + 2 erases + 2 recolours + drawn addition in 13.2 s, all in code, 0 model calls, each visible <50 ms; 10 undos visible <45 ms, no jump, source and page back to start (also 3/3 on try at 931f4aa). Earlier: undo-insert.mjs (n15, 57d732a) addition undos visible 8-14 ms, smooth. mixed-ten.mjs (n13, 7667862) 6 drags + 2 erases + 2 recolours in 14 s, all in code, 0 model calls, every edit visible <25 ms; 10 undos visible 6-38 ms, no jump, source and page back to start, 3/3 runs. ten-in-a-row.mjs and undo-direct.mjs still green."}
+  - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: open, evidence: "Reopened n18: re-run on agent fails ~4/5 here (pen edits after the addition fall back to the model, n19). Before: Re-run on agent 7621382: mixed-ten.mjs 2 reorders + 2 resizes + move + 2 erases + 2 recolours + drawn addition in 13.2 s, all in code, 0 model calls, each visible <50 ms; 10 undos visible <45 ms, no jump, source and page back to start (also 3/3 on try at 931f4aa). Earlier: undo-insert.mjs (n15, 57d732a) addition undos visible 8-14 ms, smooth. mixed-ten.mjs (n13, 7667862) 6 drags + 2 erases + 2 recolours in 14 s, all in code, 0 model calls, every edit visible <25 ms; 10 undos visible 6-38 ms, no jump, source and page back to start, 3/3 runs. ten-in-a-row.mjs and undo-direct.mjs still green."}
   - {id: c6, text: "Proof to watch: a short screen recording or GIF per gesture, plus a frame-timing report.", state: open, evidence: "docs/motion/proof/{erase,add,reorder,move,resize,recolour,undo}.gif + docs/motion/REPORT.md re-filmed on agent 571a1da (n17): every edit visible 1-20 ms, 60 fps; to re-check in verify"}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "Edits feel instant and physical like Canva: the page moves first, the code follows", status: open}
@@ -76,4 +78,6 @@ nodes:
      result: "Seven GIFs cut from one filmed run plus REPORT.md with per-edit timing and fps; merged into agent 30500b6."}
   - {id: n17, parent: n1, kind: step, title: "First drag of a session starts moving ~200 ms late (mixed-ten reorder card 1->3): find what it waits on, make it <50 ms every run, re-film the reorder GIF", status: done,
      result: "Not a delay: the card travels as a lifted copy from the first move (3 ms); timing now counts it. Commit 571a1da."}
-  - {id: n18, parent: n1, kind: step, title: "Undo of a resize sometimes jumps (mixed-ten undo 1, grid item h 25/40 px in one frame at +77 ms, 1 in 4 runs): find the race, make it glide every run", status: open, result: null}
+  - {id: n18, parent: n1, kind: step, title: "Undo of a resize sometimes jumps (mixed-ten undo 1, grid item h 25/40 px in one frame at +77 ms, 1 in 4 runs): find the race, make it glide every run", status: done,
+     result: "Dropped frames, plus linked boxes aiming short; eases now frame-paced; 0 resize-undo jumps in 3/3 runs. Commit 8206454."}
+  - {id: n19, parent: n2, kind: step, title: "Pen edits right after a drawn addition (mixed-ten erase Revenue, recolour Settings) wait for the auto-run and go to the model under load: make them direct and visible <50 ms every run", status: open, result: null}

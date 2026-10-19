@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T06:40:00Z | Undo of a resize sometimes jumps | Fixed: eases now move with painted frames and aim right; 3/3 runs glide, no jumps.
+
 2026-10-19T05:15:00Z | First drag starts late? | Not late: the card moves as a lifted copy from 3 ms; timing fixed, GIFs and report re-made.
 
 2026-10-19T05:08:00Z | GIF per gesture and a frame-timing page | 7 GIFs from one filmed run plus REPORT.md; found the first drag starts ~0.2 s late.
