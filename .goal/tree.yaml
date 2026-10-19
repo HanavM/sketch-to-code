@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "Erasing now fades out and the neighbours glide into the gap; next, dragging things to move or reorder them with the page reflowing live."
-lock: {by: "run-2026-10-19T01:23Z", until: "2026-10-19T02:53:00Z"}
+now: "Dragging a card over another spot now reorders the row live, with neighbours sliding aside; next, resizing by dragging edges so the page reflows as you pull."
+lock: null
 asks: []
 handled: []
 notes:
@@ -14,6 +14,8 @@ notes:
   - "Already there: optimistic.ts (scribble hide, ring recolour), preview.ts (dashed move/insert/section previews), tweak mode with handle resize + free-move drag committed by /@s2c/manipulate (0 tokens, codemod: move, resize, reorder)."
   - "n4: tests/e2e/motion-erase.mjs needs the demo dev server on :5199 (S2C_STUB_MODEL=1); writes docs/motion/erase-frames.json. optimistic-scribble/queue now count a fade (opacity < 0.97) as visible."
   - "n4: rAF frames in headless Chromium run at 16.7 ms; a just-created animation can hold its first keyframe 2-3 frames, so the first keyframe itself must show the change."
+  - "n5: tests/e2e/motion-reorder.mjs starts its own vite on :5262. live-canva.mjs ignores S2C_CHROMIUM: run it with PLAYWRIGHT_BROWSERS_PATH at a dir linking chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell to /opt/pw-browsers/chromium, vite on :5211."
+  - "n5: commitManipulation takes an optional hold {root, capture, release, fail}; holdUntilLanded releases inside the hot reload's MutationObserver task. Resize still clears width/height before the reload (snap back): n6."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
   - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: null}
@@ -32,4 +34,6 @@ nodes:
      branch: try/n3-design-layer, result: null}
   - {id: n4, parent: n1, kind: step, title: "motion.ts: FLIP erase (fade out, neighbours glide into gap) with reversible undo; wire scribble-erase to it; e2e frame timing on the demo", status: done,
      result: "Erase fades 12 ms after lift, neighbour glides 124 px over 11 frames, p95 16.7 ms; take-back smooth, exact. Commit 5d70b57."}
-  - {id: n5, parent: n1, kind: step, title: "Drag to move/reorder: neighbours glide aside live during the drag, element glides into place on release, code via /@s2c/manipulate reorder, no jump when it lands (e2e)", status: active, result: null}
+  - {id: n5, parent: n1, kind: step, title: "Drag to move/reorder: neighbours glide aside live during the drag, element glides into place on release, code via /@s2c/manipulate reorder, no jump when it lands (e2e)", status: done,
+     result: "Row reflows 27 ms into the drag, 11-frame glides, held until reload, code matched, no jump. Commit fb27ff4."}
+  - {id: n6, parent: n1, kind: step, title: "Resize by edge drag: neighbours reflow live with the new size, hold width/height until the code lands (no snap back), plain-move hold e2e too", status: open, result: null}
