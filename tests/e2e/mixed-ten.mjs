@@ -130,7 +130,10 @@ try {
     globalThis.__s2cDirect = []
     globalThis.__FR__ = []; globalThis.__REC__ = true
     const ghostOp = () => { const g = document.getElementById('s2c-overlay-host')?.shadowRoot?.querySelector('#pending .pg.ghost'); return g ? Number(getComputedStyle(g).opacity) : null }
-    const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap(), ghost: ghostOp() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
+    // a dragged element inside a clipping ancestor travels as a fixed copy on
+    // <body> (liftForDrag); that copy is what the drag shows, so it counts
+    const liftBoxes = () => [...document.querySelectorAll('body > [data-s2c-ghost]')].map((g) => { const r = g.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(Math.round).join(',') }).join(';')
+    const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap(), ghost: ghostOp(), lift: liftBoxes() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
     requestAnimationFrame(tick)
     globalThis.__REL__ = []
     addEventListener('pointerup', () => globalThis.__REL__.push(performance.now()), true)
@@ -329,8 +332,12 @@ try {
   const editRows = marks.map((m, i) => {
     const prev = [...efr].reverse().find((f) => f.at < m.rel)
     const win = efr.filter((f) => f.at >= m.rel && f.at < m.rel + 2000)
-    const first = m.kind === 'add' ? win.find((f) => f.ghost != null && f.ghost > 0.3) : prev ? win.find((f) => differs(prev.boxes, f.boxes)) : null
-    return { name: m.name, visibleMs: first ? +(first.at - m.rel).toFixed(1) : null, frames: frameStats(efr, m.rel, m.rel + 1000) }
+    const first = m.kind === 'add' ? win.find((f) => f.ghost != null && f.ghost > 0.3)
+      : prev ? win.find((f) => differs(prev.boxes, f.boxes) || (m.kind === 'drag' && (f.lift ?? '') !== (prev.lift ?? ''))) : null
+    // what showed first: the page itself, or the lifted copy under the pointer
+    const shown = !first ? null : m.kind === 'add' ? 'ghost' : differs(prev.boxes, first.boxes) ? 'page' : 'lifted copy'
+    const reflow = m.kind === 'drag' && prev ? win.find((f) => differs(prev.boxes, f.boxes)) : null
+    return { name: m.name, visibleMs: first ? +(first.at - m.rel).toFixed(1) : null, shown, pageMovedMs: reflow ? +(reflow.at - m.rel).toFixed(1) : null, frames: frameStats(efr, m.rel, m.rel + 1000) }
   })
 
   // ---- undo all ten ---------------------------------------------------------
@@ -419,7 +426,7 @@ try {
   if (undoReload.length) issues.push(`reloaded page after undo differs from the start: ${undoReload.join(', ')}`)
   if (errors.length) issues.push(`page errors: ${errors.join(' | ')}`)
   report = { summary: { edits: EDITS.length, totalMs, committed: okCommits, direct: landed, modelCalls, undoKeysMs, pass: issues.length === 0, issues, finalStatus: st }, edits: editRows, marks, commits, direct: settled.direct, undo: { rows: undoRows, log: undone.log } }
-  for (const [i, m] of marks.entries()) log(`${(m.releaseMs / 1000).toFixed(1)} s  ${m.name}  visible ${editRows[i].visibleMs} ms | ${m.status}`)
+  for (const [i, m] of marks.entries()) log(`${(m.releaseMs / 1000).toFixed(1)} s  ${m.name}  visible ${editRows[i].visibleMs} ms (${editRows[i].shown}${editRows[i].shown === 'lifted copy' ? `, row reflows at ${editRows[i].pageMovedMs} ms` : ''}) | ${m.status}`)
   for (const c of commits) log(`  manipulate: ${c.ok ? '✓' : '✗'} ${c.change}`)
   for (const d of settled.direct) log(`  direct: ${d.how} ${d.change ?? ''}`)
   undoRows.forEach((u, i) => log(`  undo ${i + 1}: visible ${u.visibleMs} ms${u.jump ? ` JUMP ${u.jump}` : ''} | ${JSON.stringify(undone.log.filter((x) => !x.preview)[i] ?? null)}`))
