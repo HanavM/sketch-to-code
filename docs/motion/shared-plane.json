@@ -1,0 +1,386 @@
+{
+ "summary": {
+  "edits": 22,
+  "matchedClean": 22,
+  "passed": 22,
+  "matchRate": 1,
+  "passRate": 1,
+  "pageErrors": []
+ },
+ "results": [
+  {
+   "name": "reorder card 1→3",
+   "status": "✓ moved 'stats' entry 1 → position 3 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=cabafff6ac",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 74.89999999990687
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder card 3→1",
+   "status": "✓ moved 'stats' entry 3 → position 1 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=b31b845204",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 51.9000000001397
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder card 3→1 again",
+   "status": "✓ moved 'stats' entry 3 → position 1 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=dcabbfa3db",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 53.10000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder card 2→3",
+   "status": "✓ moved 'stats' entry 2 → position 3 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=fbf07b702f",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 75.69999999995343
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize card taller",
+   "status": "✓ + h-[166px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=4a963428d5",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 60.300000000046566
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize card shorter",
+   "status": "✓ h-[166px] → h-[142px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=5421f1852a",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 51.10000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder grid 1→3",
+   "status": "✓ moved child 1 → position 3 in src/App.tsx · 0 tokens · revert: git restore --source=ff1235e646",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 62.60000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder grid 3→1",
+   "status": "✓ moved child 3 → position 1 in src/App.tsx · 0 tokens · revert: git restore --source=87520f6f91",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 79.80000000004657
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize grid item taller",
+   "status": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=0d3e848777",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 61.300000000046566
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder nav link 1→3",
+   "status": "✓ moved child 1 → position 3 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=52cfbd2551",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 41
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder nav link 3→1",
+   "status": "✓ moved child 3 → position 1 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=30954aba63",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 42.60000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "move form down",
+   "status": "✓ + mt-9 in src/components/ContactForm.tsx · 0 tokens · revert: git restore --source=ea4b549b84",
+   "landed": {
+    "prop": "move",
+    "how": "landed",
+    "glided": 0,
+    "ms": 64.9000000001397
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "move grid item 2 down",
+   "status": "✓ + mt-9 in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=f87c09bbcf",
+   "landed": {
+    "prop": "move",
+    "how": "landed",
+    "glided": 0,
+    "ms": 61.60000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder card 1→2",
+   "status": "✓ moved 'stats' entry 1 → position 2 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=03bea63d5e",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 55.5999999998603
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize card taller again",
+   "status": "✓ h-[142px] → h-[174px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=118e0bed67",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 44.800000000046566
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder grid 2→1",
+   "status": "✓ moved child 2 → position 1 in src/App.tsx · 0 tokens · revert: git restore --source=785e1763ba",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 64.4000000001397
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize grid item 3 taller",
+   "status": "✓ + h-[836px] in src/components/UserTable.tsx · 0 tokens · revert: git restore --source=53621e7a42",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 45.10000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder nav link 2→1",
+   "status": "✓ moved child 2 → position 1 in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=df3626be7a",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 56.700000000186265
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "move grid item 3 down",
+   "status": "✓ + mt-9 in src/components/UserTable.tsx · 0 tokens · revert: git restore --source=60efba0df8",
+   "landed": {
+    "prop": "move",
+    "how": "landed",
+    "glided": 0,
+    "ms": 44.10000000009313
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder card 2→1",
+   "status": "✓ moved 'stats' entry 2 → position 1 (renders in that order) in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=6f4fe41e7a",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 76
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "reorder grid 1→2",
+   "status": "✓ moved child 1 → position 2 in src/App.tsx · 0 tokens · revert: git restore --source=858df7680e",
+   "landed": {
+    "prop": "reorder",
+    "how": "landed",
+    "glided": 0,
+    "ms": 60.800000000046566
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  },
+  {
+   "name": "resize card shorter again",
+   "status": "✓ h-[174px] → h-[134px] in src/components/StatCards.tsx · 0 tokens · revert: git restore --source=1df7021372",
+   "landed": {
+    "prop": "resize",
+    "how": "landed",
+    "glided": 0,
+    "ms": 54.800000000046566
+   },
+   "committed": true,
+   "matched": true,
+   "off": [],
+   "jumps": [],
+   "easeFrames": 0,
+   "explained": true,
+   "pass": true
+  }
+ ]
+}

@@ -9266,6 +9266,12 @@ class Overlay {
     return false
   }
 
+  /** The other instances a resize of this shared template also sizes (scope 'all'). */
+  private sizeTwins(t: TweakState): HTMLElement[] {
+    if (t.scope !== 'all' || t.instanceEls.length < 2) return []
+    return t.instanceEls.filter((x) => x !== t.el && x.isConnected)
+  }
+
   /** Instance fields for move/resize commit bodies (shared-template scope). */
   private instanceFields(t: TweakState): Record<string, unknown> {
     if (t.instanceEls.length <= 1) return {}
@@ -9917,14 +9923,20 @@ class Overlay {
       // West/north drags also shift the element so the dragged edge follows
       // the cursor and the OPPOSITE edge stays pixel-fixed — in flow, a
       // width change alone would grow rightward/downward from the anchor.
-      if (hd.w !== null) t.el.style.width = `${hd.w}px`
-      if (hd.h !== null) t.el.style.height = `${hd.h}px`
+      // n8: a shared template (.map()) resizes as one: the code's class lands
+      // on every instance, so every linked instance shows the size live too
+      // (otherwise the row keeps its old height and jumps when the code lands)
       const compX = isWest && hd.w !== null ? hd.startRect.width - hd.w : 0
       const compY = isNorth && hd.h !== null ? hd.startRect.height - hd.h : 0
-      if (compX !== 0 || compY !== 0) {
-        t.el.style.transform = `${hd.baseTransform}translate(${compX}px, ${compY}px)`
-      } else {
-        t.el.style.removeProperty('transform')
+      for (const sized of [t.el, ...this.sizeTwins(t)]) {
+        if (hd.w !== null) sized.style.width = `${hd.w}px`
+        if (hd.h !== null) sized.style.height = `${hd.h}px`
+        if (sized !== t.el) continue
+        if (compX !== 0 || compY !== 0) {
+          sized.style.transform = `${hd.baseTransform}translate(${compX}px, ${compY}px)`
+        } else {
+          sized.style.removeProperty('transform')
+        }
       }
       const snap = hd.snappedW || hd.snappedH ? ' · ⌖ snapped' : ''
       this.status(
@@ -10111,12 +10123,15 @@ class Overlay {
       // n6: the size you dragged to stays on screen until the code lands;
       // taking it off (cancel, failure, landing) eases instead of snapping
       const el = t.el
-      const pushed = pushedBy(el)
+      const twins = this.sizeTwins(t)
+      const pushed = [...new Set([...pushedBy(el), ...twins.flatMap((x) => pushedBy(x))])]
       const unsize = () => {
-        el.style.removeProperty('width')
-        el.style.removeProperty('height')
-        el.style.removeProperty('transform')
-        if (el.getAttribute('style') === '') el.removeAttribute('style')
+        for (const sized of [el, ...twins]) {
+          sized.style.removeProperty('width')
+          sized.style.removeProperty('height')
+          if (sized === el) sized.style.removeProperty('transform')
+          if (sized.getAttribute('style') === '') sized.removeAttribute('style')
+        }
       }
       const easeBack = () => {
         const shown = boxesOf(pushed)
