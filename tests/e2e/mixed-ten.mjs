@@ -362,7 +362,7 @@ try {
     await page.waitForTimeout(250)
   }
   await page.waitForTimeout(2500)
-  const undone = await page.evaluate(() => { globalThis.__REC__ = false; return { snap: globalThis.__snap(), fr: globalThis.__FR__, keys: globalThis.__KEYS_AT__, log: globalThis.__s2cUndo } })
+  const undone = await page.evaluate(() => { globalThis.__REC__ = false; return { remounts: globalThis.__s2cRemounts ?? 0, snap: globalThis.__snap(), fr: globalThis.__FR__, keys: globalThis.__KEYS_AT__, log: globalThis.__s2cUndo } })
   const srcDiff = execSync('git diff --stat -- examples/demo-app/src/', { cwd: ROOT }).toString().trim()
   const undoneReloaded = await fresh()
   const ufr = undone.fr
@@ -425,11 +425,12 @@ try {
   if (undoBack.length) issues.push(`page after undo differs from the start: ${undoBack.join(', ')}`)
   if (undoReload.length) issues.push(`reloaded page after undo differs from the start: ${undoReload.join(', ')}`)
   if (errors.length) issues.push(`page errors: ${errors.join(' | ')}`)
-  report = { summary: { edits: EDITS.length, totalMs, committed: okCommits, direct: landed, modelCalls, undoKeysMs, pass: issues.length === 0, issues, finalStatus: st }, edits: editRows, marks, commits, direct: settled.direct, undo: { rows: undoRows, log: undone.log } }
+  report = { summary: { edits: EDITS.length, totalMs, committed: okCommits, direct: landed, modelCalls, undoKeysMs, pass: issues.length === 0, issues, finalStatus: st }, edits: editRows, marks, commits, direct: settled.direct, undo: { rows: undoRows, log: undone.log, remounts: undone.remounts } }
   for (const [i, m] of marks.entries()) log(`${(m.releaseMs / 1000).toFixed(1)} s  ${m.name}  visible ${editRows[i].visibleMs} ms (${editRows[i].shown}${editRows[i].shown === 'lifted copy' ? `, row reflows at ${editRows[i].pageMovedMs} ms` : ''}) | ${m.status}`)
   for (const c of commits) log(`  manipulate: ${c.ok ? '✓' : '✗'} ${c.change}`)
   for (const d of settled.direct) log(`  direct: ${d.how} ${d.change ?? ''}`)
   undoRows.forEach((u, i) => log(`  undo ${i + 1}: visible ${u.visibleMs} ms${u.jump ? ` JUMP ${u.jump}` : ''} | ${JSON.stringify(undone.log.filter((x) => !x.preview)[i] ?? null)}`))
+  log(`undo eases carried over a remount: ${undone.remounts}`)
   log(`SUMMARY: ${EDITS.length} mixed edits in ${(totalMs / 1000).toFixed(1)} s, ${okCommits} drags + ${landed} pen edits in code${issues.length ? ` | ${issues.join(' | ')}` : ''}`)
   mkdirSync(OUT, { recursive: true })
   writeFileSync(`${OUT}mixed-ten.json`, JSON.stringify(report, null, 1))

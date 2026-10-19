@@ -13,7 +13,7 @@
  * (a MutationObserver callback runs before the next paint), the hold comes
  * off: if the code matches, nothing moves; if not, the difference glides.
  */
-import { EASE, GLIDE_MS, flipDeltas, reducedMotion } from './motion.js'
+import { EASE, GLIDE_MS, flipDeltas, reducedMotion, steady } from './motion.js'
 import type { Box } from './optimistic.js'
 
 /** Visual position of each DOM child when `from` is moved to `to`. */
@@ -227,7 +227,7 @@ export function settleBoxes(before: Boxes, focus: HTMLElement, duration = GLIDE_
     const kf: Keyframe[] = [{}, {}]
     if (!near(fa.w, fb.w)) { kf[0]!.width = `${fb.w}px`; kf[1]!.width = `${fa.w}px` }
     if (!near(fa.h, fb.h)) { kf[0]!.height = `${fb.h}px`; kf[1]!.height = `${fa.h}px` }
-    focus.animate(kf, { duration, easing: EASE })
+    steady(focus.animate(kf, { duration, easing: EASE }))
     return differed
   }
   for (const [el, b] of before) {

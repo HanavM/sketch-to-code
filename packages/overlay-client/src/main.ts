@@ -12,11 +12,14 @@ import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
 import { bboxOfPoints, quickReading, type Cand, type QuickReading } from './optimistic.js'
-import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
+import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, remountCount, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
+
+// n18: how many undo eases a hot reload's remount handed to the new node (e2e reads it)
+if (typeof window !== 'undefined') Object.defineProperty(window, '__s2cRemounts', { get: remountCount, configurable: true })
 
 /**
  * The element a stroke was drawn over, and that element's box at the moment of
