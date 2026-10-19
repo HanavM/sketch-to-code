@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
 now: "Dragging a card over another spot now reorders the row live, with neighbours sliding aside; next, resizing by dragging edges so the page reflows as you pull."
-lock: null
+lock: {by: run-2026-10-19T0133, until: "2026-10-19T03:03:00Z"}
 asks: []
 handled: []
 notes:
