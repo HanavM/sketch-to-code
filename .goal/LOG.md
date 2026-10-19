@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T04:32:00Z | Ten mixed edits in a row, with undo | Drags, erases, recolours: all 10 in code in 14 s, no AI; undos show in 6-38 ms.
+
 2026-10-19T03:13:54Z | Instant undo for erasing and recolouring | 5/5 undos show in 10-16 ms; erased items fade back in, neighbours glide, colours ease back.
 
 2026-10-19T03:05:00Z | Ten edits in a row, with instant undo | 10 drags land in code in 10 s; each undo shows in 20-35 ms, glides, code back to start.
