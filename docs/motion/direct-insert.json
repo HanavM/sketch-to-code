@@ -1,5 +1,5 @@
 {
-  "when": "2026-10-19T04:23:01.304Z",
+  "when": "2026-10-19T04:36:38.491Z",
   "modelCalls": 0,
   "results": [
     {
@@ -8,35 +8,35 @@
         "Overview",
         "Reports"
       ],
-      "directMs": 1177,
-      "status": "✓ added <a> \"Blog\" after \"Overview\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=87733d8636",
+      "directMs": 1188,
+      "status": "✓ added <a> \"Blog\" after \"Overview\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=5c00925d07",
       "direct": {
         "kind": "insert",
         "text": "Blog",
         "change": "added <a> \"Blog\" after \"Overview\"",
         "how": "grew",
-        "wroteMs": 118,
-        "landMs": 207
+        "wroteMs": 117,
+        "landMs": 183
       },
       "grown": {
         "kind": "insert",
         "added": 1,
         "glided": 4,
-        "at": 3845.399999999994
+        "at": 3534.1999999999534
       },
       "preview": {
         "kind": "insert",
         "srcLoc": "src/components/Navbar.tsx:6:9",
-        "liftToPreviewMs": 33.10000000000582
+        "liftToPreviewMs": 16.699999999953434
       },
-      "liftToGhostMs": 38.9,
+      "liftToGhostMs": 20.2,
       "addedLines": [
         "          <a href=\"#\" className=\"text-sm text-gray-600 hover:text-gray-900\">Blog</a>"
       ],
       "newOpacityFrames": [
         0.25,
         0.25,
-        0.32,
+        0.33,
         0.55,
         0.71,
         0.8,
@@ -49,755 +49,745 @@
         1,
         1
       ],
-      "maxStep": 14.8,
+      "maxStep": 14.7,
       "frames": [
         {
-          "at": -241.9,
+          "at": -210.7,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -224.9,
+          "at": -201.4,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -208.2,
+          "at": -188.5,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -191.9,
+          "at": -172.1,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -175.1,
+          "at": -155.5,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -158.5,
+          "at": -138.7,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -141.9,
+          "at": -122.1,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -125.2,
+          "at": -105.5,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -108.6,
+          "at": -88.7,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -91.9,
+          "at": -71.5,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -75.1,
+          "at": -55.4,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -58.6,
+          "at": -38.9,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -41.7,
+          "at": -22.3,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -25.4,
+          "at": -5.5,
           "g": null,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -8.8,
-          "g": null,
-          "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 38.9,
+          "at": 20.2,
           "g": 0.6,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 43.3,
+          "at": 32.5,
+          "g": 0.66918,
+          "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
+        },
+        {
+          "at": 44.2,
           "g": 0.808502,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 63.7,
+          "at": 60.9,
           "g": 0.882121,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 74.3,
-          "g": 0.926885,
+          "at": 77.9,
+          "g": 0.926671,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 91.1,
+          "at": 94.2,
           "g": 0.956034,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 107.8,
+          "at": 113.2,
           "g": 0.975609,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 124.5,
+          "at": 136.5,
           "g": 0.988328,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 141.5,
+          "at": 146.4,
           "g": 0.995912,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 157.6,
+          "at": 160.9,
           "g": 0.999459,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 174.2,
-          "g": 0.999973,
+          "at": 177.6,
+          "g": 0.999974,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 191,
-          "g": 0.999674,
+          "at": 194.3,
+          "g": 0.999677,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 207.6,
+          "at": 211,
           "g": 0.999041,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 224.6,
-          "g": 0.998061,
+          "at": 227.8,
+          "g": 0.998068,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 241.4,
+          "at": 248.5,
           "g": 0.996741,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 265.1,
+          "at": 261,
           "g": 0.995058,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 274.6,
+          "at": 277.6,
           "g": 0.993014,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 290.8,
+          "at": 294.3,
           "g": 0.990604,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 307.7,
+          "at": 310.8,
           "g": 0.987842,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 324.8,
+          "at": 327.7,
           "g": 0.984708,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 341,
+          "at": 344.2,
           "g": 0.981179,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 358.7,
+          "at": 360.8,
           "g": 0.977267,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 374.1,
-          "g": 0.972971,
+          "at": 377.6,
+          "g": 0.972998,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 391.5,
-          "g": 0.968319,
+          "at": 394.3,
+          "g": 0.96829,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 407.5,
+          "at": 410.9,
           "g": 0.963253,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 424.3,
+          "at": 428.1,
           "g": 0.957801,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 441.9,
+          "at": 444.2,
           "g": 0.951963,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 457.5,
+          "at": 461,
           "g": 0.945782,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 474.4,
+          "at": 477.6,
           "g": 0.939226,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 491.1,
+          "at": 494.3,
           "g": 0.932259,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 507.7,
+          "at": 511,
           "g": 0.924925,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 524.1,
+          "at": 527.9,
           "g": 0.91728,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 541.1,
+          "at": 544.3,
           "g": 0.909243,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 557.3,
+          "at": 560.8,
           "g": 0.90087,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 574,
-          "g": 0.892175,
+          "at": 577.6,
+          "g": 0.892228,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 590.6,
+          "at": 594.2,
           "g": 0.883175,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 607.2,
+          "at": 611.7,
           "g": 0.873944,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 624.1,
+          "at": 628.2,
           "g": 0.864389,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 641,
-          "g": 0.854648,
+          "at": 644.3,
+          "g": 0.854588,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 657.3,
+          "at": 661.2,
           "g": 0.844626,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 673.9,
+          "at": 677.9,
           "g": 0.834406,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 690.5,
-          "g": 0.824016,
+          "at": 694.6,
+          "g": 0.824079,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 707.4,
+          "at": 711.1,
           "g": 0.813547,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 724.6,
+          "at": 728.1,
           "g": 0.802967,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 741.2,
+          "at": 744.4,
           "g": 0.792241,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 757.3,
+          "at": 761.2,
           "g": 0.781464,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 773.9,
+          "at": 777.6,
           "g": 0.770733,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 790.7,
+          "at": 794.3,
           "g": 0.75995,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 807.5,
+          "at": 811,
           "g": 0.749211,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 824.1,
+          "at": 828,
           "g": 0.738612,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 841.1,
-          "g": 0.727992,
+          "at": 844.3,
+          "g": 0.728055,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 857.5,
+          "at": 861.1,
           "g": 0.717634,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 874.3,
-          "g": 0.70744,
+          "at": 877.7,
+          "g": 0.707379,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 891,
+          "at": 894.3,
           "g": 0.697375,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 907.6,
-          "g": 0.687529,
+          "at": 911,
+          "g": 0.687587,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 924.3,
-          "g": 0.677981,
+          "at": 928,
+          "g": 0.677924,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 942.6,
-          "g": 0.668583,
+          "at": 944.2,
+          "g": 0.668638,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 957.5,
-          "g": 0.659633,
+          "at": 961,
+          "g": 0.659579,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 974.1,
-          "g": 0.650875,
+          "at": 977.6,
+          "g": 0.650823,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 990.9,
+          "at": 994.2,
           "g": 0.642435,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1007.5,
+          "at": 1010.9,
           "g": 0.634328,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1024.2,
+          "at": 1027.9,
           "g": 0.626612,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1041.3,
-          "g": 0.619205,
+          "at": 1045.8,
+          "g": 0.619248,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1057.5,
+          "at": 1061.1,
           "g": 0.612162,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1073.9,
+          "at": 1077.5,
           "g": 0.605492,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1090.6,
+          "at": 1094.2,
           "g": 0.599236,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1107.3,
-          "g": 0.593357,
+          "at": 1111,
+          "g": 0.593322,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1124.1,
+          "at": 1128,
           "g": 0.587826,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1141.2,
+          "at": 1144.2,
           "g": 0.582681,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1157.3,
-          "g": 0.577923,
+          "at": 1160.9,
+          "g": 0.57795,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1173.9,
+          "at": 1177.7,
           "g": 0.573551,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1190.7,
+          "at": 1194.2,
           "g": 0.569587,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1207.3,
+          "at": 1211,
           "g": 0.565979,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1224.3,
-          "g": 0.56277,
+          "at": 1228,
+          "g": 0.562752,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1241.6,
+          "at": 1244.4,
           "g": 0.559916,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1257.4,
+          "at": 1261,
           "g": 0.557433,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1273.9,
+          "at": 1278.2,
           "g": 0.555329,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1290.6,
+          "at": 1294.1,
           "g": 0.553573,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1307.5,
+          "at": 1310.8,
           "g": 0.552181,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1323.9,
+          "at": 1330.2,
           "g": 0.55113,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1347.9,
+          "at": 1344.2,
           "g": 0.550425,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1357.2,
+          "at": 1362,
           "g": 0.55006,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1373.9,
-          "g": 0.550026,
+          "at": 1377.9,
+          "g": 0.550027,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1390.6,
-          "g": 0.550323,
+          "at": 1394.1,
+          "g": 0.550321,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1408.8,
-          "g": 0.550954,
+          "at": 1410.9,
+          "g": 0.550959,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1423.9,
+          "at": 1429.1,
           "g": 0.551932,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1441,
+          "at": 1446.1,
           "g": 0.553259,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1458.9,
+          "at": 1460.8,
           "g": 0.554931,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1473.9,
+          "at": 1482.7,
           "g": 0.556986,
           "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1492.5,
+          "at": 1503.4,
           "g": 0.55938,
-          "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1517.5,
-          "g": 0.562158,
-          "l": "Overview:810:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1538.4,
-          "g": 0.565292,
           "l": "Overview:810:1.00 Blog:897:0.25 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1563.9,
+          "at": 1523.8,
           "g": null,
           "l": "Overview:810:1.00 Blog:897:0.25 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1574.6,
+          "at": 1530.3,
           "g": null,
-          "l": "Overview:805:1.00 Blog:893:0.32 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
+          "l": "Overview:805:1.00 Blog:893:0.33 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1591.3,
+          "at": 1544.6,
           "g": null,
           "l": "Overview:791:1.00 Blog:878:0.55 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1607.9,
+          "at": 1561.2,
           "g": null,
           "l": "Overview:779:1.00 Blog:866:0.71 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1624.6,
+          "at": 1578.1,
           "g": null,
           "l": "Overview:772:1.00 Blog:859:0.80 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1641.2,
+          "at": 1594.6,
           "g": null,
           "l": "Overview:768:1.00 Blog:854:0.86 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1657.8,
+          "at": 1611.2,
           "g": null,
           "l": "Overview:764:1.00 Blog:851:0.91 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1674.5,
+          "at": 1628,
           "g": null,
           "l": "Overview:762:1.00 Blog:848:0.94 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1691.1,
+          "at": 1644.4,
           "g": null,
           "l": "Overview:760:1.00 Blog:846:0.97 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1707.9,
+          "at": 1661.3,
           "g": null,
           "l": "Overview:758:1.00 Blog:845:0.98 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1724.6,
+          "at": 1677.8,
           "g": null,
           "l": "Overview:757:1.00 Blog:844:0.99 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1741.6,
+          "at": 1694.3,
           "g": null,
           "l": "Overview:757:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1758,
+          "at": 1711.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1774.6,
+          "at": 1728,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1791.6,
+          "at": 1744.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1807.6,
+          "at": 1760.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1824.1,
+          "at": 1777.6,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1840.9,
+          "at": 1794.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1857.4,
+          "at": 1810.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1874.1,
+          "at": 1827.6,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1890.7,
+          "at": 1844.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1913.1,
+          "at": 1860.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1925.6,
+          "at": 1877.6,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1940.6,
+          "at": 1894.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1957.2,
+          "at": 1911.7,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1973.9,
+          "at": 1927.4,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1990.6,
+          "at": 1944.3,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2007.3,
+          "at": 1960.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2023.8,
+          "at": 1977.4,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2040.7,
+          "at": 1994.3,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2057.5,
+          "at": 2010.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2074,
+          "at": 2027.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2090.7,
+          "at": 2044.1,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2107.5,
+          "at": 2060.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2124,
+          "at": 2077.3,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2140.7,
+          "at": 2094.1,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2157.4,
+          "at": 2110.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2174.1,
+          "at": 2127.4,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2190.8,
+          "at": 2144.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2207.5,
+          "at": 2160.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2224.1,
+          "at": 2177.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2240.8,
+          "at": 2194.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2257.4,
+          "at": 2210.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2274,
+          "at": 2227.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         }
@@ -811,28 +801,28 @@
         "Reports",
         "Settings"
       ],
-      "directMs": 813,
-      "status": "✓ added <a> \"Docs\" after \"Reports\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=8b3407cad5",
+      "directMs": 795,
+      "status": "✓ added <a> \"Docs\" after \"Reports\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=d8ccb3bd66",
       "direct": {
         "kind": "insert",
         "text": "Docs",
         "change": "added <a> \"Docs\" after \"Reports\"",
         "how": "grew",
-        "wroteMs": 141,
-        "landMs": 196
+        "wroteMs": 120,
+        "landMs": 172
       },
       "grown": {
         "kind": "insert",
         "added": 1,
         "glided": 3,
-        "at": 6380.5
+        "at": 6006.899999999907
       },
       "preview": {
         "kind": "insert",
         "srcLoc": "src/components/Navbar.tsx:6:9",
-        "liftToPreviewMs": 7.599999999976717
+        "liftToPreviewMs": 7.699999999953434
       },
-      "liftToGhostMs": 12.6,
+      "liftToGhostMs": 13.8,
       "addedLines": [
         "          <a href=\"#\" className=\"text-sm text-gray-600 hover:text-gray-900\">Docs</a>"
       ],
@@ -855,617 +845,602 @@
       "maxStep": 16.1,
       "frames": [
         {
-          "at": -215.5,
+          "at": -213.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -203.4,
+          "at": -202.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -186.7,
+          "at": -185.5,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -170.2,
+          "at": -169.3,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -153.5,
+          "at": -152.7,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -136.7,
+          "at": -135.9,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -120.1,
+          "at": -119.2,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -103.4,
+          "at": -102.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -86.7,
+          "at": -86,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -70.2,
+          "at": -69.4,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -53.4,
+          "at": -52.6,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -36.8,
+          "at": -36,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -20,
+          "at": -19.3,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -3.6,
+          "at": -2.7,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 12.6,
+          "at": 13.8,
           "g": 0.6,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 29.6,
-          "g": 0.668212,
+          "at": 30.4,
+          "g": 0.66918,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 46.4,
-          "g": 0.807317,
+          "at": 47.3,
+          "g": 0.807911,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 63.4,
-          "g": 0.881786,
+          "at": 63.9,
+          "g": 0.882121,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 79.7,
+          "at": 80.6,
           "g": 0.926671,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 96.5,
+          "at": 97.5,
           "g": 0.956034,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 113.4,
+          "at": 114.2,
           "g": 0.975609,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 129.6,
+          "at": 131.4,
           "g": 0.988268,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 146.3,
+          "at": 147.2,
           "g": 0.995879,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 162.9,
-          "g": 0.999448,
+          "at": 163.9,
+          "g": 0.999459,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 179.9,
+          "at": 180.5,
           "g": 0.999974,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 196.4,
+          "at": 197.2,
           "g": 0.999677,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 213.1,
-          "g": 0.999046,
+          "at": 214.4,
+          "g": 0.999041,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 230.5,
+          "at": 231.2,
           "g": 0.998061,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 249.9,
-          "g": 0.99675,
+          "at": 247.3,
+          "g": 0.996741,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 264.1,
+          "at": 264,
           "g": 0.995069,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 279.6,
-          "g": 0.993028,
+          "at": 280.6,
+          "g": 0.993014,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 296.4,
+          "at": 297.4,
           "g": 0.99062,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 313.6,
+          "at": 314,
           "g": 0.987859,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 330,
-          "g": 0.984688,
+          "at": 330.8,
+          "g": 0.984708,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 346.2,
+          "at": 347,
           "g": 0.981179,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 363.1,
-          "g": 0.977292,
+          "at": 363.8,
+          "g": 0.977267,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 379.5,
-          "g": 0.972998,
+          "at": 380.4,
+          "g": 0.972971,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 397.8,
+          "at": 397.6,
           "g": 0.968319,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 413.3,
-          "g": 0.963285,
+          "at": 414.4,
+          "g": 0.963253,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 429.5,
-          "g": 0.957801,
+          "at": 430.5,
+          "g": 0.957835,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 446.2,
+          "at": 447.3,
           "g": 0.951999,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 463,
-          "g": 0.94582,
+          "at": 463.9,
+          "g": 0.945782,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 479.7,
+          "at": 480.6,
           "g": 0.939226,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 496.2,
+          "at": 497.2,
           "g": 0.932259,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 513.3,
+          "at": 514.4,
           "g": 0.924925,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 529.6,
-          "g": 0.91728,
+          "at": 530.4,
+          "g": 0.917233,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 546.4,
+          "at": 547.2,
           "g": 0.909243,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 562.9,
+          "at": 563.8,
           "g": 0.90087,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 579.6,
-          "g": 0.892175,
+          "at": 580.5,
+          "g": 0.892228,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 596.1,
+          "at": 597.2,
           "g": 0.88323,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 613.5,
-          "g": 0.874,
+          "at": 614.4,
+          "g": 0.873944,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 629.6,
+          "at": 630.7,
           "g": 0.864447,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 646.4,
+          "at": 647.2,
           "g": 0.854648,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 663.1,
-          "g": 0.844686,
+          "at": 663.9,
+          "g": 0.844626,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 679.8,
-          "g": 0.834468,
+          "at": 680.6,
+          "g": 0.834406,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 696.1,
+          "at": 697,
           "g": 0.824079,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 713.6,
-          "g": 0.813611,
+          "at": 714.3,
+          "g": 0.813547,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 729.7,
+          "at": 731.2,
           "g": 0.802967,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 746.4,
+          "at": 747.2,
           "g": 0.792241,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 763,
+          "at": 763.9,
           "g": 0.781529,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 779.7,
+          "at": 780.5,
           "g": 0.770733,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 796.3,
-          "g": 0.760014,
+          "at": 797.2,
+          "g": 0.75995,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 813.6,
-          "g": 0.749211,
+          "at": 814.2,
+          "g": 0.749275,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 829.8,
-          "g": 0.738612,
+          "at": 832.3,
+          "g": 0.738548,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 846.5,
+          "at": 847.1,
           "g": 0.728055,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 863.2,
-          "g": 0.717696,
+          "at": 864.2,
+          "g": 0.717634,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 879.8,
+          "at": 880.5,
           "g": 0.70744,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 896.5,
+          "at": 897.1,
           "g": 0.697375,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 927.4,
-          "g": 0.687529,
+          "at": 924.2,
+          "g": 0.687587,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 933.4,
+          "at": 932,
           "g": 0.677981,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 947.1,
-          "g": 0.668693,
+          "at": 949,
+          "g": 0.668638,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 962.9,
-          "g": 0.659579,
+          "at": 964.5,
+          "g": 0.659633,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 981.3,
+          "at": 980.9,
           "g": 0.650875,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 996.6,
+          "at": 997.1,
           "g": 0.642435,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1012.7,
+          "at": 1014.4,
           "g": 0.634376,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1029.8,
+          "at": 1032.3,
           "g": 0.626612,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1047.8,
+          "at": 1047,
           "g": 0.619205,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1062.8,
+          "at": 1069.9,
           "g": 0.612203,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1080.1,
+          "at": 1084.2,
           "g": 0.605531,
-          "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
+          "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Docs:972:0.25 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1102.8,
-          "g": 0.599272,
-          "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1120.4,
+          "at": 1100.8,
           "g": null,
           "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Docs:972:0.25 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1140,
-          "g": null,
-          "l": "Overview:756:1.00 Blog:843:1.00 Reports:896:1.00 Docs:972:0.25 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1146.9,
+          "at": 1114.2,
           "g": null,
           "l": "Overview:751:1.00 Blog:838:1.00 Reports:892:1.00 Docs:968:0.32 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1163.4,
+          "at": 1130.8,
           "g": null,
           "l": "Overview:735:1.00 Blog:822:1.00 Reports:875:1.00 Docs:951:0.55 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1180.1,
+          "at": 1147.5,
           "g": null,
-          "l": "Overview:723:1.00 Blog:810:1.00 Reports:864:1.00 Docs:939:0.71 Settings:971:1.00 Sign out:1049:1.00"
+          "l": "Overview:723:1.00 Blog:810:1.00 Reports:863:1.00 Docs:939:0.71 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1196.6,
+          "at": 1164.1,
           "g": null,
           "l": "Overview:716:1.00 Blog:802:1.00 Reports:856:1.00 Docs:932:0.80 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1213.2,
+          "at": 1181,
           "g": null,
           "l": "Overview:711:1.00 Blog:797:1.00 Reports:851:1.00 Docs:926:0.86 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1230.3,
+          "at": 1197.5,
           "g": null,
           "l": "Overview:707:1.00 Blog:794:1.00 Reports:847:1.00 Docs:922:0.91 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1246.6,
+          "at": 1214.1,
           "g": null,
           "l": "Overview:704:1.00 Blog:791:1.00 Reports:844:1.00 Docs:920:0.94 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1263.4,
+          "at": 1231.2,
           "g": null,
           "l": "Overview:702:1.00 Blog:789:1.00 Reports:842:1.00 Docs:917:0.97 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1279.9,
+          "at": 1247.5,
           "g": null,
-          "l": "Overview:701:1.00 Blog:787:1.00 Reports:841:1.00 Docs:916:0.98 Settings:971:1.00 Sign out:1049:1.00"
+          "l": "Overview:700:1.00 Blog:787:1.00 Reports:841:1.00 Docs:916:0.98 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1296.6,
+          "at": 1264.2,
           "g": null,
           "l": "Overview:699:1.00 Blog:786:1.00 Reports:840:1.00 Docs:915:0.99 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1313.6,
+          "at": 1281,
           "g": null,
           "l": "Overview:699:1.00 Blog:785:1.00 Reports:839:1.00 Docs:914:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1330,
+          "at": 1297.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:914:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1346.7,
+          "at": 1314.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1363.5,
+          "at": 1331,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1379.4,
+          "at": 1347.1,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1396,
+          "at": 1363.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1413,
+          "at": 1380.4,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1429.5,
+          "at": 1397.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1446.1,
+          "at": 1415,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1462.8,
+          "at": 1430.5,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1479.5,
+          "at": 1447.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1496.1,
+          "at": 1463.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1515.6,
+          "at": 1484.5,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1531.5,
+          "at": 1497.1,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1547.4,
+          "at": 1513.7,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1562.7,
+          "at": 1530.4,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1580.4,
+          "at": 1547.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1596.1,
+          "at": 1604.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1612.8,
+          "at": 1615.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1630.2,
+          "at": 1630.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1646.1,
+          "at": 1647.1,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1663,
+          "at": 1663.7,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1679.6,
+          "at": 1680.4,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1696.3,
+          "at": 1697.1,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1713.1,
+          "at": 1713.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1729.7,
+          "at": 1730.4,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1746.3,
+          "at": 1747.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1763,
+          "at": 1763.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1779.6,
+          "at": 1780.5,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1796.1,
-          "g": null,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1813.1,
+          "at": 1797,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         }
@@ -1479,28 +1454,28 @@
         "Settings",
         "Sign out"
       ],
-      "directMs": 1201,
-      "status": "✓ added <a> \"Help\" after \"Settings\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=7341970c8a",
+      "directMs": 796,
+      "status": "✓ added <a> \"Help\" after \"Settings\" in src/components/Navbar.tsx · 0 tokens · revert: git restore --source=b05b15d3b2",
       "direct": {
         "kind": "insert",
         "text": "Help",
         "change": "added <a> \"Help\" after \"Settings\"",
         "how": "grew",
-        "wroteMs": 147,
-        "landMs": 197
+        "wroteMs": 117,
+        "landMs": 171
       },
       "grown": {
         "kind": "insert",
         "added": 1,
         "glided": 2,
-        "at": 9270.399999999994
+        "at": 8475.29999999993
       },
       "preview": {
         "kind": "insert",
         "srcLoc": "src/components/Navbar.tsx:6:9",
-        "liftToPreviewMs": 12.300000000017462
+        "liftToPreviewMs": 7.399999999906868
       },
-      "liftToGhostMs": 13.6,
+      "liftToGhostMs": 13.7,
       "addedLines": [
         "          <a href=\"#\" className=\"text-sm text-gray-600 hover:text-gray-900\">Help</a>"
       ],
@@ -1509,7 +1484,7 @@
         0.25,
         0.32,
         0.55,
-        0.7,
+        0.71,
         0.8,
         0.86,
         0.91,
@@ -1520,740 +1495,615 @@
         1,
         1
       ],
-      "maxStep": 15.2,
+      "maxStep": 15.1,
       "frames": [
         {
-          "at": -222.4,
+          "at": -212.9,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -206.2,
+          "at": -202.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -189.2,
+          "at": -185.7,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -172.6,
+          "at": -169.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -156.2,
+          "at": -152.7,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -137.9,
+          "at": -135.8,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -122.8,
+          "at": -119.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -106.1,
+          "at": -102.7,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -89.6,
+          "at": -86,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -72.5,
+          "at": -69.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -55.9,
+          "at": -51.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -39.1,
+          "at": -36,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -22,
+          "at": -19.2,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": -5.1,
+          "at": -2.5,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 13.6,
+          "at": 13.7,
           "g": 0.6,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 26.8,
+          "at": 30.7,
           "g": 0.668212,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 43.6,
-          "g": 0.808502,
+          "at": 47.2,
+          "g": 0.807911,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 60.3,
-          "g": 0.881786,
+          "at": 64,
+          "g": 0.882121,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 77,
-          "g": 0.926671,
+          "at": 80.5,
+          "g": 0.926885,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 93.7,
-          "g": 0.956177,
+          "at": 97.2,
+          "g": 0.956034,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 110.3,
-          "g": 0.975609,
+          "at": 114.2,
+          "g": 0.975515,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 127.4,
-          "g": 0.988268,
+          "at": 130.4,
+          "g": 0.988328,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 143.5,
+          "at": 147.2,
           "g": 0.995879,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 160.3,
-          "g": 0.999459,
+          "at": 164,
+          "g": 0.999448,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 177,
+          "at": 180.5,
           "g": 0.999974,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 193.8,
+          "at": 197.3,
           "g": 0.999677,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 210.5,
+          "at": 214.3,
           "g": 0.999041,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 227.7,
+          "at": 230.5,
           "g": 0.998068,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 243.5,
+          "at": 247.3,
           "g": 0.996741,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 260.5,
-          "g": 0.995058,
+          "at": 263.9,
+          "g": 0.995069,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 277.2,
-          "g": 0.993014,
+          "at": 280.7,
+          "g": 0.993028,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 294.1,
-          "g": 0.99062,
+          "at": 297.1,
+          "g": 0.990635,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 310.6,
+          "at": 313.9,
           "g": 0.987842,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 327,
+          "at": 331.1,
           "g": 0.984708,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 343.6,
+          "at": 347.1,
           "g": 0.981179,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 360.2,
+          "at": 363.8,
           "g": 0.977267,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 377,
+          "at": 380.4,
           "g": 0.972998,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 393.5,
-          "g": 0.96829,
+          "at": 397.4,
+          "g": 0.968319,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 410.1,
-          "g": 0.963253,
+          "at": 414.3,
+          "g": 0.963285,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 427.5,
+          "at": 430.6,
           "g": 0.957835,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 443.7,
+          "at": 447.2,
           "g": 0.951999,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 460.4,
-          "g": 0.945782,
+          "at": 463.9,
+          "g": 0.94582,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 476.9,
-          "g": 0.939186,
+          "at": 480.6,
+          "g": 0.939226,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 493.7,
+          "at": 497.2,
           "g": 0.932259,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 510.1,
+          "at": 514.3,
           "g": 0.924925,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 527.4,
+          "at": 530.5,
           "g": 0.91728,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 543.5,
+          "at": 547.2,
           "g": 0.909243,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 560.2,
+          "at": 563.8,
           "g": 0.90087,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 576.9,
-          "g": 0.892175,
+          "at": 580.5,
+          "g": 0.892228,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 593.8,
-          "g": 0.883175,
+          "at": 597.2,
+          "g": 0.88323,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 610.5,
+          "at": 614.2,
           "g": 0.873944,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 628,
-          "g": 0.864389,
+          "at": 630.5,
+          "g": 0.864447,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 643.6,
+          "at": 647.1,
           "g": 0.854648,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 660.4,
+          "at": 663.8,
           "g": 0.844686,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 677.1,
-          "g": 0.834406,
+          "at": 680.6,
+          "g": 0.834468,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 693.6,
+          "at": 697.3,
           "g": 0.824079,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 710.2,
-          "g": 0.813547,
+          "at": 714.1,
+          "g": 0.813611,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 727.6,
+          "at": 730.5,
           "g": 0.802967,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 743.8,
-          "g": 0.792241,
+          "at": 747.2,
+          "g": 0.792306,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 760.3,
+          "at": 763.8,
           "g": 0.781529,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 776.9,
+          "at": 780.5,
           "g": 0.770733,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 793.6,
+          "at": 797.1,
           "g": 0.75995,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 810.2,
-          "g": 0.749211,
+          "at": 814.1,
+          "g": 0.749275,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 827.3,
+          "at": 830.5,
           "g": 0.738612,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 843.7,
-          "g": 0.728055,
+          "at": 847.1,
+          "g": 0.728118,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 860.3,
-          "g": 0.717634,
+          "at": 863.8,
+          "g": 0.717696,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 877,
+          "at": 880.5,
           "g": 0.70744,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 893.8,
-          "g": 0.697375,
+          "at": 897.1,
+          "g": 0.697435,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 910.5,
-          "g": 0.687529,
+          "at": 919.7,
+          "g": 0.687587,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 927.7,
+          "at": 930.6,
           "g": 0.677981,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 943.7,
-          "g": 0.668638,
+          "at": 947.3,
+          "g": 0.668693,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 960.2,
+          "at": 965.1,
           "g": 0.659633,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 977.1,
-          "g": 0.650875,
+          "at": 981.2,
+          "g": 0.650926,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 993.7,
-          "g": 0.642435,
+          "at": 997,
+          "g": 0.642484,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1010.4,
+          "at": 1013.7,
           "g": 0.634376,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1027.2,
-          "g": 0.626567,
+          "at": 1030.6,
+          "g": 0.626612,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1043.4,
+          "at": 1055.7,
           "g": 0.619205,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1060.5,
-          "g": 0.612162,
+          "at": 1070.4,
+          "g": 0.612203,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1076.9,
-          "g": 0.605531,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
+          "at": 1081,
+          "g": 0.605569,
+          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Help:1050:0.25 Sign out:1049:1.00"
         },
         {
-          "at": 1093.5,
-          "g": 0.599236,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1110.4,
-          "g": 0.593322,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1127.5,
-          "g": 0.587826,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1143.6,
-          "g": 0.582681,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1160.2,
-          "g": 0.57795,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1176.9,
-          "g": 0.573576,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1193.6,
-          "g": 0.569609,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1210.3,
-          "g": 0.565979,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1227.6,
-          "g": 0.56277,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1243.5,
-          "g": 0.559916,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1260.3,
-          "g": 0.557433,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1277,
-          "g": 0.555329,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1293.7,
-          "g": 0.553573,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1310.5,
-          "g": 0.552173,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1332.1,
-          "g": 0.55113,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1343.6,
-          "g": 0.550425,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1360,
-          "g": 0.55006,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1376.9,
-          "g": 0.550026,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1393.4,
-          "g": 0.550323,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1411.2,
-          "g": 0.550954,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1427,
-          "g": 0.551939,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1443.4,
-          "g": 0.55325,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1460.5,
-          "g": 0.554931,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1476.8,
-          "g": 0.556973,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1500.1,
-          "g": 0.55938,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Sign out:1049:1.00"
-        },
-        {
-          "at": 1523.2,
+          "at": 1098.3,
           "g": null,
           "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Help:1050:0.25 Sign out:1049:1.00"
         },
         {
-          "at": 1552.7,
-          "g": null,
-          "l": "Overview:698:1.00 Blog:785:1.00 Reports:838:1.00 Docs:913:1.00 Settings:971:1.00 Help:1050:0.25 Sign out:1049:1.00"
-        },
-        {
-          "at": 1560.6,
+          "at": 1114,
           "g": null,
           "l": "Overview:694:1.00 Blog:780:1.00 Reports:834:1.00 Docs:909:1.00 Settings:967:1.00 Help:1046:0.32 Sign out:1049:1.00"
         },
         {
-          "at": 1577.8,
+          "at": 1130.9,
           "g": null,
           "l": "Overview:679:1.00 Blog:765:1.00 Reports:819:1.00 Docs:894:1.00 Settings:952:1.00 Help:1030:0.55 Sign out:1049:1.00"
         },
         {
-          "at": 1594.3,
+          "at": 1149.8,
           "g": null,
-          "l": "Overview:667:1.00 Blog:754:1.00 Reports:808:1.00 Docs:883:1.00 Settings:941:1.00 Help:1019:0.70 Sign out:1049:1.00"
+          "l": "Overview:667:1.00 Blog:754:1.00 Reports:808:1.00 Docs:883:1.00 Settings:941:1.00 Help:1019:0.71 Sign out:1049:1.00"
         },
         {
-          "at": 1610.8,
+          "at": 1164.1,
           "g": null,
           "l": "Overview:660:1.00 Blog:747:1.00 Reports:800:1.00 Docs:876:1.00 Settings:934:1.00 Help:1011:0.80 Sign out:1049:1.00"
         },
         {
-          "at": 1627.3,
+          "at": 1180.8,
           "g": null,
           "l": "Overview:655:1.00 Blog:742:1.00 Reports:796:1.00 Docs:871:1.00 Settings:929:1.00 Help:1006:0.86 Sign out:1049:1.00"
         },
         {
-          "at": 1643.9,
+          "at": 1197.4,
           "g": null,
           "l": "Overview:652:1.00 Blog:738:1.00 Reports:792:1.00 Docs:867:1.00 Settings:925:1.00 Help:1003:0.91 Sign out:1049:1.00"
         },
         {
-          "at": 1660.7,
+          "at": 1214.1,
           "g": null,
           "l": "Overview:649:1.00 Blog:736:1.00 Reports:789:1.00 Docs:865:1.00 Settings:923:1.00 Help:1000:0.94 Sign out:1049:1.00"
         },
         {
-          "at": 1677.1,
+          "at": 1230.7,
           "g": null,
           "l": "Overview:647:1.00 Blog:734:1.00 Reports:787:1.00 Docs:863:1.00 Settings:921:1.00 Help:998:0.97 Sign out:1049:1.00"
         },
         {
-          "at": 1694.1,
+          "at": 1247.6,
           "g": null,
           "l": "Overview:646:1.00 Blog:732:1.00 Reports:786:1.00 Docs:861:1.00 Settings:919:1.00 Help:997:0.98 Sign out:1049:1.00"
         },
         {
-          "at": 1710.5,
+          "at": 1264.2,
           "g": null,
           "l": "Overview:645:1.00 Blog:731:1.00 Reports:785:1.00 Docs:860:1.00 Settings:918:1.00 Help:996:0.99 Sign out:1049:1.00"
         },
         {
-          "at": 1727.3,
+          "at": 1280.9,
           "g": null,
           "l": "Overview:644:1.00 Blog:731:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:995:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1744.2,
+          "at": 1297.9,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:995:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1760.7,
+          "at": 1314.2,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1777.6,
+          "at": 1331,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1793.4,
+          "at": 1347.2,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1810.1,
+          "at": 1363.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1826.9,
+          "at": 1380.4,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1843.5,
+          "at": 1397.2,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1860.2,
+          "at": 1413.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1877,
+          "at": 1430.5,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1893.5,
+          "at": 1447.1,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1914.1,
+          "at": 1463.8,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1926.9,
+          "at": 1481.6,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1943.5,
+          "at": 1497,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1961.6,
+          "at": 1514.3,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1977.6,
+          "at": 1530.5,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 1993.8,
+          "at": 1547,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2010.1,
+          "at": 1563.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2026.8,
+          "at": 1580.4,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2043.4,
+          "at": 1597,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2060.1,
+          "at": 1613.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2076.8,
+          "at": 1630.5,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2093.4,
+          "at": 1647,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2110,
+          "at": 1663.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2126.9,
+          "at": 1680.5,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2143.6,
+          "at": 1696.9,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2160.2,
+          "at": 1713.7,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2176.8,
+          "at": 1730.4,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2193.4,
+          "at": 1747.1,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2210,
+          "at": 1763.6,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         },
         {
-          "at": 2227,
+          "at": 1780.4,
+          "g": null,
+          "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
+        },
+        {
+          "at": 1797.1,
           "g": null,
           "l": "Overview:644:1.00 Blog:730:1.00 Reports:784:1.00 Docs:859:1.00 Settings:917:1.00 Help:994:1.00 Sign out:1049:1.00"
         }

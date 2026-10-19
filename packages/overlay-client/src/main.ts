@@ -11,7 +11,7 @@ import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
 import { isInteractive, selectionLine, shapeLine, type PlainEl } from './plain-selection.js'
-import { quickReading, type Cand, type QuickReading } from './optimistic.js'
+import { bboxOfPoints, quickReading, type Cand, type QuickReading } from './optimistic.js'
 import { applyMoving, EASE, flipFrom, freshAdded, GLIDE_MS, growIn, type Flip, type Moving } from './motion.js'
 import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type HoldResult } from './live-reorder.js'
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
@@ -7726,12 +7726,17 @@ class Overlay {
     // rather than at pointerup: one slow deliberate stroke takes longer than
     // the settle period, and a run firing mid-line would read the drawing
     // half-made.
-    this.cancelAuto()
+    const p = this.toPage(e)
+    // n16: a plain change already showing (an erase, a recolour, a caret with
+    // its word) and a press somewhere else: that drawing is done, so it goes
+    // to the code now, and this stroke starts a new one. Otherwise the two
+    // would join, and the pair is no longer plain (the model gets asked, and
+    // the edit you already saw waits on it)
+    if (!this.handOffElsewhere(p)) this.cancelAuto()
     this.canvas.setPointerCapture(e.pointerId)
     // a press that never travels is a click, and a click means "pick that up"
     // rather than "draw a dot" — see onUp
     this.pressAt = { x: e.clientX, y: e.clientY, t: performance.now() }
-    const p = this.toPage(e)
     // a trackpad hop: lands right back where the last gesture-sized stroke
     // ended, right after it ended — resume it instead of starting a new one
     if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) {
@@ -11734,6 +11739,30 @@ class Overlay {
     if (this.autoBlock()) return
     this.cancelAuto()
     void this.autoRun()
+  }
+
+  /**
+   * n16: hand the counting drawing to the code if it is a plain change already
+   * on the page and `p` lands clear of it (24 px margin). True when handed off.
+   */
+  private handOffElsewhere(p: Pt): boolean {
+    if (!this.autoTimer || this.autoMode !== 'auto' || this.runMode === 'design' || this.runMode === 'screenshot') return false
+    if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) return false
+    const key = this.optimisticKey()
+    const pv = this.pendingPreview
+    const boxes: Box[] = []
+    if (this.optimistic?.key === key) boxes.push(this.optimistic.reading.ink, this.optimistic.reading.target.rect)
+    // the preview is keyed at lift, before its word was typed: same strokes is enough
+    else if (pv && pv.key.split('|')[0] === key.split('|')[0] && pv.preview.kind === 'insert' && this.notes.length === 1) {
+      boxes.push(...pv.preview.boxes.map((b) => b.rect))
+      for (const st of this.strokes) boxes.push(bboxOfPoints(st.points))
+    } else return false
+    const M = 24
+    if (boxes.some((b) => p.x >= b.x - M && p.x <= b.x + b.w + M && p.y >= b.y - M && p.y <= b.y + b.h + M)) return false
+    if (this.autoBlock()) return false
+    this.cancelAuto()
+    void this.autoRun()
+    return true
   }
 
   /** Drop a pending run. `msg` only when the user deserves to be told (Esc). */

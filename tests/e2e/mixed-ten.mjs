@@ -2,13 +2,15 @@
  * e2e (goal loop n13): ten MIXED edits in a row, then ten undos.
  *
  * Drags (reorder, resize, move) in tweak mode interleaved with pen erases
- * (scribble) and recolours (green ring) in auto mode, each started as soon as
+ * (scribble), recolours (green ring) and a drawn addition (caret + a typed
+ * word, n16) in auto mode, each started as soon as
  * the previous one is released — no waiting for any code to land. Checks:
  *
  *   - all ten finish inside 20 s, first press to last release
- *   - every edit lands in code with no model: 6 via /@s2c/manipulate, 4 via
+ *   - every edit lands in code with no model: 5 via /@s2c/manipulate, 5 via
  *     /@s2c/direct (0 tokens)
- *   - each edit is visible within 50 ms of the release / pen lift
+ *   - each edit is visible within 50 ms of the release / pen lift (the
+ *     addition: its ghost in the gap, from the caret's lift)
  *   - what you saw is what the code has: the settled page and a fresh tab
  *     rebuilt from the code alone match the picture right after the last edit
  *     settled (boxes within 2 px, same colours, same elements)
@@ -24,7 +26,7 @@
 import { chromium } from 'playwright'
 import { spawn, execSync } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { ensureDraw, assertInk, inkCount } from './lib/pen.mjs'
+import { ensureDraw, assertInk } from './lib/pen.mjs'
 
 const PORT = 5269
 const APP = `http://localhost:${PORT}/`
@@ -104,7 +106,8 @@ try {
   await page.addScriptTag({ content: KEYS + `
     globalThis.__s2cDirect = []
     globalThis.__FR__ = []; globalThis.__REC__ = true
-    const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
+    const ghostOp = () => { const g = document.getElementById('s2c-overlay-host')?.shadowRoot?.querySelector('#pending .pg.ghost'); return g ? Number(getComputedStyle(g).opacity) : null }
+    const tick = () => { globalThis.__FR__.push({ at: performance.now(), boxes: globalThis.__snap(), ghost: ghostOp() }); if (globalThis.__REC__) requestAnimationFrame(tick) }
     requestAnimationFrame(tick)
     globalThis.__REL__ = []
     addEventListener('pointerup', () => globalThis.__REL__.push(performance.now()), true)
@@ -212,9 +215,8 @@ try {
     const t = await still(sel, 0, text)
     if (!t) throw new Error(`ASSERT: erase target "${text}" not on the page`)
     const x0 = t.x + t.w * 0.08, x1 = t.x + t.w * 0.92, y0 = t.y + t.h * 0.15, y1 = t.y + t.h * 0.85
-    const n0 = await inkCount(page)
     await stroke(Array.from({ length: 9 }, (_, i) => [x0 + ((x1 - x0) * i) / 8, i % 2 ? y1 : y0]))
-    await assertInk(page, n0 + 1, `scribble on ${text}`)
+    await assertInk(page, 1, `scribble on ${text}`)
   }
   const recolour = (sel, text) => async () => {
     await toDraw()
@@ -222,9 +224,27 @@ try {
     if (!t) throw new Error(`ASSERT: recolour target "${text}" not on the page`)
     await setPen()
     const cx = t.x + t.w / 2, cy = t.y + t.h / 2
-    const n0 = await inkCount(page)
     await stroke(Array.from({ length: 25 }, (_, i) => [cx + (t.w / 2 + 12) * Math.cos((i / 24) * 2.08 * Math.PI), cy + (t.h / 2 + 12) * Math.sin((i / 24) * 2.08 * Math.PI)]))
-    await assertInk(page, n0 + 1, `ring on ${text}`)
+    await assertInk(page, 1, `ring on ${text}`)
+  }
+
+  // a caret in the gap between two nav links, then one typed word: a plain
+  // addition, written by /@s2c/direct kind insert (n11). The ghost shows at lift.
+  const add = (word, left, right) => async () => {
+    await toDraw()
+    const a = await still(NAV, 0, left)
+    const c = await still(NAV, 0, right)
+    if (!a || !c) throw new Error(`ASSERT: add neighbours ${left}/${right} not on the page`)
+    const x = (a.right + c.left) / 2, y = a.bottom - 2
+    await page.mouse.move(x - 9, y + 16)
+    await page.mouse.down()
+    await page.mouse.move(x, y, { steps: 6 })
+    await page.mouse.move(x + 9, y + 16, { steps: 6 })
+    await page.mouse.up()
+    await assertInk(page, 1, `caret for ${word}`)
+    await page.waitForTimeout(150)
+    await page.keyboard.type(word, { delay: 20 })
+    await page.keyboard.press('Enter')
   }
 
   const EDITS = [
@@ -232,7 +252,7 @@ try {
     ['erase nav link "Reports"', 'direct', erase(NAV, 'Reports')],
     ['resize card taller', 'drag', resize(CARD, 0, 48)],
     ['recolour "Team members" green', 'direct', recolour('section h2', 'Team members')],
-    ['reorder grid 1→3', 'drag', reorder(GRID, 0, 2)],
+    ['add nav link "Docs" after "Overview"', 'add', add('Docs', 'Overview', 'Settings')],
     ['erase stat card "Revenue"', 'direct', erase(CARD, 'Revenue')],
     ['move form down', 'drag', move(FORM, 0, 0, 36)],
     ['recolour nav link "Settings" green', 'direct', recolour(NAV, 'Settings')],
@@ -252,7 +272,7 @@ try {
   const totalMs = Date.now() - t0
   await page.waitForTimeout(400)
   const seen = await page.evaluate(() => globalThis.__snap())
-  const want = (k) => EDITS.filter((e) => e[1] === k).length
+  const want = (k) => EDITS.filter((e) => e[1] === k || (k === 'direct' && e[1] === 'add')).length
   for (let i = 0; i < 60; i++) {
     const d = await page.evaluate(() => globalThis.__s2cDirect.length)
     if (commits.length >= want('drag') && d >= want('direct')) break
@@ -277,7 +297,8 @@ try {
   const efr = settled.fr
   const editRows = marks.map((m, i) => {
     const prev = [...efr].reverse().find((f) => f.at < m.rel)
-    const first = prev ? efr.filter((f) => f.at >= m.rel && f.at < m.rel + 2000).find((f) => differs(prev.boxes, f.boxes)) : null
+    const win = efr.filter((f) => f.at >= m.rel && f.at < m.rel + 2000)
+    const first = m.kind === 'add' ? win.find((f) => f.ghost != null && f.ghost > 0.3) : prev ? win.find((f) => differs(prev.boxes, f.boxes)) : null
     return { name: m.name, visibleMs: first ? +(first.at - m.rel).toFixed(1) : null }
   })
 
@@ -341,7 +362,7 @@ try {
   }
   const issues = []
   const okCommits = commits.filter((c) => c.ok).length
-  const landed = settled.direct.filter((d) => d.how === 'landed').length
+  const landed = settled.direct.filter((d) => d.how === 'landed' || (d.kind === 'insert' && d.how === 'grew')).length
   if (totalMs >= 20000) issues.push(`took ${totalMs} ms`)
   if (okCommits !== want('drag')) issues.push(`${okCommits}/${want('drag')} drags committed`)
   if (landed !== want('direct')) issues.push(`${landed}/${want('direct')} pen edits written directly (${JSON.stringify(settled.direct.map((d) => d.how))})`)
