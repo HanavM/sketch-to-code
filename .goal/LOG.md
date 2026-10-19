@@ -1,5 +1,7 @@
 # Log (newest first)
 
+2026-10-19T02:05:00Z | New things grow in, colours fade | Added link visible 9 ms, grows over 12 frames, neighbour glides; recolour eases both ways, 60 fps.
+
 2026-10-19T01:41:00Z | Resize by dragging an edge | Page reflows 10 ms into the pull; new size held until code lands, no snap back; cancel eases.
 
 2026-10-19T01:32:12Z | Drag to reorder with live reflow | Row reorders live as you drag, cards glide aside and into place; code lands with no jump.

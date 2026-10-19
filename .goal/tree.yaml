@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
-now: "Resizing by dragging an edge now pushes the page live and keeps the new size on screen until the code catches up; next, new things grow in and colour changes ease instead of popping."
-lock: {by: run-2026-10-19T0142, until: "2026-10-19T03:12:00Z"}
+now: "New things now grow into place and push their neighbours aside smoothly, and colour changes fade instead of popping; next, a 20-edit test that the page never flashes when the code lands."
+lock: null
 asks: []
 handled: []
 notes:
@@ -17,6 +17,8 @@ notes:
   - "n5: tests/e2e/motion-reorder.mjs starts its own vite on :5262. live-canva.mjs ignores S2C_CHROMIUM: run it with PLAYWRIGHT_BROWSERS_PATH at a dir linking chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell to /opt/pw-browsers/chromium, vite on :5211."
   - "n5: commitManipulation takes an optional hold {root, capture, release, fail}; holdUntilLanded releases inside the hot reload's MutationObserver task. Resize still clears width/height before the reload (snap back): n6."
   - "n6: tests/e2e/motion-resize.mjs starts its own vite on :5263 (stat card height pull, cancel, ContactForm move hold). live-reorder.ts pushedBy/boxesOf/settleBoxes hold any inline-styled edit."
+  - "n7: tests/e2e/motion-add-recolour.mjs starts its own vite on :5264; it simulates the hot reload by inserting the new link itself. growLanded (main.ts) grows fresh nodes in the reload's MO task."
+  - "n7: motion-erase fails p95 (33 ms) in this sandbox on the agent baseline too: the first frame after lift is held 33 ms. To fix in n8."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
 criteria:
   - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: open, evidence: null}
@@ -39,4 +41,7 @@ nodes:
      result: "Row reflows 27 ms into the drag, 11-frame glides, held until reload, code matched, no jump. Commit fb27ff4."}
   - {id: n6, parent: n1, kind: step, title: "Resize by edge drag: neighbours reflow live with the new size, hold width/height until the code lands (no snap back), plain-move hold e2e too", status: done,
      result: "Page reflows 10 ms into the pull; size held until reload, code matched, cancel eases back; moves hold too. Commit e8d170c."}
-  - {id: n7, parent: n1, kind: step, title: "Add grows in and recolour eases: inserted/drawn elements scale+fade in, recolour cross-fades, held until the code lands; e2e frame timing", status: open, result: null}
+  - {id: n7, parent: n1, kind: step, title: "Add grows in and recolour eases: inserted/drawn elements scale+fade in, recolour cross-fades, held until the code lands; e2e frame timing", status: done,
+     result: "Ghost 9 ms, new link grows over 12 frames, neighbour glides 11 spots; recolour eases both ways. Commit e4d8791."}
+  - {id: n8, parent: n1, kind: step, title: "Shared-plane test set: 20+ scripted edits of every kind land with no flash or jump (>=95%); fix the erase lift-frame hitch (p95 33 ms here)", status: open, result: null}
+  - {id: n9, parent: n1, kind: step, title: "Ten edits in a row under 20 s all land in code; undo of each is instant and smooth (e2e)", status: open, result: null}
