@@ -1,7 +1,7 @@
 goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
 goal_state: working
 now: "Undoing a resize now glides every time, even on a busy machine; next, fixing quick pen edits right after a drawn addition that fall back to the slow AI path."
-lock: null
+lock: {by: run-0630, until: 2026-10-19T08:00:52Z}
 asks: []
 handled: []
 notes:
@@ -80,4 +80,4 @@ nodes:
      result: "Not a delay: the card travels as a lifted copy from the first move (3 ms); timing now counts it. Commit 571a1da."}
   - {id: n18, parent: n1, kind: step, title: "Undo of a resize sometimes jumps (mixed-ten undo 1, grid item h 25/40 px in one frame at +77 ms, 1 in 4 runs): find the race, make it glide every run", status: done,
      result: "Dropped frames, plus linked boxes aiming short; eases now frame-paced; 0 resize-undo jumps in 3/3 runs. Commit 8206454."}
-  - {id: n19, parent: n2, kind: step, title: "Pen edits right after a drawn addition (mixed-ten erase Revenue, recolour Settings) wait for the auto-run and go to the model under load: make them direct and visible <50 ms every run", status: open, result: null}
+  - {id: n19, parent: n2, kind: step, title: "Pen edits right after a drawn addition (mixed-ten erase Revenue, recolour Settings) wait for the auto-run and go to the model under load: make them direct and visible <50 ms every run", status: active, result: null}
