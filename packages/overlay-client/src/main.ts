@@ -11731,7 +11731,13 @@ class Overlay {
    */
   private scheduleAuto() {
     this.cancelAuto()
-    if (this.autoBlock()) return
+    // n22: a hold (a note being typed, a panel open) PAUSES the countdown, it
+    // does not drop it: autoTick keeps pushing the deadline until the hold
+    // ends. Dropping it here lost the run when a landing called this while a
+    // caret's word was being typed (nothing restarts it on Enter), so the next
+    // pen edit joined that drawing and the pair went to the model
+    const block = this.autoBlock()
+    if (block && !block.hold) return
     this.autoDeadline = performance.now() + AUTO_SETTLE_MS
     // paint the first frame of the countdown NOW: waiting a tick to say
     // anything is exactly the silence that makes a tool feel like it went off

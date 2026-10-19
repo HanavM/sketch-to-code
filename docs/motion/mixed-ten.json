@@ -1,154 +1,154 @@
 {
  "summary": {
   "edits": 10,
-  "totalMs": 13670,
+  "totalMs": 14620,
   "committed": 5,
   "direct": 5,
   "modelCalls": 0,
-  "undoKeysMs": 3666,
+  "undoKeysMs": 3803,
   "pass": true,
   "issues": [],
-  "finalStatus": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=ee4045fb53"
+  "finalStatus": "✓ h-full → h-[768px] in src/components/WeeklySchedule.tsx · 0 tokens · revert: git restore --source=fe9aa83963"
  },
  "edits": [
   {
    "name": "reorder card 1→3",
-   "visibleMs": 7.8,
-   "shown": "lifted copy",
-   "pageMovedMs": 219.7,
+   "visibleMs": 5.1,
+   "shown": "page",
+   "pageMovedMs": 5.1,
    "frames": {
-    "frames": 59,
-    "fps": 59.5,
+    "frames": 60,
+    "fps": 59.3,
     "p50": 16.7,
-    "p95": 20.4,
-    "max": 30.5,
-    "over20": 3
+    "p95": 31.5,
+    "max": 36.2,
+    "over20": 8
    }
   },
   {
    "name": "erase nav link \"Reports\"",
-   "visibleMs": 10.9,
+   "visibleMs": 13.5,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
-    "frames": 59,
-    "fps": 59.2,
+    "frames": 57,
+    "fps": 57.4,
     "p50": 16.6,
-    "p95": 28,
-    "max": 38.1,
+    "p95": 35.8,
+    "max": 48.1,
     "over20": 8
    }
   },
   {
    "name": "resize card taller",
-   "visibleMs": 2,
+   "visibleMs": 2.2,
    "shown": "page",
-   "pageMovedMs": 2,
+   "pageMovedMs": 2.2,
    "frames": {
-    "frames": 59,
-    "fps": 59.2,
+    "frames": 60,
+    "fps": 60.1,
     "p50": 16.7,
-    "p95": 26.9,
-    "max": 30.4,
-    "over20": 6
+    "p95": 21.9,
+    "max": 29.7,
+    "over20": 9
    }
   },
   {
    "name": "recolour \"Team members\" green",
-   "visibleMs": 17.4,
+   "visibleMs": 28.6,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
-    "frames": 59,
-    "fps": 59.4,
-    "p50": 16.6,
-    "p95": 20.8,
-    "max": 33,
-    "over20": 4
+    "frames": 57,
+    "fps": 58,
+    "p50": 16.5,
+    "p95": 32.5,
+    "max": 44.6,
+    "over20": 6
    }
   },
   {
    "name": "add nav link \"Docs\" after \"Overview\"",
-   "visibleMs": 24.9,
+   "visibleMs": 26.6,
    "shown": "ghost",
    "pageMovedMs": null,
    "frames": {
     "frames": 58,
-    "fps": 58.9,
-    "p50": 16.7,
-    "p95": 26.6,
-    "max": 33,
+    "fps": 59.5,
+    "p50": 16.6,
+    "p95": 26.3,
+    "max": 33.2,
     "over20": 6
    }
   },
   {
    "name": "erase stat card \"Revenue\"",
-   "visibleMs": 23,
+   "visibleMs": 20,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
-    "frames": 60,
-    "fps": 61.1,
+    "frames": 59,
+    "fps": 59.5,
     "p50": 16.6,
-    "p95": 24.5,
-    "max": 29.8,
-    "over20": 9
+    "p95": 32.9,
+    "max": 33.8,
+    "over20": 11
    }
   },
   {
    "name": "move form down",
-   "visibleMs": 1.3,
-   "shown": "page",
-   "pageMovedMs": 1.3,
+   "visibleMs": 6.4,
+   "shown": "lifted copy",
+   "pageMovedMs": 279.4,
    "frames": {
     "frames": 60,
-    "fps": 60,
+    "fps": 59.8,
     "p50": 16.6,
-    "p95": 23.9,
-    "max": 28.2,
+    "p95": 27.2,
+    "max": 32.9,
     "over20": 5
    }
   },
   {
    "name": "recolour nav link \"Settings\" green",
-   "visibleMs": 10.2,
+   "visibleMs": 17.7,
    "shown": "page",
    "pageMovedMs": null,
    "frames": {
-    "frames": 60,
-    "fps": 59.8,
+    "frames": 58,
+    "fps": 58.5,
     "p50": 16.7,
-    "p95": 22.1,
-    "max": 28.9,
-    "over20": 4
+    "p95": 28.3,
+    "max": 35.1,
+    "over20": 8
    }
   },
   {
    "name": "reorder nav link 1→2",
-   "visibleMs": 1.6,
+   "visibleMs": 1.5,
    "shown": "page",
-   "pageMovedMs": 1.6,
+   "pageMovedMs": 1.5,
    "frames": {
-    "frames": 61,
-    "fps": 60.1,
-    "p50": 16.6,
-    "p95": 23.5,
-    "max": 25.6,
-    "over20": 5
+    "frames": 57,
+    "fps": 57,
+    "p50": 16.7,
+    "p95": 28.2,
+    "max": 34.6,
+    "over20": 9
    }
   },
   {
    "name": "resize grid item taller",
-   "visibleMs": 1.4,
+   "visibleMs": 2.3,
    "shown": "page",
-   "pageMovedMs": 1.4,
+   "pageMovedMs": 2.3,
    "frames": {
-    "frames": 60,
-    "fps": 60.1,
+    "frames": 55,
+    "fps": 55,
     "p50": 16.7,
-    "p95": 24.9,
-    "max": 30.3,
-    "over20": 8
+    "p95": 32.2,
+    "max": 46,
+    "over20": 9
    }
   }
  ],
@@ -157,146 +157,146 @@
    "name": "reorder card 1→3",
    "kind": "drag",
    "startMs": 0,
-   "releaseMs": 1060,
-   "rel": 2243.0999999999767,
+   "releaseMs": 1116,
+   "rel": 2349.399999999907,
    "status": "committing reorder…",
    "video": {
-    "start": 1739,
-    "release": 2810
+    "start": 1852,
+    "release": 2983
    }
   },
   {
    "name": "erase nav link \"Reports\"",
    "kind": "direct",
-   "startMs": 1322,
-   "releaseMs": 2219,
-   "rel": 3919.6999999999534,
+   "startMs": 1382,
+   "releaseMs": 2446,
+   "rel": 4263.399999999907,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 3061,
-    "release": 3959
+    "start": 3234,
+    "release": 4300
    }
   },
   {
    "name": "resize card taller",
    "kind": "drag",
-   "startMs": 2471,
-   "releaseMs": 3262,
-   "rel": 4695.199999999953,
+   "startMs": 2700,
+   "releaseMs": 3603,
+   "rel": 5132.599999999977,
    "status": "committing resize…",
    "video": {
-    "start": 4210,
-    "release": 5005
+    "start": 4552,
+    "release": 5459
    }
   },
   {
    "name": "recolour \"Team members\" green",
    "kind": "direct",
-   "startMs": 3519,
-   "releaseMs": 6175,
-   "rel": 7866,
+   "startMs": 3858,
+   "releaseMs": 6556,
+   "rel": 8339,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 5258,
-    "release": 7917
+    "start": 5710,
+    "release": 8422
    }
   },
   {
    "name": "add nav link \"Docs\" after \"Overview\"",
    "kind": "add",
-   "startMs": 6430,
-   "releaseMs": 7132,
-   "rel": 8514.599999999977,
+   "startMs": 6821,
+   "releaseMs": 7555,
+   "rel": 9052.199999999953,
    "status": "note attached — on this stroke",
    "video": {
-    "start": 8169,
-    "release": 8872
+    "start": 8673,
+    "release": 9408
    }
   },
   {
    "name": "erase stat card \"Revenue\"",
    "kind": "direct",
-   "startMs": 7384,
-   "releaseMs": 8087,
-   "rel": 9771.099999999977,
+   "startMs": 7808,
+   "releaseMs": 8676,
+   "rel": 10443.099999999977,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 9123,
-    "release": 9827
+    "start": 9660,
+    "release": 10535
    }
   },
   {
    "name": "move form down",
    "kind": "drag",
-   "startMs": 8339,
-   "releaseMs": 9102,
-   "rel": 10576.399999999907,
+   "startMs": 8934,
+   "releaseMs": 9773,
+   "rel": 11322.29999999993,
    "status": "committing move…",
    "video": {
-    "start": 10078,
-    "release": 10849
+    "start": 10786,
+    "release": 11628
    }
   },
   {
    "name": "recolour nav link \"Settings\" green",
    "kind": "direct",
-   "startMs": 9361,
-   "releaseMs": 11319,
-   "rel": 13032.699999999953,
+   "startMs": 10027,
+   "releaseMs": 12108,
+   "rel": 13909.199999999953,
    "status": "⚡ auto-run in 0.9s · Esc to cancel",
    "video": {
-    "start": 11100,
-    "release": 13067
+    "start": 11879,
+    "release": 13969
    }
   },
   {
    "name": "reorder nav link 1→2",
    "kind": "drag",
-   "startMs": 11580,
-   "releaseMs": 12507,
-   "rel": 13792.899999999907,
+   "startMs": 12369,
+   "releaseMs": 13352,
+   "rel": 14732.199999999953,
    "status": "committing reorder…",
    "video": {
-    "start": 13319,
-    "release": 14247
+    "start": 14221,
+    "release": 15211
    }
   },
   {
    "name": "resize grid item taller",
    "kind": "drag",
-   "startMs": 12759,
-   "releaseMs": 13412,
-   "rel": 14826.199999999953,
+   "startMs": 13610,
+   "releaseMs": 14354,
+   "rel": 15799,
    "status": "committing resize…",
    "video": {
-    "start": 14498,
-    "release": 15158
+    "start": 15462,
+    "release": 16216
    }
   }
  ],
  "commits": [
   {
-   "at": 1792393253696,
+   "at": 1792398793339,
    "ok": true,
    "change": "moved 'stats' entry 1 → position 3 (renders in that order)"
   },
   {
-   "at": 1792393255880,
+   "at": 1792398795704,
    "ok": true,
    "change": "+ h-[166px]"
   },
   {
-   "at": 1792393261732,
+   "at": 1792398801882,
    "ok": true,
    "change": "+ mt-9"
   },
   {
-   "at": 1792393265153,
+   "at": 1792398805514,
    "ok": true,
    "change": "moved child 1 → position 2"
   },
   {
-   "at": 1792393266038,
+   "at": 1792398806524,
    "ok": true,
    "change": "h-full → h-[768px]"
   }
@@ -307,262 +307,262 @@
    "srcLoc": "src/components/Navbar.tsx:8:11",
    "change": "removed <a> (child 2)",
    "how": "landed",
-   "wroteMs": 180,
-   "landMs": 249
+   "wroteMs": 284,
+   "landMs": 332
   },
   {
    "kind": "recolor",
    "srcLoc": "src/components/UserTable.tsx:17:7",
    "change": "text-gray-900 → text-green-600",
    "how": "landed",
-   "wroteMs": 214,
-   "landMs": 330
+   "wroteMs": 232,
+   "landMs": 339
   },
   {
    "kind": "insert",
    "text": "Docs",
    "change": "added <a> \"Docs\" after \"Overview\"",
    "how": "grew",
-   "wroteMs": 231,
-   "landMs": 291
+   "wroteMs": 244,
+   "landMs": 340
   },
   {
    "kind": "delete",
    "srcLoc": "src/components/StatCards.tsx:11:9",
    "change": "removed 'stats' entry 3",
    "how": "landed",
-   "wroteMs": 185,
-   "landMs": 250
+   "wroteMs": 226,
+   "landMs": 280
   },
   {
    "kind": "recolor",
    "srcLoc": "src/components/Navbar.tsx:9:11",
    "change": "text-gray-600 → text-green-600; hover:text-gray-900 → hover:text-green-900",
    "how": "landed",
-   "wroteMs": 161,
-   "landMs": 210
+   "wroteMs": 301,
+   "landMs": 370
   }
  ],
  "undo": {
   "rows": [
    {
-    "visibleMs": 12.1,
+    "visibleMs": 5.6,
     "jump": null,
     "frames": {
      "frames": 14,
-     "fps": 38.9,
-     "p50": 23.4,
-     "p95": 64.5,
-     "max": 64.5,
-     "over20": 9
+     "fps": 33.7,
+     "p50": 28,
+     "p95": 55.1,
+     "max": 55.1,
+     "over20": 8
     }
    },
    {
-    "visibleMs": 26.7,
+    "visibleMs": 45.3,
     "jump": null,
     "frames": {
-     "frames": 23,
-     "fps": 60.7,
-     "p50": 16.6,
-     "p95": 21.5,
-     "max": 22.8,
+     "frames": 20,
+     "fps": 52.1,
+     "p50": 16.8,
+     "p95": 36.4,
+     "max": 36.4,
+     "over20": 6
+    }
+   },
+   {
+    "visibleMs": 20.4,
+    "jump": null,
+    "frames": {
+     "frames": 21,
+     "fps": 58.3,
+     "p50": 16.9,
+     "p95": 27.3,
+     "max": 27.3,
      "over20": 4
     }
    },
    {
-    "visibleMs": 15.3,
-    "jump": null,
-    "frames": {
-     "frames": 21,
-     "fps": 60,
-     "p50": 16.7,
-     "p95": 25,
-     "max": 25,
-     "over20": 1
-    }
-   },
-   {
-    "visibleMs": 6.2,
+    "visibleMs": 4.4,
     "jump": null,
     "frames": {
      "frames": 22,
-     "fps": 60.2,
-     "p50": 16.8,
-     "p95": 20.5,
-     "max": 22.5,
+     "fps": 58.1,
+     "p50": 16.7,
+     "p95": 22.9,
+     "max": 24.2,
      "over20": 2
     }
    },
    {
-    "visibleMs": 7.5,
+    "visibleMs": 10.8,
     "jump": null,
     "frames": {
      "frames": 23,
-     "fps": 60.1,
+     "fps": 61.7,
      "p50": 16.8,
-     "p95": 20.3,
-     "max": 29.6,
-     "over20": 2
+     "p95": 24.1,
+     "max": 31.7,
+     "over20": 6
     }
    },
    {
-    "visibleMs": 37,
+    "visibleMs": 11.5,
     "jump": null,
     "frames": {
      "frames": 21,
-     "fps": 60,
-     "p50": 16.6,
-     "p95": 24.3,
-     "max": 24.3,
+     "fps": 56.9,
+     "p50": 16.7,
+     "p95": 34.3,
+     "max": 34.3,
      "over20": 3
     }
    },
    {
-    "visibleMs": 5.8,
-    "jump": null,
-    "frames": {
-     "frames": 21,
-     "fps": 57.8,
-     "p50": 16.7,
-     "p95": 28.7,
-     "max": 28.7,
-     "over20": 2
-    }
-   },
-   {
-    "visibleMs": 6.5,
+    "visibleMs": 17.8,
     "jump": null,
     "frames": {
      "frames": 22,
      "fps": 58.2,
-     "p50": 17.3,
-     "p95": 24.8,
-     "max": 27.1,
+     "p50": 16.8,
+     "p95": 26,
+     "max": 32.2,
+     "over20": 3
+    }
+   },
+   {
+    "visibleMs": 7.9,
+    "jump": null,
+    "frames": {
+     "frames": 16,
+     "fps": 37.5,
+     "p50": 29,
+     "p95": 52.9,
+     "max": 52.9,
+     "over20": 10
+    }
+   },
+   {
+    "visibleMs": 23.9,
+    "jump": null,
+    "frames": {
+     "frames": 22,
+     "fps": 58.5,
+     "p50": 16.6,
+     "p95": 24.3,
+     "max": 39.5,
      "over20": 5
     }
    },
    {
-    "visibleMs": 14,
+    "visibleMs": 28.2,
     "jump": null,
     "frames": {
-     "frames": 20,
-     "fps": 54.4,
+     "frames": 59,
+     "fps": 59.2,
      "p50": 16.7,
-     "p95": 45.5,
-     "max": 45.5,
-     "over20": 4
-    }
-   },
-   {
-    "visibleMs": 24.6,
-    "jump": null,
-    "frames": {
-     "frames": 60,
-     "fps": 60.1,
-     "p50": 16.6,
-     "p95": 22.1,
-     "max": 26.7,
-     "over20": 3
+     "p95": 25.3,
+     "max": 35.8,
+     "over20": 5
     }
    }
   ],
   "log": [
    {
-    "at": 21801.099999999977,
+    "at": 23883.699999999953,
     "preview": true
    },
    {
-    "at": 22068.899999999907,
+    "at": 24194.399999999907,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 22161.29999999993,
+    "at": 24278,
     "preview": true
    },
    {
-    "at": 22400.399999999907,
+    "at": 24543.899999999907,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
    },
    {
-    "at": 22528.29999999993,
+    "at": 24656.599999999977,
     "preview": true
    },
    {
-    "at": 22733.699999999953,
+    "at": 24931.699999999953,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
    {
-    "at": 22888.699999999953,
+    "at": 25033.5,
     "preview": true
    },
    {
-    "at": 23101,
+    "at": 25330.79999999993,
     "exact": true,
     "undid": "moved that part",
     "previewed": true
    },
    {
-    "at": 23257.199999999953,
+    "at": 25406.199999999953,
     "preview": true
    },
    {
-    "at": 23451.5,
+    "at": 25666.29999999993,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
    {
-    "at": 23631.199999999953,
+    "at": 25772.599999999977,
     "preview": true
    },
    {
-    "at": 23804.79999999993,
+    "at": 26089.5,
     "exact": true,
     "undid": "added what you drew",
     "previewed": true
    },
    {
-    "at": 23991,
+    "at": 26136.5,
     "preview": true
    },
    {
-    "at": 24197.399999999907,
+    "at": 26446.79999999993,
     "exact": true,
     "undid": "changed the colour you painted",
     "previewed": true
    },
    {
-    "at": 24360.399999999907,
+    "at": 26521.5,
     "preview": true
    },
    {
-    "at": 24623.199999999953,
+    "at": 26850.599999999977,
     "exact": true,
     "undid": "resized that part",
     "previewed": true
    },
    {
-    "at": 24733.599999999977,
+    "at": 26957.599999999977,
     "preview": true
    },
    {
-    "at": 24982.5,
+    "at": 27237,
     "exact": true,
     "undid": "removed what you crossed out",
     "previewed": true
    },
    {
-    "at": 25102.599999999977,
+    "at": 27326.599999999977,
     "preview": true
    },
    {
-    "at": 25306.29999999993,
+    "at": 27606.899999999907,
     "exact": true,
     "undid": "changed the order",
     "previewed": true
