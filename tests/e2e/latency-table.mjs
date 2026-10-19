@@ -65,7 +65,7 @@ try {
       const s = read()
       if (s && s.armed && s.lift == null) { s.lift = performance.timeOrigin + e.timeStamp; write(s) }
     }, true)
-    const pendingUp = () => (document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('pending')?.children.length ?? 0) > 0
+    const pendingUp = () => (document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('pending')?.querySelectorAll(':scope > :not([data-s2c-warm])').length ?? 0) > 0
     const visible = (el) => !!el && el.isConnected && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().height > 0
     const checks = {
       scribble: (s) => ![...document.querySelectorAll('[data-s2c]')].some((el) =>

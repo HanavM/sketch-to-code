@@ -120,7 +120,7 @@ try {
     return { x: r.left, y: r.top, w: r.width, h: r.height }
   }, text)
   const pendingN = () => page.evaluate(() =>
-    document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length)
+    document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').querySelectorAll(':scope > :not([data-s2c-warm])').length)
   const status = () => page.evaluate(() =>
     document.getElementById('s2c-overlay-host').shadowRoot.getElementById('status')?.textContent ?? '')
   const watchPending = () => page.evaluate(() => {
@@ -128,7 +128,7 @@ try {
     globalThis.__PV__ = null
     globalThis.__PVOBS__?.disconnect()
     globalThis.__PVOBS__ = new MutationObserver(() => {
-      if (globalThis.__PV__ == null && layer.children.length > 0) {
+      if (globalThis.__PV__ == null && layer.querySelectorAll(':scope > :not([data-s2c-warm])').length > 0) {
         requestAnimationFrame(() => { globalThis.__PV__ = performance.now() })
       }
     })

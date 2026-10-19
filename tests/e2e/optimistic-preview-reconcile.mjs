@@ -101,7 +101,7 @@ try {
     return { x: r.left, y: r.top, w: r.width, h: r.height }
   }, text)
   const pendingN = () => page.evaluate(() =>
-    document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length)
+    document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').querySelectorAll(':scope > :not([data-s2c-warm])').length)
   // n10: in auto mode a run goes on in the background and the pen stays in draw mode
   const mode = () => page.evaluate(() => { const h = document.getElementById('s2c-overlay-host'); return h.dataset.flight ? 'running' : h.dataset.mode })
   const draw = async (pts) => {
@@ -160,7 +160,7 @@ try {
     const b0 = await g.before()
     const calls0 = runCalls
     await draw(await g.make())
-    await page.waitForFunction(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').children.length > 0, null, { timeout: 3000 })
+    await page.waitForFunction(() => document.getElementById('s2c-overlay-host').shadowRoot.getElementById('pending').querySelectorAll(':scope > :not([data-s2c-warm])').length > 0, null, { timeout: 3000 })
       .catch(() => fail(`${kind}: no preview appeared`))
     // the run starts by itself (no Go) and is now "in flight"
     for (let i = 0; i < 600 && runCalls === calls0; i++) await page.waitForTimeout(100)
@@ -206,7 +206,7 @@ try {
     await runDone()
     await page.waitForTimeout(300)
     if (await pendingN()) fail(`${kind}/else: the preview is still up after the run`)
-    const leftovers = await page.evaluate(() => document.querySelectorAll('[data-s2c-pending], .pg').length)
+    const leftovers = await page.evaluate(() => document.querySelectorAll('[data-s2c-pending], .pg:not(.warm)').length)
     if (leftovers) fail(`${kind}/else: ${leftovers} preview marks left in the page`)
     if (await g.real(b1)) fail(`${kind}/else: the page shows a change the code did not make`)
     log(`✓ ${kind}: preview down as soon as the real change showed; when the code did something else, held until the run ended, then removed`)
