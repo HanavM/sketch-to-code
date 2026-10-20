@@ -1,3 +1,4 @@
+import { appendFileSync } from 'node:fs'
 import { query } from '@anthropic-ai/claude-agent-sdk'
 import type { SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
 import { scriptedModel } from './scripted.js'
@@ -89,10 +90,22 @@ export function createClaudeCodeProvider(): PerceptionProvider {
       let raw: unknown = {}
       const usage = { input: 0, cacheRead: 0, output: 0 }
       let failure: string | null = 'the model session ended without an answer'
+      let lastAttempt: unknown = undefined
       for await (const msg of q) {
+        traceReading(msg)
+        const attempt = structuredAttempt(msg)
+        if (attempt !== undefined) lastAttempt = attempt
         if (msg.type === 'result') {
           failure = readingFailure(msg)
           if (!failure) raw = (msg as { structured_output?: unknown }).structured_output
+          else {
+            // round 1 (2026-10-20): 1 of 9 page readings ran out of turns
+            // re-sending the same answer with `"unclear": ,` (bad JSON); a
+            // third of readings first wrapped the answer as {"actions": {...}}.
+            // The answer itself was right both times: recover it here.
+            const saved = salvageReading(lastAttempt, req.schema)
+            if (saved !== undefined) { raw = saved; failure = null }
+          }
           const u = msg.usage
           usage.input += (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
           usage.cacheRead += u.cache_read_input_tokens ?? 0
@@ -193,6 +206,40 @@ export function createClaudeCodeProvider(): PerceptionProvider {
   }
 }
 
+/** The input of a StructuredOutput tool call in an assistant message, if any. */
+function structuredAttempt(msg: unknown): unknown {
+  const m = msg as { type?: string; message?: { content?: Array<{ type?: string; name?: string; input?: unknown }> } }
+  if (m.type !== 'assistant' || !Array.isArray(m.message?.content)) return undefined
+  const call = m.message.content.find((c) => c.type === 'tool_use' && c.name === 'StructuredOutput')
+  return call?.input
+}
+
+/**
+ * Recover an answer from the model's last StructuredOutput attempt when the SDK
+ * gave up on it: unwrap {"<key>": {...the answer...}}, and repair JSON whose
+ * only fault is an empty value (`"unclear": ,` -> null). Returns undefined
+ * unless the result has every top-level key the schema requires.
+ */
+export function salvageReading(attempt: unknown, schema: unknown): unknown {
+  const required = ((schema as { required?: unknown })?.required ?? []) as string[]
+  const complete = (o: unknown): o is Record<string, unknown> =>
+    !!o && typeof o === 'object' && !Array.isArray(o) && required.every((k) => k in (o as object))
+  let cand: unknown = attempt
+  const unparsed = (cand as { __unparsedToolInput?: { raw?: unknown } } | null)?.__unparsedToolInput?.raw
+  if (typeof unparsed === 'string') {
+    try {
+      cand = JSON.parse(unparsed.replace(/:\s*(?=[,}\]])/g, ': null'))
+    } catch { return undefined }
+  }
+  if (required.length === 0) return undefined
+  if (complete(cand)) return cand
+  if (cand && typeof cand === 'object') {
+    const vals = Object.values(cand as object)
+    if (vals.length === 1 && complete(vals[0])) return vals[0]
+  }
+  return undefined
+}
+
 /** A model call that ended without a usable answer; carries what it cost. */
 export class PerceptionFailure extends Error {
   constructor(message: string, readonly usage: { input: number; cacheRead: number; output: number }) {
@@ -235,4 +282,14 @@ export function cleanEnv(): Record<string, string | undefined> {
   env.CLAUDE_CODE_DISABLE_AUTO_MEMORY = '1'
   env.CLAUDE_AGENT_SDK_CLIENT_APP = 'sketch-to-code/0.1.0'
   return env
+}
+
+/** S2C_TRACE_READING=<file>: append every SDK message of a reading as one JSON line (debugging failed readings). */
+function traceReading(msg: unknown): void {
+  const file = process.env.S2C_TRACE_READING
+  if (!file) return
+  try {
+    const line = JSON.stringify(msg, (_k, v) => (typeof v === 'string' && v.length > 4000 ? v.slice(0, 4000) + '…' : v))
+    appendFileSync(file, line + '\n')
+  } catch { /* tracing never breaks a reading */ }
 }

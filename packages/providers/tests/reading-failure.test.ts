@@ -16,7 +16,7 @@ vi.mock('@anthropic-ai/claude-agent-sdk', () => ({
   })(),
 }))
 
-const { createClaudeCodeProvider, readingFailure, perceptionTimeoutMs, PerceptionFailure } = await import('../src/claude-code.js')
+const { createClaudeCodeProvider, readingFailure, perceptionTimeoutMs, PerceptionFailure, salvageReading } = await import('../src/claude-code.js')
 
 const usage = { input_tokens: 1200, cache_creation_input_tokens: 300, cache_read_input_tokens: 5000, output_tokens: 90 }
 const req = { png: Buffer.from('x'), brief: 'b', prompt: 'p', schema: {} }
@@ -85,5 +85,32 @@ describe('claude-code provider: a reading that never answers', () => {
     expect(perceptionTimeoutMs({})).toBe(120_000)
     expect(perceptionTimeoutMs({ S2C_READING_TIMEOUT_MS: 'soon' })).toBe(120_000)
     expect(perceptionTimeoutMs({ S2C_READING_TIMEOUT_MS: '90000' })).toBe(90_000)
+  })
+})
+
+describe('salvageReading: the answer the SDK gave up on', () => {
+  const schema = { required: ['reading', 'unclear', 'actions'] }
+  const answer = { reading: 'a sign-in card', unclear: null, actions: [{ kind: 'add' }] }
+
+  it('unwraps an answer nested under one key', () => {
+    expect(salvageReading({ actions: answer }, schema)).toEqual(answer)
+  })
+  it('repairs an empty value in otherwise good JSON', () => {
+    const raw = '{"reading": "a sign-in card", "unclear": , "actions": [{"kind": "add"}]}'
+    expect(salvageReading({ __unparsedToolInput: { raw } }, schema)).toEqual(answer)
+  })
+  it('refuses anything missing a required key, or unparseable', () => {
+    expect(salvageReading({ reading: 'x' }, schema)).toBeUndefined()
+    expect(salvageReading({ __unparsedToolInput: { raw: '{"reading": "a", "unc' } }, schema)).toBeUndefined()
+    expect(salvageReading(undefined, schema)).toBeUndefined()
+    expect(salvageReading(answer, {})).toBeUndefined()
+  })
+  it('the provider returns the salvaged answer instead of failing', async () => {
+    results = [
+      { type: 'assistant', message: { content: [{ type: 'tool_use', name: 'StructuredOutput', input: { actions: answer } }] } },
+      { type: 'result', subtype: 'error_max_turns', num_turns: 5, errors: ['Reached maximum number of turns (4)'], usage },
+    ]
+    const r = await createClaudeCodeProvider().interpretIntent({ ...req, schema })
+    expect(r.raw).toEqual(answer)
   })
 })
