@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-20T23:20:00Z | Round 2 pages, planner generality | 10 harder pages; planner now says tilt, glass, blur, outlined type, toggles, cards. Free.
 2026-10-20T22:20:00Z | Auto-sketch from the target page | One rule set now plans drawings; matches hand plans 52 of 53 marks, zero tokens.
 2026-10-20T20:58:00Z | Drawn size and place carry through | Line spacing now sets type size; sunset hero 48% to 57%, headline two big lines.
 2026-10-20T20:52:00Z | Fix c1 gaps, more round-1 pages | Notes now land where typed; sunset hero 35% to 48%, menu back. Pricing 31%, blog 14%.

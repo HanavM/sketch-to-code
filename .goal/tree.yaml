@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Drawings can now be worked out from any target page by one fixed rule, matching my hand plans on 52 of 53 marks. Next: test that on new, harder pages and compare live once tomorrow's budget opens."
-lock: {by: run-2026-10-20T2253, until: "2026-10-21T00:23:00Z"}
+now: "Wrote 10 harder practice pages and taught the drawing planner tilt, glass, blur, outlined type, stripes, toggles and product cards. Next: build round 1 and some round 2 pages live once tomorrow's budget opens."
+lock: null
 asks: []
 handled: []
 notes:
@@ -17,6 +17,7 @@ notes:
   - "A live page costs ~20-35k tokens; a read-only reading ~6-8k (check reading changes cheaply first)."
   - "S2C_TRACE_READING=<file> logs every SDK message of a reading (find why a reading failed). Bench runs >10 min: nohup in background and poll."
   - "n2: node tests/rounds/autoplan.mjs <round> writes <round>/autoplan.json from target style; --set round1auto draws it (try/n2-auto-sketch, cut from try/n1-round-bench). Live A/B hand vs auto on 2 pages is worth ~60k when budget allows."
+  - "n10: round 2 lives in tests/rounds/round2 (auto.mjs only, no hand plans; autoplan.txt = plan readout). Shared page builder tests/rounds/lib/pages.mjs. --set round2auto --dry draws all 10 (~7 min)."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -44,5 +45,7 @@ nodes:
      result: "Line spacing now sets type size; codegen told regions are exact. c1 48%->57%, headline big. 2431d65."}
   - {id: n9, parent: n2, kind: step, title: "Auto-plan marks and words from target computed style (zero tokens); compare with round-1 hand plans; dry-draw all 10 through the overlay", status: done,
      result: "Rules match hand marks 52/53; words similar or more (copy quoted). Dry run draws all 10. Tuned on round 1 only. 2e030cb."}
-  - {id: n10, parent: n2, kind: step, title: "Generality check, free: write round-2 targets (harder: overlap, asymmetry, big type, dense everyday UI) WITHOUT tuning, auto-plan them, read the plans for wrong marks/notes; fix rules only for clear misses", status: open, result: null}
+  - {id: n10, parent: n2, kind: step, title: "Generality check, free: write round-2 targets (harder: overlap, asymmetry, big type, dense everyday UI) WITHOUT tuning, auto-plan them, read the plans for wrong marks/notes; fix rules only for clear misses", status: done,
+     result: "10 harder targets; untuned plans missed glass, tilt, outline type, toggles, cards; general fixes; round1 still 52/53. 28f8604."}
+  - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs budget left after n8, ~90k): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: open, result: null}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: open, result: null}
