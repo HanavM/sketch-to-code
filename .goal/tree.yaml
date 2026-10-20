@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Fixed notes landing on the wrong part of a drawing: the sunset hero now keeps its menu and subtitle (35% to 48% alike). Next: make drawn headline size and position carry through."
-lock: {by: run-2026-10-20T2048, until: 2026-10-20T22:18:00Z}
+now: "Drawn headline size now carries through: the sunset hero is up to 57% alike (from 48%). Next: build the remaining round-1 pages when tomorrow's budget opens."
+lock: null
 asks: []
 handled: []
 notes:
@@ -13,7 +13,7 @@ notes:
   - "Existing bench: tests/bench/run.mjs draws sketches on a throwaway app through the real overlay (--dry is free). findings.md: ~46k billed tokens/page (2026-10-02, reading+codegen); auto reading ~16k, screenshot ~4.7k. Budget is 300k/day: about one 10-page round a day at most. Keep a token ledger per day."
   - "n4: round pages live in tests/rounds/<round>/ (target HTML with data-r regions, sketches.mjs). node tests/rounds/measure.mjs round1 writes ref PNGs + targets.json (regions, blank calibration). Run: node tests/bench/run.mjs --set round1 [--dry] [--only c1]. Likeness = 0.35 colour + 0.35 structure (lift over blank) + 0.30 bench region score; shots in tests/bench/out/shots/<id>-built.png."
   - "n4 finding: on white targets a blank page scores 95% colour / 89% structure raw, hence the lift-over-blank."
-  - "Token ledger: 2026-10-20 ~238k (n4 ~10k; n5 readings ~62k, live c1+e1 ~76k; n6 readings ~14k, live c1 33k, e2+e3 43k). ~60k left today: one live page at most; prefer free work (dry runs, code) until 2026-10-21 UTC."
+  - "Token ledger: 2026-10-20 ~238k (n4 ~10k; n5 readings ~62k, live c1+e1 ~76k; n6 readings ~14k, live c1 33k, e2+e3 43k; n7 live c1 ~34k) = ~272k. Spent for 2026-10-20: only free work until 2026-10-21 UTC."
   - "A live page costs ~20-35k tokens; a read-only reading ~6-8k (check reading changes cheaply first)."
   - "S2C_TRACE_READING=<file> logs every SDK message of a reading (find why a reading failed). Bench runs >10 min: nohup in background and poll."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
@@ -39,4 +39,6 @@ nodes:
      result: "Cause: bad JSON retries; salvage added, 9 readings ok. Live c1 35%, e1 11% likeness; budget stops more today. cc58ecd."}
   - {id: n6, parent: n1, kind: step, title: "Fix c1's gaps (page frame drawn became wavy edges; nav and subheading dropped; headline not huge), re-run c1, then build e2-e5, c2-c5 as budget allows", status: done,
      result: "Notes now attach where typed (focus); c1 35%->48%, menu and subtitle back. e2 31%, e3 14%. c61306e."}
-  - {id: n7, parent: n1, kind: step, title: "Drawn size and place carry through: headline line spacing sets type size (c1 headline half size), builds sit 25-60px low and wider than drawn (e1-e3); fix, check free with dry/readings, then live c2-c5, e4-e5 on the next day's budget", status: open, result: null}
+  - {id: n7, parent: n1, kind: step, title: "Drawn size and place carry through: headline line spacing sets type size (c1 headline half size), builds sit 25-60px low and wider than drawn (e1-e3); fix, check free with dry/readings, then live c2-c5, e4-e5 on the next day's budget", status: done,
+     result: "Line spacing now sets type size; codegen told regions are exact. c1 48%->57%, headline big. 2431d65."}
+  - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: open, result: null}
