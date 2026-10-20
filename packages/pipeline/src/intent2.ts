@@ -15,7 +15,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
-import { isTextMark } from './textmark.js'
+import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
@@ -712,6 +712,9 @@ export interface GroundedAction {
   /** Cited strokes that are text squiggles: each stands for a line of real
    *  copy. Decided from the ink (textmark.ts), not by the model. */
   textMarks?: string[]
+  /** Stacks of those squiggles (2+ lines): the drawn line spacing is the line
+   *  height, so it carries a font size (textmark.ts textStacks). */
+  textSize?: TextStack[]
   layer?: 'in-flow' | 'background-overlay' | 'container'
   depicts?: string
   fidelity?: 'verbatim' | 'recognized'
@@ -844,6 +847,8 @@ export function groundInterpretation(
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
     const textMarks: string[] = []
+    const textStackOf = (ids: string[]): TextStack[] =>
+      textStacks(ids.map((id) => ({ id, points: ev.strokes.get(id)!.points })))
     const citedStrokes = (a.strokes ?? [])
       .map((id) => {
         const s = ev.strokes.get(id)
@@ -971,6 +976,7 @@ export function groundInterpretation(
       ? findInsertSlot(snap, region, dest?.domId)
       : undefined
 
+    const stacks = textStackOf(textMarks)
     actions.push({
       kind: a.kind,
       targets,
@@ -981,6 +987,7 @@ export function groundInterpretation(
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,
       textMarks: textMarks.length ? textMarks : undefined,
+      ...(stacks.length ? { textSize: stacks } : {}),
       layer: a.layer ?? undefined,
       depicts: a.depicts ?? undefined,
       // 'verbatim' on an action whose every mark stands for text is the page-05

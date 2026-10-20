@@ -135,6 +135,16 @@ Rules:
   is a line of REAL copy (from a typed note when there is one, otherwise plausible
   words for the page); its length and height say body versus heading. They are
   never drawn as SVG, whatever the FIDELITY block says, and they have no svgPath.
+- "textSize" groups stacked text squiggles: the spacing the user drew between the
+  lines IS the line height. Set that text's font-size to fontPx (within ~15%) with a
+  matching line-height, wrapped to box.w, so it fills the drawn box with that many
+  lines. A display headline drawn this big stays this big; never shrink it to the
+  app's default heading size.
+- "region" is where the user drew it, in page px (x, y from the page's top-left).
+  When the page is being built from the drawing, make each block land there: its
+  top edge within ~16px of region.y, its width within ~10% of region.w (explicit
+  width/max-width and margins). Add no extra top padding or default body margin
+  that pushes everything down.
 - "insertSlot" on an add/design action: the user drew it in the gap between
   two siblings. Put the new element in the source right after "after" and
   right before "before" (both carry srcLoc), inside the same parent. Never

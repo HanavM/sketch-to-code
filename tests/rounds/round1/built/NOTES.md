@@ -25,3 +25,12 @@ Readings (read-only, 9 pages): 8 ok first time, 1 ran out of turns on bad JSON (
 - Still off on c1: the headline is about half the target's size (one line, not two); the logo is tiny.
 - e2/e3: content right, but the build sits ~25-60px lower than drawn and a little wider (e1 showed the same).
   e3's drawn nav box became a dark bar (target has a plain nav row): again, a box reads as a filled bar.
+
+## Step n7 (2026-10-20)
+- Drawn type size now carries through: stacked text squiggles' spacing is read as line height and passed to
+  codegen as a font size (c1 headline: 108px drawn pitch -> ~98px; target 120px). Codegen is also told the
+  region is where the block must land (top within ~16px, width within ~10%).
+- c1 v3: likeness 48% -> 57% (colour 94, structure 78, layout 26% -> 43%, regions 5/6). Headline is two big
+  lines now; links region still scored missed (built links sit ~10px low). ~34k tokens.
+- Implied sizes for the other creative pages from their sketches: c2 157 (target 190), c3 70 (84), c4 87 (104),
+  c5 122 (240, its giant "01" is drawn too small) and 75 (58). Sketch pitch, not the reader, limits these.

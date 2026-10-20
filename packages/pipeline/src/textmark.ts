@@ -136,3 +136,93 @@ export function textMarkReason(points: Point[]): string | null {
 }
 
 export const isTextMark = (points: Point[]): boolean => textMarkReason(points) !== null
+
+/**
+ * What a stack of text squiggles says about TYPE SIZE.
+ *
+ * Round 1 (c1): a two-line heading drawn 240px tall came back one line at half
+ * size. The model was told each squiggle is "a line of text" and left to guess
+ * size from the region, and it guessed the app's default h1. The one honest
+ * size signal in the ink is the SPACING between stacked lines: that is the line
+ * height the person drew, and font size follows from it. A squiggle's own
+ * wobble height is how the pen moved, not how big the letters are, so a single
+ * line gets no size claim here (its region still bounds it).
+ */
+export interface TextStack {
+  /** Squiggle stroke ids, top to bottom. */
+  strokes: string[]
+  lines: number
+  /** Union of the lines' boxes, page px. */
+  box: { x: number; y: number; w: number; h: number }
+  /** Median distance between consecutive line centres. */
+  linePitchPx: number
+  /** Font size implied by that pitch (display type sets tighter than body). */
+  fontPx: number
+}
+
+interface LineGeom { id: string; x0: number; x1: number; cy: number; y0: number; y1: number }
+
+function lineGeom(id: string, points: Point[]): LineGeom {
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity
+  for (const p of points) {
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x)
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y)
+  }
+  return { id, x0, x1, y0, y1, cy: (y0 + y1) / 2 }
+}
+
+/** Font size for a drawn line pitch: headings ~1.1 line-height, body ~1.5. */
+export function fontForPitch(pitch: number): number {
+  return Math.round(pitch / (pitch >= 48 ? 1.1 : 1.5))
+}
+
+/**
+ * Group text squiggles into stacks (same left edge, evenly stepped down) and
+ * read a type size from each stack of two or more lines.
+ */
+export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] {
+  const ls = marks
+    .filter((m) => isTextMark(m.points))
+    .map((m) => lineGeom(m.id, m.points))
+    .sort((a, b) => a.cy - b.cy)
+  const used = new Set<string>()
+  const out: TextStack[] = []
+  for (const first of ls) {
+    if (used.has(first.id)) continue
+    const stack = [first]
+    used.add(first.id)
+    for (const next of ls) {
+      if (used.has(next.id)) continue
+      const last = stack[stack.length - 1]!
+      const w = Math.max(last.x1 - last.x0, next.x1 - next.x0)
+      const gap = next.cy - last.cy
+      const sameEdge =
+        Math.abs(next.x0 - last.x0) <= Math.max(40, 0.15 * w) ||
+        Math.abs((next.x0 + next.x1) / 2 - (last.x0 + last.x1) / 2) <= Math.max(40, 0.15 * w) // centred copy
+      const pitchOk = stack.length < 2 || Math.abs(gap - (last.cy - stack[stack.length - 2]!.cy)) <= 0.35 * gap
+      // one stack is one hand: similar wobble height and comparable length
+      const tl = last.y1 - last.y0
+      const tn = next.y1 - next.y0
+      const sameHand = Math.max(tl, tn) <= 1.6 * Math.min(tl, tn) + 2
+      const lenOk = Math.min(last.x1 - last.x0, next.x1 - next.x0) >= 0.35 * w
+      if (gap > tl && gap <= 200 && sameEdge && pitchOk && sameHand && lenOk) {
+        stack.push(next)
+        used.add(next.id)
+      }
+    }
+    if (stack.length < 2) continue
+    const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
+    const pitch = gaps[Math.floor(gaps.length / 2)]!
+    const x0 = Math.min(...stack.map((l) => l.x0))
+    const x1 = Math.max(...stack.map((l) => l.x1))
+    const y0 = stack[0]!.cy - pitch / 2
+    out.push({
+      strokes: stack.map((l) => l.id),
+      lines: stack.length,
+      box: { x: Math.round(x0), y: Math.round(y0), w: Math.round(x1 - x0), h: Math.round(pitch * stack.length) },
+      linePitchPx: Math.round(pitch),
+      fontPx: fontForPitch(pitch),
+    })
+  }
+  return out
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { Stroke } from '@s2c/ink'
-import { isTextMark, measureTextMark } from '../src/textmark.js'
+import { isTextMark, measureTextMark, textStacks } from '../src/textmark.js'
 import { buildEvidence, groundInterpretation } from '../src/intent2.js'
 import { buildScaffold } from '../src/scaffold.js'
 import { instantEligible } from '../src/instant.js'
@@ -142,5 +142,31 @@ describe('page 05 — a squiggle that means words never becomes a path', () => {
     expect(v.ok).toBe(false)
     // and still offers a pure shape
     expect(instantEligible(strokes.filter((s) => s.id === 's9'), blankPage())).toEqual({ ok: 'maybe' })
+  })
+})
+
+describe('textStacks — drawn line spacing is the type size (round 1, c1)', () => {
+  it('reads a two-line display headline from its line spacing', () => {
+    // c1: headline region 1000x240 drawn as two heading squiggles 108px apart
+    const ls = textBlock(148, 244 + 72, 900, 2, 108, { amp: 8, wavelength: 50 })
+    const st = textStacks(ls.map((points: unknown, i: number) => ({ id: `h${i}`, points })))
+    expect(st).toHaveLength(1)
+    expect(st[0]!.lines).toBe(2)
+    expect(st[0]!.linePitchPx).toBeGreaterThan(100)
+    expect(st[0]!.fontPx).toBeGreaterThan(85) // target is 120px; the old build used ~60px
+  })
+  it('reads body copy at body size', () => {
+    const ls = textBlock(100, 300, 500, 4, 24)
+    const st = textStacks(ls.map((points: unknown, i: number) => ({ id: `b${i}`, points })))
+    expect(st).toHaveLength(1)
+    expect(st[0]!.lines).toBe(4)
+    expect(st[0]!.fontPx).toBeGreaterThanOrEqual(14)
+    expect(st[0]!.fontPx).toBeLessThanOrEqual(18)
+  })
+  it('makes no size claim for a single line, or for lines in different columns', () => {
+    const one = [textLine(100, 300, 400)]
+    expect(textStacks(one.map((points: unknown, i: number) => ({ id: `o${i}`, points })))).toEqual([])
+    const apart = [textLine(100, 300, 300), textLine(800, 330, 300)]
+    expect(textStacks(apart.map((points: unknown, i: number) => ({ id: `a${i}`, points })))).toEqual([])
   })
 })
