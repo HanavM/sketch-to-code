@@ -46,7 +46,9 @@ function page(id, kind, title, plan, notes) {
     baseline: calibration[id].blank,
     regions,
     strokes: plan.flatMap(([role, k]) => mark(k, at(role))),
+    // role '*' = a whole-page note (Alt+Shift+N): the look of the page, not of a mark
     notes: notes.map(([role, text]) => {
+      if (role === '*') return { at: { x: 640, y: 450 }, text, whole: true }
       const r = at(role)
       return { at: { x: Math.round(r.x + r.w / 2), y: Math.round(r.y + r.h / 2) }, text }
     }),
@@ -55,8 +57,12 @@ function page(id, kind, title, plan, notes) {
 
 export default [
   page('c1-sunset-hero', 'creative', 'Sunset gradient hero, huge serif headline, white pill button',
-    [['nav', 'box'], ['headline', 'heading'], ['subhead', 'text'], ['cta', 'button']],
-    [['nav', 'whole page: warm sunset gradient coral to pink to purple, white text'],
+    // round-1 v2: a person draws the logo and links they want (not a bar box),
+    // and says the page look as a whole-page note, not on a mark
+    [['logo', 'text'], ['links', 'text'], ['headline', 'heading'], ['subhead', 'text'], ['cta', 'button']],
+    [['*', 'whole page: warm sunset gradient coral to pink to purple, white text'],
+     ['logo', 'italic serif logo "dusk."'],
+     ['links', 'links: Work, Studio, Journal, Contact'],
      ['headline', 'huge elegant serif "Stay for the golden hour"'],
      ['cta', 'white pill button "Book a stay"']]),
   page('c2-brutalist-type', 'creative', 'Brutalist yellow poster page with giant uppercase type',

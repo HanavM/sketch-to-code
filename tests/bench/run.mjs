@@ -421,7 +421,8 @@ while (queue.length) {
     for (const note of notesFor(spec, WORDS)) {
       await page.mouse.move(note.at.x, note.at.y)
       await page.waitForTimeout(120)
-      await page.keyboard.press('Alt+n')
+      // a whole-page note (Alt+Shift+N) is about the run, not the ink under the pointer
+      await page.keyboard.press(note.whole ? 'Alt+Shift+N' : 'Alt+n')
       await page.waitForTimeout(250)
       await page.keyboard.type(note.text)
       await page.keyboard.press('Enter')

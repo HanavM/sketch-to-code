@@ -932,7 +932,7 @@ const PANEL_GAP = 10
  */
 type NoteAnchor =
   | { kind: 'element'; srcLoc: string }
-  | { kind: 'strokes'; strokeIds: string[] }
+  | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
   | { kind: 'run' }
 
 /**
@@ -7355,7 +7355,9 @@ class Overlay {
     this.openEditor(
       null,
       { x, y: bottom },
-      { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null },
+      // the cluster can hold a headline, its subtitle and a button drawn close
+      // together; what was typed right after a stroke is about THAT stroke
+      { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id), focus: [seed.id] }, strokes: group, el: null },
       first,
       [],
       true,
@@ -7666,7 +7668,11 @@ class Overlay {
       anchor: n.anchor.kind === 'element'
         ? { kind: 'element' as const, srcLoc: n.anchor.srcLoc }
         : n.anchor.kind === 'strokes'
-          ? { kind: 'strokes' as const, strokeIds: [...n.anchor.strokeIds] }
+          ? {
+              kind: 'strokes' as const,
+              strokeIds: [...n.anchor.strokeIds],
+              ...(n.anchor.focus?.length ? { focus: [...n.anchor.focus] } : {}),
+            }
           : { kind: 'run' as const },
       // omitted when there are none, which is most notes: an empty array on
       // every note is noise on the wire and in the model's brief, and it also

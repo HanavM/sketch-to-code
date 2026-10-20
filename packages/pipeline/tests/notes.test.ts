@@ -520,3 +520,61 @@ describe('buildEvidence — what the model is allowed to name', () => {
     expect(menuIds(ev)).not.toContain('target')
   })
 })
+
+describe('note focus — a cluster holding several drawings', () => {
+  // headline (two lines), subtitle and button drawn close together: one cluster
+  const strokes = [
+    stroke('h1', 200, 300), stroke('h2', 200, 400),
+    stroke('sub', 200, 520), stroke('btn', 200, 620),
+  ]
+  const all = ['h1', 'h2', 'sub', 'btn']
+  const { snap } = page()
+
+  it('picks the strokes right where the note was typed, keeping a heading\'s lines together', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+      { id: 'n1', text: 'white pill button', at: { x: 215, y: 621 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(all), strokes)
+    expect(r[0]!.focus).toEqual(['h1', 'h2'])
+    expect(r[1]!.focus).toEqual(['btn'])
+  })
+
+  it('takes the overlay\'s own pick over the point, and omits focus when it is everything', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'a', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: all, focus: ['sub'] } },
+      { id: 'n1', text: 'b', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: ['h1'] } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(all), strokes)
+    expect(r[0]!.focus).toEqual(['sub'])
+    expect(r[1]!.focus).toBeUndefined()
+  })
+
+  it('attaches each note only to the action citing its focus', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+      { id: 'n1', text: 'white pill button', at: { x: 215, y: 621 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const ev = buildEvidence(strokes, snap, notes)
+    const add = (instruction: string, ids: string[]) => ({
+      kind: 'add' as const, elements: null, destElement: null, position: null, instruction, strokes: ids, layer: null, depicts: null, fidelity: null,
+    })
+    const g = groundInterpretation(
+      { reading: 'hero', actions: [add('headline', ['h1', 'h2']), add('subtitle', ['sub']), add('button', ['btn'])] },
+      ev, snap, 'design',
+    )
+    expect(g.actions.map((a) => a.notes)).toEqual([['huge serif headline'], undefined, ['white pill button']])
+  })
+
+  it('falls back to the whole cluster when no action cites the focus', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const ev = buildEvidence(strokes, snap, notes)
+    const g = groundInterpretation(
+      { reading: 'hero', actions: [{ kind: 'add', elements: null, destElement: null, position: null, instruction: 'button', strokes: ['btn'], layer: null, depicts: null, fidelity: null }] },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual(['huge serif headline'])
+  })
+})

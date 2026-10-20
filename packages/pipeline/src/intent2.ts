@@ -98,7 +98,7 @@ export interface TypedNote {
   at: { x: number; y: number }
   anchor:
     | { kind: 'element'; srcLoc: string }
-    | { kind: 'strokes'; strokeIds: string[] }
+    | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
     | { kind: 'run' }
   /** Elements named inside `text` by token. Usually empty. */
   refs?: NoteRef[]
@@ -112,6 +112,13 @@ export interface ResolvedNote {
   /** Element menu id, when it resolved to one. */
   elementId?: string
   strokeIds?: string[]
+  /**
+   * The strokes in `strokeIds` right where the note was typed, when that is
+   * fewer than all of them. A note's cluster chains every stroke drawn close
+   * in space and time, so a headline, its subtitle and a button can share one;
+   * "huge serif headline" is about the headline only. Absent = all of them.
+   */
+  focus?: string[]
   /**
    * Tokens in `text`, each already resolved to a menu id the model can target.
    * A ref whose element is gone keeps its label and loses its id, so the
@@ -217,6 +224,7 @@ export function resolveNotes(
   notes: TypedNote[],
   snap: DomSnapshot,
   strokeIds: Set<string>,
+  strokes: Stroke[] = [],
 ): ResolvedNote[] {
   const out: ResolvedNote[] = []
   for (const n of notes) {
@@ -252,14 +260,49 @@ export function resolveNotes(
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
+      const focus = noteFocus(ids, anchor.focus, n.at, strokes)
       out.push(ids.length
-        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...withRefs }
+        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs }
         : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
     out.push({ id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
+}
+
+/** How far past the nearest stroke a stroke can sit and still be "right here". */
+export const NOTE_FOCUS_SLACK_PX = 24
+
+/**
+ * Which of a note's strokes it is actually about. The overlay's own pick wins
+ * (it knows the newest stroke for type-to-label); otherwise the strokes nearest
+ * the point the note was typed at, within a small slack so the two lines of
+ * one heading stay together. Undefined when that is all of them anyway.
+ */
+export function noteFocus(
+  ids: string[],
+  given: string[] | undefined,
+  at: { x: number; y: number } | undefined,
+  strokes: Stroke[],
+): string[] | undefined {
+  if (ids.length < 2) return undefined
+  let focus: string[] = (given ?? []).filter((id) => ids.includes(id))
+  if (focus.length === 0 && at && Number.isFinite(at.x) && Number.isFinite(at.y)) {
+    const d = new Map<string, number>()
+    for (const st of strokes) {
+      if (!ids.includes(st.id) || st.points.length === 0) continue
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+      for (const p of st.points) {
+        x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y)
+      }
+      d.set(st.id, distToRect(at, { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }))
+    }
+    if (d.size === 0) return undefined
+    const best = Math.min(...d.values())
+    focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
+  }
+  return focus.length > 0 && focus.length < ids.length ? focus : undefined
 }
 
 const distToRect = (p: { x: number; y: number }, r: BBox): number => {
@@ -309,7 +352,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
    * So the anchors and the tokens are pinned into the menu first, and the
    * distance ranking fills what is left.
    */
-  const resolvedForMenu = resolveNotes(notes, snap, new Set(strokes.map((st) => st.id)))
+  const resolvedForMenu = resolveNotes(notes, snap, new Set(strokes.map((st) => st.id)), strokes)
   const pinnedIds = new Set<string>()
   for (const n of resolvedForMenu) {
     if (n.elementId) pinnedIds.add(n.elementId)
@@ -488,7 +531,11 @@ background-overlay when a decoration sweeps across existing elements).
 TYPED NOTES outrank your reading of the ink. When the JSON carries
 "typedNotes", each is the user's own words, typed while sketching, already
 anchored for you: scope "element" names an element id, scope "strokes" names
-stroke ids, scope "run" applies to the whole drawing. They are exact — no
+stroke ids, scope "run" applies to the whole drawing. A strokes note may also
+carry "focus": the strokes right where it was typed. Its "strokeIds" are the
+whole nearby drawing, which can hold several things (a headline, a sentence
+and a button drawn close together); the note is about its focus strokes only,
+and the others get their own actions. They are exact — no
 transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
@@ -558,7 +605,11 @@ handwriting = instructions or labels — transcribe it into the instruction.
 TYPED NOTES outrank your reading of the ink. When the JSON carries
 "typedNotes", each is the user's own words, typed while sketching, already
 anchored for you: scope "element" names an element id, scope "strokes" names
-stroke ids, scope "run" applies to the whole drawing. They are exact — no
+stroke ids, scope "run" applies to the whole drawing. A strokes note may also
+carry "focus": the strokes right where it was typed. Its "strokeIds" are the
+whole nearby drawing, which can hold several things (a headline, a sentence
+and a button drawn close together); the note is about its focus strokes only,
+and the others get their own actions. They are exact — no
 transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
@@ -731,6 +782,16 @@ export function groundInterpretation(
   const palette = appPalette(snap)
   // notes that name no action of their own end up on the run
   const attached = new Set<string>()
+  // notes whose focus strokes some action cites: those never spill onto the
+  // other actions their cluster happens to touch
+  const citedAnywhere = new Set<string>()
+  for (const a of raw.actions) for (const id of a.strokes ?? []) {
+    const s = ev.strokes.get(id)
+    if (s) citedAnywhere.add(s.id)
+  }
+  const focusedElsewhere = new Set(
+    ev.notes.filter((n) => n.focus?.some((id) => citedAnywhere.has(id))).map((n) => n.id),
+  )
 
   const childrenOf = new Map<string | null, DomNode[]>()
   for (const n of snap.nodes) {
@@ -857,13 +918,20 @@ export function groundInterpretation(
     // touching that element, an ink note to the actions citing those strokes.
     // The model never decides which words apply where.
     const citedIds = new Set(citedStrokes.map((s) => s.id))
+    // a note with a focus goes to the actions citing its focus strokes; only
+    // when no action cites them does it fall back to its whole cluster
+    const focusCited = (note: ResolvedNote): boolean | null => {
+      if (!note.focus?.length) return null
+      if (note.focus.some((id) => citedIds.has(id))) return true
+      return focusedElsewhere.has(note.id) ? false : null
+    }
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
     const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
         (note.scope === 'element' && note.elementId && targetIds.has(note.elementId)) ||
-        (note.scope === 'strokes' && (note.strokeIds ?? []).some((id) => citedIds.has(id)))
+        (note.scope === 'strokes' && (focusCited(note) ?? (note.strokeIds ?? []).some((id) => citedIds.has(id))))
       if (!hit) continue
       notes.push(note.text)
       attached.add(note.id)
