@@ -33,7 +33,7 @@ function mark(kind, r) {
 }
 
 /** plan: [[role, kind], ...] in drawing order; notes: [[role, text], ...]. */
-function page(id, kind, title, plan, notes) {
+export function page(id, kind, title, plan, notes) {
   const regions = targets[id].regions
   const at = (role) => {
     const r = regions.find((g) => g.role === role)
@@ -45,6 +45,7 @@ function page(id, kind, title, plan, notes) {
     viewport: { width: 1280, height: 900 },
     baseline: calibration[id].blank,
     regions,
+    plan, planNotes: notes,
     strokes: plan.flatMap(([role, k]) => mark(k, at(role))),
     // role '*' = a whole-page note (Alt+Shift+N): the look of the page, not of a mark
     notes: notes.map(([role, text]) => {
