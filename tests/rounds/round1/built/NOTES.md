@@ -8,7 +8,7 @@
 What failed:
 - c1: the whole-page box the person drew came out as a literal wavy top and bottom edge.
 - c1: nav (logo + links) and the subheading were dropped; the headline came out one line, not huge.
-- e1: card looks right but sits right of where it was drawn; title and email regions missed.
-- e1 scores 11% likeness while looking close: the scorer may punish position too hard; check before trusting it.
+- e1: card sits where drawn but ~65px lower and taller; grey page background lost; field labels and subtitle dropped (title, email regions missed).
+- e1 scores 11% likeness (lift over a blank white page, which already scores 95% colour): harsh but explainable.
 
 Readings (read-only, 9 pages): 8 ok first time, 1 ran out of turns on bad JSON (now salvaged); 3 wrapped the answer.
