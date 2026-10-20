@@ -57,6 +57,20 @@ function factsInPage() {
       fieldKid: kids.some((k) => { const c = getComputedStyle(k); return !(k.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30 }),
       kidButtons: kids.filter((k) => { const c = getComputedStyle(k); const t = (k.innerText || '').trim(); return t && t.length <= 32 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).length,
       hasImg: !!el.querySelector('img,svg,picture,video,canvas') || /url\(/.test(cs.backgroundImage),
+      // text of children that are not regions and hold none (a card title beside a marked picture)
+      looseTexts: kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]')).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
+      stroke: parseFloat(cs.webkitTextStrokeWidth) || 0,
+      strokeColour: rgba(cs.webkitTextStrokeColor),
+      rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
+      blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
+      backdrop: /blur/.test(cs.backdropFilter || cs.webkitBackdropFilter || ''),
+      bleeds: r.left < -4 || r.right > innerWidth + 4 || r.top < -4,
+      // a textless filled block inside (a picture placeholder): makes this a picture card
+      pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
+      // kids that are themselves label + empty box fields (a row of fields)
+      fieldKids: kids.filter((k) => [...k.children].some((g) => { const c = getComputedStyle(g); return !(g.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 })).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()),
+      // a small textless pill: a toggle switch
+      toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
     }
   }
   return { body: fact(document.body), regions: [...document.querySelectorAll('[data-r]')].map(fact) }
@@ -71,7 +85,9 @@ const NAMED = [
   ['red', 220, 38, 38], ['pink', 236, 72, 153], ['purple', 147, 51, 234], ['lavender', 196, 181, 253],
   ['blue', 37, 99, 235], ['sky blue', 125, 190, 245], ['cyan', 34, 211, 238], ['teal', 20, 150, 140],
   ['green', 34, 160, 80], ['deep green', 22, 70, 50], ['brown', 120, 72, 40],
+  ['lime', 132, 204, 22], ['pale yellow', 254, 249, 215], ['indigo', 79, 70, 229], ['off-white', 244, 244, 245],
 ]
+const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'light grey', 'grey', 'dark grey'])
 const parse = (s) => {
   if (typeof s !== 'string') return s
   if (s.startsWith('#')) {
@@ -82,9 +98,12 @@ const parse = (s) => {
   const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return { r, g, b, a }
 }
 export function colourName(c) {
-  c = parse(c); if (!c) return null
+  c = parse(c); if (!c || c.a <= 0.05) return null
+  // a grey is named among greys: weighted distance alone calls light grey "cream"
+  const chroma = Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b)
   let best = null, bd = Infinity
   for (const [n, r, g, b] of NAMED) {
+    if (chroma <= 6 && !NEUTRAL.has(n)) continue
     const d = (c.r - r) ** 2 * 0.3 + (c.g - g) ** 2 * 0.59 + (c.b - b) ** 2 * 0.11
     if (d < bd) { bd = d; best = n }
   }
@@ -101,7 +120,20 @@ function gradientWords(f) {
   if (!/gradient/.test(f.bgImage)) return null
   const names = uniq(f.bgImageColours.map((c) => (parse(c)?.a ?? 1) < 0.3 ? null : colourName(c)))
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
-  return names.length >= 2 ? `${names.join(' to ')} gradient` : null
+  if (names.length < 2) return null
+  // hard colour stops (a b 20%, b 20% 40%) are stripes, not a blend
+  const hard = (f.bgImage.match(/\d+%\s*,\s*rgb[^)]+\)\s+\d+%/g) || []).length >= 2 || /\)\s+\d+%\s+\d+%/.test(f.bgImage)
+  return hard ? `${names.join(', ')} stripes` : `${names.join(' to ')} gradient`
+}
+/** Look words any block can carry: tilt, blur, glass, bleeding off the page. */
+function effectWords(f) {
+  const w = []
+  if (Math.abs(f.rotate) >= 3 && Math.abs(f.rotate) <= 60) w.push('tilted')
+  else if (Math.abs(f.rotate) > 60) w.push('diagonal')
+  if (f.blur >= 10) w.push('soft blurred')
+  if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
+  if (f.bleeds) w.push('bleeding off the page edge')
+  return w
 }
 const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgImage) || /1px,\s*transparent 1px/.test(f.bgImage)
 
@@ -114,6 +146,7 @@ function typeWords(f, page) {
   if (isMono(f.font.family)) w.push('mono')
   if (f.font.weight >= 800 && f.font.size >= 32) w.push('heavy')
   if (f.font.transform === 'uppercase') w.push('uppercase')
+  if (f.stroke >= 1 && (!f.colour || f.colour.a <= 0.05)) w.push(`hollow outlined ${colourName(f.strokeColour) ?? ''}`.trim())
   return w
 }
 
@@ -130,43 +163,69 @@ function decide(f, page, marked) {
   const glow = /\d+px \d+px (\d{2,})px/.test(f.shadow) && !/0px 0px 0px/.test(f.shadow)
   const hardShadow = /(\d+)px (\d+)px 0px/.test(f.shadow) && !/0px 0px 0px/.test(f.shadow)
   const look = []
-  const textCol = f.colour && dist(f.colour, page.colour) > 60 ? colourName(f.colour) : null
+  const textCol = f.colour && f.colour.a > 0.05 && dist(f.colour, page.colour) > 60 ? colourName(f.colour) : null
+  const fx = effectWords(f)
+  const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
+  const frosted = fx.includes('frosted glass')
 
-  if (f.hasImg && f.text.length < 4) return { kind: 'image', note: null }
+  if (f.hasImg && f.text.length < 4) return { kind: 'image', note: withFx(null) }
   // a textless filled block with no parts inside is a picture placeholder
-  if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) return { kind: 'image', note: null }
+  if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) {
+    const stripes = grad && /stripes/.test(grad) ? grad : null
+    return { kind: 'image', note: withFx(stripes ? `big ${stripes} block` : null) }
+  }
+  // a toggle row: a label and a switch
+  if (f.toggle && f.text && f.text.length <= 90 && h <= 110 && !f.regionKids.length) {
+    const on = f.toggle && dist(f.toggle, { r: 203, g: 213, b: 225 }) > 40 && colourName(f.toggle) !== 'light grey'
+    return { kind: 'text', note: `toggle ${on ? 'on' : 'off'} ${quote(f.kidTexts[0] ?? f.text, 40)}` }
+  }
+  // a row of label + box fields
+  if (f.fieldKids.length >= 2 && f.fieldKids.length === f.kidCount) return { kind: 'box', note: `fields side by side: ${f.fieldKids.map((t) => quote(t, 24)).join(', ')}` }
+  // a picture card: a picture placeholder with a caption under it
+  if (f.pictureKid && f.text && f.text.length <= 80 && !f.regionKids.length && !f.hasImg) return { kind: 'image', note: `picture with ${quote(f.text, 40)}` }
   if (f.fieldKid && f.kidCount <= 3) return { kind: 'box', note: `field ${quote(f.kidTexts[0] ?? f.role)}` }
   // an input: bordered, left-aligned short text (placeholder)
-  if (bordered && !fill && short && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') return { kind: 'box', note: `input ${quote(f.text)}` }
-  if (round && square && f.text.length < 4 && (fill || grad)) {
+  const placeholder = /…$|\.\.\.$|^search\b/i.test(f.text)
+  if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
+    return { kind: 'box', note: `${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
+  }
+  if (round && square && f.text.length <= 24 && (fill || grad)) {
     const glowy = glow || /radial/.test(f.bgImage)
-    return { kind: 'circle', note: `big ${glowy ? 'glowing ' : ''}${grad ? grad.replace(' gradient', '') : colourName(f.bg)} circle` }
+    const words = f.text ? ` with ${quote(f.text)}` : ''
+    return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${grad ? grad.replace(' gradient', '') : colourName(f.bg)} circle${words}`) }
   }
   // a row of buttons
   if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) return { kind: 'box', note: `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` }
-  const buttonish = (/^(a|button)$/.test(f.tag) || ((fill || bordered || grad) && f.centred)) && short && h <= 90 && f.kidCount <= 1 && w <= 420
+  // wide is fine for a filled, centred one-line label (a full-width pay button)
+  const buttonish = (/^(a|button)$/.test(f.tag) || ((fill || bordered || grad) && f.centred)) && short && h <= 90 && f.kidCount <= 1 && (w <= 420 || (fill && f.centred && h <= 70))
   if (buttonish) {
     if (grad) look.push(grad)
     else if (fill) look.push(colourName(f.bg))
     else if (bordered) look.push(`${colourName(f.border.colour)} outline`)
     if (f.radius >= h / 2 - 2) look.push('pill')
     if (glow) look.push('glowing'); if (hardShadow) look.push('hard offset shadow')
+    if (w > 420) look.push('full-width')
     if (textCol && fill) look.push(`${textCol} text`)
     const kind = f.kidCount === 0 || f.tag === 'a' || f.tag === 'button' || fill || bordered ? 'button' : 'text'
     return { kind, note: `${uniq(look).join(' ')} button ${quote(f.text)}`.replace(/\s+/g, ' ').trim() }
   }
-  if (f.regionKids.length && f.regionKids.every((r) => marked.has(r)) && !fill && !bordered && !grad) return { kind: null, note: null }
+  if (f.regionKids.length && f.regionKids.every((r) => marked.has(r)) && !fill && !bordered && !grad && !frosted) {
+    // its parts are drawn, but text of its own (a card title, a caption) still needs saying
+    const own = f.looseTexts.find((t) => t.length >= 4)
+    return { kind: null, note: own && f.looseTexts.join(' ').length <= 140 ? `${quote(own, 40)}${f.looseTexts.length > 1 ? ' and text' : ''}` : null }
+  }
   if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
-    return { kind: 'heading', note: `${tw.join(' ')} ${quote(f.text, 60)}`.trim() }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
     return { kind: fill || bordered ? 'box' : 'text', note: `links: ${f.kidTexts.slice(0, 6).join(', ')}` }
   }
   if (fill || grad || bordered || ruled || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
-    if (grad) look.push(grad); else if (fill) look.push(colourName(f.bg))
+    look.push(...fx)
+    if (grad) look.push(grad); else if (fill && !frosted) look.push(colourName(f.bg))
     const bc = bordered ? colourName(f.border.colour) : null
     if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
     if (fill && /light grey|white/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30) look.pop() // a faint card: the box shows it
@@ -178,7 +237,12 @@ function decide(f, page, marked) {
     const copy = f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
   }
-  if (f.text) return { kind: 'text', note: f.text.length <= 40 && f.font.size >= 18 ? `${typeWords(f, page).join(' ')} ${quote(f.text)}`.trim() : null }
+  if (f.text) {
+    // short text says its copy when it is display-sized or styled apart (a coloured mono date, a brown logo)
+    const styled = uniq([...typeWords(f, page), NEUTRAL.has(textCol) ? null : textCol, ...fx])
+    const say = f.text.length <= 40 && (f.font.size >= 18 || styled.length)
+    return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : null }
+  }
   return { kind: 'box', note: null }
 }
 

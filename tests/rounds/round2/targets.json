@@ -1,0 +1,987 @@
+{
+ "measured": "2026-10-20T22:54:48.667Z",
+ "targets": {
+  "c1-collage": {
+   "regions": [
+    {
+     "role": "logo",
+     "rect": {
+      "x": 56,
+      "y": 40,
+      "w": 139,
+      "h": 34
+     },
+     "must": false
+    },
+    {
+     "role": "photo-1",
+     "rect": {
+      "x": 604,
+      "y": 107,
+      "w": 413,
+      "h": 505
+     },
+     "must": true
+    },
+    {
+     "role": "photo-2",
+     "rect": {
+      "x": 862,
+      "y": 285,
+      "w": 336,
+      "h": 389
+     },
+     "must": false
+    },
+    {
+     "role": "sticker",
+     "rect": {
+      "x": 544,
+      "y": 504,
+      "w": 202,
+      "h": 202
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 56,
+      "y": 210,
+      "w": 720,
+      "h": 217
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 60,
+      "y": 560,
+      "w": 380,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 60,
+      "y": 690,
+      "w": 162,
+      "h": 54
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-outline-bleed": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 975,
+      "y": 40,
+      "w": 249,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "outline-word",
+     "rect": {
+      "x": -40,
+      "y": 120,
+      "w": 884,
+      "h": 255
+     },
+     "must": true
+    },
+    {
+     "role": "solid-word",
+     "rect": {
+      "x": -30,
+      "y": 400,
+      "w": 727,
+      "h": 255
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 924,
+      "y": 785,
+      "w": 300,
+      "h": 51
+     },
+     "must": false
+    },
+    {
+     "role": "date",
+     "rect": {
+      "x": 56,
+      "y": 828,
+      "w": 143,
+      "h": 16
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-glass-blobs": {
+   "regions": [
+    {
+     "role": "blob-pink",
+     "rect": {
+      "x": 120,
+      "y": 80,
+      "w": 420,
+      "h": 420
+     },
+     "must": false
+    },
+    {
+     "role": "blob-cyan",
+     "rect": {
+      "x": 760,
+      "y": 380,
+      "w": 480,
+      "h": 480
+     },
+     "must": false
+    },
+    {
+     "role": "card",
+     "rect": {
+      "x": 290,
+      "y": 180,
+      "w": 700,
+      "h": 520
+     },
+     "must": true
+    },
+    {
+     "role": "tag",
+     "rect": {
+      "x": 347,
+      "y": 237,
+      "w": 100,
+      "h": 32
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 347,
+      "y": 297,
+      "w": 586,
+      "h": 126
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 347,
+      "y": 443,
+      "w": 520,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "ctas",
+     "rect": {
+      "x": 347,
+      "y": 537,
+      "w": 586,
+      "h": 52
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-mag-grid": {
+   "regions": [
+    {
+     "role": "masthead",
+     "rect": {
+      "x": 48,
+      "y": 36,
+      "w": 1184,
+      "h": 80
+     },
+     "must": true
+    },
+    {
+     "role": "lead",
+     "rect": {
+      "x": 48,
+      "y": 144,
+      "w": 564,
+      "h": 468
+     },
+     "must": true
+    },
+    {
+     "role": "lead-img",
+     "rect": {
+      "x": 48,
+      "y": 144,
+      "w": 564,
+      "h": 360
+     },
+     "must": false
+    },
+    {
+     "role": "lead-title",
+     "rect": {
+      "x": 48,
+      "y": 520,
+      "w": 564,
+      "h": 92
+     },
+     "must": false
+    },
+    {
+     "role": "story-1",
+     "rect": {
+      "x": 640,
+      "y": 144,
+      "w": 282,
+      "h": 468
+     },
+     "must": false
+    },
+    {
+     "role": "img-1",
+     "rect": {
+      "x": 640,
+      "y": 144,
+      "w": 282,
+      "h": 160
+     },
+     "must": false
+    },
+    {
+     "role": "story-2",
+     "rect": {
+      "x": 950,
+      "y": 144,
+      "w": 282,
+      "h": 468
+     },
+     "must": false
+    },
+    {
+     "role": "img-2",
+     "rect": {
+      "x": 950,
+      "y": 144,
+      "w": 282,
+      "h": 160
+     },
+     "must": false
+    },
+    {
+     "role": "pull-quote",
+     "rect": {
+      "x": 640,
+      "y": 640,
+      "w": 592,
+      "h": 94
+     },
+     "must": true
+    }
+   ]
+  },
+  "c5-retro-bands": {
+   "regions": [
+    {
+     "role": "bands",
+     "rect": {
+      "x": 369,
+      "y": -234,
+      "w": 1323,
+      "h": 1468
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 48,
+      "w": 116,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 200,
+      "w": 560,
+      "h": 365
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 68,
+      "y": 540,
+      "w": 420,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 68,
+      "y": 650,
+      "w": 205,
+      "h": 67
+     },
+     "must": true
+    }
+   ]
+  },
+  "e1-checkout": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 80,
+      "y": 48,
+      "w": 680,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "ship-label",
+     "rect": {
+      "x": 80,
+      "y": 108,
+      "w": 680,
+      "h": 20
+     },
+     "must": false
+    },
+    {
+     "role": "name",
+     "rect": {
+      "x": 80,
+      "y": 140,
+      "w": 680,
+      "h": 65
+     },
+     "must": false
+    },
+    {
+     "role": "address",
+     "rect": {
+      "x": 80,
+      "y": 217,
+      "w": 680,
+      "h": 65
+     },
+     "must": false
+    },
+    {
+     "role": "city-row",
+     "rect": {
+      "x": 80,
+      "y": 282,
+      "w": 680,
+      "h": 77
+     },
+     "must": false
+    },
+    {
+     "role": "pay-label",
+     "rect": {
+      "x": 80,
+      "y": 387,
+      "w": 680,
+      "h": 20
+     },
+     "must": false
+    },
+    {
+     "role": "card",
+     "rect": {
+      "x": 80,
+      "y": 419,
+      "w": 680,
+      "h": 65
+     },
+     "must": false
+    },
+    {
+     "role": "pay",
+     "rect": {
+      "x": 80,
+      "y": 512,
+      "w": 680,
+      "h": 50
+     },
+     "must": true
+    },
+    {
+     "role": "summary",
+     "rect": {
+      "x": 800,
+      "y": 48,
+      "w": 400,
+      "h": 520
+     },
+     "must": true
+    },
+    {
+     "role": "item-1",
+     "rect": {
+      "x": 829,
+      "y": 115,
+      "w": 342,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "item-2",
+     "rect": {
+      "x": 829,
+      "y": 199,
+      "w": 342,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "item-3",
+     "rect": {
+      "x": 829,
+      "y": 283,
+      "w": 342,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "total",
+     "rect": {
+      "x": 829,
+      "y": 375,
+      "w": 342,
+      "h": 40
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-shop-grid": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 64
+     },
+     "must": true
+    },
+    {
+     "role": "filters",
+     "rect": {
+      "x": 40,
+      "y": 96,
+      "w": 220,
+      "h": 554
+     },
+     "must": true
+    },
+    {
+     "role": "grid",
+     "rect": {
+      "x": 296,
+      "y": 96,
+      "w": 944,
+      "h": 554
+     },
+     "must": true
+    },
+    {
+     "role": "p1",
+     "rect": {
+      "x": 296,
+      "y": 96,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    },
+    {
+     "role": "p2",
+     "rect": {
+      "x": 619,
+      "y": 96,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    },
+    {
+     "role": "p3",
+     "rect": {
+      "x": 941,
+      "y": 96,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    },
+    {
+     "role": "p4",
+     "rect": {
+      "x": 296,
+      "y": 385,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    },
+    {
+     "role": "p5",
+     "rect": {
+      "x": 619,
+      "y": 385,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    },
+    {
+     "role": "p6",
+     "rect": {
+      "x": 941,
+      "y": 385,
+      "w": 299,
+      "h": 265
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-settings": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 120,
+      "y": 40,
+      "w": 1040,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "tabs",
+     "rect": {
+      "x": 120,
+      "y": 98,
+      "w": 1040,
+      "h": 44
+     },
+     "must": true
+    },
+    {
+     "role": "row-1",
+     "rect": {
+      "x": 120,
+      "y": 142,
+      "w": 1040,
+      "h": 81
+     },
+     "must": false
+    },
+    {
+     "role": "row-2",
+     "rect": {
+      "x": 120,
+      "y": 223,
+      "w": 1040,
+      "h": 81
+     },
+     "must": false
+    },
+    {
+     "role": "row-3",
+     "rect": {
+      "x": 120,
+      "y": 304,
+      "w": 1040,
+      "h": 81
+     },
+     "must": false
+    },
+    {
+     "role": "row-4",
+     "rect": {
+      "x": 120,
+      "y": 385,
+      "w": 1040,
+      "h": 81
+     },
+     "must": false
+    },
+    {
+     "role": "save",
+     "rect": {
+      "x": 120,
+      "y": 499,
+      "w": 152,
+      "h": 45
+     },
+     "must": true
+    },
+    {
+     "role": "reset",
+     "rect": {
+      "x": 284,
+      "y": 498,
+      "w": 112,
+      "h": 47
+     },
+     "must": false
+    }
+   ]
+  },
+  "e4-faq": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 240,
+      "y": 56,
+      "w": 800,
+      "h": 50
+     },
+     "must": true
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 240,
+      "y": 118,
+      "w": 800,
+      "h": 20
+     },
+     "must": false
+    },
+    {
+     "role": "search",
+     "rect": {
+      "x": 240,
+      "y": 170,
+      "w": 800,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "q1",
+     "rect": {
+      "x": 240,
+      "y": 240,
+      "w": 800,
+      "h": 97
+     },
+     "must": true
+    },
+    {
+     "role": "q2",
+     "rect": {
+      "x": 240,
+      "y": 353,
+      "w": 800,
+      "h": 62
+     },
+     "must": false
+    },
+    {
+     "role": "q3",
+     "rect": {
+      "x": 240,
+      "y": 431,
+      "w": 800,
+      "h": 62
+     },
+     "must": false
+    },
+    {
+     "role": "q4",
+     "rect": {
+      "x": 240,
+      "y": 509,
+      "w": 800,
+      "h": 62
+     },
+     "must": false
+    }
+   ]
+  },
+  "e5-inbox": {
+   "regions": [
+    {
+     "role": "folders",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 200,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "list",
+     "rect": {
+      "x": 200,
+      "y": 0,
+      "w": 380,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "m1",
+     "rect": {
+      "x": 200,
+      "y": 0,
+      "w": 379,
+      "h": 71
+     },
+     "must": false
+    },
+    {
+     "role": "m2",
+     "rect": {
+      "x": 200,
+      "y": 71,
+      "w": 379,
+      "h": 71
+     },
+     "must": false
+    },
+    {
+     "role": "m3",
+     "rect": {
+      "x": 200,
+      "y": 142,
+      "w": 379,
+      "h": 71
+     },
+     "must": false
+    },
+    {
+     "role": "m4",
+     "rect": {
+      "x": 200,
+      "y": 213,
+      "w": 379,
+      "h": 71
+     },
+     "must": false
+    },
+    {
+     "role": "reader",
+     "rect": {
+      "x": 580,
+      "y": 0,
+      "w": 700,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "subject",
+     "rect": {
+      "x": 628,
+      "y": 36,
+      "w": 604,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "from",
+     "rect": {
+      "x": 628,
+      "y": 75,
+      "w": 604,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "message",
+     "rect": {
+      "x": 628,
+      "y": 115,
+      "w": 560,
+      "h": 77
+     },
+     "must": false
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-collage": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.7722281008930418,
+    "structure": 0.5941097404037188
+   },
+   "otherMean": {
+    "colour": 0.6792170208498584,
+    "structure": 0.3949466006104636
+   }
+  },
+  "c2-outline-bleed": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.07203802634716605,
+    "structure": 0.054156031073778005
+   },
+   "otherMean": {
+    "colour": 0.22224001201954977,
+    "structure": 0.06513651668670657
+   }
+  },
+  "c3-glass-blobs": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.28775543203521237,
+    "structure": 0.2648113705262322
+   },
+   "otherMean": {
+    "colour": 0.3976905069843193,
+    "structure": 0.21346931760195328
+   }
+  },
+  "c4-mag-grid": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.849054295750208,
+    "structure": 0.5728753611352503
+   },
+   "otherMean": {
+    "colour": 0.6804008117254845,
+    "structure": 0.384109038850259
+   }
+  },
+  "c5-retro-bands": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.613204890729057,
+    "structure": 0.5404410938561744
+   },
+   "otherMean": {
+    "colour": 0.585972987951574,
+    "structure": 0.3720970877461687
+   }
+  },
+  "e1-checkout": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9653928454998685,
+    "structure": 0.7845768450261612
+   },
+   "otherMean": {
+    "colour": 0.7243062320623911,
+    "structure": 0.49881370840601236
+   }
+  },
+  "e2-shop-grid": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9800679727879472,
+    "structure": 0.8468067102463523
+   },
+   "otherMean": {
+    "colour": 0.7255718783412672,
+    "structure": 0.5136344612102691
+   }
+  },
+  "e3-settings": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9899757172539463,
+    "structure": 0.8563702793872621
+   },
+   "otherMean": {
+    "colour": 0.7210338304568247,
+    "structure": 0.5267283038930937
+   }
+  },
+  "e4-faq": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9470913322082037,
+    "structure": 0.8033630519118812
+   },
+   "otherMean": {
+    "colour": 0.724921451168144,
+    "structure": 0.4957533635175715
+   }
+  },
+  "e5-inbox": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9805237677143223,
+    "structure": 0.8513816463266106
+   },
+   "otherMean": {
+    "colour": 0.721662467737446,
+    "structure": 0.5168803285099857
+   }
+  }
+ }
+}

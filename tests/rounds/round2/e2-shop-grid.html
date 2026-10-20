@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Shop grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#18181b;overflow:hidden}
+nav{height:64px;border-bottom:1px solid #e4e4e7;display:flex;align-items:center;padding:0 40px;gap:32px;font-size:15px}nav b{font-size:20px;margin-right:auto}
+.wrap{display:flex;padding:32px 40px;gap:36px}
+.filters{width:220px}.filters h3{font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#71717a;margin-top:20px}.filters div{font-size:15px;margin-top:10px}
+.grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card .img{height:220px;background:#f4f4f5;border-radius:10px}.card h4{font-size:15px;margin-top:10px;font-weight:500}.card span{font-size:15px;font-weight:700}
+</style></head><body>
+<nav data-r="nav" data-must><b>Lumen</b><span>New</span><span>Lamps</span><span>Sale</span><span>Cart (2)</span></nav>
+<div class="wrap"><aside class="filters" data-r="filters" data-must><h3>Category</h3><div>Desk lamps</div><div>Floor lamps</div><div>Pendants</div><h3>Price</h3><div>Under $100</div><div>$100–$250</div></aside>
+<div class="grid" data-r="grid" data-must>
+<div class="card" data-r="p1"><div class="img"></div><h4>Arc floor lamp</h4><span>$189</span></div>
+<div class="card" data-r="p2"><div class="img"></div><h4>Dome pendant</h4><span>$129</span></div>
+<div class="card" data-r="p3"><div class="img"></div><h4>Clip desk lamp</h4><span>$59</span></div>
+<div class="card" data-r="p4"><div class="img"></div><h4>Globe table lamp</h4><span>$89</span></div>
+<div class="card" data-r="p5"><div class="img"></div><h4>Tripod lamp</h4><span>$219</span></div>
+<div class="card" data-r="p6"><div class="img"></div><h4>Wall sconce</h4><span>$75</span></div>
+</div></div>
+</body></html>

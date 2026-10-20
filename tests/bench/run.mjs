@@ -54,6 +54,7 @@ import tidy from './sketches/index.mjs'
 import rough from './sketches/rough/index.mjs'
 import round1 from '../rounds/round1/sketches.mjs'
 import round1auto from '../rounds/round1/auto.mjs'
+import round2auto from '../rounds/round2/auto.mjs'
 import { pictureLikeness, blend } from '../rounds/lib/likeness.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
 import { toStrokes } from './lib/draw.mjs'
@@ -103,7 +104,7 @@ if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
-const SETS = { tidy, rough, round1, round1auto }
+const SETS = { tidy, rough, round1, round1auto, round2auto }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
 const specs = SETS[SET]

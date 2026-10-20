@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Settings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden;padding:40px 120px}
+h1{font-size:30px}.tabs{display:flex;gap:28px;border-bottom:1px solid #e2e8f0;margin-top:24px;font-size:15px}.tabs span{padding:12px 0;color:#64748b}.tabs .on{color:#2563eb;border-bottom:2px solid #2563eb}
+.row{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid #f1f5f9}.row b{font-size:16px;display:block}.row small{font-size:14px;color:#64748b}
+.tog{width:48px;height:28px;border-radius:999px;background:#cbd5e1;position:relative}.tog.on{background:#2563eb}.tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff}.tog.on::after{left:23px}
+.save{margin-top:32px;display:inline-block;padding:14px 26px;background:#2563eb;color:#fff;border-radius:8px;font-size:15px;font-weight:600}
+.danger{margin-top:32px;margin-left:12px;display:inline-block;padding:14px 26px;border:1px solid #dc2626;color:#dc2626;border-radius:8px;font-size:15px}
+</style></head><body>
+<h1 data-r="title" data-must>Settings</h1>
+<div class="tabs" data-r="tabs" data-must><span>Profile</span><span class="on">Notifications</span><span>Billing</span><span>Team</span></div>
+<div class="row" data-r="row-1"><div><b>Email digests</b><small>A summary of activity every Monday.</small></div><div class="tog on"></div></div>
+<div class="row" data-r="row-2"><div><b>Mentions</b><small>Notify me when someone @mentions me.</small></div><div class="tog on"></div></div>
+<div class="row" data-r="row-3"><div><b>Product news</b><small>Occasional updates about new features.</small></div><div class="tog"></div></div>
+<div class="row" data-r="row-4"><div><b>Weekly report</b><small>Usage numbers for your workspace.</small></div><div class="tog"></div></div>
+<a class="save" data-r="save" data-must>Save changes</a><a class="danger" data-r="reset">Reset all</a>
+</body></html>
