@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Setting up the first round: five creative landing pages and five everyday pages to build by drawing, and a way to score how close each one gets."
-lock: {by: "run-2026-10-20T19:53Z", until: "2026-10-20T21:25:00Z"}
+now: "Round 1 is set up (5 creative, 5 everyday pages and a likeness score); next, fix the first live build, which failed to read the drawing, then build all ten."
+lock: null
 asks: []
 handled: []
 notes:
@@ -11,6 +11,9 @@ notes:
   - "Never draw on the demo in auto mode without stubbing /@s2c/run: a real run writes the demo source."
   - "Don't pkill -f with a pattern in your own command line; use fuser -k <port>/tcp."
   - "Existing bench: tests/bench/run.mjs draws sketches on a throwaway app through the real overlay (--dry is free). findings.md: ~46k billed tokens/page (2026-10-02, reading+codegen); auto reading ~16k, screenshot ~4.7k. Budget is 300k/day: about one 10-page round a day at most. Keep a token ledger per day."
+  - "n4: round pages live in tests/rounds/<round>/ (target HTML with data-r regions, sketches.mjs). node tests/rounds/measure.mjs round1 writes ref PNGs + targets.json (regions, blank calibration). Run: node tests/bench/run.mjs --set round1 [--dry] [--only c1]. Likeness = 0.35 colour + 0.35 structure (lift over blank) + 0.30 bench region score; shots in tests/bench/out/shots/<id>-built.png."
+  - "n4 finding: on white targets a blank page scores 95% colour / 89% structure raw, hence the lift-over-blank."
+  - "Token ledger: 2026-10-20 ~10k (one failed reading, est.)."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -28,4 +31,6 @@ nodes:
      branch: try/n2-auto-sketch, result: null}
   - {id: n3, parent: n0, kind: approach, title: "Grow the visual vocabulary first: catalogue creative techniques (gradients, overlap, big type, texture, motion) and add drawable/wordable ways to ask for each, tested on single sections", status: open,
      branch: try/n3-vocabulary, result: null}
-  - {id: n4, parent: n1, kind: step, title: "Round 1 set: 5 easy creative + 5 easy everyday reference pages, a likeness scorer (pixel/structure), sketches for each, dry run free; then one live page to calibrate cost", status: active, result: null}
+  - {id: n4, parent: n1, kind: step, title: "Round 1 set: 5 easy creative + 5 easy everyday reference pages, a likeness scorer (pixel/structure), sketches for each, dry run free; then one live page to calibrate cost", status: done,
+     result: "10 targets, sketches and likeness score built; blank pages score 0-3%. Live page 1: reading failed (max turns 4). 9211030."}
+  - {id: n5, parent: n1, kind: step, title: "First live build fails: whole-page design sketch reading hits 'maximum number of turns (4)'. Find why, fix it, then build all 10 round-1 pages live and score them", status: open, result: null}
