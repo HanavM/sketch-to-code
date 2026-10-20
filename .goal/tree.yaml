@@ -1,104 +1,31 @@
-goal_hash: 3efa0408b24065bf1cbd4744222411a7dd7d42e7
-goal_state: met
-now: "Done and re-checked from scratch: every edit shows on the page within 40 ms, glides at 60 fps, and lands in the code; proof GIFs and report are in docs/motion."
-lock: null
+goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
+goal_state: working
+now: "Setting up the first round: five creative landing pages and five everyday pages to build by drawing, and a way to score how close each one gets."
+lock: {by: "run-2026-10-20T19:53Z", until: "2026-10-20T21:25:00Z"}
 asks: []
 handled: []
 notes:
-  - "Previous goal (instant drawn changes) archived in .goal/archive/2026-10-18-instant-drawn-changes; its notes on e2e setup still apply."
-  - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium."
-  - "The vite plugin caches the overlay bundle per dev-server boot: restart the demo server after overlay edits."
-  - "Overlay bundle may import only @s2c/ink/classify, never @s2c/ink (node:zlib)."
+  - "Previous goal (edits feel instant and physical) archived in .goal/archive/2026-10-19-edits-instant-physical; its e2e notes still apply."
+  - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium. Fresh clone: npm ci, then npm run build (vite plugin resolves built packages)."
+  - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
   - "Never draw on the demo in auto mode without stubbing /@s2c/run: a real run writes the demo source."
   - "Don't pkill -f with a pattern in your own command line; use fuser -k <port>/tcp."
-  - "Already there: optimistic.ts (scribble hide, ring recolour), preview.ts (dashed move/insert/section previews), tweak mode with handle resize + free-move drag committed by /@s2c/manipulate (0 tokens, codemod: move, resize, reorder)."
-  - "n4: tests/e2e/motion-erase.mjs needs the demo dev server on :5199 (S2C_STUB_MODEL=1); writes docs/motion/erase-frames.json. optimistic-scribble/queue now count a fade (opacity < 0.97) as visible."
-  - "n4: rAF frames in headless Chromium run at 16.7 ms; a just-created animation can hold its first keyframe 2-3 frames, so the first keyframe itself must show the change."
-  - "n5: tests/e2e/motion-reorder.mjs starts its own vite on :5262. live-canva.mjs ignores S2C_CHROMIUM: run it with PLAYWRIGHT_BROWSERS_PATH at a dir linking chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell to /opt/pw-browsers/chromium, vite on :5211."
-  - "n5: commitManipulation takes an optional hold {root, capture, release, fail}; holdUntilLanded releases inside the hot reload's MutationObserver task. Resize still clears width/height before the reload (snap back): n6."
-  - "n6: tests/e2e/motion-resize.mjs starts its own vite on :5263 (stat card height pull, cancel, ContactForm move hold). live-reorder.ts pushedBy/boxesOf/settleBoxes hold any inline-styled edit."
-  - "n7: tests/e2e/motion-add-recolour.mjs starts its own vite on :5264; it simulates the hot reload by inserting the new link itself. growLanded (main.ts) grows fresh nodes in the reload's MO task."
-  - "n7: motion-erase fails p95 (33 ms) in this sandbox on the agent baseline too: the first frame after lift is held 33 ms. To fix in n8."
-  - "n8: tests/e2e/shared-plane.mjs starts its own vite on :5265, chains 22 manipulate edits, writes docs/motion/shared-plane.json. PlanCard refuses move/resize (dynamic className): codemod gap. optimistic-ring/queue start their own vite on :5199: free the port first."
-  - "n10: try/n2-codemod-follow is cut from try/n1-motion-layer (needs its motion + shared-plane work). POST /@s2c/direct writes plain erase/recolour (applyDirectEdit); runFlight tries it before /@s2c/interpret. Tests that want the model path must refuse /@s2c/direct (see motion-erase). tests/e2e/direct-erase-recolour.mjs starts vite on :5266. Large erases (>35% viewport) and drawn additions still go to the model."
-  - "n9: undo-preview.ts records each committed manipulate edit's visual inverse (class swap eased by WAAPI; reorder by inline order, released when the children are back in order). /@s2c/undo now returns sha; a mismatching preview is reverted. tests/e2e/ten-in-a-row.mjs starts vite on :5267; aim at stable boxes (glides in flight make picks miss)."
-  - "n12: undo-preview.ts captureErase keeps a ghost copy (stamps stripped, data-s2c-ghost) and matches it back by tag+text, not srcLoc (per-line stamps shift after a delete). tests/e2e/undo-direct.mjs starts vite on :5268. landDirect now joins commitsInFlight."
-  - "n13: tests/e2e/mixed-ten.mjs starts vite on :5269. Leaving draw for tweak flushes a pending plain erase/recolour (flushAuto). __s2cLanded is an object after a manipulate commit, a list after drawings (pushLanded). motion-resize can flake under load right after other e2es; rerun alone."
-  - "n11: POST /@s2c/direct kind insert (insert-copy.ts) copies the slot neighbour (plain leaf, written once) with the typed note; landInsert (main.ts) waits for growLanded. Unkeyed rows reload by shifting text: Flip.playShifted glides by words. tests/e2e/direct-insert.mjs starts vite on :5270. caret-insert.mjs now takes the direct path too."
-  - "n15: undo-preview.ts playUnadd hides the added node, fades an in-flow copy, then FLIPs the row; tests/e2e/undo-insert.mjs starts vite on :5271."
-  - "n16: onDown hands a counting plain change (optimistic erase/recolour, or caret preview + its word) to the code when the press lands >24 px clear of it (handOffElsewhere); pen asserts in mixed-ten count ink >=1, since the old ink leaves with it. Insert previews keep their lift-time key (notes 0): compare the strokes part only."
-  - "n16: caret-insert.mjs fails 4 checks on the baseline too (expects the model path; n11 made it direct). Fix or retire it in verify."
-  - "n14: S2C_RECORD=<dir> makes mixed-ten film itself (webm + marks.json); node tests/e2e/motion-proof.mjs films (gap 1.6 s), cuts docs/motion/proof/*.gif and writes docs/motion/REPORT.md; --rec <dir> reuses a film. Run plain mixed-ten first: the report's timing table reads docs/motion/mixed-ten.json. Filming on 2 cores drops fps to ~40-55, so timings come from the unfilmed run."
-  - "n14 finding: in mixed-ten the FIRST drag (reorder card 1->3) shows 190-320 ms after the first move in 5 of 6 runs today, agent baseline too (later drags 1-5 ms). Frames keep coming (no long task), so the reorder waits on something on first use: n17."
-  - "n17: a card in a clipping row drags as a fixed copy on <body> (data-s2c-ghost); mixed-ten counts it (frame.lift) and reports shown/pageMovedMs. The old 190-320 ms was the row reflow on reaching slot 3, not a delay."
-  - "n17 finding: 1 of 4 mixed-ten runs failed undo 1 (resize grid item): 'Invite a teammate' h jumped 25/40 px in one frame at +77 ms: n18."
-  - "n18: motion.steady(anim, relocate?) paces main-thread (width/height) eases by painted frames (<=25 ms of curve per frame); easeClasses + settleBoxes focus use it. Read all end values before starting any ease. Clear examples/demo-app/.sketch2code between e2e runs (history piles up)."
-  - "n18 finding: in this sandbox today, mixed-ten pen edits after the drawn addition (erase Revenue, recolour Settings) show only at ~760 ms (auto-run countdown) and go to the model in ~4 of 5 runs, agent baseline too: n19. ten-in-a-row commits 8-9/10 here on baseline too."
-  - "n19: endFlight clears autoBusy before scheduleAuto (else the countdown for a drawing finished mid-landing was dropped). Reproduce load: two `node -e busy-loop` hogs alongside mixed-ten (nproc 2); one hog is not enough."
-  - "n20: captureInsert returns {grew, take}; grew() records the added node's look when it grows, take() re-finds that look if an unkeyed reload moved its words. mixed-ten S2C_NAV_DEBUG=<file> dumps per-frame nav state (text, x, display, opacity, unadd, ghost) for the undo phase. Invisible boxes (opacity<0.05) no longer count as jumps."
-  - "n20 finding: under two hogs, 1 of 3 runs again sent the 2 pen edits after the addition to the model (760 ms, n19 symptom); undo 8 (resize card taller) is previewed:false in 3/3 loaded runs; undo 10 nav Overview hop in 2/3."
-  - "n21: undo-preview slotsOf(srcLoc) counts erase ghosts as instances; class undo falls back to captured nodes (ghostOf) when stamps carry an earlier undo's line numbers; restore ghosts anchor on prev/next neighbour by look and copy its inline order; unadd follow() moves the hide when another reload shifts words; confirmed previews hold 10 s. Reloads under two hogs can land 4-5 s after the undo."
-  - "n21 finding: under two hogs, 3 of 6 mixed-ten runs sent the 2 pen edits after the drawn addition to the model again (status 'note attached — on this stroke', visible ~560-900 ms); the erase joins the addition's drawing: n22. Unloaded, the add ghost shows at 53-56 ms in 2 of 3 runs (>50): n22 too."
-  - "n22: scheduleAuto keeps the timer on a hold block (note open); autoTick pauses it. Before, a landing during a caret's typed word dropped the countdown for good. Unloaded the add ghost was 26-46 ms in mixed-ten (3/3); direct-insert first ghost 57-98 ms in 2/5: n23."
-  - "n23: warm-pen.ts runs the lift readings on made-up strokes plus one ~invisible ghost (.pv[data-s2c-warm]) in idle slices, 1.2 s after boot and on entering draw. Run npm run build before e2e (vite plugin resolves built packages). optimistic-preview.mjs needs a stub vite on :5199 started by hand."
-  - "n24: the n23 warm-up ghost (.pv[data-s2c-warm], class pg warm) sits in #pending for 2 frames; e2e watchers of #pending must skip it (fixed in 5 scripts). Fresh clone: run npm ci first (node_modules is not committed)."
-  - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
+  - "Existing bench: tests/bench/run.mjs draws sketches on a throwaway app through the real overlay (--dry is free). findings.md: ~46k billed tokens/page (2026-10-02, reading+codegen); auto reading ~16k, screenshot ~4.7k. Budget is 300k/day: about one 10-page round a day at most. Keep a token ledger per day."
+  - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
 criteria:
-  - {id: c1, text: "Erase, draw/add, move, recolour and resize each change the page visibly within 50 ms, no wait for the coding agent.", state: met, evidence: "n25 re-run on agent d855db3: mixed-ten edits 1-14 ms, slowest edit/undo 25-38 ms in 4 runs (3 under two hogs); direct edits 11-31 ms. See .goal/ATTEST.md"}
-  - {id: c2, text: "Smooth, not jumps: erase fades out and neighbours glide into the gap; move glides; add grows in. Measured at 60 fps on the demo app.", state: met, evidence: "n25: motion-erase/reorder/resize/add-recolour all pass, frame gap p95 16.7-16.8 ms; REPORT.md every edit ~60 fps. See .goal/ATTEST.md"}
-  - {id: c3, text: "Canva-style direct manipulation: drag to move or reorder, drag edges to resize; page reflows live during the drag; code follows after release.", state: met, evidence: "n25: motion-reorder (row reflows 26 ms into drag, glides, code reordered) and motion-resize (live reflow, held till code, cancel eases) pass. See .goal/ATTEST.md"}
-  - {id: c4, text: "One shared plane: when code lands the page matches what was already seen, no flash or jump, in >=95% of 20+ edits; mismatches resolve smoothly and say why.", state: met, evidence: "n25: shared-plane 22/22 matched, unloaded and under two hogs; direct-erase-recolour 8/8, direct-insert 3/3 no flash. See .goal/ATTEST.md"}
-  - {id: c5, text: "Ten edits in a row in under 20 s, no waiting, all land correctly in code; undo is just as instant and smooth.", state: met, evidence: "n25: mixed-ten 10 edits in 13.3 s all in code, 0 model calls, undos 5-35 ms smooth; 1/1 unloaded + 3/3 under two hogs. See .goal/ATTEST.md"}
-  - {id: c6, text: "Proof to watch: a short screen recording or GIF per gesture, plus a frame-timing report.", state: met, evidence: "n25: 7 GIFs re-filmed + docs/motion/REPORT.md frame-timing tables. See .goal/ATTEST.md"}
+  - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
+  - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
+  - {id: c3, text: "Each built page is scored for likeness to its target by a measure independent of the pipeline (picture likeness plus block layout).", state: open, evidence: null}
+  - {id: c4, text: "Between rounds the tools improve from what failed, and re-running earlier pages shows the gain (scores up or fewer fixes).", state: open, evidence: null}
+  - {id: c5, text: "The final round's hardest creative pages (layered, asymmetric, expressive type, motion) are built to a high likeness.", state: open, evidence: null}
+  - {id: c6, text: "Live model use stays within 300k tokens a day, logged per day.", state: open, evidence: null}
+  - {id: c7, text: "Proof to watch: per round, target vs built side by side, with scores and a short write-up.", state: open, evidence: null}
 nodes:
-  - {id: n0, parent: null, kind: goal, title: "Edits feel instant and physical like Canva: the page moves first, the code follows", status: done}
-  - {id: n1, parent: n0, kind: approach, title: "Browser motion layer: FLIP animations for every edit (fade+collapse, glide, grow, ease) over the existing instant patches, held until the code lands", status: proven,
-     branch: try/n1-motion-layer, result: null}
-  - {id: n2, parent: n0, kind: approach, title: "Deterministic code for every gesture: codemods (delete, move/reorder, recolour, resize, insert) land the source in about a second, model only as fallback", status: proven,
-     branch: try/n2-codemod-follow, result: "Proven: every gesture lands in code with no model; merged into agent (7621382) with n1's motion layer."}
-  - {id: n3, parent: n0, kind: approach, title: "Design layer as source of truth: visual edits live in a persistent style/order layer the page renders from, compiled into code behind", status: pruned,
-     branch: try/n3-design-layer, result: "Pruned: n1 holds plus n2 codemods already make the visual edit what you see; a second layer adds sync risk."}
-  - {id: n4, parent: n1, kind: step, title: "motion.ts: FLIP erase (fade out, neighbours glide into gap) with reversible undo; wire scribble-erase to it; e2e frame timing on the demo", status: done,
-     result: "Erase fades 12 ms after lift, neighbour glides 124 px over 11 frames, p95 16.7 ms; take-back smooth, exact. Commit 5d70b57."}
-  - {id: n5, parent: n1, kind: step, title: "Drag to move/reorder: neighbours glide aside live during the drag, element glides into place on release, code via /@s2c/manipulate reorder, no jump when it lands (e2e)", status: done,
-     result: "Row reflows 27 ms into the drag, 11-frame glides, held until reload, code matched, no jump. Commit fb27ff4."}
-  - {id: n6, parent: n1, kind: step, title: "Resize by edge drag: neighbours reflow live with the new size, hold width/height until the code lands (no snap back), plain-move hold e2e too", status: done,
-     result: "Page reflows 10 ms into the pull; size held until reload, code matched, cancel eases back; moves hold too. Commit e8d170c."}
-  - {id: n7, parent: n1, kind: step, title: "Add grows in and recolour eases: inserted/drawn elements scale+fade in, recolour cross-fades, held until the code lands; e2e frame timing", status: done,
-     result: "Ghost 9 ms, new link grows over 12 frames, neighbour glides 11 spots; recolour eases both ways. Commit e4d8791."}
-  - {id: n8, parent: n1, kind: step, title: "Shared-plane test set: 20+ scripted edits of every kind land with no flash or jump (>=95%); fix the erase lift-frame hitch (p95 33 ms here)", status: done,
-     result: "22/22 drag edits land matching, no flash (twice); linked cards resize together; erase p95 16.7 ms. Commit 4a5f8b3."}
-  - {id: n10, parent: n2, kind: step, title: "Codemods for erase (delete element) and recolour so they land in code in ~1 s with 0 tokens; add them (and add/insert if feasible) to the shared-plane set", status: done,
-     result: "8/8 erases and recolours land in code with no model, ~1.1 s, no flash; regressions green. Commit c68f629."}
-  - {id: n9, parent: n2, kind: step, title: "Ten edits in a row (drag, resize, erase, recolour) under 20 s all land in code; undo of each is instant and smooth (e2e), on try/n2-codemod-follow", status: done,
-     result: "10 drag edits in 10 s all in code; 10 undos show in 20-35 ms, glide, code back to start. Commit b9fc0c0."}
-  - {id: n12, parent: n2, kind: step, title: "Instant smooth undo for erase and recolour (fade back in, colour eases back), then a mixed ten-in-a-row (drags + erases + recolours) with undo", status: done,
-     result: "5/5 erase and recolour undos show in 10-16 ms, fade or ease back, no jump or double; code restored. Commit 755cf25."}
-  - {id: n13, parent: n2, kind: step, title: "Mixed ten-in-a-row: drags, resizes, erases and recolours interleaved under 20 s, all land in code, then undo all ten instantly and smoothly (e2e)", status: done,
-     result: "10 mixed edits in 14 s all in code, 0 model calls; 10 undos visible 6-38 ms, smooth; 3/3 runs. Commit 7667862."}
-  - {id: n11, parent: n2, kind: step, title: "Drawn additions (link, button, text) land without the model when the drawing is plain: insert codemod from the pending preview", status: done,
-     result: "Caret plus a word: 3/3 nav additions in code ~0.1 s, no model; grows in, row glides. Commit 32d5be9."}
-  - {id: n15, parent: n2, kind: step, title: "Instant smooth undo for a direct addition (shrinks out, neighbours glide back), and a drawn addition inside mixed-ten", status: done,
-     result: "3/3 addition undos visible 8-14 ms, fade out, row glides (max 16 px/frame), code back. Commit 57d732a."}
-  - {id: n16, parent: n2, kind: step, title: "Mixed ten-in-a-row with a drawn addition (and resize) among the edits, undo all; then merge try/n2-codemod-follow into agent with tests green", status: done,
-     result: "Back-to-back pen edits now hand off instantly; 10 mixed edits incl. addition in 13 s, all in code; merged, agent green."}
-  - {id: n14, parent: n1, kind: step, title: "Proof to watch: a short GIF per gesture (erase, add, move, recolour, resize, undo) plus one frame-timing report page from the e2e JSON", status: done,
-     result: "Seven GIFs cut from one filmed run plus REPORT.md with per-edit timing and fps; merged into agent 30500b6."}
-  - {id: n17, parent: n1, kind: step, title: "First drag of a session starts moving ~200 ms late (mixed-ten reorder card 1->3): find what it waits on, make it <50 ms every run, re-film the reorder GIF", status: done,
-     result: "Not a delay: the card travels as a lifted copy from the first move (3 ms); timing now counts it. Commit 571a1da."}
-  - {id: n18, parent: n1, kind: step, title: "Undo of a resize sometimes jumps (mixed-ten undo 1, grid item h 25/40 px in one frame at +77 ms, 1 in 4 runs): find the race, make it glide every run", status: done,
-     result: "Dropped frames, plus linked boxes aiming short; eases now frame-paced; 0 resize-undo jumps in 3/3 runs. Commit 8206454."}
-  - {id: n19, parent: n2, kind: step, title: "Pen edits right after a drawn addition (mixed-ten erase Revenue, recolour Settings) wait for the auto-run and go to the model under load: make them direct and visible <50 ms every run", status: done,
-     result: "Countdown was dropped while the last edit landed; fixed: under load 5/5 pen edits direct, 8-13 ms, 4/4 runs. Commit 6c5795d."}
-  - {id: n20, parent: n1, kind: step, title: "Under 2-core load (two CPU hogs) mixed-ten undo of the drawn addition jumps (Docs x 915 px in one frame at +155 ms, 3 of 4 runs; once undo 2 too): make it glide every run", status: done,
-     result: "Real bug: undo faded out Overview, not Docs (words shifted nodes). Fixed; undo 6 clean 3/3 loaded. Commit c38b21d."}
-  - {id: n21, parent: n1, kind: step, title: "Under 2-core load the late hot reloads of undos 6-9 land together ~1.5 s after undo 10: nav Overview hops 58-76 px in one frame; also resize undo 8 shows no preview", status: done,
-     result: "Four late-reload races fixed; undo phase clean in 6/6 loaded and 2/2 unloaded runs. Commit 356fb7d."}
-  - {id: n22, parent: n2, kind: step, title: "Under 2-core load, pen edits right after a drawn addition join its drawing ('note attached') and go to the model (3 of 6 runs); unloaded, the add ghost shows at 53-56 ms: make both direct and <50 ms every run", status: done,
-     result: "A landing mid-typing dropped the countdown; now paused instead. Loaded 4/4 runs all pen edits direct. Commit 9229dc0."}
-  - {id: n23, parent: n1, kind: step, title: "First drawn addition of a fresh session sometimes shows its ghost late (direct-insert Blog 57-98 ms in 2 of 5 runs, baseline too; later ones 14-30 ms): find what the first lift waits on, <50 ms every run", status: done,
-     result: "Cold code on first lift; warm it in idle time. First caret ghost 20-31 ms, 5/5 runs. Commit a2a0976."}
-  - {id: n24, parent: n1, kind: step, title: "First use of each other gesture (scribble erase, ring recolour, arrow move, first drag, first resize) under two CPU hogs: measure first-vs-later latency, warm whatever is cold, <50 ms every run", status: done,
-     result: "Nothing cold: every first use 1-29 ms under load, 4/4 runs. Preview tests now skip the warm-up ghost. 8c22f8d."}
-  - {id: n25, parent: n0, kind: verify, title: "Verify as a skeptic from a fresh checkout of agent: re-run every GOAL check (motion e2es, shared-plane 20+, mixed-ten loaded and not, proof GIFs + report), fix or retire caret-insert.mjs, then ATTEST or reopen", status: done,
-     result: "All six criteria re-run from fresh checkout and pass, loaded too; caret-insert fixed; ATTEST written."}
+  - {id: n0, parent: null, kind: goal, title: "Build ever harder creative and everyday web pages by drawing, scoring and improving the tools each round", status: open}
+  - {id: n1, parent: n0, kind: approach, title: "Round bench: reference pages as HTML, a hand-planned sketch per page drawn through the real overlay on a blank app, scored by screenshot likeness + block layout; fix the worst gap each round", status: active,
+     branch: try/n1-round-bench, result: null}
+  - {id: n2, parent: n0, kind: approach, title: "Auto-sketch from the target: derive rough strokes and words from the reference page's own boxes, so every page is drawn the same honest way and rounds scale cheaply", status: open,
+     branch: try/n2-auto-sketch, result: null}
+  - {id: n3, parent: n0, kind: approach, title: "Grow the visual vocabulary first: catalogue creative techniques (gradients, overlap, big type, texture, motion) and add drawable/wordable ways to ask for each, tested on single sections", status: open,
+     branch: try/n3-vocabulary, result: null}
+  - {id: n4, parent: n1, kind: step, title: "Round 1 set: 5 easy creative + 5 easy everyday reference pages, a likeness scorer (pixel/structure), sketches for each, dry run free; then one live page to calibrate cost", status: active, result: null}
