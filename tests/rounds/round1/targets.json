@@ -1,0 +1,807 @@
+{
+ "measured": "2026-10-20T19:57:54.416Z",
+ "targets": {
+  "c1-sunset-hero": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 94
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 72,
+      "y": 32,
+      "w": 54,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "links",
+     "rect": {
+      "x": 910,
+      "y": 38,
+      "w": 298,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 140,
+      "y": 244,
+      "w": 1000,
+      "h": 240
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 330,
+      "y": 516,
+      "w": 620,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 616,
+      "w": 220,
+      "h": 61
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-brutalist-type": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 77
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 77,
+      "w": 1280,
+      "h": 383
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 48,
+      "y": 510,
+      "w": 480,
+      "h": 78
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 945,
+      "y": 508,
+      "w": 287,
+      "h": 80
+     },
+     "must": true
+    }
+   ]
+  },
+  "c3-split-studio": {
+   "regions": [
+    {
+     "role": "left-panel",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 640,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 56,
+      "w": 512,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 262,
+      "w": 512,
+      "h": 171
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 64,
+      "y": 461,
+      "w": 440,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 558,
+      "w": 236,
+      "h": 58
+     },
+     "must": false
+    },
+    {
+     "role": "right-panel",
+     "rect": {
+      "x": 640,
+      "y": 0,
+      "w": 640,
+      "h": 900
+     },
+     "must": false
+    },
+    {
+     "role": "orb",
+     "rect": {
+      "x": 740,
+      "y": 230,
+      "w": 440,
+      "h": 440
+     },
+     "must": true
+    }
+   ]
+  },
+  "c4-neon-dark": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 82
+     },
+     "must": true
+    },
+    {
+     "role": "badge",
+     "rect": {
+      "x": 510,
+      "y": 212,
+      "w": 260,
+      "h": 34
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 120,
+      "y": 274,
+      "w": 1040,
+      "h": 212
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 340,
+      "y": 514,
+      "w": 600,
+      "h": 46
+     },
+     "must": false
+    },
+    {
+     "role": "ctas",
+     "rect": {
+      "x": 0,
+      "y": 604,
+      "w": 1280,
+      "h": 52
+     },
+     "must": true
+    }
+   ]
+  },
+  "c5-editorial": {
+   "regions": [
+    {
+     "role": "masthead",
+     "rect": {
+      "x": 72,
+      "y": 0,
+      "w": 1136,
+      "h": 109
+     },
+     "must": true
+    },
+    {
+     "role": "number",
+     "rect": {
+      "x": 72,
+      "y": 165,
+      "w": 284,
+      "h": 298
+     },
+     "must": true
+    },
+    {
+     "role": "story",
+     "rect": {
+      "x": 412,
+      "y": 165,
+      "w": 492,
+      "h": 298
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 412,
+      "y": 196,
+      "w": 492,
+      "h": 183
+     },
+     "must": false
+    },
+    {
+     "role": "dek",
+     "rect": {
+      "x": 412,
+      "y": 403,
+      "w": 492,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 960,
+      "y": 165,
+      "w": 248,
+      "h": 298
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-login": {
+   "regions": [
+    {
+     "role": "card",
+     "rect": {
+      "x": 430,
+      "y": 150,
+      "w": 420,
+      "h": 420
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 470,
+      "y": 190,
+      "w": 340,
+      "h": 31
+     },
+     "must": true
+    },
+    {
+     "role": "email",
+     "rect": {
+      "x": 470,
+      "y": 288,
+      "w": 340,
+      "h": 44
+     },
+     "must": true
+    },
+    {
+     "role": "password",
+     "rect": {
+      "x": 470,
+      "y": 376,
+      "w": 340,
+      "h": 44
+     },
+     "must": true
+    },
+    {
+     "role": "submit",
+     "rect": {
+      "x": 470,
+      "y": 448,
+      "w": 340,
+      "h": 46
+     },
+     "must": true
+    },
+    {
+     "role": "forgot",
+     "rect": {
+      "x": 470,
+      "y": 514,
+      "w": 340,
+      "h": 16
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-pricing": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 0,
+      "y": 80,
+      "w": 1280,
+      "h": 50
+     },
+     "must": true
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 0,
+      "y": 142,
+      "w": 1280,
+      "h": 21
+     },
+     "must": false
+    },
+    {
+     "role": "tier-1",
+     "rect": {
+      "x": 132,
+      "y": 227,
+      "w": 320,
+      "h": 440
+     },
+     "must": true
+    },
+    {
+     "role": "tier-2",
+     "rect": {
+      "x": 480,
+      "y": 207,
+      "w": 320,
+      "h": 480
+     },
+     "must": true
+    },
+    {
+     "role": "tier-3",
+     "rect": {
+      "x": 828,
+      "y": 227,
+      "w": 320,
+      "h": 440
+     },
+     "must": true
+    }
+   ]
+  },
+  "e3-blog-list": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 68
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 160,
+      "y": 116,
+      "w": 960,
+      "h": 42
+     },
+     "must": true
+    },
+    {
+     "role": "post-1",
+     "rect": {
+      "x": 160,
+      "y": 186,
+      "w": 960,
+      "h": 140
+     },
+     "must": true
+    },
+    {
+     "role": "thumb-1",
+     "rect": {
+      "x": 160,
+      "y": 186,
+      "w": 220,
+      "h": 140
+     },
+     "must": false
+    },
+    {
+     "role": "post-2",
+     "rect": {
+      "x": 160,
+      "y": 354,
+      "w": 960,
+      "h": 140
+     },
+     "must": true
+    },
+    {
+     "role": "thumb-2",
+     "rect": {
+      "x": 160,
+      "y": 354,
+      "w": 220,
+      "h": 140
+     },
+     "must": false
+    },
+    {
+     "role": "post-3",
+     "rect": {
+      "x": 160,
+      "y": 522,
+      "w": 960,
+      "h": 140
+     },
+     "must": true
+    },
+    {
+     "role": "thumb-3",
+     "rect": {
+      "x": 160,
+      "y": 522,
+      "w": 220,
+      "h": 140
+     },
+     "must": false
+    }
+   ]
+  },
+  "e4-contact": {
+   "regions": [
+    {
+     "role": "form",
+     "rect": {
+      "x": 140,
+      "y": 80,
+      "w": 560,
+      "h": 513
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 140,
+      "y": 80,
+      "w": 560,
+      "h": 45
+     },
+     "must": true
+    },
+    {
+     "role": "name",
+     "rect": {
+      "x": 140,
+      "y": 177,
+      "w": 560,
+      "h": 68
+     },
+     "must": false
+    },
+    {
+     "role": "email",
+     "rect": {
+      "x": 140,
+      "y": 267,
+      "w": 560,
+      "h": 68
+     },
+     "must": false
+    },
+    {
+     "role": "message",
+     "rect": {
+      "x": 140,
+      "y": 357,
+      "w": 560,
+      "h": 162
+     },
+     "must": true
+    },
+    {
+     "role": "submit",
+     "rect": {
+      "x": 140,
+      "y": 545,
+      "w": 180,
+      "h": 48
+     },
+     "must": true
+    },
+    {
+     "role": "info",
+     "rect": {
+      "x": 780,
+      "y": 80,
+      "w": 360,
+      "h": 513
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-dashboard": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 280,
+      "y": 32,
+      "w": 960,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "stats",
+     "rect": {
+      "x": 280,
+      "y": 92,
+      "w": 960,
+      "h": 112
+     },
+     "must": true
+    },
+    {
+     "role": "stat-1",
+     "rect": {
+      "x": 280,
+      "y": 92,
+      "w": 225,
+      "h": 112
+     },
+     "must": false
+    },
+    {
+     "role": "stat-2",
+     "rect": {
+      "x": 525,
+      "y": 92,
+      "w": 225,
+      "h": 112
+     },
+     "must": false
+    },
+    {
+     "role": "stat-3",
+     "rect": {
+      "x": 770,
+      "y": 92,
+      "w": 225,
+      "h": 112
+     },
+     "must": false
+    },
+    {
+     "role": "stat-4",
+     "rect": {
+      "x": 1015,
+      "y": 92,
+      "w": 225,
+      "h": 112
+     },
+     "must": false
+    },
+    {
+     "role": "table",
+     "rect": {
+      "x": 280,
+      "y": 232,
+      "w": 960,
+      "h": 232
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-sunset-hero": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.5227414562100535,
+    "structure": 0.6357256734892386
+   },
+   "otherMean": {
+    "colour": 0.5229370022180749,
+    "structure": 0.4598580502069636
+   }
+  },
+  "c2-brutalist-type": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.39518470769744085,
+    "structure": 0.6012737016880207
+   },
+   "otherMean": {
+    "colour": 0.42699357677439703,
+    "structure": 0.43436741324747913
+   }
+  },
+  "c3-split-studio": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.4973626414368574,
+    "structure": 0.5304801561870189
+   },
+   "otherMean": {
+    "colour": 0.5330066868971447,
+    "structure": 0.4051189685200864
+   }
+  },
+  "c4-neon-dark": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.05473003360461837,
+    "structure": 0.027914297390351953
+   },
+   "otherMean": {
+    "colour": 0.2175538829088993,
+    "structure": 0.03700598368521078
+   }
+  },
+  "c5-editorial": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9424384594350693,
+    "structure": 0.7437539219015542
+   },
+   "otherMean": {
+    "colour": 0.686663538581065,
+    "structure": 0.5086858127719831
+   }
+  },
+  "e1-login": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9530344311224647,
+    "structure": 0.8889611562317222
+   },
+   "otherMean": {
+    "colour": 0.6821353882433462,
+    "structure": 0.5740194308832356
+   }
+  },
+  "e2-pricing": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.8798832796392314,
+    "structure": 0.7004301683841481
+   },
+   "otherMean": {
+    "colour": 0.6402375383271879,
+    "structure": 0.4783636263703155
+   }
+  },
+  "e3-blog-list": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9747745649394739,
+    "structure": 0.7829562286923074
+   },
+   "otherMean": {
+    "colour": 0.6775157290057079,
+    "structure": 0.5309800593708762
+   }
+  },
+  "e4-contact": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9875861049489375,
+    "structure": 0.89240906383316
+   },
+   "otherMean": {
+    "colour": 0.6740090432956198,
+    "structure": 0.5682704867790959
+   }
+  },
+  "e5-dashboard": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.815405762994423,
+    "structure": 0.6806927718204224
+   },
+   "otherMean": {
+    "colour": 0.6425918575863989,
+    "structure": 0.4720126978108649
+   }
+  }
+ }
+}

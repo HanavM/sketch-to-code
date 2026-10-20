@@ -52,6 +52,8 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import tidy from './sketches/index.mjs'
 import rough from './sketches/rough/index.mjs'
+import round1 from '../rounds/round1/sketches.mjs'
+import { pictureLikeness, blend } from '../rounds/lib/likeness.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
 import { toStrokes } from './lib/draw.mjs'
 import { makeApp } from './lib/app.mjs'
@@ -100,7 +102,7 @@ if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
-const SETS = { tidy, rough }
+const SETS = { tidy, rough, round1 }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
 const specs = SETS[SET]
@@ -281,6 +283,22 @@ function readRunRecord(dir) {
     }
   }
   return null
+}
+
+/**
+ * Round pages (tests/rounds) carry a reference picture: score how much the
+ * page now on screen looks like it (colour, structure, plus the region score
+ * as layout), as lift over a blank page. Viewport shot, overlay hidden.
+ */
+async function likenessOf(page, spec, row, tag) {
+  if (!spec.ref) return
+  const shot = await page.screenshot()
+  writeFileSync(join(OUT, 'shots', `${spec.id}-${tag}.png`), shot)
+  const pic = await pictureLikeness(page, spec.ref, shot)
+  const layout = row.score?.regionScore ?? null
+  row.likeness = { ...pic, layout, overall: blend(pic, layout, spec.baseline) }
+  const p = (x) => (x == null ? '—' : `${Math.round(x * 100)}%`)
+  log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colour)} · structure ${p(pic.structure)} · layout ${p(layout)}`)
 }
 
 const queue = [...chosen]
@@ -472,6 +490,7 @@ while (queue.length) {
         if (h) h.style.display = 'none'
       })
       row.score = await scorePage(page, key.spec)
+      await likenessOf(page, spec, row, 'untouched')
       const s = row.score
       log(`untouched page: intent ${s.intent === null ? '—' : s.intent.toFixed(2)} · realized ${String(s.realized)}`)
       if (s.realized && key.judged) row.error = 'the untouched page already scores realized: this spec measures nothing'
@@ -569,6 +588,7 @@ while (queue.length) {
     })
     row.score = await scorePage(page, key.spec)
     row.realized = key.judged ? !!row.score.realized : null
+    await likenessOf(page, spec, row, 'built')
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-result.png`), fullPage: true })
     // order prints as — when there were fewer than two comparable regions:
     // "0%" there means "could not be measured", and printing that as a zero
