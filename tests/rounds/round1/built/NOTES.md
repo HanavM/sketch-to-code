@@ -69,3 +69,17 @@ What failed, and the common cause:
 - The c2 run record was not kept (bench out/ is not committed), so which of the two happened is unproven.
   Live bench runs now write a small digest per page to built/runs/<id>.json (actions, squiggles, type size,
   region, likeness, tokens) so the next live check can see it.
+
+## Step n22 (2026-10-21, free): two round-1 misses traced
+- c3 (heading copy on the small line): the panel note was typed at the panel's centre, 21px above the first
+  body line. Note focus took every stroke within 24px of the nearest one, and the panel box (distance 0) let
+  the body line in, so the note went to the panel and the body; the copy "Plants that grow with you" and
+  "serif" landed on the body. Fix: inside a drawn box, a note typed on (or between the lines of) a block
+  inside it is about that block; otherwise the box's contents leave the focus. Only closed, box-shaped strokes
+  count as containers (rings, jagged ridges and diagonal bands on layered pages do not). Checked offline on
+  the round 1-3 dry-run notes: only c3's panel note and round-3 c1's button note change (the button no
+  longer drags in both ridges); every other note is unchanged.
+- c5 (sidebar became a picture): the sidebar was a plain box with no note; nothing said it was not an image.
+  Reading and codegen now both say a plain box is never an image (only a box with an X, or a note saying
+  picture/photo/image); an empty box beside the main column is a sidebar with short plausible text.
+  Prompt-only: proven only by the next live run of c5.

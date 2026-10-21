@@ -168,6 +168,11 @@ Rules:
   items of the same kind with plausible content. An ellipsis AFTER a closing
   quote ("Can we get"…) means the copy was cut short: finish it plausibly. An
   ellipsis INSIDE the quotes ("Write a message…") is literal text.
+- A plain drawn box is never an image placeholder. Build an image (or a grey
+  picture block) only where the ink is a box with an X through it or the notes
+  say picture/photo/image. An empty box beside the main column is a sidebar or
+  panel: give it a short heading and a few lines of plausible text that suit
+  the page.
 - "insertSlot" on an add/design action: the user drew it in the gap between
   two siblings. Put the new element in the source right after "after" and
   right before "before" (both carry srcLoc), inside the same parent. Never

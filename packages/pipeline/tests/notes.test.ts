@@ -540,6 +540,48 @@ describe('note focus — a cluster holding several drawings', () => {
     expect(r[1]!.focus).toEqual(['btn'])
   })
 
+  it('a note typed inside a drawn panel but on none of its contents is about the panel (round 1 c3)', () => {
+    // a drawn box: points all along its four edges, closed
+    const box = (id: string, x0: number, y0: number, x1: number, y1: number) => {
+      const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]] as const
+      const points: Array<{ x: number; y: number; t: number }> = []
+      for (let k = 0; k < 4; k++) {
+        const [ax, ay] = corners[k]!, [bx, by] = corners[k + 1]!
+        for (let i = 0; i < 10; i++) points.push({ x: ax + ((bx - ax) * i) / 10, y: ay + ((by - ay) * i) / 10, t: points.length })
+      }
+      points.push({ x: x0, y: y0, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    const line = (id: string, x0: number, y: number, x1: number) => box(id, x0, y, x1, y + 12)
+    const panel = [box('panel', 3, 3, 637, 896), line('h1', 72, 305, 533), line('h2', 72, 382, 358),
+      line('b1', 68, 471, 500), line('b2', 68, 495, 336)]
+    const ids = panel.map((s) => s.id)
+    const notes: TypedNote[] = [
+      // centre of the panel: 21px above the body's first line
+      { id: 'n0', text: 'deep green panel, cream serif "Plants that grow with you"', at: { x: 320, y: 450 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // between the heading's two lines: still the heading
+      { id: 'n1', text: 'giant serif headline', at: { x: 300, y: 350 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // right on a body line
+      { id: 'n2', text: 'muted body', at: { x: 200, y: 477 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(ids), panel)
+    expect(r[0]!.focus).toEqual(['panel'])
+    expect(r[1]!.focus).toEqual(['panel', 'h1', 'h2'])
+    expect(r[2]!.focus).toEqual(['panel', 'b1', 'b2'])
+  })
+
+  it('a ring drawn round a headline is not a container: a note on the headline keeps the ring too (layered pages)', () => {
+    const ring = { id: 'ring', tool: 'pen' as const, startedAt: 0, points: Array.from({ length: 64 }, (_, i) => ({
+      x: 640 + 300 * Math.cos((i / 63) * 2 * Math.PI), y: 450 + 300 * Math.sin((i / 63) * 2 * Math.PI), t: i })) }
+    const line = (id: string, x0: number, y: number, x1: number) => ({ id, tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 10 }, (_, i) => ({ x: x0 + ((x1 - x0) * i) / 9, y: y + (i % 2) * 12, t: i })) })
+    const all = [ring, line('h1', 400, 430, 880), line('b1', 450, 520, 830)]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([{ id: 'n0', text: 'gradient headline', at: { x: 640, y: 445 }, anchor: { kind: 'strokes', strokeIds: ids } }],
+      snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['ring', 'h1'])
+  })
+
   it('takes the overlay\'s own pick over the point, and omits focus when it is everything', () => {
     const notes: TypedNote[] = [
       { id: 'n0', text: 'a', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: all, focus: ['sub'] } },

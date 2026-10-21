@@ -310,19 +310,96 @@ export function noteFocus(
   let focus: string[] = (given ?? []).filter((id) => ids.includes(id))
   if (focus.length === 0 && at && Number.isFinite(at.x) && Number.isFinite(at.y)) {
     const d = new Map<string, number>()
+    const rects = new Map<string, BBox>()
     for (const st of strokes) {
       if (!ids.includes(st.id) || st.points.length === 0) continue
       let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
       for (const p of st.points) {
         x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y)
       }
-      d.set(st.id, distToRect(at, { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }))
+      const r = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+      rects.set(st.id, r)
+      d.set(st.id, distToRect(at, r))
     }
     if (d.size === 0) return undefined
     const best = Math.min(...d.values())
     focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
+    // Typed inside a drawn container (a panel box holding a heading and body
+    // lines): the container is at distance 0, so distance alone can't tell a
+    // note about the panel from one about its heading. Typed on (or between
+    // the lines of) one of its contents → that block joins the focus;
+    // otherwise the panel's contents leave it.
+    // Before this, the slack pulled in whichever child sat within 24px and the
+    // note's copy landed there (round 1 c3: the panel's headline copy went to
+    // the body line under the heading).
+    const container = innermostContainer(at, rects, boxes(strokes, ids))
+    if (container) {
+      const c = rects.get(container)!
+      // the container's own X (an image box) shares its box: part of it, not contents
+      const kids = ids.filter((id) => id !== container && rects.has(id) && contains(c, rects.get(id)!) && !sameBox(c, rects.get(id)!))
+      const bestKid = Math.min(...kids.map((id) => d.get(id) ?? Infinity))
+      const near = kids.filter((id) => (d.get(id) ?? Infinity) <= bestKid + NOTE_FOCUS_SLACK_PX)
+      if (near.length > 0 && inside(at, union(near.map((id) => rects.get(id)!)), NOTE_ON_BLOCK_PX)) {
+        focus = ids.filter((id) => focus.includes(id) || near.includes(id))
+      } else focus = focus.filter((id) => !kids.includes(id))
+    }
   }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
+}
+
+/** How far outside a block's own box a point may be and still count as typed on it. */
+export const NOTE_ON_BLOCK_PX = 12
+
+const inside = (p: { x: number; y: number }, r: BBox, pad = 0): boolean =>
+  p.x >= r.x - pad && p.x <= r.x + r.w + pad && p.y >= r.y - pad && p.y <= r.y + r.h + pad
+
+const contains = (outer: BBox, r: BBox): boolean =>
+  r.x >= outer.x && r.y >= outer.y && r.x + r.w <= outer.x + outer.w && r.y + r.h <= outer.y + outer.h
+
+const union = (rs: BBox[]): BBox => {
+  const x0 = Math.min(...rs.map((r) => r.x)), y0 = Math.min(...rs.map((r) => r.y))
+  const x1 = Math.max(...rs.map((r) => r.x + r.w)), y1 = Math.max(...rs.map((r) => r.y + r.h))
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+}
+
+const sameBox = (a: BBox, b: BBox, tol = 12): boolean =>
+  Math.abs(a.x - b.x) <= tol && Math.abs(a.y - b.y) <= tol &&
+  Math.abs(a.x + a.w - (b.x + b.w)) <= tol && Math.abs(a.y + a.h - (b.y + b.h)) <= tol
+
+/**
+ * Strokes drawn as a box: closed, and nearly every point on the edge of its own
+ * bounding box. Rings, jagged shapes and diagonal lines also have a big bbox
+ * that "holds" other ink, but they are not containers (layered pages put a
+ * ring around a headline on purpose).
+ */
+function boxes(strokes: Stroke[], ids: string[]): Set<string> {
+  const out = new Set<string>()
+  for (const st of strokes) {
+    const pts = st.points
+    if (!ids.includes(st.id) || pts.length < 8) continue
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+    for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+    const w = x1 - x0, h = y1 - y0
+    if (w < 40 || h < 40) continue
+    const tol = Math.max(6, 0.06 * Math.min(w, h))
+    const a = pts[0]!, b = pts[pts.length - 1]!
+    if (Math.hypot(a.x - b.x, a.y - b.y) > Math.max(24, 0.1 * Math.min(w, h))) continue
+    const onEdge = pts.filter((p) => Math.min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y) <= tol).length
+    if (onEdge / pts.length >= 0.85) out.add(st.id)
+  }
+  return out
+}
+
+/** The smallest drawn box that holds the point and at least one other stroke. */
+function innermostContainer(p: { x: number; y: number }, rects: Map<string, BBox>, boxIds: Set<string>): string | null {
+  let best: string | null = null
+  let area = Infinity
+  for (const [id, r] of rects) {
+    if (!boxIds.has(id) || !inside(p, r)) continue
+    const holds = [...rects].some(([o, or]) => o !== id && contains(r, or) && !sameBox(r, or))
+    if (holds && r.w * r.h < area) { best = id; area = r.w * r.h }
+  }
+  return best
 }
 
 const distToRect = (p: { x: number; y: number }, r: BBox): number => {
@@ -536,7 +613,10 @@ thickness tell you heading versus body, not whether it is decoration. Only call 
 curve DECORATION when it is doing a decorative job — a divider, a background
 band, a blob behind content — and never when it sits in a text slot.
 
-Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
+Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs
+(a plain box is NEVER an image: only a box with an X through it, or a note
+saying picture/photo/image, is one; an empty box beside the main column is a
+sidebar or panel with short plausible content),
 labeled rounded rects = buttons, squiggly lines = text placeholders,
 scribble/hatching between or inside boundary lines = a FILLED/shaded region
 (say so in the instruction — it is fill, not strokes), circles
