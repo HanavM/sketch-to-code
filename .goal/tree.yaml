@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Round 1 pages rebuilt with all the new fixes score far higher (e.g. contact 11% to 68%); next, the last three round-1 pages, then a harder round 4."
-lock: null
+lock: {by: run-n46-1319, until: "2026-10-21T14:49Z"}
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
