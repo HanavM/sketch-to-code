@@ -169,6 +169,15 @@ function factsInPage() {
         }
         return null
       })(),
+      // a column or row of bare small round dots (round 4 c5 story step dots: unsaid, so dropped)
+      dotKids: (() => {
+        if (kids.length < 3 || txt(el)) return null
+        const bs = kids.map((k) => k.getBoundingClientRect())
+        const ok = kids.every((k, i) => !k.children.length && bs[i].width >= 4 && bs[i].width <= 24 && Math.abs(bs[i].width - bs[i].height) <= 2 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= bs[i].width * 0.4 && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05)
+        if (!ok) return null
+        const vert = bs[1].top - bs[0].top > Math.abs(bs[1].left - bs[0].left)
+        return { px: Math.round(bs[0].width), vert, gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right), fills: kids.map((k) => rgba(getComputedStyle(k).backgroundColor)) }
+      })(),
       // a stepper: each item leads with a small round numbered circle (round 4 e3 said 'links: 1Cart, 2Shipping')
       stepper: (() => {
         if (kids.length < 3) return null
@@ -397,6 +406,8 @@ const NAMED = [
   ['pale grey', 244, 245, 248],
   // round 4 c5 #bbf7d0 card was called 'light grey'
   ['mint green', 187, 247, 208],
+  // round 4 e4 #0ea5e9 was called 'teal' and #fecaca 'pale lilac' (weighted distance underrates blue and violet)
+  ['bright sky blue', 14, 165, 233], ['pale pink', 254, 205, 205],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -422,6 +433,7 @@ export function colourName(c) {
   for (const [n, r, g, b] of NAMED) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
+    if (n === 'bright sky blue' && !(hue(c) >= 193 && hue(c) <= 215 && chroma >= 120)) continue
     if (n === 'pale grey' && !(chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236)) continue
     if (n === 'off-white' && chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236) continue
     if (n === 'near-black indigo' && !(hue(c) >= 225 && hue(c) <= 285 && chroma >= 8 && Math.max(c.r, c.g, c.b) <= 40)) continue
@@ -465,7 +477,7 @@ function effectWords(f) {
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   if (f.vertical) w.push('vertical')
   else if (f.tilt3d) w.push('tilted back in 3D perspective')
-  else if (turn >= 3 && turn <= 60) w.push('tilted')
+  else if (turn >= 1.5 && turn <= 60) w.push(turn < 3 ? 'tilted slightly' : 'tilted')
   else if (turn > 60 && turn < 170) w.push('diagonal')
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
   // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
@@ -664,6 +676,17 @@ function decideOne(f, page, marked, said) {
     const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
     return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
+  // bare dots in a column or row: say how many, size, spacing and each colour
+  if (f.dotKids && !f.regionKids.length) {
+    const d = f.dotKids, names = d.fills.map(colourName)
+    const cols = names.every((n) => n === names[0]) ? `all ${names[0]}` : names.slice(1).every((n) => n === names[1]) ? `first ${names[0]}, the rest ${names[1]}` : names.join(', ')
+    return { kind: 'box', note: `${d.fills.length} small round dots (${d.px}px) ${d.vert ? 'stacked in a column' : 'in a row'} ${d.gap}px apart, no box around them: ${cols}` }
+  }
+  // a thin textless filled strip (a reading-progress bar along the top edge): said as a strip, or it
+  // reads as a heading line (round 4 c5: built a site title)
+  if (fill && !f.text && !f.kidCount && h <= 10 && w >= h * 8) {
+    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (a progress bar)${f.rect.y <= 4 ? ' along the top edge' : ''}` }
+  }
   // a progress meter with its label lines
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
     const p = f.progress
@@ -764,7 +787,10 @@ function decideOne(f, page, marked, said) {
     // only say it when there is something a box can't show
     // ...and names the filled thing, so the colour can't be read as the text's (a reading turned
     // 'vertical near-black, light grey text' into near-black text on the page)
-    const noun = lightText && !what ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
+    // a filled card with a title and copy names the block too: 'mint green "Wait", text ...' coloured the
+    // title and left the card dark like its neighbour (round 4 c5)
+    const filledCard = fill && !frosted && !f.regionKids.length && f.kidTexts.length >= 2 && !look.includes('card')
+    const noun = (lightText || filledCard) && !what ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
     const say = uniq([...look, noun, what]).join(' ') + lightText
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
     const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null

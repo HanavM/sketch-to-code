@@ -323,7 +323,7 @@
    ],
    [
     "glow-cyan",
-    "soft blurred bleeding off the left page edge (starts 80px past it) big vivid teal circle"
+    "soft blurred bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle"
    ],
    [
     "glow-pink",
@@ -409,7 +409,7 @@
    ],
    [
     "progress",
-    "green"
+    "solid green strip only 6px tall, 420px wide, no text (a progress bar) along the top edge"
    ],
    [
     "number",
@@ -424,16 +424,20 @@
     "big serif \"The soil remembers everything.\""
    ],
    [
+    "dots",
+    "5 small round dots (10px) stacked in a column 14px apart, no box around them: first green, the rest mint green"
+   ],
+   [
     "step-1",
     "deep green block, pale yellow text \"Plant\", text \"Seeds go in after the last frost, two fingers deep, facing the morning sun.\""
    ],
    [
     "step-2",
-    "mint green \"Wait\", text \"Water at dusk. Do nothing else. The hardest part of gardening is patience.\""
+    "mint green block \"Wait\", text \"Water at dusk. Do nothing else. The hardest part of gardening is patience.\""
    ],
    [
     "step-3",
-    "yellow \"Harvest\", text \"Pick in the cool of the morning and share at least a third with the neighbours.\""
+    "tilted slightly yellow block \"Harvest\", text \"Pick in the cool of the morning and share at least a third with the neighbours.\""
    ]
   ]
  },
@@ -495,7 +499,7 @@
    ],
    [
     "kpis",
-    "4 stat cards in a row: \"Pipeline value\" $1.28M (indigo sparkline rising, bottom right), \"Deals won\" 38 (green sparkline rising, bottom right), \"Win rate\" 31% (light orange sparkline falling, bottom right), \"Avg. cycle\" 24 days (teal sparkline rising, bottom right)"
+    "4 stat cards in a row: \"Pipeline value\" $1.28M (indigo sparkline rising, bottom right), \"Deals won\" 38 (green sparkline rising, bottom right), \"Win rate\" 31% (light orange sparkline falling, bottom right), \"Avg. cycle\" 24 days (bright sky blue sparkline rising, bottom right)"
    ],
    [
     "line-chart",
@@ -613,7 +617,7 @@
    ],
    [
     "storage",
-    "\"Storage\", thin progress bar 68% filled teal on a light grey track, small grey \"13.6 GB of 20 GB used\" under"
+    "\"Storage\", thin progress bar 68% filled bright sky blue on a light grey track, small grey \"13.6 GB of 20 GB used\" under"
    ],
    [
     "breadcrumb",
@@ -621,11 +625,11 @@
    ],
    [
     "toolbar",
-    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; teal button \"Upload\" on the right"
+    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; bright sky blue button \"Upload\" on the right"
    ],
    [
     "file-grid",
-    "grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow \"Moodboards\" 14 items, soft yellow \"Exports\" 32 items, pale lilac \"Brief.pdf\" 2.4 MB, sky blue to lavender gradient \"hero-v3.png\" 5.1 MB, light grey \"Copy deck.docx\" 88 KB, sky blue to lavender gradient \"logo-mark.svg\" 12 KB, light grey \"fonts.zip\" 9.7 MB, pale lilac \"Invoice-0912.pdf\" 140 KB; \"hero-v3.png\" selected (teal 2px border)"
+    "grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow \"Moodboards\" 14 items, soft yellow \"Exports\" 32 items, pale pink \"Brief.pdf\" 2.4 MB, sky blue to lavender gradient \"hero-v3.png\" 5.1 MB, light grey \"Copy deck.docx\" 88 KB, sky blue to lavender gradient \"logo-mark.svg\" 12 KB, light grey \"fonts.zip\" 9.7 MB, pale pink \"Invoice-0912.pdf\" 140 KB; \"hero-v3.png\" selected (bright sky blue 2px border)"
    ],
    [
     "details",

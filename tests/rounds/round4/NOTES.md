@@ -82,3 +82,17 @@ a toolbar of buttons in nested groups. Plan changes: round 4 e3/e4, round 2 e1 (
 | e3 checkout | 37% -> 48% | 38k | stepper circles, radio options, thumbnails with sub-lines, pale grey page all built; near-identical. Summary card shorter than target. |
 
 All 10 round-4 pages now built at least once.
+
+## n55: colour names, story-page strip, dots and card fills (likeness v3)
+
+Planner: #0ea5e9 is now 'bright sky blue' (was 'teal'; hue 193-215 only, so #14b8a6 stays teal and #06b6d4 cyan),
+#fecaca 'pale pink' (was 'pale lilac'); a thin textless filled strip is 'solid <colour> strip only Npx tall, no text
+(a progress bar)' (was 'green', read as a site title); a column/row of bare round dots says count, size, gap and
+colours; a 1.5-3deg turn says 'tilted slightly'; a filled card with title and copy says '<colour> block' so the colour
+lands on the card, not its title. Plan diffs: round 3 c2/c4/c5/e4 (sky blue, 'block' on brutal cards), round 4
+c1/c5/e1/e4; rounds 1-2 unchanged except round 2 none.
+
+| page | before | after | tokens | notes |
+|---|---|---|---|---|
+| c5 sticky story | 57% | 38%, then 54% | ~47k, then ~37k | first re-run: strip, dots, tilt all built, no invented title, but every card dark green ('mint green "Wait"' coloured only the title). After the 'block' fix: green, mint and yellow cards, slight tilt, strip, dots, effects 100%. Score flat (noise band ~±5); giant "03" still ~half size (n40), cards a little paler with gradients. |
+| e4 file manager | 59% | 53% | ~70k | Upload button and progress now sky blue, Brief.pdf tile pale pink as target; layout near-identical. Score swing is noise; build added file icons inside tiles (target plain colour blocks). |

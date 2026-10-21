@@ -1,50 +1,51 @@
 {
   "id": "c5-sticky-story",
-  "at": "2026-10-21T17:12:01.962Z",
+  "at": "2026-10-21T17:53:19.335Z",
   "likeness": {
     "version": 3,
-    "overall": 0.574861226936958,
-    "overallV2": 0.574861226936958,
-    "overallV1": 0.5175899454384613,
-    "colour": 0.9159130690511887,
-    "structure": 0.7486436128150374,
-    "structureStrict": 0.6686143478773434,
-    "colourAligned": 0.9159130690511887,
-    "structureAligned": 0.7486436128150374,
+    "overall": 0.5419806484427977,
+    "overallV2": 0.5419806484427977,
+    "overallV1": 0.48787507424717524,
+    "colour": 0.9119175648251538,
+    "structure": 0.6892840505305233,
+    "structureStrict": 0.6136784552197009,
+    "colourAligned": 0.9119175648251538,
+    "structureAligned": 0.6892840505305233,
     "align": {
-      "scale": 0.92,
-      "dx": 96,
-      "dy": 16,
-      "r": 0.8176748578105903
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8695700834383838
     },
-    "layout": 0.5993690329397221
+    "layout": 0.6511750369206533
   },
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 1,
     "kept": [
       "huge-type",
-      "serif"
-    ],
-    "missing": [
+      "serif",
       "tilt"
     ],
+    "missing": [],
     "extra": [
-      "hard-shadow",
-      "overlap"
+      "gradient",
+      "italic",
+      "overlap",
+      "soft-shadow"
     ]
   },
   "tokens": {
-    "input": 32546,
-    "output": 15869,
-    "cacheRead": 203180
+    "input": 29785,
+    "output": 19167,
+    "cacheRead": 135822
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 35792,
-      "output": 9640,
-      "cacheRead": 97244,
+      "billed": 33776,
+      "output": 13086,
+      "cacheRead": 105026,
       "toolCalls": 7,
       "tools": [
         "Glob",
@@ -53,25 +54,12 @@
         "Read src/index.css",
         "Read src/main.tsx",
         "Glob",
-        "Edit src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 107862
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 4369,
-      "output": 1760,
-      "cacheRead": 102852,
-      "toolCalls": 2,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 20368
+      "ms": 150868
     }
   ],
-  "reading": "The sketch builds a gardening-themed chapter page: a green title bar, a stacked 'chapter header' (giant '03', 'CHAPTER 3 OF 7' label, and a serif quote), plus three stacked cards ('Plant', 'Wait', 'Harvest') each with its own fill color and instructional body copy, all on a pale-yellow, Helvetica/deep-green-text page.",
+  "reading": "This is a chapter-intro page: a thin progress strip along the top, a large '03' chapter number with a wide-spaced label and a pull-quote beside a vertical rule, and a three-step Plant/Wait/Harvest sequence of cards with a small dot-column progress indicator beside them.",
   "actions": [
     {
       "kind": "add",
@@ -86,12 +74,15 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a bold heading-style text line across the top of the page, colored green (per note) — e.g. a page/site title such as 'The Gardener's Almanac'."
+      "instruction": "Add a solid deep green progress-bar strip, 6px tall and 420px wide, with no text, running along the top edge of the page."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s1"
+        "s1",
+        "s2",
+        "s3",
+        "s4"
       ],
       "textSize": [
         {
@@ -100,39 +91,7 @@
           ],
           "lines": 1,
           "fontPx": 156
-        }
-      ],
-      "region": [
-        68,
-        210,
-        324,
-        108
-      ],
-      "paths": [],
-      "instruction": "Add a giant chapter numeral '03' in Georgia serif font as a large display number, part of the chapter header."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s2"
-      ],
-      "textSize": [],
-      "region": [
-        64,
-        435,
-        178,
-        9
-      ],
-      "paths": [],
-      "instruction": "Add wide letter-spaced text, colored green, reading 'CHAPTER 3 OF 7', placed under the '03' numeral."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s3",
-        "s4"
-      ],
-      "textSize": [
+        },
         {
           "strokes": [
             "s3",
@@ -143,13 +102,13 @@
         }
       ],
       "region": [
-        68,
-        492,
-        396,
-        73
+        64,
+        210,
+        400,
+        355
       ],
       "paths": [],
-      "instruction": "Add a big serif quote line reading 'The soil remembers everything.' beneath the chapter label."
+      "instruction": "Add a chapter header block: a giant Georgia serif '03' chapter number, beneath it a wide-letter-spaced green label 'CHAPTER 3 OF 7', and beneath that a big seri"
     },
     {
       "kind": "add",
@@ -157,15 +116,29 @@
       "textSize": [],
       "region": [
         544,
+        124,
+        2,
+        98
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a vertical progress indicator: a column of five small round dots (10px), spaced 14px apart, no bounding box around them; the first dot deep green, the remai"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
         93,
-        653,
+        593,
         214
       ],
       "paths": [
-        "s5",
         "s6"
       ],
-      "instruction": "Add a card/container filled deep green, with pale yellow heading text 'Plant' and body copy: 'Seeds go in after the last frost, two fingers deep, facing the mor"
+      "instruction": "Add a deep green card with pale yellow heading 'Plant' and body text 'Seeds go in after the last frost, two fingers deep, facing the morning sun.'"
     },
     {
       "kind": "add",
@@ -180,7 +153,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a card/container filled mint green, with heading text 'Wait' and body copy: 'Water at dusk. Do nothing else. The hardest part of gardening is patience.'"
+      "instruction": "Add a mint green card with heading 'Wait' and body text 'Water at dusk. Do nothing else. The hardest part of gardening is patience.'"
     },
     {
       "kind": "add",
@@ -195,7 +168,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a card/container filled yellow, with heading text 'Harvest' and body copy: 'Pick in the cool of the morning and share at least a third with the neighbours.'"
+      "instruction": "Add a slightly tilted pale yellow card with heading 'Harvest' and body text 'Pick in the cool of the morning and share at least a third with the neighbours.'"
     }
   ],
   "rejected": [
