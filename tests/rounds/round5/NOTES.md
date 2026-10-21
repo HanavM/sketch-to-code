@@ -56,3 +56,17 @@ Fixes (planner, rounds 1-4 plans only gain list items):
   3 small rounded squares (40px) stacked down from its top 14px apart: first white, the rest faint white"), not a picture.
 - Lists of up to 8 short items are said in full (was 4 + "N more", which codegen filled with invented items).
 - Colours "dark plum" (#3f0e40, was "deep purple", built indigo) and "dark brown" (#431407, was "near-black").
+
+## n62: row lead items, tab colours, near-white page (2026-10-21, ~79k tokens)
+
+Planner fixes (free): a row of links whose first item is set apart (bold, bigger or another colour) says it first
+("bold 17px green \"Budget 2027\" first, then links: ..."); a selected tab says its letter colour when the rest share
+another; a wide filled bar says its colour ("pale grey bar"); a neutral near-white page (#fafafa, #f8fafc) is said
+as off-white (white cards vanished on a white build). Rounds 1-4: 7 notes gain words, none lose any.
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| e4 notification settings | 46% | **65%** | 51k | off-white page built, gap above the danger card kept |
+| e5 spreadsheet | 61% | 59% (flat) | 28k | green title and green Q1 tab now right, no invented red "Over"; menu and formula bars built ~half their drawn height, so the grid sits high |
+
+Side-by-sides: built/e4-settings-toggles-n62-cmp.png, built/e5-data-grid-n62-cmp.png.

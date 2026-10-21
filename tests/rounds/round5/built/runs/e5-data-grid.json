@@ -1,50 +1,50 @@
 {
   "id": "e5-data-grid",
-  "at": "2026-10-21T19:59:42.772Z",
+  "at": "2026-10-21T20:23:57.004Z",
   "likeness": {
     "version": 3,
-    "overall": 0.611595020287496,
-    "overallV2": 0.6097147611164753,
-    "overallV1": 0.4056273394824375,
-    "colour": 0.9898086754506112,
-    "structure": 0.9025827542411932,
-    "structureStrict": 0.7471632797434872,
-    "colourAligned": 0.9899108105466217,
-    "structureAligned": 0.9025827542411932,
+    "overall": 0.5889715720098347,
+    "overallV2": 0.5130050249276793,
+    "overallV1": 0.33356220670472236,
+    "colour": 0.9894177639304054,
+    "structure": 0.8861290021794337,
+    "structureStrict": 0.7077923081352736,
+    "colourAligned": 0.9919284213704551,
+    "structureAligned": 0.9059890053264217,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 16,
-      "r": 0.5981449377009134
+      "r": 0.6713495995727053
     },
-    "layout": 0.8108161339938834
+    "layout": 0.5945873499901633
   },
   "effects": null,
   "tokens": {
-    "input": 20606,
-    "output": 10460,
-    "cacheRead": 119131
+    "input": 19130,
+    "output": 8897,
+    "cacheRead": 143699
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 24115,
-      "output": 8050,
-      "cacheRead": 109920,
+      "billed": 21469,
+      "output": 6635,
+      "cacheRead": 134459,
       "toolCalls": 6,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 77131
+      "ms": 62083
     }
   ],
-  "reading": "The sketch lays out a full spreadsheet page: a top menu bar, a formula bar with cell reference and formula, a large data grid with column/row headers and sample rows, and a bottom sheet-tab bar.",
+  "reading": "The sketch lays out a spreadsheet page: a top title/menu bar, a formula bar with cell reference and formula, a large data grid with headers and sample rows, and a bottom sheet-tab bar.",
   "actions": [
     {
       "kind": "add",
@@ -59,7 +59,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top menu/navigation bar spanning the page width with links: Budget 2027, File, Edit, View, Insert, Data."
+      "instruction": "Pale grey top bar with a bold 17px green title \"Budget 2027\" on the left, followed by menu links: File, Edit, View, Insert, Data."
     },
     {
       "kind": "add",
@@ -74,7 +74,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Formula bar spanning the page width, a thin line below the menu bar: a small cell name box showing \"D4\" on the left with a divider, followed by a grey formula f"
+      "instruction": "Thin formula bar spanning the page width, below the title bar: a small cell-name box reading \"D4\" on the left, a vertical divider, then a grey formula text \"=SU"
     },
     {
       "kind": "add",
@@ -89,7 +89,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Spreadsheet data grid filling the main area, with thin grey cell lines: a pale grey header row of column letters A–H and row numbers 1–24 down a narrow left col"
+      "instruction": "Spreadsheet grid with thin grey cell lines: pale grey header row of column letters A–H, row numbers 1–24 in a narrow 46px left column, cells 154px wide by 30px "
     },
     {
       "kind": "add",
@@ -104,7 +104,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Bottom sheet-tab bar spanning the page width with tabs: Q1, Q2, Q3, Q4, Summary; the \"Q1\" tab shown selected (bold, white fill)."
+      "instruction": "Pale grey bottom tab bar with sheet links: Q1, Q2, Q3, Q4, Summary. \"Q1\" is the selected tab, shown bold in green text on white fill."
     }
   ],
   "rejected": []
