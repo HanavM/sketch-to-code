@@ -251,6 +251,9 @@ const NAMED = [
   ['blue', 37, 99, 235], ['sky blue', 125, 190, 245], ['cyan', 34, 211, 238], ['teal', 20, 150, 140],
   ['green', 34, 160, 80], ['deep green', 22, 70, 50], ['brown', 120, 72, 40],
   ['lime', 132, 204, 22], ['deep indigo', 30, 22, 80], ['deep purple', 59, 7, 100], ['dark teal', 15, 60, 60], ['pale yellow', 254, 249, 215], ['indigo', 79, 70, 229], ['off-white', 244, 244, 245],
+  // between the primaries (never a CSS keyword: 'crimson'/'deeppink' would build bright): round 3 c1's raspberry ridge was called 'red' and built bright red
+  ['deep raspberry', 157, 23, 77], ['dark pink', 190, 24, 93], ['soft yellow', 253, 230, 138], ['light orange', 251, 146, 60],
+  ['peach', 253, 186, 116], ['pale lilac', 245, 208, 254],
 ]
 const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'light grey', 'grey', 'dark grey'])
 const parse = (s) => {

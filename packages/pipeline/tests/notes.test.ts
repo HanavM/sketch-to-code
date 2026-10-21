@@ -582,6 +582,41 @@ describe('note focus — a cluster holding several drawings', () => {
     expect(r[0]!.focus).toEqual(['ring', 'h1'])
   })
 
+  it('two jagged outlines, one over the other: each note goes to the ridge it was typed on (round 3 c1)', () => {
+    const poly = (id: string, pts: [number, number][]) => {
+      const closed = [...pts, pts[0]!]
+      const points: { x: number; y: number; t: number }[] = []
+      for (let i = 0; i + 1 < closed.length; i++) {
+        const [ax, ay] = closed[i]!, [bx, by] = closed[i + 1]!
+        for (let k = 0; k < 8; k++) points.push({ x: ax + ((bx - ax) * k) / 8, y: ay + ((by - ay) * k) / 8, t: points.length })
+      }
+      points.push({ ...points[0]!, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    // far ridge: box runs to the page bottom and holds the near ridge's box
+    const far = poly('far', [[0, 610], [230, 470], [435, 600], [665, 420], [895, 585], [1100, 480], [1280, 565], [1280, 900], [0, 900]])
+    const near = poly('near', [[0, 660], [280, 560], [510, 700], [790, 590], [1020, 715], [1280, 610], [1280, 900], [0, 900]])
+    const all = [far, near]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([
+      { id: 'n0', text: 'deep raspberry jagged cut-out shape', at: { x: 620, y: 520 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n1', text: 'deep purple jagged cut-out shape', at: { x: 640, y: 780 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ], snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['far'])
+    expect(r[1]!.focus).toEqual(['near'])
+  })
+
+  it('a note typed on line 1 of a giant two-line heading reaches line 2 too (round 3 c5)', () => {
+    const zig = (id: string, y: number) => ({ id, tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 60 }, (_, i) => ({ x: 90 + i * 15, y: y + 50 * Math.sin((2 * Math.PI * i * 15) / 150), t: i })) })
+    const all = [zig('l1', 400), zig('l2', 545), { id: 'dek', tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 30 }, (_, i) => ({ x: 90 + i * 10, y: 720 + (i % 2) * 6, t: i })) }]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([{ id: 'n0', text: 'giant italic serif', at: { x: 300, y: 400 }, anchor: { kind: 'strokes', strokeIds: ids } }],
+      snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['l1', 'l2'])
+  })
+
   it('takes the overlay\'s own pick over the point, and omits focus when it is everything', () => {
     const notes: TypedNote[] = [
       { id: 'n0', text: 'a', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: all, focus: ['sub'] } },
