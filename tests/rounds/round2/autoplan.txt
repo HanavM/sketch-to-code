@@ -1,4 +1,4 @@
-c1-collage · marks 7 · words 61
+c1-collage · marks 7 · words 67
     logo         heading 
     photo-1      image   
     photo-2      image   
@@ -6,27 +6,27 @@ c1-collage · marks 7 · words 61
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: cream page, near-black text
+    note *: whole page: cream page, Helvetica type, near-black text
     note logo: italic serif "Field Notes"
     note photo-1: tilted grey to dark grey gradient block
-    note photo-2: tilted coral to red gradient block
+    note photo-2: tilted peach to dark pink gradient block
     note sticker: tilted vivid yellow circle with "NEW ISSUE 07"
-    note headline: giant serif "Slow travel, fast friends"
+    note headline: giant Georgia serif tight-set letters "Slow travel, fast friends"
     note body: text "A quarterly zine of walks, night trains and the people you meet on the way."
     note cta: near-black pill cream text button "Read issue 07"
-c2-outline-bleed · marks 5 · words 51
+c2-outline-bleed · marks 5 · words 68
     nav          text    
     outline-word heading 
     solid-word   heading 
     body         text    
     date         text    
-    note *: whole page: black page, white text
+    note *: whole page: black page, Helvetica type, white text
     note nav: links: INDEX, SHOWS, SHOP
-    note outline-word: bleeding off the left page edge giant heavy hollow outlined white "NOISE"
-    note solid-word: bleeding off the left page edge giant heavy lime "FEST"
-    note body: text "Three nights of loud guitars in a disused tram depot. Bring earplugs."
+    note outline-word: bleeding off the left page edge (starts 40px past it) giant Helvetica heavy tight-set letters hollow outlined white "NOISE"
+    note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica heavy tight-set letters lime "FEST"
+    note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."
     note date: mono lime "// 14—16 AUG 2027"
-c3-glass-blobs · marks 7 · words 49
+c3-glass-blobs · marks 7 · words 52
     blob-pink    circle  
     blob-cyan    circle  
     card         box     
@@ -34,41 +34,41 @@ c3-glass-blobs · marks 7 · words 49
     headline     heading 
     body         text    
     ctas         box     
-    note *: whole page: deep indigo page, white text
+    note *: whole page: deep indigo page, Helvetica type, white text
     note blob-pink: soft blurred big vivid pink circle
     note blob-cyan: soft blurred big vivid cyan circle
     note card: frosted glass
     note tag: frosted glass "Beta · v2.0"
-    note headline: huge "Your notes, finally calm"
+    note headline: huge Helvetica "Your notes, finally calm"
     note body: text "Write, link and find anything in a quiet space that syncs everywhere."
     note ctas: buttons: "Get started", "Watch demo"
-c4-mag-grid · marks 6 · words 55
+c4-mag-grid · marks 6 · words 57
     masthead     box     
     lead-img     image   
     lead-title   heading 
     img-1        image   
     img-2        image   
     pull-quote   heading 
-    note *: whole page: white page, serif type, near-black text
-    note masthead: thick rule under "The Weekly Ledger TUESDAY · NO. 412"
-    note lead-img: orange to brown gradient block
+    note *: whole page: white page, Georgia type, near-black text
+    note masthead: thick rule under "The Weekly Ledger", text "TUESDAY · NO. 412"
+    note lead-img: light orange to brown gradient block
     note lead-title: big serif "The quiet return of the corner shop"
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
     note pull-quote: italic red "“Nobody misses the queue, but everybody misses the chat.”"
-c5-retro-bands · marks 5 · words 55
+c5-retro-bands · marks 5 · words 64
     bands        image   
     logo         text    
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: pale yellow page, black text
-    note bands: tilted bleeding off the right page edge big orange, yellow, teal, brown stripes block
+    note *: whole page: pale yellow page, Helvetica type, black text
+    note bands: tilted bleeding off the right page edge (runs 411px past it) big orange, yellow, teal, brown stripes block
     note logo: brown "SUNDAE"
-    note headline: giant italic heavy uppercase brown "SOFT SERVE, HARD RULES"
-    note body: text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
+    note headline: giant Helvetica italic heavy uppercase brown "SOFT SERVE, HARD RULES"
+    note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
     note cta: teal hard offset shadow white text button "FIND A TRUCK"
-e1-checkout · marks 13 · words 56
+e1-checkout · marks 13 · words 57
     title        heading 
     ship-label   heading 
     name         box     
@@ -94,7 +94,7 @@ e1-checkout · marks 13 · words 56
     note item-1: picture with "Linen shirt $64"
     note item-2: picture with "Canvas tote $32"
     note item-3: picture with "Wool socks $32"
-    note total: "Total $128.00"
+    note total: "Total", text "$128.00"
 e2-shop-grid · marks 8 · words 52
     nav          text    
     filters      box     
@@ -129,7 +129,7 @@ e3-settings · marks 8 · words 47
     note row-4: toggle off "Weekly report Usage numbers for your"…
     note save: blue white text button "Save changes"
     note reset: red outline button "Reset all"
-e4-faq · marks 7 · words 52
+e4-faq · marks 7 · words 72
     title        heading 
     subtitle     text    
     search       box     
@@ -137,15 +137,15 @@ e4-faq · marks 7 · words 52
     q2           box     
     q3           box     
     q4           box     
-    note *: whole page: pale yellow page, near-black text
+    note *: whole page: pale yellow page, Helvetica type, near-black text
     note title: big "Questions, answered"
     note subtitle: brown text "Everything about orders, returns and your account."
     note search: pill search input "Search the help centre…"
-    note q1: "How long does delivery take? −" and text
+    note q1: "How long does delivery take? −", text "Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships."
     note q2: "Can I return a gift? +"
     note q3: "Do you ship abroad? +"
     note q4: "How do I change my password? +"
-e5-inbox · marks 8 · words 27
+e5-inbox · marks 8 · words 29
     folders      box     
     m1           box     
     m2           text    
@@ -155,6 +155,6 @@ e5-inbox · marks 8 · words 27
     from         text    
     message      text    
     note folders: sidebar "Compose Inbox 12 Starred Sent Drafts"
-    note m1: "Maya Chen Draft of the Q3 plan attached"
+    note m1: "Maya Chen", text "Draft of the Q3 plan attached"
     note subject: "Draft of the Q3 plan attached"
-    note from: text "Maya Chen · 9:41 AM"
+    note from: grey text "Maya Chen · 9:41 AM"

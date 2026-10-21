@@ -1,26 +1,26 @@
-c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 46
+c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 49
     logo         text     (hand: text)
     links        text     (hand: text)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     cta          button   (hand: button)
-    note *: whole page: coral to pink to purple gradient page, serif type, white text
+    note *: whole page: coral to pink to purple gradient page, Georgia type, white text
     note logo: italic "dusk."
     note links: links: Work, Studio, Journal, Contact
-    note headline: giant serif "Stay for the golden hour"
+    note headline: giant Georgia serif tight-set letters "Stay for the golden hour"
     note subhead: text "A slow-living retreat on the coast, where the evenings last a little longer."
     note cta: pill button "Book a stay"
-c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 46
+c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 49
     nav          box      (hand: box)
     headline     heading  (hand: heading)
     body         text     (hand: text)
     cta          button   (hand: button)
     note *: whole page: yellow page, black text
-    note nav: thick rule under nav bar "LOUD® INDEX — SHOP — ABOUT"
-    note headline: giant uppercase "MAKE IT LOUD"
+    note nav: thick rule under nav bar "LOUD®", text "INDEX — SHOP — ABOUT"
+    note headline: giant uppercase tight-set letters "MAKE IT LOUD"
     note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."
     note cta: black hard offset shadow yellow text button "SHOP NOW →"
-c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 40
+c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
     left-panel   box      (hand: box)
     logo         text     (hand: —)
     headline     heading  (hand: heading)
@@ -28,52 +28,52 @@ c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 40
     cta          button   (hand: box)
     right-panel  box      (hand: —)
     orb          circle   (hand: circle)
-    note left-panel: deep green
-    note logo: uppercase cream "VERDE"
-    note headline: giant serif cream "Plants that grow with you"
+    note left-panel: deep green block, cream text
+    note logo: uppercase wide-spaced letters cream "VERDE"
+    note headline: giant Georgia serif cream "Plants that grow with you"
     note body: cream text "Hand-picked houseplants, potted in recycled clay and delivered by bike across the city."
     note cta: cream outline button "BROWSE PLANTS"
     note right-panel: cream
     note orb: big glowing yellow to orange circle
-c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 64
+c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 67
     nav          box      (hand: box)
     badge        button   (hand: button)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     ctas         box      (hand: box)
-    note *: whole page: black page, faint grid lines, light grey text
+    note *: whole page: black page, faint grid lines, Helvetica type, light grey text
     note nav: nav bar "NOVA Product Docs Pricing"
     note badge: purple outline pill button "✦ v2 is live — read the notes"
-    note headline: giant heavy cyan to purple to coral gradient text "Ship at the speed of light"
+    note headline: giant Helvetica heavy cyan to purple to coral gradient text "Ship at the speed of light"
     note subhead: lavender text "The edge platform for teams who refuse to wait on their own infrastructure."
     note ctas: buttons: "Start building", "Talk to us"
-c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 49
+c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 52
     masthead     box      (hand: box)
     number       heading  (hand: heading)
     headline     heading  (hand: heading)
     dek          text     (hand: text)
     sidebar      box      (hand: box)
-    note *: whole page: off-white page, serif type, near-black text
-    note masthead: "The Long Read ISSUE 14 · AUTUMN"
-    note number: giant serif red "01"
+    note *: whole page: off-white page, Georgia type, near-black text
+    note masthead: "The Long Read", text "ISSUE 14 · AUTUMN"
+    note number: giant Georgia serif red "01"
     note story: "ESSAY"
-    note headline: huge serif "The quiet return of the handwritten letter"
+    note headline: huge Georgia serif "The quiet return of the handwritten letter"
     note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."
     note sidebar: sidebar "In this issue" and text
-e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 36
+e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 38
     card         box      (hand: box)
     title        heading  (hand: heading)
     email        box      (hand: box)
     password     box      (hand: box)
     submit       button   (hand: button)
     forgot       text     (hand: text)
-    note *: whole page: off-white page, dark navy text
+    note *: whole page: off-white page, Helvetica type, dark navy text
     note title: "Sign in", line under: "Welcome back. Enter your details."
     note email: label "Email" above, input "you@example.com"
     note password: label "Password" above, input "••••••••"
     note submit: blue white text button "Sign in"
     note forgot: blue "Forgot your password?"
-e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 37
+e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 40
     title        heading  (hand: heading)
     subtitle     text     (hand: text)
     tier-1       box      (hand: box)
@@ -82,7 +82,7 @@ e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 37
     note title: big "Simple pricing"
     note subtitle: "Start free. Upgrade when you grow."
     note tier-1: "Starter" list: "1 project", "Community support", "Basic analytics"
-    note tier-2: dark navy "Pro" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains"
+    note tier-2: dark navy block, white text "Pro" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains"
     note tier-3: "Team" list: "Everything in Pro", "SSO", "Audit logs"
 e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 31
     nav          box      (hand: box)
@@ -108,7 +108,7 @@ e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 40
     note message: label "Message" above an empty field
     note submit: teal white text button "Send message"
     note info: "Our office" and text
-e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 28
+e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 35
     sidebar      box      (hand: box)
     title        heading  (hand: heading)
     stat-1       box      (hand: box)
@@ -116,12 +116,12 @@ e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 28
     stat-3       box      (hand: box)
     stat-4       box      (hand: box)
     table        box      (hand: box)
-    note sidebar: dark navy sidebar "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted
+    note sidebar: dark navy sidebar, light grey text "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted
     note title: "Overview"
-    note stat-1: "Revenue $48.2k"
-    note stat-2: "Customers 1,204"
-    note stat-3: "Churn 2.1%"
-    note stat-4: "MRR $12.9k"
+    note stat-1: "Revenue", text "$48.2k"
+    note stat-2: "Customers", text "1,204"
+    note stat-3: "Churn", text "2.1%"
+    note stat-4: "MRR", text "$12.9k"
     note table: table, columns "Customer", "Plan", "Amount", "Status", 4 rows
 
 all pages: 52/53 hand marks matched

@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 let results: unknown[] = []
 let hang = false
+let throwAfter: string | null = null
 vi.mock('@anthropic-ai/claude-agent-sdk', () => ({
   query: ({ options }: { options: { abortController?: AbortController } }) => (async function* () {
     if (hang) {
@@ -13,10 +14,11 @@ vi.mock('@anthropic-ai/claude-agent-sdk', () => ({
       await new Promise((_, reject) => options.abortController?.signal.addEventListener('abort', () => reject(new Error('aborted'))))
     }
     for (const r of results) yield r
+    if (throwAfter) throw new Error(throwAfter)
   })(),
 }))
 
-const { createClaudeCodeProvider, readingFailure, perceptionTimeoutMs, PerceptionFailure, salvageReading } = await import('../src/claude-code.js')
+const { createClaudeCodeProvider, readingFailure, perceptionTimeoutMs, PerceptionFailure, salvageReading, streamedInputs } = await import('../src/claude-code.js')
 
 const usage = { input_tokens: 1200, cache_creation_input_tokens: 300, cache_read_input_tokens: 5000, output_tokens: 90 }
 const req = { png: Buffer.from('x'), brief: 'b', prompt: 'p', schema: {} }
@@ -112,5 +114,44 @@ describe('salvageReading: the answer the SDK gave up on', () => {
     ]
     const r = await createClaudeCodeProvider().interpretIntent({ ...req, schema })
     expect(r.raw).toEqual(answer)
+  })
+})
+
+describe('streamedInputs: the whole attempt, not the CLI\'s 2048-char cut', () => {
+  const schema = { required: ['reading', 'actions'] }
+  const long = 'x'.repeat(2500)
+  const full = `{"reading": "${long}", "unclear": , "actions": [{"kind": "add"}]}`
+  const cut = full.slice(0, 2048)
+  const stream = (json: string) => [
+    { type: 'stream_event', event: { type: 'content_block_start', content_block: { type: 'tool_use', name: 'StructuredOutput' } } },
+    ...json.match(/[\s\S]{1,700}/g)!.map((p) => ({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'input_json_delta', partial_json: p } } })),
+    { type: 'stream_event', event: { type: 'content_block_stop' } },
+  ]
+  it('swaps a cut raw input for the streamed one', () => {
+    const s = streamedInputs()
+    for (const m of stream(full)) s.see(m)
+    expect(s.full({ __unparsedToolInput: { raw: cut } })).toEqual({ __unparsedToolInput: { raw: full } })
+    expect(s.full({ reading: 'ok' })).toEqual({ reading: 'ok' })
+    expect(s.full({ __unparsedToolInput: { raw: '{"other' } })).toEqual({ __unparsedToolInput: { raw: '{"other' } })
+  })
+  it('round 3 c4: a long answer whose only fault is an empty value is salvaged even though the SDK throws after', async () => {
+    results = [
+      ...stream(full),
+      { type: 'assistant', message: { content: [{ type: 'tool_use', name: 'StructuredOutput', input: { __unparsedToolInput: { raw: cut } } }] } },
+      { type: 'result', subtype: 'error_max_structured_output_retries', num_turns: 6, errors: ['Failed to provide valid structured output after 5 attempts'], usage },
+    ]
+    throwAfter = 'Claude Code returned an error result: Failed to provide valid structured output after 5 attempts'
+    try {
+      const r = await createClaudeCodeProvider().interpretIntent({ ...req, schema })
+      expect((r.raw as { actions: unknown[] }).actions).toEqual([{ kind: 'add' }])
+      expect((r.raw as { reading: string }).reading).toBe(long)
+    } finally { throwAfter = null }
+  })
+  it('a throw with nothing salvaged still fails with the cause', async () => {
+    results = [{ type: 'result', subtype: 'error_max_structured_output_retries', num_turns: 6, errors: ['Failed after 5 attempts'], usage }]
+    throwAfter = 'Claude Code returned an error result'
+    try {
+      await expect(createClaudeCodeProvider().interpretIntent({ ...req, schema })).rejects.toThrow(/error_max_structured_output_retries/)
+    } finally { throwAfter = null }
   })
 })

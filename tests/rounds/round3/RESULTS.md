@@ -124,3 +124,24 @@ were missing "unclear" and would have been retried). The wrapped first answer st
 
 Side by sides: `built/c2-kinetic-marquee-n41-cmp.png`, `built/c4-brutal-index-n41-cmp.png`.
 All 10 round-3 pages have now been built at least once.
+
+## n42 (2026-10-21): brutal index keeps its rail and copy; failed readings salvaged in full
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 brutal index | 65% | **74%** | 30k (plus 31k on a run where the rail was still read as text colour, and 2 failed readings) | black side rail back with light text; all three cards carry the target's exact copy; all 7 regions placed |
+| c2 kinetic marquee | 56% | 40% | 127k (build 60k + repair 56k) | orange band now red-orange (was red), but this run placed it over the black band, set the intro tiny and drew the reel as a crossed placeholder: one run, read as noise plus a lead |
+
+- Planner: a titled card says its title and one short line (`"Manifesto", text "Websites should..."`); before it said
+  `"Manifesto" and text` and the build invented copy. A filled block with light text says `near-black bar, light grey
+  text` (a first try, `near-black, light grey text`, was read as near-black text on the page). On a band, the type's
+  colour is said even when it is the page's. New colour `red-orange` (hue 9-22, strong) so #ff3d00 is no longer "red".
+  Round 1/2 plan changes: card/stat titles split from their line, dark blocks name their light text.
+- Readings: c4 failed twice with "Failed to provide valid structured output after 5 attempts". The model re-sent a
+  good 2748-char answer whose only fault was `"unclear": ,`, but the CLI hands back a bad attempt cut to 2048 chars,
+  so the salvage (n5) could not parse it, and the SDK then threw. The provider now rebuilds each attempt from the
+  streamed tool input and keeps a salvaged answer when the SDK throws after it. Checked against the saved trace:
+  salvaged 8 actions.
+- Left: "01" built ~110px (target 420, n40); stamp not tilted; card titles not heavy Helvetica.
+
+Side by sides: `built/c4-brutal-index-n42-cmp.png`, `built/c2-kinetic-marquee-n42-cmp.png`.

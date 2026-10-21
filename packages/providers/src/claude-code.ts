@@ -92,6 +92,9 @@ export function createClaudeCodeProvider(): PerceptionProvider {
           persistSession: false,
           settingSources: [],
           systemPrompt: req.prompt,
+          // the full text of each StructuredOutput attempt: the CLI cuts a bad
+          // attempt's raw input to 2048 chars, too short to salvage a page reading
+          includePartialMessages: true,
           env: cleanEnv(),
           outputFormat: { type: 'json_schema', schema: req.schema },
         },
@@ -100,10 +103,13 @@ export function createClaudeCodeProvider(): PerceptionProvider {
       const usage = { input: 0, cacheRead: 0, output: 0 }
       let failure: string | null = 'the model session ended without an answer'
       let lastAttempt: unknown = undefined
+      const streamed = streamedInputs()
+      try {
       for await (const msg of q) {
         traceReading(msg)
+        streamed.see(msg)
         const attempt = structuredAttempt(msg)
-        if (attempt !== undefined) lastAttempt = attempt
+        if (attempt !== undefined) lastAttempt = streamed.full(attempt)
         if (msg.type === 'result') {
           failure = readingFailure(msg)
           if (!failure) raw = (msg as { structured_output?: unknown }).structured_output
@@ -120,6 +126,12 @@ export function createClaudeCodeProvider(): PerceptionProvider {
           usage.cacheRead += u.cache_read_input_tokens ?? 0
           usage.output += u.output_tokens ?? 0
         }
+      }
+      } catch (err) {
+        // round 3 c4 (2026-10-21): after a failed result the SDK also throws
+        // "Claude Code returned an error result"; a salvaged answer stands
+        if (failure) throw new PerceptionFailure(`${failure}; ${err instanceof Error ? err.message : String(err)}`.slice(0, 400), usage)
+        if (raw === undefined || (raw && typeof raw === 'object' && Object.keys(raw).length === 0)) throw err
       }
       // s2c-056: a reading that ended in error used to come back as raw {},
       // which interpretV2 reported as "interpreter returned malformed output":
@@ -211,6 +223,32 @@ export function createClaudeCodeProvider(): PerceptionProvider {
       }
       return { texts, usage }
       })
+    },
+  }
+}
+
+/**
+ * Collects the streamed JSON of each StructuredOutput call. A bad attempt
+ * reaches the assistant message as {__unparsedToolInput: {raw}} with raw cut
+ * to 2048 chars (round 3 c4: 2748-char answers, `"unclear": ,` the only fault,
+ * failed 5 retries and could not be salvaged); full() swaps in the whole text.
+ */
+export function streamedInputs() {
+  let buf: string | null = null
+  let last: string | null = null
+  return {
+    see(msg: unknown): void {
+      const m = msg as { type?: string; event?: { type?: string; content_block?: { type?: string; name?: string }; delta?: { type?: string; partial_json?: string } } }
+      if (m.type !== 'stream_event' || !m.event) return
+      const e = m.event
+      if (e.type === 'content_block_start') buf = e.content_block?.type === 'tool_use' && e.content_block.name === 'StructuredOutput' ? '' : null
+      else if (e.type === 'content_block_delta' && buf !== null && e.delta?.type === 'input_json_delta') buf += e.delta.partial_json ?? ''
+      else if (e.type === 'content_block_stop' && buf !== null) { last = buf; buf = null }
+    },
+    full(attempt: unknown): unknown {
+      const raw = (attempt as { __unparsedToolInput?: { raw?: unknown } } | null)?.__unparsedToolInput?.raw
+      if (typeof raw !== 'string' || last === null || last.length <= raw.length || !last.startsWith(raw)) return attempt
+      return { __unparsedToolInput: { raw: last } }
     },
   }
 }

@@ -254,7 +254,15 @@ const NAMED = [
   // between the primaries (never a CSS keyword: 'crimson'/'deeppink' would build bright): round 3 c1's raspberry ridge was called 'red' and built bright red
   ['deep raspberry', 157, 23, 77], ['dark pink', 190, 24, 93], ['soft yellow', 253, 230, 138], ['light orange', 251, 146, 60],
   ['peach', 253, 186, 116], ['pale lilac', 245, 208, 254],
+  // round 3 c2's #ff3d00 band was called 'red' and built red; kept to orange-red hues (see colourName)
+  ['red-orange', 255, 61, 0],
 ]
+const hue = (c) => {
+  const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
+  if (!d) return 0
+  const h = mx === c.r ? ((c.g - c.b) / d) % 6 : mx === c.g ? (c.b - c.r) / d + 2 : (c.r - c.g) / d + 4
+  return (h * 60 + 360) % 360
+}
 const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'light grey', 'grey', 'dark grey'])
 const parse = (s) => {
   if (typeof s !== 'string') return s
@@ -272,6 +280,7 @@ export function colourName(c) {
   let best = null, bd = Infinity
   for (const [n, r, g, b] of NAMED) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
+    if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
     const d = (c.r - r) ** 2 * 0.3 + (c.g - g) ** 2 * 0.59 + (c.b - b) ** 2 * 0.11
     if (d < bd) { bd = d; best = n }
   }
@@ -512,7 +521,9 @@ function decideOne(f, page, marked, said) {
   if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
-    if (fill && !f.clipText && w > 300) tw.push(`on a ${colourName(f.bg)} band`)
+    // on a band, the type's colour is said even when it is the page's: round 3 c2's near-black words on the
+    // orange band were built white like the black band's
+    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
     return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${under}`.trim()) }
   }
@@ -523,6 +534,9 @@ function decideOne(f, page, marked, said) {
   if (fill || grad || bordered || ruled || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
     look.push(...fx)
     if (grad) look.push(grad); else if (fill && !frosted) look.push(colourName(f.bg))
+    // light text on a dark filled block says so, or the block's colour reads as the text's
+    // (round 3 c4: 'vertical near-black "INDEX OF THINGS"' built black text, no rail)
+    const lightText = fill && !frosted && textCol && dist(f.colour, f.bg) > 150 ? `, ${textCol} text` : ''
     const bc = bordered ? colourName(f.border.colour) : null
     if (fill && /light grey|white/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30) look.pop() // a faint card: the box shows it
     if (bordered && f.border.w >= 3) look.push(`thick ${bc} border`)
@@ -531,10 +545,17 @@ function decideOne(f, page, marked, said) {
     if (ruled) look.push('thick rule under')
     const what = f.tag === 'table' ? 'table' : f.tag === 'nav' ? 'nav bar' : f.tag === 'aside' ? 'sidebar' : null
     // only say it when there is something a box can't show
-    const say = uniq([...look, what]).join(' ')
+    // ...and names the filled thing, so the colour can't be read as the text's (a reading turned
+    // 'vertical near-black, light grey text' into near-black text on the page)
+    const noun = lightText && !what ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
+    const say = uniq([...look, noun, what]).join(' ') + lightText
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
     const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null
-    const copy = f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
+    // a titled card: its title and one short line are copy a person types, or the build invents its own
+    // (round 3 c4 cards built with made-up body copy from '"Manifesto" and text')
+    const titled = !f.regionKids.length && !list && head && f.kidTexts.length === 2 && f.kidTexts[1].length <= 110
+      ? `${quote(head)}, text ${quote(f.kidTexts[1], 110)}` : null
+    const copy = titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
   }
   if (f.pager && !f.regionKids.length) {
