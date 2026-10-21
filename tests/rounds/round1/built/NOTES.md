@@ -34,3 +34,28 @@ Readings (read-only, 9 pages): 8 ok first time, 1 ran out of turns on bad JSON (
   lines now; links region still scored missed (built links sit ~10px low). ~34k tokens.
 - Implied sizes for the other creative pages from their sketches: c2 157 (target 190), c3 70 (84), c4 87 (104),
   c5 122 (240, its giant "01" is drawn too small) and 75 (58). Sketch pitch, not the reader, limits these.
+
+## Step n8 (2026-10-21): round 1 completed live
+| page | run | likeness | colour | structure | layout | billed tokens |
+|---|---|---|---|---|---|---|
+| c2 brutalist type | 232s | 36% | 83% | 54% | 36% (2/4) | 91k |
+| c3 split studio | ~230s | 51% | 90% | 66% | 45% | 70k |
+| c4 neon dark | ~170s | 36% | 69% | 30% | 8% | 35k |
+| c5 editorial | ~200s | 15% | 93% | 59% | 51% | 57k |
+| e4 contact | ~120s | 11% | 98% | 83% | 35% | 25k |
+| e5 dashboard | ~110s | 63% | 98% | 76% | 76% | 24k |
+
+Round 1 now has all 10 pages built (c1 57%, c2 36%, c3 51%, c4 36%, c5 15%, e1 11%, e2 31%, e3 14%, e4 11%, e5 63%).
+Everyday pages look right by eye (e4, e5 near copies); their low numbers are the white-page lift-over-blank.
+
+What failed, and the common cause:
+- c2: the page look was typed on the nav box ("bright yellow page ... thick black rule under nav"): nav became a
+  black filled bar, links fell below it. c4: "near-black page with faint purple grid" typed on the nav box: the
+  dark look stopped where the content stopped (bottom third white), nav dropped. c5: "magazine on warm paper"
+  typed on the masthead: masthead became a tinted band. Three pages, one cause: a page-look note typed on a
+  block styles only that block. Fix (this step): notes that name the page (page, site, background, paper,
+  theme, whole...) also go to codegen as PAGE LOOK, applied to the page root at full viewport height.
+- c2 headline ~50px vs 160px drawn pitch; c5 "01" small (drawn small); c3 quoted copy went to the small line
+  under the heading instead of the heading; c5 sidebar box became an image placeholder.
+- Cost: c2 and c3 codegen ran long (690-830k cache reads). 6 pages = 303k billed, over the 300k/day budget by
+  ~1%. Bench now takes --budget N and stops before a page that could pass it (worst page 95k).

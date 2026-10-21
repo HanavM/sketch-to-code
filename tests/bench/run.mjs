@@ -36,6 +36,7 @@
  *   node tests/bench/run.mjs --only 01,04         # just those ids (prefix match)
  *   node tests/bench/run.mjs --limit 1            # calibrate cost on one page
  *   node tests/bench/run.mjs --dry                # draw and score, never Run (free)
+ *   node tests/bench/run.mjs --budget 120000      # stop before a page that could pass 120k billed tokens
  *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
  *   node tests/bench/run.mjs --set rough          # the loose/partial/edit set (s2c-009)
  *   node tests/bench/run.mjs --words content      # typed words: all|content|none (s2c-016, lib/words.mjs)
@@ -47,7 +48,7 @@
  * spec measures the change it asks for and not something the page already had.
  */
 import { chromium } from 'playwright'
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import tidy from './sketches/index.mjs'
@@ -301,8 +302,18 @@ async function likenessOf(page, spec, row, tag) {
   log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colour)} · structure ${p(pic.structure)} · layout ${p(layout)}`)
 }
 
+// --budget N: stop starting live pages once billed tokens (input + output,
+// interpret + codegen) reach N minus one worst-case page. Pages vary 25k-90k
+// (round 1, 2026-10-21: one 6-page run spent 303k against a 300k/day budget).
+const BUDGET = arg('budget', null) === null ? null : Number(arg('budget'))
+const WORST_PAGE = 95_000
+let spent = 0
 const queue = [...chosen]
 while (queue.length) {
+  if (BUDGET !== null && !DRY && spent + WORST_PAGE > BUDGET) {
+    log(`\nbudget: ${spent.toLocaleString()} spent of ${BUDGET.toLocaleString()}; one more page could pass it. Stopping before ${queue.map((s) => s.id).join(', ')}`)
+    break
+  }
   const spec = queue.shift()
   log(`\n── ${spec.id} · ${spec.title}`)
   const row = {
@@ -576,6 +587,7 @@ while (queue.length) {
       interpret: interpretTokens,
       codegen,
     }
+    spent += row.tokens.input + row.tokens.output
     row.verified = record?.verification?.score ?? null
     row.changedFiles = record?.changedFiles?.length ?? null
 
@@ -591,6 +603,12 @@ while (queue.length) {
     row.realized = key.judged ? !!row.score.realized : null
     await likenessOf(page, spec, row, 'built')
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-result.png`), fullPage: true })
+    // keep the run's own record (reading, prompt, codemod) per page: the app
+    // wipes it on the next page, and a failed build needs its reading to debug
+    try {
+      const runs = join(APP_DIR, '.sketch2code', 'runs')
+      for (const r of readdirSync(runs)) cpSync(join(runs, r), join(OUT, 'runs', spec.id, r), { recursive: true })
+    } catch { /* no run record: nothing to keep */ }
     // order prints as — when there were fewer than two comparable regions:
     // "0%" there means "could not be measured", and printing that as a zero
     // drags an average down with a number that was never an observation
