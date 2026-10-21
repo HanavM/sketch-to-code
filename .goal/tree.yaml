@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The calendar title is now drawn to size and lands where drawn; next, building three harder round-2 pages (outline type, frosted glass, settings) to test the effects."
-lock: {by: run-2026-10-21T0603Z, until: 2026-10-21T07:33:00Z}
+now: "Built three harder round-2 pages: the glass page and settings page came out close, the giant-type poster lost its bottom lines; fixed the cause, re-running it next."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -46,6 +46,8 @@ notes:
   - "n30 (1f22f96 on try/n3-vocabulary): month note says 'day 1 under <weekday>, first row starts with last month's ..., last box is N' and '(solid colour, white text)' chips. Round 1/2 plans unchanged. Run e3 with S2C_TRACE_READING set to catch the max-turns failure."
   - "n31 (4396dba on try/n3-vocabulary): a lone text squiggle >= 17px tall (perpendicular thickness) is a heading drawn to size: one-line textSize, fontPx = 1.45 x height. Bench headings now wobble 0.3 x region height (7-18 amp). Contract: a box drawn tall keeps its height. Readings did not hit max turns in 2 runs (traces not kept). e3 likeness v2 run to run: 43, 32, 31 - treat single-run swings under ~12 points as noise."
   - "Token ledger: 2026-10-21 n31 live e3 x2 86k (day total ~800k, no cap set)."
+  - "Token ledger: 2026-10-21 n11 live round-2 c2+c3+e3 133k (c2 50k, c3 31k, e3 22k billed + cache) (day total ~930k, no cap set)."
+  - "n11 (2ed2452 on try/n3-vocabulary): bench drawPolyline clamps points to the viewport; marks planned off the page edge (bleed headings at x<0) used to start off-screen and broke capture. Round 2/3 bleed pages built before this were drawn wrong."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -75,7 +77,10 @@ nodes:
      result: "Rules match hand marks 52/53; words similar or more (copy quoted). Dry run draws all 10. Tuned on round 1 only. 2e030cb."}
   - {id: n10, parent: n2, kind: step, title: "Generality check, free: write round-2 targets (harder: overlap, asymmetry, big type, dense everyday UI) WITHOUT tuning, auto-plan them, read the plans for wrong marks/notes; fix rules only for clear misses", status: done,
      result: "10 harder targets; untuned plans missed glass, tilt, outline type, toggles, cards; general fixes; round1 still 52/53. 28f8604."}
-  - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs 2026-10-22 budget after n12, ~90k, --budget): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: open, result: null}
+  - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs 2026-10-22 budget after n12, ~90k, --budget): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: done,
+     result: "c3 46%, e3 6% (looks near-identical), c2 38%: off-screen bleed marks broke drawing; bench now clamps. 2ed2452."}
+  - {id: n32, parent: n11, kind: step, title: "Live ~60k (--budget): re-run round-2 c2 with on-screen marks (FEST below NOISE, body and date kept); also c3 (blobs too faint, navy too dark, card short, body copy invented)", status: open, result: null}
+  - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: open, result: null}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
      result: "All 10 built; e5 63%, c3 51%. Page-look notes styled one block; fixed. 303k tokens, 1% over. 5527aa8."}
   - {id: n13, parent: n1, kind: step, title: "Free: why c2's 160px drawn headline came out ~50px, from the ink and grounding, no live runs", status: done,
