@@ -4,7 +4,7 @@
  * hand sketches and auto plans.
  */
 import { existsSync, readFileSync } from 'node:fs'
-import { box, circle, imageBox, textLine, textBlock } from '../../bench/lib/draw.mjs'
+import { box, circle, imageBox, polygon, textLine, textBlock } from '../../bench/lib/draw.mjs'
 
 /** One region -> polylines, by mark kind. Marks sit a few px inside the box. */
 function mark(kind, r, opts = {}) {
@@ -34,6 +34,10 @@ function mark(kind, r, opts = {}) {
     case 'text': return h > 40 ? textBlock(x + 4, y + 14, w - 8, 2, Math.min(24, h / 2)) : [textLine(x + 4, cy, w - 8)]
     case 'image': return imageBox(x + 4, y + 4, w - 8, h - 8)
     case 'circle': return [circle(x + w / 2, cy, Math.min(w, h) / 2 - 4)]
+    // a cut-out drawn as its own outline, kept on screen (marks off the page edge break capture)
+    case 'shape': return [polygon(opts.poly.map(([fx, fy]) => [
+      Math.min(1274, Math.max(6, x + fx * w)), Math.min(894, Math.max(6, y + fy * h)),
+    ]))]
     default: throw new Error(`unknown mark ${kind}`)
   }
 }

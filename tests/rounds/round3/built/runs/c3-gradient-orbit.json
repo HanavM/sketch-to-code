@@ -1,0 +1,200 @@
+{
+  "id": "c3-gradient-orbit",
+  "at": "2026-10-21T08:20:04.741Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5943538366751302,
+    "overallV2": 0.5917198767266091,
+    "overallV1": 0.5584936078489076,
+    "colour": 0.9155871530372273,
+    "structure": 0.3254732675031,
+    "structureStrict": 0.2330374343190143,
+    "colourAligned": 0.916665374542302,
+    "structureAligned": 0.3316912104791516,
+    "align": {
+      "scale": 1.04,
+      "dx": -32,
+      "dy": 0,
+      "r": 0.48734315705250386
+    },
+    "layout": 0.5513666530673637
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "glow",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "motion",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "blur"
+    ]
+  },
+  "tokens": {
+    "input": 50489,
+    "output": 21901,
+    "cacheRead": 272022
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 56474,
+      "output": 15139,
+      "cacheRead": 262309,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Grep",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 164739
+    }
+  ],
+  "reading": "A hero section: two concentric spinning circle outlines with a tiny glowing circle, a small pill badge above and a larger pill button below, a headline (two wavy lines) and a body paragraph (two shorter wavy lines) in between — plus a page-wide style note for black background, Helvetica type and light grey text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        154,
+        592,
+        593
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large spinning circle outline in lavender, as a decorative ring behind the hero content."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        254,
+        392,
+        393
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Second, smaller concentric spinning circle outline in cyan, nested inside the lavender ring."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        915,
+        434,
+        37,
+        39
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Small glowing vivid cyan circle accent near the edge of the rings."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        512,
+        241,
+        256,
+        30
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Lavender outline pill badge above the headline reading \"NOW IN PRIVATE BETA\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 100
+        }
+      ],
+      "region": [
+        148,
+        347,
+        900,
+        126
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set headline with a lavender-to-coral-to-cyan gradient reading \"Compute at orbit speed\", set across two lines."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        344,
+        550,
+        592,
+        33
+      ],
+      "paths": [],
+      "instruction": "Grey body paragraph below the headline reading \"Spin up GPU clusters in seconds and pay only for the seconds you use.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        641,
+        216,
+        51
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Purple-to-red gradient glowing pill button reading \"Request access\", placed below the body text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

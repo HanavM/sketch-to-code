@@ -120,6 +120,15 @@ function factsInPage() {
       })(),
       vertical: /^vertical/.test(cs.writingMode),
       clipPoints: /polygon\(/.test(cs.clipPath) ? cs.clipPath.split(',').length : 0,
+      // the cut-out's outline as fractions of the block (percent or px corners), so it can be drawn as itself
+      clipPoly: (() => {
+        const m = cs.clipPath.match(/polygon\((.*)\)/)
+        if (!m) return null
+        const frac = (v, size) => /%$/.test(v) ? parseFloat(v) / 100 : parseFloat(v) / Math.max(1, size)
+        const pts = m[1].split(',').map((c) => c.trim().split(/\s+/)).filter((c) => c.length === 2)
+          .map(([a, b]) => [frac(a, r.width), frac(b, r.height)])
+        return pts.length >= 3 && pts.every((p) => p.every(Number.isFinite)) ? pts : null
+      })(),
       blend: cs.mixBlendMode && cs.mixBlendMode !== 'normal' ? cs.mixBlendMode : null,
       shadows: (cs.boxShadow === 'none' ? [] : cs.boxShadow.split(/,(?![^(]*\))/)).map((p) => {
         const n = (p.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) ?? []).map(parseFloat)
@@ -437,6 +446,9 @@ function decideOne(f, page, marked, said) {
     const shape = f.clipPoints >= 6 ? 'jagged cut-out shape' : f.clipPoints >= 3 ? 'angled cut-out shape' : null
     const strong = !grad && fill && vivid(f.bg) ? 'vivid ' : ''
     const note = stripes ? `big ${stripes} block` : shape ? `${strong}${col ?? ''} ${shape}`.trim() : col ? `${strong}${col} block` : null
+    // a cut-out is drawn as its own outline (a ridge line), not as a picture placeholder:
+    // round-3 c1 drew the ridges as X'd boxes and got two rectangles with crossed lines
+    if (shape && f.clipPoly) return { kind: 'shape', note: withFx(note), poly: f.clipPoly }
     return { kind: 'image', note: withFx(note) }
   }
   // a toggle row: a label and a switch
@@ -592,6 +604,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
     const k = out.get(f.role).kind
+    if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
     return k === 'heading' && f.textLines >= 1 ? [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }] : [f.role, k]
   })
   const notes = [...(pageNote(body) ? [['*', pageNote(body)]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]

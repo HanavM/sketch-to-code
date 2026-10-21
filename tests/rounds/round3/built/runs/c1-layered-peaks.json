@@ -1,0 +1,197 @@
+{
+  "id": "c1-layered-peaks",
+  "at": "2026-10-21T08:36:17.111Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6699780728195925,
+    "overallV2": 0.6699780728195925,
+    "overallV1": 0.5654031493676058,
+    "colour": 0.8239531252883591,
+    "structure": 0.7156213489972028,
+    "structureStrict": 0.5327483867817513,
+    "colourAligned": 0.8239531252883591,
+    "structureAligned": 0.7156213489972028,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8979868977464127
+    },
+    "layout": 0.8440900843042859
+  },
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "clip-shape",
+      "glow"
+    ],
+    "extra": [
+      "blur"
+    ]
+  },
+  "tokens": {
+    "input": 38286,
+    "output": 26276,
+    "cacheRead": 202293
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 51865,
+      "output": 21135,
+      "cacheRead": 192497,
+      "toolCalls": 13,
+      "tools": [
+        "Read components/Sun.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write components/Sun.tsx",
+        "Write components/SketchShape.tsx",
+        "Write components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 236773
+    }
+  ],
+  "reading": "A hero section sketch: a top nav bar, a glowing sun circle, a giant 'SUMMIT' heading, two overlapping jagged mountain cut-out shapes (purple behind, red in front of the heading), an intro sentence, and a pill 'Plan a route' button, all set on a warm paper-to-coral-to-red gradient page in Helvetica with white text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar reading \"ALTITUDE\" as the logo/wordmark with nav links \"Routes\", \"Huts\", \"Journal\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        824,
+        154,
+        252,
+        252
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A big glowing sun icon: off-white at the center fading to yellow at the edges, placed near the top right of the hero."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 293
+        }
+      ],
+      "region": [
+        68,
+        289,
+        858,
+        182
+      ],
+      "paths": [],
+      "instruction": "Giant heading text \"SUMMIT\" set in Helvetica heavy weight, tightly tracked/tight-set letters, white text per page style."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        421,
+        1270,
+        474
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A deep purple jagged cut-out mountain-silhouette shape, filling the region behind the heading as a decorative background layer."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        6,
+        561,
+        1269,
+        334
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A red jagged cut-out mountain-silhouette shape, overlapping and sitting in front of the \"SUMMIT\" heading as a decorative foreground layer."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        64,
+        786,
+        372,
+        32
+      ],
+      "paths": [],
+      "instruction": "Intro paragraph text reading \"Seven alpine routes, hut to hut, with nothing to carry but a camera.\" in white text below the heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1062,
+        778,
+        156,
+        51
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A pill-shaped button with an off-white fill and deep purple text labeled \"Plan a route\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -47,3 +47,22 @@ Likeness 24% → 43% (v2). Region score still 22%: the header bar came out highe
 than drawn, so title, ‹ Prev and + New event miss their boxes. The first attempt's reading
 failed with "maximum number of turns (4)"; the re-run read fine. 43k tokens.
 Side by side: `built/e3-calendar-n30-cmp.png`.
+
+## Live 2026-10-21 (n37): first builds of the hardest creative pages
+
+| page | likeness (v3) | effects kept | tokens | note |
+|---|---|---|---|---|
+| c1 layered peaks, first | 62% | gradient, huge type, overlap | 125k | ridges built as two rectangles with crossed lines (drawn as picture boxes) |
+| c1 layered peaks, after fix | 67% | gradient, huge type, overlap | 65k | ridges now real jagged shapes; their colours come out swapped (red in front, purple behind) |
+| c3 gradient orbit | 59% | all 6 (glow, gradient text, motion…) | 56k | rings drawn big but built off-centre, bottom right; planet tiny, top left |
+| c5 blend editorial | 70% | 6 of 7 (no huge type) | ~99k | headline small and shifted right; side label landed on the photo |
+
+Fixes this step:
+- A cut-out (clip-path polygon) is drawn as its own outline, not as an X'd picture box. Only round-3 c1 changes.
+- The build agent now sees only Read/Edit/Write/Glob/Grep. c1's first build spent 3 ToolSearch calls and a Skill call
+  (112k for one turn); after the fix builds ran 52-56k.
+- Dry check: c1's giant "SUMMIT" reads 293px (target 260). c4's narrow "01" still reads 177px for a 420px target: a
+  two-letter word drawn as a level zigzag can only be ~1/3 as tall as it is wide.
+
+Side by sides: `built/c1-layered-peaks-n37-first-cmp.png`, `built/c1-layered-peaks-cmp.png`, `built/c3-gradient-orbit-cmp.png`,
+`built/c5-blend-editorial-cmp.png`.

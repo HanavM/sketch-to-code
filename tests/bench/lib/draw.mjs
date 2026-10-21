@@ -264,6 +264,13 @@ export function box(x, y, w, h, opts = {}) {
   return stroke(wp, opts, seedFrom(x, y, w, h, r))
 }
 
+/** A closed outline through page-px corners (a cut-out shape drawn as itself). */
+export function polygon(points, opts = {}) {
+  const wp = points.map(([x, y]) => ({ x, y }))
+  wp.push({ ...wp[0] })
+  return stroke(wp, opts, seedFrom(...points.flat().slice(0, 6)))
+}
+
 /** A circle, drawn in one revolution from 12 o'clock. Lexicon: avatar / icon slot. */
 export function circle(cx, cy, r, opts = {}) {
   const spacing = opts.spacing ?? SPACING

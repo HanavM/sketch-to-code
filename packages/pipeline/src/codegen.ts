@@ -104,10 +104,20 @@ export function contractFor(mode: RunMode): string {
  */
 export const PRIVATE_STATE_DENY = ['Read(./.sketch2code/**)', 'Edit(./.sketch2code/**)'] as const
 
-/** The codegen agent's tool permissions; exported so tests can assert them. */
-export function codegenToolOptions(): { allowedTools: string[]; disallowedTools: string[] } {
+/**
+ * The codegen agent's tool permissions; exported so tests can assert them.
+ *
+ * `tools` is the base set the agent can see at all. `allowedTools` only
+ * pre-approves; without a base set the agent still saw Skill, ToolSearch and
+ * the rest, and round-3 c1's build spent 3 ToolSearch calls and a Skill call
+ * (112k billed) on nothing the page needed.
+ */
+export const CODEGEN_TOOLS = ['Read', 'Edit', 'Write', 'Glob', 'Grep'] as const
+
+export function codegenToolOptions(): { tools: string[]; allowedTools: string[]; disallowedTools: string[] } {
   return {
-    allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
+    tools: [...CODEGEN_TOOLS],
+    allowedTools: [...CODEGEN_TOOLS],
     disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task', ...PRIVATE_STATE_DENY],
   }
 }

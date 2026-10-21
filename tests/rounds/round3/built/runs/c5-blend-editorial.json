@@ -1,0 +1,249 @@
+{
+  "id": "c5-blend-editorial",
+  "at": "2026-10-21T08:27:24.125Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6991980964400628,
+    "overallV2": 0.6991980964400628,
+    "overallV1": 0.6467750059712037,
+    "colour": 0.9515106161636316,
+    "structure": 0.746210896482491,
+    "structureStrict": 0.6516859588624534,
+    "colourAligned": 0.9515106161636316,
+    "structureAligned": 0.746210896482491,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9593589115969952
+    },
+    "layout": 0.5822797978962087
+  },
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "blend",
+      "gradient",
+      "italic",
+      "overlap",
+      "serif",
+      "vertical-type"
+    ],
+    "missing": [
+      "huge-type"
+    ],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 48225,
+    "output": 33985,
+    "cacheRead": 219932
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 56500,
+      "output": 22898,
+      "cacheRead": 208740,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/vite.config.ts",
+        "Write src/App.tsx"
+      ],
+      "ms": 269308
+    }
+  ],
+  "reading": "This is a magazine-cover hero built from two overlapping rectangular color blocks (a near-black panel and a smaller teal-to-pink gradient panel) that cross each other, with an inverted-color italic headline sitting at the overlap, surrounded by kicker text, a vertical masthead line, a pull-quote, and a 'Read the issue' button.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Large rectangular hero panel spanning most of the page height, filled near-black (per note 'near-black block'); forms the main background block of the cover des"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        173,
+        354,
+        494
+      ],
+      "paths": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "instruction": "Smaller rectangular block overlapping the near-black panel near the page centre, filled with a teal-to-pink gradient (per note 'teal to pink gradient block')."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        3,
+        803,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "instruction": "Where the gradient block overlaps the near-black block, invert the colors and place a giant italic Georgia serif headline in white, tightly set, reading 'Light "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        34,
+        51,
+        133,
+        111
+      ],
+      "paths": [
+        "s5",
+        "s6"
+      ],
+      "instruction": "Small italic kicker label reading 'Contrast' near the top-left of the page, above the hero panel (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        1054,
+        47,
+        162,
+        8
+      ],
+      "paths": [],
+      "instruction": "Wide-spaced small text reading 'ISSUE 19 / WINTER' placed near the top-right corner of the near-black block (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        88,
+        393,
+        1008,
+        17
+      ],
+      "paths": [],
+      "instruction": "Uppercase wide-spaced text reading 'A MAGAZINE ABOUT OPPOSITES', meant to run vertically across the overlap of the two blocks even though sketched as a horizont"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        88,
+        536,
+        625,
+        17
+      ],
+      "paths": [],
+      "instruction": "A short supporting line of text beneath the vertical masthead, within the gradient block; no exact wording was given, so use plausible tagline copy continuing t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        84,
+        700,
+        332,
+        33
+      ],
+      "paths": [],
+      "instruction": "Pull-quote text below the hero panels reading 'Twelve photographers on the shadows they chase, and the ones they run from.' (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1084,
+        797,
+        113,
+        22
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Button labeled 'Read the issue →' placed in the bottom-right corner of the near-black hero panel (per note)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
