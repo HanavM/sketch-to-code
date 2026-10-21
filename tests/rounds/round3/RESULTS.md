@@ -27,3 +27,13 @@ are never empty (explicit px heights). Bench now saves each page's built source 
 | e5 analytics | 26% | 26% → **64%** | the prompt rule alone did not fix the empty chart (bars were % height inside an auto-height column = 0px). New zero-token check after each build: filled boxes rendering 0 high/wide fail verify and get a repair turn (5k). Bars now visible and rising like the target |
 
 Side by sides: `built/*-n28-cmp.png`, `built/e5-analytics-n28-fixed-cmp.png`.
+
+## Live re-run 2026-10-21, e3 after the n29 plan fix
+40.6k billed, one build turn, 9 tool calls (now logged: 1 Grep, 3 Glob, 4 Reads, 1 Write).
+The plan had cut the list at 6 events, so "Retro" was never said; it now names every event and says
+"a chip on each day" for events on several days. Built: all 13 chips present, Retro on 25, Offsite as two
+chips on 19 and 20. Likeness 24% (was 31%): the month starts on the wrong weekday (Nov 1 drawn under Mon,
+target has it under Sun with Oct 26-31 greyed in), which shifts every chip one column and adds a sixth row;
+chips are pale tints where the target has solid fills with white text. Side by side: `built/e3-calendar-n29-cmp.png`.
+Next: the plan should say which weekday day 1 falls on, that leading days are from the previous month, and
+solid vs pale chips.
