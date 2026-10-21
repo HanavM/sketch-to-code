@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Layered peaks</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;font-family:Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#fde68a 0%,#fb923c 45%,#be185d 100%);color:#fff}
+.sun{position:absolute;left:820px;top:150px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#fff7ed 0%,#fdba74 70%);box-shadow:0 0 120px 40px rgba(255,237,213,.7)}
+.word{position:absolute;left:60px;top:250px;font-size:260px;font-weight:900;letter-spacing:-12px;line-height:1;color:#fff7ed;white-space:nowrap}
+.far{position:absolute;left:0;top:420px;width:1280px;height:480px;background:#9d174d;clip-path:polygon(0 40%,18% 10%,34% 38%,52% 0,70% 34%,86% 12%,100% 30%,100% 100%,0 100%)}
+.near{position:absolute;left:0;top:560px;width:1280px;height:340px;background:#3b0764;clip-path:polygon(0 30%,22% 0,40% 40%,62% 8%,80% 46%,100% 14%,100% 100%,0 100%)}
+nav{position:absolute;left:60px;top:40px;right:60px;display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:#7c2d12}
+nav span+span{margin-left:28px}
+.cap{position:absolute;left:60px;bottom:70px;width:380px;font-size:18px;line-height:1.5;color:#f5d0fe}
+.go{position:absolute;right:60px;bottom:70px;padding:18px 34px;border-radius:999px;background:#fff7ed;color:#3b0764;font-weight:700;font-size:16px}
+</style></head><body>
+<nav data-r="nav"><b>ALTITUDE</b><div><span>Routes</span><span>Huts</span><span>Journal</span></div></nav>
+<div class="sun" data-r="sun"></div>
+<div class="word" data-r="headline" data-must>SUMMIT</div>
+<div class="far" data-r="ridge-far" data-must></div>
+<div class="near" data-r="ridge-near" data-must></div>
+<p class="cap" data-r="body">Seven alpine routes, hut to hut, with nothing to carry but a camera.</p>
+<a class="go" data-r="cta">Plan a route</a>
+</body></html>

@@ -42,6 +42,12 @@ function scan() {
     const transparent = /rgba\([^)]*,\s*0\)/.test(p)
     return { x: nums[0] ?? 0, y: nums[1] ?? 0, blur: nums[2] ?? 0, transparent }
   })
+  // stripes: two stops at the same place (a 20%, b 20%) or one colour given a band (a 0% 20%); a 0/45/100% sky is a blend
+  const hardStops = (bg) => {
+    if (/\)\s+[\d.]+%\s+[\d.]+%/.test(bg)) return true
+    const at = [...bg.matchAll(/\)\s+([\d.]+)%/g)].map((m) => +m[1])
+    return at.some((v, i) => i > 0 && v === at[i - 1])
+  }
   const leaves = []
   for (const el of els) {
     const s = getComputedStyle(el)
@@ -55,13 +61,19 @@ function scan() {
     if (/blur\(/.test(s.filter)) hit('blur')
     if (s.mixBlendMode && s.mixBlendMode !== 'normal') hit('blend')
     if (s.animationName && s.animationName !== 'none') hit('motion')
+    if (/^polygon|^path|^circle|^ellipse/.test(s.clipPath) && !/^circle\(50%/.test(s.clipPath)) hit('clip-shape')
+    if (/^vertical/.test(s.writingMode) && ownText(el)) hit('vertical-type')
     const bg = s.backgroundImage
     if (/gradient\(/.test(bg)) {
       if (/text/.test(s.backgroundClip || s.webkitBackgroundClip)) hit('gradient-text')
-      else if (/repeating-/.test(bg) || (bg.match(/gradient\(/g) ?? []).length > 1 || /\d+(\.\d+)?%,\s*rgb[^)]*\)\s+\d+(\.\d+)?%/.test(bg)) hit('stripes-or-layers')
+      else if (/repeating-/.test(bg) || (bg.match(/gradient\(/g) ?? []).length > 1 || hardStops(bg)) hit('stripes-or-layers')
       else hit('gradient')
     }
-    for (const sh of shadowParts(s.boxShadow)) if (!sh.transparent && (Math.abs(sh.x) >= 2 || Math.abs(sh.y) >= 2)) hit(sh.blur <= 1 ? 'hard-shadow' : 'soft-shadow')
+    for (const sh of shadowParts(s.boxShadow)) {
+      if (sh.transparent) continue
+      if (Math.abs(sh.x) >= 2 || Math.abs(sh.y) >= 2) hit(sh.blur <= 1 ? 'hard-shadow' : 'soft-shadow')
+      else if (sh.blur >= 16) hit('glow') // no offset, wide blur: a halo
+    }
     for (const sh of shadowParts(s.textShadow)) if (!sh.transparent && sh.blur <= 1 && (Math.abs(sh.x) >= 2 || Math.abs(sh.y) >= 2)) hit('hard-shadow')
     if (text) {
       const stroke = parseFloat(s.webkitTextStrokeWidth || '0')
@@ -96,6 +108,8 @@ function scan() {
 }
 
 export async function effectsOf(page) {
+  // read moving pages at their first frame (a spinning ring is not a tilt), as their pictures are shot
+  await page.evaluate(() => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 0 }))
   const found = await page.evaluate(scan)
   return { found, names: Object.keys(found).sort() }
 }

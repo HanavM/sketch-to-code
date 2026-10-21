@@ -1,0 +1,777 @@
+{
+ "measured": "2026-10-21T01:16:22.051Z",
+ "targets": {
+  "c1-layered-peaks": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 40,
+      "w": 1160,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "sun",
+     "rect": {
+      "x": 820,
+      "y": 150,
+      "w": 260,
+      "h": 260
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 60,
+      "y": 250,
+      "w": 953,
+      "h": 260
+     },
+     "must": true
+    },
+    {
+     "role": "ridge-far",
+     "rect": {
+      "x": 0,
+      "y": 420,
+      "w": 1280,
+      "h": 480
+     },
+     "must": true
+    },
+    {
+     "role": "ridge-near",
+     "rect": {
+      "x": 0,
+      "y": 560,
+      "w": 1280,
+      "h": 340
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 60,
+      "y": 776,
+      "w": 380,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 1060,
+      "y": 776,
+      "w": 160,
+      "h": 54
+     },
+     "must": false
+    }
+   ]
+  },
+  "c2-kinetic-marquee": {
+   "regions": [
+    {
+     "role": "logo",
+     "rect": {
+      "x": 56,
+      "y": 40,
+      "w": 138,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "menu",
+     "rect": {
+      "x": 1143,
+      "y": 36,
+      "w": 81,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "band-black",
+     "rect": {
+      "x": -64,
+      "y": 101,
+      "w": 1407,
+      "h": 247
+     },
+     "must": true
+    },
+    {
+     "role": "band-orange",
+     "rect": {
+      "x": -62,
+      "y": 383,
+      "w": 1404,
+      "h": 183
+     },
+     "must": true
+    },
+    {
+     "role": "intro",
+     "rect": {
+      "x": 56,
+      "y": 640,
+      "w": 520,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "reel",
+     "rect": {
+      "x": 804,
+      "y": 610,
+      "w": 420,
+      "h": 236
+     },
+     "must": false
+    },
+    {
+     "role": "play",
+     "rect": {
+      "x": 974,
+      "y": 688,
+      "w": 80,
+      "h": 80
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-gradient-orbit": {
+   "regions": [
+    {
+     "role": "ring-outer",
+     "rect": {
+      "x": 340,
+      "y": 150,
+      "w": 600,
+      "h": 600
+     },
+     "must": false
+    },
+    {
+     "role": "ring-inner",
+     "rect": {
+      "x": 440,
+      "y": 250,
+      "w": 400,
+      "h": 400
+     },
+     "must": false
+    },
+    {
+     "role": "planet",
+     "rect": {
+      "x": 910,
+      "y": 430,
+      "w": 46,
+      "h": 46
+     },
+     "must": false
+    },
+    {
+     "role": "tag",
+     "rect": {
+      "x": 510,
+      "y": 240,
+      "w": 260,
+      "h": 33
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 140,
+      "y": 300,
+      "w": 1000,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "body",
+     "rect": {
+      "x": 340,
+      "y": 540,
+      "w": 600,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 640,
+      "w": 220,
+      "h": 54
+     },
+     "must": true
+    }
+   ]
+  },
+  "c4-brutal-index": {
+   "regions": [
+    {
+     "role": "number",
+     "rect": {
+      "x": 40,
+      "y": 20,
+      "w": 407,
+      "h": 336
+     },
+     "must": true
+    },
+    {
+     "role": "side-rail",
+     "rect": {
+      "x": 1180,
+      "y": 40,
+      "w": 60,
+      "h": 820
+     },
+     "must": false
+    },
+    {
+     "role": "card-a",
+     "rect": {
+      "x": 620,
+      "y": 80,
+      "w": 500,
+      "h": 260
+     },
+     "must": false
+    },
+    {
+     "role": "card-b",
+     "rect": {
+      "x": 520,
+      "y": 400,
+      "w": 420,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "card-c",
+     "rect": {
+      "x": 60,
+      "y": 470,
+      "w": 400,
+      "h": 240
+     },
+     "must": false
+    },
+    {
+     "role": "stamp",
+     "rect": {
+      "x": 973,
+      "y": 573,
+      "w": 194,
+      "h": 194
+     },
+     "must": false
+    },
+    {
+     "role": "foot",
+     "rect": {
+      "x": 60,
+      "y": 844,
+      "w": 294,
+      "h": 16
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-blend-editorial": {
+   "regions": [
+    {
+     "role": "dark-half",
+     "rect": {
+      "x": 640,
+      "y": 0,
+      "w": 640,
+      "h": 900
+     },
+     "must": false
+    },
+    {
+     "role": "masthead",
+     "rect": {
+      "x": 80,
+      "y": 40,
+      "w": 91,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "issue",
+     "rect": {
+      "x": 1050,
+      "y": 44,
+      "w": 170,
+      "h": 15
+     },
+     "must": false
+    },
+    {
+     "role": "side-label",
+     "rect": {
+      "x": 30,
+      "y": 120,
+      "w": 15,
+      "h": 362
+     },
+     "must": false
+    },
+    {
+     "role": "photo",
+     "rect": {
+      "x": 470,
+      "y": 170,
+      "w": 360,
+      "h": 500
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 330,
+      "w": 1120,
+      "h": 285
+     },
+     "must": true
+    },
+    {
+     "role": "dek",
+     "rect": {
+      "x": 80,
+      "y": 690,
+      "w": 340,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "read",
+     "rect": {
+      "x": 1081,
+      "y": 795,
+      "w": 119,
+      "h": 25
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-users-table": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 56,
+      "y": 40,
+      "w": 78,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "add",
+     "rect": {
+      "x": 1102,
+      "y": 36,
+      "w": 122,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "filters",
+     "rect": {
+      "x": 56,
+      "y": 100,
+      "w": 1168,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "table",
+     "rect": {
+      "x": 56,
+      "y": 160,
+      "w": 1168,
+      "h": 387
+     },
+     "must": true
+    },
+    {
+     "role": "pager",
+     "rect": {
+      "x": 56,
+      "y": 565,
+      "w": 1168,
+      "h": 30
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-kanban": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 40,
+      "y": 32,
+      "w": 1200,
+      "h": 31
+     },
+     "must": true
+    },
+    {
+     "role": "col-todo",
+     "rect": {
+      "x": 40,
+      "y": 87,
+      "w": 285,
+      "h": 770
+     },
+     "must": true
+    },
+    {
+     "role": "col-doing",
+     "rect": {
+      "x": 345,
+      "y": 87,
+      "w": 285,
+      "h": 770
+     },
+     "must": false
+    },
+    {
+     "role": "col-review",
+     "rect": {
+      "x": 650,
+      "y": 87,
+      "w": 285,
+      "h": 770
+     },
+     "must": false
+    },
+    {
+     "role": "col-done",
+     "rect": {
+      "x": 955,
+      "y": 87,
+      "w": 285,
+      "h": 770
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-calendar": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 48,
+      "y": 32,
+      "w": 207,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "prev",
+     "rect": {
+      "x": 858,
+      "y": 30,
+      "w": 71,
+      "h": 36
+     },
+     "must": false
+    },
+    {
+     "role": "new",
+     "rect": {
+      "x": 1120,
+      "y": 30,
+      "w": 112,
+      "h": 36
+     },
+     "must": false
+    },
+    {
+     "role": "month",
+     "rect": {
+      "x": 48,
+      "y": 88,
+      "w": 1184,
+      "h": 677
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-chat": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "header",
+     "rect": {
+      "x": 320,
+      "y": 0,
+      "w": 960,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "thread",
+     "rect": {
+      "x": 320,
+      "y": 72,
+      "w": 960,
+      "h": 753
+     },
+     "must": true
+    },
+    {
+     "role": "composer",
+     "rect": {
+      "x": 348,
+      "y": 825,
+      "w": 904,
+      "h": 47
+     },
+     "must": false
+    }
+   ]
+  },
+  "e5-analytics": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 44,
+      "y": 36,
+      "w": 116,
+      "h": 31
+     },
+     "must": true
+    },
+    {
+     "role": "range",
+     "rect": {
+      "x": 1112,
+      "y": 32,
+      "w": 124,
+      "h": 38
+     },
+     "must": false
+    },
+    {
+     "role": "kpis",
+     "rect": {
+      "x": 44,
+      "y": 94,
+      "w": 1192,
+      "h": 120
+     },
+     "must": true
+    },
+    {
+     "role": "chart",
+     "rect": {
+      "x": 44,
+      "y": 234,
+      "w": 767,
+      "h": 520
+     },
+     "must": true
+    },
+    {
+     "role": "top-pages",
+     "rect": {
+      "x": 831,
+      "y": 234,
+      "w": 405,
+      "h": 520
+     },
+     "must": false
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-layered-peaks": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.48920542621170593,
+    "structure": 0.3879456502323455
+   },
+   "otherMean": {
+    "colour": 0.5283845443455988,
+    "structure": 0.23552005338718565
+   }
+  },
+  "c2-kinetic-marquee": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.66968368602163,
+    "structure": 0.36531639469053656
+   },
+   "otherMean": {
+    "colour": 0.6189612498805204,
+    "structure": 0.22559722820095723
+   }
+  },
+  "c3-gradient-orbit": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.053969525426299736,
+    "structure": 0.026296279804619665
+   },
+   "otherMean": {
+    "colour": 0.259235887034064,
+    "structure": 0.0460296416342411
+   }
+  },
+  "c4-brutal-index": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.7332652361401832,
+    "structure": 0.4018410267366258
+   },
+   "otherMean": {
+    "colour": 0.6447836497740745,
+    "structure": 0.23060952961357536
+   }
+  },
+  "c5-blend-editorial": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.5114150741663979,
+    "structure": 0.3689092369198287
+   },
+   "otherMean": {
+    "colour": 0.5156759888056422,
+    "structure": 0.22889837602099927
+   }
+  },
+  "e1-users-table": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9746949951435548,
+    "structure": 0.7699036114180196
+   },
+   "otherMean": {
+    "colour": 0.6810499627416765,
+    "structure": 0.3883175294817007
+   }
+  },
+  "e2-kanban": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.928428050974705,
+    "structure": 0.7419467126372058
+   },
+   "otherMean": {
+    "colour": 0.6909400423278901,
+    "structure": 0.3734658482835014
+   }
+  },
+  "e3-calendar": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9714622686115295,
+    "structure": 0.7213320743756483
+   },
+   "otherMean": {
+    "colour": 0.6742561031255334,
+    "structure": 0.3696866605564517
+   }
+  },
+  "e4-chat": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.7440803447186142,
+    "structure": 0.6236897758212956
+   },
+   "otherMean": {
+    "colour": 0.5952842492198549,
+    "structure": 0.3255390628704398
+   }
+  },
+  "e5-analytics": {
+   "self": {
+    "colour": 1,
+    "structure": 1
+   },
+   "blank": {
+    "colour": 0.9151484582624729,
+    "structure": 0.6340762979714718
+   },
+   "otherMean": {
+    "colour": 0.6737404695376161,
+    "structure": 0.3343724133648837
+   }
+  }
+ }
+}

@@ -94,7 +94,7 @@ export async function measureTarget(browser, htmlPath, viewport = { width: 1280,
   const page = await browser.newPage({ viewport })
   await page.goto(`file://${htmlPath}`)
   await page.waitForTimeout(150)
-  const png = await page.screenshot()
+  const png = await page.screenshot({ animations: 'disabled' }) // moving pages: compare the first frame, same as the build
   const regions = await page.evaluate(() => [...document.querySelectorAll('[data-r]')].map((el) => {
     const r = el.getBoundingClientRect()
     return { role: el.dataset.r, rect: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }, must: el.hasAttribute('data-must') }

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Users table</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden;padding:36px 56px}
+.top{display:flex;justify-content:space-between;align-items:center}h1{font-size:28px}.add{padding:12px 20px;background:#4f46e5;color:#fff;border-radius:8px;font-size:14px;font-weight:600}
+.bar{display:flex;gap:12px;margin-top:24px}.search{width:360px;padding:11px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#94a3b8;font-size:14px}.chip{padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;font-size:14px}
+table{width:100%;margin-top:20px;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;font-size:14px}th{text-align:left;padding:14px 16px;background:#f1f5f9;color:#475569;font-size:12px;text-transform:uppercase;letter-spacing:1px}td{padding:16px;border-top:1px solid #e2e8f0}
+.st{padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600}.ok{background:#dcfce7;color:#166534}.no{background:#fee2e2;color:#991b1b}.wait{background:#fef3c7;color:#92400e}
+.pager{display:flex;justify-content:space-between;margin-top:18px;font-size:14px;color:#475569}.pages{display:flex;gap:6px}.pages span{padding:6px 12px;border:1px solid #cbd5e1;border-radius:6px;background:#fff}.pages .on{background:#4f46e5;color:#fff;border-color:#4f46e5}
+</style></head><body>
+<div class="top"><h1 data-r="title" data-must>Users</h1><a class="add" data-r="add">+ Invite user</a></div>
+<div class="bar" data-r="filters"><div class="search">Search by name or email…</div><div class="chip">Role: All</div><div class="chip">Status: All</div></div>
+<table data-r="table" data-must><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last seen</th></tr>
+<tr><td>Ada Park</td><td>ada@acme.io</td><td>Admin</td><td><span class="st ok">Active</span></td><td>2 min ago</td></tr>
+<tr><td>Ben Ortiz</td><td>ben@acme.io</td><td>Editor</td><td><span class="st ok">Active</span></td><td>1 hour ago</td></tr>
+<tr><td>Chloe Wu</td><td>chloe@acme.io</td><td>Viewer</td><td><span class="st wait">Invited</span></td><td>—</td></tr>
+<tr><td>Dev Rao</td><td>dev@acme.io</td><td>Editor</td><td><span class="st no">Suspended</span></td><td>3 days ago</td></tr>
+<tr><td>Ema Lind</td><td>ema@acme.io</td><td>Viewer</td><td><span class="st ok">Active</span></td><td>Yesterday</td></tr>
+<tr><td>Finn Bauer</td><td>finn@acme.io</td><td>Admin</td><td><span class="st ok">Active</span></td><td>5 min ago</td></tr>
+<tr><td>Gia Rossi</td><td>gia@acme.io</td><td>Viewer</td><td><span class="st wait">Invited</span></td><td>—</td></tr></table>
+<div class="pager" data-r="pager"><span>Showing 1–7 of 48</span><div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>Next</span></div></div>
+</body></html>

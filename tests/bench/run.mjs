@@ -56,6 +56,7 @@ import rough from './sketches/rough/index.mjs'
 import round1 from '../rounds/round1/sketches.mjs'
 import round1auto from '../rounds/round1/auto.mjs'
 import round2auto from '../rounds/round2/auto.mjs'
+import round3auto from '../rounds/round3/auto.mjs'
 import { pictureLikeness, blend } from '../rounds/lib/likeness.mjs'
 import { effectsOf, effectRecall } from '../rounds/lib/effects.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
@@ -106,7 +107,7 @@ if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
-const SETS = { tidy, rough, round1, round1auto, round2auto }
+const SETS = { tidy, rough, round1, round1auto, round2auto, round3auto }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
 const specs = SETS[SET]
@@ -296,7 +297,7 @@ function readRunRecord(dir) {
  */
 async function likenessOf(page, spec, row, tag) {
   if (!spec.ref) return
-  const shot = await page.screenshot()
+  const shot = await page.screenshot({ animations: 'disabled' }) // first frame, as the target ref is shot
   writeFileSync(join(OUT, 'shots', `${spec.id}-${tag}.png`), shot)
   const pic = await pictureLikeness(page, spec.ref, shot)
   const layout = row.score?.regionScore ?? null

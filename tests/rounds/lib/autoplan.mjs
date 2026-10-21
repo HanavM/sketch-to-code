@@ -64,6 +64,21 @@ function factsInPage() {
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
       blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
       backdrop: /blur/.test(cs.backdropFilter || cs.webkitBackdropFilter || ''),
+      // what moves, read off the keyframes of the block or anything inside it (a marquee's track)
+      motion: (() => {
+        const a = [el, ...el.querySelectorAll('*')].map((k) => getComputedStyle(k).animationName).find((n) => n && n !== 'none')
+        if (!a) return null
+        let kf = ''
+        for (const sh of document.styleSheets) for (const r of sh.cssRules) if (r.type === 7 && r.name === a) kf = r.cssText
+        return /rotate/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
+      })(),
+      vertical: /^vertical/.test(cs.writingMode),
+      clipPoints: /polygon\(/.test(cs.clipPath) ? cs.clipPath.split(',').length : 0,
+      blend: cs.mixBlendMode && cs.mixBlendMode !== 'normal' ? cs.mixBlendMode : null,
+      shadows: (cs.boxShadow === 'none' ? [] : cs.boxShadow.split(/,(?![^(]*\))/)).map((p) => {
+        const n = (p.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) ?? []).map(parseFloat)
+        return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p) }
+      }),
       bleeds: r.left < -4 || r.right > innerWidth + 4 || r.top < -4,
       // a textless filled block inside (a picture placeholder): makes this a picture card
       pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
@@ -128,8 +143,13 @@ function gradientWords(f) {
 /** Look words any block can carry: tilt, blur, glass, bleeding off the page. */
 function effectWords(f) {
   const w = []
-  if (Math.abs(f.rotate) >= 3 && Math.abs(f.rotate) <= 60) w.push('tilted')
-  else if (Math.abs(f.rotate) > 60) w.push('diagonal')
+  const turn = Math.abs(f.rotate)
+  // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
+  if (f.vertical) w.push('vertical')
+  else if (turn >= 3 && turn <= 60) w.push('tilted')
+  else if (turn > 60 && turn < 170) w.push('diagonal')
+  if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
+  if (f.blend) w.push('colour-inverting where it crosses what is under it')
   if (f.blur >= 10) w.push('soft blurred')
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
   if (f.bleeds) w.push('bleeding off the page edge')
@@ -160,8 +180,9 @@ function decide(f, page, marked) {
   const round = f.radiusPct >= 40 || f.radius >= Math.min(w, h) / 2 - 1
   const square = Math.abs(w - h) <= 0.15 * Math.max(w, h)
   const short = f.text.length > 0 && f.text.length <= 32
-  const glow = /\d+px \d+px (\d{2,})px/.test(f.shadow) && !/0px 0px 0px/.test(f.shadow)
-  const hardShadow = /(\d+)px (\d+)px 0px/.test(f.shadow) && !/0px 0px 0px/.test(f.shadow)
+  // a glow is a wide blur; a hard shadow is an offset with no blur (the 4th length, spread, doesn't count)
+  const glow = f.shadows.some((x) => !x.clear && x.blur >= 10)
+  const hardShadow = f.shadows.some((x) => !x.clear && x.blur <= 1 && (Math.abs(x.x) >= 2 || Math.abs(x.y) >= 2))
   const look = []
   const textCol = f.colour && f.colour.a > 0.05 && dist(f.colour, page.colour) > 60 ? colourName(f.colour) : null
   const fx = effectWords(f)
@@ -172,7 +193,11 @@ function decide(f, page, marked) {
   // a textless filled block with no parts inside is a picture placeholder
   if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) {
     const stripes = grad && /stripes/.test(grad) ? grad : null
-    return { kind: 'image', note: withFx(stripes ? `big ${stripes} block` : null) }
+    // a coloured block is part of the look (a dark half, a gradient photo, a mountain cut-out); a pale one is just a picture
+    const col = grad ?? (fill && !/light grey|off-white|white/.test(colourName(f.bg)) ? colourName(f.bg) : null)
+    const shape = f.clipPoints >= 6 ? 'jagged cut-out shape' : f.clipPoints >= 3 ? 'angled cut-out shape' : null
+    const note = stripes ? `big ${stripes} block` : shape ? `${col ?? ''} ${shape}`.trim() : col ? `${col} block` : null
+    return { kind: 'image', note: withFx(note) }
   }
   // a toggle row: a label and a switch
   if (f.toggle && f.text && f.text.length <= 90 && h <= 110 && !f.regionKids.length) {
@@ -189,10 +214,11 @@ function decide(f, page, marked) {
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
     return { kind: 'box', note: `${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
   }
-  if (round && square && f.text.length <= 24 && (fill || grad)) {
+  if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
-    return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${grad ? grad.replace(' gradient', '') : colourName(f.bg)} circle${words}`) }
+    const paint = grad ? grad.replace(' gradient', '') : fill ? colourName(f.bg) : `${colourName(f.border.colour)} outline`
+    return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
   // a row of buttons
   if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) return { kind: 'box', note: `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` }
@@ -217,6 +243,7 @@ function decide(f, page, marked) {
   if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
+    if (fill && !f.clipText && w > 300) tw.push(`on a ${colourName(f.bg)} band`)
     return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}`.trim()) }
   }
   // a row of short items (nav links, tabs)
@@ -227,8 +254,10 @@ function decide(f, page, marked) {
     look.push(...fx)
     if (grad) look.push(grad); else if (fill && !frosted) look.push(colourName(f.bg))
     const bc = bordered ? colourName(f.border.colour) : null
-    if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
     if (fill && /light grey|white/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30) look.pop() // a faint card: the box shows it
+    if (bordered && f.border.w >= 3) look.push(`thick ${bc} border`)
+    else if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
+    if (hardShadow) look.push('hard offset shadow')
     if (ruled) look.push('thick rule under')
     const what = f.tag === 'table' ? 'table' : f.tag === 'nav' ? 'nav bar' : f.tag === 'aside' ? 'sidebar' : null
     // only say it when there is something a box can't show
@@ -266,6 +295,7 @@ function pageNote(b) {
 export async function autoPlan(browser, htmlPath, viewport = { width: 1280, height: 900 }) {
   const page = await browser.newPage({ viewport })
   await page.goto(`file://${htmlPath}`)
+  await page.evaluate(() => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 0 }))
   const { body, regions } = await page.evaluate(factsInPage)
   await page.close()
   body.bg = visible(body.bg) ? body.bg : { r: 255, g: 255, b: 255, a: 1 }
@@ -278,6 +308,18 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (d.kind) marked.add(f.role)
     out.set(f.role, d)
   }
+  // layering: a drawn block painted after a heading and covering part of it sits in front of it (a ridge over a word)
+  regions.forEach((f, i) => {
+    const d = out.get(f.role)
+    if (!d.kind || d.kind === 'heading') return
+    const under = regions.slice(0, i).find((g) => {
+      if (out.get(g.role).kind !== 'heading' || g.regionKids.includes(f.role) || f.regionKids.includes(g.role)) return false
+      const A = f.rect, B = g.rect
+      const ow = Math.min(A.x + A.w, B.x + B.w) - Math.max(A.x, B.x), oh = Math.min(A.y + A.h, B.y + B.h) - Math.max(A.y, B.y)
+      return ow > 0 && oh > 0 && ow * oh > 0.15 * B.w * B.h
+    })
+    if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
+  })
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => [f.role, out.get(f.role).kind])
   const notes = [...(pageNote(body) ? [['*', pageNote(body)]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

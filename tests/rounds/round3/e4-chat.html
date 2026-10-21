@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;display:flex;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden}
+aside{width:320px;height:900px;background:#0f172a;color:#e2e8f0;padding:24px 18px}aside h2{font-size:20px;margin-bottom:18px}
+.conv{padding:12px;border-radius:10px;margin-bottom:6px;font-size:14px}.conv small{display:block;color:#94a3b8;margin-top:4px}.conv.on{background:#1e293b}
+main{flex:1;display:flex;flex-direction:column;background:#f8fafc}
+.head{height:72px;padding:22px 28px;border-bottom:1px solid #e2e8f0;background:#fff;font-weight:700;font-size:17px}
+.msgs{flex:1;padding:28px;display:flex;flex-direction:column;gap:14px}
+.m{max-width:480px;padding:12px 16px;border-radius:16px;font-size:15px;line-height:1.45}.in{background:#fff;border:1px solid #e2e8f0;align-self:flex-start}.out{background:#0ea5e9;color:#fff;align-self:flex-end}
+.comp{margin:0 28px 28px;display:flex;gap:10px}.box{flex:1;padding:14px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;color:#94a3b8;font-size:15px}.send{padding:14px 22px;background:#0ea5e9;color:#fff;border-radius:12px;font-weight:700}
+</style></head><body>
+<aside data-r="sidebar" data-must><h2>Messages</h2><div class="conv on">Design team<small>Mia: shipping the new icons</small></div><div class="conv">Jonas Berg<small>See you at 3?</small></div><div class="conv">Support rota<small>Ali: I can cover Friday</small></div><div class="conv">Lena Ito<small>Thanks! 🙏</small></div><div class="conv">Releases<small>v4.2 is live</small></div></aside>
+<main><div class="head" data-r="header">Design team</div>
+<div class="msgs" data-r="thread" data-must><div class="m in">Morning! New icon set is in Figma, 48 icons.</div><div class="m out">Looks great. Can we get the outline weights to match?</div><div class="m in">Yes — bumping them all to 1.5px now.</div><div class="m out">Perfect, I'll wire them up after lunch.</div><div class="m in">Shipping the new icons by 4pm 🚀</div></div>
+<div class="comp" data-r="composer"><div class="box">Write a message…</div><a class="send">Send</a></div></main>
+</body></html>

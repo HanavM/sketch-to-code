@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kinetic marquee</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f4f0;font-family:Helvetica,Arial,sans-serif;color:#111}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.band{position:absolute;left:-60px;width:1400px;overflow:hidden;white-space:nowrap;font-weight:900;text-transform:uppercase}
+.band .t{display:inline-block;animation:slide 18s linear infinite}
+.b1{top:150px;height:150px;background:#111;color:#f4f4f0;font-size:120px;line-height:150px;transform:rotate(-4deg)}
+.b2{top:420px;height:110px;background:#ff3d00;color:#111;font-size:84px;line-height:110px;transform:rotate(3deg)}
+.b2 .t{animation-direction:reverse}
+.logo{position:absolute;left:56px;top:40px;font-size:22px;font-weight:900;letter-spacing:-1px}
+.menu{position:absolute;right:56px;top:36px;padding:10px 20px;border:2px solid #111;border-radius:999px;font-size:14px;font-weight:700}
+.intro{position:absolute;left:56px;top:640px;width:520px;font-size:30px;line-height:1.2;font-weight:700}
+.reel{position:absolute;right:56px;top:610px;width:420px;height:236px;background:#111;border-radius:20px}
+.play{position:absolute;right:226px;top:688px;width:80px;height:80px;border-radius:50%;background:#ff3d00;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+</style></head><body>
+<div class="logo" data-r="logo">ROLL/STUDIO</div>
+<a class="menu" data-r="menu">Menu</a>
+<div class="band b1" data-r="band-black" data-must><span class="t">Motion design ✶ Motion design ✶ Motion design ✶ Motion design ✶</span></div>
+<div class="band b2" data-r="band-orange" data-must><span class="t">Brand films — Titles — Loops — Brand films — Titles — Loops —</span></div>
+<p class="intro" data-r="intro">We make things move for brands that refuse to sit still.</p>
+<div class="reel" data-r="reel"></div>
+<div class="play" data-r="play"></div>
+</body></html>

@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kanban</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#eef2f7;font-family:Helvetica,Arial,sans-serif;color:#1e293b;overflow:hidden;padding:32px 40px}
+h1{font-size:26px}.cols{display:flex;gap:20px;margin-top:24px}
+.col{width:285px;height:770px;background:#e2e8f0;border-radius:12px;padding:14px}.col h3{font-size:14px;color:#475569;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.c{background:#fff;border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:14px;line-height:1.4}
+.tag{display:inline-block;margin-top:10px;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700}.bug{background:#fee2e2;color:#b91c1c}.feat{background:#dbeafe;color:#1d4ed8}.ops{background:#dcfce7;color:#15803d}
+</style></head><body>
+<h1 data-r="title" data-must>Sprint 24</h1>
+<div class="cols">
+<div class="col" data-r="col-todo" data-must><h3>To do</h3><div class="c">Rate-limit the export API<br><span class="tag feat">Feature</span></div><div class="c">Login loop on Safari 17<br><span class="tag bug">Bug</span></div><div class="c">Rotate staging keys<br><span class="tag ops">Ops</span></div></div>
+<div class="col" data-r="col-doing"><h3>In progress</h3><div class="c">Bulk invite from CSV<br><span class="tag feat">Feature</span></div><div class="c">Chart tooltips cut off<br><span class="tag bug">Bug</span></div></div>
+<div class="col" data-r="col-review"><h3>Review</h3><div class="c">Dark mode for settings<br><span class="tag feat">Feature</span></div></div>
+<div class="col" data-r="col-done"><h3>Done</h3><div class="c">Upgrade Postgres to 16<br><span class="tag ops">Ops</span></div><div class="c">Empty state for search<br><span class="tag feat">Feature</span></div><div class="c">Fix timezone in emails<br><span class="tag bug">Bug</span></div></div>
+</div></body></html>
