@@ -60,6 +60,14 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(open).toContain('stroke="currentColor"')
   })
 
+  it('fills a shape asked for as a vivid colour at full strength, not a faint tint', () => {
+    const faint = buildScaffold(action(), 0, controls({ fill: 'filled' }))!
+    expect(faint.code).toContain('stopOpacity="0.42"')
+    const vivid = buildScaffold(action({ instruction: 'Soft blurred big vivid pink circle behind the card' }), 0, controls({ fill: 'filled' }))!
+    expect(vivid.code).toContain('stopOpacity="1"')
+    expect(vivid.code).not.toContain('stopOpacity="0.16"')
+  })
+
   it('strokes everything when line art is asked for', () => {
     const sc = buildScaffold(action(), 0, controls({ fill: 'outline' }))!
     expect(sc.code).not.toContain('linearGradient')

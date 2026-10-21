@@ -1,4 +1,4 @@
-c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 32
+c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 46
     logo         text     (hand: text)
     links        text     (hand: text)
     headline     heading  (hand: heading)
@@ -8,8 +8,9 @@ c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 32
     note logo: italic "dusk."
     note links: links: Work, Studio, Journal, Contact
     note headline: giant serif "Stay for the golden hour"
+    note subhead: text "A slow-living retreat on the coast, where the evenings last a little longer."
     note cta: pill button "Book a stay"
-c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 32
+c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 46
     nav          box      (hand: box)
     headline     heading  (hand: heading)
     body         text     (hand: text)
@@ -17,8 +18,9 @@ c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 32
     note *: whole page: yellow page, black text
     note nav: thick rule under nav bar "LOUD® INDEX — SHOP — ABOUT"
     note headline: giant uppercase "MAKE IT LOUD"
+    note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."
     note cta: black hard offset shadow yellow text button "SHOP NOW →"
-c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 25
+c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 40
     left-panel   box      (hand: box)
     logo         text     (hand: —)
     headline     heading  (hand: heading)
@@ -29,10 +31,11 @@ c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 25
     note left-panel: deep green
     note logo: uppercase cream "VERDE"
     note headline: giant serif cream "Plants that grow with you"
+    note body: cream text "Hand-picked houseplants, potted in recycled clay and delivered by bike across the city."
     note cta: cream outline button "BROWSE PLANTS"
     note right-panel: cream
     note orb: big glowing yellow to orange circle
-c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 49
+c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 64
     nav          box      (hand: box)
     badge        button   (hand: button)
     headline     heading  (hand: heading)
@@ -42,8 +45,9 @@ c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 49
     note nav: nav bar "NOVA Product Docs Pricing"
     note badge: purple outline pill button "✦ v2 is live — read the notes"
     note headline: giant heavy cyan to purple to coral gradient text "Ship at the speed of light"
+    note subhead: lavender text "The edge platform for teams who refuse to wait on their own infrastructure."
     note ctas: buttons: "Start building", "Talk to us"
-c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 35
+c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 49
     masthead     box      (hand: box)
     number       heading  (hand: heading)
     headline     heading  (hand: heading)
@@ -54,6 +58,7 @@ c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 35
     note number: giant serif red "01"
     note story: "ESSAY"
     note headline: huge serif "The quiet return of the handwritten letter"
+    note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."
     note sidebar: sidebar "In this issue" and text
 e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 36
     card         box      (hand: box)

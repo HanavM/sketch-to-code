@@ -159,7 +159,9 @@ Rules:
   When the page is being built from the drawing, make each block land there: its
   top edge within ~16px of region.y, its width within ~10% of region.w (explicit
   width/max-width and margins). Add no extra top padding or default body margin
-  that pushes everything down. A box drawn tall sets the block's height too
+  that pushes everything down. Never wrap the page in a centred max-width
+  container that moves blocks off their drawn x: a block drawn at the right edge
+  sits at the right edge, one drawn at x=60 starts at x=60. A box drawn tall sets the block's height too
   (bottom within ~5% of region.y + region.h): a grid, calendar or table drawn
   that tall fills it, its row heights = the box height / the number of rows,
   rather than shrinking to its content. Exception: a note that says a block bleeds off the
@@ -174,7 +176,9 @@ Rules:
   soft blurred blob/glow → filter: blur(40px+) on a solid shape;
   hollow/outlined type → color: transparent with -webkit-text-stroke (2-3px);
   bleeding off the edge → the block extends past the viewport edge (wide type or
-    negative margin), with overflow-x hidden on the page wrapper;
+    negative margin), with overflow-x hidden on the page wrapper; "off the left
+    edge" runs off the left only (negative left margin), its letters set
+    together as one word, never spread apart to span the page;
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.

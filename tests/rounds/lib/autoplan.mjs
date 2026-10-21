@@ -117,7 +117,8 @@ function factsInPage() {
         const n = (p.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) ?? []).map(parseFloat)
         return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p) }
       }),
-      bleeds: r.left < -4 || r.right > innerWidth + 4 || r.top < -4,
+      // which edge it runs off: a word bleeding off the left is not one stretched across both
+      bleeds: r.left < -4 && r.right > innerWidth + 4 ? 'left and right' : r.left < -4 ? 'left' : r.right > innerWidth + 4 ? 'right' : r.top < -4 ? 'top' : null,
       // a textless filled block inside (a picture placeholder): makes this a picture card
       pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
       // kids that are themselves label + empty box fields (a row of fields)
@@ -230,7 +231,7 @@ const NAMED = [
   ['red', 220, 38, 38], ['pink', 236, 72, 153], ['purple', 147, 51, 234], ['lavender', 196, 181, 253],
   ['blue', 37, 99, 235], ['sky blue', 125, 190, 245], ['cyan', 34, 211, 238], ['teal', 20, 150, 140],
   ['green', 34, 160, 80], ['deep green', 22, 70, 50], ['brown', 120, 72, 40],
-  ['lime', 132, 204, 22], ['pale yellow', 254, 249, 215], ['indigo', 79, 70, 229], ['off-white', 244, 244, 245],
+  ['lime', 132, 204, 22], ['deep indigo', 30, 22, 80], ['deep purple', 59, 7, 100], ['dark teal', 15, 60, 60], ['pale yellow', 254, 249, 215], ['indigo', 79, 70, 229], ['off-white', 244, 244, 245],
 ]
 const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'light grey', 'grey', 'dark grey'])
 const parse = (s) => {
@@ -284,7 +285,7 @@ function effectWords(f) {
   if (f.blend) w.push('colour-inverting where it crosses what is under it')
   if (f.blur >= 10) w.push('soft blurred')
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
-  if (f.bleeds) w.push('bleeding off the page edge')
+  if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}`)
   return w
 }
 const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgImage) || /1px,\s*transparent 1px/.test(f.bgImage)
@@ -314,6 +315,8 @@ const chipList = (cs, n = 4) => {
   return [...seen].slice(0, n).map(([t, col]) => `${col ? `${col} ` : ''}${quote(t, 18)}`).join(', ')
 }
 const short = (t, n = 28) => quote(t, n)
+/** A strong, fully opaque colour (a hot-pink blob) is said 'vivid', or builds soften it to a faint tint. */
+const vivid = (c) => { c = parse(c); return !!c && c.a >= 0.9 && Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b) >= 150 }
 
 /**
  * Every distinct event with its days (a calendar's events are its content: round 3 e3
@@ -404,7 +407,8 @@ function decideOne(f, page, marked, said) {
     // a coloured block is part of the look (a dark half, a gradient photo, a mountain cut-out); a pale one is just a picture
     const col = grad ?? (fill && !/light grey|off-white|white/.test(colourName(f.bg)) ? colourName(f.bg) : null)
     const shape = f.clipPoints >= 6 ? 'jagged cut-out shape' : f.clipPoints >= 3 ? 'angled cut-out shape' : null
-    const note = stripes ? `big ${stripes} block` : shape ? `${col ?? ''} ${shape}`.trim() : col ? `${col} block` : null
+    const strong = !grad && fill && vivid(f.bg) ? 'vivid ' : ''
+    const note = stripes ? `big ${stripes} block` : shape ? `${strong}${col ?? ''} ${shape}`.trim() : col ? `${strong}${col} block` : null
     return { kind: 'image', note: withFx(note) }
   }
   // a toggle row: a label and a switch
@@ -432,7 +436,7 @@ function decideOne(f, page, marked, said) {
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
-    const paint = grad ? grad.replace(' gradient', '') : fill ? colourName(f.bg) : `${colourName(f.border.colour)} outline`
+    const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${colourName(f.border.colour)} outline`
     return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
   // a row of buttons
@@ -500,7 +504,9 @@ function decideOne(f, page, marked, said) {
     const styled = uniq([...typeWords(f, page), NEUTRAL.has(textCol) ? null : textCol, ...fx])
     // ...or when it is a bold standalone label (a thread title, a panel header): copy no mark can carry
     const say = f.text.length <= 40 && (f.font.size >= 18 || styled.length || (f.font.weight >= 600 && f.kidCount === 0))
-    return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : null }
+    // one short paragraph (a hero's lead line) is copy a person types, or the build writes its own
+    const lead = !say && f.kidCount === 0 && f.text.length <= 110 && /^(p|span|div)$/.test(f.tag)
+    return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : lead ? `${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
   }
   return { kind: 'box', note: null }
 }

@@ -1,14 +1,23 @@
 {
   "id": "c2-outline-bleed",
-  "at": "2026-10-21T06:07:58.444Z",
+  "at": "2026-10-21T06:45:44.485Z",
   "likeness": {
-    "version": 2,
-    "overall": 0.38305256334152904,
-    "overallV1": 0.36854632700997164,
-    "colour": 0.9057830375023967,
-    "structure": 0.09335784863384089,
-    "structureStrict": 0.046261871202368056,
-    "layout": 0.18027399295537952
+    "version": 3,
+    "overall": 0.4360180886342311,
+    "overallV2": 0.4354142072782898,
+    "overallV1": 0.4145816968521917,
+    "colour": 0.9277379957115481,
+    "structure": 0.11045404348554227,
+    "structureStrict": 0.048966670432668044,
+    "colourAligned": 0.9293390783827236,
+    "structureAligned": 0.11045404348554227,
+    "align": {
+      "scale": 1.12,
+      "dx": -80,
+      "dy": -112,
+      "r": 0.3762749779100724
+    },
+    "layout": 0.30612267453985725
   },
   "effects": {
     "recall": 1,
@@ -20,43 +29,34 @@
     ],
     "missing": [],
     "extra": [
-      "overlap",
       "uppercase-display"
     ]
   },
   "tokens": {
-    "input": 42277,
-    "output": 16143,
-    "cacheRead": 627465
+    "input": 35158,
+    "output": 16519,
+    "cacheRead": 249254
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49624,
-      "output": 12651,
-      "cacheRead": 618818,
-      "toolCalls": 14,
+      "billed": 42859,
+      "output": 13116,
+      "cacheRead": 240054,
+      "toolCalls": 6,
       "tools": [
-        "Grep",
+        "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/src",
-        "Glob",
-        "Read s2c-bench-app/package.json",
         "Read src/index.css",
-        "Edit src/App.tsx",
-        "Skill",
-        "Read examples/playwright.md",
-        "ToolSearch",
-        "ToolSearch",
-        "ToolSearch",
-        "Read src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 144776
+      "ms": 163218
     }
   ],
-  "reading": "This sketch is a festival poster-style hero: a black page with white default text, a top-right nav placeholder reading INDEX / SHOWS / SHOP, and a giant typographic lockup bleeding off the left edge made of a hollow white outlined \"NOISE\", an overlapping lime \"FEST\", and a lime mono date line \"// 14–16 AUG 2027\".",
+  "reading": "The sketch lays out a festival landing page: a top-right nav, a giant two-line stacked headline bleeding off the left edge (NOISE in white hollow outline, FEST in solid lime), a short body paragraph, and a small lime monospace date line, all on a black page per the typed global note.",
   "actions": [
     {
       "kind": "add",
@@ -71,56 +71,106 @@
         9
       ],
       "paths": [],
-      "instruction": "Top-right navigation links reading INDEX, SHOWS, SHOP, styled in white against the black background, replacing the squiggle placeholder."
+      "instruction": "Small squiggle in the top-right stands for the nav links. Typed note: 'links: INDEX, SHOWS, SHOP' - add a navigation bar with these three link labels."
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        0,
-        0,
-        935,
-        840
-      ],
-      "paths": [
-        "s1",
-        "s2",
-        "s3"
-      ],
-      "instruction": "Giant heavy hollow outlined white heading \"NOISE\", bleeding off the left page edge, oversized display type matching the diagonal stroke scale drawn."
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        0,
-        0,
-        935,
-        827
-      ],
-      "paths": [
+      "textMarks": [
         "s1",
         "s2"
       ],
-      "instruction": "Giant heavy lime-colored heading \"FEST\", overlapping the NOISE text and also bleeding off the left page edge."
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 150
+        }
+      ],
+      "region": [
+        1,
+        188,
+        763,
+        131
+      ],
+      "paths": [],
+      "instruction": "Two large squiggly lines stand for a giant heading. Typed note: 'bleeding off the left page edge giant heavy hollow outlined white \"NOISE\"' - add a huge, heavy,"
     },
     {
       "kind": "add",
-      "textMarks": [],
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 150
+        },
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        1,
+        468,
+        631,
+        131
+      ],
+      "paths": [],
+      "instruction": "Two large squiggly lines beneath the NOISE heading stand for a second giant heading line. Typed note: 'bleeding off the left page edge giant heavy lime \"FEST\"' "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        928,
+        795,
+        292,
+        33
+      ],
+      "paths": [],
+      "instruction": "Two short squiggly lines stand for a body text paragraph. Typed note: 'text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"' - add this "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
       "textSize": [],
       "region": [
-        0,
-        0,
-        935,
-        827
+        60,
+        832,
+        135,
+        8
       ],
-      "paths": [
-        "s1",
-        "s2"
-      ],
-      "instruction": "Lime monospace date line \"// 14–16 AUG 2027\" placed near the giant NOISE/FEST lockup."
+      "paths": [],
+      "instruction": "Small squiggle at bottom-left stands for a date line. Typed note: 'mono lime \"// 14-16 AUG 2027\"' - add this text in a monospace font, colored lime."
     }
   ],
   "rejected": [

@@ -121,12 +121,17 @@ export function buildScaffold(
   // is the minimum that makes a shape look like it has form, and all of it is
   // derived, so it costs nothing.
   const gradId = `${name.toLowerCase()}-form`
+  // ...but a shape asked for as a strong colour (a vivid blurred blob, a solid
+  // disc) is that colour. At 0.42 falling to 0.16 a hot-pink blob behind a
+  // dark page renders as a faint tint (round 2 c3), so the stops go opaque.
+  const strong = /\b(vivid|bright|solid|saturated|neon|bold colou?r)\b/i.test(`${action.instruction} ${action.depicts ?? ''}`)
+  const [o1, o2, o3] = strong ? ['1', '0.94', '0.86'] : ['0.42', '0.26', '0.16']
   const defs = filled && gradientOk
     ? `      <defs>\n` +
       `        <linearGradient id="${gradId}" x1="0" y1="0" x2="0.35" y2="1">\n` +
-      `          <stop offset="0%" stopColor="currentColor" stopOpacity="0.42" />\n` +
-      `          <stop offset="60%" stopColor="currentColor" stopOpacity="0.26" />\n` +
-      `          <stop offset="100%" stopColor="currentColor" stopOpacity="0.16" />\n` +
+      `          <stop offset="0%" stopColor="currentColor" stopOpacity="${o1}" />\n` +
+      `          <stop offset="60%" stopColor="currentColor" stopOpacity="${o2}" />\n` +
+      `          <stop offset="100%" stopColor="currentColor" stopOpacity="${o3}" />\n` +
       `        </linearGradient>\n` +
       `      </defs>\n`
     : ''
@@ -135,7 +140,7 @@ export function buildScaffold(
     .map(({ d, strokeId }) => {
       const closed = isClosed(d)
       const fillAttr = gradientOk ? `url(#${gradId})` : 'currentColor'
-      const flatOpacity = gradientOk ? '' : ' fillOpacity="0.26"'
+      const flatOpacity = gradientOk ? '' : ` fillOpacity="${strong ? '1' : '0.26'}"`
       const attrs = filled && closed
         // filled AND outlined: the drawn edge survives as the form's contour
         ? `fill="${fillAttr}"${flatOpacity} stroke="currentColor" strokeOpacity="0.55" strokeWidth={1.5} strokeLinejoin="round"`

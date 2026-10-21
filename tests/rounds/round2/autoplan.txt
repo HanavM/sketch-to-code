@@ -1,4 +1,4 @@
-c1-collage · marks 7 · words 44
+c1-collage · marks 7 · words 61
     logo         heading 
     photo-1      image   
     photo-2      image   
@@ -10,10 +10,11 @@ c1-collage · marks 7 · words 44
     note logo: italic serif "Field Notes"
     note photo-1: tilted grey to dark grey gradient block
     note photo-2: tilted coral to red gradient block
-    note sticker: tilted yellow circle with "NEW ISSUE 07"
+    note sticker: tilted vivid yellow circle with "NEW ISSUE 07"
     note headline: giant serif "Slow travel, fast friends"
+    note body: text "A quarterly zine of walks, night trains and the people you meet on the way."
     note cta: near-black pill cream text button "Read issue 07"
-c2-outline-bleed · marks 5 · words 36
+c2-outline-bleed · marks 5 · words 51
     nav          text    
     outline-word heading 
     solid-word   heading 
@@ -21,10 +22,11 @@ c2-outline-bleed · marks 5 · words 36
     date         text    
     note *: whole page: black page, white text
     note nav: links: INDEX, SHOWS, SHOP
-    note outline-word: bleeding off the page edge giant heavy hollow outlined white "NOISE"
-    note solid-word: bleeding off the page edge giant heavy lime "FEST"
+    note outline-word: bleeding off the left page edge giant heavy hollow outlined white "NOISE"
+    note solid-word: bleeding off the left page edge giant heavy lime "FEST"
+    note body: text "Three nights of loud guitars in a disused tram depot. Bring earplugs."
     note date: mono lime "// 14—16 AUG 2027"
-c3-glass-blobs · marks 7 · words 34
+c3-glass-blobs · marks 7 · words 49
     blob-pink    circle  
     blob-cyan    circle  
     card         box     
@@ -32,12 +34,13 @@ c3-glass-blobs · marks 7 · words 34
     headline     heading 
     body         text    
     ctas         box     
-    note *: whole page: dark navy page, white text
-    note blob-pink: soft blurred big pink circle
-    note blob-cyan: soft blurred big cyan circle
+    note *: whole page: deep indigo page, white text
+    note blob-pink: soft blurred big vivid pink circle
+    note blob-cyan: soft blurred big vivid cyan circle
     note card: frosted glass
     note tag: frosted glass "Beta · v2.0"
     note headline: huge "Your notes, finally calm"
+    note body: text "Write, link and find anything in a quiet space that syncs everywhere."
     note ctas: buttons: "Get started", "Watch demo"
 c4-mag-grid · marks 6 · words 55
     masthead     box     
@@ -53,16 +56,17 @@ c4-mag-grid · marks 6 · words 55
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
     note pull-quote: italic red "“Nobody misses the queue, but everybody misses the chat.”"
-c5-retro-bands · marks 5 · words 41
+c5-retro-bands · marks 5 · words 55
     bands        image   
     logo         text    
     headline     heading 
     body         text    
     cta          button  
     note *: whole page: pale yellow page, black text
-    note bands: tilted bleeding off the page edge big orange, yellow, teal, brown stripes block
+    note bands: tilted bleeding off the right page edge big orange, yellow, teal, brown stripes block
     note logo: brown "SUNDAE"
     note headline: giant italic heavy uppercase brown "SOFT SERVE, HARD RULES"
+    note body: text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
     note cta: teal hard offset shadow white text button "FIND A TRUCK"
 e1-checkout · marks 13 · words 56
     title        heading 
@@ -125,7 +129,7 @@ e3-settings · marks 8 · words 47
     note row-4: toggle off "Weekly report Usage numbers for your"…
     note save: blue white text button "Save changes"
     note reset: red outline button "Reset all"
-e4-faq · marks 7 · words 43
+e4-faq · marks 7 · words 52
     title        heading 
     subtitle     text    
     search       box     
@@ -135,12 +139,13 @@ e4-faq · marks 7 · words 43
     q4           box     
     note *: whole page: pale yellow page, near-black text
     note title: big "Questions, answered"
+    note subtitle: brown text "Everything about orders, returns and your account."
     note search: pill search input "Search the help centre…"
     note q1: "How long does delivery take? −" and text
     note q2: "Can I return a gift? +"
     note q3: "Do you ship abroad? +"
     note q4: "How do I change my password? +"
-e5-inbox · marks 8 · words 21
+e5-inbox · marks 8 · words 27
     folders      box     
     m1           box     
     m2           text    
@@ -152,3 +157,4 @@ e5-inbox · marks 8 · words 21
     note folders: sidebar "Compose Inbox 12 Starred Sent Drafts"
     note m1: "Maya Chen Draft of the Q3 plan attached"
     note subject: "Draft of the Q3 plan attached"
+    note from: text "Maya Chen · 9:41 AM"
