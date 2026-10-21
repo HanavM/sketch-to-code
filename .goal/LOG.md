@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T08:55:00Z | Hardest creative pages, first builds | Mountains 62% to 67% after ridge fix, orbit 59%, editorial 70%; builds now half the cost. 345k.
 2026-10-21T07:40:00Z | Poster: right typeface and grey blurb | Plans now name the typeface and grey text; poster built in Helvetica, grey blurb. Score flat 59%. 38k.
 2026-10-21T07:30:00Z | Poster: tight letters, words off the left edge | Giant words now run off the left edge and sit tight like the target; typeface next. 27k.
 2026-10-21T07:20:00Z | Poster: giant headline drawn to size | Giant words now drawn as one tall zigzag and built at 300px; poster 44% to 63%. 36k.
