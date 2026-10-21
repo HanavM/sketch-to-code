@@ -325,15 +325,15 @@
    ],
    [
     "tier-1",
-    "\"Starter\" and text"
+    "\"Starter\" list: \"1 project\", \"Community support\", \"Basic analytics\""
    ],
    [
     "tier-2",
-    "dark navy \"Pro\" and text"
+    "dark navy \"Pro\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\""
    ],
    [
     "tier-3",
-    "\"Team\" and text"
+    "\"Team\" list: \"Everything in Pro\", \"SSO\", \"Audit logs\""
    ]
   ]
  },
@@ -475,7 +475,7 @@
   "notes": [
    [
     "sidebar",
-    "dark navy sidebar \"Acme\" and text"
+    "dark navy sidebar \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted"
    ],
    [
     "title",
@@ -499,7 +499,7 @@
    ],
    [
     "table",
-    "table"
+    "table, columns \"Customer\", \"Plan\", \"Amount\", \"Status\", 4 rows"
    ]
   ]
  }

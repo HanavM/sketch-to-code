@@ -86,7 +86,91 @@ function factsInPage() {
       fieldKids: kids.filter((k) => [...k.children].some((g) => { const c = getComputedStyle(g); return !(g.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 })).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()),
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
+      dense: dense(el),
     }
+  }
+  // ---- dense app UI: the structure a box can't show (table, month grid, stat cards, bars, bubbles, cards, lists)
+  const txt = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
+  const filled = (k) => { const c = rgba(getComputedStyle(k).backgroundColor); return c && c.a > 0.05 ? c : null }
+  // a small rounded label with its own fill: a status pill or a tag. Its ink names it better than a pale fill.
+  const chips = (el) => [...el.querySelectorAll('*')].filter((k) => {
+    const b = k.getBoundingClientRect(); const t = txt(k)
+    return t && t.length <= 18 && !k.children.length && filled(k) && b.height <= 30 && b.width <= 160 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 3
+  }).map((k) => ({ text: txt(k), ink: rgba(getComputedStyle(k).color), fill: filled(k) }))
+  // siblings that repeat: the same tag and class, 3 or more (rows, cards, conversations)
+  const repeats = (el) => {
+    let best = []
+    for (const p of [el, ...el.querySelectorAll('*')]) {
+      const groups = new Map()
+      // a state class ('conv on', 'page active') doesn't split the selected item from its row
+      for (const k of p.children) { const key = `${k.tagName}.${k.className.replace(/\b(on|active|selected|current|today|open)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
+      // marked regions are drawn on their own: they aren't a list's items
+      for (const g of groups.values()) if (g.length >= 3 && g.length > best.length && g.every((k) => txt(k) && !k.dataset?.r && !k.querySelector('[data-r]'))) best = g
+    }
+    return best
+  }
+  function dense(el) {
+    const cs = getComputedStyle(el)
+    // table: header cells and body rows
+    const trs = el.tagName === 'TABLE' ? [...el.querySelectorAll('tr')] : []
+    if (trs.length >= 3) {
+      const head = [...trs[0].children].map(txt)
+      return { type: 'table', columns: head, rows: trs.length - 1, chips: chips(el) }
+    }
+    // month grid: seven columns, weekday heads, events as coloured chips in day cells
+    const cols = cs.display === 'grid' ? cs.gridTemplateColumns.split(' ').length : 0
+    if (cols === 7 && el.children.length >= 28) {
+      const days = [...el.children]
+      const heads = days.slice(0, 7).map(txt).filter((t) => /^[A-Za-z]{2,9}$/.test(t))
+      const cells = days.length - heads.length
+      const page = rgba(getComputedStyle(document.body).backgroundColor)
+      const marked = days.slice(heads.length).filter((d) => { const f = filled(d); return f && (!page || Math.hypot(f.r - page.r, f.g - page.g, f.b - page.b) > 6) }).map((d) => txt(d).split(' ')[0])
+      return { type: 'month', heads, weeks: Math.round(cells / 7), events: chips(el).map((c) => ({ ...c, ink: c.fill })), marked }
+    }
+    const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
+    // stat cards: 3+ same-size cards in a row, each with one big number
+    const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
+    if (kids.length >= 3 && kids.every((k) => big(k) && txt(k).length <= 48)) {
+      const ys = kids.map((k) => Math.round(k.getBoundingClientRect().y))
+      if (Math.max(...ys) - Math.min(...ys) <= 8) return { type: 'stats', cards: kids.map((k) => ({ label: txt(k).replace(txt(big(k)), '|').split('|')[0].trim(), value: txt(big(k)), rest: txt(k).split(txt(big(k)))[1]?.trim() ?? '' })) }
+    }
+    // bar chart: 4+ textless filled blocks side by side on one baseline, different heights
+    const bars = [...el.querySelectorAll('*')].filter((k) => !txt(k) && !k.children.length && filled(k) && k.getBoundingClientRect().height >= 8)
+    if (bars.length >= 4) {
+      const r = bars.map((k) => k.getBoundingClientRect())
+      const base = r.map((b) => Math.round(b.bottom)), hs = r.map((b) => Math.round(b.height))
+      if (Math.max(...base) - Math.min(...base) <= 2 && new Set(hs).size >= 3 && r.every((b) => b.width < b.height * 2.5)) {
+        const title = kids.map(txt).find((t) => t && t.length <= 40)
+        return { type: 'bars', count: bars.length, colour: filled(bars[0]), title, rising: hs[hs.length - 1] > hs[0] }
+      }
+    }
+    // chat bubbles: rounded filled boxes, some hugging the left, some the right
+    const box = el.getBoundingClientRect()
+    const bubbles = kids.filter((k) => txt(k) && (filled(k) || parseFloat(getComputedStyle(k).borderTopWidth) >= 1) && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 10)
+    if (bubbles.length >= 3 && bubbles.length === kids.length) {
+      const side = (k) => { const b = k.getBoundingClientRect(); return b.left - box.left < box.right - b.right ? 'left' : 'right' }
+      const sides = bubbles.map(side)
+      if (sides.includes('left') && sides.includes('right') && bubbles.every((k) => k.getBoundingClientRect().width < box.width * 0.8)) {
+        return { type: 'bubbles', items: bubbles.map((k) => ({ side: side(k), text: txt(k), fill: filled(k), ink: rgba(getComputedStyle(k).color) })) }
+      }
+    }
+    // cards or a list: repeated items, with a heading above them and tags inside
+    const rep = repeats(el)
+    const cardKids = kids.filter((k) => filled(k) && txt(k))
+    const headKid = kids.find((k) => !filled(k) && /^H\d$/.test(k.tagName))
+    if (headKid && cardKids.length >= 1 && cardKids.length === kids.length - 1) {
+      return { type: 'cards', head: txt(headKid), items: cardKids.map((k) => ({ text: txt(k), tags: chips(k) })) }
+    }
+    if (rep.length >= 3) {
+      // the highlighted item: the one whose fill differs from all the others
+      const key = (k) => { const c = filled(k); return c ? `${c.r},${c.g},${c.b}` : 'none' }
+      const odd = rep.filter((k) => rep.filter((j) => key(j) === key(k)).length === 1)
+      const on = odd.length === 1 && rep.length >= 3 ? [...odd[0].childNodes].map((n) => (n.textContent || '').trim()).find(Boolean) : null
+      // a heading or a lead line beside the list ('Showing 1-7 of 48')
+      const head = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 40)
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map((k) => [...k.childNodes].map((n) => (n.textContent || '').trim()).filter(Boolean)), on }
+    }
+    return null
   }
   return { body: fact(document.body), regions: [...document.querySelectorAll('[data-r]')].map(fact) }
 }
@@ -170,6 +254,38 @@ function typeWords(f, page) {
   return w
 }
 
+/** A chip's colour word: its ink when the fill is pale (green text on mint), else its fill. */
+const chipColour = (c) => {
+  const pale = c.fill && c.fill.r + c.fill.g + c.fill.b > 600
+  const n = colourName(pale ? c.ink : c.fill)
+  return n === 'deep green' ? 'green' : n
+}
+const chipList = (cs, n = 4) => {
+  const seen = new Map()
+  for (const c of cs) if (!seen.has(c.text)) seen.set(c.text, chipColour(c))
+  return [...seen].slice(0, n).map(([t, col]) => `${col ? `${col} ` : ''}${quote(t, 18)}`).join(', ')
+}
+const short = (t, n = 28) => quote(t, n)
+
+/** Dense app UI -> words that carry its structure (columns, rows, weeks, bars, sides). */
+function denseNote(d) {
+  if (!d) return null
+  switch (d.type) {
+    case 'table': return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
+    case 'month': {
+      const ev = chipList(d.events, 5)
+      return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${ev ? `; event chips ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
+    }
+    case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}`).join(', ')}`
+    case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars`.replace(/\s+/g, ' ')
+    case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 24)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
+    case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
+    case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
+      return `${d.head ? `${quote(d.head, 20)} ` : ''}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
+  }
+  return null
+}
+
 /** One region -> {kind, note} (kind null = don't draw). */
 function decide(f, page, marked) {
   const { w, h } = f.rect
@@ -190,6 +306,16 @@ function decide(f, page, marked) {
   const frosted = fx.includes('frosted glass')
 
   if (f.hasImg && f.text.length < 4) return { kind: 'image', note: withFx(null) }
+  // dense app UI: say the structure (columns and rows, weeks, bars, sides) since a box shows none of it
+  // (a plain list is only said when nothing else names the block: see the box branch)
+  // and only when its parts aren't drawn as marks of their own (stat cards each marked)
+  const dn = f.dense?.type === 'list' || f.regionKids.some((r) => marked.has(r)) ? null : denseNote(f.dense)
+  if (dn) {
+    const bgName = fill ? colourName(f.bg) : null
+    const col = bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null
+    const what = f.tag === 'aside' ? 'sidebar' : null
+    return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
+  }
   // a textless filled block with no parts inside is a picture placeholder
   if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) {
     const stripes = grad && /stripes/.test(grad) ? grad : null
@@ -211,6 +337,11 @@ function decide(f, page, marked) {
   if (f.fieldKid && f.kidCount <= 3) return { kind: 'box', note: `field ${quote(f.kidTexts[0] ?? f.role)}` }
   // an input: bordered, left-aligned short text (placeholder)
   const placeholder = /…$|\.\.\.$|^search\b/i.test(f.text)
+  if (bordered && !placeholder && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 60 && w <= 260) {
+    if (/[▾▼]$/.test(f.text)) return { kind: 'button', note: `dropdown ${quote(f.text.replace(/\s*[▾▼]$/, ''))}` }
+    if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}` }
+    if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}`.trim() }
+  }
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
     return { kind: 'box', note: `${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
   }
@@ -221,7 +352,12 @@ function decide(f, page, marked) {
     return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
   // a row of buttons
-  if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) return { kind: 'box', note: `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` }
+  if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) {
+    // a row of controls: a placeholder is an input, 'Role: All' or '▾' is a dropdown, the rest are buttons
+    const ctl = (t) => /…$|\.\.\.$|^search\b/i.test(t) ? `input ${quote(t)}` : /▾|▼|:\s*\S/.test(t) ? `dropdown ${quote(t.replace(/\s*[▾▼]$/, ''))}` : `button ${quote(t)}`
+    const items = f.kidTexts.map(ctl)
+    return { kind: 'box', note: items.every((t) => t.startsWith('button')) ? `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ') }
+  }
   // wide is fine for a filled, centred one-line label (a full-width pay button)
   const buttonish = (/^(a|button)$/.test(f.tag) || ((fill || bordered || grad) && f.centred)) && short && h <= 90 && f.kidCount <= 1 && (w <= 420 || (fill && f.centred && h <= 70))
   if (buttonish) {
@@ -263,7 +399,8 @@ function decide(f, page, marked) {
     // only say it when there is something a box can't show
     const say = uniq([...look, what]).join(' ')
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
-    const copy = f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : head && !f.regionKids.length ? `${quote(head)} and text` : ''
+    const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null
+    const copy = f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
   }
   if (f.text) {

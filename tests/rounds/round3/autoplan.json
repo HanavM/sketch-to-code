@@ -355,11 +355,11 @@
    ],
    [
     "filters",
-    "buttons: \"Search by name or email…\", \"Role: All\", \"Status: All\""
+    "input \"Search by name or email…\", dropdown \"Role: All\", dropdown \"Status: All\""
    ],
    [
     "table",
-    "table"
+    "table, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows; status pills green \"Active\", brown \"Invited\", red \"Suspended\""
    ]
   ]
  },
@@ -397,19 +397,19 @@
    ],
    [
     "col-todo",
-    "\"TO DO\" and text"
+    "column \"TO DO\", cards: \"Rate-limit the export API\" tag blue \"Feature\", \"Login loop on Safari 17\" tag red \"Bug\", \"Rotate staging keys\" tag green \"Ops\""
    ],
    [
     "col-doing",
-    "\"IN PROGRESS\" and text"
+    "column \"IN PROGRESS\", cards: \"Bulk invite from CSV\" tag blue \"Feature\", \"Chart tooltips cut off\" tag red \"Bug\""
    ],
    [
     "col-review",
-    "\"REVIEW Dark mode for settings Feature\""
+    "column \"REVIEW\", cards: \"Dark mode for settings\" tag blue \"Feature\""
    ],
    [
     "col-done",
-    "\"DONE\" and text"
+    "column \"DONE\", cards: \"Upgrade Postgres to 16\" tag green \"Ops\", \"Empty state for search\" tag blue \"Feature\", \"Fix timezone in emails\" tag red \"Bug\""
    ]
   ]
  },
@@ -421,11 +421,11 @@
    ],
    [
     "prev",
-    "box"
+    "button"
    ],
    [
     "new",
-    "box"
+    "button"
    ],
    [
     "month",
@@ -439,15 +439,15 @@
    ],
    [
     "prev",
-    "input \"‹ Prev\""
+    "outline button \"‹ Prev\""
    ],
    [
     "new",
-    "green \"+ New event\""
+    "green white text button \"+ New event\""
    ],
    [
     "month",
-    "\"Mon\" and text"
+    "month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue \"Standup\", green \"Design review\", orange \"Launch\", green \"1:1 with Mia\", blue \"Planning\"; day 11 highlighted"
    ]
   ]
  },
@@ -463,7 +463,7 @@
    ],
    [
     "thread",
-    "text"
+    "box"
    ],
    [
     "composer",
@@ -473,11 +473,15 @@
   "notes": [
    [
     "sidebar",
-    "dark navy sidebar \"Messages\" and text"
+    "dark navy sidebar \"Messages\" list: \"Design team\", \"Jonas Berg\" See you at 3?, \"Support rota\", \"Lena Ito\" Thanks! 🙏, 1 more; \"Design team\" highlighted"
+   ],
+   [
+    "thread",
+    "chat bubbles: left white \"Morning! New icon set…\", right teal \"Looks great. Can we get…\", left white \"Yes — bumping them all…\", right teal \"Perfect, I'll wire them…\", 1 more"
    ],
    [
     "composer",
-    "buttons: \"Write a message…\", \"Send\""
+    "input \"Write a message…\", button \"Send\""
    ]
   ]
  },
@@ -489,7 +493,7 @@
    ],
    [
     "range",
-    "box"
+    "button"
    ],
    [
     "kpis",
@@ -497,7 +501,7 @@
    ],
    [
     "chart",
-    "image"
+    "box"
    ],
    [
     "top-pages",
@@ -515,19 +519,19 @@
    ],
    [
     "range",
-    "\"Last 30 days ▾\""
+    "dropdown \"Last 30 days\""
    ],
    [
     "kpis",
-    "buttons: \"Visitors 48,210 ▲ 12%\", \"Signups 1,932 ▲ 8%\", \"Conversion 4.0% ▼ 0.3%\", \"Revenue $23.4k ▲ 17%\""
+    "4 stat cards in a row: \"Visitors\" 48,210 ▲ 12%, \"Signups\" 1,932 ▲ 8%, \"Conversion\" 4.0% ▼ 0.3%, \"Revenue\" $23.4k ▲ 17%"
    ],
    [
     "chart",
-    "picture with \"Signups per week\""
+    "bar chart \"Signups per week\", 8 indigo bars"
    ],
    [
     "top-pages",
-    "\"Top pages\" and text"
+    "\"Top pages\" list: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, 1 more"
    ]
   ]
  }

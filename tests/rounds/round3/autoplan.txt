@@ -76,7 +76,7 @@ c5-blend-editorial · marks 8 · words 45
     note photo: teal to pink gradient block
     note headline: colour-inverting where it crosses what is under it giant italic serif white "Light keeps the dark honest"
     note read: button "Read the issue →"
-e1-users-table · marks 5 · words 19
+e1-users-table · marks 5 · words 38
     title        heading 
     add          button  
     filters      box     
@@ -84,9 +84,9 @@ e1-users-table · marks 5 · words 19
     pager        text    
     note title: "Users"
     note add: indigo white text button "+ Invite user"
-    note filters: buttons: "Search by name or email…", "Role: All", "Status: All"
-    note table: table
-e2-kanban · marks 5 · words 26
+    note filters: input "Search by name or email…", dropdown "Role: All", dropdown "Status: All"
+    note table: table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", brown "Invited", red "Suspended"
+e2-kanban · marks 5 · words 86
     title        heading 
     col-todo     box     
     col-doing    box     
@@ -94,35 +94,36 @@ e2-kanban · marks 5 · words 26
     col-done     box     
     note *: whole page: off-white page, dark navy text
     note title: "Sprint 24"
-    note col-todo: "TO DO" and text
-    note col-doing: "IN PROGRESS" and text
-    note col-review: "REVIEW Dark mode for settings Feature"
-    note col-done: "DONE" and text
-e3-calendar · marks 4 · words 12
+    note col-todo: column "TO DO", cards: "Rate-limit the export API" tag blue "Feature", "Login loop on Safari 17" tag red "Bug", "Rotate staging keys" tag green "Ops"
+    note col-doing: column "IN PROGRESS", cards: "Bulk invite from CSV" tag blue "Feature", "Chart tooltips cut off" tag red "Bug"
+    note col-review: column "REVIEW", cards: "Dark mode for settings" tag blue "Feature"
+    note col-done: column "DONE", cards: "Upgrade Postgres to 16" tag green "Ops", "Empty state for search" tag blue "Feature", "Fix timezone in emails" tag red "Bug"
+e3-calendar · marks 4 · words 43
     title        heading 
-    prev         box     
-    new          box     
+    prev         button  
+    new          button  
     month        box     
     note title: "November 2026"
-    note prev: input "‹ Prev"
-    note new: green "+ New event"
-    note month: "Mon" and text
-e4-chat · marks 4 · words 11
+    note prev: outline button "‹ Prev"
+    note new: green white text button "+ New event"
+    note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue "Standup", green "Design review", orange "Launch", green "1:1 with Mia", blue "Planning"; day 11 highlighted
+e4-chat · marks 4 · words 60
     sidebar      box     
     header       text    
-    thread       text    
+    thread       box     
     composer     box     
-    note sidebar: dark navy sidebar "Messages" and text
-    note composer: buttons: "Write a message…", "Send"
-e5-analytics · marks 5 · words 38
+    note sidebar: dark navy sidebar "Messages" list: "Design team", "Jonas Berg" See you at 3?, "Support rota", "Lena Ito" Thanks! 🙏, 1 more; "Design team" highlighted
+    note thread: chat bubbles: left white "Morning! New icon set…", right teal "Looks great. Can we get…", left white "Yes — bumping them all…", right teal "Perfect, I'll wire them…", 1 more
+    note composer: input "Write a message…", button "Send"
+e5-analytics · marks 5 · words 55
     title        heading 
-    range        box     
+    range        button  
     kpis         box     
-    chart        image   
+    chart        box     
     top-pages    box     
     note *: whole page: off-white page, dark navy text
     note title: "Overview"
-    note range: "Last 30 days ▾"
-    note kpis: buttons: "Visitors 48,210 ▲ 12%", "Signups 1,932 ▲ 8%", "Conversion 4.0% ▼ 0.3%", "Revenue $23.4k ▲ 17%"
-    note chart: picture with "Signups per week"
-    note top-pages: "Top pages" and text
+    note range: dropdown "Last 30 days"
+    note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%
+    note chart: bar chart "Signups per week", 8 indigo bars
+    note top-pages: "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, 1 more
