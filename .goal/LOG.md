@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T07:20:00Z | Poster: giant headline drawn to size | Giant words now drawn as one tall zigzag and built at 300px; poster 44% to 63%. 36k.
 2026-10-21T07:05:00Z | Round 2 poster and glass re-run | Glass page 46% to 79%, near-identical; poster 38% to 44%, all parts placed; headline too small next. 245k.
 2026-10-21T06:50:00Z | Fair score for sparse pages | Near-identical settings page now scores 36% not 6%; unrelated pages still score low. Free.
 2026-10-21T06:35:00Z | Round 2 harder pages, first three | Glass 46%, settings near-identical (score 6% is a scoring flaw), poster lost lines: drawing fix. 133k.

@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The glass page now looks almost identical to its target; next, making the poster page's giant headline as big as it was drawn."
-lock: {by: run-0656, until: 2026-10-21T08:26:57Z}
+now: "The poster page's giant words now come out as big as drawn (44% to 63%); next, tight letter spacing and words running off the left edge."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -52,6 +52,8 @@ notes:
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
   - "n32 (2cb1d34 on try/n3-vocabulary): planner quotes one short paragraph (<=110 chars) as 'text \"...\"'; says 'vivid' for strong opaque fills; 'bleeding off the left|right|left and right page edge(s)'; names deep indigo and deep purple. Scaffold: 'vivid/bright/solid' in an action makes the drawn shape's fill opaque (was 0.42-0.16 tint). Contract: no centred max-width wrapper; a left bleed keeps letters together. c2 first try spread letters across the page and centred everything (90k with a repair turn)."
   - "Token ledger: 2026-10-21 n32 live c2 90k, c2+c3 97k, c3 58k = 245k (day total ~1175k, no cap set)."
+  - "n34 (9d403dc on try/n3-vocabulary): auto plans carry [role,'heading',{fontPx,lines}]; one-line heading >=40px is drawn as ONE zigzag 0.7 x fontPx tall (flatter for narrow words: height <= width/3); textmark.ts accepts a 'display line' taller than 40px if wide (>=2.5x), level, crest gap >=0.5x height, sinuosity <=2.5 (bench hatch stays out), measured along the ink's principal axis. Narrow giant numbers (r1 c5 240px, r3 c4 420px) read only ~120-180px."
+  - "Token ledger: 2026-10-21 n34 live c2 36k (day total ~1210k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -84,7 +86,9 @@ nodes:
      result: "c3 46%, e3 6% (looks near-identical), c2 38%: off-screen bleed marks broke drawing; bench now clamps. 2ed2452."}
   - {id: n32, parent: n11, kind: step, title: "Live ~60k (--budget): re-run round-2 c2 with on-screen marks (FEST below NOISE, body and date kept); also c3 (blobs too faint, navy too dark, card short, body copy invented)", status: done,
      result: "Glass 46% to 79%, near-identical; poster 38% to 44%, all parts placed. Headline still half size. 2cb1d34."}
-  - {id: n34, parent: n32, kind: step, title: "Free first, then ~45k live: round-2 c2 headline drawn ~210px tall built ~120px (clamp(72px,13vw,160px)); NOISE and FEST share one textSize. Trace from ink to codegen, fix, re-run c2", status: open, result: null}
+  - {id: n34, parent: n32, kind: step, title: "Free first, then ~45k live: round-2 c2 headline drawn ~210px tall built ~120px (clamp(72px,13vw,160px)); NOISE and FEST share one textSize. Trace from ink to codegen, fix, re-run c2", status: done,
+     result: "Giant word now drawn as one tall zigzag, sized from height: built at 300px; poster 44% to 63%. 9d403dc."}
+  - {id: n35, parent: n34, kind: step, title: "Free first, ~40k live: c2 poster letters spread wide (target -10px tight) and words start at x=0 instead of bleeding off the left; planner says tight letters, fix, re-run c2; then dry-check round-3 c1/c4 giant headings (narrow numbers drawn flatter read ~120-180px, not 240-420)", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
