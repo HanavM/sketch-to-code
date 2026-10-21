@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The five hardest creative pages of round 5 now have full descriptions (rings, glows, fades, shadows, code); next I build them for the first time and score them."
-lock: {by: run-2120, until: 2026-10-21T22:50:35Z}
+now: "Four of five round-5 creative pages built (57-74%); a red dot and crossed-out photos are fixed. Next: the repeated headline and link-vs-button misses."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -100,6 +100,8 @@ notes:
   - "n60 (7889d6d on try/n3-vocabulary): planner fact iconKids: a filled textless block of 2-8 small textless tiles is a box 'X block (no picture), N small rounded squares ...' (was a picture: built as an X). Lists of <=8 short items said in full (was 4 + 'N more', built invented items). Colours dark plum, dark brown. Round-5 everyday results in round5/NOTES.md."
   - "n62 (07aa4ef, 631b674 on try/n3-vocabulary): row facts kidLead (first item bold/bigger/other colour said first) and kidOn.ink (selected tab's letter colour); wide filled link bars say '<colour> bar'; neutral near-white page 6-12 from white said 'off-white page'. Rounds 1-4: 7 notes gain words."
   - "Token ledger: 2026-10-21 n62 live r5 e4 51k, e5 28k = ~79k (day total ~4350k, no cap set)."
+  - "n65 (24e7c56 on try/n3-vocabulary): planner says a textless circle <60px as 'small Npx <colour> dot'; scaffold.ts pictureCrossIds drops a crossed box's two corner-to-corner strokes from the kept geometry (codegen kept them as lines). Round-5 creative table in round5/NOTES.md."
+  - "Token ledger: 2026-10-21 n65 live c1+c2+c3 154k, c4+c5 167k, c2+c4 130k = ~451k (day total ~4800k, no cap set)."
   - "n61 (54e85d5 on try/n3-vocabulary): planner facts opacity, maskFade, glows (radial blobs), conicRing, circleText (svg textPath), kidBoxes, setLines/tokenInks (code), body.grain; notes for edge bars (logo left, links right), pill labels, see-through dims (alpha .3-.8, >=30% of page), hard shadow colour+offset as a suffix; thin/wide display type; colours bright green, light pink. Rounds 1-4: no kind changes, 14 notes richer. Round 5 kinds changed: c2 badge circle, c3 header box, c5 ring box."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -190,7 +192,10 @@ nodes:
   - {id: n64, parent: n63, kind: step, title: "Low priority, ~45k live: round-5 e2 content column built ~10px low/right (title, filters regions missed), table deltas coloured green/red though target plain; fix, re-run e2", status: open, result: null}
   - {id: n61, parent: n59, kind: step, title: "Free: round-5 creative planner misses: c5 conic ring said as a block, quote/code copy; c2 thin weight, wide spacing, circular badge, marquee copy; c3 frosted header, card fades; c4 hard shadow, grain; c1 mask fade, scrub fill; e1 backdrop dim", status: done,
      result: "Notes now say ring, circle badge, code lines, glows, fades, shadows, pills, grain, dim backdrop. Rounds 1-4 kinds unchanged. 54e85d5."}
-  - {id: n65, parent: n61, kind: step, title: "~200k live (--budget): first builds of round-5 creative c1 masked reel, c2 variable type, c3 scroll reveal, c4 outline stack, c5 bento and e1 board modal from the n61 plans; fix the worst gap", status: open, result: null}
+  - {id: n65, parent: n61, kind: step, title: "~200k live (--budget): first builds of round-5 creative c1 masked reel, c2 variable type, c3 scroll reveal, c4 outline stack, c5 bento and e1 board modal from the n61 plans; fix the worst gap", status: done,
+     result: "c1 57, c3 74, c5 57. Badge dot and picture X fixed: c2 56 to 72, c4 52 to 58. 24e7c56."}
+  - {id: n66, parent: n65, kind: step, title: "Free first, ~100k live: round-5 c4 second 'SUMMER' merged into the first (one line built), 'Shop summer' underlined link built as a pill button; c5 hero 'Prism 2' swapped with its subline, CTA gradient lost; fix planner/reading, re-run c4, c5", status: open, result: null}
+  - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,

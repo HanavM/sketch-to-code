@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T22:05:07Z | Round 5 creative first builds | c1 57, c3 74, c5 57; red dot and crossed photos fixed: c2 56 to 72, c4 52 to 58. 451k.
 2026-10-21T21:19:58Z | Round 5 creative descriptions | Rings, circle badge, code lines, glows, fades, hard shadows, pills, grain, dim backdrop now said. Free.
 2026-10-21T21:07:06Z | Round 5 bar heights and stat card | Bars said with height: spreadsheet 59% to 87%; heatmap peak card right, score flat 69%. 79k.
 2026-10-21T20:27:00Z | Round 5 settings and spreadsheet fixes | Lead items, tab and bar colours, off-white page said: settings 46% to 65%, spreadsheet colours right. 79k.
