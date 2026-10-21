@@ -68,6 +68,16 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(vivid.code).not.toContain('stopOpacity="0.16"')
   })
 
+  it('leaves a shape asked for as an outline or ring unfilled (round-3 c3 orbit rings)', () => {
+    for (const instruction of ['Large spinning outline circle in lavender', 'a hollow cyan ring behind the headline']) {
+      const sc = buildScaffold(action({ instruction }), 0, controls({ fill: 'filled' }))!
+      expect(sc.code).not.toContain('linearGradient')
+      expect(sc.code.split('\n').find((l) => l.includes('M34,1'))).toContain('fill="none"')
+    }
+    // 'outline' inside another word is not a request for one
+    expect(buildScaffold(action({ instruction: 'a ringed planet, filled' }), 0, controls({ fill: 'filled' }))!.code).toContain('linearGradient')
+  })
+
   it('strokes everything when line art is asked for', () => {
     const sc = buildScaffold(action(), 0, controls({ fill: 'outline' }))!
     expect(sc.code).not.toContain('linearGradient')

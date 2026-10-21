@@ -108,7 +108,11 @@ export function buildScaffold(
   // the style is visible from the first frame: line art never fills, flat
   // never interpolates. The instant render should already look like the thing
   // that was asked for, not like a default that changes under the user later.
-  const filled = fidelity.fill !== 'outline' && fidelity.style !== 'line'
+  // a shape asked for as an outline (a ring, a hollow circle, an outlined pill)
+  // is only its edge: a tinted inside turned round-3 c3's orbit rings into
+  // lit discs over the headline
+  const asOutline = /\b(outline[sd]?|outlined|hollow|ring)\b/i.test(`${action.instruction} ${action.depicts ?? ''}`)
+  const filled = fidelity.fill !== 'outline' && fidelity.style !== 'line' && !asOutline
   const gradientOk = fidelity.style !== 'flat'
   // a colour the user actually drew in beats currentColor; a token the app
   // already uses beats a literal

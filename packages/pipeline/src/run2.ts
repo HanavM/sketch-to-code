@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
-import type { DomSnapshot } from '@s2c/dom'
+import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { EditOp } from '@s2c/intent'
 import {
   addUsage, defaultInterpreterProvider, defaultPerceptionProvider, type PerceptionProvider, type TokenUsage,
@@ -42,6 +42,7 @@ import { recolorPropOf } from './plain-reading.js'
 import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
+import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
@@ -190,6 +191,12 @@ Rules:
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.
+  outline circle/ring → border only, transparent inside (no fill, no tint);
+  spinning/rotating/floating/pulsing → a keyframe on the shape itself, which stays
+    on its drawn box: place it with left/top/width/height from the region and never
+    centre an animated element with transform: translate(-50%,-50%) (the keyframe's
+    transform replaces it and the shape jumps half its size down and right). A
+    spinning ring turns in place; a shape not said to move stays where it was drawn.
 - A note that lists the parts of one block (table columns, calendar events, stat
   cards, chat bubbles, kanban cards, list items) is that block's content: build
   each quoted item with its words exactly as written, in the order given, with
@@ -897,6 +904,8 @@ export function verifyActions(
     })
   }
 
+  let decorations: DomNode[] | null = null
+  const claimedDecorations = new Set<string>()
   for (const [i, a] of actions.entries()) {
     if (a.kind === 'swap') {
       total++
@@ -952,6 +961,19 @@ export function verifyActions(
       details.push({ kind: a.kind, index: i, verdict })
       if (verdict.satisfied) satisfied++
       else failures.push(`action ${i} (${a.kind}): ${verdict.reason}`)
+      // a drawn decoration (pure ink, no words) must be ON its drawing, not
+      // merely near some other new element (round-3 c3: rings built 300px off)
+      if (isDecoration(a)) {
+        decorations ??= decorationCandidates(before, after)
+        const anchor = verifyShapeAnchor(decorations, region, claimedDecorations)
+        if (anchor.claimed) claimedDecorations.add(anchor.claimed)
+        if (!anchor.unverifiable) {
+          details.push({ kind: 'anchor', index: i, verdict: anchor })
+          total++
+          if (anchor.satisfied) satisfied++
+          else failures.push(`action ${i} (${a.kind}, placement): ${anchor.reason}`)
+        }
+      }
       // "near the mark" is not "where the mark said": the end of a short nav
       // is near a caret drawn in its middle (s2c-055, r14 said Done twice)
       if (a.insertSlot) {
@@ -1031,4 +1053,14 @@ export function verifyActions(
   }
 
   return { score: total > 0 ? satisfied / total : 1, failures, detail: details }
+}
+
+const QUOTE = /["\u201c\u201d]/
+/** Pure drawn decoration: ink shapes only, no text lines, no quoted copy in its instruction. */
+export function isDecoration(a: GroundedAction): boolean {
+  if (!a.svgPaths?.length || a.textMarks?.length) return false
+  if (a.layer === 'container') return false
+  // the instruction only: notes typed inside a big drawn ring also attach to
+  // the ring (round-3 c3), so their quoted copy says nothing about the ring
+  return !QUOTE.test(a.instruction)
 }

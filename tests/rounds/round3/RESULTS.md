@@ -66,3 +66,20 @@ Fixes this step:
 
 Side by sides: `built/c1-layered-peaks-n37-first-cmp.png`, `built/c1-layered-peaks-cmp.png`, `built/c3-gradient-orbit-cmp.png`,
 `built/c5-blend-editorial-cmp.png`.
+
+## n38: orbit rings land on their drawing (2026-10-21)
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c3 gradient orbit | 59% | 63% (contract only), 67% (all fixes) | 72k + 60k | rings on centre, outline only; planet on its spot |
+
+- Cause: rings were centred with translate(-50%,-50%) and spun with a rotate() keyframe, which replaces the translate,
+  so they sat half their size down-right; the placement check passed them on the strength of the page wrapper.
+- New check (shape-anchor): a pure drawn decoration must have a free-standing, textless element of about its size
+  centred on it; each element stands for one shape. On the second run it caught both rings built at (0,0) and the
+  repair turn (7k) moved them onto the drawing.
+- Contract: animated shapes are placed with left/top from the region, never centred with transform; outline circle =
+  border only. Scaffold: a shape asked for as an outline, ring or hollow is not filled.
+- Left: headline gradient lacks the cyan end, button ~25px high, page black not near-black indigo.
+
+Side by sides: `built/c3-gradient-orbit-n38-cmp.png` (contract only), `built/c3-gradient-orbit-n38b-cmp.png` (all fixes).
