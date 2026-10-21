@@ -25,6 +25,7 @@ import {
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { checkpoint } from './safety.js'
+import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
@@ -530,7 +531,18 @@ export async function runV2(
       result.score = Math.min(result.score, 0.99)
     }
 
-    lastVerify = broken.length ? { verified: result.detail, brokenRules: broken } : result.detail
+    // a bar or fill placed right but rendered with no area passes every
+    // placement check and shows nothing: that is a failure, not a pass
+    const collapsed = findCollapsedFills(input.snapshot, after)
+    for (const c of collapsed) {
+      stage('verify', `empty: ${c.srcLoc} renders with 0 ${c.axis}`)
+      result.failures.push(describeCollapsed(c))
+    }
+    if (collapsed.length) result.score = Math.min(result.score, 0.99)
+
+    lastVerify = broken.length || collapsed.length
+      ? { verified: result.detail, ...(broken.length ? { brokenRules: broken } : {}), ...(collapsed.length ? { collapsed } : {}) }
+      : result.detail
     save(`verify-${tag}.json`, lastVerify)
     return result
   }

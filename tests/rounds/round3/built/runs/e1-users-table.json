@@ -1,33 +1,33 @@
 {
   "id": "e1-users-table",
-  "at": "2026-10-21T04:56:47.248Z",
+  "at": "2026-10-21T05:15:28.686Z",
   "likeness": {
     "version": 2,
-    "overall": 0.295424184191676,
-    "overallV1": 0.18924273433205988,
-    "colour": 0.9781962145142353,
-    "structure": 0.8397092346954376,
-    "structureStrict": 0.7145024047713893,
-    "layout": 0.46938824312903743
+    "overall": 0.26402481822547225,
+    "overallV1": 0.2568921714894333,
+    "colour": 0.984088433744225,
+    "structure": 0.7745927435751442,
+    "structureStrict": 0.629507373533101,
+    "layout": 0.423230391921191
   },
   "effects": null,
   "tokens": {
-    "input": 53615,
-    "output": 9157,
-    "cacheRead": 245919
+    "input": 56051,
+    "output": 25349,
+    "cacheRead": 678536
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 55529,
-      "output": 7402,
-      "cacheRead": 245919,
-      "toolCalls": 8,
-      "ms": 69047
+      "billed": 77588,
+      "output": 24145,
+      "cacheRead": 675516,
+      "toolCalls": 23,
+      "ms": 250436
     }
   ],
-  "reading": "The sketch lays out a Users admin page: a \"Users\" heading, an indigo \"+ Invite user\" button top-right, a toolbar with a search input and two filter dropdowns, a data table with named columns, 7 rows, and colored status pills, and a zigzag decorative divider at the bottom.",
+  "reading": "The sketch lays out a Users admin page: a \"Users\" heading, an indigo \"+ Invite user\" button, a search/filter toolbar, a data table with colored status pills, and a pagination bar, all per the typed notes which fully specify the content.",
   "actions": [
     {
       "kind": "add",
@@ -42,7 +42,7 @@
         14
       ],
       "paths": [],
-      "instruction": "Add a page heading with the text 'Users'."
+      "instruction": "Add a page heading with the text \"Users\" at the top left of the page."
     },
     {
       "kind": "add",
@@ -57,7 +57,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a pill-shaped button with indigo background and white text reading '+ Invite user', placed at the top right near the 'Users' heading."
+      "instruction": "Add an indigo filled button with white text reading \"+ Invite user\" in the top right of the page."
     },
     {
       "kind": "add",
@@ -72,7 +72,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a toolbar row below the heading containing a search input with placeholder 'Search by name or email…', and two dropdown filters labeled 'Role: All' and 'Sta"
+      "instruction": "Add a toolbar row below the heading containing a search input with placeholder \"Search by name or email…\", a \"Role: All\" dropdown, and a \"Status: All\" dropdown."
     },
     {
       "kind": "add",
@@ -87,10 +87,10 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a data table below the toolbar with columns 'NAME', 'EMAIL', 'ROLE', 'STATUS', 'LAST SEEN' and 7 rows of sample user data. Render the STATUS column as color"
+      "instruction": "Add a data table below the toolbar with columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\" and 7 rows of plausible user data. Render the STATUS column as co"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [
         "s4"
       ],
@@ -102,7 +102,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a decorative zigzag divider line spanning the full width at the bottom of the table, matching the drawn jagged wave shape exactly."
+      "instruction": "Add a pagination bar below the table showing \"Showing 1–7 of 48\" on the left, with page buttons \"1\" (current/active), \"2\", \"3\", and \"Next\" on the right."
     }
   ],
   "rejected": []

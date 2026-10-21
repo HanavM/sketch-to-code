@@ -29,6 +29,8 @@ export interface DomNode {
     fontSize: string
     fontWeight: string
     borderRadius: string
+    /** Set only when the element paints a gradient or image (not 'none'). */
+    backgroundImage?: string
   }
   /** Parent DomNode id, or null for the root. */
   parent: string | null

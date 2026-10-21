@@ -94,6 +94,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           fontSize: cs.fontSize,
           fontWeight: cs.fontWeight,
           borderRadius: cs.borderRadius,
+          ...(cs.backgroundImage && cs.backgroundImage !== 'none' ? { backgroundImage: cs.backgroundImage.slice(0, 80) } : {}),
         },
         parent: parentId,
         depth,

@@ -1,33 +1,33 @@
 {
   "id": "e3-calendar",
-  "at": "2026-10-21T04:59:23.617Z",
+  "at": "2026-10-21T05:18:15.280Z",
   "likeness": {
     "version": 2,
-    "overall": 0.21087214549752126,
-    "overallV1": 0.1441596221965172,
-    "colour": 0.9679276995908104,
-    "structure": 0.7744481900369541,
-    "structureStrict": 0.6509382601963531,
-    "layout": 0.4805320739883907
+    "overall": 0.3121257508748685,
+    "overallV1": 0.18727918664815535,
+    "colour": 0.972401361298058,
+    "structure": 0.8207341688738927,
+    "structureStrict": 0.6971145429765042,
+    "layout": 0.5858723917297513
   },
   "effects": null,
   "tokens": {
-    "input": 28093,
-    "output": 13381,
-    "cacheRead": 357789
+    "input": 22811,
+    "output": 13656,
+    "cacheRead": 201954
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 38019,
-      "output": 12384,
-      "cacheRead": 354769,
-      "toolCalls": 8,
-      "ms": 121364
+      "billed": 32709,
+      "output": 12421,
+      "cacheRead": 198934,
+      "toolCalls": 6,
+      "ms": 129885
     }
   ],
-  "reading": "The sketch is a calendar page header: a month/year title, Prev and New event buttons, and a full month-view grid below populated with labeled, colored event chips and a highlighted day, all specified by the typed notes.",
+  "reading": "The sketch is a monthly calendar page: a title placeholder \"November 2026\", a row of Prev/Today/Next navigation buttons, a green \"+ New event\" button, and a large month grid filled with colored event chips on specific days, with day 11 highlighted.",
   "actions": [
     {
       "kind": "add",
@@ -42,7 +42,7 @@
         15
       ],
       "paths": [],
-      "instruction": "Page heading text reading \"November 2026\", replacing the wavy placeholder line at the top-left."
+      "instruction": "Add a page heading reading \"November 2026\" where the wavy line was drawn, as the calendar title."
     },
     {
       "kind": "add",
@@ -57,7 +57,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Outline-style button labeled \"‹ Prev\" for navigating to the previous month, placed near the top-right beside the heading."
+      "instruction": "Add a row of three outline buttons for calendar navigation: \"‹ Prev\", \"Today\", \"Next ›\", placed in the header area near the title."
     },
     {
       "kind": "add",
@@ -72,7 +72,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Green filled button with white text labeled \"+ New event\", placed at the top-right."
+      "instruction": "Add a prominent button labeled \"+ New event\" with a green background and white text, positioned in the top-right of the header."
     },
     {
       "kind": "add",
@@ -87,7 +87,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Month calendar grid filling the large rectangle, with a header row for days Mon through Sun and 5 rows of day boxes beneath. Populate with event chips: blue \"St"
+      "instruction": "Add a full month calendar grid (Mon–Sun columns, 5 rows of day boxes) filling the large outlined area below the header. Populate it with event chips: blue \"Stan"
     }
   ],
   "rejected": []
