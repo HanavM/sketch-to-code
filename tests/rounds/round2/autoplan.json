@@ -31,7 +31,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -97,7 +101,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "date",
@@ -159,7 +167,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
    ],
    [
     "ctas",
@@ -287,7 +299,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -525,23 +541,43 @@
    ],
    [
     "tabs",
-    "text"
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 2
+    }
    ],
    [
     "row-1",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "row-2",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "row-3",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "row-4",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "save",
@@ -669,15 +705,27 @@
    ],
    [
     "m2",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "m3",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "m4",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
    ],
    [
     "subject",
@@ -693,7 +741,11 @@
    ],
    [
     "message",
-    "text"
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 3
+    }
    ]
   ],
   "notes": [

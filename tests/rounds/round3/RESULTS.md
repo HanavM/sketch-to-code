@@ -162,3 +162,19 @@ Side by sides: `built/c4-brutal-index-n42-cmp.png`, `built/c2-kinetic-marquee-n4
 - Left: page white (target off-white), intro light weight and a little small, reel corners square.
 
 Side by side: `built/c2-kinetic-marquee-n43-cmp.png`.
+
+## n44 (2026-10-21): gradient orbit 67% -> 83%
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c3 gradient orbit | 67% (n38) | **83%** | 59k (one build turn, no repair) | page near-black indigo, not pure black; rings faint like the target, not bright; body copy wraps to two lines at its size; button full height; headline gradient now reaches cyan |
+
+- Page colour: #05010f was named 'black' and built #000. New colour name 'near-black indigo' (only for very dark
+  blue-violet: max channel <= 40, hue 225-285). Also names round-1 c4's page (same colour).
+- Faint outlines: a border under 50% opacity is said 'faint <colour> outline' (rings at 35-45% were built bright).
+- Paragraphs: the bench drew any text block as 2 lines at most 24px apart, so a 2-line 19px paragraph read as 16px and was
+  built as one small line. Auto plans now carry a paragraph's line count and the bench draws each line at its real spacing.
+  Plan changes: 6 paragraphs in round 1, 13 in round 2, 3 in round 3 (drawing only, notes unchanged except the two above).
+- Left: headline ~20px lower than the target, planet a little small.
+
+Side by side: `built/c3-gradient-orbit-n44-cmp.png`.

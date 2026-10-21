@@ -40,6 +40,8 @@ function mark(kind, r, opts = {}) {
       return [textLine(0, 0, h - 8, { amp: Math.max(4, Math.min(8, w / 2)), seed: Math.round(x * 31 + y) })
         .map((p) => ({ ...p, x: x + w / 2 + p.y, y: y + 4 + p.x }))]
     }
+    // a paragraph whose line count is known (auto plans): one squiggle per line at the real pitch
+    if (opts.lines >= 2) return textBlock(x + 4, y + h / opts.lines / 2, w - 8, opts.lines, h / opts.lines)
     return h > 40 ? textBlock(x + 4, y + 14, w - 8, 2, Math.min(24, h / 2)) : [textLine(x + 4, cy, w - 8)]
     case 'image': return imageBox(x + 4, y + 4, w - 8, h - 8)
     case 'circle': return [circle(x + w / 2, cy, Math.min(w, h) / 2 - 4)]

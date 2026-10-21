@@ -103,7 +103,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -251,7 +255,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -261,15 +269,15 @@
   "notes": [
    [
     "*",
-    "whole page: black page, Helvetica type, light grey text"
+    "whole page: near-black indigo page, Helvetica type, light grey text"
    ],
    [
     "ring-outer",
-    "spinning big lavender outline circle"
+    "spinning big faint lavender outline circle"
    ],
    [
     "ring-inner",
-    "spinning big cyan outline circle"
+    "spinning big faint cyan outline circle"
    ],
    [
     "planet",
@@ -395,7 +403,11 @@
    ],
    [
     "dek",
-    "text"
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
    ],
    [
     "read",

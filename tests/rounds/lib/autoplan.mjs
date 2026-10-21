@@ -256,6 +256,8 @@ const NAMED = [
   ['peach', 253, 186, 116], ['pale lilac', 245, 208, 254],
   // round 3 c2's #ff3d00 band was called 'red' and built red; kept to orange-red hues (see colourName)
   ['red-orange', 255, 61, 0],
+  // a dark page with a blue-violet cast (round 3 c3 #05010f was 'black' and built #000)
+  ['near-black indigo', 8, 3, 24],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -281,6 +283,7 @@ export function colourName(c) {
   for (const [n, r, g, b] of NAMED) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
+    if (n === 'near-black indigo' && !(hue(c) >= 225 && hue(c) <= 285 && chroma >= 8 && Math.max(c.r, c.g, c.b) <= 40)) continue
     const d = (c.r - r) ** 2 * 0.3 + (c.g - g) ** 2 * 0.59 + (c.b - b) ** 2 * 0.11
     if (d < bd) { bd = d; best = n }
   }
@@ -365,6 +368,8 @@ const chipList = (cs, n = 4) => {
 }
 const short = (t, n = 28) => quote(t, n)
 /** A strong, fully opaque colour (a hot-pink blob) is said 'vivid', or builds soften it to a faint tint. */
+/** A see-through outline (alpha under 0.5) is said 'faint', or builds draw it bright (round 3 c3 rings at 35%). */
+const lineCol = (c) => { const n = colourName(c); const p = parse(c); return n && p && p.a < 0.5 ? `faint ${n}` : n }
 const vivid = (c) => { c = parse(c); return !!c && c.a >= 0.9 && Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b) >= 150 }
 
 /**
@@ -488,7 +493,7 @@ function decideOne(f, page, marked, said) {
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
-    const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${colourName(f.border.colour)} outline`
+    const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
     return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
   // a row of buttons
@@ -641,7 +646,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
     const k = out.get(f.role).kind
     if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
-    return k === 'heading' && f.textLines >= 1 ? [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }] : [f.role, k]
+    if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
+    // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px
+    // were drawn 24px apart, read as 16px type, built as one small line)
+    if (k === 'text' && f.textLines >= 2 && f.textLines <= 8) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
+    return [f.role, k]
   })
   const notes = [...(pageNote(body) ? [['*', pageNote(body)]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

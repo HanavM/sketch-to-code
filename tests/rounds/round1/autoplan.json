@@ -19,7 +19,11 @@
    ],
    [
     "subhead",
-    "text"
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -69,7 +73,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 3
+    }
    ],
    [
     "cta",
@@ -119,7 +127,11 @@
    ],
    [
     "body",
-    "text"
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
    ],
    [
     "cta",
@@ -185,7 +197,11 @@
    ],
    [
     "subhead",
-    "text"
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
    ],
    [
     "ctas",
@@ -195,7 +211,7 @@
   "notes": [
    [
     "*",
-    "whole page: black page, faint grid lines, Helvetica type, light grey text"
+    "whole page: near-black indigo page, faint grid lines, Helvetica type, light grey text"
    ],
    [
     "nav",
@@ -243,7 +259,11 @@
    ],
    [
     "dek",
-    "text"
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
    ],
    [
     "sidebar",
