@@ -1,0 +1,201 @@
+{
+  "id": "e1-crm-dashboard",
+  "at": "2026-10-21T14:41:26.359Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6438341481187465,
+    "overallV2": 0.6438341481187465,
+    "overallV1": 0.5174919705916075,
+    "colour": 0.9758290827256616,
+    "structure": 0.7423506656621248,
+    "structureStrict": 0.5848285424134926,
+    "colourAligned": 0.9758290827256616,
+    "structureAligned": 0.7423506656621248,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9817102762529565
+    },
+    "layout": 0.661583749004157
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient",
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 35527,
+    "output": 21129,
+    "cacheRead": 528203
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 34072,
+      "output": 12378,
+      "cacheRead": 140556,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 130242
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 11895,
+      "output": 4784,
+      "cacheRead": 377300,
+      "toolCalls": 8,
+      "tools": [
+        "Read src/App.tsx",
+        "Grep",
+        "Grep",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 56648
+    }
+  ],
+  "reading": "The sketch lays out a CRM dashboard: a dark navy sidebar nav list, a top bar with a search input and avatar circle, a greeting heading, a row of 4 stat cards with sparklines, and three content cards (a revenue line chart, a deals-by-stage donut chart, and a recent-deals table).",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Sidebar navigation with dark navy background and light grey text, titled \"Pipeline\", with list items: Dashboard, Deals, Contacts, Companies, and 2 more items; \""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        27,
+        352,
+        31
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Search input with placeholder text \"Search deals, people…\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1216,
+        29,
+        28,
+        28
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large indigo circular avatar/icon in the top right corner of the header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        260,
+        89,
+        896,
+        17
+      ],
+      "paths": [],
+      "instruction": "Greeting heading text reading \"Good morning, Dana\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        131,
+        989,
+        104
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Row of 4 stat cards: \"Pipeline value\" showing $1.28M with an indigo sparkline rising at bottom right; \"Deals won\" showing 38 with a green sparkline rising at bo"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        257,
+        647,
+        264
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "White card titled \"Revenue by month\" containing a line chart with a thick solid indigo line rising left to right (8 data points) and a dashed light grey line ri"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        925,
+        257,
+        319,
+        263
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "White card titled \"Deals by stage\" containing a donut chart (thick ring, hollow middle) on a light grey track, with an indigo segment at 45% and a green segment"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        543,
+        989,
+        244
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "White card titled \"Recent deals\" containing a table with columns Deal, Company, Owner, Value, Stage, with 4 rows; first row reads \"Annual licence\" | \"Northwind\""
+    }
+  ],
+  "rejected": []
+}

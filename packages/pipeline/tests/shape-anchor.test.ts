@@ -66,6 +66,9 @@ describe('isDecoration / verifyActions', () => {
   it('only pure ink without quoted copy is a decoration', () => {
     expect(isDecoration(base as never)).toBe(true)
     expect(isDecoration({ ...base, instruction: 'pill reading "NOW IN BETA"' } as never)).toBe(false)
+    expect(isDecoration({ ...base, instruction: "small circular badge in vivid red reading 'Issue 07 out now'." } as never)).toBe(false)
+    expect(isDecoration({ ...base, instruction: 'button with near-black fill reading \u2018Subscribe\u2019' } as never)).toBe(false)
+    expect(isDecoration({ ...base, instruction: "the ring's outline, don't fill it" } as never)).toBe(true)
     expect(isDecoration({ ...base, textMarks: ['s4'] } as never)).toBe(false)
     expect(isDecoration({ ...base, layer: 'container' } as never)).toBe(false)
   })

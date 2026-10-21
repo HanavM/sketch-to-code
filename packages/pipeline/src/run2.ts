@@ -1056,11 +1056,14 @@ export function verifyActions(
 }
 
 const QUOTE = /["\u201c\u201d]/
+// single-quoted copy too: "badge reading 'Issue 07 out now'" (round-4 c1). Apostrophes
+// inside words (don't, it's) never start a quote: the opening ' follows a space/bracket/colon.
+const SINGLE_QUOTED = /(?:^|[\s(:\[])['\u2018][^'\u2018\u2019]*[A-Za-z0-9][^'\u2018\u2019]*['\u2019](?=$|[\s.,;:!?)\]])/
 /** Pure drawn decoration: ink shapes only, no text lines, no quoted copy in its instruction. */
 export function isDecoration(a: GroundedAction): boolean {
   if (!a.svgPaths?.length || a.textMarks?.length) return false
   if (a.layer === 'container') return false
   // the instruction only: notes typed inside a big drawn ring also attach to
   // the ring (round-3 c3), so their quoted copy says nothing about the ring
-  return !QUOTE.test(a.instruction)
+  return !QUOTE.test(a.instruction) && !SINGLE_QUOTED.test(a.instruction)
 }

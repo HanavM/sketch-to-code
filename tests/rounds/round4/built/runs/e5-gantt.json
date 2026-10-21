@@ -1,0 +1,121 @@
+{
+  "id": "e5-gantt",
+  "at": "2026-10-21T14:54:49.528Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.17960785346444383,
+    "overallV2": 0.1595655560550124,
+    "overallV1": 0.1595655560550124,
+    "colour": 0.9413693671960511,
+    "structure": 0.6621187195826619,
+    "structureStrict": 0.5632064433204036,
+    "colourAligned": 0.9575489312231249,
+    "structureAligned": 0.7416465398109139,
+    "align": {
+      "scale": 0.92,
+      "dx": 48,
+      "dy": -129,
+      "r": 0.29422378203773786
+    },
+    "layout": 0.5318851868500414
+  },
+  "effects": null,
+  "tokens": {
+    "input": 26351,
+    "output": 17792,
+    "cacheRead": 136453
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35737,
+      "output": 14644,
+      "cacheRead": 127198,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 164694
+    }
+  ],
+  "reading": "This is a project Gantt chart page: a heading placeholder, a top-right Day/Week/Month link bar, a large chart area with 8 weekly date columns and seven colored task bars, a left sidebar listing the task names, and a red 'Today' vertical marker line.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        44,
+        36,
+        178,
+        17
+      ],
+      "paths": [],
+      "instruction": "Add page heading text \"Website relaunch\" in place of the wavy placeholder line."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1070,
+        31,
+        170,
+        27
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a top-right link/tab group with items \"Day\", \"Week\", \"Month\" (typed note) inside the sketched rounded rectangle."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        88,
+        1202,
+        754
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Build the main Gantt-chart timeline area (large outer box) together with the left task-name sidebar (narrower box inside it): timeline has 8 week columns labele"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        674,
+        90,
+        8,
+        750
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a thin red vertical \"Today\" marker line running the full height of the chart, positioned at the start of the Oct 26 column, labeled \"Today\" (typed note, dra"
+    }
+  ],
+  "rejected": []
+}

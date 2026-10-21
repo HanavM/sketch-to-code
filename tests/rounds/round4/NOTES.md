@@ -34,3 +34,15 @@ n49 (dense UI said, untuned rounds 1-3 plans byte-identical after):
 - e2: mail rows "name left and time right, grey line under, unread rows bold" with sender/time/subject split; the
   selected and unread rows join the list (short state classes 'u', 'sel' no longer split a row group).
 Watch on the live run: e5's timeline note is typed at the box centre, which is on the today line mark.
+
+## n50: first live builds (likeness v3)
+
+| page | likeness | tokens | notes |
+|---|---|---|---|
+| c1 cut-out collage | 65% | 143k | all parts placed; blue block keeps the drawn X, arch built as a circle, no hard shadow. Repair turn (56k) was a false alarm: the badge and button said their copy in single quotes, so they counted as pure decorations. Fixed. |
+| c4 depth planes | 85% | ~41k | planes, glows, gradient headline all there; back plane keeps the drawn X; teal/pink glows brighter than target blue/purple. |
+| e1 CRM dashboard | 64% | ~46k | sidebar, KPIs with sparklines, line chart, donut, table with pills all built; donut gained a legend, invented two table rows' copy. |
+| e5 gantt | 18% | 44k | every bar on its weeks, today line, Day/Week/Month; rows built ~2x too tall (so the score drops), today line short, colour dots dropped. |
+
+Next worst gaps: gradient/filled blocks drawn as crossed picture boxes keep their X lines in the build (c1, c4);
+e5 row height; c1 arch.

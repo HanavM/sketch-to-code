@@ -1,0 +1,212 @@
+{
+  "id": "c1-cutout-collage",
+  "at": "2026-10-21T14:22:57.373Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6508236108597419,
+    "overallV2": 0.6508236108597419,
+    "overallV1": 0.5372064477947021,
+    "colour": 0.9221848624692042,
+    "structure": 0.7333944001162203,
+    "structureStrict": 0.5647976016281715,
+    "colourAligned": 0.9221848624692042,
+    "structureAligned": 0.7333944001162203,
+    "align": {
+      "scale": 0.96,
+      "dx": 32,
+      "dy": 16,
+      "r": 0.8073010001158748
+    },
+    "layout": 0.7444440856630444
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "hard-shadow"
+    ],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 86176,
+    "output": 56360,
+    "cacheRead": 634413
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 65022,
+      "output": 21551,
+      "cacheRead": 246877,
+      "toolCalls": 11,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx"
+      ],
+      "ms": 236989
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 55986,
+      "output": 26187,
+      "cacheRead": 375748,
+      "toolCalls": 6,
+      "tools": [
+        "Read src/App.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 322086
+    }
+  ],
+  "reading": "This is a magazine-landing hero: a nav bar divider line, a layered collage of tilted colored geometric blocks forming a hero graphic, a red 'Issue 07 out now' badge circle, a three-line italic headline overlaid on the graphic, a two-line sub-paragraph, and a subscribe button, all on a cream Georgia-type page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        39,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top navigation bar under a full-width horizontal rule, with the site title 'PAPER ROOM' and nav links 'ISSUES · SHOP · ABOUT'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        502,
+        79,
+        670,
+        722
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "instruction": "Build a hero graphic as a collage of overlapping tilted color blocks: a large tilted dark-navy-to-blue gradient rectangle, a smaller tilted soft-yellow rectangl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1030,
+        110,
+        170,
+        170
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a small circular badge in vivid red reading 'Issue 07 out now'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 123
+        }
+      ],
+      "region": [
+        64,
+        259,
+        684,
+        286
+      ],
+      "paths": [],
+      "instruction": "Add a three-line headline in giant italic Georgia serif, set tight, using an ink-like multiply blend so it darkens the hero graphic beneath without covering it:"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        64,
+        571,
+        372,
+        39
+      ],
+      "paths": [],
+      "instruction": "Add a two-line paragraph in dark grey text: 'A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        721,
+        202,
+        51
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Add a rounded-rectangle button with near-black fill and cream text reading 'Subscribe — $28/yr'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

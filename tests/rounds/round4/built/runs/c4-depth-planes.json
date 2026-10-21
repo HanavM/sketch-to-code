@@ -1,0 +1,223 @@
+{
+  "id": "c4-depth-planes",
+  "at": "2026-10-21T14:36:55.446Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8472966202616273,
+    "overallV2": 0.8472966202616273,
+    "overallV1": 0.8140965355018414,
+    "colour": 0.919890196698932,
+    "structure": 0.8298104452325779,
+    "structureStrict": 0.749242211960039,
+    "colourAligned": 0.919890196698932,
+    "structureAligned": 0.8298104452325779,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8730857957541183
+    },
+    "layout": 0.8362611938248192
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "blur",
+      "glass",
+      "gradient-text",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "soft-shadow",
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 38914,
+    "output": 26469,
+    "cacheRead": 176969
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38330,
+      "output": 14932,
+      "cacheRead": 86784,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 165179
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 2670,
+      "output": 896,
+      "cacheRead": 79203,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 10300
+    }
+  ],
+  "reading": "The sketch is a landing-page hero: a top nav bar ('Stratum' logo + 'Product · Docs · Pricing · Sign in'), a large blurred pink circle bleeding off the right edge, a giant gradient headline 'Infrastructure with depth.', and a tilted 3D frosted-glass card showing a '99.98%' uptime stat with caption 'uptime across 41 regions'. On the left is a blurred teal circle holding a paragraph of body copy and two pill buttons, 'Start free' and 'Talk to sales'. The whole page is meant to be near-black indigo with Helvetica type and light grey text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        824,
+        1,
+        454,
+        435
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Large soft-blurred, vivid pink decorative circle bleeding off the right page edge (runs ~100px past it), sitting behind the hero content."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        76,
+        43,
+        1128,
+        11
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Top navigation bar with logo text 'Stratum' on the left and nav links 'Product · Docs · Pricing · Sign in' on the right, light grey text on the indigo backgroun"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 76
+        }
+      ],
+      "region": [
+        80,
+        254,
+        504,
+        100
+      ],
+      "paths": [],
+      "instruction": "Giant, heavy, tight-set Helvetica headline with an off-white to lavender gradient reading 'Infrastructure with depth.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        667,
+        161,
+        501,
+        528
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "A card tilted back in 3D perspective with a frosted-glass effect (the crossing diagonal lines represent glass facets/reflection, not an image placeholder); insi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        424,
+        435,
+        474
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large soft-blurred, vivid teal decorative circle bleeding off the left page edge (starts ~80px past it), sitting behind the nearby copy and buttons."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        76,
+        511,
+        462,
+        38
+      ],
+      "paths": [],
+      "instruction": "Body paragraph in light grey text over the teal circle: 'Layered networking for teams who ship to every continent and still sleep at night.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        641,
+        127,
+        47
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Primary pill button, white fill with near-black indigo text, labeled 'Start free'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        302,
+        642,
+        145,
+        49
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Secondary pill button, white outline style, labeled 'Talk to sales'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
