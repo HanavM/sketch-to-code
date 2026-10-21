@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "First round-4 pages are built (depth planes 85%, collage 65%, CRM 64%); next, stopping drawn fill blocks from keeping their sketch X and fixing the timeline row height."
-lock: null
+lock: {by: "run-2026-10-21T15:56Z", until: "2026-10-21T17:30:00Z"}
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
