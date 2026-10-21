@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T23:38:09Z | Round 5 vivid gradient photos | Orange and blue photos now vivid, blue layered on top as in target; score flat 65 to 63. 141k.
 2026-10-21T23:28:00Z | Round 5 repeated headline, link, title, gradient | Both SUMMER lines, underlined link, CTA gradient built; outline poster 58% to 65%, bento 57% to 78%. 186k.
 2026-10-21T22:05:07Z | Round 5 creative first builds | c1 57, c3 74, c5 57; red dot and crossed photos fixed: c2 56 to 72, c4 52 to 58. 451k.
 2026-10-21T21:19:58Z | Round 5 creative descriptions | Rings, circle badge, code lines, glows, fades, hard shadows, pills, grain, dim backdrop now said. Free.

@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round-5 creative pages climbing: the bento page is near-identical (78%) and the outline poster is up to 65%. Next: its photos come out too pale."
-lock: {by: run-2322, until: 2026-10-22T00:52:01Z}
+now: "The summer poster's photos are now vivid orange and deep blue, layered right. Next: first build of the board-with-popup page."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -17,6 +17,7 @@ notes:
   - "n4: round pages live in tests/rounds/<round>/ (target HTML with data-r regions, sketches.mjs). node tests/rounds/measure.mjs round1 writes ref PNGs + targets.json (regions, blank calibration). Run: node tests/bench/run.mjs --set round1 [--dry] [--only c1]. Likeness = 0.35 colour + 0.35 structure (lift over blank) + 0.30 bench region score; shots in tests/bench/out/shots/<id>-built.png."
   - "n4 finding: on white targets a blank page scores 95% colour / 89% structure raw, hence the lift-over-blank."
   - "Token ledger: 2026-10-20 ~238k (n4 ~10k; n5 readings ~62k, live c1+e1 ~76k; n6 readings ~14k, live c1 33k, e2+e3 43k; n7 live c1 ~34k) = ~272k. Spent for 2026-10-20: only free work until 2026-10-21 UTC."
+  - "Token ledger: 2026-10-21 n68 live c4 x2 ~141k billed."
   - "Token ledger: 2026-10-21 (after budget removed) n20 live e1+e3+e5 127k (e1 56k, e3 38k, e5 19k billed + cache). Day total ~430k."
   - "Token ledger: 2026-10-21 ~303.5k (n8: c2 91k, c3 70k, c4 35k, c5 57k, e4 25k, e5 24k). Over the 300k/day budget by ~1%: no live work until 2026-10-22 UTC. Always pass --budget to live bench runs now (worst page ~95k)."
   - "n8: tests/rounds/cmp.mjs <round> <id> [tag] [label] makes target-vs-built PNGs. Bench now copies each page's run record to tests/bench/out/runs/<id>/ (prompt, interpretation)."
@@ -198,7 +199,9 @@ nodes:
      result: "c1 57, c3 74, c5 57. Badge dot and picture X fixed: c2 56 to 72, c4 52 to 58. 24e7c56."}
   - {id: n66, parent: n65, kind: step, title: "Free first, ~100k live: round-5 c4 second 'SUMMER' merged into the first (one line built), 'Shop summer' underlined link built as a pill button; c5 hero 'Prism 2' swapped with its subline, CTA gradient lost; fix planner/reading, re-run c4, c5", status: done,
      result: "Both SUMMER lines, underlined link, title, CTA gradient now built; lost-stroke check added: c4 58 to 65, c5 57 to 78. ff5f5e0."}
-  - {id: n68, parent: n66, kind: step, title: "Free first, ~60k live: round-5 c4 gradient photos built pale (peach, target vivid orange to brown; scaffold fills at 42-16% opacity unless the note says vivid). Make a gradient block's scaffold fill opaque, re-run c4", status: open, result: null}
+  - {id: n68, parent: n66, kind: step, title: "Free first, ~60k live: round-5 c4 gradient photos built pale (peach, target vivid orange to brown; scaffold fills at 42-16% opacity unless the note says vivid). Make a gradient block's scaffold fill opaque, re-run c4", status: done,
+     result: "Gradient blocks now vivid; blue photo dark blue and on top. c4 photos match by eye; score 65 to 63. 98ee189."}
+  - {id: n69, parent: n68, kind: step, title: "Low priority, ~60k live: round-5 c4 blue photo gradient runs the wrong way (dark top-left, target dark bottom); planner should say which end is dark. Fix, re-run c4", status: open, result: null}
   - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
