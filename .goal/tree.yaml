@@ -1,6 +1,6 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Pages now record what each build and fix round cost, so tomorrow's live builds show where tokens go. Live building resumes at midnight UTC."
+now: "Today's live budget is used up; all remaining work needs live builds, so the loop is idle until midnight UTC, when the 2026-10-22 live order starts."
 lock: null
 asks: []
 handled: []
@@ -34,6 +34,7 @@ notes:
   - "n24 (8574b79 on try/n3-vocabulary): likeness v2. Structure matches each 8px cell within 2 cells (~16px); old SSIM kept as structureStrict, digests carry overall (v2) and overallV1. Target moved 16px: v1 0-78% lift, v2 99-100%. Round 1 v2: c1 67, c2 37, c3 59, c4 38, c5 15, e1 11, e2 42, e3 15, e4 12, e5 77. node tests/rounds/rescore.mjs <cmp pngs> re-scores saved side-by-sides free. Compare rounds on the same version."
   - "n27 (cdcc2be on try/n3-vocabulary): result.json 'sends' and bench digests log each codegen turn (build/repair, billed, cache reads, tool calls, ms); bench prints them. Read on the first 2026-10-22 live page to see if repair rounds or long tool loops drive the 70-91k pages."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
+  - "2026-10-21T04:15Z: idle check. Every open node (n11, n12, n20, n23, n26) needs live budget. Self-fire stopped; the hourly schedule resumes the loop. Runs before 2026-10-22T00:00Z: exit without commits unless INBOX/GOAL changed."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}

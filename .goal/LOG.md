@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T04:15:00Z | Idle until new budget | All open work needs live builds; budget resets at midnight UTC. No busywork; paused self-restart.
 2026-10-21T04:35:00Z | Cost of each build turn | Each page now records what its build and fix rounds cost, to find the 90k pages' waste. Free.
 2026-10-21T04:12:00Z | Lost labels and sub-lines | Field labels and lines under headings were never asked for; planner and builder now keep them. Free.
 2026-10-21T04:20:00Z | Fair likeness score | Pages a few pixels off scored like blank pages; fixed, round 1 re-scored, old score kept. Free.
