@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T01:05:00Z | Why the poster headline shrank | Drawing was right; size got lost when lines were split. Fixed page-wide, free.
 2026-10-21T00:40:00Z | Round 1 complete, live | All 10 built; dashboard 63%, split page 51%. Page-look notes fixed. Spent 303k, slightly over budget.
 2026-10-20T23:20:00Z | Round 2 pages, planner generality | 10 harder pages; planner now says tilt, glass, blur, outlined type, toggles, cards. Free.
 2026-10-20T22:20:00Z | Auto-sketch from the target page | One rule set now plans drawings; matches hand plans 52 of 53 marks, zero tokens.
