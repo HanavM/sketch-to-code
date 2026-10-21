@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 1 is now fully rebuilt (blog list 21% to 70%, studio 83%); next, writing a harder round 4 of pages."
-lock: {by: n47-run, until: 2026-10-21T15:15Z}
+now: "Ten harder round-4 pages are written and drawn; next, teaching the planner to describe charts, timelines and forms, then building them."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -76,6 +76,7 @@ notes:
   - "n45 (aadaf83 on try/n3-vocabulary): colour 'pale grey' for cool near-whites (chroma<=6, b>r, 236-251); off-white kept for warm ones (r3 c2 #f4f4f0). A filled card 6-30 from the page is said ('white card', 'pale grey card'); 3-7 line info cards quote every line. Round-1 auto before/after table in round1/built/NOTES.md."
   - "n46 (2124b1a on try/n3-vocabulary): planner: a list block's other short lines are said (big price before the list, buttons after with look; flex-centred bordered line = button); loose text beside a drawn part says side + each line ('right of the picture: \"title\", text \"...\", small \"meta\"'). Round-1 auto v3: c3 83, c4 75, c5 51, e1 59, e2 60, e3 70, e4 68 (c1/c2 not rebuilt from auto)."
   - "Token ledger: 2026-10-21 n46 live c3+e2+e3 133k, e2+e3 81k = ~214k (day total ~2880k, no cap set)."
+  - "n47 (91388a3 on try/n3-vocabulary): round 4 in tests/rounds/round4 (--set round4auto; NOTES.md lists untuned misses). Dry draw fails (pen did not take) when npm test runs in parallel: run dry draws alone."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -133,7 +134,10 @@ nodes:
   - {id: n46, parent: n45, kind: step, title: "~90k live: finish round 1 from auto plans (c3 split studio = n23, e2 pricing, e3 blog list) so the round has one before/after table; fix the worst gap", status: done,
      result: "Studio 83%, blog list 21% to 70% after post text said beside picture; pricing now has prices, buttons. 2124b1a."}
   - {id: n48, parent: n46, kind: step, title: "~80k live, low priority: rebuild round-1 c1 sunset and c2 brutalist from auto plans so every round-1 page has an auto number", status: open, result: null}
-  - {id: n47, parent: n17, kind: step, title: "Free: round-4 targets, harder than round 3 (scroll-length pages, sticky/parallax, overlapping cut-outs, dense dashboards with charts), measured and auto-planned untuned; dry-draw all 10", status: open, result: null}
+  - {id: n47, parent: n17, kind: step, title: "Free: round-4 targets, harder than round 3 (scroll-length pages, sticky/parallax, overlapping cut-outs, dense dashboards with charts), measured and auto-planned untuned; dry-draw all 10", status: done,
+     result: "10 harder pages, all drawn dry. Planner fixed for SVG, blends, 3D tilt, tile grids, panes. 91388a3."}
+  - {id: n49, parent: n47, kind: step, title: "Free: planner says round-4 dense UI it misses: gantt bars on week columns + today line, SVG line chart/donut/sparklines, form fields in a grid, mail rows (sender, time, subject, unread); rounds 1-3 plans must not regress", status: open, result: null}
+  - {id: n50, parent: n49, kind: step, title: "~150k live (--budget): first builds of round-4 c1 collage, c4 depth planes, e1 CRM, e5 gantt; fix the worst gap", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
