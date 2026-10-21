@@ -194,6 +194,11 @@ function factsInPage() {
         if (!bold && !big && !ink) return null
         return { t: (kids[0].innerText || '').replace(/\s+/g, ' ').trim(), bold, px: big ? Math.round(a.s) : null, ink }
       })(),
+      // each text child's size, weight and colour, and how far down the card its content reaches: a stat
+      // card's big figure and green delta were said as plain lines and built small, centred down the card
+      // (round 5 e2 'Peak hour')
+      kidStyles: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); return { s: Math.round(parseFloat(c.fontSize)), b: Number(c.fontWeight) >= 600, c: rgba(c.color) } }),
+      kidReach: kids.length && r.height > 0 ? Math.max(...kids.map((k) => k.getBoundingClientRect().bottom)) - r.top > 0 ? (Math.max(...kids.map((k) => k.getBoundingClientRect().bottom)) - r.top) / r.height : null : null,
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
@@ -807,7 +812,7 @@ function decideOne(f, page, marked, said) {
   }
   // a spreadsheet formula bar: a cell name box then the formula (round 5 e5: unsaid)
   if (f.kidCount === 2 && /^[A-Z]{1,3}\d{1,5}$/.test(f.kidTexts[0] ?? '') && /^=/.test(f.kidTexts[1] ?? '') && !f.regionKids.length) {
-    return { kind: 'box', note: `formula bar across the page, thin line under: small cell name box ${quote(f.kidTexts[0])} left with a divider, then grey formula ${quote(f.kidTexts[1], 60)}` }
+    return { kind: 'box', note: `formula bar ${Math.round(h)}px tall across the page, thin line under: small cell name box ${quote(f.kidTexts[0])} left with a divider, then grey formula ${quote(f.kidTexts[1], 60)}` }
   }
   // a row of label + box fields
   if (f.fieldKids.length >= 2 && f.fieldKids.length === f.kidCount) return { kind: 'box', note: `fields side by side: ${f.fieldKids.map((t) => quote(t, 24)).join(', ')}` }
@@ -924,7 +929,7 @@ function decideOne(f, page, marked, said) {
     const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
     const items = L ? f.kidTexts.slice(1, 7) : f.kidTexts.slice(0, 6)
-    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar, ` : ''}${lead}links: ${items.join(', ')}${on}` }
+    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
@@ -962,7 +967,7 @@ function decideOne(f, page, marked, said) {
       ? `${quote(head)}, text ${quote(f.kidTexts[1], 110)}`
       // a short info card (an address, hours, an email): every line is copy, or the build invents an address
       : !f.regionKids.length && !list && head && f.kidTexts.length >= 3 && f.kidTexts.length <= 7 && f.kidTexts.join(' ').length <= 160
-        ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t) => quote(t, 60)).join(', ')}` : null
+        ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t, i) => lineWords(f, i + 1) + quote(t, 60)).join(', ')}${f.kidReach && f.kidReach < 0.55 && h >= 200 ? ', all at the top of the card, empty below' : ''}` : null
     const copy = titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
   }
@@ -984,6 +989,17 @@ function decideOne(f, page, marked, said) {
     return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : lead ? `${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
   }
   return { kind: 'box', note: null }
+}
+
+// a card line's own look when it stands apart from the card's title: a big figure, a coloured delta
+function lineWords(f, i) {
+  const st = f.kidStyles?.length === f.kidTexts.length ? f.kidStyles : null
+  if (!st) return ''
+  const k = st[i], h = st[0]
+  const big = k.s >= Math.max(28, h.s * 1.6) ? `big ${k.s}px${k.b ? ' bold' : ''} ` : ''
+  const name = colourName(k.c)
+  const ink = name && name !== colourName(h.c) && !/black|grey|white|navy/.test(name) ? `${name} ` : ''
+  return big + ink
 }
 
 function pageNote(b) {

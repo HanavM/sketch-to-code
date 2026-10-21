@@ -1,50 +1,53 @@
 {
   "id": "e5-data-grid",
-  "at": "2026-10-21T20:23:57.004Z",
+  "at": "2026-10-21T21:03:14.912Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5889715720098347,
-    "overallV2": 0.5130050249276793,
-    "overallV1": 0.33356220670472236,
-    "colour": 0.9894177639304054,
-    "structure": 0.8861290021794337,
-    "structureStrict": 0.7077923081352736,
-    "colourAligned": 0.9919284213704551,
-    "structureAligned": 0.9059890053264217,
+    "overall": 0.8724395441428342,
+    "overallV2": 0.8724395441428342,
+    "overallV1": 0.8634887035933424,
+    "colour": 0.9952110141695328,
+    "structure": 0.9749972231508026,
+    "structureStrict": 0.9690212734189655,
+    "colourAligned": 0.9952110141695328,
+    "structureAligned": 0.9749972231508026,
     "align": {
       "scale": 1,
       "dx": 0,
-      "dy": 16,
-      "r": 0.6713495995727053
+      "dy": 0,
+      "r": 0.9486630104492738
     },
-    "layout": 0.5945873499901633
+    "layout": 0.9935064935064934
   },
   "effects": null,
   "tokens": {
-    "input": 19130,
-    "output": 8897,
-    "cacheRead": 143699
+    "input": 23395,
+    "output": 9138,
+    "cacheRead": 246755
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 21469,
-      "output": 6635,
-      "cacheRead": 134459,
-      "toolCalls": 6,
+      "billed": 23611,
+      "output": 5742,
+      "cacheRead": 237494,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 62083
+      "ms": 51722
     }
   ],
-  "reading": "The sketch lays out a spreadsheet page: a top title/menu bar, a formula bar with cell reference and formula, a large data grid with headers and sample rows, and a bottom sheet-tab bar.",
+  "reading": "The sketch lays out a spreadsheet app shell: a top menu bar, a formula bar beneath it, a large data grid, and a bottom sheet-tab bar, each annotated with typed notes giving exact copy and styling.",
   "actions": [
     {
       "kind": "add",
@@ -59,22 +62,24 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Pale grey top bar with a bold 17px green title \"Budget 2027\" on the left, followed by menu links: File, Edit, View, Insert, Data."
+      "instruction": "Pale grey menu bar, 52px tall, spanning the full page width. Shows bold 17px green text \"Budget 2027\" first, followed by nav links: File, Edit, View, Insert, Da"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        4,
-        55,
-        1272,
-        28
+        3,
+        3,
+        1274,
+        850
       ],
       "paths": [
-        "s1"
+        "s0",
+        "s1",
+        "s2"
       ],
-      "instruction": "Thin formula bar spanning the page width, below the title bar: a small cell-name box reading \"D4\" on the left, a vertical divider, then a grey formula text \"=SU"
+      "instruction": "Formula bar, 34px tall, spanning the full page width, with a thin line beneath it. Contains a small cell-name box reading \"D4\" on the left with a divider next t"
     },
     {
       "kind": "add",
@@ -89,7 +94,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Spreadsheet grid with thin grey cell lines: pale grey header row of column letters A–H, row numbers 1–24 in a narrow 46px left column, cells 154px wide by 30px "
+      "instruction": "Spreadsheet grid with thin grey cell lines: a pale grey header row of column letters A through H, and row numbers 1 through 24 down a narrow 46px left column; c"
     },
     {
       "kind": "add",
@@ -104,7 +109,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Pale grey bottom tab bar with sheet links: Q1, Q2, Q3, Q4, Summary. \"Q1\" is the selected tab, shown bold in green text on white fill."
+      "instruction": "Pale grey sheet-tab bar, 44px tall, spanning the full page width, with links: Q1, Q2, Q3, Q4, Summary. \"Q1\" is the selected tab, shown bold with green text on a"
     }
   ],
   "rejected": []

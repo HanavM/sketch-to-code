@@ -1,49 +1,50 @@
 {
   "id": "e2-heatmap-analytics",
-  "at": "2026-10-21T19:42:02.494Z",
+  "at": "2026-10-21T21:01:07.137Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7130090849449341,
-    "overallV2": 0.7130090849449341,
-    "overallV1": 0.5486259169571723,
-    "colour": 0.9748850924497805,
-    "structure": 0.8332882092866404,
-    "structureStrict": 0.616532629387677,
-    "colourAligned": 0.9748850924497805,
-    "structureAligned": 0.8332882092866404,
+    "overall": 0.6903163207475745,
+    "overallV2": 0.6892176480224133,
+    "overallV1": 0.5449608355280369,
+    "colour": 0.9709886809642093,
+    "structure": 0.8301579372029408,
+    "structureStrict": 0.6399409616490781,
+    "colourAligned": 0.9716115491989974,
+    "structureAligned": 0.8301579372029408,
     "align": {
-      "scale": 1,
-      "dx": 0,
-      "dy": 0,
-      "r": 0.9781352055268044
+      "scale": 1.08,
+      "dx": -16,
+      "dy": -32,
+      "r": 0.974987160567501
     },
-    "layout": 0.6124667647488217
+    "layout": 0.5639846033499382
   },
   "effects": null,
   "tokens": {
-    "input": 29279,
-    "output": 10816,
-    "cacheRead": 104885
+    "input": 32863,
+    "output": 13697,
+    "cacheRead": 131562
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 34878,
-      "output": 9141,
-      "cacheRead": 101801,
-      "toolCalls": 5,
+      "billed": 41320,
+      "output": 12020,
+      "cacheRead": 128478,
+      "toolCalls": 6,
       "tools": [
+        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 95018
+      "ms": 120798
     }
   ],
-  "reading": "The sketch lays out a dashboard page: a dark navy sidebar nav on the left, a page heading and filter buttons at top, a large heatmap card and a peak-hour stat card side by side, and a data table below. Typed notes supply the exact labels, nav items, button states, heatmap data and table contents.",
+  "reading": "The sketch lays out a usage analytics dashboard: a dark navy sidebar nav (Pulse brand + Usage/Retention/Funnels/Users/Settings, Usage active), a \"Usage by hour\" heading, a row of filter buttons, a large heatmap card of active sessions by weekday/hour, a \"Peak hour\" stat card, and a data table of feature usage stats — all content specified verbatim via typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -58,7 +59,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Dark navy vertical sidebar with light grey text; app name \"Pulse\" at top, then a nav list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", and one more item; \"Usage\" "
+      "instruction": "Dark navy vertical sidebar nav with light grey text: brand \"Pulse\" at top, then list items \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" is the "
     },
     {
       "kind": "add",
@@ -81,7 +82,7 @@
         19
       ],
       "paths": [],
-      "instruction": "Page heading text reading \"Usage by hour\"."
+      "instruction": "Page heading text \"Usage by hour\"."
     },
     {
       "kind": "add",
@@ -99,7 +100,7 @@
       "instruction": "Row of filter/action buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\"; \"Last 7 days\" is the selected button with a dark navy fill."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -111,7 +112,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Card titled \"Active sessions (weekday × 2-hour block)\" containing a heatmap with 7 rows (Mon-Sun) of 12 rounded 40px cells each, a day label to the left of each"
+      "instruction": "Large card titled \"Active sessions (weekday × 2-hour block)\" containing a heatmap of 7 rows (Mon-Sun) by 12 columns of rounded 40px cells, each row labeled with"
     },
     {
       "kind": "add",
@@ -126,7 +127,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Small stat card with label \"Peak hour\", value \"Tue 10:00\", and a secondary line \"▲ 18% vs last week\"."
+      "instruction": "Stat card with \"Peak hour\" label, a big 44px bold value \"Tue 10:00\", and a green line \"▲ 18% vs last week\" below it, all grouped at the top of the card with emp"
     },
     {
       "kind": "add",
@@ -141,7 +142,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Data table with a bold grey header row with columns \"Feature\", \"Sessions\", \"Users\", \"Change\", and 4 data rows: \"Sketch overlay\" | 12,480 | 3,102 | +12%; \"Auto b"
+      "instruction": "Data table with a bold grey header row with columns \"Feature\", \"Sessions\", \"Users\", \"Change\", and 4 rows: \"Sketch overlay\" | \"12,480\" | \"3,102\" | \"+12%\"; \"Auto "
     }
   ],
   "rejected": []

@@ -70,3 +70,17 @@ as off-white (white cards vanished on a white build). Rounds 1-4: 7 notes gain w
 | e5 spreadsheet | 61% | 59% (flat) | 28k | green title and green Q1 tab now right, no invented red "Over"; menu and formula bars built ~half their drawn height, so the grid sits high |
 
 Side-by-sides: built/e4-settings-toggles-n62-cmp.png, built/e5-data-grid-n62-cmp.png.
+
+## n63: bar heights and stat-card lines (2026-10-21, ~79k tokens)
+
+Planner fixes (free): a full-width filled bar of links says its height ("pale grey bar 52px tall across the page"),
+and so does the formula bar; a short info card's lines say a big figure's size ("big 44px bold") and a coloured
+line's colour ("green"), and "all at the top of the card, empty below" when the content fills under 55% of a tall card.
+Rounds 1-4: one note gains words (round 1 contact card "all at the top"); round 5: e1 top bar, e5 bars, c3/c5 cards, e2 peak.
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| e5 spreadsheet | 59% | **87%** | 24k | menu, formula and tab bars built at their drawn height; grid sits where drawn, near-identical by eye |
+| e2 heatmap analytics | 71% | 69% (flat) | 41k | "Peak hour" card now right (big figure at top, green delta); whole content column built ~10px low/right, title and filters regions just missed; table deltas coloured green/red (target plain) |
+
+Side-by-sides: built/e5-data-grid-n63-cmp.png, built/e2-heatmap-analytics-n63-cmp.png.

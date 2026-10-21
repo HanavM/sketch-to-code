@@ -217,15 +217,15 @@
    ],
    [
     "card-1",
-    "dark navy to dark grey gradient \"01 — BUILD\", lines \"Draw it\", \"Rough boxes become real layout.\""
+    "dark navy to dark grey gradient \"01 — BUILD\", lines big 28px bold \"Draw it\", \"Rough boxes become real layout.\""
    ],
    [
     "card-2",
-    "blue to sky blue gradient \"02 — MOVE\", lines \"Stagger it\", \"Each card rises a beat later.\""
+    "blue to sky blue gradient \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
    ],
    [
     "card-3",
-    "dark pink to pale pink gradient \"03 — TUNE\", lines \"Ease it\", \"Pick a curve, feel it.\""
+    "dark pink to pale pink gradient \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
    ],
    [
     "card-4",
@@ -393,7 +393,7 @@
    ],
    [
     "code",
-    "near-black block, grey text \"import\", lines \"from\", \"'hero'\", \"'glow'\""
+    "near-black block, grey text \"import\", lines \"from\", cyan \"'hero'\", cyan \"'glow'\", all at the top of the card, empty below"
    ],
    [
     "cta",
@@ -439,7 +439,7 @@
    ],
    [
     "topbar",
-    "white bar, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports"
+    "white bar 60px tall across the page, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports"
    ],
    [
     "col-todo",
@@ -517,7 +517,7 @@
    ],
    [
     "peak",
-    "\"Peak hour\", lines \"Tue 10:00\", \"▲ 18% vs last week\""
+    "\"Peak hour\", lines big 44px bold \"Tue 10:00\", green \"▲ 18% vs last week\", all at the top of the card, empty below"
    ],
    [
     "table",
@@ -647,11 +647,11 @@
   "notes": [
    [
     "menu",
-    "pale grey bar, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data"
+    "pale grey bar 52px tall across the page, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data"
    ],
    [
     "formula",
-    "formula bar across the page, thin line under: small cell name box \"D4\" left with a divider, then grey formula \"=SUM(B4:C4)\""
+    "formula bar 34px tall across the page, thin line under: small cell name box \"D4\" left with a divider, then grey formula \"=SUM(B4:C4)\""
    ],
    [
     "grid",
@@ -659,7 +659,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill)"
+    "pale grey bar 44px tall across the page, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill)"
    ]
   ]
  }
