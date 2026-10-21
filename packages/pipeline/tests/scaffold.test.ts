@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, pictureCrossIds, scaffoldDir } from '../src/scaffold.js'
+import { buildScaffold, componentName, lostStrokes, pictureCrossIds, scaffoldDir } from '../src/scaffold.js'
 import { finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
@@ -252,5 +252,22 @@ describe('pictureCrossIds — the X of a picture box is a sign, not geometry', (
     expect(sc?.code).toContain('s2: drawn by the user')
     expect(sc?.code).not.toContain('s3: drawn by the user')
     expect(sc?.code).not.toContain('s4: drawn by the user')
+  })
+})
+
+describe('lostStrokes — a drawn stroke stays drawn where it was', () => {
+  const box = { strokeId: 's2', d: 'M0.5,0.8 C100,0 300,1 398,0.6 C399,200 398,400 398,511 C300,512 100,511 1,511 C1,300 0,100 0.5,0.8 Z' }
+  const region = { x: 510, y: 153, w: 399, h: 513 }
+  const sc = buildScaffold(action({ region, svgPaths: [box], depicts: 'gradient block' }), 0, controls())!
+  it('passes the scaffold as written, and a restyled path with the same d', () => {
+    expect(lostStrokes(sc.code, sc.code)).toEqual([])
+    expect(lostStrokes(sc.code, `<path d="${box.d}" fill="url(#g)" />`)).toEqual([])
+  })
+  it('flags a stroke left only as a translated shadow copy (round 5 c4 photo built dark brown)', () => {
+    const now = `{/* hard shadow */}\n<path transform="translate(24,24)" d="${box.d}" fill="#3b2a1f" />\n{/* s2: drawn by the user — measured geometry, keep it */}\n</svg>`
+    expect(lostStrokes(sc.code, now)).toEqual(['s2'])
+  })
+  it('flags a stroke that is gone', () => {
+    expect(lostStrokes(sc.code, '<svg></svg>')).toEqual(['s2'])
   })
 })

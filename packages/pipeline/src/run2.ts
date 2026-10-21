@@ -29,7 +29,7 @@ import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
-import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
+import { buildScaffold, lostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
 import { finishSource, paletteFor } from './finish.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
 import {
@@ -468,6 +468,7 @@ export async function runV2(
    * re-lays these, because an attempt starts from the state the user
    * confirmed and the previous attempt's files were reverted.
    */
+  let laid: Scaffold[] = []
   const layScaffolds = (): Scaffold[] => {
     const taken = new Set<string>()
     const out: Scaffold[] = []
@@ -484,6 +485,7 @@ export async function runV2(
       out.push(sc)
     }
     if (out.length) save('scaffolds.json', out.map((sc) => ({ action: sc.actionIndex, name: sc.name, rel: sc.rel })))
+    laid = out
     return out
   }
 
@@ -542,6 +544,21 @@ export async function runV2(
     const result = verifyActions(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
     )
+
+    // the drawn strokes a scaffold handed over must still be drawn where they were
+    // (round 5 c4: only a shifted shadow copy of the photo's outline was left)
+    for (const sc of laid) {
+      let now: string
+      try { now = readFileSync(join(ctx.root, sc.rel), 'utf8') } catch { continue } // deleted on purpose
+      const lost = lostStrokes(sc.code, now)
+      if (!lost.length) continue
+      result.failures.push(
+        `action ${sc.actionIndex} (drawing): ${sc.rel} no longer draws the user's stroke(s) ${lost.join(', ')} in place ` +
+        `(only a moved copy such as a shadow, or nothing, is left). Put the <path> with that exact d back, untransformed, ` +
+        `with the fill the action asks for; a shadow is a second copy behind it, never a replacement.`,
+      )
+      result.score = Math.min(result.score, 0.99)
+    }
 
     // Rules the user drew earlier are checked against the same snapshot. They
     // are not about this edit, which is the point: an edit that quietly breaks

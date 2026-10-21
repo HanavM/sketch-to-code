@@ -225,3 +225,18 @@ export function scaffoldDir(destSrcLoc: string | null | undefined): string {
   // App.tsx lives at src/, and its siblings are not where components go
   return /\/components$/.test(dir) ? dir : `${dir}/components`
 }
+
+/**
+ * Drawn strokes a scaffold handed over that the build no longer draws in place.
+ *
+ * A kept stroke survives when some <path> in the file still has its exact `d`
+ * and no transform of its own. Round 5 c4: codegen added a hard shadow as a
+ * translate(24,24) copy of the photo's outline and the outline itself was gone,
+ * so a light gradient photo was built as a solid dark brown block, and every
+ * check passed (the shadow sat on the drawing). Zero tokens.
+ */
+export function lostStrokes(scaffoldCode: string, current: string): string[] {
+  const kept = [...scaffoldCode.matchAll(/\{\/\* (\S+): drawn by the user[^*]*\*\/\}\s*<path d="([^"]+)"/g)].map((m) => ({ id: m[1]!, d: m[2]! }))
+  const paths = [...current.matchAll(/<path\b[^>]*>/g)].map((m) => m[0])
+  return kept.filter(({ d }) => !paths.some((el) => el.includes(`d="${d}"`) && !/\btransform\s*=/.test(el))).map((k) => k.id)
+}
