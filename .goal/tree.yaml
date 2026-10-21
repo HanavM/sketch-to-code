@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Wrote 10 harder practice pages and taught the drawing planner tilt, glass, blur, outlined type, stripes, toggles and product cards. Next: build round 1 and some round 2 pages live once tomorrow's budget opens."
-lock: {by: run-2026-10-20T2354Z, until: "2026-10-21T01:25:00Z"}
+now: "Round 1 is fully built: all 10 pages drawn and built, everyday ones look close; three creative pages lost their page look, now fixed. Today's budget is used up, so the fix gets tested live tomorrow."
+lock: null
 asks: []
 handled: []
 notes:
@@ -14,6 +14,9 @@ notes:
   - "n4: round pages live in tests/rounds/<round>/ (target HTML with data-r regions, sketches.mjs). node tests/rounds/measure.mjs round1 writes ref PNGs + targets.json (regions, blank calibration). Run: node tests/bench/run.mjs --set round1 [--dry] [--only c1]. Likeness = 0.35 colour + 0.35 structure (lift over blank) + 0.30 bench region score; shots in tests/bench/out/shots/<id>-built.png."
   - "n4 finding: on white targets a blank page scores 95% colour / 89% structure raw, hence the lift-over-blank."
   - "Token ledger: 2026-10-20 ~238k (n4 ~10k; n5 readings ~62k, live c1+e1 ~76k; n6 readings ~14k, live c1 33k, e2+e3 43k; n7 live c1 ~34k) = ~272k. Spent for 2026-10-20: only free work until 2026-10-21 UTC."
+  - "Token ledger: 2026-10-21 ~303.5k (n8: c2 91k, c3 70k, c4 35k, c5 57k, e4 25k, e5 24k). Over the 300k/day budget by ~1%: no live work until 2026-10-22 UTC. Always pass --budget to live bench runs now (worst page ~95k)."
+  - "n8: tests/rounds/cmp.mjs <round> <id> [tag] [label] makes target-vs-built PNGs. Bench now copies each page's run record to tests/bench/out/runs/<id>/ (prompt, interpretation)."
+  - "try/n2-auto-sketch is cut before 5527aa8 (page-look fix, --budget): merge try/n1-round-bench into it before n11."
   - "A live page costs ~20-35k tokens; a read-only reading ~6-8k (check reading changes cheaply first)."
   - "S2C_TRACE_READING=<file> logs every SDK message of a reading (find why a reading failed). Bench runs >10 min: nohup in background and poll."
   - "n2: node tests/rounds/autoplan.mjs <round> writes <round>/autoplan.json from target style; --set round1auto draws it (try/n2-auto-sketch, cut from try/n1-round-bench). Live A/B hand vs auto on 2 pages is worth ~60k when budget allows."
@@ -47,5 +50,7 @@ nodes:
      result: "Rules match hand marks 52/53; words similar or more (copy quoted). Dry run draws all 10. Tuned on round 1 only. 2e030cb."}
   - {id: n10, parent: n2, kind: step, title: "Generality check, free: write round-2 targets (harder: overlap, asymmetry, big type, dense everyday UI) WITHOUT tuning, auto-plan them, read the plans for wrong marks/notes; fix rules only for clear misses", status: done,
      result: "10 harder targets; untuned plans missed glass, tilt, outline type, toggles, cards; general fixes; round1 still 52/53. 28f8604."}
-  - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs budget left after n8, ~90k): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: open, result: null}
-  - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: open, result: null}
+  - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs 2026-10-22 budget after n12, ~90k, --budget): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: open, result: null}
+  - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
+     result: "All 10 built; e5 63%, c3 51%. Page-look notes styled one block; fixed. 303k tokens, 1% over. 5527aa8."}
+  - {id: n12, parent: n1, kind: step, title: "Needs 2026-10-22 budget, run with --budget: re-run c2, c4, c5 to prove the page-look fix (full-page yellow/dark/paper, nav as a row); find why c2's 160px drawn headline came out ~50px", status: open, result: null}
