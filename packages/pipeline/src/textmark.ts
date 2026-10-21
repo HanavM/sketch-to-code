@@ -58,12 +58,25 @@ const MAX_THICKNESS = 40
  * only for a lone line that is still clearly a LINE: far wider than tall and
  * level. A scratch-out over a block is about as tall as it is wide.
  */
-const MAX_DISPLAY_THICKNESS = 260
+const MAX_DISPLAY_THICKNESS = 320
 const DISPLAY_MIN_ASPECT = 2.5
 const DISPLAY_MAX_TILT = 12
 /** Chord per crest, as a share of the zigzag's height. */
 const DISPLAY_MIN_CREST_GAP = 0.5
 const DISPLAY_MAX_SINUOSITY = 2.5
+/**
+ * A SHORT giant word ("01", "03" set at 360-420px) drawn to size. Its letters are
+ * barely wider than tall, so a zigzag as tall as them can't be 2.5x wider: held to
+ * that, the bench drew "01" a third as tall and it built at half size (round 3 c4,
+ * round 4 c5). Allowed down to 1.1x wider than tall, but only as a FEW big crests
+ * (2-3) at least 100px tall: a hatch or scratch-out over a block packs many crests
+ * tight (bench hatch: one every 0.1-0.4x its height, 10+ crests).
+ */
+const SHORT_DISPLAY_MIN_ASPECT = 1.1
+const SHORT_DISPLAY_MIN_THICKNESS = 100
+const SHORT_DISPLAY_MAX_CRESTS = 3
+const SHORT_DISPLAY_MIN_CREST_GAP = 0.33
+const SHORT_DISPLAY_MAX_SINUOSITY = 3
 /** Text oscillates hard; decoration and sway do not (see header). */
 const MIN_TRAVEL = 0.35
 /** A train of crests — one barb pair or a single bump is not writing. */
@@ -164,9 +177,10 @@ export function textMarkReason(points: Point[]): string | null {
   if (m.chord < MIN_CHORD || m.tilt > MAX_TILT) return null
   if (m.thickness > MAX_THICKNESS) {
     // maybe a display word drawn to size: judge it along the ink's own axis
-    const f = measureTextMark(points, 'fit')
-    if (!f || !isDisplayLine(f)) return null
-    m = f
+    const d = displayMeasure(points)
+    if (!d) return null
+    m = d.m
+    if (d.short) return `a ${Math.round(m.chord)}x${Math.round(m.thickness)}px zigzag (${m.crests} crests) reads as a short giant word`
   }
   if (m.sinuosity > MAX_SINUOSITY) return null
   if (m.travel < MIN_TRAVEL || m.crests < MIN_CRESTS) return null
@@ -174,6 +188,20 @@ export function textMarkReason(points: Point[]): string | null {
     `a level ${Math.round(m.chord)}px squiggle (${m.crests} crests, ` +
     `${Math.round(m.thickness)}px tall) reads as a line of text`
   )
+}
+
+/**
+ * A stroke taller than body ink that is still a line of display type: the measure
+ * it qualifies by (along the ink's axis first, then end to end) and whether it is
+ * a short giant word. Null when it is neither.
+ */
+function displayMeasure(points: Point[]): { m: TextMarkMeasure; short: boolean } | null {
+  const fit = measureTextMark(points, 'fit')
+  if (fit && isDisplayLine(fit)) return { m: fit, short: false }
+  // near-square ink has no reliable principal axis (it tilts ~40deg): a short word
+  // is judged end to end too, and must be level either way
+  for (const m of [fit, measureTextMark(points)]) if (m && isShortDisplayWord(m)) return { m, short: true }
+  return null
 }
 
 /** A level zigzag far wider than tall, taller than body or title ink: a display word drawn to size. */
@@ -186,6 +214,22 @@ function isDisplayLine(m: TextMarkMeasure): boolean {
     // a crest every 0.43x its height, ink 2.9x its chord)
     m.chord / Math.max(1, m.crests) >= DISPLAY_MIN_CREST_GAP * m.thickness &&
     m.sinuosity <= DISPLAY_MAX_SINUOSITY
+  )
+}
+
+/** A few big crests about as tall as wide, level: a short word ("01") drawn at its real height. */
+function isShortDisplayWord(m: TextMarkMeasure): boolean {
+  return (
+    m.thickness >= SHORT_DISPLAY_MIN_THICKNESS &&
+    m.thickness <= MAX_DISPLAY_THICKNESS &&
+    m.chord >= SHORT_DISPLAY_MIN_ASPECT * m.thickness &&
+    m.chord < DISPLAY_MIN_ASPECT * m.thickness &&
+    m.tilt <= DISPLAY_MAX_TILT &&
+    m.crests >= 2 &&
+    m.crests <= SHORT_DISPLAY_MAX_CRESTS &&
+    m.chord / m.crests >= SHORT_DISPLAY_MIN_CREST_GAP * m.thickness &&
+    m.sinuosity <= SHORT_DISPLAY_MAX_SINUOSITY &&
+    m.travel >= MIN_TRAVEL
   )
 }
 

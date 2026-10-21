@@ -183,6 +183,20 @@ describe('textStacks — drawn line spacing is the type size (round 1, c1)', () 
     expect(isTextMark(textLine(0, 200, 260, { amp: 80, wavelength: 60 }))).toBe(false)
     expect(isTextMark(textLine(0, 200, 300, { amp: 60, wavelength: 140 }))).toBe(false)
   })
+  it('sizes a short giant word drawn at full height (round 3 c4: "01" at 420px, round 4 c5: "03" at 360px)', () => {
+    for (const [w, font] of [[366, 420], [324, 360], [256, 240]] as const) {
+      const z = textLine(20, 300, w, { amp: 0.35 * font, wavelength: (2 * w) / 3 })
+      expect(isTextMark(z), `${w}/${font}`).toBe(true)
+      const st = textStacks([{ id: 'z', points: z }])
+      expect(st).toHaveLength(1)
+      expect(Math.abs(st[0]!.fontPx - font) / font, `${w}/${font} read ${st[0]!.fontPx}`).toBeLessThan(0.1)
+    }
+  })
+  it('a short tall zigzag with many tight crests, or a hatch, is still not text', () => {
+    expect(isTextMark(textLine(0, 300, 360, { amp: 140, wavelength: 90 }))).toBe(false)
+    expect(isTextMark(textLine(0, 300, 360, { amp: 140, wavelength: 140 }))).toBe(false)
+    for (const [w, h] of [[248, 268], [360, 300], [300, 200]]) expect(isTextMark(hatch(100, 100, w, h)), `hatch ${w}x${h}`).toBe(false)
+  })
   it('makes no size claim for a lone body squiggle, tidy or rough', () => {
     for (const w of [80, 150, 300, 600]) {
       for (let s = 1; s <= 12; s++) {

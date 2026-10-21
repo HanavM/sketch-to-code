@@ -7,7 +7,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { box, circle, imageBox, polygon, textLine, textBlock } from '../../bench/lib/draw.mjs'
 
 /** One region -> polylines, by mark kind. Marks sit a few px inside the box. */
-function mark(kind, r, opts = {}) {
+export function mark(kind, r, opts = {}) {
   const { x, y, w, h } = r
   const cy = y + h / 2
   switch (kind) {
@@ -17,11 +17,14 @@ function mark(kind, r, opts = {}) {
     // letters (caps ~0.7 of the font, so the pen travels ~0.7 x fontPx crest to trough);
     // several lines are that many squiggles at the set line pitch
     case 'heading': if (opts.fontPx && opts.lines === 1 && opts.fontPx >= 40) {
-      // a short word (a big "07") is drawn flatter: a zigzag about as tall as wide reads as a scratch-out
       // drawn on screen: a word bleeding off the page edge is zigzagged over its visible part
       const x0 = Math.max(x + 8, 6)
       const x1 = Math.min(x + 8 + w * 0.9, 1274)
-      const amp = Math.min(0.35 * opts.fontPx, (x1 - x0) / 6)
+      const amp = 0.35 * opts.fontPx
+      // a short word (a big "01") barely wider than tall: three big strokes over the letters at
+      // full height, ending level (a whole number of half waves). It used to be drawn a third as
+      // tall as wide, so a 420px "01" read as 177px (n40).
+      if (x1 - x0 < 2.5 * 2 * amp) return [textLine(x0, cy, x1 - x0, { amp, wavelength: (2 * (x1 - x0)) / 3 })]
       return [textLine(x0, cy, x1 - x0, { amp, wavelength: Math.max(46, amp * 3) })]
     }
     // several lines are drawn as several lines whatever the block's height: a 2-line 30px intro
