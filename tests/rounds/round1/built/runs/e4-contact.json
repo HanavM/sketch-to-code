@@ -1,0 +1,148 @@
+{
+  "id": "e4-contact",
+  "at": "2026-10-21T13:15:47.154Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6796537743050888,
+    "overallV2": 0.6307017423836033,
+    "overallV1": 0.4131267240282106,
+    "colour": 0.9922371774495221,
+    "structure": 0.9688267897060383,
+    "structureStrict": 0.9019436471021123,
+    "colourAligned": 0.9939734214118352,
+    "structureAligned": 0.9688267897060383,
+    "align": {
+      "scale": 0.96,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8952586992583241
+    },
+    "layout": 0.8365893465638031
+  },
+  "effects": null,
+  "tokens": {
+    "input": 19108,
+    "output": 10500,
+    "cacheRead": 132279
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 23457,
+      "output": 8442,
+      "cacheRead": 123334,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 104200
+    }
+  ],
+  "reading": "The sketch lays out a contact section: a large heading with a short subline, three labeled form fields (Name, Email, Message) with empty input boxes, a 'Send message' button, and a pale card listing office contact details — all per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 43
+        }
+      ],
+      "region": [
+        148,
+        88,
+        504,
+        28
+      ],
+      "paths": [],
+      "instruction": "Add a large heading 'Get in touch' with a line underneath reading 'We usually reply within a day.' as the section's page title and subtext."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        144,
+        180,
+        553,
+        62
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a labeled text input: label 'Name' above an empty text field."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        144,
+        270,
+        553,
+        62
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a labeled text input: label 'Email' above an empty text field."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        360,
+        553,
+        156
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a labeled multi-line textarea: label 'Message' above an empty, taller text field."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        142,
+        547,
+        177,
+        45
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a pill-shaped button labeled 'Send message', styled with a teal background and white text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        83,
+        354,
+        506
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a pale grey card titled 'Our office' containing the address '12 Harbour Street, Lisbon, Portugal', then a line labeled 'Email' with value 'hello@example.com"
+    }
+  ],
+  "rejected": []
+}

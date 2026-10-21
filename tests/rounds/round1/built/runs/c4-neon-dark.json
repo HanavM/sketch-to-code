@@ -1,0 +1,160 @@
+{
+  "id": "c4-neon-dark",
+  "at": "2026-10-21T12:58:36.461Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.749241044728813,
+    "overallV2": 0.749241044728813,
+    "overallV1": 0.7224038959816871,
+    "colour": 0.9551139043056633,
+    "structure": 0.6006112651135824,
+    "structureStrict": 0.5260740976967552,
+    "colourAligned": 0.9551139043056633,
+    "structureAligned": 0.6006112651135824,
+    "align": {
+      "scale": 1.08,
+      "dx": -48,
+      "dy": -32,
+      "r": 0.5679521273755925
+    },
+    "layout": 0.698869712369909
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient-text",
+      "huge-type"
+    ],
+    "missing": [
+      "glow"
+    ],
+    "extra": [
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 32276,
+    "output": 14438,
+    "cacheRead": 175639
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 34310,
+      "output": 9653,
+      "cacheRead": 149110,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 111417
+    }
+  ],
+  "reading": "This is a hero/landing page sketch: a top nav bar, a small pill-shaped announcement button, a large heading line, a shorter subheading line, a short paragraph line, and a bottom bar with two buttons. Typed notes give the exact copy and styling for each piece.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        76
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar with brand label 'NOVA' and nav links 'Product', 'Docs', 'Pricing'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        512,
+        213,
+        255,
+        32
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Small purple outline pill-shaped button with text '✦ v2 is live — read the notes'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 96
+        }
+      ],
+      "region": [
+        128,
+        319,
+        936,
+        123
+      ],
+      "paths": [],
+      "instruction": "Giant, heavy-weight Helvetica heading text 'Ship at the speed of light', filled with a cyan-to-purple-to-coral gradient."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        344,
+        521,
+        592,
+        32
+      ],
+      "paths": [],
+      "instruction": "Lavender-colored subheading/paragraph text: 'The edge platform for teams who refuse to wait on their own infrastructure.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        607,
+        1274,
+        46
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Row of two call-to-action buttons: 'Start building' and 'Talk to us'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -258,6 +258,8 @@ const NAMED = [
   ['red-orange', 255, 61, 0],
   // a dark page with a blue-violet cast (round 3 c3 #05010f was 'black' and built #000)
   ['near-black indigo', 8, 3, 24],
+  // a cool near-white (#f3f4f6, #f8fafc): 'off-white' read as white and built #fff (round 1 e1 lost its grey page)
+  ['pale grey', 244, 245, 248],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -265,7 +267,7 @@ const hue = (c) => {
   const h = mx === c.r ? ((c.g - c.b) / d) % 6 : mx === c.g ? (c.b - c.r) / d + 2 : (c.r - c.g) / d + 4
   return (h * 60 + 360) % 360
 }
-const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'light grey', 'grey', 'dark grey'])
+const NEUTRAL = new Set(['black', 'near-black', 'white', 'off-white', 'pale grey', 'light grey', 'grey', 'dark grey'])
 const parse = (s) => {
   if (typeof s !== 'string') return s
   if (s.startsWith('#')) {
@@ -283,6 +285,8 @@ export function colourName(c) {
   for (const [n, r, g, b] of NAMED) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
+    if (n === 'pale grey' && !(chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236)) continue
+    if (n === 'off-white' && chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236) continue
     if (n === 'near-black indigo' && !(hue(c) >= 225 && hue(c) <= 285 && chroma >= 8 && Math.max(c.r, c.g, c.b) <= 40)) continue
     const d = (c.r - r) ** 2 * 0.3 + (c.g - g) ** 2 * 0.59 + (c.b - b) ** 2 * 0.11
     if (d < bd) { bd = d; best = n }
@@ -543,7 +547,10 @@ function decideOne(f, page, marked, said) {
     // (round 3 c4: 'vertical near-black "INDEX OF THINGS"' built black text, no rail)
     const lightText = fill && !frosted && textCol && dist(f.colour, f.bg) > 150 ? `, ${textCol} text` : ''
     const bc = bordered ? colourName(f.border.colour) : null
-    if (fill && /light grey|white/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30) look.pop() // a faint card: the box shows it
+    // a card the same as the page: the box shows it. A tint the eye still sees is said, or the build picks
+    // its own fill (round 1 e4's pale grey office card was built dark navy)
+    if (fill && /light grey|white|pale grey/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 6) look.pop()
+    else if (fill && /light grey|white|pale grey/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30 && !/card/.test(look.join(' '))) look.push('card')
     if (bordered && f.border.w >= 3) look.push(`thick ${bc} border`)
     else if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
     if (hardShadow) look.push('hard offset shadow')
@@ -559,7 +566,10 @@ function decideOne(f, page, marked, said) {
     // a titled card: its title and one short line are copy a person types, or the build invents its own
     // (round 3 c4 cards built with made-up body copy from '"Manifesto" and text')
     const titled = !f.regionKids.length && !list && head && f.kidTexts.length === 2 && f.kidTexts[1].length <= 110
-      ? `${quote(head)}, text ${quote(f.kidTexts[1], 110)}` : null
+      ? `${quote(head)}, text ${quote(f.kidTexts[1], 110)}`
+      // a short info card (an address, hours, an email): every line is copy, or the build invents an address
+      : !f.regionKids.length && !list && head && f.kidTexts.length >= 3 && f.kidTexts.length <= 7 && f.kidTexts.join(' ').length <= 160
+        ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t) => quote(t, 60)).join(', ')}` : null
     const copy = titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
   }

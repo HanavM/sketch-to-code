@@ -1,0 +1,168 @@
+{
+  "id": "c5-editorial",
+  "at": "2026-10-21T13:02:53.479Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5078575156355754,
+    "overallV2": 0.49394331246974577,
+    "overallV1": 0.4193869949368353,
+    "colour": 0.9810569440709241,
+    "structure": 0.7983389618023277,
+    "structureStrict": 0.7319212533150734,
+    "colourAligned": 0.9810569440709241,
+    "structureAligned": 0.8085259903483528,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -48,
+      "r": 0.47971236533783307
+    },
+    "layout": 0.6152309218182251
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "huge-type",
+      "italic",
+      "serif"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 21442,
+    "output": 18609,
+    "cacheRead": 105731
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30464,
+      "output": 12185,
+      "cacheRead": 102647,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 149937
+    }
+  ],
+  "reading": "The sketch lays out a magazine-style article header: a top site bar, a huge red issue number, an 'ESSAY' kicker with a large wrapped headline, an italic dek/subtitle, and a sidebar panel — all per the typed notes, with squiggly lines standing in for actual copy rather than decoration.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        75,
+        3,
+        1129,
+        103
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Draw a full-width header bar at the top of the page containing the site title 'The Long Read' and the issue meta text 'ISSUE 14 · AUTUMN'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 123
+        }
+      ],
+      "region": [
+        80,
+        271,
+        256,
+        85
+      ],
+      "paths": [],
+      "instruction": "Add a giant Georgia serif numeral '01' rendered in red, sized and placed to match the sketched wavy placeholder, as a large issue/section number."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 56
+        }
+      ],
+      "region": [
+        420,
+        218,
+        443,
+        138
+      ],
+      "paths": [],
+      "instruction": "Add a small category kicker tag reading 'ESSAY' above a huge Georgia serif headline 'The quiet return of the handwritten letter', wrapping across the two lines "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        416,
+        414,
+        484,
+        39
+      ],
+      "paths": [],
+      "instruction": "Add italic brown subtitle text 'Why a generation raised on screens is buying fountain pens again.' below the headline, wrapping across the two sketched lines."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        168,
+        242,
+        292
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a sidebar panel to the right of the main article titled 'In this issue' with short supporting list text beneath it."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

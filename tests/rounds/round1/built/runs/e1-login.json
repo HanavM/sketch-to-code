@@ -1,0 +1,156 @@
+{
+  "id": "e1-login",
+  "at": "2026-10-21T13:18:10.942Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5929866556771212,
+    "overallV2": 0.5617395236992282,
+    "overallV1": 0.4355336492937588,
+    "colour": 0.9894335151938756,
+    "structure": 0.9335927085317066,
+    "structureStrict": 0.89355341032957,
+    "colourAligned": 0.9897565684672585,
+    "structureAligned": 0.9427421989959958,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -48,
+      "r": 0.9168044551322477
+    },
+    "layout": 0.49934303160054644
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 17601,
+    "output": 9775,
+    "cacheRead": 111100
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 20121,
+      "output": 6920,
+      "cacheRead": 102585,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 77021
+    }
+  ],
+  "reading": "The user sketched a sign-in card: an outer box (white card) containing a heading with subtext, two labeled input fields (email, password), a pill-shaped submit button, and a 'forgot password' link, matching the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        433,
+        153,
+        414,
+        414
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Create a white card container for the sign-in form (typed note: 'white card'), placed on a pale grey page background with Helvetica typography and dark navy tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 35
+        }
+      ],
+      "region": [
+        478,
+        196,
+        306,
+        19
+      ],
+      "paths": [],
+      "instruction": "Add a heading 'Sign in' with a line underneath reading 'Welcome back. Enter your details.' (typed note), in dark navy Helvetica text, at the top of the card."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        291,
+        333,
+        38
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add an email field: label 'Email' above a text input with placeholder 'you@example.com' (typed note), inside the sign-in card."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        474,
+        379,
+        332,
+        37
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a password field: label 'Password' above a password input showing placeholder dots '••••••••' (typed note), inside the sign-in card."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        471,
+        449,
+        336,
+        44
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a pill-shaped button with a blue background and white text reading 'Sign in' (typed note), below the password field."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        474,
+        518,
+        332,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a blue text link reading 'Forgot your password?' (typed note) at the bottom of the card."
+    }
+  ],
+  "rejected": []
+}

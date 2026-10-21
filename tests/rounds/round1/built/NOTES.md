@@ -124,3 +124,24 @@ What failed, and the common cause:
   quoted copy is word for word (never retitled), a label above is a visible label, not a placeholder.
 - Plan diff: round 1 e1/e4 and round 2 e1 checkout fields only; round 3 unchanged. Dry wire: notes arrive whole.
 - Check live cheaply: --set round1auto --only e1,e4 (~25k each) or --read-only first (~7k each).
+
+## Step n45 (2026-10-21): round 1 rebuilt from the auto plans, with every fix since round 1
+Round 1 was first built from hand sketches (n8). Re-built c4, c5, e1, e4 from the auto planner on
+try/n3-vocabulary (paragraphs drawn line by line, page look, labels, headline size, note focus, ...).
+Same scorer (v3) for before and after; side-by-sides are `*-auto-cmp.png` and `*-auto2-cmp.png`.
+
+| page | n8 (hand) v1 / v3 | n45 auto v1 / v3 | after pale-grey + card copy fix (v3) | billed |
+|---|---|---|---|---|
+| c4 neon dark | 36% / ~55% | 72% / 75% | - | ~50k |
+| c5 editorial | 15% / 15% | 42% / 51% | - | ~45k |
+| e1 sign-in | 11% / ~20% | 12% / 39% | 59% (v2 56%) | 17k, then 27k (+1 failed reading) |
+| e4 contact | 11% / 11% | 26% / 26% | 68% (v2 63%, layout 88% -> 84%) | 57k, then 30k |
+
+Gain carries to round 1: every page re-built scores well above its first build.
+What the first auto builds still missed, and the fix (planner, free to check):
+- e1: the page #f3f4f6 was called 'off-white', built #fff. Cool near-whites (b > r, chroma <= 6) are now 'pale grey'.
+- e4: the office card (#f9fafb on white) said only '"Our office" and text': built dark navy with an invented
+  San Francisco address. A tint the eye still sees (2-30 from the page) is now said ('pale grey card', 'white
+  card'), and a 3-7 line info card quotes every line. Plan diff: r1 3 notes, r2 9, r3 2 (cards gain 'white card').
+- Left: e1 card a little short (forgot link on its edge); e4 address lines merged into one; one e1 reading
+  failed on structured-output retries (second try fine).
