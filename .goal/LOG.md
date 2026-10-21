@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T19:35:00Z | Round 5 targets made and drawn | 10 harder pages, all drawn dry; notes miss chat pane, spreadsheet, heatmap, toggles. 0 tokens.
 2026-10-21T19:25:00Z | Giant numbers rebuilt at full size | Story page "03" full size, yellow card now bright: 54% to 76%. Editorial "01" full size, score flat. 152k.
 2026-10-21T18:12:00Z | Big short numbers built at full size | Giant "01" now drawn and read at its real height: built 425px for 420; brutal index 74% to 82%. 45k.
 2026-10-21T17:53:55Z | Round 4: colour names and story-page parts | Sky blue, pale pink, top bar, step dots, tilt, card colours now built; scores flat. 166k.
