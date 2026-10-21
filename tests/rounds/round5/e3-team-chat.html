@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937}
+.rail{position:absolute;left:0;top:0;width:70px;height:900px;background:#3f0e40;padding-top:20px}.rail i{display:block;width:40px;height:40px;border-radius:10px;background:#fff;margin:0 auto 14px;opacity:.9}.rail i+i{opacity:.35}
+.chan{position:absolute;left:70px;top:0;width:250px;height:900px;background:#4a154b;color:#e9d5ff;padding:20px 16px;font-size:15px;line-height:2.2}.chan b{color:#fff;font-size:18px;display:block;margin-bottom:10px}.chan .on{background:#1164a3;color:#fff;border-radius:6px;padding:0 10px;margin:0 -10px}
+.main{position:absolute;left:320px;top:0;width:560px;height:900px;border-right:1px solid #e5e7eb}
+.ch{height:60px;border-bottom:1px solid #e5e7eb;padding:18px 20px;font-size:17px;font-weight:700}
+.msg{display:flex;gap:12px;padding:14px 20px;font-size:15px;line-height:1.45}.msg i{width:38px;height:38px;border-radius:8px;flex:none;background:#f59e0b}.msg b{font-size:15px}.msg small{color:#6b7280;margin-left:6px}
+.re{display:inline-block;margin-top:6px;padding:2px 8px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:999px;font-size:13px}
+.thr{color:#1d4ed8;font-size:13px;margin-top:6px;font-weight:700}
+.box{position:absolute;left:20px;right:20px;bottom:20px;height:96px;border:1px solid #9ca3af;border-radius:10px;padding:12px;color:#9ca3af;font-size:15px}
+.thread{position:absolute;left:880px;top:0;width:400px;height:900px;background:#f9fafb}
+</style></head><body>
+<div class="rail" data-r="workspaces"><i></i><i></i><i></i></div>
+<div class="chan" data-r="channels" data-must><b>Acme</b><div># general</div><div class="on"># design</div><div># eng</div><div># random</div><div style="margin-top:16px;color:#c4b5fd">Direct messages</div><div>Priya Shah</div><div>Tom Becker</div></div>
+<div class="main" data-r="messages" data-must><div class="ch"># design</div>
+<div class="msg"><i></i><div><b>Priya Shah</b><small>10:02</small><br>New hero options are up in Figma — the dark one is my pick.<br><span class="re">🔥 4</span></div></div>
+<div class="msg"><i style="background:#10b981"></i><div><b>Tom Becker</b><small>10:05</small><br>Dark one reads better on mobile too.<div class="thr">3 replies</div></div></div>
+<div class="msg"><i style="background:#6366f1"></i><div><b>Ana Lima</b><small>10:11</small><br>Can we keep the gradient but drop the noise texture?</div></div>
+<div class="box" data-r="composer">Message #design</div></div>
+<div class="thread" data-r="thread" data-must><div class="ch">Thread</div>
+<div class="msg"><i style="background:#10b981"></i><div><b>Tom Becker</b><small>10:05</small><br>Dark one reads better on mobile too.</div></div>
+<div class="msg"><i></i><div><b>Priya Shah</b><small>10:07</small><br>Agreed, shipping it Friday.</div></div></div>
+</body></html>

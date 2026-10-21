@@ -1,0 +1,650 @@
+{
+ "c1-masked-reel": {
+  "plan": [
+   [
+    "reel",
+    "box"
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "title-outline",
+    "heading",
+    {
+     "fontPx": 250,
+     "lines": 1
+    }
+   ],
+   [
+    "title-solid",
+    "heading",
+    {
+     "fontPx": 250,
+     "lines": 1
+    }
+   ],
+   [
+    "play",
+    "circle"
+   ],
+   [
+    "meta",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "track",
+    "box"
+   ],
+   [
+    "time",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black page, Helvetica type, off-white text"
+   ],
+   [
+    "reel",
+    "moving orange to purple to bright sky blue gradient block"
+   ],
+   [
+    "title-outline",
+    "giant Helvetica heavy tight-set letters hollow outlined off-white \"AFTER\""
+   ],
+   [
+    "title-solid",
+    "overlay blend over what is under it giant Helvetica heavy tight-set letters \"DARK\""
+   ],
+   [
+    "play",
+    "off-white outline circle with \"PLAY\""
+   ],
+   [
+    "meta",
+    "text \"A short film about the city between midnight and dawn. Shot on 16mm, scored live.\""
+   ],
+   [
+    "track",
+    "dark grey"
+   ],
+   [
+    "time",
+    "grey text \"02:14 / 11:40\""
+   ]
+  ]
+ },
+ "c2-variable-type": {
+  "plan": [
+   [
+    "line-thin",
+    "heading",
+    {
+     "fontPx": 180,
+     "lines": 1
+    }
+   ],
+   [
+    "line-heavy",
+    "heading",
+    {
+     "fontPx": 180,
+     "lines": 1
+    }
+   ],
+   [
+    "line-wide",
+    "heading",
+    {
+     "fontPx": 180,
+     "lines": 1
+    }
+   ],
+   [
+    "badge",
+    "box"
+   ],
+   [
+    "badge-dot",
+    "circle"
+   ],
+   [
+    "marquee",
+    "box"
+   ],
+   [
+    "foot",
+    "text"
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: light grey page, Helvetica type, near-black text"
+   ],
+   [
+    "line-thin",
+    "giant Helvetica tight-set letters \"Weight\""
+   ],
+   [
+    "line-heavy",
+    "giant Helvetica italic heavy tight-set letters red \"Width\""
+   ],
+   [
+    "line-wide",
+    "giant Helvetica \"Slant\""
+   ],
+   [
+    "badge-dot",
+    "big vivid red circle"
+   ],
+   [
+    "marquee",
+    "scrolling near-black bar, light grey text"
+   ],
+   [
+    "foot",
+    "brown text \"Free for personal use. Studio licence from €90.\""
+   ],
+   [
+    "cta",
+    "red pill white text button \"Try the axes\""
+   ]
+  ]
+ },
+ "c3-scroll-reveal": {
+  "plan": [
+   [
+    "header",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 64,
+     "lines": 2
+    }
+   ],
+   [
+    "lead",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "card-1",
+    "box"
+   ],
+   [
+    "card-2",
+    "box"
+   ],
+   [
+    "card-3",
+    "box"
+   ],
+   [
+    "card-4",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "headline",
+    "huge Helvetica heavy tight-set letters \"Ship the page. Then watch it unfold.\""
+   ],
+   [
+    "lead",
+    "dark grey text \"Sections ease in as you scroll, each one a beat later than the last. No code, no timelines to wire up.\""
+   ],
+   [
+    "card-1",
+    "dark navy to dark grey gradient \"01 — BUILD\", lines \"Draw it\", \"Rough boxes become real layout.\""
+   ],
+   [
+    "card-2",
+    "blue to sky blue gradient \"02 — MOVE\", lines \"Stagger it\", \"Each card rises a beat later.\""
+   ],
+   [
+    "card-3",
+    "dark pink to pale pink gradient \"03 — TUNE\", lines \"Ease it\", \"Pick a curve, feel it.\""
+   ],
+   [
+    "card-4",
+    "bleeding off the right page edge (runs 200px past it) orange to peach gradient \"04\", text \"Ship\""
+   ]
+  ]
+ },
+ "c4-outline-stack": {
+  "plan": [
+   [
+    "ghost-top",
+    "heading",
+    {
+     "fontPx": 330,
+     "lines": 1
+    }
+   ],
+   [
+    "ghost-bottom",
+    "heading",
+    {
+     "fontPx": 330,
+     "lines": 1
+    }
+   ],
+   [
+    "photo-main",
+    "image"
+   ],
+   [
+    "photo-blue",
+    "image"
+   ],
+   [
+    "pill-new",
+    "box"
+   ],
+   [
+    "pill-dark",
+    "box"
+   ],
+   [
+    "pill-yellow",
+    "box"
+   ],
+   [
+    "logo",
+    "text"
+   ],
+   [
+    "copy",
+    "text",
+    {
+     "fontPx": 17,
+     "lines": 2
+    }
+   ],
+   [
+    "buy",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, near-black text"
+   ],
+   [
+    "ghost-top",
+    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\""
+   ],
+   [
+    "ghost-bottom",
+    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\""
+   ],
+   [
+    "photo-main",
+    "tilted light orange to brown gradient block, in front of the \"SUMMER\" heading"
+   ],
+   [
+    "photo-blue",
+    "tilted ink-like (multiply blend: darkens what it overlaps, never covers it) dark grey to sky blue gradient block, in front of the \"SUMMER\" heading"
+   ],
+   [
+    "pill-new",
+    "pill input \"New season\""
+   ],
+   [
+    "pill-dark",
+    "tilted near-black block, off-white text \"Linen only\""
+   ],
+   [
+    "pill-yellow",
+    "tilted vivid yellow \"Ships in 24h\""
+   ],
+   [
+    "logo",
+    "\"ORRA\""
+   ],
+   [
+    "copy",
+    "text \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
+   ],
+   [
+    "buy",
+    "button \"Shop summer →\""
+   ]
+  ]
+ },
+ "c5-bento": {
+  "plan": [
+   [
+    "hero",
+    "box"
+   ],
+   [
+    "stat",
+    "box"
+   ],
+   [
+    "ring",
+    "image"
+   ],
+   [
+    "quote",
+    "box"
+   ],
+   [
+    "chart",
+    "box"
+   ],
+   [
+    "code",
+    "box"
+   ],
+   [
+    "cta",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black page, Helvetica type, white text"
+   ],
+   [
+    "hero",
+    "indigo to pink gradient block \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\""
+   ],
+   [
+    "stat",
+    "white block, black text \"2.4×\", text \"faster first paint than Prism 1\""
+   ],
+   [
+    "ring",
+    "near-black block"
+   ],
+   [
+    "quote",
+    "vivid yellow block, black text"
+   ],
+   [
+    "chart",
+    "near-black, bar chart \"Weekly builds\", 7 indigo bars, heights 30/45/40/62/70/88/100% of the tallest"
+   ],
+   [
+    "code",
+    "near-black block, grey text \"import\", lines \"from\", \"'hero'\", \"'glow'\""
+   ],
+   [
+    "cta",
+    "column \"Ready when you are.\", cards: \"Get Prism 2\""
+   ]
+  ]
+ },
+ "e1-board-modal": {
+  "plan": [
+   [
+    "topbar",
+    "box"
+   ],
+   [
+    "col-todo",
+    "box"
+   ],
+   [
+    "col-doing",
+    "box"
+   ],
+   [
+    "col-review",
+    "box"
+   ],
+   [
+    "col-done",
+    "box"
+   ],
+   [
+    "backdrop",
+    "box"
+   ],
+   [
+    "modal",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, dark navy text"
+   ],
+   [
+    "topbar",
+    "links: Sprint 42, Board, Backlog, Reports"
+   ],
+   [
+    "col-todo",
+    "column \"To do · 4\", cards: \"Fix login redirect\" tag blue \"Bug\", \"Empty state art\" tag blue \"Design\", \"Rate limits\" tag blue \"API\""
+   ],
+   [
+    "col-doing",
+    "column \"In progress · 2\", cards: \"Billing page\" tag blue \"Web\", \"Push alerts\" tag blue \"Mobile\""
+   ],
+   [
+    "col-review",
+    "column \"Review · 3\", cards: \"Search index\" tag blue \"API\", \"Onboarding copy\" tag blue \"Docs\""
+   ],
+   [
+    "col-done",
+    "column \"Done · 9\", cards: \"Dark mode\" tag blue \"Web\", \"CSV export\" tag blue \"API\""
+   ],
+   [
+    "backdrop",
+    "dark navy block"
+   ],
+   [
+    "modal",
+    "white card \"New task\", lines \"×\", \"Title\", \"Write release notes\", \"Description\", \"Assignee Priya Shah Due Oct 30\", \"Cancel Create task\""
+   ]
+  ]
+ },
+ "e2-heatmap-analytics": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "filters",
+    "box"
+   ],
+   [
+    "heatmap",
+    "box"
+   ],
+   [
+    "peak",
+    "box"
+   ],
+   [
+    "table",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "dark navy bar, light grey text \"Pulse\" list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", 1 more; \"Usage\" highlighted"
+   ],
+   [
+    "title",
+    "\"Usage by hour\""
+   ],
+   [
+    "filters",
+    "buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\""
+   ],
+   [
+    "heatmap",
+    "\"Active sessions\"… list: \"Mon\", \"Tue\", \"Wed\", \"Thu\", 3 more"
+   ],
+   [
+    "peak",
+    "\"Peak hour\", lines \"Tue 10:00\", \"▲ 18% vs last week\""
+   ],
+   [
+    "table",
+    "\"Feature Sessions\"… list: \"Sketch overlay\" 12,480, \"Auto build\" 8,931, \"Export\" 2,115, \"Comments\" 1,702"
+   ]
+  ]
+ },
+ "e3-team-chat": {
+  "plan": [
+   [
+    "workspaces",
+    "image"
+   ],
+   [
+    "channels",
+    "box"
+   ],
+   [
+    "composer",
+    "box"
+   ],
+   [
+    "thread",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "workspaces",
+    "deep purple block"
+   ],
+   [
+    "channels",
+    "deep purple block, pale lilac text \"Acme\" list: \"# general\", \"# design\", \"# eng\", \"# random\", 3 more; \"# design\" highlighted"
+   ],
+   [
+    "composer",
+    "\"Message #design\""
+   ],
+   [
+    "thread",
+    "pale grey card \"Thread\", lines \"Tom Becker10:05 Dark one reads better on mobile too.\", \"Priya Shah10:07 Agreed, shipping it Friday.\""
+   ]
+  ]
+ },
+ "e4-settings-toggles": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ],
+   [
+    "tabs",
+    "text"
+   ],
+   [
+    "toggles",
+    "box"
+   ],
+   [
+    "danger",
+    "box"
+   ],
+   [
+    "toast",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "title",
+    "\"Settings\""
+   ],
+   [
+    "tabs",
+    "links: Profile, Billing, Notifications, Security, API keys"
+   ],
+   [
+    "toggles",
+    "white card list: \"Email digests\", \"Mentions\", \"Build failures\", \"Product news\", 1 more"
+   ],
+   [
+    "danger",
+    "white card"
+   ],
+   [
+    "toast",
+    "near-black bar, white text \"✓ Saved. Changes apply right away.\""
+   ]
+  ]
+ },
+ "e5-data-grid": {
+  "plan": [
+   [
+    "menu",
+    "box"
+   ],
+   [
+    "formula",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 2
+    }
+   ],
+   [
+    "grid",
+    "box"
+   ],
+   [
+    "sheet-tabs",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "menu",
+    "links: Budget 2027, File, Edit, View, Insert, Data"
+   ],
+   [
+    "grid",
+    "\"A\" \"Design\" \"4,200\" \"4,350\" \"8,550\" \"Priya\" \"On track\" \"Engineering\" \"18,900\" \"19,400\" \"38,300\" \"Tom\" \"Over\" \"hiring\" \"40,000\" \"Marketing\" \"6,100\" \"5,800\" \"11,900\" \"Ana\" \"On track\" \"Sales\" \"9,750\" \"10,200\" \"19,950\" \"Raj\" \"Under\" \"22,000\" \"Support\" \"3,300\" \"3,300\" \"6,600\" \"Mei\" \"On track\" list: \"Team\", \"Jan\", \"Feb\", \"Total\", 4 more, pale grey button \"B\", pale grey button \"C\", pale grey button \"D\", pale grey button \"E\", pale grey button \"F\", pale grey button \"G\", pale grey button \"H\", pale grey button \"1\", pale grey button \"2\", pale grey button \"3\", pale grey button \"4\", pale grey button \"5\", pale grey button \"6\", pale grey button \"7\", pale grey button \"8\", pale grey button \"9\", pale grey button \"10\", pale grey button \"11\", pale grey button \"12\", pale grey button \"13\", pale grey button \"14\", pale grey button \"15\", pale grey button \"16\", pale grey button \"17\", pale grey button \"18\", pale grey button \"19\", pale grey button \"20\", pale grey button \"21\", pale grey button \"22\", pale grey button \"23\", pale grey button \"24\""
+   ],
+   [
+    "sheet-tabs",
+    "links: Q1, Q2, Q3, Q4, Summary"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Notification settings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#18181b}
+.h{position:absolute;left:200px;top:48px;font-size:30px;font-weight:700}
+.tabs{position:absolute;left:200px;top:104px;width:880px;display:flex;gap:28px;border-bottom:1px solid #e4e4e7;font-size:15px}.tabs span{padding-bottom:12px;color:#71717a}.tabs .on{color:#18181b;font-weight:700;border-bottom:2px solid #18181b}
+.card{position:absolute;left:200px;top:168px;width:880px;background:#fff;border:1px solid #e4e4e7;border-radius:12px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #f4f4f5}.row b{font-size:15px;display:block}.row small{font-size:13px;color:#71717a}
+.sw{width:44px;height:24px;border-radius:999px;background:#d4d4d8;position:relative}.sw:after{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff}.sw.on{background:#16a34a}.sw.on:after{left:23px}
+.danger{position:absolute;left:200px;top:640px;width:880px;border:1px solid #fecaca;border-radius:12px;padding:20px 24px;background:#fff;display:flex;justify-content:space-between;align-items:center}.danger b{color:#b91c1c}.danger span{padding:10px 18px;border-radius:8px;background:#dc2626;color:#fff;font-size:14px;font-weight:700}
+.toast{position:absolute;right:40px;bottom:40px;width:320px;padding:16px 18px;border-radius:10px;background:#18181b;color:#fafafa;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+</style></head><body>
+<h1 class="h" data-r="title">Settings</h1>
+<div class="tabs" data-r="tabs"><span>Profile</span><span>Billing</span><span class="on">Notifications</span><span>Security</span><span>API keys</span></div>
+<div class="card" data-r="toggles" data-must>
+<div class="row"><div><b>Email digests</b><small>A summary of activity every Monday</small></div><i class="sw on"></i></div>
+<div class="row"><div><b>Mentions</b><small>When someone @mentions you</small></div><i class="sw on"></i></div>
+<div class="row"><div><b>Build failures</b><small>Only for projects you own</small></div><i class="sw on"></i></div>
+<div class="row"><div><b>Product news</b><small>New features, once a month</small></div><i class="sw"></i></div>
+<div class="row" style="border:0"><div><b>Desktop push</b><small>Requires browser permission</small></div><i class="sw"></i></div></div>
+<div class="danger" data-r="danger" data-must><div><b>Mute everything</b><br><small style="color:#71717a">Pause all notifications for 24 hours</small></div><span>Mute all</span></div>
+<div class="toast" data-r="toast">✓ Saved. Changes apply right away.</div>
+</body></html>
