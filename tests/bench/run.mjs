@@ -185,7 +185,16 @@ async function safeEval(page, fn, tries = 40) {
 }
 
 /** Draw one polyline with a real pointer, the way a hand would. */
-async function drawPolyline(page, points) {
+async function drawPolyline(page, rawPoints) {
+  // A hand can only draw on the screen: marks planned past the page edge
+  // (a heading that bleeds off it) start at the edge instead. Off-screen
+  // pointer points broke capture: round-2 c2 drew 8 marks as 4 strokes,
+  // diagonal lines from the corner, and lost the body and date marks.
+  const vp = page.viewportSize() ?? { width: 1280, height: 900 }
+  const points = rawPoints.map((p) => ({
+    x: Math.min(vp.width - 2, Math.max(1, p.x)),
+    y: Math.min(vp.height - 2, Math.max(1, p.y)),
+  }))
   await page.mouse.move(points[0].x, points[0].y)
   await page.mouse.down()
   for (const p of points.slice(1)) await page.mouse.move(p.x, p.y)

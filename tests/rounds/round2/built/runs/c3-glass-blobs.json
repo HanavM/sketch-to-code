@@ -1,0 +1,126 @@
+{
+  "id": "c3-glass-blobs",
+  "at": "2026-10-21T06:11:07.620Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.45656926621545324,
+    "overallV1": 0.43468994401693095,
+    "colour": 0.7635813378858197,
+    "structure": 0.3796353403951532,
+    "structureStrict": 0.33367697210673436,
+    "layout": 0.560274490042814
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blur",
+      "glass",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 28609,
+    "output": 14147,
+    "cacheRead": 318896
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30981,
+      "output": 9858,
+      "cacheRead": 299889,
+      "toolCalls": 10,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 109911
+    }
+  ],
+  "reading": "The sketch is a dark hero section: a translucent card over two large blurred colour circles (pink top-left, cyan bottom-right) with a small \"Beta · v2.0\" badge, a huge heading \"Your notes, finally calm\", two lines of body copy, and two buttons \"Get started\" and \"Watch demo\".",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        124,
+        84,
+        412,
+        412
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Soft, blurred large pink circle decoration placed in the top-left, sitting behind the card content."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        384,
+        472,
+        472
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Soft, blurred large cyan circle decoration placed in the bottom-right, sitting behind the card content."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 54
+        },
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        293,
+        183,
+        693,
+        514
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "instruction": "Frosted-glass hero card floating above the two blurred circles. It contains: a small frosted-glass badge reading 'Beta · v2.0' in the top-left corner; a huge he"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

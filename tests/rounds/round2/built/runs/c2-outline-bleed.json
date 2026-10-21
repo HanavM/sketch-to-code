@@ -1,0 +1,129 @@
+{
+  "id": "c2-outline-bleed",
+  "at": "2026-10-21T06:07:58.444Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.38305256334152904,
+    "overallV1": 0.36854632700997164,
+    "colour": 0.9057830375023967,
+    "structure": 0.09335784863384089,
+    "structureStrict": 0.046261871202368056,
+    "layout": 0.18027399295537952
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "hollow-type",
+      "huge-type",
+      "mono"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap",
+      "uppercase-display"
+    ]
+  },
+  "tokens": {
+    "input": 42277,
+    "output": 16143,
+    "cacheRead": 627465
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49624,
+      "output": 12651,
+      "cacheRead": 618818,
+      "toolCalls": 14,
+      "tools": [
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/src",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Edit src/App.tsx",
+        "Skill",
+        "Read examples/playwright.md",
+        "ToolSearch",
+        "ToolSearch",
+        "ToolSearch",
+        "Read src/App.tsx"
+      ],
+      "ms": 144776
+    }
+  ],
+  "reading": "This sketch is a festival poster-style hero: a black page with white default text, a top-right nav placeholder reading INDEX / SHOWS / SHOP, and a giant typographic lockup bleeding off the left edge made of a hollow white outlined \"NOISE\", an overlapping lime \"FEST\", and a lime mono date line \"// 14–16 AUG 2027\".",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        979,
+        44,
+        241,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top-right navigation links reading INDEX, SHOWS, SHOP, styled in white against the black background, replacing the squiggle placeholder."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        0,
+        0,
+        935,
+        840
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Giant heavy hollow outlined white heading \"NOISE\", bleeding off the left page edge, oversized display type matching the diagonal stroke scale drawn."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        0,
+        0,
+        935,
+        827
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Giant heavy lime-colored heading \"FEST\", overlapping the NOISE text and also bleeding off the left page edge."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        0,
+        0,
+        935,
+        827
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Lime monospace date line \"// 14–16 AUG 2027\" placed near the giant NOISE/FEST lockup."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
