@@ -271,15 +271,15 @@
    ],
    [
     "title",
-    "\"Sign in\""
+    "\"Sign in\", line under: \"Welcome back. Enter your details.\""
    ],
    [
     "email",
-    "input \"you@example.com\""
+    "label \"Email\" above, input \"you@example.com\""
    ],
    [
     "password",
-    "input \"••••••••\""
+    "label \"Password\" above, input \"••••••••\""
    ],
    [
     "submit",
@@ -412,24 +412,20 @@
   ],
   "notes": [
    [
-    "form",
-    "\"We usually reply within a day.\""
-   ],
-   [
     "title",
-    "big \"Get in touch\""
+    "big \"Get in touch\", line under: \"We usually reply within a day.\""
    ],
    [
     "name",
-    "field \"Name\""
+    "label \"Name\" above an empty field"
    ],
    [
     "email",
-    "field \"Email\""
+    "label \"Email\" above an empty field"
    ],
    [
     "message",
-    "field \"Message\""
+    "label \"Message\" above an empty field"
    ],
    [
     "submit",

@@ -113,3 +113,14 @@ What failed, and the common cause:
   at e4 (called a "near copy" in n8, wrongly): heading copy "Get in touch" became "Contact Us", the subtitle and
   field labels were dropped, the form is narrower and the office card wider. e1 lost its grey page. These are
   copy/label losses, the next free thing to trace from the run digests.
+
+## Step n25 (2026-10-21, free): where e4/e1 copy and labels went
+- Not the pipeline: the round-1 HAND sketches never said "Get in touch", the sub-lines or the field labels, so the
+  build invented "Contact Us" and used placeholders. The auto planner (rounds 2-3) had the same hole for unmarked
+  text beside a block: a label just above a field and a smaller line just under a heading were said nowhere
+  (e1) or hung on an unmarked wrapper (e4 form).
+- Fix: the planner now says 'label "Email" above, input "..."', 'label "Name" above an empty field' and
+  '"Sign in", line under: "Welcome back..."'; text said this way isn't repeated on the wrapper. Codegen contract:
+  quoted copy is word for word (never retitled), a label above is a visible label, not a placeholder.
+- Plan diff: round 1 e1/e4 and round 2 e1 checkout fields only; round 3 unchanged. Dry wire: notes arrive whole.
+- Check live cheaply: --set round1auto --only e1,e4 (~25k each) or --read-only first (~7k each).

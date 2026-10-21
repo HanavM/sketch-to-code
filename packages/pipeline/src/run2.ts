@@ -168,6 +168,10 @@ Rules:
   items of the same kind with plausible content. An ellipsis AFTER a closing
   quote ("Can we get"…) means the copy was cut short: finish it plausibly. An
   ellipsis INSIDE the quotes ("Write a message…") is literal text.
+- Quoted copy in a note is the copy, word for word: never retitle it ("Get in
+  touch" stays "Get in touch", not "Contact Us"). 'label "Email" above' is a
+  visible label element above the field, not placeholder text; 'line under:
+  "..."' is a smaller line of that copy directly under the heading.
 - A plain drawn box is never an image placeholder. Build an image (or a grey
   picture block) only where the ink is a box with an X through it or the notes
   say picture/photo/image. An empty box beside the main column is a sidebar or

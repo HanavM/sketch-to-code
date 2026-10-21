@@ -339,11 +339,11 @@
    ],
    [
     "name",
-    "field \"Full name\""
+    "label \"Full name\" above an empty field"
    ],
    [
     "address",
-    "field \"Street address\""
+    "label \"Street address\" above an empty field"
    ],
    [
     "city-row",
@@ -355,7 +355,7 @@
    ],
    [
     "card",
-    "field \"Card number\""
+    "label \"Card number\" above an empty field"
    ],
    [
     "pay",

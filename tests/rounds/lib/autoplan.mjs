@@ -27,6 +27,19 @@ function factsInPage() {
     return { r, g, b, a }
   }
   const colours = (s) => [...s.matchAll(/rgba?\([^)]+\)|#[0-9a-f]{3,8}/gi)].map((m) => m[0])
+  // a sibling that is plain text (no region in it), left-aligned with el and within 28px above or below
+  const near = (el, sib, side) => {
+    if (!sib || sib.dataset?.r || sib.querySelector('[data-r]')) return null
+    const t = (sib.innerText || '').replace(/\s+/g, ' ').trim()
+    if (!t || t.length > (side === 'above' ? 32 : 90)) return null
+    const a = el.getBoundingClientRect(), b = sib.getBoundingClientRect()
+    const gap = side === 'above' ? a.top - b.bottom : b.top - a.bottom
+    if (gap < -2 || gap > 28 || Math.abs(a.left - b.left) > 24) return null
+    // a line under a heading is smaller type; a label above a field is a short single line
+    if (side === 'under' && parseFloat(getComputedStyle(sib).fontSize) >= parseFloat(getComputedStyle(el).fontSize)) return null
+    if (side === 'above' && b.height > 40) return null
+    return t
+  }
   const fact = (el) => {
     const cs = getComputedStyle(el)
     const r = el.getBoundingClientRect()
@@ -59,6 +72,10 @@ function factsInPage() {
       hasImg: !!el.querySelector('img,svg,picture,video,canvas') || /url\(/.test(cs.backgroundImage),
       // text of children that are not regions and hold none (a card title beside a marked picture)
       looseTexts: kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]')).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
+      // unmarked text right beside this block: a label just above a field, a sub-line just under a heading.
+      // No mark carries it, so the block's own note must, or the build drops or rewrites it.
+      labelAbove: near(el, el.previousElementSibling, 'above'),
+      lineUnder: near(el, el.nextElementSibling, 'under'),
       stroke: parseFloat(cs.webkitTextStrokeWidth) || 0,
       strokeColour: rgba(cs.webkitTextStrokeColor),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
@@ -289,7 +306,7 @@ function denseNote(d) {
 }
 
 /** One region -> {kind, note} (kind null = don't draw). */
-function decide(f, page, marked) {
+function decide(f, page, marked, said = new Set()) {
   const { w, h } = f.rect
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
   const grad = gradientWords(f)
@@ -336,7 +353,8 @@ function decide(f, page, marked) {
   if (f.fieldKids.length >= 2 && f.fieldKids.length === f.kidCount) return { kind: 'box', note: `fields side by side: ${f.fieldKids.map((t) => quote(t, 24)).join(', ')}` }
   // a picture card: a picture placeholder with a caption under it
   if (f.pictureKid && f.text && f.text.length <= 80 && !f.regionKids.length && !f.hasImg) return { kind: 'image', note: `picture with ${quote(f.text, 40)}` }
-  if (f.fieldKid && f.kidCount <= 3) return { kind: 'box', note: `field ${quote(f.kidTexts[0] ?? f.role)}` }
+  // a label kid over an empty box: say it is a label above the box, not the box's placeholder
+  if (f.fieldKid && f.kidCount <= 3) return { kind: 'box', note: f.kidTexts[0] ? `label ${quote(f.kidTexts[0])} above an empty field` : `field ${quote(f.role)}` }
   // an input: bordered, left-aligned short text (placeholder)
   const placeholder = /…$|\.\.\.$|^search\b/i.test(f.text)
   if (bordered && !placeholder && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 60 && w <= 260) {
@@ -345,7 +363,8 @@ function decide(f, page, marked) {
     if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}`.trim() }
   }
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
-    return { kind: 'box', note: `${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
+    const label = f.labelAbove ? (said.add(f.labelAbove), `label ${quote(f.labelAbove)} above, `) : ''
+    return { kind: 'box', note: `${label}${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
   }
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
@@ -375,14 +394,17 @@ function decide(f, page, marked) {
   }
   if (f.regionKids.length && f.regionKids.every((r) => marked.has(r)) && !fill && !bordered && !grad && !frosted) {
     // its parts are drawn, but text of its own (a card title, a caption) still needs saying
-    const own = f.looseTexts.find((t) => t.length >= 4)
-    return { kind: null, note: own && f.looseTexts.join(' ').length <= 140 ? `${quote(own, 40)}${f.looseTexts.length > 1 ? ' and text' : ''}` : null }
+    // (text already said by a part's note, a field label or a heading's sub-line, isn't said twice)
+    const loose = f.looseTexts.filter((t) => !said.has(t))
+    const own = loose.find((t) => t.length >= 4)
+    return { kind: null, note: own && loose.join(' ').length <= 140 ? `${quote(own, 40)}${loose.length > 1 ? ' and text' : ''}` : null }
   }
   if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
     if (fill && !f.clipText && w > 300) tw.push(`on a ${colourName(f.bg)} band`)
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}`.trim()) }
+    const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -441,10 +463,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   body.bg = visible(body.bg) ? body.bg : { r: 255, g: 255, b: 255, a: 1 }
   // decide leaves first, so a container knows whether its parts got marks
   const marked = new Set()
+  const said = new Set()
   const out = new Map()
   const depthFirst = [...regions].sort((a, b) => a.regionKids.length - b.regionKids.length)
   for (const f of depthFirst) {
-    const d = decide(f, body, marked)
+    const d = decide(f, body, marked, said)
     if (d.kind) marked.add(f.role)
     out.set(f.role, d)
   }
