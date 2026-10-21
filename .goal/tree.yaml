@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The summer poster's photos are now vivid orange and deep blue, layered right. Next: first build of the board-with-popup page."
-lock: {by: run-n67, until: "2026-10-22T01:08Z"}
+now: "The board-with-popup page is built close to its target (90%). Next: the masked reel page's glow, built purple and blue instead of one big orange glow."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -106,6 +106,8 @@ notes:
   - "n61 (54e85d5 on try/n3-vocabulary): planner facts opacity, maskFade, glows (radial blobs), conicRing, circleText (svg textPath), kidBoxes, setLines/tokenInks (code), body.grain; notes for edge bars (logo left, links right), pill labels, see-through dims (alpha .3-.8, >=30% of page), hard shadow colour+offset as a suffix; thin/wide display type; colours bright green, light pink. Rounds 1-4: no kind changes, 14 notes richer. Round 5 kinds changed: c2 badge circle, c3 header box, c5 ring box."
   - "n66 (34581f4, 4dd123d, ff5f5e0 on try/n3-vocabulary): planner says repeated heading lines ('first/second of 2 stacked lines of the same word'), <a> with only a bottom rule as an underlined link, display title size and drop ('huge 76px bold title, starting 40% down'), one-hue two-shade gradients. Pipeline: scaffold.ts lostStrokes + run2 verify fail when a scaffold's drawn path is gone or only left as a transformed copy (c4 shadow replaced the photo)."
   - "Token ledger: 2026-10-21 n66 live c4 86k, c4+c5 100k = ~186k (day total ~4990k, no cap set)."
+  - "n67 (ec93121 on try/n3-vocabulary): dense() reads a filled-in form (bordered leaf field with its label as previous sibling, 3+): label + value or 'tall Npx empty field', close x, buttons by look/place, 'pinned to the bottom of the Npx tall card' when the gap above buttons >=15% of the card. Rounds 1-4 plans unchanged."
+  - "Token ledger: 2026-10-21 n67 live r5 e1 x2 ~92k (day total ~5080k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -202,7 +204,9 @@ nodes:
   - {id: n68, parent: n66, kind: step, title: "Free first, ~60k live: round-5 c4 gradient photos built pale (peach, target vivid orange to brown; scaffold fills at 42-16% opacity unless the note says vivid). Make a gradient block's scaffold fill opaque, re-run c4", status: done,
      result: "Gradient blocks now vivid; blue photo dark blue and on top. c4 photos match by eye; score 65 to 63. 98ee189."}
   - {id: n69, parent: n68, kind: step, title: "Low priority, ~60k live: round-5 c4 blue photo gradient runs the wrong way (dark top-left, target dark bottom); planner should say which end is dark. Fix, re-run c4", status: open, result: null}
-  - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: open, result: null}
+  - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: done,
+     result: "Planner says filled-in forms and pinned buttons: board modal 81% first build, 90% after. ec93121."}
+  - {id: n70, parent: n67, kind: step, title: "Free first, ~60k live: round-5 c1 masked reel glows built purple/blue (target one big orange glow scaled 200%); trace from plan glows fact, fix, re-run c1", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
