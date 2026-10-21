@@ -53,7 +53,11 @@
    ],
    [
     "reel",
-    "moving orange to purple to bright sky blue gradient block"
+    "black block with soft colour glows: orange middle left, purple middle right, bright sky blue bottom, moving, fading out into the page toward the bottom (solid until 55%, gone at the bottom edge)"
+   ],
+   [
+    "nav",
+    "bold 18px wide-spaced \"NOCTURNE\" left, \"Films · Studio · Contact\" right"
    ],
    [
     "title-outline",
@@ -73,7 +77,7 @@
    ],
    [
     "track",
-    "dark grey"
+    "thin progress bar 36% filled orange on a dark grey track"
    ],
    [
     "time",
@@ -109,7 +113,7 @@
    ],
    [
     "badge",
-    "box"
+    "circle"
    ],
    [
     "badge-dot",
@@ -135,7 +139,7 @@
    ],
    [
     "line-thin",
-    "giant Helvetica tight-set letters \"Weight\""
+    "giant Helvetica thin hairline-weight tight-set letters \"Weight\""
    ],
    [
     "line-heavy",
@@ -143,7 +147,11 @@
    ],
    [
     "line-wide",
-    "giant Helvetica \"Slant\""
+    "giant Helvetica wide-spaced letters \"Slant\""
+   ],
+   [
+    "badge",
+    "spinning ring of small spaced capital letters \"ONE FAMILY · 3 AXES · 900 STYLES ·\" running round a 200px circle, no outline, no fill"
    ],
    [
     "badge-dot",
@@ -151,7 +159,7 @@
    ],
    [
     "marquee",
-    "scrolling near-black bar, light grey text"
+    "scrolling near-black bar, light grey text bold 34px \"Flex Grotesk — now variable ✦\" repeated along it"
    ],
    [
     "foot",
@@ -167,7 +175,7 @@
   "plan": [
    [
     "header",
-    "text"
+    "box"
    ],
    [
     "headline",
@@ -208,6 +216,10 @@
     "whole page: off-white page, Helvetica type, dark navy text"
    ],
    [
+    "header",
+    "frosted glass bar 68px tall across the top, thin line under: bold 18px \"Layer\" left, \"Product · Customers · Pricing · Log in\" right"
+   ],
+   [
     "headline",
     "huge Helvetica heavy tight-set letters \"Ship the page. Then watch it unfold.\""
    ],
@@ -221,15 +233,15 @@
    ],
    [
     "card-2",
-    "blue to sky blue gradient \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
+    "faded to 75% opacity (see-through) blue to sky blue gradient \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
    ],
    [
     "card-3",
-    "dark pink to pale pink gradient \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
+    "faded to 45% opacity (see-through) dark pink to pale pink gradient \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
    ],
    [
     "card-4",
-    "bleeding off the right page edge (runs 200px past it) orange to peach gradient \"04\", text \"Ship\""
+    "faded to 20% opacity (see-through) bleeding off the right page edge (runs 200px past it) orange to peach gradient \"04\", text \"Ship\""
    ]
   ]
  },
@@ -291,7 +303,7 @@
   "notes": [
    [
     "*",
-    "whole page: off-white page, Helvetica type, dark brown text"
+    "whole page: off-white page, Helvetica type, dark brown text, fine grain texture over everything"
    ],
    [
     "ghost-top",
@@ -303,7 +315,7 @@
    ],
    [
     "photo-main",
-    "tilted light orange to brown gradient block, in front of the \"SUMMER\" heading"
+    "tilted light orange to brown gradient block, with a hard dark brown shadow offset 24px down right, no blur, in front of the \"SUMMER\" heading"
    ],
    [
     "photo-blue",
@@ -311,15 +323,15 @@
    ],
    [
     "pill-new",
-    "pill input \"New season\""
+    "tilted pill label with a 2px dark brown border, bold \"New season\""
    ],
    [
     "pill-dark",
-    "tilted dark brown block, off-white text \"Linen only\""
+    "tilted dark brown pill label with a 2px dark brown border, bold off-white \"Linen only\""
    ],
    [
     "pill-yellow",
-    "tilted vivid yellow \"Ships in 24h\""
+    "tilted vivid yellow pill label with a 2px dark brown border, bold \"Ships in 24h\""
    ],
    [
     "logo",
@@ -347,7 +359,7 @@
    ],
    [
     "ring",
-    "image"
+    "box"
    ],
    [
     "quote",
@@ -373,7 +385,7 @@
    ],
    [
     "hero",
-    "indigo to pink gradient block \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\""
+    "near-black block with soft colour glows: indigo top left, pink bottom right \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\""
    ],
    [
     "stat",
@@ -381,11 +393,11 @@
    ],
    [
     "ring",
-    "near-black block"
+    "near-black block, centred in it a 140px progress ring (not a picture): green arc 72% of the way round from the top, the rest a near-black track, bold \"72%\" in the middle"
    ],
    [
     "quote",
-    "vivid yellow block, black text"
+    "vivid yellow block, black text bold 20px text \"“It feels like the page is reading my mind.”\""
    ],
    [
     "chart",
@@ -393,11 +405,11 @@
    ],
    [
     "code",
-    "near-black block, grey text \"import\", lines \"from\", cyan \"'hero'\", cyan \"'glow'\", all at the top of the card, empty below"
+    "near-black block, grey text mono 15px code lines: \"import { sketch } from 'prism'\", blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\"; grey code, coloured: light pink \"import\", \"from\"; bright green \"'hero'\", \"'glow'\""
    ],
    [
     "cta",
-    "column \"Ready when you are.\", cards: \"Get Prism 2\""
+    "big 30px bold \"Ready when you are.\", then full-width white black text button \"Get Prism 2\", both at the bottom of the card, empty above"
    ]
   ]
  },
@@ -459,7 +471,7 @@
    ],
    [
     "backdrop",
-    "dark navy block"
+    "see-through dark navy layer (55% opaque) over what is under it: everything under it still shows, dimmed, not hidden"
    ],
    [
     "modal",

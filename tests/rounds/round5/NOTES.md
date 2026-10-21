@@ -84,3 +84,22 @@ Rounds 1-4: one note gains words (round 1 contact card "all at the top"); round 
 | e2 heatmap analytics | 71% | 69% (flat) | 41k | "Peak hour" card now right (big figure at top, green delta); whole content column built ~10px low/right, title and filters regions just missed; table deltas coloured green/red (target plain) |
 
 Side-by-sides: built/e5-data-grid-n63-cmp.png, built/e2-heatmap-analytics-n63-cmp.png.
+
+## n61: planner fixes for the creative misses (free)
+
+- c5: the conic progress ring is said as a ring ("140px progress ring: green arc 72% of the way round, bold \"72%\" in the
+  middle"), not a near-black picture; the pull quote is quoted; the code card says its lines as set and which tokens are
+  coloured (light pink keywords, bright green strings); the CTA says its heading, a full-width white button, "both at the
+  bottom of the card"; the hero says soft colour glows and where (was "indigo to pink gradient").
+- c2: "Weight" is said thin (hairline weight), "Slant" wide-spaced (display type from 0.1em); the badge is a spinning
+  ring of letters round a 200px circle (drawn as a circle now); the marquee quotes its repeated copy.
+- c3: the frosted header says "frosted glass bar 68px tall across the top, thin line under: bold \"Layer\" left, links right";
+  the cards say "faded to 75/45/20% opacity".
+- c4: the main photo's hard brown shadow (24px down right) and the page grain are said; the three pills are pill labels
+  with their 2px border and bold copy (was "pill input" and "block").
+- c1: the reel says its glows and "fading out into the page toward the bottom (solid until 55%)"; the nav says logo left,
+  links right; the scrub track is a 36% orange progress bar.
+- e1: the backdrop is "see-through dark navy layer (55% opaque) ... everything under it still shows, dimmed".
+- Colours: "bright green" (#4ade80, was cyan) and "light pink" (#f472b6, was coral).
+- Rounds 1-4: no mark kinds change. Notes change in 14 places, all richer: navs say logo left / links right, hard shadows say
+  colour and offset, two blurred blobs say their fade, #f472b6 is light pink. Dry draw c1-c5, e1: all drawn, none failed.

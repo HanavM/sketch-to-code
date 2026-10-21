@@ -73,11 +73,11 @@
    ],
    [
     "nav",
-    "nav bar \"PAPER ROOM\", text \"ISSUES · SHOP · ABOUT\""
+    "nav, no box around it: bold wide-spaced \"PAPER ROOM\" left, \"ISSUES · SHOP · ABOUT\" right"
    ],
    [
     "photo-blue",
-    "tilted blue to dark navy gradient block"
+    "tilted blue to dark navy gradient block, with a hard near-black shadow offset 14px down right, no blur"
    ],
    [
     "scrap-orange",
@@ -327,15 +327,15 @@
    ],
    [
     "glow-cyan",
-    "soft blurred bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle"
+    "soft blurred faded to 55% opacity (see-through) bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle"
    ],
    [
     "glow-pink",
-    "soft blurred bleeding off the right page edge (runs 100px past it) big vivid pink circle"
+    "soft blurred faded to 50% opacity (see-through) bleeding off the right page edge (runs 100px past it) big vivid pink circle"
    ],
    [
     "nav",
-    "nav bar \"Stratum\", text \"Product · Docs · Pricing · Sign in\""
+    "nav, no box around it: bold \"Stratum\" left, \"Product · Docs · Pricing · Sign in\" right"
    ],
    [
     "plane-back",
@@ -687,7 +687,7 @@
    ],
    [
     "task-names",
-    "list, a round colour dot before each: lavender dot \"Research\", coral dot \"Wireframes\", sky blue dot \"Visual design\", cyan dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\""
+    "list, a round colour dot before each: lavender dot \"Research\", light pink dot \"Wireframes\", sky blue dot \"Visual design\", bright green dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\""
    ],
    [
     "today",

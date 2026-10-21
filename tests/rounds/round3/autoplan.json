@@ -121,7 +121,7 @@
    ],
    [
     "nav",
-    "nav bar \"ALTITUDE RoutesHutsJournal\""
+    "nav, no box around it: \"ALTITUDE\" left, \"RoutesHutsJournal\" right"
    ],
    [
     "sun",
@@ -289,7 +289,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lavender to coral to cyan gradient text \"Compute at orbit speed\""
+    "giant Helvetica heavy tight-set letters lavender to light pink to cyan gradient text \"Compute at orbit speed\""
    ],
    [
     "body",
@@ -351,15 +351,15 @@
    ],
    [
     "card-a",
-    "white thick near-black border hard offset shadow block \"Manifesto\", text \"Websites should look like they were made by people with opinions.\""
+    "white thick near-black border block \"Manifesto\", text \"Websites should look like they were made by people with opinions.\", with a hard near-black shadow offset 10px down right, no blur"
    ],
    [
     "card-b",
-    "vivid yellow thick near-black border hard offset shadow block \"Work\", text \"Forty-two projects, zero templates. Click anything.\""
+    "vivid yellow thick near-black border block \"Work\", text \"Forty-two projects, zero templates. Click anything.\", with a hard near-black shadow offset 10px down right, no blur"
    ],
    [
     "card-c",
-    "vivid sky blue thick near-black border hard offset shadow block \"Contact\", text \"hello@brutal.index\""
+    "vivid sky blue thick near-black border block \"Contact\", text \"hello@brutal.index\", with a hard near-black shadow offset 10px down right, no blur"
    ],
    [
     "stamp",
