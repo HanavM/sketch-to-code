@@ -947,7 +947,9 @@ function decideOne(f, page, marked, said) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
     const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
-    return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
+    // size word: a small textless dot (round 5 c2: a 28px red dot said 'big' was built as a 190px red disc)
+    const size = f.text ? '' : w >= 120 ? 'big ' : w < 60 ? `small ${Math.round(w)}px ` : ''
+    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
   if (f.dotKids && !f.regionKids.length) {

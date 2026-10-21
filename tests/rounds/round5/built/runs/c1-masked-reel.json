@@ -1,0 +1,215 @@
+{
+  "id": "c1-masked-reel",
+  "at": "2026-10-21T21:25:48.799Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5652054852640129,
+    "overallV2": 0.5652054852640129,
+    "overallV1": 0.5058420505530252,
+    "colour": 0.8368979033055748,
+    "structure": 0.42797554696534684,
+    "structureStrict": 0.2915563973498368,
+    "colourAligned": 0.8368979033055748,
+    "structureAligned": 0.42797554696534684,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.33287463117870564
+    },
+    "layout": 0.6098574055331463
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "motion"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed",
+      "blur",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 39983,
+    "output": 20770,
+    "cacheRead": 124132
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46498,
+      "output": 14961,
+      "cacheRead": 113859,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 167635
+    }
+  ],
+  "reading": "This is a full dark cinematic hero/landing page: a black background with moving colour glows, a top nav with wordmark and links, two giant stacked headline words ('AFTER' / 'DARK', the second blended over the first), an off-white circular PLAY button, a short descriptive paragraph, and a video progress bar with a timer readout.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: black background, Helvetica typeface, off-white body text. Behind the hero content, add soft moving colour glows — orange glow middle-left, purple g"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        60,
+        46,
+        1160,
+        9
+      ],
+      "paths": [],
+      "instruction": "Header bar: bold 18px wide letter-spaced wordmark 'NOCTURNE' on the left, and wide-spaced nav text 'Films · Studio · Contact' on the right, in off-white Helveti"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 271
+        }
+      ],
+      "region": [
+        48,
+        269,
+        696,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant, heavy-weight, tight-set Helvetica headline reading 'AFTER', drawn as hollow/outlined off-white letters."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 268
+        }
+      ],
+      "region": [
+        48,
+        489,
+        607,
+        175
+      ],
+      "paths": [],
+      "instruction": "Second giant heavy-weight, tight-set Helvetica headline reading 'DARK', styled as an overlay that blends with whatever sits beneath it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1035,
+        304,
+        141,
+        142
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Circular off-white outlined play button labeled 'PLAY', acting as the trailer/video play control."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        60,
+        804,
+        352,
+        33
+      ],
+      "paths": [],
+      "instruction": "Short body paragraph in off-white Helvetica reading: 'A short film about the city between midnight and dawn. Shot on 16mm, scored live.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        504,
+        829,
+        492,
+        8
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Thin horizontal progress bar on a dark grey track, filled 36% in orange, representing video playback progress."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        1121,
+        828,
+        99,
+        8
+      ],
+      "paths": [],
+      "instruction": "Grey timer text reading '02:14 / 11:40' next to the progress bar."
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,209 @@
+{
+  "id": "c5-bento",
+  "at": "2026-10-21T21:49:00.774Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5651640069468219,
+    "overallV2": 0.5651640069468219,
+    "overallV1": 0.5048402208793848,
+    "colour": 0.8205849210524185,
+    "structure": 0.4464440981403912,
+    "structureStrict": 0.30330720573539893,
+    "colourAligned": 0.8205849210524185,
+    "structureAligned": 0.4464440981403912,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7237175660060444
+    },
+    "layout": 0.623676122221625
+  },
+  "effects": {
+    "recall": 0.25,
+    "kept": [
+      "mono"
+    ],
+    "missing": [
+      "gradient",
+      "huge-type",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed",
+      "blur",
+      "overlap",
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 50986,
+    "output": 30921,
+    "cacheRead": 469719
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30913,
+      "output": 8974,
+      "cacheRead": 159145,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 99866
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 38094,
+      "output": 16712,
+      "cacheRead": 291235,
+      "toolCalls": 5,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 209283
+    }
+  ],
+  "reading": "The user sketched a 7-panel marketing grid (hero/testimonial style cards) and typed detailed copy/content notes for each panel plus one page-wide note setting a black background with Helvetica/white type.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        1194,
+        814
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Whole page: set background to black, use Helvetica (or Helvetica-like) typeface throughout, and white text color across all content blocks."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        714,
+        434
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large near-black hero block with soft colour glows: indigo glow top-left, pink glow bottom-right labeled 'Prism 2', containing headline text 'Every tool you ske"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        43,
+        454,
+        204
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "White card with bold black text '2.4x' and caption 'faster first paint than Prism 1'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        274,
+        214,
+        203
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Near-black card containing a centred 140px circular progress ring widget: a green arc covering 72% of the circle starting from the top, remaining track near-bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1023,
+        273,
+        214,
+        203
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Vivid yellow card with bold 20px black quote text: It feels like the page is reading my mind."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        504,
+        464,
+        353
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Near-black card titled 'Weekly builds' containing a bar chart with 7 indigo bars at heights 30%, 45%, 40%, 62%, 70%, 88%, and 100% of the tallest bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        533,
+        503,
+        414,
+        354
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Near-black card showing a mono 15px code snippet with syntax highlighting: grey base text, light-pink for keywords import and from, bright-green for string lite"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        973,
+        503,
+        263,
+        354
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Card with empty space above, then near the bottom a big bold 30px headline Ready when you are. followed by a full-width white button with black text reading Get"
+    }
+  ],
+  "rejected": []
+}

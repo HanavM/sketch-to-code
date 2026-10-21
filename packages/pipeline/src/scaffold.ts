@@ -66,6 +66,30 @@ export function componentName(depicts: string | undefined, fallback = 'SketchSha
 const isClosed = (d: string): boolean => /z\s*$/i.test(d.trim())
 
 /**
+ * The two strokes of an X drawn corner to corner across the region: the
+ * sketch's sign for "a picture goes here", not geometry. Kept as "the user's
+ * strokes, keep them" they were built as two thin diagonal lines over a
+ * gradient block (round 5 c4: both tilted photos crossed out in the build).
+ * Returns the stroke ids of the X, or an empty set when the drawing has no
+ * full X (one diagonal alone may be a real line, so it stays).
+ */
+export function pictureCrossIds(paths: Array<{ strokeId: string; d: string }>, region: { w: number; h: number }): Set<string> {
+  const tx = Math.max(12, region.w * 0.2), ty = Math.max(12, region.h * 0.2)
+  const near = (p: [number, number], x: number, y: number): boolean => Math.abs(p[0] - x) <= tx && Math.abs(p[1] - y) <= ty
+  const down: string[] = [], up: string[] = []
+  for (const { d, strokeId } of paths) {
+    if (isClosed(d)) continue
+    const nums = (d.match(/-?\d*\.?\d+(?:e-?\d+)?/gi) ?? []).map(Number)
+    if (nums.length < 4) continue
+    const a: [number, number] = [nums[0]!, nums[1]!], b: [number, number] = [nums[nums.length - 2]!, nums[nums.length - 1]!]
+    const { w, h } = region
+    if ((near(a, 0, 0) && near(b, w, h)) || (near(b, 0, 0) && near(a, w, h))) down.push(strokeId)
+    else if ((near(a, w, 0) && near(b, 0, h)) || (near(b, w, 0) && near(a, 0, h))) up.push(strokeId)
+  }
+  return down.length === 1 && up.length === 1 ? new Set([...down, ...up]) : new Set()
+}
+
+/**
  * Build the component that already has the drawing in it.
  *
  * Returns null when there is nothing worth scaffolding: no geometry, or the
@@ -78,8 +102,9 @@ export function buildScaffold(
   fidelity: FidelityControls,
   opts: { dir: string; taken?: Set<string> } = { dir: 'src/components' },
 ): Scaffold | null {
-  const paths = action.svgPaths ?? []
   const region: BBox | undefined = action.region
+  const cross = region ? pictureCrossIds(action.svgPaths ?? [], region) : new Set<string>()
+  const paths = (action.svgPaths ?? []).filter((p) => !cross.has(p.strokeId))
   if (paths.length === 0 || !region || region.w < 1 || region.h < 1) return null
   if (rungFor(fidelity.resemblance) === 'reinterpret') return null
   // Only a drawn THING or a drawn decoration has geometry worth keeping. A

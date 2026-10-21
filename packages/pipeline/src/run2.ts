@@ -216,7 +216,10 @@ Rules:
   "..."' is a smaller line of that copy directly under the heading.
 - A plain drawn box is never an image placeholder. Build an image (or a grey
   picture block) only where the ink is a box with an X through it or the notes
-  say picture/photo/image. An empty box beside the main column is a sidebar or
+  say picture/photo/image. The X through a box only
+  marks it as a picture: never build its diagonal lines. When the note gives
+  that box a look (a colour, a gradient, a shadow), the look fills the whole
+  box. An empty box beside the main column is a sidebar or
   panel: give it a short heading and a few lines of plausible text that suit
   the page.
 - "insertSlot" on an add/design action: the user drew it in the gap between

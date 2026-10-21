@@ -1,0 +1,265 @@
+{
+  "id": "c4-outline-stack",
+  "at": "2026-10-21T22:02:56.176Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5846559825613672,
+    "overallV2": 0.5846559825613672,
+    "overallV1": 0.47358077581382174,
+    "colour": 0.9255728432740133,
+    "structure": 0.7739105455717658,
+    "structureStrict": 0.6461492288412298,
+    "colourAligned": 0.9255728432740133,
+    "structureAligned": 0.7739105455717658,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9125438235681446
+    },
+    "layout": 0.6543538039109615
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "bleed",
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "gradient",
+      "hard-shadow",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 47037,
+    "output": 33011,
+    "cacheRead": 357708
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60626,
+      "output": 25263,
+      "cacheRead": 345888,
+      "toolCalls": 15,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Grep",
+        "Glob",
+        "Grep"
+      ],
+      "ms": 285622
+    }
+  ],
+  "reading": "This is a full hero section sketch: a giant hollow-outline peach \"SUMMER\" headline bleeding off both edges, two tilted gradient color blocks layered in front of it, three tilted pill labels (\"New season\", \"Linen only\", \"Ships in 24h\"), a small \"ORRA\" logo squiggle top-left, a paragraph of body copy, and a pill-shaped \"Shop summer →\" button, all set on an off-white, grain-textured page in dark-brown Helvetica type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        },
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        }
+      ],
+      "region": [
+        6,
+        85,
+        1217,
+        512
+      ],
+      "paths": [],
+      "instruction": "Giant, heavy-weight, tightly tracked Helvetica heading reading \"SUMMER\", hollow/outlined in peach, large enough to bleed off both the left and right page edges."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        510,
+        153,
+        399,
+        513
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Tilted rectangular color block with a light-orange to brown gradient fill, topped with a hard-edged dark brown drop shadow offset 24px down-right (no blur), lay"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        811,
+        413,
+        317,
+        374
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Second tilted rectangular color block, dark grey to sky-blue gradient fill with a multiply blend mode so it darkens whatever it overlaps rather than covering it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        }
+      ],
+      "region": [
+        6,
+        85,
+        1217,
+        580
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "instruction": "Tilted pill-shaped label with a 2px dark brown border and bold text \"New season\", placed over/near the first gradient block and the SUMMER heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        }
+      ],
+      "region": [
+        6,
+        85,
+        1217,
+        268
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Tilted pill-shaped label with dark brown fill, 2px dark brown border, and bold off-white text \"Linen only\", near the SUMMER heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        483,
+        689,
+        138,
+        49
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Tilted pill-shaped label with vivid yellow fill, 2px dark brown border, and bold text \"Ships in 24h\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        59,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small logo/wordmark text reading \"ORRA\" in the top-left corner."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        648,
+        332,
+        34
+      ],
+      "paths": [],
+      "instruction": "Body copy paragraph reading \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        61,
+        792,
+        124,
+        22
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Pill-shaped button with the label \"Shop summer →\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

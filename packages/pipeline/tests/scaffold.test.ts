@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, scaffoldDir } from '../src/scaffold.js'
+import { buildScaffold, componentName, pictureCrossIds, scaffoldDir } from '../src/scaffold.js'
 import { finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
@@ -233,5 +233,24 @@ describe('the finishing pass', () => {
   it('does nothing to source that is already clean', () => {
     const src = '<svg><path d="M0,0 C1,1 2,2 3,3" fill="none" /></svg>'
     expect(finishSource(src, palette)).toEqual({ code: src, edits: [] })
+  })
+})
+
+describe('pictureCrossIds — the X of a picture box is a sign, not geometry', () => {
+  const box = { strokeId: 's2', d: 'M0.5,0.8 C100,0 300,1 398,0.6 C399,200 398,400 398,511 C300,512 100,511 1,511 C1,300 0,100 0.5,0.8 Z' }
+  const down = { strokeId: 's3', d: 'M0.5,0.8 C53.4,73.5 111.7,142.4 166.8,213.5 C243.8,313 319,414.3 398.5,511.8' }
+  const up = { strokeId: 's4', d: 'M398.5,0.8 C337.7,80.2 274.7,157.7 213.7,237 C57.5,439.7 27.4,474.5 0.5,511.8' }
+  const region = { x: 510, y: 153, w: 399, h: 513 }
+  it('finds both diagonals of a crossed box (round 5 c4 photo)', () => {
+    expect([...pictureCrossIds([box, down, up], region)].sort()).toEqual(['s3', 's4'])
+  })
+  it('keeps a lone diagonal: it may be a real line', () => {
+    expect(pictureCrossIds([box, down], region).size).toBe(0)
+  })
+  it('drops the X from the scaffold but keeps the box', () => {
+    const sc = buildScaffold(action({ region, svgPaths: [box, down, up], depicts: 'gradient block' }), 0, controls())
+    expect(sc?.code).toContain('s2: drawn by the user')
+    expect(sc?.code).not.toContain('s3: drawn by the user')
+    expect(sc?.code).not.toContain('s4: drawn by the user')
   })
 })

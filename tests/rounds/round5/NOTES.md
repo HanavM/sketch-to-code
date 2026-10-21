@@ -103,3 +103,21 @@ Side-by-sides: built/e5-data-grid-n63-cmp.png, built/e2-heatmap-analytics-n63-cm
 - Colours: "bright green" (#4ade80, was cyan) and "light pink" (#f472b6, was coral).
 - Rounds 1-4: no mark kinds change. Notes change in 14 places, all richer: navs say logo left / links right, hard shadows say
   colour and offset, two blurred blobs say their fade, #f472b6 is light pink. Dry draw c1-c5, e1: all drawn, none failed.
+
+## n65: first live builds of the round-5 creative pages (2026-10-21, ~450k tokens)
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| c1 masked reel | 57% | all parts placed (outline AFTER, overlay DARK, play ring, scrub); glows built purple/blue-dominant, target is one big orange glow (background-size 200% enlarges them); scrub track built 6px, target 2px |
+| c2 variable type | 56% then **72%** | the 28px red dot was said "big vivid red circle" and merged into the ring: built a 190px red disc. Fixed below |
+| c3 scroll reveal | 74% | close first try |
+| c4 outline stack | 52% then **58%** | both gradient photos kept the picture X as drawn lines; main photo lost its gradient (only its shadow kept). Fixed below. Still: the second "SUMMER" merged into the first (one line built), "Shop summer" link built as a dark pill button |
+| c5 bento | 57% | near-identical content; hero's big "Prism 2" swapped with its subline, CTA tile lost its indigo gradient, tiles ~20% short; conic ring region just missed |
+| e1 board modal | not built | budget per invocation stopped it |
+
+Fixes:
+- Planner: a textless circle under 60px is a "small Npx ... dot" (was "big ... circle"). Plan diffs: r3 two dots, r4 one, r5 c2.
+- Scaffold: the two corner-to-corner strokes of a crossed picture box are dropped from the "keep these strokes" component
+  (a lone diagonal stays). Codegen contract: the X only marks a picture, never build its lines; a note's look fills the box.
+
+Side-by-sides: built/<id>-cmp.png (first build), built/<id>-n65-cmp.png (after the fixes).
