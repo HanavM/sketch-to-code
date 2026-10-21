@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Made sure long lists in notes (table columns, chat messages, cards) reach the page builder whole; next, a free dry run of the hardest pages before tomorrow's live builds."
-lock: {by: run-2026-10-21T0210, until: 2026-10-21T03:40:50Z}
+now: "Practice-drew all ten hardest pages for free and set tomorrow's live build order; meanwhile fixing two known round-1 misses for free."
+lock: null
 asks: []
 handled: []
 notes:
@@ -27,6 +27,7 @@ notes:
   - "n17 (f12d480 on try/n3-vocabulary): round 3 in tests/rounds/round3 (--set round3auto, dry draws all 10, blank 0-5%). Likeness shots and effect scans freeze animations at frame 0. Round-3 plan misses left: e1 table/filters, e3 month grid + prev as input, e4 thread bubbles, e5 KPIs as 'buttons' and chart as 'picture', e2 card tags."
   - "n18 (e99ca7f on try/n3-vocabulary): planner reads dense UI in-page (factsInPage dense()): table, month, stats, bars, bubbles, cards, list; list only as box-branch fallback; skipped when the block's parts are marked regions."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
+  - "n21: tests/rounds/LIVE-2026-10-22.md is the live order for 2026-10-22 (commands, budgets per invocation; --budget is per run, keeps 95k worst-page reserve)."
   - "n19 (14fb923 on try/n3-vocabulary): wire notes checked verbatim via --dry --plain (tests/bench/out/plain/*.wire.json). Cut-short quotes now end \"...\"… (ellipsis outside); codegen contract has a dense-list rule (exact items, real counts, 'N more'); reading prompt: a listing note is one block."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -72,5 +73,7 @@ nodes:
      result: "Planner now names table columns, calendar weeks/events, stat cards, bar chart, chat sides, kanban tags. No regressions. e99ca7f."}
   - {id: n19, parent: n18, kind: step, title: "Free: trace the new dense notes (table columns, month grid, bubbles, kanban cards) through note splitting, reading prompt and codegen contract; fix any place lists of quoted items get split, dropped or read as separate marks", status: done,
      result: "Notes arrive whole. Fixed: cut-short copy looked like placeholder ellipsis, chat header unnamed; codegen honours counts. 14fb923."}
-  - {id: n21, parent: n19, kind: step, title: "Free: dry-draw all 10 round-3 pages from the new plans, then write the 2026-10-22 live order (n12 3 pages, n20 3 pages, n11 3 pages) with a --budget per page so the day stays under 300k", status: open, result: null}
+  - {id: n21, parent: n19, kind: step, title: "Free: dry-draw all 10 round-3 pages from the new plans, then write the 2026-10-22 live order (n12 3 pages, n20 3 pages, n11 3 pages) with a --budget per page so the day stays under 300k", status: done,
+     result: "All 10 drawn, no failures, blank 0-5%. Live order: n20, n12, then n11. d1086ee."}
+  - {id: n22, parent: n13, kind: step, title: "Free, from round-1 run records: c3 quoted heading copy landed on the small line under it; c5 sidebar box built as an image placeholder. Find where each went wrong and fix", status: open, result: null}
   - {id: n20, parent: n18, kind: step, title: "Needs 2026-10-22 budget, --budget: build round-3 e1 table, e3 calendar, e5 analytics live from the new plans; compare with targets and fix the worst gap", status: open, result: null}
