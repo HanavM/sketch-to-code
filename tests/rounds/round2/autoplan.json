@@ -3,7 +3,11 @@
   "plan": [
    [
     "logo",
-    "heading"
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
    ],
    [
     "photo-1",
@@ -19,7 +23,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 118,
+     "lines": 2
+    }
    ],
    [
     "body",
@@ -73,11 +81,19 @@
    ],
    [
     "outline-word",
-    "heading"
+    "heading",
+    {
+     "fontPx": 300,
+     "lines": 1
+    }
    ],
    [
     "solid-word",
-    "heading"
+    "heading",
+    {
+     "fontPx": 300,
+     "lines": 1
+    }
    ],
    [
     "body",
@@ -135,7 +151,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 60,
+     "lines": 2
+    }
    ],
    [
     "body",
@@ -193,7 +213,11 @@
    ],
    [
     "lead-title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 2
+    }
    ],
    [
     "img-1",
@@ -205,7 +229,11 @@
    ],
    [
     "pull-quote",
-    "heading"
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 2
+    }
    ]
   ],
   "notes": [
@@ -251,7 +279,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 4
+    }
    ],
    [
     "body",
@@ -293,11 +325,19 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 28,
+     "lines": 1
+    }
    ],
    [
     "ship-label",
-    "heading"
+    "heading",
+    {
+     "fontPx": 17,
+     "lines": 1
+    }
    ],
    [
     "name",
@@ -313,7 +353,11 @@
    ],
    [
     "pay-label",
-    "heading"
+    "heading",
+    {
+     "fontPx": 17,
+     "lines": 1
+    }
    ],
    [
     "card",
@@ -473,7 +517,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
    ],
    [
     "tabs",
@@ -543,7 +591,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 1
+    }
    ],
    [
     "subtitle",
@@ -629,7 +681,11 @@
    ],
    [
     "subject",
-    "heading"
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
    ],
    [
     "from",

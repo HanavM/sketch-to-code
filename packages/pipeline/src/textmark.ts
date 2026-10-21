@@ -52,6 +52,18 @@ const MIN_CHORD = 30
 const MAX_TILT = 25
 /** Body text to a big heading; a scribbled-over block is not a line. */
 const MAX_THICKNESS = 40
+/**
+ * A display word drawn to size: one zigzag as tall as the letters (round 2, c2:
+ * "NOISE" set at 300px drawn ~200px tall). Taller than MAX_THICKNESS is allowed
+ * only for a lone line that is still clearly a LINE: far wider than tall and
+ * level. A scratch-out over a block is about as tall as it is wide.
+ */
+const MAX_DISPLAY_THICKNESS = 260
+const DISPLAY_MIN_ASPECT = 2.5
+const DISPLAY_MAX_TILT = 12
+/** Chord per crest, as a share of the zigzag's height. */
+const DISPLAY_MIN_CREST_GAP = 0.5
+const DISPLAY_MAX_SINUOSITY = 2.5
 /** Text oscillates hard; decoration and sway do not (see header). */
 const MIN_TRAVEL = 0.35
 /** A train of crests — one barb pair or a single bump is not writing. */
@@ -61,14 +73,37 @@ const HYSTERESIS = 1.5
 /** An oscillating line's ink is longer than its chord, a box's far longer. */
 const MAX_SINUOSITY = 3
 
-export function measureTextMark(points: Point[]): TextMarkMeasure | null {
+/**
+ * `axis: 'fit'` measures along the least-squares line through the ink instead of
+ * first-to-last point. A big zigzag that ends mid-crest has a chord tilted by up
+ * to its own height, which reads it as sloped and far taller than it is.
+ */
+export function measureTextMark(points: Point[], axis: 'ends' | 'fit' = 'ends'): TextMarkMeasure | null {
   if (points.length < 4) return null
-  const a = points[0]!
+  let a = points[0]!
   const b = points[points.length - 1]!
-  const dx = b.x - a.x
-  const dy = b.y - a.y
-  const chord = Math.hypot(dx, dy)
+  let dx = b.x - a.x
+  let dy = b.y - a.y
+  let chord = Math.hypot(dx, dy)
   if (chord < 1) return null
+  if (axis === 'fit') {
+    const n = points.length
+    let mx = 0, my = 0
+    for (const p of points) { mx += p.x / n; my += p.y / n }
+    let sxx = 0, sxy = 0, syy = 0
+    for (const p of points) { sxx += (p.x - mx) ** 2; sxy += (p.x - mx) * (p.y - my); syy += (p.y - my) ** 2 }
+    // principal axis of the ink
+    const th = 0.5 * Math.atan2(2 * sxy, sxx - syy)
+    let fx = Math.cos(th), fy = Math.sin(th)
+    if (fx * dx + fy * dy < 0) { fx = -fx; fy = -fy }
+    let lo = Infinity, hi = -Infinity
+    for (const p of points) { const t = (p.x - mx) * fx + (p.y - my) * fy; lo = Math.min(lo, t); hi = Math.max(hi, t) }
+    chord = hi - lo
+    if (chord < 1) return null
+    dx = fx * chord
+    dy = fy * chord
+    a = { ...a, x: mx + fx * lo, y: my + fy * lo }
+  }
   const ux = dx / chord
   const uy = dy / chord
   let tilt = (Math.atan2(Math.abs(dy), Math.abs(dx)) * 180) / Math.PI
@@ -124,14 +159,33 @@ export function measureTextMark(points: Point[]): TextMarkMeasure | null {
 
 /** Why this stroke reads as a line of text, or null when it doesn't. */
 export function textMarkReason(points: Point[]): string | null {
-  const m = measureTextMark(points)
+  let m = measureTextMark(points)
   if (!m) return null
-  if (m.chord < MIN_CHORD || m.tilt > MAX_TILT || m.thickness > MAX_THICKNESS) return null
+  if (m.chord < MIN_CHORD || m.tilt > MAX_TILT) return null
+  if (m.thickness > MAX_THICKNESS) {
+    // maybe a display word drawn to size: judge it along the ink's own axis
+    const f = measureTextMark(points, 'fit')
+    if (!f || !isDisplayLine(f)) return null
+    m = f
+  }
   if (m.sinuosity > MAX_SINUOSITY) return null
   if (m.travel < MIN_TRAVEL || m.crests < MIN_CRESTS) return null
   return (
     `a level ${Math.round(m.chord)}px squiggle (${m.crests} crests, ` +
     `${Math.round(m.thickness)}px tall) reads as a line of text`
+  )
+}
+
+/** A level zigzag far wider than tall, taller than body or title ink: a display word drawn to size. */
+function isDisplayLine(m: TextMarkMeasure): boolean {
+  return (
+    m.thickness <= MAX_DISPLAY_THICKNESS &&
+    m.chord >= DISPLAY_MIN_ASPECT * m.thickness &&
+    m.tilt <= DISPLAY_MAX_TILT &&
+    // a hatch fill packs its crests tighter and doubles back harder (bench hatch:
+    // a crest every 0.43x its height, ink 2.9x its chord)
+    m.chord / Math.max(1, m.crests) >= DISPLAY_MIN_CREST_GAP * m.thickness &&
+    m.sinuosity <= DISPLAY_MAX_SINUOSITY
   )
 }
 
@@ -220,9 +274,11 @@ export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextS
       // a lone squiggle: only its height can say size. Body text wobbles a few px;
       // a heading drawn tall (>= LONE_HEADING_INK px across) is drawn that big on purpose.
       // across the chord, so a line written on a slight slope doesn't read taller
-      const t = measureTextMark(marks.find((m) => m.id === first.id)!.points)?.thickness ?? 0
+      const pts = marks.find((m) => m.id === first.id)!.points
+      let t = measureTextMark(pts)?.thickness ?? 0
+      if (t > MAX_THICKNESS) t = Math.min(t, measureTextMark(pts, 'fit')?.thickness ?? t)
       if (t < LONE_HEADING_INK) continue
-      const fontPx = Math.round(LONE_FONT_PER_INK * Math.min(t, MAX_THICKNESS))
+      const fontPx = Math.round(LONE_FONT_PER_INK * Math.min(t, MAX_DISPLAY_THICKNESS))
       const pitch = Math.round(fontPx * 1.2)
       out.push({
         strokes: [first.id],

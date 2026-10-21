@@ -1,23 +1,23 @@
 {
   "id": "c2-outline-bleed",
-  "at": "2026-10-21T06:45:44.485Z",
+  "at": "2026-10-21T07:08:11.522Z",
   "likeness": {
     "version": 3,
-    "overall": 0.4360180886342311,
-    "overallV2": 0.4354142072782898,
-    "overallV1": 0.4145816968521917,
-    "colour": 0.9277379957115481,
-    "structure": 0.11045404348554227,
-    "structureStrict": 0.048966670432668044,
-    "colourAligned": 0.9293390783827236,
-    "structureAligned": 0.11045404348554227,
+    "overall": 0.6293658109565865,
+    "overallV2": 0.6255942369515847,
+    "overallV1": 0.5630397512088797,
+    "colour": 0.9383202418562618,
+    "structure": 0.256193681772166,
+    "structureStrict": 0.08714573014639784,
+    "colourAligned": 0.9483198911632882,
+    "structureAligned": 0.256193681772166,
     "align": {
-      "scale": 1.12,
-      "dx": -80,
-      "dy": -112,
-      "r": 0.3762749779100724
+      "scale": 1.04,
+      "dx": -32,
+      "dy": -32,
+      "r": 0.7837644487217482
     },
-    "layout": 0.30612267453985725
+    "layout": 0.7469867987354415
   },
   "effects": {
     "recall": 1,
@@ -33,30 +33,30 @@
     ]
   },
   "tokens": {
-    "input": 35158,
-    "output": 16519,
-    "cacheRead": 249254
+    "input": 26932,
+    "output": 9457,
+    "cacheRead": 237320
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 42859,
-      "output": 13116,
-      "cacheRead": 240054,
+      "billed": 31963,
+      "output": 7901,
+      "cacheRead": 234300,
       "toolCalls": 6,
       "tools": [
-        "Glob",
+        "Grep",
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 163218
+      "ms": 103401
     }
   ],
-  "reading": "The sketch lays out a festival landing page: a top-right nav, a giant two-line stacked headline bleeding off the left edge (NOISE in white hollow outline, FEST in solid lime), a short body paragraph, and a small lime monospace date line, all on a black page per the typed global note.",
+  "reading": "A full-bleed poster-style hero: a black page with white text, a top-right nav (INDEX/SHOWS/SHOP), a giant two-line hollow-white 'NOISE' + lime 'FEST' title bleeding off the left edge, a short body paragraph on the right, and a lime monospace date line at bottom left.",
   "actions": [
     {
       "kind": "add",
@@ -71,33 +71,53 @@
         9
       ],
       "paths": [],
-      "instruction": "Small squiggle in the top-right stands for the nav links. Typed note: 'links: INDEX, SHOWS, SHOP' - add a navigation bar with these three link labels."
+      "instruction": "Small wavy mark at top right is a nav bar placeholder; per typed note render it as text links 'INDEX', 'SHOWS', 'SHOP'."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s1",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 307
+        }
+      ],
+      "region": [
+        6,
+        142,
+        758,
+        210
+      ],
+      "paths": [],
+      "instruction": "Large wavy-line mark bleeding off the left page edge: per typed note, render as a giant heavy hollow-outlined white headline reading 'NOISE'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
         "s2"
       ],
       "textSize": [
         {
           "strokes": [
-            "s1",
-            "s2",
-            "s3"
+            "s2"
           ],
-          "lines": 3,
-          "fontPx": 150
+          "lines": 1,
+          "fontPx": 302
         }
       ],
       "region": [
-        1,
-        188,
-        763,
-        131
+        6,
+        423,
+        626,
+        209
       ],
       "paths": [],
-      "instruction": "Two large squiggly lines stand for a giant heading. Typed note: 'bleeding off the left page edge giant heavy hollow outlined white \"NOISE\"' - add a huge, heavy,"
+      "instruction": "Large wavy-line mark below, also bleeding off the left page edge: per typed note, render as a giant heavy lime-colored headline reading 'FEST', paired with 'NOI"
     },
     {
       "kind": "add",
@@ -108,41 +128,8 @@
       "textSize": [
         {
           "strokes": [
-            "s1",
-            "s2",
-            "s3"
-          ],
-          "lines": 3,
-          "fontPx": 150
-        },
-        {
-          "strokes": [
+            "s3",
             "s4"
-          ],
-          "lines": 1,
-          "fontPx": 28
-        }
-      ],
-      "region": [
-        1,
-        468,
-        631,
-        131
-      ],
-      "paths": [],
-      "instruction": "Two large squiggly lines beneath the NOISE heading stand for a second giant heading line. Typed note: 'bleeding off the left page edge giant heavy lime \"FEST\"' "
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s5",
-        "s6"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s5",
-            "s6"
           ],
           "lines": 2,
           "fontPx": 16
@@ -155,12 +142,12 @@
         33
       ],
       "paths": [],
-      "instruction": "Two short squiggly lines stand for a body text paragraph. Typed note: 'text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"' - add this "
+      "instruction": "Two stacked wavy text-placeholder lines on the right: render as body copy reading 'Three nights of loud guitars in a disused tram depot. Bring earplugs.'"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s7"
+        "s5"
       ],
       "textSize": [],
       "region": [
@@ -170,7 +157,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small squiggle at bottom-left stands for a date line. Typed note: 'mono lime \"// 14-16 AUG 2027\"' - add this text in a monospace font, colored lime."
+      "instruction": "Small wavy line at bottom left: render as monospace lime-colored text reading '// 14—16 AUG 2027'."
     }
   ],
   "rejected": [

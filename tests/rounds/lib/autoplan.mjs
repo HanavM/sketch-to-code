@@ -55,6 +55,14 @@ function factsInPage() {
       kidTexts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
       kidCount: kids.length,
       regionKids,
+      // how many lines the text sets in (distinct line tops of its text): a giant one-word
+      // heading is drawn as one tall zigzag, a two-line one as two stacked squiggles
+      textLines: (() => {
+        const rg = document.createRange(); rg.selectNodeContents(el)
+        const tops = [...rg.getClientRects()].filter((q) => q.width > 1 && q.height > 1).map((q) => q.top).sort((a, b) => a - b)
+        const fs = parseFloat(cs.fontSize) || 16
+        return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > fs * 0.5 ? n + 1 : n), 0)
+      })(),
       font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform },
       colour: rgba(cs.color),
       bg: rgba(cs.backgroundColor),
@@ -557,7 +565,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
   })
-  const plan = regions.filter((f) => out.get(f.role).kind).map((f) => [f.role, out.get(f.role).kind])
+  // a heading carries its set size and line count, so the bench draws it as tall as it is
+  const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
+    const k = out.get(f.role).kind
+    return k === 'heading' && f.textLines >= 1 ? [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }] : [f.role, k]
+  })
   const notes = [...(pageNote(body) ? [['*', pageNote(body)]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
 }

@@ -11,7 +11,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 260,
+     "lines": 1
+    }
    ],
    [
     "ridge-far",
@@ -77,15 +81,27 @@
    ],
    [
     "band-black",
-    "heading"
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 1
+    }
    ],
    [
     "band-orange",
-    "heading"
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 1
+    }
    ],
    [
     "intro",
-    "heading"
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 2
+    }
    ],
    [
     "reel",
@@ -151,7 +167,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 110,
+     "lines": 2
+    }
    ],
    [
     "body",
@@ -201,7 +221,11 @@
   "plan": [
    [
     "number",
-    "heading"
+    "heading",
+    {
+     "fontPx": 420,
+     "lines": 1
+    }
    ],
    [
     "side-rail",
@@ -287,7 +311,11 @@
    ],
    [
     "headline",
-    "heading"
+    "heading",
+    {
+     "fontPx": 150,
+     "lines": 2
+    }
    ],
    [
     "dek",
@@ -341,7 +369,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 28,
+     "lines": 1
+    }
    ],
    [
     "add",
@@ -387,7 +419,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
    ],
    [
     "col-todo",
@@ -437,7 +473,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 28,
+     "lines": 1
+    }
    ],
    [
     "prev",
@@ -513,7 +553,11 @@
   "plan": [
    [
     "title",
-    "heading"
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
    ],
    [
     "range",

@@ -170,6 +170,19 @@ describe('textStacks — drawn line spacing is the type size (round 1, c1)', () 
     expect(st[0]!.fontPx).toBeGreaterThanOrEqual(24)
     expect(st[0]!.fontPx).toBeLessThanOrEqual(32)
   })
+  it('sizes a giant one-word heading drawn as one tall zigzag (round 2, c2: NOISE at 300px)', () => {
+    const z = textLine(6, 250, 800, { amp: 105, wavelength: 315 })
+    expect(isTextMark(z)).toBe(true)
+    const st = textStacks([{ id: 'z', points: z }])
+    expect(st).toHaveLength(1)
+    expect(st[0]!.lines).toBe(1)
+    expect(st[0]!.fontPx).toBeGreaterThanOrEqual(260)
+    expect(st[0]!.fontPx).toBeLessThanOrEqual(340)
+  })
+  it('a tall zigzag about as wide as tall is not a display line (a scratch-out over a block)', () => {
+    expect(isTextMark(textLine(0, 200, 260, { amp: 80, wavelength: 60 }))).toBe(false)
+    expect(isTextMark(textLine(0, 200, 300, { amp: 60, wavelength: 140 }))).toBe(false)
+  })
   it('makes no size claim for a lone body squiggle, tidy or rough', () => {
     for (const w of [80, 150, 300, 600]) {
       for (let s = 1; s <= 12; s++) {
