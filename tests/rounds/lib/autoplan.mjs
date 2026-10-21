@@ -638,7 +638,15 @@ function gradientWords(f) {
   if (!/gradient/.test(f.bgImage)) return null
   const names = uniq(f.bgImageColours.map((c) => (parse(c)?.a ?? 1) < 0.3 ? null : colourName(c)))
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
-  if (names.length < 2) return null
+  if (names.length < 2) {
+    // one hue, two shades (round 5 c5 CTA indigo #6366f1 to #4338ca): still a gradient fill, or the build drops it
+    const cs = f.bgImageColours.map(parse).filter((c) => c && (c.a ?? 1) >= 0.3)
+    if (names.length === 1 && cs.length >= 2 && dist(cs[0], cs[cs.length - 1]) >= 40) {
+      const lum = (c) => c.r + c.g + c.b
+      return `${names[0]} to ${lum(cs[cs.length - 1]) < lum(cs[0]) ? 'darker' : 'lighter'} ${names[0]} gradient`
+    }
+    return null
+  }
   // hard colour stops (a b 20%, b 20% 40%) are stripes, not a blend
   const hard = (f.bgImage.match(/\d+%\s*,\s*rgb[^)]+\)\s+\d+%/g) || []).length >= 2 || /\)\s+\d+%\s+\d+%/.test(f.bgImage)
   return hard ? `${names.join(', ')} stripes` : `${names.join(' to ')} gradient`
@@ -1007,6 +1015,10 @@ function decideOne(f, page, marked, said) {
     const drawnBar = fill || frosted || line
     return { kind: isBar ? 'box' : 'text', note: `${!drawnBar && isBar ? 'nav, no box around it: ' : ''}${drawnBar ? `${barLook ? `${barLook} ` : ''}bar ${Math.round(h)}px tall${f.rect.y <= 60 ? ' across the top' : ''}${line}: ` : ''}${lk ? `${lk} ` : ''}${quote(kb[0].t)} left, ${quote(kb[1].t, 48)} right` }
   }
+  // a plain link underlined by a bottom rule (round 5 c4 'Shop summer →' was built as a dark pill button)
+  if (f.tag === 'a' && ruled && !fill && !grad && !bordered && f.kidCount === 0 && short && h <= 60) {
+    return { kind: 'text', note: `${f.font.weight >= 600 ? 'bold ' : ''}link ${quote(f.text)} with a ${Math.round(f.border.bottom)}px underline (no box, not a button)` }
+  }
   // wide is fine for a filled, centred one-line label (a full-width pay button)
   const buttonish = (/^(a|button)$/.test(f.tag) || ((fill || bordered || grad) && f.centred)) && short && h <= 90 && f.kidCount <= 1 && (w <= 420 || (fill && f.centred && h <= 70))
   if (buttonish) {
@@ -1080,7 +1092,7 @@ function decideOne(f, page, marked, said) {
     // 'vertical near-black, light grey text' into near-black text on the page)
     // a filled card with a title and copy names the block too: 'mint green "Wait", text ...' coloured the
     // title and left the card dark like its neighbour (round 4 c5)
-    const filledCard = fill && !frosted && !f.regionKids.length && f.kidTexts.length >= 2 && !look.includes('card')
+    const filledCard = (fill || grad) && !frosted && !f.regionKids.length && f.kidTexts.length >= 2 && !look.includes('card')
     const noun = (lightText || filledCard) && !what && !look.some((x) => / block\b/.test(x)) ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
     const say = uniq([...look, noun, what]).join(' ') + lightText
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
@@ -1088,7 +1100,7 @@ function decideOne(f, page, marked, said) {
     // a titled card: its title and one short line are copy a person types, or the build invents its own
     // (round 3 c4 cards built with made-up body copy from '"Manifesto" and text')
     const titled = !f.regionKids.length && !list && head && f.kidTexts.length === 2 && f.kidTexts[1].length <= 110
-      ? `${quote(head)}, text ${quote(f.kidTexts[1], 110)}`
+      ? `${titleWords(kb, h)}${quote(head)}, text ${quote(f.kidTexts[1], 110)}`
       // a short info card (an address, hours, an email): every line is copy, or the build invents an address
       : !f.regionKids.length && !list && head && f.kidTexts.length >= 3 && f.kidTexts.length <= 7 && f.kidTexts.join(' ').length <= 160
         ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t, i) => lineWords(f, i + 1) + quote(t, 60)).join(', ')}${f.kidReach && f.kidReach < 0.55 && h >= 200 ? ', all at the top of the card, empty below' : ''}` : null
@@ -1104,7 +1116,7 @@ function decideOne(f, page, marked, said) {
     const lone = !f.regionKids.length && f.kidCount === 0 && f.text.length > 40 && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}` : null
     const copy = code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
-    return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
+    return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d/.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
   }
   if (f.pager && !f.regionKids.length) {
     const p = f.pager
@@ -1124,6 +1136,13 @@ function decideOne(f, page, marked, said) {
     return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : lead ? `${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
   }
   return { kind: 'box', note: null }
+}
+
+// a display title over a smaller line (round 5 c5 hero: 76px 'Prism 2' over 18px copy was built swapped)
+function titleWords(kb, h) {
+  if (kb.length !== 2 || kb[0].s < 40 || kb[0].s < kb[1].s * 2) return ''
+  const down = kb[0].top >= h * 0.25 ? `, starting ${Math.round((kb[0].top / h) * 100)}% down` : ''
+  return `huge ${kb[0].s}px${kb[0].bold ? ' bold' : ''} title${down}: `
 }
 
 // a card line's own look when it stands apart from the card's title: a big figure, a coloured delta
@@ -1189,6 +1208,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
   })
+  // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
+  // (round 5 c4: two stacked 'SUMMER' lines built as one)
+  const heads = regions.filter((f) => out.get(f.role).kind === 'heading' && f.text)
+  for (const f of heads) {
+    const same = heads.filter((g) => g.text === f.text).sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)
+    if (same.length < 2) continue
+    const i = same.indexOf(f), d = out.get(f.role)
+    const nth = ['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`
+    d.note = `${d.note}, the ${nth} of ${same.length} separate stacked lines of the same word (it repeats; build each line)`
+  }
   // a picture placeholder with another mark drawn on top of it (a dark reel card with a play
   // circle) is a backdrop: drawn as a filled box, since an X'd picture box crosses out what sits
   // on it and the build drew the X (round 3 c2 reel built as a crossed placeholder)

@@ -411,7 +411,7 @@
    ],
    [
     "read",
-    "button"
+    "text"
    ]
   ],
   "notes": [
@@ -449,7 +449,7 @@
    ],
    [
     "read",
-    "button \"Read the issue →\""
+    "link \"Read the issue →\" with a 2px underline (no box, not a button)"
    ]
   ]
  },

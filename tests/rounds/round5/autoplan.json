@@ -229,19 +229,19 @@
    ],
    [
     "card-1",
-    "dark navy to dark grey gradient \"01 — BUILD\", lines big 28px bold \"Draw it\", \"Rough boxes become real layout.\""
+    "dark navy to dark grey gradient block \"01 — BUILD\", lines big 28px bold \"Draw it\", \"Rough boxes become real layout.\""
    ],
    [
     "card-2",
-    "faded to 75% opacity (see-through) blue to sky blue gradient \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
+    "faded to 75% opacity (see-through) blue to sky blue gradient block \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
    ],
    [
     "card-3",
-    "faded to 45% opacity (see-through) dark pink to pale pink gradient \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
+    "faded to 45% opacity (see-through) dark pink to pale pink gradient block \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
    ],
    [
     "card-4",
-    "faded to 20% opacity (see-through) bleeding off the right page edge (runs 200px past it) orange to peach gradient \"04\", text \"Ship\""
+    "faded to 20% opacity (see-through) bleeding off the right page edge (runs 200px past it) orange to peach gradient block \"04\", text \"Ship\""
    ]
   ]
  },
@@ -297,7 +297,7 @@
    ],
    [
     "buy",
-    "button"
+    "text"
    ]
   ],
   "notes": [
@@ -307,11 +307,11 @@
    ],
    [
     "ghost-top",
-    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\""
+    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\", the first of 2 separate stacked lines of the same word (it repeats; build each line)"
    ],
    [
     "ghost-bottom",
-    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\""
+    "bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined peach \"SUMMER\", the second of 2 separate stacked lines of the same word (it repeats; build each line)"
    ],
    [
     "photo-main",
@@ -343,7 +343,7 @@
    ],
    [
     "buy",
-    "button \"Shop summer →\""
+    "bold link \"Shop summer →\" with a 3px underline (no box, not a button)"
    ]
   ]
  },
@@ -385,11 +385,11 @@
    ],
    [
     "hero",
-    "near-black block with soft colour glows: indigo top left, pink bottom right \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\""
+    "near-black block with soft colour glows: indigo top left, pink bottom right; huge 76px bold title, starting 40% down: \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\""
    ],
    [
     "stat",
-    "white block, black text \"2.4×\", text \"faster first paint than Prism 1\""
+    "white block, black text; huge 96px bold title: \"2.4×\", text \"faster first paint than Prism 1\""
    ],
    [
     "ring",
@@ -409,7 +409,7 @@
    ],
    [
     "cta",
-    "big 30px bold \"Ready when you are.\", then full-width white black text button \"Get Prism 2\", both at the bottom of the card, empty above"
+    "indigo to darker indigo gradient block big 30px bold \"Ready when you are.\", then full-width white black text button \"Get Prism 2\", both at the bottom of the card, empty above"
    ]
   ]
  },
