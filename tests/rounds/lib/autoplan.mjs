@@ -770,7 +770,8 @@ function decideOne(f, page, marked, said) {
   const pane = w >= 260 && h >= 300 && f.kidCount >= 2
   if (fill || grad || bordered || ruled || pane || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
     look.push(...fx)
-    if (grad) look.push(grad); else if (fill && !frosted) look.push(colourName(f.bg))
+    // a strong opaque fill says 'vivid', or the build softens it (round 4 c5 #fde047 card built pale cream)
+    if (grad) look.push(grad); else if (fill && !frosted) look.push(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}`)
     // light text on a dark filled block says so, or the block's colour reads as the text's
     // (round 3 c4: 'vertical near-black "INDEX OF THINGS"' built black text, no rail)
     const lightText = fill && !frosted && textCol && dist(f.colour, f.bg) > 150 ? `, ${textCol} text` : ''

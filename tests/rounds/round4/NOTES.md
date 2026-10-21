@@ -96,3 +96,13 @@ c1/c5/e1/e4; rounds 1-2 unchanged except round 2 none.
 |---|---|---|---|---|
 | c5 sticky story | 57% | 38%, then 54% | ~47k, then ~37k | first re-run: strip, dots, tilt all built, no invented title, but every card dark green ('mint green "Wait"' coloured only the title). After the 'block' fix: green, mint and yellow cards, slight tilt, strip, dots, effects 100%. Score flat (noise band ~±5); giant "03" still ~half size (n40), cards a little paler with gradients. |
 | e4 file manager | 59% | 53% | ~70k | Upload button and progress now sky blue, Brief.pdf tile pale pink as target; layout near-identical. Score swing is noise; build added file icons inside tiles (target plain colour blocks). |
+
+## n56: giant "03" rebuilt at full size; vivid fills (likeness v3)
+
+Planner: a filled box whose colour is strong and opaque (channel spread >= 150) now says 'vivid <colour>' in the box
+branch too (it already did for picture blocks and shapes). Plan diffs: round 3 c4 two cards, round 4 c5 step-3 and
+e5 today tag; rounds 1-2 unchanged.
+
+| page | before | after | tokens | notes |
+|---|---|---|---|---|
+| c5 sticky story | 54% | 76%, then 70% | ~52k, then ~47k | first: "03" now built full height (n40 fix), but the yellow card came out pale cream. After 'vivid': card bright yellow as target; this run put the chapter label above the number (run-to-run swing). |

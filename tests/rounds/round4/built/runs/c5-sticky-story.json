@@ -1,23 +1,23 @@
 {
   "id": "c5-sticky-story",
-  "at": "2026-10-21T17:53:19.335Z",
+  "at": "2026-10-21T19:10:08.967Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5419806484427977,
-    "overallV2": 0.5419806484427977,
-    "overallV1": 0.48787507424717524,
-    "colour": 0.9119175648251538,
-    "structure": 0.6892840505305233,
-    "structureStrict": 0.6136784552197009,
-    "colourAligned": 0.9119175648251538,
-    "structureAligned": 0.6892840505305233,
+    "overall": 0.6979113093225158,
+    "overallV2": 0.6979113093225158,
+    "overallV1": 0.6146104672415404,
+    "colour": 0.9262891595945671,
+    "structure": 0.8825151386991006,
+    "structureStrict": 0.7661129038266997,
+    "colourAligned": 0.9262891595945671,
+    "structureAligned": 0.8825151386991006,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8695700834383838
+      "r": 0.8720051193511129
     },
-    "layout": 0.6511750369206533
+    "layout": 0.6387498111456216
   },
   "effects": {
     "recall": 1,
@@ -28,24 +28,23 @@
     ],
     "missing": [],
     "extra": [
-      "gradient",
       "italic",
       "overlap",
       "soft-shadow"
     ]
   },
   "tokens": {
-    "input": 29785,
-    "output": 19167,
-    "cacheRead": 135822
+    "input": 29121,
+    "output": 18366,
+    "cacheRead": 149369
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 33776,
-      "output": 13086,
-      "cacheRead": 105026,
+      "billed": 28868,
+      "output": 10657,
+      "cacheRead": 105105,
       "toolCalls": 7,
       "tools": [
         "Glob",
@@ -56,10 +55,10 @@
         "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 150868
+      "ms": 121572
     }
   ],
-  "reading": "This is a chapter-intro page: a thin progress strip along the top, a large '03' chapter number with a wide-spaced label and a pull-quote beside a vertical rule, and a three-step Plant/Wait/Harvest sequence of cards with a small dot-column progress indicator beside them.",
+  "reading": "A chapter-intro hero (progress strip, big '03' numeral, eyebrow label and serif quote) sits beside a vertical stack of three step cards (Plant/Wait/Harvest), each with a heading and body copy, plus a small dot-stepper and global page styling notes.",
   "actions": [
     {
       "kind": "add",
@@ -90,7 +89,7 @@
             "s1"
           ],
           "lines": 1,
-          "fontPx": 156
+          "fontPx": 365
         },
         {
           "strokes": [
@@ -103,12 +102,12 @@
       ],
       "region": [
         64,
-        210,
+        138,
         400,
-        355
+        427
       ],
       "paths": [],
-      "instruction": "Add a chapter header block: a giant Georgia serif '03' chapter number, beneath it a wide-letter-spaced green label 'CHAPTER 3 OF 7', and beneath that a big seri"
+      "instruction": "Add a hero chapter-intro block consisting of: a giant Georgia serif numeral '03', above it a wide-letter-spaced green eyebrow label 'CHAPTER 3 OF 7', and below "
     },
     {
       "kind": "add",
@@ -123,7 +122,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a vertical progress indicator: a column of five small round dots (10px), spaced 14px apart, no bounding box around them; the first dot deep green, the remai"
+      "instruction": "Add a vertical column of 5 small round dots (10px diameter), spaced 14px apart, with no surrounding box; the first dot is green and the remaining four are mint "
     },
     {
       "kind": "add",
@@ -138,7 +137,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a deep green card with pale yellow heading 'Plant' and body text 'Seeds go in after the last frost, two fingers deep, facing the morning sun.'"
+      "instruction": "Add a deep green card with pale yellow heading text 'Plant' and body copy 'Seeds go in after the last frost, two fingers deep, facing the morning sun.'"
     },
     {
       "kind": "add",
@@ -153,7 +152,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a mint green card with heading 'Wait' and body text 'Water at dusk. Do nothing else. The hardest part of gardening is patience.'"
+      "instruction": "Add a mint green card with heading 'Wait' and body copy 'Water at dusk. Do nothing else. The hardest part of gardening is patience.'"
     },
     {
       "kind": "add",
@@ -168,7 +167,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a slightly tilted pale yellow card with heading 'Harvest' and body text 'Pick in the cool of the morning and share at least a third with the neighbours.'"
+      "instruction": "Add a vivid yellow card, tilted slightly, with heading 'Harvest' and body copy 'Pick in the cool of the morning and share at least a third with the neighbours.'"
     }
   ],
   "rejected": [

@@ -162,3 +162,9 @@ What the first auto builds missed, and the fix (planner, zero tokens):
   'right of the picture: "How we cut...", text "A look at...", small "Oct 12 · 6 min read"'. Built near-identical.
 - Plan diff: round 1 e2 tiers, e3 posts; round 2 filters gains its second heading "PRICE"; round 3 unchanged.
 - Left on e2: prices built ~20px not ~28px, cards given shadows/tilt; noise-level for the score.
+
+## n56: c5 editorial rebuilt with the n40 short-giant-word fix
+
+c5 editorial 51% -> 48% (~53k): the red "01" is now built at its drawn size (was half). Score flat because the headline
+came out bold (target regular weight), the sidebar became a bordered box with invented issue lines (target: a left rule
+and one line of copy), and the page is ~5% narrower. Proof: c5-editorial-n56-cmp.png.
