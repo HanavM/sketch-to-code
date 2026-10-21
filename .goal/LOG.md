@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T09:15:00Z | Orbit rings land where drawn | New check catches shapes built off their drawing; repair fixed it. Orbit page 59% to 67%. 132k.
 2026-10-21T08:55:00Z | Hardest creative pages, first builds | Mountains 62% to 67% after ridge fix, orbit 59%, editorial 70%; builds now half the cost. 345k.
 2026-10-21T07:40:00Z | Poster: right typeface and grey blurb | Plans now name the typeface and grey text; poster built in Helvetica, grey blurb. Score flat 59%. 38k.
 2026-10-21T07:30:00Z | Poster: tight letters, words off the left edge | Giant words now run off the left edge and sit tight like the target; typeface next. 27k.
