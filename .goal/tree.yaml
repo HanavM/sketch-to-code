@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Hardest everyday pages (table, calendar, analytics) built close to their targets; fixing the missed pager, buttons and empty chart, then re-checking."
-lock: null
+lock: {by: run-0509, until: 2026-10-21T06:39Z}
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
