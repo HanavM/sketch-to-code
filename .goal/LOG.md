@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-21T01:50:00Z | Round 3 practice pages | Ten hardest pages written; planner now describes motion, layering, rings and hard shadows. Free.
+2026-10-21T01:24:00Z | Round 3 practice pages | Ten hardest pages written; planner now describes motion, layering, rings and hard shadows. Free.
 2026-10-21T01:12:00Z | Trace effect words to the build | Outlined headline and stripes were being styled page-wide; fixed, effects now spelled out. Free.
 2026-10-21T01:25:00Z | Creative effects check | Each built page now says which effects it kept: tilt, glass, outlined type, bleed. Free.
 2026-10-21T01:05:00Z | Why the poster headline shrank | Drawing was right; size got lost when lines were split. Fixed page-wide, free.
