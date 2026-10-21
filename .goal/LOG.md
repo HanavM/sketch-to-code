@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T14:05:00Z | Round 1 finished from auto plans | Studio 83%; blog list 21% to 70% after post text placed beside pictures; pricing gets prices, buttons. 214k.
 2026-10-21T13:45:00Z | Round 1 rebuilt with all fixes | Neon 36 to 75%, editorial 15 to 51%, sign-in 11 to 59%, contact 11 to 68%. 225k.
 2026-10-21T12:55:00Z | Orbit page: colour, rings, paragraph | Indigo-black page, faint rings, two-line body copy now right: 67% to 83%. 59k.
 2026-10-21T12:25:00Z | Marquee: band, intro and reel right | Two-line intro was drawn as one giant squiggle; reel drawn as picture. Fixed: 40% to 84%. 79k.
