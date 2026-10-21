@@ -177,7 +177,22 @@ function factsInPage() {
         const odd = kids.filter((k, i) => ks.filter((x) => x === ks[i]).length === 1 && ks[i] !== '|')
         if (odd.length !== 1) return null
         const c = getComputedStyle(odd[0])
-        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600 }
+        // its letter colour when the rest share another one (round 5 e5 green Q1 tab built black)
+        const rest = kids.filter((k) => k !== odd[0]).map((k) => getComputedStyle(k).color)
+        const ink = rest.every((x) => x === rest[0]) && rest[0] !== c.color ? rgba(c.color) : null
+        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink }
+      })(),
+      // a lead item set apart from a uniform row: bold, bigger or another colour (round 5 e5 green bold
+      // 'Budget 2027' title said as one more menu link, built black)
+      kidLead: (() => {
+        if (kids.length < 4) return null
+        const st = kids.map((k) => { const c = getComputedStyle(k); return { c: c.color, w: Number(c.fontWeight) >= 600, s: parseFloat(c.fontSize) } })
+        const rest = st.slice(1)
+        if (!rest.every((x) => x.c === rest[0].c && x.w === rest[0].w && Math.abs(x.s - rest[0].s) < 1)) return null
+        const a = st[0], r0 = rest[0]
+        const bold = a.w && !r0.w, big = a.s >= r0.s + 2, ink = a.c !== r0.c ? rgba(a.c) : null
+        if (!bold && !big && !ink) return null
+        return { t: (kids[0].innerText || '').replace(/\s+/g, ' ').trim(), bold, px: big ? Math.round(a.s) : null, ink }
       })(),
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
@@ -905,8 +920,11 @@ function decideOne(f, page, marked, said) {
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
-    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null].filter(Boolean).join(', ')})` : ''
-    return { kind: fill || bordered ? 'box' : 'text', note: `links: ${f.kidTexts.slice(0, 6).join(', ')}${on}` }
+    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null].filter(Boolean).join(', ')})` : ''
+    const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
+    const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
+    const items = L ? f.kidTexts.slice(1, 7) : f.kidTexts.slice(0, 6)
+    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar, ` : ''}${lead}links: ${items.join(', ')}${on}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
@@ -971,11 +989,14 @@ function decideOne(f, page, marked, said) {
 function pageNote(b) {
   const w = []
   // a cool pale grey (#f9fafb) is close to white yet a build on white loses it (round 4 e3)
-  const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !(dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && colourName(b.bg) === 'pale grey'))) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
+  // a neutral near-white (#fafafa) under white cards is lost too: built on white, the cards vanish into it
+  // (round 5 e4); it is said as off-white
+  const nearWhite = visible(b.bg) && dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && dist(b.bg, { r: 255, g: 255, b: 255 }) < 12
+  const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !nearWhite)) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
   if (plain) return null
   const grad = gradientWords(b)
   if (grad) w.push(`${grad} page`)
-  else if (visible(b.bg)) w.push(`${colourName(b.bg)} page`)
+  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? 'off-white' : colourName(b.bg)} page`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
