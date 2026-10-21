@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T07:40:00Z | Poster: right typeface and grey blurb | Plans now name the typeface and grey text; poster built in Helvetica, grey blurb. Score flat 59%. 38k.
 2026-10-21T07:30:00Z | Poster: tight letters, words off the left edge | Giant words now run off the left edge and sit tight like the target; typeface next. 27k.
 2026-10-21T07:20:00Z | Poster: giant headline drawn to size | Giant words now drawn as one tall zigzag and built at 300px; poster 44% to 63%. 36k.
 2026-10-21T07:05:00Z | Round 2 poster and glass re-run | Glass page 46% to 79%, near-identical; poster 38% to 44%, all parts placed; headline too small next. 245k.
