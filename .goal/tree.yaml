@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The hardest calendar page now shows every event on the right day; next, making the month start on the right weekday with solid event chips."
-lock: {by: run-2026-10-21T0540, until: 2026-10-21T07:10Z}
+now: "The hardest calendar page now starts the month on the right weekday with solid event chips; next, keeping its header bar where it was drawn."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -42,6 +42,8 @@ notes:
   - "n28 (cf6f1be on try/n3-vocabulary): packages/pipeline/src/collapsed.ts: after each build, stamped filled boxes (bg colour or gradient) that render 0 high/wide and weren't before fail verify -> repair turn. Snapshot now carries style.backgroundImage. Free check on saved builds: run a copy of the bench app on another port with saved src and takeSnapshot (no false alarms on e1/e3)."
   - "n29 (046266c on try/n3-vocabulary): bench digests' sends now carry tools: each tool call as 'Name dir/file'; bench prints a tally per turn. e3 build was Grep, Glob x3, 4 Reads, 1 Write. Re-run e1 (78k, 23 calls) when convenient to see what drove its loop."
   - "Token ledger: 2026-10-21 n29 live e3 41k (day total ~660k, no cap set)."
+  - "Token ledger: 2026-10-21 n30 live e3 43k + one failed reading (~5k) (day total ~710k, no cap set)."
+  - "n30 (1f22f96 on try/n3-vocabulary): month note says 'day 1 under <weekday>, first row starts with last month's ..., last box is N' and '(solid colour, white text)' chips. Round 1/2 plans unchanged. Run e3 with S2C_TRACE_READING set to catch the max-turns failure."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -98,7 +100,9 @@ nodes:
      result: "Pager, Today/Next, event days fixed. Bars still empty; new empty-fill check repairs them: e5 26%->64%. 0b70b66."}
   - {id: n29, parent: n28, kind: step, title: "Free first, then ~80k live: e3 dropped the Retro event and merged two Offsite days into one bar; e1 cost 78k with 23 tool calls. Find why from run records, fix, re-run e3", status: done,
      result: "Plan cut events at 6; now all, one chip per day. Live e3: all 13 chips right. Tool calls logged. 046266c."}
-  - {id: n30, parent: n29, kind: step, title: "Free, then ~40k live: e3 month starts on the wrong weekday (Nov 1 under Mon, target Sun with Oct 26-31 greyed) and chips are pale not solid; planner says start weekday, leading days, solid chips; re-run e3", status: open, result: null}
+  - {id: n30, parent: n29, kind: step, title: "Free, then ~40k live: e3 month starts on the wrong weekday (Nov 1 under Mon, target Sun with Oct 26-31 greyed) and chips are pale not solid; planner says start weekday, leading days, solid chips; re-run e3", status: done,
+     result: "Plan says day 1 weekday, lead-in days, solid chips. Live e3: all right, likeness 24% to 43%. 1f22f96."}
+  - {id: n31, parent: n30, kind: step, title: "Free first, ~45k live: e3 header bar built higher and smaller than drawn (title, Prev, New event miss); first reading again hit max turns (4). Trace both, fix, re-run e3", status: open, result: null}
   - {id: n24, parent: n1, kind: step, title: "Free: check the likeness score against the target itself moved a few pixels; if small offsets read as 'built nothing', fix and re-score round 1 from saved pictures", status: done,
      result: "Target moved 16px kept as little as 0%; now 99-100%. Round 1 re-scored, v1 kept. 8574b79."}
   - {id: n25, parent: n24, kind: step, title: "Free, from round-1 pictures and digests: e4 heading copy changed ('Get in touch' became 'Contact Us'), subtitle and field labels dropped; e1 lost grey page and labels. Find where copy and labels are lost and fix", status: done,
