@@ -606,6 +606,32 @@ describe('note focus — a cluster holding several drawings', () => {
     expect(r[1]!.focus).toEqual(['near'])
   })
 
+  it('two drawn boxes that cross: a note typed in their overlap is about the smaller one (round 4 c2)', () => {
+    const box = (id: string, x0: number, y0: number, x1: number, y1: number) => {
+      const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]] as const
+      const points: Array<{ x: number; y: number; t: number }> = []
+      for (let k = 0; k < 4; k++) {
+        const [ax, ay] = corners[k]!, [bx, by] = corners[k + 1]!
+        for (let i = 0; i < 10; i++) points.push({ x: ax + ((bx - ax) * i) / 10, y: ay + ((by - ay) * i) / 10, t: points.length })
+      }
+      points.push({ x: x0, y: y0, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    const all = [box('dark', 640, 3, 1277, 896), box('arch', 480, 240, 820, 700), box('cta', 1100, 800, 1240, 840)]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([
+      { id: 'n0', text: 'black block', at: { x: 1000, y: 300 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n1', text: 'lavender to dark pink gradient', at: { x: 650, y: 470 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n2', text: 'button "Shop"', at: { x: 1170, y: 820 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // the arch's centre, 3px left of the dark half's edge (as the bench types it)
+      { id: 'n3', text: 'lavender to dark pink gradient', at: { x: 637, y: 470 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ], snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['dark'])
+    expect(r[1]!.focus).toEqual(['arch'])
+    expect(r[2]!.focus).toEqual(['dark', 'cta'])
+    expect(r[3]!.focus).toEqual(['arch'])
+  })
+
   it('a note typed on line 1 of a giant two-line heading reaches line 2 too (round 3 c5)', () => {
     const zig = (id: string, y: number) => ({ id, tool: 'pen' as const, startedAt: 0,
       points: Array.from({ length: 60 }, (_, i) => ({ x: 90 + i * 15, y: y + 50 * Math.sin((2 * Math.PI * i * 15) / 150), t: i })) })

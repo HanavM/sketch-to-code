@@ -56,3 +56,14 @@ Rounds 1-3 plans unchanged (only round-4 e5 changed).
 | page | before | after | tokens | notes |
 |---|---|---|---|---|
 | e5 gantt | 18% | 47% | 61k | rows at the right pitch, empty space below, dots back. Still: name rows sit ~30px above their bars, dots small (target 26px), today line stops at the last bar instead of the box bottom, active "Week" not dark. |
+
+## n53: first builds of c2, c3, e2, e3; crossing boxes (likeness v3)
+
+| page | likeness | tokens | notes |
+|---|---|---|---|
+| c2 difference split | 34% -> 43% | 51k, then 57k + 33k | first build: dark half came out a lavender gradient and the arch a grey box. Cause: the arch's note was typed 3px from the dark half's edge, so it focused both boxes and the reading merged them. Fix: a note typed inside a drawn box drops other boxes that cross it. After: black half, gradient portrait, difference-blend words, effects 100% (was 50%). Still: arch built square-topped, words ~30px low. |
+| c3 Swiss grid | 65% | 53k | disc, ring, dates, vertical label, bottom links all there; red too saturated, grid rules dropped, headline lines spaced wider. |
+| e2 mail client | 56% | ~14k | three panes, unread rows, buttons; some row subjects invented, sender avatar dropped. |
+| e3 checkout | 37% | ~28k | stepper, form, delivery options, summary; stepper as plain text, form put in a card, item thumbnails dropped, page white not pale grey, options side by side. |
+
+Left for round 4: c5 sticky story and e4 file manager never built.

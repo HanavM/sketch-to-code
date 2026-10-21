@@ -343,6 +343,19 @@ export function noteFocus(
       const inner = outlines.reduce((a, b) => (enclosed.get(b)! < enclosed.get(a)! ? b : a))
       focus = focus.filter((id) => !outlines.includes(id) || id === inner)
     }
+    // Typed inside a drawn box, near or inside another box that crosses it (neither holds
+    // the other: an arch over the edge of a dark half): the note is about the box it was
+    // typed in (the smallest, if several). Round 4 c2: the portrait's gradient note, typed
+    // 3px from the dark half's edge, also focused the dark half, which was built lavender.
+    const boxesIn = focus.filter((id) => boxed.has(id) && enclosed.has(id))
+    if (boxesIn.length > 0) {
+      const area = (id: string) => rects.get(id)!.w * rects.get(id)!.h
+      const small = boxesIn.reduce((a, b) => (area(b) < area(a) ? b : a))
+      const sr = rects.get(small)!
+      const crossing = focus.filter((id) => id !== small && boxed.has(id) &&
+        !contains(rects.get(id)!, sr) && !contains(sr, rects.get(id)!))
+      if (crossing.length > 0) focus = focus.filter((id) => !crossing.includes(id))
+    }
     // Typed inside a drawn container (a panel box holding a heading and body
     // lines): the container is at distance 0, so distance alone can't tell a
     // note about the panel from one about its heading. Typed on (or between

@@ -1,0 +1,206 @@
+{
+  "id": "c2-difference-split",
+  "at": "2026-10-21T16:48:34.610Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.43423637615639643,
+    "overallV2": 0.43423637615639643,
+    "overallV1": 0.43423637615639643,
+    "colour": 0.8274161766246282,
+    "structure": 0.3528276105169268,
+    "structureStrict": 0.24496412772388637,
+    "colourAligned": 0.8274161766246282,
+    "structureAligned": 0.3528276105169268,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7093157148999294
+    },
+    "layout": 0.6923416376795313
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 21427,
+    "output": 11468,
+    "cacheRead": 137029
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 20905,
+      "output": 6904,
+      "cacheRead": 126803,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 80699
+    }
+  ],
+  "reading": "A hero banner design: a black panel overlapped by a lavender-to-dark-pink gradient panel, with two giant inverting-color headline words 'LIGHT' and 'SHADE' crossing both, plus a logo, nav text, body copy and a CTA button.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-bleed solid black rectangular panel filling the right portion of the hero banner (per note: 'black block')."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        153,
+        333,
+        553
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Overlapping rectangular panel filled with a lavender-to-dark-pink gradient, layered on top of/overlapping the black panel (per note: 'lavender to dark pink grad"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        8,
+        154,
+        1152,
+        161
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy, tight-set white heading text reading \"LIGHT\", stretching horizontally across both the black and gradient panels; where it crosses the pan"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 255
+        }
+      ],
+      "region": [
+        8,
+        554,
+        1152,
+        162
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy, tight-set white heading text reading \"SHADE\", stretching horizontally across both panels; where it crosses what is under it, the text col"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        47,
+        65,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small logo text reading \"Duality®\" in the top-left corner of the hero (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        1043,
+        44,
+        185,
+        8
+      ],
+      "paths": [],
+      "instruction": "Navigation text reading \"Collection · Archive · Cart (0)\" in the top-right corner, over the black panel (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        52,
+        814,
+        292,
+        31
+      ],
+      "paths": [],
+      "instruction": "Dark grey body copy reading \"Outerwear cut in two colours only. Pick a side, or wear both.\" positioned in the lower-left area of the hero (per note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1121,
+        831,
+        110,
+        19
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Call-to-action button labeled \"Shop the drop →\" placed in the lower-right corner of the hero, over the black panel (per note)."
+    }
+  ],
+  "rejected": []
+}
