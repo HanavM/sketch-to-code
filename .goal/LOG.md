@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T14:35:00Z | Round 4: say charts, timelines, forms, mail | Sketch notes now describe gantt bars by week, line/donut charts, form grid, mail rows. Earlier rounds unchanged. 0 tokens.
 2026-10-21T14:40:00Z | Round 4: ten harder pages | Written, measured, planned and drawn; planner now handles charts in SVG, blends, 3D tilt, panes. 0 tokens.
 2026-10-21T14:05:00Z | Round 1 finished from auto plans | Studio 83%; blog list 21% to 70% after post text placed beside pictures; pricing gets prices, buttons. 214k.
 2026-10-21T13:45:00Z | Round 1 rebuilt with all fixes | Neon 36 to 75%, editorial 15 to 51%, sign-in 11 to 59%, contact 11 to 68%. 225k.

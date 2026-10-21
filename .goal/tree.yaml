@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Ten harder round-4 pages are written and drawn; next, teaching the planner to describe charts, timelines and forms, then building them."
-lock: {by: run-2026-10-21T14:00Z, until: 2026-10-21T15:30:00Z}
+now: "Round-4 sketches now describe charts, timelines, forms and mail rows; next, building the first four round-4 pages live."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -76,6 +76,7 @@ notes:
   - "n45 (aadaf83 on try/n3-vocabulary): colour 'pale grey' for cool near-whites (chroma<=6, b>r, 236-251); off-white kept for warm ones (r3 c2 #f4f4f0). A filled card 6-30 from the page is said ('white card', 'pale grey card'); 3-7 line info cards quote every line. Round-1 auto before/after table in round1/built/NOTES.md."
   - "n46 (2124b1a on try/n3-vocabulary): planner: a list block's other short lines are said (big price before the list, buttons after with look; flex-centred bordered line = button); loose text beside a drawn part says side + each line ('right of the picture: \"title\", text \"...\", small \"meta\"'). Round-1 auto v3: c3 83, c4 75, c5 51, e1 59, e2 60, e3 70, e4 68 (c1/c2 not rebuilt from auto)."
   - "Token ledger: 2026-10-21 n46 live c3+e2+e3 133k, e2+e3 81k = ~214k (day total ~2880k, no cap set)."
+  - "n49 (35f5576 on try/n3-vocabulary): dense() also reads a table inside a card (title, first row), gantt (date column heads + absolute filled bars, today line <=4px wide), SVG charts (polyline lines: colour/dashed/rising; dashed circles = donut %), form field grids (rows, full width), KPI sparklines; list rows split leaf spans (mail sender|time) and say unread bold; short state classes (u, sel, unread) don't split a row group. gantt/form notes are said even when parts are marked. Plan diffs: r1-r3 none."
   - "n47 (91388a3 on try/n3-vocabulary): round 4 in tests/rounds/round4 (--set round4auto; NOTES.md lists untuned misses). Dry draw fails (pen did not take) when npm test runs in parallel: run dry draws alone."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -136,8 +137,9 @@ nodes:
   - {id: n48, parent: n46, kind: step, title: "~80k live, low priority: rebuild round-1 c1 sunset and c2 brutalist from auto plans so every round-1 page has an auto number", status: open, result: null}
   - {id: n47, parent: n17, kind: step, title: "Free: round-4 targets, harder than round 3 (scroll-length pages, sticky/parallax, overlapping cut-outs, dense dashboards with charts), measured and auto-planned untuned; dry-draw all 10", status: done,
      result: "10 harder pages, all drawn dry. Planner fixed for SVG, blends, 3D tilt, tile grids, panes. 91388a3."}
-  - {id: n49, parent: n47, kind: step, title: "Free: planner says round-4 dense UI it misses: gantt bars on week columns + today line, SVG line chart/donut/sparklines, form fields in a grid, mail rows (sender, time, subject, unread); rounds 1-3 plans must not regress", status: open, result: null}
-  - {id: n50, parent: n49, kind: step, title: "~150k live (--budget): first builds of round-4 c1 collage, c4 depth planes, e1 CRM, e5 gantt; fix the worst gap", status: open, result: null}
+  - {id: n49, parent: n47, kind: step, title: "Free: planner says round-4 dense UI it misses: gantt bars on week columns + today line, SVG line chart/donut/sparklines, form fields in a grid, mail rows (sender, time, subject, unread); rounds 1-3 plans must not regress", status: done,
+     result: "Plans now say gantt bars by week, charts, donut, sparklines, form grid, mail rows. Rounds 1-3 unchanged. 35f5576."}
+  - {id: n50, parent: n49, kind: step, title: "~150k live (--budget): first builds of round-4 c1 collage, c4 depth planes, e1 CRM, e5 gantt; fix the worst gap (watch: e5 timeline note is typed on the today line mark)", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
