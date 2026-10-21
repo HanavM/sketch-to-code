@@ -609,6 +609,11 @@ while (queue.length) {
       const runs = join(APP_DIR, '.sketch2code', 'runs')
       for (const r of readdirSync(runs)) cpSync(join(runs, r), join(OUT, 'runs', spec.id, r), { recursive: true })
     } catch { /* no run record: nothing to keep */ }
+    // and a small committed digest next to the round's side-by-sides: out/ is
+    // not kept, and n12 could not tell why c2's headline shrank without it
+    if (spec.target) {
+      try { writeRunDigest(APP_DIR, join(spec.target, '..', 'built', 'runs'), spec.id, row) } catch { /* best effort */ }
+    }
     // order prints as — when there were fewer than two comparable regions:
     // "0%" there means "could not be measured", and printing that as a zero
     // drags an average down with a number that was never an observation
@@ -698,3 +703,32 @@ if (PLAIN) {
   for (const r of pr) log(`  ${r.id.padEnd(30)} ${r.plain.outcome.padEnd(10)} want ${String(r.plain.want).padEnd(15)} ${r.plain.got ?? `declined: ${r.plain.reason}`}`)
   writeFileSync(join(OUT, `plain.words-${WORDS}.json`), JSON.stringify({ tally: t, rows: pr.map((r) => ({ id: r.id, ...r.plain })) }, null, 2))
 }
+
+/**
+ * What the reading made of the drawing, small enough to commit per page:
+ * each action's kind, cited strokes, text squiggles, drawn type size and the
+ * start of its instruction, plus the page's likeness and tokens.
+ */
+function writeRunDigest(appDir, dir, id, row) {
+  const runs = join(appDir, '.sketch2code', 'runs')
+  const latest = readdirSync(runs).sort().pop()
+  const interp = JSON.parse(readFileSync(join(runs, latest, 'interpretation.json'), 'utf8'))
+  mkdirSync(dir, { recursive: true })
+  writeFileSync(join(dir, `${id}.json`), JSON.stringify({
+    id,
+    at: new Date().toISOString(),
+    likeness: row.likeness ? { overall: row.likeness.overall, colour: row.likeness.colour, structure: row.likeness.structure, layout: row.likeness.layout } : null,
+    tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
+    reading: interp.reading,
+    actions: (interp.actions ?? []).map((a) => ({
+      kind: a.kind,
+      textMarks: a.textMarks ?? [],
+      textSize: (a.textSize ?? []).map((t) => ({ strokes: t.strokes, lines: t.lines, fontPx: t.fontPx })),
+      region: a.region ? [a.region.x, a.region.y, a.region.w, a.region.h].map(Math.round) : null,
+      paths: (a.svgPaths ?? []).map((p) => p.strokeId),
+      instruction: String(a.instruction ?? '').slice(0, 160),
+    })),
+    rejected: interp.rejected ?? [],
+  }, null, 2) + '\n')
+}
+

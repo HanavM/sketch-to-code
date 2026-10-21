@@ -59,3 +59,13 @@ What failed, and the common cause:
   under the heading instead of the heading; c5 sidebar box became an image placeholder.
 - Cost: c2 and c3 codegen ran long (690-830k cache reads). 6 pages = 303k billed, over the 300k/day budget by
   ~1%. Bench now takes --budget N and stops before a page that could pass it (worst page 95k).
+
+## Step n13 (2026-10-21, free): why c2's headline shrank
+- The ink is not the cause: c2's two headline squiggles are 172px apart and read as a 157px stack (target 190).
+- The size was read per action, so it only survived if one action cited both lines. A reading that splits
+  "MAKE IT" / "LOUD" into two actions, or cites one line elsewhere, drops it and codegen falls back to its
+  default heading. Now stacks are read once from every squiggle on the page and given to each action that
+  cites any of their lines (tests: split headline keeps 157px+ on both; headline+body keep two sizes).
+- The c2 run record was not kept (bench out/ is not committed), so which of the two happened is unproven.
+  Live bench runs now write a small digest per page to built/runs/<id>.json (actions, squiggles, type size,
+  region, likeness, tokens) so the next live check can see it.

@@ -852,6 +852,15 @@ export function groundInterpretation(
     }
   }
 
+  // Type size is read from ALL the text squiggles on the page at once, not per
+  // action: round 1 c2 drew "MAKE IT LOUD" as two squiggles 172px apart, and a
+  // reading that splits those lines over two actions (or cites one with the
+  // body copy) would otherwise lose the stack and the headline came out at the
+  // app's default heading size (~50px for a 157px drawn size).
+  const pageStacks = textStacks(
+    [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
+  )
+
   const actions: GroundedAction[] = []
   for (const a of raw.actions) {
     // design mode is creation-only — belt to the schema's suspenders
@@ -867,8 +876,10 @@ export function groundInterpretation(
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
     const textMarks: string[] = []
+    // every page stack this action cites any line of (a stack split over two
+    // actions gives each of them the size)
     const textStackOf = (ids: string[]): TextStack[] =>
-      textStacks(ids.map((id) => ({ id, points: ev.strokes.get(id)!.points })))
+      pageStacks.filter((st) => st.strokes.some((id) => ids.includes(id)))
     const citedStrokes = (a.strokes ?? [])
       .map((id) => {
         const s = ev.strokes.get(id)
