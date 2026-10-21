@@ -1,23 +1,23 @@
 {
   "id": "c2-outline-bleed",
-  "at": "2026-10-21T07:08:11.522Z",
+  "at": "2026-10-21T07:15:26.960Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6293658109565865,
-    "overallV2": 0.6255942369515847,
-    "overallV1": 0.5630397512088797,
-    "colour": 0.9383202418562618,
-    "structure": 0.256193681772166,
-    "structureStrict": 0.08714573014639784,
-    "colourAligned": 0.9483198911632882,
-    "structureAligned": 0.256193681772166,
+    "overall": 0.5795253196378609,
+    "overallV2": 0.55228974173083,
+    "overallV1": 0.504813046343001,
+    "colour": 0.9258048640668263,
+    "structure": 0.182457591065565,
+    "structureStrict": 0.040411769586350205,
+    "colourAligned": 0.9420741847985005,
+    "structureAligned": 0.23947649215891503,
     "align": {
-      "scale": 1.04,
+      "scale": 1.12,
       "dx": -32,
-      "dy": -32,
-      "r": 0.7837644487217482
+      "dy": -112,
+      "r": 0.6758359078354103
     },
-    "layout": 0.7469867987354415
+    "layout": 0.6093242410948572
   },
   "effects": {
     "recall": 1,
@@ -28,35 +28,34 @@
       "mono"
     ],
     "missing": [],
-    "extra": [
-      "uppercase-display"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 26932,
-    "output": 9457,
-    "cacheRead": 237320
+    "input": 21055,
+    "output": 6228,
+    "cacheRead": 234638
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 31963,
-      "output": 7901,
-      "cacheRead": 234300,
-      "toolCalls": 6,
+      "billed": 22347,
+      "output": 4192,
+      "cacheRead": 231618,
+      "toolCalls": 7,
       "tools": [
         "Grep",
         "Glob",
         "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
         "Glob",
         "Read src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 103401
+      "ms": 47663
     }
   ],
-  "reading": "A full-bleed poster-style hero: a black page with white text, a top-right nav (INDEX/SHOWS/SHOP), a giant two-line hollow-white 'NOISE' + lime 'FEST' title bleeding off the left edge, a short body paragraph on the right, and a lime monospace date line at bottom left.",
+  "reading": "A black-background poster-style page: a nav link row (INDEX/SHOWS/SHOP), a giant two-line hollow-white \"NOISE\" / lime \"FEST\" headline bleeding off the left edge, a short body blurb about the event, and a lime monospace date line, all per the typed notes which override the raw wavy-line sketch.",
   "actions": [
     {
       "kind": "add",
@@ -71,7 +70,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Small wavy mark at top right is a nav bar placeholder; per typed note render it as text links 'INDEX', 'SHOWS', 'SHOP'."
+      "instruction": "Small wavy mark at top right is a text placeholder for a nav link row; replace with the words \"INDEX\", \"SHOWS\", \"SHOP\" as three links, styled white per page not"
     },
     {
       "kind": "add",
@@ -94,7 +93,7 @@
         210
       ],
       "paths": [],
-      "instruction": "Large wavy-line mark bleeding off the left page edge: per typed note, render as a giant heavy hollow-outlined white headline reading 'NOISE'."
+      "instruction": "Top wavy line (bleeding off the left page edge, starting about 40px past it) stands for a giant heavy, tightly tracked headline reading \"NOISE\", rendered as hol"
     },
     {
       "kind": "add",
@@ -117,7 +116,7 @@
         209
       ],
       "paths": [],
-      "instruction": "Large wavy-line mark below, also bleeding off the left page edge: per typed note, render as a giant heavy lime-colored headline reading 'FEST', paired with 'NOI"
+      "instruction": "Second wavy line below NOISE (bleeding off the left page edge, starting about 30px past it) stands for a giant heavy, tightly tracked headline reading \"FEST\", c"
     },
     {
       "kind": "add",
@@ -142,7 +141,7 @@
         33
       ],
       "paths": [],
-      "instruction": "Two stacked wavy text-placeholder lines on the right: render as body copy reading 'Three nights of loud guitars in a disused tram depot. Bring earplugs.'"
+      "instruction": "Wavy lines at bottom right stand for a short body paragraph reading \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\", styled white per pa"
     },
     {
       "kind": "add",
@@ -157,7 +156,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small wavy line at bottom left: render as monospace lime-colored text reading '// 14—16 AUG 2027'."
+      "instruction": "Small wavy line at bottom left stands for a monospace date line reading \"// 14—16 AUG 2027\", colored lime."
     }
   ],
   "rejected": [

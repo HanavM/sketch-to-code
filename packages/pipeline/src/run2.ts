@@ -177,8 +177,11 @@ Rules:
   hollow/outlined type → color: transparent with -webkit-text-stroke (2-3px);
   bleeding off the edge → the block extends past the viewport edge (wide type or
     negative margin), with overflow-x hidden on the page wrapper; "off the left
-    edge" runs off the left only (negative left margin), its letters set
+    edge" runs off the left only (negative left margin, or the px given:
+    "starts 40px past it" → left: -40px), its letters set
     together as one word, never spread apart to span the page;
+  tight-set letters → letter-spacing about -0.03em (display type set tight);
+  wide-spaced letters → letter-spacing 0.15-0.3em;
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.

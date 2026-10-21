@@ -63,7 +63,7 @@ function factsInPage() {
         const fs = parseFloat(cs.fontSize) || 16
         return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > fs * 0.5 ? n + 1 : n), 0)
       })(),
-      font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform },
+      font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform, spacing: parseFloat(cs.letterSpacing) || 0 },
       colour: rgba(cs.color),
       bg: rgba(cs.backgroundColor),
       bgImage: cs.backgroundImage,
@@ -127,6 +127,8 @@ function factsInPage() {
       }),
       // which edge it runs off: a word bleeding off the left is not one stretched across both
       bleeds: r.left < -4 && r.right > innerWidth + 4 ? 'left and right' : r.left < -4 ? 'left' : r.right > innerWidth + 4 ? 'right' : r.top < -4 ? 'top' : null,
+      // how far past the edge it starts (drawn marks stop at the screen edge, so the sketch can't show it)
+      bleedPx: Math.round(r.left < -4 ? -r.left : r.right > innerWidth + 4 ? r.right - innerWidth : r.top < -4 ? -r.top : 0),
       // a textless filled block inside (a picture placeholder): makes this a picture card
       pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
       // kids that are themselves label + empty box fields (a row of fields)
@@ -293,7 +295,9 @@ function effectWords(f) {
   if (f.blend) w.push('colour-inverting where it crosses what is under it')
   if (f.blur >= 10) w.push('soft blurred')
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
-  if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}`)
+  // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
+  const past = f.bleeds !== 'left and right' && f.bleedPx >= 16 ? ` (${f.bleeds === 'right' ? 'runs' : 'starts'} ${f.bleedPx}px past it)` : ''
+  if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}${past}`)
   return w
 }
 const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgImage) || /1px,\s*transparent 1px/.test(f.bgImage)
@@ -307,6 +311,10 @@ function typeWords(f, page) {
   if (isMono(f.font.family)) w.push('mono')
   if (f.font.weight >= 800 && f.font.size >= 32) w.push('heavy')
   if (f.font.transform === 'uppercase') w.push('uppercase')
+  // tracking that changes the word's shape: tight display type (-10px at 300px) or spaced-out caps
+  const em = f.font.spacing / f.font.size
+  if (f.font.size >= 32 && em <= -0.02) w.push('tight-set letters')
+  else if (em >= 0.15) w.push('wide-spaced letters')
   if (f.stroke >= 1 && (!f.colour || f.colour.a <= 0.05)) w.push(`hollow outlined ${colourName(f.strokeColour) ?? ''}`.trim())
   return w
 }
