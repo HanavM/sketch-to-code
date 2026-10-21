@@ -1,23 +1,23 @@
 {
   "id": "c1-layered-peaks",
-  "at": "2026-10-21T08:36:17.111Z",
+  "at": "2026-10-21T10:30:54.621Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6699780728195925,
-    "overallV2": 0.6699780728195925,
-    "overallV1": 0.5654031493676058,
-    "colour": 0.8239531252883591,
-    "structure": 0.7156213489972028,
-    "structureStrict": 0.5327483867817513,
-    "colourAligned": 0.8239531252883591,
-    "structureAligned": 0.7156213489972028,
+    "overall": 0.7815639554599039,
+    "overallV2": 0.7815639554599039,
+    "overallV1": 0.6924862010354048,
+    "colour": 0.9087091303737618,
+    "structure": 0.7981309107600078,
+    "structureStrict": 0.6423582620084376,
+    "colourAligned": 0.9087091303737618,
+    "structureAligned": 0.7981309107600078,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8979868977464127
+      "r": 0.9600319819221056
     },
-    "layout": 0.8440900843042859
+    "layout": 0.8651828404189891
   },
   "effects": {
     "recall": 0.6,
@@ -35,37 +35,46 @@
     ]
   },
   "tokens": {
-    "input": 38286,
-    "output": 26276,
-    "cacheRead": 202293
+    "input": 53616,
+    "output": 28908,
+    "cacheRead": 386888
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 51865,
-      "output": 21135,
-      "cacheRead": 192497,
-      "toolCalls": 13,
+      "billed": 71640,
+      "output": 24787,
+      "cacheRead": 386888,
+      "toolCalls": 22,
       "tools": [
-        "Read components/Sun.tsx",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/index.html",
         "Read s2c-bench-app/package.json",
-        "Write components/Sun.tsx",
-        "Write components/SketchShape.tsx",
-        "Write components/SketchShape2.tsx",
-        "Write src/App.tsx"
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
       ],
-      "ms": 236773
+      "ms": 273195
     }
   ],
-  "reading": "A hero section sketch: a top nav bar, a glowing sun circle, a giant 'SUMMIT' heading, two overlapping jagged mountain cut-out shapes (purple behind, red in front of the heading), an intro sentence, and a pill 'Plan a route' button, all set on a warm paper-to-coral-to-red gradient page in Helvetica with white text.",
+  "reading": "This is a hero section sketch: a top nav bar, a glowing circle behind a giant 'SUMMIT' heading, two overlapping jagged mountain-silhouette cut-out shapes in raspberry and purple, a sentence of body copy, and a 'Plan a route' pill button, all over a yellow-orange-pink gradient page in white Helvetica text.",
   "actions": [
     {
       "kind": "add",
@@ -80,7 +89,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top navigation bar reading \"ALTITUDE\" as the logo/wordmark with nav links \"Routes\", \"Huts\", \"Journal\"."
+      "instruction": "Top nav bar with brand label 'ALTITUDE' and nav links 'Routes', 'Huts', 'Journal'."
     },
     {
       "kind": "design",
@@ -95,7 +104,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "A big glowing sun icon: off-white at the center fading to yellow at the edges, placed near the top right of the hero."
+      "instruction": "Big glowing off-white to peach circle behind the heading area, soft radial glow effect."
     },
     {
       "kind": "add",
@@ -118,7 +127,7 @@
         182
       ],
       "paths": [],
-      "instruction": "Giant heading text \"SUMMIT\" set in Helvetica heavy weight, tightly tracked/tight-set letters, white text per page style."
+      "instruction": "Giant heavy, tight-set Helvetica heading text reading 'SUMMIT'."
     },
     {
       "kind": "design",
@@ -133,7 +142,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "A deep purple jagged cut-out mountain-silhouette shape, filling the region behind the heading as a decorative background layer."
+      "instruction": "Deep raspberry jagged cut-out shape (mountain silhouette), placed in front of the 'SUMMIT' heading."
     },
     {
       "kind": "design",
@@ -148,7 +157,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "A red jagged cut-out mountain-silhouette shape, overlapping and sitting in front of the \"SUMMIT\" heading as a decorative foreground layer."
+      "instruction": "Deep purple jagged cut-out shape forming a lower mountain silhouette band across the hero."
     },
     {
       "kind": "add",
@@ -173,7 +182,7 @@
         32
       ],
       "paths": [],
-      "instruction": "Intro paragraph text reading \"Seven alpine routes, hut to hut, with nothing to carry but a camera.\" in white text below the heading."
+      "instruction": "Body copy text: 'Seven alpine routes, hut to hut, with nothing to carry but a camera.'"
     },
     {
       "kind": "add",
@@ -188,7 +197,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A pill-shaped button with an off-white fill and deep purple text labeled \"Plan a route\"."
+      "instruction": "Off-white pill-shaped button with deep purple text reading 'Plan a route'."
     }
   ],
   "rejected": [

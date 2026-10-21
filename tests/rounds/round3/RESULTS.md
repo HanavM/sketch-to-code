@@ -83,3 +83,25 @@ Side by sides: `built/c1-layered-peaks-n37-first-cmp.png`, `built/c1-layered-pea
 - Left: headline gradient lacks the cyan end, button ~25px high, page black not near-black indigo.
 
 Side by sides: `built/c3-gradient-orbit-n38-cmp.png` (contract only), `built/c3-gradient-orbit-n38b-cmp.png` (all fixes).
+
+## n39: notes reach the mark they were typed on (2026-10-21)
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c1 layered peaks | 67% | **78%** | 65k | ridges now in the right order and colour (raspberry behind, purple in front); page yellow to orange like the target |
+| c5 blend editorial | 70% | **81%** | 58k (+ one failed reading, ~17k) | giant two-line italic headline on the left, vertical side label up the page edge; blend over the photo |
+
+- Cause (c1): both ridge notes were typed at their box centres, which both sit inside the near ridge, and focus measured
+  distance to each stroke's bounding box, so each note reached both ridges and the colours swapped.
+- Fixes: focus treats a closed non-box outline as its inside (a point in its box but outside the outline is as far as the
+  edge); typed inside two nested outlines, the innermost wins; a note on one line of a giant (>=60px) multi-line heading
+  reaches all its lines. The bench types non-box notes on the part of the mark no other mark covers (box notes stay
+  centred), and multi-line heading notes on a line, not between lines. Planner names colours between the primaries
+  (deep raspberry, dark pink, soft yellow, light orange, peach, pale lilac; never CSS keywords like crimson).
+  A vertical label is drawn as one vertical squiggle (was specks in a 15px box).
+- Focus diff over all 30 dry wires: only round-2 c3, c5 and round-3 c1, c3, c5 notes change; each change drops a
+  neighbouring mark or adds a heading's own line.
+- Left: c5's first reading hit "maximum number of turns (4)" again; button built as a pill (target an underlined link);
+  c1 nav text white (target brown), sun glow softer.
+
+Side by sides: `built/c1-layered-peaks-n39-cmp.png`, `built/c5-blend-editorial-n39-cmp.png`.
