@@ -178,3 +178,20 @@ Side by side: `built/c2-kinetic-marquee-n43-cmp.png`.
 - Left: headline ~20px lower than the target, planet a little small.
 
 Side by side: `built/c3-gradient-orbit-n44-cmp.png`.
+
+## n40: a short giant word drawn at its real size (2026-10-21)
+
+A two-letter giant word ("01" at 420px) is barely wider than tall, so a zigzag held to "2.5x wider than tall"
+could only be drawn a third of its height and read as 177px. Now a short word is drawn as three big strokes over
+the letters at full height, and a level zigzag with 2-3 big crests, 100px+ tall and 1.1-2.5x wider than tall,
+reads as a short giant word (hatches and scratch-outs pack many tight crests and stay out).
+`node tests/rounds/giantword.mjs` (free) lists every one-line display heading and its read size:
+r3 c4 "01" 177 -> 425px (set 420), r4 c5 "03" 156 -> 365 (360), r1 c5 123 -> 243 (240); across 80 bench pages
+(rounds, sketches, rough) only those three strokes change class.
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 brutal index | 74% (n42) | 82% | 45k | "01" built at 425px (was ~110); effects 100%; rail kept |
+
+Left: rail label tiny, card titles mono not Helvetica, contact card sky blue (target cornflower), stamp text small.
+Side by side: `built/c4-brutal-index-n40-cmp.png`.

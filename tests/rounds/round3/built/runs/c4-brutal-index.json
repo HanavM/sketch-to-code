@@ -1,23 +1,23 @@
 {
   "id": "c4-brutal-index",
-  "at": "2026-10-21T11:42:35.043Z",
+  "at": "2026-10-21T18:05:44.063Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7362079758804108,
-    "overallV2": 0.7362079758804108,
-    "overallV1": 0.6586648181729762,
-    "colour": 0.9248117467456664,
-    "structure": 0.8036287792816313,
-    "structureStrict": 0.6711055347162627,
-    "colourAligned": 0.9248117467456664,
-    "structureAligned": 0.8036287792816313,
+    "overall": 0.8202199807122379,
+    "overallV2": 0.8202199807122379,
+    "overallV1": 0.7410145368356691,
+    "colour": 0.9511696656977355,
+    "structure": 0.8987441133252368,
+    "structureStrict": 0.763379979079299,
+    "colourAligned": 0.9511696656977355,
+    "structureAligned": 0.8987441133252368,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.6811608528983409
+      "r": 0.8542925891167845
     },
-    "layout": 0.8325660234732807
+    "layout": 0.811803869047044
   },
   "effects": {
     "recall": 1,
@@ -29,38 +29,34 @@
       "vertical-type"
     ],
     "missing": [],
-    "extra": [
-      "overlap"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 19649,
-    "output": 10578,
-    "cacheRead": 139314
+    "input": 32105,
+    "output": 13302,
+    "cacheRead": 105761
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 21816,
-      "output": 7444,
-      "cacheRead": 129704,
-      "toolCalls": 9,
+      "billed": 39096,
+      "output": 10438,
+      "cacheRead": 102677,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Read components/StampBadge.tsx",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
-        "Glob",
-        "Read src/index.css",
         "Read src/main.tsx",
-        "Edit src/App.tsx"
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
       ],
-      "ms": 81202
+      "ms": 121665
     }
   ],
-  "reading": "The sketch lays out a page: a giant \"01\" numeral, a vertical index bar with label, three offset-shadow cards (Manifesto/Work/Contact) each with heading and body copy, a tilted stamp-style circle badge reading \"EST. 2019\", and a mono copyright line at the bottom — with a run-wide note setting the whole page to light grey background, monospace type, near-black text.",
+  "reading": "The sketch lays out a brutalist landing page: a giant '01' mark, a vertical near-black index bar, three offset-shadow cards (Manifesto, Work, Contact) each with title and body copy, a tilted 'EST. 2019' badge circle, and a mono copyright footer line — all per the typed notes which specify exact colors and copy.",
   "actions": [
     {
       "kind": "add",
@@ -73,17 +69,17 @@
             "s0"
           ],
           "lines": 1,
-          "fontPx": 177
+          "fontPx": 425
         }
       ],
       "region": [
         48,
-        127,
+        41,
         366,
-        122
+        294
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy, tight-set letters \"01\" as a large display numeral/heading."
+      "instruction": "Add a giant heading reading '01' in a heavy-weight Helvetica, tightly letter-spaced, near-black text, as a large page-number/title mark."
     },
     {
       "kind": "add",
@@ -98,7 +94,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Vertical near-black bar (full-height sidebar) with light grey text reading \"INDEX OF THINGS\" running along it."
+      "instruction": "Add a full-height vertical near-black bar running down the right side of the page, containing light grey vertical text reading 'INDEX OF THINGS'."
     },
     {
       "kind": "add",
@@ -113,7 +109,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Card with white fill, thick near-black border and a hard offset shadow, titled \"Manifesto\", with body text \"Websites should look like they were made by people w"
+      "instruction": "Add a white card with a thick near-black border and a hard offset drop shadow, titled 'Manifesto', with body text 'Websites should look like they were made by p"
     },
     {
       "kind": "add",
@@ -128,7 +124,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Card with yellow fill, thick near-black border and a hard offset shadow, titled \"Work\", with body text \"Forty-two projects, zero templates. Click anything.\""
+      "instruction": "Add a yellow card with a thick near-black border and a hard offset drop shadow, titled 'Work', with body text 'Forty-two projects, zero templates. Click anythin"
     },
     {
       "kind": "add",
@@ -143,7 +139,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Card with sky blue fill, thick near-black border and a hard offset shadow, titled \"Contact\", with body text \"hello@brutal.index\""
+      "instruction": "Add a sky-blue card with a thick near-black border and a hard offset drop shadow, titled 'Contact', with body text 'hello@brutal.index'."
     },
     {
       "kind": "add",
@@ -158,7 +154,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Tilted red outline circular stamp/badge containing the text \"EST. 2019\"."
+      "instruction": "Add a tilted red-outlined circular badge containing the text 'EST. 2019'."
     },
     {
       "kind": "add",
@@ -173,7 +169,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Small monospace footer line reading \"© BRUTAL INDEX — ALL RIGHTS IGNORED\"."
+      "instruction": "Add a monospace footer line reading '© BRUTAL INDEX — ALL RIGHTS IGNORED'."
     }
   ],
   "rejected": [
