@@ -1,33 +1,42 @@
 {
   "id": "e5-analytics",
-  "at": "2026-10-21T05:20:20.155Z",
+  "at": "2026-10-21T05:30:36.702Z",
   "likeness": {
     "version": 2,
-    "overall": 0.3444897701737376,
-    "overallV1": 0.24999799960908675,
-    "colour": 0.9240214684400396,
-    "structure": 0.7328670936750357,
-    "structureStrict": 0.6083583921533215,
-    "layout": 0.711327170773616
+    "overall": 0.6396092419248747,
+    "overallV1": 0.4567499872610292,
+    "colour": 0.9639578807648056,
+    "structure": 0.8645336699704828,
+    "structureStrict": 0.6733549973511349,
+    "layout": 0.7261631442727163
   },
   "effects": null,
   "tokens": {
-    "input": 29018,
-    "output": 8862,
-    "cacheRead": 476794
+    "input": 23657,
+    "output": 10811,
+    "cacheRead": 465468
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 33404,
-      "output": 7279,
-      "cacheRead": 473774,
-      "toolCalls": 11,
-      "ms": 74411
+      "billed": 24882,
+      "output": 7588,
+      "cacheRead": 249618,
+      "toolCalls": 8,
+      "ms": 77576
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 5302,
+      "output": 1832,
+      "cacheRead": 212830,
+      "toolCalls": 3,
+      "ms": 20089
     }
   ],
-  "reading": "The sketch is a dashboard page: a heading, a date-range dropdown, a row of 4 stat cards, a bar chart panel, and a \"Top pages\" list panel, with the whole page styled off-white with dark navy text.",
+  "reading": "The sketch is a dashboard page: a heading, a date-range dropdown, a row of four stat cards, a bar chart, and a \"Top pages\" list, all captured by typed notes with exact copy.",
   "actions": [
     {
       "kind": "add",
@@ -42,7 +51,7 @@
         14
       ],
       "paths": [],
-      "instruction": "Add a page heading reading \"Overview\" where the squiggle was drawn, top-left of the page."
+      "instruction": "Add a page heading reading \"Overview\"."
     },
     {
       "kind": "add",
@@ -57,7 +66,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a dropdown control at the top-right labeled \"Last 30 days\" for selecting a date range."
+      "instruction": "Add a dropdown control labeled \"Last 30 days\" in the top-right corner, matching the pill shape drawn."
     },
     {
       "kind": "add",
@@ -87,7 +96,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a bar chart panel titled \"Signups per week\" with 8 indigo bars at relative heights 45/61/53/69/78/73/91/100% of the tallest, occupying the large left box."
+      "instruction": "Add a bar chart card titled \"Signups per week\" with 8 indigo bars, heights at 45/61/53/69/78/73/91/100% of the tallest bar, filling the large left panel."
     },
     {
       "kind": "add",
@@ -102,7 +111,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a \"Top pages\" list panel in the right box with rows: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, and one more row."
+      "instruction": "Add a \"Top pages\" list card in the right panel with rows: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, plus 1 more row."
     }
   ],
   "rejected": [
