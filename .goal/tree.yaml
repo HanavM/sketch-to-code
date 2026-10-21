@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Hardest everyday pages (table, calendar, analytics) built close to their targets; fixing the missed pager, buttons and empty chart, then re-checking."
-lock: {by: run-0509, until: 2026-10-21T06:39Z}
+now: "Hardest everyday pages re-built: pager, calendar buttons and chart bars now come out right; next, the bold round-1 landing pages."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -38,6 +38,8 @@ notes:
   - "n25 (bdb98fc on try/n3-vocabulary): planner facts labelAbove/lineUnder (unmarked sibling text within 28px); notes 'label \"X\" above, input ...', 'label \"X\" above an empty field', 'heading, line under: \"...\"'; said texts not repeated on wrappers. run2 contract: quoted copy word for word. Plan diff: r1 e1/e4, r2 e1 only."
   - "n24 (8574b79 on try/n3-vocabulary): likeness v2. Structure matches each 8px cell within 2 cells (~16px); old SSIM kept as structureStrict, digests carry overall (v2) and overallV1. Target moved 16px: v1 0-78% lift, v2 99-100%. Round 1 v2: c1 67, c2 37, c3 59, c4 38, c5 15, e1 11, e2 42, e3 15, e4 12, e5 77. node tests/rounds/rescore.mjs <cmp pngs> re-scores saved side-by-sides free. Compare rounds on the same version."
   - "n27 (cdcc2be on try/n3-vocabulary): result.json 'sends' and bench digests log each codegen turn (build/repair, billed, cache reads, tool calls, ms); bench prints them. Read on the first 2026-10-22 live page to see if repair rounds or long tool loops drive the 70-91k pages."
+  - "Token ledger: 2026-10-21 n28 live e1+e3+e5 156k, e5 again 34k = 190k (day total ~620k, no cap set)."
+  - "n28 (cf6f1be on try/n3-vocabulary): packages/pipeline/src/collapsed.ts: after each build, stamped filled boxes (bg colour or gradient) that render 0 high/wide and weren't before fail verify -> repair turn. Snapshot now carries style.backgroundImage. Free check on saved builds: run a copy of the bench app on another port with saved src and takeSnapshot (no false alarms on e1/e3)."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -90,7 +92,9 @@ nodes:
   - {id: n23, parent: n22, kind: step, title: "Needs budget after n20/n12/n11 (~70k, --budget): re-run round-1 c3 from try/n3-vocabulary; headline copy and serif must land on the heading (was 51%)", status: open, result: null}
   - {id: n20, parent: n18, kind: step, title: "Build round-3 e1 table, e3 calendar, e5 analytics live from the new plans; compare with targets and fix the worst gap", status: done,
      result: "Built close (30/21/26%). Fixed: pager unsaid, Today/Next unsaid, event days, empty chart bars. 8b96647."}
-  - {id: n28, parent: n20, kind: step, title: "Live re-run round-3 e1, e3, e5 (~130k, --budget) to prove n20 fixes: pager, Today/Next, events on their days, visible bars; read saved source if bars still empty", status: open, result: null}
+  - {id: n28, parent: n20, kind: step, title: "Live re-run round-3 e1, e3, e5 (~130k, --budget) to prove n20 fixes: pager, Today/Next, events on their days, visible bars; read saved source if bars still empty", status: done,
+     result: "Pager, Today/Next, event days fixed. Bars still empty; new empty-fill check repairs them: e5 26%->64%. 0b70b66."}
+  - {id: n29, parent: n28, kind: step, title: "Free first, then ~80k live: e3 dropped the Retro event and merged two Offsite days into one bar; e1 cost 78k with 23 tool calls. Find why from run records, fix, re-run e3", status: open, result: null}
   - {id: n24, parent: n1, kind: step, title: "Free: check the likeness score against the target itself moved a few pixels; if small offsets read as 'built nothing', fix and re-score round 1 from saved pictures", status: done,
      result: "Target moved 16px kept as little as 0%; now 99-100%. Round 1 re-scored, v1 kept. 8574b79."}
   - {id: n25, parent: n24, kind: step, title: "Free, from round-1 pictures and digests: e4 heading copy changed ('Get in touch' became 'Contact Us'), subtitle and field labels dropped; e1 lost grey page and labels. Find where copy and labels are lost and fix", status: done,
