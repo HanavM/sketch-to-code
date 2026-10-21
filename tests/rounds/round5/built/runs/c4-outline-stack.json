@@ -1,27 +1,28 @@
 {
   "id": "c4-outline-stack",
-  "at": "2026-10-21T23:05:41.301Z",
+  "at": "2026-10-21T23:15:24.474Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5183566406807331,
-    "overallV2": 0.5183566406807331,
-    "overallV1": 0.4337390890137717,
-    "colour": 0.9029432980155803,
-    "structure": 0.6947508626901415,
-    "structureStrict": 0.5401465273399728,
-    "colourAligned": 0.9029432980155803,
-    "structureAligned": 0.6947508626901415,
+    "overall": 0.6481107357188497,
+    "overallV2": 0.6481107357188497,
+    "overallV1": 0.4918681480334192,
+    "colour": 0.9271679558619166,
+    "structure": 0.8000853153709858,
+    "structureStrict": 0.6203714141630736,
+    "colourAligned": 0.9271679558619166,
+    "structureAligned": 0.8000853153709858,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8529320579097075
+      "r": 0.9044236345159112
     },
-    "layout": 0.7794021387594777
+    "layout": 0.781793600096825
   },
   "effects": {
-    "recall": 0.5555555555555556,
+    "recall": 0.6666666666666666,
     "kept": [
+      "bleed",
       "blend",
       "hollow-type",
       "huge-type",
@@ -29,7 +30,6 @@
       "tilt"
     ],
     "missing": [
-      "bleed",
       "gradient",
       "hard-shadow",
       "stripes-or-layers"
@@ -37,37 +37,52 @@
     "extra": []
   },
   "tokens": {
-    "input": 55965,
-    "output": 30244,
-    "cacheRead": 242645
+    "input": 39320,
+    "output": 23440,
+    "cacheRead": 271689
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 62893,
-      "output": 21484,
-      "cacheRead": 208490,
+      "billed": 49001,
+      "output": 18609,
+      "cacheRead": 259836,
       "toolCalls": 12,
       "tools": [
         "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
-        "Read src/App.tsx",
-        "Glob",
-        "Read src/index.css",
         "Read src/main.tsx",
-        "Glob",
         "Edit components/SketchShape.tsx",
         "Edit components/SketchShape2.tsx",
+        "Edit src/index.css",
         "Write src/App.tsx",
-        "Read s2c-bench-app/package.json"
+        "Grep",
+        "Glob"
       ],
-      "ms": 242192
+      "ms": 192142
     }
   ],
-  "reading": "The sketch is a hero banner: two stacked giant \"SUMMER\" headings bleeding off the page edges, two tilted overlapping color/gradient blocks layered in front of the headings (one peach/brown gradient with a hard offset shadow, one ink-like multiply-blend grey-to-blue gradient), three tilted pill badges reading \"New season\", \"Linen only\" and \"Ships in 24h\", a small \"ORRA\" wordmark top-left, a body paragraph of placeholder text, and a bold underlined \"Shop summer →\" link below. A run-level note sets the overall page style: off-white background, Helvetica type, dark brown text, fine grain texture overlay.",
+  "reading": "A hero banner with two giant stacked outlined \"SUMMER\" headlines bleeding off both page edges, two tilted decorative gradient blocks layered over them (one peach/brown with a hard shadow, one ink-like grey-to-blue multiply block), three tilted pill badges (\"New season\", \"Linen only\", \"Ships in 24h\"), a small \"ORRA\" wordmark/logo top-left, a body paragraph of marketing copy, and a bold underlined \"Shop summer →\" link.",
   "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        59,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small logo/wordmark text reading \"ORRA\" at the top-left of the page."
+    },
     {
       "kind": "add",
       "textMarks": [
@@ -89,7 +104,7 @@
         231
       ],
       "paths": [],
-      "instruction": "Giant Helvetica Heavy, tight letter-spacing, hollow-outlined peach heading reading 'SUMMER', bleeding off both the left and right page edges. This is the first "
+      "instruction": "First of two stacked lines of giant Helvetica Heavy, tight letter-spacing, hollow (outline-only) peach \"SUMMER\" text, bleeding off both the left and right edges"
     },
     {
       "kind": "add",
@@ -112,7 +127,7 @@
         232
       ],
       "paths": [],
-      "instruction": "Giant Helvetica Heavy, tight letter-spacing, hollow-outlined peach heading reading 'SUMMER', bleeding off both the left and right page edges. This is the second"
+      "instruction": "Second of two stacked lines, identical style: giant Helvetica Heavy, tight letter-spacing, hollow (outline-only) peach \"SUMMER\" text, bleeding off both the left"
     },
     {
       "kind": "design",
@@ -129,7 +144,7 @@
         "s3",
         "s4"
       ],
-      "instruction": "Tilted light-orange-to-brown gradient rectangle block, with a hard dark-brown drop shadow offset 24px down-and-right (no blur), placed in front of the 'SUMMER' "
+      "instruction": "Tilted rectangular block with a light orange-to-brown gradient fill and a hard dark-brown drop shadow offset 24px down-and-right (no blur), layered in front of "
     },
     {
       "kind": "design",
@@ -146,37 +161,59 @@
         "s6",
         "s7"
       ],
-      "instruction": "Tilted ink-like rectangle block with a dark-grey-to-sky-blue gradient, multiply blend mode so it darkens the heading and other elements beneath it without fully"
+      "instruction": "Second tilted rectangular block with an ink-like dark-grey-to-sky-blue gradient fill using multiply blend mode (darkens what it overlaps rather than covering it"
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        }
+      ],
       "region": [
-        431,
-        113,
-        139,
-        58
+        6,
+        85,
+        1217,
+        580
       ],
       "paths": [
+        "s3",
+        "s4",
         "s8"
       ],
-      "instruction": "Tilted pill-shaped badge with a 2px dark-brown border, bold label text 'New season', sitting across the heading and gradient blocks."
+      "instruction": "Tilted pill-shaped badge with a 2px dark-brown border and bold label text \"New season\", positioned over the heading/gradient-block area."
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 336
+        }
+      ],
       "region": [
-        1011,
-        292,
-        126,
-        61
+        6,
+        85,
+        1217,
+        268
       ],
       "paths": [
         "s9"
       ],
-      "instruction": "Tilted pill-shaped badge, solid dark-brown fill with a 2px dark-brown border, bold off-white label text 'Linen only'."
+      "instruction": "Tilted pill-shaped badge with dark-brown fill, 2px dark-brown border, and bold off-white label text \"Linen only\"."
     },
     {
       "kind": "add",
@@ -191,22 +228,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Tilted pill-shaped badge, vivid yellow fill with a 2px dark-brown border, bold label text 'Ships in 24h'."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s11"
-      ],
-      "textSize": [],
-      "region": [
-        64,
-        47,
-        59,
-        8
-      ],
-      "paths": [],
-      "instruction": "Small wordmark text 'ORRA' in the top-left corner of the page."
+      "instruction": "Tilted pill-shaped badge with vivid yellow fill, 2px dark-brown border, and bold label text \"Ships in 24h\"."
     },
     {
       "kind": "add",
@@ -231,7 +253,7 @@
         34
       ],
       "paths": [],
-      "instruction": "Body paragraph text: 'Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.'"
+      "instruction": "Body paragraph text: \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
     },
     {
       "kind": "add",
@@ -246,10 +268,8 @@
         8
       ],
       "paths": [],
-      "instruction": "Bold text link 'Shop summer →' with a 3px underline beneath it; it is a plain link, not a button/box."
+      "instruction": "Bold link text \"Shop summer →\" with a 3px underline beneath it; it is a plain text link, not a button/box."
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

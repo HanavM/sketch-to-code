@@ -121,3 +121,22 @@ Fixes:
   (a lone diagonal stays). Codegen contract: the X only marks a picture, never build its lines; a note's look fills the box.
 
 Side-by-sides: built/<id>-cmp.png (first build), built/<id>-n65-cmp.png (after the fixes).
+
+## n66: repeated heading, underlined link, display title, one-hue gradient, lost strokes (2026-10-21, ~186k tokens)
+
+Planner fixes (free): two headings with the same word say "the first/second of 2 separate stacked lines of the same word";
+an `<a>` with only a bottom rule is "bold link ... with a 3px underline (no box, not a button)"; a titled card with a
+display title says "huge 76px bold title, starting 40% down"; a gradient between two shades of one hue (indigo to deeper
+indigo) is said ("indigo to darker indigo gradient block", was nothing). Rounds 1-4: 4 notes gain words (two mastheads,
+one underlined link, one 3D plane title), no mark kinds change.
+
+Pipeline fix: verification now fails when a scaffold's drawn stroke is no longer drawn in place. The first c4 re-run
+(52%) built the main photo as a solid dark brown block: codegen made the hard shadow as a translate(24,24) copy of the
+photo outline and dropped the outline itself, and every check passed. The repair message says to put the path back.
+
+| page | before (n65) | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 outline stack | 58% | 52%, then **65%** | 86k + ~50k | both "SUMMER" lines built, "Shop summer" an underlined link; photo gradient back (second run). Photo still paler than target (peach, target vivid orange) |
+| c5 bento | 57% | **78%** | ~50k | "Prism 2" big over its subline, CTA indigo gradient, ring and tiles placed; near-identical by eye |
+
+Side-by-sides: built/c4-outline-stack-n66-cmp.png (52%), built/c4-outline-stack-n66b-cmp.png, built/c5-bento-n66-cmp.png.
