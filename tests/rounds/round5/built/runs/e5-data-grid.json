@@ -1,0 +1,111 @@
+{
+  "id": "e5-data-grid",
+  "at": "2026-10-21T19:59:42.772Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.611595020287496,
+    "overallV2": 0.6097147611164753,
+    "overallV1": 0.4056273394824375,
+    "colour": 0.9898086754506112,
+    "structure": 0.9025827542411932,
+    "structureStrict": 0.7471632797434872,
+    "colourAligned": 0.9899108105466217,
+    "structureAligned": 0.9025827542411932,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 16,
+      "r": 0.5981449377009134
+    },
+    "layout": 0.8108161339938834
+  },
+  "effects": null,
+  "tokens": {
+    "input": 20606,
+    "output": 10460,
+    "cacheRead": 119131
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 24115,
+      "output": 8050,
+      "cacheRead": 109920,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 77131
+    }
+  ],
+  "reading": "The sketch lays out a full spreadsheet page: a top menu bar, a formula bar with cell reference and formula, a large data grid with column/row headers and sample rows, and a bottom sheet-tab bar.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        46
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top menu/navigation bar spanning the page width with links: Budget 2027, File, Edit, View, Insert, Data."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        55,
+        1272,
+        28
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Formula bar spanning the page width, a thin line below the menu bar: a small cell name box showing \"D4\" on the left with a divider, followed by a grey formula f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        89,
+        1274,
+        764
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Spreadsheet data grid filling the main area, with thin grey cell lines: a pale grey header row of column letters A–H and row numbers 1–24 down a narrow left col"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        859,
+        1273,
+        38
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Bottom sheet-tab bar spanning the page width with tabs: Q1, Q2, Q3, Q4, Summary; the \"Q1\" tab shown selected (bold, white fill)."
+    }
+  ],
+  "rejected": []
+}

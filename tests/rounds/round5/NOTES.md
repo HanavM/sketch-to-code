@@ -39,3 +39,20 @@ Untuned planner misses (to fix next, rounds 1-4 plans must not change):
   the selected tab is said.
 - Rounds 1-4: only two notes change, both additions (round 2 e3 and round 4 e5 say their selected tab).
 - Still open: c1-c5 creative misses above, e1 backdrop dim.
+
+## n60: first live builds of the everyday pages (2026-10-21, ~150k tokens)
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| e2 heatmap analytics | 71% | ~47k | near-identical; "Peak hour" card content centred down instead of top; title/filters regions just missed |
+| e3 team chat | 77% then **83%** | ~40k, 33k | first build drew the workspace rail as a crossed-out X and invented channels ("3 more"); fixed below |
+| e4 notification settings | 46% | 31k | near-identical by eye (toggles, danger card, toast all right); rows a little taller, white not off-white page; score low for how close it looks |
+| e5 spreadsheet | 61% | 31k | grid, formula bar, selected D4, sheet tabs all right; green "Budget 2027" title and green Q1 tab built black, header row tint lost, a red "Over" invented |
+
+Side-by-sides: built/<id>-cmp.png (e3 after the fix: built/e3-team-chat-fix-cmp.png).
+
+Fixes (planner, rounds 1-4 plans only gain list items):
+- A filled block holding only small textless tiles (icons) is said as a block with its tiles ("dark plum block (no picture),
+  3 small rounded squares (40px) stacked down from its top 14px apart: first white, the rest faint white"), not a picture.
+- Lists of up to 8 short items are said in full (was 4 + "N more", which codegen filled with invented items).
+- Colours "dark plum" (#3f0e40, was "deep purple", built indigo) and "dark brown" (#431407, was "near-black").

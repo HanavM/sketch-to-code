@@ -1,0 +1,148 @@
+{
+  "id": "e2-heatmap-analytics",
+  "at": "2026-10-21T19:42:02.494Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7130090849449341,
+    "overallV2": 0.7130090849449341,
+    "overallV1": 0.5486259169571723,
+    "colour": 0.9748850924497805,
+    "structure": 0.8332882092866404,
+    "structureStrict": 0.616532629387677,
+    "colourAligned": 0.9748850924497805,
+    "structureAligned": 0.8332882092866404,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9781352055268044
+    },
+    "layout": 0.6124667647488217
+  },
+  "effects": null,
+  "tokens": {
+    "input": 29279,
+    "output": 10816,
+    "cacheRead": 104885
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 34878,
+      "output": 9141,
+      "cacheRead": 101801,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 95018
+    }
+  ],
+  "reading": "The sketch lays out a dashboard page: a dark navy sidebar nav on the left, a page heading and filter buttons at top, a large heatmap card and a peak-hour stat card side by side, and a data table below. Typed notes supply the exact labels, nav items, button states, heatmap data and table contents.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark navy vertical sidebar with light grey text; app name \"Pulse\" at top, then a nav list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", and one more item; \"Usage\" "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        260,
+        34,
+        163,
+        19
+      ],
+      "paths": [],
+      "instruction": "Page heading text reading \"Usage by hour\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        83,
+        342,
+        27
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of filter/action buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\"; \"Last 7 days\" is the selected button with a dark navy fill."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        143,
+        634,
+        374
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Card titled \"Active sessions (weekday × 2-hour block)\" containing a heatmap with 7 rows (Mon-Sun) of 12 rounded 40px cells each, a day label to the left of each"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        919,
+        143,
+        329,
+        373
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Small stat card with label \"Peak hour\", value \"Tue 10:00\", and a secondary line \"▲ 18% vs last week\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        547,
+        994,
+        219
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Data table with a bold grey header row with columns \"Feature\", \"Sessions\", \"Users\", \"Change\", and 4 data rows: \"Sketch overlay\" | 12,480 | 3,102 | +12%; \"Auto b"
+    }
+  ],
+  "rejected": []
+}

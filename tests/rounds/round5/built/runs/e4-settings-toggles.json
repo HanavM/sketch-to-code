@@ -1,0 +1,143 @@
+{
+  "id": "e4-settings-toggles",
+  "at": "2026-10-21T19:52:29.006Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.45914705922153576,
+    "overallV2": 0.45914705922153576,
+    "overallV1": 0.3194867239308617,
+    "colour": 0.9812929954044621,
+    "structure": 0.88885520348741,
+    "structureStrict": 0.8042176942646447,
+    "colourAligned": 0.9812929954044621,
+    "structureAligned": 0.88885520348741,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8929599431952308
+    },
+    "layout": 0.5175102082273767
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 19907,
+    "output": 10981,
+    "cacheRead": 127986
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 26595,
+      "output": 9778,
+      "cacheRead": 124902,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 101766
+    }
+  ],
+  "reading": "The sketch lays out a Settings page: a page heading, a sub-nav of links with Notifications selected, a large card of five toggleable notification preference rows, a pink-bordered warning card with a Mute all button, and a small confirmation toast bar.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 36
+        }
+      ],
+      "region": [
+        208,
+        55,
+        106,
+        21
+      ],
+      "paths": [],
+      "instruction": "Add a bold page heading that reads \"Settings\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        204,
+        116,
+        872,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a horizontal settings sub-navigation row with links: Profile, Billing, Notifications, Security, API keys. \"Notifications\" is the selected tab — render it bo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        203,
+        171,
+        874,
+        375
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a white card below the nav containing 5 stacked settings rows, separated by thin divider lines. Each row has a bold setting name, a small grey description l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        204,
+        643,
+        873,
+        71
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a white card with a pale pink border below the settings card. Inside: bold red heading \"Mute everything\" with small grey text \"Pause all notifications for 2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        923,
+        814,
+        313,
+        42
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a small near-black status bar/toast with white text reading \"✓ Saved. Changes apply right away.\""
+    }
+  ],
+  "rejected": []
+}
