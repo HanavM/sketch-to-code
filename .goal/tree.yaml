@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The poster page's giant words now come out as big as drawn (44% to 63%); next, tight letter spacing and words running off the left edge."
-lock: {by: run-2026-10-21T0711, until: "2026-10-21T08:41:00Z"}
+now: "The poster page's giant words now run off the left edge and sit tight like the original; next, matching the typeface and checking the hardest giant numbers."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -54,6 +54,8 @@ notes:
   - "Token ledger: 2026-10-21 n32 live c2 90k, c2+c3 97k, c3 58k = 245k (day total ~1175k, no cap set)."
   - "n34 (9d403dc on try/n3-vocabulary): auto plans carry [role,'heading',{fontPx,lines}]; one-line heading >=40px is drawn as ONE zigzag 0.7 x fontPx tall (flatter for narrow words: height <= width/3); textmark.ts accepts a 'display line' taller than 40px if wide (>=2.5x), level, crest gap >=0.5x height, sinuosity <=2.5 (bench hatch stays out), measured along the ink's principal axis. Narrow giant numbers (r1 c5 240px, r3 c4 420px) read only ~120-180px."
   - "Token ledger: 2026-10-21 n34 live c2 36k (day total ~1210k, no cap set)."
+  - "n35 (7dacb25 on try/n3-vocabulary): planner says 'tight-set letters' (<=-0.02em, >=32px) / 'wide-spaced letters' (>=0.15em) and '(starts Npx past it)' / '(runs Npx past it)' on one-edge bleeds; contract maps them to letter-spacing and left:-N. Plan diff r1 4 lines, r2 4, r3 6."
+  - "Token ledger: 2026-10-21 n35 live c2 27k (day total ~1240k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -88,7 +90,9 @@ nodes:
      result: "Glass 46% to 79%, near-identical; poster 38% to 44%, all parts placed. Headline still half size. 2cb1d34."}
   - {id: n34, parent: n32, kind: step, title: "Free first, then ~45k live: round-2 c2 headline drawn ~210px tall built ~120px (clamp(72px,13vw,160px)); NOISE and FEST share one textSize. Trace from ink to codegen, fix, re-run c2", status: done,
      result: "Giant word now drawn as one tall zigzag, sized from height: built at 300px; poster 44% to 63%. 9d403dc."}
-  - {id: n35, parent: n34, kind: step, title: "Free first, ~40k live: c2 poster letters spread wide (target -10px tight) and words start at x=0 instead of bleeding off the left; planner says tight letters, fix, re-run c2; then dry-check round-3 c1/c4 giant headings (narrow numbers drawn flatter read ~120-180px, not 240-420)", status: open, result: null}
+  - {id: n35, parent: n34, kind: step, title: "Free first, ~40k live: c2 poster letters spread wide (target -10px tight) and words start at x=0 instead of bleeding off the left; planner says tight letters, fix, re-run c2; then dry-check round-3 c1/c4 giant headings (narrow numbers drawn flatter read ~120-180px, not 240-420)", status: done,
+     result: "Planner says tight letters and bleed distance; c2 now bleeds left, set tight. 58% (noise). 7dacb25."}
+  - {id: n36, parent: n35, kind: step, title: "Free first, ~40k live: c2 built in the app's default sans (wider than Helvetica) and ~25px low; planner names the font family (Helvetica/Arial, Courier) when it differs from the default; then dry-check round-3 c1/c4 narrow giant numbers (read ~120-180px, not 240-420)", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
