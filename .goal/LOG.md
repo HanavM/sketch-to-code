@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T18:05:00Z | Round 4: last pages built, checkout and files fixed | Sticky story 57%; file manager 25% to 59%, checkout 37% to 48% after steppers, tiles, toolbars said. 191k.
 2026-10-21T17:25:00Z | Round 4: four more pages built | Swiss poster 65%, mail 56%, checkout 37%; split poster 34% to 43% after note-placement fix. 281k.
 2026-10-21T16:25:00Z | Round 4: timeline rows sized | Sketch notes now say row spacing and dot colours; timeline page 18% to 47%. 61k.
 2026-10-21T15:05:00Z | Round 4: first four pages built | Depth planes 85%, collage 65%, CRM 64%, timeline 18% (rows too tall). Fixed a false repair. 309k.

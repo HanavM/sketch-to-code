@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Four more harder pages built (mail 56%, Swiss poster 65%); the split poster now keeps its black half after a note-placement fix. Next: the last two round-4 pages and the checkout's gaps."
-lock: {by: run-session_01XAV5JN, until: "2026-10-21T18:40:00Z"}
+now: "All ten round-4 pages are built now; checkout and file manager came out close after the sketch notes learned steppers, radio choices, tile grids and toolbars. Next: the sticky-story page's missing pieces and paler-than-target colours."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -84,6 +84,8 @@ notes:
   - "n52 (4612b23 on try/n3-vocabulary): gantt note says 'rows Npx apart, bars Npx tall, rows end N% down, empty below'; a list with a round coloured dot leading each item says '<colour> dot \"item\"' for all items. Rounds 1-3 plans unchanged."
   - "n53 (cd7c2ad on try/n3-vocabulary): noteFocus: a note typed inside a closed drawn box drops other boxes that cross it (neither holds the other), smallest box wins. Rounds 3-4 dry wires: 4 of 133 notes change (c2 arch, r4 c1 yellow block, r4 c4 front plane, r3 c5 page note). Round-4 first builds: c2 43%, c3 65%, e2 56%, e3 37% (round4/NOTES.md)."
   - "Token ledger: 2026-10-21 n53 live c2+c3 137k, e2+e3 54k, c2 x2 90k = ~281k (day total ~3530k, no cap set)."
+  - "n54 (4339358 on try/n3-vocabulary): planner facts stepper, radios, leafButtons (toolbar), progress, list thumbs/smalls/stacked, tiles (grid of picture-top cards); breadcrumb needs 2+ separators; pale grey page said when 6-12 from white. Plan diffs: r4 e3/e4, r2 e1 (page note) only."
+  - "Token ledger: 2026-10-21 n54 live c5+e4 114k, e3 38k, e4 39k = ~191k (day total ~3720k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -152,7 +154,9 @@ nodes:
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
      result: "c3 65%, e2 56%, e3 37%. c2 arch note grabbed the dark half; fixed: 34% to 43%, black half back. cd7c2ad."}
-  - {id: n54, parent: n53, kind: step, title: "~100k live (--budget): first builds of round-4 c5 sticky story and e4 file manager; then e3 checkout gaps (stepper as plain text, item thumbnails dropped, pale grey page lost, form wrapped in a card)", status: active, result: null}
+  - {id: n54, parent: n53, kind: step, title: "~100k live (--budget): first builds of round-4 c5 sticky story and e4 file manager; then e3 checkout gaps (stepper as plain text, item thumbnails dropped, pale grey page lost, form wrapped in a card)", status: done,
+     result: "c5 57%, e4 25% to 59%, e3 37% to 48%: notes now say steppers, radios, tiles, toolbars. 4339358."}
+  - {id: n55, parent: n54, kind: step, title: "Free first, ~60k live: colours built paler/wrong (#0ea5e9 named teal, #fecaca pale lilac); c5 sticky story dropped top progress bar, step dots and the tilted last card, invented a site title. Fix names and c5 notes, re-run c5 and e4", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
