@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Sketch notes for round 5 now describe chat, spreadsheets, heatmaps and toggle settings; next I build those four pages for real and fix the worst gap."
-lock: {by: run-2026-10-21T1938-n60, until: 2026-10-21T21:10:00Z}
+now: "Round 5's everyday pages are built (chat, spreadsheet, heatmap, settings, 46-83% alike); next I fix the spreadsheet's lost colours and why near-identical settings scores only 46%."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -94,6 +94,8 @@ notes:
   - "n59 (0ea0776 on try/n3-vocabulary): dense() types messages (avatar+bold name+time per row, 2+ rows, pane said even with marked composer), sheet (letters/row numbers grid, used rows, selected cell), heat (one-hue cells, 0-9 strength per row), div-row table (all rows <=8); facts sideButton (copy left + filled button right card), kidOn (selected tab/filter); list switches (toggle on/off per row); formula bar note. Round-5 e2/e5 dry draws ok."
   - "n58 (dddab29 on try/n3-vocabulary): round 5 in tests/rounds/round5 (--set round5auto; NOTES.md lists untuned misses). run.mjs imports every round's auto.mjs at load, so a round needs autoplan.json before any bench run. Dry draw all 10 ~9 min, 0 failed, blank 0-6%."
   - "n56 (23cc861 on try/n3-vocabulary): box-branch fills with channel spread >=150 say 'vivid <colour>' (r3 c4 cards, r4 c5 step-3, r4 e5 today tag changed). autoplan.mjs prints the plan readout to stdout; autoplan.txt is not rewritten by it."
+  - "Token ledger: 2026-10-21 n60 live r5 e2+e3 87k, e4 31k, e5 31k, e3 again 33k = ~182k (day total ~4270k, no cap set)."
+  - "n60 (7889d6d on try/n3-vocabulary): planner fact iconKids: a filled textless block of 2-8 small textless tiles is a box 'X block (no picture), N small rounded squares ...' (was a picture: built as an X). Lists of <=8 short items said in full (was 4 + 'N more', built invented items). Colours dark plum, dark brown. Round-5 everyday results in round5/NOTES.md."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -175,7 +177,9 @@ nodes:
      result: "10 harder pages made, all drawn dry. Untuned plan drops chat pane, garbles spreadsheet, misses heatmap, toggles. dddab29."}
   - {id: n59, parent: n58, kind: step, title: "Free: planner misses on round 5: e3 messages pane dropped (bordered wrapper with a marked kid but its own copy), e5 grid dump (headers as buttons, selected cell, formula bar), e2 heatmap cells, e4 toggle states + danger button, c5 conic ring; rounds 1-4 plans unchanged", status: done,
      result: "Notes now say chat messages, spreadsheet, formula bar, heatmap, toggles, danger card. Rounds 1-4 only gain tabs. 0ea0776."}
-  - {id: n60, parent: n59, kind: step, title: "~150k live (--budget): first builds of round-5 everyday e2 heatmap, e3 team chat, e4 settings, e5 spreadsheet from the n59 plans; fix the worst gap", status: open, result: null}
+  - {id: n60, parent: n59, kind: step, title: "~150k live (--budget): first builds of round-5 everyday e2 heatmap, e3 team chat, e4 settings, e5 spreadsheet from the n59 plans; fix the worst gap", status: done,
+     result: "Heatmap 71%, chat 77% to 83% (rail no longer an X), settings 46%, spreadsheet 61%. 7889d6d."}
+  - {id: n62, parent: n60, kind: step, title: "Free first, ~60k live: round-5 e5 green title and green selected sheet tab built black, header tint lost; e4 settings looks near-identical yet scores 46% (check scorer: off-white page, row pitch); e2 Peak-hour card centred. Fix, re-run e5", status: open, result: null}
   - {id: n61, parent: n59, kind: step, title: "Free: round-5 creative planner misses: c5 conic ring said as a block, quote/code copy; c2 thin weight, wide spacing, circular badge, marquee copy; c3 frosted header, card fades; c4 hard shadow, grain; c1 mask fade, scrub fill; e1 backdrop dim", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
