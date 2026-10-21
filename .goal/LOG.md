@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T21:07:06Z | Round 5 bar heights and stat card | Bars said with height: spreadsheet 59% to 87%; heatmap peak card right, score flat 69%. 79k.
 2026-10-21T20:27:00Z | Round 5 settings and spreadsheet fixes | Lead items, tab and bar colours, off-white page said: settings 46% to 65%, spreadsheet colours right. 79k.
 2026-10-21T20:12:00Z | Round 5 everyday pages built | Heatmap 71%, chat 77% to 83% after rail fix, settings 46%, spreadsheet 61%. 182k.
 2026-10-21T19:55:00Z | Round 5: notes for chat, spreadsheet, heatmap, settings | Sketch notes now describe messages, spreadsheet cells, heatmap shades, toggles, danger card. 0 tokens.

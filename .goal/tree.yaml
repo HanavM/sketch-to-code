@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Settings page now 65% alike (was 46%) and the spreadsheet's green title and tab are right; next I make drawn bar heights stick so the spreadsheet grid sits where drawn."
-lock: {by: run-n63, until: "2026-10-21T22:23Z"}
+now: "Spreadsheet page now 87% alike (was 59%) with its bars at the right height; next I tune the five harder creative pages of round 5 before their first builds."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -37,6 +37,8 @@ notes:
   - "n19 (14fb923 on try/n3-vocabulary): wire notes checked verbatim via --dry --plain (tests/bench/out/plain/*.wire.json). Cut-short quotes now end \"...\"… (ellipsis outside); codegen contract has a dense-list rule (exact items, real counts, 'N more'); reading prompt: a listing note is one block."
   - "n25 (bdb98fc on try/n3-vocabulary): planner facts labelAbove/lineUnder (unmarked sibling text within 28px); notes 'label \"X\" above, input ...', 'label \"X\" above an empty field', 'heading, line under: \"...\"'; said texts not repeated on wrappers. run2 contract: quoted copy word for word. Plan diff: r1 e1/e4, r2 e1 only."
   - "n24 (8574b79 on try/n3-vocabulary): likeness v2. Structure matches each 8px cell within 2 cells (~16px); old SSIM kept as structureStrict, digests carry overall (v2) and overallV1. Target moved 16px: v1 0-78% lift, v2 99-100%. Round 1 v2: c1 67, c2 37, c3 59, c4 38, c5 15, e1 11, e2 42, e3 15, e4 12, e5 77. node tests/rounds/rescore.mjs <cmp pngs> re-scores saved side-by-sides free. Compare rounds on the same version."
+  - "n63 (939d4cd on try/n3-vocabulary): full-width link bars and the formula bar say their height; short info cards say a big line size, a coloured line, and 'all at the top of the card, empty below'. Plan diffs: r1 contact card only, r5 several."
+  - "Token ledger: 2026-10-21 n63 live e5+e2 79k (day total ~4050k, no cap set)."
   - "n27 (cdcc2be on try/n3-vocabulary): result.json 'sends' and bench digests log each codegen turn (build/repair, billed, cache reads, tool calls, ms); bench prints them. Read on the first 2026-10-22 live page to see if repair rounds or long tool loops drive the 70-91k pages."
   - "Token ledger: 2026-10-21 n28 live e1+e3+e5 156k, e5 again 34k = 190k (day total ~620k, no cap set)."
   - "n28 (cf6f1be on try/n3-vocabulary): packages/pipeline/src/collapsed.ts: after each build, stamped filled boxes (bg colour or gradient) that render 0 high/wide and weren't before fail verify -> repair turn. Snapshot now carries style.backgroundImage. Free check on saved builds: run a copy of the bench app on another port with saved src and takeSnapshot (no false alarms on e1/e3)."
@@ -183,7 +185,8 @@ nodes:
      result: "Heatmap 71%, chat 77% to 83% (rail no longer an X), settings 46%, spreadsheet 61%. 7889d6d."}
   - {id: n62, parent: n60, kind: step, title: "Free first, ~60k live: round-5 e5 green title and green selected sheet tab built black, header tint lost; e4 settings looks near-identical yet scores 46% (check scorer: off-white page, row pitch); e2 Peak-hour card centred. Fix, re-run e5", status: done,
      result: "Lead item, tab colour, bar colour, off-white page now said: settings 46% to 65%; spreadsheet colours right, 59%. 631b674."}
-  - {id: n63, parent: n62, kind: step, title: "Free first, ~40k live: round-5 e5 menu (52px) and formula (34px) bars built about half height, so grid and sheet tabs sit high; planner says a full-width bar's height, check it carries to codegen, re-run e5; then e2 Peak-hour card centred", status: open, result: null}
+  - {id: n63, parent: n62, kind: step, title: "Free first, ~40k live: round-5 e5 menu (52px) and formula (34px) bars built about half height, so grid and sheet tabs sit high; planner says a full-width bar's height, check it carries to codegen, re-run e5; then e2 Peak-hour card centred", status: done, result: "Bar heights and stat-card looks said: spreadsheet 59% to 87%; heatmap peak card right, score flat 69%."}
+  - {id: n64, parent: n63, kind: step, title: "Low priority, ~45k live: round-5 e2 content column built ~10px low/right (title, filters regions missed), table deltas coloured green/red though target plain; fix, re-run e2", status: open, result: null}
   - {id: n61, parent: n59, kind: step, title: "Free: round-5 creative planner misses: c5 conic ring said as a block, quote/code copy; c2 thin weight, wide spacing, circular badge, marquee copy; c3 frosted header, card fades; c4 hard shadow, grain; c1 mask fade, scrub fill; e1 backdrop dim", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
