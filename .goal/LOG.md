@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T12:25:00Z | Marquee: band, intro and reel right | Two-line intro was drawn as one giant squiggle; reel drawn as picture. Fixed: 40% to 84%. 79k.
 2026-10-21T11:45:00Z | Brutal index: side rail and card copy | Black side rail and exact card copy back: 65% to 74%. Cut-off readings now recovered. 200k.
 2026-10-21T11:35:00Z | Failed readings fixed; last two hardest pages built | Readings lost on an empty field now pass, 6 of 6; marquee 56%, brutal index 65%. 200k.
 2026-10-21T10:40:00Z | Notes reach the mark they were typed on | Mountain ridges now right colour and order: 67% to 78%; editorial headline and side label right: 70% to 81%. 141k.

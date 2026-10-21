@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The brutal index page now keeps its black side rail and exact card copy (65% to 74%); next, the marquee page's misplaced band and tiny intro."
-lock: {by: run-2026-10-21T1154, until: 2026-10-21T13:25:00Z}
+now: "The marquee page now matches closely (40% to 84%); next, the orbit page, now the weakest of the hardest five."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -68,6 +68,8 @@ notes:
   - "Token ledger: 2026-10-21 n41 readings c5 x7 ~104k, live c2+c4 96k = ~200k (day total ~2100k, no cap set)."
   - "n42 (69e4cb0 on try/n3-vocabulary): titled cards say '\"Title\", text \"line\"'; a filled block with light text says '<colour> bar|block, <light> text'; band headings say their letter colour; colour red-orange (hue 9-22). Provider rebuilds StructuredOutput attempts from streamed input (CLI cuts bad raw to 2048 chars) and keeps a salvaged answer when the SDK throws after an error result."
   - "Token ledger: 2026-10-21 n42 live c2 127k, c4 31k + 30k, two failed c4 readings (~10k) = ~200k (day total ~2300k, no cap set)."
+  - "n43 (a99f497 on try/n3-vocabulary): bench draws a heading of 2+ lines as that many squiggles at any height (wobble 0.35 x font, 4-12; was one squiggle under 140px, read as a giant one-liner). Planner: a picture (image) block with another marked region inside its box (not a DOM kid) becomes a plain box (round-3 c2 reel, c5 dark half). Round-2 c4 lead-title/pull-quote now drawn as 2 lines too (not re-run)."
+  - "Token ledger: 2026-10-21 n43 live c2 79k (day total ~2380k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -116,7 +118,9 @@ nodes:
      result: "Readings died on a missing empty field; fixed, 6/6 ok. Marquee 56%, brutal index 65% first builds. e5243bd."}
   - {id: n42, parent: n41, kind: step, title: "Free first, ~60k live: round-3 c4 lost the black side rail (text only) and invented card copy; c2 orange band built red, page white not off-white, body text light and large. Trace from plan/notes, fix, re-run c4 then c2", status: done,
      result: "Rail and exact card copy back: brutal index 65% to 74%. Cut-off readings now salvaged. Marquee 40%: noisy. 69e4cb0."}
-  - {id: n43, parent: n42, kind: step, title: "Free first, ~70k live: round-3 c2 last run put the orange band over the black one, set the intro tiny and drew the reel as a crossed placeholder (n41 run had none of these). Read the run record, fix what is not noise, re-run c2", status: open, result: null}
+  - {id: n43, parent: n42, kind: step, title: "Free first, ~70k live: round-3 c2 last run put the orange band over the black one, set the intro tiny and drew the reel as a crossed placeholder (n41 run had none of these). Read the run record, fix what is not noise, re-run c2", status: done,
+     result: "2-line intro drawn as one squiggle read as giant; reel drawn as picture. Both fixed: marquee 40% to 84%. a99f497."}
+  - {id: n44, parent: n43, kind: step, title: "Free first, ~60k live: round-3 c3 gradient orbit is now the weakest creative page (67%): headline gradient lacks its cyan end, button ~25px tall, page black not near-black indigo. Fix the clearest, re-run c3", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
