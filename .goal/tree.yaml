@@ -1,10 +1,13 @@
-goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
+goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Today's live budget is used up; all remaining work needs live builds, so the loop is idle until midnight UTC, when the 2026-10-22 live order starts."
-lock: null
-asks: []
+now: "Building the hardest everyday pages (a data table, a calendar, an analytics screen) by drawing them, then scoring them against the targets."
+lock: {by: "run-2026-10-21T0453Z", until: "2026-10-21T06:25:00Z"}
+asks:
+  - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
 notes:
+  - "2026-10-21T04:34Z GOAL.md changed: same goal text, the 300k/day budget section was removed. Tree carried over from .goal/archive/2026-10-21-rounds-budget300k (same approaches, open nodes, branches). No cap in GOAL.md now; the agent keeps a per-day token ledger and still passes --budget per run so one run cannot run away (~300k per invocation)."
+  - "Previous tree for this goal: .goal/archive/2026-10-21-rounds-budget300k."
   - "Previous goal (edits feel instant and physical) archived in .goal/archive/2026-10-19-edits-instant-physical; its e2e notes still apply."
   - "Run e2e with S2C_CHROMIUM=/opt/pw-browsers/chromium. Fresh clone: npm ci, then npm run build (vite plugin resolves built packages)."
   - "Baseline: npm run typecheck is broken (TS6310); npm run build is the real type check. npm test has 2-3 env-only fails (cli init gh, library home-dir)."
@@ -34,14 +37,13 @@ notes:
   - "n24 (8574b79 on try/n3-vocabulary): likeness v2. Structure matches each 8px cell within 2 cells (~16px); old SSIM kept as structureStrict, digests carry overall (v2) and overallV1. Target moved 16px: v1 0-78% lift, v2 99-100%. Round 1 v2: c1 67, c2 37, c3 59, c4 38, c5 15, e1 11, e2 42, e3 15, e4 12, e5 77. node tests/rounds/rescore.mjs <cmp pngs> re-scores saved side-by-sides free. Compare rounds on the same version."
   - "n27 (cdcc2be on try/n3-vocabulary): result.json 'sends' and bench digests log each codegen turn (build/repair, billed, cache reads, tool calls, ms); bench prints them. Read on the first 2026-10-22 live page to see if repair rounds or long tool loops drive the 70-91k pages."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
-  - "2026-10-21T04:15Z: idle check. Every open node (n11, n12, n20, n23, n26) needs live budget. Self-fire stopped; the hourly schedule resumes the loop. Runs before 2026-10-22T00:00Z: exit without commits unless INBOX/GOAL changed."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
   - {id: c3, text: "Each built page is scored for likeness to its target by a measure independent of the pipeline (picture likeness plus block layout).", state: open, evidence: null}
   - {id: c4, text: "Between rounds the tools improve from what failed, and re-running earlier pages shows the gain (scores up or fewer fixes).", state: open, evidence: null}
   - {id: c5, text: "The final round's hardest creative pages (layered, asymmetric, expressive type, motion) are built to a high likeness.", state: open, evidence: null}
-  - {id: c6, text: "Live model use stays within 300k tokens a day, logged per day.", state: open, evidence: null}
+  - {id: c6, text: "Live model use is logged per day (GOAL.md no longer sets a cap).", state: open, evidence: null}
   - {id: c7, text: "Proof to watch: per round, target vs built side by side, with scores and a short write-up.", state: open, evidence: null}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "Build ever harder creative and everyday web pages by drawing, scoring and improving the tools each round", status: open}
