@@ -129,6 +129,8 @@ export interface CodegenSession {
   usage: () => TokenUsage
   /** Tool calls the agent has made so far (Read, Edit, ...): where a costly turn went. */
   toolCalls: () => number
+  /** Each tool call so far as "Name dir/file" (Edit app/page.tsx): which calls made a turn long. */
+  toolLog: () => string[]
   close: () => void
   /**
    * Resolves once the agent's message loop has ended, i.e. the subprocess is
@@ -166,6 +168,7 @@ export function createCodegenSession(
   const pending: QueueItem[] = []
   const usage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
   let tools = 0
+  const toolList: string[] = []
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -214,6 +217,7 @@ export function createCodegenSession(
               tools++
               const inp = block.input as Record<string, unknown>
               const file = typeof inp.file_path === 'string' ? inp.file_path.split('/').slice(-2).join('/') : ''
+              toolList.push(`${block.name} ${file}`.trim())
               ev.onStage('codegen', `${block.name} ${file}`.trim())
             }
           }
@@ -288,6 +292,7 @@ export function createCodegenSession(
     },
     usage: () => ({ ...usage }),
     toolCalls: () => tools,
+    toolLog: () => [...toolList],
     close,
     closed,
   }
@@ -319,6 +324,7 @@ function scriptedSession(
     },
     usage: () => ({ input: 0, cacheRead: 0, output: 0 }),
     toolCalls: () => 0,
+    toolLog: () => [],
     close: () => { ended = true },
     closed: Promise.resolve(),
   }

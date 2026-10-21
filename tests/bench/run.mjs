@@ -600,6 +600,12 @@ while (queue.length) {
     spent += row.tokens.input + row.tokens.output
     if (record?.sends?.length) {
       log('codegen turns: ' + record.sends.map((t) => `${t.attempt}/${t.kind} ${Math.round(t.billed / 1000)}k ${t.toolCalls} tools`).join(' · '))
+      // which calls: Read/Edit/Write counts per turn (a 23-call build is many small Edits or re-Reads)
+      for (const t of record.sends) if (t.tools?.length) {
+        const n = {}
+        for (const c of t.tools) n[c] = (n[c] ?? 0) + 1
+        log(`  ${t.attempt}/${t.kind}: ` + Object.entries(n).map(([c, k]) => (k > 1 ? `${c} x${k}` : c)).join(', '))
+      }
     }
     row.verified = record?.verification?.score ?? null
     row.changedFiles = record?.changedFiles?.length ?? null

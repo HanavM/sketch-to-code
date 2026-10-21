@@ -311,6 +311,20 @@ const chipList = (cs, n = 4) => {
 }
 const short = (t, n = 28) => quote(t, n)
 
+/**
+ * Every distinct event with its days (a calendar's events are its content: round 3 e3
+ * lost "Retro" to a 6-item cap). An event on several days is one chip per day, said so,
+ * or it is built as a single bar spanning them.
+ */
+function monthEvents(list, cap = 10) {
+  const said = list.slice(0, cap).map(({ e, days }) => {
+    const col = chipColour(e) ? chipColour(e) + ' ' : ''
+    const on = days.length > 1 ? ` on ${days.join(', ')} (a chip on each day)` : days.length ? ` on ${days[0]}` : ''
+    return `${col}${quote(e.text, 18)}${on}`
+  })
+  return said.join(', ') + (list.length > cap ? `, ${list.length - cap} more` : '')
+}
+
 /** Dense app UI -> words that carry its structure (columns, rows, weeks, bars, sides). */
 function denseNote(d) {
   if (!d) return null
@@ -321,7 +335,7 @@ function denseNote(d) {
       const byText = new Map()
       for (const e of d.events) { if (!byText.has(e.text)) byText.set(e.text, { e, days: [] }); if (e.day) byText.get(e.text).days.push(e.day) }
       const ev = d.events.some((e) => e.day)
-        ? [...byText.values()].slice(0, 6).map(({ e, days }) => `${chipColour(e) ? chipColour(e) + ' ' : ''}${quote(e.text, 18)}${days.length ? ` on ${days.join(', ')}` : ''}`).join(', ')
+        ? monthEvents([...byText.values()])
         : chipList(d.events, 5)
       return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${ev ? `; event chips ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
     }

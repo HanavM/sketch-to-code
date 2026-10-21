@@ -63,6 +63,8 @@ export interface SendCost {
   output: number
   cacheRead: number
   toolCalls: number
+  /** The turn's tool calls in order, "Name dir/file" (at most 40). */
+  tools: string[]
   ms: number
 }
 
@@ -584,6 +586,7 @@ export async function runV2(
           output: u1.output - u0.output,
           cacheRead: u1.cacheRead - u0.cacheRead,
           toolCalls: s.toolCalls() - t0,
+          tools: s.toolLog().slice(t0, t0 + 40),
           ms: Date.now() - started,
         })
       }
