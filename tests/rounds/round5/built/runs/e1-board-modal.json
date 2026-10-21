@@ -1,0 +1,168 @@
+{
+  "id": "e1-board-modal",
+  "at": "2026-10-21T23:49:49.489Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9033308241327384,
+    "overallV2": 0.9033308241327384,
+    "overallV1": 0.8713280632421431,
+    "colour": 0.9661843198443737,
+    "structure": 0.9377914593235301,
+    "structureStrict": 0.9016032300780122,
+    "colourAligned": 0.9661843198443737,
+    "structureAligned": 0.9377914593235301,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9944218802944849
+    },
+    "layout": 0.9609385391148414
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 30199,
+    "output": 16226,
+    "cacheRead": 207154
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 29946,
+      "output": 9252,
+      "cacheRead": 185754,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 99303
+    }
+  ],
+  "reading": "The sketch is a Kanban/task-board mockup: a top nav bar, four columns (To do, In progress, Review, Done) each holding tagged task cards, and a 'New task' creation modal with a dimmed backdrop overlaying the board.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        54
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "White top nav bar, 60px tall, spanning the full width of the page. Bold 17px heading 'Sprint 42' on the left, followed by nav links: Board, Backlog, Reports."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        31,
+        87,
+        284,
+        784
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Kanban column labeled 'To do · 4' containing task cards: 'Fix login redirect' with a blue 'Bug' tag, 'Empty state art' with a blue 'Design' tag, and 'Rate limit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        337,
+        88,
+        284,
+        783
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Kanban column labeled 'In progress · 2' containing task cards: 'Billing page' with a blue 'Web' tag, and 'Push alerts' with a blue 'Mobile' tag."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        87,
+        284,
+        783
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Kanban column labeled 'Review · 3' containing task cards: 'Search index' with a blue 'API' tag, and 'Onboarding copy' with a blue 'Docs' tag."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        949,
+        87,
+        284,
+        783
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Kanban column labeled 'Done · 9' containing task cards: 'Dark mode' with a blue 'Web' tag, and 'CSV export' with a blue 'API' tag."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Semi-transparent dark navy overlay at 55% opacity covering the entire page as a modal backdrop; everything beneath it (the board columns) remains visible but di"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        393,
+        153,
+        493,
+        593
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "White modal card titled 'New task' with an '×' close button in the top right, 600px tall, centered over the board. Form with labels above each field: 'Title' fi"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

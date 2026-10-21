@@ -155,3 +155,18 @@ of it". Rounds 1-4: 4 notes change (colour word, two overlap phrases), no mark k
 | c4 outline stack | 65% | 61%, then **63%** | 82k + 60k | orange photo vivid (first run, scaffold fix); second run also deep blue and on top of the orange one, as in the target. Score flat: the headings sit ~25px lower this run and the blue fades the wrong way (dark top-left, target dark bottom) |
 
 Side-by-sides: built/c4-outline-stack-n68-cmp.png (61%), built/c4-outline-stack-n68b-cmp.png (63%).
+
+## n67: board with modal, first build (2026-10-21, ~92k tokens)
+
+Planner fix (free): a filled-in form whose fields are bordered boxes with the label right above them (not wrapped together)
+is now said as a form: each label with what its field holds ("Title" field holding "Write release notes"), a tall empty
+field with its height, the close "×", and the buttons by look and place ("outlined Cancel, indigo bold white text
+Create task"); when the buttons sit low with a big empty gap above, the note says they are pinned to the bottom of the
+card's drawn height. Before, the modal was "white card, lines ...". Rounds 1-4 plans unchanged.
+
+| page | first build | after | tokens | what changed |
+|---|---|---|---|---|
+| e1 board with modal | 81% | **90%** | 45k, 46k | first build had the dim backdrop, all cards and a right form, but the modal shrank to its content (430px of 600); now full height with buttons at the bottom |
+
+Side-by-sides: built/e1-board-modal-cmp.png (first), built/e1-board-modal-n67-cmp.png. Left: card tags built above the titles in
+the second run (below in the target); c1 glows still purple/blue (target one big orange glow).

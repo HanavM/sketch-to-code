@@ -450,6 +450,23 @@ function factsInPage() {
       const width = Math.max(...fields.map((k) => k.getBoundingClientRect().width))
       return { type: 'form', title: title(), rows: [...rows.values()].map((r) => r.map((k) => ({ label: txt(k), wide: r.length === 1 && k.getBoundingClientRect().width >= width * 0.95 && fields.some((j) => j.getBoundingClientRect().width < width * 0.7) }))) }
     }
+    // a filled-in form (a modal: round 5 e1): each field a bordered leaf box >=30px tall with its label right above it
+    // (the label is the previous sibling, not a wrapper), maybe holding a value; buttons along the bottom said by look
+    const lab = (g) => { const p = g.previousElementSibling; if (!p || p.children.length || !txt(p) || txt(p).length > 32 || parseFloat(getComputedStyle(p).borderTopWidth) >= 1) return null; const a = p.getBoundingClientRect(), b = g.getBoundingClientRect(); return b.top - a.bottom >= -2 && b.top - a.bottom <= 16 && a.left - b.left < 8 ? txt(p) : null }
+    const flds = [...el.querySelectorAll('*')].filter((g) => g.closest('[data-r]') === el && !g.children.length && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 && txt(g).length <= 40 && !(rgba(getComputedStyle(g).backgroundColor)?.a > 0.05) && lab(g))
+    if (flds.length >= 3) {
+      const rows = new Map()
+      for (const g of flds) { const y = Math.round(g.getBoundingClientRect().top / 10); rows.set(y, [...(rows.get(y) ?? []), g]) }
+      const said = new Set(flds.flatMap((g) => [g, g.previousElementSibling]))
+      const eb = el.getBoundingClientRect()
+      const btns = [...el.querySelectorAll('*')].filter((k) => k.closest('[data-r]') === el && !said.has(k) && !k.children.length && txt(k) && txt(k).length <= 24 && (() => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return b.height >= 26 && b.height <= 56 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) })())
+        .map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { t: txt(k), fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600, low: b.top - eb.top > eb.height * 0.75, right: b.left - eb.left > eb.width * 0.5, top: b.top } })
+      const close = [...el.querySelectorAll('*')].find((k) => k.closest('[data-r]') === el && !k.children.length && /^[×✕xX]$/.test(txt(k)))
+      // buttons pinned low with a big empty gap above them: the card keeps its drawn height (round 5 e1 modal built content-high)
+      const lastField = Math.max(...flds.map((g) => g.getBoundingClientRect().bottom))
+      const gap = btns.length ? Math.min(...btns.map((b) => b.top)) - lastField : 0
+      return { type: 'form', title: title(), close: close ? txt(close) : null, buttons: btns, gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
+    }
     // stat cards: 3+ same-size cards in a row, each with one big number
     const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
     if (kids.length >= 3 && kids.every((k) => big(k) && txt(k).length <= 48)) {
@@ -760,7 +777,15 @@ function denseNote(d) {
     case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text)${d.pitch ? `, rows ${d.pitch}px apart, bars ${d.bars[0].h}px tall${d.reach && d.reach <= 80 ? `, rows end ${d.reach}% down, empty below` : ''}` : ''}: ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
     case 'donut': return `${d.title ? `${quote(d.title, 32)}, ` : ''}donut chart (thick ring, hollow middle)${d.track ? ` on a ${colourName(d.track)} track` : ''}: ${d.segs.map((g) => `${colourName(g.fill)} ${g.pct}%`).join(', ')}`
     case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}; no axis labels`
-    case 'form': return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
+    case 'form': if (d.buttons) {
+      // filled-in form: label, then what the field holds (or empty, tall); buttons by look and place
+      const fld = (x) => `${quote(x.label)} ${x.value ? `field holding ${quote(x.value, 40)}` : `${x.tall ? `tall ${x.tall}px ` : ''}empty field`}`
+      const low = d.buttons.length && d.buttons.every((b) => b.low)
+      const side = low && d.buttons.every((b) => b.right) ? ' at the bottom right' : low ? ' along the bottom' : ''
+      const btn = (b) => b.fill ? `${colourName(b.fill)} ${b.bold ? 'bold ' : ''}${colourName(b.ink)} text ${quote(b.t)}` : `outlined ${quote(b.t)}`
+      return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
+    }
+      return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
     case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`

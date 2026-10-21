@@ -475,7 +475,7 @@
    ],
    [
     "modal",
-    "white card \"New task\", lines \"×\", \"Title\", \"Write release notes\", \"Description\", \"Assignee Priya Shah Due Oct 30\", \"Cancel Create task\""
+    "white card, \"New task\", \"×\" close top right, form, labels above fields: \"Title\" field holding \"Write release notes\"; \"Description\" tall 110px empty field; \"Assignee\" field holding \"Priya Shah\" | \"Due\" field holding \"Oct 30\"; buttons at the bottom right: outlined \"Cancel\", indigo bold white text \"Create task\", pinned to the bottom of the 600px tall card with 161px of empty space above them"
    ]
   ]
  },
