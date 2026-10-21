@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T18:12:00Z | Big short numbers built at full size | Giant "01" now drawn and read at its real height: built 425px for 420; brutal index 74% to 82%. 45k.
 2026-10-21T17:53:55Z | Round 4: colour names and story-page parts | Sky blue, pale pink, top bar, step dots, tilt, card colours now built; scores flat. 166k.
 2026-10-21T18:05:00Z | Round 4: last pages built, checkout and files fixed | Sticky story 57%; file manager 25% to 59%, checkout 37% to 48% after steppers, tiles, toolbars said. 191k.
 2026-10-21T17:25:00Z | Round 4: four more pages built | Swiss poster 65%, mail 56%, checkout 37%; split poster 34% to 43% after note-placement fix. 281k.
