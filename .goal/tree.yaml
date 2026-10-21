@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Readings no longer fail on the hardest pages, and all 10 round-3 pages are now built (marquee 56%, brutal index 65%); next, their colour and copy misses."
-lock: {by: run-2026-10-21T1115, until: "2026-10-21T12:45:00Z"}
+now: "The brutal index page now keeps its black side rail and exact card copy (65% to 74%); next, the marquee page's misplaced band and tiny intro."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -66,6 +66,8 @@ notes:
   - "Token ledger: 2026-10-21 n39 live c1+c5 83k (c5 reading failed: max turns), c5 58k = 141k (day total ~1900k, no cap set)."
   - "n41 (e5243bd on try/n3-vocabulary): traced readings: the first StructuredOutput answer is nearly always rejected (wrapped {\"actions\": {...}} or bad JSON), so a good reading takes 3 turns; failures were answers missing only the null 'unclear'. 'unclear' now optional, cleanReading() cuts tool markup, PERCEPTION_MAX_TURNS 6, reading timeout 180s. 6/6 ok after. Wrapped first answer still costs ~25s/~6k per reading: a lead."
   - "Token ledger: 2026-10-21 n41 readings c5 x7 ~104k, live c2+c4 96k = ~200k (day total ~2100k, no cap set)."
+  - "n42 (69e4cb0 on try/n3-vocabulary): titled cards say '\"Title\", text \"line\"'; a filled block with light text says '<colour> bar|block, <light> text'; band headings say their letter colour; colour red-orange (hue 9-22). Provider rebuilds StructuredOutput attempts from streamed input (CLI cuts bad raw to 2048 chars) and keeps a salvaged answer when the SDK throws after an error result."
+  - "Token ledger: 2026-10-21 n42 live c2 127k, c4 31k + 30k, two failed c4 readings (~10k) = ~200k (day total ~2300k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -112,7 +114,9 @@ nodes:
      result: "Notes now reach the mark typed on: mountains 67% to 78%, editorial 70% to 81%. 0087e89."}
   - {id: n41, parent: n39, kind: step, title: "Free first: design readings still fail now and then with 'maximum number of turns (4)' (c5 first try, e3 earlier). Catch one with S2C_TRACE_READING, find the cause, fix; then build round-3 c2 marquee and c4 brutal index (never built)", status: done,
      result: "Readings died on a missing empty field; fixed, 6/6 ok. Marquee 56%, brutal index 65% first builds. e5243bd."}
-  - {id: n42, parent: n41, kind: step, title: "Free first, ~60k live: round-3 c4 lost the black side rail (text only) and invented card copy; c2 orange band built red, page white not off-white, body text light and large. Trace from plan/notes, fix, re-run c4 then c2", status: open, result: null}
+  - {id: n42, parent: n41, kind: step, title: "Free first, ~60k live: round-3 c4 lost the black side rail (text only) and invented card copy; c2 orange band built red, page white not off-white, body text light and large. Trace from plan/notes, fix, re-run c4 then c2", status: done,
+     result: "Rail and exact card copy back: brutal index 65% to 74%. Cut-off readings now salvaged. Marquee 40%: noisy. 69e4cb0."}
+  - {id: n43, parent: n42, kind: step, title: "Free first, ~70k live: round-3 c2 last run put the orange band over the black one, set the intro tiny and drew the reel as a crossed placeholder (n41 run had none of these). Read the run record, fix what is not noise, re-run c2", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
