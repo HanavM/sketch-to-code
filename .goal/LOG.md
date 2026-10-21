@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T16:25:00Z | Round 4: timeline rows sized | Sketch notes now say row spacing and dot colours; timeline page 18% to 47%. 61k.
 2026-10-21T15:05:00Z | Round 4: first four pages built | Depth planes 85%, collage 65%, CRM 64%, timeline 18% (rows too tall). Fixed a false repair. 309k.
 2026-10-21T14:35:00Z | Round 4: say charts, timelines, forms, mail | Sketch notes now describe gantt bars by week, line/donut charts, form grid, mail rows. Earlier rounds unchanged. 0 tokens.
 2026-10-21T14:40:00Z | Round 4: ten harder pages | Written, measured, planned and drawn; planner now handles charts in SVG, blends, 3D tilt, panes. 0 tokens.
