@@ -118,6 +118,8 @@ function factsInPage() {
       })(),
       stroke: parseFloat(cs.webkitTextStrokeWidth) || 0,
       strokeColour: rgba(cs.webkitTextStrokeColor),
+      // a perspective turn (rotateY/X under perspective) is a matrix3d: a flat 'tilted' builds a 2D rotate (round 4 c4)
+      tilt3d: /matrix3d/.test(cs.transform),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
       blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
       backdrop: /blur/.test(cs.backdropFilter || cs.webkitBackdropFilter || ''),
@@ -172,7 +174,7 @@ function factsInPage() {
     for (const p of [el, ...el.querySelectorAll('*')]) {
       const groups = new Map()
       // a state class ('conv on', 'page active') doesn't split the selected item from its row
-      for (const k of p.children) { const key = `${k.tagName}.${k.className.replace(/\b(on|active|selected|current|today|open)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
+      for (const k of p.children) { const key = `${k.tagName}.${(k.getAttribute("class") ?? "").replace(/\b(on|active|selected|current|today|open)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
       // marked regions are drawn on their own: they aren't a list's items
       for (const g of groups.values()) if (g.length >= 3 && g.length > best.length && g.every((k) => txt(k) && !k.dataset?.r && !k.querySelector('[data-r]'))) best = g
     }
@@ -227,7 +229,8 @@ function factsInPage() {
     if (bubbles.length >= 3 && bubbles.length === kids.length) {
       const side = (k) => { const b = k.getBoundingClientRect(); return b.left - box.left < box.right - b.right ? 'left' : 'right' }
       const sides = bubbles.map(side)
-      if (sides.includes('left') && sides.includes('right') && bubbles.every((k) => k.getBoundingClientRect().width < box.width * 0.8)) {
+      const rows = new Set(bubbles.map((k) => Math.round(k.getBoundingClientRect().top / 4)))
+      if (rows.size === bubbles.length && sides.includes('left') && sides.includes('right') && bubbles.every((k) => k.getBoundingClientRect().width < box.width * 0.8)) {
         return { type: 'bubbles', items: bubbles.map((k) => ({ side: side(k), text: txt(k), fill: filled(k), ink: rgba(getComputedStyle(k).color) })) }
       }
     }
@@ -277,6 +280,8 @@ const NAMED = [
   ['near-black indigo', 8, 3, 24],
   // a cool near-white (#f3f4f6, #f8fafc): 'off-white' read as white and built #fff (round 1 e1 lost its grey page)
   ['pale grey', 244, 245, 248],
+  // round 4 c5 #bbf7d0 card was called 'light grey'
+  ['mint green', 187, 247, 208],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -344,10 +349,14 @@ function effectWords(f) {
   const turn = Math.abs(f.rotate)
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   if (f.vertical) w.push('vertical')
+  else if (f.tilt3d) w.push('tilted back in 3D perspective')
   else if (turn >= 3 && turn <= 60) w.push('tilted')
   else if (turn > 60 && turn < 170) w.push('diagonal')
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
-  if (f.blend) w.push('colour-inverting where it crosses what is under it')
+  // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
+  if (f.blend) w.push(/difference|exclusion/.test(f.blend) ? 'colour-inverting where it crosses what is under it'
+    : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
+    : /screen|lighten|color-dodge/.test(f.blend) ? 'light-like (screen blend: brightens what it overlaps)' : `${f.blend} blend over what is under it`)
   if (f.blur >= 10) w.push('soft blurred')
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
   // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
@@ -563,7 +572,10 @@ function decideOne(f, page, marked, said) {
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
     return { kind: fill || bordered ? 'box' : 'text', note: `links: ${f.kidTexts.slice(0, 6).join(', ')}` }
   }
-  if (fill || grad || bordered || ruled || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
+  // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
+  // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
+  const pane = w >= 260 && h >= 300 && f.kidCount >= 2
+  if (fill || grad || bordered || ruled || pane || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
     look.push(...fx)
     if (grad) look.push(grad); else if (fill && !frosted) look.push(colourName(f.bg))
     // light text on a dark filled block says so, or the block's colour reads as the text's

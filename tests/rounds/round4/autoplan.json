@@ -1,0 +1,670 @@
+{
+ "c1-cutout-collage": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "photo-blue",
+    "image"
+   ],
+   [
+    "scrap-orange",
+    "shape",
+    {
+     "poly": [
+      [
+       0.04,
+       0
+      ],
+      [
+       1,
+       0.06
+      ],
+      [
+       0.94,
+       1
+      ],
+      [
+       0,
+       0.92
+      ]
+     ]
+    }
+   ],
+   [
+    "arch-green",
+    "circle"
+   ],
+   [
+    "tape",
+    "image"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 150,
+     "lines": 3
+    }
+   ],
+   [
+    "lead",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
+   ],
+   [
+    "sticker",
+    "circle"
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream page, Georgia type, near-black text"
+   ],
+   [
+    "nav",
+    "nav bar \"PAPER ROOM\", text \"ISSUES · SHOP · ABOUT\""
+   ],
+   [
+    "photo-blue",
+    "tilted blue to dark navy gradient block"
+   ],
+   [
+    "scrap-orange",
+    "tilted vivid orange angled cut-out shape"
+   ],
+   [
+    "arch-green",
+    "tilted big vivid lime circle"
+   ],
+   [
+    "tape",
+    "tilted soft yellow block"
+   ],
+   [
+    "headline",
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Georgia italic serif tight-set letters \"Made by hand, on purpose.\""
+   ],
+   [
+    "lead",
+    "dark grey text \"A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.\""
+   ],
+   [
+    "sticker",
+    "tilted vivid red circle with \"Issue 07 out now\""
+   ],
+   [
+    "cta",
+    "near-black cream text button \"Subscribe — $28/yr\""
+   ]
+  ]
+ },
+ "c2-difference-split": {
+  "plan": [
+   [
+    "dark-half",
+    "box"
+   ],
+   [
+    "portrait",
+    "box"
+   ],
+   [
+    "word-top",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "word-bottom",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "logo",
+    "text"
+   ],
+   [
+    "links",
+    "text"
+   ],
+   [
+    "caption",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "dark-half",
+    "black block"
+   ],
+   [
+    "portrait",
+    "lavender to dark pink gradient"
+   ],
+   [
+    "word-top",
+    "colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"LIGHT\""
+   ],
+   [
+    "word-bottom",
+    "colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"SHADE\""
+   ],
+   [
+    "logo",
+    "\"Duality®\""
+   ],
+   [
+    "links",
+    "text \"Collection · Archive · Cart (0)\""
+   ],
+   [
+    "caption",
+    "dark grey text \"Outerwear cut in two colours only. Pick a side, or wear both.\""
+   ],
+   [
+    "cta",
+    "button \"Shop the drop →\""
+   ]
+  ]
+ },
+ "c3-swiss-grid": {
+  "plan": [
+   [
+    "ring",
+    "circle"
+   ],
+   [
+    "disc",
+    "circle"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 190,
+     "lines": 3
+    }
+   ],
+   [
+    "vertical",
+    "text"
+   ],
+   [
+    "meta",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 3
+    }
+   ],
+   [
+    "date",
+    "heading",
+    {
+     "fontPx": 56,
+     "lines": 2
+    }
+   ],
+   [
+    "foot",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: red page, Helvetica type, near-black text"
+   ],
+   [
+    "ring",
+    "big white outline circle"
+   ],
+   [
+    "disc",
+    "big near-black circle"
+   ],
+   [
+    "headline",
+    "giant Helvetica tight-set letters white \"Neue Form Basel\""
+   ],
+   [
+    "vertical",
+    "wide-spaced letters vertical \"INTERNATIONAL TYPE CONGRESS\""
+   ],
+   [
+    "meta",
+    "text \"Three days of lectures on grids, systems and the stubborn beauty of the sans-serif. Kunsthalle Basel.\""
+   ],
+   [
+    "date",
+    "huge Helvetica \"14—16 05.27\""
+   ],
+   [
+    "foot",
+    "links: Talks, Workshops, Exhibition, Tickets CHF 90"
+   ]
+  ]
+ },
+ "c4-depth-planes": {
+  "plan": [
+   [
+    "glow-cyan",
+    "circle"
+   ],
+   [
+    "glow-pink",
+    "circle"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "plane-back",
+    "image"
+   ],
+   [
+    "plane-front",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 2
+    }
+   ],
+   [
+    "lead",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "cta-2",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black indigo page, Helvetica type, light grey text"
+   ],
+   [
+    "glow-cyan",
+    "soft blurred bleeding off the left page edge (starts 80px past it) big vivid teal circle"
+   ],
+   [
+    "glow-pink",
+    "soft blurred bleeding off the right page edge (runs 100px past it) big vivid pink circle"
+   ],
+   [
+    "nav",
+    "nav bar \"Stratum\", text \"Product · Docs · Pricing · Sign in\""
+   ],
+   [
+    "plane-back",
+    "tilted back in 3D perspective frosted glass"
+   ],
+   [
+    "plane-front",
+    "tilted back in 3D perspective frosted glass \"99.98%\", text \"uptime across 41 regions\""
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters off-white to lavender gradient text \"Infrastructure with depth.\""
+   ],
+   [
+    "lead",
+    "grey text \"Layered networking for teams who ship to every continent and still sleep at night.\""
+   ],
+   [
+    "cta",
+    "white pill near-black indigo text button \"Start free\""
+   ],
+   [
+    "cta-2",
+    "white outline pill button \"Talk to sales\""
+   ]
+  ]
+ },
+ "c5-sticky-story": {
+  "plan": [
+   [
+    "progress",
+    "box"
+   ],
+   [
+    "number",
+    "heading",
+    {
+     "fontPx": 360,
+     "lines": 1
+    }
+   ],
+   [
+    "counter",
+    "text"
+   ],
+   [
+    "chapter",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 2
+    }
+   ],
+   [
+    "dots",
+    "box"
+   ],
+   [
+    "step-1",
+    "box"
+   ],
+   [
+    "step-2",
+    "box"
+   ],
+   [
+    "step-3",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale yellow page, Helvetica type, deep green text"
+   ],
+   [
+    "progress",
+    "green"
+   ],
+   [
+    "number",
+    "giant Georgia serif \"03\""
+   ],
+   [
+    "counter",
+    "wide-spaced letters green \"CHAPTER 3 OF 7\""
+   ],
+   [
+    "chapter",
+    "big serif \"The soil remembers everything.\""
+   ],
+   [
+    "step-1",
+    "deep green block, pale yellow text \"Plant\", text \"Seeds go in after the last frost, two fingers deep, facing the morning sun.\""
+   ],
+   [
+    "step-2",
+    "mint green \"Wait\", text \"Water at dusk. Do nothing else. The hardest part of gardening is patience.\""
+   ],
+   [
+    "step-3",
+    "yellow \"Harvest\", text \"Pick in the cool of the morning and share at least a third with the neighbours.\""
+   ]
+  ]
+ },
+ "e1-crm-dashboard": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "search",
+    "box"
+   ],
+   [
+    "avatar",
+    "circle"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 24,
+     "lines": 1
+    }
+   ],
+   [
+    "kpis",
+    "box"
+   ],
+   [
+    "line-chart",
+    "box"
+   ],
+   [
+    "donut",
+    "box"
+   ],
+   [
+    "deals-table",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "dark navy sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", 2 more; \"Dashboard\" highlighted"
+   ],
+   [
+    "search",
+    "search input \"Search deals, people…\""
+   ],
+   [
+    "avatar",
+    "big indigo circle"
+   ],
+   [
+    "title",
+    "\"Good morning, Dana\""
+   ],
+   [
+    "kpis",
+    "4 stat cards in a row: \"Pipeline value\" $1.28M, \"Deals won\" 38, \"Win rate\" 31%, \"Avg. cycle\" 24 days"
+   ],
+   [
+    "line-chart",
+    "white card \"Revenue by month\""
+   ],
+   [
+    "donut",
+    "white card \"Deals by stage\""
+   ],
+   [
+    "deals-table",
+    "white card \"Recent deals\" list: \"Deal\" Company, \"Annual licence\" Northwind, \"Pilot expansion\" Globex, \"Support add-on\" Initech, 1 more"
+   ]
+  ]
+ },
+ "e2-mail-client": {
+  "plan": [
+   [
+    "folders",
+    "box"
+   ],
+   [
+    "message-list",
+    "box"
+   ],
+   [
+    "reading-pane",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "folders",
+    "pale grey card \"Compose\" list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, 2 more; \"Inbox\" highlighted"
+   ],
+   [
+    "message-list",
+    "\"Inbox\" list: \"Tom BeckerYesterday\", \"Lena OrtizMon\", \"CalendarMon\", \"Sam WuSun\""
+   ],
+   [
+    "reading-pane",
+    "\"Q4 roadmap — final\"… \"Reply Reply all Forward\" list: \"Hi all — attached\"…, \"Please flag\"…, \"Thanks, Priya\""
+   ]
+  ]
+ },
+ "e3-checkout": {
+  "plan": [
+   [
+    "stepper",
+    "text"
+   ],
+   [
+    "delivery",
+    "box"
+   ],
+   [
+    "order-summary",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "stepper",
+    "links: 1Cart, 2Shipping, 3Payment, 4Review"
+   ],
+   [
+    "shipping-form",
+    "\"Shipping address\" and text"
+   ],
+   [
+    "delivery",
+    "buttons: \"Standard · 3–5 days Free\", \"Express · next day $12.00\""
+   ],
+   [
+    "order-summary",
+    "white card \"Order summary\" \"Subtotal $145.00\" \"Shipping Free\" \"Tax $11.60\" \"Total $156.60\" list: \"Linen overshirtSand\"… $89.00, \"Wool beanieCharcoal\" $32.00, \"Canvas toteNatural\" $24.00, dark navy button \"Continue to payment\""
+   ]
+  ]
+ },
+ "e4-file-manager": {
+  "plan": [
+   [
+    "storage",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 3
+    }
+   ],
+   [
+    "breadcrumb",
+    "text"
+   ],
+   [
+    "toolbar",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "file-grid",
+    "box"
+   ],
+   [
+    "details",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "\"Drive\" and text"
+   ],
+   [
+    "file-grid",
+    "\"hero-v3.png 5.1 MB\" list: \"Moodboards\" 14 items, \"Exports\" 32 items, \"Brief.pdf\" 2.4 MB, \"Copy deck.docx\" 88 KB, 3 more"
+   ],
+   [
+    "details",
+    "white card \"hero-v3.png\" list: \"Type\" PNG image, \"Size\" 5.1 MB, \"Dimensions\" 2880 × 1620, \"Modified\" Oct 19, 2026, 1 more"
+   ]
+  ]
+ },
+ "e5-gantt": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 24,
+     "lines": 1
+    }
+   ],
+   [
+    "zoom",
+    "box"
+   ],
+   [
+    "timeline",
+    "box"
+   ],
+   [
+    "task-names",
+    "box"
+   ],
+   [
+    "today",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "title",
+    "\"Website relaunch\""
+   ],
+   [
+    "zoom",
+    "links: Day, Week, Month"
+   ],
+   [
+    "task-names",
+    "list: \"Research\", \"Wireframes\", \"Visual design\", \"Content\", 3 more"
+   ],
+   [
+    "today",
+    "red \"Today\""
+   ]
+  ]
+ }
+}

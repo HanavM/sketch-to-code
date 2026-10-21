@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Depth planes</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#020617;font-family:Helvetica,Arial,sans-serif;color:#e2e8f0}
+.blob{position:absolute;border-radius:50%;filter:blur(70px)}
+.b1{left:-80px;top:420px;width:520px;height:520px;background:#0ea5e9;opacity:.55}.b2{left:820px;top:-120px;width:560px;height:560px;background:#d946ef;opacity:.5}
+.plane{position:absolute;border-radius:24px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);backdrop-filter:blur(18px)}
+.pa{left:640px;top:170px;width:520px;height:340px;transform:perspective(900px) rotateY(-18deg) rotateX(6deg)}
+.pb{left:720px;top:400px;width:440px;height:280px;background:rgba(255,255,255,.12);transform:perspective(900px) rotateY(-18deg) rotateX(6deg)}
+.pb b{display:block;font-size:56px;margin:40px 0 0 40px}.pb small{display:block;margin:8px 0 0 40px;color:#94a3b8;font-size:15px}
+h1{position:absolute;left:72px;top:220px;width:560px;font-size:84px;font-weight:800;line-height:1;letter-spacing:-3px;background:linear-gradient(90deg,#e0f2fe,#f0abfc);-webkit-background-clip:text;color:transparent}
+.lead{position:absolute;left:72px;top:500px;width:470px;font-size:19px;line-height:1.55;color:#94a3b8}
+.cta{position:absolute;left:72px;top:640px;padding:16px 30px;border-radius:999px;background:#f8fafc;color:#020617;font-weight:700;font-size:16px}
+.cta2{position:absolute;left:300px;top:640px;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,.35);font-size:16px}
+nav{position:absolute;left:72px;right:72px;top:40px;display:flex;justify-content:space-between;font-size:15px;color:#cbd5e1}
+</style></head><body>
+<div class="blob b1" data-r="glow-cyan"></div><div class="blob b2" data-r="glow-pink"></div>
+<nav data-r="nav"><b>Stratum</b><span>Product · Docs · Pricing · Sign in</span></nav>
+<div class="plane pa" data-r="plane-back" data-must></div>
+<div class="plane pb" data-r="plane-front" data-must><b>99.98%</b><small>uptime across 41 regions</small></div>
+<h1 data-r="headline" data-must>Infrastructure with depth.</h1>
+<p class="lead" data-r="lead">Layered networking for teams who ship to every continent and still sleep at night.</p>
+<a class="cta" data-r="cta">Start free</a><a class="cta2" data-r="cta-2">Talk to sales</a>
+</body></html>

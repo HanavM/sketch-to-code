@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CRM dashboard</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;display:flex}
+aside{width:220px;height:900px;background:#0f172a;color:#cbd5e1;padding:28px 20px;font-size:14px}aside b{display:block;color:#fff;font-size:18px;margin-bottom:28px}aside div{padding:10px 12px;border-radius:8px;margin-bottom:4px}aside .on{background:#1e293b;color:#fff}
+main{flex:1;padding:24px 32px}
+.top{display:flex;justify-content:space-between;align-items:center}.search{width:360px;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#94a3b8;font-size:14px}.av{width:36px;height:36px;border-radius:50%;background:#6366f1}
+h1{font-size:24px;margin-top:22px}
+.kpis{display:flex;gap:16px;margin-top:16px}.kpi{flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;height:110px;position:relative}.kpi small{color:#64748b;font-size:13px}.kpi b{display:block;font-size:26px;margin-top:6px}.kpi svg{position:absolute;right:14px;bottom:16px}
+.row{display:flex;gap:16px;margin-top:16px}.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px}.panel h3{font-size:15px;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}th{text-align:left;color:#64748b;font-weight:500;padding:8px 0;border-bottom:1px solid #e2e8f0}td{padding:9px 0;border-bottom:1px solid #f1f5f9}
+.pill{padding:3px 8px;border-radius:999px;font-size:12px}.won{background:#dcfce7;color:#166534}.open{background:#e0e7ff;color:#3730a3}.lost{background:#fee2e2;color:#991b1b}
+</style></head><body>
+<aside data-r="sidebar" data-must><b>Pipeline</b><div class="on">Dashboard</div><div>Deals</div><div>Contacts</div><div>Companies</div><div>Reports</div><div>Settings</div></aside>
+<main>
+<div class="top"><div class="search" data-r="search">Search deals, people…</div><div class="av" data-r="avatar"></div></div>
+<h1 data-r="title">Good morning, Dana</h1>
+<div class="kpis" data-r="kpis" data-must>
+<div class="kpi"><small>Pipeline value</small><b>$1.28M</b><svg width="90" height="30"><polyline fill="none" stroke="#6366f1" stroke-width="2" points="0,24 15,20 30,22 45,14 60,16 75,8 90,4"/></svg></div>
+<div class="kpi"><small>Deals won</small><b>38</b><svg width="90" height="30"><polyline fill="none" stroke="#16a34a" stroke-width="2" points="0,26 15,22 30,18 45,20 60,12 75,10 90,6"/></svg></div>
+<div class="kpi"><small>Win rate</small><b>31%</b><svg width="90" height="30"><polyline fill="none" stroke="#f59e0b" stroke-width="2" points="0,10 15,14 30,12 45,18 60,16 75,20 90,18"/></svg></div>
+<div class="kpi"><small>Avg. cycle</small><b>24 days</b><svg width="90" height="30"><polyline fill="none" stroke="#0ea5e9" stroke-width="2" points="0,20 15,18 30,20 45,14 60,16 75,12 90,14"/></svg></div></div>
+<div class="row">
+<div class="panel" style="flex:2;height:270px" data-r="line-chart" data-must><h3>Revenue by month</h3><svg width="620" height="200"><line x1="0" y1="190" x2="620" y2="190" stroke="#e2e8f0"/><polyline fill="none" stroke="#6366f1" stroke-width="3" points="0,160 88,150 176,120 264,130 352,90 440,80 528,50 616,30"/><polyline fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6" points="0,170 88,165 176,150 264,150 352,130 440,125 528,110 616,100"/></svg></div>
+<div class="panel" style="flex:1;height:270px" data-r="donut"><h3>Deals by stage</h3><svg width="200" height="200" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9" fill="none" stroke="#e0e7ff" stroke-width="6"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="#6366f1" stroke-width="6" stroke-dasharray="45 55" stroke-dashoffset="25"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="#16a34a" stroke-width="6" stroke-dasharray="25 75" stroke-dashoffset="80"/></svg></div></div>
+<div class="panel" style="margin-top:16px;height:250px" data-r="deals-table" data-must><h3>Recent deals</h3><table><tr><th>Deal</th><th>Company</th><th>Owner</th><th>Value</th><th>Stage</th></tr>
+<tr><td>Annual licence</td><td>Northwind</td><td>Dana K.</td><td>$84,000</td><td><span class="pill won">Won</span></td></tr>
+<tr><td>Pilot expansion</td><td>Globex</td><td>Ravi P.</td><td>$32,500</td><td><span class="pill open">Negotiation</span></td></tr>
+<tr><td>Support add-on</td><td>Initech</td><td>Mia L.</td><td>$9,800</td><td><span class="pill open">Proposal</span></td></tr>
+<tr><td>Data migration</td><td>Umbrella</td><td>Dana K.</td><td>$51,200</td><td><span class="pill lost">Lost</span></td></tr></table></div>
+</main></body></html>
