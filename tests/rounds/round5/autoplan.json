@@ -505,11 +505,11 @@
    ],
    [
     "filters",
-    "buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\""
+    "buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\"; \"Last 7 days\" selected (dark navy fill)"
    ],
    [
     "heatmap",
-    "\"Active sessions\"… list: \"Mon\", \"Tue\", \"Wed\", \"Thu\", 3 more"
+    "\"Active sessions (weekday × 2-hour block)\", heatmap: 7 rows of 12 rounded 40px cells, label left of each row, every cell indigo at a strength 0-9 (opacity): Mon 111368998742, Tue 111368998742, Wed 111368998742, Thu 111368998742, Fri 111368998742, Sat 111233444321, Sun 111233444321"
    ],
    [
     "peak",
@@ -517,7 +517,7 @@
    ],
    [
     "table",
-    "\"Feature Sessions\"… list: \"Sketch overlay\" 12,480, \"Auto build\" 8,931, \"Export\" 2,115, \"Comments\" 1,702"
+    "table, bold grey header row columns \"Feature\", \"Sessions\", \"Users\", \"Change\", 4 rows: \"Sketch overlay\" | \"12,480\" | \"3,102\" | \"+12%\"; \"Auto build\" | \"8,931\" | \"2,440\" | \"+8%\"; \"Export\" | \"2,115\" | \"980\" | \"-3%\"; \"Comments\" | \"1,702\" | \"611\" | \"+21%\""
    ]
   ]
  },
@@ -529,6 +529,10 @@
    ],
    [
     "channels",
+    "box"
+   ],
+   [
+    "messages",
     "box"
    ],
    [
@@ -550,12 +554,16 @@
     "deep purple block, pale lilac text \"Acme\" list: \"# general\", \"# design\", \"# eng\", \"# random\", 3 more; \"# design\" highlighted"
    ],
    [
+    "messages",
+    "header \"# design\" with a thin line under it, then 3 chat messages stacked top-down (no bubbles), each a 38px rounded square avatar left, bold name then small grey time on one line, message text under: light orange avatar, \"Priya Shah\" 10:02: \"New hero options are up in Figma — the dark one is my pick.\", small chip \"🔥 4\" under it; green avatar, \"Tom Becker\" 10:05: \"Dark one reads better on mobile too.\", small blue bold \"3 replies\" under it; indigo avatar, \"Ana Lima\" 10:11: \"Can we keep the gradient but drop the noise texture?\""
+   ],
+   [
     "composer",
     "\"Message #design\""
    ],
    [
     "thread",
-    "pale grey card \"Thread\", lines \"Tom Becker10:05 Dark one reads better on mobile too.\", \"Priya Shah10:07 Agreed, shipping it Friday.\""
+    "pale grey, header \"Thread\" with a thin line under it, then 2 chat messages stacked top-down (no bubbles), each a 38px rounded square avatar left, bold name then small grey time on one line, message text under: green avatar, \"Tom Becker\" 10:05: \"Dark one reads better on mobile too.\"; light orange avatar, \"Priya Shah\" 10:07: \"Agreed, shipping it Friday.\""
    ]
   ]
  },
@@ -593,15 +601,15 @@
    ],
    [
     "tabs",
-    "links: Profile, Billing, Notifications, Security, API keys"
+    "links: Profile, Billing, Notifications, Security, API keys; \"Notifications\" selected (bold, near-black underline)"
    ],
    [
     "toggles",
-    "white card list: \"Email digests\", \"Mentions\", \"Build failures\", \"Product news\", 1 more"
+    "white card 5 rows with thin lines between, each: bold name, small grey line under it, toggle switch on the right: \"Email digests\" / \"A summary of activity every Monday\" on (green); \"Mentions\" / \"When someone @mentions you\" on (green); \"Build failures\" / \"Only for projects you own\" on (green); \"Product news\" / \"New features, once a month\" off (grey); \"Desktop push\" / \"Requires browser permission\" off (grey)"
    ],
    [
     "danger",
-    "white card"
+    "white card with a pale pink border: bold red \"Mute everything\", small grey \"Pause all notifications for 24 hours\" under it; red white text button \"Mute all\" on the right"
    ],
    [
     "toast",
@@ -617,11 +625,7 @@
    ],
    [
     "formula",
-    "text",
-    {
-     "fontPx": 13,
-     "lines": 2
-    }
+    "box"
    ],
    [
     "grid",
@@ -638,12 +642,16 @@
     "links: Budget 2027, File, Edit, View, Insert, Data"
    ],
    [
+    "formula",
+    "formula bar across the page, thin line under: small cell name box \"D4\" left with a divider, then grey formula \"=SUM(B4:C4)\""
+   ],
+   [
     "grid",
-    "\"A\" \"Design\" \"4,200\" \"4,350\" \"8,550\" \"Priya\" \"On track\" \"Engineering\" \"18,900\" \"19,400\" \"38,300\" \"Tom\" \"Over\" \"hiring\" \"40,000\" \"Marketing\" \"6,100\" \"5,800\" \"11,900\" \"Ana\" \"On track\" \"Sales\" \"9,750\" \"10,200\" \"19,950\" \"Raj\" \"Under\" \"22,000\" \"Support\" \"3,300\" \"3,300\" \"6,600\" \"Mei\" \"On track\" list: \"Team\", \"Jan\", \"Feb\", \"Total\", 4 more, pale grey button \"B\", pale grey button \"C\", pale grey button \"D\", pale grey button \"E\", pale grey button \"F\", pale grey button \"G\", pale grey button \"H\", pale grey button \"1\", pale grey button \"2\", pale grey button \"3\", pale grey button \"4\", pale grey button \"5\", pale grey button \"6\", pale grey button \"7\", pale grey button \"8\", pale grey button \"9\", pale grey button \"10\", pale grey button \"11\", pale grey button \"12\", pale grey button \"13\", pale grey button \"14\", pale grey button \"15\", pale grey button \"16\", pale grey button \"17\", pale grey button \"18\", pale grey button \"19\", pale grey button \"20\", pale grey button \"21\", pale grey button \"22\", pale grey button \"23\", pale grey button \"24\""
+    "spreadsheet grid with thin grey cell lines: pale grey header row of column letters A to H, row numbers 1 to 24 down a narrow 46px left column, cells 154px wide and 30px tall; row 1: \"Team\" | \"Jan\" | \"Feb\" | \"Total\" | \"Owner\" | \"Status\" | \"Notes\" | \"Q1 goal\" (bold, pale blue row); row 2: \"Design\" | \"4,200\" | \"4,350\" | \"8,550\" | \"Priya\" | \"On track\"; row 3: \"Engineering\" | \"18,900\" | \"19,400\" | \"38,300\" | \"Tom\" | \"Over\" | \"hiring\" | \"40,000\"; row 4: \"Marketing\" | \"6,100\" | \"5,800\" | \"11,900\" | \"Ana\" | \"On track\"; row 5: \"Sales\" | \"9,750\" | \"10,200\" | \"19,950\" | \"Raj\" | \"Under\" | (empty) | \"22,000\"; row 6: \"Support\" | \"3,300\" | \"3,300\" | \"6,600\" | \"Mei\" | \"On track\"; rows 7 to 24 empty; cell D4 selected (blue 2px outline)"
    ],
    [
     "sheet-tabs",
-    "links: Q1, Q2, Q3, Q4, Summary"
+    "links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, white fill)"
    ]
   ]
  }

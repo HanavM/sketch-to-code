@@ -27,3 +27,15 @@ Untuned planner misses (to fix next, rounds 1-4 plans must not change):
 - c3: frosted header has no note; card fade (opacity .75/.45/.2) unsaid.
 - c4: hard shadow on the main photo and grain unsaid; bordered pill said as "pill input".
 - c1: the mask fade at the bottom and the scrub track's orange fill unsaid.
+
+## n59: planner fixes for the everyday misses (free)
+
+- e3: chat messages read as their own structure (avatar, bold name, time, message, reaction chip, "3 replies");
+  the messages pane is now drawn and said even though its composer is a mark of its own; the thread pane too.
+- e5: spreadsheet grid said as one: column letters, row numbers, cell size, each used row by cell, empty rows,
+  selected cell (D4, blue outline); the formula bar says the name box and the formula.
+- e2: heatmap said as rows of 0-9 strengths of one colour; div-row table said with every row; active filter said.
+- e4: toggle rows say name, sub-line and on/off; danger card says its red title, grey line and red button;
+  the selected tab is said.
+- Rounds 1-4: only two notes change, both additions (round 2 e3 and round 4 e5 say their selected tab).
+- Still open: c1-c5 creative misses above, e1 backdrop dim.

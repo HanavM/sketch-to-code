@@ -155,6 +155,30 @@ function factsInPage() {
       pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
       // kids that are themselves label + empty box fields (a row of fields)
       fieldKids: kids.filter((k) => [...k.children].some((g) => { const c = getComputedStyle(g); return !(g.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 })).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()),
+      // a block with copy on the left and one filled button on the right (a danger card's 'Mute all')
+      sideButton: (() => {
+        if (kids.length !== 2) return null
+        const [a, b] = kids, cb = getComputedStyle(b), bb = b.getBoundingClientRect(), ab = a.getBoundingClientRect()
+        const t = (b.innerText || '').trim(), bg = rgba(cb.backgroundColor)
+        if (!t || t.length > 24 || !(bg && bg.a > 0.05) || bb.height < 26 || bb.height > 60 || bb.left < ab.right - 2) return null
+        // the copy side is plain text: not an input, not a group of buttons (a composer, a toolbar)
+        const boxy = (g) => { const c = getComputedStyle(g); return rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1 || parseFloat(c.borderBottomWidth) >= 1 }
+        if ([a, ...a.querySelectorAll('*')].some(boxy)) return null
+        const lines = (a.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
+        const first = [...a.querySelectorAll('*')].find((g) => !g.children.length && (g.innerText || '').trim())
+        if (!lines.length || lines.length > 3) return null
+        return { t, fill: bg, ink: rgba(cb.color), lines, firstInk: first ? rgba(getComputedStyle(first).color) : null, firstBold: first ? Number(getComputedStyle(first).fontWeight) >= 600 : false }
+      })(),
+      // a row of tabs with one picked out: underlined or filled where the others aren't (round 5 e4)
+      kidOn: (() => {
+        if (kids.length < 3) return null
+        const key = (k) => { const c = getComputedStyle(k); return `${parseFloat(c.borderBottomWidth) >= 2 ? 'u' : ''}|${rgba(c.backgroundColor)?.a > 0.05 ? c.backgroundColor : ''}` }
+        const ks = kids.map(key)
+        const odd = kids.filter((k, i) => ks.filter((x) => x === ks[i]).length === 1 && ks[i] !== '|')
+        if (odd.length !== 1) return null
+        const c = getComputedStyle(odd[0])
+        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600 }
+      })(),
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
@@ -251,6 +275,48 @@ function factsInPage() {
       const first = nums.slice(0, 7), one = first.indexOf('1')
       const lead = one > 0 ? first.slice(0, one) : []
       return { type: 'month', heads, weeks: Math.round(cells / 7), events: evs, marked, firstCol: one >= 0 && heads[one] ? heads[one] : null, lead, last: nums[nums.length - 1] }
+    }
+    // spreadsheet: a grid of many small cells, letters across the top, row numbers down the left (round 5 e5:
+    // every cell was quoted in one run and the headers read as 'pale grey button's)
+    if (cols >= 5 && el.children.length >= cols * 8) {
+      const cells = [...el.children]
+      const rowsT = []; for (let i = 0; i < cells.length; i += cols) rowsT.push(cells.slice(i, i + cols))
+      const top = rowsT[0].slice(1).map(txt)
+      const left = rowsT.slice(1).map((r) => txt(r[0]))
+      if (top.every((t) => /^[A-Z]{1,2}$/.test(t)) && left.every((t) => /^\d+$/.test(t))) {
+        const body = rowsT.slice(1).map((r) => r.slice(1))
+        const used = body.map((r) => r.map(txt)).filter((r) => r.some(Boolean))
+        const page = rgba(getComputedStyle(document.body).backgroundColor) ?? { r: 255, g: 255, b: 255 }
+        const tint = (k) => { const c = filled(k); return c && Math.hypot(c.r - page.r, c.g - page.g, c.b - page.b) > 6 ? c : null }
+        const rowLook = body.map((r) => ({ bold: r.filter(txt).length && r.filter(txt).every((k) => parseFloat(getComputedStyle(k).fontWeight) >= 600), fill: r.every((k) => tint(k)) ? tint(r[0]) : null }))
+        let sel = null
+        body.forEach((r, i) => r.forEach((k, j) => { const c = getComputedStyle(k); const ow = parseFloat(c.outlineWidth) || 0; if ((ow >= 2 && c.outlineStyle !== 'none') || parseFloat(c.borderTopWidth) >= 2) sel = { at: `${top[j]}${left[i]}`, colour: rgba(ow >= 2 ? c.outlineColor : c.borderTopColor) } }))
+        const ch = Math.round(cells[cols + 1].getBoundingClientRect().height)
+        const cw = Math.round(cells[cols + 1].getBoundingClientRect().width)
+        return { type: 'sheet', top, rows: left.length, used, rowLook, sel, headFill: tint(rowsT[0][1]), rowPx: ch, colPx: cw, firstPx: Math.round(cells[0].getBoundingClientRect().width) }
+      }
+    }
+    // heatmap: a grid of 20+ textless filled cells in one hue at different strengths, with row labels
+    // (round 5 e2: only the day labels were said)
+    const hg = [el, ...el.querySelectorAll('*')].find((p) => getComputedStyle(p).display === 'grid' && [...p.children].filter((k) => !txt(k) && filled(k)).length >= 20)
+    if (hg) {
+      const ch = [...hg.children]
+      const ncol = getComputedStyle(hg).gridTemplateColumns.split(' ').length
+      const cells = ch.filter((k) => !txt(k) && filled(k))
+      const hues = new Set(cells.map((k) => { const c = filled(k); return `${c.r},${c.g},${c.b}` }))
+      if (hues.size === 1 && ch.length % ncol === 0) {
+        const rowsH = []; for (let i = 0; i < ch.length; i += ncol) rowsH.push(ch.slice(i, i + ncol))
+        const c0 = filled(cells[0])
+        const b = cells[0].getBoundingClientRect()
+        return { type: 'heat', title: [...el.querySelectorAll('h1,h2,h3,h4')].map(txt).find((t) => t && t.length <= 60) ?? null, fill: { ...c0, a: 1 }, px: Math.round(b.height), round: parseFloat(getComputedStyle(cells[0]).borderTopLeftRadius) >= 3,
+          rows: rowsH.map((r) => ({ label: r.map(txt).find(Boolean) ?? '', levels: r.filter((k) => !txt(k)).map((k) => Math.min(9, Math.round((filled(k)?.a ?? 0) * 9))).join('') })) }
+      }
+    }
+    // a table built from div rows on one column grid, the first row its header (round 5 e2: said as a list)
+    const gk = [...el.children]
+    if (gk.length >= 3 && gk.every((k) => getComputedStyle(k).display === 'grid' && k.children.length >= 3 && getComputedStyle(k).gridTemplateColumns === getComputedStyle(gk[0]).gridTemplateColumns && [...k.children].every((c) => !c.children.length))) {
+      const hc = getComputedStyle(gk[0])
+      return { type: 'table', title: null, columns: [...gk[0].children].map(txt), rows: gk.length - 1, first: [...gk[1].children].map(txt), all: gk.length <= 8 ? gk.slice(1).map((k) => [...k.children].map(txt)) : null, headLook: Number(hc.fontWeight) >= 600 ? 'bold grey header' : null, chips: chips(el) }
     }
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
     const own = el.getBoundingClientRect()
@@ -350,6 +416,27 @@ function factsInPage() {
     const underLine = (n) => { const ls = (n.innerText || '').split('\n').map((t) => t.trim()).filter(Boolean); const sm = n.lastElementChild; return ls.length === 2 && sm && !sm.children.length && /block|flex/.test(getComputedStyle(sm).display) && parseFloat(getComputedStyle(sm).fontSize) < parseFloat(getComputedStyle(n).fontSize) ? ls : null }
     const parts = (k) => [...k.childNodes].flatMap((n) => n.nodeType === 1 && n.children.length >= 2 && [...n.children].every((g) => !g.children.length && txt(g)) && n.children.length === n.childNodes.length ? [...n.children].map(txt) : n.nodeType === 1 && underLine(n) ? underLine(n) : [(n.textContent || '').trim()]).filter(Boolean)
     const boldFirst = (k) => { const w = [...k.querySelectorAll('*')].find((g) => !g.children.length && txt(g)); return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }
+    // chat messages: each item a small filled square/round avatar left, a bold name, a small time, then the
+    // message (round 5 e3: the pane was dropped; the thread's rows were glued 'Tom Becker10:05 Dark one...')
+    const msgOf = (k) => {
+      const leaves = [...k.querySelectorAll('*')].filter((g) => !g.children.length)
+      const av = leaves.find((g) => !txt(g)); if (!av) return null
+      const ab = av.getBoundingClientRect()
+      if (!(filled(av) && ab.width >= 24 && ab.width <= 56 && Math.abs(ab.width - ab.height) <= 2 && ab.left < k.getBoundingClientRect().left + 40)) return null
+      const name = leaves.find((g) => txt(g) && parseFloat(getComputedStyle(g).fontWeight) >= 600)
+      const time = leaves.find((g) => g !== name && /^\d{1,2}[:.]\d{2}( ?[ap]m)?$|^(yesterday|today|now|\d+ ?[mhd])$/i.test(txt(g)))
+      if (!name || !time) return null
+      const extra = leaves.filter((g) => g !== name && g !== time && txt(g) && txt(g).length <= 24 && (filled(g) || parseFloat(getComputedStyle(g).fontWeight) >= 600 || parseFloat(getComputedStyle(g).borderTopWidth) >= 1))
+      let body = txt(k)
+      for (const g of [name, time, ...extra]) body = body.replace(txt(g), '')
+      return { av: filled(av), round: parseFloat(getComputedStyle(av).borderTopLeftRadius) >= ab.width * 0.4, px: Math.round(ab.width), name: txt(name), time: txt(time), body: body.replace(/\s+/g, ' ').trim(), extra: extra.map((g) => ({ t: txt(g), chip: !!filled(g), ink: rgba(getComputedStyle(g).color) })) }
+    }
+    // (2+ is enough: a thread pane holds two replies under its title)
+    const mk = kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]') && msgOf(k))
+    if (mk.length >= 2 && mk.length >= kids.length - 2) {
+      const head = kids.find((k) => !mk.includes(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k) && txt(k).length <= 40)
+      return { type: 'messages', head: head ? txt(head) : null, headRule: head ? parseFloat(getComputedStyle(head).borderBottomWidth) >= 1 : false, items: mk.map(msgOf) }
+    }
     if (rep.length >= 3) {
       // the highlighted item: the one whose fill differs from all the others
       const key = (k) => { const c = filled(k); return c ? `${c.r},${c.g},${c.b}` : 'none' }
@@ -368,6 +455,9 @@ function factsInPage() {
       const dots = rep.map(dotOf)
       // a square picture leading each item (an order line's product thumbnail, round 4 e3: dropped)
       const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4 } : null }
+      // a toggle switch on the right of each row (round 5 e4: on/off states unsaid)
+      const switchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !txt(g) && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.height / 2 - 1 }); return d ? filled(d) : null }
+      const switches = rep.map(switchOf)
       const thumbs = rep.map(thumbOf)
       // a grid of tiles, each a picture block on top (round 4 e4 file tiles were said as a list and built as rows)
       const grid = rep[0].parentElement; const gcs = getComputedStyle(grid)
@@ -378,7 +468,7 @@ function factsInPage() {
         const sel = rep.filter((k) => bw(k) > Math.min(...rep.map(bw)))
         return { type: 'tiles', cols: gcols, items: rep.map((k) => ({ parts: parts(k), pic: topPic(k), grad: topPic(k) === 'gradient' ? [...getComputedStyle(k.firstElementChild).backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])) : null })), bordered: rep.every((k) => bw(k) >= 1), sel: sel.length === 1 ? { t: parts(sel[0])[0], c: rgba(getComputedStyle(sel[0]).borderTopColor), w: bw(sel[0]) } : null }
       }
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
     }
     return null
   }
@@ -543,10 +633,15 @@ function monthEvents(list, cap = 10) {
   return said.join(', ') + (list.length > cap ? `, ${list.length - cap} more` : '')
 }
 
+// a header row's tint: #e8f0fe is 'off-white' to the palette but reads pale blue (round 5 e5)
+const sheetFill = (c) => (c.b - c.r >= 12 && c.r >= 220 ? 'pale blue' : colourName(c))
+
 /** Dense app UI -> words that carry its structure (columns, rows, weeks, bars, sides). */
 function denseNote(d) {
   if (!d) return null
   switch (d.type) {
+    case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
+    case 'table': if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
     case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
       return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
     case 'month': {
@@ -570,12 +665,25 @@ function denseNote(d) {
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'tiles': return `grid of ${d.items.length} ${d.bordered ? 'bordered rounded ' : ''}tiles, ${d.cols} per row, each a coloured picture block on top, then name, then small grey line: ${d.items.map((x) => `${x.grad ? `${colourName(x.grad[0])} to ${colourName(x.grad[x.grad.length - 1])} gradient` : colourName(x.pic)} ${quote(x.parts[0], 24)}${x.parts[1] ? ` ${x.parts[1]}` : ''}`).join(', ')}${d.sel ? `; ${quote(d.sel.t, 24)} selected (${colourName(d.sel.c)} ${d.sel.w}px border)` : ''}`
+    case 'sheet': {
+      const r = (row, i) => `row ${i + 1}: ${row.map((t) => (t ? quote(t, 16) : '(empty)')).join(' | ').replace(/( \| \(empty\))+$/, '')}${d.rowLook[i].bold ? ' (bold' + (d.rowLook[i].fill ? `, ${sheetFill(d.rowLook[i].fill)} row)` : ')') : d.rowLook[i].fill ? ` (${sheetFill(d.rowLook[i].fill)} row)` : ''}`
+      return `spreadsheet grid with thin grey cell lines: ${d.headFill ? `${colourName(d.headFill)} ` : ''}header row of column letters ${d.top[0]} to ${d.top[d.top.length - 1]}, row numbers 1 to ${d.rows} down a narrow ${d.firstPx}px left column, cells ${d.colPx}px wide and ${d.rowPx}px tall; ${d.used.map(r).join('; ')}; rows ${d.used.length + 1} to ${d.rows} empty${d.sel ? `; cell ${d.sel.at} selected (${colourName(d.sel.colour)} 2px outline)` : ''}`
+    }
+    case 'messages': {
+      const m0 = d.items[0]
+      const row = (m) => `${colourName(m.av)} avatar, ${quote(m.name, 24)} ${m.time}: ${quote(m.body, 70)}${m.extra.map((x) => x.chip ? `, small chip ${quote(x.t)} under it` : `, small ${colourName(x.ink)} bold ${quote(x.t)} under it`).join('')}`
+      return `${d.head ? `header ${quote(d.head, 30)}${d.headRule ? ' with a thin line under it' : ''}, then ` : ''}${d.items.length} chat messages stacked top-down (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, bold name then small grey time on one line, message text under: ${d.items.map(row).join('; ')}`
+    }
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
       // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
       if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
         const bold = d.bold ?? []
         const mixed = bold.some(Boolean) && !bold.every(Boolean)
         return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} rows, name left and time right on one line, grey line under${mixed ? ', unread rows bold' : ''}: ${d.items.slice(0, 5).map((p, i) => `${quote(p[0], 20)} ${p[1]} ${quote(p[2], 28)}${mixed && bold[i] ? ' bold' : ''}`).join(', ')}${d.items.length > 5 ? `, then ${d.items.slice(5).map((p) => `${quote(p[0], 20)} ${p[1]}`).join(', ')}` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
+      }
+      if (d.switches && d.items.length <= 8) {
+        const grey = (c) => /grey|white/.test(colourName(c) ?? '')
+        return `${d.head ? `${quote(d.head, 20)} ` : ''}${d.items.length} rows with thin lines between, each: bold name, small grey line under it, toggle switch on the right: ${d.items.map((p, i) => `${quote(p[0], 28)}${p[1] ? ` / ${quote(p[1], 44)}` : ''} ${grey(d.switches[i]) ? 'off (grey)' : `on (${colourName(d.switches[i])})`}`).join('; ')}`
       }
       if (d.dots && d.items.length <= 10 && d.items.every((p) => p.length === 1 && p[0].length <= 24)) {
         return `${d.head ? `${quote(d.head, 20)} ` : ''}list, a round colour dot before each: ${d.items.map((p, i) => `${colourName(d.dots[i])} dot ${quote(p[0], 24)}`).join(', ')}${d.on ? `; ${quote(d.on, 20)} highlighted` : ''}`
@@ -626,7 +734,7 @@ function decideOne(f, page, marked, said) {
   // (a plain list is only said when nothing else names the block: see the box branch)
   // and only when its parts aren't drawn as marks of their own (stat cards each marked)
   // a gantt's bars and a form's fields aren't marks of their own, so it is said even with its name column and today line drawn
-  const dn = f.dense?.type === 'list' || (!/^(gantt|form)$/.test(f.dense?.type) && f.regionKids.some((r) => marked.has(r))) ? null : denseNote(f.dense)
+  const dn = f.dense?.type === 'list' || (!/^(gantt|form|messages)$/.test(f.dense?.type) && f.regionKids.some((r) => marked.has(r))) ? null : denseNote(f.dense)
   if (dn) {
     const bgName = fill ? colourName(f.bg) : null
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
@@ -652,6 +760,18 @@ function decideOne(f, page, marked, said) {
   if (f.toggle && f.text && f.text.length <= 90 && h <= 110 && !f.regionKids.length) {
     const on = f.toggle && dist(f.toggle, { r: 203, g: 213, b: 225 }) > 40 && colourName(f.toggle) !== 'light grey'
     return { kind: 'text', note: `toggle ${on ? 'on' : 'off'} ${quote(f.kidTexts[0] ?? f.text, 40)}` }
+  }
+  // copy left, one filled button right (a danger zone card)
+  if (f.sideButton && !f.regionKids.length && h <= 160) {
+    const sb = f.sideButton
+    const bc = bordered ? colourName(f.border.colour) : null
+    const box = `${fill && dist(f.bg, page.bg) >= 3 ? `${colourName(f.bg)} ` : ''}card${bc && !/light grey|white/.test(bc) ? ` with a ${bc} border` : ''}`
+    const ink = sb.firstInk && dist(sb.firstInk, page.colour) > 60 ? `${colourName(sb.firstInk)} ` : ''
+    return { kind: 'box', note: `${box}: ${sb.firstBold ? 'bold ' : ''}${ink}${quote(sb.lines[0], 40)}${sb.lines.slice(1).map((t) => `, small grey ${quote(t, 60)} under it`).join('')}; ${colourName(sb.fill)}${sb.ink && dist(sb.ink, sb.fill) > 150 ? ` ${colourName(sb.ink)} text` : ''} button ${quote(sb.t)} on the right` }
+  }
+  // a spreadsheet formula bar: a cell name box then the formula (round 5 e5: unsaid)
+  if (f.kidCount === 2 && /^[A-Z]{1,3}\d{1,5}$/.test(f.kidTexts[0] ?? '') && /^=/.test(f.kidTexts[1] ?? '') && !f.regionKids.length) {
+    return { kind: 'box', note: `formula bar across the page, thin line under: small cell name box ${quote(f.kidTexts[0])} left with a divider, then grey formula ${quote(f.kidTexts[1], 60)}` }
   }
   // a row of label + box fields
   if (f.fieldKids.length >= 2 && f.fieldKids.length === f.kidCount) return { kind: 'box', note: `fields side by side: ${f.fieldKids.map((t) => quote(t, 24)).join(', ')}` }
@@ -719,7 +839,8 @@ function decideOne(f, page, marked, said) {
     // a row of controls: a placeholder is an input, 'Role: All' or '▾' is a dropdown, the rest are buttons
     const ctl = (t) => /…$|\.\.\.$|^search\b/i.test(t) ? `input ${quote(t)}` : /▾|▼|:\s*\S/.test(t) ? `dropdown ${quote(t.replace(/\s*[▾▼]$/, ''))}` : `button ${quote(t)}`
     const items = f.kidTexts.map(ctl)
-    return { kind: 'box', note: items.every((t) => t.startsWith('button')) ? `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ') }
+    const on = f.kidOn?.fill && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${colourName(f.kidOn.fill)} fill)` : ''
+    return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on }
   }
   // wide is fine for a filled, centred one-line label (a full-width pay button)
   const buttonish = (/^(a|button)$/.test(f.tag) || ((fill || bordered || grad) && f.centred)) && short && h <= 90 && f.kidCount <= 1 && (w <= 420 || (fill && f.centred && h <= 70))
@@ -763,7 +884,8 @@ function decideOne(f, page, marked, said) {
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
-    return { kind: fill || bordered ? 'box' : 'text', note: `links: ${f.kidTexts.slice(0, 6).join(', ')}` }
+    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null].filter(Boolean).join(', ')})` : ''
+    return { kind: fill || bordered ? 'box' : 'text', note: `links: ${f.kidTexts.slice(0, 6).join(', ')}${on}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
