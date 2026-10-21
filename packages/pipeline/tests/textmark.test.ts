@@ -163,6 +163,20 @@ describe('textStacks — drawn line spacing is the type size (round 1, c1)', () 
     expect(st[0]!.fontPx).toBeGreaterThanOrEqual(14)
     expect(st[0]!.fontPx).toBeLessThanOrEqual(18)
   })
+  it('sizes a lone heading squiggle drawn tall (round 3, e3 title: 28px)', () => {
+    const st = textStacks([{ id: 't', points: textLine(56, 48, 186, { amp: 9.6, wavelength: 46 }) }])
+    expect(st).toHaveLength(1)
+    expect(st[0]!.lines).toBe(1)
+    expect(st[0]!.fontPx).toBeGreaterThanOrEqual(24)
+    expect(st[0]!.fontPx).toBeLessThanOrEqual(32)
+  })
+  it('makes no size claim for a lone body squiggle, tidy or rough', () => {
+    for (const w of [80, 150, 300, 600]) {
+      for (let s = 1; s <= 12; s++) {
+        expect(textStacks([{ id: 'r', points: rtext(10, 10, w, { seed: s * 97 + w }) }]), `rtext ${w}/${s}`).toEqual([])
+      }
+    }
+  })
   it('makes no size claim for a single line, or for lines in different columns', () => {
     const one = [textLine(100, 300, 400)]
     expect(textStacks(one.map((points: unknown, i: number) => ({ id: `o${i}`, points })))).toEqual([])

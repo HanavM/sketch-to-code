@@ -1,65 +1,66 @@
 {
   "id": "e3-calendar",
-  "at": "2026-10-21T05:48:50.784Z",
+  "at": "2026-10-21T06:02:11.773Z",
   "likeness": {
     "version": 2,
-    "overall": 0.43131915008178556,
-    "overallV1": 0.2061029687003404,
-    "colour": 0.9799607038247251,
-    "structure": 0.9281851825085755,
-    "structureStrict": 0.7488693937011325,
-    "layout": 0.22429340001515496
+    "overall": 0.3060878824073152,
+    "overallV1": 0.15148801067459788,
+    "colour": 0.9724105091054345,
+    "structure": 0.8444235759686403,
+    "structureStrict": 0.6274036682767211,
+    "layout": 0.466194495281568
   },
   "effects": null,
   "tokens": {
-    "input": 34729,
-    "output": 8560,
-    "cacheRead": 543592
+    "input": 28543,
+    "output": 11077,
+    "cacheRead": 298618
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 39513,
-      "output": 7385,
-      "cacheRead": 540572,
-      "toolCalls": 15,
+      "billed": 35736,
+      "output": 9794,
+      "cacheRead": 295598,
+      "toolCalls": 8,
       "tools": [
-        "Grep",
-        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/index.html",
+        "Glob",
         "Write src/App.tsx",
-        "Skill",
-        "Read examples/playwright.md",
-        "Bash",
-        "ToolSearch",
-        "ToolSearch"
+        "Glob",
+        "Read s2c-bench-app/package.json"
       ],
-      "ms": 70335
+      "ms": 102340
     }
   ],
-  "reading": "The sketch is a calendar app page: a header with a \"November 2026\" title, Prev/Today/Next navigation buttons, a green \"+ New event\" button, and a full month grid below filled with labeled, colour-coded event chips as specified in the typed note, with day 11 highlighted.",
+  "reading": "A calendar header with a \"November 2026\" title, Prev/Today/Next outline nav buttons, and a green \"+ New event\" button, above a 5-week month grid (Mon–Sun) filled with day numbers and colour-coded event chips as described, with day 11 highlighted.",
   "actions": [
     {
       "kind": "add",
       "textMarks": [
         "s0"
       ],
-      "textSize": [],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
       "region": [
         56,
-        41,
+        38,
         186,
-        15
+        19
       ],
       "paths": [],
-      "instruction": "Add a page heading text \"November 2026\" where the wavy placeholder line was drawn, top-left of the header bar."
+      "instruction": "Text placeholder (wavy squiggle) at top-left reads as a page heading; render as literal text \"November 2026\" as the calendar's month/year title."
     },
     {
       "kind": "add",
@@ -74,7 +75,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a row of outline buttons \"‹ Prev\", \"Today\", \"Next ›\" in the header, in place of the single rounded-rect sketch."
+      "instruction": "A row of outline (ghost-style) navigation buttons next to the title: \"‹ Prev\", \"Today\", \"Next ›\", used to move between months."
     },
     {
       "kind": "add",
@@ -89,7 +90,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a green filled button with white text \"+ New event\" in the top-right of the header, matching the rounded-rect sketch position."
+      "instruction": "A solid green button with white text labeled \"+ New event\", placed at the top-right for creating a new calendar event."
     },
     {
       "kind": "design",
@@ -104,7 +105,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Build a month calendar grid (Mon to Sun columns, 5 rows of day boxes) filling the large rectangle. Day 1 falls under Sunday; the first row starts with the previ"
+      "instruction": "Large bordered rectangle becomes a month calendar grid, columns Mon through Sun, 5 rows of day cells. First row starts with trailing days of the previous month "
     }
   ],
   "rejected": []

@@ -15,7 +15,8 @@ function mark(kind, r) {
     case 'button': return [box(x + 2, y + 2, w - 4, h - 4, { radius: Math.min(16, h / 2 - 2) })]
     case 'heading': return h > 140
       ? textBlock(x + 8, y + h * 0.3, w * 0.9, 2, h * 0.45, { amp: 8, wavelength: 50 })
-      : [textLine(x + 8, cy, w * 0.9, { amp: 7, wavelength: 46 })]
+      // drawn as tall as the type: a 28px title wobbles ~19px, a big one up to the cap
+      : [textLine(x + 8, cy, w * 0.9, { amp: Math.max(7, Math.min(18, h * 0.3)), wavelength: 46 })]
     case 'text': return h > 40 ? textBlock(x + 4, y + 14, w - 8, 2, Math.min(24, h / 2)) : [textLine(x + 4, cy, w - 8)]
     case 'image': return imageBox(x + 4, y + 4, w - 8, h - 8)
     case 'circle': return [circle(x + w / 2, cy, Math.min(w, h) / 2 - 4)]

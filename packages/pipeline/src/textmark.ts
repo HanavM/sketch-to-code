@@ -171,6 +171,11 @@ function lineGeom(id: string, points: Point[]): LineGeom {
   return { id, x0, x1, y0, y1, cy: (y0 + y1) / 2 }
 }
 
+/** A lone squiggle this tall (px, crest to trough) is a heading drawn to size. */
+export const LONE_HEADING_INK = 17
+/** Font px per px of a lone heading squiggle's height (bench: 28px title drawn ~19px tall). */
+const LONE_FONT_PER_INK = 1.45
+
 /** Font size for a drawn line pitch: headings ~1.1 line-height, body ~1.5. */
 export function fontForPitch(pitch: number): number {
   return Math.round(pitch / (pitch >= 48 ? 1.1 : 1.5))
@@ -178,7 +183,8 @@ export function fontForPitch(pitch: number): number {
 
 /**
  * Group text squiggles into stacks (same left edge, evenly stepped down) and
- * read a type size from each stack of two or more lines.
+ * read a type size from each stack of two or more lines; a lone squiggle drawn
+ * heading-tall gives a one-line stack sized from its height.
  */
 export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] {
   const ls = marks
@@ -210,7 +216,23 @@ export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextS
         used.add(next.id)
       }
     }
-    if (stack.length < 2) continue
+    if (stack.length < 2) {
+      // a lone squiggle: only its height can say size. Body text wobbles a few px;
+      // a heading drawn tall (>= LONE_HEADING_INK px across) is drawn that big on purpose.
+      // across the chord, so a line written on a slight slope doesn't read taller
+      const t = measureTextMark(marks.find((m) => m.id === first.id)!.points)?.thickness ?? 0
+      if (t < LONE_HEADING_INK) continue
+      const fontPx = Math.round(LONE_FONT_PER_INK * Math.min(t, MAX_THICKNESS))
+      const pitch = Math.round(fontPx * 1.2)
+      out.push({
+        strokes: [first.id],
+        lines: 1,
+        box: { x: Math.round(first.x0), y: Math.round(first.cy - pitch / 2), w: Math.round(first.x1 - first.x0), h: pitch },
+        linePitchPx: pitch,
+        fontPx,
+      })
+      continue
+    }
     const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
     const pitch = gaps[Math.floor(gaps.length / 2)]!
     const x0 = Math.min(...stack.map((l) => l.x0))

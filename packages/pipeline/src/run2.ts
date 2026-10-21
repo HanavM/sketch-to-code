@@ -152,13 +152,17 @@ Rules:
 - "textSize" groups stacked text squiggles: the spacing the user drew between the
   lines IS the line height. Set that text's font-size to fontPx (within ~15%) with a
   matching line-height, wrapped to box.w, so it fills the drawn box with that many
-  lines. A display headline drawn this big stays this big; never shrink it to the
+  lines. A one-line entry is a lone heading squiggle drawn tall: its height set
+  fontPx. A display headline drawn this big stays this big; never shrink it to the
   app's default heading size.
 - "region" is where the user drew it, in page px (x, y from the page's top-left).
   When the page is being built from the drawing, make each block land there: its
   top edge within ~16px of region.y, its width within ~10% of region.w (explicit
   width/max-width and margins). Add no extra top padding or default body margin
-  that pushes everything down. Exception: a note that says a block bleeds off the
+  that pushes everything down. A box drawn tall sets the block's height too
+  (bottom within ~5% of region.y + region.h): a grid, calendar or table drawn
+  that tall fills it, its row heights = the box height / the number of rows,
+  rather than shrinking to its content. Exception: a note that says a block bleeds off the
   edge, overlaps another, or is tilted means it may pass its region on purpose;
   keep its anchor edge at the region and let it run past.
 - Effect words in notes are exact requests, never to be softened into a plainer
