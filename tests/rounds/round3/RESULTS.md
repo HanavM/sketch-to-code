@@ -37,3 +37,13 @@ target has it under Sun with Oct 26-31 greyed in), which shifts every chip one c
 chips are pale tints where the target has solid fills with white text. Side by side: `built/e3-calendar-n29-cmp.png`.
 Next: the plan should say which weekday day 1 falls on, that leading days are from the previous month, and
 solid vs pale chips.
+
+## Live re-run 2026-10-21, e3 after the n30 plan fix
+
+The calendar note now says where the month sits ("day 1 under Sun, first row starts with
+last month's 26–31, last box is 29") and that chips are solid with white text. Built: Nov 1
+under Sunday with Oct 26–31 greyed, 5 weeks (was 6), every chip solid and on its day.
+Likeness 24% → 43% (v2). Region score still 22%: the header bar came out higher and smaller
+than drawn, so title, ‹ Prev and + New event miss their boxes. The first attempt's reading
+failed with "maximum number of turns (4)"; the re-run read fine. 43k tokens.
+Side by side: `built/e3-calendar-n30-cmp.png`.

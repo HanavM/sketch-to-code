@@ -166,8 +166,12 @@ function factsInPage() {
       // each event keeps the day it sits on: 'Standup' on 2, 9, 16, 23 (the day cell is the grid child holding it)
       const dayOf = (k) => { let c = k; while (c && c.parentElement !== el) c = c.parentElement; return c ? txt(c).split(' ')[0] : null }
       const evs = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); const t = txt(k); return t && t.length <= 18 && !k.children.length && filled(k) && b.height <= 30 && b.width <= 160 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 3 })
-        .map((k) => ({ text: txt(k), ink: filled(k), fill: filled(k), day: dayOf(k) }))
-      return { type: 'month', heads, weeks: Math.round(cells / 7), events: evs, marked }
+        .map((k) => ({ text: txt(k), ink: filled(k), fill: filled(k), color: rgba(getComputedStyle(k).color), day: dayOf(k) }))
+      // where the month sits: the first row's day numbers (lead-in days from the month before) and the last day shown
+      const nums = days.slice(heads.length).map((d) => txt(d).split(' ')[0])
+      const first = nums.slice(0, 7), one = first.indexOf('1')
+      const lead = one > 0 ? first.slice(0, one) : []
+      return { type: 'month', heads, weeks: Math.round(cells / 7), events: evs, marked, firstCol: one >= 0 && heads[one] ? heads[one] : null, lead, last: nums[nums.length - 1] }
     }
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
     // stat cards: 3+ same-size cards in a row, each with one big number
@@ -337,7 +341,10 @@ function denseNote(d) {
       const ev = d.events.some((e) => e.day)
         ? monthEvents([...byText.values()])
         : chipList(d.events, 5)
-      return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${ev ? `; event chips ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
+      // the grid's first row and the chips' fill are what a model gets wrong by default (round 3 e3: 1 under Mon, pale tinted chips)
+      const start = d.firstCol ? `; day 1 under ${d.firstCol}${d.lead.length ? `, first row starts with last month's ${d.lead.join(', ')}` : ''}${d.last ? `, last box is ${d.last}` : ''}` : ''
+      const solid = d.events.length && d.events.every((e) => e.fill && e.fill.r + e.fill.g + e.fill.b < 600 && e.fill.a > 0.9) ? ` (solid colour${d.events.every((e) => e.color && e.color.r + e.color.g + e.color.b > 690) ? ', white text' : ''})` : ''
+      return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${start}${ev ? `; event chips${solid} ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
     }
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}`).join(', ')}`
     case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
