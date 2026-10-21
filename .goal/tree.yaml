@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Built three harder round-2 pages: the glass page and settings page came out close, the giant-type poster lost its bottom lines; fixed the cause, re-running it next."
-lock: {by: run-n33, until: 2026-10-21T07:51:18Z}
+now: "Fixed the likeness score so a page built right but slightly bigger or lower no longer scores near zero; next, rebuilding the round-2 poster and glass pages."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -48,6 +48,7 @@ notes:
   - "Token ledger: 2026-10-21 n31 live e3 x2 86k (day total ~800k, no cap set)."
   - "Token ledger: 2026-10-21 n11 live round-2 c2+c3+e3 133k (c2 50k, c3 31k, e3 22k billed + cache) (day total ~930k, no cap set)."
   - "n11 (2ed2452 on try/n3-vocabulary): bench drawPolyline clamps points to the viewport; marks planned off the page edge (bleed headings at x<0) used to start off-screen and broke capture. Round 2/3 bleed pages built before this were drawn wrong."
+  - "n33 (ab16345 on try/n3-vocabulary): likeness v3 = colour/structure after one global zoom (0.88-1.16) + offset (<=128px), better of aligned and unmoved; digests carry overall (v3), overallV2, overallV1, align. tests/rounds/crossink.mjs <round> scores each target vs the others (unrelated lift must stay low: <=20%). Ink-only masking was tried and failed that check (50-83%). Table in tests/rounds/SCORE-v3.md. Compare rounds on the same version."
   - "Free steps left before 2026-10-22 are thin: if nothing advances the goal, say so and stop rather than make busywork."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -80,7 +81,8 @@ nodes:
   - {id: n11, parent: n2, kind: step, title: "Round 2 live starter (needs 2026-10-22 budget after n12, ~90k, --budget): build c2 outline-bleed, c3 glass, e3 settings from auto plans; see which hard effects survive and fix the worst", status: done,
      result: "c3 46%, e3 6% (looks near-identical), c2 38%: off-screen bleed marks broke drawing; bench now clamps. 2ed2452."}
   - {id: n32, parent: n11, kind: step, title: "Live ~60k (--budget): re-run round-2 c2 with on-screen marks (FEST below NOISE, body and date kept); also c3 (blobs too faint, navy too dark, card short, body copy invented)", status: open, result: null}
-  - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: open, result: null}
+  - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
+     result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
      result: "All 10 built; e5 63%, c3 51%. Page-look notes styled one block; fixed. 303k tokens, 1% over. 5527aa8."}
   - {id: n13, parent: n1, kind: step, title: "Free: why c2's 160px drawn headline came out ~50px, from the ink and grounding, no live runs", status: done,
