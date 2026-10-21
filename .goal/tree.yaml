@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
 now: "Field labels and the small line under a heading were being lost; the planner now asks for them. Live building resumes tomorrow."
-lock: null
+lock: {by: run-2026-10-21T0408, until: "2026-10-21T05:40:00Z"}
 asks: []
 handled: []
 notes:
