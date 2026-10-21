@@ -212,7 +212,9 @@ const dist = (a, b) => (a && b ? Math.hypot(a.r - b.r, a.g - b.g, a.b - b.b) : 9
 const visible = (c) => c && c.a > 0.05
 const isSerif = (fam) => /serif/i.test(fam) && !/sans-serif/i.test(fam) || /georgia|times|garamond|playfair|didot|bodoni/i.test(fam)
 const isMono = (fam) => /mono|courier|consolas/i.test(fam)
-const quote = (s, n = 48) => `"${s.length > n ? s.slice(0, n).replace(/\s+\S*$/, '') + '…' : s}"`
+// cut-short copy puts its ellipsis OUTSIDE the quotes ("Looks great. Can we"…), so it
+// never reads as a literal placeholder ellipsis ("Write a message…")
+const quote = (s, n = 48) => (s.length > n ? `"${s.slice(0, n).replace(/\s+\S*$/, '')}"…` : `"${s}"`)
 const uniq = (xs) => [...new Set(xs.filter(Boolean))]
 
 function gradientWords(f) {
@@ -278,7 +280,7 @@ function denseNote(d) {
     }
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}`).join(', ')}`
     case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars`.replace(/\s+/g, ' ')
-    case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 24)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
+    case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
       return `${d.head ? `${quote(d.head, 20)} ` : ''}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
@@ -406,7 +408,8 @@ function decide(f, page, marked) {
   if (f.text) {
     // short text says its copy when it is display-sized or styled apart (a coloured mono date, a brown logo)
     const styled = uniq([...typeWords(f, page), NEUTRAL.has(textCol) ? null : textCol, ...fx])
-    const say = f.text.length <= 40 && (f.font.size >= 18 || styled.length)
+    // ...or when it is a bold standalone label (a thread title, a panel header): copy no mark can carry
+    const say = f.text.length <= 40 && (f.font.size >= 18 || styled.length || (f.font.weight >= 600 && f.kidCount === 0))
     return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : null }
   }
   return { kind: 'box', note: null }

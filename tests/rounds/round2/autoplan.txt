@@ -1,4 +1,4 @@
-c1-collage · marks 7 · words 33
+c1-collage · marks 7 · words 44
     logo         heading 
     photo-1      image   
     photo-2      image   
@@ -8,8 +8,8 @@ c1-collage · marks 7 · words 33
     cta          button  
     note *: whole page: cream page, near-black text
     note logo: italic serif "Field Notes"
-    note photo-1: tilted
-    note photo-2: tilted
+    note photo-1: tilted grey to dark grey gradient block
+    note photo-2: tilted coral to red gradient block
     note sticker: tilted yellow circle with "NEW ISSUE 07"
     note headline: giant serif "Slow travel, fast friends"
     note cta: near-black pill cream text button "Read issue 07"
@@ -39,7 +39,7 @@ c3-glass-blobs · marks 7 · words 34
     note tag: frosted glass "Beta · v2.0"
     note headline: huge "Your notes, finally calm"
     note ctas: buttons: "Get started", "Watch demo"
-c4-mag-grid · marks 6 · words 50
+c4-mag-grid · marks 6 · words 55
     masthead     box     
     lead-img     image   
     lead-title   heading 
@@ -48,6 +48,7 @@ c4-mag-grid · marks 6 · words 50
     pull-quote   heading 
     note *: whole page: white page, serif type, near-black text
     note masthead: thick rule under "The Weekly Ledger TUESDAY · NO. 412"
+    note lead-img: orange to brown gradient block
     note lead-title: big serif "The quiet return of the corner shop"
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
@@ -90,7 +91,7 @@ e1-checkout · marks 13 · words 44
     note item-2: picture with "Canvas tote $32"
     note item-3: picture with "Wool socks $32"
     note total: "Total $128.00"
-e2-shop-grid · marks 8 · words 44
+e2-shop-grid · marks 8 · words 52
     nav          text    
     filters      box     
     p1           image   
@@ -100,7 +101,7 @@ e2-shop-grid · marks 8 · words 44
     p5           image   
     p6           image   
     note nav: links: Lumen, New, Lamps, Sale, Cart (2)
-    note filters: sidebar "CATEGORY" and text
+    note filters: sidebar "CATEGORY" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", 1 more
     note p1: picture with "Arc floor lamp $189"
     note p2: picture with "Dome pendant $129"
     note p3: picture with "Clip desk lamp $59"
@@ -118,10 +119,10 @@ e3-settings · marks 8 · words 47
     reset        button  
     note title: "Settings"
     note tabs: links: Profile, Notifications, Billing, Team
-    note row-1: toggle on "Email digests A summary of activity…"
-    note row-2: toggle on "Mentions Notify me when someone…"
-    note row-3: toggle off "Product news Occasional updates about…"
-    note row-4: toggle off "Weekly report Usage numbers for your…"
+    note row-1: toggle on "Email digests A summary of activity"…
+    note row-2: toggle on "Mentions Notify me when someone"…
+    note row-3: toggle off "Product news Occasional updates about"…
+    note row-4: toggle off "Weekly report Usage numbers for your"…
     note save: blue white text button "Save changes"
     note reset: red outline button "Reset all"
 e4-faq · marks 7 · words 43

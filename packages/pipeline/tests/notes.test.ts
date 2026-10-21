@@ -620,3 +620,32 @@ describe('page-look notes reach the whole page (round 1: c2, c4)', () => {
     expect(g.runNotes).toBeUndefined()
   })
 })
+
+describe('dense notes — a list of quoted parts stays one block, word for word', () => {
+  it('carries a long table/chat note verbatim to the one action, not page-wide', () => {
+    const { snap } = page()
+    const strokes = [stroke('s0', 120, 120), stroke('s1', 600, 600)]
+    const table = 'table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", brown "Invited", red "Suspended"'
+    const chat = 'chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right teal "Looks great.", 1 more'
+    const ev = buildEvidence(strokes, snap, [
+      { id: 'n0', text: table, at: { x: 130, y: 130 }, anchor: { kind: 'strokes', strokeIds: ['s0', 's1'] } },
+      { id: 'n1', text: chat, at: { x: 610, y: 610 }, anchor: { kind: 'strokes', strokeIds: ['s0', 's1'] } },
+    ])
+    expect(ev.notes.map((n) => n.text)).toEqual([table, chat])
+    expect(ev.notes.map((n) => n.focus)).toEqual([['s0'], ['s1']])
+    const g = groundInterpretation(
+      {
+        reading: 'a table and a chat',
+        actions: [
+          { kind: 'design', elements: null, destElement: 'e1', position: 'into', instruction: 'table', strokes: ['s0'], layer: null, depicts: null, fidelity: 'recognized' },
+          { kind: 'design', elements: null, destElement: 'e3', position: 'into', instruction: 'chat', strokes: ['s1'], layer: null, depicts: null, fidelity: 'recognized' },
+        ],
+      },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual([table])
+    expect(g.actions[1]!.notes).toEqual([chat])
+    expect(g.pageNotes).toBeUndefined()
+    expect(isPageLookNote(table) || isPageLookNote(chat)).toBe(false)
+  })
+})

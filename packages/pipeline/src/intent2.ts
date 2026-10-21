@@ -584,6 +584,9 @@ Rules for your answer:
   'destElement' takes a DOM element id (the container); stroke ids go in
   'strokes' ONLY.
 - Prefer ONE composite action per coherent drawing.
+- A note that lists many quoted items (columns, events, cards, bubbles, list
+  rows) describes the CONTENT of the one block its focus strokes drew: it is
+  never one action, or one mark, per item.
 - reading: 1-2 plain sentences. Note real ambiguity in 'unclear'.
 `.trim()
 

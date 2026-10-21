@@ -160,6 +160,14 @@ Rules:
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.
+- A note that lists the parts of one block (table columns, calendar events, stat
+  cards, chat bubbles, kanban cards, list items) is that block's content: build
+  each quoted item with its words exactly as written, in the order given, with
+  the colour or side named next to it. Counts are real: "7 rows" means seven
+  rows, "5 weeks" five week rows, "8 bars" eight bars; "2 more" means two more
+  items of the same kind with plausible content. An ellipsis AFTER a closing
+  quote ("Can we get"…) means the copy was cut short: finish it plausibly. An
+  ellipsis INSIDE the quotes ("Write a message…") is literal text.
 - "insertSlot" on an add/design action: the user drew it in the gap between
   two siblings. Put the new element in the source right after "after" and
   right before "before" (both carry srcLoc), inside the same parent. Never

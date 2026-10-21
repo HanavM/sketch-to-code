@@ -24,8 +24,8 @@ c2-kinetic-marquee · marks 7 · words 83
     note *: whole page: off-white page, near-black text
     note logo: "ROLL/STUDIO"
     note menu: near-black outline pill button "Menu"
-    note band-black: tilted scrolling marquee bleeding off the page edge giant heavy uppercase off-white on a near-black band "MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION…"
-    note band-orange: tilted scrolling marquee bleeding off the page edge giant heavy uppercase on a red band "BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS…"
+    note band-black: tilted scrolling marquee bleeding off the page edge giant heavy uppercase off-white on a near-black band "MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION"…
+    note band-orange: tilted scrolling marquee bleeding off the page edge giant heavy uppercase on a red band "BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS"…
     note intro: "We make things move for brands that refuse to sit still."
     note reel: near-black block
     note play: pulsing big red circle
@@ -107,13 +107,14 @@ e3-calendar · marks 4 · words 43
     note prev: outline button "‹ Prev"
     note new: green white text button "+ New event"
     note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue "Standup", green "Design review", orange "Launch", green "1:1 with Mia", blue "Planning"; day 11 highlighted
-e4-chat · marks 4 · words 60
+e4-chat · marks 4 · words 74
     sidebar      box     
     header       text    
     thread       box     
     composer     box     
     note sidebar: dark navy sidebar "Messages" list: "Design team", "Jonas Berg" See you at 3?, "Support rota", "Lena Ito" Thanks! 🙏, 1 more; "Design team" highlighted
-    note thread: chat bubbles: left white "Morning! New icon set…", right teal "Looks great. Can we get…", left white "Yes — bumping them all…", right teal "Perfect, I'll wire them…", 1 more
+    note header: "Design team"
+    note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right teal "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right teal "Perfect, I'll wire them up after lunch.", 1 more
     note composer: input "Write a message…", button "Send"
 e5-analytics · marks 5 · words 55
     title        heading 
