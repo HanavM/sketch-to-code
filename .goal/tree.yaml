@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Made the likeness score fair to pages that sit a few pixels off (it was scoring them like blank pages). Live building resumes tomorrow."
-lock: {by: run-2026-10-21T0401, until: "2026-10-21T05:31:00Z"}
+now: "Field labels and the small line under a heading were being lost; the planner now asks for them. Live building resumes tomorrow."
+lock: null
 asks: []
 handled: []
 notes:
@@ -30,6 +30,7 @@ notes:
   - "n21: tests/rounds/LIVE-2026-10-22.md is the live order for 2026-10-22 (commands, budgets per invocation; --budget is per run, keeps 95k worst-page reserve)."
   - "n22 (7c3fd09 on try/n3-vocabulary): note focus inside a drawn box: typed on/between a child's lines adds that child; otherwise the box's children leave the focus. Only closed box-shaped strokes count (rings, ridges, diagonal bands don't). tests/bench/focusdiff.mjs compares focus vs the old rule over dry-run wires: 3 of 166 round 1-3 notes change. Reading + codegen: a plain box is never an image."
   - "n19 (14fb923 on try/n3-vocabulary): wire notes checked verbatim via --dry --plain (tests/bench/out/plain/*.wire.json). Cut-short quotes now end \"...\"… (ellipsis outside); codegen contract has a dense-list rule (exact items, real counts, 'N more'); reading prompt: a listing note is one block."
+  - "n25 (bdb98fc on try/n3-vocabulary): planner facts labelAbove/lineUnder (unmarked sibling text within 28px); notes 'label \"X\" above, input ...', 'label \"X\" above an empty field', 'heading, line under: \"...\"'; said texts not repeated on wrappers. run2 contract: quoted copy word for word. Plan diff: r1 e1/e4, r2 e1 only."
   - "n24 (8574b79 on try/n3-vocabulary): likeness v2. Structure matches each 8px cell within 2 cells (~16px); old SSIM kept as structureStrict, digests carry overall (v2) and overallV1. Target moved 16px: v1 0-78% lift, v2 99-100%. Round 1 v2: c1 67, c2 37, c3 59, c4 38, c5 15, e1 11, e2 42, e3 15, e4 12, e5 77. node tests/rounds/rescore.mjs <cmp pngs> re-scores saved side-by-sides free. Compare rounds on the same version."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -83,4 +84,6 @@ nodes:
   - {id: n20, parent: n18, kind: step, title: "Needs 2026-10-22 budget, --budget: build round-3 e1 table, e3 calendar, e5 analytics live from the new plans; compare with targets and fix the worst gap", status: open, result: null}
   - {id: n24, parent: n1, kind: step, title: "Free: check the likeness score against the target itself moved a few pixels; if small offsets read as 'built nothing', fix and re-score round 1 from saved pictures", status: done,
      result: "Target moved 16px kept as little as 0%; now 99-100%. Round 1 re-scored, v1 kept. 8574b79."}
-  - {id: n25, parent: n24, kind: step, title: "Free, from round-1 pictures and digests: e4 heading copy changed ('Get in touch' became 'Contact Us'), subtitle and field labels dropped; e1 lost grey page and labels. Find where copy and labels are lost and fix", status: open, result: null}
+  - {id: n25, parent: n24, kind: step, title: "Free, from round-1 pictures and digests: e4 heading copy changed ('Get in touch' became 'Contact Us'), subtitle and field labels dropped; e1 lost grey page and labels. Find where copy and labels are lost and fix", status: done,
+     result: "Hand sketches never said them; auto planner missed labels and sub-lines too. Planner and codegen fixed. bdb98fc."}
+  - {id: n26, parent: n25, kind: step, title: "Needs budget after n20/n12/n11/n23 (~50k, --budget): build round-1 e1, e4 from the auto plans; labels above fields, 'Get in touch' and sub-lines must appear", status: open, result: null}
