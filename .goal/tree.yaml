@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 5 is ready: 10 harder pages (masked film reel, variable type, bento, board under a modal, spreadsheet). Next: teach the sketch notes what they miss on them, then build."
-lock: {by: "run-2026-10-21T19:29Z n59", until: "2026-10-21T20:59:00Z"}
+now: "Sketch notes for round 5 now describe chat, spreadsheets, heatmaps and toggle settings; next I build those four pages for real and fix the worst gap."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -91,6 +91,7 @@ notes:
   - "n40 (540741e, 83d703d on try/n3-vocabulary): textmark isShortDisplayWord: level zigzag 2-3 crests, >=100px tall, 1.1-2.5x wider than tall, crest gap >=0.33h, sinuosity <=3 = short giant word (display ink cap now 320px). Bench draws short one-line headings (width < 1.75 x fontPx) with amp 0.35 x fontPx and 3 half waves. node tests/rounds/giantword.mjs checks every one-line display heading's read size free; classification dump over 80 pages changed only the 3 short giant words."
   - "Token ledger: 2026-10-21 n40 live r3 c4 45k (day total ~3935k, no cap set)."
   - "Token ledger: 2026-10-21 n56 live r4 c5 x2 ~99k, r1 c5 ~53k = ~152k (day total ~4090k, no cap set)."
+  - "n59 (0ea0776 on try/n3-vocabulary): dense() types messages (avatar+bold name+time per row, 2+ rows, pane said even with marked composer), sheet (letters/row numbers grid, used rows, selected cell), heat (one-hue cells, 0-9 strength per row), div-row table (all rows <=8); facts sideButton (copy left + filled button right card), kidOn (selected tab/filter); list switches (toggle on/off per row); formula bar note. Round-5 e2/e5 dry draws ok."
   - "n58 (dddab29 on try/n3-vocabulary): round 5 in tests/rounds/round5 (--set round5auto; NOTES.md lists untuned misses). run.mjs imports every round's auto.mjs at load, so a round needs autoplan.json before any bench run. Dry draw all 10 ~9 min, 0 failed, blank 0-6%."
   - "n56 (23cc861 on try/n3-vocabulary): box-branch fills with channel spread >=150 say 'vivid <colour>' (r3 c4 cards, r4 c5 step-3, r4 e5 today tag changed). autoplan.mjs prints the plan readout to stdout; autoplan.txt is not rewritten by it."
 criteria:
@@ -172,7 +173,10 @@ nodes:
   - {id: n57, parent: n56, kind: step, title: "Free first, ~60k live: round-1 c5 editorial headline built bold (target regular), sidebar a bordered box with invented lines (target left rule, one line); round-3 c4 rail label tiny, card titles mono. Fix, re-run", status: open, result: null}
   - {id: n58, parent: n47, kind: step, title: "Free: round-5 targets, harder than round 4 (scroll-driven reveals, masks over video-like gradients, variable type, dense multi-pane apps with modals), measured and auto-planned untuned; dry-draw all 10", status: done,
      result: "10 harder pages made, all drawn dry. Untuned plan drops chat pane, garbles spreadsheet, misses heatmap, toggles. dddab29."}
-  - {id: n59, parent: n58, kind: step, title: "Free: planner misses on round 5: e3 messages pane dropped (bordered wrapper with a marked kid but its own copy), e5 grid dump (headers as buttons, selected cell, formula bar), e2 heatmap cells, e4 toggle states + danger button, c5 conic ring; rounds 1-4 plans unchanged", status: open, result: null}
+  - {id: n59, parent: n58, kind: step, title: "Free: planner misses on round 5: e3 messages pane dropped (bordered wrapper with a marked kid but its own copy), e5 grid dump (headers as buttons, selected cell, formula bar), e2 heatmap cells, e4 toggle states + danger button, c5 conic ring; rounds 1-4 plans unchanged", status: done,
+     result: "Notes now say chat messages, spreadsheet, formula bar, heatmap, toggles, danger card. Rounds 1-4 only gain tabs. 0ea0776."}
+  - {id: n60, parent: n59, kind: step, title: "~150k live (--budget): first builds of round-5 everyday e2 heatmap, e3 team chat, e4 settings, e5 spreadsheet from the n59 plans; fix the worst gap", status: open, result: null}
+  - {id: n61, parent: n59, kind: step, title: "Free: round-5 creative planner misses: c5 conic ring said as a block, quote/code copy; c2 thin weight, wide spacing, circular badge, marquee copy; c3 frosted header, card fades; c4 hard shadow, grain; c1 mask fade, scrub fill; e1 backdrop dim", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
