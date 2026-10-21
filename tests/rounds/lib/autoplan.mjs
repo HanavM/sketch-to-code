@@ -158,6 +158,42 @@ function factsInPage() {
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
+      // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
+      leafButtons: [...el.querySelectorAll('*')].filter((k) => { const c = getComputedStyle(k); const t = txt(k); const b = k.getBoundingClientRect(); return t && t.length <= 24 && !k.children.length && b.height >= 26 && b.height <= 56 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).map((k) => ({ t: txt(k), fill: rgba(getComputedStyle(k).backgroundColor), border: rgba(getComputedStyle(k).borderTopColor), x: k.getBoundingClientRect().left })),
+      // a progress bar: a thin filled bar inside a thin track (round 4 e4 storage meter)
+      progress: (() => {
+        for (const t of el.querySelectorAll('*')) {
+          const u = t.firstElementChild; if (!u || txt(t)) continue
+          const a = t.getBoundingClientRect(), b = u.getBoundingClientRect()
+          if (a.height <= 14 && a.width >= 60 && b.height >= a.height - 2 && b.width < a.width * 0.98 && rgba(getComputedStyle(t).backgroundColor)?.a > 0.05 && rgba(getComputedStyle(u).backgroundColor)?.a > 0.05) return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean) }
+        }
+        return null
+      })(),
+      // a stepper: each item leads with a small round numbered circle (round 4 e3 said 'links: 1Cart, 2Shipping')
+      stepper: (() => {
+        if (kids.length < 3) return null
+        const st = kids.map((k) => {
+          const c = k.firstElementChild; if (!c) return null
+          const b = c.getBoundingClientRect(); const t = txt(c)
+          if (!/^\d{1,2}$/.test(t) || b.width > 44 || b.width < 14 || Math.abs(b.width - b.height) > 3 || parseFloat(getComputedStyle(c).borderTopLeftRadius) < b.width * 0.4) return null
+          return { n: t, label: txt(k).replace(t, '').trim(), fill: rgba(getComputedStyle(c).backgroundColor), ink: rgba(getComputedStyle(k).color), px: Math.round(b.width) }
+        })
+        return st.every(Boolean) ? st : null
+      })(),
+      // radio options: each item holds a small round hollow ring (round 4 e3 delivery choices said as 'buttons')
+      radios: (() => {
+        if (kids.length < 2) return null
+        const rs = kids.map((k) => {
+          const ring = [...k.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); const c = getComputedStyle(g); return !txt(g) && !g.children.length && b.width >= 10 && b.width <= 28 && Math.abs(b.width - b.height) <= 2 && parseFloat(c.borderTopLeftRadius) >= b.width * 0.4 && parseFloat(c.borderTopWidth) >= 1 })
+          if (!ring) return null
+          const leaves = [...k.children].map(txt).filter(Boolean)
+          return { parts: leaves, ring: parseFloat(getComputedStyle(ring).borderTopWidth), border: parseFloat(getComputedStyle(k).borderTopWidth) || 0, ink: rgba(getComputedStyle(ring).borderTopColor) }
+        })
+        if (!rs.every(Boolean)) return null
+        const maxR = Math.max(...rs.map((r) => r.ring))
+        const stacked = kids.every((k, i) => i === 0 || k.getBoundingClientRect().top >= kids[i - 1].getBoundingClientRect().bottom - 2)
+        return { stacked, items: rs.map((r) => ({ parts: r.parts, sel: r.ring === maxR && rs.filter((x) => x.ring === maxR).length === 1, thick: r.border >= 2 })) }
+      })(),
     }
   }
   // ---- dense app UI: the structure a box can't show (table, month grid, stat cards, bars, bubbles, cards, lists)
@@ -300,7 +336,10 @@ function factsInPage() {
     }
     // an item's parts: its child texts, with a row of leaf spans split (a mail row's sender | time glued
     // as 'Tom BeckerYesterday', round 4 e2)
-    const parts = (k) => [...k.childNodes].flatMap((n) => n.nodeType === 1 && n.children.length >= 2 && [...n.children].every((g) => !g.children.length && txt(g)) && n.children.length === n.childNodes.length ? [...n.children].map(txt) : [(n.textContent || '').trim()]).filter(Boolean)
+    // ...and a name with a small line set under it split in two (an order item's 'Linen overshirt' over
+    // 'Sand · M' was glued as 'Linen overshirtSand', round 4 e3)
+    const underLine = (n) => { const ls = (n.innerText || '').split('\n').map((t) => t.trim()).filter(Boolean); const sm = n.lastElementChild; return ls.length === 2 && sm && !sm.children.length && /block|flex/.test(getComputedStyle(sm).display) && parseFloat(getComputedStyle(sm).fontSize) < parseFloat(getComputedStyle(n).fontSize) ? ls : null }
+    const parts = (k) => [...k.childNodes].flatMap((n) => n.nodeType === 1 && n.children.length >= 2 && [...n.children].every((g) => !g.children.length && txt(g)) && n.children.length === n.childNodes.length ? [...n.children].map(txt) : n.nodeType === 1 && underLine(n) ? underLine(n) : [(n.textContent || '').trim()]).filter(Boolean)
     const boldFirst = (k) => { const w = [...k.querySelectorAll('*')].find((g) => !g.children.length && txt(g)); return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }
     if (rep.length >= 3) {
       // the highlighted item: the one whose fill differs from all the others
@@ -318,7 +357,19 @@ function factsInPage() {
       // a coloured dot leading each item (round 4 e5 task names: the dots were dropped)
       const dotOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); const r = parseFloat(getComputedStyle(d).borderTopLeftRadius); return filled(d) && b.width >= 6 && b.width <= 32 && Math.abs(b.width - b.height) <= 2 && r >= b.width * 0.4 && b.left < k.getBoundingClientRect().left + 40 ? filled(d) : null }
       const dots = rep.map(dotOf)
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null }
+      // a square picture leading each item (an order line's product thumbnail, round 4 e3: dropped)
+      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4 } : null }
+      const thumbs = rep.map(thumbOf)
+      // a grid of tiles, each a picture block on top (round 4 e4 file tiles were said as a list and built as rows)
+      const grid = rep[0].parentElement; const gcs = getComputedStyle(grid)
+      const gcols = gcs.display === 'grid' ? gcs.gridTemplateColumns.split(' ').length : 0
+      const topPic = (k) => { const d = k.firstElementChild; if (!d || txt(d)) return null; const b = d.getBoundingClientRect(); const kb = k.getBoundingClientRect(); return b.width >= kb.width * 0.6 && b.height >= 40 && b.top <= kb.top + 24 ? (filled(d) ?? (/gradient/.test(getComputedStyle(d).backgroundImage) ? 'gradient' : null)) : null }
+      if (gcols >= 2 && rep.length >= 4 && rep.every(topPic)) {
+        const bw = (k) => parseFloat(getComputedStyle(k).borderTopWidth) || 0
+        const sel = rep.filter((k) => bw(k) > Math.min(...rep.map(bw)))
+        return { type: 'tiles', cols: gcols, items: rep.map((k) => ({ parts: parts(k), pic: topPic(k), grad: topPic(k) === 'gradient' ? [...getComputedStyle(k.firstElementChild).backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])) : null })), bordered: rep.every((k) => bw(k) >= 1), sel: sel.length === 1 ? { t: parts(sel[0])[0], c: rgba(getComputedStyle(sel[0]).borderTopColor), w: bw(sel[0]) } : null }
+      }
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
     }
     return null
   }
@@ -506,6 +557,7 @@ function denseNote(d) {
     case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
+    case 'tiles': return `grid of ${d.items.length} ${d.bordered ? 'bordered rounded ' : ''}tiles, ${d.cols} per row, each a coloured picture block on top, then name, then small grey line: ${d.items.map((x) => `${x.grad ? `${colourName(x.grad[0])} to ${colourName(x.grad[x.grad.length - 1])} gradient` : colourName(x.pic)} ${quote(x.parts[0], 24)}${x.parts[1] ? ` ${x.parts[1]}` : ''}`).join(', ')}${d.sel ? `; ${quote(d.sel.t, 24)} selected (${colourName(d.sel.c)} ${d.sel.w}px border)` : ''}`
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
       // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
       if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
@@ -515,6 +567,11 @@ function denseNote(d) {
       }
       if (d.dots && d.items.length <= 10 && d.items.every((p) => p.length === 1 && p[0].length <= 24)) {
         return `${d.head ? `${quote(d.head, 20)} ` : ''}list, a round colour dot before each: ${d.items.map((p, i) => `${colourName(d.dots[i])} dot ${quote(p[0], 24)}`).join(', ')}${d.on ? `; ${quote(d.on, 20)} highlighted` : ''}`
+      }
+      if (d.thumbs && d.items.length <= 6 && d.items.every((p) => p.length >= 1 && p.length <= 3)) {
+        const t = d.thumbs[0]
+        const item = (p, i) => `${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? `, ${p[p.length - 1]} right` : ''}`
+        return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} items, each with a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}${t.round ? 'round' : 'square'} thumbnail left: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
       }
       return `${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)} `).join('')}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
   }
@@ -607,6 +664,33 @@ function decideOne(f, page, marked, said) {
     const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
     return { kind: 'circle', note: withFx(`${f.text ? '' : 'big '}${glowy ? 'glowing ' : ''}${paint} circle${words}`) }
   }
+  // a progress meter with its label lines
+  if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
+    const p = f.progress
+    return { kind: 'box', note: `${p.lines.length ? `${quote(p.lines[0], 30)}, ` : ''}thin progress bar ${p.pct}% filled ${colourName(p.fill)} on a ${colourName(p.track)} track${p.lines[1] ? `, small grey ${quote(p.lines[1], 40)} under` : ''}` }
+  }
+  // a breadcrumb trail: said, or the build drops it (round 4 e4)
+  if ((f.text.match(/ [/›>] /g) ?? []).length >= 2 && f.text.length <= 60 && f.kidCount <= 3 && !f.regionKids.length && h <= 40) {
+    return { kind: 'text', note: `small grey breadcrumb ${quote(f.text, 60)}${f.kidCount ? ', last part dark bold' : ''}` }
+  }
+  // a toolbar: buttons in nested groups, some left and some right (round 4 e4: unsaid)
+  if (f.leafButtons.length >= 2 && f.leafButtons.length <= 6 && h <= 70 && f.kidButtons < f.leafButtons.length && !f.regionKids.length && f.leafButtons.map((b) => b.t).join(' ').length >= f.text.length - 4) {
+    const mid = f.rect.x + w / 2
+    const say = (b) => `${visible(b.fill) && dist(b.fill, page.bg ?? { r: 255, g: 255, b: 255 }) > 6 ? colourName(b.fill) : 'outline'} button ${quote(b.t)}`
+    const L = f.leafButtons.filter((b) => b.x < mid), R = f.leafButtons.filter((b) => b.x >= mid)
+    return { kind: 'box', note: `toolbar (no box around it): ${L.map(say).join(', ')}${L.length && R.length ? ' on the left; ' : ''}${R.map(say).join(', ')}${R.length && L.length ? ' on the right' : ''}` }
+  }
+  // a stepper: numbered circles with labels, the done ones filled dark (said as plain links before)
+  if (f.stepper && !f.regionKids.length) {
+    const st = f.stepper
+    const dark = (c) => c && c.a > 0.05 && c.r + c.g + c.b < 200
+    return { kind: 'box', note: `step indicator in a row (no box around it): ${st.map((x) => `${st[0].px}px ${dark(x.fill) ? `${colourName(x.fill)} filled circle with white ${x.n}` : `${colourName(x.fill) ?? 'outline'} circle with grey ${x.n}`} then ${dark(x.fill) ? '' : 'grey '}${quote(x.label, 20)}`).join(', ')}` }
+  }
+  // radio choices: a ring and a label per option, one selected (said as 'buttons' before)
+  if (f.radios && !f.regionKids.length) {
+    const r = f.radios
+    return { kind: 'box', note: `radio options${r.stacked ? ', stacked full width, each a white rounded box' : ' in a row'}: ${r.items.map((x) => `${quote(x.parts[0], 32)}${x.parts.length > 1 ? ` with ${x.parts.slice(1).join(' ')} right` : ''}${x.sel ? ' (selected: filled dark ring' + (x.thick ? ', dark 2px border' : '') + ')' : ''}`).join(', ')}` }
+  }
   // a row of buttons
   if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) {
     // a row of controls: a placeholder is an input, 'Role: All' or '▾' is a dropdown, the rest are buttons
@@ -636,6 +720,11 @@ function decideOne(f, page, marked, said) {
       const big = small[0]
       const said1 = lines.map((t, i) => i === 0 ? quote(t, 60) : small[i] < big * 0.8 && t.length <= 30 ? `small ${quote(t)}` : `text ${quote(t, 110)}`)
       return { kind: null, note: `${side} the picture: ${said1.join(', ')}` }
+    }
+    // a sidebar's title and nav items: said as stacked links, or the build invents its own (round 4 e4)
+    if (f.dense?.type === 'list' && f.dense.stacked && f.dense.items.every((p) => p.length === 1 && p[0].length <= 24) && f.dense.items.length <= 8) {
+      const d = f.dense
+      return { kind: null, note: `${d.head ? `${quote(d.head, 24)}, then ` : ''}stacked links: ${d.items.map((p) => quote(p[0]) + (p[0] === d.on ? ' (highlighted)' : '')).join(', ')}` }
     }
     const own = loose.find((t) => t.length >= 4)
     return { kind: null, note: own && loose.join(' ').length <= 140 ? `${quote(own, 40)}${loose.length > 1 ? ' and text' : ''}` : null }
@@ -711,7 +800,8 @@ function decideOne(f, page, marked, said) {
 
 function pageNote(b) {
   const w = []
-  const plain = (!visible(b.bg) || dist(b.bg, { r: 255, g: 255, b: 255 }) < 12) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
+  // a cool pale grey (#f9fafb) is close to white yet a build on white loses it (round 4 e3)
+  const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !(dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && colourName(b.bg) === 'pale grey'))) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
   if (plain) return null
   const grad = gradientWords(b)
   if (grad) w.push(`${grad} page`)

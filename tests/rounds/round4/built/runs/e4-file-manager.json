@@ -1,0 +1,136 @@
+{
+  "id": "e4-file-manager",
+  "at": "2026-10-21T17:29:09.180Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5937072089587607,
+    "overallV2": 0.5937072089587607,
+    "overallV1": 0.4630268130021936,
+    "colour": 0.9777675612950381,
+    "structure": 0.9082632826137041,
+    "structureStrict": 0.8077904385649542,
+    "colourAligned": 0.9777675612950381,
+    "structureAligned": 0.9082632826137041,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7283615051154447
+    },
+    "layout": 0.7288005809598035
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 24970,
+    "output": 13627,
+    "cacheRead": 144004
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30267,
+      "output": 10514,
+      "cacheRead": 134445,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 107270
+    }
+  ],
+  "reading": "This is a file-drive page: a left sidebar with a 'Drive' header, nav links, and a storage usage bar; a breadcrumb trail above a toolbar with New folder/Sort buttons and an Upload button; a grid of 8 file/folder tiles below; and a right-hand detail panel listing metadata for the selected file.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        20,
+        278,
+        190,
+        65
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Sidebar navigation panel: header 'Drive', then stacked links 'My files' (highlighted/active), 'Shared with me', 'Recent', 'Starred', 'Trash'. Below the links, a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        262,
+        26,
+        986,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small grey breadcrumb trail reading 'My files / Projects / Brand refresh', with the last segment 'Brand refresh' shown in bold dark text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        262,
+        57,
+        692,
+        29
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Toolbar row (no surrounding box) with an outline 'New folder' button and an outline 'Sort: Name ▾' button on the left, and a filled teal 'Upload' button aligned"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        261,
+        115,
+        694,
+        310
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Grid of 8 bordered rounded file/folder tiles, 4 per row. Each tile has a coloured picture block on top, then a file/folder name, then a small grey metadata line"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        983,
+        3,
+        294,
+        893
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Right-hand white detail panel/card for the selected file 'hero-v3.png', listing metadata rows: 'Type' – PNG image, 'Size' – 5.1 MB, 'Dimensions' – 2880 × 1620, "
+    }
+  ],
+  "rejected": []
+}

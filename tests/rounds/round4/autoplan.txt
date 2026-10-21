@@ -112,25 +112,29 @@ e2-mail-client · marks 3 · words 96
     note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 2, 2 more; "Inbox" highlighted
     note message-list: "Inbox" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: "Priya Shah" 9:41 "Q4 roadmap — final draft"… bold, "GitHub" 9:12 "[sketch-to-code] 3 new"… bold, "Tom Becker" Yesterday "Lunch Thursday? The new"…, "Stripe" Yesterday "Your October invoice is"… bold, "Lena Ortiz" Mon "Photos from the offsite,"…, then "Calendar" Mon, "Sam Wu" Sun; "Priya Shah" highlighted
     note reading-pane: "Q4 roadmap — final"… "Reply Reply all Forward" list: "Hi all — attached"…, "Please flag"…, "Thanks, Priya"
-e3-checkout · marks 4 · words 63
-    stepper      text    
+e3-checkout · marks 4 · words 170
+    stepper      box     
     shipping-form box     
     delivery     box     
     order-summary box     
-    note stepper: links: 1Cart, 2Shipping, 3Payment, 4Review
+    note *: whole page: pale grey page, Helvetica type, dark navy text
+    note stepper: step indicator in a row (no box around it): 26px dark navy filled circle with white 1 then "Cart", 26px dark navy filled circle with white 2 then "Shipping", 26px light grey circle with grey 3 then grey "Payment", 26px light grey circle with grey 4 then grey "Review"
     note shipping-form: "Shipping address", form, labels above empty fields: "First name" | "Last name"; "Street address" full width; "City" | "Postcode"
-    note delivery: buttons: "Standard · 3–5 days Free", "Express · next day $12.00"
-    note order-summary: white card "Order summary" "Subtotal $145.00" "Shipping Free" "Tax $11.60" "Total $156.60" list: "Linen overshirtSand"… $89.00, "Wool beanieCharcoal" $32.00, "Canvas toteNatural" $24.00, dark navy button "Continue to payment"
-e4-file-manager · marks 5 · words 38
-    storage      text    
+    note delivery: radio options, stacked full width, each a white rounded box: "Standard · 3–5 days" with Free right (selected: filled dark ring, dark 2px border), "Express · next day" with $12.00 right
+    note order-summary: white card "Order summary" list of 3 items, each with a 56px light grey square thumbnail left: "Linen overshirt" small grey "Sand · M" under it, $89.00 right; "Wool beanie" small grey "Charcoal" under it, $32.00 right; "Canvas tote" small grey "Natural" under it, $24.00 right; then "Subtotal $145.00", "Shipping Free", "Tax $11.60", "Total $156.60", dark navy button "Continue to payment"
+e4-file-manager · marks 5 · words 165
+    storage      box     
     breadcrumb   text    
-    toolbar      text    
+    toolbar      box     
     file-grid    box     
     details      box     
-    note sidebar: "Drive" and text
-    note file-grid: list: "Moodboards" 14 items, "Exports" 32 items, "Brief.pdf" 2.4 MB, "hero-v3.png" 5.1 MB, 4 more
+    note sidebar: "Drive", then stacked links: "My files" (highlighted), "Shared with me", "Recent", "Starred", "Trash"
+    note storage: "Storage", thin progress bar 68% filled teal on a light grey track, small grey "13.6 GB of 20 GB used" under
+    note breadcrumb: small grey breadcrumb "My files / Projects / Brand refresh", last part dark bold
+    note toolbar: toolbar (no box around it): outline button "New folder", outline button "Sort: Name ▾" on the left; teal button "Upload" on the right
+    note file-grid: grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow "Moodboards" 14 items, soft yellow "Exports" 32 items, pale lilac "Brief.pdf" 2.4 MB, sky blue to lavender gradient "hero-v3.png" 5.1 MB, light grey "Copy deck.docx" 88 KB, sky blue to lavender gradient "logo-mark.svg" 12 KB, light grey "fonts.zip" 9.7 MB, pale lilac "Invoice-0912.pdf" 140 KB; "hero-v3.png" selected (teal 2px border)
     note details: white card "hero-v3.png" list: "Type" PNG image, "Size" 5.1 MB, "Dimensions" 2880 × 1620, "Modified" Oct 19, 2026, 1 more
-e5-gantt · marks 5 · words 138
+e5-gantt · marks 5 · words 172
     title        heading 
     zoom         box     
     timeline     box     
@@ -138,6 +142,6 @@ e5-gantt · marks 5 · words 138
     today        box     
     note title: "Website relaunch"
     note zoom: links: Day, Week, Month
-    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text): purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, light orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
-    note task-names: list: "Research", "Wireframes", "Visual design", "Content", 3 more
+    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text), rows 64px apart, bars 30px tall, rows end 70% down, empty below: purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, light orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
+    note task-names: list, a round colour dot before each: lavender dot "Research", coral dot "Wireframes", sky blue dot "Visual design", cyan dot "Content", yellow dot "Build", coral dot "QA", grey dot "Launch"
     note today: red "Today"

@@ -68,7 +68,7 @@ c5-retro-bands · marks 5 · words 64
     note headline: giant Helvetica italic heavy uppercase brown "SOFT SERVE, HARD RULES"
     note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
     note cta: teal hard offset shadow white text button "FIND A TRUCK"
-e1-checkout · marks 13 · words 59
+e1-checkout · marks 13 · words 69
     title        heading 
     ship-label   heading 
     name         box     
@@ -82,6 +82,7 @@ e1-checkout · marks 13 · words 59
     item-2       image   
     item-3       image   
     total        box     
+    note *: whole page: pale grey page, Helvetica type, dark navy text
     note title: "Checkout"
     note ship-label: "Shipping address"
     note name: label "Full name" above an empty field

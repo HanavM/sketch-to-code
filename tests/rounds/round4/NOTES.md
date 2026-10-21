@@ -67,3 +67,18 @@ Rounds 1-3 plans unchanged (only round-4 e5 changed).
 | e3 checkout | 37% | ~28k | stepper, form, delivery options, summary; stepper as plain text, form put in a card, item thumbnails dropped, page white not pale grey, options side by side. |
 
 Left for round 4: c5 sticky story and e4 file manager never built.
+
+## n54: last round-4 first builds; checkout and file manager said properly (likeness v3)
+
+Planner: a stepper (numbered circles, done ones filled), radio options (ring, selected one), list items with a square
+thumbnail and a small line under the name, a cool pale grey page (#f9fafb was read as white), a tile grid (picture block
+on top, name, small line, selected border), a stacked sidebar's links, a progress meter, a breadcrumb (2+ separators),
+a toolbar of buttons in nested groups. Plan changes: round 4 e3/e4, round 2 e1 (pale grey page now said); rounds 1/3 unchanged.
+
+| page | likeness | tokens | notes |
+|---|---|---|---|
+| c5 sticky story | 57% (first) | ~55k | cards, serif chapter line, pale yellow page right; giant "03" built ~1/2 size (n40), invented a site title, progress bar and dots dropped, tilt on the last card dropped. |
+| e4 file manager | 25% -> 59% | ~59k, then 39k | first: tiles built as a list, no breadcrumb/toolbar, sidebar invented. After: tile grid, breadcrumb, toolbar, sidebar links, storage meter all right. Colours paler: #0ea5e9 named teal, #fecaca named pale lilac. |
+| e3 checkout | 37% -> 48% | 38k | stepper circles, radio options, thumbnails with sub-lines, pale grey page all built; near-identical. Summary card shorter than target. |
+
+All 10 round-4 pages now built at least once.

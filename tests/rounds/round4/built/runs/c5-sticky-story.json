@@ -1,0 +1,204 @@
+{
+  "id": "c5-sticky-story",
+  "at": "2026-10-21T17:12:01.962Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.574861226936958,
+    "overallV2": 0.574861226936958,
+    "overallV1": 0.5175899454384613,
+    "colour": 0.9159130690511887,
+    "structure": 0.7486436128150374,
+    "structureStrict": 0.6686143478773434,
+    "colourAligned": 0.9159130690511887,
+    "structureAligned": 0.7486436128150374,
+    "align": {
+      "scale": 0.92,
+      "dx": 96,
+      "dy": 16,
+      "r": 0.8176748578105903
+    },
+    "layout": 0.5993690329397221
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "huge-type",
+      "serif"
+    ],
+    "missing": [
+      "tilt"
+    ],
+    "extra": [
+      "hard-shadow",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 32546,
+    "output": 15869,
+    "cacheRead": 203180
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35792,
+      "output": 9640,
+      "cacheRead": 97244,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Edit src/App.tsx"
+      ],
+      "ms": 107862
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 4369,
+      "output": 1760,
+      "cacheRead": 102852,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 20368
+    }
+  ],
+  "reading": "The sketch builds a gardening-themed chapter page: a green title bar, a stacked 'chapter header' (giant '03', 'CHAPTER 3 OF 7' label, and a serif quote), plus three stacked cards ('Plant', 'Wait', 'Harvest') each with its own fill color and instructional body copy, all on a pale-yellow, Helvetica/deep-green-text page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        412,
+        4
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a bold heading-style text line across the top of the page, colored green (per note) — e.g. a page/site title such as 'The Gardener's Almanac'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 156
+        }
+      ],
+      "region": [
+        68,
+        210,
+        324,
+        108
+      ],
+      "paths": [],
+      "instruction": "Add a giant chapter numeral '03' in Georgia serif font as a large display number, part of the chapter header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        435,
+        178,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add wide letter-spaced text, colored green, reading 'CHAPTER 3 OF 7', placed under the '03' numeral."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 44
+        }
+      ],
+      "region": [
+        68,
+        492,
+        396,
+        73
+      ],
+      "paths": [],
+      "instruction": "Add a big serif quote line reading 'The soil remembers everything.' beneath the chapter label."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        544,
+        93,
+        653,
+        214
+      ],
+      "paths": [
+        "s5",
+        "s6"
+      ],
+      "instruction": "Add a card/container filled deep green, with pale yellow heading text 'Plant' and body copy: 'Seeds go in after the last frost, two fingers deep, facing the mor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        343,
+        594,
+        214
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a card/container filled mint green, with heading text 'Wait' and body copy: 'Water at dusk. Do nothing else. The hardest part of gardening is patience.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        599,
+        583,
+        603,
+        274
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a card/container filled yellow, with heading text 'Harvest' and body copy: 'Pick in the cool of the morning and share at least a third with the neighbours.'"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -545,7 +545,7 @@
   "plan": [
    [
     "stepper",
-    "text"
+    "box"
    ],
    [
     "shipping-form",
@@ -562,8 +562,12 @@
   ],
   "notes": [
    [
+    "*",
+    "whole page: pale grey page, Helvetica type, dark navy text"
+   ],
+   [
     "stepper",
-    "links: 1Cart, 2Shipping, 3Payment, 4Review"
+    "step indicator in a row (no box around it): 26px dark navy filled circle with white 1 then \"Cart\", 26px dark navy filled circle with white 2 then \"Shipping\", 26px light grey circle with grey 3 then grey \"Payment\", 26px light grey circle with grey 4 then grey \"Review\""
    ],
    [
     "shipping-form",
@@ -571,11 +575,11 @@
    ],
    [
     "delivery",
-    "buttons: \"Standard · 3–5 days Free\", \"Express · next day $12.00\""
+    "radio options, stacked full width, each a white rounded box: \"Standard · 3–5 days\" with Free right (selected: filled dark ring, dark 2px border), \"Express · next day\" with $12.00 right"
    ],
    [
     "order-summary",
-    "white card \"Order summary\" \"Subtotal $145.00\" \"Shipping Free\" \"Tax $11.60\" \"Total $156.60\" list: \"Linen overshirtSand\"… $89.00, \"Wool beanieCharcoal\" $32.00, \"Canvas toteNatural\" $24.00, dark navy button \"Continue to payment\""
+    "white card \"Order summary\" list of 3 items, each with a 56px light grey square thumbnail left: \"Linen overshirt\" small grey \"Sand · M\" under it, $89.00 right; \"Wool beanie\" small grey \"Charcoal\" under it, $32.00 right; \"Canvas tote\" small grey \"Natural\" under it, $24.00 right; then \"Subtotal $145.00\", \"Shipping Free\", \"Tax $11.60\", \"Total $156.60\", dark navy button \"Continue to payment\""
    ]
   ]
  },
@@ -583,11 +587,7 @@
   "plan": [
    [
     "storage",
-    "text",
-    {
-     "fontPx": 13,
-     "lines": 3
-    }
+    "box"
    ],
    [
     "breadcrumb",
@@ -595,11 +595,7 @@
    ],
    [
     "toolbar",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 2
-    }
+    "box"
    ],
    [
     "file-grid",
@@ -613,11 +609,23 @@
   "notes": [
    [
     "sidebar",
-    "\"Drive\" and text"
+    "\"Drive\", then stacked links: \"My files\" (highlighted), \"Shared with me\", \"Recent\", \"Starred\", \"Trash\""
+   ],
+   [
+    "storage",
+    "\"Storage\", thin progress bar 68% filled teal on a light grey track, small grey \"13.6 GB of 20 GB used\" under"
+   ],
+   [
+    "breadcrumb",
+    "small grey breadcrumb \"My files / Projects / Brand refresh\", last part dark bold"
+   ],
+   [
+    "toolbar",
+    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; teal button \"Upload\" on the right"
    ],
    [
     "file-grid",
-    "list: \"Moodboards\" 14 items, \"Exports\" 32 items, \"Brief.pdf\" 2.4 MB, \"hero-v3.png\" 5.1 MB, 4 more"
+    "grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow \"Moodboards\" 14 items, soft yellow \"Exports\" 32 items, pale lilac \"Brief.pdf\" 2.4 MB, sky blue to lavender gradient \"hero-v3.png\" 5.1 MB, light grey \"Copy deck.docx\" 88 KB, sky blue to lavender gradient \"logo-mark.svg\" 12 KB, light grey \"fonts.zip\" 9.7 MB, pale lilac \"Invoice-0912.pdf\" 140 KB; \"hero-v3.png\" selected (teal 2px border)"
    ],
    [
     "details",
