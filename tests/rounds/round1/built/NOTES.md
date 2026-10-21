@@ -83,3 +83,33 @@ What failed, and the common cause:
   Reading and codegen now both say a plain box is never an image (only a box with an X, or a note saying
   picture/photo/image); an empty box beside the main column is a sidebar with short plausible text.
   Prompt-only: proven only by the next live run of c5.
+
+## Step n24 (2026-10-21, free): the likeness score punished small offsets
+- Check: score each target against ITSELF moved down a little. With the old structure measure (plain SSIM per
+  8px cell) the target moved 16px lost most of its structure lift (e4 0%, e3 2%, c5 5%, e1 12%), and at 40px
+  nearly all of it. So "right page, sitting a bit low" scored like "built nothing", and round-to-round gains
+  were partly offset noise. Placement already has its own score (layout, region overlap).
+- Fix (likeness v2): each 8px cell is matched at its best offset within 2 cells (~16px at 1280 wide). The target
+  moved 16px now keeps 99-100%; moved 40px keeps only 2-74%, so real misplacement still costs. Wrong page and
+  blank page still score 0 (all 30 round 1-3 targets re-measured: self 100%, blank baselines unchanged).
+  The old number is kept as `structureStrict`, and run digests carry both `overall` (v2) and `overallV1`.
+- Round 1 re-scored from the saved side-by-sides (`node tests/rounds/rescore.mjs`, zero tokens). The crop
+  re-score reproduces the recorded v1 likeness within 3 points, so the comparison is fair:
+
+| page | structure v1 | structure v2 | target moved 16px v1 / v2 | moved 40px v1 / v2 | likeness v1 | likeness v2 |
+|---|---|---|---|---|---|---|
+| c1 sunset hero (v3) | 47% | 68% | 49% / 100% | 6% / 32% | 60% | 67% |
+| c2 brutalist type | 0% | 3% | 19% / 100% | 0% / 19% | 36% | 37% |
+| c3 split studio | 28% | 51% | 61% / 100% | 32% / 63% | 51% | 59% |
+| c4 neon dark | 28% | 34% | 78% / 100% | 63% / 74% | 36% | 38% |
+| c5 editorial | 0% | 0% | 5% / 100% | 0% / 12% | 15% | 15% |
+| e1 sign-in | 0% | 0% | 12% / 100% | 0% / 4% | 11% | 11% |
+| e2 pricing | 0% | 35% | 29% / 100% | 14% / 41% | 30% | 42% |
+| e3 blog list | 0% | 2% | 2% / 100% | 0% / 12% | 14% | 15% |
+| e4 contact | 0% | 5% | 0% / 99% | 0% / 2% | 10% | 12% |
+| e5 dashboard | 25% | 64% | 36% / 100% | 38% / 60% | 63% | 77% |
+
+- What v2 does NOT change, honestly: c2, c5, e1, e3, e4 stay low because the builds really differ. Looking again
+  at e4 (called a "near copy" in n8, wrongly): heading copy "Get in touch" became "Contact Us", the subtitle and
+  field labels were dropped, the form is narrower and the office card wider. e1 lost its grey page. These are
+  copy/label losses, the next free thing to trace from the run digests.

@@ -8,8 +8,14 @@
  *   colour    — both shots shrunk to a 32x23 grid; 1 minus the mean RGB
  *               distance per cell. Catches "the gradient / dark theme / yellow
  *               page is missing", which a box-matching score never sees.
- *   structure — both shots as 160x112 greyscale; mean SSIM over 8x8 windows.
- *               Catches where the ink is: big type, cards, rules, empty space.
+ *   structure — both shots as 160x112 greyscale; mean SSIM over 8x8 windows,
+ *               each window matched at its best offset within 2 cells (about
+ *               16px at 1280 wide). Catches where the ink is: big type, cards,
+ *               rules, empty space. Version 2 (2026-10-21): plain SSIM gave the
+ *               target itself, moved 20px down, as little as 0% lift (round-1
+ *               e4), so "the build sits a bit low" read as "built nothing".
+ *               Placement is the layout score's job; this one asks whether the
+ *               ink looks the same. The old number is kept as structureStrict.
  *
  * Layout (block placement) is the bench's own IoU region score, run against
  * regions measured off the target's [data-r] elements, so the answer key is
@@ -22,9 +28,11 @@ import { readFileSync } from 'node:fs'
 
 const GRID = { w: 32, h: 23 }
 const GREY = { w: 160, h: 112 }
+const SHIFT = 2 // cells (160 wide grid: 1 cell = 8px at 1280)
+export const LIKENESS_VERSION = 2
 
 /** Runs inside the page: decode two PNG data URLs, return {colour, structure}. */
-function compareInPage([a, b, GRID, GREY]) {
+function compareInPage([a, b, GRID, GREY, SHIFT]) {
   const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src })
   const pixels = (img, w, h) => {
     const c = document.createElement('canvas'); c.width = w; c.height = h
@@ -42,18 +50,27 @@ function compareInPage([a, b, GRID, GREY]) {
     const colour = 1 - d / (GRID.w * GRID.h) / 441.7
     const grey = (p) => { const g = new Float32Array(p.length / 4); for (let i = 0; i < g.length; i++) g[i] = 0.299 * p[i * 4] + 0.587 * p[i * 4 + 1] + 0.114 * p[i * 4 + 2]; return g }
     const ga = grey(pixels(ia, GREY.w, GREY.h)), gb = grey(pixels(ib, GREY.w, GREY.h))
-    const C1 = (0.01 * 255) ** 2, C2 = (0.03 * 255) ** 2, W = 8
-    let sum = 0, n = 0
-    for (let y = 0; y + W <= GREY.h; y += W / 2) for (let x = 0; x + W <= GREY.w; x += W / 2) {
-      let ma = 0, mb = 0
-      for (let j = 0; j < W; j++) for (let i = 0; i < W; i++) { const k = (y + j) * GREY.w + x + i; ma += ga[k]; mb += gb[k] }
-      ma /= W * W; mb /= W * W
-      let va = 0, vb = 0, cov = 0
-      for (let j = 0; j < W; j++) for (let i = 0; i < W; i++) { const k = (y + j) * GREY.w + x + i; const da = ga[k] - ma, db = gb[k] - mb; va += da * da; vb += db * db; cov += da * db }
-      va /= W * W - 1; vb /= W * W - 1; cov /= W * W - 1
-      sum += ((2 * ma * mb + C1) * (2 * cov + C2)) / ((ma * ma + mb * mb + C1) * (va + vb + C2)); n++
+    const C1 = (0.01 * 255) ** 2, C2 = (0.03 * 255) ** 2, W = 8, N = W * W
+    const stats = (g, x, y) => { let m = 0; for (let j = 0; j < W; j++) for (let i = 0; i < W; i++) m += g[(y + j) * GREY.w + x + i]; m /= N; let v = 0; for (let j = 0; j < W; j++) for (let i = 0; i < W; i++) { const d = g[(y + j) * GREY.w + x + i] - m; v += d * d } return [m, v / (N - 1)] }
+    const ssimAt = (x, y, ma, va, bx, by) => {
+      const [mb, vb] = stats(gb, bx, by)
+      let cov = 0
+      for (let j = 0; j < W; j++) for (let i = 0; i < W; i++) cov += (ga[(y + j) * GREY.w + x + i] - ma) * (gb[(by + j) * GREY.w + bx + i] - mb)
+      cov /= N - 1
+      return ((2 * ma * mb + C1) * (2 * cov + C2)) / ((ma * ma + mb * mb + C1) * (va + vb + C2))
     }
-    return { colour, structure: Math.max(0, sum / n) }
+    let sum = 0, strict = 0, n = 0
+    for (let y = 0; y + W <= GREY.h; y += W / 2) for (let x = 0; x + W <= GREY.w; x += W / 2) {
+      const [ma, va] = stats(ga, x, y)
+      const s0 = ssimAt(x, y, ma, va, x, y)
+      let best = s0
+      for (let dy = -SHIFT; dy <= SHIFT; dy++) for (let dx = -SHIFT; dx <= SHIFT; dx++) {
+        const bx = x + dx, by = y + dy
+        if ((dx || dy) && bx >= 0 && by >= 0 && bx + W <= GREY.w && by + W <= GREY.h) best = Math.max(best, ssimAt(x, y, ma, va, bx, by))
+      }
+      sum += best; strict += s0; n++
+    }
+    return { colour, structure: Math.max(0, sum / n), structureStrict: Math.max(0, strict / n) }
   })
 }
 
@@ -61,7 +78,7 @@ const dataUrl = (png) => `data:image/png;base64,${(Buffer.isBuffer(png) ? png : 
 
 /** Compare two screenshots (paths or Buffers). Needs any open Playwright page. */
 export async function pictureLikeness(page, a, b) {
-  return page.evaluate(compareInPage, [dataUrl(a), dataUrl(b), GRID, GREY])
+  return page.evaluate(compareInPage, [dataUrl(a), dataUrl(b), GRID, GREY, SHIFT])
 }
 
 /**

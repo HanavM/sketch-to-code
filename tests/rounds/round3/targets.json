@@ -1,5 +1,5 @@
 {
- "measured": "2026-10-21T01:16:22.051Z",
+ "measured": "2026-10-21T03:57:46.957Z",
  "targets": {
   "c1-layered-peaks": {
    "regions": [
@@ -636,141 +636,161 @@
   "c1-layered-peaks": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.48920542621170593,
-    "structure": 0.3879456502323455
+    "structure": 0.3879456502323455,
+    "structureStrict": 0.3879456502323455
    },
    "otherMean": {
     "colour": 0.5283845443455988,
-    "structure": 0.23552005338718565
+    "structure": 0.3110633990070123
    }
   },
   "c2-kinetic-marquee": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.66968368602163,
-    "structure": 0.36531639469053656
+    "structure": 0.36531639469053656,
+    "structureStrict": 0.36531639469053656
    },
    "otherMean": {
     "colour": 0.6189612498805204,
-    "structure": 0.22559722820095723
+    "structure": 0.29691082607264785
    }
   },
   "c3-gradient-orbit": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.053969525426299736,
-    "structure": 0.026296279804619665
+    "structure": 0.026296279804619665,
+    "structureStrict": 0.026296279804619665
    },
    "otherMean": {
     "colour": 0.259235887034064,
-    "structure": 0.0460296416342411
+    "structure": 0.062371727712789475
    }
   },
   "c4-brutal-index": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.7332652361401832,
-    "structure": 0.4018410267366258
+    "structure": 0.4018410267366258,
+    "structureStrict": 0.4018410267366258
    },
    "otherMean": {
     "colour": 0.6447836497740745,
-    "structure": 0.23060952961357536
+    "structure": 0.30330501253810327
    }
   },
   "c5-blend-editorial": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.5114150741663979,
-    "structure": 0.3689092369198287
+    "structure": 0.3689092369198287,
+    "structureStrict": 0.3689092369198287
    },
    "otherMean": {
     "colour": 0.5156759888056422,
-    "structure": 0.22889837602099927
+    "structure": 0.29594831140105016
    }
   },
   "e1-users-table": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9746949951435548,
-    "structure": 0.7699036114180196
+    "structure": 0.7699036114180196,
+    "structureStrict": 0.7699036114180196
    },
    "otherMean": {
     "colour": 0.6810499627416765,
-    "structure": 0.3883175294817007
+    "structure": 0.4770096924629779
    }
   },
   "e2-kanban": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.928428050974705,
-    "structure": 0.7419467126372058
+    "structure": 0.7419467126372058,
+    "structureStrict": 0.7419467126372058
    },
    "otherMean": {
     "colour": 0.6909400423278901,
-    "structure": 0.3734658482835014
+    "structure": 0.46614485627084257
    }
   },
   "e3-calendar": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9714622686115295,
-    "structure": 0.7213320743756483
+    "structure": 0.7213320743756483,
+    "structureStrict": 0.7213320743756483
    },
    "otherMean": {
     "colour": 0.6742561031255334,
-    "structure": 0.3696866605564517
+    "structure": 0.45979783924206985
    }
   },
   "e4-chat": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.7440803447186142,
-    "structure": 0.6236897758212956
+    "structure": 0.6236897758212956,
+    "structureStrict": 0.6236897758212956
    },
    "otherMean": {
     "colour": 0.5952842492198549,
-    "structure": 0.3255390628704398
+    "structure": 0.40051670313401344
    }
   },
   "e5-analytics": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9151484582624729,
-    "structure": 0.6340762979714718
+    "structure": 0.6340762979714718,
+    "structureStrict": 0.6340762979714718
    },
    "otherMean": {
     "colour": 0.6737404695376161,
-    "structure": 0.3343724133648837
+    "structure": 0.42428703871606255
    }
   }
  }

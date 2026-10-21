@@ -1,5 +1,5 @@
 {
- "measured": "2026-10-20T19:57:54.416Z",
+ "measured": "2026-10-21T03:57:31.522Z",
  "targets": {
   "c1-sunset-hero": {
    "regions": [
@@ -666,141 +666,161 @@
   "c1-sunset-hero": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.5227414562100535,
-    "structure": 0.6357256734892386
+    "structure": 0.6357256734892386,
+    "structureStrict": 0.6357256734892386
    },
    "otherMean": {
     "colour": 0.5229370022180749,
-    "structure": 0.4598580502069636
+    "structure": 0.5174663531794654
    }
   },
   "c2-brutalist-type": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.39518470769744085,
-    "structure": 0.6012737016880207
+    "structure": 0.6012737016880207,
+    "structureStrict": 0.6012737016880207
    },
    "otherMean": {
     "colour": 0.42699357677439703,
-    "structure": 0.43436741324747913
+    "structure": 0.4855855162462597
    }
   },
   "c3-split-studio": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.4973626414368574,
-    "structure": 0.5304801561870189
+    "structure": 0.5304801561870189,
+    "structureStrict": 0.5304801561870189
    },
    "otherMean": {
     "colour": 0.5330066868971447,
-    "structure": 0.4051189685200864
+    "structure": 0.45267393830742353
    }
   },
   "c4-neon-dark": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.05473003360461837,
-    "structure": 0.027914297390351953
+    "structure": 0.027914297390351953,
+    "structureStrict": 0.027914297390351953
    },
    "otherMean": {
     "colour": 0.2175538829088993,
-    "structure": 0.03700598368521078
+    "structure": 0.05107524234404013
    }
   },
   "c5-editorial": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9424384594350693,
-    "structure": 0.7437539219015542
+    "structure": 0.7437539219015542,
+    "structureStrict": 0.7437539219015542
    },
    "otherMean": {
     "colour": 0.686663538581065,
-    "structure": 0.5086858127719831
+    "structure": 0.5670520443124996
    }
   },
   "e1-login": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9530344311224647,
-    "structure": 0.8889611562317222
+    "structure": 0.8889611562317222,
+    "structureStrict": 0.8889611562317222
    },
    "otherMean": {
     "colour": 0.6821353882433462,
-    "structure": 0.5740194308832356
+    "structure": 0.6391125469882392
    }
   },
   "e2-pricing": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.8798832796392314,
-    "structure": 0.7004301683841481
+    "structure": 0.7004301683841481,
+    "structureStrict": 0.7004301683841481
    },
    "otherMean": {
     "colour": 0.6402375383271879,
-    "structure": 0.4783636263703155
+    "structure": 0.5298900826670826
    }
   },
   "e3-blog-list": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9747745649394739,
-    "structure": 0.7829562286923074
+    "structure": 0.7829562286923074,
+    "structureStrict": 0.7829562286923074
    },
    "otherMean": {
     "colour": 0.6775157290057079,
-    "structure": 0.5309800593708762
+    "structure": 0.5922212689680555
    }
   },
   "e4-contact": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.9875861049489375,
-    "structure": 0.89240906383316
+    "structure": 0.89240906383316,
+    "structureStrict": 0.89240906383316
    },
    "otherMean": {
     "colour": 0.6740090432956198,
-    "structure": 0.5682704867790959
+    "structure": 0.6284082155399184
    }
   },
   "e5-dashboard": {
    "self": {
     "colour": 1,
-    "structure": 1
+    "structure": 1,
+    "structureStrict": 1
    },
    "blank": {
     "colour": 0.815405762994423,
-    "structure": 0.6806927718204224
+    "structure": 0.6806927718204224,
+    "structureStrict": 0.6806927718204224
    },
    "otherMean": {
     "colour": 0.6425918575863989,
-    "structure": 0.4720126978108649
+    "structure": 0.5214995257215073
    }
   }
  }
