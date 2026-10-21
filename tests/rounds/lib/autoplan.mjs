@@ -228,7 +228,13 @@ function factsInPage() {
       const bars = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); return !(line && line.contains(k)) && filled(k) && txt(k) && !k.children.length && b.height <= 44 && b.width >= 24 && b.top > hs[0].b.bottom && getComputedStyle(k).position === 'absolute' })
       if (bars.length >= 3 && new Set(bars.map((k) => Math.round(k.getBoundingClientRect().top / 8))).size === bars.length) {
         const where = (x, edge) => { const { c, fr } = at(x); return `${edge === 'start' ? (fr < 0.25 ? 'start of' : fr < 0.75 ? 'mid' : 'end of') : (fr > 0.75 ? 'end of' : fr > 0.25 ? 'mid' : 'start of')} ${hs[c].t}` }
-        return { type: 'gantt', heads: hs.map((h) => h.t), bars: bars.map((k) => { const b = k.getBoundingClientRect(); return { text: txt(k), fill: filled(k), from: where(b.left + 1, 'start'), to: where(b.right - 1, 'end') } }), line: line ? { fill: filled(line), at: where(line.getBoundingClientRect().left, 'start'), label: txt(line) } : null }
+        // row pitch and how far down the rows reach: without them a tall box got its rows spread to fill it (round 4 e5 built 2x tall)
+        const tops = bars.map((k) => k.getBoundingClientRect().top).sort((a, b) => a - b)
+        const gaps = tops.slice(1).map((t, i) => t - tops[i]).sort((a, b) => a - b)
+        const pitch = Math.round(gaps[Math.floor(gaps.length / 2)])
+        const lastB = Math.max(...bars.map((k) => k.getBoundingClientRect().bottom))
+        const reach = Math.round(((lastB + pitch / 2 - own.top) / own.height) * 10) * 10
+        return { type: 'gantt', pitch, reach, heads: hs.map((h) => h.t), bars: bars.map((k) => { const b = k.getBoundingClientRect(); return { text: txt(k), fill: filled(k), from: where(b.left + 1, 'start'), to: where(b.right - 1, 'end'), h: Math.round(b.height) } }), line: line ? { fill: filled(line), at: where(line.getBoundingClientRect().left, 'start'), label: txt(line) } : null }
       }
     }
     // a chart drawn in SVG: lines (polyline/path strokes) or a donut (dashed circle strokes)
@@ -309,7 +315,10 @@ function factsInPage() {
         const btn = b.height >= 28 && b.height <= 64 && (filled(k) || parseFloat(c.borderTopWidth) >= 1) && (/center/.test(c.textAlign) || (/flex/.test(c.display) && /center/.test(c.justifyContent)))
         return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24 }
       })
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra }
+      // a coloured dot leading each item (round 4 e5 task names: the dots were dropped)
+      const dotOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); const r = parseFloat(getComputedStyle(d).borderTopLeftRadius); return filled(d) && b.width >= 6 && b.width <= 32 && Math.abs(b.width - b.height) <= 2 && r >= b.width * 0.4 && b.left < k.getBoundingClientRect().left + 40 ? filled(d) : null }
+      const dots = rep.map(dotOf)
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null }
     }
     return null
   }
@@ -490,7 +499,7 @@ function denseNote(d) {
       return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${start}${ev ? `; event chips${solid} ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
     }
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}${c.spark ? ` (${colourName(c.spark.fill)} sparkline ${c.spark.rising ? 'rising' : 'falling'}, bottom right)` : ''}`).join(', ')}`
-    case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text): ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
+    case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text)${d.pitch ? `, rows ${d.pitch}px apart, bars ${d.bars[0].h}px tall${d.reach && d.reach <= 80 ? `, rows end ${d.reach}% down, empty below` : ''}` : ''}: ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
     case 'donut': return `${d.title ? `${quote(d.title, 32)}, ` : ''}donut chart (thick ring, hollow middle)${d.track ? ` on a ${colourName(d.track)} track` : ''}: ${d.segs.map((g) => `${colourName(g.fill)} ${g.pct}%`).join(', ')}`
     case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}; no axis labels`
     case 'form': return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
@@ -503,6 +512,9 @@ function denseNote(d) {
         const bold = d.bold ?? []
         const mixed = bold.some(Boolean) && !bold.every(Boolean)
         return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} rows, name left and time right on one line, grey line under${mixed ? ', unread rows bold' : ''}: ${d.items.slice(0, 5).map((p, i) => `${quote(p[0], 20)} ${p[1]} ${quote(p[2], 28)}${mixed && bold[i] ? ' bold' : ''}`).join(', ')}${d.items.length > 5 ? `, then ${d.items.slice(5).map((p) => `${quote(p[0], 20)} ${p[1]}`).join(', ')}` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
+      }
+      if (d.dots && d.items.length <= 10 && d.items.every((p) => p.length === 1 && p[0].length <= 24)) {
+        return `${d.head ? `${quote(d.head, 20)} ` : ''}list, a round colour dot before each: ${d.items.map((p, i) => `${colourName(d.dots[i])} dot ${quote(p[0], 24)}`).join(', ')}${d.on ? `; ${quote(d.on, 20)} highlighted` : ''}`
       }
       return `${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)} `).join('')}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
   }

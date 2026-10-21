@@ -1,51 +1,51 @@
 {
   "id": "e5-gantt",
-  "at": "2026-10-21T14:54:49.528Z",
+  "at": "2026-10-21T16:03:41.357Z",
   "likeness": {
     "version": 3,
-    "overall": 0.17960785346444383,
-    "overallV2": 0.1595655560550124,
-    "overallV1": 0.1595655560550124,
-    "colour": 0.9413693671960511,
-    "structure": 0.6621187195826619,
-    "structureStrict": 0.5632064433204036,
-    "colourAligned": 0.9575489312231249,
-    "structureAligned": 0.7416465398109139,
+    "overall": 0.47157261894347025,
+    "overallV2": 0.21658715144931368,
+    "overallV1": 0.14713065288440866,
+    "colour": 0.9681883137424413,
+    "structure": 0.7803373469985169,
+    "structureStrict": 0.6359209228760169,
+    "colourAligned": 0.9834606997283378,
+    "structureAligned": 0.8538270297689318,
     "align": {
-      "scale": 0.92,
-      "dx": 48,
-      "dy": -129,
-      "r": 0.29422378203773786
+      "scale": 1.04,
+      "dx": -32,
+      "dy": -48,
+      "r": 0.7059753416800244
     },
-    "layout": 0.5318851868500414
+    "layout": 0.4904355096146955
   },
   "effects": null,
   "tokens": {
-    "input": 26351,
-    "output": 17792,
-    "cacheRead": 136453
+    "input": 40631,
+    "output": 20794,
+    "cacheRead": 165463
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 35737,
-      "output": 14644,
-      "cacheRead": 127198,
+      "billed": 52917,
+      "output": 18544,
+      "cacheRead": 165463,
       "toolCalls": 7,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
-        "Read components/SketchShape.tsx",
-        "Read s2c-bench-app/package.json",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Edit src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Glob"
       ],
-      "ms": 164694
+      "ms": 217254
     }
   ],
-  "reading": "This is a project Gantt chart page: a heading placeholder, a top-right Day/Week/Month link bar, a large chart area with 8 weekly date columns and seven colored task bars, a left sidebar listing the task names, and a red 'Today' vertical marker line.",
+  "reading": "The sketch lays out a project page: a heading placeholder, Day/Week/Month filter links, a large Gantt-style timeline with colour-coded task bars and a red \"Today\" marker, and a left-hand legend list of the same tasks with colour dots, all per the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -68,7 +68,7 @@
         17
       ],
       "paths": [],
-      "instruction": "Add page heading text \"Website relaunch\" in place of the wavy placeholder line."
+      "instruction": "Wavy placeholder at top-left stands for a page heading reading \"Website relaunch\" (typed note)."
     },
     {
       "kind": "add",
@@ -83,7 +83,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a top-right link/tab group with items \"Day\", \"Week\", \"Month\" (typed note) inside the sketched rounded rectangle."
+      "instruction": "Rounded rect top-right is a set of nav/filter links: \"Day\", \"Week\", \"Month\" (typed note)."
     },
     {
       "kind": "design",
@@ -97,24 +97,24 @@
       ],
       "paths": [
         "s2",
-        "s3"
+        "s4"
       ],
-      "instruction": "Build the main Gantt-chart timeline area (large outer box) together with the left task-name sidebar (narrower box inside it): timeline has 8 week columns labele"
+      "instruction": "Large rectangle is a project timeline/Gantt chart: 8 week columns labeled \"Oct 5\", \"Oct 12\", \"Oct 19\", \"Oct 26\", \"Nov 2\", \"Nov 9\", \"Nov 16\", \"Nov 23\" across the"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        674,
-        90,
-        8,
-        750
+        40,
+        133,
+        254,
+        442
       ],
       "paths": [
-        "s4"
+        "s3"
       ],
-      "instruction": "Add a thin red vertical \"Today\" marker line running the full height of the chart, positioned at the start of the Oct 26 column, labeled \"Today\" (typed note, dra"
+      "instruction": "Inner rectangle on the left is a legend list, one row per task, each with a round colour dot before the label: lavender dot \"Research\", coral dot \"Wireframes\", "
     }
   ],
   "rejected": []

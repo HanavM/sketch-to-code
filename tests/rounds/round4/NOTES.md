@@ -46,3 +46,13 @@ Watch on the live run: e5's timeline note is typed at the box centre, which is o
 
 Next worst gaps: gradient/filled blocks drawn as crossed picture boxes keep their X lines in the build (c1, c4);
 e5 row height; c1 arch.
+
+## n52: gantt rows sized
+
+Planner gantt note now says row pitch, bar height and how far down the rows reach ("rows 64px apart, bars 30px tall,
+rows end 70% down, empty below"); a list whose items each lead with a round coloured dot says each dot's colour.
+Rounds 1-3 plans unchanged (only round-4 e5 changed).
+
+| page | before | after | tokens | notes |
+|---|---|---|---|---|
+| e5 gantt | 18% | 47% | 61k | rows at the right pitch, empty space below, dots back. Still: name rows sit ~30px above their bars, dots small (target 26px), today line stops at the last bar instead of the box bottom, active "Week" not dark. |
