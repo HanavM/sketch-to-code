@@ -24,8 +24,11 @@ function mark(kind, r, opts = {}) {
       const amp = Math.min(0.35 * opts.fontPx, (x1 - x0) / 6)
       return [textLine(x0, cy, x1 - x0, { amp, wavelength: Math.max(46, amp * 3) })]
     }
-    if (opts.fontPx && opts.lines >= 2 && h > 140) {
-      return textBlock(x + 8, y + h / opts.lines / 2, w * 0.9, opts.lines, h / opts.lines, { amp: 8, wavelength: 50 })
+    // several lines are drawn as several lines whatever the block's height: a 2-line 30px intro
+    // (72px) drawn as one 36px squiggle read as a 52px one-line heading (round 3 c2)
+    if (opts.fontPx && opts.lines >= 2) {
+      const amp = h > 140 ? 8 : Math.max(4, Math.min(12, 0.35 * opts.fontPx))
+      return textBlock(x + 8, y + h / opts.lines / 2, w * 0.9, opts.lines, h / opts.lines, { amp, wavelength: h > 140 ? 50 : 46 })
     }
     return h > 140
       ? textBlock(x + 8, y + h * 0.3, w * 0.9, 2, h * 0.45, { amp: 8, wavelength: 50 })

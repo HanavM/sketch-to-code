@@ -1,85 +1,83 @@
 {
   "id": "c2-kinetic-marquee",
-  "at": "2026-10-21T11:28:48.864Z",
+  "at": "2026-10-21T12:06:06.591Z",
   "likeness": {
     "version": 3,
-    "overall": 0.3962480388802341,
-    "overallV2": 0.3760844128217994,
-    "overallV1": 0.301624115618223,
-    "colour": 0.8044172707619082,
-    "structure": 0.5787294566983319,
-    "structureStrict": 0.44370451417953166,
-    "colourAligned": 0.8072105118557062,
-    "structureAligned": 0.6099267573231076,
+    "overall": 0.8416842309164272,
+    "overallV2": 0.8165484821837721,
+    "overallV1": 0.7573426487541752,
+    "colour": 0.9268019835690675,
+    "structure": 0.8695167766370081,
+    "structureStrict": 0.7621540000185849,
+    "colourAligned": 0.9268019835690675,
+    "structureAligned": 0.9150974841449919,
     "align": {
-      "scale": 0.96,
-      "dx": 48,
+      "scale": 1,
+      "dx": -16,
       "dy": 0,
-      "r": 0.6357268393730988
+      "r": 0.9253495343528916
     },
-    "layout": 0.3854470402394519
+    "layout": 0.8868804608596986
   },
   "effects": {
     "recall": 0.8333333333333334,
     "kept": [
+      "bleed",
       "huge-type",
       "motion",
-      "overlap",
       "tilt",
       "uppercase-display"
     ],
     "missing": [
-      "bleed"
+      "overlap"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 75809,
-    "output": 51389,
-    "cacheRead": 633045
+    "input": 50436,
+    "output": 28107,
+    "cacheRead": 461783
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 60380,
-      "output": 20818,
-      "cacheRead": 307536,
+      "billed": 53640,
+      "output": 19438,
+      "cacheRead": 267699,
       "toolCalls": 12,
       "tools": [
         "Glob",
-        "Read components/PulsingCircle.tsx",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
         "Read src/main.tsx",
         "Glob",
+        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Edit components/PulsingCircle.tsx",
+        "Edit components/SketchShape.tsx",
         "Edit src/index.css",
         "Write src/App.tsx",
-        "Glob",
-        "Read src/App.tsx"
+        "Read components/SketchShape.tsx",
+        "Glob"
       ],
-      "ms": 225507
+      "ms": 220098
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 56168,
-      "output": 26422,
-      "cacheRead": 315597,
-      "toolCalls": 5,
+      "billed": 14891,
+      "output": 4811,
+      "cacheRead": 184379,
+      "toolCalls": 3,
       "tools": [
-        "Edit src/App.tsx",
         "Read src/App.tsx",
         "Edit src/App.tsx",
-        "Read src/index.css",
-        "Read components/PulsingCircle.tsx"
+        "Edit src/App.tsx"
       ],
-      "ms": 341682
+      "ms": 56049
     }
   ],
-  "reading": "This sketch builds a motion-design studio landing page: a small wordmark, an outline 'Menu' pill, two tilted full-bleed marquee bands with giant looping uppercase text (one near-black, one red-orange), a line of body copy, and a near-black block holding a big pulsing red-orange circle.",
+  "reading": "This is a landing page hero: a logo mark, a pill 'Menu' button, two tilted full-bleed marquee text bands (one near-black with off-white 'MOTION DESIGN' text, one red-orange with near-black 'BRAND FILMS — TITLES — LOOPS' text), a paragraph of copy, and a near-black block containing a big pulsing red-orange circle.",
   "actions": [
     {
       "kind": "add",
@@ -94,7 +92,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small wordmark text reading \"ROLL/STUDIO\" in the top-left corner, Helvetica, near-black text on the off-white page."
+      "instruction": "Add wordmark text 'ROLL/STUDIO' as the site logo in the top-left of the header."
     },
     {
       "kind": "add",
@@ -109,7 +107,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Near-black outline pill button labeled \"Menu\" in the top-right corner."
+      "instruction": "Add a near-black outline pill-shaped button labeled 'Menu' in the top-right corner of the header."
     },
     {
       "kind": "add",
@@ -132,7 +130,7 @@
         85
       ],
       "paths": [],
-      "instruction": "Tilted scrolling marquee band bleeding off the left and right page edges: giant Helvetica heavy uppercase off-white text on a near-black band reading \"MOTION DE"
+      "instruction": "Add a tilted, full-width scrolling marquee band bleeding off both left and right page edges: near-black background with giant Helvetica heavy uppercase off-whit"
     },
     {
       "kind": "add",
@@ -155,30 +153,32 @@
         59
       ],
       "paths": [],
-      "instruction": "Second tilted scrolling marquee band bleeding off the left and right page edges: giant Helvetica heavy uppercase text on a red-orange band reading \"BRAND FILMS "
+      "instruction": "Add a second tilted, full-width scrolling marquee band bleeding off both left and right page edges: red-orange background with giant Helvetica heavy uppercase n"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s4"
+        "s4",
+        "s5"
       ],
       "textSize": [
         {
           "strokes": [
-            "s4"
+            "s4",
+            "s5"
           ],
-          "lines": 1,
-          "fontPx": 51
+          "lines": 2,
+          "fontPx": 24
         }
       ],
       "region": [
         64,
-        658,
+        647,
         468,
-        37
+        58
       ],
       "paths": [],
-      "instruction": "Body line of copy below the marquees: \"We make things move for brands that refuse to sit still.\""
+      "instruction": "Add body paragraph text: 'We make things move for brands that refuse to sit still.'"
     },
     {
       "kind": "design",
@@ -191,12 +191,10 @@
         229
       ],
       "paths": [
-        "s5",
         "s6",
-        "s7",
-        "s8"
+        "s7"
       ],
-      "instruction": "A near-black rectangular block containing a big vivid red-orange circle that pulses (animated pulsing effect), placed to the right of the body copy."
+      "instruction": "Add a near-black rectangular block containing a big vivid red-orange circle with a pulsing animation effect, as a decorative visual accent."
     }
   ],
   "rejected": []

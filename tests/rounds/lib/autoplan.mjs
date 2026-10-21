@@ -625,6 +625,18 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
   })
+  // a picture placeholder with another mark drawn on top of it (a dark reel card with a play
+  // circle) is a backdrop: drawn as a filled box, since an X'd picture box crosses out what sits
+  // on it and the build drew the X (round 3 c2 reel built as a crossed placeholder)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (d.kind !== 'image' || !d.note) return
+    const A = f.rect
+    const onTop = regions.some((g) => g !== f && out.get(g.role).kind && !f.regionKids.includes(g.role) && !g.regionKids.includes(f.role) &&
+      g.rect.x >= A.x - 2 && g.rect.y >= A.y - 2 && g.rect.x + g.rect.w <= A.x + A.w + 2 && g.rect.y + g.rect.h <= A.y + A.h + 2 &&
+      g.rect.w * g.rect.h <= 0.5 * A.w * A.h)
+    if (onTop) d.kind = 'box'
+  })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
     const k = out.get(f.role).kind

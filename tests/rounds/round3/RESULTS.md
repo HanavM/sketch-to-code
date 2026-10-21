@@ -145,3 +145,20 @@ All 10 round-3 pages have now been built at least once.
 - Left: "01" built ~110px (target 420, n40); stamp not tilted; card titles not heavy Helvetica.
 
 Side by sides: `built/c4-brutal-index-n42-cmp.png`, `built/c2-kinetic-marquee-n42-cmp.png`.
+
+## n43 (2026-10-21): kinetic marquee 40% -> 84%
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c2 kinetic marquee | 56% (n41), 40% (n42) | **84%** | 79k (build 54k + repair 15k) | orange band back below the black one; intro copy at body size on two lines; the reel is a plain dark card with the orange dot, no crossed lines |
+
+- Cause 1 (drawing): the bench drew a heading of several lines as one squiggle unless its block was over 140px tall,
+  so the 2-line 30px intro (72px) was one 36px zigzag, read as a 52px one-line heading. The build could not fit it,
+  and the repair shrank it to a tiny line. Several lines are now drawn as several lines whatever the height (wobble
+  0.35 x the font). The reading now finds 2 lines at ~24px.
+- Cause 2 (plan): a textless dark block is planned as a picture (an X'd box). The reel has the play circle on top of
+  it, and the build drew the X. A picture block with another mark drawn on top of it is now a plain filled box.
+  Plan changes: round-3 c2 reel and c5 dark half; rounds 1-2 unchanged (52/53 hand marks still matched).
+- Left: page white (target off-white), intro light weight and a little small, reel corners square.
+
+Side by side: `built/c2-kinetic-marquee-n43-cmp.png`.
