@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Found and fixed one way the poster page's giant headline lost its size; today's budget is used up, so the live check waits until tomorrow."
-lock: {by: run-2026-10-21T0101, until: "2026-10-21T02:35:00Z"}
+now: "Added a check that says which creative effects (tilt, glass, outlined type, bleeding edges) a built page kept; live tests wait for tomorrow's budget."
+lock: null
 asks: []
 handled: []
 notes:
@@ -22,6 +22,7 @@ notes:
   - "S2C_TRACE_READING=<file> logs every SDK message of a reading (find why a reading failed). Bench runs >10 min: nohup in background and poll."
   - "n2: node tests/rounds/autoplan.mjs <round> writes <round>/autoplan.json from target style; --set round1auto draws it (try/n2-auto-sketch, cut from try/n1-round-bench). Live A/B hand vs auto on 2 pages is worth ~60k when budget allows."
   - "n10: round 2 lives in tests/rounds/round2 (auto.mjs only, no hand plans; autoplan.txt = plan readout). Shared page builder tests/rounds/lib/pages.mjs. --set round2auto --dry draws all 10 (~7 min)."
+  - "n15: tests/rounds/lib/effects.mjs reads techniques off computed style; <round>/effects.json = target's set (measure.mjs). Bench logs 'effects' recall per page and puts it in the run digest. Lives on try/n3-vocabulary (cut from try/n2-auto-sketch): run n11/n12 from that branch or merge it first."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -37,7 +38,7 @@ nodes:
      branch: try/n1-round-bench, result: null}
   - {id: n2, parent: n0, kind: approach, title: "Auto-sketch from the target: derive rough strokes and words from the reference page's own boxes, so every page is drawn the same honest way and rounds scale cheaply", status: active,
      branch: try/n2-auto-sketch, result: null}
-  - {id: n3, parent: n0, kind: approach, title: "Grow the visual vocabulary first: catalogue creative techniques (gradients, overlap, big type, texture, motion) and add drawable/wordable ways to ask for each, tested on single sections", status: open,
+  - {id: n3, parent: n0, kind: approach, title: "Grow the visual vocabulary first: catalogue creative techniques (gradients, overlap, big type, texture, motion) and add drawable/wordable ways to ask for each, tested on single sections", status: active,
      branch: try/n3-vocabulary, result: null}
   - {id: n4, parent: n1, kind: step, title: "Round 1 set: 5 easy creative + 5 easy everyday reference pages, a likeness scorer (pixel/structure), sketches for each, dry run free; then one live page to calibrate cost", status: done,
      result: "10 targets, sketches and likeness score built; blank pages score 0-3%. Live page 1: reading failed (max turns 4). 9211030."}
@@ -57,3 +58,6 @@ nodes:
   - {id: n13, parent: n1, kind: step, title: "Free: why c2's 160px drawn headline came out ~50px, from the ink and grounding, no live runs", status: done,
      result: "Ink reads 157px; size was lost if reading split the lines. Now page-wide; bench keeps run digests. 3574081."}
   - {id: n12, parent: n13, kind: step, title: "Needs 2026-10-22 budget, run with --budget: re-run c2, c4, c5 to prove the page-look fix (full-page yellow/dark/paper, nav as a row) and the page-wide headline size; read each run digest", status: open, result: null}
+  - {id: n15, parent: n3, kind: step, title: "Free: technique catalogue as a check: which creative effects each target uses, and which a build kept", status: done,
+     result: "Effect check reads 17 techniques off live pages; targets match intent, blank shows none; bench reports recall. 18ffcc3."}
+  - {id: n16, parent: n15, kind: step, title: "Free: trace each technique word (glass, tilt, hollow, bleed, blur, hard shadow, overlap) from note through reading to the build instruction; fix any place it is dropped or softened", status: open, result: null}
