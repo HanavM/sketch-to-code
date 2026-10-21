@@ -269,6 +269,16 @@ const dist = (a, b) => (a && b ? Math.hypot(a.r - b.r, a.g - b.g, a.b - b.b) : 9
 const visible = (c) => c && c.a > 0.05
 const isSerif = (fam) => /serif/i.test(fam) && !/sans-serif/i.test(fam) || /georgia|times|garamond|playfair|didot|bodoni/i.test(fam)
 const isMono = (fam) => /mono|courier|consolas/i.test(fam)
+/**
+ * The named face a designer would say (Helvetica, Georgia), or null for generic stacks.
+ * Builds fall back to the app's default sans (Inter here), visibly wider than Helvetica
+ * at display sizes (round 2 c2 NOISE ran ~40px wider).
+ */
+const FACES = ['Helvetica', 'Arial', 'Georgia', 'Times New Roman', 'Courier New', 'Futura', 'Garamond', 'Didot', 'Bodoni', 'Playfair Display', 'Inter', 'Roboto']
+export const faceName = (fam) => {
+  const first = (fam || '').split(',')[0].replace(/["']/g, '').trim().toLowerCase()
+  return FACES.find((n) => n.toLowerCase() === first) ?? null
+}
 // cut-short copy puts its ellipsis OUTSIDE the quotes ("Looks great. Can we"…), so it
 // never reads as a literal placeholder ellipsis ("Write a message…")
 const quote = (s, n = 48) => (s.length > n ? `"${s.slice(0, n).replace(/\s+\S*$/, '')}"…` : `"${s}"`)
@@ -305,6 +315,8 @@ const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgIma
 function typeWords(f, page) {
   const w = []
   if (f.font.size >= 80) w.push('giant'); else if (f.font.size >= 52) w.push('huge'); else if (f.font.size >= 32) w.push('big')
+  // display type: the face sets the word's width, so name it (said once on the page note otherwise)
+  if (f.font.size >= 52 && faceName(f.font.family) && !isMono(f.font.family)) w.push(faceName(f.font.family))
   if (f.font.style === 'italic') w.push('italic')
   if (isSerif(f.font.family) && !isSerif(page.font.family)) w.push('serif')
   else if (isSerif(f.font.family) && f.font.size >= 32) w.push('serif')
@@ -522,6 +534,9 @@ function decideOne(f, page, marked, said) {
     const say = f.text.length <= 40 && (f.font.size >= 18 || styled.length || (f.font.weight >= 600 && f.kidCount === 0))
     // one short paragraph (a hero's lead line) is copy a person types, or the build writes its own
     const lead = !say && f.kidCount === 0 && f.text.length <= 110 && /^(p|span|div)$/.test(f.tag)
+    // a lead line in a softer grey than the page's text (grey blurb on a white-text poster) says so,
+    // or builds set it in the page's full text colour (round 2 c2)
+    if (lead && /grey/.test(textCol ?? '') && !styled.includes(textCol)) styled.push(textCol)
     return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : lead ? `${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
   }
   return { kind: 'box', note: null }
@@ -535,7 +550,8 @@ function pageNote(b) {
   if (grad) w.push(`${grad} page`)
   else if (visible(b.bg)) w.push(`${colourName(b.bg)} page`)
   if (gridLines(b)) w.push('faint grid lines')
-  if (isSerif(b.font.family)) w.push('serif type'); else if (isMono(b.font.family)) w.push('mono type')
+  if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
+  else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
   if (b.colour) w.push(`${colourName(b.colour)} text`)
   return `whole page: ${w.join(', ')}`
 }

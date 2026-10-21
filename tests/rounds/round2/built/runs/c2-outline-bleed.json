@@ -1,23 +1,23 @@
 {
   "id": "c2-outline-bleed",
-  "at": "2026-10-21T07:15:26.960Z",
+  "at": "2026-10-21T07:22:41.882Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5795253196378609,
-    "overallV2": 0.55228974173083,
-    "overallV1": 0.504813046343001,
-    "colour": 0.9258048640668263,
-    "structure": 0.182457591065565,
-    "structureStrict": 0.040411769586350205,
-    "colourAligned": 0.9420741847985005,
-    "structureAligned": 0.23947649215891503,
+    "overall": 0.5851937556575271,
+    "overallV2": 0.5583462163211966,
+    "overallV1": 0.5154576193920606,
+    "colour": 0.9306904689702962,
+    "structure": 0.18612023341431755,
+    "structureStrict": 0.0702176027253717,
+    "colourAligned": 0.9437477383290531,
+    "structureAligned": 0.24536444285846215,
     "align": {
       "scale": 1.12,
-      "dx": -32,
+      "dx": -64,
       "dy": -112,
-      "r": 0.6758359078354103
+      "r": 0.6321307684413526
     },
-    "layout": 0.6093242410948572
+    "layout": 0.6188523882413075
   },
   "effects": {
     "recall": 1,
@@ -31,31 +31,31 @@
     "extra": []
   },
   "tokens": {
-    "input": 21055,
-    "output": 6228,
-    "cacheRead": 234638
+    "input": 28340,
+    "output": 9832,
+    "cacheRead": 205937
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 22347,
-      "output": 4192,
-      "cacheRead": 231618,
+      "billed": 30892,
+      "output": 7198,
+      "cacheRead": 196980,
       "toolCalls": 7,
       "tools": [
         "Grep",
         "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
+        "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 47663
+      "ms": 87251
     }
   ],
-  "reading": "A black-background poster-style page: a nav link row (INDEX/SHOWS/SHOP), a giant two-line hollow-white \"NOISE\" / lime \"FEST\" headline bleeding off the left edge, a short body blurb about the event, and a lime monospace date line, all per the typed notes which override the raw wavy-line sketch.",
+  "reading": "A hero section sketch: two giant wavy lines are a two-line heading 'NOISE' / 'FEST', flanked by a top-right nav text placeholder, a paragraph placeholder, and a date line placeholder, all set on a black full-page background with white Helvetica type per the global note.",
   "actions": [
     {
       "kind": "add",
@@ -70,7 +70,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Small wavy mark at top right is a text placeholder for a nav link row; replace with the words \"INDEX\", \"SHOWS\", \"SHOP\" as three links, styled white per page not"
+      "instruction": "Top-right navigation links: INDEX, SHOWS, SHOP."
     },
     {
       "kind": "add",
@@ -93,7 +93,7 @@
         210
       ],
       "paths": [],
-      "instruction": "Top wavy line (bleeding off the left page edge, starting about 40px past it) stands for a giant heavy, tightly tracked headline reading \"NOISE\", rendered as hol"
+      "instruction": "Giant heading line reading 'NOISE', bleeding off the left page edge starting 40px past it, set in giant Helvetica heavy, tight letter-spacing, hollow/outlined s"
     },
     {
       "kind": "add",
@@ -116,7 +116,7 @@
         209
       ],
       "paths": [],
-      "instruction": "Second wavy line below NOISE (bleeding off the left page edge, starting about 30px past it) stands for a giant heavy, tightly tracked headline reading \"FEST\", c"
+      "instruction": "Giant heading line reading 'FEST' directly below the NOISE line, bleeding off the left page edge starting 30px past it, set in giant Helvetica heavy, tight lett"
     },
     {
       "kind": "add",
@@ -141,7 +141,7 @@
         33
       ],
       "paths": [],
-      "instruction": "Wavy lines at bottom right stand for a short body paragraph reading \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\", styled white per pa"
+      "instruction": "Grey body paragraph text: 'Three nights of loud guitars in a disused tram depot. Bring earplugs.'"
     },
     {
       "kind": "add",
@@ -156,7 +156,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small wavy line at bottom left stands for a monospace date line reading \"// 14—16 AUG 2027\", colored lime."
+      "instruction": "Monospace lime date line reading '// 14—16 AUG 2027'."
     }
   ],
   "rejected": [

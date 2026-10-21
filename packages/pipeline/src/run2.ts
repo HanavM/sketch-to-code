@@ -182,6 +182,11 @@ Rules:
     together as one word, never spread apart to span the page;
   tight-set letters → letter-spacing about -0.03em (display type set tight);
   wide-spaced letters → letter-spacing 0.15-0.3em;
+  a named typeface ("Helvetica type", "giant Georgia ...") → font-family with that
+    face first and its usual fallbacks (Helvetica, Arial, sans-serif), on the page
+    or that block; never left to the app's default font;
+  grey text (on a page whose text is white or black) → that softer grey, not the
+    page's text colour;
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.
