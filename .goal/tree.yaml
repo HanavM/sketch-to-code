@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Orbit page rings now land where drawn (59% to 67%); next, the mountain ridge colours and the editorial headline."
-lock: {by: run-2026-10-21T0954Z, until: "2026-10-21T11:25:00Z"}
+now: "Mountain and editorial pages now match closely (78% and 81%); next, the occasional failed reading and the two hardest pages not yet built."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -62,6 +62,8 @@ notes:
   - "n36 (de78411 on try/n3-vocabulary): planner faceName(): page note says 'Helvetica type'/'Georgia type'; display type >=52px carries the face; a grey lead line says 'grey'. Contract maps a named face to font-family. Bench app default sans is Inter (fc-match), Helvetica renders as TeX Gyre Heros. c2 likeness 63/58/59 over n34-n36: noise, stop polishing c2."
   - "n38 (53605de on try/n3-vocabulary): packages/pipeline/src/shape-anchor.ts: a pure drawn decoration (svg paths, no text marks, no quoted copy in its instruction) needs a new textless absolute/svg element of 0.4-2.5x its area centred within max(24px, 0.2 x size); each element claims one shape; none of that size = unverifiable. Failures go to a repair turn. Ring/spin notes leak onto the big ring actions (notes typed inside a ring attach to it) - harmless now, but a focus bug. Scaffold: outline/ring/hollow in instruction = unfilled."
   - "Token ledger: 2026-10-21 n38 live c3 x2 132k + one timed-out reading (~0) (day total ~1760k, no cap set)."
+  - "n39 (1d0eca9, 0087e89 on try/n3-vocabulary): noteFocus treats a closed non-box outline as its inside (distToStroke); in nested outlines the innermost wins; a note on one line of a giant (>=60px, GIANT_STACK_PX) multi-line text stack reaches all lines. Bench noteSpot(): non-box notes typed on the visible part of their mark (clear of later marks by 28px, then 14, then 0); multi-line headings typed on a line. Planner colour names: deep raspberry, dark pink, soft yellow, light orange, peach, pale lilac. Vertical text regions drawn as one vertical squiggle (textmark does not read vertical squiggles as text; the note carries it)."
+  - "Token ledger: 2026-10-21 n39 live c1+c5 83k (c5 reading failed: max turns), c5 58k = 141k (day total ~1900k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -104,7 +106,9 @@ nodes:
      result: "c1 62%->67% (ridges now real jagged shapes), c3 59%, c5 70%. Builds limited to file tools: half cost. c43b311."}
   - {id: n38, parent: n37, kind: step, title: "Free first, ~60k live: round-3 c3 rings (concentric outline circles behind the headline) built big, filled and off-centre bottom-right; planet tiny top-left. Trace from ink/notes, fix, re-run c3", status: done,
      result: "New check catches decorations built off their drawing; repair fixed rings. Rings outline only; 59% to 67%. 53605de."}
-  - {id: n39, parent: n37, kind: step, title: "Free first, ~60k live: round-3 c1 ridge colours swapped (red far ridge built in front, purple near ridge behind) and sun lacks glow; c5 headline small and shifted right, side label on the photo. Fix the clearest, re-run", status: open, result: null}
+  - {id: n39, parent: n37, kind: step, title: "Free first, ~60k live: round-3 c1 ridge colours swapped (red far ridge built in front, purple near ridge behind) and sun lacks glow; c5 headline small and shifted right, side label on the photo. Fix the clearest, re-run", status: done,
+     result: "Notes now reach the mark typed on: mountains 67% to 78%, editorial 70% to 81%. 0087e89."}
+  - {id: n41, parent: n39, kind: step, title: "Free first: design readings still fail now and then with 'maximum number of turns (4)' (c5 first try, e3 earlier). Catch one with S2C_TRACE_READING, find the cause, fix; then build round-3 c2 marquee and c4 brutal index (never built)", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
