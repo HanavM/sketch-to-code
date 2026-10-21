@@ -38,9 +38,10 @@ for (const f of files) {
   const L = (p, k) => lift(p[k], pb[k])
   if (process.env.RESCORE_RAW) console.log(JSON.stringify({ pb, p0 }))
   const row = { id: basename(f).replace(/-cmp\.png$/, ''), colour: L(p0, 'colour'), structure: L(p0, 'structure'), strict: L(p0, 'structureStrict'),
-    moved16: [L(p16, 'structure'), L(p16, 'structureStrict')], moved40: [L(p40, 'structure'), L(p40, 'structureStrict')] }
+    moved16: [L(p16, 'structure'), L(p16, 'structureStrict')], moved40: [L(p40, 'structure'), L(p40, 'structureStrict')],
+    aligned: { colour: L(p0, 'colourAligned'), structure: L(p0, 'structureAligned'), align: p0.align, moved40: L(p40, 'structureAligned') } }
   rows.push(row)
-  console.log(`${row.id} | ${pct(row.colour)} | ${pct(row.structure)} | ${pct(row.strict)} | ${pct(row.moved16[0])} / ${pct(row.moved16[1])} | ${pct(row.moved40[0])} / ${pct(row.moved40[1])}`)
+  console.log(`${row.id} | ${pct(row.colour)} | ${pct(row.structure)} | ${pct(row.strict)} | ${pct(row.moved16[0])} / ${pct(row.moved16[1])} | ${pct(row.moved40[0])} / ${pct(row.moved40[1])} || aligned: colour ${pct(row.aligned.colour)} struct ${pct(row.aligned.structure)} moved40 ${pct(row.aligned.moved40)} (x${row.aligned.align.scale} ${row.aligned.align.dx},${row.aligned.align.dy})`)
 }
 await browser.close()
 if (process.env.RESCORE_JSON) (await import('node:fs')).writeFileSync(process.env.RESCORE_JSON, JSON.stringify(rows, null, 1))

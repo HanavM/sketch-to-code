@@ -311,9 +311,9 @@ async function likenessOf(page, spec, row, tag) {
   const pic = await pictureLikeness(page, spec.ref, shot)
   const layout = row.score?.regionScore ?? null
   // v2 structure forgives a ~16px offset; overallV1 keeps the old strict number so rounds stay comparable
-  row.likeness = { ...pic, layout, version: LIKENESS_VERSION, overall: blend(pic, layout, spec.baseline), overallV1: blend({ colour: pic.colour, structure: pic.structureStrict }, layout, spec.baseline) }
+  row.likeness = { ...pic, layout, version: LIKENESS_VERSION, overall: blend({ colour: pic.colourAligned, structure: pic.structureAligned }, layout, spec.baseline), overallV2: blend(pic, layout, spec.baseline), overallV1: blend({ colour: pic.colour, structure: pic.structureStrict }, layout, spec.baseline) }
   const p = (x) => (x == null ? '—' : `${Math.round(x * 100)}%`)
-  log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colour)} · structure ${p(pic.structure)} (strict ${p(pic.structureStrict)}) · layout ${p(layout)} · v1 ${p(row.likeness.overallV1)}`)
+  log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colourAligned)} · structure ${p(pic.structureAligned)} (aligned x${pic.align.scale} ${pic.align.dx},${pic.align.dy}; unmoved ${p(pic.structure)}, strict ${p(pic.structureStrict)}) · layout ${p(layout)} · v2 ${p(row.likeness.overallV2)} · v1 ${p(row.likeness.overallV1)}`)
   // creative techniques kept (tilt, glass, hollow type, bleed...): reported beside likeness, not blended in
   if (spec.effects?.length) {
     row.effects = effectRecall(spec.effects, await effectsOf(page))
@@ -752,7 +752,7 @@ function writeRunDigest(appDir, dir, id, row) {
   writeFileSync(join(dir, `${id}.json`), JSON.stringify({
     id,
     at: new Date().toISOString(),
-    likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, layout: row.likeness.layout } : null,
+    likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV2: row.likeness.overallV2, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, colourAligned: row.likeness.colourAligned, structureAligned: row.likeness.structureAligned, align: row.likeness.align, layout: row.likeness.layout } : null,
     effects: row.effects ?? null,
     tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
     // per codegen turn: build vs repair rounds, tool calls (null before n27)
