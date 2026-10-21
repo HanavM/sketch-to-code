@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "The hardest creative pages are built for the first time (mountains 67%, orbit 59%, editorial 70%); next, fixing the orbit page's rings and the mountains' layer colours."
-lock: null
+lock: {by: run-n38, until: "2026-10-21T10:09:15Z"}
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
