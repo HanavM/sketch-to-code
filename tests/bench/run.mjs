@@ -598,6 +598,9 @@ while (queue.length) {
       codegen,
     }
     spent += row.tokens.input + row.tokens.output
+    if (record?.sends?.length) {
+      log('codegen turns: ' + record.sends.map((t) => `${t.attempt}/${t.kind} ${Math.round(t.billed / 1000)}k ${t.toolCalls} tools`).join(' · '))
+    }
     row.verified = record?.verification?.score ?? null
     row.changedFiles = record?.changedFiles?.length ?? null
 
@@ -730,6 +733,8 @@ function writeRunDigest(appDir, dir, id, row) {
     likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, layout: row.likeness.layout } : null,
     effects: row.effects ?? null,
     tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
+    // per codegen turn: build vs repair rounds, tool calls (null before n27)
+    sends: readRunRecord(appDir)?.sends ?? null,
     reading: interp.reading,
     actions: (interp.actions ?? []).map((a) => ({
       kind: a.kind,

@@ -54,6 +54,17 @@ const HMR_RETRY_MS = 1500
 const fmtTokens = (u: TokenUsage) =>
   `${(u.input / 1000).toFixed(1)}k in +${(u.cacheRead / 1000).toFixed(1)}k cached / ${(u.output / 1000).toFixed(1)}k out`
 
+/** One codegen turn's cost (billed = input incl. cache writes + output). */
+export interface SendCost {
+  attempt: string
+  kind: 'build' | 'repair'
+  billed: number
+  output: number
+  cacheRead: number
+  toolCalls: number
+  ms: number
+}
+
 export interface InterpretV2Result {
   interpretation: GroundedInterpretation
   /** Raw model output — passed back on run so the server can re-ground it. */
@@ -526,6 +537,7 @@ export async function runV2(
    * That is what makes it repeatable, and repeatable is what makes the
    * best-of-N possible.
    */
+  const sends: SendCost[] = []
   const runAttempt = async (approach: string, tag: string) => {
     let session: CodegenSession | null = null
     const agent = (): CodegenSession => {
@@ -538,6 +550,27 @@ export async function runV2(
     let replies = 0
     const saveReply = (reply: string) =>
       writeFileSync(join(runDir, `reply-${tag}-${++replies}.txt`), reply)
+    // what each turn cost: a page's tokens alone could not say whether the
+    // build or its repair rounds were the expensive part (round 1 c2: 91k)
+    const metered = async (kind: 'build' | 'repair', content: { text: string; images?: string[] }) => {
+      const s = agent()
+      const u0 = s.usage()
+      const t0 = s.toolCalls()
+      const started = Date.now()
+      try {
+        return await s.send(content)
+      } finally {
+        const u1 = s.usage()
+        sends.push({
+          attempt: tag, kind,
+          billed: u1.input - u0.input + u1.output - u0.output,
+          output: u1.output - u0.output,
+          cacheRead: u1.cacheRead - u0.cacheRead,
+          toolCalls: s.toolCalls() - t0,
+          ms: Date.now() - started,
+        })
+      }
+    }
     let best = -1
     let lastFailures: string[] = []
     try {
@@ -566,7 +599,7 @@ export async function runV2(
         const brief = `${baseBrief}${instantNote}${scaffoldNote}${approach ? `${approach}\n\n` : ''}Implement every action now.`
         writeFileSync(join(runDir, `prompt-${tag}.txt`), brief)
         stage('codegen', 'Claude Code editing source')
-        saveReply(await agent().send({ text: brief, images }))
+        saveReply(await metered('build', { text: brief, images }))
       } else {
         // the codemod wrote milliseconds ago; the client only waits 350ms after
         // the resnapshot event, which can beat Vite's watcher + HMR
@@ -599,7 +632,7 @@ export async function runV2(
             `ACTIONS:\n${JSON.stringify(interp.actions.map((a, i) => ({ action: i, ...a })), null, 2)}\n\n` +
             `Check the codemod edits against the failures below before changing anything — ` +
             `if an edit is already correct, leave it and say so.\n\n`
-        saveReply(await agent().send({
+        saveReply(await metered('repair', {
           text:
             `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
             `Fix exactly these. Do not change anything already working.`,
@@ -670,7 +703,7 @@ export async function runV2(
     // recorded, not inferred: the runs viewer had to guess design-vs-gesture
     // from whether an action happened to be kind 'design'
     engine: 'model', mode: input.mode ?? 'gesture', checkpoint: cp.sha, changedFiles: files,
-    reading: interp.reading, verification: lastVerify, tokens: totalUsage,
+    reading: interp.reading, verification: lastVerify, tokens: totalUsage, sends,
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
     backend: { applied: backend, refused: backendRefused },
     fidelity,
