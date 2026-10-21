@@ -1,7 +1,7 @@
 goal_hash: 85f809c3c8c3bc0248960f5aa489d1bef55ae230
 goal_state: working
-now: "Fixed a mix-up that would have turned the giant outlined headline into a page-wide style; live tests wait for tomorrow's budget."
-lock: {by: run-2026-10-21T0112Z, until: '2026-10-21T02:42:00Z'}
+now: "Wrote the ten hardest practice pages yet (moving, layered and app-style); next, teaching the planner to describe tables, calendars and charts."
+lock: null
 asks: []
 handled: []
 notes:
@@ -24,6 +24,7 @@ notes:
   - "n10: round 2 lives in tests/rounds/round2 (auto.mjs only, no hand plans; autoplan.txt = plan readout). Shared page builder tests/rounds/lib/pages.mjs. --set round2auto --dry draws all 10 (~7 min)."
   - "n15: tests/rounds/lib/effects.mjs reads techniques off computed style; <round>/effects.json = target's set (measure.mjs). Bench logs 'effects' recall per page and puts it in the run digest. Lives on try/n3-vocabulary (cut from try/n2-auto-sketch): run n11/n12 from that branch or merge it first."
   - "n16 (3c7e7be on try/n3-vocabulary): isPageLookNote ignores positional page words; codegen contract has an effect-to-CSS glossary. n11 must run from try/n3-vocabulary to test it."
+  - "n17 (f12d480 on try/n3-vocabulary): round 3 in tests/rounds/round3 (--set round3auto, dry draws all 10, blank 0-5%). Likeness shots and effect scans freeze animations at frame 0. Round-3 plan misses left: e1 table/filters, e3 month grid + prev as input, e4 thread bubbles, e5 KPIs as 'buttons' and chart as 'picture', e2 card tags."
   - "GOAL.md gives no explicit done check; criteria below are the agent's reading of it. Every round: 5 creative + 5 regular pages, easier to harder."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
@@ -63,4 +64,6 @@ nodes:
      result: "Effect check reads 17 techniques off live pages; targets match intent, blank shows none; bench reports recall. 18ffcc3."}
   - {id: n16, parent: n15, kind: step, title: "Free: trace each technique word (glass, tilt, hollow, bleed, blur, hard shadow, overlap) from note through reading to the build instruction; fix any place it is dropped or softened", status: done,
      result: "'off the page edge' made 3 effect notes page-wide; fixed. Codegen now spells effects as CSS. 3c7e7be."}
-  - {id: n17, parent: n3, kind: step, title: "Free: round-3 targets (hardest: layered depth, motion, expressive type, dense app UI), measured and auto-planned untuned; read plans for misses", status: open, result: null}
+  - {id: n17, parent: n3, kind: step, title: "Free: round-3 targets (hardest: layered depth, motion, expressive type, dense app UI), measured and auto-planned untuned; read plans for misses", status: done,
+     result: "10 hardest targets; planner now says motion, vertical, rings, hard shadows, cut-outs, layering. Dense app UI still vague. f12d480."}
+  - {id: n18, parent: n17, kind: step, title: "Free: dense app vocabulary in the planner: table columns and rows, status pills, month grid with events, stat cards, bar chart, chat bubbles left/right, kanban cards with tags; round 1-3 plans must not regress", status: open, result: null}
