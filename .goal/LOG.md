@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-21T20:27:00Z | Round 5 settings and spreadsheet fixes | Lead items, tab and bar colours, off-white page said: settings 46% to 65%, spreadsheet colours right. 79k.
 2026-10-21T20:12:00Z | Round 5 everyday pages built | Heatmap 71%, chat 77% to 83% after rail fix, settings 46%, spreadsheet 61%. 182k.
 2026-10-21T19:55:00Z | Round 5: notes for chat, spreadsheet, heatmap, settings | Sketch notes now describe messages, spreadsheet cells, heatmap shades, toggles, danger card. 0 tokens.
 2026-10-21T19:35:00Z | Round 5 targets made and drawn | 10 harder pages, all drawn dry; notes miss chat pane, spreadsheet, heatmap, toggles. 0 tokens.
