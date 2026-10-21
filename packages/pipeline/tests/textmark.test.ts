@@ -170,3 +170,48 @@ describe('textStacks — drawn line spacing is the type size (round 1, c1)', () 
     expect(textStacks(apart.map((points: unknown, i: number) => ({ id: `a${i}`, points })))).toEqual([])
   })
 })
+
+describe('textSize survives how the reading splits the page (round 1, c2)', () => {
+  // c2: "MAKE IT LOUD" drawn as two heading squiggles 172px apart, then body copy
+  const head = textBlock(48, 200, 900, 2, 172, { amp: 8, wavelength: 50 })
+  const body = textBlock(48, 600, 500, 2, 24)
+  const strokes: Stroke[] = toStrokes([...head, ...body]) // s1 s2 headline, s3 s4 body
+  const ground = (actions: Array<{ strokes: string[]; instruction: string }>) => {
+    const snap = blankPage()
+    const ev = buildEvidence(strokes, snap)
+    return groundInterpretation(
+      {
+        reading: 'poster page',
+        actions: actions.map((a) => ({ kind: 'design' as const, elements: null, destElement: 'e1', position: 'into' as const, instruction: a.instruction, strokes: a.strokes, layer: null, depicts: null, fidelity: null })),
+      },
+      ev, snap, 'design',
+    ).actions
+  }
+  it('a headline split over two actions still carries its drawn size on both', () => {
+    const [a1, a2] = ground([
+      { strokes: ['s1'], instruction: 'MAKE IT' },
+      { strokes: ['s2'], instruction: 'LOUD' },
+    ])
+    for (const a of [a1!, a2!]) {
+      expect(a.textSize).toHaveLength(1)
+      expect(a.textSize![0]!.fontPx).toBeGreaterThan(140)
+    }
+  })
+  it('headline and body cited together keep two sizes, not one blended one', () => {
+    const [a] = ground([{ strokes: ['s1', 's2', 's3', 's4'], instruction: 'hero' }])
+    const sizes = a!.textSize!.map((t) => t.fontPx).sort((x, y) => x - y)
+    expect(sizes).toHaveLength(2)
+    expect(sizes[0]).toBeLessThan(20)
+    expect(sizes[1]).toBeGreaterThan(140)
+  })
+  it('an action citing no squiggle gets no size', () => {
+    const extra = toStrokes([box(100, 100, 200, 80)])[0]!
+    const snap = blankPage()
+    const ev = buildEvidence([...strokes, { ...extra, id: 's9' }], snap)
+    const [a] = groundInterpretation(
+      { reading: 'x', actions: [{ kind: 'design', elements: null, destElement: 'e1', position: 'into', instruction: 'box', strokes: ['s9'], layer: null, depicts: null, fidelity: null }] },
+      ev, snap, 'design',
+    ).actions
+    expect(a!.textSize).toBeUndefined()
+  })
+})

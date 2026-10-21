@@ -271,6 +271,17 @@ export function resolveNotes(
   return out
 }
 
+/**
+ * Is this typed note about the look of the whole page rather than one block?
+ * It names the page itself (page, site, background, paper, theme, "whole"/
+ * "overall"/"everywhere") — "bright yellow page", "near-black page with faint
+ * purple grid lines", "magazine on warm paper". Words like "sidebar" or "panel"
+ * alone never count: those are blocks.
+ */
+export function isPageLookNote(text: string): boolean {
+  return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(text)
+}
+
 /** How far past the nearest stroke a stroke can sit and still be "right here". */
 export const NOTE_FOCUS_SLACK_PX = 24
 
@@ -770,6 +781,15 @@ export interface GroundedInterpretation {
   actions: GroundedAction[]
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
+  /**
+   * Typed notes that describe the look of the WHOLE page ("bright yellow page",
+   * "near-black page with a faint grid"), wherever they were typed. A person
+   * types the page look on whatever they drew first, often a nav box; left
+   * there, it styled only that block (round 1: c2's nav became a black bar,
+   * c4's dark page stopped at the content). Codegen styles the page root with
+   * these, full viewport height. The note still also goes to its own action.
+   */
+  pageNotes?: string[]
   /** Model references that failed validation (reported, never executed). */
   rejected: string[]
 }
@@ -832,6 +852,15 @@ export function groundInterpretation(
     }
   }
 
+  // Type size is read from ALL the text squiggles on the page at once, not per
+  // action: round 1 c2 drew "MAKE IT LOUD" as two squiggles 172px apart, and a
+  // reading that splits those lines over two actions (or cites one with the
+  // body copy) would otherwise lose the stack and the headline came out at the
+  // app's default heading size (~50px for a 157px drawn size).
+  const pageStacks = textStacks(
+    [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
+  )
+
   const actions: GroundedAction[] = []
   for (const a of raw.actions) {
     // design mode is creation-only — belt to the schema's suspenders
@@ -847,8 +876,10 @@ export function groundInterpretation(
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
     const textMarks: string[] = []
+    // every page stack this action cites any line of (a stack split over two
+    // actions gives each of them the size)
     const textStackOf = (ids: string[]): TextStack[] =>
-      textStacks(ids.map((id) => ({ id, points: ev.strokes.get(id)!.points })))
+      pageStacks.filter((st) => st.strokes.some((id) => ids.includes(id)))
     const citedStrokes = (a.strokes ?? [])
       .map((id) => {
         const s = ev.strokes.get(id)
@@ -1008,10 +1039,12 @@ export function groundInterpretation(
   // A note the user typed must never be silently dropped because no action
   // claimed it — an unattached one still describes this run.
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
+  const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
 
   return {
     reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
+    ...(pageNotes.length ? { pageNotes } : {}),
   }
 }

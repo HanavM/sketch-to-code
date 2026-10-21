@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { Stroke } from '@s2c/ink'
-import { buildEvidence, groundInterpretation, resolveNotes, type TypedNote } from '../src/intent2.js'
+import { buildEvidence, groundInterpretation, resolveNotes, isPageLookNote, type TypedNote } from '../src/intent2.js'
 
 const node = (id: string, srcLoc: string | null, rect: DomNode['rect'], over: Partial<DomNode> = {}): DomNode => ({
   id, tag: 'div', srcLoc, text: '', classes: [], parent: null, depth: 1, rect,
@@ -576,5 +576,37 @@ describe('note focus — a cluster holding several drawings', () => {
       ev, snap, 'design',
     )
     expect(g.actions[0]!.notes).toEqual(['huge serif headline'])
+  })
+})
+
+describe('page-look notes reach the whole page (round 1: c2, c4)', () => {
+  it('tells page-look words from block words', () => {
+    expect(isPageLookNote('brutalist: bright yellow page, black heavy type')).toBe(true)
+    expect(isPageLookNote('near-black page with faint purple grid lines')).toBe(true)
+    expect(isPageLookNote('magazine on warm paper, serif masthead')).toBe(true)
+    expect(isPageLookNote('whole page: warm sunset gradient')).toBe(true)
+    expect(isPageLookNote('dark sidebar nav')).toBe(false)
+    expect(isPageLookNote('deep green panel, cream serif text')).toBe(false)
+    expect(isPageLookNote('black block button, yellow text')).toBe(false)
+  })
+
+  it('keeps a page-look note on its action AND lists it as page look', () => {
+    const { snap } = page()
+    const strokes = [stroke('s0', 120, 120), stroke('s1', 600, 600)]
+    const text = 'near-black page with faint purple grid lines'
+    const ev = buildEvidence(strokes, snap, [{ id: 'n0', text, at: { x: 130, y: 130 }, anchor: { kind: 'strokes', strokeIds: ['s0'] } }])
+    const g = groundInterpretation(
+      {
+        reading: 'nav and a block',
+        actions: [
+          { kind: 'design', elements: null, destElement: 'e1', position: 'into', instruction: 'nav', strokes: ['s0'], layer: null, depicts: null, fidelity: 'recognized' },
+          { kind: 'design', elements: null, destElement: 'e3', position: 'into', instruction: 'block', strokes: ['s1'], layer: null, depicts: null, fidelity: 'recognized' },
+        ],
+      },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual([text])
+    expect(g.pageNotes).toEqual([text])
+    expect(g.runNotes).toBeUndefined()
   })
 })

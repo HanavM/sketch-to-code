@@ -355,6 +355,13 @@ export async function runV2(
       ? `THE USER ALSO TYPED (applies to the whole run — their exact words, and they ` +
         `outrank any reading of the ink):\n${interp.runNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
+    (interp.pageNotes?.length
+      ? `PAGE LOOK (the user typed these about the whole page, wherever the note sits): ` +
+        `apply them to the page itself — the outermost page wrapper / body background, filling at ` +
+        `least the full viewport height (min-height: 100vh) behind every block — not only to the ` +
+        `block the note was typed on. A box drawn across the top is still a nav row on that ` +
+        `page, not a filled bar, unless a note says so:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
+      : '') +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
