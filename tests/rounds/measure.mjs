@@ -13,6 +13,7 @@ import { chromium } from 'playwright'
 import { mkdirSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { measureTarget, pictureLikeness } from './lib/likeness.mjs'
+import { effectsOf } from './lib/effects.mjs'
 
 const ROUND = process.argv[2] ?? 'round1'
 const DIR = new URL(`./${ROUND}/`, import.meta.url).pathname
@@ -43,5 +44,14 @@ for (const id of ids) {
   cal[id] = { self, blank: vsBlank, otherMean: { colour: mean('colour'), structure: mean('structure') } }
   console.log(`${id}: self ${pct(self.colour)}/${pct(self.structure)} · blank ${pct(vsBlank.colour)}/${pct(vsBlank.structure)} · other pages ${pct(cal[id].otherMean.colour)}/${pct(cal[id].otherMean.structure)}  (colour/structure)`)
 }
+// creative techniques each target uses (glass, tilt, hollow type, bleed...): the build must keep them
+const effects = {}
+for (const id of ids) {
+  await page.goto(`file://${join(DIR, `${id}.html`)}`)
+  await page.waitForTimeout(150)
+  effects[id] = await effectsOf(page)
+  console.log(`${id}: effects ${effects[id].names.join(', ') || '—'}`)
+}
+writeFileSync(join(DIR, 'effects.json'), JSON.stringify(effects, null, 1))
 writeFileSync(join(DIR, 'targets.json'), JSON.stringify({ measured: new Date().toISOString(), targets, calibration: cal }, null, 1))
 await browser.close()

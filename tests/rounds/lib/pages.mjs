@@ -3,7 +3,7 @@
  * the target's own measured boxes (<round>/targets.json). Shared by every round's
  * hand sketches and auto plans.
  */
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { box, circle, imageBox, textLine, textBlock } from '../../bench/lib/draw.mjs'
 
 /** One region -> polylines, by mark kind. Marks sit a few px inside the box. */
@@ -26,6 +26,8 @@ function mark(kind, r) {
 /** pageMaker(dir)(id, kind, title, plan, notes); plan in drawing order, notes [[role, text]...]. */
 export function pageMaker(DIR) {
   const { targets, calibration } = JSON.parse(readFileSync(`${DIR}targets.json`, 'utf8'))
+  // the target's own creative techniques (measure.mjs, lib/effects.mjs); a build is graded on keeping them
+  const effects = existsSync(`${DIR}effects.json`) ? JSON.parse(readFileSync(`${DIR}effects.json`, 'utf8')) : {}
   return function page(id, kind, title, plan, notes) {
     const regions = targets[id].regions
     const at = (role) => {
@@ -37,6 +39,7 @@ export function pageMaker(DIR) {
       id, kind, title, target: `${DIR}${id}.html`, ref: `${DIR}ref/${id}.png`,
       viewport: { width: 1280, height: 900 },
       baseline: calibration[id].blank,
+      effects: effects[id]?.names ?? [],
       regions,
       plan, planNotes: notes,
       strokes: plan.flatMap(([role, k]) => mark(k, at(role))),

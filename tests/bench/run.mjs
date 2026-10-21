@@ -57,6 +57,7 @@ import round1 from '../rounds/round1/sketches.mjs'
 import round1auto from '../rounds/round1/auto.mjs'
 import round2auto from '../rounds/round2/auto.mjs'
 import { pictureLikeness, blend } from '../rounds/lib/likeness.mjs'
+import { effectsOf, effectRecall } from '../rounds/lib/effects.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
 import { toStrokes } from './lib/draw.mjs'
 import { makeApp } from './lib/app.mjs'
@@ -302,6 +303,11 @@ async function likenessOf(page, spec, row, tag) {
   row.likeness = { ...pic, layout, overall: blend(pic, layout, spec.baseline) }
   const p = (x) => (x == null ? '—' : `${Math.round(x * 100)}%`)
   log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colour)} · structure ${p(pic.structure)} · layout ${p(layout)}`)
+  // creative techniques kept (tilt, glass, hollow type, bleed...): reported beside likeness, not blended in
+  if (spec.effects?.length) {
+    row.effects = effectRecall(spec.effects, await effectsOf(page))
+    log(`effects ${p(row.effects.recall)} · kept ${row.effects.kept.join(', ') || '—'} · missing ${row.effects.missing.join(', ') || '—'}`)
+  }
 }
 
 // --budget N: stop starting live pages once billed tokens (input + output,
@@ -720,6 +726,7 @@ function writeRunDigest(appDir, dir, id, row) {
     id,
     at: new Date().toISOString(),
     likeness: row.likeness ? { overall: row.likeness.overall, colour: row.likeness.colour, structure: row.likeness.structure, layout: row.likeness.layout } : null,
+    effects: row.effects ?? null,
     tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
     reading: interp.reading,
     actions: (interp.actions ?? []).map((a) => ({
