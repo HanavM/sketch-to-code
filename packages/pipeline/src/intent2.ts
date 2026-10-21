@@ -279,7 +279,16 @@ export function resolveNotes(
  * alone never count: those are blocks.
  */
 export function isPageLookNote(text: string): boolean {
-  return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(text)
+  // "bleeding off the page edge", "across the page", "top of the page" say
+  // WHERE a block sits, not how the page looks. Round 2 (c2, c5): the hollow
+  // "NOISE" headline and a striped band were sent as page-look notes, which
+  // tells codegen to style the page root with hollow type and stripes.
+  const t = text.replace(
+    /\b(off|past|beyond|over|across|along|down|up|around|to|at|from|on|of|out of|outside|over the edge of)\s+(the\s+)?(page|site|screen|viewport)('s)?(\s+(edges?|sides?|bottom|top|corners?))?\b/gi,
+    ' ',
+  ).replace(/\b(page|screen|viewport)\s+(edges?|sides?|corners?|bottom|top)\b/gi, ' ')
+    .replace(/\b(in|into|behind)\s+the\s+background\b/gi, ' ')
+  return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(t)
 }
 
 /** How far past the nearest stroke a stroke can sit and still be "right here". */

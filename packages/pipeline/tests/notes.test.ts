@@ -590,6 +590,16 @@ describe('page-look notes reach the whole page (round 1: c2, c4)', () => {
     expect(isPageLookNote('black block button, yellow text')).toBe(false)
   })
 
+  it('a page word that says WHERE a block sits is not page look (round 2: c2, c5)', () => {
+    expect(isPageLookNote('bleeding off the page edge giant heavy hollow outlined white "NOISE"')).toBe(false)
+    expect(isPageLookNote('tilted bleeding off the page edge big orange, yellow, teal stripes block')).toBe(false)
+    expect(isPageLookNote('band across the page, tilted')).toBe(false)
+    expect(isPageLookNote('sticker at the top of the page')).toBe(false)
+    expect(isPageLookNote('soft pink blob in the background')).toBe(false)
+    expect(isPageLookNote('whole page: black page, white text')).toBe(true)
+    expect(isPageLookNote('dark navy background, white text')).toBe(true)
+  })
+
   it('keeps a page-look note on its action AND lists it as page look', () => {
     const { snap } = page()
     const strokes = [stroke('s0', 120, 120), stroke('s1', 600, 600)]

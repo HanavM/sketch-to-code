@@ -144,7 +144,22 @@ Rules:
   When the page is being built from the drawing, make each block land there: its
   top edge within ~16px of region.y, its width within ~10% of region.w (explicit
   width/max-width and margins). Add no extra top padding or default body margin
-  that pushes everything down.
+  that pushes everything down. Exception: a note that says a block bleeds off the
+  edge, overlaps another, or is tilted means it may pass its region on purpose;
+  keep its anchor edge at the region and let it run past.
+- Effect words in notes are exact requests, never to be softened into a plainer
+  look. Build each with real CSS (arbitrary values / inline style where the
+  app's utility classes lack it):
+  tilted/rotated → transform: rotate(-3..-8deg or 3..8deg);
+  frosted glass → translucent fill (white 10-20% alpha), backdrop-filter: blur(12px+),
+    1px light border;
+  soft blurred blob/glow → filter: blur(40px+) on a solid shape;
+  hollow/outlined type → color: transparent with -webkit-text-stroke (2-3px);
+  bleeding off the edge → the block extends past the viewport edge (wide type or
+    negative margin), with overflow-x hidden on the page wrapper;
+  overlapping → absolute position or negative margin so the two boxes truly overlap;
+  hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
+  stripes/bands → repeating-linear-gradient or stacked solid bands.
 - "insertSlot" on an add/design action: the user drew it in the gap between
   two siblings. Put the new element in the source right after "after" and
   right before "before" (both carry srcLoc), inside the same parent. Never
