@@ -360,6 +360,10 @@
    [
     "table",
     "table, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows; status pills green \"Active\", brown \"Invited\", red \"Suspended\""
+   ],
+   [
+    "pager",
+    "pager \"Showing 1–7 of 48\" left, page buttons \"1\" current, \"2\", \"3\", \"Next\""
    ]
   ]
  },
@@ -439,7 +443,7 @@
    ],
    [
     "prev",
-    "outline button \"‹ Prev\""
+    "outline buttons in a row: \"‹ Prev\", \"Today\", \"Next ›\""
    ],
    [
     "new",
@@ -447,7 +451,7 @@
    ],
    [
     "month",
-    "month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue \"Standup\", green \"Design review\", orange \"Launch\", green \"1:1 with Mia\", blue \"Planning\"; day 11 highlighted"
+    "month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue \"Standup\" on 2, 9, 16, 23, green \"Design review\" on 4, orange \"Launch\" on 6, green \"1:1 with Mia\" on 11, blue \"Planning\" on 11, orange \"Offsite\" on 19, 20; day 11 highlighted"
    ]
   ]
  },
@@ -531,7 +535,7 @@
    ],
    [
     "chart",
-    "bar chart \"Signups per week\", 8 indigo bars"
+    "bar chart \"Signups per week\", 8 indigo bars, heights 45/61/53/69/78/73/91/100% of the tallest"
    ],
    [
     "top-pages",

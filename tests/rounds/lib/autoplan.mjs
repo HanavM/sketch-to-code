@@ -76,6 +76,27 @@ function factsInPage() {
       // No mark carries it, so the block's own note must, or the build drops or rewrites it.
       labelAbove: near(el, el.previousElementSibling, 'above'),
       lineUnder: near(el, el.nextElementSibling, 'under'),
+      // unmarked buttons in the same row right beside this one ('Today', 'Next ›' after a marked '‹ Prev'):
+      // no mark carries them, so the marked button's note must, in order
+      rowMates: (() => {
+        const isBtn = (k) => { if (!k || k.dataset?.r || k.querySelector('[data-r]')) return false; const c = getComputedStyle(k); const t = (k.innerText || '').trim(); return t && t.length <= 24 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }
+        const r0 = el.getBoundingClientRect(), mid = (k) => { const b = k.getBoundingClientRect(); return b.top + b.height / 2 }
+        const c0 = getComputedStyle(el)
+        // same row, same size, same look ('Today' beside an outline 'Prev', not beside a green 'New event')
+        const same = (k) => { const c = getComputedStyle(k); return Math.abs(mid(k) - (r0.top + r0.height / 2)) <= 8 && Math.abs(k.getBoundingClientRect().height - r0.height) <= 8 && c.backgroundColor === c0.backgroundColor && c.borderTopColor === c0.borderTopColor }
+        const before = [], after = []
+        for (let k = el.previousElementSibling; isBtn(k) && same(k); k = k.previousElementSibling) before.unshift((k.innerText || '').trim())
+        for (let k = el.nextElementSibling; isBtn(k) && same(k); k = k.nextElementSibling) after.push((k.innerText || '').trim())
+        return before.length || after.length ? { before, after } : null
+      })(),
+      // a pager: short leaf items with page numbers (and Next/Prev), the filled one is the current page
+      pager: (() => {
+        const leaves = [...el.querySelectorAll('*')].filter((k) => !k.children.length && (k.innerText || '').trim())
+        const items = leaves.map((k) => ({ t: (k.innerText || '').trim(), on: rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 }))
+        const nums = items.filter((i) => /^\d{1,3}$/.test(i.t))
+        if (nums.length < 2 || !items.some((i) => /next|prev|›|»/i.test(i.t))) return null
+        return { items: items.filter((i) => i.t.length <= 8).map((i) => i.t), current: items.find((i) => i.on && /^\d+$/.test(i.t))?.t ?? null, caption: items.find((i) => i.t.length > 8)?.t ?? null }
+      })(),
       stroke: parseFloat(cs.webkitTextStrokeWidth) || 0,
       strokeColour: rgba(cs.webkitTextStrokeColor),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
@@ -142,7 +163,11 @@ function factsInPage() {
       const cells = days.length - heads.length
       const page = rgba(getComputedStyle(document.body).backgroundColor)
       const marked = days.slice(heads.length).filter((d) => { const f = filled(d); return f && (!page || Math.hypot(f.r - page.r, f.g - page.g, f.b - page.b) > 6) }).map((d) => txt(d).split(' ')[0])
-      return { type: 'month', heads, weeks: Math.round(cells / 7), events: chips(el).map((c) => ({ ...c, ink: c.fill })), marked }
+      // each event keeps the day it sits on: 'Standup' on 2, 9, 16, 23 (the day cell is the grid child holding it)
+      const dayOf = (k) => { let c = k; while (c && c.parentElement !== el) c = c.parentElement; return c ? txt(c).split(' ')[0] : null }
+      const evs = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); const t = txt(k); return t && t.length <= 18 && !k.children.length && filled(k) && b.height <= 30 && b.width <= 160 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 3 })
+        .map((k) => ({ text: txt(k), ink: filled(k), fill: filled(k), day: dayOf(k) }))
+      return { type: 'month', heads, weeks: Math.round(cells / 7), events: evs, marked }
     }
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
     // stat cards: 3+ same-size cards in a row, each with one big number
@@ -158,7 +183,7 @@ function factsInPage() {
       const base = r.map((b) => Math.round(b.bottom)), hs = r.map((b) => Math.round(b.height))
       if (Math.max(...base) - Math.min(...base) <= 2 && new Set(hs).size >= 3 && r.every((b) => b.width < b.height * 2.5)) {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
-        return { type: 'bars', count: bars.length, colour: filled(bars[0]), title, rising: hs[hs.length - 1] > hs[0] }
+        return { type: 'bars', count: bars.length, colour: filled(bars[0]), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)) }
       }
     }
     // chat bubbles: rounded filled boxes, some hugging the left, some the right
@@ -292,11 +317,16 @@ function denseNote(d) {
   switch (d.type) {
     case 'table': return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
     case 'month': {
-      const ev = chipList(d.events, 5)
+      // with days when known: blue "Standup" on 2, 9, 16, 23 (where events sit is the calendar's content)
+      const byText = new Map()
+      for (const e of d.events) { if (!byText.has(e.text)) byText.set(e.text, { e, days: [] }); if (e.day) byText.get(e.text).days.push(e.day) }
+      const ev = d.events.some((e) => e.day)
+        ? [...byText.values()].slice(0, 6).map(({ e, days }) => `${chipColour(e) ? chipColour(e) + ' ' : ''}${quote(e.text, 18)}${days.length ? ` on ${days.join(', ')}` : ''}`).join(', ')
+        : chipList(d.events, 5)
       return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${ev ? `; event chips ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
     }
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}`).join(', ')}`
-    case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars`.replace(/\s+/g, ' ')
+    case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
@@ -307,6 +337,18 @@ function denseNote(d) {
 
 /** One region -> {kind, note} (kind null = don't draw). */
 function decide(f, page, marked, said = new Set()) {
+  const d = decideOne(f, page, marked, said)
+  // a marked button with unmarked buttons beside it in the row: the note names the whole row, in order
+  if (d.kind === 'button' && f.rowMates && d.note) {
+    const all = [...f.rowMates.before, f.text, ...f.rowMates.after]
+    all.forEach((t) => said.add(t))
+    const look = d.note.replace(/\bbutton\s+".*$/, '').trim()
+    return { ...d, note: `${look ? look + ' ' : ''}buttons in a row: ${all.map((t) => quote(t)).join(', ')}` }
+  }
+  return d
+}
+
+function decideOne(f, page, marked, said) {
   const { w, h } = f.rect
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
   const grad = gradientWords(f)
@@ -426,6 +468,11 @@ function decide(f, page, marked, said = new Set()) {
     const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null
     const copy = f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : ''
     return { kind: 'box', note: say || copy ? `${say} ${copy}`.trim() : null }
+  }
+  if (f.pager && !f.regionKids.length) {
+    const p = f.pager
+    const items = p.items.map((t) => quote(t) + (t === p.current ? ' current' : '')).join(', ')
+    return { kind: 'text', note: `pager${p.caption ? ` ${quote(p.caption, 40)} left,` : ''} page buttons ${items}` }
   }
   if (f.text) {
     // short text says its copy when it is display-sized or styled apart (a coloured mono date, a brown logo)

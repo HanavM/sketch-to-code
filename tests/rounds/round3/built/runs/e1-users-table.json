@@ -1,0 +1,109 @@
+{
+  "id": "e1-users-table",
+  "at": "2026-10-21T04:56:47.248Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.295424184191676,
+    "overallV1": 0.18924273433205988,
+    "colour": 0.9781962145142353,
+    "structure": 0.8397092346954376,
+    "structureStrict": 0.7145024047713893,
+    "layout": 0.46938824312903743
+  },
+  "effects": null,
+  "tokens": {
+    "input": 53615,
+    "output": 9157,
+    "cacheRead": 245919
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 55529,
+      "output": 7402,
+      "cacheRead": 245919,
+      "toolCalls": 8,
+      "ms": 69047
+    }
+  ],
+  "reading": "The sketch lays out a Users admin page: a \"Users\" heading, an indigo \"+ Invite user\" button top-right, a toolbar with a search input and two filter dropdowns, a data table with named columns, 7 rows, and colored status pills, and a zigzag decorative divider at the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        49,
+        70,
+        14
+      ],
+      "paths": [],
+      "instruction": "Add a page heading with the text 'Users'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1104,
+        37,
+        118,
+        36
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a pill-shaped button with indigo background and white text reading '+ Invite user', placed at the top right near the 'Users' heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        103,
+        1161,
+        34
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a toolbar row below the heading containing a search input with placeholder 'Search by name or email…', and two dropdown filters labeled 'Role: All' and 'Sta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        163,
+        1162,
+        381
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a data table below the toolbar with columns 'NAME', 'EMAIL', 'ROLE', 'STATUS', 'LAST SEEN' and 7 rows of sample user data. Render the STATUS column as color"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        60,
+        576,
+        1160,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a decorative zigzag divider line spanning the full width at the bottom of the table, matching the drawn jagged wave shape exactly."
+    }
+  ],
+  "rejected": []
+}

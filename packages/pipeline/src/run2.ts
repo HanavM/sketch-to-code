@@ -179,6 +179,11 @@ Rules:
   items of the same kind with plausible content. An ellipsis AFTER a closing
   quote ("Can we get"…) means the copy was cut short: finish it plausibly. An
   ellipsis INSIDE the quotes ("Write a message…") is literal text.
+- Charts are drawn, never left empty: every bar, line or slice must be visible.
+  Give each bar an explicit pixel height (or a % of a parent whose height is
+  set in px; a % height inside an auto-height flex row renders as 0), let the
+  bars fill the drawn chart box down to its baseline, vary the heights
+  plausibly, and keep axis labels outside the bars' area.
 - Quoted copy in a note is the copy, word for word: never retitle it ("Get in
   touch" stays "Get in touch", not "Contact Us"). 'label "Email" above' is a
   visible label element above the field, not placeholder text; 'line under:

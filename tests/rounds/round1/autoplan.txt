@@ -55,7 +55,7 @@ c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 35
     note story: "ESSAY"
     note headline: huge serif "The quiet return of the handwritten letter"
     note sidebar: sidebar "In this issue" and text
-e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 23
+e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 36
     card         box      (hand: box)
     title        heading  (hand: heading)
     email        box      (hand: box)
@@ -63,9 +63,9 @@ e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 23
     submit       button   (hand: button)
     forgot       text     (hand: text)
     note *: whole page: off-white page, dark navy text
-    note title: "Sign in"
-    note email: input "you@example.com"
-    note password: input "••••••••"
+    note title: "Sign in", line under: "Welcome back. Enter your details."
+    note email: label "Email" above, input "you@example.com"
+    note password: label "Password" above, input "••••••••"
     note submit: blue white text button "Sign in"
     note forgot: blue "Forgot your password?"
 e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 37
@@ -90,18 +90,17 @@ e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 31
     note post-1: "How we cut our build times in half A"…
     note post-2: "Designing for slow networks What we"…
     note post-3: "A year of four-day weeks The numbers,"…
-e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 26
+e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 40
     title        heading  (hand: heading)
     name         box      (hand: box)
     email        box      (hand: box)
     message      box      (hand: box)
     submit       button   (hand: button)
     info         box      (hand: box)
-    note form: "We usually reply within a day."
-    note title: big "Get in touch"
-    note name: field "Name"
-    note email: field "Email"
-    note message: field "Message"
+    note title: big "Get in touch", line under: "We usually reply within a day."
+    note name: label "Name" above an empty field
+    note email: label "Email" above an empty field
+    note message: label "Message" above an empty field
     note submit: teal white text button "Send message"
     note info: "Our office" and text
 e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 28

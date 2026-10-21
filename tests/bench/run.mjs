@@ -622,6 +622,13 @@ while (queue.length) {
       const runs = join(APP_DIR, '.sketch2code', 'runs')
       for (const r of readdirSync(runs)) cpSync(join(runs, r), join(OUT, 'runs', spec.id, r), { recursive: true })
     } catch { /* no run record: nothing to keep */ }
+    // and the built source itself: round-3 e5's chart came out with no bars
+    // and the code that drew it was gone by the next page
+    try {
+      const srcDir = join(OUT, 'runs', spec.id, 'src')
+      mkdirSync(srcDir, { recursive: true })
+      cpSync(join(APP_DIR, 'src'), srcDir, { recursive: true })
+    } catch { /* best effort */ }
     // and a small committed digest next to the round's side-by-sides: out/ is
     // not kept, and n12 could not tell why c2's headline shrank without it
     if (spec.target) {

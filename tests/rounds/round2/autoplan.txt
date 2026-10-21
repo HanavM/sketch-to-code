@@ -64,7 +64,7 @@ c5-retro-bands · marks 5 · words 41
     note logo: brown "SUNDAE"
     note headline: giant italic heavy uppercase brown "SOFT SERVE, HARD RULES"
     note cta: teal hard offset shadow white text button "FIND A TRUCK"
-e1-checkout · marks 13 · words 44
+e1-checkout · marks 13 · words 56
     title        heading 
     ship-label   heading 
     name         box     
@@ -80,11 +80,11 @@ e1-checkout · marks 13 · words 44
     total        box     
     note title: "Checkout"
     note ship-label: "Shipping address"
-    note name: field "Full name"
-    note address: field "Street address"
+    note name: label "Full name" above an empty field
+    note address: label "Street address" above an empty field
     note city-row: fields side by side: "City", "Postcode"
     note pay-label: "Payment"
-    note card: field "Card number"
+    note card: label "Card number" above an empty field
     note pay: indigo full-width white text button "Pay $128.00"
     note summary: sidebar
     note item-1: picture with "Linen shirt $64"

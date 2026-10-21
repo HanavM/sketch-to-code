@@ -76,7 +76,7 @@ c5-blend-editorial · marks 8 · words 45
     note photo: teal to pink gradient block
     note headline: colour-inverting where it crosses what is under it giant italic serif white "Light keeps the dark honest"
     note read: button "Read the issue →"
-e1-users-table · marks 5 · words 38
+e1-users-table · marks 5 · words 51
     title        heading 
     add          button  
     filters      box     
@@ -86,6 +86,7 @@ e1-users-table · marks 5 · words 38
     note add: indigo white text button "+ Invite user"
     note filters: input "Search by name or email…", dropdown "Role: All", dropdown "Status: All"
     note table: table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", brown "Invited", red "Suspended"
+    note pager: pager "Showing 1–7 of 48" left, page buttons "1" current, "2", "3", "Next"
 e2-kanban · marks 5 · words 86
     title        heading 
     col-todo     box     
@@ -98,15 +99,15 @@ e2-kanban · marks 5 · words 86
     note col-doing: column "IN PROGRESS", cards: "Bulk invite from CSV" tag blue "Feature", "Chart tooltips cut off" tag red "Bug"
     note col-review: column "REVIEW", cards: "Dark mode for settings" tag blue "Feature"
     note col-done: column "DONE", cards: "Upgrade Postgres to 16" tag green "Ops", "Empty state for search" tag blue "Feature", "Fix timezone in emails" tag red "Bug"
-e3-calendar · marks 4 · words 43
+e3-calendar · marks 4 · words 67
     title        heading 
     prev         button  
     new          button  
     month        box     
     note title: "November 2026"
-    note prev: outline button "‹ Prev"
+    note prev: outline buttons in a row: "‹ Prev", "Today", "Next ›"
     note new: green white text button "+ New event"
-    note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue "Standup", green "Design review", orange "Launch", green "1:1 with Mia", blue "Planning"; day 11 highlighted
+    note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; event chips blue "Standup" on 2, 9, 16, 23, green "Design review" on 4, orange "Launch" on 6, green "1:1 with Mia" on 11, blue "Planning" on 11, orange "Offsite" on 19, 20; day 11 highlighted
 e4-chat · marks 4 · words 74
     sidebar      box     
     header       text    
@@ -116,7 +117,7 @@ e4-chat · marks 4 · words 74
     note header: "Design team"
     note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right teal "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right teal "Perfect, I'll wire them up after lunch.", 1 more
     note composer: input "Write a message…", button "Send"
-e5-analytics · marks 5 · words 55
+e5-analytics · marks 5 · words 60
     title        heading 
     range        button  
     kpis         box     
@@ -126,5 +127,5 @@ e5-analytics · marks 5 · words 55
     note title: "Overview"
     note range: dropdown "Last 30 days"
     note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%
-    note chart: bar chart "Signups per week", 8 indigo bars
+    note chart: bar chart "Signups per week", 8 indigo bars, heights 45/61/53/69/78/73/91/100% of the tallest
     note top-pages: "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, 1 more

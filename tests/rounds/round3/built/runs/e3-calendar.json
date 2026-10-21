@@ -1,0 +1,94 @@
+{
+  "id": "e3-calendar",
+  "at": "2026-10-21T04:59:23.617Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.21087214549752126,
+    "overallV1": 0.1441596221965172,
+    "colour": 0.9679276995908104,
+    "structure": 0.7744481900369541,
+    "structureStrict": 0.6509382601963531,
+    "layout": 0.4805320739883907
+  },
+  "effects": null,
+  "tokens": {
+    "input": 28093,
+    "output": 13381,
+    "cacheRead": 357789
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38019,
+      "output": 12384,
+      "cacheRead": 354769,
+      "toolCalls": 8,
+      "ms": 121364
+    }
+  ],
+  "reading": "The sketch is a calendar page header: a month/year title, Prev and New event buttons, and a full month-view grid below populated with labeled, colored event chips and a highlighted day, all specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        56,
+        41,
+        186,
+        15
+      ],
+      "paths": [],
+      "instruction": "Page heading text reading \"November 2026\", replacing the wavy placeholder line at the top-left."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        860,
+        32,
+        68,
+        33
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Outline-style button labeled \"‹ Prev\" for navigating to the previous month, placed near the top-right beside the heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1122,
+        32,
+        107,
+        32
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Green filled button with white text labeled \"+ New event\", placed at the top-right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        91,
+        1178,
+        671
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Month calendar grid filling the large rectangle, with a header row for days Mon through Sun and 5 rows of day boxes beneath. Populate with event chips: blue \"St"
+    }
+  ],
+  "rejected": []
+}
