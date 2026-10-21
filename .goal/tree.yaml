@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Mountain and editorial pages now match closely (78% and 81%); next, the occasional failed reading and the two hardest pages not yet built."
-lock: {by: run-1021T1054, until: 2026-10-21T12:24:12Z}
+now: "Readings no longer fail on the hardest pages, and all 10 round-3 pages are now built (marquee 56%, brutal index 65%); next, their colour and copy misses."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -64,6 +64,8 @@ notes:
   - "Token ledger: 2026-10-21 n38 live c3 x2 132k + one timed-out reading (~0) (day total ~1760k, no cap set)."
   - "n39 (1d0eca9, 0087e89 on try/n3-vocabulary): noteFocus treats a closed non-box outline as its inside (distToStroke); in nested outlines the innermost wins; a note on one line of a giant (>=60px, GIANT_STACK_PX) multi-line text stack reaches all lines. Bench noteSpot(): non-box notes typed on the visible part of their mark (clear of later marks by 28px, then 14, then 0); multi-line headings typed on a line. Planner colour names: deep raspberry, dark pink, soft yellow, light orange, peach, pale lilac. Vertical text regions drawn as one vertical squiggle (textmark does not read vertical squiggles as text; the note carries it)."
   - "Token ledger: 2026-10-21 n39 live c1+c5 83k (c5 reading failed: max turns), c5 58k = 141k (day total ~1900k, no cap set)."
+  - "n41 (e5243bd on try/n3-vocabulary): traced readings: the first StructuredOutput answer is nearly always rejected (wrapped {\"actions\": {...}} or bad JSON), so a good reading takes 3 turns; failures were answers missing only the null 'unclear'. 'unclear' now optional, cleanReading() cuts tool markup, PERCEPTION_MAX_TURNS 6, reading timeout 180s. 6/6 ok after. Wrapped first answer still costs ~25s/~6k per reading: a lead."
+  - "Token ledger: 2026-10-21 n41 readings c5 x7 ~104k, live c2+c4 96k = ~200k (day total ~2100k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -108,7 +110,9 @@ nodes:
      result: "New check catches decorations built off their drawing; repair fixed rings. Rings outline only; 59% to 67%. 53605de."}
   - {id: n39, parent: n37, kind: step, title: "Free first, ~60k live: round-3 c1 ridge colours swapped (red far ridge built in front, purple near ridge behind) and sun lacks glow; c5 headline small and shifted right, side label on the photo. Fix the clearest, re-run", status: done,
      result: "Notes now reach the mark typed on: mountains 67% to 78%, editorial 70% to 81%. 0087e89."}
-  - {id: n41, parent: n39, kind: step, title: "Free first: design readings still fail now and then with 'maximum number of turns (4)' (c5 first try, e3 earlier). Catch one with S2C_TRACE_READING, find the cause, fix; then build round-3 c2 marquee and c4 brutal index (never built)", status: open, result: null}
+  - {id: n41, parent: n39, kind: step, title: "Free first: design readings still fail now and then with 'maximum number of turns (4)' (c5 first try, e3 earlier). Catch one with S2C_TRACE_READING, find the cause, fix; then build round-3 c2 marquee and c4 brutal index (never built)", status: done,
+     result: "Readings died on a missing empty field; fixed, 6/6 ok. Marquee 56%, brutal index 65% first builds. e5243bd."}
+  - {id: n42, parent: n41, kind: step, title: "Free first, ~60k live: round-3 c4 lost the black side rail (text only) and invented card copy; c2 orange band built red, page white not off-white, body text light and large. Trace from plan/notes, fix, re-run c4 then c2", status: open, result: null}
   - {id: n40, parent: n37, kind: step, title: "Free: c4's narrow giant '01' reads 177px (target 420): a two-letter word drawn as a level zigzag can only be ~1/3 as tall as wide. Find an honest way to draw/read a short giant word's size", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
