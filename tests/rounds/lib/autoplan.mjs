@@ -80,6 +80,17 @@ function factsInPage() {
       hasImg: !!el.querySelector('img,svg,picture,video,canvas') || /url\(/.test(cs.backgroundImage),
       // text of children that are not regions and hold none (a card title beside a marked picture)
       looseTexts: kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]')).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
+      // loose text beside a drawn part (a post's title, blurb and date right of its picture): which side, and its lines
+      // (round 1 e3: the whole text block was one cut quote, built under the picture with invented copy)
+      looseBeside: (() => {
+        const part = el.querySelector('[data-r]')
+        const loose = kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]') && (k.innerText || '').trim())
+        if (!part || loose.length !== 1) return null
+        const a = part.getBoundingClientRect(), b = loose[0].getBoundingClientRect()
+        const side = b.left >= a.right - 4 ? 'right of' : b.right <= a.left + 4 ? 'left of' : b.top >= a.bottom - 4 ? 'under' : null
+        const lines = [...loose[0].children].map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean)
+        return side && lines.length >= 2 && lines.length <= 4 ? { side, lines, small: [...loose[0].children].map((k) => parseFloat(getComputedStyle(k).fontSize)) } : null
+      })(),
       // unmarked text right beside this block: a label just above a field, a sub-line just under a heading.
       // No mark carries it, so the block's own note must, or the build drops or rewrites it.
       labelAbove: near(el, el.previousElementSibling, 'above'),
@@ -234,7 +245,13 @@ function factsInPage() {
       const on = odd.length === 1 && rep.length >= 3 ? [...odd[0].childNodes].map((n) => (n.textContent || '').trim()).find(Boolean) : null
       // a heading or a lead line beside the list ('Showing 1-7 of 48')
       const head = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 40)
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map((k) => [...k.childNodes].map((n) => (n.textContent || '').trim()).filter(Boolean)), on }
+      // the block's other short lines (a tier's price, its button): a list note alone drops them (round 1 e2)
+      const extra = kids.filter((k) => k !== head && !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 32).map((k) => {
+        const c = getComputedStyle(k); const b = k.getBoundingClientRect()
+        const btn = b.height >= 28 && b.height <= 64 && (filled(k) || parseFloat(c.borderTopWidth) >= 1) && (/center/.test(c.textAlign) || (/flex/.test(c.display) && /center/.test(c.justifyContent)))
+        return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24 }
+      })
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map((k) => [...k.childNodes].map((n) => (n.textContent || '').trim()).filter(Boolean)), on, extra }
     }
     return null
   }
@@ -412,7 +429,7 @@ function denseNote(d) {
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
-      return `${d.head ? `${quote(d.head, 20)} ` : ''}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
+      return `${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)} `).join('')}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
   }
   return null
 }
@@ -524,6 +541,12 @@ function decideOne(f, page, marked, said) {
     // its parts are drawn, but text of its own (a card title, a caption) still needs saying
     // (text already said by a part's note, a field label or a heading's sub-line, isn't said twice)
     const loose = f.looseTexts.filter((t) => !said.has(t))
+    if (f.looseBeside && !loose.some((t) => said.has(t))) {
+      const { side, lines, small } = f.looseBeside
+      const big = small[0]
+      const said1 = lines.map((t, i) => i === 0 ? quote(t, 60) : small[i] < big * 0.8 && t.length <= 30 ? `small ${quote(t)}` : `text ${quote(t, 110)}`)
+      return { kind: null, note: `${side} the picture: ${said1.join(', ')}` }
+    }
     const own = loose.find((t) => t.length >= 4)
     return { kind: null, note: own && loose.join(' ').length <= 140 ? `${quote(own, 40)}${loose.length > 1 ? ' and text' : ''}` : null }
   }

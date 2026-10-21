@@ -20,7 +20,7 @@ c2-kinetic-marquee · marks 7 · words 96
     band-black   heading 
     band-orange  heading 
     intro        heading 
-    reel         image   
+    reel         box     
     play         circle  
     note *: whole page: off-white page, Helvetica type, near-black text
     note logo: "ROLL/STUDIO"
@@ -30,7 +30,7 @@ c2-kinetic-marquee · marks 7 · words 96
     note intro: "We make things move for brands that refuse to sit still."
     note reel: near-black block
     note play: pulsing big vivid red-orange circle
-c3-gradient-orbit · marks 7 · words 73
+c3-gradient-orbit · marks 7 · words 76
     ring-outer   circle  
     ring-inner   circle  
     planet       circle  
@@ -38,9 +38,9 @@ c3-gradient-orbit · marks 7 · words 73
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: black page, Helvetica type, light grey text
-    note ring-outer: spinning big lavender outline circle
-    note ring-inner: spinning big cyan outline circle
+    note *: whole page: near-black indigo page, Helvetica type, light grey text
+    note ring-outer: spinning big faint lavender outline circle
+    note ring-inner: spinning big faint cyan outline circle
     note planet: big glowing vivid cyan circle
     note tag: lavender outline pill button "NOW IN PRIVATE BETA"
     note headline: giant Helvetica heavy tight-set letters lavender to coral to cyan gradient text "Compute at orbit speed"
@@ -63,7 +63,7 @@ c4-brutal-index · marks 7 · words 85
     note stamp: tilted red outline circle with "EST. 2019"
     note foot: mono "© BRUTAL INDEX — ALL RIGHTS IGNORED"
 c5-blend-editorial · marks 8 · words 70
-    dark-half    image   
+    dark-half    box     
     masthead     text    
     issue        text    
     side-label   text    
@@ -121,15 +121,15 @@ e4-chat · marks 4 · words 77
     note header: "Design team"
     note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right teal "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right teal "Perfect, I'll wire them up after lunch.", 1 more
     note composer: input "Write a message…", button "Send"
-e5-analytics · marks 5 · words 62
+e5-analytics · marks 5 · words 65
     title        heading 
     range        button  
     kpis         box     
     chart        box     
     top-pages    box     
-    note *: whole page: off-white page, Helvetica type, dark navy text
+    note *: whole page: pale grey page, Helvetica type, dark navy text
     note title: "Overview"
     note range: dropdown "Last 30 days"
     note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%
     note chart: bar chart "Signups per week", 8 indigo bars, heights 45/61/53/69/78/73/91/100% of the tallest
-    note top-pages: "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, 1 more
+    note top-pages: white card "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, 1 more

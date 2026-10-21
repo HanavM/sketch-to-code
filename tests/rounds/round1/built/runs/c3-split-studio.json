@@ -1,0 +1,196 @@
+{
+  "id": "c3-split-studio",
+  "at": "2026-10-21T13:23:40.482Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8300272938886003,
+    "overallV2": 0.8300272938886003,
+    "overallV1": 0.782439919848587,
+    "colour": 0.9371108333750533,
+    "structure": 0.913345472602641,
+    "structureStrict": 0.8495077113833925,
+    "colourAligned": 0.9371108333750533,
+    "structureAligned": 0.913345472602641,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9821850632057101
+    },
+    "layout": 0.7947156071409248
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "serif"
+    ],
+    "missing": [],
+    "extra": [
+      "blur",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 34570,
+    "output": 14703,
+    "cacheRead": 334899
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 43052,
+      "output": 12385,
+      "cacheRead": 331815,
+      "toolCalls": 15,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Grep"
+      ],
+      "ms": 135033
+    }
+  ],
+  "reading": "The sketch shows a two-panel hero split: the left half is a deep-green block containing a small \"VERDE\" wordmark, a large serif headline \"Plants that grow with you\", a paragraph of body copy, and an outlined \"BROWSE PLANTS\" button, all in cream; the right half is a cream panel with a big glowing yellow-to-orange circle.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        634,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Make the left panel (outlined by this stroke) a solid deep-green background block that fills the entire left half of the page, to hold cream-colored hero conten"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        65,
+        504,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a small logo/wordmark reading \"VERDE\" in uppercase, wide letter-spacing, cream colored, near the top of the green panel."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 78
+        }
+      ],
+      "region": [
+        72,
+        297,
+        461,
+        102
+      ],
+      "paths": [],
+      "instruction": "Add a giant heading set in a Georgia serif typeface, cream colored, reading \"Plants that grow with you\", spanning the two wavy lines drawn here."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        471,
+        432,
+        37
+      ],
+      "paths": [],
+      "instruction": "Add body copy below the heading, cream colored, reading \"Hand-picked houseplants, potted in recycled clay and delivered by bike across the city.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        66,
+        559,
+        232,
+        55
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add an outlined (ghost) button with a cream border and cream uppercase label reading \"BROWSE PLANTS\", sized to this rounded-rectangle sketch, sitting below the "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Make the right panel (outlined by this stroke) a cream-colored background block filling the right half of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        744,
+        234,
+        432,
+        432
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a big circular glow centered in the cream right panel, filled with a gradient that transitions from glowing yellow at the center/edge to orange, as a decora"
+    }
+  ],
+  "rejected": []
+}

@@ -35,13 +35,13 @@ c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
     note cta: cream outline button "BROWSE PLANTS"
     note right-panel: cream
     note orb: big glowing yellow to orange circle
-c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 67
+c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 68
     nav          box      (hand: box)
     badge        button   (hand: button)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     ctas         box      (hand: box)
-    note *: whole page: black page, faint grid lines, Helvetica type, light grey text
+    note *: whole page: near-black indigo page, faint grid lines, Helvetica type, light grey text
     note nav: nav bar "NOVA Product Docs Pricing"
     note badge: purple outline pill button "✦ v2 is live — read the notes"
     note headline: giant Helvetica heavy cyan to purple to coral gradient text "Ship at the speed of light"
@@ -60,20 +60,21 @@ c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 52
     note headline: huge Georgia serif "The quiet return of the handwritten letter"
     note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."
     note sidebar: sidebar "In this issue" and text
-e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 38
+e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 41
     card         box      (hand: box)
     title        heading  (hand: heading)
     email        box      (hand: box)
     password     box      (hand: box)
     submit       button   (hand: button)
     forgot       text     (hand: text)
-    note *: whole page: off-white page, Helvetica type, dark navy text
+    note *: whole page: pale grey page, Helvetica type, dark navy text
+    note card: white card
     note title: "Sign in", line under: "Welcome back. Enter your details."
     note email: label "Email" above, input "you@example.com"
     note password: label "Password" above, input "••••••••"
     note submit: blue white text button "Sign in"
     note forgot: blue "Forgot your password?"
-e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 40
+e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 58
     title        heading  (hand: heading)
     subtitle     text     (hand: text)
     tier-1       box      (hand: box)
@@ -81,10 +82,10 @@ e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 40
     tier-3       box      (hand: box)
     note title: big "Simple pricing"
     note subtitle: "Start free. Upgrade when you grow."
-    note tier-1: "Starter" list: "1 project", "Community support", "Basic analytics"
-    note tier-2: dark navy block, white text "Pro" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains"
-    note tier-3: "Team" list: "Everything in Pro", "SSO", "Audit logs"
-e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 31
+    note tier-1: "Starter" big "$0/mo" list: "1 project", "Community support", "Basic analytics", outline button "Get started"
+    note tier-2: dark navy block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"
+    note tier-3: "Team" big "$79/mo" list: "Everything in Pro", "SSO", "Audit logs", outline button "Contact sales"
+e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 103
     nav          box      (hand: box)
     title        heading  (hand: heading)
     thumb-1      image    (hand: image)
@@ -92,10 +93,10 @@ e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 31
     thumb-3      image    (hand: image)
     note nav: nav bar "Notebook Posts Topics About"
     note title: big "Latest posts"
-    note post-1: "How we cut our build times in half A"…
-    note post-2: "Designing for slow networks What we"…
-    note post-3: "A year of four-day weeks The numbers,"…
-e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 40
+    note post-1: right of the picture: "How we cut our build times in half", text "A look at caching, parallel jobs and the one config flag that mattered most.", small "Oct 12 · 6 min read"
+    note post-2: right of the picture: "Designing for slow networks", text "What we learned shipping to users on 2G, and why it made the app better for everyone.", small "Oct 3 · 8 min read"
+    note post-3: right of the picture: "A year of four-day weeks", text "The numbers, the surprises and what we would do differently.", small "Sep 21 · 5 min read"
+e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 49
     title        heading  (hand: heading)
     name         box      (hand: box)
     email        box      (hand: box)
@@ -107,8 +108,8 @@ e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 40
     note email: label "Email" above an empty field
     note message: label "Message" above an empty field
     note submit: teal white text button "Send message"
-    note info: "Our office" and text
-e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 35
+    note info: pale grey card "Our office", lines "12 Harbour Street Lisbon, Portugal", "Email", "hello@example.com"
+e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 43
     sidebar      box      (hand: box)
     title        heading  (hand: heading)
     stat-1       box      (hand: box)
@@ -118,10 +119,10 @@ e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 35
     table        box      (hand: box)
     note sidebar: dark navy sidebar, light grey text "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted
     note title: "Overview"
-    note stat-1: "Revenue", text "$48.2k"
-    note stat-2: "Customers", text "1,204"
-    note stat-3: "Churn", text "2.1%"
-    note stat-4: "MRR", text "$12.9k"
+    note stat-1: white card "Revenue", text "$48.2k"
+    note stat-2: white card "Customers", text "1,204"
+    note stat-3: white card "Churn", text "2.1%"
+    note stat-4: white card "MRR", text "$12.9k"
     note table: table, columns "Customer", "Plan", "Amount", "Status", 4 rows
 
 all pages: 52/53 hand marks matched

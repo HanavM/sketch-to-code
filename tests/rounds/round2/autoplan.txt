@@ -68,7 +68,7 @@ c5-retro-bands · marks 5 · words 64
     note headline: giant Helvetica italic heavy uppercase brown "SOFT SERVE, HARD RULES"
     note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
     note cta: teal hard offset shadow white text button "FIND A TRUCK"
-e1-checkout · marks 13 · words 57
+e1-checkout · marks 13 · words 59
     title        heading 
     ship-label   heading 
     name         box     
@@ -90,12 +90,12 @@ e1-checkout · marks 13 · words 57
     note pay-label: "Payment"
     note card: label "Card number" above an empty field
     note pay: indigo full-width white text button "Pay $128.00"
-    note summary: sidebar
+    note summary: white card sidebar
     note item-1: picture with "Linen shirt $64"
     note item-2: picture with "Canvas tote $32"
     note item-3: picture with "Wool socks $32"
     note total: "Total", text "$128.00"
-e2-shop-grid · marks 8 · words 52
+e2-shop-grid · marks 8 · words 53
     nav          text    
     filters      box     
     p1           image   
@@ -105,7 +105,7 @@ e2-shop-grid · marks 8 · words 52
     p5           image   
     p6           image   
     note nav: links: Lumen, New, Lamps, Sale, Cart (2)
-    note filters: sidebar "CATEGORY" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", 1 more
+    note filters: sidebar "CATEGORY" "PRICE" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", 1 more
     note p1: picture with "Arc floor lamp $189"
     note p2: picture with "Dome pendant $129"
     note p3: picture with "Clip desk lamp $59"
@@ -129,7 +129,7 @@ e3-settings · marks 8 · words 47
     note row-4: toggle off "Weekly report Usage numbers for your"…
     note save: blue white text button "Save changes"
     note reset: red outline button "Reset all"
-e4-faq · marks 7 · words 72
+e4-faq · marks 7 · words 80
     title        heading 
     subtitle     text    
     search       box     
@@ -141,11 +141,11 @@ e4-faq · marks 7 · words 72
     note title: big "Questions, answered"
     note subtitle: brown text "Everything about orders, returns and your account."
     note search: pill search input "Search the help centre…"
-    note q1: "How long does delivery take? −", text "Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships."
-    note q2: "Can I return a gift? +"
-    note q3: "Do you ship abroad? +"
-    note q4: "How do I change my password? +"
-e5-inbox · marks 8 · words 29
+    note q1: white card "How long does delivery take? −", text "Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships."
+    note q2: white card "Can I return a gift? +"
+    note q3: white card "Do you ship abroad? +"
+    note q4: white card "How do I change my password? +"
+e5-inbox · marks 8 · words 34
     folders      box     
     m1           box     
     m2           text    
@@ -154,7 +154,7 @@ e5-inbox · marks 8 · words 29
     subject      heading 
     from         text    
     message      text    
-    note folders: sidebar "Compose Inbox 12 Starred Sent Drafts"
-    note m1: "Maya Chen", text "Draft of the Q3 plan attached"
+    note folders: pale grey card sidebar "Compose Inbox 12 Starred Sent Drafts"
+    note m1: off-white card "Maya Chen", text "Draft of the Q3 plan attached"
     note subject: "Draft of the Q3 plan attached"
     note from: grey text "Maya Chen · 9:41 AM"

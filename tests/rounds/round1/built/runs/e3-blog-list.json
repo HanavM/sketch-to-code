@@ -1,0 +1,139 @@
+{
+  "id": "e3-blog-list",
+  "at": "2026-10-21T13:43:55.966Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7035978358170645,
+    "overallV2": 0.7035978358170645,
+    "overallV1": 0.5582978563412588,
+    "colour": 0.9901495496695732,
+    "structure": 0.9263412650158812,
+    "structureStrict": 0.8362371063977121,
+    "colourAligned": 0.9901495496695732,
+    "structureAligned": 0.9263412650158812,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.786945749647506
+    },
+    "layout": 0.8635071638794825
+  },
+  "effects": null,
+  "tokens": {
+    "input": 19157,
+    "output": 9504,
+    "cacheRead": 134167
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 20351,
+      "output": 6711,
+      "cacheRead": 124380,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 76569
+    }
+  ],
+  "reading": "The sketch is a notebook/blog landing page: a top nav bar, a large 'Latest posts' heading, and three stacked post-list rows, each with an image placeholder (boxed X) on the left and a title/description/date to the right per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        62
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a site nav bar with links: Notebook, Posts, Topics, About."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 51
+        }
+      ],
+      "region": [
+        168,
+        124,
+        864,
+        26
+      ],
+      "paths": [],
+      "instruction": "Add a large page heading reading 'Latest posts'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        163,
+        189,
+        214,
+        133
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add the first post list row: an image placeholder box (boxed X = picture) on the left, and to its right a heading 'How we cut our build times in half', body tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        164,
+        357,
+        213,
+        133
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Add the second post list row: an image placeholder box (boxed X = picture) on the left, and to its right a heading 'Designing for slow networks', body text 'Wha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        164,
+        525,
+        213,
+        134
+      ],
+      "paths": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "instruction": "Add the third post list row: an image placeholder box (boxed X = picture) on the left, and to its right a heading 'A year of four-day weeks', body text 'The num"
+    }
+  ],
+  "rejected": []
+}

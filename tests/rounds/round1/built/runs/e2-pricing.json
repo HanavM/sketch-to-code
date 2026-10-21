@@ -1,0 +1,140 @@
+{
+  "id": "e2-pricing",
+  "at": "2026-10-21T13:41:35.662Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.596530807731389,
+    "overallV2": 0.5368960603618278,
+    "overallV1": 0.42206485583761866,
+    "colour": 0.9592289351391268,
+    "structure": 0.7987157815371846,
+    "structureStrict": 0.6402501608632396,
+    "colourAligned": 0.9672254471564271,
+    "structureAligned": 0.8298147685530152,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -32,
+      "r": 0.9603752181729781
+    },
+    "layout": 0.6362163615782468
+  },
+  "effects": null,
+  "tokens": {
+    "input": 32372,
+    "output": 20459,
+    "cacheRead": 187147
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48960,
+      "output": 19190,
+      "cacheRead": 184063,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 202144
+    }
+  ],
+  "reading": "The sketch lays out a pricing section: a big \"Simple pricing\" heading, a subheading tagline, and three pricing cards (Starter, Pro highlighted in dark navy, and Team), each with a price, feature list, and call-to-action button, per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 51
+        }
+      ],
+      "region": [
+        8,
+        89,
+        1152,
+        31
+      ],
+      "paths": [],
+      "instruction": "Add a large page heading reading \"Simple pricing\" at the top of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        4,
+        148,
+        1272,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a subheading below the main heading reading \"Start free. Upgrade when you grow.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        135,
+        231,
+        314,
+        433
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a pricing card titled \"Starter\" with a large price \"$0/mo\", a feature list containing \"1 project\", \"Community support\", \"Basic analytics\", and an outline-st"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        483,
+        210,
+        314,
+        474
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a pricing card titled \"Pro\" styled with a dark navy background and white text, large price \"$24/mo\", a feature list containing \"Unlimited projects\", \"Priori"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        831,
+        230,
+        314,
+        433
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a pricing card titled \"Team\" with a large price \"$79/mo\", a feature list containing \"Everything in Pro\", \"SSO\", \"Audit logs\", and an outline-style button la"
+    }
+  ],
+  "rejected": []
+}

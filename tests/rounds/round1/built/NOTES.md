@@ -145,3 +145,20 @@ What the first auto builds still missed, and the fix (planner, free to check):
   card'), and a 3-7 line info card quotes every line. Plan diff: r1 3 notes, r2 9, r3 2 (cards gain 'white card').
 - Left: e1 card a little short (forgot link on its edge); e4 address lines merged into one; one e1 reading
   failed on structured-output retries (second try fine).
+
+## Step n46 (2026-10-21): the last three round-1 pages from the auto plans
+| page | n8 (hand) v1 / v2 | n46 auto first (v3) | after plan fix (v3) | billed |
+|---|---|---|---|---|
+| c3 split studio | 51% / 59% | 83% (layout 79%, regions 6/7) | - | ~45k |
+| e2 pricing | 30% / 42% | 61% | 60% (prices and buttons now built) | ~45k, then ~50k |
+| e3 blog list | 14% / 15% | 21% | 70% (regions 8/8, layout 86%) | ~25k, then ~20k |
+
+What the first auto builds missed, and the fix (planner, zero tokens):
+- e2: a tier note said its name and list only, so prices ($0/$24/$79 per month) and buttons were never built.
+  A list block's other short lines are now said too: big price before the list, buttons after it, with their look
+  ('outline button "Get started"', 'indigo button "Start trial"'; a flex-centred bordered line counts as a button).
+- e3: each post's text block was one cut quote ("How we cut our build times in half A"…), so the build put
+  invented copy UNDER a narrow picture. Loose text beside a drawn part now says its side and every line:
+  'right of the picture: "How we cut...", text "A look at...", small "Oct 12 · 6 min read"'. Built near-identical.
+- Plan diff: round 1 e2 tiers, e3 posts; round 2 filters gains its second heading "PRICE"; round 3 unchanged.
+- Left on e2: prices built ~20px not ~28px, cards given shadows/tilt; noise-level for the score.
