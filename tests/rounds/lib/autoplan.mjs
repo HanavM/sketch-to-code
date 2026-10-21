@@ -565,7 +565,7 @@ const NAMED = [
   ['green', 34, 160, 80], ['deep green', 22, 70, 50], ['brown', 120, 72, 40],
   ['lime', 132, 204, 22], ['deep indigo', 30, 22, 80], ['deep purple', 59, 7, 100], ['dark plum', 63, 14, 64], ['dark brown', 67, 20, 7], ['dark teal', 15, 60, 60], ['pale yellow', 254, 249, 215], ['indigo', 79, 70, 229], ['off-white', 244, 244, 245],
   // between the primaries (never a CSS keyword: 'crimson'/'deeppink' would build bright): round 3 c1's raspberry ridge was called 'red' and built bright red
-  ['deep raspberry', 157, 23, 77], ['dark pink', 190, 24, 93], ['soft yellow', 253, 230, 138], ['light orange', 251, 146, 60],
+  ['deep raspberry', 157, 23, 77], ['dark pink', 190, 24, 93], ['soft yellow', 253, 230, 138], ['bright orange', 251, 146, 60],
   ['peach', 253, 186, 116], ['pale lilac', 245, 208, 254],
   // round 3 c2's #ff3d00 band was called 'red' and built red; kept to orange-red hues (see colourName)
   ['red-orange', 255, 61, 0],
@@ -581,6 +581,8 @@ const NAMED = [
   ['light pink', 244, 114, 182],
   // round 4 e4 #0ea5e9 was called 'teal' and #fecaca 'pale lilac' (weighted distance underrates blue and violet)
   ['bright sky blue', 14, 165, 233], ['pale pink', 254, 205, 205],
+  // round 5 c4 #1e3a8a photo end was called 'dark grey' and built grey-blue (weighted distance underrates blue)
+  ['dark blue', 30, 58, 138],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -606,6 +608,7 @@ export function colourName(c) {
   for (const [n, r, g, b] of NAMED) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
+    if (n === 'dark blue' && !(hue(c) >= 215 && hue(c) <= 235 && chroma >= 80 && Math.max(c.r, c.g, c.b) <= 170)) continue
     if (n === 'bright sky blue' && !(hue(c) >= 193 && hue(c) <= 215 && chroma >= 120)) continue
     if (n === 'pale grey' && !(chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236)) continue
     if (n === 'off-white' && chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236) continue
@@ -1207,6 +1210,23 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.15 * B.w * B.h
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
+  })
+  // two pictures that overlap: the later-painted one is on top (round 5 c4: the blue photo was built under
+  // the orange one, hidden behind its shadow)
+  regions.forEach((f, i) => {
+    const d = out.get(f.role)
+    if (d.kind !== 'image') return
+    const under = regions.slice(0, i).find((g) => {
+      if (out.get(g.role).kind !== 'image' || g.regionKids.includes(f.role) || f.regionKids.includes(g.role)) return false
+      const A = f.rect, B = g.rect
+      const ow = Math.min(A.x + A.w, B.x + B.w) - Math.max(A.x, B.x), oh = Math.min(A.y + A.h, B.y + B.h) - Math.max(A.y, B.y)
+      return ow > 0 && oh > 0 && ow * oh > 0.05 * Math.min(A.w * A.h, B.w * B.h)
+    })
+    if (!under) return
+    const what = (out.get(under.role).note ?? '').match(/^(?:tilted )?(.*?\bblock)\b/)?.[1] ?? 'other picture'
+    const A = f.rect, B = under.rect
+    const side = `${A.y + A.h / 2 > B.y + B.h / 2 ? 'lower' : 'upper'} ${A.x + A.w / 2 > B.x + B.w / 2 ? 'right' : 'left'}`
+    d.note = `${d.note ? `${d.note}, ` : ''}overlapping the ${side} of the ${what} and on top of it`
   })
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)

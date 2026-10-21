@@ -68,6 +68,14 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(vivid.code).not.toContain('stopOpacity="0.16"')
   })
 
+  it('fills a gradient block at full strength unless the words soften it (round-5 c4 pale photo)', () => {
+    const photo = buildScaffold(action({ instruction: 'Tilted rectangular block with a light orange-to-brown gradient fill and a hard dark-brown drop shadow' }), 0, controls({ fill: 'filled' }))!
+    expect(photo.code).toContain('stopOpacity="1"')
+    expect(photo.code).not.toContain('stopOpacity="0.16"')
+    const soft = buildScaffold(action({ instruction: 'a blob with a subtle pink gradient' }), 0, controls({ fill: 'filled' }))!
+    expect(soft.code).toContain('stopOpacity="0.42"')
+  })
+
   it('leaves a shape asked for as an outline or ring unfilled (round-3 c3 orbit rings)', () => {
     for (const instruction of ['Large spinning outline circle in lavender', 'a hollow cyan ring behind the headline']) {
       const sc = buildScaffold(action({ instruction }), 0, controls({ fill: 'filled' }))!

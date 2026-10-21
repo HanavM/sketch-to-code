@@ -153,7 +153,12 @@ export function buildScaffold(
   // ...but a shape asked for as a strong colour (a vivid blurred blob, a solid
   // disc) is that colour. At 0.42 falling to 0.16 a hot-pink blob behind a
   // dark page renders as a faint tint (round 2 c3), so the stops go opaque.
-  const strong = /\b(vivid|bright|solid|saturated|neon|bold colou?r)\b/i.test(`${action.instruction} ${action.depicts ?? ''}`)
+  // A block asked for as a colour gradient ("orange-to-brown gradient fill")
+  // names its colours: the form fade on top washed round-5 c4's vivid orange
+  // photo to peach, so it is strong too unless the words soften it.
+  const said = `${action.instruction} ${action.depicts ?? ''}`
+  const strong = /\b(vivid|bright|solid|saturated|neon|bold colou?r)\b/i.test(said) ||
+    (/\bgradient\b/i.test(said) && !/\b(subtle|soft|faint|translucent|tint(ed)?)\s+(\S+\s+){0,2}?gradient\b|\bfaint\b/i.test(said))
   const [o1, o2, o3] = strong ? ['1', '0.94', '0.86'] : ['0.42', '0.26', '0.16']
   const defs = filled && gradientOk
     ? `      <defs>\n` +

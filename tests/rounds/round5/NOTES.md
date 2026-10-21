@@ -140,3 +140,18 @@ photo outline and dropped the outline itself, and every check passed. The repair
 | c5 bento | 57% | **78%** | ~50k | "Prism 2" big over its subline, CTA indigo gradient, ring and tiles placed; near-identical by eye |
 
 Side-by-sides: built/c4-outline-stack-n66-cmp.png (52%), built/c4-outline-stack-n66b-cmp.png, built/c5-bento-n66-cmp.png.
+
+## n68: vivid gradient photos, blue photo on top (2026-10-21, ~141k tokens)
+
+Pipeline fix: a drawn block asked for as a colour gradient ("orange-to-brown gradient fill") now gets an opaque
+scaffold fill (stops 1 / 0.94 / 0.86) unless the words soften it (subtle, soft, faint, translucent, tinted). The
+form-shading fade (0.42 to 0.16) had washed the orange photo to peach.
+Planner fixes (free): #fb923c is "bright orange" (was "light orange"); #1e3a8a is "dark blue" (was "dark grey");
+a picture painted after another picture it overlaps says "overlapping the lower right of the ... block and on top
+of it". Rounds 1-4: 4 notes change (colour word, two overlap phrases), no mark kinds change.
+
+| page | before (n66) | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 outline stack | 65% | 61%, then **63%** | 82k + 60k | orange photo vivid (first run, scaffold fix); second run also deep blue and on top of the orange one, as in the target. Score flat: the headings sit ~25px lower this run and the blue fades the wrong way (dark top-left, target dark bottom) |
+
+Side-by-sides: built/c4-outline-stack-n68-cmp.png (61%), built/c4-outline-stack-n68b-cmp.png (63%).

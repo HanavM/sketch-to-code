@@ -1,28 +1,27 @@
 {
   "id": "c4-outline-stack",
-  "at": "2026-10-21T23:15:24.474Z",
+  "at": "2026-10-21T23:37:35.855Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6481107357188497,
-    "overallV2": 0.6481107357188497,
-    "overallV1": 0.4918681480334192,
-    "colour": 0.9271679558619166,
-    "structure": 0.8000853153709858,
-    "structureStrict": 0.6203714141630736,
-    "colourAligned": 0.9271679558619166,
-    "structureAligned": 0.8000853153709858,
+    "overall": 0.6317919500283102,
+    "overallV2": 0.6317919500283102,
+    "overallV1": 0.5143132902322818,
+    "colour": 0.9408311818254981,
+    "structure": 0.7480286273141464,
+    "structureStrict": 0.6129019081949769,
+    "colourAligned": 0.9408311818254981,
+    "structureAligned": 0.7480286273141464,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9044236345159112
+      "r": 0.9125236303940907
     },
-    "layout": 0.781793600096825
+    "layout": 0.8078311522302541
   },
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 0.5555555555555556,
     "kept": [
-      "bleed",
       "blend",
       "hollow-type",
       "huge-type",
@@ -30,6 +29,7 @@
       "tilt"
     ],
     "missing": [
+      "bleed",
       "gradient",
       "hard-shadow",
       "stripes-or-layers"
@@ -37,18 +37,18 @@
     "extra": []
   },
   "tokens": {
-    "input": 39320,
-    "output": 23440,
-    "cacheRead": 271689
+    "input": 36007,
+    "output": 23632,
+    "cacheRead": 162829
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49001,
-      "output": 18609,
-      "cacheRead": 259836,
-      "toolCalls": 12,
+      "billed": 41041,
+      "output": 16020,
+      "cacheRead": 126586,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Read src/App.tsx",
@@ -58,31 +58,13 @@
         "Read src/main.tsx",
         "Edit components/SketchShape.tsx",
         "Edit components/SketchShape2.tsx",
-        "Edit src/index.css",
-        "Write src/App.tsx",
-        "Grep",
-        "Glob"
+        "Write src/App.tsx"
       ],
-      "ms": 192142
+      "ms": 168671
     }
   ],
-  "reading": "A hero banner with two giant stacked outlined \"SUMMER\" headlines bleeding off both page edges, two tilted decorative gradient blocks layered over them (one peach/brown with a hard shadow, one ink-like grey-to-blue multiply block), three tilted pill badges (\"New season\", \"Linen only\", \"Ships in 24h\"), a small \"ORRA\" wordmark/logo top-left, a body paragraph of marketing copy, and a bold underlined \"Shop summer →\" link.",
+  "reading": "The sketch is a hero section: a two-line giant 'SUMMER' heading, two overlapping tilted gradient blocks layered over it, three tilted pill badges, a small wordmark, a body paragraph, and an underlined link, all driven by typed notes that specify exact colors, text and effects.",
   "actions": [
-    {
-      "kind": "add",
-      "textMarks": [
-        "s11"
-      ],
-      "textSize": [],
-      "region": [
-        64,
-        47,
-        59,
-        8
-      ],
-      "paths": [],
-      "instruction": "Small logo/wordmark text reading \"ORRA\" at the top-left of the page."
-    },
     {
       "kind": "add",
       "textMarks": [
@@ -104,7 +86,7 @@
         231
       ],
       "paths": [],
-      "instruction": "First of two stacked lines of giant Helvetica Heavy, tight letter-spacing, hollow (outline-only) peach \"SUMMER\" text, bleeding off both the left and right edges"
+      "instruction": "First of two stacked lines of a giant Helvetica heavy, tight-set, hollow-outlined peach heading reading 'SUMMER', bleeding off the left and right page edges."
     },
     {
       "kind": "add",
@@ -127,10 +109,10 @@
         232
       ],
       "paths": [],
-      "instruction": "Second of two stacked lines, identical style: giant Helvetica Heavy, tight letter-spacing, hollow (outline-only) peach \"SUMMER\" text, bleeding off both the left"
+      "instruction": "Second of two stacked lines of the same giant Helvetica heavy, tight-set, hollow-outlined peach heading reading 'SUMMER', bleeding off the left and right page e"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -144,10 +126,10 @@
         "s3",
         "s4"
       ],
-      "instruction": "Tilted rectangular block with a light orange-to-brown gradient fill and a hard dark-brown drop shadow offset 24px down-and-right (no blur), layered in front of "
+      "instruction": "Tilted bright orange-to-brown gradient block with a hard dark brown drop shadow offset 24px down-right (no blur), placed in front of the 'SUMMER' heading."
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -161,59 +143,37 @@
         "s6",
         "s7"
       ],
-      "instruction": "Second tilted rectangular block with an ink-like dark-grey-to-sky-blue gradient fill using multiply blend mode (darkens what it overlaps rather than covering it"
+      "instruction": "Tilted ink-like dark blue-to-sky-blue gradient block using a multiply blend (darkens what it overlaps without covering it), placed in front of the 'SUMMER' head"
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s0"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s0"
-          ],
-          "lines": 1,
-          "fontPx": 336
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        6,
-        85,
-        1217,
-        580
+        431,
+        113,
+        139,
+        58
       ],
       "paths": [
-        "s3",
-        "s4",
         "s8"
       ],
-      "instruction": "Tilted pill-shaped badge with a 2px dark-brown border and bold label text \"New season\", positioned over the heading/gradient-block area."
+      "instruction": "Tilted pill-shaped badge with a 2px dark brown border, bold label text 'New season'."
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s0"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s0"
-          ],
-          "lines": 1,
-          "fontPx": 336
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        6,
-        85,
-        1217,
-        268
+        1011,
+        292,
+        126,
+        61
       ],
       "paths": [
         "s9"
       ],
-      "instruction": "Tilted pill-shaped badge with dark-brown fill, 2px dark-brown border, and bold off-white label text \"Linen only\"."
+      "instruction": "Tilted dark brown pill-shaped badge with a 2px dark brown border, bold off-white label text 'Linen only'."
     },
     {
       "kind": "add",
@@ -228,7 +188,22 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Tilted pill-shaped badge with vivid yellow fill, 2px dark-brown border, and bold label text \"Ships in 24h\"."
+      "instruction": "Tilted vivid yellow pill-shaped badge with a 2px dark brown border, bold label text 'Ships in 24h'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        59,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small wordmark/logo text reading 'ORRA'."
     },
     {
       "kind": "add",
@@ -253,7 +228,7 @@
         34
       ],
       "paths": [],
-      "instruction": "Body paragraph text: \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
+      "instruction": "Body paragraph text: 'Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.'"
     },
     {
       "kind": "add",
@@ -268,8 +243,10 @@
         8
       ],
       "paths": [],
-      "instruction": "Bold link text \"Shop summer →\" with a 3px underline beneath it; it is a plain text link, not a button/box."
+      "instruction": "Bold link reading 'Shop summer →' with a 3px underline, not a boxed button."
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }
