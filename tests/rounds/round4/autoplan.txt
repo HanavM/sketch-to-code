@@ -88,7 +88,7 @@ c5-sticky-story · marks 8 · words 86
     note step-1: deep green block, pale yellow text "Plant", text "Seeds go in after the last frost, two fingers deep, facing the morning sun."
     note step-2: mint green "Wait", text "Water at dusk. Do nothing else. The hardest part of gardening is patience."
     note step-3: yellow "Harvest", text "Pick in the cool of the morning and share at least a third with the neighbours."
-e1-crm-dashboard · marks 8 · words 74
+e1-crm-dashboard · marks 8 · words 158
     sidebar      box     
     search       box     
     avatar       circle  
@@ -101,35 +101,36 @@ e1-crm-dashboard · marks 8 · words 74
     note search: search input "Search deals, people…"
     note avatar: big indigo circle
     note title: "Good morning, Dana"
-    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M, "Deals won" 38, "Win rate" 31%, "Avg. cycle" 24 days
-    note line-chart: white card "Revenue by month"
-    note donut: white card "Deals by stage"
-    note deals-table: white card "Recent deals" list: "Deal" Company, "Annual licence" Northwind, "Pilot expansion" Globex, "Support add-on" Initech, 1 more
-e2-mail-client · marks 3 · words 41
+    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M (indigo sparkline rising, bottom right), "Deals won" 38 (green sparkline rising, bottom right), "Win rate" 31% (light orange sparkline falling, bottom right), "Avg. cycle" 24 days (teal sparkline rising, bottom right)
+    note line-chart: white card, "Revenue by month", line chart drawn as SVG lines: thick solid indigo line rising left to right (8 points), dashed light grey line rising left to right (8 points); no axis labels
+    note donut: white card, "Deals by stage", donut chart (thick ring, hollow middle) on a light grey track: indigo 45%, green 25%
+    note deals-table: white card, "Recent deals", table, columns "Deal", "Company", "Owner", "Value", "Stage", 4 rows, first row "Annual licence" | "Northwind" | "Dana K." | "$84,000" | "Won"; status pills green "Won", indigo "Negotiation", indigo "Proposal", deep raspberry "Lost"
+e2-mail-client · marks 3 · words 96
     folders      box     
     message-list box     
     reading-pane box     
     note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 2, 2 more; "Inbox" highlighted
-    note message-list: "Inbox" list: "Tom BeckerYesterday", "Lena OrtizMon", "CalendarMon", "Sam WuSun"
+    note message-list: "Inbox" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: "Priya Shah" 9:41 "Q4 roadmap — final draft"… bold, "GitHub" 9:12 "[sketch-to-code] 3 new"… bold, "Tom Becker" Yesterday "Lunch Thursday? The new"…, "Stripe" Yesterday "Your October invoice is"… bold, "Lena Ortiz" Mon "Photos from the offsite,"…, then "Calendar" Mon, "Sam Wu" Sun; "Priya Shah" highlighted
     note reading-pane: "Q4 roadmap — final"… "Reply Reply all Forward" list: "Hi all — attached"…, "Please flag"…, "Thanks, Priya"
-e3-checkout · marks 3 · words 48
+e3-checkout · marks 4 · words 63
     stepper      text    
+    shipping-form box     
     delivery     box     
     order-summary box     
     note stepper: links: 1Cart, 2Shipping, 3Payment, 4Review
-    note shipping-form: "Shipping address" and text
+    note shipping-form: "Shipping address", form, labels above empty fields: "First name" | "Last name"; "Street address" full width; "City" | "Postcode"
     note delivery: buttons: "Standard · 3–5 days Free", "Express · next day $12.00"
     note order-summary: white card "Order summary" "Subtotal $145.00" "Shipping Free" "Tax $11.60" "Total $156.60" list: "Linen overshirtSand"… $89.00, "Wool beanieCharcoal" $32.00, "Canvas toteNatural" $24.00, dark navy button "Continue to payment"
-e4-file-manager · marks 5 · words 42
+e4-file-manager · marks 5 · words 38
     storage      text    
     breadcrumb   text    
     toolbar      text    
     file-grid    box     
     details      box     
     note sidebar: "Drive" and text
-    note file-grid: "hero-v3.png 5.1 MB" list: "Moodboards" 14 items, "Exports" 32 items, "Brief.pdf" 2.4 MB, "Copy deck.docx" 88 KB, 3 more
+    note file-grid: list: "Moodboards" 14 items, "Exports" 32 items, "Brief.pdf" 2.4 MB, "hero-v3.png" 5.1 MB, 4 more
     note details: white card "hero-v3.png" list: "Type" PNG image, "Size" 5.1 MB, "Dimensions" 2880 × 1620, "Modified" Oct 19, 2026, 1 more
-e5-gantt · marks 5 · words 16
+e5-gantt · marks 5 · words 138
     title        heading 
     zoom         box     
     timeline     box     
@@ -137,5 +138,6 @@ e5-gantt · marks 5 · words 16
     today        box     
     note title: "Website relaunch"
     note zoom: links: Day, Week, Month
+    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text): purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, light orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
     note task-names: list: "Research", "Wireframes", "Visual design", "Content", 3 more
     note today: red "Today"

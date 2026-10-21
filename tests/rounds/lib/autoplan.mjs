@@ -174,7 +174,8 @@ function factsInPage() {
     for (const p of [el, ...el.querySelectorAll('*')]) {
       const groups = new Map()
       // a state class ('conv on', 'page active') doesn't split the selected item from its row
-      for (const k of p.children) { const key = `${k.tagName}.${(k.getAttribute("class") ?? "").replace(/\b(on|active|selected|current|today|open)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
+      // ...nor does a short modifier class ('m u sel': an unread, selected mail row is still a row; round 4 e2)
+      for (const k of p.children) { const key = `${k.tagName}.${(k.getAttribute("class") ?? "").replace(/\b(on|active|selected|sel|current|today|open|unread|read|u)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
       // marked regions are drawn on their own: they aren't a list's items
       for (const g of groups.values()) if (g.length >= 3 && g.length > best.length && g.every((k) => txt(k) && !k.dataset?.r && !k.querySelector('[data-r]'))) best = g
     }
@@ -207,11 +208,61 @@ function factsInPage() {
       return { type: 'month', heads, weeks: Math.round(cells / 7), events: evs, marked, firstCol: one >= 0 && heads[one] ? heads[one] : null, lead, last: nums[nums.length - 1] }
     }
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
+    const own = el.getBoundingClientRect()
+    const title = () => { const t = [...el.querySelectorAll('h1,h2,h3,h4')].map(txt).find((s) => s && s.length <= 40); return t ?? null }
+    // a table inside a card (round 4 e1 "Recent deals" panel: the table was read as a list)
+    const inner = el.tagName !== 'TABLE' && el.querySelectorAll('table').length === 1 ? el.querySelector('table') : null
+    if (inner && inner.querySelectorAll('tr').length >= 3) {
+      const rows = [...inner.querySelectorAll('tr')]
+      return { type: 'table', title: title(), columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), chips: chips(inner) }
+    }
+    // gantt: a row of 4+ date column heads over filled task bars placed on their own rows
+    const DATE = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d{1,2}$|^w(ee)?k? ?\d{1,2}$|^\d{1,2}\/\d{1,2}$/i
+    const headRow = [el, ...el.querySelectorAll('*')].find((p) => p.children.length >= 4 && [...p.children].every((k) => DATE.test(txt(k))))
+    if (headRow) {
+      const hs = [...headRow.children].map((k) => ({ t: txt(k), b: k.getBoundingClientRect() }))
+      const x0 = hs[0].b.left, cw = (hs[hs.length - 1].b.right - x0) / hs.length
+      const at = (x) => { const c = Math.max(0, Math.min(hs.length - 1, Math.floor((x - x0) / cw))); const fr = (x - x0) / cw - c; return { c, fr } }
+      const line = [...el.querySelectorAll('*')].find((k) => { const b = k.getBoundingClientRect(); return filled(k) && b.width <= 4 && b.height >= own.height * 0.5 })
+      // the today line's tag is not a task
+      const bars = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); return !(line && line.contains(k)) && filled(k) && txt(k) && !k.children.length && b.height <= 44 && b.width >= 24 && b.top > hs[0].b.bottom && getComputedStyle(k).position === 'absolute' })
+      if (bars.length >= 3 && new Set(bars.map((k) => Math.round(k.getBoundingClientRect().top / 8))).size === bars.length) {
+        const where = (x, edge) => { const { c, fr } = at(x); return `${edge === 'start' ? (fr < 0.25 ? 'start of' : fr < 0.75 ? 'mid' : 'end of') : (fr > 0.75 ? 'end of' : fr > 0.25 ? 'mid' : 'start of')} ${hs[c].t}` }
+        return { type: 'gantt', heads: hs.map((h) => h.t), bars: bars.map((k) => { const b = k.getBoundingClientRect(); return { text: txt(k), fill: filled(k), from: where(b.left + 1, 'start'), to: where(b.right - 1, 'end') } }), line: line ? { fill: filled(line), at: where(line.getBoundingClientRect().left, 'start'), label: txt(line) } : null }
+      }
+    }
+    // a chart drawn in SVG: lines (polyline/path strokes) or a donut (dashed circle strokes)
+    const svg = [...el.querySelectorAll('svg')].find((s) => { const b = s.getBoundingClientRect(); return b.width >= 120 && b.height >= 80 })
+    if (svg) {
+      const stroke = (k) => rgba(getComputedStyle(k).stroke)
+      const ring = [...svg.querySelectorAll('circle')].filter((c) => getComputedStyle(c).fill === 'none' && stroke(c))
+      if (ring.length >= 2) {
+        const r = parseFloat(ring[0].getAttribute('r')), circ = 2 * Math.PI * r
+        const segs = ring.filter((c) => (c.getAttribute('stroke-dasharray') ?? '').trim()).map((c) => ({ fill: stroke(c), pct: Math.round(parseFloat(c.getAttribute('stroke-dasharray')) / circ * 100) }))
+        const track = ring.find((c) => !(c.getAttribute('stroke-dasharray') ?? '').trim())
+        if (segs.length) return { type: 'donut', title: title(), segs, track: track ? stroke(track) : null }
+      }
+      const lines = [...svg.querySelectorAll('polyline, path')].filter((p) => stroke(p) && (p.tagName === 'polyline' || getComputedStyle(p).fill === 'none')).map((p) => {
+        const pts = (p.getAttribute('points') ?? '').trim().split(/\s+/).map((s) => s.split(',').map(Number)).filter((q) => q.length === 2)
+        return { fill: stroke(p), dashed: !!(p.getAttribute('stroke-dasharray') ?? '').trim() && p.getAttribute('stroke-dasharray') !== 'none', points: pts.length, rising: pts.length >= 2 ? pts[pts.length - 1][1] < pts[0][1] : null, thick: parseFloat(getComputedStyle(p).strokeWidth) >= 3 }
+      })
+      if (lines.length) return { type: 'lines', title: title(), lines }
+    }
+    // a form: 3+ fields (a label over an empty bordered box), laid out in rows
+    const fields = [...el.querySelectorAll('*')].filter((k) => k.closest('[data-r]') === el && k.children.length >= 2 && k.children.length <= 3 && [...k.children].some((g) => !txt(g) && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30) && txt(k) && txt(k).length <= 32)
+    if (fields.length >= 3) {
+      const rows = new Map()
+      for (const k of fields) { const y = Math.round(k.getBoundingClientRect().top / 10); rows.set(y, [...(rows.get(y) ?? []), k]) }
+      const width = Math.max(...fields.map((k) => k.getBoundingClientRect().width))
+      return { type: 'form', title: title(), rows: [...rows.values()].map((r) => r.map((k) => ({ label: txt(k), wide: r.length === 1 && k.getBoundingClientRect().width >= width * 0.95 && fields.some((j) => j.getBoundingClientRect().width < width * 0.7) }))) }
+    }
     // stat cards: 3+ same-size cards in a row, each with one big number
     const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
     if (kids.length >= 3 && kids.every((k) => big(k) && txt(k).length <= 48)) {
       const ys = kids.map((k) => Math.round(k.getBoundingClientRect().y))
-      if (Math.max(...ys) - Math.min(...ys) <= 8) return { type: 'stats', cards: kids.map((k) => ({ label: txt(k).replace(txt(big(k)), '|').split('|')[0].trim(), value: txt(big(k)), rest: txt(k).split(txt(big(k)))[1]?.trim() ?? '' })) }
+      // a tiny chart in a card (a sparkline): its colour and which way it runs
+      const spark = (k) => { const p = k.querySelector('svg polyline'); if (!p) return null; const pts = p.getAttribute('points').trim().split(/\s+/).map((s) => s.split(',').map(Number)); return { fill: rgba(getComputedStyle(p).stroke), rising: pts[pts.length - 1][1] < pts[0][1] } }
+      if (Math.max(...ys) - Math.min(...ys) <= 8) return { type: 'stats', cards: kids.map((k) => ({ label: txt(k).replace(txt(big(k)), '|').split('|')[0].trim(), value: txt(big(k)), rest: txt(k).split(txt(big(k)))[1]?.trim() ?? '', spark: spark(k) })) }
     }
     // bar chart: 4+ textless filled blocks side by side on one baseline, different heights
     const bars = [...el.querySelectorAll('*')].filter((k) => !txt(k) && !k.children.length && filled(k) && k.getBoundingClientRect().height >= 8)
@@ -241,11 +292,15 @@ function factsInPage() {
     if (headKid && cardKids.length >= 1 && cardKids.length === kids.length - 1) {
       return { type: 'cards', head: txt(headKid), items: cardKids.map((k) => ({ text: txt(k), tags: chips(k) })) }
     }
+    // an item's parts: its child texts, with a row of leaf spans split (a mail row's sender | time glued
+    // as 'Tom BeckerYesterday', round 4 e2)
+    const parts = (k) => [...k.childNodes].flatMap((n) => n.nodeType === 1 && n.children.length >= 2 && [...n.children].every((g) => !g.children.length && txt(g)) && n.children.length === n.childNodes.length ? [...n.children].map(txt) : [(n.textContent || '').trim()]).filter(Boolean)
+    const boldFirst = (k) => { const w = [...k.querySelectorAll('*')].find((g) => !g.children.length && txt(g)); return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }
     if (rep.length >= 3) {
       // the highlighted item: the one whose fill differs from all the others
       const key = (k) => { const c = filled(k); return c ? `${c.r},${c.g},${c.b}` : 'none' }
       const odd = rep.filter((k) => rep.filter((j) => key(j) === key(k)).length === 1)
-      const on = odd.length === 1 && rep.length >= 3 ? [...odd[0].childNodes].map((n) => (n.textContent || '').trim()).find(Boolean) : null
+      const on = odd.length === 1 && rep.length >= 3 ? parts(odd[0])[0] ?? null : null
       // a heading or a lead line beside the list ('Showing 1-7 of 48')
       const head = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 40)
       // the block's other short lines (a tier's price, its button): a list note alone drops them (round 1 e2)
@@ -254,7 +309,7 @@ function factsInPage() {
         const btn = b.height >= 28 && b.height <= 64 && (filled(k) || parseFloat(c.borderTopWidth) >= 1) && (/center/.test(c.textAlign) || (/flex/.test(c.display) && /center/.test(c.justifyContent)))
         return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24 }
       })
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map((k) => [...k.childNodes].map((n) => (n.textContent || '').trim()).filter(Boolean)), on, extra }
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra }
     }
     return null
   }
@@ -420,7 +475,8 @@ function monthEvents(list, cap = 10) {
 function denseNote(d) {
   if (!d) return null
   switch (d.type) {
-    case 'table': return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
+    case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
+      return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
     case 'month': {
       // with days when known: blue "Standup" on 2, 9, 16, 23 (where events sit is the calendar's content)
       const byText = new Map()
@@ -433,11 +489,21 @@ function denseNote(d) {
       const solid = d.events.length && d.events.every((e) => e.fill && e.fill.r + e.fill.g + e.fill.b < 600 && e.fill.a > 0.9) ? ` (solid colour${d.events.every((e) => e.color && e.color.r + e.color.g + e.color.b > 690) ? ', white text' : ''})` : ''
       return `month calendar grid, ${d.heads.length ? `${d.heads[0]} to ${d.heads[d.heads.length - 1]} across, ` : ''}${d.weeks} weeks of day boxes${start}${ev ? `; event chips${solid} ${ev}` : ''}${d.marked.length === 1 ? `; day ${d.marked[0]} highlighted` : ''}`
     }
-    case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}`).join(', ')}`
+    case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}${c.spark ? ` (${colourName(c.spark.fill)} sparkline ${c.spark.rising ? 'rising' : 'falling'}, bottom right)` : ''}`).join(', ')}`
+    case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text): ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
+    case 'donut': return `${d.title ? `${quote(d.title, 32)}, ` : ''}donut chart (thick ring, hollow middle)${d.track ? ` on a ${colourName(d.track)} track` : ''}: ${d.segs.map((g) => `${colourName(g.fill)} ${g.pct}%`).join(', ')}`
+    case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}; no axis labels`
+    case 'form': return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
     case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
+      // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
+      if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
+        const bold = d.bold ?? []
+        const mixed = bold.some(Boolean) && !bold.every(Boolean)
+        return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} rows, name left and time right on one line, grey line under${mixed ? ', unread rows bold' : ''}: ${d.items.slice(0, 5).map((p, i) => `${quote(p[0], 20)} ${p[1]} ${quote(p[2], 28)}${mixed && bold[i] ? ' bold' : ''}`).join(', ')}${d.items.length > 5 ? `, then ${d.items.slice(5).map((p) => `${quote(p[0], 20)} ${p[1]}`).join(', ')}` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}`
+      }
       return `${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)} `).join('')}list: ${d.items.slice(0, 4).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
   }
   return null
@@ -478,10 +544,13 @@ function decideOne(f, page, marked, said) {
   // dense app UI: say the structure (columns and rows, weeks, bars, sides) since a box shows none of it
   // (a plain list is only said when nothing else names the block: see the box branch)
   // and only when its parts aren't drawn as marks of their own (stat cards each marked)
-  const dn = f.dense?.type === 'list' || f.regionKids.some((r) => marked.has(r)) ? null : denseNote(f.dense)
+  // a gantt's bars and a form's fields aren't marks of their own, so it is said even with its name column and today line drawn
+  const dn = f.dense?.type === 'list' || (!/^(gantt|form)$/.test(f.dense?.type) && f.regionKids.some((r) => marked.has(r))) ? null : denseNote(f.dense)
   if (dn) {
     const bgName = fill ? colourName(f.bg) : null
-    const col = bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null
+    // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
+    const card = fill && (bordered || f.radius >= 8) && /^(table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
+    const col = card ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
     const what = f.tag === 'aside' ? 'sidebar' : null
     return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
   }

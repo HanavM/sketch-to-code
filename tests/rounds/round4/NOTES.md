@@ -23,3 +23,14 @@ table read as a list; e3 form fields "and text"; e2 list splits read/unread rows
 c3 grid rules dropped; c2 page note and arch shape missing.
 
 Dry draw: all 10 drawn through the overlay (3 first failed while tests ran in parallel; re-run clean).
+
+n49 (dense UI said, untuned rounds 1-3 plans byte-identical after):
+- e5 gantt: "timeline, 8 week columns ...; one task bar per row: <colour> "<task>" start of <week> to mid <week> ...; thin red
+  vertical today line at start of Oct 26". Said even though its name column and today line are marks of their own.
+- e1: line chart (thick solid indigo rising, dashed light grey rising, 8 points), donut (indigo 45%, green 25% on a light
+  grey track), KPI sparklines (colour, rising/falling), deals table read as a table (columns, rows, first row, pills).
+- e3: form "labels above empty fields: First name | Last name; Street address full width; City | Postcode" (the form
+  holds the delivery mark, so it is now drawn as its own box).
+- e2: mail rows "name left and time right, grey line under, unread rows bold" with sender/time/subject split; the
+  selected and unread rows join the list (short state classes 'u', 'sel' no longer split a row group).
+Watch on the live run: e5's timeline note is typed at the box centre, which is on the today line mark.

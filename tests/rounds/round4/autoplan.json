@@ -495,19 +495,19 @@
    ],
    [
     "kpis",
-    "4 stat cards in a row: \"Pipeline value\" $1.28M, \"Deals won\" 38, \"Win rate\" 31%, \"Avg. cycle\" 24 days"
+    "4 stat cards in a row: \"Pipeline value\" $1.28M (indigo sparkline rising, bottom right), \"Deals won\" 38 (green sparkline rising, bottom right), \"Win rate\" 31% (light orange sparkline falling, bottom right), \"Avg. cycle\" 24 days (teal sparkline rising, bottom right)"
    ],
    [
     "line-chart",
-    "white card \"Revenue by month\""
+    "white card, \"Revenue by month\", line chart drawn as SVG lines: thick solid indigo line rising left to right (8 points), dashed light grey line rising left to right (8 points); no axis labels"
    ],
    [
     "donut",
-    "white card \"Deals by stage\""
+    "white card, \"Deals by stage\", donut chart (thick ring, hollow middle) on a light grey track: indigo 45%, green 25%"
    ],
    [
     "deals-table",
-    "white card \"Recent deals\" list: \"Deal\" Company, \"Annual licence\" Northwind, \"Pilot expansion\" Globex, \"Support add-on\" Initech, 1 more"
+    "white card, \"Recent deals\", table, columns \"Deal\", \"Company\", \"Owner\", \"Value\", \"Stage\", 4 rows, first row \"Annual licence\" | \"Northwind\" | \"Dana K.\" | \"$84,000\" | \"Won\"; status pills green \"Won\", indigo \"Negotiation\", indigo \"Proposal\", deep raspberry \"Lost\""
    ]
   ]
  },
@@ -533,7 +533,7 @@
    ],
    [
     "message-list",
-    "\"Inbox\" list: \"Tom BeckerYesterday\", \"Lena OrtizMon\", \"CalendarMon\", \"Sam WuSun\""
+    "\"Inbox\" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: \"Priya Shah\" 9:41 \"Q4 roadmap — final draft\"… bold, \"GitHub\" 9:12 \"[sketch-to-code] 3 new\"… bold, \"Tom Becker\" Yesterday \"Lunch Thursday? The new\"…, \"Stripe\" Yesterday \"Your October invoice is\"… bold, \"Lena Ortiz\" Mon \"Photos from the offsite,\"…, then \"Calendar\" Mon, \"Sam Wu\" Sun; \"Priya Shah\" highlighted"
    ],
    [
     "reading-pane",
@@ -546,6 +546,10 @@
    [
     "stepper",
     "text"
+   ],
+   [
+    "shipping-form",
+    "box"
    ],
    [
     "delivery",
@@ -563,7 +567,7 @@
    ],
    [
     "shipping-form",
-    "\"Shipping address\" and text"
+    "\"Shipping address\", form, labels above empty fields: \"First name\" | \"Last name\"; \"Street address\" full width; \"City\" | \"Postcode\""
    ],
    [
     "delivery",
@@ -613,7 +617,7 @@
    ],
    [
     "file-grid",
-    "\"hero-v3.png 5.1 MB\" list: \"Moodboards\" 14 items, \"Exports\" 32 items, \"Brief.pdf\" 2.4 MB, \"Copy deck.docx\" 88 KB, 3 more"
+    "list: \"Moodboards\" 14 items, \"Exports\" 32 items, \"Brief.pdf\" 2.4 MB, \"hero-v3.png\" 5.1 MB, 4 more"
    ],
    [
     "details",
@@ -656,6 +660,10 @@
    [
     "zoom",
     "links: Day, Week, Month"
+   ],
+   [
+    "timeline",
+    "timeline, 8 week columns \"Oct 5\", \"Oct 12\", \"Oct 19\", \"Oct 26\", \"Nov 2\", \"Nov 9\", \"Nov 16\", \"Nov 23\" across the top; one task bar per row (label inside, white text): purple \"Research\" start of Oct 5 to end of Oct 12, pink \"Wireframes\" start of Oct 12 to end of Oct 19, blue \"Visual design\" start of Oct 19 to mid Nov 2, green \"Content\" mid Oct 19 to mid Nov 9, light orange \"Build\" start of Nov 2 to end of Nov 16, red \"QA\" start of Nov 16 to mid Nov 23, dark grey \"Launch\" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag \"Today\""
    ],
    [
     "task-names",
