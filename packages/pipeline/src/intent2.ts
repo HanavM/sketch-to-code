@@ -170,7 +170,11 @@ export function interpretationSchema(mode: 'gesture' | 'design'): Record<string,
 export const INTERPRETATION_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['reading', 'unclear', 'actions'],
+  // n41 (2026-10-21): 'unclear' is NOT required. Traced failing readings: the
+  // model often drops a null 'unclear' (or its tool-call markup swallows it
+  // into 'reading'), every retry was rejected for that one empty field, and the
+  // reading died at max turns with a good answer in hand.
+  required: ['reading', 'actions'],
   properties: {
     reading: { type: 'string' },
     unclear: nullable({ type: 'string' }),
@@ -717,6 +721,9 @@ Rules for your answer:
   rows) describes the CONTENT of the one block its focus strokes drew: it is
   never one action, or one mark, per item.
 - reading: 1-2 plain sentences. Note real ambiguity in 'unclear'.
+- Answer with ONE object whose top-level keys are exactly "reading",
+  "unclear" and "actions" (actions is the array). Never wrap the answer in
+  another key such as {"actions": {...}}.
 `.trim()
 
 export const INTERPRET_PROMPT = `
@@ -832,7 +839,20 @@ Rules for your answer:
 - reading: 1-2 plain sentences a developer would say out loud.
 - If something is genuinely ambiguous, still commit to the best reading and
   note the doubt in 'unclear'.
+- Answer with ONE object whose top-level keys are exactly "reading",
+  "unclear" and "actions" (actions is the array). Never wrap the answer in
+  another key such as {"actions": {...}}.
 `.trim()
+
+/**
+ * The reading sentence with tool-call markup cut off. n41: a traced reading's
+ * 'reading' ran on into "</reading>", "</parameter>" and the next field's JSON.
+ */
+export function cleanReading(reading: unknown): string {
+  const s = typeof reading === 'string' ? reading : ''
+  const cut = s.search(/<\/?(?:reading|unclear|actions|parameter|invoke)\b[^>]*>/)
+  return (cut === -1 ? s : s.slice(0, cut)).trim()
+}
 
 // ---------- validation & grounding ----------
 
@@ -1183,7 +1203,7 @@ export function groundInterpretation(
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
 
   return {
-    reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected,
+    reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
     ...(pageNotes.length ? { pageNotes } : {}),

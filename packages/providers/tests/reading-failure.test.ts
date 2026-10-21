@@ -82,8 +82,8 @@ describe('claude-code provider: a reading that never answers', () => {
   })
 
   it('defaults to two minutes; a bad override is ignored', () => {
-    expect(perceptionTimeoutMs({})).toBe(120_000)
-    expect(perceptionTimeoutMs({ S2C_READING_TIMEOUT_MS: 'soon' })).toBe(120_000)
+    expect(perceptionTimeoutMs({})).toBe(180_000)
+    expect(perceptionTimeoutMs({ S2C_READING_TIMEOUT_MS: 'soon' })).toBe(180_000)
     expect(perceptionTimeoutMs({ S2C_READING_TIMEOUT_MS: '90000' })).toBe(90_000)
   })
 })

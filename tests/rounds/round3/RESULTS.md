@@ -105,3 +105,22 @@ Side by sides: `built/c3-gradient-orbit-n38-cmp.png` (contract only), `built/c3-
   c1 nav text white (target brown), sun glow softer.
 
 Side by sides: `built/c1-layered-peaks-n39-cmp.png`, `built/c5-blend-editorial-n39-cmp.png`.
+
+## n41 (2026-10-21): failed readings traced and fixed; first builds of c2 and c4
+
+Traced 3 design readings of c5 (S2C_TRACE_READING): every reading's first answer is rejected
+(wrapped as {"actions": {...}} or broken JSON), so a good reading already takes 3 turns. The failed
+one then sent three good answers that lacked only the empty "unclear" field (its tool-call markup
+swallowed it into "reading") and died at the 4-turn cap. Fixes: "unclear" no longer required,
+markup cut off the reading text, turn cap 4 -> 6, reading time limit 120s -> 180s (readings run
+60-75s with one retry), prompt says not to wrap the answer. After: 6 of 6 readings ok (2 of them
+were missing "unclear" and would have been retried). The wrapped first answer still happens
+(~25s and ~6k tokens per reading): a lead for later.
+
+| page | likeness (v3) | effects kept | tokens | note |
+|---|---|---|---|---|
+| c2 kinetic marquee | 56% | bleed, huge type, motion, tilt (5/6, no overlap) | 73k | both tilted bands, star, words and video card right; page white not off-white, orange band came out red, body text larger and light |
+| c4 brutal index | 65% | all 5 (hard shadow, huge type, mono, tilt, vertical) | 23k | three shadowed cards, stamp, footer right; "01" small (known: n40), black side rail lost (text only), card copy invented |
+
+Side by sides: `built/c2-kinetic-marquee-n41-cmp.png`, `built/c4-brutal-index-n41-cmp.png`.
+All 10 round-3 pages have now been built at least once.

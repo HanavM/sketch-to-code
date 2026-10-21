@@ -1,0 +1,185 @@
+{
+  "id": "c2-kinetic-marquee",
+  "at": "2026-10-21T11:09:38.828Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5597448352499259,
+    "overallV2": 0.5597448352499259,
+    "overallV1": 0.4222375304652301,
+    "colour": 0.8474477789031666,
+    "structure": 0.6698231775391105,
+    "structureStrict": 0.4204699433758591,
+    "colourAligned": 0.8474477789031666,
+    "structureAligned": 0.6698231775391105,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7321827295606
+    },
+    "layout": 0.6782188447773386
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "bleed",
+      "huge-type",
+      "motion",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": [
+      "glow",
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 41077,
+    "output": 22072,
+    "cacheRead": 157570
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47139,
+      "output": 15391,
+      "cacheRead": 147664,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx",
+        "Edit src/index.css",
+        "Glob"
+      ],
+      "ms": 173512
+    }
+  ],
+  "reading": "This is a motion-design studio landing hero: a wordmark top-left, an outlined pill 'Menu' button top-right, two tilted full-bleed scrolling marquee text bands (black band with off-white 'MOTION DESIGN ✶' repeat, red band with 'BRAND FILMS — TITLES — LOOPS' repeat), a tagline sentence below, and on the right a near-black block holding a big vivid red circle that pulses.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        60,
+        49,
+        130,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add the site wordmark/logo text 'ROLL/STUDIO' in the top-left corner, set in near-black Helvetica on the off-white page background."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1146,
+        38,
+        76,
+        37
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a near-black outline pill-shaped 'Menu' button in the top-right corner."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 122
+        }
+      ],
+      "region": [
+        6,
+        182,
+        1204,
+        85
+      ],
+      "paths": [],
+      "instruction": "Add a tilted, scrolling marquee band that bleeds off the left and right edges of the page: a near-black band with giant Helvetica heavy uppercase off-white text"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 86
+        }
+      ],
+      "region": [
+        6,
+        445,
+        1204,
+        59
+      ],
+      "paths": [],
+      "instruction": "Below the first marquee, add a second tilted, scrolling marquee band that also bleeds off the left and right page edges: a red band with giant Helvetica heavy u"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 51
+        }
+      ],
+      "region": [
+        64,
+        658,
+        468,
+        37
+      ],
+      "paths": [],
+      "instruction": "Add a tagline/body text line reading 'We make things move for brands that refuse to sit still.' positioned below the marquee bands."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        807,
+        613,
+        414,
+        229
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "instruction": "Add a near-black rectangular block on the right side of the page (in the hero area) containing a big vivid red circle that pulses with an animated pulsing effec"
+    }
+  ],
+  "rejected": []
+}

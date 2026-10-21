@@ -15,8 +15,14 @@ import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegio
  * intermittent: fine while the model answered in one step, broken the moment
  * it took two. With tools:[] the model can't wander, so the extra turns buy
  * nothing but that headroom.
+ *
+ * 2026-10-21 (n41): 4 was still too tight. Traced design readings: the first
+ * StructuredOutput call often wraps the answer as {"actions": {...}} and is
+ * rejected, so a good reading already takes 3 turns; one more bad attempt
+ * (bad JSON, a missing key) and turn 4 ends it in error_max_turns. 6 leaves
+ * two retries; a retry costs only when it happens.
  */
-const PERCEPTION_MAX_TURNS = 4
+const PERCEPTION_MAX_TURNS = 6
 
 /**
  * s2c-056: a perception call had no time limit. With the API unreachable the
@@ -25,10 +31,13 @@ const PERCEPTION_MAX_TURNS = 4
  * only after 179 s; the bench page gave up at 100 s). Two minutes is past every
  * reading the rough bench timed; past it the person gets "press ▶ Run to try
  * again" and the cause. S2C_READING_TIMEOUT_MS overrides it.
+ * n41 (2026-10-21): round-3 design readings take 60-75s with ONE schema retry
+ * (6-7k output tokens each attempt), so a second retry passes 120s and timed
+ * out; three minutes leaves room for two.
  */
 export function perceptionTimeoutMs(env: Record<string, string | undefined> = process.env): number {
   const n = Number(env.S2C_READING_TIMEOUT_MS)
-  return Number.isFinite(n) && n > 0 ? n : 120_000
+  return Number.isFinite(n) && n > 0 ? n : 180_000
 }
 
 /** Run one perception query under the time limit; the timer is cleared either way. */

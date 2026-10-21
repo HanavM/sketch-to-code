@@ -1,0 +1,179 @@
+{
+  "id": "c4-brutal-index",
+  "at": "2026-10-21T11:12:12.400Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6507102757442557,
+    "overallV2": 0.6507102757442557,
+    "overallV1": 0.5790872707286496,
+    "colour": 0.8982999470443466,
+    "structure": 0.7258325514540616,
+    "structureStrict": 0.6034269996192831,
+    "colourAligned": 0.8982999470443466,
+    "structureAligned": 0.7258325514540616,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.403988429781197
+    },
+    "layout": 0.8152692279070558
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "mono",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 21645,
+    "output": 11447,
+    "cacheRead": 140862
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 23107,
+      "output": 7582,
+      "cacheRead": 131304,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app2/package.json",
+        "Read s2c-bench-app2/index.html",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 80787
+    }
+  ],
+  "reading": "The sketch lays out a brutalist index/landing page: a big page-number heading, a vertical sidebar label, three offset-shadow cards (Manifesto, Work, Contact), a tilted badge circle, and a footer copyright line, all per the typed notes which specify exact text, colors and style.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 177
+        }
+      ],
+      "region": [
+        48,
+        127,
+        366,
+        122
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set page-number heading reading \"01\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1183,
+        44,
+        54,
+        813
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Vertical, near-black label text reading \"INDEX OF THINGS\" running top-to-bottom along the right edge of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        83,
+        494,
+        254
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Card with white background, thick near-black border and a hard offset shadow, titled \"Manifesto\" with supporting body text beneath the title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        403,
+        413,
+        294
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Card with yellow background, thick near-black border and a hard offset shadow, titled \"Work\" with supporting body text beneath the title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        473,
+        393,
+        233
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Card with sky-blue background, thick near-black border and a hard offset shadow, titled \"Contact\" with the text \"hello@brutal.index\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        977,
+        577,
+        187,
+        186
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Tilted red-outline circular badge containing the text \"EST. 2019\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        848,
+        286,
+        9
+      ],
+      "paths": [],
+      "instruction": "Footer line in monospace text reading \"© BRUTAL INDEX — ALL RIGHTS IGNORED\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
