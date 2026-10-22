@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T12:35:00Z | Round 6 glass glows, dot, one-line headline | Glass 77 to 92%, poster dot right; sliced word 72% (rule thick again). 172k.
 2026-10-22T11:52:00Z | Round 6 rules, word size, trail, zine cells | Zine 86 to 89%, glass 72 to 77%, sliced word 69 to 73%, hills 83%; trail path right. 302k.
 2026-10-22T11:12:00Z | Round 6 hills sun, sliced word, price corner | Hills 76 to 85%, sliced word 53 to 69%, zine 86%; sun orange again. 328k.
 2026-10-22T10:25:00Z | Round 6 creative third builds | 3D cards 79 to 87%, zine 84 to 86%, sliced word 47 to 53%, hills 76% (sun green). 500k.

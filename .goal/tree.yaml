@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Hardest creative pages now: zine 89%, 3D cards 87%, hills 83%, glass 77%, sliced word 73%; next the glass page's glows and the poster's dot."
-lock: {by: run-20261022T1150, until: 2026-10-22T13:20:43Z}
+now: "Hardest creative pages now: glass 92%, zine 89%, 3D cards 87%, hills 83%, sliced word 72%; next the sliced word poster, then a harder round 7."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n90 (3ce125a on try/n3-vocabulary): page glows say hex, centre %, fade radius px, full strength at centre (radial-gradient spelled); flat textless disc >= 60px says size+hex; 40-99px multi-word one-line headings say ONE line nowrap + width. Live: c2 72 (dot right; rule thick, red half clipped), c4 89 then 92."
+  - "Token ledger: 2026-10-22 n90 live c2,c4 78k + c4 50k + c4 44k = ~172k billed."
   - "n89 (b918455, 506ce94, 74c7ce5 on try/n3-vocabulary): giant one-line word says type px; divider says exact thickness; turned word said first as part (1); lone copy in tall cell says top-left corner; SVG trail says 7 waypoints (loops only if self-crossing); filled band = whole block filled, left-set type inset (not for marquees). Live: c2 73, c4 77, c5 81 then 89, c3 83."
   - "Token ledger: 2026-10-22 n89 live c2,c4,c5 161k + c3,c5 141k = ~302k billed."
   - "n88 (e1bad3f, dc7ef71 on try/n3-vocabulary): grounding drops a stroke another action cites alone (its note no longer leaks: c3 sun built in the hills' green); sliced word says its cut lies on the rule (y px); banded heading in a tall cell says top-left corner + padding; codegen puts a backdrop first, never bare -z-10 (c3 hills vanished, 50%). Live: c2 69, c3 50 then 85, c5 86."
@@ -235,7 +237,8 @@ nodes:
      result: "Sun orange again (borrowed hills note dropped), cut on its rule, backdrops never -z-10: hills 85%, word 69%. dc7ef71."}
   - {id: n89, parent: n88, kind: step, title: "Free first, ~120k live: c2 rules built thick (2-3px target) and Tickets ~1.15x large; c5 LOUD dropped, quote low; c3 trail loops wrong. Then round-6 c4 glass (72%) re-run", status: done, branch: try/n3-vocabulary,
      result: "Thin rules, word size, turned word, trail path, whole bands said: zine 89%, glass 77%, word 73%, hills 83%. 74c7ce5."}
-  - {id: n90, parent: n89, kind: step, title: "Free first, ~150k live: c4 corner glows dimmer than target (say glow strength/size), c2 red dot squashed, c5 sticker hard shadow, c3 hills crest high; re-run c4, c2. Then write round 7 (harder) if all round-6 creative >= 80%", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n90, parent: n89, kind: step, title: "Free first, ~150k live: c4 corner glows dimmer than target (say glow strength/size), c2 red dot squashed, c5 sticker hard shadow, c3 hills crest high; re-run c4, c2. Then write round 7 (harder) if all round-6 creative >= 80%", status: done, branch: try/n3-vocabulary, result: "Glows, dot size, one-line headline said: glass 77 to 92%; dot right, word 72% (rule thick). 3ce125a."}
+  - {id: n91, parent: n90, kind: step, title: "Free first, ~120k live: c2 red half cut off at its right end and row rule thick again, vertical label small; c3 hills crest high; c5 sticker hard shadow. Re-run c2 (needs >= 80%), then write round 7 (harder)", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
