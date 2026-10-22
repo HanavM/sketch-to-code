@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Re-ran three dashboards after the pale-colour fix: colours held and all three scored higher (kanban 76%, funnel 80%, charts 78%). Next: the admin table's dropdowns and header checkbox."
-lock: null
+lock: {by: run-2026-10-22T2327Z, until: '2026-10-23T00:57:00Z'}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
