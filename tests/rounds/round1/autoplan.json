@@ -33,7 +33,7 @@
   "notes": [
    [
     "*",
-    "whole page: coral to pink to purple gradient page, Georgia type, white text"
+    "whole page: coral (#ff7a59) to pink (#ff4f7b at 45%) to purple (#7b2ff7) gradient, top to bottom page, Georgia type, white text"
    ],
    [
     "logo",
@@ -173,7 +173,7 @@
    ],
    [
     "orb",
-    "big glowing yellow to orange circle"
+    "a 440px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #ea580c 70%) so it looks lit from the top left; absolutely placed, top-left at 740,230, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ]
   ]
  },
@@ -223,7 +223,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy cyan to purple to light pink gradient text \"Ship at the speed of light\", set in exactly 2 lines: \"Ship at the speed of\" / \"light\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 988px wide)"
+    "giant Helvetica heavy cyan (#22d3ee) to purple (#a855f7 at 50%) to light pink (#f472b6) gradient, left to right text \"Ship at the speed of light\", set in exactly 2 lines: \"Ship at the speed of\" / \"light\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 988px wide)"
    ],
    [
     "subhead",

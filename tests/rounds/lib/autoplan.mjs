@@ -181,17 +181,38 @@ export function factsInPage() {
         const k = [...el.querySelectorAll('*')].find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage))
         return k ? { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), bgImage: getComputedStyle(k).backgroundImage, bgImageColours: colours(getComputedStyle(k).backgroundImage) } : null
       })(),
+      // one word whose letters each carry their own size and weight (round 7 c2 'VARIABLE' wave: no note, invented copy)
+      letterWave: (() => {
+        if (kids.length < 3 || kids.length > 24) return null
+        const ls = kids.map((k) => { const s = getComputedStyle(k); return { t: (k.innerText || '').trim(), px: Math.round(parseFloat(s.fontSize)), w: +s.fontWeight } })
+        if (ls.some((l) => !l.t || l.t.length > 2)) return null
+        const pxs = ls.map((l) => l.px), ws = ls.map((l) => l.w)
+        if (Math.max(...pxs) - Math.min(...pxs) < 12 && Math.max(...ws) - Math.min(...ws) < 300) return null
+        if (Math.max(...pxs) < 40) return null
+        return { letters: ls, width: Math.round(r.width), top: Math.round(r.top), left: Math.round(r.left), colour: rgba(getComputedStyle(el).color) }
+      })(),
+      // a tile holding a stack of thin empty bars under a small label (round 7 c1 list tile: said 'near-black "SYNC"')
+      barStack: (() => {
+        const bs = kids.filter((k) => !k.children.length && !(k.innerText || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 && k.getBoundingClientRect().height <= 16 && k.getBoundingClientRect().width >= 40)
+        if (bs.length < 3) return null
+        const b0 = bs[0].getBoundingClientRect(), b1 = bs[1].getBoundingClientRect()
+        return { bars: bs.map((k) => { const b = k.getBoundingClientRect(); return { c: rgba(getComputedStyle(k).backgroundColor), pct: Math.round((b.width / bs.reduce((m, q) => Math.max(m, q.getBoundingClientRect().width), 0)) * 100) } }), h: Math.round(b0.height), gap: Math.round(b1.top - b0.bottom), top: Math.round(b0.top - r.top), radius: Math.round(parseFloat(getComputedStyle(bs[0]).borderTopLeftRadius)) }
+      })(),
       // SVG art (not a chart): filled shapes back to front and stroked paths (round 6 c3 hills: one bare box)
       svgArt: (() => {
-        const svg = el.tagName.toLowerCase() === 'svg' ? el : null
+        // an <svg>, or a <g> group marked inside one (round 7 c4 cubes: three faces per group, said as bare boxes)
+        const svg = el.tagName.toLowerCase() === 'svg' || (el.tagName.toLowerCase() === 'g' && el.ownerSVGElement) ? el : null
         if (!svg) return null
         const fills = [...svg.querySelectorAll('path, polygon, ellipse, rect')].filter((p) => getComputedStyle(p).fill !== 'none' && rgba(getComputedStyle(p).fill)?.a > 0.05)
           .map((p) => { const b = p.getBoundingClientRect(); return { c: rgba(getComputedStyle(p).fill), top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''),
+            // a polygon's corners in page px (skyline steps, cube faces: round 7 c3/c4 built as bare boxes)
+            pts: (() => { if (p.tagName.toLowerCase() !== 'polygon') return null; const m = p.getScreenCTM(); if (!m) return null; return [...p.points].map((q) => [Math.round(m.a * q.x + m.c * q.y + m.e), Math.round(m.b * q.x + m.d * q.y + m.f)]) })(),
             // the top edge's height at 5 points across: a crest alone was built with the hill's left side high (round 6 c3)
             edge: (() => { try { if (!p.getTotalLength) return null; const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; const pts = Array.from({ length: 401 }, (_, i) => { const q = p.getPointAtLength((L * i) / 400); return [m.a * q.x + m.c * q.y + m.e, m.b * q.x + m.d * q.y + m.f] }); const xs = [0, 1, 2, 3, 4].map((i) => b.left + ((b.right - b.left) * i) / 4); const tol = (b.right - b.left) / 40; return xs.map((X) => { const near = pts.filter(([x]) => Math.abs(x - X) <= tol); return near.length ? [Math.round(X), Math.round(Math.min(...near.map(([, y]) => y)))] : null }) } catch { return null } })() } })
         const strokes = [...svg.querySelectorAll('path, polyline, line')].filter((p) => getComputedStyle(p).fill === 'none' || p.tagName === 'line').filter((p) => rgba(getComputedStyle(p).stroke)?.a > 0.05)
-          .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth)), dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''), via: (() => { try { const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; return [0, 1, 2, 3, 4, 5, 6].map((i) => { const q = p.getPointAtLength((L * i) / 6); return [Math.round(m.a * q.x + m.c * q.y + m.e), Math.round(m.b * q.x + m.d * q.y + m.f)] }) } catch { return null } })() } })
-        return fills.length >= 2 || (fills.length && strokes.length) ? { fills, strokes } : null
+          .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { straight: p.tagName.toLowerCase() === 'line', c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth) * 2) / 2, dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''), via: (() => { try { const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; return [0, 1, 2, 3, 4, 5, 6].map((i) => { const q = p.getPointAtLength((L * i) / 6); return [Math.round(m.a * q.x + m.c * q.y + m.e), Math.round(m.b * q.x + m.d * q.y + m.f)] }) } catch { return null } })() } })
+        // one lone polygon is art too (a skyline silhouette), but a lone rect or circle is not
+        return fills.length >= 2 || (fills.length && strokes.length) || (fills.length === 1 && fills[0].pts?.length >= 5) || strokes.length >= 2 ? { fills, strokes } : null
       })(),
       // what sits inside a textless glass panel: a strip, a bar chart, an open ring (round 6 c4: 'frosted glass' only)
       glassParts: (() => {
@@ -772,7 +793,7 @@ export function factsInPage() {
       const base = r.map((b) => Math.round(b.bottom)), hs = r.map((b) => Math.round(b.height))
       if (Math.max(...base) - Math.min(...base) <= 2 && new Set(hs).size >= 3 && r.every((b) => b.width < b.height * 2.5)) {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
-        return { type: 'bars', count: bars.length, colour: filled(bars[0]), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)) }
+        return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && o.length <= 2 ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)) }
       }
     }
     // chat bubbles: rounded filled boxes, some hugging the left, some the right
@@ -1009,7 +1030,18 @@ function gradientWords(f) {
     const say = (c) => `${vivid(c) ? 'vivid ' : ''}${colourName(c)}`
     return `${say(cs[0])} (${ends[0]}) to ${say(cs[cs.length - 1])} (${ends[1]}) gradient`
   }
+  // three or more stops in a straight blend: each stop's hex and where it sits, or the middle one is lost
+  // (round 7 c3 sky #0f172a → #312e81 55% → #be185d said 'dark navy to dark grey to dark pink', built dark grey)
+  const stops = linearStops(f.bgImage)
+  if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? ` at ${x.at}%` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
   return `${names.join(' to ')} gradient`
+}
+/** Colour stops of a single linear-gradient: [{c, at%}], null when there is more than one layer or a stop is see-through. */
+function linearStops(bgImage) {
+  if (!/^linear-gradient/.test(bgImage.trim()) || (bgImage.match(/gradient\(/g) || []).length !== 1) return null
+  const xs = [...bgImage.matchAll(/(rgba?\([^)]+\))\s*([\d.]+(?:%|px))?/g)].map((m) => ({ c: parse(m[1]), at: m[2] }))
+  if (xs.length < 3 || xs.some((x) => !x.c || x.c.a < 0.3)) return null
+  return xs.map((x, i) => ({ c: x.c, at: x.at && /%$/.test(x.at) ? Math.round(parseFloat(x.at)) : Math.round((100 * i) / (xs.length - 1)) }))
 }
 /** Start and end sides of a linear-gradient: 160deg -> ['top', 'bottom'], 135deg -> ['top left', 'bottom right']. */
 function linearEnds(bgImage) {
@@ -1176,7 +1208,8 @@ function denseNote(d) {
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
-    case 'bars': return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
+    case 'bars': if (d.odd) return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${d.odd.o.map(([i, c]) => `bar ${i + 1} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`
+      return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'tiles': return `grid of ${d.items.length} ${d.bordered ? 'bordered rounded ' : ''}tiles, ${d.cols} per row, each a coloured picture block on top, then name, then small grey line: ${d.items.map((x) => `${x.grad ? `${colourName(x.grad[0])} to ${colourName(x.grad[x.grad.length - 1])} gradient` : colourName(x.pic)} ${quote(x.parts[0], 24)}${x.parts[1] ? ` ${x.parts[1]}` : ''}`).join(', ')}${d.sel ? `; ${quote(d.sel.t, 24)} selected (${colourName(d.sel.c)} ${d.sel.w}px border)` : ''}`
@@ -1302,6 +1335,18 @@ function decideOne(f, page, marked, said) {
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
   const frosted = fx.includes('frosted glass')
 
+  // ---- round 7 creative (n94)
+  // a word set letter by letter, each letter its own size and weight on one baseline
+  if (f.letterWave && !f.regionKids.length) {
+    const lw = f.letterWave
+    const word = lw.letters.map((l) => l.t).join('')
+    const face = faceName(f.font.family)
+    return { kind: 'heading', note: withFx(`the one word "${word}" in giant ${face ? `${face} ` : ''}${colourName(lw.colour) ?? ''} letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): ${lw.letters.map((l) => `${l.t} ${l.px}px weight ${l.w}`).join(', ')}; about ${lw.width}px wide, white-space: nowrap; no other copy here (not a paragraph)`) }
+  }
+  if (f.barStack && fill && !f.regionKids.length && h >= 100) {
+    const bs = f.barStack, main = bs.bars[1] ?? bs.bars[0]
+    return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) tile, ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${colourName(f.border.colour)} (${hexOf(f.border.colour)}) border` : ''}${f.text ? `, small wide-spaced label ${quote(f.text, 24)} top left` : ''}; under it a stack of ${bs.bars.length} empty ${bs.h}px bars (${bs.radius}px rounded) ${bs.gap}px apart, first one ${bs.top}px from the top: ${bs.bars.map((b) => `${colourName(b.c)} ${b.pct}% wide`).join(', ')}`) }
+  }
   // ---- round 6 creative (n79)
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
   if (f.svgArt && !f.regionKids.length) {
@@ -1310,10 +1355,12 @@ function decideOne(f, page, marked, said) {
     const hills = wide.length >= 2 && wide.every((x) => x.curvy && x.bottom >= f.rect.y + h - 4)
     const sh = hills
       ? `${wide.length} layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: ${wide.map((x) => `${vivid(x.c) ? 'vivid ' : ''}${colourName(x.c)} (${hexOf(x.c)}) cresting about ${x.top}px down${x.edge && x.edge.every(Boolean) ? ` (its top edge about ${x.edge.map(([, y]) => y).join(', ')}px down at the left edge, quarter, middle, three-quarters and right edge)` : ''}`).join(', ')}`
-      : `${fills.length} filled shapes: ${fills.map((x) => `${colourName(x.c)} ${x.right - x.left}x${x.bottom - x.top}px at ${x.left},${x.top}`).join(', ')}`
+      : polyWords(fills) ?? `${fills.length} filled shapes: ${fills.map((x) => `${colourName(x.c)} ${x.right - x.left}x${x.bottom - x.top}px at ${x.left},${x.top}`).join(', ')}`
     const crosses = (v) => { const X = (a, b, c, d) => { const o = (p, q, r) => Math.sign((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])); return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0 }; for (let i = 0; i < v.length - 1; i++) for (let j = i + 2; j < v.length - 1; j++) if (X(v[i], v[i + 1], v[j], v[j + 1])) return true; return false }
     // a curving trail says the points it passes through in order: 'from about x,y up and across to x,y'
     // (its box corners) was built as a loop-de-loop elsewhere (round 6 c3, n88)
+    // straight leader lines alone (round 7 c4: dashed pointers to labels, unsaid)
+    if (!fills.length && strokes.every((x) => x.straight && x.via)) return { kind: 'box', note: withFx(`${strokes.length} separate thin straight ${strokes[0].dash ? `dashed (${strokes[0].dash}px dashes) ` : ''}${strokes[0].w}px ${colourName(strokes[0].c)} lines in one <svg> laid over the page (no box, no fill), page px: ${strokes.map((x) => `from ${x.via[0].join(',')} to ${x.via[6].join(',')}`).join('; ')}`) }
     const tr = strokes.map((x) => x.curvy && x.via ? `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} smooth curving line (no fill${crosses(x.via) ? ', it loops over itself' : ', no loops, never crossing itself'}) passing in order through about ${x.via.map(([a, b]) => `${a},${b}`).join(' → ')} (page px)` : `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} ${x.curvy ? 'curving, looping ' : ''}line (no fill) from about ${x.x},${x.bottom} up and across to ${x.right},${x.y}`)
     return { kind: 'box', note: withFx(`drawn shapes, no picture, no box: ${sh}${tr.length ? `; plus ${tr.join(', ')}` : ''}`) }
   }
@@ -1457,6 +1504,14 @@ function decideOne(f, page, marked, said) {
     const paint = grad ?? `${fill && vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}`
     return { kind: 'shape', note: withFx(`${paint} arch (round top, flat bottom)`), poly }
   }
+  // a lit sphere: a textless round radial blend with an off-centre highlight and a coloured glow (round 7 c1 orb:
+  // 'big glowing ... circle' built as a faint glow behind the tiles)
+  if (round && square && !f.text && /^radial-gradient/.test(f.bgImage.trim()) && w >= 100) {
+    const at = f.bgImage.match(/at\s+([\d.]+)%\s+([\d.]+)%/)
+    const st = [...f.bgImage.matchAll(/(rgba?\([^)]+\))\s*([\d.]+)(%|px)?/g)].map((m) => ({ c: parse(m[1]), at: m[3] === '%' ? Math.round(+m[2]) : 0 }))
+    const sg = f.shadows.find((x) => !x.clear && x.blur >= 10)
+    return { kind: 'circle', note: withFx(`a ${Math.round(w)}px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at ${at ? `${at[1]}% ${at[2]}%` : 'center'}, ${st.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}) so it looks lit from ${at && +at[1] < 50 ? 'the top left' : 'above'}${sg ? `, with a big soft ${colourName({ ...sg.c, a: 1 })} glow under it (box-shadow ${sg.x}px ${sg.y}px ${sg.blur}px, ${Math.round(sg.c.a * 100)}% opacity)` : ''}; absolutely placed, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ON TOP of every tile it overlaps (highest z-index, nothing covers it)`) }
+  }
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
@@ -1578,7 +1633,7 @@ function decideOne(f, page, marked, said) {
     // orange band were built white like the black band's
     // the band is the whole block, filled edge to edge, and left-set type says so: 'on a yellow band' was
     // built as a yellow strip behind the letters only, and the masthead centred (round 6 c5, n89)
-    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band (the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
+    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band (${Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.h ? `the band itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt (height: ${f.layoutBox.h}px, only ${f.layoutBox.h}px thick; the tilt alone makes its outline ${Math.round(h)}px tall), filled ${colourName(f.bg)} edge to edge` : `the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge`}${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
     const sk = f.subKid && f.text.endsWith(f.subKid.t) && f.text.length > f.subKid.t.length ? f.subKid : null
     if (sk) {
@@ -1713,6 +1768,35 @@ function decideOne(f, page, marked, said) {
 }
 
 // a display title over a smaller line (round 5 c5 hero: 76px 'Prism 2' over 18px copy was built swapped)
+/**
+ * Flat SVG polygons said as shapes (round 7: c3 skylines and c4 cube faces were bare boxes, built as nothing).
+ * A stepped silhouette says its rooftops; a few small polygons say their fill and corners in page px.
+ */
+function polyWords(fills) {
+  if (!fills.length || !fills.every((x) => x.pts?.length >= 3)) return null
+  const P = (pts) => pts.map(([a, b]) => `${a},${b}`).join(' ')
+  const ink = (x) => `${colourName(x.c)} (${hexOf(x.c)})`
+  // a skyline: one wide polygon whose edges all run straight across or straight up
+  if (fills.length === 1) {
+    const x = fills[0], pts = x.pts
+    const square = pts.every(([a, b], i) => { const [c, d] = pts[(i + 1) % pts.length]; return a === c || b === d })
+    if (square && pts.length >= 8 && x.right - x.left >= 600) {
+      const roofs = []
+      for (let i = 0; i < pts.length; i++) { const [a, b] = pts[i], [c, d] = pts[(i + 1) % pts.length]; if (b === d && b < x.bottom - 2 && c !== a) roofs.push([Math.min(a, c), Math.max(a, c), b]) }
+      roofs.sort((p, q) => p[0] - q[0])
+      return `flat ${ink(x)} city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, ${x.right - x.left}px wide, no outlines, no windows, no gradient; ${roofs.length} rooftops left to right (page px, x from-to at y px down): ${roofs.map(([a, c, b]) => `${a}-${c} at ${b}`).join(', ')}; the shape is filled solid from each rooftop down to ${x.bottom}px (exact polygon points: ${P(pts)})`
+    }
+  }
+  if (fills.length > 4 || fills.some((x) => x.pts.length > 6)) return null
+  const lum = (c) => 0.3 * c.r + 0.59 * c.g + 0.11 * c.b
+  // three four-cornered faces sharing corners: an isometric cube (top lightest, sides darker)
+  const shared = (a, b) => a.pts.filter(([p, q]) => b.pts.some(([r, t]) => Math.abs(p - r) <= 1 && Math.abs(q - t) <= 1)).length
+  const cube = fills.length === 3 && fills.every((x) => x.pts.length === 4) && shared(fills[0], fills[1]) >= 2 && shared(fills[0], fills[2]) >= 2 && shared(fills[1], fills[2]) >= 2
+  const xs = fills.map((x) => x.left), ys = fills.map((x) => x.top)
+  const box = [Math.min(...xs), Math.min(...ys), Math.max(...fills.map((x) => x.right)), Math.max(...fills.map((x) => x.bottom))]
+  const faces = fills.map((x, i) => `${cube ? ['top face', 'left face', 'right face'][i] ?? 'face' : `shape ${i + 1}`} ${ink(x)} corners ${P(x.pts)}`)
+  return `${cube ? `an isometric cube (${box[2] - box[0]}x${box[3] - box[1]}px, top left at ${box[0]},${box[1]}) drawn as 3 flat filled SVG polygons, top face lightest, ${lum(fills[1].c) > lum(fills[2].c) ? 'left face mid, right face darkest' : 'right face mid, left face darkest'}` : `${fills.length} flat filled SVG polygons`}, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): ${faces.join('; ')}`
+}
 function titleWords(kb, h) {
   if (kb.length !== 2 || kb[0].s < 40 || kb[0].s < kb[1].s * 2) return ''
   const down = kb[0].top >= h * 0.25 ? `, starting ${Math.round((kb[0].top / h) * 100)}% down` : ''
@@ -1876,6 +1960,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
     const k = out.get(f.role).kind
     if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
+    // a letter-by-letter word is drawn as one line of its biggest letters, not a paragraph (round 7 c2: 16px x 7 lines)
+    if (k === 'heading' && f.letterWave) return [f.role, k, { fontPx: Math.max(...f.letterWave.letters.map((l) => l.px)), lines: 1 }]
     if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]
     // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px
     // were drawn 24px apart, read as 16px type, built as one small line)

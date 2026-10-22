@@ -53,7 +53,7 @@
    ],
    [
     "list-tile",
-    "near-black \"SYNC\""
+    "near-black (#18181b) tile, 300x420px, 28px rounded, 1px dark grey (#3f3f46) border, small wide-spaced label \"SYNC\" top left; under it a stack of 6 empty 10px bars (5px rounded) 14px apart, first one 58px from the top: cyan 70% wide, dark grey 100% wide, dark grey 80% wide, dark grey 100% wide, dark grey 55% wide, dark grey 100% wide"
    ],
    [
     "quote-tile",
@@ -65,11 +65,11 @@
    ],
    [
     "chart-tile",
-    "near-black, bar chart \"WEEKLY FOCUS\", 10 dark grey bars, heights 42/68/53/100/74/47/63/84/37/58% of the tallest"
+    "near-black, bar chart \"WEEKLY FOCUS\", 10 bars, all dark grey (#3f3f46) except bar 4 vivid yellow (#facc15), heights 42/68/53/100/74/47/63/84/37/58% of the tallest"
    ],
    [
     "orb",
-    "big glowing white to light pink to purple circle"
+    "a 300px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffffff 0%, #f472b6 30%, #7c3aed 75%) so it looks lit from the top left, with a big soft dark pink glow under it (box-shadow 0px 30px 80px, 60% opacity); absolutely placed, top-left at 470,330, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ],
    [
     "big-number",
@@ -85,10 +85,10 @@
    ],
    [
     "wave-word",
-    "text",
+    "heading",
     {
-     "fontPx": 16,
-     "lines": 7
+     "fontPx": 220,
+     "lines": 1
     }
    ],
    [
@@ -138,12 +138,16 @@
     "bold 18px \"FLEX/TYPE\" left, \"Specimen · Axes · Buy\" right"
    ],
    [
+    "wave-word",
+    "the one word \"VARIABLE\" in giant Helvetica near-black letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): V 120px weight 100, A 150px weight 300, R 180px weight 500, I 200px weight 700, A 220px weight 900, B 200px weight 700, L 180px weight 500, E 150px weight 300; about 837px wide, white-space: nowrap; no other copy here (not a paragraph)"
+   ],
+   [
     "outline-line",
     "giant Helvetica heavy tight-set letters hollow outlined near-black \"100—900\", 170px type, about 695px wide (no larger)"
    ],
    [
     "band",
-    "tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange band (the whole 1501x242px block filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) \"ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE\", on ONE line (white-space: nowrap, never wrapped), about 1552px wide"
+    "tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange band (the band itself 1500x86px before the tilt (height: 86px, only 86px thick; the tilt alone makes its outline 242px tall), filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) \"ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE\", on ONE line (white-space: nowrap, never wrapped), about 1552px wide"
    ],
    [
     "axis",
@@ -217,7 +221,7 @@
   "notes": [
    [
     "*",
-    "whole page: dark navy to dark grey to dark pink gradient page, Helvetica type, white text"
+    "whole page: dark navy (#0f172a) to dark grey (#312e81 at 55%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text"
    ],
    [
     "logo",
@@ -238,6 +242,14 @@
    [
     "cta",
     "soft yellow outline pill button \"Start walking\""
+   ],
+   [
+    "skyline-back",
+    "faded to 55% opacity (see-through) drawn shapes, no picture, no box: flat deep purple (#4c1d95) city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, 1280px wide, no outlines, no windows, no gradient; 14 rooftops left to right (page px, x from-to at y px down): 0-90 at 710, 90-160 at 660, 160-260 at 730, 260-330 at 620, 330-430 at 700, 430-520 at 650, 520-640 at 740, 640-700 at 600, 700-820 at 720, 820-900 at 670, 900-1010 at 750, 1010-1080 at 630, 1080-1180 at 710, 1180-1280 at 680; the shape is filled solid from each rooftop down to 900px (exact polygon points: 0,900 0,710 90,710 90,660 160,660 160,730 260,730 260,620 330,620 330,700 430,700 430,650 520,650 520,740 640,740 640,600 700,600 700,720 820,720 820,670 900,670 900,750 1010,750 1010,630 1080,630 1080,710 1180,710 1180,680 1280,680 1280,900)"
+   ],
+   [
+    "skyline-front",
+    "drawn shapes, no picture, no box: flat near-black indigo (#0b0617) city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, 1280px wide, no outlines, no windows, no gradient; 12 rooftops left to right (page px, x from-to at y px down): 0-120 at 790, 120-200 at 740, 200-340 at 810, 340-400 at 720, 400-460 at 690, 460-600 at 780, 600-720 at 750, 720-860 at 820, 860-940 at 730, 940-1060 at 770, 1060-1140 at 710, 1140-1280 at 800; the shape is filled solid from each rooftop down to 900px (exact polygon points: 0,900 0,790 120,790 120,740 200,740 200,810 340,810 340,720 400,720 400,690 460,690 460,780 600,780 600,750 720,750 720,820 860,820 860,730 940,730 940,770 1060,770 1060,710 1140,710 1140,800 1280,800 1280,900)"
    ]
   ]
  },
@@ -316,6 +328,22 @@
    [
     "cta",
     "deep indigo white text button \"Deploy now\""
+   ],
+   [
+    "cube-top",
+    "drawn shapes, no picture, no box: an isometric cube (260x210px, top left at 750,170) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face lavender (#a5b4fc) corners 880,170 1010,245 880,320 750,245; left face indigo (#6366f1) corners 750,245 880,320 880,380 750,305; right face indigo (#4338ca) corners 880,320 1010,245 1010,305 880,380"
+   ],
+   [
+    "cube-mid",
+    "drawn shapes, no picture, no box: an isometric cube (260x210px, top left at 750,330) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face pale pink (#f9a8d4) corners 880,330 1010,405 880,480 750,405; left face pink (#ec4899) corners 750,405 880,480 880,540 750,465; right face dark pink (#be185d) corners 880,480 1010,405 1010,465 880,540"
+   ],
+   [
+    "cube-base",
+    "drawn shapes, no picture, no box: an isometric cube (360x280px, top left at 700,490) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face yellow (#fde047) corners 880,490 1060,595 880,700 700,595; left face amber (#eab308) corners 700,595 880,700 880,770 700,665; right face brown (#a16207) corners 880,700 1060,595 1060,665 880,770"
+   ],
+   [
+    "leaders",
+    "3 separate thin straight dashed (5px dashes) 1.5px deep indigo lines in one <svg> laid over the page (no box, no fill), page px: from 1010,270 to 1110,230; from 750,430 to 640,470; from 1060,630 to 1130,680"
    ],
    [
     "label-edge",

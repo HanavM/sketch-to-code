@@ -57,3 +57,24 @@ Each build was one codegen turn (no repair). The misses are the ones the plan re
 leaves unsaid is dropped or invented. Next: say the wave word (per-letter size/weight), SVG polygons (skyline tops,
 cube faces) as shapes with fill, a page gradient's middle stop, a filled orb with glow over other tiles (z-order),
 near-black tiles' fill; then live c4, c5 and re-run c1-c3.
+
+## n94: planner says the round-7 creative shapes (2026-10-22)
+
+New rules (rounds 2, 4, 5, 6 plans unchanged; rounds 1 and 3 gain hex stops on three 3-stop gradients):
+- a word set letter by letter (each its own size/weight) is a heading drawn at its biggest letter, and says every
+  letter's px and weight on one baseline (c2 "VARIABLE");
+- SVG polygons are shapes: a stepped silhouette says its rooftops and exact points (c3 skylines), three faces sharing
+  corners say "isometric cube" with each face's hex and corners (c4), a `<g>` inside an SVG counts, straight dashed
+  leader lines say their ends (c4);
+- a straight gradient with 3+ stops says each hex and where the middle stop sits (c3 sky);
+- a textless round radial blend is a lit sphere with its stops, highlight, glow and "on top of the tiles" (c1 orb);
+- a tile with a stack of thin bars says the bars (c1 list), a bar chart with one or two odd bars says which (c1 yellow);
+- a tilted band says its own thickness before the tilt (c2: 86px band was said as its 242px outline, built 2x tall).
+
+Live (~294k billed, c2 before the heading/band fix):
+
+| page | before (n92) | now | what's left |
+|---|---|---|---|
+| c2 variable wave | 16% | 37% | wave word built right; band ~2x thick and low (fixed after, re-run below) |
+| c3 parallax night | 73% | 90% | both skylines and the 3-stop sky right; moon halo rings and soft clouds still missing |
+| c4 isometric stack | — | 91% | three cubes and dashed leaders right; faint sketch outlines leak round cubes, "three" highlight missing, labels pills not boxed |

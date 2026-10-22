@@ -117,7 +117,7 @@
   "notes": [
    [
     "*",
-    "whole page: soft yellow to bright orange to dark pink gradient page, Helvetica type, white text"
+    "whole page: soft yellow (#fde68a) to bright orange (#fb923c at 45%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text"
    ],
    [
     "nav",
@@ -125,7 +125,7 @@
    ],
    [
     "sun",
-    "big glowing off-white to peach circle"
+    "a 260px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #fff7ed 0%, #fdba74 70%) so it looks lit from above, with a big soft cream glow under it (box-shadow 0px 0px 120px, 70% opacity); absolutely placed, top-left at 820,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ],
    [
     "headline",
@@ -207,11 +207,11 @@
    ],
    [
     "band-black",
-    "tilted 4° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase off-white on a near-black band (the whole 1407x247px block filled near-black edge to edge) \"MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION\"…"
+    "tilted 4° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase off-white on a near-black band (the band itself 1400x150px before the tilt (height: 150px, only 150px thick; the tilt alone makes its outline 247px tall), filled near-black edge to edge) \"MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION\"…"
    ],
    [
     "band-orange",
-    "tilted 3° clockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase near-black letters on a red-orange band (the whole 1404x183px block filled red-orange edge to edge) \"BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS\"…"
+    "tilted 3° clockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase near-black letters on a red-orange band (the band itself 1400x110px before the tilt (height: 110px, only 110px thick; the tilt alone makes its outline 183px tall), filled red-orange edge to edge) \"BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS\"…"
    ],
    [
     "intro",
@@ -289,7 +289,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) lavender to light pink to cyan gradient text \"Compute at orbit speed\", set in exactly 2 lines: \"Compute at orbit\" / \"speed\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 816px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) lavender (#a78bfa) to light pink (#f472b6 at 50%) to cyan (#22d3ee) gradient, left to right text \"Compute at orbit speed\", set in exactly 2 lines: \"Compute at orbit\" / \"speed\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 816px wide)"
    ],
    [
     "body",

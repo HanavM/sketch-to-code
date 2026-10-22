@@ -1,23 +1,23 @@
 {
   "id": "c3-parallax-night",
-  "at": "2026-10-22T13:20:42.757Z",
+  "at": "2026-10-22T13:48:11.718Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7338447242779015,
-    "overallV2": 0.7338447242779015,
-    "overallV1": 0.6915156298596016,
-    "colour": 0.8756852810993255,
-    "structure": 0.7254930433862419,
-    "structureStrict": 0.629537834593133,
-    "colourAligned": 0.8756852810993255,
-    "structureAligned": 0.7254930433862419,
+    "overall": 0.9044254912193415,
+    "overallV2": 0.9044254912193415,
+    "overallV1": 0.8533118120560106,
+    "colour": 0.9797636752884136,
+    "structure": 0.8988946581235049,
+    "structureStrict": 0.7830258018745747,
+    "colourAligned": 0.9797636752884136,
+    "structureAligned": 0.8988946581235049,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8065248962690361
+      "r": 0.8962628664495795
     },
-    "layout": 0.7092780850269096
+    "layout": 0.8614752213960843
   },
   "effects": {
     "recall": 0.75,
@@ -34,54 +34,44 @@
     ]
   },
   "tokens": {
-    "input": 38456,
-    "output": 24374,
-    "cacheRead": 320534
+    "input": 63353,
+    "output": 41648,
+    "cacheRead": 656937
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 42492,
-      "output": 15648,
-      "cacheRead": 310090,
-      "toolCalls": 13,
+      "billed": 80920,
+      "output": 31245,
+      "cacheRead": 645412,
+      "toolCalls": 19,
       "tools": [
-        "Read components/SketchShape.tsx",
-        "Read components/CitySkyline.tsx",
-        "Glob",
         "Glob",
         "Read src/App.tsx",
+        "Read components/Moon.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/CitySkyline.tsx",
+        "Read components/CitySkyline2.tsx",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
+        "Edit components/Moon.tsx",
         "Edit components/SketchShape.tsx",
         "Edit components/CitySkyline.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx"
+        "Edit components/CitySkyline2.tsx",
+        "Write src/App.tsx",
+        "Read components/Moon.tsx",
+        "Edit components/Moon.tsx",
+        "Edit components/Moon.tsx",
+        "Read components/Moon.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/CitySkyline.tsx",
+        "Edit components/CitySkyline2.tsx"
       ],
-      "ms": 171969
+      "ms": 312925
     }
   ],
-  "reading": "A dark hero section is being sketched: wordmark logo, a flat yellow disc (moon) sitting on a skyline silhouette, a big two-line gradient headline, a body paragraph, and a pill button, all inside a full-bleed gradient hero container.",
+  "reading": "This is a full hero section for a 'Nocturne' night-city landing page: a wide-letter-spaced wordmark, a flat pale-yellow moon disc with a simple building+antenna accent beside it, a giant two-line gradient headline 'The city / after dark', a body paragraph, an outlined pill CTA button 'Start walking', two layered flat-color city-skyline silhouettes across the bottom, and an overall navy-to-purple-to-pink page gradient background with white Helvetica type.",
   "actions": [
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        543,
-        1273,
-        354
-      ],
-      "paths": [
-        "s9",
-        "s10"
-      ],
-      "instruction": "Create the overall hero/page section as a full-bleed container with a gradient background going from dark navy to dark grey to dark pink; use Helvetica typeface"
-    },
     {
       "kind": "add",
       "textMarks": [
@@ -95,7 +85,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add a small wordmark/logo text reading \"NOCTURNE\" with wide letter-spacing, placed top-left of the hero section."
+      "instruction": "Add a wordmark/logo text reading 'NOCTURNE' set in wide-spaced (letter-spaced) capital letters, white text, top-left of the hero, per page typography (Helvetica"
     },
     {
       "kind": "add",
@@ -110,10 +100,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a perfectly round solid disc (not traced from the rough ink circle, use a true 50% border-radius), 180px across, flat fully opaque pale yellow (#fef3c7) fil"
+      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 180px across, flat fully opaque pale yellow (#fef3c7) fill, hard edge, no blur — "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -127,7 +117,7 @@
         "s3",
         "s11"
       ],
-      "instruction": "Add a simple city skyline / buildings silhouette illustration (flat rooftop block beneath the moon, a second building block to the right, and a thin vertical an"
+      "instruction": "Add a small decorative accent beside the moon: a thin horizontal bar at the moon's base and a second thin horizontal bar further right with a tall vertical line"
     },
     {
       "kind": "add",
@@ -152,7 +142,7 @@
         228
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica heavy headline set tight (line-height ~0.95) with a soft yellow (left) to light pink (right) gradient fill, reading \"The city\" / \"after da"
+      "instruction": "Add a giant Helvetica Heavy, tight-set (line-height 0.95) headline with a soft-yellow (left) to light-pink (right) gradient text fill, set in exactly 2 lines: '"
     },
     {
       "kind": "add",
@@ -177,7 +167,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Add a body paragraph of white text reading \"Five layers of skyline that drift apart as you scroll. A night walk through the old port.\" beneath the headline."
+      "instruction": "Add body paragraph text: 'Five layers of skyline that drift apart as you scroll. A night walk through the old port.' — white text, below the headline."
     },
     {
       "kind": "add",
@@ -192,8 +182,42 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a pill-shaped button with a soft yellow outline (transparent fill) labeled \"Start walking\", placed below the body paragraph."
+      "instruction": "Add a pill-shaped button with a soft-yellow outline (no fill), labeled 'Start walking'."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        543,
+        1273,
+        354
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "Add a faded (55% opacity) flat deep purple (#4c1d95) city-skyline silhouette: one filled SVG polygon of flat-topped rooftop blocks standing on the bottom edge, "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        543,
+        1273,
+        354
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "Add a flat near-black indigo (#0b0617) city-skyline silhouette in front of the purple layer: one filled SVG polygon of flat-topped rooftop blocks standing on th"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }
