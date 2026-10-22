@@ -1,65 +1,95 @@
 {
   "id": "c5-brutal-zine",
-  "at": "2026-10-22T11:30:41.706Z",
+  "at": "2026-10-22T11:48:40.893Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8120460993655658,
-    "overallV2": 0.8120460993655658,
-    "overallV1": 0.7483190991031443,
-    "colour": 0.929671741932332,
-    "structure": 0.8460859485942379,
-    "structureStrict": 0.7399549586888329,
-    "colourAligned": 0.929671741932332,
-    "structureAligned": 0.8460859485942379,
+    "overall": 0.8893905711281038,
+    "overallV2": 0.8893905711281038,
+    "overallV1": 0.8178213094931608,
+    "colour": 0.9706545563548733,
+    "structure": 0.8999280206767184,
+    "structureStrict": 0.780736523307675,
+    "colourAligned": 0.9706545563548733,
+    "structureAligned": 0.8999280206767184,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9296796957162912
+      "r": 0.968720671777355
     },
-    "layout": 0.9380366517373944
+    "layout": 0.938621002188351
   },
   "effects": {
-    "recall": 0.8,
+    "recall": 1,
     "kept": [
+      "gradient",
       "huge-type",
       "mono",
       "overlap",
       "tilt"
     ],
-    "missing": [
-      "gradient"
-    ],
+    "missing": [],
     "extra": [
-      "bleed"
+      "hard-shadow",
+      "uppercase-display",
+      "vertical-type"
     ]
   },
   "tokens": {
-    "input": 23019,
-    "output": 16467,
-    "cacheRead": 118319
+    "input": 42060,
+    "output": 29021,
+    "cacheRead": 161262
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 28975,
-      "output": 10549,
-      "cacheRead": 115235,
-      "toolCalls": 6,
+      "billed": 56341,
+      "output": 22950,
+      "cacheRead": 150426,
+      "toolCalls": 10,
       "tools": [
         "Glob",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Glob",
         "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
         "Read src/index.css",
+        "Read s2c-bench-app/vite.config.ts",
+        "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 122578
+      "ms": 263542
     }
   ],
-  "reading": "A zine/magazine cover page laid out as a ruled grid of boxes: a black heading band (\"NOISE/ISSUE 9\"), a left box with a sideways \"LOUD\" and intro copy, a blue duotone tile with yellow accent shapes, a track-listing box, a pull-quote box, a credits box with a tilted red \"SOLD OUT SOON\" badge, and a price box (\"£4\" / \"post free in the UK\"). All text content and styling were specified via typed notes anchored to each stroke group.",
+  "reading": "The sketch lays out a zine-style landing page: a full-width black title band, then a ruled grid of bordered boxes (rotated 'LOUD' + intro copy, a blue duotone tile with yellow shapes, a tracklist, a pull-quote, credits text with a tilted red 'SOLD OUT SOON' badge, and a yellow price block), all tied together by typed notes that give exact copy, colours and placement.",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 138
+        }
+      ],
+      "region": [
+        967,
+        599,
+        291,
+        303
+      ],
+      "paths": [],
+      "instruction": "Whole page: white background, monospace type, black text. The 8 bordered boxes form ONE ruled grid filling the page edge to edge; neighbouring boxes share a sin"
+    },
     {
       "kind": "add",
       "textMarks": [
@@ -81,7 +111,7 @@
         116
       ],
       "paths": [],
-      "instruction": "Full-width heading band across the top: giant Helvetica heavy, tight-set letters, white text on a solid black band, reading \"NOISE/ISSUE 9\"."
+      "instruction": "Full-width band: giant Helvetica heavy, tight-set letters, white on a black band filling the whole 1283x123px block edge to edge, type left-aligned 24px in from"
     },
     {
       "kind": "add",
@@ -96,7 +126,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Top-left box, thick black border, two parts: (1) a 44px heavy word \"LOUD\" rotated 90° counterclockwise so it reads bottom-to-top along the left edge, 13px in fr"
+      "instruction": "Top-left box, thick black border, two parts: (1) a 44px heavy word \"LOUD\" rotated -90deg (reading bottom to top) along the left edge, 13px in from it, its end 8"
     },
     {
       "kind": "add",
@@ -111,7 +141,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Top-middle box, thick black border: a vivid blue (#2563eb) flat duotone tile (no photo), containing two hard-edged round yellow (#fde047) shapes — one 253px wid"
+      "instruction": "Top-middle box: vivid blue (#2563eb) flat duotone tile with a thick black border, no picture. Two hard-edged round yellow (#fde047) shapes on it: one 253px, cen"
     },
     {
       "kind": "add",
@@ -126,7 +156,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Top-right box, thick black border, monospace 16px code-style lines listing: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 "
+      "instruction": "Top-right box, thick black border, mono 16px code-style lines, black text: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 —"
     },
     {
       "kind": "add",
@@ -141,7 +171,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Bottom-left box, thick black border, bold 22px text reading \"\"Turn it up until the walls agree.\"\" placed in the top-left corner (24px in, 24px down); the rest o"
+      "instruction": "Bottom-left box, thick black border, bold 22px text in the top-left corner (24px in, 24px down): \"\\\"Turn it up until the walls agree.\\\"\". Rest of the box stays "
     },
     {
       "kind": "add",
@@ -156,7 +186,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Bottom-middle box, thick black border, monospace 13px code-style lines in black: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, t"
+      "instruction": "Bottom-middle box, thick black border, mono 13px code-style lines, black text: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, two"
     },
     {
       "kind": "add",
@@ -171,7 +201,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Badge overlapping the border between the top-middle and bottom-middle boxes: a vivid red circle tilted 14° anticlockwise containing the text \"SOLD OUT SOON\"."
+      "instruction": "A vivid red, 14° anticlockwise tilted circular badge reading \"SOLD OUT SOON\", overlapping the bottom-middle credits box."
     },
     {
       "kind": "add",
@@ -196,10 +226,8 @@
         303
       ],
       "paths": [],
-      "instruction": "Bottom-right box content: huge Helvetica heavy black letters on a yellow band at 72px reading \"£4\", then on its own line beneath, a small 16px monospace regular"
+      "instruction": "Bottom-right box: huge Helvetica heavy black letters on a yellow band filling the whole 323x303px block edge to edge, type left-aligned 24px in from its left (n"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

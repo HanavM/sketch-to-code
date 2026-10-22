@@ -225,3 +225,25 @@ Free fixes:
 | c2 split type | 53% | **69%** | the cut sits on the rule; columns and Tickets right place; rules a bit thick, Tickets a bit large |
 | c3 SVG waves | 76% | 50% then **85%** | sun orange again; first try hid the hills at -z-10; after the backdrop rule, hills, sun, headline all right; trail loops differently |
 | c5 brutal zine | 86% | 86% | price now top left; LOUD dropped this time, quote sits low in its cell |
+
+## n89: thin rules, giant word size, the turned word, the quote corner, the trail's path, whole-cell bands (2026-10-22, ~302k billed tokens)
+
+Free fixes:
+- A giant one-line word (>= 100px) says its type size as well as its width ("110px type, about 499px wide (no
+  larger)"): c2 'Tickets →' was built ~1.15x large from the drawn line height. Rounds 1-5 giant words gain their px.
+- A divider rule says its exact thickness and that the pen line is thicker ("exactly 2px thick (height: 2px)"):
+  c2's 2px row rule was built ~5px.
+- A word turned on its side is said first, as one of two parts of its box: after the copy as 'and a ...' it was
+  dropped (c5 LOUD).
+- A lone block of copy at the top of a tall cell says its top-left corner and inset (c5 quote sat low).
+- A curving SVG trail says 7 points it passes through in order, and loops only if it crosses itself: its box
+  corners alone were built as a loop-de-loop (c3).
+- A filled band says the whole block is filled edge to edge, and left-set type its inset: c5's yellow price cell was
+  built as a strip behind '£4' only, the masthead centred.
+
+| page | n88 | n89 | note |
+|---|---|---|---|
+| c2 split type | 69% | **73%** | rules thin, Tickets the right size; red dot a little squashed |
+| c3 SVG waves | 85% | 83% | trail now follows the target's path (hump, dip, hook); hills crest a bit higher |
+| c4 glass devices | 72% (n79) | **77%** | headline on one line, phone a glass panel; corner glows dimmer than target |
+| c5 brutal zine | 86% | 81% then **89%** | LOUD, quote corner, whole yellow cell, left masthead all right; sticker has a hard shadow |
