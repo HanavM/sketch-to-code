@@ -155,7 +155,9 @@ Rules:
   matching line-height, wrapped to box.w, so it fills the drawn box with that many
   lines. A one-line entry is a lone heading squiggle drawn tall: its height set
   fontPx. A display headline drawn this big stays this big; never shrink it to the
-  app's default heading size.
+  app's default heading size. When a note gives that text's line-height ('lines set
+  tight (line-height 0.9)'), the drawn pitch still holds: font-size = linePitchPx /
+  that line-height (overrides fontPx), line-height exactly as said.
 - "region" is where the user drew it, in page px (x, y from the page's top-left).
   When the page is being built from the drawing, make each block land there: its
   top edge within ~16px of region.y, its width within ~10% of region.w (explicit

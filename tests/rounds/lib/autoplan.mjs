@@ -63,7 +63,7 @@ function factsInPage() {
         const fs = parseFloat(cs.fontSize) || 16
         return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > fs * 0.5 ? n + 1 : n), 0)
       })(),
-      font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform, spacing: parseFloat(cs.letterSpacing) || 0 },
+      font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform, spacing: parseFloat(cs.letterSpacing) || 0, lineHeight: parseFloat(cs.lineHeight) || 0 },
       colour: rgba(cs.color),
       bg: rgba(cs.backgroundColor),
       bgImage: cs.backgroundImage,
@@ -751,6 +751,10 @@ function typeWords(f, page) {
   if (f.font.size >= 32 && em <= -0.02) w.push('tight-set letters')
   // display type spaced 0.1em is plainly spaced out (round 5 c2 'Slant' at 24px on 180px)
   else if (em >= 0.15 || (f.font.size >= 32 && em >= 0.1)) w.push('wide-spaced letters')
+  // stacked display lines set closer than the type is tall: the drawn pitch alone reads ~1.1 leading,
+  // so a 150px headline at 0.9 was built 123px (round 4 c1)
+  const lh = f.font.lineHeight / f.font.size
+  if (f.font.size >= 32 && f.textLines >= 2 && lh > 0 && lh <= 1.0) w.push(`lines set tight (line-height ${+lh.toFixed(2)})`)
   if (f.stroke >= 1 && (!f.colour || f.colour.a <= 0.05)) w.push(`hollow outlined ${colourName(f.strokeColour) ?? ''}`.trim())
   return w
 }

@@ -120,3 +120,14 @@ slab was built. Plan changes: rounds 2, 3, 5 tilt words gain degrees; round 4 c2
 |---|---|---|---|---|
 | c2 difference split | 43% | 65% | 50k | portrait built as an arch, black half, difference words. Black half starts ~40px late. |
 | c1 cut-out collage | 65% | 57%, then 63% | 59k + 50k | first: arch, tilts, no X, but the blue photo lost (shadow copy only, repair failed) -> restore added. Second: blue photo, faint shadow, arch, tilted tape/sticker all right; cream page dropped this time, headline ~95px (target 150px). |
+
+## n72: tight leading said, so giant stacked type keeps its size (likeness v3)
+
+Planner: display text (>=32px) set on 2+ lines with line-height <= 1.0 says 'lines set tight (line-height 0.9)'.
+Contract: when a note gives a line-height, font-size = drawn line pitch / that line-height (the pitch alone reads
+~1.1 leading, so a 150px headline at 0.9 was read 123px and built smaller). Plan diffs: 10 multi-line display
+headings across rounds 1-4 gain the words; round 5 unchanged.
+
+| page | before | after | tokens | notes |
+|---|---|---|---|---|
+| c1 cut-out collage | 63% | 70% | 70k | headline built 150px at 0.9 as target, cream page kept. Left: headline sits ~60px low over the body copy; blue photo flat navy (gradient lost); red badge text uppercase. |
