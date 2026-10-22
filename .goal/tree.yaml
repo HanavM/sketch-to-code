@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 6 creative pages now: zine 90%, glass 92%, hills 89%, 3D cards 87%, sliced word 76%; next I write a harder round 7."
-lock: {by: run-20261022T1250, until: 2026-10-22T14:20:23Z}
+now: "Round 7 is written: 10 harder pages. First builds: bento tiles 55%, night skyline 73%, letter-weight poster 16%; next I teach the tools what they missed."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n92 (afd5ea9, c07b18a on try/n3-vocabulary): round 7 in tests/rounds/round7 (--set round7auto; bench run.mjs imports it). NOTES.md lists untuned misses and the c1-c3 live table. SVG <g data-r> regions measure fine. Live c1-c3 = 181k with --budget 250000 (stops when spent+95k > budget): pass ~300k for 5 pages. Live pages ~6 min each."
+  - "Token ledger: 2026-10-22 n92 live r7 c1,c2,c3 ~181k billed."
   - "n91 (f8c76c3 on try/n3-vocabulary): sliced word says slid copy whole, sticking out (no overflow-hidden); divider says Tailwind h-[Npx] never h-N; small unfilled vertical label says writing-mode, px, length; 13-17px one-line labels say px (9 r1-5 notes gain px); SVG hills say top edge at 5 points; outlined sticker says outline + flat, no shadow. Live: c2 76 then 73, c3 89, c5 90."
   - "Token ledger: 2026-10-22 n91 live c2 82k + c2,c3,c5 205k = ~287k billed."
   - "n90 (3ce125a on try/n3-vocabulary): page glows say hex, centre %, fade radius px, full strength at centre (radial-gradient spelled); flat textless disc >= 60px says size+hex; 40-99px multi-word one-line headings say ONE line nowrap + width. Live: c2 72 (dot right; rule thick, red half clipped), c4 89 then 92."
@@ -241,7 +243,10 @@ nodes:
      result: "Thin rules, word size, turned word, trail path, whole bands said: zine 89%, glass 77%, word 73%, hills 83%. 74c7ce5."}
   - {id: n90, parent: n89, kind: step, title: "Free first, ~150k live: c4 corner glows dimmer than target (say glow strength/size), c2 red dot squashed, c5 sticker hard shadow, c3 hills crest high; re-run c4, c2. Then write round 7 (harder) if all round-6 creative >= 80%", status: done, branch: try/n3-vocabulary, result: "Glows, dot size, one-line headline said: glass 77 to 92%; dot right, word 72% (rule thick). 3ce125a."}
   - {id: n91, parent: n90, kind: step, title: "Free first, ~120k live: c2 red half cut off at its right end and row rule thick again, vertical label small; c3 hills crest high; c5 sticker hard shadow. Re-run c2 (needs >= 80%), then write round 7 (harder)", status: done, branch: try/n3-vocabulary, result: "Red half whole, thin rules, label sizes, hill edges, flat sticker: hills 89%, zine 90%, word 76/73%. f8c76c3."}
-  - {id: n92, parent: n91, kind: step, title: "Write round 7 (harder than round 6: e.g. scroll-linked layers, variable-font type, masonry/bento overlaps, data-heavy everyday apps), measure, autoplan, first live builds", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n92, parent: n91, kind: step, title: "Write round 7 (harder than round 6: e.g. scroll-linked layers, variable-font type, masonry/bento overlaps, data-heavy everyday apps), measure, autoplan, first live builds", status: done, branch: try/n3-vocabulary,
+     result: "Ten round-7 pages, dry-drawn 10/10. Live: bento 55%, wave 16% (word unsaid), night 73% (skylines lost). c07b18a."}
+  - {id: n94, parent: n92, kind: step, title: "Free first, ~200k live: round-7 creative misses: c2 wave word unsaid (per-letter size/weight), c3/c4 SVG polygons (skylines, cube faces) as filled shapes, page gradient middle stop, c1 orb over tiles + near-black tiles + list bars, c5 tapes not pictures; live c4, c5 first builds, re-run c1-c3", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n95, parent: n92, kind: step, title: "Free first, ~150k live: round-7 everyday misses (e5 table rows/checkboxes/usage bars, e4 run-on price and size states, e2 funnel/stacked bars/cohort shades, e3 line numbers and terminal colours, e1 tag colours/strike-through); first live builds e1-e5", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n93, parent: n91, kind: step, title: "Low priority, ~80k live: c2 at 73-76% (Tickets ~10px high, row rule grey, run noise); c5 LOUD dropped again, sticker text small. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
