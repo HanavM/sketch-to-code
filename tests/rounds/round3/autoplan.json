@@ -495,7 +495,7 @@
    ],
    [
     "filters",
-    "toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded: input \"Search by name or email…\" 360px wide, dropdown \"Role: All\" 81px wide, dropdown \"Status: All\" 92px wide"
+    "toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so \"Role ▾\" never breaks onto two lines): input \"Search by name or email…\" 360px wide, dropdown \"Role: All\" 81px wide, dropdown \"Status: All\" 92px wide"
    ],
    [
     "table",

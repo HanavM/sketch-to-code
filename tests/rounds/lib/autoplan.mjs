@@ -355,9 +355,15 @@ export function factsInPage() {
           const on = ch.filter(fillOf)
           if (on.length === 1 && !fillOf(k)) seg = { items: ch.map(t), t: t(on[0]), fill: fillOf(on[0]), ink: rgba(getComputedStyle(on[0]).color), bordered: parseFloat(getComputedStyle(k).borderTopWidth) >= 1 }
         }
-        const outl = kids.filter((k) => !k.children.length && t(k) && t(k).length <= 12 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && !fillOf(k)).map(t)
+        // a white chip on a white bar is still an outlined chip: round 7 e1 Mine/Bugs/Blocked (border, #fff fill)
+        // were never said and got built as bare words (n111)
+        const barBg = fillOf(el) || { r: 255, g: 255, b: 255, a: 1 }
+        const plain = (k) => { const f = fillOf(k); return !f || Math.abs(f.r - barBg.r) + Math.abs(f.g - barBg.g) + Math.abs(f.b - barBg.b) <= 6 }
+        const outK = kids.filter((k) => !k.children.length && t(k) && t(k).length <= 12 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && plain(k))
+        const outl = outK.map(t)
+        const pill = outK.length && outK.every((k) => parseFloat(getComputedStyle(k).borderTopLeftRadius) >= k.getBoundingClientRect().height * 0.45)
         const dot = [...el.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !g.children.length && t(g) && t(g).length <= 3 && fillOf(g) && b.width >= 16 && b.width <= 48 && Math.abs(b.width - b.height) <= 3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.width * 0.4 })
-        const out = { seg, outl: outl.length >= 2 ? outl : null, dot: dot ? { t: t(dot), fill: fillOf(dot), ink: rgba(getComputedStyle(dot).color), px: Math.round(dot.getBoundingClientRect().width) } : null }
+        const out = { seg, outl: outl.length >= 2 ? outl : null, pill: outl.length >= 2 && pill ? { h: Math.round(outK[0].getBoundingClientRect().height), ink: rgba(getComputedStyle(outK[0]).borderTopColor) } : null, dot: dot ? { t: t(dot), fill: fillOf(dot), ink: rgba(getComputedStyle(dot).color), px: Math.round(dot.getBoundingClientRect().width) } : null }
         return out.seg || out.outl || out.dot ? out : null
       })(),
       // a row split by one wide gap (margin-left:auto): round 6 e5 'Today ‹ ›' sit by the title on the left,
@@ -1996,7 +2002,7 @@ function decideOne(f, page, marked, said) {
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
     const items = L ? f.kidTexts.slice(1, 9) : f.kidTexts.slice(0, 8)
     const P = f.kidPicks, picks = P ? [
-      P.outl ? `; ${P.outl.join(', ')} are small outlined buttons` : '',
+      P.outl ? (P.pill ? `; ${P.outl.map((x) => quote(x, 16)).join(', ')} are each a small outlined pill chip (${P.pill.h}px tall, fully rounded, 1px ${colourName(P.pill.ink)} border, white inside), never bare words` : `; ${P.outl.join(', ')} are small outlined buttons`) : '',
       P.seg && !on ? `; ${P.seg.items.join(' / ')} is one ${P.seg.bordered ? 'outlined ' : ''}switch with ${quote(P.seg.t)} selected (${colourName(P.seg.fill)} fill, ${colourName(P.seg.ink)} text)` : '',
       P.dot ? `; ${quote(P.dot.t)} sits in a ${P.dot.px}px round ${colourName(P.dot.fill)} circle, ${colourName(P.dot.ink)} number` : '',
     ].join('') : ''

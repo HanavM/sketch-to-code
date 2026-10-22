@@ -719,7 +719,7 @@
    ],
    [
     "topbar",
-    "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
+    "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
    ],
    [
     "head-todo",

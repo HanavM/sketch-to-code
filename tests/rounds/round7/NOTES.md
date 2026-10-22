@@ -359,3 +359,18 @@ label stays on one line (Role ▾ wrapped to two lines); a rich table's header s
 select-all checkbox (it was left out). Not yet run live. Vitest: same 2 environmental failures.
 
 Next: re-run e5 for the one-line dropdowns and header checkbox; e1 outlined filter chips; r6 e2 heading row drift.
+
+## n111: one-line dropdowns, header checkbox, outlined filter chips (2026-10-22, ~179k billed)
+
+Planner (zero tokens): a row of short links now says which of them are outlined pill chips when each has a border and
+the same white fill as its bar (round 7 e1 Mine / Bugs / Blocked are white-on-white pills with a grey ring; the old rule
+only counted unfilled items, so they were never said and got built as bare words). Re-planning rounds 1-7 changed one
+note (r7 e1 top bar) plus round 3's toolbar picking up n110's one-line rule. Vitest: same 2 environmental failures;
+typecheck clean.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| e5 admin table | 87% best (79% n108) | 81% (81k, 4.4 min; build 56k + repair 6k), colour 99%, structure 93%, layout 82% | Role / Status dropdowns on one line and the header select-all checkbox are in (both fixed). Rows ~5px taller so the table ends ~10px low; filter menu ~10px right. Within run noise of 79-87 |
+| e1 kanban lanes | 76% | 74% (98k, 6.6 min; build 44k + repair 30k), colour 99%, structure 95%, layout 73% | Mine / Bugs / Blocked now outlined pills (fixed). "Sprint 42" built regular (target bold); progress bars run edge to edge at the card's foot with no grey track; columns ~5px off. Within noise |
+
+Next: r6 e2 heading row ~10px high with drift below (not touched this step); kanban card progress bar track; bold lead word in a link row.
