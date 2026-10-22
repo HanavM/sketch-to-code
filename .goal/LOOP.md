@@ -62,7 +62,8 @@ On the `agent` branch (yours):
 9. **Report.** Set `now:` to one plain sentence for the owner's dashboard
    (what you're working on, no jargon). Prepend one line to LOG.md:
    `<ISO time> | <node title> | <result in 20 words max>`.
-   Release the lock, commit, and push `agent`.
+   Check that `tree.yaml` parses with a strict YAML parser (no duplicate
+   keys: one `result:` per node). Then release the lock, commit, and push `agent`.
 10. **Next run.** Unless CONTROL is `pause`, the goal is `met`, or every
     open node is blocked on the owner, start the next run now by firing
     this scheduled task (its id is in your prompt). Exactly one fire per
