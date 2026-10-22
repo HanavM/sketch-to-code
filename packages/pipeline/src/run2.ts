@@ -44,6 +44,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
+import { repairFits } from './repair-time.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
@@ -663,6 +664,8 @@ export async function runV2(
           tools: s.toolLog().slice(t0, t0 + 40),
           ms: Date.now() - started,
         })
+        // per turn, so a run the cap stops still says where its time went
+        save('sends.json', sends)
       }
     }
     let best = -1
@@ -719,6 +722,10 @@ export async function runV2(
           break
         }
         if (score >= 1 || round === 3) break
+        if (!repairFits(ctx.deadline, Date.now(), sends)) {
+          stage('repair', 'not enough time left before the run cap for a repair turn: keeping this build')
+          break
+        }
         stage('repair', `round ${round + 1}`)
         const context = session
           ? ''

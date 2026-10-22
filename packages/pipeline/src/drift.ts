@@ -103,7 +103,9 @@ export function verifyPageDrift(
       `${off.length} of ${offsets.length} blocks sit ${way}: ${list.join('; ')}. ` +
       `Take out the extra vertical space the drawing does not have (page/body padding, a taller bar, bigger margins or ` +
       `gaps between rows, line-height on thin lines) so each block's top lands within ${DRIFT_TOLERANCE_PX}px of its drawn y; ` +
-      `fix it at the first block that is off, since every block under it moves with it. Do not change widths, colours or copy.`,
+      `fix it at the first block that is off, since every block under it moves with it. Remove space; never pull a block up with a ` +
+        `negative margin, negative top or absolute position, which slides it over the heading or label above it. ` +
+        `Do not change widths, colours or copy.`,
     offsets,
   }
 }

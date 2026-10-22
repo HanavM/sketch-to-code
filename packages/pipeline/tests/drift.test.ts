@@ -39,6 +39,7 @@ describe('verifyPageDrift', () => {
     expect(v.satisfied).toBe(false)
     expect(v.reason).toMatch(/sit lower than drawn/)
     expect(v.reason).toMatch(/action 4 top at 176px, drawn at 135px \(41px low\)/)
+    expect(v.reason).toMatch(/never pull a block up with a negative margin/)
     expect(v.offsets.find((o) => o.index === 0)!.dy).toBe(-3)
   })
 

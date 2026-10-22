@@ -1608,11 +1608,12 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     candidates: body.candidates,
                     instant: body.instant,
                   },
-                  { ...ctx, signal },
+                  { ...ctx, signal, deadline },
                 )
               }
               return runHandler!(body, { ...ctx, signal })
             }
+            const deadline = Date.now() + runTimeoutMs
             const run = superviseRun(exec, {
               timeoutMs: runTimeoutMs,
               // the overlay is still in its running state; say why it's waiting

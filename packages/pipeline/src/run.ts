@@ -31,6 +31,13 @@ export interface RunContext {
    * promise settles. See abort.ts.
    */
   signal?: AbortSignal
+  /**
+   * When the host's run cap fires (epoch ms). A repair turn is not started
+   * when too little time is left for it to finish: the cap would stop the
+   * whole run and the verified build would be reported as a failure
+   * (round 7 e4, three runs: build ~8-10 min, repair cut by the 12-min cap).
+   */
+  deadline?: number
 }
 
 export interface RunInput {

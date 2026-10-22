@@ -173,3 +173,21 @@ mismatches and say nothing.
 
 Next: re-run e4 with the both-ways rule (must finish inside 10 minutes, back to ~62%); stop a repair from
 pulling blocks up with negative margins over a label (e1 WEB APP).
+
+## n100: run cap guard, drift repair wording (2026-10-22, ~251k billed)
+
+Pipeline: the e4 runs were stopped by the server's 12-minute run cap during a repair turn, which reports the whole run
+as failed. A repair turn now starts only when the time left before the cap covers it (the longest repair so far, else
+40% of the build turn, at least 2 minutes, plus a minute to verify); otherwise the verified build is kept with its open
+failures (pipeline repair-time.ts). Each turn's time and tokens are saved to the run folder as it ends (sends.json), so
+a stopped run still says where its time went. The drift check's repair note now says to remove space and never pull a
+block up with a negative margin, negative top or absolute position (n99 e1 slid cards over the WEB APP label).
+
+| page | before (n99) | now | what happened |
+|---|---|---|---|
+| e4 product page | 45% / 40% (cap) | 45% (cap again, 31k), then 45% (147k), finished | first run before the guard: build turn plus repair hit the cap again. With the guard: one 8-minute build turn (120k, 26 tool calls reading 6 drawn-shape files), no time for a repair, run completes. Still ~30px low with the right column stretched; thumbs keep drawn X lines; heart is a drawn glyph |
+| e1 kanban lanes | 51% | 74% (73k), one build turn | 19 of 19 blocks within 16px of their drawn tops, no repair needed, WEB APP label clear |
+
+Next: e4's build turn is slow because thumbs and the heart become drawn-shape files the build reads and edits (6 here,
+2 in n98's 62% run); find why they are kept as drawn shapes when the plan says plain tinted boxes and an icon, so the
+build finishes in ~5 minutes and leaves room for the drift repair.
