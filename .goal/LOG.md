@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T14:23:00Z | Round 7 creative misses | Wave word, skylines, cubes, orb said: bento 55 to 85%, wave 16 to 61%, night 73 to 90%, cubes 91%. 420k.
 2026-10-22T13:40:00Z | Write round 7, first creative builds | Ten harder pages drawn; bento 55%, night skyline 73%, letter-weight poster 16%. 181k.
 2026-10-22T12:58:00Z | Round 6 sliced word, hills, sticker | Hills 83 to 89%, zine 90%, sliced word 76% (red half whole, labels sized). 287k.
 2026-10-22T12:35:00Z | Round 6 glass glows, dot, one-line headline | Glass 77 to 92%, poster dot right; sliced word 72% (rule thick again). 172k.
