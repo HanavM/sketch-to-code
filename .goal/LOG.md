@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T23:30:00Z | Re-run pale-tint pages | Tints held: kanban 74 to 76%, funnel 75 to 80%, charts 76 to 78%. 240k.
 2026-10-22T23:00:00Z | Pale tints erased by cleanup; typed colour check | Cleanup step turned typed pale tints white; fixed and checked: admin table 79 to 87%. 340k.
 2026-10-22T22:20:00Z | Lean fix-up turns, accordion rows, table header tint | Fix-up turns 91k to 54k, accordion right: product page 71 to 73%; admin table header still white. 223k.
 
