@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T00:02:56Z | Round 5 masked reel glow | Glows now read where they really show: one big orange glow built; 57% to 65%. 56k.
 2026-10-21T23:51:18Z | Round 5 board with popup, first build | Popup form now described fully and kept full height: 81% first build, 90% after. 92k.
 2026-10-21T23:38:09Z | Round 5 vivid gradient photos | Orange and blue photos now vivid, blue layered on top as in target; score flat 65 to 63. 141k.
 2026-10-21T23:28:00Z | Round 5 repeated headline, link, title, gradient | Both SUMMER lines, underlined link, CTA gradient built; outline poster 58% to 65%, bento 57% to 78%. 186k.

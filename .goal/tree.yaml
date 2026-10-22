@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The board-with-popup page is built close to its target (90%). Next: the masked reel page's glow, built purple and blue instead of one big orange glow."
-lock: {by: run-2353, until: 2026-10-22T01:23:45Z}
+now: "The masked film page now has its one big orange glow (57% to 65% alike). Next: round-4 collage and depth pages, where filled blocks still build with an X drawn through them."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -108,6 +108,8 @@ notes:
   - "Token ledger: 2026-10-21 n66 live c4 86k, c4+c5 100k = ~186k (day total ~4990k, no cap set)."
   - "n67 (ec93121 on try/n3-vocabulary): dense() reads a filled-in form (bordered leaf field with its label as previous sibling, 3+): label + value or 'tall Npx empty field', close x, buttons by look/place, 'pinned to the bottom of the Npx tall card' when the gap above buttons >=15% of the card. Rounds 1-4 plans unchanged."
   - "Token ledger: 2026-10-21 n67 live r5 e1 x2 ~92k (day total ~5080k, no cap set)."
+  - "n70 (f0279b9 on try/n3-vocabulary): glows fact places each radial glow by background-size/position with the element's animations cancelled (as the likeness shot); big in-view glow said 'one big <c> glow centred X% across and Y% down (about Npx across)', off-box glows 'coming in from the <edge> edge', unseen dropped. Rounds 1-4 plans unchanged."
+  - "Token ledger: 2026-10-22 n70 live r5 c1 56k."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -206,7 +208,9 @@ nodes:
   - {id: n69, parent: n68, kind: step, title: "Low priority, ~60k live: round-5 c4 blue photo gradient runs the wrong way (dark top-left, target dark bottom); planner should say which end is dark. Fix, re-run c4", status: open, result: null}
   - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: done,
      result: "Planner says filled-in forms and pinned buttons: board modal 81% first build, 90% after. ec93121."}
-  - {id: n70, parent: n67, kind: step, title: "Free first, ~60k live: round-5 c1 masked reel glows built purple/blue (target one big orange glow scaled 200%); trace from plan glows fact, fix, re-run c1", status: open, result: null}
+  - {id: n70, parent: n67, kind: step, title: "Free first, ~60k live: round-5 c1 masked reel glows built purple/blue (target one big orange glow scaled 200%); trace from plan glows fact, fix, re-run c1", status: done,
+     result: "Glows now placed as seen (size/position applied): one big orange glow built; reel 57% to 65%. f0279b9."}
+  - {id: n71, parent: n70, kind: step, title: "Low priority, ~55k live: round-5 c1 orange glow built dimmer than target and scrub track ~6px (target 2px); then round-4 n51 crossed-box leftovers", status: open, result: null}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
