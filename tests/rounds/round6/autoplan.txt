@@ -1,0 +1,161 @@
+c1-perspective-stack · marks 9 · words 130
+    floor        box     
+    nav          text    
+    headline     heading 
+    sub          text    
+    cta          button  
+    ghost-btn    button  
+    card-back    image   
+    card-mid     image   
+    card-front   heading 
+    note *: whole page: dark navy page, Helvetica type, light grey text
+    note nav: bold 20px "Stackr" left, "Product · Pricing · Docs · Sign in" right
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions"
+    note sub: grey text "Layered, tilted, lit. A card engine for product pages that want depth without WebGL."
+    note cta: cyan dark navy text button "Start free"
+    note ghost-btn: dark grey outline button "See demo"
+    note card-back: tilted back in 3D perspective vivid cyan (top left) to indigo (bottom right) gradient block
+    note card-mid: tilted back in 3D perspective light pink (top left) to vivid purple (bottom right) gradient block, overlapping the lower right of the back in 3D perspective vivid cyan (top left) to indigo (bottom right) gradient block and on top of it
+    note card-front: tilted back in 3D perspective near-black "$4,280.00"
+c2-split-type · marks 10 · words 117
+    logo         text    
+    date         text    
+    word-top     heading 
+    word-bottom  heading 
+    rule         box     
+    vertical     text    
+    row-rule     box     
+    cols         text    
+    tickets      heading 
+    dot          circle  
+    note *: whole page: off-white page, Helvetica type, near-black text
+    note logo: wide-spaced letters "KINETIK"
+    note date: text "Vol. 06 — Oct 2026"
+    note word-top: giant Helvetica heavy tight-set letters "BREAK", the first of 2 separate stacked lines of the same word (it repeats; build each line)
+    note word-bottom: giant Helvetica heavy tight-set letters red "BREAK", the second of 2 separate stacked lines of the same word (it repeats; build each line)
+    note rule: solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button)
+    note vertical: uppercase wide-spaced letters vertical "A TYPE FESTIVAL · LISBON"
+    note row-rule: solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)
+    note tickets: giant Helvetica heavy tight-set letters "Tickets →"
+    note dot: vivid red circle
+c3-svg-waves · marks 6 · words 69
+    sun          circle  
+    waves        box     
+    nav          text    
+    headline     heading 
+    sub          text    
+    cta          button  
+    note *: whole page: pale yellow page, Georgia type, deep green text
+    note sun: big vivid bright orange circle
+    note nav: bold 24px "Meadow" left, "Trails · Huts · Journal · Book" right
+    note headline: giant Georgia italic serif lines set tight (line-height 0.95) "Walk where the hills roll on"
+    note sub: text "Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one."
+    note cta: deep green pill pale yellow text button "Plan a walk"
+c4-glass-devices · marks 7 · words 78
+    nav          text    
+    headline     heading 
+    sub          text    
+    cta          button  
+    laptop       image   
+    phone        image   
+    badge        box     
+    note *: whole page: cyan to light pink to indigo gradient page, Helvetica type, white text
+    note nav: bold 20px "Lumen" left, "Features · Pricing · Log in" right
+    note headline: huge Helvetica heavy tight-set letters "Every screen, one glance."
+    note sub: text "Live metrics on your laptop, phone and wall, synced in under a second."
+    note cta: white deep indigo text button "Get Lumen"
+    note laptop: frosted glass
+    note phone: frosted glass, overlapping the lower right of the other picture and on top of it
+    note badge: frosted glass "+38% sessions this week"
+c5-brutal-zine · marks 8 · words 119
+    masthead     heading 
+    intro        box     
+    duotone      box     
+    contents     box     
+    quote        box     
+    credits      box     
+    price        heading 
+    sticker      circle  
+    note *: whole page: white page, mono type, black text
+    note masthead: giant Helvetica heavy tight-set letters white on a black band "NOISE/ISSUE 9"
+    note intro: thick black border "LOUD" and text
+    note duotone: thick black border
+    note contents: thick black border mono 16px code lines: "01 — Tape loops", "02 — Basement maps", "03 — Flyer archive", "04 — Last gig", "05 — Letters"; black code
+    note quote: thick black border ""Turn it up until the walls agree.""
+    note credits: thick black border mono 13px code lines: "Edited by M. Hale", "Photos by the bands", "Printed in Leeds on a Risograph, two colours, 400 copies."; black code
+    note price: huge Helvetica heavy black letters on a yellow band "£4 post free in the UK"
+    note sticker: tilted 14° anticlockwise vivid red circle with "SOLD OUT SOON"
+e1-mega-menu · marks 8 · words 77
+    topbar       box     
+    hero         box     
+    cards        box     
+    mega         box     
+    col-build    box     
+    col-ship     box     
+    col-watch    box     
+    featured     box     
+    note *: whole page: off-white page, Helvetica type, dark navy text
+    note topbar: white bar 72px tall across the page, links: Northwind, Products, Solutions, Pricing, Docs, Search docs…; "Products" selected (bold, blue underline)
+    note hero: vivid blue (top left) to vivid bright sky blue (bottom right) gradient block
+    note mega: white card
+    note col-build: "BUILD" list: "Functions", "Storage", "Queues", "Databases"
+    note col-ship: "SHIP" list: "Previews", "Rollbacks", "Domains" TLS included
+    note col-watch: "WATCH" list: "Logs" Search 30 days, "Traces", "Alerts"
+    note featured: dark navy block, white text "Northwind AI", text "Try the beta →"
+e2-multi-chart · marks 11 · words 175
+    sidebar      box     
+    title        heading 
+    filters      box     
+    kpi-mrr      box     
+    kpi-users    box     
+    kpi-churn    box     
+    kpi-nps      box     
+    chart-line   box     
+    chart-donut  box     
+    chart-bars   box     
+    table        box     
+    note *: whole page: off-white page, Helvetica type, dark navy text
+    note sidebar: dark navy bar, light grey text "Pulse" list: "Overview", "Revenue", "Customers", "Reports", "Settings"; "Overview" highlighted
+    note title: "Overview"
+    note filters: buttons: "Last 30 days", "All regions", "All plans", "+ Filter"; "Last 30 days" selected (dark navy fill)
+    note kpi-mrr: white card "MRR", lines big 32px bold "$84.2k", green "+6.1%"
+    note kpi-users: white card "Active users", lines big 32px bold "12,480", green "+3.4%"
+    note kpi-churn: white card "Churn", lines big 32px bold "2.1%", green "-0.3%"
+    note kpi-nps: white card "NPS", lines big 32px bold "48", green "+5"
+    note chart-line: white card, "Revenue, last 30 days", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), dashed light grey line rising left to right (7 points); no axis labels
+    note chart-donut: white block, centred in it a 160px progress ring (not a picture): indigo arc 46% of the way round from the top, the rest a light grey track
+    note chart-bars: bar chart "Signups by week", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest
+    note table: white card, "Top accounts", table, columns "Acme Corp", "$6,400", 4 rows, first row "Globex" | "$5,120"
+e3-mail-client · marks 4 · words 51
+    folders      box     
+    list         box     
+    reader       box     
+    reply        box     
+    note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 3, "Archive", "Spam"; "Inbox" highlighted
+    note list: "Search mail" list: "Yesterday" Marco Ruiz, "Tue" Stripe, "Mon" Ana Silva, "Oct 18" Figma
+    note reader: "Q4 launch plan" "Lena Park to me · 9:41 AM" "Q4-launch.pdf · 2.4 MB" list: "Reply", "Forward", "Archive", "Delete"
+    note reply: "Reply to Lena…"
+e4-checkout · marks 5 · words 62
+    logo         text    
+    steps        text    
+    form         box     
+    pay          button  
+    summary      box     
+    note *: whole page: off-white page, Helvetica type, near-black text
+    note logo: "Field & Co."
+    note steps: links: ✓ Cart, Shipping, Payment, Review
+    note form: "Email"… "First name Hanav Last name M" "Address 14 Orchard Lane" "City Austin ZIP 78701" list: "Contact", "Shipping address", "Delivery"
+    note pay: near-black full-width white text button "Continue to payment"
+    note summary: off-white card "Discount code Apply" "Subtotal $146.00" "Shipping Free" "Tax $12.05" "Total $158.05" list: "1", "2", "1"
+e5-week-calendar · marks 6 · words 52
+    topbar       text    
+    days         text    
+    hours        text    
+    grid         box     
+    event-today  box     
+    now-line     box     
+    note topbar: bold 22px "October 2026" first, then links: Today, ‹, ›, Day Week Month
+    note days: links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25
+    note grid: pale grey to light grey gradient
+    note event-today: off-white card "Launch sync 11:00–12:30"
+    note now-line: solid red strip only 2px tall, 174px wide, no text (a progress bar)

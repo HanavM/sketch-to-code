@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mega menu</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:15px}
+.top{position:absolute;left:0;top:0;width:1280px;height:72px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:32px;padding:0 40px}.top b{font-size:22px;margin-right:24px}.top .on{color:#2563eb;font-weight:700;border-bottom:3px solid #2563eb;padding:24px 0 21px}
+.top .search{margin-left:auto;width:260px;height:40px;border:1px solid #cbd5e1;border-radius:8px;padding:11px 14px;color:#94a3b8}
+.hero{position:absolute;left:40px;top:110px;width:1200px;height:380px;border-radius:16px;background:linear-gradient(120deg,#1d4ed8,#0ea5e9)}
+.mega{position:absolute;left:40px;top:72px;width:1200px;height:440px;background:#fff;border:1px solid #e2e8f0;border-radius:0 0 16px 16px;box-shadow:0 24px 48px rgba(15,23,42,.18);display:grid;grid-template-columns:repeat(3,260px) 1fr;gap:32px;padding:36px}
+.mega h4{font-size:12px;letter-spacing:2px;color:#64748b;margin-bottom:16px}
+.mega p{margin-bottom:14px}.mega p small{display:block;color:#64748b;font-size:13px;margin-top:3px}
+.feat{border-radius:12px;background:#0f172a;color:#fff;padding:28px;position:relative}.feat b{display:block;font-size:24px;margin:120px 0 10px}.feat a{color:#38bdf8;font-weight:700}
+.feat::before{content:"";position:absolute;left:28px;top:28px;width:96px;height:96px;border-radius:12px;background:linear-gradient(135deg,#38bdf8,#818cf8)}
+.cards{position:absolute;left:40px;top:560px;width:1200px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.cards div{height:280px;background:#fff;border:1px solid #e2e8f0;border-radius:12px}
+</style></head><body>
+<div class="top" data-r="topbar" data-must><b>Northwind</b><span class="on">Products</span><span>Solutions</span><span>Pricing</span><span>Docs</span><span class="search">Search docs…</span></div>
+<div class="hero" data-r="hero"></div>
+<div class="cards" data-r="cards"><div></div><div></div><div></div><div></div></div>
+<div class="mega" data-r="mega" data-must>
+<div data-r="col-build"><h4>BUILD</h4><p>Functions<small>Run code at the edge</small></p><p>Storage<small>Files, blobs and buckets</small></p><p>Queues<small>Background jobs that retry</small></p><p>Databases<small>Postgres with branching</small></p></div>
+<div data-r="col-ship"><h4>SHIP</h4><p>Previews<small>A URL for every branch</small></p><p>Rollbacks<small>One click, any deploy</small></p><p>Domains<small>TLS included</small></p></div>
+<div data-r="col-watch"><h4>WATCH</h4><p>Logs<small>Search 30 days</small></p><p>Traces<small>Follow a request end to end</small></p><p>Alerts<small>Slack, email, pager</small></p></div>
+<div class="feat" data-r="featured"><b>Northwind AI</b>Ask your logs questions in plain English.<br><br><a>Try the beta →</a></div>
+</div>
+</body></html>

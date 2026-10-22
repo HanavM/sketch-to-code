@@ -1,0 +1,726 @@
+{
+ "c1-perspective-stack": {
+  "plan": [
+   [
+    "floor",
+    "box"
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 3
+    }
+   ],
+   [
+    "sub",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "ghost-btn",
+    "button"
+   ],
+   [
+    "card-back",
+    "image"
+   ],
+   [
+    "card-mid",
+    "image"
+   ],
+   [
+    "card-front",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: dark navy page, Helvetica type, light grey text"
+   ],
+   [
+    "nav",
+    "bold 20px \"Stackr\" left, \"Product · Pricing · Docs · Sign in\" right"
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) \"Ship cards in three dimensions\""
+   ],
+   [
+    "sub",
+    "grey text \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\""
+   ],
+   [
+    "cta",
+    "cyan dark navy text button \"Start free\""
+   ],
+   [
+    "ghost-btn",
+    "dark grey outline button \"See demo\""
+   ],
+   [
+    "card-back",
+    "tilted back in 3D perspective vivid cyan (top left) to indigo (bottom right) gradient block"
+   ],
+   [
+    "card-mid",
+    "tilted back in 3D perspective light pink (top left) to vivid purple (bottom right) gradient block, overlapping the lower right of the back in 3D perspective vivid cyan (top left) to indigo (bottom right) gradient block and on top of it"
+   ],
+   [
+    "card-front",
+    "tilted back in 3D perspective near-black \"$4,280.00\""
+   ]
+  ]
+ },
+ "c2-split-type": {
+  "plan": [
+   [
+    "logo",
+    "text"
+   ],
+   [
+    "date",
+    "text"
+   ],
+   [
+    "word-top",
+    "heading",
+    {
+     "fontPx": 260,
+     "lines": 1
+    }
+   ],
+   [
+    "word-bottom",
+    "heading",
+    {
+     "fontPx": 260,
+     "lines": 1
+    }
+   ],
+   [
+    "rule",
+    "box"
+   ],
+   [
+    "vertical",
+    "text"
+   ],
+   [
+    "row-rule",
+    "box"
+   ],
+   [
+    "cols",
+    "text",
+    {
+     "fontPx": 17,
+     "lines": 2
+    }
+   ],
+   [
+    "tickets",
+    "heading",
+    {
+     "fontPx": 110,
+     "lines": 1
+    }
+   ],
+   [
+    "dot",
+    "circle"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, near-black text"
+   ],
+   [
+    "logo",
+    "wide-spaced letters \"KINETIK\""
+   ],
+   [
+    "date",
+    "text \"Vol. 06 — Oct 2026\""
+   ],
+   [
+    "word-top",
+    "giant Helvetica heavy tight-set letters \"BREAK\", the first of 2 separate stacked lines of the same word (it repeats; build each line)"
+   ],
+   [
+    "word-bottom",
+    "giant Helvetica heavy tight-set letters red \"BREAK\", the second of 2 separate stacked lines of the same word (it repeats; build each line)"
+   ],
+   [
+    "rule",
+    "solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button)"
+   ],
+   [
+    "vertical",
+    "uppercase wide-spaced letters vertical \"A TYPE FESTIVAL · LISBON\""
+   ],
+   [
+    "row-rule",
+    "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)"
+   ],
+   [
+    "tickets",
+    "giant Helvetica heavy tight-set letters \"Tickets →\""
+   ],
+   [
+    "dot",
+    "vivid red circle"
+   ]
+  ]
+ },
+ "c3-svg-waves": {
+  "plan": [
+   [
+    "sun",
+    "circle"
+   ],
+   [
+    "waves",
+    "box"
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 92,
+     "lines": 2
+    }
+   ],
+   [
+    "sub",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale yellow page, Georgia type, deep green text"
+   ],
+   [
+    "sun",
+    "big vivid bright orange circle"
+   ],
+   [
+    "nav",
+    "bold 24px \"Meadow\" left, \"Trails · Huts · Journal · Book\" right"
+   ],
+   [
+    "headline",
+    "giant Georgia italic serif lines set tight (line-height 0.95) \"Walk where the hills roll on\""
+   ],
+   [
+    "sub",
+    "text \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
+   ],
+   [
+    "cta",
+    "deep green pill pale yellow text button \"Plan a walk\""
+   ]
+  ]
+ },
+ "c4-glass-devices": {
+  "plan": [
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 72,
+     "lines": 1
+    }
+   ],
+   [
+    "sub",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "laptop",
+    "image"
+   ],
+   [
+    "phone",
+    "image"
+   ],
+   [
+    "badge",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cyan to light pink to indigo gradient page, Helvetica type, white text"
+   ],
+   [
+    "nav",
+    "bold 20px \"Lumen\" left, \"Features · Pricing · Log in\" right"
+   ],
+   [
+    "headline",
+    "huge Helvetica heavy tight-set letters \"Every screen, one glance.\""
+   ],
+   [
+    "sub",
+    "text \"Live metrics on your laptop, phone and wall, synced in under a second.\""
+   ],
+   [
+    "cta",
+    "white deep indigo text button \"Get Lumen\""
+   ],
+   [
+    "laptop",
+    "frosted glass"
+   ],
+   [
+    "phone",
+    "frosted glass, overlapping the lower right of the other picture and on top of it"
+   ],
+   [
+    "badge",
+    "frosted glass \"+38% sessions this week\""
+   ]
+  ]
+ },
+ "c5-brutal-zine": {
+  "plan": [
+   [
+    "masthead",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 1
+    }
+   ],
+   [
+    "intro",
+    "box"
+   ],
+   [
+    "duotone",
+    "box"
+   ],
+   [
+    "contents",
+    "box"
+   ],
+   [
+    "quote",
+    "box"
+   ],
+   [
+    "credits",
+    "box"
+   ],
+   [
+    "price",
+    "heading",
+    {
+     "fontPx": 72,
+     "lines": 2
+    }
+   ],
+   [
+    "sticker",
+    "circle"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: white page, mono type, black text"
+   ],
+   [
+    "masthead",
+    "giant Helvetica heavy tight-set letters white on a black band \"NOISE/ISSUE 9\""
+   ],
+   [
+    "intro",
+    "thick black border \"LOUD\" and text"
+   ],
+   [
+    "duotone",
+    "thick black border"
+   ],
+   [
+    "contents",
+    "thick black border mono 16px code lines: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 — Letters\"; black code"
+   ],
+   [
+    "quote",
+    "thick black border \"\"Turn it up until the walls agree.\"\""
+   ],
+   [
+    "credits",
+    "thick black border mono 13px code lines: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, two colours, 400 copies.\"; black code"
+   ],
+   [
+    "price",
+    "huge Helvetica heavy black letters on a yellow band \"£4 post free in the UK\""
+   ],
+   [
+    "sticker",
+    "tilted 14° anticlockwise vivid red circle with \"SOLD OUT SOON\""
+   ]
+  ]
+ },
+ "e1-mega-menu": {
+  "plan": [
+   [
+    "topbar",
+    "box"
+   ],
+   [
+    "hero",
+    "box"
+   ],
+   [
+    "cards",
+    "box"
+   ],
+   [
+    "mega",
+    "box"
+   ],
+   [
+    "col-build",
+    "box"
+   ],
+   [
+    "col-ship",
+    "box"
+   ],
+   [
+    "col-watch",
+    "box"
+   ],
+   [
+    "featured",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, dark navy text"
+   ],
+   [
+    "topbar",
+    "white bar 72px tall across the page, links: Northwind, Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline)"
+   ],
+   [
+    "hero",
+    "vivid blue (top left) to vivid bright sky blue (bottom right) gradient block"
+   ],
+   [
+    "mega",
+    "white card"
+   ],
+   [
+    "col-build",
+    "\"BUILD\" list: \"Functions\", \"Storage\", \"Queues\", \"Databases\""
+   ],
+   [
+    "col-ship",
+    "\"SHIP\" list: \"Previews\", \"Rollbacks\", \"Domains\" TLS included"
+   ],
+   [
+    "col-watch",
+    "\"WATCH\" list: \"Logs\" Search 30 days, \"Traces\", \"Alerts\""
+   ],
+   [
+    "featured",
+    "dark navy block, white text \"Northwind AI\", text \"Try the beta →\""
+   ]
+  ]
+ },
+ "e2-multi-chart": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "filters",
+    "box"
+   ],
+   [
+    "kpi-mrr",
+    "box"
+   ],
+   [
+    "kpi-users",
+    "box"
+   ],
+   [
+    "kpi-churn",
+    "box"
+   ],
+   [
+    "kpi-nps",
+    "box"
+   ],
+   [
+    "chart-line",
+    "box"
+   ],
+   [
+    "chart-donut",
+    "box"
+   ],
+   [
+    "chart-bars",
+    "box"
+   ],
+   [
+    "table",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, dark navy text"
+   ],
+   [
+    "sidebar",
+    "dark navy bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted"
+   ],
+   [
+    "title",
+    "\"Overview\""
+   ],
+   [
+    "filters",
+    "buttons: \"Last 30 days\", \"All regions\", \"All plans\", \"+ Filter\"; \"Last 30 days\" selected (dark navy fill)"
+   ],
+   [
+    "kpi-mrr",
+    "white card \"MRR\", lines big 32px bold \"$84.2k\", green \"+6.1%\""
+   ],
+   [
+    "kpi-users",
+    "white card \"Active users\", lines big 32px bold \"12,480\", green \"+3.4%\""
+   ],
+   [
+    "kpi-churn",
+    "white card \"Churn\", lines big 32px bold \"2.1%\", green \"-0.3%\""
+   ],
+   [
+    "kpi-nps",
+    "white card \"NPS\", lines big 32px bold \"48\", green \"+5\""
+   ],
+   [
+    "chart-line",
+    "white card, \"Revenue, last 30 days\", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), dashed light grey line rising left to right (7 points); no axis labels"
+   ],
+   [
+    "chart-donut",
+    "white block, centred in it a 160px progress ring (not a picture): indigo arc 46% of the way round from the top, the rest a light grey track"
+   ],
+   [
+    "chart-bars",
+    "bar chart \"Signups by week\", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest"
+   ],
+   [
+    "table",
+    "white card, \"Top accounts\", table, columns \"Acme Corp\", \"$6,400\", 4 rows, first row \"Globex\" | \"$5,120\""
+   ]
+  ]
+ },
+ "e3-mail-client": {
+  "plan": [
+   [
+    "folders",
+    "box"
+   ],
+   [
+    "list",
+    "box"
+   ],
+   [
+    "reader",
+    "box"
+   ],
+   [
+    "reply",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "folders",
+    "pale grey card \"Compose\" list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 3, \"Archive\", \"Spam\"; \"Inbox\" highlighted"
+   ],
+   [
+    "list",
+    "\"Search mail\" list: \"Yesterday\" Marco Ruiz, \"Tue\" Stripe, \"Mon\" Ana Silva, \"Oct 18\" Figma"
+   ],
+   [
+    "reader",
+    "\"Q4 launch plan\" \"Lena Park to me · 9:41 AM\" \"Q4-launch.pdf · 2.4 MB\" list: \"Reply\", \"Forward\", \"Archive\", \"Delete\""
+   ],
+   [
+    "reply",
+    "\"Reply to Lena…\""
+   ]
+  ]
+ },
+ "e4-checkout": {
+  "plan": [
+   [
+    "logo",
+    "text"
+   ],
+   [
+    "steps",
+    "text"
+   ],
+   [
+    "form",
+    "box"
+   ],
+   [
+    "pay",
+    "button"
+   ],
+   [
+    "summary",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white page, Helvetica type, near-black text"
+   ],
+   [
+    "logo",
+    "\"Field & Co.\""
+   ],
+   [
+    "steps",
+    "links: ✓ Cart, Shipping, Payment, Review"
+   ],
+   [
+    "form",
+    "\"Email\"… \"First name Hanav Last name M\" \"Address 14 Orchard Lane\" \"City Austin ZIP 78701\" list: \"Contact\", \"Shipping address\", \"Delivery\""
+   ],
+   [
+    "pay",
+    "near-black full-width white text button \"Continue to payment\""
+   ],
+   [
+    "summary",
+    "off-white card \"Discount code Apply\" \"Subtotal $146.00\" \"Shipping Free\" \"Tax $12.05\" \"Total $158.05\" list: \"1\", \"2\", \"1\""
+   ]
+  ]
+ },
+ "e5-week-calendar": {
+  "plan": [
+   [
+    "topbar",
+    "text"
+   ],
+   [
+    "days",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 2
+    }
+   ],
+   [
+    "hours",
+    "text"
+   ],
+   [
+    "grid",
+    "box"
+   ],
+   [
+    "event-today",
+    "box"
+   ],
+   [
+    "now-line",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "topbar",
+    "bold 22px \"October 2026\" first, then links: Today, ‹, ›, Day Week Month"
+   ],
+   [
+    "days",
+    "links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25"
+   ],
+   [
+    "grid",
+    "pale grey to light grey gradient"
+   ],
+   [
+    "event-today",
+    "off-white card \"Launch sync 11:00–12:30\""
+   ],
+   [
+    "now-line",
+    "solid red strip only 2px tall, 174px wide, no text (a progress bar)"
+   ]
+  ]
+ }
+}

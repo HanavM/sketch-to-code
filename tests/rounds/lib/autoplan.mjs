@@ -1081,7 +1081,7 @@ function decideOne(f, page, marked, said) {
   // a thin textless filled strip (a reading-progress bar along the top edge): said as a strip, or it
   // reads as a heading line (round 4 c5: built a site title)
   if (fill && !f.text && !f.kidCount && h <= 10 && w >= h * 8) {
-    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (a progress bar)${f.rect.y <= 4 ? ' along the top edge' : ''}` }
+    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${f.rect.y > 4 && w >= 400 && h <= 4 ? 'a divider rule, not a bar or button' : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
   }
   // a progress meter with its label lines
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
@@ -1177,7 +1177,7 @@ function decideOne(f, page, marked, said) {
     const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null].filter(Boolean).join(', ')})` : ''
     const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
-    const items = L ? f.kidTexts.slice(1, 7) : f.kidTexts.slice(0, 6)
+    const items = L ? f.kidTexts.slice(1, 9) : f.kidTexts.slice(0, 8)
     return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:

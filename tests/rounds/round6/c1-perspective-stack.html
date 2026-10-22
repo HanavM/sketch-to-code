@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Perspective stack</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0f172a;font-family:Helvetica,Arial,sans-serif;color:#e2e8f0}
+.floor{position:absolute;left:-200px;top:520px;width:1680px;height:600px;background:repeating-linear-gradient(90deg,rgba(56,189,248,.25) 0 1px,transparent 1px 80px),repeating-linear-gradient(0deg,rgba(56,189,248,.25) 0 1px,transparent 1px 80px);transform:perspective(600px) rotateX(62deg);transform-origin:50% 0}
+.scene{position:absolute;left:620px;top:120px;width:560px;height:520px;perspective:1100px}
+.card{position:absolute;width:380px;height:240px;border-radius:18px;transform:rotateY(-28deg) rotateX(12deg);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.k1{left:0;top:0;background:linear-gradient(135deg,#38bdf8,#6366f1)}
+.k2{left:80px;top:110px;background:linear-gradient(135deg,#f472b6,#a855f7)}
+.k3{left:160px;top:220px;background:linear-gradient(135deg,#facc15,#f97316);color:#1c1917;padding:28px;font-size:30px;font-weight:800}
+.nav{position:absolute;left:64px;top:40px;right:64px;display:flex;justify-content:space-between;font-size:15px}.nav b{font-size:20px;letter-spacing:1px}
+h1{position:absolute;left:64px;top:170px;width:560px;font-size:84px;line-height:1;font-weight:800;letter-spacing:-3px}
+h1 span{background:linear-gradient(90deg,#38bdf8,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:absolute;left:64px;top:450px;width:440px;font-size:19px;line-height:1.5;color:#94a3b8}
+.cta{position:absolute;left:64px;top:560px;padding:16px 30px;border-radius:12px;background:#38bdf8;color:#0f172a;font-weight:800;font-size:17px}
+.ghost{position:absolute;left:220px;top:560px;padding:14px 28px;border-radius:12px;border:2px solid #334155;font-size:17px}
+</style></head><body>
+<div class="floor" data-r="floor"></div>
+<div class="nav" data-r="nav"><b>Stackr</b><span>Product · Pricing · Docs · Sign in</span></div>
+<h1 data-r="headline" data-must>Ship cards in <span>three dimensions</span></h1>
+<p class="sub" data-r="sub">Layered, tilted, lit. A card engine for product pages that want depth without WebGL.</p>
+<a class="cta" data-r="cta" data-must>Start free</a><a class="ghost" data-r="ghost-btn">See demo</a>
+<div class="scene"><div class="card k1" data-r="card-back" data-must></div><div class="card k2" data-r="card-mid" data-must></div><div class="card k3" data-r="card-front" data-must>$4,280.00</div></div>
+</body></html>

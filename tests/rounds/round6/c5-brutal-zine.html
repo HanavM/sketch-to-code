@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Brutal zine</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:"Courier New",monospace;color:#000}
+.grid{position:absolute;left:0;top:0;width:1280px;height:900px;display:grid;grid-template-columns:320px 640px 320px;grid-template-rows:120px 480px 300px}
+.grid>div{border:3px solid #000;margin:-1.5px;position:relative;overflow:hidden}
+.mast{grid-column:1/4;background:#000;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:96px;font-weight:900;letter-spacing:-4px;padding:4px 24px;line-height:1.15}
+.duo{background:linear-gradient(180deg,#2563eb,#2563eb);}
+.duo::after{content:"";position:absolute;inset:40px;background:radial-gradient(circle at 40% 35%,#fde047 0 30%,transparent 31%),radial-gradient(circle at 60% 70%,#fde047 0 22%,transparent 23%)}
+.side{padding:24px;font-size:15px;line-height:1.5}
+.vert{position:absolute;left:10px;bottom:20px;transform:rotate(-90deg);transform-origin:0 0;font-family:Helvetica,Arial,sans-serif;font-size:44px;font-weight:900;white-space:nowrap}
+.stick{position:absolute;left:520px;top:520px;width:180px;height:180px;border-radius:50%;background:#ef4444;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-14deg);border:3px solid #000}
+.list{padding:20px 24px;font-size:16px;line-height:2}
+.price{background:#fde047;font-family:Helvetica,Arial,sans-serif;font-size:72px;font-weight:900;padding:24px}
+.price small{display:block;font-size:16px;font-family:"Courier New",monospace;font-weight:400}
+</style></head><body>
+<div class="grid">
+<div class="mast" data-r="masthead" data-must>NOISE/ISSUE 9</div>
+<div class="side" data-r="intro">This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.<div class="vert">LOUD</div></div>
+<div class="duo" data-r="duotone" data-must></div>
+<div class="list" data-r="contents">01 — Tape loops<br>02 — Basement maps<br>03 — Flyer archive<br>04 — Last gig<br>05 — Letters</div>
+<div class="side" data-r="quote" style="font-size:22px;font-weight:700">"Turn it up until the walls agree."</div>
+<div class="list" data-r="credits" style="font-size:13px;line-height:1.7">Edited by M. Hale<br>Photos by the bands<br>Printed in Leeds on a Risograph, two colours, 400 copies.</div>
+<div class="price" data-r="price" data-must>£4<small>post free in the UK</small></div>
+</div>
+<div class="stick" data-r="sticker" data-must>SOLD OUT SOON</div>
+</body></html>
