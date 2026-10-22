@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Blend magazine page now right (black on white, white on black), 84%; next: tidy the outline summer poster."
-lock: {by: run-20261022T0253, until: "2026-10-22T04:23:10Z"}
+now: "Outline summer poster: giant words now sit where drawn, photo colours right (71%); next: write round 6, the hardest pages yet."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
@@ -118,7 +118,8 @@ notes:
   - "n51 (038eab5 on try/n3-vocabulary): planner: round-top/flat-bottom filled block = 'shape' arch (poly outline); tilts say 'tilted N° clockwise|anticlockwise' (contract maps to rotate(±N)); see-through hard shadow says 'at N% opacity'. Pipeline run2 verify: lostStrokes now restored mechanically (scaffold.ts restoreLostStrokes) before any repair turn; a repair turn once claimed it restored and didn't. Rounds 2/3/5 plans gain tilt degrees; r4 c2 portrait now an arch."
   - "n74 (5dbd7ac on try/n3-vocabulary): run2 contract: colour-inverting text = white + mix-blend-mode difference inside a group that paints the page colour (codegen put it in a transparent isolate wrapper: white on white). ref PNGs are not committed: run measure.mjs <round> before cmp.mjs, then git checkout targets.json."
   - "n73 (78b44b0 on try/n3-vocabulary): intent2.ts: a text-only action whose squiggles form one drawn stack takes the stack's line boxes as its region (ink alone sat half a line low). Planner gradientWords: 2-colour linear gradients say each end's side and vivid ('vivid blue (top) to dark navy (bottom)'). Plan diffs r2-r5 gradients only; round 1 unchanged."
-  - "Token ledger: 2026-10-22 n73 live r4 c1 81k (day total ~390k, no cap set)."
+  - "Token ledger: 2026-10-22 n73 live r4 c1 81k (day total ~390k, no cap set); n74 65k, n75 58k, n76 76k (day ~590k)."
+  - "n76 (080b43b on try/n3-vocabulary): run2 contract: a lone heading squiggle region is centred for line-height 1.2; a tighter display line box must stay centred on region (was set at region.y: letters ~65px high). Colour deep rust orange (#9a3412, hue 10-25). Opaque hard shadow says solid opaque."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -191,7 +192,9 @@ nodes:
   - {id: n74, parent: n73, kind: step, title: "~100k live: see the gain carries: re-run round-5 c4 (blue photo gradient now said dark bottom, was n69) and one round-3/4 page with a big multi-line headline (round-3 c5 or round-4 c5); fix the worst gap", status: done,
      result: "Outline poster 63% to 70%, gradient right. Blend editorial 81% to 70%: inverting text lost on white; contract fixed. 5dbd7ac."}
   - {id: n75, parent: n74, kind: step, title: "~55k live: re-run round-3 c5 to prove the blend fix (headline must read black on white, white on black); then round-5 c4 leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent)", status: done, result: null, result: 'Blend headline right: black on white, white on black. r3 c5 70% to 84%. 858c59f.'}
-  - {id: n76, parent: n75, kind: step, title: '~55k live: round-5 c4 outline poster leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent); r3 c5 headline broke after keeps not the (minor)', status: open, branch: null, result: null}
+  - {id: n76, parent: n75, kind: step, title: '~55k live: round-5 c4 outline poster leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent); r3 c5 headline broke after keeps not the (minor)', status: done, branch: try/n3-vocabulary,
+     result: "Giant SUMMER lines now placed where drawn; photo ends rust as target. Shadow was opaque, just greyer. 70% to 71%. 080b43b."}
+  - {id: n77, parent: n58, kind: step, title: "Free: round-6 targets, harder than round 5 (layered 3D/perspective scenes, kinetic split type, SVG path art, mega-menus, dense dashboards with multiple charts and filters), measured and auto-planned untuned; dry-draw all 10; fix only clear planner misses", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
