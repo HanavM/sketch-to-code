@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, lostStrokes, pictureCrossIds, restoreLostStrokes, scaffoldDir } from '../src/scaffold.js'
+import { buildScaffold, componentName, isPrimitivePath, lostStrokes, onlyPrimitives, pictureCrossIds, restoreLostStrokes, scaffoldDir } from '../src/scaffold.js'
 import { finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
@@ -296,5 +296,54 @@ describe('restoreLostStrokes — put a lost drawn stroke back without a model', 
   })
   it('gives up when there is no svg to put it in', () => {
     expect(restoreLostStrokes(sc.code, 'export default () => null', ['s1'])).toBeNull()
+  })
+})
+
+describe('onlyPrimitives — a widget drawn as plain boxes is not a form (round 7 e4)', () => {
+  const rect = (x: number, y: number, w: number, h: number, id: string) => ({
+    strokeId: id, d: `M${x + 1},${y} C${x + w / 3},${y + 1} ${x + 2 * w / 3},${y - 1} ${x + w},${y + 1} C${x + w + 1},${y + h / 3} ${x + w},${y + 2 * h / 3} ${x + w - 1},${y + h} C${x + 2 * w / 3},${y + h + 1} ${x + w / 3},${y + h} ${x},${y + h - 1} C${x - 1},${y + 2 * h / 3} ${x + 1},${y + h / 3} ${x + 1},${y} Z`,
+  })
+  const dot = (cx: number, cy: number, r: number, id: string) => {
+    const k = 0.55 * r
+    return { strokeId: id, d: `M${cx + r},${cy} C${cx + r},${cy + k} ${cx + k},${cy + r} ${cx},${cy + r} C${cx - k},${cy + r} ${cx - r},${cy + k} ${cx - r},${cy} C${cx - r},${cy - k} ${cx - k},${cy - r} ${cx},${cy - r} C${cx + k},${cy - r} ${cx + r},${cy - k} ${cx + r},${cy} Z` }
+  }
+  const line = (x0: number, y0: number, x1: number, y1: number, id: string) => ({ strokeId: id, d: `M${x0},${y0} C${(2 * x0 + x1) / 3},${(2 * y0 + y1) / 3 + 1} ${(x0 + 2 * x1) / 3},${(y0 + 2 * y1) / 3 - 1} ${x1},${y1}` })
+  const rounded = { strokeId: 'b', d: 'M16,0 L384,0 C393,0 400,7 400,16 L400,28 C400,37 393,44 384,44 L16,44 C7,44 0,37 0,28 L0,16 C0,7 7,0 16,0 Z' }
+  const heart = { strokeId: 'h', d: 'M25,12 C20,0 0,0 2,16 C4,30 20,38 25,46 C30,38 46,30 48,16 C50,0 30,0 25,12 Z' }
+  const tilted = { strokeId: 't', d: 'M0,60 L600,0 L610,90 L10,150 Z' }
+  const garment = { strokeId: 'g', d: 'M120,40 C160,20 240,20 280,40 L360,120 L320,160 L300,140 L300,420 L100,420 L100,140 L80,160 L40,120 Z' }
+
+  it('reads boxes, rounded buttons, small dots and straight lines as primitives', () => {
+    expect(isPrimitivePath(rect(0, 0, 84, 84, 'r').d)).toBe(true)
+    expect(isPrimitivePath(rounded.d)).toBe(true)
+    expect(isPrimitivePath(dot(18, 18, 16, 'd').d)).toBe(true)
+    expect(isPrimitivePath(line(0, 0, 84, 84, 'l').d)).toBe(true)
+  })
+  it('keeps real geometry: a heart, a tilted band, a silhouette, a big circle', () => {
+    expect(isPrimitivePath(heart.d)).toBe(false)
+    expect(isPrimitivePath(tilted.d)).toBe(false)
+    expect(isPrimitivePath(garment.d)).toBe(false)
+    expect(isPrimitivePath(dot(150, 150, 140, 'm').d)).toBe(false)
+  })
+  it('skips a column of crossed thumbnails, a swatch row and an icon button square', () => {
+    const thumbs = [0, 1, 2, 3].flatMap((i) => [rect(0, i * 94, 84, 84, `b${i}`), line(0, i * 94, 84, i * 94 + 84, `x${i}`), line(84, i * 94, 0, i * 94 + 84, `y${i}`)])
+    expect(buildScaffold(action({ region: { x: 51, y: 119, w: 86, h: 370 }, svgPaths: thumbs, depicts: 'thumbnails' }), 0, controls())).toBeNull()
+    const swatches = [0, 1, 2, 3].map((i) => dot(18 + i * 48, 18, 16, `s${i}`))
+    expect(buildScaffold(action({ region: { x: 738, y: 304, w: 184, h: 36 }, svgPaths: swatches, depicts: 'swatches' }), 0, controls())).toBeNull()
+    expect(buildScaffold(action({ region: { x: 1152, y: 522, w: 50, h: 50 }, svgPaths: [rect(0, 0, 48, 48, 'w')], depicts: 'heart icon' }), 0, controls())).toBeNull()
+  })
+  it('still scaffolds a single big box, a drawn heart, and anything at the trace rung', () => {
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 520, h: 620 }, svgPaths: [rect(0, 0, 518, 618, 'p')], depicts: 'photo' }), 0, controls())).not.toBeNull()
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 50, h: 50 }, svgPaths: [heart], depicts: 'heart' }), 0, controls())).not.toBeNull()
+    const swatches = [0, 1].map((i) => dot(18 + i * 48, 18, 16, `s${i}`))
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 90, h: 36 }, svgPaths: swatches, fidelity: 'verbatim' }), 0, controls({ resemblance: 0.95 }))).not.toBeNull()
+  })
+  it('keeps a drawing that mixes a primitive with real geometry', () => {
+    expect(onlyPrimitives([rect(0, 0, 84, 84, 'r'), garment], { w: 400, h: 440 })).toBe(false)
+  })
+  it('keeps one or two big boxes and boxes of mixed sizes (creative cubes, skylines, tilted photos)', () => {
+    expect(onlyPrimitives([rect(0, 0, 260, 210, 'a'), rect(10, 10, 240, 60, 'b')], { w: 262, h: 212 })).toBe(false)
+    expect(onlyPrimitives([rect(0, 0, 400, 300, 'a'), line(0, 0, 400, 300, 'x'), line(400, 0, 0, 300, 'y')], { w: 402, h: 302 })).toBe(false)
+    expect(onlyPrimitives([rect(0, 0, 400, 60, 'a'), rect(0, 80, 120, 300, 'b'), rect(140, 80, 260, 300, 'c')], { w: 402, h: 382 })).toBe(false)
   })
 })

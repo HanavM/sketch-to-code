@@ -191,3 +191,24 @@ block up with a negative margin, negative top or absolute position (n99 e1 slid 
 Next: e4's build turn is slow because thumbs and the heart become drawn-shape files the build reads and edits (6 here,
 2 in n98's 62% run); find why they are kept as drawn shapes when the plan says plain tinted boxes and an icon, so the
 build finishes in ~5 minutes and leaves room for the drift repair.
+
+## n101: widgets drawn as plain boxes are no longer scaffolds (2026-10-22, ~148k billed + ~30k reading probe)
+
+Cause: the reading marks thumbnails, swatch dots and the wishlist button as drawn things, so each cluster became a
+"the user's strokes, keep them" component file the build had to read and edit (8 files in n100, 26 tool calls, an
+8-minute build turn, no time to repair; the picture X's on the thumbs were kept too). Pipeline scaffold.ts: a path is
+a primitive when it is a straight line, an upright (rounded) rectangle or a dot of 80px or less, measured on points
+sampled along the curve (bezier handles overshoot rounded corners); edge tolerance capped at 14px so torn or skewed
+photo edges stay real geometry. No scaffold when an action's strokes are 3+ closed primitives of about one size plus
+any straight lines (thumbs, swatches, a size grid), or a single primitive in a region of 80px or less (icon button,
+avatar dot). One or two big boxes keep their scaffold (creative cubes, skylines, tilted photos built well with it);
+the trace rung is untouched. Checked on every auto-plan mark of rounds 1-7: all 37 buttons, 96 pictures, 226 of 227
+boxes and 9 small dots read as primitives, all 7 cut-out shapes and 20 big circles do not. Replayed on saved run
+records, only 7 actions across rounds 1-7 lose a scaffold: three on e4, four single small buttons/dots elsewhere.
+
+| page | before (n100) | now | what happened |
+|---|---|---|---|
+| e4 product page | 45% (one 8-min build turn, 8 drawn-shape files, no repair) | 69% (148k): build 4.4 min, 9 tool calls, 1 scaffold (the jacket); repair ran (4.5 min) | thumbs clean tinted boxes with the selected ring, heart icon right, sizes and price run right. Left: photo square-cornered with a wobbly drawn edge, Details header overlaps its body text, swatch ring lost, add-to-bag navy (target near-black) |
+
+A first attempt this step failed before building: the reading took over 150s (a read-only probe a minute later took
+80s, ~30k billed); nothing in the pipeline changed for it.

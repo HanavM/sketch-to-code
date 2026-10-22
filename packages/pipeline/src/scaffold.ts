@@ -90,6 +90,102 @@ export function pictureCrossIds(paths: Array<{ strokeId: string; d: string }>, r
 }
 
 /**
+ * Points ON a fitted path (absolute M/L/C/Q/Z, what the ink fitter writes),
+ * sampled along each segment. Control points are not on the curve: a rounded
+ * corner's handles overshoot the box, so they can't be used to measure it.
+ */
+function densePointsOf(d: string): Array<[number, number]> {
+  const out: Array<[number, number]> = []
+  let cur: [number, number] = [0, 0], start: [number, number] = [0, 0]
+  const T = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
+  const line = (to: [number, number]) => { for (const t of T) out.push([cur[0] + (to[0] - cur[0]) * t, cur[1] + (to[1] - cur[1]) * t]); cur = to }
+  for (const m of d.matchAll(/([MLCQZ])([^MLCQZ]*)/gi)) {
+    const cmd = m[1]!.toUpperCase()
+    const n = (m[2]!.match(/-?\d*\.?\d+(?:e-?\d+)?/gi) ?? []).map(Number)
+    if (cmd === 'M' && n.length >= 2) {
+      cur = [n[0]!, n[1]!]; start = cur; out.push(cur)
+      for (let i = 2; i + 1 < n.length; i += 2) line([n[i]!, n[i + 1]!])
+    } else if (cmd === 'L') for (let i = 0; i + 1 < n.length; i += 2) line([n[i]!, n[i + 1]!])
+    else if (cmd === 'C') for (let i = 0; i + 5 < n.length; i += 6) {
+      const p0 = cur, p1 = [n[i]!, n[i + 1]!], p2 = [n[i + 2]!, n[i + 3]!], p3: [number, number] = [n[i + 4]!, n[i + 5]!]
+      for (const t of T) {
+        const u = 1 - t
+        out.push([u * u * u * p0[0] + 3 * u * u * t * p1[0]! + 3 * u * t * t * p2[0]! + t * t * t * p3[0], u * u * u * p0[1] + 3 * u * u * t * p1[1]! + 3 * u * t * t * p2[1]! + t * t * t * p3[1]])
+      }
+      cur = p3
+    } else if (cmd === 'Q') for (let i = 0; i + 3 < n.length; i += 4) {
+      const p0 = cur, p1 = [n[i]!, n[i + 1]!], p2: [number, number] = [n[i + 2]!, n[i + 3]!]
+      for (const t of T) { const u = 1 - t; out.push([u * u * p0[0] + 2 * u * t * p1[0]! + t * t * p2[0], u * u * p0[1] + 2 * u * t * p1[1]! + t * t * p2[1]]) }
+      cur = p2
+    } else if (cmd === 'Z') line(start)
+  }
+  return out
+}
+
+/**
+ * Is this drawn path a plain primitive whose whole geometry is its box: a
+ * straight line, an upright (rounded) rectangle, or a small round dot? Those
+ * carry nothing the region and the words don't already say. A tilted band, a
+ * polygon, a silhouette, a heart or a big circle is real geometry and isn't.
+ */
+export function isPrimitivePath(d: string): boolean {
+  const pts = densePointsOf(d)
+  if (pts.length < 2) return false
+  const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1])
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys)
+  const bw = x1 - x0, bh = y1 - y0
+  if (!isClosed(d)) {
+    // straight: every point near the chord from first to last
+    const [a, b] = [pts[0]!, pts[pts.length - 1]!]
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1])
+    if (len < 4) return false
+    const tol = Math.max(3, 0.06 * len)
+    return pts.every(([x, y]) => Math.abs((b[0] - a[0]) * (a[1] - y) - (a[0] - x) * (b[1] - a[1])) / len <= tol)
+  }
+  if (bw < 4 || bh < 4) return false
+  // upright rectangle, corners rounded or not: every point hugs an edge of its box
+  // capped: a torn or skewed photo edge 16px deep on a 450px block is real geometry
+  const tol = Math.min(14, Math.max(7, 0.1 * Math.min(bw, bh)))
+  const hugs = pts.every(([x, y]) => Math.min(x - x0, x1 - x, y - y0, y1 - y) <= tol)
+  const corners = [[x0, y0], [x1, y0], [x0, y1], [x1, y1]].every(([cx, cy]) =>
+    pts.some(([x, y]) => Math.abs(x - cx!) <= 2 * tol && Math.abs(y - cy!) <= 2 * tol))
+  if (hugs && corners) return true
+  // a small round dot (a swatch, an avatar): every point near the ellipse of its box
+  if (Math.max(bw, bh) > 80) return false
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2
+  return pts.every(([x, y]) => {
+    const r = Math.hypot((x - cx) / (bw / 2), (y - cy) / (bh / 2))
+    return r >= 0.7 && r <= 1.3
+  })
+}
+
+/**
+ * A drawing that is only plain primitives in a repeated set is a widget, not a
+ * form: a column of thumbnails, a row of swatch dots, a grid of size boxes. So
+ * is one primitive in a button-sized region (an icon button's square, an
+ * avatar dot). Handing those over as "the user's strokes, keep them" made the
+ * build read and edit a file per cluster and keep the wobbly outlines and the
+ * picture X's (round 7 e4: eight drawn-shape files, an 8-minute build turn, no
+ * time left to repair). A set is three or more closed primitives of about one
+ * size, plus any straight lines (the X's). One or two big boxes keep their
+ * scaffold: on creative pages those are tilted photos, cubes and skylines the
+ * words reshape, and they built well with it.
+ */
+export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number; h: number }): boolean {
+  if (!paths.length || !paths.every((p) => isPrimitivePath(p.d))) return false
+  if (paths.length === 1) return region.w <= 80 && region.h <= 80
+  const boxes = paths.filter((p) => isClosed(p.d)).map((p) => {
+    const pts = densePointsOf(p.d)
+    const xs = pts.map((q) => q[0]), ys = pts.map((q) => q[1])
+    return { w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) }
+  })
+  if (boxes.length < 3) return false
+  const med = (v: number[]) => [...v].sort((x, y) => x - y)[Math.floor(v.length / 2)]!
+  const mw = med(boxes.map((b) => b.w)), mh = med(boxes.map((b) => b.h))
+  return boxes.every((b) => Math.abs(b.w - mw) <= 0.25 * mw + 4 && Math.abs(b.h - mh) <= 0.25 * mh + 4)
+}
+
+/**
  * Build the component that already has the drawing in it.
  *
  * Returns null when there is nothing worth scaffolding: no geometry, or the
@@ -118,6 +214,8 @@ export function buildScaffold(
   // resemblance >= 0.85 the user has said "reproduce what I drew", widgets
   // included. Text squiggles are still never in `paths` (grounding drops them).
   if (action.fidelity !== 'recognized' && action.fidelity !== 'verbatim') return null
+  // the trace rung asked for widgets as drawn too (above), so only below it
+  if (rungFor(fidelity.resemblance) !== 'trace' && onlyPrimitives(paths, region)) return null
 
   let name = componentName(action.depicts)
   const taken = opts.taken ?? new Set<string>()
