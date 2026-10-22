@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Admin table dropdowns now stay on one line and the header checkbox is back; kanban filter chips are now outlined pills. Next: chart dashboard drift and kanban progress bars."
-lock: null
+lock: {by: run-20261022T2345, until: 2026-10-23T01:15:03Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
