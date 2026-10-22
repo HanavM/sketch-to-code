@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T12:58:00Z | Round 6 sliced word, hills, sticker | Hills 83 to 89%, zine 90%, sliced word 76% (red half whole, labels sized). 287k.
 2026-10-22T12:35:00Z | Round 6 glass glows, dot, one-line headline | Glass 77 to 92%, poster dot right; sliced word 72% (rule thick again). 172k.
 2026-10-22T11:52:00Z | Round 6 rules, word size, trail, zine cells | Zine 86 to 89%, glass 72 to 77%, sliced word 69 to 73%, hills 83%; trail path right. 302k.
 2026-10-22T11:12:00Z | Round 6 hills sun, sliced word, price corner | Hills 76 to 85%, sliced word 53 to 69%, zine 86%; sun orange again. 328k.
