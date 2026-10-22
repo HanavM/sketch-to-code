@@ -145,6 +145,89 @@ export function factsInPage() {
         return pts.length >= 3 && pts.every((p) => p.every(Number.isFinite)) ? pts : null
       })(),
       blend: cs.mixBlendMode && cs.mixBlendMode !== 'normal' ? cs.mixBlendMode : null,
+      // ---- round 6 creative (n79)
+      // a clip-path inset that shows only part of the block (round 6 c2: one word sliced in half, said as two lines)
+      clipInset: (() => {
+        const m = cs.clipPath.match(/inset\(([^)]*)\)/)
+        if (!m) return null
+        const v = m[1].replace(/round.*$/, '').trim().split(/\s+/)
+        const [t, rr = t, b = t, l = rr] = v
+        const frac = (x, size) => /%$/.test(x) ? parseFloat(x) / 100 : (parseFloat(x) || 0) / Math.max(1, size)
+        return { t: frac(t, r.height), r: frac(rr, r.width), b: frac(b, r.height), l: frac(l, r.width) }
+      })(),
+      // a flat move or slant: matrix(a, b, c, d, e, f); skewX(k) puts tan(k) in c (round 6 c2 'Tickets' skewed, unsaid)
+      shiftX: (() => { const m = cs.transform.match(/^matrix\(([^)]+)\)/); return m ? Math.round(+m[1].split(',')[4]) : 0 })(),
+      skewX: (() => { const m = cs.transform.match(/^matrix\(([^)]+)\)/); if (!m) return 0; const [a, b, c, d] = m[1].split(',').map(Number); return Math.abs(b) < 0.01 && Math.abs(d) > 0.01 ? Math.round(Math.atan(c / d) * 180 / Math.PI) : 0 })(),
+      // a 3D turn's angles, read off matrix3d (column-major: a6 = cos x, a7 = sin x; a1 = cos y, a3 = -sin y)
+      rot3d: (() => {
+        const m = cs.transform.match(/^matrix3d\(([^)]+)\)/)
+        if (!m) return null
+        const a = m[1].split(',').map(Number)
+        return { x: Math.round(Math.atan2(a[6], a[5]) * 180 / Math.PI), y: Math.round(Math.atan2(-a[2], a[0]) * 180 / Math.PI), persp: Math.abs(a[11]) > 1e-6 ? Math.round(-1 / a[11]) : null }
+      })(),
+      // gradient-filled words inside a heading ('three dimensions' in cyan to pink: round 6 c1, unsaid)
+      clipKid: (() => {
+        const k = [...el.querySelectorAll('*')].find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage))
+        return k ? { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), bgImage: getComputedStyle(k).backgroundImage, bgImageColours: colours(getComputedStyle(k).backgroundImage) } : null
+      })(),
+      // SVG art (not a chart): filled shapes back to front and stroked paths (round 6 c3 hills: one bare box)
+      svgArt: (() => {
+        const svg = el.tagName.toLowerCase() === 'svg' ? el : null
+        if (!svg) return null
+        const fills = [...svg.querySelectorAll('path, polygon, ellipse, rect')].filter((p) => getComputedStyle(p).fill !== 'none' && rgba(getComputedStyle(p).fill)?.a > 0.05)
+          .map((p) => { const b = p.getBoundingClientRect(); return { c: rgba(getComputedStyle(p).fill), top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? '') } })
+        const strokes = [...svg.querySelectorAll('path, polyline, line')].filter((p) => getComputedStyle(p).fill === 'none' || p.tagName === 'line').filter((p) => rgba(getComputedStyle(p).stroke)?.a > 0.05)
+          .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth)), dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? '') } })
+        return fills.length >= 2 || (fills.length && strokes.length) ? { fills, strokes } : null
+      })(),
+      // what sits inside a textless glass panel: a strip, a bar chart, an open ring (round 6 c4: 'frosted glass' only)
+      glassParts: (() => {
+        if ((el.innerText || '').trim()) return null
+        const leaves = [...el.querySelectorAll('*')].filter((k) => !k.children.length)
+        if (!leaves.length) return null
+        const out = []
+        const used = new Set()
+        // a bar chart: 3+ sibling leaves of one width, bottoms aligned, heights varying
+        for (const p of new Set(leaves.map((k) => k.parentElement))) {
+          const ks = [...p.children].filter((k) => !k.children.length)
+          if (ks.length < 3) continue
+          const bs = ks.map((k) => k.getBoundingClientRect())
+          if (bs.some((b) => Math.abs(b.width - bs[0].width) > 2 || Math.abs(b.bottom - bs[0].bottom) > 2)) continue
+          ks.forEach((k) => used.add(k))
+          out.push({ type: 'bars', n: ks.length, w: Math.round(bs[0].width), gap: Math.round(bs[1].left - bs[0].right), hs: bs.map((b) => Math.round(b.height)), fill: rgba(getComputedStyle(ks[0]).backgroundColor), at: { x: Math.round(bs[0].left - r.left), bottom: Math.round(r.bottom - bs[0].bottom) } })
+        }
+        for (const k of leaves) {
+          if (used.has(k)) continue
+          const c = getComputedStyle(k), b = k.getBoundingClientRect()
+          const bw = parseFloat(c.borderTopWidth) || 0
+          const roundK = parseFloat(c.borderTopLeftRadius) >= b.width * 0.4 && Math.abs(b.width - b.height) <= 2
+          if (roundK && bw >= 4) {
+            const sides = ['Top', 'Right', 'Bottom', 'Left'].filter((sd) => (rgba(c[`border${sd}Color`])?.a ?? 0) < 0.05).map((sd) => sd.toLowerCase())
+            out.push({ type: 'ring', px: Math.round(b.width), thick: Math.round(bw), c: rgba(c.borderTopColor), open: sides, at: { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top) } })
+          } else if (rgba(c.backgroundColor)?.a > 0.05 && b.height <= 24 && b.width >= 4 * b.height) {
+            out.push({ type: 'strip', w: Math.round(b.width), h: Math.round(b.height), fill: rgba(c.backgroundColor), at: { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top) } })
+          }
+        }
+        return out.length ? out : null
+      })(),
+      // big round spots painted by a ::before/::after over a block (round 6 c5 duotone: yellow shapes on blue, unsaid)
+      pseudoSpots: (() => {
+        for (const w of ['::before', '::after']) {
+          const c = getComputedStyle(el, w)
+          if (!c.content || c.content === 'none') continue
+          const rs = [...c.backgroundImage.matchAll(/radial-gradient\((?:[^()]|\([^()]*\))*\)/g)].map((m) => m[0])
+          const spots = rs.map((g) => { const at = g.match(/at\s+([\d.]+)%\s+([\d.]+)%/); const col = rgba((g.match(/rgba?\([^)]+\)/) || [])[0] ?? ''); const stop = (g.match(/([\d.]+)%\s*,\s*(?:transparent|rgba\([^)]*,\s*0\))/) || [])[1]; const W = parseFloat(c.width) || r.width, H = parseFloat(c.height) || r.height; const px = at ? +at[1] / 100 * W : W / 2, py = at ? +at[2] / 100 * H : H / 2; const ray = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py)); return col && col.a > 0.3 ? { c: col, x: at ? +at[1] : 50, y: at ? +at[2] : 50, d: stop ? Math.round(2 * ray * +stop / 100) : null, hard: /transparent\s+[\d.]+%/.test(g) } : null }).filter(Boolean)
+          if (spots.length) return { spots, inset: Math.round(parseFloat(c.top) || 0) }
+        }
+        return null
+      })(),
+      // a word turned on its side inside a block ('LOUD' rotated -90deg in the intro box: round 6 c5)
+      turnedKid: (() => {
+        const k = [...el.querySelectorAll('*')].find((x) => { const m = getComputedStyle(x).transform.match(/^matrix\(([^,]+),\s*([^,]+)/); if (!m) return false; const deg = Math.abs(Math.atan2(+m[2], +m[1]) * 180 / Math.PI); return deg >= 80 && deg <= 100 && (x.innerText || '').trim() })
+        if (!k) return null
+        const c = getComputedStyle(k), m = c.transform.match(/^matrix\(([^,]+),\s*([^,]+)/), b = k.getBoundingClientRect()
+        return { t: (k.innerText || '').trim(), deg: Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700, at: { x: Math.round(b.left - r.left), bottom: Math.round(r.bottom - b.bottom) } }
+      })(),
       shadows: (cs.boxShadow === 'none' ? [] : cs.boxShadow.split(/,(?![^(]*\))/)).map((p) => {
         const n = (p.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) ?? []).map(parseFloat)
         return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p), c: rgba((p.match(/rgba?\([^)]+\)/) || [])[0] ?? '') }
@@ -901,11 +984,18 @@ function effectWords(f) {
   const turn = Math.abs(f.rotate)
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   if (f.vertical) w.push('vertical')
-  else if (f.tilt3d) w.push('tilted back in 3D perspective')
+  // with its angles: a bare 'tilted back' built three cards at one made-up angle (round 6 c1)
+  else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
   // which way and how far: a bare 'tilted' was built flat (round 4 c1 blue block, sticker)
   else if (turn >= 1.5 && turn <= 60) w.push(`tilted ${turn < 3 ? 'slightly ' : ''}${turn}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}`)
   else if (turn > 60 && turn < 170) w.push('diagonal')
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
+  // a slant (skewX) is not a turn: round 6 c2 'Tickets →' leaned like italics, unsaid
+  if (Math.abs(f.skewX) >= 4) w.push(`slanted ${Math.abs(f.skewX)}° (skewX(${f.skewX}deg), leaning ${f.skewX < 0 ? 'right' : 'left'} like italics)`)
+  // a clip that keeps one half: a word sliced across its middle (round 6 c2: said as two stacked lines)
+  const ci = f.clipInset
+  if (ci && ci.b >= 0.3 && ci.t < 0.05) w.push(`only the top ${Math.round((1 - ci.b) * 100)}% of the letters shows (clip-path cuts them flat across the middle)`)
+  else if (ci && ci.t >= 0.3 && ci.b < 0.05) w.push(`only the bottom ${Math.round((1 - ci.t) * 100)}% of the letters shows (clip-path cuts them flat across the middle)${Math.abs(f.shiftX) >= 8 ? `, shifted ${Math.abs(f.shiftX)}px ${f.shiftX > 0 ? 'right' : 'left'} of where the top half sits` : ''}`)
   // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
   if (f.blend) w.push(/difference|exclusion/.test(f.blend) ? 'colour-inverting where it crosses what is under it'
     : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
@@ -1155,6 +1245,41 @@ function decideOne(f, page, marked, said) {
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
   const frosted = fx.includes('frosted glass')
 
+  // ---- round 6 creative (n79)
+  // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
+  if (f.svgArt && !f.regionKids.length) {
+    const { fills, strokes } = f.svgArt
+    const wide = fills.filter((x) => x.right - x.left >= w * 0.8)
+    const hills = wide.length >= 2 && wide.every((x) => x.curvy && x.bottom >= f.rect.y + h - 4)
+    const sh = hills
+      ? `${wide.length} layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: ${wide.map((x) => `${vivid(x.c) ? 'vivid ' : ''}${colourName(x.c)} (${hexOf(x.c)}) cresting about ${x.top}px down`).join(', ')}`
+      : `${fills.length} filled shapes: ${fills.map((x) => `${colourName(x.c)} ${x.right - x.left}x${x.bottom - x.top}px at ${x.left},${x.top}`).join(', ')}`
+    const tr = strokes.map((x) => `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} ${x.curvy ? 'curving, looping ' : ''}line (no fill) from about ${x.x},${x.bottom} up and across to ${x.right},${x.y}`)
+    return { kind: 'box', note: withFx(`drawn shapes, no picture, no box: ${sh}${tr.length ? `; plus ${tr.join(', ')}` : ''}`) }
+  }
+  // a grid of thin lines laid flat as a floor going back (round 6 c1: a bare box)
+  if (gridLines(f) && f.rot3d && Math.abs(f.rot3d.x) >= 40 && !f.text) {
+    const lc = f.bgImageColours.map(parse).find((c) => c && c.a > 0.05)
+    const step = (f.bgImage.match(/transparent 1px,?\s*(\d+)px/) || f.bgImage.match(/1px,?\s*transparent\s+1px\s+(\d+)px/) || [])[1]
+    return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width, lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
+  }
+  // a gradient card holding a short bold line (round 6 c1 front card: said 'near-black "$4,280.00"' as a heading)
+  if (grad && !f.clipText && f.text && f.text.length <= 24 && f.kidCount === 0 && h >= 100 && w >= 150 && !f.regionKids.length) {
+    return { kind: 'box', note: withFx(`${grad} card (${Math.round(w)}x${Math.round(h)}px as drawn, ${Math.round(f.radius)}px rounded) holding ${f.font.weight >= 700 ? 'bold ' : ''}${Math.round(f.font.size)}px ${textCol ?? colourName(f.colour)} ${quote(f.text)} at its top left`) }
+  }
+  // a frosted panel with parts in it (round 6 c4 laptop and phone: 'frosted glass' only)
+  if (f.glassParts && !f.regionKids.length && fx.includes('frosted glass') && f.glassParts.some((p) => p.type !== 'strip')) {
+    const say = (p) => p.type === 'bars' ? `a bar chart of ${p.n} ${colourName(p.fill)} bars rising from ${p.at.bottom}px above its bottom, ${p.at.x}px in from the left, each ${p.w}px wide with ${p.gap}px gaps, heights ${p.hs.join(', ')}px, rounded tops, no axes`
+      : p.type === 'ring' ? `a ${p.px}px ${colourName(p.c)} ring ${p.thick}px thick${p.open.length ? `, open on its ${p.open.join(' and ')} quarter (that part of the ring missing)` : ''}, ${p.at.y}px from the top, centred`
+        : `${/^[aeiou]/.test(colourName(p.fill)) ? 'an' : 'a'} ${colourName(p.fill)} rounded strip ${p.h}px tall across the top (${p.at.y}px in from the top and sides)`
+    return { kind: 'box', note: withFx(`${Math.round(w)}x${Math.round(h)}px panel, ${Math.round(f.radius)}px rounded${bordered ? `, thin ${colourName({ ...f.border.colour, a: 1 })} border` : ''}; inside: ${f.glassParts.map(say).join('; ')}`) }
+  }
+  // round spots painted over a tile by a pseudo-element (round 6 c5 duotone: yellow shapes on blue, unsaid)
+  if (f.pseudoSpots && !f.text && !f.regionKids.length) {
+    const base = fill ? f.bg : parse(f.bgImageColours[0] ?? '')
+    const sp = f.pseudoSpots.spots
+    return { kind: 'box', note: withFx(`${base ? `vivid ${colourName(base)} (${hexOf(base)}) ` : ''}flat duotone tile${bordered && f.border.w >= 3 ? ` with a thick ${colourName(f.border.colour)} border` : ''}, no picture: ${sp.length} hard-edged round ${colourName(sp[0].c)} (${hexOf(sp[0].c)}) shapes on it${sp.map((x) => `${x.d ? ` ${x.d}px` : ''} centred ${x.x}% across, ${x.y}% down`).join(',')}${f.pseudoSpots.inset ? ` (inside a ${f.pseudoSpots.inset}px margin)` : ''}`) }
+  }
   // ---- round 5 creative (n61)
   // text set round a circle: a spinning badge (round 5 c2: unsaid)
   if (f.circleText && !f.regionKids.length) {
@@ -1376,11 +1501,14 @@ function decideOne(f, page, marked, said) {
   if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
+    // gradient-filled words inside (round 6 c1 'three dimensions' cyan to pink, unsaid)
+    const ck = !f.clipText && f.clipKid && f.clipKid.t && f.clipKid.t !== f.text ? gradientWords(f.clipKid) : null
+    const ckSay = ck ? `, the words ${quote(f.clipKid.t)} filled with a ${ck} (gradient text), the rest plain` : ''
     // on a band, the type's colour is said even when it is the page's: round 3 c2's near-black words on the
     // orange band were built white like the black band's
     if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${under}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -1447,12 +1575,17 @@ function decideOne(f, page, marked, said) {
     const unit = f.motion && f.text.length > 40 ? repeatUnit(f.text) : null
     const unitSay = unit ? `${kb[0]?.bold ? 'bold ' : ''}${kb[0]?.s ?? Math.round(f.font.size)}px ${quote(unit, 60)} repeated along it` : null
     // one block of copy with no parts (a pull quote on a yellow tile: round 5 c5, said with no copy)
-    const lone = !f.regionKids.length && f.kidCount === 0 && f.text.length > 40 && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}` : null
+    const lone = !f.regionKids.length && f.kidCount === 0 && (f.text.length > 40 || (f.text.length > 24 && !f.vertical && f.font.size >= 20 && f.font.weight >= 600)) && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}` : null
     // a picture painted by ::before over a card's copy (round 6 e1 featured card: square and body line unsaid)
     const pp = f.pseudoPic && !f.regionKids.length ? f.pseudoPic : null
     const ppLines = pp ? f.setLines.map((t) => t.trim()).filter(Boolean).map((t) => { const k = kb.find((x) => x.t === t); return k ? `${k.s >= 20 ? `big ${k.s}px ` : ''}${k.bold ? 'bold ' : ''}${k.ink && f.colour && dist(k.ink, f.colour) > 60 ? `${colourName(k.ink)} ` : ''}${quote(t, 60)}` : `text ${quote(t, 110)}` }) : []
     const picSay = pp ? `a ${pp.w}x${pp.h}px ${pp.radius >= 6 ? 'rounded ' : ''}${pp.grad ? `${colourName(pp.grad[0])} to ${colourName(pp.grad[pp.grad.length - 1])} gradient` : colourName(pp.fill)} ${Math.abs(pp.w - pp.h) <= 4 ? 'square' : 'block'} in its top left (${pp.x}px in), then under it, lines: ${ppLines.join(', ')}` : null
-    const copy = picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
+    // a word turned on its side beside the copy (round 6 c5 'LOUD': said as '"LOUD" and text')
+    const tk = f.turnedKid && !f.regionKids.length ? f.turnedKid : null
+    const turned = tk ? `text ${quote(f.text.replace(tk.t, '').trim(), 140)}; and a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge, its end ${tk.at.bottom}px above the bottom` : null
+    // a big bold figure over a small line (round 6 c4 badge: said as one run of text)
+    const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
+    const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
     return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
   }
@@ -1513,7 +1646,10 @@ function pageNote(b) {
   const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !nearWhite)) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
   if (plain && !b.grain) return null
   const grad = gradientWords(b)
-  if (grad) w.push(`${grad} page`)
+  // soft glows over a dark page (a mesh: round 6 c4 said as a 3-stop page gradient, base colour lost)
+  const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
+  if (gl) w.push(`${gl.replace(/ block\b/, ` (${hexOf(b.bg)}) page`)} (big soft radial glows fading into the base colour)`)
+  else if (grad) w.push(`${grad} page`)
   else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg)} page`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
@@ -1568,7 +1704,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.05 * Math.min(A.w * A.h, B.w * B.h)
     })
     if (!under) return
-    const what = (out.get(under.role).note ?? '').match(/^(?:tilted (?:slightly )?(?:\d+° (?:anti)?clockwise )?)?(.*?\bblock)\b/)?.[1] ?? 'other picture'
+    const what = (out.get(under.role).note ?? '').match(/^(?:tilted (?:back in 3D perspective(?: \((?:[^()]|\([^()]*\))*\))? |(?:slightly )?(?:\d+° (?:anti)?clockwise )?))?(.*?\bblock)\b/)?.[1] ?? 'other picture'
     const A = f.rect, B = under.rect
     const side = `${A.y + A.h / 2 > B.y + B.h / 2 ? 'lower' : 'upper'} ${A.x + A.w / 2 > B.x + B.w / 2 ? 'right' : 'left'}`
     d.note = `${d.note ? `${d.note}, ` : ''}overlapping the ${side} of the ${what} and on top of it`
@@ -1592,6 +1728,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   for (const f of heads) {
     const same = heads.filter((g) => g.text === f.text).sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)
     if (same.length < 2) continue
+    // two clipped halves of one word are one word, sliced (round 6 c2), not two lines
+    if (same.some((g) => g.clipInset)) continue
     const i = same.indexOf(f), d = out.get(f.role)
     const nth = ['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`
     d.note = `${d.note}, the ${nth} of ${same.length} separate stacked lines of the same word (it repeats; build each line)`

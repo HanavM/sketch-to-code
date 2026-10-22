@@ -174,7 +174,21 @@ export async function measureTarget(browser, htmlPath, viewport = { width: 1280,
   await page.waitForTimeout(150)
   const png = await page.screenshot({ animations: 'disabled' }) // moving pages: compare the first frame, same as the build
   const regions = await page.evaluate(() => [...document.querySelectorAll('[data-r]')].map((el) => {
-    const r = el.getBoundingClientRect()
+    let r = el.getBoundingClientRect()
+    r = { x: r.x, y: r.y, width: r.width, height: r.height }
+    // what shows, not the box: a clip-path inset keeps one part (round 6 c2: each half of a sliced word), and a
+    // 3D floor's box runs thousands of px off the page (round 6 c1), so a block far bigger than the page is cut to it
+    const cs = getComputedStyle(el), m = cs.clipPath.match(/inset\(([^)]*)\)/)
+    if (m) {
+      const [t, rr = t, b = t, l = rr] = m[1].replace(/round.*$/, '').trim().split(/\s+/)
+      const px = (v, size) => /%$/.test(v) ? parseFloat(v) / 100 * size : parseFloat(v) || 0
+      const T = px(t, r.height), B = px(b, r.height), L = px(l, r.width), R = px(rr, r.width)
+      r = { x: r.x + L, y: r.y + T, width: r.width - L - R, height: r.height - T - B }
+    }
+    if (r.width > 3 * innerWidth || r.height > 3 * innerHeight) {
+      const x0 = Math.max(0, r.x), y0 = Math.max(0, r.y), x1 = Math.min(innerWidth, r.x + r.width), y1 = Math.min(innerHeight, r.y + r.height)
+      r = { x: x0, y: y0, width: x1 - x0, height: y1 - y0 }
+    }
     return { role: el.dataset.r, rect: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }, must: el.hasAttribute('data-must') }
   }))
   await page.close()
