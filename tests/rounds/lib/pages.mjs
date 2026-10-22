@@ -111,6 +111,8 @@ export function noteSpot(plan, role, at) {
   return centre
 }
 
+const both = (a, b) => { const x = Math.min(a.x, b.x), y = Math.min(a.y, b.y); return { x, y, w: Math.max(a.x + a.w, b.x + b.w) - x, h: Math.max(a.y + a.h, b.y + b.h) - y } }
+
 /** pageMaker(dir)(id, kind, title, plan, notes); plan in drawing order, notes [[role, text]...]. */
 export function pageMaker(DIR) {
   const { targets, calibration } = JSON.parse(readFileSync(`${DIR}targets.json`, 'utf8'))
@@ -130,7 +132,8 @@ export function pageMaker(DIR) {
       effects: effects[id]?.names ?? [],
       regions,
       plan, planNotes: notes,
-      strokes: plan.flatMap(([role, k, o]) => mark(k, at(role), o)),
+      // o.union: one mark over two regions (the two clipped halves of a sliced word, round 6 c2)
+      strokes: plan.flatMap(([role, k, o]) => mark(k, o?.union ? both(at(role), at(o.union)) : at(role), o)),
       // role '*' = a whole-page note (Alt+Shift+N): the look of the page, not of a mark
       notes: notes.map(([role, text]) => {
         if (role === '*') return { at: { x: 640, y: 450 }, text, whole: true }

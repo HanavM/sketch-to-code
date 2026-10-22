@@ -1,23 +1,23 @@
 {
   "id": "c2-split-type",
-  "at": "2026-10-22T08:16:42.647Z",
+  "at": "2026-10-22T09:22:30.403Z",
   "likeness": {
     "version": 3,
-    "overall": 0.21860420534363528,
-    "overallV2": 0.1640201535615966,
-    "overallV1": 0.1628628499447419,
-    "colour": 0.8851196712283815,
-    "structure": 0.5967179984867838,
-    "structureStrict": 0.45199760678596473,
-    "colourAligned": 0.9009164725468428,
-    "structureAligned": 0.6131234995383391,
+    "overall": 0.46972796286452145,
+    "overallV2": 0.46922475146967313,
+    "overallV1": 0.29880368867747115,
+    "colour": 0.9260024426305046,
+    "structure": 0.7965804649121023,
+    "structureStrict": 0.5995640216400242,
+    "colourAligned": 0.9261992366996067,
+    "structureAligned": 0.7965804649121023,
     "align": {
-      "scale": 0.88,
-      "dx": -16,
-      "dy": 96,
-      "r": 0.4847483739556195
+      "scale": 0.92,
+      "dx": 0,
+      "dy": 16,
+      "r": 0.6998450232821788
     },
-    "layout": 0.3553902706178553
+    "layout": 0.4479989060339033
   },
   "effects": {
     "recall": 1,
@@ -30,61 +30,35 @@
     "extra": []
   },
   "tokens": {
-    "input": 46017,
-    "output": 29840,
-    "cacheRead": 597054
+    "input": 42604,
+    "output": 29024,
+    "cacheRead": 228903
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 31998,
-      "output": 10324,
-      "cacheRead": 254467,
-      "toolCalls": 10,
+      "billed": 53319,
+      "output": 21007,
+      "cacheRead": 195389,
+      "toolCalls": 11,
       "tools": [
-        "Read components/SketchShape.tsx",
         "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/CircleAccent.tsx",
         "Read src/App.tsx",
-        "Read src/index.css",
+        "Read src/main.tsx",
         "Glob",
-        "Edit src/App.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Read components/SketchShape.tsx",
-        "Read src/App.tsx"
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 119032
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 24543,
-      "output": 11636,
-      "cacheRead": 177509,
-      "toolCalls": 3,
-      "tools": [
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 147673
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 2731,
-      "output": 1106,
-      "cacheRead": 154395,
-      "toolCalls": 2,
-      "tools": [
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 12453
+      "ms": 239877
     }
   ],
-  "reading": "This is a hand-drawn magazine/festival masthead: a logo and issue date at top, a huge two-tone split 'BREAK' headline divided by a thin rule, a vertical festival title running down the right edge, another rule, a short paragraph placeholder, a slanted 'Tickets →' call-to-action, and a red accent circle, all set on an off-white Helvetica page per the typed notes.",
+  "reading": "This is a magazine-style hero/header: a small wordmark and issue label at top, a giant two-tone split heading \"BREAK\", thin divider rules, a vertical festival tagline along the right edge, a three-column day-by-day schedule block, a big slanted \"Tickets →\" call-to-action, and a vivid red decorative circle, all on an off-white Helvetica page.",
   "actions": [
     {
       "kind": "add",
@@ -99,7 +73,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add small header logo text reading \"KINETIK\" in wide-spaced letters, top-left corner of the page."
+      "instruction": "Small wide-spaced uppercase wordmark text \"KINETIK\" acting as the site logo/heading, near-black, Helvetica."
     },
     {
       "kind": "add",
@@ -114,7 +88,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add small text reading \"Vol. 06 — Oct 2026\" in the top-right corner, as a masthead issue/date label."
+      "instruction": "Small text label \"Vol. 06 — Oct 2026\" near the logo, near-black, Helvetica."
     },
     {
       "kind": "add",
@@ -127,40 +101,17 @@
             "s2"
           ],
           "lines": 1,
-          "fontPx": 308
+          "fontPx": 295
         }
       ],
       "region": [
         48,
-        0,
-        787,
-        370
+        73,
+        850,
+        354
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica heavy, tight-set headline reading \"BREAK\", clipped so only the top 50% shows (clip-path cuts it flat across the middle), spanning the widt"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s3"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s3"
-          ],
-          "lines": 1,
-          "fontPx": 307
-        }
-      ],
-      "region": [
-        118,
-        131,
-        787,
-        368
-      ],
-      "paths": [],
-      "instruction": "Add a second giant Helvetica heavy, tight-set headline reading \"BREAK\" in red, clipped so only the bottom 50% shows (clip-path cuts it flat across the middle), "
+      "instruction": "One giant Helvetica heavy tight-set word \"BREAK\" sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the "
     },
     {
       "kind": "add",
@@ -173,9 +124,9 @@
         7
       ],
       "paths": [
-        "s4"
+        "s3"
       ],
-      "instruction": "Add a solid near-black horizontal divider rule, 3px tall and about 1120px wide, no text, placed just below the split headline."
+      "instruction": "Solid near-black divider rule, 3px tall and 1120px wide, no text, placed just under the BREAK heading."
     },
     {
       "kind": "add",
@@ -188,9 +139,9 @@
         330
       ],
       "paths": [
-        "s5"
+        "s4"
       ],
-      "instruction": "Add vertical uppercase, wide-spaced text reading \"A TYPE FESTIVAL · LISBON\" running down along the right edge of the page."
+      "instruction": "Vertical uppercase wide-spaced text running along the right edge: \"A TYPE FESTIVAL · LISBON\"."
     },
     {
       "kind": "add",
@@ -203,21 +154,21 @@
         8
       ],
       "paths": [
-        "s6"
+        "s5"
       ],
-      "instruction": "Add a solid near-black horizontal divider rule, 2px tall and about 1120px wide, no text, below the festival title section."
+      "instruction": "Solid near-black divider rule, 2px tall and 1120px wide, no text, spanning the width below the hero section."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s7",
-        "s8"
+        "s6",
+        "s7"
       ],
       "textSize": [
         {
           "strokes": [
-            "s7",
-            "s8"
+            "s6",
+            "s7"
           ],
           "lines": 2,
           "fontPx": 18
@@ -230,17 +181,17 @@
         55
       ],
       "paths": [],
-      "instruction": "Add a short two-line paragraph of body copy below the lower divider, giving a brief promotional teaser about the festival/event."
+      "instruction": "Three columns side by side, 40px apart, each with a small bold wide-spaced 13px head over 17px body text: \"01 DAY\" over \"Talks on motion, rhythm and the split l"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s9"
+        "s8"
       ],
       "textSize": [
         {
           "strokes": [
-            "s9"
+            "s8"
           ],
           "lines": 1,
           "fontPx": 127
@@ -253,7 +204,7 @@
         152
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica heavy, tight-set call-to-action text \"Tickets →\", slanted 12° (skewX(-12deg), leaning right like italics), positioned at the bottom-left o"
+      "instruction": "Giant Helvetica heavy tight-set call-to-action text \"Tickets →\", slanted 12° to the right (skewX(-12deg), like italics)."
     },
     {
       "kind": "add",
@@ -266,9 +217,9 @@
         102
       ],
       "paths": [
-        "s10"
+        "s9"
       ],
-      "instruction": "Add a vivid red filled circle as a decorative accent/badge at the bottom-right of the page."
+      "instruction": "A vivid red filled circle, used as a decorative accent/mark near the Tickets CTA."
     }
   ],
   "rejected": [

@@ -104,15 +104,8 @@
     "heading",
     {
      "fontPx": 260,
-     "lines": 1
-    }
-   ],
-   [
-    "word-bottom",
-    "heading",
-    {
-     "fontPx": 260,
-     "lines": 1
+     "lines": 1,
+     "union": "word-bottom"
     }
    ],
    [
@@ -151,7 +144,7 @@
   "notes": [
    [
     "*",
-    "whole page: off-white page, Helvetica type, near-black text"
+    "whole page: off-white (#f4f1ea, plainly not white) page, Helvetica type, near-black text"
    ],
    [
     "logo",
@@ -163,11 +156,7 @@
    ],
    [
     "word-top",
-    "only the top 50% of the letters shows (clip-path cuts them flat across the middle) giant Helvetica heavy tight-set letters \"BREAK\""
-   ],
-   [
-    "word-bottom",
-    "only the bottom 50% of the letters shows (clip-path cuts them flat across the middle), shifted 70px right of where the top half sits; its cut edge sits right on the top half's cut edge, no gap, so the two halves join into one word sliced across giant Helvetica heavy tight-set letters red \"BREAK\""
+    "ONE giant Helvetica heavy tight-set letters word \"BREAK\" sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type"
    ],
    [
     "rule",

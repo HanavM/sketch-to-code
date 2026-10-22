@@ -162,3 +162,23 @@ a 3D floor's box clamped to the page). Rounds 1-5 plans unchanged except round 4
 After the live runs (free, not yet built): sliced halves say they meet at the cut with no gap; columns of copy with
 small bold heads are said ("01 DAY" over its line, x3); display type at regular weight says "regular weight (not
 bold)" (also fixes round 1 c5's open note; rounds 1-5 gain only that phrase on regular-weight headlines).
+
+## n86: sliced word as one mark, flat disc, floor grid, small line under big type (2026-10-22, ~412k billed tokens)
+
+Free planner fixes:
+- A big flat textless circle says "perfectly round solid disc, Npx across, flat opaque #hex, not traced from the ink"
+  (c3 sun was built as two pale blobs traced from the drawn circle). Blurred or faded circles keep their old note.
+- The 3D floor grid note never fired: computed style writes `transparent` as `rgba(0, 0, 0, 0)`. Fixed, and the floor
+  is said as a backdrop that holds nothing (c1 floor had been read as the buttons' container).
+- Big type with a small block line inside (c5 "£4" + 16px mono "post free in the UK") says the big part's size and
+  the small line apart (it was one huge heading).
+- Two clipped halves of one word are now ONE mark drawn over both halves (`union` in the plan) with one note saying
+  two copies on the same spot, each clip-path, the colours and the slide (c2: said as two headings, built far apart).
+- A warm off-white page names its hex (c2 #f4f1ea was built white). Rounds 1, 3, 5 page notes gain their hex too.
+
+| page | n79 | n86 | note |
+|---|---|---|---|
+| c1 perspective stack | 90% | 79% | floor grid now built behind everything, but stops ~400px down (target reaches the bottom), so layout drops; otherwise alike |
+| c2 split type | 22% | 19% then **47%** (one-mark slice) | sliced BREAK now one word, halves meet at the rule, page off-white, arrow kept; word ~1.4x too wide, red not rose, columns wrap |
+| c3 SVG waves | 73% | **79%** | sun a solid orange disc, headline regular weight; headline still wraps to 3 lines (2 in target) |
+| c5 brutal zine | 70% | **84%** | "£4" big with the small line under it; LOUD still cut off at the left, cells gapped instead of sharing borders |

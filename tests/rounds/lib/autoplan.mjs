@@ -1687,7 +1687,8 @@ function pageNote(b) {
   const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
   if (gl) w.push(`${gl.replace(/ block\b/, ` (${hexOf(b.bg)}) page`)} (big soft radial glows fading into the base colour)`)
   else if (grad) w.push(`${grad} page`)
-  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg)} page`)
+  // a warm off-white (#f4f1ea) said bare was built plain white (round 6 c2): its hex goes with it
+  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg) === 'off-white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg)} page`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
@@ -1762,11 +1763,26 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)
   const heads = regions.filter((f) => out.get(f.role).kind === 'heading' && f.text)
+  const unionOf = new Map()
   for (const f of heads) {
     const same = heads.filter((g) => g.text === f.text).sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x)
     if (same.length < 2) continue
-    // two clipped halves of one word are one word, sliced (round 6 c2), not two lines
-    if (same.some((g) => g.clipInset)) continue
+    // two clipped halves of one word are one word, sliced (round 6 c2), not two lines: one mark over the
+    // whole word, one note for both copies (said as two headings, the build set the halves far apart, 22%)
+    if (same.some((g) => g.clipInset)) {
+      const top = same.find((g) => g.clipInset && g.clipInset.b >= 0.3 && g.clipInset.t < 0.05)
+      const bot = same.find((g) => g.clipInset && g.clipInset.t >= 0.3 && g.clipInset.b < 0.05)
+      if (top && bot && f === top && out.get(bot.role).kind) {
+        const dt = out.get(top.role), db = out.get(bot.role)
+        const look = (dt.note ?? '').replace(/^.*?cuts them flat across the middle\)\s*/, '').replace(/\s*"[^"]*"\s*$/, '')
+        const cut = Math.round((1 - top.clipInset.b) * 100)
+        const sh = bot.shiftX - top.shiftX
+        dt.note = `ONE ${look} word ${quote(f.text)} sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px))` : ''}; the two parts touch at the cut, no gap, one line of type`
+        db.kind = null; db.note = null
+        unionOf.set(top.role, bot.role)
+      }
+      continue
+    }
     const i = same.indexOf(f), d = out.get(f.role)
     const nth = ['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`
     d.note = `${d.note}, the ${nth} of ${same.length} separate stacked lines of the same word (it repeats; build each line)`
@@ -1787,7 +1803,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
     const k = out.get(f.role).kind
     if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
-    if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
+    if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]
     // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px
     // were drawn 24px apart, read as 16px type, built as one small line)
     if (k === 'text' && f.textLines >= 2 && f.textLines <= 8) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
