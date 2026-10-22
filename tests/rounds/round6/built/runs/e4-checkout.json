@@ -1,0 +1,129 @@
+{
+  "id": "e4-checkout",
+  "at": "2026-10-22T04:26:16.826Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.32257855873704977,
+    "overallV2": 0.12360543817197431,
+    "overallV1": 0.11187596397734596,
+    "colour": 0.9381033663364535,
+    "structure": 0.6679372253306836,
+    "structureStrict": 0.5294899416796969,
+    "colourAligned": 0.9592501183209627,
+    "structureAligned": 0.7491248640994169,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -64,
+      "r": 0.8623886522909855
+    },
+    "layout": 0.34064024830161344
+  },
+  "effects": null,
+  "tokens": {
+    "input": 22134,
+    "output": 14266,
+    "cacheRead": 168733
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 24178,
+      "output": 9191,
+      "cacheRead": 150419,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 98156
+    }
+  ],
+  "reading": "The sketch is a checkout page: a brand wordmark and a step-nav row at top, a big form box with contact/shipping/delivery fields, a full-width 'Continue to payment' button, and a tall right-hand panel for an order summary — all captioned in detail by typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        41,
+        107,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a small brand wordmark/heading text reading \"Field & Co.\" at the top-left of the page (per typed note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        100,
+        388,
+        9
+      ],
+      "paths": [],
+      "instruction": "Below the brand mark, add a checkout step indicator/nav row with items: ✓ Cart (completed/checked), Shipping, Payment, Review (per typed note)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        153,
+        634,
+        525
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build a checkout form inside this box, with white bordered rounded fields and labels above them, in this order per typed note: bold heading \"Contact\"; \"Email\" f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        82,
+        791,
+        635,
+        54
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a full-width, near-black button with white text reading \"Continue to payment\" below the form (per typed note)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        803,
+        3,
+        474,
+        894
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a full-height, off-white side panel, 480px wide, flush to the right edge of the page, containing an order summary per typed note: three item rows, each with"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

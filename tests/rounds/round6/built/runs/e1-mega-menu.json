@@ -1,0 +1,167 @@
+{
+  "id": "e1-mega-menu",
+  "at": "2026-10-22T03:58:12.355Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5789557437896125,
+    "overallV2": 0.5694378168717829,
+    "overallV1": 0.44147353632407316,
+    "colour": 0.9627664193008826,
+    "structure": 0.784443644214575,
+    "structureStrict": 0.6134312752863038,
+    "colourAligned": 0.9650111082220253,
+    "structureAligned": 0.784443644214575,
+    "align": {
+      "scale": 1,
+      "dx": 16,
+      "dy": 0,
+      "r": 0.8809626688783435
+    },
+    "layout": 0.8311710489528443
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "soft-shadow"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48905,
+    "output": 26127,
+    "cacheRead": 125190
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49331,
+      "output": 14545,
+      "cacheRead": 114800,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 164911
+    }
+  ],
+  "reading": "A 72px white nav bar sits across the top with the usual links (Products selected). Directly beneath it an open mega-menu dropdown (gradient backdrop + white rounded card with shadow, overlapping the page below it) holds three stacked link-list columns (BUILD, SHIP, WATCH) and a dark-navy 'Northwind AI' promo card. A separate blank rectangular section sits further down the page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        66
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "White navigation bar, 72px tall, spanning the full page width. Links: Northwind, Products, Solutions, Pricing, Docs, and a 'Search docs…' field. 'Products' is t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        75,
+        1194,
+        434
+      ],
+      "paths": [
+        "s1",
+        "s3"
+      ],
+      "instruction": "An open mega-menu dropdown panel hanging straight down from the bottom of the nav bar: a gradient block (vivid blue at top-left fading to vivid bright sky-blue "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        80,
+        113,
+        253,
+        359
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "First dropdown column: small grey spaced-capitals label 'BUILD', followed by 4 stacked links, each a name with a small grey caption line under it: 'Functions' /"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        372,
+        112,
+        254,
+        359
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Second dropdown column: small grey spaced-capitals label 'SHIP', followed by 3 stacked links, each a name with a small grey caption line under it: 'Previews' / "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        664,
+        112,
+        254,
+        360
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Third dropdown column: small grey spaced-capitals label 'WATCH', followed by 3 stacked links, each a name with a small grey caption line under it: 'Logs' / 'Sea"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        956,
+        112,
+        244,
+        360
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Fourth dropdown column: a dark-navy promo card with white text. A 96x96px rounded square icon with a cyan-to-grey gradient sits in the top-left, inset 28px. Bel"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        563,
+        1193,
+        274
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A full-width rectangular content section below the nav/dropdown, left blank as a placeholder for the page's main content."
+    }
+  ],
+  "rejected": []
+}

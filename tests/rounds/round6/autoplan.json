@@ -458,8 +458,12 @@
     "vivid blue (top left) to vivid bright sky blue (bottom right) gradient block"
    ],
    [
+    "cards",
+    "a row of 4 separate empty white cards, each 282x280px, 24px apart, thin light grey border, 12px rounded, nothing inside them"
+   ],
+   [
     "mega",
-    "white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering part of what is drawn under it (absolutely placed over it, not pushing it down)"
+    "white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering all of what is drawn under it (absolutely placed over it, not pushing it down); the panel is a fixed 440px tall as drawn, so nothing under it peeks out round its edges"
    ],
    [
     "col-build",
@@ -533,7 +537,7 @@
   "notes": [
    [
     "*",
-    "whole page: off-white page, Helvetica type, dark navy text"
+    "whole page: pale blue-grey page, Helvetica type, dark navy text"
    ],
    [
     "sidebar",
@@ -569,7 +573,7 @@
    ],
    [
     "chart-donut",
-    "white card, small grey title \"Plan mix\" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then bright orange 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: \"■ Pro 46%\", \"■ Team 28%\", \"■ Free 16%\""
+    "white card, small grey title \"Plan mix\" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: \"■ Pro 46%\", \"■ Team 28%\", \"■ Free 16%\""
    ],
    [
     "chart-bars",
@@ -611,7 +615,7 @@
    ],
    [
     "reader",
-    "opened message: a row of small outlined buttons \"Reply\", \"Forward\", \"Archive\", \"Delete\" at the top; big bold 24px title \"Q4 launch plan\"; a 44px round bright orange avatar left of bold \"Lena Park\" with grey \"to me · 9:41 AM\" under it; then 15px body text, lines: \"Hi Hanav,\" / \"Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?\" / \"Thanks,\" / \"Lena\"; then a bordered rounded attachment box \"Q4-launch.pdf · 2.4 MB\""
+    "opened message: a row of small outlined buttons \"Reply\", \"Forward\", \"Archive\", \"Delete\" at the top; big bold 24px title \"Q4 launch plan\"; a 44px round amber avatar left of bold \"Lena Park\" with grey \"to me · 9:41 AM\" under it; then 15px body text, lines: \"Hi Hanav,\" / \"Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?\" / \"Thanks,\" / \"Lena\"; then a bordered rounded attachment box \"Q4-launch.pdf · 2.4 MB\""
    ],
    [
     "reply",
@@ -711,11 +715,11 @@
    ],
    [
     "grid",
-    "week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue \"Standup 9:00–9:45\" on MON, 9 AM to 10 AM; pale green \"Design review 10:00–12:00\" on TUE, 10 AM to 12 PM; pale orange \"Interview 9–11\" on left half of WED, 9 AM to 11 AM; pale pink \"1:1 Ana 9:30–11:30\" on right half of WED, 9:30 AM to 11:30 AM; pale blue \"Focus time 2:00–3:00\" on THU, 2 PM to 3 PM; pale green \"Offsite planning 1:00–4:00\" on FRI, 1 PM to 4 PM; pale red \"Hike, Barton Creek 8:00–9:00 · Sat–Sun\" on SAT to SUN, 8 AM to 9 AM"
+    "week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left, each hour row exactly 72px tall; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue \"Standup 9:00–9:45\" on MON, 9 AM to 10 AM; pale green \"Design review 10:00–12:00\" on TUE, 10 AM to 12 PM; pale orange \"Interview 9–11\" on left half of WED, 9 AM to 11 AM; pale pink \"1:1 Ana 9:30–11:30\" on right half of WED, 9:30 AM to 11:30 AM; pale blue \"Focus time 2:00–3:00\" on THU, 2 PM to 3 PM; pale green \"Offsite planning 1:00–4:00\" on FRI, 1 PM to 4 PM; pale red \"Hike, Barton Creek 8:00–9:00 · Sat–Sun\" on SAT to SUN, 8 AM to 9 AM"
    ],
    [
     "event-today",
-    "off-white card \"Launch sync 11:00–12:30\""
+    "pale purple card (165x100px) with a 4px purple left edge, 6px rounded, bold \"Launch sync\" then \"11:00–12:30\" under it"
    ],
    [
     "now-line",

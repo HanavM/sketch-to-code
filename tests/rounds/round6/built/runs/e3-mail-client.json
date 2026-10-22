@@ -1,0 +1,123 @@
+{
+  "id": "e3-mail-client",
+  "at": "2026-10-22T04:15:54.240Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6727440852498924,
+    "overallV2": 0.6727440852498924,
+    "overallV1": 0.4456743429129377,
+    "colour": 0.9862290806351874,
+    "structure": 0.910756186340659,
+    "structureStrict": 0.7423355472195055,
+    "colourAligned": 0.9862290806351874,
+    "structureAligned": 0.910756186340659,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.766584415148992
+    },
+    "layout": 0.9359734561174187
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 31907,
+    "output": 18294,
+    "cacheRead": 212352
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35529,
+      "output": 11746,
+      "cacheRead": 185466,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 121706
+    }
+  ],
+  "reading": "A three-column email client: a narrow left nav card with Compose and folder links, a middle list of mail rows with a search box, and a wide right pane showing an opened message with toolbar, header, body text and an attachment, plus a reply input box at the bottom of that pane.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Pale grey navigation card containing a Compose button/link at top, then a folder list: Inbox with a 12 count badge, Starred, Sent, Drafts with a 3 count badge, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        3,
+        394,
+        893
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Mail list column: a Search mail input box at the top, followed by 6 mail rows separated by thin divider lines. Each row shows sender on the left and time on the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        3,
+        654,
+        894
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Opened-message detail pane. At the top, a row of small outlined buttons: Reply, Forward, Archive, Delete. Below that, a big bold 24px title Q4 launch plan. Then"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        659,
+        759,
+        581,
+        114
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A reply text input box at the bottom of the message pane with placeholder text Reply to Lena."
+    }
+  ],
+  "rejected": []
+}

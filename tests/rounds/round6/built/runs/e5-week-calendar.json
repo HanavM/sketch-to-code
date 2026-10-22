@@ -1,0 +1,169 @@
+{
+  "id": "e5-week-calendar",
+  "at": "2026-10-22T04:21:44.763Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5494980426497527,
+    "overallV2": 0.4107243150279033,
+    "overallV1": 0.25942491991418937,
+    "colour": 0.9845591731533194,
+    "structure": 0.8769534645806606,
+    "structureStrict": 0.7639541797096994,
+    "colourAligned": 0.9881140020613137,
+    "structureAligned": 0.9270033260748414,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -32,
+      "r": 0.605788556718905
+    },
+    "layout": 0.537142410638254
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 29789,
+    "output": 19711,
+    "cacheRead": 179742
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 43076,
+      "output": 17118,
+      "cacheRead": 176658,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 177610
+    }
+  ],
+  "reading": "The sketch builds a week-view calendar: a header with a bold month title and nav/view links, a row of day-of-week column heads, an hourly time rail, a week grid filled with color-coded, time-positioned event cards (per the detailed typed note), an extra off-white \"Launch sync\" card, and a red current-time indicator line with a dot.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Calendar header: bold 22px heading \"October 2026\" followed by nav links Today, ‹, ›, and view-switch links Day, Week, Month."
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        64,
+        1208,
+        56
+      ],
+      "paths": [],
+      "instruction": "Row of day-of-week header links acting as the 7 day-column heads above the week grid: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        24,
+        124,
+        17,
+        772
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Vertical strip of thin hour gridlines down the left edge of the calendar, labeled 8 AM through 6 PM, to anchor the rows of the week grid."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        123,
+        1210,
+        774
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Week grid with 7 day columns under the day heads and thin hour rows from 8 AM to 6 PM. Place event cards by day/time, each with a pale fill, a darker left edge "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        592,
+        344,
+        158,
+        93
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "An off-white event card reading \"Launch sync 11:00–12:30\", placed within the week grid alongside the other event cards."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        652,
+        537,
+        166,
+        7
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Current-time indicator: a thin solid red line, 2px tall and 174px wide, with a 10px round red dot on its left end, overlaid across the week grid with no accompa"
+    }
+  ],
+  "rejected": []
+}

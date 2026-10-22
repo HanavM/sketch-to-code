@@ -69,7 +69,7 @@ export function factsInPage() {
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
       clipText: (cs.webkitBackgroundClip || cs.backgroundClip) === 'text',
-      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0 },
+      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor) },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // an arch: round top corners, square bottom ones (round 4 c1 arch said as a circle, built as a ball)
@@ -313,6 +313,15 @@ export function factsInPage() {
         const vert = bs[1].top - bs[0].top > Math.abs(bs[1].left - bs[0].left)
         return { px: Math.round(bs[0].width), vert, gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right), fills: kids.map((k) => rgba(getComputedStyle(k).backgroundColor)) }
       })(),
+      // a row of empty cards (round 6 e1: 4 white bordered cards under the menu, unsaid, built as one box)
+      emptyCards: (() => {
+        if (kids.length < 2 || kids.length > 8 || txt(el)) return null
+        const bs = kids.map((k) => k.getBoundingClientRect()), cs0 = getComputedStyle(kids[0])
+        const ok = kids.every((k, i) => !k.children.length && bs[i].width >= 80 && bs[i].height >= 80 && Math.abs(bs[i].width - bs[0].width) <= 4 && Math.abs(bs[i].height - bs[0].height) <= 4 && (rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 || parseFloat(getComputedStyle(k).borderTopWidth) >= 1))
+        if (!ok) return null
+        const vert = bs[1].top - bs[0].top > Math.abs(bs[1].left - bs[0].left)
+        return { n: kids.length, w: Math.round(bs[0].width), h: Math.round(bs[0].height), vert, gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right), fill: rgba(cs0.backgroundColor), bw: parseFloat(cs0.borderTopWidth) || 0, border: rgba(cs0.borderTopColor), radius: Math.round(parseFloat(cs0.borderTopLeftRadius) || 0) }
+      })(),
       // a filled block holding only small textless icon tiles (round 5 e3 workspace rail: drawn as a
       // picture placeholder, built as a crossed-out X)
       iconKids: (() => {
@@ -403,7 +412,7 @@ export function factsInPage() {
           const narrow = b.width < cw * 0.6 ? ((b.left + b.width / 2 - g.left) % cw < cw / 2 ? 'left half of ' : 'right half of ') : ''
           return { title: txt(k.querySelector('b,strong') ?? k), text: txt(k), fill: filled(k), edge: parseFloat(c.borderLeftWidth) >= 3 ? rgba(c.borderLeftColor) : null, days: d0 === d1 ? `${narrow}${d0}` : `${d0} to ${d1}`, from: clock(b.top), to: clock(b.bottom) }
         })
-        return { type: 'week', heads, hours: [txt(rk[0]), txt(rk[rk.length - 1])], events: evs, edge: evs.length && evs.every((e) => e.edge) }
+        return { type: 'week', heads, hours: [txt(rk[0]), txt(rk[rk.length - 1])], hourPx: Math.round(pitch), events: evs, edge: evs.length && evs.every((e) => e.edge) }
       }
     }
     // month grid: seven columns, weekday heads, events as coloured chips in day cells
@@ -721,6 +730,10 @@ const NAMED = [
   ['dark blue', 30, 58, 138],
   // round 5 c4 #9a3412 photo end was called 'brown' and built near-black brown (target a deep orange-red)
   ['deep rust orange', 154, 52, 18],
+  // round 6 e2 #f59e0b donut segment was 'bright orange' and built #f97316
+  ['amber', 245, 158, 11],
+  // round 6 e2 #f1f5f9 page was 'off-white' and built a warm cream
+  ['pale blue-grey', 241, 245, 249],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -748,6 +761,8 @@ export function colourName(c) {
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
     if (n === 'dark blue' && !(hue(c) >= 215 && hue(c) <= 235 && chroma >= 80 && Math.max(c.r, c.g, c.b) <= 170)) continue
     if (n === 'deep rust orange' && !(hue(c) >= 10 && hue(c) <= 25 && chroma >= 110 && Math.max(c.r, c.g, c.b) <= 190)) continue
+    if (n === 'amber' && !(hue(c) >= 34 && hue(c) <= 46 && chroma >= 170)) continue
+    if (n === 'pale blue-grey' && !(chroma >= 7 && chroma <= 14 && c.b - c.r >= 7 && Math.min(c.r, c.g, c.b) >= 232)) continue
     if (n === 'bright sky blue' && !(hue(c) >= 193 && hue(c) <= 215 && chroma >= 120)) continue
     if (n === 'pale grey' && !(chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236)) continue
     if (n === 'off-white' && chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236) continue
@@ -921,7 +936,7 @@ function denseNote(d) {
       return `order summary: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
-    case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
+    case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
     case 'month': {
       // with days when known: blue "Standup" on 2, 9, 16, 23 (where events sit is the calendar's content)
       const byText = new Map()
@@ -1103,6 +1118,11 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: withFx(`${fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} ` : ''}pill label${bordered ? ` with a ${Math.round(f.border.w)}px ${colourName(f.border.colour)} border` : ''}, ${f.font.weight >= 600 ? 'bold ' : ''}${ink}${quote(f.text)}`) }
   }
 
+  // a filled card with a thick coloured left edge (a calendar event, round 6 e5 'Launch sync' said as an 'off-white card')
+  if (f.text && fill && f.border.left >= 3 && f.border.w < 1 && visible(f.border.leftColour) && !f.regionKids.length && f.kidCount <= 3) {
+    const edge = colourName(f.border.leftColour).replace(/^(dark|deep) /, '')
+    return { kind: 'box', note: withFx(`pale ${edge} card (${Math.round(w)}x${Math.round(h)}px) with a ${Math.round(f.border.left)}px ${edge} left edge, ${Math.round(f.radius)}px rounded, bold ${quote(f.kidTexts?.[0] ?? f.text, 40)} then ${quote(f.text.replace(f.kidTexts?.[0] ?? '', '').trim(), 40)} under it`) }
+  }
   if (f.hasImg && f.text.length < 4) return { kind: 'image', note: withFx(null) }
   // dense app UI: say the structure (columns and rows, weeks, bars, sides) since a box shows none of it
   // (a plain list is only said when nothing else names the block: see the box branch)
@@ -1118,6 +1138,12 @@ function decideOne(f, page, marked, said) {
     const col = card ?? side ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
     const what = f.tag === 'aside' ? 'sidebar' : null
     return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
+  }
+  // a row of empty cards: say each card, or a build makes one big box
+  if (!f.text && f.emptyCards && !f.regionKids.length) {
+    const e = f.emptyCards
+    const look = `${e.fill?.a > 0.05 ? `${colourName(e.fill)} ` : ''}cards`
+    return { kind: 'box', note: withFx(`${e.vert ? 'a column' : 'a row'} of ${e.n} separate empty ${look}, each ${e.w}x${e.h}px, ${e.gap}px apart${e.bw >= 1 && visible(e.border) ? `, thin ${colourName(e.border)} border` : ''}${e.radius ? `, ${e.radius}px rounded` : ''}, nothing inside them`) }
   }
   // a filled block holding only icon tiles is a block with icons, not a picture
   if (!f.text && fill && f.iconKids && !f.regionKids.length && w >= 30 && h >= 50) {
@@ -1476,7 +1502,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (!soft || !bar || tl > 1 || tr > 1 || br < 6 || bl < 6) return
     const over = regions.filter((g) => g !== bar && g !== f && out.get(g.role).kind && !f.regionKids.includes(g.role) && !g.regionKids.includes(f.role) && g.rect.y < f.rect.y + f.rect.h && g.rect.y + g.rect.h > f.rect.y && g.rect.x < f.rect.x + f.rect.w && g.rect.x + g.rect.w > f.rect.x)
     const a = soft.c ? Math.round(soft.c.a * 100) : null
-    d.note = `${d.note ? `${d.note}, ` : ''}an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, ${Math.round(br)}px rounded bottom corners), with a big soft ${soft.c ? `${colourName({ ...soft.c, a: 1 })} ` : ''}shadow ${Math.round(soft.y)}px down, ${Math.round(soft.blur)}px blur${a !== null && a < 60 ? `, ${a}% opacity` : ''}${over.length ? `; it lies on top of the page below it, covering part of what is drawn under it (absolutely placed over it, not pushing it down)` : ''}`
+    d.note = `${d.note ? `${d.note}, ` : ''}an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, ${Math.round(br)}px rounded bottom corners), with a big soft ${soft.c ? `${colourName({ ...soft.c, a: 1 })} ` : ''}shadow ${Math.round(soft.y)}px down, ${Math.round(soft.blur)}px blur${a !== null && a < 60 ? `, ${a}% opacity` : ''}${over.length ? `; it lies on top of the page below it, covering ${over.filter((g) => g.rect.y >= f.rect.y - 2 && g.rect.y + g.rect.h <= f.rect.y + f.rect.h + 2 && g.rect.x >= f.rect.x - 2 && g.rect.x + g.rect.w <= f.rect.x + f.rect.w + 2).length ? 'all' : 'part'} of what is drawn under it (absolutely placed over it, not pushing it down)` : ''}; the panel is a fixed ${Math.round(f.rect.h)}px tall as drawn${over.filter((g) => g.rect.y >= f.rect.y - 2 && g.rect.y + g.rect.h <= f.rect.y + f.rect.h + 2 && g.rect.x >= f.rect.x - 2 && g.rect.x + g.rect.w <= f.rect.x + f.rect.w + 2).length ? ', so nothing under it peeks out round its edges' : ''}`
   })
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)

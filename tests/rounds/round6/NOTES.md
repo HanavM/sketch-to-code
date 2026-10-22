@@ -73,3 +73,24 @@ Untuned planner misses (rounds 1-5 plans must not change):
 - Rounds 1, 2, 4, 5 plans unchanged. Round 3 e4 chat sidebar now says each conversation's preview line (it was
   half said, as "Jonas Berg" See you at 3?) and keeps "Design team" highlighted.
 - Left: e3/e5 done in n78; creative misses are n79.
+
+## n81: first live builds of the everyday pages (2026-10-22, ~273k billed tokens)
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| e1 mega-menu | 58% | ~49k codegen | menu, columns, sublines, featured card all right; panel built shorter so the hidden blue block peeked out as a blue outline; the 4 empty cards under it (unsaid) built as one box |
+| e2 dashboard | **78%** | ~41k codegen | near-identical: KPIs, line chart, 3-segment donut with legend, bars, table; page built warm cream (target cool pale blue-grey), amber segment built orange |
+| e3 mail client | 67% | ~50k | near-identical: folders, 6 rows with unread/selected, reader, attachment; amber avatar built orange; reply box filled grey (target bordered white) |
+| e4 checkout | 32% | 36k (first try: reading failed, structured output retries) | close by eye; the form was put inside a white bordered card (target: fields straight on the page), so everything below shifts down; an "ORDER SUMMARY" heading invented; summary starts at the top (target lower) |
+| e5 week | 55% | ~50k | every event placed by day and time, now-line right; hour rows ~5% taller so the grid drifts; "Launch sync" built grey (said off-white); "Week" tab not filled; today's red circle built blue |
+
+Side-by-sides: built/<id>-cmp.png.
+
+Planner fixes (free): a row of empty cards is said ("a row of 4 separate empty white cards, each 282x280px, 24px
+apart, thin light grey border, 12px rounded"); a dropdown panel says its fixed height and that it hides all of what
+is under it; colours 'amber' (#f59e0b, hue 34-46) and 'pale blue-grey' (#f1f5f9 / #eef2f7); a week grid says its
+hour row height; a filled card with a thick coloured left edge says "pale <edge> card with a 4px <edge> left edge,
+bold title then time" (was "off-white card"). Rounds 1-5: only colour words change (orange->amber on #f59e0b
+targets, off-white->pale blue-grey on r3 e2 and r5 e1 pages).
+
+Left: e4 form-in-card and invented heading; e5 nested selected segment ("Week") and today's red date circle.
