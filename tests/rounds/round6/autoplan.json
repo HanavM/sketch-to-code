@@ -180,7 +180,7 @@
    ],
    [
     "dot",
-    "vivid rose red circle"
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 110px across, flat fully opaque vivid rose red (#e11d48) fill, hard edge, no blur"
    ]
   ]
  },
@@ -292,7 +292,7 @@
   "notes": [
    [
     "*",
-    "whole page: deep indigo (#1e1b4b) page with soft colour glows: indigo bottom, light pink top right, cyan top left (big soft radial glows fading into the base colour), Helvetica type, white text"
+    "whole page: deep indigo (#1e1b4b) page with soft colour glows: indigo (#6366f1) bottom, centred 50% across and 100% down, full-strength indigo at its centre fading to nothing about 552px out (radial-gradient(circle at 50% 100%, #6366f1 0, transparent 552px)); light pink (#e879f9) top right, centred 85% across and 30% down, full-strength light pink at its centre fading to nothing about 503px out (radial-gradient(circle at 85% 30%, #e879f9 0, transparent 503px)); cyan (#22d3ee) top left, centred 15% across and 20% down, full-strength cyan at its centre fading to nothing about 457px out (radial-gradient(circle at 15% 20%, #22d3ee 0, transparent 457px)) (big soft radial glows fading into the base colour), Helvetica type, white text"
    ],
    [
     "nav",
@@ -300,7 +300,7 @@
    ],
    [
     "headline",
-    "huge Helvetica heavy tight-set letters \"Every screen, one glance.\""
+    "huge Helvetica heavy tight-set letters \"Every screen, one glance.\", on ONE line (white-space: nowrap, never wrapped), about 834px wide"
    ],
    [
     "sub",
@@ -374,7 +374,7 @@
    ],
    [
     "masthead",
-    "giant Helvetica heavy tight-set letters white on a black band (the whole 1283x123px block filled black edge to edge, type left-aligned 24px in from its left, not centred) \"NOISE/ISSUE 9\""
+    "giant Helvetica heavy tight-set letters white on a black band (the whole 1283x123px block filled black edge to edge, type left-aligned 24px in from its left, not centred) \"NOISE/ISSUE 9\", on ONE line (white-space: nowrap, never wrapped), about 642px wide"
    ],
    [
     "intro",

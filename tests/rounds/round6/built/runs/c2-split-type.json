@@ -1,23 +1,23 @@
 {
   "id": "c2-split-type",
-  "at": "2026-10-22T11:23:36.633Z",
+  "at": "2026-10-22T11:59:31.509Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7345373766102721,
-    "overallV2": 0.7337899386615554,
-    "overallV1": 0.612841725807697,
-    "colour": 0.978386402230946,
-    "structure": 0.9208188400760381,
-    "structureStrict": 0.7809958256776574,
-    "colourAligned": 0.9786787075261661,
-    "structureAligned": 0.9208188400760381,
+    "overall": 0.7174368272013506,
+    "overallV2": 0.7174368272013506,
+    "overallV1": 0.5807116234178556,
+    "colour": 0.9759144113874673,
+    "structure": 0.900916258251405,
+    "structureStrict": 0.742854144838116,
+    "colourAligned": 0.9759144113874673,
+    "structureAligned": 0.900916258251405,
     "align": {
       "scale": 1,
       "dx": -16,
       "dy": 0,
-      "r": 0.9051973357277908
+      "r": 0.893236372255755
     },
-    "layout": 0.5251644493781562
+    "layout": 0.5491104519391118
   },
   "effects": {
     "recall": 1,
@@ -30,53 +30,43 @@
     "extra": []
   },
   "tokens": {
-    "input": 53539,
-    "output": 31881,
-    "cacheRead": 546479
+    "input": 50775,
+    "output": 27197,
+    "cacheRead": 230425
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 41584,
-      "output": 12208,
-      "cacheRead": 238205,
-      "toolCalls": 11,
+      "billed": 40568,
+      "output": 11234,
+      "cacheRead": 106351,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Glob",
-        "Read src/main.tsx",
-        "Glob",
-        "Write src/App.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx"
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 130796
+      "ms": 117016
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 35101,
-      "output": 15591,
-      "cacheRead": 305190,
-      "toolCalls": 7,
+      "billed": 25304,
+      "output": 11414,
+      "cacheRead": 113201,
+      "toolCalls": 2,
       "tools": [
         "Read src/App.tsx",
-        "Read components/SketchShape.tsx",
-        "Glob",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 196028
+      "ms": 140112
     }
   ],
-  "reading": "A single landing-page design: page-wide off-white/Helvetica styling, a \"KINETIK\" wordmark with a date on the top corners, a giant two-tone \"BREAK\" headline split by two divider rules, vertical festival text along the right edge, a three-column schedule block, a slanted \"Tickets →\" call-to-action, and a rose-red decorative circle — all specified precisely by the typed notes anchored to each stroke group.",
+  "reading": "This is a hero/header section for a kinetic-type festival page: a wordmark and issue label top, a giant two-tone split 'BREAK' headline cut by a thin rule, a vertical rotated tagline on the right edge, a second thin rule, a three-column day-by-day schedule, a big slanted 'Tickets →' link, and a solid red circular accent.",
   "actions": [
     {
       "kind": "add",
@@ -91,7 +81,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add wide-spaced uppercase wordmark text \"KINETIK\" in the top-left corner of the page."
+      "instruction": "Add small wide-letter-spaced uppercase wordmark text 'KINETIK' in near-black Helvetica, top-left of the page."
     },
     {
       "kind": "add",
@@ -106,7 +96,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add text \"Vol. 06 — Oct 2026\" in the top-right corner of the page."
+      "instruction": "Add small text 'Vol. 06 — Oct 2026' in near-black Helvetica, top-right of the page, aligned with the KINETIK wordmark."
     },
     {
       "kind": "add",
@@ -129,7 +119,7 @@
         354
       ],
       "paths": [],
-      "instruction": "Add ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, b"
+      "instruction": "Add one giant Helvetica heavy, tight-letter-spaced word 'BREAK' at 260px type size, whole word about 874px wide (no wider), as the main hero headline. Build it "
     },
     {
       "kind": "add",
@@ -144,7 +134,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a solid near-black divider strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 3px thick, thinner than the drawn pen lin"
+      "instruction": "Add a solid near-black divider rule, 3px tall and 1120px wide, no text, positioned where the cut through the 'BREAK' headline crosses — thinner than the drawn p"
     },
     {
       "kind": "add",
@@ -159,7 +149,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add vertical uppercase wide-spaced letters text \"A TYPE FESTIVAL · LISBON\" running down the right edge of the page."
+      "instruction": "Add uppercase, wide-letter-spaced text running vertically along the right edge of the page reading 'A TYPE FESTIVAL · LISBON'."
     },
     {
       "kind": "add",
@@ -174,7 +164,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a solid near-black divider strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 2px thick, thinner than the drawn pen lin"
+      "instruction": "Add a second solid near-black divider rule, 2px tall and 1120px wide, no text, below the headline area."
     },
     {
       "kind": "add",
@@ -199,7 +189,7 @@
         55
       ],
       "paths": [],
-      "instruction": "Add 3 columns side by side, 40px apart, each a small bold wide-spaced 13px heading over 17px text (each column 347px wide, its text on ONE line, no wrap): \"01 D"
+      "instruction": "Add a 3-column schedule row, columns 40px apart and 347px wide each, each with a small bold wide-letter-spaced 13px heading over 17px body copy on a single line"
     },
     {
       "kind": "add",
@@ -222,10 +212,10 @@
         152
       ],
       "paths": [],
-      "instruction": "Add slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters \"Tickets →\", 110px type, about 499px wide (no larger), near "
+      "instruction": "Add a large slanted (skewX(-12deg), leaning right like italics) Helvetica heavy, tight-set text link/button reading 'Tickets →', about 110px type size, roughly "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -237,10 +227,8 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add a vivid rose red decorative circle near the bottom-right of the page."
+      "instruction": "Add a perfectly round solid disc, 110px across, flat fully opaque vivid rose red (#e11d48) fill with a hard edge and no blur, rendered as a true circle (border-"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

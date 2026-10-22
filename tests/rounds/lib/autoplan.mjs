@@ -1234,7 +1234,10 @@ function glowWords(f) {
   const one = inside.length === 1 && inside[0].big
   const say = (g) => g.inside ? g.big ? `one big ${colourName(g.c)} glow centred ${g.fx}% across and ${g.fy}% down (about ${g.px * 2}px across, filling most of the block)` : `${colourName(g.c)} glow ${g.at}` : `${colourName(g.c)} ${g.at}`
   if (one) return `${base ? `${base} block` : 'block'} lit by ${f.glows.map(say).join(', a little ')}`
-  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map((g) => `${colourName(g.c)} ${g.at}`).join(', ')}`
+  // each glow says its hex, centre and reach, solid at its centre (round 6 c4: 'cyan top left' was built as faint
+  // haze; the target's glows are full-strength colour at the centre, fading out over 450-650px)
+  const exact = (g) => g.inside ? `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}, centred ${g.fx}% across and ${g.fy}% down, full-strength ${colourName(g.c)} at its centre fading to nothing about ${g.px}px out (radial-gradient(circle at ${g.fx}% ${g.fy}%, ${hexOf(g.c)} 0, transparent ${g.px}px))` : `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}`
+  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map(exact).join('; ')}`
 }
 /** A hard offset shadow with its offset and colour (round 5 c4 photo's 24px brown shadow: unsaid). */
 function shadowWords(f) {
@@ -1457,8 +1460,10 @@ function decideOne(f, page, marked, said) {
     const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
     // size word: a small textless dot (round 5 c2: a 28px red dot said 'big' was built as a 190px red disc)
     const size = f.text ? '' : w >= 120 ? 'big ' : w < 60 ? `small ${Math.round(w)}px ` : ''
+    // a flat textless disc >= 60px says its exact size and hex (round 6 c2: a 110px rose dot said 'vivid rose red
+    // circle' was built ~100px, a little squashed)
     // a big flat textless disc (round 6 c3 sun: 'big vivid bright orange circle' built as two pale blobs traced from the ink)
-    if (!f.text && fill && !grad && !glowy && w >= 120 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
+    if (!f.text && fill && !grad && !glowy && w >= 60 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
     return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
@@ -1585,7 +1590,10 @@ function decideOne(f, page, marked, said) {
     // a giant one-line word also says its type size: a width alone let the build take the drawn line
     // height (round 6 c2 'Tickets →' 110px type built ~127px, ~1.15x large)
     const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)` : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${under}`.trim()) }
+    // a display line of several words that fits on one line says so: the build wrapped it at the drawn width
+    // (round 6 c4 'Every screen, one glance.' 56px, one line, built on 2 lines over the subline)
+    const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${one}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
