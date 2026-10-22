@@ -1,23 +1,23 @@
 {
   "id": "e5-admin-table",
-  "at": "2026-10-22T22:29:57.385Z",
+  "at": "2026-10-22T22:44:31.517Z",
   "likeness": {
     "version": 3,
-    "overall": 0.792598031136633,
-    "overallV2": 0.792598031136633,
-    "overallV1": 0.7248216871650448,
-    "colour": 0.9812571829318721,
-    "structure": 0.9343625631048627,
-    "structureStrict": 0.8422119669063723,
-    "colourAligned": 0.9812571829318721,
-    "structureAligned": 0.9343625631048627,
+    "overall": 0.874802574633329,
+    "overallV2": 0.874802574633329,
+    "overallV1": 0.8412522472388753,
+    "colour": 0.9914099872764747,
+    "structure": 0.9564011139324996,
+    "structureStrict": 0.9107851587055625,
+    "colourAligned": 0.9914099872764747,
+    "structureAligned": 0.9564011139324996,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9698920239186866
+      "r": 0.9772022764669805
     },
-    "layout": 0.8089141514522596
+    "layout": 0.8450845145668826
   },
   "effects": {
     "recall": 1,
@@ -29,44 +29,61 @@
     "extra": []
   },
   "tokens": {
-    "input": 58541,
-    "output": 29653,
-    "cacheRead": 278619
+    "input": 66389,
+    "output": 46216,
+    "cacheRead": 768377
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 53536,
-      "output": 16134,
-      "cacheRead": 122639,
+      "billed": 52492,
+      "output": 19481,
+      "cacheRead": 133798,
       "toolCalls": 6,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 162961
+      "ms": 190957
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 11734,
-      "output": 3319,
-      "cacheRead": 143714,
-      "toolCalls": 3,
+      "billed": 30569,
+      "output": 13958,
+      "cacheRead": 407712,
+      "toolCalls": 7,
       "tools": [
+        "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read",
+        "Read src/App.tsx",
         "Read src/App.tsx",
         "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 32731
+      "ms": 169252
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 3572,
+      "output": 1331,
+      "cacheRead": 200336,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 15354
     }
   ],
-  "reading": "The user sketched a 'Team members' admin page: a page heading and subtitle, a blue 'Invite' button top-right, a left-packed toolbar of filter controls, a dark bulk-action bar for selected rows, a large data table card (with an open 'Status' filter dropdown overlaying it), and a pagination row at the bottom. Each typed note gives exact copy, styling, and layout values that must be followed verbatim.",
+  "reading": "The sketch is a Team Members admin page: a page title with subtitle, a blue '+Invite' button, a filter toolbar (search plus two dropdowns and a columns button), a bulk-action bar for selected rows, a data table card listing 10 members with avatars/roles/status/usage, an open status-dropdown menu floating over the table, and a pager at the bottom, plus a run-wide note on page background, typography and text colour.",
   "actions": [
     {
       "kind": "add",
@@ -89,7 +106,7 @@
         34
       ],
       "paths": [],
-      "instruction": "Page heading text: \"Team members\", 24px type, on ONE line (white-space: nowrap, never wrapped), about 174px wide."
+      "instruction": "Page heading 'Team members', 24px type on one line (white-space: nowrap, never wraps), about 174px wide."
     },
     {
       "kind": "add",
@@ -104,7 +121,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Subtitle text directly under the heading: 13px grey text \"128 people · 9 pending invites\", one line on its own (top 64px, left edge 40px), nothing else written "
+      "instruction": "Subtitle line directly under the heading: 13px grey text '128 people - 9 pending invites', a single line, top at 64px, left edge at 40px, nothing else beside it"
     },
     {
       "kind": "add",
@@ -119,7 +136,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Top-right button: blue background, white text, pill/rounded shape, label \"+ Invite\"."
+      "instruction": "Blue button with white text, top-right of the header, labelled '+ Invite'."
     },
     {
       "kind": "add",
@@ -134,7 +151,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; t"
+      "instruction": "Toolbar row of filter controls packed at the left, 10px apart, each shrink-0 (nothing stretched or pushed right, right side of row stays empty), each 33px tall,"
     },
     {
       "kind": "add",
@@ -149,7 +166,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Dark blue (#1e3a8a) bulk-action bar, 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then right beside it (packed at the left after the label, neve"
+      "instruction": "Dark blue (#1e3a8a) bulk-action bar, full width (1200x44px), 8px rounded corners: bold white '3 selected' label at the left, followed immediately (packed left, "
     },
     {
       "kind": "add",
@@ -164,7 +181,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Inside a white (#ffffff) card 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners (overflow hidden, so the header fill follows the corners), the "
+      "instruction": "White card, 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners with overflow hidden so the header fill follows the corners, containing a real ta"
     },
     {
       "kind": "add",
@@ -179,7 +196,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON "
+      "instruction": "Open dropdown menu floating on top of the table (absolutely positioned, covers content beneath, pushes nothing down): 200x146px white card, 10px rounded corners"
     },
     {
       "kind": "add",
@@ -204,10 +221,10 @@
         30
       ],
       "paths": [],
-      "instruction": "Pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey \"Showing 1–10 of 128\" at the left, at the far right a"
+      "instruction": "Pager row, full width (1200px), vertically centered at 865px from the page top (inside the page): 13px grey 'Showing 1-10 of 128' at the left; at the far right "
     }
   ],
   "rejected": [
-    "design action with neither container nor strokes"
+    "add action with neither container nor strokes"
   ]
 }

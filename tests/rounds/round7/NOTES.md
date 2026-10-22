@@ -316,3 +316,29 @@ e4 (3 notes) and e5 (1 note) changed. Vitest: same 2 environmental failures.
 | e5 admin table | 83% | 79% (78k, 4.3 min; repair 10k, 2 tools) | header row still built white: the reading paraphrased the note and dropped the tint, the builder followed the reading. Avatars pale tints (target vivid), header checkbox missing. Within run noise |
 
 Next: carry a note's colours through the reading's paraphrase (header tint lost there); e4 top-of-column drift; c2 VARIABLE 20px high.
+
+## n109: typed colours checked on the page; the finishing pass stopped erasing pale tints (2026-10-22)
+
+Root cause found: the zero-token finishing pass after every codegen turn rewrote any `bg-[#hex]` within ΔE 6 of a
+colour the app already renders into that token. On the blank bench app that is white, so the note's pale grey
+(#f3f4f6) header row (ΔE 4 from white) and #f9fafb page (ΔE 1.6) became `bg-white` after the build AND after the
+repair that fixed them. The n106-n108 "the builder/reading drops the tint" diagnosis was wrong: the builder wrote
+the tint every time. Any pale page or panel tint typed as hex in rounds 1-7 could have been erased the same way.
+
+Pipeline: (1) a hex the user typed (any note or instruction) is never snapped (finish.ts askedHexes); (2) a new
+zero-token check (fills.ts) reads typed fills from the words (page "(#hex) page", "(#hex) header row" /
+"bg-[#hex] on every header cell", a "(#hex) bar/pill/button/band ... "copy"") and measures the built page's
+computed colours; misses go to the repair turn with the exact class. Offline: all 46 claims it reads from
+rounds 1-7 notes hold on the target pages (tests/rounds/fillcheck.mjs), so it adds no false repairs there.
+Vitest: same 2 environmental failures.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| e5 admin table | 83% best (79% n108) | run 1 (check only): 79%, check caught page + header white, repair fixed them, the finishing pass undid it. Run 2 (both fixes): **87%** (113k, 7.9 min), colour 99%, structure 96%, layout 85% | header tinted, page tinted. Role/Status dropdown labels wrap to two lines, header checkbox missing, avatars paler than target |
+| e4 product page | 73% | 72% (139k, 10.0 min; repair 67k, 8 tools, Edit x6), colour 98%, structure 93% | within run noise: whole right column and photo ~20px right/low, Details body sits tight on Care & materials (target leaves a gap); the one typed fill (-21% tag red) held |
+
+Pages whose notes type a pale tint within ΔE 6 of white, so their tint was liable to be erased the same way (20 of
+70): r1 c5, e1, e5; r2 e1; r3 c2, e1, e2, e5; r4 c2, e1, e3; r5 c3, e1, e4; r6 e1, e2, e4; r7 e1, e2, e5.
+
+Next: re-run a few of those (r7 e1 kanban, r7 e2 funnel, r6 e2 charts) to show the gain; e5 dropdown labels wrapping
+("Role ▾" on two lines) and header checkbox; e4 right column offset.
