@@ -202,6 +202,33 @@ export function factsInPage() {
         const out = { seg, outl: outl.length >= 2 ? outl : null, dot: dot ? { t: t(dot), fill: fillOf(dot), ink: rgba(getComputedStyle(dot).color), px: Math.round(dot.getBoundingClientRect().width) } : null }
         return out.seg || out.outl || out.dot ? out : null
       })(),
+      // a row split by one wide gap (margin-left:auto): round 6 e5 'Today ‹ ›' sit by the title on the left,
+      // the Day/Week/Month switch at the far right; said as one 'links:' run, the build put all of it right
+      kidSplit: (() => {
+        const ks = kids.filter((k) => (k.innerText || '').trim())
+        if (ks.length < 3) return null
+        const bs = ks.map((k) => k.getBoundingClientRect())
+        if (!bs.every((b, i) => i === 0 || Math.abs(b.top + b.height / 2 - (bs[0].top + bs[0].height / 2)) <= 12 && b.left >= bs[i - 1].right - 2)) return null
+        const gaps = bs.slice(1).map((b, i) => b.left - bs[i].right)
+        const at = gaps.indexOf(Math.max(...gaps)), rest = gaps.filter((_, i) => i !== at)
+        if (gaps[at] < 120 || rest.some((g) => g > 48)) return null
+        const t = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
+        return { left: ks.slice(0, at + 1).map(t), right: ks.slice(at + 1).map(t), gap: Math.round(gaps[at]) }
+      })(),
+      // progress steps (round 6 e4 '✓ Cart — Shipping — Payment — Review'): text items joined by short thin
+      // textless rules, each step its own colour (done green, current bold dark, rest grey); said as plain
+      // 'links:' the rules were dropped and every step built one grey
+      kidSteps: (() => {
+        if (kids.length < 5) return null
+        const t = (g) => (g.innerText || '').replace(/\s+/g, ' ').trim()
+        const rules = kids.filter((k) => { const b = k.getBoundingClientRect(); return !t(k) && !k.children.length && b.width >= 12 && b.width <= 120 && b.height > 0 && b.height <= 3 && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 })
+        const steps = kids.filter((k) => t(k))
+        if (rules.length < 2 || steps.length < 3 || rules.length + steps.length !== kids.length) return null
+        if (!kids.every((k, i) => i === 0 || (!t(k)) !== (!t(kids[i - 1])))) return null
+        const st = steps.map((k) => { const c = getComputedStyle(k); return { t: t(k), ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 } })
+        const b0 = rules[0].getBoundingClientRect()
+        return { items: st, line: { w: Math.round(b0.width), h: Math.round(b0.height), fill: rgba(getComputedStyle(rules[0]).backgroundColor) } }
+      })(),
       // a lead item set apart from a uniform row: bold, bigger or another colour (round 5 e5 green bold
       // 'Budget 2027' title said as one more menu link, built black)
       kidLead: (() => {
@@ -774,6 +801,11 @@ const parse = (s) => {
   const m = s.match(/rgba?\(([^)]+)\)/); if (!m) return null
   const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return { r, g, b, a }
 }
+/** '#rrggbb' of a colour (a picture's exact fill, when its name alone reads like the panel under it) */
+export function hexOf(c) {
+  c = parse(c); if (!c) return null
+  return '#' + [c.r, c.g, c.b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')
+}
 export function colourName(c) {
   c = parse(c); if (!c || c.a <= 0.05) return null
   // a grey is named among greys: weighted distance alone calls light grey "cream"
@@ -956,7 +988,7 @@ function denseNote(d) {
     case 'order': {
       const t = d.thumb
       const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
-      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
@@ -1157,7 +1189,7 @@ function decideOne(f, page, marked, said) {
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
     const card = fill && (bordered || f.radius >= 8) && /^(table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
     // an order summary on a faint tint keeps it: a full-height side panel, or a card (round 6 e4: said with no fill)
-    const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge)` : 'card'}` : null
+    const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge, one flat colour, no gradient${f.border.left >= 1 && f.rect.x > 2 ? `, a thin ${colourName(f.border.leftColour)} line down its left edge` : ''})` : 'card'}` : null
     const col = card ?? side ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
     const what = f.tag === 'aside' ? 'sidebar' : null
     return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
@@ -1355,7 +1387,13 @@ function decideOne(f, page, marked, said) {
       P.seg && !on ? `; ${P.seg.items.join(' / ')} is one ${P.seg.bordered ? 'outlined ' : ''}switch with ${quote(P.seg.t)} selected (${colourName(P.seg.fill)} fill, ${colourName(P.seg.ink)} text)` : '',
       P.dot ? `; ${quote(P.dot.t)} sits in a ${P.dot.px}px round ${colourName(P.dot.fill)} circle, ${colourName(P.dot.ink)} number` : '',
     ].join('') : ''
-    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}` }
+    const Sp = f.kidSplit, split = Sp && Sp.right.length <= 3 ? `; ${Sp.left.map((x) => quote(x, 20)).join(', ')} sit together at the left, ${Sp.right.map((x) => quote(x, 24)).join(', ')} pushed to the far right (${Sp.gap}px gap)` : ''
+    if (f.kidSteps) {
+      const S = f.kidSteps, cur = S.items.findIndex((x) => x.bold)
+      const said = S.items.map((x, i) => `${quote(x.t)} (${[[x.bold ? 'bold' : null, colourName(x.ink)].filter(Boolean).join(' '), i === cur ? 'current step' : null].filter(Boolean).join(', ')})`)
+      return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row, each pair joined by a short ${S.line.w}px ${S.line.h}px-thin ${colourName(S.line.fill)} line: ${said.join(' — ')}` }
+    }
+    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}${split}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)

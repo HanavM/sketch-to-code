@@ -736,7 +736,8 @@ Rules for your answer:
 - reading: 1-2 plain sentences. Note real ambiguity in 'unclear'.
 - Answer with ONE object whose top-level keys are exactly "reading",
   "unclear" and "actions" (actions is the array). Never wrap the answer in
-  another key such as {"actions": {...}}.
+  another key such as {"actions": {...}}. "unclear" is always a quoted
+  string: "" when nothing is unclear (never null, never left empty).
 `.trim()
 
 export const INTERPRET_PROMPT = `
@@ -854,7 +855,8 @@ Rules for your answer:
   note the doubt in 'unclear'.
 - Answer with ONE object whose top-level keys are exactly "reading",
   "unclear" and "actions" (actions is the array). Never wrap the answer in
-  another key such as {"actions": {...}}.
+  another key such as {"actions": {...}}. "unclear" is always a quoted
+  string: "" when nothing is unclear (never null, never left empty).
 `.trim()
 
 /**

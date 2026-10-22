@@ -657,7 +657,7 @@
    ],
    [
     "steps",
-    "links: ✓ Cart, Shipping, Payment, Review"
+    "progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: \"✓ Cart\" (green) — \"Shipping\" (bold near-black, current step) — \"Payment\" (grey) — \"Review\" (grey)"
    ],
    [
     "form",
@@ -669,7 +669,7 @@
    ],
    [
     "summary",
-    "off-white full-height side panel (480px wide, flush to the right edge), order summary, no heading, first row starts 150px below the panel top: 3 item rows, each a 72px light grey rounded square picture with a small round grey quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: \"Waxed canvas tote\" / \"Olive\" badge 1, $88.00; \"Wool socks\" / \"Oatmeal · M\" badge 2, $36.00; \"Enamel mug\" / \"Cream\" badge 1, $22.00; then a bordered field \"Discount code\" with a light grey button \"Apply\" right of it; grey row \"Subtotal $146.00\" (label left, amount right); grey row \"Shipping Free\" (label left, amount right); grey row \"Tax $12.05\" (label left, amount right); a thin line, then big bold row \"Total $158.05\" (label left, amount right)"
+    "off-white full-height side panel (480px wide, flush to the right edge, one flat colour, no gradient, a thin light grey line down its left edge), order summary, no heading, first row starts 150px below the panel top: 3 item rows, each a 72px solid light grey (#d6d3d1, plainly darker than the panel) rounded square picture with a small round grey quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: \"Waxed canvas tote\" / \"Olive\" badge 1, $88.00; \"Wool socks\" / \"Oatmeal · M\" badge 2, $36.00; \"Enamel mug\" / \"Cream\" badge 1, $22.00; then a bordered field \"Discount code\" with a light grey button \"Apply\" right of it; grey row \"Subtotal $146.00\" (label left, amount right); grey row \"Shipping Free\" (label left, amount right); grey row \"Tax $12.05\" (label left, amount right); a thin line, then big bold row \"Total $158.05\" (label left, amount right)"
    ]
   ]
  },
@@ -707,7 +707,7 @@
   "notes": [
    [
     "topbar",
-    "bold 22px \"October 2026\" first, then links: Today, ‹, ›, Day Week Month; Today, ‹, › are small outlined buttons; Day / Week / Month is one outlined switch with \"Week\" selected (dark navy fill, white text)"
+    "bold 22px \"October 2026\" first, then links: Today, ‹, ›, Day Week Month; Today, ‹, › are small outlined buttons; Day / Week / Month is one outlined switch with \"Week\" selected (dark navy fill, white text); \"October 2026\", \"Today\", \"‹\", \"›\" sit together at the left, \"Day Week Month\" pushed to the far right (733px gap)"
    ],
    [
     "days",
