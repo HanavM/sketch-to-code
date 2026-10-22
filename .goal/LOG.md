@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T21:50:00Z | Product page photo, swatch ring, button | Photo rounded, ring on picked colour, near-black button, drift caught: product page 69 to 71%. 298k.
 2026-10-22T21:15:00Z | Admin table toolbar | Toolbar packed left, dropdown arrows kept, pager in place: admin table 76 to 83%. 91k.
 2026-10-22T20:30:00Z | Admin table card and columns | Table card and each column edge said: admin table 59 to 76%, card back. 91k.
 2026-10-22T20:15:00Z | Page and band colours, knob, bulk buttons | Band colour and knob exact: wave poster 61 to 66%; admin table 59%, its card lost. 119k.
