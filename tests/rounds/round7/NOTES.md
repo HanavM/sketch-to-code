@@ -78,3 +78,12 @@ Live (~294k billed, c2 before the heading/band fix):
 | c2 variable wave | 16% | 37% | wave word built right; band ~2x thick and low (fixed after, re-run below) |
 | c3 parallax night | 73% | 90% | both skylines and the 3-stop sky right; moon halo rings and soft clouds still missing |
 | c4 isometric stack | — | 91% | three cubes and dashed leaders right; faint sketch outlines leak round cubes, "three" highlight missing, labels pills not boxed |
+
+Re-run after the heading and band fixes (~126k billed):
+
+| page | before (n92) | now | what's left |
+|---|---|---|---|
+| c1 bento overlap | 55% | 85% | lit orb on top of the tiles, near-black list and chart tiles, cyan bar, yellow tallest bar all right; hero headline built small at the top (target 84px two lines at the bottom), "07" sits behind the bars |
+| c2 variable wave | 16% (37%) | 61% | wave word and a thin band right; slider rule built thick with a tiny knob (axis, knob, label regions missed) |
+
+Round-7 creative now: c1 85, c2 61, c3 90, c4 91; c5 torn collage not built yet.

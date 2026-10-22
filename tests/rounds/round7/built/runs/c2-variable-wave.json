@@ -1,23 +1,23 @@
 {
   "id": "c2-variable-wave",
-  "at": "2026-10-22T13:40:18.320Z",
+  "at": "2026-10-22T14:19:13.327Z",
   "likeness": {
     "version": 3,
-    "overall": 0.37240086925553906,
-    "overallV2": 0.32430663877914157,
-    "overallV1": 0.20009046478202777,
-    "colour": 0.8619612552452329,
-    "structure": 0.6939355699688606,
-    "structureStrict": 0.4583058930609993,
-    "colourAligned": 0.8815300501658166,
-    "structureAligned": 0.6996812836737166,
+    "overall": 0.6059477161551132,
+    "overallV2": 0.6059477161551132,
+    "overallV1": 0.4080995973472394,
+    "colour": 0.9575787715184997,
+    "structure": 0.8440878811193052,
+    "structureStrict": 0.5758920905364537,
+    "colourAligned": 0.9575787715184997,
+    "structureAligned": 0.8440878811193052,
     "align": {
       "scale": 0.96,
       "dx": 0,
-      "dy": -16,
-      "r": 0.6168403535130996
+      "dy": 16,
+      "r": 0.8759549882041956
     },
-    "layout": 0.5314967357514815
+    "layout": 0.3867810908827056
   },
   "effects": {
     "recall": 1,
@@ -33,49 +33,38 @@
     ]
   },
   "tokens": {
-    "input": 46321,
-    "output": 25052,
-    "cacheRead": 165230
+    "input": 30437,
+    "output": 20257,
+    "cacheRead": 148498
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46277,
-      "output": 14642,
-      "cacheRead": 153389,
-      "toolCalls": 8,
+      "billed": 38995,
+      "output": 15788,
+      "cacheRead": 137916,
+      "toolCalls": 7,
       "tools": [
         "Glob",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Glob",
-        "Read src/index.css",
         "Read src/main.tsx",
         "Glob",
-        "Glob",
+        "Read src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 163316
+      "ms": 188567
     }
   ],
-  "reading": "The sketch lays out a type-specimen landing page for a variable font: a top nav bar, a giant 'VARIABLE' headline in mixed letter weights/sizes, a bold hollow '100—900' weight range, a tilted red-orange marquee band, a thin divider with a dot (weight indicator), a small caption, and a descriptive paragraph.",
+  "reading": "This is a type-specimen landing page: a header bar, a giant 'VARIABLE' word-mark with per-letter weight/size variation, a hollow-outlined '100—900' heading, a tilted red-orange marquee band repeating 'ONE FILE · EVERY WEIGHT', a weight slider (track + handle dot) labeled 'WEIGHT 100 — 900', and an intro paragraph about the variable font.",
   "actions": [
     {
       "kind": "add",
       "textMarks": [
         "s0"
       ],
-      "textSize": [
-        {
-          "strokes": [
-            "s0",
-            "s1",
-            "s5"
-          ],
-          "lines": 3,
-          "fontPx": 98
-        }
-      ],
+      "textSize": [],
       "region": [
         64,
         50,
@@ -83,65 +72,40 @@
         9
       ],
       "paths": [],
-      "instruction": "Header bar: bold 18px \"FLEX/TYPE\" wordmark on the left, \"Specimen · Axes · Buy\" navigation links on the right."
+      "instruction": "Page-wide header/nav bar: bold 18px 'FLEX/TYPE' wordmark aligned left, and 'Specimen · Axes · Buy' aligned right, same row. Whole page should use cream backgrou"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s1",
-        "s2",
-        "s3",
-        "s4",
-        "s5",
-        "s6",
-        "s7"
+        "s1"
       ],
       "textSize": [
         {
           "strokes": [
-            "s0",
-            "s1",
-            "s5"
+            "s1"
           ],
-          "lines": 3,
-          "fontPx": 98
-        },
-        {
-          "strokes": [
-            "s2",
-            "s3",
-            "s4"
-          ],
-          "lines": 3,
-          "fontPx": 17
-        },
-        {
-          "strokes": [
-            "s6",
-            "s7"
-          ],
-          "lines": 2,
-          "fontPx": 17
+          "lines": 1,
+          "fontPx": 241
         }
       ],
       "region": [
-        64,
-        158,
-        829,
-        168
+        68,
+        94,
+        753,
+        289
       ],
       "paths": [],
-      "instruction": "The single word \"VARIABLE\" in giant Helvetica near-black letters on ONE line, every letter its own span with its own font-size and font-weight, all on one share"
+      "instruction": "Giant single-line headline, the word VARIABLE, white-space: nowrap, about 837px wide, letters bottom-aligned on one shared baseline with no added gaps, each let"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s8"
+        "s2"
       ],
       "textSize": [
         {
           "strokes": [
-            "s8"
+            "s2"
           ],
           "lines": 1,
           "fontPx": 172
@@ -154,17 +118,17 @@
         206
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy tight-set letters, hollow outlined, near-black: \"100—900\", 170px type, about 695px wide (no larger)."
+      "instruction": "Giant heavy Helvetica heading reading '100—900', tight letter-spacing, hollow/outlined near-black letters (stroke outline, not filled), 170px type size, about 6"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s9"
+        "s3"
       ],
       "textSize": [
         {
           "strokes": [
-            "s9"
+            "s3"
           ],
           "lines": 1,
           "fontPx": 57
@@ -177,7 +141,7 @@
         68
       ],
       "paths": [],
-      "instruction": "Hero marquee band: tilted 6° anticlockwise, bleeding off the left and right page edges, the whole 1501x242px block filled red-orange edge to edge. Big heavy cre"
+      "instruction": "Full-bleed decorative marquee band tilted 6° anticlockwise, bleeding off both left and right page edges. Band itself is 1500x86px before tilt (only 86px thick),"
     },
     {
       "kind": "add",
@@ -190,15 +154,15 @@
         14
       ],
       "paths": [
-        "s10",
-        "s11"
+        "s4",
+        "s5"
       ],
-      "instruction": "A solid near-black divider rule, 520px wide, exactly 2px thick (height: 2px, Tailwind h-[2px], not h-2), no text, paired with a small 22px near-black dot marker"
+      "instruction": "Weight-axis slider control: a thin horizontal track rendered as a solid near-black rule exactly 2px tall (h-[2px], not h-2) and 520px wide, with a small 22px ne"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s12"
+        "s6"
       ],
       "textSize": [],
       "region": [
@@ -208,19 +172,19 @@
         8
       ],
       "paths": [],
-      "instruction": "Small 13px wide-spaced letters caption: \"WEIGHT 100 ——— 900\"."
+      "instruction": "Small 13px wide-letter-spaced label beneath the slider reading 'WEIGHT 100 ——— 900', near-black, Helvetica."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s13",
-        "s14"
+        "s7",
+        "s8"
       ],
       "textSize": [
         {
           "strokes": [
-            "s13",
-            "s14"
+            "s7",
+            "s8"
           ],
           "lines": 2,
           "fontPx": 17
@@ -233,10 +197,8 @@
         51
       ],
       "paths": [],
-      "instruction": "Body copy: \"A variable family with weight and width axes. Drag the slider, the specimen breathes.\""
+      "instruction": "Intro paragraph copy, two lines, near-black Helvetica text: 'A variable family with weight and width axes. Drag the slider, the specimen breathes.'"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }
