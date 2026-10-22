@@ -1,0 +1,225 @@
+c1-bento-overlap · marks 8 · words 98
+    hero-tile    box     
+    stat-tile    box     
+    list-tile    box     
+    quote-tile   box     
+    cyan-tile    box     
+    chart-tile   box     
+    orb          circle  
+    big-number   heading 
+    note *: whole page: black page, Helvetica type, white text
+    note hero-tile: vivid purple (top left) to vivid dark pink (bottom right) gradient block "ORBIT OS · 2027", text "Everything, tiled."
+    note stat-tile: vivid yellow block, near-black text "UPTIME", text "99.9"
+    note list-tile: near-black "SYNC"
+    note quote-tile: light grey block, near-black text "“The calmest dashboard I’ve ever used.”"
+    note cyan-tile: vivid cyan block, black text "NEW", text "Widgets that rearrange themselves."
+    note chart-tile: near-black, bar chart "WEEKLY FOCUS", 10 dark grey bars, heights 42/68/53/100/74/47/63/84/37/58% of the tallest
+    note orb: big glowing white to light pink to purple circle
+    note big-number: giant Helvetica heavy tight-set letters hollow outlined yellow "07", 260px type, about 265px wide (no larger)
+c2-variable-wave · marks 8 · words 156
+    nav          text    
+    wave-word    text    
+    outline-line heading 
+    band         heading 
+    axis         box     
+    knob         circle  
+    axis-label   text    
+    note         text    
+    note *: whole page: cream page, Helvetica type, near-black text
+    note nav: bold 18px "FLEX/TYPE" left, "Specimen · Axes · Buy" right
+    note outline-line: giant Helvetica heavy tight-set letters hollow outlined near-black "100—900", 170px type, about 695px wide (no larger)
+    note band: tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange band (the whole 1501x242px block filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) "ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE", on ONE line (white-space: nowrap, never wrapped), about 1552px wide
+    note axis: solid near-black strip only 2px tall, 520px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), thinner than the drawn pen line)
+    note knob: small 22px near-black dot
+    note axis-label: 13px wide-spaced letters "WEIGHT 100 ——— 900"
+    note note: text "A variable family with weight and width axes. Drag the slider, the specimen breathes."
+c3-parallax-night · marks 10 · words 126
+    logo         text    
+    moon         circle  
+    cloud-1      box     
+    cloud-2      box     
+    headline     heading 
+    sub          text    
+    cta          button  
+    skyline-back box     
+    skyline-front box     
+    scroll-rail  box     
+    note *: whole page: dark navy to dark grey to dark pink gradient page, Helvetica type, white text
+    note logo: wide-spaced letters "NOCTURNE"
+    note moon: perfectly round solid disc (border-radius 50%, not traced from the ink), 180px across, flat fully opaque pale yellow (#fef3c7) fill, hard edge, no blur
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow (left) to light pink (right) gradient text "The city after dark", set in exactly 2 lines: "The city" / "after dark" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)
+    note sub: text "Five layers of skyline that drift apart as you scroll. A night walk through the old port."
+    note cta: soft yellow outline pill button "Start walking"
+c4-isometric-stack · marks 11 · words 100
+    nav          text    
+    headline     heading 
+    sub          text    
+    cta          button  
+    cube-top     box     
+    cube-mid     box     
+    cube-base    box     
+    leaders      box     
+    label-edge   button  
+    label-compute button  
+    label-storage button  
+    note *: whole page: off-white (#eef2ff, plainly not white) page, Helvetica type, deep indigo text
+    note nav: bold 20px "Stackwise" left, "Product · Docs · Pricing" right
+    note headline: huge Helvetica heavy tight-set letters "Infra in three layers.", set in exactly 2 lines: "Infra in three" / "layers." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 392px wide)
+    note sub: indigo text "Edge, compute and storage as one stack you can see. Deploy from a single file."
+    note cta: deep indigo white text button "Deploy now"
+    note label-edge: white button "Edge"
+    note label-compute: white button "Compute"
+    note label-storage: white button "Storage"
+c5-torn-collage · marks 10 · words 125
+    masthead     text    
+    issue        text    
+    photo-green  shape   
+    photo-amber  shape   
+    tape-1       image   
+    tape-2       image   
+    headline     heading 
+    column       text    
+    circle-note  box     
+    hand-note    heading 
+    note *: whole page: warm paper page, Georgia type, near-black text
+    note masthead: 14px wide-spaced letters "FIELD NOTES"
+    note issue: 14px text "No. 12 · Winter"
+    note photo-green: tilted 4° anticlockwise teal (top) to deep green (bottom) gradient jagged cut-out shape
+    note photo-amber: tilted 5° clockwise vivid amber (top) to vivid brown (bottom) gradient jagged cut-out shape
+    note tape-1: tilted 14° anticlockwise pale yellow block
+    note tape-2: tilted 18° clockwise pale yellow block
+    note headline: colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) white "Salt & Stone", set in exactly 2 lines: "Salt &" / "Stone" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 364px wide)
+    note hand-note: italic red "read this first!"
+e1-kanban-lanes · marks 19 · words 172
+    topbar       box     
+    head-todo    text    
+    head-doing   text    
+    head-review  text    
+    head-done    text    
+    lane-web     box     
+    card-1       box     
+    card-2       box     
+    card-3       box     
+    card-4       box     
+    card-5       box     
+    card-6       box     
+    card-7       box     
+    lane-mobile  box     
+    card-8       box     
+    card-9       box     
+    card-10      box     
+    card-11      box     
+    card-12      box     
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
+    note topbar: white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; "All" selected (indigo fill)
+    note lane-web: input "▾ WEB APP"
+    note card-1: white card "Bug", text "Login loops on Safari 18"
+    note card-2: white card "Feature", text "Saved filters in sidebar"
+    note card-3: "Feature", thin progress bar 60% filled green on a light grey track, small grey "Bulk edit for tasks" under
+    note card-4: white card "Blocked", text "Billing webhooks retry"
+    note card-5: white card "Chore", text "Upgrade to Node 24"
+    note card-6: faded to 60% opacity (see-through) white card "Dark mode tokens"
+    note card-7: faded to 60% opacity (see-through) white card "Onboarding checklist"
+    note lane-mobile: input "▾ MOBILE"
+    note card-8: white card "Bug", text "Push opens wrong screen"
+    note card-9: "Feature", thin progress bar 30% filled green on a light grey track, small grey "Offline drafts" under
+    note card-10: "Feature", thin progress bar 85% filled green on a light grey track, small grey "Widget for iOS home screen" under
+    note card-11: white card "Chore", text "Crash reporting SDK"
+    note card-12: faded to 60% opacity (see-through) white card "App icon refresh"
+e2-funnel-cohort · marks 8 · words 111
+    header       box     
+    kpi-1        box     
+    kpi-2        box     
+    kpi-3        box     
+    kpi-4        box     
+    funnel       box     
+    stacked      box     
+    cohort       box     
+    note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
+    note header: card: "Growth"; white near-black text button "Sep 1 – Oct 22, 2026 ▾" on the right
+    note kpi-1: white card "Visitors", text "48,210"
+    note kpi-2: white card "Sign-ups", text "3,904"
+    note kpi-3: white card "Activated", text "1,722"
+    note kpi-4: white card "Paid", text "412"
+    note funnel: white card "Conversion funnel" "100%" "38%" "8.1%" "3.6%" list: "Visit", "View pricing", "Sign up", "Activate"
+    note stacked: white card "Sign-ups by source"
+    note cohort: white card, "Weekly retention cohorts", table, columns "", "W0", "W1", "W2", "W3", "W4", "W5", 6 rows, first row "Sep 1" | "100%" | "54%" | "41%" | "33%" | "29%" | "27%"; status pills teal "100%", teal "54%", bright green "41%", near-black "33%"
+e3-code-editor · marks 7 · words 265
+    activity-bar box     
+    file-tree    box     
+    tabs         box     
+    code         box     
+    minimap      box     
+    terminal     box     
+    status-bar   box     
+    note *: whole page: dark navy page, Helvetica type, light grey text
+    note activity-bar: near-black block (no picture), 4 small rounded squares (22px) stacked down from its top 16px apart: first sky blue, the rest dark grey
+    note file-tree: near-black block "EXPLORER" list: "▾ src", "▸ components", "▾ lib", "parse.ts", 5 more; "parse.ts" highlighted
+    note tabs: near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; "parse.ts" selected (white text, dark navy fill)
+    note code: mono 14px code lines: "1import { readFile } from 'node:fs/promises'", "2", "3// Split a sketch into strokes and words", "4export async function parse(path: string) {", "5  const raw = await readFile(path, 'utf8')", "6  const lines = raw.split('\n').filter(Boolean)", "7  return lines.map((l, i) => ({ id: i, ink: l }))", "8}", "9", "10export function size(s: Stroke) {", "11  return Math.hypot(s.w, s.h)", "12}"; light grey code, coloured: brown "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"; lavender "import", "from", "export async function", "const", "await", "return", "export function"; mint green "'node:fs/promises'", "'utf8'", "'\n'"; grey "// Split a sketch into strokes and words"; sky blue "parse", "readFile", "split", "filter", "map", "size", "hypot"; peach "string", "Stroke"
+    note terminal: near-black block mono 13px code lines: "TERMINAL · PROBLEMS 1", "$ npm test", "✓ parse splits lines (3 ms)", "✓ size of a stroke (1 ms)", "✗ parse keeps empty ink — expected 4, got 3", "Tests: 1 failed, 2 passed", "$"; light grey code
+    note status-bar: sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; "⎇ main", "⚠ 1" sit together at the left, "Ln 6, Col 42", "TypeScript" pushed to the far right (1014px gap)
+e4-product-page · marks 24 · words 120
+    nav          box     
+    breadcrumb   text    
+    thumb-1      image   
+    thumb-2      image   
+    thumb-3      image   
+    thumb-4      image   
+    main-photo   box     
+    title        heading 
+    rating       text    
+    price        text    
+    colour-label text    
+    swatch-1     circle  
+    swatch-2     circle  
+    swatch-3     circle  
+    swatch-4     circle  
+    size-label   text    
+    sizes        box     
+    add-to-bag   button  
+    wishlist     button  
+    shipping     text    
+    acc-details  box     
+    acc-body     text    
+    acc-care     box     
+    acc-returns  box     
+    note nav: bar 60px tall across the top, thin line under: bold 20px wide-spaced "NORDLY" left, "Women · Men · Sale · Bag (2)" right
+    note breadcrumb: small grey breadcrumb "Home / Jackets / Shell"
+    note thumb-3: lavender block
+    note thumb-4: pale grey block
+    note title: big "Fjell Rain Shell"
+    note rating: amber "★★★★☆4.2 · 318 reviews"
+    note price: "$189$240-21%"
+    note colour-label: 13px "Colour: Indigo"
+    note swatch-1: small 36px indigo dot
+    note swatch-2: small 36px dark navy dot
+    note swatch-3: small 36px vivid brown dot
+    note swatch-4: small 36px light grey dot
+    note size-label: 13px "Size"
+    note sizes: buttons: "XS", "S", "M", "L", "XL"
+    note add-to-bag: dark navy white text button "Add to bag"
+    note wishlist: outline button "♡"
+    note shipping: 13px green "✓ Free delivery by Oct 27"
+    note acc-details: "Details −"
+    note acc-body: dark grey text "Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket."
+    note acc-care: "Care & materials +"
+    note acc-returns: "Returns +"
+e5-admin-table · marks 8 · words 87
+    title        heading 
+    subtitle     text    
+    invite       button  
+    toolbar      box     
+    bulk-bar     box     
+    table        box     
+    status-menu  box     
+    pager        text    
+    note *: whole page: pale grey page, Helvetica type, dark navy text
+    note title: "Team members"
+    note subtitle: 13px grey text "128 people · 9 pending invites"
+    note invite: blue white text button "+ Invite"
+    note toolbar: input "Search name or email", dropdown "Role", dropdown "Status: Any", button "Columns"
+    note bulk-bar: buttons: "Change role", "Suspend", "Remove"
+    note table: table, columns "", "Name ↓", "Email", "Role", "Status", "Usage", "Last active", "", 10 rows; status pills amber "A", green "Active", blue "✓", cyan "B"
+    note status-menu: white card "Any status Active ✓ Invited Suspended"
+    note pager: pager page buttons "‹", "1" current, "2", "3", "…", "13", "›"

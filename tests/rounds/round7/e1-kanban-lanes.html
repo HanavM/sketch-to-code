@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kanban lanes</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:16px;padding:0 24px}.top b{font-size:18px;margin-right:24px}
+.top .s{width:280px;height:34px;border:1px solid #cbd5e1;border-radius:8px;color:#94a3b8;padding:9px 12px}
+.chip{padding:6px 10px;border-radius:999px;border:1px solid #cbd5e1;background:#fff}.chip.on{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.col{position:absolute;top:72px;width:290px;font-weight:700;font-size:13px;display:flex;justify-content:space-between}
+.col em{font-style:normal;color:#64748b;font-weight:400}.col em.over{color:#dc2626;font-weight:700}
+.lane{position:absolute;left:24px;width:1232px;font-weight:700;color:#475569;font-size:12px;letter-spacing:1px;border-top:1px dashed #cbd5e1;padding-top:8px}
+.card{position:absolute;width:290px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.card p{font-weight:600;line-height:1.35;margin:6px 0 10px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700}
+.av{position:absolute;right:12px;bottom:12px;width:24px;height:24px;border-radius:50%}
+.pb{height:5px;border-radius:3px;background:#e2e8f0;width:180px}.pb i{display:block;height:5px;border-radius:3px;background:#22c55e}
+</style></head><body>
+<div class="top" data-r="topbar"><b>Sprint 42</b><div class="s">Search cards…</div><span class="chip on">All</span><span class="chip">Mine</span><span class="chip">Bugs</span><span class="chip">Blocked</span></div>
+<div class="col" data-r="head-todo" style="left:24px">To do <em>5</em></div>
+<div class="col" data-r="head-doing" style="left:338px">In progress <em class="over">4 / 3</em></div>
+<div class="col" data-r="head-review" style="left:652px">Review <em>2</em></div>
+<div class="col" data-r="head-done" style="left:966px">Done <em>7</em></div>
+<div class="lane" data-r="lane-web" style="top:104px">▾ WEB APP</div>
+<div class="card" data-r="card-1" style="left:24px;top:132px"><span class="tag" style="background:#fee2e2;color:#b91c1c">Bug</span><p>Login loops on Safari 18</p><div class="av" style="background:#f59e0b"></div></div>
+<div class="card" data-r="card-2" style="left:24px;top:240px"><span class="tag" style="background:#e0e7ff;color:#4338ca">Feature</span><p>Saved filters in sidebar</p><div class="av" style="background:#06b6d4"></div></div>
+<div class="card" data-r="card-3" style="left:338px;top:132px"><span class="tag" style="background:#e0e7ff;color:#4338ca">Feature</span><p>Bulk edit for tasks</p><div class="pb"><i style="width:60%"></i></div><div class="av" style="background:#8b5cf6"></div></div>
+<div class="card" data-r="card-4" style="left:338px;top:252px;border-left:4px solid #dc2626"><span class="tag" style="background:#fef3c7;color:#b45309">Blocked</span><p>Billing webhooks retry</p><div class="av" style="background:#f59e0b"></div></div>
+<div class="card" data-r="card-5" style="left:652px;top:132px"><span class="tag" style="background:#dcfce7;color:#15803d">Chore</span><p>Upgrade to Node 24</p><div class="av" style="background:#06b6d4"></div></div>
+<div class="card" data-r="card-6" style="left:966px;top:132px;opacity:.6"><p style="text-decoration:line-through">Dark mode tokens</p></div>
+<div class="card" data-r="card-7" style="left:966px;top:200px;opacity:.6"><p style="text-decoration:line-through">Onboarding checklist</p></div>
+<div class="lane" data-r="lane-mobile" style="top:470px">▾ MOBILE</div>
+<div class="card" data-r="card-8" style="left:24px;top:498px"><span class="tag" style="background:#fee2e2;color:#b91c1c">Bug</span><p>Push opens wrong screen</p><div class="av" style="background:#ec4899"></div></div>
+<div class="card" data-r="card-9" style="left:338px;top:498px"><span class="tag" style="background:#e0e7ff;color:#4338ca">Feature</span><p>Offline drafts</p><div class="pb"><i style="width:30%"></i></div><div class="av" style="background:#ec4899"></div></div>
+<div class="card" data-r="card-10" style="left:338px;top:618px"><span class="tag" style="background:#e0e7ff;color:#4338ca">Feature</span><p>Widget for iOS home screen</p><div class="pb"><i style="width:85%"></i></div><div class="av" style="background:#8b5cf6"></div></div>
+<div class="card" data-r="card-11" style="left:652px;top:498px"><span class="tag" style="background:#dcfce7;color:#15803d">Chore</span><p>Crash reporting SDK</p><div class="av" style="background:#06b6d4"></div></div>
+<div class="card" data-r="card-12" style="left:966px;top:498px;opacity:.6"><p style="text-decoration:line-through">App icon refresh</p></div>
+</body></html>
