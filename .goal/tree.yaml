@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Checkout page reads reliably now and its progress steps and product pictures look right; next fixing its page colour and form spacing."
-lock: {by: run-20261022T0654, until: 2026-10-22T08:24:18Z}
+now: "Checkout page now 54% alike, its best yet, with the form spaced like the target; next building the five hardest creative pages for the first time."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n84 (cd15b06 on try/n3-vocabulary): planner says a sectioned form's px rhythm (field 46, label gap 6, row gap 14, heading 20, choice 72, form 531 tall) and a near-white page hex (also 7 r1/r3/r4/r5 page notes, nothing else). Live e4 54% (was 40): form row-for-row right, panel tinted; left page still white, logo small, pay pill ~20px low."
+  - "Token ledger: 2026-10-22 n84 live e4 ~76k billed."
   - "n83 (717084f on try/n3-vocabulary): e4 readings failed because the model writes \"unclear\": , every attempt and the last attempt's stream can be missing; provider now salvages the newest streamed attempt that repairs (test). Prompt line asking for a quoted unclear had no effect, reverted. Planner: progress steps (joining lines, per-step colour), row split by a wide gap, order picture hex, flat side panel with left line. Live: e4 40, e5 69."
   - "Token ledger: 2026-10-22 n83 e4 read-only x5 ~57k + live e4,e5 70k + e4 34k = ~160k billed."
   - "n82 (7921c13 on try/n3-vocabulary): planner says bare forms (no card), order summary start and no heading, outlined buttons, nested switch selection, date circle. run2 PAGE LOOK: tinted page colour never plain white. Round 6: e1 79, e2 76, e4 50, e5 75 (NOTES.md). Rounds 1-5 plans unchanged."
@@ -212,7 +214,8 @@ nodes:
   - {id: n82, parent: n81, kind: step, title: "~200k live: re-run round-6 e1, e2, e5 with the n81 fixes; free first: e4 form built inside an invented card + invented heading, e5 selected Week tab and red today circle", status: done, branch: try/n3-vocabulary,
      result: "Menu 58 to 79%, week 55 to 75%, checkout 32 to 50%, dashboard 76%; tinted pages no longer built white. 7921c13."}
   - {id: n83, parent: n82, kind: step, title: "Free first, ~80k live: round-6 e4 reading fails with max structured output (2 of 4 tries), thumbnails built near-invisible, step connector lines missing; e1 blue strip on menu top; e5 Today/arrows placed right. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Failed readings salvaged; steps, thumbnails, split top bar fixed. e4 40% (page white, form taller), e5 69%."}
-  - {id: n84, parent: n83, kind: step, title: "Free first, ~40k live: round-6 e4 page built plain white (target off-white) and form ~10% taller (say field heights, gaps, form bottom); e1 blue strip on menu top. Fix, re-run e4", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n84, parent: n83, kind: step, title: "Free first, ~40k live: round-6 e4 page built plain white (target off-white) and form ~10% taller (say field heights, gaps, form bottom); e1 blue strip on menu top. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Form spacing now said in px; near-white page hex. Checkout 40% to 54%, best yet. cd15b06."}
+  - {id: n85, parent: n84, kind: step, title: "Low priority, ~40k live: e4 left page still built white beside a tinted panel, logo small, pay button full pill ~20px low; fix, re-run e4", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
