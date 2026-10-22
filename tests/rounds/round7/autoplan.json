@@ -593,19 +593,19 @@
    ],
    [
     "masthead",
-    "14px wide-spaced letters \"FIELD NOTES\""
+    "14px wide-spaced letters \"FIELD NOTES\", one line on its own (top 40px, left edge 90px), nothing else written beside it"
    ],
    [
     "issue",
-    "14px text \"No. 12 · Winter\""
+    "14px text \"No. 12 · Winter\", one line on its own (top 40px, left edge 900px), nothing else written beside it"
    ],
    [
     "photo-green",
-    "tilted 4° anticlockwise teal (top) to deep green (bottom) gradient jagged cut-out shape"
+    "tilted 4° anticlockwise teal (top) to deep green (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border"
    ],
    [
     "photo-amber",
-    "tilted 5° clockwise vivid amber (top) to vivid brown (bottom) gradient jagged cut-out shape"
+    "tilted 5° clockwise vivid amber (top) to vivid brown (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border"
    ],
    [
     "tape-1",
@@ -629,7 +629,7 @@
    ],
    [
     "hand-note",
-    "italic red \"read this first!\""
+    "italic red \"read this first!\", 30px type on ONE line (white-space: nowrap, never wrapped), about 171px wide"
    ]
   ]
  },
@@ -1069,7 +1069,7 @@
    ],
    [
     "title",
-    "big \"Fjell Rain Shell\""
+    "big \"Fjell Rain Shell\", 34px type on ONE line (white-space: nowrap, never wrapped), about 234px wide"
    ],
    [
     "rating",
@@ -1187,11 +1187,11 @@
    ],
    [
     "title",
-    "\"Team members\""
+    "\"Team members\", 24px type on ONE line (white-space: nowrap, never wrapped), about 174px wide"
    ],
    [
     "subtitle",
-    "13px grey text \"128 people · 9 pending invites\""
+    "13px grey text \"128 people · 9 pending invites\", one line on its own (top 64px, left edge 40px), nothing else written beside it"
    ],
    [
     "invite",

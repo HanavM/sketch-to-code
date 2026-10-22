@@ -1722,7 +1722,16 @@ function decideOne(f, page, marked, said) {
     const note = stripes ? `big ${stripes} block` : shape ? `${strong}${col ?? ''} ${shape}`.trim() : col ? `${strong}${col} block` : null
     // a cut-out is drawn as its own outline (a ridge line), not as a picture placeholder:
     // round-3 c1 drew the ridges as X'd boxes and got two rectangles with crossed lines
-    if (shape && f.clipPoly) return { kind: 'shape', note: withFx(note), poly: f.clipPoly }
+    // a gradient cut-out photo says its hexes, unrotated size and that it lies flat: round 7 c5's photos were built
+    // ~60px off, taller, more saturated (bright teal, near-black brown) and with drop shadows added (n103)
+    if (shape && f.clipPoly) {
+      const hx = grad && /^linear-gradient/.test(f.bgImage.trim()) && (f.bgImage.match(/gradient\(/g) || []).length === 1 ? [...f.bgImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => parse(m[0])).filter((c) => c && c.a >= 0.3) : null
+      const dir = f.bgImage.match(/linear-gradient\(\s*(\d+deg)/)?.[1]
+      const exact = hx && hx.length === 2 ? `, painted linear-gradient(${dir ? `${dir}, ` : ''}${hexOf(hx[0])}, ${hexOf(hx[1])}) exactly (these hexes, no brighter or darker)` : ''
+      const size = Math.abs(f.rotate) >= 2 && f.layoutBox?.w ? `, the shape itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt, its top-left at ${Math.round(f.rect.x + (w - f.layoutBox.w) / 2)},${Math.round(f.rect.y + (h - f.layoutBox.h) / 2)} before the tilt` : ''
+      const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
+      return { kind: 'shape', note: withFx(`${note}${exact}${size}${flat}`), poly: f.clipPoly }
+    }
     const sh = shadowWords(f)
     // a pale tinted thumbnail says its tint, and a selected one its ring (round 7 e4: thumbs built white, ring lost)
     const pale = !note && fill && !grad && hexOf(f.bg) !== '#ffffff' && w <= 200 && h <= 200 ? `pale ${hexOf(f.bg)} filled ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? ` ${Math.round(f.radius)}px rounded` : ''} block (no picture, no X)` : null
@@ -1940,8 +1949,11 @@ function decideOne(f, page, marked, said) {
     const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)` : ''
     // a display line of several words that fits on one line says so: the build wrapped it at the drawn width
     // (round 6 c4 'Every screen, one glance.' 56px, one line, built on 2 lines over the subline)
+    // a 20-39px multi-word line set on one line says its size and the one line: round 7 c5's 30px 'read this
+    // first!' hand note was built on 2 lines (n103)
+    const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
     const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${one}${under}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${one}${mid}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -2053,7 +2065,10 @@ function decideOne(f, page, marked, said) {
     // a small one-line label says its type size: drawn as a short scribble it was built ~half size (round 6 c2
     // 'KINETIK' 16px and the date 15px came out ~8px)
     const px = (say || (lead && f.text.length <= 40)) && f.font.size >= 13 && f.font.size < 18 && f.textLines <= 1 && !f.vertical ? `${Math.round(f.font.size)}px` : null
-    return { kind: 'text', note: say ? `${uniq([px, ...styled]).join(' ')} ${quote(f.text)}`.trim() : lead ? `${px ? `${px} ` : ''}${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
+    // a lone small label up at the very top (no bar or nav around it) says it stands alone: round 7 c5's issue line
+    // 'No. 12 · Winter' was built with an invented 'VOL. IV' beside it (n103)
+    const alone = px && f.rect.y >= 16 && f.rect.y < 80 && f.kidCount === 0 && !fill && !bordered ? `, one line on its own (top ${Math.round(f.rect.y)}px, left edge ${Math.round(f.rect.x)}px), nothing else written beside it` : ''
+    return { kind: 'text', note: say ? `${uniq([px, ...styled]).join(' ')} ${quote(f.text)}${alone}`.trim() : lead ? `${px ? `${px} ` : ''}${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}${alone}` : null }
   }
   return { kind: 'box', note: null }
 }

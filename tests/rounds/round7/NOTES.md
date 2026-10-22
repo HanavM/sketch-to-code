@@ -228,3 +228,19 @@ unchanged.
 
 Next: say the issue line's place (top right, its own line), the hand note on one line, and photos flat (no shadow) with
 their gradient hexes; re-run c5.
+
+## n103: torn collage photos, hand note, lone top labels (2026-10-22, ~85k billed)
+
+Planner (zero tokens): a tilted gradient cut-out photo now says its exact two hexes and angle, its size and top-left
+before the tilt, and that it lies flat (no drop shadow, no border) when the target has none. A 20-39px display line of
+several words set on one line says its px, ONE line (nowrap) and width (the 30px hand note wrapped to 2 lines; same
+clause now on 10 page titles in rounds 1-7). A 13-17px one-line label near the top of the page, not in a bar, says it
+stands on its own at its top/left px with nothing written beside it (the issue line gained an invented "VOL. IV"; 8
+labels across rounds 2-7 gain it). Round 4 c1's tilted orange scrap also gains its unrotated size. No plan marks changed.
+
+| page | before (n102) | now | what's left |
+|---|---|---|---|
+| c5 torn collage | 69% | 82% (85k, 4.6 min, one build turn, no repair), colour 97%, layout 78%, must 100% | issue line in place, nothing invented; photos' teal and amber right, no shadows; hand note one line in its ring. Masthead built regular (target bold), issue letter-spacing lost, tapes ~1.3x large, amber photo ~40px taller, ring hand-wobbly |
+
+Not done this step (still open): e5 admin table ~16px low and pager cut; e4 photo corners, Details header over body,
+swatch ring.
