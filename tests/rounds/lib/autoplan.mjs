@@ -188,7 +188,7 @@ export function factsInPage() {
         const fills = [...svg.querySelectorAll('path, polygon, ellipse, rect')].filter((p) => getComputedStyle(p).fill !== 'none' && rgba(getComputedStyle(p).fill)?.a > 0.05)
           .map((p) => { const b = p.getBoundingClientRect(); return { c: rgba(getComputedStyle(p).fill), top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? '') } })
         const strokes = [...svg.querySelectorAll('path, polyline, line')].filter((p) => getComputedStyle(p).fill === 'none' || p.tagName === 'line').filter((p) => rgba(getComputedStyle(p).stroke)?.a > 0.05)
-          .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth)), dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? '') } })
+          .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth)), dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''), via: (() => { try { const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; return [0, 1, 2, 3, 4, 5, 6].map((i) => { const q = p.getPointAtLength((L * i) / 6); return [Math.round(m.a * q.x + m.c * q.y + m.e), Math.round(m.b * q.x + m.d * q.y + m.f)] }) } catch { return null } })() } })
         return fills.length >= 2 || (fills.length && strokes.length) ? { fills, strokes } : null
       })(),
       // what sits inside a textless glass panel: a strip, a bar chart, an open ring (round 6 c4: 'frosted glass' only)
@@ -1305,7 +1305,10 @@ function decideOne(f, page, marked, said) {
     const sh = hills
       ? `${wide.length} layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: ${wide.map((x) => `${vivid(x.c) ? 'vivid ' : ''}${colourName(x.c)} (${hexOf(x.c)}) cresting about ${x.top}px down`).join(', ')}`
       : `${fills.length} filled shapes: ${fills.map((x) => `${colourName(x.c)} ${x.right - x.left}x${x.bottom - x.top}px at ${x.left},${x.top}`).join(', ')}`
-    const tr = strokes.map((x) => `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} ${x.curvy ? 'curving, looping ' : ''}line (no fill) from about ${x.x},${x.bottom} up and across to ${x.right},${x.y}`)
+    const crosses = (v) => { const X = (a, b, c, d) => { const o = (p, q, r) => Math.sign((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])); return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0 }; for (let i = 0; i < v.length - 1; i++) for (let j = i + 2; j < v.length - 1; j++) if (X(v[i], v[i + 1], v[j], v[j + 1])) return true; return false }
+    // a curving trail says the points it passes through in order: 'from about x,y up and across to x,y'
+    // (its box corners) was built as a loop-de-loop elsewhere (round 6 c3, n88)
+    const tr = strokes.map((x) => x.curvy && x.via ? `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} smooth curving line (no fill${crosses(x.via) ? ', it loops over itself' : ', no loops, never crossing itself'}) passing in order through about ${x.via.map(([a, b]) => `${a},${b}`).join(' → ')} (page px)` : `a ${x.dash ? 'dashed ' : ''}${x.w}px ${colourName(x.c)} ${x.curvy ? 'curving, looping ' : ''}line (no fill) from about ${x.x},${x.bottom} up and across to ${x.right},${x.y}`)
     return { kind: 'box', note: withFx(`drawn shapes, no picture, no box: ${sh}${tr.length ? `; plus ${tr.join(', ')}` : ''}`) }
   }
   // a grid of thin lines laid flat as a floor going back (round 6 c1: a bare box)
@@ -1562,7 +1565,9 @@ function decideOne(f, page, marked, said) {
     const ckSay = ck ? `, the words ${quote(f.clipKid.t)} filled with a ${ck} (gradient text), the rest plain` : ''
     // on a band, the type's colour is said even when it is the page's: round 3 c2's near-black words on the
     // orange band were built white like the black band's
-    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band`)
+    // the band is the whole block, filled edge to edge, and left-set type says so: 'on a yellow band' was
+    // built as a yellow strip behind the letters only, and the masthead centred (round 6 c5, n89)
+    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band (the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
     const sk = f.subKid && f.text.endsWith(f.subKid.t) && f.text.length > f.subKid.t.length ? f.subKid : null
     if (sk) {

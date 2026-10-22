@@ -1,23 +1,23 @@
 {
   "id": "c5-brutal-zine",
-  "at": "2026-10-22T10:49:50.138Z",
+  "at": "2026-10-22T11:30:41.706Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8635924669415458,
-    "overallV2": 0.8635924669415458,
-    "overallV1": 0.79241672612816,
-    "colour": 0.9605636272837108,
-    "structure": 0.8783156247215116,
-    "structureStrict": 0.7597794971983464,
-    "colourAligned": 0.9605636272837108,
-    "structureAligned": 0.8783156247215116,
+    "overall": 0.8120460993655658,
+    "overallV2": 0.8120460993655658,
+    "overallV1": 0.7483190991031443,
+    "colour": 0.929671741932332,
+    "structure": 0.8460859485942379,
+    "structureStrict": 0.7399549586888329,
+    "colourAligned": 0.929671741932332,
+    "structureAligned": 0.8460859485942379,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9511257076706663
+      "r": 0.9296796957162912
     },
-    "layout": 0.9326866462641427
+    "layout": 0.9380366517373944
   },
   "effects": {
     "recall": 0.8,
@@ -35,51 +35,31 @@
     ]
   },
   "tokens": {
-    "input": 48591,
-    "output": 34144,
-    "cacheRead": 167832
+    "input": 23019,
+    "output": 16467,
+    "cacheRead": 118319
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 64009,
-      "output": 26191,
-      "cacheRead": 157110,
-      "toolCalls": 7,
+      "billed": 28975,
+      "output": 10549,
+      "cacheRead": 115235,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read components/Badge.tsx",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read src/main.tsx",
+        "Glob",
         "Read s2c-bench-app/package.json",
+        "Read src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 305036
+      "ms": 122578
     }
   ],
-  "reading": "A magazine cover/spread sketch: a black heading band, a 3x2+ ruled grid of 8 boxes with copy blocks, a blue duotone image tile, a code-style track list, a pull quote, credits, a price callout, and a tilted red 'sold out soon' badge overlapping the middle boxes.",
+  "reading": "A zine/magazine cover page laid out as a ruled grid of boxes: a black heading band (\"NOISE/ISSUE 9\"), a left box with a sideways \"LOUD\" and intro copy, a blue duotone tile with yellow accent shapes, a track-listing box, a pull-quote box, a credits box with a tilted red \"SOLD OUT SOON\" badge, and a price box (\"£4\" / \"post free in the UK\"). All text content and styling were specified via typed notes anchored to each stroke group.",
   "actions": [
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        2,
-        122,
-        1276,
-        776
-      ],
-      "paths": [
-        "s1",
-        "s2",
-        "s3",
-        "s4",
-        "s5"
-      ],
-      "instruction": "Whole page: white page background, monospace type family, black text throughout. The 8 black-bordered boxes form ONE ruled grid filling the page edge to edge — "
-    },
     {
       "kind": "add",
       "textMarks": [
@@ -101,7 +81,7 @@
         116
       ],
       "paths": [],
-      "instruction": "Full-width band above the grid with giant Helvetica heavy, tight-set letters, white text on a solid black band, reading \"NOISE/ISSUE 9\"."
+      "instruction": "Full-width heading band across the top: giant Helvetica heavy, tight-set letters, white text on a solid black band, reading \"NOISE/ISSUE 9\"."
     },
     {
       "kind": "add",
@@ -116,10 +96,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "In this thick black-bordered box, body copy: \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\" Also place a 44"
+      "instruction": "Top-left box, thick black border, two parts: (1) a 44px heavy word \"LOUD\" rotated 90° counterclockwise so it reads bottom-to-top along the left edge, 13px in fr"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -131,7 +111,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "This box is a vivid blue (#2563eb) flat duotone tile with a thick black border (no photograph). Place two hard-edged round yellow (#fde047) shapes on it: one 25"
+      "instruction": "Top-middle box, thick black border: a vivid blue (#2563eb) flat duotone tile (no photo), containing two hard-edged round yellow (#fde047) shapes — one 253px wid"
     },
     {
       "kind": "add",
@@ -146,7 +126,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "In this thick black-bordered box, mono 16px code-style lines, black text: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 — "
+      "instruction": "Top-right box, thick black border, monospace 16px code-style lines listing: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 "
     },
     {
       "kind": "add",
@@ -161,7 +141,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "In this thick black-bordered box, bold 22px pull-quote text: \"\"Turn it up until the walls agree.\"\""
+      "instruction": "Bottom-left box, thick black border, bold 22px text reading \"\"Turn it up until the walls agree.\"\" placed in the top-left corner (24px in, 24px down); the rest o"
     },
     {
       "kind": "add",
@@ -176,10 +156,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "In this thick black-bordered box, mono 13px code-style credit lines, black text: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, t"
+      "instruction": "Bottom-middle box, thick black border, monospace 13px code-style lines in black: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, t"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -191,7 +171,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A tilted 14° anticlockwise vivid red circular badge reading \"SOLD OUT SOON\", overlapping the border between the blue image tile above and the credits box below,"
+      "instruction": "Badge overlapping the border between the top-middle and bottom-middle boxes: a vivid red circle tilted 14° anticlockwise containing the text \"SOLD OUT SOON\"."
     },
     {
       "kind": "add",
@@ -216,8 +196,10 @@
         303
       ],
       "paths": [],
-      "instruction": "In this thick black-bordered box on a yellow band: huge Helvetica heavy black 72px text \"£4\", then on its own line beneath it a small 16px mono regular line \"po"
+      "instruction": "Bottom-right box content: huge Helvetica heavy black letters on a yellow band at 72px reading \"£4\", then on its own line beneath, a small 16px monospace regular"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }
