@@ -272,3 +272,16 @@ plan marks changed. Vitest: same 2 environmental failures.
 | e5 admin table | 59% | 76% (91k, 5.0 min), colour 98%, structure 92%, layout 74%, must 100% | white bordered rounded card back, every column at its drawn edge, menu in place. "Columns" button pushed to the far right, Role/Status lose their ▾ carets, header row barely tinted, pager ~8px low |
 
 Next: toolbar items packed at the left with the carets kept; e4 photo corners, Details header over body, swatch ring.
+
+## n106: toolbar controls packed at the left with their carets (2026-10-22, ~91k billed)
+
+Planner (zero tokens): a row of mixed controls (input, dropdowns, buttons) packed at the left of a wide row now says
+so: in order, side by side with the gap, each control's width, the shared height/fill/border/radius, and a dropdown's
+▾ caret written after its text. Only round-3 e1 and round-7 e5 toolbar notes changed; no plan marks changed. Vitest:
+same 2 environmental failures.
+
+| page | before (n105) | now | what's left |
+|---|---|---|---|
+| e5 admin table | 76% | 83% (91k, 5.2 min), colour 98%, structure 95%, layout 84%, must 100% | toolbar packed left with Role ▾ and Status: Any ▾, Columns beside them; pager at its drawn top. Header row built white (target #f3f4f6 tint), title ~8px right |
+
+Next: e4 photo corners, Details header over body, swatch ring; c2 VARIABLE 20px high; e5 header row tint.

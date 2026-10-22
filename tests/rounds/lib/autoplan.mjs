@@ -530,7 +530,7 @@ export function factsInPage() {
         if (!t || t.length > 12 || b.right < r.right - 4 || b.left < r.left + r.width * 0.5) return null
         return { t, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 }
       })(),
-      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
+      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, left: b.left - r.left, right: b.right - r.left, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
       // one line made of differently styled runs (round 7 e4 price: '$189' big, '$240' struck grey, '-21%' red tag; said run-on)
       runs: (() => {
         if (r.height > 60 || !kids.length || kids.length > 3 || kids.some((k) => k.children.length) || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) return null
@@ -1886,7 +1886,19 @@ function decideOne(f, page, marked, said) {
     // option states in a row of choices (round 7 e4 sizes: M picked by a 2px dark border, XS and XL struck grey; all lost)
     const kb = f.kidBoxes, picked = kb.filter((k) => k.bw >= 2 && kb.filter((j) => j.bw >= 2).length === 1), gone = kb.filter((k) => k.struck)
     const states = kb.length >= 3 && (picked.length || gone.length) && gone.length < kb.length ? `; ${kb.length} equal ${Math.round(kb[0].w)}x${Math.round(kb[0].h)}px ${kb[0].radius >= 4 ? 'rounded ' : ''}outlined boxes in one row${picked.length ? `; ${quote(picked[0].t)} is the picked one (${Math.round(picked[0].bw)}px ${colourName(picked[0].bc)} border${picked[0].bold ? ', bold' : ''}, the others a thin ${colourName(kb.find((k) => k !== picked[0]).bc)} border)` : ''}${gone.length ? `; ${gone.map((k) => quote(k.t)).join(' and ')} unavailable (${colourName(gone[0].ink)} text struck through, ${gone[0].fill?.a > 0.05 ? `${colourName(gone[0].fill)} fill` : 'no fill'})` : ''}` : ''
-        return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on + states }
+    // a toolbar of mixed controls packed at the left of a wide row (round 7 e5: 'Columns' was pushed to the far
+    // right and the Role / Status carets were lost): say each control's width, the gap, the look, and keep the ▾
+    const mixed = !items.every((t) => t.startsWith('button'))
+    const kl = f.kidBoxes
+    const packed = mixed && !lead && kl.length === f.kidCount && kl.length >= 3 && w >= 500 && kl.every((k) => k.left != null) && kl.every((k, i) => i === 0 || k.left >= kl[i - 1].right - 1) && kl[kl.length - 1].right < w * 0.8
+    if (packed) {
+      const gaps = kl.slice(1).map((k, i) => Math.round(k.left - kl[i].right)), gap = gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? gaps[0] : null
+      const k0 = kl[0], same = kl.every((k) => Math.abs(k.h - k0.h) <= 2 && k.bw === k0.bw && Math.abs(k.radius - k0.radius) <= 1)
+      const look = same ? `each ${Math.round(k0.h)}px tall${k0.fill?.a > 0.05 ? `, ${colourName(k0.fill)} (${hexOf(k0.fill)})` : ''}${k0.bw >= 1 ? `, ${Math.round(k0.bw)}px ${colourName(k0.bc)} (${hexOf(k0.bc)}) border` : ''}${k0.radius >= 4 ? `, ${Math.round(k0.radius)}px rounded` : ''}` : null
+      const said = kl.map((k) => { const c = ctl(k.t); const caret = /[▾▼]$/.test(k.t) ? ` with its ▾ caret written after the text, ${quote(k.t)}` : ''; return `${c}${caret} ${Math.round(k.w)}px wide` })
+      return { kind: 'box', note: `toolbar row of controls packed at the LEFT, side by side${gap != null ? ` ${gap}px apart` : ''} in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty)${look ? `, ${look}` : ''}: ${said.join(', ')}${on}` }
+    }
+        return { kind: 'box', note: (mixed ? items.join(', ') : `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}`) + on + states }
   }
   // a bar with one item at each end (a logo left, links right): round 5 c1 nav and c3 frosted header were unsaid
   const kb = f.kidBoxes

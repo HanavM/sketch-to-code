@@ -1199,7 +1199,7 @@
    ],
    [
     "toolbar",
-    "input \"Search name or email\", dropdown \"Role\", dropdown \"Status: Any\", button \"Columns\""
+    "toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 33px tall, white (#ffffff), 1px light grey (#d1d5db) border, 8px rounded: input \"Search name or email\" 300px wide, dropdown \"Role\" with its ▾ caret written after the text, \"Role ▾\" 63px wide, dropdown \"Status: Any\" with its ▾ caret written after the text, \"Status: Any ▾\" 102px wide, button \"Columns\" 77px wide"
    ],
    [
     "bulk-bar",
