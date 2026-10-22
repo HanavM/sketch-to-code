@@ -195,6 +195,27 @@ export function factsInPage() {
         if (Math.max(...pxs) < 40) return null
         return { letters: ls, width: Math.round(r.width), top: Math.round(r.top), left: Math.round(r.left), colour: rgba(getComputedStyle(el).color) }
       })(),
+      // a paragraph opening on a drop cap (::first-letter floated and enlarged: round 7 c5 column, no note at all)
+      dropCap: (() => {
+        const fl = getComputedStyle(el, '::first-letter'), base = parseFloat(cs.fontSize)
+        const px = parseFloat(fl.fontSize)
+        if (!(px >= base * 2.5) || fl.cssFloat !== 'left' || !(el.innerText || '').trim()) return null
+        return { letter: (el.innerText || '').trim()[0], px: Math.round(px), weight: +fl.fontWeight, colour: rgba(fl.color), base: Math.round(base), lh: parseFloat(cs.lineHeight) || Math.round(base * 1.2) }
+      })(),
+      // an SVG holding one unfilled stroked ellipse or circle: a hand-drawn ring round something (round 7 c5: bare box)
+      ringSvg: (() => {
+        if (el.tagName.toLowerCase() !== 'svg') return null
+        const all = [...el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline')]
+        if (all.length !== 1 || !/^(ellipse|circle)$/.test(all[0].tagName.toLowerCase())) return null
+        const p = all[0], ps = getComputedStyle(p)
+        if (ps.fill !== 'none' && !(rgba(ps.fill)?.a <= 0.05)) return null
+        const c = rgba(ps.stroke)
+        if (!c || c.a <= 0.05) return null
+        const rot = (p.getAttribute('transform') || '').match(/rotate\(\s*(-?[\d.]+)/)
+        const rx = +(p.getAttribute('rx') ?? p.getAttribute('r')), ry = +(p.getAttribute('ry') ?? p.getAttribute('r'))
+        const sc = r.width / (el.viewBox?.baseVal?.width || r.width)
+        return { c, w: Math.round(parseFloat(ps.strokeWidth) * sc), rx: Math.round(rx * sc), ry: Math.round(ry * sc), rot: rot ? Math.round(+rot[1]) : 0 }
+      })(),
       // a tile holding a stack of thin empty bars under a small label (round 7 c1 list tile: said 'near-black "SYNC"')
       barStack: (() => {
         const bs = kids.filter((k) => !k.children.length && !(k.innerText || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 && k.getBoundingClientRect().height <= 16 && k.getBoundingClientRect().width >= 40)
@@ -1535,6 +1556,32 @@ function decideOne(f, page, marked, said) {
   if (f.barStack && fill && !f.regionKids.length && h >= 100) {
     const bs = f.barStack, main = bs.bars[1] ?? bs.bars[0]
     return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) tile, ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${colourName(f.border.colour)} (${hexOf(f.border.colour)}) border` : ''}${f.text ? `, small wide-spaced label ${quote(f.text, 24)} top left` : ''}; under it a stack of ${bs.bars.length} empty ${bs.h}px bars (${bs.radius}px rounded) ${bs.gap}px apart, first one ${bs.top}px from the top: ${bs.bars.map((b) => `${colourName(b.c)} ${b.pct}% wide`).join(', ')}`) }
+  }
+  // ---- round 7 c5 (n102)
+  // a hand-drawn ring: one unfilled stroked ellipse in an SVG, drawn as its own outline (was a bare box)
+  if (f.ringSvg && !f.regionKids.length) {
+    const g = f.ringSvg
+    const t = (g.rot * Math.PI) / 180, cx = w / 2, cy = h / 2
+    const poly = Array.from({ length: 16 }, (_, i) => {
+      const a = (2 * Math.PI * i) / 16, ex = g.rx * Math.cos(a), ey = g.ry * Math.sin(a)
+      return [+((cx + ex * Math.cos(t) - ey * Math.sin(t)) / w).toFixed(3), +((cy + ex * Math.sin(t) + ey * Math.cos(t)) / h).toFixed(3)]
+    })
+    const turn = Math.abs(g.rot) >= 2 ? `, tilted ${Math.abs(g.rot)}° ${g.rot > 0 ? 'clockwise' : 'anticlockwise'}` : ''
+    return { kind: 'shape', poly, note: `an outline-only ${colourName(g.c)} (${hexOf(g.c)}) ellipse ring, ${g.w}px line, ${2 * g.rx}x${2 * g.ry}px${turn}, no fill (an SVG <ellipse fill="none">, like a pen circle round a note): whatever is inside it shows through` }
+  }
+  // a paragraph opening on a drop cap (round 7 c5 column: no note, built as plain text)
+  if (f.dropCap && !f.regionKids.length && f.text.length > 40) {
+    const d = f.dropCap
+    const lines = Math.max(2, Math.round((d.px * 0.8) / d.lh) + 1)
+    return { kind: 'text', note: `paragraph ${Math.round(w)}px wide, ${d.base}px text, line-height ${Math.round(d.lh)}px, opening on a drop cap: its first letter ${quote(d.letter)} ${d.px}px ${d.weight >= 600 ? 'bold ' : ''}${colourName(d.colour)} (${hexOf(d.colour)}), floated left about ${lines} lines tall (::first-letter), the text wrapping beside it: ${quote(f.text, 400)}` }
+  }
+  // a strip of see-through tape laid over a photo's corner (round 7 c5: read as a picture, built as an X box)
+  if (!f.text && !f.kidCount && fill && !grad && f.bg.a >= 0.3 && f.bg.a <= 0.9) {
+    const lw = f.layoutBox?.w ?? w, lh = f.layoutBox?.h ?? h
+    if (lw <= 260 && lh <= 80 && lw >= 2.5 * lh) {
+      const pale = { r: f.bg.r, g: f.bg.g, b: f.bg.b, a: 1 }
+      return { kind: 'box', note: withFx(`see-through ${colourName(pale)} (${hexOf(pale)} at ${Math.round(f.bg.a * 100)}% opacity) strip of sticky tape ${lw}x${lh}px${bordered ? `, hairline ${lineCol(f.border.colour)} edge` : ''}, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)`) }
+    }
   }
   // ---- round 6 creative (n79)
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)

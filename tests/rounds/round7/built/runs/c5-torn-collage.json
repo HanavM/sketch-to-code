@@ -1,0 +1,297 @@
+{
+  "id": "c5-torn-collage",
+  "at": "2026-10-22T19:06:09.240Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6858265802292158,
+    "overallV2": 0.6830074648816755,
+    "overallV1": 0.5038468983991964,
+    "colour": 0.9289329700770892,
+    "structure": 0.8652062161594424,
+    "structureStrict": 0.6700969850311798,
+    "colourAligned": 0.9311727535919773,
+    "structureAligned": 0.8652062161594424,
+    "align": {
+      "scale": 0.96,
+      "dx": 16,
+      "dy": 0,
+      "r": 0.9223475621189592
+    },
+    "layout": 0.6541059867051582
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 59786,
+    "output": 33256,
+    "cacheRead": 339901
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 67656,
+      "output": 22735,
+      "cacheRead": 327444,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 227328
+    }
+  ],
+  "reading": "The sketch is a magazine-style 'Field Notes' spread: two overlapping jagged photo-shapes with gradient fills and taped edges, a big inverted-color masthead reading 'Salt & Stone', a short issue line, a drop-cap paragraph, a top-right placeholder line, and a red circled callout reading 'read this first!'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        94,
+        44,
+        140,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add the masthead heading text 'FIELD NOTES' set in 14px wide-spaced (letter-spaced) caps, near-black text on the warm paper background, per the user's typed not"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s8",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 102
+        },
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        904,
+        156,
+        292,
+        30
+      ],
+      "paths": [],
+      "instruction": "Add a small 14px text line reading 'No. 12 · Winter' positioned beside the FIELD NOTES masthead, near-black Georgia text, per the user's typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s8",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 102
+        }
+      ],
+      "region": [
+        904,
+        44,
+        116,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a generic short placeholder text line in the top-right corner, matching the masthead's style (content unspecified, so use plausible short journal-header cop"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        72,
+        106,
+        455,
+        549
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a large jagged cut-out photo-like shape tilted 4° anticlockwise, filled with a teal-to-deep-green vertical gradient, exactly matching the sketched outline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        412,
+        284,
+        416,
+        453
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a second jagged cut-out photo-like shape tilted 5° clockwise, overlapping the first, filled with a vivid amber-to-brown vertical gradient, exactly matching "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        132,
+        86,
+        148,
+        66
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a see-through pale-yellow (#fef9c3 at 75% opacity) sticky-tape strip, 150x38px, tilted 14° anticlockwise, hairline faint black edge, square corners, laid on"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        702,
+        272,
+        147,
+        75
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a second see-through pale-yellow (#fef9c3 at 75% opacity) sticky-tape strip, 150x38px, tilted 18° clockwise, hairline faint black edge, square corners, laid"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 123
+        }
+      ],
+      "region": [
+        158,
+        300,
+        328,
+        270
+      ],
+      "paths": [],
+      "instruction": "Add a giant Georgia italic serif (regular weight) title that color-inverts against whatever is beneath it, tightly set (line-height 0.9), in white, reading exac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s8",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 102
+        },
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        904,
+        171,
+        292,
+        101
+      ],
+      "paths": [],
+      "instruction": "Add a 300px-wide body paragraph, 16px text, 26px line-height, opening with a 72px bold brown (#b45309) drop-cap 'A' floated left about 3 lines tall (::first-let"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15"
+          ],
+          "lines": 1,
+          "fontPx": 37
+        }
+      ],
+      "region": [
+        890,
+        632,
+        299,
+        125
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add an outline-only red (#dc2626) ellipse ring, 3px stroke, 300x124px, tilted 5° anticlockwise, no fill (so whatever is beneath shows through), encircling a lin"
+    }
+  ],
+  "rejected": []
+}

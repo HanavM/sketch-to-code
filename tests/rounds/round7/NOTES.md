@@ -212,3 +212,19 @@ records, only 7 actions across rounds 1-7 lose a scaffold: three on e4, four sin
 
 A first attempt this step failed before building: the reading took over 150s (a read-only probe a minute later took
 80s, ~30k billed); nothing in the pipeline changed for it.
+
+## n102: torn collage first live build (2026-10-22, ~93k billed)
+
+Planner (zero tokens): the two tape strips were read as pictures (a build draws an X box); now a small see-through
+strip says its colour, opacity, unrotated size and that it lies on top of the photo edge (round-4 c5 tape note changes
+the same way). The column's drop cap was unsaid (no note at all); a paragraph whose ::first-letter is floated and 2.5x+
+the body size now says the letter, px, weight, colour and the text. The red ellipse was a bare box; an SVG holding one
+unfilled stroked ellipse is now drawn as its own ring and says colour, line, size and tilt. Rounds 1-3, 5, 6 plans
+unchanged.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| c5 torn collage | never built | 69% (93k, 5.6 min), must 100%, effects 75% | issue line "No. 12 · Winter" built above the column with an invented "VOL. IV" top right; photos ~60px right and the amber one taller, gradients more saturated (bright teal top, near-black brown bottom), added drop shadows; "read this first!" wraps to 2 lines; torn edges built wavy, not jagged |
+
+Next: say the issue line's place (top right, its own line), the hand note on one line, and photos flat (no shadow) with
+their gradient hexes; re-run c5.
