@@ -156,7 +156,7 @@
    ],
    [
     "word-top",
-    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type"
+    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down"
    ],
    [
     "rule",
@@ -398,7 +398,7 @@
    ],
    [
     "price",
-    "huge Helvetica heavy black letters on a yellow band 72px \"£4\", then on its own line under it a small 16px mono regular line \"post free in the UK\" (small, not part of the big type)"
+    "huge Helvetica heavy black letters on a yellow band 72px \"£4\", then on its own line under it a small 16px mono regular line \"post free in the UK\" (small, not part of the big type); both lines sit in the top-left corner of the block, 24px in from its left and 24px down from its top, left-aligned (not centred), the rest of the block empty"
    ],
    [
     "sticker",

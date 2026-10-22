@@ -752,3 +752,34 @@ describe('dense notes — a list of quoted parts stays one block, word for word'
     expect(isPageLookNote(table) || isPageLookNote(chat)).toBe(false)
   })
 })
+
+describe("a stroke one action owns is not borrowed by the others (round 6 c3: the sun built in the hills' green)", () => {
+  // s0 sun, s1 page-wide hills box, s2 button; every action cited s1 as a frame
+  const strokes = [stroke('s0', 900, 120), stroke('s1', 0, 600), stroke('s2', 60, 500)]
+  const notes: TypedNote[] = [
+    { id: 'n0', text: 'flat vivid orange disc', at: { x: 900, y: 120 }, anchor: { kind: 'strokes', strokeIds: ['s0'] } },
+    { id: 'n1', text: 'three deep green hills', at: { x: 0, y: 600 }, anchor: { kind: 'strokes', strokeIds: ['s1'] } },
+  ]
+  const ground = (sets: string[][]) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1200, h: 800 })])
+    const ev = buildEvidence(strokes, snap, notes)
+    return groundInterpretation(
+      {
+        reading: 'hero',
+        actions: sets.map((ids, i) => ({ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: `a${i}`, strokes: ids, layer: null, depicts: null, fidelity: null })),
+      } as never,
+      ev, snap, 'design',
+    ).actions
+  }
+  it("the sun's action drops the hills box and with it the hills' note", () => {
+    const [sun, hills, button] = ground([['s0', 's1'], ['s1'], ['s1', 's2']])
+    expect(sun!.notes ?? []).toEqual(['flat vivid orange disc'])
+    expect((hills!.notes ?? []).join(' ')).toContain('deep green')
+    expect((button!.notes ?? []).join(' ')).not.toContain('deep green')
+    expect(sun!.region!.w).toBeLessThan(200)
+  })
+  it('keeps a shared stroke when no action cites it alone', () => {
+    const [a] = ground([['s0', 's1'], ['s1', 's2']])
+    expect((a!.notes ?? []).join(' ')).toContain('deep green')
+  })
+})

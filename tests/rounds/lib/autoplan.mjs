@@ -76,6 +76,7 @@ export function factsInPage() {
       radiusBottom: parseFloat(cs.borderBottomLeftRadius) || 0,
       shadow: cs.boxShadow,
       centred: cs.textAlign === 'center' || cs.justifyContent === 'center',
+      inset: { t: parseFloat(cs.paddingTop) || 0, l: parseFloat(cs.paddingLeft) || 0 },
       // a form field: a label plus an empty bordered box, or an input-like box with left text
       fieldKid: kids.some((k) => { const c = getComputedStyle(k); return !(k.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30 }),
       kidButtons: kids.filter((k) => { const c = getComputedStyle(k); const t = (k.innerText || '').trim(); return t && t.length <= 32 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).length,
@@ -1562,7 +1563,10 @@ function decideOne(f, page, marked, said) {
     if (sk) {
       const head = f.text.slice(0, f.text.length - sk.t.length).trim()
       const small = `then on its own line under it a small ${sk.px}px ${sk.mono ? 'mono ' : ''}${sk.bold ? 'bold' : 'regular'} line ${quote(sk.t, 60)} (small, not part of the big type)`
-      return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${ckSay}, ${small}`.trim()) }
+      // a tall filled cell with the type in its top-left corner: say where, or the build centres it
+      // (round 6 c5 '£4' price block built centred in its yellow cell)
+      const corner = fill && !f.centred && h >= 120 && f.inset ? `; both lines sit in the top-left corner of the block, ${Math.round(f.inset.l)}px in from its left and ${Math.round(f.inset.t)}px down from its top, left-aligned (not centred), the rest of the block empty` : ''
+      return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${ckSay}, ${small}${corner}`.trim()) }
     }
     // a display line's own breaks and a giant word's width: builds rewrapped a 2-line headline into 3
     // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
@@ -1808,6 +1812,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
         const cut = Math.round((1 - top.clipInset.b) * 100)
         const sh = bot.shiftX - top.shiftX
         dt.note = `ONE ${look} word ${quote(f.text)}${wpx}, sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px))` : ''}; the two parts touch at the cut, no gap, one line of type`
+        // a thin rule drawn along the cut: say the cut sits on it (round 6 c2 built the word ~45px high,
+        // its cut floating above the rule the target slices it on)
+        const cutY = top.rect.y + top.rect.h * cut / 100
+        const rule = regions.find((g) => g !== top && g !== bot && out.get(g.role).kind && g.rect.h <= 6 && g.rect.w >= 200 &&
+          Math.abs(g.rect.y + g.rect.h / 2 - cutY) <= 10 && g.rect.x < top.rect.x + top.rect.w && g.rect.x + g.rect.w > top.rect.x)
+        if (rule) dt.note += `; the cut lies exactly on the thin rule drawn across it (${Math.round(cutY)}px from the page top), its line box starting ${Math.round(top.rect.y)}px down`
         db.kind = null; db.note = null
         unionOf.set(top.role, bot.role)
       }

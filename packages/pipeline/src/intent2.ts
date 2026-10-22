@@ -1035,6 +1035,26 @@ export function groundInterpretation(
     [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
   )
 
+  // A stroke one add/design action cites ALONE is that action's own mark. Any
+  // other action that cites it next to strokes of its own is borrowing it as a
+  // frame, and borrowing it drags its typed note along: round 6 c3 cited the
+  // page-wide hills box on every action, the hills' "deep green" note landed
+  // on the sun's action, and the orange sun was built deep green.
+  const ownedAlone = new Map<string, number>()
+  for (const a of raw.actions) {
+    if (a.kind !== 'add' && a.kind !== 'design') continue
+    const ids = (a.strokes ?? []).filter((id) => ev.strokes.has(id))
+    if (ids.length === 1) ownedAlone.set(ids[0]!, (ownedAlone.get(ids[0]!) ?? 0) + 1)
+  }
+  const ownStrokes = (a: (typeof raw.actions)[number]): string[] => {
+    const ids = a.strokes ?? []
+    if (a.kind !== 'add' && a.kind !== 'design') return ids
+    const known = ids.filter((id) => ev.strokes.has(id))
+    if (known.length < 2) return ids
+    const kept = ids.filter((id) => !ownedAlone.has(id))
+    return kept.some((id) => ev.strokes.has(id)) ? kept : ids
+  }
+
   const actions: GroundedAction[] = []
   for (const a of raw.actions) {
     // design mode is creation-only — belt to the schema's suspenders
@@ -1054,7 +1074,7 @@ export function groundInterpretation(
     // actions gives each of them the size)
     const textStackOf = (ids: string[]): TextStack[] =>
       pageStacks.filter((st) => st.strokes.some((id) => ids.includes(id)))
-    const citedStrokes = (a.strokes ?? [])
+    const citedStrokes = ownStrokes(a)
       .map((id) => {
         const s = ev.strokes.get(id)
         if (!s) rejected.push(`unknown stroke id "${id}"`)
