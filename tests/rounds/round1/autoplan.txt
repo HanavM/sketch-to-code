@@ -1,4 +1,4 @@
-c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 49
+c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 54
     logo         text     (hand: text)
     links        text     (hand: text)
     headline     heading  (hand: heading)
@@ -7,19 +7,19 @@ c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 49
     note *: whole page: coral to pink to purple gradient page, Georgia type, white text
     note logo: italic "dusk."
     note links: links: Work, Studio, Journal, Contact
-    note headline: giant Georgia serif tight-set letters "Stay for the golden hour"
+    note headline: giant Georgia serif tight-set letters lines set tight (line-height 1) "Stay for the golden hour"
     note subhead: text "A slow-living retreat on the coast, where the evenings last a little longer."
     note cta: pill button "Book a stay"
-c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 49
+c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 70
     nav          box      (hand: box)
     headline     heading  (hand: heading)
     body         text     (hand: text)
     cta          button   (hand: button)
     note *: whole page: yellow page, black text
-    note nav: thick rule under nav bar "LOUD®", text "INDEX — SHOP — ABOUT"
-    note headline: giant uppercase tight-set letters "MAKE IT LOUD"
+    note nav: nav bar 77px tall across the top, thick line under: "LOUD®" left, "INDEX — SHOP — ABOUT" right
+    note headline: giant uppercase tight-set letters lines set tight (line-height 0.86) "MAKE IT LOUD"
     note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."
-    note cta: black hard offset shadow yellow text button "SHOP NOW →"
+    note cta: black yellow text button "SHOP NOW →", with a hard solid opaque red shadow offset 12px down right, no blur
 c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
     left-panel   box      (hand: box)
     logo         text     (hand: —)
@@ -35,26 +35,26 @@ c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
     note cta: cream outline button "BROWSE PLANTS"
     note right-panel: cream
     note orb: big glowing yellow to orange circle
-c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 68
+c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 76
     nav          box      (hand: box)
     badge        button   (hand: button)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     ctas         box      (hand: box)
     note *: whole page: near-black indigo page, faint grid lines, Helvetica type, light grey text
-    note nav: nav bar "NOVA Product Docs Pricing"
+    note nav: nav, no box around it: bold 22px "NOVA" left, "Product Docs Pricing" right
     note badge: purple outline pill button "✦ v2 is live — read the notes"
-    note headline: giant Helvetica heavy cyan to purple to coral gradient text "Ship at the speed of light"
+    note headline: giant Helvetica heavy cyan to purple to light pink gradient text "Ship at the speed of light"
     note subhead: lavender text "The edge platform for teams who refuse to wait on their own infrastructure."
     note ctas: buttons: "Start building", "Talk to us"
-c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 52
+c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 59
     masthead     box      (hand: box)
     number       heading  (hand: heading)
     headline     heading  (hand: heading)
     dek          text     (hand: text)
     sidebar      box      (hand: box)
     note *: whole page: off-white page, Georgia type, near-black text
-    note masthead: "The Long Read", text "ISSUE 14 · AUTUMN"
+    note masthead: huge 54px bold title, starting 26% down: "The Long Read", text "ISSUE 14 · AUTUMN"
     note number: giant Georgia serif red "01"
     note story: "ESSAY"
     note headline: huge Georgia serif "The quiet return of the handwritten letter"
@@ -85,18 +85,18 @@ e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 58
     note tier-1: "Starter" big "$0/mo" list: "1 project", "Community support", "Basic analytics", outline button "Get started"
     note tier-2: dark navy block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"
     note tier-3: "Team" big "$79/mo" list: "Everything in Pro", "SSO", "Audit logs", outline button "Contact sales"
-e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 103
+e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 115
     nav          box      (hand: box)
     title        heading  (hand: heading)
     thumb-1      image    (hand: image)
     thumb-2      image    (hand: image)
     thumb-3      image    (hand: image)
-    note nav: nav bar "Notebook Posts Topics About"
+    note nav: nav bar 68px tall across the top, thin line under: bold 20px "Notebook" left, "Posts Topics About" right
     note title: big "Latest posts"
     note post-1: right of the picture: "How we cut our build times in half", text "A look at caching, parallel jobs and the one config flag that mattered most.", small "Oct 12 · 6 min read"
     note post-2: right of the picture: "Designing for slow networks", text "What we learned shipping to users on 2G, and why it made the app better for everyone.", small "Oct 3 · 8 min read"
     note post-3: right of the picture: "A year of four-day weeks", text "The numbers, the surprises and what we would do differently.", small "Sep 21 · 5 min read"
-e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 49
+e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 58
     title        heading  (hand: heading)
     name         box      (hand: box)
     email        box      (hand: box)
@@ -108,8 +108,8 @@ e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 49
     note email: label "Email" above an empty field
     note message: label "Message" above an empty field
     note submit: teal white text button "Send message"
-    note info: pale grey card "Our office", lines "12 Harbour Street Lisbon, Portugal", "Email", "hello@example.com"
-e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 43
+    note info: pale grey card "Our office", lines "12 Harbour Street Lisbon, Portugal", "Email", "hello@example.com", all at the top of the card, empty below
+e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 56
     sidebar      box      (hand: box)
     title        heading  (hand: heading)
     stat-1       box      (hand: box)
@@ -117,6 +117,7 @@ e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 43
     stat-3       box      (hand: box)
     stat-4       box      (hand: box)
     table        box      (hand: box)
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
     note sidebar: dark navy sidebar, light grey text "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted
     note title: "Overview"
     note stat-1: white card "Revenue", text "$48.2k"

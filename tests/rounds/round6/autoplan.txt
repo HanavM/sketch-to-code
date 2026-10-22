@@ -85,7 +85,7 @@ c5-brutal-zine · marks 8 · words 119
     note credits: thick black border mono 13px code lines: "Edited by M. Hale", "Photos by the bands", "Printed in Leeds on a Risograph, two colours, 400 copies."; black code
     note price: huge Helvetica heavy black letters on a yellow band "£4 post free in the UK"
     note sticker: tilted 14° anticlockwise vivid red circle with "SOLD OUT SOON"
-e1-mega-menu · marks 8 · words 77
+e1-mega-menu · marks 8 · words 304
     topbar       box     
     hero         box     
     cards        box     
@@ -94,15 +94,16 @@ e1-mega-menu · marks 8 · words 77
     col-ship     box     
     col-watch    box     
     featured     box     
-    note *: whole page: off-white page, Helvetica type, dark navy text
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
     note topbar: white bar 72px tall across the page, links: Northwind, Products, Solutions, Pricing, Docs, Search docs…; "Products" selected (bold, blue underline)
     note hero: vivid blue (top left) to vivid bright sky blue (bottom right) gradient block
-    note mega: white card
-    note col-build: "BUILD" list: "Functions", "Storage", "Queues", "Databases"
-    note col-ship: "SHIP" list: "Previews", "Rollbacks", "Domains" TLS included
-    note col-watch: "WATCH" list: "Logs" Search 30 days, "Traces", "Alerts"
-    note featured: dark navy block, white text "Northwind AI", text "Try the beta →"
-e2-multi-chart · marks 11 · words 175
+    note cards: a row of 4 separate empty white cards, each 282x280px, 24px apart, thin light grey border, 12px rounded, nothing inside them
+    note mega: white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering all of what is drawn under it (absolutely placed over it, not pushing it down); the panel is a fixed 440px tall as drawn, so nothing under it peeks out round its edges
+    note col-build: small grey spaced capitals "BUILD", then 4 links stacked, each a name with a small grey line under it: "Functions" / "Run code at the edge"; "Storage" / "Files, blobs and buckets"; "Queues" / "Background jobs that retry"; "Databases" / "Postgres with branching"
+    note col-ship: small grey spaced capitals "SHIP", then 3 links stacked, each a name with a small grey line under it: "Previews" / "A URL for every branch"; "Rollbacks" / "One click, any deploy"; "Domains" / "TLS included"
+    note col-watch: small grey spaced capitals "WATCH", then 3 links stacked, each a name with a small grey line under it: "Logs" / "Search 30 days"; "Traces" / "Follow a request end to end"; "Alerts" / "Slack, email, pager"
+    note featured: dark navy block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold "Northwind AI", text "Ask your logs questions in plain English.", bold cyan "Try the beta →"
+e2-multi-chart · marks 11 · words 221
     sidebar      box     
     title        heading 
     filters      box     
@@ -114,7 +115,7 @@ e2-multi-chart · marks 11 · words 175
     chart-donut  box     
     chart-bars   box     
     table        box     
-    note *: whole page: off-white page, Helvetica type, dark navy text
+    note *: whole page: pale blue-grey page, Helvetica type, dark navy text
     note sidebar: dark navy bar, light grey text "Pulse" list: "Overview", "Revenue", "Customers", "Reports", "Settings"; "Overview" highlighted
     note title: "Overview"
     note filters: buttons: "Last 30 days", "All regions", "All plans", "+ Filter"; "Last 30 days" selected (dark navy fill)
@@ -123,39 +124,39 @@ e2-multi-chart · marks 11 · words 175
     note kpi-churn: white card "Churn", lines big 32px bold "2.1%", green "-0.3%"
     note kpi-nps: white card "NPS", lines big 32px bold "48", green "+5"
     note chart-line: white card, "Revenue, last 30 days", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), dashed light grey line rising left to right (7 points); no axis labels
-    note chart-donut: white block, centred in it a 160px progress ring (not a picture): indigo arc 46% of the way round from the top, the rest a light grey track
+    note chart-donut: white card, small grey title "Plan mix" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: "■ Pro 46%", "■ Team 28%", "■ Free 16%"
     note chart-bars: bar chart "Signups by week", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest
-    note table: white card, "Top accounts", table, columns "Acme Corp", "$6,400", 4 rows, first row "Globex" | "$5,120"
-e3-mail-client · marks 4 · words 237
+    note table: white card, "Top accounts", 5 rows, no header row, thin lines between, second column bold right-aligned: "Acme Corp" | "$6,400"; "Globex" | "$5,120"; "Initech" | "$3,980"; "Umbrella" | "$3,200"; "Hooli" | "$2,750"
+e3-mail-client · marks 4 · words 236
     folders      box     
     list         box     
     reader       box     
     reply        box     
     note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 3, "Archive", "Spam"; "Inbox" highlighted
     note list: "Search mail" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: "Lena Park" 9:41 "Q4 launch plan" / "Attached the final deck, can you check"… (unread); "GitHub" 8:15 "[sketch-to-code] PR #212 merged" / "Your pull request was merged into main." (unread); "Marco Ruiz" Yesterday "Dinner Friday?" / "The place on Rua Augusta, 8pm, I booked"…; "Stripe" Tue "Your October invoice" / "Invoice #4471 for $240.00 is ready."; "Ana Silva" Mon "Re: hiring loop" / "Two candidates for Thursday, notes"…; "Figma" Oct 18 "New comments" / "3 new comments on Landing v4."; the "Lena Park" row selected (pale blue, blue left edge)
-    note reader: opened message: a row of small outlined buttons "Reply", "Forward", "Archive", "Delete" at the top; big bold 24px title "Q4 launch plan"; a 44px round bright orange avatar left of bold "Lena Park" with grey "to me · 9:41 AM" under it; then 15px body text, lines: "Hi Hanav," / "Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?" / "Thanks," / "Lena"; then a bordered rounded attachment box "Q4-launch.pdf · 2.4 MB"
+    note reader: opened message: a row of small outlined buttons "Reply", "Forward", "Archive", "Delete" at the top; big bold 24px title "Q4 launch plan"; a 44px round amber avatar left of bold "Lena Park" with grey "to me · 9:41 AM" under it; then 15px body text, lines: "Hi Hanav," / "Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?" / "Thanks," / "Lena"; then a bordered rounded attachment box "Q4-launch.pdf · 2.4 MB"
     note reply: "Reply to Lena…"
-e4-checkout · marks 5 · words 62
+e4-checkout · marks 5 · words 338
     logo         text    
     steps        text    
     form         box     
     pay          button  
     summary      box     
-    note *: whole page: off-white page, Helvetica type, near-black text
+    note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
     note logo: "Field & Co."
-    note steps: links: ✓ Cart, Shipping, Payment, Review
-    note form: "Email"… "First name Hanav Last name M" "Address 14 Orchard Lane" "City Austin ZIP 78701" list: "Contact", "Shipping address", "Delivery"
+    note steps: progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: "✓ Cart" (green) — "Shipping" (bold near-black, current step) — "Payment" (grey) — "Review" (grey)
+    note form: form, labels above white bordered rounded fields straight on the page (no card, panel or border around the form), in order: bold heading "Contact"; "Email" field holding "hanav@example.com"; bold heading "Shipping address"; "First name" field holding "Hanav" | "Last name" field holding "M"; "Address" field holding "14 Orchard Lane"; "City" field holding "Austin" | "ZIP" field holding "78701"; bold heading "Delivery"; 2 bordered rounded choice cards side by side, bold first line, small line under: "Standard" / "3–5 days · Free" (chosen: 2px near-black border), "Express" / "1–2 days · $12"; tight spacing: every field 46px tall, label 6px above its field, 14px from a field to the next label, headings 20px, choice cards 72px tall; the whole form is 531px tall top to bottom
     note pay: near-black full-width white text button "Continue to payment"
-    note summary: off-white card "Discount code Apply" "Subtotal $146.00" "Shipping Free" "Tax $12.05" "Total $158.05" list: "1", "2", "1"
-e5-week-calendar · marks 6 · words 186
+    note summary: off-white full-height side panel (480px wide, flush to the right edge, one flat colour, no gradient, a thin light grey line down its left edge), order summary, no heading, first row starts 150px below the panel top: 3 item rows, each a 72px solid light grey (#d6d3d1, plainly darker than the panel) rounded square picture with a small round grey quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: "Waxed canvas tote" / "Olive" badge 1, $88.00; "Wool socks" / "Oatmeal · M" badge 2, $36.00; "Enamel mug" / "Cream" badge 1, $22.00; then a bordered field "Discount code" with a light grey button "Apply" right of it; grey row "Subtotal $146.00" (label left, amount right); grey row "Shipping Free" (label left, amount right); grey row "Tax $12.05" (label left, amount right); a thin line, then big bold row "Total $158.05" (label left, amount right)
+e5-week-calendar · marks 6 · words 260
     topbar       text    
     days         text    
     hours        text    
     grid         box     
     event-today  box     
     now-line     box     
-    note topbar: bold 22px "October 2026" first, then links: Today, ‹, ›, Day Week Month
-    note days: links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25
-    note grid: week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue "Standup 9:00–9:45" on MON, 9 AM to 10 AM; pale green "Design review 10:00–12:00" on TUE, 10 AM to 12 PM; pale orange "Interview 9–11" on left half of WED, 9 AM to 11 AM; pale pink "1:1 Ana 9:30–11:30" on right half of WED, 9:30 AM to 11:30 AM; pale blue "Focus time 2:00–3:00" on THU, 2 PM to 3 PM; pale green "Offsite planning 1:00–4:00" on FRI, 1 PM to 4 PM; pale red "Hike, Barton Creek 8:00–9:00 · Sat–Sun" on SAT to SUN, 8 AM to 9 AM
-    note event-today: off-white card "Launch sync 11:00–12:30"
+    note topbar: bold 22px "October 2026" first, then links: Today, ‹, ›, Day Week Month; Today, ‹, › are small outlined buttons; Day / Week / Month is one outlined switch with "Week" selected (dark navy fill, white text); "October 2026", "Today", "‹", "›" sit together at the left, "Day Week Month" pushed to the far right (733px gap)
+    note days: links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25; "22" sits in a 32px round red circle, white number
+    note grid: week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left, each hour row exactly 72px tall; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue "Standup 9:00–9:45" on MON, 9 AM to 10 AM; pale green "Design review 10:00–12:00" on TUE, 10 AM to 12 PM; pale orange "Interview 9–11" on left half of WED, 9 AM to 11 AM; pale pink "1:1 Ana 9:30–11:30" on right half of WED, 9:30 AM to 11:30 AM; pale blue "Focus time 2:00–3:00" on THU, 2 PM to 3 PM; pale green "Offsite planning 1:00–4:00" on FRI, 1 PM to 4 PM; pale red "Hike, Barton Creek 8:00–9:00 · Sat–Sun" on SAT to SUN, 8 AM to 9 AM
+    note event-today: pale purple card (165x100px) with a 4px purple left edge, 6px rounded, bold "Launch sync" then "11:00–12:30" under it
     note now-line: thin solid red line only 2px tall, 174px wide, with a 10px round red dot on its left end (the current-time line), no text

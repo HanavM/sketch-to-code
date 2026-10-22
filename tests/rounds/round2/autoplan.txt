@@ -1,4 +1,4 @@
-c1-collage · marks 7 · words 67
+c1-collage · marks 7 · words 102
     logo         heading 
     photo-1      image   
     photo-2      image   
@@ -8,10 +8,10 @@ c1-collage · marks 7 · words 67
     cta          button  
     note *: whole page: cream page, Helvetica type, near-black text
     note logo: italic serif "Field Notes"
-    note photo-1: tilted grey to dark grey gradient block
-    note photo-2: tilted peach to dark pink gradient block
-    note sticker: tilted vivid yellow circle with "NEW ISSUE 07"
-    note headline: giant Georgia serif tight-set letters "Slow travel, fast friends"
+    note photo-1: tilted 4° anticlockwise grey (top) to dark grey (bottom) gradient block
+    note photo-2: tilted 6° clockwise peach (top) to vivid dark pink (bottom) gradient block, overlapping the lower right of the grey (top) to dark grey (bottom) gradient block and on top of it
+    note sticker: tilted 12° anticlockwise vivid yellow circle with "NEW ISSUE 07"
+    note headline: giant Georgia serif tight-set letters lines set tight (line-height 0.92) "Slow travel, fast friends"
     note body: text "A quarterly zine of walks, night trains and the people you meet on the way."
     note cta: near-black pill cream text button "Read issue 07"
 c2-outline-bleed · marks 5 · words 68
@@ -26,7 +26,7 @@ c2-outline-bleed · marks 5 · words 68
     note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica heavy tight-set letters lime "FEST"
     note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."
     note date: mono lime "// 14—16 AUG 2027"
-c3-glass-blobs · marks 7 · words 52
+c3-glass-blobs · marks 7 · words 55
     blob-pink    circle  
     blob-cyan    circle  
     card         box     
@@ -38,11 +38,11 @@ c3-glass-blobs · marks 7 · words 52
     note blob-pink: soft blurred big vivid pink circle
     note blob-cyan: soft blurred big vivid cyan circle
     note card: frosted glass
-    note tag: frosted glass "Beta · v2.0"
+    note tag: frosted glass white pill label, "Beta · v2.0"
     note headline: huge Helvetica "Your notes, finally calm"
     note body: text "Write, link and find anything in a quiet space that syncs everywhere."
     note ctas: buttons: "Get started", "Watch demo"
-c4-mag-grid · marks 6 · words 57
+c4-mag-grid · marks 6 · words 65
     masthead     box     
     lead-img     image   
     lead-title   heading 
@@ -50,24 +50,24 @@ c4-mag-grid · marks 6 · words 57
     img-2        image   
     pull-quote   heading 
     note *: whole page: white page, Georgia type, near-black text
-    note masthead: thick rule under "The Weekly Ledger", text "TUESDAY · NO. 412"
-    note lead-img: light orange to brown gradient block
+    note masthead: thick rule under; huge 56px bold title: "The Weekly Ledger", text "TUESDAY · NO. 412"
+    note lead-img: vivid amber (top left) to brown (bottom right) gradient block
     note lead-title: big serif "The quiet return of the corner shop"
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
     note pull-quote: italic red "“Nobody misses the queue, but everybody misses the chat.”"
-c5-retro-bands · marks 5 · words 64
+c5-retro-bands · marks 5 · words 81
     bands        image   
     logo         text    
     headline     heading 
     body         text    
     cta          button  
     note *: whole page: pale yellow page, Helvetica type, black text
-    note bands: tilted bleeding off the right page edge (runs 411px past it) big orange, yellow, teal, brown stripes block
+    note bands: tilted 25° clockwise bleeding off the right page edge (runs 411px past it) big orange, yellow, teal, brown stripes block
     note logo: brown "SUNDAE"
-    note headline: giant Helvetica italic heavy uppercase brown "SOFT SERVE, HARD RULES"
+    note headline: giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown "SOFT SERVE, HARD RULES"
     note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
-    note cta: teal hard offset shadow white text button "FIND A TRUCK"
+    note cta: teal white text button "FIND A TRUCK", with a hard solid opaque brown shadow offset 6px down right, no blur
 e1-checkout · marks 13 · words 69
     title        heading 
     ship-label   heading 
@@ -96,7 +96,7 @@ e1-checkout · marks 13 · words 69
     note item-2: picture with "Canvas tote $32"
     note item-3: picture with "Wool socks $32"
     note total: "Total", text "$128.00"
-e2-shop-grid · marks 8 · words 53
+e2-shop-grid · marks 8 · words 56
     nav          text    
     filters      box     
     p1           image   
@@ -105,15 +105,15 @@ e2-shop-grid · marks 8 · words 53
     p4           image   
     p5           image   
     p6           image   
-    note nav: links: Lumen, New, Lamps, Sale, Cart (2)
-    note filters: sidebar "CATEGORY" "PRICE" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", 1 more
+    note nav: bold 20px "Lumen" first, then links: New, Lamps, Sale, Cart (2)
+    note filters: sidebar "CATEGORY" "PRICE" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", "$100–$250"
     note p1: picture with "Arc floor lamp $189"
     note p2: picture with "Dome pendant $129"
     note p3: picture with "Clip desk lamp $59"
     note p4: picture with "Globe table lamp $89"
     note p5: picture with "Tripod lamp $219"
     note p6: picture with "Wall sconce $75"
-e3-settings · marks 8 · words 47
+e3-settings · marks 8 · words 53
     title        heading 
     tabs         text    
     row-1        text    
@@ -123,7 +123,7 @@ e3-settings · marks 8 · words 47
     save         button  
     reset        button  
     note title: "Settings"
-    note tabs: links: Profile, Notifications, Billing, Team
+    note tabs: links: Profile, Notifications, Billing, Team; "Notifications" selected (blue text, blue underline)
     note row-1: toggle on "Email digests A summary of activity"…
     note row-2: toggle on "Mentions Notify me when someone"…
     note row-3: toggle off "Product news Occasional updates about"…

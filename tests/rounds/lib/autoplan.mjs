@@ -619,7 +619,13 @@ export function factsInPage() {
       const choice = chooser ? { y: chooser.getBoundingClientRect().top, items: [...chooser.children].map((k) => ({ lines: (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), sel: bwOf(k) === Math.max(...[...chooser.children].map(bwOf)) ? { w: bwOf(k), c: rgba(getComputedStyle(k).borderTopColor) } : null })) } : null
       // no fill, border or shadow of its own: the fields sit straight on the page (round 6 e4 was built inside an invented card)
       const ec = getComputedStyle(el), bare = !(rgba(ec.backgroundColor)?.a > 0.05) && !(parseFloat(ec.borderTopWidth) >= 1) && !(parseFloat(ec.borderLeftWidth) >= 1) && ec.boxShadow === 'none' && ec.backgroundImage === 'none'
-      return { type: 'form', bare, title: title(), close: close ? txt(close) : null, buttons: btns, secs: secs.length >= 2 ? secs : null, choice, white: flds.some(inputWhite), rowY: [...rows.values()].map((r) => r[0].getBoundingClientRect().top), gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
+      // the form's rhythm: field height, label-to-field and field-to-next-label gaps, heading size, whole height
+      // (round 6 e4 was built ~10% taller, so the button and everything below drifted)
+      const med = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)]
+      const fr = flds.map((g) => g.getBoundingClientRect()), lr = flds.map((g) => g.previousElementSibling.getBoundingClientRect())
+      const below = fr.map((f) => lr.map((l) => l.top - f.bottom).filter((d) => d >= 4 && d <= 40)).flatMap((d) => d.length ? [Math.min(...d)] : [])
+      const rhythm = { fieldH: Math.round(med(fr.map((f) => f.height))), labelGap: Math.round(med(fr.map((f, i) => f.top - lr[i].bottom))), rowGap: below.length ? Math.round(med(below)) : null, headPx: secs.length ? Math.round(parseFloat(getComputedStyle(el.querySelector('h1,h2,h3,h4')).fontSize)) : null, choiceH: chooser ? Math.round(chooser.children[0].getBoundingClientRect().height) : null, h: Math.round(eb.height) }
+      return { type: 'form', bare, rhythm, title: title(), close: close ? txt(close) : null, buttons: btns, secs: secs.length >= 2 ? secs : null, choice, white: flds.some(inputWhite), rowY: [...rows.values()].map((r) => r[0].getBoundingClientRect().top), gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
     }
     // stat cards: 3+ same-size cards in a row, each with one big number
     const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
@@ -1021,7 +1027,7 @@ function denseNote(d) {
           ...d.rows.map((r, i) => ({ y: d.rowY[i], say: r.map(fld).join(' | ') })),
           ...(d.choice ? [{ y: d.choice.y, say: `${d.choice.items.length} bordered rounded choice cards side by side, bold first line, small line under: ${d.choice.items.map((c) => `${quote(c.lines[0], 24)} / ${quote(c.lines.slice(1).join(' '), 32)}${c.sel ? ` (chosen: ${c.sel.w}px ${colourName(c.sel.c)} border)` : ''}`).join(', ')}` }] : []),
         ].sort((a, b) => a.y - b.y)
-        return `${!d.secs && d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above ${d.white ? 'white ' : ''}bordered rounded fields${d.bare ? ' straight on the page (no card, panel or border around the form)' : ''}, in order: ${seq.map((x) => x.say).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}`
+        return `${!d.secs && d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above ${d.white ? 'white ' : ''}bordered rounded fields${d.bare ? ' straight on the page (no card, panel or border around the form)' : ''}, in order: ${seq.map((x) => x.say).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${rhythmWords(d.rhythm)}`
       }
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
@@ -1488,6 +1494,16 @@ function lineWords(f, i) {
   return big + ink
 }
 
+// a form's spacing in pixels, so it is built to its drawn height (round 6 e4 came out ~10% taller)
+function rhythmWords(r) {
+  if (!r) return ''
+  const w = [`every field ${r.fieldH}px tall`, `label ${r.labelGap}px above its field`]
+  if (r.rowGap) w.push(`${r.rowGap}px from a field to the next label`)
+  if (r.headPx) w.push(`headings ${r.headPx}px`)
+  if (r.choiceH) w.push(`choice cards ${r.choiceH}px tall`)
+  return `; tight spacing: ${w.join(', ')}; the whole form is ${r.h}px tall top to bottom`
+}
+
 function pageNote(b) {
   const w = []
   // a cool pale grey (#f9fafb) is close to white yet a build on white loses it (round 4 e3)
@@ -1498,7 +1514,7 @@ function pageNote(b) {
   if (plain && !b.grain) return null
   const grad = gradientWords(b)
   if (grad) w.push(`${grad} page`)
-  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? 'off-white' : colourName(b.bg)} page`)
+  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg)} page`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)

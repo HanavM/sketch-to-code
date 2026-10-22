@@ -18,7 +18,7 @@ c1-cutout-collage · marks 9 · words 156
     note lead: dark grey text "A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell."
     note sticker: tilted 12° clockwise vivid red circle with "Issue 07 out now"
     note cta: near-black cream text button "Subscribe — $28/yr"
-c2-difference-split · marks 8 · words 81
+c2-difference-split · marks 8 · words 85
     dark-half    box     
     portrait     shape   
     word-top     heading 
@@ -27,7 +27,7 @@ c2-difference-split · marks 8 · words 81
     links        text    
     caption      text    
     cta          button  
-    note *: whole page: off-white page, Helvetica type, black text
+    note *: whole page: off-white (#fafafa, plainly not white) page, Helvetica type, black text
     note dark-half: black block
     note portrait: lavender (top) to vivid dark pink (bottom) gradient arch (round top, flat bottom)
     note word-top: colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white "LIGHT"
@@ -90,7 +90,7 @@ c5-sticky-story · marks 8 · words 130
     note step-1: deep green block, pale yellow text "Plant", text "Seeds go in after the last frost, two fingers deep, facing the morning sun."
     note step-2: mint green block "Wait", text "Water at dusk. Do nothing else. The hardest part of gardening is patience."
     note step-3: tilted slightly 2° anticlockwise vivid yellow block "Harvest", text "Pick in the cool of the morning and share at least a third with the neighbours."
-e1-crm-dashboard · marks 8 · words 170
+e1-crm-dashboard · marks 8 · words 173
     sidebar      box     
     search       box     
     avatar       circle  
@@ -99,22 +99,22 @@ e1-crm-dashboard · marks 8 · words 170
     line-chart   box     
     donut        box     
     deals-table  box     
-    note *: whole page: off-white page, Helvetica type, dark navy text
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
     note sidebar: dark navy sidebar, light grey text "Pipeline" list: "Dashboard", "Deals", "Contacts", "Companies", "Reports", "Settings"; "Dashboard" highlighted
     note search: search input "Search deals, people…"
     note avatar: small 36px indigo dot
     note title: "Good morning, Dana"
-    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M (indigo sparkline rising, bottom right), "Deals won" 38 (green sparkline rising, bottom right), "Win rate" 31% (bright orange sparkline falling, bottom right), "Avg. cycle" 24 days (bright sky blue sparkline rising, bottom right)
+    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M (indigo sparkline rising, bottom right), "Deals won" 38 (green sparkline rising, bottom right), "Win rate" 31% (amber sparkline falling, bottom right), "Avg. cycle" 24 days (bright sky blue sparkline rising, bottom right)
     note line-chart: white card, "Revenue by month", line chart drawn as SVG lines: thick solid indigo line rising left to right (8 points), dashed light grey line rising left to right (8 points); no axis labels
     note donut: white card, "Deals by stage", donut chart (thick ring, hollow middle) on a light grey track: indigo 45%, green 25%
     note deals-table: white card, "Recent deals", table, columns "Deal", "Company", "Owner", "Value", "Stage", 4 rows, first row "Annual licence" | "Northwind" | "Dana K." | "$84,000" | "Won"; status pills green "Won", indigo "Negotiation", indigo "Proposal", deep raspberry "Lost"
-e2-mail-client · marks 3 · words 176
+e2-mail-client · marks 3 · words 175
     folders      box     
     message-list box     
     reading-pane box     
     note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 2, "Archive", "Spam"; "Inbox" highlighted
     note message-list: "Inbox" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: "Priya Shah" 9:41 "Q4 roadmap — final draft"… bold, "GitHub" 9:12 "[sketch-to-code] 3 new"… bold, "Tom Becker" Yesterday "Lunch Thursday? The new"…, "Stripe" Yesterday "Your October invoice is"… bold, "Lena Ortiz" Mon "Photos from the offsite,"…, then "Calendar" Mon, "Sam Wu" Sun; "Priya Shah" highlighted
-    note reading-pane: opened message: a row of small outlined buttons "Reply", "Reply all", "Forward" at the top; big bold 24px title "Q4 roadmap — final draft"; a 40px round bright orange avatar left of bold "Priya Shah" with grey "to me, design-team · 9:41 AM" under it; then 15px body text, lines: "Hi all — attached is the final draft of the Q4 roadmap. I folded in the comments from Tuesday and moved the billing work up a sprint." / "Please flag anything blocking by Friday noon so we can lock it at the planning meeting." / "Thanks, Priya"
+    note reading-pane: opened message: a row of small outlined buttons "Reply", "Reply all", "Forward" at the top; big bold 24px title "Q4 roadmap — final draft"; a 40px round amber avatar left of bold "Priya Shah" with grey "to me, design-team · 9:41 AM" under it; then 15px body text, lines: "Hi all — attached is the final draft of the Q4 roadmap. I folded in the comments from Tuesday and moved the billing work up a sprint." / "Please flag anything blocking by Friday noon so we can lock it at the planning meeting." / "Thanks, Priya"
 e3-checkout · marks 4 · words 170
     stepper      box     
     shipping-form box     
@@ -137,7 +137,7 @@ e4-file-manager · marks 5 · words 171
     note toolbar: toolbar (no box around it): outline button "New folder", outline button "Sort: Name ▾" on the left; bright sky blue button "Upload" on the right
     note file-grid: grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow "Moodboards" 14 items, soft yellow "Exports" 32 items, pale pink "Brief.pdf" 2.4 MB, sky blue to lavender gradient "hero-v3.png" 5.1 MB, light grey "Copy deck.docx" 88 KB, sky blue to lavender gradient "logo-mark.svg" 12 KB, light grey "fonts.zip" 9.7 MB, pale pink "Invoice-0912.pdf" 140 KB; "hero-v3.png" selected (bright sky blue 2px border)
     note details: white card "hero-v3.png" list: "Type" PNG image, "Size" 5.1 MB, "Dimensions" 2880 × 1620, "Modified" Oct 19, 2026, "Owner" me
-e5-gantt · marks 5 · words 181
+e5-gantt · marks 5 · words 180
     title        heading 
     zoom         box     
     timeline     box     
@@ -145,6 +145,6 @@ e5-gantt · marks 5 · words 181
     today        box     
     note title: "Website relaunch"
     note zoom: links: Day, Week, Month; "Week" selected (white text, near-black fill)
-    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text), rows 64px apart, bars 30px tall, rows end 70% down, empty below: purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, bright orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
+    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text), rows 64px apart, bars 30px tall, rows end 70% down, empty below: purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, amber "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
     note task-names: list, a round colour dot before each: lavender dot "Research", light pink dot "Wireframes", sky blue dot "Visual design", bright green dot "Content", yellow dot "Build", coral dot "QA", grey dot "Launch"
     note today: vivid red "Today"

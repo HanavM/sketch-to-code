@@ -447,7 +447,7 @@
   "notes": [
    [
     "*",
-    "whole page: off-white page, Helvetica type, dark navy text"
+    "whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text"
    ],
    [
     "topbar",
@@ -649,7 +649,7 @@
   "notes": [
    [
     "*",
-    "whole page: off-white page, Helvetica type, near-black text"
+    "whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text"
    ],
    [
     "logo",
@@ -661,7 +661,7 @@
    ],
    [
     "form",
-    "form, labels above white bordered rounded fields straight on the page (no card, panel or border around the form), in order: bold heading \"Contact\"; \"Email\" field holding \"hanav@example.com\"; bold heading \"Shipping address\"; \"First name\" field holding \"Hanav\" | \"Last name\" field holding \"M\"; \"Address\" field holding \"14 Orchard Lane\"; \"City\" field holding \"Austin\" | \"ZIP\" field holding \"78701\"; bold heading \"Delivery\"; 2 bordered rounded choice cards side by side, bold first line, small line under: \"Standard\" / \"3–5 days · Free\" (chosen: 2px near-black border), \"Express\" / \"1–2 days · $12\""
+    "form, labels above white bordered rounded fields straight on the page (no card, panel or border around the form), in order: bold heading \"Contact\"; \"Email\" field holding \"hanav@example.com\"; bold heading \"Shipping address\"; \"First name\" field holding \"Hanav\" | \"Last name\" field holding \"M\"; \"Address\" field holding \"14 Orchard Lane\"; \"City\" field holding \"Austin\" | \"ZIP\" field holding \"78701\"; bold heading \"Delivery\"; 2 bordered rounded choice cards side by side, bold first line, small line under: \"Standard\" / \"3–5 days · Free\" (chosen: 2px near-black border), \"Express\" / \"1–2 days · $12\"; tight spacing: every field 46px tall, label 6px above its field, 14px from a field to the next label, headings 20px, choice cards 72px tall; the whole form is 531px tall top to bottom"
    ],
    [
     "pay",

@@ -128,3 +128,14 @@ e4's reading failed once more with error_max_structured_output (2 of 4 e4 tries)
 |---|---|---|---|
 | e4 checkout | 50% | 40% | reading ok; steps with lines and colours, solid thumbnails now right; page built plain white (target off-white) and the form ~10% taller, so everything below drifts |
 | e5 week | 75% | 69% | Today/‹/› now at the left by the title like the target; near-identical by eye, drop within run-to-run noise |
+
+## n84: form rhythm and off-white hex (2026-10-22, ~76k billed tokens)
+
+- Planner: a sectioned form now says its spacing in pixels ("every field 46px tall, label 6px above its field, 14px
+  from a field to the next label, headings 20px, choice cards 72px tall; the whole form is 531px tall").
+- Planner: a near-white page names its hex ("off-white (#fafaf9, plainly not white) page"). This also changes the
+  page note on 7 earlier pages (rounds 1, 3, 4, 5: #f8fafc / #fafafa), nothing else in rounds 1-5.
+
+| page | n83 | n84 | note |
+|---|---|---|---|
+| e4 checkout | 40% | **54%** (best yet) | form spacing now matches the target row for row; side panel tinted; left page still built white, logo small, pay button a full pill placed ~20px low |
