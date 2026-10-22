@@ -2,9 +2,9 @@ goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Outline poster improved to 70%; fixing a colour-inverting headline that vanished on the white half of a magazine page."
 lock: null
-asks:
-  - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
-handled: []
+asks: []
+handled:
+  - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
   - "2026-10-21T04:34Z GOAL.md changed: same goal text, the 300k/day budget section was removed. Tree carried over from .goal/archive/2026-10-21-rounds-budget300k (same approaches, open nodes, branches). No cap in GOAL.md now; the agent keeps a per-day token ledger and still passes --budget per run so one run cannot run away (~300k per invocation)."
   - "Previous tree for this goal: .goal/archive/2026-10-21-rounds-budget300k."
