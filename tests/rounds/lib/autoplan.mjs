@@ -184,6 +184,24 @@ export function factsInPage() {
         const ink = rest.every((x) => x === rest[0]) && rest[0] !== c.color ? rgba(c.color) : null
         return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink }
       })(),
+      // round 6 e5: a nested switch (Day/Week/Month) with one filled segment, outlined buttons beside it, and a
+      // number in a filled round circle (today's date) were all said as plain links and built plain
+      kidPicks: (() => {
+        if (kids.length < 3) return null
+        const fillOf = (g) => { const b = rgba(getComputedStyle(g).backgroundColor); return b && b.a > 0.05 ? b : null }
+        const t = (g) => (g.innerText || '').replace(/\s+/g, ' ').trim()
+        let seg = null
+        for (const k of kids) {
+          const ch = [...k.children]
+          if (ch.length < 2 || ch.length > 5 || !ch.every((g) => t(g) && t(g).length <= 12)) continue
+          const on = ch.filter(fillOf)
+          if (on.length === 1 && !fillOf(k)) seg = { items: ch.map(t), t: t(on[0]), fill: fillOf(on[0]), ink: rgba(getComputedStyle(on[0]).color), bordered: parseFloat(getComputedStyle(k).borderTopWidth) >= 1 }
+        }
+        const outl = kids.filter((k) => !k.children.length && t(k) && t(k).length <= 12 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && !fillOf(k)).map(t)
+        const dot = [...el.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !g.children.length && t(g) && t(g).length <= 3 && fillOf(g) && b.width >= 16 && b.width <= 48 && Math.abs(b.width - b.height) <= 3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.width * 0.4 })
+        const out = { seg, outl: outl.length >= 2 ? outl : null, dot: dot ? { t: t(dot), fill: fillOf(dot), ink: rgba(getComputedStyle(dot).color), px: Math.round(dot.getBoundingClientRect().width) } : null }
+        return out.seg || out.outl || out.dot ? out : null
+      })(),
       // a lead item set apart from a uniform row: bold, bigger or another colour (round 5 e5 green bold
       // 'Budget 2027' title said as one more menu link, built black)
       kidLead: (() => {
@@ -572,7 +590,9 @@ export function factsInPage() {
       const bwOf = (k) => parseFloat(getComputedStyle(k).borderTopWidth) || 0
       const chooser = [...el.querySelectorAll('*')].find((p) => p.closest('[data-r]') === el && p.children.length >= 2 && p.children.length <= 4 && [...p.children].every((k) => { const b = k.getBoundingClientRect(); return bwOf(k) >= 1 && k.children.length && b.height >= 48 && b.height <= 140 && (k.innerText || '').split('\n').filter((x) => x.trim()).length === 2 && Math.abs(b.top - p.children[0].getBoundingClientRect().top) <= 2 }) && new Set([...p.children].map(bwOf)).size === 2 && [...p.children].filter((k) => bwOf(k) === Math.max(...[...p.children].map(bwOf))).length === 1)
       const choice = chooser ? { y: chooser.getBoundingClientRect().top, items: [...chooser.children].map((k) => ({ lines: (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), sel: bwOf(k) === Math.max(...[...chooser.children].map(bwOf)) ? { w: bwOf(k), c: rgba(getComputedStyle(k).borderTopColor) } : null })) } : null
-      return { type: 'form', title: title(), close: close ? txt(close) : null, buttons: btns, secs: secs.length >= 2 ? secs : null, choice, white: flds.some(inputWhite), rowY: [...rows.values()].map((r) => r[0].getBoundingClientRect().top), gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
+      // no fill, border or shadow of its own: the fields sit straight on the page (round 6 e4 was built inside an invented card)
+      const ec = getComputedStyle(el), bare = !(rgba(ec.backgroundColor)?.a > 0.05) && !(parseFloat(ec.borderTopWidth) >= 1) && !(parseFloat(ec.borderLeftWidth) >= 1) && ec.boxShadow === 'none' && ec.backgroundImage === 'none'
+      return { type: 'form', bare, title: title(), close: close ? txt(close) : null, buttons: btns, secs: secs.length >= 2 ? secs : null, choice, white: flds.some(inputWhite), rowY: [...rows.values()].map((r) => r[0].getBoundingClientRect().top), gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
     }
     // stat cards: 3+ same-size cards in a row, each with one big number
     const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
@@ -686,7 +706,10 @@ export function factsInPage() {
           const button = leaves.find((g) => g !== field && filled(g) && g.getBoundingClientRect().height >= 26)
           return { t: txt(k), field: field ? txt(field) : null, button: button ? { t: txt(button), fill: filled(button) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700 }
         })
-        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after }
+        // where the first row starts, and that nothing sits above it (round 6 e4: a heading was invented and rows began at the top)
+        const top = Math.round(rep[0].getBoundingClientRect().top - el.getBoundingClientRect().top)
+        const above = kids.some((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top)
+        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
@@ -933,7 +956,7 @@ function denseNote(d) {
     case 'order': {
       const t = d.thumb
       const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
-      return `order summary: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
@@ -966,7 +989,7 @@ function denseNote(d) {
           ...d.rows.map((r, i) => ({ y: d.rowY[i], say: r.map(fld).join(' | ') })),
           ...(d.choice ? [{ y: d.choice.y, say: `${d.choice.items.length} bordered rounded choice cards side by side, bold first line, small line under: ${d.choice.items.map((c) => `${quote(c.lines[0], 24)} / ${quote(c.lines.slice(1).join(' '), 32)}${c.sel ? ` (chosen: ${c.sel.w}px ${colourName(c.sel.c)} border)` : ''}`).join(', ')}` }] : []),
         ].sort((a, b) => a.y - b.y)
-        return `${!d.secs && d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above ${d.white ? 'white ' : ''}bordered rounded fields, in order: ${seq.map((x) => x.say).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}`
+        return `${!d.secs && d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above ${d.white ? 'white ' : ''}bordered rounded fields${d.bare ? ' straight on the page (no card, panel or border around the form)' : ''}, in order: ${seq.map((x) => x.say).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}`
       }
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
@@ -1327,7 +1350,12 @@ function decideOne(f, page, marked, said) {
     const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
     const items = L ? f.kidTexts.slice(1, 9) : f.kidTexts.slice(0, 8)
-    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}` }
+    const P = f.kidPicks, picks = P ? [
+      P.outl ? `; ${P.outl.join(', ')} are small outlined buttons` : '',
+      P.seg && !on ? `; ${P.seg.items.join(' / ')} is one ${P.seg.bordered ? 'outlined ' : ''}switch with ${quote(P.seg.t)} selected (${colourName(P.seg.fill)} fill, ${colourName(P.seg.ink)} text)` : '',
+      P.dot ? `; ${quote(P.dot.t)} sits in a ${P.dot.px}px round ${colourName(P.dot.fill)} circle, ${colourName(P.dot.ink)} number` : '',
+    ].join('') : ''
+    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
