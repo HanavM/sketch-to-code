@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Checkout page now 54% alike, its best yet, with the form spaced like the target; next building the five hardest creative pages for the first time."
-lock: {by: n79-run, until: "2026-10-22T09:23:38Z"}
+now: "First builds of the five hardest creative pages: 3D cards 90%, hills 73%, glass 72%, zine 70%; the sliced-word poster (22%) is next."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n79 (ff3ed15, 11cf6fd on try/n3-vocabulary): planner says 3D angles, perspective floor grid, gradient card + gradient words, clip-sliced halves (+meet, no gap), skew, SVG hills/trail, glass contents, mesh page, duotone spots, turned word, figure over line, bold-headed columns, regular-weight display type. measure clips rects to what shows. Live: c1 90, c2 22, c3 73, c4 72, c5 70 (round6/NOTES.md). Leftovers: c1 floor read as container of CTAs; c3 sun pale blobs, headline wraps; c4 headline wraps, phone unfilled; c5 price subline huge, LOUD clipped, masthead centred."
+  - "Token ledger: 2026-10-22 n79 live c1-c4 268k + c5 71k = ~338k billed."
   - "n84 (cd15b06 on try/n3-vocabulary): planner says a sectioned form's px rhythm (field 46, label gap 6, row gap 14, heading 20, choice 72, form 531 tall) and a near-white page hex (also 7 r1/r3/r4/r5 page notes, nothing else). Live e4 54% (was 40): form row-for-row right, panel tinted; left page still white, logo small, pay pill ~20px low."
   - "Token ledger: 2026-10-22 n84 live e4 ~76k billed."
   - "n83 (717084f on try/n3-vocabulary): e4 readings failed because the model writes \"unclear\": , every attempt and the last attempt's stream can be missing; provider now salvages the newest streamed attempt that repairs (test). Prompt line asking for a quoted unclear had no effect, reverted. Planner: progress steps (joining lines, per-step colour), row split by a wide gap, order picture hex, flat side panel with left line. Live: e4 40, e5 69."
@@ -216,7 +218,9 @@ nodes:
   - {id: n83, parent: n82, kind: step, title: "Free first, ~80k live: round-6 e4 reading fails with max structured output (2 of 4 tries), thumbnails built near-invisible, step connector lines missing; e1 blue strip on menu top; e5 Today/arrows placed right. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Failed readings salvaged; steps, thumbnails, split top bar fixed. e4 40% (page white, form taller), e5 69%."}
   - {id: n84, parent: n83, kind: step, title: "Free first, ~40k live: round-6 e4 page built plain white (target off-white) and form ~10% taller (say field heights, gaps, form bottom); e1 blue strip on menu top. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Form spacing now said in px; near-white page hex. Checkout 40% to 54%, best yet. cd15b06."}
   - {id: n85, parent: n84, kind: step, title: "Low priority, ~40k live: e4 left page still built white beside a tinted panel, logo small, pay button full pill ~20px low; fix, re-run e4", status: open, branch: try/n3-vocabulary, result: null}
-  - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: done, branch: try/n3-vocabulary,
+     result: "Creative effects now said; first builds: 3D cards 90%, hills 73%, glass 72%, zine 70%, split word 22%. 11cf6fd."}
+  - {id: n86, parent: n79, kind: step, title: "~120k live: re-run round-6 c2 (halves now said to meet, columns said) and c3 (regular weight); free first: c3 sun built as pale blobs, c1 floor read as a CTA container, c5 price small line built huge", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
