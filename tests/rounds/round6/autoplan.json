@@ -52,6 +52,10 @@
     "whole page: dark navy page, Helvetica type, light grey text"
    ],
    [
+    "floor",
+    "faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width, a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill"
+   ],
+   [
     "nav",
     "bold 20px \"Stackr\" left, \"Product · Pricing · Docs · Sign in\" right"
    ],
@@ -233,7 +237,7 @@
    ],
    [
     "sun",
-    "big vivid bright orange circle"
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur"
    ],
    [
     "waves",
@@ -405,7 +409,7 @@
    ],
    [
     "price",
-    "huge Helvetica heavy black letters on a yellow band \"£4 post free in the UK\""
+    "huge Helvetica heavy black letters on a yellow band 72px \"£4\", then on its own line under it a small 16px mono regular line \"post free in the UK\" (small, not part of the big type)"
    ],
    [
     "sticker",

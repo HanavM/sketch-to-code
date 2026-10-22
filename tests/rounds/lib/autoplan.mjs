@@ -165,6 +165,14 @@ export function factsInPage() {
         const a = m[1].split(',').map(Number)
         return { x: Math.round(Math.atan2(a[6], a[5]) * 180 / Math.PI), y: Math.round(Math.atan2(-a[2], a[0]) * 180 / Math.PI), persp: Math.abs(a[11]) > 1e-6 ? Math.round(-1 / a[11]) : null }
       })(),
+      // a small block line inside big type ('£4' then a 16px mono 'post free in the UK': round 6 c5, said as one huge heading)
+      subKid: (() => {
+        const big = parseFloat(cs.fontSize)
+        const k = [...el.children].find((x) => { const s = getComputedStyle(x); return s.display === 'block' && parseFloat(s.fontSize) <= big * 0.4 && (x.innerText || '').trim() })
+        if (!k) return null
+        const s = getComputedStyle(k)
+        return { t: k.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(s.fontSize)), mono: /mono|courier/i.test(s.fontFamily), bold: +s.fontWeight >= 600 }
+      })(),
       // gradient-filled words inside a heading ('three dimensions' in cyan to pink: round 6 c1, unsaid)
       clipKid: (() => {
         const k = [...el.querySelectorAll('*')].find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage))
@@ -1023,7 +1031,8 @@ function effectWords(f) {
   if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}${past}`)
   return w
 }
-const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgImage) || /1px,\s*transparent 1px/.test(f.bgImage)
+// computed style writes 'transparent' as rgba(0, 0, 0, 0) (round 6 c1 floor: grid never recognised)
+const gridLines = (f) => /gradient\([^,]*,?\s*rgba?\([^)]+\)\s*1px/.test(f.bgImage) || /1px,\s*(?:transparent|rgba\(0, 0, 0, 0\)) 1px/.test(f.bgImage)
 
 function typeWords(f, page) {
   const w = []
@@ -1275,8 +1284,8 @@ function decideOne(f, page, marked, said) {
   // a grid of thin lines laid flat as a floor going back (round 6 c1: a bare box)
   if (gridLines(f) && f.rot3d && Math.abs(f.rot3d.x) >= 40 && !f.text) {
     const lc = f.bgImageColours.map(parse).find((c) => c && c.a > 0.05)
-    const step = (f.bgImage.match(/transparent 1px,?\s*(\d+)px/) || f.bgImage.match(/1px,?\s*transparent\s+1px\s+(\d+)px/) || [])[1]
-    return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width, lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
+    const step = (f.bgImage.match(/(?:transparent|rgba\(0, 0, 0, 0\)) 1px,?\s*(?:(?:transparent|rgba\(0, 0, 0, 0\))\s+)?(\d+)px/) || f.bgImage.match(/1px,?\s*(?:transparent|rgba\(0, 0, 0, 0\))\s+1px\s+(\d+)px/) || [])[1]
+    return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width, a backdrop behind everything that holds nothing (things over it are not inside it), lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
   }
   // a gradient card holding a short bold line (round 6 c1 front card: said 'near-black "$4,280.00"' as a heading)
   if (grad && !f.clipText && f.text && f.text.length <= 24 && f.kidCount === 0 && h >= 100 && w >= 150 && !f.regionKids.length) {
@@ -1418,6 +1427,8 @@ function decideOne(f, page, marked, said) {
     const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
     // size word: a small textless dot (round 5 c2: a 28px red dot said 'big' was built as a 190px red disc)
     const size = f.text ? '' : w >= 120 ? 'big ' : w < 60 ? `small ${Math.round(w)}px ` : ''
+    // a big flat textless disc (round 6 c3 sun: 'big vivid bright orange circle' built as two pale blobs traced from the ink)
+    if (!f.text && fill && !grad && !glowy && w >= 120 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
     return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
@@ -1523,6 +1534,12 @@ function decideOne(f, page, marked, said) {
     // orange band were built white like the black band's
     if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
+    const sk = f.subKid && f.text.endsWith(f.subKid.t) && f.text.length > f.subKid.t.length ? f.subKid : null
+    if (sk) {
+      const head = f.text.slice(0, f.text.length - sk.t.length).trim()
+      const small = `then on its own line under it a small ${sk.px}px ${sk.mono ? 'mono ' : ''}${sk.bold ? 'bold' : 'regular'} line ${quote(sk.t, 60)} (small, not part of the big type)`
+      return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${ckSay}, ${small}`.trim()) }
+    }
     return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
