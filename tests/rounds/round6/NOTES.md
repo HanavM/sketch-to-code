@@ -40,3 +40,18 @@ Untuned planner misses (rounds 1-5 plans must not change):
   (was "a progress bar"); top-edge strips unchanged.
 - A row of short links says up to 8 items (was 6): e5 day headers now include SUN 25.
 - Rounds 1-5 plans: unchanged (re-generated and diffed).
+
+## n78 fixes (free)
+- e5: a week grid (absolutely placed events over a 7-column day head and an 'N AM' hour rail) says every event:
+  pale <edge colour>, its copy, day (or left/right half of a day, or a day span) and from/to clock times read off
+  the hour rail. Marked events stay their own marks.
+- e5: a thin strip with a round ::before/::after knob is "the current-time line" with its dot (was "a progress bar").
+- e3: mail rows with time, sender, subject and preview: the 'old' class no longer splits read rows from unread
+  ones, all 6 rows said with sender, time, subject and preview, unread rows marked, selected row's pale blue fill
+  and blue left edge said.
+- e3: an opened message (title, round avatar, body copy) says its tool buttons, title size, avatar colour beside
+  sender and sub-line, every body line, and the attachment box (was a list of the tool buttons).
+- Rounds 1-3 and 5 plans unchanged; round 4 e2 reading pane changes the same way (it had lost sender, avatar and
+  two body paragraphs).
+- Left for later: e1 sublines/shadow/featured square, e2 donut segments + table first row, e4 summary items,
+  labelled fields and the selected delivery card.

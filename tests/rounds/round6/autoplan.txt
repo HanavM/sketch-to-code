@@ -126,14 +126,14 @@ e2-multi-chart · marks 11 · words 175
     note chart-donut: white block, centred in it a 160px progress ring (not a picture): indigo arc 46% of the way round from the top, the rest a light grey track
     note chart-bars: bar chart "Signups by week", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest
     note table: white card, "Top accounts", table, columns "Acme Corp", "$6,400", 4 rows, first row "Globex" | "$5,120"
-e3-mail-client · marks 4 · words 51
+e3-mail-client · marks 4 · words 237
     folders      box     
     list         box     
     reader       box     
     reply        box     
     note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 3, "Archive", "Spam"; "Inbox" highlighted
-    note list: "Search mail" list: "Yesterday" Marco Ruiz, "Tue" Stripe, "Mon" Ana Silva, "Oct 18" Figma
-    note reader: "Q4 launch plan" "Lena Park to me · 9:41 AM" "Q4-launch.pdf · 2.4 MB" list: "Reply", "Forward", "Archive", "Delete"
+    note list: "Search mail" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: "Lena Park" 9:41 "Q4 launch plan" / "Attached the final deck, can you check"… (unread); "GitHub" 8:15 "[sketch-to-code] PR #212 merged" / "Your pull request was merged into main." (unread); "Marco Ruiz" Yesterday "Dinner Friday?" / "The place on Rua Augusta, 8pm, I booked"…; "Stripe" Tue "Your October invoice" / "Invoice #4471 for $240.00 is ready."; "Ana Silva" Mon "Re: hiring loop" / "Two candidates for Thursday, notes"…; "Figma" Oct 18 "New comments" / "3 new comments on Landing v4."; the "Lena Park" row selected (pale blue, blue left edge)
+    note reader: opened message: a row of small outlined buttons "Reply", "Forward", "Archive", "Delete" at the top; big bold 24px title "Q4 launch plan"; a 44px round bright orange avatar left of bold "Lena Park" with grey "to me · 9:41 AM" under it; then 15px body text, lines: "Hi Hanav," / "Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?" / "Thanks," / "Lena"; then a bordered rounded attachment box "Q4-launch.pdf · 2.4 MB"
     note reply: "Reply to Lena…"
 e4-checkout · marks 5 · words 62
     logo         text    
@@ -147,7 +147,7 @@ e4-checkout · marks 5 · words 62
     note form: "Email"… "First name Hanav Last name M" "Address 14 Orchard Lane" "City Austin ZIP 78701" list: "Contact", "Shipping address", "Delivery"
     note pay: near-black full-width white text button "Continue to payment"
     note summary: off-white card "Discount code Apply" "Subtotal $146.00" "Shipping Free" "Tax $12.05" "Total $158.05" list: "1", "2", "1"
-e5-week-calendar · marks 6 · words 52
+e5-week-calendar · marks 6 · words 186
     topbar       text    
     days         text    
     hours        text    
@@ -156,6 +156,6 @@ e5-week-calendar · marks 6 · words 52
     now-line     box     
     note topbar: bold 22px "October 2026" first, then links: Today, ‹, ›, Day Week Month
     note days: links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25
-    note grid: pale grey to light grey gradient
+    note grid: week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue "Standup 9:00–9:45" on MON, 9 AM to 10 AM; pale green "Design review 10:00–12:00" on TUE, 10 AM to 12 PM; pale orange "Interview 9–11" on left half of WED, 9 AM to 11 AM; pale pink "1:1 Ana 9:30–11:30" on right half of WED, 9:30 AM to 11:30 AM; pale blue "Focus time 2:00–3:00" on THU, 2 PM to 3 PM; pale green "Offsite planning 1:00–4:00" on FRI, 1 PM to 4 PM; pale red "Hike, Barton Creek 8:00–9:00 · Sat–Sun" on SAT to SUN, 8 AM to 9 AM
     note event-today: off-white card "Launch sync 11:00–12:30"
-    note now-line: solid red strip only 2px tall, 174px wide, no text (a progress bar)
+    note now-line: thin solid red line only 2px tall, 174px wide, with a 10px round red dot on its left end (the current-time line), no text

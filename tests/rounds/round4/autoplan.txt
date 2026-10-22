@@ -1,41 +1,42 @@
-c1-cutout-collage · marks 9 · words 95
+c1-cutout-collage · marks 9 · words 156
     nav          box     
     photo-blue   image   
     scrap-orange shape   
-    arch-green   circle  
+    arch-green   shape   
     tape         image   
     headline     heading 
     lead         text    
     sticker      circle  
     cta          button  
     note *: whole page: cream page, Georgia type, near-black text
-    note nav: nav bar "PAPER ROOM", text "ISSUES · SHOP · ABOUT"
-    note photo-blue: tilted blue to dark navy gradient block
-    note scrap-orange: tilted vivid orange angled cut-out shape
-    note arch-green: tilted big vivid lime circle
-    note tape: tilted soft yellow block
-    note headline: ink-like (multiply blend: darkens what it overlaps, never covers it) giant Georgia italic serif tight-set letters "Made by hand, on purpose."
+    note nav: nav, no box around it: bold wide-spaced "PAPER ROOM" left, "ISSUES · SHOP · ABOUT" right
+    note photo-blue: tilted 6° anticlockwise vivid blue (top) to dark navy (bottom) gradient block, with a hard near-black at 18% opacity shadow offset 14px down right, no blur
+    note scrap-orange: tilted 5° clockwise vivid orange angled cut-out shape
+    note arch-green: tilted 3° anticlockwise vivid lime arch (round top, flat bottom)
+    note tape: tilted 14° anticlockwise soft yellow block, overlapping the upper left of the vivid blue (top) to dark navy (bottom) gradient block and on top of it
+    note headline: ink-like (multiply blend: darkens what it overlaps, never covers it) giant Georgia italic serif tight-set letters lines set tight (line-height 0.9) "Made by hand, on purpose."
     note lead: dark grey text "A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell."
-    note sticker: tilted vivid red circle with "Issue 07 out now"
+    note sticker: tilted 12° clockwise vivid red circle with "Issue 07 out now"
     note cta: near-black cream text button "Subscribe — $28/yr"
-c2-difference-split · marks 8 · words 65
+c2-difference-split · marks 8 · words 81
     dark-half    box     
-    portrait     box     
+    portrait     shape   
     word-top     heading 
     word-bottom  heading 
     logo         text    
     links        text    
     caption      text    
     cta          button  
+    note *: whole page: off-white page, Helvetica type, black text
     note dark-half: black block
-    note portrait: lavender to dark pink gradient
+    note portrait: lavender (top) to vivid dark pink (bottom) gradient arch (round top, flat bottom)
     note word-top: colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white "LIGHT"
     note word-bottom: colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white "SHADE"
     note logo: "Duality®"
     note links: text "Collection · Archive · Cart (0)"
     note caption: dark grey text "Outerwear cut in two colours only. Pick a side, or wear both."
     note cta: button "Shop the drop →"
-c3-swiss-grid · marks 7 · words 57
+c3-swiss-grid · marks 7 · words 67
     ring         circle  
     disc         circle  
     headline     heading 
@@ -46,12 +47,12 @@ c3-swiss-grid · marks 7 · words 57
     note *: whole page: red page, Helvetica type, near-black text
     note ring: big white outline circle
     note disc: big near-black circle
-    note headline: giant Helvetica tight-set letters white "Neue Form Basel"
+    note headline: giant Helvetica tight-set letters lines set tight (line-height 0.85) white "Neue Form Basel"
     note vertical: wide-spaced letters vertical "INTERNATIONAL TYPE CONGRESS"
     note meta: text "Three days of lectures on grids, systems and the stubborn beauty of the sans-serif. Kunsthalle Basel."
-    note date: huge Helvetica "14—16 05.27"
+    note date: huge Helvetica lines set tight (line-height 1) "14—16 05.27"
     note foot: links: Talks, Workshops, Exhibition, Tickets CHF 90
-c4-depth-planes · marks 9 · words 118
+c4-depth-planes · marks 9 · words 146
     glow-cyan    circle  
     glow-pink    circle  
     nav          box     
@@ -62,16 +63,16 @@ c4-depth-planes · marks 9 · words 118
     cta          button  
     cta-2        button  
     note *: whole page: near-black indigo page, Helvetica type, light grey text
-    note glow-cyan: soft blurred bleeding off the left page edge (starts 80px past it) big vivid teal circle
-    note glow-pink: soft blurred bleeding off the right page edge (runs 100px past it) big vivid pink circle
-    note nav: nav bar "Stratum", text "Product · Docs · Pricing · Sign in"
+    note glow-cyan: soft blurred faded to 55% opacity (see-through) bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle
+    note glow-pink: soft blurred faded to 50% opacity (see-through) bleeding off the right page edge (runs 100px past it) big vivid pink circle
+    note nav: nav, no box around it: bold "Stratum" left, "Product · Docs · Pricing · Sign in" right
     note plane-back: tilted back in 3D perspective frosted glass
-    note plane-front: tilted back in 3D perspective frosted glass "99.98%", text "uptime across 41 regions"
-    note headline: giant Helvetica heavy tight-set letters off-white to lavender gradient text "Infrastructure with depth."
+    note plane-front: tilted back in 3D perspective frosted glass; huge 56px bold title: "99.98%", text "uptime across 41 regions"
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) off-white (left) to lavender (right) gradient text "Infrastructure with depth."
     note lead: grey text "Layered networking for teams who ship to every continent and still sleep at night."
     note cta: white pill near-black indigo text button "Start free"
     note cta-2: white outline pill button "Talk to sales"
-c5-sticky-story · marks 8 · words 86
+c5-sticky-story · marks 8 · words 130
     progress     box     
     number       heading 
     counter      text    
@@ -81,14 +82,15 @@ c5-sticky-story · marks 8 · words 86
     step-2       box     
     step-3       box     
     note *: whole page: pale yellow page, Helvetica type, deep green text
-    note progress: green
+    note progress: solid green strip only 6px tall, 420px wide, no text (a progress bar) along the top edge
     note number: giant Georgia serif "03"
     note counter: wide-spaced letters green "CHAPTER 3 OF 7"
     note chapter: big serif "The soil remembers everything."
+    note dots: 5 small round dots (10px) stacked in a column 14px apart, no box around them: first green, the rest mint green
     note step-1: deep green block, pale yellow text "Plant", text "Seeds go in after the last frost, two fingers deep, facing the morning sun."
-    note step-2: mint green "Wait", text "Water at dusk. Do nothing else. The hardest part of gardening is patience."
-    note step-3: yellow "Harvest", text "Pick in the cool of the morning and share at least a third with the neighbours."
-e1-crm-dashboard · marks 8 · words 158
+    note step-2: mint green block "Wait", text "Water at dusk. Do nothing else. The hardest part of gardening is patience."
+    note step-3: tilted slightly 2° anticlockwise vivid yellow block "Harvest", text "Pick in the cool of the morning and share at least a third with the neighbours."
+e1-crm-dashboard · marks 8 · words 170
     sidebar      box     
     search       box     
     avatar       circle  
@@ -97,21 +99,22 @@ e1-crm-dashboard · marks 8 · words 158
     line-chart   box     
     donut        box     
     deals-table  box     
-    note sidebar: dark navy sidebar, light grey text "Pipeline" list: "Dashboard", "Deals", "Contacts", "Companies", 2 more; "Dashboard" highlighted
+    note *: whole page: off-white page, Helvetica type, dark navy text
+    note sidebar: dark navy sidebar, light grey text "Pipeline" list: "Dashboard", "Deals", "Contacts", "Companies", "Reports", "Settings"; "Dashboard" highlighted
     note search: search input "Search deals, people…"
-    note avatar: big indigo circle
+    note avatar: small 36px indigo dot
     note title: "Good morning, Dana"
-    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M (indigo sparkline rising, bottom right), "Deals won" 38 (green sparkline rising, bottom right), "Win rate" 31% (light orange sparkline falling, bottom right), "Avg. cycle" 24 days (teal sparkline rising, bottom right)
+    note kpis: 4 stat cards in a row: "Pipeline value" $1.28M (indigo sparkline rising, bottom right), "Deals won" 38 (green sparkline rising, bottom right), "Win rate" 31% (bright orange sparkline falling, bottom right), "Avg. cycle" 24 days (bright sky blue sparkline rising, bottom right)
     note line-chart: white card, "Revenue by month", line chart drawn as SVG lines: thick solid indigo line rising left to right (8 points), dashed light grey line rising left to right (8 points); no axis labels
     note donut: white card, "Deals by stage", donut chart (thick ring, hollow middle) on a light grey track: indigo 45%, green 25%
     note deals-table: white card, "Recent deals", table, columns "Deal", "Company", "Owner", "Value", "Stage", 4 rows, first row "Annual licence" | "Northwind" | "Dana K." | "$84,000" | "Won"; status pills green "Won", indigo "Negotiation", indigo "Proposal", deep raspberry "Lost"
-e2-mail-client · marks 3 · words 96
+e2-mail-client · marks 3 · words 176
     folders      box     
     message-list box     
     reading-pane box     
-    note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 2, 2 more; "Inbox" highlighted
+    note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 2, "Archive", "Spam"; "Inbox" highlighted
     note message-list: "Inbox" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: "Priya Shah" 9:41 "Q4 roadmap — final draft"… bold, "GitHub" 9:12 "[sketch-to-code] 3 new"… bold, "Tom Becker" Yesterday "Lunch Thursday? The new"…, "Stripe" Yesterday "Your October invoice is"… bold, "Lena Ortiz" Mon "Photos from the offsite,"…, then "Calendar" Mon, "Sam Wu" Sun; "Priya Shah" highlighted
-    note reading-pane: "Q4 roadmap — final"… "Reply Reply all Forward" list: "Hi all — attached"…, "Please flag"…, "Thanks, Priya"
+    note reading-pane: opened message: a row of small outlined buttons "Reply", "Reply all", "Forward" at the top; big bold 24px title "Q4 roadmap — final draft"; a 40px round bright orange avatar left of bold "Priya Shah" with grey "to me, design-team · 9:41 AM" under it; then 15px body text, lines: "Hi all — attached is the final draft of the Q4 roadmap. I folded in the comments from Tuesday and moved the billing work up a sprint." / "Please flag anything blocking by Friday noon so we can lock it at the planning meeting." / "Thanks, Priya"
 e3-checkout · marks 4 · words 170
     stepper      box     
     shipping-form box     
@@ -122,26 +125,26 @@ e3-checkout · marks 4 · words 170
     note shipping-form: "Shipping address", form, labels above empty fields: "First name" | "Last name"; "Street address" full width; "City" | "Postcode"
     note delivery: radio options, stacked full width, each a white rounded box: "Standard · 3–5 days" with Free right (selected: filled dark ring, dark 2px border), "Express · next day" with $12.00 right
     note order-summary: white card "Order summary" list of 3 items, each with a 56px light grey square thumbnail left: "Linen overshirt" small grey "Sand · M" under it, $89.00 right; "Wool beanie" small grey "Charcoal" under it, $32.00 right; "Canvas tote" small grey "Natural" under it, $24.00 right; then "Subtotal $145.00", "Shipping Free", "Tax $11.60", "Total $156.60", dark navy button "Continue to payment"
-e4-file-manager · marks 5 · words 165
+e4-file-manager · marks 5 · words 171
     storage      box     
     breadcrumb   text    
     toolbar      box     
     file-grid    box     
     details      box     
     note sidebar: "Drive", then stacked links: "My files" (highlighted), "Shared with me", "Recent", "Starred", "Trash"
-    note storage: "Storage", thin progress bar 68% filled teal on a light grey track, small grey "13.6 GB of 20 GB used" under
+    note storage: "Storage", thin progress bar 68% filled bright sky blue on a light grey track, small grey "13.6 GB of 20 GB used" under
     note breadcrumb: small grey breadcrumb "My files / Projects / Brand refresh", last part dark bold
-    note toolbar: toolbar (no box around it): outline button "New folder", outline button "Sort: Name ▾" on the left; teal button "Upload" on the right
-    note file-grid: grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow "Moodboards" 14 items, soft yellow "Exports" 32 items, pale lilac "Brief.pdf" 2.4 MB, sky blue to lavender gradient "hero-v3.png" 5.1 MB, light grey "Copy deck.docx" 88 KB, sky blue to lavender gradient "logo-mark.svg" 12 KB, light grey "fonts.zip" 9.7 MB, pale lilac "Invoice-0912.pdf" 140 KB; "hero-v3.png" selected (teal 2px border)
-    note details: white card "hero-v3.png" list: "Type" PNG image, "Size" 5.1 MB, "Dimensions" 2880 × 1620, "Modified" Oct 19, 2026, 1 more
-e5-gantt · marks 5 · words 172
+    note toolbar: toolbar (no box around it): outline button "New folder", outline button "Sort: Name ▾" on the left; bright sky blue button "Upload" on the right
+    note file-grid: grid of 8 bordered rounded tiles, 4 per row, each a coloured picture block on top, then name, then small grey line: soft yellow "Moodboards" 14 items, soft yellow "Exports" 32 items, pale pink "Brief.pdf" 2.4 MB, sky blue to lavender gradient "hero-v3.png" 5.1 MB, light grey "Copy deck.docx" 88 KB, sky blue to lavender gradient "logo-mark.svg" 12 KB, light grey "fonts.zip" 9.7 MB, pale pink "Invoice-0912.pdf" 140 KB; "hero-v3.png" selected (bright sky blue 2px border)
+    note details: white card "hero-v3.png" list: "Type" PNG image, "Size" 5.1 MB, "Dimensions" 2880 × 1620, "Modified" Oct 19, 2026, "Owner" me
+e5-gantt · marks 5 · words 181
     title        heading 
     zoom         box     
     timeline     box     
     task-names   box     
     today        box     
     note title: "Website relaunch"
-    note zoom: links: Day, Week, Month
-    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text), rows 64px apart, bars 30px tall, rows end 70% down, empty below: purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, light orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
-    note task-names: list, a round colour dot before each: lavender dot "Research", coral dot "Wireframes", sky blue dot "Visual design", cyan dot "Content", yellow dot "Build", coral dot "QA", grey dot "Launch"
-    note today: red "Today"
+    note zoom: links: Day, Week, Month; "Week" selected (white text, near-black fill)
+    note timeline: timeline, 8 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16", "Nov 23" across the top; one task bar per row (label inside, white text), rows 64px apart, bars 30px tall, rows end 70% down, empty below: purple "Research" start of Oct 5 to end of Oct 12, pink "Wireframes" start of Oct 12 to end of Oct 19, blue "Visual design" start of Oct 19 to mid Nov 2, green "Content" mid Oct 19 to mid Nov 9, bright orange "Build" start of Nov 2 to end of Nov 16, red "QA" start of Nov 16 to mid Nov 23, dark grey "Launch" mid Nov 23 to end of Nov 23; thin red vertical today line top to bottom at start of Oct 26, tag "Today"
+    note task-names: list, a round colour dot before each: lavender dot "Research", light pink dot "Wireframes", sky blue dot "Visual design", bright green dot "Content", yellow dot "Build", coral dot "QA", grey dot "Launch"
+    note today: vivid red "Today"

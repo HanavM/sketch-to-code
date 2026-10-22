@@ -282,6 +282,8 @@ function factsInPage() {
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
+      // a round dot hung on the element by ::before/::after (a calendar now-line's knob, round 6 e5)
+      pseudoDot: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (c.content && c.content !== 'none' && pw >= 4 && pw <= 20 && Math.abs(pw - ph) <= 1 && parseFloat(c.borderTopLeftRadius) >= pw * 0.4 && rgba(c.backgroundColor)?.a > 0.05) return { px: Math.round(pw), at: (parseFloat(c.left) || 0) < r.width / 2 ? 'left' : 'right' } } return null })(),
       // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
       leafButtons: [...el.querySelectorAll('*')].filter((k) => { const c = getComputedStyle(k); const t = txt(k); const b = k.getBoundingClientRect(); return t && t.length <= 24 && !k.children.length && b.height >= 26 && b.height <= 56 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).map((k) => ({ t: txt(k), fill: rgba(getComputedStyle(k).backgroundColor), border: rgba(getComputedStyle(k).borderTopColor), x: k.getBoundingClientRect().left })),
       // a progress bar: a thin filled bar inside a thin track (round 4 e4 storage meter)
@@ -356,7 +358,7 @@ function factsInPage() {
       const groups = new Map()
       // a state class ('conv on', 'page active') doesn't split the selected item from its row
       // ...nor does a short modifier class ('m u sel': an unread, selected mail row is still a row; round 4 e2)
-      for (const k of p.children) { const key = `${k.tagName}.${(k.getAttribute("class") ?? "").replace(/\b(on|active|selected|sel|current|today|open|unread|read|u)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
+      for (const k of p.children) { const key = `${k.tagName}.${(k.getAttribute("class") ?? "").replace(/\b(on|active|selected|sel|current|today|open|unread|read|old|u)\b/g, '').trim()}`; groups.set(key, [...(groups.get(key) ?? []), k]) }
       // marked regions are drawn on their own: they aren't a list's items
       for (const g of groups.values()) if (g.length >= 3 && g.length > best.length && g.every((k) => txt(k) && !k.dataset?.r && !k.querySelector('[data-r]'))) best = g
     }
@@ -369,6 +371,31 @@ function factsInPage() {
     if (trs.length >= 3) {
       const head = [...trs[0].children].map(txt)
       return { type: 'table', columns: head, rows: trs.length - 1, chips: chips(el) }
+    }
+    // week grid (round 6 e5): events absolutely placed over day columns and hour lines; the day heads (a 7-kid row
+    // spanning the grid) and the hour rail (6+ 'N AM' labels left of it) live outside, so read them off the page
+    const evk = [...el.querySelectorAll('*')].filter((k) => getComputedStyle(k).position === 'absolute' && filled(k) && txt(k) && txt(k).length <= 60 && k.getBoundingClientRect().height >= 30)
+    if (evk.length >= 4) {
+      const g = el.getBoundingClientRect()
+      const headRow = [...document.querySelectorAll('*')].find((p) => p.children.length === 7 && Math.abs(p.getBoundingClientRect().left - g.left) <= 8 && Math.abs(p.getBoundingClientRect().right - g.right) <= 8 && p.getBoundingClientRect().bottom <= g.top + 4)
+      const HOUR = /^(\d{1,2})(?::00)? ?([AP]M)?$/i
+      const rail = [...document.querySelectorAll('*')].find((p) => p.children.length >= 6 && [...p.children].every((k) => HOUR.test(txt(k))) && p.getBoundingClientRect().right <= g.left + 4)
+      if (headRow && rail) {
+        const heads = [...headRow.children].map((k) => txt(k))
+        const rk = [...rail.children], r0 = rk[0].getBoundingClientRect()
+        const pitch = rk[1].getBoundingClientRect().top - r0.top
+        const m0 = txt(rk[0]).match(HOUR); let h0 = Number(m0[1]) % 12; if (/pm/i.test(m0[2] ?? '')) h0 += 12
+        const clock = (y) => { const q = Math.round(((y - r0.top) / pitch) * 4) / 4 + h0; const h = Math.floor(q), mm = Math.round((q - h) * 60); return `${((h + 11) % 12) + 1}${mm ? `:${String(mm).padStart(2, '0')}` : ''} ${h >= 12 ? 'PM' : 'AM'}` }
+        const cw = g.width / 7
+        const day = (x) => heads[Math.max(0, Math.min(6, Math.floor((x - g.left) / cw)))].split(' ')[0]
+        const evs = evk.filter((k) => !k.dataset?.r).map((k) => {
+          const b = k.getBoundingClientRect(), c = getComputedStyle(k)
+          const d0 = day(b.left + 2), d1 = day(b.right - 2)
+          const narrow = b.width < cw * 0.6 ? ((b.left + b.width / 2 - g.left) % cw < cw / 2 ? 'left half of ' : 'right half of ') : ''
+          return { title: txt(k.querySelector('b,strong') ?? k), text: txt(k), fill: filled(k), edge: parseFloat(c.borderLeftWidth) >= 3 ? rgba(c.borderLeftColor) : null, days: d0 === d1 ? `${narrow}${d0}` : `${d0} to ${d1}`, from: clock(b.top), to: clock(b.bottom) }
+        })
+        return { type: 'week', heads, hours: [txt(rk[0]), txt(rk[rk.length - 1])], events: evs, edge: evs.length && evs.every((e) => e.edge) }
+      }
     }
     // month grid: seven columns, weekday heads, events as coloured chips in day cells
     const cols = cs.display === 'grid' ? cs.gridTemplateColumns.split(' ').length : 0
@@ -476,6 +503,18 @@ function factsInPage() {
         return { fill: stroke(p), dashed: !!(p.getAttribute('stroke-dasharray') ?? '').trim() && p.getAttribute('stroke-dasharray') !== 'none', points: pts.length, rising: pts.length >= 2 ? pts[pts.length - 1][1] < pts[0][1] : null, thick: parseFloat(getComputedStyle(p).strokeWidth) >= 3 }
       })
       if (lines.length) return { type: 'lines', title: title(), lines }
+    }
+    // an opened message (round 6 e3 reader): title, a round avatar beside the sender, a body of copy, an attachment
+    // box, a row of tool buttons. Said as a list of the buttons it dropped the body and the avatar.
+    const hd = el.querySelector('h1,h2,h3')
+    const av = [...el.querySelectorAll('*')].find((k) => { const b = k.getBoundingClientRect(); return !txt(k) && !k.children.length && filled(k) && b.width >= 24 && b.width <= 64 && Math.abs(b.width - b.height) <= 2 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= b.width * 0.4 })
+    const bodyEl = [...el.querySelectorAll('*')].find((k) => k !== hd && !k.contains(hd) && ![...k.children].some((c) => c.tagName !== 'BR') && (k.innerText || '').trim().length >= 80)
+    if (hd && av && bodyEl) {
+      const sender = av.nextElementSibling ? (av.nextElementSibling.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean) : []
+      const tools = [...el.querySelectorAll('*')].find((p) => p.children.length >= 3 && [...p.children].every((k) => !k.children.length && txt(k) && txt(k).length <= 14))
+      const att = [...el.querySelectorAll('*')].find((k) => k !== bodyEl && !k.children.length && txt(k) && txt(k).length <= 40 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 40)
+      const bs = getComputedStyle(bodyEl)
+      return { type: 'reader', title: txt(hd), titlePx: Math.round(parseFloat(getComputedStyle(hd).fontSize)), av: { px: Math.round(av.getBoundingClientRect().width), fill: filled(av) }, sender, body: ([...bodyEl.parentElement.children].every((c) => c.tagName === 'P') ? [...bodyEl.parentElement.children].map((c) => c.innerText || '').join('\n') : (bodyEl.innerText || '')).split('\n').map((x) => x.trim()).filter(Boolean), bodyPx: Math.round(parseFloat(bs.fontSize)), tools: tools ? [...tools.children].map(txt) : [], toolsBordered: tools ? parseFloat(getComputedStyle(tools.children[0]).borderTopWidth) >= 1 || !!filled(tools.children[0]) : false, att: att ? txt(att) : null }
     }
     // a form: 3+ fields (a label over an empty bordered box), laid out in rows
     const fields = [...el.querySelectorAll('*')].filter((k) => k.closest('[data-r]') === el && k.children.length >= 2 && k.children.length <= 3 && [...k.children].some((g) => !txt(g) && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30) && txt(k) && txt(k).length <= 32)
@@ -597,7 +636,9 @@ function factsInPage() {
         const sel = rep.filter((k) => bw(k) > Math.min(...rep.map(bw)))
         return { type: 'tiles', cols: gcols, items: rep.map((k) => ({ parts: parts(k), pic: topPic(k), grad: topPic(k) === 'gradient' ? [...getComputedStyle(k.firstElementChild).backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])) : null })), bordered: rep.every((k) => bw(k) >= 1), sel: sel.length === 1 ? { t: parts(sel[0])[0], c: rgba(getComputedStyle(sel[0]).borderTopColor), w: bw(sel[0]) } : null }
       }
-      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), on, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
+      // the highlighted item's coloured left edge (round 6 e3 selected mail row)
+      const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
+      return { type: 'list', head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
     }
     return null
   }
@@ -830,6 +871,8 @@ function denseNote(d) {
     case 'table': if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
     case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
       return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
+    case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
+    case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
     case 'month': {
       // with days when known: blue "Standup" on 2, 9, 16, 23 (where events sit is the calendar's content)
       const byText = new Map()
@@ -869,6 +912,13 @@ function denseNote(d) {
       return `${d.head ? `header ${quote(d.head, 30)}${d.headRule ? ' with a thin line under it' : ''}, then ` : ''}${d.items.length} chat messages stacked top-down (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, bold name then small grey time on one line, message text under: ${d.items.map(row).join('; ')}`
     }
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
+      // mail rows with a subject: time, sender, bold subject, grey preview (round 6 e3: only the read rows were said, names and subjects apart)
+      if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && p[0].length <= 10)) {
+        const bold = d.bold2 ?? []
+        const mixed = bold.some(Boolean) && !bold.every(Boolean)
+        const sel = d.on ? `; the ${quote(d.on.length <= 10 ? d.items.find((p) => p[0] === d.on)?.[1] ?? d.on : d.on, 20)} row selected${d.onFill ? ` (${sheetFill(d.onFill)}${d.onEdge ? `, ${colourName(d.onEdge)} left edge` : ''})` : ''}` : ''
+        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}${d.items.length} mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that${mixed ? '; unread rows have a bold sender, read rows a normal one' : ''}: ${d.items.map((p, i) => `${quote(p[1], 20)} ${p[0]} ${quote(p[2], 36)} / ${quote(p[3], 40)}${mixed && bold[i] ? ' (unread)' : ''}`).join('; ')}${sel}`
+      }
       // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
       if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
         const bold = d.bold ?? []
@@ -989,7 +1039,7 @@ function decideOne(f, page, marked, said) {
   // (a plain list is only said when nothing else names the block: see the box branch)
   // and only when its parts aren't drawn as marks of their own (stat cards each marked)
   // a gantt's bars and a form's fields aren't marks of their own, so it is said even with its name column and today line drawn
-  const dn = f.dense?.type === 'list' || (!/^(gantt|form|messages)$/.test(f.dense?.type) && f.regionKids.some((r) => marked.has(r))) ? null : denseNote(f.dense)
+  const dn = f.dense?.type === 'list' || (!/^(gantt|form|messages|week)$/.test(f.dense?.type) && f.regionKids.some((r) => marked.has(r))) ? null : denseNote(f.dense)
   if (dn) {
     const bgName = fill ? colourName(f.bg) : null
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
@@ -1081,6 +1131,8 @@ function decideOne(f, page, marked, said) {
   // a thin textless filled strip (a reading-progress bar along the top edge): said as a strip, or it
   // reads as a heading line (round 4 c5: built a site title)
   if (fill && !f.text && !f.kidCount && h <= 10 && w >= h * 8) {
+    // with a round knob at one end it is a calendar's current-time line (round 6 e5: said 'a progress bar')
+    if (f.pseudoDot && h <= 4) return { kind: 'box', note: `thin solid ${colourName(f.bg)} line only ${Math.round(h)}px tall, ${Math.round(w)}px wide, with a ${f.pseudoDot.px}px round ${colourName(f.bg)} dot on its ${f.pseudoDot.at} end (the current-time line), no text` }
     return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${f.rect.y > 4 && w >= 400 && h <= 4 ? 'a divider rule, not a bar or button' : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
   }
   // a progress meter with its label lines
