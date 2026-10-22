@@ -1,60 +1,58 @@
 {
   "id": "e2-multi-chart",
-  "at": "2026-10-22T04:54:56.881Z",
+  "at": "2026-10-22T23:19:22.103Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7637153602884662,
-    "overallV2": 0.7637153602884662,
-    "overallV1": 0.5986988281169141,
-    "colour": 0.9791383709270169,
-    "structure": 0.8609198869422559,
-    "structureStrict": 0.6209042876111892,
-    "colourAligned": 0.9791383709270169,
-    "structureAligned": 0.8609198869422559,
+    "overall": 0.7828088738680509,
+    "overallV2": 0.7828088738680509,
+    "overallV1": 0.6373839747787137,
+    "colour": 0.9788885802491465,
+    "structure": 0.8719017247538893,
+    "structureStrict": 0.6603820433422078,
+    "colourAligned": 0.9788885802491465,
+    "structureAligned": 0.8719017247538893,
     "align": {
-      "scale": 1.04,
-      "dx": -16,
-      "dy": -16,
-      "r": 0.9772676212443494
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9707252974730777
     },
-    "layout": 0.6546773184804741
+    "layout": 0.6946341912529198
   },
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
+    "recall": 1,
+    "kept": [
       "stripes-or-layers"
     ],
-    "extra": [
-      "tilt"
-    ]
+    "missing": [],
+    "extra": []
   },
   "tokens": {
-    "input": 28648,
-    "output": 13722,
-    "cacheRead": 166604
+    "input": 28911,
+    "output": 13936,
+    "cacheRead": 136545
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 29877,
-      "output": 9205,
-      "cacheRead": 155018,
+      "billed": 27934,
+      "output": 8330,
+      "cacheRead": 124944,
       "toolCalls": 7,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 96159
+      "ms": 84816
     }
   ],
-  "reading": "The sketch lays out a dashboard: a dark navy sidebar nav, a page heading, a row of filter buttons, four stat cards, a revenue line chart, a plan-mix donut chart, a signups bar chart, and a top-accounts table, all specified in detail by the typed notes.",
+  "reading": "A dashboard page: a tall dark navy sidebar nav list, a page heading 'Overview', a row of filter buttons, four stat cards (MRR, Active users, Churn, NPS), a revenue line chart, a plan-mix donut chart, a signups bar chart, and a top-accounts table, with page-wide styling specified in a typed note.",
   "actions": [
     {
       "kind": "add",
@@ -69,7 +67,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Dark navy sidebar nav bar spanning the page height, light grey text, logo/title \"Pulse\" at top, nav list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settin"
+      "instruction": "Dark navy sidebar nav panel spanning the page height, light grey text, with brand label 'Pulse' at top and a vertical nav list: Overview, Revenue, Customers, Re"
     },
     {
       "kind": "add",
@@ -92,7 +90,7 @@
         41
       ],
       "paths": [],
-      "instruction": "Page heading text \"Overview\"."
+      "instruction": "Page heading text 'Overview', bold, dark navy, sitting above the filter button row."
     },
     {
       "kind": "add",
@@ -107,7 +105,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Row of filter buttons: \"Last 30 days\", \"All regions\", \"All plans\", \"+ Filter\"; \"Last 30 days\" shown selected with a dark navy fill."
+      "instruction": "Row of four buttons: 'Last 30 days' (selected, dark navy fill, light text), 'All regions', 'All plans', '+ Filter' (outlined style)."
     },
     {
       "kind": "add",
@@ -122,7 +120,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "White stat card titled \"MRR\" with a large bold 32px value \"$84.2k\" and a green delta line \"+6.1%\"."
+      "instruction": "White stat card titled 'MRR' with a large bold 32px value '$84.2k' and a green '+6.1%' change indicator below it."
     },
     {
       "kind": "add",
@@ -137,7 +135,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "White stat card titled \"Active users\" with a large bold 32px value \"12,480\" and a green delta line \"+3.4%\"."
+      "instruction": "White stat card titled 'Active users' with a large bold 32px value '12,480' and a green '+3.4%' change indicator below it."
     },
     {
       "kind": "add",
@@ -152,7 +150,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White stat card titled \"Churn\" with a large bold 32px value \"2.1%\" and a green delta line \"-0.3%\"."
+      "instruction": "White stat card titled 'Churn' with a large bold 32px value '2.1%' and a green '-0.3%' change indicator below it."
     },
     {
       "kind": "add",
@@ -167,7 +165,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "White stat card titled \"NPS\" with a large bold 32px value \"48\" and a green delta line \"+5\"."
+      "instruction": "White stat card titled 'NPS' with a large bold 32px value '48' and a green '+5' change indicator below it."
     },
     {
       "kind": "add",
@@ -182,7 +180,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "White card titled \"Revenue, last 30 days\" containing a line chart with a thick solid indigo line rising left to right (13 data points) and a dashed light grey l"
+      "instruction": "White card titled 'Revenue, last 30 days' containing a line chart with a thick solid indigo line rising left-to-right through 13 points and a dashed light-grey "
     },
     {
       "kind": "add",
@@ -197,7 +195,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "White card with a small grey title \"Plan mix\" top left, a 160px donut chart centred (ring 34px thick, hollow white middle), segments clockwise from the top: ind"
+      "instruction": "White card with a small grey title 'Plan mix' top-left and a centred 160px donut chart (34px thick ring, hollow white middle); segments clockwise from the top: "
     },
     {
       "kind": "add",
@@ -212,7 +210,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "White card titled \"Signups by week\" containing a bar chart of 8 indigo bars with heights 40/55/48/70/62/85/100/78% of the tallest."
+      "instruction": "Bar chart titled 'Signups by week' with 8 indigo bars at heights 40/55/48/70/62/85/100/78% of the tallest bar."
     },
     {
       "kind": "add",
@@ -227,7 +225,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "White card titled \"Top accounts\" with 5 rows, no header row, thin dividing lines between rows, second column bold and right-aligned: \"Acme Corp\" | \"$6,400\"; \"Gl"
+      "instruction": "White card titled 'Top accounts' with 5 rows and no header row, thin divider lines between rows, second column bold and right-aligned: Acme Corp | $6,400; Globe"
     }
   ],
   "rejected": [

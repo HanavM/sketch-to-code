@@ -342,3 +342,20 @@ Pages whose notes type a pale tint within ΔE 6 of white, so their tint was liab
 
 Next: re-run a few of those (r7 e1 kanban, r7 e2 funnel, r6 e2 charts) to show the gain; e5 dropdown labels wrapping
 ("Role ▾" on two lines) and header checkbox; e4 right column offset.
+
+## n110: re-runs after the pale-tint fix (2026-10-22, ~240k billed)
+
+Re-ran three pages whose notes type a pale tint the finishing pass used to erase. All three kept their tints
+(page and panel greys/blue-greys built as typed) and all three went up, each in one build turn except e2 (one repair):
+
+| page | before | now | what's left |
+|---|---|---|---|
+| r7 e1 kanban lanes | 74% (73k) | 76% (53k, 3.1 min, one turn), colour 99%, structure 95%, layout 74% | Mine / Bugs / Blocked filter chips built as bare words (target outlined pills); cards ~5px low |
+| r7 e2 funnel + cohort | 75% (~70k) | **80%** (~144k incl. reading, 10.7 min; build 82k + repair 40k), colour 98%, layout 93% | all eight regions in place; the build read three leftover drawn-shape files first (11 tools) |
+| r6 e2 multi chart | 76% | 78% (43k, 2.2 min, one turn), colour 98%, structure 87%, layout 69% | title and filter row ~10px high, everything below drifts 5-15px lower; line chart smoother than target |
+
+Planner (zero tokens, round-7 e5 only, toolbar + table notes, no plan marks changed): a packed toolbar says every
+label stays on one line (Role ▾ wrapped to two lines); a rich table's header says its first cell is an empty
+select-all checkbox (it was left out). Not yet run live. Vitest: same 2 environmental failures.
+
+Next: re-run e5 for the one-line dropdowns and header checkbox; e1 outlined filter chips; r6 e2 heading row drift.
