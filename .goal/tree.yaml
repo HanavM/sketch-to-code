@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Hardest creative pages: 3D cards 87%, zine 86%, hills 85%, sliced word 69%; next the thin rules and big type on the poster, then the glass page."
-lock: {by: run-2026-10-22T-n89, until: "2026-10-22T12:42:45Z"}
+now: "Hardest creative pages now: zine 89%, 3D cards 87%, hills 83%, glass 77%, sliced word 73%; next the glass page's glows and the poster's dot."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n89 (b918455, 506ce94, 74c7ce5 on try/n3-vocabulary): giant one-line word says type px; divider says exact thickness; turned word said first as part (1); lone copy in tall cell says top-left corner; SVG trail says 7 waypoints (loops only if self-crossing); filled band = whole block filled, left-set type inset (not for marquees). Live: c2 73, c4 77, c5 81 then 89, c3 83."
+  - "Token ledger: 2026-10-22 n89 live c2,c4,c5 161k + c3,c5 141k = ~302k billed."
   - "n88 (e1bad3f, dc7ef71 on try/n3-vocabulary): grounding drops a stroke another action cites alone (its note no longer leaks: c3 sun built in the hills' green); sliced word says its cut lies on the rule (y px); banded heading in a tall cell says top-left corner + padding; codegen puts a backdrop first, never bare -z-10 (c3 hills vanished, 50%). Live: c2 69, c3 50 then 85, c5 86."
   - "Token ledger: 2026-10-22 n88 live c2,c3,c5 256k + c3 72k = ~328k billed."
   - "n87 (989b495, 359d1f4 on try/n3-vocabulary): headings >=40px on 2-4 lines say their breaks, each line whole (nowrap, longest line px); one-line word >=100px says its width; sliced word says type px + width; 3D floor says built size before tilt; rose red #e11d48; one-line bold-headed columns say width; >=4 touching thick-bordered boxes = one ruled grid (page note); turned word kept whole. Rounds 1-5 gain breaks/widths only. Live: c1 82 then 87, c2 53, c3 54 (wrapped) then 76 (sun green), c5 86."
@@ -231,7 +233,9 @@ nodes:
      result: "Line breaks, word width, floor size, rose, ruled grid said: 3D cards 87%, zine 86%, word 53%, hills 76%. 359d1f4."}
   - {id: n88, parent: n87, kind: step, title: "Free first, ~100k live: c3 sun built deep green with peach edge (was orange, read the digest); c2 page sits ~16px high, 53%; c5 price centred (target top left). Fix, re-run c3, c2", status: done, branch: try/n3-vocabulary, 
      result: "Sun orange again (borrowed hills note dropped), cut on its rule, backdrops never -z-10: hills 85%, word 69%. dc7ef71."}
-  - {id: n89, parent: n88, kind: step, title: "Free first, ~120k live: c2 rules built thick (2-3px target) and Tickets ~1.15x large; c5 LOUD dropped, quote low; c3 trail loops wrong. Then round-6 c4 glass (72%) re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n89, parent: n88, kind: step, title: "Free first, ~120k live: c2 rules built thick (2-3px target) and Tickets ~1.15x large; c5 LOUD dropped, quote low; c3 trail loops wrong. Then round-6 c4 glass (72%) re-run", status: done, branch: try/n3-vocabulary,
+     result: "Thin rules, word size, turned word, trail path, whole bands said: zine 89%, glass 77%, word 73%, hills 83%. 74c7ce5."}
+  - {id: n90, parent: n89, kind: step, title: "Free first, ~150k live: c4 corner glows dimmer than target (say glow strength/size), c2 red dot squashed, c5 sticker hard shadow, c3 hills crest high; re-run c4, c2. Then write round 7 (harder) if all round-6 creative >= 80%", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
