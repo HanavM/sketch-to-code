@@ -719,7 +719,7 @@
    ],
    [
     "topbar",
-    "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
+    "white bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
    ],
    [
     "head-todo",
@@ -751,7 +751,7 @@
    ],
    [
     "card-3",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green progress bar 60% full on a light grey track under the title; a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green (#22c55e) progress bar 60% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 60% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-4",
@@ -779,11 +779,11 @@
    ],
    [
     "card-9",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green progress bar 30% full on a light grey track under the title; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green (#22c55e) progress bar 30% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 30% green fill); a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-10",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green progress bar 85% full on a light grey track under the title; a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green (#22c55e) progress bar 85% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 85% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "card-11",

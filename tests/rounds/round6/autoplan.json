@@ -448,7 +448,7 @@
    ],
    [
     "topbar",
-    "white bar 72px tall across the page, links: Northwind, Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline)"
+    "white bar 72px tall across the page, bold 22px \"Northwind\" first, then links: Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline)"
    ],
    [
     "hero",
@@ -542,7 +542,7 @@
    ],
    [
     "title",
-    "\"Overview\""
+    "\"Overview\", 26px bold type on one line, its box top 28px from the page top and 31px tall (top-[28px] or the same margin, line-height 31px; not higher)"
    ],
    [
     "filters",

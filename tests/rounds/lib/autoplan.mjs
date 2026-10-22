@@ -415,8 +415,13 @@ export function factsInPage() {
         if (kids.length < 4) return null
         const st = kids.map((k) => { const c = getComputedStyle(k); return { c: c.color, w: Number(c.fontWeight) >= 600, s: parseFloat(c.fontSize) } })
         const rest = st.slice(1)
-        if (!rest.every((x) => x.c === rest[0].c && x.w === rest[0].w && Math.abs(x.s - rest[0].s) < 1)) return null
-        const a = st[0], r0 = rest[0]
+        // the row's usual style is the one most of the rest share: a search field's grey placeholder or a
+        // selected chip's white text left the whole row 'not uniform' and the lead unsaid (round 7 e1 bold
+        // 18px 'Sprint 42' built as a regular link)
+        const same = (x, y) => x.c === y.c && x.w === y.w && Math.abs(x.s - y.s) < 1
+        const r0 = rest.reduce((b, x) => (rest.filter((y) => same(x, y)).length > rest.filter((y) => same(b, y)).length ? x : b), rest[0])
+        if (rest.filter((x) => same(x, r0)).length * 2 <= rest.length) return null
+        const a = st[0]
         const bold = a.w && !r0.w, big = a.s >= r0.s + 2, ink = a.c !== r0.c ? rgba(a.c) : null
         if (!bold && !big && !ink) return null
         return { t: (kids[0].innerText || '').replace(/\s+/g, ' ').trim(), bold, px: big ? Math.round(a.s) : null, ink }
@@ -524,7 +529,7 @@ export function factsInPage() {
           tag: tag ? { t: t(tag), fill: fl(tag), ink: rgba(getComputedStyle(tag).color), px: Math.round(parseFloat(getComputedStyle(tag).fontSize)) } : null,
           title: { t: t(title), bold: Number(tc.fontWeight) >= 600 }, strike,
           av: av ? { fill: fl(av), px: Math.round(ab.width), corner: `${ab.top + ab.height / 2 > r.top + r.height / 2 ? 'bottom' : 'top'}-${ab.left + ab.width / 2 > r.left + r.width / 2 ? 'right' : 'left'}` } : null,
-          bar: bar ? { pct: Math.round(bar.children[0].getBoundingClientRect().width / bar.getBoundingClientRect().width * 100), fill: fl(bar.children[0]), track: fl(bar), h: Math.round(bar.getBoundingClientRect().height) } : null,
+          bar: bar ? { pct: Math.round(bar.children[0].getBoundingClientRect().width / bar.getBoundingClientRect().width * 100), fill: fl(bar.children[0]), track: fl(bar), h: Math.round(bar.getBoundingClientRect().height), w: Math.round(bar.getBoundingClientRect().width), gap: Math.round(bar.getBoundingClientRect().top - title.getBoundingClientRect().bottom), inner: Math.round(r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth)) } : null,
           opacity: parseFloat(cs.opacity),
         }
       })(),
@@ -1682,7 +1687,7 @@ function decideOne(f, page, marked, said) {
     const parts = [
       T.tag ? `small ${T.tag.px}px bold tag ${quote(T.tag.t)} (${colourName(T.tag.ink)} text on a ${T.tag.fill.r + T.tag.fill.g + T.tag.fill.b > 600 ? `pale ${colourName(T.tag.ink)} tint` : colourName(T.tag.fill)} ${hexOf(T.tag.fill)}, 4px rounded) at the top left` : null,
       `${T.title.bold ? 'semibold ' : ''}title ${quote(T.title.t, 60)}${T.tag ? ' under it' : ''}${T.strike ? ', struck through (line-through)' : ''}`,
-      T.bar ? `a thin ${T.bar.h}px ${colourName(T.bar.fill)} progress bar ${T.bar.pct}% full on a ${colourName(T.bar.track)} track under the title` : null,
+      T.bar ? `a thin ${T.bar.h}px ${colourName(T.bar.fill)} (${hexOf(T.bar.fill)}) progress bar ${T.bar.pct}% full on a ${colourName(T.bar.track)} (${hexOf(T.bar.track)}) track under the title${T.bar.w && T.bar.inner && T.bar.w < T.bar.inner - 16 ? ` (the track is a ${T.bar.w}px wide (w-[${T.bar.w}px]), ${T.bar.h}px tall rounded strip at the card's left, ${Math.max(0, T.bar.gap)}px under the title, NOT the card's full width and not at its foot; the grey track shows past the ${T.bar.pct}% green fill)` : ''}` : null,
       T.av ? `a ${T.av.px}px round ${colourName(T.av.fill)} avatar dot (no letter; a full circle ${T.av.px}x${T.av.px}px, never squashed into a bar) in the ${T.av.corner} corner` : null,
     ].filter(Boolean)
     const edge = f.border.left >= 3 && visible(f.border.leftColour) ? `, a ${Math.round(f.border.left)}px ${colourName(f.border.leftColour)} left edge` : ''
@@ -1992,8 +1997,11 @@ function decideOne(f, page, marked, said) {
     // a 20-39px multi-word line set on one line says its size and the one line: round 7 c5's 30px 'read this
     // first!' hand note was built on 2 lines (n103)
     const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
+    // a one-word page title near the top says its size and top: 'Overview' (26px bold, top 28) was said as the
+    // word alone and built ~10px high with everything under it drifting (round 6 e2)
+    const ttl = !mid && !f.motion && !fill && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && !/\s/.test(f.text.trim()) && f.text.length <= 24 && f.rect.y <= 120 ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}type on one line, its box top ${Math.round(f.rect.y)}px from the page top and ${Math.round(f.rect.h)}px tall (top-[${Math.round(f.rect.y)}px] or the same margin, line-height ${Math.round(f.rect.h)}px; not higher)` : ''
     const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${one}${mid}${under}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${one}${mid}${ttl}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
