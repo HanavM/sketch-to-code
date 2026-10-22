@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T05:02:00Z | Round 6 everyday re-runs | Menu 58 to 79%, week 55 to 75%, checkout 32 to 50%; tinted page colours now kept. 308k.
 2026-10-22T04:27:25Z | Round 6 everyday pages, first real builds | Dashboard 78%, mail 67%, menu 58%, week 55%, checkout 32%; five gaps fixed. 273k.
 2026-10-22T03:50:53Z | Round 6 everyday planner fixes, part 2 | Checkout items and form, donut segments, plain table rows, mega-menu sublines and shadow now said. Free.
 2026-10-22T03:37:28Z | Round 6 everyday planner fixes | Calendar events, current-time line, all inbox rows and the opened email now described in full. Free.

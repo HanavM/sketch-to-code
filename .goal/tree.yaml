@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "First real builds of the five round 6 everyday pages are done (dashboard 78%, mail 67%); fixing what they got wrong and re-running."
-lock: {by: run-20261022T0428, until: 2026-10-22T05:58:16Z}
+now: "Round 6 everyday pages now 50-79% alike; next fixing why the checkout page sometimes fails to read and its faint pictures."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n82 (7921c13 on try/n3-vocabulary): planner says bare forms (no card), order summary start and no heading, outlined buttons, nested switch selection, date circle. run2 PAGE LOOK: tinted page colour never plain white. Round 6: e1 79, e2 76, e4 50, e5 75 (NOTES.md). Rounds 1-5 plans unchanged."
+  - "Token ledger: 2026-10-22 n82 live e1,e2,e4(failed reading),e5 173k + e4 37k + e2,e4 98k = ~308k billed."
   - "n81 (c892fd3 on try/n3-vocabulary): round-6 everyday live: e1 58, e2 78, e3 67, e4 32, e5 55 (round6/NOTES.md). Planner now says empty card rows, dropdown fixed height and full cover, amber, pale blue-grey page, week hour row height, left-edge event cards. 2 unit tests (cli init gh-create, library home-unwritable) fail in this container on agent too: environment (root, gh present), not from this work."
   - "Token ledger: 2026-10-22 n81 live round-6 e1-e5 ~273k billed (e4 reading failed once)."
   - "n80 (61f56b9 on try/n3-vocabulary): dense types order (badged thumbs) and headless table; filled form accepts white fields on an off-white page and says sections + choice cards in order; conicRing with 3+ stops = segmented donut (hole, legend); lists with <small> sublines; dropdown hang pass in autoPlan; pseudoPic fact. Round 3 e4 sidebar note changed (better); rounds 1,2,4,5 unchanged. Run autoplan with S2C_CHROMIUM inline (export does not persist between shell calls)."
@@ -205,7 +207,9 @@ nodes:
   - {id: n80, parent: n78, kind: step, title: "Free: rest of round-6 everyday misses (checkout summary items, labelled fields, chosen delivery card; donut segments and legend, table first row; mega-menu sublines, shadow, featured square)", status: done, branch: try/n3-vocabulary,
      result: "Order lines, filled form, chosen delivery card, donut segments, headless table, menu sublines and shadow now said. Free. 61f56b9."}
   - {id: n81, parent: n80, kind: step, title: "~150k live (--budget): first builds of round-6 everyday e1 mega-menu, e2 dashboard, e3 mail, e4 checkout, e5 week from the n78/n80 plans; fix the worst gap", status: done, branch: try/n3-vocabulary, result: "Built all five: dashboard 78%, mail 67%, mega-menu 58%, week 55%, checkout 32%; five planner gaps fixed."}
-  - {id: n82, parent: n81, kind: step, title: "~200k live: re-run round-6 e1, e2, e5 with the n81 fixes; free first: e4 form built inside an invented card + invented heading, e5 selected Week tab and red today circle", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n82, parent: n81, kind: step, title: "~200k live: re-run round-6 e1, e2, e5 with the n81 fixes; free first: e4 form built inside an invented card + invented heading, e5 selected Week tab and red today circle", status: done, branch: try/n3-vocabulary,
+     result: "Menu 58 to 79%, week 55 to 75%, checkout 32 to 50%, dashboard 76%; tinted pages no longer built white. 7921c13."}
+  - {id: n83, parent: n82, kind: step, title: "Free first, ~80k live: round-6 e4 reading fails with max structured output (2 of 4 tries), thumbnails built near-invisible, step connector lines missing; e1 blue strip on menu top; e5 Today/arrows placed right. Fix, re-run e4", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
