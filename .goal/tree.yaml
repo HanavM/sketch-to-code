@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Collage and split posters now get their arch shapes, tilts and soft shadows (split poster 43% to 65% alike). Next: the collage headline is built too small."
-lock: null
+now: "Working on the collage poster: its headline is built too small."
+lock: {by: run-20261022T0053, until: 2026-10-22T02:23:03Z}
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
