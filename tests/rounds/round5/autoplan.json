@@ -49,7 +49,7 @@
   "notes": [
    [
     "*",
-    "whole page: black page, Helvetica type, off-white text"
+    "whole page: black (#0b0b10) page, Helvetica type, off-white text"
    ],
    [
     "reel",
@@ -135,7 +135,7 @@
   "notes": [
    [
     "*",
-    "whole page: light grey page, Helvetica type, near-black text"
+    "whole page: light grey (#e7e5e4, plainly not white) page, Helvetica type, near-black text"
    ],
    [
     "line-thin",
@@ -155,7 +155,7 @@
    ],
    [
     "badge-dot",
-    "small 28px vivid red dot"
+    "small 28px vivid red dot (exactly 28x28px: w-[28px] h-[28px], border-radius 50%, not smaller)"
    ],
    [
     "marquee",
@@ -381,7 +381,7 @@
   "notes": [
    [
     "*",
-    "whole page: black page, Helvetica type, white text"
+    "whole page: black (#09090b) page, Helvetica type, white text"
    ],
    [
     "hero",
@@ -447,7 +447,7 @@
   "notes": [
    [
     "*",
-    "whole page: pale blue-grey page, Helvetica type, dark navy text"
+    "whole page: pale blue-grey (#f1f5f9, plainly not white) page, Helvetica type, dark navy text"
    ],
    [
     "topbar",

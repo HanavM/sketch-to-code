@@ -1805,7 +1805,9 @@ function decideOne(f, page, marked, said) {
     // a filled sticker with a bold outline says the outline and that it casts no shadow: on a brutalist page the
     // build gave it a hard offset shadow and no outline (round 6 c5 'SOLD OUT SOON')
     const rim = f.text && fill && bordered && f.border.w >= 2 ? `, ${Math.round(f.border.w)}px solid ${lineCol(f.border.colour)} outline${f.shadows.some((x) => !x.clear) ? '' : ', flat, no shadow'}` : ''
-    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}${rim}`) }
+    // a small textless dot says its exact box (round 7 c2: a 22px slider knob said 'small 22px dot' was built ~8px)
+    const exactDot = !f.text && fill && w >= 12 && w < 60 ? ` (exactly ${Math.round(w)}x${Math.round(w)}px: w-[${Math.round(w)}px] h-[${Math.round(w)}px], border-radius 50%, not smaller)` : ''
+    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${exactDot}${words}${rim}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
   if (f.dotKids && !f.regionKids.length) {
@@ -1867,7 +1869,7 @@ function decideOne(f, page, marked, said) {
     const items = f.kidTexts.map(ctl)
     const on = f.kidOn?.fill && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${colourName(f.kidOn.fill)} fill)` : ''
     // a filled bar with its own lead copy before the buttons (round 7 e5 bulk bar: '3 selected' and the navy fill unsaid)
-    const lead = f.ownText && f.ownText.length <= 32 && fill ? `${colourName(f.bg)} (${hexOf(f.bg)}) bar ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: ${textCol ? `${textCol} ` : ''}bold ${quote(f.ownText)} at the left, then ` : ''
+    const lead = f.ownText && f.ownText.length <= 32 && fill ? `${colourName(f.bg)} (${hexOf(f.bg)}) bar ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: ${textCol ? `${textCol} ` : ''}bold ${quote(f.ownText)} at the left, then right beside it (packed at the left after the label, never pushed to the right end) ` : ''
     const ghost = lead && f.kidBoxes.every((k) => !(k.fill?.a > 0.05)) ? 'small outlined buttons (thin see-through white border, no fill, regular weight): ' : 'buttons: '
     // option states in a row of choices (round 7 e4 sizes: M picked by a 2px dark border, XS and XL struck grey; all lost)
     const kb = f.kidBoxes, picked = kb.filter((k) => k.bw >= 2 && kb.filter((j) => j.bw >= 2).length === 1), gone = kb.filter((k) => k.struck)
@@ -1929,7 +1931,7 @@ function decideOne(f, page, marked, said) {
     // orange band were built white like the black band's
     // the band is the whole block, filled edge to edge, and left-set type says so: 'on a yellow band' was
     // built as a yellow strip behind the letters only, and the masthead centred (round 6 c5, n89)
-    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} band (${Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.h ? `the band itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt (height: ${f.layoutBox.h}px, only ${f.layoutBox.h}px thick; the tilt alone makes its outline ${Math.round(h)}px tall), filled ${colourName(f.bg)} edge to edge` : `the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge`}${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
+    if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} (${hexOf(f.bg)}) band (${Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.h ? `the band itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt (height: ${f.layoutBox.h}px, only ${f.layoutBox.h}px thick; the tilt alone makes its outline ${Math.round(h)}px tall), filled ${colourName(f.bg)} edge to edge` : `the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge`}${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
     const sk = f.subKid && f.text.endsWith(f.subKid.t) && f.text.length > f.subKid.t.length ? f.subKid : null
     if (sk) {
@@ -2144,7 +2146,7 @@ function pageNote(b) {
   if (gl) w.push(`${gl.replace(/ block\b/, ` (${hexOf(b.bg)}) page`)} (big soft radial glows fading into the base colour)`)
   else if (grad) w.push(`${grad} page`)
   // a warm off-white (#f4f1ea) said bare was built plain white (round 6 c2): its hex goes with it
-  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg) === 'off-white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg)} page`)
+  else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg) === 'off-white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : hexOf(b.bg) === '#ffffff' ? colourName(b.bg) : Math.min(parse(b.bg).r, parse(b.bg).g, parse(b.bg).b) >= 225 ? `${colourName(b.bg)} (${hexOf(b.bg)}, plainly not white)` : `${colourName(b.bg)} (${hexOf(b.bg)})`} page`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)

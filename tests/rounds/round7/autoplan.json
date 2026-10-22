@@ -41,7 +41,7 @@
   "notes": [
    [
     "*",
-    "whole page: black page, Helvetica type, white text"
+    "whole page: black (#0b0b0f) page, Helvetica type, white text"
    ],
    [
     "hero-tile",
@@ -131,7 +131,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream page, Helvetica type, near-black text"
+    "whole page: cream (#f5f0e6, plainly not white) page, Helvetica type, near-black text"
    ],
    [
     "nav",
@@ -147,7 +147,7 @@
    ],
    [
     "band",
-    "tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange band (the band itself 1500x86px before the tilt (height: 86px, only 86px thick; the tilt alone makes its outline 242px tall), filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) \"ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE\", on ONE line (white-space: nowrap, never wrapped), about 1552px wide"
+    "tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange (#ff4f1f) band (the band itself 1500x86px before the tilt (height: 86px, only 86px thick; the tilt alone makes its outline 242px tall), filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) \"ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE\", on ONE line (white-space: nowrap, never wrapped), about 1552px wide"
    ],
    [
     "axis",
@@ -155,7 +155,7 @@
    ],
    [
     "knob",
-    "small 22px near-black dot"
+    "small 22px near-black dot (exactly 22x22px: w-[22px] h-[22px], border-radius 50%, not smaller)"
    ],
    [
     "axis-label",
@@ -589,7 +589,7 @@
   "notes": [
    [
     "*",
-    "whole page: warm paper page, Georgia type, near-black text"
+    "whole page: warm paper (#efe7d8) page, Georgia type, near-black text"
    ],
    [
     "masthead",
@@ -903,7 +903,7 @@
   "notes": [
    [
     "*",
-    "whole page: dark navy page, Helvetica type, light grey text"
+    "whole page: dark navy (#1e1e2e) page, Helvetica type, light grey text"
    ],
    [
     "activity-bar",
@@ -1085,19 +1085,19 @@
    ],
    [
     "swatch-1",
-    "small 36px indigo dot"
+    "small 36px indigo dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
    ],
    [
     "swatch-2",
-    "small 36px dark navy dot"
+    "small 36px dark navy dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
    ],
    [
     "swatch-3",
-    "small 36px vivid brown dot"
+    "small 36px vivid brown dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
    ],
    [
     "swatch-4",
-    "small 36px light grey dot"
+    "small 36px light grey dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
    ],
    [
     "size-label",
@@ -1183,7 +1183,7 @@
   "notes": [
    [
     "*",
-    "whole page: pale grey page, Helvetica type, dark navy text"
+    "whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text"
    ],
    [
     "title",
@@ -1203,7 +1203,7 @@
    ],
    [
     "bulk-bar",
-    "dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then small outlined buttons (thin see-through white border, no fill, regular weight): \"Change role\", \"Suspend\", \"Remove\""
+    "dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then right beside it (packed at the left after the label, never pushed to the right end) small outlined buttons (thin see-through white border, no fill, regular weight): \"Change role\", \"Suspend\", \"Remove\""
    ],
    [
     "table",

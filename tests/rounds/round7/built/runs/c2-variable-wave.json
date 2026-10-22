@@ -1,23 +1,23 @@
 {
   "id": "c2-variable-wave",
-  "at": "2026-10-22T14:19:13.327Z",
+  "at": "2026-10-22T19:59:36.976Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6059477161551132,
-    "overallV2": 0.6059477161551132,
-    "overallV1": 0.4080995973472394,
-    "colour": 0.9575787715184997,
-    "structure": 0.8440878811193052,
-    "structureStrict": 0.5758920905364537,
-    "colourAligned": 0.9575787715184997,
-    "structureAligned": 0.8440878811193052,
+    "overall": 0.6576355748584589,
+    "overallV2": 0.6576355748584589,
+    "overallV1": 0.5132500278722185,
+    "colour": 0.96275908692261,
+    "structure": 0.8124258553150466,
+    "structureStrict": 0.616702003321711,
+    "colourAligned": 0.96275908692261,
+    "structureAligned": 0.8124258553150466,
     "align": {
-      "scale": 0.96,
-      "dx": 0,
-      "dy": 16,
-      "r": 0.8759549882041956
+      "scale": 0.92,
+      "dx": 16,
+      "dy": 48,
+      "r": 0.8321814238472793
     },
-    "layout": 0.3867810908827056
+    "layout": 0.5982322343050834
   },
   "effects": {
     "recall": 1,
@@ -33,31 +33,31 @@
     ]
   },
   "tokens": {
-    "input": 30437,
-    "output": 20257,
-    "cacheRead": 148498
+    "input": 37802,
+    "output": 15929,
+    "cacheRead": 141923
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 38995,
-      "output": 15788,
-      "cacheRead": 137916,
+      "billed": 39701,
+      "output": 10366,
+      "cacheRead": 131282,
       "toolCalls": 7,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
         "Read src/main.tsx",
-        "Glob",
         "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 188567
+      "ms": 115819
     }
   ],
-  "reading": "This is a type-specimen landing page: a header bar, a giant 'VARIABLE' word-mark with per-letter weight/size variation, a hollow-outlined '100—900' heading, a tilted red-orange marquee band repeating 'ONE FILE · EVERY WEIGHT', a weight slider (track + handle dot) labeled 'WEIGHT 100 — 900', and an intro paragraph about the variable font.",
+  "reading": "This is a type-specimen landing page sketch: a top nav bar, a giant variable-weight 'VARIABLE' headline, a '100—900' outline heading, a full-bleed tilted red-orange marquee band, a slider control (track + handle) with a weight label, and a short descriptive paragraph — all annotated by typed notes that give exact copy, colors and sizing.",
   "actions": [
     {
       "kind": "add",
@@ -72,7 +72,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Page-wide header/nav bar: bold 18px 'FLEX/TYPE' wordmark aligned left, and 'Specimen · Axes · Buy' aligned right, same row. Whole page should use cream backgrou"
+      "instruction": "Add a slim top header bar: bold 18px 'FLEX/TYPE' left-aligned, and 'Specimen · Axes · Buy' right-aligned, Helvetica, near-black text, sitting on the cream backg"
     },
     {
       "kind": "add",
@@ -95,7 +95,7 @@
         289
       ],
       "paths": [],
-      "instruction": "Giant single-line headline, the word VARIABLE, white-space: nowrap, about 837px wide, letters bottom-aligned on one shared baseline with no added gaps, each let"
+      "instruction": "Add a hero headline reading the single word 'VARIABLE' in giant Helvetica near-black letters on one line (no other copy here, not a paragraph). Wrap each letter"
     },
     {
       "kind": "add",
@@ -118,7 +118,7 @@
         206
       ],
       "paths": [],
-      "instruction": "Giant heavy Helvetica heading reading '100—900', tight letter-spacing, hollow/outlined near-black letters (stroke outline, not filled), 170px type size, about 6"
+      "instruction": "Add a heading reading '100—900' in giant Helvetica, heavy weight, tight letter-spacing, hollow/outlined near-black letters, 170px type size, about 695px wide (n"
     },
     {
       "kind": "add",
@@ -141,7 +141,7 @@
         68
       ],
       "paths": [],
-      "instruction": "Full-bleed decorative marquee band tilted 6° anticlockwise, bleeding off both left and right page edges. Band itself is 1500x86px before tilt (only 86px thick),"
+      "instruction": "Add a full-bleed decorative marquee band tilted 6° anticlockwise, bleeding off both the left and right page edges. The band itself is 1500x86px before the tilt "
     },
     {
       "kind": "add",
@@ -157,7 +157,7 @@
         "s4",
         "s5"
       ],
-      "instruction": "Weight-axis slider control: a thin horizontal track rendered as a solid near-black rule exactly 2px tall (h-[2px], not h-2) and 520px wide, with a small 22px ne"
+      "instruction": "Add a weight-axis slider control: a solid near-black divider/track exactly 2px thick (not 8px — use an explicit 2px height) and 520px wide, with a small near-bl"
     },
     {
       "kind": "add",
@@ -172,7 +172,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small 13px wide-letter-spaced label beneath the slider reading 'WEIGHT 100 ——— 900', near-black, Helvetica."
+      "instruction": "Add small 13px wide-letter-spaced label text reading 'WEIGHT 100 ——— 900' near the slider, Helvetica, near-black."
     },
     {
       "kind": "add",
@@ -197,8 +197,10 @@
         51
       ],
       "paths": [],
-      "instruction": "Intro paragraph copy, two lines, near-black Helvetica text: 'A variable family with weight and width axes. Drag the slider, the specimen breathes.'"
+      "instruction": "Add a short paragraph of body copy reading 'A variable family with weight and width axes. Drag the slider, the specimen breathes.' in Helvetica, near-black text"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

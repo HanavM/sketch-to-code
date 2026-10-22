@@ -244,3 +244,18 @@ labels across rounds 2-7 gain it). Round 4 c1's tilted orange scrap also gains i
 
 Not done this step (still open): e5 admin table ~16px low and pager cut; e4 photo corners, Details header over body,
 swatch ring.
+
+## n104: page and band hexes, exact small dots, bulk buttons beside their label (2026-10-22, ~119k billed)
+
+Planner (zero tokens): a tinted page now says its hex ("pale grey (#f9fafb, plainly not white) page"; 30 page notes
+across rounds 1-7 gain a hex, white pages unchanged); a coloured band behind tilted type says its hex (the c2 band was
+built rust, target #ff4f1f); a small textless dot says its exact box (w-[Npx] h-[Npx]: the 22px slider knob was built
+~8px); a filled bar's buttons sit right beside its lead label (the e5 bulk buttons were pushed to the right end).
+No plan marks changed.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| c2 variable wave | 61% | 66% (40k, one build turn), must 100%, effects 100% | band colour exact, knob 22px, rule thin. VARIABLE ~20px high, 100—900 ~15px low, nav links large; the 2px rule is not matched as a region |
+| e5 admin table | 64% | 59% (79k, build + repair) | bulk buttons beside "3 selected", page tinted. Table built without its white bordered card, columns unevenly spaced (Email wide), menu moved right, pager ~16px low (cut) |
+
+Next: e5 table says its white bordered rounded card and each column's left edge; pager kept inside the page.
