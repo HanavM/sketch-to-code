@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Outline poster improved to 70%; fixing a colour-inverting headline that vanished on the white half of a magazine page."
-lock: {by: run-n75, until: "2026-10-22T03:23:49Z"}
+now: "Blend magazine page now right (black on white, white on black), 84%; next: tidy the outline summer poster."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
@@ -19,6 +19,7 @@ notes:
   - "Token ledger: 2026-10-20 ~238k (n4 ~10k; n5 readings ~62k, live c1+e1 ~76k; n6 readings ~14k, live c1 33k, e2+e3 43k; n7 live c1 ~34k) = ~272k. Spent for 2026-10-20: only free work until 2026-10-21 UTC."
   - "Token ledger: 2026-10-21 n68 live c4 x2 ~141k billed."
   - "Token ledger: 2026-10-21 (after budget removed) n20 live e1+e3+e5 127k (e1 56k, e3 38k, e5 19k billed + cache). Day total ~430k."
+  - "Token ledger: 2026-10-22 n75 live r3 c5 58k."
   - "Token ledger: 2026-10-22 n74 live r5 c4 65k + r3 c5 53k = 118k."
   - "Token ledger: 2026-10-21 ~303.5k (n8: c2 91k, c3 70k, c4 35k, c5 57k, e4 25k, e5 24k). Over the 300k/day budget by ~1%: no live work until 2026-10-22 UTC. Always pass --budget to live bench runs now (worst page ~95k)."
   - "n8: tests/rounds/cmp.mjs <round> <id> [tag] [label] makes target-vs-built PNGs. Bench now copies each page's run record to tests/bench/out/runs/<id>/ (prompt, interpretation)."
@@ -189,7 +190,8 @@ nodes:
      result: "Text blocks now placed by their drawn lines, gradients say which end is which: collage 70% to 82%. 78b44b0."}
   - {id: n74, parent: n73, kind: step, title: "~100k live: see the gain carries: re-run round-5 c4 (blue photo gradient now said dark bottom, was n69) and one round-3/4 page with a big multi-line headline (round-3 c5 or round-4 c5); fix the worst gap", status: done,
      result: "Outline poster 63% to 70%, gradient right. Blend editorial 81% to 70%: inverting text lost on white; contract fixed. 5dbd7ac."}
-  - {id: n75, parent: n74, kind: step, title: "~55k live: re-run round-3 c5 to prove the blend fix (headline must read black on white, white on black); then round-5 c4 leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent)", status: open, result: null}
+  - {id: n75, parent: n74, kind: step, title: "~55k live: re-run round-3 c5 to prove the blend fix (headline must read black on white, white on black); then round-5 c4 leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent)", status: done, result: null, result: 'Blend headline right: black on white, white on black. r3 c5 70% to 84%. 858c59f.'}
+  - {id: n76, parent: n75, kind: step, title: '~55k live: round-5 c4 outline poster leftovers (SUMMER ~40px high, orange photo too dark at bottom, shadow translucent); r3 c5 headline broke after keeps not the (minor)', status: open, branch: null, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,

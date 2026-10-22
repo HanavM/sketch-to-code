@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T02:04:09Z | Prove blend fix on magazine page | Headline now black on white and white on black; blend editorial 70% to 84%, best yet. 58k.
 2026-10-22T01:34:47Z | Gain carries: outline poster, blend editorial | Outline poster 63% to 70%, gradient right way. Blend editorial 81% to 70%: inverting headline vanished; fixed. 118k.
 2026-10-22T01:17:07Z | Collage headline place and photo gradient | Text now placed by its drawn lines; gradient ends said. Collage 70% to 82%, looks near-identical. 81k.
 2026-10-22T01:15:00Z | Collage headline size | Tight line spacing now said, so the giant headline is built full size: 63% to 70%. 70k.
