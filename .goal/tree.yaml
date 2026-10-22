@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The torn-paper collage page was built for the first time and came out 69% alike, with its tape, drop cap and red pen circle. Next: tidy its small misplacements, then the admin table."
-lock: {by: run-1911-n103, until: 2026-10-22T20:41:03Z}
+now: "The torn-paper collage page now comes out 82% alike: photo colours, the hand note and the issue line are right. Next: the admin table sitting low and the product page leftovers."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n103 (037c7cc on try/n3-vocabulary): planner: tilted gradient cut-out says linear-gradient(deg, hex, hex) exactly, size + top-left before tilt, flat (no shadow/border) if no shadow; 20-39px multi-word one-line heading says px + ONE line nowrap + width (10 titles r1-r7 gain it); 13-17px one-line label at top 16-80px, unfilled, says alone at top/left px, nothing beside (8 labels r2-r7). No plan marks changed. Live c5 82% (85k, 4.6 min, 1 build turn). Vitest: same 2 env failures."
+  - "Token ledger: 2026-10-22 n103 live r7 c5 ~85k billed."
   - "n102 (84e3304 on try/n3-vocabulary): planner facts dropCap (::first-letter float left, >= 2.5x body px), ringSvg (svg with one unfilled stroked ellipse/circle -> kind shape, 16-point ellipse poly, note colour/line/size/tilt), tape (textless fill alpha 0.3-0.9, layout box <= 260x80 and >= 2.5:1 -> box 'see-through ... strip of sticky tape', no X). Rounds 1-3,5,6 plans unchanged; r4 c5 tape note changes (overlap clause dropped). Live c5 69% (93k, 5.6 min, must 100%, effects 75%). Vitest: same 2 env failures."
   - "Token ledger: 2026-10-22 n102 live r7 c5 ~93k billed."
   - "n101 (647d74c on try/n3-vocabulary): pipeline scaffold.ts isPrimitivePath (line, upright rounded rect with edge tol min(14, max(7, 10%)), dot <= 80px; points sampled on the curve) + onlyPrimitives: no scaffold for 3+ same-size closed primitives (+ straight lines) or one primitive in a <= 80px region; trace rung untouched. Replay on saved runs r1-r7: 7 actions lose a scaffold (3 on r7 e4). Live e4 69% (build 265s 73k 9 tools, repair 272s 50k). Bench needs S2C_CHROMIUM=/opt/pw-browsers/chromium here. One run failed with reading > 150s (no change made for it)."
@@ -354,4 +356,6 @@ nodes:
      result: "Widget boxes no longer become drawn-shape files: product page build 8 to 4 min, repair runs, 45 to 69%. 647d74c."}
   - {id: n102, parent: n101, kind: step, title: "Free first, ~200k live: first live r7 c5 torn collage (never built; tapes, drop cap, red ellipse); e5 admin table 64% (page ~16px low, pager cut); e4 leftovers: photo square with wobbly drawn edge, Details header over its body text, swatch ring lost", status: done, branch: try/n3-vocabulary,
      result: "Tapes, drop cap and red ring now said: torn collage built first time at 69%, every must-have block present. 84e3304."}
-  - {id: n103, parent: n102, kind: step, title: "Free first, ~200k live: c5 issue line placed top right (built above column plus invented VOL. IV), hand note on one line, photos flat with gradient hexes and drawn position; e5 admin table ~16px low, pager cut; e4 photo corners, Details header over body, swatch ring", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n103, parent: n102, kind: step, title: "Free first, ~200k live: c5 issue line placed top right (built above column plus invented VOL. IV), hand note on one line, photos flat with gradient hexes and drawn position; e5 admin table ~16px low, pager cut; e4 photo corners, Details header over body, swatch ring", status: done, branch: try/n3-vocabulary, 
+     result: "Photo hexes, unrotated size, flat; hand note one line; issue line alone: torn collage 69 to 82%. 037c7cc."}
+  - {id: n104, parent: n103, kind: step, title: "Free first, ~150k live: e5 admin table ~16px low and pager cut; e4 photo square with wobbly edge, Details header over body, swatch ring lost; c5 masthead bold, tapes 1.3x large. Re-run e5, e4", status: open, branch: try/n3-vocabulary, result: null}

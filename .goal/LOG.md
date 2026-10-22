@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T19:40:00Z | Torn collage photos, hand note, issue line | Photo colours exact and flat, note on one line, no invented label: torn collage 69 to 82%. 85k.
 2026-10-22T19:12:00Z | Torn collage first build | Tapes, drop cap, red pen ring said: torn collage built first time, 69%, all must-haves. 93k.
 2026-10-22T18:58:00Z | Product page slow build | Thumbs, swatches, heart no longer drawn-shape files: build 8 to 4 min, 45 to 69%. 178k.
 2026-10-22T18:08:00Z | Product page run cap, kanban re-run | Repair waits if no time left: product page completes 45%; kanban 51 to 74%. 251k.
