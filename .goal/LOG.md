@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T18:08:00Z | Product page run cap, kanban re-run | Repair waits if no time left: product page completes 45%; kanban 51 to 74%. 251k.
 2026-10-22T17:05:00Z | Everyday pages drifting lower | New height check plus repair: kanban 36 to 51%, admin 64%; product page ran out of time. 255k.
 2026-10-22T16:25:00Z | Round 7 product photo, thumbs, heart, pager | Product page 48 to 62%; kanban 36% (blocks drift low); admin 62%, pager caption built. 257k.
 2026-10-22T15:40:00Z | Round 7 everyday: kanban, funnel, product | Card gaps, funnel, stacked bars, cohort shades said: kanban 23 to 50, dashboard 28 to 75, product 30 to 48%. 229k.
