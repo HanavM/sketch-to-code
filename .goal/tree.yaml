@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Kanban board 23 to 50%, growth dashboard 28 to 75%, product page 30 to 48%. Next: the product photo's jacket shape and thumbnails, then the torn collage."
-lock: null
+lock: {by: run-2026-10-22T1541, until: "2026-10-22T17:11:00Z"}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
