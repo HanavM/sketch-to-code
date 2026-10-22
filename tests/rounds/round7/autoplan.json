@@ -581,7 +581,7 @@
    ],
    [
     "lane-web",
-    "box"
+    "text"
    ],
    [
     "card-1",
@@ -613,7 +613,7 @@
    ],
    [
     "lane-mobile",
-    "box"
+    "text"
    ],
    [
     "card-8",
@@ -646,60 +646,76 @@
     "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill)"
    ],
    [
+    "head-todo",
+    "one line 290px wide: bold 13px \"To do\" at the left, grey \"5\" at the far right end of the same line"
+   ],
+   [
+    "head-doing",
+    "one line 290px wide: bold 13px \"In progress\" at the left, bold red \"4 / 3\" at the far right end of the same line"
+   ],
+   [
+    "head-review",
+    "one line 290px wide: bold 13px \"Review\" at the left, grey \"2\" at the far right end of the same line"
+   ],
+   [
+    "head-done",
+    "one line 290px wide: bold 13px \"Done\" at the left, grey \"7\" at the far right end of the same line"
+   ],
+   [
     "lane-web",
-    "input \"▾ WEB APP\""
+    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ WEB APP\" at the left"
    ],
    [
     "card-1",
-    "white card \"Bug\", text \"Login loops on Safari 18\""
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Login loops on Safari 18\" under it; a 24px round amber avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-2",
-    "white card \"Feature\", text \"Saved filters in sidebar\""
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Saved filters in sidebar\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-3",
-    "\"Feature\", thin progress bar 60% filled green on a light grey track, small grey \"Bulk edit for tasks\" under"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green progress bar 60% full on a light grey track under the title; a 24px round purple avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-4",
-    "white card \"Blocked\", text \"Billing webhooks retry\""
+    "white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title \"Billing webhooks retry\" under it; a 24px round amber avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-5",
-    "white card \"Chore\", text \"Upgrade to Node 24\""
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Upgrade to Node 24\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-6",
-    "faded to 60% opacity (see-through) white card \"Dark mode tokens\""
+    "white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title \"Dark mode tokens\", struck through (line-through)"
    ],
    [
     "card-7",
-    "faded to 60% opacity (see-through) white card \"Onboarding checklist\""
+    "white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title \"Onboarding checklist\", struck through (line-through)"
    ],
    [
     "lane-mobile",
-    "input \"▾ MOBILE\""
+    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ MOBILE\" at the left"
    ],
    [
     "card-8",
-    "white card \"Bug\", text \"Push opens wrong screen\""
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Push opens wrong screen\" under it; a 24px round pink avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-9",
-    "\"Feature\", thin progress bar 30% filled green on a light grey track, small grey \"Offline drafts\" under"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green progress bar 30% full on a light grey track under the title; a 24px round pink avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-10",
-    "\"Feature\", thin progress bar 85% filled green on a light grey track, small grey \"Widget for iOS home screen\" under"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green progress bar 85% full on a light grey track under the title; a 24px round purple avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-11",
-    "white card \"Chore\", text \"Crash reporting SDK\""
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Crash reporting SDK\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
    ],
    [
     "card-12",
-    "faded to 60% opacity (see-through) white card \"App icon refresh\""
+    "white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title \"App icon refresh\", struck through (line-through)"
    ]
   ]
  },
@@ -883,7 +899,7 @@
    ],
    [
     "price",
-    "text"
+    "box"
    ],
    [
     "colour-label",
@@ -927,7 +943,7 @@
    ],
    [
     "acc-details",
-    "box"
+    "text"
    ],
    [
     "acc-body",
@@ -939,11 +955,11 @@
    ],
    [
     "acc-care",
-    "box"
+    "text"
    ],
    [
     "acc-returns",
-    "box"
+    "text"
    ]
   ],
   "notes": [
@@ -973,7 +989,7 @@
    ],
    [
     "price",
-    "\"$189$240-21%\""
+    "white task card 166x32px: small 12px bold tag \"-21%\" (white text on a red #dc2626, 4px rounded) at the top left; title \"$240\" under it, struck through (line-through)"
    ],
    [
     "colour-label",
@@ -1017,7 +1033,7 @@
    ],
    [
     "acc-details",
-    "\"Details −\""
+    "one line 474px wide: bold 14px \"Details\" at the left, bold dark navy \"−\" at the far right end of the same line"
    ],
    [
     "acc-body",
@@ -1025,11 +1041,11 @@
    ],
    [
     "acc-care",
-    "\"Care & materials +\""
+    "one line 474px wide: bold 14px \"Care & materials\" at the left, bold dark navy \"+\" at the far right end of the same line"
    ],
    [
     "acc-returns",
-    "\"Returns +\""
+    "one line 474px wide: bold 14px \"Returns\" at the left, bold dark navy \"+\" at the far right end of the same line"
    ]
   ]
  },
@@ -1099,19 +1115,19 @@
    ],
    [
     "bulk-bar",
-    "buttons: \"Change role\", \"Suspend\", \"Remove\""
+    "dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then small outlined buttons (thin see-through white border, no fill, regular weight): \"Change role\", \"Suspend\", \"Remove\""
    ],
    [
     "table",
-    "table, columns \"\", \"Name ↓\", \"Email\", \"Role\", \"Status\", \"Usage\", \"Last active\", \"\", 10 rows; status pills amber \"A\", green \"Active\", blue \"✓\", cyan \"B\""
+    "table (a real <table>, every row built, none left out): pale grey (#f3f4f6) header row, 12px grey semibold: empty checkbox | bold \"Name ↓\" | bold grey \"Email\" | bold grey \"Role\" | bold grey \"Status\" | bold grey \"Usage\" | bold grey \"Last active\" | (empty); then 10 body rows each 48px tall, a thin pale grey line between rows, cells in column order: row 1: empty checkbox | amber round 26px avatar \"A\" + bold \"Ava Chen\" | grey \"ava@lumen.io\" | \"Admin\" | green pill \"Active\" | 90px blue bar 92% full + \"92%\" | grey \"Oct 21\" | grey \"⋯\"; row 2: ticked blue checkbox | cyan round 26px avatar \"B\" + bold \"Ben Ortiz\" | grey \"ben@lumen.io\" | \"Editor\" | green pill \"Active\" | 90px blue bar 64% full + \"64%\" | grey \"Oct 20\" | grey \"⋯\"; row 3: empty checkbox | purple round 26px avatar \"C\" + bold \"Chloe Park\" | grey \"chloe@lumen.io\" | \"Viewer\" | indigo pill \"Invited\" | 90px blue bar 0% full + \"0%\" | grey \"—\" | grey \"⋯\"; row 4: ticked blue checkbox | pink round 26px avatar \"D\" + bold \"Dev Patel\" | grey \"dev@lumen.io\" | \"Editor\" | green pill \"Active\" | 90px blue bar 78% full + \"78%\" | grey \"Oct 22\" | grey \"⋯\"; row 5: empty checkbox | green round 26px avatar \"E\" + bold \"Elif Kaya\" | grey \"elif@lumen.io\" | \"Admin\" | red pill \"Suspended\" | 90px blue bar 15% full + \"15%\" | grey \"Sep 30\" | grey \"⋯\"; row 6: empty checkbox | orange round 26px avatar \"F\" + bold \"Femi Ade\" | grey \"femi@lumen.io\" | \"Viewer\" | green pill \"Active\" | 90px blue bar 41% full + \"41%\" | grey \"Oct 18\" | grey \"⋯\"; row 7: ticked blue checkbox | blue round 26px avatar \"G\" + bold \"Gus Lind\" | grey \"gus@lumen.io\" | \"Editor\" | green pill \"Active\" | 90px blue bar 88% full + \"88%\" | grey \"Oct 22\" | grey \"⋯\"; row 8: empty checkbox | purple round 26px avatar \"H\" + bold \"Hana Sato\" | grey \"hana@lumen.io\" | \"Viewer\" | indigo pill \"Invited\" | 90px blue bar 0% full + \"0%\" | grey \"—\" | grey \"⋯\"; row 9: empty checkbox | teal round 26px avatar \"I\" + bold \"Ivo Novak\" | grey \"ivo@lumen.io\" | \"Editor\" | green pill \"Active\" | 90px blue bar 57% full + \"57%\" | grey \"Oct 19\" | grey \"⋯\"; row 10: empty checkbox | red round 26px avatar \"J\" + bold \"Jae Kim\" | grey \"jae@lumen.io\" | \"Viewer\" | green pill \"Active\" | 90px blue bar 33% full + \"33%\" | grey \"Oct 12\" | grey \"⋯\"; the 2nd, 4th, 7th rows are selected: whole row tinted off-white (#eff6ff)"
    ],
    [
     "status-menu",
-    "white card \"Any status Active ✓ Invited Suspended\""
+    "open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 4 options stacked one per line, 32px apart: \"Any status\", \"Active ✓\", \"Invited\", \"Suspended\"; \"Active ✓\" highlighted (off-white (#eff6ff) rounded fill across the menu, blue text, semibold)"
    ],
    [
     "pager",
-    "pager page buttons \"‹\", \"1\" current, \"2\", \"3\", \"…\", \"13\", \"›\""
+    "one line 1200px wide: 13px \"Showing 1–10 of 128\" at the left, grey \"‹123…13›\" at the far right end of the same line"
    ]
   ]
  }

@@ -1,0 +1,201 @@
+{
+  "id": "e5-admin-table",
+  "at": "2026-10-22T15:01:07.301Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6612645187342775,
+    "overallV2": 0.4589474139614337,
+    "overallV1": 0.2688647196136914,
+    "colour": 0.9524483387564712,
+    "structure": 0.7825719979158322,
+    "structureStrict": 0.42647302951657945,
+    "colourAligned": 0.9740614079591947,
+    "structureAligned": 0.898041606481849,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": -16,
+      "r": 0.9262013181616867
+    },
+    "layout": 0.5904597767441964
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 56459,
+    "output": 36136,
+    "cacheRead": 411081
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 73133,
+      "output": 28505,
+      "cacheRead": 148603,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 281444
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 10383,
+      "output": 4114,
+      "cacheRead": 259394,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Grep",
+        "Grep"
+      ],
+      "ms": 46560
+    }
+  ],
+  "reading": "The sketch is a team members admin page: a heading and subtitle, an \"+Invite\" button, a filter/search toolbar, a bulk-action bar for selected rows, a large data table of 10 team members with avatars/roles/status/usage, an open status-filter dropdown menu overlaying the table, and a pagination bar at the bottom. All text content and styling come directly from the typed notes attached to each stroke group; the page overall uses pale grey background, Helvetica type, and dark navy text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        44,
+        25,
+        165,
+        51
+      ],
+      "paths": [],
+      "instruction": "Page heading \"Team members\" (bold, large) with a 13px grey subtitle \"128 people · 9 pending invites\" beneath it, top-left of the page. Whole page uses pale grey"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1161,
+        32,
+        77,
+        32
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Blue pill button with white text reading \"+ Invite\", placed top-right of the page header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        107,
+        1193,
+        27
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Toolbar row beneath the header containing: a text input \"Search name or email\", a \"Role\" dropdown, a \"Status: Any\" dropdown, and a \"Columns\" button, laid out le"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        155,
+        1193,
+        38
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark blue (#1e3a8a) bulk-action bar, 1200x44px, 8px rounded corners: white bold \"3 selected\" text at the left, followed by small outlined buttons (thin see-thro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        211,
+        1193,
+        513
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Full data table (real <table> element, every row built, none omitted). Pale grey (#f3f4f6) header row, 12px grey semibold labels: empty checkbox column | bold \""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        249,
+        193,
+        140
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Open dropdown menu for the Status filter: 200x146px white card, 10px rounded corners, thin light grey border, soft shadow (12px offset down, 32px blur, 15% opac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 10
+        }
+      ],
+      "region": [
+        44,
+        850,
+        1192,
+        30
+      ],
+      "paths": [],
+      "instruction": "Pagination control at the bottom of the page: buttons \"‹\", \"1\" (current page, highlighted), \"2\", \"3\", \"…\", \"13\", \"›\"."
+    }
+  ],
+  "rejected": []
+}

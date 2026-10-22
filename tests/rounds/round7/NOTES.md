@@ -87,3 +87,28 @@ Re-run after the heading and band fixes (~126k billed):
 | c2 variable wave | 16% (37%) | 61% | wave word and a thin band right; slider rule built thick with a tiny knob (axis, knob, label regions missed) |
 
 Round-7 creative now: c1 85, c2 61, c3 90, c4 91; c5 torn collage not built yet.
+
+## n95: first live builds of the round-7 everyday pages (2026-10-22, ~404k billed)
+
+Planner, before the live run (rounds 1-6 plans unchanged):
+- a table whose cells hold checkboxes, round letter avatars or usage bars says every row cell by cell (checkbox,
+  avatar colour + letter, bold name, grey email, pill colour, bar %), the header fill, row height, the lines between
+  rows and which rows are selected (tinted); tables with only pills keep the old one-line note (rounds 3, 4);
+- a filled bar with its own lead copy says its fill, the lead ("3 selected") and that its buttons are outlined;
+- a floating menu (short options stacked in a white card with a big soft shadow) says its size, shadow, that it floats
+  over what is under it, the options one per line and the highlighted one;
+- (after e1's first build) a task card says its tag (colours), title, progress bar, avatar dot and corner, a coloured
+  left edge, faded and struck when done; a column head says its count at the far right (red "4 / 3"); a swimlane label
+  says its dashed rule across the page (was "input").
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| e1 kanban lanes (old plan) | 22% | ~60k | heads invented ("TO DO", "BACKLOG"), counts dropped; no avatars, no strike-through, done cards given tags; lanes as boxes |
+| e1 kanban lanes (card notes) | 23% | 66k | heads, counts, red "4 / 3", tags, avatars, struck done cards, red edge all right; but cards packed in flow (target keeps 60px gaps), MOBILE lane ~240px high, filter chips pushed right |
+| e2 funnel + cohort | 28% | ~70k | sparklines missing; funnel built as labelled progress rows (target filled labelled bars); stacked bar chart invented as a source list; cohort built as pills with invented numbers (target teal heat cells, triangle) |
+| e3 code editor | 86% | ~65k | close; line numbers, current line and terminal colours mostly right |
+| e4 product page | 30% | ~70k | main photo and two thumbs blank placeholders (lavender photo with the jacket shape unsaid); size states lost; sale badge pale; all ~15px low |
+| e5 admin table (row notes) | 66% | ~70k | every row, checkbox, avatar, pill, bar, selected tint, bulk bar and floating menu right; table ~16px low, pager below the page and "Showing 1–10 of 128" dropped |
+
+Round-7 everyday now: e1 23, e2 28, e3 86, e4 30, e5 66. Next: kanban cards at their drawn spots (absolute or fixed
+gaps) and lane top; e2 sparklines, funnel bars, stacked bars, cohort heat cells; e4 photo shape and size states.

@@ -1,0 +1,179 @@
+{
+  "id": "e2-funnel-cohort",
+  "at": "2026-10-22T14:41:00.367Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.2752586327100804,
+    "overallV2": 0.2752586327100804,
+    "overallV1": 0.2469512562765444,
+    "colour": 0.9137367936817178,
+    "structure": 0.5947700535563324,
+    "structureStrict": 0.39364613395990433,
+    "colourAligned": 0.9137367936817178,
+    "structureAligned": 0.5947700535563324,
+    "align": {
+      "scale": 0.92,
+      "dx": -16,
+      "dy": -16,
+      "r": 0.18483408019759887
+    },
+    "layout": 0.8191669894102788
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 27064,
+    "output": 15663,
+    "cacheRead": 145733
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36593,
+      "output": 13610,
+      "cacheRead": 142649,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 148791
+    }
+  ],
+  "reading": "The sketch lays out a dashboard: a header bar with a title and date-range button, a row of four stat cards, two side-by-side analytics cards (conversion funnel and sign-ups by source), and a wide retention-cohorts table card below. Typed notes supply exact titles, numbers, and table content for each card.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        36,
+        27,
+        1208,
+        27
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-width header bar labeled \"Growth\" on the left, with a white, near-black-text button reading \"Sep 1 – Oct 22, 2026 ▾\" aligned to the right, acting as the pa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        83,
+        284,
+        104
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "White stat card titled \"Visitors\" showing the large number \"48,210\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        342,
+        83,
+        283,
+        103
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "White stat card titled \"Sign-ups\" showing the large number \"3,904\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        647,
+        83,
+        284,
+        104
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "White stat card titled \"Activated\" showing the large number \"1,722\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        954,
+        83,
+        283,
+        103
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White stat card titled \"Paid\" showing the large number \"412\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        213,
+        554,
+        324
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "White card titled \"Conversion funnel\" showing percentage milestones \"100%\", \"38%\", \"8.1%\", \"3.6%\" next to a list of funnel steps: \"Visit\", \"View pricing\", \"Sign"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        611,
+        213,
+        633,
+        324
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "White card titled \"Sign-ups by source\" (chart/content area for source breakdown)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        559,
+        1210,
+        314
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "White card titled \"Weekly retention cohorts\" containing a table with columns \"\", \"W0\", \"W1\", \"W2\", \"W3\", \"W4\", \"W5\" and 6 rows; first row reads \"Sep 1\" | \"100%\""
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

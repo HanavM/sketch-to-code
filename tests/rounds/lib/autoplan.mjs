@@ -69,7 +69,7 @@ export function factsInPage() {
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
       clipText: (cs.webkitBackgroundClip || cs.backgroundClip) === 'text',
-      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor) },
+      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // an arch: round top corners, square bottom ones (round 4 c1 arch said as a circle, built as a ball)
@@ -458,6 +458,37 @@ export function factsInPage() {
       // text set round a circle (an SVG textPath badge)
       circleText: (() => { const t = el.querySelector('textPath'); return t ? { text: (t.textContent || '').trim(), px: Math.round(r.width) } : null })(),
       // the text kids' boxes: a card's button, a bottom-set block of copy (round 5 c5 CTA said as 'cards')
+      // a task card: a small coloured tag, a bold title, maybe a progress bar, a round avatar dot, a struck title
+      // (round 7 e1: tag colours, avatars, the blocked card's red edge and done cards' strike-through all unsaid)
+      taskCard: (() => {
+        if (!kids.length || kids.length > 5 || el.querySelector('[data-r]')) return null
+        const t = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
+        const fl = (k) => { const c = rgba(getComputedStyle(k).backgroundColor); return c && c.a > 0.05 ? c : null }
+        const tag = kids.find((k) => t(k) && t(k).length <= 16 && !k.children.length && fl(k) && k.getBoundingClientRect().height <= 26 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 2)
+        const title = kids.find((k) => k !== tag && t(k) && t(k).length <= 60)
+        if (!title || kids.filter((k) => t(k)).length > 2) return null
+        const av = kids.find((k) => { const b = k.getBoundingClientRect(); return !t(k) && fl(k) && b.width >= 14 && b.width <= 40 && Math.abs(b.width - b.height) <= 2 && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= b.width / 2 - 1 })
+        const bar = kids.find((k) => !t(k) && k.getBoundingClientRect().height <= 10 && k.children.length === 1 && fl(k.children[0]))
+        const tc = getComputedStyle(title)
+        const strike = /line-through/.test(tc.textDecorationLine)
+        if (!tag && !av && !strike && !bar) return null
+        const ab = av?.getBoundingClientRect()
+        return {
+          tag: tag ? { t: t(tag), fill: fl(tag), ink: rgba(getComputedStyle(tag).color), px: Math.round(parseFloat(getComputedStyle(tag).fontSize)) } : null,
+          title: { t: t(title), bold: Number(tc.fontWeight) >= 600 }, strike,
+          av: av ? { fill: fl(av), px: Math.round(ab.width), corner: `${ab.top + ab.height / 2 > r.top + r.height / 2 ? 'bottom' : 'top'}-${ab.left + ab.width / 2 > r.left + r.width / 2 ? 'right' : 'left'}` } : null,
+          bar: bar ? { pct: Math.round(bar.children[0].getBoundingClientRect().width / bar.getBoundingClientRect().width * 100), fill: fl(bar.children[0]), track: fl(bar), h: Math.round(bar.getBoundingClientRect().height) } : null,
+          opacity: parseFloat(cs.opacity),
+        }
+      })(),
+      // a label with one short kid pushed to its far right (a kanban column head 'To do ... 5'; round 7 e1: unsaid,
+      // the build invented the heads and dropped the counts)
+      endKid: (() => {
+        if (kids.length !== 1 || !ownText || ownText.length > 32) return null
+        const k = kids[0], b = k.getBoundingClientRect(), c = getComputedStyle(k), t = (k.innerText || '').trim()
+        if (!t || t.length > 12 || b.right < r.right - 4 || b.left < r.left + r.width * 0.5) return null
+        return { t, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 }
+      })(),
       kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16) } }),
       // its text as set, line by line (code in a card: the kids are only the coloured tokens)
       setLines: (el.innerText || '').split('\n').map((x) => x.replace(/ /g, ' ').replace(/\s+$/, '')),
@@ -578,12 +609,56 @@ export function factsInPage() {
     }
     return best
   }
+  // a table row's cells say their parts: checkbox, round letter avatar, status pill, usage bar, bold or grey copy
+  // (round 7 e5: rows unsaid beyond the columns; avatars read as status pills 'A', 'B'; checkboxes and bars lost)
+  const cellParts = (c, ink0) => {
+    const out = [], used = new Set()
+    const cd = (x, y) => (x && y ? Math.hypot(x.r - y.r, x.g - y.g, x.b - y.b) : 999)
+    for (const k of c.querySelectorAll('*')) {
+      if ([...used].some((u) => u.contains(k))) continue
+      const s = getComputedStyle(k), b = k.getBoundingClientRect(), t = txt(k), fl = filled(k), rad = parseFloat(s.borderTopLeftRadius) || 0
+      if (b.width >= 11 && b.width <= 22 && Math.abs(b.width - b.height) <= 2 && parseFloat(s.borderTopWidth) >= 1 && rad <= 6 && t.length <= 1) { out.push({ k: 'cb', fill: fl }); used.add(k); continue }
+      if (fl && b.width >= 18 && b.width <= 48 && Math.abs(b.width - b.height) <= 2 && rad >= b.width / 2 - 1 && t.length <= 2) { out.push({ k: 'av', fill: fl, px: Math.round(b.width), t }); used.add(k); continue }
+      if (b.height <= 10 && b.width >= 30 && fl && k.children.length === 1 && !t) {
+        const i = k.children[0], ib = i.getBoundingClientRect(), f2 = filled(i)
+        if (f2) { out.push({ k: 'bar', px: Math.round(b.width), fill: f2, track: fl, pct: Math.round(ib.width / b.width * 100) }); used.add(k); continue }
+      }
+      if (fl && t && t.length <= 18 && !k.children.length && b.height <= 30 && rad >= 3) { out.push({ k: 'pill', ink: rgba(s.color), fill: fl, t }); used.add(k); continue }
+    }
+    // the copy left once the parts are taken out
+    const rest = !used.size ? txt(c) : [...c.childNodes].map((n) => n.nodeType === 3 ? n.textContent : used.has(n) ? '' : (n.innerText ?? '')).join(' ').replace(/\s+/g, ' ').trim()
+    if (rest) {
+      const el = [...c.querySelectorAll('b,strong')].find((x) => !used.has(x)) ?? c
+      out.push({ k: 'txt', t: rest, bold: Number(getComputedStyle(el).fontWeight) >= 600, dim: cd(rgba(getComputedStyle(c).color), ink0) > 60 })
+    }
+    return out
+  }
+  const richTable = (tb) => {
+    const rows = [...tb.querySelectorAll('tr')]
+    if (rows.length < 4 || rows.length > 13 || !rows[0].querySelector('th')) return null
+    const body = rows.slice(1), ink0 = rgba(getComputedStyle(tb).color)
+    const cells = body.map((r) => [...r.children].map((c) => cellParts(c, ink0)))
+    // pills alone are said well enough by the plain table line (rounds 3, 4); checkboxes, avatars and bars are not
+    if (!cells.flat(2).some((x) => /^(cb|av|bar)$/.test(x.k))) return null
+    const bgOf = (r) => { const c = r.children[0]; return filled(c) ?? filled(r) }
+    const tints = body.map(bgOf)
+    const sel = body.map((r, i) => tints[i] ? i + 1 : 0).filter(Boolean)
+    const th = rows[0].children[0], ths = getComputedStyle(th)
+    const td = body[0].children[0]
+    return {
+      head: [...rows[0].children].map((c) => cellParts(c, ink0)), headFill: filled(th) ?? filled(rows[0]), headPx: Math.round(parseFloat(ths.fontSize)),
+      rowPx: Math.round(body[0].getBoundingClientRect().height), ruled: parseFloat(getComputedStyle(td).borderTopWidth) >= 1 ? rgba(getComputedStyle(td).borderTopColor) : null,
+      cells, sel: sel.length && sel.length < body.length ? { rows: sel, fill: tints[sel[0] - 1] } : null,
+    }
+  }
   function dense(el) {
     const cs = getComputedStyle(el)
     // table: header cells and body rows
     const trs = el.tagName === 'TABLE' ? [...el.querySelectorAll('tr')] : []
     if (trs.length >= 3) {
       const head = [...trs[0].children].map(txt)
+      const rich = richTable(el)
+      if (rich) return { type: 'rtable', title: null, ...rich }
       return { type: 'table', columns: head, rows: trs.length - 1, chips: chips(el) }
     }
     // week grid (round 6 e5): events absolutely placed over day columns and hour lines; the day heads (a 7-kid row
@@ -685,6 +760,8 @@ export function factsInPage() {
         const cols = cellsOf(rows[0]).map((c) => { const s = getComputedStyle(c); return { bold: Number(s.fontWeight) >= 600, right: s.textAlign === 'right' || s.textAlign === 'end' } })
         return { type: 'table', headless: true, title: title(), cols, all: rows.map((r) => cellsOf(r).map(txt)), ruled: parseFloat(getComputedStyle(cellsOf(rows[0])[0]).borderBottomWidth) >= 1, chips: chips(inner) }
       }
+      const rich = richTable(inner)
+      if (rich) return { type: 'rtable', title: title(), ...rich }
       return { type: 'table', title: title(), columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), chips: chips(inner) }
     }
     // gantt: a row of 4+ date column heads over filled task bars placed on their own rows
@@ -1163,6 +1240,16 @@ function denseNote(d) {
   if (!d) return null
   switch (d.type) {
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
+    case 'rtable': {
+      const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
+      const part = (x) => x.k === 'cb' ? (x.fill ? `ticked ${colourName(x.fill)} checkbox` : 'empty checkbox')
+        : x.k === 'av' ? `${colourName(x.fill)} round ${x.px}px avatar${x.t ? ` ${quote(x.t)}` : ''}`
+        : x.k === 'bar' ? `${x.px}px ${colourName(x.fill)} bar ${x.pct}% full`
+        : x.k === 'pill' ? `${chipColour(x)} pill ${quote(x.t)}`
+        : `${x.bold ? 'bold ' : ''}${x.dim ? 'grey ' : ''}${quote(x.t, 24)}`
+      const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
+      return `${d.title ? `${quote(d.title, 32)}, ` : ''}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row, ${d.headPx}px grey semibold: ${d.head.map(cell).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}`
+    }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
       if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
     case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
@@ -1405,6 +1492,28 @@ function decideOne(f, page, marked, said) {
     const host = fill ? `${colourName(f.bg)} block, centred in it ` : ''
     return { kind: 'box', note: withFx(`${host}a ${cr.px}px progress ring (not a picture): ${colourName(arc.c)} arc ${Math.round(arc.to - arc.from)}% of the way round from the top, the rest a ${colourName(track.c)} track${cr.label ? `, bold ${quote(cr.label)} in the middle` : ''}`) }
   }
+  // a swimlane label: one rule along its top only (round 7 e1 lanes said 'input "▾ WEB APP"')
+  if (f.text && f.text.length <= 40 && f.border.w >= 1 && f.border.bottom < 1 && f.border.left < 1 && visible(f.border.colour) && w >= 600 && h <= 60 && !f.kidCount && !f.regionKids.length) {
+    return { kind: 'text', note: `a full-width ${f.border.topStyle === 'dashed' ? 'dashed' : 'thin'} ${Math.round(f.border.w)}px ${colourName(f.border.colour)} line across the page (a section divider, not a box or input), and ${Math.round(f.rect.y + h > 0 ? h - f.font.size * 1.2 : 8)}px under it ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${colourName(f.colour)} ${f.font.transform === 'uppercase' || f.text === f.text.toUpperCase() ? 'capitals, wide letter-spacing ' : ''}label ${quote(f.text)} at the left` }
+  }
+  // a head with its count pushed right (round 7 e1 column heads)
+  if (f.endKid && !f.regionKids.length && h <= 50) {
+    const E = f.endKid
+    return { kind: 'text', note: `one line ${Math.round(w)}px wide: ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} at the left, ${E.bold ? 'bold ' : ''}${colourName(E.ink)} ${quote(E.t)} at the far right end of the same line` }
+  }
+  // a task card (kanban): tag, title, bar, avatar, edge, faded and struck when done
+  if (f.taskCard && !f.regionKids.length && w <= 420) {
+    const T = f.taskCard
+    const parts = [
+      T.tag ? `small ${T.tag.px}px bold tag ${quote(T.tag.t)} (${colourName(T.tag.ink)} text on a ${T.tag.fill.r + T.tag.fill.g + T.tag.fill.b > 600 ? `pale ${colourName(T.tag.ink)} tint` : colourName(T.tag.fill)} ${hexOf(T.tag.fill)}, 4px rounded) at the top left` : null,
+      `${T.title.bold ? 'semibold ' : ''}title ${quote(T.title.t, 60)}${T.tag ? ' under it' : ''}${T.strike ? ', struck through (line-through)' : ''}`,
+      T.bar ? `a thin ${T.bar.h}px ${colourName(T.bar.fill)} progress bar ${T.bar.pct}% full on a ${colourName(T.bar.track)} track under the title` : null,
+      T.av ? `a ${T.av.px}px round ${colourName(T.av.fill)} avatar dot (no letter) in the ${T.av.corner} corner` : null,
+    ].filter(Boolean)
+    const edge = f.border.left >= 3 && visible(f.border.leftColour) ? `, a ${Math.round(f.border.left)}px ${colourName(f.border.leftColour)} left edge` : ''
+    const faded = T.opacity < 0.95 ? `, the whole card faded to ${Math.round(T.opacity * 100)}% opacity (done)` : ''
+    return { kind: 'box', note: `${fill ? colourName(f.bg) : 'white'} task card ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}${bordered ? `, thin ${colourName(f.border.colour)} border` : ''}${edge}${faded}: ${parts.join('; ')}` }
+  }
   // a short pill label (not a link or button): its fill, border and bold copy (round 5 c4: 'pill input')
   if (f.radius >= h / 2 - 2 && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 84 && w <= 300 && !/^(a|button|input)$/.test(f.tag) && !f.centred && (bordered || fill) && !/…$|\.\.\.$|^search\b/i.test(f.text) && !f.regionKids.length) {
     const ink = textCol && fill && dist(f.colour, f.bg) > 150 ? `${textCol} ` : ''
@@ -1425,7 +1534,7 @@ function decideOne(f, page, marked, said) {
   if (dn) {
     const bgName = fill ? colourName(f.bg) : null
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
-    const card = fill && (bordered || f.radius >= 8) && /^(table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
+    const card = fill && (bordered || f.radius >= 8) && /^(r?table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
     // an order summary on a faint tint keeps it: a full-height side panel, or a card (round 6 e4: said with no fill)
     const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge, one flat colour, no gradient${f.border.left >= 1 && f.rect.x > 2 ? `, a thin ${colourName(f.border.leftColour)} line down its left edge` : ''})` : 'card'}` : null
     const col = card ?? side ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
@@ -1570,13 +1679,26 @@ function decideOne(f, page, marked, said) {
     const r = f.radios
     return { kind: 'box', note: `radio options${r.stacked ? ', stacked full width, each a white rounded box' : ' in a row'}: ${r.items.map((x) => `${quote(x.parts[0], 32)}${x.parts.length > 1 ? ` with ${x.parts.slice(1).join(' ')} right` : ''}${x.sel ? ' (selected: filled dark ring' + (x.thick ? ', dark 2px border' : '') + ')' : ''}`).join(', ')}` }
   }
+  // a floating menu: short options stacked one per line in a white card with a big soft shadow, one picked out
+  // (round 7 e5 status filter: said 'white card "Any status Active ✓ ..."' as run-on text)
+  const softSh = f.shadows.find((x) => !x.clear && x.blur >= 16)
+  const kbs = f.kidBoxes
+  if (softSh && kbs.length >= 3 && kbs.length === f.kidCount && kbs.every((k) => k.t.length <= 24) && kbs.every((k, i) => i === 0 || k.top >= kbs[i - 1].bottom - 2) && !f.regionKids.length && w <= 360) {
+    const pitch = Math.round(kbs[1].top - kbs[0].top)
+    const on = f.kidOn && kbs.some((k) => k.t === f.kidOn.t) ? `; ${quote(f.kidOn.t)} highlighted (${[f.kidOn.fill ? `${colourName(f.kidOn.fill)} (${hexOf(f.kidOn.fill)}) rounded fill across the menu` : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.bold ? 'semibold' : null].filter(Boolean).join(', ')})` : ''
+    const a = softSh.c ? Math.round(softSh.c.a * 100) : null
+    return { kind: 'box', note: `open dropdown menu, ${Math.round(w)}x${Math.round(h)}px ${colourName(f.bg) ?? 'white'} card${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}${bordered ? `, thin ${colourName(f.border.colour)} border` : ''}, big soft shadow ${Math.round(softSh.y)}px down ${Math.round(softSh.blur)}px blur${a !== null && a < 60 ? ` ${a}% opacity` : ''}; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); ${kbs.length} options stacked one per line, ${pitch}px apart: ${kbs.map((k) => quote(k.t)).join(', ')}${on}` }
+  }
   // a row of buttons
   if (f.kidButtons >= 2 && f.kidButtons === f.kidCount && h <= 120 && !f.regionKids.length) {
     // a row of controls: a placeholder is an input, 'Role: All' or '▾' is a dropdown, the rest are buttons
     const ctl = (t) => /…$|\.\.\.$|^search\b/i.test(t) ? `input ${quote(t)}` : /▾|▼|:\s*\S/.test(t) ? `dropdown ${quote(t.replace(/\s*[▾▼]$/, ''))}` : `button ${quote(t)}`
     const items = f.kidTexts.map(ctl)
     const on = f.kidOn?.fill && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${colourName(f.kidOn.fill)} fill)` : ''
-    return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `buttons: ${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on }
+    // a filled bar with its own lead copy before the buttons (round 7 e5 bulk bar: '3 selected' and the navy fill unsaid)
+    const lead = f.ownText && f.ownText.length <= 32 && fill ? `${colourName(f.bg)} (${hexOf(f.bg)}) bar ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: ${textCol ? `${textCol} ` : ''}bold ${quote(f.ownText)} at the left, then ` : ''
+    const ghost = lead && f.kidBoxes.every((k) => !(k.fill?.a > 0.05)) ? 'small outlined buttons (thin see-through white border, no fill, regular weight): ' : 'buttons: '
+        return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on }
   }
   // a bar with one item at each end (a logo left, links right): round 5 c1 nav and c3 frosted header were unsaid
   const kb = f.kidBoxes
