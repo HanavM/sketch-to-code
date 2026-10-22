@@ -1,23 +1,23 @@
 {
   "id": "e5-week-calendar",
-  "at": "2026-10-22T04:21:44.763Z",
+  "at": "2026-10-22T04:44:48.843Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5494980426497527,
-    "overallV2": 0.4107243150279033,
-    "overallV1": 0.25942491991418937,
-    "colour": 0.9845591731533194,
-    "structure": 0.8769534645806606,
-    "structureStrict": 0.7639541797096994,
-    "colourAligned": 0.9881140020613137,
-    "structureAligned": 0.9270033260748414,
+    "overall": 0.7524894068093588,
+    "overallV2": 0.7524894068093588,
+    "overallV1": 0.6312509352265226,
+    "colour": 0.9934883652796113,
+    "structure": 0.9664589011528688,
+    "structureStrict": 0.8913812540750383,
+    "colourAligned": 0.9934883652796113,
+    "structureAligned": 0.9664589011528688,
     "align": {
       "scale": 1,
       "dx": 0,
-      "dy": -32,
-      "r": 0.605788556718905
+      "dy": 0,
+      "r": 0.9223329323508384
     },
-    "layout": 0.537142410638254
+    "layout": 0.7093541018879397
   },
   "effects": {
     "recall": 0,
@@ -26,36 +26,40 @@
       "overlap",
       "stripes-or-layers"
     ],
-    "extra": []
+    "extra": [
+      "soft-shadow"
+    ]
   },
   "tokens": {
-    "input": 29789,
-    "output": 19711,
-    "cacheRead": 179742
+    "input": 33185,
+    "output": 18005,
+    "cacheRead": 249763
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 43076,
-      "output": 17118,
-      "cacheRead": 176658,
-      "toolCalls": 6,
+      "billed": 41910,
+      "output": 14771,
+      "cacheRead": 239647,
+      "toolCalls": 8,
       "tools": [
+        "Grep",
         "Glob",
         "Read src/App.tsx",
         "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 177610
+      "ms": 162704
     }
   ],
-  "reading": "The sketch builds a week-view calendar: a header with a bold month title and nav/view links, a row of day-of-week column heads, an hourly time rail, a week grid filled with color-coded, time-positioned event cards (per the detailed typed note), an extra off-white \"Launch sync\" card, and a red current-time indicator line with a dot.",
+  "reading": "The sketch is a full week-view calendar: a header row with a bold title and nav/view-switch controls, a day-header strip with a circled current date, a week grid with hourly lines and several color-coded event cards, a highlighted 'Launch sync' card, and a thin red current-time indicator line.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [
         "s0",
         "s1"
@@ -77,10 +81,10 @@
         48
       ],
       "paths": [],
-      "instruction": "Calendar header: bold 22px heading \"October 2026\" followed by nav links Today, ‹, ›, and view-switch links Day, Week, Month."
+      "instruction": "Build the calendar toolbar: bold 22px heading \"October 2026\" first, then links: Today, ‹, › (small outlined buttons) and a Day / Week / Month outlined switch wi"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [
         "s2",
         "s3"
@@ -102,7 +106,7 @@
         56
       ],
       "paths": [],
-      "instruction": "Row of day-of-week header links acting as the 7 day-column heads above the week grid: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25."
+      "instruction": "Build the day-header row with links for each day: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25; the \"22\" sits inside a 32px round red circle with whit"
     },
     {
       "kind": "add",
@@ -110,32 +114,18 @@
       "textSize": [],
       "region": [
         24,
-        124,
-        17,
-        772
-      ],
-      "paths": [
-        "s4"
-      ],
-      "instruction": "Vertical strip of thin hour gridlines down the left edge of the calendar, labeled 8 AM through 6 PM, to anchor the rows of the week grid."
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        67,
         123,
-        1210,
+        1253,
         774
       ],
       "paths": [
+        "s4",
         "s5"
       ],
-      "instruction": "Week grid with 7 day columns under the day heads and thin hour rows from 8 AM to 6 PM. Place event cards by day/time, each with a pale fill, a darker left edge "
+      "instruction": "Build the week grid below the day headers: 7 day columns, thin hour lines running 8 AM to 6 PM down the left with each hour row exactly 72px tall. Populate it w"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -147,7 +137,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "An off-white event card reading \"Launch sync 11:00–12:30\", placed within the week grid alongside the other event cards."
+      "instruction": "Add a pale purple event card, 165x100px, with a 4px purple left edge and 6px rounded corners, bold \"Launch sync\" title followed by \"11:00–12:30\" underneath, pla"
     },
     {
       "kind": "add",
@@ -162,7 +152,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Current-time indicator: a thin solid red line, 2px tall and 174px wide, with a 10px round red dot on its left end, overlaid across the week grid with no accompa"
+      "instruction": "Add a thin solid red current-time indicator line, 2px tall and 174px wide, with a 10px round red dot on its left end, no text, overlaid across the week grid at "
     }
   ],
   "rejected": []

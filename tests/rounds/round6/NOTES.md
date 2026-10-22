@@ -94,3 +94,21 @@ bold title then time" (was "off-white card"). Rounds 1-5: only colour words chan
 targets, off-white->pale blue-grey on r3 e2 and r5 e1 pages).
 
 Left: e4 form-in-card and invented heading; e5 nested selected segment ("Week") and today's red date circle.
+
+## n82: fixes and re-runs (2026-10-22, ~308k billed tokens incl. one failed e4 reading)
+
+Free planner fixes: a form with no fill/border says its fields sit straight on the page (no card); an order summary
+with nothing above its rows says "no heading, first row starts Npx below the panel top"; a top bar says which items
+are small outlined buttons and a nested switch's selected segment ("Day / Week / Month ... Week selected, dark navy
+fill, white text"); a number in a filled round circle is said ("22" in a 32px red circle). Rounds 1-5 plans unchanged.
+Codegen (run2 PAGE LOOK): a tinted page colour (pale blue-grey, off-white, cream) must show as that tint, never
+plain white - e2 and e4 had been built on white.
+
+| page | n81 | n82 | note |
+|---|---|---|---|
+| e1 mega-menu | 58% | **79%** | panel full height, 4 empty cards built as 4 cards; a blue strip shows along the menu top |
+| e2 dashboard | 78% | 66% then **76%** (with tint fix) | page now pale blue-grey; content spaced ~5% looser |
+| e4 checkout | 32% | 43% then **50%** (with tint fix) | no invented card or heading, summary starts lower; thumbnails built near-invisible, step connector lines missing, layout ~5% looser |
+| e5 week | 55% | **75%** | Week tab filled, today's 22 in a red circle; Today/‹/› placed right instead of left |
+
+e4's reading failed once more with error_max_structured_output (2 of 4 e4 tries): worth a look.

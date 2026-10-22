@@ -452,7 +452,8 @@ export async function runV2(
         `apply them to the page itself — the outermost page wrapper / body background, filling at ` +
         `least the full viewport height (min-height: 100vh) behind every block — not only to the ` +
         `block the note was typed on. A box drawn across the top is still a nav row on that ` +
-        `page, not a filled bar, unless a note says so:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
+        `page, not a filled bar, unless a note says so. A tinted page colour (pale blue-grey, off-white, ` +
+        `cream, warm paper) must show as that tint behind the white cards, never plain white:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
