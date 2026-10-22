@@ -238,6 +238,13 @@ describe('textSize survives how the reading splits the page (round 1, c2)', () =
       expect(a.textSize![0]!.fontPx).toBeGreaterThan(140)
     }
   })
+  it('a text-only action spans its drawn lines\' boxes, not just the ink (round 4 c1 headline built half a line low)', () => {
+    const [a] = ground([{ strokes: ['s1', 's2'], instruction: 'MAKE IT LOUD' }])
+    // line centres 200 and 372, pitch 172: lines run from 114 to 458
+    expect(Math.abs(a!.region!.y - 114)).toBeLessThanOrEqual(4)
+    expect(Math.abs(a!.region!.y + a!.region!.h - 458)).toBeLessThanOrEqual(4)
+    expect(a!.region!.x).toBe(48)
+  })
   it('headline and body cited together keep two sizes, not one blended one', () => {
     const [a] = ground([{ strokes: ['s1', 's2', 's3', 's4'], instruction: 'hero' }])
     const sizes = a!.textSize!.map((t) => t.fontPx).sort((x, y) => x - y)

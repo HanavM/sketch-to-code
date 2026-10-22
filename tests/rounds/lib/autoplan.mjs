@@ -704,7 +704,33 @@ function gradientWords(f) {
   }
   // hard colour stops (a b 20%, b 20% 40%) are stripes, not a blend
   const hard = (f.bgImage.match(/\d+%\s*,\s*rgb[^)]+\)\s+\d+%/g) || []).length >= 2 || /\)\s+\d+%\s+\d+%/.test(f.bgImage)
-  return hard ? `${names.join(', ')} stripes` : `${names.join(' to ')} gradient`
+  if (hard) return `${names.join(', ')} stripes`
+  // which end is which (round 4 c1 blue photo built flat navy, round 5 c4 dark end on the
+  // wrong side): a two-colour linear blend says where each colour sits and whether it is vivid
+  const ends = linearEnds(f.bgImage)
+  if (ends && names.length === 2 && /^linear-gradient/.test(f.bgImage.trim())) {
+    const cs = f.bgImageColours.filter((c) => (parse(c)?.a ?? 1) >= 0.3)
+    const say = (c) => `${vivid(c) ? 'vivid ' : ''}${colourName(c)}`
+    return `${say(cs[0])} (${ends[0]}) to ${say(cs[cs.length - 1])} (${ends[1]}) gradient`
+  }
+  return `${names.join(' to ')} gradient`
+}
+/** Start and end sides of a linear-gradient: 160deg -> ['top', 'bottom'], 135deg -> ['top left', 'bottom right']. */
+function linearEnds(bgImage) {
+  const m = bgImage.match(/linear-gradient\(\s*([^,(]+),/)
+  let deg = 180
+  if (m && /deg|turn|to /.test(m[1])) {
+    const a = m[1].trim()
+    if (/deg$/.test(a)) deg = parseFloat(a)
+    else if (/turn$/.test(a)) deg = parseFloat(a) * 360
+    else {
+      const v = (/top/.test(a) ? -1 : /bottom/.test(a) ? 1 : 0), h = (/left/.test(a) ? -1 : /right/.test(a) ? 1 : 0)
+      deg = (Math.atan2(h, -v) * 180) / Math.PI
+    }
+  }
+  const sides = ['top', 'top right', 'right', 'bottom right', 'bottom', 'bottom left', 'left', 'top left']
+  const to = Math.round((((deg % 360) + 360) % 360) / 45) % 8
+  return [sides[(to + 4) % 8], sides[to]]
 }
 /** Look words any block can carry: tilt, blur, glass, bleeding off the page. */
 function effectWords(f) {
