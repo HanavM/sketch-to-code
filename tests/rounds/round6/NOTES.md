@@ -55,3 +55,21 @@ Untuned planner misses (rounds 1-5 plans must not change):
   two body paragraphs).
 - Left for later: e1 sublines/shadow/featured square, e2 donut segments + table first row, e4 summary items,
   labelled fields and the selected delivery card.
+
+## n80 fixes (free)
+- e4: order lines (a square picture with a round quantity badge on its corner, name over a small line, price right)
+  are said as an order summary with every name, subline, badge and price, then the discount field with its button,
+  the subtotal/shipping/tax rows and the ruled big total; the panel says it is a full-height off-white side panel
+  (was "off-white card ... list: 1, 2, 1").
+- e4: a filled-in form whose white fields sit on an off-white page is read as a form; with section headings or a row
+  of choice cards it is said in reading order: headings, labelled fields holding their values, and the delivery
+  cards with the chosen one's 2px near-black border.
+- e2: a conic donut with 3+ segments says each segment clockwise, the ring thickness from its ::after hole, the
+  grey track, the title and the legend row (was "progress ring, indigo arc 46%"). A table with no header row says
+  so and lists every row, with the bold right-aligned amount column (was "columns Acme Corp, $6,400").
+- e1: links with a small grey line under each say every subline; a small caps column head says so. A dropdown
+  panel (square top under the bar, rounded bottom, big soft shadow) says it hangs from the bar over the page.
+  A picture painted by ::before (the featured card's gradient square) is said with the card's lines in order.
+- Rounds 1, 2, 4, 5 plans unchanged. Round 3 e4 chat sidebar now says each conversation's preview line (it was
+  half said, as "Jonas Berg" See you at 3?) and keeps "Design team" highlighted.
+- Left: e3/e5 done in n78; creative misses are n79.

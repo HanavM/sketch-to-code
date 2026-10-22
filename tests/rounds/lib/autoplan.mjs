@@ -19,7 +19,7 @@
  */
 
 /** Runs in the target page. Returns raw facts per [data-r] element + the body. */
-function factsInPage() {
+export function factsInPage() {
   const rgba = (s) => {
     const m = s.match(/rgba?\(([^)]+)\)/)
     if (!m) return null
@@ -270,7 +270,12 @@ function factsInPage() {
           else stops.push({ key: m[1], c: rgba(m[1]), from: pos[0] ?? (last ? last.to : 0), to: pos[pos.length - 1] ?? 100 })
         }
         const label = [k, ...k.querySelectorAll('*')].map((g) => (getComputedStyle(g, '::after').content || '').replace(/^"|"$/g, '')).find((t) => t && t !== 'none' && t !== 'normal') || txt(k)
-        return { px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
+        // a donut's hollow middle cut by a round ::after/::before disc, and a legend row of 'Name 46%' spans (round 6 e2)
+        const hole = ['::after', '::before'].map((w) => getComputedStyle(k, w)).find((c) => c.content && c.content !== 'none' && parseFloat(c.width) > 0 && parseFloat(c.width) < b.width && rgba(c.backgroundColor)?.a > 0.5)
+        const lg = [...el.querySelectorAll('*')].find((p) => p !== k && !k.contains(p) && p.children.length >= 2 && [...p.children].every((g) => !g.children.length && /\d%/.test(g.textContent || '') && (g.textContent || '').trim().length <= 24))
+        const hd = el.querySelector('h1,h2,h3,h4')
+        const extra = { hole: hole ? { ring: Math.round((b.width - parseFloat(hole.width)) / 2), fill: rgba(hole.backgroundColor) } : null, legend: lg ? [...lg.children].map((g) => (g.textContent || '').trim()) : null, legendBelow: lg ? lg.getBoundingClientRect().top >= b.bottom - 2 : false, title: hd && !k.contains(hd) ? (hd.innerText || '').trim() : null }
+        return { ...extra, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
       })(),
       // text set round a circle (an SVG textPath badge)
       circleText: (() => { const t = el.querySelector('textPath'); return t ? { text: (t.textContent || '').trim(), px: Math.round(r.width) } : null })(),
@@ -282,6 +287,10 @@ function factsInPage() {
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
+      // each corner's radius (a dropdown hangs square-topped from its bar, round 6 e1)
+      corners: ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((c) => parseFloat(cs[`border${c}Radius`]) || 0),
+      // a picture block painted by ::before/::after (round 6 e1 featured card's gradient square: unsaid)
+      pseudoPic: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw >= 40 && ph >= 40) || pw > 200 || ph > 200 || pw >= r.width * 0.6) continue; const g = [...c.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])).filter(Boolean); const fl = rgba(c.backgroundColor); if (!g.length && !(fl?.a > 0.05)) continue; return { w: Math.round(pw), h: Math.round(ph), grad: g.length >= 2 ? g : null, fill: fl?.a > 0.05 ? fl : null, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
       // a round dot hung on the element by ::before/::after (a calendar now-line's knob, round 6 e5)
       pseudoDot: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (c.content && c.content !== 'none' && pw >= 4 && pw <= 20 && Math.abs(pw - ph) <= 1 && parseFloat(c.borderTopLeftRadius) >= pw * 0.4 && rgba(c.backgroundColor)?.a > 0.05) return { px: Math.round(pw), at: (parseFloat(c.left) || 0) < r.width / 2 ? 'left' : 'right' } } return null })(),
       // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
@@ -464,6 +473,13 @@ function factsInPage() {
     const inner = el.tagName !== 'TABLE' && el.querySelectorAll('table').length === 1 ? el.querySelector('table') : null
     if (inner && inner.querySelectorAll('tr').length >= 3) {
       const rows = [...inner.querySelectorAll('tr')]
+      // no header row: the first row is styled like the rest (round 6 e2 'Top accounts': 'Acme Corp' read as a column name)
+      const look = (c) => { const s = getComputedStyle(c); return `${s.fontWeight}|${s.color}|${s.backgroundColor}|${s.textTransform}|${s.fontSize}` }
+      const cellsOf = (r) => [...r.children]
+      if (rows.length <= 10 && !rows[0].querySelector('th') && cellsOf(rows[0]).length === cellsOf(rows[1]).length && cellsOf(rows[0]).every((c, i) => look(c) === look(cellsOf(rows[1])[i]))) {
+        const cols = cellsOf(rows[0]).map((c) => { const s = getComputedStyle(c); return { bold: Number(s.fontWeight) >= 600, right: s.textAlign === 'right' || s.textAlign === 'end' } })
+        return { type: 'table', headless: true, title: title(), cols, all: rows.map((r) => cellsOf(r).map(txt)), ruled: parseFloat(getComputedStyle(cellsOf(rows[0])[0]).borderBottomWidth) >= 1, chips: chips(inner) }
+      }
       return { type: 'table', title: title(), columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), chips: chips(inner) }
     }
     // gantt: a row of 4+ date column heads over filled task bars placed on their own rows
@@ -527,7 +543,9 @@ function factsInPage() {
     // a filled-in form (a modal: round 5 e1): each field a bordered leaf box >=30px tall with its label right above it
     // (the label is the previous sibling, not a wrapper), maybe holding a value; buttons along the bottom said by look
     const lab = (g) => { const p = g.previousElementSibling; if (!p || p.children.length || !txt(p) || txt(p).length > 32 || parseFloat(getComputedStyle(p).borderTopWidth) >= 1) return null; const a = p.getBoundingClientRect(), b = g.getBoundingClientRect(); return b.top - a.bottom >= -2 && b.top - a.bottom <= 16 && a.left - b.left < 8 ? txt(p) : null }
-    const flds = [...el.querySelectorAll('*')].filter((g) => g.closest('[data-r]') === el && !g.children.length && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 && txt(g).length <= 40 && !(rgba(getComputedStyle(g).backgroundColor)?.a > 0.05) && lab(g))
+    // a white input on an off-white page is still an empty-looking field (round 6 e4 checkout: #fff boxes on #fafaf9)
+    const inputWhite = (g) => { const c = rgba(getComputedStyle(g).backgroundColor); const pb = rgba(getComputedStyle(document.body).backgroundColor); return c && c.r >= 250 && c.g >= 250 && c.b >= 250 && pb && pb.a > 0.05 && (pb.r < 252 || pb.g < 252 || pb.b < 252) }
+    const flds = [...el.querySelectorAll('*')].filter((g) => g.closest('[data-r]') === el && !g.children.length && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30 && txt(g).length <= 40 && (!(rgba(getComputedStyle(g).backgroundColor)?.a > 0.05) || inputWhite(g)) && lab(g))
     if (flds.length >= 3) {
       const rows = new Map()
       for (const g of flds) { const y = Math.round(g.getBoundingClientRect().top / 10); rows.set(y, [...(rows.get(y) ?? []), g]) }
@@ -539,7 +557,13 @@ function factsInPage() {
       // buttons pinned low with a big empty gap above them: the card keeps its drawn height (round 5 e1 modal built content-high)
       const lastField = Math.max(...flds.map((g) => g.getBoundingClientRect().bottom))
       const gap = btns.length ? Math.min(...btns.map((b) => b.top)) - lastField : 0
-      return { type: 'form', title: title(), close: close ? txt(close) : null, buttons: btns, gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
+      // section headings between the fields (round 6 e4: 'Contact', 'Shipping address', 'Delivery' were a list)
+      const secs = [...el.querySelectorAll('h1,h2,h3,h4')].filter((h) => h.closest('[data-r]') === el && txt(h) && txt(h).length <= 40).map((h) => ({ t: txt(h), y: h.getBoundingClientRect().top }))
+      // a row of 2-4 bordered choice cards, two lines each, one picked by a thicker border (round 6 e4 delivery)
+      const bwOf = (k) => parseFloat(getComputedStyle(k).borderTopWidth) || 0
+      const chooser = [...el.querySelectorAll('*')].find((p) => p.closest('[data-r]') === el && p.children.length >= 2 && p.children.length <= 4 && [...p.children].every((k) => { const b = k.getBoundingClientRect(); return bwOf(k) >= 1 && k.children.length && b.height >= 48 && b.height <= 140 && (k.innerText || '').split('\n').filter((x) => x.trim()).length === 2 && Math.abs(b.top - p.children[0].getBoundingClientRect().top) <= 2 }) && new Set([...p.children].map(bwOf)).size === 2 && [...p.children].filter((k) => bwOf(k) === Math.max(...[...p.children].map(bwOf))).length === 1)
+      const choice = chooser ? { y: chooser.getBoundingClientRect().top, items: [...chooser.children].map((k) => ({ lines: (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), sel: bwOf(k) === Math.max(...[...chooser.children].map(bwOf)) ? { w: bwOf(k), c: rgba(getComputedStyle(k).borderTopColor) } : null })) } : null
+      return { type: 'form', title: title(), close: close ? txt(close) : null, buttons: btns, secs: secs.length >= 2 ? secs : null, choice, white: flds.some(inputWhite), rowY: [...rows.values()].map((r) => r[0].getBoundingClientRect().top), gap: gap >= eb.height * 0.15 ? { px: Math.round(gap), h: Math.round(eb.height) } : null, rows: [...rows.values()].map((r) => r.map((g) => ({ label: lab(g), value: txt(g), tall: g.getBoundingClientRect().height >= 70 ? Math.round(g.getBoundingClientRect().height) : 0 }))) }
     }
     // stat cards: 3+ same-size cards in a row, each with one big number
     const big = (k) => [...k.querySelectorAll('*')].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
@@ -635,6 +659,25 @@ function factsInPage() {
         const bw = (k) => parseFloat(getComputedStyle(k).borderTopWidth) || 0
         const sel = rep.filter((k) => bw(k) > Math.min(...rep.map(bw)))
         return { type: 'tiles', cols: gcols, items: rep.map((k) => ({ parts: parts(k), pic: topPic(k), grad: topPic(k) === 'gradient' ? [...getComputedStyle(k.firstElementChild).backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])) : null })), bordered: rep.every((k) => bw(k) >= 1), sel: sel.length === 1 ? { t: parts(sel[0])[0], c: rgba(getComputedStyle(sel[0]).borderTopColor), w: bw(sel[0]) } : null }
+      }
+      // order lines (round 6 e4 summary): a square picture with a small round quantity badge on its corner, a name
+      // over a small line, a price right. Said as 'list: 1, 2, 1' (the badges) it lost names, prices and pictures.
+      const badgeOf = (k) => {
+        const t = k.firstElementChild; if (!t || t.children.length !== 1) return null
+        const e = t.firstElementChild, b = t.getBoundingClientRect(), eb = e.getBoundingClientRect()
+        return !e.children.length && /^\d+$/.test(txt(e)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && eb.width <= 32 && parseFloat(getComputedStyle(e).borderTopLeftRadius) >= eb.width * 0.4 && eb.right >= b.right - 4 && eb.top <= b.top + 4
+          ? { qty: txt(e), px: Math.round(b.width), fill: filled(t), radius: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius)), badge: filled(e) } : null
+      }
+      const badges = rep.map(badgeOf)
+      if (badges.every(Boolean)) {
+        const lines = (k) => [...k.children].slice(1).flatMap((n) => (n.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean))
+        const after = kids.filter((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top > rep[rep.length - 1].getBoundingClientRect().top).map((k) => {
+          const c = getComputedStyle(k), leaves = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))
+          const field = leaves.find((g) => parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30)
+          const button = leaves.find((g) => g !== field && filled(g) && g.getBoundingClientRect().height >= 26)
+          return { t: txt(k), field: field ? txt(field) : null, button: button ? { t: txt(button), fill: filled(button) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700 }
+        })
+        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after }
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
@@ -868,9 +911,15 @@ function denseNote(d) {
   if (!d) return null
   switch (d.type) {
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
-    case 'table': if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
+    case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
+      if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
     case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
       return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
+    case 'order': {
+      const t = d.thumb
+      const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
+      return `order summary: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+    }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
     case 'month': {
@@ -895,6 +944,15 @@ function denseNote(d) {
       const low = d.buttons.length && d.buttons.every((b) => b.low)
       const side = low && d.buttons.every((b) => b.right) ? ' at the bottom right' : low ? ' along the bottom' : ''
       const btn = (b) => b.fill ? `${colourName(b.fill)} ${b.bold ? 'bold ' : ''}${colourName(b.ink)} text ${quote(b.t)}` : `outlined ${quote(b.t)}`
+      // with section headings or a choice row: everything in reading order (round 6 e4 checkout)
+      if (d.secs || d.choice) {
+        const seq = [
+          ...(d.secs ?? []).map((x) => ({ y: x.y, say: `bold heading ${quote(x.t, 40)}` })),
+          ...d.rows.map((r, i) => ({ y: d.rowY[i], say: r.map(fld).join(' | ') })),
+          ...(d.choice ? [{ y: d.choice.y, say: `${d.choice.items.length} bordered rounded choice cards side by side, bold first line, small line under: ${d.choice.items.map((c) => `${quote(c.lines[0], 24)} / ${quote(c.lines.slice(1).join(' '), 32)}${c.sel ? ` (chosen: ${c.sel.w}px ${colourName(c.sel.c)} border)` : ''}`).join(', ')}` }] : []),
+        ].sort((a, b) => a.y - b.y)
+        return `${!d.secs && d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above ${d.white ? 'white ' : ''}bordered rounded fields, in order: ${seq.map((x) => x.say).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}`
+      }
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
@@ -936,6 +994,11 @@ function denseNote(d) {
         const t = d.thumbs[0]
         const item = (p, i) => `${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? `, ${p[p.length - 1]} right` : ''}`
         return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} items, each with a ${t.px}px ${t.fill ? `${colourName(t.fill)} ` : ''}${t.round ? 'round' : 'square'} thumbnail left: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
+      }
+      // links each with a small grey line under (round 6 e1 mega-menu columns: sublines said for one item only)
+      if (d.stacked && d.items.length >= 2 && d.items.length <= 8 && d.items.every((p, i) => p.length === 2 && d.smalls?.[i] === p[1])) {
+        const caps = d.head && /^[A-Z0-9 &/-]+$/.test(d.head)
+        return `${d.head ? `${caps ? 'small grey spaced capitals ' : ''}${quote(d.head, 24)}, then ` : ''}${d.items.length} links stacked, each a name with a small grey line under it: ${d.items.map((p) => `${quote(p[0], 24)} / ${quote(p[1], 40)}${p[0] === d.on ? ' (highlighted)' : ''}`).join('; ')}`
       }
       // short items are all said up to 8 (round 5 e3 channels: '3 more' became invented channels)
       const cap = d.items.length <= 8 && d.items.every((p) => p[0].length <= 20) ? 8 : 4
@@ -1025,6 +1088,12 @@ function decideOne(f, page, marked, said) {
   // a progress ring made of a conic gradient (round 5 c5: said as a 'near-black block')
   if (f.conicRing && f.conicRing.round && f.conicRing.stops.length >= 2 && !f.regionKids.length) {
     const cr = f.conicRing, arc = cr.stops[0], track = cr.stops[cr.stops.length - 1]
+    // several coloured segments: a donut chart, not one progress arc (round 6 e2: 3 segments said as 'indigo arc 46%')
+    if (cr.stops.length >= 3) {
+      const segs = cr.stops.slice(0, -1).map((g, i) => `${i ? 'then ' : ''}${colourName(g.c)} ${Math.round(g.to - g.from)}%`)
+      const host = fill ? `${colourName(f.bg)} card, ` : ''
+      return { kind: 'box', note: withFx(`${host}${cr.title ? `small grey title ${quote(cr.title, 32)} top left, ` : ''}a ${cr.px}px donut chart${cr.hole ? ` (ring ${cr.hole.ring}px thick, hollow ${colourName(cr.hole.fill)} middle)` : ''} centred, segments clockwise from the top: ${segs.join(', ')}, the rest a ${colourName(track.c)} track ${Math.round(100 - track.from)}%${cr.legend ? `; ${cr.legendBelow ? 'a legend row along the bottom' : 'a legend'}, small grey: ${cr.legend.map((t) => quote(t, 24)).join(', ')}` : ''}`) }
+    }
     const host = fill ? `${colourName(f.bg)} block, centred in it ` : ''
     return { kind: 'box', note: withFx(`${host}a ${cr.px}px progress ring (not a picture): ${colourName(arc.c)} arc ${Math.round(arc.to - arc.from)}% of the way round from the top, the rest a ${colourName(track.c)} track${cr.label ? `, bold ${quote(cr.label)} in the middle` : ''}`) }
   }
@@ -1044,7 +1113,9 @@ function decideOne(f, page, marked, said) {
     const bgName = fill ? colourName(f.bg) : null
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
     const card = fill && (bordered || f.radius >= 8) && /^(table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
-    const col = card ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
+    // an order summary on a faint tint keeps it: a full-height side panel, or a card (round 6 e4: said with no fill)
+    const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge)` : 'card'}` : null
+    const col = card ?? side ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
     const what = f.tag === 'aside' ? 'sidebar' : null
     return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
   }
@@ -1279,9 +1350,13 @@ function decideOne(f, page, marked, said) {
     const unitSay = unit ? `${kb[0]?.bold ? 'bold ' : ''}${kb[0]?.s ?? Math.round(f.font.size)}px ${quote(unit, 60)} repeated along it` : null
     // one block of copy with no parts (a pull quote on a yellow tile: round 5 c5, said with no copy)
     const lone = !f.regionKids.length && f.kidCount === 0 && f.text.length > 40 && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}` : null
-    const copy = code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
+    // a picture painted by ::before over a card's copy (round 6 e1 featured card: square and body line unsaid)
+    const pp = f.pseudoPic && !f.regionKids.length ? f.pseudoPic : null
+    const ppLines = pp ? f.setLines.map((t) => t.trim()).filter(Boolean).map((t) => { const k = kb.find((x) => x.t === t); return k ? `${k.s >= 20 ? `big ${k.s}px ` : ''}${k.bold ? 'bold ' : ''}${k.ink && f.colour && dist(k.ink, f.colour) > 60 ? `${colourName(k.ink)} ` : ''}${quote(t, 60)}` : `text ${quote(t, 110)}` }) : []
+    const picSay = pp ? `a ${pp.w}x${pp.h}px ${pp.radius >= 6 ? 'rounded ' : ''}${pp.grad ? `${colourName(pp.grad[0])} to ${colourName(pp.grad[pp.grad.length - 1])} gradient` : colourName(pp.fill)} ${Math.abs(pp.w - pp.h) <= 4 ? 'square' : 'block'} in its top left (${pp.x}px in), then under it, lines: ${ppLines.join(', ')}` : null
+    const copy = picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
-    return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d/.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
+    return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
   }
   if (f.pager && !f.regionKids.length) {
     const p = f.pager
@@ -1389,6 +1464,19 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const A = f.rect, B = under.rect
     const side = `${A.y + A.h / 2 > B.y + B.h / 2 ? 'lower' : 'upper'} ${A.x + A.w / 2 > B.x + B.w / 2 ? 'right' : 'left'}`
     d.note = `${d.note ? `${d.note}, ` : ''}overlapping the ${side} of the ${what} and on top of it`
+  })
+  // a dropdown panel: square top corners flush under a bar, rounded bottom, a big soft shadow, lying over the page
+  // below (round 6 e1 mega-menu said 'white card': built as a card in the flow, no shadow, hero pushed down)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (d.kind !== 'box' || !f.corners) return
+    const [tl, tr, br, bl] = f.corners
+    const soft = f.shadows.find((x) => !x.clear && x.blur >= 16 && x.y >= 8)
+    const bar = regions.find((g) => g !== f && out.get(g.role).kind && !f.regionKids.includes(g.role) && !g.regionKids.includes(f.role) && Math.abs(g.rect.y + g.rect.h - f.rect.y) <= 2 && g.rect.x <= f.rect.x + 2 && g.rect.x + g.rect.w >= f.rect.x + f.rect.w - 2)
+    if (!soft || !bar || tl > 1 || tr > 1 || br < 6 || bl < 6) return
+    const over = regions.filter((g) => g !== bar && g !== f && out.get(g.role).kind && !f.regionKids.includes(g.role) && !g.regionKids.includes(f.role) && g.rect.y < f.rect.y + f.rect.h && g.rect.y + g.rect.h > f.rect.y && g.rect.x < f.rect.x + f.rect.w && g.rect.x + g.rect.w > f.rect.x)
+    const a = soft.c ? Math.round(soft.c.a * 100) : null
+    d.note = `${d.note ? `${d.note}, ` : ''}an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, ${Math.round(br)}px rounded bottom corners), with a big soft ${soft.c ? `${colourName({ ...soft.c, a: 1 })} ` : ''}shadow ${Math.round(soft.y)}px down, ${Math.round(soft.blur)}px blur${a !== null && a < 60 ? `, ${a}% opacity` : ''}${over.length ? `; it lies on top of the page below it, covering part of what is drawn under it (absolutely placed over it, not pushing it down)` : ''}`
   })
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)
