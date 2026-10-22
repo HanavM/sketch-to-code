@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Round 6 everyday pages (menu, dashboard, mail, checkout, calendar) are now fully described; next: build them for real and compare."
-lock: null
+lock: {by: run-0351, until: 2026-10-22T05:21:37Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
