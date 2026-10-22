@@ -1,6 +1,7 @@
 # Log (newest first)
 
 2026-10-22T01:17:07Z | Collage headline place and photo gradient | Text now placed by its drawn lines; gradient ends said. Collage 70% to 82%, looks near-identical. 81k.
+2026-10-22T01:34:47Z | Gain carries: outline poster, blend editorial | Outline poster 63% to 70%, gradient right way. Blend editorial 81% to 70%: inverting headline vanished; fixed. 118k.
 2026-10-22T01:15:00Z | Collage headline size | Tight line spacing now said, so the giant headline is built full size: 63% to 70%. 70k.
 2026-10-22T00:40:00Z | Round 4 arches, tilts, shadows | Arch shapes, tilt angles, faint shadows built; split poster 43% to 65%, collage 63%. 183k.
 2026-10-22T00:02:56Z | Round 5 masked reel glow | Glows now read where they really show: one big orange glow built; 57% to 65%. 56k.
