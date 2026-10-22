@@ -184,3 +184,18 @@ target, a bit dimmer. Rounds 1-4 plans unchanged. Side-by-side: c1-masked-reel-n
 | c4 outline stack | 63% | **70%** | 65k | blue photo now light at the top, dark at the bottom (n73 gradient ends said), as in the target. Left: SUMMER lines ~40px high, orange photo too dark at the bottom, hard shadow translucent not solid |
 
 Side-by-side: built/c4-outline-stack-n74-cmp.png. Round-3 c5 was re-run in the same step (see round3/RESULTS.md).
+
+## n76: outline poster leftovers (2026-10-22, live)
+- The two giant SUMMER lines sat ~65px high. Cause: a lone heading squiggle's region is centred on the drawn
+  letters for line-height 1.2, but codegen set display type at ~0.8 line-height from region.y, lifting the letters by
+  half the difference. The build contract now says: use 1.2, or keep a tighter line box centred on the region.
+- The photo's bottom colour #9a3412 was named "brown" and built near-black; it is now "deep rust orange" (hue 10-25,
+  strong, not light). Round 3 e1 "Invited" pill text also moves from brown to deep rust orange (#92400e, fair).
+- An opaque hard shadow now says "solid opaque". The built shadow was opaque all along: it is a greyer dark brown
+  (#392a1c, target #431407), not see-through.
+
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 outline stack | 70% | **71%** | 76k | both SUMMER lines now where drawn; photo orange to rust as in the target. Left: page built a shade darker (grain), shadow greyer brown, blue photo darker |
+
+Side-by-side: built/c4-outline-stack-n76-cmp.png.

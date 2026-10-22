@@ -351,15 +351,15 @@
    ],
    [
     "card-a",
-    "white thick near-black border block \"Manifesto\", text \"Websites should look like they were made by people with opinions.\", with a hard near-black shadow offset 10px down right, no blur"
+    "white thick near-black border block \"Manifesto\", text \"Websites should look like they were made by people with opinions.\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
    ],
    [
     "card-b",
-    "vivid yellow thick near-black border block \"Work\", text \"Forty-two projects, zero templates. Click anything.\", with a hard near-black shadow offset 10px down right, no blur"
+    "vivid yellow thick near-black border block \"Work\", text \"Forty-two projects, zero templates. Click anything.\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
    ],
    [
     "card-c",
-    "vivid sky blue thick near-black border block \"Contact\", text \"hello@brutal.index\", with a hard near-black shadow offset 10px down right, no blur"
+    "vivid sky blue thick near-black border block \"Contact\", text \"hello@brutal.index\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
    ],
    [
     "stamp",
@@ -499,7 +499,7 @@
    ],
    [
     "table",
-    "table, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows; status pills green \"Active\", brown \"Invited\", deep raspberry \"Suspended\""
+    "table, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows; status pills green \"Active\", deep rust orange \"Invited\", deep raspberry \"Suspended\""
    ],
    [
     "pager",

@@ -635,6 +635,8 @@ const NAMED = [
   ['bright sky blue', 14, 165, 233], ['pale pink', 254, 205, 205],
   // round 5 c4 #1e3a8a photo end was called 'dark grey' and built grey-blue (weighted distance underrates blue)
   ['dark blue', 30, 58, 138],
+  // round 5 c4 #9a3412 photo end was called 'brown' and built near-black brown (target a deep orange-red)
+  ['deep rust orange', 154, 52, 18],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -661,6 +663,7 @@ export function colourName(c) {
     if (chroma <= 6 && !NEUTRAL.has(n)) continue
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
     if (n === 'dark blue' && !(hue(c) >= 215 && hue(c) <= 235 && chroma >= 80 && Math.max(c.r, c.g, c.b) <= 170)) continue
+    if (n === 'deep rust orange' && !(hue(c) >= 10 && hue(c) <= 25 && chroma >= 110 && Math.max(c.r, c.g, c.b) <= 190)) continue
     if (n === 'bright sky blue' && !(hue(c) >= 193 && hue(c) <= 215 && chroma >= 120)) continue
     if (n === 'pale grey' && !(chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236)) continue
     if (n === 'off-white' && chroma <= 6 && c.b > c.r && Math.max(c.r, c.g, c.b) <= 251 && Math.min(c.r, c.g, c.b) >= 236) continue
@@ -911,7 +914,9 @@ function shadowWords(f) {
   // a see-through shadow says its strength (round 4 c1: 18% near-black over cream was said 'near-black',
   // so a solid black slab was asked for; the real one reads as a faint grey-beige)
   const ink = s.c ? `${colourName({ ...s.c, a: 1 })}${s.c.a < 0.6 ? ` at ${Math.round(s.c.a * 100)}% opacity` : ''} ` : ''
-  return `hard ${ink}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
+  // an opaque one says so (round 5 c4: 'hard dark brown shadow' built see-through, the outline type showing through)
+  const solid = s.c && s.c.a >= 0.95 ? 'solid opaque ' : ''
+  return `hard ${solid}${ink}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
 }
 /** The repeated unit of a marquee's copy ('Flex Grotesk — now variable ✦' x4). */
 function repeatUnit(t) {
