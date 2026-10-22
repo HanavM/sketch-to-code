@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Product page now 62% like its target (was 48%) with the jacket picture, thumbnails and heart right. Next: stop everyday pages sliding lower down the screen."
-lock: {by: run-n99, until: "2026-10-22T17:36:39Z"}
+now: "Kanban board now lands at the heights drawn (36% to 51% alike) thanks to a new height check. Next: product page, which ran out of time."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n99 (72dd4dc on try/n3-vocabulary): pipeline drift.ts: whole-page builds (6+ placed add/design, not decorations/bleed/tilt/overlap) match each region to the new element of its x/width/plausible height with nearest top; 3+ (25%+) blocks >16px off the SAME way = one failure naming built vs drawn tops, so a repair turn fixes it. Both-ways = mismatch, silent. Live: e1 51 (aligned dy 0, layout 54; repair used mt-[-6px], cards cover WEB APP label), e5 64, e4 45/40 (both runs hit the 10-min client watchdog during a repair chasing both-ways mismatches; rule added after)."
+  - "Token ledger: 2026-10-22 n99 live e1 110k + e4 27k + e5 80k + e4 37k = ~255k billed."
   - "n98 (4bc86be on try/n3-vocabulary): planner says a big solid shape over a gradient photo, pale tinted thumbs + selected ring, one-glyph icon buttons, pager caption (own text node), button size/outline/current fill and line top. Only round-7 e4/e5 and one round-3 pager note changed. Live: e4 62, e1 36 (vertical drift), e5 62. round7/NOTES.md."
   - "Token ledger: 2026-10-22 n98 live e1+e4 198k + e5 59k = ~257k billed."
   - "n97 (504ac19 on try/n3-vocabulary): planner says column card gaps (top px + gap) and divider spacing, left-packed bars + search field, single KPI card sparkline, funnel bars, SVG stacked bars, one-hue cohort heat table (number@shade), struck price runs, choice-box states, noteless gradient photo backdrop, avatar full circle. Rounds 1,3,4,6 plans unchanged; r2/r5 bars gain \"at the LEFT\". Live: e1 50, e2 75, e4 48. round7/NOTES.md."
@@ -338,4 +340,6 @@ nodes:
      result: "Each build and repair turn now logs tokens, cache reads and tool calls; scripted e2e passes. cdcc2be."}
   - {id: n98, parent: n97, kind: step, title: "Free first, ~150k live: e4 jacket shape (big ::after shape over the photo), thumb colours + selected outline, heart icon; e1 avatar dots as circles and whole page ~20px low; e5 pager. Re-run e4, e1, e5", status: done, branch: try/n3-vocabulary,
      result: "Product page 48 to 62%: jacket, thumbs, heart right. Kanban 36% (drifts low), admin 62% (pager caption built). 4bc86be."}
-  - {id: n99, parent: n98, kind: step, title: "Free first, ~150k live: everyday builds drift 10-30px lower per block down the page (e1 -64px, e4 -32, e5 -16). Find whether spacing or tops cause it; pin band tops; re-run e1, e4, e5", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n99, parent: n98, kind: step, title: "Free first, ~150k live: everyday builds drift 10-30px lower per block down the page (e1 -64px, e4 -32, e5 -16). Find whether spacing or tops cause it; pin band tops; re-run e1, e4, e5", status: done, branch: try/n3-vocabulary,
+     result: "New check measures drawn vs built tops, repair fixes drift: kanban 36 to 51%. Product page timed out. 72dd4dc."}
+  - {id: n100, parent: n99, kind: step, title: "~80k live: re-run round-7 e4 product page with the both-ways rule (must finish under 10 min, back to ~62%); stop e1 repair pulling cards over the WEB APP label with a negative margin; re-run e1", status: open, branch: try/n3-vocabulary, result: null}
