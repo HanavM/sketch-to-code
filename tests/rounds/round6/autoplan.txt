@@ -1,4 +1,4 @@
-c1-perspective-stack · marks 9 · words 267
+c1-perspective-stack · marks 9 · words 289
     floor        box     
     nav          text    
     headline     heading 
@@ -11,7 +11,7 @@ c1-perspective-stack · marks 9 · words 267
     note *: whole page: dark navy page, Helvetica type, light grey text
     note floor: faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width (tilting shortens it: build the grid 600px tall and 1680px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge), a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill
     note nav: bold 20px "Stackr" left, "Product · Pricing · Docs · Sign in" right
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: "Ship cards in" / "three" / "dimensions" (keep these breaks)
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: "Ship cards in" / "three" / "dimensions" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide)
     note sub: grey text "Layered, tilted, lit. A card engine for product pages that want depth without WebGL."
     note cta: cyan dark navy text button "Start free"
     note ghost-btn: dark grey outline button "See demo"
@@ -38,7 +38,7 @@ c2-split-type · marks 9 · words 233
     note cols: 3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text (each column 347px wide, its text on ONE line, no wrap): "01 DAY" over "Talks on motion, rhythm and the split letter."; "02 DAY" over "Workshops: variable fonts and kinetic posters."; "03 DAY" over "Night show with live-coded type on the river."
     note tickets: slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters "Tickets →", about 499px wide
     note dot: vivid rose red circle
-c3-svg-waves · marks 6 · words 178
+c3-svg-waves · marks 6 · words 200
     sun          circle  
     waves        box     
     nav          text    
@@ -49,7 +49,7 @@ c3-svg-waves · marks 6 · words 178
     note sun: perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur
     note waves: drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down, vivid green (#22c55e) cresting about 657px down, deep green (#14532d) cresting about 754px down; plus a dashed 4px deep green curving, looping line (no fill) from about 760,499 up and across to 1188,330
     note nav: bold 24px "Meadow" left, "Trails · Huts · Journal · Book" right
-    note headline: giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) "Walk where the hills roll on", set in exactly 2 lines: "Walk where the" / "hills roll on" (keep these breaks)
+    note headline: giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) "Walk where the hills roll on", set in exactly 2 lines: "Walk where the" / "hills roll on" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 560px wide)
     note sub: text "Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one."
     note cta: deep green pill pale yellow text button "Plan a walk"
 c4-glass-devices · marks 7 · words 177

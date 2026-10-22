@@ -1,23 +1,23 @@
 {
   "id": "c5-brutal-zine",
-  "at": "2026-10-22T09:08:18.195Z",
+  "at": "2026-10-22T10:16:01.754Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8445367360335134,
-    "overallV2": 0.8445367360335134,
-    "overallV1": 0.7506321609913804,
-    "colour": 0.9520866192890336,
-    "structure": 0.8623969358537261,
-    "structureStrict": 0.706008192231271,
-    "colourAligned": 0.9520866192890336,
-    "structureAligned": 0.8623969358537261,
+    "overall": 0.8640508807175189,
+    "overallV2": 0.8640508807175189,
+    "overallV1": 0.7851236991838253,
+    "colour": 0.9630053612600029,
+    "structure": 0.8658957452464927,
+    "structureStrict": 0.7344503630361202,
+    "colourAligned": 0.9630053612600029,
+    "structureAligned": 0.8658957452464927,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9522566887073215
+      "r": 0.9627933081744715
     },
-    "layout": 0.931944818239851
+    "layout": 0.9501683160134636
   },
   "effects": {
     "recall": 0.8,
@@ -31,55 +31,70 @@
       "gradient"
     ],
     "extra": [
-      "bleed"
+      "uppercase-display",
+      "vertical-type"
     ]
   },
   "tokens": {
-    "input": 74991,
-    "output": 59880,
-    "cacheRead": 603280
+    "input": 50347,
+    "output": 37748,
+    "cacheRead": 135763
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 70204,
-      "output": 28029,
-      "cacheRead": 481472,
-      "toolCalls": 14,
+      "billed": 77978,
+      "output": 32137,
+      "cacheRead": 132679,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
+        "Read components/SoldOut.tsx",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
         "Glob",
-        "Read src/index.css",
         "Read src/main.tsx",
-        "Edit components/SketchShape.tsx",
-        "Write src/App.tsx",
-        "Read components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Read components/SketchShape.tsx",
-        "Read src/App.tsx"
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
       ],
-      "ms": 331245
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 54989,
-      "output": 26591,
-      "cacheRead": 118724,
-      "toolCalls": 1,
-      "tools": [
-        "Edit src/App.tsx"
-      ],
-      "ms": 331240
+      "ms": 366530
     }
   ],
-  "reading": "The sketch lays out a magazine-style promo page in a 3-column, 2-row grid: a top black title band, a left box with a quote and sideways 'LOUD' label, a center blue tile with yellow shapes, a right box with a numbered track/content list, a bottom-left pull-quote box, a bottom-middle credits box with an overlapping red 'SOLD OUT SOON' circular badge, and a bottom-right price callout ('£4' / 'post free in the UK'). Typed notes give exact copy, colours and styling for every region, which were followed over the raw ink shapes.",
+  "reading": "The sketch lays out a zine/magazine front page as a ruled 8-cell grid (gray wireframe), with a wavy top band read as a heading, and each cell's content fully specified by typed notes: a pull-quote with a sideways \"LOUD\", a blue/yellow duotone tile, a tracklist, a bold quote, credits, a price callout (\"£4\" / \"post free in the UK\"), and a tilted \"SOLD OUT SOON\" badge stamped across the grid line.",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 138
+        }
+      ],
+      "region": [
+        2,
+        122,
+        1276,
+        776
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Whole page: white page background, monospace type, black text throughout. The 8 black-bordered boxes sketched below form ONE ruled grid filling the page edge to"
+    },
     {
       "kind": "add",
       "textMarks": [
@@ -101,10 +116,10 @@
         116
       ],
       "paths": [],
-      "instruction": "Full-width black band across the top of the page with giant Helvetica heavy, tight-set white letters reading 'NOISE/ISSUE 9'."
+      "instruction": "Full-width heading band at the top of the page: giant Helvetica heavy, tightly tracked (tight-set) letters in white on a black band, reading \"NOISE/ISSUE 9\"."
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -116,10 +131,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Give this box a thick black border; inside, add body text reading \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it l"
+      "instruction": "Top-left grid cell: thick black-bordered box containing text \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\""
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -131,7 +146,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Fill this box as a flat vivid blue (#2563eb) duotone tile with a thick black border, no photo; place two hard-edged round yellow (#fde047) shapes on it — one 25"
+      "instruction": "Top-middle grid cell: vivid blue (#2563eb) flat duotone tile with a thick black border, no picture inside. Place 2 hard-edged round yellow (#fde047) shapes on i"
     },
     {
       "kind": "add",
@@ -146,7 +161,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a thick black border around this box; inside, list mono 16px black code-style lines: '01 — Tape loops', '02 — Basement maps', '03 — Flyer archive', '04 — La"
+      "instruction": "Top-right grid cell: thick black-bordered box containing black monospace 16px code-style lines: \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \""
     },
     {
       "kind": "add",
@@ -161,7 +176,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a thick black border around this box; inside, show bold 22px text reading: \"Turn it up until the walls agree.\""
+      "instruction": "Bottom-left grid cell: thick black-bordered box containing bold 22px text: \"Turn it up until the walls agree.\""
     },
     {
       "kind": "add",
@@ -176,23 +191,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a thick black border around this box; inside, list mono 13px black code-style lines: 'Edited by M. Hale', 'Photos by the bands', 'Printed in Leeds on a Riso"
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        322,
-        505,
-        636,
-        393
-      ],
-      "paths": [
-        "s5",
-        "s8"
-      ],
-      "instruction": "Draw a vivid red circular badge, tilted 14 degrees anticlockwise, overlapping the bottom edge of the blue tile and the top of this credits box, containing the t"
+      "instruction": "Bottom-middle grid cell: thick black-bordered box containing black monospace 13px code-style lines: \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leed"
     },
     {
       "kind": "add",
@@ -217,10 +216,23 @@
         303
       ],
       "paths": [],
-      "instruction": "On a yellow band in this bottom-right cell, show huge Helvetica heavy black lettering at 72px reading '£4', with a small 16px mono regular line beneath it (sepa"
+      "instruction": "Bottom-right grid cell: huge Helvetica heavy black letters on a yellow band, 72px, reading \"£4\", with a small, separate 16px monospace regular line beneath it r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        505,
+        505,
+        210,
+        210
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A tilted (14° anticlockwise) vivid red circular badge reading \"SOLD OUT SOON\", overlapping the boundary between the top-middle and bottom-middle grid cells as a"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

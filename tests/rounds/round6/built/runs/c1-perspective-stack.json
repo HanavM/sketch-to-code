@@ -1,23 +1,23 @@
 {
   "id": "c1-perspective-stack",
-  "at": "2026-10-22T09:16:25.278Z",
+  "at": "2026-10-22T10:01:55.853Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7883942773776524,
-    "overallV2": 0.7883942773776524,
-    "overallV1": 0.7078913494873853,
-    "colour": 0.9493422583478004,
-    "structure": 0.8598579066385733,
-    "structureStrict": 0.66949790568372,
-    "colourAligned": 0.9493422583478004,
-    "structureAligned": 0.8598579066385733,
+    "overall": 0.8695813037108554,
+    "overallV2": 0.8695813037108554,
+    "overallV1": 0.8033332645949763,
+    "colour": 0.9452328596383188,
+    "structure": 0.8799248308359339,
+    "structureStrict": 0.7232724317263539,
+    "colourAligned": 0.9452328596383188,
+    "structureAligned": 0.8799248308359339,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9016641897671039
+      "r": 0.9278016915523244
     },
-    "layout": 0.5649116212583335
+    "layout": 0.8131458707805859
   },
   "effects": {
     "recall": 0.8,
@@ -25,45 +25,51 @@
       "gradient",
       "gradient-text",
       "overlap",
-      "soft-shadow"
-    ],
-    "missing": [
       "stripes-or-layers"
     ],
-    "extra": [
-      "bleed"
-    ]
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
   },
   "tokens": {
-    "input": 44201,
-    "output": 29308,
-    "cacheRead": 179003
+    "input": 56239,
+    "output": 36045,
+    "cacheRead": 504766
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 50861,
-      "output": 20061,
-      "cacheRead": 166741,
-      "toolCalls": 8,
+      "billed": 73261,
+      "output": 28687,
+      "cacheRead": 492360,
+      "toolCalls": 16,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Read components/PerspectiveFloor.tsx",
         "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
         "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read s2c-bench-app/index.html",
         "Read src/main.tsx",
+        "Edit components/PerspectiveFloor.tsx",
         "Edit components/SketchShape.tsx",
-        "Write src/App.tsx"
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
       ],
-      "ms": 219526
+      "ms": 320966
     }
   ],
-  "reading": "A full landing-page hero sketch: a dark-navy page with a faint cyan perspective grid floor in the lower half, a top nav bar (Stackr / Product·Pricing·Docs·Sign in), a huge tight-set heading 'Ship cards in three dimensions' (gradient on 'three dimensions'), a grey subhead paragraph, two CTA buttons ('Start free' filled cyan, 'See demo' outlined), and a stack of three tilted 3D gradient cards (cyan→indigo, pink→purple, yellow→orange) overlapping each other, the frontmost holding a bold '$4,280.00' figure.",
+  "reading": "A dark hero section sketch: a faint cyan perspective floor-grid backdrop fills the lower block, a top nav bar (brand left, links right), a giant 3-line gradient-accented headline, a grey subhead paragraph, two buttons (filled cyan 'Start free' and outlined 'See demo'), and a stack of three tilted 3D gradient card blocks (cyan→indigo, pink→purple on top of it, and a yellow→orange card showing a bold '$4,280.00' figure).",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -75,7 +81,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a faint cyan grid-of-lines floor, lines every 80px, laid flat in 3D perspective (rotateX(62deg)), spanning the full width from 520px down to the bottom edge"
+      "instruction": "Faint cyan grid of thin lines spaced every 80px, laid flat as a floor receding into the distance (perspective, rotateX(62deg)), spanning from 520px down to the "
     },
     {
       "kind": "add",
@@ -90,7 +96,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a top nav bar with a bold 20px 'Stackr' logo on the left and nav text 'Product · Pricing · Docs · Sign in' on the right."
+      "instruction": "Top navigation bar: bold 20px 'Stackr' wordmark on the left, and 'Product · Pricing · Docs · Sign in' links on the right, light grey text on the dark navy backg"
     },
     {
       "kind": "add",
@@ -117,7 +123,7 @@
         252
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica Heavy heading, lines set tight (line-height 1), reading 'Ship cards in three dimensions'. The words 'three dimensions' are filled with a v"
+      "instruction": "Giant Helvetica Heavy headline set tight (line-height 1), broken into exactly 3 lines that must not rewrap: 'Ship cards in' / 'three' / 'dimensions' (white-spac"
     },
     {
       "kind": "add",
@@ -142,7 +148,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Add grey subhead text: 'Layered, tilted, lit. A card engine for product pages that want depth without WebGL.'"
+      "instruction": "Grey subheading paragraph text: 'Layered, tilted, lit. A card engine for product pages that want depth without WebGL.'"
     },
     {
       "kind": "add",
@@ -157,7 +163,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a filled pill button labeled 'Start free' with a cyan background and dark navy text."
+      "instruction": "Filled button labeled 'Start free', cyan background with dark navy text."
     },
     {
       "kind": "add",
@@ -172,10 +178,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add an outlined pill button labeled 'See demo' with a dark grey outline and text."
+      "instruction": "Outline button labeled 'See demo', dark grey outline style."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -189,10 +195,10 @@
         "s10",
         "s11"
       ],
-      "instruction": "Add a card/block tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) filled with a vivid cyan (top-left) to indigo (bottom-right) gradient — the back"
+      "instruction": "Decorative rectangular card block tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)), filled with a vivid cyan (top left) to indigo (bottom right) g"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -206,7 +212,7 @@
         "s13",
         "s14"
       ],
-      "instruction": "Add a second card, same tilt (rotateY(-28deg) rotateX(11deg)), filled with a light pink (top-left) to vivid purple (bottom-right) gradient, positioned overlappi"
+      "instruction": "Decorative rectangular card block tilted back in the same 3D perspective (rotateY(-28deg) rotateX(11deg)), filled with a light pink (top left) to vivid purple ("
     },
     {
       "kind": "add",
@@ -221,10 +227,8 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Add a third card (369×259px, 18px rounded corners), same tilt (rotateY(-28deg) rotateX(11deg)), filled with a vivid yellow (top-left) to vivid orange (bottom-ri"
+      "instruction": "A 369x259px card with 18px rounded corners, tilted back in the same 3D perspective (rotateY(-28deg) rotateX(11deg)), filled with a vivid yellow (top left) to vi"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

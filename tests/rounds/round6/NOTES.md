@@ -182,3 +182,26 @@ Free planner fixes:
 | c2 split type | 22% | 19% then **47%** (one-mark slice) | sliced BREAK now one word, halves meet at the rule, page off-white, arrow kept; word ~1.4x too wide, red not rose, columns wrap |
 | c3 SVG waves | 73% | **79%** | sun a solid orange disc, headline regular weight; headline still wraps to 3 lines (2 in target) |
 | c5 brutal zine | 70% | **84%** | "£4" big with the small line under it; LOUD still cut off at the left, cells gapped instead of sharing borders |
+
+## n87: line breaks, word width, floor size, rose red, ruled grid (2026-10-22, ~500k billed tokens)
+
+Free planner fixes:
+- A display heading (>= 40px) on 2-4 lines says its own breaks: `set in exactly 2 lines: "Walk where the" / "hills roll
+  on"`, each line kept whole (nowrap, no max-width narrower than the longest line, its width in px). The first try
+  said only "keep these breaks": c3's build put a <br> but kept a max-width from the drawing, so line 1 wrapped again
+  (3 lines, 54%).
+- A one-line word >= 100px says its width ("about 874px wide"); the sliced word says its type size and width.
+- The 3D floor says its built size before the tilt (600x1680px, hinged at its top) so the foreshortened grid reaches
+  the bottom edge.
+- `rose red` (#e11d48: hue 338-356, strong) was 'red' and built pure red.
+- Bold-headed columns whose copy sits on one line say so with the column width (c2 copy had wrapped).
+- Thick-bordered boxes laid edge to edge (>= 4 touching pairs) are said on the page note as ONE ruled grid sharing
+  single lines, no gaps; a word turned on its side says how far in it sits and that none of it is cut off.
+- Rounds 1-5: headings gain their line breaks and giant words their widths; r3 c? sticker becomes rose red. Nothing else.
+
+| page | n86 | n87 | note |
+|---|---|---|---|
+| c1 perspective stack | 79% | 82% then **87%** | floor reaches the bottom edge; headline 3 lines as target (first try wrapped to 4) |
+| c2 split type | 47% | **53%** | BREAK at the right width and rose red, columns on one line; whole page sits ~16px high |
+| c3 SVG waves | 79% | 54% then **76%** | headline now exactly 2 lines like the target; but the sun was built a deep green disc with a peach edge (was orange) |
+| c5 brutal zine | 84% | **86%** | one ruled grid with shared lines, LOUD whole; price block centred (target top left) |

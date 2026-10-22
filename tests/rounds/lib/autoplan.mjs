@@ -1567,7 +1567,7 @@ function decideOne(f, page, marked, said) {
     // a display line's own breaks and a giant word's width: builds rewrapped a 2-line headline into 3
     // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
     const sl = f.shown && f.font.size >= 40 && !f.motion ? f.shown.lines.map((t) => (f.font.transform === 'uppercase' ? t.toUpperCase() : t)) : null
-    const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks)` : ''
+    const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about ${f.shown.w}px wide)` : ''
     const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, about ${f.shown.w}px wide` : ''
     return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${under}`.trim()) }
   }
