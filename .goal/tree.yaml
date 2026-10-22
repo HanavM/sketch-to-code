@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "The admin table toolbar now sits packed at the left with its dropdown arrows (76 to 83%). Next: the product page photo and details."
-lock: null
+lock: {by: run-n107, until: 2026-10-22T22:37:22Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
