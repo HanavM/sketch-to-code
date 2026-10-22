@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "First real builds of the five round 6 everyday pages are done (dashboard 78%, mail 67%); fixing what they got wrong and re-running."
-lock: null
+lock: {by: run-20261022T0428, until: 2026-10-22T05:58:16Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
