@@ -692,7 +692,7 @@ export function factsInPage() {
     }
     return out
   }
-  const richTable = (tb) => {
+  const richTable = (tb, box = null) => {
     const rows = [...tb.querySelectorAll('tr')]
     if (rows.length < 4 || rows.length > 13 || !rows[0].querySelector('th')) return null
     const body = rows.slice(1), ink0 = rgba(getComputedStyle(tb).color)
@@ -708,6 +708,16 @@ export function factsInPage() {
       head: [...rows[0].children].map((c) => cellParts(c, ink0)), headFill: filled(th) ?? filled(rows[0]), headPx: Math.round(parseFloat(ths.fontSize)),
       rowPx: Math.round(body[0].getBoundingClientRect().height), ruled: parseFloat(getComputedStyle(td).borderTopWidth) >= 1 ? rgba(getComputedStyle(td).borderTopColor) : null,
       cells, sel: sel.length && sel.length < body.length ? { rows: sel, fill: tints[sel[0] - 1] } : null,
+      // each column's left edge from the table's left (round 7 e5: columns built unevenly spaced, Email wide)
+      colLefts: [...rows[0].children].map((c) => Math.round(c.getBoundingClientRect().left - tb.getBoundingClientRect().left)),
+      tableW: Math.round(tb.getBoundingClientRect().width),
+      // the filled, bordered, rounded box the table sits in (round 7 e5: built bare on the page, card lost)
+      card: (() => {
+        if (!box || box === tb) return null
+        const bs = getComputedStyle(box), fl = filled(box), bw = parseFloat(bs.borderTopWidth) || 0, rad = parseFloat(bs.borderTopLeftRadius) || 0
+        if (!fl || (!bw && !rad)) return null
+        return { fill: fl, w: Math.round(box.getBoundingClientRect().width), border: bw ? { px: Math.round(bw), c: rgba(bs.borderTopColor) } : null, rad: Math.round(rad), clip: bs.overflow === 'hidden' }
+      })(),
     }
   }
   function dense(el) {
@@ -875,7 +885,7 @@ export function factsInPage() {
         const cols = cellsOf(rows[0]).map((c) => { const s = getComputedStyle(c); return { bold: Number(s.fontWeight) >= 600, right: s.textAlign === 'right' || s.textAlign === 'end' } })
         return { type: 'table', headless: true, title: title(), cols, all: rows.map((r) => cellsOf(r).map(txt)), ruled: parseFloat(getComputedStyle(cellsOf(rows[0])[0]).borderBottomWidth) >= 1, chips: chips(inner) }
       }
-      const rich = richTable(inner)
+      const rich = richTable(inner, el)
       if (rich) return { type: 'rtable', title: title(), ...rich }
       return { type: 'table', title: title(), columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), chips: chips(inner) }
     }
@@ -1371,7 +1381,9 @@ function denseNote(d) {
         : x.k === 'pill' ? `${chipColour(x)} pill ${quote(x.t)}`
         : `${x.bold ? 'bold ' : ''}${x.dim ? 'grey ' : ''}${quote(x.t, 24)}`
       const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
-      return `${d.title ? `${quote(d.title, 32)}, ` : ''}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row, ${d.headPx}px grey semibold: ${d.head.map(cell).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}`
+      const card = d.card ? `inside a ${colourName(d.card.fill)} (${hexOf(d.card.fill)}) card ${d.card.w}px wide${d.card.border ? `, ${d.card.border.px}px ${colourName(d.card.border.c)} (${hexOf(d.card.border.c)}) border` : ''}${d.card.rad ? `, ${d.card.rad}px rounded corners${d.card.clip ? ' (overflow hidden, so the header fill follows the corners)' : ''}` : ''}, the table filling the card edge to edge; ` : ''
+      const lefts = d.colLefts && d.colLefts.length >= 4 ? `; fixed column widths (table-layout: fixed, ${d.tableW}px): each column starts this far from the table's left edge: ${d.colLefts.map((x, i) => `${i + 1} ${x}px`).join(', ')}` : ''
+      return `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row, ${d.headPx}px grey semibold: ${d.head.map(cell).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
     }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
       if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`

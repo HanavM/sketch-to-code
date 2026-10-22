@@ -259,3 +259,16 @@ No plan marks changed.
 | e5 admin table | 64% | 59% (79k, build + repair) | bulk buttons beside "3 selected", page tinted. Table built without its white bordered card, columns unevenly spaced (Email wide), menu moved right, pager ~16px low (cut) |
 
 Next: e5 table says its white bordered rounded card and each column's left edge; pager kept inside the page.
+
+## n105: table card and column edges (2026-10-22, ~91k billed)
+
+Planner (zero tokens): a rich table (checkboxes, avatars, bars) that sits in a filled, bordered or rounded box now says
+that card first (fill hex, width, border px + hex, corner radius, corners clipped) with the table filling it edge to
+edge, and ends with fixed column widths: each column's left edge from the table's left. Only round-7 e5 changed; no
+plan marks changed. Vitest: same 2 environmental failures.
+
+| page | before (n104) | now | what's left |
+|---|---|---|---|
+| e5 admin table | 59% | 76% (91k, 5.0 min), colour 98%, structure 92%, layout 74%, must 100% | white bordered rounded card back, every column at its drawn edge, menu in place. "Columns" button pushed to the far right, Role/Status lose their ▾ carets, header row barely tinted, pager ~8px low |
+
+Next: toolbar items packed at the left with the carets kept; e4 photo corners, Details header over body, swatch ring.
