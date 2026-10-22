@@ -1,23 +1,23 @@
 {
   "id": "c4-glass-devices",
-  "at": "2026-10-22T12:07:50.045Z",
+  "at": "2026-10-22T12:14:22.439Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8935356132415688,
-    "overallV2": 0.8935356132415688,
-    "overallV1": 0.8662763196021344,
-    "colour": 0.9759536061398243,
-    "structure": 0.9129701003926277,
-    "structureStrict": 0.8584664118308486,
-    "colourAligned": 0.9759536061398243,
-    "structureAligned": 0.9129701003926277,
+    "overall": 0.9216099402117521,
+    "overallV2": 0.9216099402117521,
+    "overallV1": 0.8937664718177283,
+    "colour": 0.9777628418150593,
+    "structure": 0.933414999128361,
+    "structureStrict": 0.8777432803413332,
+    "colourAligned": 0.9777628418150593,
+    "structureAligned": 0.933414999128361,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9477829879931777
+      "r": 0.9520197246635904
     },
-    "layout": 0.840070206003462
+    "layout": 0.8958155634978014
   },
   "effects": {
     "recall": 1,
@@ -27,35 +27,38 @@
     ],
     "missing": [],
     "extra": [
-      "stripes-or-layers",
-      "tilt"
+      "gradient",
+      "stripes-or-layers"
     ]
   },
   "tokens": {
-    "input": 30189,
-    "output": 19797,
-    "cacheRead": 131429
+    "input": 27964,
+    "output": 16239,
+    "cacheRead": 227147
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 36365,
-      "output": 14351,
-      "cacheRead": 111207,
-      "toolCalls": 6,
+      "billed": 34918,
+      "output": 12970,
+      "cacheRead": 216864,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Read s2c-bench-app/vite.config.ts",
         "Write src/App.tsx"
       ],
-      "ms": 161158
+      "ms": 150096
     }
   ],
-  "reading": "Full landing-page hero sketch: a dark gradient background behind a nav bar, a huge heading, a subheading paragraph, a 'Get Lumen' button, and three frosted-glass stat panels (a bar chart, a ring/donut chart, and a '+38% sessions this week' callout).",
+  "reading": "This is a landing-page hero: a top nav bar, a huge one-line headline, a sub-paragraph, a CTA button, and a dashboard mockup made of a bar-chart panel, a ring-chart panel, and a stats card, all sitting over a deep-indigo background with coloured glows.",
   "actions": [
     {
       "kind": "add",
@@ -70,7 +73,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Top navigation bar: bold 20px wordmark \"Lumen\" on the left, and \"Features · Pricing · Log in\" links on the right."
+      "instruction": "Top nav bar: bold 20px wordmark \"Lumen\" on the left, and nav links \"Features · Pricing · Log in\" on the right."
     },
     {
       "kind": "add",
@@ -93,7 +96,7 @@
         94
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy, tight-set heading reading \"Every screen, one glance.\""
+      "instruction": "Huge Helvetica heavy, tight-set headline \"Every screen, one glance.\" on ONE line (white-space: nowrap, never wrapped), about 834px wide."
     },
     {
       "kind": "add",
@@ -118,7 +121,7 @@
         54
       ],
       "paths": [],
-      "instruction": "Subheading paragraph text: \"Live metrics on your laptop, phone and wall, synced in under a second.\""
+      "instruction": "Sub-headline paragraph text: \"Live metrics on your laptop, phone and wall, synced in under a second.\""
     },
     {
       "kind": "add",
@@ -133,10 +136,10 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Rounded pill button with white deep-indigo text reading \"Get Lumen\"."
+      "instruction": "White, deep-indigo text button labelled \"Get Lumen\"."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -148,10 +151,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Frosted-glass panel, 640x400px, 24px rounded corners, thin white border. Inside: a bar chart of 6 white bars rising from 31px above the panel's bottom, starting"
+      "instruction": "Frosted-glass 640x400px panel, 24px rounded corners, thin white border. Inside: a bar chart of 6 white bars rising from 31px above the panel's bottom, 31px in f"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -163,10 +166,10 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Frosted-glass panel, 210x420px, 36px rounded corners, thin white border. Inside, centred and 91px from the top: a 120px white ring, 12px thick, with its right q"
+      "instruction": "Frosted-glass 210x420px panel, 36px rounded corners, thin white border. Inside: a 120px white ring, 12px thick, open on its right quarter (that part of the ring"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -178,7 +181,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Frosted-glass stat panel with big bold 30px \"+38%\" over smaller 15px \"sessions this week\" text."
+      "instruction": "Frosted-glass stat card showing big 30px bold \"+38%\" over 15px text \"sessions this week\"."
     }
   ],
   "rejected": [

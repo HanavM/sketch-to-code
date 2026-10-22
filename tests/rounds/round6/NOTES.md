@@ -247,3 +247,18 @@ Free fixes:
 | c3 SVG waves | 85% | 83% | trail now follows the target's path (hump, dip, hook); hills crest a bit higher |
 | c4 glass devices | 72% (n79) | **77%** | headline on one line, phone a glass panel; corner glows dimmer than target |
 | c5 brutal zine | 86% | 81% then **89%** | LOUD, quote corner, whole yellow cell, left masthead all right; sticker has a hard shadow |
+
+## n90: glows said exactly, flat dots said exactly, one-line display headings (2026-10-22, ~172k billed tokens)
+
+Free fixes:
+- Soft page glows say each glow's hex, centre (% across, % down) and how far out it fades, full strength at its
+  centre (the radial-gradient itself). c4's "cyan top left" was built as a faint haze. Round 5 c5 hero gains the same.
+- A flat textless disc >= 60px says its exact size and hex (was >= 120px): c2's 110px rose dot was "vivid rose red
+  circle", built ~100px. Round 3 c2 play disc gains it too.
+- A display heading (40-99px) of several words on one line says ONE line, nowrap, and its width: c4's headline
+  wrapped to 2 lines over the subline once the glows were right. Rounds 1, 2 page titles and r6 c5 masthead gain it.
+
+| page | n89 | n90 | note |
+|---|---|---|---|
+| c2 split type | 73% | 72% | dot now the right size and colour; this build's row rule came out thick again and the red half is cut at its right end |
+| c4 glass devices | 77% | 89% then **92%** | glows bright and where the target has them; then the headline back on one line |
