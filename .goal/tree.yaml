@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 6 everyday pages (menu, dashboard, mail, checkout, calendar) are now fully described; next: build them for real and compare."
-lock: {by: run-0351, until: 2026-10-22T05:21:37Z}
+now: "First real builds of the five round 6 everyday pages are done (dashboard 78%, mail 67%); fixing what they got wrong and re-running."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n81 (c892fd3 on try/n3-vocabulary): round-6 everyday live: e1 58, e2 78, e3 67, e4 32, e5 55 (round6/NOTES.md). Planner now says empty card rows, dropdown fixed height and full cover, amber, pale blue-grey page, week hour row height, left-edge event cards. 2 unit tests (cli init gh-create, library home-unwritable) fail in this container on agent too: environment (root, gh present), not from this work."
+  - "Token ledger: 2026-10-22 n81 live round-6 e1-e5 ~273k billed (e4 reading failed once)."
   - "n80 (61f56b9 on try/n3-vocabulary): dense types order (badged thumbs) and headless table; filled form accepts white fields on an off-white page and says sections + choice cards in order; conicRing with 3+ stops = segmented donut (hole, legend); lists with <small> sublines; dropdown hang pass in autoPlan; pseudoPic fact. Round 3 e4 sidebar note changed (better); rounds 1,2,4,5 unchanged. Run autoplan with S2C_CHROMIUM inline (export does not persist between shell calls)."
   - "n78 (16f6406 on try/n3-vocabulary): dense types week (events by day + clock from the hour rail) and reader (opened message); mail rows of 4 parts; pseudoDot (::before knob) = current-time line; repeats() ignores class 'old'. Round 4 e2 reader note changed (better); rounds 1-3, 5 unchanged."
   - "n77 (c0b726a on try/n3-vocabulary): round 6 in tests/rounds/round6 (--set round6auto; dry draws all 10 in ~8.5 min, likeness 0-5%). Untuned misses listed in round6/NOTES.md. Thin strips <=4px tall below the top edge are divider rules; link rows say up to 8 items."
@@ -202,7 +204,8 @@ nodes:
      result: "Calendar events, now-line, all mail rows and the opened message now said in full. Free. 16f6406."}
   - {id: n80, parent: n78, kind: step, title: "Free: rest of round-6 everyday misses (checkout summary items, labelled fields, chosen delivery card; donut segments and legend, table first row; mega-menu sublines, shadow, featured square)", status: done, branch: try/n3-vocabulary,
      result: "Order lines, filled form, chosen delivery card, donut segments, headless table, menu sublines and shadow now said. Free. 61f56b9."}
-  - {id: n81, parent: n80, kind: step, title: "~150k live (--budget): first builds of round-6 everyday e1 mega-menu, e2 dashboard, e3 mail, e4 checkout, e5 week from the n78/n80 plans; fix the worst gap", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n81, parent: n80, kind: step, title: "~150k live (--budget): first builds of round-6 everyday e1 mega-menu, e2 dashboard, e3 mail, e4 checkout, e5 week from the n78/n80 plans; fix the worst gap", status: done, branch: try/n3-vocabulary, result: "Built all five: dashboard 78%, mail 67%, mega-menu 58%, week 55%, checkout 32%; five planner gaps fixed."}
+  - {id: n82, parent: n81, kind: step, title: "~200k live: re-run round-6 e1, e2, e5 with the n81 fixes; free first: e4 form built inside an invented card + invented heading, e5 selected Week tab and red today circle", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
