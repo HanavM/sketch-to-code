@@ -218,8 +218,41 @@ function factsInPage() {
       glows: (() => {
         const rs = [...cs.backgroundImage.matchAll(/radial-gradient\((?:[^()]|\([^()]*\))*\)/g)].map((m) => m[0])
         if (rs.length < 2) return null
-        const where = (g) => { const p = g.match(/at\s+(\d+)%\s+(\d+)%/); if (!p) return 'middle'; const x = +p[1], y = +p[2]; return `${y < 35 ? 'top' : y > 65 ? 'bottom' : 'middle'}${x < 35 ? ' left' : x > 65 ? ' right' : y >= 35 && y <= 65 ? '' : ''}`.trim() }
-        return rs.map((g) => ({ c: rgba((g.match(/rgba?\([^)]+\)/) || [])[0] ?? ''), at: where(g) })).filter((g) => g.c && g.c.a > 0.3)
+        // where each glow really shows: background-size/position move and enlarge the glows (round 5 c1: 200% size,
+        // so of three glows only orange sits in view, big; purple only reaches in from the right edge)
+        // read them as the likeness screenshot shows them: infinite animations cancelled (Playwright
+        // animations:'disabled'), i.e. the un-animated position (c1: 0% 0%, not the drift's first frame 0% 50%)
+        el.getAnimations().forEach((a) => a.cancel())
+        const W = r.width, H = r.height
+        const sizes = cs.backgroundSize.split(',').map((x) => x.trim()), poss = cs.backgroundPosition.split(',').map((x) => x.trim())
+        const len = (v, box, img) => (v.endsWith('%') ? (parseFloat(v) / 100) * (box - img) : parseFloat(v) || 0)
+        const out = []
+        rs.forEach((g, i) => {
+          const c = rgba((g.match(/rgba?\([^)]+\)/) || [])[0] ?? '')
+          if (!c || c.a <= 0.3) return
+          const sz = (sizes[i] ?? sizes[0] ?? 'auto').split(/\s+/), ps = (poss[i] ?? poss[0] ?? '0% 0%').split(/\s+/)
+          const dim = (v, box) => (!v || v === 'auto' || v === 'cover' || v === 'contain' ? box : v.endsWith('%') ? (parseFloat(v) / 100) * box : parseFloat(v))
+          const iw = dim(sz[0], W), ih = dim(sz[1] ?? sz[0], H)
+          const ox = len(ps[0] ?? '0%', W, iw), oy = len(ps[1] ?? '50%', H, ih)
+          const p = g.match(/at\s+([\d.]+)%\s+([\d.]+)%/)
+          const gx = p ? (+p[1] / 100) * iw : iw / 2, gy = p ? (+p[2] / 100) * ih : ih / 2
+          // ray to the farthest corner of the image (the default size); the glow ends at its transparent stop
+          const ray = Math.max(Math.hypot(gx, gy), Math.hypot(iw - gx, gy), Math.hypot(gx, ih - gy), Math.hypot(iw - gx, ih - gy))
+          const stop = [...g.matchAll(/(?:transparent|rgba\([^)]*,\s*0\))\s+([\d.]+)%/g)].map((m) => +m[1])[0]
+          const rad = (stop ?? 70) / 100 * ray
+          const x = ox + gx, y = oy + gy
+          const dx = x < 0 ? -x : x > W ? x - W : 0, dy = y < 0 ? -y : y > H ? y - H : 0
+          const reach = rad - Math.hypot(dx, dy)
+          if (reach < Math.min(W, H) * 0.12) return
+          const fx = (x / W) * 100, fy = (y / H) * 100
+          const inside = !dx && !dy
+          let at
+          if (inside) at = `${fy < 35 ? 'top' : fy > 65 ? 'bottom' : 'middle'}${fx < 35 ? ' left' : fx > 65 ? ' right' : fy >= 35 && fy <= 65 ? '' : ''}`.trim()
+          else at = `coming in from the ${dy > dx ? (y > H ? 'bottom' : 'top') : (x > W ? 'right' : 'left')} edge`
+          out.push({ c, at, inside, big: inside && rad >= W * 0.45, px: Math.round(rad), fx: Math.round(fx), fy: Math.round(fy) })
+        })
+        out.sort((a, b) => (b.inside - a.inside) || b.px - a.px)
+        return out
       })(),
       // a progress ring: a round conic gradient (round 5 c5 '72%' ring said as a 'near-black block')
       conicRing: (() => {
@@ -829,8 +862,12 @@ function denseNote(d) {
 // ---- round 5 creative helpers (n61)
 /** Soft glows over a fill: 'near-black block with soft glows: indigo top left, pink bottom right' (was 'indigo to pink gradient'). */
 function glowWords(f) {
-  if (!f.glows || f.glows.length < 2) return null
+  if (!f.glows || !f.glows.length) return null
   const base = visible(f.bg) ? colourName(f.bg) : null
+  const inside = f.glows.filter((g) => g.inside)
+  const one = inside.length === 1 && inside[0].big
+  const say = (g) => g.inside ? g.big ? `one big ${colourName(g.c)} glow centred ${g.fx}% across and ${g.fy}% down (about ${g.px * 2}px across, filling most of the block)` : `${colourName(g.c)} glow ${g.at}` : `${colourName(g.c)} ${g.at}`
+  if (one) return `${base ? `${base} block` : 'block'} lit by ${f.glows.map(say).join(', a little ')}`
   return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map((g) => `${colourName(g.c)} ${g.at}`).join(', ')}`
 }
 /** A hard offset shadow with its offset and colour (round 5 c4 photo's 24px brown shadow: unsaid). */

@@ -170,3 +170,10 @@ card's drawn height. Before, the modal was "white card, lines ...". Rounds 1-4 p
 
 Side-by-sides: built/e1-board-modal-cmp.png (first), built/e1-board-modal-n67-cmp.png. Left: card tags built above the titles in
 the second run (below in the target); c1 glows still purple/blue (target one big orange glow).
+
+## n70: masked reel glows (2026-10-22)
+The planner read each radial glow at its raw `at X% Y%`, ignoring `background-size:200%` and position, so it said three
+equal glows (orange, purple, sky blue). Glows are now placed where the likeness screenshot shows them (animations
+cancelled, as Playwright `animations:'disabled'`): one big orange glow centred 60% across / 80% down, purple only
+reaching in from the right edge, sky blue out of view. Live c1: 57% -> 65% (colour 90%), one orange glow as in the
+target, a bit dimmer. Rounds 1-4 plans unchanged. Side-by-side: c1-masked-reel-n70-cmp.png.
