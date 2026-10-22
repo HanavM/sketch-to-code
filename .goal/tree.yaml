@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "All ten round-7 pages except the torn collage have been built once: code editor 86%, admin table 66%, kanban, product page and growth dashboard still around 25-30%. Next: fixing those three."
-lock: null
+lock: {by: run-n97, until: "2026-10-22T16:42:31Z"}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
