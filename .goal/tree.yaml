@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Product page now 69% alike (was 45%): thumbnails and buttons build as clean boxes, so it has time to fix its spacing. Next: the torn-paper collage page, never built yet."
-lock: null
+lock: {by: run-1856, until: 2026-10-22T20:26:08Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
