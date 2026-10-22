@@ -195,3 +195,10 @@ r3 c4 "01" 177 -> 425px (set 420), r4 c5 "03" 156 -> 365 (360), r1 c5 123 -> 243
 
 Left: rail label tiny, card titles mono not Helvetica, contact card sky blue (target cornflower), stamp text small.
 Side by side: `built/c4-brutal-index-n40-cmp.png`.
+
+## n74: c5 re-run after n72/n73 (2026-10-22, live, 53k)
+c5 blend editorial 81% -> **70%**. Headline now breaks as drawn ("Light keeps the / dark honest", 150px tight), link
+underlined (was a pill). But the half of the headline on the white page vanished: codegen gave the canvas wrapper
+`isolate` with no background, so `mix-blend-mode: difference` blended against nothing and the white text stayed
+white on white. Contract fix (free): colour-inverting text must blend inside a group that paints the page colour
+(or no isolate). Re-run c5 to prove it. Side-by-side: built/c5-blend-editorial-n74-cmp.png.

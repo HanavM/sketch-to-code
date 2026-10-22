@@ -1,28 +1,30 @@
 {
   "id": "c4-outline-stack",
-  "at": "2026-10-21T23:37:35.855Z",
+  "at": "2026-10-22T01:23:43.575Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6317919500283102,
-    "overallV2": 0.6317919500283102,
-    "overallV1": 0.5143132902322818,
-    "colour": 0.9408311818254981,
-    "structure": 0.7480286273141464,
-    "structureStrict": 0.6129019081949769,
-    "colourAligned": 0.9408311818254981,
-    "structureAligned": 0.7480286273141464,
+    "overall": 0.6979940549958668,
+    "overallV2": 0.6948337410536032,
+    "overallV1": 0.5807054849876139,
+    "colour": 0.9380191916358243,
+    "structure": 0.841608993602206,
+    "structureStrict": 0.7103359876982781,
+    "colourAligned": 0.9400629448028789,
+    "structureAligned": 0.841608993602206,
     "align": {
-      "scale": 1,
-      "dx": 0,
-      "dy": 0,
-      "r": 0.9125236303940907
+      "scale": 0.96,
+      "dx": 32,
+      "dy": 16,
+      "r": 0.9791523380528556
     },
-    "layout": 0.8078311522302541
+    "layout": 0.7612699337125164
   },
   "effects": {
-    "recall": 0.5555555555555556,
+    "recall": 0.7777777777777778,
     "kept": [
       "blend",
+      "gradient",
+      "hard-shadow",
       "hollow-type",
       "huge-type",
       "overlap",
@@ -30,40 +32,37 @@
     ],
     "missing": [
       "bleed",
-      "gradient",
-      "hard-shadow",
       "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 36007,
-    "output": 23632,
-    "cacheRead": 162829
+    "input": 44361,
+    "output": 20166,
+    "cacheRead": 150261
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 41041,
-      "output": 16020,
-      "cacheRead": 126586,
-      "toolCalls": 9,
+      "billed": 48743,
+      "output": 14264,
+      "cacheRead": 138308,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
         "Read src/main.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape2.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 168671
+      "ms": 164893
     }
   ],
-  "reading": "The sketch is a hero section: a two-line giant 'SUMMER' heading, two overlapping tilted gradient blocks layered over it, three tilted pill badges, a small wordmark, a body paragraph, and an underlined link, all driven by typed notes that specify exact colors, text and effects.",
+  "reading": "This is a hero section for a summer apparel page: two stacked giant hollow-outlined 'SUMMER' headlines bleeding off the page edges, two overlapping tilted color-gradient blocks in front of them, three tilted pill badges ('New season', 'Linen only', 'Ships in 24h'), a small 'ORRA' wordmark, a two-line body paragraph, and a 'Shop summer →' link, all set against an off-white, grain-textured, Helvetica/dark-brown page style.",
   "actions": [
     {
       "kind": "add",
@@ -81,12 +80,12 @@
       ],
       "region": [
         6,
-        85,
+        -1,
         1217,
-        231
+        403
       ],
       "paths": [],
-      "instruction": "First of two stacked lines of a giant Helvetica heavy, tight-set, hollow-outlined peach heading reading 'SUMMER', bleeding off the left and right page edges."
+      "instruction": "Giant Helvetica heavy, tightly tracked, hollow-outlined peach heading reading \"SUMMER\", bleeding off the left and right edges of the page. This is the first of "
     },
     {
       "kind": "add",
@@ -104,12 +103,12 @@
       ],
       "region": [
         6,
-        365,
+        279,
         1217,
-        232
+        403
       ],
       "paths": [],
-      "instruction": "Second of two stacked lines of the same giant Helvetica heavy, tight-set, hollow-outlined peach heading reading 'SUMMER', bleeding off the left and right page e"
+      "instruction": "Giant Helvetica heavy, tightly tracked, hollow-outlined peach heading reading \"SUMMER\", bleeding off the left and right edges of the page. This is the second of"
     },
     {
       "kind": "add",
@@ -126,7 +125,7 @@
         "s3",
         "s4"
       ],
-      "instruction": "Tilted bright orange-to-brown gradient block with a hard dark brown drop shadow offset 24px down-right (no blur), placed in front of the 'SUMMER' heading."
+      "instruction": "Rectangular block tilted 3° clockwise, filled with a vivid bright orange (top) to brown (bottom) gradient, with a hard dark brown drop shadow offset 24px down-r"
     },
     {
       "kind": "add",
@@ -143,7 +142,7 @@
         "s6",
         "s7"
       ],
-      "instruction": "Tilted ink-like dark blue-to-sky-blue gradient block using a multiply blend (darkens what it overlaps without covering it), placed in front of the 'SUMMER' head"
+      "instruction": "Rectangular block tilted 4° anticlockwise, filled with an ink-like dark blue (bottom) to vivid sky blue (top) gradient using multiply blend so it darkens what i"
     },
     {
       "kind": "add",
@@ -158,7 +157,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Tilted pill-shaped badge with a 2px dark brown border, bold label text 'New season'."
+      "instruction": "Pill-shaped label tilted 8° anticlockwise with a 2px dark brown border and bold text \"New season\"."
     },
     {
       "kind": "add",
@@ -173,7 +172,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Tilted dark brown pill-shaped badge with a 2px dark brown border, bold off-white label text 'Linen only'."
+      "instruction": "Pill-shaped label tilted 10° clockwise, filled dark brown, with a 2px dark brown border and bold off-white text \"Linen only\"."
     },
     {
       "kind": "add",
@@ -188,7 +187,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Tilted vivid yellow pill-shaped badge with a 2px dark brown border, bold label text 'Ships in 24h'."
+      "instruction": "Pill-shaped label tilted 4° clockwise, filled vivid yellow, with a 2px dark brown border and bold text \"Ships in 24h\"."
     },
     {
       "kind": "add",
@@ -203,7 +202,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small wordmark/logo text reading 'ORRA'."
+      "instruction": "Small wordmark text reading \"ORRA\" in the top-left corner of the page."
     },
     {
       "kind": "add",
@@ -223,12 +222,12 @@
       ],
       "region": [
         64,
-        648,
+        640,
         332,
-        34
+        51
       ],
       "paths": [],
-      "instruction": "Body paragraph text: 'Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.'"
+      "instruction": "Two-line body paragraph reading \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
     },
     {
       "kind": "add",
@@ -243,7 +242,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Bold link reading 'Shop summer →' with a 3px underline, not a boxed button."
+      "instruction": "Bold link text \"Shop summer →\" with a 3px underline, styled as a plain text link (no surrounding button box)."
     }
   ],
   "rejected": [

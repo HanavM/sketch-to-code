@@ -177,3 +177,10 @@ equal glows (orange, purple, sky blue). Glows are now placed where the likeness 
 cancelled, as Playwright `animations:'disabled'`): one big orange glow centred 60% across / 80% down, purple only
 reaching in from the right edge, sky blue out of view. Live c1: 57% -> 65% (colour 90%), one orange glow as in the
 target, a bit dimmer. Rounds 1-4 plans unchanged. Side-by-side: c1-masked-reel-n70-cmp.png.
+
+## n74: does the n73 gain carry? (2026-10-22, live)
+| page | before | after | tokens | what changed |
+|---|---|---|---|---|
+| c4 outline stack | 63% | **70%** | 65k | blue photo now light at the top, dark at the bottom (n73 gradient ends said), as in the target. Left: SUMMER lines ~40px high, orange photo too dark at the bottom, hard shadow translucent not solid |
+
+Side-by-side: built/c4-outline-stack-n74-cmp.png. Round-3 c5 was re-run in the same step (see round3/RESULTS.md).

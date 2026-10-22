@@ -192,6 +192,13 @@ Rules:
   grey text (on a page whose text is white or black) → that softer grey, not the
     page's text colour;
   overlapping → absolute position or negative margin so the two boxes truly overlap;
+  colour-inverting where it crosses what is under it → white text with
+    mix-blend-mode: difference, and it must blend with the REAL page under it:
+    never put the blending text inside an 'isolate' (isolation: isolate), z-index,
+    opacity or transform wrapper unless that same wrapper paints the page's
+    background colour itself; otherwise the light page is outside the blend
+    group and the text shows white on white. Simplest: give the absolute
+    wrapper holding the blocks the page background (e.g. bg-white), or no isolate;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.
   outline circle/ring → border only, transparent inside (no fill, no tint);
