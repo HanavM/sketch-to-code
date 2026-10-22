@@ -1,23 +1,23 @@
 {
   "id": "c3-svg-waves",
-  "at": "2026-10-22T11:42:34.220Z",
+  "at": "2026-10-22T12:43:21.933Z",
   "likeness": {
     "version": 3,
-    "overall": 0.825571312016407,
-    "overallV2": 0.825571312016407,
-    "overallV1": 0.658432027495826,
-    "colour": 0.9630268652817782,
-    "structure": 0.8822582126421404,
-    "structureStrict": 0.6482980602745501,
-    "colourAligned": 0.9630268652817782,
-    "structureAligned": 0.8822582126421404,
+    "overall": 0.8867101636205341,
+    "overallV2": 0.8867101636205341,
+    "overallV1": 0.7670866908994951,
+    "colour": 0.978341743994756,
+    "structure": 0.9223783421517567,
+    "structureStrict": 0.7549304199901159,
+    "colourAligned": 0.978341743994756,
+    "structureAligned": 0.9223783421517567,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9575683835971015
+      "r": 0.9720218444020863
     },
-    "layout": 0.8565327494153442
+    "layout": 0.8995173756460294
   },
   "effects": {
     "recall": 1,
@@ -26,41 +26,55 @@
       "serif"
     ],
     "missing": [],
-    "extra": []
+    "extra": [
+      "overlap"
+    ]
   },
   "tokens": {
-    "input": 37936,
-    "output": 32249,
-    "cacheRead": 262388
+    "input": 44259,
+    "output": 27785,
+    "cacheRead": 209531
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 60471,
-      "output": 26546,
-      "cacheRead": 259304,
-      "toolCalls": 13,
+      "billed": 60984,
+      "output": 23538,
+      "cacheRead": 199222,
+      "toolCalls": 10,
       "tools": [
-        "Read components/SketchShape.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Grep",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Glob",
-        "Read s2c-bench-app/index.html",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
         "Write src/App.tsx",
-        "Glob"
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 301100
+      "ms": 274654
     }
   ],
-  "reading": "The sketch is a hero section: a full-page frame with a logo/nav row of wavy placeholder text, a large two-line italic headline, a paragraph placeholder, a pill button, a decorative orange disc top-right, and layered wavy hill shapes with a dashed trail line at the bottom, all specified precisely by typed notes (colors, copy, and exact coordinates) that override the rough ink.",
+  "reading": "The sketch lays out a hero/landing page: a page-wide border, a big orange circle, a wavy page-width ribbon line (nav), two blocks of squiggly placeholder text (headline + paragraph), and a pill button, all captioned by typed notes giving exact colors, copy and specs.",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Whole page: pale yellow page background, Georgia font family site-wide, deep green text color."
+    },
     {
       "kind": "add",
       "textMarks": [],
@@ -74,7 +88,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a decorative perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, ha"
+      "instruction": "Perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur."
     },
     {
       "kind": "add",
@@ -89,7 +103,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add three layered wavy hill shapes (filled, smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efa"
+      "instruction": "Three layered wavy hill shapes spanning the full page width down to the bottom edge, back to front: mint green (#86efac) cresting ~566px down (top edge ~612, 62"
     },
     {
       "kind": "add",
@@ -104,7 +118,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a top navigation bar replacing the wavy placeholder line: bold 24px \"Meadow\" wordmark on the left, \"Trails · Huts · Journal · Book\" nav links on the right."
+      "instruction": "Top navigation bar across the full width: bold 24px \"Meadow\" on the left, and \"Trails · Huts · Journal · Book\" on the right."
     },
     {
       "kind": "add",
@@ -129,7 +143,7 @@
         175
       ],
       "paths": [],
-      "instruction": "Add a giant Georgia italic, regular-weight (not bold) headline set tight (line-height 0.95), exactly 2 lines with these breaks kept: \"Walk where the\" / \"hills r"
+      "instruction": "Giant Georgia italic serif, regular weight (not bold), heading set tight (line-height 0.95), text \"Walk where the hills roll on\", set in exactly 2 lines: \"Walk "
     },
     {
       "kind": "add",
@@ -154,7 +168,7 @@
         54
       ],
       "paths": [],
-      "instruction": "Add body copy text: \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
+      "instruction": "Body paragraph text below the heading: \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
     },
     {
       "kind": "add",
@@ -169,10 +183,8 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a deep green pill-shaped button with pale yellow text reading \"Plan a walk\"."
+      "instruction": "Pill-shaped button labeled \"Plan a walk\", deep green fill with pale yellow text, placed below the paragraph where the rounded rectangle is sketched."
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

@@ -148,27 +148,27 @@
    ],
    [
     "logo",
-    "wide-spaced letters \"KINETIK\""
+    "16px wide-spaced letters \"KINETIK\""
    ],
    [
     "date",
-    "text \"Vol. 06 — Oct 2026\""
+    "15px text \"Vol. 06 — Oct 2026\""
    ],
    [
     "word-top",
-    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down"
+    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)), the slid copy whole to its last letter, sticking out 70px past the other copy's right end (no overflow-hidden wrapper, no width cap cutting it); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down"
    ],
    [
     "rule",
-    "solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 3px thick (height: 3px), thinner than the drawn pen line)"
+    "solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 3px thick (height: 3px, Tailwind h-[3px], never h-3 which is 12px), thinner than the drawn pen line)"
    ],
    [
     "vertical",
-    "uppercase wide-spaced letters vertical \"A TYPE FESTIVAL · LISBON\""
+    "uppercase wide-spaced letters vertical (writing-mode: vertical-rl), 15px letters, the line about 338px long \"A TYPE FESTIVAL · LISBON\""
    ],
    [
     "row-rule",
-    "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px), thinner than the drawn pen line)"
+    "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), thinner than the drawn pen line)"
    ],
    [
     "cols",
@@ -230,7 +230,7 @@
    ],
    [
     "waves",
-    "drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down, vivid green (#22c55e) cresting about 657px down, deep green (#14532d) cresting about 754px down; plus a dashed 4px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 760,420 → 832,346 → 934,334 → 1021,389 → 1081,475 → 1173,481 → 1180,380 (page px)"
+    "drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down (its top edge about 612, 623, 592, 566, 605px down at the left edge, quarter, middle, three-quarters and right edge), vivid green (#22c55e) cresting about 657px down (its top edge about 694, 695, 693, 657, 711px down at the left edge, quarter, middle, three-quarters and right edge), deep green (#14532d) cresting about 754px down (its top edge about 785, 782, 796, 754, 792px down at the left edge, quarter, middle, three-quarters and right edge); plus a dashed 4px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 760,420 → 832,346 → 934,334 → 1021,389 → 1081,475 → 1173,481 → 1180,380 (page px)"
    ],
    [
     "nav",
@@ -402,7 +402,7 @@
    ],
    [
     "sticker",
-    "tilted 14° anticlockwise vivid red circle with \"SOLD OUT SOON\""
+    "tilted 14° anticlockwise vivid red circle with \"SOLD OUT SOON\", 3px solid black outline, flat, no shadow"
    ]
   ]
  },

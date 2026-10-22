@@ -262,3 +262,25 @@ Free fixes:
 |---|---|---|---|
 | c2 split type | 73% | 72% | dot now the right size and colour; this build's row rule came out thick again and the red half is cut at its right end |
 | c4 glass devices | 77% | 89% then **92%** | glows bright and where the target has them; then the headline back on one line |
+
+## n91: the slid half whole, Tailwind-safe rules, small label sizes, hill edges, sticker outline (2026-10-22, ~287k billed tokens)
+
+Free fixes:
+- The sliced word says the slid copy shows whole to its last letter, sticking out past the other copy (no
+  overflow-hidden wrapper, no width cap): c2's red half had been cut ~40px short at its right end.
+- A divider rule says its Tailwind class too ("h-[2px], never h-2 which is 8px"): c2's 2px row rule kept coming out
+  ~6-8px.
+- A small vertical label (no fill, <= 24px) says writing-mode, its letter size and how long the line runs (c2's 15px
+  label was built ~9px). Rounds 3, 4 vertical labels gain the same.
+- A short one-line label of 13-17px says its px (c2 'KINETIK' 16px and the date 15px were built ~8px). Rounds 1-5:
+  nine short labels gain their px, nothing else.
+- SVG hills say their top edge's height at five points across, not just the crest (c3 hills sat high on the left).
+- A filled round sticker with an outline says the outline and "flat, no shadow" (c5 sticker had a hard shadow).
+
+| page | n90 | n91 | note |
+|---|---|---|---|
+| c2 split type | 72% | **76%** then 73% | red half whole, rule thin, vertical label right size; second run also logo/date right size; Tickets ~10px high, row rule a little grey; scores within run-to-run noise of each other |
+| c3 SVG waves | 83% | **89%** | hills follow the target's edges, sun and trail right |
+| c5 brutal zine | 89% | **90%** | sticker outlined, no shadow; LOUD dropped again, sticker text small |
+
+Side-by-sides: built/c2-split-type-run1-cmp.png (76%), built/c2-split-type-cmp.png (73%), c3, c5.

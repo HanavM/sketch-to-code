@@ -186,7 +186,9 @@ export function factsInPage() {
         const svg = el.tagName.toLowerCase() === 'svg' ? el : null
         if (!svg) return null
         const fills = [...svg.querySelectorAll('path, polygon, ellipse, rect')].filter((p) => getComputedStyle(p).fill !== 'none' && rgba(getComputedStyle(p).fill)?.a > 0.05)
-          .map((p) => { const b = p.getBoundingClientRect(); return { c: rgba(getComputedStyle(p).fill), top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? '') } })
+          .map((p) => { const b = p.getBoundingClientRect(); return { c: rgba(getComputedStyle(p).fill), top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''),
+            // the top edge's height at 5 points across: a crest alone was built with the hill's left side high (round 6 c3)
+            edge: (() => { try { if (!p.getTotalLength) return null; const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; const pts = Array.from({ length: 401 }, (_, i) => { const q = p.getPointAtLength((L * i) / 400); return [m.a * q.x + m.c * q.y + m.e, m.b * q.x + m.d * q.y + m.f] }); const xs = [0, 1, 2, 3, 4].map((i) => b.left + ((b.right - b.left) * i) / 4); const tol = (b.right - b.left) / 40; return xs.map((X) => { const near = pts.filter(([x]) => Math.abs(x - X) <= tol); return near.length ? [Math.round(X), Math.round(Math.min(...near.map(([, y]) => y)))] : null }) } catch { return null } })() } })
         const strokes = [...svg.querySelectorAll('path, polyline, line')].filter((p) => getComputedStyle(p).fill === 'none' || p.tagName === 'line').filter((p) => rgba(getComputedStyle(p).stroke)?.a > 0.05)
           .map((p) => { const b = p.getBoundingClientRect(); const da = p.getAttribute('stroke-dasharray') ?? getComputedStyle(p).strokeDasharray; return { c: rgba(getComputedStyle(p).stroke), w: Math.round(parseFloat(getComputedStyle(p).strokeWidth)), dash: da && da !== 'none' ? da.split(/[ ,]+/).map(parseFloat)[0] : 0, x: Math.round(b.left), y: Math.round(b.top), right: Math.round(b.right), bottom: Math.round(b.bottom), curvy: /[CSQT]/i.test(p.getAttribute('d') ?? ''), via: (() => { try { const L = p.getTotalLength(), m = p.getScreenCTM(); if (!L || !m) return null; return [0, 1, 2, 3, 4, 5, 6].map((i) => { const q = p.getPointAtLength((L * i) / 6); return [Math.round(m.a * q.x + m.c * q.y + m.e), Math.round(m.b * q.x + m.d * q.y + m.f)] }) } catch { return null } })() } })
         return fills.length >= 2 || (fills.length && strokes.length) ? { fills, strokes } : null
@@ -1031,7 +1033,8 @@ function effectWords(f) {
   const w = []
   const turn = Math.abs(f.rotate)
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
-  if (f.vertical) w.push('vertical')
+  // a small vertical label says its type size: 'vertical' alone was built ~9px on a 15px target (round 6 c2)
+  if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long` : 'vertical')
   // with its angles: a bare 'tilted back' built three cards at one made-up angle (round 6 c1)
   else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
   // which way and how far: a bare 'tilted' was built flat (round 4 c1 blue block, sticker)
@@ -1306,7 +1309,7 @@ function decideOne(f, page, marked, said) {
     const wide = fills.filter((x) => x.right - x.left >= w * 0.8)
     const hills = wide.length >= 2 && wide.every((x) => x.curvy && x.bottom >= f.rect.y + h - 4)
     const sh = hills
-      ? `${wide.length} layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: ${wide.map((x) => `${vivid(x.c) ? 'vivid ' : ''}${colourName(x.c)} (${hexOf(x.c)}) cresting about ${x.top}px down`).join(', ')}`
+      ? `${wide.length} layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: ${wide.map((x) => `${vivid(x.c) ? 'vivid ' : ''}${colourName(x.c)} (${hexOf(x.c)}) cresting about ${x.top}px down${x.edge && x.edge.every(Boolean) ? ` (its top edge about ${x.edge.map(([, y]) => y).join(', ')}px down at the left edge, quarter, middle, three-quarters and right edge)` : ''}`).join(', ')}`
       : `${fills.length} filled shapes: ${fills.map((x) => `${colourName(x.c)} ${x.right - x.left}x${x.bottom - x.top}px at ${x.left},${x.top}`).join(', ')}`
     const crosses = (v) => { const X = (a, b, c, d) => { const o = (p, q, r) => Math.sign((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])); return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0 }; for (let i = 0; i < v.length - 1; i++) for (let j = i + 2; j < v.length - 1; j++) if (X(v[i], v[i + 1], v[j], v[j + 1])) return true; return false }
     // a curving trail says the points it passes through in order: 'from about x,y up and across to x,y'
@@ -1464,7 +1467,10 @@ function decideOne(f, page, marked, said) {
     // circle' was built ~100px, a little squashed)
     // a big flat textless disc (round 6 c3 sun: 'big vivid bright orange circle' built as two pale blobs traced from the ink)
     if (!f.text && fill && !grad && !glowy && w >= 60 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
-    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}`) }
+    // a filled sticker with a bold outline says the outline and that it casts no shadow: on a brutalist page the
+    // build gave it a hard offset shadow and no outline (round 6 c5 'SOLD OUT SOON')
+    const rim = f.text && fill && bordered && f.border.w >= 2 ? `, ${Math.round(f.border.w)}px solid ${lineCol(f.border.colour)} outline${f.shadows.some((x) => !x.clear) ? '' : ', flat, no shadow'}` : ''
+    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${words}${rim}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
   if (f.dotKids && !f.regionKids.length) {
@@ -1480,7 +1486,7 @@ function decideOne(f, page, marked, said) {
     // a divider says its exact thickness and that the pen line is thicker than it: 'only 2px tall' alone
     // was built ~5px from the drawn stroke (round 6 c2 row rule)
     const divider = f.rect.y > 4 && w >= 400 && h <= 4
-    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${divider ? `a divider rule, not a bar or button; exactly ${Math.round(h)}px thick (height: ${Math.round(h)}px), thinner than the drawn pen line` : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
+    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${divider ? `a divider rule, not a bar or button; exactly ${Math.round(h)}px thick (height: ${Math.round(h)}px, Tailwind h-[${Math.round(h)}px], never h-${Math.round(h)} which is ${Math.round(h)*4}px), thinner than the drawn pen line` : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
   }
   // a progress meter with its label lines
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
@@ -1698,7 +1704,10 @@ function decideOne(f, page, marked, said) {
     // a lead line in a softer grey than the page's text (grey blurb on a white-text poster) says so,
     // or builds set it in the page's full text colour (round 2 c2)
     if (lead && /grey/.test(textCol ?? '') && !styled.includes(textCol)) styled.push(textCol)
-    return { kind: 'text', note: say ? `${styled.join(' ')} ${quote(f.text)}`.trim() : lead ? `${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
+    // a small one-line label says its type size: drawn as a short scribble it was built ~half size (round 6 c2
+    // 'KINETIK' 16px and the date 15px came out ~8px)
+    const px = (say || (lead && f.text.length <= 40)) && f.font.size >= 13 && f.font.size < 18 && f.textLines <= 1 && !f.vertical ? `${Math.round(f.font.size)}px` : null
+    return { kind: 'text', note: say ? `${uniq([px, ...styled]).join(' ')} ${quote(f.text)}`.trim() : lead ? `${px ? `${px} ` : ''}${styled.length ? `${styled.join(' ')} ` : ''}text ${quote(f.text, 110)}` : null }
   }
   return { kind: 'box', note: null }
 }
@@ -1835,7 +1844,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
         const wpx = top.shown?.w ? `, ${Math.round(top.font.size)}px type, the whole word about ${top.shown.w}px wide (no wider)` : ''
         const cut = Math.round((1 - top.clipInset.b) * 100)
         const sh = bot.shiftX - top.shiftX
-        dt.note = `ONE ${look} word ${quote(f.text)}${wpx}, sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px))` : ''}; the two parts touch at the cut, no gap, one line of type`
+        dt.note = `ONE ${look} word ${quote(f.text)}${wpx}, sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px)), the slid copy whole to its last letter, sticking out ${Math.abs(sh)}px past the other copy's ${sh > 0 ? 'right' : 'left'} end (no overflow-hidden wrapper, no width cap cutting it)` : ''}; the two parts touch at the cut, no gap, one line of type`
         // a thin rule drawn along the cut: say the cut sits on it (round 6 c2 built the word ~45px high,
         // its cut floating above the rule the target slices it on)
         const cutY = top.rect.y + top.rect.h * cut / 100
