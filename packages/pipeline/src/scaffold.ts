@@ -171,9 +171,14 @@ export function isPrimitivePath(d: string): boolean {
  * scaffold: on creative pages those are tilted photos, cubes and skylines the
  * words reshape, and they built well with it.
  */
-export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number; h: number }): boolean {
+export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number; h: number }, instruction = ''): boolean {
   if (!paths.length || !paths.every((p) => isPrimitivePath(p.d))) return false
-  if (paths.length === 1) return region.w <= 80 && region.h <= 80
+  if (paths.length === 1) {
+    if (region.w <= 80 && region.h <= 80) return true
+    // one upright box whose words already give its exact size: the outline adds nothing but its wobble (round 7
+    // e4: the 520x620px 12px-rounded photo backdrop was built as the drawn shape, square-cornered, edge wobbly)
+    return isClosed(paths[0]!.d) && /\b\d{2,4}\s?x\s?\d{2,4}\s?px\b/i.test(instruction) && !/\b(tilt|rotat|perspective|skew|3d|isometric|torn|jagged|cut-out)/i.test(instruction)
+  }
   const boxes = paths.filter((p) => isClosed(p.d)).map((p) => {
     const pts = densePointsOf(p.d)
     const xs = pts.map((q) => q[0]), ys = pts.map((q) => q[1])
@@ -215,7 +220,7 @@ export function buildScaffold(
   // included. Text squiggles are still never in `paths` (grounding drops them).
   if (action.fidelity !== 'recognized' && action.fidelity !== 'verbatim') return null
   // the trace rung asked for widgets as drawn too (above), so only below it
-  if (rungFor(fidelity.resemblance) !== 'trace' && onlyPrimitives(paths, region)) return null
+  if (rungFor(fidelity.resemblance) !== 'trace' && onlyPrimitives(paths, region, `${action.instruction} ${action.depicts ?? ''}`)) return null
 
   let name = componentName(action.depicts)
   const taken = opts.taken ?? new Set<string>()

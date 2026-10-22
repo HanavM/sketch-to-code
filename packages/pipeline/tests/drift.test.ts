@@ -74,4 +74,20 @@ describe('verifyPageDrift', () => {
     const v = verifyPageDrift(snap([]), snap([node(600, 600, 40, 40)]), placed)
     expect(v.unverifiable).toBe(true)
   })
+  it('matches a block by its quoted copy before its size (round 7 e4: size row matched a wrapper, drift unreported)', () => {
+    const rows = [
+      { region: { x: 734, y: 218, w: 158, h: 8 }, quote: '$189', built: node(734, 256, 70, 34, '$189') },
+      { region: { x: 734, y: 273, w: 81, h: 8 }, quote: 'Colour: Indigo', built: node(734, 340, 100, 16, 'Colour: Indigo') },
+      { region: { x: 734, y: 393, w: 483, h: 38 }, quote: 'XS', built: node(734, 484, 90, 44, 'XS') },
+      { region: { x: 733, y: 521, w: 405, h: 52 }, quote: 'Add to bag', built: node(734, 608, 410, 54, 'Add to bag') },
+      { region: { x: 734, y: 592, w: 142, h: 8 }, quote: '✓ Free delivery', built: node(734, 682, 160, 18, '✓ Free delivery by Oct 27') },
+      { region: { x: 52, y: 119, w: 77, h: 77 }, quote: null, built: node(52, 124, 84, 84) },
+    ]
+    // wrappers sitting near the drawn tops, the size-only match's favourites
+    const decoys = [node(734, 386, 482, 40), node(734, 214, 160, 12), node(734, 516, 405, 56)]
+    const v = verifyPageDrift(snap([]), snap([...rows.map((r) => r.built), ...decoys]), rows.map((r, index) => ({ index, region: r.region, quote: r.quote })))
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toMatch(/lower than drawn/)
+    expect(v.offsets.find((o) => o.index === 2)?.dy).toBe(91)
+  })
 })

@@ -346,4 +346,11 @@ describe('onlyPrimitives — a widget drawn as plain boxes is not a form (round 
     expect(onlyPrimitives([rect(0, 0, 400, 300, 'a'), line(0, 0, 400, 300, 'x'), line(400, 0, 0, 300, 'y')], { w: 402, h: 302 })).toBe(false)
     expect(onlyPrimitives([rect(0, 0, 400, 60, 'a'), rect(0, 80, 120, 300, 'b'), rect(140, 80, 260, 300, 'c')], { w: 402, h: 382 })).toBe(false)
   })
+  it('drops the outline of one upright box whose words give its exact size, unless it is tilted (round 7 e4 photo)', () => {
+    const photo = [rect(0, 0, 514, 614, 'p')]
+    expect(onlyPrimitives(photo, { w: 516, h: 616 })).toBe(false)
+    expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a big 520x620px block, 12px rounded, gradient backdrop')).toBe(true)
+    expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a 520x620px photo tilted 4° clockwise')).toBe(false)
+    expect(onlyPrimitives([line(0, 0, 400, 0, 'l')], { w: 402, h: 4 }, 'a 400x2px rule')).toBe(false)
+  })
 })

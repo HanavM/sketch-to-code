@@ -1104,7 +1104,7 @@ export function verifyActions(
     const region = a.region ?? a.dest?.rect
     if ((a.kind !== 'add' && a.kind !== 'design') || a.onScreen || !region || isDecoration(a)) return []
     if (/bleed|off the (left|right|top|bottom|page)|tilt|rotat|overlap|on top of/i.test(a.instruction)) return []
-    return [{ index: i, region }]
+    return [{ index: i, region, quote: a.instruction.match(/["“]([^"”]{2,})["”]/)?.[1] ?? null }]
   })
   const drift = verifyPageDrift(before, after, placed)
   if (!drift.unverifiable) {

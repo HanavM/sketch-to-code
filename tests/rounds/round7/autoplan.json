@@ -1085,7 +1085,7 @@
    ],
    [
     "swatch-1",
-    "small 36px indigo dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
+    "small 36px indigo dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller), with a 2px dark navy outline ring 3px out from its edge, a white gap between (outline + outline-offset, the selected one)"
    ],
    [
     "swatch-2",
@@ -1109,7 +1109,7 @@
    ],
    [
     "add-to-bag",
-    "dark navy white text button \"Add to bag\""
+    "dark navy (#111827, near-black, not a blue) white text button \"Add to bag\""
    ],
    [
     "wishlist",
@@ -1125,7 +1125,7 @@
    ],
    [
     "acc-body",
-    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\""
+    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\", its top 658px from the page top, 46px below the top of the \"Details −\" line above it (that line's text sits above this text, never on the same line or over it)"
    ],
    [
     "acc-care",

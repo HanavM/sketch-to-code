@@ -45,11 +45,30 @@ function freshNodes(before: DomSnapshot, after: DomSnapshot): DomNode[] {
 }
 
 /** Built top (or, for a thin text line, centre) of the element standing for a drawn block, or null. */
-export function matchTop(fresh: DomNode[], r: Box): { y: number; drawn: number } | null {
+export function matchTop(fresh: DomNode[], r: Box, quote?: string | null): { y: number; drawn: number } | null {
   const thin = r.h < 24
   const drawn = thin ? r.y + r.h / 2 : r.y
   let best: DomNode | null = null
   let bestD = Infinity
+  // a block whose words quote its copy is matched by that copy first: matching by size alone picked a neighbour
+  // near the drawn top (round 7 e4: the size row matched a wrapper 7px off while it sat 91px low, and the blocks
+  // then read as off both ways, so the drift went unreported)
+  const q = (quote ?? '').replace(/\s+/g, ' ').trim().toLowerCase()
+  if (q.length >= 2) {
+    for (const n of fresh) {
+      if (n.rect.w <= 0 || n.rect.h <= 0 || !n.text) continue
+      if (!n.text.replace(/\s+/g, ' ').trim().toLowerCase().startsWith(q.slice(0, 24))) continue
+      if (n.rect.x < r.x - Math.max(16, 0.1 * r.w) || n.rect.x > r.x + r.w) continue
+      const c = thin || n.rect.h < 24
+      const d = Math.abs((c ? n.rect.y + n.rect.h / 2 : n.rect.y) - (c ? r.y + r.h / 2 : r.y))
+      if (d > 160) continue
+      if (d < bestD) { bestD = d; best = n }
+    }
+    if (best) {
+      const c = thin || best.rect.h < 24
+      return { y: c ? best.rect.y + best.rect.h / 2 : best.rect.y, drawn: c ? r.y + r.h / 2 : r.y }
+    }
+  }
   for (const n of fresh) {
     if (n.rect.w <= 0 || n.rect.h <= 0) continue
     if (Math.abs(n.rect.x - r.x) > Math.max(16, 0.1 * r.w)) continue
@@ -67,7 +86,7 @@ export function matchTop(fresh: DomNode[], r: Box): { y: number; drawn: number }
 export function verifyPageDrift(
   before: DomSnapshot,
   after: DomSnapshot,
-  placed: Array<{ index: number; region: Box }>,
+  placed: Array<{ index: number; region: Box; quote?: string | null }>,
 ): DriftVerdict {
   if (placed.length < 6) return { satisfied: true, unverifiable: true, reason: 'not a whole-page build', offsets: [] }
   if (before.truncated || after.truncated) {
@@ -78,7 +97,7 @@ export function verifyPageDrift(
   for (const p of placed) {
     // full-page backdrops and very tall blocks are anchored at the page top anyway
     if (p.region.h > 0.8 * after.viewport.h && p.region.y < 40) continue
-    const m = matchTop(fresh, p.region)
+    const m = matchTop(fresh, p.region, p.quote)
     if (m) offsets.push({ index: p.index, drawn: Math.round(m.drawn), built: Math.round(m.y), dy: Math.round(m.y - m.drawn) })
   }
   if (offsets.length < 4) {

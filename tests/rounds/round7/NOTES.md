@@ -285,3 +285,19 @@ same 2 environmental failures.
 | e5 admin table | 76% | 83% (91k, 5.2 min), colour 98%, structure 95%, layout 84%, must 100% | toolbar packed left with Role ▾ and Status: Any ▾, Columns beside them; pager at its drawn top. Header row built white (target #f3f4f6 tint), title ~8px right |
 
 Next: e4 photo corners, Details header over body, swatch ring; c2 VARIABLE 20px high; e5 header row tint.
+
+## n107: product page photo, swatch ring, near-black button, Details body; drift matched by copy (2026-10-22, ~298k billed)
+
+Planner (zero tokens): a selected swatch dot says its outline ring and offset; a paragraph tucked right under a
+one-line row (an accordion's open body) says its top and that it sits below that line, never over it; a near-black
+filled button says its hex ("not a blue"). Plan diffs: r7 e4 (3 notes), r2/r4/r6 one near-black button or one
+paragraph under a heading each. Pipeline: one upright drawn box whose words give its exact size (NxNpx, not tilted)
+gets no drawn-shape file (the photo backdrop was built as the wobbly drawn outline). The page drift check now matches
+a block by its quoted copy before its size: on the first run the size row matched a wrapper 7px off while it sat
+91px low, blocks read as off both ways and the drift went unreported. Vitest: same 2 environmental failures.
+
+| page | before (n101) | now | what's left |
+|---|---|---|---|
+| e4 product page | 69% | run 1 (old drift match): 46% (139k), everything right but the right column 77-91px low, unreported. Run 2: 71% (159k, 12.3 min), colour 99%, structure 92%, must 100% | photo rounded and clean, swatch ring, near-black button, Details body under its line, drift caught and repaired. Accordion rows ~20-30px taller than drawn (last row cut); the repair turn cost 91k and 16 tool calls (Grep x7, read Tailwind preflight); run time 12.3 min is at the cap |
+
+Next: keep repair turns lean (no Grep/preflight reading for a spacing fix); accordion row heights; e5 header row tint; c2 VARIABLE 20px high.

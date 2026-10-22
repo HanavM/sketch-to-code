@@ -1819,7 +1819,9 @@ function decideOne(f, page, marked, said) {
     const rim = f.text && fill && bordered && f.border.w >= 2 ? `, ${Math.round(f.border.w)}px solid ${lineCol(f.border.colour)} outline${f.shadows.some((x) => !x.clear) ? '' : ', flat, no shadow'}` : ''
     // a small textless dot says its exact box (round 7 c2: a 22px slider knob said 'small 22px dot' was built ~8px)
     const exactDot = !f.text && fill && w >= 12 && w < 60 ? ` (exactly ${Math.round(w)}x${Math.round(w)}px: w-[${Math.round(w)}px] h-[${Math.round(w)}px], border-radius 50%, not smaller)` : ''
-    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${exactDot}${words}${rim}`) }
+    // a selected swatch says its ring (round 7 e4: the 2px outline 3px out round the picked colour was lost)
+    const dotRing = f.ring ? `, with a ${f.ring.w}px ${lineCol(f.ring.colour)} outline ring ${f.ring.off}px out from its edge, a white gap between (outline + outline-offset, the selected one)` : ''
+    return { kind: 'circle', note: withFx(`${size}${glowy ? 'glowing ' : ''}${paint} ${!f.text && w < 60 ? 'dot' : 'circle'}${exactDot}${dotRing}${words}${rim}`) }
   }
   // bare dots in a column or row: say how many, size, spacing and each colour
   if (f.dotKids && !f.regionKids.length) {
@@ -1920,6 +1922,9 @@ function decideOne(f, page, marked, said) {
     if (grad) look.push(grad)
     else if (fill) look.push(colourName(f.bg))
     else if (bordered) look.push(`${colourName(f.border.colour)} outline`)
+    // a near-black fill says its hex: round 7 e4 'dark navy' #111827 'Add to bag' was built a clear navy blue
+    const inky = !grad && fill && Math.max(f.bg.r, f.bg.g, f.bg.b) <= 50 && Math.max(f.bg.r, f.bg.g, f.bg.b) - Math.min(f.bg.r, f.bg.g, f.bg.b) <= 30 && f.bg.a >= 0.9
+    if (inky && colourName(f.bg) !== 'black') look.push(`(${hexOf(f.bg)}, near-black, not a blue)`)
     if (f.radius >= h / 2 - 2) look.push('pill')
     if (glow) look.push('glowing'); if (hardShadow && !shadowWords(f)) look.push('hard offset shadow')
     if (w > 420) look.push('full-width')
@@ -2211,6 +2216,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.15 * B.w * B.h
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
+  })
+  // a paragraph tucked under a one-line row it sits right below (an accordion's open body): say where it starts
+  // (round 7 e4: the 'Details' body text was built on the header line, over the word 'Details')
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (d.kind !== 'text' || !f.text || f.text.length < 40 || f.regionKids.length || /^toggle /.test(d.note ?? '')) return
+    const row = regions.find((g) => g !== f && out.get(g.role).kind && !g.regionKids.length && !f.regionKids.includes(g.role) && g.text && g.text.length <= 40 && g.rect.h <= 70 &&
+      Math.abs(g.rect.x - f.rect.x) <= 6 && g.rect.y < f.rect.y && f.rect.y - (g.rect.y + g.rect.h) <= 12 && f.rect.y - (g.rect.y + g.rect.h) >= -16)
+    if (!row) return
+    d.note = `${d.note ? `${d.note}, ` : ''}its top ${Math.round(f.rect.y)}px from the page top, ${Math.round(f.rect.y - row.rect.y)}px below the top of the ${quote(row.text.replace(/\s+/g, ' ').trim(), 30)} line above it (that line's text sits above this text, never on the same line or over it)`
   })
   // two pictures that overlap: the later-painted one is on top (round 5 c4: the blue photo was built under
   // the orange one, hidden behind its shadow)
