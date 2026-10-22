@@ -160,7 +160,7 @@
    ],
    [
     "rule",
-    "solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button)"
+    "solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 3px thick (height: 3px), thinner than the drawn pen line)"
    ],
    [
     "vertical",
@@ -168,7 +168,7 @@
    ],
    [
     "row-rule",
-    "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)"
+    "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px), thinner than the drawn pen line)"
    ],
    [
     "cols",
@@ -176,7 +176,7 @@
    ],
    [
     "tickets",
-    "slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters \"Tickets →\", about 499px wide"
+    "slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters \"Tickets →\", 110px type, about 499px wide (no larger)"
    ],
    [
     "dot",
@@ -378,7 +378,7 @@
    ],
    [
     "intro",
-    "thick black border text \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\"; and a 44px heavy \"LOUD\" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off"
+    "thick black border two parts: (1) a 44px heavy \"LOUD\" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off; (2) text \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\" at the top"
    ],
    [
     "duotone",
@@ -390,7 +390,7 @@
    ],
    [
     "quote",
-    "thick black border bold 22px text \"\"Turn it up until the walls agree.\"\""
+    "thick black border bold 22px text \"\"Turn it up until the walls agree.\"\", in the top-left corner (24px in, 24px down), the rest of the box empty"
    ],
    [
     "credits",

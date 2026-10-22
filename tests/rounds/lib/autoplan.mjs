@@ -77,6 +77,8 @@ export function factsInPage() {
       shadow: cs.boxShadow,
       centred: cs.textAlign === 'center' || cs.justifyContent === 'center',
       inset: { t: parseFloat(cs.paddingTop) || 0, l: parseFloat(cs.paddingLeft) || 0 },
+      // where its text starts (a lone quote in the top of a tall cell vs set low)
+      textTop: (() => { const g = document.createRange(); g.selectNodeContents(el); const rs = [...g.getClientRects()].filter((x) => x.height > 0); return rs.length ? Math.min(...rs.map((x) => x.top)) : null })(),
       // a form field: a label plus an empty bordered box, or an input-like box with left text
       fieldKid: kids.some((k) => { const c = getComputedStyle(k); return !(k.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30 }),
       kidButtons: kids.filter((k) => { const c = getComputedStyle(k); const t = (k.innerText || '').trim(); return t && t.length <= 32 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).length,
@@ -1467,7 +1469,10 @@ function decideOne(f, page, marked, said) {
   if (fill && !f.text && !f.kidCount && h <= 10 && w >= h * 8) {
     // with a round knob at one end it is a calendar's current-time line (round 6 e5: said 'a progress bar')
     if (f.pseudoDot && h <= 4) return { kind: 'box', note: `thin solid ${colourName(f.bg)} line only ${Math.round(h)}px tall, ${Math.round(w)}px wide, with a ${f.pseudoDot.px}px round ${colourName(f.bg)} dot on its ${f.pseudoDot.at} end (the current-time line), no text` }
-    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${f.rect.y > 4 && w >= 400 && h <= 4 ? 'a divider rule, not a bar or button' : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
+    // a divider says its exact thickness and that the pen line is thicker than it: 'only 2px tall' alone
+    // was built ~5px from the drawn stroke (round 6 c2 row rule)
+    const divider = f.rect.y > 4 && w >= 400 && h <= 4
+    return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${divider ? `a divider rule, not a bar or button; exactly ${Math.round(h)}px thick (height: ${Math.round(h)}px), thinner than the drawn pen line` : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
   }
   // a progress meter with its label lines
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
@@ -1572,7 +1577,9 @@ function decideOne(f, page, marked, said) {
     // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
     const sl = f.shown && f.font.size >= 40 && !f.motion ? f.shown.lines.map((t) => (f.font.transform === 'uppercase' ? t.toUpperCase() : t)) : null
     const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about ${f.shown.w}px wide)` : ''
-    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, about ${f.shown.w}px wide` : ''
+    // a giant one-line word also says its type size: a width alone let the build take the drawn line
+    // height (round 6 c2 'Tickets →' 110px type built ~127px, ~1.15x large)
+    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)` : ''
     return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
@@ -1640,14 +1647,18 @@ function decideOne(f, page, marked, said) {
     const unit = f.motion && f.text.length > 40 ? repeatUnit(f.text) : null
     const unitSay = unit ? `${kb[0]?.bold ? 'bold ' : ''}${kb[0]?.s ?? Math.round(f.font.size)}px ${quote(unit, 60)} repeated along it` : null
     // one block of copy with no parts (a pull quote on a yellow tile: round 5 c5, said with no copy)
-    const lone = !f.regionKids.length && f.kidCount === 0 && (f.text.length > 40 || (f.text.length > 24 && !f.vertical && f.font.size >= 20 && f.font.weight >= 600)) && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}` : null
+    // ...in the top-left corner of a tall box when it sits there, or the build drops it low (round 6 c5 quote)
+    const loneCorner = !f.centred && h >= 160 && f.inset && f.textTop != null && f.textTop - f.rect.y <= f.inset.t + 12 ? `, in the top-left corner (${Math.round(f.inset.l)}px in, ${Math.round(f.inset.t)}px down), the rest of the box empty` : ''
+    const lone = !f.regionKids.length && f.kidCount === 0 && (f.text.length > 40 || (f.text.length > 24 && !f.vertical && f.font.size >= 20 && f.font.weight >= 600)) && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px text ${quote(f.text, 140)}${loneCorner}` : null
     // a picture painted by ::before over a card's copy (round 6 e1 featured card: square and body line unsaid)
     const pp = f.pseudoPic && !f.regionKids.length ? f.pseudoPic : null
     const ppLines = pp ? f.setLines.map((t) => t.trim()).filter(Boolean).map((t) => { const k = kb.find((x) => x.t === t); return k ? `${k.s >= 20 ? `big ${k.s}px ` : ''}${k.bold ? 'bold ' : ''}${k.ink && f.colour && dist(k.ink, f.colour) > 60 ? `${colourName(k.ink)} ` : ''}${quote(t, 60)}` : `text ${quote(t, 110)}` }) : []
     const picSay = pp ? `a ${pp.w}x${pp.h}px ${pp.radius >= 6 ? 'rounded ' : ''}${pp.grad ? `${colourName(pp.grad[0])} to ${colourName(pp.grad[pp.grad.length - 1])} gradient` : colourName(pp.fill)} ${Math.abs(pp.w - pp.h) <= 4 ? 'square' : 'block'} in its top left (${pp.x}px in), then under it, lines: ${ppLines.join(', ')}` : null
     // a word turned on its side beside the copy (round 6 c5 'LOUD': said as '"LOUD" and text')
     const tk = f.turnedKid && !f.regionKids.length ? f.turnedKid : null
-    const turned = tk ? `text ${quote(f.text.replace(tk.t, '').trim(), 140)}; and a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off` : null
+    // the turned word comes first and is counted as one of two parts: said after the copy as 'and a ...',
+    // the build dropped it (round 6 c5 'LOUD', n88)
+    const turned = tk ? `two parts: (1) a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off; (2) text ${quote(f.text.replace(tk.t, '').trim(), 140)} at the top` : null
     // a big bold figure over a small line (round 6 c4 badge: said as one run of text)
     const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
     const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
@@ -1807,7 +1818,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const bot = same.find((g) => g.clipInset && g.clipInset.t >= 0.3 && g.clipInset.b < 0.05)
       if (top && bot && f === top && out.get(bot.role).kind) {
         const dt = out.get(top.role), db = out.get(bot.role)
-        const look = (dt.note ?? '').replace(/^.*?cuts them flat across the middle\)\s*/, '').replace(/, about \d+px wide$/, '').replace(/\s*"[^"]*"\s*$/, '')
+        const look = (dt.note ?? '').replace(/^.*?cuts them flat across the middle\)\s*/, '').replace(/(, \d+px type)?, about \d+px wide( \(no larger\))?$/, '').replace(/\s*"[^"]*"\s*$/, '')
         const wpx = top.shown?.w ? `, ${Math.round(top.font.size)}px type, the whole word about ${top.shown.w}px wide (no wider)` : ''
         const cut = Math.round((1 - top.clipInset.b) * 100)
         const sh = bot.shiftX - top.shiftX
