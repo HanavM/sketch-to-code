@@ -45,6 +45,7 @@ import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
 import { repairFits } from './repair-time.js'
+import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
@@ -736,7 +737,8 @@ export async function runV2(
         saveReply(await metered('repair', {
           text:
             `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
-            `Fix exactly these. Do not change anything already working.`,
+            `Fix exactly these. Do not change anything already working.\n\n` +
+            leanRepairNote(session ? (session as CodegenSession).toolLog() : []),
         }))
       }
     } finally {

@@ -1660,7 +1660,10 @@ function decideOne(f, page, marked, said) {
   // a head with its count pushed right (round 7 e1 column heads)
   if (f.endKid && !f.pager && !f.regionKids.length && h <= 50) {
     const E = f.endKid
-    return { kind: 'text', note: `one line ${Math.round(w)}px wide: ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} at the left, ${E.bold ? 'bold ' : ''}${colourName(E.ink)} ${quote(E.t)} at the far right end of the same line` }
+    // a ruled row (accordion header): its rule and its height, or rows build 20-30px taller than drawn (round 7 e4, n107)
+    const ruled = f.border.w >= 1 && f.border.bottom < 1 && f.border.left < 1 && visible(f.border.colour)
+    const rule = ruled ? `, a thin ${Math.round(f.border.w)}px ${colourName(f.border.colour)} (${hexOf(f.border.colour)}) line along its top; the row is exactly ${Math.round(h)}px tall from that line (h-[${Math.round(h)}px], text centred in it, no extra padding or margin on top of that)` : ''
+    return { kind: 'text', note: `one line ${Math.round(w)}px wide: ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} at the left, ${E.bold ? 'bold ' : ''}${colourName(E.ink)} ${quote(E.t)} at the far right end of the same line${rule}` }
   }
   // one line of differently styled runs: a price with its old price struck and a discount tag (round 7 e4)
   if (f.runs && !f.regionKids.length && f.text && f.text.length <= 40 && f.runs.some((x) => x.struck)) {
