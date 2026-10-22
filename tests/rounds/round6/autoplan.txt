@@ -1,4 +1,4 @@
-c1-perspective-stack · marks 9 · words 175
+c1-perspective-stack · marks 9 · words 267
     floor        box     
     nav          text    
     headline     heading 
@@ -9,36 +9,36 @@ c1-perspective-stack · marks 9 · words 175
     card-mid     image   
     card-front   box     
     note *: whole page: dark navy page, Helvetica type, light grey text
+    note floor: faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width (tilting shortens it: build the grid 600px tall and 1680px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge), a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill
     note nav: bold 20px "Stackr" left, "Product · Pricing · Docs · Sign in" right
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: "Ship cards in" / "three" / "dimensions" (keep these breaks)
     note sub: grey text "Layered, tilted, lit. A card engine for product pages that want depth without WebGL."
     note cta: cyan dark navy text button "Start free"
     note ghost-btn: dark grey outline button "See demo"
     note card-back: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid cyan (top left) to indigo (bottom right) gradient block
     note card-mid: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) light pink (top left) to vivid purple (bottom right) gradient block, overlapping the lower right of the vivid cyan (top left) to indigo (bottom right) gradient block and on top of it
     note card-front: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow (top left) to vivid orange (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black "$4,280.00" at its top left
-c2-split-type · marks 10 · words 131
+c2-split-type · marks 9 · words 233
     logo         text    
     date         text    
     word-top     heading 
-    word-bottom  heading 
     rule         box     
     vertical     text    
     row-rule     box     
     cols         text    
     tickets      heading 
     dot          circle  
-    note *: whole page: off-white page, Helvetica type, near-black text
+    note *: whole page: off-white (#f4f1ea, plainly not white) page, Helvetica type, near-black text
     note logo: wide-spaced letters "KINETIK"
     note date: text "Vol. 06 — Oct 2026"
-    note word-top: only the top 50% of the letters shows (clip-path cuts them flat across the middle) giant Helvetica heavy tight-set letters "BREAK"
-    note word-bottom: only the bottom 50% of the letters shows (clip-path cuts them flat across the middle), shifted 70px right of where the top half sits giant Helvetica heavy tight-set letters red "BREAK"
+    note word-top: ONE giant Helvetica heavy tight-set letters word "BREAK", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type
     note rule: solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button)
     note vertical: uppercase wide-spaced letters vertical "A TYPE FESTIVAL · LISBON"
     note row-rule: solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)
-    note tickets: slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters "Tickets →"
-    note dot: vivid red circle
-c3-svg-waves · marks 6 · words 139
+    note cols: 3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text (each column 347px wide, its text on ONE line, no wrap): "01 DAY" over "Talks on motion, rhythm and the split letter."; "02 DAY" over "Workshops: variable fonts and kinetic posters."; "03 DAY" over "Night show with live-coded type on the river."
+    note tickets: slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters "Tickets →", about 499px wide
+    note dot: vivid rose red circle
+c3-svg-waves · marks 6 · words 178
     sun          circle  
     waves        box     
     nav          text    
@@ -46,10 +46,10 @@ c3-svg-waves · marks 6 · words 139
     sub          text    
     cta          button  
     note *: whole page: pale yellow page, Georgia type, deep green text
-    note sun: big vivid bright orange circle
+    note sun: perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur
     note waves: drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down, vivid green (#22c55e) cresting about 657px down, deep green (#14532d) cresting about 754px down; plus a dashed 4px deep green curving, looping line (no fill) from about 760,499 up and across to 1188,330
     note nav: bold 24px "Meadow" left, "Trails · Huts · Journal · Book" right
-    note headline: giant Georgia italic serif lines set tight (line-height 0.95) "Walk where the hills roll on"
+    note headline: giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) "Walk where the hills roll on", set in exactly 2 lines: "Walk where the" / "hills roll on" (keep these breaks)
     note sub: text "Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one."
     note cta: deep green pill pale yellow text button "Plan a walk"
 c4-glass-devices · marks 7 · words 177
@@ -68,7 +68,7 @@ c4-glass-devices · marks 7 · words 177
     note laptop: frosted glass 640x400px panel, 24px rounded, thin white border; inside: a bar chart of 6 white bars rising from 31px above its bottom, 31px in from the left, each 50px wide with 16px gaps, heights 120, 200, 90, 260, 170, 230px, rounded tops, no axes; a white rounded strip 14px tall across the top (31px in from the top and sides)
     note phone: frosted glass 210x420px panel, 36px rounded, thin white border; inside: a 120px white ring 12px thick, open on its right quarter (that part of the ring missing), 91px from the top, centred
     note badge: frosted glass big 30px bold "+38%" over 15px "sessions this week"
-c5-brutal-zine · marks 8 · words 195
+c5-brutal-zine · marks 8 · words 261
     masthead     heading 
     intro        box     
     duotone      box     
@@ -77,14 +77,14 @@ c5-brutal-zine · marks 8 · words 195
     credits      box     
     price        heading 
     sticker      circle  
-    note *: whole page: white page, mono type, black text
+    note *: whole page: white page, mono type, black text; the 8 black-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single 3px black line, no gaps between boxes, no doubled lines
     note masthead: giant Helvetica heavy tight-set letters white on a black band "NOISE/ISSUE 9"
-    note intro: thick black border text "This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud."; and a 44px heavy "LOUD" turned on its side (rotate(-90deg), reading bottom to top) along the left edge, its end 89px above the bottom
+    note intro: thick black border text "This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud."; and a 44px heavy "LOUD" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off
     note duotone: vivid blue (#2563eb) flat duotone tile with a thick black border, no picture: 2 hard-edged round yellow (#fde047) shapes on it 253px centred 40% across, 35% down, 191px centred 60% across, 70% down (inside a 40px margin)
     note contents: thick black border mono 16px code lines: "01 — Tape loops", "02 — Basement maps", "03 — Flyer archive", "04 — Last gig", "05 — Letters"; black code
     note quote: thick black border bold 22px text ""Turn it up until the walls agree.""
     note credits: thick black border mono 13px code lines: "Edited by M. Hale", "Photos by the bands", "Printed in Leeds on a Risograph, two colours, 400 copies."; black code
-    note price: huge Helvetica heavy black letters on a yellow band "£4 post free in the UK"
+    note price: huge Helvetica heavy black letters on a yellow band 72px "£4", then on its own line under it a small 16px mono regular line "post free in the UK" (small, not part of the big type)
     note sticker: tilted 14° anticlockwise vivid red circle with "SOLD OUT SOON"
 e1-mega-menu · marks 8 · words 304
     topbar       box     

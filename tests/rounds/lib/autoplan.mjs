@@ -238,7 +238,10 @@ export function factsInPage() {
           const h = k.firstElementChild, hc = h && getComputedStyle(h)
           const head = h && Number(hc.fontWeight) >= 600 ? (h.innerText || '').trim() : null
           const all = (k.innerText || '').replace(/\s+/g, ' ').trim()
-          return { head, headPx: head ? Math.round(parseFloat(hc.fontSize)) : null, spaced: head ? (parseFloat(hc.letterSpacing) || 0) / parseFloat(hc.fontSize) >= 0.1 : false, body: head ? all.slice(head.length).trim() : all }
+          // the body's rendered line count (round 6 c2: one-line columns built wrapping to two)
+          const kb = k.getBoundingClientRect(), lh = parseFloat(getComputedStyle(k).lineHeight) || parseFloat(getComputedStyle(k).fontSize) * 1.2
+          const bodyH = kb.bottom - (h ? h.getBoundingClientRect().bottom + (parseFloat(hc.marginBottom) || 0) : kb.top)
+          return { w: Math.round(kb.width), bodyLines: Math.max(1, Math.round(bodyH / lh)), head, headPx: head ? Math.round(parseFloat(hc.fontSize)) : null, spaced: head ? (parseFloat(hc.letterSpacing) || 0) / parseFloat(hc.fontSize) >= 0.1 : false, body: head ? all.slice(head.length).trim() : all }
         })
         return out.every((c) => c.head && c.body && c.body.length <= 120) ? { cols: out, px: Math.round(parseFloat(cs.fontSize)), gap: Math.round(bs[1].left - bs[0].right) } : null
       })(),
@@ -432,6 +435,24 @@ export function factsInPage() {
       kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16) } }),
       // its text as set, line by line (code in a card: the kids are only the coloured tokens)
       setLines: (el.innerText || '').split('\n').map((x) => x.replace(/ /g, ' ').replace(/\s+$/, '')),
+      // the words on each line as rendered (a headline's own breaks: round 6 c3 built 3 lines, target 2)
+      shown: (() => {
+        const t = (el.innerText || '').trim(); if (!t || t.length > 120 || cs.writingMode !== 'horizontal-tb') return null
+        const out = []; let lastTop = null, lo = Infinity, hi = -Infinity
+        const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+        for (let n; (n = tw.nextNode());) {
+          const s = n.textContent, re = /\S+/g; let m
+          while ((m = re.exec(s))) {
+            const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length)
+            const rr = rg.getBoundingClientRect(); if (!rr.width) continue
+            if (lastTop === null || rr.top > lastTop + rr.height * 0.5) { out.push([]); lastTop = rr.top }
+            out[out.length - 1].push(m[0]); lo = Math.min(lo, rr.left); hi = Math.max(hi, rr.right)
+          }
+        }
+        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo) } : null
+      })(),
+      // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
+      layoutBox: { w: el.offsetWidth, h: el.offsetHeight },
       tokenInks: [...el.querySelectorAll('b,em,span,i,strong')].filter((k) => !k.children.length && txt(k)).map((k) => ({ t: txt(k), c: rgba(getComputedStyle(k).color) })),
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
@@ -894,6 +915,8 @@ const NAMED = [
   ['amber', 245, 158, 11],
   // round 6 e2 #f1f5f9 page was 'off-white' and built a warm cream
   ['pale blue-grey', 241, 245, 249],
+  // round 6 c2 #e11d48 half-word and dot were 'red' and built pure red
+  ['rose red', 225, 29, 72],
 ]
 const hue = (c) => {
   const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b), d = mx - mn
@@ -926,6 +949,7 @@ export function colourName(c) {
     if (n === 'red-orange' && !(hue(c) >= 9 && hue(c) <= 22 && chroma >= 150)) continue
     if (n === 'dark blue' && !(hue(c) >= 215 && hue(c) <= 235 && chroma >= 80 && Math.max(c.r, c.g, c.b) <= 170)) continue
     if (n === 'deep rust orange' && !(hue(c) >= 10 && hue(c) <= 25 && chroma >= 110 && Math.max(c.r, c.g, c.b) <= 190)) continue
+    if (n === 'rose red' && !(hue(c) >= 338 && hue(c) <= 356 && chroma >= 150 && Math.max(c.r, c.g, c.b) >= 200)) continue
     if (n === 'amber' && !(hue(c) >= 34 && hue(c) <= 46 && chroma >= 170)) continue
     if (n === 'pale blue-grey' && !(chroma >= 7 && chroma <= 14 && c.b - c.r >= 7 && Math.min(c.r, c.g, c.b) >= 232)) continue
     if (n === 'bright sky blue' && !(hue(c) >= 193 && hue(c) <= 215 && chroma >= 120)) continue
@@ -1285,7 +1309,7 @@ function decideOne(f, page, marked, said) {
   if (gridLines(f) && f.rot3d && Math.abs(f.rot3d.x) >= 40 && !f.text) {
     const lc = f.bgImageColours.map(parse).find((c) => c && c.a > 0.05)
     const step = (f.bgImage.match(/(?:transparent|rgba\(0, 0, 0, 0\)) 1px,?\s*(?:(?:transparent|rgba\(0, 0, 0, 0\))\s+)?(\d+)px/) || f.bgImage.match(/1px,?\s*(?:transparent|rgba\(0, 0, 0, 0\))\s+1px\s+(\d+)px/) || [])[1]
-    return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width, a backdrop behind everything that holds nothing (things over it are not inside it), lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
+    return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width${f.layoutBox?.h ? ` (tilting shortens it: build the grid ${f.layoutBox.h}px tall and ${f.layoutBox.w}px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge)` : ''}, a backdrop behind everything that holds nothing (things over it are not inside it), lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
   }
   // a gradient card holding a short bold line (round 6 c1 front card: said 'near-black "$4,280.00"' as a heading)
   if (grad && !f.clipText && f.text && f.text.length <= 24 && f.kidCount === 0 && h >= 100 && w >= 150 && !f.regionKids.length) {
@@ -1540,7 +1564,12 @@ function decideOne(f, page, marked, said) {
       const small = `then on its own line under it a small ${sk.px}px ${sk.mono ? 'mono ' : ''}${sk.bold ? 'bold' : 'regular'} line ${quote(sk.t, 60)} (small, not part of the big type)`
       return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${ckSay}, ${small}`.trim()) }
     }
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${under}`.trim()) }
+    // a display line's own breaks and a giant word's width: builds rewrapped a 2-line headline into 3
+    // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
+    const sl = f.shown && f.font.size >= 40 && !f.motion ? f.shown.lines.map((t) => (f.font.transform === 'uppercase' ? t.toUpperCase() : t)) : null
+    const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks)` : ''
+    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, about ${f.shown.w}px wide` : ''
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${wide}${under}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -1614,7 +1643,7 @@ function decideOne(f, page, marked, said) {
     const picSay = pp ? `a ${pp.w}x${pp.h}px ${pp.radius >= 6 ? 'rounded ' : ''}${pp.grad ? `${colourName(pp.grad[0])} to ${colourName(pp.grad[pp.grad.length - 1])} gradient` : colourName(pp.fill)} ${Math.abs(pp.w - pp.h) <= 4 ? 'square' : 'block'} in its top left (${pp.x}px in), then under it, lines: ${ppLines.join(', ')}` : null
     // a word turned on its side beside the copy (round 6 c5 'LOUD': said as '"LOUD" and text')
     const tk = f.turnedKid && !f.regionKids.length ? f.turnedKid : null
-    const turned = tk ? `text ${quote(f.text.replace(tk.t, '').trim(), 140)}; and a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge, its end ${tk.at.bottom}px above the bottom` : null
+    const turned = tk ? `text ${quote(f.text.replace(tk.t, '').trim(), 140)}; and a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off` : null
     // a big bold figure over a small line (round 6 c4 badge: said as one run of text)
     const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
     const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
@@ -1624,7 +1653,7 @@ function decideOne(f, page, marked, said) {
   // columns of copy, each a small bold head over a line (round 6 c2: unsaid, so the build wrote its own)
   if (f.colKids && !f.regionKids.length && !fill && !bordered) {
     const c = f.colKids
-    return { kind: 'text', note: `${c.cols.length} columns side by side, ${c.gap}px apart, each ${c.cols[0].head ? `a small bold ${c.cols[0].spaced ? 'wide-spaced ' : ''}${c.cols[0].headPx}px head over ` : ''}${c.px}px text: ${c.cols.map((x) => `${x.head ? `${quote(x.head)} over ` : ''}${quote(x.body, 120)}`).join('; ')}` }
+    return { kind: 'text', note: `${c.cols.length} columns side by side, ${c.gap}px apart, each ${c.cols[0].head ? `a small bold ${c.cols[0].spaced ? 'wide-spaced ' : ''}${c.cols[0].headPx}px head over ` : ''}${c.px}px text${c.cols.every((x) => x.bodyLines === 1) ? ` (each column ${c.cols[0].w}px wide, its text on ONE line, no wrap)` : ''}: ${c.cols.map((x) => `${x.head ? `${quote(x.head)} over ` : ''}${quote(x.body, 120)}`).join('; ')}` }
   }
   if (f.pager && !f.regionKids.length) {
     const p = f.pager
@@ -1774,10 +1803,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const bot = same.find((g) => g.clipInset && g.clipInset.t >= 0.3 && g.clipInset.b < 0.05)
       if (top && bot && f === top && out.get(bot.role).kind) {
         const dt = out.get(top.role), db = out.get(bot.role)
-        const look = (dt.note ?? '').replace(/^.*?cuts them flat across the middle\)\s*/, '').replace(/\s*"[^"]*"\s*$/, '')
+        const look = (dt.note ?? '').replace(/^.*?cuts them flat across the middle\)\s*/, '').replace(/, about \d+px wide$/, '').replace(/\s*"[^"]*"\s*$/, '')
+        const wpx = top.shown?.w ? `, ${Math.round(top.font.size)}px type, the whole word about ${top.shown.w}px wide (no wider)` : ''
         const cut = Math.round((1 - top.clipInset.b) * 100)
         const sh = bot.shiftX - top.shiftX
-        dt.note = `ONE ${look} word ${quote(f.text)} sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px))` : ''}; the two parts touch at the cut, no gap, one line of type`
+        dt.note = `ONE ${look} word ${quote(f.text)}${wpx}, sliced flat across at ${cut}% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 ${100 - cut}% 0)) in ${colourName(top.colour)}, the bottom copy shows only its bottom part (clip-path: inset(${cut}% 0 0 0)) in ${colourName(bot.colour)}${Math.abs(sh) >= 8 ? `, slid ${Math.abs(sh)}px ${sh > 0 ? 'right' : 'left'} (translateX(${sh}px))` : ''}; the two parts touch at the cut, no gap, one line of type`
         db.kind = null; db.note = null
         unionOf.set(top.role, bot.role)
       }
@@ -1809,7 +1839,19 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (k === 'text' && f.textLines >= 2 && f.textLines <= 8) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
     return [f.role, k]
   })
-  const notes = [...(pageNote(body) ? [['*', pageNote(body)]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
+  // thick-bordered boxes laid edge to edge are one ruled grid (round 6 c5: built as separate boxes with gaps)
+  const ruled = regions.filter((f) => f.border.w >= 2 && visible(f.border.colour) && !f.regionKids.length)
+  const touch = (A, B, t) => {
+    const ox = Math.min(A.x + A.w, B.x + B.w) - Math.max(A.x, B.x), oy = Math.min(A.y + A.h, B.y + B.h) - Math.max(A.y, B.y)
+    return (ox > 20 && Math.abs(oy) <= t) || (oy > 20 && Math.abs(ox) <= t)
+  }
+  const pairs = ruled.flatMap((A, i) => ruled.slice(i + 1).filter((B) => touch(A.rect, B.rect, Math.max(A.border.w, B.border.w) + 1)))
+  let pn = pageNote(body)
+  if (pairs.length >= 4) {
+    const bw = Math.round(ruled[0].border.w)
+    pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} the ${ruled.length} ${colourName(ruled[0].border.colour)}-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single ${bw}px ${colourName(ruled[0].border.colour)} line, no gaps between boxes, no doubled lines`
+  }
+  const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
 }
 

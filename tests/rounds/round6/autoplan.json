@@ -53,7 +53,7 @@
    ],
    [
     "floor",
-    "faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width, a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill"
+    "faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width (tilting shortens it: build the grid 600px tall and 1680px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge), a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill"
    ],
    [
     "nav",
@@ -61,7 +61,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) \"Ship cards in three dimensions\", the words \"three dimensions\" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) \"Ship cards in three dimensions\", the words \"three dimensions\" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: \"Ship cards in\" / \"three\" / \"dimensions\" (keep these breaks)"
    ],
    [
     "sub",
@@ -156,7 +156,7 @@
    ],
    [
     "word-top",
-    "ONE giant Helvetica heavy tight-set letters word \"BREAK\" sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type"
+    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type"
    ],
    [
     "rule",
@@ -172,15 +172,15 @@
    ],
    [
     "cols",
-    "3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text: \"01 DAY\" over \"Talks on motion, rhythm and the split letter.\"; \"02 DAY\" over \"Workshops: variable fonts and kinetic posters.\"; \"03 DAY\" over \"Night show with live-coded type on the river.\""
+    "3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text (each column 347px wide, its text on ONE line, no wrap): \"01 DAY\" over \"Talks on motion, rhythm and the split letter.\"; \"02 DAY\" over \"Workshops: variable fonts and kinetic posters.\"; \"03 DAY\" over \"Night show with live-coded type on the river.\""
    ],
    [
     "tickets",
-    "slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters \"Tickets →\""
+    "slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters \"Tickets →\", about 499px wide"
    ],
    [
     "dot",
-    "vivid red circle"
+    "vivid rose red circle"
    ]
   ]
  },
@@ -238,7 +238,7 @@
    ],
    [
     "headline",
-    "giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) \"Walk where the hills roll on\""
+    "giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) \"Walk where the hills roll on\", set in exactly 2 lines: \"Walk where the\" / \"hills roll on\" (keep these breaks)"
    ],
    [
     "sub",
@@ -370,7 +370,7 @@
   "notes": [
    [
     "*",
-    "whole page: white page, mono type, black text"
+    "whole page: white page, mono type, black text; the 8 black-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single 3px black line, no gaps between boxes, no doubled lines"
    ],
    [
     "masthead",
@@ -378,7 +378,7 @@
    ],
    [
     "intro",
-    "thick black border text \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\"; and a 44px heavy \"LOUD\" turned on its side (rotate(-90deg), reading bottom to top) along the left edge, its end 89px above the bottom"
+    "thick black border text \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\"; and a 44px heavy \"LOUD\" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off"
    ],
    [
     "duotone",
