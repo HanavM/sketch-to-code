@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Teaching the planner to describe a week calendar's events, a full mail inbox and an opened email; next: checkout, charts and the mega-menu."
-lock: null
+lock: {by: run-0338, until: 2026-10-22T05:08:38Z}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
