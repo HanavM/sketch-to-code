@@ -204,6 +204,10 @@ Rules:
     background colour itself; otherwise the light page is outside the blend
     group and the text shows white on white. Simplest: give the absolute
     wrapper holding the blocks the page background (e.g. bg-white), or no isolate;
+  behind everything / a backdrop (hills, a floor grid, a glow layer) → the first
+    child of its wrapper, absolutely placed, with the content after it in the DOM;
+    never a bare negative z-index (-z-10): unless the wrapper is its own stacking
+    context (isolate), it slides behind the page's background and vanishes;
   hard/offset shadow → box-shadow with an offset and 0 blur (e.g. 6px 6px 0 #000);
   stripes/bands → repeating-linear-gradient or stacked solid bands.
   outline circle/ring → border only, transparent inside (no fill, no tint);

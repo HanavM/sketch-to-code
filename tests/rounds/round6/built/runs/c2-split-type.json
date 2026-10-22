@@ -1,23 +1,23 @@
 {
   "id": "c2-split-type",
-  "at": "2026-10-22T09:45:15.709Z",
+  "at": "2026-10-22T10:37:26.009Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5284008615671492,
-    "overallV2": 0.44634182121139415,
-    "overallV1": 0.3333706396600422,
-    "colour": 0.9349373127068763,
-    "structure": 0.7259812020966192,
-    "structureStrict": 0.5250186577479934,
-    "colourAligned": 0.9488122561442592,
-    "structureAligned": 0.7798305379461521,
+    "overall": 0.6915919961849336,
+    "overallV2": 0.683741653586515,
+    "overallV1": 0.5808813679809502,
+    "colour": 0.9733408941703493,
+    "structure": 0.8848285505453248,
+    "structureStrict": 0.765916209007658,
+    "colourAligned": 0.9733768415232288,
+    "structureAligned": 0.8937977295550379,
     "align": {
       "scale": 1,
       "dx": -16,
-      "dy": 48,
-      "r": 0.8229004634933371
+      "dy": 0,
+      "r": 0.8882565650532664
     },
-    "layout": 0.4991296447082655
+    "layout": 0.5051152667560433
   },
   "effects": {
     "recall": 1,
@@ -30,46 +30,47 @@
     "extra": []
   },
   "tokens": {
-    "input": 38706,
-    "output": 25347,
-    "cacheRead": 306174
+    "input": 65025,
+    "output": 43699,
+    "cacheRead": 376438
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 31399,
-      "output": 11820,
-      "cacheRead": 137937,
-      "toolCalls": 8,
+      "billed": 42264,
+      "output": 12783,
+      "cacheRead": 184383,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
         "Read src/index.css",
-        "Glob",
+        "Read components/CircleAccent.tsx",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Edit components/CircleAccent.tsx",
+        "Edit components/CircleAccent.tsx"
       ],
-      "ms": 134056
+      "ms": 142382
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 17009,
-      "output": 7130,
-      "cacheRead": 157519,
+      "billed": 59440,
+      "output": 28485,
+      "cacheRead": 188971,
       "toolCalls": 3,
       "tools": [
         "Read src/App.tsx",
         "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 86538
+      "ms": 357445
     }
   ],
-  "reading": "A full magazine-style header/hero: a wide-spaced 'KINETIK' logotype with a 'Vol. 06 — Oct 2026' date line, a giant two-tone sliced 'BREAK' headline, a thin divider rule, a vertical rotated label along the right edge, a second divider, a three-column day-by-day program block, a slanted italic 'Tickets →' call to action, and a small vivid red decorative circle accent — all set on an off-white Helvetica page with near-black type.",
+  "reading": "A kinetic-type festival landing page header: wordmark and issue text top corners, a giant two-tone \"BREAK\" headline split by a thin rule, a vertical festival tagline on the right edge, a second divider, a three-column day-by-day schedule, a slanted \"Tickets →\" CTA, and a small rose-red accent circle.",
   "actions": [
     {
       "kind": "add",
@@ -84,7 +85,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add a wide-spaced uppercase logotype reading 'KINETIK' in the top-left corner."
+      "instruction": "Top-left wordmark: wide-spaced uppercase letters \"KINETIK\"."
     },
     {
       "kind": "add",
@@ -99,7 +100,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add a small text line reading 'Vol. 06 — Oct 2026' in the top-right corner."
+      "instruction": "Top-right small text \"Vol. 06 — Oct 2026\"."
     },
     {
       "kind": "add",
@@ -116,28 +117,15 @@
         }
       ],
       "region": [
-        48,
-        73,
-        850,
-        354
-      ],
-      "paths": [],
-      "instruction": "Add ONE giant Helvetica heavy tight-set word 'BREAK', about 260px type size, the whole word about 874px wide (no wider), one line of type. Build it as two copie"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
         44,
-        250,
+        159,
         1112,
-        7
+        183
       ],
       "paths": [
         "s3"
       ],
-      "instruction": "Add a solid near-black divider rule, only 3px tall and 1120px wide, no text — a thin horizontal rule, not a bar or button — placed below the BREAK headline."
+      "instruction": "Hero headline: ONE giant Helvetica heavy tight-set word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height"
     },
     {
       "kind": "add",
@@ -152,7 +140,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add vertical, uppercase, wide-spaced small text running along the right edge reading 'A TYPE FESTIVAL · LISBON'."
+      "instruction": "Vertical uppercase wide-spaced text running down the right edge: \"A TYPE FESTIVAL · LISBON\"."
     },
     {
       "kind": "add",
@@ -167,7 +155,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a second solid near-black divider rule, only 2px tall and 1120px wide, no text — a thin horizontal rule, not a bar or button."
+      "instruction": "Solid near-black divider rule, 2px tall, 1120px wide, no text (a rule not a bar/button), spanning the width below the hero."
     },
     {
       "kind": "add",
@@ -192,7 +180,7 @@
         55
       ],
       "paths": [],
-      "instruction": "Add 3 columns side by side, 40px apart, each column 347px wide with a small bold wide-spaced 13px heading over 17px body text (each on one line, no wrap): Colum"
+      "instruction": "3 columns side by side, 40px apart, each a small bold wide-spaced 13px heading over 17px body text (each column 347px wide, text on ONE line, no wrap): \"01 DAY\""
     },
     {
       "kind": "add",
@@ -215,7 +203,7 @@
         152
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica heavy tight-set call-to-action link reading 'Tickets →', about 499px wide, slanted 12° to the right (skewX(-12deg), like italics)."
+      "instruction": "Large call-to-action text link, slanted 12° (skewX(-12deg), leaning right like italics), giant Helvetica heavy tight-set letters reading \"Tickets →\", about 499p"
     },
     {
       "kind": "add",
@@ -230,7 +218,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add a small vivid rose-red decorative circle accent next to the Tickets call-to-action."
+      "instruction": "Small decorative solid circle accent, filled in vivid rose red."
     }
   ],
   "rejected": [

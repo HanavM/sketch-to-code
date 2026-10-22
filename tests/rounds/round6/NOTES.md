@@ -205,3 +205,23 @@ Free planner fixes:
 | c2 split type | 47% | **53%** | BREAK at the right width and rose red, columns on one line; whole page sits ~16px high |
 | c3 SVG waves | 79% | 54% then **76%** | headline now exactly 2 lines like the target; but the sun was built a deep green disc with a peach edge (was orange) |
 | c5 brutal zine | 84% | **86%** | one ruled grid with shared lines, LOUD whole; price block centred (target top left) |
+
+## n88: a borrowed frame stroke, the cut on its rule, the price corner, backdrops never at -z-10 (2026-10-22, ~328k billed tokens)
+
+Free fixes:
+- Grounding: a stroke that one action cites alone is that action's own mark; another action citing it next to its
+  own strokes drops it (and so the note typed on it). Round 6 c3's reading cited the page-wide hills box on every
+  action, so the hills' "deep green" note reached the sun's action and the orange sun was built deep green (test).
+- The sliced word says its cut lies on the thin rule drawn across it (y px) and where its line box starts (c2 word
+  sat ~45px high, cut floating above the rule).
+- A big heading with a small line under it, on a filled tall cell, says both lines sit in the top-left corner with
+  the cell's padding, not centred (c5 '£4' was centred).
+- Codegen: a backdrop goes first in its wrapper; never a bare negative z-index (skill.ts and the effects list).
+  c3's first re-run put the hills at -z-10 behind the page background: no hills at all, 50%.
+- Rounds 1-5 plans unchanged.
+
+| page | n87 | n88 | note |
+|---|---|---|---|
+| c2 split type | 53% | **69%** | the cut sits on the rule; columns and Tickets right place; rules a bit thick, Tickets a bit large |
+| c3 SVG waves | 76% | 50% then **85%** | sun orange again; first try hid the hills at -z-10; after the backdrop rule, hills, sun, headline all right; trail loops differently |
+| c5 brutal zine | 86% | 86% | price now top left; LOUD dropped this time, quote sits low in its cell |
