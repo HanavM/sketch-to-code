@@ -72,6 +72,8 @@ function factsInPage() {
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0 },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
+      // an arch: round top corners, square bottom ones (round 4 c1 arch said as a circle, built as a ball)
+      radiusBottom: parseFloat(cs.borderBottomLeftRadius) || 0,
       shadow: cs.boxShadow,
       centred: cs.textAlign === 'center' || cs.justifyContent === 'center',
       // a form field: a label plus an empty bordered box, or an input-like box with left text
@@ -711,7 +713,8 @@ function effectWords(f) {
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   if (f.vertical) w.push('vertical')
   else if (f.tilt3d) w.push('tilted back in 3D perspective')
-  else if (turn >= 1.5 && turn <= 60) w.push(turn < 3 ? 'tilted slightly' : 'tilted')
+  // which way and how far: a bare 'tilted' was built flat (round 4 c1 blue block, sticker)
+  else if (turn >= 1.5 && turn <= 60) w.push(`tilted ${turn < 3 ? 'slightly ' : ''}${turn}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}`)
   else if (turn > 60 && turn < 170) w.push('diagonal')
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
   // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
@@ -875,7 +878,10 @@ function shadowWords(f) {
   const s = f.shadows.find((x) => !x.clear && x.blur <= 1 && (Math.abs(x.x) >= 2 || Math.abs(x.y) >= 2))
   if (!s) return null
   const side = `${s.y > 0 ? 'down' : 'up'} ${s.x > 0 ? 'right' : 'left'}`
-  return `hard ${s.c ? `${colourName(s.c)} ` : ''}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
+  // a see-through shadow says its strength (round 4 c1: 18% near-black over cream was said 'near-black',
+  // so a solid black slab was asked for; the real one reads as a faint grey-beige)
+  const ink = s.c ? `${colourName({ ...s.c, a: 1 })}${s.c.a < 0.6 ? ` at ${Math.round(s.c.a * 100)}% opacity` : ''} ` : ''
+  return `hard ${ink}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
 }
 /** The repeated unit of a marquee's copy ('Flex Grotesk — now variable ✦' x4). */
 function repeatUnit(t) {
@@ -1015,6 +1021,13 @@ function decideOne(f, page, marked, said) {
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
     const label = f.labelAbove ? (said.add(f.labelAbove), `label ${quote(f.labelAbove)} above, `) : ''
     return { kind: 'box', note: `${label}${f.radius >= h / 2 - 2 ? 'pill ' : ''}${/^search|search/i.test(f.text) ? 'search ' : ''}input ${quote(f.text)}` }
+  }
+  // an arch: a filled textless block with a round top and a flat bottom, drawn as its outline
+  if (round && !f.text && (fill || grad) && f.radiusBottom <= 2 && !f.regionKids.length && w >= 60 && h >= 60) {
+    const ry = f.radiusPct != null ? Math.min(0.5, f.radiusPct / 100) : Math.min(0.5, f.radius / h)
+    const poly = [[0, 1], ...Array.from({ length: 9 }, (_, i) => { const a = Math.PI * (1 - i / 8); return [+(0.5 + 0.5 * Math.cos(a)).toFixed(3), +(ry - ry * Math.sin(a)).toFixed(3)] }), [1, 1]]
+    const paint = grad ?? `${fill && vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}`
+    return { kind: 'shape', note: withFx(`${paint} arch (round top, flat bottom)`), poly }
   }
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
@@ -1285,7 +1298,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.05 * Math.min(A.w * A.h, B.w * B.h)
     })
     if (!under) return
-    const what = (out.get(under.role).note ?? '').match(/^(?:tilted )?(.*?\bblock)\b/)?.[1] ?? 'other picture'
+    const what = (out.get(under.role).note ?? '').match(/^(?:tilted (?:slightly )?(?:\d+° (?:anti)?clockwise )?)?(.*?\bblock)\b/)?.[1] ?? 'other picture'
     const A = f.rect, B = under.rect
     const side = `${A.y + A.h / 2 > B.y + B.h / 2 ? 'lower' : 'upper'} ${A.x + A.w / 2 > B.x + B.w / 2 ? 'right' : 'left'}`
     d.note = `${d.note ? `${d.note}, ` : ''}overlapping the ${side} of the ${what} and on top of it`

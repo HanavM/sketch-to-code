@@ -35,7 +35,55 @@
    ],
    [
     "arch-green",
-    "circle"
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       0.5
+      ],
+      [
+       0.038,
+       0.309
+      ],
+      [
+       0.146,
+       0.146
+      ],
+      [
+       0.309,
+       0.038
+      ],
+      [
+       0.5,
+       0
+      ],
+      [
+       0.691,
+       0.038
+      ],
+      [
+       0.854,
+       0.146
+      ],
+      [
+       0.962,
+       0.309
+      ],
+      [
+       1,
+       0.5
+      ],
+      [
+       1,
+       1
+      ]
+     ]
+    }
    ],
    [
     "tape",
@@ -77,19 +125,19 @@
    ],
    [
     "photo-blue",
-    "tilted blue to dark navy gradient block, with a hard near-black shadow offset 14px down right, no blur"
+    "tilted 6° anticlockwise blue to dark navy gradient block, with a hard near-black at 18% opacity shadow offset 14px down right, no blur"
    ],
    [
     "scrap-orange",
-    "tilted vivid orange angled cut-out shape"
+    "tilted 5° clockwise vivid orange angled cut-out shape"
    ],
    [
     "arch-green",
-    "tilted big vivid lime circle"
+    "tilted 3° anticlockwise vivid lime arch (round top, flat bottom)"
    ],
    [
     "tape",
-    "tilted soft yellow block, overlapping the upper left of the blue to dark navy gradient block and on top of it"
+    "tilted 14° anticlockwise soft yellow block, overlapping the upper left of the blue to dark navy gradient block and on top of it"
    ],
    [
     "headline",
@@ -101,7 +149,7 @@
    ],
    [
     "sticker",
-    "tilted vivid red circle with \"Issue 07 out now\""
+    "tilted 12° clockwise vivid red circle with \"Issue 07 out now\""
    ],
    [
     "cta",
@@ -117,7 +165,55 @@
    ],
    [
     "portrait",
-    "box"
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       0.304
+      ],
+      [
+       0.038,
+       0.187
+      ],
+      [
+       0.146,
+       0.089
+      ],
+      [
+       0.309,
+       0.023
+      ],
+      [
+       0.5,
+       0
+      ],
+      [
+       0.691,
+       0.023
+      ],
+      [
+       0.854,
+       0.089
+      ],
+      [
+       0.962,
+       0.187
+      ],
+      [
+       1,
+       0.304
+      ],
+      [
+       1,
+       1
+      ]
+     ]
+    }
    ],
    [
     "word-top",
@@ -167,7 +263,7 @@
    ],
    [
     "portrait",
-    "lavender to dark pink gradient"
+    "lavender to dark pink gradient arch (round top, flat bottom)"
    ],
    [
     "word-top",
@@ -441,7 +537,7 @@
    ],
    [
     "step-3",
-    "tilted slightly vivid yellow block \"Harvest\", text \"Pick in the cool of the morning and share at least a third with the neighbours.\""
+    "tilted slightly 2° anticlockwise vivid yellow block \"Harvest\", text \"Pick in the cool of the morning and share at least a third with the neighbours.\""
    ]
   ]
  },

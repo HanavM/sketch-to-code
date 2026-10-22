@@ -1,59 +1,67 @@
 {
   "id": "c2-difference-split",
-  "at": "2026-10-21T16:48:34.610Z",
+  "at": "2026-10-22T00:18:51.151Z",
   "likeness": {
     "version": 3,
-    "overall": 0.43423637615639643,
-    "overallV2": 0.43423637615639643,
-    "overallV1": 0.43423637615639643,
-    "colour": 0.8274161766246282,
-    "structure": 0.3528276105169268,
-    "structureStrict": 0.24496412772388637,
-    "colourAligned": 0.8274161766246282,
-    "structureAligned": 0.3528276105169268,
+    "overall": 0.6494261965837091,
+    "overallV2": 0.6494261965837091,
+    "overallV1": 0.5593685323564754,
+    "colour": 0.887790312156824,
+    "structure": 0.6423342994128587,
+    "structureStrict": 0.4795385972689141,
+    "colourAligned": 0.887790312156824,
+    "structureAligned": 0.6423342994128587,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7093157148999294
+      "r": 0.7960912320880035
     },
-    "layout": 0.6923416376795313
+    "layout": 0.7585314220174552
   },
   "effects": {
-    "recall": 1,
+    "recall": 0.75,
     "kept": [
       "blend",
-      "gradient",
       "huge-type",
       "overlap"
     ],
-    "missing": [],
-    "extra": []
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "uppercase-display"
+    ]
   },
   "tokens": {
-    "input": 21427,
-    "output": 11468,
-    "cacheRead": 137029
+    "input": 37849,
+    "output": 21123,
+    "cacheRead": 146243
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 20905,
-      "output": 6904,
-      "cacheRead": 126803,
-      "toolCalls": 5,
+      "billed": 50472,
+      "output": 16744,
+      "cacheRead": 143159,
+      "toolCalls": 10,
       "tools": [
         "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
         "Read src/App.tsx",
-        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape2.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 80699
+      "ms": 200117
     }
   ],
-  "reading": "A hero banner design: a black panel overlapped by a lavender-to-dark-pink gradient panel, with two giant inverting-color headline words 'LIGHT' and 'SHADE' crossing both, plus a logo, nav text, body copy and a CTA button.",
+  "reading": "The sketch is a full hero section: a black rectangle forms the right-side background, a lavender-to-pink gradient arch sits centered behind two giant wavy-line placeholders that spell out \"LIGHT\" and \"SHADE\" (inverting colour where they cross the arch/black block). Small squiggles mark a \"Duality®\" logo top-left, nav text \"Collection · Archive · Cart (0)\" top-right, body copy about the two-colour outerwear bottom-left, and a \"Shop the drop →\" button bottom-right.",
   "actions": [
     {
       "kind": "design",
@@ -68,22 +76,22 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Full-bleed solid black rectangular panel filling the right portion of the hero banner (per note: 'black block')."
+      "instruction": "Fill this large rectangle spanning the right portion of the page (nearly full height) as a solid black block — a dark background panel for the right side of the"
     },
     {
       "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        473,
-        153,
-        333,
-        553
+        469,
+        150,
+        342,
+        561
       ],
       "paths": [
         "s1"
       ],
-      "instruction": "Overlapping rectangular panel filled with a lavender-to-dark-pink gradient, layered on top of/overlapping the black panel (per note: 'lavender to dark pink grad"
+      "instruction": "Draw a tall arch shape with a round top and flat bottom, centered over the middle of the hero, filled with a lavender-to-dark-pink gradient. It sits beneath the"
     },
     {
       "kind": "add",
@@ -106,7 +114,7 @@
         161
       ],
       "paths": [],
-      "instruction": "Giant Helvetica Heavy, tight-set white heading text reading \"LIGHT\", stretching horizontally across both the black and gradient panels; where it crosses the pan"
+      "instruction": "Giant Helvetica heavy, tight-set headline reading \"LIGHT\", spanning most of the page width at the upper part of the hero. It is normally black/dark on the light"
     },
     {
       "kind": "add",
@@ -129,7 +137,7 @@
         162
       ],
       "paths": [],
-      "instruction": "Giant Helvetica Heavy, tight-set white heading text reading \"SHADE\", stretching horizontally across both panels; where it crosses what is under it, the text col"
+      "instruction": "Giant Helvetica heavy, tight-set headline reading \"SHADE\", spanning most of the page width lower in the hero, mirroring the LIGHT line. It inverts to white wher"
     },
     {
       "kind": "add",
@@ -144,7 +152,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small logo text reading \"Duality®\" in the top-left corner of the hero (per note)."
+      "instruction": "Small logo/wordmark text \"Duality®\" in the top-left corner of the page."
     },
     {
       "kind": "add",
@@ -159,7 +167,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Navigation text reading \"Collection · Archive · Cart (0)\" in the top-right corner, over the black panel (per note)."
+      "instruction": "Navigation text \"Collection · Archive · Cart (0)\" in the top-right corner, sitting over the black background block so it should render in a colour visible on bl"
     },
     {
       "kind": "add",
@@ -184,7 +192,7 @@
         31
       ],
       "paths": [],
-      "instruction": "Dark grey body copy reading \"Outerwear cut in two colours only. Pick a side, or wear both.\" positioned in the lower-left area of the hero (per note)."
+      "instruction": "Dark grey body copy reading \"Outerwear cut in two colours only. Pick a side, or wear both.\" placed in the lower-left area of the hero, below the SHADE headline."
     },
     {
       "kind": "add",
@@ -199,7 +207,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Call-to-action button labeled \"Shop the drop →\" placed in the lower-right corner of the hero, over the black panel (per note)."
+      "instruction": "A rounded pill button labeled \"Shop the drop →\" positioned in the bottom-right corner, over the black background block."
     }
   ],
   "rejected": []

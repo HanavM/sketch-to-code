@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, lostStrokes, pictureCrossIds, scaffoldDir } from '../src/scaffold.js'
+import { buildScaffold, componentName, lostStrokes, pictureCrossIds, restoreLostStrokes, scaffoldDir } from '../src/scaffold.js'
 import { finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
@@ -277,5 +277,24 @@ describe('lostStrokes — a drawn stroke stays drawn where it was', () => {
   })
   it('flags a stroke that is gone', () => {
     expect(lostStrokes(sc.code, '<svg></svg>')).toEqual(['s2'])
+  })
+})
+
+describe('restoreLostStrokes — put a lost drawn stroke back without a model', () => {
+  const box = { strokeId: 's1', d: 'M0.9,0.8 C92,-1 184,2 275,1.1 C365,0 365,200 364,444 C200,446 100,446 0.3,445 C0,300 0,100 0.9,0.8 Z' }
+  const sc = buildScaffold(action({ region: { x: 480, y: 79, w: 366, h: 446 }, svgPaths: [box], depicts: 'gradient block' }), 0, controls())!
+  const shadowOnly = `<svg>\n<defs><linearGradient id="g2"/></defs>\n<path d="${box.d}" fill="#000" fillOpacity={0.18} transform="translate(14,14)" />\n{/* s1: drawn by the user — measured geometry, keep it */}\n</svg>`
+  it('puts the path back after its comment, on top of the shadow copy (round 4 c1 grey slab)', () => {
+    const out = restoreLostStrokes(sc.code, shadowOnly, ['s1'])!
+    expect(lostStrokes(sc.code, out)).toEqual([])
+    expect(out.indexOf('translate(14,14)')).toBeLessThan(out.lastIndexOf(`d="${box.d}"`))
+  })
+  it('falls back to currentColor when the gradient it pointed at is gone, and to before </svg> with no comment', () => {
+    const out = restoreLostStrokes(sc.code, '<svg>\n</svg>', ['s1'])!
+    expect(lostStrokes(sc.code, out)).toEqual([])
+    expect(out).not.toMatch(/url\(#/)
+  })
+  it('gives up when there is no svg to put it in', () => {
+    expect(restoreLostStrokes(sc.code, 'export default () => null', ['s1'])).toBeNull()
   })
 })

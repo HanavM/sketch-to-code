@@ -106,3 +106,17 @@ e5 today tag; rounds 1-2 unchanged.
 | page | before | after | tokens | notes |
 |---|---|---|---|---|
 | c5 sticky story | 54% | 76%, then 70% | ~52k, then ~47k | first: "03" now built full height (n40 fix), but the yellow card came out pale cream. After 'vivid': card bright yellow as target; this run put the chapter label above the number (run-to-run swing). |
+
+## n51: arches, tilt direction, see-through shadows, lost strokes put back (likeness v3)
+
+Planner: a filled textless block with a round top and square bottom is an arch, drawn as its outline
+('vivid lime arch (round top, flat bottom)'); tilts say degrees and direction ('tilted 6° anticlockwise');
+a see-through hard shadow says its strength ('near-black at 18% opacity'). Contract maps 'tilted N° (anti)clockwise'
+to rotate(±N deg). Pipeline: a drawn stroke the build left only as a shadow copy is now put back mechanically
+(zero tokens) instead of by a repair turn: the c1 repair turn said it restored the blue photo and didn't, so a grey
+slab was built. Plan changes: rounds 2, 3, 5 tilt words gain degrees; round 4 c2 portrait now an arch (was a box).
+
+| page | before | after | tokens | notes |
+|---|---|---|---|---|
+| c2 difference split | 43% | 65% | 50k | portrait built as an arch, black half, difference words. Black half starts ~40px late. |
+| c1 cut-out collage | 65% | 57%, then 63% | 59k + 50k | first: arch, tilts, no X, but the blue photo lost (shadow copy only, repair failed) -> restore added. Second: blue photo, faint shadow, arch, tilted tape/sticker all right; cream page dropped this time, headline ~95px (target 150px). |

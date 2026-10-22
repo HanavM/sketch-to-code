@@ -29,7 +29,7 @@ import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
-import { buildScaffold, lostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
+import { buildScaffold, lostStrokes, restoreLostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
 import { finishSource, paletteFor } from './finish.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
 import {
@@ -171,7 +171,8 @@ Rules:
 - Effect words in notes are exact requests, never to be softened into a plainer
   look. Build each with real CSS (arbitrary values / inline style where the
   app's utility classes lack it):
-  tilted/rotated → transform: rotate(-3..-8deg or 3..8deg);
+  tilted/rotated → transform: rotate(-3..-8deg or 3..8deg); 'tilted N° clockwise' →
+    rotate(Ndeg), 'tilted N° anticlockwise' → rotate(-Ndeg), exactly N;
   frosted glass → translucent fill (white 10-20% alpha), backdrop-filter: blur(12px+),
     1px light border;
   soft blurred blob/glow → filter: blur(40px+) on a solid shape;
@@ -552,6 +553,16 @@ export async function runV2(
       try { now = readFileSync(join(ctx.root, sc.rel), 'utf8') } catch { continue } // deleted on purpose
       const lost = lostStrokes(sc.code, now)
       if (!lost.length) continue
+      // put them back ourselves: a repair turn asked to restore one said it did and
+      // didn't (round 4 c1), and the path is known exactly, so no model is needed
+      const restored = restoreLostStrokes(sc.code, now, lost)
+      if (restored !== null && !lostStrokes(sc.code, restored).length) {
+        try {
+          writeFileSync(join(ctx.root, sc.rel), restored)
+          stage('verify', `put back drawn stroke(s) ${lost.join(', ')} in ${sc.rel}`)
+          continue
+        } catch { /* fall through to a repair turn */ }
+      }
       result.failures.push(
         `action ${sc.actionIndex} (drawing): ${sc.rel} no longer draws the user's stroke(s) ${lost.join(', ')} in place ` +
         `(only a moved copy such as a shadow, or nothing, is left). Put the <path> with that exact d back, untransformed, ` +

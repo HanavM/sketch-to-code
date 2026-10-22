@@ -245,3 +245,31 @@ export function lostStrokes(scaffoldCode: string, current: string): string[] {
   const paths = [...current.matchAll(/<path\b[^>]*>/g)].map((m) => m[0])
   return kept.filter(({ d }) => !paths.some((el) => el.includes(`d="${d}"`) && !/\btransform\s*=/.test(el))).map((k) => k.id)
 }
+
+/**
+ * Put lost drawn strokes back, zero tokens: the scaffold's own <path> for each id goes
+ * right after its "drawn by the user" comment (so it sits on top of any shadow copy
+ * drawn before it), or before the last </svg>. A fill pointing at a gradient the build
+ * removed falls back to currentColor. Round 4 c1: the build kept only the shadow copy
+ * of the blue photo, the repair turn said it restored it and didn't, so a grey slab
+ * was built. Returns the new source, or null when a stroke can't be placed.
+ */
+export function restoreLostStrokes(scaffoldCode: string, current: string, ids: string[]): string | null {
+  let out = current
+  for (const id of ids) {
+    const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const m = scaffoldCode.match(new RegExp(`\\{/\\* ${esc}: drawn by the user[^*]*\\*/\\}\\s*(<path d="[^"]+"[^>]*/>)`))
+    if (!m) return null
+    let el = m[1]!
+    const ref = el.match(/url\(#([^)]+)\)/)?.[1]
+    if (ref && !new RegExp(`id=["']${ref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(out)) el = el.replace(`url(#${ref})`, 'currentColor')
+    const comment = new RegExp(`(\\{/\\* ${esc}: drawn by the user[^*]*\\*/\\})`)
+    if (comment.test(out)) out = out.replace(comment, (c) => `${c}\n      ${el}`)
+    else {
+      const at = out.lastIndexOf('</svg>')
+      if (at < 0) return null
+      out = `${out.slice(0, at)}      {/* ${id}: drawn by the user, put back */}\n      ${el}\n    ${out.slice(at)}`
+    }
+  }
+  return out
+}
