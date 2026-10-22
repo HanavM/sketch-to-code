@@ -44,6 +44,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
+import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -566,6 +567,7 @@ export async function runV2(
     }
     const result = verifyActions(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
+      [...(interp.pageNotes ?? []), ...(interp.runNotes ?? [])],
     )
 
     // the drawn strokes a scaffold handed over must still be drawn where they were
@@ -929,6 +931,8 @@ export function verifyActions(
    * it is neither a pass nor something a repair round could fix.
    */
   probes: ProbeVerdict[] = [],
+  /** Words typed about the whole page or the run (no action claimed them): their page fill is checked too. */
+  looseNotes: string[] = [],
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -1114,6 +1118,25 @@ export function verifyActions(
     total++
     if (drift.satisfied) satisfied++
     else failures.push(`page (vertical placement): ${drift.reason}`)
+  }
+
+  // fills the words gave as exact hex (round 7 e5: a #f3f4f6 header row built white three runs running, unchecked)
+  const fillChecks: FillVerdict[] = []
+  const pageClaims = looseNotes.flatMap((t) => fillClaims(t)).filter((c) => c.kind === 'page')
+  if (pageClaims.length) fillChecks.push(verifyFills(after, pageClaims))
+  for (const a of actions) {
+    if ((a.kind !== 'add' && a.kind !== 'design') || a.onScreen) continue
+    const claims = [a.instruction, ...(a.notes ?? [])].flatMap((t) => fillClaims(t))
+    if (claims.length) fillChecks.push(verifyFills(after, claims, a.region ?? a.dest?.rect))
+  }
+  const judged = fillChecks.filter((v) => !v.unverifiable)
+  if (judged.length) {
+    const seen = new Set<string>()
+    const faults = judged.filter((v) => !v.satisfied).map((v) => v.reason).filter((r) => !seen.has(r) && seen.add(r))
+    details.push({ kind: 'fills', checked: judged.flatMap((v) => v.checked) })
+    total++
+    if (!faults.length) satisfied++
+    else failures.push(`page (typed colours): ${faults.join('; ')}`)
   }
 
   for (const v of probes) {
