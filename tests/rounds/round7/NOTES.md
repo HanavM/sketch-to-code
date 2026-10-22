@@ -44,3 +44,16 @@ Untuned planner misses (from autoplan.txt; rounds 1-6 plans unchanged, no rule c
 
 Worst gaps to fix first (planner, free): e5 rows, e4 run-on inline text and states, c2 wave word, c4/c3 SVG
 polygons as shapes, e2 charts.
+
+## n92: first live builds, creative c1-c3 (2026-10-22, ~181k billed; --budget 250000 stopped before c4, c5)
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| c1 bento overlap | 55% | 51k | orb gone (only a faint glow behind the tiles); list and chart tiles built white (target near-black); "07" sits behind the chart tile; list bars missing; hero headline on one line at the bottom |
+| c2 variable wave | 16% | 27k | the unsaid wave word became an invented paragraph; everything below shifts ~80px; band twice as tall |
+| c3 parallax night | 73% | 42k | both skylines missing (bare boxes); sky built dark grey (target navy → indigo → pink); clouds built as hard dark bars; moon halo rings missing |
+
+Each build was one codegen turn (no repair). The misses are the ones the plan readout predicted: what the planner
+leaves unsaid is dropped or invented. Next: say the wave word (per-letter size/weight), SVG polygons (skyline tops,
+cube faces) as shapes with fill, a page gradient's middle stop, a filled orb with glow over other tiles (z-order),
+near-black tiles' fill; then live c4, c5 and re-run c1-c3.

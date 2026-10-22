@@ -1,0 +1,209 @@
+{
+  "id": "c1-bento-overlap",
+  "at": "2026-10-22T13:10:34.124Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5453544689623341,
+    "overallV2": 0.5300680635599941,
+    "overallV1": 0.466957344386299,
+    "colour": 0.6987486067704892,
+    "structure": 0.3995851439384119,
+    "structureStrict": 0.25658441016885863,
+    "colourAligned": 0.7106170448911591,
+    "structureAligned": 0.4203977434701758,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.12261048414430199
+    },
+    "layout": 0.8330429018829375
+  },
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "serif"
+    ],
+    "extra": [
+      "bleed",
+      "blur"
+    ]
+  },
+  "tokens": {
+    "input": 45944,
+    "output": 20492,
+    "cacheRead": 495133
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50876,
+      "output": 14044,
+      "cacheRead": 484997,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read components/GlowOrb.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit components/GlowOrb.tsx",
+        "Write src/App.tsx",
+        "Read components/GlowOrb.tsx",
+        "Edit components/GlowOrb.tsx",
+        "Edit components/GlowOrb.tsx",
+        "Read components/GlowOrb.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob"
+      ],
+      "ms": 158626
+    }
+  ],
+  "reading": "The sketch is a tiled dashboard grid of cards (a big gradient hero tile, an uptime stat tile, a sync tile, a quote tile, a 'new widgets' tile, and a weekly-focus bar-chart tile) plus a soft glowing orb behind the top tiles and a giant hollow '07' watermark number in the chart tile; a typed note also sets the whole page to black with white Helvetica type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        553,
+        414
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large hero tile card with a gradient background running from vivid purple (top-left) to vivid dark pink (bottom-right), containing label text \"ORBIT OS · 2027\" "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        294,
+        194
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Vivid yellow stat tile card with near-black text \"UPTIME\" and large stat text \"99.9\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        43,
+        293,
+        414
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Tall tile card (right column) with near-black text \"SYNC\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        263,
+        294,
+        193
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Light grey tile card with near-black quote text “The calmest dashboard I’ve ever used.”"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        334,
+        292,
+        292
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Big glowing orb, radial gradient from white through light pink to purple, placed as a soft decorative glow behind/across the hero and quote tiles where the circ"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        483,
+        373,
+        374
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Vivid cyan tile card with black text \"NEW\" and subtext \"Widgets that rearrange themselves.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        443,
+        483,
+        793,
+        374
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Large tile card titled \"WEEKLY FOCUS\" (near-black text) containing a bar chart of 10 dark grey bars with heights approximately 42%, 68%, 53%, 100%, 74%, 47%, 63"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 262
+        }
+      ],
+      "region": [
+        1008,
+        573,
+        239,
+        314
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy, tight-set, hollow-outlined yellow numerals \"07\" (about 260px type size, ~265px wide, no larger), overlaid in the bottom-right of the week"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

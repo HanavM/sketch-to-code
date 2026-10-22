@@ -1,0 +1,226 @@
+{
+  "id": "c2-variable-wave",
+  "at": "2026-10-22T13:15:23.954Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.1625242073701255,
+    "overallV2": 0.09236266097593702,
+    "overallV1": 0.09236266097593702,
+    "colour": 0.8576613359565394,
+    "structure": 0.49188775211440044,
+    "structureStrict": 0.33318461608354405,
+    "colourAligned": 0.8664921809594353,
+    "structureAligned": 0.5938333628958545,
+    "align": {
+      "scale": 0.96,
+      "dx": 32,
+      "dy": 80,
+      "r": 0.3552454203871595
+    },
+    "layout": 0.20452587901092628
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "hollow-type",
+      "huge-type",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 31115,
+    "output": 20147,
+    "cacheRead": 142166
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 26535,
+      "output": 9669,
+      "cacheRead": 130681,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 112046
+    }
+  ],
+  "reading": "This is a type-specimen landing page: a navbar line, a block of intro paragraph lines, a giant hollow-outlined '100—900' display, a tilted red-orange marquee banner, a weight slider with a label, and a closing description paragraph — all built from wavy text-placeholder lines plus two typed-note-defined ribbon/slider widgets, with the whole page styled cream/Helvetica/near-black per the global note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 98
+        }
+      ],
+      "region": [
+        64,
+        50,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a top navbar row: bold 18px 'FLEX/TYPE' at left and 'Specimen · Axes · Buy' navigation links at right, Helvetica, near-black text on cream page background ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 98
+        },
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        158,
+        829,
+        168
+      ],
+      "paths": [],
+      "instruction": "Add a 7-line intro paragraph block below the navbar (last line shorter, matching the wrap in the sketch), Helvetica near-black text on cream background, describ"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8"
+          ],
+          "lines": 1,
+          "fontPx": 172
+        }
+      ],
+      "region": [
+        68,
+        352,
+        626,
+        206
+      ],
+      "paths": [],
+      "instruction": "Add giant Helvetica Heavy, hollow/outlined (near-black outline, no fill) display text reading '100—900', tight letter-spacing, about 170px type size and roughly"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9"
+          ],
+          "lines": 1,
+          "fontPx": 57
+        }
+      ],
+      "region": [
+        6,
+        609,
+        1253,
+        68
+      ],
+      "paths": [],
+      "instruction": "Add a decorative marquee banner tilted 6° anticlockwise, bleeding off the left and right page edges, filled red-orange edge-to-edge across the whole ~1501×242px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        774,
+        513,
+        44
+      ],
+      "paths": [
+        "s10",
+        "s11"
+      ],
+      "instruction": "Add a weight slider: a solid near-black track exactly 2px tall (h-[2px], not h-2) and 520px wide, with a small 22px near-black round dot as the draggable slider"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        824,
+        770,
+        392,
+        51
+      ],
+      "paths": [],
+      "instruction": "Add a 2-line closing paragraph reading 'A variable family with weight and width axes. Drag the slider, the specimen breathes.' in Helvetica, near-black text on "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

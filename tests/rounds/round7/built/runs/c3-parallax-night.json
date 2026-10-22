@@ -1,0 +1,199 @@
+{
+  "id": "c3-parallax-night",
+  "at": "2026-10-22T13:20:42.757Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7338447242779015,
+    "overallV2": 0.7338447242779015,
+    "overallV1": 0.6915156298596016,
+    "colour": 0.8756852810993255,
+    "structure": 0.7254930433862419,
+    "structureStrict": 0.629537834593133,
+    "colourAligned": 0.8756852810993255,
+    "structureAligned": 0.7254930433862419,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8065248962690361
+    },
+    "layout": 0.7092780850269096
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "gradient-text",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "blur"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 38456,
+    "output": 24374,
+    "cacheRead": 320534
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42492,
+      "output": 15648,
+      "cacheRead": 310090,
+      "toolCalls": 13,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/CitySkyline.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/CitySkyline.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 171969
+    }
+  ],
+  "reading": "A dark hero section is being sketched: wordmark logo, a flat yellow disc (moon) sitting on a skyline silhouette, a big two-line gradient headline, a body paragraph, and a pill button, all inside a full-bleed gradient hero container.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        543,
+        1273,
+        354
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "Create the overall hero/page section as a full-bleed container with a gradient background going from dark navy to dark grey to dark pink; use Helvetica typeface"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        56,
+        142,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a small wordmark/logo text reading \"NOCTURNE\" with wide letter-spacing, placed top-left of the hero section."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        94,
+        171,
+        173
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a perfectly round solid disc (not traced from the rough ink circle, use a true 50% border-radius), 180px across, flat fully opaque pale yellow (#fef3c7) fil"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        204,
+        614,
+        392
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s11"
+      ],
+      "instruction": "Add a simple city skyline / buildings silhouette illustration (flat rooftop block beneath the moon, a second building block to the right, and a thin vertical an"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 104
+        }
+      ],
+      "region": [
+        88,
+        170,
+        456,
+        228
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy headline set tight (line-height ~0.95) with a soft yellow (left) to light pink (right) gradient fill, reading \"The city\" / \"after da"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        88,
+        430,
+        412,
+        57
+      ],
+      "paths": [],
+      "instruction": "Add a body paragraph of white text reading \"Five layers of skyline that drift apart as you scroll. A night walk through the old port.\" beneath the headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        86,
+        541,
+        160,
+        51
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a pill-shaped button with a soft yellow outline (transparent fill) labeled \"Start walking\", placed below the body paragraph."
+    }
+  ],
+  "rejected": []
+}
