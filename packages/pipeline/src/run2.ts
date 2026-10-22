@@ -43,6 +43,7 @@ import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
+import { verifyPageDrift } from './drift.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import type { RunContext, RunResult } from './run.js'
@@ -1089,6 +1090,21 @@ export function verifyActions(
         }
       }
     }
+  }
+
+  // whole-page builds: every block within ~16px of its drawn top (round 7 e1/e4/e5 drifted lower down the page)
+  const placed = actions.flatMap((a, i) => {
+    const region = a.region ?? a.dest?.rect
+    if ((a.kind !== 'add' && a.kind !== 'design') || a.onScreen || !region || isDecoration(a)) return []
+    if (/bleed|off the (left|right|top|bottom|page)|tilt|rotat|overlap|on top of/i.test(a.instruction)) return []
+    return [{ index: i, region }]
+  })
+  const drift = verifyPageDrift(before, after, placed)
+  if (!drift.unverifiable) {
+    details.push({ kind: 'drift', verdict: drift })
+    total++
+    if (drift.satisfied) satisfied++
+    else failures.push(`page (vertical placement): ${drift.reason}`)
   }
 
   for (const v of probes) {

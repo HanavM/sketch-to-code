@@ -155,3 +155,21 @@ Planner (round 7 e4/e5 and one round-3 pager note change; other plans unchanged)
 The repeated miss on the everyday pages is now vertical drift: builds put each block 10-30px lower than drawn, and
 it compounds down the page. Next: find where the drift comes from (spacing the build adds between blocks vs the
 drawn tops) and say or pin the absolute tops of the main bands.
+
+## n99: vertical drift check (2026-10-22, ~255k billed)
+
+Cause: the codegen contract already asks for each block's top within ~16px of where it was drawn, but nothing
+measured it: the placement check passes anything within ~120px. New zero-token check (pipeline drift.ts, run on
+whole-page builds with 6+ placed blocks): match each drawn block to the new element of its x, width and a plausible
+height whose top is nearest, and when 3+ blocks (25%+) are over 16px off in the same direction, fail with each
+block's built and drawn top so a repair turn takes the extra space out. Blocks off both ways are treated as
+mismatches and say nothing.
+
+| page | before (n98) | now | what happened |
+|---|---|---|---|
+| e1 kanban lanes | 36% (aligned -64px) | 51% (110k), aligned 0px, layout 14 to 54% | check found 14 of 16 blocks up to 66px low; one repair turn cut two margins; cards and the MOBILE lane now within ~19px. The repair used a negative margin, so cards cover the WEB APP label |
+| e5 admin table | 62% | 64% (80k), aligned 0px | too few blocks matched for the check to speak; page landed at its drawn height anyway |
+| e4 product page | 62% | 45% then 40% (27k, 37k) | both runs hit the 10-minute run limit during the repair; the check had flagged blocks off both ways (mismatches), now silenced. Not re-run |
+
+Next: re-run e4 with the both-ways rule (must finish inside 10 minutes, back to ~62%); stop a repair from
+pulling blocks up with negative margins over a label (e1 WEB APP).

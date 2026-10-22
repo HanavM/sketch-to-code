@@ -1,69 +1,45 @@
 {
   "id": "e4-product-page",
-  "at": "2026-10-22T15:59:03.824Z",
+  "at": "2026-10-22T16:59:46.912Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6200280406407371,
-    "overallV2": 0.5000842469908721,
-    "overallV1": 0.3462794324911937,
-    "colour": 0.9628862148634463,
-    "structure": 0.819439386944779,
-    "structureStrict": 0.6473020428029548,
-    "colourAligned": 0.9788219936951073,
-    "structureAligned": 0.8914712611911058,
+    "overall": 0.4003568415430241,
+    "overallV2": 0.4003568415430241,
+    "overallV1": 0.22033976372712055,
+    "colour": 0.942425696462294,
+    "structure": 0.8097562233703813,
+    "structureStrict": 0.6057215986801633,
+    "colourAligned": 0.942425696462294,
+    "structureAligned": 0.8097562233703813,
     "align": {
-      "scale": 1,
-      "dx": 0,
-      "dy": -32,
-      "r": 0.9387609164464914
+      "scale": 0.92,
+      "dx": 32,
+      "dy": -64,
+      "r": 0.7759816009875944
     },
-    "layout": 0.3028881830753218
+    "layout": 0.23718773684159913
   },
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
+    "recall": 1,
+    "kept": [
       "gradient"
     ],
-    "extra": []
+    "missing": [],
+    "extra": [
+      "overlap",
+      "soft-shadow"
+    ]
   },
   "tokens": {
-    "input": 71977,
-    "output": 42733,
-    "cacheRead": 386241
+    "input": 24105,
+    "output": 12784,
+    "cacheRead": 20763
   },
-  "sends": [
-    {
-      "attempt": "1",
-      "kind": "build",
-      "billed": 79111,
-      "output": 30942,
-      "cacheRead": 365478,
-      "toolCalls": 15,
-      "tools": [
-        "Read components/SketchShape.tsx",
-        "Read components/GarmentSilhouette.tsx",
-        "Glob",
-        "Glob",
-        "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Glob",
-        "Glob",
-        "Read src/index.css",
-        "Read s2c-bench-app/vite.config.ts",
-        "Glob",
-        "Read s2c-bench-app/package.json",
-        "Edit components/SketchShape.tsx",
-        "Edit components/GarmentSilhouette.tsx",
-        "Write src/App.tsx"
-      ],
-      "ms": 330531
-    }
-  ],
-  "reading": "The sketch is a full e-commerce product detail page: a top nav bar with logo and links, a breadcrumb, a column of four thumbnail swatches (one selected), a large product-image backdrop with a garment silhouette inside, then product title, rating, price-with-discount line, colour selector with four dots, size selector with five buttons, an add-to-bag button plus wishlist icon button and free-delivery note, and three accordion rows (Details expanded with copy, Care & materials and Returns collapsed).",
+  "sends": null,
+  "reading": "This is a full product-detail page design: a site header bar, a breadcrumb trail, a vertical thumbnail gallery, a large hero product image with a garment silhouette, product title/rating/price, colour and size selectors, add-to-bag and wishlist buttons, a free-delivery note, and three expandable detail accordions (Details, Care & materials, Returns).",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -75,7 +51,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a top navigation bar 60px tall spanning the full width, with a thin line underneath; place bold 20px wide-spaced \"NORDLY\" wordmark on the left and \"Women · "
+      "instruction": "A site header bar, 60px tall, spanning the full width of the top of the page, with a thin line underneath. Bold 20px wide-letter-spaced logo text 'NORDLY' on th"
     },
     {
       "kind": "add",
@@ -90,7 +66,58 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a small grey breadcrumb trail reading \"Home / Jackets / Shell\" below the header."
+      "instruction": "A small grey breadcrumb trail reading 'Home / Jackets / Shell', placed just below the header bar."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        119,
+        77,
+        77
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "The first (top) thumbnail in a vertical thumbnail stack: an 84x84px block, 8px rounded corners, filled pale #e0e7ff, with a 2px dark navy outline ring sitting 2"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        215,
+        77,
+        77
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Second thumbnail in the stack, directly below the selected one: an 84x84px block, 8px rounded corners, filled pale #c7d2fe, no picture or X inside it."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        312,
+        77,
+        77
+      ],
+      "paths": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "instruction": "Third thumbnail in the stack: an 84x84px block, 8px rounded corners, filled with a lavender colour, no picture or X inside it."
     },
     {
       "kind": "design",
@@ -98,25 +125,16 @@
       "textSize": [],
       "region": [
         51,
-        119,
-        78,
-        365
+        407,
+        77,
+        77
       ],
       "paths": [
-        "s2",
-        "s3",
-        "s4",
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9",
-        "s10",
         "s11",
         "s12",
         "s13"
       ],
-      "instruction": "Add a vertical column of four 84x84px, 8px-rounded thumbnail blocks (no picture, no X) stacked below the breadcrumb: top block filled pale #e0e7ff with a 2px da"
+      "instruction": "Fourth (bottom) thumbnail in the stack: an 84x84px block, 8px rounded corners, filled pale grey, no picture or X inside it."
     },
     {
       "kind": "design",
@@ -131,7 +149,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "Add the large 520x620px product-image backdrop, 12px rounded, filled with a soft pale gradient from #e0e7ff at the top to #c7d2fe at the bottom (no picture, no "
+      "instruction": "A large 520x620px product-photo backdrop block next to the thumbnail stack, 12px rounded corners, filled with a soft pale tinted gradient from #e0e7ff at the to"
     },
     {
       "kind": "add",
@@ -154,7 +172,7 @@
         44
       ],
       "paths": [],
-      "instruction": "Add the large bold product title text \"Fjell Rain Shell\" above the price."
+      "instruction": "Large bold product title heading reading 'Fjell Rain Shell', placed to the right of the hero image."
     },
     {
       "kind": "add",
@@ -179,7 +197,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add amber rating text \"★★★★☆ 4.2 · 318 reviews\" below the title."
+      "instruction": "Amber-coloured rating line below the title reading '★★★★☆ 4.2 · 318 reviews'."
     },
     {
       "kind": "add",
@@ -204,7 +222,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add a price line: bold 28px dark navy \"$189\", then 18px grey \"$240\" with a line-through, then a small red (#dc2626) 4px-rounded tag with white text \"-21%\", each"
+      "instruction": "Price line below the rating, all on one row with small gaps between parts: bold 28px dark navy '$189', then 18px grey '$240' with a line-through (struck out), t"
     },
     {
       "kind": "add",
@@ -225,8 +243,21 @@
       "region": [
         734,
         273,
-        189,
-        59
+        81,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px label text reading 'Colour: Indigo' above the colour swatches."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        738,
+        304,
+        184,
+        28
       ],
       "paths": [
         "s19",
@@ -234,7 +265,7 @@
         "s21",
         "s22"
       ],
-      "instruction": "Add a colour selector: 13px label \"Colour: Indigo\" above a row of four 36px colour swatch dots in order — indigo, dark navy, vivid brown, light grey."
+      "instruction": "A row of four 36px round colour-swatch dots in order: a small indigo dot, a small dark navy dot, a small vivid brown dot, and a small light grey dot, representi"
     },
     {
       "kind": "add",
@@ -243,14 +274,44 @@
       "region": [
         734,
         364,
-        483,
-        67
+        18,
+        8
       ],
       "paths": [
-        "s23",
+        "s23"
+      ],
+      "instruction": "13px label text reading 'Size' above the size buttons."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        734,
+        393,
+        483,
+        38
+      ],
+      "paths": [
         "s24"
       ],
-      "instruction": "Add a size selector: 13px label \"Size\" above a row of five equal 90x44px rounded outlined buttons labelled \"XS\", \"S\", \"M\", \"L\", \"XL\"; \"M\" is selected (2px dark "
+      "instruction": "A row of five equal 90x44px rounded, outlined size buttons labelled 'XS', 'S', 'M', 'L', 'XL'. 'M' is the selected one, shown with a 2px dark navy border and bo"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        733,
+        521,
+        469,
+        52
+      ],
+      "paths": [
+        "s25",
+        "s26"
+      ],
+      "instruction": "A dark navy button with white text reading 'Add to bag', and beside it a square 54x54px button with 10px rounded corners containing only a centred empty heart o"
     },
     {
       "kind": "add",
@@ -269,21 +330,41 @@
         }
       ],
       "region": [
-        733,
-        521,
-        469,
-        79
+        734,
+        592,
+        142,
+        8
       ],
-      "paths": [
-        "s25",
-        "s26"
-      ],
-      "instruction": "Add a dark-navy, white-text \"Add to bag\" primary button next to a square 54x54px, 10px-rounded outline icon button holding only an empty heart \"♡\" wishlist icon"
+      "paths": [],
+      "instruction": "13px green text below the Add to bag button reading '✓ Free delivery by Oct 27'."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s28",
+        "s28"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s28",
+            "s30"
+          ],
+          "lines": 2,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        734,
+        622,
+        466,
+        9
+      ],
+      "paths": [],
+      "instruction": "A 474px-wide accordion header row: bold 14px 'Details' text at the left, and a bold dark navy '−' symbol at the far right of the same line, indicating this sect"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
         "s29",
         "s30",
         "s31"
@@ -309,12 +390,12 @@
       ],
       "region": [
         734,
-        604,
+        646,
         466,
-        92
+        50
       ],
       "paths": [],
-      "instruction": "Add an expanded \"Details\" accordion row: one 474px-wide line with bold 14px \"Details\" on the left and a bold dark navy \"−\" collapse icon at the far right of the"
+      "instruction": "Dark grey body paragraph under the Details header reading 'Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.'"
     },
     {
       "kind": "add",
@@ -340,7 +421,7 @@
         33
       ],
       "paths": [],
-      "instruction": "Add a collapsed accordion row: one 474px-wide line with bold 14px \"Care & materials\" on the left and a bold dark navy \"+\" expand icon at the far right of the sa"
+      "instruction": "A 474px-wide accordion header row: bold 14px 'Care & materials' text at the left, and a bold dark navy '+' symbol at the far right of the same line, indicating "
     },
     {
       "kind": "add",
@@ -365,7 +446,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a collapsed accordion row: one 474px-wide line with bold 14px \"Returns\" on the left and a bold dark navy \"+\" expand icon at the far right of the same line."
+      "instruction": "A 474px-wide accordion header row: bold 14px 'Returns' text at the left, and a bold dark navy '+' symbol at the far right of the same line, indicating this sect"
     }
   ],
   "rejected": []

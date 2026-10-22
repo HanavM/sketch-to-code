@@ -1,23 +1,23 @@
 {
   "id": "e5-admin-table",
-  "at": "2026-10-22T16:05:24.899Z",
+  "at": "2026-10-22T16:40:33.278Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6152702848876699,
-    "overallV2": 0.3517166707795573,
-    "overallV1": 0.18803880882221335,
-    "colour": 0.9513700354300259,
-    "structure": 0.7466712557879237,
-    "structureStrict": 0.40830099611924475,
-    "colourAligned": 0.9815009995956347,
-    "structureAligned": 0.882497501459529,
+    "overall": 0.6420855503779251,
+    "overallV2": 0.5950381562943288,
+    "overallV1": 0.3666765212822656,
+    "colour": 0.9689948645443894,
+    "structure": 0.8346171068338124,
+    "structureStrict": 0.5212265900750394,
+    "colourAligned": 0.974435850701189,
+    "structureAligned": 0.8584039211794409,
     "align": {
       "scale": 0.96,
       "dx": 0,
-      "dy": -16,
-      "r": 0.9110657569708345
+      "dy": 0,
+      "r": 0.9047547353460704
     },
-    "layout": 0.34056248109574155
+    "layout": 0.6169284820553577
   },
   "effects": {
     "recall": 1,
@@ -29,44 +29,44 @@
     "extra": []
   },
   "tokens": {
-    "input": 39331,
-    "output": 19222,
-    "cacheRead": 298786
+    "input": 49789,
+    "output": 30203,
+    "cacheRead": 344041
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 30699,
-      "output": 9382,
-      "cacheRead": 164371,
-      "toolCalls": 7,
+      "billed": 53451,
+      "output": 20460,
+      "cacheRead": 229317,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
         "Write src/App.tsx",
-        "Grep"
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
       ],
-      "ms": 96512
+      "ms": 233517
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 14447,
-      "output": 5000,
-      "cacheRead": 122605,
-      "toolCalls": 2,
+      "billed": 8660,
+      "output": 2295,
+      "cacheRead": 102914,
+      "toolCalls": 1,
       "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
+        "Read src/App.tsx"
       ],
-      "ms": 61745
+      "ms": 25950
     }
   ],
-  "reading": "The sketch is a full Team Members admin page: a page header with title/subtitle and an invite button, a filter toolbar, a selection action bar, a large data table with 10 member rows (3 selected), an open status-filter dropdown menu floating over the table, and a bottom pager.",
+  "reading": "The user is sketching a \"Team members\" admin page from scratch on an empty canvas: a header with title/subtitle/invite button, a filter toolbar, a bulk-action selection bar, a large data table of members (with an open status-filter dropdown overlaying it), and a pager at the bottom. Typed notes give exact copy, colors and per-row table content, which take precedence over the rough ink shapes.",
   "actions": [
     {
       "kind": "add",
@@ -92,7 +92,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Page header: bold heading \"Team members\", below it 13px grey text \"128 people · 9 pending invites\", and at the top-right a blue filled button with white text re"
+      "instruction": "Page header block: bold heading \"Team members\", below it 13px grey text \"128 people · 9 pending invites\", and at the top right a blue filled button with white t"
     },
     {
       "kind": "add",
@@ -107,7 +107,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Filter toolbar spanning the page width: a text input placeholder \"Search name or email\", a dropdown labeled \"Role\", a dropdown labeled \"Status: Any\", and a \"Col"
+      "instruction": "Toolbar row containing: an input \"Search name or email\", a \"Role\" dropdown, a \"Status: Any\" dropdown, and a \"Columns\" button."
     },
     {
       "kind": "add",
@@ -122,7 +122,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Selection action bar, full width (~1200x44px), dark blue (#1e3a8a) background, 8px rounded corners: white bold \"3 selected\" text at left, followed by small outl"
+      "instruction": "Dark blue (#1e3a8a) rounded bar, 1200x44px, 8px corner radius: white bold \"3 selected\" text at the left, followed by small outlined buttons (thin see-through wh"
     },
     {
       "kind": "add",
@@ -137,7 +137,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Full data table (real <table>, every row built): pale grey (#f3f4f6) header row with 12px grey semibold labels — empty checkbox column, bold \"Name ↓\", bold grey"
+      "instruction": "A real <table>, every row built, none left out. Pale grey (#f3f4f6) header row, 12px grey semibold: empty checkbox | bold \"Name ↓\" | bold grey \"Email\" | bold gr"
     },
     {
       "kind": "add",
@@ -152,7 +152,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Open status-filter dropdown menu: 200x146px white card, 10px rounded corners, thin light grey border, soft shadow (12px offset, 32px blur, 15% opacity). Absolut"
+      "instruction": "An open dropdown menu floating on top of the table (absolutely positioned, covers content, pushes nothing down): 200x146px white card, 10px corner radius, thin "
     },
     {
       "kind": "add",
@@ -177,8 +177,10 @@
         30
       ],
       "paths": [],
-      "instruction": "Bottom pager, one line 1200px wide, positioned near 865px from the page top inside the page: 13px grey \"Showing 1–10 of 128\" at the left, and at the far right a"
+      "instruction": "Pager, one line 1200px wide, positioned inside the page near the bottom: 13px grey \"Showing 1–10 of 128\" at the left, at the far right a row of 30x30px outlined"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

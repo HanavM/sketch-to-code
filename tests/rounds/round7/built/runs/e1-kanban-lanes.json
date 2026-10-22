@@ -1,23 +1,23 @@
 {
   "id": "e1-kanban-lanes",
-  "at": "2026-10-22T15:50:15.360Z",
+  "at": "2026-10-22T16:19:42.453Z",
   "likeness": {
     "version": 3,
-    "overall": 0.3557082759912748,
-    "overallV2": 0.06363749652982133,
-    "overallV1": 0.06363749652982133,
-    "colour": 0.9736383349939607,
-    "structure": 0.7351524785691983,
-    "structureStrict": 0.6256409345282783,
-    "colourAligned": 0.9778601453848283,
-    "structureAligned": 0.9235406665370928,
+    "overall": 0.508917568152105,
+    "overallV2": 0.41602718777402276,
+    "overallV1": 0.22368218634594547,
+    "colour": 0.9768542495652909,
+    "structure": 0.8908056142711824,
+    "structureStrict": 0.7035957770491417,
+    "colourAligned": 0.9786200938944141,
+    "structureAligned": 0.939944570624769,
     "align": {
-      "scale": 1,
-      "dx": 0,
-      "dy": -64,
-      "r": 0.43607722617930644
+      "scale": 0.96,
+      "dx": 16,
+      "dy": 0,
+      "r": 0.565949620993465
     },
-    "layout": 0.13741365033231473
+    "layout": 0.5376860386013632
   },
   "effects": {
     "recall": 1,
@@ -25,36 +25,47 @@
       "overlap"
     ],
     "missing": [],
-    "extra": [
-      "gradient",
-      "soft-shadow"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 56528,
-    "output": 26664,
-    "cacheRead": 184301
+    "input": 72252,
+    "output": 37711,
+    "cacheRead": 358245
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 60031,
-      "output": 17649,
-      "cacheRead": 169211,
-      "toolCalls": 6,
+      "billed": 53791,
+      "output": 14487,
+      "cacheRead": 245849,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Glob",
         "Read src/main.tsx",
+        "Glob",
         "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 180644
+      "ms": 150595
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 33117,
+      "output": 14446,
+      "cacheRead": 97306,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 172063
     }
   ],
-  "reading": "This sketch is a full Kanban board: a top toolbar with nav links and a search field, four column headers (To do/In progress/Review/Done) with counts, two dashed section dividers labeled \"WEB APP\" and \"MOBILE\", and a set of individual task cards (bugs, features, chores) with tags, titles, progress bars and avatar dots, some struck-through as done.",
+  "reading": "The sketch is a Kanban/task board: a top filter bar, four column-header lines (To do/In progress/Review/Done with counts), two swimlane dividers (\"WEB APP\" and \"MOBILE\") each followed by a row of task cards with tags, titles, progress bars and round avatar dots, some cards faded/struck-through as done.",
   "actions": [
     {
       "kind": "add",
@@ -69,67 +80,25 @@
       "paths": [
         "s0"
       ],
-      "instruction": "White bar 56px tall across the page containing, all grouped at the LEFT one after another (ending 692px in, leaving the right 46% of the bar empty, nothing push"
+      "instruction": "White bar 56px tall across the page containing links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked. \"All\" is selected (indigo fill). All of these sit toge"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s1"
+        "s1",
+        "s2",
+        "s3",
+        "s4"
       ],
       "textSize": [],
       "region": [
         28,
         75,
-        282,
+        1224,
         9
       ],
       "paths": [],
-      "instruction": "Column header line 290px wide: bold 13px \"To do\" at the left, grey \"5\" at the far right end of the same line."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s2"
-      ],
-      "textSize": [],
-      "region": [
-        342,
-        75,
-        282,
-        8
-      ],
-      "paths": [],
-      "instruction": "Column header line 290px wide: bold 13px \"In progress\" at the left, bold red \"4 / 3\" at the far right end of the same line."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s3"
-      ],
-      "textSize": [],
-      "region": [
-        656,
-        75,
-        282,
-        8
-      ],
-      "paths": [],
-      "instruction": "Column header line 290px wide: bold 13px \"Review\" at the left, grey \"2\" at the far right end of the same line."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s4"
-      ],
-      "textSize": [],
-      "region": [
-        970,
-        75,
-        282,
-        9
-      ],
-      "paths": [],
-      "instruction": "Column header line 290px wide: bold 13px \"Done\" at the left, grey \"7\" at the far right end of the same line."
+      "instruction": "Four column header lines, each 290px wide, bold 13px label at left and a count at the far right of the same line: \"To do\" with grey \"5\"; \"In progress\" with bold"
     },
     {
       "kind": "add",
@@ -144,7 +113,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Full-width dashed 1px light grey divider line across the page (section divider, not a box or input), with bold 12px dark grey capitals, wide letter-spacing labe"
+      "instruction": "A full-width dashed 1px light grey divider line across the page (section divider, not a box or input), with bold 12px dark grey capitals, wide letter-spacing la"
     },
     {
       "kind": "add",
@@ -159,7 +128,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Bug\" (red text on pale red tint #fee2e2, 4px rounded) at top left; "
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Bug\" (red text on pale red tint #fee2e2, 4px rounded) top left; sem"
     },
     {
       "kind": "add",
@@ -174,7 +143,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border, top 240px from page top with 32px empty space above it (column cards are not packed tigh"
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) top"
     },
     {
       "kind": "add",
@@ -189,7 +158,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) at "
+      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) top"
     },
     {
       "kind": "add",
@@ -204,7 +173,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border, a 4px red left edge, top 252px from page top with 39px empty space above it (column card"
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border, with a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on pale brown tint #"
     },
     {
       "kind": "add",
@@ -219,7 +188,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Chore\" (green text on pale green tint #dcfce7, 4px rounded) at top "
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Chore\" (green text on pale green tint #dcfce7, 4px rounded) top lef"
     },
     {
       "kind": "add",
@@ -234,7 +203,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"Dark mode tokens\", struck throug"
+      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"Dark mode tokens\" with a line-th"
     },
     {
       "kind": "add",
@@ -249,7 +218,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"Onboarding checklist\", struck th"
+      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"Onboarding checklist\" with a lin"
     },
     {
       "kind": "add",
@@ -264,7 +233,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Full-width dashed 1px light grey divider line across the page (section divider, not a box or input), sitting 470px from the page top with 142px below the lowest"
+      "instruction": "A full-width dashed 1px light grey divider line across the page (section divider, not a box or input), with bold 12px dark grey capitals, wide letter-spacing la"
     },
     {
       "kind": "add",
@@ -279,7 +248,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Bug\" (red text on pale red tint #fee2e2, 4px rounded) at top left; "
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Bug\" (red text on pale red tint #fee2e2, 4px rounded) top left; sem"
     },
     {
       "kind": "add",
@@ -294,7 +263,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) at "
+      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) top"
     },
     {
       "kind": "add",
@@ -309,7 +278,7 @@
       "paths": [
         "s16"
       ],
-      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border, top 618px from page top with 39px empty space above it (column cards are not packed tigh"
+      "instruction": "White task card 290x81px, 10px rounded corners, thin light grey border: small 11px bold tag \"Feature\" (indigo text on pale indigo tint #e0e7ff, 4px rounded) top"
     },
     {
       "kind": "add",
@@ -324,7 +293,7 @@
       "paths": [
         "s17"
       ],
-      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Chore\" (green text on pale green tint #dcfce7, 4px rounded) at top "
+      "instruction": "White task card 290x76px, 10px rounded corners, thin light grey border: small 11px bold tag \"Chore\" (green text on pale green tint #dcfce7, 4px rounded) top lef"
     },
     {
       "kind": "add",
@@ -339,7 +308,7 @@
       "paths": [
         "s18"
       ],
-      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"App icon refresh\", struck throug"
+      "instruction": "White task card 290x60px, 10px rounded corners, thin light grey border, whole card faded to 60% opacity (done): semibold title \"App icon refresh\" with a line-th"
     }
   ],
   "rejected": [
