@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 7 creative pages now build much closer: bento tiles 85%, letter wave 61%, night skyline 90%, isometric cubes 91%. Next: the torn collage and leftover details."
-lock: {by: run-2026-10-22T14:45Z, until: '2026-10-22T16:15:00Z'}
+now: "All ten round-7 pages except the torn collage have been built once: code editor 86%, admin table 66%, kanban, product page and growth dashboard still around 25-30%. Next: fixing those three."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n95 (5a27ffe on try/n3-vocabulary): planner says table rows cell by cell when they hold checkboxes/avatars/bars (pill-only tables unchanged), bulk bar lead + outlined buttons, floating menu with options and highlight, kanban task cards (tag colours, avatar dot, red edge, faded+struck done), column-head counts at far right, dashed swimlane rules. Rounds 1-6 plans unchanged. Live: e1 22 then 23 (content right, cards packed, lane high), e2 28, e3 86, e4 30, e5 66. round7/NOTES.md. 2 vitest failures (cli init gh-create, library home-not-writable) are pre-existing and environmental (run as root, gh present)."
+  - "Token ledger: 2026-10-22 n95 live e1-e5 338k + e1 66k = ~404k billed."
   - "n94 (2dc94e9, 3834212 on try/n3-vocabulary): planner says letter-by-letter words (heading at biggest letter, px+weight each), SVG polygons (skyline rooftops+points, isometric cube faces, <g> in svg, straight dashed leaders), 3+ stop linear gradients with hex+middle stop, lit radial sphere on top of tiles, tile bar stacks, odd bar colours, tilted band thickness before tilt. Rounds 2,4,5,6 plans unchanged; r1/r3 gain hex stops on 3-stop gradients. Live: c2 37 then 61, c3 90, c4 91, c1 85. round7/NOTES.md."
   - "Token ledger: 2026-10-22 n94 live c2,c3,c4 294k + c1,c2 126k = ~420k billed."
   - "n92 (afd5ea9, c07b18a on try/n3-vocabulary): round 7 in tests/rounds/round7 (--set round7auto; bench run.mjs imports it). NOTES.md lists untuned misses and the c1-c3 live table. SVG <g data-r> regions measure fine. Live c1-c3 = 181k with --budget 250000 (stops when spent+95k > budget): pass ~300k for 5 pages. Live pages ~6 min each."
@@ -249,7 +251,8 @@ nodes:
      result: "Ten round-7 pages, dry-drawn 10/10. Live: bento 55%, wave 16% (word unsaid), night 73% (skylines lost). c07b18a."}
   - {id: n94, parent: n92, kind: step, title: "Free first, ~200k live: round-7 creative misses: c2 wave word unsaid (per-letter size/weight), c3/c4 SVG polygons (skylines, cube faces) as filled shapes, page gradient middle stop, c1 orb over tiles + near-black tiles + list bars, c5 tapes not pictures; live c4, c5 first builds, re-run c1-c3", status: done, branch: try/n3-vocabulary, result: "Wave word, skylines, cubes, orb, bars, 3-stop sky said: bento 85%, wave 61%, night 90%, cubes 91%. 3834212."}
   - {id: n96, parent: n94, kind: step, title: "Free first, ~150k live: c1 hero headline built small at top (84px two lines at bottom) and 07 behind bars; c2 slider rule thick, knob tiny; c3 moon halo rings, soft clouds; c4 faint sketch outlines round cubes, three highlight, boxed labels; first live c5 torn collage (tapes not pictures, drop cap, red ellipse)", status: open, branch: try/n3-vocabulary, result: null}
-  - {id: n95, parent: n92, kind: step, title: "Free first, ~150k live: round-7 everyday misses (e5 table rows/checkboxes/usage bars, e4 run-on price and size states, e2 funnel/stacked bars/cohort shades, e3 line numbers and terminal colours, e1 tag colours/strike-through); first live builds e1-e5", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n95, parent: n92, kind: step, title: "Free first, ~150k live: round-7 everyday misses (e5 table rows/checkboxes/usage bars, e4 run-on price and size states, e2 funnel/stacked bars/cohort shades, e3 line numbers and terminal colours, e1 tag colours/strike-through); first live builds e1-e5", status: done, branch: try/n3-vocabulary, result: "Table rows, menu, bulk bar, kanban cards said. First builds: kanban 23, funnel 28, editor 86, product 30, admin 66%. 5a27ffe."}
+  - {id: n97, parent: n95, kind: step, title: "Free first, ~150k live: e1 cards packed in flow and MOBILE lane high (say drawn spots/gaps); e2 sparklines, funnel filled bars, stacked bar chart, cohort heat triangle; e4 jacket photo, size states; e5 pager and table offset. Re-run e1, e2, e4", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n93, parent: n91, kind: step, title: "Low priority, ~80k live: c2 at 73-76% (Tickets ~10px high, row rule grey, run noise); c5 LOUD dropped again, sticker text small. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
