@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Working on the collage poster: its headline is built too small."
-lock: {by: run-20261022T0053, until: 2026-10-22T02:23:03Z}
+now: "Collage poster headline now built at full size (63% to 70% alike). Next: it sits a little low and the blue photo lost its gradient."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -110,6 +110,8 @@ notes:
   - "Token ledger: 2026-10-21 n67 live r5 e1 x2 ~92k (day total ~5080k, no cap set)."
   - "n70 (f0279b9 on try/n3-vocabulary): glows fact places each radial glow by background-size/position with the element's animations cancelled (as the likeness shot); big in-view glow said 'one big <c> glow centred X% across and Y% down (about Npx across)', off-box glows 'coming in from the <edge> edge', unseen dropped. Rounds 1-4 plans unchanged."
   - "Token ledger: 2026-10-22 n70 live r5 c1 56k."
+  - "n72 (543966d on try/n3-vocabulary): planner says 'lines set tight (line-height N)' for 2+ line display type (>=32px, lh<=1.0); contract: font-size = linePitchPx / said line-height. 10 headings in rounds 1-4 gain the words; round 5 none."
+  - "Token ledger: 2026-10-22 n72 live r4 c1 70k (day total ~310k, no cap set)."
   - "Token ledger: 2026-10-22 n51 live r4 c1+c2 133k, c1 again 50k = ~183k (day total ~240k, no cap set)."
   - "n51 (038eab5 on try/n3-vocabulary): planner: round-top/flat-bottom filled block = 'shape' arch (poly outline); tilts say 'tilted N° clockwise|anticlockwise' (contract maps to rotate(±N)); see-through hard shadow says 'at N% opacity'. Pipeline run2 verify: lostStrokes now restored mechanically (scaffold.ts restoreLostStrokes) before any repair turn; a repair turn once claimed it restored and didn't. Rounds 2/3/5 plans gain tilt degrees; r4 c2 portrait now an arch."
 criteria:
@@ -177,7 +179,9 @@ nodes:
      result: "c4 85%, c1 65%, e1 64%, e5 18% (rows 2x tall). False repair on quoted badge fixed. f355454."}
   - {id: n51, parent: n50, kind: step, title: "Free first, ~90k live: gradient/filled blocks drawn as crossed picture boxes keep the X lines in the build (c1 blue block, c4 back plane); c1 arch drawn as a circle. Fix planner/codegen, re-run c1, c4", status: done,
      result: "Arches, tilt angles, faint shadow, lost strokes restored: split poster 43% to 65%; collage parts right, 63%. 038eab5."}
-  - {id: n72, parent: n51, kind: step, title: "Free first, ~50k live: round-4 c1 collage headline built ~95px (target 150px, 3 lines) and cream page dropped on one of two runs; trace headline size from ink, fix, re-run c1", status: open, result: null}
+  - {id: n72, parent: n51, kind: step, title: "Free first, ~50k live: round-4 c1 collage headline built ~95px (target 150px, 3 lines) and cream page dropped on one of two runs; trace headline size from ink, fix, re-run c1", status: done,
+     result: "Pitch read as 1.1 leading (123px); notes now say tight leading: headline 150px, collage 63% to 70%. 543966d."}
+  - {id: n73, parent: n72, kind: step, title: "Free first, ~50k live: round-4 c1 headline sits ~60px low over the body copy, blue photo built flat navy (gradient lost); fix, re-run c1", status: open, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
