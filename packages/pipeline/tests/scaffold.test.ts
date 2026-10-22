@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import { buildScaffold, componentName, isPrimitivePath, lostStrokes, onlyPrimitives, pictureCrossIds, restoreLostStrokes, scaffoldDir } from '../src/scaffold.js'
-import { finishSource } from '../src/finish.js'
+import { askedHexes, finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
 import { DEFAULT_FIDELITY, type FidelityControls } from '../src/fidelity.js'
@@ -202,6 +202,17 @@ describe('the finishing pass', () => {
     expect(code).toContain('text-red-600')
     expect(code).not.toContain('#dc2627')
     expect(edits[0]!.kind).toBe('colour-snapped')
+  })
+
+  it('keeps a hex the user typed even when it is nearly a token (round 7 e5 header row went white)', () => {
+    const pale = appPalette(snap([node(['bg-white'], { backgroundColor: 'rgb(255, 255, 255)' })]))
+    const src = '<main className="bg-[#f9fafb]"><th className="bg-[#F3F4F6]">x</th></main>'
+    expect(finishSource(src, pale).code).not.toContain('#f9fafb')
+    const asked = askedHexes(['whole page: pale grey (#f9fafb, plainly not white) page', 'header row (bg-[#f3f4f6] on every header cell)'])
+    expect([...asked]).toEqual(['#f9fafb', '#f3f4f6'])
+    const { code, edits } = finishSource(src, pale, asked)
+    expect(code).toBe(src)
+    expect(edits).toEqual([])
   })
 
   it('leaves a colour the app does not have alone', () => {

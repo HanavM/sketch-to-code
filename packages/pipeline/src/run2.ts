@@ -30,7 +30,7 @@ import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
 import { buildScaffold, lostStrokes, restoreLostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
-import { finishSource, paletteFor } from './finish.js'
+import { askedHexes, finishSource, paletteFor } from './finish.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
 import {
   DEFAULT_FIDELITY, fidelityDirective, fidelitySummary, normalizeFidelity, passMark, rungFor,
@@ -514,6 +514,10 @@ export async function runV2(
   }
 
   const palette = paletteFor(input.snapshot)
+  const asked = askedHexes([
+    ...interp.actions.flatMap((a) => [a.instruction, ...(a.notes ?? [])]),
+    ...(interp.pageNotes ?? []), ...(interp.runNotes ?? []),
+  ])
   let finishEdits: unknown[] = []
   /**
    * Cheap deterministic cleanup before anything is judged: a one-off colour
@@ -527,7 +531,7 @@ export async function runV2(
       const abs = join(ctx.root, rel)
       let code: string
       try { code = readFileSync(abs, 'utf8') } catch { continue }
-      const { code: next, edits } = finishSource(code, palette)
+      const { code: next, edits } = finishSource(code, palette, asked)
       if (!edits.length || next === code) continue
       writeFileSync(abs, next)
       finishEdits.push({ file: rel, edits })

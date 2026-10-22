@@ -1,23 +1,23 @@
 {
   "id": "e5-admin-table",
-  "at": "2026-10-22T22:13:51.251Z",
+  "at": "2026-10-22T22:29:57.385Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7936058335852576,
-    "overallV2": 0.7936058335852576,
-    "overallV1": 0.7643239178698956,
-    "colour": 0.9834876939198309,
-    "structure": 0.9134830856093991,
-    "structureStrict": 0.8736705812327143,
-    "colourAligned": 0.9834876939198309,
-    "structureAligned": 0.9134830856093991,
+    "overall": 0.792598031136633,
+    "overallV2": 0.792598031136633,
+    "overallV1": 0.7248216871650448,
+    "colour": 0.9812571829318721,
+    "structure": 0.9343625631048627,
+    "structureStrict": 0.8422119669063723,
+    "colourAligned": 0.9812571829318721,
+    "structureAligned": 0.9343625631048627,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9694797767512537
+      "r": 0.9698920239186866
     },
-    "layout": 0.8230798619456455
+    "layout": 0.8089141514522596
   },
   "effects": {
     "recall": 1,
@@ -29,44 +29,44 @@
     "extra": []
   },
   "tokens": {
-    "input": 49714,
-    "output": 27927,
-    "cacheRead": 343422
+    "input": 58541,
+    "output": 29653,
+    "cacheRead": 278619
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46350,
-      "output": 16169,
-      "cacheRead": 181547,
-      "toolCalls": 7,
+      "billed": 53536,
+      "output": 16134,
+      "cacheRead": 122639,
+      "toolCalls": 6,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 151092
+      "ms": 162961
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 9841,
-      "output": 2566,
-      "cacheRead": 149609,
-      "toolCalls": 2,
+      "billed": 11734,
+      "output": 3319,
+      "cacheRead": 143714,
+      "toolCalls": 3,
       "tools": [
         "Read src/App.tsx",
+        "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 29107
+      "ms": 32731
     }
   ],
-  "reading": "The sketch is a team-management page: a page title and subtitle at top-left, a blue \"+ Invite\" button at top-right, a toolbar of filter/search controls, a dark selection bar for bulk actions, a large data table of team members (with an open status-filter dropdown overlaid on it), and a pager at the bottom — all annotated by typed notes giving exact copy, styling and column layout.",
+  "reading": "The user sketched a 'Team members' admin page: a page heading and subtitle, a blue 'Invite' button top-right, a left-packed toolbar of filter controls, a dark bulk-action bar for selected rows, a large data table card (with an open 'Status' filter dropdown overlaying it), and a pagination row at the bottom. Each typed note gives exact copy, styling, and layout values that must be followed verbatim.",
   "actions": [
     {
       "kind": "add",
@@ -89,7 +89,7 @@
         34
       ],
       "paths": [],
-      "instruction": "Add a page heading \"Team members\", 24px, on one line (white-space: nowrap, never wrapped), about 174px wide, dark navy text, top-left of the page."
+      "instruction": "Page heading text: \"Team members\", 24px type, on ONE line (white-space: nowrap, never wrapped), about 174px wide."
     },
     {
       "kind": "add",
@@ -104,7 +104,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Below the heading, add a 13px grey line of text \"128 people · 9 pending invites\", on its own line, left edge aligned with the heading, with nothing else beside "
+      "instruction": "Subtitle text directly under the heading: 13px grey text \"128 people · 9 pending invites\", one line on its own (top 64px, left edge 40px), nothing else written "
     },
     {
       "kind": "add",
@@ -119,7 +119,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a solid blue button with white text reading \"+ Invite\" at the top-right of the page, rounded/pill shaped."
+      "instruction": "Top-right button: blue background, white text, pill/rounded shape, label \"+ Invite\"."
     },
     {
       "kind": "add",
@@ -134,7 +134,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a toolbar row of controls packed at the left, side by side with 10px gaps, each its own width (nothing stretched, right part of row stays empty), 33px tall,"
+      "instruction": "Toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; t"
     },
     {
       "kind": "add",
@@ -149,7 +149,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a dark blue (#1e3a8a) bulk-action bar, 1200x44px, 8px rounded, with bold white \"3 selected\" text at the left, followed immediately (packed left, not pushed "
+      "instruction": "Dark blue (#1e3a8a) bulk-action bar, 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then right beside it (packed at the left after the label, neve"
     },
     {
       "kind": "add",
@@ -164,7 +164,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a white card, 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners with overflow hidden so the header fill follows the corners, containing a f"
+      "instruction": "Inside a white (#ffffff) card 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners (overflow hidden, so the header fill follows the corners), the "
     },
     {
       "kind": "add",
@@ -179,7 +179,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add an open dropdown menu, 200x146px white card, 10px rounded corners, thin light grey border, soft shadow (12px down, 32px blur, 15% opacity), absolutely posit"
+      "instruction": "Open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON "
     },
     {
       "kind": "add",
@@ -204,7 +204,7 @@
         30
       ],
       "paths": [],
-      "instruction": "Add a pager, one line 1200px wide, vertically centered at 865px from the page top (inside the page): 13px grey \"Showing 1–10 of 128\" at the left, and at the far"
+      "instruction": "Pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey \"Showing 1–10 of 128\" at the left, at the far right a"
     }
   ],
   "rejected": [

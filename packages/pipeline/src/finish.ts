@@ -52,7 +52,7 @@ const ARBITRARY_COLOR = /\b(text|bg)-\[(#[0-9a-fA-F]{3,8})\]/g
  * Rewrite near-token colour literals as the token, drop geometry that cannot
  * render, and drop exact duplicate paths.
  */
-export function finishSource(code: string, palette: PaletteEntry[]): FinishResult {
+export function finishSource(code: string, palette: PaletteEntry[], asked: ReadonlySet<string> = new Set()): FinishResult {
   const edits: FinishEdit[] = []
   let out = code
 
@@ -61,6 +61,10 @@ export function finishSource(code: string, palette: PaletteEntry[]): FinishResul
     out = out.replace(ARBITRARY_COLOR, (lit, prefix: string, hex: string) => {
       const rgb = parseCssColor(hex)
       if (!rgb) return lit
+      // a hex the user typed is an exact request, not a leak: round 7 e5's pale grey (#f3f4f6) header row and
+      // #f9fafb page sit ΔE 4 and 1.6 from white, so this pass rewrote both to bg-white after every build and
+      // every repair (three runs of "the builder ignores the tint" were this line)
+      if (asked.has(hexOf(rgb))) return lit
       let best: PaletteEntry | undefined
       let bestD = Infinity
       for (const entry of palette) {
@@ -97,6 +101,18 @@ export function finishSource(code: string, palette: PaletteEntry[]): FinishResul
   })
 
   return { code: out, edits }
+}
+
+/** Every hex colour written in the user's words (notes, instructions), normalised to #rrggbb. */
+export function askedHexes(texts: Array<string | undefined>): Set<string> {
+  const out = new Set<string>()
+  for (const t of texts) {
+    for (const m of (t ?? '').matchAll(/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/g)) {
+      const rgb = parseCssColor(m[0])
+      if (rgb) out.add(hexOf(rgb))
+    }
+  }
+  return out
 }
 
 /** The palette to snap against: whatever the app itself renders. */
