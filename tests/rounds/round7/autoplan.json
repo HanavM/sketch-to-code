@@ -643,7 +643,7 @@
    ],
    [
     "topbar",
-    "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill)"
+    "white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
    ],
    [
     "head-todo",
@@ -667,23 +667,23 @@
    ],
    [
     "card-1",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Login loops on Safari 18\" under it; a 24px round amber avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Login loops on Safari 18\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-2",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Saved filters in sidebar\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Saved filters in sidebar\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 240px from the page top, 32px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "card-3",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green progress bar 60% full on a light grey track under the title; a 24px round purple avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green progress bar 60% full on a light grey track under the title; a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-4",
-    "white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title \"Billing webhooks retry\" under it; a 24px round amber avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title \"Billing webhooks retry\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 252px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "card-5",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Upgrade to Node 24\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Upgrade to Node 24\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-6",
@@ -695,23 +695,23 @@
    ],
    [
     "lane-mobile",
-    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ MOBILE\" at the left"
+    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ MOBILE\" at the left; the line sits 470px from the page top, 142px below the lowest card above it (the lane above keeps that empty space; do not pull this lane up)"
    ],
    [
     "card-8",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Push opens wrong screen\" under it; a 24px round pink avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Push opens wrong screen\" under it; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-9",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green progress bar 30% full on a light grey track under the title; a 24px round pink avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green progress bar 30% full on a light grey track under the title; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-10",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green progress bar 85% full on a light grey track under the title; a 24px round purple avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green progress bar 85% full on a light grey track under the title; a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "card-11",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Crash reporting SDK\" under it; a 24px round cyan avatar dot (no letter) in the bottom-right corner"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Crash reporting SDK\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner"
    ],
    [
     "card-12",
@@ -765,31 +765,31 @@
    ],
    [
     "kpi-1",
-    "white card \"Visitors\", text \"48,210\""
+    "white stat card: small grey label \"Visitors\", under it big 28px bold \"48,210\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom"
    ],
    [
     "kpi-2",
-    "white card \"Sign-ups\", text \"3,904\""
+    "white stat card: small grey label \"Sign-ups\", under it big 28px bold \"3,904\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom"
    ],
    [
     "kpi-3",
-    "white card \"Activated\", text \"1,722\""
+    "white stat card: small grey label \"Activated\", under it big 28px bold \"1,722\"; a small 90x30px red sparkline (a thin 7-point line, no fill, no axes) falling left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom"
    ],
    [
     "kpi-4",
-    "white card \"Paid\", text \"412\""
+    "white stat card: small grey label \"Paid\", under it big 28px bold \"412\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom"
    ],
    [
     "funnel",
-    "white card \"Conversion funnel\" \"100%\" \"38%\" \"8.1%\" \"3.6%\" list: \"Visit\", \"View pricing\", \"Sign up\", \"Activate\""
+    "\"Conversion funnel\", a funnel (NOT progress rows, NOT a list): 4 solid teal bars 46px tall, 6px rounded, stacked 60px apart down one left edge (19px in, first 57px from the card top), each NARROWER than the one above, its label in bold white inside at the left: \"Visit\" 400px wide (\"100%\" bold at the far right of the card on that row), \"View pricing\" 300px wide at 85% opacity (\"38%\" bold at the far right of the card on that row), \"Sign up\" 200px wide at 70% opacity (\"8.1%\" bold at the far right of the card on that row), \"Activate\" 120px wide at 55% opacity (\"3.6%\" bold at the far right of the card on that row)"
    ],
    [
     "stacked",
-    "white card \"Sign-ups by source\""
+    "\"Sign-ups by source\", a stacked bar chart (NOT a list): 8 bars 44px wide, 30px apart, standing on one baseline across a 250px tall plot (19px in, 61px from the card top), no axes, no labels; each bar is 2 solid segments, bottom teal #0d9488, top bright green #5eead4; bar total heights left to right: 170, 180, 190, 210, 200, 230, 220, 250px; bottom segment heights: 130, 150, 140, 170, 160, 190, 180, 210px"
    ],
    [
     "cohort",
-    "white card, \"Weekly retention cohorts\", table, columns \"\", \"W0\", \"W1\", \"W2\", \"W3\", \"W4\", \"W5\", 6 rows, first row \"Sep 1\" | \"100%\" | \"54%\" | \"41%\" | \"33%\" | \"29%\" | \"27%\"; status pills teal \"100%\", teal \"54%\", bright green \"41%\", near-black \"33%\""
+    "\"Weekly retention cohorts\", a cohort heat table (NOT pills, NOT a plain table): column heads \"W0\" \"W1\" \"W2\" \"W3\" \"W4\" \"W5\" over the cells, each row a grey date label at the left then filled square-ish 52x30px cells 3px apart, each cell's number centred in it; the cells are shades of ONE colour, darkest 1 to lightest 5: 1 #0f766e, 2 #14b8a6, 3 #5eead4, 4 #99f6e4, 5 #ccfbf1; dark shades 1-2 carry white numbers, the rest dark; an empty cell (-) is left blank (no fill, no number), so the filled cells form a staircase triangle; rows (number@shade): \"Sep 1\": 100%@1 54%@2 41%@3 33%@4 29%@5 27%@5; \"Sep 8\": 100%@1 58%@2 44%@3 35%@4 30%@5 -; \"Sep 15\": 100%@1 51%@2 39%@4 31%@4 - -; \"Sep 22\": 100%@1 60%@2 47%@3 - - -; \"Sep 29\": 100%@1 62%@2 - - - -; \"Oct 6\": 100%@1 - - - - -"
    ]
   ]
  },
@@ -839,7 +839,7 @@
    ],
    [
     "tabs",
-    "near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill)"
+    "near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right)"
    ],
    [
     "code",
@@ -899,7 +899,7 @@
    ],
    [
     "price",
-    "box"
+    "text"
    ],
    [
     "colour-label",
@@ -980,6 +980,10 @@
     "pale grey block"
    ],
    [
+    "main-photo",
+    "a big 520x620px block filled with a soft pale tinted #e0e7ff to #c7d2fe (top to bottom) gradient, 12px rounded: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+   ],
+   [
     "title",
     "big \"Fjell Rain Shell\""
    ],
@@ -989,7 +993,7 @@
    ],
    [
     "price",
-    "white task card 166x32px: small 12px bold tag \"-21%\" (white text on a red #dc2626, 4px rounded) at the top left; title \"$240\" under it, struck through (line-through)"
+    "one line, left to right, each part a little apart: bold 28px dark navy \"$189\", then 18px grey \"$240\" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) \"-21%\""
    ],
    [
     "colour-label",
@@ -1017,7 +1021,7 @@
    ],
    [
     "sizes",
-    "buttons: \"XS\", \"S\", \"M\", \"L\", \"XL\""
+    "buttons: \"XS\", \"S\", \"M\", \"L\", \"XL\"; 5 equal 90x44px rounded outlined boxes in one row; \"M\" is the picked one (2px dark navy border, bold, the others a thin light grey border); \"XS\" and \"XL\" unavailable (light grey text struck through, pale grey fill)"
    ],
    [
     "add-to-bag",

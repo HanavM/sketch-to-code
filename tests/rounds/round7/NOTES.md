@@ -112,3 +112,25 @@ Planner, before the live run (rounds 1-6 plans unchanged):
 
 Round-7 everyday now: e1 23, e2 28, e3 86, e4 30, e5 66. Next: kanban cards at their drawn spots (absolute or fixed
 gaps) and lane top; e2 sparklines, funnel bars, stacked bars, cohort heat cells; e4 photo shape and size states.
+
+## n97: everyday fixes, kanban, funnel/cohort, product page (2026-10-22, ~229k billed)
+
+Planner (rounds 1, 3, 4, 6 plans unchanged; rounds 2, 5 tab/menu bars gain "all at the left" only):
+- cards stacked in a column say their top px and the empty gap above them (>= 20px) when 4+ cards share columns;
+  a section divider far below the marks above it (>= 60px) says its top px and the empty space left above it;
+- a wide bar whose row of items ends before 60% of its width says they sit together at the left (right part
+  empty) and names an outlined search field and its width;
+- one stat card with an SVG polyline says label, value size and the sparkline (size, colour, rising/falling, corner);
+- funnel: filled labelled bars down one left edge, each narrower, opacity, value at the far right on each row;
+- SVG stacked bar chart: bar count, width, gap, segment colours bottom to top, total and bottom heights;
+- cohort table whose cells are shades of one hue: shades darkest to lightest by hex, each cell number@shade, blanks;
+- a short line of differently styled runs with a struck part (price $189, struck $240, red -21% tag);
+- a row of choice boxes says the picked one (2px border, bold) and struck unavailable ones;
+- a big textless gradient block with no other words says its gradient and that it is an empty photo backdrop;
+- task-card avatar dot says it is a full 24x24 circle (built as a flat pill in e1 run below; not re-run).
+
+| page | before (n95) | now | what's left |
+|---|---|---|---|
+| e1 kanban lanes | 23% | 50% (91k) | gaps, lane spacing and left toolbar right; everything ~16-30px low; avatar dots built as small pills |
+| e2 funnel + cohort | 28% | 75% (~70k) | sparklines, funnel bars, stacked bars, cohort heat triangle all right; ~10px low |
+| e4 product page | 30% | 48% (~68k) | price run, sizes states, gradient photo right; the target's indigo jacket shape (a big ::after shape, >200px so pseudoPic skips it) missing; thumbs' colours and selected outline lost; heart icon wrong |

@@ -1,56 +1,59 @@
 {
   "id": "e2-funnel-cohort",
-  "at": "2026-10-22T14:41:00.367Z",
+  "at": "2026-10-22T15:26:56.519Z",
   "likeness": {
     "version": 3,
-    "overall": 0.2752586327100804,
-    "overallV2": 0.2752586327100804,
-    "overallV1": 0.2469512562765444,
-    "colour": 0.9137367936817178,
-    "structure": 0.5947700535563324,
-    "structureStrict": 0.39364613395990433,
-    "colourAligned": 0.9137367936817178,
-    "structureAligned": 0.5947700535563324,
+    "overall": 0.7461530066121599,
+    "overallV2": 0.7233817984435224,
+    "overallV1": 0.4428812334019959,
+    "colour": 0.9640905333874514,
+    "structure": 0.9124529123675457,
+    "structureStrict": 0.5323497657853682,
+    "colourAligned": 0.9682289225183668,
+    "structureAligned": 0.9200587885438813,
     "align": {
-      "scale": 0.92,
-      "dx": -16,
+      "scale": 1,
+      "dx": 16,
       "dy": -16,
-      "r": 0.18483408019759887
+      "r": 0.9065319693552989
     },
-    "layout": 0.8191669894102788
+    "layout": 0.7935949441131891
   },
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
+    "recall": 1,
+    "kept": [
       "overlap"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 27064,
-    "output": 15663,
-    "cacheRead": 145733
+    "input": 30622,
+    "output": 14500,
+    "cacheRead": 193738
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 36593,
-      "output": 13610,
-      "cacheRead": 142649,
-      "toolCalls": 5,
+      "billed": 37115,
+      "output": 11521,
+      "cacheRead": 190654,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
         "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 148791
+      "ms": 116082
     }
   ],
-  "reading": "The sketch lays out a dashboard: a header bar with a title and date-range button, a row of four stat cards, two side-by-side analytics cards (conversion funnel and sign-ups by source), and a wide retention-cohorts table card below. Typed notes supply exact titles, numbers, and table content for each card.",
+  "reading": "The sketch lays out a growth dashboard: a header bar with a title and date-range button, four KPI stat cards with sparklines, a conversion funnel card, a sign-ups-by-source stacked bar chart card, and a weekly retention cohort heat-table card, all specified in detail by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -65,7 +68,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Full-width header bar labeled \"Growth\" on the left, with a white, near-black-text button reading \"Sep 1 – Oct 22, 2026 ▾\" aligned to the right, acting as the pa"
+      "instruction": "Add a page header bar with the title 'Growth' on the left and a white button with near-black text reading 'Sep 1 – Oct 22, 2026 ▾' on the right."
     },
     {
       "kind": "add",
@@ -80,7 +83,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "White stat card titled \"Visitors\" showing the large number \"48,210\"."
+      "instruction": "Add a white stat card: small grey label 'Visitors', below it a big bold 28px number '48,210', and in the bottom-right corner (17px from right edge, 19px from bo"
     },
     {
       "kind": "add",
@@ -95,7 +98,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "White stat card titled \"Sign-ups\" showing the large number \"3,904\"."
+      "instruction": "Add a white stat card: small grey label 'Sign-ups', below it a big bold 28px number '3,904', and in the bottom-right corner (17px from right edge, 19px from bot"
     },
     {
       "kind": "add",
@@ -110,7 +113,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "White stat card titled \"Activated\" showing the large number \"1,722\"."
+      "instruction": "Add a white stat card: small grey label 'Activated', below it a big bold 28px number '1,722', and in the bottom-right corner (17px from right edge, 19px from bo"
     },
     {
       "kind": "add",
@@ -125,7 +128,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "White stat card titled \"Paid\" showing the large number \"412\"."
+      "instruction": "Add a white stat card: small grey label 'Paid', below it a big bold 28px number '412', and in the bottom-right corner (17px from right edge, 19px from bottom) a"
     },
     {
       "kind": "add",
@@ -140,7 +143,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White card titled \"Conversion funnel\" showing percentage milestones \"100%\", \"38%\", \"8.1%\", \"3.6%\" next to a list of funnel steps: \"Visit\", \"View pricing\", \"Sign"
+      "instruction": "Add a card titled 'Conversion funnel' containing a funnel visualization (not progress rows, not a list): 4 solid teal bars, 46px tall, 6px rounded corners, stac"
     },
     {
       "kind": "add",
@@ -155,7 +158,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "White card titled \"Sign-ups by source\" (chart/content area for source breakdown)."
+      "instruction": "Add a card titled 'Sign-ups by source' containing a stacked bar chart (not a list): 8 bars, each 44px wide, spaced 30px apart, standing on a common baseline wit"
     },
     {
       "kind": "add",
@@ -170,10 +173,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "White card titled \"Weekly retention cohorts\" containing a table with columns \"\", \"W0\", \"W1\", \"W2\", \"W3\", \"W4\", \"W5\" and 6 rows; first row reads \"Sep 1\" | \"100%\""
+      "instruction": "Add a card titled 'Weekly retention cohorts' containing a cohort heat table (not pills, not a plain table): column headers 'W0' 'W1' 'W2' 'W3' 'W4' 'W5' above t"
     }
   ],
   "rejected": [
-    "design action with neither container nor strokes"
+    "add action with neither container nor strokes"
   ]
 }

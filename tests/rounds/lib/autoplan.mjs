@@ -348,6 +348,22 @@ export function factsInPage() {
         const t = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
         return { left: ks.slice(0, at + 1).map(t), right: ks.slice(at + 1).map(t), gap: Math.round(gaps[at]) }
       })(),
+      // a row packed at the left of a wide bar, its right part empty (round 7 e1 top bar: title, search field and
+      // filter chips all at the left; said as plain 'links:' the build pushed the chips to the far right)
+      kidPack: (() => {
+        const ks = kids.filter((k) => (k.innerText || '').trim())
+        if (ks.length < 3) return null
+        const pb = el.getBoundingClientRect()
+        if (pb.width < 600) return null
+        const bs = ks.map((k) => k.getBoundingClientRect())
+        if (!bs.every((b, i) => i === 0 || Math.abs(b.top + b.height / 2 - (bs[0].top + bs[0].height / 2)) <= 12 && b.left >= bs[i - 1].right - 2)) return null
+        if (bs.slice(1).some((b, i) => b.left - bs[i].right > 48)) return null
+        const end = bs[bs.length - 1].right - pb.left
+        if (end > 0.6 * pb.width) return null
+        const t = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
+        const field = ks.find((k, i) => { const b = bs[i], cs = getComputedStyle(k); return b.width >= 150 && parseFloat(cs.borderTopWidth) >= 1 && !(rgba(cs.backgroundColor)?.a > 0.05 && rgba(cs.backgroundColor).r + rgba(cs.backgroundColor).g + rgba(cs.backgroundColor).b < 720) && t(k).length <= 24 })
+        return { end: Math.round(end), w: Math.round(pb.width), field: field ? { t: t(field), w: Math.round(field.getBoundingClientRect().width) } : null }
+      })(),
       // progress steps (round 6 e4 '✓ Cart — Shipping — Payment — Review'): text items joined by short thin
       // textless rules, each step its own colour (done green, current bold dark, rest grey); said as plain
       // 'links:' the rules were dropped and every step built one grey
@@ -489,7 +505,21 @@ export function factsInPage() {
         if (!t || t.length > 12 || b.right < r.right - 4 || b.left < r.left + r.width * 0.5) return null
         return { t, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 }
       })(),
-      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16) } }),
+      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
+      // one line made of differently styled runs (round 7 e4 price: '$189' big, '$240' struck grey, '-21%' red tag; said run-on)
+      runs: (() => {
+        if (r.height > 60 || !kids.length || kids.length > 3 || kids.some((k) => k.children.length) || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) return null
+        const segs = []
+        for (const n of el.childNodes) {
+          const t = (n.textContent || '').replace(/\s+/g, ' ').trim()
+          if (!t) continue
+          const c = getComputedStyle(n.nodeType === 1 ? n : el)
+          segs.push({ t, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), struck: /line-through/.test(c.textDecorationLine), fill: n.nodeType === 1 && rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null })
+        }
+        if (segs.length < 2 || segs.length > 4) return null
+        const k = (x) => `${x.px}|${x.bold}|${x.struck}|${!!x.fill}|${x.ink?.r},${x.ink?.g},${x.ink?.b}`
+        return new Set(segs.map(k)).size >= 2 ? segs : null
+      })(),
       // its text as set, line by line (code in a card: the kids are only the coloured tokens)
       setLines: (el.innerText || '').split('\n').map((x) => x.replace(/ /g, ' ').replace(/\s+$/, '')),
       // the words on each line as rendered (a headline's own breaks: round 6 c3 built 3 lines, target 2)
@@ -749,6 +779,62 @@ export function factsInPage() {
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
     const own = el.getBoundingClientRect()
     const title = () => { const t = [...el.querySelectorAll('h1,h2,h3,h4')].map(txt).find((s) => s && s.length <= 40); return t ?? null }
+    // round 7 e2: a cohort table whose cells are shades of one hue (said as status pills with invented numbers)
+    const ht = el.tagName === 'TABLE' ? el : el.querySelectorAll('table').length === 1 ? el.querySelector('table') : null
+    if (ht && ht.querySelectorAll('tr').length >= 4) {
+      const rows = [...ht.querySelectorAll('tr')]
+      const body = rows.slice(rows[0].querySelector('th') ? 1 : 0)
+      const tds = body.flatMap((r) => [...r.children].slice(1))
+      const fl = tds.filter(filled)
+      const hue = (c) => { const mx = Math.max(c.r, c.g, c.b), mn = Math.min(c.r, c.g, c.b); if (mx - mn < 20) return null; let h = mx === c.r ? (c.g - c.b) / (mx - mn) : mx === c.g ? 2 + (c.b - c.r) / (mx - mn) : 4 + (c.r - c.g) / (mx - mn); return (h * 60 + 360) % 360 }
+      const hs = fl.map((k) => hue(filled(k)))
+      if (fl.length >= 10 && fl.length >= tds.length * 0.4 && hs.every((h) => h !== null && Math.abs(h - hs[0]) <= 25)) {
+        const key = (c) => `${c.r},${c.g},${c.b}`
+        const shades = [...new Map(fl.map((k) => [key(filled(k)), filled(k)])).values()].sort((a, b) => (a.r + a.g + a.b) - (b.r + b.g + b.b))
+        const cb = fl[0].getBoundingClientRect()
+        return { type: 'heatTable', title: title(), columns: rows[0].querySelector('th') ? [...rows[0].children].map(txt) : null, shades, cellPx: { w: Math.round(cb.width), h: Math.round(cb.height) }, gap: parseFloat(getComputedStyle(ht).borderSpacing) || 0,
+          rows: body.map((r) => ({ label: txt(r.children[0]), cells: [...r.children].slice(1).map((k) => { const c = filled(k); return c ? { t: txt(k), s: shades.findIndex((x) => key(x) === key(c)), white: rgba(getComputedStyle(k).color).r > 200 } : null }) })) }
+      }
+    }
+    // round 7 e2: a funnel, filled labelled bars stacked down one left edge, each narrower, a value at the right
+    const fbars = kids.filter((k) => { const b = k.getBoundingClientRect(); return filled(k) && txt(k) && txt(k).length <= 24 && b.height >= 24 && b.height <= 70 && b.width >= 60 })
+    if (fbars.length >= 3) {
+      const bs = fbars.map((k) => k.getBoundingClientRect())
+      const sameLeft = bs.every((b) => Math.abs(b.left - bs[0].left) <= 3), down = bs.every((b, i) => !i || b.top >= bs[i - 1].bottom), shrink = bs.every((b, i) => !i || b.width < bs[i - 1].width)
+      if (sameLeft && down && shrink) {
+        const vals = kids.filter((k) => !fbars.includes(k) && txt(k) && txt(k).length <= 10)
+        const valOf = (b) => vals.find((v) => { const vb = v.getBoundingClientRect(); return Math.abs(vb.top + vb.height / 2 - (b.top + b.height / 2)) <= 12 })
+        const c0 = filled(fbars[0])
+        return { type: 'funnel', title: title(), fill: { ...c0, a: 1 }, ink: rgba(getComputedStyle(fbars[0]).color), h: Math.round(bs[0].height), pitch: Math.round(bs[1].top - bs[0].top), left: Math.round(bs[0].left - own.left), top: Math.round(bs[0].top - own.top), radius: Math.round(parseFloat(getComputedStyle(fbars[0]).borderTopLeftRadius)),
+          items: fbars.map((k, i) => ({ t: txt(k), w: Math.round(bs[i].width), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100), v: valOf(bs[i]) ? txt(valOf(bs[i])) : null })), valRight: vals.length ? Math.round(own.right - vals[0].getBoundingClientRect().right) : null }
+      }
+    }
+    // round 7 e2: an SVG stacked bar chart (rect groups, one colour each, bars at the same x) said as just its title
+    const sv = [...el.querySelectorAll('svg')].find((g) => g.querySelectorAll('rect').length >= 6)
+    if (sv) {
+      const groups = [...sv.querySelectorAll('g')].filter((g) => g.querySelectorAll('rect').length >= 3)
+      if (groups.length >= 2 && groups.every((g) => g.querySelectorAll('rect').length === groups[0].querySelectorAll('rect').length)) {
+        const R = (r) => r.getBoundingClientRect()
+        const n = groups[0].querySelectorAll('rect').length
+        const segs = groups.map((g) => [...g.querySelectorAll('rect')].map(R))
+        if (segs.every((sg) => sg.every((b, i) => Math.abs(b.left - segs[0][i].left) <= 2))) {
+          const sb = sv.getBoundingClientRect()
+          const order = groups.map((g, i) => ({ fill: rgba(getComputedStyle(g.querySelector('rect')).fill), bottom: segs[i][0].bottom })).sort((a, b) => b.bottom - a.bottom)
+          const bottomG = groups.findIndex((_, i) => segs[i][0].bottom === order[0].bottom)
+          return { type: 'stackedBars', title: title(), n, w: Math.round(segs[0][0].width), gap: Math.round(segs[0][1].left - segs[0][0].right), plotH: Math.round(sb.height), left: Math.round(sb.left - own.left), top: Math.round(sb.top - own.top),
+            colours: order.map((o) => o.fill), totals: segs[0].map((_, i) => Math.round(Math.max(...segs.map((sg) => sg[i].bottom)) - Math.min(...segs.map((sg) => sg[i].top)))),
+            bottomH: segs[bottomG].map((b) => Math.round(b.height)) }
+        }
+      }
+    }
+    // round 7 e2: one stat card with a little line chart in its corner (the row-of-cards 'stats' type needs the row)
+    const pl = el.querySelectorAll('svg polyline')
+    if (pl.length === 1 && own.height <= 200 && own.width <= 420 && kids.length <= 4) {
+      const p = pl[0], pts = p.getAttribute('points').trim().split(/\s+/).map((q) => q.split(',').map(Number)), pb = p.ownerSVGElement.getBoundingClientRect()
+      const big = [...el.querySelectorAll('*')].filter((k) => !k.children.length && txt(k)).sort((a, b) => parseFloat(getComputedStyle(b).fontSize) - parseFloat(getComputedStyle(a).fontSize))[0]
+      const lab = [...el.querySelectorAll('*')].find((k) => !k.children.length && txt(k) && k !== big)
+      if (big && lab) return { type: 'kpi', label: txt(lab), labelInk: rgba(getComputedStyle(lab).color), value: txt(big), valuePx: Math.round(parseFloat(getComputedStyle(big).fontSize)), spark: { c: rgba(getComputedStyle(p).stroke), w: Math.round(pb.width), h: Math.round(pb.height), rising: pts[pts.length - 1][1] < pts[0][1], right: Math.round(own.right - pb.right), bottom: Math.round(own.bottom - pb.bottom), pts: pts.length } }
+    }
     // a table inside a card (round 4 e1 "Recent deals" panel: the table was read as a list)
     const inner = el.tagName !== 'TABLE' && el.querySelectorAll('table').length === 1 ? el.querySelector('table') : null
     if (inner && inner.querySelectorAll('tr').length >= 3) {
@@ -1239,6 +1325,14 @@ const sheetFill = (c) => (c.b - c.r >= 12 && c.r >= 220 ? 'pale blue' : colourNa
 function denseNote(d) {
   if (!d) return null
   switch (d.type) {
+    case 'heatTable': {
+      const sh = d.shades.map((c, i) => `${i + 1} ${hexOf(c)}`).join(', ')
+      const rows = d.rows.map((r) => `${quote(r.label, 12)}: ${r.cells.map((c) => c ? `${c.t}@${c.s + 1}` : '-').join(' ')}`).join('; ')
+      return `${d.title ? `${quote(d.title, 48)}, ` : ''}a cohort heat table (NOT pills, NOT a plain table): ${d.columns ? `column heads ${d.columns.filter(Boolean).map((t) => quote(t, 8)).join(' ')} over the cells, ` : ''}each row a grey date label at the left then filled square-ish ${d.cellPx.w}x${d.cellPx.h}px cells${d.gap ? ` ${d.gap}px apart` : ''}, each cell's number centred in it; the cells are shades of ONE colour, darkest 1 to lightest ${d.shades.length}: ${sh}; dark shades 1-2 carry white numbers, the rest dark; an empty cell (-) is left blank (no fill, no number), so the filled cells form a staircase triangle; rows (number@shade): ${rows}`
+    }
+    case 'funnel': return `${d.title ? `${quote(d.title, 48)}, ` : ''}a funnel (NOT progress rows, NOT a list): ${d.items.length} solid ${colourName(d.fill)} bars ${d.h}px tall, ${d.radius}px rounded, stacked ${d.pitch}px apart down one left edge (${d.left}px in, first ${d.top}px from the card top), each NARROWER than the one above, its label in bold ${colourName(d.ink)} inside at the left: ${d.items.map((x) => `${quote(x.t, 20)} ${x.w}px wide${x.op < 100 ? ` at ${x.op}% opacity` : ''}${x.v ? ` (${quote(x.v, 8)} bold at the far right of the card on that row)` : ''}`).join(', ')}`
+    case 'stackedBars': return `${d.title ? `${quote(d.title, 48)}, ` : ''}a stacked bar chart (NOT a list): ${d.n} bars ${d.w}px wide, ${d.gap}px apart, standing on one baseline across a ${d.plotH}px tall plot (${d.left}px in, ${d.top}px from the card top), no axes, no labels; each bar is ${d.colours.length} solid segments, ${d.colours.map((c, i) => `${['bottom', 'top', 'third'][i] ?? `${i + 1}th`} ${colourName(c)} ${hexOf(c)}`).join(', ')}; bar total heights left to right: ${d.totals.join(', ')}px; bottom segment heights: ${d.bottomH.join(', ')}px`
+    case 'kpi': return `white stat card: small ${colourName(d.labelInk)} label ${quote(d.label, 20)}, under it big ${d.valuePx}px bold ${quote(d.value, 12)}; a small ${d.spark.w}x${d.spark.h}px ${colourName(d.spark.c)} sparkline (a thin ${d.spark.pts}-point line, no fill, no axes) ${d.spark.rising ? 'rising left to right' : 'falling left to right'}, in the bottom-right corner ${d.spark.right}px from the right edge and ${d.spark.bottom}px from the bottom`
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
     case 'rtable': {
       const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
@@ -1501,14 +1595,19 @@ function decideOne(f, page, marked, said) {
     const E = f.endKid
     return { kind: 'text', note: `one line ${Math.round(w)}px wide: ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} at the left, ${E.bold ? 'bold ' : ''}${colourName(E.ink)} ${quote(E.t)} at the far right end of the same line` }
   }
+  // one line of differently styled runs: a price with its old price struck and a discount tag (round 7 e4)
+  if (f.runs && !f.regionKids.length && f.text && f.text.length <= 40 && f.runs.some((x) => x.struck)) {
+    const say = f.runs.map((x, i) => `${i ? 'then ' : ''}${x.fill ? `a small ${colourName(x.fill)} tag (${hexOf(x.fill)}, ${colourName(x.ink)} text, 4px rounded) ${quote(x.t, 20)}` : `${x.bold ? 'bold ' : ''}${x.px}px ${colourName(x.ink)} ${quote(x.t, 24)}${x.struck ? ' struck through (line-through)' : ''}`}`)
+    return { kind: 'text', note: `one line, left to right, each part a little apart: ${say.join(', ')}` }
+  }
   // a task card (kanban): tag, title, bar, avatar, edge, faded and struck when done
-  if (f.taskCard && !f.regionKids.length && w <= 420) {
+  if (f.taskCard && !f.regionKids.length && w <= 420 && h >= 48) {
     const T = f.taskCard
     const parts = [
       T.tag ? `small ${T.tag.px}px bold tag ${quote(T.tag.t)} (${colourName(T.tag.ink)} text on a ${T.tag.fill.r + T.tag.fill.g + T.tag.fill.b > 600 ? `pale ${colourName(T.tag.ink)} tint` : colourName(T.tag.fill)} ${hexOf(T.tag.fill)}, 4px rounded) at the top left` : null,
       `${T.title.bold ? 'semibold ' : ''}title ${quote(T.title.t, 60)}${T.tag ? ' under it' : ''}${T.strike ? ', struck through (line-through)' : ''}`,
       T.bar ? `a thin ${T.bar.h}px ${colourName(T.bar.fill)} progress bar ${T.bar.pct}% full on a ${colourName(T.bar.track)} track under the title` : null,
-      T.av ? `a ${T.av.px}px round ${colourName(T.av.fill)} avatar dot (no letter) in the ${T.av.corner} corner` : null,
+      T.av ? `a ${T.av.px}px round ${colourName(T.av.fill)} avatar dot (no letter; a full circle ${T.av.px}x${T.av.px}px, never squashed into a bar) in the ${T.av.corner} corner` : null,
     ].filter(Boolean)
     const edge = f.border.left >= 3 && visible(f.border.leftColour) ? `, a ${Math.round(f.border.left)}px ${colourName(f.border.leftColour)} left edge` : ''
     const faded = T.opacity < 0.95 ? `, the whole card faded to ${Math.round(T.opacity * 100)}% opacity (done)` : ''
@@ -1698,7 +1797,10 @@ function decideOne(f, page, marked, said) {
     // a filled bar with its own lead copy before the buttons (round 7 e5 bulk bar: '3 selected' and the navy fill unsaid)
     const lead = f.ownText && f.ownText.length <= 32 && fill ? `${colourName(f.bg)} (${hexOf(f.bg)}) bar ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: ${textCol ? `${textCol} ` : ''}bold ${quote(f.ownText)} at the left, then ` : ''
     const ghost = lead && f.kidBoxes.every((k) => !(k.fill?.a > 0.05)) ? 'small outlined buttons (thin see-through white border, no fill, regular weight): ' : 'buttons: '
-        return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on }
+    // option states in a row of choices (round 7 e4 sizes: M picked by a 2px dark border, XS and XL struck grey; all lost)
+    const kb = f.kidBoxes, picked = kb.filter((k) => k.bw >= 2 && kb.filter((j) => j.bw >= 2).length === 1), gone = kb.filter((k) => k.struck)
+    const states = kb.length >= 3 && (picked.length || gone.length) && gone.length < kb.length ? `; ${kb.length} equal ${Math.round(kb[0].w)}x${Math.round(kb[0].h)}px ${kb[0].radius >= 4 ? 'rounded ' : ''}outlined boxes in one row${picked.length ? `; ${quote(picked[0].t)} is the picked one (${Math.round(picked[0].bw)}px ${colourName(picked[0].bc)} border${picked[0].bold ? ', bold' : ''}, the others a thin ${colourName(kb.find((k) => k !== picked[0]).bc)} border)` : ''}${gone.length ? `; ${gone.map((k) => quote(k.t)).join(' and ')} unavailable (${colourName(gone[0].ink)} text struck through, ${gone[0].fill?.a > 0.05 ? `${colourName(gone[0].fill)} fill` : 'no fill'})` : ''}` : ''
+        return { kind: 'box', note: (items.every((t) => t.startsWith('button')) ? `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}` : items.join(', ')) + on + states }
   }
   // a bar with one item at each end (a logo left, links right): round 5 c1 nav and c3 frosted header were unsaid
   const kb = f.kidBoxes
@@ -1795,7 +1897,8 @@ function decideOne(f, page, marked, said) {
       const said = S.items.map((x, i) => `${quote(x.t)} (${[[x.bold ? 'bold' : null, colourName(x.ink)].filter(Boolean).join(' '), i === cur ? 'current step' : null].filter(Boolean).join(', ')})`)
       return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row, each pair joined by a short ${S.line.w}px ${S.line.h}px-thin ${colourName(S.line.fill)} line: ${said.join(' — ')}` }
     }
-    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}${split}` }
+    const K = !Sp && f.kidPack, pack = K ? `; all of these sit together at the LEFT, one after another, ending ${K.end}px in (the right ${Math.round(100 - 100 * K.end / K.w)}% of the bar is empty, nothing pushed right)${K.field ? `; ${quote(K.field.t, 24)} is an outlined search field ${K.field.w}px wide, grey placeholder` : ''}` : ''
+    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
@@ -2031,6 +2134,40 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const over = regions.filter((g) => g !== bar && g !== f && out.get(g.role).kind && !f.regionKids.includes(g.role) && !g.regionKids.includes(f.role) && g.rect.y < f.rect.y + f.rect.h && g.rect.y + g.rect.h > f.rect.y && g.rect.x < f.rect.x + f.rect.w && g.rect.x + g.rect.w > f.rect.x)
     const a = soft.c ? Math.round(soft.c.a * 100) : null
     d.note = `${d.note ? `${d.note}, ` : ''}an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, ${Math.round(br)}px rounded bottom corners), with a big soft ${soft.c ? `${colourName({ ...soft.c, a: 1 })} ` : ''}shadow ${Math.round(soft.y)}px down, ${Math.round(soft.blur)}px blur${a !== null && a < 60 ? `, ${a}% opacity` : ''}${over.length ? `; it lies on top of the page below it, covering ${over.filter((g) => g.rect.y >= f.rect.y - 2 && g.rect.y + g.rect.h <= f.rect.y + f.rect.h + 2 && g.rect.x >= f.rect.x - 2 && g.rect.x + g.rect.w <= f.rect.x + f.rect.w + 2).length ? 'all' : 'part'} of what is drawn under it (absolutely placed over it, not pushing it down)` : ''}; the panel is a fixed ${Math.round(f.rect.h)}px tall as drawn${over.filter((g) => g.rect.y >= f.rect.y - 2 && g.rect.y + g.rect.h <= f.rect.y + f.rect.h + 2 && g.rect.x >= f.rect.x - 2 && g.rect.x + g.rect.w <= f.rect.x + f.rect.w + 2).length ? ', so nothing under it peeks out round its edges' : ''}`
+  })
+  // cards stacked in a column with open space between them, and a full-width divider far below the marks above
+  // it: say the gap (round 7 e1: cards packed 10px apart in flow, target 32-40px; the MOBILE lane built ~240px
+  // high, right under the web cards, target leaves the lane above 140px of empty space)
+  const boxes = regions.filter((f) => out.get(f.role).kind === 'box' && f.rect.w <= 400 && !f.regionKids.length)
+  const colOf = (f) => boxes.filter((g) => Math.abs(g.rect.x - f.rect.x) <= 4 && Math.abs(g.rect.w - f.rect.w) <= 4)
+  if (boxes.filter((f) => colOf(f).length >= 2).length >= 4) {
+    for (const f of boxes) {
+      const above = colOf(f).filter((g) => g !== f && g.rect.y + g.rect.h <= f.rect.y + 2).sort((a, b) => b.rect.y - a.rect.y)[0]
+      if (!above) continue
+      const between = regions.some((g) => g !== f && g !== above && out.get(g.role).kind && g.rect.y >= above.rect.y + above.rect.h - 2 && g.rect.y + g.rect.h <= f.rect.y + 2 && g.rect.x < f.rect.x + f.rect.w && g.rect.x + g.rect.w > f.rect.x)
+      const gap = Math.round(f.rect.y - above.rect.y - above.rect.h)
+      if (between || gap < 20) continue
+      const d = out.get(f.role)
+      d.note = `${d.note ? `${d.note}; ` : ''}its top ${Math.round(f.rect.y)}px from the page top, ${gap}px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)`
+    }
+  }
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d.kind || !/section divider/.test(d.note ?? '')) return
+    const over = regions.filter((g) => g !== f && out.get(g.role).kind && g.rect.y + g.rect.h <= f.rect.y + 2 && g.rect.y > 0 && g.rect.h < 300)
+    const low = Math.max(...over.map((g) => g.rect.y + g.rect.h))
+    if (!over.length || f.rect.y - low < 60) return
+    d.note = `${d.note}; the line sits ${Math.round(f.rect.y)}px from the page top, ${Math.round(f.rect.y - low)}px below the lowest card above it (the lane above keeps that empty space; do not pull this lane up)`
+  })
+  // a big textless gradient block given no words (round 7 e4 product photo: built as a blank crossed placeholder)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d.kind || d.note || f.text || f.rect.w < 200 || f.rect.h < 200) return
+    const cs = (f.bgImageColours || []).map(parse).filter(Boolean)
+    const g = gradientWords(f) ?? (cs.length >= 2 ? `pale tinted ${hexOf(cs[0])} to ${hexOf(cs[cs.length - 1])}${linearEnds(f.bgImage) ? ` (${linearEnds(f.bgImage).join(' to ')})` : ''}` : null)
+    if (!g) return
+    d.kind = 'box'
+    d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block filled with a soft ${g} gradient${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)`
   })
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)
