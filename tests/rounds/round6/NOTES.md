@@ -112,3 +112,19 @@ plain white - e2 and e4 had been built on white.
 | e5 week | 55% | **75%** | Week tab filled, today's 22 in a red circle; Today/‹/› placed right instead of left |
 
 e4's reading failed once more with error_max_structured_output (2 of 4 e4 tries): worth a look.
+
+## n83: e4 reading failures, steps, thumbnails, split top bar (2026-10-22, ~160k billed tokens)
+
+- e4's failed readings: the model writes `"unclear": ,` on every StructuredOutput attempt (traced 9 of 9). Salvage
+  repairs that from the streamed text, but the final attempt's stream was sometimes missing, leaving only the CLI's
+  2048-char cut, so nothing was salvaged. Now the newest streamed attempt that repairs stands (unit test added).
+  Telling the model "unclear is always a quoted string" did not change the fault (4 of 4 attempts): reverted.
+- Planner: progress steps say the joining lines and each step's colour ("✓ Cart" green, "Shipping" bold near-black,
+  current step, the rest grey); the order pictures say their exact fill and that they are darker than the panel; the
+  side panel says one flat colour and its thin left line; a row split by one wide gap says what sits left and what is
+  pushed right (e5 top bar). Rounds 1-5 plans unchanged.
+
+| page | n82 | n83 | note |
+|---|---|---|---|
+| e4 checkout | 50% | 40% | reading ok; steps with lines and colours, solid thumbnails now right; page built plain white (target off-white) and the form ~10% taller, so everything below drifts |
+| e5 week | 75% | 69% | Today/‹/› now at the left by the title like the target; near-identical by eye, drop within run-to-run noise |

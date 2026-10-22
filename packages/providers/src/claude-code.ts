@@ -118,7 +118,14 @@ export function createClaudeCodeProvider(): PerceptionProvider {
             // re-sending the same answer with `"unclear": ,` (bad JSON); a
             // third of readings first wrapped the answer as {"actions": {...}}.
             // The answer itself was right both times: recover it here.
-            const saved = salvageReading(lastAttempt, req.schema)
+            // n83 (round 6 e4): the final attempt's stream can be missing from what we saw, leaving only its
+            // 2048-char cut; every earlier attempt carried the same answer with the same one fault, so the
+            // newest one that repairs stands
+            let saved = salvageReading(lastAttempt, req.schema)
+            for (const t of streamed.texts()) {
+              if (saved !== undefined) break
+              saved = salvageReading({ __unparsedToolInput: { raw: t } }, req.schema)
+            }
             if (saved !== undefined) { raw = saved; failure = null }
           }
           const u = msg.usage
@@ -236,14 +243,17 @@ export function createClaudeCodeProvider(): PerceptionProvider {
 export function streamedInputs() {
   let buf: string | null = null
   let last: string | null = null
+  const all: string[] = []
   return {
+    /** every finished StructuredOutput text, newest first */
+    texts(): string[] { return [...all].reverse() },
     see(msg: unknown): void {
       const m = msg as { type?: string; event?: { type?: string; content_block?: { type?: string; name?: string }; delta?: { type?: string; partial_json?: string } } }
       if (m.type !== 'stream_event' || !m.event) return
       const e = m.event
       if (e.type === 'content_block_start') buf = e.content_block?.type === 'tool_use' && e.content_block.name === 'StructuredOutput' ? '' : null
       else if (e.type === 'content_block_delta' && buf !== null && e.delta?.type === 'input_json_delta') buf += e.delta.partial_json ?? ''
-      else if (e.type === 'content_block_stop' && buf !== null) { last = buf; buf = null }
+      else if (e.type === 'content_block_stop' && buf !== null) { last = buf; all.push(buf); buf = null }
     },
     full(attempt: unknown): unknown {
       const raw = (attempt as { __unparsedToolInput?: { raw?: unknown } } | null)?.__unparsedToolInput?.raw

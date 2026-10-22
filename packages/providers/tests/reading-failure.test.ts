@@ -147,6 +147,20 @@ describe('streamedInputs: the whole attempt, not the CLI\'s 2048-char cut', () =
       expect((r.raw as { reading: string }).reading).toBe(long)
     } finally { throwAfter = null }
   })
+  it('round 6 e4: the last attempt\'s stream is missing, so an earlier streamed attempt is salvaged', async () => {
+    const later = `{"reading": "z${long}", "unclear": , "actions": [{"kind": "move"}]}`
+    results = [
+      ...stream(full),
+      { type: 'assistant', message: { content: [{ type: 'tool_use', name: 'StructuredOutput', input: { __unparsedToolInput: { raw: cut } } }] } },
+      { type: 'assistant', message: { content: [{ type: 'tool_use', name: 'StructuredOutput', input: { __unparsedToolInput: { raw: later.slice(0, 2048) } } }] } },
+      { type: 'result', subtype: 'error_max_structured_output_retries', num_turns: 6, errors: ['Failed to provide valid structured output after 5 attempts'], usage },
+    ]
+    throwAfter = 'Claude Code returned an error result: Failed to provide valid structured output after 5 attempts'
+    try {
+      const r = await createClaudeCodeProvider().interpretIntent({ ...req, schema })
+      expect((r.raw as { actions: unknown[] }).actions).toEqual([{ kind: 'add' }])
+    } finally { throwAfter = null }
+  })
   it('a throw with nothing salvaged still fails with the cause', async () => {
     results = [{ type: 'result', subtype: 'error_max_structured_output_retries', num_turns: 6, errors: ['Failed after 5 attempts'], usage }]
     throwAfter = 'Claude Code returned an error result'
