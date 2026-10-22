@@ -139,3 +139,26 @@ e4's reading failed once more with error_max_structured_output (2 of 4 e4 tries)
 | page | n83 | n84 | note |
 |---|---|---|---|
 | e4 checkout | 40% | **54%** (best yet) | form spacing now matches the target row for row; side panel tinted; left page still built white, logo small, pay button a full pill placed ~20px low |
+
+## n79: creative planner fixes and first live builds (2026-10-22, ~338k billed tokens)
+
+Free planner fixes (ff3ed15): 3D turns say their angles (rotateY/rotateX); a grid of thin lines laid flat under
+perspective is "a floor going back"; a gradient card holding a short bold line is a card (was a near-black heading);
+gradient-filled words inside a heading are said; a clip-path inset says which half of the letters shows and the shift;
+skewX is "slanted N° like italics"; SVG art says each filled hill (colour, hex, crest) back to front and each dashed
+trail; a frosted panel says what is in it (bar chart with heights, open ring, strip); a page of radial glows over a
+base colour is a mesh (base hex kept); pseudo-element round spots make a duotone tile; a word rotated -90° inside a
+block is said; a big bold figure over a small line is said. measure.mjs: a region's rect is what shows (clip inset;
+a 3D floor's box clamped to the page). Rounds 1-5 plans unchanged except round 4 c4 gains its 3D angles.
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| c1 perspective stack | **90%** | 57k | cards, angles, gradient words, price card all right; the floor grid was read as a container for the CTA buttons and dropped |
+| c2 split type | 22% | 60k | the halves built as two separate half-words far apart (no join), rules moved; festival columns unsaid so copy invented |
+| c3 SVG waves | 73% | 54k | three hills and dashed trail right; sun built as two pale blobs; headline built bold, wraps to 3 lines |
+| c4 glass devices | 72% | ~50k | mesh, laptop bars, ring, badge right; headline wraps (one line in target); phone lost its frosted fill |
+| c5 brutal zine | 70% | 63k | duotone tile, sticker, contents right; "post free in the UK" built huge inside the price (said as one heading); LOUD cut off; masthead centred, cells gapped |
+
+After the live runs (free, not yet built): sliced halves say they meet at the cut with no gap; columns of copy with
+small bold heads are said ("01 DAY" over its line, x3); display type at regular weight says "regular weight (not
+bold)" (also fixes round 1 c5's open note; rounds 1-5 gain only that phrase on regular-weight headlines).

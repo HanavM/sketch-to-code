@@ -1,0 +1,277 @@
+{
+  "id": "c2-split-type",
+  "at": "2026-10-22T08:16:42.647Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.21860420534363528,
+    "overallV2": 0.1640201535615966,
+    "overallV1": 0.1628628499447419,
+    "colour": 0.8851196712283815,
+    "structure": 0.5967179984867838,
+    "structureStrict": 0.45199760678596473,
+    "colourAligned": 0.9009164725468428,
+    "structureAligned": 0.6131234995383391,
+    "align": {
+      "scale": 0.88,
+      "dx": -16,
+      "dy": 96,
+      "r": 0.4847483739556195
+    },
+    "layout": 0.3553902706178553
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "huge-type",
+      "overlap",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46017,
+    "output": 29840,
+    "cacheRead": 597054
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 31998,
+      "output": 10324,
+      "cacheRead": 254467,
+      "toolCalls": 10,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Edit src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 119032
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 24543,
+      "output": 11636,
+      "cacheRead": 177509,
+      "toolCalls": 3,
+      "tools": [
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 147673
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 2731,
+      "output": 1106,
+      "cacheRead": 154395,
+      "toolCalls": 2,
+      "tools": [
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 12453
+    }
+  ],
+  "reading": "This is a hand-drawn magazine/festival masthead: a logo and issue date at top, a huge two-tone split 'BREAK' headline divided by a thin rule, a vertical festival title running down the right edge, another rule, a short paragraph placeholder, a slanted 'Tickets →' call-to-action, and a red accent circle, all set on an off-white Helvetica page per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        45,
+        84,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add small header logo text reading \"KINETIK\" in wide-spaced letters, top-left corner of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        1034,
+        44,
+        122,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add small text reading \"Vol. 06 — Oct 2026\" in the top-right corner, as a masthead issue/date label."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 308
+        }
+      ],
+      "region": [
+        48,
+        0,
+        787,
+        370
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set headline reading \"BREAK\", clipped so only the top 50% shows (clip-path cuts it flat across the middle), spanning the widt"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 307
+        }
+      ],
+      "region": [
+        118,
+        131,
+        787,
+        368
+      ],
+      "paths": [],
+      "instruction": "Add a second giant Helvetica heavy, tight-set headline reading \"BREAK\" in red, clipped so only the bottom 50% shows (clip-path cuts it flat across the middle), "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        250,
+        1112,
+        7
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a solid near-black horizontal divider rule, 3px tall and about 1120px wide, no text, placed just below the split headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1180,
+        124,
+        16,
+        330
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add vertical uppercase, wide-spaced text reading \"A TYPE FESTIVAL · LISBON\" running down along the right edge of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        467,
+        1112,
+        8
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a solid near-black horizontal divider rule, 2px tall and about 1120px wide, no text, below the festival title section."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        44,
+        500,
+        1112,
+        55
+      ],
+      "paths": [],
+      "instruction": "Add a short two-line paragraph of body copy below the lower divider, giving a brief promotional teaser about the festival/event."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9"
+          ],
+          "lines": 1,
+          "fontPx": 127
+        }
+      ],
+      "region": [
+        36,
+        669,
+        446,
+        152
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set call-to-action text \"Tickets →\", slanted 12° (skewX(-12deg), leaning right like italics), positioned at the bottom-left o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        885,
+        704,
+        102,
+        102
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add a vivid red filled circle as a decorative accent/badge at the bottom-right of the page."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

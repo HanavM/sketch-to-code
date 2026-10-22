@@ -163,7 +163,7 @@
    ],
    [
     "word-bottom",
-    "only the bottom 50% of the letters shows (clip-path cuts them flat across the middle), shifted 70px right of where the top half sits giant Helvetica heavy tight-set letters red \"BREAK\""
+    "only the bottom 50% of the letters shows (clip-path cuts them flat across the middle), shifted 70px right of where the top half sits; its cut edge sits right on the top half's cut edge, no gap, so the two halves join into one word sliced across giant Helvetica heavy tight-set letters red \"BREAK\""
    ],
    [
     "rule",
@@ -176,6 +176,10 @@
    [
     "row-rule",
     "solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)"
+   ],
+   [
+    "cols",
+    "3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text: \"01 DAY\" over \"Talks on motion, rhythm and the split letter.\"; \"02 DAY\" over \"Workshops: variable fonts and kinetic posters.\"; \"03 DAY\" over \"Night show with live-coded type on the river.\""
    ],
    [
     "tickets",
@@ -241,7 +245,7 @@
    ],
    [
     "headline",
-    "giant Georgia italic serif lines set tight (line-height 0.95) \"Walk where the hills roll on\""
+    "giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) \"Walk where the hills roll on\""
    ],
    [
     "sub",

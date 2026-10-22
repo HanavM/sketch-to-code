@@ -1,0 +1,189 @@
+{
+  "id": "c4-glass-devices",
+  "at": "2026-10-22T08:26:39.717Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7239403805708988,
+    "overallV2": 0.7239403805708988,
+    "overallV1": 0.6900381710592458,
+    "colour": 0.8587739662785939,
+    "structure": 0.7462799440521822,
+    "structureStrict": 0.6784940544682265,
+    "colourAligned": 0.8587739662785939,
+    "structureAligned": 0.7462799440521822,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7675666062990087
+    },
+    "layout": 0.7956264614023473
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "glass",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "bleed",
+      "blur",
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 32092,
+    "output": 21924,
+    "cacheRead": 145235
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40420,
+      "output": 16212,
+      "cacheRead": 125878,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/BarChart.tsx",
+        "Read components/ProgressRing.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 181642
+    }
+  ],
+  "reading": "The sketch is a hero section for a landing page (\"Lumen\") on a deep indigo themed background: a nav bar, a big headline, a subheading paragraph, a CTA button, a frosted-glass bar-chart panel, a frosted-glass panel with a progress ring, and a stat callout card. Typed notes specify exact copy, colors, and panel details, which take priority over the rough sketch shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: bold 20px 'Lumen' wordmark on the left, and 'Features · Pricing · Log in' links on the right, white Helvetica text on the dark page backgrou"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 78
+        }
+      ],
+      "region": [
+        68,
+        99,
+        751,
+        94
+      ],
+      "paths": [],
+      "instruction": "Hero headline: huge Helvetica heavy, tight-set white letters reading 'Every screen, one glance.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        200,
+        322,
+        54
+      ],
+      "paths": [],
+      "instruction": "Subheading paragraph below the headline: 'Live metrics on your laptop, phone and wall, synced in under a second.' in white text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        361,
+        137,
+        48
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Pill call-to-action button labeled 'Get Lumen', white background with deep indigo text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        423,
+        253,
+        634,
+        393
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Frosted-glass dashboard panel, 640x400px, 24px rounded corners, thin white border. Inside: a bar chart of 6 white bars rising from 31px above the panel's bottom"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        333,
+        204,
+        413
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Frosted-glass panel, 210x420px, 36px rounded corners, thin white border. Inside, centred and 91px from the top, a 120px white ring 12px thick that is open on it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        333,
+        603,
+        233,
+        90
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Frosted-glass stat card showing big bold 30px '+38%' text above smaller 15px 'sessions this week' text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

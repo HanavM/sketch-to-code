@@ -1,0 +1,208 @@
+{
+  "id": "c5-brutal-zine",
+  "at": "2026-10-22T08:35:48.471Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6989334379783936,
+    "overallV2": 0.6989334379783936,
+    "overallV1": 0.6128461349230432,
+    "colour": 0.9087069308158431,
+    "structure": 0.7184210623458946,
+    "structureStrict": 0.5750512088469442,
+    "colourAligned": 0.9087069308158431,
+    "structureAligned": 0.7184210623458946,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8300808856788036
+    },
+    "layout": 0.8929770960832227
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "huge-type",
+      "mono",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 41543,
+    "output": 29254,
+    "cacheRead": 152451
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 62888,
+      "output": 25730,
+      "cacheRead": 149367,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read components/AbstractRound.tsx",
+        "Read components/StampBadge.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 309483
+    }
+  ],
+  "reading": "A magazine-style issue page: a black masthead band \"NOISE/ISSUE 9\" at top, a 3-column/2-row grid of content boxes (intro+vertical \"LOUD\" word, a blue duotone tile with yellow shapes, a tracklist, a pull-quote, credits, and a \"£4 post free\" yellow price band), plus a tilted red \"SOLD OUT SOON\" badge stamped across the blue tile and credits box.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 97
+        }
+      ],
+      "region": [
+        7,
+        3,
+        1155,
+        116
+      ],
+      "paths": [],
+      "instruction": "Top masthead band spanning the page width (traced by the wavy stroke s0): giant Helvetica Heavy, tight letter-spacing, white text on a solid black band reading "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        2,
+        122,
+        317,
+        477
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left column box: thick black border; body copy reading \"This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud.\"; plus"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        322,
+        122,
+        636,
+        477
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Middle top panel: flat vivid-blue (#2563eb) duotone tile with a thick black border (no photo). Place 2 hard-edged round yellow (#fde047) shapes on it, inset by "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        962,
+        122,
+        316,
+        477
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right top box: thick black border; mono 16px code-style list reading \"01 — Tape loops\", \"02 — Basement maps\", \"03 — Flyer archive\", \"04 — Last gig\", \"05 — Lette"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        2,
+        602,
+        316,
+        296
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Bottom left box: thick black border; bold 22px pull-quote text reading \"\\\"Turn it up until the walls agree.\\\"\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        322,
+        602,
+        636,
+        296
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Bottom middle box: thick black border; mono 13px code-style credit lines reading \"Edited by M. Hale\", \"Photos by the bands\", \"Printed in Leeds on a Risograph, t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        505,
+        505,
+        210,
+        210
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Badge overlapping the boundary between the middle-top and bottom-middle panels (traced by the circle stroke s8): vivid red circle tilted 14 degrees anticlockwis"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 138
+        }
+      ],
+      "region": [
+        967,
+        599,
+        291,
+        303
+      ],
+      "paths": [],
+      "instruction": "Right bottom area (two squiggle strokes s6 and s7): huge Helvetica Heavy black lettering on a yellow band reading \"£4 post free in the UK\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

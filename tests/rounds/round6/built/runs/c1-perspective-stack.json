@@ -1,0 +1,202 @@
+{
+  "id": "c1-perspective-stack",
+  "at": "2026-10-22T08:10:09.870Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8991315142280674,
+    "overallV2": 0.8991315142280674,
+    "overallV1": 0.8451967043800914,
+    "colour": 0.9597509183083093,
+    "structure": 0.9181527542071647,
+    "structureStrict": 0.7906166418789845,
+    "colourAligned": 0.9597509183083093,
+    "structureAligned": 0.9181527542071647,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9405915735987608
+    },
+    "layout": 0.8369197800279929
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "gradient",
+      "gradient-text",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46672,
+    "output": 29201,
+    "cacheRead": 179061
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57056,
+      "output": 19305,
+      "cacheRead": 179061,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 213084
+    }
+  ],
+  "reading": "A hero section: navbar wordmark/links, a tight-set gradient-accented heading, a grey subhead, two CTA buttons in a bordered row, and a stack of three overlapping tilted gradient blocks (one plain decorative, one decorative, and one a card holding a dollar-amount figure), all per the typed notes which specify exact copy, colors and 3D tilt.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        47,
+        1144,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: bold 20px \"Stackr\" wordmark on the left, and \"Product · Pricing · Docs · Sign in\" links on the right (per note), replacing the squiggle plac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 76
+        }
+      ],
+      "region": [
+        72,
+        170,
+        504,
+        252
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set (line-height 1) heading reading \"Ship cards in three dimensions\" across the three squiggle lines; the words \"three dimensions\" "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        450,
+        432,
+        57
+      ],
+      "paths": [],
+      "instruction": "Grey subheading paragraph reading \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\" (per note), replacing the two squiggle "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        523,
+        1274,
+        374
+      ],
+      "paths": [
+        "s0",
+        "s7",
+        "s8"
+      ],
+      "instruction": "CTA row inside the sketched rectangular container: a cyan-background, dark-navy-text button labeled \"Start free\", and a dark-grey outline button labeled \"See de"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        649,
+        109,
+        343,
+        247
+      ],
+      "paths": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "instruction": "Decorative tilted block in 3D perspective (rotateY(-28deg) rotateX(11deg)) with a vivid cyan (top-left) to indigo (bottom-right) gradient fill, matching the dra"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        724,
+        226,
+        353,
+        248
+      ],
+      "paths": [
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "instruction": "Decorative tilted block in 3D perspective (rotateY(-28deg) rotateX(11deg)) with a light pink (top-left) to vivid purple (bottom-right) gradient fill, overlappin"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        800,
+        343,
+        363,
+        253
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Tilted card in the same 3D perspective (rotateY(-28deg) rotateX(11deg)), 369x259px as drawn with 18px rounded corners, filled with a vivid yellow (top-left) to "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

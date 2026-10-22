@@ -1,0 +1,181 @@
+{
+  "id": "c3-svg-waves",
+  "at": "2026-10-22T08:22:09.096Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7270659832126019,
+    "overallV2": 0.7270659832126019,
+    "overallV1": 0.6084462214246937,
+    "colour": 0.9456248782278263,
+    "structure": 0.7655961667307514,
+    "structureStrict": 0.5995532306172553,
+    "colourAligned": 0.9456248782278263,
+    "structureAligned": 0.7655961667307514,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9306533839276718
+    },
+    "layout": 0.8801584180373582
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "italic",
+      "serif"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap",
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 36640,
+    "output": 25236,
+    "cacheRead": 349113
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 54211,
+      "output": 21386,
+      "cacheRead": 346029,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Read components/SketchShape2.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape.tsx"
+      ],
+      "ms": 244229
+    }
+  ],
+  "reading": "The sketch is a hero section for a page called \"Meadow\": a full-bleed decorative three-layer wavy hill background with a dashed looping line, a bright orange circle accent, a nav bar with logo and links, a large italic headline, a body paragraph, and a pill CTA button \"Plan a walk\" — all per the user's typed notes which took priority over the raw wavy/line ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        885,
+        114,
+        231,
+        231
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Big vivid bright orange circle, decorative shape sitting in the upper-right area of the hero."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Decorative background scene spanning the full width behind the hero content: three layered filled wavy hill shapes with smooth rolling S-curve tops running the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        49,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar replacing the wavy placeholder line: bold 24px logo text \"Meadow\" on the left, and nav links \"Trails · Huts · Journal · Book\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        68,
+        150,
+        558,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif headline, lines set tight (line-height 0.95), replacing the two wavy placeholder lines: \"Walk where the hills roll on\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        400,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text replacing the wavy placeholder lines: \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        502,
+        147,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Pill-shaped button labeled \"Plan a walk\" with deep green background and pale yellow text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -221,6 +221,19 @@ export function factsInPage() {
         }
         return null
       })(),
+      // copy set in side-by-side columns, each a small bold head over a line (round 6 c2 festival days: unsaid, invented)
+      colKids: (() => {
+        if (kids.length < 2 || kids.length > 4) return null
+        const bs = kids.map((k) => k.getBoundingClientRect())
+        if (bs.some((b) => Math.abs(b.top - bs[0].top) > 4) || bs.some((b, i) => i && b.left < bs[i - 1].right - 2)) return null
+        const out = kids.map((k) => {
+          const h = k.firstElementChild, hc = h && getComputedStyle(h)
+          const head = h && Number(hc.fontWeight) >= 600 ? (h.innerText || '').trim() : null
+          const all = (k.innerText || '').replace(/\s+/g, ' ').trim()
+          return { head, headPx: head ? Math.round(parseFloat(hc.fontSize)) : null, spaced: head ? (parseFloat(hc.letterSpacing) || 0) / parseFloat(hc.fontSize) >= 0.1 : false, body: head ? all.slice(head.length).trim() : all }
+        })
+        return out.every((c) => c.head && c.body && c.body.length <= 120) ? { cols: out, px: Math.round(parseFloat(cs.fontSize)), gap: Math.round(bs[1].left - bs[0].right) } : null
+      })(),
       // a word turned on its side inside a block ('LOUD' rotated -90deg in the intro box: round 6 c5)
       turnedKid: (() => {
         const k = [...el.querySelectorAll('*')].find((x) => { const m = getComputedStyle(x).transform.match(/^matrix\(([^,]+),\s*([^,]+)/); if (!m) return false; const deg = Math.abs(Math.atan2(+m[2], +m[1]) * 180 / Math.PI); return deg >= 80 && deg <= 100 && (x.innerText || '').trim() })
@@ -995,7 +1008,7 @@ function effectWords(f) {
   // a clip that keeps one half: a word sliced across its middle (round 6 c2: said as two stacked lines)
   const ci = f.clipInset
   if (ci && ci.b >= 0.3 && ci.t < 0.05) w.push(`only the top ${Math.round((1 - ci.b) * 100)}% of the letters shows (clip-path cuts them flat across the middle)`)
-  else if (ci && ci.t >= 0.3 && ci.b < 0.05) w.push(`only the bottom ${Math.round((1 - ci.t) * 100)}% of the letters shows (clip-path cuts them flat across the middle)${Math.abs(f.shiftX) >= 8 ? `, shifted ${Math.abs(f.shiftX)}px ${f.shiftX > 0 ? 'right' : 'left'} of where the top half sits` : ''}`)
+  else if (ci && ci.t >= 0.3 && ci.b < 0.05) w.push(`only the bottom ${Math.round((1 - ci.t) * 100)}% of the letters shows (clip-path cuts them flat across the middle)${Math.abs(f.shiftX) >= 8 ? `, shifted ${Math.abs(f.shiftX)}px ${f.shiftX > 0 ? 'right' : 'left'} of where the top half sits` : ''}; its cut edge sits right on the top half's cut edge, no gap, so the two halves join into one word sliced across`)
   // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
   if (f.blend) w.push(/difference|exclusion/.test(f.blend) ? 'colour-inverting where it crosses what is under it'
     : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
@@ -1024,6 +1037,8 @@ function typeWords(f, page) {
   if (f.font.weight >= 800 && f.font.size >= 32) w.push('heavy')
   // a hairline display weight is the point of the word (round 5 c2 'Weight' at 100)
   else if (f.font.weight <= 300 && f.font.size >= 32) w.push('thin hairline-weight')
+  // display type at a regular weight is built bold unless said (round 6 c3 italic serif, round 1 c5 editorial)
+  else if (f.font.weight <= 500 && f.font.size >= 52) w.push('regular weight (not bold)')
   if (f.font.transform === 'uppercase') w.push('uppercase')
   // tracking that changes the word's shape: tight display type (-10px at 300px) or spaced-out caps
   const em = f.font.spacing / f.font.size
@@ -1588,6 +1603,11 @@ function decideOne(f, page, marked, said) {
     const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
     return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
+  }
+  // columns of copy, each a small bold head over a line (round 6 c2: unsaid, so the build wrote its own)
+  if (f.colKids && !f.regionKids.length && !fill && !bordered) {
+    const c = f.colKids
+    return { kind: 'text', note: `${c.cols.length} columns side by side, ${c.gap}px apart, each ${c.cols[0].head ? `a small bold ${c.cols[0].spaced ? 'wide-spaced ' : ''}${c.cols[0].headPx}px head over ` : ''}${c.px}px text: ${c.cols.map((x) => `${x.head ? `${quote(x.head)} over ` : ''}${quote(x.body, 120)}`).join('; ')}` }
   }
   if (f.pager && !f.regionKids.length) {
     const p = f.pager
