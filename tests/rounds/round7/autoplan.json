@@ -972,6 +972,14 @@
     "small grey breadcrumb \"Home / Jackets / Shell\""
    ],
    [
+    "thumb-1",
+    "pale #e0e7ff filled 84x84px 8px rounded block (no picture, no X), with a 2px dark navy outline ring 2px out from its edge (the selected one)"
+   ],
+   [
+    "thumb-2",
+    "pale #c7d2fe filled 84x84px 8px rounded block (no picture, no X)"
+   ],
+   [
     "thumb-3",
     "lavender block"
    ],
@@ -981,7 +989,7 @@
    ],
    [
     "main-photo",
-    "a big 520x620px block filled with a soft pale tinted #e0e7ff to #c7d2fe (top to bottom) gradient, 12px rounded: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a big 520x620px block filled with a soft pale tinted #e0e7ff to #c7d2fe (top to bottom) gradient, 12px rounded: a product-photo backdrop; inside it one big solid indigo (#4338ca) 260x300px shape, 130px in from its left and 170px down from its top, top corners very round, bottom corners a little round (a garment silhouette): no other picture, no X, no icon"
    ],
    [
     "title",
@@ -1029,7 +1037,7 @@
    ],
    [
     "wishlist",
-    "outline button \"♡\""
+    "square 54x54px 10px rounded outline button holding only an empty heart (wishlist) outline icon \"♡\", centred"
    ],
    [
     "shipping",
@@ -1131,7 +1139,7 @@
    ],
    [
     "pager",
-    "one line 1200px wide: 13px \"Showing 1–10 of 128\" at the left, grey \"‹123…13›\" at the far right end of the same line"
+    "pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey \"Showing 1–10 of 128\" at the left, at the far right a row of 30x30px outlined page buttons \"‹\", \"1\", \"2\", \"3\", \"…\", \"13\", \"›\", \"1\" filled blue with white text (current)"
    ]
   ]
  }

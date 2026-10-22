@@ -134,3 +134,24 @@ Planner (rounds 1, 3, 4, 6 plans unchanged; rounds 2, 5 tab/menu bars gain "all 
 | e1 kanban lanes | 23% | 50% (91k) | gaps, lane spacing and left toolbar right; everything ~16-30px low; avatar dots built as small pills |
 | e2 funnel + cohort | 28% | 75% (~70k) | sparklines, funnel bars, stacked bars, cohort heat triangle all right; ~10px low |
 | e4 product page | 30% | 48% (~68k) | price run, sizes states, gradient photo right; the target's indigo jacket shape (a big ::after shape, >200px so pseudoPic skips it) missing; thumbs' colours and selected outline lost; heart icon wrong |
+
+## n98: product photo shape, thumbs, heart, pager (2026-10-22, ~257k billed)
+
+Planner (round 7 e4/e5 and one round-3 pager note change; other plans unchanged):
+- a big gradient photo backdrop with a big solid ::before/::after shape (over 120px) says the shape inside it: colour,
+  hex, size, where it sits and its corners (e4 indigo jacket);
+- a pale tinted thumbnail says its hex, size and corners ("no picture, no X"); a 2px+ outline ring says it is the
+  selected one and how far out it sits;
+- a one-glyph outline button names its icon (♡ "an empty heart (wishlist) outline icon") and its square size;
+- a pager whose caption is its own text node keeps the caption, says its buttons' size, outline, the current one's
+  fill and how far down the line sits; the pager rule now wins over the "head with a count at the right" rule.
+
+| page | before (n97) | now | what's left |
+|---|---|---|---|
+| e4 product page | 48% | 62% (79k) | jacket shape, tinted thumbs, selected ring, heart all right; ~16-32px low; photo corners square; swatch ring lost |
+| e1 kanban lanes | 50% | 36% (60k) | avatar dots now circles; but heads, lane rules and cards drift 10-30px lower down the page (aligned -64px) |
+| e5 admin table | 66% | 62% (59k) | "Showing 1–10 of 128" now built; whole page ~16px low so the pager is cut at the bottom |
+
+The repeated miss on the everyday pages is now vertical drift: builds put each block 10-30px lower than drawn, and
+it compounds down the page. Next: find where the drift comes from (spacing the build adds between blocks vs the
+drawn tops) and say or pin the absolute tops of the main bands.

@@ -1,23 +1,23 @@
 {
   "id": "e5-admin-table",
-  "at": "2026-10-22T15:01:07.301Z",
+  "at": "2026-10-22T16:05:24.899Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6612645187342775,
-    "overallV2": 0.4589474139614337,
-    "overallV1": 0.2688647196136914,
-    "colour": 0.9524483387564712,
-    "structure": 0.7825719979158322,
-    "structureStrict": 0.42647302951657945,
-    "colourAligned": 0.9740614079591947,
-    "structureAligned": 0.898041606481849,
+    "overall": 0.6152702848876699,
+    "overallV2": 0.3517166707795573,
+    "overallV1": 0.18803880882221335,
+    "colour": 0.9513700354300259,
+    "structure": 0.7466712557879237,
+    "structureStrict": 0.40830099611924475,
+    "colourAligned": 0.9815009995956347,
+    "structureAligned": 0.882497501459529,
     "align": {
-      "scale": 1,
-      "dx": -16,
+      "scale": 0.96,
+      "dx": 0,
       "dy": -16,
-      "r": 0.9262013181616867
+      "r": 0.9110657569708345
     },
-    "layout": 0.5904597767441964
+    "layout": 0.34056248109574155
   },
   "effects": {
     "recall": 1,
@@ -29,48 +29,44 @@
     "extra": []
   },
   "tokens": {
-    "input": 56459,
-    "output": 36136,
-    "cacheRead": 411081
+    "input": 39331,
+    "output": 19222,
+    "cacheRead": 298786
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 73133,
-      "output": 28505,
-      "cacheRead": 148603,
-      "toolCalls": 10,
+      "billed": 30699,
+      "output": 9382,
+      "cacheRead": 164371,
+      "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read components/SketchShape3.tsx",
-        "Read components/SketchShape4.tsx",
-        "Read components/SketchShape5.tsx",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Grep"
       ],
-      "ms": 281444
+      "ms": 96512
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 10383,
-      "output": 4114,
-      "cacheRead": 259394,
-      "toolCalls": 3,
+      "billed": 14447,
+      "output": 5000,
+      "cacheRead": 122605,
+      "toolCalls": 2,
       "tools": [
         "Read src/App.tsx",
-        "Grep",
-        "Grep"
+        "Edit src/App.tsx"
       ],
-      "ms": 46560
+      "ms": 61745
     }
   ],
-  "reading": "The sketch is a team members admin page: a heading and subtitle, an \"+Invite\" button, a filter/search toolbar, a bulk-action bar for selected rows, a large data table of 10 team members with avatars/roles/status/usage, an open status-filter dropdown menu overlaying the table, and a pagination bar at the bottom. All text content and styling come directly from the typed notes attached to each stroke group; the page overall uses pale grey background, Helvetica type, and dark navy text.",
+  "reading": "The sketch is a full Team Members admin page: a page header with title/subtitle and an invite button, a filter toolbar, a selection action bar, a large data table with 10 member rows (3 selected), an open status-filter dropdown menu floating over the table, and a bottom pager.",
   "actions": [
     {
       "kind": "add",
@@ -89,27 +85,14 @@
       ],
       "region": [
         44,
-        25,
-        165,
-        51
-      ],
-      "paths": [],
-      "instruction": "Page heading \"Team members\" (bold, large) with a 13px grey subtitle \"128 people · 9 pending invites\" beneath it, top-left of the page. Whole page uses pale grey"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1161,
         32,
-        77,
-        32
+        1194,
+        44
       ],
       "paths": [
         "s2"
       ],
-      "instruction": "Blue pill button with white text reading \"+ Invite\", placed top-right of the page header."
+      "instruction": "Page header: bold heading \"Team members\", below it 13px grey text \"128 people · 9 pending invites\", and at the top-right a blue filled button with white text re"
     },
     {
       "kind": "add",
@@ -124,10 +107,10 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Toolbar row beneath the header containing: a text input \"Search name or email\", a \"Role\" dropdown, a \"Status: Any\" dropdown, and a \"Columns\" button, laid out le"
+      "instruction": "Filter toolbar spanning the page width: a text input placeholder \"Search name or email\", a dropdown labeled \"Role\", a dropdown labeled \"Status: Any\", and a \"Col"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -139,7 +122,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Dark blue (#1e3a8a) bulk-action bar, 1200x44px, 8px rounded corners: white bold \"3 selected\" text at the left, followed by small outlined buttons (thin see-thro"
+      "instruction": "Selection action bar, full width (~1200x44px), dark blue (#1e3a8a) background, 8px rounded corners: white bold \"3 selected\" text at left, followed by small outl"
     },
     {
       "kind": "add",
@@ -154,7 +137,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Full data table (real <table> element, every row built, none omitted). Pale grey (#f3f4f6) header row, 12px grey semibold labels: empty checkbox column | bold \""
+      "instruction": "Full data table (real <table>, every row built): pale grey (#f3f4f6) header row with 12px grey semibold labels — empty checkbox column, bold \"Name ↓\", bold grey"
     },
     {
       "kind": "add",
@@ -169,7 +152,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Open dropdown menu for the Status filter: 200x146px white card, 10px rounded corners, thin light grey border, soft shadow (12px offset down, 32px blur, 15% opac"
+      "instruction": "Open status-filter dropdown menu: 200x146px white card, 10px rounded corners, thin light grey border, soft shadow (12px offset, 32px blur, 15% opacity). Absolut"
     },
     {
       "kind": "add",
@@ -194,7 +177,7 @@
         30
       ],
       "paths": [],
-      "instruction": "Pagination control at the bottom of the page: buttons \"‹\", \"1\" (current page, highlighted), \"2\", \"3\", \"…\", \"13\", \"›\"."
+      "instruction": "Bottom pager, one line 1200px wide, positioned near 865px from the page top inside the page: 13px grey \"Showing 1–10 of 128\" at the left, and at the far right a"
     }
   ],
   "rejected": []

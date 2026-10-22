@@ -119,7 +119,11 @@ export function factsInPage() {
         const items = leaves.map((k) => ({ t: (k.innerText || '').trim(), on: rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 }))
         const nums = items.filter((i) => /^\d{1,3}$/.test(i.t))
         if (nums.length < 2 || !items.some((i) => /next|prev|›|»/i.test(i.t))) return null
-        return { items: items.filter((i) => i.t.length <= 8).map((i) => i.t), current: items.find((i) => i.on && /^\d+$/.test(i.t))?.t ?? null, caption: items.find((i) => i.t.length > 8)?.t ?? null }
+        // the caption may be the pager's own text node (round 7 e5 'Showing 1–10 of 128': dropped)
+        const own = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(' ')
+        const box = leaves.find((k) => /^\d+$/.test((k.innerText || '').trim()))?.getBoundingClientRect()
+        const curEl = leaves.find((k) => /^\d+$/.test((k.innerText || '').trim()) && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 && rgba(getComputedStyle(k).backgroundColor).r + rgba(getComputedStyle(k).backgroundColor).g + rgba(getComputedStyle(k).backgroundColor).b < 600)
+        return { items: items.filter((i) => i.t.length <= 8).map((i) => i.t), current: (curEl ? (curEl.innerText || '').trim() : null) ?? items.find((i) => i.on && /^\d+$/.test(i.t))?.t ?? null, caption: items.find((i) => i.t.length > 8)?.t ?? (own.length > 8 ? own : null), px: box ? Math.round(box.width) : null, curFill: curEl ? rgba(getComputedStyle(curEl).backgroundColor) : null, bordered: leaves.some((k) => parseFloat(getComputedStyle(k).borderTopWidth) >= 1) }
       })(),
       stroke: parseFloat(cs.webkitTextStrokeWidth) || 0,
       strokeColour: rgba(cs.webkitTextStrokeColor),
@@ -548,6 +552,10 @@ export function factsInPage() {
       corners: ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((c) => parseFloat(cs[`border${c}Radius`]) || 0),
       // a picture block painted by ::before/::after (round 6 e1 featured card's gradient square: unsaid)
       pseudoPic: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw >= 40 && ph >= 40) || pw > 200 || ph > 200 || pw >= r.width * 0.6) continue; const g = [...c.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])).filter(Boolean); const fl = rgba(c.backgroundColor); if (!g.length && !(fl?.a > 0.05)) continue; return { w: Math.round(pw), h: Math.round(ph), grad: g.length >= 2 ? g : null, fill: fl?.a > 0.05 ? fl : null, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
+      // a big solid shape painted by ::before/::after over a photo backdrop (round 7 e4 jacket: over 200px, unsaid)
+      pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
+      // a 2px+ outline ring round the block (a selected thumbnail, round 7 e4)
+      ring: (() => { const ow = parseFloat(cs.outlineWidth) || 0; return ow >= 2 && cs.outlineStyle !== 'none' ? { w: Math.round(ow), off: Math.round(parseFloat(cs.outlineOffset) || 0), colour: rgba(cs.outlineColor) } : null })(),
       // a round dot hung on the element by ::before/::after (a calendar now-line's knob, round 6 e5)
       pseudoDot: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (c.content && c.content !== 'none' && pw >= 4 && pw <= 20 && Math.abs(pw - ph) <= 1 && parseFloat(c.borderTopLeftRadius) >= pw * 0.4 && rgba(c.backgroundColor)?.a > 0.05) return { px: Math.round(pw), at: (parseFloat(c.left) || 0) < r.width / 2 ? 'left' : 'right' } } return null })(),
       // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
@@ -1591,7 +1599,7 @@ function decideOne(f, page, marked, said) {
     return { kind: 'text', note: `a full-width ${f.border.topStyle === 'dashed' ? 'dashed' : 'thin'} ${Math.round(f.border.w)}px ${colourName(f.border.colour)} line across the page (a section divider, not a box or input), and ${Math.round(f.rect.y + h > 0 ? h - f.font.size * 1.2 : 8)}px under it ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${colourName(f.colour)} ${f.font.transform === 'uppercase' || f.text === f.text.toUpperCase() ? 'capitals, wide letter-spacing ' : ''}label ${quote(f.text)} at the left` }
   }
   // a head with its count pushed right (round 7 e1 column heads)
-  if (f.endKid && !f.regionKids.length && h <= 50) {
+  if (f.endKid && !f.pager && !f.regionKids.length && h <= 50) {
     const E = f.endKid
     return { kind: 'text', note: `one line ${Math.round(w)}px wide: ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} at the left, ${E.bold ? 'bold ' : ''}${colourName(E.ink)} ${quote(E.t)} at the far right end of the same line` }
   }
@@ -1669,7 +1677,11 @@ function decideOne(f, page, marked, said) {
     // round-3 c1 drew the ridges as X'd boxes and got two rectangles with crossed lines
     if (shape && f.clipPoly) return { kind: 'shape', note: withFx(note), poly: f.clipPoly }
     const sh = shadowWords(f)
-    return { kind: 'image', note: withFx(sh ? `${note ? `${note}, with a ` : ''}${sh}` : note) }
+    // a pale tinted thumbnail says its tint, and a selected one its ring (round 7 e4: thumbs built white, ring lost)
+    const pale = !note && fill && !grad && hexOf(f.bg) !== '#ffffff' && w <= 200 && h <= 200 ? `pale ${hexOf(f.bg)} filled ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? ` ${Math.round(f.radius)}px rounded` : ''} block (no picture, no X)` : null
+    const ringed = f.ring ? `${f.ring.w}px ${colourName(f.ring.colour)} outline ring ${f.ring.off}px out from its edge (the selected one)` : null
+    const base = [note ?? pale, ringed].filter(Boolean).join(', with a ') || null
+    return { kind: 'image', note: withFx(sh ? `${base ? `${base}, with a ` : ''}${sh}` : base) }
   }
   // a toggle row: a label and a switch
   if (f.toggle && f.text && f.text.length <= 90 && h <= 110 && !f.regionKids.length) {
@@ -1699,6 +1711,10 @@ function decideOne(f, page, marked, said) {
   if (bordered && !placeholder && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 60 && w <= 260) {
     if (/[▾▼]$/.test(f.text)) return { kind: 'button', note: `dropdown ${quote(f.text.replace(/\s*[▾▼]$/, ''))}` }
     if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}` }
+    // a one-glyph icon button names its icon and size (round 7 e4 '♡' wishlist: built as a refresh icon)
+    const ICON = { '♡': 'an empty heart (wishlist) outline icon', '♥': 'a filled heart icon', '☆': 'an empty star icon', '★': 'a filled star icon', '✕': 'a close X icon', '×': 'a close X icon', '⋯': 'a three-dots icon', '☰': 'a three-line menu icon' }
+    const icon = ICON[f.text.trim()]
+    if (icon && (!fill || dist(f.bg, page.bg) < 12)) return { kind: 'button', note: `square ${Math.round(w)}x${Math.round(h)}px ${f.radius >= 4 ? `${Math.round(f.radius)}px rounded ` : ''}outline button holding only ${icon} ${quote(f.text.trim())}, centred` }
     if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}`.trim() }
   }
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
@@ -1972,6 +1988,9 @@ function decideOne(f, page, marked, said) {
   if (f.pager && !f.regionKids.length) {
     const p = f.pager
     const items = p.items.map((t) => quote(t) + (t === p.current ? ' current' : '')).join(', ')
+    // a wide pager says its caption left, the buttons' look, the current one's fill and where the line sits
+    // (round 7 e5: built below the page bottom, caption dropped)
+    if (p.px && w >= 600) return { kind: 'text', note: `pager, one line ${Math.round(w)}px wide, its middle ${Math.round(f.rect.y + h / 2)}px from the page top (inside the page, not below it): ${p.caption ? `${Math.round(f.font.size)}px ${colourName(f.colour) ?? ''} ${quote(p.caption, 40)} at the left, ` : ''}at the far right a row of ${p.px}x${p.px}px ${p.bordered ? 'outlined ' : ''}page buttons ${p.items.map((t) => quote(t)).join(', ')}${p.current ? `, ${quote(p.current)} filled ${p.curFill ? colourName(p.curFill) : ''} with white text (current)` : ''}`.replace(/ {2,}/g, ' ') }
     return { kind: 'text', note: `pager${p.caption ? ` ${quote(p.caption, 40)} left,` : ''} page buttons ${items}` }
   }
   if (f.text) {
@@ -2167,7 +2186,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const g = gradientWords(f) ?? (cs.length >= 2 ? `pale tinted ${hexOf(cs[0])} to ${hexOf(cs[cs.length - 1])}${linearEnds(f.bgImage) ? ` (${linearEnds(f.bgImage).join(' to ')})` : ''}` : null)
     if (!g) return
     d.kind = 'box'
-    d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block filled with a soft ${g} gradient${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)`
+    const ps = f.pseudoShape
+    // a big solid shape painted over the backdrop (round 7 e4 indigo jacket: missing) is said as the one thing inside
+    const shapeSay = ps ? `; inside it one big solid ${colourName(ps.fill)} (${hexOf(ps.fill)}) ${ps.w}x${ps.h}px shape, ${ps.x}px in from its left and ${ps.y}px down from its top, ${/%/.test(ps.radius) ? 'top corners very round, bottom corners a little round (a garment silhouette)' : 'rounded'}: no other picture, no X, no icon` : ''
+    d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block filled with a soft ${g} gradient${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded` : ''}: ${ps ? `a product-photo backdrop${shapeSay}` : 'an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)'}`
   })
   // the same heading word on two separate marks: say it repeats, or a reading folds them into one line
   // (round 5 c4: two stacked 'SUMMER' lines built as one)
