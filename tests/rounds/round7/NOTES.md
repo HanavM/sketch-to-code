@@ -301,3 +301,18 @@ a block by its quoted copy before its size: on the first run the size row matche
 | e4 product page | 69% | run 1 (old drift match): 46% (139k), everything right but the right column 77-91px low, unreported. Run 2: 71% (159k, 12.3 min), colour 99%, structure 92%, must 100% | photo rounded and clean, swatch ring, near-black button, Details body under its line, drift caught and repaired. Accordion rows ~20-30px taller than drawn (last row cut); the repair turn cost 91k and 16 tool calls (Grep x7, read Tailwind preflight); run time 12.3 min is at the cap |
 
 Next: keep repair turns lean (no Grep/preflight reading for a spacing fix); accordion row heights; e5 header row tint; c2 VARIABLE 20px high.
+
+## n108: lean repair turns, accordion row heights, header tint (2026-10-22, ~223k billed)
+
+Pipeline: a repair turn is now told which file the build wrote and to fix the named elements with exact px classes,
+without Grep/Glob or reading node_modules/Tailwind internals (packages/pipeline/src/repair-brief.ts, tested).
+Planner (zero tokens): a ruled one-line row (accordion header) says its 1px rule colour and its exact height
+(h-[Npx], text centred, no extra padding); a tinted table header says bg-[hex] on every header cell. Only round-7
+e4 (3 notes) and e5 (1 note) changed. Vitest: same 2 environmental failures.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| e4 product page | 71% (159k, 12.3 min; repair 91k, 16 tools) | 73% (145k, 9.3 min; repairs 31k/5 tools and 23k/2 tools, Edit only), colour 98%, structure 92% | accordion rows the drawn height, last row fits. Right column still ~8-14px low at the top, rating all amber (target grey count) |
+| e5 admin table | 83% | 79% (78k, 4.3 min; repair 10k, 2 tools) | header row still built white: the reading paraphrased the note and dropped the tint, the builder followed the reading. Avatars pale tints (target vivid), header checkbox missing. Within run noise |
+
+Next: carry a note's colours through the reading's paraphrase (header tint lost there); e4 top-of-column drift; c2 VARIABLE 20px high.
