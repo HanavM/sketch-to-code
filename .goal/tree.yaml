@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Collage poster headline now built at full size (63% to 70% alike). Next: it sits a little low and the blue photo lost its gradient."
-lock: {by: run-0104, until: 2026-10-22T02:34:22Z}
+now: "Collage poster now 82% alike: headline sits where drawn and the blue photo keeps its gradient. Next: check the same fixes lift other pages."
+lock: null
 asks:
   - "You removed the 300k-tokens-a-day budget: should I run with no daily cap, or is there a new cap you want? (Until you say, I keep logging tokens per day and pace about one live run per step.)"
 handled: []
@@ -114,6 +114,8 @@ notes:
   - "Token ledger: 2026-10-22 n72 live r4 c1 70k (day total ~310k, no cap set)."
   - "Token ledger: 2026-10-22 n51 live r4 c1+c2 133k, c1 again 50k = ~183k (day total ~240k, no cap set)."
   - "n51 (038eab5 on try/n3-vocabulary): planner: round-top/flat-bottom filled block = 'shape' arch (poly outline); tilts say 'tilted N° clockwise|anticlockwise' (contract maps to rotate(±N)); see-through hard shadow says 'at N% opacity'. Pipeline run2 verify: lostStrokes now restored mechanically (scaffold.ts restoreLostStrokes) before any repair turn; a repair turn once claimed it restored and didn't. Rounds 2/3/5 plans gain tilt degrees; r4 c2 portrait now an arch."
+  - "n73 (78b44b0 on try/n3-vocabulary): intent2.ts: a text-only action whose squiggles form one drawn stack takes the stack's line boxes as its region (ink alone sat half a line low). Planner gradientWords: 2-colour linear gradients say each end's side and vivid ('vivid blue (top) to dark navy (bottom)'). Plan diffs r2-r5 gradients only; round 1 unchanged."
+  - "Token ledger: 2026-10-22 n73 live r4 c1 81k (day total ~390k, no cap set)."
 criteria:
   - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
   - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
@@ -181,7 +183,9 @@ nodes:
      result: "Arches, tilt angles, faint shadow, lost strokes restored: split poster 43% to 65%; collage parts right, 63%. 038eab5."}
   - {id: n72, parent: n51, kind: step, title: "Free first, ~50k live: round-4 c1 collage headline built ~95px (target 150px, 3 lines) and cream page dropped on one of two runs; trace headline size from ink, fix, re-run c1", status: done,
      result: "Pitch read as 1.1 leading (123px); notes now say tight leading: headline 150px, collage 63% to 70%. 543966d."}
-  - {id: n73, parent: n72, kind: step, title: "Free first, ~50k live: round-4 c1 headline sits ~60px low over the body copy, blue photo built flat navy (gradient lost); fix, re-run c1", status: open, result: null}
+  - {id: n73, parent: n72, kind: step, title: "Free first, ~50k live: round-4 c1 headline sits ~60px low over the body copy, blue photo built flat navy (gradient lost); fix, re-run c1", status: done,
+     result: "Text blocks now placed by their drawn lines, gradients say which end is which: collage 70% to 82%. 78b44b0."}
+  - {id: n74, parent: n73, kind: step, title: "~100k live: see the gain carries: re-run round-5 c4 (blue photo gradient now said dark bottom, was n69) and one round-3/4 page with a big multi-line headline (round-3 c5 or round-4 c5); fix the worst gap", status: open, result: null}
   - {id: n52, parent: n50, kind: step, title: "Free first, ~45k live: e5 gantt rows built ~2x drawn height (score 18% though content right), today line short, colour dots dropped; fix, re-run e5; then build round-4 c2, c3, c5, e2-e4", status: done,
      result: "Plan says row pitch, bar height, reach and dot colours: gantt 18% to 47%. 4612b23."}
   - {id: n53, parent: n52, kind: step, title: "~150k live (--budget): first builds of round-4 c2 difference split, c3 Swiss grid, c5 sticky story, e2 mail, e3 checkout, e4 files; fix the worst gap (e5 left: name rows ~30px above bars, today line stops short)", status: done,
@@ -213,7 +217,7 @@ nodes:
      result: "Both SUMMER lines, underlined link, title, CTA gradient now built; lost-stroke check added: c4 58 to 65, c5 57 to 78. ff5f5e0."}
   - {id: n68, parent: n66, kind: step, title: "Free first, ~60k live: round-5 c4 gradient photos built pale (peach, target vivid orange to brown; scaffold fills at 42-16% opacity unless the note says vivid). Make a gradient block's scaffold fill opaque, re-run c4", status: done,
      result: "Gradient blocks now vivid; blue photo dark blue and on top. c4 photos match by eye; score 65 to 63. 98ee189."}
-  - {id: n69, parent: n68, kind: step, title: "Low priority, ~60k live: round-5 c4 blue photo gradient runs the wrong way (dark top-left, target dark bottom); planner should say which end is dark. Fix, re-run c4", status: open, result: null}
+  - {id: n69, parent: n68, kind: step, title: "Low priority, ~60k live: round-5 c4 blue photo gradient runs the wrong way (dark top-left, target dark bottom); planner should say which end is dark. Fix, re-run c4", status: pruned, result: "Folded into n74: planner now says which end of a gradient is dark."}
   - {id: n67, parent: n65, kind: step, title: "~50k live: first build of round-5 e1 board modal (budget stopped it in n65); c1 glows built purple/blue (target one big orange glow, scaled 200%)", status: done,
      result: "Planner says filled-in forms and pinned buttons: board modal 81% first build, 90% after. ec93121."}
   - {id: n70, parent: n67, kind: step, title: "Free first, ~60k live: round-5 c1 masked reel glows built purple/blue (target one big orange glow scaled 200%); trace from plan glows fact, fix, re-run c1", status: done,
