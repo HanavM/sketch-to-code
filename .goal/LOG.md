@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T19:12:00Z | Torn collage first build | Tapes, drop cap, red pen ring said: torn collage built first time, 69%, all must-haves. 93k.
 2026-10-22T18:58:00Z | Product page slow build | Thumbs, swatches, heart no longer drawn-shape files: build 8 to 4 min, 45 to 69%. 178k.
 2026-10-22T18:08:00Z | Product page run cap, kanban re-run | Repair waits if no time left: product page completes 45%; kanban 51 to 74%. 251k.
 2026-10-22T17:05:00Z | Everyday pages drifting lower | New height check plus repair: kanban 36 to 51%, admin 64%; product page ran out of time. 255k.

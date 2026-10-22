@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Product page now 69% alike (was 45%): thumbnails and buttons build as clean boxes, so it has time to fix its spacing. Next: the torn-paper collage page, never built yet."
-lock: {by: run-1856, until: 2026-10-22T20:26:08Z}
+now: "The torn-paper collage page was built for the first time and came out 69% alike, with its tape, drop cap and red pen circle. Next: tidy its small misplacements, then the admin table."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n102 (84e3304 on try/n3-vocabulary): planner facts dropCap (::first-letter float left, >= 2.5x body px), ringSvg (svg with one unfilled stroked ellipse/circle -> kind shape, 16-point ellipse poly, note colour/line/size/tilt), tape (textless fill alpha 0.3-0.9, layout box <= 260x80 and >= 2.5:1 -> box 'see-through ... strip of sticky tape', no X). Rounds 1-3,5,6 plans unchanged; r4 c5 tape note changes (overlap clause dropped). Live c5 69% (93k, 5.6 min, must 100%, effects 75%). Vitest: same 2 env failures."
+  - "Token ledger: 2026-10-22 n102 live r7 c5 ~93k billed."
   - "n101 (647d74c on try/n3-vocabulary): pipeline scaffold.ts isPrimitivePath (line, upright rounded rect with edge tol min(14, max(7, 10%)), dot <= 80px; points sampled on the curve) + onlyPrimitives: no scaffold for 3+ same-size closed primitives (+ straight lines) or one primitive in a <= 80px region; trace rung untouched. Replay on saved runs r1-r7: 7 actions lose a scaffold (3 on r7 e4). Live e4 69% (build 265s 73k 9 tools, repair 272s 50k). Bench needs S2C_CHROMIUM=/opt/pw-browsers/chromium here. One run failed with reading > 150s (no change made for it)."
   - "Token ledger: 2026-10-22 n101 live e4 148k + failed reading ~0 + read-only probe 30k = ~178k billed."
   - "n100 (ce69262 on try/n3-vocabulary): pipeline repair-time.ts: a repair turn starts only if deadline (vite-plugin passes ctx.deadline = start + runTimeoutMs, 12 min) leaves max(longest repair, 40% build, 2 min) + 1 min verify; else keep the build. run2 saves sends.json per turn. drift repair note forbids negative margin/top/absolute pull-ups. Live: e4 45% x2 (first hit cap pre-guard; second 1 build turn 484s, 120k, 6 SketchShape files), e1 74% (1 turn, 19/19 within 16px)."
@@ -350,4 +352,6 @@ nodes:
      result: "Repair only starts if it fits before the run cap: product page completes (45%); kanban 51 to 74%. ce69262."}
   - {id: n101, parent: n100, kind: step, title: "Free first, ~120k live: r7 e4 build turn takes ~8 min reading 6 drawn-shape files (thumbs, heart kept as drawn shapes, X lines on thumbs); make them plain boxes/icon per plan so the build fits ~5 min and the drift repair runs; re-run e4 (target ~62%+)", status: done, branch: try/n3-vocabulary,
      result: "Widget boxes no longer become drawn-shape files: product page build 8 to 4 min, repair runs, 45 to 69%. 647d74c."}
-  - {id: n102, parent: n101, kind: step, title: "Free first, ~200k live: first live r7 c5 torn collage (never built; tapes, drop cap, red ellipse); e5 admin table 64% (page ~16px low, pager cut); e4 leftovers: photo square with wobbly drawn edge, Details header over its body text, swatch ring lost", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n102, parent: n101, kind: step, title: "Free first, ~200k live: first live r7 c5 torn collage (never built; tapes, drop cap, red ellipse); e5 admin table 64% (page ~16px low, pager cut); e4 leftovers: photo square with wobbly drawn edge, Details header over its body text, swatch ring lost", status: done, branch: try/n3-vocabulary,
+     result: "Tapes, drop cap and red ring now said: torn collage built first time at 69%, every must-have block present. 84e3304."}
+  - {id: n103, parent: n102, kind: step, title: "Free first, ~200k live: c5 issue line placed top right (built above column plus invented VOL. IV), hand note on one line, photos flat with gradient hexes and drawn position; e5 admin table ~16px low, pager cut; e4 photo corners, Details header over body, swatch ring", status: open, branch: try/n3-vocabulary, result: null}
