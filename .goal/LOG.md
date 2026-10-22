@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-22T16:25:00Z | Round 7 product photo, thumbs, heart, pager | Product page 48 to 62%; kanban 36% (blocks drift low); admin 62%, pager caption built. 257k.
 2026-10-22T15:40:00Z | Round 7 everyday: kanban, funnel, product | Card gaps, funnel, stacked bars, cohort shades said: kanban 23 to 50, dashboard 28 to 75, product 30 to 48%. 229k.
 2026-10-22T15:35:00Z | Round 7 everyday first builds | Code editor 86%, admin table 66% with every row said; kanban 23, product 30, dashboard 28%. 404k.
 2026-10-22T14:23:00Z | Round 7 creative misses | Wave word, skylines, cubes, orb said: bento 55 to 85%, wave 16 to 61%, night 73 to 90%, cubes 91%. 420k.

@@ -1,11 +1,13 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Kanban board 23 to 50%, growth dashboard 28 to 75%, product page 30 to 48%. Next: the product photo's jacket shape and thumbnails, then the torn collage."
-lock: {by: run-2026-10-22T1541, until: "2026-10-22T17:11:00Z"}
+now: "Product page now 62% like its target (was 48%) with the jacket picture, thumbnails and heart right. Next: stop everyday pages sliding lower down the screen."
+lock: null
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n98 (4bc86be on try/n3-vocabulary): planner says a big solid shape over a gradient photo, pale tinted thumbs + selected ring, one-glyph icon buttons, pager caption (own text node), button size/outline/current fill and line top. Only round-7 e4/e5 and one round-3 pager note changed. Live: e4 62, e1 36 (vertical drift), e5 62. round7/NOTES.md."
+  - "Token ledger: 2026-10-22 n98 live e1+e4 198k + e5 59k = ~257k billed."
   - "n97 (504ac19 on try/n3-vocabulary): planner says column card gaps (top px + gap) and divider spacing, left-packed bars + search field, single KPI card sparkline, funnel bars, SVG stacked bars, one-hue cohort heat table (number@shade), struck price runs, choice-box states, noteless gradient photo backdrop, avatar full circle. Rounds 1,3,4,6 plans unchanged; r2/r5 bars gain \"at the LEFT\". Live: e1 50, e2 75, e4 48. round7/NOTES.md."
   - "Token ledger: 2026-10-22 n97 live e1 91k + e2,e4 138k = ~229k billed."
   - "n95 (5a27ffe on try/n3-vocabulary): planner says table rows cell by cell when they hold checkboxes/avatars/bars (pill-only tables unchanged), bulk bar lead + outlined buttons, floating menu with options and highlight, kanban task cards (tag colours, avatar dot, red edge, faded+struck done), column-head counts at far right, dashed swimlane rules. Rounds 1-6 plans unchanged. Live: e1 22 then 23 (content right, cards packed, lane high), e2 28, e3 86, e4 30, e5 66. round7/NOTES.md. 2 vitest failures (cli init gh-create, library home-not-writable) are pre-existing and environmental (run as root, gh present)."
@@ -334,4 +336,6 @@ nodes:
      result: "Done in n45: labels, 'Get in touch' and sub-lines all built; e1 59%, e4 68%."}
   - {id: n27, parent: n13, kind: step, title: "Free: c2 91k and c3 70k tokens with no per-turn record; log each codegen turn's cost so live runs show build vs repair cost", status: done,
      result: "Each build and repair turn now logs tokens, cache reads and tool calls; scripted e2e passes. cdcc2be."}
-  - {id: n98, parent: n97, kind: step, title: "Free first, ~150k live: e4 jacket shape (big ::after shape over the photo), thumb colours + selected outline, heart icon; e1 avatar dots as circles and whole page ~20px low; e5 pager. Re-run e4, e1, e5", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n98, parent: n97, kind: step, title: "Free first, ~150k live: e4 jacket shape (big ::after shape over the photo), thumb colours + selected outline, heart icon; e1 avatar dots as circles and whole page ~20px low; e5 pager. Re-run e4, e1, e5", status: done, branch: try/n3-vocabulary,
+     result: "Product page 48 to 62%: jacket, thumbs, heart right. Kanban 36% (drifts low), admin 62% (pager caption built). 4bc86be."}
+  - {id: n99, parent: n98, kind: step, title: "Free first, ~150k live: everyday builds drift 10-30px lower per block down the page (e1 -64px, e4 -32, e5 -16). Find whether spacing or tops cause it; pin band tops; re-run e1, e4, e5", status: open, branch: try/n3-vocabulary, result: null}
