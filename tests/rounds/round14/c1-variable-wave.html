@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Variable wave</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f1ece2;font-family:Helvetica,Arial,sans-serif;color:#151515}
+.band{position:absolute;left:0;top:300px;width:1280px;height:300px;background:repeating-linear-gradient(90deg,#151515 0 40px,#f1ece2 40px 80px)}
+.wave{position:absolute;left:40px;top:330px;width:1200px;display:flex;justify-content:space-between;align-items:flex-end;mix-blend-mode:difference;color:#f1ece2;line-height:.8}
+.wave span{display:inline-block;animation:w 2.4s ease-in-out infinite alternate}
+@keyframes w{to{transform:translateY(-30px)}}
+.wave span:nth-child(1){font-size:120px;font-weight:100}.wave span:nth-child(2){font-size:160px;font-weight:300;animation-delay:.1s}.wave span:nth-child(3){font-size:200px;font-weight:500;animation-delay:.2s}.wave span:nth-child(4){font-size:240px;font-weight:900;animation-delay:.3s}.wave span:nth-child(5){font-size:200px;font-weight:500;animation-delay:.4s}.wave span:nth-child(6){font-size:160px;font-weight:300;animation-delay:.5s}.wave span:nth-child(7){font-size:120px;font-weight:100;animation-delay:.6s}
+.kick{position:absolute;left:60px;top:120px;font-size:13px;letter-spacing:4px}
+.lede{position:absolute;left:60px;top:150px;width:520px;font-family:Georgia,serif;font-size:40px;line-height:1.15}
+.lede em{color:#e2462c}
+.dial{position:absolute;left:1000px;top:110px;width:150px;height:150px;border-radius:50%;border:2px solid #151515;background:conic-gradient(#e2462c 0 64%,transparent 64%)}
+.dial::after{content:"640";position:absolute;left:20px;top:20px;width:106px;height:106px;border-radius:50%;background:#f1ece2;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700}
+.axes{position:absolute;left:60px;top:660px;width:1160px;display:flex;justify-content:space-between;font-family:monospace;font-size:14px;border-top:1px solid #151515;padding-top:12px}
+.btn{position:absolute;left:60px;top:780px;padding:16px 30px;background:#e2462c;color:#fff;font-weight:700;border-radius:0;box-shadow:6px 6px 0 #151515}
+nav{position:absolute;left:60px;top:40px;width:1160px;display:flex;justify-content:space-between;font-size:14px}
+</style></head><body>
+<nav data-r="nav"><b>FLUX GROTESK</b><span>Specimen · Axes · Licence · Buy</span></nav>
+<div class="kick" data-r="kicker">A VARIABLE TYPEFACE, 100 → 900</div>
+<p class="lede" data-r="headline" data-must>One family that <em>breathes</em> with your layout.</p>
+<div class="dial" data-r="weight-dial"></div>
+<div class="band" data-r="stripe-band" data-must></div>
+<div class="wave" data-r="wave-word" data-must><span>F</span><span>L</span><span>U</span><span>X</span><span>I</span><span>O</span><span>N</span></div>
+<div class="axes" data-r="axes-row"><span>wght 100–900</span><span>wdth 75–125</span><span>slnt −12–0</span><span>opsz 8–144</span></div>
+<a class="btn" data-r="cta">Try the axes</a>
+</body></html>

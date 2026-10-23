@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Neon tiles</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#09090c;font-family:Helvetica,Arial,sans-serif;color:#f2f2f2}
+.grid{position:absolute;left:600px;top:110px;width:620px;height:620px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:10px}
+.grid div{border:1px solid #2b2b33;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:130px;color:#39ff9c;text-shadow:0 0 18px rgba(57,255,156,.8)}
+.grid div:nth-child(1){font-weight:100}.grid div:nth-child(2){font-weight:300;font-style:italic}.grid div:nth-child(3){font-weight:900}
+.grid div:nth-child(4){font-weight:900;color:#ff3fd4;text-shadow:0 0 18px rgba(255,63,212,.8)}.grid div:nth-child(5){background:#39ff9c;color:#09090c;text-shadow:none;font-weight:900}.grid div:nth-child(6){font-weight:100;color:#ff3fd4;text-shadow:0 0 18px rgba(255,63,212,.8)}
+.grid div:nth-child(7){font-weight:500;color:transparent;-webkit-text-stroke:2px #39ff9c}.grid div:nth-child(8){font-weight:900;font-style:italic}.grid div:nth-child(9){font-weight:300;color:#ffe14a;text-shadow:0 0 18px rgba(255,225,74,.8)}
+.sticker{position:absolute;left:1100px;top:80px;width:130px;height:130px;border-radius:50%;background:#ffe14a;color:#09090c;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(16deg)}
+h1{position:absolute;left:60px;top:150px;width:500px;font-size:96px;line-height:.92;font-weight:900;letter-spacing:-4px}
+h1 span{color:#39ff9c;text-shadow:0 0 22px rgba(57,255,156,.7)}
+.copy{position:absolute;left:62px;top:430px;width:420px;font-size:17px;line-height:1.55;color:#9a9aa6}
+.stats{position:absolute;left:62px;top:560px;width:460px;display:flex;justify-content:space-between;border-top:1px solid #2b2b33;padding-top:16px}.stats b{display:block;font-size:34px}.stats span{font-size:12px;color:#9a9aa6;letter-spacing:2px}
+.btn{position:absolute;left:62px;top:700px;padding:16px 30px;border:1px solid #39ff9c;color:#39ff9c;border-radius:4px;box-shadow:0 0 20px rgba(57,255,156,.4),inset 0 0 12px rgba(57,255,156,.3);font-weight:700}
+.tick{position:absolute;left:0;top:820px;width:1280px;height:40px;background:#ff3fd4;color:#09090c;font-weight:900;font-size:16px;letter-spacing:3px;line-height:40px;white-space:nowrap;transform:rotate(-2deg)}
+nav{position:absolute;left:60px;top:36px;width:1000px;display:flex;justify-content:space-between;font-size:14px;color:#9a9aa6}
+</style></head><body>
+<nav data-r="nav"><b style="color:#fff">GLYPH/LAB</b><span>Fonts · Tools · Night school</span></nav>
+<h1 data-r="headline" data-must>Nine weights, <span>one glow</span></h1>
+<p class="copy" data-r="copy">A neon display family drawn for signs that hum. Every weight ships with its own glow profile.</p>
+<div class="stats" data-r="stats"><div><b>9</b><span>WEIGHTS</span></div><div><b>412</b><span>GLYPHS</span></div><div><b>3</b><span>AXES</span></div></div>
+<a class="btn" data-r="cta">Download trial</a>
+<div class="grid" data-r="glyph-grid" data-must><div>A</div><div>g</div><div>R</div><div>&amp;</div><div>Q</div><div>e</div><div>S</div><div>7</div><div>?</div></div>
+<div class="sticker" data-r="sticker">NEW<br>v2.0</div>
+<div class="tick" data-r="ticker">GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ</div>
+</body></html>

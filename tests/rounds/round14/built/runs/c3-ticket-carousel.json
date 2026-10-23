@@ -1,0 +1,169 @@
+{
+  "id": "c3-ticket-carousel",
+  "at": "2026-10-23T23:28:29.861Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6114862525249272,
+    "overallV2": 0.6114862525249272,
+    "overallV1": 0.5807881418865881,
+    "colour": 0.8491807560075104,
+    "structure": 0.6611128793838771,
+    "structureStrict": 0.5886637309884957,
+    "colourAligned": 0.8491807560075104,
+    "structureAligned": 0.6611128793838771,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.29402140113704756
+    },
+    "layout": 0.4050818720686781
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "3d",
+      "gradient",
+      "hollow-type",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "mask"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 33805,
+    "output": 26603,
+    "cacheRead": 120259
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48839,
+      "output": 19842,
+      "cacheRead": 117175,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 214142
+    }
+  ],
+  "reading": "A festival landing page: no-box nav with brand left and links right, a big centred 'Pick your night' heading with a hollow 'night', lavender subtext, a real CSS 3D rotating cube carousel of night/stage cards flanked by prev/next pill buttons, a 4-dot pagination indicator, and an off-white 'Get Friday pass' CTA pill — all set over a gradient page with a tilted perspective grid 'floor' behind everything.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        35,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a navigation bar with no box around it: bold 'NIGHTSHIFT FEST' on the left, and 'Line-up · Stages · Camping · FAQ' on the right. Its text colour is #b7acd9 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        8,
+        87,
+        1152,
+        88
+      ],
+      "paths": [],
+      "instruction": "Add a huge Helvetica Heavy heading reading 'Pick your night', on one line (white-space: nowrap, never wraps), about 490px wide, centred on the page (text runs x"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        4,
+        185,
+        1272,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add body copy beneath the heading reading 'Five nights, five stages. Spin the wheel and grab a pass.' Its text colour is #b7acd9 (lavender), not the page's defa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        253,
+        1273,
+        394
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Build a real CSS 3D cube (not a flat drawing or SVG, not a projected rectangle): a 1280x400px scene at 0,250 with perspective: 1100px; inside it one group div ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        594,
+        704,
+        92,
+        3
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a pagination/progress indicator below the cube as 4 real elements: a 28x10px pill at 590,700 filled #ff5caa (active state), and three 10x10px circles at 632"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        543,
+        772,
+        195,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a call-to-action pill button labeled 'Get Friday pass', 200x50px with fully rounded (pill) ends, #f4f0ff fill and #120a2a near-black text (not the page's de"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

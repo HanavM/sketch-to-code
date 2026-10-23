@@ -1,0 +1,219 @@
+{
+  "id": "c5-neon-tiles",
+  "at": "2026-10-23T23:32:04.976Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7689206854365456,
+    "overallV2": 0.7689206854365456,
+    "overallV1": 0.7116606761837021,
+    "colour": 0.9234784457487604,
+    "structure": 0.7009921098289186,
+    "structureStrict": 0.5445000287007198,
+    "colourAligned": 0.9234784457487604,
+    "structureAligned": 0.7009921098289186,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.5722473171082244
+    },
+    "layout": 0.696149434778802
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "hollow-type",
+      "huge-type",
+      "tilt"
+    ],
+    "missing": [
+      "glow",
+      "italic",
+      "overlap"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 27589,
+    "output": 15269,
+    "cacheRead": 153929
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 28682,
+      "output": 9783,
+      "cacheRead": 142782,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 109187
+    }
+  ],
+  "reading": "This is a hero section for a type-foundry landing page: a borderless nav, a tight 3-line display headline with a green accent word, grey subcopy, a stats row with a top rule, an outline 'Download trial' button, a giant per-letter stylised word, a tilted yellow 'NEW v2.0' badge, and a tilted pink marquee bar — all styling and copy taken verbatim from the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        992,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a nav bar with no border/box: bold 'GLYPH/LAB' on the left in white (#ffffff), and 'Fonts · Tools · Night school' on the right in grey (#9a9aa6) — each word"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        68,
+        150,
+        450,
+        265
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica Heavy headline, tightly set (line-height 0.92), broken into exactly 3 lines that must stay whole and never rewrap: 'Nine' / 'weights,' / '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        66,
+        430,
+        412,
+        53
+      ],
+      "paths": [],
+      "instruction": "Add grey (#9a9aa6) body copy: 'A neon display family drawn for signs that hum. Every weight ships with its own glow profile.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        65,
+        563,
+        453,
+        68
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a stats row 460px wide with ONLY a 1px #2b2b33 rule along its top edge (no borders elsewhere, no fill). Below the rule, place three items on one line spaced"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        702,
+        169,
+        49
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a pill-shaped outline button labeled 'Download trial' with a bright green (#39ff9c) outline and text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8"
+          ],
+          "lines": 1,
+          "fontPx": 146
+        }
+      ],
+      "region": [
+        608,
+        333,
+        558,
+        175
+      ],
+      "paths": [],
+      "instruction": "Add the single word 'AgR&QeS7?' in giant Helvetica off-white letters on one line, each letter its own span with its own font-size/weight, all sharing one bottom"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1090,
+        69,
+        152,
+        153
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a vivid yellow circular badge, tilted 16° clockwise, about 130px across, with centred black (#09090c) text 'NEW v2.0' wrapped onto 3 lines at 14px."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        801,
+        1274,
+        79
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add a vivid pink bar, tilted 2° anticlockwise, spanning the width, containing bold 16px black (#09090c) marquee-style text: 'GLOW · HUM · BUZZ · FLICKER · GLOW "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

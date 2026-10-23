@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Database console</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1e1f22;font-family:Helvetica,Arial,sans-serif;color:#cfd3da;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:44px;background:#2b2d30;border-bottom:1px solid #393b40;padding:13px 16px;color:#fff;font-weight:700}
+.top .run{position:absolute;left:1150px;top:8px;padding:6px 16px;border-radius:5px;background:#3574f0;color:#fff;font-weight:700}
+.top .db{position:absolute;left:220px;top:9px;padding:5px 12px;border:1px solid #4e5157;border-radius:5px;font-weight:400}
+.tree{position:absolute;left:0;top:44px;width:240px;height:856px;background:#2b2d30;border-right:1px solid #393b40;padding:12px;line-height:26px;font-family:monospace}
+.tree .sel{background:#2e436e;color:#fff;margin:0 -12px;padding:0 12px}.tree .t{padding-left:16px}.tree .c{padding-left:32px;color:#8a8f98}
+.ed{position:absolute;left:240px;top:44px;width:740px;height:330px;background:#1e1f22;font-family:monospace;font-size:14px;line-height:24px;padding:14px 0}
+.ed p{white-space:pre}.ed p::before{content:attr(data-n);display:inline-block;width:44px;padding-right:12px;text-align:right;color:#5a5d63}
+.k{color:#cf8e6d}.s{color:#6aab73}.n{color:#2aacb8}.f{color:#56a8f5}
+.tabs{position:absolute;left:240px;top:374px;width:740px;height:36px;background:#2b2d30;border-top:1px solid #393b40;border-bottom:1px solid #393b40;display:flex}.tabs span{padding:10px 16px}.tabs .on{border-bottom:2px solid #3574f0;color:#fff}
+.res{position:absolute;left:240px;top:410px;width:740px;border-collapse:collapse;font-family:monospace}
+.res th{background:#2b2d30;text-align:left;padding:8px 10px;color:#8a8f98;font-weight:400;border-right:1px solid #393b40}
+.res td{padding:8px 10px;border-bottom:1px solid #2b2d30;border-right:1px solid #2b2d30}.res tr:nth-child(3) td{background:#2e436e}
+.stat{position:absolute;left:240px;top:870px;width:740px;height:30px;background:#2b2d30;padding:8px 12px;color:#8a8f98}
+.schema{position:absolute;left:980px;top:44px;width:300px;height:856px;background:#2b2d30;border-left:1px solid #393b40;padding:14px}
+.schema h4{color:#fff;margin-bottom:10px}.schema p{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #393b40;font-family:monospace}.schema p span{color:#8a8f98}
+.key{color:#f2c55c}
+</style></head><body>
+<div class="top" data-r="topbar">⛁ DataDesk<span class="db">prod-eu · shop</span><span class="run">▶ Run</span></div>
+<div class="tree" data-r="table-tree" data-must>▾ shop<div class="t">▾ tables</div><div class="c">customers</div><div class="c sel">orders</div><div class="c">order_items</div><div class="c">products</div><div class="c">refunds</div><div class="t">▸ views</div><div class="t">▸ functions</div></div>
+<div class="ed" data-r="query-editor" data-must><p data-n="1"><span class="k">SELECT</span> o.id, c.email, o.total, o.status</p><p data-n="2"><span class="k">FROM</span> orders o</p><p data-n="3"><span class="k">JOIN</span> customers c <span class="k">ON</span> c.id = o.customer_id</p><p data-n="4"><span class="k">WHERE</span> o.created_at &gt; <span class="s">'2026-10-01'</span></p><p data-n="5">  <span class="k">AND</span> o.total &gt; <span class="n">100</span></p><p data-n="6"><span class="k">ORDER BY</span> o.total <span class="k">DESC</span></p><p data-n="7"><span class="k">LIMIT</span> <span class="n">50</span>;</p></div>
+<div class="tabs" data-r="result-tabs"><span class="on">Result 1</span><span>Messages</span><span>Plan</span></div>
+<table class="res" data-r="result-grid" data-must><tr><th>id</th><th>email</th><th>total</th><th>status</th></tr><tr><td>10482</td><td>mara@kite.io</td><td>1,240.00</td><td>paid</td></tr><tr><td>10477</td><td>j.ortiz@mail.com</td><td>980.50</td><td>paid</td></tr><tr><td>10490</td><td>ops@linden.co</td><td>712.00</td><td>refunded</td></tr><tr><td>10431</td><td>sam@okoye.dev</td><td>455.90</td><td>paid</td></tr><tr><td>10466</td><td>hello@bram.nl</td><td>301.25</td><td>pending</td></tr><tr><td>10459</td><td>li.wei@post.cn</td><td>188.00</td><td>paid</td></tr></table>
+<div class="stat" data-r="status-bar">6 rows · 42 ms · read-only</div>
+<div class="schema" data-r="schema-panel"><h4>orders</h4><p><b><span class="key">⚿</span> id</b><span>bigint</span></p><p><b>customer_id</b><span>bigint</span></p><p><b>total</b><span>numeric(10,2)</span></p><p><b>status</b><span>text</span></p><p><b>created_at</b><span>timestamptz</span></p><p><b>shipped_at</b><span>timestamptz</span></p></div>
+</body></html>
