@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 9 is set: ten harder pages (sliced type, frosted glass, halftone poster, spreadsheet, map search and more). First three creative builds score 45-64%; next I teach the tools frosted glass cards, sliced words and stripes."
 round: 9
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 54]
-lock: null
+lock: {by: run-n129, until: "2026-10-23T09:10:51Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
