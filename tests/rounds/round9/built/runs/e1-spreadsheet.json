@@ -1,23 +1,23 @@
 {
   "id": "e1-spreadsheet",
-  "at": "2026-10-23T09:41:35.869Z",
+  "at": "2026-10-23T10:13:14.312Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5464318600611042,
-    "overallV2": 0.538634088206829,
-    "overallV1": 0.33181080942829455,
-    "colour": 0.9872593221029149,
-    "structure": 0.852257956730571,
-    "structureStrict": 0.5751829060752852,
-    "colourAligned": 0.9877848622698087,
-    "structureAligned": 0.85247363433868,
+    "overall": 0.7756989783392143,
+    "overallV2": 0.7756989783392143,
+    "overallV1": 0.749968640023962,
+    "colour": 0.9932765734883278,
+    "structure": 0.8796762089225508,
+    "structureStrict": 0.8531254349959082,
+    "colourAligned": 0.9932765734883278,
+    "structureAligned": 0.8796762089225508,
     "align": {
       "scale": 1,
       "dx": 0,
-      "dy": 16,
-      "r": 0.6692800060292383
+      "dy": 0,
+      "r": 0.6922761741375917
     },
-    "layout": 0.552617332303643
+    "layout": 0.9646348015773636
   },
   "effects": {
     "recall": 0.5,
@@ -27,33 +27,35 @@
     "missing": [
       "mono"
     ],
-    "extra": []
+    "extra": [
+      "gradient"
+    ]
   },
   "tokens": {
-    "input": 44880,
-    "output": 22400,
-    "cacheRead": 128158
+    "input": 35292,
+    "output": 20504,
+    "cacheRead": 111840
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 50184,
-      "output": 14627,
-      "cacheRead": 117131,
+      "billed": 41190,
+      "output": 14572,
+      "cacheRead": 100696,
       "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 145809
+      "ms": 156914
     }
   ],
-  "reading": "The sketch is a full spreadsheet UI (like Google Sheets) laid over the wireframe: a top title bar with a logo, title, menu and Share pill; a toolbar strip of editing icons; a formula bar with cell reference and formula; a column-letter header row; a row-number column down the left; a large data grid of regional sales figures; and a bottom sheet-tabs bar. All content and structure for each row is given explicitly in the typed notes, which take priority over the ink.",
+  "reading": "The sketch lays out a Google-Sheets-style page: a top app bar with a logo, title and menu, a toolbar pill of formatting icons, a formula/name bar, a column-header row, a left page-number rail, a large data grid of sales figures, and a bottom sheet-tabs bar pinned to the page bottom.",
   "actions": [
     {
       "kind": "add",
@@ -68,7 +70,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar, 56px tall, spanning the full page width at the very top, no fill (page colour) with a 1px #dadce0 line beneath it. Only these items, left to right, eac"
+      "instruction": "Add a 56px-tall top bar spanning the full page width, no fill (page colour) with a 1px #dadce0 line underneath. Left to right, vertically centred: a 32x32px 6px"
     },
     {
       "kind": "add",
@@ -83,7 +85,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Pale blue-grey toolbar, 40px tall, spanning the full page width, directly below the top bar. Icons/links, all clustered together at the LEFT one after another ("
+      "instruction": "Add a fully rounded #edf2fa pill toolbar, 1256x40px, inset at x 12 / top 64 (not a full-width square strip). Left to right, all grouped together at the LEFT end"
     },
     {
       "kind": "add",
@@ -110,7 +112,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Formula bar row below the toolbar: a cell-reference box on the left showing \"F4\", and a formula input on the right showing \"fx =SUM(B4:E4)\"."
+      "instruction": "Add a name-box/formula bar row below the toolbar: 'F4' on the left, and 'fx =SUM(B4:E4)' on the right."
     },
     {
       "kind": "add",
@@ -136,7 +138,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Pale grey column-header bar, 24px tall, spanning the full page width, with column letter links A, B, C, D, E, F, G, H; \"F\" is the selected column (bold, blue te"
+      "instruction": "Add a pale grey column-header bar, 24px tall, spanning the page width, with column links A, B, C, D, E, F, G, H; 'F' is the selected column: bold, blue text, li"
     },
     {
       "kind": "add",
@@ -151,7 +153,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Pale grey row-number column running down the left side of the grid, listing page/row numbers 1 through 18, top to bottom."
+      "instruction": "Add a narrow left-side rail listing pale grey row/page numbers 1 through 18 top to bottom, matching the grid's row heights."
     },
     {
       "kind": "add",
@@ -166,7 +168,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Spreadsheet data grid, 18 rows x 8 columns, each cell 148x36px with a 1px #e3e3e3 right and bottom border (a real cell grid, not paragraph text), 10px side padd"
+      "instruction": "Add a spreadsheet data grid, 18 rows x 8 columns, each cell 148x36px with a 1px #e3e3e3 right/bottom border, 10px side padding, 13px text (a real cell grid, not"
     },
     {
       "kind": "add",
@@ -181,7 +183,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Pale grey sheet-tabs bar, 40px tall, spanning the full page width at the bottom. Links, all clustered together at the LEFT one after another (ending 346px in, l"
+      "instruction": "Add a pale grey sheet-tabs bar, 40px tall, spanning the page width, pinned to the very bottom of the page (position fixed/absolute, bottom 0, not placed directl"
     }
   ],
   "rejected": []

@@ -143,6 +143,13 @@ export function factsInPage() {
         return /rotate/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
       })(),
       vertical: /^vertical/.test(cs.writingMode),
+      // n133: the vertical words' own extent in the box (round 9 c5 title built short and low)
+      vSpan: /^vertical/.test(cs.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); const q = [...rg.getClientRects()].filter((z) => z.width > 1 && z.height > 1); return q.length ? { top: Math.round(Math.min(...q.map((z) => z.top))), bottom: Math.round(Math.max(...q.map((z) => z.bottom))) } : null })() : null,
+      // n133: a row with only a rule along its top and two ends spread apart (round 9 c5 byline built as a bordered box)
+      topRule: parseFloat(cs.borderTopWidth) >= 1 && !parseFloat(cs.borderBottomWidth) && !parseFloat(cs.borderLeftWidth) && !parseFloat(cs.borderRightWidth) ? { px: parseFloat(cs.borderTopWidth), c: rgba(cs.borderTopColor), pad: Math.round(parseFloat(cs.paddingTop) || 0) } : null,
+      spreadEnds: /flex/.test(cs.display) && cs.justifyContent === 'space-between',
+      // n133: a small filled caption chip sitting ON a picture block (round 9 c5 'FIG. 1' built as a line under it)
+      innerChip: (() => { const ks = [...el.children]; if (ks.length !== 1 || r.width < 200 || r.height < 200) return null; const k = ks[0], c = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim(), fl = rgba(c.backgroundColor); if (!t || t.length > 40 || !(fl?.a > 0.5) || b.width > r.width * 0.8) return null; return { t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), fill: fl, spaced: (parseFloat(c.letterSpacing) || 0) >= 1.5, sans: !/serif/i.test(c.fontFamily) || /sans/i.test(c.fontFamily) } })(),
       clipPoints: /polygon\(/.test(cs.clipPath) ? cs.clipPath.split(',').length : 0,
       // the cut-out's outline as fractions of the block (percent or px corners), so it can be drawn as itself
       clipPoly: (() => {
@@ -1720,7 +1727,10 @@ function effectWords(f) {
   const turn = Math.abs(f.rotate)
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   // a small vertical label says its type size: 'vertical' alone was built ~9px on a 15px target (round 6 c2)
-  if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long` : 'vertical')
+  if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long`
+    // n133: a giant vertical title says its size, its turn and where its words run (round 9 c5 built short and low)
+    : f.font.size >= 60 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters on one line, its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
+    : 'vertical')
   // with its angles: a bare 'tilted back' built three cards at one made-up angle (round 6 c1)
   else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
   // which way and how far: a bare 'tilted' was built flat (round 4 c1 blue block, sticker)
@@ -2021,7 +2031,14 @@ function codeNote(f) {
 }
 
 function decide(f, page, marked, said = new Set()) {
-  const d = decideOne(f, page, marked, said)
+  // n133: a two-ended row under a top rule only, said as itself (round 9 c5 byline built as a bordered box)
+  if (f.topRule && f.spreadEnds && f.kidTexts.length === 2 && f.rect.h <= 80 && !f.regionKids.length) {
+    const k = f.kidBoxes?.[0], T = f.topRule
+    return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; two items on one line pushed to its two ends (justify-content: space-between): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${quote(f.kidTexts[1], 30)} at the far right` }
+  }
+  const d0 = decideOne(f, page, marked, said)
+  const C = f.innerChip
+  const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ON it (inside the block, not under it) a small caption chip at ${C.x},${C.y} in the block: ${C.px}px ${C.sans ? 'sans-serif ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t, 40)} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px label` } : d0
   // a marked button with unmarked buttons beside it in the row: the note names the whole row, in order
   if (d.kind === 'button' && f.rowMates && d.note) {
     const all = [...f.rowMates.before, f.text, ...f.rowMates.after]
@@ -2115,7 +2132,7 @@ function decideOne(f, page, marked, said) {
     const tot = G.rows.findIndex((r) => r[0].top)
     let last = G.rows.length; while (last > 1 && G.rows[last - 1].every((c) => !c.t)) last--
     const rows = G.rows.slice(0, last).map((r) => r.map((c) => c.t || '·').join(' | ')).join(' / ') + (last < G.rows.length ? ` / then ${G.rows.length - last} empty rows of blank cells to the bottom` : '')
-    return { kind: 'box', note: `a spreadsheet grid at ${G.x},${G.y}: ${G.rows.length} rows x ${G.ncol} columns of cells, every cell ${G.colW}x${G.rowH}px with a ${G.lineW}px ${hexOf(G.line)} right and bottom line (a real cell grid, NOT a paragraph, NOT a list), ${G.pad}px side padding, 13px text; ${hdr}; columns ${rightCols.map((j) => j + 1).join(', ')} right-aligned (numbers)${special.length ? `; ${uniq(special).join('; ')}` : ''}${tot > 0 ? `; a ${G.rows[tot][0].top.px}px ${hexOf(G.rows[tot][0].top.c)} rule across the top of row ${tot + 1}${G.rows[tot].some((c) => c.t) ? ` (the bold total row)` : ''}` : ''}; cells row by row (| between cells, / between rows, · an empty cell): ${rows}` }
+    return { kind: 'box', note: `a spreadsheet grid at ${G.x},${G.y}: ${G.rows.length} rows x ${G.ncol} columns of cells, every cell ${G.colW}x${G.rowH}px with a ${G.lineW}px ${hexOf(G.line)} right and bottom line (a real cell grid, NOT a paragraph, NOT a list), ${G.pad}px side padding, 13px text; ${hdr}; columns ${rightCols.map((j) => j + 1).join(', ')} right-aligned (numbers)${rightCols.every((j) => !G.rows[0][j].right) ? ' (their header cells stay LEFT-aligned like the rest of the header row)' : ''}${special.length ? `; ${uniq(special).join('; ')}` : ''}${tot > 0 ? `; a ${G.rows[tot][0].top.px}px ${hexOf(G.rows[tot][0].top.c)} rule across the top of row ${tot + 1}${G.rows[tot].some((c) => c.t) ? ` (the bold total row)` : ''}` : ''}; cells row by row (| between cells, / between rows, · an empty cell): ${rows}` }
   }
   // n131: a drawn street map: every area and strip, then every price pin, each at its place in the panel
   if (f.mapPanel) {
@@ -2716,7 +2733,12 @@ function decideOne(f, page, marked, said) {
       return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row, each pair joined by a short ${S.line.w}px ${S.line.h}px-thin ${colourName(S.line.fill)} line: ${said.join(' — ')}` }
     }
     const K = !Sp && f.kidPack, pack = K ? `; all of these sit together at the LEFT, one after another, ending ${K.end}px in (the right ${Math.round(100 - 100 * K.end / K.w)}% of the bar is empty, nothing pushed right)${K.field ? `; ${quote(K.field.t, 24)} is an outlined search field ${K.field.w}px wide, grey placeholder` : ''}` : ''
-    return { kind: fill || bordered ? 'box' : 'text', note: `${fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : ''}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}` }
+    // n133: a filled bar's own shape and place: round 9 e1's toolbar (a 20px-round pale pill inset 12px) was
+    // built as a square full-width strip, and its sheet tabs (pinned to the page bottom) built right under the grid
+    const R = f.rect, pill = fill && w >= 600 && f.radius >= Math.min(12, h / 2 - 2)
+    const shape = pill ? `a ${f.radius >= h / 2 - 1 ? 'fully rounded' : `${Math.round(f.radius)}px-rounded`} ${hexOf(f.bg)} pill ${Math.round(w)}x${Math.round(h)}px at x ${Math.round(R.x)}, top ${Math.round(R.y)} (inset from the page sides, NOT a square full-width strip), ` : ''
+    const foot = fill && w >= 600 && R.y + h >= 896 ? `; this bar is pinned to the very BOTTOM of the page (top ${Math.round(R.y)}, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above` : ''
+    return { kind: fill || bordered ? 'box' : 'text', note: `${shape || (fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : '')}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}${foot}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)

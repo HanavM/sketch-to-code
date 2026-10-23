@@ -671,7 +671,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 44px tall across the page, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill); all of these sit together at the LEFT, one after another, ending 351px in (the right 73% of the bar is empty, nothing pushed right)"
+    "pale grey bar 44px tall across the page, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill); all of these sit together at the LEFT, one after another, ending 351px in (the right 73% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 856, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above"
    ]
   ]
  }

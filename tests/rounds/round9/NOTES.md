@@ -152,3 +152,21 @@ words added); none re-run.
 
 Round 9 average now **82%** (creative 93 94 96 92 74; everyday 55 81 74 88 68). Next: e1 toolbar pill and row height
 (36px rows), c5 byline (top rule, two items spread) and caption chip; then round 10.
+
+## n133: inset toolbar pill, bottom-pinned tabs, top-rule byline, caption chip, vertical title span (2026-10-23, ~108k billed)
+
+Planner (free): a filled bar of short items that is itself a rounded pill says so with its size and place ("a fully
+rounded pill 1256x40 at x 12, top 64, NOT a square full-width strip"); a filled bar sitting on the page's bottom edge
+says it is pinned there; a spreadsheet's number columns say their header cells stay left-aligned; a row with only a
+rule along its top and two ends pushed apart is said as exactly that (not "border"); a small filled label sitting ON a
+picture block is said as a caption chip at its place (not a trailing quote that was built as a line under the
+picture); a giant vertical title says its size, its 180deg turn and where its letters run. Rounds 1-8 re-planned: three
+notes changed (a total row with a top rule in round 2, a bottom status bar in round 5, a BETA chip in round 7); none
+re-run.
+
+| page | before | n133 | what is still off |
+|---|---|---|---|
+| e1 spreadsheet | 55% | 78% (kept) | toolbar pill, tabs at the bottom, header cells left: near-exact; the total rule sits one row high |
+| c5 vertical editorial | 74% | 80% (kept) | byline rule with both ends, caption chip on the picture right; title starts low, kicker moved under the marquee, one invented caption line |
+
+Round 9 average now **84%** (creative 93 94 96 92 80; everyday 78 81 74 88 68). Next: round 10, harder again.

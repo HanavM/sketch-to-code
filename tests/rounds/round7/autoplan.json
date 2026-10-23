@@ -927,7 +927,7 @@
    ],
    [
     "status-bar",
-    "sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap)"
+    "sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above"
    ]
   ]
  },
