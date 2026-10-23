@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 13 is at 78% over 8 pages (card fan 74 to 84%, the text ring now goes all the way round); next I fix the Swiss poster's red half and build the last 2 pages."
 round: 13
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 78]
-lock: null
+lock: {by: run-n151, until: "2026-10-23T22:59Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
