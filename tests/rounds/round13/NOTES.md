@@ -95,3 +95,21 @@ Worth fixing in the product: readings of 17-mark pages write ~12k tokens.
 
 Round 13 complete: **82%** over 10 pages (c1 73, c2 80, c3 84, c4 87, c5 81; e1 88, e2 84, e3 85, e4 79, e5 80).
 Vitest: same 2 env failures; typecheck clean.
+
+## n152: call tiles tile by tile, centred headline, bare table, each card's own colour, giant word's place (2026-10-23, ~223k billed)
+
+Planner now says: a grid of big same-size filled tiles, each with a letter disc in the middle, tile by tile (fill, disc
+size, colour and letter, name tag corner and look, round corner badge, speaker outline); a one-line headline centred on
+the page as centred (with its ink's start and end x); a table straight on the page as having no card; a fanned deck's
+own colour per card, named up front; a giant (300px+) word's box top-left and first-letter x. Earlier rounds pick up the
+centring and giant-word place on a few pages (rounds 1, 2, 3, 4, 5, 8, 11, 12); none re-run.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| e4 video call | 79% | **94%** | the 2x2 tiles built tile by tile: fills, discs, name tags, mute badges, the speaker's blue outline |
+| c3 card fan | 84% | **89%** | every card in its own colour now; the subcopy wraps to two lines, the green glow under the fan lost |
+| e5 pricing | 80% | **80%** | headline centred and table bare now, as asked; a faint white box sits behind the headline, headline greyed |
+| c5 Swiss grid | 81% | 74% (not kept) | the numeral starts at the right x but sits ~60px low and larger; ring clipped. Record stays 81 |
+
+Round 13: **84%** over 10 pages (c1 73, c2 80, c3 89, c4 87, c5 81; e1 88, e2 84, e3 85, e4 94, e5 80).
+Vitest: same 2 env failures; typecheck clean.

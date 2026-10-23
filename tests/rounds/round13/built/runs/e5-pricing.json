@@ -1,23 +1,23 @@
 {
   "id": "e5-pricing",
-  "at": "2026-10-23T21:46:47.516Z",
+  "at": "2026-10-23T22:52:41.112Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8000706363401412,
-    "overallV2": 0.8000706363401412,
-    "overallV1": 0.7535039481778201,
-    "colour": 0.9873981788438355,
-    "structure": 0.8936523779607147,
-    "structureStrict": 0.8486728284688633,
-    "colourAligned": 0.9873981788438355,
-    "structureAligned": 0.8936523779607147,
+    "overall": 0.7958734601255449,
+    "overallV2": 0.7958734601255449,
+    "overallV1": 0.7420274095455671,
+    "colour": 0.991607014196951,
+    "structure": 0.9280324369208033,
+    "structureStrict": 0.8760216284956819,
+    "colourAligned": 0.991607014196951,
+    "structureAligned": 0.9280324369208033,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9739447578587207
+      "r": 0.9855414854526513
     },
-    "layout": 0.8304105800483514
+    "layout": 0.6544108631296883
   },
   "effects": {
     "recall": 1,
@@ -25,27 +25,24 @@
       "overlap"
     ],
     "missing": [],
-    "extra": [
-      "soft-shadow"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 36159,
-    "output": 20367,
-    "cacheRead": 234214
+    "input": 38596,
+    "output": 21264,
+    "cacheRead": 239964
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44067,
-      "output": 15109,
-      "cacheRead": 215874,
-      "toolCalls": 10,
+      "billed": 50892,
+      "output": 17718,
+      "cacheRead": 230146,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
         "Read components/SketchShape3.tsx",
@@ -54,10 +51,10 @@
         "Read s2c-bench-app/package.json",
         "Read src/App.tsx"
       ],
-      "ms": 164738
+      "ms": 193214
     }
   ],
-  "reading": "This is a pricing page sketch: a bold nowrap headline, a small monthly/yearly billing toggle, a three-card pricing section (Starter / Pro-highlighted / Business) with full pricing details, and a feature-comparison table below.",
+  "reading": "A pricing section: a bold centered headline, a billing-period toggle (Monthly / Yearly-20%), three pricing cards (Starter, Pro highlighted, Business) each with badge, name, price, period, description and CTA button, and a plain feature-comparison table below with no card styling.",
   "actions": [
     {
       "kind": "add",
@@ -80,7 +77,7 @@
         61
       ],
       "paths": [],
-      "instruction": "Big bold (font-weight 700) heading set on ONE line, white-space: nowrap, about 681px wide: \"Simple pricing that scales with you\". Helvetica type, near-black tex"
+      "instruction": "Add page heading text 'Simple pricing that scales with you', bold (font-weight 700), single line (white-space: nowrap, ~681px wide), centered on the page (text-"
     },
     {
       "kind": "add",
@@ -95,10 +92,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Small billing-period toggle/pill control: light grey card containing the word \"Monthly\" (color #57534e) and, to its right, a white near-black-text button/segmen"
+      "instruction": "Add a light grey billing-toggle card with two labels: 'Monthly' in #57534e on the left, and 'Yearly-20%' as a white near-black (#1c1917) text/button on the righ"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -110,10 +107,10 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Three-card pricing section built exactly part-by-part per the typed spec, nothing invented, nothing left out (19 real elements with live text): center 'Pro' car"
+      "instruction": "Add three pricing cards side by side per exact typed spec (page px, size and top-left position): Pro card 340x330 at 470,188, #1c1917 fill, 1px #1c1917 border, "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -125,7 +122,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Feature comparison table below the pricing cards with columns 'Features', 'Starter', 'Pro', 'Business' and exactly these 5 body rows, nothing invented or omitte"
+      "instruction": "Add a plain feature-comparison table, 1060px wide at 110,560, sitting directly on the page with NO card styling (no fill, no outer border, no rounded corners, n"
     }
   ],
   "rejected": []

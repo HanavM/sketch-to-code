@@ -1,75 +1,68 @@
 {
   "id": "c3-card-fan",
-  "at": "2026-10-23T21:01:53.409Z",
+  "at": "2026-10-23T22:39:17.493Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8404499521535035,
-    "overallV2": 0.8404499521535035,
-    "overallV1": 0.804367082758822,
-    "colour": 0.9546721196892136,
-    "structure": 0.8823212783166617,
-    "structureStrict": 0.8054451480892211,
-    "colourAligned": 0.9546721196892136,
-    "structureAligned": 0.8823212783166617,
+    "overall": 0.8867335784982863,
+    "overallV2": 0.8867335784982863,
+    "overallV1": 0.848007663499237,
+    "colour": 0.9849875638124692,
+    "structure": 0.9301455582436682,
+    "structureStrict": 0.8476383038432592,
+    "colourAligned": 0.9849875638124692,
+    "structureAligned": 0.9301455582436682,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.6474474701825752
+      "r": 0.9381763989015701
     },
-    "layout": 0.7196988025593952
+    "layout": 0.7540645246374733
   },
   "effects": {
-    "recall": 0.625,
+    "recall": 0.5,
     "kept": [
       "italic",
       "overlap",
       "serif",
-      "soft-shadow",
       "tilt"
     ],
     "missing": [
       "3d",
       "gradient",
-      "hard-shadow"
+      "hard-shadow",
+      "soft-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 36634,
-    "output": 23093,
-    "cacheRead": 449567
+    "input": 38123,
+    "output": 18289,
+    "cacheRead": 215421
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49958,
-      "output": 19421,
-      "cacheRead": 439424,
-      "toolCalls": 16,
+      "billed": 46091,
+      "output": 14359,
+      "cacheRead": 205170,
+      "toolCalls": 9,
       "tools": [
+        "Read components/FannedFive.tsx",
         "Glob",
-        "Read components/FanPlaying.tsx",
         "Read src/App.tsx",
         "Glob",
-        "Glob",
-        "Read s2c-bench-app/package.json",
         "Read src/main.tsx",
         "Read src/index.css",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit components/FanPlaying.tsx",
-        "Read components/FanPlaying.tsx",
-        "Edit components/FanPlaying.tsx",
-        "Read components/FanPlaying.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
+        "Read components/FannedFive.tsx",
+        "Edit components/FannedFive.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 226582
+      "ms": 147484
     }
   ],
-  "reading": "The sketch is a hero section: a plain-text nav bar, a big serif headline with a subheading, a fan of five playing cards, two dashed-outline color discs, and a 'Shop decks' button, all per the typed styling notes.",
+  "reading": "The sketch builds a hero section: a top nav bar, a large centered serif headline with one italic accent word, a subheading line, a fanned stack of five playing cards, two colored dot badges, and a pill CTA button — all set against a dark teal page per the run note.",
   "actions": [
     {
       "kind": "add",
@@ -84,7 +77,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Nav bar, no box around it: wide-spaced 'HOUSE OF CARDS' on the left, 'RULES · DECKS · CLUB' on the right."
+      "instruction": "Nav bar, no box around it: wide-letter-spaced \"HOUSE OF CARDS\" on the left, \"RULES · DECKS · CLUB\" on the right."
     },
     {
       "kind": "add",
@@ -107,7 +100,7 @@
         106
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif, regular weight, tight-set headline 'Deal a better hand' on one line (white-space: nowrap, never wrapped, about 582px wide). The word 'bette"
+      "instruction": "Giant Georgia serif, regular weight, tight letter-spacing headline \"Deal a better hand\" on ONE line (white-space: nowrap, never wraps), about 582px wide, center"
     },
     {
       "kind": "add",
@@ -122,7 +115,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Subheading text: 'Hand-printed decks for people who still play at the kitchen table.'"
+      "instruction": "Subheading text: \"Hand-printed decks for people who still play at the kitchen table.\""
     },
     {
       "kind": "add",
@@ -137,7 +130,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "A fan of 5 playing cards (real card shapes, illustrated, not text). Each card 200x290px, position absolute at top-left 540,330, transform-origin 100px 348px so "
+      "instruction": "A fan of 5 playing cards (real card shapes, not text): each card 200x290px, all stacked at the same top-left (540,330) absolute position, each rotated around tr"
     },
     {
       "kind": "add",
@@ -152,7 +145,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Perfectly round solid disc, 74px across, 8px dashed white (#ffffff) outline, flat fully opaque vivid orange (#e85d4a) fill, hard edge, no blur."
+      "instruction": "Perfectly round solid disc badge, border-radius 50% (not traced from ink), 74px across, 8px dashed white outline, flat fully opaque vivid orange (#e85d4a) fill,"
     },
     {
       "kind": "add",
@@ -167,7 +160,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Perfectly round solid disc, 74px across, 8px dashed white (#ffffff) outline, flat fully opaque vivid blue (#4a7de8) fill, hard edge, no blur."
+      "instruction": "Perfectly round solid disc badge, border-radius 50% (not traced from ink), 74px across, 8px dashed white outline, flat fully opaque vivid blue (#4a7de8) fill, h"
     },
     {
       "kind": "add",
@@ -182,7 +175,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Button labeled 'Shop decks': peach #f2c14e fill, dark teal #1b3a2f text (not the page's cream text), 160x48px, 10px rounded corners."
+      "instruction": "Button labeled \"Shop decks\": peach (#f2c14e) fill, dark teal (#1b3a2f) text (not the page's cream text), 160x48px, 10px rounded corners."
     }
   ],
   "rejected": [
