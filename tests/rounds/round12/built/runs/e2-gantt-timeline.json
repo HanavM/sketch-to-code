@@ -1,0 +1,118 @@
+{
+  "id": "e2-gantt-timeline",
+  "at": "2026-10-23T18:24:50.918Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.30638627845909094,
+    "overallV2": 0.3020095203728738,
+    "overallV1": 0.27124413145539905,
+    "colour": 0.9644390937633717,
+    "structure": 0.7647634269956639,
+    "structureStrict": 0.643350187770128,
+    "colourAligned": 0.966140670218236,
+    "structureAligned": 0.7679885584110184,
+    "align": {
+      "scale": 1,
+      "dx": -128,
+      "dy": 16,
+      "r": 0.32728720772607084
+    },
+    "layout": 0.9041471048513302
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "overlap",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 25894,
+    "output": 16544,
+    "cacheRead": 238445
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37995,
+      "output": 15124,
+      "cacheRead": 235361,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 162188
+    }
+  ],
+  "reading": "The sketch is a project/task management page: a top header with a bold title and right-aligned nav controls, a left sidebar panel with a filter dropdown button and a task list, and a large right-hand area with a weekly Gantt-style timeline of task bars.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Header row: bold 18px text \"Website relaunch\" sits at the far left; to its far right (763px gap) sit three nav items in order: \"Filter ▾\", \"Day Week Month\", and"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        67,
+        294,
+        829
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Left sidebar panel: at the top, a 299x44px button filled #f7f8fa (fill clearly visible, not white) with bold #1f2430 text reading \"▾ Discovery\"; below it simila"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        67,
+        974,
+        830
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right-hand timeline/Gantt chart: 7 week column headers across the top reading \"Oct 5\", \"Oct 12\", \"Oct 19\", \"Oct 26\", \"Nov 2\", \"Nov 9\", \"Nov 16\". Below, one task"
+    }
+  ],
+  "rejected": []
+}

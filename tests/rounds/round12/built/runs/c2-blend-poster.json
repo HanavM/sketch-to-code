@@ -1,23 +1,23 @@
 {
   "id": "c2-blend-poster",
-  "at": "2026-10-23T17:26:31.834Z",
+  "at": "2026-10-23T18:07:21.638Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5809497409613721,
-    "overallV2": 0.5573312646372844,
-    "overallV1": 0.47968974561784317,
-    "colour": 0.8492992765588699,
-    "structure": 0.5922921149597382,
-    "structureStrict": 0.45009497608242727,
-    "colourAligned": 0.8606831947545825,
-    "structureAligned": 0.6132893356569683,
+    "overall": 0.8933635535654043,
+    "overallV2": 0.8933635535654043,
+    "overallV1": 0.8059257997371335,
+    "colour": 0.9569388998851242,
+    "structure": 0.9442581763102703,
+    "structureStrict": 0.7841196501548835,
+    "colourAligned": 0.9569388998851242,
+    "structureAligned": 0.9442581763102703,
     "align": {
-      "scale": 1.04,
-      "dx": -16,
-      "dy": -112,
-      "r": 0.6696072880191937
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.933985200574947
     },
-    "layout": 0.8027883298975161
+    "layout": 0.8992409462276145
   },
   "effects": {
     "recall": 1,
@@ -34,40 +34,32 @@
     "extra": []
   },
   "tokens": {
-    "input": 43508,
-    "output": 28371,
-    "cacheRead": 381141
+    "input": 32369,
+    "output": 20973,
+    "cacheRead": 184295
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 55442,
-      "output": 21877,
-      "cacheRead": 369931,
-      "toolCalls": 16,
+      "billed": 30746,
+      "output": 11173,
+      "cacheRead": 173266,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read components/SketchShape3.tsx",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
         "Read src/main.tsx",
+        "Glob",
+        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape3.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Glob"
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 244374
+      "ms": 118678
     }
   ],
-  "reading": "This is a festival landing/hero page: a small wide-spaced kicker line, a big red disc and a tilted blue rectangle used as bold flat color blocks behind giant 'LOUD ROOM' display type, a dashed circular 'TICKETS' badge, a short descriptive sentence, a bold date/location line, and a vertical 'SIDE A · 33 RPM' label on the right edge, all on a cream page with near-black Helvetica type.",
+  "reading": "A festival hero section: a cream page with Helvetica type, a big red disc and a rotated blue band behind a giant white two-line 'LOUD ROOM' headline that colour-inverts over them, a small eyebrow label, a vertical 'SIDE A · 33 RPM' strip along the disc's edge, a dashed spinning 'TICKETS' button, a tagline paragraph, and a date/location block.",
   "actions": [
     {
       "kind": "add",
@@ -82,7 +74,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small kicker line of 13px wide-spaced letters reading \"SOUND / SPACE FESTIVAL — 12TH EDITION\", sitting alone at the top of the page (top ~40px, left edge ~56px)"
+      "instruction": "Add a single-line label reading \"SOUND / SPACE FESTIVAL — 12TH EDITION\" in 13px wide-spaced (letter-spaced) caps, positioned at the very top of the page (top ~4"
     },
     {
       "kind": "design",
@@ -97,7 +89,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Perfectly round solid disc (border-radius 50%, drawn as a clean geometric primitive, not traced from the rough ink circle), 560px across, flat fully opaque vivi"
+      "instruction": "Draw a perfectly round solid disc (border-radius 50%, geometrically round, not traced from the ink), 560px across, filled with flat fully opaque vivid red (#ff3"
     },
     {
       "kind": "design",
@@ -110,21 +102,19 @@
         268
       ],
       "paths": [
-        "s2",
-        "s3",
-        "s4"
+        "s2"
       ],
-      "instruction": "Solid vivid blue rectangular block, tilted 8° anticlockwise, bleeding off the left page edge (starting 46px past it) — a decorative color block layered with the"
+      "instruction": "Add one plain solid rectangular block (no text, no border, no shadow), 900x150px, filled flat opaque blue (#1f4bff); its un-rotated top-left sits at (-40,520) r"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s5"
+        "s3"
       ],
       "textSize": [
         {
           "strokes": [
-            "s5"
+            "s3"
           ],
           "lines": 1,
           "fontPx": 32
@@ -137,7 +127,45 @@
         38
       ],
       "paths": [],
-      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not a squared/condensed/display face) heavy, tight-set live text (real"
+      "instruction": "Add the hero headline as live text (a real heading element, never an SVG path or drawn shape): \"LOUD\" / \"ROOM\" set on exactly two lines (keep this break, each l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        48,
+        498,
+        533,
+        36
+      ],
+      "paths": [],
+      "instruction": "Add a short line of body/tagline copy inside the hero area beneath the headline and blue band (no specific wording was given) — use plausible festival copy such"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1210,
+        124,
+        17,
+        191
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add vertical text (writing-mode: vertical-rl) in wide-spaced 14px letters reading \"SIDE A · 33 RPM\", running top-to-bottom along the right edge of the red disc,"
     },
     {
       "kind": "add",
@@ -150,9 +178,34 @@
         173
       ],
       "paths": [
+        "s6"
+      ],
+      "instruction": "Add a continuously spinning circular button with a 2px dashed #111111 (near-black) outline (dashed, not a solid line) containing the label \"TICKETS\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
         "s8"
       ],
-      "instruction": "Small circular badge/button with a spinning 2px dashed #111111 outline (dashed, not solid), near-black, containing the label \"TICKETS\"."
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        60,
+        740,
+        372,
+        48
+      ],
+      "paths": [],
+      "instruction": "Add a paragraph of body copy reading \"Three nights, nine stages, one warehouse. Bring earplugs and somebody you like.\""
     },
     {
       "kind": "add",
@@ -167,31 +220,6 @@
             "s10"
           ],
           "lines": 2,
-          "fontPx": 16
-        }
-      ],
-      "region": [
-        60,
-        740,
-        372,
-        48
-      ],
-      "paths": [],
-      "instruction": "Body copy reading \"Three nights, nine stages, one warehouse. Bring earplugs and somebody you like.\""
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s11",
-        "s12"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s11",
-            "s12"
-          ],
-          "lines": 2,
           "fontPx": 26
         }
       ],
@@ -202,22 +230,7 @@
         78
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy, tight-set live text, line-height 0.95, 54px, reading \"MAR 14–16\", then on its own line beneath it a small 15px bold line reading \"PIER 9 ·"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1210,
-        124,
-        17,
-        191
-      ],
-      "paths": [
-        "s7"
-      ],
-      "instruction": "Vertical text (writing-mode: vertical-rl), wide-spaced 14px letters, about 199px long, reading \"SIDE A · 33 RPM\", placed along the right edge of the page."
+      "instruction": "Add a large heavy tight-set (line-height 0.95) 54px Helvetica heading \"MAR 14–16\", then directly beneath it, on its own separate line, a smaller 15px bold line "
     }
   ],
   "rejected": [

@@ -61,7 +61,7 @@
    ],
    [
     "iso-grid",
-    "a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a 594x297px scene at 613,392 with perspective: 900px; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: rotateX(60deg) rotateZ(-45deg)) holding exactly 4 face divs, each absolutely placed at the group's top-left with a 0px #f4f1ff border (backface visible): 105x105px #000000 face, transform: none; 70x140px #000000 face, transform: none; 105x105px #000000 face, transform: none; 140x70px #000000 face, transform: none"
+    "an ISOMETRIC CITY in real CSS 3D, NOT a flat polygon, NOT a drawing or SVG: ONE 420x420px plane div with its top-left at 700,330 (position absolute), filled #1d2244, outline 2px solid #3a3f7a; its background is exactly: background: linear-gradient(#3a3f7a 2px, transparent 2px), linear-gradient(90deg, #3a3f7a 2px, transparent 2px); background-size: 70px 70px, 70px 70px (a grid of lines both ways); transform: rotateX(60deg) rotateZ(-45deg); transform-style: preserve-3d; no perspective. Inside the plane exactly 4 towers, each a div absolutely placed in plane px (left, top, width, height) with transform-style: preserve-3d, holding ONE child div (position absolute, inset 0) lifted off the plane by transform: translateZ(lift) and painted its own colour: 105x105 at 35,35 lifted 160px light pink #ff5fa2; 70x140 at 175,35 lifted 90px indigo #7a5cff; 105x105 at 280,210 lifted 220px peach #ffcf5c; 140x70 at 70,245 lifted 60px bright green #43e0c4"
    ],
    [
     "stat-chip",
@@ -69,7 +69,7 @@
    ],
    [
     "ticker",
-    "tilted slightly 2° anticlockwise scrolling vivid light pink bar, near-black text"
+    "tilted slightly 2° anticlockwise scrolling vivid light pink bar, near-black text bold 20px \"ZONE A OPEN ✦ SKYLINE WEEK ✦ NEW DISTRICT: HARBOR ✦\" repeated along it"
    ]
   ]
  },
@@ -85,7 +85,7 @@
    ],
    [
     "blue-bar",
-    "image"
+    "box"
    ],
    [
     "headline",
@@ -135,11 +135,11 @@
    ],
    [
     "blue-bar",
-    "tilted 8° anticlockwise bleeding off the left page edge (starts 46px past it) vivid blue block"
+    "ONE plain solid block, NOT a picture: 900x150px (only 150px thick) with its top-left at -40,520 before the turn (it starts 40px past the left page edge), filled flat blue #1f4bff, fully opaque, then turned by transform: rotate(-8deg) round its centre; no text on it, no border, no shadow"
    ],
    [
     "headline",
-    "colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lines set tight (line-height 0.8) white \"LOUD ROOM\", set in exactly 2 lines: \"LOUD\" / \"ROOM\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 955px wide)"
+    "colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lines set tight (line-height 0.8) white \"LOUD ROOM\", set in exactly 2 lines: \"LOUD\" / \"ROOM\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 955px wide), 330px type, the text box's top-left at 40,120 (top-[120px]; the first line starts there, not lower)"
    ],
    [
     "side-label",
@@ -191,11 +191,7 @@
    ],
    [
     "glass-cards",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 6
-    }
+    "box"
    ]
   ],
   "notes": [
@@ -205,7 +201,7 @@
    ],
    [
     "aurora",
-    "spinning soft blurred faded to 75% opacity (see-through) bleeding off the top page edge (starts 260px past it) a 900px donut chart centred, segments clockwise from the top: cyan 100%, then bright sky blue 0%, then purple 0%, then pink 0%, the rest a cyan track 0%"
+    "a soft blurred colour glow, NOT a chart, NOT a ring, NOT a box: ONE 900x900px circle (border-radius 50%) div with its top-left at 240,-260 (it runs off the page edge, cut by the page), behind everything, background: conic-gradient(from 90deg, #00ffa3, #00b3ff, #8a2be2, #ff2e97, #00ffa3) exactly, filter: blur(90px), opacity 0.75, turning forever: animation 18s linear infinite with @keyframes 100% { transform: rotate(360deg); }; it reads as a wide soft multicolour haze"
    ],
    [
     "nav",
@@ -213,7 +209,7 @@
    ],
    [
     "headline",
-    "giant Helvetica thin hairline-weight tight-set letters \"Light that listens\", 110px type, about 674px wide (no larger)"
+    "giant Helvetica thin hairline-weight tight-set letters \"Light that listens\", 110px type, about 674px wide (no larger); the word \"listens\" is set in its own face, a span in place inside the line: italic serif (font-family Georgia, serif) regular-weight (the other words keep the heading's face)"
    ],
    [
     "subcopy",
@@ -221,11 +217,11 @@
    ],
    [
     "cta",
-    "black to cyan to pink gradient pill button \"Pre-order — $249\""
+    "\"Pre-order — $249\" pill button 220x54px whose 2px BORDER is a gradient and whose inside is plain (NOT a gradient fill): border: 2px solid transparent; background: linear-gradient(#07090f, #07090f) padding-box, linear-gradient(90deg, #00ffa3, #ff2e97) border-box; #eef2ff bold text"
    ],
    [
     "glass-cards",
-    "3 stats side by side in it (NOT separate cards), each a big number over a small label: 34px #eef2ff \"16M\" over 14px #b8c0d9 \"colours, mixed in real time from what you play\"; 34px #eef2ff \"0.3s\" over 14px #b8c0d9 \"to react to a clap, a word or a beat\"; 34px #eef2ff \"7 yrs\" over 14px #b8c0d9 \"of LED life at full brightness\""
+    "3 SEPARATE frosted glass cards side by side (NOT plain stats on the page): each 22px rounded, 24px padding, see-through fill #ffffff14, a 1px #ffffff2e border, backdrop-filter: blur(20px); card 1: 331x180px at 120,650, holding a 34px thin #eef2ff \"16M\" over 14px #b8c0d9 \"colours, mixed in real time from what you play\"; card 2: 331x180px at 475,650 in the same row as the others, then raised 30px by transform: translateY(-30px) (so its top ends at 620; raise it once only), holding a 34px thin #eef2ff \"0.3s\" over 14px #b8c0d9 \"to react to a clap, a word or a beat\"; card 3: 331x180px at 829,650, holding a 34px thin #eef2ff \"7 yrs\" over 14px #b8c0d9 \"of LED life at full brightness\""
    ]
   ]
  },
@@ -499,7 +495,7 @@
    ],
    [
     "canvas",
-    "\"Mobile / Home 520 × 620\", lines \"Plan less, ship more The calm project space for small teams who would rather build than meet. Get started\", \"160 × 44\""
+    "\"Mobile / Home 520 × 620\", lines \"Plan less, ship more The calm project space for small teams who would rather build than meet. Get started\", \"160 × 44\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 123x12 at 360,138 11px #777777 \"Mobile / Home 520 × 620\"; 520x620 at 360,158 #ffffff fill; 456x220 at 392,198 linear-gradient(135deg, #a259ff, #0d99ff), 16px rounded; 271x32 at 392,448 28px bold #1e1e1e \"Plan less, ship more\"; 420x42 at 392,494 14px #555555 \"The calm project space for small teams who would rather build than mee\"; 8x8 at 388,574 #ffffff fill, 1px #0d99ff border; 8x8 at 552,574 #ffffff fill, 1px #0d99ff border; 160x44 at 392,578 #1e1e1e fill, 2px #0d99ff outline ring, 10px rounded: 14px bold #ffffff \"Get started\"; 8x8 at 388,622 #ffffff fill, 1px #0d99ff border; 8x8 at 552,622 #ffffff fill, 1px #0d99ff border; 55x16 at 436,638 #0d99ff fill, 4px rounded: 11px #ffffff \"160 × 44\""
    ],
    [
     "properties-panel",

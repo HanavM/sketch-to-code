@@ -50,3 +50,27 @@ Next (planner, free first): an isometric plane said as its CSS (size, fill, grid
 colour read from its child; a conic gradient said as a conic gradient (blurred, spinning), never a donut chart; glass
 cards said as cards (fill alpha, border, backdrop blur, lifted middle); an italic serif word inside a heading; check why
 c2's headline sits low. Then first builds c4, c5, e1-e5.
+
+## n146: isometric plane, conic glow, glass cards, giant headline place; first builds c4, c5, e1-e3 (2026-10-23, ~463k billed)
+
+Planner (free): an isometric plane said as its CSS (plane size, fill, grid, outline, the turn; four towers with their
+own lift and colour read from the child); a blurred conic gradient said as a soft glow (exact gradient, blur, opacity,
+spin), never a donut chart; frosted glass stat cells said as separate glass cards (alpha fill, border, backdrop blur,
+the middle card raised once); a heading word in its own face (italic Georgia) said; a giant multi-line headline
+(160px+) says its type size and top-left; a wordless tilted solid block that read as a picture said as one opaque
+block with its size before the turn; a marquee unit repeated exactly twice is now found (ticker words were invented);
+a gradient-ring button said as a gradient border over a plain inside; a "lines" note over a region of painted parts
+said part by part (e1 canvas). Rounds 1-11: only the 160px+ headline line changes (r1, r4, r8 one note each), none re-run.
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| c1 isometric city (re-run) | 87 -> **90%** | plane, grid, four lifted coloured towers right; ticker words invented (fixed after, not re-run) |
+| c2 blend poster (re-run x2) | 58 -> 72 -> **89%** | headline at its place; then the blue bar as a solid tilted block (was see-through with invented words) |
+| c3 aurora glass (re-run) | 64 -> **84%** | aurora haze, italic serif "listens", glass cards right; middle card raised twice, CTA a gradient fill (both fixed after, not re-run) |
+| c4 diagonal split (first) | **84%** | panels, hollow 09, route list right; nav and copy white on yellow, CTA a pill, sticker words on one line |
+| c5 halftone mag (first) | **72%** | headline, drop cap, columns right; halftone dots lost (plain gradient), leaf a circle, masthead rule lost, issue lines moved left |
+| e1 design tool (first) | **88%** | canvas frame, gradient hero, selected button, handles right; toolbar active tool and avatars lost, property fields unboxed |
+| e2 Gantt timeline (first) | **31%** | group rows split from their tasks (groups on top, tasks below), bars not on their rows, diamond, progress and Today tag lost |
+| e3 team chat (first) | 85% | mention said as a chip under the line, code block lost, composer moved to the top, channel header and replies link lost |
+
+Round 12 so far: **78%** over 8 pages (e4, e5 not built yet). Vitest: same 2 env failures; typecheck clean.

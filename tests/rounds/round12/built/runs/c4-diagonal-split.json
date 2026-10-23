@@ -1,0 +1,264 @@
+{
+  "id": "c4-diagonal-split",
+  "at": "2026-10-23T18:12:43.544Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8446878742822157,
+    "overallV2": 0.8446878742822157,
+    "overallV1": 0.7135884812012837,
+    "colour": 0.980047791672956,
+    "structure": 0.9096835354671947,
+    "structureStrict": 0.7227414717738979,
+    "colourAligned": 0.980047791672956,
+    "structureAligned": 0.9096835354671947,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9748997411837899
+    },
+    "layout": 0.7349621417142631
+  },
+  "effects": {
+    "recall": 0.7142857142857143,
+    "kept": [
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 45968,
+    "output": 24238,
+    "cacheRead": 325911
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53503,
+      "output": 18176,
+      "cacheRead": 312931,
+      "toolCalls": 15,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 195094
+    }
+  ],
+  "reading": "This is a running-club hero page: two angled flat-color/gradient cut-out panels behind a giant hollow '09' numeral, a nav bar, a 3-line headline, a short description, a CTA button, a bordered info list with three route/time rows, a tilted yellow 'FREE COFFEE AFTER' badge circle, and a small input field in the corner.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        788,
+        889
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Vivid yellow angled cut-out shape, ONE flat #e8ff3a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its out"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        511,
+        5,
+        763,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Vivid orange #ff5a36 (top) to deep raspberry #8b1e3f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff5a36, #8b1e3f) exactly, lying fl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        388,
+        146,
+        466,
+        364
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT squared/condensed/display) heavy tight-set hollow-outlined white l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Nav bar with no box around it: \"RUNCLUB\" on the left, \"ROUTES · CREW · SHOP\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 60
+        }
+      ],
+      "region": [
+        64,
+        160,
+        378,
+        200
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy uppercase near-black headline set tight (line-height 0.92): \"NINE MILES BEFORE SUNRISE\", set in exactly 3 lines: \"NINE MILES\" / \"BEFORE\" / "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        60,
+        420,
+        322,
+        51
+      ],
+      "paths": [],
+      "instruction": "Body text: \"A night-to-dawn city run, every second Saturday. Pace groups for everyone.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        541,
+        225,
+        48
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Button labeled \"JOIN THE NEXT RUN\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14",
+            "s15"
+          ],
+          "lines": 6,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        904,
+        520,
+        312,
+        132
+      ],
+      "paths": [],
+      "instruction": "Info list block of three rows, each its own real element with live text, built exactly part by part (page px: size, then top-left x,y): 320x44 at 900,520 with a"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1047,
+        128,
+        174,
+        173
+      ],
+      "paths": [
+        "s16"
+      ],
+      "instruction": "Tilted 14° clockwise vivid yellow circle badge containing the text \"FREE COFFEE AFTER\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        804,
+        18,
+        34
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "Small empty input field."
+    }
+  ],
+  "rejected": []
+}

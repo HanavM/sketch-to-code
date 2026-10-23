@@ -1,81 +1,65 @@
 {
   "id": "c3-aurora-glass",
-  "at": "2026-10-23T17:33:40.997Z",
+  "at": "2026-10-23T17:58:23.655Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6441947978598495,
-    "overallV2": 0.6391932125670093,
-    "overallV1": 0.5966794544141598,
-    "colour": 0.8511533902008639,
-    "structure": 0.5471871929563954,
-    "structureStrict": 0.4528957195502023,
-    "colourAligned": 0.8624256331445153,
-    "structureAligned": 0.5471871929563954,
+    "overall": 0.8440760622432183,
+    "overallV2": 0.8440760622432183,
+    "overallV1": 0.7958123456507414,
+    "colour": 0.9850017541907843,
+    "structure": 0.9445121864730053,
+    "structureStrict": 0.837467851949534,
+    "colourAligned": 0.9850017541907843,
+    "structureAligned": 0.9445121864730053,
     "align": {
-      "scale": 1.16,
+      "scale": 1,
       "dx": 0,
-      "dy": -48,
-      "r": 0.6181070384787903
+      "dy": 0,
+      "r": 0.9545317363822192
     },
-    "layout": 0.6980002107820144
+    "layout": 0.5858300868461853
   },
   "effects": {
-    "recall": 0.375,
+    "recall": 0.875,
     "kept": [
-      "gradient",
-      "huge-type",
-      "motion"
-    ],
-    "missing": [
       "blur",
       "glass",
+      "gradient",
+      "huge-type",
       "italic",
-      "serif",
+      "motion",
+      "serif"
+    ],
+    "missing": [
       "stripes-or-layers"
     ],
-    "extra": [
-      "mask",
-      "overlap"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 47333,
-    "output": 31632,
-    "cacheRead": 635398
+    "input": 32681,
+    "output": 22313,
+    "cacheRead": 140133
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 61035,
-      "output": 24406,
-      "cacheRead": 624547,
-      "toolCalls": 19,
+      "billed": 44721,
+      "output": 18492,
+      "cacheRead": 129933,
+      "toolCalls": 6,
       "tools": [
-        "Read components/DonutChart.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
-        "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Edit components/DonutChart.tsx",
+        "Read components/SketchShape.tsx",
         "Edit src/index.css",
-        "Write src/App.tsx",
-        "Read components/DonutChart.tsx",
-        "Edit components/DonutChart.tsx",
-        "Edit components/DonutChart.tsx",
-        "Glob",
-        "Glob",
-        "Read components/DonutChart.tsx",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 280995
+      "ms": 211191
     }
   ],
-  "reading": "This is a hero/landing section: a top nav bar, a huge thin headline with a lavender subhead, a gradient pre-order pill button, three side-by-side stat call-outs below, and a large spinning translucent donut-chart graphic bleeding off the top edge behind everything, all on a black Helvetica-set page with a fine grain texture overlay.",
+  "reading": "This is a dark hero landing page: a page-wide soft multicolour blurred glow behind everything, a minimal nav, a huge thin headline with one italic word, a lavender subhead paragraph, a gradient pill CTA button, and a row of three frosted-glass stat cards (the middle one raised).",
   "actions": [
     {
       "kind": "add",
@@ -90,7 +74,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Large spinning donut chart, 900px diameter, centred, bleeding off the top of the page (starting 260px past the top edge), soft blurred edges, faded to 75% opaci"
+      "instruction": "Behind everything: a soft blurred colour glow, NOT a chart, NOT a ring, NOT a box — ONE 900x900px circle (border-radius 50%) div with its top-left at 240,-260 ("
     },
     {
       "kind": "add",
@@ -105,7 +89,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Top navigation bar with no box/border around it: left side shows '◐ halo' as the logo/wordmark, right side shows nav links 'Product', 'Research', 'Login'."
+      "instruction": "Top nav bar with no box around it: \"◐ halo\" on the left, \"Product Research Login\" on the right."
     },
     {
       "kind": "add",
@@ -128,7 +112,7 @@
         143
       ],
       "paths": [],
-      "instruction": "Giant Helvetica headline in a thin, hairline weight with tight letter-spacing, reading 'Light that listens', set at 110px, about 674px wide (no larger)."
+      "instruction": "Giant Helvetica thin hairline-weight tight-set headline \"Light that listens\", 110px type, about 674px wide (no larger); the word \"listens\" is set in its own fac"
     },
     {
       "kind": "add",
@@ -153,7 +137,7 @@
         54
       ],
       "paths": [],
-      "instruction": "Lavender-coloured subheading paragraph text: 'Ambient lamps that follow your voice, your music and your sleep.'"
+      "instruction": "Lavender subheading text below the headline: \"Ambient lamps that follow your voice, your music and your sleep.\""
     },
     {
       "kind": "add",
@@ -168,43 +152,23 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Pill-shaped button with a black-to-cyan-to-pink gradient fill, labeled 'Pre-order — $249'."
+      "instruction": "Pill-shaped button with a black-to-cyan-to-pink gradient fill, labeled \"Pre-order — $249\"."
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s6",
-        "s7",
-        "s8",
-        "s9",
-        "s10",
-        "s11"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8",
-            "s9",
-            "s10",
-            "s11"
-          ],
-          "lines": 6,
-          "fontPx": 20
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        124,
-        650,
-        1032,
-        180
+        123,
+        653,
+        1033,
+        174
       ],
-      "paths": [],
-      "instruction": "Three stats laid out side by side in a single row (not separate cards), each a big number over a small label: 34px #eef2ff '16M' over 14px #b8c0d9 'colours, mix"
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Row of 3 separate frosted glass cards side by side (not plain stats on the page): each 22px rounded corners, 24px padding, see-through fill #ffffff14, a 1px #ff"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

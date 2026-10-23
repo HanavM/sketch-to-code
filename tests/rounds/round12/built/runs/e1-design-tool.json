@@ -1,0 +1,122 @@
+{
+  "id": "e1-design-tool",
+  "at": "2026-10-23T18:21:12.232Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8793336710854387,
+    "overallV2": 0.8793336710854387,
+    "overallV1": 0.8150829849492518,
+    "colour": 0.982396145401746,
+    "structure": 0.9253574950156833,
+    "structureStrict": 0.8514106568296722,
+    "colourAligned": 0.982396145401746,
+    "structureAligned": 0.9253574950156833,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9761233635495051
+    },
+    "layout": 0.9705818774814603
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 26516,
+    "output": 15293,
+    "cacheRead": 128593
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 33159,
+      "output": 11868,
+      "cacheRead": 119044,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 117104
+    }
+  ],
+  "reading": "The sketch outlines a design-tool UI: a dark top toolbar, a white left panel listing layer/asset groups, a central artboard mockup of a mobile landing screen, and a white right-side properties panel for a selected Button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark grey toolbar spanning the full page width, with white text/icons reading \"◆ ↖ # □ ✎ T Landing v3 / Mobile Share\" (icon glyphs followed by the project title"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left sidebar navigation panel, white background, no border box, 240px wide with a thin #e0e0e0 line down its full right edge. Contains two groups, each a small "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        51,
+        774,
+        846
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Central design canvas showing a mobile landing-page artboard mockup, built from these exact parts (page px, size then top-left position): a label \"Mobile / Home"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1023,
+        51,
+        254,
+        845
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right-side properties panel, white block, listing the selected object \"Button\" with its position/size X32 Y420 W160 H44, followed by sections \"Layout\", \"Fill\" s"
+    }
+  ],
+  "rejected": []
+}

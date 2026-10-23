@@ -944,6 +944,7 @@ export function factsInPage() {
       })(),
       // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
       layoutBox: { w: el.offsetWidth, h: el.offsetHeight },
+      el: el.offsetParent === document.body || el.offsetParent === null ? { x: el.offsetLeft, y: el.offsetTop } : null,
       tokenInks: [...el.querySelectorAll('b,em,span,i,strong')].filter((k) => !k.children.length && txt(k)).map((k) => ({ t: txt(k), c: rgba(getComputedStyle(k).color) })),
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
@@ -1758,6 +1759,23 @@ export function factsInPage() {
       o.cube = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), persp, turn: ruleOf(g, 'transform'), anim: anim(g),
         faces: [...g.children].map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform') } }) }
     }
+    // n146: an isometric plane: a preserve-3d block with its own fill/grid whose children each lift a coloured
+    // child by translateZ (round 12 c1: said as a 3D cube of four #000000 faces; the plane, grid and colours unsaid)
+    const liftOf = (k) => { const m = getComputedStyle(k).transform.match(/^matrix3d\(([^)]+)\)/); return m ? Math.round(+m[1].split(',')[14]) : 0 }
+    if (g && [...g.children].every((k) => k.children.length === 1 && liftOf(k.children[0]) > 0)) {
+      const gs = getComputedStyle(g)
+      o.iso = { x: Math.round(g.offsetLeft), y: Math.round(g.offsetTop), w: g.offsetWidth, h: g.offsetHeight, turn: ruleOf(g, 'transform'), fill: rgba(gs.backgroundColor), img: gs.backgroundImage, size: gs.backgroundSize,
+        outline: parseFloat(gs.outlineWidth) > 0 && gs.outlineStyle !== 'none' ? { w: Math.round(parseFloat(gs.outlineWidth)), c: rgba(gs.outlineColor) } : null,
+        persp: [el, ...el.querySelectorAll('*')].map((k) => getComputedStyle(k).perspective).find((v) => v && v !== 'none') ?? null,
+        towers: [...g.children].map((k) => ({ x: k.offsetLeft, y: k.offsetTop, w: k.offsetWidth, h: k.offsetHeight, lift: liftOf(k.children[0]), fill: rgba(getComputedStyle(k.children[0]).backgroundColor) })) }
+      delete o.cube
+    }
+    // n146: a blurred conic-gradient glow (round 12 c3 aurora: said as a 900px donut chart, built a teal box)
+    const au = [el, ...el.querySelectorAll('*')].find((k) => { const c = getComputedStyle(k); return /conic-gradient/.test(c.backgroundImage) && +(c.filter.match(/blur\(([\d.]+)px\)/)?.[1] ?? 0) >= 20 })
+    if (au) {
+      const c = getComputedStyle(au)
+      o.aurora = { x: Math.round(au.offsetLeft), y: Math.round(au.offsetTop), w: au.offsetWidth, h: au.offsetHeight, img: c.backgroundImage, blur: Math.round(+c.filter.match(/blur\(([\d.]+)px\)/)[1]), op: +c.opacity, round: c.borderTopLeftRadius.includes('%') || parseFloat(c.borderTopLeftRadius) >= au.offsetWidth * 0.4, anim: anim(au) }
+    }
     // a block tilted in 3D with a layered background (round 11 c4 floor: the second grid layer was dropped)
     const tf = ruleOf(el, 'transform')
     if (!g && tf && /perspective|rotate[XY]|translateZ/.test(tf)) o.tilt3d = { tf, origin: ruleOf(el, 'transform-origin'), x: Math.round(el.offsetLeft), y: Math.round(el.offsetTop), w: el.offsetWidth, h: el.offsetHeight, bg: cs.backgroundImage }
@@ -1766,11 +1784,19 @@ export function factsInPage() {
     if (mk) o.mask = { img: mk, radius: cs.borderRadius }
     // words in a heading set in their own colour (round 11 c4 pink 'not')
     const base = rgba(cs.color)
-    const odd = [...el.querySelectorAll('span,em,b,strong,i')].filter((k) => !k.dataset?.r && (k.innerText || '').trim() && (() => { const c = rgba(getComputedStyle(k).color); return c && base && c.a > 0.3 && Math.hypot(c.r - base.r, c.g - base.g, c.b - base.b) > 60 })())
-    if (odd.length && odd.length <= 4 && parseFloat(cs.fontSize) >= 28) o.oddWords = odd.map((k) => ({ t: (k.innerText || '').trim(), c: rgba(getComputedStyle(k).color) }))
+    // n146: or in their own face or italic (round 12 c3 'listens' italic Georgia inside a thin sans heading: built upright)
+    const ownFace = (k) => { const c = getComputedStyle(k); return c.fontStyle !== cs.fontStyle || c.fontFamily !== cs.fontFamily }
+    const odd = [...el.querySelectorAll('span,em,b,strong,i')].filter((k) => !k.dataset?.r && (k.innerText || '').trim() && (() => { const c = rgba(getComputedStyle(k).color); return (c && base && c.a > 0.3 && Math.hypot(c.r - base.r, c.g - base.g, c.b - base.b) > 60) || ownFace(k) })())
+    if (odd.length && odd.length <= 4 && parseFloat(cs.fontSize) >= 28) o.oddWords = odd.map((k) => { const c = getComputedStyle(k); return { t: (k.innerText || '').trim(), c: rgba(c.color), face: ownFace(k) ? { family: c.fontFamily, italic: c.fontStyle === 'italic', weight: Number(c.fontWeight) } : null } })
     // stat cells: a big number over a small label (round 11 c4 stats: labels said empty)
     const cells = [...el.children].filter((k) => k.children.length === 2 && !k.dataset?.r)
     if (cells.length >= 2 && cells.every((k) => parseFloat(getComputedStyle(k.children[0]).fontSize) >= 1.6 * parseFloat(getComputedStyle(k.children[1]).fontSize))) {
+      // n146: stat cells that are frosted glass cards (round 12 c3: said as plain stats, glass and the lifted middle lost)
+      const bf = (k) => { const c = getComputedStyle(k); return c.backdropFilter && c.backdropFilter !== 'none' ? c.backdropFilter : (c.webkitBackdropFilter && c.webkitBackdropFilter !== 'none' ? c.webkitBackdropFilter : null) }
+      if (cells.every(bf)) o.glass = cells.map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(), [a, l] = k.children, ca = getComputedStyle(a), cl = getComputedStyle(l)
+        const ty = (() => { const m = c.transform.match(/^matrix\(([^)]+)\)/); return m ? +m[1].split(',')[5] : 0 })()
+        return { x: Math.round(b.x), y: Math.round(b.y - ty), lift: Math.round(-ty), w: Math.round(b.width), h: Math.round(b.height), fill: rgba(c.backgroundColor), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(c.paddingTop) || 0), blur: bf(k), tf: ruleOf(k, 'transform'),
+          n: a.innerText.trim(), npx: Math.round(parseFloat(ca.fontSize)), nw: Number(ca.fontWeight), nc: rgba(ca.color), l: l.innerText.trim(), lpx: Math.round(parseFloat(cl.fontSize)), lc: rgba(cl.color) } })
       o.stats = cells.map((k) => { const [a, b] = k.children, ca = getComputedStyle(a), cb = getComputedStyle(b); return { n: a.innerText.trim(), npx: Math.round(parseFloat(ca.fontSize)), nw: Number(ca.fontWeight), nc: rgba(ca.color), l: b.innerText.trim(), lpx: Math.round(parseFloat(cb.fontSize)), lc: rgba(cb.color) } })
     }
     // a paragraph with a button at its end (round 11 c2 copy: no note, the copy invented and the button lost)
@@ -2259,7 +2285,10 @@ function shadowWords(f) {
   return `hard ${solid}${ink}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
 }
 /** The repeated unit of a marquee's copy ('Flex Grotesk — now variable ✦' x4). */
-function repeatUnit(t) {
+function repeatUnit(t0) {
+  // n146: the copy is trimmed, so a unit ending in a space repeated exactly twice is one letter short of two units
+  // (round 12 c1 ticker: unquoted, its words invented)
+  const t = `${t0} `
   for (let L = 6; L <= t.length / 2; L++) {
     const u = t.slice(0, L)
     if (t.slice(L, 2 * L) === u && t.startsWith(u.repeat(Math.floor(t.length / L)).slice(0, t.length - (t.length % L)))) return u.trim()
@@ -2383,12 +2412,39 @@ function decide(f, page, marked, said = new Set()) {
   if (r11) return round11Extra(f, r11)
   const r10 = round10Note(f)
   if (r10) return round11Extra(f, r10)
-  return round11Extra(f, round10Extra(f, decideRest(f, page, marked, said)))
+  const rest = decideRest(f, page, marked, said)
+  if (rest?.kind === 'image') { const tb = tiltBlock(f); if (tb) return tb }
+  return round11Extra(f, round10Extra(f, rest))
 }
 // n141: rgba() written out as hex (or transparent) in CSS said verbatim
 const cssHex = (s) => (s ?? '').replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return !c || c.a < 0.05 ? 'transparent' : `${hexOf(c)}${c.a < 0.95 ? ` at ${Math.round(c.a * 100)}%` : ''}` }).replace(/(#[0-9a-f]{6}) at (\d+)%/g, (m, h, a) => `${h}${Math.round(+a * 2.55).toString(16).padStart(2, '0')}`)
+  // n146: a wordless solid block tilted on the page (round 12 c2 blue bar: said as a picture, built see-through, too
+  // thick and with invented words on it)
+function tiltBlock(f) {
+  if (!f.text && !f.kidCount && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.95 && !/gradient|url/.test(f.bgImage ?? '') && Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.w && f.el?.x != null) {
+    const L = f.layoutBox, E = f.el
+    return { kind: 'box', note: `ONE plain solid block, NOT a picture: ${L.w}x${L.h}px (only ${L.h}px thick) with its top-left at ${E.x},${E.y} before the turn${E.x < 0 ? ` (it starts ${-E.x}px past the left page edge)` : ''}, filled flat ${colourName(f.bg)} ${hexOf(f.bg)}, fully opaque, then turned by transform: rotate(${f.rotate}deg) round its centre; no text on it, no border, no shadow` }
+  }
+  return null
+}
 /** n141: round 11 objects said as the CSS that makes them: a preserve-3d cube, a 3D-tilted layered floor, a masked block. */
 function round11Note(f) {
+  const I = f.iso
+  if (I) {
+    const grid = /gradient/.test(I.img) ? `; its background is exactly: background: ${cssHex(I.img)}; background-size: ${I.size} (a grid of lines both ways)` : ''
+    return { kind: 'box', note: `an ISOMETRIC CITY in real CSS 3D, NOT a flat polygon, NOT a drawing or SVG: ONE ${I.w}x${I.h}px plane div with its top-left at ${I.x},${I.y} (position absolute), filled ${hexOf(I.fill)}${I.outline ? `, outline ${I.outline.w}px solid ${hexOf(I.outline.c)}` : ''}${grid}; transform: ${I.turn}; transform-style: preserve-3d${I.persp ? `; perspective ${I.persp} on its parent` : '; no perspective'}. Inside the plane exactly ${I.towers.length} towers, each a div absolutely placed in plane px (left, top, width, height) with transform-style: preserve-3d, holding ONE child div (position absolute, inset 0) lifted off the plane by transform: translateZ(lift) and painted its own colour: ${I.towers.map((t) => `${t.w}x${t.h} at ${t.x},${t.y} lifted ${t.lift}px ${colourName(t.fill)} ${hexOf(t.fill)}`).join('; ')}` }
+  }
+  const AU = f.aurora
+  if (AU) {
+    const A = AU.anim
+    return { kind: 'box', note: `a soft blurred colour glow, NOT a chart, NOT a ring, NOT a box: ONE ${AU.w}x${AU.h}px ${AU.round ? 'circle (border-radius 50%) ' : ''}div with its top-left at ${AU.x},${AU.y}${AU.y < 0 || AU.x < 0 ? ' (it runs off the page edge, cut by the page)' : ''}, behind everything, background: ${cssHex(AU.img)} exactly, filter: blur(${AU.blur}px)${AU.op < 0.98 ? `, opacity ${AU.op}` : ''}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}; it reads as a wide soft multicolour haze` }
+  }
+  const G = f.glass
+  if (G) {
+    const one = (q, i) => `card ${i + 1}: ${q.w}x${q.h}px at ${q.x},${q.y}${q.tf ? ` in the same row as the others, then raised ${q.lift}px by transform: ${q.tf} (so its top ends at ${q.y - q.lift}; raise it once only)` : ''}, holding a ${q.npx}px ${q.nw <= 300 ? 'thin ' : q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`
+    const q = G[0]
+    return { kind: 'box', note: `${G.length} SEPARATE frosted glass cards side by side (NOT plain stats on the page): each ${q.rad}px rounded, ${q.pad}px padding, see-through fill ${cssHex(`rgba(${q.fill.r}, ${q.fill.g}, ${q.fill.b}, ${q.fill.a})`)}, a ${q.bw}px ${cssHex(`rgba(${q.bc.r}, ${q.bc.g}, ${q.bc.b}, ${q.bc.a})`)} border, backdrop-filter: ${q.blur}; ${G.map(one).join('; ')}` }
+  }
   const C = f.cube
   if (C) {
     const A = C.anim
@@ -2413,11 +2469,21 @@ function round11Extra(f, d) {
   if (!d) return d
   let note = d.note ?? ''
   const O = f.oddWords
-  if (O && d.kind === 'heading' && !O.every((w) => note.includes(hexOf(w.c)))) note += `${note ? '; ' : ''}${O.map((w) => `the word "${w.t}" is ${colourName(w.c)} ${hexOf(w.c)}`).join(', ')} (its own colour; the other words stay ${hexOf(f.colour)})`
+  const faceSay = (w) => w.face ? `${w.face.italic ? 'italic ' : ''}${/georgia|serif/i.test(w.face.family) && !/sans-serif/i.test(w.face.family) ? `serif (font-family ${w.face.family.replace(/"/g, '')}) ` : ''}${w.face.weight <= 300 ? 'thin ' : w.face.weight >= 700 ? 'bold ' : 'regular-weight '}` : ''
+  const OC = O?.filter((w) => !w.face || Math.hypot(w.c.r - f.colour.r, w.c.g - f.colour.g, w.c.b - f.colour.b) > 60)
+  const OF = O?.filter((w) => w.face)
+  if (OC?.length && d.kind === 'heading' && !OC.every((w) => note.includes(hexOf(w.c)))) note += `${note ? '; ' : ''}${OC.map((w) => `the word "${w.t}" is ${faceSay(w)}${colourName(w.c)} ${hexOf(w.c)}`).join(', ')} (its own colour; the other words stay ${hexOf(f.colour)})`
+  if (OF?.length && d.kind === 'heading' && !OC?.some((w) => w.face)) note += `${note ? '; ' : ''}${OF.map((w) => `the word "${w.t}" is set in its own face, a span in place inside the line: ${faceSay(w).trim()}`).join(', ')} (the other words keep the heading's face)`
   const S = f.stats
   if (S && (!note || /stat cards|""/.test(note))) {
     const card = visible(f.bg) ? `a ${hexOf(f.bg)} card ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' ? ', a big soft shadow' : ''}, ` : ''
     note = `${card}${S.length} stats side by side in it (NOT separate cards), each a big number over a small label: ${S.map((q) => `${q.npx}px ${q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')}`
+  }
+  // n146: a button whose ring is a gradient (padding-box fill over a border-box gradient; round 12 c3 CTA built as a
+  // gradient fill)
+  const GR = [...(f.bgImage ?? '').matchAll(/(?:linear|radial|conic)-gradient\((?:[^()]|\([^)]*\))*\)/g)].map((m) => m[0])
+  if (d.kind === 'button' && GR.length === 2 && f.border?.w >= 1 && !visible(f.border.colour)) {
+    note = `${quote(f.text)} ${f.radius >= f.rect.h / 2 - 2 ? 'pill ' : ''}button ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px whose ${Math.round(f.border.w)}px BORDER is a gradient and whose inside is plain (NOT a gradient fill): border: ${Math.round(f.border.w)}px solid transparent; background: ${cssHex(GR[0])} padding-box, ${cssHex(GR[1])} border-box; ${hexOf(f.colour)} ${f.font.weight >= 600 ? 'bold ' : ''}text`
   }
   const B = f.copyBtn
   if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.px}px text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
@@ -3109,6 +3175,8 @@ function decideOne(f, page, marked, said) {
     // a giant one-line word also says its type size: a width alone let the build take the drawn line
     // height (round 6 c2 'Tickets →' 110px type built ~127px, ~1.15x large)
     const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)` : ''
+    // n146: a giant multi-line block says its type size and where its box starts (round 12 c2 'LOUD/ROOM' 330px built ~100px low)
+    const bigAt = brk && f.font.size >= 160 ? `, ${Math.round(f.font.size)}px type, the text box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (top-[${Math.round(f.rect.y)}px]; the first line starts there, not lower)` : ''
     // a display line of several words that fits on one line says so: the build wrapped it at the drawn width
     // (round 6 c4 'Every screen, one glance.' 56px, one line, built on 2 lines over the subline)
     // a 20-39px multi-word line set on one line says its size and the one line: round 7 c5's 30px 'read this
@@ -3121,7 +3189,7 @@ function decideOne(f, page, marked, said) {
     // n137: a small label just above a giant word (round 10 c2 '01 /' mono numbers): no mark carries it
     const LA = f.labelAboveStyle && f.font.size >= 40 && f.labelAbove ? f.labelAboveStyle : null
     const lab = LA ? (said.add(f.labelAbove), `; plus a small separate ${LA.px}px ${isMono(LA.family) ? 'monospace (font-family Courier New, monospace) ' : ''}${hexOf(LA.colour)} label ${quote(f.labelAbove, 32)}${LA.ls >= 1 ? ` with ${Math.round(LA.ls)}px letter-spacing` : ''} at ${LA.x},${LA.y}, ${LA.gap}px above it and left-aligned with it (keep it, it is part of this heading)`) : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${fadeSay}${wide}${one}${mid}${ttl}${under}${lab}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${mid}${ttl}${under}${lab}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -3616,7 +3684,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // ...or under half its letters (round 11 c3 spec panel: the values said, its 90-letter paragraph and keys lost)
     const chars = (a) => a.reduce((n, t) => n + t.length, 0)
     const thin = d.kind && d.note && !f.regionKids.length && T.length >= 4 && (T.filter((t) => d.note.includes(t)).length < 0.6 * T.length || chars(T.filter((t) => d.note.includes(t.slice(0, 40)))) < 0.5 * chars(T))
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin) return
+    // n146: a note of words only over a region of painted parts (round 12 e1 canvas: a white frame, a gradient hero, a
+    // dark outlined button and handles said as bare lines, all built as loose text)
+    const bare = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.fill || p.img || p.ring).length >= 3 && /^("[^"]*",? )?lines "/.test(d.note)
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
     const keep = d.note && !weak ? `${d.note}; ` : ''
