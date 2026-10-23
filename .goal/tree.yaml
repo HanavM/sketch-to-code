@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Wrote round 8 (ten harder pages); first three built: trail map 91%, depth cards 59%, seat map 47%. Next: teach the planner seat maps and 3D card stacks."
+now: "Taught the planner seat maps: the cinema seat page went from 47% to 73% with every seat right. Next: the design editor's selected button, then the 3D card stack page."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81]
-lock: {by: run-2026-10-23T0131Z, until: 2026-10-23T03:01:00Z}
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n118 (fb49a1a, f06e760 on try/n3-vocabulary): planner says seat/cell maps cell by cell (kinds, aisle, row letters), pale panel under drawn parts is a panel not a picture, curved screen arc, chips apart, poster picture, 3D card stack card by card, hollow word, dash indicators, no stray space in split words. Rounds 1-7 plans unchanged but r4 e3 thumb. Live r8 e4 47 to 73 (47k, one turn), e3 first 49 (51k). Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-23 n118 live r8 e4+e3 ~146k billed (day so far ~836k)."
   - "n114 (cf3c87d, dd5fc47 on try/n3-vocabulary): round 8 in tests/rounds/round8 (--set round8auto): c1 depth stack, c2 orbit type, c3 masonry stickers, c4 topo knockout, c5 diagonal duotone; e1 mail compose, e2 date-range analytics, e3 design editor, e4 seat booking, e5 docs page. Measured, autoplanned untuned (NOTES lists misses), dry 10/10 no failures, untouched 0-5%. Live c1 59 (87k, repair 46k), c4 91 (65k), e4 47 (38k). Vitest: same 2 env failures; typecheck clean. round_scores gets r8 once all 10 are built."
   - "Token ledger: 2026-10-23 n114 live r8 c1+c4+e4 ~224k billed (day so far ~690k)."
   - "n116 (97fb2d5 on try/n3-vocabulary): rescore.mjs on the newest cmp per page (61 builds) + tests/rounds/roundscores.py -> SCORES.md (layout from latest run digest, else picture average); round2/NOTES.md written. Zero tokens. round_scores r1-r7 67,58,69,64,76,79,81. Each round from now: append the round average (all 10 pages built) to round_scores."
@@ -395,7 +397,8 @@ nodes:
   - {id: n112, parent: n111, kind: step, title: "~150k live: r6 e2 heading row ~10px high, drift below; r7 e1 card progress bars edge to edge with no grey track, \"Sprint 42\" built regular (target bold). Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Progress tracks and bold Sprint 42 said: kanban 77% (one run 48%, drift); chart title placed, 78 to 80%."}
   - {id: n113, parent: n112, kind: step, title: "~150k live: whole board built 12-15px low the same way slips under the 16px drift rule (r7 e1 run 1 48%); r6 e2 cards below title 5-10px low, repair turn read config files. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Same-way shift under 16px now caught; repair cut a 24-40px drift to 8px; kanban 72% twice, no gain."}
   - {id: n114, parent: n113, kind: step, title: "Write round 8 (harder than round 7: e.g. scroll-pinned layered hero, kinetic variable type, dense masonry with overlaps, multi-pane everyday apps), measure, autoplan, first live builds", status: done, branch: try/n3-vocabulary, result: "Ten round-8 pages written, all dry-drawn; first builds: topo 91%, depth stack 59%, seat map 47%. dd5fc47."}
-  - {id: n118, parent: n114, kind: step, title: "Free first, ~200k live: round-8 planner misses: e4 seat grid unsaid (cells, aisle, taken/selected/recliner), c1 3D card stack read as one picture + hollow word lost, c4 rings round pin, stats as cards; c3 plain tiles as pictures, e3 selection handles, e2 date popover; re-run c1, e4, first builds of the other seven", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n118, parent: n114, kind: step, title: "Free first, ~200k live: round-8 planner misses: e4 seat grid unsaid (cells, aisle, taken/selected/recliner), c1 3D card stack read as one picture + hollow word lost, c4 rings round pin, stats as cards; c3 plain tiles as pictures, e3 selection handles, e2 date popover; re-run c1, e4, first builds of the other seven", status: done, branch: try/n3-vocabulary, result: "Seat map said cell by cell: seat page 47 to 73%, every seat right; design editor first build 49%."}
+  - {id: n119, parent: n118, kind: step, title: "Free first, ~250k live: e3 selected pill built blue with invented text/heading, handles lost, canvas frame low, property fields unfilled; e4 stepper pill fills, timer place; re-run c1 with the 3D stack + hollow word notes; first builds c2, c3, c5, e1, e2, e5", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n115, parent: n113, kind: step, title: "Low priority, ~100k live: drift check matches thin lane-label lines to the wrong element (r7 e1 WEB APP ~12px low read as -1); residual +7px shift under the median rule. Fix, re-run r7 e1", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n116, parent: n3, kind: step, title: "Owner inbox: re-score all round 1-7 builds, mark checks met with evidence, add round scores", status: done, branch: try/n3-vocabulary,
      result: "61 builds re-scored free; six checks met, round averages 67 to 81; round 2 only 3 pages built."}

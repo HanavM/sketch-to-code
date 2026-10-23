@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-23T02:20:00Z | Seat maps, 3D card stacks, hollow words | Seat map said cell by cell: seat page 47 to 73%; design editor first build 49%. 146k.
 2026-10-23T01:35:00Z | Write round 8, first live builds | Ten harder pages written and dry-drawn; topo 91%, depth stack 59%, seat map 47%. 224k.
 2026-10-23T01:20:00Z | Re-score rounds 1-7, mark checks met | 61 builds re-scored free; six of seven checks met; round averages 67 to 81. 0k.
 2026-10-23T00:50:00Z | Whole board shifted under the drift rule | Same-way 8-15px shift now caught; repair cut drift 24-40 to 8px; kanban 72% twice. 178k.
