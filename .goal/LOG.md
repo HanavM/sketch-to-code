@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-23T06:58:00Z | Cut-out corners, floating panels, drift checker fix | Poster 90 to 96%, analytics 66 to 78%, both kept; round 8 avg 82%. 334k.
 2026-10-23T06:35:00Z | Card sizes said, poster 8 as real text | Analytics 58%, poster 75%, both below records, not kept; round 8 stays 80%. 188k.
 2026-10-23T05:52:00Z | Side nav spacing, article tops, zigzag lines, poster face | Docs page 71 to 84%; analytics and poster re-runs worse, not kept; round 8 avg 80%. 338k.
 2026-10-23T04:37:00Z | Lead buttons, flat cut-outs, glow and copy tiles | Sticker wall 72 to 89%, poster 86 to 90%, mail 74 to 79%; round 8 avg 79%. 189k.
