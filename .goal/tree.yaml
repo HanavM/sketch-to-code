@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 9 is set: ten harder pages (sliced type, frosted glass, halftone poster, spreadsheet, map search and more). First three creative builds score 45-64%; next I teach the tools frosted glass cards, sliced words and stripes."
+now: "Round 9 creative pages now mostly land: glass cards 94%, sliced type 92%, halftone poster 84%. Next I fix square buttons, the punched-hole bento tiles and the editorial columns, then build the five everyday pages."
 round: 9
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 54]
-lock: {by: run-n129, until: "2026-10-23T09:10:51Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 81]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n129 (1dbae5b on try/n3-vocabulary): planner says frosted glass stacks (blobs, cards, fill, border, blur, contents), a word sliced into offset bands, repeating stripes with band px/hex, outlined/filled word runs, a ruled mono index, a halftone dot disc, dashed borders. Live r9: c1 52 to 92, c2 45 to 94, c5 64 to 66 (kept); first builds c3 67, c4 84. Round 9 avg 81 over 5 creative pages (everyday not built yet). Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-23 n129 live r9 c1+c2+c3+c4+c5 ~214k billed (day so far ~3306k)."
   - "n128 (05d2793, e46fdd9 on try/n3-vocabulary): round 9 targets written, measured, auto-planned untuned, dry-drawn 10/10 (untouched 0-4%). Live untuned first builds: c1 sliced kinetic 52 (three whole stacked words, no bands), c2 glass layers 45 (glass stack missing), c5 vertical editorial 64 (stripes became a gradient, marquee lost). Round 9 score 54 is the average of these 3 pages only; it fills in as the other 7 are built. Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-23 n128 live r9 c1+c2+c5 ~133k billed (day so far ~3092k)."
   - "n127 (a4da641 on try/n3-vocabulary): planner says a summary card's multi-line grey copy, items pinned to a card bottom (timer, pay button) with colour, ::before swatch legends, a single-letter column's line height and x, an arched-top strip as a curved screen, a dark toolbar's items by x with filled boxes, a stacked list's row pitch, two-colour gradient hexes. 27 pages' notes gain detail across rounds 1-8; no marks changed. Live r8 e3 69 to 84, e4 62 to 85 (kept). Round 8 avg 86 (c 79 94 89 91 96; e 79 78 84 85 84). Vitest: same 2 env failures; typecheck clean."
@@ -430,7 +432,8 @@ nodes:
   - {id: n126, parent: n125, kind: step, title: "Free first, ~200k live: e2 table card's top said as 20px under the chart card and the popover's top under the date button; c5 cut-out polygon checked against its 1280px box (slant 62% to 38%); re-run e2, c5", status: done, branch: try/n3-vocabulary, result: "Slant and table fixed, drift checker misread cards; c5 90 to 96, e2 66 to 78, both kept"}
   - {id: n127, parent: n126, kind: step, title: "Free first, ~200k live: weakest round-8 pages: e4 seat map (62%) and e3 design editor (69%); read their side-by-sides and run records, fix the planner or pipeline gap, re-run e4, e3", status: done, branch: try/n3-vocabulary, result: "Planner says pinned summary items, swatch legend, row letters, curved screen, toolbar boxes; e3 69 to 84, e4 62 to 85, kept."}
   - {id: n128, parent: n127, kind: step, title: "Free first, then ~250k live: write round 9 (10 harder targets: e.g. kinetic split type, layered glass cards, bento with masks; spreadsheet grid, map + list, chat with threads), plan readout, dry draw, first live builds of the 3 hardest creative pages", status: done, branch: try/n3-vocabulary, result: "Round 9 written: 10 harder pages, dry-drawn 10/10; first builds sliced type 52, glass 45, editorial 64."}
-  - {id: n129, parent: n128, kind: step, title: "Free first, ~300k live: planner says glass cards over blurred blobs (fill, border, blur, place), a word sliced into offset bands, repeating stripes not a gradient, an outlined/filled word run, a mono index list; re-run r9 c1, c2, c5; first builds c3, c4", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n129, parent: n128, kind: step, title: "Free first, ~300k live: planner says glass cards over blurred blobs (fill, border, blur, place), a word sliced into offset bands, repeating stripes not a gradient, an outlined/filled word run, a mono index list; re-run r9 c1, c2, c5; first builds c3, c4", status: done, branch: try/n3-vocabulary, result: "Glass stack, sliced word, stripes, outlined run said exactly; c1 92, c2 94, c5 66; first c3 67, c4 84."}
+  - {id: n130, parent: n129, kind: step, title: "Free first, ~350k live: square buttons said square (c1, c4 built pills); c3 punched hole, notched corner, icon task list; c5 italic quote, drop-cap columns, byline rule, marquee face; c4 top bar inset; re-run c3, c5; first builds e1-e5", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n115, parent: n113, kind: step, title: "Low priority, ~100k live: drift check matches thin lane-label lines to the wrong element (r7 e1 WEB APP ~12px low read as -1); residual +7px shift under the median rule. Fix, re-run r7 e1", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n116, parent: n3, kind: step, title: "Owner inbox: re-score all round 1-7 builds, mark checks met with evidence, add round scores", status: done, branch: try/n3-vocabulary,
      result: "61 builds re-scored free; six checks met, round averages 67 to 81; round 2 only 3 pages built."}
