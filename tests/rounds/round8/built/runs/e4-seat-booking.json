@@ -1,23 +1,23 @@
 {
   "id": "e4-seat-booking",
-  "at": "2026-10-23T02:17:23.299Z",
+  "at": "2026-10-23T02:56:07.090Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5368728433094959,
-    "overallV2": 0.5368728433094959,
-    "overallV1": 0.4411232333190378,
-    "colour": 0.9811591997916657,
-    "structure": 0.7700157109683765,
-    "structureStrict": 0.6585728440456491,
-    "colourAligned": 0.9811591997916657,
-    "structureAligned": 0.7700157109683765,
+    "overall": 0.6194353771253224,
+    "overallV2": 0.6194353771253224,
+    "overallV1": 0.5746445792327325,
+    "colour": 0.9780868461987466,
+    "structure": 0.8818595938883186,
+    "structureStrict": 0.8297276329392963,
+    "colourAligned": 0.9780868461987466,
+    "structureAligned": 0.8818595938883186,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8378259974413956
+      "r": 0.5860155162579693
     },
-    "layout": 0.5917901361697517
+    "layout": 0.6244502602176402
   },
   "effects": {
     "recall": 0.5,
@@ -30,32 +30,32 @@
     "extra": []
   },
   "tokens": {
-    "input": 38303,
-    "output": 24344,
-    "cacheRead": 164201
+    "input": 33879,
+    "output": 22675,
+    "cacheRead": 168553
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44804,
-      "output": 16764,
-      "cacheRead": 153513,
+      "billed": 47123,
+      "output": 17811,
+      "cacheRead": 165469,
       "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read components/CinemaScreen.tsx",
         "Glob",
-        "Read src/main.tsx",
         "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 190155
+      "ms": 176521
     }
   ],
-  "reading": "The sketch is a cinema seat-booking screen: a top stepper bar, a large white panel holding a curved screen indicator labelled SCREEN, a 12x11 seat grid with row letters and a status legend below it, plus a right-hand movie-details card with poster, seat chips, price breakdown and a continue button.",
+  "reading": "The sketch builds a cinema seat-selection screen: a 4-step progress stepper at top, a large white panel containing a skeleton bar, a \"SCREEN\" label, a 12x11 seat grid with an aisle gap and a legend row, and a separate right-hand booking-summary card with a poster placeholder, seat chips, price breakdown and a Continue button. All content and styling details come directly from the typed notes attached to each stroke group.",
   "actions": [
     {
       "kind": "add",
@@ -70,7 +70,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a stepper: 4 filled pill steps in a single row, each 29px tall with border-radius 999px, a small grey '›' between each pair, left to right: '✓ Showtime' (#d"
+      "instruction": "A stepper: 4 filled pill-shaped steps in one row, each 29px tall, border-radius 999px, with a small grey '›' chevron between each pair. Left to right: '✓ Showti"
     },
     {
       "kind": "add",
@@ -85,7 +85,22 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a plain #ffffff panel, 820x770px at 40,90, 16px rounded corners, thin #e4e4e7 border. This is a plain background container (not a picture, nothing of its ow"
+      "instruction": "A plain white #ffffff panel, 820x770px positioned at 40,90, with 16px rounded corners and a thin #e4e4e7 border. It is an empty container (not a picture, no con"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        184,
+        133,
+        532,
+        4
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Inside the white panel, a plain #a1a1aa skeleton placeholder bar, exactly 540x10px with 50px rounded corners, positioned at 180,130. It is a bare placeholder li"
     },
     {
       "kind": "add",
@@ -94,15 +109,13 @@
       ],
       "textSize": [],
       "region": [
-        184,
-        133,
-        532,
-        28
+        404,
+        153,
+        112,
+        8
       ],
-      "paths": [
-        "s2"
-      ],
-      "instruction": "On the panel, add a thin solid #a1a1aa curved screen arc, 540px wide and 10px tall at its middle, top edge bowed upward with tapering ends (border-radius: 50% /"
+      "paths": [],
+      "instruction": "Inside the white panel, wide-letter-spaced label text reading 'SCREEN', sitting just below the skeleton bar."
     },
     {
       "kind": "add",
@@ -118,7 +131,7 @@
         "s4",
         "s5"
       ],
-      "instruction": "On the panel, add a seat map built as a real CSS grid of 12 columns x 11 rows of individual cells (not an empty panel or picture), each cell 40x36px, 10px gaps,"
+      "instruction": "Inside the white panel, a seat/cell map built as a real CSS grid of 12 columns x 11 rows of individually built cells (not a picture, not an empty block). Each c"
     },
     {
       "kind": "add",
@@ -133,7 +146,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Below the seat grid, add a legend with links: Free, Taken, Selected, Recliner +$4."
+      "instruction": "Inside the white panel below the seat grid, a row of legend links: 'Free', 'Taken', 'Selected', 'Recliner +$4', matching the seat-cell color key above."
     },
     {
       "kind": "add",
@@ -148,7 +161,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a white movie-details card to the right of the panel containing: a 90x130px gradient poster placeholder (#1e3a8a to #f97316), 8px rounded corners, positione"
+      "instruction": "A white booking-summary card on the right side of the page containing: a 90x130px gradient (#1e3a8a to #f97316) poster placeholder image with 8px rounded corner"
     }
   ],
   "rejected": [

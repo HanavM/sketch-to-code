@@ -1,0 +1,192 @@
+{
+  "id": "c5-diagonal-duotone",
+  "at": "2026-10-23T03:06:54.371Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8555211361785948,
+    "overallV2": 0.8555211361785948,
+    "overallV1": 0.7402772178733629,
+    "colour": 0.9082108266924075,
+    "structure": 0.9240241892024929,
+    "structureStrict": 0.7665726030219714,
+    "colourAligned": 0.9082108266924075,
+    "structureAligned": 0.9240241892024929,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9102101895716512
+    },
+    "layout": 0.9124506694362556
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "blend",
+      "huge-type",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "clip-shape",
+      "vertical-type"
+    ],
+    "extra": [
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 57967,
+    "output": 37521,
+    "cacheRead": 216964
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 70183,
+      "output": 26159,
+      "cacheRead": 206375,
+      "toolCalls": 9,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 296512
+    }
+  ],
+  "reading": "The sketch builds a blue promo page: a soft-yellow angled cut-out panel with a wavy notch spans the left/lower portion of the page, a fine diagonal grain texture lies over everything, and a giant color-inverting white '8' sits across the cut line. Top-left is a heading+subtext block ('Season eight.' / 'Eight films, eight cities...'), bottom-right is a 'Tickets on sale Friday' heading with an outlined 'Get notified' button, and a near-black vertical bar on the right edge carries soft-yellow text 'PREMIERE NIGHT ★ 2027'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Typed note: 'soft yellow angled cut-out shape'. Add a soft-yellow decorative background panel covering the left/lower region of the page, bounded by the page ed"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Typed note: 'a fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Typed note: 'colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger).' Ad"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        64,
+        60,
+        352,
+        111
+      ],
+      "paths": [],
+      "instruction": "Typed note: 'heading 44px bold #1d4ed8 \"Season eight.\", then 16px under it 17px #1e3a8a text \"Eight films, eight cities, one long night of premieres. Doors at s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        884,
+        640,
+        332,
+        90
+      ],
+      "paths": [],
+      "instruction": "Typed note: 'heading 22px bold #fef08a \"Tickets on sale Friday\", then 18px under it an outlined button \"Get notified\" (137x46px, 2px solid #fef08a border, no fi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1",
+        "s9"
+      ],
+      "instruction": "Typed note: 'vertical near-black bar, soft yellow text \"PREMIERE NIGHT ★ 2027\".' Add a tall near-black vertical bar along the right edge of the page (matching t"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -115,15 +115,15 @@
    ],
    [
     "echo-word",
-    "huge Helvetica heavy tight-set letters lines set tight (line-height 0.86) \"SOUND SOUND SOUND SOUND\", set in exactly 4 lines: \"SOUND\" / \"SOUND\" / \"SOUND\" / \"SOUND\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 245px wide)"
+    "huge Helvetica heavy tight-set letters lines set tight (line-height 0.86) \"SOUND SOUND SOUND SOUND\", set in exactly 4 lines: \"SOUND\" / \"SOUND\" / \"SOUND\" / \"SOUND\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 245px wide); each line its own block with its own opacity, top to bottom: 100%, 60%, 35%, 15% (the lower lines fade out; never all solid)"
    ],
    [
     "orbit-text",
-    "ring of small spaced capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\" running round a 600px circle, no outline, no fill"
+    "ring of big heavy capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\", 44px type, letter-spacing 10px, #111111, set on a circle (SVG textPath) of radius 250px centred in a 600x600px box at 340,150: the words run ALL the way round the circle, end meeting start, never a partial arc; a separate thin dashed 2px #111111 circle (stroke-dasharray 4, 8, no fill) of radius 282px round the same centre, just outside the letters"
    ],
    [
     "sun",
-    "vivid red-orange circle with \"FM26\""
+    "perfectly round FLAT disc 300px across (border-radius 50%), one solid #ff4d1c fill: no gradient, no shading, no highlight, no 3D, no shadow; centred in it 96px heavy #f5f0e6 \"FM26\""
    ],
    [
     "side-copy",
@@ -167,15 +167,15 @@
    ],
    [
     "tile-blue",
-    "image"
+    "box"
    ],
    [
     "tile-lime",
-    "image"
+    "box"
    ],
    [
     "tile-violet",
-    "image"
+    "box"
    ],
    [
     "tile-quote",
@@ -183,11 +183,11 @@
    ],
    [
     "tile-yellow",
-    "image"
+    "box"
    ],
    [
     "tile-pink",
-    "image"
+    "box"
    ],
    [
     "sticker-new",
@@ -221,35 +221,35 @@
    ],
    [
     "tile-blue",
-    "vivid cyan (top) to vivid blue (bottom) gradient block"
+    "vivid cyan (top) to vivid blue (bottom) gradient tile, 280x420px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "tile-lime",
-    "mint green block"
+    "mint green (#bef264) tile, 300x260px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "tile-violet",
-    "vivid purple block"
+    "vivid purple (#7c3aed) tile, 280x340px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "tile-quote",
-    "pale pink 24px text \"“My moodboard finally looks like my mood.”\", in the top-left corner (24px in, 24px down), the rest of the box empty"
+    "pale pink (#fecaca) filled tile 280x330px, 18px rounded corners, flat (no shadow); on it 24px serif italic #1c1917 text \"“My moodboard finally looks like my mood.”\", in its top-left corner (24px in, 24px down), the rest of the tile empty"
    ],
    [
     "tile-yellow",
-    "vivid yellow block"
+    "vivid yellow (#fde047) tile, 280x270px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 590px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "tile-pink",
-    "light pink (top) to deep raspberry (bottom) gradient block"
+    "light pink (top) to deep raspberry (bottom) gradient tile, 300x430px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 430px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap)"
    ],
    [
     "sticker-new",
-    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline"
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur"
    ],
    [
     "sticker-free",
-    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline"
+    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur"
    ]
   ]
  },
@@ -397,15 +397,19 @@
    ],
    [
     "grain",
-    "a big 1280x900px block filled with a soft pale tinted #000000 to #000000 (bottom left to top right) gradient: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin #000000 lines at 5% opacity, background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 6px) (one thin line every 6px, 45deg); barely visible: never a picture, never a gradient, never a solid layer"
    ],
    [
     "giant-number",
     "colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger)"
    ],
    [
+    "left-copy",
+    "heading 44px bold #1d4ed8 \"Season eight.\", then 16px under it 17px #1e3a8a text \"Eight films, eight cities, one long night of premieres. Doors at seven.\"; the block 360px wide, its top-left at 60,60"
+   ],
+   [
     "right-copy",
-    "soft yellow \"Tickets on sale Friday Get notified\""
+    "heading 22px bold #fef08a \"Tickets on sale Friday\", then 18px under it an outlined button \"Get notified\" (137x46px, 2px solid #fef08a border, no fill, 16px bold #fef08a text); the block 340px wide, its top-left at 880,640"
    ],
    [
     "side-strip",
@@ -603,15 +607,19 @@
    ],
    [
     "hero-block",
-    "soft yellow (top left) to light pink (bottom right) gradient block"
+    "soft yellow (top left) to light pink (bottom right) gradient tile, 500x240px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "selected-button",
-    "an empty solid #111111 pill exactly 180x48px (border-radius 999px), NO text, NO label, NOT a button with words, NOT blue; a 2px bright sky blue (#0d99ff) selection outline round it (outline: 2px solid; outline-offset 0px); 4 small 8x8px square #ffffff handles with a #0d99ff border, one centred on each corner of its bounding box (absolutely placed)"
+    "an empty solid #111111 pill exactly 180x48px (border-radius 999px: fully round ends, a capsule, NOT square or slightly rounded corners; the selection outline follows the round ends), NO text, NO label, NOT a button with words, NOT blue; a 2px bright sky blue (#0d99ff) selection outline round it (outline: 2px solid; outline-offset 0px); 4 small 8x8px square #ffffff handles with a #0d99ff border, one centred on each corner of its bounding box (absolutely placed)"
    ],
    [
     "size-badge",
     "vivid bright sky blue block, white text \"180 × 48\""
+   ],
+   [
+    "text-line",
+    "a plain #e5e5e5 bar exactly 420x12px, 6px rounded at 370,600: a skeleton placeholder line, NO words, NOT text, nothing inside"
    ],
    [
     "cursor-tag",
@@ -673,7 +681,7 @@
    ],
    [
     "screen",
-    "a thin solid #a1a1aa curved screen arc 540px wide, 10px tall at its middle, its top edge bowed up and its ends tapering (border-radius: 50% / 100% 100% 0 0), no text (NOT a progress bar)"
+    "a plain #a1a1aa bar exactly 540x10px, 50px rounded at 180,130: a skeleton placeholder line, NO words, NOT text, nothing inside"
    ],
    [
     "screen-label",
@@ -681,7 +689,7 @@
    ],
    [
     "seat-grid",
-    "a seat/cell map, 12 columns x 11 rows of small separate cells (NOT a picture, NOT an empty panel: every cell is built, e.g. a CSS grid of 12 columns): each cell 40x36px, 10px apart across and 10px apart down, rounded 8px 8px 4px 4px; the grid's top-left at 150,200 (590x496px); columns 6 and 7 left empty for an aisle (keep the space, draw nothing there); cell kinds: 1 = #ffffff fill with a 1px #a1a1aa border (71 cells); 2 = #d4d4d8 fill with a 1px #d4d4d8 border (29 cells); 3 = #16a34a fill with a 1px #16a34a border (2 cells); 4 = #f3e8ff fill with a 1px #a855f7 border (8 cells); rows top to bottom, one digit per cell (its kind; _ = empty aisle gap), each row labelled at its left by its letter: A 11221__11121, B 12211__12211, C 11112__21111, D 22111__11222, E 11133__11111, F 44442__24444, G 12111__11121, H 11122__22111, J 21111__11112, K 11222__22111, L 11111__11111"
+    "a seat/cell map, 12 columns x 11 rows of small separate cells (NOT a picture, NOT an empty panel: every cell is built, e.g. a CSS grid of 12 columns): each cell 40x36px, 10px apart across and 10px apart down, rounded 8px 8px 4px 4px; the grid's top-left at 150,200 (590x496px); columns 6 and 7 left empty for an aisle (keep the space, draw nothing there); cell kinds: 1 = #ffffff fill with a 1px #a1a1aa border (71 cells); 2 = #d4d4d8 fill with a 1px #d4d4d8 border (29 cells); 3 = #16a34a fill with a 1px #16a34a border (2 cells); 4 = #f3e8ff fill with a 1px #a855f7 border (8 cells); rows top to bottom, one digit per cell (its kind; _ = empty aisle gap), each row labelled at its left by its letter: A 11221__11121, B 12211__12211, C 11112__21111, D 22111__11222, E 11133__11111, F 44442__24444, G 12111__11121, H 11122__22111, J 21111__11112, K 11222__22111, L 11111__11111; place the grid's first row exactly 36px below the bottom of the screen label (top 200px from the page top), 110px below the top edge of the hall panel and 110px in from its left edge: not lower, the rows start right there"
    ],
    [
     "legend",

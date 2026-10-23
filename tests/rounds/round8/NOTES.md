@@ -93,3 +93,27 @@ as a stepper, pill by pill with fill and ink and the separator. Rounds 1-7 plans
 Next: e4 grid place (say its top as a margin from the screen, not only page coordinates); c2 echo word fade per line,
 ring text size and full circle with the dashed ring, flat disc; e3 pill corners kept, a bare grey bar is not text;
 then first builds of c3, c5, e1, e2, e5.
+
+## n120: tiles, grain, orbit ring, echo fade, flat disc, seat grid place; c3 and c5 first builds (2026-10-23, ~364k billed)
+
+Planner (zero tokens): a rounded flat colour or gradient tile is a plain tile with its size, rounding and hex, not a
+picture; a rounded filled tile holding only copy says the tile fill and the ink apart; a sticker says its hard offset
+shadow; faint repeating stripes are a grain texture laid over the page, not a product photo; a heading over a line or
+an outlined button (no box) is said part by part with sizes and inks; big ring letters say their size, weight, radius,
+that they run all the way round, and the dashed circle round them; a word repeated line by line says each line's
+opacity; a big flat disc with a word says its size, hex and the word's type, no shading; an empty selected pill says
+fully round ends; a thin rounded textless bar is a placeholder line, not text; a seat map says its top as a gap under
+the screen label and inside its panel. Rounds 1-7 plans unchanged except round 3 c2's reel tile and round 5's yellow
+quote tile (both now say tile, hex and rounding).
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| c3 masonry stickers (first build) | 72% | 81k (one turn) | tiles, gradients and stickers with hard shadows right; the near-black "2.4M" tile built with no fill (huge white text on cream); quote ink pink and sans; violet tile's glow lost; lime read mint; tiles gained soft shadows |
+| c5 diagonal duotone (first build) | 86% | 95k (one turn; one earlier try timed out reading the drawing, ~0k) | split, inverting 8, grain, left and right copy, outlined button, side strip right; the yellow half turned into a yellow-to-orange gradient with the pen's scribble strokes left visible over the 8; 8 a little wide |
+| c2 orbit type | 77% -> 94% | ~38k (one turn) | ring letters big and all the way round, dashed circle, fading SOUNDs, flat disc all right; ticker letters not spaced out |
+| e3 design editor | 69% -> 69% | ~75k (build + repair) | pill round, hero rounded, grey line a plain bar now (looks much closer); layer rows taller, canvas ~12px low, so the layout part still misses the small labels |
+| e4 seat booking | 54% -> 62% | 47k (one turn) | grid now starts right under the screen; row letters sit tight to the grid (target ~20px further left), timer and Continue not pinned to the card bottom, date line invented, screen flat |
+
+Next: c3 dark text tile (heading in a filled tile) and radial glow on a coloured tile; c5 cut-out painted flat
+(no gradient) and scribble strokes never kept; e4 summary items pinned to the card bottom, row-letter column place;
+then first builds of e1, e2, e5 so round 8 has all 10.

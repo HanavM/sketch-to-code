@@ -1,4 +1,4 @@
-c1-layered-peaks · marks 7 · words 76
+c1-layered-peaks · marks 7 · words 140
     nav          box     
     sun          circle  
     headline     heading 
@@ -6,15 +6,15 @@ c1-layered-peaks · marks 7 · words 76
     ridge-near   shape   
     body         text    
     cta          button  
-    note *: whole page: soft yellow to bright orange to dark pink gradient page, Helvetica type, white text
+    note *: whole page: soft yellow (#fde68a) to bright orange (#fb923c at 45%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text
     note nav: nav, no box around it: "ALTITUDE" left, "RoutesHutsJournal" right
-    note sun: big glowing off-white to peach circle
-    note headline: giant Helvetica heavy tight-set letters "SUMMIT"
+    note sun: a 260px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #fff7ed 0%, #fdba74 70%) so it looks lit from above, with a big soft cream glow under it (box-shadow 0px 0px 120px, 70% opacity); absolutely placed, top-left at 820,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)
+    note headline: giant Helvetica heavy tight-set letters "SUMMIT", 260px type, about 953px wide (no larger)
     note ridge-far: deep raspberry jagged cut-out shape, in front of the "SUMMIT" heading
     note ridge-near: deep purple jagged cut-out shape
     note body: text "Seven alpine routes, hut to hut, with nothing to carry but a camera."
     note cta: off-white pill deep purple text button "Plan a route"
-c2-kinetic-marquee · marks 7 · words 99
+c2-kinetic-marquee · marks 7 · words 192
     logo         text    
     menu         button  
     band-black   heading 
@@ -22,15 +22,15 @@ c2-kinetic-marquee · marks 7 · words 99
     intro        heading 
     reel         box     
     play         circle  
-    note *: whole page: off-white page, Helvetica type, near-black text
+    note *: whole page: off-white (#f4f4f0, plainly not white) page, Helvetica type, near-black text
     note logo: "ROLL/STUDIO"
     note menu: near-black outline pill button "Menu"
-    note band-black: tilted 4° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase off-white on a near-black band "MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION"…
-    note band-orange: tilted 3° clockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase near-black letters on a red-orange band "BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS"…
+    note band-black: tilted 4° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase off-white on a near-black (#111111) band (the band itself 1400x150px before the tilt (height: 150px, only 150px thick; the tilt alone makes its outline 247px tall), filled near-black edge to edge) "MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION"…
+    note band-orange: tilted 3° clockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy uppercase near-black letters on a red-orange (#ff3d00) band (the band itself 1400x110px before the tilt (height: 110px, only 110px thick; the tilt alone makes its outline 183px tall), filled red-orange edge to edge) "BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS"…
     note intro: "We make things move for brands that refuse to sit still."
-    note reel: near-black block
-    note play: pulsing vivid red-orange circle
-c3-gradient-orbit · marks 7 · words 87
+    note reel: near-black (#111111) tile, 420x236px, 20px rounded corners, plain paint only: no picture, no X, no icon, no text
+    note play: pulsing perfectly round solid disc (border-radius 50%, not traced from the ink), 80px across, flat fully opaque vivid red-orange (#ff3d00) fill, hard edge, no blur
+c3-gradient-orbit · marks 7 · words 139
     ring-outer   circle  
     ring-inner   circle  
     planet       circle  
@@ -38,15 +38,15 @@ c3-gradient-orbit · marks 7 · words 87
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: near-black indigo page, Helvetica type, light grey text
+    note *: whole page: near-black indigo (#05010f) page, Helvetica type, light grey text
     note ring-outer: spinning big faint lavender outline circle
     note ring-inner: spinning big faint cyan outline circle
-    note planet: small 46px glowing vivid cyan dot
+    note planet: small 46px glowing vivid cyan dot (exactly 46x46px: w-[46px] h-[46px], border-radius 50%, not smaller)
     note tag: lavender outline pill button "NOW IN PRIVATE BETA"
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) lavender to light pink to cyan gradient text "Compute at orbit speed"
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) lavender (#a78bfa) to light pink (#f472b6 at 50%) to cyan (#22d3ee) gradient, left to right text "Compute at orbit speed", set in exactly 2 lines: "Compute at orbit" / "speed" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 816px wide)
     note body: grey text "Spin up GPU clusters in seconds and pay only for the seconds you use."
     note cta: vivid purple (left) to vivid dark pink (right) gradient glowing button "Request access"
-c4-brutal-index · marks 7 · words 122
+c4-brutal-index · marks 7 · words 131
     number       heading 
     side-rail    box     
     card-a       box     
@@ -54,15 +54,15 @@ c4-brutal-index · marks 7 · words 122
     card-c       box     
     stamp        circle  
     foot         text    
-    note *: whole page: light grey page, mono type, near-black text
-    note number: giant Helvetica heavy tight-set letters "01"
+    note *: whole page: light grey (#e7e5df) page, mono type, near-black text
+    note number: giant Helvetica heavy tight-set letters "01", 420px type, about 407px wide (no larger)
     note side-rail: vertical near-black bar, light grey text "INDEX OF THINGS"
     note card-a: white thick near-black border block "Manifesto", text "Websites should look like they were made by people with opinions.", with a hard solid opaque near-black shadow offset 10px down right, no blur
     note card-b: vivid yellow thick near-black border block "Work", text "Forty-two projects, zero templates. Click anything.", with a hard solid opaque near-black shadow offset 10px down right, no blur
     note card-c: vivid sky blue thick near-black border block "Contact", text "hello@brutal.index", with a hard solid opaque near-black shadow offset 10px down right, no blur
     note stamp: tilted 14° anticlockwise red outline circle with "EST. 2019"
-    note foot: mono "© BRUTAL INDEX — ALL RIGHTS IGNORED"
-c5-blend-editorial · marks 8 · words 103
+    note foot: 14px mono "© BRUTAL INDEX — ALL RIGHTS IGNORED"
+c5-blend-editorial · marks 8 · words 168
     dark-half    box     
     masthead     text    
     issue        text    
@@ -74,62 +74,62 @@ c5-blend-editorial · marks 8 · words 103
     note *: whole page: white page, Georgia type, near-black text
     note dark-half: near-black block
     note masthead: italic "Contrast"
-    note issue: wide-spaced letters "ISSUE 19 / WINTER"
-    note side-label: uppercase wide-spaced letters vertical "A MAGAZINE ABOUT OPPOSITES"
+    note issue: 13px wide-spaced letters "ISSUE 19 / WINTER", one line on its own (top 44px, left edge 1050px), nothing else written beside it
+    note side-label: uppercase wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 362px long "A MAGAZINE ABOUT OPPOSITES"
     note photo: vivid bright sky blue (top) to vivid pink (bottom) gradient block, overlapping the upper left of the near-black block and on top of it
-    note headline: colour-inverting where it crosses what is under it giant Georgia italic serif tight-set letters lines set tight (line-height 0.95) white "Light keeps the dark honest"
+    note headline: colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) white "Light keeps the dark honest", set in exactly 2 lines: "Light keeps the" / "dark honest" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 848px wide)
     note dek: text "Twelve photographers on the shadows they chase, and the ones they run from."
     note read: link "Read the issue →" with a 2px underline (no box, not a button)
-e1-users-table · marks 5 · words 67
+e1-users-table · marks 5 · words 203
     title        heading 
     add          button  
     filters      box     
     table        box     
     pager        text    
     note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
-    note title: "Users"
+    note title: "Users", 28px bold type on one line, its box top 40px from the page top and 32px tall (top-[40px] or the same margin, line-height 32px; not higher)
     note add: indigo white text button "+ Invite user"
-    note filters: input "Search by name or email…", dropdown "Role: All", dropdown "Status: All"
+    note filters: toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search by name or email…" 360px wide, dropdown "Role: All" 81px wide, dropdown "Status: All" 92px wide
     note table: table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", deep rust orange "Invited", deep raspberry "Suspended"
-    note pager: pager "Showing 1–7 of 48" left, page buttons "1" current, "2", "3", "Next"
-e2-kanban · marks 5 · words 89
+    note pager: pager, one line 1168px wide, its middle 580px from the page top (inside the page, not below it): 14px dark grey "Showing 1–7 of 48" at the left, at the far right a row of 34x34px outlined page buttons "1", "2", "3", "Next", "1" filled indigo with white text (current)
+e2-kanban · marks 5 · words 105
     title        heading 
     col-todo     box     
     col-doing    box     
     col-review   box     
     col-done     box     
-    note *: whole page: pale blue-grey page, Helvetica type, dark navy text
-    note title: "Sprint 24"
+    note *: whole page: pale blue-grey (#eef2f7, plainly not white) page, Helvetica type, dark navy text
+    note title: "Sprint 24", 26px type on ONE line (white-space: nowrap, never wrapped), about 111px wide
     note col-todo: column "TO DO", cards: "Rate-limit the export API" tag blue "Feature", "Login loop on Safari 17" tag red "Bug", "Rotate staging keys" tag green "Ops"
     note col-doing: column "IN PROGRESS", cards: "Bulk invite from CSV" tag blue "Feature", "Chart tooltips cut off" tag red "Bug"
     note col-review: column "REVIEW", cards: "Dark mode for settings" tag blue "Feature"
     note col-done: column "DONE", cards: "Upgrade Postgres to 16" tag green "Ops", "Empty state for search" tag blue "Feature", "Fix timezone in emails" tag red "Bug"
-e3-calendar · marks 4 · words 105
+e3-calendar · marks 4 · words 117
     title        heading 
     prev         button  
     new          button  
     month        box     
-    note title: "November 2026"
+    note title: "November 2026", 28px type on ONE line (white-space: nowrap, never wrapped), about 207px wide
     note prev: outline buttons in a row: "‹ Prev", "Today", "Next ›"
     note new: green white text button "+ New event"
     note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; day 1 under Sun, first row starts with last month's 26, 27, 28, 29, 30, 31, last box is 29; event chips (solid colour, white text) blue "Standup" on 2, 9, 16, 23 (a chip on each day), green "Design review" on 4, orange "Launch" on 6, green "1:1 with Mia" on 11, blue "Planning" on 11, orange "Offsite" on 19, 20 (a chip on each day), green "Retro" on 25; day 11 highlighted
-e4-chat · marks 4 · words 109
+e4-chat · marks 4 · words 110
     sidebar      box     
     header       text    
     thread       box     
     composer     box     
     note sidebar: dark navy sidebar, light grey text "Messages", then 5 links stacked, each a name with a small grey line under it: "Design team" / "Mia: shipping the new icons" (highlighted); "Jonas Berg" / "See you at 3?"; "Support rota" / "Ali: I can cover Friday"; "Lena Ito" / "Thanks! 🙏"; "Releases" / "v4.2 is live"
-    note header: "Design team"
+    note header: 17px "Design team"
     note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right bright sky blue "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right bright sky blue "Perfect, I'll wire them up after lunch.", 1 more
     note composer: input "Write a message…", button "Send"
-e5-analytics · marks 5 · words 65
+e5-analytics · marks 5 · words 95
     title        heading 
     range        button  
     kpis         box     
     chart        box     
     top-pages    box     
-    note *: whole page: pale grey page, Helvetica type, dark navy text
-    note title: "Overview"
+    note *: whole page: pale grey (#f6f7fb, plainly not white) page, Helvetica type, dark navy text
+    note title: "Overview", 26px bold type on one line, its box top 36px from the page top and 31px tall (top-[36px] or the same margin, line-height 31px; not higher)
     note range: dropdown "Last 30 days"
     note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%
     note chart: bar chart "Signups per week", 8 indigo bars, heights 45/61/53/69/78/73/91/100% of the tallest

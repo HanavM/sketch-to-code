@@ -1,65 +1,59 @@
 {
   "id": "c2-orbit-type",
-  "at": "2026-10-23T02:04:37.114Z",
+  "at": "2026-10-23T02:42:47.333Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7697247880288107,
-    "overallV2": 0.7697247880288107,
-    "overallV1": 0.6949946374762745,
-    "colour": 0.9684361871438609,
-    "structure": 0.8273231344418989,
-    "structureStrict": 0.7387623242864384,
-    "colourAligned": 0.9684361871438609,
-    "structureAligned": 0.8273231344418989,
+    "overall": 0.9412226138681861,
+    "overallV2": 0.9412226138681861,
+    "overallV1": 0.8866774225951831,
+    "colour": 0.9926547130867064,
+    "structure": 0.968259958277076,
+    "structureStrict": 0.9036198325245427,
+    "colourAligned": 0.9926547130867064,
+    "structureAligned": 0.968259958277076,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9154855238555325
+      "r": 0.9787796444749942
     },
-    "layout": 0.926315705031444
+    "layout": 0.9418034485773911
   },
   "effects": {
-    "recall": 0.5,
+    "recall": 1,
     "kept": [
+      "huge-type",
       "overlap"
     ],
-    "missing": [
-      "huge-type"
-    ],
-    "extra": [
-      "bleed",
-      "gradient",
-      "motion",
-      "soft-shadow"
-    ]
+    "missing": [],
+    "extra": []
   },
   "tokens": {
-    "input": 24683,
-    "output": 13371,
-    "cacheRead": 156170
+    "input": 22972,
+    "output": 12615,
+    "cacheRead": 114461
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 26470,
-      "output": 9385,
-      "cacheRead": 145177,
+      "billed": 27712,
+      "output": 9802,
+      "cacheRead": 111377,
       "toolCalls": 7,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Write src/App.tsx",
-        "Edit src/index.css"
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 105159
+      "ms": 114944
     }
   ],
-  "reading": "A poster-style hero: a 4-line tight-set 'SOUND' wordmark top-left, a huge circle with small spaced text running round its rim reading 'LISTEN · LOUDER ·' repeated, a smaller vivid red-orange circle inside it labeled 'FM26', a body copy block to the right, a 2-line 'NOV 14–16' date stamp below that, and a near-black marquee bar along the bottom with scrolling cream 'ON AIR ● 98.6 FM ●' text. A typed note also sets page-wide styling: cream background, Helvetica type, near-black text.",
+  "reading": "The sketch lays out a hero section: a fading 4-line \"SOUND\" wordmark, a circular ring of repeating \"LISTEN · LOUDER\" text with a dashed outer circle, a flat orange disc badge reading \"FM26\" in the center, a short tagline paragraph to the upper right, a \"NOV 14–16\" date stack below it, and a bottom marquee bar reading \"ON AIR ● 98.6 FM\". Typed notes give exact copy, styling and page-wide cream/Helvetica/near-black theme.",
   "actions": [
     {
       "kind": "add",
@@ -88,7 +82,7 @@
         248
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy, tight-set (line-height 0.86) wordmark set in exactly 4 lines, each line whole and never re-wrapped (white-space: nowrap, no max-width narr"
+      "instruction": "Huge Helvetica heavy tight-set (line-height 0.86) wordmark \"SOUND\" repeated in exactly 4 stacked lines, each line its own block, white-space nowrap, about 245px"
     },
     {
       "kind": "add",
@@ -103,7 +97,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "A large circle (~600px) with no outline and no fill, with a ring of small spaced capital letters running around its circumference reading 'LISTEN · LOUDER · LIS"
+      "instruction": "Ring of big heavy capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\" at 44px, letter-spacing 10px, color #111111, set via SVG textPath on a"
     },
     {
       "kind": "add",
@@ -118,7 +112,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A smaller circle nested inside the large ring, filled with a vivid red-orange color, containing the text 'FM26' centered inside it."
+      "instruction": "Perfectly round flat disc, 300px across (border-radius 50%), single solid #ff4d1c fill with no gradient, shading, highlight, 3D effect or shadow; centered insid"
     },
     {
       "kind": "add",
@@ -147,7 +141,7 @@
         90
       ],
       "paths": [],
-      "instruction": "Body paragraph text: 'Three nights of radio art, broadcast live from a lighthouse. Tune in anywhere; show up if you can.'"
+      "instruction": "Body copy text block reading: \"Three nights of radio art, broadcast live from a lighthouse. Tune in anywhere; show up if you can.\""
     },
     {
       "kind": "add",
@@ -172,7 +166,7 @@
         88
       ],
       "paths": [],
-      "instruction": "Big heavy tight-set (line-height 1) date stamp set in exactly 2 lines, each whole and never re-wrapped (white-space: nowrap, no max-width narrower than the long"
+      "instruction": "Big heavy tight-set (line-height 1) date stack \"NOV 14–16\" in exactly 2 lines: \"NOV\" / \"14–16\", each line whole and nowrap, about 117px wide, never re-wrapped."
     },
     {
       "kind": "add",
@@ -187,7 +181,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "A full-width near-black bar along the bottom of the page containing bold 18px cream-colored scrolling marquee text: 'ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AI"
+      "instruction": "Full-width near-black marquee bar with bold 18px cream text reading \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 F"
     }
   ],
   "rejected": [

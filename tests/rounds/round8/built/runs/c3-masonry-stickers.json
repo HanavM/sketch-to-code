@@ -1,0 +1,271 @@
+{
+  "id": "c3-masonry-stickers",
+  "at": "2026-10-23T02:34:20.598Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7182141545970848,
+    "overallV2": 0.7182141545970848,
+    "overallV1": 0.6881454172769629,
+    "colour": 0.8895256349333549,
+    "structure": 0.8158224865010852,
+    "structureStrict": 0.7668250454417617,
+    "colourAligned": 0.8895256349333549,
+    "structureAligned": 0.8158224865010852,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6261024796812035
+    },
+    "layout": 0.8510418659336735
+  },
+  "effects": {
+    "recall": 0.7142857142857143,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "overlap",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "italic",
+      "serif"
+    ],
+    "extra": [
+      "huge-type",
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 52138,
+    "output": 29232,
+    "cacheRead": 125033
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61816,
+      "output": 21648,
+      "cacheRead": 112263,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 257278
+    }
+  ],
+  "reading": "A hero section sketch: a big nowrap heading 'Pin it all.', a small nav line, a glowing yellow hero background, a stat caption, and a masonry of colored card tiles (gradient/solid, some with quote text), plus two tilted sticker-style badges overlapping the cards.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 78
+        }
+      ],
+      "region": [
+        48,
+        29,
+        237,
+        94
+      ],
+      "paths": [],
+      "instruction": "Add a huge, heavy-weight Helvetica heading reading \"Pin it all.\" on a single line (white-space: nowrap, never wraps), about 263px wide, near-black text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        884,
+        66,
+        156,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a 15px line of nav-style text reading \"Boards · Explore · Join\" on its own line to the right of the heading, near-black Helvetica text, nothing else beside "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        153,
+        274,
+        353
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Give this hero area a soft yellow background with two colour glows layered on it: a bright orange (#fb923c) radial glow centred at 80% across / 80% down, full s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 100
+        }
+      ],
+      "region": [
+        348,
+        150,
+        252,
+        220
+      ],
+      "paths": [],
+      "instruction": "Add off-white text reading \"2.4M boards made this year\" as a short caption beneath the heading."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        153,
+        274,
+        414
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Render this box as a 280x420px card, 18px rounded corners, filled with a vivid cyan-to-blue vertical gradient; plain paint only, no picture, no X, no icon, no t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        153,
+        294,
+        254
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Render this box as a 300x260px card, 18px rounded corners, filled solid mint green; plain paint only, no picture, no X, no icon, no text."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        393,
+        273,
+        333
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Render this box as a 280x340px card, 18px rounded corners, filled solid vivid purple; plain paint only, no picture, no X, no icon, no text."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        533,
+        273,
+        323
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Render this box as a card filled light pink, with pale pink 24px quote text \"My moodboard finally looks like my mood.\" placed 24px in and 24px down from the top"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        593,
+        273,
+        264
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Render this box as a 280x270px card, 18px rounded corners, filled solid vivid yellow; plain paint only, no picture, no X, no icon, no text. Its top sits 590px f"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        433,
+        294,
+        423
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Render this box as a 300x430px card, 18px rounded corners, filled with a light-pink-to-deep-raspberry vertical gradient; plain paint only, no picture, no X, no "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        552,
+        312,
+        145,
+        146
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a vivid yellow circular sticker badge, tilted 12° anticlockwise, reading \"NEW BOARDS\", with a 3px solid near-black outline and a hard-edged, unblurred near-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        875,
+        515,
+        119,
+        119
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a white circular sticker badge, tilted 10° clockwise, reading \"100% FREE\", with a 3px solid near-black outline and a hard-edged, unblurred near-black drop s"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
