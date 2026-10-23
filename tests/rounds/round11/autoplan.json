@@ -81,7 +81,7 @@
    ],
    [
     "masked-picture",
-    "circle"
+    "box"
    ],
    [
     "text-ring",
@@ -99,7 +99,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#f2efe8, plainly not white) page, Helvetica type, near-black text"
+    "whole page: cream (#f2efe8, plainly not white) page, Helvetica type, near-black text, behind everything (under all content, position absolute) 3 soft blurred shapes, each its own div: 520x520px at -80,380 coral #ff7a59 circle/ellipse (border-radius 50%) blurred (filter: blur(60px)); 560x560px at 760,-120 indigo #6c63ff circle/ellipse (border-radius 50%) blurred (filter: blur(60px)); 380x380px at 520,520 cyan #2ec4b6 circle/ellipse (border-radius 50%) blurred (filter: blur(60px))"
    ],
    [
     "nav",
@@ -111,11 +111,15 @@
    ],
    [
     "masked-picture",
-    "big pale pink (#ffd6a5) to coral (#ff7a59 at 55%) to indigo (#6c63ff), top to bottom circle"
+    "a 320x360px block at 620,470, an ARCH: border-radius 200px 200px 16px 16px (round top, nearly square bottom; NOT a circle), filled with background: linear-gradient(200deg, #ffd6a5, #ff7a59 55%, #6c63ff); its edges fade out softly under a mask (mask-image: radial-gradient(circle at 50% 40%, #000000 60%, transparent 72%); -webkit-mask-image the same), NOT a picture placeholder"
    ],
    [
     "text-ring",
     "spinning ring of small spaced capital letters \"BRAND · MOTION · TYPE · SPACE ·\" running round a 200px circle, no outline, no fill"
+   ],
+   [
+    "copy",
+    "440px wide at 60,520: 22px text exactly \"We design identities that glow on screens and in rooms.\" (this copy only, nothing invented), then under it a #141414 pill button 159x55px at 60,612 with 16px bold #f2efe8 \"See the work\""
    ]
   ]
  },
@@ -211,11 +215,11 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6 at 55%) to dark grey (#2d2a4a) gradient, top to bottom page, Helvetica type, dark grey text"
+    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55%, then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px))"
    ],
    [
     "perspective-floor",
-    "tilted back in 3D perspective (rotateX(62deg)) bleeding off the left and right page edges big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 79px, #ff8fab 79px 81px, transparent 81px 79px, #ff8fab 79px 81px)): 79px clear (see-through) then 2px light pink then -2px clear (see-through) then 2px light pink, over and over block"
+    "a 1680x600px block with its top-left at -200,495 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px), repeating-linear-gradient(0deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px); no fill of its own (the page shows between the lines)"
    ],
    [
     "nav",
@@ -223,7 +227,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) \"Ship worlds, not slides.\", set in exactly 2 lines: \"Ship worlds,\" / \"not slides.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) \"Ship worlds, not slides.\", set in exactly 2 lines: \"Ship worlds,\" / \"not slides.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide); the word \"not\" is pink #ff5d8f (its own colour; the other words stay #2d2a4a)"
    ],
    [
     "subcopy",
@@ -235,11 +239,11 @@
    ],
    [
     "spinning-cube",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 242x310 at 730,106 #ff8fab fill, 3px #2d2a4a border; 452x123 at 730,106 #ffd166 fill, 3px #2d2a4a border; 212x336 at 970,106 #7b6cf6 fill, 3px #2d2a4a border: 48px bold #ffffff \"JS\"; 189x415 at 730,146 #7b6cf6 fill, 3px #2d2a4a border; 395x221 at 758,340 #2d2a4a fill, 3px #2d2a4a border"
+    "a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a 300x300px scene at 800,150 with perspective: 900px; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: rotateX(-24deg) rotateY(38deg), turning forever: animation 10s linear infinite with @keyframes 100% { transform: rotateX(-24deg) rotateY(398deg); }) holding exactly 6 face divs, each absolutely placed at the group's top-left with a 3px #2d2a4a border (backface visible): 300x300px #ff5d8f face, transform: translateZ(150px), holding centred 48px heavy #ffffff live text \"3D\"; 300x300px #ff8fab face, transform: rotateY(180deg) translateZ(150px); 300x300px #7b6cf6 face, transform: rotateY(90deg) translateZ(150px), holding centred 48px heavy #ffffff live text \"JS\"; 300x300px #7b6cf6 face, transform: rotateY(-90deg) translateZ(150px); 300x300px #ffd166 face, transform: rotateX(90deg) translateZ(150px); 300x300px #2d2a4a face, transform: rotateX(-90deg) translateZ(150px)"
    ],
    [
     "stats-panel",
-    "3 stat cards in a row: \"\" 60fps on a 2019 phone, \"\" 14kb gzipped core, \"\" 0 build steps"
+    "a #ffffff card 560x200px at 56,640, 20px rounded, a big soft shadow, 3 stats side by side in it (NOT separate cards), each a big number over a small label: 40px heavy #ff5d8f \"60fps\" over 14px #2d2a4a \"on a 2019 phone\"; 40px heavy #ff5d8f \"14kb\" over 14px #2d2a4a \"gzipped core\"; 40px heavy #ff5d8f \"0\" over 14px #2d2a4a \"build steps\""
    ]
   ]
  },

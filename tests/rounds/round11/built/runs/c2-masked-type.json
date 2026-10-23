@@ -1,89 +1,67 @@
 {
   "id": "c2-masked-type",
-  "at": "2026-10-23T13:50:19.326Z",
+  "at": "2026-10-23T14:13:16.745Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5056585298232639,
-    "overallV2": 0.5032601001345653,
-    "overallV1": 0.4126834952486709,
-    "colour": 0.8219775528514897,
-    "structure": 0.6856010428013621,
-    "structureStrict": 0.5582989097390554,
-    "colourAligned": 0.8221185233414159,
-    "structureAligned": 0.6887229785528551,
+    "overall": 0.8585020583999341,
+    "overallV2": 0.8585020583999341,
+    "overallV1": 0.8072766339093236,
+    "colour": 0.9879757980133449,
+    "structure": 0.9644773478128651,
+    "structureStrict": 0.8924818715760165,
+    "colourAligned": 0.9879757980133449,
+    "structureAligned": 0.9644773478128651,
     "align": {
       "scale": 1,
-      "dx": -16,
+      "dx": 0,
       "dy": 0,
-      "r": 0.4413429726763518
+      "r": 0.9452285463935839
     },
-    "layout": 0.835540101549541
+    "layout": 0.6629547995112756
   },
   "effects": {
-    "recall": 0.4444444444444444,
+    "recall": 0.8888888888888888,
     "kept": [
-      "gradient-text",
-      "huge-type",
-      "mask",
-      "overlap"
-    ],
-    "missing": [
       "bleed",
       "blur",
       "gradient",
-      "mono",
-      "motion"
+      "gradient-text",
+      "huge-type",
+      "mask",
+      "motion",
+      "overlap"
     ],
-    "extra": [
-      "tilt"
-    ]
+    "missing": [
+      "mono"
+    ],
+    "extra": []
   },
   "tokens": {
-    "input": 42756,
-    "output": 27229,
-    "cacheRead": 509418
+    "input": 37733,
+    "output": 17876,
+    "cacheRead": 195140
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 55725,
-      "output": 21714,
-      "cacheRead": 397925,
-      "toolCalls": 15,
+      "billed": 42276,
+      "output": 12457,
+      "cacheRead": 185036,
+      "toolCalls": 7,
       "tools": [
-        "Glob",
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read components/GradientCircle.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/vite.config.ts",
-        "Write src/App.tsx",
-        "Edit components/GradientCircle.tsx",
-        "Edit components/SketchShape2.tsx",
-        "Edit src/App.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 253452
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 6164,
-      "output": 2654,
-      "cacheRead": 101926,
-      "toolCalls": 1,
-      "tools": [
-        "Edit src/App.tsx"
-      ],
-      "ms": 33069
+      "ms": 139152
     }
   ],
-  "reading": "The sketch is a hero section: a plain-text nav bar, a huge gradient wordmark \"Halo\" fading toward the page's base, a large gradient circle with a smaller ring of spinning label text beside it, and a four-line paragraph of body copy beneath.",
+  "reading": "The sketch lays out a hero section: a plain top nav line, a wavy line standing in for a giant gradient \"Halo\" headline, a squarish box meant as a soft gradient arch shape, a circle meant as a spinning ring of rotating label text, and four wavy lines meant as body copy plus a pill button below it — all per the detailed typed notes, plus a run-level note describing the page's cream background and three blurred color blobs behind everything.",
   "actions": [
     {
       "kind": "add",
@@ -98,7 +76,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Plain navigation bar with no box/border around it: \"halo.studio\" wordmark on the left, and \"Work · Lab · Contact\" links on the right, set in Helvetica, near-bla"
+      "instruction": "Top nav bar, no visible box/border around it: \"halo.studio\" aligned left, \"Work · Lab · Contact\" aligned right."
     },
     {
       "kind": "add",
@@ -121,22 +99,22 @@
         397
       ],
       "paths": [],
-      "instruction": "Giant live-text headline reading \"Halo\" in heavy, tight-set Helvetica (font-weight 900, round-bowled, not condensed/display), about 300px type size and ~594px w"
+      "instruction": "Giant Helvetica headline, fading out toward the bottom (solid until 55% of its height, fully gone by the bottom edge): font-family Helvetica/Arial sans-serif, f"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        624,
-        494,
-        311,
-        312
+        623,
+        473,
+        313,
+        353
       ],
       "paths": [
         "s2"
       ],
-      "instruction": "Large decorative circle with a top-to-bottom gradient fill: pale pink (#ffd6a5) at top, transitioning through coral (#ff7a59 at 55%), to indigo (#6c63ff) at the"
+      "instruction": "An ARCH-shaped block, 320x360px at (620,470): border-radius 200px 200px 16px 16px (rounded top, nearly square bottom — not a circle), filled with background: li"
     },
     {
       "kind": "add",
@@ -151,7 +129,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "A smaller circle (about 200px) with no outline and no fill, bearing a spinning ring of small spaced capital letters running around its circumference reading \"BR"
+      "instruction": "A spinning ring of small spaced capital letters reading \"BRAND · MOTION · TYPE · SPACE ·\" running around the circumference of a 200px circle; the circle itself "
     },
     {
       "kind": "add",
@@ -180,8 +158,10 @@
         147
       ],
       "paths": [],
-      "instruction": "Four-line body paragraph of placeholder copy beneath the hero graphics, in Helvetica near-black text, introducing the studio (e.g. describing brand, motion, typ"
+      "instruction": "A 440px-wide text block at (60,520): 22px body copy reading exactly \"We design identities that glow on screens and in rooms.\" (use this copy only, nothing inven"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

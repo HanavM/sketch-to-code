@@ -1673,7 +1673,54 @@ export function factsInPage() {
   }
   // a fine grain laid over the whole page by an unmarked layer (round 5 c4: unsaid)
   const grain = [...document.querySelectorAll('body *')].some((k) => { const b = k.getBoundingClientRect(); return !k.closest('[data-r]') && /repeating-(radial|linear)-gradient/.test(getComputedStyle(k).backgroundImage) && b.width >= innerWidth * 0.9 && b.height >= innerHeight * 0.9 })
-  return { body: { ...fact(document.body), grain }, regions: [...document.querySelectorAll('[data-r]')].map(fact) }
+  // n141: round 11 facts. A stylesheet value as written (a computed 3D transform is an unreadable matrix3d)
+  const ruleOf = (el, prop) => {
+    let v = null
+    for (const sh of document.styleSheets) for (const ru of sh.cssRules ?? []) { try { if (ru.selectorText && el.matches(ru.selectorText) && ru.style.getPropertyValue(prop)) v = ru.style.getPropertyValue(prop) } catch {} }
+    return v
+  }
+  const keyTo = (name) => { for (const sh of document.styleSheets) for (const ru of sh.cssRules ?? []) if (ru.type === 7 && ru.name === name) return [...ru.cssRules].map((k) => `${k.keyText} { ${k.style.cssText} }`).join(' '); return null }
+  const anim = (el) => { const c = getComputedStyle(el); if (!c.animationName || c.animationName === 'none') return null; return { name: c.animationName, dur: c.animationDuration, fn: c.animationTimingFunction, frames: keyTo(c.animationName) } }
+  const r11 = (el) => {
+    const cs = getComputedStyle(el), r = el.getBoundingClientRect(), o = {}
+    // a preserve-3d object: its faces, each face's own written transform, the group's turn and spin (round 11 c4 cube)
+    const g = [el, ...el.querySelectorAll('*')].find((k) => getComputedStyle(k).transformStyle === 'preserve-3d' && k.children.length >= 4)
+    if (g) {
+      const persp = [el, ...el.querySelectorAll('*')].map((k) => getComputedStyle(k).perspective).find((v) => v && v !== 'none')
+      o.cube = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), persp, turn: ruleOf(g, 'transform'), anim: anim(g),
+        faces: [...g.children].map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform') } }) }
+    }
+    // a block tilted in 3D with a layered background (round 11 c4 floor: the second grid layer was dropped)
+    const tf = ruleOf(el, 'transform')
+    if (!g && tf && /perspective|rotate[XY]|translateZ/.test(tf)) o.tilt3d = { tf, origin: ruleOf(el, 'transform-origin'), x: Math.round(el.offsetLeft), y: Math.round(el.offsetTop), w: el.offsetWidth, h: el.offsetHeight, bg: cs.backgroundImage }
+    // a masked block that is not text (round 11 c2 arch photo under a radial fade: said as a plain circle)
+    const mk = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : (cs.webkitMaskImage && cs.webkitMaskImage !== 'none' ? cs.webkitMaskImage : null)
+    if (mk) o.mask = { img: mk, radius: cs.borderRadius }
+    // words in a heading set in their own colour (round 11 c4 pink 'not')
+    const base = rgba(cs.color)
+    const odd = [...el.querySelectorAll('span,em,b,strong,i')].filter((k) => !k.dataset?.r && (k.innerText || '').trim() && (() => { const c = rgba(getComputedStyle(k).color); return c && base && c.a > 0.3 && Math.hypot(c.r - base.r, c.g - base.g, c.b - base.b) > 60 })())
+    if (odd.length && odd.length <= 4 && parseFloat(cs.fontSize) >= 28) o.oddWords = odd.map((k) => ({ t: (k.innerText || '').trim(), c: rgba(getComputedStyle(k).color) }))
+    // stat cells: a big number over a small label (round 11 c4 stats: labels said empty)
+    const cells = [...el.children].filter((k) => k.children.length === 2 && !k.dataset?.r)
+    if (cells.length >= 2 && cells.every((k) => parseFloat(getComputedStyle(k.children[0]).fontSize) >= 1.6 * parseFloat(getComputedStyle(k.children[1]).fontSize))) {
+      o.stats = cells.map((k) => { const [a, b] = k.children, ca = getComputedStyle(a), cb = getComputedStyle(b); return { n: a.innerText.trim(), npx: Math.round(parseFloat(ca.fontSize)), nw: Number(ca.fontWeight), nc: rgba(ca.color), l: b.innerText.trim(), lpx: Math.round(parseFloat(cb.fontSize)), lc: rgba(cb.color) } })
+    }
+    // a paragraph with a button at its end (round 11 c2 copy: no note, the copy invented and the button lost)
+    const btn = [...el.children].find((k) => (k.innerText || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.5 && (k.innerText || '').trim().length <= 30)
+    if (btn && !el.querySelector('[data-r]')) {
+      const c = getComputedStyle(btn), b = btn.getBoundingClientRect()
+      const txt = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
+      if (txt.length >= 12) o.copyBtn = { txt, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), bold: Number(c.fontWeight) >= 600, bpx: Math.round(parseFloat(c.fontSize)) }
+    }
+    return o
+  }
+  // unmarked blurred colour blobs and soft shadows lying on the page (round 11 c2: three 60px blobs had no words)
+  const blobs = [...document.querySelectorAll('body *')].filter((k) => !k.closest('[data-r]') && !k.querySelector('[data-r]')).map((k) => {
+    const c = getComputedStyle(k), m = c.filter.match(/blur\(([\d.]+)px\)/)
+    if (!m || +m[1] < 8 || !(rgba(c.backgroundColor)?.a > 0.05)) return null
+    return { x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, c: rgba(c.backgroundColor), blur: Math.round(+m[1]), round: parseFloat(c.borderTopLeftRadius) > 0 || c.borderTopLeftRadius.includes('%') }
+  }).filter(Boolean)
+  return { body: { ...fact(document.body), grain, blobs }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
 }
 
 // ---------------------------------------------------------------- naming
@@ -1816,6 +1863,9 @@ function gradientWords(f) {
   // three or more stops in a straight blend: each stop's hex and where it sits, or the middle one is lost
   // (round 7 c3 sky #0f172a → #312e81 55% → #be185d said 'dark navy to dark grey to dark pink', built dark grey)
   const stops = linearStops(f.bgImage)
+  // n141: two stops at the same place are a hard edge (round 11 c4 horizon: cream sky, dark ground from 55% down)
+  const cut = stops && stops.findIndex((x, i) => i && x.at === stops[i - 1].at && dist(x.c, stops[i - 1].c) > 60)
+  if (ends && stops && cut > 0) return `${stops.slice(0, cut).map((x) => `${colourName(x.c)} (${hexOf(x.c)})`).join(' to ')} gradient down to ${stops[cut].at}%, then a HARD straight edge (no blend) and solid ${colourName(stops[cut].c)} (${hexOf(stops[cut].c)}) below it to the ${ends[1]} (linear-gradient(${stops.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
   if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? ` at ${x.at}%` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
   return `${names.join(' to ')} gradient`
 }
@@ -2243,9 +2293,49 @@ function partsNote(P, f) {
   return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
 }
 function decide(f, page, marked, said = new Set()) {
+  const r11 = round11Note(f)
+  if (r11) return round11Extra(f, r11)
   const r10 = round10Note(f)
-  if (r10) return r10
-  return round10Extra(f, decideRest(f, page, marked, said))
+  if (r10) return round11Extra(f, r10)
+  return round11Extra(f, round10Extra(f, decideRest(f, page, marked, said)))
+}
+// n141: rgba() written out as hex (or transparent) in CSS said verbatim
+const cssHex = (s) => (s ?? '').replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return !c || c.a < 0.05 ? 'transparent' : `${hexOf(c)}${c.a < 0.95 ? ` at ${Math.round(c.a * 100)}%` : ''}` }).replace(/(#[0-9a-f]{6}) at (\d+)%/g, (m, h, a) => `${h}${Math.round(+a * 2.55).toString(16).padStart(2, '0')}`)
+/** n141: round 11 objects said as the CSS that makes them: a preserve-3d cube, a 3D-tilted layered floor, a masked block. */
+function round11Note(f) {
+  const C = f.cube
+  if (C) {
+    const A = C.anim
+    const face = (q) => `${q.w}x${q.h}px ${hexOf(q.fill)} face, transform: ${q.tf ?? 'none'}${q.t ? `, holding centred ${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}${hexOf(q.ink)} live text "${q.t}"` : ''}`
+    return { kind: 'box', note: `a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: ${C.turn ?? 'none'}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}) holding exactly ${C.faces.length} face divs, each absolutely placed at the group's top-left with a ${C.faces[0].bw}px ${hexOf(C.faces[0].bc)} border (backface visible): ${C.faces.map(face).join('; ')}` }
+  }
+  const T = f.tilt3d
+  if (T && /perspective\(/.test(T.tf) && /repeating-linear-gradient/.test(T.bg)) {
+    const layers = (T.bg.match(/gradient\(/g) || []).length
+    return { kind: 'box', note: `a ${T.w}x${T.h}px block with its top-left at ${T.x},${T.y}${T.x < 0 || T.x + T.w > 1280 ? ' (it runs off the page edges)' : ''}, tilted back in 3D (transform: ${T.tf}${T.origin ? `; transform-origin: ${T.origin}` : ''}), behind the other parts; its background is exactly these ${layers} layer${layers > 1 ? 's, ALL of them (a grid of lines both ways, NOT stripes one way)' : ''}: background: ${cssHex(T.bg)}; no fill of its own (the page shows between the lines)` }
+  }
+  const M = f.mask
+  if (M && !f.clipText && !f.text && /radial-gradient/.test(M.img) && f.rect.w * f.rect.h < 0.3 * 1280 * 900) {
+    const fillW = /gradient/.test(f.bgImage) ? `filled with background: ${cssHex(f.bgImage)}` : visible(f.bg) ? `filled ${hexOf(f.bg)}` : 'no fill'
+    const arch = f.radius > 0 && f.radiusBottom < f.radius / 2
+    return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${arch ? `, an ARCH: border-radius ${M.radius} (round top, nearly square bottom; NOT a circle)` : f.radius ? `, border-radius ${M.radius}` : ''}, ${fillW}; its edges fade out softly under a mask (mask-image: ${cssHex(M.img)}; -webkit-mask-image the same), NOT a picture placeholder` }
+  }
+  return null
+}
+/** n141: words a note gains: heading words in their own colour, stat cells, a paragraph with its button. */
+function round11Extra(f, d) {
+  if (!d) return d
+  let note = d.note ?? ''
+  const O = f.oddWords
+  if (O && d.kind === 'heading' && !O.every((w) => note.includes(hexOf(w.c)))) note += `${note ? '; ' : ''}${O.map((w) => `the word "${w.t}" is ${colourName(w.c)} ${hexOf(w.c)}`).join(', ')} (its own colour; the other words stay ${hexOf(f.colour)})`
+  const S = f.stats
+  if (S && (!note || /stat cards|""/.test(note))) {
+    const card = visible(f.bg) ? `a ${hexOf(f.bg)} card ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' ? ', a big soft shadow' : ''}, ` : ''
+    note = `${card}${S.length} stats side by side in it (NOT separate cards), each a big number over a small label: ${S.map((q) => `${q.npx}px ${q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')}`
+  }
+  const B = f.copyBtn
+  if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.px}px text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
+  return note === (d.note ?? '') ? d : { ...d, kind: d.kind ?? 'text', note }
 }
 function decideRest(f, page, marked, said) {
   // n133: a two-ended row under a top rule only, said as itself (round 9 c5 byline built as a bordered box)
@@ -3164,7 +3254,7 @@ function pageNote(b) {
   // (round 5 e4); it is said as off-white
   const nearWhite = visible(b.bg) && dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && dist(b.bg, { r: 255, g: 255, b: 255 }) < 12
   const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !nearWhite)) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
-  if (plain && !b.grain) return null
+  if (plain && !b.grain && !b.blobs?.length) return null
   const grad = gradientWords(b)
   // soft glows over a dark page (a mesh: round 6 c4 said as a 3-stop page gradient, base colour lost)
   const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
@@ -3177,6 +3267,8 @@ function pageNote(b) {
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
   if (b.colour) w.push(`${colourName(b.colour)} text`)
   if (b.grain) w.push('fine grain texture over everything')
+  // n141: blurred blobs and soft shadows on the page, one by one (round 11 c2: three 60px blobs unsaid, page bare)
+  if (b.blobs?.length) w.push(`behind everything (under all content, position absolute) ${b.blobs.length} soft blurred shape${b.blobs.length > 1 ? 's' : ''}, each its own div: ${b.blobs.map((q) => `${q.w}x${q.h}px at ${q.x},${q.y} ${colourName({ ...q.c, a: 1 })} ${hexOf(q.c)}${q.c.a < 0.95 ? ` at ${Math.round(q.c.a * 100)}%` : ''}${q.round ? ' circle/ellipse (border-radius 50%)' : ''} blurred (filter: blur(${q.blur}px))`).join('; ')}`)
   return `whole page: ${w.join(', ')}`
 }
 

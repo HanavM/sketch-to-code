@@ -51,3 +51,22 @@ preserve-3d object said face by face as a CSS cube (size, each face's transform 
 a perspective floor said as a dark base plus BOTH grid layers and its rotateX; blurred blobs said one by one (size,
 place, colour, blur); a masked picture's shape and mask said; per-word heading colours already work elsewhere, so check
 why c4 "not" was dropped. Then re-run c2, c4 and first builds of c3, c5 and the five everyday pages.
+
+## n141: round 11 planner fixes, re-run c2, c4 (2026-10-23, ~134k billed)
+
+Planner (one rule set, no per-page tuning): a preserve-3d object is said as the CSS that makes it (scene size, place
+and perspective; one group with its turn and keyframed spin; each face's size, fill, border, own transform and text);
+a block tilted with perspective() over repeating gradients gives its transform, origin and EVERY background layer
+verbatim; a non-text block under a radial mask says its box, arch radius, gradient and mask; unmarked blurred blobs
+and soft shadows are said one by one in the page note (size, place, colour, blur); a gradient with two stops at one
+place is a hard edge; heading words in their own colour are said; stat cells say number and label (were empty); a
+paragraph region with no note and a filled button says its copy and the button. Rounds 1-10 re-planned: r5 c3 gains
+its grey second line, r6 c1 floor gains its exact CSS; no marks changed, none re-run.
+
+| page | before | now | what changed / still off |
+|---|---|---|---|
+| c2 masked type | 51% | **86%** | all three blobs, arch under its fade mask, copy and button right; the mono footer line (unmarked) missing |
+| c4 cube scene | 46% | **83%** | a real spinning 3D cube with 3D/JS faces, hard horizon, pink "not", stats card right; the tilted grid floor not shown, stats card ~50px high with two stray rules |
+
+Round 11 so far: **83%** over 3 pages (c1 79, c2 86, c4 83). Vitest: same 2 env failures; typecheck clean.
+Next: why the tilted floor vanished (check the built CSS), unmarked footer lines; first builds c3, c5, e1-e5.
