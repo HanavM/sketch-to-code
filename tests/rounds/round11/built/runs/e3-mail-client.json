@@ -1,0 +1,138 @@
+{
+  "id": "e3-mail-client",
+  "at": "2026-10-23T15:10:57.551Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5710954910516284,
+    "overallV2": 0.5710954910516284,
+    "overallV1": 0.44768112251755476,
+    "colour": 0.9853388534012453,
+    "structure": 0.7980711795998505,
+    "structureStrict": 0.6737964482094262,
+    "colourAligned": 0.9853388534012453,
+    "structureAligned": 0.7980711795998505,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.662607016026669
+    },
+    "layout": 0.7529374066091102
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 38666,
+    "output": 23631,
+    "cacheRead": 158521
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44323,
+      "output": 15259,
+      "cacheRead": 137026,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 156323
+    }
+  ],
+  "reading": "The sketch lays out a three-column Gmail-like webmail app: a flat left navigation panel, a middle email-list column with a search box and seven message rows, and a right-hand email-detail pane with header, sender info, body text, two attachment cards, and Reply/Forward buttons. Typed notes give exact colors, sizes, and copy for every part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the left navigation panel: flat #f6f8fc fill running from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no sha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        3,
+        424,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build the middle email-list column: a \"⌕ Search mail\" box at the top, then 7 mail rows separated by thin dividing lines. Each row has sender (left) and time (ri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        653,
+        3,
+        624,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Build the right-hand email-detail pane as a 630x900px frame (no fill/border/shadow of its own) containing, as live elements, part by part: a 566x36 toolbar with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        653,
+        3,
+        624,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Inside the email-detail pane, below the body text, add two attachment cards side by side, each 180x122 with 1px #dadce0 border and 8px rounded corners: the left"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        653,
+        3,
+        624,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s4"
+      ],
+      "instruction": "At the bottom of the email-detail pane, add two action buttons: \"↩ Reply\" and \"↪ Forward\", matching the small rectangle sketched at the bottom of the pane."
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,156 @@
+{
+  "id": "c3-weight-ladder",
+  "at": "2026-10-23T14:31:25.025Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7709375180617375,
+    "overallV2": 0.7709375180617375,
+    "overallV1": 0.6885260861950045,
+    "colour": 0.9264380314856913,
+    "structure": 0.7204703749502324,
+    "structureStrict": 0.4982606332973443,
+    "colourAligned": 0.9264380314856913,
+    "structureAligned": 0.7204703749502324,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7913139546244423
+    },
+    "layout": 0.6865438178173826
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "bleed",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "italic",
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 42896,
+    "output": 19035,
+    "cacheRead": 326275
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52028,
+      "output": 15165,
+      "cacheRead": 316654,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/index.css",
+        "Read src/App.tsx"
+      ],
+      "ms": 177588
+    }
+  ],
+  "reading": "A full type-specimen landing page sketch: a plain nav bar, a large block of six weight samples (Thin→Black), a short contents/links list, and two tilted marquee bars (red-orange 'VARIABLE ✶' and off-white 'whisper · shout ·') stacked at the bottom, all on a black page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        33,
+        1176,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar, no bounding box around it: wide-letter-spaced 'GRADIENT SANS' wordmark on the left, 'SPECIMEN · BUY · TRIAL' nav links on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        87,
+        754,
+        558
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Type-weight specimen block made of six separate real elements stacked vertically, each its own line of live text at the exact page geometry given (not boxed/bor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        884,
+        102,
+        344,
+        48
+      ],
+      "paths": [],
+      "instruction": "Contents list, no box/card: bold dark 'VARIABLE · 100–900' heading followed by four small 13px off-white (#f4f1ea) plain-text lines (not buttons), one per line:"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        670,
+        1275,
+        145
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Full-width scrolling marquee bar, tilted 3° anticlockwise, vivid red-orange background, with bold black 56px text 'VARIABLE ✶' repeated along its length."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        751,
+        1274,
+        123
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Full-width scrolling marquee bar, tilted 2° clockwise, off-white background, with black 56px text 'whisper · shout ·' repeated along its length, placed below th"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "id": "c5-paper-layers",
+  "at": "2026-10-23T14:48:55.440Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8377691426717786,
+    "overallV2": 0.8377691426717786,
+    "overallV1": 0.7430151785638044,
+    "colour": 0.9700319727848694,
+    "structure": 0.920235842599088,
+    "structureStrict": 0.7621180629555824,
+    "colourAligned": 0.9700319727848694,
+    "structureAligned": 0.920235842599088,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9594845312811808
+    },
+    "layout": 0.7096879159735948
+  },
+  "effects": {
+    "recall": 0.7142857142857143,
+    "kept": [
+      "huge-type",
+      "italic",
+      "serif",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "gradient",
+      "motion"
+    ],
+    "extra": [
+      "blur",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 35111,
+    "output": 33871,
+    "cacheRead": 135842
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 54795,
+      "output": 23828,
+      "cacheRead": 132758,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 260874
+    }
+  ],
+  "reading": "A travel-site hero page: a thin dark-teal/red progress bar and a plain-text nav at top, a tight italic Georgia headline ('Walk into the folds.') with a small red eyebrow label, a glowing orange gradient sphere placed above layered teal/navy hill silhouettes forming the background, and a tilted white booking card with a red 'Reserve a spot' button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Thin progress bar spanning the top edge of the page: dark teal track with a red fill showing 38% progress."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Nav bar, no bounding box: wide letter-spaced 'FJORD TRAILS' wordmark on the left, 'ROUTES · HUTS · BOOK' links on the right, sitting above the drawn rule."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 100
+        }
+      ],
+      "region": [
+        64,
+        120,
+        630,
+        221
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic, regular weight (not bold), tight-set hero heading (line-height 0.92) reading 'Walk into the folds.' broken into exactly two lines: 'Walk i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        864,
+        114,
+        213,
+        212
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 220px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%) so it looks lit from above; absolutely pos"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        820,
+        616,
+        380,
+        178
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A white card tilted slightly 2° clockwise containing the heading 'Hut-to-hut, 6 days', body copy 'Guided, bags carried, three fjords. From €1,240.', and a #e639"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes",
+    "add action with neither container nor strokes"
+  ]
+}

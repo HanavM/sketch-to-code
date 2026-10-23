@@ -70,3 +70,29 @@ its grey second line, r6 c1 floor gains its exact CSS; no marks changed, none re
 
 Round 11 so far: **83%** over 3 pages (c1 79, c2 86, c4 83). Vitest: same 2 env failures; typecheck clean.
 Next: why the tilted floor vanished (check the built CSS), unmarked footer lines; first builds c3, c5, e1-e5.
+
+## n142: first builds c3, c5, e1-e4; two tries at the lost tilted floor (2026-10-23, ~775k billed)
+
+Why c4's tilted grid floor vanished (free): the plan says the floor right, but the reading cites the floor's own drawn
+box as the PAGE background (its top edge sits exactly on the page gradient's hard stop at 55%), then pins the floor's
+note on the stats card's mark; so the floor is built inside the stats card (card ~50px high, stray rules) and clipped.
+Two fixes tried, neither held, both reverted:
+- the floor note says "this drawn box is that floor, never the page background": re-run c4 79% (floor still mapped
+  to the stats card's mark);
+- a box whose centre sits within 32px of a mark drawn inside it types its note on free space clear of that mark:
+  re-run c4 57% (same mis-mapping, and the cube came out a flat dark square). Kept c4 at n141's 83%.
+A parallel c4 attempt on a second port timed out waiting for its reading (two live runs at once are not safe).
+Next idea: say a floor that lies behind everything as part of the whole-page note and draw no box for it, or stop a
+page-background design action from citing a box that has its own typed note (pipeline).
+
+| page | likeness (v3) | billed | what was off |
+|---|---|---|---|
+| c3 weight ladder | 77% | 52k | six weights right; Black 900 not italic; spec panel lost its keys, paragraph and orange button; marquees right |
+| c5 paper layers | 84% | 55k | waves, sun, tilted card right; sun's two halo rings became a glow, waves' drop shadows and the coordinates line lost, card title not italic |
+| e1 code editor | 92% | 132k | shell, explorer, tabs, minimap, status bar right; the code lines are scrambled (tokens placed over each other) and the test output lost its words; the score flatters it |
+| e2 CRM pipeline | 82% | 51k | board, cards, drawer, buttons right; search field and avatar dropped, activity dots became a rule |
+| e3 mail client | 57% | 44k | looks close; folders and labels swapped order, Primary/Promotions/Updates tabs dropped (list ~22px high), label dots lost |
+| e4 analytics | 85% | 75k | KPIs, sparklines, chart, donut, table right; logo/title small, share bars lost, current-point marker lost |
+
+e5 week calendar not built (the run's guard stopped before it). Round 11 so far: **81%** over 9 pages (c1 79, c2 86,
+c3 77, c4 83, c5 84, e1 92, e2 82, e3 57, e4 85). Vitest: same 2 env failures; typecheck clean.

@@ -1,0 +1,190 @@
+{
+  "id": "e1-code-editor",
+  "at": "2026-10-23T15:01:37.609Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9177838580997646,
+    "overallV2": 0.9169000757771193,
+    "overallV1": 0.8999304217665403,
+    "colour": 0.979827348733048,
+    "structure": 0.8745655954496384,
+    "structureStrict": 0.835735941721927,
+    "colourAligned": 0.979827348733048,
+    "structureAligned": 0.8765878500894558,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -16,
+      "r": 0.8033571897407399
+    },
+    "layout": 0.9331191723424955
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "mono"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 92901,
+    "output": 64389,
+    "cacheRead": 783142
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 89754,
+      "output": 37149,
+      "cacheRead": 246864,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read src/main.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit components/SketchShape.tsx"
+      ],
+      "ms": 391760
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 42668,
+      "output": 16224,
+      "cacheRead": 523596,
+      "toolCalls": 6,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 201499
+    }
+  ],
+  "reading": "This is a full code-editor/IDE layout: a left icon rail, a file-explorer panel, a tab bar, a syntax-highlighted code editor, a striped image-placeholder panel on the right, a bottom problems/terminal panel, and a status bar, all on a near-black themed page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        4,
+        42,
+        870
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark grey vertical activity bar running the full height of the left edge, containing icon buttons: ▤ ⌕ ⑂ ▷ ⧉ (stacked, e.g. explorer/search/branches/run/extensi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        3,
+        234,
+        872
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Near-black file-explorer panel to the right of the activity bar, headed \"EXPLORER · WEBHOOKS\" with a file list: \"retry.ts\", \"send.ts\", \"types.ts\", \"retry.test.t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        292,
+        3,
+        984,
+        30
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Near-black editor tab bar, 36px tall, spanning the width above the code editor. Tabs: \"retry.ts ×\" (selected — white text on near-black fill), \"send.ts\", \"retry"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        291,
+        39,
+        874,
+        524
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Code editor content area below the tab bar, showing a TypeScript file with a gutter and syntax-highlighted lines, rows exactly 22px apart (22px tall, 14px monos"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1183,
+        48,
+        81,
+        512
+      ],
+      "paths": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Right-side panel: fill with a faded, 60% opacity, horizontal repeating stripe pattern — NOT a smooth gradient — using repeating-linear-gradient(0deg, #3c3c3c 0p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        291,
+        569,
+        985,
+        306
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Bottom panel below the editor with tab headers and a terminal/test-output pane. Reproduce every part as its own live-text element, nothing invented, nothing lef"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        881,
+        1272,
+        16
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Status bar across the very bottom of the page. Reproduce every part as its own live-text element, nothing invented, nothing left out: 82x22 at 12,878 12px #ffff"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
