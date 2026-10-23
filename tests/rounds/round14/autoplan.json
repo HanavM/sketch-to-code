@@ -89,7 +89,11 @@
    ],
    [
     "masked-word",
-    "box"
+    "heading",
+    {
+     "fontPx": 330,
+     "lines": 1
+    }
    ],
    [
     "cutout-green",
@@ -187,7 +191,7 @@
    ],
    [
     "masked-word",
-    "coral, blue, peach, teal, pink stripes card (624x330px as drawn, 0px rounded) holding bold 330px null \"CUT\" at its top left"
+    "the word \"CUT\" in giant Helvetica heavy letters, 330px, weight 900, letter-spacing -18px, line-height 1, on ONE line, its top-left at 40,90; the LETTERS THEMSELVES are filled with colour (gradient text: background-clip: text; color: transparent), exactly this background on the word: radial-gradient(circle at 25% 40%, #ff7a59 0px, #ff7a59 18%, transparent 19%), radial-gradient(circle at 70% 60%, #3b7dd8 0px, #3b7dd8 22%, transparent 23%), linear-gradient(115deg, #ffd166 0px, #ffd166 35%, #06a77d 35%, #06a77d 60%, #ef476f 60%); NOT a card, NOT a box or block behind the word, no stripes outside the letters, the page shows round them"
    ],
    [
     "cutout-green",
@@ -455,11 +459,7 @@
    ],
    [
     "glyph-grid",
-    "heading",
-    {
-     "fontPx": 130,
-     "lines": 1
-    }
+    "box"
    ],
    [
     "sticker",
@@ -497,7 +497,7 @@
    ],
    [
     "glyph-grid",
-    "the one word \"AgR&QeS7?\" in giant Helvetica off-white letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): A 130px weight 100, g 130px weight 300, R 130px weight 900, & 130px weight 900, Q 130px weight 900, e 130px weight 100, S 130px weight 500, 7 130px weight 900, ? 130px weight 300; about 620px wide, white-space: nowrap; no other copy here (not a paragraph); the word \"S\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #39ff9c), same size and weight as the rest"
+    "a 3x3 grid of 9 square glyph TILES (display: grid; 3 columns; gap 10px), 620x620px with its top-left at 600,110; every tile is its own 200x200px box with a 1px #2b2b33 border, 6px rounded, holding ONE centred 130px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: 1. \"A\" weight 100, letter #39ff9c, glowing (text-shadow 0 0 18px #39ff9c); 2. \"g\" weight 300 italic, letter #39ff9c, glowing (text-shadow 0 0 18px #39ff9c); 3. \"R\" weight 900, letter #39ff9c, glowing (text-shadow 0 0 18px #39ff9c); 4. \"&\" weight 900, letter #ff3fd4, glowing (text-shadow 0 0 18px #ff3fd4); 5. \"Q\" weight 900, tile FILLED solid #39ff9c, letter #09090c, no glow; 6. \"e\" weight 100, letter #ff3fd4, glowing (text-shadow 0 0 18px #ff3fd4); 7. \"S\" weight 500, HOLLOW letter: outline only (color: transparent; -webkit-text-stroke: 2px #39ff9c), glowing (text-shadow 0 0 18px #39ff9c); 8. \"7\" weight 900 italic, letter #39ff9c, glowing (text-shadow 0 0 18px #39ff9c); 9. \"?\" weight 300, letter #ffe14a, glowing (text-shadow 0 0 18px #ffe14a); the word \"S\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #39ff9c), same size and weight as the rest"
    ],
    [
     "sticker",

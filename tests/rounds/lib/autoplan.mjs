@@ -68,7 +68,7 @@ export function factsInPage() {
       bg: rgba(cs.backgroundColor),
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
-      clipText: (cs.webkitBackgroundClip || cs.backgroundClip) === 'text',
+      clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
@@ -319,7 +319,7 @@ export function factsInPage() {
         const rowEls = [...el.children].filter((k) => { const i = k.firstElementChild; if (!i || (i.innerText || '').trim() || k.children.length > 3 || k.getBoundingClientRect().height > 90 || (k.innerText || '').trim().length > 48 || [...k.children].some((g) => g.children.length)) return false; const b = i.getBoundingClientRect(); return b.width >= 20 && b.width <= 80 && Math.abs(b.width - b.height) <= 2 && rgba(getComputedStyle(i).backgroundColor)?.a > 0.05 && (k.innerText || '').trim() })
         const head = [...el.children].find((k) => /^H\d$/.test(k.tagName))
         const poly = /polygon\(/.test(cs.clipPath) ? cs.clipPath : null
-        const big = all.find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage) && parseFloat(getComputedStyle(x).fontSize) >= 100)
+        const big = all.find((x) => /^text(,\s*text)*$/.test(getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) && /gradient/.test(getComputedStyle(x).backgroundImage) && parseFloat(getComputedStyle(x).fontSize) >= 100)
         if (!holeEl && rowEls.length < 2 && !(poly && head) && !big) return null
         const at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height) } }
         const tx = (k) => { const c = getComputedStyle(k); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: +c.fontWeight >= 600, ink: rgba(c.color), ...at(k) } }
@@ -332,8 +332,21 @@ export function factsInPage() {
       })(),
       // gradient-filled words inside a heading ('three dimensions' in cyan to pink: round 6 c1, unsaid)
       clipKid: (() => {
-        const k = [...el.querySelectorAll('*')].find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage))
+        const k = [...el.querySelectorAll('*')].find((x) => /^text(,\s*text)*$/.test(getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) && /gradient/.test(getComputedStyle(x).backgroundImage))
         return k ? { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), bgImage: getComputedStyle(k).backgroundImage, bgImageColours: colours(getComputedStyle(k).backgroundImage) } : null
+      })(),
+      // n154: a grid of glyph tiles, each tile a box holding one letter with its own weight, colour, glow, fill or
+      // outline (round 14 c5: said as the one word 'AgR&QeS7?' on one line, tiles lost)
+      glyphTiles: (() => {
+        if (!/grid/.test(cs.display) || kids.length < 4 || kids.length > 16) return null
+        const ts = kids.map((k) => {
+          const s = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim()
+          const sh = s.textShadow && s.textShadow !== 'none' ? s.textShadow.match(/(rgba?\([^)]+\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/) : null
+          return { t, w: +s.fontWeight, italic: s.fontStyle === 'italic', px: Math.round(parseFloat(s.fontSize)), ink: rgba(s.color), fill: rgba(s.backgroundColor), border: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: Math.round(parseFloat(s.borderTopWidth) || 0), rad: Math.round(parseFloat(s.borderTopLeftRadius) || 0), stroke: parseFloat(s.webkitTextStrokeWidth) > 0 ? { w: Math.round(parseFloat(s.webkitTextStrokeWidth)), c: rgba(s.webkitTextStrokeColor) } : null, glow: sh ? { c: rgba(sh[1]), blur: Math.round(+sh[4]) } : null, bw2: Math.round(b.width), bh: Math.round(b.height) }
+        })
+        if (ts.some((x) => !x.t || x.t.length > 2) || !ts.every((x) => x.border || x.fill?.a > 0.05) || ts.some((x) => x.bw2 < 40)) return null
+        const cols = cs.gridTemplateColumns.split(/\s+/).filter(Boolean).length
+        return { tiles: ts, cols, rows: Math.ceil(ts.length / cols), gap: Math.round(parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0), x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
       })(),
       // one word whose letters each carry their own size and weight (round 7 c2 'VARIABLE' wave: no note, invented copy)
       letterWave: (() => {
@@ -2973,6 +2986,19 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: withFx(`an empty solid ${hexOf(f.bg)} pill exactly ${Math.round(w)}x${Math.round(h)}px (border-radius 999px: fully round ends, a capsule, NOT square or slightly rounded corners; the selection outline follows the round ends), NO text, NO label, NOT a button with words, NOT blue${f.ring ? `; a ${f.ring.w}px ${colourName(f.ring.colour)} (${hexOf(f.ring.colour)}) selection outline round it (outline: ${f.ring.w}px solid; outline-offset ${f.ring.off}px)` : ''}${hd ? `; ${hd.n} small ${hd.px}x${hd.px}px square ${hexOf(hd.fill)} handles${hd.border ? ` with a ${hexOf(hd.border)} border` : ''}, one centred on each corner of its bounding box (absolutely placed)` : ''}`) }
   }
 
+  // n154: a glyph tile grid, said tile by tile (round 14 c5 built it as one white word)
+  if (f.glyphTiles && !f.regionKids.length) {
+    const g = f.glyphTiles, t0 = g.tiles[0]
+    const one = (x, i) => {
+      const parts = [`${i + 1}. ${quote(x.t)} weight ${x.w}${x.italic ? ' italic' : ''}`]
+      if (x.fill?.a > 0.05) parts.push(`tile FILLED solid ${hexOf(x.fill)}`)
+      if (x.stroke && !(x.ink?.a > 0.05)) parts.push(`HOLLOW letter: outline only (color: transparent; -webkit-text-stroke: ${x.stroke.w}px ${hexOf(x.stroke.c)})`)
+      else parts.push(`letter ${hexOf(x.ink)}`)
+      parts.push(x.glow ? `glowing (text-shadow 0 0 ${x.glow.blur}px ${hexOf(x.glow.c)})` : 'no glow')
+      return parts.join(', ')
+    }
+    return { kind: 'box', note: withFx(`a ${g.cols}x${g.rows} grid of ${g.tiles.length} square glyph TILES (display: grid; ${g.cols} columns; gap ${g.gap}px), ${g.w}x${g.h}px with its top-left at ${g.x},${g.y}; every tile is its own ${t0.bw2}x${t0.bh}px box${t0.border ? ` with a ${t0.bw}px ${hexOf(t0.border)} border` : ''}, ${t0.rad}px rounded, holding ONE centred ${t0.px}px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: ${g.tiles.map(one).join('; ')}`) }
+  }
   // ---- round 7 creative (n94)
   // a word set letter by letter, each letter its own size and weight on one baseline
   if (f.letterWave && !f.regionKids.length) {
@@ -3033,6 +3059,12 @@ function decideOne(f, page, marked, said) {
     const lc = f.bgImageColours.map(parse).find((c) => c && c.a > 0.05)
     const step = (f.bgImage.match(/(?:transparent|rgba\(0, 0, 0, 0\)) 1px,?\s*(?:(?:transparent|rgba\(0, 0, 0, 0\))\s+)?(\d+)px/) || f.bgImage.match(/1px,?\s*(?:transparent|rgba\(0, 0, 0, 0\))\s+1px\s+(\d+)px/) || [])[1]
     return { kind: 'box', note: `faint ${lc ? colourName({ ...lc, a: 1 }) : ''} grid of thin lines${step ? ` every ${step}px` : ''} laid flat as a floor going back into the distance (perspective, rotateX(${f.rot3d.x}deg)), from ${Math.round(f.rect.y)}px down to the bottom edge across the full width${f.layoutBox?.h ? ` (tilting shortens it: build the grid ${f.layoutBox.h}px tall and ${f.layoutBox.w}px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge)` : ''}, a backdrop behind everything that holds nothing (things over it are not inside it), lines ${lc ? `${Math.round(lc.a * 100)}% opaque` : 'faint'}, no fill` }
+  }
+  // n154: a giant word filled with layered gradients through clip-text (round 14 c2 'CUT': said as a striped card
+  // holding null type, built as black letters on a striped box). Say the word and its exact layers on the letters.
+  if (f.clipText && (f.bgImage.match(/gradient\(/g) || []).length >= 2 && f.text && f.text.length <= 16 && f.font.size >= 100 && !f.regionKids.length) {
+    const face = faceName(f.font.family)
+    return { kind: 'heading', note: withFx(`the word ${quote(f.text)} in giant ${face ? `${face} ` : ''}${f.font.weight >= 700 ? 'heavy ' : ''}letters, ${Math.round(f.font.size)}px, weight ${f.font.weight}${f.font.spacing ? `, letter-spacing ${Math.round(f.font.spacing)}px` : ''}, line-height 1, on ONE line, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}; the LETTERS THEMSELVES are filled with colour (gradient text: background-clip: text; color: transparent), exactly this background on the word: ${cssHex(f.bgImage)}; NOT a card, NOT a box or block behind the word, no stripes outside the letters, the page shows round them`) }
   }
   // a gradient card holding a short bold line (round 6 c1 front card: said 'near-black "$4,280.00"' as a heading)
   if (grad && !f.clipText && f.text && f.text.length <= 24 && f.kidCount === 0 && h >= 100 && w >= 150 && !f.regionKids.length) {
