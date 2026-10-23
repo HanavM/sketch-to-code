@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;font-size:14px}
+.side{position:absolute;left:760px;top:0;width:520px;height:900px;background:#f6f5f2;border-left:1px solid #e7e4dc}
+.logo{position:absolute;left:96px;top:40px;font-size:22px;font-weight:900;letter-spacing:-1px}
+.steps{position:absolute;left:96px;top:92px;display:flex;gap:10px;font-size:13px;color:#8a8a8a}.steps b{color:#1a1a1a}
+.f{position:absolute;left:96px;top:140px;width:600px}
+.f h3{font-size:18px;margin:0 0 12px}
+.row{display:grid;gap:12px;margin-bottom:12px}.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:2fr 1fr 1fr}
+.in{height:46px;border:1px solid #d6d3cc;border-radius:8px;padding:6px 12px;font-size:14px}.in small{display:block;font-size:11px;color:#8a8a8a}
+.in.foc{border:2px solid #1a1a1a}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #d6d3cc;border-radius:8px;overflow:hidden;margin-bottom:12px}.seg span{padding:14px;text-align:center;border-right:1px solid #d6d3cc}.seg .on{background:#1a1a1a;color:#fff;font-weight:700}
+.chk{display:flex;align-items:center;gap:10px;margin:4px 0 20px}.chk i{width:18px;height:18px;border-radius:4px;background:#1a1a1a;color:#fff;font-style:normal;font-size:12px;text-align:center;line-height:18px}
+.pay{height:56px;border-radius:10px;background:#2f5d3a;color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center}
+.lock{margin-top:12px;font-size:12px;color:#8a8a8a;text-align:center}
+.sm{position:absolute;left:820px;top:96px;width:400px}
+.it{display:flex;gap:14px;align-items:center;margin-bottom:18px}.th{position:relative;width:64px;height:64px;border-radius:10px;border:1px solid #e0ddd5}.th b{position:absolute;right:-8px;top:-8px;width:22px;height:22px;border-radius:50%;background:#7a7a7a;color:#fff;font-size:12px;text-align:center;line-height:22px}
+.it p{flex:1}.it small{display:block;color:#8a8a8a;margin-top:3px}
+.promo{display:flex;gap:10px;margin:8px 0 20px}.promo .in{flex:1;background:#fff}.promo span{padding:0 18px;border-radius:8px;background:#e7e4dc;font-weight:700;display:flex;align-items:center}
+.ln{display:flex;justify-content:space-between;margin-bottom:10px;color:#555}.tot{display:flex;justify-content:space-between;border-top:1px solid #e0ddd5;padding-top:16px;margin-top:6px;font-size:20px;font-weight:700}.tot small{font-size:12px;color:#8a8a8a;font-weight:400;margin-right:6px}
+</style></head><body>
+<div class="side"></div>
+<div class="logo" data-r="logo">fern&amp;co</div>
+<div class="steps" data-r="breadcrumb"><span>Cart</span>›<b>Information</b>›<span>Shipping</span>›<span>Payment</span></div>
+<div class="f" data-r="checkout-form" data-must><h3>Contact</h3><div class="row"><div class="in foc"><small>Email</small>maya.r@example.com</div></div><div class="chk"><i>✓</i>Email me with news and offers</div>
+<h3>Delivery</h3><div class="seg"><span class="on">Ship</span><span>Pick up</span><span>Locker</span></div>
+<div class="row c2"><div class="in"><small>First name</small>Maya</div><div class="in"><small>Last name</small>Rossi</div></div><div class="row"><div class="in"><small>Address</small>18 Elm Street, Apt 4</div></div><div class="row c3"><div class="in"><small>City</small>Portland</div><div class="in"><small>State</small>OR ▾</div><div class="in"><small>ZIP</small>97205</div></div>
+<div class="pay">Continue to shipping</div><div class="lock">🔒 Secure checkout · SSL encrypted</div></div>
+<div class="sm" data-r="order-summary" data-must><div class="it"><div class="th" style="background:#c9d8c5"><b>1</b></div><p>Monstera Deliciosa<small>Large · Terracotta pot</small></p><b>$68.00</b></div><div class="it"><div class="th" style="background:#e9d3b6"><b>2</b></div><p>Linen plant mister<small>Sand</small></p><b>$36.00</b></div><div class="it"><div class="th" style="background:#d4cfe8"><b>1</b></div><p>Care guide (print)<small>A5 booklet</small></p><b>$9.00</b></div>
+<div class="promo"><div class="in" style="padding-top:13px;color:#8a8a8a">Discount code</div><span>Apply</span></div>
+<div class="ln"><span>Subtotal</span><span>$113.00</span></div><div class="ln"><span>Shipping</span><span>Calculated next step</span></div><div class="ln"><span>Tax</span><span>$9.04</span></div><div class="tot"><span>Total</span><span><small>USD</small>$122.04</span></div></div>
+</body></html>

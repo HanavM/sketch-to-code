@@ -1,0 +1,210 @@
+{
+  "id": "c3-aurora-glass",
+  "at": "2026-10-23T17:33:40.997Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6441947978598495,
+    "overallV2": 0.6391932125670093,
+    "overallV1": 0.5966794544141598,
+    "colour": 0.8511533902008639,
+    "structure": 0.5471871929563954,
+    "structureStrict": 0.4528957195502023,
+    "colourAligned": 0.8624256331445153,
+    "structureAligned": 0.5471871929563954,
+    "align": {
+      "scale": 1.16,
+      "dx": 0,
+      "dy": -48,
+      "r": 0.6181070384787903
+    },
+    "layout": 0.6980002107820144
+  },
+  "effects": {
+    "recall": 0.375,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "motion"
+    ],
+    "missing": [
+      "blur",
+      "glass",
+      "italic",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "mask",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 47333,
+    "output": 31632,
+    "cacheRead": 635398
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61035,
+      "output": 24406,
+      "cacheRead": 624547,
+      "toolCalls": 19,
+      "tools": [
+        "Read components/DonutChart.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/DonutChart.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read components/DonutChart.tsx",
+        "Edit components/DonutChart.tsx",
+        "Edit components/DonutChart.tsx",
+        "Glob",
+        "Glob",
+        "Read components/DonutChart.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 280995
+    }
+  ],
+  "reading": "This is a hero/landing section: a top nav bar, a huge thin headline with a lavender subhead, a gradient pre-order pill button, three side-by-side stat call-outs below, and a large spinning translucent donut-chart graphic bleeding off the top edge behind everything, all on a black Helvetica-set page with a fine grain texture overlay.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        1,
+        894,
+        636
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large spinning donut chart, 900px diameter, centred, bleeding off the top of the page (starting 260px past the top edge), soft blurred edges, faded to 75% opaci"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Top navigation bar with no box/border around it: left side shows '◐ halo' as the logo/wordmark, right side shows nav links 'Product', 'Research', 'Login'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 119
+        }
+      ],
+      "region": [
+        8,
+        284,
+        1152,
+        143
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica headline in a thin, hairline weight with tight letter-spacing, reading 'Light that listens', set at 110px, about 674px wide (no larger)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        394,
+        430,
+        492,
+        54
+      ],
+      "paths": [],
+      "instruction": "Lavender-coloured subheading paragraph text: 'Ambient lamps that follow your voice, your music and your sleep.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        531,
+        215,
+        51
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Pill-shaped button with a black-to-cyan-to-pink gradient fill, labeled 'Pre-order — $249'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 6,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        124,
+        650,
+        1032,
+        180
+      ],
+      "paths": [],
+      "instruction": "Three stats laid out side by side in a single row (not separate cards), each a big number over a small label: 34px #eef2ff '16M' over 14px #b8c0d9 'colours, mix"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

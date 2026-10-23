@@ -1,0 +1,137 @@
+c1-iso-city · marks 7 · words 242
+    nav          box     
+    headline     heading 
+    subcopy      text    
+    cta          button  
+    iso-grid     box     
+    stat-chip    box     
+    ticker       box     
+    note *: whole page: near-black (#0f1226) page, Helvetica type, pale blue-grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 420x120px at 760,600 indigo #7a5cff circle/ellipse (border-radius 50%) blurred (filter: blur(70px))
+    note nav: nav, no box around it: wide-spaced "ISO/CITY" left, "MAP · DISTRICTS · JOIN" right
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.9) peach (#ffcf5c) to light pink (#ff5fa2 at 60%) to indigo (#7a5cff) gradient, left to right text "Build a city one block up.", set in exactly 3 lines: "Build a city" / "one block" / "up." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 464px wide)
+    note subcopy: lavender text "Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift."
+    note cta: peach pill near-black text button "Claim a lot"
+    note iso-grid: a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a 594x297px scene at 613,392 with perspective: 900px; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: rotateX(60deg) rotateZ(-45deg)) holding exactly 4 face divs, each absolutely placed at the group's top-left with a 0px #f4f1ff border (backface visible): 105x105px #000000 face, transform: none; 70x140px #000000 face, transform: none; 105x105px #000000 face, transform: none; 140x70px #000000 face, transform: none
+    note stat-chip: tilted 4° clockwise frosted glass "● 1,204 towers live"
+    note ticker: tilted slightly 2° anticlockwise scrolling vivid light pink bar, near-black text
+c2-blend-poster · marks 8 · words 243
+    kicker       text    
+    red-disc     circle  
+    blue-bar     image   
+    headline     heading 
+    side-label   text    
+    spin-ring    circle  
+    subcopy      text    
+    date-block   heading 
+    note *: whole page: cream (#f0ece2, plainly not white) page, Helvetica type, near-black text
+    note kicker: 13px wide-spaced letters "SOUND / SPACE FESTIVAL — 12TH EDITION", one line on its own (top 40px, left edge 56px), nothing else written beside it
+    note red-disc: perfectly round solid disc (border-radius 50%, not traced from the ink), 560px across, flat fully opaque vivid red (#ff3b1f) fill, hard edge, no blur
+    note blue-bar: tilted 8° anticlockwise bleeding off the left page edge (starts 46px past it) vivid blue block
+    note headline: colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lines set tight (line-height 0.8) white "LOUD ROOM", set in exactly 2 lines: "LOUD" / "ROOM" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 955px wide)
+    note side-label: wide-spaced letters vertical (writing-mode: vertical-rl), 14px letters, the line about 199px long "SIDE A · 33 RPM"
+    note spin-ring: spinning 2px dashed #111111 outline (dashes, not a solid line) near-black outline circle with "TICKETS"
+    note subcopy: text "Three nights, nine stages, one warehouse. Bring earplugs and somebody you like."
+    note date-block: huge Helvetica heavy tight-set letters lines set tight (line-height 0.95) 54px "MAR 14–16", then on its own line under it a small 15px bold line "PIER 9 · LISBON" (small, not part of the big type)
+c3-aurora-glass · marks 6 · words 175
+    aurora       box     
+    nav          box     
+    headline     heading 
+    subcopy      text    
+    cta          button  
+    glass-cards  text    
+    note *: whole page: black (#07090f) page, Helvetica type, off-white text, fine grain texture over everything
+    note aurora: spinning soft blurred faded to 75% opacity (see-through) bleeding off the top page edge (starts 260px past it) a 900px donut chart centred, segments clockwise from the top: cyan 100%, then bright sky blue 0%, then purple 0%, then pink 0%, the rest a cyan track 0%
+    note nav: nav, no box around it: "◐ halo" left, "Product Research Login" right
+    note headline: giant Helvetica thin hairline-weight tight-set letters "Light that listens", 110px type, about 674px wide (no larger)
+    note subcopy: lavender text "Ambient lamps that follow your voice, your music and your sleep."
+    note cta: black to cyan to pink gradient pill button "Pre-order — $249"
+    note glass-cards: 3 stats side by side in it (NOT separate cards), each a big number over a small label: 34px #eef2ff "16M" over 14px #b8c0d9 "colours, mixed in real time from what you play"; 34px #eef2ff "0.3s" over 14px #b8c0d9 "to react to a clap, a word or a beat"; 34px #eef2ff "7 yrs" over 14px #b8c0d9 "of LED life at full brightness"
+c4-diagonal-split · marks 10 · words 492
+    left-panel   shape   
+    right-panel  shape   
+    outline-number heading 
+    nav          box     
+    headline     heading 
+    subcopy      text    
+    cta          button  
+    route-list   text    
+    sticker      circle  
+    scroll-hint  box     
+    note *: whole page: near-black (#111111) page, Helvetica type, white text
+    note left-panel: vivid yellow angled cut-out shape, ONE flat #e8ff3a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,0 ; 794,0 ; 486,900 ; 0,900; the shape's box is the outline's bounds, 794x900px with its top-left at 0,0, so on that box clip-path: polygon(0% 0%, 100% 0%, 61% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the LEFT part and the rest shows what is under it (do not mirror it)
+    note right-panel: vivid orange #ff5a36 (top) to deep raspberry #8b1e3f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff5a36, #8b1e3f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 819,0 ; 1280,0 ; 1280,900 ; 512,900; the shape's box is the outline's bounds, 768x900px with its top-left at 512,0, so on that box clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background
+    note outline-number: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white "09", 520px type, about 518px wide (no larger)
+    note nav: nav, no box around it: "RUNCLUB" left, "ROUTES · CREW · SHOP" right
+    note headline: huge Helvetica heavy uppercase lines set tight (line-height 0.92) near-black "NINE MILES BEFORE SUNRISE", set in exactly 3 lines: "NINE MILES" / "BEFORE" / "SUNRISE" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 412px wide)
+    note subcopy: text "A night-to-dawn city run, every second Saturday. Pace groups for everyone."
+    note cta: button "JOIN THE NEXT RUN"
+    note route-list: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 320x44 at 900,520 1px #ffffff border on the bottom only; 40x15 at 900,534 15px #ffffff "Route"; 85x15 at 1135,534 15px bold #ffffff "Harbor loop"; 320x44 at 900,564 1px #ffffff border on the bottom only; 32x15 at 900,578 15px #ffffff "Start"; 38x15 at 1182,578 15px bold #ffffff "04:40"; 320x44 at 900,608 1px #ffffff border on the bottom only; 49x15 at 900,622 15px #ffffff "Groups"; 107x15 at 1113,622 15px bold #ffffff "5:00 – 7:30 /km"
+    note sticker: tilted 14° clockwise vivid yellow circle with "FREE COFFEE AFTER"
+    note scroll-hint: input ""
+c5-halftone-mag · marks 8 · words 309
+    masthead     heading 
+    halftone-photo image   
+    blend-shape  circle  
+    headline     heading 
+    dek          text    
+    body-columns text    
+    sticker      box     
+    folio        text    
+    note *: whole page: off-white (#fbf6ea, plainly not white) page, Helvetica type, near-black text
+    note masthead: giant Georgia serif tight-set letters 118px "Halftone", then on its own line under it a small 13px bold line "ISSUE 44 WINTER 2026 €12" (small, not part of the big type)
+    note halftone-photo: ink-like (multiply blend: darkens what it overlaps, never covers it) near-black to yellow to orange gradient block
+    note blend-shape: ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 380px across, flat fully opaque vivid blue (#2f6bff) fill, hard edge, no blur
+    note headline: huge Georgia italic serif tight-set letters lines set tight (line-height 0.95) "The last print shop on Rua Augusta", set in exactly 2 lines: "The last print shop" / "on Rua Augusta" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 551px wide)
+    note dek: text "Four presses, two owners and a cat called Pantone keep ink on paper in a city that went digital."
+    note body-columns: 2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 284px wide, 32px apart, 14px #1a1a1a type, 22px line height, at 640,580; the first column opens with a DROP CAP: its first letter 64px #ff3b1f, floated left, sinking 4 lines into the text (::first-letter, float: left): column 1 "When Marta opened the shutter in 1987 the street had nine printers. Today the hum of the Heidelberg is the only one left, and it still runs before the cafés open."; column 2 "Orders come from bands, poets and a ministry that never updated its forms. Nobody here is sentimental about it; the work simply pays."
+    note sticker: tilted 9° anticlockwise vivid red block, white text "PRINT IS NOT DEAD", with a hard solid opaque near-black shadow offset 6px down right, no blur
+    note folio: "p. 38"
+e1-design-tool · marks 4 · words 167
+    toolbar      box     
+    layers-panel box     
+    canvas       box     
+    properties-panel box     
+    note *: whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text
+    note toolbar: dark grey bar, white text "◆ ↖ # □ ✎ T Landing v3 / Mobile Share"
+    note layers-panel: white block side nav, no box: 2 groups, each a small bold heading over its own links, one link per line (every link said, none invented, none moved to another group): "Layers": "▾ ▢ Mobile / Home", "▢ Hero", "T Title", "T Body", "▣ Button", "▢ Nav"; "Assets": "◇ Components (24)", "◇ Icons (112)"; "▣ Button" highlighted (pale blue row, bold #0d99ff text); rows exactly 26px apart (26px tall, tight; not roomier), first heading 12px below the nav's top; the nav column is 240px wide with a thin #e0e0e0 line down its full right edge
+    note canvas: "Mobile / Home 520 × 620", lines "Plan less, ship more The calm project space for small teams who would rather build than meet. Get started", "160 × 44"
+    note properties-panel: white block list: "Button" X32Y420W160H44, "Layout", "Fill" 1E1E1E 100%, "Stroke", "Effects" + Add effect
+e2-gantt-timeline · marks 3 · words 230
+    header       text    
+    task-list    box     
+    gantt        box     
+    note header: bold 18px "Website relaunch" first, then links: Filter ▾, Day Week Month, + Task; "+ Task" selected (white text, indigo fill); "Website relaunch" sit together at the left, "Filter ▾", "Day Week Month", "+ Task" pushed to the far right (763px gap)
+    note task-list: a 299x44px #f7f8fa filled button "▾ Discovery" (, bold #1f2430 text; its fill clearly visible, not white), then "▾ Design" "▾ Build" list: "TASK" OWNER, "Stakeholder"…, "Content audit", "Wireframes", "Visual design", "Design review", "CMS setup", "Page templates", "QA & launch"; list rows exactly 44px apart (44px tall, 12px type: tight, not roomier), first line 0px below the panel's top
+    note gantt: timeline, 7 week columns "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2", "Nov 9", "Nov 16" across the top; one task bar per row (label inside, white text), rows 44px apart, bars 24px tall, rows end 60% down, empty below: indigo "Interviews" start of Oct 5 to mid Oct 12, amber "Audit" end of Oct 5 to mid Oct 19, green "Wireframes" mid Oct 12 to end of Oct 19, indigo "Visual design 55%" start of Oct 26 to start of Nov 2, green "CMS setup" start of Nov 2 to mid Nov 9, indigo "Templates" start of Nov 9 to mid Nov 16, amber "QA" start of Nov 16 to end of Nov 16; thin red vertical today line top to bottom at mid Oct 26
+e3-team-chat · marks 4 · words 338
+    workspace-rail box     
+    sidebar      box     
+    channel      box     
+    thread-pane  box     
+    note workspace-rail: dark plum bar "A", lines a #5d2c5e filled 38x38px button (9px rounded), bold #ffffff text "B", a #5d2c5e filled 38x38px button (9px rounded), bold #ffffff text "+", all at the top of the panel, empty below; this panel is FLAT: #3f0e40 fill from the very top to the very bottom of the page at the left edge, 68px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)
+    note sidebar: dark plum block, lavender text "Acme Studio ▾" "▾ Channels" "▾ Direct messages" list: "# announcements", "# design-crit", "# launch-war-room" 3, "# random", "● Priya Shah", "● Leo Martin" 1, "○ Sam Okafor"; "# design-crit" highlighted (#1164a3 square fill, #ffffff text); list rows exactly 26px apart (26px tall, 14px type: tight, not roomier), first line 16px below the panel's top
+    note channel: header "B I S 🔗 ≡ </> Message"… with a thin line under it, then 3 chat messages stacked top-down (no bubbles), each a 36px rounded square avatar left, bold name then small grey time on one line, message text under: green avatar, "Priya Shah" 10:02: "New hero for the pricing page is up, can you check spacing on mobile?"…, small chip "@Leo Martin" under it, small chip "👀 3" under it, small chip "🔥 5" under it; bright orange avatar, "Leo Martin" 10:14: "Looks good. The gap token is off on small screens: .hero { gap:"…; cyan avatar, "Sam Okafor" 10:21: "Shipping it after lunch ✅", small chip "🚀 2" under it
+    note thread-pane: header "Thread # design-crit" with a thin line under it, then 4 chat messages stacked top-down (no bubbles), each a 36px rounded square avatar left, bold name then small grey time on one line, message text under: green avatar, "Priya Shah" 10:02: "New hero for the pricing page is up, can you check spacing on mobile?", small chip "@Leo Martin" under it; bright orange avatar, "Leo Martin" 10:09: "On it, give me 10."; cyan avatar, "Sam Okafor" 10:11: "The CTA wraps at 375px."; green avatar, "Priya Shah" 10:30: "Fixed, thanks both 🙏"
+e4-checkout · marks 4 · words 262
+    logo         text    
+    breadcrumb   text    
+    checkout-form box     
+    order-summary box     
+    note logo: "fern&co"
+    note breadcrumb: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out): 25x15 at 96,92 13px #8a8a8a "Cart"; 4x15 at 131,92 13px #8a8a8a "›"; 72x15 at 145,92 13px bold #1a1a1a "Information"; 4x15 at 226,92 13px #8a8a8a "›"; 51x15 at 241,92 13px #8a8a8a "Shipping"; 4x15 at 301,92 13px #8a8a8a "›"; 51x15 at 316,92 13px #8a8a8a "Payment"
+    note checkout-form: "Contact" grey lines "Email" / "maya.r@example.com" grey lines "✓" / "Email me with news and offers" "Delivery" list: "Ship", "Pick up", "Locker"; "Ship" highlighted (#1a1a1a square fill, #ffffff text); then under the list, in this order: grey lines "First name" / "Maya" / "Last name" / "Rossi", grey lines "Address" / "18 Elm Street, Apt 4", deep green button "Continue to shipping"
+    note order-summary: order summary: 3 item rows, each a 64px solid light grey (#c9d8c5, plainly darker than the panel) rounded square picture with a small round grey quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: "Monstera Deliciosa" / "Large · Terracotta pot" badge 1, $68.00; "Linen plant mister" / "Sand" badge 2, $36.00; "Care guide (print)" / "A5 booklet" badge 1, $9.00; then a bordered field "Discount code" with a light grey button "Apply" right of it; grey row "Subtotal $113.00" (label left, amount right); grey row "Shipping Calculated next step" (label left, amount right); grey row "Tax $9.04" (label left, amount right); a thin line, then big bold row "Total USD$122.04" (label left, amount right)
+e5-admin-table · marks 6 · words 834
+    side-nav     box     
+    page-header  box     
+    filters      box     
+    bulk-bar     box     
+    users-table  box     
+    pagination   text    
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
+    note side-nav: dark navy (exactly #0f172a) bar, grey text "▲ Northstar" list: "Overview", "Users", "Teams", "Billing", "Audit log", "Settings"; "Users" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 33px apart (33px tall, 13px type: tight, not roomier), first line 20px below the panel's top
+    note page-header: column "Users", cards: "Export", "+ Invite user"
+    note filters: toolbar row of controls packed at the LEFT, side by side 8px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search name or email…" 280px wide, dropdown "Role: Admin ✕" 117px wide, button "+ Status" 74px wide, button "+ Team" 69px wide, button "+ Last active" 99px wide
+    note bulk-bar: dark navy bar 44px tall across the page, bold "2 selected" first, then links: Change role, Move to team, Deactivate; "2 selected" sit together at the left, "Change role", "Move to team", "Deactivate" pushed to the far right (654px gap)
+    note users-table: white card; a 994x40px #f8fafc filled button "NAME ↑ ROLE STATUS"… (, bold #64748b text; its fill clearly visible, not white), then list: "AKAna"… Admin, "BTBen"… Admin, "COChidi"… Admin, "DLDana"… Admin, 1 more; list rows exactly 52px apart (52px tall, 13px type: tight, not roomier), first line 1px below the panel's top; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 64 of them, nothing invented, nothing left out): 994x40 at 253,190 #f8fafc fill, 1px #64748b border on the bottom only; 16x16 at 265,202 1px #94a3b8 border, 4px rounded; 260x14 at 309,203 12px bold #64748b "NAME ↑"; 150x14 at 569,203 12px bold #64748b "ROLE"; 120x14 at 719,203 12px bold #64748b "STATUS"; 140x14 at 839,203 12px bold #64748b "TEAM"; 196x14 at 979,203 12px bold #64748b "LAST ACTIVE"; 994x52 at 253,230 #eff6ff fill, 1px #0f172a border on the bottom only; 30x30 at 309,241 #c7d2fe fill, a circle: 11px bold #3730a3 "AK"; 83x27 at 349,242 13px #0f172a "Ana Kowalski"; 54x20 at 719,246 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 16x16 at 265,248 #2563eb fill, 1px #2563eb border, 4px rounded; 150x15 at 569,248 13px #0f172a "Admin"; 140x15 at 839,248 13px #0f172a "Platform"; 196x15 at 979,248 13px #0f172a "2 min ago"; 60x15 at 1175,248 13px #0f172a "⋯"; 83x12 at 349,257 11px #64748b "ana@northstar.io"; 994x62 at 253,282 #f8fafc fill, 1px #475569 border on the bottom only; 275x33 at 321,296 13px #475569 "Joined"; 275x33 at 612,296 13px #475569 "2FA"; 275x33 at 904,296 13px #475569 "Seats used"; 275x15 at 321,314 13px bold #0f172a "Mar 3, 2024"; 275x15 at 612,314 13px bold #0f172a "Enabled · Authenticator"; 275x15 at 904,314 13px bold #0f172a "3 of 5 devices"; 994x52 at 253,344 #eff6ff fill, 1px #0f172a border on the bottom only; 30x30 at 309,355 #fde68a fill, a circle: 11px bold #92400e "BT"; 83x27 at 349,356 13px #0f172a "Ben Tran"; 57x20 at 719,360 #fef9c3 fill, pill ends: 12px bold #854d0e "Invited"; 16x16 at 265,362 #2563eb fill, 1px #2563eb border, 4px rounded; 150x15 at 569,362 13px #0f172a "Admin"; 140x15 at 839,362 13px #0f172a "Growth"; 196x15 at 979,362 13px #0f172a "—"; 60x15 at 1175,362 13px #0f172a "⋯"; 83x12 at 349,371 11px #64748b "ben@northstar.io"; 994x52 at 253,396 1px #0f172a border on the bottom only; 30x30 at 309,407 #bbf7d0 fill, a circle: 11px bold #166534 "CO"; 87x27 at 349,408 13px #0f172a "Chidi Okafor"; 54x20 at 719,412 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 16x16 at 265,414 1px #94a3b8 border, 4px rounded; 150x15 at 569,414 13px #0f172a "Admin"; 140x15 at 839,414 13px #0f172a "Data"; 196x15 at 979,414 13px #0f172a "Yesterday"; 60x15 at 1175,414 13px #0f172a "⋯"; 87x12 at 349,423 11px #64748b "chidi@northstar.io"; 994x52 at 253,448 1px #0f172a border on the bottom only; 30x30 at 309,459 #fecaca fill, a circle: 11px bold #991b1b "DL"; 89x27 at 349,460 13px #0f172a "Dana Lee"; 83x20 at 719,464 #fee2e2 fill, pill ends: 12px bold #991b1b "Suspended"; 16x16 at 265,466 1px #94a3b8 border, 4px rounded; 150x15 at 569,466 13px #0f172a "Admin"; 140x15 at 839,466 13px #0f172a "Platform"; 196x15 at 979,466 13px #0f172a "Oct 2"; 60x15 at 1175,466 13px #0f172a "⋯"; 89x12 at 349,475 11px #64748b "dana@northstar.io"; 994x52 at 253,500 1px #0f172a border on the bottom only; 30x30 at 309,511 #c7d2fe fill, a circle: 11px bold #3730a3 "EM"; 75x27 at 349,512 13px #0f172a "Eli Moreau"; 54x20 at 719,516 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 16x16 at 265,518 1px #94a3b8 border, 4px rounded; 150x15 at 569,518 13px #0f172a "Admin"; 140x15 at 839,518 13px #0f172a "Growth"; 196x15 at 979,518 13px #0f172a "3 hours ago"; 60x15 at 1175,518 13px #0f172a "⋯"; 75x12 at 349,527 11px #64748b "eli@northstar.io"
+    note pagination: pager, one line 996px wide, its middle 583px from the page top (inside the page, not below it): 13px grey "Showing 1–5 of 38 admins" at the left, at the far right a row of 32x32px outlined page buttons "‹", "1", "2", "3", "…", "8", "›", "1" filled dark navy with white text (current)

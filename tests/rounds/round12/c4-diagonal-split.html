@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Diagonal split</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#111;font-family:Helvetica,Arial,sans-serif;color:#fff}
+.l{position:absolute;inset:0;background:#e8ff3a;clip-path:polygon(0 0,62% 0,38% 100%,0 100%)}
+.r{position:absolute;inset:0;background:linear-gradient(160deg,#ff5a36,#8b1e3f);clip-path:polygon(64% 0,100% 0,100% 100%,40% 100%)}
+.num{position:absolute;left:380px;top:120px;font-size:520px;font-weight:900;line-height:.8;letter-spacing:-30px;color:transparent;-webkit-text-stroke:3px #fff}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-size:14px;font-weight:800;color:#111}nav span:last-child{color:#fff}
+h1{position:absolute;left:56px;top:160px;width:420px;font-size:72px;line-height:.92;font-weight:900;color:#111;text-transform:uppercase}
+.sub{position:absolute;left:56px;top:420px;width:330px;font-size:17px;line-height:1.5;color:#111}
+.cta{position:absolute;left:56px;top:540px;padding:16px 26px;background:#111;color:#e8ff3a;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.list{position:absolute;left:900px;top:520px;width:320px;font-size:15px;line-height:1}
+.list div{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.4)}
+.mouse{position:absolute;left:56px;top:800px;width:26px;height:42px;border:2px solid #111;border-radius:14px}
+.mouse:after{content:'';position:absolute;left:10px;top:7px;width:2px;height:8px;background:#111;animation:dn 1.4s ease-in-out infinite}@keyframes dn{50%{transform:translateY(10px)}}
+.tag{position:absolute;left:1060px;top:140px;width:150px;height:150px;border-radius:50%;background:#e8ff3a;color:#111;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:18px;transform:rotate(14deg)}
+</style></head><body>
+<div class="l" data-r="left-panel" data-must></div><div class="r" data-r="right-panel" data-must></div>
+<div class="num" data-r="outline-number" data-must>09</div>
+<nav data-r="nav"><span>RUNCLUB</span><span>ROUTES · CREW · SHOP</span></nav>
+<h1 data-r="headline" data-must>Nine miles before sunrise</h1>
+<p class="sub" data-r="subcopy">A night-to-dawn city run, every second Saturday. Pace groups for everyone.</p>
+<a class="cta" data-r="cta">Join the next run</a>
+<div class="list" data-r="route-list"><div><span>Route</span><b>Harbor loop</b></div><div><span>Start</span><b>04:40</b></div><div><span>Groups</span><b>5:00 – 7:30 /km</b></div></div>
+<div class="tag" data-r="sticker">FREE<br>COFFEE<br>AFTER</div>
+<div class="mouse" data-r="scroll-hint"></div>
+</body></html>

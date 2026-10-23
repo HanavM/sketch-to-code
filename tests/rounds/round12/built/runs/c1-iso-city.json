@@ -1,0 +1,215 @@
+{
+  "id": "c1-iso-city",
+  "at": "2026-10-23T17:20:28.679Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8714321885238276,
+    "overallV2": 0.8714321885238276,
+    "overallV1": 0.811267526540304,
+    "colour": 0.9418433414412372,
+    "structure": 0.8137768892831168,
+    "structureStrict": 0.6606526150905468,
+    "colourAligned": 0.9418433414412372,
+    "structureAligned": 0.8137768892831168,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6202459635266129
+    },
+    "layout": 0.895506105438843
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "3d",
+      "blur",
+      "glass",
+      "gradient-text",
+      "huge-type",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "gradient",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 47057,
+    "output": 33165,
+    "cacheRead": 380142
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 32267,
+      "output": 12675,
+      "cacheRead": 170396,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 127914
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 37260,
+      "output": 16583,
+      "cacheRead": 199207,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 203342
+    }
+  ],
+  "reading": "This is a dark hero landing page: a top nav bar, a giant 3-line gradient headline with a lavender subhead and a peach pill CTA button on the left, a CSS 3D cube hero visual on the right, a tilted live-counter badge near the nav, a scrolling pink ticker bar at the bottom, and a blurred indigo glow behind everything.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar with no surrounding box: wide letter-spaced \"ISO/CITY\" wordmark on the left, and wide letter-spaced \"MAP · DISTRICTS · JOIN\" links on the rig"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 79
+        }
+      ],
+      "region": [
+        64,
+        150,
+        468,
+        260
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline, tight letter-set, line-height 0.9, with a left-to-right gradient from peach (#ffcf5c) to light pink (#ff5fa2 at 60%) to indigo ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        430,
+        392,
+        54
+      ],
+      "paths": [],
+      "instruction": "Lavender-colored paragraph text below the headline: \"Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        57,
+        542,
+        133,
+        47
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Peach-colored pill-shaped button with near-black text reading \"Claim a lot\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        616,
+        395,
+        587,
+        291
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A REAL CSS 3D cube (not a flat/projected drawing or SVG): a 594x297px scene positioned at 613,392 with perspective: 900px. Inside it, one group div (position ab"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        149,
+        137,
+        40
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Small pill badge near the nav, tilted 4° clockwise, frosted glass style, containing a dot and the text \"1,204 towers live\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        801,
+        1273,
+        83
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Full-width bottom bar, tilted slightly 2° anticlockwise, vivid light pink background with near-black scrolling ticker text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

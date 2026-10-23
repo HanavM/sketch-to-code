@@ -964,9 +964,32 @@ export function factsInPage() {
           out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: t.slice(0, 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
         }
         const all = [...el.querySelectorAll('*')].filter((k) => { const reg = k.closest('[data-r]'); return reg === el || (!reg && el === document.body) })
+        const preDone = []
         for (const k of all) {
           const s = getComputedStyle(k), b = k.getBoundingClientRect()
           if (s.display === 'none' || s.visibility === 'hidden' || b.width < 2 || b.height < 2 || parseFloat(s.opacity) < 0.05) continue
+          if (preDone.some((q) => q.contains(k))) continue
+          // n145: a pre block of several lines (round 11 e1 terminal: its lines collapsed into one run and its coloured
+          // marks placed apart at their own x,y, so the output came out scrambled) is ONE part said line by line
+          if (/^pre/.test(s.whiteSpace) && (k.textContent || '').trim().includes('\n')) {
+            preDone.push(k)
+            const base = rgba(s.color), lines = [{ text: '', runs: [] }]
+            const walk = (n) => {
+              if (n.nodeType === 3) { const segs = n.textContent.split('\n'); segs.forEach((g, i) => { if (i) lines.push({ text: '', runs: [] }); lines[lines.length - 1].text += g }); return }
+              if (n.nodeType !== 1) return
+              const c = rgba(getComputedStyle(n).color), t = (n.textContent || '').trim()
+              if (n !== k && t && !t.includes('\n') && c && base && Math.hypot(c.r - base.r, c.g - base.g, c.b - base.b) > 12) { lines[lines.length - 1].runs.push({ t, c }); lines[lines.length - 1].text += n.textContent; return }
+              n.childNodes.forEach(walk)
+            }
+            k.childNodes.forEach(walk)
+            while (lines.length && !lines[0].text.trim()) lines.shift()
+            while (lines.length && !lines[lines.length - 1].text.trim()) lines.pop()
+            const fill = rgba(s.backgroundColor), pf = pbg(k)
+            out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: null, pre: { lines: lines.map((l) => ({ text: l.text.replace(/\s+$/, ''), runs: l.runs })), lh: Math.round(parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2), padT: Math.round(parseFloat(s.paddingTop) || 0), padL: Math.round(parseFloat(s.paddingLeft) || 0) },
+              px: Math.round(parseFloat(s.fontSize)), bold: false, wt: Number(s.fontWeight), it: false, ink: base, mono: /mono|courier|consolas/i.test(s.fontFamily),
+              fill: fill && fill.a > 0.05 && Math.hypot(fill.r - pf.r, fill.g - pf.g, fill.b - pf.b) > 6 ? fill : null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+            continue
+          }
           const own = [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
           const fill = rgba(s.backgroundColor), pf = pbg(k)
           const hasFill = fill && fill.a > 0.05 && Math.hypot(fill.r - pf.r, fill.g - pf.g, fill.b - pf.b) > 6
@@ -2340,6 +2363,8 @@ function partsNote(P, f) {
     // n143: a weight other than 400 / 700 is said as its number, italic said (round 11 c3 weight ladder: Thin 100 built
     // regular, Black 900 built upright bold)
     const wtSay = p.wt && ![400, 700].includes(p.wt) && (p.wt <= 300 || p.wt >= 800 || p.px >= 20) ? `font-weight ${p.wt} ` : p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''
+    // n145: a pre block said line by line, coloured words in place (round 11 e1 terminal output scrambled)
+    if (p.pre) return `${p.w}x${p.h} at ${p.x},${p.y}${p.fill ? ` ${hx(p.fill)} fill` : ''}: ONE pre block (white-space: pre, ${p.px}px ${p.mono ? 'monospace' : ''} ${hx(p.ink)} text, line-height ${p.pre.lh}px, padding ${p.pre.padT}px ${p.pre.padL}px) of ${p.pre.lines.length} lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): ${p.pre.lines.map((l, i) => `${i + 1} \`${l.text}\`${l.runs.length ? ` [${l.runs.map((r) => `${JSON.stringify(r.t)} ${hexOf(r.c)}`).join(', ')}]` : ''}`).join('; ')}`
     const text = p.t ? `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"` : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
@@ -2520,7 +2545,8 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: `${P.cards.length} listing cards in a ${P.cols}-column grid, ${P.w}px wide at ${P.x},${P.y}, ${P.gap}px column gap, ${P.rowGap}px row gap (cards, NOT a text list); each card is a ${c0.w}px-wide ${c0.photoH}px-tall photo block ${c0.radius}px rounded filled with a diagonal gradient (no image)${c0.badge ? `, some with a ${c0.badge.bold ? 'bold ' : ''}${c0.badge.px}px badge in a ${hexOf(c0.badge.fill)} ${c0.badge.r}px-rounded chip ${c0.badge.x}px in from its top-left corner` : ''}, then under the photo with no box: ${c0.lines.map(ln).join(';')}; lines are ${shape}; ${cards}` }
   }
   // n131: a filter panel section by section: checkbox rows, range sliders, end labels
-  if (f.checkPanel) {
+  // n145: a "panel" with no checkbox row at all (round 12 e5 filter chips) is not a filter panel (crashed on it0)
+  if (f.checkPanel && f.checkPanel.secs.some((s) => s.items.some((i) => i.ck))) {
     const C = f.checkPanel
     const ck = (it) => `[${it.on ? 'x' : ' '}] ${quote(it.label, 24)}${it.right ? ` … ${quote(it.right.t, 8)}` : ''}`
     const it0 = C.secs.flatMap((s) => s.items).find((i) => i.ck && !i.on) ?? C.secs.flatMap((s) => s.items).find((i) => i.ck)

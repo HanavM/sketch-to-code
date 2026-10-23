@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Isometric city</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0f1226;font-family:Helvetica,Arial,sans-serif;color:#f4f1ff}
+.stars{position:absolute;inset:0;background:radial-gradient(circle,#ffffff 1px,transparent 1.5px) 0 0/48px 48px;opacity:.25}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-size:13px;font-weight:700;letter-spacing:3px}
+h1{position:absolute;left:56px;top:150px;width:520px;font-size:96px;line-height:.9;font-weight:900;letter-spacing:-4px;background:linear-gradient(90deg,#ffcf5c,#ff5fa2 60%,#7a5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:absolute;left:56px;top:430px;width:400px;font-size:18px;line-height:1.5;color:#b9b4d6}
+.cta{position:absolute;left:56px;top:540px;padding:16px 28px;border-radius:999px;background:#ffcf5c;color:#0f1226;font-weight:800;box-shadow:0 0 0 6px rgba(255,207,92,.25)}
+.iso{position:absolute;left:700px;top:330px;width:420px;height:420px;transform:rotateX(60deg) rotateZ(-45deg);transform-style:preserve-3d;background:#1d2244;outline:2px solid #3a3f7a;background-image:linear-gradient(#3a3f7a 2px,transparent 2px),linear-gradient(90deg,#3a3f7a 2px,transparent 2px);background-size:70px 70px}
+.t{position:absolute;transform-style:preserve-3d}
+.t i{position:absolute;inset:0;transform:translateZ(var(--h))}
+.ta{left:35px;top:35px;width:105px;height:105px;--h:160px}.ta i{background:#ff5fa2}
+.tb{left:175px;top:35px;width:70px;height:140px;--h:90px}.tb i{background:#7a5cff}
+.tc{left:280px;top:210px;width:105px;height:105px;--h:220px}.tc i{background:#ffcf5c}
+.td{left:70px;top:245px;width:140px;height:70px;--h:60px}.td i{background:#43e0c4}
+.glow{position:absolute;left:760px;top:600px;width:420px;height:120px;border-radius:50%;background:#7a5cff;filter:blur(70px);opacity:.6}
+.chip{position:absolute;left:1000px;top:150px;padding:10px 16px;border:1px solid #3a3f7a;border-radius:12px;background:rgba(29,34,68,.7);backdrop-filter:blur(8px);font-size:13px;transform:rotate(4deg)}
+.chip b{color:#43e0c4}
+.ticker{position:absolute;left:0;top:820px;width:1280px;height:44px;background:#ff5fa2;color:#0f1226;font-weight:900;font-size:20px;line-height:44px;white-space:nowrap;overflow:hidden;transform:rotate(-2deg)}
+.ticker span{display:inline-block;animation:run 14s linear infinite}@keyframes run{to{transform:translateX(-50%)}}
+</style></head><body>
+<div class="stars"></div>
+<nav data-r="nav"><span>ISO/CITY</span><span>MAP · DISTRICTS · JOIN</span></nav>
+<h1 data-r="headline" data-must>Build a city one block up.</h1>
+<p class="sub" data-r="subcopy">Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift.</p>
+<a class="cta" data-r="cta">Claim a lot</a>
+<div class="glow"></div>
+<div class="iso" data-r="iso-grid" data-must><div class="t ta"><i></i></div><div class="t tb"><i></i></div><div class="t tc"><i></i></div><div class="t td"><i></i></div></div>
+<div class="chip" data-r="stat-chip"><b>●</b> 1,204 towers live</div>
+<div class="ticker" data-r="ticker" data-must><span>ZONE A OPEN ✦ SKYLINE WEEK ✦ NEW DISTRICT: HARBOR ✦ ZONE A OPEN ✦ SKYLINE WEEK ✦ NEW DISTRICT: HARBOR ✦ </span></div>
+</body></html>

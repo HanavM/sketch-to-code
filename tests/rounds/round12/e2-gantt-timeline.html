@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Project timeline</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2430;font-size:13px}
+.hd{position:absolute;left:0;top:0;width:1280px;height:64px;border-bottom:1px solid #e6e8ee;display:flex;align-items:center;gap:12px;padding:0 24px}.hd h1{font-size:18px;margin-right:auto}
+.hd span{padding:7px 12px;border:1px solid #d9dce4;border-radius:8px}.hd .seg{display:flex;padding:0;overflow:hidden}.hd .seg i{font-style:normal;padding:7px 12px;border-right:1px solid #d9dce4}.hd .seg i.on{background:#1f2430;color:#fff}
+.tl{position:absolute;left:0;top:64px;width:300px;height:836px;border-right:1px solid #e6e8ee}
+.tl .r{height:44px;display:flex;align-items:center;gap:10px;padding:0 20px;border-bottom:1px solid #f0f1f5}.tl .r.g{background:#f7f8fa;font-weight:700}.tl .r small{margin-left:auto;color:#7a8194}
+.tl .r i{width:22px;height:22px;border-radius:50%;background:#c7b9ff}
+.gr{position:absolute;left:300px;top:64px;width:980px;height:836px;background:repeating-linear-gradient(90deg,transparent 0 139px,#eef0f4 139px 140px)}
+.wk{height:44px;display:grid;grid-template-columns:repeat(7,140px);border-bottom:1px solid #e6e8ee;color:#7a8194;font-size:12px}.wk span{padding:14px 12px}
+.b{position:absolute;height:24px;border-radius:6px;color:#fff;font-size:12px;font-weight:700;padding:5px 10px;white-space:nowrap}
+.p{position:absolute;height:24px;border-radius:6px;background:rgba(0,0,0,.18)}
+.ms{position:absolute;width:16px;height:16px;background:#1f2430;transform:rotate(45deg)}
+.now{position:absolute;left:470px;top:44px;width:2px;height:792px;background:#ef4444}.now:before{content:'Today';position:absolute;left:-22px;top:-2px;padding:2px 6px;border-radius:4px;background:#ef4444;color:#fff;font-size:11px;font-weight:700}
+.dep{position:absolute;border:2px solid #9aa1b2;border-left:0;border-bottom:0;border-radius:0 8px 0 0}
+</style></head><body>
+<div class="hd" data-r="header" data-must><h1>Website relaunch</h1><span>Filter ▾</span><div class="seg"><i>Day</i><i class="on">Week</i><i>Month</i></div><span style="background:#4f46e5;color:#fff;border-color:#4f46e5">+ Task</span></div>
+<div class="tl" data-r="task-list" data-must><div class="r" style="color:#7a8194;font-size:12px">TASK<small>OWNER</small></div><div class="r g">▾ Discovery</div><div class="r">Stakeholder interviews<i></i></div><div class="r">Content audit<i style="background:#ffd29a"></i></div><div class="r g">▾ Design</div><div class="r">Wireframes<i style="background:#9fe3c3"></i></div><div class="r">Visual design<i></i></div><div class="r">Design review<i style="background:#ffd29a"></i></div><div class="r g">▾ Build</div><div class="r">CMS setup<i style="background:#9fe3c3"></i></div><div class="r">Page templates<i></i></div><div class="r">QA &amp; launch<i style="background:#ffd29a"></i></div></div>
+<div class="gr" data-r="gantt" data-must><div class="wk"><span>Oct 5</span><span>Oct 12</span><span>Oct 19</span><span>Oct 26</span><span>Nov 2</span><span>Nov 9</span><span>Nov 16</span></div>
+<div class="b" style="left:20px;top:98px;width:200px;background:#7c6cf2">Interviews</div><div class="b" style="left:120px;top:142px;width:220px;background:#f59e0b">Audit</div>
+<div class="b" style="left:240px;top:230px;width:180px;background:#10b981">Wireframes</div><div class="p" style="left:420px;top:274px;width:300px"></div><div class="b" style="left:420px;top:274px;width:170px;background:#7c6cf2">Visual design 55%</div>
+<div class="ms" style="left:732px;top:322px"></div><div style="position:absolute;left:756px;top:320px;font-size:12px;font-weight:700">Design sign-off</div>
+<div class="b" style="left:560px;top:406px;width:240px;background:#10b981">CMS setup</div><div class="b" style="left:700px;top:450px;width:240px;background:#7c6cf2">Templates</div><div class="b" style="left:860px;top:494px;width:110px;background:#f59e0b">QA</div>
+<div class="dep" style="left:420px;top:242px;width:14px;height:20px"></div><div class="now"></div></div>
+</body></html>

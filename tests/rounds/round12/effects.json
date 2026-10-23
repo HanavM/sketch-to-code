@@ -1,0 +1,158 @@
+{
+ "c1-iso-city": {
+  "found": {
+   "gradient": 1,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "blur": 1,
+   "3d": 9,
+   "stripes-or-layers": 1,
+   "glass": 1,
+   "tilt": 2,
+   "motion": 1,
+   "overlap": 2
+  },
+  "names": [
+   "3d",
+   "blur",
+   "glass",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "motion",
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c2-blend-poster": {
+  "found": {
+   "tilt": 1,
+   "bleed": 1,
+   "blend": 1,
+   "huge-type": 1,
+   "vertical-type": 1,
+   "motion": 1,
+   "overlap": 4
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "huge-type",
+   "motion",
+   "overlap",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c3-aurora-glass": {
+  "found": {
+   "blur": 1,
+   "motion": 1,
+   "gradient": 1,
+   "stripes-or-layers": 2,
+   "huge-type": 2,
+   "serif": 1,
+   "italic": 1,
+   "glass": 3
+  },
+  "names": [
+   "blur",
+   "glass",
+   "gradient",
+   "huge-type",
+   "italic",
+   "motion",
+   "serif",
+   "stripes-or-layers"
+  ]
+ },
+ "c4-diagonal-split": {
+  "found": {
+   "clip-shape": 2,
+   "gradient": 1,
+   "hollow-type": 1,
+   "huge-type": 1,
+   "uppercase-display": 1,
+   "tilt": 1,
+   "overlap": 1
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "overlap",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c5-halftone-mag": {
+  "found": {
+   "huge-type": 1,
+   "serif": 2,
+   "blend": 2,
+   "stripes-or-layers": 1,
+   "italic": 1,
+   "tilt": 1,
+   "hard-shadow": 1,
+   "overlap": 2
+  },
+  "names": [
+   "blend",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e1-design-tool": {
+  "found": {
+   "soft-shadow": 1,
+   "gradient": 1,
+   "overlap": 6
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-gantt-timeline": {
+  "found": {
+   "stripes-or-layers": 1,
+   "tilt": 1,
+   "overlap": 1
+  },
+  "names": [
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e3-team-chat": {
+  "found": {
+   "mono": 1,
+   "overlap": 1
+  },
+  "names": [
+   "mono",
+   "overlap"
+  ]
+ },
+ "e4-checkout": {
+  "found": {
+   "overlap": 26
+  },
+  "names": [
+   "overlap"
+  ]
+ },
+ "e5-admin-table": {
+  "found": {},
+  "names": []
+ }
+}
