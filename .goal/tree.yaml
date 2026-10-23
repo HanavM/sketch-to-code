@@ -3,7 +3,7 @@ goal_state: working
 now: "Analytics cards now hold their sizes, but the table still lands low; the poster 8 is real text now but its yellow slant came out in the wrong place. Neither kept. Round 8 stays at 80%. Next: pin the table and the slant."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 80]
-lock: null
+lock: {by: run-n126, until: "2026-10-23T07:43:05Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
