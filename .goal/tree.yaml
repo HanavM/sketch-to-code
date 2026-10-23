@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 10 creative pages now average 75%: the Bauhaus tile wall went 27 to 93% and the extruded letters 40 to 87%. Next I fix the slanted panels page (31%) and build the five everyday pages."
 round: 10
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 75]
-lock: null
+lock: {by: run-n137, until: "2026-10-23T13:03:34Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
