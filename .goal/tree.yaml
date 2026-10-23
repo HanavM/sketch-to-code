@@ -3,7 +3,7 @@ goal_state: working
 now: "The cinema seat map and the design editor are now built close to their targets (85% and 84%, up from 62% and 69%). Round 8 is at 86%. Next: a harder round 9 of ten new pages."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86]
-lock: null
+lock: {by: run-2026-10-23T0711-n128, until: "2026-10-23T08:41:00Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
