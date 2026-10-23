@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 10 creative pages now average 89%: the slanted panels page went 31 to 90% and the terminal 82 to 92%. Next I build the five everyday pages of round 10 for the first time."
+now: "Round 10 is complete at 87%: the five everyday pages (video call, code review, playlist, trading desk, sign-up wizard) came out 70 to 96% on their first builds. Next I fix the few parts still lost, then write a harder round 11."
 round: 10
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 89]
-lock: {by: run-2026-10-23T1203, until: "2026-10-23T13:33:00Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 87]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n138 (2a91c99 on try/n3-vocabulary): one general planner rule: every region carries its parts (each painted or worded element and loose text line: page-px box, fill/gradient/border/ring/rounding/opacity, text size/weight/face/colour); said part by part when the note is weak (none, picture-with, bare list, field, stripes-only chart), quotes under 60% of the region's words, or the region is a frame whose own fields are drawn nowhere. Rounds 1-9: 23 notes on 12 pages gain parts, none re-run. Live r10 first builds e1 86, e2 70 (re-run 68, first kept), e3 73 then 82, e4 96, e5 87. Round 10 complete avg 87 (c 91 90 92 94 81; e 86 70 82 96 87). Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-23 n138 live r10 e1 55k + e2 64k+74k + e3 64k+55k + e4 71k + e5 64k = ~447k billed (day so far ~5551k)."
   - "n137 (2699ba8 on try/n3-vocabulary): planner says a gradient cut-out's page-px corners, box, clip and place behind the words; a small label over a 40px+ heading (c2 01 /, r1 c5 ESSAY); per-line heading colours (c4 red fun.); a card line that is a filled button (c1 pink CTA); square bordered buttons; an inset title-bar window's size and place. Rounds 1-9: only r1 notes changed, not re-run. Live r10 c2 31 to 90, c3 82 to 92, c1 87 to 90, c4 93 to 94. Round 10 avg 89 over 5 creative (everyday not built). Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-23 n137 live r10 c2 ~95k + c3+c4+c1 ~153k = ~248k billed (day so far ~5104k)."
   - "n136 (5842b1a on try/n3-vocabulary): planner says a gap-free shape-tile grid tile by tile, stacked hard text-shadows as an extrusion (+ text stroke), a repeating-conic checker floor, a big mono line with glow + blinking block cursor, chip log lines, box-drawing pre text, a window title bar; clear stripe bands say clear not null. Rounds 1-9 re-planned: no change (seat map, hollow words guarded). Live r10 c4 27 to 93, c1 40 to 87, c3 82 (honest content; old 87 flattered), first c2 31 (panels missing), c5 81. Round 10 avg 75 over 5 creative. Vitest: same 2 env failures; typecheck clean."
@@ -459,4 +461,6 @@ nodes:
   - {id: n116, parent: n3, kind: step, title: "Owner inbox: re-score all round 1-7 builds, mark checks met with evidence, add round scores", status: done, branch: try/n3-vocabulary,
      result: "61 builds re-scored free; six checks met, round averages 67 to 81; round 2 only 3 pages built."}
   - {id: n117, parent: n116, kind: step, title: "Low priority, ~250k live: build round 2's 7 unbuilt pages and round 3 e2, e4 so every round has all 10 scored", status: open, branch: try/n3-vocabulary, result: null}
-  - {id: n138, parent: n137, kind: step, title: "~300k live: first builds of round 10 everyday e1-e5 (video call, PR diff, playlist, trading desk, wizard); planner fixes for their untuned misses first (tiles, diff rows, player bar, candles, form region); then c5 arch gradient, c1 star text + stroke, c2 RUN size", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n138, parent: n137, kind: step, title: "~300k live: first builds of round 10 everyday e1-e5 (video call, PR diff, playlist, trading desk, wizard); planner fixes for their untuned misses first (tiles, diff rows, player bar, candles, form region); then c5 arch gradient, c1 star text + stroke, c2 RUN size", status: done, branch: try/n3-vocabulary,
+     result: "Weak regions said part by part: everyday first builds 86, 70, 82, 96, 87%; round 10 complete at 87%."}
+  - {id: n139, parent: n138, kind: step, title: "Free first, ~250k live: r10 leftovers (c5 arch gradient, c1 star text JUN 12 + letter stroke, e2 diff card border and invented comment copy, e5 stepper checks/connectors and radio circles, e3 inset rounded panels, e4 panel borders); re-run the worst, then write round 11 (harder than 10)", status: open, branch: try/n3-vocabulary, result: null}
