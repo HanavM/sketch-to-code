@@ -117,3 +117,24 @@ quote tile (both now say tile, hex and rounding).
 Next: c3 dark text tile (heading in a filled tile) and radial glow on a coloured tile; c5 cut-out painted flat
 (no gradient) and scribble strokes never kept; e4 summary items pinned to the card bottom, row-letter column place;
 then first builds of e1, e2, e5 so round 8 has all 10.
+
+## n121: date picker, shaded heat grid, KPI cards, docs article, compose window; e1, e2, e5 first builds (2026-10-23, ~130k billed)
+
+Planner (zero tokens): an open date-range picker is said as a floating panel with its shadow, the preset column (the
+chosen one bold and coloured), the month grid (empty lead cells, cell size), the range ends as filled rounded cells and
+the days between as a pale band, and its two buttons (it was "page numbers"); a heat grid in several shades of one hue
+is said cell by cell as shade numbers per row with the shade hexes; a KPI card whose label is its own bare text says
+label, big number and the delta in its own colour; a line chart says its soft area fill, its grid lines and which way
+each line runs (path points now count); a docs article is said block by block (breadcrumb, title, paragraph with inline
+code chips, dark code block line by line with syntax colours, callout with its coloured left edge, ruled table with
+every cell); a floating window with a dark title bar (compose) says its size, place, top-only rounding, shadow, the bar,
+each field row and the send pill. Rounds 1-7 plans unchanged.
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| e1 mail compose (first build) | 68% | ~29k build (one turn) | compose window right (bar, fields, Send pill, shadow); mail rows lost their subject and preview lines; reader's second paragraph and attachments dropped; Compose button white (target lavender) |
+| e2 date-range analytics (first build) | 61% | ~37k build (one turn) | popover presets, range ends and band, Cancel/Apply, heat grid shades, KPI labels and coloured deltas right; popover ~40px wide/right, calendar cells spread wide; table rows invented; line shape smoother |
+| e5 docs page (first build) | 68% | ~35k build (one turn) | article right block by block (breadcrumb, inline code, code block colours, callout, ruled table); sidebar items after the first four invented and active item pink; contents list big dark text with invented items |
+
+Round 8 now has all ten pages built: average likeness 75% (creative 84, everyday 66). Everyday misses are now the
+items a note summarises ("5 more", "4 rows") and a build invents: say every list item and table row.

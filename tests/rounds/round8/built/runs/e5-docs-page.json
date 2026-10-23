@@ -1,0 +1,148 @@
+{
+  "id": "e5-docs-page",
+  "at": "2026-10-23T03:27:37.394Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6842350000573852,
+    "overallV2": 0.6539813241864165,
+    "overallV1": 0.46140995101639326,
+    "colour": 0.9740461693029009,
+    "structure": 0.8794930464510655,
+    "structureStrict": 0.7083848219271953,
+    "colourAligned": 0.9800081928108506,
+    "structureAligned": 0.8794930464510655,
+    "align": {
+      "scale": 1.08,
+      "dx": -16,
+      "dy": -32,
+      "r": 0.948436663345892
+    },
+    "layout": 0.8103666630222883
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 25624,
+    "output": 17920,
+    "cacheRead": 212668
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35291,
+      "output": 13803,
+      "cacheRead": 209584,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 148723
+    }
+  ],
+  "reading": "The sketch lays out a docs page: a top header with a brand name, left-aligned nav links and a search control pushed to the far right; a left sidebar with grouped section lists (Getting started / Guides / Reference) with \"Offline sync\" highlighted; a large central article with breadcrumb, title, paragraph with an inline code chip, a code block, a callout note, and a data table; and a small cluster of short text lines to the right of the article whose exact purpose isn't specified by any note.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Top header bar: bold 17px \"◆ Lumen Docs\" brand on the far left, then nav links Guides, API, Changelog sitting together beside it at the left; a \"Search docs ⌘K\""
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        63,
+        254,
+        833
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Left sidebar navigation list with three section headers \"GETTING STARTED\", \"GUIDES\", \"REFERENCE\"; under them list items including \"Introduction\", \"Installation\""
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        313,
+        93,
+        674,
+        430
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Main content area renders a full docs article (not a card, not a bare table), top to bottom: a small 13px grey breadcrumb \"Docs › Getting started › Offline sync"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 6,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        1034,
+        90,
+        202,
+        168
+      ],
+      "paths": [],
+      "instruction": "A short stacked text block to the right of the article box with several short lines, likely a page quick-links / on-this-page navigation list; exact wording not"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,177 @@
+{
+  "id": "e2-date-range-analytics",
+  "at": "2026-10-23T03:23:34.785Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6113707869590974,
+    "overallV2": 0.6113707869590974,
+    "overallV1": 0.4774684210922584,
+    "colour": 0.9808326847125712,
+    "structure": 0.7781927618816411,
+    "structureStrict": 0.6401419364687385,
+    "colourAligned": 0.9808326847125712,
+    "structureAligned": 0.7781927618816411,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7342557404767784
+    },
+    "layout": 0.9123080362541344
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 31489,
+    "output": 16924,
+    "cacheRead": 165282
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36809,
+      "output": 12813,
+      "cacheRead": 154122,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 135653
+    }
+  ],
+  "reading": "A dashboard page: top-left 'Traffic' heading, a date-range summary card, a row of three stat cards (Visitors, Bounce rate, Avg. time), a line chart card, an hourly/weekday heat-grid card, a data table below, and an open floating date-range picker panel overlapping the top cards.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 27
+        }
+      ],
+      "region": [
+        48,
+        31,
+        70,
+        32
+      ],
+      "paths": [],
+      "instruction": "Heading text 'Traffic', 26px bold, single line, box top 32px from page top and 31px tall (top-[32px], line-height 31px)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        33,
+        352,
+        31
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "White summary card reading '📅 Oct 6 – Oct 19, 2026 ▾' acting as the date-range selector trigger, placed top right near the heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        93,
+        792,
+        84
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Row of three stat cards side by side: (1) label 'Visitors' (13px dark navy) over big 28px bold '48,210' over bold green (#16a34a) '▲ 12.4%'; (2) label 'Bounce r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        203,
+        794,
+        373
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "White card titled 'Visitors per day' containing an SVG line chart: thick solid indigo line rising left to right (14 points), dashed grey line rising left to rig"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        863,
+        203,
+        373,
+        374
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Card with small bold heading 'By hour × weekday' above a heat grid (not a picture, not pills, no text in cells): 6 rows of 8 textless 36x36px cells, 4px rounded"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        603,
+        1193,
+        254
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Data table below the cards with columns 'Page', 'Visitors', 'Avg. time', 'Bounce' and 4 rows of plausible sample data."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        704,
+        79,
+        533,
+        178
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "An OPEN floating date-range picker panel (#ffffff, 12px rounded corners, big soft drop shadow, sitting above the cards beneath it): left side a 120px column of "
+    }
+  ],
+  "rejected": [
+    "add action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "id": "e1-mail-compose",
+  "at": "2026-10-23T03:19:49.210Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6845591052495428,
+    "overallV2": 0.6845591052495428,
+    "overallV1": 0.6183754874361561,
+    "colour": 0.9860843590194319,
+    "structure": 0.8104187479032245,
+    "structureStrict": 0.7458101642089544,
+    "colourAligned": 0.9860843590194319,
+    "structureAligned": 0.8104187479032245,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9232638492607176
+    },
+    "layout": 0.9823515286796536
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 28756,
+    "output": 9217,
+    "cacheRead": 112387
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 28939,
+      "output": 5697,
+      "cacheRead": 103186,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 59437
+    }
+  ],
+  "reading": "The sketch lays out a three-column email client plus a small floating window: a left sidebar, a middle message list, a right reading pane, and a floating compose window overlapping the bottom-right of the reading pane.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build a pale grey sidebar card containing a \"✎ Compose\" button at top, then a folder list: \"Inbox\" with count 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" with co"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        3,
+        414,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build a message list panel with a \"Search mail\" field at top, followed by rows: \"Maya Lin\" 9:41, \"GitHub\" 9:02, \"Ravi, me (3)\" Yesterday, \"Stripe\" Oct 21, \"Noor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build an opened-message reading pane: a bold 22px title \"Venue contract, final\" at top; below it a 36px round amber avatar to the left of a bold \"Maya Lin\" name"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        433,
+        433,
+        464
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a floating 440x470px white compose window overlapping the page, flush to the page bottom and 20px from the right edge, with rounded top corners only and a b"
+    }
+  ],
+  "rejected": []
+}
