@@ -451,7 +451,7 @@
    ],
    [
     "compose",
-    "\"New message — ⤢ ✕\", lines \"To maya@lumen.io\", \"Subject Re: Venue contract, final\", \"Signed and attached. Great work getting the hold extended!\", \"Send\""
+    "a 440x470px #ffffff window FLOATING over the page (on top of the reader, flush to the page bottom, 20px from the right edge; 12px top corners only; a big soft shadow): a 42px #1f2937 title bar across its top with bold white \"New message\" at the left and \"— ⤢ ✕\" at the right; under it a ruled field row: grey \"To\" then dark \"maya@lumen.io\"; a ruled field row: grey \"Subject\" then dark \"Re: Venue contract, final\"; the message body \"Signed and attached. Great work getting the hold extended!\" (a tall empty area under it); a pill #4f46e5 \"Send\" button with white bold text at the bottom left"
    ]
   ]
  },
@@ -513,23 +513,23 @@
    ],
    [
     "kpi-1",
-    "white card \"48,210\", text \"▲ 12.4%\""
+    "stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\""
    ],
    [
     "kpi-2",
-    "white card \"38.2%\", text \"▲ 2.1%\""
+    "stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\""
    ],
    [
     "kpi-3",
-    "white card big 28px bold \"3m 12s\" over 13px \"Avg. time\""
+    "stat card: 13px dark navy label \"Avg. time\" on top, under it big 28px bold \"3m 12s\""
    ],
    [
     "area-chart",
-    "line chart drawn as SVG lines: thick solid indigo line, dashed grey line; no axis labels"
+    "white card, \"Visitors per day\", line chart drawn as SVG lines: thick solid indigo line rising left to right (14 points), dashed grey line rising left to right (14 points); under the solid line a soft #6366f1 area fill fading to transparent at the bottom; 4 thin pale horizontal grid lines behind; no axis labels"
    ],
    [
     "heat-grid",
-    "white card \"By hour × weekday\""
+    "\"By hour × weekday\" as a small bold heading, under it a heat grid (NOT a picture, NOT pills, no text in the cells): 6 rows of 8 textless 36x36px cells with 4px rounded corners, 4px apart, each cell filled with one of 9 shades of the same colour, lightest 1 to darkest 9: 1 #f1f5f9, 2 #e0e7ff, 3 #c7d2fe, 4 #a5b4fc, 5 #818cf8, 6 #6366f1, 7 #4f46e5, 8 #4338ca, 9 #3730a3; rows top to bottom (shade per cell): 23456532 34678642 35799753 24678642 12344321 11233211"
    ],
    [
     "pages-table",
@@ -537,7 +537,7 @@
    ],
    [
     "date-popover",
-    "white card \"Cancel Apply\", page numbers \"7\", \"8\", \"9\", \"10\", \"11\", \"12\", \"13\", \"14\", \"15\", \"16\", \"17\", \"18\""
+    "an OPEN date-range picker floating over the page (a #ffffff panel, 12px rounded corners, a big soft drop shadow so it sits above the cards under it; NOT page numbers): on the left a 120px column of preset lines \"Today\", \"Last 7 days\", \"Last 14 days\", \"Last 30 days\", \"Custom\", \"Last 14 days\" the chosen one in bold #4f46e5, the rest grey; beside it a month calendar headed \"October 2026\" (centred): 7 columns of 24px day cells, 3 empty cells then days 1 to 25; the range ends \"6\" and \"19\" are filled #4f46e5 rounded cells with white numbers, the days between (7 to 18) a pale #e0e7ff band with dark numbers; bottom right the buttons \"Cancel\" (outlined) and \"Apply\" (filled #4f46e5, white text)"
    ]
   ]
  },
@@ -735,7 +735,7 @@
    ],
    [
     "article",
-    "\"Offline sync\", table, columns \"Option\", \"Type\", \"Default\", 2 rows, first row \"policy\" | \"string\" | \"'merge'\"; status pills dark pink \"policy\", dark pink \"retry\""
+    "a docs article, NOT a card, NOT a table alone; top to bottom: small 13px grey line \"Docs › Getting started › Offline sync\" (a breadcrumb); then 34px bold title \"Offline sync\"; then 14px dark grey paragraph \"Lumen keeps a local copy of every board you open. Changes made offline are queued and merged when the device reconnects, using syncPolicy to resolve conflicts.\" with inline code \"syncPolicy\" (#be185d monospace on a #f1f5f9 rounded chip); then a dark code block (#0f172a fill, 10px rounded, 13px monospace light grey text, syntax colours #64748b #c084fc #86efac) with 3 lines: \"// enable sync for one board\" / \"const board = await lumen.boards.open('roadmap')\" / \"board.sync({ policy: 'last-write-wins', retry: 5 })\"; then a callout box (#fffbeb fill, a 4px #f59e0b left edge, rounded right corners) with bold \"Note\" then \"Attachments over 25 MB are synced only on Wi-Fi.\"; then a fully ruled table with a #f8fafc header row: \"Option\" | \"Type\" | \"Default\" / \"policy\" | \"string\" | \"'merge'\" / \"retry\" | \"number\" | \"3\"; code words in the table are monospace, not status pills"
    ]
   ]
  }

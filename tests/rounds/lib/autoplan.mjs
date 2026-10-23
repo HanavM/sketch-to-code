@@ -775,6 +775,45 @@ export function factsInPage() {
   }
   function dense(el) {
     const cs = getComputedStyle(el)
+    // round 8 e1: a compose window floating over the page (dark title bar, field rows, body, a send pill) was said as a run of
+    // lines, its bar, shadow and float lost
+    {
+      const hd = el.firstElementChild, hs = hd && getComputedStyle(hd), hf = hd && filled(hd)
+      const lumH = hf ? 0.299 * hf.r + 0.587 * hf.g + 0.114 * hf.b : 255
+      if (cs.boxShadow !== 'none' && /absolute|fixed/.test(cs.position) && hf && lumH < 90 && txt(hd) && hd.getBoundingClientRect().height <= 60 && el.children.length >= 3) {
+        const own = el.getBoundingClientRect(), hb = hd.getBoundingClientRect()
+        const rest = [...el.children].slice(1).filter((k) => txt(k))
+        const btn = rest.find((k) => filled(k) && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 8 && txt(k).length <= 14)
+        const rows = rest.filter((k) => k !== btn).map((k) => {
+          const val = [...k.children].find((c) => txt(c)), ks = getComputedStyle(k)
+          return { label: val ? txt(k).replace(txt(val), '').trim() : null, value: val ? txt(val) : txt(k), ruled: parseFloat(ks.borderBottomWidth) >= 1, h: Math.round(k.getBoundingClientRect().height), labelInk: rgba(ks.color) }
+        })
+        const icons = [...hd.children].map(txt).filter(Boolean)
+        return { type: 'window', w: Math.round(own.width), h: Math.round(own.height), right: Math.round(1280 - own.right), bottom: Math.round(900 - own.bottom), radius: cs.borderTopLeftRadius === cs.borderBottomLeftRadius ? Math.round(parseFloat(cs.borderTopLeftRadius)) : `${Math.round(parseFloat(cs.borderTopLeftRadius))}px top corners only`, bar: { fill: hf, ink: rgba(hs.color), h: Math.round(hb.height), t: txt(hd).replace(icons.join(' '), '').trim(), icons: icons.join(' ') }, rows, btn: btn ? { t: txt(btn), fill: filled(btn), ink: rgba(getComputedStyle(btn).color), pill: parseFloat(getComputedStyle(btn).borderTopLeftRadius) >= 99 } : null, fill: filled(el) }
+      }
+    }
+    // round 8 e5: a docs article (breadcrumb, title, copy with inline code, a dark code block, a callout, a table) was said
+    // as only its table, with the inline code read as status pills: say it block by block, top to bottom
+    {
+      const pre = el.querySelector('pre')
+      const blocks = [...el.children].filter((k) => txt(k))
+      if (pre && blocks.length >= 4 && blocks.includes(pre)) {
+        const px = (k) => Math.round(parseFloat(getComputedStyle(k).fontSize))
+        const parts = blocks.map((k) => {
+          const s = getComputedStyle(k), t = txt(k)
+          if (k === pre) {
+            const toks = [...new Map([...k.querySelectorAll('span')].map((x) => [getComputedStyle(x).color, rgba(getComputedStyle(x).color)])).values()]
+            return { kind: 'code', lines: (k.innerText || '').split('\n').map((l) => l.trimEnd()).filter(Boolean), fill: filled(k), ink: rgba(s.color), radius: Math.round(parseFloat(s.borderTopLeftRadius)), px: px(k), toks }
+          }
+          if (/^H[1-6]$/.test(k.tagName)) return { kind: 'title', t, px: px(k) }
+          if (k.tagName === 'TABLE') { const rs = [...k.querySelectorAll('tr')].map((r) => [...r.children].map(txt)); return { kind: 'table', rows: rs, head: filled(k.querySelector('th')), ruled: parseFloat(getComputedStyle(k.querySelector('td,th')).borderLeftWidth) >= 1 } }
+          if (parseFloat(s.borderLeftWidth) >= 3 && filled(k)) return { kind: 'callout', t, edge: { px: Math.round(parseFloat(s.borderLeftWidth)), c: rgba(s.borderLeftColor) }, fill: filled(k), lead: txt(k.querySelector('b,strong') ?? k) }
+          const code = [...k.querySelectorAll('code')].map((c) => ({ t: txt(c), ink: rgba(getComputedStyle(c).color), fill: filled(c) }))
+          return { kind: 'text', t, px: px(k), ink: rgba(s.color), code }
+        })
+        return { type: 'docArticle', parts }
+      }
+    }
     // a cell map (round 8 e4: a 12x11 cinema seat grid had NO note and was built as an empty grey panel): 24+ textless,
     // childless, same-size small cells on a grid; hidden ones are gaps (an aisle); each fill+border look is one kind
     {
@@ -896,6 +935,50 @@ export function factsInPage() {
           rows: rowsH.map((r) => ({ label: r.map(txt).find(Boolean) ?? '', levels: r.filter((k) => !txt(k)).map((k) => Math.min(9, Math.round((filled(k)?.a ?? 0) * 9))).join('') })) }
       }
     }
+    // round 8 e2: a heat grid painted in several shades of one hue (not one fill at opacities), no row labels:
+    // said as the grid size and every row as shade numbers (it was said as just its card title)
+    if (hg) {
+      const ch = [...hg.children], ncol = getComputedStyle(hg).gridTemplateColumns.split(' ').length
+      const key = (c) => `${c.r},${c.g},${c.b}`
+      if (ch.length >= 20 && ch.every((k) => !txt(k) && filled(k)) && ch.length % ncol === 0) {
+        const lum = (c) => 0.299 * c.r + 0.587 * c.g + 0.114 * c.b
+        const shades = [...new Map(ch.map((k) => [key(filled(k)), filled(k)])).values()].sort((a, b) => lum(b) - lum(a))
+        if (shades.length >= 3 && shades.length <= 9) {
+          const b = ch[0].getBoundingClientRect(), gs = getComputedStyle(hg)
+          const rowsH = []; for (let i = 0; i < ch.length; i += ncol) rowsH.push(ch.slice(i, i + ncol).map((k) => shades.findIndex((c) => key(c) === key(filled(k))) + 1).join(''))
+          return { type: 'heatShades', title: [...el.querySelectorAll('h1,h2,h3,h4,b,strong')].map(txt).find((t) => t && t.length <= 60) ?? null, cols: ncol, rows: rowsH, shades: shades.map((c) => ({ ...c, a: 1 })), px: { w: Math.round(b.width), h: Math.round(b.height) }, gap: parseFloat(gs.columnGap) || 0, radius: Math.round(parseFloat(getComputedStyle(ch[0]).borderTopLeftRadius)) }
+        }
+      }
+    }
+    // round 8 e2: an open date-range picker (preset list + a month's day grid with a highlighted range) floating over
+    // the page; it was said as "page numbers" with its presets, range and shadow lost
+    const dg = [el, ...el.querySelectorAll('*')].find((p) => getComputedStyle(p).display === 'grid' && getComputedStyle(p).gridTemplateColumns.split(' ').length === 7 && [...p.children].filter((k) => /^\d{1,2}$/.test(txt(k))).length >= 20)
+    if (dg) {
+      const days = [...dg.children]
+      const lead = days.findIndex((k) => txt(k) === '1')
+      const ends = days.filter((k) => /^\d+$/.test(txt(k)) && filled(k) && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 3 && rgba(getComputedStyle(k).color).r > 200)
+      const mids = days.filter((k) => /^\d+$/.test(txt(k)) && filled(k) && !ends.includes(k))
+      const cb = days[lead >= 0 ? lead : 0].getBoundingClientRect()
+      const month = [...el.querySelectorAll('h1,h2,h3,h4,h5,b,strong')].map(txt).find((t) => /[A-Za-z]+ \d{4}/.test(t)) ?? null
+      const presetBox = [...el.querySelectorAll('ul,ol,nav')].find((u) => !u.contains(dg) && u.children.length >= 3)
+      const presets = presetBox ? [...presetBox.children].map((k) => ({ t: txt(k), on: Number(getComputedStyle(k).fontWeight) >= 600 || rgba(getComputedStyle(k).color).b > 180 && rgba(getComputedStyle(k).color).r < 120, ink: rgba(getComputedStyle(k).color) })) : []
+      const btns = [...el.querySelectorAll('button,span,a')].filter((k) => !dg.contains(k) && !k.children.length && txt(k) && txt(k).length <= 14 && (filled(k) || parseFloat(getComputedStyle(k).borderTopWidth) >= 1)).map((k) => ({ t: txt(k), fill: filled(k), ink: rgba(getComputedStyle(k).color) }))
+      const cs = getComputedStyle(el)
+      return { type: 'datePicker', month, lead, last: txt(days[days.length - 1]), cell: Math.round(cb.width), presets, presetW: presetBox ? Math.round(presetBox.getBoundingClientRect().width) : 0, ends: ends.map(txt), endFill: ends[0] ? filled(ends[0]) : null, mid: mids.length ? { from: txt(mids[0]), to: txt(mids[mids.length - 1]), fill: filled(mids[0]) } : null, btns, shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius)), fill: filled(el) }
+    }
+    // round 8 e2: one KPI card whose label is the card's own bare text before a big number (the label was dropped,
+    // and the delta's colour unsaid): small grey label, big bold number, a coloured delta line under it
+    {
+      const own = el.getBoundingClientRect()
+      const bare = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean)
+      const bigK = [...el.children].find((g) => parseFloat(getComputedStyle(g).fontSize) >= 22 && /\d/.test(txt(g)) && !g.children.length)
+      const firstBare = [...el.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim())
+      const labelFirst = firstBare && bigK && !!(bigK.compareDocumentPosition(firstBare) & Node.DOCUMENT_POSITION_PRECEDING)
+      if (labelFirst && bare.length === 1 && bare[0].length <= 24 && bigK && el.children.length <= 3 && own.height <= 160 && !el.querySelector('svg,img')) {
+        const rest = [...el.children].filter((k) => k !== bigK && txt(k))
+        return { type: 'kpi1', label: bare[0], labelInk: rgba(getComputedStyle(el).color), labelPx: Math.round(parseFloat(getComputedStyle(el).fontSize)), value: txt(bigK), valuePx: Math.round(parseFloat(getComputedStyle(bigK).fontSize)), extra: rest.map((k) => ({ t: txt(k), ink: rgba(getComputedStyle(k).color), bold: Number(getComputedStyle(k).fontWeight) >= 600 })) }
+      }
+    }
     // a table built from div rows on one column grid, the first row its header (round 5 e2: said as a list)
     const gk = [...el.children]
     if (gk.length >= 3 && gk.every((k) => getComputedStyle(k).display === 'grid' && k.children.length >= 3 && getComputedStyle(k).gridTemplateColumns === getComputedStyle(gk[0]).gridTemplateColumns && [...k.children].every((c) => !c.children.length))) {
@@ -1009,10 +1092,15 @@ export function factsInPage() {
         if (segs.length) return { type: 'donut', title: title(), segs, track: track ? stroke(track) : null }
       }
       const lines = [...svg.querySelectorAll('polyline, path')].filter((p) => stroke(p) && (p.tagName === 'polyline' || getComputedStyle(p).fill === 'none')).map((p) => {
-        const pts = (p.getAttribute('points') ?? '').trim().split(/\s+/).map((s) => s.split(',').map(Number)).filter((q) => q.length === 2)
+        // a path's M/L points count too (round 8 e2: its direction was unsaid)
+        const pts = p.getAttribute('points') ? p.getAttribute('points').trim().split(/\s+/).map((s) => s.split(',').map(Number)).filter((q) => q.length === 2) : [...(p.getAttribute('d') ?? '').matchAll(/[ML]\s*(-?[\d.]+)[ ,](-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])])
         return { fill: stroke(p), dashed: !!(p.getAttribute('stroke-dasharray') ?? '').trim() && p.getAttribute('stroke-dasharray') !== 'none', points: pts.length, rising: pts.length >= 2 ? pts[pts.length - 1][1] < pts[0][1] : null, thick: parseFloat(getComputedStyle(p).strokeWidth) >= 3 }
       })
-      if (lines.length) return { type: 'lines', title: title(), lines }
+      // round 8 e2: a closed path filled under the line (an area chart): its fill was unsaid
+      const area = [...svg.querySelectorAll('path, polygon')].find((p) => getComputedStyle(p).fill !== 'none' && !stroke(p))
+      const areaFill = area ? (() => { const f = getComputedStyle(area).fill; const m = f.match(/url\("?#([^")]+)/); if (!m) return { c: rgba(f), fade: false }; const st = svg.querySelector(`#${m[1]} stop`); return st ? { c: rgba(getComputedStyle(st).stopColor), fade: true } : null })() : null
+      const ttl = title() ?? [...el.querySelectorAll('b,strong')].map(txt).find((t) => t && t.length <= 40) ?? null
+      if (lines.length) return { type: 'lines', title: ttl, lines, area: areaFill, grid: [...svg.querySelectorAll('line')].filter((l) => l.getAttribute('y1') === l.getAttribute('y2')).length }
     }
     // an opened message (round 6 e3 reader): title, a round avatar beside the sender, a body of copy, an attachment
     // box, a row of tool buttons. Said as a list of the buttons it dropped the body and the avatar.
@@ -1471,6 +1559,21 @@ function denseNote(d) {
     case 'funnel': return `${d.title ? `${quote(d.title, 48)}, ` : ''}a funnel (NOT progress rows, NOT a list): ${d.items.length} solid ${colourName(d.fill)} bars ${d.h}px tall, ${d.radius}px rounded, stacked ${d.pitch}px apart down one left edge (${d.left}px in, first ${d.top}px from the card top), each NARROWER than the one above, its label in bold ${colourName(d.ink)} inside at the left: ${d.items.map((x) => `${quote(x.t, 20)} ${x.w}px wide${x.op < 100 ? ` at ${x.op}% opacity` : ''}${x.v ? ` (${quote(x.v, 8)} bold at the far right of the card on that row)` : ''}`).join(', ')}`
     case 'stackedBars': return `${d.title ? `${quote(d.title, 48)}, ` : ''}a stacked bar chart (NOT a list): ${d.n} bars ${d.w}px wide, ${d.gap}px apart, standing on one baseline across a ${d.plotH}px tall plot (${d.left}px in, ${d.top}px from the card top), no axes, no labels; each bar is ${d.colours.length} solid segments, ${d.colours.map((c, i) => `${['bottom', 'top', 'third'][i] ?? `${i + 1}th`} ${colourName(c)} ${hexOf(c)}`).join(', ')}; bar total heights left to right: ${d.totals.join(', ')}px; bottom segment heights: ${d.bottomH.join(', ')}px`
     case 'kpi': return `white stat card: small ${colourName(d.labelInk)} label ${quote(d.label, 20)}, under it big ${d.valuePx}px bold ${quote(d.value, 12)}; a small ${d.spark.w}x${d.spark.h}px ${colourName(d.spark.c)} sparkline (a thin ${d.spark.pts}-point line, no fill, no axes) ${d.spark.rising ? 'rising left to right' : 'falling left to right'}, in the bottom-right corner ${d.spark.right}px from the right edge and ${d.spark.bottom}px from the bottom`
+    case 'heatShades': return `${d.title ? `${quote(d.title, 48)} as a small bold heading, under it ` : ''}a heat grid (NOT a picture, NOT pills, no text in the cells): ${d.rows.length} rows of ${d.cols} textless ${d.px.w}x${d.px.h}px cells${d.radius ? ` with ${d.radius}px rounded corners` : ''}${d.gap ? `, ${d.gap}px apart` : ''}, each cell filled with one of ${d.shades.length} shades of the same colour, lightest 1 to darkest ${d.shades.length}: ${d.shades.map((c, i) => `${i + 1} ${hexOf(c)}`).join(', ')}; rows top to bottom (shade per cell): ${d.rows.join(' ')}`
+    case 'datePicker': {
+      const on = d.presets.find((p) => p.on)
+      return `an OPEN date-range picker floating over the page (a ${d.fill ? hexOf(d.fill) : 'white'} panel${d.radius ? `, ${d.radius}px rounded corners` : ''}${d.shadow ? ', a big soft drop shadow so it sits above the cards under it' : ''}; NOT page numbers): ${d.presets.length ? `on the left a ${d.presetW}px column of preset lines ${d.presets.map((p) => quote(p.t, 16)).join(', ')}${on ? `, ${quote(on.t)} the chosen one in bold ${hexOf(on.ink)}, the rest grey` : ''}; ` : ''}beside it a month calendar${d.month ? ` headed ${quote(d.month)} (centred)` : ''}: 7 columns of ${d.cell}px day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length ? `; the range ends ${d.ends.map((t) => quote(t)).join(' and ')} are filled ${hexOf(d.endFill)} rounded cells with white numbers` : ''}${d.mid ? `, the days between (${d.mid.from} to ${d.mid.to}) a pale ${hexOf(d.mid.fill)} band with dark numbers` : ''}${d.btns.length ? `; bottom right the buttons ${d.btns.map((b) => `${quote(b.t)} (${b.fill ? `filled ${hexOf(b.fill)}, ${colourName(b.ink)} text` : 'outlined'})`).join(' and ')}` : ''}`
+    }
+    case 'kpi1': return `stat card: ${d.labelPx}px ${colourName(d.labelInk)} label ${quote(d.label, 24)} on top, under it big ${d.valuePx}px bold ${quote(d.value, 14)}${d.extra.map((x) => `, under that ${x.bold ? 'bold ' : ''}${hexOf(x.ink)} ${quote(x.t, 20)}`).join('')}`
+    case 'docArticle': return `a docs article, NOT a card, NOT a table alone; top to bottom: ${d.parts.map((p) => {
+      if (p.kind === 'title') return `${p.px}px bold title ${quote(p.t, 40)}`
+      if (p.kind === 'code') return `a dark code block (${p.fill ? hexOf(p.fill) : 'near-black'} fill, ${p.radius}px rounded, ${p.px}px monospace ${colourName(p.ink)} text${p.toks.length > 1 ? `, syntax colours ${p.toks.map(hexOf).join(' ')}` : ''}) with ${p.lines.length} lines: ${p.lines.map((l) => quote(l, 70)).join(' / ')}`
+      if (p.kind === 'callout') return `a callout box (${hexOf(p.fill)} fill, a ${p.edge.px}px ${hexOf(p.edge.c)} left edge, rounded right corners) with bold ${quote(p.lead, 12)} then ${quote(p.t.replace(p.lead, '').trim(), 60)}`
+      if (p.kind === 'table') return `a ${p.ruled ? 'fully ruled ' : ''}table${p.head ? ` with a ${hexOf(p.head)} header row` : ''}: ${p.rows.map((r) => r.map((c) => quote(c, 18)).join(' | ')).join(' / ')}`
+      if (p.px <= 13) return `small ${p.px}px ${colourName(p.ink)} line ${quote(p.t, 60)}${/›|>|\//.test(p.t) ? ' (a breadcrumb)' : ''}`
+      return `${p.px}px ${colourName(p.ink)} paragraph ${quote(p.t, 220)}${p.code.length ? ` with inline code ${p.code.map((c) => `${quote(c.t, 16)} (${hexOf(c.ink)} monospace on a ${c.fill ? hexOf(c.fill) : 'grey'} rounded chip)`).join(', ')}` : ''}`
+    }).join('; then ')}${d.parts.some((p) => p.kind === 'table' && p.rows.flat().length) ? '; code words in the table are monospace, not status pills' : ''}`
+    case 'window': return `a ${d.w}x${d.h}px ${d.fill ? hexOf(d.fill) : 'white'} window FLOATING over the page (on top of the reader, ${d.bottom <= 2 ? 'flush to the page bottom' : `${d.bottom}px above the page bottom`}, ${d.right}px from the right edge; ${typeof d.radius === 'string' ? d.radius : `${d.radius}px rounded`}; a big soft shadow): a ${d.bar.h}px ${hexOf(d.bar.fill)} title bar across its top with bold ${colourName(d.bar.ink)} ${quote(d.bar.t, 24)} at the left${d.bar.icons ? ` and ${quote(d.bar.icons, 12)} at the right` : ''}; under it ${d.rows.map((r) => r.label ? `a ${r.ruled ? 'ruled ' : ''}field row: ${colourName(r.labelInk)} ${quote(r.label, 12)} then dark ${quote(r.value, 40)}` : `the message body ${quote(r.value, 80)} (a tall empty area under it)`).join('; ')}${d.btn ? `; a ${d.btn.pill ? 'pill' : 'rounded'} ${hexOf(d.btn.fill)} ${quote(d.btn.t)} button with ${colourName(d.btn.ink)} bold text at the bottom left` : ''}`
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
     case 'rtable': {
       const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
@@ -1510,7 +1613,7 @@ function denseNote(d) {
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}${c.spark ? ` (${colourName(c.spark.fill)} sparkline ${c.spark.rising ? 'rising' : 'falling'}, bottom right)` : ''}`).join(', ')}`
     case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text)${d.pitch ? `, rows ${d.pitch}px apart, bars ${d.bars[0].h}px tall${d.reach && d.reach <= 80 ? `, rows end ${d.reach}% down, empty below` : ''}` : ''}: ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
     case 'donut': return `${d.title ? `${quote(d.title, 32)}, ` : ''}donut chart (thick ring, hollow middle)${d.track ? ` on a ${colourName(d.track)} track` : ''}: ${d.segs.map((g) => `${colourName(g.fill)} ${g.pct}%`).join(', ')}`
-    case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}; no axis labels`
+    case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}${d.area?.c ? `; under the solid line a ${d.area.fade ? `soft ${hexOf(d.area.c)} area fill fading to transparent at the bottom` : `${hexOf(d.area.c)} area fill`}` : ''}${d.grid >= 2 ? `; ${d.grid} thin pale horizontal grid lines behind` : ''}; no axis labels`
     case 'form': if (d.buttons) {
       // filled-in form: label, then what the field holds (or empty, tall); buttons by look and place
       const fld = (x) => `${quote(x.label)} ${x.value ? `field holding ${quote(x.value, 40)}` : `${x.tall ? `tall ${x.tall}px ` : ''}empty field`}`
