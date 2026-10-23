@@ -1,4 +1,4 @@
-c1-orbit-type · marks 8 · words 274
+c1-orbit-type · marks 8 · words 289
     nav          box     
     headline     heading 
     copy         text    
@@ -12,11 +12,11 @@ c1-orbit-type · marks 8 · words 274
     note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.88) "Type in orbit", set in exactly 2 lines: "Type in" / "orbit" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 349px wide); the word "orbit" is italic serif (font-family Georgia, serif) regular-weight orange #ff4d2e (its own colour; the other words stay #141414)
     note copy: dark grey text "A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity."; its text #4a4a4a (dark grey, NOT the page's near-black text)
     note cta: amber pill button "See the specimens", with a hard solid opaque near-black shadow offset 5px down right, no blur (exactly: #ffb000 fill, #141414 text, 200x52px, pill ends)
-    note core: a 300px donut chart (ring 70px thick, hollow cream middle) centred, segments clockwise from the top: orange 100%, then amber 0%, then blue 0%, the rest a orange track 0%
+    note core: a 300px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: conic-gradient(from 90deg, rgb(255, 77, 46), rgb(255, 176, 0), rgb(46, 107, 255), rgb(255, 77, 46)); border-radius 50%), ring 70px thick with a hollow cream (#f2ede4) middle cut by a round inner disc (inset 70px); NOT a donut chart, no segments, no labels, no legend
     note year: "'26"; set BOLD (font-weight 900), NOT regular
-    note ring-text: spinning ring of big heavy capital letters "LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, 640px across, the words centred in 34 lines (wrapping inside the circle, 16px type), in front of the "'26" heading
+    note ring-text: spinning ring of big heavy capital letters "LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, in front of the "'26" heading
     note footer: near-black border "EST. 2011 — LISBON ORBIT/14 SCROLL ↓"
-c2-chrome-liquid · marks 8 · words 198
+c2-chrome-liquid · marks 8 · words 246
     nav          box     
     chrome-blob  circle  
     headline     heading 
@@ -27,8 +27,8 @@ c2-chrome-liquid · marks 8 · words 198
     glass-tag    button  
     note *: whole page: black (#07070b) page, Helvetica type, light grey text
     note nav: nav, no box around it: bold "MERCURY®" left, "Sound · Objects · Lab · Cart (0)" right; its text #a7a8bd (lavender, NOT the page's light grey text)
-    note chrome-blob: moving big glowing white, grey, dark navy, lavender stripes circle
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.86) white, lavender, dark grey, light grey stripes text "Liquid metal", set in exactly 2 lines: "Liquid" / "metal" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide), 190px type, the text box's top-left at 70,150 (top-[150px]; the first line starts there, not lower)
+    note chrome-blob: moving big glowing polished liquid-CHROME, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(140deg, #fdfdff 0%, #8d8fa6 30%, #24242e 50%, #c9cbe0 70%, #ffffff 100%)) circle
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.86) polished liquid-CHROME gradient, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(180deg, #ffffff 0%, #b8bad0 45%, #3a3b4a 52%, #d7d9ee 75%, #ffffff 100%)) text "Liquid metal", set in exactly 2 lines: "Liquid" / "metal" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide), 190px type, the text box's top-left at 70,150 (top-[150px]; the first line starts there, not lower)
     note outline-word: giant Helvetica heavy tight-set letters hollow outlined light grey "SOUND", 120px type, about 408px wide (no larger)
     note copy: lavender text "Speakers poured from a single piece of aluminium, polished until the room reflects in them."; its text #a7a8bd (lavender, NOT the page's light grey text)
     note cta: light grey pill black text button "Pre-order"; its text #07070b (black, NOT the page's light grey text) (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill ends)
@@ -87,7 +87,7 @@ c5-swiss-grid · marks 8 · words 260
     note ring: big white outline circle
     note vertical-label: wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long "AUSSTELLUNG · EXHIBITION"; its text #ffffff (white, NOT the page's near-black text)
     note caption: 13px text "Poster study no. 4, 1960 (detail)"; its text #ffffff (white, NOT the page's near-black text)
-e1-spreadsheet · marks 6 · words 280
+e1-spreadsheet · marks 6 · words 585
     title-bar    box     
     toolbar      box     
     formula-bar  box     
@@ -97,16 +97,16 @@ e1-spreadsheet · marks 6 · words 280
     note title-bar: a top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 13px #ffffff "▦" on a #16a34a 28x28px 6px-rounded box at x 16; bold 16px #1f2937 "Q3 Budget" at x 58; 13px #6b7280 "File Edit View Insert Format Data" at x 153; bold 13px #0b3d62 "Share" on a #c2e7ff 68x29px pill at x 1196 (pushed to the far right)
     note toolbar: pale grey bar 40px tall across the page, links: ↶, ↷, 100%, $, %, .0, B, I; "B" selected (light grey fill); all of these sit together at the LEFT, one after another, ending 340px in (the right 73% of the bar is empty, nothing pushed right)
     note formula-bar: bar 32px tall, thin line under: bold "D7" left, "fx =SUM(D3:D6)" right; each word in its own colour: "D7" #1f2937, "fx =SUM(D3:D6)" #6b7280
-    note cells: table, columns "", "A", "B", "C", "D", "E", "F", "G", 12 rows
+    note cells: a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) 1280x365px at 0,124: border-collapse, every cell bordered 1px #e5e7eb, every row exactly 28px tall; a 46px row-number column on the left, then 7 equal columns about 176px wide; the top header row has the column letters "A" "B" "C" "D" "E" "F" "G" centred, 12px #6b7280 regular on #f8f9fa; "D" is the active column: its header cell #d3e3fd fill, #1a73e8 bold letter; the left column has the row numbers 1 to 12 centred, 12px #6b7280 on #f8f9fa; cell text 13px #1f2937 with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): row 1: A "Category" (bold, #e8f0fe fill) | B "Owner" (bold, #e8f0fe fill) | C "Plan" (bold, right-aligned, #e8f0fe fill) | D "Actual" (bold, right-aligned, #e8f0fe fill) | E "Diff" (bold, right-aligned, #e8f0fe fill) | F "Status" (bold, #e8f0fe fill) | G (no words) (bold, #e8f0fe fill); row 3: A "Marketing" | B "Ines" | C "42,000" (right-aligned) | D "39,450" (right-aligned, #e8f0fe fill) | E "-2,550" (#16a34a, right-aligned) | F "On track"; row 4: A "Engineering" | B "Tom" | C "180,000" (right-aligned) | D "186,200" (right-aligned, #e8f0fe fill) | E "+6,200" (#dc2626, right-aligned) | F "Over"; row 5: A "Design" | B "Mei" | C "36,000" (right-aligned) | D "34,900" (right-aligned, #e8f0fe fill) | E "-1,100" (#16a34a, right-aligned) | F "On track"; row 6: A "Support" | B "Raj" | C "28,000" (right-aligned) | D "29,750" (right-aligned, #e8f0fe fill) | E "+1,750" (#dc2626, right-aligned) | F "Watch"; row 7: A "Total" (bold) | C "286,000" (bold, right-aligned) | D "290,300" (bold, right-aligned, #ffffff fill, ACTIVE CELL: 2px #1a73e8 outline drawn inside the cell) | E "+4,300" (bold, #dc2626, right-aligned); rows 2, 8, 9, 10, 11, 12 are empty (cells drawn, nothing in them)
     note sheet-tabs: pale grey bar 40px tall across the page, links: +, Budget, Hiring, Notes; "Budget" selected (bold, blue text, blue underline, white fill); all of these sit together at the LEFT, one after another, ending 272px in (the right 79% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: "+" #374151, "Budget" #1a73e8, "Hiring" #374151, "Notes" #374151
     note sum-chip: 13px text "Sum: 290,300"
-e2-music-player · marks 3 · words 234
+e2-music-player · marks 3 · words 303
     library      box     
     album        box     
     now-playing  box     
     note *: whole page: near-black (#121212) page, Helvetica type, white text
     note library: black block "Your Library" list: "♥ Liked Songs", "Night Drive", "Deep Focus", "Running 170bpm", "Sunday Vinyl", "Discover Weekly"; list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 18px below the panel's top
-    note album: dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block "▶ ♡ ⋯" box, then a 36px row of tabs side by side: "#", "Title", "Plays", "⏱", then 5 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: "AfterglowLuma Vale" 1 "12,408,211" / "3:41"; "Glass HarbourLuma"… ▶ "9,870,004" / "4:02"; "Low OrbitLuma Vale,"… 3 "7,112,560" / "3:18"; "Paper MoonLuma Vale" 4 "5,904,337" / "2:56"; "Static BloomLuma"… 5 "4,221,089" / "3:33"; the "Glass HarbourLuma"… row selected (white)
+    note album: dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block "▶ ♡ ⋯" box, then a TRACK TABLE (NOT mail rows, NOT cards): a small grey header row "#" | "Title" | "Plays" | "⏱" with a thin line under it, then 5 track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): 1 | "Afterglow" / "Luma Vale" | 12,408,211 | 3:41; ▶ | "Glass Harbour" / "Luma Vale" | 9,870,004 | 4:02 (the PLAYING row: faint white highlight fill, rounded, title in bright green #1ed760, a green ▶ in place of its number); 3 | "Low Orbit" / "Luma Vale, Kito" | 7,112,560 | 3:18; 4 | "Paper Moon" / "Luma Vale" | 5,904,337 | 2:56; 5 | "Static Bloom" / "Luma Vale" | 4,221,089 | 3:33
     note now-playing: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 56x56 at 16,822 linear-gradient(135deg, #ff6b9a, #7a4cff), 4px rounded; 608x34 at 336,823 18px #ffffff "⤮ ⏮ ⏭ ↻"; 34x34 at 621,823 #ffffff fill, a circle: 14px bold #000000 "❚❚"; 90x32 at 84,834 14px #ffffff "Glass Harbour"; 320x16 at 944,842 14px #b3b3b3 "🔈 ▬▬▬▬▭"; 90x13 at 84,853 12px #b3b3b3 "Luma Vale"; 608x12 at 336,865 11px #b3b3b3 "1:32 4:02"; 480x4 at 400,869 #4d4d4d fill, pill ends; 182x4 at 400,869 #ffffff fill, pill ends
 e3-map-listings · marks 4 · words 551
     header       box     

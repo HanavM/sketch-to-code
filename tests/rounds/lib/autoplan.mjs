@@ -637,6 +637,30 @@ export function factsInPage() {
         out.sort((a, b) => (b.inside - a.inside) || b.px - a.px)
         return out
       })(),
+      // n149: a spreadsheet grid (round 13 e1: said as 'table, 12 rows', every cell lost): column letters across the top,
+      // row numbers down the left, cells by row with their fills, inks, weights, alignment and the outlined active cell
+      sheetGrid: (() => {
+        const tb = el.tagName === 'TABLE' ? el : el.querySelector('table'); if (!tb) return null
+        const rows = [...tb.rows]; if (rows.length < 4) return null
+        const head = [...rows[0].cells].map((c) => (c.innerText || '').trim())
+        const letters = head.slice(1)
+        if (letters.length < 4 || !letters.every((t, i) => t === String.fromCharCode(65 + i))) return null
+        if (!rows.slice(1).every((r, i) => (r.cells[0]?.innerText || '').trim() === String(i + 1))) return null
+        const tbr = tb.getBoundingClientRect()
+        const col = (c) => { const x = rgba(getComputedStyle(c).backgroundColor); return x && x.a > 0.05 ? x : null }
+        const th0 = rows[1].cells[0], hc = getComputedStyle(rows[0].cells[1])
+        const lit = [...rows[0].cells].slice(1).map((c, i) => ({ c, i })).filter(({ c }) => { const b = col(c), b0 = col(rows[0].cells[1]); return b && b0 && (Math.abs(b.r - b0.r) + Math.abs(b.g - b0.g) + Math.abs(b.b - b0.b)) > 20 })
+        const cell = (c) => {
+          const cs = getComputedStyle(c), b = c.querySelector('b,strong'), t = (c.innerText || '').trim()
+          const ol = parseFloat(cs.outlineWidth) >= 1 && cs.outlineStyle !== 'none' ? { w: parseFloat(cs.outlineWidth), c: rgba(cs.outlineColor) } : null
+          return { t, bold: Number((b ? getComputedStyle(b) : cs).fontWeight) >= 600, ink: rgba((b ? getComputedStyle(b) : cs).color), fill: col(c), right: cs.textAlign === 'right' || cs.textAlign === 'end', ol }
+        }
+        const body = rows.slice(1).map((r) => [...r.cells].slice(1).map(cell))
+        const bc = getComputedStyle(rows[1].cells[1])
+        return { x: Math.round(tbr.left), y: Math.round(tbr.top), w: Math.round(tbr.width), h: Math.round(tbr.height), letters, gutter: Math.round(rows[0].cells[0].getBoundingClientRect().width), colW: Math.round(rows[0].cells[1].getBoundingClientRect().width), rowH: Math.round(rows[1].getBoundingClientRect().height),
+          headFill: col(rows[0].cells[1]), headInk: rgba(hc.color), headPx: Math.round(parseFloat(hc.fontSize)), numFill: col(th0), line: rgba(bc.borderTopColor), px: Math.round(parseFloat(bc.fontSize)), ink: rgba(bc.color),
+          lit: lit.map(({ c, i }) => ({ i, fill: col(c), ink: rgba(getComputedStyle(c).color), bold: Number(getComputedStyle(c).fontWeight) >= 600 })), body }
+      })(),
       // a progress ring: a round conic gradient (round 5 c5 '72%' ring said as a 'near-black block')
       conicRing: (() => {
         const k = [el, ...el.querySelectorAll('*')].find((g) => /conic-gradient/.test(getComputedStyle(g).backgroundImage))
@@ -656,7 +680,11 @@ export function factsInPage() {
         const lg = [...el.querySelectorAll('*')].find((p) => p !== k && !k.contains(p) && p.children.length >= 2 && [...p.children].every((g) => !g.children.length && /\d%/.test(g.textContent || '') && (g.textContent || '').trim().length <= 24))
         const hd = el.querySelector('h1,h2,h3,h4')
         const extra = { hole: hole ? { ring: Math.round((b.width - parseFloat(hole.width)) / 2), fill: rgba(hole.backgroundColor) } : null, legend: lg ? [...lg.children].map((g) => (g.textContent || '').trim()) : null, legendBelow: lg ? lg.getBoundingClientRect().top >= b.bottom - 2 : false, title: hd && !k.contains(hd) ? (hd.innerText || '').trim() : null }
-        return { ...extra, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
+        // n149: a smooth conic blend (colours at single points, no hard stops) is a gradient ring, not chart segments
+        const pts = [...gs.backgroundImage.matchAll(/(rgba?\([^)]+\))((?:\s+[\d.]+(?:%|deg))*)/g)].map((m) => [...m[2].matchAll(/[\d.]+/g)].map((x) => +x[0]))
+        const at = pts.map((p) => p[0]).filter((x) => x !== undefined)
+        const smooth = pts.length >= 3 && pts.every((p) => p.length <= 1) && at.every((x, i) => !i || x !== at[i - 1])
+        return { ...extra, css: gs.backgroundImage, smooth, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
       })(),
       // text set round a circle (an SVG textPath badge)
       circleText: (() => {
@@ -2027,7 +2055,17 @@ function gradientWords(f) {
     return null
   }
   // hard colour stops (a b 20%, b 20% 40%) are stripes, not a blend
-  const hard = (f.bgImage.match(/\d+%\s*,\s*rgb[^)]+\)\s+\d+%/g) || []).length >= 2 || /\)\s+\d+%\s+\d+%/.test(f.bgImage)
+  // n149: only stops that meet at the SAME place are hard (round 13 c2 chrome 0/30/50/70/100% blend said as stripes)
+  const hardPairs = [...f.bgImage.matchAll(/([\d.]+)%\s*,\s*rgba?\([^)]+\)\s+([\d.]+)%/g)].filter((m) => m[1] === m[2]).length
+  const hard = hardPairs >= 2 || /\)\s+\d+%\s+\d+%/.test(f.bgImage)
+  // n149: a light-dark-light blend of greys is polished chrome; say the exact blend (round 13 c2 blob and headline)
+  const lsC = linearStops(f.bgImage)
+  if (!hard && lsC && lsC.length >= 4) {
+    const L = lsC.map((x) => (x.c.r + x.c.g + x.c.b) / 3), grey = lsC.every((x) => Math.max(x.c.r, x.c.g, x.c.b) - Math.min(x.c.r, x.c.g, x.c.b) <= 40)
+    const turns = L.slice(1, -1).filter((v, i) => (v - L[i]) * (L[i + 2] - v) < 0 && Math.abs(v - L[i]) > 60).length
+    const deg = f.bgImage.match(/^linear-gradient\(\s*([\d.]+deg)/)?.[1] ?? '180deg'
+    if (grey && turns >= 1) return `polished liquid-CHROME gradient, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(${deg}, ${lsC.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
+  }
   if (hard) return `${names.join(', ')} stripes`
   // which end is which (round 4 c1 blue photo built flat navy, round 5 c4 dark end on the
   // wrong side): a two-colour linear blend says where each colour sits and whether it is vivid
@@ -2309,6 +2347,14 @@ function denseNote(d) {
       // mail rows that open on the sender: sender, time, subject, preview (round 8 e1: 'Ravi, me (3)' is longer than a
       // time, so the rows fell to a bare sender list and the build lost every subject and preview)
       const timeish = (t) => /^(\d{1,2}:\d{2}( ?[ap]m)?|yesterday|today|(mon|tue|wed|thu|fri|sat|sun)\w*|(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\w* \d{1,2})$/i.test(t)
+      // n149: a music track table (round 13 e2: '#, title+artist, plays, 3:41' said as mail rows)
+      const dur = (t) => /^\d{1,2}:\d{2}$/.test(t), num = (t) => /^[\d,.]+[kKmM]?$/.test(t)
+      if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && dur(p[3]) && num(p[2]) && p[0].length <= 3)) {
+        const head = (d.extra ?? []).find((x) => x.tabs)?.tabs
+        const split = (t) => { const m = t.match(/^(.*?[a-z0-9)])([A-Z].*)$/); return m ? [m[1], m[2]] : [t, ''] }
+        const onRow = d.on ? d.items.findIndex((p) => p.includes(d.on) || p[1].startsWith(d.on) || d.on.startsWith(split(p[1])[0])) : -1
+        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}a TRACK TABLE (NOT mail rows, NOT cards): ${head ? `a small grey header row ${head.map((t) => quote(t, 12)).join(' | ')} with a thin line under it, then ` : ''}${d.items.length} track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): ${d.items.map((p, i) => { const [t, a] = split(p[1]); return `${p[0]} | ${quote(t, 30)} / ${quote(a, 30)} | ${p[2]} | ${p[3]}${i === onRow ? ' (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number)' : ''}` }).join('; ')}`
+      }
       if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && timeish(p[1]) && !timeish(p[0]))) d = { ...d, items: d.items.map((p) => [p[1], p[0], p[2], p[3]]), on: d.on && d.items.find((p) => p[0] === d.on)?.[1] }
       if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && p[0].length <= 10)) {
         const bold = d.bold2 ?? []
@@ -2507,7 +2553,28 @@ function partsNote(P, f) {
   }
   return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
 }
+// n149: a spreadsheet grid said cell by cell
+function sheetNote(G) {
+  const base = G.ink
+  const one = (c, j) => {
+    const L = G.letters[j]
+    if (!c.t && !c.fill && !c.ol) return null
+    const bits = []
+    if (c.bold) bits.push('bold')
+    if (c.ink && base && dist(c.ink, base) > 30) bits.push(hexOf(c.ink))
+    if (c.right) bits.push('right-aligned')
+    if (c.fill) bits.push(`${hexOf(c.fill)} fill`)
+    if (c.ol) bits.push(`ACTIVE CELL: ${c.ol.w}px ${hexOf(c.ol.c)} outline drawn inside the cell`)
+    return `${L} ${c.t ? quote(c.t, 24) : '(no words)'}${bits.length ? ` (${bits.join(', ')})` : ''}`
+  }
+  const rows = G.body.map((r, i) => { const cs = r.map(one).filter(Boolean); return cs.length ? `row ${i + 1}: ${cs.join(' | ')}` : null })
+  const empty = G.body.map((r, i) => r.every((c) => !c.t && !c.fill && !c.ol) ? i + 1 : null).filter(Boolean)
+  const litW = G.lit.map((l) => `"${G.letters[l.i]}" is the active column: its header cell ${hexOf(l.fill)} fill${l.ink ? `, ${hexOf(l.ink)}` : ''}${l.bold ? ' bold' : ''} letter`).join('; ')
+  return `a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) ${G.w}x${G.h}px at ${G.x},${G.y}: border-collapse, every cell bordered 1px ${hexOf(G.line)}, every row exactly ${G.rowH}px tall; a ${G.gutter}px row-number column on the left, then ${G.letters.length} equal columns about ${G.colW}px wide; the top header row has the column letters ${G.letters.map((t) => quote(t, 2)).join(' ')} centred, ${G.headPx}px ${hexOf(G.headInk)} regular on ${hexOf(G.headFill)}${litW ? `; ${litW}` : ''}; the left column has the row numbers 1 to ${G.body.length} centred, ${G.headPx}px ${hexOf(G.headInk)} on ${hexOf(G.numFill ?? G.headFill)}; cell text ${G.px}px ${hexOf(base)} with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): ${rows.filter(Boolean).join('; ')}${empty.length ? `; rows ${empty.join(', ')} are empty (cells drawn, nothing in them)` : ''}`
+}
 function decide(f, page, marked, said = new Set()) {
+  const SG = f.sheetGrid
+  if (SG) return { kind: 'box', note: sheetNote(SG) }
   // n144: a code view said line by line (round 11 e1: tokens placed one by one at their own x,y collided)
   const CL = f.codeLines
   if (CL) {
@@ -2620,7 +2687,7 @@ function decideRest(f, page, marked, said) {
     d.note += ` (exactly: ${hexOf(f.bg)} fill, ${hexOf(f.colour)} text, ${Math.round(w0)}x${Math.round(h0)}px, ${f.radius <= 1 ? 'square corners: border-radius 0, NOT a pill' : f.radius >= h0 / 2 - 2 ? 'pill ends' : `${Math.round(f.radius)}px rounded`})`
   }
   // n147: words inside a round sticker keep their line breaks (round 12 c4 'FREE COFFEE AFTER' built on one line)
-  if (d?.kind === 'circle' && d.note && f.text && f.textLines >= 2 && !/lines/.test(d.note)) {
+  if (d?.kind === 'circle' && d.note && f.text && f.textLines >= 2 && !/lines/.test(d.note) && !f.circleText) {
     d.note += `, ${Math.round(f.layoutBox?.w ?? w0)}px across, the words centred in ${f.textLines} lines (wrapping inside the circle, ${Math.round(f.font.size)}px type)`
   }
   // a marked button with unmarked buttons beside it in the row: the note names the whole row, in order
@@ -2933,6 +3000,9 @@ function decideOne(f, page, marked, said) {
   if (f.conicRing && f.conicRing.round && f.conicRing.stops.length >= 2 && !f.regionKids.length) {
     const cr = f.conicRing, arc = cr.stops[0], track = cr.stops[cr.stops.length - 1]
     // several coloured segments: a donut chart, not one progress arc (round 6 e2: 3 segments said as 'indigo arc 46%')
+    if (cr.smooth && cr.hole) {
+      return { kind: 'box', note: withFx(`a ${cr.px}px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: ${cr.css}; border-radius 50%), ring ${cr.hole.ring}px thick with a hollow ${colourName(cr.hole.fill)} (${hexOf(cr.hole.fill)}) middle cut by a round inner disc (inset ${cr.hole.ring}px); NOT a donut chart, no segments, no labels, no legend`) }
+    }
     if (cr.stops.length >= 3) {
       const segs = cr.stops.slice(0, -1).map((g, i) => `${i ? 'then ' : ''}${colourName(g.c)} ${Math.round(g.to - g.from)}%`)
       const host = fill ? `${colourName(f.bg)} card, ` : ''

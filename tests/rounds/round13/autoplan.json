@@ -69,7 +69,7 @@
    ],
    [
     "core",
-    "a 300px donut chart (ring 70px thick, hollow cream middle) centred, segments clockwise from the top: orange 100%, then amber 0%, then blue 0%, the rest a orange track 0%"
+    "a 300px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: conic-gradient(from 90deg, rgb(255, 77, 46), rgb(255, 176, 0), rgb(46, 107, 255), rgb(255, 77, 46)); border-radius 50%), ring 70px thick with a hollow cream (#f2ede4) middle cut by a round inner disc (inset 70px); NOT a donut chart, no segments, no labels, no legend"
    ],
    [
     "year",
@@ -77,7 +77,7 @@
    ],
    [
     "ring-text",
-    "spinning ring of big heavy capital letters \"LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺\"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, 640px across, the words centred in 34 lines (wrapping inside the circle, 16px type), in front of the \"'26\" heading"
+    "spinning ring of big heavy capital letters \"LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺\"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, in front of the \"'26\" heading"
    ],
    [
     "footer",
@@ -143,11 +143,11 @@
    ],
    [
     "chrome-blob",
-    "moving big glowing white, grey, dark navy, lavender stripes circle"
+    "moving big glowing polished liquid-CHROME, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(140deg, #fdfdff 0%, #8d8fa6 30%, #24242e 50%, #c9cbe0 70%, #ffffff 100%)) circle"
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.86) white, lavender, dark grey, light grey stripes text \"Liquid metal\", set in exactly 2 lines: \"Liquid\" / \"metal\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide), 190px type, the text box's top-left at 70,150 (top-[150px]; the first line starts there, not lower)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.86) polished liquid-CHROME gradient, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(180deg, #ffffff 0%, #b8bad0 45%, #3a3b4a 52%, #d7d9ee 75%, #ffffff 100%)) text \"Liquid metal\", set in exactly 2 lines: \"Liquid\" / \"metal\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide), 190px type, the text box's top-left at 70,150 (top-[150px]; the first line starts there, not lower)"
    ],
    [
     "outline-word",
@@ -579,7 +579,7 @@
    ],
    [
     "cells",
-    "table, columns \"\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", 12 rows"
+    "a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) 1280x365px at 0,124: border-collapse, every cell bordered 1px #e5e7eb, every row exactly 28px tall; a 46px row-number column on the left, then 7 equal columns about 176px wide; the top header row has the column letters \"A\" \"B\" \"C\" \"D\" \"E\" \"F\" \"G\" centred, 12px #6b7280 regular on #f8f9fa; \"D\" is the active column: its header cell #d3e3fd fill, #1a73e8 bold letter; the left column has the row numbers 1 to 12 centred, 12px #6b7280 on #f8f9fa; cell text 13px #1f2937 with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): row 1: A \"Category\" (bold, #e8f0fe fill) | B \"Owner\" (bold, #e8f0fe fill) | C \"Plan\" (bold, right-aligned, #e8f0fe fill) | D \"Actual\" (bold, right-aligned, #e8f0fe fill) | E \"Diff\" (bold, right-aligned, #e8f0fe fill) | F \"Status\" (bold, #e8f0fe fill) | G (no words) (bold, #e8f0fe fill); row 3: A \"Marketing\" | B \"Ines\" | C \"42,000\" (right-aligned) | D \"39,450\" (right-aligned, #e8f0fe fill) | E \"-2,550\" (#16a34a, right-aligned) | F \"On track\"; row 4: A \"Engineering\" | B \"Tom\" | C \"180,000\" (right-aligned) | D \"186,200\" (right-aligned, #e8f0fe fill) | E \"+6,200\" (#dc2626, right-aligned) | F \"Over\"; row 5: A \"Design\" | B \"Mei\" | C \"36,000\" (right-aligned) | D \"34,900\" (right-aligned, #e8f0fe fill) | E \"-1,100\" (#16a34a, right-aligned) | F \"On track\"; row 6: A \"Support\" | B \"Raj\" | C \"28,000\" (right-aligned) | D \"29,750\" (right-aligned, #e8f0fe fill) | E \"+1,750\" (#dc2626, right-aligned) | F \"Watch\"; row 7: A \"Total\" (bold) | C \"286,000\" (bold, right-aligned) | D \"290,300\" (bold, right-aligned, #ffffff fill, ACTIVE CELL: 2px #1a73e8 outline drawn inside the cell) | E \"+4,300\" (bold, #dc2626, right-aligned); rows 2, 8, 9, 10, 11, 12 are empty (cells drawn, nothing in them)"
    ],
    [
     "sheet-tabs",
@@ -617,7 +617,7 @@
    ],
    [
     "album",
-    "dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block \"▶ ♡ ⋯\" box, then a 36px row of tabs side by side: \"#\", \"Title\", \"Plays\", \"⏱\", then 5 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"AfterglowLuma Vale\" 1 \"12,408,211\" / \"3:41\"; \"Glass HarbourLuma\"… ▶ \"9,870,004\" / \"4:02\"; \"Low OrbitLuma Vale,\"… 3 \"7,112,560\" / \"3:18\"; \"Paper MoonLuma Vale\" 4 \"5,904,337\" / \"2:56\"; \"Static BloomLuma\"… 5 \"4,221,089\" / \"3:33\"; the \"Glass HarbourLuma\"… row selected (white)"
+    "dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block \"▶ ♡ ⋯\" box, then a TRACK TABLE (NOT mail rows, NOT cards): a small grey header row \"#\" | \"Title\" | \"Plays\" | \"⏱\" with a thin line under it, then 5 track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): 1 | \"Afterglow\" / \"Luma Vale\" | 12,408,211 | 3:41; ▶ | \"Glass Harbour\" / \"Luma Vale\" | 9,870,004 | 4:02 (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number); 3 | \"Low Orbit\" / \"Luma Vale, Kito\" | 7,112,560 | 3:18; 4 | \"Paper Moon\" / \"Luma Vale\" | 5,904,337 | 2:56; 5 | \"Static Bloom\" / \"Luma Vale\" | 4,221,089 | 3:33"
    ],
    [
     "now-playing",
