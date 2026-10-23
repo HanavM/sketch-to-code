@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-23T04:07:00Z | Every list item and table row said | Mail 68 to 74%, analytics 61 to 66%, docs 68 to 71%; round 8 avg 76%. 213k.
 2026-10-23T03:45:00Z | Date picker, docs article, compose window | Round 8 complete, avg 75%; first builds mail 68%, analytics 61%, docs 68%. 130k.
 2026-10-23T03:09:00Z | Tiles, grain, orbit ring, seat grid place | Orbit 77 to 94%, seat map 54 to 62%; first builds sticker wall 72%, poster 86%. 364k.
 2026-10-23T02:35:00Z | Selected layer, inspector fields, stepper pills | Depth stack 59 to 79%, design editor 49 to 69%, orbit first 77%; seat grid placed low 54%. 240k.
