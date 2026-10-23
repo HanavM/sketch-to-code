@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-23T00:50:00Z | Whole board shifted under the drift rule | Same-way 8-15px shift now caught; repair cut drift 24-40 to 8px; kanban 72% twice. 178k.
 2026-10-23T00:20:00Z | Progress tracks, bold title, page title place | Kanban bars on grey track, Sprint 42 bold: 77% (one 48% drift run); charts 78 to 80%. 288k.
 2026-10-22T23:45:00Z | Dropdowns, header checkbox, filter chips | Admin table dropdowns one line, checkbox back (81%); kanban chips outlined pills (74%). 179k.
 2026-10-22T23:30:00Z | Re-run pale-tint pages | Tints held: kanban 74 to 76%, funnel 75 to 80%, charts 76 to 78%. 240k.
