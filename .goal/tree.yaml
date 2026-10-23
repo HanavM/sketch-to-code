@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 13 now averages 84% (the video call went 79 to 94%, the card fan 84 to 89%); next I write a harder round 14 and build its first pages."
 round: 13
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84]
-lock: null
+lock: {by: run-20261023T2257, until: "2026-10-24T00:27:27Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
