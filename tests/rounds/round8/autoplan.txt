@@ -1,18 +1,19 @@
-c1-depth-stack · marks 7 · words 115
+c1-depth-stack · marks 7 · words 296
     nav          box     
     label        text    
     headline     heading 
     cta          button  
     cta-2        button  
-    card-stack   image   
+    card-stack   box     
     progress     box     
     note *: whole page: deep indigo to black gradient page, Helvetica type, white text
     note nav: nav, no box around it: bold "LAYERS" left, "Product · Pricing · Docs · Sign in" right
     note label: 13px wide-spaced letters lavender "SPATIAL WORKSPACE"
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.92) "Think in depth, not tabs.", set in exactly 3 lines: "Think in" / "depth , not" / "tabs." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide)
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.92) "Think in depth, not tabs.", set in exactly 3 lines: "Think in" / "depth, not" / "tabs." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide); the word "depth" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #a5b4fc), same size and weight as the rest
     note cta: white pill black text button "Start free"
     note cta-2: dark grey outline pill button "Watch demo"
-    note card-stack: picture with "Q4 plan", in front of the "Think in depth, not"… heading
+    note card-stack: a stack of 3 separate cards turned in 3D (NOT one picture, NOT flat): a 560x620px box at 600,150 with perspective: 1200px, holding 3 absolutely placed cards each 360x460px, 24px rounded, each with transform: rotateY(-28deg) rotateX(8deg) (turned away to the left, all the same turn), a big soft dark drop shadow; each card overlaps the one behind it, painted back to front: card 1 (back) at 0,100 in the box, 160deg gradient #4338ca to #1e1b4b, 55% opacity; card 2 at 90,60 in the box, 160deg gradient #6366f1 to #312e81, 75% opacity; card 3 (front) at 180,20 in the box, 160deg gradient #a5b4fc to #4f46e5, fully opaque, 1px #ffffff at 40% border, a 56x56px round #fde047 dot at 28,28 inside it, bold 56px #fafafa "Q4 plan" at 28,365 inside it, in front of the "Think in depth, not"… heading
+    note progress: 3 short flat dashes in a row (a slide indicator, NOT dots, NOT a progress bar), each 4px tall 2px rounded, 10px apart, no box around them, left to right: 80px #a5b4fc, 40px #3f3f46, 40px #3f3f46
 c2-orbit-type · marks 6 · words 195
     echo-word    heading 
     orbit-text   circle  
@@ -111,11 +112,11 @@ e2-date-range-analytics · marks 9 · words 122
     note heat-grid: white card "By hour × weekday"
     note pages-table: table, columns "Page", "Visitors", "Avg. time", "Bounce", 4 rows
     note date-popover: white card "Cancel Apply", page numbers "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"
-e3-design-editor · marks 10 · words 121
+e3-design-editor · marks 10 · words 155
     toolbar      box     
     layers-panel box     
     frame-label  text    
-    canvas-frame image   
+    canvas-frame box     
     hero-block   box     
     selected-button box     
     size-badge   box     
@@ -126,14 +127,15 @@ e3-design-editor · marks 10 · words 121
     note toolbar: dark grey bar, white text "▲ # □ ✎ T 💬 Landing v3 / Desktop Share"
     note layers-panel: white block "LAYERS" list: "# Desktop", "□ Hero", "▭ Button / Primary", "T Body copy", "T Headline", "# Mobile", "# Tablet"; "▭ Button /" highlighted
     note frame-label: grey text "Desktop"
-    note hero-block: soft yellow (top left) to light pink (bottom right) gradient block, overlapping the upper left of the other picture and on top of it
+    note canvas-frame: plain #ffffff panel 580x620px at 330,160 (NOT a picture, no X, nothing of its own inside): the hero block, selected button, size badge, text line sit on top of it
+    note hero-block: soft yellow (top left) to light pink (bottom right) gradient block
     note selected-button: near-black
     note size-badge: vivid bright sky blue block, white text "180 × 48"
     note cursor-tag: vivid purple block, white text "Noor"
-    note properties-panel: white block "X 40 Y 340" "W 180 H 48" "999" "111111 100%" "None" "Drop shadow" list: "FRAME", "CORNER RADIUS", "FILL", "STROKE", "EFFECTS"
-e4-seat-booking · marks 8 · words 68
+    note properties-panel: white block "X 40 Y 340" small filled chips side by side, separate: "W 180" (#f5f5f5 fill, bold #1f1f1f text), "H 48" (#f5f5f5 fill, bold #1f1f1f text) "999" "111111 100%" "None" "Drop shadow" list: "FRAME", "CORNER RADIUS", "FILL", "STROKE", "EFFECTS"
+e4-seat-booking · marks 8 · words 327
     stepper      box     
-    hall         image   
+    hall         box     
     screen       box     
     screen-label text    
     row-letters  text    
@@ -142,10 +144,12 @@ e4-seat-booking · marks 8 · words 68
     summary      box     
     note *: whole page: pale grey (#f4f4f5, plainly not white) page, Helvetica type, near-black text
     note stepper: buttons: "✓ Showtime", "2 Seats", "3 Snacks", "4 Pay"
-    note screen: solid grey strip only 10px tall, 540px wide, no text (a progress bar)
+    note hall: plain #ffffff panel 820x770px at 40,90, 16px rounded, thin #e4e4e7 border (NOT a picture, no X, nothing of its own inside): the screen, screen label, row letters, seat grid sit on top of it
+    note screen: a thin solid #a1a1aa curved screen arc 540px wide, 10px tall at its middle, its top edge bowed up and its ends tapering (border-radius: 50% / 100% 100% 0 0), no text (NOT a progress bar)
     note screen-label: wide-spaced letters "SCREEN"
+    note seat-grid: a seat/cell map, 12 columns x 11 rows of small separate cells (NOT a picture, NOT an empty panel: every cell is built, e.g. a CSS grid of 12 columns): each cell 40x36px, 10px apart across and 10px apart down, rounded 8px 8px 4px 4px; the grid's top-left at 150,200 (590x496px); columns 6 and 7 left empty for an aisle (keep the space, draw nothing there); cell kinds: 1 = #ffffff fill with a 1px #a1a1aa border (71 cells); 2 = #d4d4d8 fill with a 1px #d4d4d8 border (29 cells); 3 = #16a34a fill with a 1px #16a34a border (2 cells); 4 = #f3e8ff fill with a 1px #a855f7 border (8 cells); rows top to bottom, one digit per cell (its kind; _ = empty aisle gap), each row labelled at its left by its letter: A 11221__11121, B 12211__12211, C 11112__21111, D 22111__11222, E 11133__11111, F 44442__24444, G 12111__11121, H 11122__22111, J 21111__11112, K 11222__22111, L 11111__11111
     note legend: links: Free, Taken, Selected, Recliner +$4
-    note summary: white card "Low Tide" "E4E5" "Seats held for 07:42" list: "2 × Adult" $28.00, "Booking fee" $2.50, "Total" $30.50, green button "Continue · $30.50"
+    note summary: white card; a 90x130px gradient (#1e3a8a to #f97316) poster picture 8px rounded at its top left (25px in, 25px down), the title and lines just right of it; "Low Tide" small filled chips side by side, separate: "E4" (#dcfce7 fill, bold #15803d text), "E5" (#dcfce7 fill, bold #15803d text) "Seats held for 07:42" list: "2 × Adult" $28.00, "Booking fee" $2.50, "Total" $30.50, green button "Continue · $30.50"
 e5-docs-page · marks 4 · words 74
     topbar       text    
     sidebar      box     
