@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 11 is fully built at 82% (mail client 57 to 71%, week calendar 81%). Next I fix the 3D floor read as the page background and the scrambled code lines, then write a harder round 12."
 round: 11
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 82]
-lock: null
+lock: {by: run-1614, until: "2026-10-23T17:44:03Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
