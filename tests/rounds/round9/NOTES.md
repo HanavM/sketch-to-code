@@ -106,3 +106,27 @@ Earlier rounds re-planned: 8 button notes gain their corner words, nothing else 
 Round 9 complete: average **69%** over all 10 (creative 93 94 96 92 74; everyday 40 22 74 44 59). Creative pages are now
 near-exact; everyday app pages are where the planner leaves most unsaid. Next: e2 map and listing cards, e4 checkboxes,
 slider and result cards, e1 title bar and cell styles, e5 big prices, meters and pills, then re-run.
+
+## n131: map pins, listing cards, checkbox filters, result cards, cell grids, plan cards, meters (2026-10-23, ~286k billed)
+
+Planner (free): a drawn map is said shape by shape (ground hex, each street strip and water/park area with size and
+place, then every price pin with its place, the picked one dark); listing cards say the grid, the gradient photo
+block (angle, two hexes), the white badge chip, and each line under the photo (title with the rating at the far right,
+grey line, price with the bold part); a filter panel says every section with real checkbox rows (square size, border,
+filled when ticked, label, grey count at the right) and a range slider (track, filled span, two ringed knobs, end
+labels); stacked or side-by-side cards say every part at card px (solid airline square, times, the route line with
+the text above and below it and stop dots, big price over a filled Select button, a tag over the top edge, outlined
+buttons, a "Current" pill); a spreadsheet grid says columns, cell size, header fill, right-aligned number columns, a
+coloured column, the selected cell's outline and the rule over the total row, then every cell row by row; usage meters
+say label, big value with a small grey "of N", and the track with its filled share. Rounds 1-8 re-planned: no change.
+
+| page | before | n131 | what is still off |
+|---|---|---|---|
+| e1 spreadsheet | 40% | 51% (kept) | cells, header fill, green growth, selected cell and total rule right; title bar still invented ("Sales Tracker", no icon, Share pill), pushing the sheet down; column F tinted |
+| e2 map listings | 22% | 81% (kept) | map, pins, cards, badges right; top bar (logo, search pill, Host link) replaced by an invented heading |
+| e4 flight results | 44% | 75% (kept) | checkboxes, slider, result cards right; search fields built as bare text (target white chips, yellow Search button); sort tab underline lost |
+| e5 billing usage | 59% | 46% (not kept) | plan cards, Current pill and meters now right; but the side nav built as a grey inset card with a heavy shadow, and the invoice table lost its amount, status pills and PDF columns |
+
+Round 9 average now **79%** (creative 93 94 96 92 74; everyday 51 81 74 75 59). Next: top bars said part by part
+(logo icon, title, menu, search pill, Share pill), a search bar of white field chips, a plain table's every column
+with status pills, a side nav's flat fill; re-run e1, e2, e4, e5.

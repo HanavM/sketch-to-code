@@ -1,47 +1,46 @@
 {
   "id": "e2-map-listings",
-  "at": "2026-10-23T08:35:45.483Z",
+  "at": "2026-10-23T09:06:31.393Z",
   "likeness": {
     "version": 3,
-    "overall": 0.21615963979173897,
-    "overallV2": 0.21615963979173897,
-    "overallV1": 0.2105873469438571,
-    "colour": 0.9197757438088924,
-    "structure": 0.6200862700967772,
-    "structureStrict": 0.5572154419587683,
-    "colourAligned": 0.9197757438088924,
-    "structureAligned": 0.6200862700967772,
+    "overall": 0.8079523854927471,
+    "overallV2": 0.8079523854927471,
+    "overallV1": 0.6968172242985634,
+    "colour": 0.986862479546046,
+    "structure": 0.9070400791851745,
+    "structureStrict": 0.7844547797567788,
+    "colourAligned": 0.986862479546046,
+    "structureAligned": 0.9070400791851745,
     "align": {
-      "scale": 1.08,
+      "scale": 1,
       "dx": 0,
-      "dy": 96,
-      "r": 0.20733370515565944
+      "dy": 0,
+      "r": 0.8754068002729763
     },
-    "layout": 0.4389695531966756
+    "layout": 0.7887508009924558
   },
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 1,
     "kept": [
       "gradient",
+      "overlap",
       "soft-shadow"
     ],
-    "missing": [
-      "overlap"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 25714,
-    "output": 16273,
-    "cacheRead": 163780
+    "input": 45435,
+    "output": 22185,
+    "cacheRead": 225044
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 31902,
-      "output": 12314,
-      "cacheRead": 154419,
+      "billed": 40863,
+      "output": 11321,
+      "cacheRead": 106562,
       "toolCalls": 6,
       "tools": [
         "Glob",
@@ -51,10 +50,24 @@
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 143760
+      "ms": 128086
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 19983,
+      "output": 8196,
+      "cacheRead": 115398,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 99936
     }
   ],
-  "reading": "The sketch shows a search-results style page: a wavy heading line and a shorter wavy subheading below it, a row of five equal rounded filter buttons (Price selected, plus Type of place, Rooms, Instant book, More filters), a large left box holding a list of listing cards (Guest favourite, Chiado studio 4.81, New, Graça terrace 4.77), and a large right panel meant to be a pale blue-grey map with small + / − zoom controls in its top-right corner.",
+  "reading": "The sketch lays out a listings page: a heading and subheading text placeholder at top, a row of 5 filter buttons (Price active), a 2x2 grid of 4 listing cards with gradient photo blocks and details, and alongside it a drawn street map with price pin markers and a small zoom +/- control, all per the typed notes which take precedence over the raw ink shapes.",
   "actions": [
     {
       "kind": "add",
@@ -78,7 +91,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Large page heading placeholder spanning the full width at the top; render as real heading copy suitable for a stays/listings page (e.g. 'Homes in Lisbon')."
+      "instruction": "Wavy line spanning the full width at the top is a text placeholder for a bold page heading introducing the listings (e.g. 'Explore homes in Lisbon')."
     },
     {
       "kind": "add",
@@ -102,7 +115,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Shorter subheading/body text line directly under the main heading; render as real supporting copy (e.g. a short description of the listings below)."
+      "instruction": "Shorter wavy line below the heading is a text placeholder for a subheading/intro sentence under the main title."
     },
     {
       "kind": "add",
@@ -117,7 +130,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Row of 5 equal rounded outlined filter buttons, each about 70x36px, laid out side by side under the headings. Labels left to right: 'Price', 'Type of place', 'R"
+      "instruction": "Row of 5 equal 70x36px rounded outlined filter buttons: 'Price', 'Type of place', 'Rooms', 'Instant book', 'More filters'. 'Price' is the picked/active one with"
     },
     {
       "kind": "add",
@@ -132,7 +145,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Large left-hand container below the filter buttons holding a vertical list of listing entries. Include items: 'Guest favourite', 'Chiado studio ★ 4.81', 'New', "
+      "instruction": "4 listing cards arranged in a 2-column grid (600px wide, 24px column/row gap), each card a 288x190px photo block (14px rounded, diagonal gradient fill, no actua"
     },
     {
       "kind": "design",
@@ -147,7 +160,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Large right-hand panel next to the listings list, same height, styled as a map placeholder filled with a pale blue-grey background color."
+      "instruction": "A drawn street map (620x828px) with #e8eef0 ground fill, overflow hidden, not a real map image/iframe. Inside it, absolutely positioned flat shapes represent ro"
     },
     {
       "kind": "add",
@@ -163,7 +176,7 @@
         "s5",
         "s6"
       ],
-      "instruction": "Small zoom control widget in the top-right corner of the map panel with a '+' button above a '−' button, stacked vertically."
+      "instruction": "Small zoom control overlay on the map with '+' and '−' buttons stacked vertically in the corner."
     }
   ],
   "rejected": []

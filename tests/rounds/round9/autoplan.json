@@ -387,7 +387,7 @@
    ],
    [
     "cell-grid",
-    "\"North\" \"12,400\" \"13,950\" \"15,200\" \"16,780\" \"58,330\" \"+35%\" \"Lena\" \"South\" \"9,800\" \"9,450\" \"10,120\" \"11,300\" \"40,670\" \"+15%\" \"Omar\" \"East\" \"14,200\" \"15,800\" \"14,900\" \"17,600\" \"62,500\" \"+24%\" \"Kai\" \"West\" \"8,300\" \"8,900\" \"9,700\" \"10,450\" \"37,350\" \"+26%\" \"Ruth\" \"Central\" \"11,050\" \"11,600\" \"12,300\" \"12,900\" \"47,850\" \"+17%\" \"Ivo\" \"Online\" \"6,400\" \"8,200\" \"10,900\" \"14,300\" \"39,800\" \"+123%\" \"Mia\" \"Partners\" \"3,900\" \"4,100\" \"4,350\" \"4,800\" \"17,150\" \"+23%\" \"Sam\" \"Total\" \"66,050\" \"72,000\" \"77,470\" \"88,130\" \"303,650\" \"+33%\" list: \"Region\", \"Q1\", \"Q2\", \"Q3\", \"Q4\", \"Total\", \"Growth\", \"Owner\""
+    "a spreadsheet grid at 46,168: 18 rows x 8 columns of cells, every cell 148x36px with a 1px #e3e3e3 right and bottom line (a real cell grid, NOT a paragraph, NOT a list), 10px side padding, 13px text; the first row is the header: bold, every header cell filled #e6f4ea; columns 2, 3, 4, 5, 6, 7 right-aligned (numbers); every value in the \"Growth\" column (header aside) is #188038 text, except \"+33%\" in the plain ink; the cell \"62,500\" (row 4, column 6) is the selected cell: a 2px #0b57d0 outline drawn inside it; a 2px #202124 rule across the top of row 11; cells row by row (| between cells, / between rows, · an empty cell): Region | Q1 | Q2 | Q3 | Q4 | Total | Growth | Owner / North | 12,400 | 13,950 | 15,200 | 16,780 | 58,330 | +35% | Lena / South | 9,800 | 9,450 | 10,120 | 11,300 | 40,670 | +15% | Omar / East | 14,200 | 15,800 | 14,900 | 17,600 | 62,500 | +24% | Kai / West | 8,300 | 8,900 | 9,700 | 10,450 | 37,350 | +26% | Ruth / Central | 11,050 | 11,600 | 12,300 | 12,900 | 47,850 | +17% | Ivo / Online | 6,400 | 8,200 | 10,900 | 14,300 | 39,800 | +123% | Mia / Partners | 3,900 | 4,100 | 4,350 | 4,800 | 17,150 | +23% | Sam / · | · | · | · | · | · | · | · / Total | 66,050 | 72,000 | 77,470 | 88,130 | 303,650 | +33% | · / then 8 empty rows of blank cells to the bottom"
    ],
    [
     "sheet-tabs",
@@ -433,11 +433,11 @@
    ],
    [
     "listing-grid",
-    "list: \"Guest favourite\", \"Chiado studio★ 4.81\", \"New\", \"Graça terrace★ 4.77\""
+    "4 listing cards in a 2-column grid, 600px wide at 32,144, 24px column gap, 24px row gap (cards, NOT a text list); each card is a 288px-wide 190px-tall photo block 14px rounded filled with a diagonal gradient (no image), some with a bold 12px badge in a #ffffff 6px-rounded chip 12px in from its top-left corner, then under the photo with no box:  10px under the photo: 15px bold #222222 \"Alfama loft\" at the left and \"★ 4.92\" at the far right; top 22px below the line above: 14px #717171 \"River view · 2 beds\"; top 22px below the line above: 14px #222222 \"€142 night\" with \"€142\" bold; lines are 15px bold #222222 row with a right part, 14px #717171, 14px #222222; card 1: photo a 135deg gradient #fca5a5 to #fde68a, badge \"Guest favourite\"; \"Alfama loft\" … \"★ 4.92\" / \"River view · 2 beds\" / \"€142 night\"; card 2: photo a 135deg gradient #93c5fd to #c4b5fd, no badge; \"Chiado studio\" … \"★ 4.81\" / \"Balcony · 1 bed\" / \"€98 night\"; card 3: photo a 135deg gradient #86efac to #67e8f9, badge \"New\"; \"Belém house\" … \"★ 5.0\" / \"Garden · 3 beds\" / \"€210 night\"; card 4: photo a 135deg gradient #fdba74 to #f9a8d4, no badge; \"Graça terrace\" … \"★ 4.77\" / \"Rooftop · 2 beds\" / \"€165 night\""
    ],
    [
     "map",
-    "pale blue-grey"
+    "a drawn street map, 620x828px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 7 flat shapes: #bfdbfe horizontal area 620x200px at 0,640; #ccebd2 area 180x140px at 380,120 (30px rounded); #ffffff horizontal strip 620x14px at 0,200; #ffffff horizontal strip 620x10px at 0,430; #ffffff vertical strip 12x640px at 150,0; #ffffff vertical strip 16x640px at 330,0; #ffffff strip 10x380px at 500,260; then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 30px tall, soft drop shadow): \"€98\" at 90,150, \"€142\" at 247,329 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€165\" at 420,290, \"€210\" at 200,540, \"€121\" at 460,500"
    ],
    [
     "zoom",
@@ -513,7 +513,7 @@
    ],
    [
     "filters",
-    "white panel 280x750px: an inspector, 4 sections top to bottom, each a small bold caps heading then its fields; every [field] is a filled #0369a1 box 4px rounded, about 28px tall, its value in small dark text inside at the left (NOT bare text, NOT outlined inputs): \"Stops\": [\"\"] full width, then [\"\"] full width; \"Departure time\": [\"\"] [\"\"] side by side, equal widths; \"Airlines\": [\"\"] full width, then [\"\"] full width; \"Bags\": [\"\"] full width"
+    "a #ffffff filter panel 280x750px at 40,120, 12px rounded, 20px padding (NOT an inspector, NOT filled field boxes, NOT text inputs); 4 sections top to bottom. Every [ ] is a real checkbox row: a 18x18px 4px-rounded empty square with a 1px #94a3b8 border, [x] the same square filled solid #0369a1 (no tick needed), then the label 10px right of it in regular dark text, any … value pushed to the far right in grey, rows about 28px tall: \"Stops\" (bold 15px heading, 20px from the panel top): [x] \"Direct\" … \"£812\", [x] \"1 stop\" … \"£598\", [ ] \"2+ stops\" … \"£541\"; \"Departure time\" (bold 15px heading, 149px from the panel top): a range slider: a 240px-wide 4px #e2e8f0 rounded track, the span from 40px to 170px filled #0369a1, two 20px round knobs (#ffffff with a 2px #0369a1 ring) centred at 40px and 170px along it, small 13px #64748b \"06:00\" at the left and \"18:00\" at the right, under the slider; \"Airlines\" (bold 15px heading, 239px from the panel top): [x] \"Aurora Air\", [x] \"Kumo Airways\", [ ] \"Northline\", [ ] \"Sakura Jet\"; \"Bags\" (bold 15px heading, 396px from the panel top): [x] \"Cabin bag included\", [ ] \"Checked bag included\""
    ],
    [
     "sort-tabs",
@@ -521,7 +521,7 @@
    ],
    [
     "results",
-    "list: \"Best value\", \"11:30LHR13h\"… £812, \"17:05LHR17h 10m1\"… £598, \"21:40LHR22h 05m2\"… £541"
+    "4 separate result cards stacked down the column, each 900x140px, #ffffff, 12px rounded, 20px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page y 210: bold 12px #ffffff \"Best value\" on a #16a34a 6px-rounded 80x20px fill at 24,-10; a 44x44px 10px-rounded solid square #7c3aed at 24,48; bold 22px #0f172a \"09:15\" at 92,50; 13px #64748b \"LHR\" at 92,76; 12px #64748b \"15h 40m / 1 stop HEL\" at 162,55 (the route line: a 2px #cbd5e1 line 299px wide at y 75, \"15h 40m\" centred just above it and \"1 stop HEL\" centred just below it); a 10x10px round dot #f59e0b at 307,70; bold 22px #0f172a \"10:55\" at 476,50; 13px #64748b \"HND +1\" at 476,76; bold 24px #0f172a \"£612\" at 791,34; bold 14px #ffffff \"Select\" on a #0369a1 8px-rounded 85x36px fill at 791,70. card 2 at page y 370: a 44x44px 10px-rounded solid square #dc2626 at 24,48; bold 22px #0f172a \"11:30\" at 92,50; 13px #64748b \"LHR\" at 92,76; 12px #64748b \"13h 50m / Direct\" at 161,55 (the route line: a 2px #cbd5e1 line 301px wide at y 75, \"13h 50m\" centred just above it and \"Direct\" centred just below it); bold 22px #0f172a \"08:20\" at 476,50; 13px #64748b \"HND +1\" at 476,76; bold 24px #0f172a \"£812\" at 791,34; bold 14px #ffffff \"Select\" on a #0369a1 8px-rounded 85x36px fill at 791,70. card 3 at page y 530: a 44x44px 10px-rounded solid square #0891b2 at 24,48; bold 22px #0f172a \"17:05\" at 92,50; 13px #64748b \"LHR\" at 92,76; 12px #64748b \"17h 10m / 1 stop DXB\" at 162,55 (the route line: a 2px #cbd5e1 line 299px wide at y 75, \"17h 10m\" centred just above it and \"1 stop DXB\" centred just below it); a 10x10px round dot #f59e0b at 307,70; bold 22px #0f172a \"19:15\" at 476,50; 13px #64748b \"HND +1\" at 476,76; bold 24px #0f172a \"£598\" at 791,34; bold 14px #ffffff \"Select\" on a #0369a1 8px-rounded 85x36px fill at 791,70. card 4 at page y 690: a 44x44px 10px-rounded solid square #ea580c at 24,48; bold 22px #0f172a \"21:40\" at 92,50; 13px #64748b \"LHR\" at 92,76; 12px #64748b \"22h 05m / 2 stops\" at 162,55 (the route line: a 2px #cbd5e1 line 299px wide at y 75, \"22h 05m\" centred just above it and \"2 stops\" centred just below it); a 10x10px round dot #f59e0b at 287,70; a 10x10px round dot #f59e0b at 327,70; bold 22px #0f172a \"04:45\" at 476,50; 13px #64748b \"HND +2\" at 476,76; bold 24px #0f172a \"£541\" at 791,34; bold 14px #ffffff \"Select\" on a #0369a1 8px-rounded 85x36px fill at 791,70"
    ]
   ]
  },
@@ -549,11 +549,7 @@
    ],
    [
     "plan-cards",
-    "text",
-    {
-     "fontPx": 14,
-     "lines": 7
-    }
+    "box"
    ],
    [
     "usage-meters",
@@ -579,11 +575,11 @@
    ],
    [
     "plan-cards",
-    "3 columns side by side, 25px apart, each a small bold 16px head over 14px text: \"Starter\" over \"$0 /mo 3 projects 1 GB storage Downgrade\"; \"Current\" over \"Team $49 /mo Unlimited projects 100 GB storage Manage plan\"; \"Enterprise\" over \"Custom SSO & audit log Dedicated support Contact sales\""
+    "3 separate cards side by side, each 310x230px, no fill, 1px #e5e7eb border, 14px rounded, 25px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page x 260: bold 16px #111827 \"Starter\" at 23,23; bold 34px #111827 \"$0\" at 23,49; 14px #6b7280 \"/mo\" at 61,67; 14px #4b5563 \"3 projects\" at 23,100; 14px #4b5563 \"1 GB storage\" at 23,125; bold 14px #111827 \"Downgrade\" in a 266x38px 8px-rounded box with a 1px #d1d5db border at 23,171. card 2 at page x 595 (#fafaff, 2px #4338ca border, unlike the others): bold 12px #4338ca \"Current\" on a #e0e7ff 999px-rounded 63x20px fill at 227,20; bold 16px #111827 \"Team\" at 24,24; bold 34px #111827 \"$49\" at 24,50; 14px #6b7280 \"/mo\" at 81,68; 14px #4b5563 \"Unlimited projects\" at 24,101; 14px #4b5563 \"100 GB storage\" at 24,126; bold 14px #ffffff \"Manage plan\" on a #4338ca 8px-rounded 266x38px fill at 24,170. card 3 at page x 930: bold 16px #111827 \"Enterprise\" at 23,23; bold 34px #111827 \"Custom\" at 23,49; 14px #4b5563 \"SSO & audit log\" at 23,100; 14px #4b5563 \"Dedicated support\" at 23,125; bold 14px #111827 \"Contact sales\" in a 266x38px 8px-rounded box with a 1px #d1d5db border at 23,171"
    ],
    [
     "usage-meters",
-    "list: \"Seats\" 8 of 10, \"Storage\", \"API calls\" 941k of 1M"
+    "usage meters in a 980x150px card (1px #e5e7eb border, 14px rounded, 22px padding), 3 columns 36px apart (each a real meter bar, NOT a thin line): 14px #6b7280 \"Seats\", then bold 20px \"8\" with a small 13px #6b7280 \"of 10\" after it, then 12px below a 287px-wide 8px #e5e7eb rounded track filled 80% from the left in #4338ca; 14px #6b7280 \"Storage\", then bold 20px \"62.4 GB\" with a small 13px #6b7280 \"of 100 GB\" after it, then 12px below a 287px-wide 8px #e5e7eb rounded track filled 62% from the left in #4338ca; 14px #6b7280 \"API calls\", then bold 20px \"941k\" with a small 13px #6b7280 \"of 1M\" after it, then 12px below a 287px-wide 8px #e5e7eb rounded track filled 94% from the left in #dc2626"
    ],
    [
     "invoice-table",

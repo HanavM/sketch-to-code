@@ -631,6 +631,100 @@ export function factsInPage() {
         return { box: at(el), blobs: blobs.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), blur: Math.round(parseFloat((getComputedStyle(k).filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100) })),
           cards: cards.map((k) => { const ks2 = getComputedStyle(k); return { ...at(k), fill: rgba(ks2.backgroundColor), border: rgba(ks2.borderTopColor), bw: parseFloat(ks2.borderTopWidth) || 0, radius: Math.round(parseFloat(ks2.borderTopLeftRadius) || 0), blur: Math.round(parseFloat(((ks2.backdropFilter || ks2.webkitBackdropFilter).match(/blur\(([\d.]+)px/) || [])[1]) || 0), shadow: ks2.boxShadow !== 'none', pad: Math.round(parseFloat(ks2.paddingLeft) || 0), parts: [...k.children].map(part).filter(Boolean) } }) }
       })(),
+      // n131: a drawn map: a pale panel holding absolutely placed strips (streets), areas (water, park) and short-text
+      // pills (price pins), one dark (round 9 e2: said only 'pale blue-grey', built a blank grey panel)
+      mapPanel: (() => {
+        if (el.querySelector('[data-r]') && ![...el.querySelectorAll('[data-r]')].every((k) => k.parentElement === el && (k.innerText || '').trim().length <= 4)) return null
+        const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute' && !k.dataset?.r)
+        const pins = abs.filter((k) => { const t = (k.innerText || '').trim(); const c = getComputedStyle(k); return t && t.length <= 8 && parseFloat(c.borderTopLeftRadius) >= k.getBoundingClientRect().height / 2 - 1 })
+        const areas = abs.filter((k) => !(k.innerText || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05)
+        if (pins.length < 3 || areas.length < 3 || abs.length < 8) return null
+        const o = el.getBoundingClientRect()
+        const at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), w: Math.round(b.width), h: Math.round(b.height) } }
+        return { bg: rgba(cs.backgroundColor), w: Math.round(o.width), h: Math.round(o.height),
+          areas: areas.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), r: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0) })),
+          pins: pins.map((k) => { const c = getComputedStyle(k); return { ...at(k), t: (k.innerText || '').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), bold: Number(c.fontWeight) >= 600, shadow: c.boxShadow !== 'none', scale: /matrix\(([\d.]+)/.test(c.transform) ? Math.round(parseFloat(c.transform.match(/matrix\(([\d.]+)/)[1]) * 100) / 100 : 1 } }) }
+      })(),
+      // n131: a grid of listing cards, each a gradient photo (with an optional white badge) over a title row, a grey line
+      // and a price line (round 9 e2: said only 'list', built a text list with no photos)
+      photoCards: (() => {
+        if (kids.length < 2 || el.querySelector('[data-r]')) return null
+        const ph = (k) => { const p = k.firstElementChild; if (!p) return null; const c = getComputedStyle(p); const b = p.getBoundingClientRect(); return b.height >= 80 && (/gradient/.test(c.backgroundImage) || rgba(c.backgroundColor)?.a > 0.05) && b.width >= k.getBoundingClientRect().width - 2 ? p : null }
+        if (!kids.every(ph) || kids.some((k) => k.children.length < 3)) return null
+        const o = el.getBoundingClientRect(), g = getComputedStyle(el)
+        const cols = g.display === 'grid' ? g.gridTemplateColumns.split(' ').length : 1
+        const line = (k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(), sub = [...k.children].filter((x) => (x.innerText || '').trim()); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), split: c.display === 'flex' && c.justifyContent === 'space-between' && sub.length ? (sub[sub.length - 1].innerText || '').trim() : null, boldPart: sub.find((x) => Number(getComputedStyle(x).fontWeight) >= 600 && Number(c.fontWeight) < 600)?.innerText?.trim() ?? null, gap: null, y: Math.round(b.top) } }
+        return { cols, gap: Math.round(parseFloat(g.columnGap) || 0), rowGap: Math.round(parseFloat(g.rowGap) || 0), x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width),
+          cards: kids.map((k) => { const p = ph(k), pc = getComputedStyle(p), pb = p.getBoundingClientRect(), b = k.getBoundingClientRect(); const badge = p.firstElementChild; const bc = badge && getComputedStyle(badge)
+            return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), photoH: Math.round(pb.height), radius: Math.round(parseFloat(pc.borderTopLeftRadius) || 0), grad: pc.backgroundImage !== 'none' ? pc.backgroundImage : null, fill: rgba(pc.backgroundColor),
+              badge: badge && (badge.innerText || '').trim() ? { t: (badge.innerText || '').trim(), fill: rgba(bc.backgroundColor), px: Math.round(parseFloat(bc.fontSize)), bold: Number(bc.fontWeight) >= 600, r: Math.round(parseFloat(bc.borderTopLeftRadius) || 0), x: Math.round(badge.getBoundingClientRect().left - pb.left), y: Math.round(badge.getBoundingClientRect().top - pb.top) } : null,
+              lines: [...k.children].slice(1).map(line).map((l, i, a) => ({ ...l, gap: l.y - (i ? a[i - 1].y : pb.bottom) })) } }) }
+      })(),
+      // n131: a filter panel of headed sections holding checkbox rows (a small bordered square, filled when ticked, a label,
+      // an optional grey count at the right) and range sliders (track, filled span, two round knobs) (round 9 e4: read as
+      // an inspector of filled field boxes; checkboxes and slider lost)
+      checkPanel: (() => {
+        if (el.querySelector('[data-r]')) return null
+        const box = (k) => { const b = k.getBoundingClientRect(), c = getComputedStyle(k); return b.width >= 12 && b.width <= 24 && Math.abs(b.width - b.height) <= 2 && parseFloat(c.borderTopWidth) >= 1 && parseFloat(c.borderTopLeftRadius) < b.width / 2 - 1 && !(k.innerText || '').trim() }
+        const isCk = (k) => k.firstElementChild && box(k.firstElementChild) && (k.innerText || '').trim()
+        const isRange = (k) => { const ks = [...k.querySelectorAll('*')]; const knobs = ks.filter((x) => { const b = x.getBoundingClientRect(); return b.width >= 12 && b.width <= 30 && parseFloat(getComputedStyle(x).borderTopLeftRadius) >= b.width / 2 - 1 }); return !(k.innerText || '').trim() && knobs.length === 2 && ks.length >= 3 ? knobs : null }
+        if (kids.filter(isCk).length < 3) return null
+        const o = el.getBoundingClientRect(), r = (k) => k.getBoundingClientRect()
+        const secs = []
+        for (const k of kids) {
+          const c = getComputedStyle(k), t = (k.innerText || '').replace(/\s+/g, ' ').trim()
+          if (/^h\d$/i.test(k.tagName) || (t && !k.children.length && Number(c.fontWeight) >= 600)) { secs.push({ head: t, px: Math.round(parseFloat(c.fontSize)), y: Math.round(r(k).top - o.top), items: [] }); continue }
+          const s = secs[secs.length - 1]; if (!s) continue
+          if (isCk(k)) { const bx = k.firstElementChild, bc = getComputedStyle(bx); const right = [...k.children].find((x, i) => i > 0 && getComputedStyle(x).marginLeft === 'auto' || (i > 0 && r(x).right >= r(k).right - 2 && r(x).left > r(k).left + r(k).width / 2)); const lab = [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).join(' ').trim() || (k.innerText || '').trim()
+            s.items.push({ ck: true, on: rgba(bc.backgroundColor)?.a > 0.5, px: Math.round(r(bx).width), rad: Math.round(parseFloat(bc.borderTopLeftRadius) || 0), border: rgba(bc.borderTopColor), bw: parseFloat(bc.borderTopWidth), fill: rgba(bc.backgroundColor), label: lab, right: right ? { t: (right.innerText || '').trim(), ink: rgba(getComputedStyle(right).color) } : null, h: Math.round(r(k).height) }); continue }
+          const knobs = isRange(k)
+          if (knobs) { const ks = [...k.querySelectorAll('*')].filter((x) => !knobs.includes(x)); const tr = ks.sort((a, b) => r(b).width - r(a).width)[0], fl = ks.find((x) => x !== tr && rgba(getComputedStyle(x).backgroundColor)?.a > 0.05)
+            s.items.push({ range: true, x: Math.round(r(tr).left - o.left), w: Math.round(r(tr).width), th: Math.round(r(tr).height), track: rgba(getComputedStyle(tr).backgroundColor), fill: fl ? rgba(getComputedStyle(fl).backgroundColor) : null, from: fl ? Math.round(r(fl).left - r(tr).left) : null, to: fl ? Math.round(r(fl).right - r(tr).left) : null, knobs: knobs.map((x) => Math.round(r(x).left + r(x).width / 2 - r(tr).left)), kpx: Math.round(r(knobs[0]).width), kfill: rgba(getComputedStyle(knobs[0]).backgroundColor), kborder: rgba(getComputedStyle(knobs[0]).borderTopColor), kbw: parseFloat(getComputedStyle(knobs[0]).borderTopWidth) || 0 }); continue }
+          if (t && k.children.length >= 2) s.items.push({ ends: [...k.children].map((x) => (x.innerText || '').trim()), px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), spread: c.justifyContent === 'space-between' })
+        }
+        return { box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) }, fill: rgba(cs.backgroundColor), radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(cs.paddingLeft) || 0), secs }
+      })(),
+      // n131: stacked result cards (flight rows): each card's parts left to right: a solid square, time blocks with a small
+      // line under, a route line with stop dots, a big price over a filled button, a tag over the top edge (round 9 e4:
+      // the whole list one card of run-together text lines)
+      resultCards: (() => {
+        if (kids.length < 3 || el.querySelector('[data-r]')) return null
+        const o = el.getBoundingClientRect()
+        const cardish = (k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return (rgba(c.backgroundColor)?.a > 0.5 || parseFloat(c.borderTopWidth) >= 1) && b.height >= 60 && (b.width >= o.width * 0.8 || (b.width >= o.width * 0.25 && c.position === 'absolute')) && k.querySelectorAll('*').length >= 6 }
+        if (!kids.every(cardish)) return null
+        const leafs = (k) => [...k.querySelectorAll('*')].filter((x) => { const b = x.getBoundingClientRect(); if (b.width < 2) return false; const own = [...x.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); const solid = !x.children.length && rgba(getComputedStyle(x).backgroundColor)?.a > 0.5; return own || solid })
+        const desc = (k) => { const kb = k.getBoundingClientRect()
+          const parts = leafs(k).map((x) => { const c = getComputedStyle(x), b = x.getBoundingClientRect(); const own = [...x.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(' / ')
+            const bf = getComputedStyle(x, '::before'); const rule = bf.content && bf.content !== 'none' && parseFloat(bf.borderTopWidth) >= 1 ? { px: parseFloat(bf.borderTopWidth), c: rgba(bf.borderTopColor), top: Math.round(parseFloat(bf.top) || 0) } : null
+            return { t: own || null, x: Math.round(b.left - kb.left), y: Math.round(b.top - kb.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, outline: parseFloat(c.borderTopWidth) >= 1 && own ? rgba(c.borderTopColor) : null, round: parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), rule } })
+          const kc = getComputedStyle(k); return { y: Math.round(kb.top), x: Math.round(kb.left), w: Math.round(kb.width), h: Math.round(kb.height), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: parseFloat(kc.borderTopWidth), c: rgba(kc.borderTopColor) } : null, fill: rgba(getComputedStyle(k).backgroundColor), radius: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0), parts } }
+        return { cards: kids.map(desc) }
+      })(),
+      // n131: usage meters: each a label, a big value with a small grey 'of N', and a thin track with a filled share
+      // (round 9 e5: said as 'list: Seats 8 of 10', built as thin lines)
+      meters: (() => {
+        if (kids.length < 2 || el.querySelector('[data-r]')) return null
+        const m = kids.map((k) => { const tr = [...k.querySelectorAll('*')].find((x) => { const b = x.getBoundingClientRect(); return !(x.innerText || '').trim() && b.height <= 14 && b.height >= 3 && x.children.length === 1 && rgba(getComputedStyle(x).backgroundColor)?.a > 0.05 }); if (!tr) return null
+          const fl = tr.firstElementChild, tb = tr.getBoundingClientRect(); const texts = [...k.children].filter((x) => x !== tr && (x.innerText || '').trim())
+          return { lines: texts.map((x) => { const c = getComputedStyle(x), sm = x.querySelector('small'); return { t: (x.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), small: sm ? { t: (sm.innerText || '').trim(), px: Math.round(parseFloat(getComputedStyle(sm).fontSize)), ink: rgba(getComputedStyle(sm).color) } : null } }), w: Math.round(tb.width), h: Math.round(tb.height), track: rgba(getComputedStyle(tr).backgroundColor), fill: rgba(getComputedStyle(fl).backgroundColor), pct: Math.round(fl.getBoundingClientRect().width / tb.width * 100), gap: Math.round(tb.top - texts[texts.length - 1].getBoundingClientRect().bottom) } })
+        if (m.some((x) => !x)) return null
+        const g = getComputedStyle(el), o = el.getBoundingClientRect()
+        return { m, cols: g.display === 'grid' ? g.gridTemplateColumns.split(' ').length : m.length, gap: Math.round(parseFloat(g.columnGap) || 0), box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) }, border: parseFloat(cs.borderTopWidth) >= 1 ? rgba(cs.borderTopColor) : null, radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(cs.paddingLeft) || 0) }
+      })(),
+      // n131: a spreadsheet cell grid: columns, row height, header row fill, right-aligned numbers, coloured cells, a selected
+      // cell outline, a total row rule (round 9 e1: one long run of words; header fill, growth colour, selection, rule lost)
+      cellGrid: (() => {
+        const g = getComputedStyle(el)
+        if (g.display !== 'grid' || kids.length < 24 || el.querySelector('[data-r]')) return null
+        const ncol = g.gridTemplateColumns.split(' ').length
+        if (ncol < 4 || kids.length % ncol) return null
+        const o = el.getBoundingClientRect(), base = getComputedStyle(kids[ncol])
+        const cell = (k) => { const c = getComputedStyle(k); return { t: (k.innerText || '').trim(), bold: Number(c.fontWeight) >= 600, right: c.textAlign === 'right', ink: rgba(c.color), fill: rgba(c.backgroundColor), outline: parseFloat(c.outlineWidth) >= 1 && c.outlineStyle !== 'none' ? { px: parseFloat(c.outlineWidth), c: rgba(c.outlineColor) } : null, top: parseFloat(c.borderTopWidth) >= 2 ? { px: parseFloat(c.borderTopWidth), c: rgba(c.borderTopColor) } : null } }
+        const cells = kids.map(cell), rows = []
+        for (let i = 0; i < cells.length; i += ncol) rows.push(cells.slice(i, i + ncol))
+        const b0 = kids[0].getBoundingClientRect()
+        return { x: Math.round(o.left), y: Math.round(o.top), ncol, colW: Math.round(b0.width), rowH: Math.round(b0.height), line: rgba(base.borderRightColor), lineW: parseFloat(base.borderRightWidth) || 0, pad: Math.round(parseFloat(base.paddingLeft) || 0), ink: rgba(base.color), rows }
+      })(),
       // one giant word cut into stacked horizontal bands, each band clipping a different slice of the word at its own
       // x offset (round 9 c1: built as three whole stacked words)
       slicedWord: (() => {
@@ -1954,6 +2048,64 @@ function decideOne(f, page, marked, said) {
     const cards = G.cards.map((c, i) => `card ${i + 1} ${c.w}x${c.h}px at ${c.x},${c.y}: ${c.parts.map(part).join(', then ')}`).join('; ')
     const c0 = G.cards[0]
     return { kind: 'box', note: `a layered glass stack, ${G.box.w}x${G.box.h}px at ${G.box.x},${G.box.y} (all absolutely placed, page px; NOT a list, NOT empty): ${G.blobs.length ? `first ${G.blobs.length} soft colour blobs behind everything, each blurred hard (filter: blur(${G.blobs[0].blur}px)): ${blobs}; then ` : ''}${G.cards.length} overlapping frosted glass cards over them, each ${c0.radius}px rounded, see-through fill ${a(c0.fill)}, ${c0.bw}px ${a(c0.border)} border, backdrop-filter: blur(${c0.blur}px)${c0.shadow ? ', a big soft dark drop shadow' : ''}, ${c0.pad}px padding, later cards painted over earlier ones: ${cards}` }
+  }
+  // n131: a spreadsheet grid cell by cell
+  const rightColsOf = (G) => G.rows[0].map((_, j) => G.rows.slice(1).every((r) => r[j].right || !r[j].t) && G.rows.slice(1).some((r) => r[j].t)).map((v, j) => (v ? j : -1)).filter((j) => j >= 0)
+  if (f.cellGrid && f.cellGrid.rows[0].every((c) => c.bold && c.t) && rightColsOf(f.cellGrid).length >= 2) {
+    const G = f.cellGrid, H = G.rows[0][0]
+    const plain = (c) => dist(c.ink, G.ink) < 30
+    const rightCols = rightColsOf(G)
+    const hdr = G.rows[0].every((c) => c.bold) ? `the first row is the header: bold${H.fill?.a > 0.05 ? `, every header cell filled ${hexOf(H.fill)}` : ''}` : ''
+    const special = []
+    const inkCols = G.rows[0].map((_, j) => { const cs = G.rows.slice(1).filter((r) => !r.some((c) => c.top)).map((r) => r[j]).filter((c) => c.t); const col = cs.filter((c) => !plain(c)); const h = col[0] && hexOf(col[0].ink); return col.length >= 3 && col.every((c) => hexOf(c.ink) === h) && col.length >= cs.length - 2 ? { h, but: cs.filter((c) => plain(c)).map((c) => c.t) } : null })
+    inkCols.forEach((k, j) => { if (k) special.push(`every value in the ${quote(G.rows[0][j].t, 12)} column (header aside) is ${k.h} text${k.but.length ? `, except ${k.but.map((t) => quote(t, 10)).join(', ')} in the plain ink` : ''}`) })
+    G.rows.forEach((r, i) => r.forEach((c, j) => { if (i && !plain(c) && c.t && !(inkCols[j] && hexOf(c.ink) === inkCols[j].h)) special.push(`${quote(c.t, 10)} in ${hexOf(c.ink)}`); if (c.outline) special.push(`the cell ${quote(c.t, 10)} (row ${i + 1}, column ${j + 1}) is the selected cell: a ${c.outline.px}px ${hexOf(c.outline.c)} outline drawn inside it`) }))
+    const tot = G.rows.findIndex((r) => r[0].top)
+    let last = G.rows.length; while (last > 1 && G.rows[last - 1].every((c) => !c.t)) last--
+    const rows = G.rows.slice(0, last).map((r) => r.map((c) => c.t || '·').join(' | ')).join(' / ') + (last < G.rows.length ? ` / then ${G.rows.length - last} empty rows of blank cells to the bottom` : '')
+    return { kind: 'box', note: `a spreadsheet grid at ${G.x},${G.y}: ${G.rows.length} rows x ${G.ncol} columns of cells, every cell ${G.colW}x${G.rowH}px with a ${G.lineW}px ${hexOf(G.line)} right and bottom line (a real cell grid, NOT a paragraph, NOT a list), ${G.pad}px side padding, 13px text; ${hdr}; columns ${rightCols.map((j) => j + 1).join(', ')} right-aligned (numbers)${special.length ? `; ${uniq(special).join('; ')}` : ''}${tot > 0 ? `; a ${G.rows[tot][0].top.px}px ${hexOf(G.rows[tot][0].top.c)} rule across the top of row ${tot + 1}${G.rows[tot].some((c) => c.t) ? ` (the bold total row)` : ''}` : ''}; cells row by row (| between cells, / between rows, · an empty cell): ${rows}` }
+  }
+  // n131: a drawn street map: every area and strip, then every price pin, each at its place in the panel
+  if (f.mapPanel) {
+    const M = f.mapPanel
+    const area = (a) => `${hexOf(a.c)} ${a.w >= M.w - 2 || a.h >= M.h - 200 ? (a.w > a.h ? 'horizontal' : 'vertical') + ' ' : ''}${Math.min(a.w, a.h) <= 20 ? 'strip' : 'area'} ${a.w}x${a.h}px at ${a.x},${a.y}${a.r ? ` (${a.r}px rounded)` : ''}`
+    const pin = (p) => `${quote(p.t, 8)} at ${p.x},${p.y}${p.fill && dist(p.fill, { r: 255, g: 255, b: 255 }) > 60 ? ` (the picked one: ${hexOf(p.fill)} fill, ${hexOf(p.ink)} text${p.scale > 1 ? `, scaled ${p.scale}` : ''})` : ''}`
+    const p0 = M.pins.find((p) => !(p.fill && dist(p.fill, { r: 255, g: 255, b: 255 }) > 60)) ?? M.pins[0]
+    return { kind: 'box', note: `a drawn street map, ${M.w}x${M.h}px, ${hexOf(M.bg)} ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first ${M.areas.length} flat shapes: ${M.areas.map(area).join('; ')}; then ${M.pins.length} price pins over them, each a ${p0.bold ? 'bold ' : ''}text pill (${hexOf(p0.fill)} fill, ${hexOf(p0.ink)} text, fully rounded, about ${p0.h}px tall${p0.shadow ? ', soft drop shadow' : ''}): ${M.pins.map(pin).join(', ')}` }
+  }
+  // n131: listing cards: grid, then each card's gradient photo, badge and lines
+  if (f.photoCards) {
+    const P = f.photoCards, c0 = P.cards[0]
+    const g = (c) => c.grad ? (() => { const cs = [...c.grad.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))); const d = c.grad.match(/([\d.]+)deg/)?.[1]; return `a ${d ?? 180}deg gradient ${cs.join(' to ')}` })() : `${hexOf(c.fill)} fill`
+    const ln = (l, i) => `${i === 0 ? ` ${l.gap}px under the photo` : ` top ${l.gap}px below the line above`}: ${l.px}px ${l.bold ? 'bold ' : ''}${hexOf(l.ink)} ${l.split ? `${quote(l.t.replace(l.split, '').trim(), 30)} at the left and ${quote(l.split, 12)} at the far right` : l.boldPart ? `${quote(l.t, 30)} with ${quote(l.boldPart, 10)} bold` : quote(l.t, 40)}`
+    const shape = c0.lines.map((l) => `${l.px}px${l.bold ? ' bold' : ''} ${hexOf(l.ink)}${l.split ? ' row with a right part' : ''}`).join(', ')
+    const cards = P.cards.map((c, i) => `card ${i + 1}: photo ${g(c)}${c.badge ? `, badge ${quote(c.badge.t, 20)}` : ', no badge'}; ${c.lines.map((l) => l.split ? `${quote(l.t.replace(l.split, '').trim(), 30)} … ${quote(l.split, 10)}` : quote(l.t, 36)).join(' / ')}`).join('; ')
+    return { kind: 'box', note: `${P.cards.length} listing cards in a ${P.cols}-column grid, ${P.w}px wide at ${P.x},${P.y}, ${P.gap}px column gap, ${P.rowGap}px row gap (cards, NOT a text list); each card is a ${c0.w}px-wide ${c0.photoH}px-tall photo block ${c0.radius}px rounded filled with a diagonal gradient (no image)${c0.badge ? `, some with a ${c0.badge.bold ? 'bold ' : ''}${c0.badge.px}px badge in a ${hexOf(c0.badge.fill)} ${c0.badge.r}px-rounded chip ${c0.badge.x}px in from its top-left corner` : ''}, then under the photo with no box: ${c0.lines.map(ln).join(';')}; lines are ${shape}; ${cards}` }
+  }
+  // n131: a filter panel section by section: checkbox rows, range sliders, end labels
+  if (f.checkPanel) {
+    const C = f.checkPanel
+    const ck = (it) => `[${it.on ? 'x' : ' '}] ${quote(it.label, 24)}${it.right ? ` … ${quote(it.right.t, 8)}` : ''}`
+    const it0 = C.secs.flatMap((s) => s.items).find((i) => i.ck && !i.on) ?? C.secs.flatMap((s) => s.items).find((i) => i.ck)
+    const on = C.secs.flatMap((s) => s.items).find((i) => i.ck && i.on)
+    const sec = (s) => `${quote(s.head, 24)} (bold ${s.px}px heading${s.y ? `, ${s.y}px from the panel top` : ''}): ${s.items.map((it) => it.ck ? ck(it) : it.range ? `a range slider: a ${it.w}px-wide ${it.th}px ${hexOf(it.track)} rounded track, the span from ${it.from}px to ${it.to}px filled ${hexOf(it.fill)}, two ${it.kpx}px round knobs (${hexOf(it.kfill)} with a ${it.kbw}px ${hexOf(it.kborder)} ring) centred at ${it.knobs.join('px and ')}px along it` : it.ends ? `small ${it.px}px ${hexOf(it.ink)} ${it.ends.map((e) => quote(e, 10)).join(it.spread ? ' at the left and ' : ' ')}${it.spread ? ' at the right, under the slider' : ''}` : '').filter(Boolean).join(', ')}`
+    return { kind: 'box', note: `a ${C.fill ? hexOf(C.fill) : 'white'} filter panel ${C.box.w}x${C.box.h}px at ${C.box.x},${C.box.y}, ${C.radius}px rounded, ${C.pad}px padding (NOT an inspector, NOT filled field boxes, NOT text inputs); ${C.secs.length} sections top to bottom. Every [ ] is a real checkbox row: a ${it0.px}x${it0.px}px ${it0.rad}px-rounded empty square with a ${it0.bw}px ${hexOf(it0.border)} border${on ? `, [x] the same square filled solid ${hexOf(on.fill)} (no tick needed)` : ''}, then the label 10px right of it in regular dark text, any … value pushed to the far right in grey, rows about ${it0.h}px tall: ${C.secs.map(sec).join('; ')}` }
+  }
+  // n131: result cards part by part (flight rows)
+  if (f.resultCards) {
+    const R = f.resultCards, c0 = R.cards[0]
+    const part = (p) => p.t ? `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 20)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.rad}px-rounded ${p.w}x${p.h}px fill` : p.outline ? ` in a ${p.w}x${p.h}px ${p.rad}px-rounded box with a 1px ${hexOf(p.outline)} border` : ''} at ${p.x},${p.y}${p.rule ? ` (the route line: a ${p.rule.px}px ${hexOf(p.rule.c)} line ${p.w}px wide at y ${p.y + p.rule.top}, ${/ \/ /.test(p.t) ? `${quote(p.t.split(' / ')[0], 12)} centred just above it and ${quote(p.t.split(' / ').slice(1).join(' '), 14)} centred just below it` : 'the text centred over it'})` : ''}`
+      : `a ${p.w}x${p.h}px ${p.round ? 'round dot' : `${p.rad}px-rounded solid square`} ${hexOf(p.fill)} at ${p.x},${p.y}`
+    const cards = R.cards.map((c, i) => `card ${i + 1} at page y ${c.y}: ${c.parts.map(part).join('; ')}`).join('. ')
+    const side = R.cards.length >= 2 && Math.abs(R.cards[1].y - R.cards[0].y) <= 4
+    const look = (c) => `${c.fill?.a > 0.05 ? hexOf(c.fill) : 'no fill'}${c.border ? `, ${c.border.px}px ${hexOf(c.border.c)} border` : ''}`
+    const cards2 = R.cards.map((c, i) => `card ${i + 1} at page ${side ? `x ${c.x}` : `y ${c.y}`}${look(c) !== look(c0) ? ` (${look(c)}, unlike the others)` : ''}: ${c.parts.map(part).join('; ')}`).join('. ')
+    return { kind: 'box', note: `${R.cards.length} separate ${side ? 'cards side by side' : 'result cards stacked down the column'}, each ${c0.w}x${c0.h}px, ${look(c0)}, ${c0.radius}px rounded, ${R.cards.length >= 2 ? `${side ? R.cards[1].x - R.cards[0].x - c0.w : R.cards[1].y - R.cards[0].y - c0.h}px apart` : ''} (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): ${cards2}` }
+  }
+  if (f.meters) {
+    const M = f.meters
+    const one = (m) => `${m.lines.map((l) => l.small ? `${l.bold ? 'bold ' : ''}${l.px}px ${quote(l.t.replace(l.small.t, '').trim(), 16)} with a small ${l.small.px}px ${hexOf(l.small.ink)} ${quote(l.small.t, 12)} after it` : `${l.bold ? 'bold ' : ''}${l.px}px ${hexOf(l.ink)} ${quote(l.t, 20)}`).join(', then ')}, then ${m.gap}px below a ${m.w}px-wide ${m.h}px ${hexOf(m.track)} rounded track filled ${m.pct}% from the left in ${hexOf(m.fill)}`
+    return { kind: 'box', note: `usage meters in a ${M.box.w}x${M.box.h}px card${M.border ? ` (1px ${hexOf(M.border)} border` : ' ('}, ${M.radius}px rounded, ${M.pad}px padding), ${M.cols} columns ${M.gap}px apart (each a real meter bar, NOT a thin line): ${M.m.map(one).join('; ')}` }
   }
   // a giant word cut into stacked bands, each band showing a different slice at its own x offset
   if (f.slicedWord) {
