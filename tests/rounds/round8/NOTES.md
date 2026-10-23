@@ -74,3 +74,22 @@ except round 4 e3's file preview thumbnail, now said.
 
 Next: e3 selected pill (near-black, handles, no text), property fields as filled boxes, stepper pill fills; re-run
 c1 with the 3D stack note; first builds of c2, c3, c5, e1, e2, e5.
+
+## n119: selected layer, inspector fields, stepper pills; c1 and c2 live (2026-10-23, ~240k billed)
+
+Planner (zero tokens): a textless filled pill with a selection outline or corner handles is said as an empty pill
+(exact size, border-radius 999px, no text, not blue) with its outline ring and each small square handle on its corners;
+an inspector panel (small caps headings over filled field boxes) is said section by section, every field a filled
+rounded box with its value (and a colour swatch where there is one); a row of filled pills in different states is said
+as a stepper, pill by pill with fill and ink and the separator. Rounds 1-7 plans unchanged.
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| c1 depth stack | 59% -> 79% | ~70k | 3D card stack built card by card with the turn, gradients and fade; "depth" hollow; dashes right. Page background navy at the top (target near-black with a soft glow) |
+| c2 orbit type (first build) | 77% | ~55k | headline, copy, date and ticker right; the four SOUNDs all solid (fade per line lost); ring letters tiny and only part way round, dashed circle lost; the disc built as a shaded 3D ball with small FM26 |
+| e3 design editor | 49% -> 69% | ~60k | fields filled, handles and selection outline right, no invented heading; the pill built square-cornered; grey text line built as a sentence; hero square-cornered; canvas frame a bit right and wide; active tool and Share not blue |
+| e4 seat booking | 73% -> 54% | 45k | stepper pills now filled right; but the whole seat grid built ~45px low (its top-left place ignored), timer moved under the chips, row letters and screen label read as missed; position noise, not the stepper |
+
+Next: e4 grid place (say its top as a margin from the screen, not only page coordinates); c2 echo word fade per line,
+ring text size and full circle with the dashed ring, flat disc; e3 pill corners kept, a bare grey bar is not text;
+then first builds of c3, c5, e1, e2, e5.

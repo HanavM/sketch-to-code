@@ -1,0 +1,196 @@
+{
+  "id": "c2-orbit-type",
+  "at": "2026-10-23T02:04:37.114Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7697247880288107,
+    "overallV2": 0.7697247880288107,
+    "overallV1": 0.6949946374762745,
+    "colour": 0.9684361871438609,
+    "structure": 0.8273231344418989,
+    "structureStrict": 0.7387623242864384,
+    "colourAligned": 0.9684361871438609,
+    "structureAligned": 0.8273231344418989,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9154855238555325
+    },
+    "layout": 0.926315705031444
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [
+      "huge-type"
+    ],
+    "extra": [
+      "bleed",
+      "gradient",
+      "motion",
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 24683,
+    "output": 13371,
+    "cacheRead": 156170
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 26470,
+      "output": 9385,
+      "cacheRead": 145177,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 105159
+    }
+  ],
+  "reading": "A poster-style hero: a 4-line tight-set 'SOUND' wordmark top-left, a huge circle with small spaced text running round its rim reading 'LISTEN · LOUDER ·' repeated, a smaller vivid red-orange circle inside it labeled 'FM26', a body copy block to the right, a 2-line 'NOV 14–16' date stamp below that, and a near-black marquee bar along the bottom with scrolling cream 'ON AIR ● 98.6 FM ●' text. A typed note also sets page-wide styling: cream background, Helvetica type, near-black text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 4,
+          "fontPx": 56
+        }
+      ],
+      "region": [
+        68,
+        120,
+        221,
+        248
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy, tight-set (line-height 0.86) wordmark set in exactly 4 lines, each line whole and never re-wrapped (white-space: nowrap, no max-width narr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        154,
+        592,
+        593
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A large circle (~600px) with no outline and no fill, with a ring of small spaced capital letters running around its circumference reading 'LISTEN · LOUDER · LIS"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        494,
+        304,
+        292,
+        293
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A smaller circle nested inside the large ring, filled with a vivid red-orange color, containing the text 'FM26' centered inside it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 4,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        1004,
+        140,
+        212,
+        90
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text: 'Three nights of radio art, broadcast live from a lighthouse. Tune in anywhere; show up if you can.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        1008,
+        640,
+        105,
+        88
+      ],
+      "paths": [],
+      "instruction": "Big heavy tight-set (line-height 1) date stamp set in exactly 2 lines, each whole and never re-wrapped (white-space: nowrap, no max-width narrower than the long"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        843,
+        1272,
+        54
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A full-width near-black bar along the bottom of the page containing bold 18px cream-colored scrolling marquee text: 'ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AI"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

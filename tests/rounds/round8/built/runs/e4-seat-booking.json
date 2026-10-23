@@ -1,23 +1,23 @@
 {
   "id": "e4-seat-booking",
-  "at": "2026-10-23T01:47:18.260Z",
+  "at": "2026-10-23T02:17:23.299Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7316729661447202,
-    "overallV2": 0.7316729661447202,
-    "overallV1": 0.6974823780339805,
-    "colour": 0.9919993703474607,
-    "structure": 0.9086041240697751,
-    "structureStrict": 0.8688097357561865,
-    "colourAligned": 0.9919993703474607,
-    "structureAligned": 0.9086041240697751,
+    "overall": 0.5368728433094959,
+    "overallV2": 0.5368728433094959,
+    "overallV1": 0.4411232333190378,
+    "colour": 0.9811591997916657,
+    "structure": 0.7700157109683765,
+    "structureStrict": 0.6585728440456491,
+    "colourAligned": 0.9811591997916657,
+    "structureAligned": 0.7700157109683765,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9179898323604359
+      "r": 0.8378259974413956
     },
-    "layout": 0.5698356275548293
+    "layout": 0.5917901361697517
   },
   "effects": {
     "recall": 0.5,
@@ -30,32 +30,32 @@
     "extra": []
   },
   "tokens": {
-    "input": 40718,
-    "output": 27306,
-    "cacheRead": 217258
+    "input": 38303,
+    "output": 24344,
+    "cacheRead": 164201
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46931,
-      "output": 17756,
-      "cacheRead": 181425,
+      "billed": 44804,
+      "output": 16764,
+      "cacheRead": 153513,
       "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/CinemaScreen.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
+        "Read components/CinemaScreen.tsx",
         "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 181253
+      "ms": 190155
     }
   ],
-  "reading": "A cinema seat-booking page: a step tab bar, a large white panel containing a curved 'SCREEN' indicator, a 12x11 seat grid with a labeled legend, and a right-hand booking summary card with poster, seat chips, price list and a Continue button.",
+  "reading": "The sketch is a cinema seat-booking screen: a top stepper bar, a large white panel holding a curved screen indicator labelled SCREEN, a 12x11 seat grid with row letters and a status legend below it, plus a right-hand movie-details card with poster, seat chips, price breakdown and a continue button.",
   "actions": [
     {
       "kind": "add",
@@ -70,7 +70,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a step navigation bar with four items in order: '✓ Showtime', '2 Seats', '3 Snacks', '4 Pay', styled as a horizontal tab/step indicator at the top of the pa"
+      "instruction": "Add a stepper: 4 filled pill steps in a single row, each 29px tall with border-radius 999px, a small grey '›' between each pair, left to right: '✓ Showtime' (#d"
     },
     {
       "kind": "add",
@@ -85,10 +85,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a plain #ffffff panel, 820x770px at 40,90, 16px rounded corners, thin #e4e4e7 border, with no content of its own — it is the backing container for the scree"
+      "instruction": "Add a plain #ffffff panel, 820x770px at 40,90, 16px rounded corners, thin #e4e4e7 border. This is a plain background container (not a picture, nothing of its ow"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [
         "s3"
       ],
@@ -102,7 +102,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a thin solid #a1a1aa curved screen indicator arc, 540px wide and 10px tall at its middle, top edge bowed upward with tapering ends (border-radius: 50% / 100"
+      "instruction": "On the panel, add a thin solid #a1a1aa curved screen arc, 540px wide and 10px tall at its middle, top edge bowed upward with tapering ends (border-radius: 50% /"
     },
     {
       "kind": "add",
@@ -118,7 +118,7 @@
         "s4",
         "s5"
       ],
-      "instruction": "Add a seat map built as an actual CSS grid of 12 columns x 11 rows of small separate cells (not a picture, not an empty panel). Grid top-left at 150,200, sized "
+      "instruction": "On the panel, add a seat map built as a real CSS grid of 12 columns x 11 rows of individual cells (not an empty panel or picture), each cell 40x36px, 10px gaps,"
     },
     {
       "kind": "add",
@@ -133,7 +133,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a legend row below the seat grid with four labeled items: 'Free', 'Taken', 'Selected', 'Recliner +$4', each paired with its corresponding seat-cell swatch s"
+      "instruction": "Below the seat grid, add a legend with links: Free, Taken, Selected, Recliner +$4."
     },
     {
       "kind": "add",
@@ -148,8 +148,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a white booking summary card on the right side of the page. Inside: a 90x130px gradient (#1e3a8a to #f97316) poster placeholder with 8px rounded top-left co"
+      "instruction": "Add a white movie-details card to the right of the panel containing: a 90x130px gradient poster placeholder (#1e3a8a to #f97316), 8px rounded corners, positione"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

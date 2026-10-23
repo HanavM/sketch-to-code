@@ -607,6 +607,16 @@ export function factsInPage() {
       pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
       // a 2px+ outline ring round the block (a selected thumbnail, round 7 e4)
       ring: (() => { const ow = parseFloat(cs.outlineWidth) || 0; return ow >= 2 && cs.outlineStyle !== 'none' ? { w: Math.round(ow), off: Math.round(parseFloat(cs.outlineOffset) || 0), colour: rgba(cs.outlineColor) } : null })(),
+      // small square handles sitting on the block's corners (a selected layer in a design tool, round 8 e3: lost)
+      handles: (() => { const cs4 = [[r.left, r.top], [r.right, r.top], [r.left, r.bottom], [r.right, r.bottom]]; const hs = [...document.body.querySelectorAll('*')].filter((k) => { if (el.contains(k) || k.contains(el)) return false; const b = k.getBoundingClientRect(); if (b.width < 5 || b.width > 14 || Math.abs(b.width - b.height) > 1.5) return false; const cx = b.left + b.width / 2, cy = b.top + b.height / 2; return cs4.some(([x, y]) => Math.abs(cx - x) <= 6 && Math.abs(cy - y) <= 6) }); if (hs.length < 2) return null; const c = getComputedStyle(hs[0]); return { n: hs.length, px: Math.round(hs[0].getBoundingClientRect().width), fill: rgba(c.backgroundColor), border: parseFloat(c.borderTopWidth) >= 1 ? rgba(c.borderTopColor) : null } })(),
+      // an inspector panel: small caps section headings, each over rows of filled field boxes (round 8 e3: fields built bare)
+      fieldSecs: (() => { const kids = [...el.children]; const head = (k) => /^H[4-6]$/.test(k.tagName) && txt(k) && txt(k).length <= 24; if (kids.filter(head).length < 3) return null; const bgEl = rgba(cs.backgroundColor); const secs = []; let cur = null
+        for (const k of kids) { if (head(k)) { cur = { h: txt(k), rows: [] }; secs.push(cur); continue } if (!cur) continue
+          const boxes = (k.children.length ? [...k.children] : [k]).filter((b) => { const c = rgba(getComputedStyle(b).backgroundColor); return c && c.a > 0.05 && (!bgEl || Math.abs(c.r - bgEl.r) + Math.abs(c.g - bgEl.g) + Math.abs(c.b - bgEl.b) > 6) })
+          const own = rgba(getComputedStyle(k).backgroundColor); const kFilled = own && own.a > 0.05 && (!bgEl || Math.abs(own.r - bgEl.r) + Math.abs(own.g - bgEl.g) + Math.abs(own.b - bgEl.b) > 6)
+          if (kFilled) { const sw = [...k.querySelectorAll('i,span')].find((x) => !txt(x) && x.getBoundingClientRect().width <= 24 && rgba(getComputedStyle(x).backgroundColor)?.a > 0.05); cur.rows.push([{ t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: own, rad: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0), sw: sw ? { fill: rgba(getComputedStyle(sw).backgroundColor), px: Math.round(sw.getBoundingClientRect().width) } : null }]) }
+          else if (boxes.length) cur.rows.push(boxes.map((b) => ({ t: txt(b) || (b.innerText || '').trim(), fill: rgba(getComputedStyle(b).backgroundColor), rad: Math.round(parseFloat(getComputedStyle(b).borderTopLeftRadius) || 0), sw: null }))) }
+        const nf = secs.reduce((a, x) => a + x.rows.flat().length, 0); return nf >= 3 ? secs : null })(),
       // a round dot hung on the element by ::before/::after (a calendar now-line's knob, round 6 e5)
       pseudoDot: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (c.content && c.content !== 'none' && pw >= 4 && pw <= 20 && Math.abs(pw - ph) <= 1 && parseFloat(c.borderTopLeftRadius) >= pw * 0.4 && rgba(c.backgroundColor)?.a > 0.05) return { px: Math.round(pw), at: (parseFloat(c.left) || 0) < r.width / 2 ? 'left' : 'right' } } return null })(),
       // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
@@ -1646,6 +1656,18 @@ function decideOne(f, page, marked, said) {
   }
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
   const frosted = fx.includes('frosted glass')
+  // an inspector panel: section headings over filled field boxes, each field said as a box with its value
+  if (f.fieldSecs && fill) {
+    const fs = f.fieldSecs, f0 = fs.flatMap((x) => x.rows.flat())[0]
+    const field = (b) => `[${b.sw ? `${b.sw.px}px ${hexOf(b.sw.fill)} swatch square, then ` : ''}${quote(b.t, 24)}]`
+    const secs = fs.map((x) => `${quote(x.h, 20)}: ${x.rows.map((r) => r.length > 1 ? `${r.map(field).join(' ')} side by side, equal widths` : `${field(r[0])} full width`).join(', then ')}`)
+    return { kind: 'box', note: withFx(`${colourName(f.bg)} panel ${Math.round(w)}x${Math.round(h)}px${bordered ? `, thin ${colourName(f.border.colour)} border` : ''}: an inspector, ${fs.length} sections top to bottom, each a small bold caps heading then its fields; every [field] is a filled ${hexOf(f0.fill)} box ${f0.rad}px rounded, about 28px tall, its value in small dark text inside at the left (NOT bare text, NOT outlined inputs): ${secs.join('; ')}`) }
+  }
+  // a textless filled pill, outlined and with corner handles: a selected layer on a design canvas
+  if (!f.text && !f.kidCount && fill && !grad && !f.regionKids.length && h >= 24 && h <= 90 && w >= h * 2 && f.radius >= h / 2 - 2 && (f.ring || f.handles)) {
+    const hd = f.handles
+    return { kind: 'box', note: withFx(`an empty solid ${hexOf(f.bg)} pill exactly ${Math.round(w)}x${Math.round(h)}px (border-radius 999px), NO text, NO label, NOT a button with words, NOT blue${f.ring ? `; a ${f.ring.w}px ${colourName(f.ring.colour)} (${hexOf(f.ring.colour)}) selection outline round it (outline: ${f.ring.w}px solid; outline-offset ${f.ring.off}px)` : ''}${hd ? `; ${hd.n} small ${hd.px}x${hd.px}px square ${hexOf(hd.fill)} handles${hd.border ? ` with a ${hexOf(hd.border)} border` : ''}, one centred on each corner of its bounding box (absolutely placed)` : ''}`) }
+  }
 
   // ---- round 7 creative (n94)
   // a word set letter by letter, each letter its own size and weight on one baseline
@@ -1995,6 +2017,12 @@ function decideOne(f, page, marked, said) {
       const look = same ? `each ${Math.round(k0.h)}px tall${k0.fill?.a > 0.05 ? `, ${colourName(k0.fill)} (${hexOf(k0.fill)})` : ''}${k0.bw >= 1 ? `, ${Math.round(k0.bw)}px ${colourName(k0.bc)} (${hexOf(k0.bc)}) border` : ''}${k0.radius >= 4 ? `, ${Math.round(k0.radius)}px rounded` : ''}` : null
       const said = kl.map((k) => { const c = ctl(k.t); const caret = /[▾▼]$/.test(k.t) ? ` with its ▾ caret written after the text, ${quote(k.t)}` : ''; return `${c}${caret} ${Math.round(k.w)}px wide` })
       return { kind: 'box', note: `toolbar row of controls packed at the LEFT, side by side${gap != null ? ` ${gap}px apart` : ''} in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty)${look ? `, ${look}` : ''}, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): ${said.join(', ')}${on}` }
+    }
+    // a stepper: filled pills in different states with a separator between (round 8 e4: fills lost, all built plain)
+    const fills = new Set(kl.map((k) => (k.fill?.a > 0.05 ? hexOf(k.fill) : 'none')))
+    if (!mixed && !lead && kl.length === f.kidCount && kl.length >= 3 && kl.every((k) => k.fill?.a > 0.05 && k.radius >= k.h / 2 - 2) && fills.size >= 2) {
+      const sep = (f.ownText ?? '').replace(/\s+/g, '')[0]
+      return { kind: 'box', note: `a stepper: ${kl.length} filled pills in one row${sep ? `, a small grey "${sep}" between each pair` : ''}, each ${Math.round(kl[0].h)}px tall (border-radius 999px), left to right: ${kl.map((k) => `${quote(k.t)} ${hexOf(k.fill)} fill, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}` }
     }
         return { kind: 'box', note: (mixed ? items.join(', ') : `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}`) + on + states }
   }

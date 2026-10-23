@@ -1,80 +1,61 @@
 {
   "id": "c1-depth-stack",
-  "at": "2026-10-23T01:13:08.433Z",
+  "at": "2026-10-23T02:01:31.803Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5949816514861292,
-    "overallV2": 0.5949816514861292,
-    "overallV1": 0.5502928845868968,
-    "colour": 0.8680122384474505,
-    "structure": 0.5369388889611905,
-    "structureStrict": 0.42576401257632696,
-    "colourAligned": 0.8680122384474505,
-    "structureAligned": 0.5369388889611905,
+    "overall": 0.7852737553719418,
+    "overallV2": 0.7852737553719418,
+    "overallV1": 0.7490230136072342,
+    "colour": 0.9465145587601671,
+    "structure": 0.6469430514300769,
+    "structureStrict": 0.5567599469457103,
+    "colourAligned": 0.9465145587601671,
+    "structureAligned": 0.6469430514300769,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.620063730250312
+      "r": 0.88469617320299
     },
-    "layout": 0.4558169881707637
+    "layout": 0.8324447178348146
   },
   "effects": {
-    "recall": 0.6,
+    "recall": 1,
     "kept": [
       "gradient",
-      "huge-type",
-      "overlap"
-    ],
-    "missing": [
       "hollow-type",
+      "huge-type",
+      "overlap",
       "soft-shadow"
     ],
-    "extra": [
-      "glass"
-    ]
+    "missing": [],
+    "extra": []
   },
   "tokens": {
-    "input": 57912,
-    "output": 35092,
-    "cacheRead": 284548
+    "input": 31768,
+    "output": 13729,
+    "cacheRead": 145125
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 41369,
-      "output": 11358,
-      "cacheRead": 166664,
-      "toolCalls": 9,
+      "billed": 31305,
+      "output": 7768,
+      "cacheRead": 124603,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read components/Picture.tsx",
         "Read src/App.tsx",
-        "Glob",
+        "Read s2c-bench-app/package.json",
         "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx",
-        "Edit src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 135896
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 45508,
-      "output": 21931,
-      "cacheRead": 114800,
-      "toolCalls": 2,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 284020
+      "ms": 79888
     }
   ],
-  "reading": "The sketch is a hero section: a top nav divider line with \"LAYERS\" on the left and nav links on the right, a small label, a 3-line giant heading, two pill buttons (\"Start free\" filled white, \"Watch demo\" outlined), and a large image placeholder (box with X) captioned \"Q4 plan\" sitting in front of the heading. A typed note sets a page-wide deep indigo-to-black gradient background with white Helvetica text.",
+  "reading": "This is a hero section sketch: a top navigation bar, a small eyebrow label, a giant three-line headline with one hollow word, two pill buttons, a 3D stack of three overlapping cards to the right, and a row of three flat dashes below acting as a slide indicator. Typed notes give exact colors, type, and styling for each piece, including a page-wide indigo-to-black gradient background with white Helvetica text.",
   "actions": [
     {
       "kind": "add",
@@ -89,7 +70,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Thin horizontal divider line spanning the page width marking the nav bar, no box around it. Bold \"LAYERS\" wordmark on the left; on the right the nav links \"Prod"
+      "instruction": "Top navigation bar, no box/border around it: bold 'LAYERS' wordmark on the left, and 'Product · Pricing · Docs · Sign in' nav links on the right, full width acr"
     },
     {
       "kind": "add",
@@ -104,7 +85,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Small 13px wide-letter-spaced lavender eyebrow label text \"SPATIAL WORKSPACE\" above the heading."
+      "instruction": "Small eyebrow label below the nav: 'SPATIAL WORKSPACE' in 13px wide-letter-spaced lavender uppercase text."
     },
     {
       "kind": "add",
@@ -131,7 +112,7 @@
         287
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy headline, tight-set with line-height 0.92, set in exactly 3 lines: \"Think in\" / \"depth , not\" / \"tabs.\" — keep these exact line breaks, ea"
+      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.92), broken into exactly 3 lines that must stay as drawn, never rewrapped, white-space: nowrap, containe"
     },
     {
       "kind": "add",
@@ -146,7 +127,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White pill-shaped button with black text reading \"Start free\"."
+      "instruction": "White pill-shaped button with black text reading 'Start free', placed below the headline."
     },
     {
       "kind": "add",
@@ -161,7 +142,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Dark grey outlined pill button with text \"Watch demo\", placed beside the \"Start free\" button."
+      "instruction": "Dark grey outlined pill-shaped button reading 'Watch demo', placed next to the 'Start free' button."
     },
     {
       "kind": "add",
@@ -174,11 +155,24 @@
         614
       ],
       "paths": [
-        "s7",
-        "s8",
-        "s9"
+        "s7"
       ],
-      "instruction": "Large image placeholder (box with X) captioned \"Q4 plan\", positioned in front of / overlapping the \"Think in depth, not tabs.\" heading."
+      "instruction": "A stack of 3 separate cards in 3D (not a single flat picture): a 560x620px container at roughly 600,150 with perspective: 1200px, holding 3 absolutely-positione"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        820,
+        172,
+        5
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Slide indicator made of 3 short flat dashes in a row (not dots, not a progress bar, no surrounding box), each 4px tall with 2px rounded corners, spaced 10px apa"
     }
   ],
   "rejected": [
