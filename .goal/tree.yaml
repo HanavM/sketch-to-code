@@ -3,7 +3,7 @@ goal_state: working
 now: "Re-scored every page from rounds 1-7 and marked 6 of 7 checks met; round scores went 67 to 81. Next: write round 8, harder pages."
 round: 7
 round_scores: [67, 58, 69, 64, 76, 79, 81]
-lock: null
+lock: {by: run-2026-10-23T0051, until: "2026-10-23T02:21:16Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
