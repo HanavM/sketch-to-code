@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 10 is written: ten harder pages. The first three builds averaged 51%: the Bauhaus tile wall and the 3D extruded letters were lost entirely. Next I teach the planner to describe them, then re-run."
 round: 10
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 51]
-lock: null
+lock: {by: run-2026-10-23T1054Z, until: "2026-10-23T12:25:00Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
