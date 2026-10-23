@@ -14,6 +14,7 @@ describe('a repair turn is told where the page is and to fix it without investig
     expect(note).toContain('src/App.tsx')
     expect(note).toMatch(/Do not Grep or Glob/)
     expect(note).toMatch(/node_modules/)
+    expect(note).toMatch(/do not open index.html, package.json or any vite/)
   })
   it('still asks for a lean repair when nothing was written', () => {
     const note = leanRepairNote([])

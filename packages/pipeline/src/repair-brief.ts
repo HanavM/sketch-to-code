@@ -30,6 +30,8 @@ export function leanRepairNote(toolLog: string[]): string {
     `HOW TO REPAIR: ${where}Each failure above already says the built and the drawn pixels, so change ` +
     `the elements it names directly with exact arbitrary values (mt-[12px], h-[48px], py-[10px], gap-[14px]). ` +
     `Do not Grep or Glob, do not read node_modules or Tailwind/CSS internals to look up default sizes, ` +
+    // round 6 e2 n112: a repair turn read index.html and the vite config (7 tools) before touching the page
+    `do not open index.html, package.json or any vite/tailwind/postcss/ts config (the page is only in the files named), ` +
     `and do not re-plan the page: read the file once if you need to, then Edit.`
   )
 }

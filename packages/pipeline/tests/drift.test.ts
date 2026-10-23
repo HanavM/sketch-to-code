@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { verifyPageDrift } from '../src/drift.js'
+import { uniformShift, verifyPageDrift } from '../src/drift.js'
 
 let id = 0
 const node = (x: number, y: number, w: number, h: number, text = ''): DomNode => ({
@@ -89,5 +89,38 @@ describe('verifyPageDrift', () => {
     expect(v.satisfied).toBe(false)
     expect(v.reason).toMatch(/lower than drawn/)
     expect(v.offsets.find((o) => o.index === 2)?.dy).toBe(91)
+  })
+  it('names a whole board shifted ~13px the same way, each block under 16px (round 7 e1 n112 run 1, 48%)', () => {
+    const built = [
+      node(0, 0, 1280, 56),
+      node(28, 82, 290, 20, 'To do'), node(342, 82, 290, 20, 'In progress'),
+      node(28, 117, 1224, 24),
+      node(28, 149, 290, 76), node(28, 257, 290, 76), node(342, 148, 290, 81),
+      node(28, 476, 1224, 24),
+    ]
+    const v = verifyPageDrift(snap([]), snap(built), placed)
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toMatch(/sit about 1\dpx lower than drawn, the same way/)
+    expect(v.reason).toMatch(/never use a negative margin/)
+  })
+
+  it('names the n113 board: heads +6, cards 8-11px low (likeness 72 vs 77 in place)', () => {
+    const offs = [[3, 0], [79, 85], [79, 85], [80, 85], [79, 85], [115, 114], [135, 144], [243, 252], [135, 144], [255, 264],
+      [135, 144], [136, 144], [203, 212], [482, 479], [501, 513], [501, 513], [621, 633], [501, 513], [501, 513]]
+      .map(([drawn, built], index) => ({ index, drawn: drawn!, built: built!, dy: built! - drawn! }))
+    expect(uniformShift(offs)).toMatch(/15 of 18 blocks below the top all sit about [89]px lower/)
+    expect(uniformShift(offs.map((o) => ({ ...o, built: o.drawn + (o.index % 2 ? 7 : -2), dy: o.index % 2 ? 7 : -2 })))).toBeNull()
+  })
+
+  it('passes small same-way offsets under the shift median (a page built in place)', () => {
+    const built = [
+      node(0, 0, 1280, 56),
+      node(28, 75, 290, 20, 'To do'), node(342, 75, 290, 20, 'In progress'),
+      node(28, 103, 1224, 24),
+      node(28, 144, 290, 76), node(28, 252, 290, 76), node(342, 141, 290, 81),
+      node(28, 470, 1224, 24),
+    ]
+    const v = verifyPageDrift(snap([]), snap(built), placed)
+    expect(v.satisfied).toBe(true)
   })
 })

@@ -83,6 +83,41 @@ export function matchTop(fresh: DomNode[], r: Box, quote?: string | null): { y: 
   return { y: thin ? best.rect.y + best.rect.h / 2 : best.rect.y, drawn }
 }
 
+export const SHIFT_MIN_PX = 6
+export const SHIFT_MEDIAN_PX = 8
+
+/**
+ * A whole block of the page moved the same way by a little under the drift tolerance (round 7 e1 n112 run 1: every
+ * block under the top bar ~12-15px low, each inside 16px, so no repair ran and likeness fell 77 to 48%). Blocks at the
+ * very top (y < 40, a top bar) are anchored and do not count. Fires only when 6+ blocks below it can be matched, two thirds of
+ * them are off the same way by SHIFT_MIN_PX or more (n113 run: heads +6, cards 8-11px low, likeness 72 vs 77), and their median offset is SHIFT_MEDIAN_PX or more: a page built
+ * in place scatters its offsets around zero, a shifted one does not.
+ */
+export function uniformShift(offsets: DriftVerdict['offsets']): string | null {
+  const body = offsets.filter((o) => o.drawn >= 40)
+  if (body.length < 6) return null
+  const low = body.filter((o) => o.dy >= SHIFT_MIN_PX)
+  const high = body.filter((o) => o.dy <= -SHIFT_MIN_PX)
+  const same = low.length >= high.length ? low : high
+  if (same.length * 3 < body.length * 2) return null
+  const dys = body.map((o) => o.dy).sort((a, b) => a - b)
+  const med = dys[Math.floor(dys.length / 2)] ?? 0
+  if (Math.abs(med) < SHIFT_MEDIAN_PX) return null
+  const way = med > 0 ? 'lower' : 'higher'
+  const first = [...same].sort((a, b) => a.drawn - b.drawn)[0]
+  if (!first) return null
+  const list = [...same].sort((a, b) => a.drawn - b.drawn).slice(0, 6)
+    .map((o) => `action ${o.index} top at ${o.built}px, drawn at ${o.drawn}px`)
+  return (
+    `${same.length} of ${body.length} blocks below the top all sit about ${Math.abs(med)}px ${way} than drawn, the same way: ` +
+    `${list.join('; ')}. The whole page from action ${first.index} down is shifted by one extra (or missing) space above it ` +
+    `(a taller bar, page padding, a margin under the header). Find that one space above action ${first.index} and ` +
+    `${med > 0 ? 'take it out' : 'add it back'} so its top lands at ${first.drawn}px; everything under it moves with it. ` +
+    `Change only that one spacing; never use a negative margin, negative top or absolute position. ` +
+    `Do not change widths, colours or copy.`
+  )
+}
+
 export function verifyPageDrift(
   before: DomSnapshot,
   after: DomSnapshot,
@@ -105,6 +140,8 @@ export function verifyPageDrift(
   }
   const off = offsets.filter((o) => Math.abs(o.dy) > DRIFT_TOLERANCE_PX)
   if (off.length < Math.max(3, Math.ceil(0.25 * offsets.length))) {
+    const shift = uniformShift(offsets)
+    if (shift) return { satisfied: false, reason: shift, offsets }
     return { satisfied: true, reason: `${offsets.length - off.length} of ${offsets.length} blocks within ${DRIFT_TOLERANCE_PX}px of their drawn top`, offsets }
   }
   const low = off.filter((o) => o.dy > 0).length
