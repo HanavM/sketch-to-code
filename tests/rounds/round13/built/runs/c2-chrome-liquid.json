@@ -1,92 +1,69 @@
 {
   "id": "c2-chrome-liquid",
-  "at": "2026-10-23T19:54:51.678Z",
+  "at": "2026-10-23T20:26:31.241Z",
   "likeness": {
     "version": 3,
-    "overall": 0.783999545894666,
-    "overallV2": 0.783999545894666,
-    "overallV1": 0.7359008810621381,
-    "colour": 0.8979452073467885,
-    "structure": 0.6651969918012925,
-    "structureStrict": 0.5407754505321313,
-    "colourAligned": 0.8979452073467885,
-    "structureAligned": 0.6651969918012925,
+    "overall": 0.8029390271679671,
+    "overallV2": 0.8029390271679671,
+    "overallV1": 0.7633705096967744,
+    "colour": 0.9134266252878257,
+    "structure": 0.72614957810823,
+    "structureStrict": 0.623793806973142,
+    "colourAligned": 0.9134266252878257,
+    "structureAligned": 0.72614957810823,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7158634330334391
+      "r": 0.8511321423282234
     },
-    "layout": 0.8583377851566493
+    "layout": 0.8206397964807468
   },
   "effects": {
-    "recall": 0.4444444444444444,
+    "recall": 0.3333333333333333,
     "kept": [
       "gradient-text",
       "hollow-type",
-      "huge-type",
-      "motion"
+      "huge-type"
     ],
     "missing": [
       "glass",
       "gradient",
+      "motion",
       "overlap",
       "soft-shadow",
       "stripes-or-layers"
     ],
-    "extra": [
-      "blend",
-      "blur"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 38083,
-    "output": 25648,
-    "cacheRead": 551959
+    "input": 27494,
+    "output": 18144,
+    "cacheRead": 182384
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 40775,
-      "output": 16214,
-      "cacheRead": 318038,
-      "toolCalls": 14,
+      "billed": 37595,
+      "output": 14601,
+      "cacheRead": 179300,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Read components/GlowingOrb.tsx",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
+        "Read components/PolishedChrome.tsx",
+        "Read s2c-bench-app/package.json",
         "Read s2c-bench-app/index.html",
-        "Edit components/GlowingOrb.tsx",
-        "Edit src/index.css",
-        "Write src/App.tsx",
         "Glob",
-        "Edit src/App.tsx"
+        "Edit components/PolishedChrome.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 168013
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 15975,
-      "output": 6770,
-      "cacheRead": 230837,
-      "toolCalls": 4,
-      "tools": [
-        "Read components/GlowingOrb.tsx",
-        "Edit components/GlowingOrb.tsx",
-        "Edit components/GlowingOrb.tsx",
-        "Edit components/GlowingOrb.tsx"
-      ],
-      "ms": 77425
+      "ms": 158374
     }
   ],
-  "reading": "A hero section: a borderless nav bar (wordmark + links in lavender), a giant two-line \"Liquid metal\" striped heading over a large glowing animated orb, a hollow-outline \"SOUND\" heading with a lavender descriptive paragraph, a filled \"Pre-order\" pill and outline \"Listen ▶\" pill button, and a white frequency-range pill badge near the orb — all on a black, light-grey-text, Helvetica page per the run-wide note.",
+  "reading": "The sketch lays out a hero section: a borderless nav bar, a giant 'Liquid metal' chrome-gradient headline beside a glowing chrome sphere with a '38 Hz – 24 kHz' pill, then a hollow 'SOUND' headline, a lavender body line, and two buttons ('Pre-order' filled, 'Listen ▶' outlined). All wavy-line strokes are text placeholders replaced by the typed copy, and the circle is a decorative chrome orb, not a literal traced shape.",
   "actions": [
     {
       "kind": "add",
@@ -101,10 +78,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top nav bar, no box/border around it: bold \"MERCURY®\" wordmark on the left, \"Sound · Objects · Lab · Cart (0)\" links on the right. Nav text color #a7a8bd (laven"
+      "instruction": "Top navigation bar, no box/border around it: bold 'MERCURY®' on the left, 'Sound · Objects · Lab · Cart (0)' on the right, nav text colored #a7a8bd (lavender, n"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -116,7 +93,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "A large glowing orb/sphere graphic behind the hero heading, animated/moving, with white, grey, dark navy and lavender glowing stripes across its surface."
+      "instruction": "Large glowing polished liquid-chrome sphere/orb, drawn as a smooth circle with no hard edges, filled with the gradient linear-gradient(140deg, #fdfdff 0%, #8d8f"
     },
     {
       "kind": "add",
@@ -141,7 +118,22 @@
         327
       ],
       "paths": [],
-      "instruction": "Giant hero heading in Helvetica Heavy, tightly tracked, text \"Liquid metal\" set in exactly 2 lines (\"Liquid\" / \"metal\"), line-height 0.86, each line kept whole "
+      "instruction": "Giant Helvetica Heavy headline reading 'Liquid metal', set in exactly 2 lines with these exact breaks: 'Liquid' / 'metal' (keep whole on each line, white-space:"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1002,
+        691,
+        127,
+        34
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "White pill button reading '● 38 Hz – 24 kHz', placed near the chrome sphere."
     },
     {
       "kind": "add",
@@ -164,7 +156,7 @@
         164
       ],
       "paths": [],
-      "instruction": "Giant hollow/outlined heading \"SOUND\" in Helvetica Heavy, tightly tracked letters, outline-only stroke in light grey, font size 120px, about 408px wide (no larg"
+      "instruction": "Giant Helvetica Heavy, tight-set headline 'SOUND', hollow/outlined in light grey, 120px type, about 408px wide (no larger)."
     },
     {
       "kind": "add",
@@ -189,7 +181,7 @@
         53
       ],
       "paths": [],
-      "instruction": "Body paragraph text, lavender color (#a7a8bd, not the page's default light grey): \"Speakers poured from a single piece of aluminium, polished until the room ref"
+      "instruction": "Body paragraph text reading 'Speakers poured from a single piece of aluminium, polished until the room reflects in them.', colored #a7a8bd (lavender, not the pa"
     },
     {
       "kind": "add",
@@ -204,7 +196,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Pill-shaped button labeled \"Pre-order\", light grey fill (#e9e9f2) with black text (#07070b), 124x46px, fully rounded pill ends."
+      "instruction": "Light grey pill button labeled 'Pre-order' with black text (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill-shaped rounded ends)."
     },
     {
       "kind": "add",
@@ -219,25 +211,8 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Outline pill button labeled \"Listen ▶\" (outlined style, no fill), placed beside the Pre-order button."
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1002,
-        691,
-        127,
-        34
-      ],
-      "paths": [
-        "s9"
-      ],
-      "instruction": "White pill button labeled \"● 38 Hz – 24 kHz\", positioned near the glowing orb graphic."
+      "instruction": "Outline pill button labeled 'Listen ▶', placed beside the Pre-order button."
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

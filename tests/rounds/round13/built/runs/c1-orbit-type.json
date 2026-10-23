@@ -1,27 +1,28 @@
 {
   "id": "c1-orbit-type",
-  "at": "2026-10-23T19:49:33.748Z",
+  "at": "2026-10-23T20:22:29.854Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5786454790247562,
-    "overallV2": 0.5786454790247562,
-    "overallV1": 0.5085393119954262,
-    "colour": 0.9690570397394913,
-    "structure": 0.7464036911565882,
-    "structureStrict": 0.6629462067203779,
-    "colourAligned": 0.9690570397394913,
-    "structureAligned": 0.7464036911565882,
+    "overall": 0.7278376465879028,
+    "overallV2": 0.7278376465879028,
+    "overallV1": 0.6447767595989216,
+    "colour": 0.9799043362807623,
+    "structure": 0.7907640653044723,
+    "structureStrict": 0.691884708795927,
+    "colourAligned": 0.9799043362807623,
+    "structureAligned": 0.7907640653044723,
     "align": {
       "scale": 1,
       "dx": -16,
       "dy": 0,
-      "r": 0.7801255549757901
+      "r": 0.7831118100043001
     },
-    "layout": 0.5833849858094908
+    "layout": 0.8590908931771157
   },
   "effects": {
-    "recall": 0.8571428571428571,
+    "recall": 1,
     "kept": [
+      "gradient",
       "hard-shadow",
       "huge-type",
       "italic",
@@ -29,42 +30,38 @@
       "overlap",
       "serif"
     ],
-    "missing": [
-      "gradient"
-    ],
+    "missing": [],
     "extra": [
       "bleed"
     ]
   },
   "tokens": {
-    "input": 47288,
-    "output": 34953,
-    "cacheRead": 221012
+    "input": 49758,
+    "output": 27232,
+    "cacheRead": 217695
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 50197,
-      "output": 20492,
-      "cacheRead": 209997,
-      "toolCalls": 10,
+      "billed": 59139,
+      "output": 19781,
+      "cacheRead": 206615,
+      "toolCalls": 8,
       "tools": [
         "Glob",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Glob",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/index.html",
-        "Read s2c-bench-app/package.json",
-        "Glob",
         "Read src/index.css",
+        "Read s2c-bench-app/package.json",
         "Edit src/index.css",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Glob"
       ],
-      "ms": 235236
+      "ms": 217751
     }
   ],
-  "reading": "A landing-page hero sketch: a thin top rule for an un-boxed nav row, a two-line wavy placeholder for a giant 'Type in orbit' headline, two more wavy lines for a body paragraph, a pill button, a large circular composition on the right (inner ring read as a donut chart, a small center mark for a '26 label, and the big outer circle as a spinning circular text ring), and a bottom rule for a footer border. Typed notes give exact copy, colors and sizing for every piece.",
+  "reading": "A full hero section sketch: a top rule, a nav row (wordmark left, menu right), a two-line giant heading 'Type in orbit' with 'orbit' in orange italic serif, a grey descriptive paragraph, an amber pill CTA button, a large orbiting ring graphic (conic-gradient ring with a '26 label and a spinning circular text path reading 'LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺'), and a bottom rule with footer text. Typed notes give exact colors, fonts, sizes and copy for every piece, all on a cream Helvetica page.",
   "actions": [
     {
       "kind": "add",
@@ -79,7 +76,22 @@
       "paths": [
         "s0"
       ],
-      "instruction": "At the very top of the page add a navigation row with no box around it: bold, wide letter-spaced 'ORBIT STUDIO' on the left and 'WORK · INDEX · CONTACT' on the "
+      "instruction": "Thin horizontal rule running the full width at the very top of the page, matching the bottom rule."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        564,
+        124,
+        633,
+        632
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Top navigation row with no surrounding box: bold, wide letter-spaced wordmark 'ORBIT STUDIO' aligned left, and 'WORK · INDEX · CONTACT' aligned right on the sam"
     },
     {
       "kind": "add",
@@ -104,7 +116,7 @@
         197
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy headline, tightly set (line-height 0.88), reading 'Type in orbit', broken into exactly two lines — 'Type in' / 'orbit' — keeping these lin"
+      "instruction": "Giant heavy Helvetica heading set in exactly two tight lines (line-height 0.88, no rewrap, white-space nowrap, width ~349px, no narrower max-width than the long"
     },
     {
       "kind": "add",
@@ -129,7 +141,7 @@
         51
       ],
       "paths": [],
-      "instruction": "Dark grey (#4a4a4a, not the page's near-black text) body copy below the headline, reading: 'A type foundry that sets letters on curves, rings and spirals. Fourt"
+      "instruction": "Dark grey (#4a4a4a, distinct from the page's near-black body text) paragraph reading: 'A type foundry that sets letters on curves, rings and spirals. Fourteen f"
     },
     {
       "kind": "add",
@@ -144,7 +156,32 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Amber pill button labelled 'See the specimens' (fill #ffb000, text #141414, 200×52px, fully rounded pill ends), with a hard, solid, opaque near-black shadow off"
+      "instruction": "Amber pill button labeled 'See the specimens' (exactly: #ffb000 fill, #141414 text, 200x52px, fully rounded pill ends), with a hard solid opaque near-black drop"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        733,
+        294,
+        294,
+        293
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A 300px ring painted with one smooth conic gradient around the circle (exactly: background: conic-gradient(from 90deg, rgb(255,77,46), rgb(255,176,0), rgb(46,10"
     },
     {
       "kind": "add",
@@ -161,16 +198,30 @@
         }
       ],
       "region": [
+        733,
+        294,
+        294,
+        293
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Bold (font-weight 900) label \"'26\" centered inside the ring graphic."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
         564,
         124,
         633,
         632
       ],
       "paths": [
-        "s6",
         "s8"
       ],
-      "instruction": "On the right, a 640×640px circular composition: centered inside it a 300px donut chart (ring 70px thick, hollow cream middle), segments running clockwise from t"
+      "instruction": "A spinning ring of big heavy capital letters reading 'LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺ ' repeating all the way around the circle (end meets "
     },
     {
       "kind": "add",
@@ -185,7 +236,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Near-black bottom border/footer bar spanning the full width of the page, reading 'EST. 2011 — LISBON   ORBIT/14   SCROLL ↓'."
+      "instruction": "Bottom border row with near-black text reading 'EST. 2011 — LISBON ORBIT/14 SCROLL ↓'."
     }
   ],
   "rejected": [

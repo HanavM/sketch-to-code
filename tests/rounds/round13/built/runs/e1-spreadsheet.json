@@ -1,23 +1,23 @@
 {
   "id": "e1-spreadsheet",
-  "at": "2026-10-23T20:03:16.131Z",
+  "at": "2026-10-23T20:30:43.557Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5398877373264078,
-    "overallV2": 0.5398877373264078,
-    "overallV1": 0.4708420162869761,
-    "colour": 0.9901914987932844,
-    "structure": 0.8497907868642756,
-    "structureStrict": 0.8077025097271703,
-    "colourAligned": 0.9901914987932844,
-    "structureAligned": 0.8497907868642756,
+    "overall": 0.8772651506288562,
+    "overallV2": 0.8772651506288562,
+    "overallV1": 0.8635511922873507,
+    "colour": 0.997308526004539,
+    "structure": 0.968630784461645,
+    "structureStrict": 0.9602711515888943,
+    "colourAligned": 0.997308526004539,
+    "structureAligned": 0.968630784461645,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.6141656647296725
+      "r": 0.9355786397363753
     },
-    "layout": 0.9472248105456916
+    "layout": 0.9433999794384921
   },
   "effects": {
     "recall": 0.5,
@@ -30,32 +30,33 @@
     "extra": []
   },
   "tokens": {
-    "input": 26451,
-    "output": 15701,
-    "cacheRead": 153733
+    "input": 35305,
+    "output": 19079,
+    "cacheRead": 248006
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 34772,
-      "output": 11971,
-      "cacheRead": 150649,
-      "toolCalls": 8,
+      "billed": 39537,
+      "output": 12902,
+      "cacheRead": 237213,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Glob",
         "Read src/main.tsx",
-        "Read s2c-bench-app/index.html",
-        "Read s2c-bench-app/package.json",
         "Read src/index.css",
-        "Write src/App.tsx"
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 129836
+      "ms": 133358
     }
   ],
-  "reading": "The sketch lays out a spreadsheet web-app page: a top title bar (logo, \"Q3 Budget\", menu, Share pill), a toolbar strip with formatting icons, a formula bar showing the active cell and formula, a large data grid with lettered columns and 12 rows, and a bottom sheet-tab bar (New, Budget, Hiring, Notes tabs plus a running sum) pinned to the bottom of the page. All content/colour details come from the user's typed notes, which take precedence over the raw ink.",
+  "reading": "The sketch lays out a full spreadsheet-app page top to bottom: a top app bar with logo/title/menu/share, a toolbar row of icon buttons, a formula bar, a large spreadsheet data grid, and (separated lower) a bottom tab bar with a small 'Sum' readout — all fully specified by the typed notes attached to each stroke.",
   "actions": [
     {
       "kind": "add",
@@ -70,7 +71,22 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it; only these parts in it, NO other heading or title i"
+      "instruction": "Top app bar, 52px tall, spanning the full page width at the very top, no fill (page colour), with a 1px #e5e7eb border line under it. Only these parts, left to "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        55,
+        1272,
+        34
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A pale grey toolbar, 40px tall, spanning the full page width directly under the top app bar. Icon links sit together at the LEFT, one after another, ending 340p"
     },
     {
       "kind": "add",
@@ -78,31 +94,14 @@
       "textSize": [],
       "region": [
         3,
-        55,
-        1273,
-        66
+        95,
+        1272,
+        26
       ],
       "paths": [
-        "s1",
         "s2"
       ],
-      "instruction": "Pale grey toolbar, 40px tall, across the page, sitting right below the top bar; icons/links: ↶, ↷, 100%, $, %, .0, B, I; \"B\" selected (light grey fill); all of "
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        55,
-        1273,
-        66
-      ],
-      "paths": [
-        "s1",
-        "s2"
-      ],
-      "instruction": "Formula bar, 32px tall, thin line under it: bold \"D7\" at the left, \"fx =SUM(D3:D6)\" at the right; each word in its own colour: \"D7\" #1f2937, \"fx =SUM(D3:D6)\" #6"
+      "instruction": "A formula bar, 32px tall, full width, with a thin border line underneath. Left side: bold \"D7\" in #1f2937. Right side: \"fx =SUM(D3:D6)\" in #6b7280."
     },
     {
       "kind": "add",
@@ -117,11 +116,13 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Spreadsheet data table/grid filling the large box, with columns \"\" (row-number gutter), \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", and 12 rows."
+      "instruction": "A real spreadsheet grid table (not a plain list), 1280x365px, border-collapse with every cell bordered 1px #e5e7eb, every row exactly 28px tall. A 46px row-numb"
     },
     {
       "kind": "add",
-      "textMarks": [],
+      "textMarks": [
+        "s5"
+      ],
       "textSize": [],
       "region": [
         4,
@@ -132,22 +133,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Pale grey sheet-tab bar, 40px tall, across the page, pinned to the very BOTTOM of the page (top 860, its bottom edge flush with the page's bottom edge, position"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s5"
-      ],
-      "textSize": [],
-      "region": [
-        1187,
-        874,
-        73,
-        8
-      ],
-      "paths": [],
-      "instruction": "13px status text \"Sum: 290,300\" placed at the far right of the bottom sheet-tab bar."
+      "instruction": "A pale grey bottom tab bar, 40px tall, spanning the full page width, pinned to the very bottom of the page (position absolute/fixed, bottom:0), not placed direc"
     }
   ],
   "rejected": []

@@ -37,3 +37,21 @@ Next (planner, free first): a conic gradient ring said as a conic gradient with 
 circle kept whole (one SVG textPath all the way round); a spreadsheet grid said cell by cell with the header row, the
 selected range and the outlined active cell; the chrome blob and chrome headline said as their gradients; track rows
 said as a track table; then first builds c4, c5, e3, e4, e5.
+
+## n149: planner fixes, re-run c1, e1, c2, e2 (2026-10-23, ~225k billed)
+
+Planner now says: a smooth conic ring as ONE conic gradient with a hollow middle (never a donut chart); textPath rings
+without the sticker "wrap in N lines" add-on; a spreadsheet grid cell by cell (column letters, row numbers, the lit
+active column, the selected range fill, the outlined active cell, red/green numbers); a light-dark-light grey blend as
+an exact liquid-chrome gradient (only stops meeting at the same place are hard stripes now); a track table (number,
+title over artist, plays, length, the playing row) instead of mail rows. Rounds 1-12 plans unchanged by these rules.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c1 orbit type | 58% | **73%** | gradient ring core now right; the circle text still built as a short arc clipped at the right |
+| c2 liquid chrome | 78% | **80%** | blob and headline said as chrome blends |
+| e1 spreadsheet | 54% | **88%** | every cell, active column, selected range and active cell built |
+| e2 music player | 80% | **81%** | track table rows built as tracks; structure still off (header block alignment) |
+
+Round 13 so far: **79%** over 5 pages (c3 74 unchanged; c4, c5, e3, e4, e5 not built yet). Vitest: same 2 env
+failures; typecheck clean.
