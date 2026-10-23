@@ -1,0 +1,124 @@
+{
+  "id": "e3-map-listings",
+  "at": "2026-10-23T21:27:30.997Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8488760205032253,
+    "overallV2": 0.8488760205032253,
+    "overallV1": 0.8246887565055856,
+    "colour": 0.9894250534386662,
+    "structure": 0.9420982131784946,
+    "structureStrict": 0.9123118638121238,
+    "colourAligned": 0.9894250534386662,
+    "structureAligned": 0.9420982131784946,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9691603321200554
+    },
+    "layout": 0.7427840914534287
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "bleed",
+      "gradient",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 30357,
+    "output": 18118,
+    "cacheRead": 128473
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37364,
+      "output": 13616,
+      "cacheRead": 118278,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 146481
+    }
+  ],
+  "reading": "The sketch lays out a search/listings page: a top navigation bar with logo, search pill and profile icon; a filter pill row beneath it; a 2x2 grid of listing cards on the left; and a map panel with price pins on the right, all fully specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        66
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top bar 72px tall spanning the full page width at the very top, no fill (page colour), with a 1px #ebebeb line under it. Only these parts, nothing else in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        75,
+        1273,
+        50
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a filter pill row directly below the top bar, with 6 real elements with live text, nothing invented, nothing left out: 66x36 pill at 28,82 with 2px #222222 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        31,
+        153,
+        634,
+        536
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add 4 listing cards in a 2-column grid, 640px wide, positioned at 28,150, with 20px column gap and 24px row gap (cards, not a text list). Each card: 310px wide,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        131,
+        574,
+        766
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a drawn street map panel, 580x772px, #e8eef0 ground, overflow hidden (not empty, not a picture, not an iframe). Inside it, absolutely positioned in panel px"
+    }
+  ],
+  "rejected": []
+}

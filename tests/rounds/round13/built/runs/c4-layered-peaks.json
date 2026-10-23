@@ -1,0 +1,236 @@
+{
+  "id": "c4-layered-peaks",
+  "at": "2026-10-23T21:15:36.022Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8651392253985035,
+    "overallV2": 0.8651392253985035,
+    "overallV1": 0.7650366662573405,
+    "colour": 0.9752550442938794,
+    "structure": 0.9068010345764361,
+    "structureStrict": 0.751217977499567,
+    "colourAligned": 0.9752550442938794,
+    "structureAligned": 0.9068010345764361,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9808112086980222
+    },
+    "layout": 0.8163541170337961
+  },
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "huge-type",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "glow"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 52913,
+    "output": 33505,
+    "cacheRead": 224762
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 69751,
+      "output": 26847,
+      "cacheRead": 212822,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/GlowingSun.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 307466
+    }
+  ],
+  "reading": "This is a full hero/landing page sketch: a top nav bar, a glowing sun-like circle with a tilted chevron mark nearby, a giant 'ASCEND' heading, three overlapping jagged color-block 'mountain' layers stacked below it (each a flat-fill cut-out shape per the typed clip-path notes), with a paragraph of body copy and a pill button sitting on the lowest layer, all over a page-wide yellow-to-peach-to-pink gradient background.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        39,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar, no box/border around it: 'SUMMIT CO.' as the logo/wordmark on the left, and the nav links 'Trips · Gear · Journal' on the right, spanning th"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        565,
+        184,
+        292,
+        292
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Big glowing pale yellow circle behind the heading area, like a soft sun glow."
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        303,
+        143,
+        166,
+        48
+      ],
+      "paths": [],
+      "instruction": "Small decorative mark of wide-spaced, tilted (6° anticlockwise) chevron/letter shapes '⌄ ⌄ ⌄', positioned above and to the left of the ASCEND heading."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        8,
+        221,
+        1152,
+        307
+      ],
+      "paths": [],
+      "instruction": "Giant heading text 'ASCEND' in Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not squared/condensed/display), heavy and tig"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        421,
+        1270,
+        474
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Jagged cut-out mountain-layer shape with ONE flat fill color #a3527a, no gradient/shading/texture, rendered via clip-path polygon on its bounding box (1280x478p"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        566,
+        1270,
+        329
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Jagged cut-out mountain-layer shape with ONE flat fill color #6e2f63, no gradient/shading/texture, rendered via clip-path polygon on its bounding box (1280x334p"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        6,
+        702,
+        1269,
+        192
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Jagged cut-out mountain-layer shape with ONE flat fill color #2a1633 (deep indigo), no gradient/shading/texture, rendered via clip-path polygon on its bounding "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        884,
+        800,
+        332,
+        45
+      ],
+      "paths": [],
+      "instruction": "Two-line body paragraph text sitting on the lowest (deep indigo) mountain layer, reading 'Guided sunrise climbs in the Dolomites. Small groups, early starts, no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        57,
+        811,
+        160,
+        43
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Pill-shaped button labeled 'Book a sunrise', pale yellow fill (#fff3c4), deep indigo text (#2a1633), sized about 163x46px with fully rounded pill ends, sitting "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

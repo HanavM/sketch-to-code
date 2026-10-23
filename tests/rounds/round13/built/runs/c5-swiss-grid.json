@@ -1,0 +1,202 @@
+{
+  "id": "c5-swiss-grid",
+  "at": "2026-10-23T21:23:37.591Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.41317548295754813,
+    "overallV2": 0.4088118292007861,
+    "overallV1": 0.316145777478182,
+    "colour": 0.6811387387384615,
+    "structure": 0.6003054340382987,
+    "structureStrict": 0.44489795828825934,
+    "colourAligned": 0.6865764016321703,
+    "structureAligned": 0.6003054340382987,
+    "align": {
+      "scale": 0.92,
+      "dx": 96,
+      "dy": 16,
+      "r": 0.4708489972570092
+    },
+    "layout": 0.67674300929216
+  },
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "blend",
+      "huge-type",
+      "vertical-type"
+    ],
+    "missing": [
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48181,
+    "output": 35428,
+    "cacheRead": 125387
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 54063,
+      "output": 22689,
+      "cacheRead": 113592,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 275919
+    }
+  ],
+  "reading": "This is a Kunsthalle Basel exhibition poster/landing page: a large poster panel on the right holds a giant ink-stamped '57' numeral, a vivid red image block with a white outline circle and a white caption, and a vertical white exhibition label; the left column holds a small bold kicker line, a huge 3-line bold headline, and a 4-row ruled event index list.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a large rectangular poster/image panel occupying the right portion of the page, serving as the background frame that will hold the giant '57' numeral, the v"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        43,
+        265,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add one line of text, top-left of the page: \"KUNSTHALLE BASEL — 1957/2026\", set in 13px wide-spaced (letter-spaced) bold (font-weight 700, not regular) letters,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 55
+        }
+      ],
+      "region": [
+        48,
+        120,
+        378,
+        182
+      ],
+      "paths": [],
+      "instruction": "Add a huge, tight-set (line-height 0.95) bold (font-weight 700, not regular) Helvetica headline below the kicker line, broken into exactly 3 lines that must sta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        478,
+        88,
+        489,
+        392
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Inside the poster panel, add giant live text \"57\" in heavy (font-weight 900) round-bowled Helvetica/Arial sans-serif, about 560px type size and ~543px wide (no "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13"
+          ],
+          "lines": 8,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        44,
+        460,
+        432,
+        172
+      ],
+      "paths": [],
+      "instruction": "Add a ruled index list, 440px wide, positioned at the left column (around x:40, y:460), with 4 rows each 43px tall, each row having a 1px #111111 rule across it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        825,
+        564,
+        251,
+        252
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Inside the poster panel, lower right, add a vivid red rectangular image block containing a big white outline circle, with a 13px white (#ffffff) caption near it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1210,
+        64,
+        15,
+        319
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Along the right edge of the poster panel, add a vertical (writing-mode: vertical-rl) line of wide-spaced 13px white (#ffffff) letters, about 327px long, reading"
+    }
+  ],
+  "rejected": []
+}

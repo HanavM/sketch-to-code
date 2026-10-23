@@ -77,11 +77,11 @@
    ],
    [
     "ring-text",
-    "spinning ring of big heavy capital letters \"LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺\"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, in front of the \"'26\" heading"
+    "spinning ring of big heavy capital letters \"LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺ SPECIMEN 2026 ✺\", 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; build it as exactly this SVG, the text whole, never shortened, the box 640x640px with overflow visible on it and every parent (no overflow hidden, no clip): <svg viewBox=\"0 0 640 640\" width=\"640\" height=\"640\" style=\"overflow:visible\"><defs><path id=\"ring\" d=\"M320,320 m-270,0 a270,270 0 1,1 540,0 a270,270 0 1,1 -540,0\"/></defs><text font-size=\"34\" font-weight=\"900\" letter-spacing=\"6\" fill=\"#141414\"><textPath href=\"#ring\">LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺ SPECIMEN 2026 ✺</textPath></text></svg>; no ring outline, no disc behind the letters, in front of the \"'26\" heading"
    ],
    [
     "footer",
-    "near-black border \"EST. 2011 — LISBON ORBIT/14 SCROLL ↓\""
+    "a row 1160px wide at 60,840 with ONLY a 1px #141414 rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 12px under the rule; three separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): 12px Helvetica #141414 \"EST. 2011 — LISBON\" at the far left, \"ORBIT/14\" in the middle, \"SCROLL ↓\" at the far right"
    ]
   ]
  },
@@ -191,11 +191,7 @@
    ],
    [
     "card-fan",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 7
-    }
+    "box"
    ],
    [
     "chip-left",
@@ -226,6 +222,10 @@
    [
     "subcopy",
     "text \"Hand-printed decks for people who still play at the kitchen table.\""
+   ],
+   [
+    "card-fan",
+    "a FAN of 5 playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card 200x290px, all stacked at the same top-left 540,330 (position absolute) and each turned round transform-origin 100px 348px so they spread like a hand of cards, later cards on top; every card 16px rounded, 6px solid #ffffff border, box-shadow rgba(0, 0, 0, 0.4) 0px 18px 40px 0px, 54px Georgia corner letters, padding 14px; card 1: #e85d4a fill, #ffffff \"A♥\" in its top-left corner, transform: rotate(-30deg); card 2: #f2c14e fill, #141414 \"K♣\" in its top-left corner, transform: rotate(-15deg); card 3: #f5efe0 fill, #141414 \"Q♦\" in its top-left corner, transform: rotate(0deg) translateY(-24px); card 4: #4a7de8 fill, #ffffff \"J♠\" in its top-left corner, transform: rotate(15deg); card 5: #141414 fill, #f2c14e \"10\" in its top-left corner, transform: rotate(30deg); each word in its own colour: \"A♥\" #ffffff, \"K♣\" #141414, \"Q♦\" #141414, \"J♠\" #ffffff, \"10\" #f2c14e"
    ],
    [
     "chip-left",
@@ -617,7 +617,7 @@
    ],
    [
     "album",
-    "dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block \"▶ ♡ ⋯\" box, then a TRACK TABLE (NOT mail rows, NOT cards): a small grey header row \"#\" | \"Title\" | \"Plays\" | \"⏱\" with a thin line under it, then 5 track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): 1 | \"Afterglow\" / \"Luma Vale\" | 12,408,211 | 3:41; ▶ | \"Glass Harbour\" / \"Luma Vale\" | 9,870,004 | 4:02 (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number); 3 | \"Low Orbit\" / \"Luma Vale, Kito\" | 7,112,560 | 3:18; 4 | \"Paper Moon\" / \"Luma Vale\" | 5,904,337 | 2:56; 5 | \"Static Bloom\" / \"Luma Vale\" | 4,221,089 | 3:33"
+    "dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block holding, first, a 200px tall header at the top of the block (block px from its top-left): a 200x200px cover square at 28,28 painted linear-gradient(135deg, #ff6b9a, #7a4cff), 6px rounded, a soft shadow; to its right, bottom-aligned with it: 12px bold #ffffff \"ALBUM\" over the title \"Neon Tides\" 72px font-weight 900 #ffffff starting at x 252, then under it 14px #cfc6e0 \"Luma Vale · 2026 · 9 songs, 34 min\"; then \"▶ ♡ ⋯\" box, then a TRACK TABLE (NOT mail rows, NOT cards): a small grey header row \"#\" | \"Title\" | \"Plays\" | \"⏱\" with a thin line under it, then 5 track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): 1 | \"Afterglow\" / \"Luma Vale\" | 12,408,211 | 3:41; ▶ | \"Glass Harbour\" / \"Luma Vale\" | 9,870,004 | 4:02 (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number); 3 | \"Low Orbit\" / \"Luma Vale, Kito\" | 7,112,560 | 3:18; 4 | \"Paper Moon\" / \"Luma Vale\" | 5,904,337 | 2:56; 5 | \"Static Bloom\" / \"Luma Vale\" | 4,221,089 | 3:33"
    ],
    [
     "now-playing",

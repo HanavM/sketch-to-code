@@ -119,7 +119,7 @@
    ],
    [
     "orbit-text",
-    "ring of big heavy capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\", 44px type, letter-spacing 10px, #111111, set on a circle (SVG textPath) of radius 250px centred in a 600x600px box at 340,150: the words run ALL the way round the circle, end meeting start, never a partial arc; a separate thin dashed 2px #111111 circle (stroke-dasharray 4, 8, no fill) of radius 282px round the same centre, just outside the letters"
+    "ring of big heavy capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\", 44px type, letter-spacing 10px, #111111, set on a circle (SVG textPath) of radius 250px centred in a 600x600px box at 340,150: the words run ALL the way round the circle, end meeting start, never a partial arc; build it as exactly this SVG, the text whole, never shortened, the box 600x600px with overflow visible on it and every parent (no overflow hidden, no clip): <svg viewBox=\"0 0 600 600\" width=\"600\" height=\"600\" style=\"overflow:visible\"><defs><path id=\"ring\" d=\"M300,300 m-250,0 a250,250 0 1,1 500,0 a250,250 0 1,1 -500,0\"/></defs><text font-size=\"44\" font-weight=\"900\" letter-spacing=\"10\" fill=\"#111111\"><textPath href=\"#ring\">LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·</textPath></text></svg>; a separate thin dashed 2px #111111 circle (stroke-dasharray 4, 8, no fill) of radius 282px round the same centre, just outside the letters"
    ],
    [
     "sun",

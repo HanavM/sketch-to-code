@@ -1,67 +1,75 @@
 {
   "id": "c3-card-fan",
-  "at": "2026-10-23T19:59:32.095Z",
+  "at": "2026-10-23T21:01:53.409Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7352979739149681,
-    "overallV2": 0.7352979739149681,
-    "overallV1": 0.704185773372016,
-    "colour": 0.9492831243874088,
-    "structure": 0.7375617011526128,
-    "structureStrict": 0.6712757981541448,
-    "colourAligned": 0.9492831243874088,
-    "structureAligned": 0.7375617011526128,
+    "overall": 0.8404499521535035,
+    "overallV2": 0.8404499521535035,
+    "overallV1": 0.804367082758822,
+    "colour": 0.9546721196892136,
+    "structure": 0.8823212783166617,
+    "structureStrict": 0.8054451480892211,
+    "colourAligned": 0.9546721196892136,
+    "structureAligned": 0.8823212783166617,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.3730837319997245
+      "r": 0.6474474701825752
     },
-    "layout": 0.6036905415658502
+    "layout": 0.7196988025593952
   },
   "effects": {
-    "recall": 0.375,
+    "recall": 0.625,
     "kept": [
       "italic",
       "overlap",
-      "serif"
+      "serif",
+      "soft-shadow",
+      "tilt"
     ],
     "missing": [
       "3d",
       "gradient",
-      "hard-shadow",
-      "soft-shadow",
-      "tilt"
+      "hard-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 31224,
-    "output": 21423,
-    "cacheRead": 199555
+    "input": 36634,
+    "output": 23093,
+    "cacheRead": 449567
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 37032,
-      "output": 15053,
-      "cacheRead": 168410,
-      "toolCalls": 8,
+      "billed": 49958,
+      "output": 19421,
+      "cacheRead": 439424,
+      "toolCalls": 16,
       "tools": [
         "Glob",
+        "Read components/FanPlaying.tsx",
         "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Read src/main.tsx",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Grep",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit components/FanPlaying.tsx",
+        "Read components/FanPlaying.tsx",
+        "Edit components/FanPlaying.tsx",
+        "Read components/FanPlaying.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
       ],
-      "ms": 175198
+      "ms": 226582
     }
   ],
-  "reading": "This is a hero/landing page: a thin nav divider with left/right nav text, a giant serif headline, a subheading, a paragraph of body copy, two colored avatar-style discs, and a call-to-action button, all on a dark teal page per the typed notes.",
+  "reading": "The sketch is a hero section: a plain-text nav bar, a big serif headline with a subheading, a fan of five playing cards, two dashed-outline color discs, and a 'Shop decks' button, all per the typed styling notes.",
   "actions": [
     {
       "kind": "add",
@@ -76,7 +84,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Nav bar, no box/border around it: wide letter-spaced \"HOUSE OF CARDS\" wordmark on the left, \"RULES · DECKS · CLUB\" links on the right."
+      "instruction": "Nav bar, no box around it: wide-spaced 'HOUSE OF CARDS' on the left, 'RULES · DECKS · CLUB' on the right."
     },
     {
       "kind": "add",
@@ -99,25 +107,14 @@
         106
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif, regular weight, tight letter-spacing headline \"Deal a better hand\" on a single line (no wrap, white-space: nowrap), about 582px wide. The w"
+      "instruction": "Giant Georgia serif, regular weight, tight-set headline 'Deal a better hand' on one line (white-space: nowrap, never wrapped, about 582px wide). The word 'bette"
     },
     {
       "kind": "add",
       "textMarks": [
         "s2"
       ],
-      "textSize": [
-        {
-          "strokes": [
-            "s2",
-            "s3",
-            "s6",
-            "s9"
-          ],
-          "lines": 4,
-          "fontPx": 113
-        }
-      ],
+      "textSize": [],
       "region": [
         394,
         199,
@@ -125,55 +122,22 @@
         9
       ],
       "paths": [],
-      "instruction": "Subheading text below the headline: \"Hand-printed decks for people who still play at the kitchen table.\""
+      "instruction": "Subheading text: 'Hand-printed decks for people who still play at the kitchen table.'"
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s3",
-        "s4",
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s2",
-            "s3",
-            "s6",
-            "s9"
-          ],
-          "lines": 4,
-          "fontPx": 113
-        },
-        {
-          "strokes": [
-            "s4",
-            "s5"
-          ],
-          "lines": 2,
-          "fontPx": 28
-        },
-        {
-          "strokes": [
-            "s7",
-            "s8"
-          ],
-          "lines": 2,
-          "fontPx": 28
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        544,
-        347,
-        192,
-        257
+        543,
+        333,
+        194,
+        284
       ],
-      "paths": [],
-      "instruction": "A multi-line paragraph of body copy (seven lines, last line shorter) describing the product, e.g. hand-printed playing cards made in small batches for people wh"
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A fan of 5 playing cards (real card shapes, illustrated, not text). Each card 200x290px, position absolute at top-left 540,330, transform-origin 100px 348px so "
     },
     {
       "kind": "add",
@@ -186,9 +150,9 @@
         65
       ],
       "paths": [
-        "s10"
+        "s4"
       ],
-      "instruction": "Perfectly round solid disc, 74px across, flat fully opaque vivid orange fill (#e85d4a), hard edge, no blur, with an 8px dashed white outline (not a solid ring)."
+      "instruction": "Perfectly round solid disc, 74px across, 8px dashed white (#ffffff) outline, flat fully opaque vivid orange (#e85d4a) fill, hard edge, no blur."
     },
     {
       "kind": "add",
@@ -201,9 +165,9 @@
         66
       ],
       "paths": [
-        "s11"
+        "s5"
       ],
-      "instruction": "Perfectly round solid disc, 74px across, flat fully opaque vivid blue fill (#4a7de8), hard edge, no blur, with an 8px dashed white outline (not a solid ring)."
+      "instruction": "Perfectly round solid disc, 74px across, 8px dashed white (#ffffff) outline, flat fully opaque vivid blue (#4a7de8) fill, hard edge, no blur."
     },
     {
       "kind": "add",
@@ -216,9 +180,9 @@
         45
       ],
       "paths": [
-        "s12"
+        "s6"
       ],
-      "instruction": "Button labeled \"Shop decks\", 160x48px, 10px rounded corners, peach fill (#f2c14e) with dark teal text (#1b3a2f, not the page's cream text)."
+      "instruction": "Button labeled 'Shop decks': peach #f2c14e fill, dark teal #1b3a2f text (not the page's cream text), 160x48px, 10px rounded corners."
     }
   ],
   "rejected": [

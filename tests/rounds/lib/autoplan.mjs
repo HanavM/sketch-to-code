@@ -686,6 +686,20 @@ export function factsInPage() {
         const smooth = pts.length >= 3 && pts.every((p) => p.length <= 1) && at.every((x, i) => !i || x !== at[i - 1])
         return { ...extra, css: gs.backgroundImage, smooth, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
       })(),
+      // n150: a fan of same-size cards each turned round a shared low origin (round 13 c3: said as 7 lines of text,
+      // the cards never built and a paragraph invented in their place)
+      fan: (() => {
+        if (kids.length < 3 || kids.length > 8 || el.querySelector('[data-r]')) return null
+        const ks = kids.map((k) => ({ k, cs: getComputedStyle(k) }))
+        if (!ks.every(({ cs }) => cs.position === 'absolute' && cs.transform !== 'none')) return null
+        const w0 = ks[0].k.offsetWidth, h0 = ks[0].k.offsetHeight
+        if (!ks.every(({ k }) => Math.abs(k.offsetWidth - w0) <= 2 && Math.abs(k.offsetHeight - h0) <= 2) || w0 < 40) return null
+        const turn = (cs) => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+),[^,]+,[^,]+,\s*([^,]+),\s*([^)]+)\)/); return m ? { deg: Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI), dx: Math.round(+m[3]), dy: Math.round(+m[4]) } : null }
+        const cards = ks.map(({ k, cs }) => ({ t: (k.innerText || '').trim(), bg: cs.backgroundColor, c: cs.color, ...(turn(cs) ?? {}) }))
+        if (cards.filter((c) => c.deg).length < 2) return null
+        const c0 = ks[0].cs, pr = el.getBoundingClientRect()
+        return { cards, w: w0, h: h0, x: Math.round(pr.left + ks[0].k.offsetLeft), y: Math.round(pr.top + ks[0].k.offsetTop), origin: c0.transformOrigin, radius: c0.borderTopLeftRadius, border: c0.borderTopWidth !== '0px' ? `${c0.borderTopWidth} solid ${c0.borderTopColor}` : '', shadow: c0.boxShadow !== 'none' ? c0.boxShadow : '', font: c0.fontFamily.split(',')[0].replace(/"/g, ''), size: Math.round(parseFloat(c0.fontSize)), pad: c0.paddingTop }
+      })(),
       // text set round a circle (an SVG textPath badge)
       circleText: (() => {
         const t = el.querySelector('textPath'); if (!t) return null
@@ -1830,7 +1844,17 @@ export function factsInPage() {
           return { t: ownT(k), fill: filled(k), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), right: sm ? txt(sm) : null, dot: dt ? { c: filled(dt), px: Math.round(dt.getBoundingClientRect().width), round: parseFloat(getComputedStyle(dt).borderTopLeftRadius) >= dt.getBoundingClientRect().width * 0.4 } : null, rule: parseFloat(c.borderBottomWidth) >= 1 ? rgba(c.borderBottomColor) : null }
         }) : null
       const groupedH = grouped ? rh[0] : null
-      return { type: 'list', order, grouped, groupedH, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      // n150: a big-title header block above the list (round 13 e2: the album cover, kicker, 48px title and meta line
+      // were dropped; only the play row was said)
+      const heroEl = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && (rep[0].compareDocumentPosition(k) & 2) && k.querySelector('h1,h2'))
+      const hero = heroEl ? (() => {
+        const h = heroEl.querySelector('h1,h2'), hc = getComputedStyle(h), hb = heroEl.getBoundingClientRect(), ob = el.getBoundingClientRect()
+        const cov = [...heroEl.querySelectorAll('*')].find((g) => !txt(g) && g.getBoundingClientRect().width >= 60 && (filled(g) || getComputedStyle(g).backgroundImage !== 'none'))
+        const cb = cov?.getBoundingClientRect(), cc = cov ? getComputedStyle(cov) : null
+        const sm = [...heroEl.querySelectorAll('small,p,span')].filter((g) => txt(g) && !g.contains(h)).map((g) => ({ t: txt(g), px: Math.round(parseFloat(getComputedStyle(g).fontSize)), ink: rgba(getComputedStyle(g).color), bold: Number(getComputedStyle(g).fontWeight) >= 600, above: g.getBoundingClientRect().top < h.getBoundingClientRect().top }))
+        return { h: txt(h), px: Math.round(parseFloat(hc.fontSize)), weight: Number(hc.fontWeight), ink: rgba(hc.color), x: Math.round(h.getBoundingClientRect().left - ob.left), y: Math.round(hb.top - ob.top), hH: Math.round(hb.height), cover: cb ? { w: Math.round(cb.width), h: Math.round(cb.height), x: Math.round(cb.left - ob.left), y: Math.round(cb.top - ob.top), bg: cc.backgroundImage !== 'none' ? cc.backgroundImage : cc.backgroundColor, rad: cc.borderTopLeftRadius } : null, small: sm }
+      })() : null
+      return { type: 'list', order, grouped, hero, groupedH, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
@@ -2025,6 +2049,13 @@ export const faceName = (fam) => {
 // never reads as a literal placeholder ellipsis ("Write a message…")
 // n143: a tab row said in full, its selected tab and underline (round 11 e3: tabs dropped, list built ~22px high)
 const tabsSay = (d) => (d.extra ?? []).filter((x) => x.tabs).map((x) => `a ${x.h}px row of tabs side by side: ${x.tabs.map((t) => `${quote(t, 20)}${t === x.sel ? ` (selected${x.selInk ? `, ${hexOf(x.selInk)} text` : ''}${x.selLine ? `, a ${x.selLine.w}px ${hexOf(x.selLine.c)} underline` : ''})` : ''}`).join(', ')}, then `).join('')
+// a whole text ring said as its exact SVG, so it is never cut to a short arc or clipped by its box
+// (round 13 c1: the words built as a short arc clipped at the right, twice)
+const ringSvg = (ct, t, fill) => {
+  const c = Math.round(ct.px / 2), r = ct.rad
+  if (!r || !ct.px || t.length > 140) return ''
+  return `; build it as exactly this SVG, the text whole, never shortened, the box ${ct.px}x${ct.px}px with overflow visible on it and every parent (no overflow hidden, no clip): <svg viewBox="0 0 ${ct.px} ${ct.px}" width="${ct.px}" height="${ct.px}" style="overflow:visible"><defs><path id="ring" d="M${c},${c} m-${r},0 a${r},${r} 0 1,1 ${2 * r},0 a${r},${r} 0 1,1 -${2 * r},0"/></defs><text font-size="${ct.size}" font-weight="${ct.weight}"${ct.spacing ? ` letter-spacing="${ct.spacing}"` : ''}${fill ? ` fill="${fill}"` : ''}><textPath href="#ring">${t}</textPath></text></svg>`
+}
 const quote = (s, n = 48) => (s.length > n ? `"${s.slice(0, n).replace(/\s+\S*$/, '')}"…` : `"${s}"`)
 const uniq = (xs) => [...new Set(xs.filter(Boolean))]
 
@@ -2353,7 +2384,9 @@ function denseNote(d) {
         const head = (d.extra ?? []).find((x) => x.tabs)?.tabs
         const split = (t) => { const m = t.match(/^(.*?[a-z0-9)])([A-Z].*)$/); return m ? [m[1], m[2]] : [t, ''] }
         const onRow = d.on ? d.items.findIndex((p) => p.includes(d.on) || p[1].startsWith(d.on) || d.on.startsWith(split(p[1])[0])) : -1
-        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}a TRACK TABLE (NOT mail rows, NOT cards): ${head ? `a small grey header row ${head.map((t) => quote(t, 12)).join(' | ')} with a thin line under it, then ` : ''}${d.items.length} track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): ${d.items.map((p, i) => { const [t, a] = split(p[1]); return `${p[0]} | ${quote(t, 30)} / ${quote(a, 30)} | ${p[2]} | ${p[3]}${i === onRow ? ' (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number)' : ''}` }).join('; ')}`
+        const H = d.hero, hx = (c) => hexOf(c)
+        const heroW = H ? `holding, first, a ${H.hH}px tall header at the top of the block (block px from its top-left): ${H.cover ? `a ${H.cover.w}x${H.cover.h}px cover square at ${H.cover.x},${H.cover.y} painted ${cssHex(H.cover.bg)}${parseFloat(H.cover.rad) ? `, ${H.cover.rad} rounded` : ''}, a soft shadow; to its right, bottom-aligned with it: ` : ''}${H.small.filter((m) => m.above).map((m) => `${m.px}px ${m.bold ? 'bold ' : ''}${hx(m.ink)} ${quote(m.t, 30)} over `).join('')}the title ${quote(H.h, 40)} ${H.px}px font-weight ${H.weight} ${hx(H.ink)} starting at x ${H.x}${H.small.filter((m) => !m.above).map((m) => `, then under it ${m.px}px ${hx(m.ink)} ${quote(m.t, 60)}`).join('')}; then ` : ''
+        return `${heroW}${d.head ? `${quote(d.head, 20)} box, then ` : ''}a TRACK TABLE (NOT mail rows, NOT cards): ${head ? `a small grey header row ${head.map((t) => quote(t, 12)).join(' | ')} with a thin line under it, then ` : ''}${d.items.length} track rows, each one line ~56px tall in 4 columns: the track number (narrow, grey) | the song title (white) with the artist in small grey UNDER it | the play count (grey) | the length at the far right (grey): ${d.items.map((p, i) => { const [t, a] = split(p[1]); return `${p[0]} | ${quote(t, 30)} / ${quote(a, 30)} | ${p[2]} | ${p[3]}${i === onRow ? ' (the PLAYING row: faint highlight fill, rounded, its title in the accent colour, a ▶ in place of its number)' : ''}` }).join('; ')}`
       }
       if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && timeish(p[1]) && !timeish(p[0]))) d = { ...d, items: d.items.map((p) => [p[1], p[0], p[2], p[3]]), on: d.on && d.items.find((p) => p[0] === d.on)?.[1] }
       if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && p[0].length <= 10)) {
@@ -2665,9 +2698,9 @@ function round11Extra(f, d) {
 }
 function decideRest(f, page, marked, said) {
   // n133: a two-ended row under a top rule only, said as itself (round 9 c5 byline built as a bordered box)
-  if (f.topRule && f.spreadEnds && f.kidTexts.length === 2 && f.rect.h <= 80 && !f.regionKids.length) {
+  if (f.topRule && f.spreadEnds && (f.kidTexts.length === 2 || f.kidTexts.length === 3) && f.kidTexts.length === f.kidCount && !(f.kidTexts.length === 3 && f.kidButtons) && f.rect.h <= 80 && !f.regionKids.length) {
     const k = f.kidBoxes?.[0], T = f.topRule
-    return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; two items on one line pushed to its two ends (justify-content: space-between): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${quote(f.kidTexts[1], 30)} at the far right` }
+    return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; ${f.kidTexts.length === 3 ? 'three' : 'two'} separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${f.kidTexts.length === 3 ? `${quote(f.kidTexts[1], 30)} in the middle, ` : ''}${quote(f.kidTexts[f.kidTexts.length - 1], 30)} at the far right` }
   }
   const d0 = decideOne(f, page, marked, said)
   const w0 = f.rect.w, h0 = f.rect.h
@@ -2982,6 +3015,12 @@ function decideOne(f, page, marked, said) {
     const sp = f.pseudoSpots.spots
     return { kind: 'box', note: withFx(`${base ? `vivid ${colourName(base)} (${hexOf(base)}) ` : ''}flat duotone tile${bordered && f.border.w >= 3 ? ` with a thick ${colourName(f.border.colour)} border` : ''}, no picture: ${sp.length} hard-edged round ${colourName(sp[0].c)} (${hexOf(sp[0].c)}) shapes on it${sp.map((x) => `${x.d ? ` ${x.d}px` : ''} centred ${x.x}% across, ${x.y}% down`).join(',')}${f.pseudoSpots.inset ? ` (inside a ${f.pseudoSpots.inset}px margin)` : ''}`) }
   }
+  // n150: a fanned deck said card by card as its CSS (round 13 c3: built as a paragraph, no cards)
+  if (f.fan) {
+    const F = f.fan, hx = (c) => { const p = parse(c ?? ''); return p ? hexOf(p) : c }
+    const cards = F.cards.map((c, i) => `card ${i + 1}: ${hx(c.bg)} fill, ${hx(c.c)} ${JSON.stringify(c.t)} in its top-left corner, transform: rotate(${c.deg}deg)${c.dy ? ` translateY(${c.dy}px)` : ''}`).join('; ')
+    return { kind: 'box', note: `a FAN of ${F.cards.length} playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card ${F.w}x${F.h}px, all stacked at the same top-left ${F.x},${F.y} (position absolute) and each turned round transform-origin ${F.origin} so they spread like a hand of cards, later cards on top; every card ${F.radius} rounded${F.border ? `, ${F.border.replace(/rgb\([^)]*\)/, (m) => hx(m))} border` : ''}${F.shadow ? `, box-shadow ${F.shadow}` : ''}, ${F.size}px ${F.font} corner letters, padding ${F.pad}; ${cards}` }
+  }
   // ---- round 5 creative (n61)
   // text set round a circle: a spinning badge (round 5 c2: unsaid)
   if (f.circleText && !f.regionKids.length) {
@@ -2991,8 +3030,8 @@ function decideOne(f, page, marked, said) {
     // (round 8 c2: letters built tiny, only part way round, the dashed circle lost)
     if (ct.size >= 24) {
       const ink = parse(ct.ink ?? '')
-      const dr = ct.dashed ? `; a separate thin dashed ${ct.dashed.w}px ${hexOf(parse(ct.dashed.c) ?? { r: 17, g: 17, b: 17, a: 1 })} circle (stroke-dasharray ${ct.dashed.dash.replace(/px/g, '')}, no fill) of radius ${ct.dashed.r}px round the same centre, just outside the letters` : '; no outline, no fill'
-      return { kind: 'circle', note: withFx(`ring of big ${ct.weight >= 800 ? 'heavy ' : ct.weight >= 600 ? 'bold ' : ''}${/[a-z]/.test(t) ? '' : 'capital '}letters ${quote(t, 60)}, ${ct.size}px type${ct.spacing ? `, letter-spacing ${ct.spacing}px` : ''}${ink ? `, ${hexOf(ink)}` : ''}, set on a circle (SVG textPath) of radius ${ct.rad}px centred in a ${ct.px}x${ct.px}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: the words run ALL the way round the circle, end meeting start, never a partial arc${dr}`) }
+      const dr = ct.dashed ? `; a separate thin dashed ${ct.dashed.w}px ${hexOf(parse(ct.dashed.c) ?? { r: 17, g: 17, b: 17, a: 1 })} circle (stroke-dasharray ${ct.dashed.dash.replace(/px/g, '')}, no fill) of radius ${ct.dashed.r}px round the same centre, just outside the letters` : '; no ring outline, no disc behind the letters'
+      return { kind: 'circle', note: withFx(`ring of big ${ct.weight >= 800 ? 'heavy ' : ct.weight >= 600 ? 'bold ' : ''}${/[a-z]/.test(t) ? '' : 'capital '}letters ${quote(t, 140)}, ${ct.size}px type${ct.spacing ? `, letter-spacing ${ct.spacing}px` : ''}${ink ? `, ${hexOf(ink)}` : ''}, set on a circle (SVG textPath) of radius ${ct.rad}px centred in a ${ct.px}x${ct.px}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: the words run ALL the way round the circle, end meeting start, never a partial arc${ringSvg(ct, t, ink ? hexOf(ink) : '')}${dr}`) }
     }
     return { kind: 'circle', note: withFx(`ring of small ${/[a-z]/.test(t) ? '' : 'spaced capital '}letters ${quote(t, 60)} running round a ${ct.px}px circle, no outline, no fill`) }
   }

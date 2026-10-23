@@ -55,3 +55,23 @@ title over artist, plays, length, the playing row) instead of mail rows. Rounds 
 
 Round 13 so far: **79%** over 5 pages (c3 74 unchanged; c4, c5, e3, e4, e5 not built yet). Vitest: same 2 env
 failures; typecheck clean.
+
+## n150: whole text ring, card fan, album header; first builds c4, c5, e3 (2026-10-23, ~424k billed)
+
+Planner now says: a big text ring with its whole text (no "…") and the exact SVG to build (viewBox, circle path,
+textPath, overflow visible); a fan of same-size turned cards card by card (size, shared top-left, transform-origin,
+each card's fill, corner letters and rotate); a big-title header block above a list (cover square and its gradient,
+kicker, 72px title, meta line) before the track table; a top-ruled row of three spread items (left, middle, right,
+never run together; rows of buttons excluded). Earlier rounds: round 8 c2 ring gets its SVG; rounds 2 and 9 footer
+wording only; none re-run.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c1 orbit type | 73% | **73%** | the ring text now runs whole round the circle; nav and footer still missed (footer said as one line; the three-item rule came after this run) |
+| c3 card fan | 74% | **84%** | five fanned cards built in place of an invented paragraph; every card built red (per-card fills lost) |
+| e2 music player | 81% | **84%** | cover, ALBUM, title and meta built; the header gradient runs down the whole panel, green play button and green playing title lost |
+| c4 layered peaks | – | **87%** | first build |
+| c5 Swiss grid | – | **41%** | first build: the red right half built as a small red square, ring thin inside it, label on a black bar, times cut |
+| e3 map listings | – | **85%** | first build |
+
+Round 13 so far: **78%** over 8 pages (e4, e5 not built yet). Vitest: same 2 env failures; typecheck clean.
