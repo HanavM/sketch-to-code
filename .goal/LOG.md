@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-23T23:15Z | n152 call tiles, centred headline, bare table, card colours | Video call 79 to 94%, card fan 84 to 89%; Swiss rerun not kept; round 13 at 84%. ~223k.
 2026-10-23T22:35Z | n151 big flat fields, outline rings, text on a field; first e4, e5 | Swiss 41 to 81%, video call 79, pricing 80; round 13 complete at 82%. ~290k.
 2026-10-23T21:30Z | n150 whole text ring, fanned cards, album header; first c4, c5, e3 | Cards 74 to 84%, player 81 to 84%, peaks 87, Swiss 41; round 13 at 78% over 8. ~424k.
 2026-10-23T20:37Z | n149 gradient ring, spreadsheet cells, chrome blends, track table | Spreadsheet 54 to 88%, orbit 58 to 73%; round 13 at 79% over 5. ~225k.
