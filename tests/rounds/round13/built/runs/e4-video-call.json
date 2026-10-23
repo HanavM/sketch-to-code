@@ -1,0 +1,122 @@
+{
+  "id": "e4-video-call",
+  "at": "2026-10-23T21:42:35.907Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7876492492969203,
+    "overallV2": 0.7876492492969203,
+    "overallV1": 0.742561402259823,
+    "colour": 0.9384446213632665,
+    "structure": 0.7553391081428591,
+    "structureStrict": 0.674992287020949,
+    "colourAligned": 0.9384446213632665,
+    "structureAligned": 0.7553391081428591,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9769542006270201
+    },
+    "layout": 0.8724034444390327
+  },
+  "effects": null,
+  "tokens": {
+    "input": 34186,
+    "output": 17411,
+    "cacheRead": 200233
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36220,
+      "output": 9317,
+      "cacheRead": 128180,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 97253
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7190,
+      "output": 3245,
+      "cacheRead": 68969,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 41639
+    }
+  ],
+  "reading": "The sketch lays out a video-call screen: a large left panel for the participant video grid, a right sidebar for an in-call messages feed, and a bottom bar holding a session-time label and a row of call-control buttons. Typed notes give exact copy, sizes, and colors for each part, so the drawing is built from those specs rather than traced verbatim.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        19,
+        19,
+        894,
+        774
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the main video-call grid in this large panel: a featured participant tile 445x385px, filled #3b4a6b (fill must read clearly, not white), rounded corners, "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        931,
+        19,
+        330,
+        773
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build an 'In-call messages' side panel: white block with near-black (#202124) text (not the page's light-grey default). Build it from these exact parts (page px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        28,
+        844,
+        126,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add session info text '10:05 | Weekly sync' at 15px on the left side of the bottom control bar."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        811,
+        1273,
+        86
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build a bottom control-bar stepper: 6 filled pill buttons in one row, each 48px tall with 999px border-radius, left to right: mic icon '🎤' on #ea4335 fill with"
+    }
+  ],
+  "rejected": []
+}

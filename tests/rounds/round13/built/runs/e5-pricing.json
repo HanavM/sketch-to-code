@@ -1,0 +1,132 @@
+{
+  "id": "e5-pricing",
+  "at": "2026-10-23T21:46:47.516Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8000706363401412,
+    "overallV2": 0.8000706363401412,
+    "overallV1": 0.7535039481778201,
+    "colour": 0.9873981788438355,
+    "structure": 0.8936523779607147,
+    "structureStrict": 0.8486728284688633,
+    "colourAligned": 0.9873981788438355,
+    "structureAligned": 0.8936523779607147,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9739447578587207
+    },
+    "layout": 0.8304105800483514
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 36159,
+    "output": 20367,
+    "cacheRead": 234214
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44067,
+      "output": 15109,
+      "cacheRead": 215874,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx"
+      ],
+      "ms": 164738
+    }
+  ],
+  "reading": "This is a pricing page sketch: a bold nowrap headline, a small monthly/yearly billing toggle, a three-card pricing section (Starter / Pro-highlighted / Business) with full pricing details, and a feature-comparison table below.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 51
+        }
+      ],
+      "region": [
+        8,
+        44,
+        1152,
+        61
+      ],
+      "paths": [],
+      "instruction": "Big bold (font-weight 700) heading set on ONE line, white-space: nowrap, about 681px wide: \"Simple pricing that scales with you\". Helvetica type, near-black tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        128,
+        233,
+        37
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Small billing-period toggle/pill control: light grey card containing the word \"Monthly\" (color #57534e) and, to its right, a white near-black-text button/segmen"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        113,
+        203,
+        1054,
+        324
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Three-card pricing section built exactly part-by-part per the typed spec, nothing invented, nothing left out (19 real elements with live text): center 'Pro' car"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        113,
+        563,
+        1053,
+        259
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Feature comparison table below the pricing cards with columns 'Features', 'Starter', 'Pro', 'Business' and exactly these 5 body rows, nothing invented or omitte"
+    }
+  ],
+  "rejected": []
+}

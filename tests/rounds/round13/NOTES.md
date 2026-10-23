@@ -75,3 +75,23 @@ wording only; none re-run.
 | e3 map listings | – | **85%** | first build |
 
 Round 13 so far: **78%** over 8 pages (e4, e5 not built yet). Vitest: same 2 env failures; typecheck clean.
+
+## n151: big flat fields, outline rings, text on a field; first builds e4, e5 (2026-10-23, ~290k billed)
+
+Planner now says: a big flat colour field with its hex, size and place (round 13 c5's red right half had been said only
+as "vivid red block"); a big textless outline ring with its size, place and stroke; a fill-less text standing on such
+a field "on the #hex block, no fill or bar of its own"; a ruled list's right parts whole (dates were cut to "12.03").
+Earlier rounds pick up the same wording on their half-page fields and rings (rounds 3, 4, 8, 9, 12); none re-run.
+
+Bench: dense pages now read in 130-190 s, past the product's 180 s reading limit (the first c5 runs with the new notes
+failed to read; the old notes read in ~133 s). The bench now gives its app a 230 s reading limit and waits 240 s.
+Worth fixing in the product: readings of 17-mark pages write ~12k tokens.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c5 Swiss grid | 41% | **81%** | red right half, white ring and white labels on red all built; numeral sits ~100px right, two invented lines of copy, caption off |
+| e4 video call | – | **79%** | first build: the 2x2 tiles said as one button and a list, so one big tile and three small rows were built |
+| e5 pricing | – | **80%** | first build: headline left (centred in target), comparison table put in a card |
+
+Round 13 complete: **82%** over 10 pages (c1 73, c2 80, c3 84, c4 87, c5 81; e1 88, e2 84, e3 85, e4 79, e5 80).
+Vitest: same 2 env failures; typecheck clean.

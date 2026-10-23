@@ -443,7 +443,7 @@
    ],
    [
     "copy",
-    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text); it stands straight ON the deep indigo (#2a1633) field, with NO fill, bar or box of its own (transparent background)"
+    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text); on the #2a1633 block, no fill or bar of its own"
    ],
    [
     "cta",
@@ -505,7 +505,7 @@
    ],
    [
     "red-field",
-    "a solid flat vivid red (#e30613) block, exactly 640x900px, absolutely placed with its top-left at 640,0 (the whole RIGHT half of the page, top to bottom), painted behind everything else on it, no border, no rounding, no picture, nothing written in it of its own"
+    "flat vivid red (#e30613) block 640x900px at 640,0 (the right half), behind what sits on it, no border"
    ],
    [
     "kicker",
@@ -525,15 +525,15 @@
    ],
    [
     "ring",
-    "perfectly round outline ring exactly 260x260px (border-radius 50%), absolutely placed with its top-left at 820,560, a THICK 24px solid #ffffff border (box-sizing border-box), NO fill: the middle is see-through and shows what is under it, no block or square behind it"
+    "outline ring 260px across at 820,560, a 24px solid #ffffff border, no fill (see-through middle)"
    ],
    [
     "vertical-label",
-    "wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; its text #ffffff (white, NOT the page's near-black text); it stands straight ON the red (#e30613) field, with NO fill, bar or box of its own (transparent background)"
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; its text #ffffff (white, NOT the page's near-black text); on the #e30613 block, no fill or bar of its own"
    ],
    [
     "caption",
-    "13px text \"Poster study no. 4, 1960 (detail)\"; its text #ffffff (white, NOT the page's near-black text); it stands straight ON the red (#e30613) field, with NO fill, bar or box of its own (transparent background)"
+    "13px text \"Poster study no. 4, 1960 (detail)\"; its text #ffffff (white, NOT the page's near-black text); on the #e30613 block, no fill or bar of its own"
    ]
   ]
  },

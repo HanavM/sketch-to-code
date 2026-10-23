@@ -113,6 +113,8 @@ if (PLAIN && !DRY) throw new Error('--plain only runs with --dry: it must never 
 // tokens against ~16k for a whole page. For counting failed readings (s2c-056).
 // --repeat N runs each chosen page N times.
 const READ_ONLY = has('read-only')
+// n151: dense pages read in 130-190 s; the bench app gets a 230 s reading limit (product default 180 s)
+process.env.S2C_READING_TIMEOUT_MS ??= '230000'
 if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does: pick one')
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
@@ -549,9 +551,9 @@ while (queue.length) {
     // Confirm button there failed every page after paying for it (s2c-013).
     let ready = MODE === 'screenshot'
     let readFailed = false
-    // ~150 s: past the reading's own 2-minute limit, so a slow reading that
+    // ~240 s (n151: dense 17-mark pages read in ~135 s; the overlay parks a reading 4 min): past the reading's limit, so a slow reading that
     // lands isn't scored as a failure, and one that doesn't arrives with its cause
-    for (let i = 0; i < 600 && !ready; i++) {
+    for (let i = 0; i < 960 && !ready; i++) {
       const st = await safeEval(page, () => {
         const h = document.getElementById('s2c-overlay-host')
         const c = h?.shadowRoot?.getElementById('confirm')
@@ -593,7 +595,7 @@ while (queue.length) {
       row.readingMs = Date.now() - runStart
       // and what the dev server logged about it (one server per page)
       row.serverSaid = readingFailures(server?.log?.() ?? '')
-      throw new Error(`${readFailed ? 'reading failed' : 'no reading within 150s'} after ${(row.readingMs / 1000).toFixed(0)}s · ${await statusNow()}${cause ? ` · cause: ${cause}` : ''}`)
+      throw new Error(`${readFailed ? 'reading failed' : 'no reading within 240s'} after ${(row.readingMs / 1000).toFixed(0)}s · ${await statusNow()}${cause ? ` · cause: ${cause}` : ''}`)
     }
     if (MODE !== 'screenshot') await safeEval(page, `${sr()}.getElementById('confirm').click()`)
 
