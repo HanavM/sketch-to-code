@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 9 creative pages now mostly land: glass cards 94%, sliced type 92%, halftone poster 84%. Next I fix square buttons, the punched-hole bento tiles and the editorial columns, then build the five everyday pages."
 round: 9
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 81]
-lock: null
+lock: {by: run-2026-10-23-n130, until: "2026-10-23T09:44:25Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
