@@ -443,7 +443,7 @@
    ],
    [
     "copy",
-    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text)"
+    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text); it stands straight ON the deep indigo (#2a1633) field, with NO fill, bar or box of its own (transparent background)"
    ],
    [
     "cta",
@@ -505,7 +505,7 @@
    ],
    [
     "red-field",
-    "vivid red block"
+    "a solid flat vivid red (#e30613) block, exactly 640x900px, absolutely placed with its top-left at 640,0 (the whole RIGHT half of the page, top to bottom), painted behind everything else on it, no border, no rounding, no picture, nothing written in it of its own"
    ],
    [
     "kicker",
@@ -521,19 +521,19 @@
    ],
    [
     "program",
-    "a ruled index list 440px wide at 40,460, 15px near-black, 4 rows each 43px tall with a 1px #111111 rule across its top, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): \"Lecture\" … \"12.03\"…, \"Workshop\" … \"14.03\"…, \"Exhibition\" … \"15.03 —\"…, \"Archive tour\" … \"Thursdays\""
+    "a ruled index list 440px wide at 40,460, 15px near-black, 4 rows each 43px tall with a 1px #111111 rule across its top, the label at the left and its date or number at the far right of the row (NOT a paragraph, NOT a table with heads): \"Lecture\" … \"12.03 18:00\", \"Workshop\" … \"14.03 10:00\", \"Exhibition\" … \"15.03 — 30.06\", \"Archive tour\" … \"Thursdays\"; the right parts whole, exactly as written, never cut"
    ],
    [
     "ring",
-    "big white outline circle"
+    "perfectly round outline ring exactly 260x260px (border-radius 50%), absolutely placed with its top-left at 820,560, a THICK 24px solid #ffffff border (box-sizing border-box), NO fill: the middle is see-through and shows what is under it, no block or square behind it"
    ],
    [
     "vertical-label",
-    "wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; its text #ffffff (white, NOT the page's near-black text)"
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; its text #ffffff (white, NOT the page's near-black text); it stands straight ON the red (#e30613) field, with NO fill, bar or box of its own (transparent background)"
    ],
    [
     "caption",
-    "13px text \"Poster study no. 4, 1960 (detail)\"; its text #ffffff (white, NOT the page's near-black text)"
+    "13px text \"Poster study no. 4, 1960 (detail)\"; its text #ffffff (white, NOT the page's near-black text); it stands straight ON the red (#e30613) field, with NO fill, bar or box of its own (transparent background)"
    ]
   ]
  },

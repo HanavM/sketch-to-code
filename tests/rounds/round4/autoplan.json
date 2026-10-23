@@ -259,7 +259,7 @@
    ],
    [
     "dark-half",
-    "black block"
+    "a solid flat black (#0a0a0a) block, exactly 640x900px, absolutely placed with its top-left at 640,0 (the whole RIGHT half of the page, top to bottom), painted behind everything else on it, no border, no rounding, no picture, nothing written in it of its own"
    ],
    [
     "portrait",
@@ -279,7 +279,7 @@
    ],
    [
     "links",
-    "15px text \"Collection · Archive · Cart (0)\", one line on its own (top 40px, left edge 1039px), nothing else written beside it; its text #fafafa (white, NOT the page's black text)"
+    "15px text \"Collection · Archive · Cart (0)\", one line on its own (top 40px, left edge 1039px), nothing else written beside it; its text #fafafa (white, NOT the page's black text); it stands straight ON the black (#0a0a0a) field, with NO fill, bar or box of its own (transparent background)"
    ],
    [
     "caption",
@@ -287,7 +287,7 @@
    ],
    [
     "cta",
-    "button \"Shop the drop →\"; its text #fafafa (white, NOT the page's black text)"
+    "button \"Shop the drop →\"; its text #fafafa (white, NOT the page's black text); it stands straight ON the black (#0a0a0a) field, with NO fill, bar or box of its own (transparent background)"
    ]
   ]
  },
@@ -341,7 +341,7 @@
    ],
    [
     "ring",
-    "big white outline circle"
+    "perfectly round outline ring exactly 720x720px (border-radius 50%), absolutely placed with its top-left at 520,100, a THICK 2px solid #ffffff border (box-sizing border-box), NO fill: the middle is see-through and shows what is under it, no block or square behind it"
    ],
    [
     "disc",

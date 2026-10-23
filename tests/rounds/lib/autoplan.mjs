@@ -2882,7 +2882,7 @@ function decideOne(f, page, marked, said) {
   // a ruled index list: label left, number right, a thin rule over every row
   if (f.ruledIndex) {
     const I = f.ruledIndex
-    return { kind: 'text', note: `a ruled index list ${I.w}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${I.mono ? 'monospace (Courier New) ' : ''}${I.px}px ${colourName(f.colour)}, ${I.rows.length} rows each ${I.rows[0].h}px tall with a 1px ${hexOf(I.rows[0].rule)} rule across its top${I.rows[I.rows.length - 1].last ? ' and one under the last row' : ''}, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): ${I.rows.map((r) => `${quote(r.l, 28)} … ${quote(r.r, 10)}`).join(', ')}` }
+    return { kind: 'text', note: `a ruled index list ${I.w}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${I.mono ? 'monospace (Courier New) ' : ''}${I.px}px ${colourName(f.colour)}, ${I.rows.length} rows each ${I.rows[0].h}px tall with a 1px ${hexOf(I.rows[0].rule)} rule across its top${I.rows[I.rows.length - 1].last ? ' and one under the last row' : ''}, the label at the left and its date or number at the far right of the row (NOT a paragraph, NOT a table with heads): ${I.rows.map((r) => `${quote(r.l, 28)} … ${quote(r.r, 24)}`).join(', ')}; the right parts whole, exactly as written, never cut` }
   }
   // a halftone dot disc: a round field of a dot grid, solid shapes over it
   if (f.halftone) {
@@ -3137,6 +3137,13 @@ function decideOne(f, page, marked, said) {
     const shape = f.clipPoints >= 6 ? 'jagged cut-out shape' : f.clipPoints >= 3 ? 'angled cut-out shape' : null
     const strong = !grad && fill && vivid(f.bg) ? 'vivid ' : ''
     const note = stripes ? `big ${stripes} block` : shape ? `${strong}${col ?? ''} ${shape}`.trim() : col ? `${strong}${col} block` : null
+    // n151: a big flat coloured field says its exact size, place and hex (round 13 c5: 'vivid red block' for the red
+    // right half was built as a small red square round the ring)
+    if (note && !stripes && !shape && fill && !grad && f.bg.a >= 0.9 && w * h >= 0.2 * 1280 * 900 && !fx.length) {
+      const X = Math.round(f.rect.x), Y = Math.round(f.rect.y), W = Math.round(w), H = Math.round(h)
+      const half = Y <= 2 && H >= 880 && W >= 600 && W <= 680 ? (X <= 2 ? ' (the whole LEFT half of the page, top to bottom)' : X + W >= 1278 ? ' (the whole RIGHT half of the page, top to bottom)' : '') : ''
+      return { kind: 'image', note: `a solid flat ${strong}${col} (${hexOf(f.bg)}) block, exactly ${W}x${H}px, absolutely placed with its top-left at ${X},${Y}${half}, painted behind everything else on it, no border, no rounding, no picture, nothing written in it of its own` }
+    }
     // a cut-out is drawn as its own outline (a ridge line), not as a picture placeholder:
     // round-3 c1 drew the ridges as X'd boxes and got two rectangles with crossed lines
     // a gradient cut-out photo says its hexes, unrotated size and that it lies flat: round 7 c5's photos were built
@@ -3233,6 +3240,9 @@ function decideOne(f, page, marked, said) {
     // a flat textless disc >= 60px says its exact size and hex (round 6 c2: a 110px rose dot said 'vivid rose red
     // circle' was built ~100px, a little squashed)
     // a big flat textless disc (round 6 c3 sun: 'big vivid bright orange circle' built as two pale blobs traced from the ink)
+    // n151: a big textless outline ring says its size, place and stroke (round 13 c5: 'big white outline circle' built
+    // ~100px with a hairline stroke)
+    if (!f.text && !fill && !grad && !glowy && bordered && w >= 120 && f.border.w >= 2 && !fx.length) return { kind: 'circle', note: `perfectly round outline ring exactly ${Math.round(w)}x${Math.round(w)}px (border-radius 50%), absolutely placed with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, a ${f.border.w >= 8 ? "THICK " : ""}${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border (box-sizing border-box), NO fill: the middle is see-through and shows what is under it, no block or square behind it` }
     if (!f.text && fill && !grad && !glowy && w >= 60 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
     // a filled sticker with a bold outline says the outline and that it casts no shadow: on a brutalist page the
     // build gave it a hard offset shadow and no outline (round 6 c5 'SOLD OUT SOON')
@@ -3719,6 +3729,20 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.15 * B.w * B.h
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
+  })
+  // n151: a fill-less text standing on a big flat field painted under it says so (round 13 c5: the white vertical label
+  // on the red half was built on its own black bar, the caption on a red square)
+  regions.forEach((f, i) => {
+    const d = out.get(f.role)
+    if (!d.kind || !d.note || !f.text || visible(f.bg) || /gradient/.test(f.bgImage || '') || f.regionKids.length) return
+    const A = f.rect
+    const field = regions.slice(0, i).reverse().find((g) => {
+      if (f.regionKids.includes(g.role) || !visible(g.bg) || g.bg.a < 0.9 || g.text || g.rect.w * g.rect.h < 0.2 * 1280 * 900) return false
+      if (dist(g.bg, body.bg) < 60 || (f.colour && dist(g.bg, f.colour) < 60)) return false
+      const B = g.rect
+      return A.x >= B.x - 2 && A.y >= B.y - 2 && A.x + A.w <= B.x + B.w + 2 && A.y + A.h <= B.y + B.h + 2
+    })
+    if (field) d.note += `; it stands straight ON the ${colourName(field.bg)} (${hexOf(field.bg)}) field, with NO fill, bar or box of its own (transparent background)`
   })
   // n132: a top bar or a plain row table the rules above left unsaid or said only as a word list gets said part by
   // part (round 9 e1/e2 top bars: no note; e4 search chips: 'white text list'; e5 invoices: a 2-column list). Bars and
