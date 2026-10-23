@@ -138,3 +138,23 @@ each field row and the send pill. Rounds 1-7 plans unchanged.
 
 Round 8 now has all ten pages built: average likeness 75% (creative 84, everyday 66). Everyday misses are now the
 items a note summarises ("5 more", "4 rows") and a build invents: say every list item and table row.
+
+## n122: every list item and table row said; e1, e2, e5 re-run (2026-10-23, ~213k billed)
+
+Planner (zero tokens): a side nav with small headings says each heading over its own links, every link, none moved
+to another group; a stacked list of short items is said in full up to 12 (was 4 then "5 more"); mail rows that open on
+the sender (sender, time, subject, preview) are said as mail rows with the full preview (a sender longer than a time,
+"Ravi, me (3)", had dropped them to a bare list of senders); a table says every body row and its bold caption; an
+opened message says every paragraph and each attachment chip side by side (tool buttons are not attachments); a
+boxless contents list says its heading, every link, their size and ink, and the current one's colour. Rounds 1-7 plans
+gain the same detail on 7 pages (r1 e5 and r3 e1 tables, r2 e2 filters, r4 e1 deals, r5 e2 table, r6 e3 mail rows,
+r7 e3 file tree); no marks changed.
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| e1 mail compose | 68% -> 74% | ~50k (one turn) | every mail row has its bold subject and preview; reader's second paragraph and both attachment chips built; Compose still white (target lavender), a faint grey wash over the page |
+| e2 date-range analytics | 61% -> 66% | ~98k (build + repair) | table rows exact, "Top pages" caption; popover, heat grid and KPIs held; chart card ~10px low and taller, heat grid partly under the popover |
+| e5 docs page | 68% -> 71% | ~65k (one turn) | side nav three groups with the right links, contents list small grey with "Overview" blue; nav rows a little taller than the target, article ~12px low |
+
+Round 8 average now 76% (creative 84, everyday 68). Next: everyday layout places (cards a few px low, row heights),
+Compose button fill; carried creative misses (c3 dark text tile and glow, c5 flat yellow half).
