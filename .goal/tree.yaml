@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 8 is fully built: all ten pages average 75% (creative 84, everyday 66); the mail, analytics and docs pages came out close on the first try. Next: everyday pages invent list items and table rows, so the drawing notes will spell out every one."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 75]
-lock: null
+lock: {by: run-n122, until: "2026-10-23T05:00:26Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
