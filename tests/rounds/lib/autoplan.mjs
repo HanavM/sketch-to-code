@@ -854,7 +854,7 @@ export function factsInPage() {
       const head = [...trs[0].children].map(txt)
       const rich = richTable(el)
       if (rich) return { type: 'rtable', title: null, ...rich }
-      return { type: 'table', columns: head, rows: trs.length - 1, chips: chips(el) }
+      return { type: 'table', columns: head, rows: trs.length - 1, all: trs.length <= 9 ? trs.slice(1).map((r) => [...r.children].map(txt)) : null, chips: chips(el) }
     }
     // week grid (round 6 e5): events absolutely placed over day columns and hour lines; the day heads (a 7-kid row
     // spanning the grid) and the hour rail (6+ 'N AM' labels left of it) live outside, so read them off the page
@@ -1057,7 +1057,10 @@ export function factsInPage() {
       }
       const rich = richTable(inner, el)
       if (rich) return { type: 'rtable', title: title(), ...rich }
-      return { type: 'table', title: title(), columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), chips: chips(inner) }
+      // every body row said (round 8 e2 'Top pages': '4 rows, first row ...' was built with invented rows), and a bold
+      // caption above the table is its title
+      const cap = title() ?? [...el.children].filter((k) => k !== inner && !k.contains(inner) && /^(B|STRONG)$/.test(k.tagName)).map(txt).find((t) => t && t.length <= 40) ?? null
+      return { type: 'table', title: cap, columns: [...rows[0].children].map(txt), rows: rows.length - 1, first: [...rows[1].children].map(txt), all: rows.length <= 9 ? rows.slice(1).map((r) => [...r.children].map(txt)) : null, chips: chips(inner) }
     }
     // gantt: a row of 4+ date column heads over filled task bars placed on their own rows
     const DATE = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d{1,2}$|^w(ee)?k? ?\d{1,2}$|^\d{1,2}\/\d{1,2}$/i
@@ -1110,9 +1113,13 @@ export function factsInPage() {
     if (hd && av && bodyEl) {
       const sender = av.nextElementSibling ? (av.nextElementSibling.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean) : []
       const tools = [...el.querySelectorAll('*')].find((p) => p.children.length >= 3 && [...p.children].every((k) => !k.children.length && txt(k) && txt(k).length <= 14))
-      const att = [...el.querySelectorAll('*')].find((k) => k !== bodyEl && !k.children.length && txt(k) && txt(k).length <= 40 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 40)
+      // every attachment chip, not only a tall box (round 8 e1: two 38px chips were dropped)
+      const atts = [...el.querySelectorAll('*')].filter((k) => k !== bodyEl && !(tools && tools.contains(k)) && !k.children.length && txt(k) && txt(k).length <= 40 && parseFloat(getComputedStyle(k).borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30)
+      const att = atts.length ? atts.map(txt).join('" and "') : null
+      // every paragraph of the body (round 8 e1: the second paragraph was dropped)
+      const paras = [...bodyEl.parentElement.children].filter((c) => c.tagName === 'P' && (c.innerText || '').trim())
       const bs = getComputedStyle(bodyEl)
-      return { type: 'reader', title: txt(hd), titlePx: Math.round(parseFloat(getComputedStyle(hd).fontSize)), av: { px: Math.round(av.getBoundingClientRect().width), fill: filled(av) }, sender, body: ([...bodyEl.parentElement.children].every((c) => c.tagName === 'P') ? [...bodyEl.parentElement.children].map((c) => c.innerText || '').join('\n') : (bodyEl.innerText || '')).split('\n').map((x) => x.trim()).filter(Boolean), bodyPx: Math.round(parseFloat(bs.fontSize)), tools: tools ? [...tools.children].map(txt) : [], toolsBordered: tools ? parseFloat(getComputedStyle(tools.children[0]).borderTopWidth) >= 1 || !!filled(tools.children[0]) : false, att: att ? txt(att) : null }
+      return { type: 'reader', title: txt(hd), titlePx: Math.round(parseFloat(getComputedStyle(hd).fontSize)), av: { px: Math.round(av.getBoundingClientRect().width), fill: filled(av) }, sender, body: (bodyEl.tagName === 'P' && paras.length >= 2 ? paras.map((c) => c.innerText || '').join('\n') : [...bodyEl.parentElement.children].every((c) => c.tagName === 'P') ? [...bodyEl.parentElement.children].map((c) => c.innerText || '').join('\n') : (bodyEl.innerText || '')).split('\n').map((x) => x.trim()).filter(Boolean), bodyPx: Math.round(parseFloat(bs.fontSize)), tools: tools ? [...tools.children].map(txt) : [], toolsBordered: tools ? parseFloat(getComputedStyle(tools.children[0]).borderTopWidth) >= 1 || !!filled(tools.children[0]) : false, att }
     }
     // a form: 3+ fields (a label over an empty bordered box), laid out in rows
     const fields = [...el.querySelectorAll('*')].filter((k) => k.closest('[data-r]') === el && k.children.length >= 2 && k.children.length <= 3 && [...k.children].some((g) => !txt(g) && parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30) && txt(k) && txt(k).length <= 32)
@@ -1281,7 +1288,10 @@ export function factsInPage() {
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
-      return { type: 'list', pic, head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }) }
+      return { type: 'list', pic, head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+        // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
+        // invented items under the wrong headings)
+        groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })() }
     }
     return null
   }
@@ -1588,7 +1598,7 @@ function denseNote(d) {
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
     }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
-      if (d.all) return `table, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
+      if (d.all) return `${d.title ? `${quote(d.title, 32)} as a small bold heading, then a ` : ''}table, every body row built and none invented, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 28)).join(' | ')).join('; ')}`
     case 'table': if (d.title) return `${quote(d.title, 32)}, table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows, first row ${d.first.map((t) => quote(t, 20)).join(' | ')}${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
       return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
     case 'order': {
@@ -1596,7 +1606,7 @@ function denseNote(d) {
       const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
       return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
-    case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then a bordered rounded attachment box ${quote(d.att, 40)}` : ''}`
+    case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then ${/" and "/.test(d.att) ? 'side by side small bordered rounded attachment chips' : 'a bordered rounded attachment box'} ${quote(d.att, 80)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
     case 'month': {
       // with days when known: blue "Standup" on 2, 9, 16, 23 (where events sit is the calendar's content)
@@ -1647,12 +1657,21 @@ function denseNote(d) {
       return `${d.head ? `header ${quote(d.head, 30)}${d.headRule ? ' with a thin line under it' : ''}, then ` : ''}${d.items.length} chat messages stacked top-down (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, bold name then small grey time on one line, message text under: ${d.items.map(row).join('; ')}`
     }
     case 'list': if (d.items.every((p) => p.length === 1 && p[0].length <= 6) && d.items.filter((p) => /^\d+$/.test(p[0])).length >= 2) return `${d.head ? `${quote(d.head, 24)}, ` : ''}page numbers ${d.items.map((p) => quote(p[0])).join(', ')}${d.on ? `, ${quote(d.on)} highlighted` : ''}`
-      // mail rows with a subject: time, sender, bold subject, grey preview (round 6 e3: only the read rows were said, names and subjects apart)
+      // grouped nav: small headings each over its own links, every link said (round 8 e5 docs nav: '5 more' after the
+      // first four became invented links under the wrong headings)
+      if (d.groups && d.stacked && d.items.every((p) => p.length === 1 && p[0].length <= 28)) {
+        const caps = d.groups.every((g) => /^[A-Z0-9 &/-]+$/.test(g.h))
+        return `side nav, no box: ${d.groups.length} groups, each a ${caps ? 'small grey spaced-capitals ' : 'small bold '}heading over its own links, one link per line (every link said, none invented, none moved to another group): ${d.groups.map((g) => `${quote(g.h, 28)}: ${g.items.map((i) => quote(d.items[i][0], 28)).join(', ')}`).join('; ')}${d.on ? `; ${quote(d.on, 28)} highlighted${d.onFill ? ` (${sheetFill(d.onFill)} row)` : ''}` : ''}`
+      }
+      // mail rows that open on the sender: sender, time, subject, preview (round 8 e1: 'Ravi, me (3)' is longer than a
+      // time, so the rows fell to a bare sender list and the build lost every subject and preview)
+      const timeish = (t) => /^(\d{1,2}:\d{2}( ?[ap]m)?|yesterday|today|(mon|tue|wed|thu|fri|sat|sun)\w*|(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\w* \d{1,2})$/i.test(t)
+      if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && timeish(p[1]) && !timeish(p[0]))) d = { ...d, items: d.items.map((p) => [p[1], p[0], p[2], p[3]]), on: d.on && d.items.find((p) => p[0] === d.on)?.[1] }
       if (d.items.length >= 4 && d.items.every((p) => p.length === 4 && p[0].length <= 10)) {
         const bold = d.bold2 ?? []
         const mixed = bold.some(Boolean) && !bold.every(Boolean)
         const sel = d.on ? `; the ${quote(d.on.length <= 10 ? d.items.find((p) => p[0] === d.on)?.[1] ?? d.on : d.on, 20)} row selected${d.onFill ? ` (${sheetFill(d.onFill)}${d.onEdge ? `, ${colourName(d.onEdge)} left edge` : ''})` : ''}` : ''
-        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}${d.items.length} mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that${mixed ? '; unread rows have a bold sender, read rows a normal one' : ''}: ${d.items.map((p, i) => `${quote(p[1], 20)} ${p[0]} ${quote(p[2], 36)} / ${quote(p[3], 40)}${mixed && bold[i] ? ' (unread)' : ''}`).join('; ')}${sel}`
+        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}${d.items.length} mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that${mixed ? '; unread rows have a bold sender, read rows a normal one' : ''}: ${d.items.map((p, i) => `${quote(p[1], 20)} ${p[0]} ${quote(p[2], 36)} / ${quote(p[3], 64)}${mixed && bold[i] ? ' (unread)' : ''}`).join('; ')}${sel}`
       }
       // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
       if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
@@ -1678,7 +1697,8 @@ function denseNote(d) {
         return `${d.head ? `${caps ? 'small grey spaced capitals ' : ''}${quote(d.head, 24)}, then ` : ''}${d.items.length} links stacked, each a name with a small grey line under it: ${d.items.map((p) => `${quote(p[0], 24)} / ${quote(p[1], 40)}${p[0] === d.on ? ' (highlighted)' : ''}`).join('; ')}`
       }
       // short items are all said up to 8 (round 5 e3 channels: '3 more' became invented channels)
-      const cap = d.items.length <= 8 && d.items.every((p) => p[0].length <= 20) ? 8 : 4
+      // ...and a stacked list of short items up to 12 (round 8 e5: items past the first four were invented)
+      const cap = d.items.length <= 8 && d.items.every((p) => p[0].length <= 20) ? 8 : d.stacked && d.items.length <= 12 && d.items.every((p) => p[0].length <= 28) ? 12 : 4
       const pic = d.pic ? `a ${d.pic.w}x${d.pic.h}px ${/gradient/.test(d.pic.bg) ? `gradient (${[...d.pic.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}) ` : d.pic.fill ? `${hexOf(d.pic.fill)} ` : ''}poster picture${d.pic.rad ? ` ${d.pic.rad}px rounded` : ''} at its top left (${d.pic.x}px in, ${d.pic.y}px down)${d.pic.float === 'left' ? ', the title and lines just right of it' : ''}; ` : ''
       const ex = (x) => x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.big ? 'big ' : ''}${quote(x.t)} `
       return `${pic}${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
@@ -1768,6 +1788,15 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: `a stack of ${d.cards.length} separate cards turned in 3D (NOT one picture, NOT flat): a ${d.box.w}x${d.box.h}px box at ${d.box.x},${d.box.y} with perspective: ${d.perspective}px, holding ${d.cards.length} absolutely placed cards each ${c0.w}x${c0.h}px, ${c0.radius}px rounded, each with transform: ${c0.transform} (turned away to the left, all the same turn)${c0.shadow ? `, a big soft dark drop shadow` : ''}; each card overlaps the one behind it, painted back to front: ${cards}` }
   }
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
+  // a contents list with no box: a heading over short links one per line, the current one in its own ink (round 8 e5
+  // 'On this page': no note, so the build drew big dark text with invented items)
+  if (!fill && !bordered && !f.regionKids.length && f.dense?.type === 'list' && f.dense.stacked && f.dense.head && !f.dense.groups && f.dense.inks && f.dense.items.length >= 3 && f.dense.items.length <= 12 && f.dense.items.every((p) => p.length === 1 && p[0].length <= 28)) {
+    const d = f.dense, key = (c, i) => `${hexOf(c)}|${d.weights[i] >= 600}`
+    const odd = d.inks.map(key).filter((k, i, a) => a.filter((x) => x === k).length === 1)
+    const oi = odd.length === 1 && d.items.length >= 3 ? d.inks.map(key).indexOf(odd[0]) : -1
+    const base = d.inks.find((c, i) => i !== oi)
+    return { kind: 'text', note: `a contents list, no box, no card: bold dark ${quote(d.head, 28)} heading, then ${d.items.length} small ${d.px}px ${colourName(base)} (${hexOf(base)}) links, one per line, plain text (not buttons): ${d.items.map((p) => quote(p[0], 28)).join(', ')}${oi >= 0 ? `; ${quote(d.items[oi][0], 28)} in ${d.weights[oi] >= 600 ? 'bold ' : ''}${colourName(d.inks[oi])} (${hexOf(d.inks[oi])})` : ''}` }
+  }
   const frosted = fx.includes('frosted glass')
   // an inspector panel: section headings over filled field boxes, each field said as a box with its value
   if (f.fieldSecs && fill) {

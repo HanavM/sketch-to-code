@@ -443,11 +443,11 @@
    ],
    [
     "message-list",
-    "\"Search mail\" list: \"Maya Lin\" 9:41, \"GitHub\" 9:02, \"Ravi, me (3)\" Yesterday, \"Stripe\" Oct 21, \"Noor Haddad\" Oct 20, \"Calendar\" Oct 19; \"Maya Lin\" highlighted"
+    "\"Search mail\" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"Maya Lin\" 9:41 \"Venue contract, final\" / \"Attached the signed copy, can you countersign by Friday?\"; \"GitHub\" 9:02 \"[lumen] PR #482 merged\" / \"feat: offline sync for boards was merged into main.\"; \"Ravi, me (3)\" Yesterday \"Q4 offsite headcount\" / \"Thanks, I've updated the sheet with the final numbers.\"; \"Stripe\" Oct 21 \"Your payout is on the way\" / \"$4,210.00 will arrive in your bank account on Oct 23.\"; \"Noor Haddad\" Oct 20 \"Re: brand refresh\" / \"Love the second direction, the serif works.\"; \"Calendar\" Oct 19 \"Invitation: Design crit\" / \"Thursday 3pm – 4pm · Room Atlas\"; the \"Maya Lin\" row selected (pale blue, indigo left edge)"
    ],
    [
     "reader",
-    "opened message; big bold 22px title \"Venue contract, final\"; a 36px round amber avatar left of bold \"Maya Lin\" with grey \"to me · 9:41 AM\" under it; then 14px body text, lines: \"Hi! Attached is the signed venue contract for the March summit. The deposit has gone out and the hold is confirmed until the 14th.\""
+    "opened message; big bold 22px title \"Venue contract, final\"; a 36px round amber avatar left of bold \"Maya Lin\" with grey \"to me · 9:41 AM\" under it; then 14px body text, lines: \"Hi! Attached is the signed venue contract for the March summit. The deposit has gone out and the hold is confirmed until the 14th.\" / \"Can you countersign and send it back by Friday? Then we can share dates with speakers.\"; then side by side small bordered rounded attachment chips \"📄 contract-final.pdf\" and \"📄 floorplan.png\""
    ],
    [
     "compose",
@@ -533,7 +533,7 @@
    ],
    [
     "pages-table",
-    "table, columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\", 4 rows"
+    "white card, \"Top pages\" as a small bold heading, then a table, every body row built and none invented, columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\", 4 rows: \"/pricing\" | \"12,480\" | \"2m 40s\" | \"31%\"; \"/docs/getting-started\" | \"9,102\" | \"5m 02s\" | \"22%\"; \"/blog/offline-sync\" | \"6,730\" | \"4m 18s\" | \"44%\"; \"/\" | \"5,955\" | \"1m 05s\" | \"52%\""
    ],
    [
     "date-popover",
@@ -731,11 +731,15 @@
    ],
    [
     "sidebar",
-    "\"GETTING STARTED\" \"GUIDES\" \"REFERENCE\" list: \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\", 5 more; \"Offline sync\" highlighted"
+    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row)"
    ],
    [
     "article",
     "a docs article, NOT a card, NOT a table alone; top to bottom: small 13px grey line \"Docs › Getting started › Offline sync\" (a breadcrumb); then 34px bold title \"Offline sync\"; then 14px dark grey paragraph \"Lumen keeps a local copy of every board you open. Changes made offline are queued and merged when the device reconnects, using syncPolicy to resolve conflicts.\" with inline code \"syncPolicy\" (#be185d monospace on a #f1f5f9 rounded chip); then a dark code block (#0f172a fill, 10px rounded, 13px monospace light grey text, syntax colours #64748b #c084fc #86efac) with 3 lines: \"// enable sync for one board\" / \"const board = await lumen.boards.open('roadmap')\" / \"board.sync({ policy: 'last-write-wins', retry: 5 })\"; then a callout box (#fffbeb fill, a 4px #f59e0b left edge, rounded right corners) with bold \"Note\" then \"Attachments over 25 MB are synced only on Wi-Fi.\"; then a fully ruled table with a #f8fafc header row: \"Option\" | \"Type\" | \"Default\" / \"policy\" | \"string\" | \"'merge'\" / \"retry\" | \"number\" | \"3\"; code words in the table are monospace, not status pills"
+   ],
+   [
+    "toc",
+    "a contents list, no box, no card: bold dark \"On this page\" heading, then 5 small 13px grey (#64748b) links, one per line, plain text (not buttons): \"Overview\", \"Enable sync\", \"Conflicts\", \"Options\", \"Limits\"; \"Overview\" in bold teal (#0284c7)"
    ]
   ]
  }
