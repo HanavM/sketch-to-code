@@ -129,7 +129,7 @@
    ],
    [
     "scrap-orange",
-    "tilted 5° clockwise vivid orange angled cut-out shape, the shape itself 360x300px before the tilt, its top-left at 800,250 before the tilt"
+    "tilted 5° clockwise vivid orange angled cut-out shape, ONE flat #f97316 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines, the shape itself 360x300px before the tilt, its top-left at 800,250 before the tilt"
    ],
    [
     "arch-green",
@@ -587,7 +587,7 @@
    ],
    [
     "sidebar",
-    "dark navy sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted"
+    "dark navy sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted (#1e293b rounded fill, #ffffff text)"
    ],
    [
     "search",
@@ -637,7 +637,7 @@
   "notes": [
    [
     "folders",
-    "pale grey card \"Compose\" list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted"
+    "pale grey card; a 172x40px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text)"
    ],
    [
     "message-list",

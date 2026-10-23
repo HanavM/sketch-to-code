@@ -159,11 +159,7 @@
    ],
    [
     "tile-text",
-    "heading",
-    {
-     "fontPx": 30,
-     "lines": 2
-    }
+    "box"
    ],
    [
     "tile-blue",
@@ -175,7 +171,7 @@
    ],
    [
     "tile-violet",
-    "box"
+    "image"
    ],
    [
     "tile-quote",
@@ -217,7 +213,7 @@
    ],
    [
     "tile-text",
-    "off-white \"2.4M boards made this year\""
+    "near-black (#1c1917) filled tile 280x220px, 18px rounded corners, flat (no shadow); on it 30px heavy #fff7ed text \"2.4M boards made this year\", in its top-left corner (24px in, 24px down), the rest of the tile empty"
    ],
    [
     "tile-blue",
@@ -229,7 +225,7 @@
    ],
    [
     "tile-violet",
-    "vivid purple (#7c3aed) tile, 280x340px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text"
+    "purple block lit by one big lavender glow centred 70% across and 20% down (about 402px across, filling most of the block) (base #7c3aed, glow #c4b5fd at full strength fading out: radial-gradient(circle at 70% 20%, #c4b5fd, transparent 60%) over #7c3aed), a 280x340px tile with 18px rounded corners, plain paint only: no picture, no X, no text"
    ],
    [
     "tile-quote",
@@ -393,7 +389,7 @@
    ],
    [
     "yellow-half",
-    "soft yellow angled cut-out shape"
+    "soft yellow angled cut-out shape, ONE flat #fef08a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines"
    ],
    [
     "grain",
@@ -439,7 +435,7 @@
   "notes": [
    [
     "sidebar",
-    "pale grey card \"✎ Compose\" list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted"
+    "pale grey card; a 130x40px #c7d2fe filled button \"✎ Compose\" (12px rounded, bold #1e1b4b text; its fill clearly visible, not white), then list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted (#e0e7ff rounded fill, #3730a3 text)"
    ],
    [
     "message-list",
@@ -595,7 +591,7 @@
    ],
    [
     "layers-panel",
-    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted"
+    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted (#e5f4ff square fill, #0d99ff text)"
    ],
    [
     "frame-label",

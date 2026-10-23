@@ -451,7 +451,8 @@ export function factsInPage() {
       // soft colour glows (radial gradients fading to transparent) over a fill: a reel or a hero lit by blobs
       glows: (() => {
         const rs = [...cs.backgroundImage.matchAll(/radial-gradient\((?:[^()]|\([^()]*\))*\)/g)].map((m) => m[0])
-        if (rs.length < 2) return null
+        // one glow over a solid fill counts too (round 8 c3: the violet tile's lilac glow was said as plain paint)
+        if (rs.length < 1 || (rs.length < 2 && !(rgba(cs.backgroundColor)?.a > 0.5))) return null
         // where each glow really shows: background-size/position move and enlarge the glows (round 5 c1: 200% size,
         // so of three glows only orange sits in view, big; purple only reaches in from the right edge)
         // read them as the likeness screenshot shows them: infinite animations cancelled (Playwright
@@ -1288,7 +1289,11 @@ export function factsInPage() {
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
-      return { type: 'list', pic, head: head ? txt(head) : null, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      // a filled lead button over the list (round 8 e1 '✎ Compose', lavender, was built white)
+      const headLook = head && filled(head) ? (() => { const c = getComputedStyle(head); return { fill: filled(head), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(head.getBoundingClientRect().width), h: Math.round(head.getBoundingClientRect().height), bold: Number(c.fontWeight) >= 600 } })() : null
+      const onInk = odd.length === 1 ? rgba(getComputedStyle(odd[0]).color) : null
+      const onRad = odd.length === 1 ? Math.round(parseFloat(getComputedStyle(odd[0]).borderTopLeftRadius) || 0) : 0
+      return { type: 'list', pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })() }
@@ -1701,7 +1706,10 @@ function denseNote(d) {
       const cap = d.items.length <= 8 && d.items.every((p) => p[0].length <= 20) ? 8 : d.stacked && d.items.length <= 12 && d.items.every((p) => p[0].length <= 28) ? 12 : 4
       const pic = d.pic ? `a ${d.pic.w}x${d.pic.h}px ${/gradient/.test(d.pic.bg) ? `gradient (${[...d.pic.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}) ` : d.pic.fill ? `${hexOf(d.pic.fill)} ` : ''}poster picture${d.pic.rad ? ` ${d.pic.rad}px rounded` : ''} at its top left (${d.pic.x}px in, ${d.pic.y}px down)${d.pic.float === 'left' ? ', the title and lines just right of it' : ''}; ` : ''
       const ex = (x) => x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.big ? 'big ' : ''}${quote(x.t)} `
-      return `${pic}${d.head ? `${quote(d.head, 20)} ` : ''}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
+      const hl = d.headLook
+      const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded` : ' ('}${hl.bold ? ', bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
+      const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
+      return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
   }
   return null
 }
@@ -1992,6 +2000,9 @@ function decideOne(f, page, marked, said) {
     // a see-through dim laid over the page (round 5 e1 backdrop said as a solid 'dark navy block')
     if (fill && !grad && f.bg.a >= 0.3 && f.bg.a <= 0.8 && w * h >= 0.3 * 1280 * 900) return { kind: 'image', note: withFx(`see-through ${colourName(f.bg)} layer (${Math.round(f.bg.a * 100)}% opaque) over what is under it: everything under it still shows, dimmed, not hidden`) }
     const glowy = glowWords(f)
+    // a rounded tile lit by one glow keeps its base hex, the glow's hex, size and rounding (round 8 c3 violet tile)
+    const lone = f.glows && f.glows.length === 1 && f.glows[0].inside && f.radius >= 10 && w <= 700 && h <= 700 && fill ? f.glows[0] : null
+    if (glowy && lone) return { kind: 'image', note: [`${glowy} (base ${hexOf(f.bg)}, glow ${hexOf(lone.c)} at full strength fading out: radial-gradient(circle at ${lone.fx}% ${lone.fy}%, ${hexOf(lone.c)}, transparent 60%) over ${hexOf(f.bg)}), a ${Math.round(w)}x${Math.round(h)}px tile with ${Math.round(f.radius)}px rounded corners, plain paint only: no picture, no X, no text`, ...fx].join(', ') }
     if (glowy) return { kind: 'image', note: [glowy, ...fx].join(', ') }
     const stripes = grad && /stripes/.test(grad) ? grad : null
     // a coloured block is part of the look (a dark half, a gradient photo, a mountain cut-out); a pale one is just a picture
@@ -2009,7 +2020,10 @@ function decideOne(f, page, marked, said) {
       const exact = hx && hx.length === 2 ? `, painted linear-gradient(${dir ? `${dir}, ` : ''}${hexOf(hx[0])}, ${hexOf(hx[1])}) exactly (these hexes, no brighter or darker)` : ''
       const size = Math.abs(f.rotate) >= 2 && f.layoutBox?.w ? `, the shape itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt, its top-left at ${Math.round(f.rect.x + (w - f.layoutBox.w) / 2)},${Math.round(f.rect.y + (h - f.layoutBox.h) / 2)} before the tilt` : ''
       const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
-      return { kind: 'shape', note: withFx(`${note}${exact}${size}${flat}`), poly: f.clipPoly }
+      // a flat-filled cut-out (round 8 c5's yellow half was built as a yellow-to-orange gradient with the pen's
+      // scribble strokes left on top): say its one hex, no gradient, and that the pen lines are only its edge
+      const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines` : ''
+      return { kind: 'shape', note: withFx(`${note}${exact}${solid}${size}${flat}`), poly: f.clipPoly }
     }
     const sh = shadowWords(f)
     // a rounded flat colour/gradient tile is a plain tile, not a picture (round 8 c3: six masonry tiles read as
@@ -2235,7 +2249,10 @@ function decideOne(f, page, marked, said) {
     const own = loose.find((t) => t.length >= 4)
     return { kind: null, note: own && loose.join(' ').length <= 140 ? `${quote(own, 40)}${loose.length > 1 ? ' and text' : ''}` : null }
   }
-  if (/^h[1-3]$/.test(f.tag) || f.font.size >= 30) {
+  // a rounded filled tile holding only copy (said below as tile + ink): checked before the heading branch, as a
+  // 30px tile line went to it and lost its fill (round 8 c3 near-black '2.4M' tile built as bare text)
+  const textTile = fill && !grad && !f.regionKids.length && f.kidCount === 0 && f.radius >= 10 && w >= 150 && h >= 150 && f.text.length <= 140 && !f.motion
+  if (!textTile && (/^h[1-3]$/.test(f.tag) || f.font.size >= 30)) {
     const tw = typeWords(f, page)
     if (f.clipText && grad) tw.push(`${grad} text`); else if (textCol) tw.push(textCol)
     // gradient-filled words inside (round 6 c1 'three dimensions' cyan to pink, unsaid)
@@ -2326,7 +2343,7 @@ function decideOne(f, page, marked, said) {
     const noun = (lightText || filledCard) && !what && !look.some((x) => / block\b/.test(x)) ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
     // a rounded filled tile holding only copy says the tile and the ink apart (round 8 c3: a near-black text tile
     // said 'off-white "2.4M ..."' was built with no tile; 'pale pink 24px text' turned the quote's ink pink)
-    if (fill && !grad && !f.regionKids.length && f.kidCount === 0 && f.radius >= 10 && w >= 150 && h >= 150 && f.text.length <= 140 && !f.motion) {
+    if (textTile) {
       const tt = `${f.font.size >= 20 ? `${Math.round(f.font.size)}px ` : ''}${f.font.weight >= 700 ? 'heavy ' : f.font.weight >= 600 ? 'bold ' : ''}${/georgia|serif/i.test(f.font.family) && !/sans/i.test(f.font.family) ? 'serif ' : ''}${f.font.style === 'italic' ? 'italic ' : ''}`
       const corner = f.inset ? `, in its top-left corner (${Math.round(f.inset.l)}px in, ${Math.round(f.inset.t)}px down), the rest of the tile empty` : ''
       return { kind: 'box', note: withFx(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) filled tile ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded corners, flat (no shadow); on it ${tt}${hexOf(f.colour)} text ${quote(f.text, 140)}${corner}`.replace(/ {2,}/g, ' ')) }
