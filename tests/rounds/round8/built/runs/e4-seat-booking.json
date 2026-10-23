@@ -1,0 +1,116 @@
+{
+  "id": "e4-seat-booking",
+  "at": "2026-10-23T01:23:51.452Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.4717108510363177,
+    "overallV2": 0.4717108510363177,
+    "overallV1": 0.4181534306233792,
+    "colour": 0.9778358107916277,
+    "structure": 0.7340168960401723,
+    "structureStrict": 0.6716814726750173,
+    "colourAligned": 0.9778358107916277,
+    "structureAligned": 0.7340168960401723,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.616210785767624
+    },
+    "layout": 0.5618014221283207
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "gradient",
+      "overlap"
+    ],
+    "extra": [
+      "mono"
+    ]
+  },
+  "tokens": {
+    "input": 33630,
+    "output": 22158,
+    "cacheRead": 124002
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38013,
+      "output": 14728,
+      "cacheRead": 113900,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 162949
+    }
+  ],
+  "reading": "The sketch adds a four-step booking progress bar at top, a large cinema seating-chart card (screen indicator strip + 'SCREEN' label, an image placeholder for the seat map, row labels down the left side, and a legend row of seat-status links at the bottom), and a white order-summary sidebar card with movie info, a price breakdown and a green continue button; a run-level note sets page background, font and text color.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        33,
+        398,
+        23
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a horizontal step/progress bar at the top of the page with four step items labeled '✓ Showtime', '2 Seats', '3 Snacks', '4 Pay', representing the booking fl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        43,
+        93,
+        814,
+        764
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Add a large seating-chart card. Near its top, add a solid grey strip exactly 10px tall and 540px wide with no text (a screen/progress indicator bar), with wide-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        93,
+        353,
+        763
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a white order-summary card for the sidebar containing the movie title 'Low Tide', the code 'E4E5', the text 'Seats held for 07:42', a line-item list ('2 × A"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
