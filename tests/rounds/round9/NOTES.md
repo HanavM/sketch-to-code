@@ -59,3 +59,23 @@ marquee, c3 stripes/hole/notch, e4 checkboxes and slider.
 As in round 8, what the planner leaves unsaid is dropped or flattened. Next (planner, free first): glass cards over
 blurred blobs as real cards, a word sliced into offset bands, repeating stripes vs a gradient, an outlined/filled word
 run, a mono index list; then re-run c1, c2, c5 and first builds of c3, c4 and the five everyday pages.
+
+## n129: planner learns glass stacks, sliced words, stripes, outlined runs, ruled index, halftone (2026-10-23, ~214k billed)
+
+Planner (free): a frosted glass stack is said blob by blob and card by card (place, see-through fill, border, backdrop
+blur, shadow, then each card's lines, bars, track and avatars); a word cut into bands is said band by band (strip size
+and place, fill, ink, the word's relative left/top inside it, so each band windows one slice); repeating-linear-gradient
+is said as stripes with each band's px and hex, never a blend; a stroked run with some filled words lists every word as
+outlined or filled; a ruled index (top rule per row, label left, year right, mono) is said as such; a halftone disc
+(radial dot grid with background-size) with solid shapes over it; a dashed border says dashes.
+
+| page | before | n129 | what is still off |
+|---|---|---|---|
+| c1 sliced kinetic | 52% | 92% (kept) | CTA built as a pill (target square), badge text on one line, vertical caption reads the other way |
+| c2 glass layers | 45% | 94% (kept) | nav links spaced wider; near-exact otherwise |
+| c3 mask bento | — | 67% (first) | punch-hole tile and task list built as grey photo tiles; notch on all four corners; FLUX centred, caption lost |
+| c4 halftone poster | — | 84% (first) | top bar built hugging the page top (target 36px down, rule under); CTA a pill |
+| c5 vertical editorial | 64% | 66% (kept) | stripes and outlined marquee now right; quote not italic, body columns and drop cap lost, byline boxed, marquee in serif |
+
+Next: square buttons said square (two pages built pills), c3 punch hole / notch corner / icon task list, c5 italic
+quote, drop-cap columns, byline rule; then the five everyday pages' first builds.

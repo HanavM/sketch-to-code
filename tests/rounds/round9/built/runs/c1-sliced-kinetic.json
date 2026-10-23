@@ -1,69 +1,66 @@
 {
   "id": "c1-sliced-kinetic",
-  "at": "2026-10-23T07:28:28.027Z",
+  "at": "2026-10-23T07:55:33.042Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5190086967098124,
-    "overallV2": 0.5190086967098124,
-    "overallV1": 0.42100038565213405,
-    "colour": 0.9025744565051783,
-    "structure": 0.6660705822942554,
-    "structureStrict": 0.5317489485038541,
-    "colourAligned": 0.9025744565051783,
-    "structureAligned": 0.6660705822942554,
+    "overall": 0.9220627944920544,
+    "overallV2": 0.9220627944920544,
+    "overallV1": 0.8951917079697633,
+    "colour": 0.9957035576779463,
+    "structure": 0.9711031345486356,
+    "structureStrict": 0.9342759695414431,
+    "colourAligned": 0.9957035576779463,
+    "structureAligned": 0.9711031345486356,
     "align": {
-      "scale": 0.88,
-      "dx": 32,
-      "dy": 96,
-      "r": 0.27976158229324544
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.994951373806157
     },
-    "layout": 0.8179606269039673
+    "layout": 0.8373523437400147
   },
   "effects": {
-    "recall": 0.8,
+    "recall": 1,
     "kept": [
       "huge-type",
+      "mono",
       "overlap",
       "tilt",
       "vertical-type"
     ],
-    "missing": [
-      "mono"
-    ],
+    "missing": [],
     "extra": [
-      "gradient",
-      "hollow-type",
-      "soft-shadow"
+      "bleed",
+      "hard-shadow"
     ]
   },
   "tokens": {
-    "input": 39477,
-    "output": 16556,
-    "cacheRead": 143425
+    "input": 27675,
+    "output": 14529,
+    "cacheRead": 194603
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 40357,
-      "output": 10636,
-      "cacheRead": 132164,
-      "toolCalls": 9,
+      "billed": 24215,
+      "output": 7642,
+      "cacheRead": 182605,
+      "toolCalls": 8,
       "tools": [
         "Glob",
+        "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/index.html",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Read src/main.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
       ],
-      "ms": 127255
+      "ms": 79917
     }
   ],
-  "reading": "This is a one-page hero section for a motion-design studio: a plain-text nav, a huge 'MOTION' display headline with a tilted red-orange 'NEW REEL 26' badge overlapping its corner, an intro paragraph with a CTA button below it, a long block of body copy to the right, and a small vertical 'EST. 2014 — OSLO' label running along the right edge, all on a cream page in Helvetica.",
+  "reading": "The sketch lays out a hero section for a studio site: a plain-text nav, a giant three-band sliced word \"MOTION\" as the hero headline, a tilted red-orange badge/reel button, a three-line intro paragraph, a text button, a four-row ruled project index on the right, and a vertical \"EST.\" label — plus a run-wide note setting the page to a cream background with Helvetica/near-black type.",
   "actions": [
     {
       "kind": "add",
@@ -78,7 +75,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Boxless top nav bar: bold, wide letter-spaced 'SHEAR/STUDIO' on the left, and 'WORK — LAB — CONTACT' wide-spaced on the right, no border/box around it (the thin"
+      "instruction": "Top nav bar, no surrounding box: bold wide-letter-spaced \"SHEAR/STUDIO\" wordmark on the left, \"WORK — LAB — CONTACT\" wide-spaced links on the right, full width."
     },
     {
       "kind": "add",
@@ -93,7 +90,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Large hero display headline filling this box: the word 'MOTION' repeated three times stacked, each in a different treatment — one outlined/line style, one solid"
+      "instruction": "Giant hero headline built from the single word \"MOTION\" sliced into 3 stacked horizontal bands (not 3 separate words, not outlines): each band is a full-width 1"
     },
     {
       "kind": "add",
@@ -108,7 +105,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Circular badge, tilted 14° counter-clockwise, vivid red-orange fill, with centered text 'NEW REEL 26'; position it overlapping the top-right corner of the MOTIO"
+      "instruction": "A circular badge tilted 14° anticlockwise, vivid red-orange fill, containing the text \"NEW REEL 26\", positioned overlapping the top-right of the hero block."
     },
     {
       "kind": "add",
@@ -135,7 +132,7 @@
         87
       ],
       "paths": [],
-      "instruction": "Body paragraph (3 lines) below the hero headline, replacing the placeholder squiggles, reading: 'We cut type apart and put it back moving. Identity systems for "
+      "instruction": "Intro paragraph text below the hero headline: \"We cut type apart and put it back moving. Identity systems for brands that refuse to sit still.\""
     },
     {
       "kind": "add",
@@ -150,7 +147,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Rounded rectangular button below the intro paragraph: red-orange background with white text reading 'See the reel →'."
+      "instruction": "Text-style button/link, red-orange text on transparent background (or red-orange with white text), reading \"See the reel →\", rounded-rect sized to its label."
     },
     {
       "kind": "add",
@@ -187,7 +184,7 @@
         165
       ],
       "paths": [],
-      "instruction": "Large block of body text (8 lines) to the right of the intro column, replacing the placeholder squiggles with plausible studio copy describing the work/services"
+      "instruction": "A ruled index list, 480px wide, monospace (Courier New) 14px near-black text, 4 rows each 41px tall with a 1px #111111 rule across the top of each row and one u"
     },
     {
       "kind": "add",
@@ -202,7 +199,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Small vertical label along the far right edge, set in writing-mode vertical-rl, ~12px wide-spaced letters, reading 'EST. 2014 — OSLO'."
+      "instruction": "Vertical wide-letter-spaced label text, writing-mode: vertical-rl, 12px letters, reading \"EST. 2014 — OSLO\", about 171px long, placed at the right edge of the h"
     }
   ],
   "rejected": [

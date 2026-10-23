@@ -49,7 +49,7 @@
    ],
    [
     "sliced-word",
-    "\"MOTION\", lines cream \"MOTION\", red-orange \"MOTION\""
+    "ONE giant word \"MOTION\" SLICED into 3 stacked horizontal bands (NOT 3 whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same 300px black-weight \"MOTION\" (line-height 300px, so the word's line is 300px tall and each 100px band is a window onto one slice of it, letter-spacing -14px, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: band 1: 1280x100px at 0,170, no fill (page shows), letters #111111, the word in a span with position: relative; left: 60px; top: 0px (the top slice of the line shows); band 2: 1280x100px at 0,270, #111111 filled, letters #f3efe6, the word in a span with position: relative; left: 150px; top: -100px (pulled up, so the band shows the slice of the 300px line from 100px to 200px); band 3: 1280x100px at 0,370, no fill (page shows), letters #ff4d1c, the word in a span with position: relative; left: 20px; top: -200px (pulled up, so the band shows the slice of the 300px line from 200px to 300px); the bands touch, no gaps, together 1280x300px"
    ],
    [
     "badge",
@@ -62,6 +62,10 @@
    [
     "cta",
     "red-orange white text button \"See the reel →\""
+   ],
+   [
+    "index",
+    "a ruled index list 480px wide at 640,560, monospace (Courier New) 14px near-black, 4 rows each 41px tall with a 1px #111111 rule across its top and one under the last row, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): \"01 Kinetic identity\" … \"2026\", \"02 Title sequences\" … \"2025\", \"03 Type tools\" … \"2025\", \"04 Installations\" … \"2024\""
    ],
    [
     "vertical-caption",
@@ -97,7 +101,7 @@
    ],
    [
     "glass-stack",
-    "text"
+    "box"
    ]
   ],
   "notes": [
@@ -123,7 +127,7 @@
    ],
    [
     "glass-stack",
-    "a contents list, no box, no card: bold dark \"Balance $48,210\" heading, then 3 small 13px light grey (#e2e8f0) links, one per line, plain text (not buttons): \"Next payout\", \"Fri, 12:00\", \"● On schedule\""
+    "a layered glass stack, 620x660px at 600,120 (all absolutely placed, page px; NOT a list, NOT empty): first 3 soft colour blobs behind everything, each blurred hard (filter: blur(60px)): a 380x380px round #ec4899 blob at 640,120; a 340x340px round #06b6d4 blob at 880,380; a 260x260px round #a3e635 blob at 620,520 (80% opacity); then 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 30% border, backdrop-filter: blur(20px), a big soft dark drop shadow, 28px padding, later cards painted over earlier ones: card 1 420x260px at 660,150: 13px #e2e8f0 \"Balance\", then bold 44px #ffffff \"$48,210\", then a row of 7 34px-wide #ffffff at 70% bars (rounded tops) rising from one baseline, 120px tall area, heights 40/65/50/85/70/100/60% left to right; card 2 380x220px at 780,360: 13px #e2e8f0 \"Savings goal\", then bold 30px #ffffff \"72%\", then a 10px rounded track #ffffff at 20% with a #a3e635 fill 72% across, then 3 overlapping 40px round avatars (#f472b6, #38bdf8, #facc15) with #ffffff rings; card 3 300x180px at 600,540: 13px #e2e8f0 \"Next payout\", then bold 26px #ffffff \"Fri, 12:00\", then 13px #a3e635 \"● On schedule\""
    ]
   ]
  },
@@ -173,7 +177,7 @@
    ],
    [
     "stripe-tile",
-    "near-black to white gradient \"BETA\""
+    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over \"BETA\""
    ],
    [
     "notch-tile",
@@ -230,6 +234,10 @@
     "bar 32px tall across the top, thick line under: bold wide-spaced \"SOLSTICE FEST\" left, \"LINE-UP · TICKETS · MAP\" right"
    ],
    [
+    "halftone-sun",
+    "a halftone picture made of plain CSS (no image), 640x640px at 560,80: a 640x640px round disc at 560,80 filled with a grid of small #ffd60a dots (background-image: radial-gradient(#ffd60a 38%, transparent 40%); background-size: 22px 22px; border-radius: 50%), the page colour showing between the dots; over it a solid 360x360px round #ffd60a disc at 700,220"
+   ],
+   [
     "headline",
     "giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) \"Longest day of the year\", set in exactly 3 lines: \"Longest\" / \"day of\" / \"the year\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 447px wide)"
    ],
@@ -243,7 +251,7 @@
    ],
    [
     "stamp",
-    "tilted 12° clockwise white outline circle with \"SOLD OUT SOON ★\""
+    "tilted 12° clockwise 3px dashed #ffffff outline (dashes, not a solid line) white outline circle with \"SOLD OUT SOON ★\""
    ]
   ]
  },
@@ -301,7 +309,7 @@
    ],
    [
     "striped-image",
-    "near-black to red gradient \"FIG. 1 — KILN, 05:40\""
+    "horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #1a1a1a 0px 3px, #b8321f 3px 9px)): 3px near-black then 6px red, over and over \"FIG. 1 — KILN, 05:40\""
    ],
    [
     "byline",
@@ -317,7 +325,7 @@
    ],
    [
     "marquee",
-    "\"FIRE\" left, \"FIRE\" right"
+    "one line of 76px black-weight words, 1040px wide, nowrap, at 240,770: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: 1.5px #1a1a1a), filled words solid #1a1a1a, in order: \"EARTH\" outlined, \"FIRE\" filled, \"GLAZE\" outlined, \"EARTH\" outlined, \"FIRE\" filled"
    ]
   ]
  },

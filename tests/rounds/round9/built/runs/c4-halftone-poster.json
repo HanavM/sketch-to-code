@@ -1,0 +1,178 @@
+{
+  "id": "c4-halftone-poster",
+  "at": "2026-10-23T08:05:02.762Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8357146777596943,
+    "overallV2": 0.8357146777596943,
+    "overallV1": 0.7682499759612648,
+    "colour": 0.9882743685473236,
+    "structure": 0.8857866547451905,
+    "structureStrict": 0.7391521401399942,
+    "colourAligned": 0.9882743685473236,
+    "structureAligned": 0.8857866547451905,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9092268271574154
+    },
+    "layout": 0.6492839048214906
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 20102,
+    "output": 12877,
+    "cacheRead": 138105
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 23623,
+      "output": 7758,
+      "cacheRead": 135021,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 84387
+    }
+  ],
+  "reading": "This is a festival landing-page hero: an indigo page with a top nav bar, a halftone sun-like graphic (CSS dot pattern plus a solid yellow disc), a tight 3-line italic headline \"Longest day of the year\", three small stat columns, a \"Get tickets\" pill button, and a tilted dashed \"SOLD OUT SOON ★\" badge over the graphic.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        53,
+        1133,
+        26
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top bar, 32px tall, spanning the full page width, with a thick line underneath it. Put bold, wide-letter-spaced \"SOLSTICE FEST\" on the left and \"LINE-UP ·"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        563,
+        83,
+        634,
+        634
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Render a halftone picture built from plain CSS (no image file): a 640x640px round disc positioned at 560,80 filled with a grid of small #ffd60a dots (background"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        78,
+        190,
+        810,
+        428
+      ],
+      "paths": [],
+      "instruction": "Add a giant headline in Georgia italic, regular weight (not bold), set tight with line-height 0.95, reading \"Longest day of the year\" broken into exactly 3 line"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        74,
+        620,
+        442,
+        72
+      ],
+      "paths": [],
+      "instruction": "Add 3 columns side by side, 60px apart, each 75px wide with its text on one line (no wrap): a small bold 30px heading over 15px subtext per column — \"21.06\" ove"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        72,
+        792,
+        152,
+        49
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a pill-shaped button labeled \"Get tickets\" with a yellow background and indigo text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        945,
+        595,
+        230,
+        229
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a circular badge tilted 12° clockwise with a 3px dashed (not solid) white outline, containing the text \"SOLD OUT SOON ★\", positioned over the hero graphic."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -574,6 +574,67 @@ export function factsInPage() {
       // the words on each line as rendered (a headline's own breaks: round 6 c3 built 3 lines, target 2)
       // a word inside the heading set hollow: transparent fill, stroked outline (round 8 c1 'depth': built solid white)
       hollow: [...el.querySelectorAll('*')].filter((k) => { const s = getComputedStyle(k); return parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 && (k.innerText || '').trim() }).map((k) => { const s = getComputedStyle(k); return { t: (k.innerText || '').trim(), px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor) } }),
+      // frosted glass cards over blurred colour blobs (round 9 c2: the whole stack read as 'a contents list, no box')
+      glassStack: (() => {
+        const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute')
+        const isGlass = (k) => /blur/.test(getComputedStyle(k).backdropFilter || getComputedStyle(k).webkitBackdropFilter || '')
+        const cards = abs.filter(isGlass)
+        const blobs = abs.filter((k) => !isGlass(k) && /blur/.test(getComputedStyle(k).filter) && !(k.innerText || '').trim())
+        if (cards.length < 2) return null
+        const o = el.getBoundingClientRect()
+        const at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height) } }
+        const part = (g) => {
+          const gs = getComputedStyle(g), t = (g.innerText || '').replace(/\s+/g, ' ').trim(), b = g.getBoundingClientRect()
+          const ks = [...g.children]
+          // a row of bars rising from one baseline
+          if (ks.length >= 4 && ks.every((k) => !(k.innerText || '').trim() && k.tagName === g.children[0].tagName) && gs.display === 'flex' && gs.alignItems === 'flex-end')
+            return { bars: ks.map((k) => Math.round((k.getBoundingClientRect().height / b.height) * 100)), w: Math.round(ks[0].getBoundingClientRect().width), h: Math.round(b.height), fill: rgba(getComputedStyle(ks[0]).backgroundColor) }
+          // a track with a fill inside
+          if (!t && ks.length === 1 && rgba(gs.backgroundColor)?.a > 0.05 && b.height <= 16) { const f = ks[0].getBoundingClientRect(); return { track: rgba(gs.backgroundColor), fill: rgba(getComputedStyle(ks[0]).backgroundColor), pct: Math.round((f.width / b.width) * 100), h: Math.round(b.height) } }
+          // overlapping round avatars
+          if (!t && ks.length >= 2 && ks.every((k) => parseFloat(getComputedStyle(k).borderTopLeftRadius) >= k.getBoundingClientRect().width * 0.4)) return { avatars: ks.map((k) => rgba(getComputedStyle(k).backgroundColor)), px: Math.round(ks[0].getBoundingClientRect().width), ring: rgba(getComputedStyle(ks[0]).borderTopColor) }
+          if (t) return { t, px: Math.round(parseFloat(gs.fontSize)), weight: Number(gs.fontWeight) || 400, ink: rgba(gs.color) }
+          return null
+        }
+        return { box: at(el), blobs: blobs.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), blur: Math.round(parseFloat((getComputedStyle(k).filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100) })),
+          cards: cards.map((k) => { const ks2 = getComputedStyle(k); return { ...at(k), fill: rgba(ks2.backgroundColor), border: rgba(ks2.borderTopColor), bw: parseFloat(ks2.borderTopWidth) || 0, radius: Math.round(parseFloat(ks2.borderTopLeftRadius) || 0), blur: Math.round(parseFloat(((ks2.backdropFilter || ks2.webkitBackdropFilter).match(/blur\(([\d.]+)px/) || [])[1]) || 0), shadow: ks2.boxShadow !== 'none', pad: Math.round(parseFloat(ks2.paddingLeft) || 0), parts: [...k.children].map(part).filter(Boolean) } }) }
+      })(),
+      // one giant word cut into stacked horizontal bands, each band clipping a different slice of the word at its own
+      // x offset (round 9 c1: built as three whole stacked words)
+      slicedWord: (() => {
+        if (kids.length < 2) return null
+        const t0 = (kids[0].innerText || '').trim()
+        if (!t0 || t0.length > 16 || !kids.every((k) => getComputedStyle(k).overflow === 'hidden' && (k.innerText || '').trim() === t0)) return null
+        const o = el.getBoundingClientRect()
+        const bands = kids.map((k) => { const b = k.getBoundingClientRect(), ks = getComputedStyle(k), inner = k.firstElementChild ?? k, ib = inner.getBoundingClientRect(); return { y: Math.round(b.top - o.top), h: Math.round(b.height), w: Math.round(b.width), x: Math.round(b.left - o.left), fill: rgba(ks.backgroundColor), ink: rgba(ks.color), textX: getComputedStyle(inner).position === 'relative' ? Math.round(parseFloat(getComputedStyle(inner).left) || 0) : Math.round(ib.left - b.left), textY: getComputedStyle(inner).position === 'relative' ? Math.round(parseFloat(getComputedStyle(inner).top) || 0) : Math.round(ib.top - b.top) } })
+        const ks = getComputedStyle(kids[0])
+        return { t: t0, px: Math.round(parseFloat(ks.fontSize)), weight: Number(ks.fontWeight) || 400, spacing: parseFloat(ks.letterSpacing) || 0, lineH: Math.round(parseFloat(ks.lineHeight) || 0), box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) }, bands }
+      })(),
+      // a ruled index: rows each with a top rule, a label at the left and a year/number at the far right (round 9 c1
+      // mono index list: no note, built as an invented paragraph)
+      ruledIndex: (() => {
+        if (kids.length < 3 || el.querySelector('[data-r]')) return null
+        const rows = kids.map((k) => { const ks = getComputedStyle(k); const cs2 = [...k.children]; return cs2.length === 2 && ks.display === 'flex' && parseFloat(ks.borderTopWidth) >= 1 ? { l: (cs2[0].innerText || '').trim(), r: (cs2[1].innerText || '').trim(), h: Math.round(k.getBoundingClientRect().height), rule: rgba(ks.borderTopColor), last: parseFloat(ks.borderBottomWidth) >= 1 } : null })
+        if (rows.some((r) => !r || !r.l || !r.r)) return null
+        return { rows, mono: /mono|courier|consolas/i.test(cs.fontFamily), px: Math.round(parseFloat(cs.fontSize)), w: Math.round(el.getBoundingClientRect().width) }
+      })(),
+      // a halftone dot-grid disc with solid shapes over it (round 9 c4: no note at all, built nothing)
+      halftone: (() => {
+        if (!kids.length || kids.some((k) => getComputedStyle(k).position !== 'absolute')) return null
+        const dots = kids.find((k) => /radial-gradient/.test(getComputedStyle(k).backgroundImage) && getComputedStyle(k).backgroundSize !== 'auto')
+        if (!dots) return null
+        const o = el.getBoundingClientRect(), at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), round: (() => { const r = getComputedStyle(k).borderTopLeftRadius; return r.includes('%') ? parseFloat(r) >= 40 : parseFloat(r) >= b.width * 0.4 })() } }
+        const ds = getComputedStyle(dots)
+        return { box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) }, dots: { ...at(dots), cell: Math.round(parseFloat(ds.backgroundSize)), c: rgba(ds.backgroundImage), dotPct: Math.round(parseFloat((ds.backgroundImage.match(/\)\s*([\d.]+)%/) || [])[1]) || 40) }, solids: kids.filter((k) => k !== dots && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05).map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor) })) }
+      })(),
+      // a run of words in outline with some filled (round 9 c5 marquee: said '"FIRE" left, "FIRE" right')
+      outlineRun: (() => {
+        if (!(parseFloat(cs.webkitTextStrokeWidth) > 0) || (rgba(cs.color)?.a ?? 1) >= 0.05) return null
+        const words = []
+        const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+        for (let n; (n = tw.nextNode());) { const s = getComputedStyle(n.parentElement); const solid = (rgba(s.color)?.a ?? 1) >= 0.05; for (const w of n.textContent.split(/\s+/).filter(Boolean)) words.push({ w, solid, ink: solid ? rgba(s.color) : null }) }
+        return words.length >= 2 && words.some((x) => x.solid) ? { words, stroke: parseFloat(cs.webkitTextStrokeWidth), c: rgba(cs.webkitTextStrokeColor) } : null
+      })(),
       // a stack of same-size cards turned in 3D inside a perspective box (round 8 c1: read as one flat picture)
       cards3d: (() => {
         const ks = kids.filter((k) => getComputedStyle(k).position === 'absolute' && /matrix3d|rotate[XY]/.test(getComputedStyle(k).transform + (k.style.transform || '')))
@@ -1428,6 +1489,18 @@ const uniq = (xs) => [...new Set(xs.filter(Boolean))]
 function gradientWords(f) {
   if (!/gradient/.test(f.bgImage)) return null
   const names = uniq(f.bgImageColours.map((c) => (parse(c)?.a ?? 1) < 0.3 ? null : colourName(c)))
+  // repeating stripes (round 9 c5 picture said 'near-black to red gradient', built a smooth blend)
+  const rp = f.bgImage.match(/^repeating-linear-gradient\(\s*([\d.]+deg)?/)
+  if (rp) {
+    // stops as computed: 'c 0px, c 3px, d 3px, d 9px' (double positions expanded); merge runs of one colour into bands
+    const st = [...f.bgImage.matchAll(/(rgba?\([^)]+\))((?:\s+[\d.]+px)+)/g)].flatMap((m) => m[2].trim().split(/\s+/).map((q) => ({ c: parse(m[1]), k: m[1], at: parseFloat(q) })))
+    const xs = []
+    for (let i = 0; i < st.length; i++) { const last = xs[xs.length - 1]; if (last && last.k === st[i].k) last.end = st[i].at; else xs.push({ c: st[i].c, k: st[i].k, start: xs.length ? xs[xs.length - 1].end : st[i].at, end: st[i].at }) }
+    xs.forEach((x) => { x.w = Math.round(x.end - x.start) })
+    const deg = rp[1] ? Math.round(parseFloat(rp[1])) % 180 : 0
+    const dir = deg === 0 ? 'horizontal' : deg === 90 ? 'vertical' : `diagonal (${deg}deg)`
+    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${colourName(x.c)}`).join(' then ')}, over and over`
+  }
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
   if (names.length < 2) {
     // one hue, two shades (round 5 c5 CTA indigo #6366f1 to #4338ca): still a gradient fill, or the build drops it
@@ -1503,6 +1576,8 @@ function effectWords(f) {
     : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
     : /screen|lighten|color-dodge/.test(f.blend) ? 'light-like (screen blend: brightens what it overlaps)' : `${f.blend} blend over what is under it`)
   if (f.blur >= 10) w.push('soft blurred')
+  // a dashed outline (round 9 c4 stamp: said 'outline circle', dashes lost)
+  if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)`)
   // a faded block: built solid otherwise (round 5 c3 cards at 75/45/20%)
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
   if (f.maskFade) w.push(`fading out into the page toward the ${f.maskFade.toward} (solid until ${f.maskFade.fromPct}%, gone at the ${f.maskFade.toward} edge)`)
@@ -1820,6 +1895,40 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: `a stack of ${d.cards.length} separate cards turned in 3D (NOT one picture, NOT flat): a ${d.box.w}x${d.box.h}px box at ${d.box.x},${d.box.y} with perspective: ${d.perspective}px, holding ${d.cards.length} absolutely placed cards each ${c0.w}x${c0.h}px, ${c0.radius}px rounded, each with transform: ${c0.transform} (turned away to the left, all the same turn)${c0.shadow ? `, a big soft dark drop shadow` : ''}; each card overlaps the one behind it, painted back to front: ${cards}` }
   }
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
+  // frosted glass cards over blurred colour blobs: every blob and card with its place, then what each card holds
+  if (f.glassStack) {
+    const G = f.glassStack
+    const a = (c) => (c.a < 1 ? `${hexOf(c)} at ${Math.round(c.a * 100)}%` : hexOf(c))
+    const part = (p) => p.bars ? `a row of ${p.bars.length} ${p.w}px-wide ${a(p.fill)} bars (rounded tops) rising from one baseline, ${p.h}px tall area, heights ${p.bars.join('/')}% left to right`
+      : p.track ? `a ${p.h}px rounded track ${a(p.track)} with a ${hexOf(p.fill)} fill ${p.pct}% across`
+      : p.avatars ? `${p.avatars.length} overlapping ${p.px}px round avatars (${p.avatars.map(hexOf).join(', ')})${p.ring?.a > 0.5 ? ` with ${hexOf(p.ring)} rings` : ''}`
+      : `${p.weight >= 600 ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 28)}`
+    const blobs = G.blobs.map((b) => `a ${b.w}x${b.h}px round ${hexOf(b.c)} blob at ${b.x},${b.y}${b.op < 100 ? ` (${b.op}% opacity)` : ''}`).join('; ')
+    const cards = G.cards.map((c, i) => `card ${i + 1} ${c.w}x${c.h}px at ${c.x},${c.y}: ${c.parts.map(part).join(', then ')}`).join('; ')
+    const c0 = G.cards[0]
+    return { kind: 'box', note: `a layered glass stack, ${G.box.w}x${G.box.h}px at ${G.box.x},${G.box.y} (all absolutely placed, page px; NOT a list, NOT empty): ${G.blobs.length ? `first ${G.blobs.length} soft colour blobs behind everything, each blurred hard (filter: blur(${G.blobs[0].blur}px)): ${blobs}; then ` : ''}${G.cards.length} overlapping frosted glass cards over them, each ${c0.radius}px rounded, see-through fill ${a(c0.fill)}, ${c0.bw}px ${a(c0.border)} border, backdrop-filter: blur(${c0.blur}px)${c0.shadow ? ', a big soft dark drop shadow' : ''}, ${c0.pad}px padding, later cards painted over earlier ones: ${cards}` }
+  }
+  // a giant word cut into stacked bands, each band showing a different slice at its own x offset
+  if (f.slicedWord) {
+    const S = f.slicedWord
+    const b = S.bands.map((x, i) => `band ${i + 1}: ${x.w}x${x.h}px at ${S.box.x + x.x},${S.box.y + x.y}, ${x.fill?.a > 0.05 ? `${hexOf(x.fill)} filled` : 'no fill (page shows)'}, letters ${hexOf(x.ink)}, the word in a span with position: relative; left: ${x.textX}px; top: ${x.textY}px${x.textY < 0 ? ` (pulled up, so the band shows the slice of the 300px line from ${-x.textY}px to ${-x.textY + x.h}px)` : ' (the top slice of the line shows)'}`).join('; ')
+    return { kind: 'box', note: `ONE giant word ${quote(S.t)} SLICED into ${S.bands.length} stacked horizontal bands (NOT ${S.bands.length} whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same ${S.px}px ${S.weight >= 800 ? 'black-weight ' : S.weight >= 600 ? 'bold ' : ''}${quote(S.t)} (line-height ${S.lineH}px, so the word's line is ${S.lineH}px tall and each ${S.bands[0].h}px band is a window onto one slice of it${S.spacing ? `, letter-spacing ${Math.round(S.spacing)}px` : ''}, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: ${b}; the bands touch, no gaps, together ${S.box.w}x${S.box.h}px` }
+  }
+  // a ruled index list: label left, number right, a thin rule over every row
+  if (f.ruledIndex) {
+    const I = f.ruledIndex
+    return { kind: 'text', note: `a ruled index list ${I.w}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${I.mono ? 'monospace (Courier New) ' : ''}${I.px}px ${colourName(f.colour)}, ${I.rows.length} rows each ${I.rows[0].h}px tall with a 1px ${hexOf(I.rows[0].rule)} rule across its top${I.rows[I.rows.length - 1].last ? ' and one under the last row' : ''}, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): ${I.rows.map((r) => `${quote(r.l, 28)} … ${quote(r.r, 10)}`).join(', ')}` }
+  }
+  // a halftone dot disc: a round field of a dot grid, solid shapes over it
+  if (f.halftone) {
+    const H = f.halftone, D = H.dots
+    return { kind: 'box', note: `a halftone picture made of plain CSS (no image), ${H.box.w}x${H.box.h}px at ${H.box.x},${H.box.y}: a ${D.w}x${D.h}px ${D.round ? 'round ' : ''}disc at ${D.x},${D.y} filled with a grid of small ${hexOf(D.c)} dots (background-image: radial-gradient(${hexOf(D.c)} ${D.dotPct}%, transparent ${D.dotPct + 2}%); background-size: ${D.cell}px ${D.cell}px; border-radius: 50%), the page colour showing between the dots${H.solids.map((x) => `; over it a solid ${x.w}x${x.h}px ${x.round ? 'round ' : ''}${hexOf(x.c)} ${x.round ? 'disc' : 'block'} at ${x.x},${x.y}`).join('')}` }
+  }
+  // a run of outlined words with some filled solid
+  if (f.outlineRun) {
+    const R = f.outlineRun
+    return { kind: 'text', note: withFx(`one line of ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : 'bold '}words, ${Math.round(w)}px wide, nowrap, at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: ${R.stroke}px ${hexOf(R.c)}), filled words solid ${hexOf(R.words.find((x) => x.solid).ink)}, in order: ${R.words.map((x) => `${quote(x.w, 16)} ${x.solid ? 'filled' : 'outlined'}`).join(', ')}`) }
+  }
   // a contents list with no box: a heading over short links one per line, the current one in its own ink (round 8 e5
   // 'On this page': no note, so the build drew big dark text with invented items)
   if (!fill && !bordered && !f.regionKids.length && f.dense?.type === 'list' && f.dense.stacked && f.dense.head && !f.dense.groups && f.dense.inks && f.dense.items.length >= 3 && f.dense.items.length <= 12 && f.dense.items.every((p) => p.length === 1 && p[0].length <= 28)) {

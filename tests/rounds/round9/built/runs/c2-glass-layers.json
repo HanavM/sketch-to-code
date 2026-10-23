@@ -1,89 +1,77 @@
 {
   "id": "c2-glass-layers",
-  "at": "2026-10-23T07:31:58.011Z",
+  "at": "2026-10-23T07:47:58.462Z",
   "likeness": {
     "version": 3,
-    "overall": 0.4538475110356376,
-    "overallV2": 0.4370167328521685,
-    "overallV1": 0.4117877771281959,
-    "colour": 0.8061734224299144,
-    "structure": 0.44013909217379443,
-    "structureStrict": 0.37677303335407386,
-    "colourAligned": 0.8407623338212332,
-    "structureAligned": 0.44441924298088503,
+    "overall": 0.9384767014580735,
+    "overallV2": 0.9384767014580735,
+    "overallV1": 0.9068819468759174,
+    "colour": 0.992431242590701,
+    "structure": 0.9700386494688897,
+    "structureStrict": 0.8906839944783463,
+    "colourAligned": 0.992431242590701,
+    "structureAligned": 0.9700386494688897,
     "align": {
-      "scale": 1.12,
-      "dx": -16,
-      "dy": -80,
-      "r": -0.0928979037591277
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9789523309049024
     },
-    "layout": 0.14896251141149103
+    "layout": 0.8457190621878123
   },
   "effects": {
-    "recall": 0.2,
+    "recall": 1,
     "kept": [
-      "gradient-text"
-    ],
-    "missing": [
       "blur",
       "glass",
+      "gradient-text",
       "overlap",
       "soft-shadow"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 17450,
-    "output": 14925,
-    "cacheRead": 124873
+    "input": 36534,
+    "output": 15927,
+    "cacheRead": 168764
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 23901,
-      "output": 9730,
-      "cacheRead": 121789,
-      "toolCalls": 6,
+      "billed": 42666,
+      "output": 12275,
+      "cacheRead": 158663,
+      "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
         "Glob",
-        "Read s2c-bench-app/package.json",
         "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 112886
+      "ms": 128319
     }
   ],
-  "reading": "The sketch lays out a dark hero page: a top nav line with brand/links, a big two-line gradient-accent headline, a light grey subheading paragraph, a 'Get early access' button, and (per a typed note with no accompanying strokes) a plain balance/contents list, all on a near-black Helvetica page with white text.",
+  "reading": "A hero section: a thin nav rule at top, a large two-line gradient headline with a sub-paragraph and a pill button below it, and to the right a large square sketched as a layered glass card stack with blurred color blobs and three frosted dashboard cards (balance chart, savings goal, next payout), all on a near-black page.",
   "actions": [
     {
       "kind": "add",
-      "textMarks": [
-        "s6",
-        "s7"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7"
-          ],
-          "lines": 2,
-          "fontPx": 16
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
         84,
         43,
-        1132,
-        119
+        1112,
+        10
       ],
       "paths": [
         "s0"
       ],
-      "instruction": "Add a nav bar with no border/box around it: a bold 'prism' logo at the left, and on the right the links 'Features · Pricing · Changelog · Log in'."
+      "instruction": "Thin top nav bar, no box/border around it: bold wordmark \"prism\" on the left, and on the right the links \"Features · Pricing · Changelog · Log in\"."
     },
     {
       "kind": "add",
@@ -108,7 +96,7 @@
         152
       ],
       "paths": [],
-      "instruction": "Add a huge, tight-set (line-height 1) Helvetica headline set in exactly two lines, never rewrapped (white-space: nowrap, min-width ~429px for longest line): 'Mo"
+      "instruction": "Huge Helvetica headline set tight (line-height 1), exactly 2 lines, each line kept whole on one line (white-space: nowrap, no max-width narrower than the longes"
     },
     {
       "kind": "add",
@@ -133,7 +121,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Add a light grey paragraph of body copy: 'Every account, card and invoice on one calm, translucent dashboard.'"
+      "instruction": "Light grey subheading paragraph text: \"Every account, card and invoice on one calm, translucent dashboard.\""
     },
     {
       "kind": "add",
@@ -148,11 +136,25 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a rounded button labeled 'Get early access', with a near-black fill and white text."
+      "instruction": "Pill-shaped button with white fill and near-black text reading \"Get early access\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        123,
+        614,
+        654
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A layered glass stack, absolutely positioned at 600,120, 620x660px, page px, not a list. Behind everything, 3 heavily blurred (blur 60px) color blobs: a 380x380"
     }
   ],
   "rejected": [
-    "design action with neither container nor strokes",
-    "add action with neither container nor strokes"
+    "design action with neither container nor strokes"
   ]
 }

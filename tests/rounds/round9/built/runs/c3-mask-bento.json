@@ -1,0 +1,161 @@
+{
+  "id": "c3-mask-bento",
+  "at": "2026-10-23T08:10:09.570Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6670809020028527,
+    "overallV2": 0.6670809020028527,
+    "overallV1": 0.5908685732558179,
+    "colour": 0.8993690424840565,
+    "structure": 0.6051926389479395,
+    "structureStrict": 0.4625975329130995,
+    "colourAligned": 0.8993690424840565,
+    "structureAligned": 0.6051926389479395,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9078160671314844
+    },
+    "layout": 0.9590338171657843
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "clip-shape",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 27989,
+    "output": 15722,
+    "cacheRead": 175268
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 28088,
+      "output": 9387,
+      "cacheRead": 144024,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 99270
+    }
+  ],
+  "reading": "The sketch lays out six content blocks on an empty page: a near-black hero block with a huge gradient-clipped 'FLUX' title, an image block captioned 'Punch-through layouts', a white block with a 78% circular progress ring, a diagonally-striped 'BETA' badge block, a purple block with cut corners reading 'Cut corners on purpose.', and a wide image block listing this week's tasks. A run-wide note sets the page to an off-white background with Helvetica/near-black type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        633,
+        433
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Near-black block containing a huge 200px bold title 'FLUX', rendered as gradient-filled type clipped to the word shape, set against the near-black ink backgroun"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        43,
+        533,
+        203
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Picture/image placeholder block with caption text 'Punch-through layouts'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        273,
+        253,
+        204
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White block containing a centred 150px circular progress ring (not a picture): a green arc covering 78% of the circle starting from the top, remainder shown as "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        983,
+        273,
+        253,
+        203
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Block filled with diagonal (45deg) repeating stripes, NOT a smooth gradient — use repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px): 14px ne"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        503,
+        414,
+        353
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Vivid purple block with corners cut off (clipped/notched corners), containing the text 'Cut corners on purpose.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        484,
+        503,
+        753,
+        354
+      ],
+      "paths": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "instruction": "Wide picture/image placeholder block listing task content: 'This week', 'Brand refresh', '12 tasks', 'Launch'…"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
