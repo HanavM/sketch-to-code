@@ -165,7 +165,7 @@
    ],
    [
     "cta",
-    "cream outline button \"BROWSE PLANTS\""
+    "cream outline button \"BROWSE PLANTS\" (236x58px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "right-panel",
@@ -284,12 +284,8 @@
     "giant Georgia serif regular weight (not bold) red \"01\", 240px type, about 240px wide (no larger)"
    ],
    [
-    "story",
-    "\"ESSAY\""
-   ],
-   [
     "headline",
-    "huge Georgia serif regular weight (not bold) \"The quiet return of the handwritten letter\", set in exactly 3 lines: \"The quiet return of\" / \"the handwritten\" / \"letter\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 436px wide)"
+    "huge Georgia serif regular weight (not bold) \"The quiet return of the handwritten letter\", set in exactly 3 lines: \"The quiet return of\" / \"the handwritten\" / \"letter\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 436px wide); plus a small separate 13px #b91c1c label \"ESSAY\" with 3px letter-spacing at 412,165, 16px above it and left-aligned with it (keep it, it is part of this heading)"
    ],
    [
     "dek",

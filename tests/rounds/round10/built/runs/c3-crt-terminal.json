@@ -1,23 +1,23 @@
 {
   "id": "c3-crt-terminal",
-  "at": "2026-10-23T11:13:49.553Z",
+  "at": "2026-10-23T11:55:21.336Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8168163256167896,
-    "overallV2": 0.8168163256167896,
-    "overallV1": 0.786988737417473,
-    "colour": 0.979595525772967,
-    "structure": 0.7179186589192236,
-    "structureStrict": 0.638322879024848,
-    "colourAligned": 0.979595525772967,
-    "structureAligned": 0.7179186589192236,
+    "overall": 0.9210792556389722,
+    "overallV2": 0.9210792556389722,
+    "overallV1": 0.8938788555427126,
+    "colour": 0.9825157884115658,
+    "structure": 0.9030943024081395,
+    "structureStrict": 0.830509249783924,
+    "colourAligned": 0.9825157884115658,
+    "structureAligned": 0.9030943024081395,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7996788735259132
+      "r": 0.8468281588801891
     },
-    "layout": 0.7669327906465979
+    "layout": 0.8795627858070975
   },
   "effects": {
     "recall": 0.8,
@@ -35,34 +35,32 @@
     ]
   },
   "tokens": {
-    "input": 32829,
-    "output": 19095,
-    "cacheRead": 220853
+    "input": 24850,
+    "output": 15915,
+    "cacheRead": 210684
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 29955,
-      "output": 9846,
-      "cacheRead": 180996,
-      "toolCalls": 10,
+      "billed": 28546,
+      "output": 9530,
+      "cacheRead": 207600,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/src",
         "Glob",
-        "Read s2c-bench-app/vite.config.ts",
-        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 107588
+      "ms": 100936
     }
   ],
-  "reading": "A full-page terminal/synthwave hero design: a fading green bordered frame with a 40px title bar (dots + path label), a giant glowing 'BOOT_' heading with blinking cursor, a 4-line boot-log on the left, a box-drawn info card on the right, two buttons (outline 'RUN DEMO' and solid 'BUY $49'), and a repeating-stripe scanline overlay in front of the heading, all on a black mono-type bright-green page.",
+  "reading": "This is a retro CRT/terminal-style landing page: an inset bordered terminal window with a dotted title bar and \"tty1\" label, a glowing \"BOOT_\" heading with a blinking cursor and scanline stripes, two blocks of green terminal-style text (a 4-line boot log with OK chips on the left, and an ASCII box-drawing info card on the right), and two square-cornered buttons (\"RUN DEMO\" outline, \"BUY $49\" filled). All copy, colors, dimensions and effects come directly from the user's typed notes, which take priority over the squiggly placeholder strokes.",
   "actions": [
     {
       "kind": "design",
@@ -75,10 +73,24 @@
         894
       ],
       "paths": [
-        "s13",
+        "s13"
+      ],
+      "instruction": "Add a fading bright-green border around the page edge (the outer rectangle traced). This sits around the whole viewport, inset so the plain page background stil"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        123,
+        93,
+        1034,
+        694
+      ],
+      "paths": [
         "s0"
       ],
-      "instruction": "Whole page: black (#05140a) background, monospace font throughout, bright green text. The large rectangle is a fading bright-green border frame around the page "
+      "instruction": "Build a terminal-window container, 1040x700px with top-left at 120,90, 14px rounded corners and a 2px #39ff7a border, inset within the page (page shows around i"
     },
     {
       "kind": "add",
@@ -101,7 +113,7 @@
         146
       ],
       "paths": [],
-      "instruction": "Large heading as live text: 120px bold Courier New (font-family: 'Courier New', monospace), color #39ff7a, text 'BOOT_' on one line, positioned around (182,202)"
+      "instruction": "Add a live-text heading \"BOOT_\" at 182,202, one line, 120px bold Courier New (Courier New, monospace), color #39ff7a, with a glow (text-shadow: 0 0 12px #39ff7a"
     },
     {
       "kind": "add",
@@ -130,7 +142,7 @@
         137
       ],
       "paths": [],
-      "instruction": "Terminal boot-log block: exactly 4 lines of 18px Courier New, color #39ff7a, line-height 34px, positioned around (182,392): '> loading modules .........' follow"
+      "instruction": "Add exactly 4 lines of 18px Courier New #39ff7a terminal output (line-height 34px) at 182,392, nothing else invented: \"> loading modules .........\" followed by "
     },
     {
       "kind": "add",
@@ -161,7 +173,7 @@
         128
       ],
       "paths": [],
-      "instruction": "Box-drawing info card rendered as live 16px Courier New text in a <pre> element (white-space: pre, line-height 26px), color #39ff7a, positioned around (762,392)"
+      "instruction": "Add a box-drawing ASCII frame as live 16px Courier New #39ff7a text inside a <pre> (white-space: pre, line-height 26px) at 762,392 — not a bordered div, not a p"
     },
     {
       "kind": "add",
@@ -176,7 +188,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Bright green outline button with label '[ RUN DEMO ]'."
+      "instruction": "Add a bright-green outline button labeled \"[ RUN DEMO ]\", 210x52px, square corners (border-radius 0, not a pill)."
     },
     {
       "kind": "add",
@@ -191,7 +203,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Solid bright green button with black text, label '[ BUY $49 ]'."
+      "instruction": "Add a bright-green filled button with black text labeled \"[ BUY $49 ]\", 197x52px, square corners (border-radius 0, not a pill)."
     }
   ],
   "rejected": [

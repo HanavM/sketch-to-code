@@ -72,3 +72,24 @@ say "clear" instead of "null". Rounds 1-9 re-planned: no change (the seat map an
 Round 10 so far: **75%** over the 5 creative pages (everyday not built yet). Next: say a slanted cut-out panel's corners
 in page px and its place (c2), an inset window's size and place, square buttons on a mono page, then first builds of
 the five everyday pages.
+
+## n137: planner says gradient panel corners, labels over big words, coloured heading lines, button cards, inset windows (2026-10-23, ~248k billed)
+
+Planner (free): a gradient cut-out now says its corners in page px, its box and clip-path against that box, and that it
+sits absolute behind the words (full page height when it is); a small label just above a 40px+ heading is said with its
+size, face, colour, spacing and place (c2 "01 /", round 1 c5 "ESSAY"); a card heading broken into lines says each line's
+colour (c4 red "fun."); a short card line that is itself a filled button says its fill, size, corners and border (c1 pink
+"Get tickets →"); a bordered button with square corners says so; a window with a title bar inset from the page edges says
+its size and top-left. Rounds 1-9 re-planned: only round 1 (c5 ESSAY label moved into the headline note, e-page "BROWSE
+PLANTS" square corners), not re-run.
+
+| page | before | now | what was off |
+|---|---|---|---|
+| c2 skewed panels | 31% | **90%** | all three slanted gradient panels, labels and blend circle right; RUN built smaller, SWIM larger |
+| c3 crt terminal | 82% | **92%** | window inset, square buttons; dark box still behind the glowing headline |
+| c1 extruded checker | 87% | **90%** | pink square CTA right; star text "JUN 12" and the letter stroke still lost |
+| c4 bauhaus tiles | 93% | **94%** | red second line right |
+| c5 arch blend | 81% | 81% | not re-run (arch gradient missing) |
+
+Round 10 creative pages: **89%** average (was 75). Next: first builds of the five everyday pages (video call, PR diff,
+playlist, trading desk, onboarding wizard), then c5's arch gradient and c1's star text.

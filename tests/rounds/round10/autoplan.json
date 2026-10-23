@@ -113,7 +113,7 @@
    ],
    [
     "ticket-card",
-    "white card thick near-black border \"Weekend pass\", lines \"All stages, all nights. Early bird ends Friday.\", \"Get tickets →\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
+    "white card thick near-black border \"Weekend pass\", lines \"All stages, all nights. Early bird ends Friday.\", a #ff5d8f filled 152x48px button (square corners) with a 3px #1a1a1a border, bold #1a1a1a text \"Get tickets →\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
    ]
   ]
  },
@@ -235,15 +235,15 @@
    ],
    [
     "panel-red",
-    "vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+    "vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 0,0 ; 520,0 ; 406,900 ; 0,900; the shape's box is the outline's bounds, 520x900px with its top-left at 0,0, so on that box clip-path: polygon(0% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background"
    ],
    [
     "panel-blue",
-    "vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+    "vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 514,0 ; 920,0 ; 806,900 ; 400,900; the shape's box is the outline's bounds, 520x900px with its top-left at 400,0, so on that box clip-path: polygon(22% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background"
    ],
    [
     "panel-yellow",
-    "vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+    "vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 915,0 ; 1280,0 ; 1280,900 ; 800,900; the shape's box is the outline's bounds, 480x900px with its top-left at 800,0, so on that box clip-path: polygon(24% 0%, 100% 0%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background"
    ],
    [
     "blend-circle",
@@ -255,15 +255,15 @@
    ],
    [
     "word-run",
-    "giant Helvetica heavy tight-set letters \"RUN\""
+    "giant Helvetica heavy tight-set letters \"RUN\"; plus a small separate 14px monospace (font-family Courier New, monospace) #ffffff label \"01 /\" with 2px letter-spacing at 60,150, 14px above it and left-aligned with it (keep it, it is part of this heading)"
    ],
    [
     "word-ride",
-    "giant Helvetica heavy tight-set letters \"RIDE\""
+    "giant Helvetica heavy tight-set letters \"RIDE\"; plus a small separate 14px monospace (font-family Courier New, monospace) #ffffff label \"02 /\" with 2px letter-spacing at 520,420, 14px above it and left-aligned with it (keep it, it is part of this heading)"
    ],
    [
     "word-swim",
-    "giant Helvetica heavy tight-set letters near-black \"SWIM\""
+    "giant Helvetica heavy tight-set letters near-black \"SWIM\"; plus a small separate 14px monospace (font-family Courier New, monospace) #111111 label \"03 /\" with 2px letter-spacing at 960,600, 14px above it and left-aligned with it (keep it, it is part of this heading)"
    ],
    [
     "cta",
@@ -321,7 +321,7 @@
    ],
    [
     "terminal-window",
-    "fading bright green border; along its top edge a 40px title bar with a 2px #39ff7a rule under it: 3 ring dots (12px, 2px #39ff7a border, no fill) at its left and 13px widely spaced \"~/nightshift — tty1\" at its right end"
+    "fading bright green border; along its top edge a 40px title bar with a 2px #39ff7a rule under it: 3 ring dots (12px, 2px #39ff7a border, no fill) at its left and 13px widely spaced \"~/nightshift — tty1\" at its right end; the window is 1040x700px with its top-left at 120,90, 14px rounded corners, a 2px #39ff7a border: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it"
    ],
    [
     "glow-headline",
@@ -337,11 +337,11 @@
    ],
    [
     "btn-run",
-    "bright green outline button \"[ RUN DEMO ]\""
+    "bright green outline button \"[ RUN DEMO ]\" (210x52px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "btn-buy",
-    "bright green black text button \"[ BUY $49 ]\""
+    "bright green black text button \"[ BUY $49 ]\" (197x52px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "scanlines",
@@ -371,7 +371,7 @@
    ],
    [
     "title-panel",
-    "white thick near-black border block \"Form follows fun.\", lines \"A centenary exhibition of shape, colour and play. Opens 4\"…, \"Book a visit\""
+    "white thick near-black border block \"Form follows fun.\", lines \"A centenary exhibition of shape, colour and play. Opens 4\"…, a #1b1b1b filled 138x46px button (square corners), bold #ffffff text \"Book a visit\"; its heading is 72px heavy on 2 lines, \"Form follows\" in #1b1b1b / \"fun.\" in #e63946 (each line its own colour, keep the break)"
    ]
   ]
  },

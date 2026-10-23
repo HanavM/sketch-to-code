@@ -101,6 +101,18 @@ export function factsInPage() {
       // unmarked text right beside this block: a label just above a field, a sub-line just under a heading.
       // No mark carries it, so the block's own note must, or the build drops or rewrites it.
       labelAbove: near(el, el.previousElementSibling, 'above'),
+      // n137: a card's heading broken into lines with one line in its own colour (round 10 c4 'Form follows / fun.',
+      // the red second line never said)
+      headLines: (() => {
+        const k = [...el.children].find((q) => !q.dataset?.r && (q.innerText || '').trim()); if (!k || !k.querySelector('br') || parseFloat(getComputedStyle(k).fontSize) < 28) return null
+        const base = rgba(getComputedStyle(k).color), lines = [{ t: '', c: null }]
+        k.childNodes.forEach((n) => { if (n.nodeName === 'BR') { lines.push({ t: '', c: null }); return } const t = n.textContent; const L = lines[lines.length - 1]; L.t += t; if (n.nodeType === 1 && t.trim()) L.c = rgba(getComputedStyle(n).color) })
+        const out = lines.map((l) => ({ t: l.t.replace(/\s+/g, ' ').trim(), c: l.c ?? base })).filter((l) => l.t)
+        const cs2 = getComputedStyle(k)
+        return out.length >= 2 && out.length <= 4 ? { lines: out, base, px: Math.round(parseFloat(cs2.fontSize)), w: Number(cs2.fontWeight) } : null
+      })(),
+      // n137: the label's own look (round 10 c2 '01 /' mono labels over each giant word were dropped)
+      labelAboveStyle: (() => { const sb = el.previousElementSibling; if (!near(el, sb, 'above')) return null; const c = getComputedStyle(sb), b = sb.getBoundingClientRect(); return { px: Math.round(parseFloat(c.fontSize)), family: c.fontFamily, colour: rgba(c.color), ls: parseFloat(c.letterSpacing) || 0, gap: Math.round(r.top - b.bottom), x: Math.round(b.left), y: Math.round(b.top) } })(),
       lineUnder: near(el, el.nextElementSibling, 'under'),
       // unmarked buttons in the same row right beside this one ('Today', 'Next ›' after a marked '‹ Prev'):
       // no mark carries them, so the marked button's note must, in order
@@ -2122,6 +2134,8 @@ function round10Extra(f, d) {
   if (f.textStroke && f.colour?.a > 0.05 && !/hollow|outlin|stroke/i.test(note)) note += `; a ${f.textStroke.px}px ${hexOf(f.textStroke.c)} outline round every letter (-webkit-text-stroke: ${f.textStroke.px}px ${hexOf(f.textStroke.c)}) over the ${hexOf(f.colour)} fill`
   const B = f.titleBar
   if (B && d.kind === 'box') note += `; along its top edge a ${B.h}px title bar${B.rule ? ` with a ${B.rule}px ${hexOf(B.ruleC)} rule under it` : ''}: ${B.dots} ${B.ring ? `ring dots (${B.dot}px, 2px ${hexOf(B.dotC)} border, no fill)` : `${B.dot}px dots`} at its left${B.t ? ` and ${B.tpx}px widely spaced ${quote(B.t, 30)} at its right end` : ''}`
+  // n137: a window inset from the page edges says its size and place (round 10 c3 built it full-page)
+  if (B && d.kind === 'box' && f.rect.x >= 24 && f.rect.y >= 24 && f.rect.x + f.rect.w <= 1256) note += `; the window is ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded corners` : ''}${f.border?.w ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : ''}: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it`
   return note === d.note ? d : { ...d, note }
 }
 function decide(f, page, marked, said = new Set()) {
@@ -2538,10 +2552,13 @@ function decideOne(f, page, marked, said) {
       const exact = hx && hx.length === 2 ? `, painted linear-gradient(${dir ? `${dir}, ` : ''}${hexOf(hx[0])}, ${hexOf(hx[1])}) exactly (these hexes, no brighter or darker)` : ''
       const size = Math.abs(f.rotate) >= 2 && f.layoutBox?.w ? `, the shape itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt, its top-left at ${Math.round(f.rect.x + (w - f.layoutBox.w) / 2)},${Math.round(f.rect.y + (h - f.layoutBox.h) / 2)} before the tilt` : ''
       const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
+      // n137: a gradient cut-out says its corners and place too (round 10 c2: three full-height slanted gradient
+      // panels said only by colour never showed; the page stayed near-black)
+      const where = grad && !Math.abs(f.rotate || 0) ? `; ${clipWords(f.clipPoly, f.rect, w, h)}; position it absolute at those points${h >= 0.9 * 900 ? ', running the FULL page height from the very top to the very bottom' : ''}, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background` : ''
       // a flat-filled cut-out (round 8 c5's yellow half was built as a yellow-to-orange gradient with the pen's
       // scribble strokes left on top): say its one hex, no gradient, and that the pen lines are only its edge
       const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines${f.clipPoly ? `; ${clipWords(f.clipPoly, f.rect, w, h)}, so it covers the ${(() => { const cx = f.clipPoly.reduce((a, q) => a + q[0], 0) / f.clipPoly.length; return cx < 0.42 ? 'LEFT' : cx > 0.58 ? 'RIGHT' : 'middle' })()} part and the rest shows what is under it (do not mirror it)` : ''}` : ''
-      return { kind: 'shape', note: withFx(`${note}${exact}${solid}${size}${flat}`), poly: f.clipPoly }
+      return { kind: 'shape', note: withFx(`${note}${exact}${solid}${size}${flat}${where}`), poly: f.clipPoly }
     }
     const sh = shadowWords(f)
     // a rounded flat colour/gradient tile is a plain tile, not a picture (round 8 c3: six masonry tiles read as
@@ -2580,12 +2597,14 @@ function decideOne(f, page, marked, said) {
   const placeholder = /…$|\.\.\.$|^search\b/i.test(f.text)
   if (bordered && !placeholder && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 60 && w <= 260) {
     if (/[▾▼]$/.test(f.text)) return { kind: 'button', note: `dropdown ${quote(f.text.replace(/\s*[▾▼]$/, ''))}` }
-    if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}` }
+    // n137: a bordered square-cornered button says so (round 10 c3 '[ RUN DEMO ]' built as pills)
+    const sq = f.radius <= 1 ? ` (${Math.round(w)}x${Math.round(h)}px, square corners: border-radius 0, NOT a pill)` : ''
+    if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}${sq}` }
     // a one-glyph icon button names its icon and size (round 7 e4 '♡' wishlist: built as a refresh icon)
     const ICON = { '♡': 'an empty heart (wishlist) outline icon', '♥': 'a filled heart icon', '☆': 'an empty star icon', '★': 'a filled star icon', '✕': 'a close X icon', '×': 'a close X icon', '⋯': 'a three-dots icon', '☰': 'a three-line menu icon' }
     const icon = ICON[f.text.trim()]
     if (icon && (!fill || dist(f.bg, page.bg) < 12)) return { kind: 'button', note: `square ${Math.round(w)}x${Math.round(h)}px ${f.radius >= 4 ? `${Math.round(f.radius)}px rounded ` : ''}outline button holding only ${icon} ${quote(f.text.trim())}, centred` }
-    if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}`.trim() }
+    if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}${sq}`.trim() }
   }
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
     const label = f.labelAbove ? (said.add(f.labelAbove), `label ${quote(f.labelAbove)} above, `) : ''
@@ -2812,7 +2831,10 @@ function decideOne(f, page, marked, said) {
     // word alone and built ~10px high with everything under it drifting (round 6 e2)
     const ttl = !mid && !f.motion && !fill && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && !/\s/.test(f.text.trim()) && f.text.length <= 24 && f.rect.y <= 120 ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}type on one line, its box top ${Math.round(f.rect.y)}px from the page top and ${Math.round(f.rect.h)}px tall (top-[${Math.round(f.rect.y)}px] or the same margin, line-height ${Math.round(f.rect.h)}px; not higher)` : ''
     const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${fadeSay}${wide}${one}${mid}${ttl}${under}`.trim()) }
+    // n137: a small label just above a giant word (round 10 c2 '01 /' mono numbers): no mark carries it
+    const LA = f.labelAboveStyle && f.font.size >= 40 && f.labelAbove ? f.labelAboveStyle : null
+    const lab = LA ? (said.add(f.labelAbove), `; plus a small separate ${LA.px}px ${isMono(LA.family) ? 'monospace (font-family Courier New, monospace) ' : ''}${hexOf(LA.colour)} label ${quote(f.labelAbove, 32)}${LA.ls >= 1 ? ` with ${Math.round(LA.ls)}px letter-spacing` : ''} at ${LA.x},${LA.y}, ${LA.gap}px above it and left-aligned with it (keep it, it is part of this heading)`) : ''
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${fadeSay}${wide}${one}${mid}${ttl}${under}${lab}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -3001,6 +3023,10 @@ function lineWords(f, i) {
   const st = f.kidStyles?.length === f.kidTexts.length ? f.kidStyles : null
   if (!st) return ''
   const k = st[i], h = st[0]
+  // n137: a short line that is itself a filled button (round 10 c1 pink 'Get tickets →' built as a plain link)
+  const B = f.kidBoxes?.length === f.kidTexts.length ? f.kidBoxes[i] : null
+  const under = f.bg && f.bg.a > 0.05 ? f.bg : { r: 255, g: 255, b: 255, a: 1 }
+  if (B && B.t.length <= 28 && B.fill && B.fill.a > 0.5 && dist(B.fill, under) > 40 && B.h >= 26 && B.h <= 70) return `a ${hexOf(B.fill)} filled ${Math.round(B.w)}x${Math.round(B.h)}px button${B.radius >= 12 ? ' (pill)' : B.radius >= 2 ? ` (${Math.round(B.radius)}px rounded)` : ' (square corners)'}${B.bw >= 1 ? ` with a ${Math.round(B.bw)}px ${hexOf(B.bc)} border` : ''}, ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} text `
   const big = k.s >= Math.max(28, h.s * 1.6) ? `big ${k.s}px${k.b ? ' bold' : ''} ` : ''
   const name = colourName(k.c)
   const ink = name && name !== colourName(h.c) && !/black|grey|white|navy/.test(name) ? `${name} ` : ''
@@ -3105,6 +3131,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const d = out.get(f.role), E = f.edgePanel
     if (!E || !d.kind || E.shadow || E.rad || !/\bcard\b/.test(d.note ?? '')) return
     d.note = `${d.note ? `${d.note.replace(/\bcard\b/, 'panel')}; ` : ''}this panel is FLAT: ${hexOf(f.bg)} fill from the very top to the very bottom of the page at the left edge, ${E.w}px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)${E.rule ? `, a 1px ${hexOf(E.rule)} line down its right side` : ''}`
+  })
+  // n137: a card heading whose lines differ in colour says each line and its colour (round 10 c4 red 'fun.')
+  regions.forEach((f) => {
+    const d = out.get(f.role), H = f.headLines
+    if (!d.kind || !H || !H.lines.some((l) => dist(l.c, H.base) > 60)) return
+    d.note = `${d.note ? `${d.note}; ` : ''}its heading is ${H.px}px${H.w >= 700 ? ' heavy' : ''} on ${H.lines.length} lines, ${H.lines.map((l) => `${quote(l.t, 40)} in ${hexOf(l.c)}`).join(' / ')} (each line its own colour, keep the break)`
   })
   // n132: a highlighted item that also carries an underline (round 9 e4 sort tabs: the underline was lost)
   regions.forEach((f) => {
