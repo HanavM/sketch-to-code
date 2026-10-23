@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "A page built a little too low all over is now caught and sent back for a fix; the kanban board scored 72% twice. Next: start round 8 with harder pages."
-lock: null
+lock: {by: run-2026-10-23-inbox, until: "2026-10-23T02:16:47Z"}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
