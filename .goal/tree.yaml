@@ -251,7 +251,7 @@ nodes:
      result: "Round 1 rebuilt from auto plans: neon 36->75, editorial 15->51, sign-in 11->59, contact 11->68. aadaf83."}
   - {id: n46, parent: n45, kind: step, title: "~90k live: finish round 1 from auto plans (c3 split studio = n23, e2 pricing, e3 blog list) so the round has one before/after table; fix the worst gap", status: done,
      result: "Studio 83%, blog list 21% to 70% after post text said beside picture; pricing now has prices, buttons. 2124b1a."}
-  - {id: n48, parent: n46, kind: step, title: "~80k live, low priority: rebuild round-1 c1 sunset and c2 brutalist from auto plans so every round-1 page has an auto number", status: open, result: null}
+  - {id: n48, parent: n46, kind: step, title: "~80k live, low priority: rebuild round-1 c1 sunset and c2 brutalist from auto plans so every round-1 page has an auto number", status: pruned, result: "pruned: over 12 open nodes; round-1 pages already scored by hand plans"}
   - {id: n47, parent: n17, kind: step, title: "Free: round-4 targets, harder than round 3 (scroll-length pages, sticky/parallax, overlapping cut-outs, dense dashboards with charts), measured and auto-planned untuned; dry-draw all 10", status: done,
      result: "10 harder pages, all drawn dry. Planner fixed for SVG, blends, 3D tilt, tile grids, panes. 91388a3."}
   - {id: n49, parent: n47, kind: step, title: "Free: planner says round-4 dense UI it misses: gantt bars on week columns + today line, SVG line chart/donut/sparklines, form fields in a grid, mail rows (sender, time, subject, unread); rounds 1-3 plans must not regress", status: done,
@@ -334,7 +334,7 @@ nodes:
      result: "Planner says filled-in forms and pinned buttons: board modal 81% first build, 90% after. ec93121."}
   - {id: n70, parent: n67, kind: step, title: "Free first, ~60k live: round-5 c1 masked reel glows built purple/blue (target one big orange glow scaled 200%); trace from plan glows fact, fix, re-run c1", status: done,
      result: "Glows now placed as seen (size/position applied): one big orange glow built; reel 57% to 65%. f0279b9."}
-  - {id: n71, parent: n70, kind: step, title: "Low priority, ~55k live: round-5 c1 orange glow built dimmer than target and scrub track ~6px (target 2px); then round-4 n51 crossed-box leftovers", status: open, result: null}
+  - {id: n71, parent: n70, kind: step, title: "Low priority, ~55k live: round-5 c1 orange glow built dimmer than target and scrub track ~6px (target 2px); then round-4 n51 crossed-box leftovers", status: pruned, result: "pruned: over 12 open nodes; small round-5 glow/track nits, round 8 matters more"}
   - {id: n33, parent: n24, kind: step, title: "Free: round-2 e3 settings built almost identical yet scores 6% (white page: structure below blank, rows drift ~30px at bottom). Fix the score for sparse pages, re-score saved pictures", status: done,
      result: "Likeness v3 aligns one global zoom+offset first: settings 6% to 36%; unrelated pages stay under 20%. ab16345."}
   - {id: n8, parent: n1, kind: step, title: "Round 1 complete (needs 2026-10-21 budget): live c2-c5, e1, e4, e5 with the n6/n7 fixes; re-run e2/e3 to see the placement fix; table + side-by-sides; pick the worst gap for round 2", status: done,
