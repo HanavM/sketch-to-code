@@ -391,3 +391,18 @@ typecheck clean.
 | r7 e1 kanban lanes | 76% best (74% n111) | run 1: 48% (65k, one turn; whole board below the top bar ~15px low, under the 16px drift check, so no repair). Run 2: **77%** (88k, one turn), colour 99%, structure 95%, layout 74% | progress bars 180px on a grey track, "Sprint 42" bold (both fixed). Lane labels ~5px off |
 
 Next: a whole board offset ~12-15px the same way slips under the 16px drift rule (run 1); r6 e2 repair turn reading config files.
+
+## n113: whole board shifted the same way, under the 16px rule (2026-10-23, ~178k billed)
+
+Pipeline (zero tokens): the drift check now also names a page whose blocks below the top bar are all off the same way
+by a little: when 6+ blocks match, two thirds of them sit 6px+ off the same way and their median is 8px+, it fails with
+"N blocks all sit about Xpx lower", names the first shifted block and asks for the one extra space above it to come
+out (no negative margins). The repair brief now also forbids opening index.html, package.json and vite/tailwind/
+postcss/ts config (r6 e2's repair read them). Vitest: same 2 environmental failures; build clean.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| r7 e1 kanban lanes | 77% best (48% n112 run 1) | run 1 (old thresholds): 72% (82k, one turn): heads +6, cards +8, second lane +11, all under 16px, unreported; its offsets are a unit test now and the new rule names them. Run 2 (new rule): 72% (96k, 6.3 min; build 48k + repair 21k, Edit x3): build drifted 24-40px, the old rule caught it, repair brought cards to +7/+8 | lane label "WEB APP" region missed (the drift check reads its line as -1px though it sits ~12px low: wrong match for thin lane lines); top bar slightly padded |
+
+Next: thin lane-label lines matched to the wrong element by the drift check; a residual +7px shift sits just under the
+new median rule. Round 7 has been polished for many steps at 72-87%: consider moving to round 8 (harder pages).
