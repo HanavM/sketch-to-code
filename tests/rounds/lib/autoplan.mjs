@@ -186,6 +186,36 @@ export function factsInPage() {
         if (tiles.filter((t) => t.kind !== 'empty').length < kids.length / 2 || o.width / cols < 80 || o.height / rows < 80) return null
         return { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height), cols, rows, cellW: Math.round(o.width / cols), cellH: Math.round(o.height / rows), tiles }
       })(),
+      // n139: short loose text (in no region) laid over a textless region (round 10 c1 star: 'JUN 12' dropped)
+      textOver: (() => {
+        if ((el.innerText || '').trim()) return null
+        const L = [...document.body.querySelectorAll('*')].filter((k) => !k.closest('[data-r]') && !k.querySelector('[data-r]') && !k.children.length && (k.innerText || '').trim().length && (k.innerText || '').trim().length <= 24)
+        const k = L.find((q) => { const b = q.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2; return Math.abs(cx - (r.left + r.width / 2)) < r.width / 4 && Math.abs(cy - (r.top + r.height / 2)) < r.height / 4 })
+        if (!k) return null
+        const c = getComputedStyle(k)
+        return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight) || 400, c: rgba(c.color), spins: c.animationName !== 'none' }
+      })(),
+      // n139: a vertical stepper: 3+ kids each led by a small round marker, a title and a sub-line, joined by
+      // ::after connector lines (round 10 e5: done checks green, connectors lost)
+      stepRail: (() => {
+        const st = kids.map((k) => {
+          const m = k.firstElementChild
+          if (!m) return null
+          const mc = getComputedStyle(m), mb = m.getBoundingClientRect(), kb = k.getBoundingClientRect()
+          if (mb.width > 40 || mb.width < 12 || Math.abs(mb.width - mb.height) > 2 || parseFloat(mc.borderTopLeftRadius) < mb.width / 2 - 1) return null
+          const rest = [...k.children].slice(1).map((q) => ({ t: (q.innerText || '').trim(), px: Math.round(parseFloat(getComputedStyle(q).fontSize)), w: Number(getComputedStyle(q).fontWeight) || 400, c: rgba(getComputedStyle(q).color) })).filter((q) => q.t)
+          const a = getComputedStyle(k, '::after')
+          const con = a.content && a.content !== 'none' && rgba(a.backgroundColor)?.a > 0.1 ? { c: rgba(a.backgroundColor), w: Math.round(parseFloat(a.width)), h: Math.round(parseFloat(a.height)) } : null
+          return { left: mb.left - kb.left <= 10, kx: Math.round(kb.left), kr: Math.round(kb.right - mb.right), kt: Math.round(mb.top - kb.top), t: (m.innerText || '').trim(), d: Math.round(mb.width), fill: rgba(mc.backgroundColor), bc: rgba(mc.borderTopColor), bw: parseFloat(mc.borderTopWidth) || 0, ink: rgba(mc.color), x: Math.round(mb.left), y: Math.round(mb.top), rest, con, top: Math.round(kb.top) }
+        })
+        const ok = st.filter(Boolean)
+        if (ok.length < 3 || !ok.every((q) => q.rest.length)) return null
+        const column = ok.every((q, i) => !i || (Math.abs(q.kx - ok[0].kx) <= 4 && q.top > ok[i - 1].top))
+        if (column && ok.every((q) => q.left)) return { radio: false, steps: ok }
+        // n139: side-by-side option cards with a radio circle in a corner (round 10 e5 plan cards: circles lost)
+        if (!column && ok.every((q) => !q.left)) return { radio: true, steps: ok }
+        return null
+      })(),
       // n136: stacked hard text-shadows (an extrusion) and a text stroke (round 10 c1: built as flat letters)
       textShadows: cs.textShadow === 'none' ? [] : cs.textShadow.split(/,(?![^(]*\))/).map((p) => { const c = p.match(/rgba?\([^)]+\)/)?.[0]; const n = p.replace(/rgba?\([^)]+\)/, '').trim().split(/\s+/).map(parseFloat); return { c: c ? rgba(c) : null, x: n[0] || 0, y: n[1] || 0, blur: n[2] || 0 } }),
       textStroke: parseFloat(cs.webkitTextStrokeWidth) > 0 ? { px: parseFloat(cs.webkitTextStrokeWidth), c: rgba(cs.webkitTextStrokeColor) } : null,
@@ -2168,7 +2198,22 @@ function round10Extra(f, d) {
     const s0 = hard[0], sN = hard[hard.length - 1]
     note += `; EXTRUDED in 3D: ${hard.length} stacked hard text-shadows (no blur) of solid ${hexOf(s0.c)}, stepping ${Math.round(s0.x)}px right and ${Math.round(s0.y)}px down each, out to ${Math.round(sN.x)}px ${Math.round(sN.y)}px (text-shadow: ${hard.map((s) => `${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${hexOf(s.c)}`).join(', ')}), so each letter sits on a deep dark block side; NOT flat letters`
   }
-  if (f.textStroke && f.colour?.a > 0.05 && !/hollow|outlin|stroke/i.test(note)) note += `; a ${f.textStroke.px}px ${hexOf(f.textStroke.c)} outline round every letter (-webkit-text-stroke: ${f.textStroke.px}px ${hexOf(f.textStroke.c)}) over the ${hexOf(f.colour)} fill`
+  if (f.textStroke && f.colour?.a > 0.05 && !/hollow|text-stroke|outline round every letter|outlined letters/i.test(note)) note += `; a ${f.textStroke.px}px ${hexOf(f.textStroke.c)} outline round every letter (-webkit-text-stroke: ${f.textStroke.px}px ${hexOf(f.textStroke.c)}) over the ${hexOf(f.colour)} fill`
+  // n139: a vertical stepper said step by step (round 10 e5: checks, colours and connectors lost)
+  const S = f.stepRail?.steps
+  if (S && f.stepRail.radio) {
+    const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : 'no fill')
+    note += `; each option card has its own ${S[0].d}px radio circle (border-radius 50%) in its top-right corner, ${S[0].kr}px in from the right and ${S[0].kt}px down: ${S.map((q) => `${quote(q.rest[0].t, 20)} ${hx(q.fill)} with a ${q.bw}px ${hexOf(q.bc)} ring`).join(', ')} (the thick ring is the chosen one)`
+  } else if (S) {
+    const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : null)
+    const lead = f.kidTexts.filter((t) => !S.some((q) => q.rest.some((r) => r.t === t) || t.includes(q.rest[0].t)))[0]
+    const gap = S.length >= 2 ? S[1].top - S[0].top : null
+    note = `${d.note.split(/ (?:grey |light grey |white )?(?:lines|list|text) /)[0].replace(/[,;\s]+$/, '')} ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${lead ? `; at its top ${quote(lead, 30)}` : ''}; under it a VERTICAL STEPPER of ${S.length} steps${gap ? ` exactly ${gap}px apart` : ''}, each step a ${S[0].d}px round marker (border-radius 50%) at the left with its title and grey sub-line to its right, built as real elements (NOT a plain list, NOT grey dots): ` +
+      S.map((q, i) => `step ${i + 1} marker at ${q.x},${q.y} ${hx(q.fill) ? `filled ${hx(q.fill)}` : 'no fill'}${q.bw ? ` with a ${q.bw}px ${hx(q.bc)} ring` : ''} holding ${hx(q.ink)} ${quote(q.t || ' ')}, then ${q.rest.map((r) => `${r.px}px${r.w >= 600 ? ' bold' : ''} ${hexOf(r.c)} ${quote(r.t, 40)}`).join(' over ')}${q.con ? `; under its marker a ${q.con.w}x${q.con.h}px ${hexOf(q.con.c)} connector line down to the next marker` : ''}`).join('; ')
+  }
+  // n139: loose words laid over a textless shape (round 10 c1 star: 'JUN 12' dropped)
+  const O = f.textOver
+  if (O && !note.includes(O.t)) note += `; centred on top of it ${O.px}px ${O.weight >= 700 ? 'bold ' : ''}${colourName(O.c)} (${hexOf(O.c)}) live text ${quote(O.t)}${O.spins ? '' : ' that stays upright (the text does NOT spin with the shape: a separate element over it)'}`
   const B = f.titleBar
   if (B && d.kind === 'box') note += `; along its top edge a ${B.h}px title bar${B.rule ? ` with a ${B.rule}px ${hexOf(B.ruleC)} rule under it` : ''}: ${B.dots} ${B.ring ? `ring dots (${B.dot}px, 2px ${hexOf(B.dotC)} border, no fill)` : `${B.dot}px dots`} at its left${B.t ? ` and ${B.tpx}px widely spaced ${quote(B.t, 30)} at its right end` : ''}`
   // n137: a window inset from the page edges says its size and place (round 10 c3 built it full-page)
@@ -2674,7 +2719,11 @@ function decideOne(f, page, marked, said) {
     const ry = f.radiusPct != null ? Math.min(0.5, f.radiusPct / 100) : Math.min(0.5, f.radius / h)
     const poly = [[0, 1], ...Array.from({ length: 9 }, (_, i) => { const a = Math.PI * (1 - i / 8); return [+(0.5 + 0.5 * Math.cos(a)).toFixed(3), +(ry - ry * Math.sin(a)).toFixed(3)] }), [1, 1]]
     const paint = grad ?? `${fill && vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}`
-    return { kind: 'shape', note: withFx(`${paint} arch (round top, flat bottom)`), poly }
+    // n139: an arch says its exact box and corners (round 10 c5: built as a wobbly SVG traced from the ink with a faded,
+    // washed-out middle)
+    const rTop = Math.round(Math.min(w / 2, ry * h))
+    const css = grad && /^linear-gradient/.test(f.bgImage.trim()) ? `, painted with background: ${f.bgImage.trim().replace(/\s+/g, ' ')} at full opacity (no fade, no overlay)` : ''
+    return { kind: 'shape', note: withFx(`${paint} arch (round top, flat bottom): one plain CSS block ${Math.round(w)}x${Math.round(h)}px, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, border-radius ${rTop}px ${rTop}px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink)${css}`), poly }
   }
   // a lit sphere: a textless round radial blend with an off-centre highlight and a coloured glow (round 7 c1 orb:
   // 'big glowing ... circle' built as a faint glow behind the tiles)
@@ -2963,7 +3012,7 @@ function decideOne(f, page, marked, said) {
       ? `${titleWords(kb, h)}${quote(head)}, text ${quote(f.kidTexts[1], 110)}`
       // a short info card (an address, hours, an email): every line is copy, or the build invents an address
       : !f.regionKids.length && !list && head && f.kidTexts.length >= 3 && f.kidTexts.length <= 7 && f.kidTexts.join(' ').length <= 160
-        ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t, i) => lineWords(f, i + 1) + quote(t, 60)).join(', ')}${f.kidReach && f.kidReach < 0.55 && h >= 200 ? ', all at the top of the card, empty below' : ''}` : null
+        ? `${quote(head)}, lines ${f.kidTexts.slice(1).map((t, i) => lineWords(f, i + 1) + quote(t, 110)).join(', ')}${f.kidReach && f.kidReach < 0.55 && h >= 200 ? ', all at the top of the card, empty below' : ''}` : null
     // a card's heading over one filled button, maybe set at the bottom (round 5 c5 CTA said as 'cards')
     const lastK = kb[kb.length - 1], under = visible(f.bg) ? f.bg : page.bg
     const btn = !f.regionKids.length && kb.length === 2 && lastK.t.length <= 24 && lastK.h >= 26 && lastK.h <= 64 && visible(lastK.fill) && dist(lastK.fill, under) > 40 ? lastK : null
@@ -3426,6 +3475,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       ? `position: absolute at left ${Math.round(r.x)}px, top ${Math.round(r.y)}px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it`
       : `its top-left at ${Math.round(r.x)},${Math.round(r.y)}${under} (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)`
     d.note = `${d.note}; the card exactly ${Math.round(r.w)}x${Math.round(r.h)}px, ${place}`
+  })
+  // n139: words laid over a shape are kept only when no other note says them (round 10 c2 '02 /' is the RIDE label)
+  regions.filter((f) => f.textOver).forEach((f) => {
+    const d = out.get(f.role), q = `"${f.textOver.t}"`
+    if (d?.note && regions.some((g) => g !== f && (out.get(g.role)?.note ?? '').includes(q))) d.note = d.note.replace(/; centred on top of it [^;]*/, '')
   })
   let pn = pageNote(body)
   if (pairs.length >= 4) {

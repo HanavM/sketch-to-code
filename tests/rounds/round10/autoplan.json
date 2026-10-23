@@ -97,15 +97,15 @@
    ],
    [
     "extruded-word",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow \"LOUD\", 230px type, about 620px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow \"LOUD\", 230px type, about 620px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters; a 3px #1a1a1a outline round every letter (-webkit-text-stroke: 3px #1a1a1a) over the #ffd23f fill"
    ],
    [
     "extruded-word-2",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink \"FEST\", 230px type, about 556px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink \"FEST\", 230px type, about 556px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters; a 3px #1a1a1a outline round every letter (-webkit-text-stroke: 3px #1a1a1a) over the #ff5d8f fill"
    ],
    [
     "star-badge",
-    "spinning vivid blue jagged cut-out shape, ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 1095,96 ; 1114,156 ; 1177,156 ; 1126,193 ; 1144,251 ; 1095,215 ; 1046,251 ; 1064,193 ; 1013,156 ; 1076,156; the shape's box is the outline's bounds, 163x155px with its top-left at 1013,96, so on that box clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 69% 63%, 80% 100%, 50% 77%, 20% 100%, 31% 63%, 0% 38%, 39% 38%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)"
+    "spinning vivid blue jagged cut-out shape, ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 1095,96 ; 1114,156 ; 1177,156 ; 1126,193 ; 1144,251 ; 1095,215 ; 1046,251 ; 1064,193 ; 1013,156 ; 1076,156; the shape's box is the outline's bounds, 163x155px with its top-left at 1013,96, so on that box clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 69% 63%, 80% 100%, 50% 77%, 20% 100%, 31% 63%, 0% 38%, 39% 38%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it); centred on top of it 18px bold white (#ffffff) live text \"JUN 12\" that stays upright (the text does NOT spin with the shape: a separate element over it)"
    ],
    [
     "tag",
@@ -371,7 +371,7 @@
    ],
    [
     "title-panel",
-    "white thick near-black border block \"Form follows fun.\", lines \"A centenary exhibition of shape, colour and play. Opens 4\"…, a #1b1b1b filled 138x46px button (square corners), bold #ffffff text \"Book a visit\"; its heading is 72px heavy on 2 lines, \"Form follows\" in #1b1b1b / \"fun.\" in #e63946 (each line its own colour, keep the break)"
+    "white thick near-black border block \"Form follows fun.\", lines \"A centenary exhibition of shape, colour and play. Opens 4 March.\", a #1b1b1b filled 138x46px button (square corners), bold #ffffff text \"Book a visit\"; its heading is 72px heavy on 2 lines, \"Form follows\" in #1b1b1b / \"fun.\" in #e63946 (each line its own colour, keep the break)"
    ]
   ]
  },
@@ -493,7 +493,7 @@
    ],
    [
     "arch-picture",
-    "coral (#d98e6b) to brown (#8c3b2a at 55%) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom)"
+    "coral (#d98e6b) to brown (#8c3b2a at 55%) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom): one plain CSS block 420x720px, top-left at 640,110, border-radius 210px 210px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink), painted with background: linear-gradient(rgb(217, 142, 107) 0%, rgb(140, 59, 42) 55%, rgb(59, 31, 26) 100%) at full opacity (no fade, no overlay)"
    ],
    [
     "sun",
@@ -613,7 +613,7 @@
    ],
    [
     "review-comment",
-    "\"mo-review\", lines \"commented 2 hours ago\", \"Should we cap the total wait? 5 attempts at 250ms doubling\"…, \"Reply Resolve conversation\""
+    "\"mo-review\", lines \"commented 2 hours ago\", \"Should we cap the total wait? 5 attempts at 250ms doubling is ~8s.\", \"Reply Resolve conversation\""
    ]
   ]
  },
@@ -767,7 +767,7 @@
    ],
    [
     "stepper",
-    "dark navy (exactly #0f172a) block, light grey text \"◆ Ledgerly\" grey lines \"✓\" / \"Your account\" / \"Email and password\" grey lines \"✓\" / \"Company\" / \"Name and size\" list: \"3\" Workspace, \"4\" Invite team, \"5\" Connect bank"
+    "dark navy (exactly #0f172a) block 340x900px at 0,0; at its top \"◆ Ledgerly\"; under it a VERTICAL STEPPER of 5 steps exactly 84px apart, each step a 30px round marker (border-radius 50%) at the left with its title and grey sub-line to its right, built as real elements (NOT a plain list, NOT grey dots): step 1 marker at 36,112 filled #22c55e with a 2px #22c55e ring holding #ffffff \"✓\", then 15px bold #ffffff \"Your account\" over 12px #cbd5e1 \"Email and password\"; under its marker a 2x46px #22c55e connector line down to the next marker; step 2 marker at 36,196 filled #22c55e with a 2px #22c55e ring holding #ffffff \"✓\", then 15px bold #ffffff \"Company\" over 12px #cbd5e1 \"Name and size\"; under its marker a 2x46px #22c55e connector line down to the next marker; step 3 marker at 36,280 filled #4f46e5 with a 2px #818cf8 ring holding #ffffff \"3\", then 15px bold #ffffff \"Workspace\" over 12px #cbd5e1 \"Plan, logo and region\"; under its marker a 2x46px #334155 connector line down to the next marker; step 4 marker at 36,364 no fill with a 2px #475569 ring holding #cbd5e1 \"4\", then 15px bold #ffffff \"Invite team\" over 12px #cbd5e1 \"Add your colleagues\"; under its marker a 2x46px #334155 connector line down to the next marker; step 5 marker at 36,448 no fill with a 2px #475569 ring holding #cbd5e1 \"5\", then 15px bold #ffffff \"Connect bank\" over 12px #cbd5e1 \"Sync transactions\""
    ],
    [
     "form",
@@ -775,7 +775,7 @@
    ],
    [
     "plan-radios",
-    "radio options in a row: \"Solo\" with 1 seat · free right, \"Team\" with up to 20 seats · $12/seat right (selected: filled dark ring, dark 2px border), \"Scale\" with unlimited · talk to us right"
+    "radio options in a row: \"Solo\" with 1 seat · free right, \"Team\" with up to 20 seats · $12/seat right (selected: filled dark ring, dark 2px border), \"Scale\" with unlimited · talk to us right; each option card has its own 18px radio circle (border-radius 50%) in its top-right corner, 15px in from the right and 15px down: \"Solo\" no fill with a 2px #cbd5e1 ring, \"Team\" no fill with a 5px #4f46e5 ring, \"Scale\" no fill with a 2px #cbd5e1 ring (the thick ring is the chosen one)"
    ],
    [
     "drop-zone",

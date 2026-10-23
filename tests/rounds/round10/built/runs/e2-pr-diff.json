@@ -1,23 +1,23 @@
 {
   "id": "e2-pr-diff",
-  "at": "2026-10-23T12:21:05.752Z",
+  "at": "2026-10-23T13:19:03.736Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6949116050268821,
-    "overallV2": 0.6949116050268821,
-    "overallV1": 0.6311081158380879,
-    "colour": 0.9958493053584144,
-    "structure": 0.9497153630985988,
-    "structureStrict": 0.901332367465184,
-    "colourAligned": 0.9958493053584144,
-    "structureAligned": 0.9497153630985988,
+    "overall": 0.794311196389691,
+    "overallV2": 0.794311196389691,
+    "overallV1": 0.7271361685112115,
+    "colour": 0.996668167313905,
+    "structure": 0.952907017079211,
+    "structureStrict": 0.9019673408664903,
+    "colourAligned": 0.996668167313905,
+    "structureAligned": 0.952907017079211,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8829213232585131
+      "r": 0.907018174396284
     },
-    "layout": 0.383936517110841
+    "layout": 0.665755429647574
   },
   "effects": {
     "recall": 1,
@@ -30,34 +30,45 @@
     ]
   },
   "tokens": {
-    "input": 42621,
-    "output": 21030,
-    "cacheRead": 301542
+    "input": 44257,
+    "output": 26931,
+    "cacheRead": 365905
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46847,
-      "output": 14592,
-      "cacheRead": 289531,
-      "toolCalls": 10,
+      "billed": 46997,
+      "output": 17747,
+      "cacheRead": 165902,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
+        "Glob",
         "Read src/main.tsx",
-        "Glob",
-        "Write src/App.tsx",
-        "Read src/App.tsx",
-        "Glob",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 148250
+      "ms": 181863
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7330,
+      "output": 2713,
+      "cacheRead": 187970,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 27689
     }
   ],
-  "reading": "The sketch is a GitHub pull-request page: a header with the PR title, number, merge-status button and merge line; a tab bar (Conversation/Commits/Checks/Files changed with counts); a file-tree sidebar; a large code diff panel for src/webhooks.ts; and a reviewer comment thread attached to the diff.",
+  "reading": "The sketch builds a GitHub-style pull-request page: a header with title/PR-number/Open-button/merge-line, a tab bar with counts, a file-tree sidebar, a large unified diff viewer, and a review-comment thread beneath it.",
   "actions": [
     {
       "kind": "add",
@@ -82,7 +93,7 @@
         71
       ],
       "paths": [],
-      "instruction": "Build the PR header row from the two wavy placeholder lines, with four live parts per the typed note: a 1216x31 title at 32,24, 26px #1f2328 text 'Add retry wit"
+      "instruction": "Build the PR header block as 4 separate live-text elements, exact sizes/positions in page px: 1216x31 at 32,24, 26px regular (not bold) #1f2328 text \"Add retry "
     },
     {
       "kind": "add",
@@ -107,7 +118,7 @@
         38
       ],
       "paths": [],
-      "instruction": "Build the PR tab navigation bar from these two wavy lines, with eight live parts per the typed note: 'Conversation' tab (145x37 at 32,128, 14px #656d76) with a "
+      "instruction": "Build the tab bar as 8 separate live-text elements, exact sizes/positions: 145x37 at 32,128, 14px #656d76 \"Conversation\"; 118x37 at 181,128, 14px #656d76 \"Commi"
     },
     {
       "kind": "add",
@@ -138,7 +149,7 @@
         130
       ],
       "paths": [],
-      "instruction": "Build the file-tree sidebar panel from these five wavy rows, per the typed note: an expandable folder row '▾ src' (250x26 at 32,190, 13px #1f2328); a highlighte"
+      "instruction": "Build a file-tree sidebar list with 5 live-text rows, each 250x26px: at 32,190 13px #1f2328 \"▾ src\"; at 32,216 (row highlighted with #ddf4ff fill, 6px rounded c"
     },
     {
       "kind": "add",
@@ -153,7 +164,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Build the large code diff panel for src/webhooks.ts shown by this big outlined box, exactly per the typed note's part-by-part spec: a file header bar (946x42 at"
+      "instruction": "Build a unified code-diff viewer panel matching this large sketched rectangle, with a file header row and diff lines, exact content: header 946x42 at 301,191, #"
     },
     {
       "kind": "add",
@@ -168,7 +179,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Build a reviewer comment thread box attached under the diff, per the typed notes: author 'mo-review' with a 'commented 2 hours ago' timestamp line, comment body"
+      "instruction": "Build a review-comment thread box below the diff, sized/positioned per this sketched rectangle, with live text: reviewer name \"mo-review\", a \"commented 2 hours "
     }
   ],
   "rejected": []

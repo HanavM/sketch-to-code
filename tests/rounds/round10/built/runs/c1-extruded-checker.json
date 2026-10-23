@@ -1,85 +1,73 @@
 {
   "id": "c1-extruded-checker",
-  "at": "2026-10-23T11:51:28.567Z",
+  "at": "2026-10-23T13:08:48.197Z",
   "likeness": {
     "version": 3,
-    "overall": 0.904233885689935,
-    "overallV2": 0.904233885689935,
-    "overallV1": 0.8529813022698245,
-    "colour": 0.9770723992549291,
-    "structure": 0.9561125645564374,
-    "structureStrict": 0.8571389476382133,
-    "colourAligned": 0.9770723992549291,
-    "structureAligned": 0.9561125645564374,
+    "overall": 0.8900979635203491,
+    "overallV2": 0.8900979635203491,
+    "overallV1": 0.8381193631415071,
+    "colour": 0.9829801381107227,
+    "structure": 0.9692194293027758,
+    "structureStrict": 0.868843804533345,
+    "colourAligned": 0.9829801381107227,
+    "structureAligned": 0.9692194293027758,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.944611043427361
+      "r": 0.9484773245938827
     },
-    "layout": 0.8579082120381921
+    "layout": 0.7620435529365672
   },
   "effects": {
-    "recall": 0.7142857142857143,
+    "recall": 0.8571428571428571,
     "kept": [
       "hard-shadow",
       "huge-type",
       "motion",
+      "overlap",
       "stripes-or-layers",
       "tilt"
     ],
     "missing": [
-      "clip-shape",
-      "overlap"
+      "clip-shape"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 40694,
-    "output": 24113,
-    "cacheRead": 386557
+    "input": 36551,
+    "output": 16501,
+    "cacheRead": 245561
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 40791,
-      "output": 14319,
-      "cacheRead": 198180,
-      "toolCalls": 10,
+      "billed": 43734,
+      "output": 12075,
+      "cacheRead": 242477,
+      "toolCalls": 12,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
+        "Read components/SpinningJagged.tsx",
         "Read src/App.tsx",
         "Glob",
-        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Edit components/SketchShape.tsx",
+        "Glob",
+        "Glob",
+        "Grep",
+        "Edit components/SpinningJagged.tsx",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 151572
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 5126,
-      "output": 1792,
-      "cacheRead": 177478,
-      "toolCalls": 3,
-      "tools": [
-        "Read components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx"
-      ],
-      "ms": 20092
+      "ms": 126650
     }
   ],
-  "reading": "A festival landing page: pale-yellow page with a checkerboard floor band at the bottom, a text nav (BLOCKPARTY / LINEUP·TICKETS·MAP), a giant extruded 3D 'LOUD FEST' headline in yellow and pink, a spinning blue jagged badge shape, a tilted '3 DAYS · 40 ACTS' card, and a 'Weekend pass' ticket card with a CTA button.",
+  "reading": "The sketch lays out a festival landing page: a top nav, a giant two-line extruded \"LOUD FEST\" headline, a spinning jagged date badge reading \"JUN 12\", a checkerboard floor band, and two cards on that floor (a tilted \"3 DAYS · 40 ACTS\" tag and a \"Weekend pass\" card with a ticket button), all fully specified by the typed notes.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -91,7 +79,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Bottom section (1280x340px at 0,560) is a checkerboard floor: sharp 40px squares alternating near-black (#1a1a1a) and pale yellow (#fdf6e3) like a chess board —"
+      "instruction": "Full-width checkerboard floor band, 1280x340px positioned at 0,560: sharp 40px squares alternating near-black (#1a1a1a) and pale yellow (#fdf6e3) like a chess b"
     },
     {
       "kind": "add",
@@ -106,7 +94,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Nav bar at the top, no box around it: 'BLOCKPARTY' aligned left, 'LINEUP · TICKETS · MAP' aligned right."
+      "instruction": "Top nav bar, no border/box around it: \"BLOCKPARTY\" aligned left, \"LINEUP · TICKETS · MAP\" aligned right, spanning the header width where the long horizontal str"
     },
     {
       "kind": "add",
@@ -129,7 +117,7 @@
         294
       ],
       "paths": [],
-      "instruction": "Giant heavy Helvetica word 'LOUD' in yellow, font-weight 900, round-bowled (not condensed/display), ~230px type, about 620px wide, live text element (not an SVG"
+      "instruction": "Giant live-text headline \"LOUD\" in Helvetica/Arial, font-weight 900, round-bowled (not condensed/display), about 230px type size, ~620px wide, filled yellow (#f"
     },
     {
       "kind": "add",
@@ -152,7 +140,7 @@
         307
       ],
       "paths": [],
-      "instruction": "Giant heavy Helvetica word 'FEST' in pink, font-weight 900, round-bowled (not condensed/display), ~230px type, about 556px wide, live text element (not an SVG p"
+      "instruction": "Giant live-text headline \"FEST\" in Helvetica/Arial, font-weight 900, round-bowled (not condensed/display), about 230px type size, ~556px wide, filled pink (#ff5"
     },
     {
       "kind": "add",
@@ -167,7 +155,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Spinning vivid blue jagged cut-out badge shape, flat #3a86ff fill only, no gradient/shading/texture of its own. Box 163x155px, top-left at 1013,96. clip-path: p"
+      "instruction": "Spinning jagged cut-out badge shape, flat #3a86ff fill via clip-path polygon (no gradient/shading/texture), box 163x155px positioned top-left at 1013,96 with cl"
     },
     {
       "kind": "add",
@@ -182,7 +170,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Small white card, tilted 4° anticlockwise, with a thick near-black border, containing the text '3 DAYS · 40 ACTS', placed over the checkerboard floor."
+      "instruction": "A white card, tilted 4° anticlockwise, with a thick near-black border, sitting on the checkerboard floor; card text reads \"3 DAYS · 40 ACTS\"."
     },
     {
       "kind": "add",
@@ -197,7 +185,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "White card with a thick near-black border: heading 'Weekend pass', body copy 'All stages, all nights. Early bird ends Friday.', and a button 152x48px filled #ff"
+      "instruction": "A white card with a thick near-black border sitting on the checkerboard floor, headed \"Weekend pass\", with body lines \"All stages, all nights. Early bird ends F"
     }
   ],
   "rejected": [

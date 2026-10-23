@@ -116,3 +116,22 @@ none re-run.
 Round 10 complete: **87%** over all 10 (creative 91 90 92 94 81; everyday 86 70 82 96 87). Untuned everyday first
 builds averaged 84%, against 48% for round 9's untuned everyday first builds. Next: c5 arch gradient, c1 star text,
 e2 card border and invented comment copy, e5 stepper checks; then write round 11.
+
+## n139: arch, words on a shape, letter stroke, steppers, radio corners, whole card lines (2026-10-23, ~185k billed)
+
+Planner (free): an arch says its exact box, place and top corners as one plain CSS block with its gradient written out
+(not an SVG traced from the ink); short words laid over the middle of a textless shape are said on that shape, upright
+(c1 star "JUN 12"), unless another note already says them; the letter stroke is said even when the note mentions an
+outline elsewhere; a vertical stepper is said step by step (marker fill, ring, glyph, title, sub-line, connector line and
+colour); option cards with a radio circle in a corner say each circle and which ring is the chosen one; an info card's
+lines are quoted whole up to 110 characters (e2 comment copy was cut, then invented). Rounds 1-9 re-planned: only round 4's
+two arches gain the box note, not re-run.
+
+| page | before | now | what was off |
+|---|---|---|---|
+| c5 arch blend | 81% | **86%** | smooth arch with the full gradient; badge text set round the ring, index type serif |
+| e2 pr diff | 70% | **79%** | title regular, comment copy exact; title still runs into "#4127" |
+| c1 extruded checker | 90% | 89% | star text and letter stroke now right; same within run noise (kept: content is right) |
+| e5 wizard | 87% | 76% (not kept) | stepper checks, green connectors and radio circles all right, but the form built ~15px low and taller, so layout scored worse; first build kept |
+
+Round 10: **88%** over all 10 (creative 89 90 92 94 86; everyday 86 79 82 96 87). Next: write round 11, harder than 10.
