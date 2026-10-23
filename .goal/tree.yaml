@@ -3,7 +3,7 @@ goal_state: working
 now: "A dark text tile, a glowing violet tile and a flat yellow cut-out now build right (sticker wall 89%, poster 90%), and the mail page's Compose button is coloured (79%); round 8 averages 79%. Next: nudging everyday page layouts into place."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 79]
-lock: null
+lock: {by: run-2026-10-23T0438, until: '2026-10-23T06:08:00Z'}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
