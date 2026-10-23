@@ -686,6 +686,30 @@ export function factsInPage() {
         const smooth = pts.length >= 3 && pts.every((p) => p.length <= 1) && at.every((x, i) => !i || x !== at[i - 1])
         return { ...extra, css: gs.backgroundImage, smooth, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
       })(),
+      // n152: a grid of big same-size filled tiles, each a round letter disc in the middle and a name tag in a corner
+      // (round 13 e4 video call: the 2x2 tiles said as one filled button and a list, built as one tile and three rows)
+      callTiles: (() => {
+        if (kids.length < 4 || kids.length > 9 || el.querySelector('[data-r]')) return null
+        const pr = el.getBoundingClientRect()
+        const ts = kids.map((k) => ({ k, b: k.getBoundingClientRect(), cs: getComputedStyle(k) }))
+        const b0 = ts[0].b
+        if (b0.width < 150 || b0.height < 120 || !ts.every(({ b }) => Math.abs(b.width - b0.width) <= 4 && Math.abs(b.height - b0.height) <= 4)) return null
+        if (!ts.every(({ cs }) => rgba(cs.backgroundColor).a > 0.5)) return null
+        const disc = (k) => [...k.querySelectorAll('*')].find((g) => { const s = getComputedStyle(g), gb = g.getBoundingClientRect(); return gb.width >= 32 && Math.abs(gb.width - gb.height) <= 2 && (s.borderTopLeftRadius.includes('%') || parseFloat(s.borderTopLeftRadius) >= gb.width / 2 - 1) && rgba(s.backgroundColor).a > 0.5 && (g.innerText || '').trim().length <= 3 })
+        const ds = ts.map(({ k }) => disc(k))
+        if (ds.some((d) => !d)) return null
+        const cols = new Set(ts.map(({ b }) => Math.round(b.left))).size
+        const rel = (g, b) => { const gb = g.getBoundingClientRect(); return { x: Math.round(gb.left - b.left), y: Math.round(gb.top - b.top), w: Math.round(gb.width), h: Math.round(gb.height), r: Math.round(b.right - gb.right), bt: Math.round(b.bottom - gb.bottom) } }
+        const tiles = ts.map(({ k, b, cs }, i) => {
+          const d = ds[i], dcs = getComputedStyle(d)
+          const others = [...k.children].filter((g) => g !== d && (g.innerText || '').trim())
+          const parts = others.map((g) => { const s = getComputedStyle(g), p = rel(g, b); return { t: (g.innerText || '').trim(), fill: rgba(s.backgroundColor), rad: Math.round(parseFloat(s.borderTopLeftRadius) || 0), round: p.w > 0 && Math.abs(p.w - p.h) <= 2 && parseFloat(s.borderTopLeftRadius) >= p.w / 2 - 1, ...p } })
+          const ol = cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 1 ? { w: Math.round(parseFloat(cs.outlineWidth)), c: rgba(cs.outlineColor) } : null
+          const bd = !ol && parseFloat(cs.borderTopWidth) >= 2 ? { w: Math.round(parseFloat(cs.borderTopWidth)), c: rgba(cs.borderTopColor) } : null
+          return { x: Math.round(b.left), y: Math.round(b.top), fill: rgba(cs.backgroundColor), disc: { t: (d.innerText || '').trim(), fill: rgba(dcs.backgroundColor), ink: rgba(dcs.color), px: Math.round(d.getBoundingClientRect().width), size: Math.round(parseFloat(dcs.fontSize)), bold: Number(dcs.fontWeight) >= 600 }, parts, ring: ol ?? bd }
+        })
+        return { x: Math.round(pr.left), y: Math.round(pr.top), w: Math.round(pr.width), h: Math.round(pr.height), cols, rows: Math.ceil(kids.length / cols), tw: Math.round(b0.width), th: Math.round(b0.height), gap: cols > 1 ? Math.round(ts[1].b.left - ts[0].b.right) : 0, radius: Math.round(parseFloat(ts[0].cs.borderTopLeftRadius) || 0), tiles }
+      })(),
       // n150: a fan of same-size cards each turned round a shared low origin (round 13 c3: said as 7 lines of text,
       // the cards never built and a paragraph invented in their place)
       fan: (() => {
@@ -992,7 +1016,7 @@ export function factsInPage() {
           }
           glued = !!s && !/\s$/.test(s)
         }
-        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo) } : null
+        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo) } : null
       })(),
       // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
       layoutBox: { w: el.offsetWidth, h: el.offsetHeight },
@@ -2608,6 +2632,14 @@ function sheetNote(G) {
 function decide(f, page, marked, said = new Set()) {
   const SG = f.sheetGrid
   if (SG) return { kind: 'box', note: sheetNote(SG) }
+  // n152: a grid of call tiles said tile by tile (round 13 e4: one filled button and a list were built)
+  const VT = f.callTiles
+  if (VT) {
+    const where = (p) => p.round ? (p.r <= p.x ? `top-right corner (${p.r}px from the right, ${p.y}px from the top)` : `top-left corner (${p.x}px in, ${p.y}px down)`) : p.bt <= p.y ? `bottom-left corner (${p.x}px in, ${p.bt}px up from the bottom)` : `top-left corner (${p.x}px in, ${p.y}px down)`
+    const part = (p) => p.round ? `a ${p.w}px round ${hexOf(p.fill)} badge "${p.t}" in its ${where(p)}` : `a name tag ${quote(p.t, 24)} in its ${where(p)}${p.fill.a > 0.05 ? ` (${p.fill.a < 0.95 ? `translucent black ${Math.round(p.fill.a * 100)}%` : hexOf(p.fill)} fill, ${p.rad}px rounded, small padding)` : ''}`
+    const one = (t, i) => `tile ${i + 1} (row ${Math.floor(i / VT.cols) + 1}, column ${(i % VT.cols) + 1}): ${hexOf(t.fill)} fill, a ${t.disc.px}px ${hexOf(t.disc.fill)} circle centred in it with ${t.disc.bold ? 'bold ' : ''}${t.disc.size}px ${hexOf(t.disc.ink)} "${t.disc.t}"${t.parts.map((p) => `, ${part(p)}`).join('')}${t.ring ? `, a ${t.ring.w}px ${hexOf(t.ring.c)} outline drawn INSIDE its edge (the speaker)` : ''}`
+    return { kind: 'box', note: `a ${VT.cols}x${VT.rows} GRID of ${VT.tiles.length} big video tiles (display grid, ${VT.cols} equal columns, ${VT.rows} equal rows, ${VT.gap}px gaps; NOT a button, NOT a list), filling ${VT.w}x${VT.h}px at ${VT.x},${VT.y}; each tile ${VT.tw}x${VT.th}px, ${VT.radius}px rounded, its own fill, nothing else in it; tile by tile: ${VT.tiles.map(one).join('; ')}` }
+  }
   // n144: a code view said line by line (round 11 e1: tokens placed one by one at their own x,y collided)
   const CL = f.codeLines
   if (CL) {
@@ -2713,6 +2745,10 @@ function decideRest(f, page, marked, said) {
     const mixed = kinks.length >= 2 && kinks.length <= 6 && kinks.every((k) => k.t.length <= 30) && kinks.some((k) => dist(k.ink, kinks[0].ink) > 60)
     if (mixed) d.note += `; each word in its own colour: ${kinks.map((k) => `${quote(k.t, 30)} ${hexOf(k.ink)}`).join(', ')}`
     else if (dist(f.colour, page.colour) > 60 && !d.note.includes(hexOf(f.colour)) && !['heading'].includes(d.kind)) d.note += `; its text ${hexOf(f.colour)} (${colourName(f.colour)}, NOT the page's ${colourName(page.colour)} text)`
+  }
+  // n152: a bare table on the page says it has no card (round 13 e5 comparison table built inside a white card)
+  if (d?.note && /^(?:".*" as a small bold heading, then a )?table, every body row/.test(d.note) && !visible(f.bg) && !(f.border.w >= 1 && visible(f.border.colour)) && !f.radius && w0 >= 600) {
+    d.note += `; the table sits straight on the page, NOT in a card: no fill, no outer border, no rounded corners, no shadow, no padding around it; ${Math.round(w0)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}`
   }
   // n147: a solid filled button says its exact fill, ink, size and corners (round 12 c4: a near-black square CTA on the
   // yellow panel, said 'button', was built as a pill in the page's colours)
@@ -3018,8 +3054,8 @@ function decideOne(f, page, marked, said) {
   // n150: a fanned deck said card by card as its CSS (round 13 c3: built as a paragraph, no cards)
   if (f.fan) {
     const F = f.fan, hx = (c) => { const p = parse(c ?? ''); return p ? hexOf(p) : c }
-    const cards = F.cards.map((c, i) => `card ${i + 1}: ${hx(c.bg)} fill, ${hx(c.c)} ${JSON.stringify(c.t)} in its top-left corner, transform: rotate(${c.deg}deg)${c.dy ? ` translateY(${c.dy}px)` : ''}`).join('; ')
-    return { kind: 'box', note: `a FAN of ${F.cards.length} playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card ${F.w}x${F.h}px, all stacked at the same top-left ${F.x},${F.y} (position absolute) and each turned round transform-origin ${F.origin} so they spread like a hand of cards, later cards on top; every card ${F.radius} rounded${F.border ? `, ${F.border.replace(/rgb\([^)]*\)/, (m) => hx(m))} border` : ''}${F.shadow ? `, box-shadow ${F.shadow}` : ''}, ${F.size}px ${F.font} corner letters, padding ${F.pad}; ${cards}` }
+    const cards = F.cards.map((c, i) => `card ${i + 1}: background ${hx(c.bg)} (${colourName(parse(c.bg))}), ${hx(c.c)} ${JSON.stringify(c.t)} in its top-left corner, transform: rotate(${c.deg}deg)${c.dy ? ` translateY(${c.dy}px)` : ''}`).join('; ')
+    return { kind: 'box', note: `a FAN of ${F.cards.length} playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card ${F.w}x${F.h}px, all stacked at the same top-left ${F.x},${F.y} (position absolute) and each turned round transform-origin ${F.origin} so they spread like a hand of cards, later cards on top; ${new Set(F.cards.map((c) => hx(c.bg))).size >= 3 ? `each card has its OWN background colour (${F.cards.map((c) => colourName(parse(c.bg))).join(', ')}, in that order; NOT all the same colour, each card a separate element with its own inline background); ` : ''}every card ${F.radius} rounded${F.border ? `, ${F.border.replace(/rgb\([^)]*\)/, (m) => hx(m))} border` : ''}${F.shadow ? `, box-shadow ${F.shadow}` : ''}, ${F.size}px ${F.font} corner letters, padding ${F.pad}; ${cards}` }
   }
   // ---- round 5 creative (n61)
   // text set round a circle: a spinning badge (round 5 c2: unsaid)
@@ -3430,7 +3466,7 @@ function decideOne(f, page, marked, said) {
     const fadeSay = brk && ks && ks.some((k) => k.o < 0.95) ? `; each line its own block with its own opacity, top to bottom: ${ks.map((k) => `${Math.round(k.o * 100)}%`).join(', ')} (the lower lines fade out; never all solid)` : ''
     // a giant one-line word also says its type size: a width alone let the build take the drawn line
     // height (round 6 c2 'Tickets →' 110px type built ~127px, ~1.15x large)
-    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)` : ''
+    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)${f.font.size >= 300 ? `, absolutely placed: its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} and its first letter's ink starting at x=${f.shown.x} (not further right)` : ''}` : ''
     // n146: a giant multi-line block says its type size and where its box starts (round 12 c2 'LOUD/ROOM' 330px built ~100px low)
     const bigAt = brk && f.font.size >= 160 ? `, ${Math.round(f.font.size)}px type, the text box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (top-[${Math.round(f.rect.y)}px]; the first line starts there, not lower)` : ''
     // a display line of several words that fits on one line says so: the build wrapped it at the drawn width
@@ -3441,11 +3477,14 @@ function decideOne(f, page, marked, said) {
     // a one-word page title near the top says its size and top: 'Overview' (26px bold, top 28) was said as the
     // word alone and built ~10px high with everything under it drifting (round 6 e2)
     const ttl = !mid && !f.motion && !fill && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && !/\s/.test(f.text.trim()) && f.text.length <= 24 && f.rect.y <= 120 ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}type on one line, its box top ${Math.round(f.rect.y)}px from the page top and ${Math.round(f.rect.h)}px tall (top-[${Math.round(f.rect.y)}px] or the same margin, line-height ${Math.round(f.rect.h)}px; not higher)` : ''
-    const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
+    const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` :''
+    // n152: a one-line headline centred on the page says so (round 13 e5 pricing headline built left-aligned)
+    const midX = f.shown ? f.shown.x + f.shown.w / 2 : 0
+    const centreSay = one && f.centred && f.rect.w >= 900 && Math.abs(midX - 640) <= 12 && f.shown.x >= 120 ? `, CENTRED on the page (text-align center; its text runs from x=${f.shown.x} to x=${f.shown.x + f.shown.w}, centre at x=640; NOT left-aligned)` : ''
     // n137: a small label just above a giant word (round 10 c2 '01 /' mono numbers): no mark carries it
     const LA = f.labelAboveStyle && f.font.size >= 40 && f.labelAbove ? f.labelAboveStyle : null
     const lab = LA ? (said.add(f.labelAbove), `; plus a small separate ${LA.px}px ${isMono(LA.family) ? 'monospace (font-family Courier New, monospace) ' : ''}${hexOf(LA.colour)} label ${quote(f.labelAbove, 32)}${LA.ls >= 1 ? ` with ${Math.round(LA.ls)}px letter-spacing` : ''} at ${LA.x},${LA.y}, ${LA.gap}px above it and left-aligned with it (keep it, it is part of this heading)`) : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${mid}${ttl}${under}${lab}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${centreSay}${mid}${ttl}${under}${lab}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {

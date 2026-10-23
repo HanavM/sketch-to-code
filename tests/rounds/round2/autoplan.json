@@ -123,11 +123,11 @@
    ],
    [
     "outline-word",
-    "bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white \"NOISE\", 300px type, about 884px wide (no larger)"
+    "bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white \"NOISE\", 300px type, about 884px wide (no larger), absolutely placed: its box's top-left at -40,120 and its first letter's ink starting at x=-40 (not further right)"
    ],
    [
     "solid-word",
-    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime \"FEST\", 300px type, about 727px wide (no larger)"
+    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime \"FEST\", 300px type, about 727px wide (no larger), absolutely placed: its box's top-left at -30,400 and its first letter's ink starting at x=-30 (not further right)"
    ],
    [
     "body",

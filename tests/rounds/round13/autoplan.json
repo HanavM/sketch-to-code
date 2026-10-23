@@ -217,7 +217,7 @@
    ],
    [
     "headline",
-    "giant Georgia serif regular weight (not bold) tight-set letters \"Deal a better hand\", on ONE line (white-space: nowrap, never wrapped), about 582px wide; the word \"better\" is italic serif (font-family Georgia, serif) regular-weight peach #f2c14e (its own colour; the other words stay #f5efe0)"
+    "giant Georgia serif regular weight (not bold) tight-set letters \"Deal a better hand\", on ONE line (white-space: nowrap, never wrapped), about 582px wide, CENTRED on the page (text-align center; its text runs from x=349 to x=931, centre at x=640; NOT left-aligned); the word \"better\" is italic serif (font-family Georgia, serif) regular-weight peach #f2c14e (its own colour; the other words stay #f5efe0)"
    ],
    [
     "subcopy",
@@ -225,7 +225,7 @@
    ],
    [
     "card-fan",
-    "a FAN of 5 playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card 200x290px, all stacked at the same top-left 540,330 (position absolute) and each turned round transform-origin 100px 348px so they spread like a hand of cards, later cards on top; every card 16px rounded, 6px solid #ffffff border, box-shadow rgba(0, 0, 0, 0.4) 0px 18px 40px 0px, 54px Georgia corner letters, padding 14px; card 1: #e85d4a fill, #ffffff \"A♥\" in its top-left corner, transform: rotate(-30deg); card 2: #f2c14e fill, #141414 \"K♣\" in its top-left corner, transform: rotate(-15deg); card 3: #f5efe0 fill, #141414 \"Q♦\" in its top-left corner, transform: rotate(0deg) translateY(-24px); card 4: #4a7de8 fill, #ffffff \"J♠\" in its top-left corner, transform: rotate(15deg); card 5: #141414 fill, #f2c14e \"10\" in its top-left corner, transform: rotate(30deg); each word in its own colour: \"A♥\" #ffffff, \"K♣\" #141414, \"Q♦\" #141414, \"J♠\" #ffffff, \"10\" #f2c14e"
+    "a FAN of 5 playing cards (real card shapes, NOT text, NOT a paragraph, no other words): each card 200x290px, all stacked at the same top-left 540,330 (position absolute) and each turned round transform-origin 100px 348px so they spread like a hand of cards, later cards on top; each card has its OWN background colour (orange, peach, cream, blue, near-black, in that order; NOT all the same colour, each card a separate element with its own inline background); every card 16px rounded, 6px solid #ffffff border, box-shadow rgba(0, 0, 0, 0.4) 0px 18px 40px 0px, 54px Georgia corner letters, padding 14px; card 1: background #e85d4a (orange), #ffffff \"A♥\" in its top-left corner, transform: rotate(-30deg); card 2: background #f2c14e (peach), #141414 \"K♣\" in its top-left corner, transform: rotate(-15deg); card 3: background #f5efe0 (cream), #141414 \"Q♦\" in its top-left corner, transform: rotate(0deg) translateY(-24px); card 4: background #4a7de8 (blue), #ffffff \"J♠\" in its top-left corner, transform: rotate(15deg); card 5: background #141414 (near-black), #f2c14e \"10\" in its top-left corner, transform: rotate(30deg); each word in its own colour: \"A♥\" #ffffff, \"K♣\" #141414, \"Q♦\" #141414, \"J♠\" #ffffff, \"10\" #f2c14e"
    ],
    [
     "chip-left",
@@ -517,7 +517,7 @@
    ],
    [
     "numeral",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"57\", 560px type, about 543px wide (no larger)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"57\", 560px type, about 543px wide (no larger), absolutely placed: its box's top-left at 470,60 and its first letter's ink starting at x=470 (not further right)"
    ],
    [
     "program",
@@ -689,7 +689,7 @@
    ],
    [
     "tiles",
-    "a 445x385px #3b4a6b filled button \"P Priya Nair\" (12px rounded #e8eaed text; its fill clearly visible, not white), then list: \"D\" Diego, \"S\" Sam Okoye, \"Y\" You"
+    "a 2x2 GRID of 4 big video tiles (display grid, 2 equal columns, 2 equal rows, 10px gaps; NOT a button, NOT a list), filling 900x780px at 16,16; each tile 445x385px, 12px rounded, its own fill, nothing else in it; tile by tile: tile 1 (row 1, column 1): #3b4a6b fill, a 110px #7e57c2 circle centred in it with bold 44px #ffffff \"P\", a name tag \"Priya Nair\" in its bottom-left corner (12px in, 12px up from the bottom) (translucent black 50% fill, 6px rounded, small padding), a 3px #8ab4f8 outline drawn INSIDE its edge (the speaker); tile 2 (row 1, column 2): #4a3b3b fill, a 110px #e8710a circle centred in it with bold 44px #ffffff \"D\", a name tag \"Diego\" in its bottom-left corner (12px in, 12px up from the bottom) (translucent black 50% fill, 6px rounded, small padding), a 30px round #ea4335 badge \"🎤\" in its top-right corner (12px from the right, 12px from the top); tile 3 (row 2, column 1): #36483b fill, a 110px #188038 circle centred in it with bold 44px #ffffff \"S\", a name tag \"Sam Okoye\" in its bottom-left corner (12px in, 12px up from the bottom) (translucent black 50% fill, 6px rounded, small padding); tile 4 (row 2, column 2): #3c4043 fill, a 110px #1967d2 circle centred in it with bold 44px #ffffff \"Y\", a name tag \"You\" in its bottom-left corner (12px in, 12px up from the bottom) (translucent black 50% fill, 6px rounded, small padding), a 30px round #ea4335 badge \"🎤\" in its top-right corner (12px from the right, 12px from the top)"
    ],
    [
     "chat-panel",
@@ -735,7 +735,7 @@
    ],
    [
     "headline",
-    "big tight-set letters \"Simple pricing that scales with you\", on ONE line (white-space: nowrap, never wrapped), about 681px wide; set BOLD (font-weight 700), NOT regular"
+    "big tight-set letters \"Simple pricing that scales with you\", on ONE line (white-space: nowrap, never wrapped), about 681px wide, CENTRED on the page (text-align center; its text runs from x=300 to x=981, centre at x=640; NOT left-aligned); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "billing-toggle",
@@ -747,7 +747,7 @@
    ],
    [
     "compare",
-    "table, every body row built and none invented, columns \"Features\", \"Starter\", \"Pro\", \"Business\", 5 rows: \"Projects\" | \"3\" | \"Unlimited\" | \"Unlimited\"; \"Team members\" | \"1\" | \"10\" | \"Unlimited\"; \"Custom domains\" | \"—\" | \"✓\" | \"✓\"; \"SSO / SAML\" | \"—\" | \"—\" | \"✓\"; \"Audit log\" | \"—\" | \"—\" | \"✓\""
+    "table, every body row built and none invented, columns \"Features\", \"Starter\", \"Pro\", \"Business\", 5 rows: \"Projects\" | \"3\" | \"Unlimited\" | \"Unlimited\"; \"Team members\" | \"1\" | \"10\" | \"Unlimited\"; \"Custom domains\" | \"—\" | \"✓\" | \"✓\"; \"SSO / SAML\" | \"—\" | \"—\" | \"✓\"; \"Audit log\" | \"—\" | \"—\" | \"✓\"; the table sits straight on the page, NOT in a card: no fill, no outer border, no rounded corners, no shadow, no padding around it; 1060px wide at 110,560"
    ]
   ]
  }
