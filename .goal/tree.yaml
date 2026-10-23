@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 11: the spinning 3D cube and the blurred colour blobs now come out right (cube 46 to 83%, masked type 51 to 86%). Next I fix the tilted grid floor and build the other seven round 11 pages."
 round: 11
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83]
-lock: null
+lock: {by: run-n142, until: "2026-10-23T15:53Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
