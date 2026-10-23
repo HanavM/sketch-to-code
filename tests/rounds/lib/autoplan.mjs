@@ -812,6 +812,9 @@ export function factsInPage() {
           const code = [...k.querySelectorAll('code')].map((c) => ({ t: txt(c), ink: rgba(getComputedStyle(c).color), fill: filled(c) }))
           return { kind: 'text', t, px: px(k), ink: rgba(s.color), code }
         })
+        // where each block's top sits below the article's top (round 8 e5: everything built ~12px low, gaps roomier)
+        const top0 = el.getBoundingClientRect().top
+        blocks.forEach((k, i) => { parts[i].y = Math.round(k.getBoundingClientRect().top - top0) })
         return { type: 'docArticle', parts }
       }
     }
@@ -1098,7 +1101,10 @@ export function factsInPage() {
       const lines = [...svg.querySelectorAll('polyline, path')].filter((p) => stroke(p) && (p.tagName === 'polyline' || getComputedStyle(p).fill === 'none')).map((p) => {
         // a path's M/L points count too (round 8 e2: its direction was unsaid)
         const pts = p.getAttribute('points') ? p.getAttribute('points').trim().split(/\s+/).map((s) => s.split(',').map(Number)).filter((q) => q.length === 2) : [...(p.getAttribute('d') ?? '').matchAll(/[ML]\s*(-?[\d.]+)[ ,](-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])])
-        return { fill: stroke(p), dashed: !!(p.getAttribute('stroke-dasharray') ?? '').trim() && p.getAttribute('stroke-dasharray') !== 'none', points: pts.length, rising: pts.length >= 2 ? pts[pts.length - 1][1] < pts[0][1] : null, thick: parseFloat(getComputedStyle(p).strokeWidth) >= 3 }
+        return { fill: stroke(p), dashed: !!(p.getAttribute('stroke-dasharray') ?? '').trim() && p.getAttribute('stroke-dasharray') !== 'none', points: pts.length, rising: pts.length >= 2 ? pts[pts.length - 1][1] < pts[0][1] : null,
+          // its heights point by point and whether it turns up and down (round 8 e2: a jagged 14-point line built as a smooth curve)
+          hs: (() => { const vb = svg.viewBox?.baseVal; const H = vb && vb.height ? vb.height : svg.getBoundingClientRect().height; return pts.length >= 3 && pts.length <= 16 && !/[CQSA]/i.test(p.getAttribute('d') ?? '') ? pts.map((q) => Math.round((1 - q[1] / H) * 100)) : null })(),
+          turns: pts.slice(1, -1).filter((q, i) => (q[1] - pts[i][1]) * (pts[i + 2][1] - q[1]) < 0).length, thick: parseFloat(getComputedStyle(p).strokeWidth) >= 3 }
       })
       // round 8 e2: a closed path filled under the line (an area chart): its fill was unsaid
       const area = [...svg.querySelectorAll('path, polygon')].find((p) => getComputedStyle(p).fill !== 'none' && !stroke(p))
@@ -1296,7 +1302,10 @@ export function factsInPage() {
       return { type: 'list', pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
-        groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })() }
+        groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
+        // a side nav's row pitch, where its first line starts and its edge rule (round 8 e5: rows built ~34px apart for
+        // 30, the nav started ~40px high, its right-hand rule was lost)
+        navLook: (() => { const tops = rep.map((k) => k.getBoundingClientRect().top); const st = tops.slice(1).map((t, i) => t - tops[i]).filter((x) => x > 0 && x < 60).sort((a, b) => a - b); const eb = el.getBoundingClientRect(); const first = [...rep[0].parentElement.children].find((k) => txt(k)); const cs = getComputedStyle(el); const rw = parseFloat(cs.borderRightWidth) || 0; return { pitch: st.length ? Math.round(st[Math.floor(st.length / 2)]) : null, rowH: Math.round(rep[0].getBoundingClientRect().height), first: first ? Math.round(first.getBoundingClientRect().top - eb.top) : null, w: Math.round(eb.width), rule: rw >= 1 ? rgba(cs.borderRightColor) : null, onEdge: odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 1 ? { w: Math.round(parseFloat(getComputedStyle(odd[0]).borderLeftWidth)), c: rgba(getComputedStyle(odd[0]).borderLeftColor) } : null } })() }
     }
     return null
   }
@@ -1500,6 +1509,8 @@ function typeWords(f, page) {
   if (f.font.size >= 80) w.push('giant'); else if (f.font.size >= 52) w.push('huge'); else if (f.font.size >= 32) w.push('big')
   // display type: the face sets the word's width, so name it (said once on the page note otherwise)
   if (f.font.size >= 52 && faceName(f.font.family) && !isMono(f.font.family)) w.push(faceName(f.font.family))
+  // a poster-size glyph: its exact face and weight, or the build picks a squared display face (round 8 c5 '8' at 640px)
+  if (f.font.size >= 200 && !isMono(f.font.family) && !isSerif(f.font.family)) w.push(`(font-family ${f.font.family.replace(/"/g, '')}; font-weight ${f.font.weight}; round-bowled, NOT a squared, condensed or display face)`)
   if (f.font.style === 'italic') w.push('italic')
   if (isSerif(f.font.family) && !isSerif(page.font.family)) w.push('serif')
   else if (isSerif(f.font.family) && f.font.size >= 32) w.push('serif')
@@ -1587,7 +1598,7 @@ function denseNote(d) {
       if (p.kind === 'table') return `a ${p.ruled ? 'fully ruled ' : ''}table${p.head ? ` with a ${hexOf(p.head)} header row` : ''}: ${p.rows.map((r) => r.map((c) => quote(c, 18)).join(' | ')).join(' / ')}`
       if (p.px <= 13) return `small ${p.px}px ${colourName(p.ink)} line ${quote(p.t, 60)}${/›|>|\//.test(p.t) ? ' (a breadcrumb)' : ''}`
       return `${p.px}px ${colourName(p.ink)} paragraph ${quote(p.t, 220)}${p.code.length ? ` with inline code ${p.code.map((c) => `${quote(c.t, 16)} (${hexOf(c.ink)} monospace on a ${c.fill ? hexOf(c.fill) : 'grey'} rounded chip)`).join(', ')}` : ''}`
-    }).join('; then ')}${d.parts.some((p) => p.kind === 'table' && p.rows.flat().length) ? '; code words in the table are monospace, not status pills' : ''}`
+    }).join('; then ')}${d.parts.some((p) => p.kind === 'table' && p.rows.flat().length) ? '; code words in the table are monospace, not status pills' : ''}${d.parts.every((p) => p.y != null) ? `; the first line sits flush at the article's top (no padding above), and each block's top is exactly this far down from it: ${d.parts.map((p) => `${p.kind === 'text' ? (p.px <= 13 ? 'breadcrumb' : 'paragraph') : p.kind} ${p.y}px`).join(', ')}` : ''}`
     case 'window': return `a ${d.w}x${d.h}px ${d.fill ? hexOf(d.fill) : 'white'} window FLOATING over the page (on top of the reader, ${d.bottom <= 2 ? 'flush to the page bottom' : `${d.bottom}px above the page bottom`}, ${d.right}px from the right edge; ${typeof d.radius === 'string' ? d.radius : `${d.radius}px rounded`}; a big soft shadow): a ${d.bar.h}px ${hexOf(d.bar.fill)} title bar across its top with bold ${colourName(d.bar.ink)} ${quote(d.bar.t, 24)} at the left${d.bar.icons ? ` and ${quote(d.bar.icons, 12)} at the right` : ''}; under it ${d.rows.map((r) => r.label ? `a ${r.ruled ? 'ruled ' : ''}field row: ${colourName(r.labelInk)} ${quote(r.label, 12)} then dark ${quote(r.value, 40)}` : `the message body ${quote(r.value, 80)} (a tall empty area under it)`).join('; ')}${d.btn ? `; a ${d.btn.pill ? 'pill' : 'rounded'} ${hexOf(d.btn.fill)} ${quote(d.btn.t)} button with ${colourName(d.btn.ink)} bold text at the bottom left` : ''}`
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
     case 'rtable': {
@@ -1628,7 +1639,7 @@ function denseNote(d) {
     case 'stats': return `${d.cards.length} stat cards in a row: ${d.cards.map((c) => `${quote(c.label, 16)} ${c.value}${c.rest ? ` ${c.rest}` : ''}${c.spark ? ` (${colourName(c.spark.fill)} sparkline ${c.spark.rising ? 'rising' : 'falling'}, bottom right)` : ''}`).join(', ')}`
     case 'gantt': return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text)${d.pitch ? `, rows ${d.pitch}px apart, bars ${d.bars[0].h}px tall${d.reach && d.reach <= 80 ? `, rows end ${d.reach}% down, empty below` : ''}` : ''}: ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
     case 'donut': return `${d.title ? `${quote(d.title, 32)}, ` : ''}donut chart (thick ring, hollow middle)${d.track ? ` on a ${colourName(d.track)} track` : ''}: ${d.segs.map((g) => `${colourName(g.fill)} ${g.pct}%`).join(', ')}`
-    case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}`).join(', ')}${d.area?.c ? `; under the solid line a ${d.area.fade ? `soft ${hexOf(d.area.c)} area fill fading to transparent at the bottom` : `${hexOf(d.area.c)} area fill`}` : ''}${d.grid >= 2 ? `; ${d.grid} thin pale horizontal grid lines behind` : ''}; no axis labels`
+    case 'lines': return `${d.title ? `${quote(d.title, 32)}, ` : ''}line chart drawn as SVG lines: ${d.lines.map((l) => `${l.thick ? 'thick ' : ''}${l.dashed ? 'dashed ' : 'solid '}${colourName(l.fill)} line${l.rising === null ? '' : l.rising ? ' rising left to right' : ' falling left to right'}${l.points >= 3 ? ` (${l.points} points)` : ''}${l.hs && l.turns >= 4 ? `, straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: ${l.hs.join(', ')}` : l.hs ? `, straight segments, points' heights left to right as % of the plot height: ${l.hs.join(', ')}` : ''}`).join(', ')}${d.area?.c ? `; under the solid line a ${d.area.fade ? `soft ${hexOf(d.area.c)} area fill fading to transparent at the bottom` : `${hexOf(d.area.c)} area fill`}` : ''}${d.grid >= 2 ? `; ${d.grid} thin pale horizontal grid lines behind` : ''}; no axis labels`
     case 'form': if (d.buttons) {
       // filled-in form: label, then what the field holds (or empty, tall); buttons by look and place
       const fld = (x) => `${quote(x.label)} ${x.value ? `field holding ${quote(x.value, 40)}` : `${x.tall ? `tall ${x.tall}px ` : ''}empty field`}`
@@ -1666,7 +1677,7 @@ function denseNote(d) {
       // first four became invented links under the wrong headings)
       if (d.groups && d.stacked && d.items.every((p) => p.length === 1 && p[0].length <= 28)) {
         const caps = d.groups.every((g) => /^[A-Z0-9 &/-]+$/.test(g.h))
-        return `side nav, no box: ${d.groups.length} groups, each a ${caps ? 'small grey spaced-capitals ' : 'small bold '}heading over its own links, one link per line (every link said, none invented, none moved to another group): ${d.groups.map((g) => `${quote(g.h, 28)}: ${g.items.map((i) => quote(d.items[i][0], 28)).join(', ')}`).join('; ')}${d.on ? `; ${quote(d.on, 28)} highlighted${d.onFill ? ` (${sheetFill(d.onFill)} row)` : ''}` : ''}`
+        return `side nav, no box: ${d.groups.length} groups, each a ${caps ? 'small grey spaced-capitals ' : 'small bold '}heading over its own links, one link per line (every link said, none invented, none moved to another group): ${d.groups.map((g) => `${quote(g.h, 28)}: ${g.items.map((i) => quote(d.items[i][0], 28)).join(', ')}`).join('; ')}${d.on ? `; ${quote(d.on, 28)} highlighted${d.onFill ? ` (${sheetFill(d.onFill)} row${d.navLook?.onEdge ? `, a ${d.navLook.onEdge.w}px ${hexOf(d.navLook.onEdge.c)} left edge` : ''}${d.onInk ? `, bold ${hexOf(d.onInk)} text` : ''})` : ''}` : ''}${navWords(d.navLook)}`
       }
       // mail rows that open on the sender: sender, time, subject, preview (round 8 e1: 'Ravi, me (3)' is longer than a
       // time, so the rows fell to a bare sender list and the build lost every subject and preview)
@@ -2320,7 +2331,7 @@ function decideOne(f, page, marked, said) {
   if (fill || grad || bordered || ruled || pane || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
     look.push(...fx)
     // a strong opaque fill says 'vivid', or the build softens it (round 4 c5 #fde047 card built pale cream)
-    if (glowWords(f)) look.push(glowWords(f)); else if (grad) look.push(grad); else if (fill && !frosted) look.push(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}`)
+    if (glowWords(f)) look.push(glowWords(f)); else if (grad) look.push(grad); else if (fill && !frosted) look.push(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}${textCol && dist(f.colour, f.bg) > 150 && f.bg.r + f.bg.g + f.bg.b < 120 ? ` (exactly ${hexOf(f.bg)})` : ''}`)
     // light text on a dark filled block says so, or the block's colour reads as the text's
     // (round 3 c4: 'vertical near-black "INDEX OF THINGS"' built black text, no rail)
     const lightText = fill && !frosted && textCol && dist(f.colour, f.bg) > 150 ? `, ${textCol} text` : ''
@@ -2479,6 +2490,12 @@ function lineWords(f, i) {
 }
 
 // a form's spacing in pixels, so it is built to its drawn height (round 6 e4 came out ~10% taller)
+// a side nav's spacing: row pitch, where its first heading starts, its width and right-hand rule (round 8 e5)
+function navWords(n) {
+  if (!n?.pitch) return ''
+  return `; rows exactly ${n.pitch}px apart (${n.rowH}px tall, tight; not roomier)${n.first != null ? `, first heading ${n.first}px below the nav's top` : ''}; the nav column is ${n.w}px wide${n.rule ? ` with a thin ${hexOf(n.rule)} line down its full right edge` : ''}`
+}
+
 function rhythmWords(r) {
   if (!r) return ''
   const w = [`every field ${r.fieldH}px tall`, `label ${r.labelGap}px above its field`]

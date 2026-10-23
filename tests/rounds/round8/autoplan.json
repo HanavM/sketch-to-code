@@ -135,7 +135,7 @@
    ],
    [
     "ticker",
-    "near-black bar, cream text bold 18px text \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ●\""
+    "near-black (exactly #111111) bar, cream text bold 18px text \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ●\""
    ]
   ]
  },
@@ -311,7 +311,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.85) lime (#a3e635) to yellow (#facc15 at 50%) to bright orange (#fb923c) gradient, left to right text \"GO HIGH\", set in exactly 2 lines: \"GO\" / \"HIGH\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 535px wide)"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face) heavy tight-set letters lines set tight (line-height 0.85) lime (#a3e635) to yellow (#facc15 at 50%) to bright orange (#fb923c) gradient, left to right text \"GO HIGH\", set in exactly 2 lines: \"GO\" / \"HIGH\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 535px wide)"
    ],
    [
     "subhead",
@@ -397,7 +397,7 @@
    ],
    [
     "giant-number",
-    "colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger)"
+    "colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face) heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger)"
    ],
    [
     "left-copy",
@@ -409,7 +409,7 @@
    ],
    [
     "side-strip",
-    "vertical near-black bar, soft yellow text \"PREMIERE NIGHT ★ 2027\""
+    "vertical near-black (exactly #111111) bar, soft yellow text \"PREMIERE NIGHT ★ 2027\""
    ]
   ]
  },
@@ -521,7 +521,7 @@
    ],
    [
     "area-chart",
-    "white card, \"Visitors per day\", line chart drawn as SVG lines: thick solid indigo line rising left to right (14 points), dashed grey line rising left to right (14 points); under the solid line a soft #6366f1 area fill fading to transparent at the bottom; 4 thin pale horizontal grid lines behind; no axis labels"
+    "white card, \"Visitors per day\", line chart drawn as SVG lines: thick solid indigo line rising left to right (14 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 35, 31, 48, 45, 61, 55, 71, 65, 77, 69, 81, 74, 84, dashed grey line rising left to right (14 points), straight segments, points' heights left to right as % of the plot height: 13, 16, 19, 21, 24, 26, 29, 31, 34, 35, 39, 40, 42, 44; under the solid line a soft #6366f1 area fill fading to transparent at the bottom; 4 thin pale horizontal grid lines behind; no axis labels"
    ],
    [
     "heat-grid",
@@ -727,11 +727,11 @@
    ],
    [
     "sidebar",
-    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row)"
+    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row, a 2px #0284c7 left edge, bold #0284c7 text); rows exactly 30px apart (30px tall, tight; not roomier), first heading 36px below the nav's top; the nav column is 260px wide with a thin #e2e8f0 line down its full right edge"
    ],
    [
     "article",
-    "a docs article, NOT a card, NOT a table alone; top to bottom: small 13px grey line \"Docs › Getting started › Offline sync\" (a breadcrumb); then 34px bold title \"Offline sync\"; then 14px dark grey paragraph \"Lumen keeps a local copy of every board you open. Changes made offline are queued and merged when the device reconnects, using syncPolicy to resolve conflicts.\" with inline code \"syncPolicy\" (#be185d monospace on a #f1f5f9 rounded chip); then a dark code block (#0f172a fill, 10px rounded, 13px monospace light grey text, syntax colours #64748b #c084fc #86efac) with 3 lines: \"// enable sync for one board\" / \"const board = await lumen.boards.open('roadmap')\" / \"board.sync({ policy: 'last-write-wins', retry: 5 })\"; then a callout box (#fffbeb fill, a 4px #f59e0b left edge, rounded right corners) with bold \"Note\" then \"Attachments over 25 MB are synced only on Wi-Fi.\"; then a fully ruled table with a #f8fafc header row: \"Option\" | \"Type\" | \"Default\" / \"policy\" | \"string\" | \"'merge'\" / \"retry\" | \"number\" | \"3\"; code words in the table are monospace, not status pills"
+    "a docs article, NOT a card, NOT a table alone; top to bottom: small 13px grey line \"Docs › Getting started › Offline sync\" (a breadcrumb); then 34px bold title \"Offline sync\"; then 14px dark grey paragraph \"Lumen keeps a local copy of every board you open. Changes made offline are queued and merged when the device reconnects, using syncPolicy to resolve conflicts.\" with inline code \"syncPolicy\" (#be185d monospace on a #f1f5f9 rounded chip); then a dark code block (#0f172a fill, 10px rounded, 13px monospace light grey text, syntax colours #64748b #c084fc #86efac) with 3 lines: \"// enable sync for one board\" / \"const board = await lumen.boards.open('roadmap')\" / \"board.sync({ policy: 'last-write-wins', retry: 5 })\"; then a callout box (#fffbeb fill, a 4px #f59e0b left edge, rounded right corners) with bold \"Note\" then \"Attachments over 25 MB are synced only on Wi-Fi.\"; then a fully ruled table with a #f8fafc header row: \"Option\" | \"Type\" | \"Default\" / \"policy\" | \"string\" | \"'merge'\" / \"retry\" | \"number\" | \"3\"; code words in the table are monospace, not status pills; the first line sits flush at the article's top (no padding above), and each block's top is exactly this far down from it: breadcrumb 0px, title 25px, paragraph 78px, code 142px, callout 262px, table 330px"
    ],
    [
     "toc",

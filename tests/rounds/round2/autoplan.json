@@ -123,11 +123,11 @@
    ],
    [
     "outline-word",
-    "bleeding off the left page edge (starts 40px past it) giant Helvetica heavy tight-set letters hollow outlined white \"NOISE\", 300px type, about 884px wide (no larger)"
+    "bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face) heavy tight-set letters hollow outlined white \"NOISE\", 300px type, about 884px wide (no larger)"
    ],
    [
     "solid-word",
-    "bleeding off the left page edge (starts 30px past it) giant Helvetica heavy tight-set letters lime \"FEST\", 300px type, about 727px wide (no larger)"
+    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face) heavy tight-set letters lime \"FEST\", 300px type, about 727px wide (no larger)"
    ],
    [
     "body",
@@ -505,7 +505,7 @@
    ],
    [
     "filters",
-    "sidebar side nav, no box: 2 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"CATEGORY\": \"Desk lamps\", \"Floor lamps\", \"Pendants\"; \"PRICE\": \"Under $100\", \"$100–$250\""
+    "sidebar side nav, no box: 2 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"CATEGORY\": \"Desk lamps\", \"Floor lamps\", \"Pendants\"; \"PRICE\": \"Under $100\", \"$100–$250\"; rows exactly 27px apart (17px tall, tight; not roomier), first heading 20px below the nav's top; the nav column is 220px wide"
    ],
    [
     "p1",

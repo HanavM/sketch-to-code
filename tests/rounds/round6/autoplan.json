@@ -156,7 +156,7 @@
    ],
    [
     "word-top",
-    "ONE giant Helvetica heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)), the slid copy whole to its last letter, sticking out 70px past the other copy's right end (no overflow-hidden wrapper, no width cap cutting it); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down"
+    "ONE giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face) heavy tight-set letters word \"BREAK\", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)), the slid copy whole to its last letter, sticking out 70px past the other copy's right end (no overflow-hidden wrapper, no width cap cutting it); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down"
    ],
    [
     "rule",
@@ -476,7 +476,7 @@
    ],
    [
     "featured",
-    "dark navy block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold \"Northwind AI\", text \"Ask your logs questions in plain English.\", bold cyan \"Try the beta →\""
+    "dark navy (exactly #0f172a) block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold \"Northwind AI\", text \"Ask your logs questions in plain English.\", bold cyan \"Try the beta →\""
    ]
   ]
  },
@@ -538,7 +538,7 @@
    ],
    [
     "sidebar",
-    "dark navy bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text)"
+    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text)"
    ],
    [
     "title",
@@ -566,7 +566,7 @@
    ],
    [
     "chart-line",
-    "white card, \"Revenue, last 30 days\", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), dashed light grey line rising left to right (7 points); no axis labels"
+    "white card, \"Revenue, last 30 days\", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 17, 25, 21, 38, 33, 50, 46, 63, 58, 71, 67, 83, 79, dashed light grey line rising left to right (7 points), straight segments, points' heights left to right as % of the plot height: 13, 17, 23, 29, 38, 44, 50; no axis labels"
    ],
    [
     "chart-donut",
