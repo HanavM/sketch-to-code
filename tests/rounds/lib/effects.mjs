@@ -63,6 +63,10 @@ function scan() {
     if (s.animationName && s.animationName !== 'none') hit('motion')
     if (/^polygon|^path|^circle|^ellipse/.test(s.clipPath) && !/^circle\(50%/.test(s.clipPath)) hit('clip-shape')
     if (/^vertical/.test(s.writingMode) && ownText(el)) hit('vertical-type')
+    // 3D: a perspective stage, a preserve-3d group, or a transform that is a 3D matrix (rotateX/Y, translateZ)
+    if ((s.perspective && s.perspective !== 'none') || s.transformStyle === 'preserve-3d' || /^matrix3d\(/.test(s.transform)) hit('3d')
+    const mask = s.maskImage || s.webkitMaskImage
+    if (mask && mask !== 'none') hit('mask')
     const bg = s.backgroundImage
     if (/gradient\(/.test(bg)) {
       if (/text/.test(s.backgroundClip || s.webkitBackgroundClip)) hit('gradient-text')

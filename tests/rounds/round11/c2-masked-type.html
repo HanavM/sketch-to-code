@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Masked type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f2efe8;font-family:Helvetica,Arial,sans-serif;color:#141414}
+.blob{position:absolute;border-radius:50%;filter:blur(60px)}
+.b1{left:-80px;top:380px;width:520px;height:520px;background:#ff7a59}.b2{left:760px;top:-120px;width:560px;height:560px;background:#6c63ff}.b3{left:520px;top:520px;width:380px;height:380px;background:#2ec4b6}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-size:14px;font-weight:700;letter-spacing:1px}
+.mega{position:absolute;left:40px;top:120px;font-size:300px;font-weight:900;line-height:1;letter-spacing:-14px;background:linear-gradient(100deg,#141414 30%,#6c63ff 60%,#ff7a59);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+.ring{position:absolute;left:1000px;top:420px;width:200px;height:200px;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring text{font-size:15px;font-weight:700;letter-spacing:4px;fill:#141414}
+.photo{position:absolute;left:620px;top:470px;width:320px;height:360px;border-radius:200px 200px 16px 16px;background:linear-gradient(200deg,#ffd6a5,#ff7a59 55%,#6c63ff);-webkit-mask-image:radial-gradient(circle at 50% 40%,#000 60%,transparent 72%);mask-image:radial-gradient(circle at 50% 40%,#000 60%,transparent 72%)}
+.copy{position:absolute;left:60px;top:520px;width:440px;font-size:22px;line-height:1.45}
+.copy a{display:inline-block;margin-top:28px;padding:16px 30px;background:#141414;color:#f2efe8;border-radius:999px;font-weight:700;font-size:16px}
+.n{position:absolute;left:60px;top:800px;font-family:"Courier New",monospace;font-size:13px;letter-spacing:2px}
+</style></head><body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<nav data-r="nav"><span>halo.studio</span><span>Work · Lab · Contact</span></nav>
+<div class="mega" data-r="masked-word" data-must>Halo</div>
+<div class="photo" data-r="masked-picture" data-must></div>
+<svg class="ring" data-r="text-ring" viewBox="0 0 200 200"><defs><path id="c" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#c">BRAND · MOTION · TYPE · SPACE ·</textPath></text></svg>
+<div class="copy" data-r="copy" data-must>We design identities that glow on screens and in rooms.<br><a>See the work</a></div>
+<div class="n">EST. 2014 — LISBON / OSLO</div>
+</body></html>

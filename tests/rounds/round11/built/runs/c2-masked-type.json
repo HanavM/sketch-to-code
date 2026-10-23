@@ -1,0 +1,187 @@
+{
+  "id": "c2-masked-type",
+  "at": "2026-10-23T13:50:19.326Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5056585298232639,
+    "overallV2": 0.5032601001345653,
+    "overallV1": 0.4126834952486709,
+    "colour": 0.8219775528514897,
+    "structure": 0.6856010428013621,
+    "structureStrict": 0.5582989097390554,
+    "colourAligned": 0.8221185233414159,
+    "structureAligned": 0.6887229785528551,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.4413429726763518
+    },
+    "layout": 0.835540101549541
+  },
+  "effects": {
+    "recall": 0.4444444444444444,
+    "kept": [
+      "gradient-text",
+      "huge-type",
+      "mask",
+      "overlap"
+    ],
+    "missing": [
+      "bleed",
+      "blur",
+      "gradient",
+      "mono",
+      "motion"
+    ],
+    "extra": [
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 42756,
+    "output": 27229,
+    "cacheRead": 509418
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 55725,
+      "output": 21714,
+      "cacheRead": 397925,
+      "toolCalls": 15,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/GradientCircle.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/vite.config.ts",
+        "Write src/App.tsx",
+        "Edit components/GradientCircle.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/App.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 253452
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6164,
+      "output": 2654,
+      "cacheRead": 101926,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 33069
+    }
+  ],
+  "reading": "The sketch is a hero section: a plain-text nav bar, a huge gradient wordmark \"Halo\" fading toward the page's base, a large gradient circle with a smaller ring of spinning label text beside it, and a four-line paragraph of body copy beneath.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Plain navigation bar with no box/border around it: \"halo.studio\" wordmark on the left, and \"Work · Lab · Contact\" links on the right, set in Helvetica, near-bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 331
+        }
+      ],
+      "region": [
+        48,
+        72,
+        535,
+        397
+      ],
+      "paths": [],
+      "instruction": "Giant live-text headline reading \"Halo\" in heavy, tight-set Helvetica (font-weight 900, round-bowled, not condensed/display), about 300px type size and ~594px w"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        624,
+        494,
+        311,
+        312
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large decorative circle with a top-to-bottom gradient fill: pale pink (#ffd6a5) at top, transitioning through coral (#ff7a59 at 55%), to indigo (#6c63ff) at the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1004,
+        424,
+        193,
+        192
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A smaller circle (about 200px) with no outline and no fill, bearing a spinning ring of small spaced capital letters running around its circumference reading \"BR"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 4,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        64,
+        520,
+        432,
+        147
+      ],
+      "paths": [],
+      "instruction": "Four-line body paragraph of placeholder copy beneath the hero graphics, in Helvetica near-black text, introducing the studio (e.g. describing brand, motion, typ"
+    }
+  ],
+  "rejected": []
+}

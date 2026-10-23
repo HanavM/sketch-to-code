@@ -1,0 +1,150 @@
+{
+ "c1-card-stack-3d": {
+  "found": {
+   "mono": 4,
+   "hollow-type": 1,
+   "3d": 4,
+   "gradient": 3,
+   "soft-shadow": 3,
+   "motion": 1,
+   "glass": 1,
+   "overlap": 8
+  },
+  "names": [
+   "3d",
+   "glass",
+   "gradient",
+   "hollow-type",
+   "mono",
+   "motion",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "c2-masked-type": {
+  "found": {
+   "blur": 3,
+   "bleed": 2,
+   "mask": 2,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "gradient": 1,
+   "motion": 1,
+   "mono": 1,
+   "overlap": 5
+  },
+  "names": [
+   "bleed",
+   "blur",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "mask",
+   "mono",
+   "motion",
+   "overlap"
+  ]
+ },
+ "c3-weight-ladder": {
+  "found": {
+   "italic": 1,
+   "mono": 5,
+   "tilt": 2,
+   "motion": 2,
+   "bleed": 1,
+   "overlap": 4
+  },
+  "names": [
+   "bleed",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "c4-cube-scene": {
+  "found": {
+   "3d": 9,
+   "stripes-or-layers": 1,
+   "hard-shadow": 1,
+   "blur": 1,
+   "motion": 1,
+   "soft-shadow": 1,
+   "overlap": 11
+  },
+  "names": [
+   "3d",
+   "blur",
+   "hard-shadow",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "c5-paper-layers": {
+  "found": {
+   "motion": 1,
+   "gradient": 1,
+   "huge-type": 1,
+   "serif": 2,
+   "italic": 2,
+   "tilt": 1,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "huge-type",
+   "italic",
+   "motion",
+   "serif",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e1-code-editor": {
+  "found": {
+   "mono": 60,
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "mono",
+   "stripes-or-layers"
+  ]
+ },
+ "e2-crm-pipeline": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e3-mail-client": {
+  "found": {
+   "gradient": 2
+  },
+  "names": [
+   "gradient"
+  ]
+ },
+ "e4-analytics-dashboard": {
+  "found": {
+   "stripes-or-layers": 1,
+   "overlap": 8
+  },
+  "names": [
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e5-week-calendar": {
+  "found": {
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "stripes-or-layers"
+  ]
+ }
+}

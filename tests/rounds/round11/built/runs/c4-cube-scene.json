@@ -1,0 +1,211 @@
+{
+  "id": "c4-cube-scene",
+  "at": "2026-10-23T13:56:37.682Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.4644849777686999,
+    "overallV2": 0.4644849777686999,
+    "overallV1": 0.4044065319006286,
+    "colour": 0.7809079833035492,
+    "structure": 0.46607804404684194,
+    "structureStrict": 0.35371993032304855,
+    "colourAligned": 0.7809079833035492,
+    "structureAligned": 0.46607804404684194,
+    "align": {
+      "scale": 1.08,
+      "dx": -96,
+      "dy": 129,
+      "r": 0.5051028731952953
+    },
+    "layout": 0.7907968699868191
+  },
+  "effects": {
+    "recall": 0.5714285714285714,
+    "kept": [
+      "3d",
+      "hard-shadow",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "blur",
+      "motion",
+      "soft-shadow"
+    ],
+    "extra": [
+      "bleed",
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 42789,
+    "output": 30096,
+    "cacheRead": 104651
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49895,
+      "output": 19893,
+      "cacheRead": 94140,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 225359
+    }
+  ],
+  "reading": "A landing-page hero sketch: a thin top nav divider with left/right labels, a big two-line hero headline, a body paragraph, a 'Start building' pill button with a hard pink shadow, a composite 5-part colored graphic top-right, and a bottom full-width section containing a tilted repeating-stripe background behind a row of three stat items; a run-wide note sets the overall page gradient and typography.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a nav bar with no surrounding box, placed along the thin horizontal line drawn near the top: wide letter-spaced \"BLOCKS/3D\" on the left and \"ENGINE · DOCS ·"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        64,
+        120,
+        504,
+        160
+      ],
+      "paths": [],
+      "instruction": "Add the giant Helvetica heavy hero headline set tight (line-height 0.95), broken into exactly two lines that must stay whole and never rewrap: \"Ship worlds,\" / "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        330,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add body copy below the headline: \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        431,
+        163,
+        52
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a pill-shaped dark grey button with white text reading \"Start building\", with a hard solid opaque pink drop shadow offset 6px down and right (no blur)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        803,
+        153,
+        294,
+        294
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Build the composite hero graphic out of 5 separate real elements, each with the exact size, position, fill and border given (page px, size then top-left x,y): 2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        498,
+        1273,
+        399
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a full-width section container (outlined box spanning the page width) that frames the striped background and stat cards drawn inside it."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        553,
+        194
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Give the inner block a background tilted back in 3D perspective (rotateX(62deg)), bleeding off the left and right page edges, filled with big vertical repeating"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        553,
+        194
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "On top of the striped background, add a row of 3 stat cards with a small icon/bullet before each value: \"60fps on a 2019 phone\", \"14kb gzipped core\", \"0 build s"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

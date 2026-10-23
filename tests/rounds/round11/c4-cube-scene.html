@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cube scene</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#ffe8d6 0,#ffd3b6 55%,#2d2a4a 55%);font-family:Helvetica,Arial,sans-serif;color:#2d2a4a}
+.floor{position:absolute;left:-200px;top:495px;width:1680px;height:600px;transform:perspective(600px) rotateX(62deg);transform-origin:50% 0;background:repeating-linear-gradient(90deg,transparent 0 79px,#ff8fab 79px 81px),repeating-linear-gradient(0deg,transparent 0 79px,#ff8fab 79px 81px)}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-size:14px;font-weight:700;letter-spacing:2px}
+h1{position:absolute;left:56px;top:120px;width:560px;font-size:84px;font-weight:900;line-height:.95;letter-spacing:-3px}
+h1 span{color:#ff5d8f}
+.sub{position:absolute;left:56px;top:330px;width:420px;font-size:18px;line-height:1.5}
+.scene{position:absolute;left:800px;top:150px;width:300px;height:300px;perspective:900px}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(38deg);animation:turn 10s linear infinite}
+@keyframes turn{to{transform:rotateX(-24deg) rotateY(398deg)}}
+.f{position:absolute;width:300px;height:300px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;color:#fff;border:3px solid #2d2a4a}
+.fr{background:#ff5d8f;transform:translateZ(150px)}.bk{background:#ff8fab;transform:rotateY(180deg) translateZ(150px)}.rt{background:#7b6cf6;transform:rotateY(90deg) translateZ(150px)}.lf{background:#7b6cf6;transform:rotateY(-90deg) translateZ(150px)}.tp{background:#ffd166;transform:rotateX(90deg) translateZ(150px)}.bt{background:#2d2a4a;transform:rotateX(-90deg) translateZ(150px)}
+.shadow{position:absolute;left:790px;top:560px;width:340px;height:60px;border-radius:50%;background:rgba(45,42,74,.5);filter:blur(14px)}
+.panel{position:absolute;left:56px;top:640px;width:560px;height:200px;background:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.panel b{display:block;font-size:40px;font-weight:900;color:#ff5d8f}.panel span{font-size:14px}
+.cta{position:absolute;left:56px;top:430px;padding:18px 32px;background:#2d2a4a;color:#fff;border-radius:14px;font-weight:800;box-shadow:6px 6px 0 #ff5d8f}
+</style></head><body>
+<div class="floor" data-r="perspective-floor" data-must></div>
+<nav data-r="nav"><span>BLOCKS/3D</span><span>ENGINE · DOCS · PRICING</span></nav>
+<h1 data-r="headline" data-must>Ship worlds, <span>not</span> slides.</h1>
+<p class="sub" data-r="subcopy">A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.</p>
+<a class="cta" data-r="cta">Start building</a>
+<div class="shadow"></div>
+<div class="scene" data-r="spinning-cube" data-must><div class="cube"><div class="f fr">3D</div><div class="f bk"></div><div class="f rt">JS</div><div class="f lf"></div><div class="f tp"></div><div class="f bt"></div></div></div>
+<div class="panel" data-r="stats-panel" data-must><div><b>60fps</b><span>on a 2019 phone</span></div><div><b>14kb</b><span>gzipped core</span></div><div><b>0</b><span>build steps</span></div></div>
+</body></html>

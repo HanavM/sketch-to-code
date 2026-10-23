@@ -1,0 +1,558 @@
+{
+ "c1-card-stack-3d": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 92,
+     "lines": 2
+    }
+   ],
+   [
+    "subcopy",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "card-stack",
+    "box"
+   ],
+   [
+    "glass-chip",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: deep indigo to near-black indigo gradient page, Helvetica type, white text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"STACKD\" left, \"CARDS · RATES · SIGN IN\" right"
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) \"Three cards. One stack.\", set in exactly 2 lines: \"Three cards.\" / \"One stack.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 511px wide); plus a small separate 14px monospace (font-family Courier New, monospace) #b8a6ff label \"NEW · METAL EDITION\" with 3px letter-spacing at 64,170, 14px above it and left-aligned with it (keep it, it is part of this heading); the word \"One\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #ffffff), same size and weight as the rest"
+   ],
+   [
+    "subcopy",
+    "lavender text \"Spend from any of them, earn on all of them. Tilt your phone to switch cards.\""
+   ],
+   [
+    "cta",
+    "yellow pill near-black indigo text button \"Get your stack →\""
+   ],
+   [
+    "card-stack",
+    "a stack of 3 separate cards turned in 3D (NOT one picture, NOT flat): a 560x660px box at 640,110 with perspective: 1200px, holding 3 absolutely placed cards each 380x240px, 22px rounded, each with transform: rotateX(52deg) rotateZ(-28deg) (turned away to the left, all the same turn), a big soft dark drop shadow; each card overlaps the one behind it, painted back to front: card 1 (back) at 90,40 in the box, 135deg gradient #ff5f6d to #ffc371, fully opaque, bold 13px #ffffff \"SUNSET\" at 28,28 inside it, bold 20px #ffffff \"•••• 4821\" at 28,191 inside it; card 2 at 90,190 in the box, 135deg gradient #7f5af0 to #2cb67d, fully opaque, bold 13px #ffffff \"FOREST\" at 28,28 inside it, bold 20px #ffffff \"•••• 0937\" at 28,191 inside it; card 3 (front) at 90,340 in the box, 135deg gradient #00c6ff to #0072ff, fully opaque, bold 13px #ffffff \"OCEAN\" at 28,28 inside it, bold 20px #ffffff \"•••• 1144\" at 28,191 inside it"
+   ],
+   [
+    "glass-chip",
+    "frosted glass pill label with a 1px white border, \"✦ 3% back on travel\""
+   ]
+  ]
+ },
+ "c2-masked-type": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "masked-word",
+    "heading",
+    {
+     "fontPx": 300,
+     "lines": 1
+    }
+   ],
+   [
+    "masked-picture",
+    "circle"
+   ],
+   [
+    "text-ring",
+    "circle"
+   ],
+   [
+    "copy",
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 4
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f2efe8, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: \"halo.studio\" left, \"Work · Lab · Contact\" right"
+   ],
+   [
+    "masked-word",
+    "fading out into the page toward the bottom (solid until 55%, gone at the bottom edge) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters near-black (#141414) to indigo (#6c63ff at 60%) to coral (#ff7a59) gradient, left to right text \"Halo\", 300px type, about 594px wide (no larger)"
+   ],
+   [
+    "masked-picture",
+    "big pale pink (#ffd6a5) to coral (#ff7a59 at 55%) to indigo (#6c63ff), top to bottom circle"
+   ],
+   [
+    "text-ring",
+    "spinning ring of small spaced capital letters \"BRAND · MOTION · TYPE · SPACE ·\" running round a 200px circle, no outline, no fill"
+   ]
+  ]
+ },
+ "c3-weight-ladder": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "weight-ladder",
+    "box"
+   ],
+   [
+    "spec-panel",
+    "text"
+   ],
+   [
+    "marquee-a",
+    "box"
+   ],
+   [
+    "marquee-b",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#0f0f0f) page, Helvetica type, off-white text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"GRADIENT SANS\" left, \"SPECIMEN · BUY · TRIAL\" right"
+   ],
+   [
+    "weight-ladder",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 760x94 at 48,84 88px regular (NOT bold) #555555 \"Thin 100\"; 760x94 at 48,178 88px regular (NOT bold) #777777 \"Light 300\"; 760x94 at 48,272 88px regular (NOT bold) #999999 \"Regular 400\"; 760x94 at 48,366 88px bold #bbbbbb \"Semibold 600\"; 760x94 at 48,460 88px bold #dddddd \"Heavy 800\"; 760x94 at 48,554 88px bold #ff4d00 \"Black 900\""
+   ],
+   [
+    "spec-panel",
+    "a contents list, no box, no card: bold dark \"VARIABLE · 100–900\" heading, then 4 small 13px off-white (#f4f1ea) links, one per line, plain text (not buttons): \"wght, ital\", \"1,204\", \"212\", \"Desktop + Web\""
+   ],
+   [
+    "marquee-a",
+    "tilted 3° anticlockwise scrolling vivid red-orange bar, black text bold 56px \"VARIABLE ✶\" repeated along it"
+   ],
+   [
+    "marquee-b",
+    "tilted slightly 2° clockwise scrolling off-white bar, black text 56px \"whisper · shout ·\" repeated along it"
+   ]
+  ]
+ },
+ "c4-cube-scene": {
+  "plan": [
+   [
+    "perspective-floor",
+    "box"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 2
+    }
+   ],
+   [
+    "subcopy",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "spinning-cube",
+    "box"
+   ],
+   [
+    "stats-panel",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6 at 55%) to dark grey (#2d2a4a) gradient, top to bottom page, Helvetica type, dark grey text"
+   ],
+   [
+    "perspective-floor",
+    "tilted back in 3D perspective (rotateX(62deg)) bleeding off the left and right page edges big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 79px, #ff8fab 79px 81px, transparent 81px 79px, #ff8fab 79px 81px)): 79px clear (see-through) then 2px light pink then -2px clear (see-through) then 2px light pink, over and over block"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"BLOCKS/3D\" left, \"ENGINE · DOCS · PRICING\" right"
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) \"Ship worlds, not slides.\", set in exactly 2 lines: \"Ship worlds,\" / \"not slides.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide)"
+   ],
+   [
+    "subcopy",
+    "text \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
+   ],
+   [
+    "cta",
+    "dark grey white text button \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur"
+   ],
+   [
+    "spinning-cube",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 242x310 at 730,106 #ff8fab fill, 3px #2d2a4a border; 452x123 at 730,106 #ffd166 fill, 3px #2d2a4a border; 212x336 at 970,106 #7b6cf6 fill, 3px #2d2a4a border: 48px bold #ffffff \"JS\"; 189x415 at 730,146 #7b6cf6 fill, 3px #2d2a4a border; 395x221 at 758,340 #2d2a4a fill, 3px #2d2a4a border"
+   ],
+   [
+    "stats-panel",
+    "3 stat cards in a row: \"\" 60fps on a 2019 phone, \"\" 14kb gzipped core, \"\" 0 build steps"
+   ]
+  ]
+ },
+ "c5-paper-layers": {
+  "plan": [
+   [
+    "scroll-progress",
+    "box"
+   ],
+   [
+    "sun",
+    "circle"
+   ],
+   [
+    "paper-layers",
+    "box"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 2
+    }
+   ],
+   [
+    "booking-card",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: warm paper (#fbe7c6) page, Georgia type, dark teal text"
+   ],
+   [
+    "scroll-progress",
+    "thin progress bar 38% filled red on a dark teal track"
+   ],
+   [
+    "sun",
+    "a 220px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%) so it looks lit from above; absolutely placed, top-left at 860,110, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+   ],
+   [
+    "paper-layers",
+    "drawn shapes, no picture, no box: 4 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#a8dadc) cresting about 430px down (its top edge about 462, 461, 446, 450, 431px down at the left edge, quarter, middle, three-quarters and right edge), grey (#457b9d) cresting about 540px down (its top edge about 553, 554, 563, 546, 542px down at the left edge, quarter, middle, three-quarters and right edge), dark teal (#1d3557) cresting about 644px down (its top edge about 655, 656, 670, 646, 651px down at the left edge, quarter, middle, three-quarters and right edge), dark navy (#0b1a30) cresting about 759px down (its top edge about 767, 764, 784, 759, 771px down at the left edge, quarter, middle, three-quarters and right edge)"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"FJORD TRAILS\" left, \"ROUTES · HUTS · BOOK\" right"
+   ],
+   [
+    "headline",
+    "giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Walk into the folds.\", set in exactly 2 lines: \"Walk into the\" / \"folds.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 577px wide); plus a small separate 13px #e63946 label \"SEASON 2027 · 14 ROUTES\" with 4px letter-spacing at 60,96, 9px above it and left-aligned with it (keep it, it is part of this heading)"
+   ],
+   [
+    "booking-card",
+    "tilted slightly 2° clockwise white block \"Hut-to-hut, 6 days\", lines \"Guided, bags carried, three fjords. From €1,240.\", a #e63946 filled 159x47px button (4px rounded), bold #ffffff text \"Reserve a spot\""
+   ]
+  ]
+ },
+ "e1-code-editor": {
+  "plan": [
+   [
+    "activity-bar",
+    "box"
+   ],
+   [
+    "explorer",
+    "box"
+   ],
+   [
+    "editor-tabs",
+    "box"
+   ],
+   [
+    "code",
+    "box"
+   ],
+   [
+    "minimap",
+    "image"
+   ],
+   [
+    "terminal-panel",
+    "box"
+   ],
+   [
+    "status-bar",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#1e1e1e) page, Helvetica type, light grey text"
+   ],
+   [
+    "activity-bar",
+    "dark grey bar \"▤ ⌕ ⑂ ▷ ⧉\""
+   ],
+   [
+    "explorer",
+    "near-black block \"EXPLORER · WEBHOOKS\" \"retry.ts\" \"send.ts\" \"types.ts\" \"retry.test.ts\" list: \"▾ src\", \"▾ test\", \"package.json\", \"tsconfig.json\", \"README.md\"; list rows exactly 24px apart (24px tall, 13px type: tight, not roomier), first line 10px below the panel's top"
+   ],
+   [
+    "editor-tabs",
+    "near-black bar 36px tall across the page, links: retry.ts ×, send.ts, retry.test.ts; \"retry.ts ×\" selected (white text, near-black fill); all of these sit together at the LEFT, one after another, ending 266px in (the right 73% of the bar is empty, nothing pushed right)"
+   ],
+   [
+    "code",
+    "a 880x22px #2a2d2e filled button \"6 for (let i = 0; i\"… ( #cccccc text; its fill clearly visible, not white), then list: \"1\" import, \"2\", \"3\", \"4\", 9 more; list rows exactly 22px apart (22px tall, 14px type: tight, not roomier), first line 8px below the panel's top; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 54 of them, nothing invented, nothing left out): 880x22 at 288,44 14px mono #cccccc \"{ sleep }\"; 52x22 at 288,44 14px mono #6e7681 \"1\"; 50x16 at 340,47 14px mono #569cd6 \"import\"; 34x16 at 483,47 14px mono #569cd6 \"from\"; 67x16 at 525,47 14px mono #ce9178 \"'./time'\"; 52x22 at 288,66 14px mono #6e7681 \"2\"; 52x22 at 288,88 14px mono #6e7681 \"3\"; 403x16 at 340,91 14px mono #6a9955 \"// Retry fn with exponential backoff and jitter.\"; 880x22 at 288,110 14px mono #cccccc \"< >(fn: () => < >, opts = {}) {\"; 52x22 at 288,110 14px mono #6e7681 \"4\"; 176x16 at 340,113 14px mono #569cd6 \"export async function\"; 76x16 at 525,113 14px mono #dcdcaa \"withRetry\"; 8x16 at 609,113 14px mono #4ec9b0 \"T\"; 59x16 at 718,113 14px mono #4ec9b0 \"Promise\"; 8x16 at 785,113 14px mono #4ec9b0 \"T\"; 880x22 at 288,132 14px mono #cccccc \"{ attempts = , baseMs = } = opts\"; 52x22 at 288,132 14px mono #6e7681 \"5\"; 42x16 at 357,135 14px mono #569cd6 \"const\"; 8x16 at 516,135 14px mono #ce9178 \"5\"; 25x16 at 617,135 14px mono #ce9178 \"250\"; 880x22 at 288,154 #2a2d2e fill: 14px mono #cccccc \"( i = ; i < attempts; i++) {\"; 52x22 at 288,154 14px mono #6e7681 \"6\"; 25x16 at 357,157 14px mono #569cd6 \"for\"; 25x16 at 399,157 14px mono #569cd6 \"let\"; 8x16 at 466,157 14px mono #ce9178 \"0\"; 880x22 at 288,176 14px mono #cccccc \"{ () }\"; 52x22 at 288,176 14px mono #6e7681 \"7\"; 25x16 at 374,179 14px mono #569cd6 \"try\"; 101x16 at 424,179 14px mono #569cd6 \"return await\"; 17x16 at 533,179 14px mono #dcdcaa \"fn\"; 880x22 at 288,198 14px mono #cccccc \"(err) {\"; 52x22 at 288,198 14px mono #6e7681 \"8\"; 42x16 at 374,201 14px mono #569cd6 \"catch\"; 880x22 at 288,220 14px mono #cccccc \"(i === attempts - ) err\"; 52x22 at 288,220 14px mono #6e7681 \"9\"; 17x16 at 390,223 14px mono #569cd6 \"if\"; 8x16 at 567,223 14px mono #ce9178 \"1\"; 42x16 at 592,223 14px mono #569cd6 \"throw\"; 880x22 at 288,242 14px mono #cccccc \"wait = baseMs * ** i * ( + Math. ())\"; 52x22 at 288,242 14px mono #6e7681 \"10\"; 42x16 at 390,245 14px mono #569cd6 \"const\"; 8x16 at 575,245 14px mono #ce9178 \"2\"; 25x16 at 659,245 14px mono #ce9178 \"0.5\"; 50x16 at 752,245 14px mono #dcdcaa \"random\"; 880x22 at 288,264 14px mono #cccccc \"(wait)\"; 52x22 at 288,264 14px mono #6e7681 \"11\"; 42x16 at 390,267 14px mono #569cd6 \"await\"; 42x16 at 441,267 14px mono #dcdcaa \"sleep\"; 880x22 at 288,286 14px mono #cccccc \"}\"; 52x22 at 288,286 14px mono #6e7681 \"12\"; 880x22 at 288,308 14px mono #cccccc \"}\"; 52x22 at 288,308 14px mono #6e7681 \"13\"; 880x22 at 288,330 14px mono #cccccc \"}\"; 52x22 at 288,330 14px mono #6e7681 \"14\""
+   ],
+   [
+    "minimap",
+    "faded to 60% opacity (see-through) big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #3c3c3c 0px 3px, transparent 3px 7px)): 3px dark grey then 4px clear (see-through), over and over block"
+   ],
+   [
+    "terminal-panel",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out): 80x13 at 306,575 11px #888888 \"PROBLEMS 1\"; 51x13 at 410,575 11px #888888 \"OUTPUT\"; 64x13 at 486,575 1px #ffffff border on the bottom only: 11px #ffffff \"TERMINAL\"; 109x13 at 573,575 11px #888888 \"DEBUG CONSOLE\"; 992x138 at 288,596 13px mono #cccccc \"$ npm test -- retry returns on first success (3 ms) retries until succ\"; 8x15 at 314,626 13px mono #89d185 \"✓\"; 8x15 at 314,647 13px mono #89d185 \"✓\"; 8x15 at 314,668 13px mono #f48771 \"✗\"; 62x15 at 361,710 13px mono #f48771 \"1 failed\"; 62x15 at 439,710 13px mono #89d185 \"2 passed\""
+   ],
+   [
+    "status-bar",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 82x22 at 12,878 12px #ffffff \"⑂ retry-backoff*\"; 52x22 at 116,878 12px #ffffff \"⊗ 1 ⚠ 0\"; 241x22 at 1027,878 12px #ffffff \"Ln 6, Col 31 · Spaces: 2 · UTF-8 · TypeScript\""
+   ]
+  ]
+ },
+ "e2-crm-pipeline": {
+  "plan": [
+   [
+    "top-bar",
+    "box"
+   ],
+   [
+    "toolbar",
+    "box"
+   ],
+   [
+    "board",
+    "box"
+   ],
+   [
+    "deal-drawer",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f5f6f8, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "top-bar",
+    "label \"Pipeline\" above an empty field"
+   ],
+   [
+    "toolbar",
+    "column \"Q4 New business\", cards: \"Owner: All ▾\", \"Close: This quarter ▾\", \"+ New deal\""
+   ],
+   [
+    "board",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 67 of them, nothing invented, nothing left out): 206x760 at 24,124 #eceef3 fill, 10px rounded; 206x760 at 242,124 #eceef3 fill, 10px rounded; 206x760 at 460,124 #eceef3 fill, 10px rounded; 206x760 at 678,124 #eceef3 fill, 10px rounded; 186x31 at 34,134 3px #5b6475 border on the bottom only: 12px bold #5b6475 \"LEAD\"; 186x31 at 252,134 3px #5b6475 border on the bottom only: 12px bold #5b6475 \"QUALIFIED\"; 186x31 at 470,134 3px #5b6475 border on the bottom only: 12px bold #5b6475 \"PROPOSAL\"; 186x31 at 688,134 3px #5b6475 border on the bottom only: 12px bold #5b6475 \"WON\"; 48x14 at 168,138 12px bold #5b6475 \"4 · $86k\"; 55x14 at 379,138 12px bold #5b6475 \"3 · $112k\"; 48x14 at 604,138 12px bold #5b6475 \"2 · $95k\"; 48x14 at 822,138 12px bold #5b6475 \"2 · $58k\"; 186x86 at 34,175 #ffffff fill, 8px rounded; 186x86 at 252,175 #ffffff fill, 2px #7c5cff outline ring, 8px rounded; 186x86 at 470,175 #ffffff fill, 8px rounded; 186x86 at 688,175 #ffffff fill, 8px rounded; 162x15 at 46,187 13px bold #1c2333 \"Northwind Ltd\"; 162x15 at 264,187 13px bold #1c2333 \"Acme Corp\"; 162x15 at 482,187 13px bold #1c2333 \"Wayne Ent.\"; 162x15 at 700,187 13px bold #1c2333 \"Cyberdyne\"; 162x12 at 46,205 11px #5b6475 \"Ops platform · 40 seats\"; 162x12 at 264,205 11px #5b6475 \"Enterprise · 120 seats\"; 162x12 at 482,205 11px #5b6475 \"Multi-region\"; 162x12 at 700,205 11px #5b6475 \"Closed Oct 14\"; 162x22 at 46,227 13px bold #1c2333 \"$24,000\"; 22x22 at 186,227 #ffb547 fill, a circle; 162x22 at 264,227 13px bold #1c2333 \"$64,000\"; 22x22 at 404,227 #ffb547 fill, a circle; 162x22 at 482,227 13px bold #1c2333 \"$70,000\"; 22x22 at 622,227 #f472b6 fill, a circle; 162x22 at 700,227 13px bold #1c2333 \"$40,000\"; 22x22 at 840,227 #60a5fa fill, a circle; 186x86 at 34,271 #ffffff fill, 8px rounded; 186x86 at 252,271 #ffffff fill, 8px rounded; 186x86 at 470,271 #ffffff fill, 8px rounded; 186x86 at 688,271 #ffffff fill, 8px rounded; 162x15 at 46,283 13px bold #1c2333 \"Globex\"; 162x15 at 264,283 13px bold #1c2333 \"Umbrella\"; 162x15 at 482,283 13px bold #1c2333 \"Soylent\"; 162x15 at 700,283 13px bold #1c2333 \"Tyrell\"; 162x12 at 46,301 11px #5b6475 \"Pilot · 10 seats\"; 162x12 at 264,301 11px #5b6475 \"Security bundle\"; 162x12 at 482,301 11px #5b6475 \"Expansion\"; 162x12 at 700,301 11px #5b6475 \"Closed Oct 9\"; 162x22 at 46,323 13px bold #1c2333 \"$8,000\"; 22x22 at 186,323 #60a5fa fill, a circle; 162x22 at 264,323 13px bold #1c2333 \"$28,000\"; 22x22 at 404,323 #60a5fa fill, a circle; 162x22 at 482,323 13px bold #1c2333 \"$25,000\"; 22x22 at 622,323 #ffb547 fill, a circle; 162x22 at 700,323 13px bold #1c2333 \"$18,000\"; 22x22 at 840,323 #ffb547 fill, a circle; 186x86 at 34,367 #ffffff fill, 8px rounded; 186x86 at 252,367 #ffffff fill, 8px rounded; 162x15 at 46,379 13px bold #1c2333 \"Initech\"; 162x15 at 264,379 13px bold #1c2333 \"Stark Ind.\"; 162x12 at 46,397 11px #5b6475 \"Renewal + upsell\"; 162x12 at 264,397 11px #5b6475 \"Team plan\"; 162x22 at 46,419 13px bold #1c2333 \"$31,000\"; 22x22 at 186,419 #ffb547 fill, a circle; 162x22 at 264,419 13px bold #1c2333 \"$20,000\"; 22x22 at 404,419 #ffb547 fill, a circle; 186x86 at 34,463 #ffffff fill, 8px rounded; 162x15 at 46,475 13px bold #1c2333 \"Hooli\"; 162x12 at 46,493 11px #5b6475 \"Analytics add-on\"; 162x22 at 46,515 13px bold #1c2333 \"$23,000\"; 22x22 at 186,515 #f472b6 fill, a circle"
+   ],
+   [
+    "deal-drawer",
+    "white card \"Acme Corp —\"… \"Qualified · 40%\" \"ACTIVITY\" list: \"Amount\", \"Close date\", \"Owner\", \"Contact\", \"Source\", dark navy (#1c2333) \"Log activity Mark won\" (pinned to the card's bottom: its bottom edge 24px above the card's bottom edge, 332px wide, centred; empty space above it); list rows exactly 25px apart (15px tall, 13px type: tight, not roomier), first line 97px below the panel's top; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 25 of them, nothing invented, nothing left out): 331x23 at 925,80 20px bold #1c2333 \"Acme Corp — Enterprise\"; 106x22 at 925,111 #efeaff fill, pill ends: 12px bold #7c5cff \"Qualified · 40%\"; 110x15 at 925,153 13px #5b6475 \"Amount\"; 221x15 at 1035,153 13px bold #1c2333 \"$64,000\"; 110x15 at 925,178 13px #5b6475 \"Close date\"; 221x15 at 1035,178 13px bold #1c2333 \"Dec 12, 2026\"; 110x15 at 925,203 13px #5b6475 \"Owner\"; 221x15 at 1035,203 13px bold #1c2333 \"Priya Shah\"; 110x15 at 925,228 13px #5b6475 \"Contact\"; 221x15 at 1035,228 13px bold #1c2333 \"Leo Martin, VP Ops\"; 110x15 at 925,253 13px #5b6475 \"Source\"; 221x15 at 1035,253 13px bold #1c2333 \"Webinar\"; 331x14 at 925,292 12px bold #5b6475 \"ACTIVITY\"; 331x141 at 925,318 2px #1c2333 border on the left only; 311x38 at 945,318 13px #1c2333 \"with Leo, pricing walk-through\"; 24x15 at 945,319 13px bold #1c2333 \"Call\"; 61x12 at 945,340 11px #5b6475 \"Today, 10:30\"; 311x38 at 945,370 13px #1c2333 \"sent security questionnaire\"; 35x15 at 945,371 13px bold #1c2333 \"Email\"; 48x12 at 945,392 11px #5b6475 \"Yesterday\"; 311x38 at 945,421 13px #1c2333 \"moved Lead → Qualified\"; 35x15 at 945,422 13px bold #1c2333 \"Stage\"; 32x12 at 945,443 11px #5b6475 \"Oct 18\"; 161x39 at 925,837 1px #d6dae2 border, 8px rounded: 13px bold #1c2333 \"Log activity\"; 161x39 at 1096,837 #16a34a fill, 1px #16a34a border, 8px rounded: 13px bold #ffffff \"Mark won\""
+   ]
+  ]
+ },
+ "e3-mail-client": {
+  "plan": [
+   [
+    "folders",
+    "box"
+   ],
+   [
+    "message-list",
+    "box"
+   ],
+   [
+    "reading-pane",
+    "box"
+   ],
+   [
+    "attachments",
+    "box"
+   ],
+   [
+    "reply-buttons",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "folders",
+    "off-white panel; a 127x48px #c2e7ff filled button \"✎ Compose\" (16px rounded, bold #202124 text; its fill clearly visible, not white), then \"LABELS\" \"Clients\" \"Invoices\" \"Travel\" list: \"Inbox\" 12, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3; \"Inbox\" highlighted (#d3e3fd rounded fill, #202124 text); list rows exactly 32px apart (32px tall, 13px type: tight, not roomier), first line 16px below the panel's top; this panel is FLAT: #f6f8fc fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
+   ],
+   [
+    "message-list",
+    "\"⌕ Search mail\" box, then 7 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"Lena Ortiz\" 10:42 \"Kitchen photos + final quote\" / \"Here are the shots from Tuesday and the revised numbers for the…\"; \"Stripe\" 9:15 \"Your payout of $4,210.00 is on the\"… / \"Expected to arrive Monday, Oct 26.\"; \"Marco, me 3\" Yesterday \"Re: Site visit Thursday?\" / \"Works for me, I'll bring the tile samples.\"; \"Lufthansa\" Oct 21 \"Your trip to Lisbon: check-in open\" / \"LH1166 · Fri 30 Oct · Seat 14C\"; \"Ana Pires\" Oct 21 \"Invoice #2231 overdue\" / \"Just a nudge on the October invoice, thank you!\"; \"GitHub\" Oct 20 \"[sketch-to-code] Round 10 passed\" / \"All checks have passed on agent.\"; \"Figma\" Oct 19 \"Ola commented on Kitchen v3\" / \"“Can we try the darker oak?”\"; the \"Lena Ortiz\" row selected (pale blue)"
+   ],
+   [
+    "reading-pane",
+    "an invisible frame 630x900px at 650,0 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out): 566x36 at 682,24 1px #5f6368 border on the bottom only: 16px #5f6368 \"← ⊡ ⚑ 🗑 ✉ ⋮\"; 566x26 at 682,80 22px regular (NOT bold) #202124 \"Kitchen photos + final quote\"; 53x18 at 964,83 #e6f4ea fill, 4px rounded: 12px #137333 \"Clients\"; 40x40 at 682,124 #f28b82 fill, a circle; 64x15 at 734,131 13px bold #202124 \"Lena Ortiz\"; 136x15 at 1112,137 13px #5f6368 \"10:42 AM (2 hours ago)\"; 64x12 at 734,146 11px #5f6368 \"to me\"; 566x185 at 682,184 14px #202124 \"Hi Sam, Attached are the photos from Tuesday's walkthrough and the rev\""
+   ],
+   [
+    "attachments",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 180x122 at 682,391 1px #dadce0 border, 8px rounded; 180x122 at 874,391 1px #dadce0 border, 8px rounded; 178x90 at 683,392 linear-gradient(135deg, #fde293, #f28b82); 178x90 at 875,392 linear-gradient(135deg, #aecbfa, #81c995); 178x30 at 683,482 12px bold #202124 \"kitchen-north.jpg\"; 178x30 at 875,482 12px bold #202124 \"quote-v3.pdf\""
+   ],
+   [
+    "reply-buttons",
+    "buttons: \"↩ Reply\", \"↪ Forward\""
+   ]
+  ]
+ },
+ "e4-analytics-dashboard": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "header",
+    "box"
+   ],
+   [
+    "kpi-row",
+    "box"
+   ],
+   [
+    "line-chart",
+    "box"
+   ],
+   [
+    "donut-card",
+    "box"
+   ],
+   [
+    "channel-table",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f4f5fa, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "sidebar",
+    "dark navy (exactly #1b1d29) bar, lavender text \"◆ Metricly\" list: \"Overview\", \"Acquisition\", \"Retention\", \"Revenue\", \"Experiments\", \"Settings\"; \"Overview\" highlighted (#2d3044 rounded fill, #ffffff text); list rows exactly 35px apart (33px tall, 13px type: tight, not roomier), first line 22px below the panel's top"
+   ],
+   [
+    "header",
+    "column \"Overview\", cards: \"Last 30 days ▾\", \"Compare: prior period\", \"Export\""
+   ],
+   [
+    "kpi-row",
+    "4 stat cards in a row: \"Revenue\" $248,310 ▲ 12.4% (green sparkline rising, bottom right), \"Active users\" 18,942 ▲ 4.1% (green sparkline rising, bottom right), \"Churn\" 2.8% ▲ 0.3pt (red sparkline rising, bottom right), \"Avg order\" $64.20 ▼ 1.9% (red sparkline falling, bottom right)"
+   ],
+   [
+    "line-chart",
+    "white card, \"Revenue vs target\", line chart drawn as SVG lines: dashed lavender line rising left to right, thick solid indigo line rising left to right (8 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 31, 28, 46, 42, 60, 65, 78; under the solid line a #5b5bd6 area fill; 4 thin pale horizontal grid lines behind; no axis labels; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 644x17 at 242,230 15px bold #1b1d29 \"Revenue vs target\"; 68x15 at 752,230 13px #6b7090 \"Revenue\"; 52x15 at 834,230 13px #6b7090 \"Target\"; 10x10 at 752,232 #5b5bd6 fill, 2px rounded; 10x10 at 834,232 #c7c9dc fill, 2px rounded; 35x13 at 242,507 11px #1b1d29 \"Sep 24\"; 26x12 at 422,507 11px #1b1d29 \"Oct 1\"; 26x12 at 602,507 11px #1b1d29 \"Oct 8\"; 32x12 at 782,507 11px #1b1d29 \"Oct 15\""
+   ],
+   [
+    "donut-card",
+    "white card, small grey title \"Revenue by plan\" top left, a 170px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 48%, then cyan 26%, then amber 16%, the rest a light grey track 10%; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 300x17 at 938,230 15px bold #1b1d29 \"Revenue by plan\"; 170x170 at 1003,267 conic-gradient(#5b5bd6 0deg, #5b5bd6 48%, #22c3a6 48%, #22c3a6 74%, #ffb020 74%, #ffb020 90%, #e4e6ef 90%), a circle; 170x26 at 1003,331 22px bold #1b1d29 \"$248k\"; 144x15 at 938,455 13px #6b7090 \"Pro 48%\"; 144x15 at 1094,455 13px #6b7090 \"Team 26%\"; 8x8 at 938,459 #5b5bd6 fill, a circle; 8x8 at 1094,459 #22c3a6 fill, a circle; 144x15 at 938,476 13px #6b7090 \"Starter 16%\"; 144x15 at 1094,476 13px #6b7090 \"Other 10%\"; 8x8 at 938,480 #ffb020 fill, a circle; 8x8 at 1094,480 #e4e6ef fill, a circle"
+   ],
+   [
+    "channel-table",
+    "white card, \"Top channels\" as a small bold heading, then a table, every body row built and none invented, columns \"CHANNEL\", \"SESSIONS\", \"CONVERSION\", \"REVENUE\", \"SHARE\", 5 rows: \"Organic search\" | \"42,118\" | \"3.2%\" | \"$92,400\" | \"37%\"; \"Paid social\" | \"28,904\" | \"2.1%\" | \"$51,760\" | \"21%\"; \"Email\" | \"12,377\" | \"5.8%\" | \"$48,900\" | \"20%\"; \"Referral\" | \"9,450\" | \"4.0%\" | \"$33,120\" | \"13%\"; \"Direct\" | \"8,031\" | \"2.6%\" | \"$22,130\" | \"9%\""
+   ]
+  ]
+ },
+ "e5-week-calendar": {
+  "plan": [
+   [
+    "top-bar",
+    "text"
+   ],
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "week-grid",
+    "box"
+   ],
+   [
+    "now-line",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "top-bar",
+    "bold 20px \"▦ Calendar\" first, then links: Today, ‹ ›, October 2026, Week ▾; Today, ‹ ›, Week ▾ are small outlined buttons; \"▦ Calendar\", \"Today\", \"‹ ›\", \"October 2026\" sit together at the left, \"Week ▾\" pushed to the far right (747px gap)"
+   ],
+   [
+    "sidebar",
+    "an OPEN date-range picker floating over the page (a white panel; NOT page numbers): beside it a month calendar headed \"October 2026\" (centred): 7 columns of 30px day cells, 11 empty cells then days 1 to 31; the range ends \"23\" are filled #0b57d0 rounded cells with white numbers, the days between (19 to 25) a pale #d3e3fd band with dark numbers; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 49 of them, nothing invented, nothing left out): 100x44 at 16,76 16px rounded: 14px bold #1f1f1f \"+ Create\"; 208x15 at 16,140 13px bold #1f1f1f \"October 2026\"; 30x12 at 16,167 11px #757575 \"M\"; 30x12 at 46,167 11px #757575 \"T\"; 30x12 at 75,167 11px #757575 \"W\"; 30x12 at 105,167 11px #757575 \"T\"; 30x12 at 135,167 11px #757575 \"F\"; 30x12 at 165,167 11px #757575 \"S\"; 30x12 at 194,167 11px #757575 \"S\"; 30x12 at 105,185 11px #1f1f1f \"1\"; 30x12 at 135,185 11px #1f1f1f \"2\"; 30x12 at 165,185 11px #1f1f1f \"3\"; 30x12 at 194,185 11px #1f1f1f \"4\"; 30x12 at 16,203 11px #1f1f1f \"5\"; 30x12 at 46,203 11px #1f1f1f \"6\"; 30x12 at 75,203 11px #1f1f1f \"7\"; 30x12 at 105,203 11px #1f1f1f \"8\"; 30x12 at 135,203 11px #1f1f1f \"9\"; 30x12 at 165,203 11px #1f1f1f \"10\"; 30x12 at 194,203 11px #1f1f1f \"11\"; 30x12 at 16,221 11px #1f1f1f \"12\"; 30x12 at 46,221 11px #1f1f1f \"13\"; 30x12 at 75,221 11px #1f1f1f \"14\"; 30x12 at 105,221 11px #1f1f1f \"15\"; 30x12 at 135,221 11px #1f1f1f \"16\"; 30x12 at 165,221 11px #1f1f1f \"17\"; 30x12 at 194,221 11px #1f1f1f \"18\"; 30x12 at 16,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"19\"; 30x12 at 46,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"20\"; 30x12 at 75,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"21\"; 30x12 at 105,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"22\"; 30x12 at 135,239 #0b57d0 fill, pill ends: 11px #ffffff \"23\"; 30x12 at 165,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"24\"; 30x12 at 194,239 #d3e3fd fill, 4px rounded: 11px #1f1f1f \"25\"; 30x12 at 16,257 11px #1f1f1f \"26\"; 30x12 at 46,257 11px #1f1f1f \"27\"; 30x12 at 75,257 11px #1f1f1f \"28\"; 30x12 at 105,257 11px #1f1f1f \"29\"; 30x12 at 135,257 11px #1f1f1f \"30\"; 30x12 at 165,257 11px #1f1f1f \"31\"; 208x15 at 16,293 13px bold #1f1f1f \"My calendars\"; 208x25 at 16,316 13px #1f1f1f \"Work\"; 14x14 at 16,321 #0b57d0 fill, 3px rounded; 208x25 at 16,341 13px #1f1f1f \"Personal\"; 14x14 at 16,346 #0f9d58 fill, 3px rounded; 208x25 at 16,366 13px #1f1f1f \"Deadlines\"; 14x14 at 16,371 #f4511e fill, 3px rounded; 208x25 at 16,391 13px #1f1f1f \"Gym\"; 14x14 at 16,396 #8e24aa fill, 3px rounded"
+   ],
+   [
+    "week-grid",
+    "an invisible frame 1040x840px at 240,60 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 58 of them, nothing invented, nothing left out): 984x70 at 296,60 1px #1f1f1f border on the bottom only; 141x69 at 296,60 11px #444444 \"MON\"; 141x69 at 437,60 11px #444444 \"TUE\"; 141x69 at 577,60 11px #444444 \"WED\"; 141x69 at 718,60 11px #444444 \"THU\"; 141x69 at 858,60 11px #444444 \"FRI\"; 141x69 at 999,60 11px #444444 \"SAT\"; 141x69 at 1139,60 11px #444444 \"SUN\"; 42x42 at 916,74 #0b57d0 fill, a circle: 24px regular (NOT bold) #ffffff \"23\"; 141x28 at 296,86 24px regular (NOT bold) #444444 \"19\"; 141x28 at 437,86 24px regular (NOT bold) #444444 \"20\"; 141x28 at 577,86 24px regular (NOT bold) #444444 \"21\"; 141x28 at 718,86 24px regular (NOT bold) #444444 \"22\"; 141x28 at 999,86 24px regular (NOT bold) #444444 \"24\"; 141x28 at 1139,86 24px regular (NOT bold) #444444 \"25\"; 23x11 at 248,124 10px #757575 \"8 AM\"; 1040x770 at 240,130 repeating-linear-gradient(#e3e3e3 0px, #e3e3e3 1px, #000000 at 0% 1px, #000000 at 0% 64px); 132x64 at 581,162 #8e24aa fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"8:30 – 9:30\"; 115x16 at 591,166 12px bold #ffffff \"Gym\"; 23x11 at 248,188 10px #757575 \"9 AM\"; 132x60 at 300,194 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"9:00 – 9:45\"; 132x44 at 441,194 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded; 132x44 at 722,194 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded; 132x44 at 862,194 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded; 115x16 at 310,198 12px bold #ffffff \"Standup\"; 115x16 at 451,198 12px bold #ffffff \"Standup\"; 115x16 at 732,198 12px bold #ffffff \"Standup\"; 115x16 at 872,198 12px bold #ffffff \"Standup\"; 132x192 at 1003,226 #0f9d58 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"9:30 – 12:30\"; 115x16 at 1013,230 12px bold #ffffff \"Farmers market\"; 28x11 at 248,252 10px #757575 \"10 AM\"; 132x96 at 722,258 #0f9d58 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"10:00 – 11:30\"; 115x16 at 732,262 12px bold #ffffff \"Dentist\"; 132x96 at 1143,290 #8e24aa fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"10:30 – 12\"; 115x16 at 1153,294 12px bold #ffffff \"Long run\"; 28x11 at 248,316 10px #757575 \"11 AM\"; 132x120 at 300,322 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"11:00 – 12:45 Room 4B\"; 115x16 at 310,326 12px bold #ffffff \"Design review\"; 29x11 at 248,380 10px #757575 \"12 PM\"; 64x96 at 441,386 #f4511e fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"12–1:30\"; 47x31 at 451,390 12px bold #ffffff \"Q4 plan due\"; 65x96 at 508,418 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"12:30–2\"; 48x31 at 518,422 12px bold #ffffff \"1:1 Priya\"; 23x11 at 248,444 10px #757575 \"1 PM\"; 64x160 at 862,450 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"1–3:30\"; 47x31 at 872,454 12px bold #ffffff \"Offsite prep\"; 65x64 at 929,482 #f4511e fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"1:30\"; 48x16 at 939,486 12px bold #ffffff \"Ship r11\"; 23x11 at 248,508 10px #757575 \"2 PM\"; 132x128 at 581,514 #0b57d0 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"2:30 – 4:30 Zoom\"; 115x31 at 591,518 12px bold #ffffff \"Customer call: Acme\"; 23x11 at 248,572 10px #757575 \"3 PM\"; 23x11 at 248,636 10px #757575 \"4 PM\"; 23x11 at 248,700 10px #757575 \"5 PM\"; 132x110 at 862,706 #0f9d58 fill, 3px #ffffff border on the left only, 6px rounded: 11px #ffffff \"5:30 – 7:15\"; 115x16 at 872,710 12px bold #ffffff \"Dinner w/ Sam\"; 23x11 at 248,764 10px #757575 \"6 PM\"; 23x11 at 248,828 10px #757575 \"7 PM\""
+   ],
+   [
+    "now-line",
+    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text"
+   ]
+  ]
+ }
+}

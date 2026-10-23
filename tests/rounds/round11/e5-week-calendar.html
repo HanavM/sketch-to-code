@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Week calendar</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f1f1f;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;border-bottom:1px solid #e3e3e3;display:flex;align-items:center;gap:14px;padding:0 20px}.top b{font-size:20px;margin-right:30px}.top span{padding:7px 14px;border:1px solid #c4c7c5;border-radius:6px;font-size:13px}.top h2{font-size:20px;font-weight:400;margin-left:10px}.top .v{margin-left:auto}
+.sd{position:absolute;left:0;top:60px;width:240px;height:840px;padding:16px}.sd .cr{display:inline-block;padding:14px 22px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.3);font-weight:700;font-size:14px}
+.mm{margin-top:20px;display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:6px;font-size:11px}.mm h4{grid-column:1/8;text-align:left;font-size:13px;margin-bottom:6px}.mm .d{color:#757575}.mm .t{background:#0b57d0;color:#fff;border-radius:50%}.mm .w{background:#d3e3fd;border-radius:4px}
+.sd h5{margin:24px 0 8px;font-size:13px}.sd label{display:block;padding:5px 0;font-size:13px}.sd label i{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:10px;vertical-align:-2px}
+.grid{position:absolute;left:240px;top:60px;width:1040px;height:840px}
+.dh{position:absolute;left:56px;top:0;width:984px;height:70px;display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #e3e3e3}.dh div{text-align:center;padding-top:10px;color:#444;font-size:11px}.dh b{display:block;font-size:24px;font-weight:400;margin-top:4px}.dh .t b{display:inline-block;width:42px;height:42px;line-height:42px;border-radius:50%;background:#0b57d0;color:#fff}
+.hrs{position:absolute;left:0;top:70px;width:1040px;height:770px;background:repeating-linear-gradient(180deg,#e3e3e3 0 1px,transparent 1px 64px);}
+.hrs span{position:absolute;left:8px;font-size:10px;color:#757575}
+.vl{position:absolute;top:70px;height:770px;width:1px;background:#e3e3e3}
+.ev{position:absolute;border-radius:6px;padding:4px 7px;color:#fff;font-size:11px;line-height:1.3;border-left:3px solid rgba(0,0,0,.25)}.ev b{display:block;font-size:12px}
+.now{position:absolute;left:478px;top:358px;width:140px;height:2px;background:#ea4335}.now:before{content:'';position:absolute;left:-6px;top:-5px;width:12px;height:12px;border-radius:50%;background:#ea4335}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>▦ Calendar</b><span>Today</span><span>‹ ›</span><h2>October 2026</h2><span class="v">Week ▾</span></div>
+<div class="sd" data-r="sidebar" data-must><span class="cr">+ Create</span>
+<div class="mm"><h4>October 2026</h4><span class="d">M</span><span class="d">T</span><span class="d">W</span><span class="d">T</span><span class="d">F</span><span class="d">S</span><span class="d">S</span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span class="w">19</span><span class="w">20</span><span class="w">21</span><span class="w">22</span><span class="t">23</span><span class="w">24</span><span class="w">25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></div>
+<h5>My calendars</h5><label><i style="background:#0b57d0"></i>Work</label><label><i style="background:#0f9d58"></i>Personal</label><label><i style="background:#f4511e"></i>Deadlines</label><label><i style="background:#8e24aa"></i>Gym</label></div>
+<div class="grid" data-r="week-grid" data-must>
+<div class="dh"><div>MON<b>19</b></div><div>TUE<b>20</b></div><div>WED<b>21</b></div><div>THU<b>22</b></div><div class="t">FRI<b>23</b></div><div>SAT<b>24</b></div><div>SUN<b>25</b></div></div>
+<div class="hrs"><span style="top:-6px">8 AM</span><span style="top:58px">9 AM</span><span style="top:122px">10 AM</span><span style="top:186px">11 AM</span><span style="top:250px">12 PM</span><span style="top:314px">1 PM</span><span style="top:378px">2 PM</span><span style="top:442px">3 PM</span><span style="top:506px">4 PM</span><span style="top:570px">5 PM</span><span style="top:634px">6 PM</span><span style="top:698px">7 PM</span></div>
+<div class="vl" style="left:56px"></div><div class="vl" style="left:197px"></div><div class="vl" style="left:337px"></div><div class="vl" style="left:478px"></div><div class="vl" style="left:618px"></div><div class="vl" style="left:759px"></div><div class="vl" style="left:899px"></div>
+<div class="ev" style="left:60px;top:134px;width:132px;height:60px;background:#0b57d0"><b>Standup</b>9:00 – 9:45</div>
+<div class="ev" style="left:60px;top:262px;width:132px;height:120px;background:#0b57d0"><b>Design review</b>11:00 – 12:45<br>Room 4B</div>
+<div class="ev" style="left:201px;top:134px;width:132px;height:44px;background:#0b57d0"><b>Standup</b></div>
+<div class="ev" style="left:201px;top:326px;width:64px;height:96px;background:#f4511e"><b>Q4 plan due</b>12–1:30</div>
+<div class="ev" style="left:268px;top:358px;width:65px;height:96px;background:#0b57d0"><b>1:1 Priya</b>12:30–2</div>
+<div class="ev" style="left:341px;top:102px;width:132px;height:64px;background:#8e24aa"><b>Gym</b>8:30 – 9:30</div>
+<div class="ev" style="left:341px;top:454px;width:132px;height:128px;background:#0b57d0"><b>Customer call: Acme</b>2:30 – 4:30<br>Zoom</div>
+<div class="ev" style="left:482px;top:134px;width:132px;height:44px;background:#0b57d0"><b>Standup</b></div>
+<div class="ev" style="left:482px;top:198px;width:132px;height:96px;background:#0f9d58"><b>Dentist</b>10:00 – 11:30</div>
+<div class="ev" style="left:622px;top:134px;width:132px;height:44px;background:#0b57d0"><b>Standup</b></div>
+<div class="ev" style="left:622px;top:390px;width:64px;height:160px;background:#0b57d0"><b>Offsite prep</b>1–3:30</div>
+<div class="ev" style="left:689px;top:422px;width:65px;height:64px;background:#f4511e"><b>Ship r11</b>1:30</div>
+<div class="ev" style="left:622px;top:646px;width:132px;height:110px;background:#0f9d58"><b>Dinner w/ Sam</b>5:30 – 7:15</div>
+<div class="ev" style="left:763px;top:166px;width:132px;height:192px;background:#0f9d58"><b>Farmers market</b>9:30 – 12:30</div>
+<div class="ev" style="left:903px;top:230px;width:132px;height:96px;background:#8e24aa"><b>Long run</b>10:30 – 12</div>
+<div class="now" data-r="now-line"></div></div>
+</body></html>
