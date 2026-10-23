@@ -1,0 +1,125 @@
+c1-sliced-kinetic · marks 7 · words 86
+    nav          box     
+    sliced-word  box     
+    badge        circle  
+    copy         text    
+    cta          button  
+    index        text    
+    vertical-caption text    
+    note *: whole page: cream (#f3efe6, plainly not white) page, Helvetica type, near-black text
+    note nav: nav, no box around it: bold wide-spaced "SHEAR/STUDIO" left, "WORK — LAB — CONTACT" right
+    note sliced-word: "MOTION", lines cream "MOTION", red-orange "MOTION"
+    note badge: tilted 14° anticlockwise vivid red-orange circle with "NEW REEL 26"
+    note copy: text "We cut type apart and put it back moving. Identity systems for brands that refuse to sit still."
+    note cta: red-orange white text button "See the reel →"
+    note vertical-caption: wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 171px long "EST. 2014 — OSLO"
+c2-glass-layers · marks 5 · words 147
+    nav          box     
+    headline     heading 
+    sub          text    
+    cta          button  
+    glass-stack  text    
+    note *: whole page: near-black (#0b1020) page, Helvetica type, white text
+    note nav: nav, no box around it: bold "prism" left, "Features · Pricing · Changelog · Log in" right
+    note headline: huge Helvetica tight-set letters lines set tight (line-height 1) "Money, seen clearly.", the words "clearly." filled with a pale pink #f9a8d4 (left) to sky blue #67e8f9 (right) gradient (gradient text), the rest plain, set in exactly 2 lines: "Money, seen" / "clearly." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)
+    note sub: light grey text "Every account, card and invoice on one calm, translucent dashboard."
+    note cta: white near-black text button "Get early access"
+    note glass-stack: a contents list, no box, no card: bold dark "Balance $48,210" heading, then 3 small 13px light grey (#e2e8f0) links, one per line, plain text (not buttons): "Next payout", "Fri, 12:00", "● On schedule"
+c3-mask-bento · marks 6 · words 85
+    clip-type-tile box     
+    hole-tile    image   
+    ring-tile    box     
+    stripe-tile  box     
+    notch-tile   box     
+    list-tile    image   
+    note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
+    note clip-type-tile: near-black block; huge 200px bold title: "FLUX", text "Gradient-filled type clipped to the word, on ink."
+    note hole-tile: picture with "Punch-through layouts"
+    note ring-tile: white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold "78%" in the middle
+    note stripe-tile: near-black to white gradient "BETA"
+    note notch-tile: vivid purple "Cut corners on purpose."
+    note list-tile: picture with "This week Brand refresh 12 tasks Launch"…
+c4-halftone-poster · marks 6 · words 142
+    top-bar      box     
+    halftone-sun box     
+    headline     heading 
+    info-row     text    
+    cta          button  
+    stamp        circle  
+    note *: whole page: indigo (#1d3fbb) page, Helvetica type, white text
+    note top-bar: bar 32px tall across the top, thick line under: bold wide-spaced "SOLSTICE FEST" left, "LINE-UP · TICKETS · MAP" right
+    note headline: giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) "Longest day of the year", set in exactly 3 lines: "Longest" / "day of" / "the year" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 447px wide)
+    note info-row: 3 columns side by side, 60px apart, each a small bold 30px head over 15px text (each column 75px wide, its text on ONE line, no wrap): "21.06" over "Saturday"; "3 stages" over "40 artists"; "Riverside" over "Gates 14:00"
+    note cta: yellow indigo text button "Get tickets"
+    note stamp: tilted 12° clockwise white outline circle with "SOLD OUT SOON ★"
+c5-vertical-editorial · marks 7 · words 78
+    vertical-title heading 
+    striped-image box     
+    byline       box     
+    kicker       text    
+    pull-quote   text    
+    body-columns text    
+    marquee      text    
+    note *: whole page: warm paper (#ece7dc) page, Georgia type, near-black text
+    note vertical-title: vertical giant Georgia serif tight-set letters red "Red Season"
+    note striped-image: near-black to red gradient "FIG. 1 — KILN, 05:40"
+    note byline: near-black border "WORDS ANNA ROSS", text "ISSUE 09 / 2026"
+    note kicker: 13px wide-spaced letters red "№ 04 — CRAFT"
+    note pull-quote: heading 220px #b8321f "“", then 0px under it 44px #1a1a1a text "The clay remembers every hand that ever doubted it."; the block 500px wide, its top-left at 720,40
+    note marquee: "FIRE" left, "FIRE" right
+e1-spreadsheet · marks 7 · words 218
+    title-bar    text    
+    toolbar      box     
+    formula-bar  text    
+    column-headers box     
+    row-numbers  box     
+    cell-grid    box     
+    sheet-tabs   box     
+    note toolbar: pale blue-grey bar 40px tall across the page, links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, A̲; all of these sit together at the LEFT, one after another, ending 414px in (the right 67% of the bar is empty, nothing pushed right)
+    note formula-bar: "F4" left, "fx =SUM(B4:E4)" right
+    note column-headers: pale grey bar 24px tall across the page, links: A, B, C, D, E, F, G, H; "F" selected (bold, blue text, light grey fill)
+    note row-numbers: pale grey card page numbers "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"
+    note cell-grid: "North" "12,400" "13,950" "15,200" "16,780" "58,330" "+35%" "Lena" "South" "9,800" "9,450" "10,120" "11,300" "40,670" "+15%" "Omar" "East" "14,200" "15,800" "14,900" "17,600" "62,500" "+24%" "Kai" "West" "8,300" "8,900" "9,700" "10,450" "37,350" "+26%" "Ruth" "Central" "11,050" "11,600" "12,300" "12,900" "47,850" "+17%" "Ivo" "Online" "6,400" "8,200" "10,900" "14,300" "39,800" "+123%" "Mia" "Partners" "3,900" "4,100" "4,350" "4,800" "17,150" "+23%" "Sam" "Total" "66,050" "72,000" "77,470" "88,130" "303,650" "+33%" list: "Region", "Q1", "Q2", "Q3", "Q4", "Total", "Growth", "Owner"
+    note sheet-tabs: pale grey bar 40px tall across the page, links: ＋, Sales, Targets, Notes; "Sales" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 346px in (the right 73% of the bar is empty, nothing pushed right)
+e2-map-listings · marks 5 · words 49
+    top-bar      text    
+    filters      box     
+    listing-grid box     
+    map          box     
+    zoom         text    
+    note filters: buttons: "Price", "Type of place", "Rooms", "Instant book", "More filters"; 5 equal 70x36px rounded outlined boxes in one row; "Price" is the picked one (2px near-black border, bold, the others a thin light grey border)
+    note listing-grid: list: "Guest favourite", "Chiado studio★ 4.81", "New", "Graça terrace★ 4.77"
+    note map: pale blue-grey
+    note zoom: "+ −"
+e3-thread-chat · marks 4 · words 200
+    sidebar      box     
+    channel      box     
+    composer     box     
+    thread-panel box     
+    note sidebar: dark plum block, lavender text "Northwind ▾" "▾ Channels" "# design" "▾ Direct messages" "Priya Shah" "Tom Becker" "Ana Lima" list: "# general", "# launch-q4", "# random"; "# launch-q4" highlighted (#1164a3 square fill, #ffffff text)
+    note channel: header "# launch-q4 · 14 members" with a thin line under it, then 3 chat messages stacked top-down (no bubbles), each a 36px rounded square avatar left, bold name then small grey time on one line, message text under: bright orange avatar, "Priya Shah" 9:41 AM: "Final hero copy is in the doc. Can design check the line breaks on"…, small chip "👍 4" under it, small chip "👀 2" under it; green avatar, "Tom Becker" 10:15 AM: "Staging is updated. Pricing table now pulls from the new plans API."; blue avatar, "Ana Lima" 10:22 AM: "Load test passed at 4k rps. Graphs attached 📈", small chip "🎉 6" under it
+    note composer: "Message #launch-q4"
+    note thread-panel: "Thread ✕" list of 4 rows, name left and time right on one line, grey line under: "Priya Shah" 9:41 AM "Final hero copy is in the"…, "Tom Becker" 9:50 AM "Second line wraps after"…, "Ana Lima" 9:58 AM "Swapped to “Ship”. Fits on"…, "Priya Shah" 10:02 AM "Perfect, locking it 🔒"
+e4-flight-results · marks 4 · words 145
+    search-bar   box     
+    filters      box     
+    sort-tabs    box     
+    results      box     
+    note *: whole page: pale blue-grey (#f1f5f9, plainly not white) page, Helvetica type, dark navy text
+    note search-bar: dark teal bar, white text list: "London (LHR)", "⇄", "Tokyo (HND)", "Thu 12 Nov – Sun 22"…, 1 more
+    note filters: white panel 280x750px: an inspector, 4 sections top to bottom, each a small bold caps heading then its fields; every [field] is a filled #0369a1 box 4px rounded, about 28px tall, its value in small dark text inside at the left (NOT bare text, NOT outlined inputs): "Stops": [""] full width, then [""] full width; "Departure time": [""] [""] side by side, equal widths; "Airlines": [""] full width, then [""] full width; "Bags": [""] full width
+    note sort-tabs: white card list: "Best" £612 · 15h 40m, "Cheapest" £541 · 22h 05m, "Fastest" £812 · 13h 50m; "Best" highlighted (#f0f9ff square fill, #0f172a text)
+    note results: list: "Best value", "11:30LHR13h"… £812, "17:05LHR17h 10m1"… £598, "21:40LHR22h 05m2"… £541
+e5-billing-usage · marks 6 · words 212
+    side-nav     box     
+    title        heading 
+    tabs         text    
+    plan-cards   text    
+    usage-meters box     
+    invoice-table box     
+    note side-nav: pale grey card "◆ Orbit" list: "Overview", "Projects", "Team", "Integrations", "Billing", "Settings"; "Billing" highlighted (#eef2ff rounded fill, #4338ca text); list rows exactly 36px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top
+    note title: "Billing", 26px bold type on one line, its box top 32px from the page top and 31px tall (top-[32px] or the same margin, line-height 31px; not higher)
+    note tabs: links: Plan & usage, Payment methods, Invoices, Tax; "Plan & usage" selected (bold, indigo text, indigo underline); all of these sit together at the LEFT, one after another, ending 358px in (the right 63% of the bar is empty, nothing pushed right)
+    note plan-cards: 3 columns side by side, 25px apart, each a small bold 16px head over 14px text: "Starter" over "$0 /mo 3 projects 1 GB storage Downgrade"; "Current" over "Team $49 /mo Unlimited projects 100 GB storage Manage plan"; "Enterprise" over "Custom SSO & audit log Dedicated support Contact sales"
+    note usage-meters: list: "Seats" 8 of 10, "Storage", "API calls" 941k of 1M
+    note invoice-table: list: "INVOICE" DATE, "INV-2026-010" Oct 1, 2026, "INV-2026-009" Sep 1, 2026, "INV-2026-008" Aug 1, 2026, "INV-2026-007" Jul 1, 2026; "INVOICE" highlighted (#f9fafb square fill, #6b7280 text); list rows exactly 49px apart (42px tall, 12px type: tight, not roomier), first line 1px below the panel's top

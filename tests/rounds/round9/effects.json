@@ -1,0 +1,132 @@
+{
+ "c1-sliced-kinetic": {
+  "found": {
+   "huge-type": 3,
+   "tilt": 1,
+   "mono": 8,
+   "vertical-type": 1,
+   "overlap": 8
+  },
+  "names": [
+   "huge-type",
+   "mono",
+   "overlap",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c2-glass-layers": {
+  "found": {
+   "gradient-text": 1,
+   "blur": 3,
+   "glass": 3,
+   "soft-shadow": 3,
+   "overlap": 41
+  },
+  "names": [
+   "blur",
+   "glass",
+   "gradient-text",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "c3-mask-bento": {
+  "found": {
+   "gradient-text": 1,
+   "huge-type": 1,
+   "gradient": 1,
+   "stripes-or-layers": 1,
+   "clip-shape": 1
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "stripes-or-layers"
+  ]
+ },
+ "c4-halftone-poster": {
+  "found": {
+   "gradient": 1,
+   "huge-type": 1,
+   "serif": 1,
+   "italic": 1,
+   "tilt": 1,
+   "overlap": 4
+  },
+  "names": [
+   "gradient",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "c5-vertical-editorial": {
+  "found": {
+   "vertical-type": 1,
+   "huge-type": 2,
+   "serif": 5,
+   "stripes-or-layers": 1,
+   "italic": 1,
+   "hollow-type": 1,
+   "bleed": 1
+  },
+  "names": [
+   "bleed",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "serif",
+   "stripes-or-layers",
+   "vertical-type"
+  ]
+ },
+ "e1-spreadsheet": {
+  "found": {
+   "italic": 1,
+   "mono": 2
+  },
+  "names": [
+   "italic",
+   "mono"
+  ]
+ },
+ "e2-map-listings": {
+  "found": {
+   "soft-shadow": 7,
+   "gradient": 4,
+   "overlap": 2
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e3-thread-chat": {
+  "found": {},
+  "names": []
+ },
+ "e4-flight-results": {
+  "found": {
+   "overlap": 3
+  },
+  "names": [
+   "overlap"
+  ]
+ },
+ "e5-billing-usage": {
+  "found": {
+   "italic": 4,
+   "overlap": 1
+  },
+  "names": [
+   "italic",
+   "overlap"
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Thread chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1d1c1d;font-size:14px}
+.side{position:absolute;left:0;top:0;width:250px;height:900px;background:#3f0e40;color:#cfc3cf;padding:18px 0}
+.side h2{color:#fff;font-size:18px;padding:0 18px 16px;border-bottom:1px solid #5a2d5b}
+.side .sec{padding:18px 18px 6px;font-size:13px}.side a{display:block;padding:6px 26px}.side a.on{background:#1164a3;color:#fff;font-weight:700}.side a.un{color:#fff;font-weight:700}
+.side .dm i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#2bac76;margin-right:8px}
+.main{position:absolute;left:250px;top:0;width:620px;height:900px}
+.hd{height:60px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 20px;gap:10px}.hd b{font-size:17px}
+.msg{position:absolute;left:20px;width:580px;display:flex;gap:10px}.msg .a{width:36px;height:36px;border-radius:8px;flex:none}
+.msg b{font-size:15px}.msg small{color:#616061;margin-left:6px}.msg p{margin-top:3px;line-height:1.45}
+.rx{display:flex;gap:6px;margin-top:6px}.rx span{padding:2px 8px;border-radius:12px;border:1px solid #ddd;background:#f8f8f8;font-size:12px}.rx .me{border-color:#1164a3;background:#e8f5fa}
+.th{margin-top:6px;color:#1164a3;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}.th i{width:20px;height:20px;border-radius:4px}
+.comp{position:absolute;left:20px;top:790px;width:580px;height:90px;border:1px solid #bbb;border-radius:8px;padding:12px;color:#888}
+.comp .send{position:absolute;right:10px;bottom:10px;width:34px;height:30px;border-radius:4px;background:#007a5a}
+.thread{position:absolute;left:870px;top:0;width:410px;height:900px;border-left:1px solid #ddd;background:#fff}
+.thread .hd{justify-content:space-between}
+.sep{position:absolute;left:20px;width:370px;font-size:12px;color:#616061;display:flex;align-items:center;gap:10px}.sep::after{content:"";flex:1;height:1px;background:#ddd}
+.thread .msg{width:370px}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><h2>Northwind ▾</h2><div class="sec">▾ Channels</div><a># general</a><a class="on"># launch-q4</a><a class="un"># design</a><a># random</a><div class="sec">▾ Direct messages</div><a class="dm"><i></i>Priya Shah</a><a class="dm"><i style="background:none;border:1.5px solid #cfc3cf"></i>Tom Becker</a><a class="dm"><i></i>Ana Lima</a></div>
+<div class="main" data-r="channel" data-must><div class="hd"><b># launch-q4</b><span style="color:#616061">· 14 members</span></div>
+<div class="msg" style="top:84px"><i class="a" style="background:#e8912d"></i><div><b>Priya Shah</b><small>9:41 AM</small><p>Final hero copy is in the doc. Can design check the line breaks on mobile before we lock it?</p><div class="rx"><span class="me">👍 4</span><span>👀 2</span></div><div class="th"><i style="background:#2bac76"></i><i style="background:#1164a3"></i>3 replies · Last reply 10:02 AM</div></div></div>
+<div class="msg" style="top:250px"><i class="a" style="background:#2bac76"></i><div><b>Tom Becker</b><small>10:15 AM</small><p>Staging is updated. Pricing table now pulls from the new plans API.</p></div></div>
+<div class="msg" style="top:340px"><i class="a" style="background:#1164a3"></i><div><b>Ana Lima</b><small>10:22 AM</small><p>Load test passed at 4k rps. Graphs attached 📈</p><div class="rx"><span>🎉 6</span></div></div></div>
+<div class="comp" data-r="composer">Message #launch-q4<i class="send"></i></div></div>
+<div class="thread" data-r="thread-panel" data-must><div class="hd"><b>Thread</b><span style="color:#616061">✕</span></div>
+<div class="msg" style="top:80px"><i class="a" style="background:#e8912d"></i><div><b>Priya Shah</b><small>9:41 AM</small><p>Final hero copy is in the doc. Can design check the line breaks on mobile?</p></div></div>
+<div class="sep" style="top:200px">3 replies</div>
+<div class="msg" style="top:230px"><i class="a" style="background:#2bac76"></i><div><b>Tom Becker</b><small>9:50 AM</small><p>Second line wraps after “your”. Suggest a shorter verb.</p></div></div>
+<div class="msg" style="top:320px"><i class="a" style="background:#1164a3"></i><div><b>Ana Lima</b><small>9:58 AM</small><p>Swapped to “Ship”. Fits on 360px now.</p></div></div>
+<div class="msg" style="top:410px"><i class="a" style="background:#e8912d"></i><div><b>Priya Shah</b><small>10:02 AM</small><p>Perfect, locking it 🔒</p></div></div>
+<div class="comp" style="width:370px">Reply…<i class="send"></i></div></div>
+</body></html>

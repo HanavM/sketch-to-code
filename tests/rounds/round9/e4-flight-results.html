@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Flight results</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f1f5f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:14px}
+.hd{position:absolute;left:0;top:0;width:1280px;height:96px;background:#0c4a6e;color:#fff;padding:20px 40px}
+.hd .q{display:flex;gap:12px;margin-top:4px}.hd .q span{padding:12px 18px;border-radius:8px;background:#fff;color:#0f172a;font-weight:700}.hd .q .s{background:#f59e0b}
+.side{position:absolute;left:40px;top:120px;width:280px;height:750px;background:#fff;border-radius:12px;padding:20px}
+.side h4{font-size:15px;margin:18px 0 10px}.side h4:first-child{margin-top:0}
+.ck{display:flex;align-items:center;gap:10px;padding:5px 0}.ck i{width:18px;height:18px;border-radius:4px;border:1.5px solid #94a3b8}.ck i.on{background:#0369a1;border-color:#0369a1}.ck s{margin-left:auto;text-decoration:none;color:#64748b}
+.rng{position:relative;height:30px;margin-top:6px}.rng .tr{position:absolute;left:0;top:13px;width:240px;height:4px;border-radius:2px;background:#e2e8f0}.rng .fl{position:absolute;left:40px;top:13px;width:130px;height:4px;background:#0369a1}
+.rng .k{position:absolute;top:5px;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0369a1}
+.sort{position:absolute;left:340px;top:120px;width:900px;height:64px;background:#fff;border-radius:12px;display:flex;overflow:hidden}
+.sort div{flex:1;padding:12px 20px;border-right:1px solid #e2e8f0}.sort div b{display:block}.sort div span{color:#64748b;font-size:13px}.sort .on{border-bottom:4px solid #0369a1;background:#f0f9ff}
+.res{position:absolute;left:340px;width:900px;height:140px;background:#fff;border-radius:12px;display:flex;align-items:center;padding:0 24px}
+.al{width:44px;height:44px;border-radius:10px}.leg{margin-left:24px;width:440px;display:flex;align-items:center;gap:14px}
+.leg .t{font-size:22px;font-weight:700}.leg .t small{display:block;font-size:13px;color:#64748b;font-weight:400}
+.line{flex:1;position:relative;height:30px;text-align:center;font-size:12px;color:#64748b}.line::before{content:"";position:absolute;left:0;right:0;top:20px;border-top:2px solid #cbd5e1}.line i{position:absolute;left:50%;top:15px;width:10px;height:10px;border-radius:50%;background:#f59e0b;margin-left:-5px}
+.pr{margin-left:auto;text-align:right}.pr b{display:block;font-size:24px}.pr a{display:inline-block;margin-top:8px;padding:10px 22px;border-radius:8px;background:#0369a1;color:#fff;font-weight:700}
+.tag{position:absolute;left:24px;top:-10px;padding:3px 10px;border-radius:6px;background:#16a34a;color:#fff;font-size:12px;font-weight:700}
+</style></head><body>
+<div class="hd" data-r="search-bar" data-must><div class="q"><span>London (LHR)</span><span>⇄</span><span>Tokyo (HND)</span><span>Thu 12 Nov – Sun 22 Nov</span><span>1 adult · Economy</span><span class="s">Search</span></div></div>
+<div class="side" data-r="filters" data-must><h4>Stops</h4><div class="ck"><i class="on"></i>Direct<s>£812</s></div><div class="ck"><i class="on"></i>1 stop<s>£598</s></div><div class="ck"><i></i>2+ stops<s>£541</s></div>
+<h4>Departure time</h4><div class="rng"><div class="tr"></div><div class="fl"></div><i class="k" style="left:30px"></i><i class="k" style="left:160px"></i></div><div style="display:flex;justify-content:space-between;color:#64748b;font-size:13px;width:240px"><span>06:00</span><span>18:00</span></div>
+<h4>Airlines</h4><div class="ck"><i class="on"></i>Aurora Air</div><div class="ck"><i class="on"></i>Kumo Airways</div><div class="ck"><i></i>Northline</div><div class="ck"><i></i>Sakura Jet</div>
+<h4>Bags</h4><div class="ck"><i class="on"></i>Cabin bag included</div><div class="ck"><i></i>Checked bag included</div></div>
+<div class="sort" data-r="sort-tabs"><div class="on"><b>Best</b><span>£612 · 15h 40m</span></div><div><b>Cheapest</b><span>£541 · 22h 05m</span></div><div><b>Fastest</b><span>£812 · 13h 50m</span></div></div>
+<div data-r="results" data-must style="position:absolute;left:340px;top:200px;width:900px;height:640px">
+<div class="res" style="left:0;top:10px"><span class="tag">Best value</span><i class="al" style="background:#7c3aed"></i><div class="leg"><div class="t">09:15<small>LHR</small></div><div class="line">15h 40m<i></i><br><br>1 stop HEL</div><div class="t">10:55<small>HND +1</small></div></div><div class="pr"><b>£612</b><a>Select</a></div></div>
+<div class="res" style="left:0;top:170px"><i class="al" style="background:#dc2626"></i><div class="leg"><div class="t">11:30<small>LHR</small></div><div class="line">13h 50m<br><br>Direct</div><div class="t">08:20<small>HND +1</small></div></div><div class="pr"><b>£812</b><a>Select</a></div></div>
+<div class="res" style="left:0;top:330px"><i class="al" style="background:#0891b2"></i><div class="leg"><div class="t">17:05<small>LHR</small></div><div class="line">17h 10m<i></i><br><br>1 stop DXB</div><div class="t">19:15<small>HND +1</small></div></div><div class="pr"><b>£598</b><a>Select</a></div></div>
+<div class="res" style="left:0;top:490px"><i class="al" style="background:#ea580c"></i><div class="leg"><div class="t">21:40<small>LHR</small></div><div class="line">22h 05m<i style="margin-left:-25px"></i><i style="margin-left:15px"></i><br><br>2 stops</div><div class="t">04:45<small>HND +2</small></div></div><div class="pr"><b>£541</b><a>Select</a></div></div>
+</div>
+</body></html>

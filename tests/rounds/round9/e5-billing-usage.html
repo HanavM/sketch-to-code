@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Billing usage</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;font-size:14px}
+.nav{position:absolute;left:0;top:0;width:220px;height:900px;border-right:1px solid #e5e7eb;background:#f9fafb;padding:24px 16px}
+.nav b{display:block;font-size:17px;margin-bottom:26px}.nav a{display:block;padding:9px 12px;border-radius:8px;color:#4b5563;margin-bottom:2px}.nav a.on{background:#eef2ff;color:#4338ca;font-weight:700}
+h1{position:absolute;left:260px;top:32px;font-size:26px}
+.tabs{position:absolute;left:260px;top:80px;width:980px;display:flex;gap:28px;border-bottom:1px solid #e5e7eb}.tabs span{padding:10px 0;color:#6b7280}.tabs .on{color:#4338ca;border-bottom:2px solid #4338ca;font-weight:700}
+.plan{position:absolute;top:144px;width:310px;height:230px;border:1px solid #e5e7eb;border-radius:14px;padding:22px}
+.plan h3{font-size:16px}.plan .p{font-size:34px;font-weight:800;margin-top:8px}.plan .p small{font-size:14px;color:#6b7280;font-weight:400}
+.plan ul{list-style:none;padding:0;margin-top:12px;color:#4b5563;line-height:1.8}.plan .btn{position:absolute;left:22px;bottom:20px;width:266px;padding:10px;border-radius:8px;border:1px solid #d1d5db;text-align:center;font-weight:700}
+.plan.cur{border:2px solid #4338ca;background:#fafaff}.plan.cur .btn{background:#4338ca;color:#fff;border-color:#4338ca}
+.plan .cb{position:absolute;right:18px;top:18px;padding:3px 10px;border-radius:999px;background:#e0e7ff;color:#4338ca;font-size:12px;font-weight:700}
+.usage{position:absolute;left:260px;top:400px;width:980px;height:150px;border:1px solid #e5e7eb;border-radius:14px;padding:22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px}
+.usage h4{font-size:14px;color:#6b7280;font-weight:400}.usage b{display:block;font-size:20px;margin-top:6px}.usage b small{font-size:13px;color:#6b7280;font-weight:400}
+.m{height:8px;border-radius:4px;background:#e5e7eb;margin-top:12px}.m i{display:block;height:8px;border-radius:4px;background:#4338ca}
+.inv{position:absolute;left:260px;top:576px;width:980px;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden}
+.inv .r{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 80px;padding:14px 22px;border-top:1px solid #f3f4f6;align-items:center}.inv .r:first-child{border:0;background:#f9fafb;color:#6b7280;font-size:12px;letter-spacing:1px}
+.pd{display:inline-block;padding:3px 10px;border-radius:999px;background:#dcfce7;color:#15803d;font-size:12px;font-weight:700}.pd.d{background:#fef3c7;color:#b45309}
+</style></head><body>
+<div class="nav" data-r="side-nav"><b>◆ Orbit</b><a>Overview</a><a>Projects</a><a>Team</a><a>Integrations</a><a class="on">Billing</a><a>Settings</a></div>
+<h1 data-r="title">Billing</h1>
+<div class="tabs" data-r="tabs"><span class="on">Plan &amp; usage</span><span>Payment methods</span><span>Invoices</span><span>Tax</span></div>
+<div data-r="plan-cards" data-must style="position:absolute;left:260px;top:144px;width:980px;height:230px">
+<div class="plan" style="left:0;top:0"><h3>Starter</h3><div class="p">$0<small> /mo</small></div><ul><li>3 projects</li><li>1 GB storage</li></ul><div class="btn">Downgrade</div></div>
+<div class="plan cur" style="left:335px;top:0"><span class="cb">Current</span><h3>Team</h3><div class="p">$49<small> /mo</small></div><ul><li>Unlimited projects</li><li>100 GB storage</li></ul><div class="btn">Manage plan</div></div>
+<div class="plan" style="left:670px;top:0"><h3>Enterprise</h3><div class="p">Custom</div><ul><li>SSO &amp; audit log</li><li>Dedicated support</li></ul><div class="btn">Contact sales</div></div></div>
+<div class="usage" data-r="usage-meters" data-must><div><h4>Seats</h4><b>8 <small>of 10</small></b><div class="m"><i style="width:80%"></i></div></div><div><h4>Storage</h4><b>62.4 GB <small>of 100 GB</small></b><div class="m"><i style="width:62%"></i></div></div><div><h4>API calls</h4><b>941k <small>of 1M</small></b><div class="m"><i style="width:94%;background:#dc2626"></i></div></div></div>
+<div class="inv" data-r="invoice-table" data-must>
+<div class="r"><span>INVOICE</span><span>DATE</span><span>AMOUNT</span><span>STATUS</span><span></span></div>
+<div class="r"><span>INV-2026-010</span><span>Oct 1, 2026</span><span>$49.00</span><span><i class="pd d">Due</i></span><span style="color:#4338ca">PDF</span></div>
+<div class="r"><span>INV-2026-009</span><span>Sep 1, 2026</span><span>$49.00</span><span><i class="pd">Paid</i></span><span style="color:#4338ca">PDF</span></div>
+<div class="r"><span>INV-2026-008</span><span>Aug 1, 2026</span><span>$49.00</span><span><i class="pd">Paid</i></span><span style="color:#4338ca">PDF</span></div>
+<div class="r"><span>INV-2026-007</span><span>Jul 1, 2026</span><span>$29.00</span><span><i class="pd">Paid</i></span><span style="color:#4338ca">PDF</span></div></div>
+</body></html>
