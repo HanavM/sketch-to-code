@@ -1,0 +1,194 @@
+{
+  "id": "c1-orbit-type",
+  "at": "2026-10-23T19:49:33.748Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5786454790247562,
+    "overallV2": 0.5786454790247562,
+    "overallV1": 0.5085393119954262,
+    "colour": 0.9690570397394913,
+    "structure": 0.7464036911565882,
+    "structureStrict": 0.6629462067203779,
+    "colourAligned": 0.9690570397394913,
+    "structureAligned": 0.7464036911565882,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.7801255549757901
+    },
+    "layout": 0.5833849858094908
+  },
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 47288,
+    "output": 34953,
+    "cacheRead": 221012
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50197,
+      "output": 20492,
+      "cacheRead": 209997,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 235236
+    }
+  ],
+  "reading": "A landing-page hero sketch: a thin top rule for an un-boxed nav row, a two-line wavy placeholder for a giant 'Type in orbit' headline, two more wavy lines for a body paragraph, a pill button, a large circular composition on the right (inner ring read as a donut chart, a small center mark for a '26 label, and the big outer circle as a spinning circular text ring), and a bottom rule for a footer border. Typed notes give exact copy, colors and sizing for every piece.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "At the very top of the page add a navigation row with no box around it: bold, wide letter-spaced 'ORBIT STUDIO' on the left and 'WORK · INDEX · CONTACT' on the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 89
+        }
+      ],
+      "region": [
+        68,
+        200,
+        504,
+        197
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline, tightly set (line-height 0.88), reading 'Type in orbit', broken into exactly two lines — 'Type in' / 'orbit' — keeping these lin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        68,
+        560,
+        372,
+        51
+      ],
+      "paths": [],
+      "instruction": "Dark grey (#4a4a4a, not the page's near-black text) body copy below the headline, reading: 'A type foundry that sets letters on curves, rings and spirals. Fourt"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        66,
+        681,
+        197,
+        50
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Amber pill button labelled 'See the specimens' (fill #ffb000, text #141414, 200×52px, fully rounded pill ends), with a hard, solid, opaque near-black shadow off"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        564,
+        124,
+        633,
+        632
+      ],
+      "paths": [
+        "s6",
+        "s8"
+      ],
+      "instruction": "On the right, a 640×640px circular composition: centered inside it a 300px donut chart (ring 70px thick, hollow cream middle), segments running clockwise from t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        843,
+        1152,
+        21
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Near-black bottom border/footer bar spanning the full width of the page, reading 'EST. 2011 — LISBON   ORBIT/14   SCROLL ↓'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

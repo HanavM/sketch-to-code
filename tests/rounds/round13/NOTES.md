@@ -21,3 +21,19 @@ Measured: blank page scores 12-98% colour / 10-79% structure. Untuned planner mi
 - e1: the spreadsheet grid said as a bare "table, 12 rows" (no cells, no selection, no active cell);
 - e2: the track table said as mail rows (sender, subject, preview);
 - e4: the four video tiles said as one filled button and a list.
+
+## n148: first live builds c1, c2, c3, e1, e2 (2026-10-23, ~292k billed)
+
+| page | likeness | what was off |
+|---|---|---|
+| c1 orbit type | **58%** | headline, italic orange word, copy, hard-shadow pill right; the conic ring built as a flat orange donut; the circle text broken into a partial arc off to the right; footer rule lost |
+| c2 liquid chrome | **78%** | first build; see the side-by-side (blob said as "stripes circle") |
+| c3 card fan | **74%** | first build; subcopy lost |
+| e1 spreadsheet | **54%** | chrome, toolbar, formula bar, headers, tabs right; every cell's words lost and four numbers invented in column D (the grid was said only as "table, 12 rows") |
+| e2 music player | **80%** | first build; track table said as mail rows |
+
+Round 13 so far: **69%** over 5 pages (c4, c5, e3, e4, e5 not built yet). Vitest: same 2 env failures; typecheck clean.
+Next (planner, free first): a conic gradient ring said as a conic gradient with a hole (never a donut chart); text on a
+circle kept whole (one SVG textPath all the way round); a spreadsheet grid said cell by cell with the header row, the
+selected range and the outlined active cell; the chrome blob and chrome headline said as their gradients; track rows
+said as a track table; then first builds c4, c5, e3, e4, e5.

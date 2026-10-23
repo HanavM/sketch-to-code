@@ -1,0 +1,154 @@
+{
+  "id": "e1-spreadsheet",
+  "at": "2026-10-23T20:03:16.131Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5398877373264078,
+    "overallV2": 0.5398877373264078,
+    "overallV1": 0.4708420162869761,
+    "colour": 0.9901914987932844,
+    "structure": 0.8497907868642756,
+    "structureStrict": 0.8077025097271703,
+    "colourAligned": 0.9901914987932844,
+    "structureAligned": 0.8497907868642756,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6141656647296725
+    },
+    "layout": 0.9472248105456916
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "italic"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 26451,
+    "output": 15701,
+    "cacheRead": 153733
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 34772,
+      "output": 11971,
+      "cacheRead": 150649,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 129836
+    }
+  ],
+  "reading": "The sketch lays out a spreadsheet web-app page: a top title bar (logo, \"Q3 Budget\", menu, Share pill), a toolbar strip with formatting icons, a formula bar showing the active cell and formula, a large data grid with lettered columns and 12 rows, and a bottom sheet-tab bar (New, Budget, Hiring, Notes tabs plus a running sum) pinned to the bottom of the page. All content/colour details come from the user's typed notes, which take precedence over the raw ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        46
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it; only these parts in it, NO other heading or title i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        55,
+        1273,
+        66
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Pale grey toolbar, 40px tall, across the page, sitting right below the top bar; icons/links: ↶, ↷, 100%, $, %, .0, B, I; \"B\" selected (light grey fill); all of "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        55,
+        1273,
+        66
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Formula bar, 32px tall, thin line under it: bold \"D7\" at the left, \"fx =SUM(D3:D6)\" at the right; each word in its own colour: \"D7\" #1f2937, \"fx =SUM(D3:D6)\" #6"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        127,
+        1274,
+        359
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Spreadsheet data table/grid filling the large box, with columns \"\" (row-number gutter), \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", and 12 rows."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        863,
+        1272,
+        34
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Pale grey sheet-tab bar, 40px tall, across the page, pinned to the very BOTTOM of the page (top 860, its bottom edge flush with the page's bottom edge, position"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        1187,
+        874,
+        73,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px status text \"Sum: 290,300\" placed at the far right of the bottom sheet-tab bar."
+    }
+  ],
+  "rejected": []
+}

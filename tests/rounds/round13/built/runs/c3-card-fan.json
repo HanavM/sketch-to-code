@@ -1,0 +1,227 @@
+{
+  "id": "c3-card-fan",
+  "at": "2026-10-23T19:59:32.095Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7352979739149681,
+    "overallV2": 0.7352979739149681,
+    "overallV1": 0.704185773372016,
+    "colour": 0.9492831243874088,
+    "structure": 0.7375617011526128,
+    "structureStrict": 0.6712757981541448,
+    "colourAligned": 0.9492831243874088,
+    "structureAligned": 0.7375617011526128,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.3730837319997245
+    },
+    "layout": 0.6036905415658502
+  },
+  "effects": {
+    "recall": 0.375,
+    "kept": [
+      "italic",
+      "overlap",
+      "serif"
+    ],
+    "missing": [
+      "3d",
+      "gradient",
+      "hard-shadow",
+      "soft-shadow",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 31224,
+    "output": 21423,
+    "cacheRead": 199555
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37032,
+      "output": 15053,
+      "cacheRead": 168410,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Grep",
+        "Write src/App.tsx"
+      ],
+      "ms": 175198
+    }
+  ],
+  "reading": "This is a hero/landing page: a thin nav divider with left/right nav text, a giant serif headline, a subheading, a paragraph of body copy, two colored avatar-style discs, and a call-to-action button, all on a dark teal page per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        29,
+        1175,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar, no box/border around it: wide letter-spaced \"HOUSE OF CARDS\" wordmark on the left, \"RULES · DECKS · CLUB\" links on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 88
+        }
+      ],
+      "region": [
+        8,
+        65,
+        1152,
+        106
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif, regular weight, tight letter-spacing headline \"Deal a better hand\" on a single line (no wrap, white-space: nowrap), about 582px wide. The w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s6",
+            "s9"
+          ],
+          "lines": 4,
+          "fontPx": 113
+        }
+      ],
+      "region": [
+        394,
+        199,
+        492,
+        9
+      ],
+      "paths": [],
+      "instruction": "Subheading text below the headline: \"Hand-printed decks for people who still play at the kitchen table.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s6",
+            "s9"
+          ],
+          "lines": 4,
+          "fontPx": 113
+        },
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 28
+        },
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        544,
+        347,
+        192,
+        257
+      ],
+      "paths": [],
+      "instruction": "A multi-line paragraph of body copy (seven lines, last line shorter) describing the product, e.g. hand-printed playing cards made in small batches for people wh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        305,
+        764,
+        65,
+        65
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Perfectly round solid disc, 74px across, flat fully opaque vivid orange fill (#e85d4a), hard edge, no blur, with an 8px dashed white outline (not a solid ring)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        904,
+        764,
+        66,
+        66
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Perfectly round solid disc, 74px across, flat fully opaque vivid blue fill (#4a7de8), hard edge, no blur, with an 8px dashed white outline (not a solid ring)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        561,
+        791,
+        157,
+        45
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Button labeled \"Shop decks\", 160x48px, 10px rounded corners, peach fill (#f2c14e) with dark teal text (#1b3a2f, not the page's cream text)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
