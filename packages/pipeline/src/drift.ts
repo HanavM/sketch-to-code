@@ -59,6 +59,9 @@ export function matchTop(fresh: DomNode[], r: Box, quote?: string | null): { y: 
       if (n.rect.w <= 0 || n.rect.h <= 0 || !n.text) continue
       if (!n.text.replace(/\s+/g, ' ').trim().toLowerCase().startsWith(q.slice(0, 24))) continue
       if (n.rect.x < r.x - Math.max(16, 0.1 * r.w) || n.rect.x > r.x + r.w) continue
+      // a tall card is never stood for by one thin line of its copy: the label's centre was compared with the card's
+      // centre (round 8 e2 n126: KPI cards read 35px high, the table card 100px high, and the repair pushed them down)
+      if (!thin && n.rect.h < 0.5 * r.h - 4) continue
       const c = thin || n.rect.h < 24
       const d = Math.abs((c ? n.rect.y + n.rect.h / 2 : n.rect.y) - (c ? r.y + r.h / 2 : r.y))
       if (d > 160) continue

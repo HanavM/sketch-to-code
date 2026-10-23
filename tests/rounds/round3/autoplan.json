@@ -133,11 +133,11 @@
    ],
    [
     "ridge-far",
-    "deep raspberry jagged cut-out shape, ONE flat #9d174d fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; exactly clip-path: polygon(0% 40%, 18% 10%, 34% 38%, 52% 0%, 70% 34%, 86% 12%, 100% 30%, 100% 100%, 0% 100%) on its 1280x480px box, so it covers the middle part and the rest shows what is under it (do not mirror it), in front of the \"SUMMIT\" heading"
+    "deep raspberry jagged cut-out shape, ONE flat #9d174d fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,612 ; 230,468 ; 435,602 ; 666,420 ; 896,583 ; 1101,478 ; 1280,564 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x480px with its top-left at 0,420, so on that box clip-path: polygon(0% 40%, 18% 10%, 34% 38%, 52% 0%, 70% 34%, 86% 12%, 100% 30%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it), in front of the \"SUMMIT\" heading"
    ],
    [
     "ridge-near",
-    "deep purple jagged cut-out shape, ONE flat #3b0764 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; exactly clip-path: polygon(0% 30%, 22% 0%, 40% 40%, 62% 8%, 80% 46%, 100% 14%, 100% 100%, 0% 100%) on its 1280x340px box, so it covers the middle part and the rest shows what is under it (do not mirror it)"
+    "deep purple jagged cut-out shape, ONE flat #3b0764 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,662 ; 282,560 ; 512,696 ; 794,587 ; 1024,716 ; 1280,608 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x340px with its top-left at 0,560, so on that box clip-path: polygon(0% 30%, 22% 0%, 40% 40%, 62% 8%, 80% 46%, 100% 14%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)"
    ],
    [
     "body",

@@ -74,6 +74,21 @@ describe('verifyPageDrift', () => {
     const v = verifyPageDrift(snap([]), snap([node(600, 600, 40, 40)]), placed)
     expect(v.unverifiable).toBe(true)
   })
+  it('never stands a tall card by one thin line of its copy (round 8 e2 n126: cards read 35px and 100px high, built right)', () => {
+    const rows = [
+      { region: { x: 40, y: 90, w: 280, h: 90 }, quote: 'Visitors', card: node(40, 90, 280, 90), label: node(56, 90, 248, 20, 'Visitors') },
+      { region: { x: 340, y: 90, w: 280, h: 90 }, quote: 'Bounce rate', card: node(340, 90, 280, 90), label: node(356, 90, 248, 20, 'Bounce rate') },
+      { region: { x: 640, y: 90, w: 200, h: 90 }, quote: 'Avg. time', card: node(640, 90, 200, 90), label: node(656, 102, 168, 20, 'Avg. time') },
+      { region: { x: 40, y: 200, w: 800, h: 380 }, quote: null, card: node(40, 200, 800, 380), label: null },
+      { region: { x: 860, y: 200, w: 380, h: 380 }, quote: null, card: node(860, 200, 380, 380), label: null },
+      { region: { x: 40, y: 600, w: 1200, h: 260 }, quote: 'Top pages', card: node(40, 600, 1200, 260), label: node(60, 620, 1160, 20, 'Top pages') },
+    ]
+    const built = rows.flatMap((r) => (r.label ? [r.card, r.label] : [r.card]))
+    const v = verifyPageDrift(snap([]), snap(built), rows.map((r, index) => ({ index, region: r.region, quote: r.quote })))
+    expect(v.satisfied).toBe(true)
+    expect(v.offsets.every((o) => Math.abs(o.dy) <= 16)).toBe(true)
+  })
+
   it('matches a block by its quoted copy before its size (round 7 e4: size row matched a wrapper, drift unreported)', () => {
     const rows = [
       { region: { x: 734, y: 218, w: 158, h: 8 }, quote: '$189', built: node(734, 256, 70, 34, '$189') },

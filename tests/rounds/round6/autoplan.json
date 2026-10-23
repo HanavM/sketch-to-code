@@ -538,7 +538,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "title",
@@ -550,35 +550,35 @@
    ],
    [
     "kpi-mrr",
-    "white card \"MRR\", lines big 32px bold \"$84.2k\", green \"+6.1%\"; the card exactly 236x130px, its top-left at 252,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card \"MRR\", lines big 32px bold \"$84.2k\", green \"+6.1%\"; the card exactly 236x130px, its top-left at 252,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-users",
-    "white card \"Active users\", lines big 32px bold \"12,480\", green \"+3.4%\"; the card exactly 236x130px, its top-left at 504,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card \"Active users\", lines big 32px bold \"12,480\", green \"+3.4%\"; the card exactly 236x130px, its top-left at 504,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-churn",
-    "white card \"Churn\", lines big 32px bold \"2.1%\", green \"-0.3%\"; the card exactly 236x130px, its top-left at 756,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card \"Churn\", lines big 32px bold \"2.1%\", green \"-0.3%\"; the card exactly 236x130px, its top-left at 756,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-nps",
-    "white card \"NPS\", lines big 32px bold \"48\", green \"+5\"; the card exactly 244x130px, its top-left at 1008,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card \"NPS\", lines big 32px bold \"48\", green \"+5\"; the card exactly 244x130px, its top-left at 1008,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart-line",
-    "white card, \"Revenue, last 30 days\", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 17, 25, 21, 38, 33, 50, 46, 63, 58, 71, 67, 83, 79, dashed light grey line rising left to right (7 points), straight segments, points' heights left to right as % of the plot height: 13, 17, 23, 29, 38, 44, 50; no axis labels; the card exactly 640x320px, its top-left at 252,280 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, \"Revenue, last 30 days\", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 17, 25, 21, 38, 33, 50, 46, 63, 58, 71, 67, 83, 79, dashed light grey line rising left to right (7 points), straight segments, points' heights left to right as % of the plot height: 13, 17, 23, 29, 38, 44, 50; no axis labels; the card exactly 640x320px, its top-left at 252,280, its top 18px under the bottom of the card right above it (that card ends at y 262: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart-donut",
-    "white card, small grey title \"Plan mix\" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: \"■ Pro 46%\", \"■ Team 28%\", \"■ Free 16%\"; the card exactly 344x320px, its top-left at 908,280 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, small grey title \"Plan mix\" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: \"■ Pro 46%\", \"■ Team 28%\", \"■ Free 16%\"; the card exactly 344x320px, its top-left at 908,280, its top 18px under the bottom of the card right above it (that card ends at y 262: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart-bars",
-    "bar chart \"Signups by week\", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest; the card exactly 480x260px, its top-left at 252,616 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "bar chart \"Signups by week\", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest; the card exactly 480x260px, its top-left at 252,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "table",
-    "white card, \"Top accounts\", 5 rows, no header row, thin lines between, second column bold right-aligned: \"Acme Corp\" | \"$6,400\"; \"Globex\" | \"$5,120\"; \"Initech\" | \"$3,980\"; \"Umbrella\" | \"$3,200\"; \"Hooli\" | \"$2,750\"; the card exactly 504x260px, its top-left at 748,616 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, \"Top accounts\", 5 rows, no header row, thin lines between, second column bold right-aligned: \"Acme Corp\" | \"$6,400\"; \"Globex\" | \"$5,120\"; \"Initech\" | \"$3,980\"; \"Umbrella\" | \"$3,200\"; \"Hooli\" | \"$2,750\"; the card exactly 504x260px, its top-left at 748,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ]
   ]
  },

@@ -213,15 +213,15 @@
    ],
    [
     "tile-text",
-    "near-black (#1c1917) filled tile 280x220px, 18px rounded corners, flat (no shadow); on it 30px heavy #fff7ed text \"2.4M boards made this year\", in its top-left corner (24px in, 24px down), the rest of the tile empty; the card exactly 280x220px, its top-left at 340,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "near-black (#1c1917) filled tile 280x220px, 18px rounded corners, flat (no shadow); on it 30px heavy #fff7ed text \"2.4M boards made this year\", in its top-left corner (24px in, 24px down), the rest of the tile empty; the card exactly 280x220px, its top-left at 340,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-blue",
-    "vivid cyan (top) to vivid blue (bottom) gradient tile, 280x420px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 280x420px, its top-left at 640,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "vivid cyan (top) to vivid blue (bottom) gradient tile, 280x420px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 280x420px, its top-left at 640,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-lime",
-    "mint green (#bef264) tile, 300x260px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 300x260px, its top-left at 940,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "mint green (#bef264) tile, 300x260px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 300x260px, its top-left at 940,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-violet",
@@ -229,15 +229,15 @@
    ],
    [
     "tile-quote",
-    "pale pink (#fecaca) filled tile 280x330px, 18px rounded corners, flat (no shadow); on it 24px serif italic #1c1917 text \"“My moodboard finally looks like my mood.”\", in its top-left corner (24px in, 24px down), the rest of the tile empty; the card exactly 280x330px, its top-left at 40,530 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "pale pink (#fecaca) filled tile 280x330px, 18px rounded corners, flat (no shadow); on it 24px serif italic #1c1917 text \"“My moodboard finally looks like my mood.”\", in its top-left corner (24px in, 24px down), the rest of the tile empty; the card exactly 280x330px, its top-left at 40,530 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-yellow",
-    "vivid yellow (#fde047) tile, 280x270px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 590px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 280x270px, its top-left at 640,590 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "vivid yellow (#fde047) tile, 280x270px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 590px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 280x270px, its top-left at 640,590, its top 20px under the bottom of the card right above it (that card ends at y 570: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-pink",
-    "light pink (top) to deep raspberry (bottom) gradient tile, 300x430px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 430px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 300x430px, its top-left at 940,430 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "light pink (top) to deep raspberry (bottom) gradient tile, 300x430px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 430px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 300x430px, its top-left at 940,430, its top 20px under the bottom of the card right above it (that card ends at y 410: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "sticker-new",
@@ -389,11 +389,11 @@
    ],
    [
     "yellow-half",
-    "soft yellow angled cut-out shape, ONE flat #fef08a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; exactly clip-path: polygon(0% 0%, 62% 0%, 38% 100%, 0% 100%) on its 1280x900px box, so it covers the LEFT part and the rest shows what is under it (do not mirror it)"
+    "soft yellow angled cut-out shape, ONE flat #fef08a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,0 ; 794,0 ; 486,900 ; 0,900; the shape's box is the outline's bounds, 794x900px with its top-left at 0,0, so on that box clip-path: polygon(0% 0%, 100% 0%, 61% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the LEFT part and the rest shows what is under it (do not mirror it)"
    ],
    [
     "grain",
-    "a fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin #000000 lines at 5% opacity, background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 6px) (one thin line every 6px, 45deg); barely visible: never a picture, never a gradient, never a solid layer"
+    "a fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin #000000 lines at 5% opacity, background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 6px) (one thin line every 6px, 45deg); barely visible: never a picture, never a gradient, never a solid layer; its drawn outline (a frame round the area) is only where it lies: build no shape, tint, shadow or darkening overlay from it, so the colours under it stay exactly their hex"
    ],
    [
     "giant-number",
@@ -509,31 +509,31 @@
    ],
    [
     "kpi-1",
-    "stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\"; the card exactly 280x90px, its top-left at 40,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\"; the card exactly 280x90px, its top-left at 40,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-2",
-    "stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\"; the card exactly 280x90px, its top-left at 340,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\"; the card exactly 280x90px, its top-left at 340,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-3",
-    "stat card: 13px dark navy label \"Avg. time\" on top, under it big 28px bold \"3m 12s\"; the card exactly 200x90px, its top-left at 640,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "stat card: 13px dark navy label \"Avg. time\" on top, under it big 28px bold \"3m 12s\"; the card exactly 200x90px, its top-left at 640,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "area-chart",
-    "white card, \"Visitors per day\", line chart drawn as SVG lines: thick solid indigo line rising left to right (14 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 35, 31, 48, 45, 61, 55, 71, 65, 77, 69, 81, 74, 84, dashed grey line rising left to right (14 points), straight segments, points' heights left to right as % of the plot height: 13, 16, 19, 21, 24, 26, 29, 31, 34, 35, 39, 40, 42, 44; under the solid line a soft #6366f1 area fill fading to transparent at the bottom; 4 thin pale horizontal grid lines behind; no axis labels; the card exactly 800x380px, its top-left at 40,200 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, \"Visitors per day\", line chart drawn as SVG lines: thick solid indigo line rising left to right (14 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 35, 31, 48, 45, 61, 55, 71, 65, 77, 69, 81, 74, 84, dashed grey line rising left to right (14 points), straight segments, points' heights left to right as % of the plot height: 13, 16, 19, 21, 24, 26, 29, 31, 34, 35, 39, 40, 42, 44; under the solid line a soft #6366f1 area fill fading to transparent at the bottom; 4 thin pale horizontal grid lines behind; no axis labels; the card exactly 800x380px, its top-left at 40,200, its top 20px under the bottom of the card right above it (that card ends at y 180: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "heat-grid",
-    "\"By hour × weekday\" as a small bold heading, under it a heat grid (NOT a picture, NOT pills, no text in the cells): 6 rows of 8 textless 36x36px cells with 4px rounded corners, 4px apart, each cell filled with one of 9 shades of the same colour, lightest 1 to darkest 9: 1 #f1f5f9, 2 #e0e7ff, 3 #c7d2fe, 4 #a5b4fc, 5 #818cf8, 6 #6366f1, 7 #4f46e5, 8 #4338ca, 9 #3730a3; rows top to bottom (shade per cell): 23456532 34678642 35799753 24678642 12344321 11233211; the card exactly 380x380px, its top-left at 860,200 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "\"By hour × weekday\" as a small bold heading, under it a heat grid (NOT a picture, NOT pills, no text in the cells): 6 rows of 8 textless 36x36px cells with 4px rounded corners, 4px apart, each cell filled with one of 9 shades of the same colour, lightest 1 to darkest 9: 1 #f1f5f9, 2 #e0e7ff, 3 #c7d2fe, 4 #a5b4fc, 5 #818cf8, 6 #6366f1, 7 #4f46e5, 8 #4338ca, 9 #3730a3; rows top to bottom (shade per cell): 23456532 34678642 35799753 24678642 12344321 11233211; the card exactly 380x380px, its top-left at 860,200 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "pages-table",
-    "white card, \"Top pages\" as a small bold heading, then a table, every body row built and none invented, columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\", 4 rows: \"/pricing\" | \"12,480\" | \"2m 40s\" | \"31%\"; \"/docs/getting-started\" | \"9,102\" | \"5m 02s\" | \"22%\"; \"/blog/offline-sync\" | \"6,730\" | \"4m 18s\" | \"44%\"; \"/\" | \"5,955\" | \"1m 05s\" | \"52%\"; the card exactly 1200x260px, its top-left at 40,600 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, \"Top pages\" as a small bold heading, then a table, every body row built and none invented, columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\", 4 rows: \"/pricing\" | \"12,480\" | \"2m 40s\" | \"31%\"; \"/docs/getting-started\" | \"9,102\" | \"5m 02s\" | \"22%\"; \"/blog/offline-sync\" | \"6,730\" | \"4m 18s\" | \"44%\"; \"/\" | \"5,955\" | \"1m 05s\" | \"52%\"; the card exactly 1200x260px, its top-left at 40,600, its top 20px under the bottom of the card right above it (that card ends at y 580: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "date-popover",
-    "an OPEN date-range picker floating over the page (a #ffffff panel, 12px rounded corners, a big soft drop shadow so it sits above the cards under it; NOT page numbers): on the left a 120px column of preset lines \"Today\", \"Last 7 days\", \"Last 14 days\", \"Last 30 days\", \"Custom\", \"Last 14 days\" the chosen one in bold #4f46e5, the rest grey; beside it a month calendar headed \"October 2026\" (centred): 7 columns of 24px day cells, 3 empty cells then days 1 to 25; the range ends \"6\" and \"19\" are filled #4f46e5 rounded cells with white numbers, the days between (7 to 18) a pale #e0e7ff band with dark numbers; bottom right the buttons \"Cancel\" (outlined) and \"Apply\" (filled #4f46e5, white text); the card exactly 540x184px, its top-left at 700,76 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "an OPEN date-range picker floating over the page (a #ffffff panel, 12px rounded corners, a big soft drop shadow so it sits above the cards under it; NOT page numbers): on the left a 120px column of preset lines \"Today\", \"Last 7 days\", \"Last 14 days\", \"Last 30 days\", \"Custom\", \"Last 14 days\" the chosen one in bold #4f46e5, the rest grey; beside it a month calendar headed \"October 2026\" (centred): 7 columns of 24px day cells, 3 empty cells then days 1 to 25; the range ends \"6\" and \"19\" are filled #4f46e5 rounded cells with white numbers, the days between (7 to 18) a pale #e0e7ff band with dark numbers; bottom right the buttons \"Cancel\" (outlined) and \"Apply\" (filled #4f46e5, white text); the card exactly 540x184px, position: absolute at left 700px, top 76px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
    ]
   ]
  },

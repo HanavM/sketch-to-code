@@ -211,3 +211,24 @@ sizes or glyph wording on 14 pages; no marks changed.
 
 Round 8 average stays 80% (records e2 66%, c5 90%). Next: e2 table card's top said against the chart card above
 (20px below it) and the popover's top against the date button; c5 cut-out polygon checked against its box width.
+
+## n126: cut-out corners in page points, floating panels take no room, drift check stops misreading cards; e2, c5 re-run (2026-10-23, ~334k billed)
+
+Planner (zero tokens): a flat cut-out says its corners as page points and its clip-path against the box its drawn
+outline actually spans (c5's polygon was said as % of the 1280px block, but the drawing's box is the outline's 794px
+bounds, so 62% landed at 38% of the page); on a dense card page, a card overlapping two or more others is said as
+floating (position absolute, takes no room) and each card says its gap under the card right above it; a grain
+layer's drawn frame never becomes a tint or darkening layer. Rounds 3-8 plans gain the new wording; no marks changed.
+
+Pipeline (zero tokens): the drift check no longer stands a tall card by one thin line of its copy. In the first e2
+re-run the build placed every card exactly (table at 40,600), but the check compared the "Visitors" label's centre
+with the card's centre, read the KPI cards 35px high and the table 100px high, and the repair turn pushed them down
+(table to 700). New test in drift.test.ts reproduces it (fails before, passes after).
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| c5 diagonal duotone | 90% -> 89% (first try, not kept), then **96% (kept)** | ~97k, then ~36k (one turn) | first try: slant right at last, but a 10% black layer was built from the grain's frame (yellow muddy). Second: slant, flat yellow, live 8 inverting, strip all right. Pictures: c5-diagonal-duotone-n126-cmp.png (first), c5-diagonal-duotone-cmp.png (record) |
+| e2 date-range analytics | 66% -> 60% (first try, not kept), then **78% (kept)** | ~116k (build + repair), then ~40k (one turn) | first try: popover floating in place, table pushed 100px down by the drift repair. Second (drift fix): every card in place, no repair turn. Pictures: e2-date-range-analytics-n126-cmp.png (first), e2-date-range-analytics-cmp.png (record) |
+
+Round 8 average now 82% (creative 79 94 89 91 96 = 90; everyday 79 78 69 62 84 = 74). Next: e4 seat map (62%) and
+e3 design editor (69%) are the weakest; then c1 depth stack (79%).

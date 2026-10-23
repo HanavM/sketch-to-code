@@ -385,31 +385,31 @@
    ],
    [
     "hero",
-    "near-black block with soft colour glows: indigo (#6366f1) top left, centred 20% across and 20% down, full-strength indigo at its centre fading to nothing about 371px out (radial-gradient(circle at 20% 20%, #6366f1 0, transparent 371px)); pink (#ec4899) bottom right, centred 90% across and 80% down, full-strength pink at its centre fading to nothing about 369px out (radial-gradient(circle at 90% 80%, #ec4899 0, transparent 369px)); huge 76px bold title, starting 40% down: \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\"; the card exactly 720x440px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "near-black block with soft colour glows: indigo (#6366f1) top left, centred 20% across and 20% down, full-strength indigo at its centre fading to nothing about 371px out (radial-gradient(circle at 20% 20%, #6366f1 0, transparent 371px)); pink (#ec4899) bottom right, centred 90% across and 80% down, full-strength pink at its centre fading to nothing about 369px out (radial-gradient(circle at 90% 80%, #ec4899 0, transparent 369px)); huge 76px bold title, starting 40% down: \"Prism 2\", text \"Every tool you sketch with, now twice as fast.\"; the card exactly 720x440px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "stat",
-    "white block, black text; huge 96px bold title: \"2.4×\", text \"faster first paint than Prism 1\"; the card exactly 460x210px, its top-left at 780,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white block, black text; huge 96px bold title: \"2.4×\", text \"faster first paint than Prism 1\"; the card exactly 460x210px, its top-left at 780,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "ring",
-    "near-black block, centred in it a 140px progress ring (not a picture): green arc 72% of the way round from the top, the rest a near-black track, bold \"72%\" in the middle; the card exactly 220x210px, its top-left at 780,270 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "near-black block, centred in it a 140px progress ring (not a picture): green arc 72% of the way round from the top, the rest a near-black track, bold \"72%\" in the middle; the card exactly 220x210px, its top-left at 780,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "quote",
-    "vivid yellow (#facc15) filled tile 220x210px, 28px rounded corners, flat (no shadow); on it 20px heavy #09090b text \"“It feels like the page is reading my mind.”\", in its top-left corner (28px in, 28px down), the rest of the tile empty; the card exactly 220x210px, its top-left at 1020,270 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "vivid yellow (#facc15) filled tile 220x210px, 28px rounded corners, flat (no shadow); on it 20px heavy #09090b text \"“It feels like the page is reading my mind.”\", in its top-left corner (28px in, 28px down), the rest of the tile empty; the card exactly 220x210px, its top-left at 1020,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart",
-    "near-black, bar chart \"Weekly builds\", 7 indigo bars, heights 30/45/40/62/70/88/100% of the tallest; the card exactly 470x360px, its top-left at 40,500 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "near-black, bar chart \"Weekly builds\", 7 indigo bars, heights 30/45/40/62/70/88/100% of the tallest; the card exactly 470x360px, its top-left at 40,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "code",
-    "near-black block, grey text mono 15px code lines: \"import { sketch } from 'prism'\", blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\"; grey code, coloured: light pink \"import\", \"from\"; bright green \"'hero'\", \"'glow'\"; the card exactly 420x360px, its top-left at 530,500 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "near-black block, grey text mono 15px code lines: \"import { sketch } from 'prism'\", blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\"; grey code, coloured: light pink \"import\", \"from\"; bright green \"'hero'\", \"'glow'\"; the card exactly 420x360px, its top-left at 530,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "cta",
-    "indigo to darker indigo gradient block big 30px bold \"Ready when you are.\", then full-width white black text button \"Get Prism 2\", both at the bottom of the card, empty above; the card exactly 270x360px, its top-left at 970,500 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "indigo to darker indigo gradient block big 30px bold \"Ready when you are.\", then full-width white black text button \"Get Prism 2\", both at the bottom of the card, empty above; the card exactly 270x360px, its top-left at 970,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ]
   ]
  },
@@ -451,23 +451,23 @@
    ],
    [
     "topbar",
-    "white bar 60px tall across the page, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports; all of these sit together at the LEFT, one after another, ending 309px in (the right 76% of the bar is empty, nothing pushed right); the card exactly 1280x60px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white bar 60px tall across the page, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports; all of these sit together at the LEFT, one after another, ending 309px in (the right 76% of the bar is empty, nothing pushed right); the card exactly 1280x60px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "col-todo",
-    "column \"To do · 4\", cards: \"Fix login redirect\" tag blue \"Bug\", \"Empty state art\" tag blue \"Design\", \"Rate limits\" tag blue \"API\"; the card exactly 290x790px, its top-left at 28,84 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "column \"To do · 4\", cards: \"Fix login redirect\" tag blue \"Bug\", \"Empty state art\" tag blue \"Design\", \"Rate limits\" tag blue \"API\"; the card exactly 290x790px, its top-left at 28,84, its top 24px under the bottom of the card right above it (that card ends at y 60: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "col-doing",
-    "column \"In progress · 2\", cards: \"Billing page\" tag blue \"Web\", \"Push alerts\" tag blue \"Mobile\"; the card exactly 290x790px, its top-left at 334,84 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "column \"In progress · 2\", cards: \"Billing page\" tag blue \"Web\", \"Push alerts\" tag blue \"Mobile\"; the card exactly 290x790px, its top-left at 334,84, its top 24px under the bottom of the card right above it (that card ends at y 60: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "col-review",
-    "column \"Review · 3\", cards: \"Search index\" tag blue \"API\", \"Onboarding copy\" tag blue \"Docs\"; the card exactly 290x790px, its top-left at 640,84 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "column \"Review · 3\", cards: \"Search index\" tag blue \"API\", \"Onboarding copy\" tag blue \"Docs\"; the card exactly 290x790px, its top-left at 640,84, its top 24px under the bottom of the card right above it (that card ends at y 60: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "col-done",
-    "column \"Done · 9\", cards: \"Dark mode\" tag blue \"Web\", \"CSV export\" tag blue \"API\"; the card exactly 290x790px, its top-left at 946,84 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "column \"Done · 9\", cards: \"Dark mode\" tag blue \"Web\", \"CSV export\" tag blue \"API\"; the card exactly 290x790px, its top-left at 946,84, its top 24px under the bottom of the card right above it (that card ends at y 60: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "backdrop",
@@ -475,7 +475,7 @@
    ],
    [
     "modal",
-    "white card, \"New task\", \"×\" close top right, form, labels above fields: \"Title\" field holding \"Write release notes\"; \"Description\" tall 110px empty field; \"Assignee\" field holding \"Priya Shah\" | \"Due\" field holding \"Oct 30\"; buttons at the bottom right: outlined \"Cancel\", indigo bold white text \"Create task\", pinned to the bottom of the 600px tall card with 161px of empty space above them; the card exactly 500x600px, its top-left at 390,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down)"
+    "white card, \"New task\", \"×\" close top right, form, labels above fields: \"Title\" field holding \"Write release notes\"; \"Description\" tall 110px empty field; \"Assignee\" field holding \"Priya Shah\" | \"Due\" field holding \"Oct 30\"; buttons at the bottom right: outlined \"Cancel\", indigo bold white text \"Create task\", pinned to the bottom of the 600px tall card with 161px of empty space above them; the card exactly 500x600px, position: absolute at left 390px, top 150px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
    ]
   ]
  },

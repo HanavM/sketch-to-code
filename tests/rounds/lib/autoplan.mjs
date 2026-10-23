@@ -2033,7 +2033,7 @@ function decideOne(f, page, marked, said) {
       const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
       // a flat-filled cut-out (round 8 c5's yellow half was built as a yellow-to-orange gradient with the pen's
       // scribble strokes left on top): say its one hex, no gradient, and that the pen lines are only its edge
-      const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines${f.clipPoly ? `; exactly clip-path: polygon(${f.clipPoly.map(([x, y]) => `${Math.round(x * 100)}% ${Math.round(y * 100)}%`).join(', ')}) on its ${w}x${h}px box, so it covers the ${(() => { const cx = f.clipPoly.reduce((a, q) => a + q[0], 0) / f.clipPoly.length; return cx < 0.42 ? 'LEFT' : cx > 0.58 ? 'RIGHT' : 'middle' })()} part and the rest shows what is under it (do not mirror it)` : ''}` : ''
+      const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines${f.clipPoly ? `; ${clipWords(f.clipPoly, f.rect, w, h)}, so it covers the ${(() => { const cx = f.clipPoly.reduce((a, q) => a + q[0], 0) / f.clipPoly.length; return cx < 0.42 ? 'LEFT' : cx > 0.58 ? 'RIGHT' : 'middle' })()} part and the rest shows what is under it (do not mirror it)` : ''}` : ''
       return { kind: 'shape', note: withFx(`${note}${exact}${solid}${size}${flat}`), poly: f.clipPoly }
     }
     const sh = shadowWords(f)
@@ -2532,6 +2532,18 @@ function pageNote(b) {
  * Plan a page: [[role, kind]...] in reading order and [[role|'*', note]...].
  * Same shape as the hand plans in <round>/sketches.mjs.
  */
+// a cut-out's clip said against the box its drawn outline spans (round 8 c5: the polygon was said as % of the full
+// 1280px block, but the drawing's box is only the outline's bounds, 794px wide, so 62% landed at 38% of the page)
+function clipWords(poly, rect, w, h) {
+  const xs = poly.map((q) => q[0]), ys = poly.map((q) => q[1])
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys)
+  const bw = Math.round((x1 - x0) * w), bh = Math.round((y1 - y0) * h), bx = Math.round(rect.x + x0 * w), by = Math.round(rect.y + y0 * h)
+  const pct = (v, a, b) => Math.round(((v - a) / ((b - a) || 1)) * 100)
+  const rel = poly.map(([x, y]) => `${pct(x, x0, x1)}% ${pct(y, y0, y1)}%`).join(', ')
+  const px = poly.map(([x, y]) => `${Math.round(rect.x + x * w)},${Math.round(rect.y + y * h)}`).join(' ; ')
+  return `its corners at exactly these page points (px, left to right from the page's top-left): ${px}; the shape's box is the outline's bounds, ${bw}x${bh}px with its top-left at ${bx},${by}, so on that box clip-path: polygon(${rel}) (percentages of THAT box, not of the page)`
+}
+
 export async function autoPlan(browser, htmlPath, viewport = { width: 1280, height: 900 }) {
   const page = await browser.newPage({ viewport })
   await page.goto(`file://${htmlPath}`)
@@ -2671,7 +2683,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const stops = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)px/g)].map((m) => +m[1])
       const period = stops.length ? Math.max(...stops) : null
       d.kind = 'box'
-      d.note = `a fine grain texture over everything under it (${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin ${hexOf({ ...ink, a: 1 })} lines at ${Math.round(ink.a * 100)}% opacity, background: ${f.bgImage.replace(/\s+/g, ' ').trim()}${period ? ` (one thin line every ${period}px${rep[1] ? `, ${rep[1]}` : ''})` : ''}; barely visible: never a picture, never a gradient, never a solid layer`
+      d.note = `a fine grain texture over everything under it (${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin ${hexOf({ ...ink, a: 1 })} lines at ${Math.round(ink.a * 100)}% opacity, background: ${f.bgImage.replace(/\s+/g, ' ').trim()}${period ? ` (one thin line every ${period}px${rep[1] ? `, ${rep[1]}` : ''})` : ''}; barely visible: never a picture, never a gradient, never a solid layer; its drawn outline (a frame round the area) is only where it lies: build no shape, tint, shadow or darkening overlay from it, so the colours under it stay exactly their hex`
       return
     }
     const g = gradientWords(f) ?? (cs.length >= 2 ? `pale tinted ${hexOf(cs[0])} to ${hexOf(cs[cs.length - 1])}${linearEnds(f.bgImage) ? ` (${linearEnds(f.bgImage).join(' to ')})` : ''}` : null)
@@ -2750,9 +2762,20 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // a dense app page (6+ top-level cards): each card says its exact size and place, or the detail said inside one
   // grows it and pushes every card below it down (round 8 e2: KPI cards built tall, chart and table ~100px low)
   const cards = regions.filter((f) => out.get(f.role).kind === 'box' && out.get(f.role).note && !regions.some((g) => g.regionKids.includes(f.role)) && f.rect.w >= 150 && f.rect.h >= 60 && f.rect.w * f.rect.h < 0.6 * 1280 * 900)
+  // n126: the floating one (overlapping another card) takes no room, and each card's top is also said against the card
+  // right above it (round 8 e2: popover ~30px low, table card ~190px low under the chart, gap left)
+  const over = (a, b) => a.x < b.x + b.w - 4 && b.x < a.x + a.w - 4 && a.y < b.y + b.h - 4 && b.y < a.y + a.h - 4
   if (cards.length >= 6) cards.forEach((f) => {
     const d = out.get(f.role), r = f.rect
-    d.note = `${d.note}; the card exactly ${Math.round(r.w)}x${Math.round(r.h)}px, its top-left at ${Math.round(r.x)},${Math.round(r.y)} (fixed size and place: fit what is inside it, never grow it or push the cards below down)`
+    // the floating panel overlaps two or more cards (a popover over a stat card, the chart and the heat card)
+    const floating = cards.filter((g) => g !== f && over(r, g.rect)).length >= 2
+    const above = cards.filter((g) => g !== f && !over(r, g.rect) && cards.filter((k) => k !== g && over(g.rect, k.rect)).length < 2 && g.rect.y + g.rect.h <= r.y + 2 && g.rect.x < r.x + r.w && r.x < g.rect.x + g.rect.w).sort((a, b) => (b.rect.y + b.rect.h) - (a.rect.y + a.rect.h))[0]
+    const gap = above ? Math.round(r.y - above.rect.y - above.rect.h) : null
+    const under = above && gap >= 0 && gap <= 60 ? `, its top ${gap}px under the bottom of the card right above it (that card ends at y ${Math.round(above.rect.y + above.rect.h)}: no wider gap)` : ''
+    const place = floating
+      ? `position: absolute at left ${Math.round(r.x)}px, top ${Math.round(r.y)}px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it`
+      : `its top-left at ${Math.round(r.x)},${Math.round(r.y)}${under} (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)`
+    d.note = `${d.note}; the card exactly ${Math.round(r.w)}x${Math.round(r.h)}px, ${place}`
   })
   let pn = pageNote(body)
   if (pairs.length >= 4) {

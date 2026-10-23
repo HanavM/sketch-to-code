@@ -1,90 +1,83 @@
 {
   "id": "c5-diagonal-duotone",
-  "at": "2026-10-23T04:32:28.010Z",
+  "at": "2026-10-23T06:43:53.419Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8977536162472279,
-    "overallV2": 0.8977536162472279,
-    "overallV1": 0.7961755604718517,
-    "colour": 0.9603415849252864,
-    "structure": 0.9287351346891091,
-    "structureStrict": 0.7899544837170882,
-    "colourAligned": 0.9603415849252864,
-    "structureAligned": 0.9287351346891091,
+    "overall": 0.9554569689020047,
+    "overallV2": 0.9554569689020047,
+    "overallV1": 0.8916325036708808,
+    "colour": 0.9878868611112549,
+    "structure": 0.9846953359045739,
+    "structureStrict": 0.8974953913387549,
+    "colourAligned": 0.9878868611112549,
+    "structureAligned": 0.9846953359045739,
     "align": {
       "scale": 1,
-      "dx": 16,
+      "dx": 0,
       "dy": 0,
-      "r": 0.9442518927690157
+      "r": 0.9878671332580841
     },
-    "layout": 0.9232124873981019
+    "layout": 0.9164024274154777
   },
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 0.8333333333333334,
     "kept": [
       "blend",
       "huge-type",
       "overlap",
-      "stripes-or-layers"
-    ],
-    "missing": [
-      "clip-shape",
+      "stripes-or-layers",
       "vertical-type"
     ],
-    "extra": [
-      "tilt"
-    ]
+    "missing": [
+      "clip-shape"
+    ],
+    "extra": []
   },
   "tokens": {
-    "input": 55400,
-    "output": 38027,
-    "cacheRead": 388511
+    "input": 36876,
+    "output": 21893,
+    "cacheRead": 282106
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 66503,
-      "output": 25885,
-      "cacheRead": 377863,
-      "toolCalls": 15,
+      "billed": 36284,
+      "output": 11870,
+      "cacheRead": 244195,
+      "toolCalls": 11,
       "tools": [
         "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
-        "Grep",
         "Glob",
         "Read src/App.tsx",
-        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Glob",
+        "Glob",
+        "Read s2c-bench-app/index.html",
         "Edit components/SketchShape.tsx",
         "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape2.tsx",
-        "Write src/App.tsx",
-        "Glob",
-        "Glob"
+        "Write src/App.tsx"
       ],
-      "ms": 294813
+      "ms": 122518
     }
   ],
-  "reading": "A full-page hero design: the whole page is blue with Helvetica type; a soft-yellow angled cut-out shape (with a jagged zigzag notch) sits over part of it under a faint diagonal grain texture, and a giant white numeral '8' overlaps it with a colour-invert effect. Top-left carries a bold heading 'Season eight.' with a short paragraph underneath; bottom-right carries a 'Tickets on sale Friday' heading with an outlined 'Get notified' button; and a thin near-black vertical bar runs down the right edge holding rotated yellow text 'PREMIERE NIGHT ★ 2027'.",
+  "reading": "A full-page hero design: a diagonal soft-yellow cut-out background shape over a blue page, a subtle grain texture overlay on top, a giant white \"8\" numeral crossing the cut edge, a headline+subtext block top-left (\"Season eight.\"), a tickets CTA block bottom-right with an outlined \"Get notified\" button, and a near-black vertical bar at the right edge carrying \"PREMIERE NIGHT ★ 2027\" text.",
   "actions": [
     {
       "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        3,
-        3,
-        1274,
-        894
+        5,
+        5,
+        788,
+        889
       ],
       "paths": [
-        "s0",
-        "s1"
+        "s0"
       ],
-      "instruction": "Build a soft yellow angled cut-out background shape from the drawn outline (the diagonal line and the zigzag notch): ONE flat #fef08a fill using a clip-path pol"
+      "instruction": "Soft yellow angled cut-out shape, ONE flat #fef08a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outl"
     },
     {
       "kind": "design",
@@ -97,10 +90,9 @@
         894
       ],
       "paths": [
-        "s0",
         "s1"
       ],
-      "instruction": "Add a fine grain texture layer covering the full page (1280x900px), sitting on top of the colour fields but under all type, pointer-events none, no fill of its "
+      "instruction": "A fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin #00000"
     },
     {
       "kind": "add",
@@ -115,7 +107,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a giant Helvetica Heavy, tight-set numeral '8' at 640px type size (about 316px wide, no larger), set to colour-invert wherever it crosses what's underneath "
+      "instruction": "Colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, cond"
     },
     {
       "kind": "add",
@@ -142,37 +134,13 @@
         111
       ],
       "paths": [],
-      "instruction": "Add a text block 360px wide with top-left at (60,60): a 44px bold #1d4ed8 heading reading 'Season eight.' followed by 16px/17px #1e3a8a body copy reading 'Eight"
+      "instruction": "Heading 44px bold #1d4ed8 \"Season eight.\", then 16px under it 17px #1e3a8a text \"Eight films, eight cities, one long night of premieres. Doors at seven.\"; the b"
     },
     {
       "kind": "add",
       "textMarks": [
         "s6",
-        "s7"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8"
-          ],
-          "lines": 3,
-          "fontPx": 20
-        }
-      ],
-      "region": [
-        884,
-        651,
-        332,
-        39
-      ],
-      "paths": [],
-      "instruction": "Add a 22px bold #fef08a heading reading 'Tickets on sale Friday', as part of a 340px-wide block with top-left at (880,640)."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s7",
         "s8"
       ],
       "textSize": [
@@ -188,15 +156,15 @@
       ],
       "region": [
         884,
-        711,
-        206,
-        8
+        640,
+        332,
+        90
       ],
       "paths": [],
-      "instruction": "Below the 'Tickets on sale Friday' heading, add an outlined button labelled 'Get notified', 137x46px, 2px solid #fef08a border, no fill, 16px bold #fef08a text."
+      "instruction": "Heading 22px bold #fef08a \"Tickets on sale Friday\", then 18px under it an outlined button \"Get notified\" (137x46px, 2px solid #fef08a border, no fill, 16px bold"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -208,10 +176,8 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add a vertical near-black bar running the full height along the right edge of the page, containing soft yellow (#fef08a) text reading 'PREMIERE NIGHT ★ 2027' se"
+      "instruction": "Vertical near-black (exactly #111111) bar along the right edge, soft yellow text \"PREMIERE NIGHT ★ 2027\" set within it."
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

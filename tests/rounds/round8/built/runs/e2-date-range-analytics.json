@@ -1,23 +1,23 @@
 {
   "id": "e2-date-range-analytics",
-  "at": "2026-10-23T04:01:06.347Z",
+  "at": "2026-10-23T06:48:23.530Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6601049224934672,
-    "overallV2": 0.6211580009536595,
-    "overallV1": 0.4527888701424049,
-    "colour": 0.9793212908344142,
-    "structure": 0.8137653557795113,
-    "structureStrict": 0.6401799427655137,
-    "colourAligned": 0.9800999385081707,
-    "structureAligned": 0.8477546753692852,
+    "overall": 0.7802443065375455,
+    "overallV2": 0.7802443065375455,
+    "overallV1": 0.642446758199881,
+    "colour": 0.9879253779024545,
+    "structure": 0.8816422604629673,
+    "structureStrict": 0.7395755750482624,
+    "colourAligned": 0.9879253779024545,
+    "structureAligned": 0.8816422604629673,
     "align": {
       "scale": 1,
-      "dx": -16,
-      "dy": -16,
-      "r": 0.7965076717371992
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8245152858715733
     },
-    "layout": 0.8686050358750994
+    "layout": 0.9592085607826013
   },
   "effects": {
     "recall": 1,
@@ -29,45 +29,30 @@
     "extra": []
   },
   "tokens": {
-    "input": 65053,
-    "output": 45290,
-    "cacheRead": 354908
+    "input": 36998,
+    "output": 24805,
+    "cacheRead": 165660
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44707,
-      "output": 16515,
-      "cacheRead": 126475,
-      "toolCalls": 7,
+      "billed": 39554,
+      "output": 14235,
+      "cacheRead": 128233,
+      "toolCalls": 6,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 177517
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 52884,
-      "output": 24015,
-      "cacheRead": 217101,
-      "toolCalls": 3,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 304030
+      "ms": 134609
     }
   ],
-  "reading": "A dashboard page: a 'Traffic' heading, a date-range control, three stat cards (Visitors, Bounce rate, Avg. time), a line chart card, a heat-grid card, a table card listing top pages, and an open floating date-range picker panel overlaying everything; a run-wide note sets page background, font and text colour.",
+  "reading": "This is a sketch for a Traffic analytics dashboard: a page heading, a date-range selector pill, three stat cards, a visitors-per-day line chart, a by-hour heat grid, a top-pages table, and an open date-range picker panel floating above everything.",
   "actions": [
     {
       "kind": "add",
@@ -90,7 +75,7 @@
         32
       ],
       "paths": [],
-      "instruction": "Page heading text 'Traffic', 26px bold, on one line; its box top 32px from the page top and 31px tall (line-height 31px, not higher)."
+      "instruction": "Page heading \"Traffic\", 26px bold type on one line, its box top 32px from the page top and 31px tall (top-[32px] or the same margin, line-height 31px; not highe"
     },
     {
       "kind": "add",
@@ -105,7 +90,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "White card containing the date-range label '📅 Oct 6 – Oct 19, 2026 ▾'."
+      "instruction": "White card date-range pill reading \"📅 Oct 6 – Oct 19, 2026 ▾\"."
     },
     {
       "kind": "add",
@@ -120,7 +105,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Stat card: 13px dark navy label 'Visitors' on top, below it big 28px bold '48,210', below that bold #16a34a '▲ 12.4%'."
+      "instruction": "Stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\". Card exactly 280x90px, top-left at 40,90 "
     },
     {
       "kind": "add",
@@ -135,7 +120,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Stat card: 13px dark navy label 'Bounce rate' on top, below it big 28px bold '38.2%', below that bold #dc2626 '▲ 2.1%'."
+      "instruction": "Stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\". Card exactly 280x90px, top-left at 340,9"
     },
     {
       "kind": "add",
@@ -150,7 +135,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Stat card: 13px dark navy label 'Avg. time' on top, below it big 28px bold '3m 12s'."
+      "instruction": "Stat card: 13px dark navy label \"Avg. time\" on top, under it big 28px bold \"3m 12s\". Card exactly 200x90px, top-left at 640,90 (fixed size and place: fit conten"
     },
     {
       "kind": "add",
@@ -165,7 +150,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White card titled 'Visitors per day' containing a line chart built as SVG: thick solid indigo line rising left to right (14 points), dashed grey line rising lef"
+      "instruction": "White card titled \"Visitors per day\" containing an SVG line chart: thick solid indigo line rising left to right (14 points), straight segments with sharp corner"
     },
     {
       "kind": "add",
@@ -180,7 +165,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Small bold heading 'By hour × weekday' above a heat grid (not a picture, no pills, no text in cells): 6 rows of 8 textless 36x36px cells, 4px rounded corners, 4"
+      "instruction": "Card with small bold heading \"By hour × weekday\", under it a heat grid (not a picture, not pills, no text in cells): 6 rows of 8 textless 36x36px cells with 4px"
     },
     {
       "kind": "add",
@@ -195,7 +180,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "White card with small bold heading 'Top pages' followed by a table with columns 'Page', 'Visitors', 'Avg. time', 'Bounce' and exactly 4 rows: '/pricing' | 12,48"
+      "instruction": "White card with small bold heading \"Top pages\", then a table with columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\" and rows: \"/pricing\" | 12,480 | 2m 40s | 31%"
     },
     {
       "kind": "add",
@@ -210,10 +195,8 @@
       "paths": [
         "s8"
       ],
-      "instruction": "An OPEN date-range picker floating over the page: a #ffffff panel, 12px rounded corners, big soft drop shadow so it sits above the cards beneath it (not page nu"
+      "instruction": "An OPEN date-range picker floating over the page: a #ffffff panel, 12px rounded corners, big soft drop shadow so it sits above the cards beneath it (NOT page nu"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }
