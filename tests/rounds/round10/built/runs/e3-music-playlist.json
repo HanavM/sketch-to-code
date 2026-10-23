@@ -1,0 +1,183 @@
+{
+  "id": "e3-music-playlist",
+  "at": "2026-10-23T12:43:34.464Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8121475471758288,
+    "overallV2": 0.8121475471758288,
+    "overallV1": 0.7948126652333676,
+    "colour": 0.9627673805941032,
+    "structure": 0.8454041436547401,
+    "structureStrict": 0.8016527657081653,
+    "colourAligned": 0.9627673805941032,
+    "structureAligned": 0.8454041436547401,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9007198348981729
+    },
+    "layout": 0.6281556777537384
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 35820,
+    "output": 18852,
+    "cacheRead": 147301
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42436,
+      "output": 13202,
+      "cacheRead": 144217,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 134195
+    }
+  ],
+  "reading": "The sketch lays out a Spotify-style playlist page: a black sidebar nav, a hero section with a gradient \"album art\" block, playlist title/description, play controls, a 5-row track list table, and a bottom player bar — all content and colors fully specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        11,
+        11,
+        234,
+        786
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Left navigation sidebar, solid black (#000000) background, built from live text elements exactly as specified (page px, size then top-left x,y): 39x16 at 28,36 "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        259,
+        11,
+        1010,
+        786
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Main content panel background: a vertical gradient from dark grey (#5b2a86) to deep indigo (#2a1540 at 50%) to near-black (#121212), top to bottom, spanning the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        287,
+        71,
+        213,
+        214
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Square block at the top-left of the main panel (in place of album art): diagonal gradient from pink (#f72585) to purple (#7209b7 at 60%) to deep purple (#3a0ca3"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 3,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        536,
+        128,
+        512,
+        132
+      ],
+      "paths": [],
+      "instruction": "Playlist header block beside the gradient art, built as live text elements exactly as specified: 41x15 at 532,129 13px #ffffff \"Playlist\"; 520x82 at 532,150 72p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        288,
+        321,
+        161,
+        49
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Playback controls row below the header: 56x56 at 284,318 #1ed760 filled circle (play button), 32x32 at 364,330 circle with 2px #b3b3b3 border (shuffle icon), 32"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        287,
+        403,
+        954,
+        310
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Track list table below the controls, built exactly as specified: a 960x56px #2a2a2a filled, 6px rounded button-row reading \"▮▮ Nightcall\" (6px rounded, #b3b3b3 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        811,
+        1273,
+        86
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Bottom playback bar, built exactly as specified: 56x56 at 16,826 linear-gradient(135deg, #f72585, #3a0ca3) album thumbnail; 59x16 at 84,838 14px bold #ffffff \"N"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

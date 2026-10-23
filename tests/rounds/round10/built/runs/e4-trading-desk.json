@@ -1,0 +1,138 @@
+{
+  "id": "e4-trading-desk",
+  "at": "2026-10-23T12:33:48.338Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9556874147160239,
+    "overallV2": 0.9556874147160239,
+    "overallV1": 0.9415543542404106,
+    "colour": 0.9829148967177798,
+    "structure": 0.923910818271022,
+    "structureStrict": 0.8862251912353695,
+    "colourAligned": 0.9829148967177798,
+    "structureAligned": 0.923910818271022,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8608062108733202
+    },
+    "layout": 0.9695567205224733
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 44796,
+    "output": 26368,
+    "cacheRead": 153210
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 59770,
+      "output": 21575,
+      "cacheRead": 150126,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 192883
+    }
+  ],
+  "reading": "The sketch lays out a crypto trading dashboard: a top price/stat bar, a left price-chart area with a striped background and candlestick-style marks, a bar chart beneath it, an order book list on the right, and a buy/sell order entry panel across the bottom. Every piece of text, color, size and position is given exactly by the typed notes attached to each stroke.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar, 56px tall, spanning the full width at the very top of the page: no fill (shows page colour), with a 1px #2b3139 line under it. Only these items, left t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        19,
+        75,
+        854,
+        464
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Price chart panel with a background of big horizontal repeating stripes (not a smooth gradient): repeating-linear-gradient(0deg, transparent 0px 77px, #1e2329 7"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        20,
+        553,
+        853,
+        84
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Bar chart with 25 bright green bars, heights at 26/74/44/92/62/32/81/51/99/69/39/87/57/27/75/45/94/64/34/82/52/100/70/40/88% of the tallest bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        895,
+        75,
+        366,
+        562
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Order book panel on the right side, list rows exactly 22px apart (22px tall rows, 13px type, tight spacing), first row 36px below the panel's top. 50 real eleme"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        20,
+        659,
+        1241,
+        222
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Order entry panel with buy (left) and sell (right) sides, tabs, price/amount inputs and action buttons. 16 real elements with live content/fill, exact sizes/pos"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

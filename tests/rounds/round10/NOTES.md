@@ -93,3 +93,26 @@ PLANTS" square corners), not re-run.
 
 Round 10 creative pages: **89%** average (was 75). Next: first builds of the five everyday pages (video call, PR diff,
 playlist, trading desk, onboarding wizard), then c5's arch gradient and c1's star text.
+
+## n138: weak regions said part by part; first builds of the five everyday pages (2026-10-23, ~447k billed)
+
+Planner (free): one general rule instead of five page-specific ones. Every region now carries its parts: each painted
+or worded element inside it (and its own loose text lines), with page-px size and top-left, fill / gradient / border
+(dashed, which sides) / outline or inset ring / rounding / opacity, and text with size, weight (regular said for 20px+),
+face and colour. A region is said part by part when the other rules leave it weak (no note, "picture with" one word, a
+bare word list, a field name, a chart said only as stripes), when its note quotes under 60% of its own words (the rest
+would be dropped or invented), or when it is a frame whose own fields are drawn nowhere (e5 form: a no-fill box).
+Rounds 1-9 re-planned: 23 notes on 12 pages gain parts (r2 shop cards, r1 blog posts, r6 calendar hours, r7 minimap...),
+none re-run.
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| e1 video call | **86%** | tiles, avatars, name chips, mute dots, active outline, round controls and Leave pill all right; chat panel built as an inset rounded card, input lost |
+| e2 pr diff | **70%** | header, tabs, file tree, every diff row and the comment right; title built bold over "#4127" (re-run with "regular" said: 68%, title fixed but comment copy invented; first kept) |
+| e3 playlist | 73% then **82%** | first build had 2 of 7 nav items and only the playing track; the under-60% rule added them: all tracks and nav in; inset rounded panels lost |
+| e4 trading desk | **96%** | 25 candles, depth bars, both order forms right; panel borders lost, volume bars all green |
+| e5 wizard | **87%** | the whole form (fields, plan cards, drop zone, toggle) now built; stepper checks and connectors, radio circles lost |
+
+Round 10 complete: **87%** over all 10 (creative 91 90 92 94 81; everyday 86 70 82 96 87). Untuned everyday first
+builds averaged 84%, against 48% for round 9's untuned everyday first builds. Next: c5 arch gradient, c1 star text,
+e2 card border and invented comment copy, e5 stepper checks; then write round 11.

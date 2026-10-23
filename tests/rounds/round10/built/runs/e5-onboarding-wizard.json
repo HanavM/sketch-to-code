@@ -1,0 +1,115 @@
+{
+  "id": "e5-onboarding-wizard",
+  "at": "2026-10-23T12:39:00.245Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8682852598274957,
+    "overallV2": 0.8682852598274957,
+    "overallV1": 0.8300348227361656,
+    "colour": 0.9913437887962954,
+    "structure": 0.9159213603365831,
+    "structureStrict": 0.8690746373213291,
+    "colourAligned": 0.9913437887962954,
+    "structureAligned": 0.9159213603365831,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.99651296903089
+    },
+    "layout": 0.8285311491935736
+  },
+  "effects": null,
+  "tokens": {
+    "input": 38879,
+    "output": 25151,
+    "cacheRead": 325638
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39800,
+      "output": 14853,
+      "cacheRead": 121585,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 147000
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 4749,
+      "output": 1740,
+      "cacheRead": 169931,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 17455
+    }
+  ],
+  "reading": "This is an onboarding/setup wizard page: a dark navy sidebar with a logo and step checklist, a large content panel with a step label, title, subtitle, workspace-name and region inputs, a plan picker, a logo-upload dropzone and a recommendation toggle, and a footer bar with Back/Continue buttons and a step counter.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        334,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark navy (#0f172a) sidebar block, light grey text. Contents top to bottom: logo '◆ Ledgerly'; a checklist item with grey '✓' icon, 'Your account' heading and '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        403,
+        51,
+        814,
+        521
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "An invisible 820x527 content frame holding, part by part with live text (nothing invented, nothing left out): a bold indigo (#4f46e5) 'STEP 3 OF 5' eyebrow labe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        403,
+        819,
+        813,
+        57
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Footer bar containing, part by part with live text: a white, rounded, bordered (#cbd5e1) button with bold dark-navy text '← Back'; an indigo (#4f46e5) filled ro"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

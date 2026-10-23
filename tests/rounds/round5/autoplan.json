@@ -621,7 +621,7 @@
    ],
    [
     "tabs",
-    "links: Profile, Billing, Notifications, Security, API keys; \"Notifications\" selected (bold, near-black text, near-black underline); all of these sit together at the LEFT, one after another, ending 399px in (the right 55% of the bar is empty, nothing pushed right)"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 43x31 at 200,104 15px #71717a \"Profile\"; 40x31 at 271,104 15px #71717a \"Billing\"; 91x31 at 339,104 2px #18181b border on the bottom only: 15px bold #18181b \"Notifications\"; 54x31 at 457,104 15px #71717a \"Security\"; 59x31 at 540,104 15px #71717a \"API keys\""
    ],
    [
     "toggles",

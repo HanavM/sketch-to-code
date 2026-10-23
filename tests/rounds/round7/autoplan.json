@@ -922,6 +922,10 @@
     "mono 14px code lines: \"1import { readFile } from 'node:fs/promises'\", \"2\", \"3// Split a sketch into strokes and words\", \"4export async function parse(path: string) {\", \"5  const raw = await readFile(path, 'utf8')\", \"6  const lines = raw.split('\\n').filter(Boolean)\", \"7  return lines.map((l, i) => ({ id: i, ink: l }))\", \"8}\", \"9\", \"10export function size(s: Stroke) {\", \"11  return Math.hypot(s.w, s.h)\", \"12}\"; light grey code, coloured: brown \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\", \"11\", \"12\"; lavender \"import\", \"from\", \"export async function\", \"const\", \"await\", \"return\", \"export function\"; mint green \"'node:fs/promises'\", \"'utf8'\", \"'\\n'\"; grey \"// Split a sketch into strokes and words\"; sky blue \"parse\", \"readFile\", \"split\", \"filter\", \"map\", \"size\", \"hypot\"; peach \"string\", \"Stroke\""
    ],
    [
+    "minimap",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out): 92x140 at 1176,50 #89b4fa at 12% fill; 50x3 at 1180,53 #45475a fill, pill ends; 17x3 at 1180,59 #45475a fill, pill ends; 63x3 at 1180,65 #45475a fill, pill ends; 76x3 at 1180,71 #45475a fill, pill ends; 59x3 at 1180,77 #45475a fill, pill ends; 71x3 at 1180,83 #45475a fill, pill ends; 67x3 at 1180,89 #45475a fill, pill ends; 8x3 at 1180,95 #45475a fill, pill ends; 55x3 at 1180,101 #45475a fill, pill ends; 42x3 at 1180,107 #45475a fill, pill ends; 8x3 at 1180,113 #45475a fill, pill ends"
+   ],
+   [
     "terminal",
     "near-black block mono 13px code lines: \"TERMINAL · PROBLEMS 1\", \"$ npm test\", \"✓ parse splits lines (3 ms)\", \"✓ size of a stroke (1 ms)\", \"✗ parse keeps empty ink — expected 4, got 3\", \"Tests: 1 failed, 2 passed\", \"$\"; light grey code"
    ],

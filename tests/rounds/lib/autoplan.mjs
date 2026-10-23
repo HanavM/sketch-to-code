@@ -894,6 +894,43 @@ export function factsInPage() {
       // a small textless pill: a toggle switch
       toggle: [...el.querySelectorAll('*')].map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(c.borderTopLeftRadius) >= b.height / 2 - 1 ? rgba(c.backgroundColor) : null }).find(Boolean) || null,
       dense: dense(el),
+      // n138: every painted or worded part inside the region (not inside a nested region), in page px, so a region the
+      // rules leave weak (round 10 e1 control bar 'picture with Leave', e2 diff unsaid, e5 form fields never drawn) can
+      // be said part by part
+      parts: (() => {
+        const out = []
+        const pbg = (k) => { for (let p = k.parentElement; p; p = p.parentElement) { const c = rgba(getComputedStyle(p).backgroundColor); if (c && c.a > 0.05) return c } return { r: 255, g: 255, b: 255, a: 1 } }
+        // the region's own loose text lines (round 10 e3 side nav: '<b>Home</b><br>Search<hr>...<br>Gym Hits')
+        const es = getComputedStyle(el)
+        for (const n of el.childNodes) {
+          const t = n.nodeType === 3 ? n.textContent.replace(/\s+/g, ' ').trim() : ''
+          if (!t) continue
+          const rg = document.createRange(); rg.selectNodeContents(n); const b = rg.getBoundingClientRect()
+          if (b.width < 2) continue
+          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: t.slice(0, 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+        }
+        const all = [...el.querySelectorAll('*')].filter((k) => { const reg = k.closest('[data-r]'); return reg === el || (!reg && el === document.body) })
+        for (const k of all) {
+          const s = getComputedStyle(k), b = k.getBoundingClientRect()
+          if (s.display === 'none' || s.visibility === 'hidden' || b.width < 2 || b.height < 2 || parseFloat(s.opacity) < 0.05) continue
+          const own = [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
+          const fill = rgba(s.backgroundColor), pf = pbg(k)
+          const hasFill = fill && fill.a > 0.05 && Math.hypot(fill.r - pf.r, fill.g - pf.g, fill.b - pf.b) > 6
+          const img = s.backgroundImage !== 'none' ? s.backgroundImage : null
+          const bw = ['Top', 'Right', 'Bottom', 'Left'].map((d) => parseFloat(s[`border${d}Width`]) || 0)
+          const bc = rgba(s.borderTopColor) || rgba(s.borderBottomColor) || rgba(s.borderLeftColor)
+          const ring = parseFloat(s.outlineWidth) >= 1 && s.outlineStyle !== 'none' ? { px: parseFloat(s.outlineWidth), c: rgba(s.outlineColor) } : null
+          const inset = /inset/.test(s.boxShadow) ? s.boxShadow : null
+          if (!own && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset) continue
+          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, 70),
+            px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
+            fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
+            radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
+            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) })
+          if (out.length > 120) break
+        }
+        return out
+      })(),
       // each corner's radius (a dropdown hangs square-topped from its bar, round 6 e1)
       corners: ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((c) => parseFloat(cs[`border${c}Radius`]) || 0),
       // a picture block painted by ::before/::after (round 6 e1 featured card's gradient square: unsaid)
@@ -2138,6 +2175,28 @@ function round10Extra(f, d) {
   if (B && d.kind === 'box' && f.rect.x >= 24 && f.rect.y >= 24 && f.rect.x + f.rect.w <= 1256) note += `; the window is ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded corners` : ''}${f.border?.w ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : ''}: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it`
   return note === d.note ? d : { ...d, note }
 }
+/** n138: a region said part by part, each part's page-px box, paint and text (nothing invented, nothing left out). */
+function partsNote(P, f) {
+  const hx = (c) => (c ? `${hexOf(c)}${c.a < 0.95 ? ` at ${Math.round(c.a * 100)}%` : ''}` : '')
+  const imgW = (s) => s.replace(/rgba?\([^)]+\)/g, (m) => hx(parse(m)))
+  const one = (p) => {
+    const paint = []
+    if (p.fill) paint.push(`${hx(p.fill)} fill`)
+    if (p.img) paint.push(/gradient/.test(p.img) ? imgW(p.img) : 'a picture')
+    if (p.border) {
+      const [t, r, b, l] = p.border.w, all = t >= 1 && r >= 1 && b >= 1 && l >= 1
+      const sides = all ? '' : ` on the ${[['top', t], ['right', r], ['bottom', b], ['left', l]].filter(([, v]) => v >= 1).map(([n]) => n).join('+')} only`
+      paint.push(`${Math.max(t, r, b, l)}px ${p.border.style === 'dashed' ? 'DASHED ' : p.border.style === 'dotted' ? 'dotted ' : ''}${hx(p.border.c)} border${sides}`)
+    }
+    if (p.ring) paint.push(`${p.ring.px}px ${hx(p.ring.c)} outline ring`)
+    if (p.inset) paint.push(`inset ring (box-shadow: ${imgW(p.inset)})`)
+    if (p.radius) paint.push(p.radius >= Math.min(p.w, p.h) / 2 - 1 ? (Math.abs(p.w - p.h) <= 2 ? 'a circle' : 'pill ends') : `${p.radius}px rounded`)
+    const text = p.t ? `${p.px}px ${p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"` : ''
+    if (p.op < 98) paint.push(`${p.op}% opacity`)
+    return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
+  }
+  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
+}
 function decide(f, page, marked, said = new Set()) {
   const r10 = round10Note(f)
   if (r10) return r10
@@ -3310,6 +3369,26 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       g.rect.x >= A.x - 2 && g.rect.y >= A.y - 2 && g.rect.x + g.rect.w <= A.x + A.w + 2 && g.rect.y + g.rect.h <= A.y + A.h + 2 &&
       g.rect.w * g.rect.h <= 0.5 * A.w * A.h)
     if (onTop) d.kind = 'box'
+  })
+  // n138: a region the rules still leave weak (no note, a 'picture with' one word, a bare word list, a field name, a
+  // chart said only as stripes) or a frame whose own fields are drawn nowhere (round 10 e5 form) is said part by part:
+  // every painted or worded part with its page-px box, fill, edge and text, the way the target's own boxes give them
+  regions.forEach((f) => {
+    const d = out.get(f.role), P = (f.parts ?? []).filter((p) => p.w * p.h < 0.97 * f.rect.w * f.rect.h)
+    if (P.length < 3 || P.length > 100) return
+    const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
+    const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
+    const frame = !d.kind && f.regionKids.length && P.filter((p) => p.t).length >= 3
+    // a note that quotes under 60% of the region's own words leaves the rest to be invented or dropped (round 10 e3
+    // track table: header and the playing row said, the other four tracks lost; side nav: 2 of 7 items)
+    const T = uniq(P.map((p) => p.t).filter((t) => t && t.length >= 2))
+    const thin = d.kind && d.note && !f.regionKids.length && T.length >= 4 && T.filter((t) => d.note.includes(t)).length < 0.6 * T.length
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin) return
+    const note = partsNote(P, f)
+    if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
+    const keep = d.note && !weak ? `${d.note}; ` : ''
+    out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note}` })
+    marked.add(f.role)
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {

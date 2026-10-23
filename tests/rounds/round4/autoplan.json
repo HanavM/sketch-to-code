@@ -365,7 +365,7 @@
    ],
    [
     "foot",
-    "links: Talks, Workshops, Exhibition, Tickets CHF 90"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 32x15 at 340,845 13px bold #111111 \"Talks\"; 71x15 at 586,845 13px bold #111111 \"Workshops\"; 63x15 at 870,845 13px bold #111111 \"Exhibition\"; 93x15 at 1147,845 13px bold #111111 \"Tickets CHF 90\""
    ]
   ]
  },
@@ -694,6 +694,10 @@
  "e4-file-manager": {
   "plan": [
    [
+    "sidebar",
+    "box"
+   ],
+   [
     "storage",
     "box"
    ],
@@ -717,7 +721,7 @@
   "notes": [
    [
     "sidebar",
-    "\"Drive\", then stacked links: \"My files\" (highlighted), \"Shared with me\", \"Recent\", \"Starred\", \"Trash\""
+    "an invisible frame 230x900px at 0,0 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 197x21 at 16,22 18px bold #1e293b \"Drive\"; 197x34 at 16,65 #f1f5f9 fill, 6px rounded: 14px bold #1e293b \"My files\"; 197x34 at 16,99 6px rounded: 14px #1e293b \"Shared with me\"; 197x34 at 16,133 6px rounded: 14px #1e293b \"Recent\"; 197x34 at 16,167 6px rounded: 14px #1e293b \"Starred\"; 197x34 at 16,201 6px rounded: 14px #1e293b \"Trash\""
    ],
    [
     "storage",
@@ -775,7 +779,7 @@
    ],
    [
     "zoom",
-    "links: Day, Week, Month; \"Week\" selected (white text, near-black fill)"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 51x31 at 1067,29 13px #18181b \"Day\"; 61x31 at 1118,29 #18181b fill, 7px rounded: 13px #ffffff \"Week\"; 64x31 at 1179,29 13px #18181b \"Month\""
    ],
    [
     "timeline",
