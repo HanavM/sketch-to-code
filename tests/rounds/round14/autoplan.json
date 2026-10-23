@@ -721,7 +721,7 @@
    ],
    [
     "area-chart",
-    "near-black block \"Requests by status 2xx 4xx 5xx\"; each word in its own colour: \"Requests by status\" #ffffff, \"2xx 4xx 5xx\" #9aa4b5"
+    "near-black (#121722) chart card 900x300px, 8px rounded, 1px #1f2633 border; small bold title \"Requests by status\" top left; a legend at its top right, a small square colour swatch before each word: #3d6be0 \"2xx\", #f7c948 \"4xx\", #ff6b7d \"5xx\"; the chart is a STACKED AREA chart (overlapping filled hills, NOT bars, NOT a bar chart, NOT lines only): an inline <svg width=\"870\" height=\"236\"> placed 15px from the card's left and 49px from its top, holding exactly these shapes, back to front: <path d=\"M0,236 L0,90 L145,70 L290,84 L435,52 L580,66 L725,40 L870,58 L870,236Z\" fill=\"#3d6be0\" opacity=\"0.55\"/> <path d=\"M0,236 L0,170 L145,160 L290,172 L435,150 L580,164 L725,140 L870,156 L870,236Z\" fill=\"#f7c948\" opacity=\"0.7\"/> <path d=\"M0,236 L0,214 L145,212 L290,216 L435,196 L580,178 L725,206 L870,212 L870,236Z\" fill=\"#ff6b7d\"/> <line x1=\"0\" y1=\"118\" x2=\"870\" y2=\"118\" stroke=\"#1f2633\"/> <line x1=\"0\" y1=\"59\" x2=\"870\" y2=\"59\" stroke=\"#1f2633\"/>; each word in its own colour: \"Requests by status\" #ffffff, \"2xx 4xx 5xx\" #9aa4b5"
    ],
    [
     "log-table",

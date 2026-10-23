@@ -348,6 +348,18 @@ export function factsInPage() {
         const cols = cs.gridTemplateColumns.split(/\s+/).filter(Boolean).length
         return { tiles: ts, cols, rows: Math.ceil(ts.length / cols), gap: Math.round(parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0), x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
       })(),
+      // n154: a chart card whose chart is an SVG of 2+ filled area paths (round 14 e4 stacked area chart: said only as
+      // its title and legend, built as a bar chart)
+      areaSvg: (() => {
+        const svg = [...el.querySelectorAll('svg')].find((s) => s.querySelectorAll('path').length >= 2)
+        if (!svg) return null
+        const ps = [...svg.querySelectorAll('path')].filter((p) => { const f = getComputedStyle(p).fill; return f && f !== 'none' && /Z\s*$/i.test((p.getAttribute('d') || '').trim()) })
+        if (ps.length < 2) return null
+        const b = svg.getBoundingClientRect()
+        const ls = [...svg.querySelectorAll('line')].map((l) => ({ x1: +l.getAttribute('x1'), y1: +l.getAttribute('y1'), x2: +l.getAttribute('x2'), y2: +l.getAttribute('y2'), c: rgba(getComputedStyle(l).stroke) }))
+        const sw = [...el.querySelectorAll('i, span')].filter((k) => { const kb = k.getBoundingClientRect(); return !k.children.length && !(k.innerText || '').trim() && kb.width >= 6 && kb.width <= 16 && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 }).map((k) => ({ c: rgba(getComputedStyle(k).backgroundColor), t: (k.parentElement.innerText || '').trim() }))
+        return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), paths: ps.map((p) => ({ d: p.getAttribute('d'), fill: rgba(getComputedStyle(p).fill), op: +getComputedStyle(p).opacity })), lines: ls, legend: sw }
+      })(),
       // one word whose letters each carry their own size and weight (round 7 c2 'VARIABLE' wave: no note, invented copy)
       letterWave: (() => {
         if (kids.length < 3 || kids.length > 24) return null
@@ -2986,6 +2998,15 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: withFx(`an empty solid ${hexOf(f.bg)} pill exactly ${Math.round(w)}x${Math.round(h)}px (border-radius 999px: fully round ends, a capsule, NOT square or slightly rounded corners; the selection outline follows the round ends), NO text, NO label, NOT a button with words, NOT blue${f.ring ? `; a ${f.ring.w}px ${colourName(f.ring.colour)} (${hexOf(f.ring.colour)}) selection outline round it (outline: ${f.ring.w}px solid; outline-offset ${f.ring.off}px)` : ''}${hd ? `; ${hd.n} small ${hd.px}x${hd.px}px square ${hexOf(hd.fill)} handles${hd.border ? ` with a ${hexOf(hd.border)} border` : ''}, one centred on each corner of its bounding box (absolutely placed)` : ''}`) }
   }
 
+  // n154: a card holding a stacked area chart, said as its exact SVG paths (round 14 e4 built bars)
+  if (f.areaSvg && !f.regionKids.length) {
+    const A = f.areaSvg
+    const head = f.kidTexts[0] ?? ''
+    const lg = A.legend.length ? `; a legend at its top right, a small square colour swatch before each word: ${A.legend.map((l) => `${hexOf(l.c)} ${quote(l.t, 12)}`).join(', ')}` : ''
+    const path = (p) => `<path d="${p.d}" fill="${hexOf(p.fill)}"${p.op < 0.99 ? ` opacity="${+p.op.toFixed(2)}"` : ''}/>`
+    const line = (l) => `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${hexOf(l.c)}"/>`
+    return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) chart card ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${hexOf(f.border.colour)} border` : ''}; small bold title ${quote(head, 40)} top left${lg}; the chart is a STACKED AREA chart (overlapping filled hills, NOT bars, NOT a bar chart, NOT lines only): an inline <svg width="${A.w}" height="${A.h}"> placed ${A.x}px from the card's left and ${A.y}px from its top, holding exactly these shapes, back to front: ${A.paths.map(path).join(' ')}${A.lines.length ? ` ${A.lines.map(line).join(' ')}` : ''}`) }
+  }
   // n154: a glyph tile grid, said tile by tile (round 14 c5 built it as one white word)
   if (f.glyphTiles && !f.regionKids.length) {
     const g = f.glyphTiles, t0 = g.tiles[0]
