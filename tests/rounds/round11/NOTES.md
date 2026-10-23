@@ -96,3 +96,24 @@ page-background design action from citing a box that has its own typed note (pip
 
 e5 week calendar not built (the run's guard stopped before it). Round 11 so far: **81%** over 9 pages (c1 79, c2 86,
 c3 77, c4 83, c5 84, e1 92, e2 82, e3 57, e4 85). Vitest: same 2 env failures; typecheck clean.
+
+## n143: list order, tab rows, weights, thin notes, whole paragraphs; e5 first build (2026-10-23, ~246k billed)
+
+Planner (one rule set, no per-page tuning): a list's extra lines that come after it in the page are said after it
+(e3's LABELS group was said before the folders and built above them), with a small round colour dot when one leads
+the words; a row of short tabs side by side is said in full with its selected tab's colour and underline (e3's
+Primary / Promotions / Updates were dropped); a part's font weight other than 400 / 700 is said as its number, and
+italic is said (c3's Black 900 built upright); a note that quotes under half of its region's letters is said part by
+part (c3's spec panel became a bare "contents list" and lost its paragraph, keys and button); a paragraph block three
+lines or taller keeps its whole copy instead of the first 70 letters (e3's mail body). Rounds 1-10 re-planned: notes
+change on 4 pages (r4 playlist title weight, r6 inbox, r9 order book mid price, r10 sidebar), none re-run.
+
+| page | before | now | what changed / still off |
+|---|---|---|---|
+| e3 mail client | 57% | **71%** | folders then LABELS with dots, tabs with the blue underline, list height right; mail body cut short (fixed after), reply buttons right. Re-run with the whole body: 62% (body run together, reply buttons moved up), first kept |
+| e5 week calendar | not built | **81%** | grid, seven days, every event and the now line right; the "My calendars" list built over the Create button at the top left, hour grid lines faint |
+| c3 weight ladder | 77% | **79%** | every weight right, Black 900 italic, spec panel keys, paragraph and button right; the two marquee bars came out muddier (whisper bar orange/dark) |
+
+Round 11 complete: **82%** over 10 pages (c1 79, c2 86, c3 79, c4 83, c5 84, e1 92, e2 82, e3 71, e4 85, e5 81).
+Vitest: same 2 env failures; typecheck clean. Still open: c4's tilted floor read as the page background, e1 code
+lines scrambled, c5 halo rings and wave shadows, e5 sidebar placement, c3 marquee fills.

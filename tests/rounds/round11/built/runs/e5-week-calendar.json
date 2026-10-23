@@ -1,0 +1,130 @@
+{
+  "id": "e5-week-calendar",
+  "at": "2026-10-23T15:57:16.392Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8060804965012458,
+    "overallV2": 0.8060804965012458,
+    "overallV1": 0.7608679226618852,
+    "colour": 0.987788154069297,
+    "structure": 0.9120561206114094,
+    "structureStrict": 0.8555338347552627,
+    "colourAligned": 0.987788154069297,
+    "structureAligned": 0.9120561206114094,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9748597192277206
+    },
+    "layout": 0.7285939968404423
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 46161,
+    "output": 25777,
+    "cacheRead": 186722
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 56918,
+      "output": 20836,
+      "cacheRead": 173878,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 223117
+    }
+  ],
+  "reading": "The sketch lays out a full calendar app page: a top header bar with title and nav links/buttons, a left sidebar holding an open date-range mini-calendar picker plus a calendars list, a large main week-view grid with day headers, hour labels and colored event blocks, and a small red current-time indicator line inside the grid.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Build the calendar header bar: bold 20px \"▦ Calendar\" first, then links: Today, ‹ ›, October 2026, Week ▾. Today, ‹ ›, and Week ▾ are small outlined buttons. \"▦"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        63,
+        234,
+        833
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build an OPEN date-range picker floating over the page as a white panel. It contains a \"+ Create\" button (bold, rounded), a month calendar headed \"October 2026\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        63,
+        1034,
+        834
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build the main week-view calendar grid as an invisible frame (no fill/border/shadow) containing: a bottom-bordered header row with day labels MON–SUN and their "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        722,
+        415,
+        132,
+        7
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a current-time indicator inside the week grid: a thin solid red line, 2px tall and about 140px wide, with a 12px round red dot on its left end, no text."
+    }
+  ],
+  "rejected": []
+}

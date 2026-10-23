@@ -952,8 +952,10 @@ export function factsInPage() {
           const ring = parseFloat(s.outlineWidth) >= 1 && s.outlineStyle !== 'none' ? { px: parseFloat(s.outlineWidth), c: rgba(s.outlineColor) } : null
           const inset = /inset/.test(s.boxShadow) ? s.boxShadow : null
           if (!own && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset) continue
-          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, 70),
-            px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
+          // n143: a paragraph block three lines or taller keeps its whole copy (round 11 e3 mail body: cut at 70 letters, the
+          // rest lost)
+          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, b.height >= 3 * parseFloat(s.fontSize) * 1.2 && own.length > 70 ? 360 : 70),
+            px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
             border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) })
@@ -1609,9 +1611,23 @@ export function factsInPage() {
         // a row of filled chips (seat labels E4 E5, round 8 e4: run together as 'E4E5')
         const cs2 = [...k.children]
         if (cs2.length >= 2 && cs2.every((g) => filled(g) && txt(g) && txt(g).length <= 8 && !g.children.length)) return { t: cs2.map(txt).join(' '), chips: cs2.map((g) => ({ t: txt(g), fill: filled(g), ink: rgba(getComputedStyle(g).color) })), btn: false, fill: null, big: false }
+        // n143: an extra that comes after the list in the page is said after it (round 11 e3: the LABELS group was said
+        // before the folders and built above them)
+        const after = !!(rep[rep.length - 1].compareDocumentPosition(k) & 4)
+        // n143: a row of short tabs side by side, one selected (round 11 e3 Primary / Promotions / Updates: dropped)
+        const tb = [...k.children].map((g) => g.getBoundingClientRect())
+        if (!pin && cs2.length >= 2 && cs2.length <= 6 && cs2.every((g) => txt(g) && txt(g).length <= 20 && !filled(g) && parseFloat(getComputedStyle(g).borderTopWidth) < 1) && tb.every((r) => Math.abs(r.top - tb[0].top) <= 4)) {
+          const look = (g) => { const gc = getComputedStyle(g); return `${gc.color}|${gc.borderBottomColor}|${gc.borderBottomWidth}|${gc.fontWeight}` }
+          const odd = cs2.filter((g) => cs2.filter((j) => look(j) === look(g)).length === 1)
+          const sel = odd.length === 1 ? odd[0] : null
+          const sc = sel ? getComputedStyle(sel) : null
+          return { t: cs2.map(txt).join(' '), tabs: cs2.map(txt), sel: sel ? txt(sel) : null, selInk: sc ? rgba(sc.color) : null, selLine: sc && parseFloat(sc.borderBottomWidth) >= 2 ? { w: Math.round(parseFloat(sc.borderBottomWidth)), c: rgba(sc.borderBottomColor) } : null, h: Math.round(b.height), btn: false, fill: null, big: false, after }
+        }
         // grey copy lines under a title (date, hall: round 8 e4 dropped) say their line breaks
         const lines = (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
-        return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24, lines: lines.length >= 2 && lines.length <= 4 ? lines : null, pin, ink, bold }
+        // n143: a small round colour dot before the words (round 11 e3 label dots: lost)
+        const dg = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length && filled(g) && g.getBoundingClientRect().width >= 6 && g.getBoundingClientRect().width <= 20)
+        return { t: txt(k), dot: dg ? filled(dg) : null, btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24, lines: lines.length >= 2 && lines.length <= 4 ? lines : null, pin, ink, bold, after, caps: /^[A-Z0-9 &/-]+$/.test(txt(k)) && txt(k).length <= 24 && parseFloat(c.fontSize) <= 13 }
       })
       // a picture leading the block, its copy beside it (a film poster in an order summary, round 8 e4: dropped)
       const pic = (() => { const g = kids.find((k) => !txt(k) && !k.children.length && (filled(k) || /gradient/.test(getComputedStyle(k).backgroundImage))); if (!g) return null; const b = g.getBoundingClientRect(), o = el.getBoundingClientRect(); return b.width >= 50 && b.height >= 50 ? { w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), bg: getComputedStyle(g).backgroundImage, fill: filled(g), rad: Math.round(parseFloat(getComputedStyle(g).borderTopLeftRadius) || 0), float: getComputedStyle(g).float } : null })()
@@ -1820,6 +1836,8 @@ export const faceName = (fam) => {
 }
 // cut-short copy puts its ellipsis OUTSIDE the quotes ("Looks great. Can we"…), so it
 // never reads as a literal placeholder ellipsis ("Write a message…")
+// n143: a tab row said in full, its selected tab and underline (round 11 e3: tabs dropped, list built ~22px high)
+const tabsSay = (d) => (d.extra ?? []).filter((x) => x.tabs).map((x) => `a ${x.h}px row of tabs side by side: ${x.tabs.map((t) => `${quote(t, 20)}${t === x.sel ? ` (selected${x.selInk ? `, ${hexOf(x.selInk)} text` : ''}${x.selLine ? `, a ${x.selLine.w}px ${hexOf(x.selLine.c)} underline` : ''})` : ''}`).join(', ')}, then `).join('')
 const quote = (s, n = 48) => (s.length > n ? `"${s.slice(0, n).replace(/\s+\S*$/, '')}"…` : `"${s}"`)
 const uniq = (xs) => [...new Set(xs.filter(Boolean))]
 
@@ -2117,7 +2135,7 @@ function denseNote(d) {
         const bold = d.bold2 ?? []
         const mixed = bold.some(Boolean) && !bold.every(Boolean)
         const sel = d.on ? `; the ${quote(d.on.length <= 10 ? d.items.find((p) => p[0] === d.on)?.[1] ?? d.on : d.on, 20)} row selected${d.onFill ? ` (${sheetFill(d.onFill)}${d.onEdge ? `, ${colourName(d.onEdge)} left edge` : ''})` : ''}` : ''
-        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}${d.items.length} mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that${mixed ? '; unread rows have a bold sender, read rows a normal one' : ''}: ${d.items.map((p, i) => `${quote(p[1], 20)} ${p[0]} ${quote(p[2], 36)} / ${quote(p[3], 64)}${mixed && bold[i] ? ' (unread)' : ''}`).join('; ')}${sel}`
+        return `${d.head ? `${quote(d.head, 20)} box, then ` : ''}${tabsSay(d)}${d.items.length} mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that${mixed ? '; unread rows have a bold sender, read rows a normal one' : ''}: ${d.items.map((p, i) => `${quote(p[1], 20)} ${p[0]} ${quote(p[2], 36)} / ${quote(p[3], 64)}${mixed && bold[i] ? ' (unread)' : ''}`).join('; ')}${sel}`
       }
       // mail-like rows: a name and a time on one line, a line of text under them (round 4 e2)
       if (d.items.length >= 4 && d.items.every((p) => p.length === 3 && p[1].length <= 10 && p[2].length >= 12)) {
@@ -2148,11 +2166,11 @@ function denseNote(d) {
       const pic = d.pic ? `a ${d.pic.w}x${d.pic.h}px ${/gradient/.test(d.pic.bg) ? `gradient (${[...d.pic.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}) ` : d.pic.fill ? `${hexOf(d.pic.fill)} ` : ''}poster picture${d.pic.rad ? ` ${d.pic.rad}px rounded` : ''} at its top left (${d.pic.x}px in, ${d.pic.y}px down)${d.pic.float === 'left' ? ', the title and lines just right of it' : ''}; ` : ''
       const pinSay = (x) => x.pin ? ` (pinned to the card's bottom: its bottom edge ${x.pin.up}px above the card's bottom edge, ${x.pin.w}px wide, centred; empty space above it)` : ''
       const exPin = (x) => `, ${x.bold ? 'bold ' : ''}${x.ink && colourName(x.ink) !== 'near-black' ? `${colourName(x.ink)} (${hexOf(x.ink)}) ` : ''}${quote(x.t)}${pinSay(x)}`
-      const ex = (x) => x.pin ? '' : x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.big ? 'big ' : ''}${quote(x.t)} `
+      const ex = (x) => x.pin ? '' : x.tabs ? tabsSay({ extra: [x] }).replace(/, then $/, ' ') : x.caps ? `small grey spaced capitals ${quote(x.t)} ` : x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.dot ? `${hexOf(x.dot)} round dot then ` : ''}${x.big ? 'big ' : ''}${quote(x.t)} `
       const hl = d.headLook
       const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded` : ' ('}${hl.bold ? ', bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
-      return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).filter((x) => x.pin && !x.btn).map(exPin).join('')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}${pinSay(x)}`).join('')}${d.navLook?.pitch && d.stacked && d.items.length >= 4 && !d.pic ? `; list rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
+      return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn && !x.after).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).some((x) => !x.btn && !x.pin && x.after) ? `; then under the list, in this order: ${(d.extra ?? []).filter((x) => !x.btn && !x.pin && x.after).map((x) => ex(x).trim()).join(', ')}` : ''}${(d.extra ?? []).filter((x) => x.pin && !x.btn).map(exPin).join('')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}${pinSay(x)}`).join('')}${d.navLook?.pitch && d.stacked && d.items.length >= 4 && !d.pic ? `; list rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
   }
   return null
 }
@@ -2286,7 +2304,10 @@ function partsNote(P, f) {
     if (p.ring) paint.push(`${p.ring.px}px ${hx(p.ring.c)} outline ring`)
     if (p.inset) paint.push(`inset ring (box-shadow: ${imgW(p.inset)})`)
     if (p.radius) paint.push(p.radius >= Math.min(p.w, p.h) / 2 - 1 ? (Math.abs(p.w - p.h) <= 2 ? 'a circle' : 'pill ends') : `${p.radius}px rounded`)
-    const text = p.t ? `${p.px}px ${p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"` : ''
+    // n143: a weight other than 400 / 700 is said as its number, italic said (round 11 c3 weight ladder: Thin 100 built
+    // regular, Black 900 built upright bold)
+    const wtSay = p.wt && ![400, 700].includes(p.wt) && (p.wt <= 300 || p.wt >= 800 || p.px >= 20) ? `font-weight ${p.wt} ` : p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''
+    const text = p.t ? `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"` : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
@@ -2506,7 +2527,9 @@ function decideOne(f, page, marked, said) {
   }
   // a contents list with no box: a heading over short links one per line, the current one in its own ink (round 8 e5
   // 'On this page': no note, so the build drew big dark text with invented items)
-  if (!fill && !bordered && !f.regionKids.length && f.dense?.type === 'list' && f.dense.stacked && f.dense.head && !f.dense.groups && f.dense.inks && f.dense.items.length >= 3 && f.dense.items.length <= 12 && f.dense.items.every((p) => p.length === 1 && p[0].length <= 28)) {
+  if (!fill && !bordered && !f.regionKids.length && f.dense?.type === 'list' && f.dense.stacked && f.dense.head && !f.dense.groups && f.dense.inks && f.dense.items.length >= 3 && f.dense.items.length <= 12 && f.dense.items.every((p) => p.length === 1 && p[0].length <= 28)
+    // n143: only when the list is the region's words (round 11 c3 spec panel: its paragraph, keys and button were lost)
+    && (f.dense.head.length + f.dense.items.reduce((n, p) => n + p[0].length, 0)) >= 0.6 * (f.text || '').replace(/\s+/g, '').length) {
     const d = f.dense, key = (c, i) => `${hexOf(c)}|${d.weights[i] >= 600}`
     const odd = d.inks.map(key).filter((k, i, a) => a.filter((x) => x === k).length === 1)
     const oi = odd.length === 1 && d.items.length >= 3 ? d.inks.map(key).indexOf(odd[0]) : -1
@@ -3523,7 +3546,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // a note that quotes under 60% of the region's own words leaves the rest to be invented or dropped (round 10 e3
     // track table: header and the playing row said, the other four tracks lost; side nav: 2 of 7 items)
     const T = uniq(P.map((p) => p.t).filter((t) => t && t.length >= 2))
-    const thin = d.kind && d.note && !f.regionKids.length && T.length >= 4 && T.filter((t) => d.note.includes(t)).length < 0.6 * T.length
+    // ...or under half its letters (round 11 c3 spec panel: the values said, its 90-letter paragraph and keys lost)
+    const chars = (a) => a.reduce((n, t) => n + t.length, 0)
+    const thin = d.kind && d.note && !f.regionKids.length && T.length >= 4 && (T.filter((t) => d.note.includes(t)).length < 0.6 * T.length || chars(T.filter((t) => d.note.includes(t.slice(0, 40)))) < 0.5 * chars(T))
     if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
