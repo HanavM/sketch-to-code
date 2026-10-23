@@ -1,23 +1,23 @@
 {
   "id": "e2-map-listings",
-  "at": "2026-10-23T09:06:31.393Z",
+  "at": "2026-10-23T09:46:17.924Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8079523854927471,
-    "overallV2": 0.8079523854927471,
-    "overallV1": 0.6968172242985634,
-    "colour": 0.986862479546046,
-    "structure": 0.9070400791851745,
-    "structureStrict": 0.7844547797567788,
-    "colourAligned": 0.986862479546046,
-    "structureAligned": 0.9070400791851745,
+    "overall": 0.8124385183798705,
+    "overallV2": 0.7810743835879465,
+    "overallV1": 0.6857564725671996,
+    "colour": 0.9794291814945125,
+    "structure": 0.8819114868811982,
+    "structureStrict": 0.7767730721993562,
+    "colourAligned": 0.9837151146945762,
+    "structureAligned": 0.9005312667163112,
     "align": {
       "scale": 1,
       "dx": 0,
-      "dy": 0,
-      "r": 0.8754068002729763
+      "dy": -16,
+      "r": 0.8570638756047644
     },
-    "layout": 0.7887508009924558
+    "layout": 0.8588272775828788
   },
   "effects": {
     "recall": 1,
@@ -30,92 +30,51 @@
     "extra": []
   },
   "tokens": {
-    "input": 45435,
-    "output": 22185,
-    "cacheRead": 225044
+    "input": 37530,
+    "output": 21204,
+    "cacheRead": 332698
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 40863,
-      "output": 11321,
-      "cacheRead": 106562,
-      "toolCalls": 6,
+      "billed": 51304,
+      "output": 18037,
+      "cacheRead": 329614,
+      "toolCalls": 12,
       "tools": [
         "Glob",
         "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read s2c-bench-app/package.json",
         "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
-      ],
-      "ms": 128086
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 19983,
-      "output": 8196,
-      "cacheRead": 115398,
-      "toolCalls": 3,
-      "tools": [
-        "Read src/App.tsx",
+        "Write src/App.tsx",
         "Edit src/App.tsx",
-        "Edit src/App.tsx"
+        "Read src/App.tsx",
+        "Glob",
+        "Glob"
       ],
-      "ms": 99936
+      "ms": 203604
     }
   ],
-  "reading": "The sketch lays out a listings page: a heading and subheading text placeholder at top, a row of 5 filter buttons (Price active), a 2x2 grid of 4 listing cards with gradient photo blocks and details, and alongside it a drawn street map with price pin markers and a small zoom +/- control, all per the typed notes which take precedence over the raw ink shapes.",
+  "reading": "The sketch is an Airbnb-style search page: a top bar with logo/search pill/host link, a filter-buttons row, a 2x2 grid of listing cards, and a street map with price pins and a zoom control — all content detailed in the typed notes, which take priority over the rough ink shapes.",
   "actions": [
     {
-      "kind": "add",
-      "textMarks": [
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        66
+      ],
+      "paths": [
         "s0"
       ],
-      "textSize": [
-        {
-          "strokes": [
-            "s0",
-            "s1"
-          ],
-          "lines": 2,
-          "fontPx": 24
-        }
-      ],
-      "region": [
-        4,
-        14,
-        1272,
-        9
-      ],
-      "paths": [],
-      "instruction": "Wavy line spanning the full width at the top is a text placeholder for a bold page heading introducing the listings (e.g. 'Explore homes in Lisbon')."
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s1"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s0",
-            "s1"
-          ],
-          "lines": 2,
-          "fontPx": 24
-        }
-      ],
-      "region": [
-        4,
-        50,
-        789,
-        9
-      ],
-      "paths": [],
-      "instruction": "Shorter wavy line below the heading is a text placeholder for a subheading/intro sentence under the main title."
+      "instruction": "Add a top bar 72px tall spanning the full page width at the very top, no fill (page colour), with a 1px #ebebeb line beneath it. Only these parts, left to right"
     },
     {
       "kind": "add",
@@ -128,12 +87,12 @@
         30
       ],
       "paths": [
-        "s2"
+        "s1"
       ],
-      "instruction": "Row of 5 equal 70x36px rounded outlined filter buttons: 'Price', 'Type of place', 'Rooms', 'Instant book', 'More filters'. 'Price' is the picked/active one with"
+      "instruction": "Add a row of 5 equal 70x36px rounded outlined filter buttons under the top bar: \"Price\", \"Type of place\", \"Rooms\", \"Instant book\", \"More filters\". \"Price\" is th"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -143,9 +102,9 @@
         538
       ],
       "paths": [
-        "s3"
+        "s2"
       ],
-      "instruction": "4 listing cards arranged in a 2-column grid (600px wide, 24px column/row gap), each card a 288x190px photo block (14px rounded, diagonal gradient fill, no actua"
+      "instruction": "Add 4 listing cards (not a text list) in a 2-column grid, 600px wide, positioned at 32,144, with 24px column gap and 24px row gap. Each card has a 288px-wide, 1"
     },
     {
       "kind": "design",
@@ -158,9 +117,9 @@
         822
       ],
       "paths": [
-        "s4"
+        "s3"
       ],
-      "instruction": "A drawn street map (620x828px) with #e8eef0 ground fill, overflow hidden, not a real map image/iframe. Inside it, absolutely positioned flat shapes represent ro"
+      "instruction": "Add a drawn street map panel, 620x828px, #e8eef0 ground colour, overflow hidden (not an empty box, not a photo, not an iframe). Inside it, absolutely positioned"
     },
     {
       "kind": "add",
@@ -173,10 +132,10 @@
         48
       ],
       "paths": [
-        "s5",
-        "s6"
+        "s4",
+        "s5"
       ],
-      "instruction": "Small zoom control overlay on the map with '+' and '−' buttons stacked vertically in the corner."
+      "instruction": "Add a small \"+ −\" zoom control (plus and minus buttons stacked) on top of the map panel, near its top-right corner."
     }
   ],
   "rejected": []

@@ -637,7 +637,7 @@
   "notes": [
    [
     "folders",
-    "pale grey card; a 172x40px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 20px below the panel's top"
+    "pale grey panel; a 172x40px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #f3f4f6 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
    ],
    [
     "message-list",

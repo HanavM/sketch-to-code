@@ -700,6 +700,41 @@ export function factsInPage() {
           const kc = getComputedStyle(k); return { y: Math.round(kb.top), x: Math.round(kb.left), w: Math.round(kb.width), h: Math.round(kb.height), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: parseFloat(kc.borderTopWidth), c: rgba(kc.borderTopColor) } : null, fill: rgba(getComputedStyle(k).backgroundColor), radius: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0), parts } }
         return { cards: kids.map(desc) }
       })(),
+      // n132: a bar across the top said part by part (round 9 e1 title bar, e2 top bar, e4 search chips: no note, or
+      // 'white text list'; built as invented headings or bare text)
+      topBar: (() => {
+        if (r.top > 4 || r.width < 1000 || r.height < 40 || r.height > 110 || el.querySelector('[data-r]')) return null
+        const parts = []
+        const filled = (x) => { const c = rgba(getComputedStyle(x).backgroundColor); return c && c.a > 0.05 ? c : null }
+        const walk = (x) => {
+          for (const k of [...x.children]) {
+            const kc = getComputedStyle(k); if (kc.display === 'none') continue
+            const t = (k.innerText || '').replace(/\s+/g, ' ').trim(), b = k.getBoundingClientRect()
+            const textKids = [...k.children].filter((y) => (y.innerText || '').trim())
+            if (!t) { if (filled(k) && b.width >= 12 && b.height >= 12) parts.push({ t: '', x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), fill: filled(k), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0) }); continue }
+            if (textKids.length >= 2 && !filled(k) && !(parseFloat(kc.borderTopWidth) >= 1)) { walk(k); continue }
+            parts.push({ t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, it: kc.fontStyle === 'italic', ink: rgba(kc.color), fill: filled(k), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: Math.round(parseFloat(kc.borderTopWidth)), c: rgba(kc.borderTopColor) } : null, inner: textKids.length >= 2 ? textKids.map((y) => (y.innerText || '').replace(/\s+/g, ' ').trim()) : null })
+          }
+        }
+        walk(el)
+        if (parts.length < 2 || parts.length > 10 || !parts.some((p) => p.t)) return null
+        return { h: Math.round(r.height), fill: filled(el), rule: parseFloat(cs.borderBottomWidth) >= 1 ? { px: Math.round(parseFloat(cs.borderBottomWidth)), c: rgba(cs.borderBottomColor) } : null, parts }
+      })(),
+      // n132: a plain table of rows, each row the same columns (round 9 e5 invoices: said as a two-column list; amount,
+      // status pills and PDF links lost)
+      rowTable: (() => {
+        if (kids.length < 3 || el.querySelector('[data-r]')) return null
+        const n = kids[0].children.length
+        if (n < 3 || !kids.every((k) => k.children.length === n && /grid|flex/.test(getComputedStyle(k).display))) return null
+        const lefts = kids.map((k) => [...k.children].map((c) => Math.round(c.getBoundingClientRect().left)))
+        if (!lefts.every((l) => l.every((x, j) => Math.abs(x - lefts[0][j]) <= 3))) return null
+        const o = el.getBoundingClientRect()
+        const cell = (c) => { const pill = [...c.querySelectorAll('*')].find((y) => (y.innerText || '').trim() && (rgba(getComputedStyle(y).backgroundColor)?.a ?? 0) > 0.05); const cc = getComputedStyle(pill ?? c); return { t: (c.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(cc.fontSize)), bold: Number(cc.fontWeight) >= 600, ink: rgba(cc.color), pill: pill ? { fill: rgba(cc.backgroundColor), rad: Math.round(parseFloat(cc.borderTopLeftRadius) || 0) } : null } }
+        const rows = kids.map((k) => { const kc = getComputedStyle(k), b = k.getBoundingClientRect(); return { h: Math.round(b.height), fill: (rgba(kc.backgroundColor)?.a ?? 0) > 0.05 ? rgba(kc.backgroundColor) : null, rule: parseFloat(kc.borderTopWidth) >= 1 ? rgba(kc.borderTopColor) : null, spaced: parseFloat(kc.letterSpacing) >= 0.5, cells: [...k.children].map(cell) } })
+        return { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), cols: lefts[0].map((x) => Math.round(x - o.left)), pad: Math.round(parseFloat(getComputedStyle(kids[0]).paddingLeft) || 0), rows }
+      })(),
+      // n132: a flat full-height side panel (round 9 e5: built as an inset grey card with a heavy shadow)
+      edgePanel: r.left <= 2 && r.top <= 2 && r.height >= window.innerHeight - 4 && r.width <= 360 && (rgba(cs.backgroundColor)?.a ?? 0) > 0.05 ? { w: Math.round(r.width), rule: parseFloat(cs.borderRightWidth) >= 1 ? rgba(cs.borderRightColor) : null, shadow: cs.boxShadow !== 'none', rad: Math.round(parseFloat(cs.borderTopRightRadius) || 0) } : null,
       // n131: usage meters: each a label, a big value with a small grey 'of N', and a thin track with a filled share
       // (round 9 e5: said as 'list: Seats 8 of 10', built as thin lines)
       meters: (() => {
@@ -2049,6 +2084,23 @@ function decideOne(f, page, marked, said) {
     const c0 = G.cards[0]
     return { kind: 'box', note: `a layered glass stack, ${G.box.w}x${G.box.h}px at ${G.box.x},${G.box.y} (all absolutely placed, page px; NOT a list, NOT empty): ${G.blobs.length ? `first ${G.blobs.length} soft colour blobs behind everything, each blurred hard (filter: blur(${G.blobs[0].blur}px)): ${blobs}; then ` : ''}${G.cards.length} overlapping frosted glass cards over them, each ${c0.radius}px rounded, see-through fill ${a(c0.fill)}, ${c0.bw}px ${a(c0.border)} border, backdrop-filter: blur(${c0.blur}px)${c0.shadow ? ', a big soft dark drop shadow' : ''}, ${c0.pad}px padding, later cards painted over earlier ones: ${cards}` }
   }
+  // n132: a bar across the top, every part with its own x (round 9 e1/e2: no note, built as an invented heading)
+  if (f.topBar && !f.regionKids.length && f.weakNote) {
+    const T = f.topBar
+    const shape = (p) => (p.rad >= p.h / 2 - 1 ? 'pill' : p.rad ? `${p.rad}px-rounded box` : 'square box')
+    const last = T.parts[T.parts.length - 1]
+    const one = (p) => !p.t ? `a ${p.w}x${p.h}px ${p.rad ? `${p.rad}px-rounded ` : ''}solid ${hexOf(p.fill)} square icon (a plain block, no glyph, no picture) at x ${p.x}`
+      : `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 40)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.w}x${p.h}px ${shape(p)}` : p.border ? ` in a ${p.w}x${p.h}px ${shape(p)} with a ${p.border.px}px ${hexOf(p.border.c)} border, no fill` : ''}${p.inner ? ` (its parts spread inside it: ${p.inner.map((t) => quote(t, 20)).join(', ')})` : ''} at x ${p.x}${p === last && p.x + p.w >= f.rect.w - 60 && T.parts.length > 1 ? ' (pushed to the far right)' : ''}`
+    return { kind: 'box', note: `a top bar ${T.h}px tall across the whole page at the very top, ${T.fill ? `${hexOf(T.fill)} fill` : 'no fill (page colour)'}${T.rule ? `, a ${T.rule.px}px ${hexOf(T.rule.c)} line under it` : ''}; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: ${T.parts.map(one).join('; ')}` }
+  }
+  // n132: a plain table of same-column rows (round 9 e5 invoices: said as a 2-column list)
+  if (f.rowTable && !f.regionKids.length && f.weakNote) {
+    const R = f.rowTable, H = R.rows[0], base = R.rows[1].cells[0]
+    const head = H.fill || H.cells.every((c) => c.t === c.t.toUpperCase()) ? H : null
+    const cell = (c) => !c.t ? '·' : c.pill ? `${quote(c.t, 20)} as a small ${hexOf(c.pill.fill)} ${c.pill.rad >= 8 ? 'pill' : 'tag'} with ${c.bold ? 'bold ' : ''}${c.px}px ${hexOf(c.ink)} text` : `${quote(c.t, 24)}${dist(c.ink, base.ink) > 30 ? ` (${hexOf(c.ink)})` : ''}${c.bold && !base.bold ? ' bold' : ''}`
+    const body = R.rows.slice(head ? 1 : 0)
+    return { kind: 'box', note: `a plain table ${R.w}px wide at ${R.x},${R.y} (a real table, ${R.cols.length} columns, every column kept; NOT a list, NOT cards): columns start ${R.cols.join(', ')}px from its left; ${head ? `the header row ${head.h}px tall${head.fill ? `, ${hexOf(head.fill)} fill` : ''}, ${head.cells[0].px}px ${hexOf(head.cells[0].ink)} capitals${head.spaced ? ' with wide letter spacing' : ''}: ${head.cells.map((c) => (c.t ? quote(c.t, 16) : '·')).join(' | ')}; then ` : ''}${body.length} rows each ${body[0].h}px tall, ${base.px}px ${hexOf(base.ink)} text${body[0].rule ? `, a 1px ${hexOf(body[0].rule)} line across the top of each` : ''}; rows (| between cells): ${body.map((r) => r.cells.map(cell).join(' | ')).join(' / ')}` }
+  }
   // n131: a spreadsheet grid cell by cell
   const rightColsOf = (G) => G.rows[0].map((_, j) => G.rows.slice(1).every((r) => r[j].right || !r[j].t) && G.rows.slice(1).some((r) => r[j].t)).map((v, j) => (v ? j : -1)).filter((j) => j >= 0)
   if (f.cellGrid && f.cellGrid.rows[0].every((c) => c.bold && c.t) && rightColsOf(f.cellGrid).length >= 2) {
@@ -2917,6 +2969,27 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return ow > 0 && oh > 0 && ow * oh > 0.15 * B.w * B.h
     })
     if (under) d.note = `${d.note ? `${d.note}, ` : ''}in front of the ${quote(under.text, 24)} heading`
+  })
+  // n132: a top bar or a plain row table the rules above left unsaid or said only as a word list gets said part by
+  // part (round 9 e1/e2 top bars: no note; e4 search chips: 'white text list'; e5 invoices: a 2-column list). Bars and
+  // tables already said another way keep their tuned notes.
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!(f.topBar || f.rowTable) || (d.note && !/^(list:|[a-z ,-]*text list:)/.test(d.note))) return
+    const e = decideOne({ ...f, weakNote: true }, body, marked, said)
+    if (e?.note) { out.set(f.role, e); marked.add(f.role) }
+  })
+  // n132: a flat full-height side panel is not a card (round 9 e5: built as an inset grey card with a heavy shadow)
+  regions.forEach((f) => {
+    const d = out.get(f.role), E = f.edgePanel
+    if (!E || !d.kind || E.shadow || E.rad || !/\bcard\b/.test(d.note ?? '')) return
+    d.note = `${d.note ? `${d.note.replace(/\bcard\b/, 'panel')}; ` : ''}this panel is FLAT: ${hexOf(f.bg)} fill from the very top to the very bottom of the page at the left edge, ${E.w}px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)${E.rule ? `, a 1px ${hexOf(E.rule)} line down its right side` : ''}`
+  })
+  // n132: a highlighted item that also carries an underline (round 9 e4 sort tabs: the underline was lost)
+  regions.forEach((f) => {
+    const d = out.get(f.role), U = f.kidOn?.under
+    if (!d.kind || !U || !d.note || !/highlighted \(/.test(d.note) || /underline|line along its bottom/.test(d.note)) return
+    d.note = `${d.note}; the highlighted one also has a thick 4px ${hexOf(U)} line along its bottom edge`
   })
   // a paragraph tucked under a one-line row it sits right below (an accordion's open body): say where it starts
   // (round 7 e4: the 'Details' body text was built on the header line, over the word 'Details')

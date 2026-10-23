@@ -130,3 +130,25 @@ say label, big value with a small grey "of N", and the track with its filled sha
 Round 9 average now **79%** (creative 93 94 96 92 74; everyday 51 81 74 75 59). Next: top bars said part by part
 (logo icon, title, menu, search pill, Share pill), a search bar of white field chips, a plain table's every column
 with status pills, a side nav's flat fill; re-run e1, e2, e4, e5.
+
+## n132: top bars, search chips, plain tables, flat side panels (2026-10-23, ~231k billed)
+
+Planner (free): a bar across the top that earlier rules left unsaid or said only as a word list is now said part by part
+at bar px (a plain square icon block, the title, grey menu words, an outlined search pill with its parts, a filled
+Share pill or a row of white field chips with a yellow Search chip, each at its own x, far-right parts pushed right,
+the line under the bar, "no other heading invented"); a plain table of same-column rows says every column's start, the
+header row's fill and spaced capitals, row height and rules, and each cell (status words as coloured pills, link
+colour); a full-height side panel that was being called a "card" is said to be flat (fill top to bottom, square, no
+shadow, its right-hand line); a highlighted tab that also has an underline says the underline. Bars and tables that
+already had tuned notes keep them. Rounds 1-8 re-planned: only the four mail-app sidebars changed (the "flat panel"
+words added); none re-run.
+
+| page | before | n132 | what is still off |
+|---|---|---|---|
+| e1 spreadsheet | 51% | 55% (kept) | title bar now right (green icon, title, menu, Share pill), no invented heading; toolbar lost its rounded pale pill, grid rows ~18px instead of 36px so the sheet is squashed |
+| e2 map listings | 81% | 81% (kept, equal) | top bar now right (logo, search pill, Host link) |
+| e4 flight results | 75% | 88% (kept) | search bar of white chips and yellow Search right; sort tab underline right |
+| e5 billing usage | 59% | 68% (kept) | flat side nav with its line; invoice table with every column, Due/Paid pills, PDF links; plan cards and meters right |
+
+Round 9 average now **82%** (creative 93 94 96 92 74; everyday 55 81 74 88 68). Next: e1 toolbar pill and row height
+(36px rows), c5 byline (top rule, two items spread) and caption chip; then round 10.

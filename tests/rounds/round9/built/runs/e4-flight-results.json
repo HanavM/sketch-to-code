@@ -1,23 +1,23 @@
 {
   "id": "e4-flight-results",
-  "at": "2026-10-23T09:10:43.380Z",
+  "at": "2026-10-23T09:50:26.169Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7545467625336655,
-    "overallV2": 0.7545467625336655,
-    "overallV1": 0.6000663957142672,
-    "colour": 0.9671947445711111,
-    "structure": 0.85914487528432,
-    "structureStrict": 0.657143309278339,
-    "colourAligned": 0.9671947445711111,
-    "structureAligned": 0.85914487528432,
+    "overall": 0.8805260719740031,
+    "overallV2": 0.8805260719740031,
+    "overallV1": 0.8602305939423796,
+    "colour": 0.9884157200567162,
+    "structure": 0.9128619908015763,
+    "structureStrict": 0.8863232245516172,
+    "colourAligned": 0.9884157200567162,
+    "structureAligned": 0.9128619908015763,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.884511067966079
+      "r": 0.979694180354436
     },
-    "layout": 0.9408076113074315
+    "layout": 0.9651041666666667
   },
   "effects": {
     "recall": 1,
@@ -28,30 +28,33 @@
     "extra": []
   },
   "tokens": {
-    "input": 32036,
-    "output": 19619,
-    "cacheRead": 141163
+    "input": 33152,
+    "output": 19522,
+    "cacheRead": 163253
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 38179,
-      "output": 14203,
-      "cacheRead": 120614,
-      "toolCalls": 6,
+      "billed": 44776,
+      "output": 16437,
+      "cacheRead": 160169,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Glob",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 149718
+      "ms": 168278
     }
   ],
-  "reading": "The sketch lays out a flight search results page: a top search-summary bar, a left filter panel, a small results-sort bar, and a large results list with four flight cards, plus a note setting page-wide colors/typography.",
+  "reading": "The sketch lays out a flight-search results page: a full-width top bar for origin/destination/date/passenger/search controls, a left filter panel with checkbox sections and a departure-time slider, a row of Best/Cheapest/Fastest summary cards, and a stacked list of 4 detailed flight result cards — all content fully specified by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -66,7 +69,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top header bar: dark teal background, white text showing a flight search summary list: \"London (LHR)\", \"⇄\", \"Tokyo (HND)\", \"Thu 12 Nov – Sun 22\"…, plus one more"
+      "instruction": "A top bar 96px tall spanning the full page width at the very top, #0c4a6e fill. Only these parts in it, left to right, each vertically centred: bold 14px #0f172"
     },
     {
       "kind": "add",
@@ -81,7 +84,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Left sidebar: a white filter panel, 280x750px, 12px rounded corners, 20px padding (a real filter panel, not an inspector or text inputs), with 4 sections top to"
+      "instruction": "A white filter panel, 280x750px positioned at 40,120, 12px rounded corners, 20px padding, with 4 sections top to bottom. Every checkbox row is a real checkbox: "
     },
     {
       "kind": "add",
@@ -96,7 +99,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Results sort/summary bar: a white card row listing 'Best' £612 · 15h 40m, 'Cheapest' £541 · 22h 05m, 'Fastest' £812 · 13h 50m, with the 'Best' option highlighte"
+      "instruction": "A row of white summary cards: \"Best\" £612 · 15h 40m, \"Cheapest\" £541 · 22h 05m, \"Fastest\" £812 · 13h 50m. The \"Best\" card is highlighted with a #f0f9ff square f"
     },
     {
       "kind": "add",
@@ -111,7 +114,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Results list: 4 stacked white flight cards (900x140px, 12px rounded, 20px gaps). Card 1 (Best value): green 'Best value' badge top-left, purple airline icon squ"
+      "instruction": "A stack of 4 flight result cards in the main column, each 900x140px, #ffffff, 12px rounded, 20px apart. Card 1 at page y 210: bold 12px #ffffff \"Best value\" bad"
     }
   ],
   "rejected": [

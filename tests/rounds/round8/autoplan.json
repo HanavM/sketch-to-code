@@ -435,7 +435,7 @@
   "notes": [
    [
     "sidebar",
-    "pale grey card; a 130x40px #c7d2fe filled button \"✎ Compose\" (12px rounded, bold #1e1b4b text; its fill clearly visible, not white), then list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted (#e0e7ff rounded fill, #3730a3 text); list rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top"
+    "pale grey panel; a 130x40px #c7d2fe filled button \"✎ Compose\" (12px rounded, bold #1e1b4b text; its fill clearly visible, not white), then list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted (#e0e7ff rounded fill, #3730a3 text); list rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #f3f4f6 fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
    ],
    [
     "message-list",

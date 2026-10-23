@@ -337,7 +337,7 @@
   "plan": [
    [
     "title-bar",
-    "text"
+    "box"
    ],
    [
     "toolbar",
@@ -370,6 +370,10 @@
   ],
   "notes": [
    [
+    "title-bar",
+    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #dadce0 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: a 32x32px 6px-rounded solid #0f9d58 square icon (a plain block, no glyph, no picture) at x 20; 18px #202124 \"Regional sales 2026\" at x 66; 13px #5f6368 \"File Edit View Insert Format Data\" at x 243; bold 13px #202124 \"Share\" on a #c2e7ff 76x33px pill at x 1184 (pushed to the far right)"
+   ],
+   [
     "toolbar",
     "pale blue-grey bar 40px tall across the page, links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, A̲; all of these sit together at the LEFT, one after another, ending 414px in (the right 67% of the bar is empty, nothing pushed right)"
    ],
@@ -399,11 +403,7 @@
   "plan": [
    [
     "top-bar",
-    "text",
-    {
-     "fontPx": 14,
-     "lines": 2
-    }
+    "box"
    ],
    [
     "filters",
@@ -427,6 +427,10 @@
    ]
   ],
   "notes": [
+   [
+    "top-bar",
+    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #e11d48 \"nestly\" at x 32; 14px #222222 \"Lisbon Oct 30 – Nov 3 2 guests\" in a 460x48px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Oct 30 – Nov 3\", \"2 guests\") at x 240; 14px #222222 \"Host your home\" at x 1149 (pushed to the far right)"
+   ],
    [
     "filters",
     "buttons: \"Price\", \"Type of place\", \"Rooms\", \"Instant book\", \"More filters\"; 5 equal 70x36px rounded outlined boxes in one row; \"Price\" is the picked one (2px near-black border, bold, the others a thin light grey border)"
@@ -509,7 +513,7 @@
    ],
    [
     "search-bar",
-    "dark teal bar, white text list: \"London (LHR)\", \"⇄\", \"Tokyo (HND)\", \"Thu 12 Nov – Sun 22\"…, 1 more"
+    "a top bar 96px tall across the whole page at the very top, #0c4a6e fill; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 14px #0f172a \"London (LHR)\" on a #ffffff 129x40px 8px-rounded box at x 40; bold 14px #0f172a \"⇄\" on a #ffffff 48x40px 8px-rounded box at x 181; bold 14px #0f172a \"Tokyo (HND)\" on a #ffffff 120x40px 8px-rounded box at x 241; bold 14px #0f172a \"Thu 12 Nov – Sun 22 Nov\" on a #ffffff 203x40px 8px-rounded box at x 373; bold 14px #0f172a \"1 adult · Economy\" on a #ffffff 157x40px 8px-rounded box at x 588; bold 14px #0f172a \"Search\" on a #f59e0b 83x40px 8px-rounded box at x 757"
    ],
    [
     "filters",
@@ -517,7 +521,7 @@
    ],
    [
     "sort-tabs",
-    "white card list: \"Best\" £612 · 15h 40m, \"Cheapest\" £541 · 22h 05m, \"Fastest\" £812 · 13h 50m; \"Best\" highlighted (#f0f9ff square fill, #0f172a text)"
+    "white card list: \"Best\" £612 · 15h 40m, \"Cheapest\" £541 · 22h 05m, \"Fastest\" £812 · 13h 50m; \"Best\" highlighted (#f0f9ff square fill, #0f172a text); the highlighted one also has a thick 4px #0369a1 line along its bottom edge"
    ],
    [
     "results",
@@ -563,7 +567,7 @@
   "notes": [
    [
     "side-nav",
-    "pale grey card \"◆ Orbit\" list: \"Overview\", \"Projects\", \"Team\", \"Integrations\", \"Billing\", \"Settings\"; \"Billing\" highlighted (#eef2ff rounded fill, #4338ca text); list rows exactly 36px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top"
+    "pale grey panel \"◆ Orbit\" list: \"Overview\", \"Projects\", \"Team\", \"Integrations\", \"Billing\", \"Settings\"; \"Billing\" highlighted (#eef2ff rounded fill, #4338ca text); list rows exactly 36px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top; this panel is FLAT: #f9fafb fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e5e7eb line down its right side"
    ],
    [
     "title",
@@ -583,7 +587,7 @@
    ],
    [
     "invoice-table",
-    "list: \"INVOICE\" DATE, \"INV-2026-010\" Oct 1, 2026, \"INV-2026-009\" Sep 1, 2026, \"INV-2026-008\" Aug 1, 2026, \"INV-2026-007\" Jul 1, 2026; \"INVOICE\" highlighted (#f9fafb square fill, #6b7280 text); list rows exactly 49px apart (42px tall, 12px type: tight, not roomier), first line 1px below the panel's top"
+    "a plain table 980px wide at 260,576 (a real table, 5 columns, every column kept; NOT a list, NOT cards): columns start 23, 334, 566, 722, 877px from its left; the header row 42px tall, #f9fafb fill, 12px #6b7280 capitals with wide letter spacing: \"INVOICE\" | \"DATE\" | \"AMOUNT\" | \"STATUS\" | ·; then 4 rows each 49px tall, 14px #111827 text, a 1px #f3f4f6 line across the top of each; rows (| between cells): \"INV-2026-010\" | \"Oct 1, 2026\" | \"$49.00\" | \"Due\" as a small #fef3c7 pill with bold 12px #b45309 text | \"PDF\" (#4338ca) / \"INV-2026-009\" | \"Sep 1, 2026\" | \"$49.00\" | \"Paid\" as a small #dcfce7 pill with bold 12px #15803d text | \"PDF\" (#4338ca) / \"INV-2026-008\" | \"Aug 1, 2026\" | \"$49.00\" | \"Paid\" as a small #dcfce7 pill with bold 12px #15803d text | \"PDF\" (#4338ca) / \"INV-2026-007\" | \"Jul 1, 2026\" | \"$29.00\" | \"Paid\" as a small #dcfce7 pill with bold 12px #15803d text | \"PDF\" (#4338ca)"
    ]
   ]
  }

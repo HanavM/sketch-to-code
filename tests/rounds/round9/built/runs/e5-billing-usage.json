@@ -1,59 +1,61 @@
 {
   "id": "e5-billing-usage",
-  "at": "2026-10-23T08:46:01.552Z",
+  "at": "2026-10-23T09:54:42.244Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5942272484970772,
-    "overallV2": 0.5942272484970772,
-    "overallV1": 0.48725703563383443,
-    "colour": 0.987608202961465,
-    "structure": 0.8249236006502183,
-    "structureStrict": 0.7189093701944119,
-    "colourAligned": 0.987608202961465,
-    "structureAligned": 0.8249236006502183,
+    "overall": 0.6848178569410032,
+    "overallV2": 0.6848178569410032,
+    "overallV1": 0.49552806754550816,
+    "colour": 0.9873943364839302,
+    "structure": 0.9202958462691468,
+    "structureStrict": 0.732697721344777,
+    "colourAligned": 0.9873943364839302,
+    "structureAligned": 0.9202958462691468,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7128211826023788
+      "r": 0.7373922236189413
     },
-    "layout": 0.7835104557078854
+    "layout": 0.7741495230685377
   },
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
-      "italic",
+    "recall": 0.5,
+    "kept": [
       "overlap"
+    ],
+    "missing": [
+      "italic"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 28977,
-    "output": 18616,
-    "cacheRead": 113214
+    "input": 32753,
+    "output": 19773,
+    "cacheRead": 173196
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 39893,
-      "output": 16018,
-      "cacheRead": 110130,
-      "toolCalls": 7,
+      "billed": 39787,
+      "output": 14750,
+      "cacheRead": 161877,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
-        "Read src/index.css",
+        "Read src/App.tsx",
         "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
         "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 172499
+      "ms": 158109
     }
   ],
-  "reading": "The sketch lays out a Billing settings page: a left sidebar nav card, a \"Billing\" page heading, a horizontal sub-nav of tabs, a three-column pricing/plan comparison block, a usage summary box, and an invoices list box. Typed notes give exact copy, spacing, and highlight styling for each block.",
+  "reading": "This is a billing settings page: a flat left sidebar nav, a page heading 'Billing', a sub-nav of links, three pricing plan cards, a usage-meters card, and an invoices table.",
   "actions": [
     {
       "kind": "add",
@@ -68,7 +70,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Pale grey sidebar nav card with a \"◆ Orbit\" logo/title at top, then a vertical list of nav links: Overview, Projects, Team, Integrations, Billing, Settings. \"Bi"
+      "instruction": "Flat left sidebar panel, pale grey '◆ Orbit' list: Overview, Projects, Team, Integrations, Billing, Settings; 'Billing' highlighted (#eef2ff rounded fill, #4338"
     },
     {
       "kind": "add",
@@ -91,7 +93,7 @@
         31
       ],
       "paths": [],
-      "instruction": "Page heading \"Billing\", 26px bold, single line, box top 32px from page top, 31px line-height/box height."
+      "instruction": "Page heading 'Billing', 26px bold type on one line, box top 32px from the page top and 31px tall (line-height 31px)."
     },
     {
       "kind": "add",
@@ -116,42 +118,22 @@
         39
       ],
       "paths": [],
-      "instruction": "Horizontal sub-nav/tab bar with links left-aligned one after another: Plan & usage, Payment methods, Invoices, Tax, ending 358px in (right 63% of the bar stays "
+      "instruction": "Sub-nav links bar: Plan & usage, Payment methods, Invoices, Tax; 'Plan & usage' selected (bold, indigo text, indigo underline). All links sit together at the le"
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s4",
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9",
-        "s10"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s4",
-            "s5",
-            "s6",
-            "s7",
-            "s8",
-            "s9",
-            "s10"
-          ],
-          "lines": 7,
-          "fontPx": 22
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        264,
-        144,
-        972,
-        230
+        263,
+        147,
+        973,
+        224
       ],
-      "paths": [],
-      "instruction": "Three pricing plan columns side by side, 25px gaps, each with a small bold 16px heading over 14px body text: \"Starter\" / \"$0 /mo, 3 projects, 1 GB storage, Down"
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Three separate pricing cards side by side, each 310x230px, no fill, 1px #e5e7eb border, 14px rounded corners, 25px apart. Card 1 at page x 260: bold 16px #11182"
     },
     {
       "kind": "add",
@@ -164,9 +146,9 @@
         144
       ],
       "paths": [
-        "s11"
+        "s5"
       ],
-      "instruction": "Usage panel box containing a list: \"Seats\" 8 of 10, \"Storage\", \"API calls\" 941k of 1M (each likely with a progress indicator)."
+      "instruction": "Usage meters card, 980x150px, 1px #e5e7eb border, 14px rounded, 22px padding, 3 columns 36px apart, each a real meter bar (not a thin line): 'Seats' label (14px"
     },
     {
       "kind": "add",
@@ -179,9 +161,9 @@
         234
       ],
       "paths": [
-        "s12"
+        "s6"
       ],
-      "instruction": "Invoices panel box containing a table/list: header row \"INVOICE\" / \"DATE\" highlighted (#f9fafb square fill, #6b7280 text), followed by rows \"INV-2026-010\" Oct 1"
+      "instruction": "A plain invoices table, 980px wide at page position 260,576 (a real table with 5 columns, every column kept — not a list, not cards). Columns start at 23, 334, "
     }
   ],
   "rejected": []
