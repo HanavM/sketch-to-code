@@ -3,7 +3,7 @@ goal_state: working
 now: "Docs page now 84% (side menu spacing and article placement right); two other re-runs came out worse and were not kept. Round 8 averages 80%. Next: saying card sizes on the analytics page and keeping the giant 8 as real text."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 80]
-lock: null
+lock: {by: run-n125, until: "2026-10-23T07:19:44Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
