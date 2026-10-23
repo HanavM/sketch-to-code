@@ -374,3 +374,20 @@ typecheck clean.
 | e1 kanban lanes | 76% | 74% (98k, 6.6 min; build 44k + repair 30k), colour 99%, structure 95%, layout 73% | Mine / Bugs / Blocked now outlined pills (fixed). "Sprint 42" built regular (target bold); progress bars run edge to edge at the card's foot with no grey track; columns ~5px off. Within noise |
 
 Next: r6 e2 heading row ~10px high with drift below (not touched this step); kanban card progress bar track; bold lead word in a link row.
+
+## n112: kanban progress-bar track, bold lead word, one-word page title (2026-10-23, ~288k billed)
+
+Planner (zero tokens): (1) a task card's progress bar says its track width, gap under the title and both hexes, and
+that it is not the card's full width (r7 e1 bars were built edge to edge at the card foot with no track); (2) a link
+row's lead item is compared with the style most of the row shares, so a search field's grey placeholder or a selected
+chip no longer hides it (r7 e1 bold 18px "Sprint 42", r6 e1 bold 22px "Northwind" now said); (3) a one-word page title
+20-39px near the top says its px size, box top and height (r6 e2 "Overview" built ~10px high). Re-planning rounds 1-7
+changed 12 notes (7 titles, 2 lead words, 3 kanban cards), no plan marks. Vitest: same 2 environmental failures;
+typecheck clean.
+
+| page | before | now | what's left |
+|---|---|---|---|
+| r6 e2 multi chart | 78% | **80%** (135k, 10.3 min; build 47k + repair 70k), colour 98%, structure 90%, layout 69% | title and filter row now in place; cards below ~5-10px lower with wider gaps; repair read index.html / vite config (7 tools) |
+| r7 e1 kanban lanes | 76% best (74% n111) | run 1: 48% (65k, one turn; whole board below the top bar ~15px low, under the 16px drift check, so no repair). Run 2: **77%** (88k, one turn), colour 99%, structure 95%, layout 74% | progress bars 180px on a grey track, "Sprint 42" bold (both fixed). Lane labels ~5px off |
+
+Next: a whole board offset ~12-15px the same way slips under the 16px drift rule (run 1); r6 e2 repair turn reading config files.

@@ -1,58 +1,78 @@
 {
   "id": "e2-multi-chart",
-  "at": "2026-10-22T23:19:22.103Z",
+  "at": "2026-10-23T00:03:25.389Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7828088738680509,
-    "overallV2": 0.7828088738680509,
-    "overallV1": 0.6373839747787137,
-    "colour": 0.9788885802491465,
-    "structure": 0.8719017247538893,
-    "structureStrict": 0.6603820433422078,
-    "colourAligned": 0.9788885802491465,
-    "structureAligned": 0.8719017247538893,
+    "overall": 0.8035985088350426,
+    "overallV2": 0.8035985088350426,
+    "overallV1": 0.6550515148364393,
+    "colour": 0.9799977673448395,
+    "structure": 0.8997332942079925,
+    "structureStrict": 0.6836725436624806,
+    "colourAligned": 0.9799977673448395,
+    "structureAligned": 0.8997332942079925,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9707252974730777
+      "r": 0.974926428578982
     },
-    "layout": 0.6946341912529198
+    "layout": 0.6935807131641725
   },
   "effects": {
-    "recall": 1,
-    "kept": [
+    "recall": 0,
+    "kept": [],
+    "missing": [
       "stripes-or-layers"
     ],
-    "missing": [],
-    "extra": []
+    "extra": [
+      "tilt"
+    ]
   },
   "tokens": {
-    "input": 28911,
-    "output": 13936,
-    "cacheRead": 136545
+    "input": 82891,
+    "output": 52602,
+    "cacheRead": 636222
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 27934,
-      "output": 8330,
-      "cacheRead": 124944,
+      "billed": 46824,
+      "output": 11847,
+      "cacheRead": 152039,
       "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 84816
+      "ms": 128258
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 69608,
+      "output": 32310,
+      "cacheRead": 448981,
+      "toolCalls": 7,
+      "tools": [
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 415872
     }
   ],
-  "reading": "A dashboard page: a tall dark navy sidebar nav list, a page heading 'Overview', a row of filter buttons, four stat cards (MRR, Active users, Churn, NPS), a revenue line chart, a plan-mix donut chart, a signups bar chart, and a top-accounts table, with page-wide styling specified in a typed note.",
+  "reading": "A dashboard page sketch: a dark navy sidebar nav labeled Pulse with 5 links, an 'Overview' heading, a filter button row, four KPI stat cards, a revenue line chart, a plan-mix donut chart, a weekly signups bar chart, and a top-accounts table — all on a pale blue-grey page with Helvetica/navy text per the note.",
   "actions": [
     {
       "kind": "add",
@@ -67,7 +87,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Dark navy sidebar nav panel spanning the page height, light grey text, with brand label 'Pulse' at top and a vertical nav list: Overview, Revenue, Customers, Re"
+      "instruction": "Dark navy vertical sidebar nav bar spanning the full page height, light grey text, with a logo/brand label 'Pulse' at top and a list of nav links: Overview, Rev"
     },
     {
       "kind": "add",
@@ -90,7 +110,7 @@
         41
       ],
       "paths": [],
-      "instruction": "Page heading text 'Overview', bold, dark navy, sitting above the filter button row."
+      "instruction": "Page heading text 'Overview', 26px bold, single line, positioned 28px from the page top with a 31px line-height box (not higher)."
     },
     {
       "kind": "add",
@@ -105,7 +125,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Row of four buttons: 'Last 30 days' (selected, dark navy fill, light text), 'All regions', 'All plans', '+ Filter' (outlined style)."
+      "instruction": "Row of filter buttons: 'Last 30 days', 'All regions', 'All plans', '+ Filter'; 'Last 30 days' is the selected button shown with dark navy fill, the others are p"
     },
     {
       "kind": "add",
@@ -120,7 +140,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "White stat card titled 'MRR' with a large bold 32px value '$84.2k' and a green '+6.1%' change indicator below it."
+      "instruction": "White KPI stat card titled 'MRR' with a large 32px bold value '$84.2k' and a smaller green delta label '+6.1%'."
     },
     {
       "kind": "add",
@@ -135,7 +155,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "White stat card titled 'Active users' with a large bold 32px value '12,480' and a green '+3.4%' change indicator below it."
+      "instruction": "White KPI stat card titled 'Active users' with a large 32px bold value '12,480' and a smaller green delta label '+3.4%'."
     },
     {
       "kind": "add",
@@ -150,7 +170,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White stat card titled 'Churn' with a large bold 32px value '2.1%' and a green '-0.3%' change indicator below it."
+      "instruction": "White KPI stat card titled 'Churn' with a large 32px bold value '2.1%' and a smaller green delta label '-0.3%'."
     },
     {
       "kind": "add",
@@ -165,7 +185,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "White stat card titled 'NPS' with a large bold 32px value '48' and a green '+5' change indicator below it."
+      "instruction": "White KPI stat card titled 'NPS' with a large 32px bold value '48' and a smaller green delta label '+5'."
     },
     {
       "kind": "add",
@@ -180,7 +200,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "White card titled 'Revenue, last 30 days' containing a line chart with a thick solid indigo line rising left-to-right through 13 points and a dashed light-grey "
+      "instruction": "Large white card titled 'Revenue, last 30 days' containing a line chart (SVG lines): a thick solid indigo line rising left to right through 13 points, and a das"
     },
     {
       "kind": "add",
@@ -195,7 +215,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "White card with a small grey title 'Plan mix' top-left and a centred 160px donut chart (34px thick ring, hollow white middle); segments clockwise from the top: "
+      "instruction": "White card with a small grey title 'Plan mix' top left and a centred 160px donut chart (34px thick ring, hollow white middle), segments clockwise from the top: "
     },
     {
       "kind": "add",
@@ -210,7 +230,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Bar chart titled 'Signups by week' with 8 indigo bars at heights 40/55/48/70/62/85/100/78% of the tallest bar."
+      "instruction": "Bar chart card titled 'Signups by week' with 8 indigo bars at heights 40/55/48/70/62/85/100/78% of the tallest bar."
     },
     {
       "kind": "add",
@@ -225,7 +245,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "White card titled 'Top accounts' with 5 rows and no header row, thin divider lines between rows, second column bold and right-aligned: Acme Corp | $6,400; Globe"
+      "instruction": "White card titled 'Top accounts' with 5 rows (no header row), thin divider lines between rows, second column bold and right-aligned: 'Acme Corp' | '$6,400'; 'Gl"
     }
   ],
   "rejected": [
