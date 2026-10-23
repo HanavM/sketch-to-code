@@ -297,7 +297,7 @@
    ],
    [
     "cta",
-    "vivid purple (left) to vivid dark pink (right) gradient glowing button \"Request access\""
+    "vivid purple #7c3aed (left) to vivid dark pink #db2777 (right) gradient glowing button \"Request access\""
    ]
   ]
  },
@@ -437,7 +437,7 @@
    ],
    [
     "photo",
-    "vivid bright sky blue (top) to vivid pink (bottom) gradient block, overlapping the upper left of the near-black block and on top of it"
+    "vivid bright sky blue #0ea5e9 (top) to vivid pink #f43f5e (bottom) gradient block, overlapping the upper left of the near-black block and on top of it"
    ],
    [
     "headline",
@@ -691,7 +691,7 @@
    ],
    [
     "top-pages",
-    "white card \"Top pages\" list: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, \"/changelog\" 2,954"
+    "white card \"Top pages\" list: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, \"/changelog\" 2,954; list rows exactly 45px apart (45px tall, 14px type: tight, not roomier), first line 55px below the panel's top"
    ]
   ]
  }

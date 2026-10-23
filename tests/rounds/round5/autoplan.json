@@ -229,19 +229,19 @@
    ],
    [
     "card-1",
-    "dark navy (top) to dark grey (bottom) gradient block \"01 — BUILD\", lines big 28px bold \"Draw it\", \"Rough boxes become real layout.\""
+    "dark navy #0f172a (top) to dark grey #334155 (bottom) gradient block \"01 — BUILD\", lines big 28px bold \"Draw it\", \"Rough boxes become real layout.\""
    ],
    [
     "card-2",
-    "faded to 75% opacity (see-through) vivid blue (top) to vivid sky blue (bottom) gradient block \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
+    "faded to 75% opacity (see-through) vivid blue #2563eb (top) to vivid sky blue #60a5fa (bottom) gradient block \"02 — MOVE\", lines big 28px bold \"Stagger it\", \"Each card rises a beat later.\""
    ],
    [
     "card-3",
-    "faded to 45% opacity (see-through) vivid dark pink (top) to pale pink (bottom) gradient block \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
+    "faded to 45% opacity (see-through) vivid dark pink #db2777 (top) to pale pink #f9a8d4 (bottom) gradient block \"03 — TUNE\", lines big 28px bold \"Ease it\", \"Pick a curve, feel it.\""
    ],
    [
     "card-4",
-    "faded to 20% opacity (see-through) bleeding off the right page edge (runs 200px past it) vivid orange (top) to peach (bottom) gradient block \"04\", text \"Ship\""
+    "faded to 20% opacity (see-through) bleeding off the right page edge (runs 200px past it) vivid orange #ea580c (top) to peach #fdba74 (bottom) gradient block \"04\", text \"Ship\""
    ]
   ]
  },
@@ -315,11 +315,11 @@
    ],
    [
     "photo-main",
-    "tilted 3° clockwise vivid bright orange (top) to deep rust orange (bottom) gradient block, with a hard solid opaque dark brown shadow offset 24px down right, no blur, in front of the \"SUMMER\" heading"
+    "tilted 3° clockwise vivid bright orange #fb923c (top) to deep rust orange #9a3412 (bottom) gradient block, with a hard solid opaque dark brown shadow offset 24px down right, no blur, in front of the \"SUMMER\" heading"
    ],
    [
     "photo-blue",
-    "tilted 4° anticlockwise ink-like (multiply blend: darkens what it overlaps, never covers it) dark blue (bottom) to vivid sky blue (top) gradient block, in front of the \"SUMMER\" heading, overlapping the lower right of the vivid bright orange (top) to deep rust orange (bottom) gradient block and on top of it"
+    "tilted 4° anticlockwise ink-like (multiply blend: darkens what it overlaps, never covers it) dark blue #1e3a8a (bottom) to vivid sky blue #60a5fa (top) gradient block, in front of the \"SUMMER\" heading, overlapping the lower right of the vivid bright orange #fb923c (top) to deep rust orange #9a3412 (bottom) gradient block and on top of it"
    ],
    [
     "pill-new",
@@ -513,7 +513,7 @@
   "notes": [
    [
     "sidebar",
-    "dark navy (exactly #111827) bar, light grey text \"Pulse\" list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" highlighted (#374151 rounded fill, #ffffff text)"
+    "dark navy (exactly #111827) bar, light grey text \"Pulse\" list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" highlighted (#374151 rounded fill, #ffffff text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top"
    ],
    [
     "title",
@@ -567,7 +567,7 @@
    ],
    [
     "channels",
-    "dark plum block, pale lilac text \"Acme\" list: \"# general\", \"# design\", \"# eng\", \"# random\", \"Direct messages\", \"Priya Shah\", \"Tom Becker\"; \"# design\" highlighted (#1164a3 rounded fill, #ffffff text)"
+    "dark plum block, pale lilac text \"Acme\" list: \"# general\", \"# design\", \"# eng\", \"# random\", \"Direct messages\", \"Priya Shah\", \"Tom Becker\"; \"# design\" highlighted (#1164a3 rounded fill, #ffffff text); list rows exactly 33px apart (33px tall, 15px type: tight, not roomier), first line 20px below the panel's top"
    ],
    [
     "messages",

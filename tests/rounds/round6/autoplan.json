@@ -61,7 +61,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) \"Ship cards in three dimensions\", the words \"three dimensions\" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: \"Ship cards in\" / \"three\" / \"dimensions\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) \"Ship cards in three dimensions\", the words \"three dimensions\" filled with a vivid cyan #38bdf8 (left) to light pink #f472b6 (right) gradient (gradient text), the rest plain, set in exactly 3 lines: \"Ship cards in\" / \"three\" / \"dimensions\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide)"
    ],
    [
     "sub",
@@ -77,15 +77,15 @@
    ],
    [
     "card-back",
-    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid cyan (top left) to indigo (bottom right) gradient block"
+    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid cyan #38bdf8 (top left) to indigo #6366f1 (bottom right) gradient block"
    ],
    [
     "card-mid",
-    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) light pink (top left) to vivid purple (bottom right) gradient block, overlapping the lower right of the vivid cyan (top left) to indigo (bottom right) gradient block and on top of it"
+    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) light pink #f472b6 (top left) to vivid purple #a855f7 (bottom right) gradient block, overlapping the lower right of the vivid cyan #38bdf8 (top left) to indigo #6366f1 (bottom right) gradient block and on top of it"
    ],
    [
     "card-front",
-    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow (top left) to vivid orange (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black \"$4,280.00\" at its top left"
+    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow #facc15 (top left) to vivid orange #f97316 (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black \"$4,280.00\" at its top left"
    ]
   ]
  },
@@ -452,7 +452,7 @@
    ],
    [
     "hero",
-    "vivid blue (top left) to vivid bright sky blue (bottom right) gradient block"
+    "vivid blue #1d4ed8 (top left) to vivid bright sky blue #0ea5e9 (bottom right) gradient block"
    ],
    [
     "cards",
@@ -538,7 +538,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 36px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top; the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "title",
@@ -604,7 +604,7 @@
   "notes": [
    [
     "folders",
-    "pale grey card; a 188x44px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 3, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text)"
+    "pale grey card; a 188x44px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 3, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text); list rows exactly 35px apart (35px tall, 14px type: tight, not roomier), first line 20px below the panel's top"
    ],
    [
     "list",

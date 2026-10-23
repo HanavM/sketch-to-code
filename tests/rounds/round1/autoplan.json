@@ -405,7 +405,7 @@
    ],
    [
     "tier-2",
-    "dark navy (exactly #111827) block, white text \"Pro\" big \"$24/mo\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\", indigo button \"Start trial\""
+    "dark navy (exactly #111827) block, white text \"Pro\" big \"$24/mo\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\", indigo button \"Start trial\"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top"
    ],
    [
     "tier-3",
@@ -563,7 +563,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text)"
+    "dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top"
    ],
    [
     "title",

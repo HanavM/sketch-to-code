@@ -619,6 +619,12 @@ export function factsInPage() {
       // a 2px+ outline ring round the block (a selected thumbnail, round 7 e4)
       ring: (() => { const ow = parseFloat(cs.outlineWidth) || 0; return ow >= 2 && cs.outlineStyle !== 'none' ? { w: Math.round(ow), off: Math.round(parseFloat(cs.outlineOffset) || 0), colour: rgba(cs.outlineColor) } : null })(),
       // small square handles sitting on the block's corners (a selected layer in a design tool, round 8 e3: lost)
+      // n127: top corners arched, bottom flat (a curved cinema screen, round 8 e4: built a flat bar)
+      arch: (() => { const v = (x) => { const p = x.trim().split(/\s+/); return parseFloat(p[1] ?? p[0]) || 0 }; return v(cs.borderTopLeftRadius) > 0 && v(cs.borderTopRightRadius) > 0 && v(cs.borderBottomLeftRadius) === 0 && v(cs.borderBottomRightRadius) === 0 && r.width >= r.height * 8 ? true : null })(),
+      // n127: each child's own box (an app toolbar's filled active tool and Share button, round 8 e3: both built plain)
+      kidCells: kids.length >= 4 && kids.length <= 14 ? kids.map((k) => { const kc = getComputedStyle(k), kb = k.getBoundingClientRect(), f2 = rgba(kc.backgroundColor); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: f2 && f2.a > 0.05 ? f2 : null, w: Math.round(kb.width), h: Math.round(kb.height), x: Math.round(kb.left - r.left), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), bold: Number(kc.fontWeight) >= 600, ink: rgba(kc.color) } }) : null,
+      // n127: a legend: each item led by a small ::before swatch square (round 8 e4: said as plain links, swatches lost)
+      swatchKids: kids.length >= 2 && kids.length <= 8 && kids.every((k) => { const b = getComputedStyle(k, '::before'); return b.content !== 'none' && parseFloat(b.width) >= 8 && parseFloat(b.width) <= 24 }) ? kids.map((k) => { const b = getComputedStyle(k, '::before'); const bf = rgba(b.backgroundColor); return { t: (k.innerText || '').trim(), px: Math.round(parseFloat(b.width)), rad: Math.round(parseFloat(b.borderTopLeftRadius) || 0), fill: bf && bf.a > 0.05 ? bf : null, border: parseFloat(b.borderTopWidth) >= 1 ? rgba(b.borderTopColor) : null } }) : null,
       handles: (() => { const cs4 = [[r.left, r.top], [r.right, r.top], [r.left, r.bottom], [r.right, r.bottom]]; const hs = [...document.body.querySelectorAll('*')].filter((k) => { if (el.contains(k) || k.contains(el)) return false; const b = k.getBoundingClientRect(); if (b.width < 5 || b.width > 14 || Math.abs(b.width - b.height) > 1.5) return false; const cx = b.left + b.width / 2, cy = b.top + b.height / 2; return cs4.some(([x, y]) => Math.abs(cx - x) <= 6 && Math.abs(cy - y) <= 6) }); if (hs.length < 2) return null; const c = getComputedStyle(hs[0]); return { n: hs.length, px: Math.round(hs[0].getBoundingClientRect().width), fill: rgba(c.backgroundColor), border: parseFloat(c.borderTopWidth) >= 1 ? rgba(c.borderTopColor) : null } })(),
       // an inspector panel: small caps section headings, each over rows of filled field boxes (round 8 e3: fields built bare)
       fieldSecs: (() => { const kids = [...el.children]; const head = (k) => /^H[4-6]$/.test(k.tagName) && txt(k) && txt(k).length <= 24; if (kids.filter(head).length < 3) return null; const bgEl = rgba(cs.backgroundColor); const secs = []; let cur = null
@@ -1241,15 +1247,20 @@ export function factsInPage() {
       // a heading or a lead line beside the list ('Showing 1-7 of 48')
       const head = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 40)
       // the block's other short lines (a tier's price, its button): a list note alone drops them (round 1 e2)
-      const extra = kids.filter((k) => k !== head && !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && txt(k).length <= 32).map((k) => {
+      const multi = (k) => { const ls = (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean); return ls.length >= 2 && ls.length <= 4 && ls.every((x) => x.length <= 32) }
+      const extra = kids.filter((k) => k !== head && !rep.includes(k) && !rep.some((r) => k.contains(r)) && txt(k) && (txt(k).length <= 32 || multi(k))).map((k) => {
         const c = getComputedStyle(k); const b = k.getBoundingClientRect()
+        // n127: an item pinned to the card's bottom (a held-seat timer over a pay button, round 8 e4: both built right under the list)
+        const ob = el.getBoundingClientRect()
+        const pin = c.position === 'absolute' && ob.bottom - b.bottom <= 140 && ob.height >= 300 ? { up: Math.round(ob.bottom - b.bottom), w: Math.round(b.width) } : null
+        const ink = rgba(c.color), bold = Number(c.fontWeight) >= 600
         const btn = b.height >= 28 && b.height <= 64 && (filled(k) || parseFloat(c.borderTopWidth) >= 1) && (/center/.test(c.textAlign) || (/flex/.test(c.display) && /center/.test(c.justifyContent)))
         // a row of filled chips (seat labels E4 E5, round 8 e4: run together as 'E4E5')
         const cs2 = [...k.children]
         if (cs2.length >= 2 && cs2.every((g) => filled(g) && txt(g) && txt(g).length <= 8 && !g.children.length)) return { t: cs2.map(txt).join(' '), chips: cs2.map((g) => ({ t: txt(g), fill: filled(g), ink: rgba(getComputedStyle(g).color) })), btn: false, fill: null, big: false }
         // grey copy lines under a title (date, hall: round 8 e4 dropped) say their line breaks
         const lines = (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
-        return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24, lines: lines.length >= 2 && lines.length <= 4 ? lines : null }
+        return { t: txt(k), btn, fill: btn ? filled(k) : null, big: parseFloat(c.fontSize) >= 24, lines: lines.length >= 2 && lines.length <= 4 ? lines : null, pin, ink, bold }
       })
       // a picture leading the block, its copy beside it (a film poster in an order summary, round 8 e4: dropped)
       const pic = (() => { const g = kids.find((k) => !txt(k) && !k.children.length && (filled(k) || /gradient/.test(getComputedStyle(k).backgroundImage))); if (!g) return null; const b = g.getBoundingClientRect(), o = el.getBoundingClientRect(); return b.width >= 50 && b.height >= 50 ? { w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), bg: getComputedStyle(g).backgroundImage, fill: filled(g), rad: Math.round(parseFloat(getComputedStyle(g).borderTopLeftRadius) || 0), float: getComputedStyle(g).float } : null })()
@@ -1435,7 +1446,7 @@ function gradientWords(f) {
   const ends = linearEnds(f.bgImage)
   if (ends && names.length === 2 && /^linear-gradient/.test(f.bgImage.trim())) {
     const cs = f.bgImageColours.filter((c) => (parse(c)?.a ?? 1) >= 0.3)
-    const say = (c) => `${vivid(c) ? 'vivid ' : ''}${colourName(c)}`
+    const say = (c) => `${vivid(c) ? 'vivid ' : ''}${colourName(c)} ${hexOf(parse(c))}`
     return `${say(cs[0])} (${ends[0]}) to ${say(cs[cs.length - 1])} (${ends[1]}) gradient`
   }
   // three or more stops in a straight blend: each stop's hex and where it sits, or the middle one is lost
@@ -1716,11 +1727,13 @@ function denseNote(d) {
       // ...and a stacked list of short items up to 12 (round 8 e5: items past the first four were invented)
       const cap = d.items.length <= 8 && d.items.every((p) => p[0].length <= 20) ? 8 : d.stacked && d.items.length <= 12 && d.items.every((p) => p[0].length <= 28) ? 12 : 4
       const pic = d.pic ? `a ${d.pic.w}x${d.pic.h}px ${/gradient/.test(d.pic.bg) ? `gradient (${[...d.pic.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}) ` : d.pic.fill ? `${hexOf(d.pic.fill)} ` : ''}poster picture${d.pic.rad ? ` ${d.pic.rad}px rounded` : ''} at its top left (${d.pic.x}px in, ${d.pic.y}px down)${d.pic.float === 'left' ? ', the title and lines just right of it' : ''}; ` : ''
-      const ex = (x) => x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.big ? 'big ' : ''}${quote(x.t)} `
+      const pinSay = (x) => x.pin ? ` (pinned to the card's bottom: its bottom edge ${x.pin.up}px above the card's bottom edge, ${x.pin.w}px wide, centred; empty space above it)` : ''
+      const exPin = (x) => `, ${x.bold ? 'bold ' : ''}${x.ink && colourName(x.ink) !== 'near-black' ? `${colourName(x.ink)} (${hexOf(x.ink)}) ` : ''}${quote(x.t)}${pinSay(x)}`
+      const ex = (x) => x.pin ? '' : x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.big ? 'big ' : ''}${quote(x.t)} `
       const hl = d.headLook
       const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded` : ' ('}${hl.bold ? ', bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
-      return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`
+      return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).filter((x) => x.pin && !x.btn).map(exPin).join('')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}${pinSay(x)}`).join('')}${d.navLook?.pitch && d.stacked && d.items.length >= 4 && !d.pic ? `; list rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
   }
   return null
 }
@@ -1823,6 +1836,24 @@ function decideOne(f, page, marked, said) {
     const field = (b) => `[${b.sw ? `${b.sw.px}px ${hexOf(b.sw.fill)} swatch square, then ` : ''}${quote(b.t, 24)}]`
     const secs = fs.map((x) => `${quote(x.h, 20)}: ${x.rows.map((r) => r.length > 1 ? `${r.map(field).join(' ')} side by side, equal widths` : `${field(r[0])} full width`).join(', then ')}`)
     return { kind: 'box', note: withFx(`${colourName(f.bg)} panel ${Math.round(w)}x${Math.round(h)}px${bordered ? `, thin ${colourName(f.border.colour)} border` : ''}: an inspector, ${fs.length} sections top to bottom, each a small bold caps heading then its fields; every [field] is a filled ${hexOf(f0.fill)} box ${f0.rad}px rounded, about 28px tall, its value in small dark text inside at the left (NOT bare text, NOT outlined inputs): ${secs.join('; ')}`) }
+  }
+  // n127: a curved screen strip: top edge arched, bottom flat (round 8 e4 built a flat rounded bar)
+  if (f.arch && !f.text && visible(f.bg) && !grad && !f.regionKids.length) return { kind: 'box', note: withFx(`a curved screen strip ${Math.round(w)}x${Math.round(h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${hexOf(f.bg)}: its top edge arches up in one smooth curve, bottom edge flat (border-radius: 50% / 100% 100% 0 0, thin at both ends, thickest in the middle); NOT a flat rounded bar, NO words`) }
+  // n127: a legend: small swatch squares, each before its word (round 8 e4: said as links, built as tiny round dots)
+  if (f.swatchKids && !f.regionKids.length && h <= 40) {
+    const sw = (k) => `${k.px}px ${k.rad >= k.px / 2 - 1 ? 'round' : `square (${k.rad}px rounded)`} swatch ${k.fill ? hexOf(k.fill) : 'white'}${k.border && (!k.fill || dist(k.border, k.fill) > 20) ? ` with a ${hexOf(k.border)} border` : ''} then ${quote(k.t, 20)}`
+    return { kind: 'text', note: `a legend in one row at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${Math.round(f.font.size)}px ${hexOf(f.colour)} words, not links: ${f.swatchKids.map(sw).join('; ')}` }
+  }
+  // n127: a column of single letters, one per row (seat-row letters, round 8 e4: no note, built tight to the grid)
+  if (!fill && !f.regionKids.length && f.text && /^([A-Z0-9]{1,2} ){4,}[A-Z0-9]{1,2}$/.test(f.text) && h > w * 3 && f.font.lineHeight) {
+    const ls = f.text.split(' ')
+    return { kind: 'text', note: `a narrow column of ${ls.length} ${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${hexOf(f.colour)} letters, one per line, ${ls.join(' ')}, line-height exactly ${Math.round(f.font.lineHeight)}px; its left edge at x ${Math.round(f.rect.x)}, first letter's line top at y ${Math.round(f.rect.y)} (absolutely placed there, NOT tight against the grid)` }
+  }
+  // n127: an app toolbar: a dark bar of tool squares, one filled (the active tool), a title, a filled button far right
+  if (fill && (f.bg.r + f.bg.g + f.bg.b) / 3 < 90 && w >= 600 && h <= 64 && f.kidCells && f.kidCells.some((k) => k.fill && k.t) && f.kidCells.filter((k) => k.fill).length <= 3 && !f.regionKids.length) {
+    const kb = f.kidCells.filter((k) => k.t)
+    const one = (k) => `${quote(k.t, 28)}${k.fill ? ` (a ${k.w}x${k.h}px ${hexOf(k.fill)} filled ${k.rad}px rounded box${k.bold ? ', bold' : ''} ${hexOf(k.ink)} text)` : k.ink && dist(k.ink, f.colour ?? k.ink) > 30 ? ` (${hexOf(k.ink)} text)` : ''} at x ${k.x}`
+    return { kind: 'box', note: `${colourName(f.bg)} (${hexOf(f.bg)}) bar ${Math.round(h)}px tall across the page, ${hexOf(f.colour)} text; left to right, each item at its own x from the bar's left: ${kb.map(one).join('; ')}` }
   }
   // a textless filled pill, outlined and with corner handles: a selected layer on a design canvas
   if (!f.text && !f.kidCount && fill && !grad && !f.regionKids.length && h >= 24 && h <= 90 && w >= h * 2 && f.radius >= h / 2 - 2 && (f.ring || f.handles)) {

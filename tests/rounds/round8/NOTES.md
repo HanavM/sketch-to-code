@@ -232,3 +232,21 @@ with the card's centre, read the KPI cards 35px high and the table 100px high, a
 
 Round 8 average now 82% (creative 79 94 89 91 96 = 90; everyday 79 78 69 62 84 = 74). Next: e4 seat map (62%) and
 e3 design editor (69%) are the weakest; then c1 depth stack (79%).
+
+## n127: seat map summary, legend, row letters, curved screen; editor toolbar, list row pitch (2026-10-23, ~127k billed)
+
+Planner (free): a summary card's multi-line grey copy (date, hall) is said instead of dropped (it was over the 32-letter
+cap); items absolutely pinned to a card's bottom (held-seat timer, pay button) say so, with their colour; a legend
+whose items lead with ::before swatches says each swatch (size, rounding, fill, border); a column of single letters says
+its line height and left edge; a strip with arched top corners and a flat bottom is a curved screen, not a bar; a dark
+app toolbar says each item's x and which ones are filled boxes (active tool, Share); a stacked list says its row pitch
+and type size; a two-colour gradient says both hexes. Plans for rounds 1-8 gain the gradient hexes and row pitch on 27
+pages; no marks changed.
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| e3 design editor | 69% -> 84% | ~60k | active tool and Share now blue boxes, layer rows tight at 28px, hero colours exact; LAYERS heading dropped, one tool icon missing, frame label / size badge / cursor tag read as missed |
+| e4 seat booking | 62% -> 85% | ~67k | date and hall lines back, timer and Continue pinned to the card bottom, square legend swatches, row letters further left; seat chips moved up beside the poster, screen still nearly flat |
+
+Round 8 average now 86% (creative 79 94 89 91 96 = 90; everyday 79 78 84 85 84 = 82). Next weakest: e2 analytics (78%),
+c1 depth stack and e1 mail (79%).

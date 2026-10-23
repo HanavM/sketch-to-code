@@ -217,7 +217,7 @@
    ],
    [
     "tile-blue",
-    "vivid cyan (top) to vivid blue (bottom) gradient tile, 280x420px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 280x420px, its top-left at 640,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "vivid cyan #38bdf8 (top) to vivid blue #1d4ed8 (bottom) gradient tile, 280x420px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; the card exactly 280x420px, its top-left at 640,150 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "tile-lime",
@@ -237,7 +237,7 @@
    ],
    [
     "tile-pink",
-    "light pink (top) to deep raspberry (bottom) gradient tile, 300x430px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 430px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 300x430px, its top-left at 940,430, its top 20px under the bottom of the card right above it (that card ends at y 410: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "light pink #f472b6 (top) to deep raspberry #9d174d (bottom) gradient tile, 300x430px, 18px rounded corners, plain paint only: no picture, no X, no icon, no text; its top 430px from the page top, 20px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 300x430px, its top-left at 940,430, its top 20px under the bottom of the card right above it (that card ends at y 410: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "sticker-new",
@@ -435,7 +435,7 @@
   "notes": [
    [
     "sidebar",
-    "pale grey card; a 130x40px #c7d2fe filled button \"✎ Compose\" (12px rounded, bold #1e1b4b text; its fill clearly visible, not white), then list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted (#e0e7ff rounded fill, #3730a3 text)"
+    "pale grey card; a 130x40px #c7d2fe filled button \"✎ Compose\" (12px rounded, bold #1e1b4b text; its fill clearly visible, not white), then list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted (#e0e7ff rounded fill, #3730a3 text); list rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top"
    ],
    [
     "message-list",
@@ -587,11 +587,11 @@
    ],
    [
     "toolbar",
-    "dark grey bar, white text \"▲ # □ ✎ T 💬 Landing v3 / Desktop Share\""
+    "dark grey (#2c2c2c) bar 48px tall across the page, #ffffff text; left to right, each item at its own x from the bar's left: \"▲\" (a 32x32px #0d99ff filled 6px rounded box #ffffff text) at x 12; \"#\" at x 50; \"□\" at x 88; \"✎\" at x 126; \"T\" at x 164; \"💬\" at x 202; \"Landing v3 / Desktop\" (#cccccc text) at x 660; \"Share\" (a 61x32px #0d99ff filled 6px rounded box, bold #ffffff text) at x 1207"
    ],
    [
     "layers-panel",
-    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted (#e5f4ff square fill, #0d99ff text)"
+    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted (#e5f4ff square fill, #0d99ff text); list rows exactly 28px apart (28px tall, 12px type: tight, not roomier), first line 12px below the panel's top"
    ],
    [
     "frame-label",
@@ -603,7 +603,7 @@
    ],
    [
     "hero-block",
-    "soft yellow (top left) to light pink (bottom right) gradient tile, 500x240px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
+    "soft yellow #fde68a (top left) to light pink #f472b6 (bottom right) gradient tile, 500x240px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "selected-button",
@@ -677,11 +677,15 @@
    ],
    [
     "screen",
-    "a plain #a1a1aa bar exactly 540x10px, 50px rounded at 180,130: a skeleton placeholder line, NO words, NOT text, nothing inside"
+    "a curved screen strip 540x10px at 180,130, #a1a1aa: its top edge arches up in one smooth curve, bottom edge flat (border-radius: 50% / 100% 100% 0 0, thin at both ends, thickest in the middle); NOT a flat rounded bar, NO words"
    ],
    [
     "screen-label",
     "wide-spaced letters \"SCREEN\""
+   ],
+   [
+    "row-letters",
+    "a narrow column of 11 bold 14px #a1a1aa letters, one per line, A B C D E F G H J K L, line-height exactly 46px; its left edge at x 110, first letter's line top at y 206 (absolutely placed there, NOT tight against the grid)"
    ],
    [
     "seat-grid",
@@ -689,11 +693,11 @@
    ],
    [
     "legend",
-    "links: Free, Taken, Selected, Recliner +$4"
+    "a legend in one row at 190,800, 14px #52525b words, not links: 16px square (4px rounded) swatch white with a #a1a1aa border then \"Free\"; 16px square (4px rounded) swatch #d4d4d8 then \"Taken\"; 16px square (4px rounded) swatch #16a34a then \"Selected\"; 16px square (4px rounded) swatch #f3e8ff with a #a855f7 border then \"Recliner +$4\""
    ],
    [
     "summary",
-    "white card; a 90x130px gradient (#1e3a8a to #f97316) poster picture 8px rounded at its top left (25px in, 25px down), the title and lines just right of it; \"Low Tide\" small filled chips side by side, separate: \"E4\" (#dcfce7 fill, bold #15803d text), \"E5\" (#dcfce7 fill, bold #15803d text) \"Seats held for 07:42\" list: \"2 × Adult\" $28.00, \"Booking fee\" $2.50, \"Total\" $30.50, green button \"Continue · $30.50\""
+    "white card; a 90x130px gradient (#1e3a8a to #f97316) poster picture 8px rounded at its top left (25px in, 25px down), the title and lines just right of it; \"Low Tide\" grey lines \"Sat, Oct 24 · 7:30 PM\" / \"Hall 3 · 2h 08m · PG-13\" small filled chips side by side, separate: \"E4\" (#dcfce7 fill, bold #15803d text), \"E5\" (#dcfce7 fill, bold #15803d text) list: \"2 × Adult\" $28.00, \"Booking fee\" $2.50, \"Total\" $30.50, bold brown (#b45309) \"Seats held for 07:42\" (pinned to the card's bottom: its bottom edge 85px above the card's bottom edge, 312px wide, centred; empty space above it), green button \"Continue · $30.50\" (pinned to the card's bottom: its bottom edge 25px above the card's bottom edge, 312px wide, centred; empty space above it)"
    ]
   ]
  },

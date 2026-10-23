@@ -125,7 +125,7 @@
    ],
    [
     "photo-blue",
-    "tilted 6° anticlockwise vivid blue (top) to dark navy (bottom) gradient block, with a hard near-black at 18% opacity shadow offset 14px down right, no blur"
+    "tilted 6° anticlockwise vivid blue #1d4ed8 (top) to dark navy #0f172a (bottom) gradient block, with a hard near-black at 18% opacity shadow offset 14px down right, no blur"
    ],
    [
     "scrap-orange",
@@ -263,7 +263,7 @@
    ],
    [
     "portrait",
-    "lavender (top) to vivid dark pink (bottom) gradient arch (round top, flat bottom)"
+    "lavender #a78bfa (top) to vivid dark pink #db2777 (bottom) gradient arch (round top, flat bottom)"
    ],
    [
     "word-top",
@@ -443,7 +443,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) off-white (left) to lavender (right) gradient text \"Infrastructure with depth.\", set in exactly 2 lines: \"Infrastructure\" / \"with depth.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 504px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 1) off-white #e0f2fe (left) to lavender #f0abfc (right) gradient text \"Infrastructure with depth.\", set in exactly 2 lines: \"Infrastructure\" / \"with depth.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 504px wide)"
    ],
    [
     "lead",
@@ -587,7 +587,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted (#1e293b rounded fill, #ffffff text)"
+    "dark navy (exactly #0f172a) sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 40px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top"
    ],
    [
     "search",
@@ -637,7 +637,7 @@
   "notes": [
    [
     "folders",
-    "pale grey card; a 172x40px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text)"
+    "pale grey card; a 172x40px #2563eb filled button \"Compose\" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: \"Inbox\" 12, \"Starred\", \"Sent\", \"Drafts\" 2, \"Archive\", \"Spam\"; \"Inbox\" highlighted (#dbeafe rounded fill, #1d4ed8 text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 20px below the panel's top"
    ],
    [
     "message-list",

@@ -45,7 +45,7 @@
    ],
    [
     "hero-tile",
-    "vivid purple (top left) to vivid dark pink (bottom right) gradient block \"ORBIT OS · 2027\", text \"Everything, tiled.\"; the card exactly 560x420px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "vivid purple #7c3aed (top left) to vivid dark pink #db2777 (bottom right) gradient block \"ORBIT OS · 2027\", text \"Everything, tiled.\"; the card exactly 560x420px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "stat-tile",
@@ -233,7 +233,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow (left) to light pink (right) gradient text \"The city after dark\", set in exactly 2 lines: \"The city\" / \"after dark\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow #fde68a (left) to light pink #f472b6 (right) gradient text \"The city after dark\", set in exactly 2 lines: \"The city\" / \"after dark\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)"
    ],
    [
     "sub",
@@ -601,11 +601,11 @@
    ],
    [
     "photo-green",
-    "tilted 4° anticlockwise teal (top) to deep green (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border"
+    "tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border"
    ],
    [
     "photo-amber",
-    "tilted 5° clockwise vivid amber (top) to vivid brown (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border"
+    "tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border"
    ],
    [
     "tape-1",
@@ -911,7 +911,7 @@
    ],
    [
     "file-tree",
-    "near-black block \"EXPLORER\" list: \"▾ src\", \"▸ components\", \"▾ lib\", \"parse.ts\", \"score.ts\", \"draw.ts\", \"main.ts\", \"package.json\", \"README.md\"; \"parse.ts\" highlighted (#313244 rounded fill, #ffffff text)"
+    "near-black block \"EXPLORER\" list: \"▾ src\", \"▸ components\", \"▾ lib\", \"parse.ts\", \"score.ts\", \"draw.ts\", \"main.ts\", \"package.json\", \"README.md\"; \"parse.ts\" highlighted (#313244 rounded fill, #ffffff text); list rows exactly 26px apart (26px tall, 13px type: tight, not roomier), first line 14px below the panel's top"
    ],
    [
     "tabs",
