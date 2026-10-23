@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Date range analytics</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:13px}
+h1{position:absolute;left:40px;top:32px;font-size:26px}
+.range{position:absolute;left:880px;top:30px;width:360px;padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#fff}
+.card{position:absolute;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px}
+.k b{display:block;font-size:28px;margin-top:6px}.k small{color:#16a34a;font-weight:700}
+.chart{left:40px;top:200px;width:800px;height:380px}
+.map{left:860px;top:200px;width:380px;height:380px}
+.grid{display:grid;grid-template-columns:repeat(8,36px);gap:4px;margin-top:16px}.grid i{height:36px;border-radius:4px}
+.tbl{left:40px;top:600px;width:1200px;height:260px}
+table{width:100%;border-collapse:collapse;margin-top:10px}th{text-align:left;color:#64748b;font-weight:600;padding:8px 0;border-bottom:1px solid #e2e8f0}td{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.pop{position:absolute;left:700px;top:76px;width:540px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 16px 40px rgba(15,23,42,.18);padding:16px;display:flex;gap:20px}
+.pop ul{list-style:none;width:120px;white-space:nowrap;line-height:30px;color:#475569}.pop ul li.on{color:#4f46e5;font-weight:700}
+.cal{width:180px}.cal h4{text-align:center;margin-bottom:8px}.cal .d{display:grid;grid-template-columns:repeat(7,24px);gap:2px;text-align:center;line-height:24px}.cal .d span.in{background:#e0e7ff}.cal .d span.e{background:#4f46e5;color:#fff;border-radius:6px}
+</style></head><body>
+<h1 data-r="title" data-must>Traffic</h1>
+<div class="range" data-r="date-range">📅 Oct 6 – Oct 19, 2026 &nbsp;▾</div>
+<div class="card k" data-r="kpi-1" style="left:40px;top:90px;width:280px;height:90px">Visitors<b>48,210</b><small>▲ 12.4%</small></div>
+<div class="card k" data-r="kpi-2" style="left:340px;top:90px;width:280px;height:90px">Bounce rate<b>38.2%</b><small style="color:#dc2626">▲ 2.1%</small></div>
+<div class="card k" data-r="kpi-3" style="left:640px;top:90px;width:200px;height:90px">Avg. time<b>3m 12s</b></div>
+<div class="card chart" data-r="area-chart" data-must><b style="font-size:15px">Visitors per day</b>
+<svg width="760" height="310" viewBox="0 0 760 310" style="margin-top:10px"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6366f1" stop-opacity=".45"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></linearGradient></defs>
+<g stroke="#e2e8f0"><line x1="0" y1="60" x2="760" y2="60"/><line x1="0" y1="140" x2="760" y2="140"/><line x1="0" y1="220" x2="760" y2="220"/><line x1="0" y1="300" x2="760" y2="300"/></g>
+<path d="M0 240 L60 200 L120 215 L180 160 L240 170 L300 120 L360 140 L420 90 L480 110 L540 70 L600 95 L660 60 L720 80 L760 50 L760 300 L0 300Z" fill="url(#g)"/>
+<path d="M0 240 L60 200 L120 215 L180 160 L240 170 L300 120 L360 140 L420 90 L480 110 L540 70 L600 95 L660 60 L720 80 L760 50" fill="none" stroke="#4f46e5" stroke-width="3"/>
+<path d="M0 270 L60 260 L120 250 L180 245 L240 235 L300 230 L360 220 L420 215 L480 205 L540 200 L600 190 L660 185 L720 180 L760 175" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"/></svg></div>
+<div class="card map" data-r="heat-grid"><b style="font-size:15px">By hour × weekday</b><div class="grid">
+<i style="background:#e0e7ff"></i><i style="background:#c7d2fe"></i><i style="background:#a5b4fc"></i><i style="background:#818cf8"></i><i style="background:#6366f1"></i><i style="background:#818cf8"></i><i style="background:#c7d2fe"></i><i style="background:#e0e7ff"></i>
+<i style="background:#c7d2fe"></i><i style="background:#a5b4fc"></i><i style="background:#6366f1"></i><i style="background:#4f46e5"></i><i style="background:#4338ca"></i><i style="background:#6366f1"></i><i style="background:#a5b4fc"></i><i style="background:#e0e7ff"></i>
+<i style="background:#c7d2fe"></i><i style="background:#818cf8"></i><i style="background:#4f46e5"></i><i style="background:#3730a3"></i><i style="background:#3730a3"></i><i style="background:#4f46e5"></i><i style="background:#818cf8"></i><i style="background:#c7d2fe"></i>
+<i style="background:#e0e7ff"></i><i style="background:#a5b4fc"></i><i style="background:#6366f1"></i><i style="background:#4f46e5"></i><i style="background:#4338ca"></i><i style="background:#6366f1"></i><i style="background:#a5b4fc"></i><i style="background:#e0e7ff"></i>
+<i style="background:#f1f5f9"></i><i style="background:#e0e7ff"></i><i style="background:#c7d2fe"></i><i style="background:#a5b4fc"></i><i style="background:#a5b4fc"></i><i style="background:#c7d2fe"></i><i style="background:#e0e7ff"></i><i style="background:#f1f5f9"></i>
+<i style="background:#f1f5f9"></i><i style="background:#f1f5f9"></i><i style="background:#e0e7ff"></i><i style="background:#c7d2fe"></i><i style="background:#c7d2fe"></i><i style="background:#e0e7ff"></i><i style="background:#f1f5f9"></i><i style="background:#f1f5f9"></i>
+</div></div>
+<div class="card tbl" data-r="pages-table"><b style="font-size:15px">Top pages</b><table><tr><th>Page</th><th>Visitors</th><th>Avg. time</th><th>Bounce</th></tr>
+<tr><td>/pricing</td><td>12,480</td><td>2m 40s</td><td>31%</td></tr><tr><td>/docs/getting-started</td><td>9,102</td><td>5m 02s</td><td>22%</td></tr><tr><td>/blog/offline-sync</td><td>6,730</td><td>4m 18s</td><td>44%</td></tr><tr><td>/</td><td>5,955</td><td>1m 05s</td><td>52%</td></tr></table></div>
+<div class="pop" data-r="date-popover" data-must><ul><li>Today</li><li>Last 7 days</li><li class="on">Last 14 days</li><li>Last 30 days</li><li>Custom</li></ul>
+<div class="cal"><h4>October 2026</h4><div class="d"><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span class="e">6</span><span class="in">7</span><span class="in">8</span><span class="in">9</span><span class="in">10</span><span class="in">11</span><span class="in">12</span><span class="in">13</span><span class="in">14</span><span class="in">15</span><span class="in">16</span><span class="in">17</span><span class="in">18</span><span class="e">19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span></div></div>
+<div style="align-self:flex-end;display:flex;gap:8px"><span style="padding:8px 14px;border:1px solid #cbd5e1;border-radius:8px">Cancel</span><span style="padding:8px 14px;border-radius:8px;background:#4f46e5;color:#fff;font-weight:700">Apply</span></div></div>
+</body></html>

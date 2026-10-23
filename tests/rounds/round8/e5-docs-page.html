@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Docs page</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1e293b;font-size:14px}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 28px;gap:28px}.top b{font-size:17px}.top .s{margin-left:auto;width:260px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;color:#94a3b8;display:flex;justify-content:space-between}.top .s kbd{font-size:11px;border:1px solid #e2e8f0;border-radius:4px;padding:0 5px}
+.nav{position:absolute;left:0;top:60px;width:260px;height:840px;border-right:1px solid #e2e8f0;padding:24px 20px;line-height:30px;color:#475569}
+.nav h6{font-size:11px;letter-spacing:1px;color:#0f172a;margin-top:12px}.nav div.on{color:#0284c7;font-weight:700;border-left:2px solid #0284c7;padding-left:12px;margin-left:-2px;background:#f0f9ff}.nav div{padding-left:14px}
+.art{position:absolute;left:310px;top:90px;width:680px}
+.crumb{color:#64748b;font-size:13px}.art h1{font-size:34px;margin:10px 0 14px;letter-spacing:-.5px}.art p{line-height:1.7;margin-bottom:16px;color:#334155}
+.art code{font-family:Menlo,monospace;font-size:13px;background:#f1f5f9;padding:1px 5px;border-radius:4px;color:#be185d}
+pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:18px;font-family:Menlo,monospace;font-size:13px;line-height:1.7;margin-bottom:18px}pre .k{color:#c084fc}pre .s{color:#86efac}pre .c{color:#64748b}
+.call{border-left:4px solid #f59e0b;background:#fffbeb;padding:14px 16px;border-radius:0 8px 8px 0;line-height:1.6;margin-bottom:18px}
+table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:9px 10px;border:1px solid #e2e8f0}th{background:#f8fafc}
+.toc{position:absolute;left:1030px;top:90px;width:210px;line-height:28px;color:#64748b;font-size:13px}.toc b{color:#0f172a}.toc div.on{color:#0284c7;font-weight:700}
+</style></head><body>
+<div class="top" data-r="topbar" data-must><b>◆ Lumen Docs</b><span>Guides</span><span>API</span><span>Changelog</span><span class="s">Search docs<kbd>⌘K</kbd></span></div>
+<div class="nav" data-r="sidebar" data-must><h6>GETTING STARTED</h6><div>Introduction</div><div>Installation</div><div class="on">Offline sync</div><div>Authentication</div><h6>GUIDES</h6><div>Boards</div><div>Webhooks</div><div>Rate limits</div><h6>REFERENCE</h6><div>REST API</div><div>CLI</div></div>
+<div class="art" data-r="article" data-must><div class="crumb">Docs › Getting started › Offline sync</div><h1>Offline sync</h1>
+<p>Lumen keeps a local copy of every board you open. Changes made offline are queued and merged when the device reconnects, using <code>syncPolicy</code> to resolve conflicts.</p>
+<pre><span class="c">// enable sync for one board</span>
+<span class="k">const</span> board = <span class="k">await</span> lumen.boards.open(<span class="s">'roadmap'</span>)
+board.sync({ policy: <span class="s">'last-write-wins'</span>, retry: <span class="k">5</span> })</pre>
+<div class="call"><b>Note</b> &nbsp;Attachments over 25 MB are synced only on Wi-Fi.</div>
+<table><tr><th>Option</th><th>Type</th><th>Default</th></tr><tr><td><code>policy</code></td><td>string</td><td>'merge'</td></tr><tr><td><code>retry</code></td><td>number</td><td>3</td></tr></table></div>
+<div class="toc" data-r="toc"><b>On this page</b><div class="on">Overview</div><div>Enable sync</div><div>Conflicts</div><div>Options</div><div>Limits</div></div>
+</body></html>

@@ -1,0 +1,718 @@
+{
+ "c1-depth-stack": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "label",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 104,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "cta-2",
+    "button"
+   ],
+   [
+    "card-stack",
+    "image"
+   ],
+   [
+    "progress",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: deep indigo to black gradient page, Helvetica type, white text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold \"LAYERS\" left, \"Product · Pricing · Docs · Sign in\" right"
+   ],
+   [
+    "label",
+    "13px wide-spaced letters lavender \"SPATIAL WORKSPACE\""
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.92) \"Think in depth, not tabs.\", set in exactly 3 lines: \"Think in\" / \"depth , not\" / \"tabs.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 463px wide)"
+   ],
+   [
+    "cta",
+    "white pill black text button \"Start free\""
+   ],
+   [
+    "cta-2",
+    "dark grey outline pill button \"Watch demo\""
+   ],
+   [
+    "card-stack",
+    "picture with \"Q4 plan\", in front of the \"Think in depth, not\"… heading"
+   ]
+  ]
+ },
+ "c2-orbit-type": {
+  "plan": [
+   [
+    "echo-word",
+    "heading",
+    {
+     "fontPx": 72,
+     "lines": 4
+    }
+   ],
+   [
+    "orbit-text",
+    "circle"
+   ],
+   [
+    "sun",
+    "circle"
+   ],
+   [
+    "side-copy",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 4
+    }
+   ],
+   [
+    "date",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 2
+    }
+   ],
+   [
+    "ticker",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f5f0e6, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "echo-word",
+    "huge Helvetica heavy tight-set letters lines set tight (line-height 0.86) \"SOUND SOUND SOUND SOUND\", set in exactly 4 lines: \"SOUND\" / \"SOUND\" / \"SOUND\" / \"SOUND\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 245px wide)"
+   ],
+   [
+    "orbit-text",
+    "ring of small spaced capital letters \"LISTEN · LOUDER · LISTEN · LOUDER · LISTEN · LOUDER ·\" running round a 600px circle, no outline, no fill"
+   ],
+   [
+    "sun",
+    "vivid red-orange circle with \"FM26\""
+   ],
+   [
+    "side-copy",
+    "text \"Three nights of radio art, broadcast live from a lighthouse. Tune in anywhere; show up if you can.\""
+   ],
+   [
+    "date",
+    "big heavy tight-set letters lines set tight (line-height 1) \"NOV 14–16\", set in exactly 2 lines: \"NOV\" / \"14–16\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 117px wide)"
+   ],
+   [
+    "ticker",
+    "near-black bar, cream text bold 18px text \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ●\""
+   ]
+  ]
+ },
+ "c3-masonry-stickers": {
+  "plan": [
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 72,
+     "lines": 1
+    }
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "tile-mesh",
+    "image"
+   ],
+   [
+    "tile-text",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 2
+    }
+   ],
+   [
+    "tile-blue",
+    "image"
+   ],
+   [
+    "tile-lime",
+    "image"
+   ],
+   [
+    "tile-violet",
+    "image"
+   ],
+   [
+    "tile-quote",
+    "box"
+   ],
+   [
+    "tile-yellow",
+    "image"
+   ],
+   [
+    "tile-pink",
+    "image"
+   ],
+   [
+    "sticker-new",
+    "circle"
+   ],
+   [
+    "sticker-free",
+    "circle"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#fff7ed, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "headline",
+    "huge Helvetica heavy tight-set letters \"Pin it all.\", on ONE line (white-space: nowrap, never wrapped), about 263px wide"
+   ],
+   [
+    "nav",
+    "15px \"Boards · Explore · Join\", one line on its own (top 62px, left edge 880px), nothing else written beside it"
+   ],
+   [
+    "tile-mesh",
+    "soft yellow block with soft colour glows: bright orange (#fb923c) bottom right, centred 80% across and 80% down, full-strength bright orange at its centre fading to nothing about 201px out (radial-gradient(circle at 80% 80%, #fb923c 0, transparent 201px)); peach (#fda4af) top left, centred 30% across and 30% down, full-strength peach at its centre fading to nothing about 192px out (radial-gradient(circle at 30% 30%, #fda4af 0, transparent 192px))"
+   ],
+   [
+    "tile-text",
+    "off-white \"2.4M boards made this year\""
+   ],
+   [
+    "tile-blue",
+    "vivid cyan (top) to vivid blue (bottom) gradient block"
+   ],
+   [
+    "tile-lime",
+    "mint green block"
+   ],
+   [
+    "tile-violet",
+    "vivid purple block"
+   ],
+   [
+    "tile-quote",
+    "pale pink 24px text \"“My moodboard finally looks like my mood.”\", in the top-left corner (24px in, 24px down), the rest of the box empty"
+   ],
+   [
+    "tile-yellow",
+    "vivid yellow block"
+   ],
+   [
+    "tile-pink",
+    "light pink (top) to deep raspberry (bottom) gradient block"
+   ],
+   [
+    "sticker-new",
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline"
+   ],
+   [
+    "sticker-free",
+    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline"
+   ]
+  ]
+ },
+ "c4-topo-knockout": {
+  "plan": [
+   [
+    "contours",
+    "box"
+   ],
+   [
+    "brand",
+    "box"
+   ],
+   [
+    "pin",
+    "circle"
+   ],
+   [
+    "pin-label",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 2
+    }
+   ],
+   [
+    "subhead",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
+   ],
+   [
+    "stats",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#0c1a14) page, Helvetica type, pale yellow text"
+   ],
+   [
+    "contours",
+    "drawn shapes, no picture, no box: 0 filled shapes: ; plus a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 600,0 → 700,62 → 816,90 → 934,110 → 1052,131 → 1168,160 → 1280,200 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 560,0 → 661,79 → 782,123 → 908,152 → 1035,179 → 1159,213 → 1280,260 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 520,0 → 622,94 → 748,152 → 882,192 → 1017,227 → 1151,267 → 1280,320 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 480,0 → 584,107 → 715,180 → 856,230 → 1000,273 → 1143,319 → 1280,380 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 440,0 → 546,120 → 682,206 → 830,268 → 983,319 → 1134,372 → 1280,440 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 400,0 → 510,131 → 649,231 → 804,304 → 965,364 → 1126,424 → 1280,500 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 0,820 → 213,802 → 427,808 → 641,815 → 855,813 → 1069,795 → 1280,760 (page px), a 2px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 0,860 → 213,842 → 427,848 → 641,855 → 855,853 → 1069,835 → 1280,800 (page px)"
+   ],
+   [
+    "brand",
+    "nav bar \"TRAILHEAD\""
+   ],
+   [
+    "pin",
+    "small 22px vivid yellow dot (exactly 22x22px: w-[22px] h-[22px], border-radius 50%, not smaller)"
+   ],
+   [
+    "pin-label",
+    "pale yellow bar, near-black text \"Summit · 2,941 m\""
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.85) lime (#a3e635) to yellow (#facc15 at 50%) to bright orange (#fb923c) gradient, left to right text \"GO HIGH\", set in exactly 2 lines: \"GO\" / \"HIGH\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 535px wide)"
+   ],
+   [
+    "subhead",
+    "text \"Offline maps for the routes nobody else has drawn yet.\""
+   ],
+   [
+    "stats",
+    "3 stat cards in a row: \"\" 14k TRAILS, \"\" 92 COUNTRIES, \"\" 0 SIGNAL NEEDED"
+   ]
+  ]
+ },
+ "c5-diagonal-duotone": {
+  "plan": [
+   [
+    "yellow-half",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       0.62,
+       0
+      ],
+      [
+       0.38,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "grain",
+    "box"
+   ],
+   [
+    "giant-number",
+    "heading",
+    {
+     "fontPx": 640,
+     "lines": 1
+    }
+   ],
+   [
+    "left-copy",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 3
+    }
+   ],
+   [
+    "right-copy",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 3
+    }
+   ],
+   [
+    "side-strip",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: blue (#1d4ed8) page, Helvetica type, black text"
+   ],
+   [
+    "yellow-half",
+    "soft yellow angled cut-out shape"
+   ],
+   [
+    "grain",
+    "a big 1280x900px block filled with a soft pale tinted #000000 to #000000 (bottom left to top right) gradient: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+   ],
+   [
+    "giant-number",
+    "colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger)"
+   ],
+   [
+    "right-copy",
+    "soft yellow \"Tickets on sale Friday Get notified\""
+   ],
+   [
+    "side-strip",
+    "vertical near-black bar, soft yellow text \"PREMIERE NIGHT ★ 2027\""
+   ]
+  ]
+ },
+ "e1-mail-compose": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "message-list",
+    "box"
+   ],
+   [
+    "reader",
+    "box"
+   ],
+   [
+    "compose",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "pale grey card \"✎ Compose\" list: \"Inbox\" 24, \"Starred\", \"Snoozed\", \"Sent\", \"Drafts\" 3, \"Spam\"; \"Inbox\" highlighted"
+   ],
+   [
+    "message-list",
+    "\"Search mail\" list: \"Maya Lin\" 9:41, \"GitHub\" 9:02, \"Ravi, me (3)\" Yesterday, \"Stripe\" Oct 21, \"Noor Haddad\" Oct 20, \"Calendar\" Oct 19; \"Maya Lin\" highlighted"
+   ],
+   [
+    "reader",
+    "opened message; big bold 22px title \"Venue contract, final\"; a 36px round amber avatar left of bold \"Maya Lin\" with grey \"to me · 9:41 AM\" under it; then 14px body text, lines: \"Hi! Attached is the signed venue contract for the March summit. The deposit has gone out and the hold is confirmed until the 14th.\""
+   ],
+   [
+    "compose",
+    "\"New message — ⤢ ✕\", lines \"To maya@lumen.io\", \"Subject Re: Venue contract, final\", \"Signed and attached. Great work getting the hold extended!\", \"Send\""
+   ]
+  ]
+ },
+ "e2-date-range-analytics": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "date-range",
+    "box"
+   ],
+   [
+    "kpi-1",
+    "box"
+   ],
+   [
+    "kpi-2",
+    "box"
+   ],
+   [
+    "kpi-3",
+    "box"
+   ],
+   [
+    "area-chart",
+    "box"
+   ],
+   [
+    "heat-grid",
+    "box"
+   ],
+   [
+    "pages-table",
+    "box"
+   ],
+   [
+    "date-popover",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "title",
+    "\"Traffic\", 26px bold type on one line, its box top 32px from the page top and 31px tall (top-[32px] or the same margin, line-height 31px; not higher)"
+   ],
+   [
+    "date-range",
+    "white card \"📅 Oct 6 – Oct 19, 2026 ▾\""
+   ],
+   [
+    "kpi-1",
+    "white card \"48,210\", text \"▲ 12.4%\""
+   ],
+   [
+    "kpi-2",
+    "white card \"38.2%\", text \"▲ 2.1%\""
+   ],
+   [
+    "kpi-3",
+    "white card big 28px bold \"3m 12s\" over 13px \"Avg. time\""
+   ],
+   [
+    "area-chart",
+    "line chart drawn as SVG lines: thick solid indigo line, dashed grey line; no axis labels"
+   ],
+   [
+    "heat-grid",
+    "white card \"By hour × weekday\""
+   ],
+   [
+    "pages-table",
+    "table, columns \"Page\", \"Visitors\", \"Avg. time\", \"Bounce\", 4 rows"
+   ],
+   [
+    "date-popover",
+    "white card \"Cancel Apply\", page numbers \"7\", \"8\", \"9\", \"10\", \"11\", \"12\", \"13\", \"14\", \"15\", \"16\", \"17\", \"18\""
+   ]
+  ]
+ },
+ "e3-design-editor": {
+  "plan": [
+   [
+    "toolbar",
+    "box"
+   ],
+   [
+    "layers-panel",
+    "box"
+   ],
+   [
+    "frame-label",
+    "text"
+   ],
+   [
+    "canvas-frame",
+    "image"
+   ],
+   [
+    "hero-block",
+    "box"
+   ],
+   [
+    "selected-button",
+    "box"
+   ],
+   [
+    "size-badge",
+    "box"
+   ],
+   [
+    "text-line",
+    "box"
+   ],
+   [
+    "cursor-tag",
+    "box"
+   ],
+   [
+    "properties-panel",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "toolbar",
+    "dark grey bar, white text \"▲ # □ ✎ T 💬 Landing v3 / Desktop Share\""
+   ],
+   [
+    "layers-panel",
+    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted"
+   ],
+   [
+    "frame-label",
+    "grey text \"Desktop\""
+   ],
+   [
+    "hero-block",
+    "soft yellow (top left) to light pink (bottom right) gradient block, overlapping the upper left of the other picture and on top of it"
+   ],
+   [
+    "selected-button",
+    "near-black"
+   ],
+   [
+    "size-badge",
+    "vivid bright sky blue block, white text \"180 × 48\""
+   ],
+   [
+    "cursor-tag",
+    "vivid purple block, white text \"Noor\""
+   ],
+   [
+    "properties-panel",
+    "white block \"X 40 Y 340\" \"W 180 H 48\" \"999\" \"111111 100%\" \"None\" \"Drop shadow\" list: \"FRAME\", \"CORNER RADIUS\", \"FILL\", \"STROKE\", \"EFFECTS\""
+   ]
+  ]
+ },
+ "e4-seat-booking": {
+  "plan": [
+   [
+    "stepper",
+    "box"
+   ],
+   [
+    "hall",
+    "image"
+   ],
+   [
+    "screen",
+    "box"
+   ],
+   [
+    "screen-label",
+    "text"
+   ],
+   [
+    "row-letters",
+    "text"
+   ],
+   [
+    "seat-grid",
+    "box"
+   ],
+   [
+    "legend",
+    "text"
+   ],
+   [
+    "summary",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f4f4f5, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "stepper",
+    "buttons: \"✓ Showtime\", \"2 Seats\", \"3 Snacks\", \"4 Pay\""
+   ],
+   [
+    "screen",
+    "solid grey strip only 10px tall, 540px wide, no text (a progress bar)"
+   ],
+   [
+    "screen-label",
+    "wide-spaced letters \"SCREEN\""
+   ],
+   [
+    "legend",
+    "links: Free, Taken, Selected, Recliner +$4"
+   ],
+   [
+    "summary",
+    "white card \"Low Tide\" \"E4E5\" \"Seats held for 07:42\" list: \"2 × Adult\" $28.00, \"Booking fee\" $2.50, \"Total\" $30.50, green button \"Continue · $30.50\""
+   ]
+  ]
+ },
+ "e5-docs-page": {
+  "plan": [
+   [
+    "topbar",
+    "text"
+   ],
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "article",
+    "box"
+   ],
+   [
+    "toc",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 6
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "topbar",
+    "bold 17px \"◆ Lumen Docs\" first, then links: Guides, API, Changelog, Search docs ⌘K; \"◆ Lumen Docs\", \"Guides\", \"API\", \"Changelog\" sit together at the left, \"Search docs ⌘K\" pushed to the far right (621px gap)"
+   ],
+   [
+    "sidebar",
+    "\"GETTING STARTED\" \"GUIDES\" \"REFERENCE\" list: \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\", 5 more; \"Offline sync\" highlighted"
+   ],
+   [
+    "article",
+    "\"Offline sync\", table, columns \"Option\", \"Type\", \"Default\", 2 rows, first row \"policy\" | \"string\" | \"'merge'\"; status pills dark pink \"policy\", dark pink \"retry\""
+   ]
+  ]
+ }
+}

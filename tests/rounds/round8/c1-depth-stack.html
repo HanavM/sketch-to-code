@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Depth stack</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 45%,#1e1b4b 0,#09090b 60%);font-family:Helvetica,Arial,sans-serif;color:#fafafa}
+.scene{position:absolute;left:600px;top:150px;width:560px;height:620px;perspective:1200px}
+.card{position:absolute;width:360px;height:460px;border-radius:24px;transform:rotateY(-28deg) rotateX(8deg);box-shadow:-30px 40px 80px rgba(0,0,0,.55)}
+.k1{left:0;top:100px;background:linear-gradient(160deg,#4338ca,#1e1b4b);opacity:.55}
+.k2{left:90px;top:60px;background:linear-gradient(160deg,#6366f1,#312e81);opacity:.75}
+.k3{left:180px;top:20px;background:linear-gradient(160deg,#a5b4fc,#4f46e5);border:1px solid rgba(255,255,255,.4)}
+.k3 b{position:absolute;left:28px;bottom:28px;font-size:56px;letter-spacing:-2px}
+.k3 i{position:absolute;left:28px;top:28px;width:56px;height:56px;border-radius:50%;background:#fde047}
+h1{position:absolute;left:80px;top:250px;font-size:104px;line-height:.92;letter-spacing:-4px;font-weight:800;width:640px}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:2px #a5b4fc}
+.lab{position:absolute;left:80px;top:200px;font-size:13px;letter-spacing:4px;color:#a5b4fc}
+.cta{position:absolute;left:80px;top:560px;padding:16px 28px;border-radius:999px;background:#fafafa;color:#09090b;font-weight:700;font-size:16px}
+.cta2{position:absolute;left:250px;top:560px;padding:15px 26px;border-radius:999px;border:1px solid #52525b;font-size:16px}
+nav{position:absolute;left:80px;top:40px;width:1120px;display:flex;justify-content:space-between;font-size:14px;color:#d4d4d8}
+.dots{position:absolute;left:80px;top:820px;display:flex;gap:10px}.dots span{width:40px;height:4px;border-radius:2px;background:#3f3f46}.dots span.on{background:#a5b4fc;width:80px}
+</style></head><body>
+<nav data-r="nav"><b style="color:#fff">LAYERS</b><span>Product · Pricing · Docs · Sign in</span></nav>
+<div class="lab" data-r="label">SPATIAL WORKSPACE</div>
+<h1 data-r="headline" data-must>Think in <em>depth</em>, not tabs.</h1>
+<a class="cta" data-r="cta" data-must>Start free</a><a class="cta2" data-r="cta-2">Watch demo</a>
+<div class="scene" data-r="card-stack" data-must><div class="card k1"></div><div class="card k2"></div><div class="card k3"><i></i><b>Q4 plan</b></div></div>
+<div class="dots" data-r="progress"><span class="on"></span><span></span><span></span></div>
+</body></html>
