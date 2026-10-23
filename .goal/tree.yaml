@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 10 is complete at 87%: the five everyday pages (video call, code review, playlist, trading desk, sign-up wizard) came out 70 to 96% on their first builds. Next I fix the few parts still lost, then write a harder round 11."
 round: 10
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 87]
-lock: null
+lock: {by: run-2026-10-23T1253, until: '2026-10-23T14:25:00Z'}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
