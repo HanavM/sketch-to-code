@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 12 (harder): 8 of 10 pages built, averaging 78%; the 3D city, poster and aurora now come out right, next I fix the project timeline (31%)."
 round: 12
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 78]
-lock: null
+lock: {by: n147-run, until: "2026-10-23T20:03Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
