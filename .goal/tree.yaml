@@ -3,7 +3,7 @@ goal_state: working
 now: "Everyday app pages jumped: the map listings page went from 22 to 81% and flight results from 44 to 75%; round 9 now averages 79%. Next I teach the top bars and search fields, then re-run."
 round: 9
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 79]
-lock: null
+lock: {by: run-2026-10-23T09:29Z, until: '2026-10-23T10:59:00Z'}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
