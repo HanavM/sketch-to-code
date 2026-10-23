@@ -1,0 +1,211 @@
+{
+  "id": "c1-sliced-kinetic",
+  "at": "2026-10-23T07:28:28.027Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5190086967098124,
+    "overallV2": 0.5190086967098124,
+    "overallV1": 0.42100038565213405,
+    "colour": 0.9025744565051783,
+    "structure": 0.6660705822942554,
+    "structureStrict": 0.5317489485038541,
+    "colourAligned": 0.9025744565051783,
+    "structureAligned": 0.6660705822942554,
+    "align": {
+      "scale": 0.88,
+      "dx": 32,
+      "dy": 96,
+      "r": 0.27976158229324544
+    },
+    "layout": 0.8179606269039673
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "huge-type",
+      "overlap",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [
+      "mono"
+    ],
+    "extra": [
+      "gradient",
+      "hollow-type",
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 39477,
+    "output": 16556,
+    "cacheRead": 143425
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40357,
+      "output": 10636,
+      "cacheRead": 132164,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 127255
+    }
+  ],
+  "reading": "This is a one-page hero section for a motion-design studio: a plain-text nav, a huge 'MOTION' display headline with a tilted red-orange 'NEW REEL 26' badge overlapping its corner, an intro paragraph with a CTA button below it, a long block of body copy to the right, and a small vertical 'EST. 2014 — OSLO' label running along the right edge, all on a cream page in Helvetica.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Boxless top nav bar: bold, wide letter-spaced 'SHEAR/STUDIO' on the left, and 'WORK — LAB — CONTACT' wide-spaced on the right, no border/box around it (the thin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        173,
+        1273,
+        294
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Large hero display headline filling this box: the word 'MOTION' repeated three times stacked, each in a different treatment — one outlined/line style, one solid"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        990,
+        110,
+        151,
+        151
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Circular badge, tilted 14° counter-clockwise, vivid red-orange fill, with centered text 'NEW REEL 26'; position it overlapping the top-right corner of the MOTIO"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        64,
+        560,
+        412,
+        87
+      ],
+      "paths": [],
+      "instruction": "Body paragraph (3 lines) below the hero headline, replacing the placeholder squiggles, reading: 'We cut type apart and put it back moving. Identity systems for "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        701,
+        166,
+        52
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Rounded rectangular button below the intro paragraph: red-orange background with white text reading 'See the reel →'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14"
+          ],
+          "lines": 8,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        644,
+        560,
+        472,
+        165
+      ],
+      "paths": [],
+      "instruction": "Large block of body text (8 lines) to the right of the intro column, replacing the placeholder squiggles with plausible studio copy describing the work/services"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1180,
+        524,
+        14,
+        163
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Small vertical label along the far right edge, set in writing-mode vertical-rl, ~12px wide-spaced letters, reading 'EST. 2014 — OSLO'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

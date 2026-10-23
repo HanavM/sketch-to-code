@@ -47,3 +47,15 @@ Untuned planner misses (from autoplan.txt; no rule changed this step):
 
 Worst gaps to fix first (planner, free): c2 glass cards, c1 band slicing, e2 map pins, e1 cell grid, c5 stripes and
 marquee, c3 stripes/hole/notch, e4 checkboxes and slider.
+
+## n128: first live builds c1, c2, c5 (2026-10-23, ~133k billed, untuned planner)
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| c1 sliced kinetic | 52% | the word built as three whole stacked "MOTION"s (two hollow outlines, one red), small, at the left: no bands, no black middle strip, no slicing or offsets; the mono index list became an invented paragraph |
+| c2 glass layers | 45% | headline, copy and button right; the whole glass stack (three frosted cards, colour blobs, bars, progress, avatars) missing: the right half is empty; a white strip above the page |
+| c5 vertical editorial | 64% | vertical title, quote mark and quote right; the striped picture built as a smooth dark-to-red gradient with a large caption; pull quote not italic; drop cap lost; the outlined marquee shrank to two small "FIRE" words; byline boxed |
+
+As in round 8, what the planner leaves unsaid is dropped or flattened. Next (planner, free first): glass cards over
+blurred blobs as real cards, a word sliced into offset bands, repeating stripes vs a gradient, an outlined/filled word
+run, a mono index list; then re-run c1, c2, c5 and first builds of c3, c4 and the five everyday pages.

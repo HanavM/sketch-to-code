@@ -1,0 +1,182 @@
+{
+  "id": "c5-vertical-editorial",
+  "at": "2026-10-23T07:36:33.333Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6437477839906309,
+    "overallV2": 0.6437477839906309,
+    "overallV1": 0.5936729964735499,
+    "colour": 0.9583973808584559,
+    "structure": 0.6550853486412693,
+    "structureStrict": 0.5722726901984775,
+    "colourAligned": 0.9583973808584559,
+    "structureAligned": 0.6550853486412693,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9436653241582489
+    },
+    "layout": 0.6834685847327124
+  },
+  "effects": {
+    "recall": 0.2857142857142857,
+    "kept": [
+      "huge-type",
+      "serif"
+    ],
+    "missing": [
+      "bleed",
+      "hollow-type",
+      "italic",
+      "stripes-or-layers",
+      "vertical-type"
+    ],
+    "extra": [
+      "gradient",
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 24046,
+    "output": 20178,
+    "cacheRead": 109063
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 32058,
+      "output": 12739,
+      "cacheRead": 105979,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Write src/App.tsx"
+      ],
+      "ms": 135174
+    }
+  ],
+  "reading": "The sketch lays out a magazine-style article page: a hero with a vertical red \"Red Season\" label beside a gradient \"FIG. 1 — KILN, 05:40\" panel and byline/issue caption bar, a large red quote mark over a serif pull-quote sentence, a five-line body paragraph, and a footer with \"FIRE\" at both edges plus a small red \"№ 04 — CRAFT\" kicker, all on a warm-paper Georgia-type page per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 150
+        }
+      ],
+      "region": [
+        48,
+        43,
+        619,
+        649
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Build an editorial hero block: a vertical giant Georgia serif red label reading \"Red Season\" running alongside a tall panel; inside the panel show large Georgia"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 4,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        724,
+        40,
+        492,
+        219
+      ],
+      "paths": [],
+      "instruction": "Add a large pull-quote heading at top-left 720,40, 500px wide: a giant quotation mark in rust red (#b8321f, ~220px) sitting directly above serif heading text in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 5,
+          "fontPx": 12
+        }
+      ],
+      "region": [
+        724,
+        470,
+        492,
+        87
+      ],
+      "paths": [],
+      "instruction": "Add a five-line body paragraph in Georgia serif near-black text continuing the article, e.g. \"In the hush before dawn, the kiln holds its breath. Clay remembers"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        244,
+        772,
+        1032,
+        48
+      ],
+      "paths": [],
+      "instruction": "Add a footer band with large display text \"FIRE\" at the far left and \"FIRE\" again at the far right, and beneath it a centered small 13px wide-spaced red kicker "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
