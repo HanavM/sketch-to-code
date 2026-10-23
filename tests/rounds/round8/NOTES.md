@@ -196,3 +196,18 @@ spacing, line points, dark hexes, display faces); no marks changed.
 Round 8 average now 80% (creative 89, everyday 72). Builds of record stay the best ones for e2 (66%) and c5 (90%).
 Lesson: on long, dense pages extra detail can shift the layout; e2 needs its cards' sizes said (KPI 280x90 at y 90,
 chart from y 200), and the poster glyph must be said as live text, never a drawn shape.
+
+## n125: dense app cards say their exact size and place; poster glyph said as live text; e2, c5 re-run (2026-10-23, ~188k billed)
+
+Planner (zero tokens): on a page with 6+ top-level cards, each card says its exact size and top-left ("280x90px at
+40,90, fixed: fit what is inside, never grow it or push the cards below down"); a poster-size glyph says it is live
+text (a real character in a text element, never an SVG path, outline or drawn shape). Rounds 2-7 plans gain the card
+sizes or glyph wording on 14 pages; no marks changed.
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| e2 date-range analytics | 66% -> 58% (not kept) | ~118k (build + repair) | KPI, chart and heat cards now the right size and place, range band back; but the popover sits ~30px low and the table card ~190px low (gap left under the chart). Picture: e2-date-range-analytics-n125-cmp.png |
+| c5 diagonal duotone | 90% -> 75% (not kept) | ~70k (one turn) | the 8 is live round Helvetica at the right place; but the yellow cut-out's slant is ~24 points too far left (38% to 24% instead of 62% to 38%), so most of the 8 sits on blue. Picture: c5-diagonal-duotone-n125-cmp.png |
+
+Round 8 average stays 80% (records e2 66%, c5 90%). Next: e2 table card's top said against the chart card above
+(20px below it) and the popover's top against the date button; c5 cut-out polygon checked against its box width.

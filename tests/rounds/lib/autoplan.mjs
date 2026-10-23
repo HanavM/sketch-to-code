@@ -1510,7 +1510,7 @@ function typeWords(f, page) {
   // display type: the face sets the word's width, so name it (said once on the page note otherwise)
   if (f.font.size >= 52 && faceName(f.font.family) && !isMono(f.font.family)) w.push(faceName(f.font.family))
   // a poster-size glyph: its exact face and weight, or the build picks a squared display face (round 8 c5 '8' at 640px)
-  if (f.font.size >= 200 && !isMono(f.font.family) && !isSerif(f.font.family)) w.push(`(font-family ${f.font.family.replace(/"/g, '')}; font-weight ${f.font.weight}; round-bowled, NOT a squared, condensed or display face)`)
+  if (f.font.size >= 200 && !isMono(f.font.family) && !isSerif(f.font.family)) w.push(`(font-family ${f.font.family.replace(/"/g, '')}; font-weight ${f.font.weight}; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape)`)
   if (f.font.style === 'italic') w.push('italic')
   if (isSerif(f.font.family) && !isSerif(page.font.family)) w.push('serif')
   else if (isSerif(f.font.family) && f.font.size >= 32) w.push('serif')
@@ -2747,6 +2747,13 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     return (ox > 20 && Math.abs(oy) <= t) || (oy > 20 && Math.abs(ox) <= t)
   }
   const pairs = ruled.flatMap((A, i) => ruled.slice(i + 1).filter((B) => touch(A.rect, B.rect, Math.max(A.border.w, B.border.w) + 1)))
+  // a dense app page (6+ top-level cards): each card says its exact size and place, or the detail said inside one
+  // grows it and pushes every card below it down (round 8 e2: KPI cards built tall, chart and table ~100px low)
+  const cards = regions.filter((f) => out.get(f.role).kind === 'box' && out.get(f.role).note && !regions.some((g) => g.regionKids.includes(f.role)) && f.rect.w >= 150 && f.rect.h >= 60 && f.rect.w * f.rect.h < 0.6 * 1280 * 900)
+  if (cards.length >= 6) cards.forEach((f) => {
+    const d = out.get(f.role), r = f.rect
+    d.note = `${d.note}; the card exactly ${Math.round(r.w)}x${Math.round(r.h)}px, its top-left at ${Math.round(r.x)},${Math.round(r.y)} (fixed size and place: fit what is inside it, never grow it or push the cards below down)`
+  })
   let pn = pageNote(body)
   if (pairs.length >= 4) {
     const bw = Math.round(ruled[0].border.w)
