@@ -143,6 +143,30 @@ export function factsInPage() {
       strokeColour: rgba(cs.webkitTextStrokeColor),
       // a perspective turn (rotateY/X under perspective) is a matrix3d: a flat 'tilted' builds a 2D rotate (round 4 c4)
       tilt3d: /matrix3d/.test(cs.transform),
+      // n144: a code view (round 11 e1): rows of mono text, each led by its line number, said line by line in order with
+      // its coloured words, so the build writes each line as one row (it placed each token at its own x,y and they collided)
+      codeLines: (() => {
+        const rows = [...el.children].filter((k) => k.tagName === 'DIV')
+        if (rows.length < 5 || rows.length < 0.8 * el.children.length) return null
+        if (!rows.every((k) => /mono|courier|consolas/i.test(getComputedStyle(k).fontFamily))) return null
+        const nums = rows.map((k) => k.firstElementChild).filter((n) => n && /^\d+$/.test((n.textContent || '').trim()))
+        if (nums.length < 0.9 * rows.length) return null
+        const base = rgba(getComputedStyle(rows[0]).color), n0 = nums[0], ns = getComputedStyle(n0), r0 = rows[0].getBoundingClientRect()
+        const lines = rows.map((k) => {
+          const runs = []
+          let text = ''
+          for (const n of k.childNodes) {
+            if (n === k.firstElementChild && /^\d+$/.test((n.textContent || '').trim())) continue
+            const t = n.textContent
+            text += t
+            if (n.nodeType === 1 && t.trim()) { const c = rgba(getComputedStyle(n).color); if (c && Math.hypot(c.r - base.r, c.g - base.g, c.b - base.b) > 12) runs.push({ t: t.trim(), c }) }
+          }
+          const fill = rgba(getComputedStyle(k).backgroundColor)
+          return { n: (k.firstElementChild?.textContent || '').trim(), text: text.replace(/\s+$/, ''), runs, fill: fill && fill.a > 0.05 ? fill : null }
+        })
+        const b = el.getBoundingClientRect()
+        return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), top: Math.round(r0.top - b.top), rowH: Math.round(r0.height), left: Math.round(r0.left - b.left), px: Math.round(parseFloat(getComputedStyle(rows[0]).fontSize)), base, gutter: Math.round(n0.getBoundingClientRect().width), numInk: rgba(ns.color), numAlign: ns.textAlign, lines }
+      })(),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
       blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
       backdrop: /blur/.test(cs.backdropFilter || cs.webkitBackdropFilter || ''),
@@ -1677,7 +1701,12 @@ export function factsInPage() {
       const headLook = head && filled(head) ? (() => { const c = getComputedStyle(head); return { fill: filled(head), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(head.getBoundingClientRect().width), h: Math.round(head.getBoundingClientRect().height), bold: Number(c.fontWeight) >= 600 } })() : null
       const onInk = odd.length === 1 ? rgba(getComputedStyle(odd[0]).color) : null
       const onRad = odd.length === 1 ? Math.round(parseFloat(getComputedStyle(odd[0]).borderTopLeftRadius) || 0) : 0
-      return { type: 'list', pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      // n144: extras that sit BETWEEN the list's items (a file tree: retry.ts under '▾ src'; round 11 e1 built the files
+      // above the folders) make the whole list said in page order with each line's indent
+      const inside = extra.length && kids.some((k) => !rep.includes(k) && txt(k) && (rep[0].compareDocumentPosition(k) & 4) && (k.compareDocumentPosition(rep[rep.length - 1]) & 4))
+      const ox = el.getBoundingClientRect().left
+      const order = inside && kids.filter((k) => k !== head && txt(k)).every((k) => !k.children.length) ? kids.filter((k) => k !== head && txt(k) && txt(k).length <= 40 && !k.children.length).map((k) => ({ t: txt(k), ind: Math.round(k.getBoundingClientRect().left - ox + parseFloat(getComputedStyle(k).paddingLeft)), fill: filled(k), ink: rgba(getComputedStyle(k).color) })) : null
+      return { type: 'list', order, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
@@ -1883,7 +1912,7 @@ function gradientWords(f) {
   const stops = linearStops(f.bgImage)
   // n141: two stops at the same place are a hard edge (round 11 c4 horizon: cream sky, dark ground from 55% down)
   const cut = stops && stops.findIndex((x, i) => i && x.at === stops[i - 1].at && dist(x.c, stops[i - 1].c) > 60)
-  if (ends && stops && cut > 0) return `${stops.slice(0, cut).map((x) => `${colourName(x.c)} (${hexOf(x.c)})`).join(' to ')} gradient down to ${stops[cut].at}%, then a HARD straight edge (no blend) and solid ${colourName(stops[cut].c)} (${hexOf(stops[cut].c)}) below it to the ${ends[1]} (linear-gradient(${stops.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
+  if (ends && stops && cut > 0) return `${stops.slice(0, cut).map((x) => `${colourName(x.c)} (${hexOf(x.c)})`).join(' to ')} gradient down to ${stops[cut].at}% (the edge at y ${Math.round(stops[cut].at / 100 * (f.rect?.h || 900))}px: the page is exactly ${Math.round(f.rect?.h || 900)}px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid ${colourName(stops[cut].c)} (${hexOf(stops[cut].c)}) below it to the ${ends[1]} (linear-gradient(${stops.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
   if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? ` at ${x.at}%` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
   return `${names.join(' to ')} gradient`
 }
@@ -2170,6 +2199,10 @@ function denseNote(d) {
       const hl = d.headLook
       const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded` : ' ('}${hl.bold ? ', bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
+      if (d.order && d.order.length >= 5 && d.order.length <= 30) {
+        const i0 = Math.min(...d.order.map((o) => o.ind))
+        return `${pic}${headSay}a tree list, these ${d.order.length} lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): ${d.order.map((o) => `${quote(o.t, 30)}${o.ind - i0 >= 4 ? ` indented ${o.ind - i0}px` : ''}${o.fill ? ` (row highlighted ${hexOf(o.fill)})` : ''}`).join(', ')}${d.navLook?.pitch && d.stacked && d.navLook.pitch <= d.navLook.rowH + 6 ? `; rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
+      }
       return `${pic}${headSay}${(d.extra ?? []).filter((x) => !x.btn && !x.after).map(ex).join('')}list: ${d.items.slice(0, cap).map((parts) => parts.length >= 2 && parts[1].length <= 14 ? `${quote(parts[0], 20)} ${parts[1]}` : quote(parts[0], 20)).join(', ')}${d.items.length > cap ? `, ${d.items.length - cap} more` : ''}${d.on ? `; ${quote(d.on.split(' ').slice(0, 3).join(' '), 20)} highlighted${onSay}` : ''}${(d.extra ?? []).some((x) => !x.btn && !x.pin && x.after) ? `; then under the list, in this order: ${(d.extra ?? []).filter((x) => !x.btn && !x.pin && x.after).map((x) => ex(x).trim()).join(', ')}` : ''}${(d.extra ?? []).filter((x) => x.pin && !x.btn).map(exPin).join('')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}${pinSay(x)}`).join('')}${d.navLook?.pitch && d.stacked && d.items.length >= 4 && !d.pic ? `; list rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
   }
   return null
@@ -2314,6 +2347,13 @@ function partsNote(P, f) {
   return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
 }
 function decide(f, page, marked, said = new Set()) {
+  // n144: a code view said line by line (round 11 e1: tokens placed one by one at their own x,y collided)
+  const CL = f.codeLines
+  if (CL) {
+    const fillW = visible(f.bg) ? `${hexOf(f.bg)} fill` : 'no fill of its own'
+    const one = (l) => `${l.n} \`${l.text}\`${l.runs.length ? ` [${l.runs.map((r) => `${JSON.stringify(r.t)} ${hexOf(r.c)}`).join(', ')}]` : ''}${l.fill ? ` (this whole row has a ${hexOf(l.fill)} highlight fill, edge to edge)` : ''}`
+    return { kind: 'box', note: `a CODE VIEW ${CL.w}x${CL.h}px at ${CL.x},${CL.y}, ${fillW}: ${CL.lines.length} lines of code, the first ${CL.top}px below its top, each line ONE row exactly ${CL.rowH}px tall (rows stacked, never overlapping), ${CL.px}px monospace, ${hexOf(CL.base)} text; each row starts with its line number in a ${CL.gutter}px gutter (${hexOf(CL.numInk)}${CL.numAlign === 'right' || CL.numAlign === 'end' ? ', right-aligned' : ''}), then the line's code written as ONE run of text in order, leading spaces kept as indentation (white-space: pre), with the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned). Lines (number, the code between backticks, [coloured words]): ${CL.lines.map(one).join('; ')}` }
+  }
   const r11 = round11Note(f)
   if (r11) return round11Extra(f, r11)
   const r10 = round10Note(f)
@@ -3539,6 +3579,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // every painted or worded part with its page-px box, fill, edge and text, the way the target's own boxes give them
   regions.forEach((f) => {
     const d = out.get(f.role), P = (f.parts ?? []).filter((p) => p.w * p.h < 0.97 * f.rect.w * f.rect.h)
+    if (f.codeLines) return
     if (P.length < 3 || P.length > 100) return
     const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
     const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
@@ -3599,6 +3640,15 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (d?.note && regions.some((g) => g !== f && (out.get(g.role)?.note ?? '').includes(q))) d.note = d.note.replace(/; centred on top of it [^;]*/, '')
   })
   let pn = pageNote(body)
+  // n144: a 3D-tilted floor that spans the page is said in the page note and drawn as no mark (round 11 c4: its drawn
+  // box was read as the PAGE background and its note pinned on the stats card, so the floor was built inside the card)
+  regions.filter((f) => f.rect.w >= 1000 && /^a \d+x\d+px block with its top-left at .*tilted back in 3D/.test(out.get(f.role)?.note ?? '')).forEach((f) => {
+    const i = plan.findIndex(([r]) => r === f.role)
+    if (i < 0) return
+    plan.splice(i, 1)
+    pn = `${pn ?? 'whole page:'}; ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): ${out.get(f.role).note}`
+    out.get(f.role).note = null
+  })
   if (pairs.length >= 4) {
     const bw = Math.round(ruled[0].border.w)
     pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} the ${ruled.length} ${colourName(ruled[0].border.colour)}-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single ${bw}px ${colourName(ruled[0].border.colour)} line, no gaps between boxes, no doubled lines`

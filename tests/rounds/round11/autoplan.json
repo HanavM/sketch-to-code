@@ -176,10 +176,6 @@
  "c4-cube-scene": {
   "plan": [
    [
-    "perspective-floor",
-    "box"
-   ],
-   [
     "nav",
     "box"
    ],
@@ -215,11 +211,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55%, then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px))"
-   ],
-   [
-    "perspective-floor",
-    "a 1680x600px block with its top-left at -200,495 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px), repeating-linear-gradient(0deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px); no fill of its own (the page shows between the lines)"
+    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55% (the edge at y 495px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px)); ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): a 1680x600px block with its top-left at -200,495 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px), repeating-linear-gradient(0deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px); no fill of its own (the page shows between the lines)"
    ],
    [
     "nav",
@@ -351,7 +343,7 @@
    ],
    [
     "explorer",
-    "near-black block \"EXPLORER · WEBHOOKS\" \"retry.ts\" \"send.ts\" \"types.ts\" \"retry.test.ts\" list: \"▾ src\", \"▾ test\", \"package.json\", \"tsconfig.json\", \"README.md\"; list rows exactly 24px apart (24px tall, 13px type: tight, not roomier), first line 10px below the panel's top"
+    "near-black block \"EXPLORER · WEBHOOKS\" a tree list, these 9 lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"▾ src\", \"retry.ts\" indented 16px (row highlighted #37373d), \"send.ts\" indented 16px, \"types.ts\" indented 16px, \"▾ test\", \"retry.test.ts\" indented 16px, \"package.json\", \"tsconfig.json\", \"README.md\"; rows exactly 24px apart (24px tall, 13px type: tight, not roomier), first line 10px below the panel's top"
    ],
    [
     "editor-tabs",
@@ -359,7 +351,7 @@
    ],
    [
     "code",
-    "a 880x22px #2a2d2e filled button \"6 for (let i = 0; i\"… ( #cccccc text; its fill clearly visible, not white), then list: \"1\" import, \"2\", \"3\", \"4\", 9 more; list rows exactly 22px apart (22px tall, 14px type: tight, not roomier), first line 8px below the panel's top; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 54 of them, nothing invented, nothing left out): 880x22 at 288,44 14px mono #cccccc \"{ sleep }\"; 52x22 at 288,44 14px mono #6e7681 \"1\"; 50x16 at 340,47 14px mono #569cd6 \"import\"; 34x16 at 483,47 14px mono #569cd6 \"from\"; 67x16 at 525,47 14px mono #ce9178 \"'./time'\"; 52x22 at 288,66 14px mono #6e7681 \"2\"; 52x22 at 288,88 14px mono #6e7681 \"3\"; 403x16 at 340,91 14px mono #6a9955 \"// Retry fn with exponential backoff and jitter.\"; 880x22 at 288,110 14px mono #cccccc \"< >(fn: () => < >, opts = {}) {\"; 52x22 at 288,110 14px mono #6e7681 \"4\"; 176x16 at 340,113 14px mono #569cd6 \"export async function\"; 76x16 at 525,113 14px mono #dcdcaa \"withRetry\"; 8x16 at 609,113 14px mono #4ec9b0 \"T\"; 59x16 at 718,113 14px mono #4ec9b0 \"Promise\"; 8x16 at 785,113 14px mono #4ec9b0 \"T\"; 880x22 at 288,132 14px mono #cccccc \"{ attempts = , baseMs = } = opts\"; 52x22 at 288,132 14px mono #6e7681 \"5\"; 42x16 at 357,135 14px mono #569cd6 \"const\"; 8x16 at 516,135 14px mono #ce9178 \"5\"; 25x16 at 617,135 14px mono #ce9178 \"250\"; 880x22 at 288,154 #2a2d2e fill: 14px mono #cccccc \"( i = ; i < attempts; i++) {\"; 52x22 at 288,154 14px mono #6e7681 \"6\"; 25x16 at 357,157 14px mono #569cd6 \"for\"; 25x16 at 399,157 14px mono #569cd6 \"let\"; 8x16 at 466,157 14px mono #ce9178 \"0\"; 880x22 at 288,176 14px mono #cccccc \"{ () }\"; 52x22 at 288,176 14px mono #6e7681 \"7\"; 25x16 at 374,179 14px mono #569cd6 \"try\"; 101x16 at 424,179 14px mono #569cd6 \"return await\"; 17x16 at 533,179 14px mono #dcdcaa \"fn\"; 880x22 at 288,198 14px mono #cccccc \"(err) {\"; 52x22 at 288,198 14px mono #6e7681 \"8\"; 42x16 at 374,201 14px mono #569cd6 \"catch\"; 880x22 at 288,220 14px mono #cccccc \"(i === attempts - ) err\"; 52x22 at 288,220 14px mono #6e7681 \"9\"; 17x16 at 390,223 14px mono #569cd6 \"if\"; 8x16 at 567,223 14px mono #ce9178 \"1\"; 42x16 at 592,223 14px mono #569cd6 \"throw\"; 880x22 at 288,242 14px mono #cccccc \"wait = baseMs * ** i * ( + Math. ())\"; 52x22 at 288,242 14px mono #6e7681 \"10\"; 42x16 at 390,245 14px mono #569cd6 \"const\"; 8x16 at 575,245 14px mono #ce9178 \"2\"; 25x16 at 659,245 14px mono #ce9178 \"0.5\"; 50x16 at 752,245 14px mono #dcdcaa \"random\"; 880x22 at 288,264 14px mono #cccccc \"(wait)\"; 52x22 at 288,264 14px mono #6e7681 \"11\"; 42x16 at 390,267 14px mono #569cd6 \"await\"; 42x16 at 441,267 14px mono #dcdcaa \"sleep\"; 880x22 at 288,286 14px mono #cccccc \"}\"; 52x22 at 288,286 14px mono #6e7681 \"12\"; 880x22 at 288,308 14px mono #cccccc \"}\"; 52x22 at 288,308 14px mono #6e7681 \"13\"; 880x22 at 288,330 14px mono #cccccc \"}\"; 52x22 at 288,330 14px mono #6e7681 \"14\""
+    "a CODE VIEW 880x530px at 288,36, no fill of its own: 14 lines of code, the first 8px below its top, each line ONE row exactly 22px tall (rows stacked, never overlapping), 14px monospace, #cccccc text; each row starts with its line number in a 52px gutter (#6e7681, right-aligned), then the line's code written as ONE run of text in order, leading spaces kept as indentation (white-space: pre), with the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned). Lines (number, the code between backticks, [coloured words]): 1 `import { sleep } from './time'` [\"import\" #569cd6, \"from\" #569cd6, \"'./time'\" #ce9178]; 2 ``; 3 `// Retry fn with exponential backoff and jitter.` [\"// Retry fn with exponential backoff and jitter.\" #6a9955]; 4 `export async function withRetry<T>(fn: () => Promise<T>, opts = {}) {` [\"export async function\" #569cd6, \"withRetry\" #dcdcaa, \"T\" #4ec9b0, \"Promise\" #4ec9b0, \"T\" #4ec9b0]; 5 `  const { attempts = 5, baseMs = 250 } = opts` [\"const\" #569cd6, \"5\" #ce9178, \"250\" #ce9178]; 6 `  for (let i = 0; i < attempts; i++) {` [\"for\" #569cd6, \"let\" #569cd6, \"0\" #ce9178] (this whole row has a #2a2d2e highlight fill, edge to edge); 7 `    try { return await fn() }` [\"try\" #569cd6, \"return await\" #569cd6, \"fn\" #dcdcaa]; 8 `    catch (err) {` [\"catch\" #569cd6]; 9 `      if (i === attempts - 1) throw err` [\"if\" #569cd6, \"1\" #ce9178, \"throw\" #569cd6]; 10 `      const wait = baseMs * 2 ** i * (0.5 + Math.random())` [\"const\" #569cd6, \"2\" #ce9178, \"0.5\" #ce9178, \"random\" #dcdcaa]; 11 `      await sleep(wait)` [\"await\" #569cd6, \"sleep\" #dcdcaa]; 12 `    }`; 13 `  }`; 14 `}`"
    ],
    [
     "minimap",

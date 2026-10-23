@@ -1,23 +1,23 @@
 {
   "id": "c4-cube-scene",
-  "at": "2026-10-23T14:21:15.346Z",
+  "at": "2026-10-23T16:39:29.744Z",
   "likeness": {
     "version": 3,
-    "overall": 0.827209478330299,
-    "overallV2": 0.827209478330299,
-    "overallV1": 0.7866907904907168,
-    "colour": 0.9855944893598174,
-    "structure": 0.790895494670316,
-    "structureStrict": 0.7151178464565805,
-    "colourAligned": 0.9855944893598174,
-    "structureAligned": 0.790895494670316,
+    "overall": 0.9187710657673913,
+    "overallV2": 0.9187710657673913,
+    "overallV1": 0.8800156591099397,
+    "colour": 0.992941618355379,
+    "structure": 0.9420689625454215,
+    "structureStrict": 0.8695889853137869,
+    "colourAligned": 0.992941618355379,
+    "structureAligned": 0.9420689625454215,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9882333429042732
+      "r": 0.9911245933587806
     },
-    "layout": 0.837771495659459
+    "layout": 0.8526001801986115
   },
   "effects": {
     "recall": 1,
@@ -31,65 +31,37 @@
       "stripes-or-layers"
     ],
     "missing": [],
-    "extra": [
-      "bleed"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 41265,
-    "output": 37116,
-    "cacheRead": 295846
+    "input": 28008,
+    "output": 18750,
+    "cacheRead": 205385
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 42077,
-      "output": 16032,
-      "cacheRead": 162457,
-      "toolCalls": 7,
+      "billed": 27609,
+      "output": 9817,
+      "cacheRead": 171503,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Read src/index.css",
         "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 176787
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 19203,
-      "output": 8940,
-      "cacheRead": 130305,
-      "toolCalls": 2,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 109540
+      "ms": 100829
     }
   ],
-  "reading": "The sketch lays out a 3D-engine landing page: a nav row, a big two-line headline with one coloured word, a subtext line, a CTA button, a spinning CSS 3D cube, a full-bleed tilted grid background plane, and a white stats card with three number/label pairs — all precisely specified via the typed notes (colors, positions, gradients, animation) which take precedence over the rough ink shapes.",
+  "reading": "A hero landing page sketch: a full-page gradient background with a tilted grid \"floor\" behind everything, a text nav bar, a giant two-line headline with one colored word, a short paragraph, a rounded CTA button with a hard pink drop shadow, a spinning 3D CSS cube built from six labeled faces, and a stats card with three number/label pairs.",
   "actions": [
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        498,
-        1273,
-        399
-      ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Page background: linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%) — cream to pale-pink gradient down to 55% of the page height, then a HARD straight edge ("
-    },
     {
       "kind": "add",
       "textMarks": [],
@@ -101,21 +73,21 @@
         10
       ],
       "paths": [
-        "s1"
+        "s0"
       ],
-      "instruction": "Nav bar, no box/border around it: wide letter-spaced \"BLOCKS/3D\" aligned left, and \"ENGINE · DOCS · PRICING\" aligned right, both on the same row at the top of t"
+      "instruction": "Nav bar with no box/border around it: wide letter-spaced \"BLOCKS/3D\" aligned left, and \"ENGINE · DOCS · PRICING\" aligned right, same row."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s2",
-        "s3"
+        "s1",
+        "s2"
       ],
       "textSize": [
         {
           "strokes": [
-            "s2",
-            "s3"
+            "s1",
+            "s2"
           ],
           "lines": 2,
           "fontPx": 73
@@ -128,19 +100,19 @@
         160
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy headline, tight-set (line-height 0.95), set in exactly two lines that must never re-wrap: \"Ship worlds,\" / \"not slides.\" (white-space: now"
+      "instruction": "Giant Helvetica heavy headline, tight-set letters, line-height 0.95, set in exactly 2 lines kept as-is (never re-wrapped, white-space: nowrap, min-width ~463px)"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s4",
-        "s5"
+        "s3",
+        "s4"
       ],
       "textSize": [
         {
           "strokes": [
-            "s4",
-            "s5"
+            "s3",
+            "s4"
           ],
           "lines": 2,
           "fontPx": 18
@@ -153,7 +125,7 @@
         54
       ],
       "paths": [],
-      "instruction": "Body/subtext copy below the headline: \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
+      "instruction": "Body paragraph text: \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
     },
     {
       "kind": "add",
@@ -166,12 +138,12 @@
         52
       ],
       "paths": [
-        "s6"
+        "s5"
       ],
-      "instruction": "Call-to-action button: dark grey background with white text reading \"Start building\", with a hard, solid, opaque pink shadow offset 6px down and 6px right, no b"
+      "instruction": "Dark grey button with white text reading \"Start building\", with a hard solid opaque pink drop shadow offset 6px down-right and no blur."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -181,42 +153,27 @@
         294
       ],
       "paths": [
+        "s6"
+      ],
+      "instruction": "A real CSS 3D cube (not a flat drawing or SVG): a 300x300px scene positioned at 800,150 with perspective: 900px, containing one group div (position absolute, in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        553,
+        194
+      ],
+      "paths": [
         "s7"
       ],
-      "instruction": "Build a REAL CSS 3D cube (not a flat drawing/SVG/projected rectangle): a 300x300px scene positioned at 800,150 with perspective: 900px. Inside it, one group div"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        59,
-        643,
-        553,
-        194
-      ],
-      "paths": [
-        "s8"
-      ],
-      "instruction": "Behind the other content, add a large tilted 3D background plane: 1680x600px with top-left at -200,495 (runs off the page edges), transform: perspective(600px) "
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        59,
-        643,
-        553,
-        194
-      ],
-      "paths": [
-        "s8"
-      ],
-      "instruction": "Add a white (#ffffff) stats card, 560x200px, positioned at 56,640, 20px rounded corners, big soft shadow. Inside it, 3 stats laid out side by side in the SAME c"
+      "instruction": "White card, 560x200px at 56,640, 20px rounded corners, a big soft shadow, containing 3 stats laid side by side in the same card (not separate cards), each a big"
     }
   ],
   "rejected": [
-    "add action with neither container nor strokes"
+    "design action with neither container nor strokes"
   ]
 }

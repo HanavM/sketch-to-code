@@ -117,3 +117,27 @@ change on 4 pages (r4 playlist title weight, r6 inbox, r9 order book mid price, 
 Round 11 complete: **82%** over 10 pages (c1 79, c2 86, c3 79, c4 83, c5 84, e1 92, e2 82, e3 71, e4 85, e5 81).
 Vitest: same 2 env failures; typecheck clean. Still open: c4's tilted floor read as the page background, e1 code
 lines scrambled, c5 halo rings and wave shadows, e5 sidebar placement, c3 marquee fills.
+
+## n144: tilted floor said in the page note, code said line by line, file trees in order (2026-10-23, ~355k billed)
+
+Planner (one rule set, no per-page tuning):
+- a 3D-tilted floor that spans the page (1000px+ wide) is said in the whole-page note as one absolutely placed div under
+  all content, and drawn as NO mark (its drawn box was read as the page background and its note pinned on the stats
+  card, so the floor was built inside the card);
+- a page gradient with a hard edge says the edge in px and that the page is exactly 900px tall (100vh), since a page
+  stretched by its content moved the horizon ~60px down;
+- a code view (rows of mono text each led by a line number) is said line by line: each line's whole code in order with
+  its indentation, the coloured words listed per line and kept in place, the highlighted line's fill (the part-by-part
+  note placed every token at its own x,y and they collided);
+- a list whose extra lines sit BETWEEN its items (a file tree: files under their folder) is said as one ordered list with
+  each line's indent (the files were built above the folders). Only when every line is a plain leaf (round 9's channel
+  sidebar with avatar dots keeps its old note).
+Rounds 1-10 re-planned: r6 c1 floor moves to the page note; r7 e3 code view said line by line; none re-run.
+
+| page | before | now | what changed / still off |
+|---|---|---|---|
+| c4 cube scene | 83% | **92%** | the pink grid floor is finally built, horizon at the right height, stats card right; stats centred (target left-aligned). First try without the 900px rule: 75% (floor built, horizon ~60px low) |
+| e1 code editor | 92% | **95%** | all 14 code lines right, colours in place, current line highlighted; explorer files built above folders (fixed after). Re-run with the tree rule: 92% (tree right, but the terminal output scrambled and status bar lost its blue), first kept |
+
+Round 11: **83%** over 10 pages (c1 79, c2 86, c3 79, c4 92, c5 84, e1 95, e2 82, e3 71, e4 85, e5 81).
+Vitest: same 2 env failures; typecheck clean. Next: say a terminal `pre` block line by line like code; then round 12.
