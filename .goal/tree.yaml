@@ -1,7 +1,7 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
 now: "Kanban progress bars now show their grey track and the board title is bold; the chart dashboard title sits in place. Next: catch a whole board built slightly low."
-lock: null
+lock: {by: run-n113, until: "2026-10-23T01:48:06Z"}
 asks: []
 handled:
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
