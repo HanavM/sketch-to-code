@@ -56,3 +56,21 @@ Exactly the misses the plan readout predicted: what the planner leaves unsaid is
 Next (free first): seat/grid maps cell by cell with states, a perspective card stack as cards (turn, gradients, fade),
 a hollow word inside a heading, contour rings, stats rows without cards; then re-run c1, e4 and first builds of the
 other seven.
+
+## n118: planner learns seat maps, 3D card stacks, hollow words (2026-10-23, ~146k billed)
+
+Planner (zero tokens): a seat/cell map is said cell by cell (12 x 11, cell size, gaps, rounded corners, aisle
+columns, each kind's fill and border, one digit per seat per row with row letters); a pale panel with drawn parts on
+top is a panel, not a picture (e4 hall, e3 canvas frame); a curved screen arc is not a progress bar; filled chips are
+said apart (E4, E5) and a poster picture leading a card is said; a 3D card stack is said card by card (perspective,
+turn, gradient, opacity, front card's dot and label); a hollow outlined word inside a heading is said; flat dash
+indicators are said; a word split across elements no longer gains a space ("depth, not"). Rounds 1-7 plans unchanged
+except round 4 e3's file preview thumbnail, now said.
+
+| page | likeness (v3) | tokens | what was off |
+|---|---|---|---|
+| e4 seat booking | 47% -> 73% | 47k (one turn) | every seat right (kinds, aisle, row letters); stepper pills lost their fills, timer moved up under the chips, legend swatches tiny, date line invented |
+| e3 design editor (first build) | 49% | 51k (one turn) | layers/properties panels right; canvas frame placed too low and narrow, the near-black selected pill built blue with invented "Get started" text and an invented heading, handles lost, property fields unfilled |
+
+Next: e3 selected pill (near-black, handles, no text), property fields as filled boxes, stepper pill fills; re-run
+c1 with the 3D stack note; first builds of c2, c3, c5, e1, e2, e5.

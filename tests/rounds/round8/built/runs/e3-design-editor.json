@@ -1,0 +1,141 @@
+{
+  "id": "e3-design-editor",
+  "at": "2026-10-23T01:41:55.992Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.4919757777854403,
+    "overallV2": 0.48030500292355427,
+    "overallV1": 0.40806254601880143,
+    "colour": 0.9527642588338252,
+    "structure": 0.7810465814328845,
+    "structureStrict": 0.7024236973551473,
+    "colourAligned": 0.9565977389745961,
+    "structureAligned": 0.7810465814328845,
+    "align": {
+      "scale": 1.12,
+      "dx": -64,
+      "dy": 0,
+      "r": 0.8979566394033475
+    },
+    "layout": 0.4176530552568935
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50126,
+    "output": 28197,
+    "cacheRead": 94520
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50679,
+      "output": 16045,
+      "cacheRead": 83611,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 175156
+    }
+  ],
+  "reading": "The sketch depicts a Figma-style design-tool interface: a dark top toolbar, a left 'LAYERS' panel, a central canvas/artboard showing a hero mockup (gradient hero image with a name badge, a headline, a selected primary button with its dimension readout, and a divider line), and a right properties/inspector panel, all on a light-grey page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a full-width dark grey top toolbar with white icon glyphs (▲ # □ ✎ T 💬) on the left and white text 'Landing v3 / Desktop Share' on the right (file name, vi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a white left sidebar panel titled 'LAYERS' listing items: '# Desktop', '□ Hero', '▭ Button / Primary', 'T Body copy', 'T Headline', '# Mobile', '# Tablet', "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        334,
+        141,
+        36,
+        8
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a small grey label reading 'Desktop' above the central canvas frame, naming the artboard."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        333,
+        163,
+        574,
+        614
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "instruction": "Add a plain white canvas/artboard panel, 580×620px, representing the 'Hero' frame (not a picture, empty of its own content). Inside it: a hero block filled with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        51,
+        274,
+        845
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a white right-side properties/inspector panel showing the selected object's details: position 'X 40 Y 340'; separate filled chips 'W 180' and 'H 48' (each #"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
