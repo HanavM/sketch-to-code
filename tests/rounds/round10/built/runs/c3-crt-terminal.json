@@ -1,71 +1,68 @@
 {
   "id": "c3-crt-terminal",
-  "at": "2026-10-23T10:43:18.829Z",
+  "at": "2026-10-23T11:13:49.553Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8673434027251724,
-    "overallV2": 0.8673434027251724,
-    "overallV1": 0.839775712678845,
-    "colour": 0.9750049266819042,
-    "structure": 0.7410267965976152,
-    "structureStrict": 0.6674616201421446,
-    "colourAligned": 0.9750049266819042,
-    "structureAligned": 0.7410267965976152,
+    "overall": 0.8168163256167896,
+    "overallV2": 0.8168163256167896,
+    "overallV1": 0.786988737417473,
+    "colour": 0.979595525772967,
+    "structure": 0.7179186589192236,
+    "structureStrict": 0.638322879024848,
+    "colourAligned": 0.979595525772967,
+    "structureAligned": 0.7179186589192236,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.503571318775023
+      "r": 0.7996788735259132
     },
-    "layout": 0.912158482270509
+    "layout": 0.7669327906465979
   },
   "effects": {
-    "recall": 0.4,
+    "recall": 0.8,
     "kept": [
+      "huge-type",
       "mono",
+      "motion",
       "stripes-or-layers"
     ],
     "missing": [
-      "glow",
-      "huge-type",
-      "motion"
+      "glow"
     ],
     "extra": [
-      "gradient",
       "overlap"
     ]
   },
   "tokens": {
-    "input": 37079,
-    "output": 29022,
-    "cacheRead": 323204
+    "input": 32829,
+    "output": 19095,
+    "cacheRead": 220853
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 52775,
-      "output": 20928,
-      "cacheRead": 320120,
-      "toolCalls": 12,
+      "billed": 29955,
+      "output": 9846,
+      "cacheRead": 180996,
+      "toolCalls": 10,
       "tools": [
-        "Read components/SketchShape.tsx",
+        "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Read src/main.tsx",
-        "Glob",
         "Read src/index.css",
-        "Edit components/SketchShape.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Glob"
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read s2c-bench-app/vite.config.ts",
+        "Read s2c-bench-app/index.html",
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 235895
+      "ms": 107588
     }
   ],
-  "reading": "A terminal-style single page: a fading bright-green nested border frames a black, monospace, green-text page containing an image placeholder captioned \"BOOT_\", a repeating black-stripe texture block overlapping that picture's lower-right corner, and two buttons — an outlined \"[ RUN DEMO ]\" and a filled \"[ BUY $49 ]\".",
+  "reading": "A full-page terminal/synthwave hero design: a fading green bordered frame with a 40px title bar (dots + path label), a giant glowing 'BOOT_' heading with blinking cursor, a 4-line boot-log on the left, a box-drawn info card on the right, two buttons (outline 'RUN DEMO' and solid 'BUY $49'), and a repeating-stripe scanline overlay in front of the heading, all on a black mono-type bright-green page.",
   "actions": [
     {
       "kind": "design",
@@ -78,59 +75,49 @@
         894
       ],
       "paths": [
-        "s0",
-        "s15"
+        "s13",
+        "s0"
       ],
-      "instruction": "Add a fading bright green border framing the page: an outer rectangle and an inner rectangle set inward from it, forming a nested frame whose green stroke fades"
+      "instruction": "Whole page: black (#05140a) background, monospace font throughout, bright green text. The large rectangle is a fading bright-green border frame around the page "
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        185,
-        206,
-        414,
-        115
-      ],
-      "paths": [
-        "s1",
-        "s2",
-        "s3"
-      ],
-      "instruction": "Add an image placeholder (rectangle with a diagonal cross through it) in the upper-left of the content area, captioned \"BOOT_\" per the note 'picture with \"BOOT_"
-    },
-    {
-      "kind": "design",
       "textMarks": [
-        "s4",
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9",
-        "s10",
-        "s11",
-        "s12"
+        "s1"
       ],
       "textSize": [
         {
           "strokes": [
-            "s8",
-            "s9",
-            "s10",
-            "s11",
-            "s12"
+            "s1"
           ],
-          "lines": 5,
-          "fontPx": 17
-        },
+          "lines": 1,
+          "fontPx": 122
+        }
+      ],
+      "region": [
+        190,
+        190,
+        378,
+        146
+      ],
+      "paths": [],
+      "instruction": "Large heading as live text: 120px bold Courier New (font-family: 'Courier New', monospace), color #39ff7a, text 'BOOT_' on one line, positioned around (182,202)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
         {
           "strokes": [
+            "s2",
+            "s3",
             "s4",
-            "s5",
-            "s6",
-            "s7"
+            "s5"
           ],
           "lines": 4,
           "fontPx": 23
@@ -139,11 +126,42 @@
       "region": [
         186,
         392,
-        912,
+        339,
         137
       ],
       "paths": [],
-      "instruction": "Per note: add a big horizontal repeating-stripe texture, NOT a smooth gradient — repeating-linear-gradient(0deg, #000000 0px 2px, #000000 2px 4px), i.e. 2px bla"
+      "instruction": "Terminal boot-log block: exactly 4 lines of 18px Courier New, color #39ff7a, line-height 34px, positioned around (182,392): '> loading modules .........' follow"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        766,
+        392,
+        332,
+        128
+      ],
+      "paths": [],
+      "instruction": "Box-drawing info card rendered as live 16px Courier New text in a <pre> element (white-space: pre, line-height 26px), color #39ff7a, positioned around (762,392)"
     },
     {
       "kind": "add",
@@ -156,9 +174,9 @@
         50
       ],
       "paths": [
-        "s13"
+        "s11"
       ],
-      "instruction": "Add a button labeled \"[ RUN DEMO ]\" styled as a bright green outline button (transparent fill, bright green border and text) per note."
+      "instruction": "Bright green outline button with label '[ RUN DEMO ]'."
     },
     {
       "kind": "add",
@@ -171,9 +189,9 @@
         49
       ],
       "paths": [
-        "s14"
+        "s12"
       ],
-      "instruction": "Add a button labeled \"[ BUY $49 ]\" styled with a bright green filled background and black text per note."
+      "instruction": "Solid bright green button with black text, label '[ BUY $49 ]'."
     }
   ],
   "rejected": [

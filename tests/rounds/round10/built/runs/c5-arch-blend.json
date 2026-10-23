@@ -1,0 +1,249 @@
+{
+  "id": "c5-arch-blend",
+  "at": "2026-10-23T11:31:40.313Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8103348972168045,
+    "overallV2": 0.8103348972168045,
+    "overallV1": 0.7364023187061877,
+    "colour": 0.9662503179061902,
+    "structure": 0.9193341035191064,
+    "structureStrict": 0.8264475863082436,
+    "colourAligned": 0.9662503179061902,
+    "structureAligned": 0.9193341035191064,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.955685994475464
+    },
+    "layout": 0.7313111561917148
+  },
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50200,
+    "output": 36035,
+    "cacheRead": 302623
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 65217,
+      "output": 26986,
+      "cacheRead": 291585,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Glob"
+      ],
+      "ms": 307724
+    }
+  ],
+  "reading": "A hotel hero section: a plain top nav with wordmark left and menu right, an italic quote, a short line of body text, a tall gradient arch with a pink disc accent on the right, a two-line 'Slow sunsets' display headline, a short paragraph, a 'RESERVE A ROOM' underlined link, and a spinning circular badge reading 'SCROLL · TO · WANDER'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        43,
+        1113,
+        8
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a nav bar with no surrounding box: wide-spaced 'CASA ÓXIDO' wordmark on the left and 'ROOMS · TABLE · JOURNAL · STAY' links on the right, spanning the full "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        84,
+        150,
+        372,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add an italic line of text below the nav, left-aligned: 'A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.' Georgia "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        556,
+        114,
+        9,
+        712
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a thin vertical divider line running down the page between the left text column and the right arch image, colored dark navy."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        639,
+        111,
+        422,
+        720
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "Draw a large arch shape (rounded top, flat bottom) filling the right side of the hero, with a top-to-bottom gradient from coral (#d98e6b) through brown (#8c3b2a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        88,
+        363,
+        365,
+        16
+      ],
+      "paths": [],
+      "instruction": "Add a short line of text positioned between the italic quote and the headline, Georgia type, dark navy on warm paper (exact wording not given by the sketch — us"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        88,
+        506,
+        226,
+        16
+      ],
+      "paths": [],
+      "instruction": "Add a giant Georgia serif, regular weight (not bold), tightly set headline (line-height 0.95) reading 'Slow sunsets' broken into exactly two lines — 'Slow' / 's"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        84,
+        640,
+        126,
+        79
+      ],
+      "paths": [],
+      "instruction": "Add a short block of body copy (two short lines plus a shorter third line) above the 'RESERVE A ROOM' link, Georgia type, dark navy on warm paper (exact wording"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        778,
+        146,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a text link reading 'RESERVE A ROOM' with a 2px underline, no surrounding box (not a button), Georgia type, dark navy on warm paper."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1104,
+        644,
+        112,
+        112
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a spinning (rotating) dark navy outline circular badge at the bottom right containing the text 'SCROLL · TO · WANDER' arranged around the circle."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

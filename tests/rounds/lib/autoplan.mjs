@@ -150,6 +150,48 @@ export function factsInPage() {
       spreadEnds: /flex/.test(cs.display) && cs.justifyContent === 'space-between',
       // n133: a small filled caption chip sitting ON a picture block (round 9 c5 'FIG. 1' built as a line under it)
       innerChip: (() => { const ks = [...el.children]; if (ks.length !== 1 || r.width < 200 || r.height < 200) return null; const k = ks[0], c = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim(), fl = rgba(c.backgroundColor); if (!t || t.length > 40 || !(fl?.a > 0.5) || b.width > r.width * 0.8) return null; return { t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), fill: fl, spaced: (parseFloat(c.letterSpacing) || 0) >= 1.5, sans: !/serif/i.test(c.fontFamily) || /sans/i.test(c.fontFamily) } })(),
+      // n136: a grid of many text-free shape tiles (round 10 c4: 48 Bauhaus tiles said as one plain box, built as nothing)
+      tileGrid: (() => {
+        if (!/grid/.test(cs.display) || kids.length < 12 || (el.innerText || '').trim() || el.querySelector('[data-r]') || parseFloat(cs.columnGap) > 0 || parseFloat(cs.rowGap) > 0) return null
+        const o = el.getBoundingClientRect()
+        const cols = cs.gridTemplateColumns.split(' ').length, rows = cs.gridTemplateRows.split(' ').length
+        const tiles = kids.map((k) => {
+          const c = getComputedStyle(k), b = k.getBoundingClientRect(), fl = rgba(c.backgroundColor)
+          const rad = ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((s) => c[`border${s}Radius`])
+          const big = rad.map((v) => /%/.test(v) ? parseFloat(v) >= 50 : parseFloat(v) >= Math.min(b.width, b.height) / 2 - 1)
+          const stripe = /repeating-linear-gradient/.test(c.backgroundImage) ? (() => { const cl = c.backgroundImage.match(/rgba?\([^)]+\)/); const px = [...c.backgroundImage.matchAll(/([\d.]+)px/g)].map((m) => Math.round(parseFloat(m[1]))); return { c: cl ? rgba(cl[0]) : null, band: px[1] ?? null, pitch: px[px.length - 1] ?? null } })() : null
+          let kind = 'empty'
+          const filled = fl?.a > 0.05
+          if (stripe) kind = 'stripes'
+          else if (filled && /polygon\(/.test(c.clipPath)) kind = 'triangle'
+          else if (filled && big.every(Boolean)) kind = 'circle'
+          else if (filled && big.filter(Boolean).length === 1) kind = 'quarter'
+          else if (filled && big[0] && big[1] && !big[2] && !big[3]) kind = 'half'
+          else if (filled) kind = 'square'
+          const corner = ['top-left', 'top-right', 'bottom-right', 'bottom-left'][big.findIndex(Boolean)]
+          return { kind, c: filled ? fl : stripe?.c, corner, stripe, x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), w: Math.round(b.width), h: Math.round(b.height) }
+        })
+        if (tiles.filter((t) => t.kind !== 'empty').length < kids.length / 2 || o.width / cols < 80 || o.height / rows < 80) return null
+        return { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height), cols, rows, cellW: Math.round(o.width / cols), cellH: Math.round(o.height / rows), tiles }
+      })(),
+      // n136: stacked hard text-shadows (an extrusion) and a text stroke (round 10 c1: built as flat letters)
+      textShadows: cs.textShadow === 'none' ? [] : cs.textShadow.split(/,(?![^(]*\))/).map((p) => { const c = p.match(/rgba?\([^)]+\)/)?.[0]; const n = p.replace(/rgba?\([^)]+\)/, '').trim().split(/\s+/).map(parseFloat); return { c: c ? rgba(c) : null, x: n[0] || 0, y: n[1] || 0, blur: n[2] || 0 } }),
+      textStroke: parseFloat(cs.webkitTextStrokeWidth) > 0 ? { px: parseFloat(cs.webkitTextStrokeWidth), c: rgba(cs.webkitTextStrokeColor) } : null,
+      // n136: a checkerboard of repeating conic squares (round 10 c1: read as a gradient, built a grey band)
+      checker: /repeating-conic-gradient/.test(cs.backgroundImage) ? { cols: [...new Set([...cs.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => m[0].replace(/\s/g, '')))].map((m) => rgba(m)), size: cs.backgroundSize } : null,
+      // n136: a block cursor inside a glowing text line (round 10 c3: headline read as a picture)
+      cursorKid: (() => { const k = [...el.children].find((q) => !(q.innerText || '').trim() && rgba(getComputedStyle(q).backgroundColor)?.a > 0.5); if (!k) return null; const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), c: rgba(c.backgroundColor), blink: c.animationName !== 'none' } })(),
+      // n136: lines split by <br>, some ending in a filled chip (round 10 c3 log lines, built as invented paragraphs)
+      chipLines: (() => {
+        if (!el.querySelector('br') || el.querySelector('[data-r]')) return null
+        const lines = el.innerHTML.split(/<br\s*\/?>/i).map((h) => { const d = document.createElement('div'); d.innerHTML = h; const b = d.querySelector('b,strong,span'); return { t: d.textContent.replace(/\s+/g, ' ').trim(), chip: b ? b.textContent.trim() : null } })
+        const b0 = el.querySelector('b,strong'); const bc = b0 && getComputedStyle(b0)
+        return { lines, chipFill: bc ? rgba(bc.backgroundColor) : null, chipInk: bc ? rgba(bc.color) : null, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0) }
+      })(),
+      // n136: preformatted box-drawing text (round 10 c3 ASCII frame, dropped)
+      preText: /pre/.test(cs.whiteSpace) && /[┌└│─╔║═+|]/.test(el.textContent) ? el.textContent.replace(/^\n+|\n+$/g, '') : null,
+      // n136: a window's title bar (a ruled strip on top with ring dots and a title at the right)
+      titleBar: (() => { const k = el.firstElementChild; if (!k || k.dataset?.r) return null; const c = getComputedStyle(k), b = k.getBoundingClientRect(); const dots = [...k.children].filter((q) => !(q.innerText || '').trim() && Math.abs(q.getBoundingClientRect().width - q.getBoundingClientRect().height) < 2 && q.getBoundingClientRect().width <= 20); if (dots.length < 2 || b.height > 60) return null; const t = (k.innerText || '').trim(); const dc = getComputedStyle(dots[0]); return { h: Math.round(b.height), rule: parseFloat(c.borderBottomWidth) || 0, ruleC: rgba(c.borderBottomColor), dots: dots.length, dot: Math.round(dots[0].getBoundingClientRect().width), ring: parseFloat(dc.borderTopWidth) > 0 && !(rgba(dc.backgroundColor)?.a > 0.05), dotC: rgba(dc.borderTopColor), t, tpx: Math.round(parseFloat(getComputedStyle(k.lastElementChild).fontSize)) } })(),
       clipPoints: /polygon\(/.test(cs.clipPath) ? cs.clipPath.split(',').length : 0,
       // the cut-out's outline as fractions of the block (percent or px corners), so it can be drawn as itself
       clipPoly: (() => {
@@ -1669,7 +1711,7 @@ function gradientWords(f) {
     xs.forEach((x) => { x.w = Math.round(x.end - x.start) })
     const deg = rp[1] ? Math.round(parseFloat(rp[1])) % 180 : 0
     const dir = deg === 0 ? 'horizontal' : deg === 90 ? 'vertical' : `diagonal (${deg}deg)`
-    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${colourName(x.c)}`).join(' then ')}, over and over`
+    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${x.c && x.c.a < 0.05 ? 'transparent' : hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${x.c && x.c.a < 0.05 ? 'clear (see-through)' : colourName(x.c)}`).join(' then ')}, over and over`
   }
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
   if (names.length < 2) {
@@ -2031,7 +2073,63 @@ function codeNote(f) {
   return `mono ${Math.round(f.font.size)}px code lines: ${lines}${f.colour ? `; ${colourName(f.colour)} code` : ''}${inks ? `, coloured: ${inks}` : ''}`
 }
 
+/** n136 (round 10): tile grids, checker floors, glowing mono lines with a cursor, chip log lines, box-drawing text. */
+function round10Note(f) {
+  const T = f.tileGrid
+  if (T) {
+    const say = (t) => {
+      const c = t.c ? `${colourName(t.c)} ${hexOf(t.c)}` : ''
+      const inset = t.w < T.cellW - 2 || t.h < T.cellH - 2 ? ` ${t.w}x${t.h}px, ${t.x % T.cellW}px in from the cell's left and ${t.y % T.cellH}px down` : ''
+      if (t.kind === 'empty') return 'empty (page shows)'
+      if (t.kind === 'quarter') { const sq = { 'bottom-right': 'top-left', 'bottom-left': 'top-right', 'top-left': 'bottom-right', 'top-right': 'bottom-left' }[t.corner]; return `${c} quarter circle (square corner ${sq}, curve at ${t.corner}: border-radius 100% on the ${t.corner} corner only)` }
+      if (t.kind === 'half') return `${c} half disc dome${inset} (flat bottom, rounded top: border-radius ${Math.round(t.w / 2)}px ${Math.round(t.w / 2)}px 0 0)`
+      if (t.kind === 'circle') return `${c} circle${inset}`
+      if (t.kind === 'triangle') return `${c} triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%))`
+      if (t.kind === 'stripes') return `${c} vertical stripes (${t.stripe?.band ?? 12}px bars every ${t.stripe?.pitch ?? 24}px, gaps show the page)`
+      return `${c} solid square`
+    }
+    const rows = []
+    for (let r = 0; r < T.rows; r++) rows.push(`row ${r + 1}: ${T.tiles.slice(r * T.cols, r * T.cols + T.cols).map(say).join(' | ')}`)
+    return { kind: 'box', note: `a full-page grid of ${T.cols} columns x ${T.rows} rows of flat shape tiles (display grid, ${T.cellW}x${T.cellH}px cells, no gaps, no borders), ${T.w}x${T.h}px at ${T.x},${T.y}, behind everything else; each cell holds ONE flat-colour geometric shape (NOT one box, NOT a picture, NOT an SVG: ${T.tiles.length} real divs, each overflow hidden); every tile left to right, row by row: ${rows.join('; ')}` }
+  }
+  if (f.checker && f.checker.cols.length >= 2) {
+    const sq = parseFloat(f.checker.size) / 2 || 40, [a, b] = f.checker.cols
+    return { kind: 'box', note: `a checkerboard floor ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: sharp ${Math.round(sq)}px squares alternating ${colourName(a)} ${hexOf(a)} and ${colourName(b)} ${hexOf(b)} like a chess board (background: repeating-conic-gradient(${hexOf(a)} 0 25%, ${hexOf(b)} 0 50%) 0 0/${Math.round(sq * 2)}px ${Math.round(sq * 2)}px), NOT a gradient, NOT stripes, no blur` }
+  }
+  const glowT = f.textShadows.filter((s) => s.blur >= 6)
+  if (f.cursorKid && f.text && f.text.length <= 24 && f.font.size >= 48) {
+    const K = f.cursorKid
+    return { kind: 'heading', note: `${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}${faceName(f.font.family) || 'monospace'} (font-family ${f.font.family.split(',')[0].replace(/"/g, '')}, monospace) ${hexOf(f.colour)} ${quote(f.text, 24)} as LIVE TEXT on one line at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (NOT a picture, NOT a box)${glowT.length ? `, glowing (text-shadow: ${glowT.map((s) => `0 0 ${Math.round(s.blur)}px ${hexOf(s.c)}${s.c?.a < 1 ? ` at ${Math.round(s.c.a * 100)}%` : ''}`).join(', ')})` : ''}; right after the last letter on the same line a solid ${hexOf(K.c)} block cursor ${K.w}x${K.h}px${K.blink ? ' that blinks (keyframes: opacity 0 at 50%, 1s steps(1) infinite)' : ''}` }
+  }
+  if (f.preText && !f.regionKids.length) {
+    return { kind: 'text', note: `a box-drawing frame as live ${Math.round(f.font.size)}px ${faceName(f.font.family) || 'mono'} ${hexOf(f.colour)} text in a <pre> (white-space: pre, line-height ${Math.round(f.font.lineHeight)}px) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, NOT a bordered div, NOT a picture; exactly these lines: ${f.preText.split('\n').map((l) => `"${l}"`).join(' / ')}` }
+  }
+  const C = f.chipLines
+  if (C && C.lines.length >= 3 && C.lines.some((l) => l.chip) && C.chipFill?.a > 0.5) {
+    return { kind: 'text', note: `exactly ${C.lines.length} ${C.px}px ${faceName(f.font.family) || 'mono'} ${hexOf(f.colour)} lines (line-height ${C.lh}px) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, nothing else invented: ${C.lines.map((l) => l.chip ? `"${l.t.replace(new RegExp(`\\s*${l.chip}$`), '')}" then a "${l.chip}" chip` : `"${l.t}"`).join(' / ')}; each chip a solid ${hexOf(C.chipFill)} label with ${hexOf(C.chipInk)} text, 6px side padding, square corners` }
+  }
+  return null
+}
+/** n136: extra words a note gains: an extruded letter stack, a text glow, a window title bar. */
+function round10Extra(f, d) {
+  if (!d?.note) return d
+  let note = d.note
+  const hard = f.textShadows.filter((s) => s.blur <= 1 && (s.x || s.y))
+  if (hard.length >= 3) {
+    const s0 = hard[0], sN = hard[hard.length - 1]
+    note += `; EXTRUDED in 3D: ${hard.length} stacked hard text-shadows (no blur) of solid ${hexOf(s0.c)}, stepping ${Math.round(s0.x)}px right and ${Math.round(s0.y)}px down each, out to ${Math.round(sN.x)}px ${Math.round(sN.y)}px (text-shadow: ${hard.map((s) => `${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${hexOf(s.c)}`).join(', ')}), so each letter sits on a deep dark block side; NOT flat letters`
+  }
+  if (f.textStroke && f.colour?.a > 0.05 && !/hollow|outlin|stroke/i.test(note)) note += `; a ${f.textStroke.px}px ${hexOf(f.textStroke.c)} outline round every letter (-webkit-text-stroke: ${f.textStroke.px}px ${hexOf(f.textStroke.c)}) over the ${hexOf(f.colour)} fill`
+  const B = f.titleBar
+  if (B && d.kind === 'box') note += `; along its top edge a ${B.h}px title bar${B.rule ? ` with a ${B.rule}px ${hexOf(B.ruleC)} rule under it` : ''}: ${B.dots} ${B.ring ? `ring dots (${B.dot}px, 2px ${hexOf(B.dotC)} border, no fill)` : `${B.dot}px dots`} at its left${B.t ? ` and ${B.tpx}px widely spaced ${quote(B.t, 30)} at its right end` : ''}`
+  return note === d.note ? d : { ...d, note }
+}
 function decide(f, page, marked, said = new Set()) {
+  const r10 = round10Note(f)
+  if (r10) return r10
+  return round10Extra(f, decideRest(f, page, marked, said))
+}
+function decideRest(f, page, marked, said) {
   // n133: a two-ended row under a top rule only, said as itself (round 9 c5 byline built as a bordered box)
   if (f.topRule && f.spreadEnds && f.kidTexts.length === 2 && f.rect.h <= 80 && !f.regionKids.length) {
     const k = f.kidBoxes?.[0], T = f.topRule

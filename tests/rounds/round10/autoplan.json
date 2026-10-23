@@ -89,7 +89,7 @@
    ],
    [
     "checker-floor",
-    "near-black to pale yellow gradient block"
+    "a checkerboard floor 1280x340px at 0,560: sharp 40px squares alternating near-black #1a1a1a and pale yellow #fdf6e3 like a chess board (background: repeating-conic-gradient(#1a1a1a 0 25%, #fdf6e3 0 50%) 0 0/80px 80px), NOT a gradient, NOT stripes, no blur"
    ],
    [
     "nav",
@@ -97,11 +97,11 @@
    ],
    [
     "extruded-word",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow \"LOUD\", 230px type, about 620px wide (no larger)"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow \"LOUD\", 230px type, about 620px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters"
    ],
    [
     "extruded-word-2",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink \"FEST\", 230px type, about 556px wide (no larger)"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink \"FEST\", 230px type, about 556px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #1a1a1a, stepping 2px right and 2px down each, out to 16px 16px (text-shadow: 2px 2px 0 #1a1a1a, 4px 4px 0 #1a1a1a, 6px 6px 0 #1a1a1a, 8px 8px 0 #1a1a1a, 10px 10px 0 #1a1a1a, 12px 12px 0 #1a1a1a, 14px 14px 0 #1a1a1a, 16px 16px 0 #1a1a1a), so each letter sits on a deep dark block side; NOT flat letters"
    ],
    [
     "star-badge",
@@ -279,7 +279,11 @@
    ],
    [
     "glow-headline",
-    "image"
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 1
+    }
    ],
    [
     "log-lines",
@@ -317,11 +321,19 @@
    ],
    [
     "terminal-window",
-    "fading bright green border"
+    "fading bright green border; along its top edge a 40px title bar with a 2px #39ff7a rule under it: 3 ring dots (12px, 2px #39ff7a border, no fill) at its left and 13px widely spaced \"~/nightshift — tty1\" at its right end"
    ],
    [
     "glow-headline",
-    "picture with \"BOOT_\""
+    "120px bold Courier New (font-family Courier New, monospace) #39ff7a \"BOOT_\" as LIVE TEXT on one line at 182,202 (NOT a picture, NOT a box), glowing (text-shadow: 0 0 12px #39ff7a, 0 0 30px #39ff7a at 60%); right after the last letter on the same line a solid #39ff7a block cursor 60x100px that blinks (keyframes: opacity 0 at 50%, 1s steps(1) infinite)"
+   ],
+   [
+    "log-lines",
+    "exactly 4 18px Courier New #39ff7a lines (line-height 34px) at 182,392, nothing else invented: \"> loading modules .........\" then a \"OK\" chip / \"> linking synthwave.so .....\" then a \"OK\" chip / \"> calibrating phosphor ....\" then a \"OK\" chip / \"> ready for input_\"; each chip a solid #39ff7a label with #05140a text, 6px side padding, square corners"
+   ],
+   [
+    "ascii-box",
+    "a box-drawing frame as live 16px Courier New #39ff7a text in a <pre> (white-space: pre, line-height 26px) at 762,392, NOT a bordered div, NOT a picture; exactly these lines: \"┌──────────────────────┐\" / \"│  NIGHTSHIFT v2.6     │\" / \"│  a synth for coders  │\" / \"│  64 voices · 8 fx    │\" / \"└──────────────────────┘\""
    ],
    [
     "btn-run",
@@ -333,7 +345,7 @@
    ],
    [
     "scanlines",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 2px, #000000 2px 4px)): 2px black then 2px null, over and over block, overlapping the lower right of the other picture and on top of it"
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 2px, transparent 2px 4px)): 2px black then 2px clear (see-through), over and over block, in front of the \"BOOT_\" heading"
    ]
   ]
  },
@@ -352,6 +364,10 @@
    [
     "*",
     "whole page: cream (#f2ead8) page, Helvetica type, near-black text"
+   ],
+   [
+    "shape-grid",
+    "a full-page grid of 8 columns x 6 rows of flat shape tiles (display grid, 160x150px cells, no gaps, no borders), 1280x900px at 0,0, behind everything else; each cell holds ONE flat-colour geometric shape (NOT one box, NOT a picture, NOT an SVG: 48 real divs, each overflow hidden); every tile left to right, row by row: row 1: red #e63946 quarter circle (square corner top-left, curve at bottom-right: border-radius 100% on the bottom-right corner only) | grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down | near-black #1b1b1b solid square | peach #e9c46a triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%)) | dark teal #1d3557 quarter circle (square corner bottom-right, curve at top-left: border-radius 100% on the top-left corner only) | near-black #1b1b1b vertical stripes (12px bars every 24px, gaps show the page) | near-black #1b1b1b half disc dome 160x80px, 0px in from the cell's left and 70px down (flat bottom, rounded top: border-radius 80px 80px 0 0) | bright orange #f4a261 quarter circle (square corner bottom-left, curve at top-right: border-radius 100% on the top-right corner only); row 2: near-black #1b1b1b half disc dome 160x80px, 0px in from the cell's left and 70px down (flat bottom, rounded top: border-radius 80px 80px 0 0) | bright orange #f4a261 quarter circle (square corner bottom-left, curve at top-right: border-radius 100% on the top-right corner only) | near-black #1b1b1b vertical stripes (12px bars every 24px, gaps show the page) | red #e63946 quarter circle (square corner top-left, curve at bottom-right: border-radius 100% on the bottom-right corner only) | grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down | peach #e9c46a triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%)) | dark teal #1d3557 quarter circle (square corner bottom-right, curve at top-left: border-radius 100% on the top-left corner only) | near-black #1b1b1b solid square; row 3: peach #e9c46a triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%)) | dark teal #1d3557 quarter circle (square corner bottom-right, curve at top-left: border-radius 100% on the top-left corner only) | empty (page shows) | empty (page shows) | empty (page shows) | empty (page shows) | grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down | red #e63946 quarter circle (square corner top-left, curve at bottom-right: border-radius 100% on the bottom-right corner only); row 4: near-black #1b1b1b solid square | near-black #1b1b1b vertical stripes (12px bars every 24px, gaps show the page) | empty (page shows) | empty (page shows) | empty (page shows) | empty (page shows) | near-black #1b1b1b half disc dome 160x80px, 0px in from the cell's left and 70px down (flat bottom, rounded top: border-radius 80px 80px 0 0) | peach #e9c46a triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%)); row 5: grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down | red #e63946 quarter circle (square corner top-left, curve at bottom-right: border-radius 100% on the bottom-right corner only) | dark teal #1d3557 quarter circle (square corner bottom-right, curve at top-left: border-radius 100% on the top-left corner only) | near-black #1b1b1b half disc dome 160x80px, 0px in from the cell's left and 70px down (flat bottom, rounded top: border-radius 80px 80px 0 0) | bright orange #f4a261 quarter circle (square corner bottom-left, curve at top-right: border-radius 100% on the top-right corner only) | near-black #1b1b1b solid square | near-black #1b1b1b vertical stripes (12px bars every 24px, gaps show the page) | grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down; row 6: bright orange #f4a261 quarter circle (square corner bottom-left, curve at top-right: border-radius 100% on the top-right corner only) | peach #e9c46a triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%)) | grey #457b9d circle 120x120px, 20px in from the cell's left and 15px down | near-black #1b1b1b vertical stripes (12px bars every 24px, gaps show the page) | near-black #1b1b1b solid square | red #e63946 quarter circle (square corner top-left, curve at bottom-right: border-radius 100% on the bottom-right corner only) | bright orange #f4a261 quarter circle (square corner bottom-left, curve at top-right: border-radius 100% on the top-right corner only) | dark teal #1d3557 quarter circle (square corner bottom-right, curve at top-left: border-radius 100% on the top-left corner only)"
    ],
    [
     "title-panel",
@@ -681,7 +697,7 @@
    ],
    [
     "candle-chart",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 77px, #1e2329 77px 78px)): 77px null then 1px dark navy, over and over block"
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, transparent 0px 77px, #1e2329 77px 78px)): 77px clear (see-through) then 1px dark navy, over and over block"
    ],
    [
     "volume-bars",

@@ -1,0 +1,227 @@
+{
+  "id": "c2-skewed-panels",
+  "at": "2026-10-23T11:21:30.055Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.31458917051827295,
+    "overallV2": 0.31458917051827295,
+    "overallV1": 0.31458917051827295,
+    "colour": 0.4998213126141099,
+    "structure": 0.29331983463455624,
+    "structureStrict": 0.26835997823474944,
+    "colourAligned": 0.4998213126141099,
+    "structureAligned": 0.37679186859075636,
+    "align": {
+      "scale": 0.88,
+      "dx": -128,
+      "dy": 113,
+      "r": 0.41732753833617964
+    },
+    "layout": 0.8377490253358385
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "blend",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 53193,
+    "output": 36612,
+    "cacheRead": 272313
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 64732,
+      "output": 25363,
+      "cacheRead": 261683,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 277461
+    }
+  ],
+  "reading": "A full-bleed hero/landing section: the page is split into three angled, diagonally-cut colour blocks (orange→pink, cyan→teal, yellow→amber gradients), with a plain white disc layered in the middle, a borderless nav bar (TRIAD / RUN · RIDE · SWIM), three giant tight-set headings RUN, RIDE, SWIM sitting over their respective sections, and a white pill 'Join the season' button, all on a near-black, Helvetica, white-text page.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        515,
+        890
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Render the left angled, diagonally-cut section of the page as a flat gradient, linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or da"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        400,
+        5,
+        520,
+        889
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Render the middle angled, diagonally-cut section of the page as a flat gradient, linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        800,
+        5,
+        475,
+        890
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Render the right angled, diagonally-cut section of the page as a flat gradient, linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or d"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        474,
+        254,
+        372,
+        372
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 380px across, centered where this circle was drawn, flat fully opaque off-white ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        35,
+        1176,
+        10
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a nav bar with no box around it: wide-spaced \"TRIAD\" on the left and \"RUN · RIDE · SWIM\" on the right, running along this top line."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        195,
+        179,
+        67
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading reading \"RUN\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 102
+        }
+      ],
+      "region": [
+        524,
+        437,
+        195,
+        122
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading reading \"RIDE\", positioned over the white disc."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 106
+        }
+      ],
+      "region": [
+        964,
+        614,
+        224,
+        127
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading in near-black reading \"SWIM\", sitting over the right-hand yellow-to-amber gradient section."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        761,
+        185,
+        51
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a white pill button with near-black text reading \"Join the season\", placed over the middle cyan-to-teal gradient section."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

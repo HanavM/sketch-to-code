@@ -1,23 +1,23 @@
 {
   "id": "c1-extruded-checker",
-  "at": "2026-10-23T10:36:50.514Z",
+  "at": "2026-10-23T11:09:37.281Z",
   "likeness": {
     "version": 3,
-    "overall": 0.3966435181459601,
-    "overallV2": 0.3843192137858692,
-    "overallV1": 0.32144903458315377,
-    "colour": 0.8660419001330253,
-    "structure": 0.44552498639048127,
-    "structureStrict": 0.32254607222578646,
-    "colourAligned": 0.8660419001330253,
-    "structureAligned": 0.46932439116430225,
+    "overall": 0.8739047389778828,
+    "overallV2": 0.8739047389778828,
+    "overallV1": 0.8228776688006533,
+    "colour": 0.9738757260859012,
+    "structure": 0.9426990962845496,
+    "structureStrict": 0.8441609669031768,
+    "colourAligned": 0.9738757260859012,
+    "structureAligned": 0.9426990962845496,
     "align": {
-      "scale": 0.96,
-      "dx": 80,
-      "dy": 32,
-      "r": 0.42593731772573873
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9468516823942401
     },
-    "layout": 0.49711717496782676
+    "layout": 0.794098413027899
   },
   "effects": {
     "recall": 0.7142857142857143,
@@ -25,43 +25,57 @@
       "hard-shadow",
       "huge-type",
       "motion",
-      "overlap",
+      "stripes-or-layers",
       "tilt"
     ],
     "missing": [
       "clip-shape",
-      "stripes-or-layers"
+      "overlap"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 53902,
-    "output": 35280,
-    "cacheRead": 173186
+    "input": 37570,
+    "output": 22840,
+    "cacheRead": 734691
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 78706,
-      "output": 28920,
-      "cacheRead": 170102,
-      "toolCalls": 9,
+      "billed": 49583,
+      "output": 16701,
+      "cacheRead": 731607,
+      "toolCalls": 23,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
-        "Read src/index.css",
-        "Glob",
         "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
         "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape2.tsx",
-        "Write src/App.tsx"
+        "Edit src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx"
       ],
-      "ms": 333029
+      "ms": 167849
     }
   ],
-  "reading": "The sketch is a festival hero section: a top nav row ('BLOCKPARTY' / 'LINEUP · TICKETS · MAP'), a giant two-line headline 'LOUD FEST' (yellow/pink), a spinning blue jagged cut-out decoration where a star was drawn, a near-black to pale-yellow gradient section background, and two white bordered cards at the bottom — a small tilted '3 DAYS · 40 ACTS' card and a larger 'Weekend pass' card with copy, a ticket link, and a hard offset shadow.",
+  "reading": "A festival landing page: a plain nav (\"BLOCKPARTY\" / \"LINEUP · TICKETS · MAP\"), a huge 3D-extruded \"LOUD FEST\" hero headline (yellow/pink on black shadow blocks) with a spinning blue jagged badge beside it, and a checkerboard floor at the bottom holding a tilted \"3 DAYS · 40 ACTS\" card and a larger \"Weekend pass\" ticket card with a hard drop shadow. All typed notes (page colors/fonts, exact checkerboard spec, exact badge clip-path, exact card copy) were carried verbatim into the instructions.",
   "actions": [
     {
       "kind": "design",
@@ -76,7 +90,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Apply the page-wide style: pale yellow (#fdf6e3, plainly not white) background, Helvetica type, near-black text throughout. Style this hero section's background"
+      "instruction": "A checkerboard floor, 1280x340px positioned at 0,560: sharp 40px squares alternating near-black #1a1a1a and pale yellow #fdf6e3 like a chess board (background: "
     },
     {
       "kind": "add",
@@ -91,7 +105,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a nav bar with no box around it: 'BLOCKPARTY' on the left, and 'LINEUP · TICKETS · MAP' on the right."
+      "instruction": "Nav bar, no box/border around it: \"BLOCKPARTY\" wordmark on the left, \"LINEUP · TICKETS · MAP\" links on the right, spanning the long horizontal line drawn at the"
     },
     {
       "kind": "add",
@@ -114,7 +128,7 @@
         294
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica headline (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not a squared/condensed/display face; live text, a real"
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT squared/condensed/display; real live text, never an SVG path or dr"
     },
     {
       "kind": "add",
@@ -137,10 +151,10 @@
         307
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica headline (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not a squared/condensed/display face; live text, a real"
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT squared/condensed/display; real live text, never an SVG path or dr"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -152,7 +166,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a spinning, vivid blue jagged cut-out shape with ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn outlin"
+      "instruction": "A spinning vivid blue jagged cut-out shape, ONE flat #3a86ff fill via clip-path polygon, no gradient, no shading, no texture of its own; the drawn outline strok"
     },
     {
       "kind": "add",
@@ -167,7 +181,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a small white card tilted 4° anticlockwise with a thick near-black border, reading '3 DAYS · 40 ACTS', placed near the bottom-left of the gradient hero sect"
+      "instruction": "A small card tilted 4° anticlockwise, white fill, thick near-black border, reading \"3 DAYS · 40 ACTS\", sitting on the checkerboard floor (the small rectangle dr"
     },
     {
       "kind": "add",
@@ -182,8 +196,10 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a white card with a thick near-black border titled 'Weekend pass', with the lines 'All stages, all nights. Early bird ends Friday.' and 'Get tickets →', and"
+      "instruction": "A white card with thick near-black border on the checkerboard floor (the larger rectangle drawn at the right of the floor box), reading \"Weekend pass\", with lin"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

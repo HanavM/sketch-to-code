@@ -50,3 +50,25 @@ wrong; worth a content check for dark pages. Next (planner, free first): a tile 
 colour, rotation), extruded type as stacked hard shadows, a checker floor as conic squares, a glowing mono headline with
 a block cursor, terminal log lines and box-drawing frames as live text; then re-run c1, c3, c4 and first builds of
 c2, c5 and the five everyday pages.
+
+## n136: planner says tile grids, extrusion, checker floors, terminal parts (2026-10-23, ~329k billed)
+
+Planner (free): a gap-free grid of 12+ text-free shape tiles is said tile by tile (quarter circle and which corner,
+half-disc dome, inset circle, up-triangle, stripes, square, empty; hex each); stacked hard text-shadows are said as an
+extrusion with every step, plus a text stroke when the note doesn't already say outline; a repeating-conic floor is a
+checkerboard with both hexes and the square size; a big mono line with a solid empty child is live text with its glow
+and a blinking block cursor; <br> lines ending in filled chips are said line by line; white-space: pre box-drawing
+text is quoted line by line; a window's title bar (ring dots, rule, title) is added to its box note; clear stripe bands
+say "clear" instead of "null". Rounds 1-9 re-planned: no change (the seat map and hollow words were caught and guarded).
+
+| page | before | now | what was off |
+|---|---|---|---|
+| c4 bauhaus tiles | 27% | **93%** | all 48 tiles built in one turn (35k); title's red second line still unsaid |
+| c1 extruded checker | 40% | **87%** | extrusion and checkerboard right; no text stroke, star text and pink CTA button lost |
+| c3 crt terminal | 87% (flattered) | **82%** | real content now (headline+cursor, log lines with OK chips, ASCII frame, title bar); window built full-page not inset, buttons pills, dark box behind headline |
+| c2 skewed panels | — | **31%** | first build: the three slanted gradient panels never showed (page left near-black); notes say no corners or place |
+| c5 arch blend | — | **81%** | first build: most parts right; arch gradient missing |
+
+Round 10 so far: **75%** over the 5 creative pages (everyday not built yet). Next: say a slanted cut-out panel's corners
+in page px and its place (c2), an inset window's size and place, square buttons on a mono page, then first builds of
+the five everyday pages.
