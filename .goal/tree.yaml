@@ -3,7 +3,7 @@ goal_state: working
 now: "Orbit page jumped from 77% to 94%; first builds of the sticker wall (72%) and the diagonal poster (86%); next: the dark text tile, the poster's flat yellow half, and the last three everyday pages of round 8."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81]
-lock: null
+lock: {by: run-n121-20261023, until: "2026-10-23T04:39:41Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
