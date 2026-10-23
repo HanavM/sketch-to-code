@@ -171,9 +171,9 @@ marks changed.
 
 | page | likeness (v3) | tokens | what changed |
 |---|---|---|---|
-| c3 masonry stickers | 72% -> 89% | ~70k (one turn) | near-black "2.4M" tile filled with cream type; violet tile's lilac glow; quote dark serif; sticker words on one line (target two), pink tile paler at the top |
-| c5 diagonal duotone | 86% -> 90% | ~60k (one turn) | yellow half one flat colour, no scribbles kept; the 8 built in a squared heavy face (target round Helvetica), side strip dark blue (target near-black) |
-| e1 mail compose | 74% -> 79% | ~60k (one turn) | Compose lavender, Inbox row pale indigo with indigo text; mail rows a little taller than the target |
+| c3 masonry stickers | 72% -> 89% | ~51k (one turn) | near-black "2.4M" tile filled with cream type; violet tile's lilac glow; quote dark serif; sticker words on one line (target two), pink tile paler at the top |
+| c5 diagonal duotone | 86% -> 90% | ~93k (one turn) | yellow half one flat colour, no scribbles kept; the 8 built in a squared heavy face (target round Helvetica), side strip dark blue (target near-black) |
+| e1 mail compose | 74% -> 79% | ~45k (one turn) | Compose lavender, Inbox row pale indigo with indigo text; mail rows a little taller than the target |
 
 Round 8 average now 79% (creative 89, everyday 69). Next: everyday layout places (e2 chart card low and tall, heat grid
 under the popover; e5 nav rows tall, article low), c5's 8 letter shape and strip ink, c3 sticker line breaks.
