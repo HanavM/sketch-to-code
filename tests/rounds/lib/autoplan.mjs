@@ -1006,7 +1006,10 @@ export function factsInPage() {
           const hasFill = fill && fill.a > 0.05 && Math.hypot(fill.r - pf.r, fill.g - pf.g, fill.b - pf.b) > 6
           const img = s.backgroundImage !== 'none' ? s.backgroundImage : null
           const bw = ['Top', 'Right', 'Bottom', 'Left'].map((d) => parseFloat(s[`border${d}Width`]) || 0)
-          const bc = rgba(s.borderTopColor) || rgba(s.borderBottomColor) || rgba(s.borderLeftColor)
+          // n148: the colour of the widest drawn side (round 12 e5: bottom-only #f1f5f9 row lines read from the unset top
+          // side, which is the text colour, and built dark)
+          const bi = bw.indexOf(Math.max(...bw))
+          const bc = rgba(s[`border${['Top', 'Right', 'Bottom', 'Left'][bi]}Color`]) || rgba(s.borderTopColor)
           const ring = parseFloat(s.outlineWidth) >= 1 && s.outlineStyle !== 'none' ? { px: parseFloat(s.outlineWidth), c: rgba(s.outlineColor) } : null
           const inset = /inset/.test(s.boxShadow) ? s.boxShadow : null
           if (!own && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset) continue
@@ -1772,7 +1775,7 @@ export function factsInPage() {
         // where the first row starts, and that nothing sits above it (round 6 e4: a heading was invented and rows began at the top)
         const top = Math.round(rep[0].getBoundingClientRect().top - el.getBoundingClientRect().top)
         const above = kids.some((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top)
-        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
+        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, fill: badges[i].fill, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
@@ -1883,7 +1886,16 @@ export function factsInPage() {
     if (!m || +m[1] < 8 || !(rgba(c.backgroundColor)?.a > 0.05)) return null
     return { x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, c: rgba(c.backgroundColor), blur: Math.round(+m[1]), round: parseFloat(c.borderTopLeftRadius) > 0 || c.borderTopLeftRadius.includes('%') }
   }).filter(Boolean)
-  return { body: { ...fact(document.body), grain, blobs }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
+  // n148: an unmarked flat panel filling one side of the page top to bottom (round 12 e4 checkout: the grey summary side
+  // was built as a floating card, and the form on white as another card)
+  const sides = [...document.body.children].filter((k) => !k.closest('[data-r]') && !k.querySelector('[data-r]')).map((k) => {
+    const c = getComputedStyle(k), b = k.getBoundingClientRect(), f = rgba(c.backgroundColor)
+    if (!(f?.a > 0.5) || b.top > 2 || b.height < window.innerHeight - 4 || b.width < 160 || b.width > window.innerWidth * 0.7) return null
+    if (!(b.left <= 2 || b.right >= window.innerWidth - 2)) return null
+    const lw = parseFloat(c.borderLeftWidth) || 0, rw = parseFloat(c.borderRightWidth) || 0
+    return { x: Math.round(b.left), w: Math.round(b.width), fill: f, edge: b.left <= 2 ? 'left' : 'right', rule: lw >= 1 ? { side: 'left', c: rgba(c.borderLeftColor) } : rw >= 1 ? { side: 'right', c: rgba(c.borderRightColor) } : null, shadow: c.boxShadow !== 'none', rad: parseFloat(c.borderTopLeftRadius) || 0 }
+  }).filter((q) => q && !q.shadow && !q.rad)
+  return { body: { ...fact(document.body), grain, blobs, sides }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
 }
 
 // ---------------------------------------------------------------- naming
@@ -2215,7 +2227,9 @@ function denseNote(d) {
     case 'order': {
       const t = d.thumb
       const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
-      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+      // n148: pictures of different colours say each one (round 12 e4: green, sand, lilac all built green)
+      const mixed = d.items.some((x) => x.fill && t.fill && dist(x.fill, t.fill) > 20)
+      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? mixed ? 'solid colour (each its own, given per row, plainly darker than the panel) ' : `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}${mixed && x.fill ? `, picture ${hexOf(x.fill)}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then ${/" and "/.test(d.att) ? 'side by side small bordered rounded attachment chips' : 'a bordered rounded attachment box'} ${quote(d.att, 80)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
@@ -3815,11 +3829,18 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // 'white block list': the boxed X/Y/W/H fields lost)
     const own = (d.note ?? '').replace(/; (its text|each word in its own colour).*$/, '')
     const vague = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.fill || p.ring || p.img).length >= 2 && P.filter((p) => p.t).length >= 5 && !/\d+px|#[0-9a-f]{6}/i.test(own)
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague) return
+    // n148: a form of boxed fields said as bare grey lines (round 12 e4 checkout: floating labels inside bordered fields,
+    // the 2-up / 1-up / 3-up rows, the focused email ring and the City/State/ZIP row all lost)
+    const fieldBox = (p) => p.t && p.border && p.border.w.every((v) => v >= 1) && p.h >= 34 && p.h <= 64 && p.w >= 60
+    const fields = d.kind && d.note && !f.regionKids.length && P.filter(fieldBox).length >= 4 && !/bordered field \d|\d+x\d+ at \d+,\d+/.test(own)
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
-    const keep = d.note && !weak ? `${d.note}; ` : ''
-    out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note}` })
+    const keep = d.note && !weak && !fields ? `${d.note}; ` : ''
+    // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
+    const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
+    const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
+    out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note}${fl}` })
     marked.add(f.role)
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
@@ -3864,6 +3885,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const d = out.get(f.role), q = `"${f.textOver.t}"`
     if (d?.note && regions.some((g) => g !== f && (out.get(g.role)?.note ?? '').includes(q))) d.note = d.note.replace(/; centred on top of it [^;]*/, '')
   })
+  // n148: a heading or line of copy set bold whose note never says its weight (round 12 c5: the bold italic serif
+  // headline and the bold dek were both built regular)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d?.kind || !['heading', 'text'].includes(d.kind) || f.regionKids.length || (f.font?.weight ?? 400) < 600) return
+    if (/\bbold\b|heavy|font-weight|\bblack\b|semibold|part by part/i.test(d.note ?? '')) return
+    d.note = `${d.note ? `${d.note}; ` : ''}set BOLD (font-weight ${f.font.weight})${f.font.style === 'italic' ? ' and italic' : ''}, NOT regular`
+  })
   let pn = pageNote(body)
   // n144: a 3D-tilted floor that spans the page is said in the page note and drawn as no mark (round 11 c4: its drawn
   // box was read as the PAGE background and its note pinned on the stats card, so the floor was built inside the card)
@@ -3877,6 +3906,17 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   if (pairs.length >= 4) {
     const bw = Math.round(ruled[0].border.w)
     pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} the ${ruled.length} ${colourName(ruled[0].border.colour)}-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single ${bw}px ${colourName(ruled[0].border.colour)} line, no gaps between boxes, no doubled lines`
+  }
+  // n148: a flat side panel under some parts: said in the page note (no mark), and each part on it or beside it is
+  // said as sitting straight on its ground, not in a card of its own
+  for (const q of body.sides ?? []) {
+    pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} ALSO a FLAT ${hexOf(q.fill)} side panel that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, ${q.w}px wide at x ${q.x}, from the very top to the very bottom of the page at its ${q.edge} edge, square corners, no shadow${q.rule ? `, a 1px ${hexOf(q.rule.c)} line down its ${q.rule.side} side` : ''}; the rest of the page stays ${visible(body.bg) ? hexOf(body.bg) : '#ffffff'}`
+    regions.forEach((f) => {
+      const d = out.get(f.role)
+      if (!d?.kind || d.kind === 'heading' || visible(f.bg) || f.rect.w < 200 || f.rect.h < 120) return
+      const on = f.rect.x >= q.x - 2 && f.rect.x + f.rect.w <= q.x + q.w + 2
+      d.note = `${d.note ? `${d.note}; ` : ''}${on ? `it sits straight on the page's ${hexOf(q.fill)} side panel` : `it sits straight on the ${visible(body.bg) ? hexOf(body.bg) : 'white'} page`}: NOT a card (no fill, no border, no shadow, no padding box of its own)${/ at \d+,\d+/.test(d.note ?? '') ? ', its parts at the page px given' : ''}`
+    })
   }
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

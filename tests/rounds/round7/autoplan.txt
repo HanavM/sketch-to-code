@@ -34,7 +34,7 @@ c2-variable-wave · marks 8 · words 262
     note knob: small 22px near-black dot (exactly 22x22px: w-[22px] h-[22px], border-radius 50%, not smaller)
     note axis-label: 13px wide-spaced letters "WEIGHT 100 ——— 900"
     note note: text "A variable family with weight and width axes. Drag the slider, the specimen breathes."
-c3-parallax-night · marks 10 · words 403
+c3-parallax-night · marks 10 · words 409
     logo         text    
     moon         circle  
     cloud-1      box     
@@ -46,7 +46,7 @@ c3-parallax-night · marks 10 · words 403
     skyline-front box     
     scroll-rail  box     
     note *: whole page: dark navy (#0f172a) to dark grey (#312e81 at 55%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text
-    note logo: wide-spaced letters "NOCTURNE"
+    note logo: wide-spaced letters "NOCTURNE"; set BOLD (font-weight 800), NOT regular
     note moon: perfectly round solid disc (border-radius 50%, not traced from the ink), 180px across, flat fully opaque pale yellow (#fef3c7) fill, hard edge, no blur
     note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow #fde68a (left) to light pink #f472b6 (right) gradient text "The city after dark", set in exactly 2 lines: "The city" / "after dark" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)
     note sub: text "Five layers of skyline that drift apart as you scroll. A night walk through the old port."
@@ -77,7 +77,7 @@ c4-isometric-stack · marks 11 · words 412
     note label-edge: white button "Edge" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded)
     note label-compute: white button "Compute" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded)
     note label-storage: white button "Storage" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded)
-c5-torn-collage · marks 10 · words 395
+c5-torn-collage · marks 10 · words 401
     masthead     text    
     issue        text    
     photo-green  shape   
@@ -89,7 +89,7 @@ c5-torn-collage · marks 10 · words 395
     circle-note  shape   
     hand-note    heading 
     note *: whole page: warm paper (#efe7d8) page, Georgia type, near-black text
-    note masthead: 14px wide-spaced letters "FIELD NOTES", one line on its own (top 40px, left edge 90px), nothing else written beside it
+    note masthead: 14px wide-spaced letters "FIELD NOTES", one line on its own (top 40px, left edge 90px), nothing else written beside it; set BOLD (font-weight 700), NOT regular
     note issue: 14px text "No. 12 · Winter", one line on its own (top 40px, left edge 900px), nothing else written beside it
     note photo-green: tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border
     note photo-amber: tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border
@@ -173,7 +173,7 @@ e3-code-editor · marks 7 · words 601
     note minimap: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out): 92x140 at 1176,50 #89b4fa at 12% fill; 50x3 at 1180,53 #45475a fill, pill ends; 17x3 at 1180,59 #45475a fill, pill ends; 63x3 at 1180,65 #45475a fill, pill ends; 76x3 at 1180,71 #45475a fill, pill ends; 59x3 at 1180,77 #45475a fill, pill ends; 71x3 at 1180,83 #45475a fill, pill ends; 67x3 at 1180,89 #45475a fill, pill ends; 8x3 at 1180,95 #45475a fill, pill ends; 55x3 at 1180,101 #45475a fill, pill ends; 42x3 at 1180,107 #45475a fill, pill ends; 8x3 at 1180,113 #45475a fill, pill ends
     note terminal: near-black block mono 13px code lines: "TERMINAL · PROBLEMS 1", "$ npm test", "✓ parse splits lines (3 ms)", "✓ size of a stroke (1 ms)", "✗ parse keeps empty ink — expected 4, got 3", "Tests: 1 failed, 2 passed", "$"; light grey code
     note status-bar: sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; "⎇ main", "⚠ 1" sit together at the left, "Ln 6, Col 42", "TypeScript" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #11111b (near-black, NOT the page's light grey text)
-e4-product-page · marks 24 · words 644
+e4-product-page · marks 24 · words 689
     nav          box     
     breadcrumb   text    
     thumb-1      image   
@@ -205,16 +205,16 @@ e4-product-page · marks 24 · words 644
     note thumb-3: lavender block
     note thumb-4: pale grey block
     note main-photo: a big 520x620px block filled with a soft pale tinted #e0e7ff to #c7d2fe (top to bottom) gradient, 12px rounded: a product-photo backdrop; inside it one big solid indigo (#4338ca) 260x300px shape, 130px in from its left and 170px down from its top, top corners very round, bottom corners a little round (a garment silhouette): no other picture, no X, no icon
-    note title: big "Fjell Rain Shell", 34px type on ONE line (white-space: nowrap, never wrapped), about 234px wide
+    note title: big "Fjell Rain Shell", 34px type on ONE line (white-space: nowrap, never wrapped), about 234px wide; set BOLD (font-weight 700), NOT regular
     note rating: amber "★★★★☆4.2 · 318 reviews"; its text #f59e0b (amber, NOT the page's dark navy text)
     note price: one line, left to right, each part a little apart: bold 28px dark navy "$189", then 18px grey "$240" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) "-21%"; each word in its own colour: "$240" #9ca3af, "-21%" #ffffff
-    note colour-label: 13px "Colour: Indigo"
+    note colour-label: 13px "Colour: Indigo"; set BOLD (font-weight 700), NOT regular
     note swatch-1: small 36px indigo dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller), with a 2px dark navy outline ring 3px out from its edge, a white gap between (outline + outline-offset, the selected one)
     note swatch-2: small 36px dark navy dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
     note swatch-3: small 36px vivid brown dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
     note swatch-4: small 36px light grey dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
-    note size-label: 13px "Size"
-    note sizes: buttons: "XS", "S", "M", "L", "XL"; 5 equal 90x44px rounded outlined boxes in one row; "M" is the picked one (2px dark navy border, bold, the others a thin light grey border); "XS" and "XL" unavailable (light grey text struck through, pale grey fill); each word in its own colour: "XS" #d1d5db, "S" #111827, "M" #111827, "L" #111827, "XL" #d1d5db
+    note size-label: 13px "Size"; set BOLD (font-weight 700), NOT regular
+    note sizes: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 90x44 at 730,390 #f9fafb fill, 1px #d1d5db border, 8px rounded: 14px #d1d5db "XS"; 90x44 at 830,390 1px #d1d5db border, 8px rounded: 14px #111827 "S"; 90x44 at 930,390 2px #111827 border, 8px rounded: 14px bold #111827 "M"; 90x44 at 1030,390 1px #d1d5db border, 8px rounded: 14px #111827 "L"; 90x44 at 1130,390 #f9fafb fill, 1px #d1d5db border, 8px rounded: 14px #d1d5db "XL"
     note add-to-bag: dark navy (#111827, near-black, not a blue) white text button "Add to bag"; its text #ffffff (white, NOT the page's dark navy text)
     note wishlist: square 54x54px 10px rounded outline button holding only an empty heart (wishlist) outline icon "♡", centred
     note shipping: 13px green "✓ Free delivery by Oct 27"; its text #15803d (green, NOT the page's dark navy text)
@@ -222,7 +222,7 @@ e4-product-page · marks 24 · words 644
     note acc-body: dark grey text "Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket."; its text #4b5563 (dark grey, NOT the page's dark navy text), its top 658px from the page top, 46px below the top of the "Details −" line above it (that line's text sits above this text, never on the same line or over it)
     note acc-care: one line 474px wide: bold 14px "Care & materials" at the left, bold dark navy "+" at the far right end of the same line, a thin 1px light grey (#e5e7eb) line along its top; the row is exactly 49px tall from that line (h-[49px], text centred in it, no extra padding or margin on top of that)
     note acc-returns: one line 474px wide: bold 14px "Returns" at the left, bold dark navy "+" at the far right end of the same line, a thin 1px light grey (#e5e7eb) line along its top; the row is exactly 49px tall from that line (h-[49px], text centred in it, no extra padding or margin on top of that)
-e5-admin-table · marks 8 · words 970
+e5-admin-table · marks 8 · words 976
     title        heading 
     subtitle     text    
     invite       button  
@@ -232,7 +232,7 @@ e5-admin-table · marks 8 · words 970
     status-menu  box     
     pager        text    
     note *: whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text
-    note title: "Team members", 24px type on ONE line (white-space: nowrap, never wrapped), about 174px wide
+    note title: "Team members", 24px type on ONE line (white-space: nowrap, never wrapped), about 174px wide; set BOLD (font-weight 700), NOT regular
     note subtitle: 13px grey text "128 people · 9 pending invites", one line on its own (top 64px, left edge 40px), nothing else written beside it; its text #6b7280 (grey, NOT the page's dark navy text)
     note invite: blue white text button "+ Invite" (81x35px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 81x35px, 8px rounded)
     note toolbar: toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 33px tall, white (#ffffff), 1px light grey (#d1d5db) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search name or email" 300px wide, dropdown "Role" with its ▾ caret written after the text, "Role ▾" 63px wide, dropdown "Status: Any" with its ▾ caret written after the text, "Status: Any ▾" 102px wide, button "Columns" 77px wide; each word in its own colour: "Search name or email" #9ca3af, "Role ▾" #111827, "Status: Any ▾" #111827, "Columns" #111827

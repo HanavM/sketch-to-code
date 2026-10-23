@@ -1,0 +1,754 @@
+{
+ "c1-orbit-type": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 112,
+     "lines": 2
+    }
+   ],
+   [
+    "copy",
+    "text",
+    {
+     "fontPx": 17,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "core",
+    "box"
+   ],
+   [
+    "year",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ],
+   [
+    "ring-text",
+    "circle"
+   ],
+   [
+    "footer",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f2ede4, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold wide-spaced \"ORBIT STUDIO\" left, \"WORK · INDEX · CONTACT\" right"
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.88) \"Type in orbit\", set in exactly 2 lines: \"Type in\" / \"orbit\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 349px wide); the word \"orbit\" is italic serif (font-family Georgia, serif) regular-weight orange #ff4d2e (its own colour; the other words stay #141414)"
+   ],
+   [
+    "copy",
+    "dark grey text \"A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity.\"; its text #4a4a4a (dark grey, NOT the page's near-black text)"
+   ],
+   [
+    "cta",
+    "amber pill button \"See the specimens\", with a hard solid opaque near-black shadow offset 5px down right, no blur (exactly: #ffb000 fill, #141414 text, 200x52px, pill ends)"
+   ],
+   [
+    "core",
+    "a 300px donut chart (ring 70px thick, hollow cream middle) centred, segments clockwise from the top: orange 100%, then amber 0%, then blue 0%, the rest a orange track 0%"
+   ],
+   [
+    "year",
+    "\"'26\"; set BOLD (font-weight 900), NOT regular"
+   ],
+   [
+    "ring-text",
+    "spinning ring of big heavy capital letters \"LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺\"…, 34px type, letter-spacing 6px, #141414, set on a circle (SVG textPath) of radius 270px centred in a 640x640px box at 560,120: the words run ALL the way round the circle, end meeting start, never a partial arc; no outline, no fill, 640px across, the words centred in 34 lines (wrapping inside the circle, 16px type), in front of the \"'26\" heading"
+   ],
+   [
+    "footer",
+    "near-black border \"EST. 2011 — LISBON ORBIT/14 SCROLL ↓\""
+   ]
+  ]
+ },
+ "c2-chrome-liquid": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "chrome-blob",
+    "circle"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 190,
+     "lines": 2
+    }
+   ],
+   [
+    "outline-word",
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 1
+    }
+   ],
+   [
+    "copy",
+    "text",
+    {
+     "fontPx": 17,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "cta2",
+    "button"
+   ],
+   [
+    "glass-tag",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#07070b) page, Helvetica type, light grey text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold \"MERCURY®\" left, \"Sound · Objects · Lab · Cart (0)\" right; its text #a7a8bd (lavender, NOT the page's light grey text)"
+   ],
+   [
+    "chrome-blob",
+    "moving big glowing white, grey, dark navy, lavender stripes circle"
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.86) white, lavender, dark grey, light grey stripes text \"Liquid metal\", set in exactly 2 lines: \"Liquid\" / \"metal\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide), 190px type, the text box's top-left at 70,150 (top-[150px]; the first line starts there, not lower)"
+   ],
+   [
+    "outline-word",
+    "giant Helvetica heavy tight-set letters hollow outlined light grey \"SOUND\", 120px type, about 408px wide (no larger)"
+   ],
+   [
+    "copy",
+    "lavender text \"Speakers poured from a single piece of aluminium, polished until the room reflects in them.\"; its text #a7a8bd (lavender, NOT the page's light grey text)"
+   ],
+   [
+    "cta",
+    "light grey pill black text button \"Pre-order\"; its text #07070b (black, NOT the page's light grey text) (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill ends)"
+   ],
+   [
+    "cta2",
+    "outline pill button \"Listen ▶\""
+   ],
+   [
+    "glass-tag",
+    "white button \"● 38 Hz – 24 kHz\""
+   ]
+  ]
+ },
+ "c3-card-fan": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 1
+    }
+   ],
+   [
+    "subcopy",
+    "text"
+   ],
+   [
+    "card-fan",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 7
+    }
+   ],
+   [
+    "chip-left",
+    "circle"
+   ],
+   [
+    "chip-right",
+    "circle"
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: dark teal (#1b3a2f) page, Helvetica type, cream text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"HOUSE OF CARDS\" left, \"RULES · DECKS · CLUB\" right"
+   ],
+   [
+    "headline",
+    "giant Georgia serif regular weight (not bold) tight-set letters \"Deal a better hand\", on ONE line (white-space: nowrap, never wrapped), about 582px wide; the word \"better\" is italic serif (font-family Georgia, serif) regular-weight peach #f2c14e (its own colour; the other words stay #f5efe0)"
+   ],
+   [
+    "subcopy",
+    "text \"Hand-printed decks for people who still play at the kitchen table.\""
+   ],
+   [
+    "chip-left",
+    "8px dashed #ffffff outline (dashes, not a solid line) perfectly round solid disc (border-radius 50%, not traced from the ink), 74px across, flat fully opaque vivid orange (#e85d4a) fill, hard edge, no blur"
+   ],
+   [
+    "chip-right",
+    "8px dashed #ffffff outline (dashes, not a solid line) perfectly round solid disc (border-radius 50%, not traced from the ink), 74px across, flat fully opaque vivid blue (#4a7de8) fill, hard edge, no blur"
+   ],
+   [
+    "cta",
+    "peach dark teal text button \"Shop decks\"; its text #1b3a2f (dark teal, NOT the page's cream text) (exactly: #f2c14e fill, #1b3a2f text, 160x48px, 10px rounded)"
+   ]
+  ]
+ },
+ "c4-layered-peaks": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "sun",
+    "circle"
+   ],
+   [
+    "birds",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 250,
+     "lines": 1
+    }
+   ],
+   [
+    "ridge-back",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.4
+      ],
+      [
+       0.14,
+       0.18
+      ],
+      [
+       0.27,
+       0.42
+      ],
+      [
+       0.43,
+       0.08
+      ],
+      [
+       0.58,
+       0.38
+      ],
+      [
+       0.74,
+       0.14
+      ],
+      [
+       0.88,
+       0.36
+      ],
+      [
+       1,
+       0.2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "ridge-mid",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.3
+      ],
+      [
+       0.18,
+       0.52
+      ],
+      [
+       0.34,
+       0.12
+      ],
+      [
+       0.5,
+       0.46
+      ],
+      [
+       0.66,
+       0.2
+      ],
+      [
+       0.82,
+       0.5
+      ],
+      [
+       1,
+       0.26
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "ridge-front",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.4
+      ],
+      [
+       0.22,
+       0.1
+      ],
+      [
+       0.4,
+       0.5
+      ],
+      [
+       0.6,
+       0.2
+      ],
+      [
+       0.78,
+       0.55
+      ],
+      [
+       1,
+       0.15
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "copy",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: soft yellow (#ffd9a8) to peach (#ff9e7a at 45%) to light pink (#c4688a) gradient, top to bottom page, Helvetica type, deep indigo text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: \"SUMMIT CO.\" left, \"Trips · Gear · Journal\" right"
+   ],
+   [
+    "sun",
+    "big glowing pale yellow circle"
+   ],
+   [
+    "birds",
+    "wide-spaced letters tilted 6° anticlockwise \"⌄ ⌄ ⌄\""
+   ],
+   [
+    "headline",
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pale yellow \"ASCEND\", 250px type, about 984px wide (no larger)"
+   ],
+   [
+    "ridge-back",
+    "brown jagged cut-out shape, ONE flat #a3527a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,588 ; 179,474 ; 346,598 ; 550,422 ; 742,578 ; 947,453 ; 1126,567 ; 1280,484 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x478px with its top-left at 0,422, so on that box clip-path: polygon(0% 35%, 14% 11%, 27% 37%, 43% 0%, 58% 33%, 74% 7%, 88% 30%, 100% 13%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it), in front of the \"ASCEND\" heading"
+   ],
+   [
+    "ridge-mid",
+    "brown jagged cut-out shape, ONE flat #6e2f63 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,634 ; 230,718 ; 435,566 ; 640,695 ; 845,596 ; 1050,710 ; 1280,619 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x334px with its top-left at 0,566, so on that box clip-path: polygon(0% 20%, 18% 45%, 34% 0%, 50% 39%, 66% 9%, 82% 43%, 100% 16%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)"
+   ],
+   [
+    "ridge-front",
+    "deep indigo jagged cut-out shape, ONE flat #2a1633 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,768 ; 282,702 ; 512,790 ; 768,724 ; 998,801 ; 1280,713 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x198px with its top-left at 0,702, so on that box clip-path: polygon(0% 33%, 22% 0%, 40% 44%, 60% 11%, 78% 50%, 100% 6%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)"
+   ],
+   [
+    "copy",
+    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text)"
+   ],
+   [
+    "cta",
+    "pale yellow pill button \"Book a sunrise\" (exactly: #fff3c4 fill, #2a1633 text, 163x46px, pill ends)"
+   ]
+  ]
+ },
+ "c5-swiss-grid": {
+  "plan": [
+   [
+    "red-field",
+    "box"
+   ],
+   [
+    "kicker",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 64,
+     "lines": 3
+    }
+   ],
+   [
+    "numeral",
+    "heading",
+    {
+     "fontPx": 560,
+     "lines": 1
+    }
+   ],
+   [
+    "program",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 8
+    }
+   ],
+   [
+    "ring",
+    "circle"
+   ],
+   [
+    "vertical-label",
+    "text"
+   ],
+   [
+    "caption",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: white page, Helvetica type, near-black text, fine grain texture over everything"
+   ],
+   [
+    "red-field",
+    "vivid red block"
+   ],
+   [
+    "kicker",
+    "13px wide-spaced letters \"KUNSTHALLE BASEL — 1957/2026\", one line on its own (top 40px, left edge 40px), nothing else written beside it; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "headline",
+    "huge Helvetica tight-set letters lines set tight (line-height 0.95) \"Grid systems in graphic design\", set in exactly 3 lines: \"Grid systems\" / \"in graphic\" / \"design\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 382px wide); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "numeral",
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"57\", 560px type, about 543px wide (no larger)"
+   ],
+   [
+    "program",
+    "a ruled index list 440px wide at 40,460, 15px near-black, 4 rows each 43px tall with a 1px #111111 rule across its top, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): \"Lecture\" … \"12.03\"…, \"Workshop\" … \"14.03\"…, \"Exhibition\" … \"15.03 —\"…, \"Archive tour\" … \"Thursdays\""
+   ],
+   [
+    "ring",
+    "big white outline circle"
+   ],
+   [
+    "vertical-label",
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; its text #ffffff (white, NOT the page's near-black text)"
+   ],
+   [
+    "caption",
+    "13px text \"Poster study no. 4, 1960 (detail)\"; its text #ffffff (white, NOT the page's near-black text)"
+   ]
+  ]
+ },
+ "e1-spreadsheet": {
+  "plan": [
+   [
+    "title-bar",
+    "box"
+   ],
+   [
+    "toolbar",
+    "box"
+   ],
+   [
+    "formula-bar",
+    "box"
+   ],
+   [
+    "cells",
+    "box"
+   ],
+   [
+    "sheet-tabs",
+    "box"
+   ],
+   [
+    "sum-chip",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "title-bar",
+    "a top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 13px #ffffff \"▦\" on a #16a34a 28x28px 6px-rounded box at x 16; bold 16px #1f2937 \"Q3 Budget\" at x 58; 13px #6b7280 \"File Edit View Insert Format Data\" at x 153; bold 13px #0b3d62 \"Share\" on a #c2e7ff 68x29px pill at x 1196 (pushed to the far right)"
+   ],
+   [
+    "toolbar",
+    "pale grey bar 40px tall across the page, links: ↶, ↷, 100%, $, %, .0, B, I; \"B\" selected (light grey fill); all of these sit together at the LEFT, one after another, ending 340px in (the right 73% of the bar is empty, nothing pushed right)"
+   ],
+   [
+    "formula-bar",
+    "bar 32px tall, thin line under: bold \"D7\" left, \"fx =SUM(D3:D6)\" right; each word in its own colour: \"D7\" #1f2937, \"fx =SUM(D3:D6)\" #6b7280"
+   ],
+   [
+    "cells",
+    "table, columns \"\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", 12 rows"
+   ],
+   [
+    "sheet-tabs",
+    "pale grey bar 40px tall across the page, links: +, Budget, Hiring, Notes; \"Budget\" selected (bold, blue text, blue underline, white fill); all of these sit together at the LEFT, one after another, ending 272px in (the right 79% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #374151, \"Budget\" #1a73e8, \"Hiring\" #374151, \"Notes\" #374151"
+   ],
+   [
+    "sum-chip",
+    "13px text \"Sum: 290,300\""
+   ]
+  ]
+ },
+ "e2-music-player": {
+  "plan": [
+   [
+    "library",
+    "box"
+   ],
+   [
+    "album",
+    "box"
+   ],
+   [
+    "now-playing",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#121212) page, Helvetica type, white text"
+   ],
+   [
+    "library",
+    "black block \"Your Library\" list: \"♥ Liked Songs\", \"Night Drive\", \"Deep Focus\", \"Running 170bpm\", \"Sunday Vinyl\", \"Discover Weekly\"; list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 18px below the panel's top"
+   ],
+   [
+    "album",
+    "dark grey #5b3a8c (top) to near-black #121212 (bottom) gradient block \"▶ ♡ ⋯\" box, then a 36px row of tabs side by side: \"#\", \"Title\", \"Plays\", \"⏱\", then 5 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"AfterglowLuma Vale\" 1 \"12,408,211\" / \"3:41\"; \"Glass HarbourLuma\"… ▶ \"9,870,004\" / \"4:02\"; \"Low OrbitLuma Vale,\"… 3 \"7,112,560\" / \"3:18\"; \"Paper MoonLuma Vale\" 4 \"5,904,337\" / \"2:56\"; \"Static BloomLuma\"… 5 \"4,221,089\" / \"3:33\"; the \"Glass HarbourLuma\"… row selected (white)"
+   ],
+   [
+    "now-playing",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 56x56 at 16,822 linear-gradient(135deg, #ff6b9a, #7a4cff), 4px rounded; 608x34 at 336,823 18px #ffffff \"⤮ ⏮ ⏭ ↻\"; 34x34 at 621,823 #ffffff fill, a circle: 14px bold #000000 \"❚❚\"; 90x32 at 84,834 14px #ffffff \"Glass Harbour\"; 320x16 at 944,842 14px #b3b3b3 \"🔈 ▬▬▬▬▭\"; 90x13 at 84,853 12px #b3b3b3 \"Luma Vale\"; 608x12 at 336,865 11px #b3b3b3 \"1:32 4:02\"; 480x4 at 400,869 #4d4d4d fill, pill ends; 182x4 at 400,869 #ffffff fill, pill ends"
+   ]
+  ]
+ },
+ "e3-map-listings": {
+  "plan": [
+   [
+    "header",
+    "box"
+   ],
+   [
+    "filters",
+    "box"
+   ],
+   [
+    "listings",
+    "box"
+   ],
+   [
+    "map",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "header",
+    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #ff385c \"⌂ nestly\" at x 28; 14px #222222 \"Lisbon Mar 12 – 16 2 guests ⌕\" in a 329x44px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Mar 12 – 16\", \"2 guests\", \"⌕\") at x 508; 14px #222222 \"👤\" at x 1235 (pushed to the far right)"
+   ],
+   [
+    "filters",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 66x36 at 28,82 2px #222222 border, pill ends: 14px bold #222222 \"Price\"; 113x34 at 104,83 1px #dddddd border, pill ends: 14px #222222 \"Type of place\"; 53x34 at 228,83 1px #dddddd border, pill ends: 14px #222222 \"Wifi\"; 137x34 at 291,83 1px #dddddd border, pill ends: 14px #222222 \"Free cancellation\"; 74x34 at 437,83 1px #dddddd border, pill ends: 14px #222222 \"Rooms\"; 85x34 at 522,83 1px #dddddd border, pill ends: 14px #222222 \"⚙ Filters\""
+   ],
+   [
+    "listings",
+    "4 listing cards in a 2-column grid, 640px wide at 28,150, 20px column gap, 24px row gap (cards, NOT a text list); each card is a 310px-wide 200px-tall photo block 12px rounded filled with a diagonal gradient (no image), some with a bold 12px badge in a #ffffff 999px-rounded chip 12px in from its top-left corner, then under the photo with no box:  10px under the photo: 14px bold #222222 \"Alfama loft\" at the left and \"★ 4.92\" at the far right; top 20px below the line above: 12px #717171 \"Sea view · 2 beds\"; top 16px below the line above: 12px #717171 \"€142 night\" with \"€142\" bold; lines are 14px bold #222222 row with a right part, 12px #717171, 12px #717171; card 1: photo a 135deg gradient #f6c38b to #d9774f, badge \"Guest favourite\"; \"Alfama loft\" … \"★ 4.92\" / \"Sea view · 2 beds\" / \"€142 night\"; card 2: photo a 135deg gradient #9bc4e2 to #4a7fb0, badge \"♡\"; \"Tiled flat, Graça\" … \"★ 4.81\" / \"Balcony · 1 bed\" / \"€98 night\"; card 3: photo a 135deg gradient #c7d9a7 to #6f9a5a, badge \"♡\"; \"Garden studio\" … \"★ 4.88\" / \"Patio · 1 bed\" / \"€87 night\"; card 4: photo a 135deg gradient #e7b6c8 to #a45b7c, badge \"New\"; \"Rooftop suite\" … \"★ 5.0\" / \"Terrace · 3 beds\" / \"€260 night\""
+   ],
+   [
+    "map",
+    "a drawn street map, 580x772px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 5 flat shapes: #b9d6e3 vertical area 220x772px at 380,0; #cfe3c4 area 200x140px at 60,420 (30px rounded); #ffffff horizontal strip 580x14px at 0,300; #ffffff vertical strip 12x772px at 240,0; #ffffff area 576x91px at 2,580; then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 28px tall, soft drop shadow): \"€142\" at 120,200, \"€98\" at 278,359 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€87\" at 80,520, \"€260\" at 300,640, \"€115\" at 180,100; each word in its own colour: \"€142\" #222222, \"€98\" #ffffff, \"€87\" #222222, \"€260\" #222222, \"€115\" #222222, \"+ −\" #222222"
+   ]
+  ]
+ },
+ "e4-video-call": {
+  "plan": [
+   [
+    "tiles",
+    "box"
+   ],
+   [
+    "chat-panel",
+    "box"
+   ],
+   [
+    "clock",
+    "text"
+   ],
+   [
+    "controls",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#202124) page, Helvetica type, light grey text"
+   ],
+   [
+    "tiles",
+    "a 445x385px #3b4a6b filled button \"P Priya Nair\" (12px rounded #e8eaed text; its fill clearly visible, not white), then list: \"D\" Diego, \"S\" Sam Okoye, \"Y\" You"
+   ],
+   [
+    "chat-panel",
+    "white block, near-black text \"In-call messages\" list: \"Priya Nair\" 10:02, \"Diego\" 10:03, \"Sam Okoye\" 10:04, brown (#5f6368) \"Send a message\" (pinned to the card's bottom: its bottom edge 18px above the card's bottom edge, 300px wide, centred; empty space above it); its text #202124 (near-black, NOT the page's light grey text); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 300x21 at 946,34 18px #202124 \"In-call messages\"; 61x15 at 946,72 13px bold #202124 \"Priya Nair\"; 29x13 at 1013,73 12px #5f6368 \"10:02\"; 300x20 at 946,91 14px #202124 \"Sharing the roadmap in a sec\"; 36x15 at 946,128 13px bold #202124 \"Diego\"; 29x13 at 988,129 12px #5f6368 \"10:03\"; 300x20 at 946,147 14px #202124 \"Can you send the doc link here?\"; 71x15 at 946,183 13px bold #202124 \"Sam Okoye\"; 29x13 at 1023,184 12px #5f6368 \"10:04\"; 300x20 at 946,202 14px #202124 \"+1, and the Q3 numbers please\"; 300x44 at 946,734 #f1f3f4 fill, pill ends: 14px #5f6368 \"Send a message\""
+   ],
+   [
+    "clock",
+    "15px text \"10:05 | Weekly sync\""
+   ],
+   [
+    "controls",
+    "a stepper: 6 filled pills in one row, each 48px tall (border-radius 999px), left to right: \"🎤\" #ea4335 fill, #e8eaed text; \"📷\" #3c4043 fill, #e8eaed text; \"✋\" #3c4043 fill, #e8eaed text; \"⬆\" #3c4043 fill, #e8eaed text; \"⋮\" #3c4043 fill, #e8eaed text; \"✆\" #ea4335 fill, #e8eaed text"
+   ]
+  ]
+ },
+ "e5-pricing": {
+  "plan": [
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 1
+    }
+   ],
+   [
+    "billing-toggle",
+    "box"
+   ],
+   [
+    "plans",
+    "box"
+   ],
+   [
+    "compare",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "headline",
+    "big tight-set letters \"Simple pricing that scales with you\", on ONE line (white-space: nowrap, never wrapped), about 681px wide; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "billing-toggle",
+    "light grey card: \"Monthly\"; white near-black text button \"Yearly-20%\" on the right; each word in its own colour: \"Monthly\" #57534e, \"Yearly-20%\" #1c1917"
+   ],
+   [
+    "plans",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 19 of them, nothing invented, nothing left out): 340x330 at 470,188 #1c1917 fill, 1px #1c1917 border, 16px rounded; 340x330 at 110,200 #ffffff fill, 1px #e7e5e4 border, 16px rounded; 340x330 at 830,200 #ffffff fill, 1px #e7e5e4 border, 16px rounded; 95x22 at 694,211 #f97316 fill, pill ends: 12px bold #ffffff \"Most popular\"; 286x21 at 497,215 18px bold #fafaf9 \"Pro\"; 286x21 at 137,227 18px bold #1c1917 \"Starter\"; 286x21 at 857,227 18px bold #1c1917 \"Business\"; 286x50 at 497,250 44px font-weight 800 #fafaf9 \"$24\"; 286x50 at 137,262 44px font-weight 800 #1c1917 \"$0\"; 286x50 at 857,262 44px font-weight 800 #1c1917 \"$79\"; 23x16 at 567,277 14px #a8a29e \"/mo\"; 23x16 at 184,289 14px #78716c \"/mo\"; 23x16 at 927,289 14px #78716c \"/mo\"; 286x16 at 497,304 14px #a8a29e \"For small teams shipping every week.\"; 286x16 at 137,316 14px #78716c \"For side projects and trying things out.\"; 286x16 at 857,316 14px #78716c \"SSO, audit logs and priority support.\"; 286x46 at 497,445 #f97316 fill, 1px #f97316 border, 10px rounded: 14px bold #ffffff \"Get Pro\"; 286x46 at 137,457 1px #d6d3d1 border, 10px rounded: 14px bold #1c1917 \"Start free\"; 286x46 at 857,457 1px #d6d3d1 border, 10px rounded: 14px bold #1c1917 \"Talk to sales\""
+   ],
+   [
+    "compare",
+    "table, every body row built and none invented, columns \"Features\", \"Starter\", \"Pro\", \"Business\", 5 rows: \"Projects\" | \"3\" | \"Unlimited\" | \"Unlimited\"; \"Team members\" | \"1\" | \"10\" | \"Unlimited\"; \"Custom domains\" | \"—\" | \"✓\" | \"✓\"; \"SSO / SAML\" | \"—\" | \"—\" | \"✓\"; \"Audit log\" | \"—\" | \"—\" | \"✓\""
+   ]
+  ]
+ }
+}

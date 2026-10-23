@@ -10,15 +10,15 @@ c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 165
     note headline: giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 1) "Stay for the golden hour", set in exactly 2 lines: "Stay for the golden" / "hour" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 859px wide)
     note subhead: text "A slow-living retreat on the coast, where the evenings last a little longer."
     note cta: pill button "Book a stay"; its text #7b2ff7 (purple, NOT the page's white text) (exactly: #ffffff fill, #7b2ff7 text, 220x61px, pill ends)
-c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 151
+c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 163
     nav          box      (hand: box)
     headline     heading  (hand: heading)
     body         text     (hand: text)
     cta          button   (hand: button)
     note *: whole page: yellow (#ffe600) page, black text
     note nav: nav bar 77px tall across the top, thick line under: "LOUD®" left, "INDEX — SHOP — ABOUT" right
-    note headline: giant uppercase tight-set letters lines set tight (line-height 0.86) "MAKE IT LOUD", set in exactly 2 lines: "MAKE" / "IT LOUD" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower)
-    note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."
+    note headline: giant uppercase tight-set letters lines set tight (line-height 0.86) "MAKE IT LOUD", set in exactly 2 lines: "MAKE" / "IT LOUD" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower); set BOLD (font-weight 700), NOT regular
+    note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."; set BOLD (font-weight 700), NOT regular
     note cta: black yellow text button "SHOP NOW →" (287x80px, square corners: border-radius 0, NOT a pill), with a hard solid opaque red shadow offset 12px down right, no blur; its text #ffe600 (yellow, NOT the page's black text) (exactly: #000000 fill, #ffe600 text, 287x80px, square corners: border-radius 0, NOT a pill)
 c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 166
     left-panel   box      (hand: box)
@@ -59,7 +59,7 @@ c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 153
     note headline: huge Georgia serif regular weight (not bold) "The quiet return of the handwritten letter", set in exactly 3 lines: "The quiet return of" / "the handwritten" / "letter" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 436px wide); plus a small separate 13px #b91c1c label "ESSAY" with 3px letter-spacing at 412,165, 16px above it and left-aligned with it (keep it, it is part of this heading)
     note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."; its text #57534e (brown, NOT the page's near-black text)
     note sidebar: sidebar "In this issue" and text
-e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 114
+e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 120
     card         box      (hand: box)
     title        heading  (hand: heading)
     email        box      (hand: box)
@@ -68,23 +68,23 @@ e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 114
     forgot       text     (hand: text)
     note *: whole page: pale grey (#f3f4f6, plainly not white) page, Helvetica type, dark navy text
     note card: white card
-    note title: "Sign in", 26px type on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: "Welcome back. Enter your details."
+    note title: "Sign in", 26px type on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: "Welcome back. Enter your details."; set BOLD (font-weight 700), NOT regular
     note email: label "Email" above, input "you@example.com"; its text #9ca3af (grey, NOT the page's dark navy text)
     note password: label "Password" above, input "••••••••"; its text #9ca3af (grey, NOT the page's dark navy text)
     note submit: blue white text button "Sign in" (340x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 340x46px, 8px rounded)
     note forgot: 14px blue "Forgot your password?"; its text #2563eb (blue, NOT the page's dark navy text)
-e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 109
+e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 115
     title        heading  (hand: heading)
     subtitle     text     (hand: text)
     tier-1       box      (hand: box)
     tier-2       box      (hand: box)
     tier-3       box      (hand: box)
-    note title: big "Simple pricing", on ONE line (white-space: nowrap, never wrapped), about 303px wide
+    note title: big "Simple pricing", on ONE line (white-space: nowrap, never wrapped), about 303px wide; set BOLD (font-weight 700), NOT regular
     note subtitle: "Start free. Upgrade when you grow."; its text #6b7280 (grey, NOT the page's dark navy text)
     note tier-1: "Starter" big "$0/mo" list: "1 project", "Community support", "Basic analytics", outline button "Get started"
     note tier-2: dark navy (exactly #111827) block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top; its text #ffffff (white, NOT the page's dark navy text)
     note tier-3: "Team" big "$79/mo" list: "Everything in Pro", "SSO", "Audit logs", outline button "Contact sales"
-e3-blog-list · marks agree 5/5 (auto 8) · words hand 9 auto 319
+e3-blog-list · marks agree 5/5 (auto 8) · words hand 9 auto 325
     nav          box      (hand: box)
     title        heading  (hand: heading)
     post-1       box      (hand: —)
@@ -94,18 +94,18 @@ e3-blog-list · marks agree 5/5 (auto 8) · words hand 9 auto 319
     post-3       box      (hand: —)
     thumb-3      image    (hand: image)
     note nav: nav bar 68px tall across the top, thin line under: bold 20px "Notebook" left, "Posts Topics About" right; each word in its own colour: "Notebook" #111827, "Posts Topics About" #4b5563
-    note title: big "Latest posts", 36px type on ONE line (white-space: nowrap, never wrapped), about 212px wide
+    note title: big "Latest posts", 36px type on ONE line (white-space: nowrap, never wrapped), about 212px wide; set BOLD (font-weight 700), NOT regular
     note post-1: an invisible frame 960x140px at 160,186 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 491x26 at 408,215 22px bold #111827 "How we cut our build times in half"; 491x23 at 408,249 15px #6b7280 "A look at caching, parallel jobs and the one config flag that mattered"; 491x15 at 408,282 13px #9ca3af "Oct 12 · 6 min read"
     note post-2: an invisible frame 960x140px at 160,354 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 581x26 at 408,383 22px bold #111827 "Designing for slow networks"; 581x23 at 408,417 15px #6b7280 "What we learned shipping to users on 2G, and why it made the app bette"; 581x15 at 408,450 13px #9ca3af "Oct 3 · 8 min read"
     note post-3: an invisible frame 960x140px at 160,522 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 407x26 at 408,551 22px bold #111827 "A year of four-day weeks"; 407x23 at 408,585 15px #6b7280 "The numbers, the surprises and what we would do differently."; 407x15 at 408,618 13px #9ca3af "Sep 21 · 5 min read"
-e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 94
+e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 100
     title        heading  (hand: heading)
     name         box      (hand: box)
     email        box      (hand: box)
     message      box      (hand: box)
     submit       button   (hand: button)
     info         box      (hand: box)
-    note title: big "Get in touch", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: "We usually reply within a day."
+    note title: big "Get in touch", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: "We usually reply within a day."; set BOLD (font-weight 700), NOT regular
     note name: label "Name" above an empty field
     note email: label "Email" above an empty field
     note message: label "Message" above an empty field

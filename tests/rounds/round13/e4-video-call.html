@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Video call</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#202124;font-family:Helvetica,Arial,sans-serif;color:#e8eaed;font-size:14px}
+.grid{position:absolute;left:16px;top:16px;width:900px;height:780px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}
+.t{position:relative;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.t i{width:110px;height:110px;border-radius:50%;font-style:normal;font-size:44px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff}
+.t b{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:6px;background:rgba(0,0,0,.5);font-weight:400}
+.t s{position:absolute;right:12px;top:12px;width:30px;height:30px;border-radius:50%;background:#ea4335;text-decoration:none;display:flex;align-items:center;justify-content:center;font-size:13px}
+.t.spk{outline:3px solid #8ab4f8;outline-offset:-3px}
+.chat{position:absolute;left:928px;top:16px;width:336px;height:780px;border-radius:12px;background:#fff;color:#202124;padding:18px}
+.chat h3{font-size:18px;font-weight:400;margin-bottom:16px}.chat .m{margin-bottom:16px}.chat .m b{font-size:13px}.chat .m small{color:#5f6368;margin-left:6px}.chat .m p{margin-top:4px;line-height:1.4}
+.chat .in{position:absolute;left:18px;bottom:18px;width:300px;height:44px;border-radius:22px;background:#f1f3f4;padding:13px 16px;color:#5f6368}
+.ctl{position:absolute;left:0;top:808px;width:1280px;height:92px;display:flex;align-items:center;justify-content:center;gap:12px}
+.ctl span{width:48px;height:48px;border-radius:50%;background:#3c4043;display:flex;align-items:center;justify-content:center;font-size:18px}.ctl .off{background:#ea4335}.ctl .end{width:72px;border-radius:24px;background:#ea4335}
+.clock{position:absolute;left:24px;top:840px;font-size:15px}
+</style></head><body>
+<div class="grid" data-r="tiles" data-must>
+<div class="t spk" style="background:#3b4a6b"><i style="background:#7e57c2">P</i><b>Priya Nair</b></div>
+<div class="t" style="background:#4a3b3b"><i style="background:#e8710a">D</i><b>Diego</b><s>🎤</s></div>
+<div class="t" style="background:#36483b"><i style="background:#188038">S</i><b>Sam Okoye</b></div>
+<div class="t" style="background:#3c4043"><i style="background:#1967d2">Y</i><b>You</b><s>🎤</s></div></div>
+<div class="chat" data-r="chat-panel"><h3>In-call messages</h3>
+<div class="m"><b>Priya Nair</b><small>10:02</small><p>Sharing the roadmap in a sec</p></div>
+<div class="m"><b>Diego</b><small>10:03</small><p>Can you send the doc link here?</p></div>
+<div class="m"><b>Sam Okoye</b><small>10:04</small><p>+1, and the Q3 numbers please</p></div>
+<div class="in">Send a message</div></div>
+<div class="clock" data-r="clock">10:05 | Weekly sync</div>
+<div class="ctl" data-r="controls" data-must><span class="off">🎤</span><span>📷</span><span>✋</span><span>⬆</span><span>⋮</span><span class="end">✆</span></div>
+</body></html>

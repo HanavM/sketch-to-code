@@ -115,7 +115,7 @@
    ],
    [
     "headline",
-    "huge Helvetica tight-set letters lines set tight (line-height 1) \"Money, seen clearly.\", the words \"clearly.\" filled with a pale pink #f9a8d4 (left) to sky blue #67e8f9 (right) gradient (gradient text), the rest plain, set in exactly 2 lines: \"Money, seen\" / \"clearly.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)"
+    "huge Helvetica tight-set letters lines set tight (line-height 1) \"Money, seen clearly.\", the words \"clearly.\" filled with a pale pink #f9a8d4 (left) to sky blue #67e8f9 (right) gradient (gradient text), the rest plain, set in exactly 2 lines: \"Money, seen\" / \"clearly.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "sub",
@@ -305,7 +305,7 @@
    ],
    [
     "vertical-title",
-    "vertical (writing-mode: vertical-rl, turned 180deg so it reads bottom to top), 150px letters on one line, its column 150px wide at x 40, 820px tall from top 40; the letters run from y 40 down to y 738 (698px long, no shorter) giant Georgia serif tight-set letters red \"Red Season\""
+    "vertical (writing-mode: vertical-rl, turned 180deg so it reads bottom to top), 150px letters on one line, its column 150px wide at x 40, 820px tall from top 40; the letters run from y 40 down to y 738 (698px long, no shorter) giant Georgia serif tight-set letters red \"Red Season\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "striped-image",
@@ -433,7 +433,7 @@
    ],
    [
     "filters",
-    "buttons: \"Price\", \"Type of place\", \"Rooms\", \"Instant book\", \"More filters\"; 5 equal 70x36px rounded outlined boxes in one row; \"Price\" is the picked one (2px near-black border, bold, the others a thin light grey border)"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 70x36 at 32,88 2px #222222 border, pill ends: 14px bold #222222 \"Price\"; 117x36 at 112,88 1px #dddddd border, pill ends: 14px #222222 \"Type of place\"; 78x36 at 240,88 1px #dddddd border, pill ends: 14px #222222 \"Rooms\"; 110x36 at 328,88 1px #dddddd border, pill ends: 14px #222222 \"Instant book\"; 103x36 at 448,88 1px #dddddd border, pill ends: 14px #222222 \"More filters\""
    ],
    [
     "listing-grid",
@@ -483,7 +483,7 @@
    ],
    [
     "thread-panel",
-    "\"Thread ✕\" list of 4 rows, name left and time right on one line, grey line under: \"Priya Shah\" 9:41 AM \"Final hero copy is in the\"…, \"Tom Becker\" 9:50 AM \"Second line wraps after\"…, \"Ana Lima\" 9:58 AM \"Swapped to “Ship”. Fits on\"…, \"Priya Shah\" 10:02 AM \"Perfect, locking it 🔒\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 22 of them, nothing invented, nothing left out): 409x60 at 871,0 1px #1d1c1d border on the bottom only; 57x20 at 891,20 17px bold #1d1c1d \"Thread\"; 12x16 at 1248,22 14px #616061 \"✕\"; 36x36 at 891,80 #e8912d fill, 8px rounded; 78x17 at 937,80 15px bold #1d1c1d \"Priya Shah\"; 43x13 at 1021,83 12px #616061 \"9:41 AM\"; 324x41 at 937,100 14px #1d1c1d \"Final hero copy is in the doc. Can design check the line breaks on mob\"; 370x14 at 891,200 12px #616061 \"3 replies\"; 36x36 at 891,230 #2bac76 fill, 8px rounded; 85x17 at 937,230 15px bold #1d1c1d \"Tom Becker\"; 43x13 at 1028,233 12px #616061 \"9:50 AM\"; 324x41 at 937,250 14px #1d1c1d \"Second line wraps after “your”. Suggest a shorter verb.\"; 36x36 at 891,320 #1164a3 fill, 8px rounded; 68x17 at 937,320 15px bold #1d1c1d \"Ana Lima\"; 43x13 at 1011,323 12px #616061 \"9:58 AM\"; 240x20 at 937,340 14px #1d1c1d \"Swapped to “Ship”. Fits on 360px now.\"; 36x36 at 891,410 #e8912d fill, 8px rounded; 78x17 at 937,410 15px bold #1d1c1d \"Priya Shah\"; 49x13 at 1021,413 12px #616061 \"10:02 AM\"; 133x20 at 937,430 14px #1d1c1d \"Perfect, locking it 🔒\"; 370x90 at 891,790 1px #bbbbbb border, 8px rounded: 14px #888888 \"Reply…\"; 34x30 at 1216,839 #007a5a fill, 4px rounded"
+    "\"Thread ✕\" list of 4 rows, name left and time right on one line, grey line under: \"Priya Shah\" 9:41 AM \"Final hero copy is in the\"…, \"Tom Becker\" 9:50 AM \"Second line wraps after\"…, \"Ana Lima\" 9:58 AM \"Swapped to “Ship”. Fits on\"…, \"Priya Shah\" 10:02 AM \"Perfect, locking it 🔒\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 22 of them, nothing invented, nothing left out): 409x60 at 871,0 1px #dddddd border on the bottom only; 57x20 at 891,20 17px bold #1d1c1d \"Thread\"; 12x16 at 1248,22 14px #616061 \"✕\"; 36x36 at 891,80 #e8912d fill, 8px rounded; 78x17 at 937,80 15px bold #1d1c1d \"Priya Shah\"; 43x13 at 1021,83 12px #616061 \"9:41 AM\"; 324x41 at 937,100 14px #1d1c1d \"Final hero copy is in the doc. Can design check the line breaks on mob\"; 370x14 at 891,200 12px #616061 \"3 replies\"; 36x36 at 891,230 #2bac76 fill, 8px rounded; 85x17 at 937,230 15px bold #1d1c1d \"Tom Becker\"; 43x13 at 1028,233 12px #616061 \"9:50 AM\"; 324x41 at 937,250 14px #1d1c1d \"Second line wraps after “your”. Suggest a shorter verb.\"; 36x36 at 891,320 #1164a3 fill, 8px rounded; 68x17 at 937,320 15px bold #1d1c1d \"Ana Lima\"; 43x13 at 1011,323 12px #616061 \"9:58 AM\"; 240x20 at 937,340 14px #1d1c1d \"Swapped to “Ship”. Fits on 360px now.\"; 36x36 at 891,410 #e8912d fill, 8px rounded; 78x17 at 937,410 15px bold #1d1c1d \"Priya Shah\"; 49x13 at 1021,413 12px #616061 \"10:02 AM\"; 133x20 at 937,430 14px #1d1c1d \"Perfect, locking it 🔒\"; 370x90 at 891,790 1px #bbbbbb border, 8px rounded: 14px #888888 \"Reply…\"; 34x30 at 1216,839 #007a5a fill, 4px rounded"
    ]
   ]
  },

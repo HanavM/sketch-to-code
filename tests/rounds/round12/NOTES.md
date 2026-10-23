@@ -103,3 +103,22 @@ Round 12 complete: **80%** average over 10 (c1 90, c2 89, c3 84, c4 91, c5 77, e
 Vitest: same 2 env failures; typecheck clean.
 Next: e4 checkout (flat split page: form on white, summary as a full-height grey panel, floating-label fields, 3-up
 City/State/ZIP); c5 bold italic headline and bold dek; e5 faint row lines; then write round 13, harder.
+
+## n148: flat side panels, boxed form fields, bold weights, true rule colours (2026-10-23, ~172k billed)
+
+Planner (free): an unmarked flat panel filling one side of the page top to bottom is said in the page note as part of
+the page (no mark), and each big part on it or beside it says it sits straight on that ground, NOT in a card; a form of
+four or more bordered fields said only as grey lines is said part by part, each small label INSIDE its field box
+(floating labels), fields sharing a top side by side; order-summary pictures of different colours say each colour; a
+heading or line of copy set bold whose note never says its weight now says it (43 notes across rounds 1-12 gain it); a
+part's border colour is read from its widest drawn side (bottom-only row lines were read from the unset top side, the
+text colour, and built dark). Rounds 1-11 re-planned (bold notes, a few forms part by part, rule colours); none re-run.
+
+| page | likeness | what was off |
+|---|---|---|
+| e4 checkout (re-run) | 40 -> **75%** | flat grey summary side, form on white, floating labels, 3-up City/State/ZIP, focused email ring all right; summary rows a little low |
+| c5 halftone mag (re-run) | 77 -> **86%** | bold italic headline and bold dek right; folio lost |
+| e5 users admin (re-run) | 81 -> **92%** | faint row lines right |
+
+Round 12 now: **85%** average (c1 90, c2 89, c3 84, c4 91, c5 86, e1 89, e2 73, e3 83, e4 75, e5 92).
+Vitest: same 2 env failures; typecheck clean.

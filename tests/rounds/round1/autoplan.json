@@ -95,11 +95,11 @@
    ],
    [
     "headline",
-    "giant uppercase tight-set letters lines set tight (line-height 0.86) \"MAKE IT LOUD\", set in exactly 2 lines: \"MAKE\" / \"IT LOUD\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower)"
+    "giant uppercase tight-set letters lines set tight (line-height 0.86) \"MAKE IT LOUD\", set in exactly 2 lines: \"MAKE\" / \"IT LOUD\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "body",
-    "text \"Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere.\""
+    "text \"Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere.\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "cta",
@@ -339,7 +339,7 @@
    ],
    [
     "title",
-    "\"Sign in\", 26px type on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: \"Welcome back. Enter your details.\""
+    "\"Sign in\", 26px type on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: \"Welcome back. Enter your details.\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "email",
@@ -389,7 +389,7 @@
   "notes": [
    [
     "title",
-    "big \"Simple pricing\", on ONE line (white-space: nowrap, never wrapped), about 303px wide"
+    "big \"Simple pricing\", on ONE line (white-space: nowrap, never wrapped), about 303px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "subtitle",
@@ -455,7 +455,7 @@
    ],
    [
     "title",
-    "big \"Latest posts\", 36px type on ONE line (white-space: nowrap, never wrapped), about 212px wide"
+    "big \"Latest posts\", 36px type on ONE line (white-space: nowrap, never wrapped), about 212px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "post-1",
@@ -505,7 +505,7 @@
   "notes": [
    [
     "title",
-    "big \"Get in touch\", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: \"We usually reply within a day.\""
+    "big \"Get in touch\", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: \"We usually reply within a day.\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "name",

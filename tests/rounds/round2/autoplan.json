@@ -201,7 +201,7 @@
    ],
    [
     "headline",
-    "huge Helvetica \"Your notes, finally calm\", set in exactly 2 lines: \"Your notes, finally\" / \"calm\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide)"
+    "huge Helvetica \"Your notes, finally calm\", set in exactly 2 lines: \"Your notes, finally\" / \"calm\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "body",
@@ -263,7 +263,7 @@
    ],
    [
     "lead-title",
-    "big serif \"The quiet return of the corner shop\", set in exactly 2 lines: \"The quiet return of the\" / \"corner shop\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)"
+    "big serif \"The quiet return of the corner shop\", set in exactly 2 lines: \"The quiet return of the\" / \"corner shop\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "story-1",
@@ -415,7 +415,7 @@
    ],
    [
     "ship-label",
-    "\"Shipping address\""
+    "\"Shipping address\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "name",
@@ -431,7 +431,7 @@
    ],
    [
     "pay-label",
-    "\"Payment\""
+    "\"Payment\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "card",
@@ -669,7 +669,7 @@
    ],
    [
     "title",
-    "big \"Questions, answered\", on ONE line (white-space: nowrap, never wrapped), about 443px wide"
+    "big \"Questions, answered\", on ONE line (white-space: nowrap, never wrapped), about 443px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "subtitle",
@@ -763,7 +763,7 @@
    ],
    [
     "subject",
-    "\"Draft of the Q3 plan attached\", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide"
+    "\"Draft of the Q3 plan attached\", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "from",

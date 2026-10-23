@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Map listings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#222;font-size:14px}
+.hdr{position:absolute;left:0;top:0;width:1280px;height:72px;border-bottom:1px solid #ebebeb;display:flex;align-items:center;gap:20px;padding:0 28px}.hdr b{color:#ff385c;font-size:22px}
+.srch{display:flex;border:1px solid #ddd;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin:0 auto}.srch span{padding:12px 18px;border-right:1px solid #ddd}.srch span:last-child{border:0}.srch i{width:34px;height:34px;margin:4px;border-radius:50%;background:#ff385c;color:#fff;font-style:normal;display:flex;align-items:center;justify-content:center}
+.flt{position:absolute;left:0;top:72px;width:1280px;height:56px;border-bottom:1px solid #ebebeb;display:flex;align-items:center;gap:10px;padding:0 28px}.flt span{padding:8px 14px;border:1px solid #ddd;border-radius:999px}.flt .on{border:2px solid #222;font-weight:700}
+.list{position:absolute;left:28px;top:150px;width:640px;display:grid;grid-template-columns:1fr 1fr;gap:24px 20px}
+.cd .ph{height:200px;border-radius:12px;position:relative}.cd .ph b{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:999px;background:#fff;font-size:12px}.cd .ph i{position:absolute;right:12px;top:10px;font-style:normal;color:#fff;font-size:20px}
+.cd p{display:flex;justify-content:space-between;margin-top:10px;font-weight:700}.cd small{display:block;color:#717171;margin-top:3px}
+.map{position:absolute;left:700px;top:128px;width:580px;height:772px;background:#e8eef0;overflow:hidden}
+.map .road{position:absolute;background:#fff}.map .w{position:absolute;left:380px;top:0;width:220px;height:772px;background:#b9d6e3}.map .pk{position:absolute;left:60px;top:420px;width:200px;height:140px;border-radius:30px;background:#cfe3c4}
+.pin{position:absolute;padding:6px 10px;border-radius:999px;background:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.2)}.pin.on{background:#222;color:#fff;transform:scale(1.1)}
+.zm{position:absolute;right:20px;top:20px;width:40px;border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2);text-align:center;font-size:20px}.zm div{height:40px;line-height:40px}.zm div:first-child{border-bottom:1px solid #ddd}
+</style></head><body>
+<div class="hdr" data-r="header"><b>⌂ nestly</b><div class="srch"><span><b style="font-size:14px;color:#222">Lisbon</b></span><span>Mar 12 – 16</span><span>2 guests</span><i>⌕</i></div><span>👤</span></div>
+<div class="flt" data-r="filters"><span class="on">Price</span><span>Type of place</span><span>Wifi</span><span>Free cancellation</span><span>Rooms</span><span>⚙ Filters</span></div>
+<div class="list" data-r="listings" data-must>
+<div class="cd"><div class="ph" style="background:linear-gradient(135deg,#f6c38b,#d9774f)"><b>Guest favourite</b><i>♡</i></div><p>Alfama loft<span>★ 4.92</span></p><small>Sea view · 2 beds</small><small><b style="color:#222">€142</b> night</small></div>
+<div class="cd"><div class="ph" style="background:linear-gradient(135deg,#9bc4e2,#4a7fb0)"><i>♡</i></div><p>Tiled flat, Graça<span>★ 4.81</span></p><small>Balcony · 1 bed</small><small><b style="color:#222">€98</b> night</small></div>
+<div class="cd"><div class="ph" style="background:linear-gradient(135deg,#c7d9a7,#6f9a5a)"><i>♡</i></div><p>Garden studio<span>★ 4.88</span></p><small>Patio · 1 bed</small><small><b style="color:#222">€87</b> night</small></div>
+<div class="cd"><div class="ph" style="background:linear-gradient(135deg,#e7b6c8,#a45b7c)"><b>New</b><i>♡</i></div><p>Rooftop suite<span>★ 5.0</span></p><small>Terrace · 3 beds</small><small><b style="color:#222">€260</b> night</small></div>
+</div>
+<div class="map" data-r="map" data-must><div class="w"></div><div class="pk"></div><div class="road" style="left:0;top:300px;width:580px;height:14px"></div><div class="road" style="left:240px;top:0;width:12px;height:772px"></div><div class="road" style="left:0;top:620px;width:580px;height:10px;transform:rotate(-8deg)"></div>
+<div class="pin" style="left:120px;top:200px">€142</div><div class="pin on" style="left:280px;top:360px">€98</div><div class="pin" style="left:80px;top:520px">€87</div><div class="pin" style="left:300px;top:640px">€260</div><div class="pin" style="left:180px;top:100px">€115</div>
+<div class="zm"><div>+</div><div>−</div></div></div>
+</body></html>

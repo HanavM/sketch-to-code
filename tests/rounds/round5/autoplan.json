@@ -335,7 +335,7 @@
    ],
    [
     "logo",
-    "\"ORRA\""
+    "\"ORRA\"; set BOLD (font-weight 900), NOT regular"
    ],
    [
     "copy",
@@ -475,7 +475,7 @@
    ],
    [
     "modal",
-    "white card, \"New task\", \"×\" close top right, form, labels above fields: \"Title\" field holding \"Write release notes\"; \"Description\" tall 110px empty field; \"Assignee\" field holding \"Priya Shah\" | \"Due\" field holding \"Oct 30\"; buttons at the bottom right: outlined \"Cancel\", indigo bold white text \"Create task\", pinned to the bottom of the 600px tall card with 161px of empty space above them; the card exactly 500x600px, position: absolute at left 390px, top 150px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out): 13x26 at 853,174 22px regular (NOT bold) #64748b \"×\"; 444x26 at 418,178 22px bold #0f172a \"New task\"; 444x15 at 418,224 13px #475569 \"Title\"; 444x42 at 418,245 1px #cbd5e1 border, 8px rounded: 14px #0f172a \"Write release notes\"; 444x15 at 418,307 13px #475569 \"Description\"; 444x110 at 418,328 1px #cbd5e1 border, 8px rounded; 215x15 at 418,458 13px #475569 \"Assignee\"; 215x15 at 647,458 13px #475569 \"Due\"; 215x42 at 418,479 1px #cbd5e1 border, 8px rounded: 14px #0f172a \"Priya Shah\"; 215x42 at 647,479 1px #cbd5e1 border, 8px rounded: 14px #0f172a \"Oct 30\"; 86x40 at 649,682 1px #cbd5e1 border, 8px rounded: 14px #0f172a \"Cancel\"; 118x40 at 745,682 #4f46e5 fill, 1px #4f46e5 border, 8px rounded: 14px bold #ffffff \"Create task\"; the card exactly 500x600px, position: absolute at left 390px, top 150px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
    ]
   ]
  },
@@ -517,7 +517,7 @@
    ],
    [
     "title",
-    "\"Usage by hour\", 26px type on ONE line (white-space: nowrap, never wrapped), about 181px wide"
+    "\"Usage by hour\", 26px type on ONE line (white-space: nowrap, never wrapped), about 181px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "filters",
@@ -625,7 +625,7 @@
    ],
    [
     "toggles",
-    "white card 5 rows with thin lines between, each: bold name, small grey line under it, toggle switch on the right: \"Email digests\" / \"A summary of activity every Monday\" on (green); \"Mentions\" / \"When someone @mentions you\" on (green); \"Build failures\" / \"Only for projects you own\" on (green); \"Product news\" / \"New features, once a month\" off (grey); \"Desktop push\" / \"Requires browser permission\" off (grey); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 19 of them, nothing invented, nothing left out): 878x76 at 201,169 1px #18181b border on the bottom only; 208x17 at 225,189 15px bold #18181b \"Email digests\"; 44x24 at 1011,195 #16a34a fill, pill ends; 208x15 at 225,208 13px #71717a \"A summary of activity every Monday\"; 878x76 at 201,245 1px #18181b border on the bottom only; 185x17 at 225,265 15px bold #18181b \"Mentions\"; 44x24 at 1011,271 #16a34a fill, pill ends; 185x15 at 225,284 13px #71717a \"When someone @mentions you\"; 878x76 at 201,321 1px #18181b border on the bottom only; 147x17 at 225,341 15px bold #18181b \"Build failures\"; 44x24 at 1011,347 #16a34a fill, pill ends; 147x15 at 225,360 13px #71717a \"Only for projects you own\"; 878x76 at 201,397 1px #18181b border on the bottom only; 163x17 at 225,417 15px bold #18181b \"Product news\"; 44x24 at 1011,423 #d4d4d8 fill, pill ends; 163x15 at 225,436 13px #71717a \"New features, once a month\"; 168x17 at 225,493 15px bold #18181b \"Desktop push\"; 44x24 at 1011,499 #d4d4d8 fill, pill ends; 168x15 at 225,512 13px #71717a \"Requires browser permission\""
+    "white card 5 rows with thin lines between, each: bold name, small grey line under it, toggle switch on the right: \"Email digests\" / \"A summary of activity every Monday\" on (green); \"Mentions\" / \"When someone @mentions you\" on (green); \"Build failures\" / \"Only for projects you own\" on (green); \"Product news\" / \"New features, once a month\" off (grey); \"Desktop push\" / \"Requires browser permission\" off (grey); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 19 of them, nothing invented, nothing left out): 878x76 at 201,169 1px #f4f4f5 border on the bottom only; 208x17 at 225,189 15px bold #18181b \"Email digests\"; 44x24 at 1011,195 #16a34a fill, pill ends; 208x15 at 225,208 13px #71717a \"A summary of activity every Monday\"; 878x76 at 201,245 1px #f4f4f5 border on the bottom only; 185x17 at 225,265 15px bold #18181b \"Mentions\"; 44x24 at 1011,271 #16a34a fill, pill ends; 185x15 at 225,284 13px #71717a \"When someone @mentions you\"; 878x76 at 201,321 1px #f4f4f5 border on the bottom only; 147x17 at 225,341 15px bold #18181b \"Build failures\"; 44x24 at 1011,347 #16a34a fill, pill ends; 147x15 at 225,360 13px #71717a \"Only for projects you own\"; 878x76 at 201,397 1px #f4f4f5 border on the bottom only; 163x17 at 225,417 15px bold #18181b \"Product news\"; 44x24 at 1011,423 #d4d4d8 fill, pill ends; 163x15 at 225,436 13px #71717a \"New features, once a month\"; 168x17 at 225,493 15px bold #18181b \"Desktop push\"; 44x24 at 1011,499 #d4d4d8 fill, pill ends; 168x15 at 225,512 13px #71717a \"Requires browser permission\""
    ],
    [
     "danger",

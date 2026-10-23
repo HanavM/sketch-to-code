@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Music player</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#121212;font-family:Helvetica,Arial,sans-serif;color:#fff;font-size:14px}
+.side{position:absolute;left:8px;top:8px;width:260px;height:784px;border-radius:10px;background:#000;padding:18px}
+.side b{display:block;font-size:15px;margin-bottom:18px}.side div{padding:9px 0;color:#b3b3b3}.side .on{color:#fff;font-weight:700}
+.main{position:absolute;left:276px;top:8px;width:996px;height:784px;border-radius:10px;background:linear-gradient(180deg,#5b3a8c 0%,#121212 340px);padding:28px}
+.hero{display:flex;gap:24px;align-items:flex-end}.cov{width:200px;height:200px;border-radius:6px;background:linear-gradient(135deg,#ff6b9a,#7a4cff);box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.hero small{font-size:12px;font-weight:700}.hero h1{font-size:72px;font-weight:900;letter-spacing:-3px;margin:6px 0 10px}.hero p{color:#cfc6e0}
+.ctl{display:flex;align-items:center;gap:22px;margin:28px 0 18px}.play{width:56px;height:56px;border-radius:50%;background:#1ed760;color:#000;display:flex;align-items:center;justify-content:center;font-size:22px}
+.tr{display:grid;grid-template-columns:40px 1fr 260px 80px;align-items:center;height:56px;padding:0 12px;border-radius:6px;color:#b3b3b3}.tr b{display:block;color:#fff;font-weight:400}.tr.h{height:36px;border-bottom:1px solid #2a2a2a;border-radius:0;font-size:12px;margin-bottom:8px}.tr.on{background:rgba(255,255,255,.1)}.tr.on b{color:#1ed760}
+.bar{position:absolute;left:0;top:800px;width:1280px;height:100px;background:#000;display:flex;align-items:center;padding:0 16px}
+.np{display:flex;gap:12px;align-items:center;width:320px}.np i{width:56px;height:56px;border-radius:4px;background:linear-gradient(135deg,#ff6b9a,#7a4cff)}.np small{display:block;color:#b3b3b3;margin-top:3px}
+.mid{flex:1;text-align:center}.btns{font-size:18px;letter-spacing:22px}.btns b{display:inline-block;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;line-height:34px;letter-spacing:0;font-size:14px}
+.prog{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px;font-size:11px;color:#b3b3b3}.prog span{width:480px;height:4px;border-radius:2px;background:#4d4d4d;position:relative}.prog span i{position:absolute;left:0;top:0;width:38%;height:4px;border-radius:2px;background:#fff}
+.vol{width:320px;text-align:right;color:#b3b3b3}
+</style></head><body>
+<div class="side" data-r="library"><b>Your Library</b><div class="on">♥ Liked Songs</div><div>Night Drive</div><div>Deep Focus</div><div>Running 170bpm</div><div>Sunday Vinyl</div><div>Discover Weekly</div></div>
+<div class="main" data-r="album" data-must><div class="hero"><div class="cov"></div><div><small>ALBUM</small><h1>Neon Tides</h1><p>Luma Vale · 2026 · 9 songs, 34 min</p></div></div>
+<div class="ctl"><div class="play">▶</div><span style="font-size:24px;color:#b3b3b3">♡</span><span style="font-size:24px;color:#b3b3b3">⋯</span></div>
+<div class="tr h"><span>#</span><span>Title</span><span>Plays</span><span>⏱</span></div>
+<div class="tr"><span>1</span><span><b>Afterglow</b>Luma Vale</span><span>12,408,211</span><span>3:41</span></div>
+<div class="tr on"><span style="color:#1ed760">▶</span><span><b>Glass Harbour</b>Luma Vale</span><span>9,870,004</span><span>4:02</span></div>
+<div class="tr"><span>3</span><span><b>Low Orbit</b>Luma Vale, Kito</span><span>7,112,560</span><span>3:18</span></div>
+<div class="tr"><span>4</span><span><b>Paper Moon</b>Luma Vale</span><span>5,904,337</span><span>2:56</span></div>
+<div class="tr"><span>5</span><span><b>Static Bloom</b>Luma Vale</span><span>4,221,089</span><span>3:33</span></div></div>
+<div class="bar" data-r="now-playing" data-must><div class="np"><i></i><div>Glass Harbour<small>Luma Vale</small></div></div><div class="mid"><div class="btns">⤮ ⏮ <b>❚❚</b> ⏭ ↻</div><div class="prog">1:32<span><i></i></span>4:02</div></div><div class="vol">🔈 ▬▬▬▬▭</div></div>
+</body></html>

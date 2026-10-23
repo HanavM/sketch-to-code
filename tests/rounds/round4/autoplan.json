@@ -275,7 +275,7 @@
    ],
    [
     "logo",
-    "\"Duality®\""
+    "\"Duality®\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "links",
@@ -349,11 +349,11 @@
    ],
    [
     "headline",
-    "giant Helvetica tight-set letters lines set tight (line-height 0.85) white \"Neue Form Basel\", set in exactly 3 lines: \"Neue\" / \"Form\" / \"Basel\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 467px wide), 190px type, the text box's top-left at 40,300 (top-[300px]; the first line starts there, not lower)"
+    "giant Helvetica tight-set letters lines set tight (line-height 0.85) white \"Neue Form Basel\", set in exactly 3 lines: \"Neue\" / \"Form\" / \"Basel\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 467px wide), 190px type, the text box's top-left at 40,300 (top-[300px]; the first line starts there, not lower); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "vertical",
-    "wide-spaced letters vertical (writing-mode: vertical-rl), 16px letters, the line about 433px long \"INTERNATIONAL TYPE CONGRESS\""
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 16px letters, the line about 433px long \"INTERNATIONAL TYPE CONGRESS\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "meta",
@@ -361,7 +361,7 @@
    ],
    [
     "date",
-    "huge Helvetica lines set tight (line-height 1) \"14—16 05.27\", set in exactly 2 lines: \"14—16\" / \"05.27\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 181px wide)"
+    "huge Helvetica lines set tight (line-height 1) \"14—16 05.27\", set in exactly 2 lines: \"14—16\" / \"05.27\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 181px wide); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "foot",
@@ -513,7 +513,7 @@
    ],
    [
     "number",
-    "giant Georgia serif \"03\", 360px type, about 360px wide (no larger)"
+    "giant Georgia serif \"03\", 360px type, about 360px wide (no larger); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "counter",
@@ -599,7 +599,7 @@
    ],
    [
     "title",
-    "\"Good morning, Dana\", 24px type on ONE line (white-space: nowrap, never wrapped), about 237px wide"
+    "\"Good morning, Dana\", 24px type on ONE line (white-space: nowrap, never wrapped), about 237px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "kpis",
@@ -615,7 +615,7 @@
    ],
    [
     "deals-table",
-    "white card, \"Recent deals\" as a small bold heading, then a table, every body row built and none invented, columns \"Deal\", \"Company\", \"Owner\", \"Value\", \"Stage\", 4 rows: \"Annual licence\" | \"Northwind\" | \"Dana K.\" | \"$84,000\" | \"Won\"; \"Pilot expansion\" | \"Globex\" | \"Ravi P.\" | \"$32,500\" | \"Negotiation\"; \"Support add-on\" | \"Initech\" | \"Mia L.\" | \"$9,800\" | \"Proposal\"; \"Data migration\" | \"Umbrella\" | \"Dana K.\" | \"$51,200\" | \"Lost\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 30 of them, nothing invented, nothing left out): 962x17 at 269,557 15px bold #0f172a \"Recent deals\"; 270x32 at 269,584 1px #64748b border on the bottom only: 13px #64748b \"Deal\"; 177x32 at 539,584 1px #64748b border on the bottom only: 13px #64748b \"Company\"; 142x32 at 716,584 1px #64748b border on the bottom only: 13px #64748b \"Owner\"; 142x32 at 858,584 1px #64748b border on the bottom only: 13px #64748b \"Value\"; 231x32 at 1000,584 1px #64748b border on the bottom only: 13px #64748b \"Stage\"; 270x34 at 269,616 1px #0f172a border on the bottom only: 13px #0f172a \"Annual licence\"; 177x34 at 539,616 1px #0f172a border on the bottom only: 13px #0f172a \"Northwind\"; 142x34 at 716,616 1px #0f172a border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,616 1px #0f172a border on the bottom only: 13px #0f172a \"$84,000\"; 231x34 at 1000,616 1px #0f172a border on the bottom only; 40x20 at 1000,623 #dcfce7 fill, pill ends: 12px #166534 \"Won\"; 270x34 at 269,650 1px #0f172a border on the bottom only: 13px #0f172a \"Pilot expansion\"; 177x34 at 539,650 1px #0f172a border on the bottom only: 13px #0f172a \"Globex\"; 142x34 at 716,650 1px #0f172a border on the bottom only: 13px #0f172a \"Ravi P.\"; 142x34 at 858,650 1px #0f172a border on the bottom only: 13px #0f172a \"$32,500\"; 231x34 at 1000,650 1px #0f172a border on the bottom only; 77x20 at 1000,657 #e0e7ff fill, pill ends: 12px #3730a3 \"Negotiation\"; 270x34 at 269,684 1px #0f172a border on the bottom only: 13px #0f172a \"Support add-on\"; 177x34 at 539,684 1px #0f172a border on the bottom only: 13px #0f172a \"Initech\"; 142x34 at 716,684 1px #0f172a border on the bottom only: 13px #0f172a \"Mia L.\"; 142x34 at 858,684 1px #0f172a border on the bottom only: 13px #0f172a \"$9,800\"; 231x34 at 1000,684 1px #0f172a border on the bottom only; 63x20 at 1000,691 #e0e7ff fill, pill ends: 12px #3730a3 \"Proposal\"; 270x34 at 269,718 1px #0f172a border on the bottom only: 13px #0f172a \"Data migration\"; 177x34 at 539,718 1px #0f172a border on the bottom only: 13px #0f172a \"Umbrella\"; 142x34 at 716,718 1px #0f172a border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,718 1px #0f172a border on the bottom only: 13px #0f172a \"$51,200\"; 231x34 at 1000,718 1px #0f172a border on the bottom only; 39x20 at 1000,725 #fee2e2 fill, pill ends: 12px #991b1b \"Lost\""
+    "white card, \"Recent deals\" as a small bold heading, then a table, every body row built and none invented, columns \"Deal\", \"Company\", \"Owner\", \"Value\", \"Stage\", 4 rows: \"Annual licence\" | \"Northwind\" | \"Dana K.\" | \"$84,000\" | \"Won\"; \"Pilot expansion\" | \"Globex\" | \"Ravi P.\" | \"$32,500\" | \"Negotiation\"; \"Support add-on\" | \"Initech\" | \"Mia L.\" | \"$9,800\" | \"Proposal\"; \"Data migration\" | \"Umbrella\" | \"Dana K.\" | \"$51,200\" | \"Lost\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 30 of them, nothing invented, nothing left out): 962x17 at 269,557 15px bold #0f172a \"Recent deals\"; 270x32 at 269,584 1px #e2e8f0 border on the bottom only: 13px #64748b \"Deal\"; 177x32 at 539,584 1px #e2e8f0 border on the bottom only: 13px #64748b \"Company\"; 142x32 at 716,584 1px #e2e8f0 border on the bottom only: 13px #64748b \"Owner\"; 142x32 at 858,584 1px #e2e8f0 border on the bottom only: 13px #64748b \"Value\"; 231x32 at 1000,584 1px #e2e8f0 border on the bottom only: 13px #64748b \"Stage\"; 270x34 at 269,616 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Annual licence\"; 177x34 at 539,616 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Northwind\"; 142x34 at 716,616 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,616 1px #f1f5f9 border on the bottom only: 13px #0f172a \"$84,000\"; 231x34 at 1000,616 1px #f1f5f9 border on the bottom only; 40x20 at 1000,623 #dcfce7 fill, pill ends: 12px #166534 \"Won\"; 270x34 at 269,650 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Pilot expansion\"; 177x34 at 539,650 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Globex\"; 142x34 at 716,650 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Ravi P.\"; 142x34 at 858,650 1px #f1f5f9 border on the bottom only: 13px #0f172a \"$32,500\"; 231x34 at 1000,650 1px #f1f5f9 border on the bottom only; 77x20 at 1000,657 #e0e7ff fill, pill ends: 12px #3730a3 \"Negotiation\"; 270x34 at 269,684 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Support add-on\"; 177x34 at 539,684 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Initech\"; 142x34 at 716,684 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Mia L.\"; 142x34 at 858,684 1px #f1f5f9 border on the bottom only: 13px #0f172a \"$9,800\"; 231x34 at 1000,684 1px #f1f5f9 border on the bottom only; 63x20 at 1000,691 #e0e7ff fill, pill ends: 12px #3730a3 \"Proposal\"; 270x34 at 269,718 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Data migration\"; 177x34 at 539,718 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Umbrella\"; 142x34 at 716,718 1px #f1f5f9 border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,718 1px #f1f5f9 border on the bottom only: 13px #0f172a \"$51,200\"; 231x34 at 1000,718 1px #f1f5f9 border on the bottom only; 39x20 at 1000,725 #fee2e2 fill, pill ends: 12px #991b1b \"Lost\""
    ]
   ]
  },
@@ -641,7 +641,7 @@
    ],
    [
     "message-list",
-    "\"Inbox\" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: \"Priya Shah\" 9:41 \"Q4 roadmap — final draft\"… bold, \"GitHub\" 9:12 \"[sketch-to-code] 3 new\"… bold, \"Tom Becker\" Yesterday \"Lunch Thursday? The new\"…, \"Stripe\" Yesterday \"Your October invoice is\"… bold, \"Lena Ortiz\" Mon \"Photos from the offsite,\"…, then \"Calendar\" Mon, \"Sam Wu\" Sun; \"Priya Shah\" highlighted; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 29 of them, nothing invented, nothing left out): 399x58 at 200,0 1px #1f2937 border on the bottom only: 18px bold #1f2937 \"Inbox\"; 399x64 at 200,58 #eff6ff fill, 3px #1f2937 border on the bottom+left only; 72x16 at 223,72 14px bold #1f2937 \"Priya Shah\"; 28x16 at 551,72 14px bold #1f2937 \"9:41\"; 356x15 at 223,92 13px #6b7280 \"Q4 roadmap — final draft for review before Friday\"; 399x64 at 200,122 1px #1f2937 border on the bottom only; 47x16 at 220,136 14px bold #1f2937 \"GitHub\"; 28x16 at 551,136 14px bold #1f2937 \"9:12\"; 359x15 at 220,156 13px #6b7280 \"[sketch-to-code] 3 new comments on pull request #412\"; 399x64 at 200,186 1px #1f2937 border on the bottom only; 74x16 at 220,200 14px #1f2937 \"Tom Becker\"; 62x16 at 517,200 14px #1f2937 \"Yesterday\"; 359x15 at 220,220 13px #6b7280 \"Lunch Thursday? The new ramen place opened\"; 399x64 at 200,250 1px #1f2937 border on the bottom only; 40x16 at 220,264 14px bold #1f2937 \"Stripe\"; 66x16 at 513,264 14px bold #1f2937 \"Yesterday\"; 359x15 at 220,284 13px #6b7280 \"Your October invoice is ready to download\"; 399x64 at 200,314 1px #1f2937 border on the bottom only; 65x16 at 220,328 14px #1f2937 \"Lena Ortiz\"; 27x16 at 552,328 14px #1f2937 \"Mon\"; 359x15 at 220,348 13px #6b7280 \"Photos from the offsite, finally uploaded\"; 399x64 at 200,378 1px #1f2937 border on the bottom only; 57x16 at 220,392 14px #1f2937 \"Calendar\"; 27x16 at 552,392 14px #1f2937 \"Mon\"; 359x15 at 220,412 13px #6b7280 \"Reminder: design review at 3pm in Atlas\"; 399x64 at 200,442 1px #1f2937 border on the bottom only; 53x16 at 220,456 14px #1f2937 \"Sam Wu\"; 25x16 at 554,456 14px #1f2937 \"Sun\"; 359x15 at 220,476 13px #6b7280 \"Re: re: the font licensing question\""
+    "\"Inbox\" list of 7 rows, name left and time right on one line, grey line under, unread rows bold: \"Priya Shah\" 9:41 \"Q4 roadmap — final draft\"… bold, \"GitHub\" 9:12 \"[sketch-to-code] 3 new\"… bold, \"Tom Becker\" Yesterday \"Lunch Thursday? The new\"…, \"Stripe\" Yesterday \"Your October invoice is\"… bold, \"Lena Ortiz\" Mon \"Photos from the offsite,\"…, then \"Calendar\" Mon, \"Sam Wu\" Sun; \"Priya Shah\" highlighted; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 29 of them, nothing invented, nothing left out): 399x58 at 200,0 1px #e5e7eb border on the bottom only: 18px bold #1f2937 \"Inbox\"; 399x64 at 200,58 #eff6ff fill, 3px #2563eb border on the bottom+left only; 72x16 at 223,72 14px bold #1f2937 \"Priya Shah\"; 28x16 at 551,72 14px bold #1f2937 \"9:41\"; 356x15 at 223,92 13px #6b7280 \"Q4 roadmap — final draft for review before Friday\"; 399x64 at 200,122 1px #f3f4f6 border on the bottom only; 47x16 at 220,136 14px bold #1f2937 \"GitHub\"; 28x16 at 551,136 14px bold #1f2937 \"9:12\"; 359x15 at 220,156 13px #6b7280 \"[sketch-to-code] 3 new comments on pull request #412\"; 399x64 at 200,186 1px #f3f4f6 border on the bottom only; 74x16 at 220,200 14px #1f2937 \"Tom Becker\"; 62x16 at 517,200 14px #1f2937 \"Yesterday\"; 359x15 at 220,220 13px #6b7280 \"Lunch Thursday? The new ramen place opened\"; 399x64 at 200,250 1px #f3f4f6 border on the bottom only; 40x16 at 220,264 14px bold #1f2937 \"Stripe\"; 66x16 at 513,264 14px bold #1f2937 \"Yesterday\"; 359x15 at 220,284 13px #6b7280 \"Your October invoice is ready to download\"; 399x64 at 200,314 1px #f3f4f6 border on the bottom only; 65x16 at 220,328 14px #1f2937 \"Lena Ortiz\"; 27x16 at 552,328 14px #1f2937 \"Mon\"; 359x15 at 220,348 13px #6b7280 \"Photos from the offsite, finally uploaded\"; 399x64 at 200,378 1px #f3f4f6 border on the bottom only; 57x16 at 220,392 14px #1f2937 \"Calendar\"; 27x16 at 552,392 14px #1f2937 \"Mon\"; 359x15 at 220,412 13px #6b7280 \"Reminder: design review at 3pm in Atlas\"; 399x64 at 200,442 1px #f3f4f6 border on the bottom only; 53x16 at 220,456 14px #1f2937 \"Sam Wu\"; 25x16 at 554,456 14px #1f2937 \"Sun\"; 359x15 at 220,476 13px #6b7280 \"Re: re: the font licensing question\""
    ],
    [
     "reading-pane",
@@ -775,7 +775,7 @@
   "notes": [
    [
     "title",
-    "\"Website relaunch\", 24px type on ONE line (white-space: nowrap, never wrapped), about 198px wide"
+    "\"Website relaunch\", 24px type on ONE line (white-space: nowrap, never wrapped), about 198px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "zoom",
@@ -787,7 +787,7 @@
    ],
    [
     "task-names",
-    "list, a round colour dot before each: lavender dot \"Research\", light pink dot \"Wireframes\", sky blue dot \"Visual design\", bright green dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out): 259x64 at 37,130 1px #18181b border on the bottom only: 14px #18181b \"Research\"; 26x26 at 55,149 #a78bfa fill, a circle; 259x64 at 37,194 1px #18181b border on the bottom only: 14px #18181b \"Wireframes\"; 26x26 at 55,213 #f472b6 fill, a circle; 259x64 at 37,258 1px #18181b border on the bottom only: 14px #18181b \"Visual design\"; 26x26 at 55,277 #60a5fa fill, a circle; 259x64 at 37,322 1px #18181b border on the bottom only: 14px #18181b \"Content\"; 26x26 at 55,341 #34d399 fill, a circle; 259x64 at 37,386 1px #18181b border on the bottom only: 14px #18181b \"Build\"; 26x26 at 55,405 #fbbf24 fill, a circle; 259x64 at 37,450 1px #18181b border on the bottom only: 14px #18181b \"QA\"; 26x26 at 55,469 #f87171 fill, a circle; 259x64 at 37,514 1px #18181b border on the bottom only: 14px #18181b \"Launch\"; 26x26 at 55,533 #a3a3a3 fill, a circle"
+    "list, a round colour dot before each: lavender dot \"Research\", light pink dot \"Wireframes\", sky blue dot \"Visual design\", bright green dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out): 259x64 at 37,130 1px #f4f4f5 border on the bottom only: 14px #18181b \"Research\"; 26x26 at 55,149 #a78bfa fill, a circle; 259x64 at 37,194 1px #f4f4f5 border on the bottom only: 14px #18181b \"Wireframes\"; 26x26 at 55,213 #f472b6 fill, a circle; 259x64 at 37,258 1px #f4f4f5 border on the bottom only: 14px #18181b \"Visual design\"; 26x26 at 55,277 #60a5fa fill, a circle; 259x64 at 37,322 1px #f4f4f5 border on the bottom only: 14px #18181b \"Content\"; 26x26 at 55,341 #34d399 fill, a circle; 259x64 at 37,386 1px #f4f4f5 border on the bottom only: 14px #18181b \"Build\"; 26x26 at 55,405 #fbbf24 fill, a circle; 259x64 at 37,450 1px #f4f4f5 border on the bottom only: 14px #18181b \"QA\"; 26x26 at 55,469 #f87171 fill, a circle; 259x64 at 37,514 1px #f4f4f5 border on the bottom only: 14px #18181b \"Launch\"; 26x26 at 55,533 #a3a3a3 fill, a circle"
    ],
    [
     "today",

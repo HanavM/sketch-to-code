@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Spreadsheet</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:52px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:14px;padding:0 16px}
+.top i{width:28px;height:28px;border-radius:6px;background:#16a34a;color:#fff;font-style:normal;font-weight:700;display:flex;align-items:center;justify-content:center}.top b{font-size:16px}.top span{color:#6b7280}.top .sh{margin-left:auto;padding:7px 16px;border-radius:999px;background:#c2e7ff;color:#0b3d62;font-weight:700}
+.tools{position:absolute;left:0;top:52px;width:1280px;height:40px;background:#f3f4f6;display:flex;align-items:center;gap:6px;padding:0 12px}.tools span{padding:4px 8px;border-radius:4px;color:#374151}.tools .on{background:#d3e3fd}
+.fx{position:absolute;left:0;top:92px;width:1280px;height:32px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center}.fx .ref{width:90px;padding-left:12px;border-right:1px solid #e5e7eb;height:32px;line-height:32px;font-weight:700}.fx .f{padding-left:12px;color:#6b7280;font-style:italic}.fx .f b{font-style:normal;color:#1f2937}
+.grid{position:absolute;left:0;top:124px;width:1280px}
+table{border-collapse:collapse;table-layout:fixed;width:1280px}td,th{height:28px;border:1px solid #e5e7eb;padding:0 8px;white-space:nowrap;overflow:hidden}
+th{background:#f8f9fa;color:#6b7280;font-weight:400;font-size:12px}th.rn{width:46px}
+td.n{text-align:right}tr.hd td{font-weight:700;background:#e8f0fe}
+td.sel{background:#e8f0fe}td.act{outline:2px solid #1a73e8;outline-offset:-2px;background:#fff}
+th.on{background:#d3e3fd;color:#1a73e8;font-weight:700}
+.neg{color:#dc2626}.pos{color:#16a34a}
+.tabs{position:absolute;left:0;top:860px;width:1280px;height:40px;background:#f3f4f6;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:4px;padding:0 12px}.tabs span{padding:8px 16px;border-radius:6px 6px 0 0;color:#374151}.tabs .on{background:#fff;color:#1a73e8;font-weight:700;border-bottom:3px solid #1a73e8}
+.sum{position:absolute;right:16px;top:870px;color:#374151}
+</style></head><body>
+<div class="top" data-r="title-bar"><i>▦</i><b>Q3 Budget</b><span>File  Edit  View  Insert  Format  Data</span><a class="sh">Share</a></div>
+<div class="tools" data-r="toolbar"><span>↶</span><span>↷</span><span>100%</span><span>$</span><span>%</span><span>.0</span><span class="on">B</span><span>I</span><span>S</span><span>A</span></div>
+<div class="fx" data-r="formula-bar"><div class="ref">D7</div><div class="f">fx  <b>=SUM(D3:D6)</b></div></div>
+<div class="grid" data-r="cells" data-must><table><tr><th class="rn"></th><th>A</th><th>B</th><th>C</th><th class="on">D</th><th>E</th><th>F</th><th>G</th></tr>
+<tr class="hd"><th>1</th><td>Category</td><td>Owner</td><td class="n">Plan</td><td class="n">Actual</td><td class="n">Diff</td><td>Status</td><td></td></tr>
+<tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>3</th><td>Marketing</td><td>Ines</td><td class="n">42,000</td><td class="n sel">39,450</td><td class="n pos">-2,550</td><td>On track</td><td></td></tr>
+<tr><th>4</th><td>Engineering</td><td>Tom</td><td class="n">180,000</td><td class="n sel">186,200</td><td class="n neg">+6,200</td><td>Over</td><td></td></tr>
+<tr><th>5</th><td>Design</td><td>Mei</td><td class="n">36,000</td><td class="n sel">34,900</td><td class="n pos">-1,100</td><td>On track</td><td></td></tr>
+<tr><th>6</th><td>Support</td><td>Raj</td><td class="n">28,000</td><td class="n sel">29,750</td><td class="n neg">+1,750</td><td>Watch</td><td></td></tr>
+<tr><th>7</th><td><b>Total</b></td><td></td><td class="n"><b>286,000</b></td><td class="n act"><b>290,300</b></td><td class="n neg"><b>+4,300</b></td><td></td><td></td></tr>
+<tr><th>8</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>9</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>10</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>11</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>12</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div>
+<div class="tabs" data-r="sheet-tabs"><span>+</span><span class="on">Budget</span><span>Hiring</span><span>Notes</span></div>
+<div class="sum" data-r="sum-chip">Sum: 290,300</div>
+</body></html>

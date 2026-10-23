@@ -26,7 +26,7 @@ c2-outline-bleed · marks 5 · words 205
     note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime "FEST", 300px type, about 727px wide (no larger)
     note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."; its text #a3a3a3 (grey, NOT the page's white text)
     note date: 14px mono lime "// 14—16 AUG 2027"; its text #84cc16 (lime, NOT the page's white text)
-c3-glass-blobs · marks 7 · words 103
+c3-glass-blobs · marks 7 · words 109
     blob-pink    circle  
     blob-cyan    circle  
     card         box     
@@ -39,10 +39,10 @@ c3-glass-blobs · marks 7 · words 103
     note blob-cyan: soft blurred big vivid cyan circle
     note card: frosted glass
     note tag: frosted glass white pill label, "Beta · v2.0"
-    note headline: huge Helvetica "Your notes, finally calm", set in exactly 2 lines: "Your notes, finally" / "calm" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide)
+    note headline: huge Helvetica "Your notes, finally calm", set in exactly 2 lines: "Your notes, finally" / "calm" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide); set BOLD (font-weight 700), NOT regular
     note body: text "Write, link and find anything in a quiet space that syncs everywhere."
     note ctas: buttons: "Get started", "Watch demo"; each word in its own colour: "Get started" #1e1b4b, "Watch demo" #ffffff
-c4-mag-grid · marks 6 · words 105
+c4-mag-grid · marks 6 · words 111
     masthead     box     
     lead-img     image   
     lead-title   heading 
@@ -52,7 +52,7 @@ c4-mag-grid · marks 6 · words 105
     note *: whole page: white page, Georgia type, near-black text
     note masthead: thick rule under; huge 56px bold title: "The Weekly Ledger", text "TUESDAY · NO. 412"
     note lead-img: vivid amber #f59e0b (top left) to brown #7c2d12 (bottom right) gradient block
-    note lead-title: big serif "The quiet return of the corner shop", set in exactly 2 lines: "The quiet return of the" / "corner shop" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)
+    note lead-title: big serif "The quiet return of the corner shop", set in exactly 2 lines: "The quiet return of the" / "corner shop" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide); set BOLD (font-weight 700), NOT regular
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
     note pull-quote: italic red "“Nobody misses the queue, but everybody misses the chat.”"
@@ -68,7 +68,7 @@ c5-retro-bands · marks 5 · words 171
     note headline: giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown "SOFT SERVE, HARD RULES", set in exactly 4 lines: "SOFT" / "SERVE," / "HARD" / "RULES" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 352px wide)
     note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."; its text #44403c (dark grey, NOT the page's black text)
     note cta: teal white text button "FIND A TRUCK" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's black text) (exactly: #14b8a6 fill, #ffffff text, 205x67px, square corners: border-radius 0, NOT a pill)
-e1-checkout · marks 13 · words 298
+e1-checkout · marks 13 · words 310
     title        heading 
     ship-label   heading 
     name         box     
@@ -84,11 +84,11 @@ e1-checkout · marks 13 · words 298
     total        box     
     note *: whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text
     note title: "Checkout", 28px bold type on one line, its box top 48px from the page top and 32px tall (top-[48px] or the same margin, line-height 32px; not higher)
-    note ship-label: "Shipping address"
+    note ship-label: "Shipping address"; set BOLD (font-weight 700), NOT regular
     note name: label "Full name" above an empty field
     note address: label "Street address" above an empty field
     note city-row: fields side by side: "City", "Postcode"
-    note pay-label: "Payment"
+    note pay-label: "Payment"; set BOLD (font-weight 700), NOT regular
     note card: label "Card number" above an empty field
     note pay: indigo full-width white text button "Pay $128.00"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 680x50px, 10px rounded)
     note summary: white card sidebar
@@ -130,7 +130,7 @@ e3-settings · marks 8 · words 162
     note row-4: toggle off "Weekly report Usage numbers for your"…
     note save: blue white text button "Save changes" (152x45px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 152x45px, 8px rounded)
     note reset: red outline button "Reset all"; its text #dc2626 (red, NOT the page's dark navy text)
-e4-faq · marks 7 · words 145
+e4-faq · marks 7 · words 151
     title        heading 
     subtitle     text    
     search       box     
@@ -139,14 +139,14 @@ e4-faq · marks 7 · words 145
     q3           box     
     q4           box     
     note *: whole page: pale yellow (#fefce8, plainly not white) page, Helvetica type, near-black text
-    note title: big "Questions, answered", on ONE line (white-space: nowrap, never wrapped), about 443px wide
+    note title: big "Questions, answered", on ONE line (white-space: nowrap, never wrapped), about 443px wide; set BOLD (font-weight 700), NOT regular
     note subtitle: brown text "Everything about orders, returns and your account."; its text #57534e (brown, NOT the page's near-black text), its top 118px from the page top, 62px below the top of the "Questions, answered" line above it (that line's text sits above this text, never on the same line or over it)
     note search: pill search input "Search the help centre…"; its text #a8a29e (grey, NOT the page's near-black text)
     note q1: white card "How long does delivery take? −", text "Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships."
     note q2: white card "Can I return a gift? +"
     note q3: white card "Do you ship abroad? +"
     note q4: white card "How do I change my password? +"
-e5-inbox · marks 8 · words 141
+e5-inbox · marks 8 · words 147
     folders      box     
     m1           box     
     m2           text    
@@ -157,5 +157,5 @@ e5-inbox · marks 8 · words 141
     message      text    
     note folders: pale grey panel sidebar "Compose Inbox 12 Starred Sent Drafts"; each word in its own colour: "Compose" #ffffff, "Inbox 12" #111111, "Starred" #111111, "Sent" #111111, "Drafts" #111111; this panel is FLAT: #f4f4f5 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)
     note m1: off-white card "Maya Chen", text "Draft of the Q3 plan attached"; each word in its own colour: "Maya Chen" #111111, "Draft of the Q3 plan attached" #71717a
-    note subject: "Draft of the Q3 plan attached", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide
+    note subject: "Draft of the Q3 plan attached", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide; set BOLD (font-weight 700), NOT regular
     note from: 14px grey text "Maya Chen · 9:41 AM", one line on its own (top 75px, left edge 628px), nothing else written beside it; its text #71717a (grey, NOT the page's near-black text)
