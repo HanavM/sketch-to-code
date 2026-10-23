@@ -1,4 +1,4 @@
-c1-sliced-kinetic · marks 7 · words 86
+c1-sliced-kinetic · marks 7 · words 354
     nav          box     
     sliced-word  box     
     badge        circle  
@@ -8,38 +8,39 @@ c1-sliced-kinetic · marks 7 · words 86
     vertical-caption text    
     note *: whole page: cream (#f3efe6, plainly not white) page, Helvetica type, near-black text
     note nav: nav, no box around it: bold wide-spaced "SHEAR/STUDIO" left, "WORK — LAB — CONTACT" right
-    note sliced-word: "MOTION", lines cream "MOTION", red-orange "MOTION"
+    note sliced-word: ONE giant word "MOTION" SLICED into 3 stacked horizontal bands (NOT 3 whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same 300px black-weight "MOTION" (line-height 300px, so the word's line is 300px tall and each 100px band is a window onto one slice of it, letter-spacing -14px, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: band 1: 1280x100px at 0,170, no fill (page shows), letters #111111, the word in a span with position: relative; left: 60px; top: 0px (the top slice of the line shows); band 2: 1280x100px at 0,270, #111111 filled, letters #f3efe6, the word in a span with position: relative; left: 150px; top: -100px (pulled up, so the band shows the slice of the 300px line from 100px to 200px); band 3: 1280x100px at 0,370, no fill (page shows), letters #ff4d1c, the word in a span with position: relative; left: 20px; top: -200px (pulled up, so the band shows the slice of the 300px line from 200px to 300px); the bands touch, no gaps, together 1280x300px
     note badge: tilted 14° anticlockwise vivid red-orange circle with "NEW REEL 26"
     note copy: text "We cut type apart and put it back moving. Identity systems for brands that refuse to sit still."
-    note cta: red-orange white text button "See the reel →"
+    note cta: red-orange white text button "See the reel →" (170x54px, square corners: border-radius 0, NOT a pill)
+    note index: a ruled index list 480px wide at 640,560, monospace (Courier New) 14px near-black, 4 rows each 41px tall with a 1px #111111 rule across its top and one under the last row, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): "01 Kinetic identity" … "2026", "02 Title sequences" … "2025", "03 Type tools" … "2025", "04 Installations" … "2024"
     note vertical-caption: wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 171px long "EST. 2014 — OSLO"
-c2-glass-layers · marks 5 · words 147
+c2-glass-layers · marks 5 · words 300
     nav          box     
     headline     heading 
     sub          text    
     cta          button  
-    glass-stack  text    
+    glass-stack  box     
     note *: whole page: near-black (#0b1020) page, Helvetica type, white text
     note nav: nav, no box around it: bold "prism" left, "Features · Pricing · Changelog · Log in" right
     note headline: huge Helvetica tight-set letters lines set tight (line-height 1) "Money, seen clearly.", the words "clearly." filled with a pale pink #f9a8d4 (left) to sky blue #67e8f9 (right) gradient (gradient text), the rest plain, set in exactly 2 lines: "Money, seen" / "clearly." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)
     note sub: light grey text "Every account, card and invoice on one calm, translucent dashboard."
     note cta: white near-black text button "Get early access"
-    note glass-stack: a contents list, no box, no card: bold dark "Balance $48,210" heading, then 3 small 13px light grey (#e2e8f0) links, one per line, plain text (not buttons): "Next payout", "Fri, 12:00", "● On schedule"
-c3-mask-bento · marks 6 · words 85
+    note glass-stack: a layered glass stack, 620x660px at 600,120 (all absolutely placed, page px; NOT a list, NOT empty): first 3 soft colour blobs behind everything, each blurred hard (filter: blur(60px)): a 380x380px round #ec4899 blob at 640,120; a 340x340px round #06b6d4 blob at 880,380; a 260x260px round #a3e635 blob at 620,520 (80% opacity); then 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 30% border, backdrop-filter: blur(20px), a big soft dark drop shadow, 28px padding, later cards painted over earlier ones: card 1 420x260px at 660,150: 13px #e2e8f0 "Balance", then bold 44px #ffffff "$48,210", then a row of 7 34px-wide #ffffff at 70% bars (rounded tops) rising from one baseline, 120px tall area, heights 40/65/50/85/70/100/60% left to right; card 2 380x220px at 780,360: 13px #e2e8f0 "Savings goal", then bold 30px #ffffff "72%", then a 10px rounded track #ffffff at 20% with a #a3e635 fill 72% across, then 3 overlapping 40px round avatars (#f472b6, #38bdf8, #facc15) with #ffffff rings; card 3 300x180px at 600,540: 13px #e2e8f0 "Next payout", then bold 26px #ffffff "Fri, 12:00", then 13px #a3e635 "● On schedule"
+c3-mask-bento · marks 6 · words 641
     clip-type-tile box     
-    hole-tile    image   
+    hole-tile    box     
     ring-tile    box     
     stripe-tile  box     
     notch-tile   box     
-    list-tile    image   
+    list-tile    box     
     note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
-    note clip-type-tile: near-black block; huge 200px bold title: "FLUX", text "Gradient-filled type clipped to the word, on ink."
-    note hole-tile: picture with "Punch-through layouts"
-    note ring-tile: white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold "78%" in the middle
-    note stripe-tile: near-black to white gradient "BETA"
-    note notch-tile: vivid purple "Cut corners on purpose."
-    note list-tile: picture with "This week Brand refresh 12 tasks Launch"…
-c4-halftone-poster · marks 6 · words 142
+    note clip-type-tile: a 640x440px tile at 40,40 (absolutely placed), #1c1917 fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; a giant 200px black-weight word "FLUX" at 36,60 inside it, its letters filled with a gradient (background: linear-gradient(120deg, rgb(249, 115, 22), rgb(236, 72, 153) 40%, rgb(139, 92, 246) 80%); -webkit-background-clip: text; color: transparent), letter-spacing -10px, left-aligned, NOT centred; 16px #a8a29e "Gradient-filled type clipped to the word, on ink." at 40,386 inside it; the card exactly 640x440px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note hole-tile: a 540x210px tile at 700,40 (absolutely placed), #fde68a fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; heading 34px bold #1c1917 "Punch-through layouts" at 32,32 inside it; a punched round HOLE through the tile: a 150px circle at 380,30 inside it filled with the page colour #fafaf9 so the page shows through (no picture, no ring, nothing inside); the card exactly 540x210px, its top-left at 700,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note ring-tile: white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold "78%" in the middle; the card exactly 260x210px, its top-left at 700,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note stripe-tile: diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over "BETA"; the card exactly 260x210px, its top-left at 980,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note notch-tile: a 420x360px tile at 40,500 (absolutely placed), #8b5cf6 fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; ONE corner cut off by clip-path: polygon(0px 0px, 100% 0px, 100% 80%, 80% 100%, 0px 100%) (only the corner where the polygon steps in is notched; the other corners stay as they are); heading 42px bold #ffffff "Cut corners on purpose." at 32,36 inside it; the card exactly 420x360px, its top-left at 40,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note list-tile: a 760x360px tile at 480,500 (absolutely placed), #ffffff fill, 1px #e7e5e4 border, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; heading 22px bold #1c1917 "This week" at 37,33 inside it; 3 task rows 80px apart, the first at 91px from the tile top, each a 56x56px 16px rounded-square solid coloured icon block (no picture, no glyph) at the left, the label beside it, a bold count at the far right: #f97316 icon "Brand refresh" … "12 tasks"; #16a34a icon "Launch site" … "8 tasks"; #06b6d4 icon "Motion kit" … "5 tasks"; the card exactly 760x360px, its top-left at 480,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+c4-halftone-poster · marks 6 · words 212
     top-bar      box     
     halftone-sun box     
     headline     heading 
@@ -48,11 +49,12 @@ c4-halftone-poster · marks 6 · words 142
     stamp        circle  
     note *: whole page: indigo (#1d3fbb) page, Helvetica type, white text
     note top-bar: bar 32px tall across the top, thick line under: bold wide-spaced "SOLSTICE FEST" left, "LINE-UP · TICKETS · MAP" right
+    note halftone-sun: a halftone picture made of plain CSS (no image), 640x640px at 560,80: a 640x640px round disc at 560,80 filled with a grid of small #ffd60a dots (background-image: radial-gradient(#ffd60a 38%, transparent 40%); background-size: 22px 22px; border-radius: 50%), the page colour showing between the dots; over it a solid 360x360px round #ffd60a disc at 700,220
     note headline: giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) "Longest day of the year", set in exactly 3 lines: "Longest" / "day of" / "the year" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 447px wide)
     note info-row: 3 columns side by side, 60px apart, each a small bold 30px head over 15px text (each column 75px wide, its text on ONE line, no wrap): "21.06" over "Saturday"; "3 stages" over "40 artists"; "Riverside" over "Gates 14:00"
-    note cta: yellow indigo text button "Get tickets"
-    note stamp: tilted 12° clockwise white outline circle with "SOLD OUT SOON ★"
-c5-vertical-editorial · marks 7 · words 78
+    note cta: yellow indigo text button "Get tickets" (155x52px, barely rounded: border-radius 4px, NOT a pill)
+    note stamp: tilted 12° clockwise 3px dashed #ffffff outline (dashes, not a solid line) white outline circle with "SOLD OUT SOON ★"
+c5-vertical-editorial · marks 7 · words 247
     vertical-title heading 
     striped-image box     
     byline       box     
@@ -62,11 +64,12 @@ c5-vertical-editorial · marks 7 · words 78
     marquee      text    
     note *: whole page: warm paper (#ece7dc) page, Georgia type, near-black text
     note vertical-title: vertical giant Georgia serif tight-set letters red "Red Season"
-    note striped-image: near-black to red gradient "FIG. 1 — KILN, 05:40"
+    note striped-image: horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #1a1a1a 0px 3px, #b8321f 3px 9px)): 3px near-black then 6px red, over and over "FIG. 1 — KILN, 05:40"
     note byline: near-black border "WORDS ANNA ROSS", text "ISSUE 09 / 2026"
     note kicker: 13px wide-spaced letters red "№ 04 — CRAFT"
-    note pull-quote: heading 220px #b8321f "“", then 0px under it 44px #1a1a1a text "The clay remembers every hand that ever doubted it."; the block 500px wide, its top-left at 720,40
-    note marquee: "FIRE" left, "FIRE" right
+    note pull-quote: heading 220px #b8321f "“", then 0px under it 44px italic (font-style: italic) #1a1a1a text "The clay remembers every hand that ever doubted it."; the block 500px wide, its top-left at 720,40
+    note body-columns: 2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 236px wide, 28px apart, 14px #1a1a1a type, 22px line height, at 720,470; the first column opens with a DROP CAP: its first letter 58px #b8321f, floated left, sinking 3 lines into the text (::first-letter, float: left): column 1 "At dawn the kiln is still warm from the night firing, and the studio smells of ash and wet earth. Twelve potters share it now."; column 2 "Each season they choose one glaze and push it as far as it will go. This year it is a red that only appears above 1,280 degrees."
+    note marquee: one line of 76px black-weight Helvetica/Arial sans-serif (NOT the page serif) words, 1040px wide, nowrap, at 240,770: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: 1.5px #1a1a1a), filled words solid #1a1a1a, in order: "EARTH" outlined, "FIRE" filled, "GLAZE" outlined, "EARTH" outlined, "FIRE" filled
 e1-spreadsheet · marks 7 · words 218
     title-bar    text    
     toolbar      box     

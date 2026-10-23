@@ -61,7 +61,7 @@
    ],
    [
     "cta",
-    "red-orange white text button \"See the reel →\""
+    "red-orange white text button \"See the reel →\" (170x54px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "index",
@@ -139,7 +139,7 @@
    ],
    [
     "hole-tile",
-    "image"
+    "box"
    ],
    [
     "ring-tile",
@@ -155,7 +155,7 @@
    ],
    [
     "list-tile",
-    "image"
+    "box"
    ]
   ],
   "notes": [
@@ -165,27 +165,27 @@
    ],
    [
     "clip-type-tile",
-    "near-black block; huge 200px bold title: \"FLUX\", text \"Gradient-filled type clipped to the word, on ink.\""
+    "a 640x440px tile at 40,40 (absolutely placed), #1c1917 fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; a giant 200px black-weight word \"FLUX\" at 36,60 inside it, its letters filled with a gradient (background: linear-gradient(120deg, rgb(249, 115, 22), rgb(236, 72, 153) 40%, rgb(139, 92, 246) 80%); -webkit-background-clip: text; color: transparent), letter-spacing -10px, left-aligned, NOT centred; 16px #a8a29e \"Gradient-filled type clipped to the word, on ink.\" at 40,386 inside it; the card exactly 640x440px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "hole-tile",
-    "picture with \"Punch-through layouts\""
+    "a 540x210px tile at 700,40 (absolutely placed), #fde68a fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; heading 34px bold #1c1917 \"Punch-through layouts\" at 32,32 inside it; a punched round HOLE through the tile: a 150px circle at 380,30 inside it filled with the page colour #fafaf9 so the page shows through (no picture, no ring, nothing inside); the card exactly 540x210px, its top-left at 700,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "ring-tile",
-    "white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold \"78%\" in the middle"
+    "white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold \"78%\" in the middle; the card exactly 260x210px, its top-left at 700,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "stripe-tile",
-    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over \"BETA\""
+    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over \"BETA\"; the card exactly 260x210px, its top-left at 980,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "notch-tile",
-    "vivid purple \"Cut corners on purpose.\""
+    "a 420x360px tile at 40,500 (absolutely placed), #8b5cf6 fill, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; ONE corner cut off by clip-path: polygon(0px 0px, 100% 0px, 100% 80%, 80% 100%, 0px 100%) (only the corner where the polygon steps in is notched; the other corners stay as they are); heading 42px bold #ffffff \"Cut corners on purpose.\" at 32,36 inside it; the card exactly 420x360px, its top-left at 40,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "list-tile",
-    "picture with \"This week Brand refresh 12 tasks Launch\"…"
+    "a 760x360px tile at 480,500 (absolutely placed), #ffffff fill, 1px #e7e5e4 border, 28px rounded corners, overflow hidden; NOT a picture, NOT a photo placeholder; heading 22px bold #1c1917 \"This week\" at 37,33 inside it; 3 task rows 80px apart, the first at 91px from the tile top, each a 56x56px 16px rounded-square solid coloured icon block (no picture, no glyph) at the left, the label beside it, a bold count at the far right: #f97316 icon \"Brand refresh\" … \"12 tasks\"; #16a34a icon \"Launch site\" … \"8 tasks\"; #06b6d4 icon \"Motion kit\" … \"5 tasks\"; the card exactly 760x360px, its top-left at 480,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ]
   ]
  },
@@ -247,7 +247,7 @@
    ],
    [
     "cta",
-    "yellow indigo text button \"Get tickets\""
+    "yellow indigo text button \"Get tickets\" (155x52px, barely rounded: border-radius 4px, NOT a pill)"
    ],
    [
     "stamp",
@@ -321,11 +321,15 @@
    ],
    [
     "pull-quote",
-    "heading 220px #b8321f \"“\", then 0px under it 44px #1a1a1a text \"The clay remembers every hand that ever doubted it.\"; the block 500px wide, its top-left at 720,40"
+    "heading 220px #b8321f \"“\", then 0px under it 44px italic (font-style: italic) #1a1a1a text \"The clay remembers every hand that ever doubted it.\"; the block 500px wide, its top-left at 720,40"
+   ],
+   [
+    "body-columns",
+    "2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 236px wide, 28px apart, 14px #1a1a1a type, 22px line height, at 720,470; the first column opens with a DROP CAP: its first letter 58px #b8321f, floated left, sinking 3 lines into the text (::first-letter, float: left): column 1 \"At dawn the kiln is still warm from the night firing, and the studio smells of ash and wet earth. Twelve potters share it now.\"; column 2 \"Each season they choose one glaze and push it as far as it will go. This year it is a red that only appears above 1,280 degrees.\""
    ],
    [
     "marquee",
-    "one line of 76px black-weight words, 1040px wide, nowrap, at 240,770: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: 1.5px #1a1a1a), filled words solid #1a1a1a, in order: \"EARTH\" outlined, \"FIRE\" filled, \"GLAZE\" outlined, \"EARTH\" outlined, \"FIRE\" filled"
+    "one line of 76px black-weight Helvetica/Arial sans-serif (NOT the page serif) words, 1040px wide, nowrap, at 240,770: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: 1.5px #1a1a1a), filled words solid #1a1a1a, in order: \"EARTH\" outlined, \"FIRE\" filled, \"GLAZE\" outlined, \"EARTH\" outlined, \"FIRE\" filled"
    ]
   ]
  },

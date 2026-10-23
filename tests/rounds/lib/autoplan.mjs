@@ -182,6 +182,29 @@ export function factsInPage() {
         const s = getComputedStyle(k)
         return { t: k.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(s.fontSize)), mono: /mono|courier/i.test(s.fontFamily), bold: +s.fontWeight >= 600 }
       })(),
+      // n130: a bento tile that is more than a box: a punched hole showing the page, a clipped notch corner, icon task rows,
+      // a giant gradient-clipped word (round 9 c3: hole and task list built as grey photos, notch on all four corners)
+      bentoTile: (() => {
+        const fl = rgba(cs.backgroundColor)
+        if (!(fl?.a > 0.05 || parseFloat(cs.borderTopWidth) >= 1 || cs.backgroundImage !== 'none') || r.width < 200 || r.height < 150 || r.width > 900 || r.height > 600) return null
+        const pageBg = rgba(getComputedStyle(document.body).backgroundColor)
+        const near = (a, b) => a && b && Math.hypot(a.r - b.r, a.g - b.g, a.b - b.b) < 8
+        const all = [...el.querySelectorAll('*')]
+        const holeEl = all.find((k) => { const b = k.getBoundingClientRect(), c = getComputedStyle(k); return !(k.innerText || '').trim() && !k.children.length && b.width >= 60 && Math.abs(b.width - b.height) <= 2 && (c.borderTopLeftRadius.includes('%') ? parseFloat(c.borderTopLeftRadius) >= 40 : parseFloat(c.borderTopLeftRadius) >= b.width * 0.4) && near(rgba(c.backgroundColor), pageBg) && !near(fl, pageBg) })
+        const rowEls = [...el.children].filter((k) => { const i = k.firstElementChild; if (!i || (i.innerText || '').trim() || k.children.length > 3 || k.getBoundingClientRect().height > 90 || (k.innerText || '').trim().length > 48 || [...k.children].some((g) => g.children.length)) return false; const b = i.getBoundingClientRect(); return b.width >= 20 && b.width <= 80 && Math.abs(b.width - b.height) <= 2 && rgba(getComputedStyle(i).backgroundColor)?.a > 0.05 && (k.innerText || '').trim() })
+        const head = [...el.children].find((k) => /^H\d$/.test(k.tagName))
+        const poly = /polygon\(/.test(cs.clipPath) ? cs.clipPath : null
+        const big = all.find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage) && parseFloat(getComputedStyle(x).fontSize) >= 100)
+        if (!holeEl && rowEls.length < 2 && !(poly && head) && !big) return null
+        const at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height) } }
+        const tx = (k) => { const c = getComputedStyle(k); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: +c.fontWeight >= 600, ink: rgba(c.color), ...at(k) } }
+        const others = [...el.children].filter((k) => k !== head && !rowEls.includes(k) && (k.innerText || '').trim() && !k.contains(big || null))
+        return { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), fill: fl?.a > 0.05 ? fl : null, radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0), border: parseFloat(cs.borderTopWidth) >= 1 ? rgba(cs.borderTopColor) : null, poly, pageBg,
+          head: head ? tx(head) : null, hole: holeEl ? at(holeEl) : null,
+          rows: rowEls.length >= 2 ? rowEls.map((k) => { const i = k.firstElementChild, ic = getComputedStyle(i), parts = [...k.childNodes].map((n) => (n.textContent || '').trim()).filter(Boolean); const last = k.lastElementChild; return { icon: rgba(ic.backgroundColor), px: Math.round(i.getBoundingClientRect().width), rad: Math.round(parseFloat(ic.borderTopLeftRadius) || 0), label: parts[0] ?? '', right: last && last !== i && (last.innerText || '').trim() ? { t: last.innerText.trim(), bold: +getComputedStyle(last).fontWeight >= 600 } : null, y: Math.round(k.getBoundingClientRect().top - r.top) } }) : null,
+          big: big ? { ...tx(big), grad: getComputedStyle(big).backgroundImage, spacing: Math.round(parseFloat(getComputedStyle(big).letterSpacing) || 0) } : null,
+          others: others.map(tx) }
+      })(),
       // gradient-filled words inside a heading ('three dimensions' in cyan to pink: round 6 c1, unsaid)
       clipKid: (() => {
         const k = [...el.querySelectorAll('*')].find((x) => (getComputedStyle(x).webkitBackgroundClip || getComputedStyle(x).backgroundClip) === 'text' && /gradient/.test(getComputedStyle(x).backgroundImage))
@@ -554,7 +577,16 @@ export function factsInPage() {
         if (!t || t.length > 12 || b.right < r.right - 4 || b.left < r.left + r.width * 0.5) return null
         return { t, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 }
       })(),
-      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, left: b.left - r.left, right: b.right - r.left, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
+      // n130: side-by-side columns of running copy, the first maybe opening with a drop cap (round 9 c5: unsaid, lost)
+      textCols: (() => {
+        if (kids.length < 2 || kids.length > 4) return null
+        const bs = kids.map((k) => k.getBoundingClientRect())
+        if (!kids.every((k, i) => !k.children.length && (k.innerText || '').trim().length >= 60 && Math.abs(bs[i].top - bs[0].top) <= 4) || !bs.every((b, i) => !i || b.left >= bs[i - 1].right - 1)) return null
+        const c0 = getComputedStyle(kids[0]), fl = getComputedStyle(kids[0], '::first-letter')
+        const cap = fl.float === 'left' && parseFloat(fl.fontSize) >= parseFloat(c0.fontSize) * 2 ? { px: Math.round(parseFloat(fl.fontSize)), ink: rgba(fl.color), lines: Math.max(2, Math.round(parseFloat(fl.fontSize) * 0.85 / (parseFloat(c0.lineHeight) || parseFloat(c0.fontSize) * 1.4)) + 1) } : null
+        return { n: kids.length, w: Math.round(bs[0].width), gap: Math.round(bs[1].left - bs[0].right), px: Math.round(parseFloat(c0.fontSize)), lh: Math.round(parseFloat(c0.lineHeight) || 0), ink: rgba(c0.color), cap, texts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()) }
+      })(),
+      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, left: b.left - r.left, right: b.right - r.left, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, it: c.fontStyle === 'italic' || [...k.querySelectorAll('*')].some((g) => getComputedStyle(g).fontStyle === 'italic'), spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
       // one line made of differently styled runs (round 7 e4 price: '$189' big, '$240' struck grey, '-21%' red tag; said run-on)
       runs: (() => {
         if (r.height > 60 || !kids.length || kids.length > 3 || kids.some((k) => k.children.length) || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) return null
@@ -1491,7 +1523,8 @@ function gradientWords(f) {
   const names = uniq(f.bgImageColours.map((c) => (parse(c)?.a ?? 1) < 0.3 ? null : colourName(c)))
   // repeating stripes (round 9 c5 picture said 'near-black to red gradient', built a smooth blend)
   const rp = f.bgImage.match(/^repeating-linear-gradient\(\s*([\d.]+deg)?/)
-  if (rp) {
+  // n130: faint stripes (alpha < 0.3: a grain or scanline overlay, round 8 c1) are texture, not a picture of stripes
+  if (rp && f.bgImageColours.some((c) => (parse(c)?.a ?? 1) >= 0.3)) {
     // stops as computed: 'c 0px, c 3px, d 3px, d 9px' (double positions expanded); merge runs of one colour into bands
     const st = [...f.bgImage.matchAll(/(rgba?\([^)]+\))((?:\s+[\d.]+px)+)/g)].flatMap((m) => m[2].trim().split(/\s+/).map((q) => ({ c: parse(m[1]), k: m[1], at: parseFloat(q) })))
     const xs = []
@@ -1895,6 +1928,20 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: `a stack of ${d.cards.length} separate cards turned in 3D (NOT one picture, NOT flat): a ${d.box.w}x${d.box.h}px box at ${d.box.x},${d.box.y} with perspective: ${d.perspective}px, holding ${d.cards.length} absolutely placed cards each ${c0.w}x${c0.h}px, ${c0.radius}px rounded, each with transform: ${c0.transform} (turned away to the left, all the same turn)${c0.shadow ? `, a big soft dark drop shadow` : ''}; each card overlaps the one behind it, painted back to front: ${cards}` }
   }
   const withFx = (note) => { const t = uniq([...fx, note]).join(' ').trim(); return t || null }
+  if (f.bentoTile && !f.regionKids.length) {
+    const B = f.bentoTile
+    const txt = (k) => `${k.px}px ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} ${quote(k.t, 60)} at ${k.x},${k.y} inside it`
+    const parts = [
+      `a ${B.w}x${B.h}px tile at ${B.x},${B.y} (absolutely placed), ${B.fill ? `${hexOf(B.fill)} fill` : 'no fill'}${B.border ? `, 1px ${hexOf(B.border)} border` : ''}${B.radius ? `, ${B.radius}px rounded corners` : ''}, overflow hidden; NOT a picture, NOT a photo placeholder`,
+      B.poly ? `ONE corner cut off by clip-path: ${B.poly.replace(/\s+/g, ' ')} (only the corner where the polygon steps in is notched; the other corners stay as they are)` : null,
+      B.big ? `a giant ${B.big.px}px ${B.big.bold ? 'black-weight ' : ''}word ${quote(B.big.t, 16)} at ${B.big.x},${B.big.y} inside it, its letters filled with a gradient (background: ${B.big.grad}; -webkit-background-clip: text; color: transparent)${B.big.spacing ? `, letter-spacing ${B.big.spacing}px` : ''}, left-aligned, NOT centred` : null,
+      B.head ? `heading ${txt(B.head)}` : null,
+      B.hole ? `a punched round HOLE through the tile: a ${B.hole.w}px circle at ${B.hole.x},${B.hole.y} inside it filled with the page colour ${hexOf(B.pageBg)} so the page shows through (no picture, no ring, nothing inside)` : null,
+      B.rows ? `${B.rows.length} task rows ${B.rows.length >= 2 ? `${B.rows[1].y - B.rows[0].y}px apart, the first at ${B.rows[0].y}px from the tile top` : ''}, each a ${B.rows[0].px}x${B.rows[0].px}px ${B.rows[0].rad ? `${B.rows[0].rad}px rounded-square` : 'square'} solid coloured icon block (no picture, no glyph) at the left, the label beside it, ${B.rows[0].right?.bold ? 'a bold ' : 'a '}count at the far right: ${B.rows.map((r) => `${hexOf(r.icon)} icon ${quote(r.label, 30)}${r.right ? ` … ${quote(r.right.t, 14)}` : ''}`).join('; ')}` : null,
+      ...B.others.map((k) => `${txt(k)}`),
+    ].filter(Boolean)
+    return { kind: 'box', note: withFx(parts.join('; ')) }
+  }
   // frosted glass cards over blurred colour blobs: every blob and card with its place, then what each card holds
   if (f.glassStack) {
     const G = f.glassStack
@@ -1927,7 +1974,7 @@ function decideOne(f, page, marked, said) {
   // a run of outlined words with some filled solid
   if (f.outlineRun) {
     const R = f.outlineRun
-    return { kind: 'text', note: withFx(`one line of ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : 'bold '}words, ${Math.round(w)}px wide, nowrap, at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: ${R.stroke}px ${hexOf(R.c)}), filled words solid ${hexOf(R.words.find((x) => x.solid).ink)}, in order: ${R.words.map((x) => `${quote(x.w, 16)} ${x.solid ? 'filled' : 'outlined'}`).join(', ')}`) }
+    return { kind: 'text', note: withFx(`one line of ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : 'bold '}${/sans|helvetica|arial/i.test(f.font.family) ? 'Helvetica/Arial sans-serif (NOT the page serif) ' : ''}words, ${Math.round(w)}px wide, nowrap, at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: outlined words are HOLLOW (color: transparent; -webkit-text-stroke: ${R.stroke}px ${hexOf(R.c)}), filled words solid ${hexOf(R.words.find((x) => x.solid).ink)}, in order: ${R.words.map((x) => `${quote(x.w, 16)} ${x.solid ? 'filled' : 'outlined'}`).join(', ')}`) }
   }
   // a contents list with no box: a heading over short links one per line, the current one in its own ink (round 8 e5
   // 'On this page': no note, so the build drew big dark text with invented items)
@@ -2376,11 +2423,13 @@ function decideOne(f, page, marked, said) {
     const inky = !grad && fill && Math.max(f.bg.r, f.bg.g, f.bg.b) <= 50 && Math.max(f.bg.r, f.bg.g, f.bg.b) - Math.min(f.bg.r, f.bg.g, f.bg.b) <= 30 && f.bg.a >= 0.9
     if (inky && colourName(f.bg) !== 'black') look.push(`(${hexOf(f.bg)}, near-black, not a blue)`)
     if (f.radius >= h / 2 - 2) look.push('pill')
+    // n130: a square-cornered button says so (round 9 c1, c4: radius 0 CTAs built as pills)
+    const squareBtn = (fill || bordered || grad) && f.radius <= 8 ? (f.radius <= 1 ? 'square corners: border-radius 0' : `barely rounded: border-radius ${Math.round(f.radius)}px`) : null
     if (glow) look.push('glowing'); if (hardShadow && !shadowWords(f)) look.push('hard offset shadow')
     if (w > 420) look.push('full-width')
     if (textCol && fill) look.push(`${textCol} text`)
     const kind = f.kidCount === 0 || f.tag === 'a' || f.tag === 'button' || fill || bordered ? 'button' : 'text'
-    return { kind, note: `${uniq(look).join(' ')} button ${quote(f.text)}${hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''}`.replace(/\s+/g, ' ').trim() }
+    return { kind, note: `${uniq(look).join(' ')} button ${quote(f.text)}${squareBtn ? ` (${Math.round(w)}x${Math.round(h)}px, ${squareBtn}, NOT a pill)` : ''}${hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''}`.replace(/\s+/g, ' ').trim() }
   }
   if (f.regionKids.length && f.regionKids.every((r) => marked.has(r)) && !fill && !bordered && !grad && !frosted) {
     // its parts are drawn, but text of its own (a card title, a caption) still needs saying
@@ -2549,13 +2598,17 @@ function decideOne(f, page, marked, said) {
     if (p.px && w >= 600) return { kind: 'text', note: `pager, one line ${Math.round(w)}px wide, its middle ${Math.round(f.rect.y + h / 2)}px from the page top (inside the page, not below it): ${p.caption ? `${Math.round(f.font.size)}px ${colourName(f.colour) ?? ''} ${quote(p.caption, 40)} at the left, ` : ''}at the far right a row of ${p.px}x${p.px}px ${p.bordered ? 'outlined ' : ''}page buttons ${p.items.map((t) => quote(t)).join(', ')}${p.current ? `, ${quote(p.current)} filled ${p.curFill ? colourName(p.curFill) : ''} with white text (current)` : ''}`.replace(/ {2,}/g, ' ') }
     return { kind: 'text', note: `pager${p.caption ? ` ${quote(p.caption, 40)} left,` : ''} page buttons ${items}` }
   }
+  if (f.textCols && !f.regionKids.length && !fill && !bordered) {
+    const C = f.textCols
+    return { kind: 'text', note: `${C.n} columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each ${C.w}px wide, ${C.gap}px apart, ${C.px}px ${hexOf(C.ink)} type${C.lh ? `, ${C.lh}px line height` : ''}, at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${C.cap ? `; the first column opens with a DROP CAP: its first letter ${C.cap.px}px ${hexOf(C.cap.ink)}, floated left, sinking ${C.cap.lines} lines into the text (::first-letter, float: left)` : ''}: ${C.texts.map((t, i) => `column ${i + 1} ${quote(t, 200)}`).join('; ')}` }
+  }
   // a heading over a line or an outlined button, no box (round 8 c5: the left heading and copy had no note, the
   // right copy's outlined 'Get notified' button was run into one line)
   {
     const k2 = f.kidBoxes
     if (f.text && !fill && !grad && !bordered && !f.regionKids.length && f.kidCount === 2 && k2.length === 2 && k2[0].s >= 20 && k2[0].s >= k2[1].s && k2[1].top >= k2[0].bottom - 2 && k2[1].t.length <= 160) {
       const part = (k, i) => {
-        const look = `${k.s}px ${k.bold ? 'bold ' : ''}${hexOf(k.ink)}`
+        const look = `${k.s}px ${k.bold ? 'bold ' : ''}${k.it ? 'italic (font-style: italic) ' : ''}${hexOf(k.ink)}`
         return k.bw >= 1 && visible(k.bc) ? `an outlined button ${quote(k.t)} (${Math.round(k.w)}x${Math.round(k.h)}px, ${Math.round(k.bw)}px solid ${hexOf(k.bc)} border, no fill, ${look} text)` : `${i ? '' : 'heading '}${look} ${i ? 'text ' : ''}${quote(k.t, 160)}`
       }
       return { kind: 'text', note: withFx(`${part(k2[0], 0)}, then ${Math.round(k2[1].top - k2[0].bottom)}px under it ${part(k2[1], 1)}; the block ${Math.round(w)}px wide, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}`) }

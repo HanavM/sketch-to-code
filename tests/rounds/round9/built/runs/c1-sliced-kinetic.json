@@ -1,23 +1,23 @@
 {
   "id": "c1-sliced-kinetic",
-  "at": "2026-10-23T07:55:33.042Z",
+  "at": "2026-10-23T08:22:21.008Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9220627944920544,
-    "overallV2": 0.9220627944920544,
-    "overallV1": 0.8951917079697633,
-    "colour": 0.9957035576779463,
-    "structure": 0.9711031345486356,
-    "structureStrict": 0.9342759695414431,
-    "colourAligned": 0.9957035576779463,
-    "structureAligned": 0.9711031345486356,
+    "overall": 0.9333155570894054,
+    "overallV2": 0.9333155570894054,
+    "overallV1": 0.9160151204044156,
+    "colour": 0.9968128984134208,
+    "structure": 0.9811043149953139,
+    "structureStrict": 0.9573938470182907,
+    "colourAligned": 0.9968128984134208,
+    "structureAligned": 0.9811043149953139,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.994951373806157
+      "r": 0.9967810346753629
     },
-    "layout": 0.8373523437400147
+    "layout": 0.8436014659666193
   },
   "effects": {
     "recall": 1,
@@ -29,38 +29,34 @@
       "vertical-type"
     ],
     "missing": [],
-    "extra": [
-      "bleed",
-      "hard-shadow"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 27675,
-    "output": 14529,
-    "cacheRead": 194603
+    "input": 45960,
+    "output": 25352,
+    "cacheRead": 147055
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 24215,
-      "output": 7642,
-      "cacheRead": 182605,
-      "toolCalls": 8,
+      "billed": 47866,
+      "output": 15342,
+      "cacheRead": 106048,
+      "toolCalls": 7,
       "tools": [
-        "Glob",
+        "Read components/BadgeSeal.tsx",
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 79917
+      "ms": 169804
     }
   ],
-  "reading": "The sketch lays out a hero section for a studio site: a plain-text nav, a giant three-band sliced word \"MOTION\" as the hero headline, a tilted red-orange badge/reel button, a three-line intro paragraph, a text button, a four-row ruled project index on the right, and a vertical \"EST.\" label — plus a run-wide note setting the page to a cream background with Helvetica/near-black type.",
+  "reading": "The sketch lays out a full agency homepage: a plain-text nav, a huge three-band sliced 'MOTION' headline, a tilted red-orange 'NEW REEL 26' badge, a short paragraph of copy, a square 'See the reel →' button, a 4-row ruled index/list of works, and a vertical 'EST. 2014 — OSLO' label, all on a cream page with Helvetica/near-black type per the run-level note.",
   "actions": [
     {
       "kind": "add",
@@ -75,7 +71,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top nav bar, no surrounding box: bold wide-letter-spaced \"SHEAR/STUDIO\" wordmark on the left, \"WORK — LAB — CONTACT\" wide-spaced links on the right, full width."
+      "instruction": "Top nav bar, no box/border around it: bold wide-spaced \"SHEAR/STUDIO\" wordmark on the left, \"WORK — LAB — CONTACT\" nav links on the right."
     },
     {
       "kind": "add",
@@ -90,7 +86,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Giant hero headline built from the single word \"MOTION\" sliced into 3 stacked horizontal bands (not 3 separate words, not outlines): each band is a full-width 1"
+      "instruction": "Giant hero headline built from one word \"MOTION\" sliced into 3 stacked full-width bands with overflow hidden, each band a window onto one third of a single 300p"
     },
     {
       "kind": "add",
@@ -105,7 +101,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "A circular badge tilted 14° anticlockwise, vivid red-orange fill, containing the text \"NEW REEL 26\", positioned overlapping the top-right of the hero block."
+      "instruction": "Tilted 14° anticlockwise vivid red-orange circular badge reading \"NEW REEL 26\", positioned overlapping the top-right area of the hero/nav as a stamp-like badge."
     },
     {
       "kind": "add",
@@ -132,7 +128,7 @@
         87
       ],
       "paths": [],
-      "instruction": "Intro paragraph text below the hero headline: \"We cut type apart and put it back moving. Identity systems for brands that refuse to sit still.\""
+      "instruction": "Body copy paragraph beneath the hero headline: \"We cut type apart and put it back moving. Identity systems for brands that refuse to sit still.\""
     },
     {
       "kind": "add",
@@ -147,7 +143,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Text-style button/link, red-orange text on transparent background (or red-orange with white text), reading \"See the reel →\", rounded-rect sized to its label."
+      "instruction": "Call-to-action button, red-orange fill with white text, square corners (border-radius: 0, not a pill), 170x54px, reading \"See the reel →\"."
     },
     {
       "kind": "add",
@@ -184,7 +180,7 @@
         165
       ],
       "paths": [],
-      "instruction": "A ruled index list, 480px wide, monospace (Courier New) 14px near-black text, 4 rows each 41px tall with a 1px #111111 rule across the top of each row and one u"
+      "instruction": "Ruled index/list block, 480px wide, monospace (Courier New) 14px near-black text, 4 rows each 41px tall, a 1px #111111 rule across the top of each row and one b"
     },
     {
       "kind": "add",
@@ -199,7 +195,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Vertical wide-letter-spaced label text, writing-mode: vertical-rl, 12px letters, reading \"EST. 2014 — OSLO\", about 171px long, placed at the right edge of the h"
+      "instruction": "Vertical wide-spaced label text, writing-mode: vertical-rl, 12px letters, line about 171px long, reading \"EST. 2014 — OSLO\"."
     }
   ],
   "rejected": [
