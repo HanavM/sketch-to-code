@@ -3,7 +3,7 @@ goal_state: working
 now: "Everyday app pages keep climbing: flight results 75 to 88% and billing 59 to 68% now that top bars, search fields and tables are described part by part; round 9 averages 82%. Next I fix the spreadsheet toolbar and row height, then write round 10."
 round: 9
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 82]
-lock: null
+lock: {by: run-2026-10-23-n133, until: "2026-10-23T11:30:01Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
