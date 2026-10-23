@@ -158,3 +158,22 @@ r7 e3 file tree); no marks changed.
 
 Round 8 average now 76% (creative 84, everyday 68). Next: everyday layout places (cards a few px low, row heights),
 Compose button fill; carried creative misses (c3 dark text tile and glow, c5 flat yellow half).
+
+## n123: filled lead buttons, highlighted rows' ink, flat cut-outs, one-glow tiles, copy tiles; e1, c3, c5 re-run (2026-10-23, ~189k billed)
+
+Planner (zero tokens): a filled button heading a list (the mail "✎ Compose") says its size, hex, rounding and ink, and
+that the fill must show; the highlighted list item says its own fill and ink; a flat-filled cut-out says its one hex,
+no gradient or texture, and that the drawn strokes are only its edge; a rounded tile lit by one soft glow says its base
+hex, the glow's hex and place, its size and rounding (one glow over a fill now counts as a glow); a tile holding 30px+
+copy is said as a filled tile with its ink apart (it went to the heading branch and lost its fill). Rounds 1-7 plans
+gain the highlighted item's fill and ink on 7 pages, the Compose button's fill on 2 and flat cut-out hexes on 3; no
+marks changed.
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| c3 masonry stickers | 72% -> 89% | ~70k (one turn) | near-black "2.4M" tile filled with cream type; violet tile's lilac glow; quote dark serif; sticker words on one line (target two), pink tile paler at the top |
+| c5 diagonal duotone | 86% -> 90% | ~60k (one turn) | yellow half one flat colour, no scribbles kept; the 8 built in a squared heavy face (target round Helvetica), side strip dark blue (target near-black) |
+| e1 mail compose | 74% -> 79% | ~60k (one turn) | Compose lavender, Inbox row pale indigo with indigo text; mail rows a little taller than the target |
+
+Round 8 average now 79% (creative 89, everyday 69). Next: everyday layout places (e2 chart card low and tall, heat grid
+under the popover; e5 nav rows tall, article low), c5's 8 letter shape and strip ink, c3 sticker line breaks.

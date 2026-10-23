@@ -1,23 +1,23 @@
 {
   "id": "c5-diagonal-duotone",
-  "at": "2026-10-23T03:06:54.371Z",
+  "at": "2026-10-23T04:32:28.010Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8555211361785948,
-    "overallV2": 0.8555211361785948,
-    "overallV1": 0.7402772178733629,
-    "colour": 0.9082108266924075,
-    "structure": 0.9240241892024929,
-    "structureStrict": 0.7665726030219714,
-    "colourAligned": 0.9082108266924075,
-    "structureAligned": 0.9240241892024929,
+    "overall": 0.8977536162472279,
+    "overallV2": 0.8977536162472279,
+    "overallV1": 0.7961755604718517,
+    "colour": 0.9603415849252864,
+    "structure": 0.9287351346891091,
+    "structureStrict": 0.7899544837170882,
+    "colourAligned": 0.9603415849252864,
+    "structureAligned": 0.9287351346891091,
     "align": {
       "scale": 1,
-      "dx": 0,
+      "dx": 16,
       "dy": 0,
-      "r": 0.9102101895716512
+      "r": 0.9442518927690157
     },
-    "layout": 0.9124506694362556
+    "layout": 0.9232124873981019
   },
   "effects": {
     "recall": 0.6666666666666666,
@@ -36,36 +36,42 @@
     ]
   },
   "tokens": {
-    "input": 57967,
-    "output": 37521,
-    "cacheRead": 216964
+    "input": 55400,
+    "output": 38027,
+    "cacheRead": 388511
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 70183,
-      "output": 26159,
-      "cacheRead": 206375,
-      "toolCalls": 9,
+      "billed": 66503,
+      "output": 25885,
+      "cacheRead": 377863,
+      "toolCalls": 15,
       "tools": [
         "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Grep",
         "Glob",
         "Read src/App.tsx",
         "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Glob",
         "Edit components/SketchShape.tsx",
-        "Write src/App.tsx"
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Glob"
       ],
-      "ms": 296512
+      "ms": 294813
     }
   ],
-  "reading": "The sketch builds a blue promo page: a soft-yellow angled cut-out panel with a wavy notch spans the left/lower portion of the page, a fine diagonal grain texture lies over everything, and a giant color-inverting white '8' sits across the cut line. Top-left is a heading+subtext block ('Season eight.' / 'Eight films, eight cities...'), bottom-right is a 'Tickets on sale Friday' heading with an outlined 'Get notified' button, and a near-black vertical bar on the right edge carries soft-yellow text 'PREMIERE NIGHT ★ 2027'.",
+  "reading": "A full-page hero design: the whole page is blue with Helvetica type; a soft-yellow angled cut-out shape (with a jagged zigzag notch) sits over part of it under a faint diagonal grain texture, and a giant white numeral '8' overlaps it with a colour-invert effect. Top-left carries a bold heading 'Season eight.' with a short paragraph underneath; bottom-right carries a 'Tickets on sale Friday' heading with an outlined 'Get notified' button; and a thin near-black vertical bar runs down the right edge holding rotated yellow text 'PREMIERE NIGHT ★ 2027'.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -76,44 +82,40 @@
       ],
       "paths": [
         "s0",
-        "s1",
-        "s2"
+        "s1"
       ],
-      "instruction": "Typed note: 'soft yellow angled cut-out shape'. Add a soft-yellow decorative background panel covering the left/lower region of the page, bounded by the page ed"
+      "instruction": "Build a soft yellow angled cut-out background shape from the drawn outline (the diagonal line and the zigzag notch): ONE flat #fef08a fill using a clip-path pol"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Add a fine grain texture layer covering the full page (1280x900px), sitting on top of the colour fields but under all type, pointer-events none, no fill of its "
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        3,
-        3,
-        1274,
-        894
+        338,
+        123,
+        284,
+        447
       ],
       "paths": [
-        "s0",
-        "s1",
         "s2"
       ],
-      "instruction": "Typed note: 'a fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type)"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        3,
-        1274,
-        894
-      ],
-      "paths": [
-        "s0",
-        "s1",
-        "s2"
-      ],
-      "instruction": "Typed note: 'colour-inverting where it crosses what is under it giant Helvetica heavy tight-set letters white \"8\", 640px type, about 316px wide (no larger).' Ad"
+      "instruction": "Add a giant Helvetica Heavy, tight-set numeral '8' at 640px type size (about 316px wide, no larger), set to colour-invert wherever it crosses what's underneath "
     },
     {
       "kind": "add",
@@ -140,13 +142,37 @@
         111
       ],
       "paths": [],
-      "instruction": "Typed note: 'heading 44px bold #1d4ed8 \"Season eight.\", then 16px under it 17px #1e3a8a text \"Eight films, eight cities, one long night of premieres. Doors at s"
+      "instruction": "Add a text block 360px wide with top-left at (60,60): a 44px bold #1d4ed8 heading reading 'Season eight.' followed by 16px/17px #1e3a8a body copy reading 'Eight"
     },
     {
       "kind": "add",
       "textMarks": [
         "s6",
-        "s7",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        884,
+        651,
+        332,
+        39
+      ],
+      "paths": [],
+      "instruction": "Add a 22px bold #fef08a heading reading 'Tickets on sale Friday', as part of a 340px-wide block with top-left at (880,640)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
         "s8"
       ],
       "textSize": [
@@ -162,28 +188,27 @@
       ],
       "region": [
         884,
-        640,
-        332,
-        90
+        711,
+        206,
+        8
       ],
       "paths": [],
-      "instruction": "Typed note: 'heading 22px bold #fef08a \"Tickets on sale Friday\", then 18px under it an outlined button \"Get notified\" (137x46px, 2px solid #fef08a border, no fi"
+      "instruction": "Below the 'Tickets on sale Friday' heading, add an outlined button labelled 'Get notified', 137x46px, 2px solid #fef08a border, no fill, 16px bold #fef08a text."
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        3,
-        3,
-        1274,
-        894
+        1239,
+        4,
+        38,
+        893
       ],
       "paths": [
-        "s1",
         "s9"
       ],
-      "instruction": "Typed note: 'vertical near-black bar, soft yellow text \"PREMIERE NIGHT ★ 2027\".' Add a tall near-black vertical bar along the right edge of the page (matching t"
+      "instruction": "Add a vertical near-black bar running the full height along the right edge of the page, containing soft yellow (#fef08a) text reading 'PREMIERE NIGHT ★ 2027' se"
     }
   ],
   "rejected": [
