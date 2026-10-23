@@ -74,3 +74,32 @@ said part by part (e1 canvas). Rounds 1-11: only the 160px+ headline line change
 | e3 team chat (first) | 85% | mention said as a chip under the line, code block lost, composer moved to the top, channel header and replies link lost |
 
 Round 12 so far: **78%** over 8 pages (e4, e5 not built yet). Vitest: same 2 env failures; typecheck clean.
+
+## n147: grouped lists, Gantt rows, halftone, leaf, chat blocks, inks; round 12 complete (2026-10-23, ~438k billed)
+
+Planner (free): a list whose group rows (bold, own fill) sit between task rows is said row by row in page order with
+each row's look (the groups were built above all the tasks); Gantt bars say their row under the week head and top px
+(rows with no bar stay empty), a see-through progress track, a turned-square milestone with its label, a bordered
+elbow dependency, and the today line's ::before tag; a leaf (three round corners, one square) is said as a leaf, not a
+disc; a halftone block says its dot layer and tile size verbatim; a small corner block inside big type says its corner
+and line breaks, and a thick bottom rule is said; chat messages say their blocks in order (inline mention in the
+sentence, a code block line by line, reaction pills, a replies link, a divider), the header above them and the
+composer pinned at the bottom; a region whose ink is far from the page's says it, a short row of mixed inks says each;
+a solid button says its exact fill, ink, size and corners; a round sticker says its words' line count; a note with no
+sizes or colours over a region of painted parts goes part by part (e1 toolbar, properties). Rounds 1-11: notes gain
+inks/button looks on most pages and ~20 regions go part by part; none re-run.
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| e2 Gantt timeline (re-run) | 31 -> **73%** | groups between tasks, bars on their rows, progress track, milestone, Today tag all right; dependency hook a straight tick |
+| e4 checkout (first) | **40%** | all content right, but the form built as a floating card and the summary as a card (target: flat full-height grey panel); City/State/ZIP row and floating labels lost |
+| e5 users admin (first) | **81%** | bulk bar, selected rows, expanded row, pills, pager right; row lines dark instead of faint |
+| c4 diagonal split (re-run) | 84 -> **91%** | dark nav word, near-black copy, square CTA, three-line sticker right; scroll mouse faint |
+| c5 halftone mag (re-run) | 72 -> **77%** | halftone dots, leaf, masthead rule and corner lines right; headline and dek lost their bold |
+| e1 design tool (re-run) | 88 -> **89%** | toolbar active tool, avatars, boxed X/Y/W/H fields right |
+| e3 team chat (re-run) | 85 -> **83%** | header, inline mention, code block, reactions, replies link, composer at the bottom all right; score slightly lower (spacing), kept as the truer build |
+
+Round 12 complete: **80%** average over 10 (c1 90, c2 89, c3 84, c4 91, c5 77, e1 89, e2 73, e3 83, e4 40, e5 81).
+Vitest: same 2 env failures; typecheck clean.
+Next: e4 checkout (flat split page: form on white, summary as a full-height grey panel, floating-label fields, 3-up
+City/State/ZIP); c5 bold italic headline and bold dek; e5 faint row lines; then write round 13, harder.

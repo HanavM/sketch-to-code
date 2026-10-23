@@ -41,11 +41,11 @@
    ],
    [
     "nav",
-    "nav, no box around it: bold \"LAYERS\" left, \"Product · Pricing · Docs · Sign in\" right"
+    "nav, no box around it: bold \"LAYERS\" left, \"Product · Pricing · Docs · Sign in\" right; its text #d4d4d8 (light grey, NOT the page's white text)"
    ],
    [
     "label",
-    "13px wide-spaced letters lavender \"SPATIAL WORKSPACE\""
+    "13px wide-spaced letters lavender \"SPATIAL WORKSPACE\"; its text #a5b4fc (lavender, NOT the page's white text)"
    ],
    [
     "headline",
@@ -53,7 +53,7 @@
    ],
    [
     "cta",
-    "white pill black text button \"Start free\""
+    "white pill black text button \"Start free\"; its text #09090b (black, NOT the page's white text) (exactly: #fafafa fill, #09090b text, 126x50px, pill ends)"
    ],
    [
     "cta-2",
@@ -135,7 +135,7 @@
    ],
    [
     "ticker",
-    "near-black (exactly #111111) bar, cream text bold 18px text \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ●\""
+    "near-black (exactly #111111) bar, cream text bold 18px text \"ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ● ON AIR ● 98.6 FM ●\"; its text #f5f0e6 (cream, NOT the page's near-black text)"
    ]
   ]
  },
@@ -241,11 +241,11 @@
    ],
    [
     "sticker-new",
-    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur"
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 130px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
    ],
    [
     "sticker-free",
-    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur"
+    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 110px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
    ]
   ]
  },
@@ -307,7 +307,7 @@
    ],
    [
     "pin-label",
-    "pale yellow bar, near-black text \"Summit · 2,941 m\""
+    "pale yellow bar, near-black text \"Summit · 2,941 m\"; its text #0c1a14 (near-black, NOT the page's pale yellow text)"
    ],
    [
     "headline",
@@ -409,7 +409,7 @@
    ],
    [
     "side-strip",
-    "vertical near-black (exactly #111111) bar, soft yellow text \"PREMIERE NIGHT ★ 2027\""
+    "vertical near-black (exactly #111111) bar, soft yellow text \"PREMIERE NIGHT ★ 2027\"; its text #fef08a (soft yellow, NOT the page's black text)"
    ]
   ]
  },
@@ -439,7 +439,7 @@
    ],
    [
     "message-list",
-    "\"Search mail\" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"Maya Lin\" 9:41 \"Venue contract, final\" / \"Attached the signed copy, can you countersign by Friday?\"; \"GitHub\" 9:02 \"[lumen] PR #482 merged\" / \"feat: offline sync for boards was merged into main.\"; \"Ravi, me (3)\" Yesterday \"Q4 offsite headcount\" / \"Thanks, I've updated the sheet with the final numbers.\"; \"Stripe\" Oct 21 \"Your payout is on the way\" / \"$4,210.00 will arrive in your bank account on Oct 23.\"; \"Noor Haddad\" Oct 20 \"Re: brand refresh\" / \"Love the second direction, the serif works.\"; \"Calendar\" Oct 19 \"Invitation: Design crit\" / \"Thursday 3pm – 4pm · Room Atlas\"; the \"Maya Lin\" row selected (pale blue, indigo left edge)"
+    "\"Search mail\" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that: \"Maya Lin\" 9:41 \"Venue contract, final\" / \"Attached the signed copy, can you countersign by Friday?\"; \"GitHub\" 9:02 \"[lumen] PR #482 merged\" / \"feat: offline sync for boards was merged into main.\"; \"Ravi, me (3)\" Yesterday \"Q4 offsite headcount\" / \"Thanks, I've updated the sheet with the final numbers.\"; \"Stripe\" Oct 21 \"Your payout is on the way\" / \"$4,210.00 will arrive in your bank account on Oct 23.\"; \"Noor Haddad\" Oct 20 \"Re: brand refresh\" / \"Love the second direction, the serif works.\"; \"Calendar\" Oct 19 \"Invitation: Design crit\" / \"Thursday 3pm – 4pm · Room Atlas\"; the \"Maya Lin\" row selected (pale blue, indigo left edge); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 31 of them, nothing invented, nothing left out): 387x36 at 236,16 #f3f4f6 fill, pill ends: 14px #9ca3af \"Search mail\"; 419x86 at 220,68 #eef2ff fill, 3px #1f2937 border on the bottom+left only; 384x20 at 239,80 14px bold #111827 \"Maya Lin\"; 23x20 at 600,80 12px #6b7280 \"9:41\"; 384x20 at 239,100 14px #1f2937 \"Venue contract, final\"; 384x20 at 239,121 14px #6b7280 \"Attached the signed copy, can you countersign by Friday?\"; 419x86 at 220,154 1px #1f2937 border on the bottom only; 387x20 at 236,166 14px bold #111827 \"GitHub\"; 23x20 at 600,166 12px #6b7280 \"9:02\"; 387x20 at 236,186 14px #1f2937 \"[lumen] PR #482 merged\"; 387x20 at 236,206 14px #6b7280 \"feat: offline sync for boards was merged into main.\"; 419x86 at 220,240 1px #1f2937 border on the bottom only; 387x20 at 236,252 14px bold #1f2937 \"Ravi, me (3)\"; 51x20 at 572,252 12px #6b7280 \"Yesterday\"; 387x20 at 236,272 14px #1f2937 \"Q4 offsite headcount\"; 387x20 at 236,292 14px #6b7280 \"Thanks, I've updated the sheet with the final numbers.\"; 419x86 at 220,326 1px #1f2937 border on the bottom only; 387x20 at 236,338 14px bold #1f2937 \"Stripe\"; 34x20 at 589,338 12px #6b7280 \"Oct 21\"; 387x20 at 236,358 14px #1f2937 \"Your payout is on the way\"; 387x20 at 236,378 14px #6b7280 \"$4,210.00 will arrive in your bank account on Oct 23.\"; 419x86 at 220,412 1px #1f2937 border on the bottom only; 387x20 at 236,424 14px bold #1f2937 \"Noor Haddad\"; 34x20 at 589,424 12px #6b7280 \"Oct 20\"; 387x20 at 236,444 14px #1f2937 \"Re: brand refresh\"; 387x20 at 236,464 14px #6b7280 \"Love the second direction, the serif works.\"; 419x86 at 220,497 1px #1f2937 border on the bottom only; 387x20 at 236,509 14px bold #1f2937 \"Calendar\"; 34x20 at 589,509 12px #6b7280 \"Oct 19\"; 387x20 at 236,530 14px #1f2937 \"Invitation: Design crit\"; 387x20 at 236,550 14px #6b7280 \"Thursday 3pm – 4pm · Room Atlas\""
    ],
    [
     "reader",
@@ -509,11 +509,11 @@
    ],
    [
     "kpi-1",
-    "stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\"; the card exactly 280x90px, its top-left at 40,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "stat card: 13px dark navy label \"Visitors\" on top, under it big 28px bold \"48,210\", under that bold #16a34a \"▲ 12.4%\"; each word in its own colour: \"48,210\" #0f172a, \"▲ 12.4%\" #16a34a; the card exactly 280x90px, its top-left at 40,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-2",
-    "stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\"; the card exactly 280x90px, its top-left at 340,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "stat card: 13px dark navy label \"Bounce rate\" on top, under it big 28px bold \"38.2%\", under that bold #dc2626 \"▲ 2.1%\"; each word in its own colour: \"38.2%\" #0f172a, \"▲ 2.1%\" #dc2626; the card exactly 280x90px, its top-left at 340,90 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-3",
@@ -595,7 +595,7 @@
    ],
    [
     "frame-label",
-    "grey text \"Desktop\""
+    "grey text \"Desktop\"; its text #666666 (grey, NOT the page's near-black text)"
    ],
    [
     "canvas-frame",
@@ -611,7 +611,7 @@
    ],
    [
     "size-badge",
-    "vivid bright sky blue block, white text \"180 × 48\""
+    "vivid bright sky blue block, white text \"180 × 48\"; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "text-line",
@@ -619,7 +619,7 @@
    ],
    [
     "cursor-tag",
-    "vivid purple block, white text \"Noor\""
+    "vivid purple block, white text \"Noor\"; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "properties-panel",
@@ -669,7 +669,7 @@
    ],
    [
     "stepper",
-    "a stepper: 4 filled pills in one row, a small grey \"›\" between each pair, each 29px tall (border-radius 999px), left to right: \"✓ Showtime\" #dcfce7 fill, #15803d text; \"2 Seats\" #18181b fill, bold #ffffff text; \"3 Snacks\" #e4e4e7 fill, #71717a text; \"4 Pay\" #e4e4e7 fill, #71717a text"
+    "a stepper: 4 filled pills in one row, a small grey \"›\" between each pair, each 29px tall (border-radius 999px), left to right: \"✓ Showtime\" #dcfce7 fill, #15803d text; \"2 Seats\" #18181b fill, bold #ffffff text; \"3 Snacks\" #e4e4e7 fill, #71717a text; \"4 Pay\" #e4e4e7 fill, #71717a text; each word in its own colour: \"✓ Showtime\" #15803d, \"2 Seats\" #ffffff, \"3 Snacks\" #71717a, \"4 Pay\" #71717a"
    ],
    [
     "hall",
@@ -681,7 +681,7 @@
    ],
    [
     "screen-label",
-    "wide-spaced letters \"SCREEN\""
+    "wide-spaced letters \"SCREEN\"; its text #a1a1aa (grey, NOT the page's near-black text)"
    ],
    [
     "row-letters",
@@ -727,11 +727,11 @@
   "notes": [
    [
     "topbar",
-    "bold 17px \"◆ Lumen Docs\" first, then links: Guides, API, Changelog, Search docs ⌘K; \"◆ Lumen Docs\", \"Guides\", \"API\", \"Changelog\" sit together at the left, \"Search docs ⌘K\" pushed to the far right (621px gap)"
+    "bold 17px \"◆ Lumen Docs\" first, then links: Guides, API, Changelog, Search docs ⌘K; \"◆ Lumen Docs\", \"Guides\", \"API\", \"Changelog\" sit together at the left, \"Search docs ⌘K\" pushed to the far right (621px gap); each word in its own colour: \"◆ Lumen Docs\" #1e293b, \"Guides\" #1e293b, \"API\" #1e293b, \"Changelog\" #1e293b, \"Search docs ⌘K\" #94a3b8"
    ],
    [
     "sidebar",
-    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row, a 2px #0284c7 left edge, bold #0284c7 text); rows exactly 30px apart (30px tall, tight; not roomier), first heading 36px below the nav's top; the nav column is 260px wide with a thin #e2e8f0 line down its full right edge"
+    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row, a 2px #0284c7 left edge, bold #0284c7 text); rows exactly 30px apart (30px tall, tight; not roomier), first heading 36px below the nav's top; the nav column is 260px wide with a thin #e2e8f0 line down its full right edge; its text #475569 (dark grey, NOT the page's dark navy text)"
    ],
    [
     "article",
@@ -739,7 +739,7 @@
    ],
    [
     "toc",
-    "a contents list, no box, no card: bold dark \"On this page\" heading, then 5 small 13px grey (#64748b) links, one per line, plain text (not buttons): \"Overview\", \"Enable sync\", \"Conflicts\", \"Options\", \"Limits\"; \"Overview\" in bold teal (#0284c7)"
+    "a contents list, no box, no card: bold dark \"On this page\" heading, then 5 small 13px grey (#64748b) links, one per line, plain text (not buttons): \"Overview\", \"Enable sync\", \"Conflicts\", \"Options\", \"Limits\"; \"Overview\" in bold teal (#0284c7); each word in its own colour: \"On this page\" #0f172a, \"Overview\" #0284c7, \"Enable sync\" #64748b, \"Conflicts\" #64748b, \"Options\" #64748b, \"Limits\" #64748b"
    ]
   ]
  }

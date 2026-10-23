@@ -53,7 +53,7 @@
    ],
    [
     "cta",
-    "pill button \"Book a stay\""
+    "pill button \"Book a stay\"; its text #7b2ff7 (purple, NOT the page's white text) (exactly: #ffffff fill, #7b2ff7 text, 220x61px, pill ends)"
    ]
   ]
  },
@@ -103,7 +103,7 @@
    ],
    [
     "cta",
-    "black yellow text button \"SHOP NOW →\" (287x80px, square corners: border-radius 0, NOT a pill), with a hard solid opaque red shadow offset 12px down right, no blur"
+    "black yellow text button \"SHOP NOW →\" (287x80px, square corners: border-radius 0, NOT a pill), with a hard solid opaque red shadow offset 12px down right, no blur; its text #ffe600 (yellow, NOT the page's black text) (exactly: #000000 fill, #ffe600 text, 287x80px, square corners: border-radius 0, NOT a pill)"
    ]
   ]
  },
@@ -149,11 +149,11 @@
   "notes": [
    [
     "left-panel",
-    "deep green block, cream text"
+    "deep green block, cream text; its text #f5f0e6 (cream, NOT the page's black text)"
    ],
    [
     "logo",
-    "uppercase wide-spaced letters cream \"VERDE\""
+    "uppercase wide-spaced letters cream \"VERDE\"; its text #f5f0e6 (cream, NOT the page's black text)"
    ],
    [
     "headline",
@@ -161,11 +161,11 @@
    ],
    [
     "body",
-    "cream text \"Hand-picked houseplants, potted in recycled clay and delivered by bike across the city.\""
+    "cream text \"Hand-picked houseplants, potted in recycled clay and delivered by bike across the city.\"; its text #f5f0e6 (cream, NOT the page's black text)"
    ],
    [
     "cta",
-    "cream outline button \"BROWSE PLANTS\" (236x58px, square corners: border-radius 0, NOT a pill)"
+    "cream outline button \"BROWSE PLANTS\" (236x58px, square corners: border-radius 0, NOT a pill); its text #f5f0e6 (cream, NOT the page's black text)"
    ],
    [
     "right-panel",
@@ -215,7 +215,7 @@
    ],
    [
     "nav",
-    "nav, no box around it: bold 22px \"NOVA\" left, \"Product Docs Pricing\" right"
+    "nav, no box around it: bold 22px \"NOVA\" left, \"Product Docs Pricing\" right; each word in its own colour: \"NOVA\" #e6e6ff, \"Product Docs Pricing\" #a5a5d6"
    ],
    [
     "badge",
@@ -227,11 +227,11 @@
    ],
    [
     "subhead",
-    "lavender text \"The edge platform for teams who refuse to wait on their own infrastructure.\""
+    "lavender text \"The edge platform for teams who refuse to wait on their own infrastructure.\"; its text #a5a5d6 (lavender, NOT the page's light grey text)"
    ],
    [
     "ctas",
-    "buttons: \"Start building\", \"Talk to us\""
+    "buttons: \"Start building\", \"Talk to us\"; each word in its own colour: \"Start building\" #ffffff, \"Talk to us\" #22d3ee"
    ]
   ]
  },
@@ -289,7 +289,7 @@
    ],
    [
     "dek",
-    "italic brown text \"Why a generation raised on screens is buying fountain pens again.\""
+    "italic brown text \"Why a generation raised on screens is buying fountain pens again.\"; its text #57534e (brown, NOT the page's near-black text)"
    ],
    [
     "sidebar",
@@ -343,19 +343,19 @@
    ],
    [
     "email",
-    "label \"Email\" above, input \"you@example.com\""
+    "label \"Email\" above, input \"you@example.com\"; its text #9ca3af (grey, NOT the page's dark navy text)"
    ],
    [
     "password",
-    "label \"Password\" above, input \"••••••••\""
+    "label \"Password\" above, input \"••••••••\"; its text #9ca3af (grey, NOT the page's dark navy text)"
    ],
    [
     "submit",
-    "blue white text button \"Sign in\" (340x46px, barely rounded: border-radius 8px, NOT a pill)"
+    "blue white text button \"Sign in\" (340x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 340x46px, 8px rounded)"
    ],
    [
     "forgot",
-    "14px blue \"Forgot your password?\""
+    "14px blue \"Forgot your password?\"; its text #2563eb (blue, NOT the page's dark navy text)"
    ]
   ]
  },
@@ -393,7 +393,7 @@
    ],
    [
     "subtitle",
-    "\"Start free. Upgrade when you grow.\""
+    "\"Start free. Upgrade when you grow.\"; its text #6b7280 (grey, NOT the page's dark navy text)"
    ],
    [
     "tier-1",
@@ -401,7 +401,7 @@
    ],
    [
     "tier-2",
-    "dark navy (exactly #111827) block, white text \"Pro\" big \"$24/mo\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\", indigo button \"Start trial\"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top"
+    "dark navy (exactly #111827) block, white text \"Pro\" big \"$24/mo\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\", indigo button \"Start trial\"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top; its text #ffffff (white, NOT the page's dark navy text)"
    ],
    [
     "tier-3",
@@ -451,7 +451,7 @@
   "notes": [
    [
     "nav",
-    "nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right"
+    "nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
    ],
    [
     "title",
@@ -521,7 +521,7 @@
    ],
    [
     "submit",
-    "teal white text button \"Send message\" (180x48px, barely rounded: border-radius 8px, NOT a pill)"
+    "teal white text button \"Send message\" (180x48px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #059669 fill, #ffffff text, 180x48px, 8px rounded)"
    ],
    [
     "info",
@@ -571,7 +571,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top"
+    "dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: \"Acme\" #ffffff, \"Overview\" #ffffff, \"Customers\" #cbd5e1, \"Invoices\" #cbd5e1, \"Settings\" #cbd5e1"
    ],
    [
     "title",
@@ -579,19 +579,19 @@
    ],
    [
     "stat-1",
-    "white card \"Revenue\", text \"$48.2k\""
+    "white card \"Revenue\", text \"$48.2k\"; each word in its own colour: \"Revenue\" #64748b, \"$48.2k\" #0f172a"
    ],
    [
     "stat-2",
-    "white card \"Customers\", text \"1,204\""
+    "white card \"Customers\", text \"1,204\"; each word in its own colour: \"Customers\" #64748b, \"1,204\" #0f172a"
    ],
    [
     "stat-3",
-    "white card \"Churn\", text \"2.1%\""
+    "white card \"Churn\", text \"2.1%\"; each word in its own colour: \"Churn\" #64748b, \"2.1%\" #0f172a"
    ],
    [
     "stat-4",
-    "white card \"MRR\", text \"$12.9k\""
+    "white card \"MRR\", text \"$12.9k\"; each word in its own colour: \"MRR\" #64748b, \"$12.9k\" #0f172a"
    ],
    [
     "table",

@@ -61,7 +61,7 @@
    ],
    [
     "sticker",
-    "tilted 12° anticlockwise vivid yellow circle with \"NEW ISSUE 07\""
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW ISSUE 07\", 170px across, the words centred in 2 lines (wrapping inside the circle, 20px type)"
    ],
    [
     "headline",
@@ -73,7 +73,7 @@
    ],
    [
     "cta",
-    "near-black (#1c1917, near-black, not a blue) pill cream text button \"Read issue 07\""
+    "near-black (#1c1917, near-black, not a blue) pill cream text button \"Read issue 07\"; its text #f3ead8 (cream, NOT the page's near-black text)"
    ]
   ]
  },
@@ -131,11 +131,11 @@
    ],
    [
     "body",
-    "grey text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\""
+    "grey text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"; its text #a3a3a3 (grey, NOT the page's white text)"
    ],
    [
     "date",
-    "14px mono lime \"// 14—16 AUG 2027\""
+    "14px mono lime \"// 14—16 AUG 2027\"; its text #84cc16 (lime, NOT the page's white text)"
    ]
   ]
  },
@@ -209,7 +209,7 @@
    ],
    [
     "ctas",
-    "buttons: \"Get started\", \"Watch demo\""
+    "buttons: \"Get started\", \"Watch demo\"; each word in its own colour: \"Get started\" #1e1b4b, \"Watch demo\" #ffffff"
    ]
   ]
  },
@@ -321,7 +321,7 @@
    ],
    [
     "logo",
-    "brown \"SUNDAE\""
+    "brown \"SUNDAE\"; its text #7c2d12 (brown, NOT the page's black text)"
    ],
    [
     "headline",
@@ -329,11 +329,11 @@
    ],
    [
     "body",
-    "dark grey text \"Seventies flavours, real cream, and one strict rule: no spoons left behind.\""
+    "dark grey text \"Seventies flavours, real cream, and one strict rule: no spoons left behind.\"; its text #44403c (dark grey, NOT the page's black text)"
    ],
    [
     "cta",
-    "teal white text button \"FIND A TRUCK\" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur"
+    "teal white text button \"FIND A TRUCK\" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's black text) (exactly: #14b8a6 fill, #ffffff text, 205x67px, square corners: border-radius 0, NOT a pill)"
    ]
   ]
  },
@@ -439,7 +439,7 @@
    ],
    [
     "pay",
-    "indigo full-width white text button \"Pay $128.00\""
+    "indigo full-width white text button \"Pay $128.00\"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 680x50px, 10px rounded)"
    ],
    [
     "summary",
@@ -619,11 +619,11 @@
    ],
    [
     "save",
-    "blue white text button \"Save changes\" (152x45px, barely rounded: border-radius 8px, NOT a pill)"
+    "blue white text button \"Save changes\" (152x45px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 152x45px, 8px rounded)"
    ],
    [
     "reset",
-    "red outline button \"Reset all\""
+    "red outline button \"Reset all\"; its text #dc2626 (red, NOT the page's dark navy text)"
    ]
   ]
  },
@@ -673,11 +673,11 @@
    ],
    [
     "subtitle",
-    "brown text \"Everything about orders, returns and your account.\", its top 118px from the page top, 62px below the top of the \"Questions, answered\" line above it (that line's text sits above this text, never on the same line or over it)"
+    "brown text \"Everything about orders, returns and your account.\"; its text #57534e (brown, NOT the page's near-black text), its top 118px from the page top, 62px below the top of the \"Questions, answered\" line above it (that line's text sits above this text, never on the same line or over it)"
    ],
    [
     "search",
-    "pill search input \"Search the help centre…\""
+    "pill search input \"Search the help centre…\"; its text #a8a29e (grey, NOT the page's near-black text)"
    ],
    [
     "q1",
@@ -755,11 +755,11 @@
   "notes": [
    [
     "folders",
-    "pale grey panel sidebar \"Compose Inbox 12 Starred Sent Drafts\"; this panel is FLAT: #f4f4f5 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
+    "pale grey panel sidebar \"Compose Inbox 12 Starred Sent Drafts\"; each word in its own colour: \"Compose\" #ffffff, \"Inbox 12\" #111111, \"Starred\" #111111, \"Sent\" #111111, \"Drafts\" #111111; this panel is FLAT: #f4f4f5 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
    ],
    [
     "m1",
-    "off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\""
+    "off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\"; each word in its own colour: \"Maya Chen\" #111111, \"Draft of the Q3 plan attached\" #71717a"
    ],
    [
     "subject",
@@ -767,7 +767,7 @@
    ],
    [
     "from",
-    "14px grey text \"Maya Chen · 9:41 AM\", one line on its own (top 75px, left edge 628px), nothing else written beside it"
+    "14px grey text \"Maya Chen · 9:41 AM\", one line on its own (top 75px, left edge 628px), nothing else written beside it; its text #71717a (grey, NOT the page's near-black text)"
    ]
   ]
  }

@@ -1,4 +1,4 @@
-c1-layered-peaks · marks 7 · words 140
+c1-layered-peaks · marks 7 · words 436
     nav          box     
     sun          circle  
     headline     heading 
@@ -7,13 +7,13 @@ c1-layered-peaks · marks 7 · words 140
     body         text    
     cta          button  
     note *: whole page: soft yellow (#fde68a) to bright orange (#fb923c at 45%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text
-    note nav: nav, no box around it: "ALTITUDE" left, "RoutesHutsJournal" right
+    note nav: nav, no box around it: "ALTITUDE" left, "RoutesHutsJournal" right; its text #7c2d12 (brown, NOT the page's white text)
     note sun: a 260px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #fff7ed 0%, #fdba74 70%) so it looks lit from above, with a big soft cream glow under it (box-shadow 0px 0px 120px, 70% opacity); absolutely placed, top-left at 820,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)
-    note headline: giant Helvetica heavy tight-set letters "SUMMIT", 260px type, about 953px wide (no larger)
-    note ridge-far: deep raspberry jagged cut-out shape, in front of the "SUMMIT" heading
-    note ridge-near: deep purple jagged cut-out shape
+    note headline: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters "SUMMIT", 260px type, about 953px wide (no larger)
+    note ridge-far: deep raspberry jagged cut-out shape, ONE flat #9d174d fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,612 ; 230,468 ; 435,602 ; 666,420 ; 896,583 ; 1101,478 ; 1280,564 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x480px with its top-left at 0,420, so on that box clip-path: polygon(0% 40%, 18% 10%, 34% 38%, 52% 0%, 70% 34%, 86% 12%, 100% 30%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it), in front of the "SUMMIT" heading
+    note ridge-near: deep purple jagged cut-out shape, ONE flat #3b0764 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,662 ; 282,560 ; 512,696 ; 794,587 ; 1024,716 ; 1280,608 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x340px with its top-left at 0,560, so on that box clip-path: polygon(0% 30%, 22% 0%, 40% 40%, 62% 8%, 80% 46%, 100% 14%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)
     note body: text "Seven alpine routes, hut to hut, with nothing to carry but a camera."
-    note cta: off-white pill deep purple text button "Plan a route"
+    note cta: off-white pill deep purple text button "Plan a route"; its text #3b0764 (deep purple, NOT the page's white text) (exactly: #fff7ed fill, #3b0764 text, 160x54px, pill ends)
 c2-kinetic-marquee · marks 7 · words 192
     logo         text    
     menu         button  
@@ -30,7 +30,7 @@ c2-kinetic-marquee · marks 7 · words 192
     note intro: "We make things move for brands that refuse to sit still."
     note reel: near-black (#111111) tile, 420x236px, 20px rounded corners, plain paint only: no picture, no X, no icon, no text
     note play: pulsing perfectly round solid disc (border-radius 50%, not traced from the ink), 80px across, flat fully opaque vivid red-orange (#ff3d00) fill, hard edge, no blur
-c3-gradient-orbit · marks 7 · words 139
+c3-gradient-orbit · marks 7 · words 161
     ring-outer   circle  
     ring-inner   circle  
     planet       circle  
@@ -42,11 +42,11 @@ c3-gradient-orbit · marks 7 · words 139
     note ring-outer: spinning big faint lavender outline circle
     note ring-inner: spinning big faint cyan outline circle
     note planet: small 46px glowing vivid cyan dot (exactly 46x46px: w-[46px] h-[46px], border-radius 50%, not smaller)
-    note tag: lavender outline pill button "NOW IN PRIVATE BETA"
+    note tag: lavender outline pill button "NOW IN PRIVATE BETA"; its text #c4b5fd (lavender, NOT the page's light grey text)
     note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) lavender (#a78bfa) to light pink (#f472b6 at 50%) to cyan (#22d3ee) gradient, left to right text "Compute at orbit speed", set in exactly 2 lines: "Compute at orbit" / "speed" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 816px wide)
-    note body: grey text "Spin up GPU clusters in seconds and pay only for the seconds you use."
-    note cta: vivid purple (left) to vivid dark pink (right) gradient glowing button "Request access"
-c4-brutal-index · marks 7 · words 131
+    note body: grey text "Spin up GPU clusters in seconds and pay only for the seconds you use."; its text #9ca3af (grey, NOT the page's light grey text)
+    note cta: vivid purple #7c3aed (left) to vivid dark pink #db2777 (right) gradient glowing button "Request access"
+c4-brutal-index · marks 7 · words 183
     number       heading 
     side-rail    box     
     card-a       box     
@@ -55,14 +55,14 @@ c4-brutal-index · marks 7 · words 131
     stamp        circle  
     foot         text    
     note *: whole page: light grey (#e7e5df) page, mono type, near-black text
-    note number: giant Helvetica heavy tight-set letters "01", 420px type, about 407px wide (no larger)
-    note side-rail: vertical near-black bar, light grey text "INDEX OF THINGS"
+    note number: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters "01", 420px type, about 407px wide (no larger)
+    note side-rail: vertical near-black (exactly #111111) bar, light grey text "INDEX OF THINGS"; its text #e7e5df (light grey, NOT the page's near-black text)
     note card-a: white thick near-black border block "Manifesto", text "Websites should look like they were made by people with opinions.", with a hard solid opaque near-black shadow offset 10px down right, no blur
     note card-b: vivid yellow thick near-black border block "Work", text "Forty-two projects, zero templates. Click anything.", with a hard solid opaque near-black shadow offset 10px down right, no blur
     note card-c: vivid sky blue thick near-black border block "Contact", text "hello@brutal.index", with a hard solid opaque near-black shadow offset 10px down right, no blur
-    note stamp: tilted 14° anticlockwise red outline circle with "EST. 2019"
+    note stamp: tilted 14° anticlockwise red outline circle with "EST. 2019"; its text #dc2626 (red, NOT the page's near-black text)
     note foot: 14px mono "© BRUTAL INDEX — ALL RIGHTS IGNORED"
-c5-blend-editorial · marks 8 · words 168
+c5-blend-editorial · marks 8 · words 188
     dark-half    box     
     masthead     text    
     issue        text    
@@ -74,13 +74,13 @@ c5-blend-editorial · marks 8 · words 168
     note *: whole page: white page, Georgia type, near-black text
     note dark-half: near-black block
     note masthead: italic "Contrast"
-    note issue: 13px wide-spaced letters "ISSUE 19 / WINTER", one line on its own (top 44px, left edge 1050px), nothing else written beside it
+    note issue: 13px wide-spaced letters "ISSUE 19 / WINTER", one line on its own (top 44px, left edge 1050px), nothing else written beside it; its text #ffffff (white, NOT the page's near-black text)
     note side-label: uppercase wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 362px long "A MAGAZINE ABOUT OPPOSITES"
-    note photo: vivid bright sky blue (top) to vivid pink (bottom) gradient block, overlapping the upper left of the near-black block and on top of it
+    note photo: vivid bright sky blue #0ea5e9 (top) to vivid pink #f43f5e (bottom) gradient block, overlapping the upper left of the near-black block and on top of it
     note headline: colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) white "Light keeps the dark honest", set in exactly 2 lines: "Light keeps the" / "dark honest" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 848px wide)
     note dek: text "Twelve photographers on the shadows they chase, and the ones they run from."
-    note read: link "Read the issue →" with a 2px underline (no box, not a button)
-e1-users-table · marks 5 · words 203
+    note read: link "Read the issue →" with a 2px underline (no box, not a button); its text #ffffff (white, NOT the page's near-black text)
+e1-users-table · marks 5 · words 931
     title        heading 
     add          button  
     filters      box     
@@ -88,11 +88,11 @@ e1-users-table · marks 5 · words 203
     pager        text    
     note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
     note title: "Users", 28px bold type on one line, its box top 40px from the page top and 32px tall (top-[40px] or the same margin, line-height 32px; not higher)
-    note add: indigo white text button "+ Invite user"
-    note filters: toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search by name or email…" 360px wide, dropdown "Role: All" 81px wide, dropdown "Status: All" 92px wide
-    note table: table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", deep rust orange "Invited", deep raspberry "Suspended"
-    note pager: pager, one line 1168px wide, its middle 580px from the page top (inside the page, not below it): 14px dark grey "Showing 1–7 of 48" at the left, at the far right a row of 34x34px outlined page buttons "1", "2", "3", "Next", "1" filled indigo with white text (current)
-e2-kanban · marks 5 · words 105
+    note add: indigo white text button "+ Invite user" (122x40px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 122x40px, 8px rounded)
+    note filters: toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search by name or email…" 360px wide, dropdown "Role: All" 81px wide, dropdown "Status: All" 92px wide; each word in its own colour: "Search by name or email…" #94a3b8, "Role: All" #0f172a, "Status: All" #0f172a
+    note table: table, every body row built and none invented, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows: "Ada Park" | "ada@acme.io" | "Admin" | "Active" | "2 min ago"; "Ben Ortiz" | "ben@acme.io" | "Editor" | "Active" | "1 hour ago"; "Chloe Wu" | "chloe@acme.io" | "Viewer" | "Invited" | "—"; "Dev Rao" | "dev@acme.io" | "Editor" | "Suspended" | "3 days ago"; "Ema Lind" | "ema@acme.io" | "Viewer" | "Active" | "Yesterday"; "Finn Bauer" | "finn@acme.io" | "Admin" | "Active" | "5 min ago"; "Gia Rossi" | "gia@acme.io" | "Viewer" | "Invited" | "—"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 47 of them, nothing invented, nothing left out): 222x43 at 57,161 #f1f5f9 fill: 12px bold #475569 "Name"; 284x43 at 279,161 #f1f5f9 fill: 12px bold #475569 "Email"; 164x43 at 562,161 #f1f5f9 fill: 12px bold #475569 "Role"; 257x43 at 727,161 #f1f5f9 fill: 12px bold #475569 "Status"; 240x43 at 984,161 #f1f5f9 fill: 12px bold #475569 "Last seen"; 222x49 at 57,204 1px #e2e8f0 border on the top only: 14px #0f172a "Ada Park"; 284x49 at 279,204 1px #e2e8f0 border on the top only: 14px #0f172a "ada@acme.io"; 164x49 at 562,204 1px #e2e8f0 border on the top only: 14px #0f172a "Admin"; 257x49 at 727,204 1px #e2e8f0 border on the top only; 240x49 at 984,204 1px #e2e8f0 border on the top only: 14px #0f172a "2 min ago"; 56x22 at 743,218 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 222x49 at 57,253 1px #e2e8f0 border on the top only: 14px #0f172a "Ben Ortiz"; 284x49 at 279,253 1px #e2e8f0 border on the top only: 14px #0f172a "ben@acme.io"; 164x49 at 562,253 1px #e2e8f0 border on the top only: 14px #0f172a "Editor"; 257x49 at 727,253 1px #e2e8f0 border on the top only; 240x49 at 984,253 1px #e2e8f0 border on the top only: 14px #0f172a "1 hour ago"; 56x22 at 743,267 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 222x49 at 57,302 1px #e2e8f0 border on the top only: 14px #0f172a "Chloe Wu"; 284x49 at 279,302 1px #e2e8f0 border on the top only: 14px #0f172a "chloe@acme.io"; 164x49 at 562,302 1px #e2e8f0 border on the top only: 14px #0f172a "Viewer"; 257x49 at 727,302 1px #e2e8f0 border on the top only; 240x49 at 984,302 1px #e2e8f0 border on the top only: 14px #0f172a "—"; 59x22 at 743,316 #fef3c7 fill, pill ends: 12px bold #92400e "Invited"; 222x49 at 57,351 1px #e2e8f0 border on the top only: 14px #0f172a "Dev Rao"; 284x49 at 279,351 1px #e2e8f0 border on the top only: 14px #0f172a "dev@acme.io"; 164x49 at 562,351 1px #e2e8f0 border on the top only: 14px #0f172a "Editor"; 257x49 at 727,351 1px #e2e8f0 border on the top only; 240x49 at 984,351 1px #e2e8f0 border on the top only: 14px #0f172a "3 days ago"; 85x22 at 743,365 #fee2e2 fill, pill ends: 12px bold #991b1b "Suspended"; 222x49 at 57,400 1px #e2e8f0 border on the top only: 14px #0f172a "Ema Lind"; 284x49 at 279,400 1px #e2e8f0 border on the top only: 14px #0f172a "ema@acme.io"; 164x49 at 562,400 1px #e2e8f0 border on the top only: 14px #0f172a "Viewer"; 257x49 at 727,400 1px #e2e8f0 border on the top only; 240x49 at 984,400 1px #e2e8f0 border on the top only: 14px #0f172a "Yesterday"; 56x22 at 743,414 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 222x49 at 57,449 1px #e2e8f0 border on the top only: 14px #0f172a "Finn Bauer"; 284x49 at 279,449 1px #e2e8f0 border on the top only: 14px #0f172a "finn@acme.io"; 164x49 at 562,449 1px #e2e8f0 border on the top only: 14px #0f172a "Admin"; 257x49 at 727,449 1px #e2e8f0 border on the top only; 240x49 at 984,449 1px #e2e8f0 border on the top only: 14px #0f172a "5 min ago"; 56x22 at 743,463 #dcfce7 fill, pill ends: 12px bold #166534 "Active"; 222x49 at 57,498 1px #e2e8f0 border on the top only: 14px #0f172a "Gia Rossi"; 284x49 at 279,498 1px #e2e8f0 border on the top only: 14px #0f172a "gia@acme.io"; 164x49 at 562,498 1px #e2e8f0 border on the top only: 14px #0f172a "Viewer"; 257x49 at 727,498 1px #e2e8f0 border on the top only; 240x49 at 984,498 1px #e2e8f0 border on the top only: 14px #0f172a "—"; 59x22 at 743,512 #fef3c7 fill, pill ends: 12px bold #92400e "Invited"
+    note pager: pager, one line 1168px wide, its middle 580px from the page top (inside the page, not below it): 14px dark grey "Showing 1–7 of 48" at the left, at the far right a row of 34x34px outlined page buttons "1", "2", "3", "Next", "1" filled indigo with white text (current); its text #475569 (dark grey, NOT the page's dark navy text)
+e2-kanban · marks 5 · words 462
     title        heading 
     col-todo     box     
     col-doing    box     
@@ -100,29 +100,29 @@ e2-kanban · marks 5 · words 105
     col-done     box     
     note *: whole page: pale blue-grey (#eef2f7, plainly not white) page, Helvetica type, dark navy text
     note title: "Sprint 24", 26px type on ONE line (white-space: nowrap, never wrapped), about 111px wide
-    note col-todo: column "TO DO", cards: "Rate-limit the export API" tag blue "Feature", "Login loop on Safari 17" tag red "Bug", "Rotate staging keys" tag green "Ops"
-    note col-doing: column "IN PROGRESS", cards: "Bulk invite from CSV" tag blue "Feature", "Chart tooltips cut off" tag red "Bug"
-    note col-review: column "REVIEW", cards: "Dark mode for settings" tag blue "Feature"
-    note col-done: column "DONE", cards: "Upgrade Postgres to 16" tag green "Ops", "Empty state for search" tag blue "Feature", "Fix timezone in emails" tag red "Bug"
-e3-calendar · marks 4 · words 117
+    note col-todo: column "TO DO", cards: "Rate-limit the export API" tag blue "Feature", "Login loop on Safari 17" tag red "Bug", "Rotate staging keys" tag green "Ops"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out): 257x16 at 54,101 14px bold #475569 "To do"; 257x79 at 54,129 #ffffff fill, 10px rounded: 14px #1e293b "Rate-limit the export API"; 56x21 at 68,173 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 "Feature"; 257x79 at 54,220 #ffffff fill, 10px rounded: 14px #1e293b "Login loop on Safari 17"; 37x21 at 68,264 #fee2e2 fill, 6px rounded: 11px bold #b91c1c "Bug"; 257x79 at 54,311 #ffffff fill, 10px rounded: 14px #1e293b "Rotate staging keys"; 37x21 at 68,355 #dcfce7 fill, 6px rounded: 11px bold #15803d "Ops"
+    note col-doing: column "IN PROGRESS", cards: "Bulk invite from CSV" tag blue "Feature", "Chart tooltips cut off" tag red "Bug"; each word in its own colour: "IN PROGRESS" #475569, "Bulk invite from CSV Feature" #1e293b, "Chart tooltips cut off Bug" #1e293b; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 257x16 at 359,101 14px bold #475569 "In progress"; 257x79 at 359,129 #ffffff fill, 10px rounded: 14px #1e293b "Bulk invite from CSV"; 56x21 at 373,173 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 "Feature"; 257x79 at 359,220 #ffffff fill, 10px rounded: 14px #1e293b "Chart tooltips cut off"; 37x21 at 373,264 #fee2e2 fill, 6px rounded: 11px bold #b91c1c "Bug"
+    note col-review: column "REVIEW", cards: "Dark mode for settings" tag blue "Feature"; each word in its own colour: "REVIEW" #475569, "Dark mode for settings Feature" #1e293b
+    note col-done: column "DONE", cards: "Upgrade Postgres to 16" tag green "Ops", "Empty state for search" tag blue "Feature", "Fix timezone in emails" tag red "Bug"; each word in its own colour: "DONE" #475569, "Upgrade Postgres to 16 Ops" #1e293b, "Empty state for search Feature" #1e293b, "Fix timezone in emails Bug" #1e293b; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out): 257x16 at 969,101 14px bold #475569 "Done"; 257x79 at 969,129 #ffffff fill, 10px rounded: 14px #1e293b "Upgrade Postgres to 16"; 37x21 at 983,173 #dcfce7 fill, 6px rounded: 11px bold #15803d "Ops"; 257x79 at 969,220 #ffffff fill, 10px rounded: 14px #1e293b "Empty state for search"; 56x21 at 983,264 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 "Feature"; 257x79 at 969,311 #ffffff fill, 10px rounded: 14px #1e293b "Fix timezone in emails"; 37x21 at 983,355 #fee2e2 fill, 6px rounded: 11px bold #b91c1c "Bug"
+e3-calendar · marks 4 · words 844
     title        heading 
     prev         button  
     new          button  
     month        box     
     note title: "November 2026", 28px type on ONE line (white-space: nowrap, never wrapped), about 207px wide
     note prev: outline buttons in a row: "‹ Prev", "Today", "Next ›"
-    note new: green white text button "+ New event"
-    note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; day 1 under Sun, first row starts with last month's 26, 27, 28, 29, 30, 31, last box is 29; event chips (solid colour, white text) blue "Standup" on 2, 9, 16, 23 (a chip on each day), green "Design review" on 4, orange "Launch" on 6, green "1:1 with Mia" on 11, blue "Planning" on 11, orange "Offsite" on 19, 20 (a chip on each day), green "Retro" on 25; day 11 highlighted
-e4-chat · marks 4 · words 110
+    note new: green white text button "+ New event"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #16a34a fill, #ffffff text, 112x36px, 8px rounded)
+    note month: month calendar grid, Mon to Sun across, 5 weeks of day boxes; day 1 under Sun, first row starts with last month's 26, 27, 28, 29, 30, 31, last box is 29; event chips (solid colour, white text) blue "Standup" on 2, 9, 16, 23 (a chip on each day), green "Design review" on 4, orange "Launch" on 6, green "1:1 with Mia" on 11, blue "Planning" on 11, orange "Offsite" on 19, 20 (a chip on each day), green "Retro" on 25; day 11 highlighted; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 53 of them, nothing invented, nothing left out): 169x36 at 49,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Mon"; 169x36 at 218,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Tue"; 169x36 at 387,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Wed"; 169x36 at 556,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Thu"; 169x36 at 725,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Fri"; 169x36 at 894,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Sat"; 169x36 at 1063,89 #f9fafb fill, 1px #374151 border on the right+bottom only: 13px bold #374151 "Sun"; 169x128 at 49,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "26"; 169x128 at 218,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "27"; 169x128 at 387,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "28"; 169x128 at 556,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "29"; 169x128 at 725,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "30"; 169x128 at 894,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "31"; 169x128 at 1063,125 1px #6b7280 border on the right+bottom only: 13px #6b7280 "1"; 169x128 at 49,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "2"; 169x128 at 218,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "3"; 169x128 at 387,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "4"; 169x128 at 556,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "5"; 169x128 at 725,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "6"; 169x128 at 894,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "7"; 169x128 at 1063,253 1px #6b7280 border on the right+bottom only: 13px #6b7280 "8"; 152x22 at 57,282 #2563eb fill, 5px rounded: 12px #ffffff "Standup"; 152x22 at 395,282 #16a34a fill, 5px rounded: 12px #ffffff "Design review"; 152x22 at 733,282 #ea580c fill, 5px rounded: 12px #ffffff "Launch"; 169x128 at 49,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "9"; 169x128 at 218,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "10"; 169x128 at 387,381 #f0fdf4 fill, 1px #6b7280 border on the right+bottom only: 13px #6b7280 "11"; 169x128 at 556,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "12"; 169x128 at 725,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "13"; 169x128 at 894,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "14"; 169x128 at 1063,381 1px #6b7280 border on the right+bottom only: 13px #6b7280 "15"; 152x22 at 57,410 #2563eb fill, 5px rounded: 12px #ffffff "Standup"; 152x22 at 395,410 #16a34a fill, 5px rounded: 12px #ffffff "1:1 with Mia"; 152x22 at 395,438 #2563eb fill, 5px rounded: 12px #ffffff "Planning"; 169x128 at 49,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "16"; 169x128 at 218,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "17"; 169x128 at 387,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "18"; 169x128 at 556,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "19"; 169x128 at 725,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "20"; 169x128 at 894,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "21"; 169x128 at 1063,509 1px #6b7280 border on the right+bottom only: 13px #6b7280 "22"; 152x22 at 57,538 #2563eb fill, 5px rounded: 12px #ffffff "Standup"; 152x22 at 564,538 #ea580c fill, 5px rounded: 12px #ffffff "Offsite"; 152x22 at 733,538 #ea580c fill, 5px rounded: 12px #ffffff "Offsite"; 169x128 at 49,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "23"; 169x128 at 218,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "24"; 169x128 at 387,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "25"; 169x128 at 556,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "26"; 169x128 at 725,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "27"; 169x128 at 894,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "28"; 169x128 at 1063,637 1px #6b7280 border on the right+bottom only: 13px #6b7280 "29"; 152x22 at 57,666 #2563eb fill, 5px rounded: 12px #ffffff "Standup"; 152x22 at 395,666 #16a34a fill, 5px rounded: 12px #ffffff "Retro"
+e4-chat · marks 4 · words 257
     sidebar      box     
     header       text    
     thread       box     
     composer     box     
-    note sidebar: dark navy sidebar, light grey text "Messages", then 5 links stacked, each a name with a small grey line under it: "Design team" / "Mia: shipping the new icons" (highlighted); "Jonas Berg" / "See you at 3?"; "Support rota" / "Ali: I can cover Friday"; "Lena Ito" / "Thanks! 🙏"; "Releases" / "v4.2 is live"
+    note sidebar: dark navy (exactly #0f172a) sidebar, light grey text "Messages", then 5 links stacked, each a name with a small grey line under it: "Design team" / "Mia: shipping the new icons" (highlighted); "Jonas Berg" / "See you at 3?"; "Support rota" / "Ali: I can cover Friday"; "Lena Ito" / "Thanks! 🙏"; "Releases" / "v4.2 is live"; its text #e2e8f0 (light grey, NOT the page's dark navy text)
     note header: 17px "Design team"
-    note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right bright sky blue "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right bright sky blue "Perfect, I'll wire them up after lunch.", 1 more
-    note composer: input "Write a message…", button "Send"
-e5-analytics · marks 5 · words 95
+    note thread: chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right bright sky blue "Looks great. Can we get the outline"…, left white "Yes — bumping them all to 1.5px now.", right bright sky blue "Perfect, I'll wire them up after lunch.", 1 more; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 327x48 at 348,100 #ffffff fill, 1px #e2e8f0 border, 16px rounded: 15px #0f172a "Morning! New icon set is in Figma, 48 icons."; 393x46 at 859,162 #0ea5e9 fill, 16px rounded: 15px #ffffff "Looks great. Can we get the outline weights to match?"; 289x48 at 348,222 #ffffff fill, 1px #e2e8f0 border, 16px rounded: 15px #0f172a "Yes — bumping them all to 1.5px now."; 270x46 at 982,283 #0ea5e9 fill, 16px rounded: 15px #ffffff "Perfect, I'll wire them up after lunch."; 265x48 at 348,343 #ffffff fill, 1px #e2e8f0 border, 16px rounded: 15px #0f172a "Shipping the new icons by 4pm 🚀"
+    note composer: input "Write a message…", button "Send"; each word in its own colour: "Write a message…" #94a3b8, "Send" #ffffff
+e5-analytics · marks 5 · words 269
     title        heading 
     range        button  
     kpis         box     
@@ -130,7 +130,7 @@ e5-analytics · marks 5 · words 95
     top-pages    box     
     note *: whole page: pale grey (#f6f7fb, plainly not white) page, Helvetica type, dark navy text
     note title: "Overview", 26px bold type on one line, its box top 36px from the page top and 31px tall (top-[36px] or the same margin, line-height 31px; not higher)
-    note range: dropdown "Last 30 days"
-    note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%
+    note range: dropdown "Last 30 days" (exactly: #ffffff fill, #111827 text, 124x38px, 8px rounded)
+    note kpis: 4 stat cards in a row: "Visitors" 48,210 ▲ 12%, "Signups" 1,932 ▲ 8%, "Conversion" 4.0% ▼ 0.3%, "Revenue" $23.4k ▲ 17%; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 16 of them, nothing invented, nothing left out): 283x120 at 44,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 347,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 650,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 953,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 42x15 at 65,117 13px #6b7280 "Visitors"; 47x15 at 368,117 13px #6b7280 "Signups"; 66x15 at 671,117 13px #6b7280 "Conversion"; 52x15 at 974,117 13px #6b7280 "Revenue"; 241x34 at 65,141 30px bold #111827 "48,210"; 241x34 at 368,141 30px bold #111827 "1,932"; 241x34 at 671,141 30px bold #111827 "4.0%"; 241x34 at 974,141 30px bold #111827 "$23.4k"; 43x15 at 65,177 13px #16a34a "▲ 12%"; 35x15 at 368,177 13px #16a34a "▲ 8%"; 46x15 at 671,177 13px #dc2626 "▼ 0.3%"; 43x15 at 974,177 13px #16a34a "▲ 17%"
     note chart: bar chart "Signups per week", 8 indigo bars, heights 45/61/53/69/78/73/91/100% of the tallest
-    note top-pages: white card "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, "/changelog" 2,954
+    note top-pages: white card "Top pages" list: "/pricing" 12,401, "/" 9,880, "/docs/start" 6,112, "/blog/launch" 4,307, "/changelog" 2,954; list rows exactly 45px apart (45px tall, 14px type: tight, not roomier), first line 55px below the panel's top

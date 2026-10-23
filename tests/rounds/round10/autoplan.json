@@ -267,7 +267,7 @@
    ],
    [
     "cta",
-    "white pill near-black text button \"Join the season\""
+    "white pill near-black text button \"Join the season\"; its text #111111 (near-black, NOT the page's white text) (exactly: #ffffff fill, #111111 text, 189x54px, pill ends)"
    ]
   ]
  },
@@ -341,7 +341,7 @@
    ],
    [
     "btn-buy",
-    "bright green black text button \"[ BUY $49 ]\" (197x52px, square corners: border-radius 0, NOT a pill)"
+    "bright green black text button \"[ BUY $49 ]\" (197x52px, square corners: border-radius 0, NOT a pill); its text #05140a (black, NOT the page's bright green text) (exactly: #39ff7a fill, #05140a text, 197x52px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "scanlines",
@@ -513,7 +513,7 @@
    ],
    [
     "spin-badge",
-    "spinning dark navy outline circle with \"SCROLL · TO · WANDER\""
+    "spinning dark navy outline circle with \"SCROLL · TO · WANDER\", 120px across, the words centred in 3 lines (wrapping inside the circle, 11px type)"
    ]
   ]
  },
@@ -555,7 +555,7 @@
    ],
    [
     "chat-panel",
-    "white block, near-black text \"In-call messages\" list of 4 rows, name left and time right on one line, grey line under: \"Jon Kim\" 10:02 \"Can we see the mobile nav\"…, \"Priya Shah\" 10:04 \"Dropping the Figma link here\", \"Maya Alvarez\" 10:05 \"Sharing now, one sec\", \"Leo Tan\" 10:07 \"+1 to the darker footer\""
+    "white block, near-black text \"In-call messages\" list of 4 rows, name left and time right on one line, grey line under: \"Jon Kim\" 10:02 \"Can we see the mobile nav\"…, \"Priya Shah\" 10:04 \"Dropping the Figma link here\", \"Maya Alvarez\" 10:05 \"Sharing now, one sec\", \"Leo Tan\" 10:07 \"+1 to the darker footer\"; its text #18181b (near-black, NOT the page's white text)"
    ]
   ]
  },
@@ -613,7 +613,7 @@
    ],
    [
     "review-comment",
-    "\"mo-review\", lines \"commented 2 hours ago\", \"Should we cap the total wait? 5 attempts at 250ms doubling is ~8s.\", \"Reply Resolve conversation\""
+    "\"mo-review\", lines \"commented 2 hours ago\", \"Should we cap the total wait? 5 attempts at 250ms doubling is ~8s.\", \"Reply Resolve conversation\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 64x15 at 430,446 13px bold #1f2328 \"mo-review\"; 117x12 at 498,448 11px #656d76 \"commented 2 hours ago\"; 788x15 at 430,467 13px #1f2328 \"Should we cap the total wait? 5 attempts at 250ms doubling is ~8s.\"; 57x26 at 430,492 #f6f8fa fill, 1px #d0d7de border, 6px rounded: 12px #1f2328 \"Reply\"; 141x26 at 495,492 #f6f8fa fill, 1px #d0d7de border, 6px rounded: 12px #1f2328 \"Resolve conversation\""
    ]
   ]
  },
@@ -659,7 +659,7 @@
    ],
    [
     "side-nav",
-    "black (exactly #000000) block, grey text \"Home\", text \"Your Library\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out): 39x16 at 28,36 14px bold #ffffff \"Home\"; 44x16 at 28,70 14px #b3b3b3 \"Search\"; 82x16 at 28,124 14px bold #ffffff \"Your Library\"; 100x16 at 28,158 14px #b3b3b3 \"Late Night Drive\"; 72x16 at 28,191 14px #b3b3b3 \"Focus Flow\"; 92x16 at 28,225 14px #b3b3b3 \"Sunday Coffee\"; 58x16 at 28,259 14px #b3b3b3 \"Gym Hits\"; 104x16 at 28,292 14px #b3b3b3 \"Discover Weekly\""
+    "black (exactly #000000) block, grey text \"Home\", text \"Your Library\"; its text #b3b3b3 (grey, NOT the page's white text); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out): 39x16 at 28,36 14px bold #ffffff \"Home\"; 44x16 at 28,70 14px #b3b3b3 \"Search\"; 82x16 at 28,124 14px bold #ffffff \"Your Library\"; 100x16 at 28,158 14px #b3b3b3 \"Late Night Drive\"; 72x16 at 28,191 14px #b3b3b3 \"Focus Flow\"; 92x16 at 28,225 14px #b3b3b3 \"Sunday Coffee\"; 58x16 at 28,259 14px #b3b3b3 \"Gym Hits\"; 104x16 at 28,292 14px #b3b3b3 \"Discover Weekly\""
    ],
    [
     "playlist-main",
@@ -779,7 +779,7 @@
    ],
    [
     "drop-zone",
-    "2px dashed #94a3b8 outline (dashes, not a solid line) list: \"⬆\", \"Click to upload\", \"SVG or PNG, max 2 MB\""
+    "2px dashed #94a3b8 outline (dashes, not a solid line) list: \"⬆\", \"Click to upload\", \"SVG or PNG, max 2 MB\"; its text #64748b (grey, NOT the page's dark navy text)"
    ],
    [
     "footer-buttons",

@@ -49,7 +49,7 @@
    ],
    [
     "stat-tile",
-    "vivid yellow block, near-black text \"UPTIME\", text \"99.9\"; the card exactly 300x200px, its top-left at 620,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "vivid yellow block, near-black text \"UPTIME\", text \"99.9\"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "list-tile",
@@ -57,11 +57,11 @@
    ],
    [
     "quote-tile",
-    "light grey block, near-black text \"“The calmest dashboard I’ve ever used.”\"; the card exactly 300x200px, its top-left at 620,260, its top 20px under the bottom of the card right above it (that card ends at y 240: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "light grey block, near-black text \"“The calmest dashboard I’ve ever used.”\"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,260, its top 20px under the bottom of the card right above it (that card ends at y 240: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "cyan-tile",
-    "vivid cyan block, black text \"NEW\", text \"Widgets that rearrange themselves.\"; the card exactly 380x380px, its top-left at 40,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "vivid cyan block, black text \"NEW\", text \"Widgets that rearrange themselves.\"; its text #0b0b0f (black, NOT the page's white text); the card exactly 380x380px, its top-left at 40,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart-tile",
@@ -241,7 +241,7 @@
    ],
    [
     "cta",
-    "soft yellow outline pill button \"Start walking\""
+    "soft yellow outline pill button \"Start walking\"; its text #fde68a (soft yellow, NOT the page's white text)"
    ],
    [
     "skyline-back",
@@ -323,11 +323,11 @@
    ],
    [
     "sub",
-    "indigo text \"Edge, compute and storage as one stack you can see. Deploy from a single file.\""
+    "indigo text \"Edge, compute and storage as one stack you can see. Deploy from a single file.\"; its text #4338ca (indigo, NOT the page's deep indigo text)"
    ],
    [
     "cta",
-    "deep indigo white text button \"Deploy now\""
+    "deep indigo white text button \"Deploy now\"; its text #ffffff (white, NOT the page's deep indigo text) (exactly: #1e1b4b fill, #ffffff text, 146x50px, 10px rounded)"
    ],
    [
     "cube-top",
@@ -347,15 +347,15 @@
    ],
    [
     "label-edge",
-    "white button \"Edge\""
+    "white button \"Edge\" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded)"
    ],
    [
     "label-compute",
-    "white button \"Compute\""
+    "white button \"Compute\" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded)"
    ],
    [
     "label-storage",
-    "white button \"Storage\""
+    "white button \"Storage\" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded)"
    ]
   ]
  },
@@ -719,7 +719,7 @@
    ],
    [
     "topbar",
-    "white bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder"
+    "white bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder; each word in its own colour: \"Sprint 42\" #0f172a, \"Search cards…\" #94a3b8, \"All\" #ffffff, \"Mine\" #0f172a, \"Bugs\" #0f172a, \"Blocked\" #0f172a"
    ],
    [
     "head-todo",
@@ -739,27 +739,27 @@
    ],
    [
     "lane-web",
-    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ WEB APP\" at the left"
+    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ WEB APP\" at the left; its text #475569 (dark grey, NOT the page's dark navy text)"
    ],
    [
     "card-1",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Login loops on Safari 18\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x76px, its top-left at 24,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Login loops on Safari 18\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Bug\" #b91c1c, \"Login loops on Safari 18\" #0f172a; the card exactly 290x76px, its top-left at 24,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-2",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Saved filters in sidebar\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 240px from the page top, 32px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 24,240, its top 32px under the bottom of the card right above it (that card ends at y 208: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Saved filters in sidebar\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Feature\" #4338ca, \"Saved filters in sidebar\" #0f172a; its top 240px from the page top, 32px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 24,240, its top 32px under the bottom of the card right above it (that card ends at y 208: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-3",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green (#22c55e) progress bar 60% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 60% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x81px, its top-left at 338,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Bulk edit for tasks\" under it; a thin 5px green (#22c55e) progress bar 60% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 60% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Feature\" #4338ca, \"Bulk edit for tasks\" #0f172a; the card exactly 290x81px, its top-left at 338,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-4",
-    "white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title \"Billing webhooks retry\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 252px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 338,252, its top 39px under the bottom of the card right above it (that card ends at y 213: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag \"Blocked\" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title \"Billing webhooks retry\" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Blocked\" #b45309, \"Billing webhooks retry\" #0f172a; its top 252px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 338,252, its top 39px under the bottom of the card right above it (that card ends at y 213: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-5",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Upgrade to Node 24\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x76px, its top-left at 652,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Upgrade to Node 24\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Chore\" #15803d, \"Upgrade to Node 24\" #0f172a; the card exactly 290x76px, its top-left at 652,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-6",
@@ -771,23 +771,23 @@
    ],
    [
     "lane-mobile",
-    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ MOBILE\" at the left; the line sits 470px from the page top, 142px below the lowest card above it (the lane above keeps that empty space; do not pull this lane up)"
+    "a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label \"▾ MOBILE\" at the left; its text #475569 (dark grey, NOT the page's dark navy text); the line sits 470px from the page top, 142px below the lowest card above it (the lane above keeps that empty space; do not pull this lane up)"
    ],
    [
     "card-8",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Push opens wrong screen\" under it; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x76px, its top-left at 24,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Bug\" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title \"Push opens wrong screen\" under it; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Bug\" #b91c1c, \"Push opens wrong screen\" #0f172a; the card exactly 290x76px, its top-left at 24,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-9",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green (#22c55e) progress bar 30% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 30% green fill); a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x81px, its top-left at 338,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Offline drafts\" under it; a thin 5px green (#22c55e) progress bar 30% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 30% green fill); a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Feature\" #4338ca, \"Offline drafts\" #0f172a; the card exactly 290x81px, its top-left at 338,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-10",
-    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green (#22c55e) progress bar 85% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 85% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x81px, its top-left at 338,618, its top 39px under the bottom of the card right above it (that card ends at y 579: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag \"Feature\" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title \"Widget for iOS home screen\" under it; a thin 5px green (#22c55e) progress bar 85% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 85% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Feature\" #4338ca, \"Widget for iOS home screen\" #0f172a; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x81px, its top-left at 338,618, its top 39px under the bottom of the card right above it (that card ends at y 579: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-11",
-    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Crash reporting SDK\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; the card exactly 290x76px, its top-left at 652,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag \"Chore\" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title \"Crash reporting SDK\" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: \"Chore\" #15803d, \"Crash reporting SDK\" #0f172a; the card exactly 290x76px, its top-left at 652,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "card-12",
@@ -841,19 +841,19 @@
    ],
    [
     "kpi-1",
-    "white stat card: small grey label \"Visitors\", under it big 28px bold \"48,210\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; the card exactly 290x110px, its top-left at 32,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white stat card: small grey label \"Visitors\", under it big 28px bold \"48,210\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: \"Visitors\" #78716c, \"48,210\" #1c1917; the card exactly 290x110px, its top-left at 32,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-2",
-    "white stat card: small grey label \"Sign-ups\", under it big 28px bold \"3,904\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; the card exactly 290x110px, its top-left at 338,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white stat card: small grey label \"Sign-ups\", under it big 28px bold \"3,904\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: \"Sign-ups\" #78716c, \"3,904\" #1c1917; the card exactly 290x110px, its top-left at 338,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-3",
-    "white stat card: small grey label \"Activated\", under it big 28px bold \"1,722\"; a small 90x30px red sparkline (a thin 7-point line, no fill, no axes) falling left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; the card exactly 290x110px, its top-left at 644,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white stat card: small grey label \"Activated\", under it big 28px bold \"1,722\"; a small 90x30px red sparkline (a thin 7-point line, no fill, no axes) falling left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: \"Activated\" #78716c, \"1,722\" #1c1917; the card exactly 290x110px, its top-left at 644,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-4",
-    "white stat card: small grey label \"Paid\", under it big 28px bold \"412\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; the card exactly 290x110px, its top-left at 950,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white stat card: small grey label \"Paid\", under it big 28px bold \"412\"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: \"Paid\" #78716c, \"412\" #1c1917; the card exactly 290x110px, its top-left at 950,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "funnel",
@@ -915,7 +915,7 @@
    ],
    [
     "tabs",
-    "near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right)"
+    "near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right); each word in its own colour: \"parse.ts\" #ffffff, \"score.ts\" #7f849c, \"main.ts ●\" #7f849c"
    ],
    [
     "code",
@@ -931,7 +931,7 @@
    ],
    [
     "status-bar",
-    "sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above"
+    "sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #11111b (near-black, NOT the page's light grey text)"
    ]
   ]
  },
@@ -1049,7 +1049,7 @@
    ],
    [
     "breadcrumb",
-    "small grey breadcrumb \"Home / Jackets / Shell\""
+    "small grey breadcrumb \"Home / Jackets / Shell\"; its text #6b7280 (grey, NOT the page's dark navy text)"
    ],
    [
     "thumb-1",
@@ -1077,11 +1077,11 @@
    ],
    [
     "rating",
-    "amber \"★★★★☆4.2 · 318 reviews\""
+    "amber \"★★★★☆4.2 · 318 reviews\"; its text #f59e0b (amber, NOT the page's dark navy text)"
    ],
    [
     "price",
-    "one line, left to right, each part a little apart: bold 28px dark navy \"$189\", then 18px grey \"$240\" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) \"-21%\""
+    "one line, left to right, each part a little apart: bold 28px dark navy \"$189\", then 18px grey \"$240\" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) \"-21%\"; each word in its own colour: \"$240\" #9ca3af, \"-21%\" #ffffff"
    ],
    [
     "colour-label",
@@ -1109,11 +1109,11 @@
    ],
    [
     "sizes",
-    "buttons: \"XS\", \"S\", \"M\", \"L\", \"XL\"; 5 equal 90x44px rounded outlined boxes in one row; \"M\" is the picked one (2px dark navy border, bold, the others a thin light grey border); \"XS\" and \"XL\" unavailable (light grey text struck through, pale grey fill)"
+    "buttons: \"XS\", \"S\", \"M\", \"L\", \"XL\"; 5 equal 90x44px rounded outlined boxes in one row; \"M\" is the picked one (2px dark navy border, bold, the others a thin light grey border); \"XS\" and \"XL\" unavailable (light grey text struck through, pale grey fill); each word in its own colour: \"XS\" #d1d5db, \"S\" #111827, \"M\" #111827, \"L\" #111827, \"XL\" #d1d5db"
    ],
    [
     "add-to-bag",
-    "dark navy (#111827, near-black, not a blue) white text button \"Add to bag\""
+    "dark navy (#111827, near-black, not a blue) white text button \"Add to bag\"; its text #ffffff (white, NOT the page's dark navy text)"
    ],
    [
     "wishlist",
@@ -1121,7 +1121,7 @@
    ],
    [
     "shipping",
-    "13px green \"✓ Free delivery by Oct 27\""
+    "13px green \"✓ Free delivery by Oct 27\"; its text #15803d (green, NOT the page's dark navy text)"
    ],
    [
     "acc-details",
@@ -1129,7 +1129,7 @@
    ],
    [
     "acc-body",
-    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\", its top 658px from the page top, 46px below the top of the \"Details −\" line above it (that line's text sits above this text, never on the same line or over it)"
+    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\"; its text #4b5563 (dark grey, NOT the page's dark navy text), its top 658px from the page top, 46px below the top of the \"Details −\" line above it (that line's text sits above this text, never on the same line or over it)"
    ],
    [
     "acc-care",
@@ -1195,19 +1195,19 @@
    ],
    [
     "subtitle",
-    "13px grey text \"128 people · 9 pending invites\", one line on its own (top 64px, left edge 40px), nothing else written beside it"
+    "13px grey text \"128 people · 9 pending invites\", one line on its own (top 64px, left edge 40px), nothing else written beside it; its text #6b7280 (grey, NOT the page's dark navy text)"
    ],
    [
     "invite",
-    "blue white text button \"+ Invite\" (81x35px, barely rounded: border-radius 8px, NOT a pill)"
+    "blue white text button \"+ Invite\" (81x35px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 81x35px, 8px rounded)"
    ],
    [
     "toolbar",
-    "toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 33px tall, white (#ffffff), 1px light grey (#d1d5db) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so \"Role ▾\" never breaks onto two lines): input \"Search name or email\" 300px wide, dropdown \"Role\" with its ▾ caret written after the text, \"Role ▾\" 63px wide, dropdown \"Status: Any\" with its ▾ caret written after the text, \"Status: Any ▾\" 102px wide, button \"Columns\" 77px wide"
+    "toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 33px tall, white (#ffffff), 1px light grey (#d1d5db) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so \"Role ▾\" never breaks onto two lines): input \"Search name or email\" 300px wide, dropdown \"Role\" with its ▾ caret written after the text, \"Role ▾\" 63px wide, dropdown \"Status: Any\" with its ▾ caret written after the text, \"Status: Any ▾\" 102px wide, button \"Columns\" 77px wide; each word in its own colour: \"Search name or email\" #9ca3af, \"Role ▾\" #111827, \"Status: Any ▾\" #111827, \"Columns\" #111827"
    ],
    [
     "bulk-bar",
-    "dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then right beside it (packed at the left after the label, never pushed to the right end) small outlined buttons (thin see-through white border, no fill, regular weight): \"Change role\", \"Suspend\", \"Remove\""
+    "dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold \"3 selected\" at the left, then right beside it (packed at the left after the label, never pushed to the right end) small outlined buttons (thin see-through white border, no fill, regular weight): \"Change role\", \"Suspend\", \"Remove\"; its text #ffffff (white, NOT the page's dark navy text)"
    ],
    [
     "table",
@@ -1215,11 +1215,11 @@
    ],
    [
     "status-menu",
-    "open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 4 options stacked one per line, 32px apart: \"Any status\", \"Active ✓\", \"Invited\", \"Suspended\"; \"Active ✓\" highlighted (off-white (#eff6ff) rounded fill across the menu, blue text, semibold)"
+    "open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 4 options stacked one per line, 32px apart: \"Any status\", \"Active ✓\", \"Invited\", \"Suspended\"; \"Active ✓\" highlighted (off-white (#eff6ff) rounded fill across the menu, blue text, semibold); each word in its own colour: \"Any status\" #111827, \"Active ✓\" #1d4ed8, \"Invited\" #111827, \"Suspended\" #111827"
    ],
    [
     "pager",
-    "pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey \"Showing 1–10 of 128\" at the left, at the far right a row of 30x30px outlined page buttons \"‹\", \"1\", \"2\", \"3\", \"…\", \"13\", \"›\", \"1\" filled blue with white text (current)"
+    "pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey \"Showing 1–10 of 128\" at the left, at the far right a row of 30x30px outlined page buttons \"‹\", \"1\", \"2\", \"3\", \"…\", \"13\", \"›\", \"1\" filled blue with white text (current); its text #6b7280 (grey, NOT the page's dark navy text)"
    ]
   ]
  }

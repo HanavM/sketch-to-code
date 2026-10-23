@@ -121,7 +121,7 @@
    ],
    [
     "nav",
-    "nav, no box around it: \"ALTITUDE\" left, \"RoutesHutsJournal\" right"
+    "nav, no box around it: \"ALTITUDE\" left, \"RoutesHutsJournal\" right; its text #7c2d12 (brown, NOT the page's white text)"
    ],
    [
     "sun",
@@ -145,7 +145,7 @@
    ],
    [
     "cta",
-    "off-white pill deep purple text button \"Plan a route\""
+    "off-white pill deep purple text button \"Plan a route\"; its text #3b0764 (deep purple, NOT the page's white text) (exactly: #fff7ed fill, #3b0764 text, 160x54px, pill ends)"
    ]
   ]
  },
@@ -285,7 +285,7 @@
    ],
    [
     "tag",
-    "lavender outline pill button \"NOW IN PRIVATE BETA\""
+    "lavender outline pill button \"NOW IN PRIVATE BETA\"; its text #c4b5fd (lavender, NOT the page's light grey text)"
    ],
    [
     "headline",
@@ -293,7 +293,7 @@
    ],
    [
     "body",
-    "grey text \"Spin up GPU clusters in seconds and pay only for the seconds you use.\""
+    "grey text \"Spin up GPU clusters in seconds and pay only for the seconds you use.\"; its text #9ca3af (grey, NOT the page's light grey text)"
    ],
    [
     "cta",
@@ -347,7 +347,7 @@
    ],
    [
     "side-rail",
-    "vertical near-black (exactly #111111) bar, light grey text \"INDEX OF THINGS\""
+    "vertical near-black (exactly #111111) bar, light grey text \"INDEX OF THINGS\"; its text #e7e5df (light grey, NOT the page's near-black text)"
    ],
    [
     "card-a",
@@ -363,7 +363,7 @@
    ],
    [
     "stamp",
-    "tilted 14° anticlockwise red outline circle with \"EST. 2019\""
+    "tilted 14° anticlockwise red outline circle with \"EST. 2019\"; its text #dc2626 (red, NOT the page's near-black text)"
    ],
    [
     "foot",
@@ -429,7 +429,7 @@
    ],
    [
     "issue",
-    "13px wide-spaced letters \"ISSUE 19 / WINTER\", one line on its own (top 44px, left edge 1050px), nothing else written beside it"
+    "13px wide-spaced letters \"ISSUE 19 / WINTER\", one line on its own (top 44px, left edge 1050px), nothing else written beside it; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "side-label",
@@ -449,7 +449,7 @@
    ],
    [
     "read",
-    "link \"Read the issue →\" with a 2px underline (no box, not a button)"
+    "link \"Read the issue →\" with a 2px underline (no box, not a button); its text #ffffff (white, NOT the page's near-black text)"
    ]
   ]
  },
@@ -491,19 +491,19 @@
    ],
    [
     "add",
-    "indigo white text button \"+ Invite user\" (122x40px, barely rounded: border-radius 8px, NOT a pill)"
+    "indigo white text button \"+ Invite user\" (122x40px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 122x40px, 8px rounded)"
    ],
    [
     "filters",
-    "toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so \"Role ▾\" never breaks onto two lines): input \"Search by name or email…\" 360px wide, dropdown \"Role: All\" 81px wide, dropdown \"Status: All\" 92px wide"
+    "toolbar row of controls packed at the LEFT, side by side 12px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 40px tall, white (#ffffff), 1px light grey (#cbd5e1) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so \"Role ▾\" never breaks onto two lines): input \"Search by name or email…\" 360px wide, dropdown \"Role: All\" 81px wide, dropdown \"Status: All\" 92px wide; each word in its own colour: \"Search by name or email…\" #94a3b8, \"Role: All\" #0f172a, \"Status: All\" #0f172a"
    ],
    [
     "table",
-    "table, every body row built and none invented, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows: \"Ada Park\" | \"ada@acme.io\" | \"Admin\" | \"Active\" | \"2 min ago\"; \"Ben Ortiz\" | \"ben@acme.io\" | \"Editor\" | \"Active\" | \"1 hour ago\"; \"Chloe Wu\" | \"chloe@acme.io\" | \"Viewer\" | \"Invited\" | \"—\"; \"Dev Rao\" | \"dev@acme.io\" | \"Editor\" | \"Suspended\" | \"3 days ago\"; \"Ema Lind\" | \"ema@acme.io\" | \"Viewer\" | \"Active\" | \"Yesterday\"; \"Finn Bauer\" | \"finn@acme.io\" | \"Admin\" | \"Active\" | \"5 min ago\"; \"Gia Rossi\" | \"gia@acme.io\" | \"Viewer\" | \"Invited\" | \"—\""
+    "table, every body row built and none invented, columns \"NAME\", \"EMAIL\", \"ROLE\", \"STATUS\", \"LAST SEEN\", 7 rows: \"Ada Park\" | \"ada@acme.io\" | \"Admin\" | \"Active\" | \"2 min ago\"; \"Ben Ortiz\" | \"ben@acme.io\" | \"Editor\" | \"Active\" | \"1 hour ago\"; \"Chloe Wu\" | \"chloe@acme.io\" | \"Viewer\" | \"Invited\" | \"—\"; \"Dev Rao\" | \"dev@acme.io\" | \"Editor\" | \"Suspended\" | \"3 days ago\"; \"Ema Lind\" | \"ema@acme.io\" | \"Viewer\" | \"Active\" | \"Yesterday\"; \"Finn Bauer\" | \"finn@acme.io\" | \"Admin\" | \"Active\" | \"5 min ago\"; \"Gia Rossi\" | \"gia@acme.io\" | \"Viewer\" | \"Invited\" | \"—\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 47 of them, nothing invented, nothing left out): 222x43 at 57,161 #f1f5f9 fill: 12px bold #475569 \"Name\"; 284x43 at 279,161 #f1f5f9 fill: 12px bold #475569 \"Email\"; 164x43 at 562,161 #f1f5f9 fill: 12px bold #475569 \"Role\"; 257x43 at 727,161 #f1f5f9 fill: 12px bold #475569 \"Status\"; 240x43 at 984,161 #f1f5f9 fill: 12px bold #475569 \"Last seen\"; 222x49 at 57,204 1px #e2e8f0 border on the top only: 14px #0f172a \"Ada Park\"; 284x49 at 279,204 1px #e2e8f0 border on the top only: 14px #0f172a \"ada@acme.io\"; 164x49 at 562,204 1px #e2e8f0 border on the top only: 14px #0f172a \"Admin\"; 257x49 at 727,204 1px #e2e8f0 border on the top only; 240x49 at 984,204 1px #e2e8f0 border on the top only: 14px #0f172a \"2 min ago\"; 56x22 at 743,218 #dcfce7 fill, pill ends: 12px bold #166534 \"Active\"; 222x49 at 57,253 1px #e2e8f0 border on the top only: 14px #0f172a \"Ben Ortiz\"; 284x49 at 279,253 1px #e2e8f0 border on the top only: 14px #0f172a \"ben@acme.io\"; 164x49 at 562,253 1px #e2e8f0 border on the top only: 14px #0f172a \"Editor\"; 257x49 at 727,253 1px #e2e8f0 border on the top only; 240x49 at 984,253 1px #e2e8f0 border on the top only: 14px #0f172a \"1 hour ago\"; 56x22 at 743,267 #dcfce7 fill, pill ends: 12px bold #166534 \"Active\"; 222x49 at 57,302 1px #e2e8f0 border on the top only: 14px #0f172a \"Chloe Wu\"; 284x49 at 279,302 1px #e2e8f0 border on the top only: 14px #0f172a \"chloe@acme.io\"; 164x49 at 562,302 1px #e2e8f0 border on the top only: 14px #0f172a \"Viewer\"; 257x49 at 727,302 1px #e2e8f0 border on the top only; 240x49 at 984,302 1px #e2e8f0 border on the top only: 14px #0f172a \"—\"; 59x22 at 743,316 #fef3c7 fill, pill ends: 12px bold #92400e \"Invited\"; 222x49 at 57,351 1px #e2e8f0 border on the top only: 14px #0f172a \"Dev Rao\"; 284x49 at 279,351 1px #e2e8f0 border on the top only: 14px #0f172a \"dev@acme.io\"; 164x49 at 562,351 1px #e2e8f0 border on the top only: 14px #0f172a \"Editor\"; 257x49 at 727,351 1px #e2e8f0 border on the top only; 240x49 at 984,351 1px #e2e8f0 border on the top only: 14px #0f172a \"3 days ago\"; 85x22 at 743,365 #fee2e2 fill, pill ends: 12px bold #991b1b \"Suspended\"; 222x49 at 57,400 1px #e2e8f0 border on the top only: 14px #0f172a \"Ema Lind\"; 284x49 at 279,400 1px #e2e8f0 border on the top only: 14px #0f172a \"ema@acme.io\"; 164x49 at 562,400 1px #e2e8f0 border on the top only: 14px #0f172a \"Viewer\"; 257x49 at 727,400 1px #e2e8f0 border on the top only; 240x49 at 984,400 1px #e2e8f0 border on the top only: 14px #0f172a \"Yesterday\"; 56x22 at 743,414 #dcfce7 fill, pill ends: 12px bold #166534 \"Active\"; 222x49 at 57,449 1px #e2e8f0 border on the top only: 14px #0f172a \"Finn Bauer\"; 284x49 at 279,449 1px #e2e8f0 border on the top only: 14px #0f172a \"finn@acme.io\"; 164x49 at 562,449 1px #e2e8f0 border on the top only: 14px #0f172a \"Admin\"; 257x49 at 727,449 1px #e2e8f0 border on the top only; 240x49 at 984,449 1px #e2e8f0 border on the top only: 14px #0f172a \"5 min ago\"; 56x22 at 743,463 #dcfce7 fill, pill ends: 12px bold #166534 \"Active\"; 222x49 at 57,498 1px #e2e8f0 border on the top only: 14px #0f172a \"Gia Rossi\"; 284x49 at 279,498 1px #e2e8f0 border on the top only: 14px #0f172a \"gia@acme.io\"; 164x49 at 562,498 1px #e2e8f0 border on the top only: 14px #0f172a \"Viewer\"; 257x49 at 727,498 1px #e2e8f0 border on the top only; 240x49 at 984,498 1px #e2e8f0 border on the top only: 14px #0f172a \"—\"; 59x22 at 743,512 #fef3c7 fill, pill ends: 12px bold #92400e \"Invited\""
    ],
    [
     "pager",
-    "pager, one line 1168px wide, its middle 580px from the page top (inside the page, not below it): 14px dark grey \"Showing 1–7 of 48\" at the left, at the far right a row of 34x34px outlined page buttons \"1\", \"2\", \"3\", \"Next\", \"1\" filled indigo with white text (current)"
+    "pager, one line 1168px wide, its middle 580px from the page top (inside the page, not below it): 14px dark grey \"Showing 1–7 of 48\" at the left, at the far right a row of 34x34px outlined page buttons \"1\", \"2\", \"3\", \"Next\", \"1\" filled indigo with white text (current); its text #475569 (dark grey, NOT the page's dark navy text)"
    ]
   ]
  },
@@ -545,19 +545,19 @@
    ],
    [
     "col-todo",
-    "column \"TO DO\", cards: \"Rate-limit the export API\" tag blue \"Feature\", \"Login loop on Safari 17\" tag red \"Bug\", \"Rotate staging keys\" tag green \"Ops\""
+    "column \"TO DO\", cards: \"Rate-limit the export API\" tag blue \"Feature\", \"Login loop on Safari 17\" tag red \"Bug\", \"Rotate staging keys\" tag green \"Ops\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out): 257x16 at 54,101 14px bold #475569 \"To do\"; 257x79 at 54,129 #ffffff fill, 10px rounded: 14px #1e293b \"Rate-limit the export API\"; 56x21 at 68,173 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 \"Feature\"; 257x79 at 54,220 #ffffff fill, 10px rounded: 14px #1e293b \"Login loop on Safari 17\"; 37x21 at 68,264 #fee2e2 fill, 6px rounded: 11px bold #b91c1c \"Bug\"; 257x79 at 54,311 #ffffff fill, 10px rounded: 14px #1e293b \"Rotate staging keys\"; 37x21 at 68,355 #dcfce7 fill, 6px rounded: 11px bold #15803d \"Ops\""
    ],
    [
     "col-doing",
-    "column \"IN PROGRESS\", cards: \"Bulk invite from CSV\" tag blue \"Feature\", \"Chart tooltips cut off\" tag red \"Bug\""
+    "column \"IN PROGRESS\", cards: \"Bulk invite from CSV\" tag blue \"Feature\", \"Chart tooltips cut off\" tag red \"Bug\"; each word in its own colour: \"IN PROGRESS\" #475569, \"Bulk invite from CSV Feature\" #1e293b, \"Chart tooltips cut off Bug\" #1e293b; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 257x16 at 359,101 14px bold #475569 \"In progress\"; 257x79 at 359,129 #ffffff fill, 10px rounded: 14px #1e293b \"Bulk invite from CSV\"; 56x21 at 373,173 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 \"Feature\"; 257x79 at 359,220 #ffffff fill, 10px rounded: 14px #1e293b \"Chart tooltips cut off\"; 37x21 at 373,264 #fee2e2 fill, 6px rounded: 11px bold #b91c1c \"Bug\""
    ],
    [
     "col-review",
-    "column \"REVIEW\", cards: \"Dark mode for settings\" tag blue \"Feature\""
+    "column \"REVIEW\", cards: \"Dark mode for settings\" tag blue \"Feature\"; each word in its own colour: \"REVIEW\" #475569, \"Dark mode for settings Feature\" #1e293b"
    ],
    [
     "col-done",
-    "column \"DONE\", cards: \"Upgrade Postgres to 16\" tag green \"Ops\", \"Empty state for search\" tag blue \"Feature\", \"Fix timezone in emails\" tag red \"Bug\""
+    "column \"DONE\", cards: \"Upgrade Postgres to 16\" tag green \"Ops\", \"Empty state for search\" tag blue \"Feature\", \"Fix timezone in emails\" tag red \"Bug\"; each word in its own colour: \"DONE\" #475569, \"Upgrade Postgres to 16 Ops\" #1e293b, \"Empty state for search Feature\" #1e293b, \"Fix timezone in emails Bug\" #1e293b; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out): 257x16 at 969,101 14px bold #475569 \"Done\"; 257x79 at 969,129 #ffffff fill, 10px rounded: 14px #1e293b \"Upgrade Postgres to 16\"; 37x21 at 983,173 #dcfce7 fill, 6px rounded: 11px bold #15803d \"Ops\"; 257x79 at 969,220 #ffffff fill, 10px rounded: 14px #1e293b \"Empty state for search\"; 56x21 at 983,264 #dbeafe fill, 6px rounded: 11px bold #1d4ed8 \"Feature\"; 257x79 at 969,311 #ffffff fill, 10px rounded: 14px #1e293b \"Fix timezone in emails\"; 37x21 at 983,355 #fee2e2 fill, 6px rounded: 11px bold #b91c1c \"Bug\""
    ]
   ]
  },
@@ -595,7 +595,7 @@
    ],
    [
     "new",
-    "green white text button \"+ New event\""
+    "green white text button \"+ New event\"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #16a34a fill, #ffffff text, 112x36px, 8px rounded)"
    ],
    [
     "month",
@@ -625,7 +625,7 @@
   "notes": [
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Messages\", then 5 links stacked, each a name with a small grey line under it: \"Design team\" / \"Mia: shipping the new icons\" (highlighted); \"Jonas Berg\" / \"See you at 3?\"; \"Support rota\" / \"Ali: I can cover Friday\"; \"Lena Ito\" / \"Thanks! 🙏\"; \"Releases\" / \"v4.2 is live\""
+    "dark navy (exactly #0f172a) sidebar, light grey text \"Messages\", then 5 links stacked, each a name with a small grey line under it: \"Design team\" / \"Mia: shipping the new icons\" (highlighted); \"Jonas Berg\" / \"See you at 3?\"; \"Support rota\" / \"Ali: I can cover Friday\"; \"Lena Ito\" / \"Thanks! 🙏\"; \"Releases\" / \"v4.2 is live\"; its text #e2e8f0 (light grey, NOT the page's dark navy text)"
    ],
    [
     "header",
@@ -637,7 +637,7 @@
    ],
    [
     "composer",
-    "input \"Write a message…\", button \"Send\""
+    "input \"Write a message…\", button \"Send\"; each word in its own colour: \"Write a message…\" #94a3b8, \"Send\" #ffffff"
    ]
   ]
  },
@@ -679,11 +679,11 @@
    ],
    [
     "range",
-    "dropdown \"Last 30 days\""
+    "dropdown \"Last 30 days\" (exactly: #ffffff fill, #111827 text, 124x38px, 8px rounded)"
    ],
    [
     "kpis",
-    "4 stat cards in a row: \"Visitors\" 48,210 ▲ 12%, \"Signups\" 1,932 ▲ 8%, \"Conversion\" 4.0% ▼ 0.3%, \"Revenue\" $23.4k ▲ 17%"
+    "4 stat cards in a row: \"Visitors\" 48,210 ▲ 12%, \"Signups\" 1,932 ▲ 8%, \"Conversion\" 4.0% ▼ 0.3%, \"Revenue\" $23.4k ▲ 17%; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 16 of them, nothing invented, nothing left out): 283x120 at 44,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 347,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 650,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 283x120 at 953,94 #ffffff fill, 1px #e5e7eb border, 12px rounded; 42x15 at 65,117 13px #6b7280 \"Visitors\"; 47x15 at 368,117 13px #6b7280 \"Signups\"; 66x15 at 671,117 13px #6b7280 \"Conversion\"; 52x15 at 974,117 13px #6b7280 \"Revenue\"; 241x34 at 65,141 30px bold #111827 \"48,210\"; 241x34 at 368,141 30px bold #111827 \"1,932\"; 241x34 at 671,141 30px bold #111827 \"4.0%\"; 241x34 at 974,141 30px bold #111827 \"$23.4k\"; 43x15 at 65,177 13px #16a34a \"▲ 12%\"; 35x15 at 368,177 13px #16a34a \"▲ 8%\"; 46x15 at 671,177 13px #dc2626 \"▼ 0.3%\"; 43x15 at 974,177 13px #16a34a \"▲ 17%\""
    ],
    [
     "chart",

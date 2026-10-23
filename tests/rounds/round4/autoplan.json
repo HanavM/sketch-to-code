@@ -145,15 +145,15 @@
    ],
    [
     "lead",
-    "dark grey text \"A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.\""
+    "dark grey text \"A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.\"; its text #44403c (dark grey, NOT the page's near-black text)"
    ],
    [
     "sticker",
-    "tilted 12° clockwise vivid rose red circle with \"Issue 07 out now\""
+    "tilted 12° clockwise vivid rose red circle with \"Issue 07 out now\"; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "cta",
-    "near-black (#1c1917, near-black, not a blue) cream text button \"Subscribe — $28/yr\" (205x54px, square corners: border-radius 0, NOT a pill)"
+    "near-black (#1c1917, near-black, not a blue) cream text button \"Subscribe — $28/yr\" (205x54px, square corners: border-radius 0, NOT a pill); its text #f3ead8 (cream, NOT the page's near-black text)"
    ]
   ]
  },
@@ -279,15 +279,15 @@
    ],
    [
     "links",
-    "15px text \"Collection · Archive · Cart (0)\", one line on its own (top 40px, left edge 1039px), nothing else written beside it"
+    "15px text \"Collection · Archive · Cart (0)\", one line on its own (top 40px, left edge 1039px), nothing else written beside it; its text #fafafa (white, NOT the page's black text)"
    ],
    [
     "caption",
-    "dark grey text \"Outerwear cut in two colours only. Pick a side, or wear both.\""
+    "dark grey text \"Outerwear cut in two colours only. Pick a side, or wear both.\"; its text #404040 (dark grey, NOT the page's black text)"
    ],
    [
     "cta",
-    "button \"Shop the drop →\""
+    "button \"Shop the drop →\"; its text #fafafa (white, NOT the page's black text)"
    ]
   ]
  },
@@ -439,7 +439,7 @@
    ],
    [
     "plane-front",
-    "tilted back in 3D perspective (rotateY(-18deg) rotateX(6deg)) frosted glass; huge 56px bold title: \"99.98%\", text \"uptime across 41 regions\""
+    "tilted back in 3D perspective (rotateY(-18deg) rotateX(6deg)) frosted glass; huge 56px bold title: \"99.98%\", text \"uptime across 41 regions\"; each word in its own colour: \"99.98%\" #e2e8f0, \"uptime across 41 regions\" #94a3b8"
    ],
    [
     "headline",
@@ -447,11 +447,11 @@
    ],
    [
     "lead",
-    "grey text \"Layered networking for teams who ship to every continent and still sleep at night.\""
+    "grey text \"Layered networking for teams who ship to every continent and still sleep at night.\"; its text #94a3b8 (grey, NOT the page's light grey text)"
    ],
    [
     "cta",
-    "white pill near-black indigo text button \"Start free\""
+    "white pill near-black indigo text button \"Start free\"; its text #020617 (near-black indigo, NOT the page's light grey text) (exactly: #f8fafc fill, #020617 text, 130x50px, pill ends)"
    ],
    [
     "cta-2",
@@ -517,7 +517,7 @@
    ],
    [
     "counter",
-    "16px wide-spaced letters green \"CHAPTER 3 OF 7\""
+    "16px wide-spaced letters green \"CHAPTER 3 OF 7\"; its text #4d7c0f (green, NOT the page's deep green text)"
    ],
    [
     "chapter",
@@ -529,7 +529,7 @@
    ],
    [
     "step-1",
-    "deep green block, pale yellow text \"Plant\", text \"Seeds go in after the last frost, two fingers deep, facing the morning sun.\""
+    "deep green block, pale yellow text \"Plant\", text \"Seeds go in after the last frost, two fingers deep, facing the morning sun.\"; its text #fefce8 (pale yellow, NOT the page's deep green text)"
    ],
    [
     "step-2",
@@ -587,11 +587,11 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 40px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top"
+    "dark navy (exactly #0f172a) sidebar, light grey text \"Pipeline\" list: \"Dashboard\", \"Deals\", \"Contacts\", \"Companies\", \"Reports\", \"Settings\"; \"Dashboard\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 40px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top; its text #cbd5e1 (light grey, NOT the page's dark navy text)"
    ],
    [
     "search",
-    "search input \"Search deals, people…\""
+    "search input \"Search deals, people…\"; its text #94a3b8 (grey, NOT the page's dark navy text)"
    ],
    [
     "avatar",
@@ -603,7 +603,7 @@
    ],
    [
     "kpis",
-    "4 stat cards in a row: \"Pipeline value\" $1.28M (indigo sparkline rising, bottom right), \"Deals won\" 38 (green sparkline rising, bottom right), \"Win rate\" 31% (amber sparkline falling, bottom right), \"Avg. cycle\" 24 days (bright sky blue sparkline rising, bottom right)"
+    "4 stat cards in a row: \"Pipeline value\" $1.28M (indigo sparkline rising, bottom right), \"Deals won\" 38 (green sparkline rising, bottom right), \"Win rate\" 31% (amber sparkline falling, bottom right), \"Avg. cycle\" 24 days (bright sky blue sparkline rising, bottom right); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out): 237x110 at 252,128 #ffffff fill, 1px #e2e8f0 border, 12px rounded; 237x110 at 505,128 #ffffff fill, 1px #e2e8f0 border, 12px rounded; 237x110 at 758,128 #ffffff fill, 1px #e2e8f0 border, 12px rounded; 237x110 at 1011,128 #ffffff fill, 1px #e2e8f0 border, 12px rounded; 81x15 at 269,147 13px #64748b \"Pipeline value\"; 61x15 at 522,147 13px #64748b \"Deals won\"; 48x15 at 775,147 13px #64748b \"Win rate\"; 59x15 at 1028,147 13px #64748b \"Avg. cycle\"; 203x31 at 269,169 26px bold #0f172a \"$1.28M\"; 203x31 at 522,169 26px bold #0f172a \"38\"; 203x31 at 775,169 26px bold #0f172a \"31%\"; 203x31 at 1028,169 26px bold #0f172a \"24 days\""
    ],
    [
     "line-chart",
@@ -615,7 +615,7 @@
    ],
    [
     "deals-table",
-    "white card, \"Recent deals\" as a small bold heading, then a table, every body row built and none invented, columns \"Deal\", \"Company\", \"Owner\", \"Value\", \"Stage\", 4 rows: \"Annual licence\" | \"Northwind\" | \"Dana K.\" | \"$84,000\" | \"Won\"; \"Pilot expansion\" | \"Globex\" | \"Ravi P.\" | \"$32,500\" | \"Negotiation\"; \"Support add-on\" | \"Initech\" | \"Mia L.\" | \"$9,800\" | \"Proposal\"; \"Data migration\" | \"Umbrella\" | \"Dana K.\" | \"$51,200\" | \"Lost\""
+    "white card, \"Recent deals\" as a small bold heading, then a table, every body row built and none invented, columns \"Deal\", \"Company\", \"Owner\", \"Value\", \"Stage\", 4 rows: \"Annual licence\" | \"Northwind\" | \"Dana K.\" | \"$84,000\" | \"Won\"; \"Pilot expansion\" | \"Globex\" | \"Ravi P.\" | \"$32,500\" | \"Negotiation\"; \"Support add-on\" | \"Initech\" | \"Mia L.\" | \"$9,800\" | \"Proposal\"; \"Data migration\" | \"Umbrella\" | \"Dana K.\" | \"$51,200\" | \"Lost\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 30 of them, nothing invented, nothing left out): 962x17 at 269,557 15px bold #0f172a \"Recent deals\"; 270x32 at 269,584 1px #64748b border on the bottom only: 13px #64748b \"Deal\"; 177x32 at 539,584 1px #64748b border on the bottom only: 13px #64748b \"Company\"; 142x32 at 716,584 1px #64748b border on the bottom only: 13px #64748b \"Owner\"; 142x32 at 858,584 1px #64748b border on the bottom only: 13px #64748b \"Value\"; 231x32 at 1000,584 1px #64748b border on the bottom only: 13px #64748b \"Stage\"; 270x34 at 269,616 1px #0f172a border on the bottom only: 13px #0f172a \"Annual licence\"; 177x34 at 539,616 1px #0f172a border on the bottom only: 13px #0f172a \"Northwind\"; 142x34 at 716,616 1px #0f172a border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,616 1px #0f172a border on the bottom only: 13px #0f172a \"$84,000\"; 231x34 at 1000,616 1px #0f172a border on the bottom only; 40x20 at 1000,623 #dcfce7 fill, pill ends: 12px #166534 \"Won\"; 270x34 at 269,650 1px #0f172a border on the bottom only: 13px #0f172a \"Pilot expansion\"; 177x34 at 539,650 1px #0f172a border on the bottom only: 13px #0f172a \"Globex\"; 142x34 at 716,650 1px #0f172a border on the bottom only: 13px #0f172a \"Ravi P.\"; 142x34 at 858,650 1px #0f172a border on the bottom only: 13px #0f172a \"$32,500\"; 231x34 at 1000,650 1px #0f172a border on the bottom only; 77x20 at 1000,657 #e0e7ff fill, pill ends: 12px #3730a3 \"Negotiation\"; 270x34 at 269,684 1px #0f172a border on the bottom only: 13px #0f172a \"Support add-on\"; 177x34 at 539,684 1px #0f172a border on the bottom only: 13px #0f172a \"Initech\"; 142x34 at 716,684 1px #0f172a border on the bottom only: 13px #0f172a \"Mia L.\"; 142x34 at 858,684 1px #0f172a border on the bottom only: 13px #0f172a \"$9,800\"; 231x34 at 1000,684 1px #0f172a border on the bottom only; 63x20 at 1000,691 #e0e7ff fill, pill ends: 12px #3730a3 \"Proposal\"; 270x34 at 269,718 1px #0f172a border on the bottom only: 13px #0f172a \"Data migration\"; 177x34 at 539,718 1px #0f172a border on the bottom only: 13px #0f172a \"Umbrella\"; 142x34 at 716,718 1px #0f172a border on the bottom only: 13px #0f172a \"Dana K.\"; 142x34 at 858,718 1px #0f172a border on the bottom only: 13px #0f172a \"$51,200\"; 231x34 at 1000,718 1px #0f172a border on the bottom only; 39x20 at 1000,725 #fee2e2 fill, pill ends: 12px #991b1b \"Lost\""
    ]
   ]
  },
@@ -675,7 +675,7 @@
    ],
    [
     "stepper",
-    "step indicator in a row (no box around it): 26px dark navy filled circle with white 1 then \"Cart\", 26px dark navy filled circle with white 2 then \"Shipping\", 26px light grey circle with grey 3 then grey \"Payment\", 26px light grey circle with grey 4 then grey \"Review\""
+    "step indicator in a row (no box around it): 26px dark navy filled circle with white 1 then \"Cart\", 26px dark navy filled circle with white 2 then \"Shipping\", 26px light grey circle with grey 3 then grey \"Payment\", 26px light grey circle with grey 4 then grey \"Review\"; each word in its own colour: \"1Cart\" #111827, \"2Shipping\" #111827, \"3Payment\" #9ca3af, \"4Review\" #9ca3af"
    ],
    [
     "shipping-form",
@@ -725,15 +725,15 @@
    ],
    [
     "storage",
-    "\"Storage\", thin progress bar 68% filled bright sky blue on a light grey track, small grey \"13.6 GB of 20 GB used\" under"
+    "\"Storage\", thin progress bar 68% filled bright sky blue on a light grey track, small grey \"13.6 GB of 20 GB used\" under; its text #64748b (grey, NOT the page's dark navy text)"
    ],
    [
     "breadcrumb",
-    "small grey breadcrumb \"My files / Projects / Brand refresh\", last part dark bold"
+    "small grey breadcrumb \"My files / Projects / Brand refresh\", last part dark bold; its text #64748b (grey, NOT the page's dark navy text)"
    ],
    [
     "toolbar",
-    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; bright sky blue button \"Upload\" on the right"
+    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; bright sky blue button \"Upload\" on the right; each word in its own colour: \"New folder Sort: Name ▾\" #1e293b, \"Upload\" #ffffff"
    ],
    [
     "file-grid",
@@ -787,7 +787,7 @@
    ],
    [
     "task-names",
-    "list, a round colour dot before each: lavender dot \"Research\", light pink dot \"Wireframes\", sky blue dot \"Visual design\", bright green dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\""
+    "list, a round colour dot before each: lavender dot \"Research\", light pink dot \"Wireframes\", sky blue dot \"Visual design\", bright green dot \"Content\", yellow dot \"Build\", coral dot \"QA\", grey dot \"Launch\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out): 259x64 at 37,130 1px #18181b border on the bottom only: 14px #18181b \"Research\"; 26x26 at 55,149 #a78bfa fill, a circle; 259x64 at 37,194 1px #18181b border on the bottom only: 14px #18181b \"Wireframes\"; 26x26 at 55,213 #f472b6 fill, a circle; 259x64 at 37,258 1px #18181b border on the bottom only: 14px #18181b \"Visual design\"; 26x26 at 55,277 #60a5fa fill, a circle; 259x64 at 37,322 1px #18181b border on the bottom only: 14px #18181b \"Content\"; 26x26 at 55,341 #34d399 fill, a circle; 259x64 at 37,386 1px #18181b border on the bottom only: 14px #18181b \"Build\"; 26x26 at 55,405 #fbbf24 fill, a circle; 259x64 at 37,450 1px #18181b border on the bottom only: 14px #18181b \"QA\"; 26x26 at 55,469 #f87171 fill, a circle; 259x64 at 37,514 1px #18181b border on the bottom only: 14px #18181b \"Launch\"; 26x26 at 55,533 #a3a3a3 fill, a circle"
    ],
    [
     "today",

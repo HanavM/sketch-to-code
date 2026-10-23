@@ -49,11 +49,11 @@
    ],
    [
     "sliced-word",
-    "ONE giant word \"MOTION\" SLICED into 3 stacked horizontal bands (NOT 3 whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same 300px black-weight \"MOTION\" (line-height 300px, so the word's line is 300px tall and each 100px band is a window onto one slice of it, letter-spacing -14px, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: band 1: 1280x100px at 0,170, no fill (page shows), letters #111111, the word in a span with position: relative; left: 60px; top: 0px (the top slice of the line shows); band 2: 1280x100px at 0,270, #111111 filled, letters #f3efe6, the word in a span with position: relative; left: 150px; top: -100px (pulled up, so the band shows the slice of the 300px line from 100px to 200px); band 3: 1280x100px at 0,370, no fill (page shows), letters #ff4d1c, the word in a span with position: relative; left: 20px; top: -200px (pulled up, so the band shows the slice of the 300px line from 200px to 300px); the bands touch, no gaps, together 1280x300px"
+    "ONE giant word \"MOTION\" SLICED into 3 stacked horizontal bands (NOT 3 whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same 300px black-weight \"MOTION\" (line-height 300px, so the word's line is 300px tall and each 100px band is a window onto one slice of it, letter-spacing -14px, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: band 1: 1280x100px at 0,170, no fill (page shows), letters #111111, the word in a span with position: relative; left: 60px; top: 0px (the top slice of the line shows); band 2: 1280x100px at 0,270, #111111 filled, letters #f3efe6, the word in a span with position: relative; left: 150px; top: -100px (pulled up, so the band shows the slice of the 300px line from 100px to 200px); band 3: 1280x100px at 0,370, no fill (page shows), letters #ff4d1c, the word in a span with position: relative; left: 20px; top: -200px (pulled up, so the band shows the slice of the 300px line from 200px to 300px); the bands touch, no gaps, together 1280x300px; each word in its own colour: \"MOTION\" #111111, \"MOTION\" #f3efe6, \"MOTION\" #ff4d1c"
    ],
    [
     "badge",
-    "tilted 14° anticlockwise vivid red-orange circle with \"NEW REEL 26\""
+    "tilted 14° anticlockwise vivid red-orange circle with \"NEW REEL 26\"; its text #ffffff (white, NOT the page's near-black text), 130px across, the words centred in 2 lines (wrapping inside the circle, 15px type)"
    ],
    [
     "copy",
@@ -61,7 +61,7 @@
    ],
    [
     "cta",
-    "red-orange white text button \"See the reel →\" (170x54px, square corners: border-radius 0, NOT a pill)"
+    "red-orange white text button \"See the reel →\" (170x54px, square corners: border-radius 0, NOT a pill); its text #ffffff (white, NOT the page's near-black text) (exactly: #ff4d1c fill, #ffffff text, 170x54px, square corners: border-radius 0, NOT a pill)"
    ],
    [
     "index",
@@ -69,7 +69,7 @@
    ],
    [
     "vertical-caption",
-    "wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 171px long \"EST. 2014 — OSLO\""
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 171px long \"EST. 2014 — OSLO\"; its text #555555 (dark grey, NOT the page's near-black text)"
    ]
   ]
  },
@@ -111,7 +111,7 @@
    ],
    [
     "nav",
-    "nav, no box around it: bold \"prism\" left, \"Features · Pricing · Changelog · Log in\" right"
+    "nav, no box around it: bold \"prism\" left, \"Features · Pricing · Changelog · Log in\" right; its text #cbd5e1 (light grey, NOT the page's white text)"
    ],
    [
     "headline",
@@ -119,11 +119,11 @@
    ],
    [
     "sub",
-    "light grey text \"Every account, card and invoice on one calm, translucent dashboard.\""
+    "light grey text \"Every account, card and invoice on one calm, translucent dashboard.\"; its text #cbd5e1 (light grey, NOT the page's white text)"
    ],
    [
     "cta",
-    "white near-black text button \"Get early access\""
+    "white near-black text button \"Get early access\"; its text #0b1020 (near-black, NOT the page's white text) (exactly: #ffffff fill, #0b1020 text, 182x50px, 14px rounded)"
    ],
    [
     "glass-stack",
@@ -247,11 +247,11 @@
    ],
    [
     "cta",
-    "yellow indigo text button \"Get tickets\" (155x52px, barely rounded: border-radius 4px, NOT a pill)"
+    "yellow indigo text button \"Get tickets\" (155x52px, barely rounded: border-radius 4px, NOT a pill); its text #1d3fbb (indigo, NOT the page's white text) (exactly: #ffd60a fill, #1d3fbb text, 155x52px, 4px rounded)"
    ],
    [
     "stamp",
-    "tilted 12° clockwise 3px dashed #ffffff outline (dashes, not a solid line) white outline circle with \"SOLD OUT SOON ★\""
+    "tilted 12° clockwise 3px dashed #ffffff outline (dashes, not a solid line) white outline circle with \"SOLD OUT SOON ★\", 200px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
    ]
   ]
  },
@@ -317,7 +317,7 @@
    ],
    [
     "kicker",
-    "13px wide-spaced letters red \"№ 04 — CRAFT\""
+    "13px wide-spaced letters red \"№ 04 — CRAFT\"; its text #b8321f (red, NOT the page's near-black text)"
    ],
    [
     "pull-quote",
@@ -379,7 +379,7 @@
    ],
    [
     "formula-bar",
-    "\"F4\" left, \"fx =SUM(B4:E4)\" right"
+    "\"F4\" left, \"fx =SUM(B4:E4)\" right; each word in its own colour: \"F4\" #202124, \"fx =SUM(B4:E4)\" #5f6368"
    ],
    [
     "column-headers",
@@ -395,7 +395,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 40px tall across the page, links: ＋, Sales, Targets, Notes; \"Sales\" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 346px in (the right 73% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above"
+    "pale grey bar 40px tall across the page, links: ＋, Sales, Targets, Notes; \"Sales\" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 346px in (the right 73% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋\" #444444, \"Sales\" #0b57d0, \"Targets\" #444444, \"Notes\" #444444"
    ]
   ]
  },
@@ -441,7 +441,7 @@
    ],
    [
     "map",
-    "a drawn street map, 620x828px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 7 flat shapes: #bfdbfe horizontal area 620x200px at 0,640; #ccebd2 area 180x140px at 380,120 (30px rounded); #ffffff horizontal strip 620x14px at 0,200; #ffffff horizontal strip 620x10px at 0,430; #ffffff vertical strip 12x640px at 150,0; #ffffff vertical strip 16x640px at 330,0; #ffffff strip 10x380px at 500,260; then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 30px tall, soft drop shadow): \"€98\" at 90,150, \"€142\" at 247,329 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€165\" at 420,290, \"€210\" at 200,540, \"€121\" at 460,500"
+    "a drawn street map, 620x828px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 7 flat shapes: #bfdbfe horizontal area 620x200px at 0,640; #ccebd2 area 180x140px at 380,120 (30px rounded); #ffffff horizontal strip 620x14px at 0,200; #ffffff horizontal strip 620x10px at 0,430; #ffffff vertical strip 12x640px at 150,0; #ffffff vertical strip 16x640px at 330,0; #ffffff strip 10x380px at 500,260; then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 30px tall, soft drop shadow): \"€98\" at 90,150, \"€142\" at 247,329 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€165\" at 420,290, \"€210\" at 200,540, \"€121\" at 460,500; each word in its own colour: \"€98\" #222222, \"€142\" #ffffff, \"€165\" #222222, \"€210\" #222222, \"€121\" #222222, \"+ −\" #222222"
    ],
    [
     "zoom",
@@ -471,15 +471,15 @@
   "notes": [
    [
     "sidebar",
-    "dark plum block, lavender text \"Northwind ▾\" \"▾ Channels\" \"# design\" list: \"# general\", \"# launch-q4\", \"# random\"; \"# launch-q4\" highlighted (#1164a3 square fill, #ffffff text); then under the list, in this order: \"▾ Direct messages\", #2bac76 round dot then \"Priya Shah\", \"Tom Becker\", #2bac76 round dot then \"Ana Lima\""
+    "dark plum block, lavender text \"Northwind ▾\" \"▾ Channels\" \"# design\" list: \"# general\", \"# launch-q4\", \"# random\"; \"# launch-q4\" highlighted (#1164a3 square fill, #ffffff text); then under the list, in this order: \"▾ Direct messages\", #2bac76 round dot then \"Priya Shah\", \"Tom Becker\", #2bac76 round dot then \"Ana Lima\"; its text #cfc3cf (lavender, NOT the page's near-black text)"
    ],
    [
     "channel",
-    "header \"# launch-q4 · 14 members\" with a thin line under it, then 3 chat messages stacked top-down (no bubbles), each a 36px rounded square avatar left, bold name then small grey time on one line, message text under: bright orange avatar, \"Priya Shah\" 9:41 AM: \"Final hero copy is in the doc. Can design check the line breaks on\"…, small chip \"👍 4\" under it, small chip \"👀 2\" under it; green avatar, \"Tom Becker\" 10:15 AM: \"Staging is updated. Pricing table now pulls from the new plans API.\"; blue avatar, \"Ana Lima\" 10:22 AM: \"Load test passed at 4k rps. Graphs attached 📈\", small chip \"🎉 6\" under it"
+    "a 60px header row at the very top: 17px bold #1d1c1d \"# launch-q4\" then 14px #616061 \"· 14 members\", a thin line under it; then 3 chat messages stacked top-down under it (no bubbles), each a 36px rounded square avatar left, name and time on one line, then its blocks in order: message 1: #e8912d avatar, bold \"Priya Shah\", grey 9:41 AM: \"Final hero copy is in the doc. Can design check the line breaks on mobile before we lock it?\"; then a row of 2 small reaction pills side by side under it: \"👍 4\" (#e8f5fa fill, 1px #1164a3 border, 12px rounded), \"👀 2\" (#f8f8f8 fill, 1px #dddddd border, 12px rounded); then a 13px bold #1164a3 link line \"3 replies · Last reply 10:02 AM\". message 2: #2bac76 avatar, bold \"Tom Becker\", grey 10:15 AM: \"Staging is updated. Pricing table now pulls from the new plans API.\". message 3: #1164a3 avatar, bold \"Ana Lima\", grey 10:22 AM: \"Load test passed at 4k rps. Graphs attached 📈\"; then a row of 1 small reaction pills side by side under it: \"🎉 6\" (#f8f8f8 fill, 1px #dddddd border, 12px rounded). Then a small grey divider \"Message #launch-q4\" with a thin line above it"
    ],
    [
     "composer",
-    "\"Message #launch-q4\""
+    "\"Message #launch-q4\"; its text #888888 (grey, NOT the page's near-black text)"
    ],
    [
     "thread-panel",

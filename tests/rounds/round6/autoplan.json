@@ -57,11 +57,11 @@
    ],
    [
     "sub",
-    "grey text \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\""
+    "grey text \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\"; its text #94a3b8 (grey, NOT the page's light grey text)"
    ],
    [
     "cta",
-    "cyan dark navy text button \"Start free\""
+    "cyan dark navy text button \"Start free\"; its text #0f172a (dark navy, NOT the page's light grey text) (exactly: #38bdf8 fill, #0f172a text, 135x52px, 12px rounded)"
    ],
    [
     "ghost-btn",
@@ -77,7 +77,7 @@
    ],
    [
     "card-front",
-    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow #facc15 (top left) to vivid orange #f97316 (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black \"$4,280.00\" at its top left"
+    "tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow #facc15 (top left) to vivid orange #f97316 (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black \"$4,280.00\" at its top left; its text #1c1917 (near-black, NOT the page's light grey text)"
    ]
   ]
  },
@@ -238,7 +238,7 @@
    ],
    [
     "cta",
-    "deep green pill pale yellow text button \"Plan a walk\""
+    "deep green pill pale yellow text button \"Plan a walk\"; its text #fefce8 (pale yellow, NOT the page's deep green text) (exactly: #14532d fill, #fefce8 text, 150x50px, pill ends)"
    ]
   ]
  },
@@ -300,7 +300,7 @@
    ],
    [
     "cta",
-    "white deep indigo text button \"Get Lumen\""
+    "white deep indigo text button \"Get Lumen\"; its text #1e1b4b (deep indigo, NOT the page's white text) (exactly: #ffffff fill, #1e1b4b text, 140x50px, 14px rounded)"
    ],
    [
     "laptop",
@@ -394,7 +394,7 @@
    ],
    [
     "sticker",
-    "tilted 14° anticlockwise vivid red circle with \"SOLD OUT SOON\", 3px solid black outline, flat, no shadow"
+    "tilted 14° anticlockwise vivid red circle with \"SOLD OUT SOON\", 3px solid black outline, flat, no shadow; its text #ffffff (white, NOT the page's black text), 180px across, the words centred in 2 lines (wrapping inside the circle, 26px type)"
    ]
   ]
  },
@@ -440,7 +440,7 @@
    ],
    [
     "topbar",
-    "white bar 72px tall across the page, bold 22px \"Northwind\" first, then links: Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline)"
+    "white bar 72px tall across the page, bold 22px \"Northwind\" first, then links: Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline); each word in its own colour: \"Northwind\" #0f172a, \"Products\" #2563eb, \"Solutions\" #0f172a, \"Pricing\" #0f172a, \"Docs\" #0f172a, \"Search docs…\" #94a3b8"
    ],
    [
     "hero",
@@ -468,7 +468,7 @@
    ],
    [
     "featured",
-    "dark navy (exactly #0f172a) block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold \"Northwind AI\", text \"Ask your logs questions in plain English.\", bold cyan \"Try the beta →\""
+    "dark navy (exactly #0f172a) block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold \"Northwind AI\", text \"Ask your logs questions in plain English.\", bold cyan \"Try the beta →\"; each word in its own colour: \"Northwind AI\" #ffffff, \"Try the beta →\" #38bdf8"
    ]
   ]
  },
@@ -530,7 +530,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 36px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top; the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "dark navy (exactly #0f172a) bar, light grey text \"Pulse\" list: \"Overview\", \"Revenue\", \"Customers\", \"Reports\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 36px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: \"Pulse\" #ffffff, \"Overview\" #ffffff, \"Revenue\" #cbd5e1, \"Customers\" #cbd5e1, \"Reports\" #cbd5e1, \"Settings\" #cbd5e1; the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "title",
@@ -538,23 +538,23 @@
    ],
    [
     "filters",
-    "buttons: \"Last 30 days\", \"All regions\", \"All plans\", \"+ Filter\"; \"Last 30 days\" selected (dark navy fill)"
+    "buttons: \"Last 30 days\", \"All regions\", \"All plans\", \"+ Filter\"; \"Last 30 days\" selected (dark navy fill); each word in its own colour: \"Last 30 days\" #ffffff, \"All regions\" #0f172a, \"All plans\" #0f172a, \"+ Filter\" #0f172a"
    ],
    [
     "kpi-mrr",
-    "white card \"MRR\", lines big 32px bold \"$84.2k\", green \"+6.1%\"; the card exactly 236x130px, its top-left at 252,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white card \"MRR\", lines big 32px bold \"$84.2k\", green \"+6.1%\"; each word in its own colour: \"MRR\" #64748b, \"$84.2k\" #0f172a, \"+6.1%\" #16a34a; the card exactly 236x130px, its top-left at 252,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-users",
-    "white card \"Active users\", lines big 32px bold \"12,480\", green \"+3.4%\"; the card exactly 236x130px, its top-left at 504,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white card \"Active users\", lines big 32px bold \"12,480\", green \"+3.4%\"; each word in its own colour: \"Active users\" #64748b, \"12,480\" #0f172a, \"+3.4%\" #16a34a; the card exactly 236x130px, its top-left at 504,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-churn",
-    "white card \"Churn\", lines big 32px bold \"2.1%\", green \"-0.3%\"; the card exactly 236x130px, its top-left at 756,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white card \"Churn\", lines big 32px bold \"2.1%\", green \"-0.3%\"; each word in its own colour: \"Churn\" #64748b, \"2.1%\" #0f172a, \"-0.3%\" #16a34a; the card exactly 236x130px, its top-left at 756,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "kpi-nps",
-    "white card \"NPS\", lines big 32px bold \"48\", green \"+5\"; the card exactly 244x130px, its top-left at 1008,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white card \"NPS\", lines big 32px bold \"48\", green \"+5\"; each word in its own colour: \"NPS\" #64748b, \"48\" #0f172a, \"+5\" #16a34a; the card exactly 244x130px, its top-left at 1008,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "chart-line",
@@ -600,7 +600,7 @@
    ],
    [
     "list",
-    "\"Search mail\" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: \"Lena Park\" 9:41 \"Q4 launch plan\" / \"Attached the final deck, can you check slide 7?\" (unread); \"GitHub\" 8:15 \"[sketch-to-code] PR #212 merged\" / \"Your pull request was merged into main.\" (unread); \"Marco Ruiz\" Yesterday \"Dinner Friday?\" / \"The place on Rua Augusta, 8pm, I booked a table.\"; \"Stripe\" Tue \"Your October invoice\" / \"Invoice #4471 for $240.00 is ready.\"; \"Ana Silva\" Mon \"Re: hiring loop\" / \"Two candidates for Thursday, notes inside.\"; \"Figma\" Oct 18 \"New comments\" / \"3 new comments on Landing v4.\"; the \"Lena Park\" row selected (pale blue, blue left edge)"
+    "\"Search mail\" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: \"Lena Park\" 9:41 \"Q4 launch plan\" / \"Attached the final deck, can you check slide 7?\" (unread); \"GitHub\" 8:15 \"[sketch-to-code] PR #212 merged\" / \"Your pull request was merged into main.\" (unread); \"Marco Ruiz\" Yesterday \"Dinner Friday?\" / \"The place on Rua Augusta, 8pm, I booked a table.\"; \"Stripe\" Tue \"Your October invoice\" / \"Invoice #4471 for $240.00 is ready.\"; \"Ana Silva\" Mon \"Re: hiring loop\" / \"Two candidates for Thursday, notes inside.\"; \"Figma\" Oct 18 \"New comments\" / \"3 new comments on Landing v4.\"; the \"Lena Park\" row selected (pale blue, blue left edge); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 31 of them, nothing invented, nothing left out): 367x40 at 236,16 #f3f4f6 fill, 8px rounded: 14px #9ca3af \"Search mail\"; 399x92 at 220,72 #eff6ff fill, 4px #1f2937 border on the bottom+left only; 363x16 at 240,86 14px bold #111827 \"Lena Park\"; 23x14 at 580,86 12px #6b7280 \"9:41\"; 363x16 at 240,105 14px bold #111827 \"Q4 launch plan\"; 363x16 at 240,124 14px #6b7280 \"Attached the final deck, can you check slide 7?\"; 399x92 at 220,164 1px #1f2937 border on the bottom only; 367x16 at 236,178 14px bold #111827 \"GitHub\"; 23x14 at 580,178 12px #6b7280 \"8:15\"; 367x16 at 236,197 14px bold #111827 \"[sketch-to-code] PR #212 merged\"; 367x16 at 236,216 14px #6b7280 \"Your pull request was merged into main.\"; 399x92 at 220,256 1px #1f2937 border on the bottom only; 367x16 at 236,270 14px #1f2937 \"Marco Ruiz\"; 53x14 at 550,270 12px #6b7280 \"Yesterday\"; 367x16 at 236,289 14px bold #1f2937 \"Dinner Friday?\"; 367x16 at 236,308 14px #6b7280 \"The place on Rua Augusta, 8pm, I booked a table.\"; 399x92 at 220,348 1px #1f2937 border on the bottom only; 367x16 at 236,362 14px #1f2937 \"Stripe\"; 20x14 at 583,362 12px #6b7280 \"Tue\"; 367x16 at 236,381 14px bold #1f2937 \"Your October invoice\"; 367x16 at 236,400 14px #6b7280 \"Invoice #4471 for $240.00 is ready.\"; 399x92 at 220,440 1px #1f2937 border on the bottom only; 367x16 at 236,454 14px #1f2937 \"Ana Silva\"; 23x14 at 580,454 12px #6b7280 \"Mon\"; 367x16 at 236,473 14px bold #1f2937 \"Re: hiring loop\"; 367x16 at 236,492 14px #6b7280 \"Two candidates for Thursday, notes inside.\"; 399x92 at 220,532 1px #1f2937 border on the bottom only; 367x16 at 236,546 14px #1f2937 \"Figma\"; 35x14 at 568,546 12px #6b7280 \"Oct 18\"; 367x16 at 236,565 14px bold #1f2937 \"New comments\"; 367x16 at 236,584 14px #6b7280 \"3 new comments on Landing v4.\""
    ],
    [
     "reader",
@@ -608,7 +608,7 @@
    ],
    [
     "reply",
-    "\"Reply to Lena…\""
+    "\"Reply to Lena…\"; its text #9ca3af (grey, NOT the page's dark navy text)"
    ]
   ]
  },
@@ -646,7 +646,7 @@
    ],
    [
     "steps",
-    "progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: \"✓ Cart\" (green) — \"Shipping\" (bold near-black, current step) — \"Payment\" (grey) — \"Review\" (grey)"
+    "progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: \"✓ Cart\" (green) — \"Shipping\" (bold near-black, current step) — \"Payment\" (grey) — \"Review\" (grey); each word in its own colour: \"✓ Cart\" #16a34a, \"Shipping\" #1c1917, \"Payment\" #a8a29e, \"Review\" #a8a29e"
    ],
    [
     "form",
@@ -654,7 +654,7 @@
    ],
    [
     "pay",
-    "near-black (#1c1917, near-black, not a blue) full-width white text button \"Continue to payment\""
+    "near-black (#1c1917, near-black, not a blue) full-width white text button \"Continue to payment\"; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "summary",

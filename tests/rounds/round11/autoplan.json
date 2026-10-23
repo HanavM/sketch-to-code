@@ -49,11 +49,11 @@
    ],
    [
     "subcopy",
-    "lavender text \"Spend from any of them, earn on all of them. Tilt your phone to switch cards.\""
+    "lavender text \"Spend from any of them, earn on all of them. Tilt your phone to switch cards.\"; its text #cfc8ee (lavender, NOT the page's white text)"
    ],
    [
     "cta",
-    "yellow pill near-black indigo text button \"Get your stack →\""
+    "yellow pill near-black indigo text button \"Get your stack →\"; its text #0d0a1f (near-black indigo, NOT the page's white text) (exactly: #c6ff3d fill, #0d0a1f text, 200x54px, pill ends)"
    ],
    [
     "card-stack",
@@ -165,11 +165,11 @@
    ],
    [
     "marquee-a",
-    "tilted 3° anticlockwise scrolling vivid red-orange bar, black text bold 56px \"VARIABLE ✶\" repeated along it"
+    "tilted 3° anticlockwise scrolling vivid red-orange bar, black text bold 56px \"VARIABLE ✶\" repeated along it; its text #0f0f0f (black, NOT the page's off-white text)"
    ],
    [
     "marquee-b",
-    "tilted slightly 2° clockwise scrolling off-white bar, black text 56px \"whisper · shout ·\" repeated along it"
+    "tilted slightly 2° clockwise scrolling off-white bar, black text 56px \"whisper · shout ·\" repeated along it; its text #0f0f0f (black, NOT the page's off-white text)"
    ]
   ]
  },
@@ -227,7 +227,7 @@
    ],
    [
     "cta",
-    "dark grey white text button \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur"
+    "dark grey white text button \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's dark grey text) (exactly: #2d2a4a fill, #ffffff text, 167x54px, 14px rounded)"
    ],
    [
     "spinning-cube",
@@ -339,7 +339,7 @@
    ],
    [
     "activity-bar",
-    "dark grey bar \"▤ ⌕ ⑂ ▷ ⧉\""
+    "dark grey bar \"▤ ⌕ ⑂ ▷ ⧉\"; each word in its own colour: \"▤\" #ffffff, \"⌕\" #888888, \"⑂\" #888888, \"▷\" #888888, \"⧉\" #888888"
    ],
    [
     "explorer",
@@ -347,7 +347,7 @@
    ],
    [
     "editor-tabs",
-    "near-black bar 36px tall across the page, links: retry.ts ×, send.ts, retry.test.ts; \"retry.ts ×\" selected (white text, near-black fill); all of these sit together at the LEFT, one after another, ending 266px in (the right 73% of the bar is empty, nothing pushed right)"
+    "near-black bar 36px tall across the page, links: retry.ts ×, send.ts, retry.test.ts; \"retry.ts ×\" selected (white text, near-black fill); all of these sit together at the LEFT, one after another, ending 266px in (the right 73% of the bar is empty, nothing pushed right); each word in its own colour: \"retry.ts ×\" #ffffff, \"send.ts\" #888888, \"retry.test.ts\" #888888"
    ],
    [
     "code",
@@ -397,7 +397,7 @@
    ],
    [
     "toolbar",
-    "column \"Q4 New business\", cards: \"Owner: All ▾\", \"Close: This quarter ▾\", \"+ New deal\""
+    "column \"Q4 New business\", cards: \"Owner: All ▾\", \"Close: This quarter ▾\", \"+ New deal\"; each word in its own colour: \"Q4 New business\" #1c2333, \"Owner: All ▾\" #1c2333, \"Close: This quarter ▾\" #1c2333, \"+ New deal\" #ffffff"
    ],
    [
     "board",
@@ -489,19 +489,19 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #1b1d29) bar, lavender text \"◆ Metricly\" list: \"Overview\", \"Acquisition\", \"Retention\", \"Revenue\", \"Experiments\", \"Settings\"; \"Overview\" highlighted (#2d3044 rounded fill, #ffffff text); list rows exactly 35px apart (33px tall, 13px type: tight, not roomier), first line 22px below the panel's top"
+    "dark navy (exactly #1b1d29) bar, lavender text \"◆ Metricly\" list: \"Overview\", \"Acquisition\", \"Retention\", \"Revenue\", \"Experiments\", \"Settings\"; \"Overview\" highlighted (#2d3044 rounded fill, #ffffff text); list rows exactly 35px apart (33px tall, 13px type: tight, not roomier), first line 22px below the panel's top; its text #a3a7bd (lavender, NOT the page's dark navy text)"
    ],
    [
     "header",
-    "column \"Overview\", cards: \"Last 30 days ▾\", \"Compare: prior period\", \"Export\""
+    "column \"Overview\", cards: \"Last 30 days ▾\", \"Compare: prior period\", \"Export\"; each word in its own colour: \"Overview\" #1b1d29, \"Last 30 days ▾\" #1b1d29, \"Compare: prior period\" #1b1d29, \"Export\" #ffffff"
    ],
    [
     "kpi-row",
-    "4 stat cards in a row: \"Revenue\" $248,310 ▲ 12.4% (green sparkline rising, bottom right), \"Active users\" 18,942 ▲ 4.1% (green sparkline rising, bottom right), \"Churn\" 2.8% ▲ 0.3pt (red sparkline rising, bottom right), \"Avg order\" $64.20 ▼ 1.9% (red sparkline falling, bottom right)"
+    "4 stat cards in a row: \"Revenue\" $248,310 ▲ 12.4% (green sparkline rising, bottom right), \"Active users\" 18,942 ▲ 4.1% (green sparkline rising, bottom right), \"Churn\" 2.8% ▲ 0.3pt (red sparkline rising, bottom right), \"Avg order\" $64.20 ▼ 1.9% (red sparkline falling, bottom right); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 16 of them, nothing invented, nothing left out): 246x112 at 224,80 #ffffff fill, 12px rounded; 246x112 at 486,80 #ffffff fill, 12px rounded; 246x112 at 748,80 #ffffff fill, 12px rounded; 246x112 at 1010,80 #ffffff fill, 12px rounded; 43x12 at 242,98 11px #6b7090 \"Revenue\"; 59x12 at 504,98 11px #6b7090 \"Active users\"; 30x12 at 766,98 11px #6b7090 \"Churn\"; 47x12 at 1028,98 11px #6b7090 \"Avg order\"; 210x32 at 242,117 28px bold #1b1d29 \"$248,310\"; 210x32 at 504,117 28px bold #1b1d29 \"18,942\"; 210x32 at 766,117 28px bold #1b1d29 \"2.8%\"; 210x32 at 1028,117 28px bold #1b1d29 \"$64.20\"; 49x14 at 242,150 12px bold #16a34a \"▲ 12.4%\"; 43x14 at 504,150 12px bold #16a34a \"▲ 4.1%\"; 43x14 at 766,150 12px bold #dc2626 \"▲ 0.3pt\"; 43x14 at 1028,150 12px bold #dc2626 \"▼ 1.9%\""
    ],
    [
     "line-chart",
-    "white card, \"Revenue vs target\", line chart drawn as SVG lines: dashed lavender line rising left to right, thick solid indigo line rising left to right (8 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 31, 28, 46, 42, 60, 65, 78; under the solid line a #5b5bd6 area fill; 4 thin pale horizontal grid lines behind; no axis labels; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 644x17 at 242,230 15px bold #1b1d29 \"Revenue vs target\"; 68x15 at 752,230 13px #6b7090 \"Revenue\"; 52x15 at 834,230 13px #6b7090 \"Target\"; 10x10 at 752,232 #5b5bd6 fill, 2px rounded; 10x10 at 834,232 #c7c9dc fill, 2px rounded; 35x13 at 242,507 11px #1b1d29 \"Sep 24\"; 26x12 at 422,507 11px #1b1d29 \"Oct 1\"; 26x12 at 602,507 11px #1b1d29 \"Oct 8\"; 32x12 at 782,507 11px #1b1d29 \"Oct 15\""
+    "white card, \"Revenue vs target\", line chart drawn as SVG lines: dashed lavender line rising left to right, thick solid indigo line rising left to right (8 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 23, 31, 28, 46, 42, 60, 65, 78; under the solid line a #5b5bd6 area fill; 4 thin pale horizontal grid lines behind; no axis labels; each word in its own colour: \"Revenue vs target\" #1b1d29, \"Revenue Target\" #6b7090; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 644x17 at 242,230 15px bold #1b1d29 \"Revenue vs target\"; 68x15 at 752,230 13px #6b7090 \"Revenue\"; 52x15 at 834,230 13px #6b7090 \"Target\"; 10x10 at 752,232 #5b5bd6 fill, 2px rounded; 10x10 at 834,232 #c7c9dc fill, 2px rounded; 35x13 at 242,507 11px #1b1d29 \"Sep 24\"; 26x12 at 422,507 11px #1b1d29 \"Oct 1\"; 26x12 at 602,507 11px #1b1d29 \"Oct 8\"; 32x12 at 782,507 11px #1b1d29 \"Oct 15\""
    ],
    [
     "donut-card",
@@ -509,7 +509,7 @@
    ],
    [
     "channel-table",
-    "white card, \"Top channels\" as a small bold heading, then a table, every body row built and none invented, columns \"CHANNEL\", \"SESSIONS\", \"CONVERSION\", \"REVENUE\", \"SHARE\", 5 rows: \"Organic search\" | \"42,118\" | \"3.2%\" | \"$92,400\" | \"37%\"; \"Paid social\" | \"28,904\" | \"2.1%\" | \"$51,760\" | \"21%\"; \"Email\" | \"12,377\" | \"5.8%\" | \"$48,900\" | \"20%\"; \"Referral\" | \"9,450\" | \"4.0%\" | \"$33,120\" | \"13%\"; \"Direct\" | \"8,031\" | \"2.6%\" | \"$22,130\" | \"9%\""
+    "white card, \"Top channels\" as a small bold heading, then a table, every body row built and none invented, columns \"CHANNEL\", \"SESSIONS\", \"CONVERSION\", \"REVENUE\", \"SHARE\", 5 rows: \"Organic search\" | \"42,118\" | \"3.2%\" | \"$92,400\" | \"37%\"; \"Paid social\" | \"28,904\" | \"2.1%\" | \"$51,760\" | \"21%\"; \"Email\" | \"12,377\" | \"5.8%\" | \"$48,900\" | \"20%\"; \"Referral\" | \"9,450\" | \"4.0%\" | \"$33,120\" | \"13%\"; \"Direct\" | \"8,031\" | \"2.6%\" | \"$22,130\" | \"9%\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 36 of them, nothing invented, nothing left out): 996x17 at 242,576 15px bold #1b1d29 \"Top channels\"; 200x29 at 242,605 1px #6b7090 border on the bottom only: 11px bold #6b7090 \"CHANNEL\"; 144x29 at 442,605 1px #6b7090 border on the bottom only: 11px bold #6b7090 \"SESSIONS\"; 182x29 at 587,605 1px #6b7090 border on the bottom only: 11px bold #6b7090 \"CONVERSION\"; 137x29 at 769,605 1px #6b7090 border on the bottom only: 11px bold #6b7090 \"REVENUE\"; 332x29 at 906,605 1px #6b7090 border on the bottom only: 11px bold #6b7090 \"SHARE\"; 200x36 at 242,634 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"Organic search\"; 144x36 at 442,634 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"42,118\"; 182x36 at 587,634 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"3.2%\"; 137x36 at 769,634 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"$92,400\"; 332x36 at 906,634 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"37%\"; 120x6 at 912,650 #5b5bd6 fill, pill ends; 200x36 at 242,670 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"Paid social\"; 144x36 at 442,670 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"28,904\"; 182x36 at 587,670 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"2.1%\"; 137x36 at 769,670 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"$51,760\"; 332x36 at 906,670 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"21%\"; 68x6 at 912,686 #5b5bd6 fill, pill ends; 200x36 at 242,706 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"Email\"; 144x36 at 442,706 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"12,377\"; 182x36 at 587,706 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"5.8%\"; 137x36 at 769,706 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"$48,900\"; 332x36 at 906,706 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"20%\"; 64x6 at 912,722 #5b5bd6 fill, pill ends; 200x36 at 242,742 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"Referral\"; 144x36 at 442,742 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"9,450\"; 182x36 at 587,742 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"4.0%\"; 137x36 at 769,742 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"$33,120\"; 332x36 at 906,742 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"13%\"; 44x6 at 912,758 #5b5bd6 fill, pill ends; 200x36 at 242,778 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"Direct\"; 144x36 at 442,778 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"8,031\"; 182x36 at 587,778 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"2.6%\"; 137x36 at 769,778 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"$22,130\"; 332x36 at 906,778 1px #1b1d29 border on the bottom only: 13px #1b1d29 \"9%\"; 28x6 at 912,794 #5b5bd6 fill, pill ends"
    ]
   ]
  },

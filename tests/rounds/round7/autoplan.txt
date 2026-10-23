@@ -1,4 +1,4 @@
-c1-bento-overlap · marks 8 · words 215
+c1-bento-overlap · marks 8 · words 531
     hero-tile    box     
     stat-tile    box     
     list-tile    box     
@@ -7,16 +7,16 @@ c1-bento-overlap · marks 8 · words 215
     chart-tile   box     
     orb          circle  
     big-number   heading 
-    note *: whole page: black page, Helvetica type, white text
-    note hero-tile: vivid purple (top left) to vivid dark pink (bottom right) gradient block "ORBIT OS · 2027", text "Everything, tiled."
-    note stat-tile: vivid yellow block, near-black text "UPTIME", text "99.9"
-    note list-tile: near-black (#18181b) tile, 300x420px, 28px rounded, 1px dark grey (#3f3f46) border, small wide-spaced label "SYNC" top left; under it a stack of 6 empty 10px bars (5px rounded) 14px apart, first one 58px from the top: cyan 70% wide, dark grey 100% wide, dark grey 80% wide, dark grey 100% wide, dark grey 55% wide, dark grey 100% wide
-    note quote-tile: light grey block, near-black text "“The calmest dashboard I’ve ever used.”"
-    note cyan-tile: vivid cyan block, black text "NEW", text "Widgets that rearrange themselves."
-    note chart-tile: near-black, bar chart "WEEKLY FOCUS", 10 bars, all dark grey (#3f3f46) except bar 4 vivid yellow (#facc15), heights 42/68/53/100/74/47/63/84/37/58% of the tallest
+    note *: whole page: black (#0b0b0f) page, Helvetica type, white text
+    note hero-tile: vivid purple #7c3aed (top left) to vivid dark pink #db2777 (bottom right) gradient block "ORBIT OS · 2027", text "Everything, tiled."; the card exactly 560x420px, its top-left at 40,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note stat-tile: vivid yellow block, near-black text "UPTIME", text "99.9"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note list-tile: near-black (#18181b) tile, 300x420px, 28px rounded, 1px dark grey (#3f3f46) border, small wide-spaced label "SYNC" top left; under it a stack of 6 empty 10px bars (5px rounded) 14px apart, first one 58px from the top: cyan 70% wide, dark grey 100% wide, dark grey 80% wide, dark grey 100% wide, dark grey 55% wide, dark grey 100% wide; the card exactly 300x420px, its top-left at 940,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note quote-tile: light grey block, near-black text "“The calmest dashboard I’ve ever used.”"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,260, its top 20px under the bottom of the card right above it (that card ends at y 240: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note cyan-tile: vivid cyan block, black text "NEW", text "Widgets that rearrange themselves."; its text #0b0b0f (black, NOT the page's white text); the card exactly 380x380px, its top-left at 40,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note chart-tile: near-black, bar chart "WEEKLY FOCUS", 10 bars, all dark grey (#3f3f46) except bar 4 vivid yellow (#facc15), heights 42/68/53/100/74/47/63/84/37/58% of the tallest; the card exactly 800x380px, its top-left at 440,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
     note orb: a 300px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffffff 0%, #f472b6 30%, #7c3aed 75%) so it looks lit from the top left, with a big soft dark pink glow under it (box-shadow 0px 30px 80px, 60% opacity); absolutely placed, top-left at 470,330, ON TOP of every tile it overlaps (highest z-index, nothing covers it)
-    note big-number: giant Helvetica heavy tight-set letters hollow outlined yellow "07", 260px type, about 265px wide (no larger)
-c2-variable-wave · marks 8 · words 249
+    note big-number: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined yellow "07", 260px type, about 265px wide (no larger)
+c2-variable-wave · marks 8 · words 262
     nav          text    
     wave-word    heading 
     outline-line heading 
@@ -25,16 +25,16 @@ c2-variable-wave · marks 8 · words 249
     knob         circle  
     axis-label   text    
     note         text    
-    note *: whole page: cream page, Helvetica type, near-black text
+    note *: whole page: cream (#f5f0e6, plainly not white) page, Helvetica type, near-black text
     note nav: bold 18px "FLEX/TYPE" left, "Specimen · Axes · Buy" right
     note wave-word: the one word "VARIABLE" in giant Helvetica near-black letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): V 120px weight 100, A 150px weight 300, R 180px weight 500, I 200px weight 700, A 220px weight 900, B 200px weight 700, L 180px weight 500, E 150px weight 300; about 837px wide, white-space: nowrap; no other copy here (not a paragraph)
     note outline-line: giant Helvetica heavy tight-set letters hollow outlined near-black "100—900", 170px type, about 695px wide (no larger)
-    note band: tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange band (the band itself 1500x86px before the tilt (height: 86px, only 86px thick; the tilt alone makes its outline 242px tall), filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) "ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE", on ONE line (white-space: nowrap, never wrapped), about 1552px wide
+    note band: tilted 6° anticlockwise bleeding off the left and right page edges big heavy cream on a red-orange (#ff4f1f) band (the band itself 1500x86px before the tilt (height: 86px, only 86px thick; the tilt alone makes its outline 242px tall), filled red-orange edge to edge, type left-aligned 0px in from its left, not centred) "ONE FILE · EVERY WEIGHT · ONE FILE · EVERY WEIGHT · ONE FILE", on ONE line (white-space: nowrap, never wrapped), about 1552px wide
     note axis: solid near-black strip only 2px tall, 520px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), thinner than the drawn pen line)
-    note knob: small 22px near-black dot
+    note knob: small 22px near-black dot (exactly 22x22px: w-[22px] h-[22px], border-radius 50%, not smaller)
     note axis-label: 13px wide-spaced letters "WEIGHT 100 ——— 900"
     note note: text "A variable family with weight and width axes. Drag the slider, the specimen breathes."
-c3-parallax-night · marks 10 · words 391
+c3-parallax-night · marks 10 · words 403
     logo         text    
     moon         circle  
     cloud-1      box     
@@ -48,12 +48,12 @@ c3-parallax-night · marks 10 · words 391
     note *: whole page: dark navy (#0f172a) to dark grey (#312e81 at 55%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text
     note logo: wide-spaced letters "NOCTURNE"
     note moon: perfectly round solid disc (border-radius 50%, not traced from the ink), 180px across, flat fully opaque pale yellow (#fef3c7) fill, hard edge, no blur
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow (left) to light pink (right) gradient text "The city after dark", set in exactly 2 lines: "The city" / "after dark" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow #fde68a (left) to light pink #f472b6 (right) gradient text "The city after dark", set in exactly 2 lines: "The city" / "after dark" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)
     note sub: text "Five layers of skyline that drift apart as you scroll. A night walk through the old port."
-    note cta: soft yellow outline pill button "Start walking"
+    note cta: soft yellow outline pill button "Start walking"; its text #fde68a (soft yellow, NOT the page's white text)
     note skyline-back: faded to 55% opacity (see-through) drawn shapes, no picture, no box: flat deep purple (#4c1d95) city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, 1280px wide, no outlines, no windows, no gradient; 14 rooftops left to right (page px, x from-to at y px down): 0-90 at 710, 90-160 at 660, 160-260 at 730, 260-330 at 620, 330-430 at 700, 430-520 at 650, 520-640 at 740, 640-700 at 600, 700-820 at 720, 820-900 at 670, 900-1010 at 750, 1010-1080 at 630, 1080-1180 at 710, 1180-1280 at 680; the shape is filled solid from each rooftop down to 900px (exact polygon points: 0,900 0,710 90,710 90,660 160,660 160,730 260,730 260,620 330,620 330,700 430,700 430,650 520,650 520,740 640,740 640,600 700,600 700,720 820,720 820,670 900,670 900,750 1010,750 1010,630 1080,630 1080,710 1180,710 1180,680 1280,680 1280,900)
     note skyline-front: drawn shapes, no picture, no box: flat near-black indigo (#0b0617) city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, 1280px wide, no outlines, no windows, no gradient; 12 rooftops left to right (page px, x from-to at y px down): 0-120 at 790, 120-200 at 740, 200-340 at 810, 340-400 at 720, 400-460 at 690, 460-600 at 780, 600-720 at 750, 720-860 at 820, 860-940 at 730, 940-1060 at 770, 1060-1140 at 710, 1140-1280 at 800; the shape is filled solid from each rooftop down to 900px (exact polygon points: 0,900 0,790 120,790 120,740 200,740 200,810 340,810 340,720 400,720 400,690 460,690 460,780 600,780 600,750 720,750 720,820 860,820 860,730 940,730 940,770 1060,770 1060,710 1140,710 1140,800 1280,800 1280,900)
-c4-isometric-stack · marks 11 · words 360
+c4-isometric-stack · marks 11 · words 412
     nav          text    
     headline     heading 
     sub          text    
@@ -68,42 +68,44 @@ c4-isometric-stack · marks 11 · words 360
     note *: whole page: off-white (#eef2ff, plainly not white) page, Helvetica type, deep indigo text
     note nav: bold 20px "Stackwise" left, "Product · Docs · Pricing" right
     note headline: huge Helvetica heavy tight-set letters "Infra in three layers.", set in exactly 2 lines: "Infra in three" / "layers." (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 392px wide)
-    note sub: indigo text "Edge, compute and storage as one stack you can see. Deploy from a single file."
-    note cta: deep indigo white text button "Deploy now"
+    note sub: indigo text "Edge, compute and storage as one stack you can see. Deploy from a single file."; its text #4338ca (indigo, NOT the page's deep indigo text)
+    note cta: deep indigo white text button "Deploy now"; its text #ffffff (white, NOT the page's deep indigo text) (exactly: #1e1b4b fill, #ffffff text, 146x50px, 10px rounded)
     note cube-top: drawn shapes, no picture, no box: an isometric cube (260x210px, top left at 750,170) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face lavender (#a5b4fc) corners 880,170 1010,245 880,320 750,245; left face indigo (#6366f1) corners 750,245 880,320 880,380 750,305; right face indigo (#4338ca) corners 880,320 1010,245 1010,305 880,380
     note cube-mid: drawn shapes, no picture, no box: an isometric cube (260x210px, top left at 750,330) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face pale pink (#f9a8d4) corners 880,330 1010,405 880,480 750,405; left face pink (#ec4899) corners 750,405 880,480 880,540 750,465; right face dark pink (#be185d) corners 880,480 1010,405 1010,465 880,540
     note cube-base: drawn shapes, no picture, no box: an isometric cube (360x280px, top left at 700,490) drawn as 3 flat filled SVG polygons, top face lightest, left face mid, right face darkest, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): top face yellow (#fde047) corners 880,490 1060,595 880,700 700,595; left face amber (#eab308) corners 700,595 880,700 880,770 700,665; right face brown (#a16207) corners 880,700 1060,595 1060,665 880,770
     note leaders: 3 separate thin straight dashed (5px dashes) 1.5px deep indigo lines in one <svg> laid over the page (no box, no fill), page px: from 1010,270 to 1110,230; from 750,430 to 640,470; from 1060,630 to 1130,680
-    note label-edge: white button "Edge"
-    note label-compute: white button "Compute"
-    note label-storage: white button "Storage"
-c5-torn-collage · marks 10 · words 125
+    note label-edge: white button "Edge" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded)
+    note label-compute: white button "Compute" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded)
+    note label-storage: white button "Storage" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded)
+c5-torn-collage · marks 10 · words 395
     masthead     text    
     issue        text    
     photo-green  shape   
     photo-amber  shape   
-    tape-1       image   
-    tape-2       image   
+    tape-1       box     
+    tape-2       box     
     headline     heading 
     column       text    
-    circle-note  box     
+    circle-note  shape   
     hand-note    heading 
-    note *: whole page: warm paper page, Georgia type, near-black text
-    note masthead: 14px wide-spaced letters "FIELD NOTES"
-    note issue: 14px text "No. 12 · Winter"
-    note photo-green: tilted 4° anticlockwise teal (top) to deep green (bottom) gradient jagged cut-out shape
-    note photo-amber: tilted 5° clockwise vivid amber (top) to vivid brown (bottom) gradient jagged cut-out shape
-    note tape-1: tilted 14° anticlockwise pale yellow block
-    note tape-2: tilted 18° clockwise pale yellow block
+    note *: whole page: warm paper (#efe7d8) page, Georgia type, near-black text
+    note masthead: 14px wide-spaced letters "FIELD NOTES", one line on its own (top 40px, left edge 90px), nothing else written beside it
+    note issue: 14px text "No. 12 · Winter", one line on its own (top 40px, left edge 900px), nothing else written beside it
+    note photo-green: tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border
+    note photo-amber: tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border
+    note tape-1: tilted 14° anticlockwise see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, hairline faint black edge, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)
+    note tape-2: tilted 18° clockwise see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, hairline faint black edge, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)
     note headline: colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) white "Salt & Stone", set in exactly 2 lines: "Salt &" / "Stone" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 364px wide)
-    note hand-note: italic red "read this first!"
-e1-kanban-lanes · marks 19 · words 172
+    note column: paragraph 300px wide, 16px text, line-height 26px, opening on a drop cap: its first letter "A" 72px bold brown (#b45309), floated left about 3 lines tall (::first-letter), the text wrapping beside it: "Along the northern coast, the quarries meet the sea. We spent eleven days walking between the cut cliffs and the salt pans, listening to the people who still work both."
+    note circle-note: an outline-only red (#dc2626) ellipse ring, 3px line, 300x124px, tilted 5° anticlockwise, no fill (an SVG <ellipse fill="none">, like a pen circle round a note): whatever is inside it shows through
+    note hand-note: italic red "read this first!", 30px type on ONE line (white-space: nowrap, never wrapped), about 171px wide
+e1-kanban-lanes · marks 19 · words 1649
     topbar       box     
     head-todo    text    
     head-doing   text    
     head-review  text    
     head-done    text    
-    lane-web     box     
+    lane-web     text    
     card-1       box     
     card-2       box     
     card-3       box     
@@ -111,29 +113,33 @@ e1-kanban-lanes · marks 19 · words 172
     card-5       box     
     card-6       box     
     card-7       box     
-    lane-mobile  box     
+    lane-mobile  text    
     card-8       box     
     card-9       box     
     card-10      box     
     card-11      box     
     card-12      box     
     note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
-    note topbar: white bar 56px tall across the page, links: Sprint 42, Search cards…, All, Mine, Bugs, Blocked; "All" selected (indigo fill)
-    note lane-web: input "▾ WEB APP"
-    note card-1: white card "Bug", text "Login loops on Safari 18"
-    note card-2: white card "Feature", text "Saved filters in sidebar"
-    note card-3: "Feature", thin progress bar 60% filled green on a light grey track, small grey "Bulk edit for tasks" under
-    note card-4: white card "Blocked", text "Billing webhooks retry"
-    note card-5: white card "Chore", text "Upgrade to Node 24"
-    note card-6: faded to 60% opacity (see-through) white card "Dark mode tokens"
-    note card-7: faded to 60% opacity (see-through) white card "Onboarding checklist"
-    note lane-mobile: input "▾ MOBILE"
-    note card-8: white card "Bug", text "Push opens wrong screen"
-    note card-9: "Feature", thin progress bar 30% filled green on a light grey track, small grey "Offline drafts" under
-    note card-10: "Feature", thin progress bar 85% filled green on a light grey track, small grey "Widget for iOS home screen" under
-    note card-11: white card "Chore", text "Crash reporting SDK"
-    note card-12: faded to 60% opacity (see-through) white card "App icon refresh"
-e2-funnel-cohort · marks 8 · words 111
+    note topbar: white bar 56px tall across the page, bold 18px "Sprint 42" first, then links: Search cards…, All, Mine, Bugs, Blocked; "All" selected (indigo fill); "Mine", "Bugs", "Blocked" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); "Search cards…" is an outlined search field 280px wide, grey placeholder; each word in its own colour: "Sprint 42" #0f172a, "Search cards…" #94a3b8, "All" #ffffff, "Mine" #0f172a, "Bugs" #0f172a, "Blocked" #0f172a
+    note head-todo: one line 290px wide: bold 13px "To do" at the left, grey "5" at the far right end of the same line
+    note head-doing: one line 290px wide: bold 13px "In progress" at the left, bold red "4 / 3" at the far right end of the same line
+    note head-review: one line 290px wide: bold 13px "Review" at the left, grey "2" at the far right end of the same line
+    note head-done: one line 290px wide: bold 13px "Done" at the left, grey "7" at the far right end of the same line
+    note lane-web: a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label "▾ WEB APP" at the left; its text #475569 (dark grey, NOT the page's dark navy text)
+    note card-1: white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag "Bug" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title "Login loops on Safari 18" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Bug" #b91c1c, "Login loops on Safari 18" #0f172a; the card exactly 290x76px, its top-left at 24,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-2: white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag "Feature" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title "Saved filters in sidebar" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Feature" #4338ca, "Saved filters in sidebar" #0f172a; its top 240px from the page top, 32px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 24,240, its top 32px under the bottom of the card right above it (that card ends at y 208: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-3: white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag "Feature" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title "Bulk edit for tasks" under it; a thin 5px green (#22c55e) progress bar 60% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 60% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Feature" #4338ca, "Bulk edit for tasks" #0f172a; the card exactly 290x81px, its top-left at 338,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-4: white task card 290x76px, 10px rounded, thin light grey border, a 4px red left edge: small 11px bold tag "Blocked" (brown text on a pale brown tint #fef3c7, 4px rounded) at the top left; semibold title "Billing webhooks retry" under it; a 24px round amber avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Blocked" #b45309, "Billing webhooks retry" #0f172a; its top 252px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x76px, its top-left at 338,252, its top 39px under the bottom of the card right above it (that card ends at y 213: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-5: white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag "Chore" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title "Upgrade to Node 24" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Chore" #15803d, "Upgrade to Node 24" #0f172a; the card exactly 290x76px, its top-left at 652,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-6: white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title "Dark mode tokens", struck through (line-through)
+    note card-7: white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title "Onboarding checklist", struck through (line-through)
+    note lane-mobile: a full-width dashed 1px light grey line across the page (a section divider, not a box or input), and 9px under it bold 12px dark grey capitals, wide letter-spacing label "▾ MOBILE" at the left; its text #475569 (dark grey, NOT the page's dark navy text); the line sits 470px from the page top, 142px below the lowest card above it (the lane above keeps that empty space; do not pull this lane up)
+    note card-8: white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag "Bug" (red text on a pale red tint #fee2e2, 4px rounded) at the top left; semibold title "Push opens wrong screen" under it; a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Bug" #b91c1c, "Push opens wrong screen" #0f172a; the card exactly 290x76px, its top-left at 24,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-9: white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag "Feature" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title "Offline drafts" under it; a thin 5px green (#22c55e) progress bar 30% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 30% green fill); a 24px round pink avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Feature" #4338ca, "Offline drafts" #0f172a; the card exactly 290x81px, its top-left at 338,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-10: white task card 290x81px, 10px rounded, thin light grey border: small 11px bold tag "Feature" (indigo text on a pale indigo tint #e0e7ff, 4px rounded) at the top left; semibold title "Widget for iOS home screen" under it; a thin 5px green (#22c55e) progress bar 85% full on a light grey (#e2e8f0) track under the title (the track is a 180px wide (w-[180px]), 5px tall rounded strip at the card's left, 10px under the title, NOT the card's full width and not at its foot; the grey track shows past the 85% green fill); a 24px round purple avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Feature" #4338ca, "Widget for iOS home screen" #0f172a; its top 618px from the page top, 39px of empty space above it (below the card above; the cards in this column are NOT packed tight, keep the gap); the card exactly 290x81px, its top-left at 338,618, its top 39px under the bottom of the card right above it (that card ends at y 579: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-11: white task card 290x76px, 10px rounded, thin light grey border: small 11px bold tag "Chore" (green text on a pale green tint #dcfce7, 4px rounded) at the top left; semibold title "Crash reporting SDK" under it; a 24px round cyan avatar dot (no letter; a full circle 24x24px, never squashed into a bar) in the bottom-right corner; each word in its own colour: "Chore" #15803d, "Crash reporting SDK" #0f172a; the card exactly 290x76px, its top-left at 652,498 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note card-12: white task card 290x60px, 10px rounded, thin light grey border, the whole card faded to 60% opacity (done): semibold title "App icon refresh", struck through (line-through)
+e2-funnel-cohort · marks 8 · words 870
     header       box     
     kpi-1        box     
     kpi-2        box     
@@ -144,14 +150,14 @@ e2-funnel-cohort · marks 8 · words 111
     cohort       box     
     note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
     note header: card: "Growth"; white near-black text button "Sep 1 – Oct 22, 2026 ▾" on the right
-    note kpi-1: white card "Visitors", text "48,210"
-    note kpi-2: white card "Sign-ups", text "3,904"
-    note kpi-3: white card "Activated", text "1,722"
-    note kpi-4: white card "Paid", text "412"
-    note funnel: white card "Conversion funnel" "100%" "38%" "8.1%" "3.6%" list: "Visit", "View pricing", "Sign up", "Activate"
-    note stacked: white card "Sign-ups by source"
-    note cohort: white card, "Weekly retention cohorts", table, columns "", "W0", "W1", "W2", "W3", "W4", "W5", 6 rows, first row "Sep 1" | "100%" | "54%" | "41%" | "33%" | "29%" | "27%"; status pills teal "100%", teal "54%", bright green "41%", near-black "33%"
-e3-code-editor · marks 7 · words 265
+    note kpi-1: white stat card: small grey label "Visitors", under it big 28px bold "48,210"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: "Visitors" #78716c, "48,210" #1c1917; the card exactly 290x110px, its top-left at 32,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-2: white stat card: small grey label "Sign-ups", under it big 28px bold "3,904"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: "Sign-ups" #78716c, "3,904" #1c1917; the card exactly 290x110px, its top-left at 338,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-3: white stat card: small grey label "Activated", under it big 28px bold "1,722"; a small 90x30px red sparkline (a thin 7-point line, no fill, no axes) falling left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: "Activated" #78716c, "1,722" #1c1917; the card exactly 290x110px, its top-left at 644,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-4: white stat card: small grey label "Paid", under it big 28px bold "412"; a small 90x30px teal sparkline (a thin 7-point line, no fill, no axes) rising left to right, in the bottom-right corner 17px from the right edge and 19px from the bottom; each word in its own colour: "Paid" #78716c, "412" #1c1917; the card exactly 290x110px, its top-left at 950,80 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note funnel: "Conversion funnel", a funnel (NOT progress rows, NOT a list): 4 solid teal bars 46px tall, 6px rounded, stacked 60px apart down one left edge (19px in, first 57px from the card top), each NARROWER than the one above, its label in bold white inside at the left: "Visit" 400px wide ("100%" bold at the far right of the card on that row), "View pricing" 300px wide at 85% opacity ("38%" bold at the far right of the card on that row), "Sign up" 200px wide at 70% opacity ("8.1%" bold at the far right of the card on that row), "Activate" 120px wide at 55% opacity ("3.6%" bold at the far right of the card on that row); the card exactly 560x330px, its top-left at 32,210, its top 20px under the bottom of the card right above it (that card ends at y 190: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note stacked: "Sign-ups by source", a stacked bar chart (NOT a list): 8 bars 44px wide, 30px apart, standing on one baseline across a 250px tall plot (19px in, 61px from the card top), no axes, no labels; each bar is 2 solid segments, bottom teal #0d9488, top bright green #5eead4; bar total heights left to right: 170, 180, 190, 210, 200, 230, 220, 250px; bottom segment heights: 130, 150, 140, 170, 160, 190, 180, 210px; the card exactly 640x330px, its top-left at 608,210, its top 20px under the bottom of the card right above it (that card ends at y 190: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note cohort: "Weekly retention cohorts", a cohort heat table (NOT pills, NOT a plain table): column heads "W0" "W1" "W2" "W3" "W4" "W5" over the cells, each row a grey date label at the left then filled square-ish 52x30px cells 3px apart, each cell's number centred in it; the cells are shades of ONE colour, darkest 1 to lightest 5: 1 #0f766e, 2 #14b8a6, 3 #5eead4, 4 #99f6e4, 5 #ccfbf1; dark shades 1-2 carry white numbers, the rest dark; an empty cell (-) is left blank (no fill, no number), so the filled cells form a staircase triangle; rows (number@shade): "Sep 1": 100%@1 54%@2 41%@3 33%@4 29%@5 27%@5; "Sep 8": 100%@1 58%@2 44%@3 35%@4 30%@5 -; "Sep 15": 100%@1 51%@2 39%@4 31%@4 - -; "Sep 22": 100%@1 60%@2 47%@3 - - -; "Sep 29": 100%@1 62%@2 - - - -; "Oct 6": 100%@1 - - - - -; the card exactly 1216x320px, its top-left at 32,556, its top 16px under the bottom of the card right above it (that card ends at y 540: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+e3-code-editor · marks 7 · words 601
     activity-bar box     
     file-tree    box     
     tabs         box     
@@ -159,14 +165,15 @@ e3-code-editor · marks 7 · words 265
     minimap      box     
     terminal     box     
     status-bar   box     
-    note *: whole page: dark navy page, Helvetica type, light grey text
+    note *: whole page: dark navy (#1e1e2e) page, Helvetica type, light grey text
     note activity-bar: near-black block (no picture), 4 small rounded squares (22px) stacked down from its top 16px apart: first sky blue, the rest dark grey
-    note file-tree: near-black block "EXPLORER" list: "▾ src", "▸ components", "▾ lib", "parse.ts", 5 more; "parse.ts" highlighted
-    note tabs: near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; "parse.ts" selected (white text, dark navy fill)
-    note code: mono 14px code lines: "1import { readFile } from 'node:fs/promises'", "2", "3// Split a sketch into strokes and words", "4export async function parse(path: string) {", "5  const raw = await readFile(path, 'utf8')", "6  const lines = raw.split('\n').filter(Boolean)", "7  return lines.map((l, i) => ({ id: i, ink: l }))", "8}", "9", "10export function size(s: Stroke) {", "11  return Math.hypot(s.w, s.h)", "12}"; light grey code, coloured: brown "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"; lavender "import", "from", "export async function", "const", "await", "return", "export function"; mint green "'node:fs/promises'", "'utf8'", "'\n'"; grey "// Split a sketch into strokes and words"; sky blue "parse", "readFile", "split", "filter", "map", "size", "hypot"; peach "string", "Stroke"
+    note file-tree: near-black block "EXPLORER" list: "▾ src", "▸ components", "▾ lib", "parse.ts", "score.ts", "draw.ts", "main.ts", "package.json", "README.md"; "parse.ts" highlighted (#313244 rounded fill, #ffffff text); list rows exactly 26px apart (26px tall, 13px type: tight, not roomier), first line 14px below the panel's top
+    note tabs: near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; "parse.ts" selected (white text, dark navy fill); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right); each word in its own colour: "parse.ts" #ffffff, "score.ts" #7f849c, "main.ts ●" #7f849c
+    note code: a CODE VIEW 880x540px at 280,38, no fill of its own: 12 lines of code, the first 12px below its top, each line ONE row exactly 22px tall (rows stacked, never overlapping), 14px monospace, #cdd6f4 text; each row starts with its line number in a 52px gutter (#585b70, right-aligned), then the line's code written as ONE run of text in order, leading spaces kept as indentation (white-space: pre), with the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned). Lines (number, the code between backticks, [coloured words]): 1 `import { readFile } from 'node:fs/promises'` ["import" #cba6f7, "from" #cba6f7, "'node:fs/promises'" #a6e3a1]; 2 ``; 3 `// Split a sketch into strokes and words` ["// Split a sketch into strokes and words" #6c7086]; 4 `export async function parse(path: string) {` ["export async function" #cba6f7, "parse" #89b4fa, "string" #fab387]; 5 `  const raw = await readFile(path, 'utf8')` ["const" #cba6f7, "await" #cba6f7, "readFile" #89b4fa, "'utf8'" #a6e3a1]; 6 `  const lines = raw.split('\n').filter(Boolean)` ["const" #cba6f7, "split" #89b4fa, "'\\n'" #a6e3a1, "filter" #89b4fa] (this whole row has a #313244 highlight fill, edge to edge); 7 `  return lines.map((l, i) => ({ id: i, ink: l }))` ["return" #cba6f7, "map" #89b4fa]; 8 `}`; 9 ``; 10 `export function size(s: Stroke) {` ["export function" #cba6f7, "size" #89b4fa, "Stroke" #fab387]; 11 `  return Math.hypot(s.w, s.h)` ["return" #cba6f7, "hypot" #89b4fa]; 12 `}`
+    note minimap: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out): 92x140 at 1176,50 #89b4fa at 12% fill; 50x3 at 1180,53 #45475a fill, pill ends; 17x3 at 1180,59 #45475a fill, pill ends; 63x3 at 1180,65 #45475a fill, pill ends; 76x3 at 1180,71 #45475a fill, pill ends; 59x3 at 1180,77 #45475a fill, pill ends; 71x3 at 1180,83 #45475a fill, pill ends; 67x3 at 1180,89 #45475a fill, pill ends; 8x3 at 1180,95 #45475a fill, pill ends; 55x3 at 1180,101 #45475a fill, pill ends; 42x3 at 1180,107 #45475a fill, pill ends; 8x3 at 1180,113 #45475a fill, pill ends
     note terminal: near-black block mono 13px code lines: "TERMINAL · PROBLEMS 1", "$ npm test", "✓ parse splits lines (3 ms)", "✓ size of a stroke (1 ms)", "✗ parse keeps empty ink — expected 4, got 3", "Tests: 1 failed, 2 passed", "$"; light grey code
-    note status-bar: sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; "⎇ main", "⚠ 1" sit together at the left, "Ln 6, Col 42", "TypeScript" pushed to the far right (1014px gap)
-e4-product-page · marks 24 · words 120
+    note status-bar: sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; "⎇ main", "⚠ 1" sit together at the left, "Ln 6, Col 42", "TypeScript" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #11111b (near-black, NOT the page's light grey text)
+e4-product-page · marks 24 · words 644
     nav          box     
     breadcrumb   text    
     thumb-1      image   
@@ -187,32 +194,35 @@ e4-product-page · marks 24 · words 120
     add-to-bag   button  
     wishlist     button  
     shipping     text    
-    acc-details  box     
+    acc-details  text    
     acc-body     text    
-    acc-care     box     
-    acc-returns  box     
+    acc-care     text    
+    acc-returns  text    
     note nav: bar 60px tall across the top, thin line under: bold 20px wide-spaced "NORDLY" left, "Women · Men · Sale · Bag (2)" right
-    note breadcrumb: small grey breadcrumb "Home / Jackets / Shell"
+    note breadcrumb: small grey breadcrumb "Home / Jackets / Shell"; its text #6b7280 (grey, NOT the page's dark navy text)
+    note thumb-1: pale #e0e7ff filled 84x84px 8px rounded block (no picture, no X), with a 2px dark navy outline ring 2px out from its edge (the selected one)
+    note thumb-2: pale #c7d2fe filled 84x84px 8px rounded block (no picture, no X)
     note thumb-3: lavender block
     note thumb-4: pale grey block
-    note title: big "Fjell Rain Shell"
-    note rating: amber "★★★★☆4.2 · 318 reviews"
-    note price: "$189$240-21%"
+    note main-photo: a big 520x620px block filled with a soft pale tinted #e0e7ff to #c7d2fe (top to bottom) gradient, 12px rounded: a product-photo backdrop; inside it one big solid indigo (#4338ca) 260x300px shape, 130px in from its left and 170px down from its top, top corners very round, bottom corners a little round (a garment silhouette): no other picture, no X, no icon
+    note title: big "Fjell Rain Shell", 34px type on ONE line (white-space: nowrap, never wrapped), about 234px wide
+    note rating: amber "★★★★☆4.2 · 318 reviews"; its text #f59e0b (amber, NOT the page's dark navy text)
+    note price: one line, left to right, each part a little apart: bold 28px dark navy "$189", then 18px grey "$240" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) "-21%"; each word in its own colour: "$240" #9ca3af, "-21%" #ffffff
     note colour-label: 13px "Colour: Indigo"
-    note swatch-1: small 36px indigo dot
-    note swatch-2: small 36px dark navy dot
-    note swatch-3: small 36px vivid brown dot
-    note swatch-4: small 36px light grey dot
+    note swatch-1: small 36px indigo dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller), with a 2px dark navy outline ring 3px out from its edge, a white gap between (outline + outline-offset, the selected one)
+    note swatch-2: small 36px dark navy dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
+    note swatch-3: small 36px vivid brown dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
+    note swatch-4: small 36px light grey dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)
     note size-label: 13px "Size"
-    note sizes: buttons: "XS", "S", "M", "L", "XL"
-    note add-to-bag: dark navy white text button "Add to bag"
-    note wishlist: outline button "♡"
-    note shipping: 13px green "✓ Free delivery by Oct 27"
-    note acc-details: "Details −"
-    note acc-body: dark grey text "Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket."
-    note acc-care: "Care & materials +"
-    note acc-returns: "Returns +"
-e5-admin-table · marks 8 · words 87
+    note sizes: buttons: "XS", "S", "M", "L", "XL"; 5 equal 90x44px rounded outlined boxes in one row; "M" is the picked one (2px dark navy border, bold, the others a thin light grey border); "XS" and "XL" unavailable (light grey text struck through, pale grey fill); each word in its own colour: "XS" #d1d5db, "S" #111827, "M" #111827, "L" #111827, "XL" #d1d5db
+    note add-to-bag: dark navy (#111827, near-black, not a blue) white text button "Add to bag"; its text #ffffff (white, NOT the page's dark navy text)
+    note wishlist: square 54x54px 10px rounded outline button holding only an empty heart (wishlist) outline icon "♡", centred
+    note shipping: 13px green "✓ Free delivery by Oct 27"; its text #15803d (green, NOT the page's dark navy text)
+    note acc-details: one line 474px wide: bold 14px "Details" at the left, bold dark navy "−" at the far right end of the same line, a thin 1px light grey (#e5e7eb) line along its top; the row is exactly 49px tall from that line (h-[49px], text centred in it, no extra padding or margin on top of that)
+    note acc-body: dark grey text "Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket."; its text #4b5563 (dark grey, NOT the page's dark navy text), its top 658px from the page top, 46px below the top of the "Details −" line above it (that line's text sits above this text, never on the same line or over it)
+    note acc-care: one line 474px wide: bold 14px "Care & materials" at the left, bold dark navy "+" at the far right end of the same line, a thin 1px light grey (#e5e7eb) line along its top; the row is exactly 49px tall from that line (h-[49px], text centred in it, no extra padding or margin on top of that)
+    note acc-returns: one line 474px wide: bold 14px "Returns" at the left, bold dark navy "+" at the far right end of the same line, a thin 1px light grey (#e5e7eb) line along its top; the row is exactly 49px tall from that line (h-[49px], text centred in it, no extra padding or margin on top of that)
+e5-admin-table · marks 8 · words 970
     title        heading 
     subtitle     text    
     invite       button  
@@ -221,12 +231,12 @@ e5-admin-table · marks 8 · words 87
     table        box     
     status-menu  box     
     pager        text    
-    note *: whole page: pale grey page, Helvetica type, dark navy text
-    note title: "Team members"
-    note subtitle: 13px grey text "128 people · 9 pending invites"
-    note invite: blue white text button "+ Invite"
-    note toolbar: input "Search name or email", dropdown "Role", dropdown "Status: Any", button "Columns"
-    note bulk-bar: buttons: "Change role", "Suspend", "Remove"
-    note table: table, columns "", "Name ↓", "Email", "Role", "Status", "Usage", "Last active", "", 10 rows; status pills amber "A", green "Active", blue "✓", cyan "B"
-    note status-menu: white card "Any status Active ✓ Invited Suspended"
-    note pager: pager page buttons "‹", "1" current, "2", "3", "…", "13", "›"
+    note *: whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text
+    note title: "Team members", 24px type on ONE line (white-space: nowrap, never wrapped), about 174px wide
+    note subtitle: 13px grey text "128 people · 9 pending invites", one line on its own (top 64px, left edge 40px), nothing else written beside it; its text #6b7280 (grey, NOT the page's dark navy text)
+    note invite: blue white text button "+ Invite" (81x35px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 81x35px, 8px rounded)
+    note toolbar: toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; the row's right part stays empty), each 33px tall, white (#ffffff), 1px light grey (#d1d5db) border, 8px rounded, every label on ONE line (whitespace-nowrap; a control grows rather than wrapping, so "Role ▾" never breaks onto two lines): input "Search name or email" 300px wide, dropdown "Role" with its ▾ caret written after the text, "Role ▾" 63px wide, dropdown "Status: Any" with its ▾ caret written after the text, "Status: Any ▾" 102px wide, button "Columns" 77px wide; each word in its own colour: "Search name or email" #9ca3af, "Role ▾" #111827, "Status: Any ▾" #111827, "Columns" #111827
+    note bulk-bar: dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold "3 selected" at the left, then right beside it (packed at the left after the label, never pushed to the right end) small outlined buttons (thin see-through white border, no fill, regular weight): "Change role", "Suspend", "Remove"; its text #ffffff (white, NOT the page's dark navy text)
+    note table: inside a white (#ffffff) card 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners (overflow hidden, so the header fill follows the corners), the table filling the card edge to edge; table (a real <table>, every row built, none left out): pale grey (#f3f4f6) header row (bg-[#f3f4f6] on every header cell, visibly tinted against the card, not white), 12px grey semibold: an empty select-all checkbox (the same box as the rows' checkboxes, drawn in the header cell, not left out) | bold "Name ↓" | bold grey "Email" | bold grey "Role" | bold grey "Status" | bold grey "Usage" | bold grey "Last active" | (empty); then 10 body rows each 48px tall, a thin pale grey line between rows, cells in column order: row 1: empty checkbox | amber round 26px avatar "A" + bold "Ava Chen" | grey "ava@lumen.io" | "Admin" | green pill "Active" | 90px blue bar 92% full + "92%" | grey "Oct 21" | grey "⋯"; row 2: ticked blue checkbox | cyan round 26px avatar "B" + bold "Ben Ortiz" | grey "ben@lumen.io" | "Editor" | green pill "Active" | 90px blue bar 64% full + "64%" | grey "Oct 20" | grey "⋯"; row 3: empty checkbox | purple round 26px avatar "C" + bold "Chloe Park" | grey "chloe@lumen.io" | "Viewer" | indigo pill "Invited" | 90px blue bar 0% full + "0%" | grey "—" | grey "⋯"; row 4: ticked blue checkbox | pink round 26px avatar "D" + bold "Dev Patel" | grey "dev@lumen.io" | "Editor" | green pill "Active" | 90px blue bar 78% full + "78%" | grey "Oct 22" | grey "⋯"; row 5: empty checkbox | green round 26px avatar "E" + bold "Elif Kaya" | grey "elif@lumen.io" | "Admin" | red pill "Suspended" | 90px blue bar 15% full + "15%" | grey "Sep 30" | grey "⋯"; row 6: empty checkbox | orange round 26px avatar "F" + bold "Femi Ade" | grey "femi@lumen.io" | "Viewer" | green pill "Active" | 90px blue bar 41% full + "41%" | grey "Oct 18" | grey "⋯"; row 7: ticked blue checkbox | blue round 26px avatar "G" + bold "Gus Lind" | grey "gus@lumen.io" | "Editor" | green pill "Active" | 90px blue bar 88% full + "88%" | grey "Oct 22" | grey "⋯"; row 8: empty checkbox | purple round 26px avatar "H" + bold "Hana Sato" | grey "hana@lumen.io" | "Viewer" | indigo pill "Invited" | 90px blue bar 0% full + "0%" | grey "—" | grey "⋯"; row 9: empty checkbox | teal round 26px avatar "I" + bold "Ivo Novak" | grey "ivo@lumen.io" | "Editor" | green pill "Active" | 90px blue bar 57% full + "57%" | grey "Oct 19" | grey "⋯"; row 10: empty checkbox | red round 26px avatar "J" + bold "Jae Kim" | grey "jae@lumen.io" | "Viewer" | green pill "Active" | 90px blue bar 33% full + "33%" | grey "Oct 12" | grey "⋯"; the 2nd, 4th, 7th rows are selected: whole row tinted off-white (#eff6ff); fixed column widths (table-layout: fixed, 1198px): each column starts this far from the table's left edge: 1 0px, 2 40px, 3 255px, 4 452px, 5 558px, 6 740px, 7 992px, 8 1136px
+    note status-menu: open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 4 options stacked one per line, 32px apart: "Any status", "Active ✓", "Invited", "Suspended"; "Active ✓" highlighted (off-white (#eff6ff) rounded fill across the menu, blue text, semibold); each word in its own colour: "Any status" #111827, "Active ✓" #1d4ed8, "Invited" #111827, "Suspended" #111827
+    note pager: pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey "Showing 1–10 of 128" at the left, at the far right a row of 30x30px outlined page buttons "‹", "1", "2", "3", "…", "13", "›", "1" filled blue with white text (current); its text #6b7280 (grey, NOT the page's dark navy text)

@@ -1,0 +1,155 @@
+{
+  "id": "e5-admin-table",
+  "at": "2026-10-23T18:52:59.628Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8122275271805446,
+    "overallV2": 0.8122275271805446,
+    "overallV1": 0.6826705980678995,
+    "colour": 0.9772065054816533,
+    "structure": 0.879448877606451,
+    "structureStrict": 0.7110309224936885,
+    "colourAligned": 0.9772065054816533,
+    "structureAligned": 0.879448877606451,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9774465085814982
+    },
+    "layout": 0.8043795189210244
+  },
+  "effects": null,
+  "tokens": {
+    "input": 48160,
+    "output": 30827,
+    "cacheRead": 254605
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57880,
+      "output": 21687,
+      "cacheRead": 216008,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
+        "Write src/App.tsx"
+      ],
+      "ms": 226411
+    }
+  ],
+  "reading": "The sketch lays out an admin 'Users' management page: a left dark-navy nav sidebar, a page header with Export/Invite buttons, a filter toolbar, a bulk-selection action bar, a large user data table, and a pager at the bottom. Typed notes give exact colors, spacing, and copy for every part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark navy (exactly #0f172a) left sidebar nav bar with grey text '▲ Northstar' logo at top, then a nav list: Overview, Users, Teams, Billing, Audit log, Settings"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        31,
+        989,
+        27
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Page header for the 'Users' column/section, with two action cards to the right: 'Export' and '+ Invite user'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        84,
+        989,
+        30
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Toolbar row of filter controls packed at the left, each its own width 8px apart, nothing stretched or pushed right (row's right side stays empty), every label o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        136,
+        989,
+        38
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Dark navy bulk-selection bar, 44px tall, spanning the page width: bold '2 selected' text at the far left, and links 'Change role', 'Move to team', 'Deactivate' "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        192,
+        990,
+        358
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White card containing a user data table. Header row: 994x40px #f8fafc filled bar with bold #64748b text, a checkbox, and column labels 'NAME ↑', 'ROLE', 'STATUS"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        256,
+        567,
+        988,
+        32
+      ],
+      "paths": [],
+      "instruction": "Pager row, 996px wide: 'Showing 1–5 of 38 admins' in grey 13px text at the left, and at the far right a row of 32x32px outlined page buttons '‹', '1', '2', '3',"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,5 +1,4 @@
-c1-perspective-stack · marks 9 · words 289
-    floor        box     
+c1-perspective-stack · marks 8 · words 389
     nav          text    
     headline     heading 
     sub          text    
@@ -8,17 +7,16 @@ c1-perspective-stack · marks 9 · words 289
     card-back    image   
     card-mid     image   
     card-front   box     
-    note *: whole page: dark navy page, Helvetica type, light grey text
-    note floor: faint cyan grid of thin lines every 80px laid flat as a floor going back into the distance (perspective, rotateX(62deg)), from 520px down to the bottom edge across the full width (tilting shortens it: build the grid 600px tall and 1680px wide before the tilt, hinged at its top edge, so its lines still reach the bottom edge), a backdrop behind everything that holds nothing (things over it are not inside it), lines 25% opaque, no fill
+    note *: whole page: dark navy (#0f172a) page, Helvetica type, light grey text; ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): a 1680x600px block with its top-left at -200,520 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px), repeating-linear-gradient(0deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px); no fill of its own (the page shows between the lines)
     note nav: bold 20px "Stackr" left, "Product · Pricing · Docs · Sign in" right
-    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan (left) to light pink (right) gradient (gradient text), the rest plain, set in exactly 3 lines: "Ship cards in" / "three" / "dimensions" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide)
-    note sub: grey text "Layered, tilted, lit. A card engine for product pages that want depth without WebGL."
-    note cta: cyan dark navy text button "Start free"
+    note headline: giant Helvetica heavy tight-set letters lines set tight (line-height 1) "Ship cards in three dimensions", the words "three dimensions" filled with a vivid cyan #38bdf8 (left) to light pink #f472b6 (right) gradient (gradient text), the rest plain, set in exactly 3 lines: "Ship cards in" / "three" / "dimensions" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide)
+    note sub: grey text "Layered, tilted, lit. A card engine for product pages that want depth without WebGL."; its text #94a3b8 (grey, NOT the page's light grey text)
+    note cta: cyan dark navy text button "Start free"; its text #0f172a (dark navy, NOT the page's light grey text) (exactly: #38bdf8 fill, #0f172a text, 135x52px, 12px rounded)
     note ghost-btn: dark grey outline button "See demo"
-    note card-back: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid cyan (top left) to indigo (bottom right) gradient block
-    note card-mid: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) light pink (top left) to vivid purple (bottom right) gradient block, overlapping the lower right of the vivid cyan (top left) to indigo (bottom right) gradient block and on top of it
-    note card-front: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow (top left) to vivid orange (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black "$4,280.00" at its top left
-c2-split-type · marks 9 · words 233
+    note card-back: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid cyan #38bdf8 (top left) to indigo #6366f1 (bottom right) gradient block
+    note card-mid: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) light pink #f472b6 (top left) to vivid purple #a855f7 (bottom right) gradient block, overlapping the lower right of the vivid cyan #38bdf8 (top left) to indigo #6366f1 (bottom right) gradient block and on top of it
+    note card-front: tilted back in 3D perspective (rotateY(-28deg) rotateX(11deg)) vivid yellow #facc15 (top left) to vivid orange #f97316 (bottom right) gradient card (369x259px as drawn, 18px rounded) holding bold 30px near-black "$4,280.00" at its top left; its text #1c1917 (near-black, NOT the page's light grey text)
+c2-split-type · marks 9 · words 413
     logo         text    
     date         text    
     word-top     heading 
@@ -29,30 +27,30 @@ c2-split-type · marks 9 · words 233
     tickets      heading 
     dot          circle  
     note *: whole page: off-white (#f4f1ea, plainly not white) page, Helvetica type, near-black text
-    note logo: wide-spaced letters "KINETIK"
-    note date: text "Vol. 06 — Oct 2026"
-    note word-top: ONE giant Helvetica heavy tight-set letters word "BREAK", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)); the two parts touch at the cut, no gap, one line of type
-    note rule: solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button)
-    note vertical: uppercase wide-spaced letters vertical "A TYPE FESTIVAL · LISBON"
-    note row-rule: solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button)
+    note logo: 16px wide-spaced letters "KINETIK", one line on its own (top 40px, left edge 40px), nothing else written beside it
+    note date: 15px text "Vol. 06 — Oct 2026", one line on its own (top 40px, left edge 1030px), nothing else written beside it
+    note word-top: ONE giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters word "BREAK", 260px type, the whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two copies of the word stacked exactly on the same spot: the top copy shows only its top part (clip-path: inset(0 0 50% 0)) in near-black, the bottom copy shows only its bottom part (clip-path: inset(50% 0 0 0)) in rose red, slid 70px right (translateX(70px)), the slid copy whole to its last letter, sticking out 70px past the other copy's right end (no overflow-hidden wrapper, no width cap cutting it); the two parts touch at the cut, no gap, one line of type; the cut lies exactly on the thin rule drawn across it (250px from the page top), its line box starting 120px down
+    note rule: solid near-black strip only 3px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 3px thick (height: 3px, Tailwind h-[3px], never h-3 which is 12px), thinner than the drawn pen line)
+    note vertical: uppercase wide-spaced letters vertical (writing-mode: vertical-rl), 15px letters, the line about 338px long "A TYPE FESTIVAL · LISBON"
+    note row-rule: solid near-black strip only 2px tall, 1120px wide, no text (a divider rule, not a bar or button; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), thinner than the drawn pen line)
     note cols: 3 columns side by side, 40px apart, each a small bold wide-spaced 13px head over 17px text (each column 347px wide, its text on ONE line, no wrap): "01 DAY" over "Talks on motion, rhythm and the split letter."; "02 DAY" over "Workshops: variable fonts and kinetic posters."; "03 DAY" over "Night show with live-coded type on the river."
-    note tickets: slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters "Tickets →", about 499px wide
-    note dot: vivid rose red circle
-c3-svg-waves · marks 6 · words 200
+    note tickets: slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set letters "Tickets →", 110px type, about 499px wide (no larger)
+    note dot: perfectly round solid disc (border-radius 50%, not traced from the ink), 110px across, flat fully opaque vivid rose red (#e11d48) fill, hard edge, no blur
+c3-svg-waves · marks 6 · words 300
     sun          circle  
     waves        box     
     nav          text    
     headline     heading 
     sub          text    
     cta          button  
-    note *: whole page: pale yellow page, Georgia type, deep green text
+    note *: whole page: pale yellow (#fefce8, plainly not white) page, Georgia type, deep green text
     note sun: perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur
-    note waves: drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down, vivid green (#22c55e) cresting about 657px down, deep green (#14532d) cresting about 754px down; plus a dashed 4px deep green curving, looping line (no fill) from about 760,499 up and across to 1188,330
+    note waves: drawn shapes, no picture, no box: 3 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), back to front: mint green (#86efac) cresting about 566px down (its top edge about 612, 623, 592, 566, 605px down at the left edge, quarter, middle, three-quarters and right edge), vivid green (#22c55e) cresting about 657px down (its top edge about 694, 695, 693, 657, 711px down at the left edge, quarter, middle, three-quarters and right edge), deep green (#14532d) cresting about 754px down (its top edge about 785, 782, 796, 754, 792px down at the left edge, quarter, middle, three-quarters and right edge); plus a dashed 4px deep green smooth curving line (no fill, no loops, never crossing itself) passing in order through about 760,420 → 832,346 → 934,334 → 1021,389 → 1081,475 → 1173,481 → 1180,380 (page px)
     note nav: bold 24px "Meadow" left, "Trails · Huts · Journal · Book" right
     note headline: giant Georgia italic serif regular weight (not bold) lines set tight (line-height 0.95) "Walk where the hills roll on", set in exactly 2 lines: "Walk where the" / "hills roll on" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 560px wide)
     note sub: text "Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one."
-    note cta: deep green pill pale yellow text button "Plan a walk"
-c4-glass-devices · marks 7 · words 177
+    note cta: deep green pill pale yellow text button "Plan a walk"; its text #fefce8 (pale yellow, NOT the page's deep green text) (exactly: #14532d fill, #fefce8 text, 150x50px, pill ends)
+c4-glass-devices · marks 7 · words 284
     nav          text    
     headline     heading 
     sub          text    
@@ -60,15 +58,15 @@ c4-glass-devices · marks 7 · words 177
     laptop       box     
     phone        box     
     badge        box     
-    note *: whole page: deep indigo (#1e1b4b) page with soft colour glows: indigo bottom, light pink top right, cyan top left (big soft radial glows fading into the base colour), Helvetica type, white text
+    note *: whole page: deep indigo (#1e1b4b) page with soft colour glows: indigo (#6366f1) bottom, centred 50% across and 100% down, full-strength indigo at its centre fading to nothing about 552px out (radial-gradient(circle at 50% 100%, #6366f1 0, transparent 552px)); light pink (#e879f9) top right, centred 85% across and 30% down, full-strength light pink at its centre fading to nothing about 503px out (radial-gradient(circle at 85% 30%, #e879f9 0, transparent 503px)); cyan (#22d3ee) top left, centred 15% across and 20% down, full-strength cyan at its centre fading to nothing about 457px out (radial-gradient(circle at 15% 20%, #22d3ee 0, transparent 457px)) (big soft radial glows fading into the base colour), Helvetica type, white text
     note nav: bold 20px "Lumen" left, "Features · Pricing · Log in" right
-    note headline: huge Helvetica heavy tight-set letters "Every screen, one glance."
+    note headline: huge Helvetica heavy tight-set letters "Every screen, one glance.", on ONE line (white-space: nowrap, never wrapped), about 834px wide
     note sub: text "Live metrics on your laptop, phone and wall, synced in under a second."
-    note cta: white deep indigo text button "Get Lumen"
+    note cta: white deep indigo text button "Get Lumen"; its text #1e1b4b (deep indigo, NOT the page's white text) (exactly: #ffffff fill, #1e1b4b text, 140x50px, 14px rounded)
     note laptop: frosted glass 640x400px panel, 24px rounded, thin white border; inside: a bar chart of 6 white bars rising from 31px above its bottom, 31px in from the left, each 50px wide with 16px gaps, heights 120, 200, 90, 260, 170, 230px, rounded tops, no axes; a white rounded strip 14px tall across the top (31px in from the top and sides)
     note phone: frosted glass 210x420px panel, 36px rounded, thin white border; inside: a 120px white ring 12px thick, open on its right quarter (that part of the ring missing), 91px from the top, centred
     note badge: frosted glass big 30px bold "+38%" over 15px "sessions this week"
-c5-brutal-zine · marks 8 · words 261
+c5-brutal-zine · marks 8 · words 389
     masthead     heading 
     intro        box     
     duotone      box     
@@ -78,15 +76,15 @@ c5-brutal-zine · marks 8 · words 261
     price        heading 
     sticker      circle  
     note *: whole page: white page, mono type, black text; the 8 black-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single 3px black line, no gaps between boxes, no doubled lines
-    note masthead: giant Helvetica heavy tight-set letters white on a black band "NOISE/ISSUE 9"
-    note intro: thick black border text "This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud."; and a 44px heavy "LOUD" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off
+    note masthead: giant Helvetica heavy tight-set letters white on a black (#000000) band (the whole 1283x123px block filled black edge to edge, type left-aligned 24px in from its left, not centred) "NOISE/ISSUE 9", on ONE line (white-space: nowrap, never wrapped), about 642px wide
+    note intro: thick black border two parts: (1) a 44px heavy "LOUD" turned on its side (rotate(-90deg), reading bottom to top) along the left edge (13px in from it), its end 89px above the bottom, the whole turned word inside the box, none of it cut off; (2) text "This issue: 14 bands from basements in Leeds, one printing press and zero sponsors. Read it loud." at the top
     note duotone: vivid blue (#2563eb) flat duotone tile with a thick black border, no picture: 2 hard-edged round yellow (#fde047) shapes on it 253px centred 40% across, 35% down, 191px centred 60% across, 70% down (inside a 40px margin)
     note contents: thick black border mono 16px code lines: "01 — Tape loops", "02 — Basement maps", "03 — Flyer archive", "04 — Last gig", "05 — Letters"; black code
-    note quote: thick black border bold 22px text ""Turn it up until the walls agree.""
+    note quote: thick black border bold 22px text ""Turn it up until the walls agree."", in the top-left corner (24px in, 24px down), the rest of the box empty
     note credits: thick black border mono 13px code lines: "Edited by M. Hale", "Photos by the bands", "Printed in Leeds on a Risograph, two colours, 400 copies."; black code
-    note price: huge Helvetica heavy black letters on a yellow band 72px "£4", then on its own line under it a small 16px mono regular line "post free in the UK" (small, not part of the big type)
-    note sticker: tilted 14° anticlockwise vivid red circle with "SOLD OUT SOON"
-e1-mega-menu · marks 8 · words 304
+    note price: huge Helvetica heavy black letters on a yellow (#fde047) band (the whole 323x303px block filled yellow edge to edge, type left-aligned 24px in from its left, not centred) 72px "£4", then on its own line under it a small 16px mono regular line "post free in the UK" (small, not part of the big type); both lines sit in the top-left corner of the block, 24px in from its left and 24px down from its top, left-aligned (not centred), the rest of the block empty
+    note sticker: tilted 14° anticlockwise vivid red circle with "SOLD OUT SOON", 3px solid black outline, flat, no shadow; its text #ffffff (white, NOT the page's black text), 180px across, the words centred in 2 lines (wrapping inside the circle, 26px type)
+e1-mega-menu · marks 8 · words 345
     topbar       box     
     hero         box     
     cards        box     
@@ -96,15 +94,15 @@ e1-mega-menu · marks 8 · words 304
     col-watch    box     
     featured     box     
     note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
-    note topbar: white bar 72px tall across the page, links: Northwind, Products, Solutions, Pricing, Docs, Search docs…; "Products" selected (bold, blue underline)
-    note hero: vivid blue (top left) to vivid bright sky blue (bottom right) gradient block
+    note topbar: white bar 72px tall across the page, bold 22px "Northwind" first, then links: Products, Solutions, Pricing, Docs, Search docs…; "Products" selected (bold, blue underline); each word in its own colour: "Northwind" #0f172a, "Products" #2563eb, "Solutions" #0f172a, "Pricing" #0f172a, "Docs" #0f172a, "Search docs…" #94a3b8
+    note hero: vivid blue #1d4ed8 (top left) to vivid bright sky blue #0ea5e9 (bottom right) gradient block
     note cards: a row of 4 separate empty white cards, each 282x280px, 24px apart, thin light grey border, 12px rounded, nothing inside them
     note mega: white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering all of what is drawn under it (absolutely placed over it, not pushing it down); the panel is a fixed 440px tall as drawn, so nothing under it peeks out round its edges
     note col-build: small grey spaced capitals "BUILD", then 4 links stacked, each a name with a small grey line under it: "Functions" / "Run code at the edge"; "Storage" / "Files, blobs and buckets"; "Queues" / "Background jobs that retry"; "Databases" / "Postgres with branching"
     note col-ship: small grey spaced capitals "SHIP", then 3 links stacked, each a name with a small grey line under it: "Previews" / "A URL for every branch"; "Rollbacks" / "One click, any deploy"; "Domains" / "TLS included"
     note col-watch: small grey spaced capitals "WATCH", then 3 links stacked, each a name with a small grey line under it: "Logs" / "Search 30 days"; "Traces" / "Follow a request end to end"; "Alerts" / "Slack, email, pager"
-    note featured: dark navy block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold "Northwind AI", text "Ask your logs questions in plain English.", bold cyan "Try the beta →"
-e2-multi-chart · marks 11 · words 221
+    note featured: dark navy (exactly #0f172a) block, white text; a 96x96px rounded cyan to grey gradient square in its top left (28px in), then under it, lines: big 24px bold "Northwind AI", text "Ask your logs questions in plain English.", bold cyan "Try the beta →"; each word in its own colour: "Northwind AI" #ffffff, "Try the beta →" #38bdf8
+e2-multi-chart · marks 11 · words 796
     sidebar      box     
     title        heading 
     filters      box     
@@ -116,28 +114,28 @@ e2-multi-chart · marks 11 · words 221
     chart-donut  box     
     chart-bars   box     
     table        box     
-    note *: whole page: pale blue-grey page, Helvetica type, dark navy text
-    note sidebar: dark navy bar, light grey text "Pulse" list: "Overview", "Revenue", "Customers", "Reports", "Settings"; "Overview" highlighted
-    note title: "Overview"
-    note filters: buttons: "Last 30 days", "All regions", "All plans", "+ Filter"; "Last 30 days" selected (dark navy fill)
-    note kpi-mrr: white card "MRR", lines big 32px bold "$84.2k", green "+6.1%"
-    note kpi-users: white card "Active users", lines big 32px bold "12,480", green "+3.4%"
-    note kpi-churn: white card "Churn", lines big 32px bold "2.1%", green "-0.3%"
-    note kpi-nps: white card "NPS", lines big 32px bold "48", green "+5"
-    note chart-line: white card, "Revenue, last 30 days", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), dashed light grey line rising left to right (7 points); no axis labels
-    note chart-donut: white card, small grey title "Plan mix" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: "■ Pro 46%", "■ Team 28%", "■ Free 16%"
-    note chart-bars: bar chart "Signups by week", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest
-    note table: white card, "Top accounts", 5 rows, no header row, thin lines between, second column bold right-aligned: "Acme Corp" | "$6,400"; "Globex" | "$5,120"; "Initech" | "$3,980"; "Umbrella" | "$3,200"; "Hooli" | "$2,750"
-e3-mail-client · marks 4 · words 236
+    note *: whole page: pale blue-grey (#f1f5f9, plainly not white) page, Helvetica type, dark navy text
+    note sidebar: dark navy (exactly #0f172a) bar, light grey text "Pulse" list: "Overview", "Revenue", "Customers", "Reports", "Settings"; "Overview" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 36px apart (36px tall, 14px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: "Pulse" #ffffff, "Overview" #ffffff, "Revenue" #cbd5e1, "Customers" #cbd5e1, "Reports" #cbd5e1, "Settings" #cbd5e1; the card exactly 220x900px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note title: "Overview", 26px bold type on one line, its box top 28px from the page top and 31px tall (top-[28px] or the same margin, line-height 31px; not higher)
+    note filters: buttons: "Last 30 days", "All regions", "All plans", "+ Filter"; "Last 30 days" selected (dark navy fill); each word in its own colour: "Last 30 days" #ffffff, "All regions" #0f172a, "All plans" #0f172a, "+ Filter" #0f172a
+    note kpi-mrr: white card "MRR", lines big 32px bold "$84.2k", green "+6.1%"; each word in its own colour: "MRR" #64748b, "$84.2k" #0f172a, "+6.1%" #16a34a; the card exactly 236x130px, its top-left at 252,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-users: white card "Active users", lines big 32px bold "12,480", green "+3.4%"; each word in its own colour: "Active users" #64748b, "12,480" #0f172a, "+3.4%" #16a34a; the card exactly 236x130px, its top-left at 504,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-churn: white card "Churn", lines big 32px bold "2.1%", green "-0.3%"; each word in its own colour: "Churn" #64748b, "2.1%" #0f172a, "-0.3%" #16a34a; the card exactly 236x130px, its top-left at 756,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note kpi-nps: white card "NPS", lines big 32px bold "48", green "+5"; each word in its own colour: "NPS" #64748b, "48" #0f172a, "+5" #16a34a; the card exactly 244x130px, its top-left at 1008,132 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note chart-line: white card, "Revenue, last 30 days", line chart drawn as SVG lines: thick solid indigo line rising left to right (13 points), straight segments with sharp corners, a jagged zigzag that dips and climbs (NOT a smooth curve), its points' heights left to right as % of the plot height: 17, 25, 21, 38, 33, 50, 46, 63, 58, 71, 67, 83, 79, dashed light grey line rising left to right (7 points), straight segments, points' heights left to right as % of the plot height: 13, 17, 23, 29, 38, 44, 50; no axis labels; the card exactly 640x320px, its top-left at 252,280, its top 18px under the bottom of the card right above it (that card ends at y 262: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note chart-donut: white card, small grey title "Plan mix" top left, a 160px donut chart (ring 34px thick, hollow white middle) centred, segments clockwise from the top: indigo 46%, then green 28%, then amber 16%, the rest a light grey track 10%; a legend row along the bottom, small grey: "■ Pro 46%", "■ Team 28%", "■ Free 16%"; the card exactly 344x320px, its top-left at 908,280, its top 18px under the bottom of the card right above it (that card ends at y 262: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note chart-bars: bar chart "Signups by week", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest; the card exactly 480x260px, its top-left at 252,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+    note table: white card, "Top accounts", 5 rows, no header row, thin lines between, second column bold right-aligned: "Acme Corp" | "$6,400"; "Globex" | "$5,120"; "Initech" | "$3,980"; "Umbrella" | "$3,200"; "Hooli" | "$2,750"; the card exactly 504x260px, its top-left at 748,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)
+e3-mail-client · marks 4 · words 788
     folders      box     
     list         box     
     reader       box     
     reply        box     
-    note folders: pale grey card "Compose" list: "Inbox" 12, "Starred", "Sent", "Drafts" 3, "Archive", "Spam"; "Inbox" highlighted
-    note list: "Search mail" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: "Lena Park" 9:41 "Q4 launch plan" / "Attached the final deck, can you check"… (unread); "GitHub" 8:15 "[sketch-to-code] PR #212 merged" / "Your pull request was merged into main." (unread); "Marco Ruiz" Yesterday "Dinner Friday?" / "The place on Rua Augusta, 8pm, I booked"…; "Stripe" Tue "Your October invoice" / "Invoice #4471 for $240.00 is ready."; "Ana Silva" Mon "Re: hiring loop" / "Two candidates for Thursday, notes"…; "Figma" Oct 18 "New comments" / "3 new comments on Landing v4."; the "Lena Park" row selected (pale blue, blue left edge)
-    note reader: opened message: a row of small outlined buttons "Reply", "Forward", "Archive", "Delete" at the top; big bold 24px title "Q4 launch plan"; a 44px round amber avatar left of bold "Lena Park" with grey "to me · 9:41 AM" under it; then 15px body text, lines: "Hi Hanav," / "Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?" / "Thanks," / "Lena"; then a bordered rounded attachment box "Q4-launch.pdf · 2.4 MB"
-    note reply: "Reply to Lena…"
-e4-checkout · marks 5 · words 338
+    note folders: pale grey panel; a 188x44px #2563eb filled button "Compose" (10px rounded, bold #ffffff text; its fill clearly visible, not white), then list: "Inbox" 12, "Starred", "Sent", "Drafts" 3, "Archive", "Spam"; "Inbox" highlighted (#dbeafe rounded fill, #1d4ed8 text); list rows exactly 35px apart (35px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #f3f4f6 fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)
+    note list: "Search mail" box, then 6 mail rows with thin lines between, each: sender left and time right on one line, bold subject under, one grey preview line under that; unread rows have a bold sender, read rows a normal one: "Lena Park" 9:41 "Q4 launch plan" / "Attached the final deck, can you check slide 7?" (unread); "GitHub" 8:15 "[sketch-to-code] PR #212 merged" / "Your pull request was merged into main." (unread); "Marco Ruiz" Yesterday "Dinner Friday?" / "The place on Rua Augusta, 8pm, I booked a table."; "Stripe" Tue "Your October invoice" / "Invoice #4471 for $240.00 is ready."; "Ana Silva" Mon "Re: hiring loop" / "Two candidates for Thursday, notes inside."; "Figma" Oct 18 "New comments" / "3 new comments on Landing v4."; the "Lena Park" row selected (pale blue, blue left edge); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 31 of them, nothing invented, nothing left out): 367x40 at 236,16 #f3f4f6 fill, 8px rounded: 14px #9ca3af "Search mail"; 399x92 at 220,72 #eff6ff fill, 4px #1f2937 border on the bottom+left only; 363x16 at 240,86 14px bold #111827 "Lena Park"; 23x14 at 580,86 12px #6b7280 "9:41"; 363x16 at 240,105 14px bold #111827 "Q4 launch plan"; 363x16 at 240,124 14px #6b7280 "Attached the final deck, can you check slide 7?"; 399x92 at 220,164 1px #1f2937 border on the bottom only; 367x16 at 236,178 14px bold #111827 "GitHub"; 23x14 at 580,178 12px #6b7280 "8:15"; 367x16 at 236,197 14px bold #111827 "[sketch-to-code] PR #212 merged"; 367x16 at 236,216 14px #6b7280 "Your pull request was merged into main."; 399x92 at 220,256 1px #1f2937 border on the bottom only; 367x16 at 236,270 14px #1f2937 "Marco Ruiz"; 53x14 at 550,270 12px #6b7280 "Yesterday"; 367x16 at 236,289 14px bold #1f2937 "Dinner Friday?"; 367x16 at 236,308 14px #6b7280 "The place on Rua Augusta, 8pm, I booked a table."; 399x92 at 220,348 1px #1f2937 border on the bottom only; 367x16 at 236,362 14px #1f2937 "Stripe"; 20x14 at 583,362 12px #6b7280 "Tue"; 367x16 at 236,381 14px bold #1f2937 "Your October invoice"; 367x16 at 236,400 14px #6b7280 "Invoice #4471 for $240.00 is ready."; 399x92 at 220,440 1px #1f2937 border on the bottom only; 367x16 at 236,454 14px #1f2937 "Ana Silva"; 23x14 at 580,454 12px #6b7280 "Mon"; 367x16 at 236,473 14px bold #1f2937 "Re: hiring loop"; 367x16 at 236,492 14px #6b7280 "Two candidates for Thursday, notes inside."; 399x92 at 220,532 1px #1f2937 border on the bottom only; 367x16 at 236,546 14px #1f2937 "Figma"; 35x14 at 568,546 12px #6b7280 "Oct 18"; 367x16 at 236,565 14px bold #1f2937 "New comments"; 367x16 at 236,584 14px #6b7280 "3 new comments on Landing v4."
+    note reader: opened message: a row of small outlined buttons "Reply", "Forward", "Archive", "Delete" at the top; big bold 24px title "Q4 launch plan"; a 44px round amber avatar left of bold "Lena Park" with grey "to me · 9:41 AM" under it; then 15px body text, lines: "Hi Hanav," / "Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?" / "Thanks," / "Lena"; then a bordered rounded attachment box "Q4-launch.pdf · 2.4 MB"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out): 66x34 at 656,24 1px #e5e7eb border, 8px rounded: 14px #1f2937 "Reply"; 81x34 at 732,24 1px #e5e7eb border, 8px rounded: 14px #1f2937 "Forward"; 77x34 at 823,24 1px #e5e7eb border, 8px rounded: 14px #1f2937 "Archive"; 70x34 at 910,24 1px #e5e7eb border, 8px rounded: 14px #1f2937 "Delete"; 588x28 at 656,82 24px bold #1f2937 "Q4 launch plan"; 44x44 at 656,126 #f59e0b fill, a circle; 67x16 at 712,132 14px bold #1f2937 "Lena Park"; 99x16 at 712,148 14px #6b7280 "to me · 9:41 AM"; 588x179 at 656,194 15px #374151 "Hi Hanav, Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday? Thanks, Lena"; 240x64 at 656,397 1px #e5e7eb border, 10px rounded: 14px bold #1f2937 "Q4-launch.pdf · 2.4 MB"
+    note reply: "Reply to Lena…"; its text #9ca3af (grey, NOT the page's dark navy text)
+e4-checkout · marks 5 · words 367
     logo         text    
     steps        text    
     form         box     
@@ -145,11 +143,11 @@ e4-checkout · marks 5 · words 338
     summary      box     
     note *: whole page: off-white (#fafaf9, plainly not white) page, Helvetica type, near-black text
     note logo: "Field & Co."
-    note steps: progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: "✓ Cart" (green) — "Shipping" (bold near-black, current step) — "Payment" (grey) — "Review" (grey)
+    note steps: progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: "✓ Cart" (green) — "Shipping" (bold near-black, current step) — "Payment" (grey) — "Review" (grey); each word in its own colour: "✓ Cart" #16a34a, "Shipping" #1c1917, "Payment" #a8a29e, "Review" #a8a29e
     note form: form, labels above white bordered rounded fields straight on the page (no card, panel or border around the form), in order: bold heading "Contact"; "Email" field holding "hanav@example.com"; bold heading "Shipping address"; "First name" field holding "Hanav" | "Last name" field holding "M"; "Address" field holding "14 Orchard Lane"; "City" field holding "Austin" | "ZIP" field holding "78701"; bold heading "Delivery"; 2 bordered rounded choice cards side by side, bold first line, small line under: "Standard" / "3–5 days · Free" (chosen: 2px near-black border), "Express" / "1–2 days · $12"; tight spacing: every field 46px tall, label 6px above its field, 14px from a field to the next label, headings 20px, choice cards 72px tall; the whole form is 531px tall top to bottom
-    note pay: near-black full-width white text button "Continue to payment"
+    note pay: near-black (#1c1917, near-black, not a blue) full-width white text button "Continue to payment"; its text #ffffff (white, NOT the page's near-black text)
     note summary: off-white full-height side panel (480px wide, flush to the right edge, one flat colour, no gradient, a thin light grey line down its left edge), order summary, no heading, first row starts 150px below the panel top: 3 item rows, each a 72px solid light grey (#d6d3d1, plainly darker than the panel) rounded square picture with a small round grey quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: "Waxed canvas tote" / "Olive" badge 1, $88.00; "Wool socks" / "Oatmeal · M" badge 2, $36.00; "Enamel mug" / "Cream" badge 1, $22.00; then a bordered field "Discount code" with a light grey button "Apply" right of it; grey row "Subtotal $146.00" (label left, amount right); grey row "Shipping Free" (label left, amount right); grey row "Tax $12.05" (label left, amount right); a thin line, then big bold row "Total $158.05" (label left, amount right)
-e5-week-calendar · marks 6 · words 260
+e5-week-calendar · marks 6 · words 461
     topbar       text    
     days         text    
     hours        text    
@@ -157,7 +155,8 @@ e5-week-calendar · marks 6 · words 260
     event-today  box     
     now-line     box     
     note topbar: bold 22px "October 2026" first, then links: Today, ‹, ›, Day Week Month; Today, ‹, › are small outlined buttons; Day / Week / Month is one outlined switch with "Week" selected (dark navy fill, white text); "October 2026", "Today", "‹", "›" sit together at the left, "Day Week Month" pushed to the far right (733px gap)
-    note days: links: MON 19, TUE 20, WED 21, THU 22, FRI 23, SAT 24, SUN 25; "22" sits in a 32px round red circle, white number
+    note days: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out): 174x47 at 64,72 13px #6b7280 "MON"; 174x47 at 238,72 13px #6b7280 "TUE"; 174x47 at 411,72 13px #6b7280 "WED"; 174x47 at 585,72 13px #6b7280 "THU"; 174x47 at 759,72 13px #6b7280 "FRI"; 174x47 at 933,72 13px #6b7280 "SAT"; 174x47 at 1106,72 13px #6b7280 "SUN"; 174x23 at 64,87 20px bold #1f2937 "19"; 174x23 at 238,87 20px bold #1f2937 "20"; 174x23 at 411,87 20px bold #1f2937 "21"; 32x32 at 656,87 #ef4444 fill, a circle: 20px bold #ffffff "22"; 174x23 at 759,87 20px bold #1f2937 "23"; 174x23 at 933,87 20px bold #1f2937 "24"; 174x23 at 1106,87 20px bold #1f2937 "25"
+    note hours: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 56x72 at 0,120 11px #9ca3af "8 AM"; 56x72 at 0,192 11px #9ca3af "9 AM"; 56x72 at 0,264 11px #9ca3af "10 AM"; 56x72 at 0,336 11px #9ca3af "11 AM"; 56x72 at 0,408 11px #9ca3af "12 PM"; 56x72 at 0,480 11px #9ca3af "1 PM"; 56x72 at 0,552 11px #9ca3af "2 PM"; 56x72 at 0,624 11px #9ca3af "3 PM"; 56x72 at 0,696 11px #9ca3af "4 PM"; 56x72 at 0,768 11px #9ca3af "5 PM"; 56x72 at 0,840 11px #9ca3af "6 PM"
     note grid: week grid, 7 day columns under the day heads, thin hour lines 8 AM to 6 PM down the left, each hour row exactly 72px tall; event cards placed by day and time (pale fill, darker left edge, bold title then time): pale blue "Standup 9:00–9:45" on MON, 9 AM to 10 AM; pale green "Design review 10:00–12:00" on TUE, 10 AM to 12 PM; pale orange "Interview 9–11" on left half of WED, 9 AM to 11 AM; pale pink "1:1 Ana 9:30–11:30" on right half of WED, 9:30 AM to 11:30 AM; pale blue "Focus time 2:00–3:00" on THU, 2 PM to 3 PM; pale green "Offsite planning 1:00–4:00" on FRI, 1 PM to 4 PM; pale red "Hike, Barton Creek 8:00–9:00 · Sat–Sun" on SAT to SUN, 8 AM to 9 AM
     note event-today: pale purple card (165x100px) with a 4px purple left edge, 6px rounded, bold "Launch sync" then "11:00–12:30" under it
     note now-line: thin solid red line only 2px tall, 174px wide, with a 10px round red dot on its left end (the current-time line), no text

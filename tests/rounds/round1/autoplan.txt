@@ -1,26 +1,26 @@
-c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 54
+c1-sunset-hero · marks agree 5/5 (auto 5) · words hand 35 auto 165
     logo         text     (hand: text)
     links        text     (hand: text)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     cta          button   (hand: button)
-    note *: whole page: coral to pink to purple gradient page, Georgia type, white text
+    note *: whole page: coral (#ff7a59) to pink (#ff4f7b at 45%) to purple (#7b2ff7) gradient, top to bottom page, Georgia type, white text
     note logo: italic "dusk."
-    note links: links: Work, Studio, Journal, Contact
-    note headline: giant Georgia serif tight-set letters lines set tight (line-height 1) "Stay for the golden hour"
+    note links: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 37x18 at 910,38 16px #ffffff "Work"; 45x18 at 983,38 16px #ffffff "Studio"; 52x18 at 1064,38 16px #ffffff "Journal"; 55x18 at 1153,38 16px #ffffff "Contact"
+    note headline: giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 1) "Stay for the golden hour", set in exactly 2 lines: "Stay for the golden" / "hour" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 859px wide)
     note subhead: text "A slow-living retreat on the coast, where the evenings last a little longer."
-    note cta: pill button "Book a stay"
-c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 70
+    note cta: pill button "Book a stay"; its text #7b2ff7 (purple, NOT the page's white text) (exactly: #ffffff fill, #7b2ff7 text, 220x61px, pill ends)
+c2-brutalist-type · marks agree 4/4 (auto 4) · words hand 28 auto 151
     nav          box      (hand: box)
     headline     heading  (hand: heading)
     body         text     (hand: text)
     cta          button   (hand: button)
-    note *: whole page: yellow page, black text
+    note *: whole page: yellow (#ffe600) page, black text
     note nav: nav bar 77px tall across the top, thick line under: "LOUD®" left, "INDEX — SHOP — ABOUT" right
-    note headline: giant uppercase tight-set letters lines set tight (line-height 0.86) "MAKE IT LOUD"
+    note headline: giant uppercase tight-set letters lines set tight (line-height 0.86) "MAKE IT LOUD", set in exactly 2 lines: "MAKE" / "IT LOUD" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower)
     note body: text "Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere."
-    note cta: black yellow text button "SHOP NOW →", with a hard solid opaque red shadow offset 12px down right, no blur
-c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
+    note cta: black yellow text button "SHOP NOW →" (287x80px, square corners: border-radius 0, NOT a pill), with a hard solid opaque red shadow offset 12px down right, no blur; its text #ffe600 (yellow, NOT the page's black text) (exactly: #000000 fill, #ffe600 text, 287x80px, square corners: border-radius 0, NOT a pill)
+c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 166
     left-panel   box      (hand: box)
     logo         text     (hand: —)
     headline     heading  (hand: heading)
@@ -28,88 +28,90 @@ c3-split-studio · marks agree 4/5 (auto 7) · words hand 19 auto 46
     cta          button   (hand: box)
     right-panel  box      (hand: —)
     orb          circle   (hand: circle)
-    note left-panel: deep green block, cream text
-    note logo: uppercase wide-spaced letters cream "VERDE"
-    note headline: giant Georgia serif cream "Plants that grow with you"
-    note body: cream text "Hand-picked houseplants, potted in recycled clay and delivered by bike across the city."
-    note cta: cream outline button "BROWSE PLANTS"
+    note left-panel: deep green block, cream text; its text #f5f0e6 (cream, NOT the page's black text)
+    note logo: uppercase wide-spaced letters cream "VERDE"; its text #f5f0e6 (cream, NOT the page's black text)
+    note headline: giant Georgia serif regular weight (not bold) cream "Plants that grow with you", set in exactly 2 lines: "Plants that" / "grow with you" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 490px wide)
+    note body: cream text "Hand-picked houseplants, potted in recycled clay and delivered by bike across the city."; its text #f5f0e6 (cream, NOT the page's black text)
+    note cta: cream outline button "BROWSE PLANTS" (236x58px, square corners: border-radius 0, NOT a pill); its text #f5f0e6 (cream, NOT the page's black text)
     note right-panel: cream
-    note orb: big glowing yellow to orange circle
-c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 76
+    note orb: a 440px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #ea580c 70%) so it looks lit from the top left; absolutely placed, top-left at 740,230, ON TOP of every tile it overlaps (highest z-index, nothing covers it)
+c4-neon-dark · marks agree 5/5 (auto 5) · words hand 23 auto 157
     nav          box      (hand: box)
     badge        button   (hand: button)
     headline     heading  (hand: heading)
     subhead      text     (hand: text)
     ctas         box      (hand: box)
-    note *: whole page: near-black indigo page, faint grid lines, Helvetica type, light grey text
-    note nav: nav, no box around it: bold 22px "NOVA" left, "Product Docs Pricing" right
+    note *: whole page: near-black indigo (#05010f) page, faint grid lines, Helvetica type, light grey text
+    note nav: nav, no box around it: bold 22px "NOVA" left, "Product Docs Pricing" right; each word in its own colour: "NOVA" #e6e6ff, "Product Docs Pricing" #a5a5d6
     note badge: purple outline pill button "✦ v2 is live — read the notes"
-    note headline: giant Helvetica heavy cyan to purple to light pink gradient text "Ship at the speed of light"
-    note subhead: lavender text "The edge platform for teams who refuse to wait on their own infrastructure."
-    note ctas: buttons: "Start building", "Talk to us"
-c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 59
+    note headline: giant Helvetica heavy cyan (#22d3ee) to purple (#a855f7 at 50%) to light pink (#f472b6) gradient, left to right text "Ship at the speed of light", set in exactly 2 lines: "Ship at the speed of" / "light" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 988px wide)
+    note subhead: lavender text "The edge platform for teams who refuse to wait on their own infrastructure."; its text #a5a5d6 (lavender, NOT the page's light grey text)
+    note ctas: buttons: "Start building", "Talk to us"; each word in its own colour: "Start building" #ffffff, "Talk to us" #22d3ee
+c5-editorial · marks agree 5/5 (auto 5) · words hand 20 auto 153
     masthead     box      (hand: box)
     number       heading  (hand: heading)
     headline     heading  (hand: heading)
     dek          text     (hand: text)
     sidebar      box      (hand: box)
-    note *: whole page: off-white page, Georgia type, near-black text
+    note *: whole page: off-white (#faf7f2, plainly not white) page, Georgia type, near-black text
     note masthead: huge 54px bold title, starting 26% down: "The Long Read", text "ISSUE 14 · AUTUMN"
-    note number: giant Georgia serif red "01"
-    note story: "ESSAY"
-    note headline: huge Georgia serif "The quiet return of the handwritten letter"
-    note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."
+    note number: giant Georgia serif regular weight (not bold) red "01", 240px type, about 240px wide (no larger)
+    note headline: huge Georgia serif regular weight (not bold) "The quiet return of the handwritten letter", set in exactly 3 lines: "The quiet return of" / "the handwritten" / "letter" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 436px wide); plus a small separate 13px #b91c1c label "ESSAY" with 3px letter-spacing at 412,165, 16px above it and left-aligned with it (keep it, it is part of this heading)
+    note dek: italic brown text "Why a generation raised on screens is buying fountain pens again."; its text #57534e (brown, NOT the page's near-black text)
     note sidebar: sidebar "In this issue" and text
-e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 41
+e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 114
     card         box      (hand: box)
     title        heading  (hand: heading)
     email        box      (hand: box)
     password     box      (hand: box)
     submit       button   (hand: button)
     forgot       text     (hand: text)
-    note *: whole page: pale grey page, Helvetica type, dark navy text
+    note *: whole page: pale grey (#f3f4f6, plainly not white) page, Helvetica type, dark navy text
     note card: white card
-    note title: "Sign in", line under: "Welcome back. Enter your details."
-    note email: label "Email" above, input "you@example.com"
-    note password: label "Password" above, input "••••••••"
-    note submit: blue white text button "Sign in"
-    note forgot: blue "Forgot your password?"
-e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 58
+    note title: "Sign in", 26px type on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: "Welcome back. Enter your details."
+    note email: label "Email" above, input "you@example.com"; its text #9ca3af (grey, NOT the page's dark navy text)
+    note password: label "Password" above, input "••••••••"; its text #9ca3af (grey, NOT the page's dark navy text)
+    note submit: blue white text button "Sign in" (340x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 340x46px, 8px rounded)
+    note forgot: 14px blue "Forgot your password?"; its text #2563eb (blue, NOT the page's dark navy text)
+e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 109
     title        heading  (hand: heading)
     subtitle     text     (hand: text)
     tier-1       box      (hand: box)
     tier-2       box      (hand: box)
     tier-3       box      (hand: box)
-    note title: big "Simple pricing"
-    note subtitle: "Start free. Upgrade when you grow."
+    note title: big "Simple pricing", on ONE line (white-space: nowrap, never wrapped), about 303px wide
+    note subtitle: "Start free. Upgrade when you grow."; its text #6b7280 (grey, NOT the page's dark navy text)
     note tier-1: "Starter" big "$0/mo" list: "1 project", "Community support", "Basic analytics", outline button "Get started"
-    note tier-2: dark navy block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"
+    note tier-2: dark navy (exactly #111827) block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top; its text #ffffff (white, NOT the page's dark navy text)
     note tier-3: "Team" big "$79/mo" list: "Everything in Pro", "SSO", "Audit logs", outline button "Contact sales"
-e3-blog-list · marks agree 5/5 (auto 5) · words hand 9 auto 115
+e3-blog-list · marks agree 5/5 (auto 8) · words hand 9 auto 319
     nav          box      (hand: box)
     title        heading  (hand: heading)
+    post-1       box      (hand: —)
     thumb-1      image    (hand: image)
+    post-2       box      (hand: —)
     thumb-2      image    (hand: image)
+    post-3       box      (hand: —)
     thumb-3      image    (hand: image)
-    note nav: nav bar 68px tall across the top, thin line under: bold 20px "Notebook" left, "Posts Topics About" right
-    note title: big "Latest posts"
-    note post-1: right of the picture: "How we cut our build times in half", text "A look at caching, parallel jobs and the one config flag that mattered most.", small "Oct 12 · 6 min read"
-    note post-2: right of the picture: "Designing for slow networks", text "What we learned shipping to users on 2G, and why it made the app better for everyone.", small "Oct 3 · 8 min read"
-    note post-3: right of the picture: "A year of four-day weeks", text "The numbers, the surprises and what we would do differently.", small "Sep 21 · 5 min read"
-e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 58
+    note nav: nav bar 68px tall across the top, thin line under: bold 20px "Notebook" left, "Posts Topics About" right; each word in its own colour: "Notebook" #111827, "Posts Topics About" #4b5563
+    note title: big "Latest posts", 36px type on ONE line (white-space: nowrap, never wrapped), about 212px wide
+    note post-1: an invisible frame 960x140px at 160,186 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 491x26 at 408,215 22px bold #111827 "How we cut our build times in half"; 491x23 at 408,249 15px #6b7280 "A look at caching, parallel jobs and the one config flag that mattered"; 491x15 at 408,282 13px #9ca3af "Oct 12 · 6 min read"
+    note post-2: an invisible frame 960x140px at 160,354 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 581x26 at 408,383 22px bold #111827 "Designing for slow networks"; 581x23 at 408,417 15px #6b7280 "What we learned shipping to users on 2G, and why it made the app bette"; 581x15 at 408,450 13px #9ca3af "Oct 3 · 8 min read"
+    note post-3: an invisible frame 960x140px at 160,522 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 407x26 at 408,551 22px bold #111827 "A year of four-day weeks"; 407x23 at 408,585 15px #6b7280 "The numbers, the surprises and what we would do differently."; 407x15 at 408,618 13px #9ca3af "Sep 21 · 5 min read"
+e4-contact · marks agree 6/6 (auto 6) · words hand 12 auto 94
     title        heading  (hand: heading)
     name         box      (hand: box)
     email        box      (hand: box)
     message      box      (hand: box)
     submit       button   (hand: button)
     info         box      (hand: box)
-    note title: big "Get in touch", line under: "We usually reply within a day."
+    note title: big "Get in touch", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: "We usually reply within a day."
     note name: label "Name" above an empty field
     note email: label "Email" above an empty field
     note message: label "Message" above an empty field
-    note submit: teal white text button "Send message"
+    note submit: teal white text button "Send message" (180x48px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #059669 fill, #ffffff text, 180x48px, 8px rounded)
     note info: pale grey card "Our office", lines "12 Harbour Street Lisbon, Portugal", "Email", "hello@example.com", all at the top of the card, empty below
-e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 56
+e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 199
     sidebar      box      (hand: box)
     title        heading  (hand: heading)
     stat-1       box      (hand: box)
@@ -118,12 +120,12 @@ e5-dashboard · marks agree 7/7 (auto 7) · words hand 11 auto 56
     stat-4       box      (hand: box)
     table        box      (hand: box)
     note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
-    note sidebar: dark navy sidebar, light grey text "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted
-    note title: "Overview"
-    note stat-1: white card "Revenue", text "$48.2k"
-    note stat-2: white card "Customers", text "1,204"
-    note stat-3: white card "Churn", text "2.1%"
-    note stat-4: white card "MRR", text "$12.9k"
-    note table: table, columns "Customer", "Plan", "Amount", "Status", 4 rows
+    note sidebar: dark navy (exactly #0f172a) sidebar, light grey text "Acme" list: "Overview", "Customers", "Invoices", "Settings"; "Overview" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: "Acme" #ffffff, "Overview" #ffffff, "Customers" #cbd5e1, "Invoices" #cbd5e1, "Settings" #cbd5e1
+    note title: "Overview", 28px bold type on one line, its box top 32px from the page top and 32px tall (top-[32px] or the same margin, line-height 32px; not higher)
+    note stat-1: white card "Revenue", text "$48.2k"; each word in its own colour: "Revenue" #64748b, "$48.2k" #0f172a
+    note stat-2: white card "Customers", text "1,204"; each word in its own colour: "Customers" #64748b, "1,204" #0f172a
+    note stat-3: white card "Churn", text "2.1%"; each word in its own colour: "Churn" #64748b, "2.1%" #0f172a
+    note stat-4: white card "MRR", text "$12.9k"; each word in its own colour: "MRR" #64748b, "$12.9k" #0f172a
+    note table: table, every body row built and none invented, columns "Customer", "Plan", "Amount", "Status", 4 rows: "Northwind" | "Pro" | "$240" | "Paid"; "Globex" | "Team" | "$790" | "Paid"; "Initech" | "Starter" | "$0" | "Trial"; "Umbrella" | "Pro" | "$240" | "Overdue"
 
 all pages: 52/53 hand marks matched

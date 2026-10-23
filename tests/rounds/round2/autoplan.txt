@@ -1,4 +1,4 @@
-c1-collage · marks 7 · words 102
+c1-collage · marks 7 · words 188
     logo         heading 
     photo-1      image   
     photo-2      image   
@@ -6,27 +6,27 @@ c1-collage · marks 7 · words 102
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: cream page, Helvetica type, near-black text
-    note logo: italic serif "Field Notes"
-    note photo-1: tilted 4° anticlockwise grey (top) to dark grey (bottom) gradient block
-    note photo-2: tilted 6° clockwise peach (top) to vivid dark pink (bottom) gradient block, overlapping the lower right of the grey (top) to dark grey (bottom) gradient block and on top of it
-    note sticker: tilted 12° anticlockwise vivid yellow circle with "NEW ISSUE 07"
-    note headline: giant Georgia serif tight-set letters lines set tight (line-height 0.92) "Slow travel, fast friends"
+    note *: whole page: cream (#f3ead8) page, Helvetica type, near-black text
+    note logo: italic serif "Field Notes", 30px type on ONE line (white-space: nowrap, never wrapped), about 139px wide
+    note photo-1: tilted 4° anticlockwise grey #94a3b8 (top) to dark grey #334155 (bottom) gradient block
+    note photo-2: tilted 6° clockwise peach #fda4af (top) to vivid dark pink #be123c (bottom) gradient block, overlapping the lower right of the grey #94a3b8 (top) to dark grey #334155 (bottom) gradient block and on top of it
+    note sticker: tilted 12° anticlockwise vivid yellow circle with "NEW ISSUE 07", 170px across, the words centred in 2 lines (wrapping inside the circle, 20px type)
+    note headline: giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) "Slow travel, fast friends", set in exactly 2 lines: "Slow travel, fast" / "friends" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 719px wide)
     note body: text "A quarterly zine of walks, night trains and the people you meet on the way."
-    note cta: near-black pill cream text button "Read issue 07"
-c2-outline-bleed · marks 5 · words 68
+    note cta: near-black (#1c1917, near-black, not a blue) pill cream text button "Read issue 07"; its text #f3ead8 (cream, NOT the page's near-black text)
+c2-outline-bleed · marks 5 · words 205
     nav          text    
     outline-word heading 
     solid-word   heading 
     body         text    
     date         text    
-    note *: whole page: black page, Helvetica type, white text
-    note nav: links: INDEX, SHOWS, SHOP
-    note outline-word: bleeding off the left page edge (starts 40px past it) giant Helvetica heavy tight-set letters hollow outlined white "NOISE"
-    note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica heavy tight-set letters lime "FEST"
-    note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."
-    note date: mono lime "// 14—16 AUG 2027"
-c3-glass-blobs · marks 7 · words 55
+    note *: whole page: black (#0a0a0a) page, Helvetica type, white text
+    note nav: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 58x16 at 975,40 14px #fafafa "Index"; 68x16 at 1068,40 14px #fafafa "Shows"; 52x16 at 1172,40 14px #fafafa "Shop"
+    note outline-word: bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white "NOISE", 300px type, about 884px wide (no larger)
+    note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime "FEST", 300px type, about 727px wide (no larger)
+    note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."; its text #a3a3a3 (grey, NOT the page's white text)
+    note date: 14px mono lime "// 14—16 AUG 2027"; its text #84cc16 (lime, NOT the page's white text)
+c3-glass-blobs · marks 7 · words 103
     blob-pink    circle  
     blob-cyan    circle  
     card         box     
@@ -34,15 +34,15 @@ c3-glass-blobs · marks 7 · words 55
     headline     heading 
     body         text    
     ctas         box     
-    note *: whole page: deep indigo page, Helvetica type, white text
+    note *: whole page: deep indigo (#1e1b4b) page, Helvetica type, white text
     note blob-pink: soft blurred big vivid pink circle
     note blob-cyan: soft blurred big vivid cyan circle
     note card: frosted glass
     note tag: frosted glass white pill label, "Beta · v2.0"
-    note headline: huge Helvetica "Your notes, finally calm"
+    note headline: huge Helvetica "Your notes, finally calm", set in exactly 2 lines: "Your notes, finally" / "calm" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide)
     note body: text "Write, link and find anything in a quiet space that syncs everywhere."
-    note ctas: buttons: "Get started", "Watch demo"
-c4-mag-grid · marks 6 · words 65
+    note ctas: buttons: "Get started", "Watch demo"; each word in its own colour: "Get started" #1e1b4b, "Watch demo" #ffffff
+c4-mag-grid · marks 6 · words 105
     masthead     box     
     lead-img     image   
     lead-title   heading 
@@ -51,24 +51,24 @@ c4-mag-grid · marks 6 · words 65
     pull-quote   heading 
     note *: whole page: white page, Georgia type, near-black text
     note masthead: thick rule under; huge 56px bold title: "The Weekly Ledger", text "TUESDAY · NO. 412"
-    note lead-img: vivid amber (top left) to brown (bottom right) gradient block
-    note lead-title: big serif "The quiet return of the corner shop"
+    note lead-img: vivid amber #f59e0b (top left) to brown #7c2d12 (bottom right) gradient block
+    note lead-title: big serif "The quiet return of the corner shop", set in exactly 2 lines: "The quiet return of the" / "corner shop" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide)
     note story-1: "Rivers that run backwards" and text
     note story-2: "A year without email" and text
     note pull-quote: italic red "“Nobody misses the queue, but everybody misses the chat.”"
-c5-retro-bands · marks 5 · words 81
+c5-retro-bands · marks 5 · words 171
     bands        image   
     logo         text    
     headline     heading 
     body         text    
     cta          button  
-    note *: whole page: pale yellow page, Helvetica type, black text
+    note *: whole page: pale yellow (#fff7e6, plainly not white) page, Helvetica type, black text
     note bands: tilted 25° clockwise bleeding off the right page edge (runs 411px past it) big orange, yellow, teal, brown stripes block
-    note logo: brown "SUNDAE"
-    note headline: giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown "SOFT SERVE, HARD RULES"
-    note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."
-    note cta: teal white text button "FIND A TRUCK", with a hard solid opaque brown shadow offset 6px down right, no blur
-e1-checkout · marks 13 · words 69
+    note logo: brown "SUNDAE"; its text #7c2d12 (brown, NOT the page's black text)
+    note headline: giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown "SOFT SERVE, HARD RULES", set in exactly 4 lines: "SOFT" / "SERVE," / "HARD" / "RULES" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 352px wide)
+    note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."; its text #44403c (dark grey, NOT the page's black text)
+    note cta: teal white text button "FIND A TRUCK" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's black text) (exactly: #14b8a6 fill, #ffffff text, 205x67px, square corners: border-radius 0, NOT a pill)
+e1-checkout · marks 13 · words 298
     title        heading 
     ship-label   heading 
     name         box     
@@ -78,42 +78,42 @@ e1-checkout · marks 13 · words 69
     card         box     
     pay          button  
     summary      box     
-    item-1       image   
-    item-2       image   
-    item-3       image   
+    item-1       box     
+    item-2       box     
+    item-3       box     
     total        box     
-    note *: whole page: pale grey page, Helvetica type, dark navy text
-    note title: "Checkout"
+    note *: whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text
+    note title: "Checkout", 28px bold type on one line, its box top 48px from the page top and 32px tall (top-[48px] or the same margin, line-height 32px; not higher)
     note ship-label: "Shipping address"
     note name: label "Full name" above an empty field
     note address: label "Street address" above an empty field
     note city-row: fields side by side: "City", "Postcode"
     note pay-label: "Payment"
     note card: label "Card number" above an empty field
-    note pay: indigo full-width white text button "Pay $128.00"
+    note pay: indigo full-width white text button "Pay $128.00"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 680x50px, 10px rounded)
     note summary: white card sidebar
-    note item-1: picture with "Linen shirt $64"
-    note item-2: picture with "Canvas tote $32"
-    note item-3: picture with "Wool socks $32"
-    note total: "Total", text "$128.00"
-e2-shop-grid · marks 8 · words 56
+    note item-1: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,115 #e5e7eb fill, 8px rounded; 27x17 at 1144,138 16px #111827 "$64"; 223x17 at 907,139 15px #111827 "Linen shirt"
+    note item-2: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,199 #e5e7eb fill, 8px rounded; 27x17 at 1144,222 16px #111827 "$32"; 223x17 at 907,223 15px #111827 "Canvas tote"
+    note item-3: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,283 #e5e7eb fill, 8px rounded; 27x17 at 1144,306 16px #111827 "$32"; 223x17 at 907,307 15px #111827 "Wool socks"
+    note total: a row 342px wide at 829,375 with ONLY a 1px #e5e7eb rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 18px under the rule; two items on one line pushed to its two ends (justify-content: space-between): 18px Helvetica #111827 "Total" at the far left, "$128.00" at the far right
+e2-shop-grid · marks 8 · words 365
     nav          text    
     filters      box     
-    p1           image   
-    p2           image   
-    p3           image   
-    p4           image   
-    p5           image   
-    p6           image   
+    p1           box     
+    p2           box     
+    p3           box     
+    p4           box     
+    p5           box     
+    p6           box     
     note nav: bold 20px "Lumen" first, then links: New, Lamps, Sale, Cart (2)
-    note filters: sidebar "CATEGORY" "PRICE" list: "Desk lamps", "Floor lamps", "Pendants", "Under $100", "$100–$250"
-    note p1: picture with "Arc floor lamp $189"
-    note p2: picture with "Dome pendant $129"
-    note p3: picture with "Clip desk lamp $59"
-    note p4: picture with "Globe table lamp $89"
-    note p5: picture with "Tripod lamp $219"
-    note p6: picture with "Wall sconce $75"
-e3-settings · marks 8 · words 53
+    note filters: sidebar side nav, no box: 2 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): "CATEGORY": "Desk lamps", "Floor lamps", "Pendants"; "PRICE": "Under $100", "$100–$250"; rows exactly 27px apart (17px tall, tight; not roomier), first heading 20px below the nav's top; the nav column is 220px wide
+    note p1: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 296,96 #f4f4f5 fill, 10px rounded; 299x17 at 296,326 15px #18181b "Arc floor lamp"; 33x17 at 296,343 15px bold #18181b "$189"
+    note p2: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 619,96 #f4f4f5 fill, 10px rounded; 299x17 at 619,326 15px #18181b "Dome pendant"; 33x17 at 619,343 15px bold #18181b "$129"
+    note p3: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 941,96 #f4f4f5 fill, 10px rounded; 299x17 at 941,326 15px #18181b "Clip desk lamp"; 25x17 at 941,343 15px bold #18181b "$59"
+    note p4: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 296,385 #f4f4f5 fill, 10px rounded; 299x17 at 296,615 15px #18181b "Globe table lamp"; 25x17 at 296,632 15px bold #18181b "$89"
+    note p5: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 619,385 #f4f4f5 fill, 10px rounded; 299x17 at 619,615 15px #18181b "Tripod lamp"; 33x17 at 619,632 15px bold #18181b "$219"
+    note p6: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 299x220 at 941,385 #f4f4f5 fill, 10px rounded; 299x17 at 941,615 15px #18181b "Wall sconce"; 25x17 at 941,632 15px bold #18181b "$75"
+e3-settings · marks 8 · words 162
     title        heading 
     tabs         text    
     row-1        text    
@@ -122,15 +122,15 @@ e3-settings · marks 8 · words 53
     row-4        text    
     save         button  
     reset        button  
-    note title: "Settings"
-    note tabs: links: Profile, Notifications, Billing, Team; "Notifications" selected (blue text, blue underline)
+    note title: "Settings", 30px bold type on one line, its box top 40px from the page top and 34px tall (top-[40px] or the same margin, line-height 34px; not higher)
+    note tabs: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 43x43 at 120,98 15px #64748b "Profile"; 82x43 at 191,98 2px #2563eb border on the bottom only: 15px #2563eb "Notifications"; 40x43 at 300,98 15px #64748b "Billing"; 37x43 at 368,98 15px #64748b "Team"
     note row-1: toggle on "Email digests A summary of activity"…
     note row-2: toggle on "Mentions Notify me when someone"…
     note row-3: toggle off "Product news Occasional updates about"…
     note row-4: toggle off "Weekly report Usage numbers for your"…
-    note save: blue white text button "Save changes"
-    note reset: red outline button "Reset all"
-e4-faq · marks 7 · words 80
+    note save: blue white text button "Save changes" (152x45px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 152x45px, 8px rounded)
+    note reset: red outline button "Reset all"; its text #dc2626 (red, NOT the page's dark navy text)
+e4-faq · marks 7 · words 145
     title        heading 
     subtitle     text    
     search       box     
@@ -138,15 +138,15 @@ e4-faq · marks 7 · words 80
     q2           box     
     q3           box     
     q4           box     
-    note *: whole page: pale yellow page, Helvetica type, near-black text
-    note title: big "Questions, answered"
-    note subtitle: brown text "Everything about orders, returns and your account."
-    note search: pill search input "Search the help centre…"
+    note *: whole page: pale yellow (#fefce8, plainly not white) page, Helvetica type, near-black text
+    note title: big "Questions, answered", on ONE line (white-space: nowrap, never wrapped), about 443px wide
+    note subtitle: brown text "Everything about orders, returns and your account."; its text #57534e (brown, NOT the page's near-black text), its top 118px from the page top, 62px below the top of the "Questions, answered" line above it (that line's text sits above this text, never on the same line or over it)
+    note search: pill search input "Search the help centre…"; its text #a8a29e (grey, NOT the page's near-black text)
     note q1: white card "How long does delivery take? −", text "Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships."
     note q2: white card "Can I return a gift? +"
     note q3: white card "Do you ship abroad? +"
     note q4: white card "How do I change my password? +"
-e5-inbox · marks 8 · words 34
+e5-inbox · marks 8 · words 141
     folders      box     
     m1           box     
     m2           text    
@@ -155,7 +155,7 @@ e5-inbox · marks 8 · words 34
     subject      heading 
     from         text    
     message      text    
-    note folders: pale grey card sidebar "Compose Inbox 12 Starred Sent Drafts"
-    note m1: off-white card "Maya Chen", text "Draft of the Q3 plan attached"
-    note subject: "Draft of the Q3 plan attached"
-    note from: grey text "Maya Chen · 9:41 AM"
+    note folders: pale grey panel sidebar "Compose Inbox 12 Starred Sent Drafts"; each word in its own colour: "Compose" #ffffff, "Inbox 12" #111111, "Starred" #111111, "Sent" #111111, "Drafts" #111111; this panel is FLAT: #f4f4f5 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)
+    note m1: off-white card "Maya Chen", text "Draft of the Q3 plan attached"; each word in its own colour: "Maya Chen" #111111, "Draft of the Q3 plan attached" #71717a
+    note subject: "Draft of the Q3 plan attached", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide
+    note from: 14px grey text "Maya Chen · 9:41 AM", one line on its own (top 75px, left edge 628px), nothing else written beside it; its text #71717a (grey, NOT the page's near-black text)
