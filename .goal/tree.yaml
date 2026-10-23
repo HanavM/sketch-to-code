@@ -3,7 +3,7 @@ goal_state: working
 now: "Mail, analytics and docs pages now get every list item and table row right (74%, 66%, 71%); round 8 averages 76%. Next: nudging everyday page layouts into place and two creative pages' leftover misses."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81, 76]
-lock: null
+lock: {by: run-2026-10-23T0409Z-n123, until: "2026-10-23T05:39:00Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
