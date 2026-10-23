@@ -3,7 +3,7 @@ goal_state: working
 now: "Wrote round 8 (ten harder pages); first three built: trail map 91%, depth cards 59%, seat map 47%. Next: teach the planner seat maps and 3D card stacks."
 round: 8
 round_scores: [67, 58, 69, 64, 76, 79, 81]
-lock: null
+lock: {by: run-2026-10-23T0131Z, until: 2026-10-23T03:01:00Z}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
