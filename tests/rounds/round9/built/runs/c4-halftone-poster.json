@@ -1,23 +1,23 @@
 {
   "id": "c4-halftone-poster",
-  "at": "2026-10-23T08:05:02.762Z",
+  "at": "2026-10-23T08:26:42.650Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8357146777596943,
-    "overallV2": 0.8357146777596943,
-    "overallV1": 0.7682499759612648,
-    "colour": 0.9882743685473236,
-    "structure": 0.8857866547451905,
-    "structureStrict": 0.7391521401399942,
-    "colourAligned": 0.9882743685473236,
-    "structureAligned": 0.8857866547451905,
+    "overall": 0.9222145990782555,
+    "overallV2": 0.9222145990782555,
+    "overallV1": 0.8522916208276987,
+    "colour": 0.9927173950111563,
+    "structure": 0.9588203917986905,
+    "structureStrict": 0.8068428138623899,
+    "colourAligned": 0.9927173950111563,
+    "structureAligned": 0.9588203917986905,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9092268271574154
+      "r": 0.9230399711624344
     },
-    "layout": 0.6492839048214906
+    "layout": 0.8173725299012027
   },
   "effects": {
     "recall": 1,
@@ -33,31 +33,31 @@
     "extra": []
   },
   "tokens": {
-    "input": 20102,
-    "output": 12877,
-    "cacheRead": 138105
+    "input": 22076,
+    "output": 18861,
+    "cacheRead": 134956
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 23623,
-      "output": 7758,
-      "cacheRead": 135021,
+      "billed": 29463,
+      "output": 11556,
+      "cacheRead": 131872,
       "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
         "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Edit src/App.tsx"
       ],
-      "ms": 84387
+      "ms": 128942
     }
   ],
-  "reading": "This is a festival landing-page hero: an indigo page with a top nav bar, a halftone sun-like graphic (CSS dot pattern plus a solid yellow disc), a tight 3-line italic headline \"Longest day of the year\", three small stat columns, a \"Get tickets\" pill button, and a tilted dashed \"SOLD OUT SOON ★\" badge over the graphic.",
+  "reading": "A festival landing-page hero: a top nav bar (SOLSTICE FEST / LINE-UP · TICKETS · MAP), a large CSS halftone sun-disc graphic, a giant italic 3-line headline 'Longest day of the year', a 3-column stats row, a 'Get tickets' button, and a tilted dashed 'SOLD OUT SOON' badge over the graphic, all on an indigo page per the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -72,10 +72,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a top bar, 32px tall, spanning the full page width, with a thick line underneath it. Put bold, wide-letter-spaced \"SOLSTICE FEST\" on the left and \"LINE-UP ·"
+      "instruction": "Add a 32px tall top navigation bar spanning the full width with a thick line underneath; bold, wide-letter-spaced 'SOLSTICE FEST' aligned left and 'LINE-UP · TI"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -87,7 +87,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Render a halftone picture built from plain CSS (no image file): a 640x640px round disc positioned at 560,80 filled with a grid of small #ffd60a dots (background"
+      "instruction": "Add a decorative halftone graphic built in plain CSS (no image file): a 640×640px round disc positioned at (560,80) filled with a dot-grid pattern using backgro"
     },
     {
       "kind": "add",
@@ -114,7 +114,7 @@
         428
       ],
       "paths": [],
-      "instruction": "Add a giant headline in Georgia italic, regular weight (not bold), set tight with line-height 0.95, reading \"Longest day of the year\" broken into exactly 3 line"
+      "instruction": "Add a giant Georgia italic headline, regular weight (not bold), tight-set with line-height 0.95, broken into exactly 3 lines that must each stay whole on one li"
     },
     {
       "kind": "add",
@@ -139,7 +139,7 @@
         72
       ],
       "paths": [],
-      "instruction": "Add 3 columns side by side, 60px apart, each 75px wide with its text on one line (no wrap): a small bold 30px heading over 15px subtext per column — \"21.06\" ove"
+      "instruction": "Add a row of 3 columns side by side, 60px apart, each 75px wide with a bold 30px heading over 15px text, each on a single line with no wrapping: '21.06' over 'S"
     },
     {
       "kind": "add",
@@ -154,7 +154,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a pill-shaped button labeled \"Get tickets\" with a yellow background and indigo text."
+      "instruction": "Add a 155×52px button labeled 'Get tickets' with yellow background and indigo text, barely rounded corners (border-radius 4px, not a pill)."
     },
     {
       "kind": "add",
@@ -169,7 +169,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a circular badge tilted 12° clockwise with a 3px dashed (not solid) white outline, containing the text \"SOLD OUT SOON ★\", positioned over the hero graphic."
+      "instruction": "Add a circular badge, tilted 12° clockwise, with a 3px dashed (not solid) white outline, containing the text 'SOLD OUT SOON ★', overlapping the bottom-right of "
     }
   ],
   "rejected": [

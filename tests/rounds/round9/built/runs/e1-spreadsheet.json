@@ -1,0 +1,186 @@
+{
+  "id": "e1-spreadsheet",
+  "at": "2026-10-23T08:32:01.865Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.39705636989444204,
+    "overallV2": 0.26896410736088494,
+    "overallV1": 0.23587362918857321,
+    "colour": 0.9799567334533525,
+    "structure": 0.6729855252521256,
+    "structureStrict": 0.5100470882673799,
+    "colourAligned": 0.9844594197864217,
+    "structureAligned": 0.7380705172235348,
+    "align": {
+      "scale": 1.16,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.402132631616762
+    },
+    "layout": 0.5843227573297588
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "italic"
+    ],
+    "missing": [
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 29807,
+    "output": 23606,
+    "cacheRead": 146102
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40821,
+      "output": 15554,
+      "cacheRead": 143018,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 160723
+    }
+  ],
+  "reading": "The sketch lays out a spreadsheet-style page: an unlabeled heading/subheading area, then a toolbar, formula bar, column-header row, row-number sidebar, main data grid, and a bottom sheet-tab bar, with typed notes giving exact wording/content for every row except the top heading area.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Add a page heading and a short subheading/breadcrumb line above the spreadsheet toolbar, where two wavy placeholder lines were sketched (a full-width line and a"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        16,
+        67,
+        1249,
+        34
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a pale blue-grey toolbar bar, 40px tall, spanning the full page width. Place these controls left-aligned one after another, ending 414px in: undo ↶, redo ↷,"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        4,
+        112,
+        1272,
+        32
+      ],
+      "paths": [],
+      "instruction": "Add a formula bar row directly below the toolbar, showing the cell reference 'F4' at the left and the formula 'fx =SUM(B4:E4)' at the right."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        50,
+        147,
+        1176,
+        18
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a pale grey column-header bar, 24px tall, spanning the full page width, with column letter links A, B, C, D, E, F, G, H. Make 'F' the selected column: bold,"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        172,
+        40,
+        640
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a pale grey row-number sidebar running down the left edge of the spreadsheet grid, listing row numbers 1 through 18 in order, each on its own row."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        49,
+        171,
+        1178,
+        642
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add the main spreadsheet data grid/table filling this large area, with header columns Region, Q1, Q2, Q3, Q4, Total, Growth, Owner, and data rows: North (12,400"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        863,
+        1272,
+        34
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a pale grey bottom tab bar, 40px tall, spanning the full page width. Place these tabs left-aligned one after another, ending 346px in: ＋ (add sheet), Sales,"
+    }
+  ],
+  "rejected": []
+}

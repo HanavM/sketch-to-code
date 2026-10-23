@@ -79,3 +79,30 @@ outlined or filled; a ruled index (top rule per row, label left, year right, mon
 
 Next: square buttons said square (two pages built pills), c3 punch hole / notch corner / icon task list, c5 italic
 quote, drop-cap columns, byline rule; then the five everyday pages' first builds.
+
+## n130: square buttons, bento tiles, editorial columns; first everyday builds (2026-10-23, ~411k billed)
+
+Planner (free): a filled or outlined button with radius 0-8px says its size and "square corners" / "barely rounded, NOT a
+pill"; a bento tile that is more than a box is said whole (size, place, fill, corners, overflow hidden) with its special
+part: a punched round hole filled with the page colour, ONE corner notched by its exact clip-path polygon, icon task
+rows (icon size, radius, colour, label, bold count right, row pitch), a giant gradient clip-text word placed left;
+side-by-side columns of running copy say column width, gap, type, and a ::first-letter drop cap; a heading-over-line
+block says an italic line as italic; an outlined word run in a sans face says so on a serif page. Faint repeating
+stripes (alpha < 0.3, a grain overlay) stay texture, not a striped picture (round 8 c1 regression caught on re-plan).
+Earlier rounds re-planned: 8 button notes gain their corner words, nothing else changed.
+
+| page | before | n130 | what is still off |
+|---|---|---|---|
+| c1 sliced kinetic | 92% | 93% | CTA now square; badge text on one line |
+| c3 mask bento | 67% | 96% | hole, notch, task rows, FLUX all right |
+| c4 halftone poster | 84% | 92% | button barely rounded, top bar inset with its rule: near-exact |
+| c5 vertical editorial | 66% | 74% | italic quote, drop cap, two columns, sans marquee right; byline still boxed (target: top rule, two items spread), caption chip dropped, vertical title short and low |
+| e1 spreadsheet | — | 40% (first) | grid, columns and rows right; title bar invented ("Sales Tracker"), header row fill, green growth, selected F4 outline, total-row rule lost; grid scaled small |
+| e2 map listings | — | 22% (first) | top bar and search pill lost; listing cards became a text list (no photos); the map is a blank grey panel (no streets, water, park, price pins) |
+| e3 thread chat | — | 74% (first) | sidebar, channel, thread right; thread replies lost avatars, "3 replies" link and composer boxes; sidebar order shuffled |
+| e4 flight results | — | 44% (first) | filters built as filled blue bars (checkboxes, slider lost); results one card of text lines (no route lines, airline squares, Select buttons); search fields lost |
+| e5 billing usage | — | 59% (first) | layout right; plan prices not big, "Current" badge taken as a head; meters as thin lines; invoice amount/status/PDF columns lost |
+
+Round 9 complete: average **69%** over all 10 (creative 93 94 96 92 74; everyday 40 22 74 44 59). Creative pages are now
+near-exact; everyday app pages are where the planner leaves most unsaid. Next: e2 map and listing cards, e4 checkboxes,
+slider and result cards, e1 title bar and cell styles, e5 big prices, meters and pills, then re-run.

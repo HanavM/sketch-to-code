@@ -1,0 +1,188 @@
+{
+  "id": "e5-billing-usage",
+  "at": "2026-10-23T08:46:01.552Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5942272484970772,
+    "overallV2": 0.5942272484970772,
+    "overallV1": 0.48725703563383443,
+    "colour": 0.987608202961465,
+    "structure": 0.8249236006502183,
+    "structureStrict": 0.7189093701944119,
+    "colourAligned": 0.987608202961465,
+    "structureAligned": 0.8249236006502183,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7128211826023788
+    },
+    "layout": 0.7835104557078854
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "italic",
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 28977,
+    "output": 18616,
+    "cacheRead": 113214
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39893,
+      "output": 16018,
+      "cacheRead": 110130,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 172499
+    }
+  ],
+  "reading": "The sketch lays out a Billing settings page: a left sidebar nav card, a \"Billing\" page heading, a horizontal sub-nav of tabs, a three-column pricing/plan comparison block, a usage summary box, and an invoices list box. Typed notes give exact copy, spacing, and highlight styling for each block.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Pale grey sidebar nav card with a \"◆ Orbit\" logo/title at top, then a vertical list of nav links: Overview, Projects, Team, Integrations, Billing, Settings. \"Bi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 26
+        }
+      ],
+      "region": [
+        268,
+        32,
+        71,
+        31
+      ],
+      "paths": [],
+      "instruction": "Page heading \"Billing\", 26px bold, single line, box top 32px from page top, 31px line-height/box height."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        264,
+        80,
+        972,
+        39
+      ],
+      "paths": [],
+      "instruction": "Horizontal sub-nav/tab bar with links left-aligned one after another: Plan & usage, Payment methods, Invoices, Tax, ending 358px in (right 63% of the bar stays "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 7,
+          "fontPx": 22
+        }
+      ],
+      "region": [
+        264,
+        144,
+        972,
+        230
+      ],
+      "paths": [],
+      "instruction": "Three pricing plan columns side by side, 25px gaps, each with a small bold 16px heading over 14px body text: \"Starter\" / \"$0 /mo, 3 projects, 1 GB storage, Down"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        403,
+        973,
+        144
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Usage panel box containing a list: \"Seats\" 8 of 10, \"Storage\", \"API calls\" 941k of 1M (each likely with a progress indicator)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        579,
+        973,
+        234
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Invoices panel box containing a table/list: header row \"INVOICE\" / \"DATE\" highlighted (#f9fafb square fill, #6b7280 text), followed by rows \"INV-2026-010\" Oct 1"
+    }
+  ],
+  "rejected": []
+}

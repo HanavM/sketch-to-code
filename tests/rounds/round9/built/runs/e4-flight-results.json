@@ -1,0 +1,121 @@
+{
+  "id": "e4-flight-results",
+  "at": "2026-10-23T08:41:23.134Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.4429002115087752,
+    "overallV2": 0.4429002115087752,
+    "overallV1": 0.38186687654784823,
+    "colour": 0.9351315145181764,
+    "structure": 0.622141505336659,
+    "structureStrict": 0.519456399947384,
+    "colourAligned": 0.9351315145181764,
+    "structureAligned": 0.622141505336659,
+    "align": {
+      "scale": 1.12,
+      "dx": -128,
+      "dy": 0,
+      "r": 0.7705944210227651
+    },
+    "layout": 0.8970223303882975
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 26538,
+    "output": 16693,
+    "cacheRead": 216882
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30478,
+      "output": 11441,
+      "cacheRead": 190778,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 118220
+    }
+  ],
+  "reading": "The sketch is a flight-search results page: a dark teal top bar with search summary text, a left filter/inspector panel with four labeled sections of filled value chips, a row of three summary cards (Best/Cheapest/Fastest), and a results list below with flight detail rows.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        90
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar: a dark teal full-width bar with white text content listing the search summary: \"London (LHR)\", \"⇄\", \"Tokyo (HND)\", \"Thu 12 Nov – Sun 22\" plus one more "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        124,
+        274,
+        743
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left white inspector panel (~280x750px) with 4 sections top to bottom, each a small bold caps heading followed by its fields. Each field is a filled #0369a1 box"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        123,
+        893,
+        58
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of white summary cards: \"Best\" £612 · 15h 40m, \"Cheapest\" £541 · 22h 05m, \"Fastest\" £812 · 13h 50m. The \"Best\" card is highlighted with a #f0f9ff square fil"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        203,
+        894,
+        634
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Flight results list below the cards, headed \"Best value\", with rows: \"11:30 LHR 13h ...\" £812, \"17:05 LHR 17h 10m 1 ...\" £598, \"21:40 LHR 22h 05m 2 ...\" £541."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

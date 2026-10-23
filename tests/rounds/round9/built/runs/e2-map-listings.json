@@ -1,0 +1,170 @@
+{
+  "id": "e2-map-listings",
+  "at": "2026-10-23T08:35:45.483Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.21615963979173897,
+    "overallV2": 0.21615963979173897,
+    "overallV1": 0.2105873469438571,
+    "colour": 0.9197757438088924,
+    "structure": 0.6200862700967772,
+    "structureStrict": 0.5572154419587683,
+    "colourAligned": 0.9197757438088924,
+    "structureAligned": 0.6200862700967772,
+    "align": {
+      "scale": 1.08,
+      "dx": 0,
+      "dy": 96,
+      "r": 0.20733370515565944
+    },
+    "layout": 0.4389695531966756
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "soft-shadow"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 25714,
+    "output": 16273,
+    "cacheRead": 163780
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 31902,
+      "output": 12314,
+      "cacheRead": 154419,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 143760
+    }
+  ],
+  "reading": "The sketch shows a search-results style page: a wavy heading line and a shorter wavy subheading below it, a row of five equal rounded filter buttons (Price selected, plus Type of place, Rooms, Instant book, More filters), a large left box holding a list of listing cards (Guest favourite, Chiado studio 4.81, New, Graça terrace 4.77), and a large right panel meant to be a pale blue-grey map with small + / − zoom controls in its top-right corner.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        4,
+        14,
+        1272,
+        9
+      ],
+      "paths": [],
+      "instruction": "Large page heading placeholder spanning the full width at the top; render as real heading copy suitable for a stays/listings page (e.g. 'Homes in Lisbon')."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        4,
+        50,
+        789,
+        9
+      ],
+      "paths": [],
+      "instruction": "Shorter subheading/body text line directly under the main heading; render as real supporting copy (e.g. a short description of the listings below)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        36,
+        91,
+        512,
+        30
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of 5 equal rounded outlined filter buttons, each about 70x36px, laid out side by side under the headings. Labels left to right: 'Price', 'Type of place', 'R"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        147,
+        594,
+        538
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Large left-hand container below the filter buttons holding a vertical list of listing entries. Include items: 'Guest favourite', 'Chiado studio ★ 4.81', 'New', "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        75,
+        613,
+        822
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Large right-hand panel next to the listings list, same height, styled as a map placeholder filled with a pale blue-grey background color."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1220,
+        112,
+        32,
+        48
+      ],
+      "paths": [
+        "s5",
+        "s6"
+      ],
+      "instruction": "Small zoom control widget in the top-right corner of the map panel with a '+' button above a '−' button, stacked vertically."
+    }
+  ],
+  "rejected": []
+}
