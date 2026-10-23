@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-23T07:25:00Z | Seat map and design editor | Seat map 62 to 85%, design editor 69 to 84%, both kept; round 8 avg 86%. 127k.
+2026-10-23T07:09:00Z | Seat map and design editor | Seat map 62 to 85%, design editor 69 to 84%, both kept; round 8 avg 86%. 127k.
 2026-10-23T06:58:00Z | Cut-out corners, floating panels, drift checker fix | Poster 90 to 96%, analytics 66 to 78%, both kept; round 8 avg 82%. 334k.
 2026-10-23T06:35:00Z | Card sizes said, poster 8 as real text | Analytics 58%, poster 75%, both below records, not kept; round 8 stays 80%. 188k.
 2026-10-23T05:52:00Z | Side nav spacing, article tops, zigzag lines, poster face | Docs page 71 to 84%; analytics and poster re-runs worse, not kept; round 8 avg 80%. 338k.
