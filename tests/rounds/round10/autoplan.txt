@@ -1,0 +1,128 @@
+c1-extruded-checker · marks 7 · words 298
+    checker-floor box     
+    nav          box     
+    extruded-word heading 
+    extruded-word-2 heading 
+    star-badge   shape   
+    tag          box     
+    ticket-card  box     
+    note *: whole page: pale yellow (#fdf6e3, plainly not white) page, Helvetica type, near-black text
+    note checker-floor: near-black to pale yellow gradient block
+    note nav: nav, no box around it: "BLOCKPARTY" left, "LINEUP · TICKETS · MAP" right
+    note extruded-word: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow "LOUD", 230px type, about 620px wide (no larger)
+    note extruded-word-2: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink "FEST", 230px type, about 556px wide (no larger)
+    note star-badge: spinning vivid blue jagged cut-out shape, ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 1095,96 ; 1114,156 ; 1177,156 ; 1126,193 ; 1144,251 ; 1095,215 ; 1046,251 ; 1064,193 ; 1013,156 ; 1076,156; the shape's box is the outline's bounds, 163x155px with its top-left at 1013,96, so on that box clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 69% 63%, 80% 100%, 50% 77%, 20% 100%, 31% 63%, 0% 38%, 39% 38%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)
+    note tag: tilted 4° anticlockwise white card thick near-black border "3 DAYS · 40 ACTS"
+    note ticket-card: white card thick near-black border "Weekend pass", lines "All stages, all nights. Early bird ends Friday.", "Get tickets →", with a hard solid opaque near-black shadow offset 10px down right, no blur
+c2-skewed-panels · marks 9 · words 184
+    panel-red    shape   
+    panel-blue   shape   
+    panel-yellow shape   
+    blend-circle circle  
+    nav          box     
+    word-run     heading 
+    word-ride    heading 
+    word-swim    heading 
+    cta          button  
+    note *: whole page: near-black (#111111) page, Helvetica type, white text
+    note panel-red: vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border
+    note panel-blue: vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border
+    note panel-yellow: vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border
+    note blend-circle: colour-inverting where it crosses what is under it perfectly round solid disc (border-radius 50%, not traced from the ink), 380px across, flat fully opaque off-white (#f1f1f1) fill, hard edge, no blur
+    note nav: nav, no box around it: wide-spaced "TRIAD" left, "RUN · RIDE · SWIM" right
+    note word-run: giant Helvetica heavy tight-set letters "RUN"
+    note word-ride: giant Helvetica heavy tight-set letters "RIDE"
+    note word-swim: giant Helvetica heavy tight-set letters near-black "SWIM"
+    note cta: white pill near-black text button "Join the season"
+c3-crt-terminal · marks 7 · words 71
+    terminal-window box     
+    glow-headline image   
+    log-lines    text    
+    ascii-box    text    
+    btn-run      button  
+    btn-buy      button  
+    scanlines    box     
+    note *: whole page: black (#05140a) page, mono type, bright green text
+    note terminal-window: fading bright green border
+    note glow-headline: picture with "BOOT_"
+    note btn-run: bright green outline button "[ RUN DEMO ]"
+    note btn-buy: bright green black text button "[ BUY $49 ]"
+    note scanlines: big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 2px, #000000 2px 4px)): 2px black then 2px null, over and over block, overlapping the lower right of the other picture and on top of it
+c4-bauhaus-tiles · marks 2 · words 31
+    shape-grid   box     
+    title-panel  box     
+    note *: whole page: cream (#f2ead8) page, Helvetica type, near-black text
+    note title-panel: white thick near-black border block "Form follows fun.", lines "A centenary exhibition of shape, colour and play. Opens 4"…, "Book a visit"
+c5-arch-blend · marks 9 · words 176
+    nav          box     
+    lede         text    
+    vertical-rule box     
+    arch-picture shape   
+    sun          circle  
+    blend-headline heading 
+    index        text    
+    cta          text    
+    spin-badge   circle  
+    note *: whole page: warm paper (#ece5da) page, Georgia type, dark navy text
+    note nav: nav, no box around it: wide-spaced "CASA ÓXIDO" left, "ROOMS · TABLE · JOURNAL · STAY" right
+    note lede: italic text "A seven-room house in the red hills, where the walls hold the afternoon heat long after dark."
+    note vertical-rule: dark navy
+    note arch-picture: coral (#d98e6b) to brown (#8c3b2a at 55%) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom)
+    note sun: perfectly round solid disc (border-radius 50%, not traced from the ink), 160px across, flat fully opaque pale pink (#f6d6a8) fill, hard edge, no blur
+    note blend-headline: colour-inverting where it crosses what is under it giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) warm paper "Slow sunsets", set in exactly 2 lines: "Slow" / "sunsets" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 405px wide)
+    note cta: link "RESERVE A ROOM" with a 2px underline (no box, not a button)
+    note spin-badge: spinning dark navy outline circle with "SCROLL · TO · WANDER"
+e1-video-call · marks 4 · words 91
+    call-header  text    
+    video-grid   box     
+    control-bar  image   
+    chat-panel   box     
+    note *: whole page: near-black (#1f1f23) page, Helvetica type, white text
+    note video-grid: list: "MA" Maya Alvarez, "JK" Jon Kim, "PS" Priya Shah, "LT" Leo Tan, "AN" Ava Nolan, "+3" 3 more; "+3" highlighted (#3f3f46 rounded fill, #ffffff text)
+    note control-bar: picture with "Leave"
+    note chat-panel: white block, near-black text "In-call messages" list of 4 rows, name left and time right on one line, grey line under: "Jon Kim" 10:02 "Can we see the mobile nav"…, "Priya Shah" 10:04 "Dropping the Figma link here", "Maya Alvarez" 10:05 "Sharing now, one sec", "Leo Tan" 10:07 "+1 to the darker footer"
+e2-pr-diff · marks 5 · words 67
+    pr-header    text    
+    tabs         text    
+    file-tree    text    
+    diff         box     
+    review-comment box     
+    note tabs: links: Conversation 4, Commits 3, Checks 2, Files changed 2; all of these sit together at the LEFT, one after another, ending 542px in (the right 55% of the bar is empty, nothing pushed right); "Files changed 2" is an outlined search field 158px wide, grey placeholder
+    note review-comment: "mo-review", lines "commented 2 hours ago", "Should we cap the total wait? 5 attempts at 250ms doubling"…, "Reply Resolve conversation"
+e3-music-playlist · marks 7 · words 84
+    side-nav     box     
+    playlist-main box     
+    cover        image   
+    playlist-meta text    
+    actions      box     
+    track-table  box     
+    player-bar   image   
+    note *: whole page: near-black (#121212) page, Helvetica type, white text
+    note side-nav: black (exactly #000000) block, grey text "Home", text "Your Library"
+    note playlist-main: dark grey (#5b2a86) to deep indigo (#2a1540 at 50%) to near-black (#121212) gradient, top to bottom
+    note cover: pink (#f72585) to purple (#7209b7 at 60%) to deep purple (#3a0ca3) gradient, top left to bottom right block
+    note actions: field "actions"
+    note track-table: a 960x56px #2a2a2a filled button "▮▮ Nightcall"… (6px rounded #b3b3b3 text; its fill clearly visible, not white), then list: "#", "TITLE", "ALBUM", "DATE ADDED", "⏱"
+    note player-bar: picture with "Nightcall Kavinsky"
+e4-trading-desk · marks 5 · words 194
+    ticker-bar   box     
+    candle-chart image   
+    volume-bars  box     
+    order-book   box     
+    order-form   box     
+    note *: whole page: black (#0b0e11) page, Helvetica type, light grey text
+    note ticker-bar: a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #2b3139 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 18px #eaecef "BTC/USDT" at x 24; bold 18px #0ecb81 "67,412.50" at x 151; 11px #848e9c "24h change" at x 267; bold 13px #0ecb81 "+2.84%" at x 267; 13px #eaecef "24h high 68,020.00" at x 361; 13px #eaecef "24h low 65,190.10" at x 454; 13px #eaecef "24h volume 1.92B" at x 548
+    note candle-chart: big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 77px, #1e2329 77px 78px)): 77px null then 1px dark navy, over and over block
+    note volume-bars: bar chart, 25 bright green bars, heights 26/74/44/92/62/32/81/51/99/69/39/87/57/27/75/45/94/64/34/82/52/100/70/40/88% of the tallest
+    note order-book: "Order book" "67,412.50 ↑" list: "67,421.00" 0.842, "67,419.50" 1.204, "67,418.00" 0.310, "67,416.20" 2.551, "67,415.00" 0.902, "67,414.10" 1.730, "67,413.00" 0.415, "67,412.80" 3.020; list rows exactly 22px apart (22px tall, 13px type: tight, not roomier), first line 36px below the panel's top
+    note order-form: list: "Limit", "Market", "Stop"
+e5-onboarding-wizard · marks 4 · words 116
+    stepper      box     
+    plan-radios  box     
+    drop-zone    box     
+    footer-buttons box     
+    note *: whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text
+    note stepper: dark navy (exactly #0f172a) block, light grey text "◆ Ledgerly" grey lines "✓" / "Your account" / "Email and password" grey lines "✓" / "Company" / "Name and size" list: "3" Workspace, "4" Invite team, "5" Connect bank
+    note plan-radios: radio options in a row: "Solo" with 1 seat · free right, "Team" with up to 20 seats · $12/seat right (selected: filled dark ring, dark 2px border), "Scale" with unlimited · talk to us right
+    note drop-zone: 2px dashed #94a3b8 outline (dashes, not a solid line) list: "⬆", "Click to upload", "SVG or PNG, max 2 MB"
+    note footer-buttons: links: ← Back, Step 3 of 5, Continue →

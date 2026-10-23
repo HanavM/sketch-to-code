@@ -1,0 +1,128 @@
+{
+ "c1-extruded-checker": {
+  "found": {
+   "stripes-or-layers": 1,
+   "hard-shadow": 17,
+   "huge-type": 2,
+   "motion": 1,
+   "clip-shape": 1,
+   "tilt": 1,
+   "overlap": 6
+  },
+  "names": [
+   "clip-shape",
+   "hard-shadow",
+   "huge-type",
+   "motion",
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c2-skewed-panels": {
+  "found": {
+   "clip-shape": 3,
+   "gradient": 3,
+   "blend": 1,
+   "mono": 3,
+   "huge-type": 3,
+   "overlap": 14
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "gradient",
+   "huge-type",
+   "mono",
+   "overlap"
+  ]
+ },
+ "c3-crt-terminal": {
+  "found": {
+   "glow": 1,
+   "mono": 10,
+   "huge-type": 1,
+   "motion": 1,
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "glow",
+   "huge-type",
+   "mono",
+   "motion",
+   "stripes-or-layers"
+  ]
+ },
+ "c4-bauhaus-tiles": {
+  "found": {
+   "clip-shape": 5,
+   "stripes-or-layers": 5
+  },
+  "names": [
+   "clip-shape",
+   "stripes-or-layers"
+  ]
+ },
+ "c5-arch-blend": {
+  "found": {
+   "serif": 2,
+   "italic": 1,
+   "gradient": 1,
+   "blend": 1,
+   "huge-type": 1,
+   "motion": 1,
+   "overlap": 1
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "huge-type",
+   "italic",
+   "motion",
+   "overlap",
+   "serif"
+  ]
+ },
+ "e1-video-call": {
+  "found": {
+   "gradient": 5
+  },
+  "names": [
+   "gradient"
+  ]
+ },
+ "e2-pr-diff": {
+  "found": {
+   "mono": 26
+  },
+  "names": [
+   "mono"
+  ]
+ },
+ "e3-music-playlist": {
+  "found": {
+   "gradient": 3,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ },
+ "e4-trading-desk": {
+  "found": {
+   "stripes-or-layers": 1,
+   "mono": 33,
+   "overlap": 43
+  },
+  "names": [
+   "mono",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e5-onboarding-wizard": {
+  "found": {},
+  "names": []
+ }
+}

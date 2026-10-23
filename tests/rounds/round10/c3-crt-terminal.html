@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CRT terminal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#05140a;font-family:"Courier New",monospace;color:#39ff7a}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 2px,transparent 2px 4px);pointer-events:none}
+.win{position:absolute;left:120px;top:90px;width:1040px;height:700px;border:2px solid #39ff7a;border-radius:14px;box-shadow:0 0 40px rgba(57,255,122,.35)}
+.bar{height:40px;border-bottom:2px solid #39ff7a;display:flex;align-items:center;gap:10px;padding:0 18px}.bar i{width:12px;height:12px;border-radius:50%;border:2px solid #39ff7a}.bar span{margin-left:auto;font-size:13px;letter-spacing:2px}
+.big{position:absolute;left:60px;top:110px;font-size:120px;font-weight:700;line-height:1;text-shadow:0 0 12px #39ff7a,0 0 30px rgba(57,255,122,.6)}
+.cur{display:inline-block;width:60px;height:100px;background:#39ff7a;vertical-align:-6px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lines{position:absolute;left:60px;top:300px;font-size:18px;line-height:1.9}
+.lines b{color:#05140a;background:#39ff7a;padding:0 6px}
+.box{position:absolute;left:640px;top:300px;width:340px;font-size:16px;line-height:1.6;white-space:pre}
+.btn{position:absolute;left:60px;top:560px;padding:14px 26px;border:2px solid #39ff7a;font-size:18px;letter-spacing:2px}
+.btn2{left:300px;background:#39ff7a;color:#05140a}
+.foot{position:absolute;left:60px;top:640px;font-size:13px;opacity:.6;letter-spacing:2px}
+</style></head><body>
+<div class="win" data-r="terminal-window" data-must><div class="bar"><i></i><i></i><i></i><span>~/nightshift — tty1</span></div>
+<div class="big" data-r="glow-headline" data-must>BOOT_<span class="cur"></span></div>
+<div class="lines" data-r="log-lines">&gt; loading modules ......... <b>OK</b><br>&gt; linking synthwave.so ..... <b>OK</b><br>&gt; calibrating phosphor .... <b>OK</b><br>&gt; ready for input_</div>
+<div class="box" data-r="ascii-box">┌──────────────────────┐
+│  NIGHTSHIFT v2.6     │
+│  a synth for coders  │
+│  64 voices · 8 fx    │
+└──────────────────────┘</div>
+<a class="btn" data-r="btn-run">[ RUN DEMO ]</a><a class="btn btn2" data-r="btn-buy" data-must>[ BUY $49 ]</a>
+<div class="foot">PRESS ANY KEY TO CONTINUE</div></div>
+<div class="scan" data-r="scanlines"></div>
+</body></html>

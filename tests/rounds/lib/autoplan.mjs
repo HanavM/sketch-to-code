@@ -748,6 +748,7 @@ export function factsInPage() {
         if (kids.length < 2 || el.querySelector('[data-r]')) return null
         const m = kids.map((k) => { const tr = [...k.querySelectorAll('*')].find((x) => { const b = x.getBoundingClientRect(); return !(x.innerText || '').trim() && b.height <= 14 && b.height >= 3 && x.children.length === 1 && rgba(getComputedStyle(x).backgroundColor)?.a > 0.05 }); if (!tr) return null
           const fl = tr.firstElementChild, tb = tr.getBoundingClientRect(); const texts = [...k.children].filter((x) => x !== tr && (x.innerText || '').trim())
+          if (!texts.length) return null // a bar with no label beside it (a player's progress bar under icon buttons) is not a meter
           return { lines: texts.map((x) => { const c = getComputedStyle(x), sm = x.querySelector('small'); return { t: (x.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), small: sm ? { t: (sm.innerText || '').trim(), px: Math.round(parseFloat(getComputedStyle(sm).fontSize)), ink: rgba(getComputedStyle(sm).color) } : null } }), w: Math.round(tb.width), h: Math.round(tb.height), track: rgba(getComputedStyle(tr).backgroundColor), fill: rgba(getComputedStyle(fl).backgroundColor), pct: Math.round(fl.getBoundingClientRect().width / tb.width * 100), gap: Math.round(tb.top - texts[texts.length - 1].getBoundingClientRect().bottom) } })
         if (m.some((x) => !x)) return null
         const g = getComputedStyle(el), o = el.getBoundingClientRect()

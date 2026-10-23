@@ -1,0 +1,182 @@
+{
+  "id": "c3-crt-terminal",
+  "at": "2026-10-23T10:43:18.829Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8673434027251724,
+    "overallV2": 0.8673434027251724,
+    "overallV1": 0.839775712678845,
+    "colour": 0.9750049266819042,
+    "structure": 0.7410267965976152,
+    "structureStrict": 0.6674616201421446,
+    "colourAligned": 0.9750049266819042,
+    "structureAligned": 0.7410267965976152,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.503571318775023
+    },
+    "layout": 0.912158482270509
+  },
+  "effects": {
+    "recall": 0.4,
+    "kept": [
+      "mono",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "glow",
+      "huge-type",
+      "motion"
+    ],
+    "extra": [
+      "gradient",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 37079,
+    "output": 29022,
+    "cacheRead": 323204
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52775,
+      "output": 20928,
+      "cacheRead": 320120,
+      "toolCalls": 12,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Glob"
+      ],
+      "ms": 235895
+    }
+  ],
+  "reading": "A terminal-style single page: a fading bright-green nested border frames a black, monospace, green-text page containing an image placeholder captioned \"BOOT_\", a repeating black-stripe texture block overlapping that picture's lower-right corner, and two buttons — an outlined \"[ RUN DEMO ]\" and a filled \"[ BUY $49 ]\".",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s15"
+      ],
+      "instruction": "Add a fading bright green border framing the page: an outer rectangle and an inner rectangle set inward from it, forming a nested frame whose green stroke fades"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        185,
+        206,
+        414,
+        115
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Add an image placeholder (rectangle with a diagonal cross through it) in the upper-left of the content area, captioned \"BOOT_\" per the note 'picture with \"BOOT_"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 4,
+          "fontPx": 23
+        }
+      ],
+      "region": [
+        186,
+        392,
+        912,
+        137
+      ],
+      "paths": [],
+      "instruction": "Per note: add a big horizontal repeating-stripe texture, NOT a smooth gradient — repeating-linear-gradient(0deg, #000000 0px 2px, #000000 2px 4px), i.e. 2px bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        183,
+        653,
+        207,
+        50
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a button labeled \"[ RUN DEMO ]\" styled as a bright green outline button (transparent fill, bright green border and text) per note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        424,
+        654,
+        194,
+        49
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a button labeled \"[ BUY $49 ]\" styled with a bright green filled background and black text per note."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

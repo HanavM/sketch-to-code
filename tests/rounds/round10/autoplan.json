@@ -1,0 +1,742 @@
+{
+ "c1-extruded-checker": {
+  "plan": [
+   [
+    "checker-floor",
+    "box"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "extruded-word",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "extruded-word-2",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "star-badge",
+    "shape",
+    {
+     "poly": [
+      [
+       0.5,
+       0
+      ],
+      [
+       0.61,
+       0.35
+      ],
+      [
+       0.98,
+       0.35
+      ],
+      [
+       0.68,
+       0.57
+      ],
+      [
+       0.79,
+       0.91
+      ],
+      [
+       0.5,
+       0.7
+      ],
+      [
+       0.21,
+       0.91
+      ],
+      [
+       0.32,
+       0.57
+      ],
+      [
+       0.02,
+       0.35
+      ],
+      [
+       0.39,
+       0.35
+      ]
+     ]
+    }
+   ],
+   [
+    "tag",
+    "box"
+   ],
+   [
+    "ticket-card",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale yellow (#fdf6e3, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "checker-floor",
+    "near-black to pale yellow gradient block"
+   ],
+   [
+    "nav",
+    "nav, no box around it: \"BLOCKPARTY\" left, \"LINEUP · TICKETS · MAP\" right"
+   ],
+   [
+    "extruded-word",
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters yellow \"LOUD\", 230px type, about 620px wide (no larger)"
+   ],
+   [
+    "extruded-word-2",
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters pink \"FEST\", 230px type, about 556px wide (no larger)"
+   ],
+   [
+    "star-badge",
+    "spinning vivid blue jagged cut-out shape, ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 1095,96 ; 1114,156 ; 1177,156 ; 1126,193 ; 1144,251 ; 1095,215 ; 1046,251 ; 1064,193 ; 1013,156 ; 1076,156; the shape's box is the outline's bounds, 163x155px with its top-left at 1013,96, so on that box clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 69% 63%, 80% 100%, 50% 77%, 20% 100%, 31% 63%, 0% 38%, 39% 38%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it)"
+   ],
+   [
+    "tag",
+    "tilted 4° anticlockwise white card thick near-black border \"3 DAYS · 40 ACTS\""
+   ],
+   [
+    "ticket-card",
+    "white card thick near-black border \"Weekend pass\", lines \"All stages, all nights. Early bird ends Friday.\", \"Get tickets →\", with a hard solid opaque near-black shadow offset 10px down right, no blur"
+   ]
+  ]
+ },
+ "c2-skewed-panels": {
+  "plan": [
+   [
+    "panel-red",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       0.78,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "panel-blue",
+    "shape",
+    {
+     "poly": [
+      [
+       0.22,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       0.78,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "panel-yellow",
+    "shape",
+    {
+     "poly": [
+      [
+       0.24,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "blend-circle",
+    "circle"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "word-run",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 1
+    }
+   ],
+   [
+    "word-ride",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 1
+    }
+   ],
+   [
+    "word-swim",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 1
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#111111) page, Helvetica type, white text"
+   ],
+   [
+    "panel-red",
+    "vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+   ],
+   [
+    "panel-blue",
+    "vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+   ],
+   [
+    "panel-yellow",
+    "vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border"
+   ],
+   [
+    "blend-circle",
+    "colour-inverting where it crosses what is under it perfectly round solid disc (border-radius 50%, not traced from the ink), 380px across, flat fully opaque off-white (#f1f1f1) fill, hard edge, no blur"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"TRIAD\" left, \"RUN · RIDE · SWIM\" right"
+   ],
+   [
+    "word-run",
+    "giant Helvetica heavy tight-set letters \"RUN\""
+   ],
+   [
+    "word-ride",
+    "giant Helvetica heavy tight-set letters \"RIDE\""
+   ],
+   [
+    "word-swim",
+    "giant Helvetica heavy tight-set letters near-black \"SWIM\""
+   ],
+   [
+    "cta",
+    "white pill near-black text button \"Join the season\""
+   ]
+  ]
+ },
+ "c3-crt-terminal": {
+  "plan": [
+   [
+    "terminal-window",
+    "box"
+   ],
+   [
+    "glow-headline",
+    "image"
+   ],
+   [
+    "log-lines",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 4
+    }
+   ],
+   [
+    "ascii-box",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 5
+    }
+   ],
+   [
+    "btn-run",
+    "button"
+   ],
+   [
+    "btn-buy",
+    "button"
+   ],
+   [
+    "scanlines",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#05140a) page, mono type, bright green text"
+   ],
+   [
+    "terminal-window",
+    "fading bright green border"
+   ],
+   [
+    "glow-headline",
+    "picture with \"BOOT_\""
+   ],
+   [
+    "btn-run",
+    "bright green outline button \"[ RUN DEMO ]\""
+   ],
+   [
+    "btn-buy",
+    "bright green black text button \"[ BUY $49 ]\""
+   ],
+   [
+    "scanlines",
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 2px, #000000 2px 4px)): 2px black then 2px null, over and over block, overlapping the lower right of the other picture and on top of it"
+   ]
+  ]
+ },
+ "c4-bauhaus-tiles": {
+  "plan": [
+   [
+    "shape-grid",
+    "box"
+   ],
+   [
+    "title-panel",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f2ead8) page, Helvetica type, near-black text"
+   ],
+   [
+    "title-panel",
+    "white thick near-black border block \"Form follows fun.\", lines \"A centenary exhibition of shape, colour and play. Opens 4\"…, \"Book a visit\""
+   ]
+  ]
+ },
+ "c5-arch-blend": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "vertical-rule",
+    "box"
+   ],
+   [
+    "arch-picture",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       0.292
+      ],
+      [
+       0.038,
+       0.18
+      ],
+      [
+       0.146,
+       0.085
+      ],
+      [
+       0.309,
+       0.022
+      ],
+      [
+       0.5,
+       0
+      ],
+      [
+       0.691,
+       0.022
+      ],
+      [
+       0.854,
+       0.085
+      ],
+      [
+       0.962,
+       0.18
+      ],
+      [
+       1,
+       0.292
+      ],
+      [
+       1,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "sun",
+    "circle"
+   ],
+   [
+    "blend-headline",
+    "heading",
+    {
+     "fontPx": 150,
+     "lines": 2
+    }
+   ],
+   [
+    "index",
+    "text",
+    {
+     "fontPx": 12,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "text"
+   ],
+   [
+    "spin-badge",
+    "circle"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: warm paper (#ece5da) page, Georgia type, dark navy text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: wide-spaced \"CASA ÓXIDO\" left, \"ROOMS · TABLE · JOURNAL · STAY\" right"
+   ],
+   [
+    "lede",
+    "italic text \"A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.\""
+   ],
+   [
+    "vertical-rule",
+    "dark navy"
+   ],
+   [
+    "arch-picture",
+    "coral (#d98e6b) to brown (#8c3b2a at 55%) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom)"
+   ],
+   [
+    "sun",
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 160px across, flat fully opaque pale pink (#f6d6a8) fill, hard edge, no blur"
+   ],
+   [
+    "blend-headline",
+    "colour-inverting where it crosses what is under it giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.95) warm paper \"Slow sunsets\", set in exactly 2 lines: \"Slow\" / \"sunsets\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 405px wide)"
+   ],
+   [
+    "cta",
+    "link \"RESERVE A ROOM\" with a 2px underline (no box, not a button)"
+   ],
+   [
+    "spin-badge",
+    "spinning dark navy outline circle with \"SCROLL · TO · WANDER\""
+   ]
+  ]
+ },
+ "e1-video-call": {
+  "plan": [
+   [
+    "call-header",
+    "text"
+   ],
+   [
+    "video-grid",
+    "box"
+   ],
+   [
+    "control-bar",
+    "image"
+   ],
+   [
+    "chat-panel",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#1f1f23) page, Helvetica type, white text"
+   ],
+   [
+    "video-grid",
+    "list: \"MA\" Maya Alvarez, \"JK\" Jon Kim, \"PS\" Priya Shah, \"LT\" Leo Tan, \"AN\" Ava Nolan, \"+3\" 3 more; \"+3\" highlighted (#3f3f46 rounded fill, #ffffff text)"
+   ],
+   [
+    "control-bar",
+    "picture with \"Leave\""
+   ],
+   [
+    "chat-panel",
+    "white block, near-black text \"In-call messages\" list of 4 rows, name left and time right on one line, grey line under: \"Jon Kim\" 10:02 \"Can we see the mobile nav\"…, \"Priya Shah\" 10:04 \"Dropping the Figma link here\", \"Maya Alvarez\" 10:05 \"Sharing now, one sec\", \"Leo Tan\" 10:07 \"+1 to the darker footer\""
+   ]
+  ]
+ },
+ "e2-pr-diff": {
+  "plan": [
+   [
+    "pr-header",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 2
+    }
+   ],
+   [
+    "tabs",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 2
+    }
+   ],
+   [
+    "file-tree",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 5
+    }
+   ],
+   [
+    "diff",
+    "box"
+   ],
+   [
+    "review-comment",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "tabs",
+    "links: Conversation 4, Commits 3, Checks 2, Files changed 2; all of these sit together at the LEFT, one after another, ending 542px in (the right 55% of the bar is empty, nothing pushed right); \"Files changed 2\" is an outlined search field 158px wide, grey placeholder"
+   ],
+   [
+    "review-comment",
+    "\"mo-review\", lines \"commented 2 hours ago\", \"Should we cap the total wait? 5 attempts at 250ms doubling\"…, \"Reply Resolve conversation\""
+   ]
+  ]
+ },
+ "e3-music-playlist": {
+  "plan": [
+   [
+    "side-nav",
+    "box"
+   ],
+   [
+    "playlist-main",
+    "box"
+   ],
+   [
+    "cover",
+    "image"
+   ],
+   [
+    "playlist-meta",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 3
+    }
+   ],
+   [
+    "actions",
+    "box"
+   ],
+   [
+    "track-table",
+    "box"
+   ],
+   [
+    "player-bar",
+    "image"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#121212) page, Helvetica type, white text"
+   ],
+   [
+    "side-nav",
+    "black (exactly #000000) block, grey text \"Home\", text \"Your Library\""
+   ],
+   [
+    "playlist-main",
+    "dark grey (#5b2a86) to deep indigo (#2a1540 at 50%) to near-black (#121212) gradient, top to bottom"
+   ],
+   [
+    "cover",
+    "pink (#f72585) to purple (#7209b7 at 60%) to deep purple (#3a0ca3) gradient, top left to bottom right block"
+   ],
+   [
+    "actions",
+    "field \"actions\""
+   ],
+   [
+    "track-table",
+    "a 960x56px #2a2a2a filled button \"▮▮ Nightcall\"… (6px rounded #b3b3b3 text; its fill clearly visible, not white), then list: \"#\", \"TITLE\", \"ALBUM\", \"DATE ADDED\", \"⏱\""
+   ],
+   [
+    "player-bar",
+    "picture with \"Nightcall Kavinsky\""
+   ]
+  ]
+ },
+ "e4-trading-desk": {
+  "plan": [
+   [
+    "ticker-bar",
+    "box"
+   ],
+   [
+    "candle-chart",
+    "image"
+   ],
+   [
+    "volume-bars",
+    "box"
+   ],
+   [
+    "order-book",
+    "box"
+   ],
+   [
+    "order-form",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#0b0e11) page, Helvetica type, light grey text"
+   ],
+   [
+    "ticker-bar",
+    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #2b3139 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 18px #eaecef \"BTC/USDT\" at x 24; bold 18px #0ecb81 \"67,412.50\" at x 151; 11px #848e9c \"24h change\" at x 267; bold 13px #0ecb81 \"+2.84%\" at x 267; 13px #eaecef \"24h high 68,020.00\" at x 361; 13px #eaecef \"24h low 65,190.10\" at x 454; 13px #eaecef \"24h volume 1.92B\" at x 548"
+   ],
+   [
+    "candle-chart",
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 77px, #1e2329 77px 78px)): 77px null then 1px dark navy, over and over block"
+   ],
+   [
+    "volume-bars",
+    "bar chart, 25 bright green bars, heights 26/74/44/92/62/32/81/51/99/69/39/87/57/27/75/45/94/64/34/82/52/100/70/40/88% of the tallest"
+   ],
+   [
+    "order-book",
+    "\"Order book\" \"67,412.50 ↑\" list: \"67,421.00\" 0.842, \"67,419.50\" 1.204, \"67,418.00\" 0.310, \"67,416.20\" 2.551, \"67,415.00\" 0.902, \"67,414.10\" 1.730, \"67,413.00\" 0.415, \"67,412.80\" 3.020; list rows exactly 22px apart (22px tall, 13px type: tight, not roomier), first line 36px below the panel's top"
+   ],
+   [
+    "order-form",
+    "list: \"Limit\", \"Market\", \"Stop\""
+   ]
+  ]
+ },
+ "e5-onboarding-wizard": {
+  "plan": [
+   [
+    "stepper",
+    "box"
+   ],
+   [
+    "plan-radios",
+    "box"
+   ],
+   [
+    "drop-zone",
+    "box"
+   ],
+   [
+    "footer-buttons",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "stepper",
+    "dark navy (exactly #0f172a) block, light grey text \"◆ Ledgerly\" grey lines \"✓\" / \"Your account\" / \"Email and password\" grey lines \"✓\" / \"Company\" / \"Name and size\" list: \"3\" Workspace, \"4\" Invite team, \"5\" Connect bank"
+   ],
+   [
+    "plan-radios",
+    "radio options in a row: \"Solo\" with 1 seat · free right, \"Team\" with up to 20 seats · $12/seat right (selected: filled dark ring, dark 2px border), \"Scale\" with unlimited · talk to us right"
+   ],
+   [
+    "drop-zone",
+    "2px dashed #94a3b8 outline (dashes, not a solid line) list: \"⬆\", \"Click to upload\", \"SVG or PNG, max 2 MB\""
+   ],
+   [
+    "footer-buttons",
+    "links: ← Back, Step 3 of 5, Continue →"
+   ]
+  ]
+ }
+}

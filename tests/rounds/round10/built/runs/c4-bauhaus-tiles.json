@@ -1,0 +1,78 @@
+{
+  "id": "c4-bauhaus-tiles",
+  "at": "2026-10-23T10:45:57.584Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.27434023345896574,
+    "overallV2": 0.2488368511334062,
+    "overallV1": 0.2488368511334062,
+    "colour": 0.5992984159511391,
+    "structure": 0.14203081301421755,
+    "structureStrict": 0.121378952455857,
+    "colourAligned": 0.611568014371487,
+    "structureAligned": 0.19685778284807026,
+    "align": {
+      "scale": 1.16,
+      "dx": 96,
+      "dy": 96,
+      "r": 0.09725160910519401
+    },
+    "layout": 0.7715617370605469
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "clip-shape",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "hard-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 18836,
+    "output": 11172,
+    "cacheRead": 147450
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 18660,
+      "output": 6494,
+      "cacheRead": 122046,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 78056
+    }
+  ],
+  "reading": "Two nested rectangles sketch a centered poster-style content block: a thick near-black bordered white card holding a headline, body copy, and a call-to-action, sitting on an overall cream page with Helvetica type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Add a centered white content block with a thick near-black border (outer rectangle is the block's border, inner rectangle frames its text area) containing: head"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

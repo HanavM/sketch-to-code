@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Onboarding wizard</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:14px}
+.rail{position:absolute;left:0;top:0;width:340px;height:900px;background:#0f172a;color:#cbd5e1;padding:40px 36px}.rail b{display:block;color:#fff;font-size:20px;margin-bottom:48px}
+.s{position:relative;padding-left:48px;height:84px}.s i{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;border:2px solid #475569;font-style:normal;text-align:center;line-height:26px;font-size:13px}
+.s:not(:last-child)::after{content:"";position:absolute;left:14px;top:34px;width:2px;height:46px;background:#334155}
+.s.dn i{background:#22c55e;border-color:#22c55e;color:#fff}.s.dn::after{background:#22c55e}.s.on i{border-color:#818cf8;color:#fff;background:#4f46e5}.s h4{color:#fff;font-size:15px}.s p{margin-top:4px;font-size:12px}
+.f{position:absolute;left:400px;top:48px;width:820px}.f small{color:#4f46e5;font-weight:700;letter-spacing:1px}.f h1{font-size:30px;margin-top:6px}.f > p{margin-top:8px;color:#64748b}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
+.in{height:44px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:12px 14px;color:#334155}.in.sel{display:flex;justify-content:space-between}
+.rc{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px}.rc div{position:relative;height:96px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:16px}.rc div b{display:block}.rc div span{color:#64748b;font-size:12px}
+.rc .on{border:2px solid #4f46e5;background:#eef2ff}.rc div i{position:absolute;right:14px;top:14px;width:18px;height:18px;border-radius:50%;border:2px solid #cbd5e1}.rc .on i{border:5px solid #4f46e5}
+.drop{margin-top:8px;height:120px;border:2px dashed #94a3b8;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#64748b;gap:6px}.drop b{color:#4f46e5}
+.tg{display:flex;align-items:center;gap:12px;margin-top:24px}.tg i{width:44px;height:24px;border-radius:12px;background:#4f46e5;position:relative}.tg i::after{content:"";position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff}
+.foot{position:absolute;left:400px;top:816px;width:820px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #e2e8f0;padding-top:20px}
+.foot a{padding:12px 22px;border-radius:8px;font-weight:700}.back{border:1px solid #cbd5e1;background:#fff}.next{background:#4f46e5;color:#fff}
+</style></head><body>
+<div class="rail" data-r="stepper" data-must><b>◆ Ledgerly</b>
+<div class="s dn"><i>✓</i><h4>Your account</h4><p>Email and password</p></div>
+<div class="s dn"><i>✓</i><h4>Company</h4><p>Name and size</p></div>
+<div class="s on"><i>3</i><h4>Workspace</h4><p>Plan, logo and region</p></div>
+<div class="s"><i>4</i><h4>Invite team</h4><p>Add your colleagues</p></div>
+<div class="s"><i>5</i><h4>Connect bank</h4><p>Sync transactions</p></div></div>
+<div class="f" data-r="form" data-must><small>STEP 3 OF 5</small><h1>Set up your workspace</h1><p>You can change all of this later in settings.</p>
+<div class="row"><div><label>Workspace name</label><div class="in">Acme Finance</div></div><div><label>Region</label><div class="in sel">Europe (Frankfurt) <span>▾</span></div></div></div>
+<div style="margin-top:24px"><label>Plan</label><div class="rc" data-r="plan-radios"><div><i></i><b>Solo</b><span>1 seat · free</span></div><div class="on"><i></i><b>Team</b><span>up to 20 seats · $12/seat</span></div><div><i></i><b>Scale</b><span>unlimited · talk to us</span></div></div></div>
+<div style="margin-top:24px"><label>Logo</label><div class="drop" data-r="drop-zone"><span>⬆</span><span><b>Click to upload</b> or drag and drop</span><span style="font-size:12px">SVG or PNG, max 2 MB</span></div></div>
+<div class="tg"><i></i><span>Use our recommended chart of accounts</span></div></div>
+<div class="foot" data-r="footer-buttons"><a class="back">← Back</a><span style="color:#64748b">Step 3 of 5</span><a class="next">Continue →</a></div>
+</body></html>

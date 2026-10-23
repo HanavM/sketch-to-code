@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Music playlist</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#121212;font-family:Helvetica,Arial,sans-serif;color:#fff;font-size:14px}
+.nav{position:absolute;left:8px;top:8px;width:240px;height:792px;background:#000;border-radius:8px;padding:20px;color:#b3b3b3;line-height:2.4}.nav b{color:#fff}.nav hr{border:0;border-top:1px solid #282828;margin:10px 0}
+.main{position:absolute;left:256px;top:8px;width:1016px;height:792px;border-radius:8px;background:linear-gradient(180deg,#5b2a86 0,#2a1540 300px,#121212 420px);overflow:hidden}
+.cover{position:absolute;left:28px;top:60px;width:220px;height:220px;background:linear-gradient(135deg,#f72585,#7209b7 60%,#3a0ca3);box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.meta{position:absolute;left:276px;top:120px}.meta small{font-size:13px}.meta h1{font-size:72px;font-weight:900;letter-spacing:-2px;margin-top:6px}.meta p{margin-top:12px;color:#ddd}
+.act{position:absolute;left:28px;top:310px;display:flex;align-items:center;gap:24px}.play{width:56px;height:56px;border-radius:50%;background:#1ed760}.act i{width:32px;height:32px;border-radius:50%;border:2px solid #b3b3b3}
+.tbl{position:absolute;left:28px;top:392px;width:960px}.r{display:grid;grid-template-columns:40px 1fr 300px 120px 60px;align-items:center;height:56px;padding:0 12px;color:#b3b3b3;border-radius:6px}
+.r.h{height:36px;border-bottom:1px solid #2a2a2a;border-radius:0;font-size:12px;letter-spacing:1px}.r b{display:block;color:#fff;font-weight:400;font-size:15px}.r.pl{background:#2a2a2a}.r.pl b,.r.pl .n{color:#1ed760}
+.pb{position:absolute;left:0;top:808px;width:1280px;height:92px;display:grid;grid-template-columns:300px 1fr 300px;align-items:center;padding:0 16px}
+.pb .ct{display:flex;align-items:center;gap:12px}.pb .ct div{width:56px;height:56px;background:linear-gradient(135deg,#f72585,#3a0ca3)}
+.pc{text-align:center}.pc .btns{display:flex;gap:20px;justify-content:center;align-items:center}.pc .btns i{width:18px;height:18px;background:#b3b3b3;border-radius:3px}.pc .btns .pp{width:34px;height:34px;border-radius:50%;background:#fff}
+.bar{margin:10px auto 0;width:520px;height:4px;border-radius:2px;background:#4d4d4d}.bar i{display:block;width:38%;height:4px;border-radius:2px;background:#fff}
+.vol{justify-self:end;width:120px;height:4px;border-radius:2px;background:#4d4d4d}.vol i{display:block;width:70%;height:4px;background:#fff;border-radius:2px}
+</style></head><body>
+<div class="nav" data-r="side-nav"><b>Home</b><br>Search<hr><b>Your Library</b><br>Late Night Drive<br>Focus Flow<br>Sunday Coffee<br>Gym Hits<br>Discover Weekly</div>
+<div class="main" data-r="playlist-main" data-must>
+<div class="cover" data-r="cover"></div>
+<div class="meta" data-r="playlist-meta"><small>Playlist</small><h1>Late Night Drive</h1><p>Neon, synths and empty highways · 48 songs, 2 hr 51 min</p></div>
+<div class="act" data-r="actions"><span class="play"></span><i></i><i></i></div>
+<div class="tbl" data-r="track-table" data-must>
+<div class="r h"><span>#</span><span>TITLE</span><span>ALBUM</span><span>DATE ADDED</span><span>⏱</span></div>
+<div class="r"><span class="n">1</span><span><b>Midnight City</b>M83</span><span>Hurry Up, We're Dreaming</span><span>Oct 2</span><span>4:03</span></div>
+<div class="r pl"><span class="n">▮▮</span><span><b>Nightcall</b>Kavinsky</span><span>OutRun</span><span>Oct 2</span><span>4:18</span></div>
+<div class="r"><span class="n">3</span><span><b>Tech Noir</b>Gunship</span><span>Gunship</span><span>Oct 5</span><span>4:55</span></div>
+<div class="r"><span class="n">4</span><span><b>Turbo Killer</b>Carpenter Brut</span><span>Trilogy</span><span>Oct 9</span><span>3:23</span></div>
+<div class="r"><span class="n">5</span><span><b>Resonance</b>Home</span><span>Odyssey</span><span>Oct 11</span><span>3:32</span></div></div></div>
+<div class="pb" data-r="player-bar" data-must><div class="ct"><div></div><span><b>Nightcall</b><br><small style="color:#b3b3b3">Kavinsky</small></span></div>
+<div class="pc"><div class="btns"><i></i><i></i><span class="pp"></span><i></i><i></i></div><div class="bar"><i></i></div></div><div class="vol"><i></i></div></div>
+</body></html>

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Skewed panels</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#111;font-family:Helvetica,Arial,sans-serif;color:#fff}
+.p{position:absolute;top:0;height:900px}
+.p1{left:0;width:520px;background:linear-gradient(160deg,#ff6b35,#c1121f);clip-path:polygon(0 0,100% 0,78% 100%,0 100%)}
+.p2{left:400px;width:520px;background:linear-gradient(160deg,#00b4d8,#023e8a);clip-path:polygon(22% 0,100% 0,78% 100%,0 100%)}
+.p3{left:800px;width:480px;background:linear-gradient(160deg,#ffd60a,#ff9e00);clip-path:polygon(24% 0,100% 0,100% 100%,0 100%)}
+.w{position:absolute;font-size:96px;font-weight:900;letter-spacing:-3px;line-height:1}
+.n{position:absolute;font-family:"Courier New",monospace;font-size:14px;letter-spacing:2px}
+.circle{position:absolute;left:470px;top:250px;width:380px;height:380px;border-radius:50%;background:#f1f1f1;mix-blend-mode:difference}
+nav{position:absolute;left:48px;top:32px;width:1184px;display:flex;justify-content:space-between;font-weight:700;font-size:14px;letter-spacing:2px;color:#fff}
+.cta{position:absolute;left:520px;top:760px;padding:18px 34px;border-radius:999px;background:#fff;color:#111;font-weight:800;font-size:16px}
+</style></head><body>
+<div class="p p1" data-r="panel-red" data-must></div><div class="p p2" data-r="panel-blue" data-must></div><div class="p p3" data-r="panel-yellow" data-must></div>
+<div class="circle" data-r="blend-circle" data-must></div>
+<nav data-r="nav"><span>TRIAD</span><span>RUN · RIDE · SWIM</span></nav>
+<div class="n" style="left:60px;top:150px">01 /</div><div class="w" data-r="word-run" style="left:56px;top:180px">RUN</div>
+<div class="n" style="left:520px;top:420px">02 /</div><div class="w" data-r="word-ride" style="left:516px;top:450px">RIDE</div>
+<div class="n" style="left:960px;top:600px;color:#111">03 /</div><div class="w" data-r="word-swim" style="left:956px;top:630px;color:#111">SWIM</div>
+<a class="cta" data-r="cta">Join the season</a>
+</body></html>

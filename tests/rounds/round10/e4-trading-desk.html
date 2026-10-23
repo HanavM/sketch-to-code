@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Trading desk</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0b0e11;font-family:Helvetica,Arial,sans-serif;color:#eaecef;font-size:13px}
+.tick{position:absolute;left:0;top:0;width:1280px;height:56px;border-bottom:1px solid #2b3139;display:flex;align-items:center;gap:36px;padding:0 24px}.tick b{font-size:18px}.tick .p{font-size:18px;color:#0ecb81;font-weight:700}.tick span small{display:block;color:#848e9c;font-size:11px}
+.up{color:#0ecb81}.dn{color:#f6465d}
+.chart{position:absolute;left:16px;top:72px;width:860px;height:470px;border:1px solid #2b3139;border-radius:6px;background:repeating-linear-gradient(0deg,transparent 0 77px,#1e2329 77px 78px)}
+.c{position:absolute;width:14px}.c i{position:absolute;left:6px;width:2px}.c b{position:absolute;left:0;width:14px}
+.vol{position:absolute;left:16px;top:550px;width:860px;height:90px;border:1px solid #2b3139;border-radius:6px}
+.ob{position:absolute;left:892px;top:72px;width:372px;height:568px;border:1px solid #2b3139;border-radius:6px;padding:12px;font-family:"Courier New",monospace}
+.ob h4{font-family:Helvetica,Arial,sans-serif;margin-bottom:8px}.ob .r{position:relative;display:flex;justify-content:space-between;height:22px;line-height:22px;padding:0 6px}.ob .r i{position:absolute;right:0;top:0;height:22px;opacity:.18}
+.ob .mid{font-size:18px;font-weight:700;color:#0ecb81;padding:8px 6px}
+.form{position:absolute;left:16px;top:656px;width:1248px;height:228px;border:1px solid #2b3139;border-radius:6px;display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px 20px}
+.form .tb{display:flex;gap:18px;color:#848e9c;margin-bottom:12px}.form .tb .on{color:#f0b90b;border-bottom:2px solid #f0b90b;padding-bottom:4px}
+.fld{height:40px;border-radius:6px;background:#2b3139;display:flex;justify-content:space-between;align-items:center;padding:0 12px;margin-bottom:10px;color:#848e9c}.fld b{color:#eaecef}
+.go{height:42px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+</style></head><body>
+<div class="tick" data-r="ticker-bar"><b>BTC/USDT</b><span class="p">67,412.50</span><span><small>24h change</small><b class="up" style="font-size:13px">+2.84%</b></span><span><small>24h high</small>68,020.00</span><span><small>24h low</small>65,190.10</span><span><small>24h volume</small>1.92B</span></div>
+<div class="chart" data-r="candle-chart" data-must id="ch"></div>
+<div class="vol" data-r="volume-bars" id="vo"></div>
+<div class="ob" data-r="order-book" data-must><h4>Order book</h4><div id="asks"></div><div class="mid">67,412.50 ↑</div><div id="bids"></div></div>
+<div class="form" data-r="order-form" data-must>
+<div><div class="tb"><span class="on">Limit</span><span>Market</span><span>Stop</span></div><div class="fld">Price <b>67,400.00 USDT</b></div><div class="fld">Amount <b>0.150 BTC</b></div><div class="go" style="background:#0ecb81;color:#0b0e11">Buy BTC</div></div>
+<div><div class="tb"><span class="on">Limit</span><span>Market</span><span>Stop</span></div><div class="fld">Price <b>67,450.00 USDT</b></div><div class="fld">Amount <b>0.150 BTC</b></div><div class="go" style="background:#f6465d">Sell BTC</div></div></div>
+<script>
+const o=[[300,240],[250,280],[270,200],[210,230],[230,170],[180,210],[205,150],[160,190],[175,130],[140,210],[200,170],[170,120],[130,160],[150,100],[110,140],[130,90],[95,150],[140,110],[115,70],[80,120],[105,60],[70,95],[85,50],[60,80],[70,40]],ch=document.getElementById('ch'),vo=document.getElementById('vo');
+o.forEach(([a,b],k)=>{const up=b<a,top=Math.min(a,b),h=Math.abs(a-b)||2,x=30+k*32,col=up?'#0ecb81':'#f6465d';ch.insertAdjacentHTML('beforeend',`<div class="c" style="left:${x}px;top:0;height:470px"><i style="top:${top-22}px;height:${h+44}px;background:${col}"></i><b style="top:${top}px;height:${h}px;background:${col}"></b></div>`);vo.insertAdjacentHTML('beforeend',`<div style="position:absolute;left:${x}px;bottom:6px;width:14px;height:${20+((k*37)%60)}px;background:${col};opacity:.6"></div>`)});
+const row=(p,a,col,w)=>`<div class="r"><i style="width:${w}%;background:${col}"></i><span style="color:${col}">${p}</span><span>${a}</span></div>`;
+document.getElementById('asks').innerHTML=[['67,421.00','0.842',30],['67,419.50','1.204',44],['67,418.00','0.310',12],['67,416.20','2.551',80],['67,415.00','0.902',34],['67,414.10','1.730',60],['67,413.00','0.415',16],['67,412.80','3.020',95]].map(([p,a,w])=>row(p,a,'#f6465d',w)).join('');
+document.getElementById('bids').innerHTML=[['67,412.40','2.880',90],['67,411.00','0.640',22],['67,410.50','1.470',52],['67,409.20','0.205',8],['67,408.00','1.990',70],['67,406.60','0.733',28],['67,405.00','1.120',40],['67,403.30','0.380',14]].map(([p,a,w])=>row(p,a,'#0ecb81',w)).join('');
+</script>
+</body></html>

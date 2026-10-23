@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Pull request diff</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2328;font-size:14px}
+.hd{position:absolute;left:32px;top:24px;width:1216px}.hd h1{font-size:26px;font-weight:400}.hd h1 span{color:#656d76}
+.st{display:inline-block;margin-top:12px;padding:6px 14px;border-radius:999px;background:#1f883d;color:#fff;font-weight:700}.hd small{margin-left:10px;color:#656d76}
+.tabs{position:absolute;left:32px;top:128px;width:1216px;display:flex;gap:4px;border-bottom:1px solid #d0d7de}.tabs span{padding:10px 16px;color:#656d76}.tabs .on{color:#1f2328;font-weight:700;border:1px solid #d0d7de;border-bottom:1px solid #fff;border-radius:6px 6px 0 0;margin-bottom:-1px}
+.tabs em{font-style:normal;margin-left:6px;padding:1px 7px;border-radius:999px;background:#eaeef2;font-size:12px}
+.tree{position:absolute;left:32px;top:190px;width:250px;font-size:13px;line-height:2}.tree div{padding-left:12px}.tree .f{padding-left:28px}.tree .on{background:#ddf4ff;border-radius:6px}
+.file{position:absolute;left:300px;top:190px;width:948px;border:1px solid #d0d7de;border-radius:6px;overflow:hidden;font-family:"Courier New",monospace;font-size:13px}
+.fh{height:42px;background:#f6f8fa;border-bottom:1px solid #d0d7de;display:flex;align-items:center;padding:0 14px;font-family:Helvetica,Arial,sans-serif;font-weight:700;gap:10px}.fh i{font-style:normal;color:#1f883d}.fh u{text-decoration:none;color:#cf222e}
+.l{display:grid;grid-template-columns:50px 50px 1fr;height:24px;line-height:24px}.l span{color:#8c959f;text-align:right;padding-right:10px}.l code{padding-left:14px;white-space:pre}
+.hu{background:#ddf4ff;color:#656d76}.a{background:#e6ffec}.a span{background:#ccffd8}.d{background:#ffebe9}.d span{background:#ffd7d5}
+.cm{margin:8px 14px 8px 114px;border:1px solid #d0d7de;border-radius:6px;font-family:Helvetica,Arial,sans-serif;padding:12px 14px}.cm b{font-size:13px}.cm p{margin-top:6px}
+.cm .r{margin-top:10px;display:flex;gap:8px}.cm .r a{padding:5px 12px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;font-size:12px}
+</style></head><body>
+<div class="hd" data-r="pr-header"><h1>Add retry with backoff to webhook sender <span>#4127</span></h1><span class="st">⇄ Open</span><small>dana-w wants to merge 3 commits into main from retry-backoff</small></div>
+<div class="tabs" data-r="tabs"><span>Conversation <em>4</em></span><span>Commits <em>3</em></span><span>Checks <em>2</em></span><span class="on">Files changed <em>2</em></span></div>
+<div class="tree" data-r="file-tree"><div>▾ src</div><div class="f on">webhooks.ts</div><div class="f">retry.ts</div><div>▾ test</div><div class="f">retry.test.ts</div></div>
+<div class="file" data-r="diff" data-must><div class="fh">src/webhooks.ts <i>+9</i><u>−3</u></div>
+<div class="l hu"><span></span><span></span><code>@@ -18,9 +18,15 @@ export async function send(hook, body) {</code></div>
+<div class="l"><span>18</span><span>18</span><code>  const url = hook.url</code></div>
+<div class="l d"><span>19</span><span></span><code>- const res = await fetch(url, { method: 'POST', body })</code></div>
+<div class="l d"><span>20</span><span></span><code>- if (!res.ok) throw new Error(res.statusText)</code></div>
+<div class="l a"><span></span><span>19</span><code>+ const res = await withRetry(() => post(url, body), {</code></div>
+<div class="l a"><span></span><span>20</span><code>+   attempts: 5,</code></div>
+<div class="l a"><span></span><span>21</span><code>+   baseMs: 250,</code></div>
+<div class="l a"><span></span><span>22</span><code>+ })</code></div>
+<div class="cm" data-r="review-comment"><b>mo-review</b> <small style="color:#656d76">commented 2 hours ago</small><p>Should we cap the total wait? 5 attempts at 250ms doubling is ~8s.</p><div class="r"><a>Reply</a><a>Resolve conversation</a></div></div>
+<div class="l a"><span></span><span>23</span><code>+ log.info('webhook sent', { id: hook.id })</code></div>
+<div class="l"><span>21</span><span>24</span><code>  return res</code></div>
+<div class="l d"><span>22</span><span></span><code>- // TODO: retries</code></div>
+<div class="l"><span>23</span><span>25</span><code>}</code></div></div>
+</body></html>

@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Arch blend</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#ece5da;font-family:Georgia,serif;color:#2b2420}
+.arch{position:absolute;left:640px;top:110px;width:420px;height:720px;border-radius:210px 210px 0 0;background:linear-gradient(180deg,#d98e6b 0%,#8c3b2a 55%,#3b1f1a 100%)}
+.sun{position:absolute;left:770px;top:260px;width:160px;height:160px;border-radius:50%;background:#f6d6a8}
+h1{position:absolute;left:80px;top:300px;font-size:150px;font-weight:400;line-height:.95;letter-spacing:-4px;color:#ece5da;mix-blend-mode:difference}
+.rule{position:absolute;left:560px;top:110px;width:1px;height:720px;background:#2b2420}
+nav{position:absolute;left:80px;top:40px;width:1120px;display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:3px}
+.idx{position:absolute;left:80px;top:640px;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:3px;line-height:2.2}
+.lede{position:absolute;left:80px;top:150px;width:380px;font-size:18px;font-style:italic;line-height:1.5}
+.badge{position:absolute;left:1100px;top:640px;width:120px;height:120px;border-radius:50%;border:1px solid #2b2420;display:flex;align-items:center;justify-content:center;font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:3px;text-align:center;animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ul{position:absolute;left:80px;top:770px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:2px;border-bottom:2px solid #8c3b2a;padding-bottom:6px}
+</style></head><body>
+<nav data-r="nav"><span>CASA ÓXIDO</span><span>ROOMS · TABLE · JOURNAL · STAY</span></nav>
+<p class="lede" data-r="lede">A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.</p>
+<div class="rule" data-r="vertical-rule"></div>
+<div class="arch" data-r="arch-picture" data-must></div><div class="sun" data-r="sun"></div>
+<h1 data-r="blend-headline" data-must>Slow<br>sunsets</h1>
+<div class="idx" data-r="index">I — THE HOUSE<br>II — THE TABLE<br>III — THE HILLS</div>
+<a class="ul" data-r="cta">RESERVE A ROOM</a>
+<div class="badge" data-r="spin-badge">SCROLL<br>· TO ·<br>WANDER</div>
+</body></html>

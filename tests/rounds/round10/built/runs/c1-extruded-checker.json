@@ -1,0 +1,189 @@
+{
+  "id": "c1-extruded-checker",
+  "at": "2026-10-23T10:36:50.514Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.3966435181459601,
+    "overallV2": 0.3843192137858692,
+    "overallV1": 0.32144903458315377,
+    "colour": 0.8660419001330253,
+    "structure": 0.44552498639048127,
+    "structureStrict": 0.32254607222578646,
+    "colourAligned": 0.8660419001330253,
+    "structureAligned": 0.46932439116430225,
+    "align": {
+      "scale": 0.96,
+      "dx": 80,
+      "dy": 32,
+      "r": 0.42593731772573873
+    },
+    "layout": 0.49711717496782676
+  },
+  "effects": {
+    "recall": 0.7142857142857143,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 53902,
+    "output": 35280,
+    "cacheRead": 173186
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 78706,
+      "output": 28920,
+      "cacheRead": 170102,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 333029
+    }
+  ],
+  "reading": "The sketch is a festival hero section: a top nav row ('BLOCKPARTY' / 'LINEUP · TICKETS · MAP'), a giant two-line headline 'LOUD FEST' (yellow/pink), a spinning blue jagged cut-out decoration where a star was drawn, a near-black to pale-yellow gradient section background, and two white bordered cards at the bottom — a small tilted '3 DAYS · 40 ACTS' card and a larger 'Weekend pass' card with copy, a ticket link, and a hard offset shadow.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        563,
+        1274,
+        334
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Apply the page-wide style: pale yellow (#fdf6e3, plainly not white) background, Helvetica type, near-black text throughout. Style this hero section's background"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a nav bar with no box around it: 'BLOCKPARTY' on the left, and 'LINEUP · TICKETS · MAP' on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 245
+        }
+      ],
+      "region": [
+        64,
+        78,
+        558,
+        294
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica headline (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not a squared/condensed/display face; live text, a real"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        308,
+        291,
+        500,
+        307
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica headline (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not a squared/condensed/display face; live text, a real"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1013,
+        96,
+        163,
+        155
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a spinning, vivid blue jagged cut-out shape with ONE flat #3a86ff fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn outlin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        635,
+        216,
+        65
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a small white card tilted 4° anticlockwise with a thick near-black border, reading '3 DAYS · 40 ACTS', placed near the bottom-left of the gradient hero sect"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        613,
+        393,
+        214
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a white card with a thick near-black border titled 'Weekend pass', with the lines 'All stages, all nights. Early bird ends Friday.' and 'Get tickets →', and"
+    }
+  ],
+  "rejected": []
+}
