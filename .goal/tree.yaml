@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 11 is at 83%: the cube scene now builds its glowing grid floor (83 to 92%) and the code editor its code lines (92 to 95%). Next I write the harder round 12."
 round: 11
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83]
-lock: null
+lock: {by: run-2026-10-23T1654Z, until: '2026-10-23T18:25Z'}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
