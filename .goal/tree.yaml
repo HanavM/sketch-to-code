@@ -1,11 +1,15 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "A page built a little too low all over is now caught and sent back for a fix; the kanban board scored 72% twice. Next: start round 8 with harder pages."
-lock: {by: run-2026-10-23-inbox, until: "2026-10-23T02:16:47Z"}
+now: "Re-scored every page from rounds 1-7 and marked 6 of 7 checks met; round scores went 67 to 81. Next: write round 8, harder pages."
+round: 7
+round_scores: [67, 58, 69, 64, 76, 79, 81]
+lock: null
 asks: []
 handled:
+  - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n116 (97fb2d5 on try/n3-vocabulary): rescore.mjs on the newest cmp per page (61 builds) + tests/rounds/roundscores.py -> SCORES.md (layout from latest run digest, else picture average); round2/NOTES.md written. Zero tokens. round_scores r1-r7 67,58,69,64,76,79,81. Each round from now: append the round average (all 10 pages built) to round_scores."
   - "n113 (e2a86e7, 56f0067 on try/n3-vocabulary): drift.ts uniformShift: 6+ matched blocks below y 40, two thirds off the same way by 6px+, median 8px+ -> failure naming the first shifted block (n113 run 1 offsets are a unit test). repair-brief forbids index.html/package.json/vite/tailwind/postcss/ts config. Live r7 e1 72 (82k, one turn, heads +6 cards +8/+11 unreported, old thresholds) and 72 (96k; build 24-40px low, old rule caught, repair to +7/+8; lane-web missed, thin lane line matched -1 though ~12px low). Vitest: same 2 env failures; build clean (npm run typecheck has TS6310 on base too)."
   - "Token ledger: 2026-10-23 n113 live r7 e1 82k + 96k = ~178k billed (day so far ~466k)."
   - "n112 (c9c64c9, 8970ca0 on try/n3-vocabulary): planner: task-card progress bar says track width (w-[180px]), gap under title, fill+track hexes, not full width; link-row lead compared to the majority style (r7 e1 bold 18px Sprint 42, r6 e1 bold 22px Northwind); one-word 20-39px page title near top says px, box top, height (7 titles r1-r6). 12 notes changed, no plan marks. Live r6 e2 80 (135k; title in place), r7 e1 48 (65k; board ~15px low, no repair) then 77 (88k, best). Vitest: same 2 env failures; typecheck clean."
@@ -186,13 +190,13 @@ notes:
   - "Token ledger: 2026-10-22 n73 live r4 c1 81k (day total ~390k, no cap set); n74 65k, n75 58k, n76 76k (day ~590k)."
   - "n76 (080b43b on try/n3-vocabulary): run2 contract: a lone heading squiggle region is centred for line-height 1.2; a tighter display line box must stay centred on region (was set at region.y: letters ~65px high). Colour deep rust orange (#9a3412, hue 10-25). Opaque hard shadow says solid opaque."
 criteria:
-  - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: open, evidence: null}
-  - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: open, evidence: null}
-  - {id: c3, text: "Each built page is scored for likeness to its target by a measure independent of the pipeline (picture likeness plus block layout).", state: open, evidence: null}
-  - {id: c4, text: "Between rounds the tools improve from what failed, and re-running earlier pages shows the gain (scores up or fewer fixes).", state: open, evidence: null}
+  - {id: c1, text: "Each round has 10 target pages (5 creative landing, 5 everyday), each with a reference to compare against, harder than the round before.", state: met, evidence: "Rounds 1-7 each have 10 targets, 5 creative + 5 everyday, as HTML references (tests/rounds/roundN/*.html on try/n3-vocabulary); each round's notes list the harder techniques it adds (r1 hero/login to r7 isometric stack, torn collage, kanban, admin table)."}
+  - {id: c2, text: "Each page is built only with the drawing tools, and the run records ease: marks, words, fixes, time and tokens.", state: met, evidence: "Every built page was drawn through the overlay from a plan (no hand code); each run digest (built/runs/*.json) records marks and words (actions), fix turns (sends), time (ms) and tokens. Rounds 2 and 3 have 7 and 2 pages never built."}
+  - {id: c3, text: "Each built page is scored for likeness to its target by a measure independent of the pipeline (picture likeness plus block layout).", state: met, evidence: "Likeness v3 = picture colour + structure after one zoom/offset, plus block layout (tests/rounds/lib/likeness.mjs), separate from the pipeline; all 61 latest builds re-scored 2026-10-23 (tests/rounds/SCORES.md)."}
+  - {id: c4, text: "Between rounds the tools improve from what failed, and re-running earlier pages shows the gain (scores up or fewer fixes).", state: met, evidence: "Fixes between rounds and re-runs raised old pages: r1 sunset hero 35 to 79, r2 settings 6 to 36, r3 analytics 26 to 69, r7 admin table 59 to 83; round averages 67, 58, 69, 64, 76, 79, 81."}
   - {id: c5, text: "The final round's hardest creative pages (layered, asymmetric, expressive type, motion) are built to a high likeness.", state: open, evidence: null}
-  - {id: c6, text: "Live model use is logged per day (GOAL.md no longer sets a cap).", state: open, evidence: null}
-  - {id: c7, text: "Proof to watch: per round, target vs built side by side, with scores and a short write-up.", state: open, evidence: null}
+  - {id: c6, text: "Live model use is logged per day (GOAL.md no longer sets a cap).", state: met, evidence: "Token ledger lines per day in tree notes (2026-10-21 ~930k, 2026-10-22, 2026-10-23 ~466k so far) and tests/rounds/LIVE-2026-10-22.md."}
+  - {id: c7, text: "Proof to watch: per round, target vs built side by side, with scores and a short write-up.", state: met, evidence: "Side-by-sides (target left, built right) for every built page of rounds 1-7 under tests/rounds/roundN/built/*-cmp.png with a write-up per round (NOTES.md / RESULTS.md) and scores in tests/rounds/SCORES.md, all on try/n3-vocabulary. Round 2 shows 3 of 10 pages."}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "Build ever harder creative and everyday web pages by drawing, scoring and improving the tools each round", status: open}
   - {id: n1, parent: n0, kind: approach, title: "Round bench: reference pages as HTML, a hand-planned sketch per page drawn through the real overlay on a blank app, scored by screenshot likeness + block layout; fix the worst gap each round", status: active,
@@ -390,3 +394,6 @@ nodes:
   - {id: n113, parent: n112, kind: step, title: "~150k live: whole board built 12-15px low the same way slips under the 16px drift rule (r7 e1 run 1 48%); r6 e2 cards below title 5-10px low, repair turn read config files. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Same-way shift under 16px now caught; repair cut a 24-40px drift to 8px; kanban 72% twice, no gain."}
   - {id: n114, parent: n113, kind: step, title: "Write round 8 (harder than round 7: e.g. scroll-pinned layered hero, kinetic variable type, dense masonry with overlaps, multi-pane everyday apps), measure, autoplan, first live builds", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n115, parent: n113, kind: step, title: "Low priority, ~100k live: drift check matches thin lane-label lines to the wrong element (r7 e1 WEB APP ~12px low read as -1); residual +7px shift under the median rule. Fix, re-run r7 e1", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n116, parent: n3, kind: step, title: "Owner inbox: re-score all round 1-7 builds, mark checks met with evidence, add round scores", status: done, branch: try/n3-vocabulary,
+     result: "61 builds re-scored free; six checks met, round averages 67 to 81; round 2 only 3 pages built."}
+  - {id: n117, parent: n116, kind: step, title: "Low priority, ~250k live: build round 2's 7 unbuilt pages and round 3 e2, e4 so every round has all 10 scored", status: open, branch: try/n3-vocabulary, result: null}
