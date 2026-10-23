@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 10 creative pages now average 89%: the slanted panels page went 31 to 90% and the terminal 82 to 92%. Next I build the five everyday pages of round 10 for the first time."
 round: 10
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 89]
-lock: null
+lock: {by: run-2026-10-23T1203, until: "2026-10-23T13:33:00Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
