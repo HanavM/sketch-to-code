@@ -2033,7 +2033,7 @@ function decideOne(f, page, marked, said) {
       const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
       // a flat-filled cut-out (round 8 c5's yellow half was built as a yellow-to-orange gradient with the pen's
       // scribble strokes left on top): say its one hex, no gradient, and that the pen lines are only its edge
-      const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines` : ''
+      const solid = !grad && fill ? `, ONE flat ${hexOf(f.bg)} fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines${f.clipPoly ? `; exactly clip-path: polygon(${f.clipPoly.map(([x, y]) => `${Math.round(x * 100)}% ${Math.round(y * 100)}%`).join(', ')}) on its ${w}x${h}px box, so it covers the ${(() => { const cx = f.clipPoly.reduce((a, q) => a + q[0], 0) / f.clipPoly.length; return cx < 0.42 ? 'LEFT' : cx > 0.58 ? 'RIGHT' : 'middle' })()} part and the rest shows what is under it (do not mirror it)` : ''}` : ''
       return { kind: 'shape', note: withFx(`${note}${exact}${solid}${size}${flat}`), poly: f.clipPoly }
     }
     const sh = shadowWords(f)

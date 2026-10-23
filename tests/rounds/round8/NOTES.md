@@ -177,3 +177,22 @@ marks changed.
 
 Round 8 average now 79% (creative 89, everyday 69). Next: everyday layout places (e2 chart card low and tall, heat grid
 under the popover; e5 nav rows tall, article low), c5's 8 letter shape and strip ink, c3 sticker line breaks.
+
+## n124: side nav spacing, article block tops, jagged lines, poster glyph face, cut-out side; e5, e2, c5 re-run (2026-10-23, ~330k billed)
+
+Planner (zero tokens): a side nav says its row pitch and row height, where its first heading starts, its width and the
+thin rule down its right edge, and the highlighted row's edge and ink; a docs article says each block's top below the
+article's top (breadcrumb flush at 0); a straight-segment line chart says every point's height (and that it zigzags,
+not smoothed); a poster-size glyph says its exact font family and weight; a dark bar holding light text says its exact
+hex; a flat cut-out says its clip polygon and which side it covers. Rounds 1-7 plans gain the same on 19 pages (nav
+spacing, line points, dark hexes, display faces); no marks changed.
+
+| page | likeness (v3) | tokens | what changed |
+|---|---|---|---|
+| e5 docs page | 71% -> 84% (kept) | ~59k (one turn) | nav rows 30px apart from the right start with its edge rule, article blocks in place; top bar a little short, nav rule stops early |
+| e2 date-range analytics | 66% -> 35% (not kept) | ~106k (build + repair) | line now a true zigzag, but KPI cards built tall and narrow, pushing chart, heat grid and table ~100px down; range band lost. A second try ran out of time (12.5 min) and was discarded. Picture: e2-date-range-analytics-n124-regressed-cmp.png |
+| c5 diagonal duotone | 90% -> 31%, then 83% (not kept) | ~69k + ~96k | the 8 now round Helvetica and the strip near-black, but the first try mirrored the yellow half (the clip polygon is now said, side named); the second kept the halves but drew the 8 as a wave-shaped outline. Pictures: c5-diagonal-duotone-n124-cmp.png, -n124b-cmp.png |
+
+Round 8 average now 80% (creative 89, everyday 72). Builds of record stay the best ones for e2 (66%) and c5 (90%).
+Lesson: on long, dense pages extra detail can shift the layout; e2 needs its cards' sizes said (KPI 280x90 at y 90,
+chart from y 200), and the poster glyph must be said as live text, never a drawn shape.
