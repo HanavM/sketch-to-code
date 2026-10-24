@@ -1271,7 +1271,12 @@ export function factsInPage() {
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
-            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0 })
+            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0,
+            // n175: vertical type (round 17 c5 '99.99%' set vertical-rl turned 180deg, built horizontal), a line wider than the
+            // tile that clips it (the logo strip built spilling out of its tile), and its CSS animation
+            vert: own && /^vertical/.test(s.writingMode) ? (/^matrix\(-1,/.test(s.transform) ? 'up' : 'down') : null,
+            clip: own ? (() => { for (let q = k.parentElement; q && q !== document.body; q = q.parentElement) { const qs = getComputedStyle(q); if (/hidden|clip/.test(qs.overflowX)) { const qb = q.getBoundingClientRect(); return b.width > qb.width + 4 ? { w: Math.round(qb.width), x: Math.round(qb.left), shown: Math.round(Math.min(b.right, qb.right) - Math.max(b.left, qb.left)) } : null } } return null })() : null,
+            anim: s.animationName && s.animationName !== 'none' ? (() => { const kf = [...document.styleSheets].flatMap((ss) => { try { return [...ss.cssRules] } catch { return [] } }).find((r) => r.type === 7 && r.name === s.animationName.split(',')[0].trim()); return { name: s.animationName, dur: s.animationDuration, timing: s.animationTimingFunction, iter: s.animationIterationCount, delay: s.animationDelay, origin: (() => { const o = s.transformOrigin.split(' ').map(parseFloat); return o[1] >= k.offsetHeight - 1 ? 'bottom' : o[1] <= 1 ? 'top' : 'center' })(), kf: kf ? kf.cssText.replace(/\s+/g, ' ').slice(0, 240) : null } })() : null })
           if (out.length > 120) break
         }
         return out
@@ -2079,10 +2084,12 @@ export function factsInPage() {
       const gtable = !grouped && rowKids.length >= 6 && rowKids.length <= 24 && rowKids.every(cellRow) && rh.slice(1).every((h) => Math.abs(h - rh[1]) <= 2) && rowKids.slice(1).some((k) => filled(k)) && rowKids.slice(1).some((k) => !filled(k))
         ? (() => {
           const hd = rh[0] !== rh[1] || getComputedStyle(rowKids[0]).textTransform === 'uppercase' || Number(getComputedStyle(rowKids[0]).letterSpacing.replace('px', '')) >= 0.5 || Math.abs(parseFloat(getComputedStyle(rowKids[0]).fontSize) - parseFloat(getComputedStyle(rowKids[1]).fontSize)) >= 1
-          const cell = (g) => { const b = g.getBoundingClientRect(), f = filled(g); return f && b.width <= 32 && Math.abs(b.width - b.height) <= 2 ? { t: txt(g), badge: { c: f, px: Math.round(b.width), round: parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.width * 0.4 } } : { t: txt(g), right: ['right', 'end'].includes(getComputedStyle(g).textAlign) } }
-          const row = (k) => { const c = getComputedStyle(k); return { cells: [...k.children].map(cell), fill: filled(k), bold: Number(c.fontWeight) >= 600 } }
-          const h0 = getComputedStyle(rowKids[0])
-          return { head: hd ? { cells: [...rowKids[0].children].map(txt), h: rh[0], fill: filled(rowKids[0]), ink: rgba(h0.color), px: Math.round(parseFloat(h0.fontSize)), bold: Number(h0.fontWeight) >= 600 } : null, rows: (hd ? rowKids.slice(1) : rowKids).map(row), h: rh[1], rule: parseFloat(getComputedStyle(rowKids[1]).borderBottomWidth) >= 1 ? rgba(getComputedStyle(rowKids[1]).borderBottomColor) : null }
+          // n175: each cell's own colour and column width, the row's inset stripe, the table's mono face (round 17 e2 log
+          // table: levels' red/yellow, the message column and the selected row's orange stripe were never said)
+          const cell = (g) => { const b = g.getBoundingClientRect(), f = filled(g); return f && b.width <= 32 && Math.abs(b.width - b.height) <= 2 ? { t: txt(g), badge: { c: f, px: Math.round(b.width), round: parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.width * 0.4 } } : { t: txt(g), right: ['right', 'end'].includes(getComputedStyle(g).textAlign), ink: rgba(getComputedStyle(g).color), w: Math.round(b.width) } }
+          const row = (k) => { const c = getComputedStyle(k); const st = c.boxShadow.match(/(rgba?\([^)]+\)) (-?\d+)px 0px 0px 0px inset/) || c.boxShadow.match(/(rgba?\([^)]+\)) (-?\d+)px 0px inset/); return { cells: [...k.children].map(cell), fill: filled(k), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), stripe: st && Math.abs(+st[2]) >= 2 ? { c: rgba(st[1]), px: Math.abs(+st[2]), side: +st[2] > 0 ? 'left' : 'right' } : null } }
+          const h0 = getComputedStyle(rowKids[0]), r1 = getComputedStyle(rowKids[1])
+          return { mono: /mono|courier|consolas|menlo/i.test(r1.fontFamily) ? { px: Math.round(parseFloat(r1.fontSize)) } : null, cols: (() => { const wide = rowKids.slice(1).reduce((a, k) => (k.children.length > a.children.length ? k : a), rowKids[1]); return [...wide.children].map((g) => Math.round(g.getBoundingClientRect().left - wide.getBoundingClientRect().left)) })(), head: hd ? { cells: [...rowKids[0].children].map(txt), h: rh[0], fill: filled(rowKids[0]), ink: rgba(h0.color), px: Math.round(parseFloat(h0.fontSize)), bold: Number(h0.fontWeight) >= 600 } : null, rows: (hd ? rowKids.slice(1) : rowKids).map(row), h: rh[1], rule: parseFloat(getComputedStyle(rowKids[1]).borderBottomWidth) >= 1 ? rgba(getComputedStyle(rowKids[1]).borderBottomColor) : null }
         })() : null
       // n150: a big-title header block above the list (round 13 e2: the album cover, kicker, 48px title and meta line
       // were dropped; only the play row was said)
@@ -2480,7 +2487,7 @@ function effectWords(f) {
     : /screen|lighten|color-dodge/.test(f.blend) ? 'light-like (screen blend: brightens what it overlaps)' : `${f.blend} blend over what is under it`)
   if (f.blur >= 10) w.push('soft blurred')
   // a dashed outline (round 9 c4 stamp: said 'outline circle', dashes lost)
-  if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)`)
+  if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)${f.text && f.colour && hexOf(f.colour) === hexOf(f.border.colour) ? `, its words in the SAME ${hexOf(f.colour)} as the outline (NOT the page's text colour)` : ''}`)
   // a faded block: built solid otherwise (round 5 c3 cards at 75/45/20%)
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
   if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly;`)
@@ -2755,9 +2762,15 @@ function denseNote(d) {
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
       if (d.gtable) {
         const t = d.gtable
-        const cs = (c) => c.badge ? `${quote(c.t, 6)} in a ${c.badge.px}px ${c.badge.round ? 'round' : 'square'} ${hexOf(c.badge.c)} badge (white text)` : `${quote(c.t, 40)}${c.right ? ' (right-aligned)' : ''}`
+        const fills = t.rows.filter((r) => r.fill)
+        const sel = fills.length === 1 && !fills[0].bold
+        const cs = (c, r) => c.badge ? `${quote(c.t, 6)} in a ${c.badge.px}px ${c.badge.round ? 'round' : 'square'} ${hexOf(c.badge.c)} badge (white text)` : `${quote(c.t, 40)}${c.ink && r?.ink && hexOf(c.ink) !== hexOf(r.ink) ? ` ${hexOf(c.ink)}` : ''}${c.right ? ' (right-aligned)' : ''}`
+        const ncol = Math.max(...t.rows.map((r) => r.cells.length))
+        const colSay = t.cols?.length >= 2 ? `; ${ncol} columns, each cell starting at these x offsets from the row's left: ${t.cols.join(', ')}px${sel ? ' (every column filled in every row, the last one included)' : ''}` : ''
+        const rowFill = (r) => r.fill ? sel ? ` (the SELECTED row: ${hexOf(r.fill)} fill across the whole row${r.stripe ? `, a ${r.stripe.px}px ${hexOf(r.stripe.c)} stripe down its ${r.stripe.side} edge` : ''})` : ` (group row: ${r.bold ? 'bold, ' : ''}${hexOf(r.fill)} fill across the whole row)` : ''
         const hs = t.head ? `a ${t.head.h}px column-head row${t.head.fill ? ` with a ${hexOf(t.head.fill)} fill` : ''} (NOT a button: a table header across the full width), ${t.head.px}px${t.head.bold ? ' bold' : ''} ${hexOf(t.head.ink)} spaced capitals ${t.head.cells.map((c) => quote(c, 16)).join(' | ')}, then ` : ''
-        return `${pic}a task table (rows, NOT tabs): ${hs}exactly ${t.rows.length} rows, each ${t.h}px tall, in EXACTLY this order top to bottom (group rows sit between their task rows; never gather the groups together), cells left to right: ${t.rows.map((r) => `${r.cells.map(cs).join(' | ')}${r.fill ? ` (group row: ${r.bold ? 'bold, ' : ''}${hexOf(r.fill)} fill across the whole row)` : ''}`).join('; ')}${t.rule ? `; a thin ${hexOf(t.rule)} line under every row` : ''}; empty below the last row`
+        const ink0 = t.rows.find((r) => !r.fill)?.ink
+        return `${pic}${sel ? 'a data table' : 'a task table'} (rows, NOT tabs): ${hs}exactly ${t.rows.length} rows, each ${t.h}px tall${t.mono ? `, ${t.mono.px}px monospace ${ink0 ? `${hexOf(ink0)} ` : ''}text` : ''}${colSay}, in EXACTLY this order top to bottom${sel ? ' (every row its own real data, never invented or repeated; a word followed by a colour is set in that colour)' : ' (group rows sit between their task rows; never gather the groups together)'}, cells left to right: ${t.rows.map((r) => `${r.cells.map((c) => cs(c, r)).join(' | ')}${rowFill(r)}`).join('; ')}${t.rule ? `; a thin ${hexOf(t.rule)} line under every row` : ''}; empty below the last row`
       }
       if (d.grouped) {
         const g = d.grouped
@@ -2904,7 +2917,9 @@ function round10Extra(f, d) {
 /** n138: a region said part by part, each part's page-px box, paint and text (nothing invented, nothing left out). */
 function partsNote(P, f) {
   const hx = (c) => (c ? `${hexOf(c)}${c.a < 0.95 ? ` at ${Math.round(c.a * 100)}%` : ''}` : '')
-  const imgW = (s) => s.replace(/rgba?\([^)]+\)/g, (m) => hx(parse(m)))
+  // n175: a clear stop said 'transparent' (round 17 c5 hero: '#000000 at 0%' built as black, the cyan glow under it lost);
+  // the 'none' layer that the fill colour leaves in a layered background list dropped
+  const imgW = (s) => s.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hx(c) }).replace(/(?:,\s*none)+$/, '')
   const one = (p) => {
     const paint = []
     if (p.fill) paint.push(`${hx(p.fill)} fill`)
@@ -2935,9 +2950,15 @@ function partsNote(P, f) {
       const gut = P.some((q) => q.ra && q.t && q.x >= p.x - 1 && q.x < p.x + p.padL && Math.abs(q.y - p.y) <= 2)
       paint.push(`padding-left ${p.padL}px (its text starts at x ${p.x + p.padL}${gut ? ', AFTER the gutter number, never over it' : ''})`)
     }
+    if (p.vert) paint.push(`VERTICAL text (writing-mode: vertical-rl${p.vert === 'up' ? '; transform: rotate(180deg), so it reads bottom to top' : ', reading top to bottom'}; NOT horizontal, the box is tall and narrow)`)
+    if (p.clip) paint.push(`a line ${p.w}px long inside a ${p.clip.w}px tile that CLIPS it (the tile has overflow: hidden and white-space: nowrap): only its first ${p.clip.shown}px show, cut off at the tile's edge, never spilling past the tile`)
+    if (p.anim) { kfs.add(p.anim.kf); paint.push(`animated: animation ${p.anim.name} ${p.anim.dur} ${p.anim.timing}${p.anim.iter === 'infinite' ? ' infinite' : ''}${p.anim.delay && p.anim.delay !== '0s' ? ` delay ${p.anim.delay}` : ''}${/scale|rotate/.test(p.anim.kf ?? '') && p.anim.origin ? `, transform-origin ${p.anim.origin}` : ''}`) }
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
-  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
+  const kfs = new Set()
+  const listed = [...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')
+  const keys = [...kfs].filter(Boolean)
+  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -2999,7 +3020,7 @@ function round15Note(f) {
   const D = f.discs
   if (D) {
     const bl = D.find((q) => q.blend && q.blend !== 'normal')?.blend
-    return { kind: 'box', note: `${D.length} big FILLED CIRCLES overlapping (NOT outlines, NOT a box, NOT a picture), each its own absolutely placed div with border-radius 50%${bl ? ` and mix-blend-mode: ${bl} (where they overlap the colours mix darker, like overprinted inks)` : ''}, behind the words: ${D.map((q, i) => `circle ${i + 1}: ${q.d}px across, ${hexOf(q.fill)} solid fill, its box's top-left at ${q.x},${q.y}${q.op < 0.95 ? `, ${Math.round(q.op * 100)}% opacity` : ''}`).join('; ')}` }
+    return { kind: 'box', note: `${D.length} big FILLED CIRCLES overlapping (NOT outlines, NOT a box, NOT a picture), each its own absolutely placed div with border-radius 50%${bl ? ` and mix-blend-mode: ${bl} (where they overlap the colours mix darker, like overprinted inks)` : ''}, crisp hard edges (no shadow, no blur, no glow round them), behind the words: ${D.map((q, i) => `circle ${i + 1}: ${q.d}px across, ${hexOf(q.fill)} solid fill, its box's top-left at ${q.x},${q.y}${q.op < 0.95 ? `, ${Math.round(q.op * 100)}% opacity` : ''}`).join('; ')}` }
   }
   const O = f.overprint
   if (O) {
