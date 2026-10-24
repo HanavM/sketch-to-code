@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 16 is at 83%: the code review's tabs now stay on one line and its code sits after the line numbers; round 16 has levelled off, so next I write a harder round 17."
-round: 16
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83]
-lock: {by: run-n171, until: "2026-10-24T12:12Z"}
+now: "Round 17 is written: ten harder pages (moving marquees, a synthwave grid floor, a design editor, a log explorer); the first three built at 75% on average, so next I fix the lost grid floor and build the other seven."
+round: 17
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 75]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n171 (c411684 on try/n3-vocabulary): round 17 written (c1 kinetic marquee, c2 riso overprint, c3 synth horizon, c4 wrapped editorial, c5 bento motion; e1 gantt, e2 log explorer, e3 design editor, e4 music player, e5 CRM contact), measured, auto-planned, dry 10/10 (untouched 0-7%). Live c1 77, c3 70, e2 78: round 17 at 75 over 3 (round 16 began at 66 over 3). Round 16 final 83. Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-24 n171 live r17 c1,c3,e2 ~237k billed (day so far ~4995k)."
   - "n170 (8a10a56 on try/n3-vocabulary): planner says a text part padded in from its left (its padding, where its text starts, AFTER a gutter number), the one-line clause reaches parts a little taller than their type and says widths are minimums. Rounds 1-16 notes re-generated. Live r16 e3 78 to 85 (gutter fixed, reply back, tabs still wrapped), then 86 with the min-width clause (tabs on one line). Round 16 at 83 over 10. Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-24 n170 live r16 e3 x2 ~187k billed (day so far ~4758k)."
   - "n169 (a153efb on try/n3-vocabulary): planner places a top bar's parts by x,y when they sit on more than one line, says a regular-weight title and its own-coloured words (grey #4182), and an absolutely placed chart card's top-left. Rounds 5,6,7,9,10,13 notes re-generated; none re-run. Live r16 e1 80 to 78, e3 88 to 78 (header fixed; tabs wrapped, diff gutter overlapped, a reply lost). Round 16 at 82 over 10. Vitest: same 2 env failures; typecheck clean."
@@ -559,4 +561,5 @@ nodes:
   - {id: n168, parent: n167, kind: step, title: 'Free first, ~200k live: r16 e1 row numbers start on the header row, selection box runs to row 12; e3 diff line numbers lost, tabs wrap counts; c3 rays oversized; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: "Row numbers, selection outline, diff line numbers, one-line tab counts said; e1 74 to 80, e3 84 to 88; round 16 at 83"}
   - {id: n169, parent: n168, kind: step, title: 'Free first, ~250k live: r16 e3 header parts placed by x only (tabs overlap the Open pill), #4182 not grey; e1 floating chart card placed too far right/high; c3 rays oversized; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: 'Header parts by x,y, grey title words, chart card placed: header fixed; e1 80 to 78, e3 88 to 78 (noise); round 16 at 82'}
   - {id: n170, parent: n169, kind: step, title: 'Free first, ~250k live: r16 e3 tabs region part list lacks the nowrap clause (counts wrap), diff code starts over the gutter numbers, reply lost; re-run e3; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: 'Padded code past the gutter, one-line tabs with a minimum width; e3 78 to 86; round 16 at 83'}
-  - {id: n171, parent: n170, kind: step, title: 'Round 16 plateaued at 82-83 for four steps: write round 17 (harder: more layered, asymmetric, expressive and moving creative pages; denser everyday apps), dry 10/10, first live builds; left from r16: e3 fill-only diff rows lose their line numbers, c3 rays oversized', status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n171, parent: n170, kind: step, title: 'Round 16 plateaued at 82-83 for four steps: write round 17 (harder: more layered, asymmetric, expressive and moving creative pages; denser everyday apps), dry 10/10, first live builds; left from r16: e3 fill-only diff rows lose their line numbers, c3 rays oversized', status: done, branch: try/n3-vocabulary, result: 'Round 17 written, dry 10/10; first builds c1 77, c3 70, e2 78; avg 75 over 3.'}
+  - {id: n172, parent: n171, kind: step, title: 'Free first, ~350k live: r17 c3 perspective grid floor lost, sun stripes lost, title/sun shifted; c1 badge disc lost, bands do not bleed off the left edge; e2 error spike bars not red, message column lost, drawer border lost; first c2, c4, c5, e1, e3, e4, e5', status: open, branch: try/n3-vocabulary, result: null}

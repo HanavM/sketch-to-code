@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T11:25Z | n171 write round 17 + first builds | Round 17 written, dry 10/10; marquee 77, synth horizon 70, log explorer 78; avg 75. ~237k.
 2026-10-24T10:55Z | n170 padded code past the gutter, one-line tabs | e3 78 to 86 over two runs (tabs, gutter fixed); round 16 now 83. ~187k.
 2026-10-24T10:20Z | n169 header parts by x,y, grey title words, chart card place | header fixed; e1 80 to 78, e3 88 to 78 (tabs, diff slipped); round 16 now 82. ~186k.
 2026-10-24T09:20Z | n168 spreadsheet row numbers, selection outline, diff line numbers | e1 74 to 80, e3 84 to 88; round 16 now 83 over 10. ~165k.
