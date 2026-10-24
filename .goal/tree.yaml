@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 16 is up to 82%: the spreadsheet's chart card and menu and the calendar's day columns and event popover now match; next the spreadsheet's row numbers and the code review's line numbers, then a harder round 17."
 round: 16
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 82]
-lock: null
+lock: {by: n168-0853, until: "2026-10-24T10:23:36Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
