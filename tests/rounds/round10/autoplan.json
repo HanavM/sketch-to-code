@@ -717,7 +717,7 @@
    ],
    [
     "ticker-bar",
-    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #2b3139 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 18px #eaecef \"BTC/USDT\" at x 24; bold 18px #0ecb81 \"67,412.50\" at x 151; 11px #848e9c \"24h change\" at x 267; bold 13px #0ecb81 \"+2.84%\" at x 267; 13px #eaecef \"24h high 68,020.00\" at x 361; 13px #eaecef \"24h low 65,190.10\" at x 454; 13px #eaecef \"24h volume 1.92B\" at x 548"
+    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #2b3139 line under it; only these parts in it, NO other heading or title invented: on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): bold 18px #eaecef \"BTC/USDT\" at 24,17 (its top-left inside the bar); bold 18px #0ecb81 \"67,412.50\" at 151,17 (its top-left inside the bar); 11px #848e9c \"24h change\" at 267,14 (its top-left inside the bar); 13px #eaecef \"24h high 68,020.00\" (its words \"24h high\" in #848e9c, the rest #eaecef) at 361,14 (its top-left inside the bar); 13px #eaecef \"24h low 65,190.10\" (its words \"24h low\" in #848e9c, the rest #eaecef) at 454,14 (its top-left inside the bar); 13px #eaecef \"24h volume 1.92B\" (its words \"24h volume\" in #848e9c, the rest #eaecef) at 548,14 (its top-left inside the bar); bold 13px #0ecb81 \"+2.84%\" at 267,26 (its top-left inside the bar)"
    ],
    [
     "candle-chart",
@@ -725,7 +725,7 @@
    ],
    [
     "volume-bars",
-    "a 860x90px chart card, no fill, 1px #2b3139 border, 6px rounded, holding: bar chart, 25 bright green bars, heights 26/74/44/92/62/32/81/51/99/69/39/87/57/27/75/45/94/64/34/82/52/100/70/40/88% of the tallest; each bar 14px wide, 18px apart, the tallest 77px, no labels under the bars"
+    "a 860x90px chart card, no fill, 1px #2b3139 border, 6px rounded (absolutely placed, its top-left EXACTLY at 16,550 page px, floating over what is under it, NOT further right or higher), holding: bar chart, 25 bright green bars, heights 26/74/44/92/62/32/81/51/99/69/39/87/57/27/75/45/94/64/34/82/52/100/70/40/88% of the tallest; each bar 14px wide, 18px apart, the tallest 77px, no labels under the bars"
    ],
    [
     "order-book",

@@ -467,7 +467,7 @@
    ],
    [
     "chart",
-    "a 400x280px chart card, white (#ffffff) fill (NOT tinted, NOT pale blue), 1px #dadce0 border, a soft drop shadow, square corners, holding: bar chart \"Total by region\", 7 blue bars, heights 64/49/62/40/53/100/26% of the tallest; each bar 28px wide, 22px apart, the tallest 189px, no labels under the bars"
+    "a 400x280px chart card, white (#ffffff) fill (NOT tinted, NOT pale blue), 1px #dadce0 border, a soft drop shadow, square corners (absolutely placed, its top-left EXACTLY at 820,170 page px, floating over what is under it, NOT further right or higher), holding: bar chart \"Total by region\", 7 blue bars, heights 64/49/62/40/53/100/26% of the tallest; each bar 28px wide, 22px apart, the tallest 189px, no labels under the bars"
    ],
    [
     "sheet-tabs",
@@ -579,7 +579,7 @@
   "notes": [
    [
     "pr-header",
-    "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: 22px #1f2328 \"Cache resolved prices per session #4182\" at x 24; bold 13px #ffffff \"⤴ Open\" on a #1f883d 67x25px pill at x 24; 13px #6e7781 \"mira wants to merge 3 commits into main\" at x 103"
+    "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it; only these parts in it, NO other heading or title invented: on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): regular-weight (NOT bold) 22px #1f2328 \"Cache resolved prices per session #4182\" (its words \"#4182\" in #6e7781, the rest #1f2328) at 24,18 (its top-left inside the bar); bold 13px #ffffff \"⤴ Open\" on a #1f883d 67x25px pill at 24,54 (its top-left inside the bar); 13px #6e7781 \"mira wants to merge 3 commits into main\" at 103,59 (its top-left inside the bar)"
    ],
    [
     "tabs",

@@ -1,23 +1,23 @@
 {
   "id": "e3-code-review",
-  "at": "2026-10-24T09:10:45.440Z",
+  "at": "2026-10-24T10:12:39.466Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8789877097580099,
-    "overallV2": 0.8789877097580099,
-    "overallV1": 0.8528404193908019,
-    "colour": 0.9973225613632037,
-    "structure": 0.9678333753902225,
-    "structureStrict": 0.9515062938478374,
-    "colourAligned": 0.9973225613632037,
-    "structureAligned": 0.9678333753902225,
+    "overall": 0.7778706384515803,
+    "overallV2": 0.7778706384515803,
+    "overallV1": 0.742764503637584,
+    "colour": 0.9954157840379887,
+    "structure": 0.9464423690924609,
+    "structureStrict": 0.9245211406325925,
+    "colourAligned": 0.9954157840379887,
+    "structureAligned": 0.9464423690924609,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.892990193195944
+      "r": 0.8716505770406154
     },
-    "layout": 0.8965303593556383
+    "layout": 0.7649572649572649
   },
   "effects": {
     "recall": 1,
@@ -29,36 +29,36 @@
     "extra": []
   },
   "tokens": {
-    "input": 55965,
-    "output": 36134,
-    "cacheRead": 342053
+    "input": 48904,
+    "output": 29981,
+    "cacheRead": 172951
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 71682,
-      "output": 27040,
-      "cacheRead": 329865,
-      "toolCalls": 8,
+      "billed": 55362,
+      "output": 19700,
+      "cacheRead": 145799,
+      "toolCalls": 6,
       "tools": [
         "Glob",
+        "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
         "Read src/index.css",
-        "Write src/App.tsx",
-        "Glob",
-        "Glob"
+        "Read src/main.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 280249
+      "ms": 197309
     }
   ],
-  "reading": "The sketch builds a GitHub-style PR review page: a top title bar with an Open pill and merge text, a tab row (Conversation/Commits/Checks/Files changed), a green Review changes button, a left file-tree sidebar, a large code-diff panel, and a comments/reply panel below it.",
+  "reading": "The sketch lays out a GitHub-style PR review page: a top bar with title, Open pill, merge note, tab strip and a Review-changes button; a left file-tree sidebar; a large split-diff code panel; and a comment thread panel at the bottom of the diff area. Typed notes give exact text, sizes, colours and positions for every part.",
   "actions": [
     {
       "kind": "add",
-      "textMarks": [],
+      "textMarks": [
+        "s1"
+      ],
       "textSize": [],
       "region": [
         4,
@@ -67,39 +67,10 @@
         104
       ],
       "paths": [
-        "s0"
-      ],
-      "instruction": "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it; only these parts in it, NO other heading or titl"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s1"
-      ],
-      "textSize": [],
-      "region": [
-        28,
-        86,
-        359,
-        9
-      ],
-      "paths": [],
-      "instruction": "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 87x24 at 24,7"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1115,
-        26,
-        139,
-        28
-      ],
-      "paths": [
+        "s0",
         "s2"
       ],
-      "instruction": "green white text button \"Review changes ▾\" (143x31px, barely rounded: border-radius 6px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (e"
+      "instruction": "Create a top navigation bar, 110px tall, spanning the full page width at the very top, no fill (page background colour), with a 1px #d0d7de rule under it. Insid"
     },
     {
       "kind": "add",
@@ -114,7 +85,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "a 250x790px column at 0,110, a 1px #d0d7de rule down its right edge, 14px padding: 7 SEPARATE lines stacked top to bottom (one per line, NOT run together on one"
+      "instruction": "Add a left sidebar column, 250x790px, positioned at 0,110 just below the top bar, with a 1px #d0d7de rule down its right edge and 14px padding. Inside, stack 7 "
     },
     {
       "kind": "add",
@@ -129,7 +100,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "the region itself is ONE 990x405px panel at 270,130, no fill, a 1px #d0d7de border, 6px rounded, with its parts inside it (every one-line text part stays on ONE"
+      "instruction": "Add a diff panel, 990x405px at 270,130, no fill, 1px #d0d7de border, 6px rounded corners, right next to the sidebar. It is a single file diff shown as a side-by"
     },
     {
       "kind": "add",
@@ -144,7 +115,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "the region itself is ONE 960x171px panel at 285,355, no fill, a 1px #d0d7de border, 6px rounded, with its parts inside it (every one-line text part stays on ONE"
+      "instruction": "Below the diff hunk, add a comment-thread panel, 960x171px at 285,355, no fill, 1px #d0d7de border, 6px rounded corners. Inside: a first comment row (958x61, 1p"
     }
   ],
   "rejected": []

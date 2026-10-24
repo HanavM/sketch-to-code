@@ -1030,7 +1030,9 @@ export function factsInPage() {
             const textKids = [...k.children].filter((y) => (y.innerText || '').trim())
             if (!t) { if (filled(k) && b.width >= 12 && b.height >= 12) parts.push({ t: '', x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), fill: filled(k), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0) }); continue }
             if (textKids.length >= 2 && !filled(k) && !(parseFloat(kc.borderTopWidth) >= 1)) { walk(k); continue }
-            parts.push({ t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, it: kc.fontStyle === 'italic', ink: rgba(kc.color), fill: filled(k), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: Math.round(parseFloat(kc.borderTopWidth)), c: rgba(kc.borderTopColor) } : null, inner: textKids.length >= 2 ? textKids.map((y) => (y.innerText || '').replace(/\s+/g, ' ').trim()) : null })
+            parts.push({ t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, it: kc.fontStyle === 'italic', ink: rgba(kc.color), fill: filled(k), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: Math.round(parseFloat(kc.borderTopWidth)), c: rgba(kc.borderTopColor) } : null, inner: textKids.length >= 2 ? textKids.map((y) => (y.innerText || '').replace(/\s+/g, ' ').trim()) : null,
+              // n169: a few words inside the part in their own colour (round 16 e3 title's grey "#4182": built dark)
+              accent: textKids.length === 1 ? (() => { const y = textKids[0], yc = getComputedStyle(y), a = rgba(yc.color), o = rgba(kc.color); return a && o && (Math.abs(a.r - o.r) + Math.abs(a.g - o.g) + Math.abs(a.b - o.b)) > 40 ? { t: (y.innerText || '').replace(/\s+/g, ' ').trim(), ink: a } : null })() : null })
           }
         }
         walk(el)
@@ -1849,7 +1851,7 @@ export function factsInPage() {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
         return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && o.length <= 2 ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
           // n167: the card the chart sits on (round 16 e1: a white bordered shadowed card built as a pale blue panel) and the bars' own size
-          card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
+          card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), x: Math.round(box0.left + scrollX), y: Math.round(box0.top + scrollY), abs: /absolute|fixed/.test(cs.position), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
           barW: Math.round(r[0].width), barGap: r.length > 1 ? Math.round(r[1].left - r[0].right) : 0, tallest: Math.max(...hs) }
       }
     }
@@ -2506,7 +2508,7 @@ const sheetFill = (c) => (c.b - c.r >= 12 && c.r >= 220 ? 'pale blue' : colourNa
 const barCard = (d) => {
   const c = d.card
   if (!c || !(c.bg || c.bw >= 1 || c.shadow)) return ''
-  return `a ${c.w}x${c.h}px chart card, ${c.bg ? `${colourName(c.bg)} (${hexOf(c.bg)}) fill (NOT tinted, NOT pale blue)` : 'no fill'}${c.bw >= 1 ? `, ${Math.round(c.bw)}px ${hexOf(c.bc)} border` : ''}${c.shadow ? ', a soft drop shadow' : ''}${c.radius >= 2 ? `, ${c.radius}px rounded` : ', square corners'}, holding: `
+  return `a ${c.w}x${c.h}px chart card, ${c.bg ? `${colourName(c.bg)} (${hexOf(c.bg)}) fill (NOT tinted, NOT pale blue)` : 'no fill'}${c.bw >= 1 ? `, ${Math.round(c.bw)}px ${hexOf(c.bc)} border` : ''}${c.shadow ? ', a soft drop shadow' : ''}${c.radius >= 2 ? `, ${c.radius}px rounded` : ', square corners'}${c.abs ? ` (absolutely placed, its top-left EXACTLY at ${c.x},${c.y} page px, floating over what is under it, NOT further right or higher)` : ''}, holding: `
 }
 const barSize = (d) => d.barW ? `; each bar ${d.barW}px wide, ${d.barGap}px apart, the tallest ${d.tallest}px, no labels under the bars` : ''
 
@@ -3164,8 +3166,12 @@ function decideOne(f, page, marked, said) {
     const shape = (p) => (p.rad >= p.h / 2 - 1 ? 'pill' : p.rad ? `${p.rad}px-rounded box` : 'square box')
     const last = T.parts[T.parts.length - 1]
     const one = (p) => !p.t ? `a ${p.w}x${p.h}px ${p.rad ? `${p.rad}px-rounded ` : ''}solid ${hexOf(p.fill)} square icon (a plain block, no glyph, no picture) at x ${p.x}`
-      : `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 40)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.w}x${p.h}px ${shape(p)}` : p.border ? ` in a ${p.w}x${p.h}px ${shape(p)} with a ${p.border.px}px ${hexOf(p.border.c)} border, no fill` : ''}${p.inner ? ` (its parts spread inside it: ${p.inner.map((t) => quote(t, 20)).join(', ')})` : ''} at x ${p.x}${p === last && p.x + p.w >= f.rect.w - 60 && T.parts.length > 1 ? ' (pushed to the far right)' : ''}`
-    return { kind: 'box', note: `a top bar ${T.h}px tall across the whole page at the very top, ${T.fill ? `${hexOf(T.fill)} fill` : 'no fill (page colour)'}${T.rule ? `, a ${T.rule.px}px ${hexOf(T.rule.c)} line under it` : ''}; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: ${T.parts.map(one).join('; ')}` }
+      : `${p.bold ? 'bold ' : p.px >= 18 ? 'regular-weight (NOT bold) ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 40)}${p.accent ? ` (its words ${quote(p.accent.t, 20)} in ${hexOf(p.accent.ink)}, the rest ${hexOf(p.ink)})` : ''}${p.fill ? ` on a ${hexOf(p.fill)} ${p.w}x${p.h}px ${shape(p)}` : p.border ? ` in a ${p.w}x${p.h}px ${shape(p)} with a ${p.border.px}px ${hexOf(p.border.c)} border, no fill` : ''}${p.inner ? ` (its parts spread inside it: ${p.inner.map((t) => quote(t, 20)).join(', ')})` : ''} ${stacked ? `at ${p.x},${p.y} (its top-left inside the bar)` : `at x ${p.x}`}${p === last && p.x + p.w >= f.rect.w - 60 && T.parts.length > 1 ? ' (pushed to the far right)' : ''}`
+    // n169: parts on more than one line of the bar are placed by their own top too (round 16 e3: the pill and sub-line
+    // built centred, over the tabs below the title)
+    const stacked = T.parts.some((p) => T.parts.some((q) => q.y >= p.y + p.h - 2))
+    const parts = stacked ? [...T.parts].sort((a, b) => (Math.abs(a.y - b.y) > 8 ? a.y - b.y : a.x - b.x)) : T.parts
+    return { kind: 'box', note: `a top bar ${T.h}px tall across the whole page at the very top, ${T.fill ? `${hexOf(T.fill)} fill` : 'no fill (page colour)'}${T.rule ? `, a ${T.rule.px}px ${hexOf(T.rule.c)} line under it` : ''}; only these parts in it, NO other heading or title invented: ${stacked ? 'on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): ' : 'left to right, each at its own x from the bar\'s left, all vertically centred in the bar: '}${parts.map(one).join('; ')}` }
   }
   // n132: a plain table of same-column rows (round 9 e5 invoices: said as a 2-column list)
   if (f.rowTable && !f.regionKids.length && f.weakNote) {

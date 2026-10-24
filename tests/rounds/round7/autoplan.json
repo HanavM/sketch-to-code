@@ -65,7 +65,7 @@
    ],
    [
     "chart-tile",
-    "near-black, a 800x380px chart card, near-black (#18181b) fill (NOT tinted, NOT pale blue), 1px #3f3f46 border, 28px rounded, holding: bar chart \"WEEKLY FOCUS\", 10 bars, all dark grey (#3f3f46) except bar 4 vivid yellow (#facc15), heights 42/68/53/100/74/47/63/84/37/58% of the tallest; each bar 65px wide, 10px apart, the tallest 209px, no labels under the bars; the card exactly 800x380px, its top-left at 440,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "near-black, a 800x380px chart card, near-black (#18181b) fill (NOT tinted, NOT pale blue), 1px #3f3f46 border, 28px rounded (absolutely placed, its top-left EXACTLY at 440,480 page px, floating over what is under it, NOT further right or higher), holding: bar chart \"WEEKLY FOCUS\", 10 bars, all dark grey (#3f3f46) except bar 4 vivid yellow (#facc15), heights 42/68/53/100/74/47/63/84/37/58% of the tallest; each bar 65px wide, 10px apart, the tallest 209px, no labels under the bars; the card exactly 800x380px, its top-left at 440,480, its top 20px under the bottom of the card right above it (that card ends at y 460: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "orb",

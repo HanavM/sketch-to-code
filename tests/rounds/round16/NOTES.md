@@ -147,3 +147,21 @@ block tag; none re-run.
 Round 16 now **83%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 80, e2 85, e3 88, e4 78, e5 83).
 Vitest: same 2 env failures; typecheck clean.
 Next: header parts placed by their own top as well as x; a floating chart card's place; then write round 17 (harder).
+
+## n169: header parts placed by top as well as x, a title's grey words, a floating chart card's place (2026-10-24, ~186k billed)
+
+Planner now says: a top bar whose parts sit on more than one line (their boxes do not overlap top to bottom) places each
+part at its own top-left x,y inside the bar instead of "all vertically centred"; a big title not set bold is said
+"regular-weight (NOT bold)"; a few words inside a part in their own colour are named with that colour (the PR title's grey
+"#4182"); an absolutely placed chart card says its exact top-left. Rounds 5, 6, 7, 9, 10, 13 notes re-generated (two
+title bars now stacked label-over-value, card places, coloured words); none re-run.
+
+| page | likeness | what was off |
+|---|---|---|
+| e1 spreadsheet | 80 → **78%** | chart card at its place; toolbar fill lost, bars drawn with a shaded 3D edge (run variance) |
+| e3 code review | 88 → **78%** | header fixed (regular title, grey #4182, pill and sub-line on their own line above the tabs); but tab counts wrapped under their words, diff line numbers overlap the code, mira's reply lost |
+
+Round 16 now **82%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 78, e2 85, e3 78, e4 78, e5 83).
+Vitest: same 2 env failures; typecheck clean.
+Next: the tabs region's own part list never says nowrap; diff gutter numbers need the code to start after the gutter;
+then write round 17 (harder).

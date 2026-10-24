@@ -401,7 +401,7 @@
    ],
    [
     "chart",
-    "near-black, a 470x360px chart card, near-black (#18181b) fill (NOT tinted, NOT pale blue), 28px rounded, holding: bar chart \"Weekly builds\", 7 indigo bars, heights 30/45/40/62/70/88/100% of the tallest; each bar 47px wide, 14px apart, the tallest 220px, no labels under the bars; the card exactly 470x360px, its top-left at 40,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "near-black, a 470x360px chart card, near-black (#18181b) fill (NOT tinted, NOT pale blue), 28px rounded (absolutely placed, its top-left EXACTLY at 40,500 page px, floating over what is under it, NOT further right or higher), holding: bar chart \"Weekly builds\", 7 indigo bars, heights 30/45/40/62/70/88/100% of the tallest; each bar 47px wide, 14px apart, the tallest 220px, no labels under the bars; the card exactly 470x360px, its top-left at 40,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "code",
