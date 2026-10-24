@@ -766,6 +766,18 @@
     "off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\"; each word in its own colour: \"Maya Chen\" #111111, \"Draft of the Q3 plan attached\" #71717a"
    ],
    [
+    "m2",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 57x17 at 220,87 15px bold #111111 \"Ops bot\"; 339x16 at 220,109 14px #71717a \"Weekly uptime: 99.98%\""
+   ],
+   [
+    "m3",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 63x17 at 220,158 15px bold #111111 \"Leo Park\"; 339x16 at 220,180 14px #71717a \"Lunch Thursday?\""
+   ],
+   [
+    "m4",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 46x17 at 220,229 15px bold #111111 \"Billing\"; 339x16 at 220,251 14px #71717a \"Your invoice for October\""
+   ],
+   [
     "subject",
     "\"Draft of the Q3 plan attached\", 26px type on ONE line (white-space: nowrap, never wrapped), about 355px wide; set BOLD (font-weight 700), NOT regular"
    ],

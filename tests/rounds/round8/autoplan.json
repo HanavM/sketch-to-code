@@ -447,7 +447,7 @@
    ],
    [
     "compose",
-    "a 440x470px #ffffff window FLOATING over the page (on top of the reader, flush to the page bottom, 20px from the right edge; 12px top corners only; a big soft shadow): a 42px #1f2937 title bar across its top with bold white \"New message\" at the left and \"— ⤢ ✕\" at the right; under it a ruled field row: grey \"To\" then dark \"maya@lumen.io\"; a ruled field row: grey \"Subject\" then dark \"Re: Venue contract, final\"; the message body \"Signed and attached. Great work getting the hold extended!\" (a tall empty area under it); a pill #4f46e5 \"Send\" button with white bold text at the bottom left"
+    "a 440x470px #ffffff window FLOATING over the page (on top of the reader, its top-left EXACTLY at 820,430 page px so its whole 470px height shows inside the first screen, NOT pushed below it; flush to the page bottom, 20px from the right edge; 12px top corners only; a big soft shadow): a 42px #1f2937 title bar across its top with bold white \"New message\" at the left and \"— ⤢ ✕\" at the right; under it a ruled field row: #6b7280 \"To\" then dark \"maya@lumen.io\"; a ruled field row: #6b7280 \"Subject\" then dark \"Re: Venue contract, final\"; the message body \"Signed and attached. Great work getting the hold extended!\" (dark text, a tall empty area under it); a pill #4f46e5 \"Send\" button with white bold text at the bottom left"
    ]
   ]
  },

@@ -585,8 +585,9 @@ export function factsInPage() {
         if (bs.some((b) => Math.abs(b.top - bs[0].top) > 4) || bs.some((b, i) => i && b.left < bs[i - 1].right - 2)) return null
         const out = kids.map((k) => {
           const h = k.firstElementChild, hc = h && getComputedStyle(h)
-          const head = h && Number(hc.fontWeight) >= 600 ? (h.innerText || '').trim() : null
           const all = (k.innerText || '').replace(/\s+/g, ' ').trim()
+          // n181: the head must open the column (round 18 e1: 'TO DO <span>6</span>' read the trailing count as the head)
+          const head = h && Number(hc.fontWeight) >= 600 && all.startsWith((h.innerText || '').replace(/\s+/g, ' ').trim()) ? (h.innerText || '').trim() : null
           // the body's rendered line count (round 6 c2: one-line columns built wrapping to two)
           const kb = k.getBoundingClientRect(), lh = parseFloat(getComputedStyle(k).lineHeight) || parseFloat(getComputedStyle(k).fontSize) * 1.2
           const bodyH = kb.bottom - (h ? h.getBoundingClientRect().bottom + (parseFloat(hc.marginBottom) || 0) : kb.top)
@@ -1534,16 +1535,21 @@ export function factsInPage() {
     {
       const hd = el.firstElementChild, hs = hd && getComputedStyle(hd), hf = hd && filled(hd)
       const lumH = hf ? 0.299 * hf.r + 0.587 * hf.g + 0.114 * hf.b : 255
-      if (cs.boxShadow !== 'none' && /absolute|fixed/.test(cs.position) && hf && lumH < 90 && txt(hd) && hd.getBoundingClientRect().height <= 60 && el.children.length >= 3) {
+      // n181: a light title bar on a white window counts too (round 18 e4: a #f2f6fc bar was said as 4 lines, the window lost off the bottom)
+      const wf = filled(el), hk0 = hd ? [...hd.children].map(txt).filter(Boolean) : [], lightBar = hk0.length >= 2 && hk0[hk0.length - 1].length <= 8 && hf && wf && Math.abs(hf.r - wf.r) + Math.abs(hf.g - wf.g) + Math.abs(hf.b - wf.b) >= 6
+      if (cs.boxShadow !== 'none' && /absolute|fixed/.test(cs.position) && hf && (lumH < 90 || lightBar) && txt(hd) && hd.getBoundingClientRect().height <= 60 && el.children.length >= 3) {
         const own = el.getBoundingClientRect(), hb = hd.getBoundingClientRect()
         const rest = [...el.children].slice(1).filter((k) => txt(k))
-        const btn = rest.find((k) => filled(k) && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 8 && txt(k).length <= 14)
-        const rows = rest.filter((k) => k !== btn).map((k) => {
+        const isBtn = (k) => filled(k) && parseFloat(getComputedStyle(k).borderTopLeftRadius) >= 8 && txt(k).length <= 14
+        const btn = rest.find(isBtn) || rest.flatMap((k) => [...k.querySelectorAll('*')]).find((k) => isBtn(k) && !k.children.length && k.getBoundingClientRect().top - own.top > own.height * 0.6)
+        const foot = btn && rest.find((k) => k !== btn && k.contains(btn))
+        const tools = foot ? [...foot.children].filter((k) => k !== btn).map(txt).filter(Boolean) : []
+        const rows = rest.filter((k) => k !== btn && k !== foot).map((k) => {
           const val = [...k.children].find((c) => txt(c)), ks = getComputedStyle(k)
           return { label: val ? txt(k).replace(txt(val), '').trim() : null, value: val ? txt(val) : txt(k), ruled: parseFloat(ks.borderBottomWidth) >= 1, h: Math.round(k.getBoundingClientRect().height), labelInk: rgba(ks.color) }
         })
-        const icons = [...hd.children].map(txt).filter(Boolean)
-        return { type: 'window', w: Math.round(own.width), h: Math.round(own.height), right: Math.round(1280 - own.right), bottom: Math.round(900 - own.bottom), radius: cs.borderTopLeftRadius === cs.borderBottomLeftRadius ? Math.round(parseFloat(cs.borderTopLeftRadius)) : `${Math.round(parseFloat(cs.borderTopLeftRadius))}px top corners only`, bar: { fill: hf, ink: rgba(hs.color), h: Math.round(hb.height), t: txt(hd).replace(icons.join(' '), '').trim(), icons: icons.join(' ') }, rows, btn: btn ? { t: txt(btn), fill: filled(btn), ink: rgba(getComputedStyle(btn).color), pill: parseFloat(getComputedStyle(btn).borderTopLeftRadius) >= 99 } : null, fill: filled(el) }
+        const hk = [...hd.children].map(txt).filter(Boolean), icons = hk.length >= 2 ? hk.slice(1) : hk // n181: the first child is the title, not an icon
+        return { type: 'window', w: Math.round(own.width), h: Math.round(own.height), right: Math.round(1280 - own.right), bottom: Math.round(900 - own.bottom), radius: cs.borderTopLeftRadius === cs.borderBottomLeftRadius ? Math.round(parseFloat(cs.borderTopLeftRadius)) : `${Math.round(parseFloat(cs.borderTopLeftRadius))}px top corners only`, bar: { fill: hf, ink: rgba(hs.color), h: Math.round(hb.height), t: txt(hd).replace(icons.join(' '), '').trim(), icons: icons.join(' ') }, rows, btn: btn ? { t: txt(btn), fill: filled(btn), ink: rgba(getComputedStyle(btn).color), pill: parseFloat(getComputedStyle(btn).borderTopLeftRadius) >= 99 } : null, tools, fill: filled(el), x: Math.round(own.left + scrollX), y: Math.round(own.top + scrollY) }
       }
     }
     // round 8 e5: a docs article (breadcrumb, title, copy with inline code, a dark code block, a callout, a table) was said
@@ -2706,7 +2712,7 @@ function denseNote(d) {
       if (p.px <= 13) return `small ${p.px}px ${colourName(p.ink)} line ${quote(p.t, 60)}${/›|>|\//.test(p.t) ? ' (a breadcrumb)' : ''}`
       return `${p.px}px ${colourName(p.ink)} paragraph ${quote(p.t, 220)}${p.code.length ? ` with inline code ${p.code.map((c) => `${quote(c.t, 16)} (${hexOf(c.ink)} monospace on a ${c.fill ? hexOf(c.fill) : 'grey'} rounded chip)`).join(', ')}` : ''}`
     }).join('; then ')}${d.parts.some((p) => p.kind === 'table' && p.rows.flat().length) ? '; code words in the table are monospace, not status pills' : ''}${d.parts.every((p) => p.y != null) ? `; the first line sits flush at the article's top (no padding above), and each block's top is exactly this far down from it: ${d.parts.map((p) => `${p.kind === 'text' ? (p.px <= 13 ? 'breadcrumb' : 'paragraph') : p.kind} ${p.y}px`).join(', ')}` : ''}`
-    case 'window': return `a ${d.w}x${d.h}px ${d.fill ? hexOf(d.fill) : 'white'} window FLOATING over the page (on top of the reader, ${d.bottom <= 2 ? 'flush to the page bottom' : `${d.bottom}px above the page bottom`}, ${d.right}px from the right edge; ${typeof d.radius === 'string' ? d.radius : `${d.radius}px rounded`}; a big soft shadow): a ${d.bar.h}px ${hexOf(d.bar.fill)} title bar across its top with bold ${colourName(d.bar.ink)} ${quote(d.bar.t, 24)} at the left${d.bar.icons ? ` and ${quote(d.bar.icons, 12)} at the right` : ''}; under it ${d.rows.map((r) => r.label ? `a ${r.ruled ? 'ruled ' : ''}field row: ${colourName(r.labelInk)} ${quote(r.label, 12)} then dark ${quote(r.value, 40)}` : `the message body ${quote(r.value, 80)} (a tall empty area under it)`).join('; ')}${d.btn ? `; a ${d.btn.pill ? 'pill' : 'rounded'} ${hexOf(d.btn.fill)} ${quote(d.btn.t)} button with ${colourName(d.btn.ink)} bold text at the bottom left` : ''}`
+    case 'window': return `a ${d.w}x${d.h}px ${d.fill ? hexOf(d.fill) : 'white'} window FLOATING over the page (on top of the reader, ${d.x != null ? `its top-left EXACTLY at ${d.x},${d.y} page px so its whole ${d.h}px height shows inside the first screen, NOT pushed below it; ` : ''}${d.bottom <= 2 ? 'flush to the page bottom' : `${d.bottom}px above the page bottom`}, ${d.right}px from the right edge; ${typeof d.radius === 'string' ? d.radius : `${d.radius}px rounded`}; a big soft shadow): a ${d.bar.h}px ${hexOf(d.bar.fill)} title bar across its top with bold ${colourName(d.bar.ink)} ${quote(d.bar.t, 24)} at the left${d.bar.icons ? ` and ${quote(d.bar.icons, 12)} at the right` : ''}; under it ${d.rows.map((r) => r.label ? `a ${r.ruled ? 'ruled ' : ''}field row: ${hexOf(r.labelInk)} ${quote(r.label, 12)} then dark ${quote(r.value, 40)}` : r.ruled ? `a ruled subject row: grey ${quote(r.value, 40)}` : `the message body ${quote(r.value, 120)} (dark text, a tall empty area under it)`).join('; ')}${d.btn ? `; a ${d.btn.pill ? 'pill' : 'rounded'} ${hexOf(d.btn.fill)} ${quote(d.btn.t)} button with ${colourName(d.btn.ink)} bold text at the bottom left${d.tools?.length ? `, then small grey icons ${quote(d.tools.join(' '), 24)} in a row after it` : ''}` : ''}`
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
     case 'rtable': {
       const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
@@ -2974,7 +2980,7 @@ function round10Note(f) {
     return { kind: 'text', note: `a box-drawing frame as live ${Math.round(f.font.size)}px ${faceName(f.font.family) || 'mono'} ${hexOf(f.colour)} text in a <pre> (white-space: pre, line-height ${Math.round(f.font.lineHeight)}px) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, NOT a bordered div, NOT a picture; exactly these lines: ${f.preText.split('\n').map((l) => `"${l}"`).join(' / ')}` }
   }
   const C = f.chipLines
-  if (C && C.lines.length >= 3 && C.lines.some((l) => l.chip) && C.chipFill?.a > 0.5) {
+  if (C && C.lines.length >= 3 && C.lines.some((l) => l.chip) && C.chipFill?.a > 0.5 && f.dense?.type !== 'window') {
     return { kind: 'text', note: `exactly ${C.lines.length} ${C.px}px ${faceName(f.font.family) || 'mono'} ${hexOf(f.colour)} lines (line-height ${C.lh}px) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, nothing else invented: ${C.lines.map((l) => l.chip ? `"${l.t.replace(new RegExp(`\\s*${l.chip}$`), '')}" then a "${l.chip}" chip` : `"${l.t}"`).join(' / ')}; each chip a solid ${hexOf(C.chipFill)} label with ${hexOf(C.chipInk)} text, 6px side padding, square corners` }
   }
   return null
@@ -4682,7 +4688,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role), P = (f.parts ?? []).filter((p) => p.w * p.h < 0.97 * f.rect.w * f.rect.h)
     if (f.codeLines) return
-    if (P.length < 3 || P.length > 100) return
+    // n181: a region left with no note at all is said part by part even with 1-2 parts (round 18 e1 collapsed lane
+    // '▸ Growth 6 issues · collapsed': unsaid, an invented 'Load more issues' row built in its place)
+    if ((P.length < 3 && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
     const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
     const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
     const frame = !d.kind && f.regionKids.length && P.filter((p) => p.t).length >= 3
@@ -4722,8 +4730,22 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const unsaidPaint = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.w * p.h >= 10000 && ((p.img && /^linear-gradient/.test(p.img) && !/gradient/.test(own)) || (p.ring && !/outline|ring/.test(own)) || (p.border?.style === 'dashed' && !/dashed/i.test(own)))).length >= 2
     // n161: a panel whose own background paints a picture with a gradient (round 15 e3 map: the road and its pins lost)
     const bgPic = d.kind && !f.regionKids.length && /^linear-gradient/.test(f.bgImage ?? '') && !/gradient/.test(d.note ?? '') && P.filter((p) => p.t).length >= 3 && f.rect.w * f.rect.h >= 40000
+    // n181: a small card turned on its own over the page (round 18 e1 dragged card: said only 'tilted 4° clockwise white
+    // card', so the tilt went onto the first lane and the card itself was lost)
+    const turned = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h < 0.15 * 1280 * 900 && T.length >= 2 && T.filter((t) => (d.note ?? '').includes(t)).length < T.length
+    if (turned) {
+      const L = f.layoutBox, sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}` : ''
+      const hx = (c) => hexOf(c)
+      const say = [...P].sort((a, b) => a.y - b.y || a.x - b.x).map((q) => q.t ? `${q.px}px ${q.bold ? 'bold ' : ''}${hx(q.ink)} ${quote(q.t, 60)}${q.fill ? ` on a ${hx(q.fill)} ${q.radius ? 'pill' : 'chip'}` : ''}` : `a ${q.w}x${q.h} ${q.fill ? `${hx(q.fill)} ` : ''}${q.radius >= Math.min(q.w, q.h) / 2 - 1 ? (Math.abs(q.w - q.h) <= 2 ? 'circle' : 'pill bar') : 'block'}`)
+      out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} card${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS CARD ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: ${say.join(', ')}` })
+      marked.add(f.role)
+      return
+    }
     if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic) return
-    const note = partsNote(P, f)
+    let note = partsNote(P, f)
+    // n181: the region's own words outside its parts (a lane head's '▸ Growth' before its count span)
+    const rest = d && !d.note && P.length < 3 && f.text ? P.reduce((t, p) => (p.t ? t.replace(p.t, '') : t), f.text.replace(/\s+/g, ' ')).trim() : ''
+    if (rest) note = `one row starting at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: first bold ${hexOf(f.colour)} ${quote(rest, 40)}, then on the same line ${note}`
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
     // n155: the region's own panel (its fill, edge and rounding) said before its parts (round 14 e4 alerts column: the
     // parts built loose on the page, the #121722 bordered panel behind them lost)

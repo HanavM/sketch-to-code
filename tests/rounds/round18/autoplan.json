@@ -380,6 +380,10 @@
    [
     "hollow-number",
     "italic peach \"07 of twenty-four\"; its text #ffb37a (peach, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; the word \"07\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 1.5px #ffb37a), same size and weight as the rest"
+   ],
+   [
+    "progress-ring",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 1 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 60x33 at 1120,743 30px bold Helvetica/Arial sans-serif (NOT the page serif) #f5e9d7 \"29%\""
    ]
   ]
  },
@@ -619,7 +623,7 @@
    ],
    [
     "column-heads",
-    "4 columns side by side, 12px apart, each a small bold 12px head over 12px text (each column 301px wide, its text on ONE line, no wrap): \"6\" over \"O DO 6\"; \"5 / MAX 4\" over \"SS 5 / MAX 4\"; \"3\" over \"N REVIEW 3\"; \"9\" over \"ONE 9\"; each word in its own colour: \"TO DO 6\" #5e6c84, \"IN PROGRESS 5 / MAX 4\" #de350b, \"IN REVIEW 3\" #5e6c84, \"DONE 9\" #5e6c84"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 301x26 at 20,72 padding-left 10px (its text starts at x 30): 12px bold #5e6c84 \"TO DO\"; 301x26 at 333,72 padding-left 10px (its text starts at x 343): 12px bold #de350b \"IN PROGRESS\"; 301x26 at 646,72 padding-left 10px (its text starts at x 656): 12px bold #5e6c84 \"IN REVIEW\"; 301x26 at 959,72 padding-left 10px (its text starts at x 969): 12px bold #5e6c84 \"DONE\"; 7x14 at 304,78 12px bold #5e6c84 \"6\"; 58x14 at 566,78 12px bold #de350b \"5 / MAX 4\"; 7x14 at 930,78 12px bold #5e6c84 \"3\"; 7x14 at 1243,78 12px bold #5e6c84 \"9\""
    ],
    [
     "lane-payments",
@@ -630,8 +634,12 @@
     "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 38 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 1240x27 at 20,404 13px bold #172b4d \"▾ Mobile app\"; 48x15 at 110,410 13px #5e6c84 \"7 issues\"; 301x250 at 20,431 #ebecf0 fill, 6px rounded; 301x250 at 333,431 #ebecf0 fill, 6px rounded; 301x250 at 646,431 #ebecf0 fill, 6px rounded; 301x250 at 959,431 #ebecf0 fill, 6px rounded; 285x93 at 28,439 #ffffff fill, 4px rounded; 285x93 at 341,439 #ffffff fill, 4px rounded; 285x93 at 654,439 #ffffff fill, 4px rounded; 285x62 at 967,439 #ffffff fill, 4px rounded, 70% opacity; 40x6 at 38,449 #00b8d9 fill, pill ends; 40x6 at 82,449 #ff5630 fill, pill ends; 40x6 at 351,449 #36b37e fill, pill ends; 40x6 at 664,449 #6554c0 fill, pill ends; 132x15 at 977,450 13px #172b4d \"App Store screenshots\"; 265x18 at 38,466 13px #172b4d \"Crash on Android 12 when rotating\"; 265x18 at 351,466 13px #172b4d \"Offline cart sync\"; 265x18 at 664,466 13px #172b4d \"Biometric login\"; 18x14 at 1224,477 #dfe1e6 fill, pill ends: 11px #5e6c84 \"1\"; 43x12 at 977,478 11px bold #5e6c84 \"ATL-270\"; 28x28 at 275,494 #6554c0 fill, 2px #ffffff border, a circle; 28x28 at 588,494 #ff8b00 fill, 2px #ffffff border, a circle; 28x28 at 901,494 #36b37e fill, 2px #ffffff border, a circle; 18x14 at 172,501 #dfe1e6 fill, pill ends: 11px #5e6c84 \"5\"; 18x14 at 485,501 #dfe1e6 fill, pill ends: 11px #5e6c84 \"8\"; 18x14 at 798,501 #dfe1e6 fill, pill ends: 11px #5e6c84 \"5\"; 43x12 at 38,502 11px bold #5e6c84 \"ATL-322\"; 43x12 at 351,502 11px bold #5e6c84 \"ATL-304\"; 43x12 at 664,502 11px bold #5e6c84 \"ATL-299\"; 285x62 at 28,540 #ffffff fill, 4px rounded; 285x76 at 341,540 #ffffff fill, 4px rounded; 265x18 at 38,550 13px #172b4d \"Dark mode icons\"; 265x18 at 351,550 13px #172b4d \"Push opt-in screen\"; 18x14 at 285,577 #dfe1e6 fill, pill ends: 11px #5e6c84 \"2\"; 28x28 at 588,577 #00b8d9 fill, 2px #ffffff border, a circle; 43x12 at 38,578 11px bold #5e6c84 \"ATL-325\"; 18x14 at 485,584 #dfe1e6 fill, pill ends: 11px #5e6c84 \"3\"; 43x12 at 351,585 11px bold #5e6c84 \"ATL-309\""
    ],
    [
+    "lane-collapsed",
+    "one row starting at 20,704: first bold #172b4d \"▸ Growth\", then on the same line part by part (page px: size, then top-left x,y; each part its own real element with live text, all 1 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 114x15 at 88,710 13px #5e6c84 \"6 issues · collapsed\""
+   ],
+   [
     "dragged-card",
-    "tilted 4° clockwise white card"
+    "ONE 300x93px #ffffff card, 4px rounded, position absolute with its top-left at 520,300 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(9, 30, 66, 0.35) 0px 12px 24px 0px; transform: rotate(4deg) on THIS CARD ONLY (tilted 4° clockwise; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: a 40x9 #ff5630 block, 13px #172b4d \"Checkout button double-charges on slow 3G\", 11px bold #5e6c84 \"ATL-330\", 11px #5e6c84 \"13\" on a #dfe1e6 pill, a 30x30 #ff8b00 circle"
    ]
   ]
  },
@@ -697,7 +705,7 @@
    ],
    [
     "autocomplete",
-    "near-black, a 360x90px #252526 window FLOATING over the page (on top of the reader, 488px above the page bottom, 360px from the right edge; 0px rounded; a big soft shadow): a 22px #04395e title bar across its top with bold white \"region\" at the left and \"◆\" at the right; under it a field row: light grey \"regionCode\" then dark \"◆\"; a field row: light grey \"returnable\" then dark \"◆\"; a field row: light grey \"reserve()\" then dark \"ƒ\"; each word in its own colour: \"◆region\" #ffffff, \"◆regionCode\" #cccccc, \"◆returnable\" #cccccc, \"ƒreserve()\" #cccccc"
+    "near-black, a 360x90px #252526 window FLOATING over the page (on top of the reader, its top-left EXACTLY at 560,322 page px so its whole 90px height shows inside the first screen, NOT pushed below it; 488px above the page bottom, 360px from the right edge; 0px rounded; a big soft shadow): a 22px #04395e title bar across its top with bold white \"region\" at the left and \"◆\" at the right; under it a field row: #cccccc \"regionCode\" then dark \"◆\"; a field row: #cccccc \"returnable\" then dark \"◆\"; a field row: #cccccc \"reserve()\" then dark \"ƒ\"; each word in its own colour: \"◆region\" #ffffff, \"◆regionCode\" #cccccc, \"◆returnable\" #cccccc, \"ƒreserve()\" #cccccc"
    ],
    [
     "terminal",
@@ -803,7 +811,7 @@
    ],
    [
     "compose-window",
-    "text"
+    "box"
    ]
   ],
   "notes": [
@@ -825,7 +833,7 @@
    ],
    [
     "compose-window",
-    "exactly 4 13px Helvetica #202124 lines (line-height 0px) at 820,430, nothing else invented: \"Re: Q4 venue contract– ⤢ ✕To Priya RamanRe: Q4 venue contract — final draft75 days works for us. On AV overtime, let's split it 50/50 after 11pm and cap it at three hours.\" then a \"Re: Q4 venue contract\" chip / \"\" / \"Thanks for pushing this through!\" / \"HSend ▾A📎🔗😊🗑\" then a \"Send ▾\" chip; each chip a solid #e8eaed label with #202124 text, 6px side padding, square corners"
+    "a 440x470px #ffffff window FLOATING over the page (on top of the reader, its top-left EXACTLY at 820,430 page px so its whole 470px height shows inside the first screen, NOT pushed below it; flush to the page bottom, 20px from the right edge; 10px top corners only; a big soft shadow): a 40px #f2f6fc title bar across its top with bold near-black \"Re: Q4 venue contract\" at the left and \"– ⤢ ✕\" at the right; under it a ruled field row: #5f6368 \"To\" then dark \"Priya Raman\"; a ruled subject row: grey \"Re: Q4 venue contract — final draft\"; the message body \"75 days works for us. On AV overtime, let's split it 50/50 after 11pm and cap it at three hours. Thanks for pushing\"… (dark text, a tall empty area under it); a rounded #0b57d0 \"Send ▾\" button with white bold text at the bottom left, then small grey icons \"A 📎 🔗 😊 🗑\" in a row after it"
    ]
   ]
  },
