@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T15:53Z | n177 gantt bars by exact px, lead line size | e1 78 to 79 (bars on their days), c5 91 to 92; round 17 88. ~139k.
 2026-10-24T15:27Z | n176 inline words, drop cap, wrap round the orb, paint order, pills | c4 78 to 88, c1 79 to 81, c5 90 to 91; round 17 88. ~276k.
 2026-10-24T14:40Z | n175 transparent stops, vertical type, clipped strip, log table cells | c2 82 to 94, e2 73 to 94, c5 78 to 90, c3 83; round 17 86. ~391k.
 2026-10-24T14:10Z | n174 collapsed target regions, group layout match | 8 flat regions fixed; c2 82 (real layout 85), e1 59 to 78; round 17 82. ~172k.
