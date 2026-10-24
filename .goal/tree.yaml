@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 15 is written, harder (text running round circles, misprinted giant numbers, folded paper, modals and popovers): first three pages built, the bank modal at 95%, the creative tricks still lost; next teaching the planner those tricks."
 round: 15
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 72]
-lock: null
+lock: {by: "run-20261024T0239", until: "2026-10-24T04:09Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
