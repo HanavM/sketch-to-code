@@ -122,7 +122,7 @@ Vitest: same 2 env failures; typecheck clean.
 | c2 brutal grid | 72% → **86%** | the ruled grid had been said as "filling the page edge to edge", so it was built flush top-left. It is now said as set inside the page with its 30px margin, its exact width and top-left, and a 4px outer frame on all four sides. Built right: margin, full frame, and the headline in capitals at last. Left: the hollow "26" spills past the bottom of its cell (target clips it); the header bar is inset a little |
 | e4 email client | 71% → **73%** | a two-line paragraph was cut at 70 letters and the build invented the rest; any wrapped block of two lines or more now keeps its whole copy, and the compose body is said word for word with its line breaks. The "To" name is said as a small grey pill chip. Built right: the reading pane and compose words now match the target exactly, chip right. Left: message rows a little tight |
 
-Rounds 1-17 plans re-generated: long two-line copy now kept whole on a few pages (rounds 8, 9, 12, 15, 17); no grid changes (round 6's grid really is edge to edge).
+Rounds 1-17 plans re-generated: long two-line copy now kept whole on a few pages (rounds 8, 9, 12, 15, 17); no other grid plan changed.
 
 Round 18, latest build each: **85%** (c1 90, c2 86, c3 88, c4 82, c5 90, e1 73, e2 95, e3 87, e4 73, e5 90).
 Vitest: same 2 env failures; typecheck clean.
