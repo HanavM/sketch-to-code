@@ -1,24 +1,24 @@
 {
   "id": "c4-duotone-split",
-  "at": "2026-10-24T21:00:11.395Z",
+  "at": "2026-10-24T22:09:09.565Z",
   "likeness": {
     "version": 3,
-    "overall": 0.82368150985761,
-    "overallV2": 0.82368150985761,
-    "overallV1": 0.7985682579951909,
-    "colour": 0.9630973662650274,
-    "structure": 0.9011067437445232,
-    "structureStrict": 0.8525904072999884,
-    "colourAligned": 0.9630973662650274,
-    "structureAligned": 0.9011067437445232,
+    "overall": 0.817762368010845,
+    "overallV2": 0.817762368010845,
+    "overallV1": 0.7431657997114482,
+    "colour": 0.9405188367823276,
+    "structure": 0.869513539030414,
+    "structureStrict": 0.7254002945550077,
+    "colourAligned": 0.9405188367823276,
+    "structureAligned": 0.869513539030414,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9821238705013964
+      "r": 0.9166146817476626
     },
-    "layout": 0.674214137694451,
-    "layoutV1": 0.6319727583841062,
+    "layout": 0.764862528864067,
+    "layoutV1": 0.7226211495537223,
     "layoutVersion": 2
   },
   "boxes": [
@@ -37,11 +37,32 @@
       900
     ],
     [
+      1,
+      600,
       0,
-      0,
-      0,
-      742,
+      680,
       900
+    ],
+    [
+      0,
+      0,
+      0,
+      1272,
+      894
+    ],
+    [
+      3,
+      598,
+      0,
+      674,
+      894
+    ],
+    [
+      3,
+      0,
+      2,
+      738,
+      890
     ],
     [
       0,
@@ -67,16 +88,9 @@
     [
       0,
       94,
-      57,
+      49,
       128,
-      30
-    ],
-    [
-      0,
-      90,
-      230,
-      566,
-      391
+      24
     ],
     [
       0,
@@ -88,9 +102,9 @@
     [
       0,
       100,
-      818,
-      163,
-      24
+      811,
+      183,
+      27
     ],
     [
       0,
@@ -117,22 +131,22 @@
       0,
       820,
       430,
-      203,
-      164
+      158,
+      156
     ],
     [
-      13,
+      15,
       820,
       430,
-      203,
+      158,
       110
     ],
     [
-      13,
+      15,
       820,
-      547,
-      203,
-      40
+      544,
+      158,
+      42
     ],
     [
       0,
@@ -142,32 +156,46 @@
       140
     ],
     [
-      16,
-      1080,
-      690,
-      140,
-      140
-    ],
-    [
-      17,
+      18,
       1090,
       700,
       120,
       120
     ],
     [
-      17,
+      18,
       1090,
       700,
       120,
       120
     ],
     [
-      17,
+      18,
       1120,
       743,
       60,
       33
+    ],
+    [
+      0,
+      90,
+      230,
+      601,
+      391
+    ],
+    [
+      22,
+      90,
+      230,
+      601,
+      196
+    ],
+    [
+      22,
+      90,
+      426,
+      601,
+      196
     ]
   ],
   "groupMatched": [
@@ -184,10 +212,9 @@
     }
   ],
   "effects": {
-    "recall": 1,
+    "recall": 0.9166666666666666,
     "kept": [
       "blend",
-      "clip-shape",
       "hollow-type",
       "huge-type",
       "italic",
@@ -199,59 +226,45 @@
       "tilt",
       "vertical-type"
     ],
-    "missing": [],
+    "missing": [
+      "clip-shape"
+    ],
     "extra": []
   },
   "tokens": {
-    "input": 46436,
-    "output": 25012,
-    "cacheRead": 248468
+    "input": 71077,
+    "output": 39311,
+    "cacheRead": 258684
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49980,
-      "output": 16436,
-      "cacheRead": 235098,
+      "billed": 84656,
+      "output": 28554,
+      "cacheRead": 245154,
       "toolCalls": 10,
       "tools": [
+        "Read components/SketchShape.tsx",
         "Glob",
-        "Read components/CircularPercentage.tsx",
         "Read src/App.tsx",
-        "Glob",
         "Read src/main.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Read s2c-bench-app/index.html",
-        "Write components/CircularPercentage.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 172981
+      "ms": 313011
     }
   ],
-  "reading": "A two-panel editorial hero: a cream angled cut-out panel on the left carries vertical rail labels, a lead word, a huge two-line italic headline, a body paragraph and a link; a dark gradient panel on the right carries glow colours, a 3-line mono photo-metadata block, a huge hollow '07 of twenty-four' caption, and a circular SVG progress ring.",
+  "reading": "This is a dark, editorial two-column hero: the right side is a gradient/glow panel with a striped overlay, metadata text, a '07 of twenty-four' counter and an SVG progress ring; the left side is a cream angled cutout panel carrying vertical nav-style words, a giant italic 'Dusk Hours' headline, an 'ÉCLIPSE' lead line, a descriptive paragraph and a 'VIEW THE SERIES →' link. Every visual detail (colors, exact type, positions, the SVG markup) is spelled out in the typed notes, which take precedence over the rough ink.",
   "actions": [
     {
       "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        603,
-        3,
-        674,
-        894
-      ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Dark gradient block, exactly 680x900px with top-left at 600,0 (position absolute). Under two soft colour glows the block's own fill is linear-gradient(160deg,#2"
-    },
-    {
-      "kind": "add",
       "textMarks": [
-        "s13",
-        "s14"
+        "s13"
       ],
       "textSize": [
         {
@@ -265,54 +278,12 @@
       ],
       "region": [
         824,
-        430,
+        458,
         102,
-        129
+        8
       ],
       "paths": [],
-      "instruction": "Caption 'italic peach \"07 of twenty-four\"' sitting on the dark gradient block, no fill/bar of its own, text colour #ffb37a. The word '07' is HOLLOW (outline onl"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s10",
-        "s11",
-        "s12"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s10",
-            "s11",
-            "s12"
-          ],
-          "lines": 3,
-          "fontPx": 13
-        }
-      ],
-      "region": [
-        904,
-        60,
-        312,
-        58
-      ],
-      "paths": [],
-      "instruction": "Three one-line mono metadata labels in #cbb9a3, 12px monospace, each its own element, white-space:nowrap, min-width (never forced onto two lines): 'PLATE 07 / 2"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1083,
-        693,
-        133,
-        133
-      ],
-      "paths": [
-        "s15"
-      ],
-      "instruction": "Circular progress indicator, no border/box/frame or background around it — only the SVG's own shapes show. 140x140px, top-left at page 1080,690 (position absolu"
+      "instruction": "Dark gradient block, 680x900px, top-left at 600,0 (position absolute): two soft edgeless radial glows inside it — orange (#ff5a36) centred at 70% 75%, fading to"
     },
     {
       "kind": "design",
@@ -320,14 +291,15 @@
       "textSize": [],
       "region": [
         5,
-        5,
-        738,
-        890
+        3,
+        1272,
+        894
       ],
       "paths": [
+        "s0",
         "s1"
       ],
-      "instruction": "Cream angled cut-out panel, ONE flat #f5e9d7 fill via clip-path (no gradient, shading or texture of its own); the drawn outline is only a guide, never kept as a"
+      "instruction": "Cream (#f5e9d7) angled cut-out panel, flat fill with no gradient/shading/texture of its own: box 742x900px at top-left 0,0, clip-path polygon(0% 0%, 100% 0%, 66"
     },
     {
       "kind": "add",
@@ -342,7 +314,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Wide-spaced vertical rail labels 'FILMS STILLS JOURNAL' sitting on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820. Each word its own eleme"
+      "instruction": "Wide-spaced vertical nav words on the cream panel, text color #101820 (near-black, not the page's cream), each word its own element, writing-mode vertical-rl ro"
     },
     {
       "kind": "add",
@@ -357,7 +329,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Wide-spaced lead word 'ÉCLIPSE' on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820, set large at 20px (a lead line, not body text), ~128px "
+      "instruction": "Wide-spaced lead line 'ÉCLIPSE' on the cream panel, text color #101820 (near-black), set at 20px, ~128px wide on one line, no background of its own."
     },
     {
       "kind": "add",
@@ -382,7 +354,7 @@
         391
       ],
       "paths": [],
-      "instruction": "Giant Georgia italic bold headline that colour-inverts where it crosses what's under it, tight-set (line-height 0.85), exactly 2 lines 'Dusk' / 'Hours' (keep th"
+      "instruction": "Giant Georgia italic bold (font-weight 700) headline on the cream panel, tight line-height 0.85, 230px type, exactly 2 lines 'Dusk' / 'Hours' (keep these breaks"
     },
     {
       "kind": "add",
@@ -409,7 +381,7 @@
         90
       ],
       "paths": [],
-      "instruction": "Dark grey body paragraph on the cream #f5e9d7 panel, no fill/bar of its own, text colour #3a3a3a: \"A photographer's year spent chasing the twenty minutes after "
+      "instruction": "Dark grey (#3a3a3a) paragraph on the cream panel: \"A photographer's year spent chasing the twenty minutes after sunset, across nine cities and one long winter.\""
     },
     {
       "kind": "add",
@@ -424,7 +396,73 @@
         8
       ],
       "paths": [],
-      "instruction": "Bold link 'VIEW THE SERIES →' with a 2px underline (no surrounding box, not a button), on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820."
+      "instruction": "Bold link 'VIEW THE SERIES →' with a 2px underline (plain link, not a button), text color #101820 (near-black) on the cream panel, no background of its own."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        904,
+        60,
+        312,
+        58
+      ],
+      "paths": [],
+      "instruction": "Three separate monospace metadata lines, 12px, color #cbb9a3, each its own real element kept on one line (white-space nowrap, min-width not fixed width): 'PLATE"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 58
+        }
+      ],
+      "region": [
+        824,
+        522,
+        63,
+        8
+      ],
+      "paths": [],
+      "instruction": "Italic peach (#ffb37a) counter 'of twenty-four' on a line below a much bigger hollow word '07': '07' is outline-only (color transparent, -webkit-text-stroke 1.5"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1083,
+        693,
+        133,
+        133
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Inline SVG progress ring, 140x140px, top-left at 1080,690 (position absolute), no border/frame/background around it — only the SVG's own shapes: a dark grey tra"
     }
   ],
   "rejected": [

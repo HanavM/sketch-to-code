@@ -1389,7 +1389,7 @@ export function factsInPage() {
             // n183: the part's own font family, raw background and outer shadow (round 18 c2: Impact headline on a mono page,
             // the case card's hard shadow and the CTA's offset shadow unsaid)
             fam: s.fontFamily.split(',')[0].replace(/["']/g, '').trim(), bgc: rgba(s.backgroundColor), outShadow: s.boxShadow !== 'none' && !/inset/.test(s.boxShadow) ? s.boxShadow : null,
-            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0,
+            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, strike: own ? /line-through/.test(s.textDecorationLine) : false, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0,
             // n175: vertical type (round 17 c5 '99.99%' set vertical-rl turned 180deg, built horizontal), a line wider than the
             // tile that clips it (the logo strip built spilling out of its tile), and its CSS animation
             vert: own && /^vertical/.test(s.writingMode) ? (/^matrix\(-1,/.test(s.transform) ? 'up' : 'down') : null,
@@ -1405,6 +1405,9 @@ export function factsInPage() {
       pseudoPic: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw >= 40 && ph >= 40) || pw > 200 || ph > 200 || pw >= r.width * 0.6) continue; const g = [...c.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])).filter(Boolean); const fl = rgba(c.backgroundColor); if (!g.length && !(fl?.a > 0.05)) continue; return { w: Math.round(pw), h: Math.round(ph), grad: g.length >= 2 ? g : null, fill: fl?.a > 0.05 ? fl : null, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
       // a big solid shape painted by ::before/::after over a photo backdrop (round 7 e4 jacket: over 200px, unsaid)
       pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
+      // n187: a striped overlay painted by ::before/::after over the whole block (round 18 c4 photo: repeating-linear-gradient
+      // scan lines, multiply-blended, never said)
+      pseudoLines: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (!c.content || c.content === 'none' || !/repeating-(linear|radial)-gradient/.test(c.backgroundImage)) continue; if (!(parseFloat(c.width) >= r.width * 0.9 && parseFloat(c.height) >= r.height * 0.9)) continue; return { w, img: c.backgroundImage, blend: c.mixBlendMode !== 'normal' ? c.mixBlendMode : null } } return null })(),
       // a 2px+ outline ring round the block (a selected thumbnail, round 7 e4)
       ring: (() => { const ow = parseFloat(cs.outlineWidth) || 0; return ow >= 2 && cs.outlineStyle !== 'none' ? { w: Math.round(ow), off: Math.round(parseFloat(cs.outlineOffset) || 0), colour: rgba(cs.outlineColor) } : null })(),
       // small square handles sitting on the block's corners (a selected layer in a design tool, round 8 e3: lost)
@@ -3100,6 +3103,8 @@ function partsNote(P, f) {
     const tk = p.t ? p.t.split(/\s+/) : []
     const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.t}"${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
+    // n187: a struck title (round 18 e1 Done cards: <s> text built plain and wrapped)
+    if (p.strike) paint.push(`STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap)`)
     if (p.ra) paint.push('text right-aligned in its box (a line number in the gutter)')
     // n170: a text part padded in from its left (round 16 e3 diff rows: padding-left 52px past the gutter numbers, built
     // with the code starting over the numbers)
@@ -3288,6 +3293,9 @@ function round11Note(f) {
 function round11Extra(f, d) {
   if (!d) return d
   let note = d.note ?? ''
+  // n187: thin stripes laid over the whole block by a pseudo-element (round 18 c4 scan lines over the photo: lost)
+  const SL = f.pseudoLines
+  if (SL && !/repeating-(linear|radial)-gradient/.test(note)) note += `${note ? '; ' : ''}laid OVER the whole block a see-through STRIPED overlay (a ${SL.w} pseudo-element, position absolute, inset 0, pointer-events none, background: ${SL.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return !c ? m : c.a < 0.05 ? 'transparent' : c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : hexOf(c) })}${SL.blend ? `; mix-blend-mode: ${SL.blend}` : ''}): fine thin horizontal lines across the whole block, the glows still showing through`
   const O = f.oddWords
   const faceSay = (w) => w.face ? `${w.face.italic ? 'italic ' : ''}${/georgia|serif/i.test(w.face.family) && !/sans-serif/i.test(w.face.family) ? `serif (font-family ${w.face.family.replace(/"/g, '')}) ` : ''}${w.face.weight <= 300 ? 'thin ' : w.face.weight >= 700 ? 'bold ' : 'regular-weight '}` : ''
   const OC = O?.filter((w) => !w.face || Math.hypot(w.c.r - f.colour.r, w.c.g - f.colour.g, w.c.b - f.colour.b) > 60)

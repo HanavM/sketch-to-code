@@ -1,24 +1,24 @@
 {
   "id": "e1-kanban-swimlanes",
-  "at": "2026-10-24T21:55:17.359Z",
+  "at": "2026-10-24T22:15:38.820Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8743894179708007,
-    "overallV2": 0.8743894179708007,
-    "overallV1": 0.8720271670680313,
-    "colour": 0.9987279152249608,
-    "structure": 0.982366186601541,
-    "structureStrict": 0.9798815904831847,
-    "colourAligned": 0.9987279152249608,
-    "structureAligned": 0.982366186601541,
+    "overall": 0.9066756260200637,
+    "overallV2": 0.9066756260200637,
+    "overallV1": 0.9010746807899752,
+    "colour": 0.9971534001547544,
+    "structure": 0.969863626430342,
+    "structureStrict": 0.9639725981905012,
+    "colourAligned": 0.9971534001547544,
+    "structureAligned": 0.969863626430342,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9826284871312325
+      "r": 0.9605579677392898
     },
-    "layout": 0.6655090756702395,
-    "layoutV1": 0.33217574233690617,
+    "layout": 0.8478131793901875,
+    "layoutV1": 0.5144798460568542,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,873 +34,740 @@
       0,
       0,
       1280,
-      56
+      760
     ],
     [
       1,
+      0,
+      0,
+      1280,
+      56
+    ],
+    [
+      2,
       20,
       15,
       129,
       26
     ],
     [
-      1,
+      2,
       165,
       12,
       260,
       32
     ],
     [
-      1,
+      4,
+      176,
+      18,
+      90,
+      20
+    ],
+    [
+      2,
       441,
       14,
       94,
       28
     ],
     [
-      4,
+      6,
       441,
       14,
       28,
       28
     ],
     [
-      4,
+      6,
       463,
       14,
       28,
       28
     ],
     [
-      4,
+      6,
       485,
       14,
       28,
       28
     ],
     [
-      4,
+      6,
       507,
       14,
       28,
       28
     ],
     [
-      1,
+      2,
       545,
-      15,
+      16,
       115,
       25
     ],
     [
-      1,
+      2,
       677,
-      15,
+      16,
       128,
       25
     ],
     [
-      1,
+      2,
       1141,
-      15,
+      16,
       119,
       25
     ],
     [
-      0,
-      0,
-      0,
-      1280,
-      900
-    ],
-    [
-      12,
+      1,
       20,
       72,
       301,
       26
     ],
     [
-      13,
-      30,
-      76,
-      38,
-      18
-    ],
-    [
-      12,
+      1,
       304,
       78,
       7,
       18
     ],
     [
-      12,
+      1,
       333,
       72,
       301,
       26
     ],
     [
-      16,
-      343,
-      76,
-      83,
-      18
-    ],
-    [
-      12,
+      1,
       566,
       78,
       53,
       18
     ],
     [
-      12,
+      1,
       646,
       72,
       301,
       26
     ],
     [
-      19,
-      656,
-      76,
-      63,
-      18
-    ],
-    [
-      12,
+      1,
       930,
       78,
       7,
       18
     ],
     [
-      12,
+      1,
       959,
       72,
       301,
       26
     ],
     [
-      22,
-      969,
-      76,
-      35,
-      18
-    ],
-    [
-      12,
+      1,
       1243,
       78,
       7,
       18
     ],
     [
-      12,
+      1,
       20,
       104,
       1240,
       27
     ],
     [
-      25,
-      20,
-      108,
-      72,
-      20
-    ],
-    [
-      12,
+      1,
       104,
       110,
       48,
       20
     ],
     [
-      12,
+      1,
       20,
       131,
       301,
       250
     ],
     [
-      12,
+      1,
       333,
       131,
       301,
       250
     ],
     [
-      12,
+      1,
       646,
       131,
       301,
       250
     ],
     [
-      12,
+      1,
       959,
       131,
       301,
       250
     ],
     [
-      12,
+      1,
       28,
       139,
       285,
       93
     ],
     [
-      12,
-      341,
-      139,
-      285,
-      70
-    ],
-    [
-      12,
-      654,
-      139,
-      285,
-      93
-    ],
-    [
-      12,
-      967,
-      139,
-      285,
-      62
-    ],
-    [
-      12,
+      1,
       38,
       149,
       40,
       6
     ],
     [
-      12,
-      664,
-      149,
-      40,
-      6
-    ],
-    [
-      12,
-      977,
-      150,
-      129,
-      34
-    ],
-    [
-      12,
+      1,
       38,
       166,
       265,
       17
     ],
     [
-      12,
-      664,
-      166,
-      265,
-      17
-    ],
-    [
-      12,
-      1224,
-      177,
-      18,
-      14
-    ],
-    [
-      41,
-      1230,
-      179,
-      6,
-      11
-    ],
-    [
-      12,
-      977,
-      178,
-      43,
-      17
-    ],
-    [
-      12,
+      1,
       275,
       194,
       28,
       28
     ],
     [
-      12,
-      901,
-      194,
-      28,
-      28
-    ],
-    [
-      12,
+      1,
       171,
       201,
       18,
       14
     ],
     [
-      46,
-      177,
-      203,
-      6,
-      11
-    ],
-    [
-      12,
-      798,
-      201,
-      18,
-      14
-    ],
-    [
-      48,
-      804,
-      203,
-      6,
-      11
-    ],
-    [
-      12,
+      1,
       38,
       202,
       42,
       17
     ],
     [
-      12,
+      1,
+      341,
+      139,
+      285,
+      70
+    ],
+    [
+      1,
+      654,
+      139,
+      285,
+      93
+    ],
+    [
+      1,
+      664,
+      149,
+      40,
+      6
+    ],
+    [
+      1,
+      664,
+      166,
+      265,
+      17
+    ],
+    [
+      1,
+      901,
+      194,
+      28,
+      28
+    ],
+    [
+      1,
+      798,
+      201,
+      18,
+      14
+    ],
+    [
+      1,
       664,
       202,
       43,
       17
     ],
     [
-      12,
+      1,
+      967,
+      139,
+      285,
+      62
+    ],
+    [
+      1,
+      977,
+      150,
+      129,
+      34
+    ],
+    [
+      1,
+      1224,
+      177,
+      18,
+      14
+    ],
+    [
+      1,
+      977,
+      178,
+      43,
+      17
+    ],
+    [
+      1,
       967,
       209,
       285,
       62
     ],
     [
-      12,
-      341,
-      217,
-      285,
-      93
-    ],
-    [
-      12,
+      1,
       977,
       220,
       64,
       34
     ],
     [
-      12,
-      351,
-      227,
-      40,
-      6
-    ],
-    [
-      12,
-      28,
-      240,
-      285,
-      93
-    ],
-    [
-      12,
-      351,
-      244,
-      265,
-      17
-    ],
-    [
-      12,
+      1,
       1224,
       246,
       18,
       14
     ],
     [
-      58,
-      1230,
-      248,
-      6,
-      11
-    ],
-    [
-      12,
+      1,
       977,
       247,
       43,
       17
     ],
     [
-      12,
-      38,
-      250,
+      1,
+      341,
+      217,
+      285,
+      93
+    ],
+    [
+      1,
+      351,
+      227,
       40,
       6
     ],
     [
-      12,
-      38,
-      267,
+      1,
+      351,
+      244,
       265,
       17
     ],
     [
-      12,
+      1,
       588,
       272,
       28,
       28
     ],
     [
-      12,
+      1,
       485,
       279,
       18,
       14
     ],
     [
-      64,
-      491,
-      281,
-      6,
-      11
-    ],
-    [
-      12,
+      1,
       351,
       280,
       43,
       17
     ],
     [
-      12,
+      1,
+      28,
+      240,
+      285,
+      93
+    ],
+    [
+      1,
+      38,
+      250,
+      40,
+      6
+    ],
+    [
+      1,
+      38,
+      267,
+      265,
+      17
+    ],
+    [
+      1,
       275,
       294,
       28,
       28
     ],
     [
-      12,
+      1,
       172,
       301,
       18,
       14
     ],
     [
-      68,
-      178,
-      303,
-      6,
-      11
-    ],
-    [
-      12,
+      1,
       38,
       302,
       43,
       17
     ],
     [
-      12,
+      1,
       20,
       404,
       1240,
       27
     ],
     [
-      71,
-      20,
-      408,
-      78,
-      20
-    ],
-    [
-      12,
+      1,
       110,
       410,
       48,
       20
     ],
     [
-      12,
+      1,
       20,
       431,
       301,
       250
     ],
     [
-      12,
+      1,
       333,
       431,
       301,
       250
     ],
     [
-      12,
+      1,
       646,
       431,
       301,
       250
     ],
     [
-      12,
+      1,
       959,
       431,
       301,
       250
     ],
     [
-      12,
+      1,
       28,
       439,
       285,
       93
     ],
     [
-      12,
-      341,
-      439,
-      285,
-      93
-    ],
-    [
-      12,
-      654,
-      439,
-      285,
-      93
-    ],
-    [
-      12,
-      967,
-      439,
-      285,
-      62
-    ],
-    [
-      12,
+      1,
       38,
       449,
       40,
       6
     ],
     [
-      12,
+      1,
       82,
       449,
       40,
       6
     ],
     [
-      12,
-      351,
-      449,
-      40,
-      6
-    ],
-    [
-      12,
-      664,
-      449,
-      40,
-      6
-    ],
-    [
-      12,
-      977,
-      450,
-      132,
-      17
-    ],
-    [
-      12,
+      1,
       38,
       466,
       265,
       17
     ],
     [
-      12,
-      351,
-      466,
-      265,
-      17
-    ],
-    [
-      12,
-      664,
-      466,
-      265,
-      17
-    ],
-    [
-      12,
-      1224,
-      477,
-      18,
-      14
-    ],
-    [
-      90,
-      1230,
-      479,
-      6,
-      11
-    ],
-    [
-      12,
-      977,
-      478,
-      43,
-      17
-    ],
-    [
-      12,
+      1,
       275,
       494,
       28,
       28
     ],
     [
-      12,
-      588,
-      494,
-      28,
-      28
-    ],
-    [
-      12,
-      901,
-      494,
-      28,
-      28
-    ],
-    [
-      12,
+      1,
       172,
       501,
       18,
       14
     ],
     [
-      96,
-      178,
-      503,
-      6,
-      11
+      1,
+      38,
+      502,
+      43,
+      17
     ],
     [
-      12,
+      1,
+      341,
+      439,
+      285,
+      93
+    ],
+    [
+      1,
+      351,
+      449,
+      40,
+      6
+    ],
+    [
+      1,
+      351,
+      466,
+      265,
+      17
+    ],
+    [
+      1,
+      588,
+      494,
+      28,
+      28
+    ],
+    [
+      1,
       485,
       501,
       18,
       14
     ],
     [
-      98,
-      491,
-      503,
-      6,
-      11
+      1,
+      351,
+      502,
+      43,
+      17
     ],
     [
-      12,
+      1,
+      654,
+      439,
+      285,
+      93
+    ],
+    [
+      1,
+      664,
+      449,
+      40,
+      6
+    ],
+    [
+      1,
+      664,
+      466,
+      265,
+      17
+    ],
+    [
+      1,
+      901,
+      494,
+      28,
+      28
+    ],
+    [
+      1,
       798,
       501,
       18,
       14
     ],
     [
-      100,
-      804,
-      503,
-      6,
-      11
-    ],
-    [
-      12,
-      38,
-      502,
-      43,
-      17
-    ],
-    [
-      12,
-      351,
-      502,
-      43,
-      17
-    ],
-    [
-      12,
+      1,
       664,
       502,
       43,
       17
     ],
     [
-      12,
+      1,
+      967,
+      439,
+      285,
+      62
+    ],
+    [
+      1,
+      977,
+      450,
+      132,
+      17
+    ],
+    [
+      1,
+      1224,
+      477,
+      18,
+      14
+    ],
+    [
+      1,
+      977,
+      478,
+      43,
+      17
+    ],
+    [
+      1,
       28,
       540,
       285,
       62
     ],
     [
-      12,
-      341,
-      540,
-      285,
-      76
-    ],
-    [
-      12,
+      1,
       38,
       550,
       265,
       17
     ],
     [
-      12,
-      351,
-      550,
-      265,
-      17
-    ],
-    [
-      12,
+      1,
       285,
       577,
       18,
       14
     ],
     [
-      109,
-      291,
-      579,
-      6,
-      11
-    ],
-    [
-      12,
-      588,
-      577,
-      28,
-      28
-    ],
-    [
-      12,
+      1,
       38,
       578,
       43,
       17
     ],
     [
-      12,
+      1,
+      341,
+      540,
+      285,
+      76
+    ],
+    [
+      1,
+      351,
+      550,
+      265,
+      17
+    ],
+    [
+      1,
+      588,
+      577,
+      28,
+      28
+    ],
+    [
+      1,
       485,
       584,
       18,
       14
     ],
     [
-      113,
-      491,
-      586,
-      6,
-      11
-    ],
-    [
-      12,
+      1,
       351,
       585,
       43,
       17
     ],
     [
-      12,
+      1,
       20,
       704,
-      56,
+      1240,
       20
     ],
     [
-      116,
-      20,
-      704,
-      56,
-      20
-    ],
-    [
-      12,
+      1,
       88,
       710,
       114,
       20
     ],
     [
-      12,
+      1,
       517,
       290,
       306,
       114
     ],
     [
-      119,
+      101,
       532,
       300,
       41,
       12
     ],
     [
-      119,
+      101,
       531,
       317,
-      266,
-      35
+      280,
+      36
     ],
     [
-      119,
+      101,
       528,
       353,
       44,
       19
     ],
     [
-      119,
-      668,
-      362,
-      25,
-      16
+      101,
+      752,
+      361,
+      19,
+      15
     ],
     [
-      123,
-      674,
-      364,
-      13,
-      12
-    ],
-    [
-      119,
+      101,
       777,
-      360,
+      361,
       32,
       32
     ]
@@ -940,31 +807,34 @@
     "extra": []
   },
   "tokens": {
-    "input": 69207,
-    "output": 46840,
-    "cacheRead": 205037
+    "input": 64284,
+    "output": 33457,
+    "cacheRead": 373648
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 78052,
-      "output": 29656,
-      "cacheRead": 191760,
-      "toolCalls": 7,
+      "billed": 67984,
+      "output": 20692,
+      "cacheRead": 360266,
+      "toolCalls": 10,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 277983
+      "ms": 194932
     }
   ],
-  "reading": "The sketch is a Jira-style sprint board: a top bar box, two column-header rows of squiggles, two labeled swimlane rows of squiggles (Payments and Mobile app), a collapsed Growth lane row, and a box that is a special floating/tilted card — all content is fully specified by the typed notes attached to each stroke group.",
+  "reading": "The sketch lays out a Jira-style sprint board: a 56px top bar, a column-header row (TO DO / IN PROGRESS / IN REVIEW / DONE), two full swimlanes with kanban cards ('Payments' and 'Mobile app'), a collapsed 'Growth' row, and a floating, slightly-tilted highlight card for an urgent issue. Typed notes give pixel-exact content, colors and sizing for every part, plus a page-wide style note (pale grey background, Helvetica, dark teal text).",
   "actions": [
     {
       "kind": "add",
@@ -979,14 +849,12 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a 56px-tall top bar spanning the full page width, #ffffff fill with a 1px #dfe1e6 line under it. Only these parts, left to right, each at its own x from the"
+      "instruction": "Add a top bar 56px tall spanning the full page width at the very top: #ffffff fill, 1px #dfe1e6 border-bottom line. Content left to right, vertically centred: b"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s1",
-        "s2",
-        "s3"
+        "s1"
       ],
       "textSize": [
         {
@@ -1000,12 +868,12 @@
       ],
       "region": [
         24,
-        69,
+        81,
         1232,
-        77
+        9
       ],
       "paths": [],
-      "instruction": "Add the column header row for the board, each its own element with live text, one line, nowrap (word+count never wraps apart, width is a minimum not fixed): 301"
+      "instruction": "Below the top bar add a column-header row with 4 header blocks (301x26px, 10px left padding) and small issue-count labels, all real live-text elements, one-line"
     },
     {
       "kind": "add",
@@ -1020,7 +888,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add the \"Payments\" swimlane section with all 39 real content parts, nothing invented, nothing left out, text one-line/nowrap where noted: 1240x27 header at 20,1"
+      "instruction": "Add the 'Payments' swimlane (bold 13px #172b4d header '▾ Payments' at 20,104 with 13px #5e6c84 '8 issues' at 104,110) containing 4 column lane backgrounds (301x"
     },
     {
       "kind": "add",
@@ -1045,7 +913,7 @@
         48
       ],
       "paths": [],
-      "instruction": "Add the \"Mobile app\" swimlane section with all 38 real content parts, nothing invented, nothing left out, text one-line/nowrap where noted: 1240x27 header at 20"
+      "instruction": "Add the 'Mobile app' swimlane (bold 13px #172b4d header '▾ Mobile app' at 20,404 with 13px #5e6c84 '7 issues' at 110,410) containing 4 column lane backgrounds ("
     },
     {
       "kind": "add",
@@ -1060,7 +928,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a collapsed \"Growth\" lane row starting at 20,704: bold #172b4d \"▸ Growth\", then on the same line \"6 issues · collapsed\" 13px #5e6c84 at 88,710."
+      "instruction": "Add a collapsed swimlane row starting at 20,704: bold #172b4d '▸ Growth' followed on the same line by 13px #5e6c84 '6 issues · collapsed' at 88,710."
     },
     {
       "kind": "add",
@@ -1075,8 +943,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add one 300x93px #ffffff card, 4px rounded, position absolute with its top-left at 520,300 page px (before its turn), floating above everything beneath it (z-in"
+      "instruction": "Add ONE floating 300x93px #ffffff card, 4px rounded, positioned absolute with top-left at 520,300 (before rotation), floating above all content beneath it (high"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

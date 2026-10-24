@@ -138,3 +138,15 @@ Rounds 1-17 plans re-generated: unchanged.
 
 Round 18, latest build each: **87%** (c1 90, c2 87, c3 88, c4 82, c5 90, e1 87, e2 95, e3 87, e4 73, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n187: a struck title said struck; scan lines over a block said as their own overlay (2026-10-24, ~208k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| e1 kanban swimlanes | 87% → **91%** | the Done cards' titles are set in an inner struck-through element, which the planner never looked at; any struck text part is now said STRUCK THROUGH. Built right: all three Done titles struck and faded. Left: two of them still wrap onto a second line (said one line) |
+| c4 duotone split | 82% → **82%** | the photo's scan lines are painted by a pseudo-element laid over it (a repeating stripe gradient, multiply-blended) and were never said; a stripe overlay over a whole block is now said with its exact gradient and blend. Built right: fine scan lines across the whole photo, glows showing through. Left: the photo's own slanted left edge (a dark wedge between the cream and the glows), the cream shape's bottom edge kept wavy from the drawing |
+
+Rounds 1-17 plans re-generated: struck words now said on round 7 (old price, sold-out sizes), round 14 and round 17 (a done task); nothing else moved.
+
+Round 18, latest build each: **87%** (c1 90, c2 87, c3 88, c4 82, c5 90, e1 91, e2 95, e3 87, e4 73, e5 90).
+Vitest: same 2 env failures; typecheck clean.

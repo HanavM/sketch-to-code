@@ -1117,7 +1117,7 @@
    ],
    [
     "sizes",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 90x44 at 730,390 #f9fafb fill, 1px #d1d5db border, 8px rounded: 14px #d1d5db \"XS\"; 90x44 at 830,390 1px #d1d5db border, 8px rounded: 14px #111827 \"S\"; 90x44 at 930,390 2px #111827 border, 8px rounded: 14px bold #111827 \"M\"; 90x44 at 1030,390 1px #d1d5db border, 8px rounded: 14px #111827 \"L\"; 90x44 at 1130,390 #f9fafb fill, 1px #d1d5db border, 8px rounded: 14px #d1d5db \"XL\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 90x44 at 730,390 #f9fafb fill, 1px #d1d5db border, 8px rounded, STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap): 14px #d1d5db \"XS\"; 90x44 at 830,390 1px #d1d5db border, 8px rounded: 14px #111827 \"S\"; 90x44 at 930,390 2px #111827 border, 8px rounded: 14px bold #111827 \"M\"; 90x44 at 1030,390 1px #d1d5db border, 8px rounded: 14px #111827 \"L\"; 90x44 at 1130,390 #f9fafb fill, 1px #d1d5db border, 8px rounded, STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap): 14px #d1d5db \"XL\""
    ],
    [
     "add-to-bag",
