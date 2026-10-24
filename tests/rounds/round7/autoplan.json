@@ -250,6 +250,10 @@
    [
     "skyline-front",
     "drawn shapes, no picture, no box: flat near-black indigo (#0b0617) city-skyline silhouette: ONE filled SVG polygon of flat-topped blocks standing on the bottom edge, 1280px wide, no outlines, no windows, no gradient; 12 rooftops left to right (page px, x from-to at y px down): 0-120 at 790, 120-200 at 740, 200-340 at 810, 340-400 at 720, 400-460 at 690, 460-600 at 780, 600-720 at 750, 720-860 at 820, 860-940 at 730, 940-1060 at 770, 1060-1140 at 710, 1140-1280 at 800; the shape is filled solid from each rooftop down to 900px (exact polygon points: 0,900 0,790 120,790 120,740 200,740 200,810 340,810 340,720 400,720 400,690 460,690 460,780 600,780 600,750 720,750 720,820 860,820 860,730 940,730 940,770 1060,770 1060,710 1140,710 1140,800 1280,800 1280,900)"
+   ],
+   [
+    "scroll-rail",
+    "a thin VERTICAL progress rail, NOT text: a 4x400px #ffffff track bar with its top-left at 1220,200; inside it one lit #fde68a segment 4x140px at 0,0 from the track's top-left (the rest of the track unlit)"
    ]
   ]
  },
@@ -907,7 +911,7 @@
    ],
    [
     "activity-bar",
-    "near-black block (no picture), 4 small rounded squares (22px) stacked down from its top 16px apart: first sky blue, the rest dark grey"
+    "near-black (#11111b) block (no picture), 4 small rounded squares (22px) stacked down from its top 16px apart: first sky blue #89b4fa, the rest dark grey #45475a"
    ],
    [
     "file-tree",

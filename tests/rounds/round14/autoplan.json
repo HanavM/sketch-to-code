@@ -69,11 +69,11 @@
    ],
    [
     "wave-word",
-    "scrolling colour-inverting where it crosses what is under it the one word \"FLUXION\" in giant Helvetica cream letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): F 120px weight 100, L 160px weight 300, U 200px weight 500, X 240px weight 900, I 200px weight 500, O 160px weight 300, N 120px weight 100; about 1200px wide, white-space: nowrap; no other copy here (not a paragraph)"
+    "scrolling colour-inverting where it crosses what is under it the one word \"FLUXION\" in giant Helvetica cream letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned): F 120px weight 100 (left edge at x 40), L 160px weight 300 (left edge at x 191), U 200px weight 500 (left edge at x 358), X 240px weight 900 (left edge at x 580), I 200px weight 500 (left edge at x 818), O 160px weight 300 (left edge at x 951), N 120px weight 100 (left edge at x 1153); the letters are SPREAD across the whole 1200px-wide row from x 40 to x 1240 (display: flex; justify-content: space-between; width 1200px), wide even gaps between letters, NOT packed together in the middle, white-space: nowrap; no other copy here (not a paragraph)"
    ],
    [
     "axes-row",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 101x16 at 60,673 14px mono #151515 \"wght 100–900\"; 93x16 at 427,673 14px mono #151515 \"wdth 75–125\"; 84x16 at 786,673 14px mono #151515 \"slnt −12–0\"; 84x16 at 1136,673 14px mono #151515 \"opsz 8–144\""
+    "the region itself is ONE 1160x29px panel at 60,660, no fill, a 1px #151515 rule along its TOP edge only (no other border), with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 101x16 at 60,673 14px mono #151515 \"wght 100–900\"; 93x16 at 427,673 14px mono #151515 \"wdth 75–125\"; 84x16 at 786,673 14px mono #151515 \"slnt −12–0\"; 84x16 at 1136,673 14px mono #151515 \"opsz 8–144\""
    ],
    [
     "cta",
@@ -407,11 +407,11 @@
    ],
    [
     "progress-rail",
-    "deep green"
+    "a thin VERTICAL progress rail, NOT text: a 4x600px #244042 track bar with its top-left at 40,120; inside it one lit #c9f27a segment 4x230px at 0,0 from the track's top-left (the rest of the track unlit)"
    ],
    [
     "chapter-list",
-    "mono \"01 Dawn 02 Ridge 03 Pass 04 Lake\"; its text #6f8f8a (grey, NOT the page's off-white text)"
+    "4 short 12px mono labels stacked straight down, each label ONE ordinary horizontal line of upright text (NOT vertical writing, NOT rotated, NOT turned), 150px apart (line-height 150px), all left-aligned at x 60: \"01 Dawn\" at y 184 #c9f27a; \"02 Ridge\" at y 334 #6f8f8a; \"03 Pass\" at y 484 #6f8f8a; \"04 Lake\" at y 634 #6f8f8a"
    ],
    [
     "chapter",
@@ -420,6 +420,10 @@
    [
     "headline",
     "huge Georgia serif regular weight (not bold) \"Three hundred kilometres of morning\", set in exactly 3 lines: \"Three hundred\" / \"kilometres of\" / \"morning\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 445px wide); the word \"morning\" is italic serif (font-family Georgia, serif) regular-weight peach #f9c46b (its own colour; the other words stay #e9f1ee)"
+   ],
+   [
+    "copy",
+    "17px Helvetica lavender (#a9c2bc) copy in 2 lines, 440px wide, top-left at 124,420, quoted whole (these exact words, nothing invented): \"We walked the old salt road from the coast to the high lakes. Scroll to follow the light as it climbs the valley.\""
    ],
    [
     "scroll-cue",
@@ -547,7 +551,7 @@
    ],
    [
     "detail-drawer",
-    "white card \"ATL-198 ✕\" \"Billing page redesign\" list: \"Status\" IN PROGRESS, \"Assignee\" Lena Weiss, \"Priority\" MEDIUM, \"Due\" Nov 4; then under the list, in this order: \"Checklist 2/3\", grey lines \"Wireframes approved\" / \"Invoice table component\" / \"Payment method modal\"; list rows exactly 28px apart (18px tall, 13px type: tight, not roomier), first line 25px below the panel's top"
+    "the region itself is ONE 400x844px panel at 880,56, #ffffff fill, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 17 of them, nothing invented, nothing left out): 59x14 at 905,81 12px #6b778c \"ATL-198 ✕\"; 351x23 at 905,103 20px bold #172b4d \"Billing page redesign\"; 110x18 at 905,140 13px #6b778c \"Status\"; 92x18 at 1015,140 #e9f2ff fill, 4px rounded: 11px bold #0c66e4 \"IN PROGRESS\"; 351x15 at 905,168 13px #172b4d \"Lena Weiss\"; 110x15 at 905,168 13px #6b778c \"Assignee\"; 110x18 at 905,193 13px #6b778c \"Priority\"; 61x18 at 1015,193 #fff7d6 fill, 4px rounded: 11px bold #7f5f01 \"MEDIUM\"; 351x15 at 905,221 13px #172b4d \"Nov 4\"; 110x15 at 905,221 13px #6b778c \"Due\"; 351x65 at 905,254 1px #dfe1e6 border, 6px rounded: 13px #172b4d \"Move plans, invoices and payment method onto one page. Keep the current URL so old links still work.\"; 80x15 at 905,337 13px bold #172b4d \"Checklist 2/3\"; 351x8 at 905,358 #dfe1e6 fill, pill ends; 232x8 at 905,358 #22a06b fill, pill ends; 351x15 at 905,380 13px #172b4d \"Wireframes approved\"; 351x15 at 905,403 13px #172b4d \"Invoice table component\"; 351x15 at 905,426 13px #172b4d \"Payment method modal\""
    ]
   ]
  },
@@ -655,7 +659,7 @@
   "notes": [
    [
     "header",
-    "\"Men · Women · Trail · Sale 🔍 ♡ Bag (2)\" and text"
+    "bold 18px \"NORTHWIND\" logo text at the left (n156), then \"Men · Women · Trail · Sale 🔍 ♡ Bag (2)\""
    ],
    [
     "breadcrumb",
@@ -667,7 +671,7 @@
    ],
    [
     "product-image",
-    "warm paper to cream gradient; ON it (inside the block, not under it) a small caption chip at 16,16 in the block: 11px sans-serif #ffffff \"NEW\" on a solid #1a1a1a 46x22px label"
+    "a 520x600px block, 12px rounded, NOT a picture or photo: its background is exactly radial-gradient(circle at 50% 45%, #f6d9c3 0px, #f6d9c3 28%, #f2ece6 29%) (a flat disc with a HARD edge on a flat field, not a soft fade); ON it (inside the block, not under it) a small caption chip at 16,16 in the block: 11px sans-serif #ffffff \"NEW\" on a solid #1a1a1a 46x22px label"
    ],
    [
     "buy-box",
@@ -675,7 +679,7 @@
    ],
    [
     "ratings",
-    "the region itself is ONE 510x133px panel at 720,640, no fill, a 1px #e6e6e6 rule along its TOP edge only (no other border), with its parts inside it; \"Ratings 5★ 72% 4★ 18% 3★ 6% 2★ 3%\"; each word in its own colour: \"Ratings\" #1a1a1a, \"5★ 72%\" #555555, \"4★ 18%\" #555555, \"3★ 6%\" #555555, \"2★ 3%\" #555555; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 13 of them, nothing invented, nothing left out): 510x18 at 720,659 16px bold #1a1a1a \"Ratings\"; 510x15 at 720,689 12px #555555 \"5★ 72%\"; 447x8 at 749,693 #eeeeee fill, pill ends; 322x8 at 749,693 #f5a623 fill, pill ends; 510x15 at 720,710 12px #555555 \"4★ 18%\"; 447x8 at 749,714 #eeeeee fill, pill ends; 80x8 at 749,714 #f5a623 fill, pill ends; 510x15 at 720,731 12px #555555 \"3★ 6%\"; 453x8 at 749,735 #eeeeee fill, pill ends; 27x8 at 749,735 #f5a623 fill, pill ends; 510x15 at 720,752 12px #555555 \"2★ 3%\"; 453x8 at 749,756 #eeeeee fill, pill ends; 14x8 at 749,756 #f5a623 fill, pill ends"
+    "the region itself is ONE 510x133px panel at 720,640, no fill, a 1px #e6e6e6 rule along its TOP edge only (no other border), with its parts inside it; \"Ratings 5★ 72% 4★ 18% 3★ 6% 2★ 3%\"; each word in its own colour: \"Ratings\" #1a1a1a, \"5★ 72%\" #555555, \"4★ 18%\" #555555, \"3★ 6%\" #555555, \"2★ 3%\" #555555; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 13 of them, nothing invented, nothing left out): 510x18 at 720,659 16px bold #1a1a1a \"Ratings\"; 510x15 at 720,689 a row: 12px #555555 \"5★\" at the left (x 720), then the bar(s) from x 749 to 1196, then \"72%\" right after the bar ends; the text is NEVER printed over the bar; 447x8 at 749,693 #eeeeee fill, pill ends; 322x8 at 749,693 #f5a623 fill, pill ends; 510x15 at 720,710 a row: 12px #555555 \"4★\" at the left (x 720), then the bar(s) from x 749 to 1196, then \"18%\" right after the bar ends; the text is NEVER printed over the bar; 447x8 at 749,714 #eeeeee fill, pill ends; 80x8 at 749,714 #f5a623 fill, pill ends; 510x15 at 720,731 a row: 12px #555555 \"3★\" at the left (x 720), then the bar(s) from x 749 to 1202, then \"6%\" right after the bar ends; the text is NEVER printed over the bar; 453x8 at 749,735 #eeeeee fill, pill ends; 27x8 at 749,735 #f5a623 fill, pill ends; 510x15 at 720,752 a row: 12px #555555 \"2★\" at the left (x 720), then the bar(s) from x 749 to 1202, then \"3%\" right after the bar ends; the text is NEVER printed over the bar; 453x8 at 749,756 #eeeeee fill, pill ends; 14x8 at 749,756 #f5a623 fill, pill ends"
    ],
    [
     "features",
@@ -759,7 +763,7 @@
   "notes": [
    [
     "app-rail",
-    "dark grey block (no picture), 4 small rounded squares (36px) stacked down from its top 14px apart: first white, the rest dark grey"
+    "dark grey (#3b2f63) block (no picture), 4 small rounded squares (36px) stacked down from its top 14px apart: first white #ffffff, the rest dark grey #54478a"
    ],
    [
     "ticket-queue",
@@ -771,7 +775,7 @@
    ],
    [
     "composer",
-    "\"Reply to Ana… Send\"; its text #999999 (grey, NOT the page's near-black text)"
+    "a 550x120px message box at 410,760 (NOT a filled bar): white / no fill, a 1px #d6d6e0 border all round, 10px rounded; placeholder 13px #999999 \"Reply to Ana…\" at its top-left (12px padding); ONE solid #222222 button 62x31px, 6px rounded, 13px #ffffff text \"Send\", in its bottom-right corner at 885,836"
    ],
    [
     "customer-panel",

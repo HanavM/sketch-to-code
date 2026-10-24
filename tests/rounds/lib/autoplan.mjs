@@ -361,6 +361,29 @@ export function factsInPage() {
         return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), paths: ps.map((p) => ({ d: p.getAttribute('d'), fill: rgba(getComputedStyle(p).fill), op: +getComputedStyle(p).opacity })), lines: ls, legend: sw }
       })(),
       // one word whose letters each carry their own size and weight (round 7 c2 'VARIABLE' wave: no note, invented copy)
+      // n156: lines broken by <br> and set far apart (round 14 c4 chapter list: 4 labels 150px apart, built as one vertical
+      // line of turned letters)
+      brStack: (() => {
+        if (el.querySelector('[data-r]') || [...el.childNodes].filter((n) => n.nodeName === 'BR').length < 1) return null
+        const base = rgba(cs.color), L = [[]]
+        el.childNodes.forEach((n) => { if (n.nodeName === 'BR') L.push([]); else L[L.length - 1].push(n) })
+        const out = L.map((ns) => {
+          const t = ns.map((n) => n.textContent).join('').replace(/\s+/g, ' ').trim(); if (!t) return null
+          const rg = document.createRange(); rg.setStartBefore(ns[0]); rg.setEndAfter(ns[ns.length - 1])
+          const q = [...rg.getClientRects()].filter((x) => x.width > 1)
+          const em = ns.find((n) => n.nodeType === 1 && n.textContent.trim())
+          return q.length ? { t, x: Math.round(Math.min(...q.map((x) => x.left))), y: Math.round(Math.min(...q.map((x) => x.top))), c: em ? rgba(getComputedStyle(em).color) : base, w: em ? Number(getComputedStyle(em).fontWeight) : Number(cs.fontWeight) } : null
+        }).filter(Boolean)
+        return out.length >= 2 ? out : null
+      })(),
+      // n156: a thin track bar with one lit segment inside it (round 14 c4 progress rail: said 'deep green', segment lost)
+      litTrack: (() => {
+        const thin = Math.min(r.width, r.height), long = Math.max(r.width, r.height)
+        if (thin > 10 || long < 120 || !(rgba(cs.backgroundColor)?.a > 0.05) || kids.length !== 1) return null
+        const k = kids[0], kb = k.getBoundingClientRect(), kc = rgba(getComputedStyle(k).backgroundColor)
+        if (!(kc?.a > 0.05) || (k.innerText || '').trim()) return null
+        return { vertical: r.height > r.width, track: rgba(cs.backgroundColor), lit: kc, x: Math.round(kb.left - r.left), y: Math.round(kb.top - r.top), w: Math.round(kb.width), h: Math.round(kb.height) }
+      })(),
       letterWave: (() => {
         if (kids.length < 3 || kids.length > 24) return null
         const ls = kids.map((k) => { const s = getComputedStyle(k); return { t: (k.innerText || '').trim(), px: Math.round(parseFloat(s.fontSize)), w: +s.fontWeight } })
@@ -368,7 +391,10 @@ export function factsInPage() {
         const pxs = ls.map((l) => l.px), ws = ls.map((l) => l.w)
         if (Math.max(...pxs) - Math.min(...pxs) < 12 && Math.max(...ws) - Math.min(...ws) < 300) return null
         if (Math.max(...pxs) < 40) return null
-        return { letters: ls, width: Math.round(r.width), top: Math.round(r.top), left: Math.round(r.left), colour: rgba(getComputedStyle(el).color) }
+        // n156: letters pushed apart across a wide box (round 14 c1 FLUXION: packed into the middle when said 'no gaps')
+        const kb = kids.map((k) => k.getBoundingClientRect()), inked = kb.reduce((n, q) => n + q.width, 0)
+        const spread = r.width >= 300 && inked < 0.8 * r.width ? { xs: kb.map((q) => Math.round(q.left)), justify: cs.justifyContent } : null
+        return { letters: ls, width: Math.round(r.width), top: Math.round(r.top), left: Math.round(r.left), colour: rgba(getComputedStyle(el).color), spread }
       })(),
       // a paragraph opening on a drop cap (::first-letter floated and enlarged: round 7 c5 column, no note at all)
       dropCap: (() => {
@@ -2652,7 +2678,11 @@ function partsNote(P, f) {
     const wtSay = p.wt && ![400, 700].includes(p.wt) && (p.wt <= 300 || p.wt >= 800 || p.px >= 20) ? `font-weight ${p.wt} ` : p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''
     // n145: a pre block said line by line, coloured words in place (round 11 e1 terminal output scrambled)
     if (p.pre) return `${p.w}x${p.h} at ${p.x},${p.y}${p.fill ? ` ${hx(p.fill)} fill` : ''}: ONE pre block (white-space: pre, ${p.px}px ${p.mono ? 'monospace' : ''} ${hx(p.ink)} text, line-height ${p.pre.lh}px, padding ${p.pre.padT}px ${p.pre.padL}px) of ${p.pre.lines.length} lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): ${p.pre.lines.map((l, i) => `${i + 1} \`${l.text}\`${l.runs.length ? ` [${l.runs.map((r) => `${JSON.stringify(r.t)} ${hexOf(r.c)}`).join(', ')}]` : ''}`).join('; ')}`
-    const text = p.t ? `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"` : ''
+    // n156: a row whose text wraps a bar laid inside it (round 14 e3 ratings '5★ [bar] 72%': built with the text printed
+    // over the bars)
+    const bar = p.t && p.h <= 2 * p.px && P.filter((q) => !q.t && q.fill && q.h <= 14 && q.w >= 0.3 * p.w && q.x > p.x + 4 && q.x + q.w <= p.x + p.w + 1 && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2).sort((a, b) => b.w - a.w)[0]
+    const tk = p.t ? p.t.split(/\s+/) : []
+    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
@@ -2838,6 +2868,12 @@ function decideOne(f, page, marked, said) {
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
   const grad = gradientWords(f)
   const bordered = f.border.w >= 1 && visible(f.border.colour)
+  // n156: a radial gradient with a hard stop is a flat disc on a flat block (round 14 e3: 'warm paper to cream gradient',
+  // the product disc lost)
+  if (/^radial-gradient/.test(f.bgImage) && !f.clipText && (f.text ?? '').length <= 12 && !f.regionKids.length && w >= 120 && h >= 120) {
+    const ps = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)%/g)].map((m) => +m[1])
+    if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
+  }
   const ruled = !bordered && f.border.bottom >= 2
   const round = f.radiusPct >= 40 || f.radius >= Math.min(w, h) / 2 - 1
   const square = Math.abs(w - h) <= 0.15 * Math.max(w, h)
@@ -3065,7 +3101,7 @@ function decideOne(f, page, marked, said) {
     const lw = f.letterWave
     const word = lw.letters.map((l) => l.t).join('')
     const face = faceName(f.font.family)
-    return { kind: 'heading', note: withFx(`the one word "${word}" in giant ${face ? `${face} ` : ''}${colourName(lw.colour) ?? ''} letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): ${lw.letters.map((l) => `${l.t} ${l.px}px weight ${l.w}`).join(', ')}; about ${lw.width}px wide, white-space: nowrap; no other copy here (not a paragraph)`) }
+    return { kind: 'heading', note: withFx(`the one word "${word}" in giant ${face ? `${face} ` : ''}${colourName(lw.colour) ?? ''} letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned${lw.spread ? '' : ', no gaps added'}): ${lw.letters.map((l, i) => `${l.t} ${l.px}px weight ${l.w}${lw.spread ? ` (left edge at x ${lw.spread.xs[i]})` : ''}`).join(', ')}; ${lw.spread ? `the letters are SPREAD across the whole ${lw.width}px-wide row from x ${lw.left} to x ${lw.left + lw.width} (display: flex; justify-content: space-between; width ${lw.width}px), wide even gaps between letters, NOT packed together in the middle` : `about ${lw.width}px wide`}, white-space: nowrap; no other copy here (not a paragraph)`) }
   }
   if (f.barStack && fill && !f.regionKids.length && h >= 100) {
     const bs = f.barStack, main = bs.bars[1] ?? bs.bars[0]
@@ -3247,10 +3283,10 @@ function decideOne(f, page, marked, said) {
   }
   // a filled block holding only icon tiles is a block with icons, not a picture
   if (!f.text && fill && f.iconKids && !f.regionKids.length && w >= 30 && h >= 50) {
-    const d = f.iconKids, names = d.fills.map((c, i) => `${d.faint[i] ? 'faint ' : ''}${colourName(c)}`)
+    const d = f.iconKids, names = d.fills.map((c, i) => `${d.faint[i] ? 'faint ' : ''}${colourName(c)} ${hexOf(c)}`)
     const cols = names.every((n) => n === names[0]) ? `all ${names[0]}` : names.slice(1).every((n) => n === names[1]) ? `first ${names[0]}, the rest ${names[1]}` : names.join(', ')
     const tile = d.round ? 'round dots' : d.radius >= 4 ? 'rounded squares' : 'squares'
-    return { kind: 'box', note: withFx(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} block (no picture), ${d.fills.length} small ${tile} (${d.px}px) ${d.vert ? 'stacked down from its top' : 'in a row'} ${d.gap}px apart: ${cols}`) }
+    return { kind: 'box', note: withFx(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) block (no picture), ${d.fills.length} small ${tile} (${d.px}px) ${d.vert ? 'stacked down from its top' : 'in a row'} ${d.gap}px apart: ${cols}`) }
   }
   // a thin textless filled bar is a placeholder line, not copy (round 8 e3: a grey 420x12 bar built as a sentence)
   if (!f.text && visible(f.bg) && !grad && !f.regionKids.length && w >= 60 && h >= 8 && h <= 20 && f.radius >= 2 && w >= h * 8 && !f.kidCount) return { kind: 'box', note: withFx(`a plain ${hexOf(f.bg)} bar exactly ${Math.round(w)}x${Math.round(h)}px${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''} at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: a skeleton placeholder line, NO words, NOT text, nothing inside`) }
@@ -3674,7 +3710,7 @@ function decideOne(f, page, marked, said) {
     const turned = tk ? `two parts: (1) a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off; (2) text ${quote(f.text.replace(tk.t, '').trim(), 140)} at the top` : null
     // a big bold figure over a small line (round 6 c4 badge: said as one run of text)
     const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
-    const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? `${quote(head)} and text` : '')
+    const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? (f.ownText && f.ownText.length <= 24 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} logo text at the left (n156), then ${quote(head)}` : `${quote(head)} and text`) : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
     return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
   }
@@ -4101,6 +4137,34 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       g.rect.w * g.rect.h <= 0.5 * A.w * A.h)
     if (onTop) d.kind = 'box'
   })
+  // n156: a thin track bar with a lit segment, said as a progress rail (round 14 c4: 'deep green', segment lost); lines
+  // broken by <br> and set far apart, said line by line (c4 chapter list built as turned vertical letters); a noteless
+  // paragraph keeps its whole copy (c4 lede: no note, copy invented)
+  regions.forEach((f) => {
+    const d = out.get(f.role); if (!d.kind) return
+    const R = f.rect, px = Math.round(f.font.size)
+    if (f.litTrack && !f.regionKids.length && (!d.note || d.note.length < 40)) {
+      const t = f.litTrack
+      out.set(f.role, { kind: 'box', note: `a thin ${t.vertical ? 'VERTICAL' : 'horizontal'} progress rail, NOT text: a ${Math.round(R.w)}x${Math.round(R.h)}px ${hexOf(t.track)} track bar with its top-left at ${Math.round(R.x)},${Math.round(R.y)}; inside it one lit ${hexOf(t.lit)} segment ${t.w}x${t.h}px at ${t.x},${t.y} from the track's top-left (the rest of the track unlit)` })
+      return
+    }
+    if (f.brStack && !f.regionKids.length && f.font.lineHeight >= 2.5 * f.font.size && (!d.note || !d.note.includes(' y '))) {
+      const L = f.brStack, pitch = Math.round(f.font.lineHeight)
+      out.set(f.role, { kind: d.kind, note: `${L.length} short ${px}px ${faceName(f.font.family) ?? (isMono(f.font.family) ? 'mono' : 'plain')} labels stacked straight down, each label ONE ordinary horizontal line of upright text (NOT vertical writing, NOT rotated, NOT turned), ${pitch}px apart (line-height ${pitch}px), all left-aligned at x ${L[0].x}: ${L.map((l) => `${quote(l.t, 30)} at y ${l.y} ${hexOf(l.c)}${l.w >= 600 ? ' bold' : ''}`).join('; ')}` })
+      return
+    }
+    // n156: a bordered box of placeholder words with one filled button inside (round 14 e5 composer: built as a grey band
+    // with a purple Send)
+    const btn = (f.parts ?? []).filter((p) => p.t && p.fill?.a > 0.5 && p.t.length <= 16)
+    if (!f.regionKids.length && f.ownText && btn.length === 1 && f.border?.w >= 1 && f.border.left >= 1 && f.border.bottom >= 1 && visible(f.border.colour) && R.h >= 60 && R.w >= 200 && (!d.note || !/#[0-9a-f]{6} fill/i.test(d.note))) {
+      const B = btn[0]
+      out.set(f.role, { kind: 'box', note: `a ${Math.round(R.w)}x${Math.round(R.h)}px message box at ${Math.round(R.x)},${Math.round(R.y)} (NOT a filled bar): ${visible(f.bg) && f.bg.a > 0.5 ? `${hexOf(f.bg)}` : 'white / no'} fill, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border all round, ${Math.round(f.radius)}px rounded; placeholder ${px}px ${hexOf(f.colour)} ${quote(f.ownText, 40)} at its top-left (${Math.round(f.inset.l)}px padding); ONE solid ${hexOf(B.fill)} button ${B.w}x${B.h}px${B.radius ? `, ${B.radius}px rounded` : ''}, ${B.px}px ${hexOf(B.ink)} text "${B.t}", in its bottom-right corner at ${B.x},${B.y}` })
+      return
+    }
+    if (!d.note && d.kind === 'text' && f.text.length >= 40 && f.textLines >= 2 && f.textLines <= 8 && !f.kidCount) {
+      out.set(f.role, { kind: d.kind, note: `${px}px ${faceName(f.font.family) ?? ''} ${colourName(f.colour) ?? ''} (${hexOf(f.colour)}) copy in ${f.textLines} lines, ${Math.round(R.w)}px wide, top-left at ${Math.round(R.x)},${Math.round(R.y)}, quoted whole (these exact words, nothing invented): ${quote(f.text, 400)}` })
+    }
+  })
   // n138: a region the rules still leave weak (no note, a 'picture with' one word, a bare word list, a field name, a
   // chart said only as stripes) or a frame whose own fields are drawn nowhere (round 10 e5 form) is said part by part:
   // every painted or worded part with its page-px box, fill, edge and text, the way the target's own boxes give them
@@ -4125,18 +4189,24 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // 'white block list': the boxed X/Y/W/H fields lost)
     const own = (d.note ?? '').replace(/; (its text|each word in its own colour).*$/, '')
     const vague = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.fill || p.ring || p.img).length >= 2 && P.filter((p) => p.t).length >= 5 && !/\d+px|#[0-9a-f]{6}/i.test(own)
+    // n156: a note with no colour of its own over a region of 3+ painted parts (round 14 e1 drawer: status pills,
+    // description box, progress bar lost; e5 composer said as bare words, its box and dark Send button lost)
+    const unpainted = d.kind && d.note && !f.regionKids.length && /\blist: /.test(own) && P.filter((p) => p.t && p.fill?.a > 0.05).length >= 2 && P.filter((p) => p.border && p.border.w?.some?.((v) => v >= 1)).length >= 1 && !/#[0-9a-f]{6}/i.test(own.replace(/; its text #[0-9a-f]{6}.*$/i, ''))
     // n148: a form of boxed fields said as bare grey lines (round 12 e4 checkout: floating labels inside bordered fields,
     // the 2-up / 1-up / 3-up rows, the focused email ring and the City/State/ZIP row all lost)
     const fieldBox = (p) => p.t && p.border && p.border.w.every((v) => v >= 1) && p.h >= 34 && p.h <= 64 && p.w >= 60
     const fields = d.kind && d.note && !f.regionKids.length && P.filter(fieldBox).length >= 4 && !/bordered field \d|\d+x\d+ at \d+,\d+/.test(own)
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields) return
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
     // n155: the region's own panel (its fill, edge and rounding) said before its parts (round 14 e4 alerts column: the
     // parts built loose on the page, the #121722 bordered panel behind them lost)
-    const R = f.rect, panelPaint = !frame && R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || (f.border?.w >= 1 && visible(f.border.colour)))
+    const R = f.rect, edge = f.border?.w >= 1 && visible(f.border.colour)
+    // n156: a wide row under a top rule only says its rule whatever its area (round 14 c1 axes row: 1160x29, rule lost)
+    const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
+    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule)
     const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
-    const keep = `${panel}${d.note && !weak && !fields ? `${d.note}; ` : ''}`
+    const keep = `${panel}${d.note && !weak && !fields && !unpainted ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

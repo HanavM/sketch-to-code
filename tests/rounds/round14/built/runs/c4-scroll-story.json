@@ -1,23 +1,23 @@
 {
   "id": "c4-scroll-story",
-  "at": "2026-10-24T00:46:27.512Z",
+  "at": "2026-10-24T01:38:11.135Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8614789509904374,
-    "overallV2": 0.8614789509904374,
-    "overallV1": 0.8249753122756891,
-    "colour": 0.9922400714144399,
-    "structure": 0.915716069139159,
-    "structureStrict": 0.8413283981607661,
-    "colourAligned": 0.9922400714144399,
-    "structureAligned": 0.915716069139159,
+    "overall": 0.8788666405108745,
+    "overallV2": 0.8788666405108745,
+    "overallV1": 0.8389686476522236,
+    "colour": 0.9904287732918218,
+    "structure": 0.9257223456274033,
+    "structureStrict": 0.844417608073432,
+    "colourAligned": 0.9904287732918218,
+    "structureAligned": 0.9257223456274033,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9940188778577443
+      "r": 0.9939272115363699
     },
-    "layout": 0.6890448020415733
+    "layout": 0.7336507244451983
   },
   "effects": {
     "recall": 1,
@@ -35,36 +35,35 @@
       "tilt"
     ],
     "missing": [],
-    "extra": [
-      "vertical-type"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 47942,
-    "output": 31045,
-    "cacheRead": 193151
+    "input": 37581,
+    "output": 24562,
+    "cacheRead": 234766
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 53950,
-      "output": 20360,
-      "cacheRead": 180814,
-      "toolCalls": 7,
+      "billed": 47583,
+      "output": 16631,
+      "cacheRead": 231682,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Edit src/index.css",
-        "Write src/App.tsx"
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/index.css"
       ],
-      "ms": 226934
+      "ms": 180657
     }
   ],
-  "reading": "This is a dark hero/landing section: a plain nav bar (brand left, links right), a soft gradient circular blob standing in for hero art, a serif 3-line headline with an italic accent word plus a short intro paragraph, a mint 'CHAPTER 01 / DAWN' eyebrow label and a mono chapter list beside a vertical divider, and below that three large diagonally-rotated color bands carrying a giant scrolling '01 02 03 04 05' hollow-number strip and a 'SCROLL' cue.",
+  "reading": "The sketch is a dark hero/landing section for a \"The Long Walk\" story site: a lavender nav bar, a masked gradient orb, a serif headline with an italic peach word, a lavender body paragraph, a mint eyebrow label, a vertical progress rail with four stop labels, a scrolling giant-number ticker, and three rotated full-width color bands at the bottom with a \"SCROLL\" prompt — all specified precisely by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -79,7 +78,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "No box around it; bold 'THE LONG WALK' wordmark on the left, 'Chapters · Map · Photos · About' nav links on the right; nav text color #a9c2bc (lavender, not the"
+      "instruction": "Top navigation bar with no box/border around it: bold \"THE LONG WALK\" on the left, \"Chapters · Map · Photos · About\" on the right; nav text color #a9c2bc (laven"
     },
     {
       "kind": "add",
@@ -94,7 +93,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "A 460x460px block positioned at 700,90, border-radius 50%, filled with background: linear-gradient(200deg, #f9c46b, #e86a5b 55%, #4a2c5e); edges fade out softly"
+      "instruction": "A 460x460px circular block positioned at 700,90 (border-radius 50%), filled with background gradient: linear-gradient(200deg, #f9c46b, #e86a5b 55%, #4a2c5e); ed"
     },
     {
       "kind": "add",
@@ -165,10 +164,10 @@
         "s2",
         "s3"
       ],
-      "instruction": "Scrolling giant Helvetica heavy, hollow-outlined, off-white text reading '01 02 03 04 05 01 02 03 04 05'; sits on top of the #1f5a50 deep-green block with no fi"
+      "instruction": "A horizontally scrolling marquee of giant Helvetica heavy, hollow-outlined, off-white numerals: \"01 02 03 04 05 01 02 03 04 05\" repeating; sits on top of the #1"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -180,7 +179,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Vertical divider line/rule, colored deep green."
+      "instruction": "A thin vertical progress rail widget (not text): a 4x600px #244042 track bar with top-left at 40,120; inside it, one lit #c9f27a segment 4x230px positioned at t"
     },
     {
       "kind": "add",
@@ -195,7 +194,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A mono chapter list reading '01 Dawn 02 Ridge 03 Pass 04 Lake', text color #6f8f8a (grey, not the page's off-white)."
+      "instruction": "Four short 12px mono labels stacked vertically, each an ordinary upright horizontal line of text (not rotated), spaced 150px apart, all left-aligned at x 60: \"0"
     },
     {
       "kind": "add",
@@ -210,7 +209,7 @@
         8
       ],
       "paths": [],
-      "instruction": "A 14px mono, wide-letter-spaced eyebrow label reading 'CHAPTER 01 / DAWN', text color #c9f27a (mint green, not the page's off-white)."
+      "instruction": "A 14px mono, wide-letter-spaced eyebrow label reading \"CHAPTER 01 / DAWN\" in mint green #c9f27a (not the page's off-white text)."
     },
     {
       "kind": "add",
@@ -237,7 +236,7 @@
         233
       ],
       "paths": [],
-      "instruction": "Huge Georgia serif, regular-weight headline 'Three hundred kilometres of morning', set in exactly 3 lines: 'Three hundred' / 'kilometres of' / 'morning' (keep t"
+      "instruction": "A huge Georgia serif, regular-weight headline set in exactly 3 non-wrapping lines: \"Three hundred\" / \"kilometres of\" / \"morning\" (keep these line breaks, each l"
     },
     {
       "kind": "add",
@@ -256,13 +255,15 @@
         }
       ],
       "region": [
-        128,
-        420,
-        432,
-        54
+        1,
+        429,
+        1277,
+        469
       ],
-      "paths": [],
-      "instruction": "Two short lines of intro/body copy beneath the headline (text placeholder) — write a plausible short sentence continuing the hero copy, styled in the page's off"
+      "paths": [
+        "s2"
+      ],
+      "instruction": "17px Helvetica body copy in lavender #a9c2bc, set in 2 lines, 440px wide, top-left at 124,420, exact quoted text: \"We walked the old salt road from the coast to"
     },
     {
       "kind": "add",
@@ -277,7 +278,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Wide-letter-spaced label reading 'SCROLL', text color dark navy (#0d1b1e, not the page's off-white); sits on top of the #c9f27a mint block with no fill or bar o"
+      "instruction": "Wide-letter-spaced \"SCROLL\" label in dark navy #0d1b1e (not the page's off-white text), sitting on the #c9f27a mint-green block with no fill or bar of its own."
     }
   ],
   "rejected": [

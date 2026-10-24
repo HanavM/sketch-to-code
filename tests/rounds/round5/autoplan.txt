@@ -117,13 +117,13 @@ e2-heatmap-analytics · marks 6 · words 245
     note heatmap: "Active sessions (weekday × 2-hour block)", heatmap: 7 rows of 12 rounded 40px cells, label left of each row, every cell indigo at a strength 0-9 (opacity): Mon 111368998742, Tue 111368998742, Wed 111368998742, Thu 111368998742, Fri 111368998742, Sat 111233444321, Sun 111233444321
     note peak: "Peak hour", lines big 44px bold "Tue 10:00", green "▲ 18% vs last week", all at the top of the card, empty below; each word in its own colour: "Peak hour" #111827, "Tue 10:00" #111827, "▲ 18% vs last week" #16a34a
     note table: table, every body row built and none invented, bold grey header row columns "Feature", "Sessions", "Users", "Change", 4 rows: "Sketch overlay" | "12,480" | "3,102" | "+12%"; "Auto build" | "8,931" | "2,440" | "+8%"; "Export" | "2,115" | "980" | "-3%"; "Comments" | "1,702" | "611" | "+21%"
-e3-team-chat · marks 5 · words 248
+e3-team-chat · marks 5 · words 251
     workspaces   box     
     channels     box     
     messages     box     
     composer     box     
     thread       box     
-    note workspaces: dark plum block (no picture), 3 small rounded squares (40px) stacked down from its top 14px apart: first white, the rest faint white
+    note workspaces: dark plum (#3f0e40) block (no picture), 3 small rounded squares (40px) stacked down from its top 14px apart: first white #ffffff, the rest faint white #ffffff
     note channels: dark plum block, pale lilac text "Acme" list: "# general", "# design", "# eng", "# random", "Direct messages", "Priya Shah", "Tom Becker"; "# design" highlighted (#1164a3 rounded fill, #ffffff text); list rows exactly 33px apart (33px tall, 15px type: tight, not roomier), first line 20px below the panel's top; its text #e9d5ff (pale lilac, NOT the page's dark navy text)
     note messages: header "# design" with a thin line under it, then 3 chat messages stacked top-down (no bubbles), each a 38px rounded square avatar left, bold name then small grey time on one line, message text under: amber avatar, "Priya Shah" 10:02: "New hero options are up in Figma — the dark one is my pick.", small chip "🔥 4" under it; green avatar, "Tom Becker" 10:05: "Dark one reads better on mobile too.", small blue bold "3 replies" under it; indigo avatar, "Ana Lima" 10:11: "Can we keep the gradient but drop the noise texture?"
     note composer: "Message #design"; its text #9ca3af (grey, NOT the page's dark navy text)

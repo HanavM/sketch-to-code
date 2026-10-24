@@ -78,3 +78,24 @@ Re-planning rounds 1-13: notes gain a panel line on 29 pages, layer order on 7, 
 | e5 support inbox | first | **82%** | three panes right; rail dark grey (target purple), composer a grey band with purple Send (target white box, black Send) |
 
 Round 14 complete: **84%** over 10 (c 69 86 86 86 89; e 84 90 78 87 82). Vitest: same 2 env failures; typecheck clean.
+
+## n156: planner fixes, live re-runs c1, c4, e1, e3, e5 (2026-10-24, ~416k billed)
+
+Planner now says: a letter-by-letter word spread across a wide row with each letter's left x and space-between (not
+"no gaps added"); a wide row under a top rule says the rule whatever its area; a thin track bar with one lit segment as
+a progress rail; lines broken by `<br>` and set far apart as upright labels line by line (y and colour each); a noteless
+2+ line paragraph quoted whole; a radial gradient with a hard stop written out as a flat disc on a flat block; a list
+note over filled pills and a bordered box said part by part; a header's own logo text; a bar row's label and value on
+either side of the bar (never printed over it); a bordered message box with one filled button; rail tiles with hexes.
+Re-planning rounds 1-13: notes change on 7 pages (r2 e5 message copy, r4 c3 foot rule, r5 e3 rail hexes, r7 c3 scroll
+rail and e3 activity bar, r12 e1 properties panel, r13 e2 now-playing); none re-run.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c1 variable wave | 69% | **69%** (kept, truer) | FLUXION spread across 1200px, axes rule back; still off: band and wave ~32px low, lede built bold, dial track grey with no outline |
+| c4 scroll story | 86% | **88%** | rail with lit segment, chapter labels upright 150px apart, real copy; still off: marquee too bright, scroll tick lost |
+| e1 kanban + drawer | 84% | **90%** | drawer pills, description box, progress bar back |
+| e3 product page | 78% | **86%** | logo, product disc, rating rows right |
+| e5 support inbox | 82% | 72% (not kept) | composer box and black Send right, but the rail was built as a pale lavender gradient (#3b2f63 lost) |
+
+Round 14 now **85%** (c 69 86 86 88 89; e 90 90 86 87 82). Vitest: same 2 env failures; typecheck clean.
