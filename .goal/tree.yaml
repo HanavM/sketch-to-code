@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 18 at 86%: the duotone photo now has its slanted dark edge and bright solid glows, though this run moved its logo. Next: the cream shape's straight bottom edge and the email page."
+now: "Round 18 at 89%: the email page jumped from 73% to 89% once its top bar and side columns were built as real panels. Next: start round 19, ten harder pages."
 round: 18
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 86]
-lock: {by: n189-run, until: "2026-10-25T00:05:39Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n189 (b73c894 on try/n3-vocabulary): a full-width top bar, or a tall column at the left edge or running to the page bottom, whose only paint is one bottom/right rule (or none), is said as ONE block holding its parts. Live e4 73 to 89 (layout 68 to 100); round 18 at 89. Rounds 1-17: 35 app bars and side columns gain the wording. Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-24 n189 live e4 = ~84k billed (day so far ~10042k)."
   - "n187 (f9cb6f2 on try/n3-vocabulary): a text part set struck through (an inner <s>) is said STRUCK THROUGH on one line; a ::before/::after stripe gradient over the whole block is said as its own overlay with its exact gradient and blend. Live e1 87 to 91 (struck, faded), c4 82 to 82 (scan lines built; slanted photo edge still lost); round 18 at 87. Rounds 7, 14, 17 plans gain true struck words. Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-24 n187 live c4 + e1 = ~208k billed (day so far ~9836k)."
   - "n186 (4c97035 on try/n3-vocabulary): a hollow word that spills past a block with overflow hidden is said clipped at that edge (round 18 c2 26 cut 28px at y 716); a top bar said as a word list with 2+ boxed chips is replaced by the part-by-part bar note; an empty group of filled circles in a bar is an overlapping avatar stack. Live c2 86 to 87 (26 clipped), e1 73 to 87 (bar on one line, avatars, chips); round 18 at 87. Rounds 1-17 unchanged. Vitest: same 2 env failures; typecheck clean."
@@ -611,4 +613,5 @@ nodes:
   - {id: n186, parent: n185, kind: step, title: "Free first, ~250k live: c2 hollow 26 spills its cell (clip it), header bar inset; e1 top bar wrapped; e4 message rows tight; c4 scan lines. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "26 clipped by its cell: c2 86 to 87; bar said part by part with avatars: e1 73 to 87"}
   - {id: n187, parent: n186, kind: step, title: "Free first, ~250k live: e4 message rows tight, logo small; e1 Done cards struck-through titles built plain and wrapped; c4 scan lines over the photo; c2 header flush at top. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Struck titles and scan-line overlay said: e1 87 to 91, c4 82 held with scan lines; round 18 87"}
   - {id: n188, parent: n187, kind: step, title: "Free first, ~250k live: c4 photo's own slanted left edge (dark wedge) lost, cream shape bottom kept wavy; e4 at 73 (rows, logo); e1 struck titles still wrap; c2 header flush at top. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Slanted photo edge and solid glow cores said: c4 82 to 81, glows and dark wedge built; round 18 86"}
-  - {id: n189, parent: n188, kind: step, title: "Free first, ~250k live: c4 cream shape bottom kept wavy from the drawing, brand set low; e4 at 73 (rows tight, logo small); e1 struck titles wrap; c2 header flush at top. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n189, parent: n188, kind: step, title: "Free first, ~250k live: c4 cream shape bottom kept wavy from the drawing, brand set low; e4 at 73 (rows tight, logo small); e1 struck titles wrap; c2 header flush at top. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "App bar and side columns said as their own panels: e4 73 to 89, layout 100; round 18 89"}
+  - {id: n190, parent: n189, kind: step, title: "Free first, ~800k live: round 19, ten pages harder than round 18 (more layering, expressive type, motion; denser apps); measure, autoplan, first builds of all ten. Leftovers from 18: c4 81 (cream shape bottom, brand), e4 label dots over words", status: open, branch: try/n3-vocabulary, result: null}
