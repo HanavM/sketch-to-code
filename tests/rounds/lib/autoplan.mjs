@@ -1033,7 +1033,7 @@ export function factsInPage() {
       setLines: (el.innerText || '').split('\n').map((x) => x.replace(/ /g, ' ').replace(/\s+$/, '')),
       // the words on each line as rendered (a headline's own breaks: round 6 c3 built 3 lines, target 2)
       // a word inside the heading set hollow: transparent fill, stroked outline (round 8 c1 'depth': built solid white)
-      hollow: [...el.querySelectorAll('*')].filter((k) => { const s = getComputedStyle(k); return parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 && (k.innerText || '').trim() }).map((k) => { const s = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').trim(), px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor), size: parseFloat(s.fontSize), it: s.fontStyle === 'italic', block: s.display === 'block', w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.left), y: Math.round(b.top) } }),
+      hollow: [...el.querySelectorAll('*')].filter((k) => { const s = getComputedStyle(k); return parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 && (k.innerText || '').trim() }).map((k) => { const s = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').trim(), px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor), size: parseFloat(s.fontSize), it: s.fontStyle === 'italic', block: s.display === 'block', after: !!k.previousElementSibling?.innerText?.trim(), abs: s.position === 'absolute', wt: Number(s.fontWeight), fam: s.fontFamily.split(',')[0].replace(/["']/g, '').trim(), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.left), y: Math.round(b.top) } }),
       // frosted glass cards over blurred colour blobs (round 9 c2: the whole stack read as 'a contents list, no box')
       glassStack: (() => {
         const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute')
@@ -1377,6 +1377,9 @@ export function factsInPage() {
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
+            // n183: the part's own font family, raw background and outer shadow (round 18 c2: Impact headline on a mono page,
+            // the case card's hard shadow and the CTA's offset shadow unsaid)
+            fam: s.fontFamily.split(',')[0].replace(/["']/g, '').trim(), bgc: rgba(s.backgroundColor), outShadow: s.boxShadow !== 'none' && !/inset/.test(s.boxShadow) ? s.boxShadow : null,
             border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0,
             // n175: vertical type (round 17 c5 '99.99%' set vertical-rl turned 180deg, built horizontal), a line wider than the
             // tile that clips it (the logo strip built spilling out of its tile), and its CSS animation
@@ -2962,6 +2965,16 @@ function repeatUnit(t0) {
 /** Code in a card: its lines as set, and which tokens are coloured (round 5 c5: only the tokens were said). */
 function codeNote(f) {
   if (!isMono(f.font.family) || f.setLines.filter((l) => l.trim()).length < 3 || f.setLines.length > 12) return null
+  // n183: rows of two items pushed apart (round 18 c2 services '01 Identity ... →': innerText split them into lines, said
+  // as separate lines, built with every arrow on its own line) are said as rows, each ruled under if the target rules it
+  const tp = (f.parts ?? []).filter((p) => p.t)
+  const pairs = []
+  for (const a of tp) { const b = tp.find((q) => q !== a && Math.abs(q.y - a.y) <= 2 && q.x >= a.x + a.w + 80 && !tp.some((r) => r !== a && r !== q && Math.abs(r.y - a.y) <= 2)); if (b && !pairs.some(([x]) => x === b)) pairs.push([a, b]) }
+  if (pairs.length >= 2 && pairs.length * 2 >= f.setLines.filter((l) => l.trim()).length - 1) {
+    const ruled = (f.parts ?? []).filter((p) => !p.t && p.border && p.border.w[2] >= 1 && !p.border.w[0] && pairs.some(([a]) => Math.abs(p.y - a.y) <= 3))
+    const rule = ruled.length >= pairs.length - 1 ? ruled[0] : null
+    return `mono ${Math.round(f.font.size)}px list of ${pairs.length} ROWS, each ONE line with its first words at the left and its second item at the FAR RIGHT end of the same line (display: flex; justify-content: space-between; NEVER on a line of its own): ${pairs.map(([a, b]) => `"${a.t}" … "${b.t}"`).join(', ')}${rule ? `; each row ${rule.w}px wide, ${rule.h}px tall, with a ${rule.border.w[2]}px ${hexOf(rule.border.c)} rule along its BOTTOM` : ''}${f.colour ? `; ${colourName(f.colour)} text` : ''}`
+  }
   const lines = f.setLines.map((l) => (l.trim() ? `"${l}"` : 'blank line')).join(', ')
   const by = new Map()
   for (const k of f.tokenInks) { const n = colourName(k.c); if (n && dist(k.c, f.colour) > 40) by.set(n, uniq([...(by.get(n) ?? []), k.t])) }
@@ -4514,9 +4527,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role)
     if (!f.hollow?.length || !d.kind) return
+    // n183: a frame round a region that holds the hollow word leaves it to that region (round 18 c2 grid repeated it)
+    if (f.regionKids.some((r) => regions.find((g) => g.role === r)?.hollow?.some((h) => f.hollow.some((x) => x.t === h.t)))) return
     // n182: a hollow word much bigger than its region's type says its own size and line (round 18 c4 plate '07' 110px
     // over a 16px italic line, said 'same size as the rest', built 16px)
-    d.note = `${d.note ? `${d.note}; ` : ''}${f.hollow.map((h) => `the word ${quote(h.t, 24)} is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: ${h.px}px ${hexOf(h.c)}), ${h.size && f.font?.size && h.size >= 2 * f.font.size ? `set MUCH BIGGER than the rest: ${Math.round(h.size)}px ${h.it ? 'italic' : 'upright (NOT italic)'} type, line-height 1, about ${h.w}x${h.h}px with its top-left at ${h.x},${h.y}${h.block ? ', on its OWN line above the rest (display: block), the small words under it' : ''}` : 'same size and weight as the rest'}`).join('; ')}`
+    d.note = `${d.note ? `${d.note}; ` : ''}${f.hollow.map((h) => `the word ${quote(h.t, 24)} is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: ${h.px}px ${hexOf(h.c)}), ${h.size && f.font?.size && h.size >= 2 * f.font.size ? `set MUCH BIGGER than the rest: ${Math.round(h.size)}px ${h.it ? 'italic' : 'upright (NOT italic)'} type, line-height 1, about ${h.w}x${h.h}px with its top-left at ${h.x},${h.y}${h.wt >= 800 ? `, font-weight ${h.wt} ${h.fam}` : ''}${h.after ? `, BELOW the other words (after them, never above them)${h.abs ? ', position absolute at that spot, overlapping nothing above it' : ', on its OWN line (display: block)'}` : h.block ? ', on its OWN line above the rest (display: block), the small words under it' : ''}` : 'same size and weight as the rest'}`).join('; ')}`
   })
   // two pictures that overlap: the later-painted one is on top (round 5 c4: the blue photo was built under
   // the orange one, hidden behind its shadow)
@@ -4964,6 +4979,38 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (!d.kind || !d.note || /part by part|pill|button|\btag\b|label|chip|badge/i.test(d.note)) return
     const pills = (f.parts ?? []).filter((q) => q.t && q.fill && q.radius >= q.h / 2 - 1 && q.h >= 28 && q.w >= 2.5 * q.h && q.h <= 60 && q.w <= 300 && q.t.length <= 30 && d.note.includes(q.t.slice(0, 12)))
     if (pills.length && pills.length <= 3) d.note += `; ${pills.map((q) => `"${q.t}" is a FILLED pill button (${hexOf(q.fill)} fill, no border, ${q.w}x${q.h}px, ${q.bold ? 'bold ' : ''}${hexOf(q.ink)} text), NOT outlined, NOT plain text`).join('; ')}`
+  })
+  // n183: what a region's note leaves out of its own parts (round 18 c2 brutal grid): big words in another face than the
+  // page's (the Impact headline and stat numbers on a mono page, built small and mono), a square filled button (START A
+  // PROJECT said as yellow words, built with no button), a bordered card with a hard shadow laid on a striped cell (the
+  // case card said as the cell's own lines, built as loose text on the stripes)
+  const pageFam = faceName(body.font?.family ?? '') ?? (isMono(body.font?.family ?? '') ? 'monospace' : 'page')
+  const hardSh = (q) => q.outShadow ? `, box-shadow: ${q.outShadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? hexOf(c) : m })}${/\s0px\s+0px\s+rgb|\s0px rgb/.test(q.outShadow) || /px\s+\d+px\s+0px/.test(q.outShadow) ? ' (hard, no blur)' : ''}` : ''
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d.kind || !d.note || /^part by part|part by part \(/.test(d.note) || f.regionKids.length) return
+    const add = []
+    for (const q of f.parts ?? []) {
+      if (!q.t || !(q.ink?.a >= 0.05)) continue
+      if (q.px >= 48 && q.face && !d.note.includes(`${q.px}px`) && !d.note.includes(q.fam) && !/\b(sans|serif)\b/.test(d.note)) {
+        add.push(`its ${quote(q.t, 40)} is BIG ${q.px}px font-weight ${q.wt} ${q.fam}${q.face === 'sans' ? ', sans-serif' : q.face === 'serif' ? ', serif' : ''} type (NOT the ${pageFam} of the rest, NOT small), ${hexOf(q.ink)}, filling about ${q.w}x${q.h}px from ${q.x},${q.y}${q.nl >= 2 && q.nl <= 6 ? `, set on exactly ${q.nl} lines (line-height ${q.lh}px; it wraps)` : ', on one line'}`)
+      } else if (q.fill?.a > 0.5 && q.t.length <= 24 && q.h >= 40 && q.px >= 16 && q.px <= 28 && q.w <= 400 && !/button/i.test(d.note) && q.radius < q.h / 2 - 1 && q.w >= 2 * q.h && !d.note.includes(`${q.w}x${q.h}`) && !new RegExp(`${hexOf(q.fill)} (fill|button|block)`, 'i').test(d.note)) {
+        add.push(`${quote(q.t, 24)} is a BUTTON: a ${q.w}x${q.h}px ${hexOf(q.fill)} block at ${q.x},${q.y}, square corners, its ${q.px}px ${q.bold ? 'bold ' : ''}${hexOf(q.ink)} words centred in it${hardSh(q)}`)
+      }
+    }
+    for (const q of f.parts ?? []) {
+      if (!q.border || !q.outShadow || !q.border.w.every((v) => v >= 2) || q.w * q.h < 20000 || q.w * q.h > 0.6 * f.rect.w * f.rect.h || d.note.includes(`${q.w}x${q.h}`)) continue
+      const words = [...(f.parts ?? []).filter((r) => r !== q && r.t && r.x >= q.x - 1 && r.y >= q.y - 1 && r.x + r.w <= q.x + q.w + 1 && r.y + r.h <= q.y + q.h + 1).sort((a, b) => a.y - b.y), ...(q.t ? [q] : [])]
+      if (!words.length) continue
+      d.note = d.note.replace(/\s*(?:\b[a-z-]+ border )?mono \d+px code lines: [^;]*(?:; [a-z -]+ code)?/, '')
+      const fill = q.bgc?.a > 0.5 ? q.bgc : null
+      add.push(`ON it a separate ${q.w}x${q.h}px card at ${q.x},${q.y} (position absolute), ${fill ? `solid ${hexOf(fill)} fill that covers what is under it` : 'no fill'}, a ${Math.max(...q.border.w)}px ${hexOf(q.border.c)} border all round, square corners${hardSh(q)}; the region's words sit INSIDE this card, not on the region: ${words.map((r) => `${r.px}px ${r.bold ? 'bold ' : ''}${quote(r.t, 90)}`).join(' then ')}`)
+    }
+    // n183: words set vertical inside a region said only as letters (round 18 c4 side nav 'FILMS STILLS JOURNAL': built
+    // as one flat line over the logo; the target stacks three turned words centred down the left edge)
+    const vs = (f.parts ?? []).filter((q) => q.t && q.vert)
+    if (vs.length && !/vertical|turned|rotate/i.test(d.note)) add.push(`its words are VERTICAL, each its own element (writing-mode: vertical-rl${vs[0].vert === 'up' ? '; transform: rotate(180deg), reading bottom to top' : ', reading top to bottom'}; NOT one horizontal line), each at its own page box: ${vs.map((q) => `${quote(q.t, 30)} ${q.w}x${q.h} at ${q.x},${q.y}`).join(', ')}`)
+    if (add.length) d.note += `; ${add.join('; ')}`
   })
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

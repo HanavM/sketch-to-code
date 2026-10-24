@@ -90,3 +90,15 @@ Rounds 1-17 plans re-generated: only round 14's hollow glyph tile picks up its o
 
 Round 18, latest build each: **84%** (c1 90, c2 73, c3 88, c4 83, c5 90, e1 73, e2 95, e3 87, e4 71, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n183: big type in another face, rows pushed apart, a shadowed card on stripes, a square button, vertical nav (2026-10-24, ~197k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c2 brutal grid | 73% → **80%** | the "84" and "12" are now said as 120px heavy Impact (built big and heavy, were small mono); the services are said as four rows with the name left and the arrow at the far right, each ruled under (built right; had been one word per line); the case card is said as its own cream card with a 4px border and a hard 12px shadow ON the stripes (built right); START A PROJECT said as a dark button with its orange offset shadow (built right); the hollow 26 now said BELOW the headline (was "above the rest"). Left: the headline is still built small and mono though said as 64px heavy Impact on 5 lines; the grid's outer frame short |
+| c4 duotone split | 83% → **69%** | the side nav is now said as three vertical words at their own spots and is built right, centred down the left edge. But this run lost what n182's run had: the two glows came out as one hard-edged box and the progress ring as an empty square (same notes as before: run noise, not this change) |
+
+Rounds 1-17 plans re-generated: only round 14's hollow glyph tile changes (now said below its label, which is where it is); nothing else moved.
+
+Round 18, latest build each: **83%** (c1 90, c2 80, c3 88, c4 69, c5 90, e1 73, e2 95, e3 87, e4 71, e5 90).
+Vitest: same 2 env failures; typecheck clean.

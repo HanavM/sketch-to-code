@@ -131,7 +131,7 @@
    ],
    [
     "grid",
-    "thick near-black border; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, on its OWN line above the rest (display: block), the small words under it"
+    "thick near-black border"
    ],
    [
     "header",
@@ -139,27 +139,27 @@
    ],
    [
     "hero-cell",
-    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, on its OWN line above the rest (display: block), the small words under it"
+    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, font-weight 900 Impact, BELOW the other words (after them, never above them), position absolute at that spot, overlapping nothing above it"
    ],
    [
     "clients-stat",
-    "vivid yellow block \"CLIENTS\", text \"84\""
+    "vivid yellow block \"CLIENTS\", text \"84\"; its \"84\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 188x120px from 501,160, on one line"
    ],
    [
     "awards-stat",
-    "vivid indigo block, white text \"AWARDS\", text \"12\"; its text #ffffff (white, NOT the page's near-black text)"
+    "vivid indigo block, white text \"AWARDS\", text \"12\"; its text #ffffff (white, NOT the page's near-black text); its \"12\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #ffffff, filling about 188x120px from 725,160, on one line"
    ],
    [
     "hatched-cell",
-    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #111111 0px 10px, #f2f0e9 10px 20px)): 10px near-black then 10px cream, over and over near-black border mono 16px code lines: \"CASE 031\", blank line, \"Rebuilt a ferry company in black and orange. Bookings went up 40%.\", blank line, \"→ READ\"; near-black code"
+    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #111111 0px 10px, #f2f0e9 10px 20px)): 10px near-black then 10px cream, over and over; ON it a separate 250x280px card at 964,246 (position absolute), solid #f2f0e9 fill that covers what is under it, a 4px #111111 border all round, square corners, box-shadow: #111111 12px 12px 0px 0px (hard, no blur); the region's words sit INSIDE this card, not on the region: 15px bold \"CASE 031\" then 15px \"Rebuilt a ferry company in black and orange. Bookings went up 40%. → READ\""
    ],
    [
     "services-list",
-    "near-black border mono 16px code lines: \"01 Identity\", \"→\", \"02 Web\", \"→\", \"03 Motion\", \"→\", \"04 Type\", \"→\"; near-black code"
+    "near-black border mono 16px list of 4 ROWS, each ONE line with its first words at the left and its second item at the FAR RIGHT end of the same line (display: flex; justify-content: space-between; NEVER on a line of its own): \"01 Identity\" … \"→\", \"02 Web\" … \"→\", \"03 Motion\" … \"→\", \"04 Type\" … \"→\"; each row 413px wide, 34px tall, with a 2px #111111 rule along its BOTTOM; near-black text"
    ],
    [
     "footer-cell",
-    "near-black border mono 15px code lines: \"START A PROJECT\", \"hello@noise.works\", \"Berlin / Lagos\"; near-black code; each word in its own colour: \"START A PROJECT\" #ffe600, \"hello@noise.works\" #111111, \"Berlin / Lagos\" #111111"
+    "near-black border mono 15px code lines: \"START A PROJECT\", \"hello@noise.works\", \"Berlin / Lagos\"; near-black code; each word in its own colour: \"START A PROJECT\" #ffe600, \"hello@noise.works\" #111111, \"Berlin / Lagos\" #111111; \"START A PROJECT\" is a BUTTON: a 252x59px #111111 block at 52,762, square corners, its 20px bold #ffe600 words centred in it, box-shadow: #ff4b1f 8px 8px 0px 0px (hard, no blur)"
    ],
    [
     "sticker",
@@ -355,7 +355,7 @@
    ],
    [
     "vertical-nav",
-    "wide-spaced letters \"FILMS STILLS JOURNAL\"; its text #101820 (near-black, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own"
+    "wide-spaced letters \"FILMS STILLS JOURNAL\"; its text #101820 (near-black, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; its words are VERTICAL, each its own element (writing-mode: vertical-rl; transform: rotate(180deg), reading bottom to top; NOT one horizontal line), each at its own page box: \"FILMS\" 14x56 at 30,306, \"STILLS\" 14x65 at 30,402, \"JOURNAL\" 14x86 at 30,508"
    ],
    [
     "brand",
