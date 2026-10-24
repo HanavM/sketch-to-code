@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-24T19:45Z | n181 floating window, turned card, stat cells | c2 50 to 73, e1 61 to 73, e4 55 to 71; round 18 81 over 10. ~307k.
+2026-10-24T19:32Z | n181 floating window, turned card, stat cells | c2 50 to 73, e1 61 to 73, e4 55 to 71; round 18 81 over 10. ~307k.
 2026-10-24T19:35Z | n180 first builds of round 18's other seven pages | e2 95, e3 87, c4 72, c5 69, e1 61, e4 55, c2 50; round 18 76 over 10. ~701k.
 2026-10-24T17:25Z | n179 map SVG, blob shade, glass, buttons, ticker, bubble | e5 73 to 90, c1 82 to 90, c3 70 to 88; round 18 89 over 3. ~251k.
 2026-10-24T16:52Z | n178 write round 18, first live builds | Round 18 written, dry 10/10; isometric blocks fixed: c3 58 to 70; c1 82, e5 73; round 18 75. ~348k.
