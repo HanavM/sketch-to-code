@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 17: the synthwave grid floor, striped sun, red error bars and riso circles now build (synth page 70% to 81%); six of ten pages built at 73% on average, next the wrapped editorial, the gantt chart and the last four pages."
 round: 17
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 73]
-lock: null
+lock: {by: run-n173, until: "2026-10-24T13:58Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
