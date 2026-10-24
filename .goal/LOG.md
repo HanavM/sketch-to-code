@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T14:40Z | n175 transparent stops, vertical type, clipped strip, log table cells | c2 82 to 94, e2 73 to 94, c5 78 to 90, c3 83; round 17 86. ~391k.
 2026-10-24T14:10Z | n174 collapsed target regions, group layout match | 8 flat regions fixed; c2 82 (real layout 85), e1 59 to 78; round 17 82. ~172k.
 2026-10-24T13:20Z | n173 gantt head, task table, riso grain, stacked wordmark; last 4 first builds | c2 60 to 86; c5 78, e3 88, e4 90, e5 90; round 17 80 over 10. ~459k.
 2026-10-24T12:30Z | n172 grid floor, striped sun, red bars, riso circles; first c4, e1 | c3 70 to 81, c2 33 to 60, c4 78, e1 64; round 17 73 over 6. ~574k.
