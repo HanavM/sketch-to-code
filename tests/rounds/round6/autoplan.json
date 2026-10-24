@@ -2,6 +2,10 @@
  "c1-perspective-stack": {
   "plan": [
    [
+    "floor",
+    "box"
+   ],
+   [
     "nav",
     "text"
    ],
@@ -45,7 +49,11 @@
   "notes": [
    [
     "*",
-    "whole page: dark navy (#0f172a) page, Helvetica type, light grey text; ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): a 1680x600px block with its top-left at -200,520 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px), repeating-linear-gradient(0deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px); no fill of its own (the page shows between the lines)"
+    "whole page: dark navy (#0f172a) page, Helvetica type, light grey text"
+   ],
+   [
+    "floor",
+    "a PERSPECTIVE GRID FLOOR: one 1680x600px div (its UNTRANSFORMED size) with its top-left at -200,520 (it runs off both page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), so its lines run off toward a far horizon, behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background-image: repeating-linear-gradient(90deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px), repeating-linear-gradient(0deg, #38bdf840 0px, #38bdf840 1px, transparent 1px, transparent 80px); no fill of its own (the page shows between the lines); NOT a plain dark floor, NOT a picture"
    ],
    [
     "nav",

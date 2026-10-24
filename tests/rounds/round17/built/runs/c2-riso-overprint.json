@@ -1,0 +1,171 @@
+{
+  "id": "c2-riso-overprint",
+  "at": "2026-10-24T12:21:41.486Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5980378476132929,
+    "overallV2": 0.5980378476132929,
+    "overallV1": 0.5144527410654682,
+    "colour": 0.9223641632343743,
+    "structure": 0.7565456852129824,
+    "structureStrict": 0.62894426130325,
+    "colourAligned": 0.9223641632343743,
+    "structureAligned": 0.7565456852129824,
+    "align": {
+      "scale": 0.96,
+      "dx": 32,
+      "dy": 16,
+      "r": 0.7283751300253607
+    },
+    "layout": 0.5665245359310814
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 26025,
+    "output": 24146,
+    "cacheRead": 164720
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36139,
+      "output": 14503,
+      "cacheRead": 161636,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 161171
+    }
+  ],
+  "reading": "The sketch builds a bold, misregistered-print-style hero: three overlapping multiply-blend filled circles behind a giant twice-printed 'INK LAB' wordmark, a space-between nav bar (PRINT CLUB / Workshops…/ Join), a tilted dashed-outline '2 COLOURS ONLY' badge, an italic serif tagline, and a top-ruled event-info panel (WHEN/WHERE/COST/BRING) — all per the user's detailed typed notes, on a cream Helvetica page with indigo text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add 3 large solid-filled circles behind the hero headline as a background decoration: each is its own absolutely positioned div, border-radius 50%, mix-blend-mo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a giant display headline reading 'INK LAB', printed twice as 2 separate overlapping, absolutely positioned divs that are slightly offset from one another li"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        43,
+        1133,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build the nav bar as 3 separate flex items on one 1140px-wide row at (70,40), using display:flex; justify-content:space-between so the items are pushed apart ra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        944,
+        73,
+        233,
+        234
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a circular badge tilted 14° clockwise with a 4px dashed #ff4f9a outline (dashed, not solid), 200px diameter, containing the text '2 COLOURS ONLY' centred an"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 21
+        }
+      ],
+      "region": [
+        944,
+        380,
+        262,
+        62
+      ],
+      "paths": [],
+      "instruction": "Add italic serif body copy reading: 'Misregistration is not a bug. It is the whole point.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        723,
+        1133,
+        50
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add the event-info region as one 1140×56px panel at (70,720) with no fill and a 4px #2e5bff rule along its top edge only (no other border). Inside it, add 4 lab"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

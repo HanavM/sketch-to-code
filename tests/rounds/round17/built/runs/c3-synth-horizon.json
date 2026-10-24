@@ -1,76 +1,78 @@
 {
   "id": "c3-synth-horizon",
-  "at": "2026-10-24T11:10:59.593Z",
+  "at": "2026-10-24T11:47:19.808Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6953405340830457,
-    "overallV2": 0.6953405340830457,
-    "overallV1": 0.6631034115762817,
-    "colour": 0.9031041198188983,
-    "structure": 0.5675335456903788,
-    "structureStrict": 0.48389970829584605,
-    "colourAligned": 0.9031041198188983,
-    "structureAligned": 0.5675335456903788,
+    "overall": 0.8076518228860274,
+    "overallV2": 0.8076518228860274,
+    "overallV1": 0.7761943290926896,
+    "colour": 0.9545856441030853,
+    "structure": 0.8441477288430873,
+    "structureStrict": 0.7625365081083729,
+    "colourAligned": 0.9545856441030853,
+    "structureAligned": 0.8441477288430873,
     "align": {
-      "scale": 1.16,
-      "dx": -80,
-      "dy": -32,
-      "r": 0.7641647990385441
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7549451812971231
     },
-    "layout": 0.6819255342595109
+    "layout": 0.6255478962938732
   },
   "effects": {
-    "recall": 0.5,
+    "recall": 0.6666666666666666,
     "kept": [
+      "3d",
       "hard-shadow",
       "huge-type",
       "italic",
       "mask",
       "mono",
+      "motion",
       "stripes-or-layers"
     ],
     "missing": [
-      "3d",
       "clip-shape",
       "glow",
       "gradient",
-      "motion",
       "overlap"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 54772,
-    "output": 30092,
-    "cacheRead": 194534
+    "input": 70012,
+    "output": 42838,
+    "cacheRead": 303547
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 64053,
-      "output": 20796,
-      "cacheRead": 183966,
-      "toolCalls": 10,
+      "billed": 89914,
+      "output": 32580,
+      "cacheRead": 292552,
+      "toolCalls": 12,
       "tools": [
-        "Glob",
-        "Read src/App.tsx",
         "Read components/RetroSun.tsx",
         "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
         "Read src/index.css",
-        "Write components/RetroSun.tsx",
-        "Write components/SketchShape.tsx",
-        "Write components/SketchShape2.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/RetroSun.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 228310
+      "ms": 345913
     }
   ],
-  "reading": "This is a full synthwave-style landing-page hero for a band 'NIGHTDRIVE': a gradient night-sky page background, a glowing yellow-to-pink sun circle, a jagged dark mountain silhouette cut-out, a huge tinted backdrop block, a cyan nav bar, a giant 3D-extruded 'OUTRUN' headline, a bold yellow 'NEW ALBUM · 11.11' line, and a cyan outline 'PRE-SAVE' button.",
+  "reading": "A full synthwave hero mockup: a circle sun over wavy mountain/horizon lines inside an outer frame, a double nav-divider line near the top, a thin zigzag near the bottom, and a pill button below the page — all overridden/precisely specified by eight typed notes covering page background, a striped sun, a jagged silhouette mask, a scrolling perspective grid floor, nav text, an extruded heading, a mono tagline, and the button.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [
         "s4"
       ],
@@ -93,7 +95,7 @@
         "s0",
         "s2"
       ],
-      "instruction": "Large glowing sun: soft vivid yellow #ffe259 at top fading to vivid pink #ff2e88 at bottom, circular, fading out into the page toward the top (solid until 50% o"
+      "instruction": "Big vivid circle, soft yellow #ffe259 at top fading to vivid pink #ff2e88 at bottom (retro sun), cut into 4 hard horizontal stripes across its lower half by a b"
     },
     {
       "kind": "design",
@@ -112,7 +114,7 @@
         "s1",
         "s2"
       ],
-      "instruction": "A near-black jagged cut-out silhouette (mountain/skyline shape), ONE flat #1a0638 fill via clip-path polygon — no gradient, no shading, no texture; the drawn ou"
+      "instruction": "A near-black jagged cut-out shape, ONE flat #1a0638 fill via clip-path polygon — no gradient, no shading, no texture; drawn outline is not kept as a visible str"
     },
     {
       "kind": "design",
@@ -128,7 +130,7 @@
         "s0",
         "s2"
       ],
-      "instruction": "A big empty product-photo backdrop block (20061x2264px) filled with a soft pale tinted gradient from #ff2e88 to #000000, left to right — no picture placeholder "
+      "instruction": "A perspective grid floor: a 2080x500px div (untransformed size), top-left at -400,558 so it runs off both page edges, tilted back in 3D with transform: perspect"
     },
     {
       "kind": "add",
@@ -144,7 +146,7 @@
         "s2",
         "s3"
       ],
-      "instruction": "Site nav, no box around it: wide-letter-spaced 'NIGHTDRIVE' on the left, 'TRACKS · TOUR · MERCH' on the right, both in cyan #00e5ff text (not the page's default"
+      "instruction": "Nav bar, no box around it: wide-spaced \"NIGHTDRIVE\" on the left, \"TRACKS · TOUR · MERCH\" on the right. Text color #00e5ff (cyan), not the page's default white t"
     },
     {
       "kind": "add",
@@ -169,7 +171,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Giant Helvetica italic heavy, tight-set headline 'OUTRUN' at 170px, about 703px wide (no larger). Give it an extruded 3D look using 8 stacked hard (no blur) tex"
+      "instruction": "Giant Helvetica italic heavy tight-set heading \"OUTRUN\", 170px type, about 703px wide (no larger). Extruded in 3D with 8 stacked hard (no blur) text-shadows of "
     },
     {
       "kind": "add",
@@ -188,7 +190,7 @@
         "s1",
         "s2"
       ],
-      "instruction": "Monospace, wide letter-spaced line 'NEW ALBUM · 11.11' in soft yellow #ffe259 (not the page's default white), set bold (font-weight 700), not regular."
+      "instruction": "Mono, wide-spaced tagline \"NEW ALBUM · 11.11\". Text color #ffe259 (soft yellow, not the page's default white text), set bold (font-weight 700), not regular."
     },
     {
       "kind": "add",
@@ -203,7 +205,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Cyan outline button labeled 'PRE-SAVE', 220x54px, square corners (border-radius 0, not a pill), text in cyan #00e5ff (not the page's default white)."
+      "instruction": "Cyan outline button labeled \"PRE-SAVE\", 220x54px, square corners (border-radius 0, not a pill). Text color #00e5ff (cyan), not the page's default white text."
     }
   ],
   "rejected": [

@@ -234,6 +234,10 @@
  "c3-ticket-carousel": {
   "plan": [
    [
+    "grid-floor",
+    "box"
+   ],
+   [
     "nav",
     "box"
    ],
@@ -273,7 +277,11 @@
   "notes": [
    [
     "*",
-    "whole page: near-black #120a2a (top) to deep indigo #1d1240 (bottom) gradient page, Helvetica type, off-white text; ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): a 1280x342px block with its top-left at 0,558, tilted back in 3D (transform: perspective(500px) rotateX(60deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 1 layer: background: repeating-linear-gradient(90deg, #7c5cff40 0px, #7c5cff40 1px, transparent 1px, transparent 80px); no fill of its own (the page shows between the lines)"
+    "whole page: near-black #120a2a (top) to deep indigo #1d1240 (bottom) gradient page, Helvetica type, off-white text"
+   ],
+   [
+    "grid-floor",
+    "a PERSPECTIVE GRID FLOOR: one 1280x342px div (its UNTRANSFORMED size) with its top-left at 0,558, tilted back in 3D (transform: perspective(500px) rotateX(60deg); transform-origin: 50% 0px), so its lines run off toward a far horizon, behind the other parts; its background is exactly these 1 layer: background-image: repeating-linear-gradient(90deg, #7c5cff40 0px, #7c5cff40 1px, transparent 1px, transparent 80px); no fill of its own (the page shows between the lines); NOT a plain dark floor, NOT a picture"
    ],
    [
     "nav",

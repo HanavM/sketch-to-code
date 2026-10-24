@@ -176,6 +176,10 @@
  "c4-cube-scene": {
   "plan": [
    [
+    "perspective-floor",
+    "box"
+   ],
+   [
     "nav",
     "box"
    ],
@@ -211,7 +215,11 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55% (the edge at y 495px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px)); ALSO a FLOOR that is part of the page itself (no mark is drawn for it): ONE div, position absolute, z-index 0, directly in the page body under all content (NOT the page background, NOT inside any card or other part; the other parts sit above it, z-index 1): a 1680x600px block with its top-left at -200,495 (it runs off the page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background: repeating-linear-gradient(90deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px), repeating-linear-gradient(0deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px); no fill of its own (the page shows between the lines)"
+    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55% (the edge at y 495px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px))"
+   ],
+   [
+    "perspective-floor",
+    "a PERSPECTIVE GRID FLOOR: one 1680x600px div (its UNTRANSFORMED size) with its top-left at -200,495 (it runs off both page edges), tilted back in 3D (transform: perspective(600px) rotateX(62deg); transform-origin: 50% 0px), so its lines run off toward a far horizon, behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px), repeating-linear-gradient(0deg, transparent 0px, transparent 79px, #ff8fab 79px, #ff8fab 81px); no fill of its own (the page shows between the lines); NOT a plain dark floor, NOT a picture"
    ],
    [
     "nav",

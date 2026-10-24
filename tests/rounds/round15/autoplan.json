@@ -87,8 +87,8 @@
     "numerals",
     "heading",
     {
-     "fontPx": 16,
-     "lines": 5
+     "fontPx": 560,
+     "lines": 1
     }
    ],
    [
@@ -127,7 +127,7 @@
    ],
    [
     "numerals",
-    "ONE GIANT WORD \"27\" PRINTED 3 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 3 separate absolutely placed divs, each the same 560px heavy (font-weight 900) \"27\" (line-height 1, letter-spacing -30px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #00a8d6 text, its box's top-left at 150,120 (position absolute; the glyphs' ink spans 150-713 across); copy 2: #e6007e text, its box's top-left at 172,136 (position absolute; the glyphs' ink spans 172-735 across); copy 3: #ffd500 text, its box's top-left at 136,148 (position absolute; the glyphs' ink spans 136-699 across); together they fill about 599x654px of the page's left side"
+    "ONE GIANT WORD \"27\" PRINTED 3 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 3 separate absolutely placed divs, each the same 560px heavy (font-weight 900) \"27\" (line-height 560px, i.e. 1, letter-spacing -30px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #00a8d6 text, its box's top-left at 150,120 (position absolute; the glyphs' ink spans 150-713 across); copy 2: #e6007e text, its box's top-left at 172,136 (position absolute; the glyphs' ink spans 172-735 across); copy 3: #ffd500 text, its box's top-left at 136,148 (position absolute; the glyphs' ink spans 136-699 across); together they fill about 599x654px of the page's left side"
    ],
    [
     "caption",

@@ -1,23 +1,23 @@
 {
   "id": "c1-kinetic-marquee",
-  "at": "2026-10-24T11:04:30.045Z",
+  "at": "2026-10-24T12:16:20.168Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7707724001161588,
-    "overallV2": 0.7596399183553955,
-    "overallV1": 0.6304169148279885,
-    "colour": 0.9260205614127899,
-    "structure": 0.6839857084385021,
-    "structureStrict": 0.40569409442534043,
-    "colourAligned": 0.9260205614127899,
-    "structureAligned": 0.7079603587144327,
+    "overall": 0.7857555641432177,
+    "overallV2": 0.7747708286677033,
+    "overallV1": 0.6929844724830851,
+    "colour": 0.9294457147933699,
+    "structure": 0.6546428154670823,
+    "structureStrict": 0.4785096468703205,
+    "colourAligned": 0.9294457147933699,
+    "structureAligned": 0.6782992828261634,
     "align": {
       "scale": 1,
-      "dx": 32,
+      "dx": -16,
       "dy": 0,
-      "r": 0.7470137592062052
+      "r": 0.7721921633682391
     },
-    "layout": 0.8457765249026158
+    "layout": 0.9343221414371821
   },
   "effects": {
     "recall": 0.7,
@@ -38,33 +38,34 @@
     "extra": []
   },
   "tokens": {
-    "input": 49873,
-    "output": 28934,
-    "cacheRead": 164420
+    "input": 41014,
+    "output": 26606,
+    "cacheRead": 213975
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 70061,
-      "output": 24952,
-      "cacheRead": 161336,
-      "toolCalls": 9,
+      "billed": 51699,
+      "output": 19543,
+      "cacheRead": 202779,
+      "toolCalls": 10,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Read components/SketchShape.tsx",
-        "Read src/index.css",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
         "Glob",
+        "Read src/index.css",
         "Read s2c-bench-app/package.json",
         "Edit components/SketchShape.tsx",
-        "Edit src/index.css",
+        "Read components/SketchShape.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 275132
+      "ms": 217695
     }
   ],
-  "reading": "The sketch is a festival landing-page hero: a flex nav bar, a tilted pink-to-indigo gradient cut-out shape behind the content, three tilted scrolling marquee rows (solid \"NOISE...\", hollow-outline \"MORE...\", and a black band \"THREE DAYS...40 ACTS...\"), a spinning ring of small \"TICKETS ON SALE\" text around a circle, a body paragraph, and a white pill CTA button with a hard offset shadow — all specified precisely by the typed notes.",
+  "reading": "The page is a festival site: a flex nav bar with three spaced items, a gradient angled hero shape behind the headline, three tilted scrolling marquee text bands (\"NOISE...\", hollow \"MORE...\", and a filled dark band \"THREE DAYS...\"), a spinning badge circle reading \"TICKETS ON SALE...\", a paragraph of hero copy, and a white pill CTA button with a hard offset shadow. Page-wide styling is yellow background, Helvetica type, near-black text.",
   "actions": [
     {
       "kind": "add",
@@ -79,7 +80,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the nav bar as a single 1184px-wide flex row (display:flex; justify-content:space-between) at 48,32 containing three separate items, never run together as"
+      "instruction": "Top nav bar, a single 1184px-wide flex row (justify-content: space-between) with three separate items pushed apart, never run together as one line: \"LOUD/FEST\" "
     },
     {
       "kind": "add",
@@ -94,35 +95,12 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a flat angled cut-out shape painted with linear-gradient(160deg, #ff4d8d, #5b2bff) exactly (these hexes, no brighter/darker), no drop shadow, no border. Its"
+      "instruction": "Angled cut-out hero shape, painted linear-gradient(160deg, #ff4d8d, #5b2bff) exactly, lying flat with no drop shadow and no border. Box is 380x480px with top-le"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s2"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s2",
-            "s3"
-          ],
-          "lines": 2,
-          "fontPx": 164
-        }
-      ],
-      "region": [
-        6,
-        172,
-        1268,
-        106
-      ],
-      "paths": [],
-      "instruction": "Add a tilted 8° anticlockwise scrolling marquee of giant Helvetica heavy, tight-set letters reading \"NOISE NOISE NOISE NOISE NOISE\", bleeding off the left and r"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s2",
         "s3"
       ],
       "textSize": [
@@ -137,12 +115,37 @@
       ],
       "region": [
         6,
-        352,
+        135,
         1268,
-        106
+        360
       ],
       "paths": [],
-      "instruction": "Add a tilted 8° anticlockwise scrolling marquee of giant Helvetica heavy, tight-set letters reading \"MORE MORE MORE MORE MORE MORE\", bleeding off the left and r"
+      "instruction": "Scrolling marquee band in giant Helvetica heavy, tight-set letters reading \"NOISE NOISE NOISE NOISE NOISE\", a 1800px-wide line, position absolute left -200px / "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 164
+        }
+      ],
+      "region": [
+        6,
+        135,
+        1268,
+        360
+      ],
+      "paths": [],
+      "instruction": "Scrolling marquee band in giant Helvetica heavy, tight-set letters reading \"MORE MORE MORE MORE MORE MORE\", HOLLOW outline only with transparent fill and near-b"
     },
     {
       "kind": "add",
@@ -165,7 +168,7 @@
         197
       ],
       "paths": [],
-      "instruction": "Add a tilted 8° anticlockwise scrolling marquee band, bleeding off the left and right page edges: a near-black (#111111) band 1800x170px before the tilt (only 1"
+      "instruction": "Scrolling marquee band sitting on a solid near-black (#111111) filled band, 1800x170px before rotation, edge to edge, with giant Helvetica heavy yellow (#e8ff3a"
     },
     {
       "kind": "add",
@@ -180,7 +183,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a spinning ring of small spaced capital letters reading \"TICKETS ON SALE • TICKETS ON SALE •\" running around a 200px circle, with no outline and no fill on "
+      "instruction": "Spinning circular badge, a 200px round solid #111111 filled disc (SVG circle, radius 100px, no outline) with small spaced capital yellow (#e8ff3a) letters runni"
     },
     {
       "kind": "add",
@@ -205,7 +208,7 @@
         49
       ],
       "paths": [],
-      "instruction": "Add body copy text: \"Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.\""
+      "instruction": "Hero paragraph text: \"Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.\""
     },
     {
       "kind": "add",
@@ -220,7 +223,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a white pill button labelled \"Get a wristband →\" with a hard solid opaque near-black shadow offset 6px down-right (no blur), exactly: #ffffff fill, #111111 "
+      "instruction": "White pill CTA button, 232x63px with pill-rounded ends, #ffffff fill and #111111 text, reading \"Get a wristband →\", with a hard solid opaque near-black shadow o"
     }
   ],
   "rejected": [

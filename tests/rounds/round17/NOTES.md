@@ -31,3 +31,23 @@ Round 17 so far: **75%** over 3 pages (round 16 started at 66 over 3). Vitest: s
 Next (planner, free first): a 3D-turned repeating grid floor said verbatim; a banded mask on a disc as stripes; a
 worded circle path's disc fill; marquee bands that bleed off both edges; red-flagged histogram bars by index; a log
 table's message column; then first builds c2, c4, c5, e1, e3, e4, e5.
+
+## n172: grid floor, banded sun, red spike bars, badge disc, bleeding bands, riso circles; first c2, c4, e1 (2026-10-24, ~574k billed)
+
+Planner now says: a 3D-tilted floor whose grid is tiled by background-size (its untransformed size, transform, tiles and
+scroll animation; it was a "20061x2264px product-photo backdrop"), a mask of many hard stops as stripes (was "fading out
+toward the top"), runs of odd-coloured histogram bars ("bars 15 to 18 vivid red"), a worded circle's filled disc, a
+both-ways bleeding band's untransformed left/top/width, a group of filled multiply-blend discs (was a bare box), and an
+overprinted word's stacked lines and real line-height (and its heading hint 260px, not the wrapper's 16px). Rounds 3, 5,
+6, 7, 11, 14, 15 notes re-generated (round 6/11/14 floors were dropped from the plan entirely before; none re-run).
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| c3 synth horizon | 70 → **81%** | grid floor and sun stripes now built; title sits at the left (target centred), subtitle left and small, button glow lost |
+| c1 kinetic marquee | 77 → **79%** | badge disc and left bleed fixed; the skewed photo now sits ON the black band (target: under it) |
+| c2 riso overprint | **33%** first, → **60%** after the disc/overprint fix | circles built; INK and LAB set on one line (target stacked), circles drawn over the title, grain overlay lost |
+| c4 wrapped editorial | **78%** first | faint stacked numbers built solid white; headline words overlap ("remember" over "the rain"); article not wrapped round the circle, no drop cap |
+| e1 gantt timeline | **64%** first | today line built as a thick red bar; week header wavy; group rows split from their tasks |
+| e2 log explorer | 78 → **73%** | spike bars now red; message column still lost (rows invent INFO levels and services), detail tabs lost |
+
+Round 17 so far: **73%** over 6 pages (latest build each). Vitest: same 2 env failures; typecheck clean.

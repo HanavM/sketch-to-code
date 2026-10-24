@@ -541,6 +541,8 @@ export function factsInPage() {
       // which edge it runs off: a word bleeding off the left is not one stretched across both
       bleeds: r.left < -4 && r.right > innerWidth + 4 ? 'left and right' : r.left < -4 ? 'left' : r.right > innerWidth + 4 ? 'right' : r.top < -4 ? 'top' : null,
       // how far past the edge it starts (drawn marks stop at the screen edge, so the sketch can't show it)
+      // n172: the untransformed line box of a block that bleeds both ways (round 17 c1 bands built starting at x 0)
+      box0: { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, abs: cs.position === 'absolute' },
       bleedPx: Math.round(r.left < -4 ? -r.left : r.right > innerWidth + 4 ? r.right - innerWidth : r.top < -4 ? -r.top : 0),
       // a textless filled block inside (a picture placeholder): makes this a picture card
       pictureKid: [...el.querySelectorAll('*')].some((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return !(k.innerText || '').trim() && !k.children.length && (rgba(c.backgroundColor)?.a > 0.05 || /gradient|url/.test(c.backgroundImage)) && b.width >= 48 && b.height >= 48 && Math.abs(b.width - b.height) < Math.max(b.width, b.height) * 2 }),
@@ -664,6 +666,13 @@ export function factsInPage() {
       // ---- round 15 (n158)
       // the same giant word printed 2-4 times, each copy absolutely placed, offset and blended (round 15 c2: three
       // 560px "27"s said as 'links: 27, 27, 27', built as tiny nav links)
+      // n172: a group of filled discs overlapping in a blend mode (round 17 c2 riso circles: said as a bare 'box', lost)
+      discs: (() => {
+        if (kids.length < 2 || kids.length > 8 || (el.innerText || '').trim()) return null
+        const ks = kids.map((k) => ({ k, c: getComputedStyle(k), b: k.getBoundingClientRect() }))
+        if (!ks.every(({ c, b }) => (c.borderTopLeftRadius.includes('%') ? parseFloat(c.borderTopLeftRadius) >= 45 : parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1) && Math.abs(b.width - b.height) <= 2 && b.width >= 60 && rgba(c.backgroundColor)?.a > 0.5)) return null
+        return ks.map(({ c, b }) => ({ x: Math.round(b.left), y: Math.round(b.top), d: Math.round(b.width), fill: rgba(c.backgroundColor), blend: c.mixBlendMode, op: +c.opacity }))
+      })(),
       overprint: (() => {
         if (kids.length < 2 || kids.length > 4) return null
         const t0 = (kids[0].innerText || '').trim()
@@ -717,6 +726,9 @@ export function factsInPage() {
         const dir = m.match(/linear-gradient\(([^,]+),/)?.[1] ?? ''
         const args = m.replace(/^.*?linear-gradient\(/, '').replace(/\)\s*$/, '').split(/,(?![^(]*\))/)
         const clear = (a) => /transparent|rgba\([^)]*,\s*0\)/.test(a)
+        // n172: a mask of many hard stops cuts the block into bands (round 17 c3 striped sun: said as a fade up)
+        const flips = args.reduce((n, a, i) => n + (i && clear(a) !== clear(args[i - 1]) ? 1 : 0), 0)
+        if (flips >= 4) return { bands: true, img: m, n: Math.ceil(flips / 2) }
         const toEnd = clear(args[args.length - 1])
         const ax = /180deg|to bottom/.test(dir) ? ['top', 'bottom'] : /0deg|to top/.test(dir) ? ['bottom', 'top'] : /90deg|to right/.test(dir) ? ['left', 'right'] : /270deg|to left/.test(dir) ? ['right', 'left'] : ['top', 'bottom']
         const at = parseFloat(m.match(/(\d+)%/)?.[1] ?? '50')
@@ -859,7 +871,9 @@ export function factsInPage() {
         const svg = el.closest('svg') || el, vb = svg.viewBox?.baseVal, sc = vb && vb.width ? r.width / vb.width : 1
         const dc = [...el.querySelectorAll('circle')].find((c) => getComputedStyle(c).fill === 'none' && getComputedStyle(c).strokeDasharray !== 'none')
         const ink = cs ? (cs.fill && cs.fill !== 'none' ? cs.fill : cs.color) : null
-        return { text: (t.textContent || '').trim(), px: Math.round(r.width), size: cs ? Math.round(parseFloat(cs.fontSize) * sc) : 0, weight: cs ? Number(cs.fontWeight) : 400, spacing: cs ? Math.round((parseFloat(cs.letterSpacing) || 0) * sc) : 0, rad: Math.round(rad * sc), ink,
+        // n172: a filled disc behind the letters (round 17 c1 badge: black disc said 'no fill', built as bare text)
+        const disc = [...el.querySelectorAll('circle')].map((c) => ({ c, f: getComputedStyle(c).fill })).find(({ f }) => f && f !== 'none' && !/rgba\([^)]*,\s*0\)/.test(f))
+        return { disc: disc ? { fill: disc.f, r: Math.round(+disc.c.getAttribute('r') * sc) } : null, text: (t.textContent || '').trim(), px: Math.round(r.width), size: cs ? Math.round(parseFloat(cs.fontSize) * sc) : 0, weight: cs ? Number(cs.fontWeight) : 400, spacing: cs ? Math.round((parseFloat(cs.letterSpacing) || 0) * sc) : 0, rad: Math.round(rad * sc), ink,
           dashed: dc ? { r: Math.round(+dc.getAttribute('r') * sc), w: +(getComputedStyle(dc).strokeWidth || '1').replace('px', ''), dash: getComputedStyle(dc).strokeDasharray, c: getComputedStyle(dc).stroke } : null }
       })(),
       // the text kids' boxes: a card's button, a bottom-set block of copy (round 5 c5 CTA said as 'cards')
@@ -1849,7 +1863,7 @@ export function factsInPage() {
       const base = r.map((b) => Math.round(b.bottom)), hs = r.map((b) => Math.round(b.height))
       if (Math.max(...base) - Math.min(...base) <= 2 && new Set(hs).size >= 3 && r.every((b) => b.width < b.height * 2.5)) {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
-        return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && o.length <= 2 ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
+        return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && (o.length <= 2 || (o.length <= 8 && o.length * 4 <= cs.length)) ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
           // n167: the card the chart sits on (round 16 e1: a white bordered shadowed card built as a pale blue panel) and the bars' own size
           card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), x: Math.round(box0.left + scrollX), y: Math.round(box0.top + scrollY), abs: /absolute|fixed/.test(cs.position), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
           barW: Math.round(r[0].width), barGap: r.length > 1 ? Math.round(r[1].left - r[0].right) : 0, tallest: Math.max(...hs) }
@@ -2099,7 +2113,7 @@ export function factsInPage() {
     }
     // a block tilted in 3D with a layered background (round 11 c4 floor: the second grid layer was dropped)
     const tf = ruleOf(el, 'transform')
-    if (!g && tf && /perspective|rotate[XY]|translateZ/.test(tf)) o.tilt3d = { tf, origin: ruleOf(el, 'transform-origin'), x: Math.round(el.offsetLeft), y: Math.round(el.offsetTop), w: el.offsetWidth, h: el.offsetHeight, bg: cs.backgroundImage }
+    if (!g && tf && /perspective|rotate[XY]|translateZ/.test(tf)) o.tilt3d = { tf, origin: ruleOf(el, 'transform-origin'), x: Math.round(el.offsetLeft), y: Math.round(el.offsetTop), w: el.offsetWidth, h: el.offsetHeight, bg: cs.backgroundImage, size: cs.backgroundSize, anim: anim(el) }
     // a masked block that is not text (round 11 c2 arch photo under a radial fade: said as a plain circle)
     const mk = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : (cs.webkitMaskImage && cs.webkitMaskImage !== 'none' ? cs.webkitMaskImage : null)
     if (mk) o.mask = { img: mk, radius: cs.borderRadius }
@@ -2429,11 +2443,14 @@ function effectWords(f) {
   if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)`)
   // a faded block: built solid otherwise (round 5 c3 cards at 75/45/20%)
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
-  if (f.maskFade) w.push(`fading out into the page toward the ${f.maskFade.toward} (solid until ${f.maskFade.fromPct}%, gone at the ${f.maskFade.toward} edge)`)
+  if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly;`)
+  else if (f.maskFade) w.push(`fading out into the page toward the ${f.maskFade.toward} (solid until ${f.maskFade.fromPct}%, gone at the ${f.maskFade.toward} edge)`)
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
   // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
   const past = f.bleeds !== 'left and right' && f.bleedPx >= 16 ? ` (${f.bleeds === 'right' ? 'runs' : 'starts'} ${f.bleedPx}px past it)` : ''
-  if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}${past}`)
+  const B0 = f.box0
+  const both = f.bleeds === 'left and right' && B0?.abs && B0.x < -4 && B0.x + B0.w > 1284 ? ` (one ${B0.w}px-wide line, position absolute, left ${B0.x}px, top ${B0.y}px BEFORE the tilt, so it starts ${-B0.x}px off the LEFT edge and ends ${B0.x + B0.w - 1280}px past the right; no letter starts at x 0)` : ''
+  if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}${past}${both}`)
   return w
 }
 // computed style writes 'transparent' as rgba(0, 0, 0, 0) (round 6 c1 floor: grid never recognised)
@@ -2612,7 +2629,7 @@ function denseNote(d) {
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
-    case 'bars': if (d.odd) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${d.odd.o.map(([i, c]) => `bar ${i + 1} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
+    case 'bars': if (d.odd) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${oddRuns(d.odd.o).map(([a, b, c]) => `${a === b ? `bar ${a + 1}` : `bars ${a + 1} to ${b + 1} (counting from the left)`} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
       return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
@@ -2933,10 +2950,15 @@ function boxedLine(f, d) {
 }
 // n158: round 15 creative parts said as what they are
 function round15Note(f) {
+  const D = f.discs
+  if (D) {
+    const bl = D.find((q) => q.blend && q.blend !== 'normal')?.blend
+    return { kind: 'box', note: `${D.length} big FILLED CIRCLES overlapping (NOT outlines, NOT a box, NOT a picture), each its own absolutely placed div with border-radius 50%${bl ? ` and mix-blend-mode: ${bl} (where they overlap the colours mix darker, like overprinted inks)` : ''}, behind the words: ${D.map((q, i) => `circle ${i + 1}: ${q.d}px across, ${hexOf(q.fill)} solid fill, its box's top-left at ${q.x},${q.y}${q.op < 0.95 ? `, ${Math.round(q.op * 100)}% opacity` : ''}`).join('; ')}` }
+  }
   const O = f.overprint
   if (O) {
     const lay = O.layers.map((l, i) => `copy ${i + 1}: ${hexOf(l.c)} text, its box's top-left at ${l.x},${l.y} (position absolute; the glyphs' ink spans ${l.ink.x}-${l.ink.x + l.ink.w} across)`).join('; ')
-    return { kind: 'heading', note: `ONE GIANT WORD ${quote(O.t)} PRINTED ${O.layers.length} TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): ${O.layers.length} separate absolutely placed divs, each the same ${O.px}px ${O.weight >= 800 ? 'heavy (font-weight 900)' : O.weight >= 600 ? 'bold' : 'regular'} ${quote(O.t)} (line-height 1${O.ls ? `, letter-spacing ${Math.round(O.ls)}px` : ''}), each with mix-blend-mode: ${O.blend} so where they overlap the inks darken into each other; ${lay}; together they fill about ${Math.max(...O.layers.map((l) => l.ink.x + l.ink.w)) - Math.min(...O.layers.map((l) => l.ink.x))}x${Math.max(...O.layers.map((l) => l.ink.y + l.ink.h)) - Math.min(...O.layers.map((l) => l.ink.y))}px of the page's left side` }
+    return { kind: 'heading', note: `ONE GIANT WORD ${quote(O.t)} PRINTED ${O.layers.length} TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): ${O.layers.length} separate absolutely placed divs, each the same ${O.px}px ${O.weight >= 800 ? 'heavy (font-weight 900)' : O.weight >= 600 ? 'bold' : 'regular'} ${quote(O.t)}${O.t.includes('\n') ? ` set as ${O.t.split('\n').length} stacked lines (${O.t.split('\n').map((x) => `"${x}"`).join(' over ')}, a <br> between them, in EVERY copy; the lines sit tight together, never spread apart down the page)` : ''} (line-height ${/px/.test(O.lh) ? `${Math.round(parseFloat(O.lh))}px, i.e. ${Math.round(parseFloat(O.lh) / O.px * 100) / 100}` : '1'}${O.ls ? `, letter-spacing ${Math.round(O.ls)}px` : ''}), each with mix-blend-mode: ${O.blend} so where they overlap the inks darken into each other; ${lay}; together they fill about ${Math.max(...O.layers.map((l) => l.ink.x + l.ink.w)) - Math.min(...O.layers.map((l) => l.ink.x))}x${Math.max(...O.layers.map((l) => l.ink.y + l.ink.h)) - Math.min(...O.layers.map((l) => l.ink.y))}px of the page's left side` }
   }
   const T = f.textRings
   if (T && T.rings.length >= 2) {
@@ -2964,6 +2986,12 @@ function tiltBlock(f) {
   return null
 }
 /** n141: round 11 objects said as the CSS that makes them: a preserve-3d cube, a 3D-tilted layered floor, a masked block. */
+// n172: odd-coloured bars grouped into runs of neighbours in one colour ([first, last, colour])
+function oddRuns(o) {
+  const out = []
+  for (const [i, c] of o) { const L = out[out.length - 1]; if (L && L[1] === i - 1 && hexOf(L[2]) === hexOf(c)) L[1] = i; else out.push([i, i, c]) }
+  return out
+}
 function round11Note(f) {
   const I = f.iso
   if (I) {
@@ -3000,9 +3028,13 @@ function round11Note(f) {
     return { kind: 'box', note: `${what}: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ${grp}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}${G ? '' : ')'} holding exactly ${C.faces.length} face divs, each absolutely placed at the group's top-left (left 0, top 0, the group's own size) with ${look}${mk}: ${C.faces.map(face).join('; ')}${fr}` }
   }
   const T = f.tilt3d
-  if (T && /perspective\(/.test(T.tf) && /repeating-linear-gradient/.test(T.bg)) {
+  // n172: or a grid tiled by background-size (round 17 c3 synth floor: linear-gradient lines at 80px tiles, said as a
+  // 20061x2264px product-photo backdrop from its projected box, built as a plain dark floor)
+  const tiled = T && /linear-gradient/.test(T.bg) && /\d+px/.test(T.size ?? '') && !/repeating/.test(T.bg)
+  if (T && /perspective\(/.test(T.tf) && (/repeating-linear-gradient/.test(T.bg) || tiled)) {
     const layers = (T.bg.match(/gradient\(/g) || []).length
-    return { kind: 'box', note: `a ${T.w}x${T.h}px block with its top-left at ${T.x},${T.y}${T.x < 0 || T.x + T.w > 1280 ? ' (it runs off the page edges)' : ''}, tilted back in 3D (transform: ${T.tf}${T.origin ? `; transform-origin: ${T.origin}` : ''}), behind the other parts; its background is exactly these ${layers} layer${layers > 1 ? 's, ALL of them (a grid of lines both ways, NOT stripes one way)' : ''}: background: ${cssHex(T.bg)}; no fill of its own (the page shows between the lines)` }
+    const A = T.anim
+    return { kind: 'box', note: `a PERSPECTIVE GRID FLOOR: one ${T.w}x${T.h}px div (its UNTRANSFORMED size) with its top-left at ${T.x},${T.y}${T.x < 0 || T.x + T.w > 1280 ? ' (it runs off both page edges)' : ''}, tilted back in 3D (transform: ${T.tf}${T.origin ? `; transform-origin: ${T.origin}` : ''}), so its lines run off toward a far horizon, behind the other parts; its background is exactly these ${layers} layer${layers > 1 ? 's, ALL of them (a grid of lines both ways, NOT stripes one way)' : ''}: background-image: ${cssHex(T.bg)}${tiled ? `; background-size: ${T.size} (each layer TILES, repeating: thin lines every tile)` : ''}; no fill of its own (the page shows between the lines)${A ? `; it scrolls toward the viewer forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}; NOT a plain dark floor, NOT a picture` }
   }
   const M = f.mask
   if (M && !f.clipText && !f.text && /radial-gradient/.test(M.img) && f.rect.w * f.rect.h < 0.3 * 1280 * 900) {
@@ -3451,7 +3483,7 @@ function decideOne(f, page, marked, said) {
       const dr = ct.dashed ? `; a separate thin dashed ${ct.dashed.w}px ${hexOf(parse(ct.dashed.c) ?? { r: 17, g: 17, b: 17, a: 1 })} circle (stroke-dasharray ${ct.dashed.dash.replace(/px/g, '')}, no fill) of radius ${ct.dashed.r}px round the same centre, just outside the letters` : '; no ring outline, no disc behind the letters'
       return { kind: 'circle', note: withFx(`ring of big ${ct.weight >= 800 ? 'heavy ' : ct.weight >= 600 ? 'bold ' : ''}${/[a-z]/.test(t) ? '' : 'capital '}letters ${quote(t, 140)}, ${ct.size}px type${ct.spacing ? `, letter-spacing ${ct.spacing}px` : ''}${ink ? `, ${hexOf(ink)}` : ''}, set on a circle (SVG textPath) of radius ${ct.rad}px centred in a ${ct.px}x${ct.px}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: the words run ALL the way round the circle, end meeting start, never a partial arc${ringSvg(ct, t, ink ? hexOf(ink) : '')}${dr}`) }
     }
-    return { kind: 'circle', note: withFx(`ring of small ${/[a-z]/.test(t) ? '' : 'spaced capital '}letters ${quote(t, 60)} running round a ${ct.px}px circle, no outline, no fill`) }
+    return { kind: 'circle', note: withFx(`ring of small ${/[a-z]/.test(t) ? '' : 'spaced capital '}letters ${quote(t, 60)} running round a ${ct.px}px circle${ct.disc ? `${ct.ink && parse(ct.ink) ? `, the letters ${hexOf(parse(ct.ink))}` : ''}; they sit ON a SOLID ${hexOf(parse(ct.disc.fill))} filled disc of radius ${ct.disc.r}px (a ${2 * ct.disc.r}px round badge, an SVG <circle> with that fill under the text), no outline` : ', no outline, no fill'}`) }
   }
   // a progress ring made of a conic gradient (round 5 c5: said as a 'near-black block')
   if (f.conicRing && f.conicRing.round && f.conicRing.stops.length >= 2 && !f.regionKids.length) {
@@ -4538,6 +4570,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const k = out.get(f.role).kind
     if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
     // a letter-by-letter word is drawn as one line of its biggest letters, not a paragraph (round 7 c2: 16px x 7 lines)
+    // n172: an overprinted word is sized by its copies, not the wrapper's 16px (round 17 c2: fontPx 16 lines 6)
+    if (k === 'heading' && f.overprint) return [f.role, k, { fontPx: f.overprint.px, lines: f.overprint.t.split('\n').length }]
     if (k === 'heading' && f.letterWave) return [f.role, k, { fontPx: Math.max(...f.letterWave.letters.map((l) => l.px)), lines: 1 }]
     if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]
     // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px

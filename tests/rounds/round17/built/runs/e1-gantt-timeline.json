@@ -1,0 +1,121 @@
+{
+  "id": "e1-gantt-timeline",
+  "at": "2026-10-24T12:01:30.023Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6416638741439498,
+    "overallV2": 0.6416638741439498,
+    "overallV1": 0.6242032110554941,
+    "colour": 0.976917267901406,
+    "structure": 0.8690012533970414,
+    "structureStrict": 0.8522492759900817,
+    "colourAligned": 0.976917267901406,
+    "structureAligned": 0.8690012533970414,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8276431178320064
+    },
+    "layout": 0.9192305037957212
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "tilt"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 58991,
+    "output": 42622,
+    "cacheRead": 178546
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 85961,
+      "output": 35686,
+      "cacheRead": 167771,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 400227
+    }
+  ],
+  "reading": "The two wavy lines at the top sketch a page header (view toggle Day/Week/Month, an Add task button, page title, and date range) exactly specified part-by-part in the first typed note. The tall left rectangle sketches a Task Owner Progress panel with tab rows and a task list (second note). The tall right rectangle sketches a Gantt-style weekly chart panel with week headers, a line chart, a Today marker, and colored task bars (third note).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Build the page header exactly as specified: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        63,
+        354,
+        834
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build a left side panel: a 359x56px #f8fafc filled button \"TASK OWNER PROGRESS\" (bold #64748b text; its fill clearly visible, not white), then a 44px row of tab"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        363,
+        63,
+        914,
+        834
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build a right Gantt-style panel: \"W10\", line chart drawn as SVG lines: solid grey line, solid grey line, solid grey line, solid grey line; no axis labels; part "
+    }
+  ],
+  "rejected": []
+}

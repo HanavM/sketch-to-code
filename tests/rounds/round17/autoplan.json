@@ -85,19 +85,19 @@
    ],
    [
     "marquee-1",
-    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy tight-set letters \"NOISE NOISE NOISE NOISE NOISE\""
+    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 150px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters \"NOISE NOISE NOISE NOISE NOISE\""
    ],
    [
     "marquee-2",
-    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy tight-set letters hollow outlined near-black \"MORE MORE MORE MORE MORE MORE\"; the word \"MORE MORE MORE MORE\"… is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 3px #111111), same size and weight as the rest"
+    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 330px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters hollow outlined near-black \"MORE MORE MORE MORE MORE MORE\"; the word \"MORE MORE MORE MORE\"… is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 3px #111111), same size and weight as the rest"
    ],
    [
     "marquee-3",
-    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges giant Helvetica heavy tight-set letters yellow on a near-black (#111111) band (the band itself 1800x170px before the tilt (height: 170px, only 170px thick; the tilt alone makes its outline 419px tall), filled near-black edge to edge) \"THREE DAYS · 40 ACTS · ONE FIELD ·\""
+    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 520px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters yellow on a near-black (#111111) band (the band itself 1800x170px before the tilt (height: 170px, only 170px thick; the tilt alone makes its outline 419px tall), filled near-black edge to edge) \"THREE DAYS · 40 ACTS · ONE FIELD ·\""
    ],
    [
     "spinning-badge",
-    "spinning ring of small spaced capital letters \"TICKETS ON SALE • TICKETS ON SALE •\" running round a 200px circle, no outline, no fill"
+    "spinning ring of small spaced capital letters \"TICKETS ON SALE • TICKETS ON SALE •\" running round a 200px circle, the letters #e8ff3a; they sit ON a SOLID #111111 filled disc of radius 100px (a 200px round badge, an SVG <circle> with that fill under the text), no outline"
    ],
    [
     "copy",
@@ -123,8 +123,8 @@
     "offset-title",
     "heading",
     {
-     "fontPx": 16,
-     "lines": 6
+     "fontPx": 260,
+     "lines": 2
     }
    ],
    [
@@ -150,12 +150,16 @@
     "whole page: cream (#f4efe3, plainly not white) page, Helvetica type, indigo text"
    ],
    [
+    "overprint-circles",
+    "3 big FILLED CIRCLES overlapping (NOT outlines, NOT a box, NOT a picture), each its own absolutely placed div with border-radius 50% and mix-blend-mode: multiply (where they overlap the colours mix darker, like overprinted inks), behind the words: circle 1: 420px across, #ff4f9a solid fill, its box's top-left at 520,110; circle 2: 360px across, #2e5bff solid fill, its box's top-left at 680,300; circle 3: 200px across, #ffd23f solid fill, its box's top-left at 430,420"
+   ],
+   [
     "nav",
     "nav bar list: \"PRINT CLUB\", \"Workshops · Zines ·\"…, \"Join\"; these are 3 SEPARATE items on one line 1140px wide at 70,40, pushed apart (display flex, justify-content: space-between; never run together as one line of text): \"PRINT CLUB\" at the far left, \"Workshops · Zines · Open\"… in the middle, \"Join\" at the far right"
    ],
    [
     "offset-title",
-    "ONE GIANT WORD \"INK\nLAB\" PRINTED 2 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 2 separate absolutely placed divs, each the same 260px heavy (font-weight 900) \"INK\nLAB\" (line-height 1, letter-spacing -10px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #ff4f9a text, its box's top-left at 70,150 (position absolute; the glyphs' ink spans 70-574 across); copy 2: #2e5bff text, its box's top-left at 84,162 (position absolute; the glyphs' ink spans 84-588 across); together they fill about 518x523px of the page's left side"
+    "ONE GIANT WORD \"INK\nLAB\" PRINTED 2 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 2 separate absolutely placed divs, each the same 260px heavy (font-weight 900) \"INK\nLAB\" set as 2 stacked lines (\"INK\" over \"LAB\", a <br> between them, in EVERY copy; the lines sit tight together, never spread apart down the page) (line-height 221px, i.e. 0.85, letter-spacing -10px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #ff4f9a text, its box's top-left at 70,150 (position absolute; the glyphs' ink spans 70-574 across); copy 2: #2e5bff text, its box's top-left at 84,162 (position absolute; the glyphs' ink spans 84-588 across); together they fill about 518x523px of the page's left side"
    ],
    [
     "stamp",
@@ -265,7 +269,7 @@
    ],
    [
     "striped-sun",
-    "fading out into the page toward the top (solid until 50%, gone at the top edge) big vivid soft yellow #ffe259 (top) to vivid pink #ff2e88 (bottom) circle"
+    "cut into 4 hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade): mask-image: linear-gradient(#000000 0px, #000000 50%, transparent 50%, transparent 54%, #000000 54%, #000000 62%, transparent 62%, transparent 67%, #000000 67%, #000000 76%, transparent 76%, transparent 82%, #000000 82%, #000000 90%, transparent 90%, transparent 97%, #000000 97%); -webkit-mask-image the same, exactly; big vivid soft yellow #ffe259 (top) to vivid pink #ff2e88 (bottom) circle"
    ],
    [
     "mountains",
@@ -273,7 +277,7 @@
    ],
    [
     "grid-floor",
-    "a big 20061x2264px block filled with a soft pale tinted #ff2e88 to #000000 (left to right) gradient: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a PERSPECTIVE GRID FLOOR: one 2080x500px div (its UNTRANSFORMED size) with its top-left at -400,558 (it runs off both page edges), tilted back in 3D (transform: perspective(400px) rotateX(62deg); transform-origin: center top), so its lines run off toward a far horizon, behind the other parts; its background is exactly these 2 layers, ALL of them (a grid of lines both ways, NOT stripes one way): background-image: linear-gradient(90deg, #ff2e88 2px, transparent 2px), linear-gradient(#ff2e88 2px, transparent 2px); background-size: 80px 80px, 80px 60px (each layer TILES, repeating: thin lines every tile); no fill of its own (the page shows between the lines); it scrolls toward the viewer forever: animation 1s linear infinite with @keyframes 100% { background-position: 0px 60px; }; NOT a plain dark floor, NOT a picture"
    ],
    [
     "nav",
@@ -509,7 +513,7 @@
    ],
    [
     "histogram",
-    "bar chart, 40 dark grey bars, heights 34/46/43/61/53/66/57/54/78/74/65/49/45/69/84/100/98/71/56/51/57/65/68/55/49/44/53/59/76/80/66/45/41/50/56/63/70/78/60/54% of the tallest; each bar 27px wide, 3px apart, the tallest 80px, no labels under the bars"
+    "bar chart, 40 bars, all dark grey (#3f3f46) except bars 15 to 18 (counting from the left) vivid red (#ef4444), heights 34/46/43/61/53/66/57/54/78/74/65/49/45/69/84/100/98/71/56/51/57/65/68/55/49/44/53/59/76/80/66/45/41/50/56/63/70/78/60/54% of the tallest; each bar 27px wide, 3px apart, the tallest 80px, no labels under the bars"
    ],
    [
     "log-table",

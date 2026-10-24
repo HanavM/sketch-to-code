@@ -1,0 +1,183 @@
+{
+  "id": "c4-wrap-editorial",
+  "at": "2026-10-24T11:53:04.172Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7840733305731374,
+    "overallV2": 0.7840733305731374,
+    "overallV1": 0.7578157565649755,
+    "colour": 0.9669075872711956,
+    "structure": 0.8201945395350859,
+    "structureStrict": 0.7787137897124607,
+    "colourAligned": 0.9669075872711956,
+    "structureAligned": 0.8201945395350859,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9595619222140905
+    },
+    "layout": 0.7626718776477789
+  },
+  "effects": {
+    "recall": 0.7777777777777778,
+    "kept": [
+      "bleed",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46272,
+    "output": 27298,
+    "cacheRead": 420352
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58442,
+      "output": 21003,
+      "cacheRead": 409483,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Glob",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 233846
+    }
+  ],
+  "reading": "The sketch lays out a magazine-style hero page: a diagonal teal-to-mint gradient panel running the full page height behind a bold white numbered list (01-05), a top nav row of four section labels, a large article block with an eyebrow label, headline, italic accent word and body copy, a glowing orange sphere acting as the photo with a white caption beneath it, and a scrolling dark ticker bar along the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        615,
+        890
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark teal (#0f3b2e) to green (#3f8f6b at 60%) to mint green (#c9e4a7) gradient, top-left to bottom-right, angled cut-out shape; its corners at exactly these pag"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        98,
+        124,
+        17,
+        532
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A narrow column of 5 bold 120px #ffffff letters, one per line, 01 02 03 04 05, line-height exactly 108px; its left edge at x 40, first letter's line top at y 12"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        664,
+        39,
+        552,
+        9
+      ],
+      "paths": [],
+      "instruction": "Nav row, part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        563,
+        113,
+        654,
+        461
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "An invisible frame 660x467px at 560,110 (no fill, no border, no shadow) whose own parts are built part by part (page px: size, then top-left x,y; each part its "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        984,
+        299,
+        232,
+        231
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A 240px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #c2410c 70%) so it looks lit from the top left; absolu"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        783,
+        165,
+        8
+      ],
+      "paths": [],
+      "instruction": "Caption line beneath the photo sphere, mono \"PHOTO: TERRACES, LIGURIA\"; its text #ffffff (white, NOT the page's near-black text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        849,
+        1272,
+        48
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Scrolling near-black (exactly #1a1a1a) bar spanning the full page width at the bottom, off-white text bold 18px \"LATEST — River levels up 12% · New seed bank op"
+    }
+  ],
+  "rejected": []
+}
