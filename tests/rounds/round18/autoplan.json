@@ -96,6 +96,14 @@
     "box"
    ],
    [
+    "clients-stat",
+    "box"
+   ],
+   [
+    "awards-stat",
+    "box"
+   ],
+   [
     "hatched-cell",
     "box"
    ],
@@ -119,7 +127,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#f2f0e9, plainly not white) page, mono type, near-black text; the 6 near-black-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single 2px near-black line, no gaps between boxes, no doubled lines"
+    "whole page: cream (#f2f0e9, plainly not white) page, mono type, near-black text; the 8 near-black-bordered boxes are ONE ruled grid filling the page edge to edge: neighbouring boxes share a single 2px near-black line, no gaps between boxes, no doubled lines"
    ],
    [
     "grid",
@@ -132,6 +140,14 @@
    [
     "hero-cell",
     "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), same size and weight as the rest"
+   ],
+   [
+    "clients-stat",
+    "vivid yellow block \"CLIENTS\", text \"84\""
+   ],
+   [
+    "awards-stat",
+    "vivid indigo block, white text \"AWARDS\", text \"12\"; its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "hatched-cell",
@@ -157,6 +173,14 @@
  },
  "c3-isometric-city": {
   "plan": [
+   [
+    "cloud",
+    "box"
+   ],
+   [
+    "cloud-small",
+    "box"
+   ],
    [
     "nav",
     "box"

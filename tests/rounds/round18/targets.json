@@ -1,5 +1,5 @@
 {
- "measured": "2026-10-24T16:00:35.408Z",
+ "measured": "2026-10-24T18:52:54.421Z",
  "targets": {
   "c1-liquid-chrome": {
    "regions": [
@@ -118,6 +118,26 @@
      "must": false
     },
     {
+     "role": "clients-stat",
+     "rect": {
+      "x": 483,
+      "y": 124,
+      "w": 224,
+      "h": 296
+     },
+     "must": false
+    },
+    {
+     "role": "awards-stat",
+     "rect": {
+      "x": 707,
+      "y": 124,
+      "w": 224,
+      "h": 296
+     },
+     "must": false
+    },
+    {
      "role": "hatched-cell",
      "rect": {
       "x": 932,
@@ -171,6 +191,26 @@
   },
   "c3-isometric-city": {
    "regions": [
+    {
+     "role": "cloud",
+     "rect": {
+      "x": 120,
+      "y": 110,
+      "w": 160,
+      "h": 50
+     },
+     "must": false
+    },
+    {
+     "role": "cloud-small",
+     "rect": {
+      "x": 840,
+      "y": 60,
+      "w": 160,
+      "h": 50
+     },
+     "must": false
+    },
     {
      "role": "nav",
      "rect": {

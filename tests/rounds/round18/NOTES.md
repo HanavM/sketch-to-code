@@ -47,3 +47,21 @@ Rounds 1-17 plans re-generated: round 11 card numbers no longer said bold (they 
 dark tooltip now said as a bubble with its tail; nothing else moved.
 
 Round 18 so far: **89%** over 3 pages (latest build each). Vitest: same 2 env failures; typecheck clean.
+
+## n180: first builds of the other seven pages (2026-10-24, ~701k billed)
+
+| page | likeness | what was off |
+|---|---|---|
+| c2 brutal grid | **50%** | the yellow "84" and blue "12" stat cells were never tagged in the target, so never drawn: an invented text cell took their place; headline built small and mono (target heavy sans), hollow "26" small, hatching on the case card's border instead of its cell, list arrows on their own lines, the CTA button lost, grid short |
+| c4 duotone split | **72%** | split, giant italic words, lede right; vertical nav built as a line over the logo, the glows a hard-edged box, the plate number not hollow, the progress ring an empty square, scan lines lost |
+| c5 paper collage | **69%** | torn red sheet and headline right; polaroid a plain grey box with no photo, stamp unfilled, arrow a rectangle, sticky note empty, the lede card lost (text near invisible), tape and lined paper lost |
+| e1 kanban swimlanes | **61%** | cards right; the dragged card's tilt went onto the whole first lane and the card itself was lost, column counts above names, avatar group lost, an invented "Load more" row instead of the collapsed "Growth" lane |
+| e2 code editor | **95%** | near-identical |
+| e3 analytics dashboard | **87%** | open date picker, KPIs, chart, donut, funnel, table right; hover marker, table paging and the bottom Settings link lost |
+| e4 email client | **55%** | three panes near-identical; the floating compose window was pushed off the bottom (should stand 420px tall at the right), an invented tagline under the logo |
+
+Targets fixed (no tokens): c2's two stat cells and c3's two clouds now carry region tags, so they are drawn and
+planned; re-measured and re-planned (only c2, c3 plans changed; refs unchanged).
+
+Round 18, all 10 built: **76%** (c1 90, c2 50, c3 88, c4 72, c5 69, e1 61, e2 95, e3 87, e4 55, e5 90).
+Vitest: same 2 env failures; typecheck clean.

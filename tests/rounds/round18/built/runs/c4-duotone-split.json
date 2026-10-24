@@ -1,0 +1,405 @@
+{
+  "id": "c4-duotone-split",
+  "at": "2026-10-24T18:12:24.108Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7240827093765284,
+    "overallV2": 0.7240827093765284,
+    "overallV1": 0.6720088211061599,
+    "colour": 0.9199443372496643,
+    "structure": 0.7743953933724622,
+    "structureStrict": 0.6737937549569681,
+    "colourAligned": 0.9199443372496643,
+    "structureAligned": 0.7743953933724622,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9347831961911087
+    },
+    "layout": 0.667624086819548,
+    "layoutV1": 0.6283999488885135,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1272,
+      894
+    ],
+    [
+      1,
+      598,
+      0,
+      674,
+      894
+    ],
+    [
+      1,
+      0,
+      2,
+      738,
+      890
+    ],
+    [
+      1,
+      24,
+      1,
+      15,
+      892
+    ],
+    [
+      0,
+      94,
+      57,
+      163,
+      53
+    ],
+    [
+      5,
+      94,
+      57,
+      163,
+      15
+    ],
+    [
+      5,
+      94,
+      80,
+      163,
+      30
+    ],
+    [
+      0,
+      90,
+      230,
+      566,
+      391
+    ],
+    [
+      8,
+      90,
+      230,
+      566,
+      196
+    ],
+    [
+      8,
+      90,
+      426,
+      566,
+      196
+    ],
+    [
+      0,
+      100,
+      670,
+      352,
+      90
+    ],
+    [
+      0,
+      100,
+      818,
+      163,
+      24
+    ],
+    [
+      0,
+      1113,
+      62,
+      107,
+      14
+    ],
+    [
+      0,
+      1113,
+      81,
+      107,
+      14
+    ],
+    [
+      0,
+      1080,
+      100,
+      140,
+      14
+    ],
+    [
+      0,
+      574,
+      180,
+      600,
+      600
+    ],
+    [
+      0,
+      824,
+      430,
+      327,
+      128
+    ],
+    [
+      17,
+      824,
+      430,
+      327,
+      64
+    ],
+    [
+      17,
+      824,
+      494,
+      327,
+      64
+    ],
+    [
+      0,
+      1083,
+      693,
+      133,
+      133
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "caption",
+      "iou": 0.3922413793103448,
+      "parts": 3,
+      "rect": {
+        "x": 1080,
+        "y": 62,
+        "w": 140,
+        "h": 52
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "clip-shape",
+      "motion",
+      "tilt",
+      "vertical-type"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 62816,
+    "output": 51410,
+    "cacheRead": 289431
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 95966,
+      "output": 39571,
+      "cacheRead": 286347,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SketchShape.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 438391
+    }
+  ],
+  "reading": "The sketch lays out a magazine-style hero spread: a cream angled cut-out panel over a near-black page carrying a nav/title lockup, a giant bold italic 'Dusk Hours' headline, a body paragraph and a 'VIEW THE SERIES →' link; to the right, three small monospace metadata lines, a glowing 'of twenty-four' counter badge, and a plain square placeholder lower-right. All colors, type sizes, and exact copy come from the user's typed notes, which take precedence over the raw ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        3,
+        1272,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Add a cream #f5e9d7 angled cut-out panel as a single flat fill (no gradient/shading/texture of its own). Its box is 742x900px with top-left at 0,0; clip to poly"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        94,
+        57,
+        120,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small header lockup sitting on the cream panel, near-black #101820 text (not the page's cream default), no background fill of its own: a wide-letter-spaced smal"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 178
+        }
+      ],
+      "region": [
+        98,
+        230,
+        505,
+        391
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif heading set BOLD (font-weight 700) and italic, tight-set (line-height 0.85), 230px type size, in exactly 2 lines 'Dusk' / 'Hours' (ke"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        100,
+        670,
+        352,
+        90
+      ],
+      "paths": [],
+      "instruction": "Body paragraph on the cream panel, dark grey #3a3a3a text (not the page's cream default), no fill/bar of its own, reading: \"A photographer's year spent chasing "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        100,
+        818,
+        184,
+        8
+      ],
+      "paths": [],
+      "instruction": "Bold text link on the cream panel reading 'VIEW THE SERIES →' with a 2px underline, near-black #101820 text (not the page's cream default), no surrounding box/b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        904,
+        60,
+        312,
+        58
+      ],
+      "paths": [],
+      "instruction": "Three small one-line monospace metadata labels in #cbb9a3, each kept on a single line (white-space nowrap) with min-width (not fixed width) so the word and its "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 58
+        }
+      ],
+      "region": [
+        824,
+        430,
+        102,
+        129
+      ],
+      "paths": [],
+      "instruction": "A small badge/counter block with soft radial colour glows as its background: full-strength orange #ff5a36 at its center fading to nothing ~289px out, centered a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1083,
+        693,
+        133,
+        133
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Small square bordered placeholder panel in the bottom-right area of the page (plain box, no content specified)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

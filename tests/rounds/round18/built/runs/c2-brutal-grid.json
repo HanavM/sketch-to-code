@@ -1,0 +1,427 @@
+{
+  "id": "c2-brutal-grid",
+  "at": "2026-10-24T18:01:48.228Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5017519949387849,
+    "overallV2": 0.5017519949387849,
+    "overallV1": 0.4542835224930616,
+    "colour": 0.812808834384039,
+    "structure": 0.41262090033689314,
+    "structureStrict": 0.2988139537721975,
+    "colourAligned": 0.812808834384039,
+    "structureAligned": 0.41262090033689314,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7182071090199882
+    },
+    "layout": 0.6549024902361875,
+    "layoutV1": 0.6549024902361875,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      32,
+      32,
+      1216,
+      744
+    ],
+    [
+      1,
+      34,
+      34,
+      1212,
+      84
+    ],
+    [
+      2,
+      66,
+      59,
+      172,
+      33
+    ],
+    [
+      2,
+      934,
+      65,
+      280,
+      20
+    ],
+    [
+      1,
+      34,
+      118,
+      1212,
+      512
+    ],
+    [
+      5,
+      34,
+      118,
+      449,
+      512
+    ],
+    [
+      6,
+      66,
+      150,
+      320,
+      135
+    ],
+    [
+      6,
+      66,
+      526,
+      383,
+      72
+    ],
+    [
+      6,
+      298,
+      215,
+      160,
+      160
+    ],
+    [
+      5,
+      483,
+      118,
+      449,
+      512
+    ],
+    [
+      10,
+      483,
+      118,
+      447,
+      256
+    ],
+    [
+      11,
+      507,
+      142,
+      399,
+      20
+    ],
+    [
+      11,
+      507,
+      174,
+      399,
+      68
+    ],
+    [
+      10,
+      483,
+      374,
+      447,
+      256
+    ],
+    [
+      14,
+      507,
+      398,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      424,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      450,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      476,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      502,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      528,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      554,
+      399,
+      26
+    ],
+    [
+      14,
+      507,
+      580,
+      399,
+      26
+    ],
+    [
+      5,
+      932,
+      118,
+      314,
+      512
+    ],
+    [
+      23,
+      932,
+      118,
+      314,
+      512
+    ],
+    [
+      24,
+      942,
+      128,
+      294,
+      492
+    ],
+    [
+      25,
+      966,
+      152,
+      246,
+      26
+    ],
+    [
+      25,
+      966,
+      202,
+      246,
+      78
+    ],
+    [
+      25,
+      966,
+      304,
+      246,
+      26
+    ],
+    [
+      1,
+      34,
+      630,
+      1212,
+      144
+    ],
+    [
+      29,
+      66,
+      661,
+      1148,
+      23
+    ],
+    [
+      29,
+      66,
+      692,
+      1148,
+      23
+    ],
+    [
+      29,
+      66,
+      722,
+      1148,
+      23
+    ],
+    [
+      1,
+      549,
+      482,
+      206,
+      206
+    ],
+    [
+      33,
+      557,
+      528,
+      190,
+      115
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blend",
+      "hard-shadow",
+      "hollow-type",
+      "mono",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "huge-type",
+      "uppercase-display"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46123,
+    "output": 31128,
+    "cacheRead": 175028
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61099,
+      "output": 19617,
+      "cacheRead": 171944,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 226378
+    }
+  ],
+  "reading": "The sketch lays out a full-page grid (header bar, hero column, services box, case-study column, footer bar) plus two circles; typed notes give exact copy and styling for a mono-type agency landing page: cream page, near-black grid borders, a red-orange hero with a hollow \"26\" and a white disc, a diagonally-striped case-study block, a services list, a tilted yellow \"NOW BOOKING Q3\" badge straddling the services/footer boundary, and a footer with coloured contact lines.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        33,
+        33,
+        1214,
+        834
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Lay out the whole page on a cream (#f2f0e9, plainly not white) background with monospace type and near-black default text. The six near-black-bordered boxes ske"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        37,
+        37,
+        1205,
+        84
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a near-black (#111111) top navigation bar spanning the page width. On the left, bold 22px cream (#f2f0e9) logo text 'NOISE/WORKS ✱'; to its right, nav items"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        37,
+        127,
+        443,
+        586
+      ],
+      "paths": [
+        "s2",
+        "s7"
+      ],
+      "instruction": "Make this a vivid red-orange filled hero block with a thick near-black border (consistent with the page grid), containing the bold headline 'WE BUILD LOUD WEBSI"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        935,
+        128,
+        308,
+        585
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Give this box a border made of diagonal 45° repeating stripes, 10px near-black then 10px cream, hard-edged (not a smooth gradient): repeating-linear-gradient(45"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        486,
+        423,
+        442,
+        290
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Thick near-black bordered box containing near-black monospace 16px code-style lines: '01 Identity', '→', '02 Web', '→', '03 Motion', '→', '04 Type', '→'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        550,
+        550,
+        209,
+        208
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a circular badge, tilted 9° anticlockwise with a slight back-and-forth wobble, vivid yellow fill, 190px across, 4px solid near-black outline, with a hard op"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        38,
+        719,
+        1205,
+        144
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Footer bar with a near-black border containing monospace 15px code-style lines, each in its own colour: 'START A PROJECT' in #ffe600 yellow, 'hello@noise.works'"
+    }
+  ],
+  "rejected": []
+}

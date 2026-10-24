@@ -1,0 +1,429 @@
+{
+  "id": "c5-paper-collage",
+  "at": "2026-10-24T18:19:12.302Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6879350895874261,
+    "overallV2": 0.6879350895874261,
+    "overallV1": 0.6176865596222922,
+    "colour": 0.9546500598295384,
+    "structure": 0.6885668214170126,
+    "structureStrict": 0.5812045469489339,
+    "colourAligned": 0.9546500598295384,
+    "structureAligned": 0.6885668214170126,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8731337638861656
+    },
+    "layout": 0.824780022033213,
+    "layoutV1": 0.824780022033213,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      64,
+      34,
+      1152,
+      28
+    ],
+    [
+      2,
+      64,
+      34,
+      123,
+      28
+    ],
+    [
+      2,
+      937,
+      38,
+      279,
+      20
+    ],
+    [
+      4,
+      937,
+      38,
+      47,
+      20
+    ],
+    [
+      4,
+      1015,
+      38,
+      23,
+      20
+    ],
+    [
+      4,
+      1071,
+      38,
+      63,
+      20
+    ],
+    [
+      4,
+      1165,
+      38,
+      51,
+      20
+    ],
+    [
+      1,
+      1115,
+      66,
+      123,
+      86
+    ],
+    [
+      1,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      10,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      11,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      1,
+      118,
+      180,
+      533,
+      192
+    ],
+    [
+      13,
+      118,
+      180,
+      533,
+      96
+    ],
+    [
+      13,
+      118,
+      276,
+      533,
+      96
+    ],
+    [
+      1,
+      765,
+      79,
+      329,
+      382
+    ],
+    [
+      16,
+      765,
+      79,
+      329,
+      354
+    ],
+    [
+      16,
+      765,
+      441,
+      329,
+      20
+    ],
+    [
+      1,
+      112,
+      586,
+      496,
+      60
+    ],
+    [
+      1,
+      603,
+      473,
+      244,
+      144
+    ],
+    [
+      20,
+      603,
+      473,
+      244,
+      144
+    ],
+    [
+      21,
+      603,
+      473,
+      243,
+      144
+    ],
+    [
+      1,
+      838,
+      494,
+      325,
+      301
+    ],
+    [
+      23,
+      838,
+      494,
+      325,
+      301
+    ],
+    [
+      24,
+      837,
+      494,
+      325,
+      302
+    ],
+    [
+      1,
+      121,
+      781,
+      155,
+      56
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "motion",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 52606,
+    "output": 33323,
+    "cacheRead": 214427
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 70191,
+      "output": 27422,
+      "cacheRead": 202200,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 298563
+    }
+  ],
+  "reading": "This is a hero section sketch: a top nav bar with brand and links, a small tilted bold price callout, a big cream/near-black two-line headline (\"Make a mess\" / \"on purpose\") painted over an orange jagged cut-out background shape, a photo placeholder captioned \"Skye, June\", a cream paragraph of body copy, a hand-drawn curved decorative line, a soft-yellow tilted decorative shape, and a near-black \"Shop the kits\" button with a hard orange drop shadow.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        14
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar with brand name \"Field Notes Co.\" and nav links \"Journals · Kits · Workshops · Stockists\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 59
+        }
+      ],
+      "region": [
+        1119,
+        44,
+        114,
+        130
+      ],
+      "paths": [],
+      "instruction": "Small price callout text \"26¢\", tilted 8° clockwise, white, bold (font-weight 700, not regular)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        120,
+        640,
+        420
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Orange jagged cut-out decorative background shape behind the hero headline, flat fill #c8553d (clip-path polygon, no gradient/shading/texture); the outline stro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 87
+        }
+      ],
+      "region": [
+        118,
+        180,
+        504,
+        192
+      ],
+      "paths": [],
+      "instruction": "Giant hero headline in Georgia serif, tight-set (line-height 0.95), exactly 2 lines kept as-is: \"Make a mess\" / \"on purpose\" (white-space: nowrap, no max-width "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        765,
+        79,
+        329,
+        382
+      ],
+      "paths": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "instruction": "Image placeholder (box with X) for a photo, captioned \"Skye, June\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        112,
+        586,
+        496,
+        113
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Body paragraph, cream colored, 20px: \"Hand-bound journals, paper kits and Sunday workshops for people who think better with scissors.\" Replaces the wavy placeho"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        473,
+        244,
+        144
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Decorative near-black (4px) smooth curving line, no fill, never crossing itself, flowing through roughly 610,500 → 639,535 → 673,565 → 714,585 → 759,587 → 801,5"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        851,
+        509,
+        298,
+        271
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Soft yellow decorative shape, tilted 6° anticlockwise, with a gently bobbing (wavy) outline, flat soft-yellow fill."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        121,
+        781,
+        151,
+        53
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Button labeled \"Shop the kits\", near-black background (#2b2118, not blue), cream text (#f6efe0), 155x56px, barely rounded corners (border-radius 4px, not a pill"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
