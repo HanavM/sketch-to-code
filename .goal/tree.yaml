@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 14 is now at 85%: spread wave letters, the story's chapter rail, the drawer details and the product disc build right; next writing round 15, harder."
 round: 14
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85]
-lock: null
+lock: {by: run-2026-10-24T0200Z, until: 2026-10-24T03:30Z}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
