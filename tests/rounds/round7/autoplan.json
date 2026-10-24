@@ -601,19 +601,19 @@
    ],
    [
     "photo-green",
-    "tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border"
+    "tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border; it lies UNDER the cut-out painted after it (lower z-index)"
    ],
    [
     "photo-amber",
-    "tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border"
+    "tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border; it lies ON TOP of the #0f766e cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
    ],
    [
     "tape-1",
-    "tilted 14° anticlockwise see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, hairline faint black edge, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)"
+    "see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, its top-left at 130,100 before the turn, then turned by transform: rotate(-14deg) round its centre (it lies on a slant, NOT level), hairline faint black edge, square corners, laid ON TOP of everything it crosses (above the cut-outs and discs, highest z-index; no picture, no X, nothing inside)"
    ],
    [
     "tape-2",
-    "tilted 18° clockwise see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, hairline faint black edge, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)"
+    "see-through pale yellow (#fef9c3 at 75% opacity) strip of sticky tape 150x38px, its top-left at 700,290 before the turn, then turned by transform: rotate(18deg) round its centre (it lies on a slant, NOT level), hairline faint black edge, square corners, laid ON TOP of everything it crosses (above the cut-outs and discs, highest z-index; no picture, no X, nothing inside)"
    ],
    [
     "headline",

@@ -1,4 +1,4 @@
-c1-sliced-kinetic · marks 7 · words 421
+c1-sliced-kinetic · marks 7 · words 432
     nav          box     
     sliced-word  box     
     badge        circle  
@@ -12,7 +12,7 @@ c1-sliced-kinetic · marks 7 · words 421
     note badge: tilted 14° anticlockwise vivid red-orange circle with "NEW REEL 26"; its text #ffffff (white, NOT the page's near-black text), 130px across, the words centred in 2 lines (wrapping inside the circle, 15px type)
     note copy: text "We cut type apart and put it back moving. Identity systems for brands that refuse to sit still."
     note cta: red-orange white text button "See the reel →" (170x54px, square corners: border-radius 0, NOT a pill); its text #ffffff (white, NOT the page's near-black text) (exactly: #ff4d1c fill, #ffffff text, 170x54px, square corners: border-radius 0, NOT a pill)
-    note index: a ruled index list 480px wide at 640,560, monospace (Courier New) 14px near-black, 4 rows each 41px tall with a 1px #111111 rule across its top and one under the last row, the label at the left and the year at the far right of the row (NOT a paragraph, NOT a table with heads): "01 Kinetic identity" … "2026", "02 Title sequences" … "2025", "03 Type tools" … "2025", "04 Installations" … "2024"
+    note index: a ruled index list 480px wide at 640,560, monospace (Courier New) 14px near-black, 4 rows each 41px tall with a 1px #111111 rule across its top and one under the last row, the label at the left and its date or number at the far right of the row (NOT a paragraph, NOT a table with heads): "01 Kinetic identity" … "2026", "02 Title sequences" … "2025", "03 Type tools" … "2025", "04 Installations" … "2024"; the right parts whole, exactly as written, never cut
     note vertical-caption: wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 171px long "EST. 2014 — OSLO"; its text #555555 (dark grey, NOT the page's near-black text)
 c2-glass-layers · marks 5 · words 343
     nav          box     
@@ -54,7 +54,7 @@ c4-halftone-poster · marks 6 · words 243
     note info-row: 3 columns side by side, 60px apart, each a small bold 30px head over 15px text (each column 75px wide, its text on ONE line, no wrap): "21.06" over "Saturday"; "3 stages" over "40 artists"; "Riverside" over "Gates 14:00"
     note cta: yellow indigo text button "Get tickets" (155x52px, barely rounded: border-radius 4px, NOT a pill); its text #1d3fbb (indigo, NOT the page's white text) (exactly: #ffd60a fill, #1d3fbb text, 155x52px, 4px rounded)
     note stamp: tilted 12° clockwise 3px dashed #ffffff outline (dashes, not a solid line) white outline circle with "SOLD OUT SOON ★", 200px across, the words centred in 2 lines (wrapping inside the circle, 18px type)
-c5-vertical-editorial · marks 7 · words 386
+c5-vertical-editorial · marks 7 · words 392
     vertical-title heading 
     striped-image box     
     byline       box     
@@ -65,7 +65,7 @@ c5-vertical-editorial · marks 7 · words 386
     note *: whole page: warm paper (#ece7dc) page, Georgia type, near-black text
     note vertical-title: vertical (writing-mode: vertical-rl, turned 180deg so it reads bottom to top), 150px letters on one line, its column 150px wide at x 40, 820px tall from top 40; the letters run from y 40 down to y 738 (698px long, no shorter) giant Georgia serif tight-set letters red "Red Season"; set BOLD (font-weight 700), NOT regular
     note striped-image: horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #1a1a1a 0px 3px, #b8321f 3px 9px)): 3px near-black then 6px red, over and over; ON it (inside the block, not under it) a small caption chip at 30,504 in the block: 12px sans-serif widely spaced #ece7dc "FIG. 1 — KILN, 05:40" on a solid #1a1a1a 195x26px label
-    note byline: a row 430px wide at 240,630 with ONLY a 1px #1a1a1a rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 12px under the rule; two items on one line pushed to its two ends (justify-content: space-between): 13px Helvetica widely spaced #1a1a1a "WORDS ANNA ROSS" at the far left, "ISSUE 09 / 2026" at the far right
+    note byline: a row 430px wide at 240,630 with ONLY a 1px #1a1a1a rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 12px under the rule; two separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): 13px Helvetica widely spaced #1a1a1a "WORDS ANNA ROSS" at the far left, "ISSUE 09 / 2026" at the far right
     note kicker: 13px wide-spaced letters red "№ 04 — CRAFT"; its text #b8321f (red, NOT the page's near-black text)
     note pull-quote: heading 220px #b8321f "“", then 0px under it 44px italic (font-style: italic) #1a1a1a text "The clay remembers every hand that ever doubted it."; the block 500px wide, its top-left at 720,40
     note body-columns: 2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 236px wide, 28px apart, 14px #1a1a1a type, 22px line height, at 720,470; the first column opens with a DROP CAP: its first letter 58px #b8321f, floated left, sinking 3 lines into the text (::first-letter, float: left): column 1 "At dawn the kiln is still warm from the night firing, and the studio smells of ash and wet earth. Twelve potters share it now."; column 2 "Each season they choose one glaze and push it as far as it will go. This year it is a red that only appears above 1,280 degrees."

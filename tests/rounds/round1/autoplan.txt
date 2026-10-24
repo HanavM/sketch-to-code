@@ -73,13 +73,13 @@ e1-login · marks agree 6/6 (auto 6) · words hand 7 auto 120
     note password: label "Password" above, input "••••••••"; its text #9ca3af (grey, NOT the page's dark navy text)
     note submit: blue white text button "Sign in" (340x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 340x46px, 8px rounded)
     note forgot: 14px blue "Forgot your password?"; its text #2563eb (blue, NOT the page's dark navy text)
-e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 115
+e2-pricing · marks agree 5/5 (auto 5) · words hand 9 auto 133
     title        heading  (hand: heading)
     subtitle     text     (hand: text)
     tier-1       box      (hand: box)
     tier-2       box      (hand: box)
     tier-3       box      (hand: box)
-    note title: big "Simple pricing", on ONE line (white-space: nowrap, never wrapped), about 303px wide; set BOLD (font-weight 700), NOT regular
+    note title: big "Simple pricing", on ONE line (white-space: nowrap, never wrapped), about 303px wide, CENTRED on the page (text-align center; its text runs from x=488 to x=791, centre at x=640; NOT left-aligned); set BOLD (font-weight 700), NOT regular
     note subtitle: "Start free. Upgrade when you grow."; its text #6b7280 (grey, NOT the page's dark navy text)
     note tier-1: "Starter" big "$0/mo" list: "1 project", "Community support", "Basic analytics", outline button "Get started"
     note tier-2: dark navy (exactly #111827) block, white text "Pro" big "$24/mo" list: "Unlimited projects", "Priority support", "Advanced analytics", "Custom domains", indigo button "Start trial"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top; its text #ffffff (white, NOT the page's dark navy text)

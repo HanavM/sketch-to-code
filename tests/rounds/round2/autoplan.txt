@@ -14,7 +14,7 @@ c1-collage · marks 7 · words 188
     note headline: giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) "Slow travel, fast friends", set in exactly 2 lines: "Slow travel, fast" / "friends" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 719px wide)
     note body: text "A quarterly zine of walks, night trains and the people you meet on the way."
     note cta: near-black (#1c1917, near-black, not a blue) pill cream text button "Read issue 07"; its text #f3ead8 (cream, NOT the page's near-black text)
-c2-outline-bleed · marks 5 · words 205
+c2-outline-bleed · marks 5 · words 241
     nav          text    
     outline-word heading 
     solid-word   heading 
@@ -22,8 +22,8 @@ c2-outline-bleed · marks 5 · words 205
     date         text    
     note *: whole page: black (#0a0a0a) page, Helvetica type, white text
     note nav: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 58x16 at 975,40 14px #fafafa "Index"; 68x16 at 1068,40 14px #fafafa "Shows"; 52x16 at 1172,40 14px #fafafa "Shop"
-    note outline-word: bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white "NOISE", 300px type, about 884px wide (no larger)
-    note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime "FEST", 300px type, about 727px wide (no larger)
+    note outline-word: bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white "NOISE", 300px type, about 884px wide (no larger), absolutely placed: its box's top-left at -40,120 and its first letter's ink starting at x=-40 (not further right)
+    note solid-word: bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime "FEST", 300px type, about 727px wide (no larger), absolutely placed: its box's top-left at -30,400 and its first letter's ink starting at x=-30 (not further right)
     note body: grey text "Three nights of loud guitars in a disused tram depot. Bring earplugs."; its text #a3a3a3 (grey, NOT the page's white text)
     note date: 14px mono lime "// 14—16 AUG 2027"; its text #84cc16 (lime, NOT the page's white text)
 c3-glass-blobs · marks 7 · words 109
@@ -68,7 +68,7 @@ c5-retro-bands · marks 5 · words 171
     note headline: giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown "SOFT SERVE, HARD RULES", set in exactly 4 lines: "SOFT" / "SERVE," / "HARD" / "RULES" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 352px wide)
     note body: dark grey text "Seventies flavours, real cream, and one strict rule: no spoons left behind."; its text #44403c (dark grey, NOT the page's black text)
     note cta: teal white text button "FIND A TRUCK" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's black text) (exactly: #14b8a6 fill, #ffffff text, 205x67px, square corners: border-radius 0, NOT a pill)
-e1-checkout · marks 13 · words 310
+e1-checkout · marks 13 · words 316
     title        heading 
     ship-label   heading 
     name         box     
@@ -95,7 +95,7 @@ e1-checkout · marks 13 · words 310
     note item-1: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,115 #e5e7eb fill, 8px rounded; 27x17 at 1144,138 16px #111827 "$64"; 223x17 at 907,139 15px #111827 "Linen shirt"
     note item-2: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,199 #e5e7eb fill, 8px rounded; 27x17 at 1144,222 16px #111827 "$32"; 223x17 at 907,223 15px #111827 "Canvas tote"
     note item-3: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 64x64 at 829,283 #e5e7eb fill, 8px rounded; 27x17 at 1144,306 16px #111827 "$32"; 223x17 at 907,307 15px #111827 "Wool socks"
-    note total: a row 342px wide at 829,375 with ONLY a 1px #e5e7eb rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 18px under the rule; two items on one line pushed to its two ends (justify-content: space-between): 18px Helvetica #111827 "Total" at the far left, "$128.00" at the far right
+    note total: a row 342px wide at 829,375 with ONLY a 1px #e5e7eb rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 18px under the rule; two separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): 18px Helvetica #111827 "Total" at the far left, "$128.00" at the far right
 e2-shop-grid · marks 8 · words 365
     nav          text    
     filters      box     

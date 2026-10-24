@@ -69,7 +69,7 @@ export function factsInPage() {
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
-      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle },
+      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, leftStyle: cs.borderLeftStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // n147: all four corners (a leaf: three round, one square; round 12 c5 built a circle) and the background tile size
@@ -802,7 +802,7 @@ export function factsInPage() {
         const cap = fl.float === 'left' && parseFloat(fl.fontSize) >= parseFloat(c0.fontSize) * 2 ? { px: Math.round(parseFloat(fl.fontSize)), ink: rgba(fl.color), lines: Math.max(2, Math.round(parseFloat(fl.fontSize) * 0.85 / (parseFloat(c0.lineHeight) || parseFloat(c0.fontSize) * 1.4)) + 1) } : null
         return { n: kids.length, w: Math.round(bs[0].width), gap: Math.round(bs[1].left - bs[0].right), px: Math.round(parseFloat(c0.fontSize)), lh: Math.round(parseFloat(c0.lineHeight) || 0), ink: rgba(c0.color), cap, texts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()) }
       })(),
-      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, left: b.left - r.left, right: b.right - r.left, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, it: c.fontStyle === 'italic' || [...k.querySelectorAll('*')].some((g) => getComputedStyle(g).fontStyle === 'italic'), spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
+      kidBoxes: kids.filter((k) => (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), stack: (() => { const q = [...k.children].filter((g) => (g.innerText || '').trim()); if (q.length < 2 || q.length > 3) return null; const L = q.map((g) => { const gc = getComputedStyle(g); return { t: g.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(gc.fontSize)), bold: Number(gc.fontWeight) >= 600, ink: rgba(gc.color), sp: (parseFloat(gc.letterSpacing) || 0) >= 1 } }); return new Set(L.map((l) => l.px)).size > 1 ? L : null })(), fill: rgba(c.backgroundColor), ink: rgba(c.color), h: b.height, w: b.width, top: b.top - r.top, bottom: b.bottom - r.top, left: b.left - r.left, right: b.right - r.left, radius: parseFloat(c.borderTopLeftRadius) || 0, s: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, it: c.fontStyle === 'italic' || [...k.querySelectorAll('*')].some((g) => getComputedStyle(g).fontStyle === 'italic'), spacing: (parseFloat(c.letterSpacing) || 0) / (parseFloat(c.fontSize) || 16), struck: /line-through/.test(c.textDecorationLine), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor) } }),
       // one line made of differently styled runs (round 7 e4 price: '$189' big, '$240' struck grey, '-21%' red tag; said run-on)
       runs: (() => {
         if (r.height > 60 || !kids.length || kids.length > 3 || kids.some((k) => k.children.length) || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) return null
@@ -933,6 +933,14 @@ export function factsInPage() {
           }
         }
         walk(el)
+        // n155: a bare text run straight in the bar (round 14 e4 logo '◉ Lumen', no element of its own: lost)
+        for (const n of [...el.childNodes]) {
+          if (n.nodeType !== 3 || !n.textContent.trim()) continue
+          const rg = document.createRange(); rg.selectNodeContents(n); const b = rg.getBoundingClientRect()
+          if (b.width < 4) continue
+          parts.push({ t: n.textContent.replace(/\s+/g, ' ').trim(), x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(cs.fontSize)), bold: Number(cs.fontWeight) >= 600, it: cs.fontStyle === 'italic', ink: rgba(cs.color), fill: null, rad: 0, border: null })
+        }
+        parts.sort((a, b) => a.x - b.x)
         if (parts.length < 2 || parts.length > 10 || !parts.some((p) => p.t)) return null
         return { h: Math.round(r.height), fill: filled(el), rule: parseFloat(cs.borderBottomWidth) >= 1 ? { px: Math.round(parseFloat(cs.borderBottomWidth)), c: rgba(cs.borderBottomColor) } : null, parts }
       })(),
@@ -1929,8 +1937,17 @@ export function factsInPage() {
     const g = [el, ...el.querySelectorAll('*')].find((k) => getComputedStyle(k).transformStyle === 'preserve-3d' && k.children.length >= 4)
     if (g) {
       const persp = [el, ...el.querySelectorAll('*')].map((k) => getComputedStyle(k).perspective).find((v) => v && v !== 'none')
+      // n155: the group's own box when it is not the whole scene (round 14 c3 ring at 540,40 in a 1280px scene: said
+      // inset 0, built at the scene's left edge and turned to the wrong front face), each face's rounding, padding,
+      // text alignment, sub-line and mask (ticket notches lost)
+      const gInset = g !== el && (g.offsetLeft !== 0 || g.offsetTop !== 0 || Math.abs(g.offsetWidth - r.width) > 2 || Math.abs(g.offsetHeight - r.height) > 2)
+      const maskOf = (c) => { const m = c.webkitMaskImage && c.webkitMaskImage !== 'none' ? c.webkitMaskImage : (c.maskImage && c.maskImage !== 'none' ? c.maskImage : null); return m ? { img: m, pos: c.webkitMaskPosition || c.maskPosition, size: c.webkitMaskSize || c.maskSize, rep: c.webkitMaskRepeat || c.maskRepeat } : null }
       o.cube = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), persp, turn: ruleOf(g, 'transform'), anim: anim(g),
-        faces: [...g.children].map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform') } }) }
+        group: gInset ? { x: g.offsetLeft, y: g.offsetTop, w: g.offsetWidth, h: g.offsetHeight } : null,
+        faces: [...g.children].map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); const sub = [...k.children].find((q) => q.innerText && Math.abs(parseFloat(getComputedStyle(q).fontSize) - parseFloat(c.fontSize)) >= 2); const sc = sub && getComputedStyle(sub)
+          return { w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform'),
+            rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(c.paddingTop) || 0), align: c.textAlign, centred: c.display.includes('flex') && c.alignItems === 'center' || c.textAlign === 'center',
+            sub: sub ? { t: sub.innerText.trim(), px: Math.round(parseFloat(sc.fontSize)), weight: Number(sc.fontWeight), op: +sc.opacity } : null, mask: maskOf(c) } }) }
     }
     // n146: an isometric plane: a preserve-3d block with its own fill/grid whose children each lift a coloured
     // child by translateZ (round 12 c1: said as a 3D cube of four #000000 faces; the plane, grid and colours unsaid)
@@ -2718,8 +2735,20 @@ function round11Note(f) {
   const C = f.cube
   if (C) {
     const A = C.anim
-    const face = (q) => `${q.w}x${q.h}px ${hexOf(q.fill)} face, transform: ${q.tf ?? 'none'}${q.t ? `, holding centred ${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}${hexOf(q.ink)} live text "${q.t}"` : ''}`
-    return { kind: 'box', note: `a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: ${C.turn ?? 'none'}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}) holding exactly ${C.faces.length} face divs, each absolutely placed at the group's top-left with a ${C.faces[0].bw}px ${hexOf(C.faces[0].bc)} border (backface visible): ${C.faces.map(face).join('; ')}` }
+    // n155: a ring of cards (5+ faces turned round Y, all pushed out by one translateZ) is said as a ring, its front
+    // face named, the group's own box and place, each face's rounding/padding/sub-line, and the faces' mask verbatim
+    const ringZ = C.faces.length >= 5 && C.faces.every((q) => /rotateY\(/.test(q.tf ?? '') && /translateZ\(/.test(q.tf ?? ''))
+    const front = ringZ ? C.faces.find((q) => /rotateY\((0|0deg)\)/.test(q.tf)) : null
+    const lines = (q) => q.sub ? `two live text lines: ${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}"${q.t.split('\n')[0]}" then below it ${q.sub.px}px ${q.sub.weight >= 700 ? 'bold' : 'regular'}${q.sub.op < 0.98 ? ` ${q.sub.op} opacity` : ''} "${q.sub.t}"` : `${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}live text "${q.t}"`
+    const face = (q) => `${q.w}x${q.h}px ${hexOf(q.fill)} face, transform: ${q.tf ?? 'none'}${q.t ? `, holding ${q.centred ? 'centred' : `top-left (${q.pad}px padding, left-aligned)`} ${hexOf(q.ink)} ${lines(q)}` : ''}`
+    const G = C.group
+    const grp = G ? `ONE ${G.w}x${G.h}px group div at ${G.x},${G.y} inside the scene (position absolute, left ${G.x}px, top ${G.y}px, i.e. page ${C.x + G.x},${C.y + G.y}; NOT inset 0, NOT at the scene's left edge), transform-style: preserve-3d, transform: ${C.turn ?? 'none'}` : `ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: ${C.turn ?? 'none'}`
+    const q0 = C.faces[0]
+    const look = [q0.bw ? `a ${q0.bw}px ${hexOf(q0.bc)} border` : 'no border', q0.rad ? `${q0.rad}px rounded corners` : null, 'backface visible'].filter(Boolean).join(', ')
+    const mk = q0.mask && C.faces.every((q) => q.mask && q.mask.img === q0.mask.img) ? `; EVERY face is cut by the same mask (notches bitten out of both side edges, like a ticket stub), written exactly: -webkit-mask: ${cssHex(q0.mask.img).split(/,\s*(?=radial|linear|conic|repeating)/).map((l, i) => `${l} ${(q0.mask.pos ?? '').split(',')[i]?.trim() ?? ''}/${(q0.mask.size ?? '').split(',')[i]?.trim() ?? ''} ${(q0.mask.rep ?? '').split(',')[i]?.trim() ?? ''}`.replace(/\s+/g, ' ').trim()).join(', ')}` : ''
+    const what = ringZ ? `a REAL CSS 3D RING (carousel) of ${C.faces.length} cards, NOT flat or projected rectangles, NOT a drawing or SVG` : 'a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG'
+    const fr = front ? `; the ${hexOf(front.fill)} "${front.t.split('\n')[0]}" card (rotateY(0)) faces the viewer, centred in front at the middle of the scene, the others turned away round it (do NOT turn the group to another card)` : ''
+    return { kind: 'box', note: `${what}: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ${grp}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}${G ? '' : ')'} holding exactly ${C.faces.length} face divs, each absolutely placed at the group's top-left (left 0, top 0, the group's own size) with ${look}${mk}: ${C.faces.map(face).join('; ')}${fr}` }
   }
   const T = f.tilt3d
   if (T && /perspective\(/.test(T.tf) && /repeating-linear-gradient/.test(T.bg)) {
@@ -2765,7 +2794,9 @@ function decideRest(f, page, marked, said) {
   // n133: a two-ended row under a top rule only, said as itself (round 9 c5 byline built as a bordered box)
   if (f.topRule && f.spreadEnds && (f.kidTexts.length === 2 || f.kidTexts.length === 3) && f.kidTexts.length === f.kidCount && !(f.kidTexts.length === 3 && f.kidButtons) && f.rect.h <= 80 && !f.regionKids.length) {
     const k = f.kidBoxes?.[0], T = f.topRule
-    return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; ${f.kidTexts.length === 3 ? 'three' : 'two'} separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${f.kidTexts.length === 3 ? `${quote(f.kidTexts[1], 30)} in the middle, ` : ''}${quote(f.kidTexts[f.kidTexts.length - 1], 30)} at the far right` }
+    const ST = (f.kidBoxes ?? []).filter((k) => k.stack)
+    const stackNote = ST.length === f.kidTexts.length ? `; each item is stacked lines, not one line: ${ST.map((k) => k.stack.map((l) => `${l.px}px ${l.bold ? 'bold ' : ''}${l.sp ? 'widely spaced ' : ''}${hexOf(l.ink)} ${quote(l.t, 24)}`).join(' over ')).join('; ')}` : ''
+    return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; ${f.kidTexts.length === 3 ? 'three' : 'two'} separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${f.kidTexts.length === 3 ? `${quote(f.kidTexts[1], 30)} in the middle, ` : ''}${quote(f.kidTexts[f.kidTexts.length - 1], 30)} at the far right${stackNote}` }
   }
   const d0 = decideOne(f, page, marked, said)
   const w0 = f.rect.w, h0 = f.rect.h
@@ -3063,7 +3094,11 @@ function decideOne(f, page, marked, said) {
     const lw = f.layoutBox?.w ?? w, lh = f.layoutBox?.h ?? h
     if (lw <= 260 && lh <= 80 && lw >= 2.5 * lh) {
       const pale = { r: f.bg.r, g: f.bg.g, b: f.bg.b, a: 1 }
-      return { kind: 'box', note: withFx(`see-through ${colourName(pale)} (${hexOf(pale)} at ${Math.round(f.bg.a * 100)}% opacity) strip of sticky tape ${lw}x${lh}px${bordered ? `, hairline ${lineCol(f.border.colour)} edge` : ''}, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)`) }
+      // n155: its place before the turn and the turn itself, and dashed torn ends (round 14 c2 tapes built square, untilted)
+      const E = f.el, rot = Math.abs(f.rotate) >= 2 ? f.rotate : 0
+      const ends = !bordered && f.border.left >= 1 && f.border.leftStyle === 'dashed' ? `, ${f.border.left}px dashed ${hexOf(f.border.leftColour)}${f.border.leftColour.a < 0.9 ? ` at ${Math.round(f.border.leftColour.a * 100)}% opacity` : ''} left and right ends only (torn tape ends)` : ''
+      const at = E ? `, its top-left at ${E.x},${E.y} before the turn${rot ? `, then turned by transform: rotate(${rot}deg) round its centre (it lies on a slant, NOT level)` : ''}` : ''
+      return { kind: 'box', note: rot && E ? `see-through ${colourName(pale)} (${hexOf(pale)} at ${Math.round(f.bg.a * 100)}% opacity) strip of sticky tape ${lw}x${lh}px${at}${bordered ? `, hairline ${lineCol(f.border.colour)} edge` : ''}${ends}, square corners, laid ON TOP of everything it crosses (above the cut-outs and discs, highest z-index; no picture, no X, nothing inside)` : withFx(`see-through ${colourName(pale)} (${hexOf(pale)} at ${Math.round(f.bg.a * 100)}% opacity) strip of sticky tape ${lw}x${lh}px${at}${bordered ? `, hairline ${lineCol(f.border.colour)} edge` : ''}${ends}, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)`) }
     }
   }
   // ---- round 6 creative (n79)
@@ -3849,7 +3884,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // tables already said another way keep their tuned notes.
   regions.forEach((f) => {
     const d = out.get(f.role)
-    if (!(f.topBar || f.rowTable) || (d.note && !/^(list:|[a-z ,-]*text list:)/.test(d.note))) return
+    // n155: a bar note that runs its boxed chips together as words is weak too (round 14 e4 filter chips unboxed, logo lost)
+    const chipBar = f.topBar && /^bar \d+px tall/.test(d.note ?? '') && f.topBar.parts.filter((p) => p.t && (p.border || p.fill)).length >= 2
+    if (!(f.topBar || f.rowTable) || (d.note && !chipBar && !/^(list:|[a-z ,-]*text list:)/.test(d.note))) return
     const e = decideOne({ ...f, weakNote: true }, body, marked, said)
     if (e?.note) { out.set(f.role, e); marked.add(f.role) }
   })
@@ -3913,6 +3950,32 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const A = f.rect, B = under.rect
     const side = `${A.y + A.h / 2 > B.y + B.h / 2 ? 'lower' : 'upper'} ${A.x + A.w / 2 > B.x + B.w / 2 ? 'right' : 'left'}`
     d.note = `${d.note ? `${d.note}, ` : ''}overlapping the ${side} of the ${what} and on top of it`
+  })
+  // n155: two cut-outs that overlap: the later-painted one lies on top (round 14 c2: the green cut-out was built over
+  // the orange one)
+  regions.forEach((f, i) => {
+    const d = out.get(f.role)
+    if (!d.kind || !/cut-out shape/.test(d.note ?? '') || /ON TOP of the .* cut-out/.test(d.note)) return
+    const under = regions.slice(0, i).reverse().find((g) => {
+      if (!out.get(g.role).kind || !/cut-out shape/.test(out.get(g.role).note ?? '') || g.regionKids.includes(f.role) || f.regionKids.includes(g.role)) return false
+      const A = f.rect, B = g.rect
+      const ow = Math.min(A.x + A.w, B.x + B.w) - Math.max(A.x, B.x), oh = Math.min(A.y + A.h, B.y + B.h) - Math.max(A.y, B.y)
+      return ow > 0 && oh > 0 && ow * oh > 0.05 * Math.min(A.w * A.h, B.w * B.h)
+    })
+    if (!under) return
+    const cn = (out.get(under.role).note.match(/(#[0-9a-f]{6})/) ?? [])[1]
+    d.note = `${d.note}; it lies ON TOP of the ${cn ? `${cn} ` : ''}cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)`
+    const u = out.get(under.role)
+    if (!/UNDER the/.test(u.note)) u.note = `${u.note}; it lies UNDER the cut-out painted after it (lower z-index)`
+  })
+  // n155: a ruleless row of 3-4 short items pushed apart (round 14 c2 footer said as one run of wide-spaced words,
+  // built run together)
+  regions.forEach((f) => {
+    const d = out.get(f.role), K = f.kidTexts ?? []
+    if (!d.kind || !d.note || !f.spreadEnds || f.topRule || K.length < 3 || K.length > 4 || K.length !== f.kidCount || f.kidButtons || f.rect.h > 60 || f.regionKids.length) return
+    if (/space-between|far left|part by part|\bleft\b.*\bright\b/.test(d.note)) return
+    const at = K.map((t, i) => `${quote(t, 30)} ${i === 0 ? 'at the far left' : i === K.length - 1 ? 'at the far right' : K.length === 3 ? 'in the middle' : `${i === 1 ? 'second' : 'third'}, evenly spaced`}`)
+    d.note = `${d.note}; these are ${K.length} SEPARATE items on one line ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, pushed apart (display flex, justify-content: space-between; never run together as one line of text): ${at.join(', ')}`
   })
   // a dropdown panel: square top corners flush under a bar, rounded bottom, a big soft shadow, lying over the page
   // below (round 6 e1 mega-menu said 'white card': built as a card in the flow, no shadow, hero pushed down)
@@ -4069,7 +4132,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
-    const keep = d.note && !weak && !fields ? `${d.note}; ` : ''
+    // n155: the region's own panel (its fill, edge and rounding) said before its parts (round 14 e4 alerts column: the
+    // parts built loose on the page, the #121722 bordered panel behind them lost)
+    const R = f.rect, panelPaint = !frame && R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || (f.border?.w >= 1 && visible(f.border.colour)))
+    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
+    const keep = `${panel}${d.note && !weak && !fields ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
