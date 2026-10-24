@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 18 is written: ten harder pages, all drawable; first three built at 75% (the isometric city went 58 to 70 after a fix). Next: maps, glass and blobs."
 round: 18
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 75]
-lock: null
+lock: {by: run-n179, until: "2026-10-24T18:24Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
