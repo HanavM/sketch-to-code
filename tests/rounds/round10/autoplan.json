@@ -235,15 +235,15 @@
    ],
    [
     "panel-red",
-    "vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 0,0 ; 520,0 ; 406,900 ; 0,900; the shape's box is the outline's bounds, 520x900px with its top-left at 0,0, so on that box clip-path: polygon(0% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; it lies UNDER the cut-out painted after it (lower z-index)"
+    "vivid orange #ff6b35 (top) to vivid dark pink #c1121f (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 0,0 ; 520,0 ; 406,900 ; 0,900; the shape's box is the outline's bounds, 520x900px with its top-left at 0,0, so on that box clip-path: polygon(0% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; the big line \"RUN\" paints OVER this shape where it crosses it (the shape's z-index is BELOW it; it never covers it); it lies UNDER the cut-out painted after it (lower z-index)"
    ],
    [
     "panel-blue",
-    "vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 514,0 ; 920,0 ; 806,900 ; 400,900; the shape's box is the outline's bounds, 520x900px with its top-left at 400,0, so on that box clip-path: polygon(22% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; it lies ON TOP of the #ff6b35 cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one); it lies UNDER the cut-out painted after it (lower z-index)"
+    "vivid cyan #00b4d8 (top) to dark teal #023e8a (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 514,0 ; 920,0 ; 806,900 ; 400,900; the shape's box is the outline's bounds, 520x900px with its top-left at 400,0, so on that box clip-path: polygon(22% 0%, 100% 0%, 78% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; the big line \"RIDE\" paints OVER this shape where it crosses it (the shape's z-index is BELOW it; it never covers it); it lies ON TOP of the #ff6b35 cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one); it lies UNDER the cut-out painted after it (lower z-index)"
    ],
    [
     "panel-yellow",
-    "vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 915,0 ; 1280,0 ; 1280,900 ; 800,900; the shape's box is the outline's bounds, 480x900px with its top-left at 800,0, so on that box clip-path: polygon(24% 0%, 100% 0%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; it lies ON TOP of the #00b4d8 cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
+    "vivid yellow #ffd60a (top) to vivid amber #ff9e00 (bottom) gradient angled cut-out shape, painted linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page: no drop shadow, no border; its corners at exactly these page points (px, left to right from the page's top-left): 915,0 ; 1280,0 ; 1280,900 ; 800,900; the shape's box is the outline's bounds, 480x900px with its top-left at 800,0, so on that box clip-path: polygon(24% 0%, 100% 0%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page); position it absolute at those points, running the FULL page height from the very top to the very bottom, layered BEHIND the words and buttons (they sit on top of it), visible: it must be the painted colour the page shows there, never hidden under the page background; the big line \"SWIM\" paints OVER this shape where it crosses it (the shape's z-index is BELOW it; it never covers it); it lies ON TOP of the #00b4d8 cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
    ],
    [
     "blend-circle",
@@ -493,7 +493,7 @@
    ],
    [
     "arch-picture",
-    "coral (#d98e6b) to brown (#8c3b2a at 55%) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom): one plain CSS block 420x720px, top-left at 640,110, border-radius 210px 210px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink), painted with background: linear-gradient(rgb(217, 142, 107) 0%, rgb(140, 59, 42) 55%, rgb(59, 31, 26) 100%) at full opacity (no fade, no overlay)"
+    "coral (#d98e6b) to brown (#8c3b2a, its stop at 55% of the way along, fully opaque) to dark brown (#3b1f1a) gradient, top to bottom arch (round top, flat bottom): one plain CSS block 420x720px, top-left at 640,110, border-radius 210px 210px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink), painted with background: linear-gradient(rgb(217, 142, 107) 0%, rgb(140, 59, 42) 55%, rgb(59, 31, 26) 100%) at full opacity (no fade, no overlay)"
    ],
    [
     "sun",
@@ -597,7 +597,7 @@
   "notes": [
    [
     "pr-header",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 1216x31 at 32,24 26px regular (NOT bold) #1f2328 \"Add retry with backoff to webhook sender\"; 72x30 at 516,24 26px regular (NOT bold) #656d76 \"#4127\"; 79x28 at 32,67 #1f883d fill, pill ends, padding-left 14px (its text starts at x 46): 14px bold #ffffff \"⇄ Open\"; 322x13 at 121,75 12px #656d76 \"dana-w wants to merge 3 commits into main from retry-backoff\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 1216x31 at 32,24 26px regular (NOT bold) #1f2328 \"Add retry with backoff to webhook sender #4127\" (ONE element, its words in this order; inside it \"#4127\" in an inline span #656d76, IN PLACE in the line, NOT placed apart); 79x28 at 32,67 #1f883d fill, pill ends, padding-left 14px (its text starts at x 46): 14px bold #ffffff \"⇄ Open\"; 322x13 at 121,75 12px #656d76 \"dana-w wants to merge 3 commits into main from retry-backoff\""
    ],
    [
     "tabs",
@@ -663,11 +663,11 @@
    ],
    [
     "playlist-main",
-    "dark grey (#5b2a86) to deep indigo (#2a1540 at 50%) to near-black (#121212) gradient, top to bottom"
+    "dark grey (#5b2a86) to deep indigo (#2a1540, its stop at 50% of the way along, fully opaque) to near-black (#121212) gradient, top to bottom"
    ],
    [
     "cover",
-    "pink (#f72585) to purple (#7209b7 at 60%) to deep purple (#3a0ca3) gradient, top left to bottom right block"
+    "pink (#f72585) to purple (#7209b7, its stop at 60% of the way along, fully opaque) to deep purple (#3a0ca3) gradient, top left to bottom right block"
    ],
    [
     "playlist-meta",

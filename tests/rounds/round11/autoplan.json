@@ -107,7 +107,7 @@
    ],
    [
     "masked-word",
-    "fading out into the page toward the bottom (solid until 55%, gone at the bottom edge) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters near-black (#141414) to indigo (#6c63ff at 60%) to coral (#ff7a59) gradient, left to right text \"Halo\", 300px type, about 594px wide (no larger), absolutely placed: its box's top-left at 40,120 and its first letter's ink starting at x=40 (not further right)"
+    "fading out into the page toward the bottom (solid until 55%, gone at the bottom edge) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters near-black (#141414) to indigo (#6c63ff, its stop at 60% of the way along, fully opaque) to coral (#ff7a59) gradient, left to right text \"Halo\", 300px type, about 594px wide (no larger), absolutely placed: its box's top-left at 40,120 and its first letter's ink starting at x=40 (not further right)"
    ],
    [
     "masked-picture",
@@ -289,7 +289,7 @@
    ],
    [
     "sun",
-    "a 220px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%) so it looks lit from above; absolutely placed, top-left at 860,110, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a 220px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%, #fb8500 100%) so it looks lit from above; absolutely placed, top-left at 860,110, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ],
    [
     "paper-layers",

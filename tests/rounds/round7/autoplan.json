@@ -221,7 +221,7 @@
   "notes": [
    [
     "*",
-    "whole page: dark navy (#0f172a) to dark grey (#312e81 at 55%) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text"
+    "whole page: dark navy (#0f172a) to dark grey (#312e81, its stop at 55% of the way along, fully opaque) to dark pink (#be185d) gradient, top to bottom page, Helvetica type, white text"
    ],
    [
     "logo",
@@ -605,11 +605,11 @@
    ],
    [
     "photo-green",
-    "tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border; it lies UNDER the cut-out painted after it (lower z-index)"
+    "tilted 4° anticlockwise teal #0f766e (top) to deep green #134e4a (bottom) gradient jagged cut-out shape, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (these hexes, no brighter or darker), the shape itself 420x520px before the tilt, its top-left at 90,120 before the tilt, lying flat on the page: no drop shadow, no border; the big line \"Salt & Stone\" paints OVER this shape where it crosses it (the shape's z-index is BELOW it; it never covers it); it lies UNDER the cut-out painted after it (lower z-index)"
    ],
    [
     "photo-amber",
-    "tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border; it lies ON TOP of the #0f766e cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
+    "tilted 5° clockwise vivid amber #f59e0b (top) to vivid brown #b45309 (bottom) gradient jagged cut-out shape, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (these hexes, no brighter or darker), the shape itself 380x420px before the tilt, its top-left at 430,300 before the tilt, lying flat on the page: no drop shadow, no border; the big line \"Salt & Stone\" paints OVER this shape where it crosses it (the shape's z-index is BELOW it; it never covers it); it lies ON TOP of the #0f766e cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
    ],
    [
     "tape-1",

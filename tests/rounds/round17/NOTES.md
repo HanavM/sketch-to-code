@@ -117,3 +117,27 @@ stamp ink).
 | r1 c1 sunset hero (check) | 79 → **68%** | only the logo size hint changed in its plan; this build left-aligned the centred headline and shrank the subhead: run-to-run drift, not the change (side-by-side saved as c1-sunset-hero-n175-cmp.png) |
 
 Round 17: **86%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
+
+## n176: inline-styled words, drop caps, text wrapped round a floated orb, faint type, stop positions, paint order, filled pills (2026-10-24, ~276k billed)
+
+Planner now: a line with a word styled inline ("Gardens that <i>remember</i> the rain") is said as ONE element with the
+styled word in place (it was "Gardens that the rain" plus a separate "remember" placed apart; only plain runs of same-size
+spans with real spaces round them, so timeline rows and glued labels stay part by part); a paragraph part keeps its whole
+copy (cut at 360 letters before), says its drop cap (::first-letter) and a block floated inside it that its lines wrap round
+(float + shape-outside); the floated orb itself is said as floated inside the paragraph (was "absolutely placed, ON TOP");
+a radial stop with no position is kept (the orb's #fde68a highlight was dropped); a gradient's middle stop is said as "its
+stop at 60% of the way along, fully opaque" (was "at 60%", which the build read as 60% opacity and washed the photo out);
+faint type keeps its alpha and a sans part on a serif page says its face; a big multi-line part says its real line count
+(and is exempt from the one-line nowrap clause); a cut-out shape crossed by big lines painted after it says they paint OVER
+it; a filled pill in a region whose note never says so is said as a filled pill. Rounds 1-17 plans re-generated: 30 pages
+changed (mostly the sans-face words, inline runs in code lines, kept gradient stops); none re-run except below.
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| c4 wrapped editorial | 78 → 80 → **88%** | headline on two lines with the italic word in place, drop cap, text wrapped round the orb, faint numbers (80); then the photo's full-strength gradient (88). Still: body line breaks differ, ticker set in serif |
+| c1 kinetic marquee | 79 → **81%** | the skewed photo now sits under the black band and the hollow line |
+| c5 bento motion | 90 → **91%** | "Book a demo" a filled pill; the intro line built small again, nav links spread out |
+
+Round 17: **88%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
+Next: e1 gantt scores 79 though it looks near-identical (aligned colour 68): check the side-by-side crop/align before
+trusting it; c5 intro size drift; c3 synth horizon at 83. Round 17 holds at 86+: write round 18 (harder).
