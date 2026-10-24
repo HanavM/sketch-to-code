@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 16 is written, harder (a split-screen halftone, frosted glass panes, an arched sunburst title, a broken-grid magazine page, a phone tilted in 3D; a spreadsheet, a week calendar, a code review, a chat, a checkout): first three built at 66%; next teaching the planner the halftone, the hard split and the 3D phone."
 round: 16
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 66]
-lock: null
+lock: {by: "run-n163", until: "2026-10-24T07:25Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
