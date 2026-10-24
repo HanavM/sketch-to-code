@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T21:25Z | n184 headline face, glow block base and box, unframed ring | c4 69 to 82 (glows, ring held); c2 80 to 72 (headline heavy, grid margin lost); round 18 84. ~162k.
 2026-10-24T20:40Z | n183 big type face, rows apart, shadowed card, button, vertical nav | c2 73 to 80; c4 nav right, glows and ring lost to run noise, 69; round 18 83. ~197k.
 2026-10-24T20:10Z | n182 paper pieces as cards, line drawing and ring copied, big hollow number | c5 69 to 90, c4 72 to 83; round 18 84 over 10. ~183k.
 2026-10-24T19:32Z | n181 floating window, turned card, stat cells | c2 50 to 73, e1 61 to 73, e4 55 to 71; round 18 81 over 10. ~307k.
