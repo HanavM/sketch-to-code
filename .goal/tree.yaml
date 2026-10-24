@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 16 is up to 83%: the spreadsheet's row numbers and selection box and the code review's line numbers now match; next placing header parts by height as well as width and the floating chart, then a harder round 17."
+now: "Round 16 is at 82%: the code review's header now matches, but its tabs and diff slipped on this run; next keeping tab counts on one line and the diff numbers in their gutter, then a harder round 17."
 round: 16
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83]
-lock: {by: run-2026-10-24T0953Z, until: "2026-10-24T11:25Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 82]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n169 (a153efb on try/n3-vocabulary): planner places a top bar's parts by x,y when they sit on more than one line, says a regular-weight title and its own-coloured words (grey #4182), and an absolutely placed chart card's top-left. Rounds 5,6,7,9,10,13 notes re-generated; none re-run. Live r16 e1 80 to 78, e3 88 to 78 (header fixed; tabs wrapped, diff gutter overlapped, a reply lost). Round 16 at 82 over 10. Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-24 n169 live r16 e1,e3 ~186k billed (day so far ~4571k)."
   - "n168 (7638add on try/n3-vocabulary): planner says a spreadsheet's empty header cell with row 1 under it, an empty bordered box over grid cells as a SELECTION OUTLINE (box, rows/columns covered, handle), ::before attr() line numbers as parts (right-aligned), one-line part counts never wrap. Rounds 1-15 notes gain the one-line clause (r13 sheet, r15 email tag also change); none re-run. Live r16 e1 74 to 80, e3 84 to 88. Round 16 at 83 over 10. Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-24 n168 live r16 e1,e3 ~165k billed (day so far ~4385k)."
   - "n167 (31ae95e on try/n3-vocabulary): planner says a bar chart's card (fill, border, shadow, size) and bar sizes, a second bar word right after the first (not pushed right), a ::before stripe layer over background stripes, a part-by-part panel's shadow and nowrap one-line parts. Rounds 3-15 notes gain the nowrap/shadow clause. Live r16 e1 61 to 74, e2 68 to 85. Round 16 at 82 over 10. Vitest: same 2 env failures; typecheck clean."
@@ -553,4 +555,5 @@ nodes:
   - {id: n166, parent: n165, kind: step, title: 'Free first, ~350k live: r16 e2 events in wrong day columns/hours, pale fills, popover text wraps; e3 split diff columns cramped, file tree one line; c2 hollow 3 stroke too bright; c3 rays oversized; first e5', status: done, branch: try/n3-vocabulary, result: "Events placed, file tree as lines, faint outline said: e2 37 to 68, e3 71 to 84; first e5 83."}
   - {id: n167, parent: n166, kind: step, title: 'Free first, ~250k live: r16 e1 rows taller (61); e2 day columns unruled, popover text wraps, no shadow; e3 diff line numbers lost, tabs wrap; c2 re-run for the faint hollow 3; c3 rays oversized; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: 'Chart card, packed menu, day-column rules, popover shadow and one-line text said; e1 61 to 74, e2 68 to 85; round 16 at 82'}
   - {id: n168, parent: n167, kind: step, title: 'Free first, ~200k live: r16 e1 row numbers start on the header row, selection box runs to row 12; e3 diff line numbers lost, tabs wrap counts; c3 rays oversized; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: "Row numbers, selection outline, diff line numbers, one-line tab counts said; e1 74 to 80, e3 84 to 88; round 16 at 83"}
-  - {id: n169, parent: n168, kind: step, title: 'Free first, ~250k live: r16 e3 header parts placed by x only (tabs overlap the Open pill), #4182 not grey; e1 floating chart card placed too far right/high; c3 rays oversized; then write round 17 (harder)', status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n169, parent: n168, kind: step, title: 'Free first, ~250k live: r16 e3 header parts placed by x only (tabs overlap the Open pill), #4182 not grey; e1 floating chart card placed too far right/high; c3 rays oversized; then write round 17 (harder)', status: done, branch: try/n3-vocabulary, result: 'Header parts by x,y, grey title words, chart card placed: header fixed; e1 80 to 78, e3 88 to 78 (noise); round 16 at 82'}
+  - {id: n170, parent: n169, kind: step, title: 'Free first, ~250k live: r16 e3 tabs region part list lacks the nowrap clause (counts wrap), diff code starts over the gutter numbers, reply lost; re-run e3; then write round 17 (harder)', status: open, branch: try/n3-vocabulary, result: null}
