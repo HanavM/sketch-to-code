@@ -870,7 +870,12 @@ export function factsInPage() {
           let at
           if (inside) at = `${fy < 35 ? 'top' : fy > 65 ? 'bottom' : 'middle'}${fx < 35 ? ' left' : fx > 65 ? ' right' : fy >= 35 && fy <= 65 ? '' : ''}`.trim()
           else at = `coming in from the ${dy > dx ? (y > H ? 'bottom' : 'top') : (x > W ? 'right' : 'left')} edge`
-          out.push({ c, at, inside, big: inside && rad >= W * 0.45, px: Math.round(rad), fx: Math.round(fx), fy: Math.round(fy) })
+          // n188: a solid core before the fade (round 18 c4: '#ffb37a 0 18%, transparent 40%' is a full peach disc 18%
+          // out, then the fade; said as fading from the centre, it was built as a dim haze)
+          const cstops = [...g.matchAll(/rgba?\([^)]+\)\s+([\d.]+)%/g)].filter((m) => { const q = rgba(m[0].replace(/\s+[\d.]+%$/, '')); return q && q.a > 0.3 && Math.abs(q.r - c.r) + Math.abs(q.g - c.g) + Math.abs(q.b - c.b) < 6 }).map((m) => +m[1])
+          const corePct = cstops.length ? Math.max(...cstops) : 0
+          const core = corePct >= 5 && stop && corePct < stop ? Math.round((corePct / 100) * ray) : 0
+          out.push({ c, at, inside, big: inside && rad >= W * 0.45, px: Math.round(rad), core, fx: Math.round(fx), fy: Math.round(fy) })
         })
         out.sort((a, b) => (b.inside - a.inside) || b.px - a.px)
         return out
@@ -2948,9 +2953,12 @@ function glowWords(f) {
   if (one) return `${base ? `${base} block` : 'block'} lit by ${f.glows.map(say).join(', a little ')}`
   // each glow says its hex, centre and reach, solid at its centre (round 6 c4: 'cyan top left' was built as faint
   // haze; the target's glows are full-strength colour at the centre, fading out over 450-650px)
-  const exact = (g) => g.inside ? `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}, centred ${g.fx}% across and ${g.fy}% down, full-strength ${colourName(g.c)} at its centre fading to nothing about ${g.px}px out (radial-gradient(circle at ${g.fx}% ${g.fy}%, ${hexOf(g.c)} 0, transparent ${g.px}px))` : `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}`
+  const exact = (g) => g.inside ? `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}, centred ${g.fx}% across and ${g.fy}% down, ${g.core ? `a SOLID full-strength ${colourName(g.c)} disc out to ${g.core}px from its centre, then fading to nothing about ${g.px}px out (radial-gradient(circle at ${g.fx}% ${g.fy}%, ${hexOf(g.c)} 0, ${hexOf(g.c)} ${g.core}px, transparent ${g.px}px))` : `full-strength ${colourName(g.c)} at its centre fading to nothing about ${g.px}px out (radial-gradient(circle at ${g.fx}% ${g.fy}%, ${hexOf(g.c)} 0, transparent ${g.px}px))`}` : `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}`
   const under = f.glowBase ? `; under the glows the block's own fill is ${f.glowBase.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? hexOf(c) : m })} (a dark gradient, NOT the page showing through); the block is exactly ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute), the glows soft and edgeless INSIDE it, never a small hard-edged box` : ''
-  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map(exact).join('; ')}${under}`
+  // n188: a glow block cut to a slant by its own clip-path (round 18 c4: the photo's left edge runs from 722,0 to
+  // 600,900, leaving a dark wedge of page beside the cream shape; it was never said, so the block was built square)
+  const cut = f.glowBase && f.clipPoly && f.clipCss ? `; the block is itself CUT to a slanted shape by clip-path: ${f.clipCss.replace(/\s+/g, ' ')} on the block (percentages of the ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block), so its corners sit at page points ${f.clipPoly.map(([x, y]) => `${Math.round(f.rect.x + x * f.rect.w)},${Math.round(f.rect.y + y * f.rect.h)}`).join(' ; ')}; outside that slanted edge the plain page shows (a dark wedge), the glows and overlay cut with it` : ''
+  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map(exact).join('; ')}${under}${cut}`
 }
 /** A hard offset shadow with its offset and colour (round 5 c4 photo's 24px brown shadow: unsaid). */
 function shadowWords(f) {

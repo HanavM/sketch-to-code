@@ -150,3 +150,14 @@ Rounds 1-17 plans re-generated: struck words now said on round 7 (old price, sol
 
 Round 18, latest build each: **87%** (c1 90, c2 87, c3 88, c4 82, c5 90, e1 91, e2 95, e3 87, e4 73, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n188: a glow block cut to a slant by its own clip-path; a glow's solid core (2026-10-24, ~122k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c4 duotone split | 82% → **81%** | the photo block is itself cut by a clip-path (its left edge runs from 722,0 down to 600,900, leaving a dark wedge of page beside the cream shape); that cut is now said with its polygon and page corners. Each glow's solid core is now said too (the peach is a full disc 128px out before it fades, the orange 99px), where before it was said as fading from the centre and built as a dim haze. Built right: both glows now bright solid discs like the target, and a dark wedge shows at the bottom between cream and photo. Left: this run set the brand lower (run noise) and wrapped "of twenty-four"; the cream shape's bottom edge still wavy from the drawing |
+
+Rounds 1-17 plans re-generated: unchanged.
+
+Round 18, latest build each: **86%** (c1 90, c2 87, c3 88, c4 81, c5 90, e1 91, e2 95, e3 87, e4 73, e5 90).
+Vitest: same 2 env failures; typecheck clean.
