@@ -325,9 +325,11 @@ async function likenessOf(page, spec, row, tag) {
   const shot = await page.screenshot({ animations: 'disabled' }) // first frame, as the target ref is shot
   writeFileSync(join(OUT, 'shots', `${spec.id}-${tag}.png`), shot)
   const pic = await pictureLikeness(page, spec.ref, shot)
-  const layout = row.score?.regionScore ?? null
+  // layout v2 (n174): a region built as unwrapped sibling parts also counts (score.mjs matchGroups); v1 kept beside it
+  const layout = row.score?.regionScoreGrouped ?? row.score?.regionScore ?? null
+  const layoutV1 = row.score?.regionScore ?? null
   // v2 structure forgives a ~16px offset; overallV1 keeps the old strict number so rounds stay comparable
-  row.likeness = { ...pic, layout, version: LIKENESS_VERSION, overall: blend({ colour: pic.colourAligned, structure: pic.structureAligned }, layout, spec.baseline), overallV2: blend(pic, layout, spec.baseline), overallV1: blend({ colour: pic.colour, structure: pic.structureStrict }, layout, spec.baseline) }
+  row.likeness = { ...pic, layout, layoutV1, layoutVersion: 2, version: LIKENESS_VERSION, overall: blend({ colour: pic.colourAligned, structure: pic.structureAligned }, layout, spec.baseline), overallV2: blend(pic, layout, spec.baseline), overallV1: blend({ colour: pic.colour, structure: pic.structureStrict }, layout, spec.baseline) }
   const p = (x) => (x == null ? '—' : `${Math.round(x * 100)}%`)
   log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colourAligned)} · structure ${p(pic.structureAligned)} (aligned x${pic.align.scale} ${pic.align.dx},${pic.align.dy}; unmoved ${p(pic.structure)}, strict ${p(pic.structureStrict)}) · layout ${p(layout)} · v2 ${p(row.likeness.overallV2)} · v1 ${p(row.likeness.overallV1)}`)
   // creative techniques kept (tilt, glass, hollow type, bleed...): reported beside likeness, not blended in
@@ -768,7 +770,10 @@ function writeRunDigest(appDir, dir, id, row) {
   writeFileSync(join(dir, `${id}.json`), JSON.stringify({
     id,
     at: new Date().toISOString(),
-    likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV2: row.likeness.overallV2, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, colourAligned: row.likeness.colourAligned, structureAligned: row.likeness.structureAligned, align: row.likeness.align, layout: row.likeness.layout } : null,
+    likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV2: row.likeness.overallV2, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, colourAligned: row.likeness.colourAligned, structureAligned: row.likeness.structureAligned, align: row.likeness.align, layout: row.likeness.layout, layoutV1: row.likeness.layoutV1 ?? null, layoutVersion: row.likeness.layoutVersion ?? 1 } : null,
+    // the built page's element boxes [parent, x, y, w, h], so layout can be re-scored later without rebuilding
+    boxes: row.score?.boxes ?? null,
+    groupMatched: row.score?.groupMatched ?? null,
     effects: row.effects ?? null,
     tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
     // per codegen turn: build vs repair rounds, tool calls (null before n27)

@@ -176,6 +176,18 @@ export async function measureTarget(browser, htmlPath, viewport = { width: 1280,
   const regions = await page.evaluate(() => [...document.querySelectorAll('[data-r]')].map((el) => {
     let r = el.getBoundingClientRect()
     r = { x: r.x, y: r.y, width: r.width, height: r.height }
+    // a wrapper holding only absolutely placed parts collapses to 0px high (round 17 c2: the circles and the
+    // offset title measured 1280x0, so no build could ever match them): use the box round what it shows
+    if (r.width < 4 || r.height < 4) {
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+      for (const d of el.querySelectorAll('*')) {
+        const b = d.getBoundingClientRect(), ds = getComputedStyle(d)
+        if (b.width < 1 || b.height < 1 || ds.visibility === 'hidden' || ds.display === 'none') continue
+        x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom)
+      }
+      x0 = Math.max(0, x0); y0 = Math.max(0, y0); x1 = Math.min(innerWidth, x1); y1 = Math.min(innerHeight, y1)
+      if (x1 > x0 && y1 > y0) r = { x: x0, y: y0, width: x1 - x0, height: y1 - y0 }
+    }
     // what shows, not the box: a clip-path inset keeps one part (round 6 c2: each half of a sliced word), and a
     // 3D floor's box runs thousands of px off the page (round 6 c1), so a block far bigger than the page is cut to it
     const cs = getComputedStyle(el), m = cs.clipPath.match(/inset\(([^)]*)\)/)

@@ -42,7 +42,19 @@ export function factsInPage() {
   }
   const fact = (el) => {
     const cs = getComputedStyle(el)
-    const r = el.getBoundingClientRect()
+    let r = el.getBoundingClientRect()
+    // a wrapper of only absolutely placed parts collapses to 0px (round 15-17: circles, glass cards, an offset
+    // title measured 1280x0, so the sketch drew them as a flat line): read the box round what it shows instead
+    if (r.width < 4 || r.height < 4) {
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+      for (const d of el.querySelectorAll('*')) {
+        const b = d.getBoundingClientRect(), ds = getComputedStyle(d)
+        if (b.width < 1 || b.height < 1 || ds.visibility === 'hidden' || ds.display === 'none') continue
+        x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom)
+      }
+      x0 = Math.max(0, x0); y0 = Math.max(0, y0); x1 = Math.min(innerWidth, x1); y1 = Math.min(innerHeight, y1)
+      if (x1 > x0 && y1 > y0) r = { x: x0, y: y0, width: x1 - x0, height: y1 - y0, left: x0, top: y0, right: x1, bottom: y1 }
+    }
     const regionKids = [...el.querySelectorAll('[data-r]')].map((k) => k.dataset.r)
     const kids = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
     const ownText = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').trim()
@@ -959,7 +971,7 @@ export function factsInPage() {
           if (t) return { t, px: Math.round(parseFloat(gs.fontSize)), weight: Number(gs.fontWeight) || 400, ink: rgba(gs.color) }
           return null
         }
-        return { box: at(el), blobs: blobs.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), blur: Math.round(parseFloat((getComputedStyle(k).filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100) })),
+        return { box: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }, blobs: blobs.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), blur: Math.round(parseFloat((getComputedStyle(k).filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100) })),
           cards: cards.map((k) => { const ks2 = getComputedStyle(k); const rot = (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null; return { ...(rot ? { x: Math.round(k.offsetLeft + (k.offsetParent === el ? o.left : 0)), y: Math.round(k.offsetTop + (k.offsetParent === el ? o.top : 0)), w: k.offsetWidth, h: k.offsetHeight } : at(k)), rot, fill: rgba(ks2.backgroundColor), border: rgba(ks2.borderTopColor), bw: parseFloat(ks2.borderTopWidth) || 0, radius: Math.round(parseFloat(ks2.borderTopLeftRadius) || 0), blur: Math.round(parseFloat(((ks2.backdropFilter || ks2.webkitBackdropFilter).match(/blur\(([\d.]+)px/) || [])[1]) || 0), shadow: ks2.boxShadow !== 'none', pad: Math.round(parseFloat(ks2.paddingLeft) || 0), parts: [...k.children].map(part).filter(Boolean) } }) }
       })(),
       // n131: a drawn map: a pale panel holding absolutely placed strips (streets), areas (water, park) and short-text
