@@ -98,3 +98,22 @@ Vitest: same 2 env failures (+2 new tests pass); typecheck clean.
 Next (planner, free first): notebook cells part by part (prompt, code with colours, output table, bar chart);
 email canvas gradient hero + selected block outline/tab + column placeholders; result-card photos and map road;
 a star badge's clip-path polygon; nothing invented above a headline. Re-run e1, e2, e3, c4.
+
+## n161: notebook cells, painted canvas parts, card photos, map road, star badge; live c4, e1, e2, e3 (2026-10-24, ~260k billed)
+
+Planner now says, part by part: a region whose table note hides code cells (a pre block present), so prompts, coloured
+code, the output table and the bar chart are each said; a region whose note leaves out 2+ big gradient fills, outline
+rings or dashed boxes (the email canvas: gradient hero, selected block's blue outline, dashed column placeholders);
+a panel whose own background paints a hard-stop gradient line (the map road) with that background verbatim and its
+pins at their places. Result cards now say a gradient photo area. A short word on a 8+-point clip-path is a STAR badge
+with its polygon verbatim. Rounds 1-14 notes unchanged.
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| e1 notebook | 42 -> **79%** | prompts, coloured code, output table, highlighted cell and bar chart all built; toolbar items packed left (target spreads "Python 3 idle" to the middle) |
+| e2 email builder | 55 -> **90%** | gradient hero, blue outline on the selected block, dashed columns built; the small "Text" tab over the block (a ::before) still missing |
+| e3 hotel search | 58 -> **89%** | photos in all three cards, map with its road and pins built |
+| c4 extruded blob | 67 -> **69%** | star badge now a star; an invented kicker line still pushes the headline down over the copy |
+
+Round 15 complete: **87%** over 10 (c1 96, c2 85, c3 90, c4 69, c5 91, e1 79, e2 90, e3 89, e4 95, e5 81).
+Vitest: same 2 env failures; typecheck clean.

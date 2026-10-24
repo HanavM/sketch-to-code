@@ -264,6 +264,7 @@ export function factsInPage() {
       // n136: a window's title bar (a ruled strip on top with ring dots and a title at the right)
       titleBar: (() => { const k = el.firstElementChild; if (!k || k.dataset?.r) return null; const c = getComputedStyle(k), b = k.getBoundingClientRect(); const dots = [...k.children].filter((q) => !(q.innerText || '').trim() && Math.abs(q.getBoundingClientRect().width - q.getBoundingClientRect().height) < 2 && q.getBoundingClientRect().width <= 20); if (dots.length < 2 || b.height > 60) return null; const t = (k.innerText || '').trim(); const dc = getComputedStyle(dots[0]); return { h: Math.round(b.height), rule: parseFloat(c.borderBottomWidth) || 0, ruleC: rgba(c.borderBottomColor), dots: dots.length, dot: Math.round(dots[0].getBoundingClientRect().width), ring: parseFloat(dc.borderTopWidth) > 0 && !(rgba(dc.backgroundColor)?.a > 0.05), dotC: rgba(dc.borderTopColor), t, tpx: Math.round(parseFloat(getComputedStyle(k.lastElementChild).fontSize)) } })(),
       clipPoints: /polygon\(/.test(cs.clipPath) ? cs.clipPath.split(',').length : 0,
+      clipCss: /polygon\(/.test(cs.clipPath) ? cs.clipPath : null,
       // the cut-out's outline as fractions of the block (percent or px corners), so it can be drawn as itself
       clipPoly: (() => {
         const m = cs.clipPath.match(/polygon\((.*)\)/)
@@ -990,11 +991,11 @@ export function factsInPage() {
         const o = el.getBoundingClientRect()
         const cardish = (k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return (rgba(c.backgroundColor)?.a > 0.5 || parseFloat(c.borderTopWidth) >= 1) && b.height >= 60 && (b.width >= o.width * 0.8 || (b.width >= o.width * 0.25 && c.position === 'absolute')) && k.querySelectorAll('*').length >= 6 }
         if (!kids.every(cardish)) return null
-        const leafs = (k) => [...k.querySelectorAll('*')].filter((x) => { const b = x.getBoundingClientRect(); if (b.width < 2) return false; const own = [...x.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); const solid = !x.children.length && rgba(getComputedStyle(x).backgroundColor)?.a > 0.5; return own || solid })
+        const leafs = (k) => [...k.querySelectorAll('*')].filter((x) => { const b = x.getBoundingClientRect(); if (b.width < 2) return false; const own = [...x.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); const solid = !x.children.length && (rgba(getComputedStyle(x).backgroundColor)?.a > 0.5 || (/gradient/.test(getComputedStyle(x).backgroundImage) && b.height >= 40)); return own || solid })
         const desc = (k) => { const kb = k.getBoundingClientRect()
           const parts = leafs(k).map((x) => { const c = getComputedStyle(x), b = x.getBoundingClientRect(); const own = [...x.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(' / ')
             const bf = getComputedStyle(x, '::before'); const rule = bf.content && bf.content !== 'none' && parseFloat(bf.borderTopWidth) >= 1 ? { px: parseFloat(bf.borderTopWidth), c: rgba(bf.borderTopColor), top: Math.round(parseFloat(bf.top) || 0) } : null
-            return { t: own || null, x: Math.round(b.left - kb.left), y: Math.round(b.top - kb.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, outline: parseFloat(c.borderTopWidth) >= 1 && own ? rgba(c.borderTopColor) : null, round: parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), rule } })
+            return { t: own || null, x: Math.round(b.left - kb.left), y: Math.round(b.top - kb.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, img: !own && /gradient/.test(c.backgroundImage) ? c.backgroundImage : null, outline: parseFloat(c.borderTopWidth) >= 1 && own ? rgba(c.borderTopColor) : null, round: parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), rule } })
           const kc = getComputedStyle(k); return { y: Math.round(kb.top), x: Math.round(kb.left), w: Math.round(kb.width), h: Math.round(kb.height), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: parseFloat(kc.borderTopWidth), c: rgba(kc.borderTopColor) } : null, fill: rgba(getComputedStyle(k).backgroundColor), radius: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0), parts } }
         return { cards: kids.map(desc) }
       })(),
@@ -3098,6 +3099,8 @@ function decideOne(f, page, marked, said) {
   if (f.resultCards) {
     const R = f.resultCards, c0 = R.cards[0]
     const part = (p) => p.t ? `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 20)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.rad}px-rounded ${p.w}x${p.h}px fill` : p.outline ? ` in a ${p.w}x${p.h}px ${p.rad}px-rounded box with a 1px ${hexOf(p.outline)} border` : ''} at ${p.x},${p.y}${p.rule ? ` (the route line: a ${p.rule.px}px ${hexOf(p.rule.c)} line ${p.w}px wide at y ${p.y + p.rule.top}, ${/ \/ /.test(p.t) ? `${quote(p.t.split(' / ')[0], 12)} centred just above it and ${quote(p.t.split(' / ').slice(1).join(' '), 14)} centred just below it` : 'the text centred over it'})` : ''}`
+      // n161: a gradient photo stand-in inside a card (round 15 e3 hotel photos: lost)
+      : p.img ? `a ${p.w}x${p.h}px photo area${p.rad ? ` (${p.rad}px rounded)` : ''} painted ${p.img.replace(/rgba?\([^)]+\)/g, (m) => hexOf(parse(m)))} (plain CSS, no picture, no X) at ${p.x},${p.y}`
       : `a ${p.w}x${p.h}px ${p.round ? 'round dot' : `${p.rad}px-rounded solid square`} ${hexOf(p.fill)} at ${p.x},${p.y}`
     const cards = R.cards.map((c, i) => `card ${i + 1} at page y ${c.y}: ${c.parts.map(part).join('; ')}`).join('. ')
     const side = R.cards.length >= 2 && Math.abs(R.cards[1].y - R.cards[0].y) <= 4
@@ -4321,7 +4324,15 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // the wrong place, under the dim, its query row lost) is said part by part, on top of the dim
     const dimUnder = regions.some((g) => g !== f && !g.text && visible(g.bg) && g.bg.a >= 0.3 && g.bg.a <= 0.8 && g.rect.w * g.rect.h >= 0.3 * 1280 * 900)
     const floating = dimUnder && d.kind && !f.regionKids.length && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h >= 40000 && f.rect.w * f.rect.h < 0.3 * 1280 * 900
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating) return
+    // n161: a table note over a region that also holds code cells, prompts or a bar chart (round 15 e1 notebook: built
+    // as one big table, the code, prompts and chart lost)
+    const mixed = /table, every body row/.test(d.note ?? '') && !f.regionKids.length && P.some((p) => p.pre)
+    // n161: a note that leaves out the region's gradient fills, outline rings or dashed boxes (round 15 e2 email canvas:
+    // gradient hero, selected block's outline, dashed column placeholders lost)
+    const unsaidPaint = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.w * p.h >= 10000 && ((p.img && /^linear-gradient/.test(p.img) && !/gradient/.test(own)) || (p.ring && !/outline|ring/.test(own)) || (p.border?.style === 'dashed' && !/dashed/i.test(own)))).length >= 2
+    // n161: a panel whose own background paints a picture with a gradient (round 15 e3 map: the road and its pins lost)
+    const bgPic = d.kind && !f.regionKids.length && /^linear-gradient/.test(f.bgImage ?? '') && !/gradient/.test(d.note ?? '') && P.filter((p) => p.t).length >= 3 && f.rect.w * f.rect.h >= 40000
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
     // n155: the region's own panel (its fill, edge and rounding) said before its parts (round 14 e4 alerts column: the
@@ -4329,17 +4340,25 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const R = f.rect, edge = f.border?.w >= 1 && visible(f.border.colour)
     // n156: a wide row under a top rule only says its rule whatever its area (round 14 c1 axes row: 1160x29, rule lost)
     const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
-    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule)
-    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
+    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic)
+    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
     const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
-    const keep = `${panel}${leftRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating ? `${d.note}; ` : ''}`
+    const keep = `${panel}${leftRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
     out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note}${fl}` })
     marked.add(f.role)
+  })
+  // n161: a short word on a many-pointed clip-path cut-out is a star badge, its polygon said verbatim (round 15 c4
+  // 'vivid yellow "NEW!"': built as a yellow circle)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d?.kind || !f.clipCss || f.clipPoints < 8 || !f.text || f.text.length > 16 || f.regionKids.length || !visible(f.bg)) return
+    const R = f.rect
+    out.set(f.role, { kind: 'box', note: `a ${Math.round(R.w)}x${Math.round(R.h)}px STAR badge at ${Math.round(R.x)},${Math.round(R.y)} (position absolute): one ${hexOf(f.bg)} fill cut by clip-path: ${f.clipCss} exactly (a ${Math.round(f.clipPoints / 2)}-pointed star, NOT a circle, NOT a rounded box, no border), ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : f.font.weight >= 600 ? 'bold ' : ''}${hexOf(f.colour)} ${quote(f.text, 16)} centred in it` })
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
