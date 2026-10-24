@@ -102,3 +102,15 @@ Rounds 1-17 plans re-generated: only round 14's hollow glyph tile changes (now s
 
 Round 18, latest build each: **83%** (c1 90, c2 80, c3 88, c4 69, c5 90, e1 73, e2 95, e3 87, e4 71, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n184: a big headline's own face, a glow block's dark base and box, a copied drawing with no frame (2026-10-24, ~162k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c2 brutal grid | 80% → **72%** | the headline is now said as 64px heavy Impact on 5 lines (the hollow "26" being said in Impact had hidden it); built big and heavy at last, though in lower case (now also said in capitals). But this run dropped the grid's 30px margin, so the whole grid sits up and left and its outer frame is lost: layout 57% (run noise; the frame was said as before) |
+| c4 duotone split | 69% → **82%** | the glow block is now said with its own dark gradient under the glows and its exact size and place (the full right side); a copied drawing is said with no border or frame round it. Built right: both glows soft across the right side, the 29% ring a real ring. Left: the scan lines over the photo |
+
+Planner also: a cursive face is said as handwritten (was "sans-serif"; round 18 c5 "on purpose", the polaroid caption). Rounds 1-17 plans re-generated: only the copied-drawing wording moved (rounds 7, 11, 15).
+
+Round 18, latest build each: **84%** (c1 90, c2 72, c3 88, c4 82, c5 90, e1 73, e2 95, e3 87, e4 71, e5 90).
+Vitest: same 2 env failures; typecheck clean.

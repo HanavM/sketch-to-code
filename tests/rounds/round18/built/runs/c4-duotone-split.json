@@ -1,24 +1,24 @@
 {
   "id": "c4-duotone-split",
-  "at": "2026-10-24T20:30:13.498Z",
+  "at": "2026-10-24T21:00:11.395Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6862304445902732,
-    "overallV2": 0.6862304445902732,
-    "overallV1": 0.6009819388214063,
-    "colour": 0.8978011300730856,
-    "structure": 0.7388793583070526,
-    "structureStrict": 0.5741876166746007,
-    "colourAligned": 0.8978011300730856,
-    "structureAligned": 0.7388793583070526,
+    "overall": 0.82368150985761,
+    "overallV2": 0.82368150985761,
+    "overallV1": 0.7985682579951909,
+    "colour": 0.9630973662650274,
+    "structure": 0.9011067437445232,
+    "structureStrict": 0.8525904072999884,
+    "colourAligned": 0.9630973662650274,
+    "structureAligned": 0.9011067437445232,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8516621841536394
+      "r": 0.9821238705013964
     },
-    "layout": 0.6575201021692103,
-    "layoutV1": 0.6152787228588654,
+    "layout": 0.674214137694451,
+    "layoutV1": 0.6319727583841062,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,31 +31,17 @@
     ],
     [
       0,
+      600,
       0,
-      0,
-      1272,
-      894
+      680,
+      900
     ],
     [
-      1,
       0,
       0,
-      1272,
-      894
-    ],
-    [
-      2,
-      598,
       0,
-      674,
-      894
-    ],
-    [
-      2,
-      0,
-      0,
-      1272,
-      894
+      742,
+      900
     ],
     [
       0,
@@ -82,29 +68,15 @@
       0,
       94,
       57,
-      121,
+      128,
       30
     ],
     [
       0,
       90,
       230,
-      601,
+      566,
       391
-    ],
-    [
-      9,
-      90,
-      230,
-      601,
-      196
-    ],
-    [
-      9,
-      90,
-      426,
-      601,
-      196
     ],
     [
       0,
@@ -118,7 +90,7 @@
       100,
       818,
       163,
-      30
+      24
     ],
     [
       0,
@@ -143,57 +115,57 @@
     ],
     [
       0,
-      660,
-      310,
-      500,
-      500
-    ],
-    [
-      0,
       820,
       430,
-      180,
-      162
+      203,
+      164
     ],
     [
-      18,
+      13,
       820,
       430,
-      180,
+      203,
       110
     ],
     [
-      18,
+      13,
       820,
-      544,
-      180,
-      48
+      547,
+      203,
+      40
     ],
     [
       0,
       1080,
       690,
-      133,
-      133
+      140,
+      140
     ],
     [
-      21,
+      16,
       1080,
       690,
-      133,
-      133
+      140,
+      140
     ],
     [
-      22,
-      1080,
-      690,
-      134,
-      134
+      17,
+      1090,
+      700,
+      120,
+      120
     ],
     [
-      22,
-      1116,
-      739,
+      17,
+      1090,
+      700,
+      120,
+      120
+    ],
+    [
+      17,
+      1120,
+      743,
       60,
       33
     ]
@@ -212,168 +184,93 @@
     }
   ],
   "effects": {
-    "recall": 0.75,
+    "recall": 1,
     "kept": [
       "blend",
+      "clip-shape",
       "hollow-type",
       "huge-type",
       "italic",
       "mono",
+      "motion",
       "overlap",
       "serif",
       "stripes-or-layers",
+      "tilt",
       "vertical-type"
     ],
-    "missing": [
-      "clip-shape",
-      "motion",
-      "tilt"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 56907,
-    "output": 36847,
-    "cacheRead": 364565
+    "input": 46436,
+    "output": 25012,
+    "cacheRead": 248468
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 68997,
-      "output": 26678,
-      "cacheRead": 351336,
-      "toolCalls": 11,
+      "billed": 49980,
+      "output": 16436,
+      "cacheRead": 235098,
+      "toolCalls": 10,
       "tools": [
-        "Read components/SketchShape.tsx",
-        "Read components/CircularProgress.tsx",
         "Glob",
-        "Glob",
+        "Read components/CircularPercentage.tsx",
         "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
         "Read s2c-bench-app/package.json",
-        "Edit components/SketchShape.tsx",
-        "Edit components/CircularProgress.tsx",
-        "Edit src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Write components/CircularPercentage.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 285565
+      "ms": 172981
     }
   ],
-  "reading": "A two-panel magazine-style page: left is a cream angled cut-out panel holding vertical journal labels, an 'ÉCLIPSE' lead line, a giant bold italic 'Dusk Hours' headline, a paragraph, and a link; right side has monospace shoot metadata, a glowing peach/orange block with a big hollow '07 of twenty-four' stat, and a circular progress-ring SVG, all on a near-black Georgia-type page per the typed notes.",
+  "reading": "A two-panel editorial hero: a cream angled cut-out panel on the left carries vertical rail labels, a lead word, a huge two-line italic headline, a body paragraph and a link; a dark gradient panel on the right carries glow colours, a 3-line mono photo-metadata block, a huge hollow '07 of twenty-four' caption, and a circular SVG progress ring.",
   "actions": [
     {
       "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        5,
+        603,
         3,
-        1272,
+        674,
         894
       ],
       "paths": [
-        "s0",
-        "s1"
+        "s0"
       ],
-      "instruction": "Create a cream (#f5e9d7) angled cut-out panel as a flat single-colour fill (no gradient/shading/texture), shaped via clip-path over a 742x900px box with top-lef"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        30,
-        4,
-        15,
-        892
-      ],
-      "paths": [
-        "s2"
-      ],
-      "instruction": "Add three separate vertical text labels on the cream panel, wide letter-spaced, text colour #101820 (not the page's cream text): 'FILMS' (14x56 box at 30,306), "
+      "instruction": "Dark gradient block, exactly 680x900px with top-left at 600,0 (position absolute). Under two soft colour glows the block's own fill is linear-gradient(160deg,#2"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s3"
-      ],
-      "textSize": [],
-      "region": [
-        94,
-        57,
-        120,
-        8
-      ],
-      "paths": [],
-      "instruction": "Add a wide letter-spaced lead line 'ÉCLIPSE' on the cream panel, text colour #101820 (not the page's cream text), set at 20px, about 128px wide on one line, no "
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s4",
-        "s5"
+        "s13",
+        "s14"
       ],
       "textSize": [
         {
           "strokes": [
-            "s4",
-            "s5"
+            "s13",
+            "s14"
           ],
           "lines": 2,
-          "fontPx": 178
+          "fontPx": 58
         }
       ],
       "region": [
-        98,
-        230,
-        505,
-        391
+        824,
+        430,
+        102,
+        129
       ],
       "paths": [],
-      "instruction": "Add the giant Georgia italic bold serif headline 'Dusk Hours', colour-inverting where it crosses the cream panel beneath it (it sits above the panel in z-index)"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s6",
-        "s7",
-        "s8"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8"
-          ],
-          "lines": 3,
-          "fontPx": 20
-        }
-      ],
-      "region": [
-        100,
-        670,
-        352,
-        90
-      ],
-      "paths": [],
-      "instruction": "Add a dark grey (#3a3a3a, not the page's cream text) paragraph on the cream panel: \"A photographer's year spent chasing the twenty minutes after sunset, across "
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s9"
-      ],
-      "textSize": [],
-      "region": [
-        100,
-        818,
-        184,
-        8
-      ],
-      "paths": [],
-      "instruction": "Add a bold link 'VIEW THE SERIES →' with a 2px underline (no box, not a button), text colour #101820 (not the page's cream text), on the cream panel."
+      "instruction": "Caption 'italic peach \"07 of twenty-four\"' sitting on the dark gradient block, no fill/bar of its own, text colour #ffb37a. The word '07' is HOLLOW (outline onl"
     },
     {
       "kind": "add",
@@ -400,57 +297,7 @@
         58
       ],
       "paths": [],
-      "instruction": "Add three separate one-line monospace metadata labels, 12px, colour #cbb9a3, each kept on one line (white-space: nowrap, min-width not fixed so the count never "
-    },
-    {
-      "kind": "design",
-      "textMarks": [
-        "s13",
-        "s14"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s13",
-            "s14"
-          ],
-          "lines": 2,
-          "fontPx": 58
-        }
-      ],
-      "region": [
-        824,
-        430,
-        102,
-        129
-      ],
-      "paths": [],
-      "instruction": "Add soft radial colour glows behind this block: orange (#ff5a36) glow centred at 70% across / 75% down of the block, full strength at centre fading to transpare"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s13",
-        "s14"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s13",
-            "s14"
-          ],
-          "lines": 2,
-          "fontPx": 58
-        }
-      ],
-      "region": [
-        824,
-        430,
-        102,
-        129
-      ],
-      "paths": [],
-      "instruction": "Add italic peach (#ffb37a, not the page's cream text) text '07 of twenty-four' over the glow block: the '07' is hollow/outline-only (transparent fill, 1.5px pea"
+      "instruction": "Three one-line mono metadata labels in #cbb9a3, 12px monospace, each its own element, white-space:nowrap, min-width (never forced onto two lines): 'PLATE 07 / 2"
     },
     {
       "kind": "add",
@@ -465,7 +312,119 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Add an inline SVG circular progress ring exactly as specified, 140x140px absolute at page 1080,690: a dark grey track circle (#3a3040, r=60, stroke-width 6) plu"
+      "instruction": "Circular progress indicator, no border/box/frame or background around it — only the SVG's own shapes show. 140x140px, top-left at page 1080,690 (position absolu"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        738,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Cream angled cut-out panel, ONE flat #f5e9d7 fill via clip-path (no gradient, shading or texture of its own); the drawn outline is only a guide, never kept as a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        30,
+        4,
+        15,
+        892
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Wide-spaced vertical rail labels 'FILMS STILLS JOURNAL' sitting on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820. Each word its own eleme"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        94,
+        57,
+        120,
+        8
+      ],
+      "paths": [],
+      "instruction": "Wide-spaced lead word 'ÉCLIPSE' on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820, set large at 20px (a lead line, not body text), ~128px "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 178
+        }
+      ],
+      "region": [
+        98,
+        230,
+        505,
+        391
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic bold headline that colour-inverts where it crosses what's under it, tight-set (line-height 0.85), exactly 2 lines 'Dusk' / 'Hours' (keep th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        100,
+        670,
+        352,
+        90
+      ],
+      "paths": [],
+      "instruction": "Dark grey body paragraph on the cream #f5e9d7 panel, no fill/bar of its own, text colour #3a3a3a: \"A photographer's year spent chasing the twenty minutes after "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        100,
+        818,
+        184,
+        8
+      ],
+      "paths": [],
+      "instruction": "Bold link 'VIEW THE SERIES →' with a 2px underline (no surrounding box, not a button), on the cream #f5e9d7 panel, no fill/bar of its own, text colour #101820."
     }
   ],
   "rejected": [

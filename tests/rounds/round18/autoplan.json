@@ -139,7 +139,7 @@
    ],
    [
     "hero-cell",
-    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, font-weight 900 Impact, BELOW the other words (after them, never above them), position absolute at that spot, overlapping nothing above it"
+    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, font-weight 900 Impact, BELOW the other words (after them, never above them), position absolute at that spot, overlapping nothing above it; its \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\" (ALL CAPITALS, text-transform: uppercase) is BIG 64px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 420x304px from 52,142, set on exactly 5 lines (line-height 61px; it wraps)"
    ],
    [
     "clients-stat",
@@ -347,7 +347,7 @@
    ],
    [
     "duotone-photo",
-    "block with soft colour glows: orange (#ff5a36) bottom right, centred 70% across and 75% down, full-strength orange at its centre fading to nothing about 289px out (radial-gradient(circle at 70% 75%, #ff5a36 0, transparent 289px)); peach (#ffb37a) middle, centred 40% across and 35% down, full-strength peach at its centre fading to nothing about 285px out (radial-gradient(circle at 40% 35%, #ffb37a 0, transparent 285px))"
+    "block with soft colour glows: orange (#ff5a36) bottom right, centred 70% across and 75% down, full-strength orange at its centre fading to nothing about 289px out (radial-gradient(circle at 70% 75%, #ff5a36 0, transparent 289px)); peach (#ffb37a) middle, centred 40% across and 35% down, full-strength peach at its centre fading to nothing about 285px out (radial-gradient(circle at 40% 35%, #ffb37a 0, transparent 285px)); under the glows the block's own fill is linear-gradient(160deg, #2b1b3d, #101820 70%) (a dark gradient, NOT the page showing through); the block is exactly 680x900px with its top-left at 600,0 (position absolute), the glows soft and edgeless INSIDE it, never a small hard-edged box"
    ],
    [
     "cream-split",
@@ -383,7 +383,7 @@
    ],
    [
     "progress-ring",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 140x140px with its top-left at page 1080,690 (position absolute), copied verbatim: <svg width=\"140\" height=\"140\" viewBox=\"0 0 140 140\"><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#3a3040\" stroke-width=\"6\"></circle><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#ff5a36\" stroke-width=\"6\" stroke-dasharray=\"377\" stroke-dashoffset=\"267\" transform=\"rotate(-90 70 70)\" style=\"animation:ring 4s ease-in-out infinite alternate\"></circle><text x=\"70\" y=\"80\" text-anchor=\"middle\" style=\"font: 700 30px Helvetica, Arial, sans-serif; fill: rgb(245, 233, 215)\">29%</text></svg><style>@keyframes ring { 100% { stroke-dashoffset: 60; } }</style>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 140x140px with its top-left at page 1080,690 (position absolute), copied verbatim: <svg width=\"140\" height=\"140\" viewBox=\"0 0 140 140\"><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#3a3040\" stroke-width=\"6\"></circle><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#ff5a36\" stroke-width=\"6\" stroke-dasharray=\"377\" stroke-dashoffset=\"267\" transform=\"rotate(-90 70 70)\" style=\"animation:ring 4s ease-in-out infinite alternate\"></circle><text x=\"70\" y=\"80\" text-anchor=\"middle\" style=\"font: 700 30px Helvetica, Arial, sans-serif; fill: rgb(245, 233, 215)\">29%</text></svg><style>@keyframes ring { 100% { stroke-dashoffset: 60; } }</style>"
    ]
   ]
  },
@@ -557,11 +557,11 @@
    ],
    [
     "headline",
-    "giant Georgia serif tight-set letters lines set tight (line-height 0.95) cream \"Make a mess on purpose\", set in exactly 2 lines: \"Make a mess\" / \"on purpose\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide); the word \"on purpose\" is regular-weight near-black #2b2118 (its own colour; the other words stay #f6efe0); on the #c8553d block, no fill or bar of its own"
+    "giant Georgia serif tight-set letters lines set tight (line-height 0.95) cream \"Make a mess on purpose\", set in exactly 2 lines: \"Make a mess\" / \"on purpose\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 488px wide); the word \"on purpose\" is regular-weight near-black #2b2118 (its own colour; the other words stay #f6efe0); on the #c8553d block, no fill or bar of its own; its \"on purpose\" is BIG 110px font-weight 400 Brush Script MT, a handwritten cursive type (NOT the Georgia of the rest, NOT small), #2b2118, filling about 473x145px from 106,247, on one line"
    ],
    [
     "polaroid",
-    "ONE 300x360px #ffffff card (a separate piece of paper laid on the page), position absolute with its top-left at 780,90 page px (before its turn), square corners, box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 30px 0px (it lifts off the page); transform: rotate(6deg) round its centre (tilted 6° clockwise, NOT level); inside it a picture 268x284px set in from the card's top, left and right edges by 16px (a #ffffff margin) with a deeper 60px margin under it, the picture painted with background-image: linear-gradient(#87b6d8 0px, #87b6d8 55%, #d8b27a 55%, #d8b27a 70%, #5f7f4f 70%) exactly (hard stops: flat bands of colour across it, no blur, no photo, no grey); in that bottom margin, centred, 20px Helvetica/Arial sans-serif #2b2118 \"Skye, June\""
+    "ONE 300x360px #ffffff card (a separate piece of paper laid on the page), position absolute with its top-left at 780,90 page px (before its turn), square corners, box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 30px 0px (it lifts off the page); transform: rotate(6deg) round its centre (tilted 6° clockwise, NOT level); inside it a picture 268x284px set in from the card's top, left and right edges by 16px (a #ffffff margin) with a deeper 60px margin under it, the picture painted with background-image: linear-gradient(#87b6d8 0px, #87b6d8 55%, #d8b27a 55%, #d8b27a 70%, #5f7f4f 70%) exactly (hard stops: flat bands of colour across it, no blur, no photo, no grey); in that bottom margin, centred, 20px #2b2118 \"Skye, June\""
    ],
    [
     "lede",
@@ -569,7 +569,7 @@
    ],
    [
     "hand-arrow",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 250x150px with its top-left at page 600,470 (position absolute), copied verbatim: <svg width=\"250\" height=\"150\" viewBox=\"0 0 250 150\"><path d=\"M10 30 C 90 140, 170 140, 236 70\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M214 66 L238 68 L232 92\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 250x150px with its top-left at page 600,470 (position absolute), copied verbatim: <svg width=\"250\" height=\"150\" viewBox=\"0 0 250 150\"><path d=\"M10 30 C 90 140, 170 140, 236 70\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M214 66 L238 68 L232 92\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
    ],
    [
     "sticky-note",

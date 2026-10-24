@@ -832,6 +832,9 @@ export function factsInPage() {
         return { toward: toEnd ? ax[1] : ax[0], fromPct: Math.round(at) }
       })(),
       // soft colour glows (radial gradients fading to transparent) over a fill: a reel or a hero lit by blobs
+      // n184: the gradient under the glows (round 18 c4: radials over a linear-gradient base, said with no base and no box;
+      // built as a small hard-edged box floating in the dark)
+      glowBase: /radial-gradient/.test(cs.backgroundImage) ? (cs.backgroundImage.match(/linear-gradient\((?:[^()]|\([^()]*\))*\)/) || [])[0] ?? null : null,
       glows: (() => {
         const rs = [...cs.backgroundImage.matchAll(/radial-gradient\((?:[^()]|\([^()]*\))*\)/g)].map((m) => m[0])
         // one glow over a solid fill counts too (round 8 c3: the violet tile's lilac glow was said as plain paint)
@@ -1303,7 +1306,7 @@ export function factsInPage() {
         }
         const all = [...el.querySelectorAll('*')].filter((k) => { const reg = k.closest('[data-r]'); return reg === el || (!reg && el === document.body) })
         const preDone = [], inlDone = new Set()
-        const gen = (fam) => (/mono|courier|consolas/i.test(fam) ? 'mono' : /georgia|times|garamond|playfair|didot|bodoni/i.test(fam) || (/serif/i.test(fam) && !/sans-serif/i.test(fam)) ? 'serif' : 'sans')
+        const gen = (fam) => (/mono|courier|consolas/i.test(fam) ? 'mono' : /cursive|brush|script|comic/i.test(fam.split(',')[0]) ? 'script' : /georgia|times|garamond|playfair|didot|bodoni/i.test(fam) || (/serif/i.test(fam) && !/sans-serif/i.test(fam)) ? 'serif' : 'sans')
         const bodyGen = gen(getComputedStyle(document.body).fontFamily)
         for (const k of all) {
           if (inlDone.has(k)) continue
@@ -2937,7 +2940,8 @@ function glowWords(f) {
   // each glow says its hex, centre and reach, solid at its centre (round 6 c4: 'cyan top left' was built as faint
   // haze; the target's glows are full-strength colour at the centre, fading out over 450-650px)
   const exact = (g) => g.inside ? `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}, centred ${g.fx}% across and ${g.fy}% down, full-strength ${colourName(g.c)} at its centre fading to nothing about ${g.px}px out (radial-gradient(circle at ${g.fx}% ${g.fy}%, ${hexOf(g.c)} 0, transparent ${g.px}px))` : `${colourName(g.c)} (${hexOf(g.c)}) ${g.at}`
-  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map(exact).join('; ')}`
+  const under = f.glowBase ? `; under the glows the block's own fill is ${f.glowBase.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? hexOf(c) : m })} (a dark gradient, NOT the page showing through); the block is exactly ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute), the glows soft and edgeless INSIDE it, never a small hard-edged box` : ''
+  return `${base ? `${base} block` : 'block'} with soft colour glows: ${f.glows.map(exact).join('; ')}${under}`
 }
 /** A hard offset shadow with its offset and colour (round 5 c4 photo's 24px brown shadow: unsaid). */
 function shadowWords(f) {
@@ -3666,7 +3670,7 @@ function decideOne(f, page, marked, said) {
   // n160: an svg whose look is in its defs or that stretches to its box, said as its own markup
   if (f.svgSrc && !f.regionKids.length) {
     const V = f.svgSrc
-    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/<svg /, `<svg width="${V.w}" height="${V.h}" `)}` }
+    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/<svg /, `<svg width="${V.w}" height="${V.h}" `)}` }
   }
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
   if (f.svgArt && !f.regionKids.length) {
@@ -4986,14 +4990,27 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // case card said as the cell's own lines, built as loose text on the stripes)
   const pageFam = faceName(body.font?.family ?? '') ?? (isMono(body.font?.family ?? '') ? 'monospace' : 'page')
   const hardSh = (q) => q.outShadow ? `, box-shadow: ${q.outShadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? hexOf(c) : m })}${/\s0px\s+0px\s+rgb|\s0px rgb/.test(q.outShadow) || /px\s+\d+px\s+0px/.test(q.outShadow) ? ' (hard, no blur)' : ''}` : ''
+  // n184: a face counts as said only next to that part's own words (round 18 c2: the hollow '26' said 'Impact', which
+  // hid the 64px Impact headline in the same region, built small and mono)
+  const saidFace = (note, q) => {
+    const k = q.t.replace(/\s+/g, ' ').trim().slice(0, 16).toLowerCase(), n = note.toLowerCase(), fam = q.fam.toLowerCase()
+    let i = n.indexOf(k)
+    if (i < 0) return n.includes(fam)
+    for (; i >= 0; i = n.indexOf(k, i + 1)) {
+      const after = n.slice(i + k.length, i + k.length + 120).replace(/^[^"]*"/, '').split(/"/)[0]
+      if (after.includes(fam) || /\b(sans|serif)\b/.test(after)) return true
+    }
+    return false
+  }
   regions.forEach((f) => {
     const d = out.get(f.role)
     if (!d.kind || !d.note || /^part by part|part by part \(/.test(d.note) || f.regionKids.length) return
     const add = []
     for (const q of f.parts ?? []) {
       if (!q.t || !(q.ink?.a >= 0.05)) continue
-      if (q.px >= 48 && q.face && !d.note.includes(`${q.px}px`) && !d.note.includes(q.fam) && !/\b(sans|serif)\b/.test(d.note)) {
-        add.push(`its ${quote(q.t, 40)} is BIG ${q.px}px font-weight ${q.wt} ${q.fam}${q.face === 'sans' ? ', sans-serif' : q.face === 'serif' ? ', serif' : ''} type (NOT the ${pageFam} of the rest, NOT small), ${hexOf(q.ink)}, filling about ${q.w}x${q.h}px from ${q.x},${q.y}${q.nl >= 2 && q.nl <= 6 ? `, set on exactly ${q.nl} lines (line-height ${q.lh}px; it wraps)` : ', on one line'}`)
+      if (q.px >= 48 && q.face && !d.note.includes(`${q.px}px`) && !saidFace(d.note, q)) {
+        const caps = q.t !== q.t.toUpperCase() && d.note.includes(q.t.toUpperCase().slice(0, 16))
+        add.push(`its ${quote(caps ? q.t.toUpperCase() : q.t, 40)}${caps ? ' (ALL CAPITALS, text-transform: uppercase)' : ''} is BIG ${q.px}px font-weight ${q.wt} ${q.fam}${q.face === 'sans' ? ', sans-serif' : q.face === 'serif' ? ', serif' : q.face === 'script' ? ', a handwritten cursive' : ''} type (NOT the ${pageFam} of the rest, NOT small), ${hexOf(q.ink)}, filling about ${q.w}x${q.h}px from ${q.x},${q.y}${q.nl >= 2 && q.nl <= 6 ? `, set on exactly ${q.nl} lines (line-height ${q.lh}px; it wraps)` : ', on one line'}`)
       } else if (q.fill?.a > 0.5 && q.t.length <= 24 && q.h >= 40 && q.px >= 16 && q.px <= 28 && q.w <= 400 && !/button/i.test(d.note) && q.radius < q.h / 2 - 1 && q.w >= 2 * q.h && !d.note.includes(`${q.w}x${q.h}`) && !new RegExp(`${hexOf(q.fill)} (fill|button|block)`, 'i').test(d.note)) {
         add.push(`${quote(q.t, 24)} is a BUTTON: a ${q.w}x${q.h}px ${hexOf(q.fill)} block at ${q.x},${q.y}, square corners, its ${q.px}px ${q.bold ? 'bold ' : ''}${hexOf(q.ink)} words centred in it${hardSh(q)}`)
       }

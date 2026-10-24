@@ -293,7 +293,7 @@
    ],
    [
     "paper-layers",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x900px with its top-left at page 0,0 (position absolute), copied verbatim: <svg width=\"1280\" height=\"900\" viewBox=\"0 0 1280 900\" preserveAspectRatio=\"none\"><path d=\"M0,470 C200,400 380,520 600,460 C820,400 1000,500 1280,430 L1280,900 L0,900Z\" fill=\"#a8dadc\"></path><path d=\"M0,560 C240,500 420,620 680,560 C920,505 1080,600 1280,540 L1280,900 L0,900Z\" fill=\"#457b9d\"></path><path d=\"M0,660 C260,610 460,720 720,660 C960,610 1120,700 1280,650 L1280,900 L0,900Z\" fill=\"#1d3557\"></path><path d=\"M0,770 C300,730 520,820 800,770 C1000,735 1160,800 1280,770 L1280,900 L0,900Z\" fill=\"#0b1a30\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x900px with its top-left at page 0,0 (position absolute), copied verbatim: <svg width=\"1280\" height=\"900\" viewBox=\"0 0 1280 900\" preserveAspectRatio=\"none\"><path d=\"M0,470 C200,400 380,520 600,460 C820,400 1000,500 1280,430 L1280,900 L0,900Z\" fill=\"#a8dadc\"></path><path d=\"M0,560 C240,500 420,620 680,560 C920,505 1080,600 1280,540 L1280,900 L0,900Z\" fill=\"#457b9d\"></path><path d=\"M0,660 C260,610 460,720 720,660 C960,610 1120,700 1280,650 L1280,900 L0,900Z\" fill=\"#1d3557\"></path><path d=\"M0,770 C300,730 520,820 800,770 C1000,735 1160,800 1280,770 L1280,900 L0,900Z\" fill=\"#0b1a30\"></path></svg>"
    ],
    [
     "nav",

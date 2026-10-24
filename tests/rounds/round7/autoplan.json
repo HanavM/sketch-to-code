@@ -245,11 +245,11 @@
    ],
    [
     "skyline-back",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x360px with its top-left at page 0,540 (position absolute), copied verbatim: <svg width=\"1280\" height=\"360\" viewBox=\"0 0 1280 360\" preserveAspectRatio=\"none\" style=\"opacity:.55\"><polygon fill=\"#4c1d95\" points=\"0,360 0,170 90,170 90,120 160,120 160,190 260,190 260,80 330,80 330,160 430,160 430,110 520,110 520,200 640,200 640,60 700,60 700,180 820,180 820,130 900,130 900,210 1010,210 1010,90 1080,90 1080,170 1180,170 1180,140 1280,140 1280,360\"></polygon></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x360px with its top-left at page 0,540 (position absolute), copied verbatim: <svg width=\"1280\" height=\"360\" viewBox=\"0 0 1280 360\" preserveAspectRatio=\"none\" style=\"opacity:.55\"><polygon fill=\"#4c1d95\" points=\"0,360 0,170 90,170 90,120 160,120 160,190 260,190 260,80 330,80 330,160 430,160 430,110 520,110 520,200 640,200 640,60 700,60 700,180 820,180 820,130 900,130 900,210 1010,210 1010,90 1080,90 1080,170 1180,170 1180,140 1280,140 1280,360\"></polygon></svg>"
    ],
    [
     "skyline-front",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x360px with its top-left at page 0,540 (position absolute), copied verbatim: <svg width=\"1280\" height=\"360\" viewBox=\"0 0 1280 360\" preserveAspectRatio=\"none\"><polygon fill=\"#0b0617\" points=\"0,360 0,250 120,250 120,200 200,200 200,270 340,270 340,180 400,180 400,150 460,150 460,240 600,240 600,210 720,210 720,280 860,280 860,190 940,190 940,230 1060,230 1060,170 1140,170 1140,260 1280,260 1280,360\"></polygon></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x360px with its top-left at page 0,540 (position absolute), copied verbatim: <svg width=\"1280\" height=\"360\" viewBox=\"0 0 1280 360\" preserveAspectRatio=\"none\"><polygon fill=\"#0b0617\" points=\"0,360 0,250 120,250 120,200 200,200 200,270 340,270 340,180 400,180 400,150 460,150 460,240 600,240 600,210 720,210 720,280 860,280 860,190 940,190 940,230 1060,230 1060,170 1140,170 1140,260 1280,260 1280,360\"></polygon></svg>"
    ],
    [
     "scroll-rail",

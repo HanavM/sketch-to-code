@@ -263,7 +263,7 @@
    ],
    [
     "striped-blob",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 600x600px with its top-left at page 640,110 (position absolute), copied verbatim: <svg width=\"600\" height=\"600\" viewBox=\"0 0 600 600\"><defs><clipPath id=\"b\"><path d=\"M430,80 C560,150 590,330 500,450 C410,570 220,590 120,480 C20,370 40,200 150,110 C250,30 340,40 430,80Z\"></path></clipPath><pattern id=\"s\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(30)\"><rect width=\"40\" height=\"40\" fill=\"#ff4f81\"></rect><rect width=\"20\" height=\"40\" fill=\"#8a5cff\"></rect></pattern></defs><g clip-path=\"url(#b)\"><rect width=\"600\" height=\"600\" fill=\"url(#s)\"></rect><circle cx=\"300\" cy=\"300\" r=\"120\" fill=\"#ffd23f\"></circle></g></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 600x600px with its top-left at page 640,110 (position absolute), copied verbatim: <svg width=\"600\" height=\"600\" viewBox=\"0 0 600 600\"><defs><clipPath id=\"b\"><path d=\"M430,80 C560,150 590,330 500,450 C410,570 220,590 120,480 C20,370 40,200 150,110 C250,30 340,40 430,80Z\"></path></clipPath><pattern id=\"s\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(30)\"><rect width=\"40\" height=\"40\" fill=\"#ff4f81\"></rect><rect width=\"20\" height=\"40\" fill=\"#8a5cff\"></rect></pattern></defs><g clip-path=\"url(#b)\"><rect width=\"600\" height=\"600\" fill=\"url(#s)\"></rect><circle cx=\"300\" cy=\"300\" r=\"120\" fill=\"#ffd23f\"></circle></g></svg>"
    ],
    [
     "star-badge",
@@ -279,7 +279,7 @@
    ],
    [
     "wave-divider",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x120px with its top-left at page 0,780 (position absolute), copied verbatim: <svg width=\"1280\" height=\"120\" viewBox=\"0 0 1280 120\" preserveAspectRatio=\"none\"><path d=\"M0,60 C160,0 320,120 480,60 C640,0 800,120 960,60 C1120,0 1200,80 1280,50 L1280,120 L0,120Z\" fill=\"#26113d\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x120px with its top-left at page 0,780 (position absolute), copied verbatim: <svg width=\"1280\" height=\"120\" viewBox=\"0 0 1280 120\" preserveAspectRatio=\"none\"><path d=\"M0,60 C160,0 320,120 480,60 C640,0 800,120 960,60 C1120,0 1200,80 1280,50 L1280,120 L0,120Z\" fill=\"#26113d\"></path></svg>"
    ]
   ]
  },
