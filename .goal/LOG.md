@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T17:25Z | n179 map SVG, blob shade, glass, buttons, ticker, bubble | e5 73 to 90, c1 82 to 90, c3 70 to 88; round 18 89 over 3. ~251k.
 2026-10-24T16:52Z | n178 write round 18, first live builds | Round 18 written, dry 10/10; isometric blocks fixed: c3 58 to 70; c1 82, e5 73; round 18 75. ~348k.
 2026-10-24T15:53Z | n177 gantt bars by exact px, lead line size | e1 78 to 79 (bars on their days), c5 91 to 92; round 17 88. ~139k.
 2026-10-24T15:27Z | n176 inline words, drop cap, wrap round the orb, paint order, pills | c4 78 to 88, c1 79 to 81, c5 90 to 91; round 17 88. ~276k.
