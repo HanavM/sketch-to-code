@@ -57,7 +57,7 @@
    ],
    [
     "text-rings",
-    "spinning drawn shapes, no picture, no box: 2 filled shapes: black 0x0px at 0,0, black 0x0px at 0,0; along its top edge a 0px title bar: 2 0px dots at its left; the window is 600x600px with its top-left at 380,150: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it"
+    "2 RINGS OF TEXT running round in circles (words set along circular paths, NOT shapes, NOT a box, no fill, no border): one 600x600px <svg> at 380,150 (viewBox 0 0 600 600), transparent, on top of what is under it, the whole svg slowly spinning (CSS animation: rotate 0 to 360deg, 30s linear, infinite); ring 1: an SVG <text> on a <textPath> following a circle path of radius 260px centred at page 680,450 (path d=\"M cx,cy-260 a 260,260 0 1,1 -0.1,0\"), starting at the top and running clockwise, 34px bold #f6efe1 letter-spacing 6px capitals: \"THREE NIGHTS · FORTY ARTISTS · ONE LAKE · THREE NIGHTS · FORTY ARTISTS ·\"; ring 2: an SVG <text> on a <textPath> following a circle path of radius 190px centred at page 680,450 (path d=\"M cx,cy-190 a 190,190 0 1,1 -0.1,0\"), starting at the top and running clockwise, 22px bold #f6efe1 at 70% opacity letter-spacing 6px capitals: \"AMBIENT · TECHNO · DUB · JAZZ · AMBIENT · TECHNO · DUB · JAZZ ·\""
    ],
    [
     "sticker-cta",
@@ -81,11 +81,11 @@
    ],
    [
     "reg-mark",
-    "box"
+    "circle"
    ],
    [
     "numerals",
-    "text",
+    "heading",
     {
      "fontPx": 16,
      "lines": 5
@@ -115,7 +115,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#f4efe4, plainly not white) page, Helvetica type, near-black text"
+    "whole page: cream (#f4efe4, plainly not white) page, a fine DOT GRID over the whole page (small #c9c1ae dots every 24px; exactly: background-image: radial-gradient(circle, #c9c1ae 1.5px, transparent 2px); background-size: 24px 24px; on top of the page colour), Helvetica type, near-black text"
    ],
    [
     "nav",
@@ -123,15 +123,15 @@
    ],
    [
     "reg-mark",
-    "pill input \"\""
+    "a 40px printer's REGISTRATION MARK at 1180,100 (NOT an input, NOT a button, no text): an empty circle with a 2px #1a1a1a outline, crossed by a 2px #1a1a1a vertical and a 2px horizontal line through its centre (a crosshair in a ring)"
    ],
    [
     "numerals",
-    "links: 27, 27, 27; each word in its own colour: \"27\" #00a8d6, \"27\" #e6007e, \"27\" #ffd500"
+    "ONE GIANT WORD \"27\" PRINTED 3 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 3 separate absolutely placed divs, each the same 560px heavy (font-weight 900) \"27\" (line-height 1, letter-spacing -30px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #00a8d6 text, its box's top-left at 150,120 (position absolute; the glyphs' ink spans 150-713 across); copy 2: #e6007e text, its box's top-left at 172,136 (position absolute; the glyphs' ink spans 172-735 across); copy 3: #ffd500 text, its box's top-left at 136,148 (position absolute; the glyphs' ink spans 136-699 across); together they fill about 599x654px of the page's left side"
    ],
    [
     "caption",
-    "serif \"Twenty-seven colours, printed slightly wrong on purpose.\""
+    "serif \"Twenty-seven colours, printed slightly wrong on purpose.\"; set INSIDE its own 300x184px box at 880,190 with a 2px #1a1a1a border on all four sides, #f4efe4 fill (keep the border)"
    ],
    [
     "tag",
@@ -341,7 +341,7 @@
    ],
    [
     "contour-map",
-    "a big 800x780px block filled with a soft pale tinted #000000 to #9fd356 (top to bottom) gradient, 8px rounded: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a 800x780px block at 420,60 drawn as a CONTOUR MAP: many thin concentric lime ring lines on a see-through ground, rings spreading out to the edges and cut off by them (NOT a smooth gradient, NOT a photo, NOT a backdrop, no picture); exactly: background: repeating-radial-gradient(at 60% 45%, transparent 0px, transparent 22px, #9fd356 22px, #9fd356 24px); opacity 0.75; border-radius 8px; nothing else in it"
    ],
    [
     "peak-marker",
@@ -595,7 +595,7 @@
    ],
    [
     "issue-body",
-    "a docs article, NOT a card, NOT a table alone; top to bottom: 24px bold title \"Checkout button stays disabled after\"…; then 14px near-black paragraph \"When a coupon is applied and then removed, the Pay button keeps its disabled state until the page is refreshed. Seen on Safari 17 and Chrome 120.\"; then a dark code block (#f4f5f8 fill, 6px rounded, 12px monospace near-black text) with 4 lines: \"cart.on('coupon:removed', () => {\" / \"  // total recalculates but canPay is never reset\" / \"  recalc(cart)\" / \"})\"; then small 13px near-black line \"Activity Maya created the issue · 2d ago Leo moved from\"…; the first line sits flush at the article's top (no padding above), and each block's top is exactly this far down from it: title 0px, paragraph 42px, code 99px, breadcrumb 222px; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 680x28 at 250,60 24px bold #1c1d1f \"Checkout button stays disabled after coupon removal\"; 680x45 at 250,102 14px #1c1d1f \"When a coupon is applied and then removed, the Pay button keeps its di\"; 680x103 at 250,159 #f4f5f8 fill: ONE pre block (white-space: pre, 12px monospace #1c1d1f text, line-height 19px, padding 12px 12px) of 4 lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): 1 `cart.on('coupon:removed', () => {`; 2 `  // total recalculates but canPay is never reset`; 3 `  recalc(cart)`; 4 `})`; 680x32 at 250,282 1px #e6e6e9 border on the top only: 13px bold #1c1d1f \"Activity\"; 680x20 at 250,324 13px #6b6f76 \"Maya created the issue · 2d ago\"; 20x20 at 250,324 #f2994a fill, a circle; 680x20 at 250,356 13px #6b6f76 \"Leo moved from Backlog to In Progress · 1d ago\"; 20x20 at 250,356 #5e6ad2 fill, a circle; 680x46 at 250,388 1px #e6e6e9 border, 8px rounded: 13px #1c1d1f \"I can reproduce this. The listener never sets ; fix incoming.\"; 23x15 at 263,403 13px bold #1c1d1f \"Leo\"; 47x15 at 546,403 13px mono #1c1d1f \"canPay\""
+    "a docs article, NOT a card, NOT a table alone; top to bottom: 24px bold title \"Checkout button stays disabled after\"…; then 14px near-black paragraph \"When a coupon is applied and then removed, the Pay button keeps its disabled state until the page is refreshed. Seen on Safari 17 and Chrome 120.\"; then a PALE (light, NOT dark) code block (#f4f5f8 fill, 6px rounded, 12px monospace near-black text) with 4 lines: \"cart.on('coupon:removed', () => {\" / \"  // total recalculates but canPay is never reset\" / \"  recalc(cart)\" / \"})\"; then small 13px near-black line \"Activity Maya created the issue · 2d ago Leo moved from\"…; the first line sits flush at the article's top (no padding above), and each block's top is exactly this far down from it: title 0px, paragraph 42px, code 99px, breadcrumb 222px; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 680x28 at 250,60 24px bold #1c1d1f \"Checkout button stays disabled after coupon removal\"; 680x45 at 250,102 14px #1c1d1f \"When a coupon is applied and then removed, the Pay button keeps its di\"; 680x103 at 250,159 #f4f5f8 fill: ONE pre block (white-space: pre, 12px monospace #1c1d1f text, line-height 19px, padding 12px 12px) of 4 lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): 1 `cart.on('coupon:removed', () => {`; 2 `  // total recalculates but canPay is never reset`; 3 `  recalc(cart)`; 4 `})`; 680x32 at 250,282 1px #e6e6e9 border on the top only: 13px bold #1c1d1f \"Activity\"; 680x20 at 250,324 13px #6b6f76 \"Maya created the issue · 2d ago\"; 20x20 at 250,324 #f2994a fill, a circle; 680x20 at 250,356 13px #6b6f76 \"Leo moved from Backlog to In Progress · 1d ago\"; 20x20 at 250,356 #5e6ad2 fill, a circle; 680x46 at 250,388 1px #e6e6e9 border, 8px rounded: 13px #1c1d1f \"I can reproduce this. The listener never sets ; fix incoming.\"; 23x15 at 263,403 13px bold #1c1d1f \"Leo\"; 47x15 at 546,403 13px mono #1c1d1f \"canPay\""
    ],
    [
     "properties",
