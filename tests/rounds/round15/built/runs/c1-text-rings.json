@@ -1,0 +1,192 @@
+{
+  "id": "c1-text-rings",
+  "at": "2026-10-24T02:20:44.734Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8075353414793234,
+    "overallV2": 0.8075353414793234,
+    "overallV1": 0.7650780611482086,
+    "colour": 0.981533143327497,
+    "structure": 0.798948755922046,
+    "structureStrict": 0.6924740647090876,
+    "colourAligned": 0.981533143327497,
+    "structureAligned": 0.798948755922046,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8733011999847942
+    },
+    "layout": 0.6512413027532155
+  },
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "blur"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 57240,
+    "output": 33604,
+    "cacheRead": 369315
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 64909,
+      "output": 22008,
+      "cacheRead": 327106,
+      "toolCalls": 14,
+      "tools": [
+        "Read components/SpinningRing.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Edit src/index.css",
+        "Edit components/SpinningRing.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx"
+      ],
+      "ms": 245362
+    }
+  ],
+  "reading": "The sketch lays out a festival landing page: a thin top rule becomes a boxed-free nav, three wavy lines become a giant 3-line headline, concentric squares become an inset artwork panel holding a spinning conic-gradient ring, a circle becomes a tilted yellow CTA button, three short wavy lines on the right become a 3-row schedule list, and a bottom-left wavy line becomes a small date/location line, all styled per the typed notes (dark navy page, cream Helvetica type).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar, no box around it: bold wide-spaced \"ORBIT FEST\" aligned left, \"Lineup · Map · Tickets · FAQ\" aligned right, following the thin horizontal rule drawn ac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 79
+        }
+      ],
+      "region": [
+        68,
+        120,
+        297,
+        260
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.9), three lines exactly as broken: \"Sound\" / \"in\" / \"circles\" — keep these breaks, each line stays whole"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        383,
+        153,
+        594,
+        594
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "An inset 600×600px panel positioned within the page content (top-left roughly at 380,150), NOT full-bleed/edge-to-edge — the page background shows around it on "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        991,
+        111,
+        137,
+        137
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A circular button tilted 14° anticlockwise, filled vivid yellow, labeled \"GET A PASS →\" in dark navy (#0d1b2a) text (not the page's cream text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        1004,
+        560,
+        212,
+        88
+      ],
+      "paths": [],
+      "instruction": "A 3-row schedule list, each row a day/stage label next to a bold mono accent number in orange (#ff6b3d): \"Friday, Shore stage\" / \"01\"; \"Saturday, Forest\" / \"02\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        785,
+        227,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small 15px mono line of text: \"14–16 AUG 2027 · LAKE BLED\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

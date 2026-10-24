@@ -1,0 +1,163 @@
+{
+  "id": "e4-bank-transfer",
+  "at": "2026-10-24T02:33:23.279Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9458675891649718,
+    "overallV2": 0.9458675891649718,
+    "overallV1": 0.913636072369558,
+    "colour": 0.9736274946381491,
+    "structure": 0.945537001117331,
+    "structureStrict": 0.8945307360247696,
+    "colourAligned": 0.9736274946381491,
+    "structureAligned": 0.945537001117331,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9946769427313109
+    },
+    "layout": 0.992445266728338
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 62597,
+    "output": 31306,
+    "cacheRead": 204607
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 72659,
+      "output": 22263,
+      "cacheRead": 193518,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 239944
+    }
+  ],
+  "reading": "The sketch lays out a full admin/banking dashboard: a full-height dark navy sidebar nav, two top cards (a gradient account-balance card and a donut-chart spend-summary card), a large 'Recent activity' card with a transaction stepper, and a 'Send money' modal with a dimmed backdrop drawn on top of it. All visual/content detail comes from the typed notes rather than the raw ink.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4"
+      ],
+      "instruction": "Left sidebar nav panel, full page height: solid dark navy (#0b1f3a) fill holding a light-grey 'Northbank' label and a vertical nav list — Overview, Accounts, Pa"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1",
+        "s4"
+      ],
+      "instruction": "Top-left dashboard card: dark blue (#1849a9) to indigo (#6941c6) diagonal gradient panel labelled 'Current account ·· 4821', with a large bold 40px balance line"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s4"
+      ],
+      "instruction": "Top-right card: a 490x200px white panel, 16px rounded corners, containing a centred 140px donut chart (30px-thick ring, hollow white centre) with clockwise segm"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Main 'Recent activity' card: a 990x610px white panel with the heading 'Recent activity' at top, followed by a vertical stepper of 5 transaction steps spaced 61p"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "A semi-transparent dark navy backdrop (55% opacity) sits over the page content behind the modal, dimming it without hiding it, while the Send money modal is dra"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Send money modal: a single 400x403px white panel, 16px rounded corners, containing (each its own live element): a close '✕' icon top-right; bold heading 'Send m"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

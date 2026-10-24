@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Bank transfer</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f2f4f7;font-family:Helvetica,Arial,sans-serif;color:#101828;font-size:13px}
+.nav{position:absolute;left:0;top:0;width:230px;height:900px;background:#0b1f3a;color:#c7d2e0;padding:24px 18px;line-height:2.6;font-size:14px}.nav b{color:#fff;font-size:18px;display:block;margin-bottom:12px}.nav .on{color:#fff;background:#1b365d;margin:0 -10px;padding:0 10px;border-radius:6px}
+.main{position:absolute;left:260px;top:30px;width:990px}
+.bal{width:470px;height:200px;border-radius:16px;background:linear-gradient(135deg,#1849a9,#6941c6);color:#fff;padding:24px}.bal small{opacity:.8}.bal b{display:block;font-size:40px;margin:10px 0 30px}
+.donut{position:absolute;left:500px;top:0;width:490px;height:200px;background:#fff;border-radius:16px;padding:20px}
+.donut .r{position:absolute;left:24px;top:30px;width:140px;height:140px;border-radius:50%;background:conic-gradient(#1849a9 0 42%,#f79009 42% 66%,#12b76a 66% 84%,#d0d5dd 84%)}.donut .r::after{content:"";position:absolute;left:30px;top:30px;width:80px;height:80px;border-radius:50%;background:#fff}
+.lg{position:absolute;left:200px;top:40px;line-height:2.2}.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px}
+.tx{margin-top:24px;background:#fff;border-radius:16px;padding:20px;height:610px}.tx h3{font-size:16px;margin-bottom:10px}
+.t{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid #eaecf0}.t i{width:36px;height:36px;border-radius:50%;margin-right:12px}.t span{flex:1}.t b.m{color:#d92d20}.t b.p{color:#079455}
+.dim{position:absolute;left:0;top:0;width:1280px;height:900px;background:rgba(16,24,40,.55)}
+.modal{position:absolute;left:440px;top:170px;width:400px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.modal h3{font-size:19px}.modal .x{position:absolute;right:20px;top:20px;color:#667085;font-size:18px}
+.f{margin-top:16px}.f label{display:block;color:#475467;margin-bottom:6px}.f div{border:1px solid #d0d5dd;border-radius:8px;padding:11px 12px;font-size:14px}.f .err{border-color:#f04438}.f p{color:#d92d20;margin-top:6px}
+.amt{font-size:30px!important;font-weight:700}
+.btns{display:flex;gap:10px;margin-top:22px}.btns a{flex:1;text-align:center;padding:12px;border-radius:8px;font-weight:700;border:1px solid #d0d5dd}.btns a.pri{background:#1849a9;color:#fff;border-color:#1849a9}
+</style></head><body>
+<div class="nav" data-r="sidebar"><b>Northbank</b><div class="on">Overview</div><div>Accounts</div><div>Payments</div><div>Cards</div><div>Savings</div><div>Settings</div></div>
+<div class="main"><div class="bal" data-r="balance-card"><small>Current account ·· 4821</small><b>£12,480.55</b><small>Available · £11,900.00</small></div>
+<div class="donut" data-r="spending-donut"><div class="r"></div><div class="lg"><div><i style="background:#1849a9"></i>Bills 42%</div><div><i style="background:#f79009"></i>Food 24%</div><div><i style="background:#12b76a"></i>Travel 18%</div><div><i style="background:#d0d5dd"></i>Other 16%</div></div></div>
+<div class="tx" data-r="transactions"><h3>Recent activity</h3><div class="t"><i style="background:#fee4e2"></i><span>Tesco Express</span><b class="m">−£23.40</b></div><div class="t"><i style="background:#dcfae6"></i><span>Salary · Acme Ltd</span><b class="p">+£3,240.00</b></div><div class="t"><i style="background:#fef0c7"></i><span>TfL Travel</span><b class="m">−£8.10</b></div><div class="t"><i style="background:#e0eaff"></i><span>Octopus Energy</span><b class="m">−£96.00</b></div><div class="t"><i style="background:#fee4e2"></i><span>Pret A Manger</span><b class="m">−£6.85</b></div></div></div>
+<div class="dim" data-r="overlay"></div>
+<div class="modal" data-r="transfer-modal" data-must><h3>Send money</h3><span class="x">✕</span>
+<div class="f"><label>To</label><div>Priya Shah · 20-45-77 ·· 3391</div></div>
+<div class="f"><label>Amount</label><div class="amt err">£15,000.00</div><p>That's more than your available balance.</p></div>
+<div class="f"><label>Reference</label><div>Flat deposit</div></div>
+<div class="btns"><a>Cancel</a><a class="pri">Review</a></div></div>
+</body></html>

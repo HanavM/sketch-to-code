@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Issue with palette</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1c1d1f;font-size:13px}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#f7f7f8;border-right:1px solid #e6e6e9;padding:16px;line-height:2.3}.side b{display:block;font-size:14px;margin-bottom:10px}.side .on{background:#e8e8ec;margin:0 -8px;padding:0 8px;border-radius:5px}
+.side h6{font-size:11px;color:#8a8f98;margin-top:14px}
+.crumb{position:absolute;left:250px;top:20px;color:#8a8f98}
+.main{position:absolute;left:250px;top:60px;width:680px}
+.main h1{font-size:24px;margin-bottom:14px}.main p{line-height:1.6;font-size:14px;margin-bottom:12px}
+pre{background:#f4f5f8;border:1px solid #e6e6e9;border-radius:6px;padding:12px;font-size:12px;line-height:1.6;margin-bottom:20px}
+.act h4{font-size:13px;margin-bottom:10px;border-top:1px solid #e6e6e9;padding-top:16px}.ev{display:flex;align-items:center;gap:8px;color:#6b6f76;margin-bottom:12px}.ev i{width:20px;height:20px;border-radius:50%}
+.cm{border:1px solid #e6e6e9;border-radius:8px;padding:12px;line-height:1.5}
+.props{position:absolute;left:960px;top:0;width:320px;height:900px;border-left:1px solid #e6e6e9;padding:24px 20px}
+.pr{display:flex;align-items:center;margin-bottom:16px}.pr span{width:100px;color:#8a8f98}.pr i{width:18px;height:18px;border-radius:50%;margin-right:8px}
+.lb{display:inline-block;padding:3px 9px;border:1px solid #e6e6e9;border-radius:999px;margin-right:6px}.lb::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--c)}
+.dim{position:absolute;left:0;top:0;width:1280px;height:900px;background:rgba(255,255,255,.6)}
+.pal{position:absolute;left:340px;top:150px;width:600px;background:#fff;border:1px solid #e1e1e6;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.18);overflow:hidden}
+.pal .q{padding:16px 18px;font-size:16px;border-bottom:1px solid #eee}.pal .q b{display:inline-block;background:#eef0ff;color:#5e6ad2;font-size:11px;padding:3px 8px;border-radius:4px;margin-right:10px}
+.pal h6{font-size:11px;color:#8a8f98;padding:10px 18px 4px}.it{display:flex;justify-content:space-between;padding:10px 18px;font-size:14px}.it.on{background:#f0f1f5;box-shadow:inset 2px 0 0 #5e6ad2}.it kbd{font-family:monospace;font-size:11px;color:#6b6f76;border:1px solid #e1e1e6;border-radius:4px;padding:2px 6px}
+</style></head><body>
+<div class="side" data-r="sidebar"><b>◆ Lumen</b><div>Inbox</div><div>My issues</div><h6>TEAM</h6><div class="on">Issues</div><div>Cycles</div><div>Projects</div><div>Views</div></div>
+<div class="crumb" data-r="breadcrumb">Lumen › Web › LUM-482</div>
+<div class="main" data-r="issue-body" data-must><h1>Checkout button stays disabled after coupon removal</h1><p>When a coupon is applied and then removed, the Pay button keeps its disabled state until the page is refreshed. Seen on Safari 17 and Chrome 120.</p>
+<pre>cart.on('coupon:removed', () =&gt; {
+  // total recalculates but canPay is never reset
+  recalc(cart)
+})</pre>
+<div class="act"><h4>Activity</h4><div class="ev"><i style="background:#f2994a"></i>Maya created the issue · 2d ago</div><div class="ev"><i style="background:#5e6ad2"></i>Leo moved from Backlog to In Progress · 1d ago</div><div class="cm"><b>Leo</b> I can reproduce this. The listener never sets <code>canPay</code>; fix incoming.</div></div></div>
+<div class="props" data-r="properties" data-must><div class="pr"><span>Status</span><i style="background:#f2c94c"></i>In Progress</div><div class="pr"><span>Priority</span>▮▮▮ Urgent</div><div class="pr"><span>Assignee</span><i style="background:#5e6ad2"></i>Leo Park</div><div class="pr"><span>Labels</span><span class="lb" style="--c:#eb5757;width:auto;color:#1c1d1f">Bug</span><span class="lb" style="--c:#27ae60;width:auto;color:#1c1d1f">Web</span></div><div class="pr"><span>Cycle</span>Cycle 31</div><div class="pr"><span>Estimate</span>3 points</div></div>
+<div class="dim" data-r="overlay"></div>
+<div class="pal" data-r="command-palette" data-must><div class="q"><b>LUM-482</b>Change status…</div><h6>STATUS</h6><div class="it"><span>○ Backlog</span><kbd>1</kbd></div><div class="it"><span>◌ Todo</span><kbd>2</kbd></div><div class="it on"><span>◐ In Review</span><kbd>3</kbd></div><div class="it"><span>● Done</span><kbd>4</kbd></div><div class="it"><span>⊘ Cancelled</span><kbd>5</kbd></div></div>
+</body></html>
