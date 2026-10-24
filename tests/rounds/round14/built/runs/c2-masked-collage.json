@@ -1,28 +1,29 @@
 {
   "id": "c2-masked-collage",
-  "at": "2026-10-23T23:22:47.160Z",
+  "at": "2026-10-23T23:58:42.901Z",
   "likeness": {
     "version": 3,
-    "overall": 0.4349428315087763,
-    "overallV2": 0.40848573895921436,
-    "overallV1": 0.30123598862415274,
-    "colour": 0.8862663709639036,
-    "structure": 0.7242658648082828,
-    "structureStrict": 0.5617054647017534,
-    "colourAligned": 0.8966202885079398,
-    "structureAligned": 0.7242658648082828,
+    "overall": 0.8638846033741205,
+    "overallV2": 0.8638846033741205,
+    "overallV1": 0.8055164190852597,
+    "colour": 0.9834517525526151,
+    "structure": 0.9409035224297246,
+    "structureStrict": 0.8746045141287484,
+    "colourAligned": 0.9834517525526151,
+    "structureAligned": 0.9409035224297246,
     "align": {
-      "scale": 0.88,
-      "dx": 112,
-      "dy": 64,
-      "r": 0.653428724331646
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9504672250387074
     },
-    "layout": 0.8061884421534543
+    "layout": 0.8606571298619564
   },
   "effects": {
-    "recall": 0.5,
+    "recall": 0.625,
     "kept": [
       "blend",
+      "gradient-text",
       "huge-type",
       "overlap",
       "tilt"
@@ -30,25 +31,22 @@
     "missing": [
       "clip-shape",
       "gradient",
-      "gradient-text",
       "serif"
     ],
-    "extra": [
-      "stripes-or-layers"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 61238,
-    "output": 34518,
-    "cacheRead": 287179
+    "input": 63483,
+    "output": 36399,
+    "cacheRead": 157053
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 69502,
-      "output": 22491,
-      "cacheRead": 243957,
+      "billed": 75448,
+      "output": 26034,
+      "cacheRead": 144639,
       "toolCalls": 14,
       "tools": [
         "Glob",
@@ -58,18 +56,18 @@
         "Read components/SketchShape2.tsx",
         "Read components/SketchShape3.tsx",
         "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
         "Edit components/SketchShape.tsx",
         "Edit components/SketchShape2.tsx",
         "Edit components/SketchShape3.tsx",
         "Edit components/SketchShape4.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx"
+        "Edit components/SketchShape5.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 242947
+      "ms": 288646
     }
   ],
-  "reading": "This is a hero section sketch for a 'Paper Room' zine fair site: a top nav, a large stripes card with a 'CUT' wordmark, a cluster of overlapping decorative shapes (teal clip-path cutout, peach-to-coral gradient cutout, a blue multiply-blend disc, and two pieces of yellow sticky tape), a paragraph of body copy with a 'scissors people' button, a pink circled date badge, a 'Get a table' pill button, and a wide-spaced footer line, all on an off-white Helvetica page.",
+  "reading": "A hero section: a plain nav row, a giant gradient-filled 'CUT' headline, a layered collage of two angled color-block 'photo' shapes with a multiply-blend blue disc and two translucent yellow tape strips crossing them, a paragraph of body copy with a small yellow button, a pink outline date-badge circle, a dark pill 'Get a table' button, and a wide-spaced all-caps footer/venue line at the page bottom.",
   "actions": [
     {
       "kind": "add",
@@ -84,25 +82,33 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Nav bar, no box around it: bold \"PAPER ROOM\" at left, \"Issues · Makers · Fair · Join\" at right."
+      "instruction": "Add a top navigation bar, no box or border around it: bold 'PAPER ROOM' on the left, and 'Issues · Makers · Fair · Join' links on the right, spanning the page w"
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        43,
-        93,
-        618,
-        324
-      ],
-      "paths": [
+      "textMarks": [
         "s1"
       ],
-      "instruction": "Large card (624x330px as drawn, 0px rounded corners) with coral, blue, peach, teal and pink stripes as its filled background, holding a bold 330px-size \"CUT\" wo"
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 335
+        }
+      ],
+      "region": [
+        48,
+        54,
+        562,
+        402
+      ],
+      "paths": [],
+      "instruction": "Render the word 'CUT' in giant Helvetica heavy letters, 330px, weight 900, letter-spacing -18px, line-height 1, on ONE line, top-left at 40,90. The letters them"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -114,10 +120,10 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Decorative vivid teal (#06a77d) angled cut-out shape, flat fill only (no gradient, shading or texture), tilted 6° anticlockwise, drawn via clip-path polygon(6% "
+      "instruction": "Add a tilted 6° anticlockwise vivid teal angled cut-out shape, ONE flat #06a77d fill (clip-path polygon, no gradient, no shading, no texture); the drawn outline"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -129,10 +135,10 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Decorative angled cut-out shape tilted 8° clockwise, filled with linear-gradient(160deg, #ffd166, #ff7a59) exactly as specified (peach top to coral bottom, thes"
+      "instruction": "Add a tilted 8° clockwise angled cut-out shape with a vivid peach #ffd166 (top) to vivid coral #ff7a59 (bottom) gradient, painted linear-gradient(160deg, #ffd16"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -144,10 +150,10 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Perfectly round solid disc, 220px across, flat fully opaque vivid blue (#3b7dd8) fill, hard edge, no blur, composited with multiply blend mode so it darkens the"
+      "instruction": "Add an ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 220px acros"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -159,10 +165,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Strip of sticky tape, 140x34px, square corners, see-through soft yellow (#ffecaa at 75% opacity), tilted 24° anticlockwise, laid on top of the shape-cluster edg"
+      "instruction": "Add a tilted 24° anticlockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape, 140x34px, square corners, laid on top of the photo edge it"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -174,7 +180,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Strip of sticky tape, 140x34px, square corners, see-through soft yellow (#ffecaa at 75% opacity), tilted 30° clockwise, laid on top of the shape-cluster edge it"
+      "instruction": "Add a tilted 30° clockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape, 140x34px, square corners, laid on top of the photo edge it cro"
     },
     {
       "kind": "add",
@@ -201,7 +207,7 @@
         101
       ],
       "paths": [],
-      "instruction": "Body paragraph, 430px wide, 24px text, exact copy: \"A zine fair for : collage, risograph and glue, three days in an old print hall.\" Beneath it place a #ffd166 "
+      "instruction": "At 60,500, add 430px-wide, 24px body text with this exact copy: 'A zine fair for : collage, risograph and glue, three days in an old print hall.' Under it add a"
     },
     {
       "kind": "add",
@@ -216,7 +222,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Outline circle, 130px across, tilted 14° anticlockwise, containing centred 3-line wrapped 14px text \"MAY 9–11 2027\" in pink (#ef476f), not the page's near-black"
+      "instruction": "Add a tilted 14° anticlockwise pink outline circle, 130px across, containing the text 'MAY 9–11 2027' in #ef476f (pink, not the page's near-black text), centred"
     },
     {
       "kind": "add",
@@ -231,7 +237,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Near-black outline pill button with label \"Get a table →\"."
+      "instruction": "Add a near-black outline pill button labeled 'Get a table →'."
     },
     {
       "kind": "add",
@@ -246,10 +252,8 @@
         9
       ],
       "paths": [],
-      "instruction": "Footer line of wide-spaced letters reading \"HALL 4, DOCK ROAD FREE ENTRY @PAPERROOM\"."
+      "instruction": "Add a wide-letter-spaced line of text reading 'HALL 4, DOCK ROAD   FREE ENTRY   @PAPERROOM' spanning the bottom of the page."
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

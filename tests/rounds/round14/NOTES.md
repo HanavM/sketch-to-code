@@ -40,3 +40,19 @@ Next (planner, free first): a glyph tile grid said tile by tile (box, letter, we
 gradient-filled clip-text said as its gradient layers on the word (never a striped card); an inline highlighted phrase
 said inside its sentence; a stacked area chart said as its SVG paths (never bars); a 3D ring's front face named and
 ticket notches as a mask; filter chips as boxed chips; then first builds c1, c4, e1, e2, e3, e5.
+
+## n154: planner fixes, live re-runs c2, c5, e4 (2026-10-24, ~330k billed)
+
+Planner now says: a glyph tile grid tile by tile (box, border, letter, weight, italic, colour, glow, filled tile, hollow
+letter); a giant word filled with layered gradients through clip-text, with its exact layers on the letters (the
+computed clip of a layered background reads "text, text, text", so it was never seen as clip-text before); a stacked
+area chart card as its exact SVG paths (never bars); an inline highlighted phrase in place inside its sentence.
+Re-planning rounds 1-13 changes nothing.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c2 masked collage | 43% | **86%** | "CUT" built with its gradient layers inside the letters; still off: highlight laid over the line, tapes square not tilted. A second run (84%, not kept) put the highlight in place in the sentence but laid the green cut-out over the orange one and ran the footer together |
+| c5 neon tiles | 77% | **89%** | the 3x3 glyph grid built tile by tile, glow, filled Q, hollow S, italic g all right; still off: stats lost their big numbers, ticker too thick |
+| e4 observability | 83% | **87%** | stacked area chart built as its three filled hills; still off: filter chips unboxed, logo lost, alerts column has no panel |
+
+Round 14 so far: **81%** over 4 pages (c3 61 untouched). Vitest: same 2 env failures; typecheck clean.

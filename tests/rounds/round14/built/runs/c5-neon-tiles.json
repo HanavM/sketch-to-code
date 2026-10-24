@@ -1,66 +1,65 @@
 {
   "id": "c5-neon-tiles",
-  "at": "2026-10-23T23:32:04.976Z",
+  "at": "2026-10-24T00:03:53.668Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7689206854365456,
-    "overallV2": 0.7689206854365456,
-    "overallV1": 0.7116606761837021,
-    "colour": 0.9234784457487604,
-    "structure": 0.7009921098289186,
-    "structureStrict": 0.5445000287007198,
-    "colourAligned": 0.9234784457487604,
-    "structureAligned": 0.7009921098289186,
+    "overall": 0.8947029781114031,
+    "overallV2": 0.8947029781114031,
+    "overallV1": 0.8373550868604931,
+    "colour": 0.9592668032393051,
+    "structure": 0.901385655345306,
+    "structureStrict": 0.7446533919860775,
+    "colourAligned": 0.9592668032393051,
+    "structureAligned": 0.901385655345306,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.5722473171082244
+      "r": 0.861301420442304
     },
-    "layout": 0.696149434778802
+    "layout": 0.8234357665366693
   },
   "effects": {
-    "recall": 0.5,
+    "recall": 0.8333333333333334,
     "kept": [
       "hollow-type",
       "huge-type",
+      "italic",
+      "overlap",
       "tilt"
     ],
     "missing": [
-      "glow",
-      "italic",
-      "overlap"
+      "glow"
     ],
-    "extra": [
-      "bleed"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 27589,
-    "output": 15269,
-    "cacheRead": 153929
+    "input": 38165,
+    "output": 25204,
+    "cacheRead": 162151
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 28682,
-      "output": 9783,
-      "cacheRead": 142782,
-      "toolCalls": 7,
+      "billed": 41489,
+      "output": 15755,
+      "cacheRead": 150343,
+      "toolCalls": 8,
       "tools": [
-        "Glob",
+        "Read components/SketchShape.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
         "Glob",
         "Read src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 109187
+      "ms": 162958
     }
   ],
-  "reading": "This is a hero section for a type-foundry landing page: a borderless nav, a tight 3-line display headline with a green accent word, grey subcopy, a stats row with a top rule, an outline 'Download trial' button, a giant per-letter stylised word, a tilted yellow 'NEW v2.0' badge, and a tilted pink marquee bar — all styling and copy taken verbatim from the typed notes.",
+  "reading": "This is a dark-mode type-foundry landing page: a top nav, a giant 3-line headline with a green accent word, a grey intro paragraph, a stats row, a green outline CTA button, a tilted yellow 'NEW v2.0' badge overlapping a 3x3 grid of glowing glyph tiles, and a tilted pink marquee bar of repeating words at the bottom, all per the user's typed styling notes.",
   "actions": [
     {
       "kind": "add",
@@ -75,7 +74,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a nav bar with no border/box: bold 'GLYPH/LAB' on the left in white (#ffffff), and 'Fonts · Tools · Night school' on the right in grey (#9a9aa6) — each word"
+      "instruction": "A thin horizontal rule spanning the top of the page, likely a header/navigation divider."
     },
     {
       "kind": "add",
@@ -102,7 +101,7 @@
         265
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica Heavy headline, tightly set (line-height 0.92), broken into exactly 3 lines that must stay whole and never rewrap: 'Nine' / 'weights,' / '"
+      "instruction": "Giant Helvetica heavy headline, tight-set letters, line-height 0.92, set in exactly 3 lines: \"Nine\" / \"weights,\" / \"one glow\" — keep these breaks, each line sta"
     },
     {
       "kind": "add",
@@ -127,10 +126,10 @@
         53
       ],
       "paths": [],
-      "instruction": "Add grey (#9a9aa6) body copy: 'A neon display family drawn for signs that hum. Every weight ships with its own glow profile.'"
+      "instruction": "Grey intro paragraph: \"A neon display family drawn for signs that hum. Every weight ships with its own glow profile.\" Text colour #9a9aa6 (grey, not the page's "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -142,7 +141,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a stats row 460px wide with ONLY a 1px #2b2b33 rule along its top edge (no borders elsewhere, no fill). Below the rule, place three items on one line spaced"
+      "instruction": "A row ~460px wide with ONLY a 1px #2b2b33 rule along its TOP edge (no border on other sides, no fill), text 16px below the rule; three items on one line spread "
     },
     {
       "kind": "add",
@@ -157,33 +156,25 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a pill-shaped outline button labeled 'Download trial' with a bright green (#39ff9c) outline and text."
+      "instruction": "Bright green outline button labelled \"Download trial\"; text colour #39ff9c (bright green, not the page's off-white)."
     },
     {
-      "kind": "add",
-      "textMarks": [
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        113,
+        614,
+        614
+      ],
+      "paths": [
         "s8"
       ],
-      "textSize": [
-        {
-          "strokes": [
-            "s8"
-          ],
-          "lines": 1,
-          "fontPx": 146
-        }
-      ],
-      "region": [
-        608,
-        333,
-        558,
-        175
-      ],
-      "paths": [],
-      "instruction": "Add the single word 'AgR&QeS7?' in giant Helvetica off-white letters on one line, each letter its own span with its own font-size/weight, all sharing one bottom"
+      "instruction": "A 3x3 grid of 9 square glyph tiles (display: grid, 3 columns, gap 10px), 620x620px, top-left at 600,110. Each tile is its own 200x200px box with 1px #2b2b33 bor"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -195,10 +186,10 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add a vivid yellow circular badge, tilted 16° clockwise, about 130px across, with centred black (#09090c) text 'NEW v2.0' wrapped onto 3 lines at 14px."
+      "instruction": "A tilted (16° clockwise) vivid yellow circle, 130px across, reading \"NEW v2.0\" centred and wrapped across 3 lines (14px type); text colour #09090c (black, not t"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -210,10 +201,11 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Add a vivid pink bar, tilted 2° anticlockwise, spanning the width, containing bold 16px black (#09090c) marquee-style text: 'GLOW · HUM · BUZZ · FLICKER · GLOW "
+      "instruction": "A vivid pink bar tilted slightly 2° anticlockwise, with bold black 16px text repeating \"GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM ·"
     }
   ],
   "rejected": [
-    "design action with neither container nor strokes"
+    "design action with neither container nor strokes",
+    "add action with neither container nor strokes"
   ]
 }
