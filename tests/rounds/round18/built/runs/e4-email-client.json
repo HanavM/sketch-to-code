@@ -1,24 +1,24 @@
 {
   "id": "e4-email-client",
-  "at": "2026-10-24T21:33:02.251Z",
+  "at": "2026-10-24T22:45:21.279Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7316619474133689,
-    "overallV2": 0.7316619474133689,
-    "overallV1": 0.6355306512903571,
-    "colour": 0.9923019756516419,
-    "structure": 0.9067145182626272,
-    "structureStrict": 0.7889521361656369,
-    "colourAligned": 0.9923019756516419,
-    "structureAligned": 0.9067145182626272,
+    "overall": 0.8888785409860973,
+    "overallV2": 0.8888785409860973,
+    "overallV1": 0.8736998574627359,
+    "colour": 0.995017427317732,
+    "structure": 0.940402732972047,
+    "structureStrict": 0.9218086018108476,
+    "colourAligned": 0.995017427317732,
+    "structureAligned": 0.940402732972047,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8124271789076015
+      "r": 0.9328318006815304
     },
-    "layout": 0.6810994571235977,
-    "layoutV1": 0.3614583333333333,
+    "layout": 1,
+    "layoutV1": 1,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,20 +31,34 @@
     ],
     [
       0,
+      0,
+      0,
+      1280,
+      60
+    ],
+    [
+      1,
       16,
       18,
       190,
       24
     ],
     [
-      0,
+      1,
       224,
       8,
       620,
       44
     ],
     [
-      0,
+      3,
+      244,
+      20,
+      88,
+      20
+    ],
+    [
+      1,
       1230,
       13,
       34,
@@ -52,356 +66,342 @@
     ],
     [
       0,
+      0,
+      60,
+      230,
+      420
+    ],
+    [
+      6,
       12,
       74,
       127,
       48
     ],
     [
-      0,
+      6,
       8,
       136,
       214,
       32
     ],
     [
-      0,
+      6,
       24,
       136,
       35,
       32
     ],
     [
-      0,
+      6,
       192,
       136,
       14,
       32
     ],
     [
-      0,
+      6,
       24,
       168,
-      45,
+      43,
       32
     ],
     [
-      0,
+      6,
       24,
       200,
-      54,
+      51,
       32
     ],
     [
-      0,
+      6,
       24,
       232,
-      28,
+      27,
       32
     ],
     [
-      0,
+      6,
       24,
       264,
-      37,
-      32
-    ],
-    [
-      0,
-      199,
-      264,
-      8,
-      32
-    ],
-    [
-      0,
-      24,
-      296,
       35,
       32
     ],
     [
-      0,
+      6,
+      199,
+      264,
+      7,
+      32
+    ],
+    [
+      6,
+      24,
+      296,
+      34,
+      32
+    ],
+    [
+      6,
       8,
       342,
       214,
       32
     ],
     [
-      0,
+      6,
       24,
       374,
-      60,
+      40,
       32
     ],
     [
-      15,
+      6,
       24,
-      385,
+      384,
       10,
       10
     ],
     [
-      0,
+      6,
       24,
       406,
-      69,
+      48,
       32
     ],
     [
-      17,
+      6,
       24,
-      417,
+      416,
       10,
       10
     ],
     [
-      0,
+      6,
       24,
       438,
-      60,
+      39,
       32
     ],
     [
-      19,
+      6,
       24,
-      449,
+      448,
       10,
       10
     ],
     [
       0,
+      230,
+      60,
+      430,
+      840
+    ],
+    [
+      24,
       230,
       60,
       429,
       47
     ],
     [
-      0,
+      24,
       230,
       60,
       143,
       46
     ],
     [
-      0,
+      24,
       373,
       60,
       143,
       46
     ],
     [
-      0,
+      24,
       516,
       60,
       143,
       46
     ],
     [
-      0,
+      24,
       230,
       107,
       429,
       70
     ],
     [
-      25,
-      246,
-      117,
-      397,
-      20
-    ],
-    [
-      26,
+      29,
       246,
       117,
       79,
       20
     ],
     [
-      26,
-      612,
-      118,
-      31,
+      29,
+      613,
+      117,
+      30,
       18
     ],
     [
-      25,
+      29,
       246,
-      139,
-      397,
+      134,
+      250,
       20
     ],
     [
-      29,
+      32,
       246,
-      139,
-      198,
+      134,
+      193,
       20
     ],
     [
-      29,
-      452,
-      139,
-      50,
+      32,
+      447,
+      135,
+      49,
       19
     ],
     [
-      25,
+      29,
       246,
-      160,
+      151,
       397,
-      16
+      20
     ],
     [
-      0,
+      24,
       230,
       177,
       429,
       70
     ],
     [
-      33,
+      36,
       246,
       187,
-      397,
+      37,
       20
     ],
     [
-      34,
-      246,
+      36,
+      613,
       187,
-      38,
-      20
-    ],
-    [
-      34,
-      612,
-      188,
-      31,
+      30,
       18
     ],
     [
-      33,
+      36,
       246,
-      209,
+      204,
+      233,
+      20
+    ],
+    [
+      39,
+      246,
+      204,
+      233,
+      20
+    ],
+    [
+      36,
+      246,
+      221,
       397,
       20
     ],
     [
-      37,
-      246,
-      209,
-      242,
-      20
-    ],
-    [
-      33,
-      246,
-      230,
-      397,
-      16
-    ],
-    [
-      0,
+      24,
       230,
       247,
       429,
       70
     ],
     [
-      40,
+      42,
       246,
       257,
-      397,
+      95,
       20
     ],
     [
-      41,
-      246,
+      42,
+      590,
       257,
-      99,
-      20
-    ],
-    [
-      41,
-      587,
-      258,
-      56,
+      53,
       18
     ],
     [
-      40,
+      42,
       246,
-      279,
+      274,
+      215,
+      20
+    ],
+    [
+      45,
+      246,
+      274,
+      215,
+      20
+    ],
+    [
+      42,
+      246,
+      291,
       397,
       20
     ],
     [
-      44,
-      246,
-      279,
-      210,
-      20
-    ],
-    [
-      40,
-      246,
-      300,
-      397,
-      16
-    ],
-    [
-      0,
+      24,
       230,
       317,
       429,
       70
     ],
     [
-      47,
+      48,
       246,
       327,
-      397,
+      39,
       20
     ],
     [
       48,
-      246,
+      590,
       327,
-      40,
-      20
-    ],
-    [
-      48,
-      587,
-      328,
-      56,
+      53,
       18
     ],
     [
-      47,
+      48,
       246,
-      349,
-      397,
+      344,
+      154,
       20
     ],
     [
       51,
       246,
-      349,
-      156,
+      344,
+      154,
       20
     ],
     [
-      47,
+      48,
       246,
-      370,
+      361,
       397,
-      16
+      20
     ],
     [
-      0,
+      24,
       230,
       387,
       429,
@@ -411,329 +411,294 @@
       54,
       246,
       397,
-      397,
-      20
-    ],
-    [
-      55,
-      246,
-      397,
       25,
       20
     ],
     [
-      55,
-      605,
-      398,
-      38,
+      54,
+      608,
+      397,
+      35,
       18
     ],
     [
       54,
       246,
-      419,
-      397,
+      414,
+      93,
       20
     ],
     [
-      58,
+      57,
       246,
-      419,
-      90,
+      414,
+      93,
       20
     ],
     [
       54,
       246,
-      440,
+      431,
       397,
-      16
+      20
     ],
     [
-      0,
+      24,
       230,
       457,
       429,
       70
     ],
     [
-      61,
+      60,
       246,
       467,
-      397,
+      41,
       20
     ],
     [
-      62,
-      246,
+      60,
+      608,
       467,
-      42,
-      20
-    ],
-    [
-      62,
-      607,
-      468,
-      36,
+      35,
       18
     ],
     [
-      61,
+      60,
       246,
-      489,
-      397,
-      20
-    ],
-    [
-      65,
-      246,
-      489,
+      484,
       86,
       20
     ],
     [
-      61,
+      63,
       246,
-      510,
-      397,
-      16
+      484,
+      86,
+      20
     ],
     [
-      0,
+      60,
+      246,
+      501,
+      397,
+      20
+    ],
+    [
+      24,
       230,
       527,
       429,
       70
     ],
     [
-      68,
+      66,
       246,
       537,
-      397,
+      59,
       20
     ],
     [
-      69,
-      246,
+      66,
+      608,
       537,
-      61,
-      20
-    ],
-    [
-      69,
-      605,
-      538,
-      38,
+      35,
       18
     ],
     [
-      68,
+      66,
       246,
-      559,
-      397,
+      554,
+      203,
       20
     ],
     [
-      72,
+      69,
       246,
-      559,
+      554,
       139,
       20
     ],
     [
-      72,
+      69,
       393,
-      559,
-      57,
+      555,
+      56,
       19
     ],
     [
-      68,
+      66,
       246,
-      580,
+      571,
       397,
-      16
+      20
     ],
     [
-      0,
+      24,
       230,
       597,
       429,
       70
     ],
     [
-      76,
+      73,
       246,
       607,
-      397,
+      68,
       20
     ],
     [
-      77,
-      246,
-      607,
-      69,
-      20
-    ],
-    [
-      77,
-      607,
+      73,
       608,
-      36,
+      607,
+      35,
       18
     ],
     [
-      76,
+      73,
       246,
-      629,
-      397,
-      20
-    ],
-    [
-      80,
-      246,
-      629,
-      163,
+      624,
+      166,
       20
     ],
     [
       76,
       246,
-      650,
+      624,
+      166,
+      20
+    ],
+    [
+      73,
+      246,
+      641,
       397,
-      16
+      20
     ],
     [
       0,
+      660,
+      60,
+      620,
+      840
+    ],
+    [
+      79,
       686,
       80,
       568,
-      26
+      33
     ],
     [
-      0,
+      79,
       686,
       122,
       40,
       40
     ],
     [
-      0,
+      79,
       738,
       127,
-      235,
+      222,
       20
     ],
     [
-      85,
+      82,
       738,
       127,
       79,
       20
     ],
     [
-      85,
-      823,
+      82,
+      821,
       127,
-      149,
+      139,
       20
     ],
     [
-      0,
+      79,
       738,
       142,
-      165,
+      158,
       20
     ],
     [
-      0,
+      79,
       686,
       180,
       568,
       21
     ],
     [
-      0,
+      79,
       686,
       214,
       568,
-      39
+      42
     ],
     [
-      0,
+      79,
       686,
       271,
       568,
       21
     ],
     [
-      0,
+      79,
       686,
       308,
       160,
       56
     ],
     [
-      92,
-      697,
-      317,
-      140,
-      22
-    ],
-    [
-      93,
-      697,
-      317,
+      89,
+      698,
+      320,
       18,
       22
     ],
     [
-      93,
-      723,
-      317,
-      130,
-      15
-    ],
-    [
-      92,
-      697,
-      345,
-      140,
+      89,
+      727,
+      324,
+      123,
       18
     ],
     [
-      0,
+      89,
+      698,
+      356,
+      39,
+      18
+    ],
+    [
+      79,
       856,
       308,
       160,
       56
     ],
     [
-      97,
-      867,
-      317,
-      140,
-      22
-    ],
-    [
-      98,
-      867,
-      317,
+      93,
+      868,
+      320,
       18,
       22
     ],
     [
-      98,
-      893,
-      317,
-      88,
-      15
+      93,
+      897,
+      324,
+      85,
+      18
     ],
     [
-      97,
-      867,
-      345,
-      140,
+      93,
+      868,
+      342,
+      33,
       18
     ],
     [
@@ -744,142 +709,140 @@
       470
     ],
     [
-      102,
+      97,
       820,
       430,
       440,
       40
     ],
     [
-      103,
-      832,
+      98,
+      834,
       440,
-      141,
+      138,
       20
     ],
     [
-      103,
-      1214,
+      98,
+      1191,
       440,
-      34,
+      55,
       20
     ],
     [
-      102,
+      97,
       820,
       470,
       440,
-      41
+      36
     ],
     [
-      106,
-      832,
-      480,
-      15,
+      101,
+      834,
+      478,
+      14,
       20
     ],
     [
-      106,
-      855,
-      478,
-      93,
+      101,
+      856,
+      476,
+      91,
       24
     ],
     [
-      102,
+      97,
       820,
-      511,
+      506,
       440,
-      37
+      36
     ],
     [
-      102,
-      820,
-      547,
-      440,
-      298
+      104,
+      834,
+      514,
+      204,
+      20
     ],
     [
-      102,
+      97,
       820,
-      845,
+      542,
       440,
-      56
+      87
     ],
     [
-      111,
-      832,
-      855,
+      106,
+      834,
+      556,
+      412,
+      39
+    ],
+    [
+      106,
+      834,
+      595,
+      412,
+      20
+    ],
+    [
+      97,
+      820,
+      629,
+      440,
+      220
+    ],
+    [
+      97,
+      820,
+      848,
+      440,
+      52
+    ],
+    [
+      110,
+      834,
+      857,
       82,
       36
     ],
     [
-      111,
+      110,
       928,
-      861,
-      126,
-      23
-    ],
-    [
-      113,
-      928,
-      861,
+      863,
       10,
       23
     ],
     [
-      113,
-      949,
-      861,
+      110,
+      950,
+      863,
       19,
       23
     ],
     [
-      113,
-      978,
-      861,
+      110,
+      981,
+      863,
       19,
       23
     ],
     [
-      113,
-      1007,
-      861,
+      110,
+      1011,
+      863,
       19,
       23
     ],
     [
-      113,
-      1036,
-      861,
-      19,
+      110,
+      1042,
+      863,
+      15,
       23
     ]
   ],
-  "groupMatched": [
-    {
-      "role": "folders",
-      "iou": 0.8772670807453417,
-      "parts": 14,
-      "rect": {
-        "x": 8,
-        "y": 74,
-        "w": 214,
-        "h": 396
-      }
-    },
-    {
-      "role": "message-list",
-      "iou": 0.7209385382059801,
-      "parts": 12,
-      "rect": {
-        "x": 230,
-        "y": 60,
-        "w": 429,
-        "h": 607
-      }
-    }
-  ],
+  "groupMatched": [],
   "effects": {
     "recall": 1,
     "kept": [
@@ -891,36 +854,38 @@
     ]
   },
   "tokens": {
-    "input": 63840,
-    "output": 40706,
-    "cacheRead": 170194
+    "input": 59763,
+    "output": 24137,
+    "cacheRead": 164341
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 66744,
-      "output": 23996,
-      "cacheRead": 156515,
+      "billed": 72311,
+      "output": 20362,
+      "cacheRead": 161257,
       "toolCalls": 6,
       "tools": [
-        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 255153
+      "ms": 210977
     }
   ],
-  "reading": "The sketch lays out a Gmail-style mail client: a top header bar, a left sidebar with Compose/Inbox/labels, a primary-tab inbox list of 8 messages, an email reading pane with sender/subject/body/attachments, and a floating reply compose window overlaying the bottom-right of the reading pane.",
+  "reading": "The sketch lays out a Gmail-like app: a top bar, a left nav sidebar, a mail list column, an email reader column, and a floating reply compose window overlapping the reader — all content and layout fully specified by the typed notes attached to each stroke region.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [
         "s0",
-        "s1"
+        "s1",
+        "s2",
+        "s3"
       ],
       "textSize": [
         {
@@ -930,24 +895,7 @@
           ],
           "lines": 2,
           "fontPx": 16
-        }
-      ],
-      "region": [
-        4,
-        2,
-        1272,
-        48
-      ],
-      "paths": [],
-      "instruction": "Build the top header bar, three real elements with live text, nothing invented, nothing left out: a 620x44 rounded-pill search field at 224,8 with #eaf1fb fill,"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s2",
-        "s3"
-      ],
-      "textSize": [
+        },
         {
           "strokes": [
             "s2",
@@ -959,15 +907,15 @@
       ],
       "region": [
         4,
-        62,
-        222,
-        48
+        2,
+        1272,
+        108
       ],
       "paths": [],
-      "instruction": "Build the left sidebar navigation column, starting 60px below the header row (never overlapping it), with all 17 parts as real elements with live text, nothing "
+      "instruction": "Build the page's top bar as ONE 1280x60px wrapper at 0,0, no fill, with a 1px #eceff1 rule along its bottom edge only, holding exactly 3 real-text elements: a 6"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -979,10 +927,25 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Build the inbox tab bar and primary mail list (46 real elements total with live text, nothing invented, nothing left out): a 429x47 tab strip at 230,60 with bot"
+      "instruction": "Build the left navigation column as ONE 230x420px wrapper at 0,60, no fill, containing all 17 labeled parts exactly as specified: a 127x48 #c2e7ff rounded (16px"
     },
     {
-      "kind": "add",
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        233,
+        63,
+        424,
+        833
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Build the mail list column as ONE 430x840px wrapper at 230,60, no fill, with a 1px #eceff1 right-edge rule running to page bottom, containing: a tab row (\"Prima"
+    },
+    {
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -994,10 +957,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Build the email reading pane content, 14 real elements with live text, nothing invented, nothing left out: subject line \"Q4 venue contract — final draft\" (568x2"
+      "instruction": "Build the email reader column as ONE 620x840px wrapper at 660,60, no fill, containing: a 22px regular subject line 'Q4 venue contract — final draft'; an orange "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -1009,7 +972,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Build a floating reply compose window, a 440x470px white panel floating over the page, top-left exactly at 820,430 so it stays within the first screen (flush to"
+      "instruction": "Add a floating reply compose window, 440x470px white panel positioned top-left exactly at 820,430 (flush to page bottom, 20px from right edge, top corners round"
     }
   ],
   "rejected": []

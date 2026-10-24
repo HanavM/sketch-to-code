@@ -447,7 +447,7 @@
   "notes": [
    [
     "title-bar",
-    "white bar 56px tall across the top, thin line under: bold 17px \"Q3 regional sales\" at the left, then \"File Edit View Insert Format Data\" right after it (its left edge 25px after the first; NOT pushed to the bar's far right end, the rest of the bar stays empty)"
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, no fill, a 1px #dadce0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white bar 56px tall across the top, thin line under: bold 17px \"Q3 regional sales\" at the left, then \"File Edit View Insert Format Data\" right after it (its left edge 25px after the first; NOT pushed to the bar's far right end, the rest of the bar stays empty)"
    ],
    [
     "toolbar",
@@ -715,7 +715,7 @@
    ],
    [
     "header",
-    "white card bold 19px \"◆ Northwind Outfitters\" logo text at the left (n156), then \"🔒 Secure checkout\""
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e3e8ee rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white card bold 19px \"◆ Northwind Outfitters\" logo text at the left (n156), then \"🔒 Secure checkout\""
    ],
    [
     "stepper",

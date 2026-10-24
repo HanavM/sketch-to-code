@@ -587,11 +587,11 @@
    ],
    [
     "toolbar",
-    "dark grey (#2c2c2c) bar 48px tall across the page, #ffffff text; left to right, each item at its own x from the bar's left: \"▲\" (a 32x32px #0d99ff filled 6px rounded box #ffffff text) at x 12; \"#\" at x 50; \"□\" at x 88; \"✎\" at x 126; \"T\" at x 164; \"💬\" at x 202; \"Landing v3 / Desktop\" (#cccccc text) at x 660; \"Share\" (a 61x32px #0d99ff filled 6px rounded box, bold #ffffff text) at x 1207"
+    "the region itself is ONE 1280x48px top bar element at 0,0 (its own wrapper, #2c2c2c fill) that holds all of these parts inside it, never laid loose on the page; dark grey (#2c2c2c) bar 48px tall across the page, #ffffff text; left to right, each item at its own x from the bar's left: \"▲\" (a 32x32px #0d99ff filled 6px rounded box #ffffff text) at x 12; \"#\" at x 50; \"□\" at x 88; \"✎\" at x 126; \"T\" at x 164; \"💬\" at x 202; \"Landing v3 / Desktop\" (#cccccc text) at x 660; \"Share\" (a 61x32px #0d99ff filled 6px rounded box, bold #ffffff text) at x 1207"
    ],
    [
     "layers-panel",
-    "white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted (#e5f4ff square fill, #0d99ff text); list rows exactly 28px apart (28px tall, 12px type: tight, not roomier), first line 12px below the panel's top"
+    "the region itself is ONE 240x852px column element at 0,48 (its own wrapper, #ffffff fill, a 1px #e5e5e5 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white block \"LAYERS\" list: \"# Desktop\", \"□ Hero\", \"▭ Button / Primary\", \"T Body copy\", \"T Headline\", \"# Mobile\", \"# Tablet\"; \"▭ Button /\" highlighted (#e5f4ff square fill, #0d99ff text); list rows exactly 28px apart (28px tall, 12px type: tight, not roomier), first line 12px below the panel's top"
    ],
    [
     "frame-label",
@@ -727,11 +727,11 @@
   "notes": [
    [
     "topbar",
-    "bold 17px \"◆ Lumen Docs\" first, then links: Guides, API, Changelog, Search docs ⌘K; \"◆ Lumen Docs\", \"Guides\", \"API\", \"Changelog\" sit together at the left, \"Search docs ⌘K\" pushed to the far right (621px gap); each word in its own colour: \"◆ Lumen Docs\" #1e293b, \"Guides\" #1e293b, \"API\" #1e293b, \"Changelog\" #1e293b, \"Search docs ⌘K\" #94a3b8"
+    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; bold 17px \"◆ Lumen Docs\" first, then links: Guides, API, Changelog, Search docs ⌘K; \"◆ Lumen Docs\", \"Guides\", \"API\", \"Changelog\" sit together at the left, \"Search docs ⌘K\" pushed to the far right (621px gap); each word in its own colour: \"◆ Lumen Docs\" #1e293b, \"Guides\" #1e293b, \"API\" #1e293b, \"Changelog\" #1e293b, \"Search docs ⌘K\" #94a3b8"
    ],
    [
     "sidebar",
-    "side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row, a 2px #0284c7 left edge, bold #0284c7 text); rows exactly 30px apart (30px tall, tight; not roomier), first heading 36px below the nav's top; the nav column is 260px wide with a thin #e2e8f0 line down its full right edge; its text #475569 (dark grey, NOT the page's dark navy text)"
+    "the region itself is ONE 260x840px column element at 0,60 (its own wrapper, no fill, a 1px #e2e8f0 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; side nav, no box: 3 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"GETTING STARTED\": \"Introduction\", \"Installation\", \"Offline sync\", \"Authentication\"; \"GUIDES\": \"Boards\", \"Webhooks\", \"Rate limits\"; \"REFERENCE\": \"REST API\", \"CLI\"; \"Offline sync\" highlighted (pale blue row, a 2px #0284c7 left edge, bold #0284c7 text); rows exactly 30px apart (30px tall, tight; not roomier), first heading 36px below the nav's top; the nav column is 260px wide with a thin #e2e8f0 line down its full right edge; its text #475569 (dark grey, NOT the page's dark navy text)"
    ],
    [
     "article",

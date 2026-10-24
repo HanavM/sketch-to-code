@@ -95,7 +95,7 @@
    ],
    [
     "nav",
-    "nav bar 77px tall across the top, thick line under: \"LOUD®\" left, \"INDEX — SHOP — ABOUT\" right"
+    "the region itself is ONE 1280x77px top bar element at 0,0 (its own wrapper, no fill, a 6px #000000 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; nav bar 77px tall across the top, thick line under: \"LOUD®\" left, \"INDEX — SHOP — ABOUT\" right"
    ],
    [
     "headline",
@@ -223,7 +223,7 @@
    ],
    [
     "nav",
-    "nav, no box around it: bold 22px \"NOVA\" left, \"Product Docs Pricing\" right; each word in its own colour: \"NOVA\" #e6e6ff, \"Product Docs Pricing\" #a5a5d6"
+    "the region itself is ONE 1280x82px top bar element at 0,0 (its own wrapper, no fill) that holds all of these parts inside it, never laid loose on the page; nav, no box around it: bold 22px \"NOVA\" left, \"Product Docs Pricing\" right; each word in its own colour: \"NOVA\" #e6e6ff, \"Product Docs Pricing\" #a5a5d6"
    ],
    [
     "badge",
@@ -459,7 +459,7 @@
   "notes": [
    [
     "nav",
-    "nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
+    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
    ],
    [
     "title",

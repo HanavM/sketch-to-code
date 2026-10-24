@@ -161,3 +161,14 @@ Rounds 1-17 plans re-generated: unchanged.
 
 Round 18, latest build each: **86%** (c1 90, c2 87, c3 88, c4 81, c5 90, e1 91, e2 95, e3 87, e4 73, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n189: an app pane said as its own block (2026-10-24, ~84k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| e4 email client | 73% → **89%** | the top bar, folder column, message list and reading pane each had no element of their own: the parts were said page px by page px, so the build laid every part loose on the page and the layout check found no bar, no list and no reader (layout 68%). A full-width top bar, or a tall column at the page's left edge or running to its bottom, whose only paint is one rule on its bottom or right edge (or none) is now said as ONE block holding its parts, with that rule. Built right: all five panes matched (layout 100%), the list's right rule and the bar's bottom rule. Left: the label dots sit over the first letters of "Clients", "Invoices", "Urgent"; the reader's last line cut short ("today" clipped) |
+
+Rounds 1-17 plans re-generated: the same pane wording now reaches 35 app bars and side columns across rounds 1-17 (mostly everyday pages: mail, calendar, Gantt, design editor, docs, database console).
+
+Round 18, latest build each: **89%** (c1 90, c2 87, c3 88, c4 81, c5 90, e1 91, e2 95, e3 87, e4 89, e5 90).
+Vitest: same 2 env failures; typecheck clean.

@@ -505,7 +505,7 @@
   "notes": [
    [
     "nav",
-    "bold 20px \"Lumen\" first, then links: New, Lamps, Sale, Cart (2)"
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e4e4e7 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; bold 20px \"Lumen\" first, then links: New, Lamps, Sale, Cart (2)"
    ],
    [
     "filters",

@@ -391,11 +391,11 @@
    ],
    [
     "toolbar",
-    "white bar 48px tall across the page, bold 15px near-black \"sales_q3.ipynb\" first, then links: File, Edit, Run, Kernel, Python 3 ● idle, Share; \"Share\" selected (bold, orange fill)"
+    "the region itself is ONE 1280x48px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e3e3e3 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white bar 48px tall across the page, bold 15px near-black \"sales_q3.ipynb\" first, then links: File, Edit, Run, Kernel, Python 3 ● idle, Share; \"Share\" selected (bold, orange fill)"
    ],
    [
     "file-tree",
-    "off-white card list: \"📁 data\", \"📓 sales_q3.ipynb\", \"📓 cohorts.ipynb\", \"📄 README.md\", \"📄 requirements.txt\"; \"📓 sales_q3.ipynb\" highlighted (#dde6f5 square fill, #222222 text); list rows exactly 27px apart (27px tall, 13px type: tight, not roomier), first line 14px below the panel's top"
+    "the region itself is ONE 220x852px column element at 0,48 (its own wrapper, #f0f0f0 fill, a 1px #e3e3e3 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; off-white card list: \"📁 data\", \"📓 sales_q3.ipynb\", \"📓 cohorts.ipynb\", \"📄 README.md\", \"📄 requirements.txt\"; \"📓 sales_q3.ipynb\" highlighted (#dde6f5 square fill, #222222 text); list rows exactly 27px apart (27px tall, 13px type: tight, not roomier), first line 14px below the panel's top"
    ],
    [
     "cells",
@@ -429,7 +429,7 @@
    ],
    [
     "top-bar",
-    "dark navy bar, white text \"Autumn sale · Draft\", lines \"Desktop Mobile\", a #3ebd93 filled 91x31px button (6px rounded), bold #ffffff text \"Send test\""
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #1f2933 fill) that holds all of these parts inside it, never laid loose on the page; dark navy bar, white text \"Autumn sale · Draft\", lines \"Desktop Mobile\", a #3ebd93 filled 91x31px button (6px rounded), bold #ffffff text \"Send test\""
    ],
    [
     "block-palette",

@@ -102,7 +102,7 @@ export function factsInPage() {
           rows: [num(tr0), num(trN)], nRows: rowsOf.length, cols, handle: a.content !== 'none' && aw >= 4 && aw <= 14 ? { px: Math.round(aw), fill: rgba(a.backgroundColor) } : null }
       })(),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
-      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle },
+      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle, right: parseFloat(cs.borderRightWidth) || 0, rightColour: rgba(cs.borderRightColor) },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // n147: all four corners (a leaf: three round, one square; round 12 c5 built a circle) and the background tile size
@@ -5062,6 +5062,24 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const vs = (f.parts ?? []).filter((q) => q.t && q.vert)
     if (vs.length && !/vertical|turned|rotate/i.test(d.note)) add.push(`its words are VERTICAL, each its own element (writing-mode: vertical-rl${vs[0].vert === 'up' ? '; transform: rotate(180deg), reading bottom to top' : ', reading top to bottom'}; NOT one horizontal line), each at its own page box: ${vs.map((q) => `${quote(q.t, 30)} ${q.w}x${q.h} at ${q.x},${q.y}`).join(', ')}`)
     if (add.length) d.note += `; ${add.join('; ')}`
+  })
+  // n189: an app pane (a full-width top bar, a sidebar, a list or reading column) whose only paint is one rule on its
+  // bottom or right edge, or none at all, is still ONE block holding its parts (round 18 e4 mail client: every part
+  // placed straight on the page, so the bar, folder column, list and reader each had no element of their own)
+  regions.forEach((f) => {
+    const d = out.get(f.role), R = f.rect
+    if (!d?.kind || !d.note || f.regionKids.length || f.codeLines) return
+    const W = Math.round(R.w), H = Math.round(R.h), X = Math.round(R.x), Y = Math.round(R.y)
+    if (d.note.includes(`${W}x${H}`) || /^(the region (itself )?is|ONE |an invisible frame|a \d+x\d+px)/.test(d.note) || /top bar \d+px tall/.test(d.note)) return
+    const bar = W >= 0.9 * 1280 && H >= 40 && H <= 100 && Y <= 2
+    const column = H >= 300 && W >= 160 && W <= 0.6 * 1280 && Y >= 40 && ((Y + H >= 0.95 * 900 && Y <= 140) || X <= 2) && (f.parts ?? []).filter((p) => p.t).length >= 3
+    if (!bar && !column) return
+    const B = f.border ?? {}, filled = visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8
+    if (B.w >= 1 && visible(B.colour)) return
+    const rules = [['BOTTOM', B.bottom, B.bottomColour], ['RIGHT', B.right, B.rightColour], ['LEFT', B.left, B.leftColour]].filter(([, w, c]) => w >= 1 && visible(c))
+    if (rules.length > 1) return
+    const rule = rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, no other border)` : ''
+    d.note = `the region itself is ONE ${W}x${H}px ${bar ? 'top bar' : 'column'} element at ${X},${Y} (its own wrapper, ${filled ? `${hexOf(f.bg)} fill` : 'no fill'}${rule}${column && Y + H >= 895 ? ', running to the page bottom' : ''}) that holds all of these parts inside it, never laid loose on the page; ${d.note}`
   })
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

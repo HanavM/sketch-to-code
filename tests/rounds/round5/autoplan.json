@@ -217,7 +217,7 @@
    ],
    [
     "header",
-    "frosted glass bar 68px tall across the top, thin line under: bold 18px \"Layer\" left, \"Product · Customers · Pricing · Log in\" right"
+    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; frosted glass bar 68px tall across the top, thin line under: bold 18px \"Layer\" left, \"Product · Customers · Pricing · Log in\" right"
    ],
    [
     "headline",
@@ -663,7 +663,7 @@
   "notes": [
    [
     "menu",
-    "pale grey bar 52px tall across the page, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data; all of these sit together at the LEFT, one after another, ending 362px in (the right 72% of the bar is empty, nothing pushed right); each word in its own colour: \"Budget 2027\" #188038, \"File\" #202124, \"Edit\" #202124, \"View\" #202124, \"Insert\" #202124, \"Data\" #202124"
+    "the region itself is ONE 1280x52px top bar element at 0,0 (its own wrapper, #f1f3f4 fill) that holds all of these parts inside it, never laid loose on the page; pale grey bar 52px tall across the page, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data; all of these sit together at the LEFT, one after another, ending 362px in (the right 72% of the bar is empty, nothing pushed right); each word in its own colour: \"Budget 2027\" #188038, \"File\" #202124, \"Edit\" #202124, \"View\" #202124, \"Insert\" #202124, \"Data\" #202124"
    ],
    [
     "formula",
