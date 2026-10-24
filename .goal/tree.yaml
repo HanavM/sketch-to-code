@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 18 is at 85%: the bold grid page now keeps its cream margin and frame (72 to 86), and the email page copies its words exactly. Next: the kanban's top bar, the hollow 26 spilling its cell, and the duotone scan lines."
+now: "Round 18 is at 87%: the kanban's top bar now sits on one line with its avatars (73 to 87), and the big hollow 26 stays inside its cell. Next: the email page's message rows, the kanban's struck-through done cards, and the duotone scan lines."
 round: 18
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 85]
-lock: {by: run-n186, until: "2026-10-24T23:05Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 87]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n186 (4c97035 on try/n3-vocabulary): a hollow word that spills past a block with overflow hidden is said clipped at that edge (round 18 c2 26 cut 28px at y 716); a top bar said as a word list with 2+ boxed chips is replaced by the part-by-part bar note; an empty group of filled circles in a bar is an overlapping avatar stack. Live c2 86 to 87 (26 clipped), e1 73 to 87 (bar on one line, avatars, chips); round 18 at 87. Rounds 1-17 unchanged. Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-24 n186 live c2 + e1 = ~209k billed (day so far ~9628k)."
   - "n185 (35c9031 on try/n3-vocabulary): a ruled grid set inside the page is said with its margin, width, top-left and outer frame (was \"edge to edge\"); wrapped two-line copy kept whole (was cut at 70 letters, rest invented); compose body word for word; To value said as a pill chip. Live c2 72 to 86 (margin, frame, capitals right), e4 71 to 73 (words exact, chip right); round 18 at 85. Rounds 1-17: two-line copy kept whole on r8, r9, r12, r15, r17. Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-24 n185 live c2 ~161k + e4 ~105k = ~265k billed (day so far ~9419k)."
   - "n184 (d499397 on try/n3-vocabulary): planner says a big part's face only counts as said next to its own words (c2 Impact headline was hidden by the hollow 26's Impact), keeps its capitals; a glow block says its dark gradient base and exact box; copied SVGs say no border or frame; cursive faces said handwritten. Live c4 69 to 82 (glows soft, ring right), c2 80 to 72 (headline heavy but lower case; grid margin and frame lost to run noise); round 18 at 84. Rounds 1-17: only copied-drawing wording (r7, r11, r15). Vitest: same 2 env failures; typecheck clean."
@@ -604,4 +606,5 @@ nodes:
   - {id: n183, parent: n182, kind: step, title: "Free first, ~400k live: c2 heavy sans headline, hollow 26 low, case card, CTA, list arrows inline; e1 top bar wrapped under title; e4 rows tight, To chip; c4 vertical nav centred down the left, scan lines; c5 tape strips. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "c2 73 to 80 (stats, rows, case card, button right); c4 nav right but run lost glows, ring: 69"}
   - {id: n184, parent: n183, kind: step, title: "Free first, ~300k live: c2 headline still small mono (said 64px Impact); c4 glows built as a box and ring empty this run (make both robust, re-run); e1 top bar wrapped; e4 rows tight, To chip; c5 tape strips. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "c4 69 to 82, glows and ring held; c2 headline heavy now, 72 as grid margin lost to noise"}
   - {id: n185, parent: n184, kind: step, title: "Free first, ~250k live: c2 grid margin and outer frame (say the 30px inset), headline capitals; e1 top bar wrapped; e4 rows tight, To chip; c4 scan lines. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Grid margin and frame said: c2 72 to 86; two-line copy kept whole, To chip: e4 71 to 73"}
-  - {id: n186, parent: n185, kind: step, title: "Free first, ~250k live: c2 hollow 26 spills its cell (clip it), header bar inset; e1 top bar wrapped; e4 message rows tight; c4 scan lines. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n186, parent: n185, kind: step, title: "Free first, ~250k live: c2 hollow 26 spills its cell (clip it), header bar inset; e1 top bar wrapped; e4 message rows tight; c4 scan lines. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "26 clipped by its cell: c2 86 to 87; bar said part by part with avatars: e1 73 to 87"}
+  - {id: n187, parent: n186, kind: step, title: "Free first, ~250k live: e4 message rows tight, logo small; e1 Done cards struck-through titles built plain and wrapped; c4 scan lines over the photo; c2 header flush at top. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}

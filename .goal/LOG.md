@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T22:10Z | n186 hollow word clipped, chip bar part by part, avatar stack | c2 86 to 87 (26 clipped); e1 73 to 87 (bar one line); round 18 87. ~209k.
 2026-10-24T21:50Z | n185 grid margin and frame, whole copy, To chip | c2 72 to 86 (margin, frame, capitals); e4 71 to 73 (words exact); round 18 85. ~265k.
 2026-10-24T21:25Z | n184 headline face, glow block base and box, unframed ring | c4 69 to 82 (glows, ring held); c2 80 to 72 (headline heavy, grid margin lost); round 18 84. ~162k.
 2026-10-24T20:40Z | n183 big type face, rows apart, shadowed card, button, vertical nav | c2 73 to 80; c4 nav right, glows and ring lost to run noise, 69; round 18 83. ~197k.
