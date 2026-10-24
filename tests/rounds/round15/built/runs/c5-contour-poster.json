@@ -1,68 +1,69 @@
 {
   "id": "c5-contour-poster",
-  "at": "2026-10-24T03:01:57.360Z",
+  "at": "2026-10-24T03:27:18.588Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8616511084065449,
-    "overallV2": 0.8616511084065449,
-    "overallV1": 0.8487518222849946,
-    "colour": 0.9658266077821892,
-    "structure": 0.8180516068847324,
-    "structureStrict": 0.7838283355065264,
-    "colourAligned": 0.9658266077821892,
-    "structureAligned": 0.8180516068847324,
+    "overall": 0.9035920489571247,
+    "overallV2": 0.9035920489571247,
+    "overallV1": 0.8936258400227832,
+    "colour": 0.9916395913928058,
+    "structure": 0.9475236763872036,
+    "structureStrict": 0.921082191970322,
+    "colourAligned": 0.9916395913928058,
+    "structureAligned": 0.9475236763872036,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.46317960104920053
+      "r": 0.9304460885695602
     },
-    "layout": 0.8125415965713609
+    "layout": 0.755605995007021
   },
   "effects": {
-    "recall": 0.875,
+    "recall": 1,
     "kept": [
       "huge-type",
       "italic",
+      "mono",
       "overlap",
       "serif",
       "stripes-or-layers",
       "tilt",
       "vertical-type"
     ],
-    "missing": [
-      "mono"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 31139,
-    "output": 19814,
-    "cacheRead": 191066
+    "input": 34759,
+    "output": 21446,
+    "cacheRead": 244739
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 40611,
-      "output": 15059,
-      "cacheRead": 187982,
-      "toolCalls": 9,
+      "billed": 37291,
+      "output": 13884,
+      "cacheRead": 232787,
+      "toolCalls": 11,
       "tools": [
-        "Read components/MapLocation.tsx",
         "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
+        "Glob",
         "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Edit components/MapLocation.tsx",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 169833
+      "ms": 147125
     }
   ],
-  "reading": "The sketch builds a dark full-bleed hero/landing page: a giant vertical \"HIGH ROUTE\" sidebar heading, a small contents list (\"2,962 m\" + 4 links), a large contour-map textured panel with an orange tilted pin marker and \"PASSO GAVIA\" label, an italic nowrap headline over the map, a 10-bar lime elevation chart, and a striped decorative bar — all styled per the user's typed notes (colors, exact CSS patterns, fonts).",
+  "reading": "A dark hero/stats page: a giant vertical title at the far left, a stack of seven labeled stat lines below it, a huge square panel on the right turned into a contour-map background with an orange tilted marker and an orange 'PASSO GAVIA' label pulled on top of it, a lime bar chart lower-left, a striped decorative swatch beneath that, and an italic serif tagline running along the bottom of the big panel. A run-wide note sets the whole page to near-black with cream Helvetica text.",
   "actions": [
     {
       "kind": "add",
@@ -77,7 +78,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Giant vertical sidebar heading reading \"HIGH ROUTE\", set in writing-mode: vertical-rl rotated 180deg so it reads bottom-to-top, in a 120px-wide column at the fa"
+      "instruction": "Giant vertical page title, writing-mode: vertical-rl turned 180deg so it reads bottom to top, single column never wrapped (white-space: nowrap), column 120px wi"
     },
     {
       "kind": "add",
@@ -112,7 +113,7 @@
         298
       ],
       "paths": [],
-      "instruction": "A contents list with no box or card background: a bold dark heading reading \"2,962 m\", followed by 4 small 13px cream (#e9f0d8) plain-text links (not buttons), "
+      "instruction": "A vertical stack of 7 stat parts, each its own element with live text, in page px (size then top-left x,y): 180x25 at 220,60 13px mono #e9f0d8 'STAGE 04 / 07'; "
     },
     {
       "kind": "design",
@@ -127,10 +128,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Large 800x780px panel rendered as a contour-map texture: many thin concentric lime ring lines on a see-through ground, spreading out to and cut off by the panel"
+      "instruction": "An 800x780px block at 420,60 rendered as a contour map: many thin concentric lime ring lines on a see-through ground, rings spreading out to the edges and cut o"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -143,7 +144,7 @@
         "s9",
         "s10"
       ],
-      "instruction": "A small location-pin marker tilted 45° clockwise (diamond orientation) in vivid orange, placed on the contour map, paired with an adjacent vivid-orange label ba"
+      "instruction": "A small marker tilted 45° clockwise, filled vivid orange, placed on the contour-map panel, next to a vivid-orange bar/tag reading 'PASSO GAVIA' in near-black (#"
     },
     {
       "kind": "add",
@@ -158,7 +159,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "An elevation profile bar chart with 10 lime-colored vertical bars, heights 17%, 28%, 43%, 40%, 58%, 77%, 100%, 80%, 53%, 33% of the tallest bar."
+      "instruction": "A bar chart of 10 lime bars, heights 17/28/43/40/58/77/100/80/53/33% of the tallest bar."
     },
     {
       "kind": "design",
@@ -173,7 +174,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Vertical repeating stripe pattern fill (not a smooth gradient) on this bar: repeating-linear-gradient(90deg, #e9f0d8 0px 2px, transparent 2px 5px, #e9f0d8 5px 9"
+      "instruction": "A decorative vertical repeating-stripe swatch, not a smooth gradient: repeating-linear-gradient(90deg, #e9f0d8 0px 2px, transparent 2px 5px, #e9f0d8 5px 9px, tr"
     },
     {
       "kind": "add",
@@ -196,8 +197,10 @@
         70
       ],
       "paths": [],
-      "instruction": "A big italic serif headline reading \"Climb the long way round.\" set on one line with white-space: nowrap (never wraps), about 448px wide, placed over the contou"
+      "instruction": "A big italic serif tagline, single line, never wrapped (white-space: nowrap), about 448px wide, reading 'Climb the long way round.', sitting along the bottom of"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

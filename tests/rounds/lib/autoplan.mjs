@@ -2290,7 +2290,7 @@ function effectWords(f) {
   // a small vertical label says its type size: 'vertical' alone was built ~9px on a 15px target (round 6 c2)
   if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long`
     // n133: a giant vertical title says its size, its turn and where its words run (round 9 c5 built short and low)
-    : f.font.size >= 60 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters on one line, its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
+    : f.font.size >= 60 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
     : 'vertical')
   // with its angles: a bare 'tilted back' built three cards at one made-up angle (round 6 c1)
   else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
@@ -3366,6 +3366,9 @@ function decideOne(f, page, marked, said) {
   }
   // a thin textless filled bar is a placeholder line, not copy (round 8 e3: a grey 420x12 bar built as a sentence)
   if (!f.text && visible(f.bg) && !grad && !f.regionKids.length && w >= 60 && h >= 8 && h <= 20 && f.radius >= 2 && w >= h * 8 && !f.kidCount) return { kind: 'box', note: withFx(`a plain ${hexOf(f.bg)} bar exactly ${Math.round(w)}x${Math.round(h)}px${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''} at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: a skeleton placeholder line, NO words, NOT text, nothing inside`) }
+  // n159: a see-through dim the same colour as the page (round 15 e5: a 60% white layer over a white page was
+  // not 'filled' against the page, so it got no note and was never built)
+  if (!f.text && !fill && !grad && visible(f.bg) && f.bg.a >= 0.3 && f.bg.a <= 0.8 && !f.regionKids.length && w * h >= 0.3 * 1280 * 900) return { kind: 'image', note: withFx(`see-through ${colourName({ ...f.bg, a: 1 })} layer (${hexOf({ ...f.bg, a: 1 })} at ${Math.round(f.bg.a * 100)}% opacity, rgba(${f.bg.r}, ${f.bg.g}, ${f.bg.b}, ${Math.round(f.bg.a * 100) / 100})) laid over the whole page, ${Math.round(w)}x${Math.round(h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, above everything except the panel on top of it: the page under it still shows but washed out and pale, never left at full strength, nothing inside it`) }
   // a textless filled block with no parts inside is a picture placeholder
   if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) {
     // a see-through dim laid over the page (round 5 e1 backdrop said as a solid 'dark navy block')
@@ -4275,7 +4278,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // the 2-up / 1-up / 3-up rows, the focused email ring and the City/State/ZIP row all lost)
     const fieldBox = (p) => p.t && p.border && p.border.w.every((v) => v >= 1) && p.h >= 34 && p.h <= 64 && p.w >= 60
     const fields = d.kind && d.note && !f.regionKids.length && P.filter(fieldBox).length >= 4 && !/bordered field \d|\d+x\d+ at \d+,\d+/.test(own)
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted) return
+    // n159: a contents list holding 2+ big numbers is a stack of stats (round 15 c5: three 44px lime figures said as
+    // one bold heading and small links, built as a heading over a link list)
+    const stats = /^a contents list/.test(d.note ?? '') && P.filter((p) => p.t && p.px >= 2.5 * Math.min(...P.filter((q) => q.t).map((q) => q.px))).length >= 2
+    // n159: a shadowed panel floating over a page-wide see-through dim (round 15 e5 command palette: built narrow, in
+    // the wrong place, under the dim, its query row lost) is said part by part, on top of the dim
+    const dimUnder = regions.some((g) => g !== f && !g.text && visible(g.bg) && g.bg.a >= 0.3 && g.bg.a <= 0.8 && g.rect.w * g.rect.h >= 0.3 * 1280 * 900)
+    const floating = dimUnder && d.kind && !f.regionKids.length && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h >= 40000 && f.rect.w * f.rect.h < 0.3 * 1280 * 900
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating) return
     const note = partsNote(P, f)
     if (frame) { out.set(f.role, { kind: 'box', note: `an invisible frame ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built ${note}` }); marked.add(f.role); return }
     // n155: the region's own panel (its fill, edge and rounding) said before its parts (round 14 e4 alerts column: the
@@ -4285,7 +4295,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
     const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule)
     const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
-    const keep = `${panel}${d.note && !weak && !fields && !unpainted ? `${d.note}; ` : ''}`
+    // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
+    const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
+    const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
+    const keep = `${panel}${leftRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

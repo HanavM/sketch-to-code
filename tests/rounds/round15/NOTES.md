@@ -56,3 +56,22 @@ repeating-radial contour rings verbatim; a pale code block called pale. Rounds 1
 Round 15 so far: **81%** over 5 (c1 95, c2 85, c5 86, e4 95, e5 45). Vitest: same 2 env failures; typecheck clean.
 Next (free first): a white see-through dim layer said so it is built (e5); a vertical one-line title never wrapped
 (c5); stacked big-number stat items (c5); a list's coloured left rule (c1); then first builds c3, c4, e1, e2, e3; re-run c2, c5, e5.
+
+## n159: white dim, floating palette, stat stack, vertical title, left rule; live c1, c5, e5 x2, c3, c4 (2026-10-24, ~460k billed)
+
+Planner now says: a see-through dim the same colour as the page (60% white over white got no note); a shadowed panel
+floating over a page-wide dim said part by part with its size, place and shadow, above the dim; a contents list holding
+2+ big numbers said part by part (a stack of stats); a vertical title on ONE line, nowrap, never a second column; a
+list's coloured rule down its left edge only. Rounds 5, 9, 11 notes gain true left rules / a floating modal; others unchanged.
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| c1 text rings | 96% (re-run 89 not kept) | re-run lost the index list entirely; earlier build kept |
+| c5 contour poster | 86 -> **91%** | title on one line, three lime stats stacked right |
+| e5 issue palette | 45 -> **81%** | dim built, palette 600px at its place on top with shadow and query row; side nav not dimmed, LUM-482 chip overlaps "Change" |
+| c3 folded paper | first **54%** | five 3D panels and the giant red CREASE not built at all; spec row boxed |
+| c4 extruded blob | first **14%** | striped clipped blob built as a purple window with two balls; headline pushed down over the copy; invented kicker and footer; wave divider lost |
+
+Round 15 so far: **74%** over 7 (c1 96, c2 85, c3 54, c4 14, c5 91, e4 95, e5 81). Vitest: same 2 env failures; typecheck clean.
+Next (planner, free first): a word across 3D-turned shaded panels (c3); an SVG clip-path blob with a stripe pattern and a
+disc, never a window (c4); hard-shadow extruded headline at its place; wave divider; nothing invented; then first builds e1, e2, e3.

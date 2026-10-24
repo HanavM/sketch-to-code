@@ -1,0 +1,234 @@
+{
+  "id": "c4-extruded-blob",
+  "at": "2026-10-24T03:51:41.206Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.1393156352659685,
+    "overallV2": 0.1393156352659685,
+    "overallV1": 0.1393156352659685,
+    "colour": 0.7795064270824643,
+    "structure": 0.4095796554447158,
+    "structureStrict": 0.29732896354468424,
+    "colourAligned": 0.7795064270824643,
+    "structureAligned": 0.41328947314599895,
+    "align": {
+      "scale": 1.16,
+      "dx": -64,
+      "dy": 80,
+      "r": 0.34226416354913175
+    },
+    "layout": 0.3845028486787506
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "clip-shape"
+    ],
+    "extra": [
+      "soft-shadow",
+      "tilt",
+      "uppercase-display"
+    ]
+  },
+  "tokens": {
+    "input": 64490,
+    "output": 47679,
+    "cacheRead": 584301
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60827,
+      "output": 24602,
+      "cacheRead": 326821,
+      "toolCalls": 12,
+      "tools": [
+        "Read components/ColourShapes.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/ColourShapes.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 283832
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 31913,
+      "output": 14471,
+      "cacheRead": 247088,
+      "toolCalls": 3,
+      "tools": [
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 174256
+    }
+  ],
+  "reading": "A candy-brand landing page: a border-less nav bar, a short kicker line, a huge 2-line 3D-extruded headline 'SQUISH IT.', a 600×600 inset window mockup (with a yellow 'NEW!' badge at its corner) holding three colour-filled shapes and a title bar with corner dots, a body paragraph, a 'Build a mix pack' CTA button, and a full-width footer bar — all on the page's cream/indigo/Helvetica theme per the run-wide note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a page-wide navigation row with no box/border around it: 'JELLYBEAN' on the left, 'Flavours · Packs · Stores · Account' on the right. Whole page uses a crea"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 126
+        }
+      ],
+      "region": [
+        68,
+        261,
+        518,
+        17
+      ],
+      "paths": [],
+      "instruction": "Add a short kicker/intro line of text sitting above the main headline (this squiggle has no dictated copy; use plausible short copy fitting a candy brand, e.g. "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 126
+        }
+      ],
+      "region": [
+        68,
+        399,
+        321,
+        16
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica Heavy headline set tight (line-height 0.92), cream (#ffe9d6) fill, reading 'SQUISH IT.' broken into exactly two lines: 'SQUISH' / 'IT.' — "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        594,
+        594
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a 600×600px window mockup with its top-left at 640,110, INSET so the cream page shows around it on every side (not full-bleed/edge-to-edge). It contains: 3 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1063,
+        93,
+        123,
+        124
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a vivid yellow 'NEW!' badge positioned at the top-right corner of the window above, overlapping its edge."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        64,
+        560,
+        452,
+        58
+      ],
+      "paths": [],
+      "instruction": "Add a body paragraph reading: 'Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.' styled per the page's cream/Helvetica/deep-i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        681,
+        181,
+        48
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a 'Build a mix pack' button: deep indigo (#26113d) fill, cream (#ffe9d6) text (not the page's default indigo text), 186×50px, 14px corner radius, with a har"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        783,
+        1274,
+        114
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a full-width footer bar at the bottom of the page with plausible footer content (links/copyright), matching the page's cream background, Helvetica type, and"
+    }
+  ],
+  "rejected": []
+}

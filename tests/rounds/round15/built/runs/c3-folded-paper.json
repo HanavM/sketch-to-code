@@ -1,0 +1,164 @@
+{
+  "id": "c3-folded-paper",
+  "at": "2026-10-24T03:41:43.319Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5366043218894555,
+    "overallV2": 0.5366043218894555,
+    "overallV1": 0.5200197728929237,
+    "colour": 0.7657060300585609,
+    "structure": 0.5217606130070377,
+    "structureStrict": 0.4837054602707042,
+    "colourAligned": 0.7657060300585609,
+    "structureAligned": 0.5217606130070377,
+    "align": {
+      "scale": 1.08,
+      "dx": -80,
+      "dy": -64,
+      "r": -0.07140992657201954
+    },
+    "layout": 0.5913616938905307
+  },
+  "effects": {
+    "recall": 0.3333333333333333,
+    "kept": [
+      "italic",
+      "serif"
+    ],
+    "missing": [
+      "3d",
+      "gradient",
+      "huge-type",
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 22977,
+    "output": 12940,
+    "cacheRead": 174535
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 22719,
+      "output": 7493,
+      "cacheRead": 164318,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 84037
+    }
+  ],
+  "reading": "A hero section sketch: a top nav bar, an italic tagline, a giant word 'CREASE' sliced into five overlapping bands behind it, a bordered feature list, an outlined pill button, and four color swatches — all on a dark-navy page per the typed notes, which also fix exact copy, colors and CSS for each part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a navigation bar with no surrounding box/border: bold 'FOLIO PAPER CO.' aligned left, and 'Stock · Samples · Mills · Cart (2)' aligned right. Nav text color"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 35
+        }
+      ],
+      "region": [
+        148,
+        148,
+        365,
+        42
+      ],
+      "paths": [],
+      "instruction": "Add a large italic serif tagline reading \"Five folds, one sheet, no glue.\" in warm paper color (#efe6d6), 34px, kept on a single line (white-space: nowrap, neve"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        233,
+        994,
+        434
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add one giant word \"CREASE\" sliced into 5 stacked horizontal bands (not 5 whole words, not outlines): each band a full-width strip with overflow hidden holding "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        144,
+        723,
+        993,
+        26
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a brown-bordered list of four items: '320 gsm cotton', 'Deckled edge', 'Made in Fabriano', 'From £4.20 a sheet'. List text color #efe6d6 (warm paper), not t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        142,
+        802,
+        209,
+        47
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a warm-paper outline pill button labeled 'Order a sample pack'. Button text color #efe6d6 (warm paper), not the page's dark navy text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        984,
+        803,
+        159,
+        28
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add four 34x34px circular color swatches in a row, each with a 2px #efe6d6 border: circle 1 at (980,800) fill #efe6d6; circle 2 at (1024,800) fill #c43d2b; circ"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
