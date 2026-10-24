@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 15 is done at 87%: the notebook, email builder and hotel search pages now come out close; next I write round 16, harder again."
 round: 15
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87]
-lock: null
+lock: {by: run-2026-10-24-n162, until: '2026-10-24T06:41:14Z'}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
