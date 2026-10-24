@@ -16,7 +16,7 @@ c1-variable-wave · marks 8 · words 347
     note wave-word: scrolling colour-inverting where it crosses what is under it the one word "FLUXION" in giant Helvetica cream letters on ONE line, every letter its own <span> with its own font-size and font-weight, all on one shared baseline (letters bottom-aligned, no gaps added): F 120px weight 100, L 160px weight 300, U 200px weight 500, X 240px weight 900, I 200px weight 500, O 160px weight 300, N 120px weight 100; about 1200px wide, white-space: nowrap; no other copy here (not a paragraph)
     note axes-row: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 101x16 at 60,673 14px mono #151515 "wght 100–900"; 93x16 at 427,673 14px mono #151515 "wdth 75–125"; 84x16 at 786,673 14px mono #151515 "slnt −12–0"; 84x16 at 1136,673 14px mono #151515 "opsz 8–144"
     note cta: red white text button "Try the axes" (153x50px, square corners: border-radius 0, NOT a pill), with a hard solid opaque near-black shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's near-black text) (exactly: #e2462c fill, #ffffff text, 153x50px, square corners: border-radius 0, NOT a pill)
-c2-masked-collage · marks 11 · words 492
+c2-masked-collage · marks 11 · words 540
     nav          box     
     masked-word  heading 
     cutout-green shape   
@@ -36,7 +36,7 @@ c2-masked-collage · marks 11 · words 492
     note blend-disc: ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 220px across, flat fully opaque vivid blue (#3b7dd8) fill, hard edge, no blur
     note tape-1: tilted 24° anticlockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape 140x34px, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)
     note tape-2: tilted 30° clockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape 140x34px, square corners, laid ON TOP of the photo edge it crosses (no picture, no X, nothing inside)
-    note copy: 430px wide at 60,500: 24px text exactly "A zine fair for : collage, risograph and glue, three days in an old print hall." (this copy only, nothing invented), then under it a #ffd166 0px rounded button 153x26px at 201,503 with 24px #1f1b16 "scissors people"
+    note copy: 430px wide at 60,500: ONE paragraph of 24px Georgia text, line-height 34px, exactly "A zine fair for scissors people: collage, risograph and glue, three days in an old print hall." (this copy only, nothing invented, no gap in the sentence); the words "scissors people" are HIGHLIGHTED IN PLACE inside the sentence, where they fall in the line: an inline <span> with a #ffd166 background, padding 0 4px, same size, weight and face as the rest (NOT a button, NOT a separate block, NOT on its own line, nothing laid over the text)
     note stamp: tilted 14° anticlockwise pink outline circle with "MAY 9–11 2027"; its text #ef476f (pink, NOT the page's near-black text), 130px across, the words centred in 3 lines (wrapping inside the circle, 14px type)
     note cta: near-black outline pill button "Get a table →"
     note footer: wide-spaced letters "HALL 4, DOCK ROAD FREE ENTRY @PAPERROOM"

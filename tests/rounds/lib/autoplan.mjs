@@ -1974,7 +1974,13 @@ export function factsInPage() {
     }
     // a paragraph with a button at its end (round 11 c2 copy: no note, the copy invented and the button lost)
     const btn = [...el.children].find((k) => (k.innerText || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.5 && (k.innerText || '').trim().length <= 30)
-    if (btn && !el.querySelector('[data-r]')) {
+    // n154: an inline highlighted phrase inside its sentence (round 14 c2: said as a button under the copy, built
+    // overlapping the line with a gap left in the sentence)
+    const midText = btn && getComputedStyle(btn).display === 'inline' && btn.previousSibling?.nodeType === 3 && btn.previousSibling.textContent.trim() && btn.nextSibling?.nodeType === 3 && btn.nextSibling.textContent.trim()
+    if (btn && midText && !el.querySelector('[data-r]')) {
+      const c = getComputedStyle(btn)
+      o.inlineMark = { full: (el.innerText || '').replace(/\s+/g, ' ').trim(), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), pad: Math.round(parseFloat(c.paddingLeft) || 0), px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), family: cs.fontFamily, w: Math.round(r.width), x: Math.round(r.x), y: Math.round(r.y) }
+    } else if (btn && !el.querySelector('[data-r]')) {
       const c = getComputedStyle(btn), b = btn.getBoundingClientRect()
       const txt = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
       if (txt.length >= 12) o.copyBtn = { txt, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), bold: Number(c.fontWeight) >= 600, bpx: Math.round(parseFloat(c.fontSize)) }
@@ -2749,6 +2755,8 @@ function round11Extra(f, d) {
   if (d.kind === 'button' && GR.length === 2 && f.border?.w >= 1 && !visible(f.border.colour)) {
     note = `${quote(f.text)} ${f.radius >= f.rect.h / 2 - 2 ? 'pill ' : ''}button ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px whose ${Math.round(f.border.w)}px BORDER is a gradient and whose inside is plain (NOT a gradient fill): border: ${Math.round(f.border.w)}px solid transparent; background: ${cssHex(GR[0])} padding-box, ${cssHex(GR[1])} border-box; ${hexOf(f.colour)} ${f.font.weight >= 600 ? 'bold ' : ''}text`
   }
+  const IM = f.inlineMark
+  if (IM && !note) { const face = faceName(IM.family); note = `${IM.w}px wide at ${IM.x},${IM.y}: ONE paragraph of ${IM.px}px ${face ? `${face} ` : ''}text${IM.lh ? `, line-height ${IM.lh}px` : ''}, exactly "${IM.full}" (this copy only, nothing invented, no gap in the sentence); the words "${IM.t}" are HIGHLIGHTED IN PLACE inside the sentence, where they fall in the line: an inline <span> with a ${hexOf(IM.fill)} background${IM.pad ? `, padding 0 ${IM.pad}px` : ''}, same size, weight and face as the rest (NOT a button, NOT a separate block, NOT on its own line, nothing laid over the text)` }
   const B = f.copyBtn
   if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.px}px text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
   return note === (d.note ?? '') ? d : { ...d, kind: d.kind ?? 'text', note }

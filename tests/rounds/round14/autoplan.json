@@ -215,7 +215,7 @@
    ],
    [
     "copy",
-    "430px wide at 60,500: 24px text exactly \"A zine fair for : collage, risograph and glue, three days in an old print hall.\" (this copy only, nothing invented), then under it a #ffd166 0px rounded button 153x26px at 201,503 with 24px #1f1b16 \"scissors people\""
+    "430px wide at 60,500: ONE paragraph of 24px Georgia text, line-height 34px, exactly \"A zine fair for scissors people: collage, risograph and glue, three days in an old print hall.\" (this copy only, nothing invented, no gap in the sentence); the words \"scissors people\" are HIGHLIGHTED IN PLACE inside the sentence, where they fall in the line: an inline <span> with a #ffd166 background, padding 0 4px, same size, weight and face as the rest (NOT a button, NOT a separate block, NOT on its own line, nothing laid over the text)"
    ],
    [
     "stamp",
