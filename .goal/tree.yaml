@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 17 is fully built at 80% on average: the riso poster now matches (86%) and the four new app pages scored 88-90%; next, checking why the layout score misses parts the pictures show are right."
 round: 17
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 80]
-lock: null
+lock: {by: run-n174, until: "2026-10-24T14:46Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
