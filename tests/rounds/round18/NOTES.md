@@ -34,3 +34,16 @@ Round 18 so far: **75%** over 3 pages (latest build each). Vitest: same 2 env fa
 Next: an SVG map's water, parks and roads and pins said as shapes; a conic blob's blurred core is a soft shade, not a
 hole; frosted cards' see-through fill; a 3D scene's wrapper has no fill; a speech-bubble pin; then first builds c2, c4,
 c5, e1, e2, e3, e4.
+
+## n179: scene maps, blurred blob middles, gradient buttons, vertical ticker, speech bubbles (2026-10-24, ~251k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| e5 map booking | 73% → **90%** | the map is now said as its own SVG copied verbatim (water, parks, roads) with the search pill and six price pins placed one by one over it; the popup's white fill, rounding and shadow said (a page-coloured card lifted by a shadow is still a card). Left: the yellow tram line and some thin streets |
+| c1 liquid chrome | 82% → **90%** | the blob's blurred, half-see-through dark middle is said as a soft shade (not a hole), with its lumpy radius; the glass cards' see-through gradient stops and backdrop blur said; both CTAs said as buttons with gradient and glow; the side ticker said as one vertical line of mono text scrolling up. Left: an invented kicker line over the title, cards turned the other way |
+| c3 isometric city | 70% → **88%** | the pin is said as a white speech bubble with its tail, shadow and bob. Left: a see-through grey box still sits behind the scene; the cloud is not built |
+
+Rounds 1-17 plans re-generated: round 11 card numbers no longer said bold (they are regular), round 16's
+dark tooltip now said as a bubble with its tail; nothing else moved.
+
+Round 18 so far: **89%** over 3 pages (latest build each). Vitest: same 2 env failures; typecheck clean.

@@ -731,7 +731,7 @@
    ],
    [
     "tooltip",
-    "dark navy (exactly #1a1f36) bar, white text \"Only used if the courier can't find you.\"; its text #ffffff (white, NOT the page's dark navy text)"
+    "a SPEECH-BUBBLE label (a real element with live text, NOT plain text): 220x50px with its top-left at 420,600, #1a1f36 fill, 6px rounded, 12px #ffffff text \"Only used if the courier can't find you.\" centred; under it a small 6px #1a1f36 triangle tail pointing down (a ::after with transparent side borders, left 20px), so it reads as a bubble (a pin or tooltip) pointing at what is under it, highest z-index, above everything"
    ],
    [
     "cta",

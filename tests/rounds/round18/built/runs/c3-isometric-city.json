@@ -1,24 +1,24 @@
 {
   "id": "c3-isometric-city",
-  "at": "2026-10-24T16:47:29.726Z",
+  "at": "2026-10-24T17:24:19.913Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6971236841719048,
-    "overallV2": 0.6971236841719048,
-    "overallV1": 0.5357808794304125,
-    "colour": 0.9410334570754629,
-    "structure": 0.8475783903828283,
-    "structureStrict": 0.6457423940915498,
-    "colourAligned": 0.9410334570754629,
-    "structureAligned": 0.8475783903828283,
+    "overall": 0.8760270222127451,
+    "overallV2": 0.8760270222127451,
+    "overallV1": 0.7761355112083985,
+    "colour": 0.9814627068394223,
+    "structure": 0.9406700438374338,
+    "structureStrict": 0.8157081487166248,
+    "colourAligned": 0.9814627068394223,
+    "structureAligned": 0.9406700438374338,
     "align": {
-      "scale": 0.96,
+      "scale": 1,
       "dx": 0,
-      "dy": 16,
-      "r": 0.5239144890283842
+      "dy": 0,
+      "r": 0.8872642601963507
     },
-    "layout": 0.7897103807472882,
-    "layoutV1": 0.7897103807472882,
+    "layout": 0.8684433426548817,
+    "layoutV1": 0.8684433426548817,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,35 +34,35 @@
       0,
       0,
       1280,
-      860
+      900
     ],
     [
       1,
-      74,
-      47,
-      1132,
-      28
+      70,
+      44,
+      1140,
+      24
     ],
     [
       2,
-      74,
-      47,
-      115,
-      28
+      70,
+      44,
+      102,
+      24
     ],
     [
       2,
-      597,
-      51,
-      158,
-      20
+      576,
+      44,
+      181,
+      24
     ],
     [
       2,
-      1163,
-      51,
-      43,
-      20
+      1161,
+      44,
+      49,
+      24
     ],
     [
       1,
@@ -109,7 +109,7 @@
     [
       1,
       76,
-      581,
+      582,
       176,
       54
     ],
@@ -185,27 +185,13 @@
     ],
     [
       1,
-      934,
-      213,
-      154,
-      18
-    ],
-    [
-      23,
-      1008,
-      215,
-      130,
-      21
-    ],
-    [
-      1,
       604,
       403,
       672,
       333
     ],
     [
-      25,
+      23,
       604,
       402,
       672,
@@ -219,189 +205,210 @@
       339
     ],
     [
-      27,
+      25,
       601,
       400,
       679,
       339
     ],
     [
-      27,
+      25,
       749,
       475,
       382,
       191
     ],
     [
-      27,
+      25,
       749,
       475,
       382,
       191
     ],
     [
-      27,
+      25,
       657,
       528,
       170,
       85
     ],
     [
-      31,
+      29,
       657,
       372,
       170,
       85
     ],
     [
-      31,
+      29,
       742,
       414,
       85,
       198
     ],
     [
-      31,
+      29,
       742,
       372,
       85,
       198
     ],
     [
-      27,
+      25,
       841,
       432,
       163,
       81
     ],
     [
-      35,
+      33,
       841,
       207,
       163,
       81
     ],
     [
-      35,
+      33,
       912,
       242,
       92,
       271
     ],
     [
-      35,
+      33,
       933,
       207,
       71,
       261
     ],
     [
-      27,
+      25,
       841,
       623,
       170,
       85
     ],
     [
-      39,
+      37,
       841,
       545,
       170,
       85
     ],
     [
-      39,
+      37,
       933,
       591,
       78,
       117
     ],
     [
-      39,
+      37,
       919,
       545,
       92,
       124
     ],
     [
-      27,
+      25,
       1039,
       531,
       156,
       78
     ],
     [
-      43,
+      41,
       1039,
       410,
       156,
       78
     ],
     [
-      43,
+      41,
       1117,
       449,
       78,
       160
     ],
     [
-      43,
+      41,
       1117,
       410,
       78,
       160
+    ],
+    [
+      1,
+      930,
+      190,
+      162,
+      46
+    ],
+    [
+      45,
+      930,
+      190,
+      162,
+      36
+    ],
+    [
+      45,
+      960,
+      226,
+      14,
+      10
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.8333333333333334,
+    "recall": 1,
     "kept": [
       "3d",
       "hard-shadow",
       "motion",
       "overlap",
+      "soft-shadow",
       "stripes-or-layers"
     ],
-    "missing": [
-      "soft-shadow"
-    ],
+    "missing": [],
     "extra": [
       "gradient"
     ]
   },
   "tokens": {
-    "input": 50319,
-    "output": 30916,
-    "cacheRead": 513361
+    "input": 50292,
+    "output": 27878,
+    "cacheRead": 483956
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44434,
-      "output": 16888,
-      "cacheRead": 244671,
-      "toolCalls": 10,
+      "billed": 49071,
+      "output": 17592,
+      "cacheRead": 212194,
+      "toolCalls": 11,
       "tools": [
-        "Glob",
         "Read components/IsometricCity.tsx",
+        "Glob",
         "Read src/App.tsx",
         "Glob",
-        "Read s2c-bench-app/package.json",
         "Read src/index.css",
+        "Glob",
         "Read src/main.tsx",
-        "Write components/IsometricCity.tsx",
+        "Read s2c-bench-app/package.json",
         "Edit src/index.css",
+        "Write components/IsometricCity.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 171261
+      "ms": 176877
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 23778,
-      "output": 9310,
-      "cacheRead": 257057,
+      "billed": 14047,
+      "output": 4385,
+      "cacheRead": 259823,
       "toolCalls": 4,
       "tools": [
         "Read components/IsometricCity.tsx",
@@ -409,10 +416,10 @@
         "Edit components/IsometricCity.tsx",
         "Read components/IsometricCity.tsx"
       ],
-      "ms": 106468
+      "ms": 49294
     }
   ],
-  "reading": "This is a hero/landing section sketch: a full-width nav bar, a 3-line giant headline with a highlighted word, a paragraph of description text, a CTA button with offset shadow, a row of 3 stats, a scrolling ticker line, and a large box meant to hold a true CSS 3D isometric city made of 4 blocks on a ground plane.",
+  "reading": "A hero landing page sketch: a top nav bar, a 3-line giant headline with one coloured word, a two-line paragraph, a pill button, a 3-part stats row, a large box for an isometric 3D city scene, and a small speech-bubble label pointing at the scene; a typed note also sets a page-wide gradient background and global type colour.",
   "actions": [
     {
       "kind": "add",
@@ -427,7 +434,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a 1140px-wide nav bar row with three separate items pushed apart via flex justify-content: space-between — \"◆ Blocktown\" at far left, \"Features · Cities · P"
+      "instruction": "Nav bar, 1140px wide, flex row with justify-content: space-between so the three items sit apart on one line, never run together: \"◆ Blocktown\" at the far left, "
     },
     {
       "kind": "add",
@@ -454,7 +461,7 @@
         239
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica heavy headline set tight (line-height 0.95), broken into exactly 3 fixed lines that never rewrap: \"Plan a whole\" / \"city in an\" / \"afterno"
+      "instruction": "Giant Helvetica heavy headline, tight-set, line-height 0.95, set in exactly 3 lines that keep these breaks and never wrap again (white-space: nowrap, width abou"
     },
     {
       "kind": "add",
@@ -479,7 +486,7 @@
         56
       ],
       "paths": [],
-      "instruction": "Add a paragraph below the headline in dark grey #4b4878 (not the page's deep indigo) reading: \"Zone streets, drop buildings and simulate traffic on a living iso"
+      "instruction": "Dark grey paragraph text: \"Zone streets, drop buildings and simulate traffic on a living isometric map your whole council can edit.\" Text colour #4b4878 (dark g"
     },
     {
       "kind": "add",
@@ -494,7 +501,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a 176x54px button with 14px rounded corners, #1b1840 fill and white (#ffffff) text reading \"Start a free city\", with a hard solid opaque light pink shadow o"
+      "instruction": "Pill button labelled \"Start a free city\": #1b1840 fill, white (#ffffff) text, 176x54px, 14px rounded corners, with a hard solid opaque light pink shadow offset "
     },
     {
       "kind": "add",
@@ -509,10 +516,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a row of 3 stats side by side (not separate cards): a big 40px heavy #1b1840 number over a small 13px #4b4878 label for each — \"2,400\" / \"cities planned\", \""
+      "instruction": "A row of 3 stats sitting side by side within one block (not separate cards), each a big number over a small label: 40px heavy #1b1840 \"2,400\" over 13px #4b4878 "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -524,22 +531,22 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Build a real CSS 3D isometric city (not a flat drawing, not SVG, not empty): a single 480x480px plane positioned absolutely at 700,330 with transform rotateX(60"
+      "instruction": "An isometric city built from real CSS 3D (each block shows a lit top and two darker sides), not a flat drawing, not an SVG, not empty. The wrapping plane has no"
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s9"
-      ],
+      "textMarks": [],
       "textSize": [],
       "region": [
         934,
-        214,
-        154,
-        8
+        203,
+        155,
+        30
       ],
-      "paths": [],
-      "instruction": "Add a small 14px scrolling ticker line reading \"🏗 Town hall · 3 edits\"."
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A speech-bubble label with live text, not plain text: 162x36px, top-left at 930,200, white fill, 12px rounded corners, box-shadow rgba(27,24,64,0.2) 0px 10px 30"
     }
   ],
   "rejected": [

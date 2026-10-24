@@ -121,6 +121,18 @@ export function factsInPage() {
       textTop: (() => { const g = document.createRange(); g.selectNodeContents(el); const rs = [...g.getClientRects()].filter((x) => x.height > 0); return rs.length ? Math.min(...rs.map((x) => x.top)) : null })(),
       // a form field: a label plus an empty bordered box, or an input-like box with left text
       fieldKid: kids.some((k) => { const c = getComputedStyle(k); return !(k.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30 }),
+      // n179: a speech-bubble label: a short filled rounded box with a CSS triangle tail (round 18 c3 pin: white bubble lost)
+      bubble: (() => {
+        const t = (el.innerText || '').trim()
+        if (!t || t.length > 48 || kids.length || r.height > 80) return null
+        const bg = rgba(cs.backgroundColor)
+        if (!(bg?.a > 0.5)) return null
+        const tail = ['::after', '::before'].map((w) => getComputedStyle(el, w)).find((p) => p.content && p.content !== 'none' && parseFloat(p.width) === 0 && ['Top', 'Bottom', 'Left', 'Right'].some((sd) => parseFloat(p[`border${sd}Width`]) >= 4 && rgba(p[`border${sd}Color`])?.a > 0.5))
+        if (!tail) return null
+        const sd = ['Top', 'Bottom', 'Left', 'Right'].find((q) => parseFloat(tail[`border${q}Width`]) >= 4 && rgba(tail[`border${q}Color`])?.a > 0.5)
+        const kf = (() => { const nm = cs.animationName; if (!nm || nm === 'none') return null; for (const ss of document.styleSheets) { try { for (const rr of ss.cssRules) if (rr.type === 7 && rr.name === nm) return rr.cssText.replace(/\s+/g, ' ') } catch {} } return null })()
+        return { t, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), bg, radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0), shadow: cs.boxShadow !== 'none' ? cs.boxShadow : null, px: Math.round(parseFloat(cs.fontSize)), ink: rgba(cs.color), points: { Top: 'down', Bottom: 'up', Left: 'right', Right: 'left' }[sd], size: Math.round(parseFloat(tail[`border${sd}Width`])), at: { left: tail.left, right: tail.right }, anim: kf ? { kf, name: cs.animationName, dur: cs.animationDuration, timing: cs.animationTimingFunction, iter: cs.animationIterationCount } : null }
+      })(),
       // n179: a narrow strip holding one vertical line of text that scrolls (round 18 c1 side ticker: built as a zigzag)
       vertTicker: (() => {
         if (kids.length !== 1 || el.querySelector('[data-r]') || r.height < 3 * r.width) return null
@@ -3175,7 +3187,7 @@ function round11Note(f) {
     const flat = (q) => `${q.w}x${q.h}px at ${q.x},${q.y} filled ${hexOf(q.fill)}${/gradient/.test(q.img ?? '') ? ` with background-image: ${cssHex(q.img)}; background-size: ${q.size} (thin grid lines both ways)` : ''}${q.shadow && q.shadow !== 'none' ? `, box-shadow: ${cssHex(q.shadow)} (a solid rim round it)` : ''}`
     const lift = (b) => Math.max(0, ...b.faces.map((q) => +((q.tf ?? '').match(/translateZ\((-?[\d.]+)px\)/)?.[1] ?? 0)))
     const face = (q, b) => `${q.w}x${q.h}px at ${q.x},${q.y} in the block, ${hexOf(q.fill)}, transform-origin: ${q.origin}, transform: ${q.tf ?? 'none'}`
-    return { kind: 'box', note: `an ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty: ONE ${IB.w}x${IB.h}px plane div with its top-left at ${IB.x},${IB.y} (position absolute), transform: ${IB.turn}; transform-style: preserve-3d${IB.persp ? `; perspective ${IB.persp} on its parent` : '; NO perspective anywhere (flat isometric, parallel edges)'}. Inside the plane, all absolutely placed in plane px (left, top, width, height): first the flat ground layers in this order: ${IB.flat.map(flat).join('; ')}. Then exactly ${IB.blocks.length} blocks, each a div at its own left/top in the plane with transform-style: preserve-3d and NO fill of its own, holding ${IB.blocks[0].faces.length} absolutely placed face divs (backface visible) that build the box: ${IB.blocks.map((b, i) => `block ${i + 1} (${b.w}x${b.h}px footprint at ${b.x},${b.y}, standing ${lift(b)}px tall): ${b.faces.map((q) => face(q, b)).join('; ')}`).join('. ')}` }
+    return { kind: 'box', note: `an ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty; whatever wraps the scene has NO fill, NO border, NO shadow (transparent: the page shows all round the turned plane, never a dark or coloured box behind it): ONE ${IB.w}x${IB.h}px plane div with its top-left at ${IB.x},${IB.y} (position absolute), transform: ${IB.turn}; transform-style: preserve-3d${IB.persp ? `; perspective ${IB.persp} on its parent` : '; NO perspective anywhere (flat isometric, parallel edges)'}. Inside the plane, all absolutely placed in plane px (left, top, width, height): first the flat ground layers in this order: ${IB.flat.map(flat).join('; ')}. Then exactly ${IB.blocks.length} blocks, each a div at its own left/top in the plane with transform-style: preserve-3d and NO fill of its own, holding ${IB.blocks[0].faces.length} absolutely placed face divs (backface visible) that build the box: ${IB.blocks.map((b, i) => `block ${i + 1} (${b.w}x${b.h}px footprint at ${b.x},${b.y}, standing ${lift(b)}px tall): ${b.faces.map((q) => face(q, b)).join('; ')}`).join('. ')}` }
   }
   const C = f.cube
   if (C) {
@@ -3304,6 +3316,12 @@ function decideOne(f, page, marked, said) {
   if (/^radial-gradient/.test(f.bgImage) && !f.clipText && (f.text ?? '').length <= 12 && !f.regionKids.length && w >= 120 && h >= 120) {
     const ps = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)%/g)].map((m) => +m[1])
     if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
+  }
+  // n179: a speech bubble said with its fill, shadow and tail
+  if (f.bubble) {
+    const B = f.bubble
+    const sh = B.shadow ? `, box-shadow: ${B.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}` : ''
+    return { kind: 'box', note: `a SPEECH-BUBBLE label (a real element with live text, NOT plain text): ${B.w}x${B.h}px with its top-left at ${B.x},${B.y}, ${hexOf(B.bg)} fill, ${B.radius}px rounded${sh}, ${B.px}px ${hexOf(B.ink)} text ${quote(B.t, 48)} centred; under it a small ${B.size}px ${hexOf(B.bg)} triangle tail pointing ${B.points} (a ::after with transparent side borders${B.at.left && B.at.left !== 'auto' ? `, left ${B.at.left}` : ''}), so it reads as a bubble (a pin or tooltip) pointing at what is under it, highest z-index, above everything${B.anim ? `; it bobs: animation ${B.anim.name} ${B.anim.dur} ${B.anim.timing} ${B.anim.iter}, defined exactly as ${B.anim.kf}` : ''}` }
   }
   // n179: a vertical scrolling ticker said as one rotated line of text in a clipped strip
   if (f.vertTicker) {
