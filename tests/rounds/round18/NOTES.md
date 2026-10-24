@@ -65,3 +65,16 @@ planned; re-measured and re-planned (only c2, c3 plans changed; refs unchanged).
 
 Round 18, all 10 built: **76%** (c1 90, c2 50, c3 88, c4 72, c5 69, e1 61, e2 95, e3 87, e4 55, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n181: floating window, a card turned on its own, trailing counts, an unsaid lane (2026-10-24, ~307k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c2 brutal grid | 50% → **73%** | its two stat cells now tagged and drawn: yellow 84, blue 12 built. Left: headline built small and mono (target heavy sans), hollow 26 small and high, list arrows on their own lines, the hatched cell's case card and the CTA button lost, the grid frame short |
+| e1 kanban swimlanes | 61% → **73%** | the dragged card is now said as one card turned on its own (size, top-left, shadow, contents; lanes stay straight): built tilted over the board, right where it belongs; column heads said name left, count right (the trailing count had been read as the head); the collapsed "Growth" lane said (was unsaid, an invented "Load more" row). Left: the top bar's search and chips wrapped under the title |
+| e4 email client | 55% → **71%** | the compose window (a light title bar on a white card) is now said as a floating window with its exact top-left: built in place, full height, with its To chip, subject row, body and Send button. Left: rows a little tight, the To chip unfilled |
+
+Rounds 1-17 plans re-generated: round 8's compose window now also says its top-left; round 2's three unsaid message rows are now said part by part; nothing else moved.
+
+Round 18, latest build each: **81%** (c1 90, c2 73, c3 88, c4 72, c5 69, e1 73, e2 95, e3 87, e4 71, e5 90).
+Vitest: same 2 env failures; typecheck clean.
