@@ -1,0 +1,286 @@
+{
+  "id": "c4-scroll-story",
+  "at": "2026-10-24T00:46:27.512Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8614789509904374,
+    "overallV2": 0.8614789509904374,
+    "overallV1": 0.8249753122756891,
+    "colour": 0.9922400714144399,
+    "structure": 0.915716069139159,
+    "structureStrict": 0.8413283981607661,
+    "colourAligned": 0.9922400714144399,
+    "structureAligned": 0.915716069139159,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9940188778577443
+    },
+    "layout": 0.6890448020415733
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": [
+      "vertical-type"
+    ]
+  },
+  "tokens": {
+    "input": 47942,
+    "output": 31045,
+    "cacheRead": 193151
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53950,
+      "output": 20360,
+      "cacheRead": 180814,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 226934
+    }
+  ],
+  "reading": "This is a dark hero/landing section: a plain nav bar (brand left, links right), a soft gradient circular blob standing in for hero art, a serif 3-line headline with an italic accent word plus a short intro paragraph, a mint 'CHAPTER 01 / DAWN' eyebrow label and a mono chapter list beside a vertical divider, and below that three large diagonally-rotated color bands carrying a giant scrolling '01 02 03 04 05' hollow-number strip and a 'SCROLL' cue.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        124,
+        43,
+        1092,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "No box around it; bold 'THE LONG WALK' wordmark on the left, 'Chapters · Map · Photos · About' nav links on the right; nav text color #a9c2bc (lavender, not the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        93,
+        454,
+        454
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 460x460px block positioned at 700,90, border-radius 50%, filled with background: linear-gradient(200deg, #f9c46b, #e86a5b 55%, #4a2c5e); edges fade out softly"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x420px (420px thick), top-left at -40,520 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x400px (400px thick), top-left at -40,620 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x300px (300px thick), top-left at -40,720 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        1,
+        449,
+        1277,
+        449
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Scrolling giant Helvetica heavy, hollow-outlined, off-white text reading '01 02 03 04 05 01 02 03 04 05'; sits on top of the #1f5a50 deep-green block with no fi"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        124,
+        6,
+        592
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Vertical divider line/rule, colored deep green."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        81,
+        120,
+        17,
+        592
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A mono chapter list reading '01 Dawn 02 Ridge 03 Pass 04 Lake', text color #6f8f8a (grey, not the page's off-white)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        124,
+        186,
+        8
+      ],
+      "paths": [],
+      "instruction": "A 14px mono, wide-letter-spaced eyebrow label reading 'CHAPTER 01 / DAWN', text color #c9f27a (mint green, not the page's off-white)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 71
+        }
+      ],
+      "region": [
+        128,
+        160,
+        504,
+        233
+      ],
+      "paths": [],
+      "instruction": "Huge Georgia serif, regular-weight headline 'Three hundred kilometres of morning', set in exactly 3 lines: 'Three hundred' / 'kilometres of' / 'morning' (keep t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        128,
+        420,
+        432,
+        54
+      ],
+      "paths": [],
+      "instruction": "Two short lines of intro/body copy beneath the headline (text placeholder) — write a plausible short sentence continuing the hero copy, styled in the page's off"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "Wide-letter-spaced label reading 'SCROLL', text color dark navy (#0d1b1e, not the page's off-white); sits on top of the #c9f27a mint block with no fill or bar o"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

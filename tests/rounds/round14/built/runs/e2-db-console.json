@@ -1,0 +1,163 @@
+{
+  "id": "e2-db-console",
+  "at": "2026-10-24T00:56:25.106Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9026284792348421,
+    "overallV2": 0.9026284792348421,
+    "overallV1": 0.8800263435832384,
+    "colour": 0.9904320216681238,
+    "structure": 0.8820216146586494,
+    "structureStrict": 0.831793209834898,
+    "colourAligned": 0.9904320216681238,
+    "structureAligned": 0.8820216146586494,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6918685273198654
+    },
+    "layout": 0.8656834583640094
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36278,
+    "output": 21325,
+    "cacheRead": 141607
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 43830,
+      "output": 15810,
+      "cacheRead": 130562,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 176437
+    }
+  ],
+  "reading": "The sketch lays out a SQL query-tool page: a top app bar, a left schema-tree sidebar, a SQL query editor with syntax-highlighted lines, a result/messages/plan tab bar, a results table, a status bar, and a right sidebar showing the 'orders' table schema. Typed notes give exact text, colors and layout for each part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        38
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark grey (#2b2d30) top bar, 1280x44px, spanning the full page width. White bold '⛁ DataDesk' label at the far left; immediately beside it (packed at the left, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        47,
+        234,
+        849
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Dark grey left sidebar panel containing a schema tree in 13px monospace, light grey text, with these exact lines in order: '▾ shop', '▾ tables', 'customers', 'o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        47,
+        734,
+        324
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "SQL query editor area, built as 19 separate inline text/token elements at the exact page positions and colors given, forming a syntax-highlighted SQL query (14p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        377,
+        734,
+        30
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Dark grey tab bar, 36px tall, full width, with tabs 'Result 1', 'Messages', 'Plan' packed together at the left (ending 229px in; the remaining ~69% of the bar i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        413,
+        734,
+        217
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Results table, 740px wide positioned at 240,410, sitting plainly on the page background (no card: no fill, no outer border, no rounded corners, no shadow, no pa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        873,
+        732,
+        24
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Dark grey status bar spanning the width, showing grey (#8a8f98, distinct from the page's usual light grey text) text '6 rows · 42 ms · read-only'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        983,
+        47,
+        294,
+        850
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Dark grey right sidebar panel listing the 'orders' table schema, 13px monospace rows spaced exactly 28px apart (29px row height, tight), first row starting 14px"
+    }
+  ],
+  "rejected": []
+}

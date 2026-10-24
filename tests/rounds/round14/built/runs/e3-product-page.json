@@ -1,0 +1,189 @@
+{
+  "id": "e3-product-page",
+  "at": "2026-10-24T01:00:31.375Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7844849926039715,
+    "overallV2": 0.7844849926039715,
+    "overallV1": 0.7571686294757635,
+    "colour": 0.9870735333407632,
+    "structure": 0.9344384956886339,
+    "structureStrict": 0.9097309018003061,
+    "colourAligned": 0.9870735333407632,
+    "structureAligned": 0.9344384956886339,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9763122445157368
+    },
+    "layout": 0.769183780119419
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 38015,
+    "output": 21573,
+    "cacheRead": 261101
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41467,
+      "output": 14217,
+      "cacheRead": 161532,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 133361
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 3005,
+      "output": 1163,
+      "cacheRead": 88072,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 10264
+    }
+  ],
+  "reading": "This is a product detail page sketch: a top nav bar, a grey breadcrumb trail, a column of 4 thumbnail swatches, a large hero product image panel with a NEW badge, a product info panel (title, rating, price, colour/size pickers, add-to-bag and wishlist buttons, delivery note), a ratings breakdown panel, and a row of 3 spec stat columns below the hero image.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        58
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar spanning the page width with nav links/icons: \"Men · Women · Trail · Sale 🔍 ♡ Bag (2)\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        87,
+        195,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small grey breadcrumb trail: \"Home / Trail / Shoes / Ridge Runner 3\", text colour #777777 (grey, not the page's near-black body text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        119,
+        69,
+        337
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Vertical stack of 4 square thumbnail swatches, each its own element with live content, built exactly to spec (page px, size then top-left x,y): 76x76 at 48,116 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        119,
+        514,
+        594
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Large hero product image panel with a warm paper-to-cream background gradient. Inside the block (not under it), at 16,16 relative to the block, a small caption "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        723,
+        119,
+        504,
+        370
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Product info panel with 20 distinct live-content parts, each its own element, built exactly to spec (page px, size then top-left x,y): 510x34 at 720,116 30px bo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        723,
+        643,
+        504,
+        127
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Ratings breakdown panel: one 510x133px panel at 720,640, no fill, a 1px #e6e6e6 rule along its top edge only (no other border). Contains 13 live-content parts, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 10
+        }
+      ],
+      "region": [
+        144,
+        740,
+        512,
+        30
+      ],
+      "paths": [],
+      "instruction": "Row of 3 spec stat columns, 80px wide each, 30px apart, each with a bold 13px heading over 13px text on one line (no wrap), text colour #555555 (dark grey, not "
+    }
+  ],
+  "rejected": []
+}

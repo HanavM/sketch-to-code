@@ -1,0 +1,138 @@
+{
+  "id": "e1-kanban-drawer",
+  "at": "2026-10-24T00:51:38.675Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8446100606765556,
+    "overallV2": 0.8446100606765556,
+    "overallV1": 0.7796214933867609,
+    "colour": 0.9912749707713056,
+    "structure": 0.8913730949873798,
+    "structureStrict": 0.8156732671587132,
+    "colourAligned": 0.9912749707713056,
+    "structureAligned": 0.8913730949873798,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9956177759492681
+    },
+    "layout": 0.8473521302039089
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 42460,
+    "output": 25874,
+    "cacheRead": 146148
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60964,
+      "output": 22836,
+      "cacheRead": 143064,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 232386
+    }
+  ],
+  "reading": "The user sketched a full project-board page layout: a dark navy left sidebar with two linked nav groups, a white top search/header card, a three-column Kanban board with many detailed task cards, and a right-hand issue detail panel — with typed notes giving exact colors, spacing, and content for each part.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Apply page-wide styling: background is pale grey #f4f5f7 (deliberately not white), all type set in Helvetica, and all body text colored dark teal."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build a 220px-wide left side navigation column with a dark navy (#1d2125) background and no box border, light grey (#c7d1db) text (not the page's dark teal). Tw"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        3,
+        1053,
+        50
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a white header card spanning the top of the main content area containing the title 'Sprint 24 board' and a 'Search issues' search input."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        239,
+        75,
+        618,
+        804
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build the Kanban board exactly as specified, part by part, with 42 live-text elements, nothing invented or omitted: three columns, each 200x810, #ebecf0 fill, 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        59,
+        394,
+        838
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a white detail panel on the right with a close control: header 'ATL-198 ✕' and title 'Billing page redesign'. Below it a metadata list: 'Status' = IN PROGRE"
+    }
+  ],
+  "rejected": []
+}

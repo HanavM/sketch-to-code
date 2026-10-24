@@ -1,66 +1,62 @@
 {
   "id": "c3-ticket-carousel",
-  "at": "2026-10-23T23:28:29.861Z",
+  "at": "2026-10-24T00:39:23.779Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6114862525249272,
-    "overallV2": 0.6114862525249272,
-    "overallV1": 0.5807881418865881,
-    "colour": 0.8491807560075104,
-    "structure": 0.6611128793838771,
-    "structureStrict": 0.5886637309884957,
-    "colourAligned": 0.8491807560075104,
-    "structureAligned": 0.6611128793838771,
+    "overall": 0.8579105830355485,
+    "overallV2": 0.8579105830355485,
+    "overallV1": 0.8533737488735331,
+    "colour": 0.9884812504355693,
+    "structure": 0.9704471048481326,
+    "structureStrict": 0.9597399386866233,
+    "colourAligned": 0.9884812504355693,
+    "structureAligned": 0.9704471048481326,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.29402140113704756
+      "r": 0.9975032416917772
     },
-    "layout": 0.4050818720686781
+    "layout": 0.585024813403471
   },
   "effects": {
-    "recall": 0.8333333333333334,
+    "recall": 1,
     "kept": [
       "3d",
       "gradient",
       "hollow-type",
+      "mask",
       "overlap",
       "stripes-or-layers"
     ],
-    "missing": [
-      "mask"
-    ],
-    "extra": [
-      "bleed"
-    ]
+    "missing": [],
+    "extra": []
   },
   "tokens": {
-    "input": 33805,
-    "output": 26603,
-    "cacheRead": 120259
+    "input": 28871,
+    "output": 15231,
+    "cacheRead": 133163
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 48839,
-      "output": 19842,
-      "cacheRead": 117175,
-      "toolCalls": 7,
+      "billed": 35624,
+      "output": 12121,
+      "cacheRead": 130079,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/index.html",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 214142
+      "ms": 125950
     }
   ],
-  "reading": "A festival landing page: no-box nav with brand left and links right, a big centred 'Pick your night' heading with a hollow 'night', lavender subtext, a real CSS 3D rotating cube carousel of night/stage cards flanked by prev/next pill buttons, a 4-dot pagination indicator, and an off-white 'Get Friday pass' CTA pill — all set over a gradient page with a tilted perspective grid 'floor' behind everything.",
+  "reading": "The sketch lays out a festival landing hero: a label nav bar, a bold centred heading with a hollow word, a lavender subheading, a large 3D rotating card carousel with left/right pill arrow buttons, a pagination dot/pill indicator, and a pill call-to-action button — all styling and copy details are pinned down precisely by the typed notes (colors, exact divs/transforms, and per-face text for the carousel), which take precedence over the rough ink shapes.",
   "actions": [
     {
       "kind": "add",
@@ -75,7 +71,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a navigation bar with no box around it: bold 'NIGHTSHIFT FEST' on the left, and 'Line-up · Stages · Camping · FAQ' on the right. Its text colour is #b7acd9 "
+      "instruction": "Nav bar with no box around it: bold \"NIGHTSHIFT FEST\" on the left, and \"Line-up · Stages · Camping · FAQ\" on the right; nav text colour #b7acd9 (lavender, not t"
     },
     {
       "kind": "add",
@@ -98,7 +94,7 @@
         88
       ],
       "paths": [],
-      "instruction": "Add a huge Helvetica Heavy heading reading 'Pick your night', on one line (white-space: nowrap, never wraps), about 490px wide, centred on the page (text runs x"
+      "instruction": "Huge Helvetica heavy, tight-set heading \"Pick your night\" on one line (white-space: nowrap, never wrapped), about 490px wide, centred on the page (text-align ce"
     },
     {
       "kind": "add",
@@ -113,7 +109,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add body copy beneath the heading reading 'Five nights, five stages. Spin the wheel and grab a pass.' Its text colour is #b7acd9 (lavender), not the page's defa"
+      "instruction": "Subheading text \"Five nights, five stages. Spin the wheel and grab a pass.\" in lavender colour #b7acd9 (not the page's off-white text)."
     },
     {
       "kind": "add",
@@ -126,11 +122,39 @@
         394
       ],
       "paths": [
-        "s3",
-        "s4",
+        "s3"
+      ],
+      "instruction": "Build a REAL CSS 3D ring (carousel) of 5 cards, not flat or projected rectangles, not a drawing or SVG: a 1280x400px scene at 0,250 with perspective:1100px; ins"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        121,
+        431,
+        53,
+        52
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark grey outline pill button with a \"←\" arrow, positioned at the left side of the 3D card carousel."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1106,
+        432,
+        52,
+        53
+      ],
+      "paths": [
         "s5"
       ],
-      "instruction": "Build a real CSS 3D cube (not a flat drawing or SVG, not a projected rectangle): a 1280x400px scene at 0,250 with perspective: 1100px; inside it one group div ("
+      "instruction": "Dark grey outline pill button with a \"→\" arrow, positioned at the right side of the 3D card carousel."
     },
     {
       "kind": "add",
@@ -145,7 +169,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a pagination/progress indicator below the cube as 4 real elements: a 28x10px pill at 590,700 filled #ff5caa (active state), and three 10x10px circles at 632"
+      "instruction": "Pagination indicator made of 4 real elements, exact sizes and positions (page px): a 28x10 pill at 590,700 filled #ff5caa (the active/current indicator, pill-sh"
     },
     {
       "kind": "add",
@@ -160,7 +184,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a call-to-action pill button labeled 'Get Friday pass', 200x50px with fully rounded (pill) ends, #f4f0ff fill and #120a2a near-black text (not the page's de"
+      "instruction": "Off-white pill button, 200x50px, pill ends, with near-black text colour #120a2a (not the page's off-white text) reading \"Get Friday pass\"; fill #f4f0ff."
     }
   ],
   "rejected": [

@@ -56,3 +56,25 @@ Re-planning rounds 1-13 changes nothing.
 | e4 observability | 83% | **87%** | stacked area chart built as its three filled hills; still off: filter chips unboxed, logo lost, alerts column has no panel |
 
 Round 14 so far: **81%** over 4 pages (c3 61 untouched). Vitest: same 2 env failures; typecheck clean.
+
+## n155: planner fixes, c3 re-run, first builds c1, c4, e1, e2, e3, e5 (2026-10-24, ~452k billed)
+
+Planner now says: a 3D ring of cards as a ring (the group's own 200x300 box at its place in the scene, NOT inset 0;
+the rotateY(0) card named as the one facing the viewer; each face's rounding, padding, top-left two-line text and the
+shared ticket-notch mask written out); a see-through tape strip's top-left before the turn, its rotate() and dashed
+torn ends, above everything; overlapping cut-outs in paint order; a ruleless row of 3-4 items pushed apart; stat items
+as stacked number-over-label lines; a top bar of boxed filter chips part by part, with bare text such as a logo
+glyph; a region said part by part also says its own panel (fill, border or top rule only, rounding).
+Re-planning rounds 1-13: notes gain a panel line on 29 pages, layer order on 7, tape place/turn on 3; none re-run.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c3 ticket carousel | 61% | **86%** | ring centred, FRI facing, notched tickets, sub-lines; still off: pink glow behind the ring lost, arrows ~120px low |
+| c1 variable wave | first | **69%** | stripes, blend, dial, serif lede, button right; letters packed into the middle (target spread across 1200px), axes rule lost |
+| c4 scroll story | first | **86%** | sun ring, skewed layers, outlined marquee right; progress rail labels set vertical (target horizontal, lit segment), body copy invented |
+| e1 kanban + drawer | first | **84%** | board right; drawer lost its status/priority pills, description box, progress bar and checkboxes |
+| e2 database console | first | **90%** | |
+| e3 product page | first | **78%** | buy box, sizes, ratings right; logo lost, product disc on the image lost, stars and rating text overprinted |
+| e5 support inbox | first | **82%** | three panes right; rail dark grey (target purple), composer a grey band with purple Send (target white box, black Send) |
+
+Round 14 complete: **84%** over 10 (c 69 86 86 86 89; e 84 90 78 87 82). Vitest: same 2 env failures; typecheck clean.
