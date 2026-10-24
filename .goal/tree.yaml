@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 17 is up to 88%: the wrapped editorial now wraps its text round the orb with a drop cap (88%); next checking why the near-identical gantt chart scores only 79, then writing round 18."
 round: 17
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88]
-lock: null
+lock: {by: run-20261024T1528Z, until: "2026-10-24T16:58Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
