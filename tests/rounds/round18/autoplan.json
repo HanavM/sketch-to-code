@@ -139,7 +139,7 @@
    ],
    [
     "hero-cell",
-    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, font-weight 900 Impact, BELOW the other words (after them, never above them), position absolute at that spot, overlapping nothing above it; its \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\" (ALL CAPITALS, text-transform: uppercase) is BIG 64px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 420x304px from 52,142, set on exactly 5 lines (line-height 61px; it wraps)"
+    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, font-weight 900 Impact, BELOW the other words (after them, never above them), position absolute at that spot, overlapping nothing above it; it spills past the block, and the block CLIPS it (overflow: hidden on the block): its bottom 28px is cut off flat at the block's bottom edge (y 716), NEVER showing over the next block; its \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\" (ALL CAPITALS, text-transform: uppercase) is BIG 64px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 420x304px from 52,142, set on exactly 5 lines (line-height 61px; it wraps)"
    ],
    [
     "clients-stat",
@@ -615,7 +615,7 @@
    ],
    [
     "topbar",
-    "white card \"Atlas · Sprint 42\" \"Search cards…\" list: \"Only my issues\", \"Recently updated\", \"Complete sprint\"; \"Only my issues\" highlighted (#0052cc rounded fill, #ffffff text); each word in its own colour: \"Atlas · Sprint 42\" #172b4d, \"Search cards…\" #7a869a, \"Only my issues\" #ffffff, \"Recently updated\" #172b4d, \"Complete sprint\" #172b4d"
+    "a top bar 56px tall across the whole page at the very top, #ffffff fill, a 1px #dfe1e6 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 17px #172b4d \"Atlas · Sprint 42\" at x 20; 13px #7a869a \"Search cards…\" in a 260x32px 4px-rounded box with a 1px #dfe1e6 border, no fill at x 165; 4 overlapping 28px round avatars (circles filled #ff8b00, #36b37e, #6554c0, #00b8d9, each with a 2px #ffffff ring, each overlapping the one before by 6px) in one row at x 441; bold 13px #ffffff \"Only my issues\" on a #0052cc 115x25px 3px-rounded box at x 545; bold 13px #172b4d \"Recently updated\" on a #ebecf0 128x25px 3px-rounded box at x 677; bold 13px #172b4d \"Complete sprint\" on a #ebecf0 119x25px 3px-rounded box at x 1141 (pushed to the far right)"
    ],
    [
     "column-heads",

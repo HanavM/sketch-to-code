@@ -126,3 +126,15 @@ Rounds 1-17 plans re-generated: long two-line copy now kept whole on a few pages
 
 Round 18, latest build each: **85%** (c1 90, c2 86, c3 88, c4 82, c5 90, e1 73, e2 95, e3 87, e4 73, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n186: a hollow word clipped by its block; a top bar said part by part with its avatar stack (2026-10-24, ~209k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c2 brutal grid | 86% → **87%** | the hollow "26" spills past its cell, which clips it; it is now said that the block CLIPS it (overflow hidden) and its bottom 28px is cut off flat at the cell's bottom edge. Built right: the "26" stops at the cell, no longer over the footer. Left: this run's header bar sits flush at the top (the frame's top edge lost), the footer's two small lines stacked |
+| e1 kanban swimlanes | 73% → **87%** | the top bar had been said as "white card ... list:", so it was built as a heading with its chips wrapped under it over the column names. A bar note that is a word list with two or more boxed chips is now replaced by the part-by-part bar note (56px tall, each part at its own x, all on one line), and an empty group of small filled circles is said as an overlapping avatar stack. Built right: one-line bar, search box, four avatars, chips. Left: the Done cards' struck-through titles built plain and wrapped |
+
+Rounds 1-17 plans re-generated: unchanged.
+
+Round 18, latest build each: **87%** (c1 90, c2 87, c3 88, c4 82, c5 90, e1 87, e2 95, e3 87, e4 73, e5 90).
+Vitest: same 2 env failures; typecheck clean.

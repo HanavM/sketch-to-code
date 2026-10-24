@@ -1,31 +1,31 @@
 {
   "id": "c2-brutal-grid",
-  "at": "2026-10-24T21:23:08.906Z",
+  "at": "2026-10-24T21:46:36.109Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8560959838440121,
-    "overallV2": 0.8560959838440121,
-    "overallV1": 0.7900868131663055,
-    "colour": 0.9568306131481626,
-    "structure": 0.7793627337940207,
-    "structureStrict": 0.6211039617493255,
-    "colourAligned": 0.9568306131481626,
-    "structureAligned": 0.7793627337940207,
+    "overall": 0.8695998300853232,
+    "overallV2": 0.8695998300853232,
+    "overallV1": 0.6577824887160293,
+    "colour": 0.9506399516969386,
+    "structure": 0.8577682627260933,
+    "structureStrict": 0.3499304577860909,
+    "colourAligned": 0.9506399516969386,
+    "structureAligned": 0.8577682627260933,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9480740098083494
+      "r": 0.9134225690714485
     },
-    "layout": 0.9421735827198162,
-    "layoutV1": 0.9421735827198162,
+    "layout": 0.8946828666168221,
+    "layoutV1": 0.8946828666168221,
     "layoutVersion": 2
   },
   "boxes": [
     [
       -1,
       0,
-      0,
+      30,
       1280,
       900
     ],
@@ -34,21 +34,7 @@
       30,
       30,
       1220,
-      834
-    ],
-    [
-      1,
-      34,
-      34,
-      1212,
-      826
-    ],
-    [
-      2,
-      39,
-      34,
-      1202,
-      826
+      822
     ],
     [
       1,
@@ -58,345 +44,331 @@
       84
     ],
     [
-      4,
-      34,
-      34,
-      1212,
-      82
-    ],
-    [
-      5,
-      52,
-      34,
-      1177,
-      83
-    ],
-    [
-      4,
-      34,
-      34,
-      1212,
-      82
-    ],
-    [
-      7,
+      2,
       58,
       59,
       172,
       33
     ],
     [
-      7,
-      942,
+      2,
+      931,
       65,
-      280,
-      20
+      291,
+      21
     ],
     [
       1,
       34,
-      120,
+      118,
+      1212,
+      586
+    ],
+    [
+      5,
+      34,
+      118,
       443,
       586
     ],
     [
-      10,
-      52,
-      142,
-      400,
+      6,
+      49,
+      133,
+      413,
       305
     ],
     [
-      10,
-      46,
-      504,
+      6,
+      43,
+      495,
       334,
       300
     ],
     [
+      6,
+      302,
+      245,
+      160,
+      160
+    ],
+    [
+      9,
+      302,
+      245,
+      160,
+      160
+    ],
+    [
       10,
-      305,
-      254,
-      151,
-      152
+      303,
+      245,
+      159,
+      160
     ],
     [
-      13,
-      305,
-      254,
-      151,
-      152
-    ],
-    [
-      1,
-      479,
-      120,
-      451,
+      5,
+      477,
+      118,
+      461,
       586
     ],
     [
-      15,
-      479,
-      120,
-      224,
-      292
+      12,
+      477,
+      118,
+      461,
+      289
     ],
     [
-      16,
-      501,
+      13,
+      477,
+      118,
+      232,
+      289
+    ],
+    [
+      14,
+      497,
       138,
-      61,
-      20
+      190,
+      24
     ],
     [
-      16,
-      501,
-      160,
-      133,
+      14,
+      497,
+      174,
+      190,
       120
     ],
     [
-      15,
-      705,
-      120,
-      225,
-      292
+      13,
+      709,
+      118,
+      230,
+      289
     ],
     [
-      19,
-      725,
+      17,
+      729,
       138,
-      53,
-      20
+      190,
+      24
     ],
     [
-      19,
-      725,
-      160,
-      133,
+      17,
+      729,
+      174,
+      190,
       120
     ],
     [
-      15,
-      479,
-      414,
-      451,
-      292
+      12,
+      477,
+      407,
+      461,
+      297
     ],
     [
-      22,
-      479,
-      416,
-      451,
-      290
-    ],
-    [
-      23,
-      484,
-      416,
-      443,
-      290
-    ],
-    [
-      22,
-      479,
-      416,
-      451,
-      155
-    ],
-    [
-      25,
-      498,
-      435,
-      413,
+      20,
+      493,
+      409,
+      429,
       34
     ],
     [
-      26,
-      498,
-      439,
+      21,
+      493,
+      413,
       106,
       24
     ],
     [
-      26,
-      901,
-      439,
+      21,
+      912,
+      413,
       10,
       24
     ],
     [
-      25,
-      498,
-      469,
-      413,
+      20,
+      493,
+      443,
+      429,
       34
     ],
     [
-      29,
-      498,
-      473,
+      24,
+      493,
+      447,
       58,
       24
     ],
     [
-      29,
-      901,
-      473,
+      24,
+      912,
+      447,
       10,
       24
     ],
     [
-      25,
-      498,
-      503,
-      413,
+      20,
+      493,
+      477,
+      429,
       34
     ],
     [
-      32,
-      498,
-      507,
+      27,
+      493,
+      481,
       86,
       24
     ],
     [
-      32,
-      901,
-      507,
+      27,
+      912,
+      481,
       10,
       24
     ],
     [
-      25,
-      498,
-      537,
-      413,
+      20,
+      493,
+      511,
+      429,
       34
     ],
     [
-      35,
-      498,
-      541,
+      30,
+      493,
+      516,
       67,
       24
     ],
     [
-      35,
-      901,
-      541,
+      30,
+      912,
+      516,
       10,
       24
     ],
     [
-      22,
-      541,
-      543,
-      227,
-      226
+      20,
+      523,
+      519,
+      225,
+      224
     ],
     [
-      38,
-      541,
-      543,
-      227,
-      226
+      33,
+      523,
+      519,
+      225,
+      224
     ],
     [
-      39,
-      542,
-      543,
-      226,
-      226
+      34,
+      523,
+      519,
+      224,
+      224
     ],
     [
-      38,
-      541,
-      543,
-      227,
-      226
+      33,
+      523,
+      519,
+      225,
+      224
     ],
     [
-      1,
-      932,
-      120,
-      314,
-      586
+      36,
+      599,
+      579,
+      59,
+      42
     ],
     [
+      36,
+      570,
+      602,
+      130,
+      57
+    ],
+    [
+      36,
+      621,
+      642,
       42,
-      932,
-      120,
-      314,
+      38
+    ],
+    [
+      5,
+      938,
+      118,
+      308,
       586
     ],
     [
-      43,
-      935,
-      120,
-      309,
-      586
-    ],
-    [
-      42,
-      964,
-      246,
+      40,
+      969,
+      236,
       250,
       280
     ],
     [
-      45,
-      984,
-      266,
+      41,
+      989,
+      256,
       210,
       23
     ],
     [
-      45,
-      984,
-      297,
+      41,
+      989,
+      287,
       210,
-      83
+      84
     ],
     [
       1,
       34,
-      708,
+      704,
       1212,
-      152
+      144
     ],
     [
+      44,
       48,
-      34,
-      710,
-      1212,
-      150
-    ],
-    [
-      49,
-      52,
-      756,
+      749,
       252,
       59
     ],
     [
-      49,
-      344,
-      774,
+      44,
+      340,
+      750,
       153,
-      23
+      54
     ],
     [
-      49,
-      537,
-      774,
-      126,
-      23
+      46,
+      340,
+      750,
+      153,
+      27
+    ],
+    [
+      46,
+      340,
+      777,
+      153,
+      27
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.9,
+    "recall": 1,
     "kept": [
       "blend",
       "hard-shadow",
@@ -405,49 +377,49 @@
       "mono",
       "motion",
       "overlap",
+      "stripes-or-layers",
       "tilt",
       "uppercase-display"
     ],
-    "missing": [
-      "stripes-or-layers"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 97684,
-    "output": 63053,
-    "cacheRead": 260069
+    "input": 62594,
+    "output": 30389,
+    "cacheRead": 522645
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 132181,
-      "output": 50487,
-      "cacheRead": 231570,
-      "toolCalls": 16,
+      "billed": 80914,
+      "output": 24478,
+      "cacheRead": 519561,
+      "toolCalls": 17,
       "tools": [
+        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
+        "Read components/Circle.tsx",
+        "Read components/CircleBadge.tsx",
         "Read src/main.tsx",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read components/SketchShape3.tsx",
-        "Read components/SketchShape4.tsx",
-        "Read components/SketchShape5.tsx",
-        "Read components/SketchShape6.tsx",
-        "Edit components/SketchShape2.tsx",
-        "Edit components/SketchShape3.tsx",
-        "Edit components/SketchShape4.tsx",
-        "Edit components/SketchShape6.tsx",
         "Edit src/index.css",
-        "Write src/App.tsx"
+        "Edit components/Circle.tsx",
+        "Edit components/CircleBadge.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Glob",
+        "Grep"
       ],
-      "ms": 600927
+      "ms": 274940
     }
   ],
-  "reading": "A full agency-landing-page layout: a near-black top nav bar, a red-orange hero block with a big uppercase headline and an oversized hollow '26', a decorative white disc blended over the hero, a yellow 'CLIENTS/84' stat block and an indigo 'AWARDS/12' stat block, a diagonally striped panel on the right holding a drop-shadow case-study card, a services list of 4 rows with a tilted yellow 'NOW BOOKING Q3' badge sticker overlapping it, and a bottom contact bar with a hard-shadow 'START A PROJECT' button plus email/location text — all inside one ruled grid frame on a cream page with mono type.",
+  "reading": "The sketch lays out a full landing-page grid (defined precisely by the typed notes): a black top nav bar, a red-orange hero block with large uppercase headline and a giant hollow '26', a white decorative disc over it, yellow 'CLIENTS/84' and indigo 'AWARDS/12' stat blocks, a striped case-study panel with a card, a 4-row services list with a tilted yellow 'NOW BOOKING Q3' badge over it, and a footer with a 'START A PROJECT' button plus contact details — all on a cream, monospace-type page.",
   "actions": [
     {
       "kind": "design",
@@ -462,10 +434,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Whole page: cream (#f2f0e9) background, mono type, near-black text. The outer frame (this stroke) is a ruled grid set INSIDE the page with a 30px margin on all "
+      "instruction": "Set up the whole page and its grid container: page background is cream (#f2f0e9, plainly not white), with monospace type and near-black text throughout. The 8 n"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -477,10 +449,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Top bar: #111111 background, bold 22px cream (#f2f0e9) logo text 'NOISE/WORKS ✱' at the left, then nav text 'INDEX — ARCHIVE — SHOP — CONTACT'; all text cream, "
+      "instruction": "Add a top navigation bar: solid near-black (#111111) background bar, with cream (#f2f0e9) text (not the page's near-black text) — bold 22px 'NOISE/WORKS ✱' logo"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -492,7 +464,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Vivid red-orange hero block. Headline 'WE BUILD LOUD WEBSITES FOR QUIET BRANDS' in ALL CAPS, 64px font-weight 900 Impact/sans-serif (not the page's Courier New)"
+      "instruction": "Add a vivid red-orange hero block. Heading 'WE BUILD LOUD WEBSITES FOR QUIET BRANDS' in all caps, 64px font-weight 900 Impact/sans-serif (not the page's monospa"
     },
     {
       "kind": "add",
@@ -507,10 +479,10 @@
       "paths": [
         "s9"
       ],
-      "instruction": "A decorative circular disc over the hero block, ~160px across, perfectly round (border-radius 50%), flat fully opaque white (#ffffff) fill, hard edge, no blur, "
+      "instruction": "Add a perfectly round solid disc overlaying the hero block: true circle geometry (not traced from the rough sketch outline), 160px across, flat fully opaque whi"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -522,10 +494,10 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Vivid yellow stat block labelled 'CLIENTS'. The number '84' is BIG — 120px font-weight 900 Impact/sans-serif (not the page's small Courier New), #111111, on one"
+      "instruction": "Add a vivid yellow block labeled 'CLIENTS', with a big '84' figure: 120px font-weight 900 Impact/sans-serif (not the page's monospace, not small), #111111, fill"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -537,22 +509,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Vivid indigo stat block, white text, labelled 'AWARDS'. The number '12' is BIG — 120px font-weight 900 Impact/sans-serif (not the page's small Courier New), #ff"
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        935,
-        128,
-        308,
-        585
-      ],
-      "paths": [
-        "s5"
-      ],
-      "instruction": "Fill this panel with diagonal (45° ) repeating stripes — NOT a smooth gradient — alternating 10px #111111 then 10px cream (#f2f0e9), over and over, as the panel"
+      "instruction": "Add a vivid indigo block labeled 'AWARDS', its text in white (#ffffff, not the page's near-black text), with a big '12' figure: 120px font-weight 900 Impact/san"
     },
     {
       "kind": "add",
@@ -567,10 +524,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "On top of the striped panel, a separate card (~250x280px), solid #f2f0e9 fill covering what's beneath it, 4px #111111 border, square corners, hard box-shadow #1"
+      "instruction": "Add a right-column region filled with diagonal 45° repeating stripes (not a smooth gradient): repeating-linear-gradient(45deg, #111111 0-10px, #f2f0e9 10-20px)."
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -582,7 +539,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "A list of 4 rows, near-black border, mono 16px near-black text. Each row is ONE line with its first item at the left and a second item ('→') pushed to the far r"
+      "instruction": "Add a near-black-bordered mono 16px list of 4 rows. Each row is a single line with its label at the left and an arrow at the far right of the same line (flex, s"
     },
     {
       "kind": "add",
@@ -597,10 +554,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A tilted (9° anticlockwise, gently wobbling) vivid yellow circular badge, ~190px across, overlapping the services list, reading 'NOW BOOKING Q3' centred in 3 wr"
+      "instruction": "Add a vivid yellow circular badge tilted 9° anticlockwise (subtly wobbling), 190px across, with a 4px solid near-black outline and a hard solid opaque near-blac"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -612,7 +569,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Bottom bar, near-black border, mono 15px code-style lines, each word its own colour: 'START A PROJECT' (#ffe600), 'hello@noise.works' (#111111), 'Berlin / Lagos"
+      "instruction": "Add a near-black-bordered footer region with mono 15px code-style lines, each word in its own colour: 'START A PROJECT' (#ffe600), 'hello@noise.works' (#111111)"
     }
   ],
   "rejected": []
