@@ -1728,14 +1728,16 @@ export function factsInPage() {
     }
     // gantt: a row of 4+ date column heads over filled task bars placed on their own rows
     const DATE = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d{1,2}$|^w(ee)?k? ?\d{1,2}$|^\d{1,2}\/\d{1,2}$/i
-    const headRow = [el, ...el.querySelectorAll('*')].find((p) => p.children.length >= 4 && [...p.children].every((k) => DATE.test(txt(k))))
+    // n173: a week number over its date ('W10 Mar 2', round 17 e1) is a date head too (the gantt went unseen, said as a line chart)
+    const isDate = (t) => DATE.test(t) || (/^w(ee)?k? ?\d{1,2} \S/i.test(t) && DATE.test(t.replace(/^\S+ /, ''))) || (/ w(ee)?k? ?\d{1,2}$/i.test(t) && DATE.test(t.replace(/ \S+$/, '')))
+    const headRow = [el, ...el.querySelectorAll('*')].find((p) => p.children.length >= 4 && [...p.children].every((k) => isDate(txt(k))))
     if (headRow) {
       const hs = [...headRow.children].map((k) => ({ t: txt(k), b: k.getBoundingClientRect() }))
       const x0 = hs[0].b.left, cw = (hs[hs.length - 1].b.right - x0) / hs.length
       const at = (x) => { const c = Math.max(0, Math.min(hs.length - 1, Math.floor((x - x0) / cw))); const fr = (x - x0) / cw - c; return { c, fr } }
       const line = [...el.querySelectorAll('*')].find((k) => { const b = k.getBoundingClientRect(); return filled(k) && b.width <= 4 && b.height >= own.height * 0.5 })
       // the today line's tag is not a task
-      const bars = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); return !(line && line.contains(k)) && filled(k) && txt(k) && !k.children.length && b.height <= 44 && b.width >= 24 && b.top > hs[0].b.bottom && getComputedStyle(k).position === 'absolute' })
+      const bars = [...el.querySelectorAll('*')].filter((k) => { const b = k.getBoundingClientRect(); return !(line && line.contains(k)) && filled(k) && txt(k) && ![...k.children].some((c) => txt(c)) && b.height <= 44 && b.width >= 24 && b.top > hs[0].b.bottom && getComputedStyle(k).position === 'absolute' })
       if (bars.length >= 3 && new Set(bars.map((k) => Math.round(k.getBoundingClientRect().top / 8))).size === bars.length) {
         const where = (x, edge) => { const { c, fr } = at(x); return `${edge === 'start' ? (fr < 0.25 ? 'start of' : fr < 0.75 ? 'mid' : 'end of') : (fr > 0.75 ? 'end of' : fr > 0.25 ? 'mid' : 'start of')} ${hs[c].t}` }
         // row pitch and how far down the rows reach: without them a tall box got its rows spread to fill it (round 4 e5 built 2x tall)
@@ -1761,8 +1763,21 @@ export function factsInPage() {
           const to = bars.find((x) => Math.abs(x.getBoundingClientRect().top - b.bottom) <= 16 && x.getBoundingClientRect().left <= b.right + 4 && x.getBoundingClientRect().right >= b.left)
           return { c: rgba(getComputedStyle(k).borderTopColor), w: Math.round(parseFloat(getComputedStyle(k).borderTopWidth)), from: from ? txt(from) : null, to: to ? txt(to) : null }
         }).filter((x) => x.from && x.to)
+        // n173: a progress fill INSIDE the bar (a textless see-through child over its first part, round 17 e1)
+        const progOf = (k) => { const c = [...k.children].find((x) => !txt(x) && filled(x)); if (!c) return null; const f = Math.round(c.getBoundingClientRect().width / k.getBoundingClientRect().width * 100); return f >= 5 ? { pct: f, fill: filled(c) } : null }
+        // n173: dependency elbows drawn as SVG paths (round 17 e1: four grey elbows, said as a 'line chart')
+        const sdeps = [...el.querySelectorAll('svg path, svg polyline')].filter((p) => getComputedStyle(p).fill === 'none' && rgba(getComputedStyle(p).stroke)).map((p) => {
+          const sv = p.ownerSVGElement.getBoundingClientRect()
+          const pts = [...(p.getAttribute('d') ?? '').matchAll(/([MLHV])\s*(-?[\d.]+)(?:[ ,](-?[\d.]+))?/g)].reduce((a, m) => { const l = a[a.length - 1] ?? [0, 0]; a.push(m[1] === 'H' ? [Number(m[2]), l[1]] : m[1] === 'V' ? [l[0], Number(m[2])] : [Number(m[2]), Number(m[3])]); return a }, [])
+          if (pts.length < 2) return null
+          const [sx, sy] = [pts[0][0] + sv.left, pts[0][1] + sv.top], [ex, ey] = [pts[pts.length - 1][0] + sv.left, pts[pts.length - 1][1] + sv.top]
+          const near = (x, y) => bars.find((k) => { const b = k.getBoundingClientRect(); return x >= b.left - 14 && x <= b.right + 14 && y >= b.top - 14 && y <= b.bottom + 14 })
+          const from = near(sx, sy), to = [...bars].filter((k) => k !== from).find((k) => { const b = k.getBoundingClientRect(); return ex >= b.left - 14 && ex <= b.right + 14 && ey >= b.top - 14 && ey <= b.bottom + 14 })
+          return from && to ? { c: rgba(getComputedStyle(p).stroke), w: Math.max(1, Math.round(parseFloat(getComputedStyle(p).strokeWidth))), from: txt(from), to: txt(to) } : null
+        }).filter(Boolean)
+        deps.push(...sdeps)
         const tag = line ? (() => { const pc = getComputedStyle(line, '::before'); const t = (pc.content || '').replace(/^["']|["']$/g, ''); return t && t !== 'none' && t !== 'normal' ? { t, fill: rgba(pc.backgroundColor) } : null })() : null
-        return { type: 'gantt', pitch, reach, heads: hs.map((h) => h.t), headH: Math.round(hb - own.top), bars: bars.map((k) => { const b = k.getBoundingClientRect(); const tr = tracks.find((x) => Math.abs(x.getBoundingClientRect().top - b.top) <= 2); return { text: txt(k), fill: filled(k), from: where(b.left + 1, 'start'), to: where(b.right - 1, 'end'), h: Math.round(b.height), row: rowOf(b), top: Math.round(b.top - own.top), track: tr ? { fill: filled(tr), to: where(tr.getBoundingClientRect().right - 1, 'end') } : null } }), ms, deps, line: line ? { fill: filled(line), at: where(line.getBoundingClientRect().left, 'start'), label: txt(line) || (tag ? tag.t : ''), tag } : null }
+        return { type: 'gantt', pitch, reach, heads: hs.map((h) => h.t), headH: Math.round(hb - own.top), bars: bars.map((k) => { const b = k.getBoundingClientRect(); const tr = tracks.find((x) => Math.abs(x.getBoundingClientRect().top - b.top) <= 2); return { text: txt(k), fill: filled(k), from: where(b.left + 1, 'start'), to: where(b.right - 1, 'end'), h: Math.round(b.height), row: rowOf(b), top: Math.round(b.top - own.top), prog: progOf(k), track: tr ? { fill: filled(tr), to: where(tr.getBoundingClientRect().right - 1, 'end') } : null } }), ms, deps, line: line ? { fill: filled(line), at: where(line.getBoundingClientRect().left, 'start'), label: txt(line) || (tag ? tag.t : ''), tag } : null }
       }
     }
     // a chart drawn in SVG: lines (polyline/path strokes) or a donut (dashed circle strokes)
@@ -2046,6 +2061,17 @@ export function factsInPage() {
           return { t: ownT(k), fill: filled(k), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), right: sm ? txt(sm) : null, dot: dt ? { c: filled(dt), px: Math.round(dt.getBoundingClientRect().width), round: parseFloat(getComputedStyle(dt).borderTopLeftRadius) >= dt.getBoundingClientRect().width * 0.4 } : null, rule: parseFloat(c.borderBottomWidth) >= 1 ? rgba(c.borderBottomColor) : null }
         }) : null
       const groupedH = grouped ? rh[0] : null
+      // n173: the same grouped task list built of cell spans under a taller column-head row (round 17 e1: said as a
+      // 'filled button' head and group rows as 'tabs side by side'; built as tabs)
+      const cellRow = (k) => k.children.length >= 2 && k.children.length <= 5 && [...k.children].every((g) => !g.children.length) && !ownT(k)
+      const gtable = !grouped && rowKids.length >= 6 && rowKids.length <= 24 && rowKids.every(cellRow) && rh.slice(1).every((h) => Math.abs(h - rh[1]) <= 2) && rowKids.slice(1).some((k) => filled(k)) && rowKids.slice(1).some((k) => !filled(k))
+        ? (() => {
+          const hd = rh[0] !== rh[1] || getComputedStyle(rowKids[0]).textTransform === 'uppercase' || Number(getComputedStyle(rowKids[0]).letterSpacing.replace('px', '')) >= 0.5 || Math.abs(parseFloat(getComputedStyle(rowKids[0]).fontSize) - parseFloat(getComputedStyle(rowKids[1]).fontSize)) >= 1
+          const cell = (g) => { const b = g.getBoundingClientRect(), f = filled(g); return f && b.width <= 32 && Math.abs(b.width - b.height) <= 2 ? { t: txt(g), badge: { c: f, px: Math.round(b.width), round: parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.width * 0.4 } } : { t: txt(g), right: ['right', 'end'].includes(getComputedStyle(g).textAlign) } }
+          const row = (k) => { const c = getComputedStyle(k); return { cells: [...k.children].map(cell), fill: filled(k), bold: Number(c.fontWeight) >= 600 } }
+          const h0 = getComputedStyle(rowKids[0])
+          return { head: hd ? { cells: [...rowKids[0].children].map(txt), h: rh[0], fill: filled(rowKids[0]), ink: rgba(h0.color), px: Math.round(parseFloat(h0.fontSize)), bold: Number(h0.fontWeight) >= 600 } : null, rows: (hd ? rowKids.slice(1) : rowKids).map(row), h: rh[1], rule: parseFloat(getComputedStyle(rowKids[1]).borderBottomWidth) >= 1 ? rgba(getComputedStyle(rowKids[1]).borderBottomColor) : null }
+        })() : null
       // n150: a big-title header block above the list (round 13 e2: the album cover, kicker, 48px title and meta line
       // were dropped; only the play row was said)
       const heroEl = kids.find((k) => !rep.includes(k) && !rep.some((r) => k.contains(r)) && (rep[0].compareDocumentPosition(k) & 2) && k.querySelector('h1,h2'))
@@ -2056,7 +2082,7 @@ export function factsInPage() {
         const sm = [...heroEl.querySelectorAll('small,p,span')].filter((g) => txt(g) && !g.contains(h)).map((g) => ({ t: txt(g), px: Math.round(parseFloat(getComputedStyle(g).fontSize)), ink: rgba(getComputedStyle(g).color), bold: Number(getComputedStyle(g).fontWeight) >= 600, above: g.getBoundingClientRect().top < h.getBoundingClientRect().top }))
         return { h: txt(h), px: Math.round(parseFloat(hc.fontSize)), weight: Number(hc.fontWeight), ink: rgba(hc.color), x: Math.round(h.getBoundingClientRect().left - ob.left), y: Math.round(hb.top - ob.top), hH: Math.round(hb.height), cover: cb ? { w: Math.round(cb.width), h: Math.round(cb.height), x: Math.round(cb.left - ob.left), y: Math.round(cb.top - ob.top), bg: cc.backgroundImage !== 'none' ? cc.backgroundImage : cc.backgroundColor, rad: cc.borderTopLeftRadius } : null, small: sm }
       })() : null
-      return { type: 'list', order, grouped, hero, groupedH, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      return { type: 'list', order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
@@ -2210,7 +2236,9 @@ export function factsInPage() {
     const lw = parseFloat(c.borderLeftWidth) || 0, rw = parseFloat(c.borderRightWidth) || 0
     return { x: Math.round(b.left), w: Math.round(b.width), fill: f, edge: b.left <= 2 ? 'left' : 'right', rule: lw >= 1 ? { side: 'left', c: rgba(c.borderLeftColor) } : rw >= 1 ? { side: 'right', c: rgba(c.borderRightColor) } : null, shadow: c.boxShadow !== 'none', rad: parseFloat(c.borderTopLeftRadius) || 0 }
   }).filter((q) => q && !q.shadow && !q.rad)
-  return { body: { ...fact(document.body), grain, blobs, sides }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
+  // n173: a dot grain painted by body::after over everything (round 17 c2 riso: lost, built plain cream)
+  const grainDots = (() => { for (const w of ['::after', '::before']) { const c = getComputedStyle(document.body, w); if (!c.content || c.content === 'none' || c.position !== 'absolute' && c.position !== 'fixed') continue; if (!/radial-gradient/.test(c.backgroundImage) || !/^[\d.]+px/.test(c.backgroundSize)) continue; return { img: c.backgroundImage, size: c.backgroundSize } } return null })()
+  return { body: { ...fact(document.body), grain, grainDots, blobs, sides }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
 }
 
 // ---------------------------------------------------------------- naming
@@ -2604,7 +2632,7 @@ function denseNote(d) {
       // n147: with row numbers, some rows are empty (group rows): say each bar's row and top so the gaps stay
       const rowed = d.bars.every((b) => b.row) && Math.max(...d.bars.map((b) => b.row)) > d.bars.length
       if (rowed) {
-        const bar = (b) => `row ${b.row} (top ${b.top}px down): ${hexOf(b.fill)} ${quote(b.text, 24)} ${b.from} to ${b.to}${b.track ? ` over a ${b.track.fill.a < 0.95 ? `rgba(${b.track.fill.r}, ${b.track.fill.g}, ${b.track.fill.b}, ${Math.round(b.track.fill.a * 100) / 100}) (a see-through grey)` : hexOf(b.track.fill)} track (same height, rounded) running on to ${b.track.to}` : ''}`
+        const bar = (b) => `row ${b.row} (top ${b.top}px down): ${hexOf(b.fill)} ${quote(b.text, 24)} ${b.from} to ${b.to}${b.track ? ` over a ${b.track.fill.a < 0.95 ? `rgba(${b.track.fill.r}, ${b.track.fill.g}, ${b.track.fill.b}, ${Math.round(b.track.fill.a * 100) / 100}) (a see-through grey)` : hexOf(b.track.fill)} track (same height, rounded) running on to ${b.track.to}` : ''}${b.prog && b.prog.pct < 100 ? ` (its first ${b.prog.pct}% overlaid by a see-through lighter fill: the progress done)` : b.prog ? ' (fully overlaid by a see-through lighter fill: done)' : ''}`
         return `timeline, a ${d.headH}px week-head row of ${d.heads.length} equal columns ${d.heads.map((t) => quote(t)).join(', ')} with thin vertical column lines all the way down; rows ${d.pitch}px apart counted under the head (row 1 is the first ${d.pitch}px under it), rows with no bar stay EMPTY (they match the group rows of the task list); bars ${d.bars[0].h}px tall, 6px rounded, bold white label inside: ${d.bars.map(bar).join('; ')}${(d.ms ?? []).map((m) => `; row ${m.row} (top ${m.top}px down): a ${m.px}px ${hexOf(m.fill)} square turned 45deg (a diamond milestone) at ${m.at}${m.label ? `, bold ${quote(m.label, 24)} just right of it` : ''}`).join('')}${(d.deps ?? []).map((x) => `; a thin ${x.w}px ${hexOf(x.c)} elbow line from the end of ${quote(x.from, 20)} across then down into the start of ${quote(x.to, 20)} (rounded corner)`).join('')}${d.line ? `; a 2px ${hexOf(d.line.fill)} vertical today line from under the week head to the bottom at ${d.line.at}${d.line.tag ? `, a small ${hexOf(d.line.tag.fill)} filled tag ${quote(d.line.tag.t)} (white bold 11px) on its top end` : d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
       }
       return `timeline, ${d.heads.length} week columns ${d.heads.map((t) => quote(t)).join(', ')} across the top; one task bar per row (label inside, white text)${d.pitch ? `, rows ${d.pitch}px apart, bars ${d.bars[0].h}px tall${d.reach && d.reach <= 80 ? `, rows end ${d.reach}% down, empty below` : ''}` : ''}: ${d.bars.map((b) => `${colourName(b.fill)} ${quote(b.text, 20)} ${b.from} to ${b.to}`).join(', ')}${d.line ? `; thin ${colourName(d.line.fill)} vertical today line top to bottom at ${d.line.at}${d.line.label ? `, tag ${quote(d.line.label)}` : ''}` : ''}`
@@ -2713,6 +2741,12 @@ function denseNote(d) {
       const hl = d.headLook
       const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded` : ' ('}${hl.bold ? ', bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
+      if (d.gtable) {
+        const t = d.gtable
+        const cs = (c) => c.badge ? `${quote(c.t, 6)} in a ${c.badge.px}px ${c.badge.round ? 'round' : 'square'} ${hexOf(c.badge.c)} badge (white text)` : `${quote(c.t, 40)}${c.right ? ' (right-aligned)' : ''}`
+        const hs = t.head ? `a ${t.head.h}px column-head row${t.head.fill ? ` with a ${hexOf(t.head.fill)} fill` : ''} (NOT a button: a table header across the full width), ${t.head.px}px${t.head.bold ? ' bold' : ''} ${hexOf(t.head.ink)} spaced capitals ${t.head.cells.map((c) => quote(c, 16)).join(' | ')}, then ` : ''
+        return `${pic}a task table (rows, NOT tabs): ${hs}exactly ${t.rows.length} rows, each ${t.h}px tall, in EXACTLY this order top to bottom (group rows sit between their task rows; never gather the groups together), cells left to right: ${t.rows.map((r) => `${r.cells.map(cs).join(' | ')}${r.fill ? ` (group row: ${r.bold ? 'bold, ' : ''}${hexOf(r.fill)} fill across the whole row)` : ''}`).join('; ')}${t.rule ? `; a thin ${hexOf(t.rule)} line under every row` : ''}; empty below the last row`
+      }
       if (d.grouped) {
         const g = d.grouped
         const say = (o) => `${quote(o.t, 40)}${o.fill ? ` (group row: ${o.bold ? 'bold, ' : ''}${hexOf(o.fill)} fill across the whole row)` : o.right ? ` (${o.px}px ${hexOf(o.ink)}${o.bold ? ' bold' : ''}, ${quote(o.right, 16)} at the row's right end: a column head row)` : ''}${o.dot ? ` with a ${o.dot.px}px ${hexOf(o.dot.c)} ${o.dot.round ? 'round' : 'square'} dot at the right end` : ''}`
@@ -2958,7 +2992,7 @@ function round15Note(f) {
   const O = f.overprint
   if (O) {
     const lay = O.layers.map((l, i) => `copy ${i + 1}: ${hexOf(l.c)} text, its box's top-left at ${l.x},${l.y} (position absolute; the glyphs' ink spans ${l.ink.x}-${l.ink.x + l.ink.w} across)`).join('; ')
-    return { kind: 'heading', note: `ONE GIANT WORD ${quote(O.t)} PRINTED ${O.layers.length} TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): ${O.layers.length} separate absolutely placed divs, each the same ${O.px}px ${O.weight >= 800 ? 'heavy (font-weight 900)' : O.weight >= 600 ? 'bold' : 'regular'} ${quote(O.t)}${O.t.includes('\n') ? ` set as ${O.t.split('\n').length} stacked lines (${O.t.split('\n').map((x) => `"${x}"`).join(' over ')}, a <br> between them, in EVERY copy; the lines sit tight together, never spread apart down the page)` : ''} (line-height ${/px/.test(O.lh) ? `${Math.round(parseFloat(O.lh))}px, i.e. ${Math.round(parseFloat(O.lh) / O.px * 100) / 100}` : '1'}${O.ls ? `, letter-spacing ${Math.round(O.ls)}px` : ''}), each with mix-blend-mode: ${O.blend} so where they overlap the inks darken into each other; ${lay}; together they fill about ${Math.max(...O.layers.map((l) => l.ink.x + l.ink.w)) - Math.min(...O.layers.map((l) => l.ink.x))}x${Math.max(...O.layers.map((l) => l.ink.y + l.ink.h)) - Math.min(...O.layers.map((l) => l.ink.y))}px of the page's left side` }
+    return { kind: 'heading', note: `${O.t.includes('\n') ? `ONE GIANT ${O.t.split('\n').length}-LINE WORDMARK, ${O.t.split('\n').map((x) => `"${x}"`).join(' STACKED OVER ')} (${O.t.split('\n').length} lines, never one line),` : `ONE GIANT WORD ${quote(O.t)}`} PRINTED ${O.layers.length} TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): ${O.layers.length} separate absolutely placed divs, each the same ${O.px}px ${O.weight >= 800 ? 'heavy (font-weight 900)' : O.weight >= 600 ? 'bold' : 'regular'} ${O.t.includes('\n') ? 'wordmark' : quote(O.t)}${O.t.includes('\n') ? ` set as ${O.t.split('\n').length} stacked lines (${O.t.split('\n').map((x) => `"${x}"`).join(' over ')}, a <br> between them, in EVERY copy; the lines sit tight together, never spread apart down the page; each copy's box exactly width: ${Math.round(Math.max(...O.layers.map((l) => l.ink.w)) * 1.1)}px, just wider than its widest line, so "${O.t.split('\n')[0]}" and "${O.t.split('\n')[1]}" can NEVER sit side by side on one line; ${O.t.split('\n').length} lines tall, about ${Math.max(...O.layers.map((l) => l.ink.h))}px top to bottom)` : ''} (line-height ${/px/.test(O.lh) ? `${Math.round(parseFloat(O.lh))}px, i.e. ${Math.round(parseFloat(O.lh) / O.px * 100) / 100}` : '1'}${O.ls ? `, letter-spacing ${Math.round(O.ls)}px` : ''}), each with mix-blend-mode: ${O.blend} so where they overlap the inks darken into each other; ${lay}; together they fill about ${Math.max(...O.layers.map((l) => l.ink.x + l.ink.w)) - Math.min(...O.layers.map((l) => l.ink.x))}x${Math.max(...O.layers.map((l) => l.ink.y + l.ink.h)) - Math.min(...O.layers.map((l) => l.ink.y))}px of the page's left side` }
   }
   const T = f.textRings
   if (T && T.rings.length >= 2) {
@@ -4123,7 +4157,7 @@ function pageNote(b) {
   // (round 5 e4); it is said as off-white
   const nearWhite = visible(b.bg) && dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && dist(b.bg, { r: 255, g: 255, b: 255 }) < 12
   const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !nearWhite)) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
-  if (plain && !b.grain && !b.blobs?.length) return null
+  if (plain && !b.grain && !b.grainDots && !b.blobs?.length) return null
   const grad = gradientWords(b)
   // soft glows over a dark page (a mesh: round 6 c4 said as a 3-stop page gradient, base colour lost)
   const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
@@ -4141,6 +4175,7 @@ function pageNote(b) {
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
   if (b.colour) w.push(`${colourName(b.colour)} text`)
   if (b.grain) w.push('fine grain texture over everything')
+  if (b.grainDots) w.push(`a fine printed DOT GRAIN over EVERYTHING, type and circles included: one overlay div (position absolute, inset 0, pointer-events none, LAST in the page so it sits on top) painted exactly background-image: ${cssHex(b.grainDots.img)}; background-size: ${b.grainDots.size}`)
   // n141: blurred blobs and soft shadows on the page, one by one (round 11 c2: three 60px blobs unsaid, page bare)
   if (b.blobs?.length) w.push(`behind everything (under all content, position absolute) ${b.blobs.length} soft blurred shape${b.blobs.length > 1 ? 's' : ''}, each its own div: ${b.blobs.map((q) => `${q.w}x${q.h}px at ${q.x},${q.y} ${colourName({ ...q.c, a: 1 })} ${hexOf(q.c)}${q.c.a < 0.95 ? ` at ${Math.round(q.c.a * 100)}%` : ''}${q.round ? ' circle/ellipse (border-radius 50%)' : ''} blurred (filter: blur(${q.blur}px))`).join('; ')}`)
   return `whole page: ${w.join(', ')}`

@@ -1,23 +1,23 @@
 {
   "id": "e1-gantt-timeline",
-  "at": "2026-10-24T12:01:30.023Z",
+  "at": "2026-10-24T12:52:42.060Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6416638741439498,
-    "overallV2": 0.6416638741439498,
-    "overallV1": 0.6242032110554941,
-    "colour": 0.976917267901406,
-    "structure": 0.8690012533970414,
-    "structureStrict": 0.8522492759900817,
-    "colourAligned": 0.976917267901406,
-    "structureAligned": 0.8690012533970414,
+    "overall": 0.5933436090623975,
+    "overallV2": 0.5933436090623975,
+    "overallV1": 0.4833812638599303,
+    "colour": 0.9739503976621694,
+    "structure": 0.9231753456795185,
+    "structureStrict": 0.8176761035765108,
+    "colourAligned": 0.9739503976621694,
+    "structureAligned": 0.9231753456795185,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8276431178320064
+      "r": 0.869042879847099
     },
-    "layout": 0.9192305037957212
+    "layout": 0.6545878951469285
   },
   "effects": {
     "recall": 0.5,
@@ -33,33 +33,30 @@
     ]
   },
   "tokens": {
-    "input": 58991,
-    "output": 42622,
-    "cacheRead": 178546
+    "input": 40348,
+    "output": 25711,
+    "cacheRead": 158716
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 85961,
-      "output": 35686,
-      "cacheRead": 167771,
-      "toolCalls": 9,
+      "billed": 53193,
+      "output": 20352,
+      "cacheRead": 147999,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Glob",
-        "Glob",
-        "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Read s2c-bench-app/package.json"
       ],
-      "ms": 400227
+      "ms": 214426
     }
   ],
-  "reading": "The two wavy lines at the top sketch a page header (view toggle Day/Week/Month, an Add task button, page title, and date range) exactly specified part-by-part in the first typed note. The tall left rectangle sketches a Task Owner Progress panel with tab rows and a task list (second note). The tall right rectangle sketches a Gantt-style weekly chart panel with week headers, a line chart, a Today marker, and colored task bars (third note).",
+  "reading": "The sketch is a project page header split into three regions: a top toolbar (view toggle Day/Week/Month, an Add task button, page title and date range), a left task table listing grouped tasks with owner badges and progress percentages, and a right Gantt-style timeline with week columns, task bars, milestones, dependency lines and a today marker. Typed notes give exact pixel specs and content for all three regions.",
   "actions": [
     {
       "kind": "add",
@@ -84,7 +81,7 @@
         48
       ],
       "paths": [],
-      "instruction": "Build the page header exactly as specified: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothin"
+      "instruction": "Build the page toolbar as 7 separate live-text elements, nothing invented or left out, each its own real element: a 178x31 box at 867,14 with 1px #cbd5e1 border"
     },
     {
       "kind": "add",
@@ -99,7 +96,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Build a left side panel: a 359x56px #f8fafc filled button \"TASK OWNER PROGRESS\" (bold #64748b text; its fill clearly visible, not white), then a 44px row of tab"
+      "instruction": "Build a task table (rows, not tabs) in the left column: a 56px tall column-head row with #f8fafc fill spanning the full width, 11px bold #64748b letter-spaced c"
     },
     {
       "kind": "add",
@@ -114,7 +111,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Build a right Gantt-style panel: \"W10\", line chart drawn as SVG lines: solid grey line, solid grey line, solid grey line, solid grey line; no axis labels; part "
+      "instruction": "Build a Gantt-style timeline in the right column, aligned row-for-row with the task table: a 55px week-header row of 7 equal columns labeled \"W10 Mar 2\", \"W11 M"
     }
   ],
   "rejected": []

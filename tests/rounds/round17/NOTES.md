@@ -51,3 +51,26 @@ overprinted word's stacked lines and real line-height (and its heading hint 260p
 | e2 log explorer | 78 → **73%** | spike bars now red; message column still lost (rows invent INFO levels and services), detail tabs lost |
 
 Round 17 so far: **73%** over 6 pages (latest build each). Vitest: same 2 env failures; typecheck clean.
+
+## n173: gantt seen again, a task table said as rows, the riso grain and a stacked wordmark; first c5, e3, e4, e5 (2026-10-24, ~459k billed)
+
+Planner now: reads a week head of "W10 Mar 2" (number over date) as a date head, so the gantt note fires again (it was
+said as a "line chart" with a 27x784px "Today" part); bars may hold a textless progress child (said as "its first 40%
+overlaid by a lighter fill"); SVG elbow paths are dependency lines; a task list built of cell spans under a taller head
+row is said as a task table with group rows in place (was a "filled button" head and "rows of tabs"); a dot grain painted
+by body::after is said exactly as a top overlay; a two-line overprinted wordmark is said as "INK" STACKED OVER "LAB" with
+a box width that cannot hold both (the reading step had collapsed the line break to "INK LAB"). Rounds 1-16 notes
+re-generated: unchanged.
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| c2 riso overprint | 60 → 65 → **86%** | grain built (65); then INK over LAB stacked, circles and blend all right (86). Layout misses two regions though the picture is 98% structure |
+| c5 bento motion | **78%** first | bento, counter, bars, dotted map right; the cyan glow lost from the hero tile, the yellow 99.99% not turned vertical, the logo strip overflows its tile |
+| e1 gantt timeline | 64 → **59%** | picture better (structure 87 → 92: table rows, group rows, progress fills, thin today line with tag, elbows all built); layout 92 → 65 because the toolbar region was not found |
+| e3 design editor | **88%** first | |
+| e4 music player | **90%** first | |
+| e5 CRM contact | **90%** first | |
+
+Round 17 complete: **80%** over 10 pages (latest build each). Vitest: same 2 env failures; typecheck clean.
+Next: the layout check misses absolutely placed regions the picture shows are right (c2 circles/title, e1 toolbar):
+find out why before trusting those numbers; c5 glow, vertical stat, strip clipping; e2 message column; c4 wrap and drop cap.

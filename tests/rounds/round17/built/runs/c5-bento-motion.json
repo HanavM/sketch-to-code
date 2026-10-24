@@ -1,0 +1,122 @@
+{
+  "id": "c5-bento-motion",
+  "at": "2026-10-24T12:47:26.601Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7781564863337913,
+    "overallV2": 0.7781564863337913,
+    "overallV1": 0.7434464113412584,
+    "colour": 0.9358635328108662,
+    "structure": 0.6544249564235637,
+    "structureStrict": 0.5684332524654795,
+    "colourAligned": 0.9358635328108662,
+    "structureAligned": 0.6544249564235637,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8011978242219573
+    },
+    "layout": 0.8151532664740212
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "bleed",
+      "gradient",
+      "motion",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "vertical-type"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41923,
+    "output": 27136,
+    "cacheRead": 632574
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 62694,
+      "output": 24041,
+      "cacheRead": 629490,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 258162
+    }
+  ],
+  "reading": "The sketch is a landing-page hero: a top nav bar (logo \"orbit\", nav links, \"Book a demo\" button), a grey sub-headline below it, and a large stats/dashboard panel filling the rest of the page, with the dashboard's exact content fully specified by a typed note (22 individual data/UI parts).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        43,
+        1192,
+        31
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar drawn as a full-width rounded rectangle: logo/wordmark \"orbit\" on the left, nav links \"Product · Customers · Changelog\" in the middle, and a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        101,
+        416,
+        9
+      ],
+      "paths": [],
+      "instruction": "Sub-headline text placed just below the nav bar reading \"Everything your edge network is doing, live.\" in grey (#a1a1aa), distinct from the page's default pale "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        153,
+        1194,
+        694
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large dashboard panel below the headline, built from 22 live-data parts, each its own real element (no invented or omitted parts), all one-line text parts kept "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
