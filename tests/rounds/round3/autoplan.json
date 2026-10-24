@@ -153,7 +153,11 @@
   "plan": [
    [
     "logo",
-    "text"
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 1
+    }
    ],
    [
     "menu",
@@ -379,7 +383,11 @@
    ],
    [
     "masthead",
-    "text"
+    "text",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
    ],
    [
     "issue",

@@ -1,74 +1,300 @@
 {
   "id": "c5-bento-motion",
-  "at": "2026-10-24T12:47:26.601Z",
+  "at": "2026-10-24T14:35:15.825Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7781564863337913,
-    "overallV2": 0.7781564863337913,
-    "overallV1": 0.7434464113412584,
-    "colour": 0.9358635328108662,
-    "structure": 0.6544249564235637,
-    "structureStrict": 0.5684332524654795,
-    "colourAligned": 0.9358635328108662,
-    "structureAligned": 0.6544249564235637,
+    "overall": 0.8976362293299003,
+    "overallV2": 0.8976362293299003,
+    "overallV1": 0.8735948847053128,
+    "colour": 0.9934734424615919,
+    "structure": 0.9673221519140331,
+    "structureStrict": 0.9077614569239895,
+    "colourAligned": 0.9934734424615919,
+    "structureAligned": 0.9673221519140331,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8011978242219573
+      "r": 0.9762387635256445
     },
-    "layout": 0.8151532664740212
+    "layout": 0.7118794092362396,
+    "layoutV1": 0.7118794092362396,
+    "layoutVersion": 2
   },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      940
+    ],
+    [
+      0,
+      44,
+      43,
+      1192,
+      32
+    ],
+    [
+      1,
+      44,
+      44,
+      42,
+      30
+    ],
+    [
+      1,
+      489,
+      49,
+      225,
+      21
+    ],
+    [
+      3,
+      489,
+      49,
+      48,
+      21
+    ],
+    [
+      3,
+      545,
+      49,
+      5,
+      21
+    ],
+    [
+      3,
+      558,
+      49,
+      68,
+      21
+    ],
+    [
+      3,
+      633,
+      49,
+      5,
+      21
+    ],
+    [
+      3,
+      646,
+      49,
+      68,
+      21
+    ],
+    [
+      1,
+      1116,
+      41,
+      120,
+      37
+    ],
+    [
+      0,
+      44,
+      101,
+      416,
+      21
+    ],
+    [
+      0,
+      40,
+      150,
+      592,
+      461
+    ],
+    [
+      11,
+      66,
+      176,
+      542,
+      15
+    ],
+    [
+      11,
+      66,
+      341,
+      542,
+      128
+    ],
+    [
+      0,
+      648,
+      150,
+      288,
+      223
+    ],
+    [
+      14,
+      674,
+      176,
+      238,
+      15
+    ],
+    [
+      14,
+      674,
+      200,
+      180,
+      72
+    ],
+    [
+      0,
+      952,
+      150,
+      288,
+      223
+    ],
+    [
+      17,
+      978,
+      176,
+      238,
+      15
+    ],
+    [
+      17,
+      1126,
+      213,
+      41,
+      98
+    ],
+    [
+      17,
+      1027,
+      249,
+      41,
+      62
+    ],
+    [
+      17,
+      1175,
+      241,
+      41,
+      71
+    ],
+    [
+      17,
+      1076,
+      255,
+      41,
+      57
+    ],
+    [
+      17,
+      978,
+      293,
+      41,
+      18
+    ],
+    [
+      0,
+      648,
+      389,
+      592,
+      223
+    ],
+    [
+      24,
+      674,
+      415,
+      542,
+      15
+    ],
+    [
+      24,
+      1120,
+      461,
+      12,
+      12
+    ],
+    [
+      24,
+      770,
+      481,
+      12,
+      12
+    ],
+    [
+      24,
+      950,
+      521,
+      12,
+      12
+    ],
+    [
+      0,
+      40,
+      627,
+      896,
+      223
+    ],
+    [
+      29,
+      -2,
+      723,
+      1452,
+      45
+    ],
+    [
+      0,
+      952,
+      627,
+      288,
+      223
+    ],
+    [
+      31,
+      978,
+      693,
+      50,
+      137
+    ]
+  ],
+  "groupMatched": [],
   "effects": {
-    "recall": 0.8333333333333334,
+    "recall": 1,
     "kept": [
       "bleed",
       "gradient",
       "motion",
       "overlap",
-      "stripes-or-layers"
-    ],
-    "missing": [
+      "stripes-or-layers",
       "vertical-type"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 41923,
-    "output": 27136,
-    "cacheRead": 632574
+    "input": 34899,
+    "output": 22491,
+    "cacheRead": 210021
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 62694,
-      "output": 24041,
-      "cacheRead": 629490,
-      "toolCalls": 17,
+      "billed": 48889,
+      "output": 19498,
+      "cacheRead": 200058,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
         "Read src/main.tsx",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
         "Glob",
-        "Read src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 258162
+      "ms": 197889
     }
   ],
-  "reading": "The sketch is a landing-page hero: a top nav bar (logo \"orbit\", nav links, \"Book a demo\" button), a grey sub-headline below it, and a large stats/dashboard panel filling the rest of the page, with the dashboard's exact content fully specified by a typed note (22 individual data/UI parts).",
+  "reading": "The sketch shows a hero section: a nav bar box with a typed note naming it \"orbit\" with nav links and a demo button, a squiggly line beneath it that is a grey tagline, and a large box below holding a 22-part live analytics/stats dashboard exactly specified in the typed note (metric tiles, bar chart, headline, map with pulsing dots, logo marquee), plus a run-level note setting the whole page to a black background with Helvetica type and pale grey text.",
   "actions": [
     {
       "kind": "add",
@@ -83,7 +309,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top navigation bar drawn as a full-width rounded rectangle: logo/wordmark \"orbit\" on the left, nav links \"Product · Customers · Changelog\" in the middle, and a "
+      "instruction": "Nav bar reading \"orbit\" as the logo/brand, with nav links \"Product · Customers · Changelog\" and a \"Book a demo\" button/link on the right, per typed note."
     },
     {
       "kind": "add",
@@ -98,10 +324,10 @@
         9
       ],
       "paths": [],
-      "instruction": "Sub-headline text placed just below the nav bar reading \"Everything your edge network is doing, live.\" in grey (#a1a1aa), distinct from the page's default pale "
+      "instruction": "Tagline text under the nav bar reading \"Everything your edge network is doing, live.\" in grey (#a1a1aa), distinct from the page's pale grey body text, per typed"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -113,7 +339,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Large dashboard panel below the headline, built from 22 live-data parts, each its own real element (no invented or omitted parts), all one-line text parts kept "
+      "instruction": "Large dashboard/hero panel block built from the exact 22-part spec in the typed note: a gradient card with \"NETWORK\" label and pulsing \"Faster everywhere.\" head"
     }
   ],
   "rejected": [

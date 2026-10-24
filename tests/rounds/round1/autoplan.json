@@ -3,7 +3,11 @@
   "plan": [
    [
     "logo",
-    "text"
+    "text",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
    ],
    [
     "links",
@@ -115,7 +119,11 @@
    ],
    [
     "logo",
-    "text"
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 1
+    }
    ],
    [
     "headline",

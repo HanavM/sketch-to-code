@@ -95,3 +95,25 @@ dropped). Runs now save the built page's element boxes so layout can be re-score
 | e1 gantt timeline | 59 → **78%** | toolbar built as one bar this time (single match, group rule not needed); layout 65 → 86 |
 
 Round 17: **82%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
+
+## n175: transparent stops, vertical type, clipped strips, part animations, stamp ink, log table cells (2026-10-24, ~391k billed)
+
+Planner now: a clear gradient stop is said `transparent` (it was "#000000 at 0%", so the hero's cyan glow was built under
+black) and the trailing `none` layer dropped; a part set in vertical writing is said VERTICAL (writing-mode, turned 180deg to
+read upward); a line wider than the tile that clips it is said clipped at the tile's edge; each part's CSS animation is
+said with its keyframes verbatim (bars, pulsing dots, scrolling logo strip); multiply-blend circles are said crisp (no
+shadow or blur); a dashed stamp's words take the outline's colour; a data table with one highlighted row says that row is
+SELECTED (fill plus its 3px left stripe), the table's mono face, each column's x offset, and each cell's own colour (ERROR
+red, WARN yellow) so the message column is kept; a one-line text of 20px or more keeps its size in the drawing.
+Rounds 1-16 plans re-generated: 13 pages changed (mostly the one-line size hint; r11 e5 transparent stops; r9 c4, r12 c2
+stamp ink).
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| c2 riso overprint | 82 → **94%** | no halo, no invented paragraph, pink stamp |
+| e2 log explorer | 73 → **94%** | message column, level colours, selected row with stripe all built |
+| c5 bento motion | 78 → 71 → **90%** | glow, vertical 99.99%, clipped strip right at once; the 22px intro was built 12px and pushed the bento down (71) until its size was drawn (90). Nav button built outlined (target white pill) |
+| c3 synth horizon | 81 → **83%** | re-run after the size hint (no regression) |
+| r1 c1 sunset hero (check) | 79 → **68%** | only the logo size hint changed in its plan; this build left-aligned the centred headline and shrank the subhead: run-to-run drift, not the change (side-by-side saved as c1-sunset-hero-n175-cmp.png) |
+
+Round 17: **86%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.

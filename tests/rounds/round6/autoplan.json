@@ -624,7 +624,11 @@
   "plan": [
    [
     "logo",
-    "text"
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 1
+    }
    ],
    [
     "steps",

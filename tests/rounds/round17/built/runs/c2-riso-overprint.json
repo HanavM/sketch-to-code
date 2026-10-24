@@ -1,24 +1,24 @@
 {
   "id": "c2-riso-overprint",
-  "at": "2026-10-24T13:43:42.927Z",
+  "at": "2026-10-24T14:09:56.092Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8227770106066268,
-    "overallV2": 0.8227770106066268,
-    "overallV1": 0.7799908745124666,
-    "colour": 0.9480009314617395,
-    "structure": 0.9141210021163342,
-    "structureStrict": 0.8488034818702287,
-    "colourAligned": 0.9480009314617395,
-    "structureAligned": 0.9141210021163342,
+    "overall": 0.9382277593366717,
+    "overallV2": 0.9382277593366717,
+    "overallV1": 0.9327169082306321,
+    "colour": 0.9974350686003896,
+    "structure": 0.9822776766116015,
+    "structureStrict": 0.9738647849239798,
+    "colourAligned": 0.9974350686003896,
+    "structureAligned": 0.9822776766116015,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9694501623991161
+      "r": 0.998874496147542
     },
-    "layout": 0.8478187555436465,
-    "layoutV1": 0.8478187555436465,
+    "layout": 0.8451723325398713,
+    "layoutV1": 0.8451723325398713,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,49 +34,28 @@
       70,
       40,
       1140,
-      35
+      24
     ],
     [
       1,
       70,
-      44,
-      123,
-      27
-    ],
-    [
-      1,
-      552,
-      46,
-      229,
-      23
-    ],
-    [
-      1,
-      1139,
       40,
-      71,
-      35
+      101,
+      24
     ],
     [
-      0,
-      433,
-      113,
-      603,
-      544
+      1,
+      556,
+      40,
+      236,
+      24
     ],
     [
-      5,
-      433,
-      113,
-      603,
-      544
-    ],
-    [
-      6,
-      433,
-      113,
-      604,
-      543
+      1,
+      1177,
+      40,
+      33,
+      24
     ],
     [
       0,
@@ -117,36 +96,22 @@
       0,
       78,
       472,
-      340,
-      102
+      657,
+      45
     ],
     [
       0,
-      922,
-      52,
-      243,
-      243
+      939,
+      69,
+      242,
+      242
     ],
     [
-      14,
-      922,
-      52,
-      243,
-      243
-    ],
-    [
-      15,
-      922,
-      52,
-      244,
-      243
-    ],
-    [
-      14,
-      922,
-      52,
-      243,
-      243
+      11,
+      979,
+      141,
+      162,
+      97
     ],
     [
       0,
@@ -163,93 +128,86 @@
       56
     ],
     [
-      19,
-      70,
-      724,
-      1140,
-      63
-    ],
-    [
-      20,
+      14,
       70,
       742,
       285,
-      45
+      34
+    ],
+    [
+      15,
+      70,
+      742,
+      285,
+      18
+    ],
+    [
+      15,
+      70,
+      760,
+      285,
+      23
+    ],
+    [
+      14,
+      355,
+      742,
+      285,
+      34
+    ],
+    [
+      18,
+      355,
+      742,
+      285,
+      18
+    ],
+    [
+      18,
+      355,
+      760,
+      285,
+      23
+    ],
+    [
+      14,
+      640,
+      742,
+      285,
+      34
     ],
     [
       21,
-      70,
+      640,
       742,
       285,
       18
     ],
     [
       21,
-      70,
-      764,
+      640,
+      760,
       285,
       23
     ],
     [
-      20,
-      355,
+      14,
+      925,
       742,
       285,
-      45
+      34
     ],
     [
       24,
-      355,
+      925,
       742,
       285,
       18
     ],
     [
       24,
-      355,
-      764,
-      285,
-      23
-    ],
-    [
-      20,
-      640,
-      742,
-      285,
-      45
-    ],
-    [
-      27,
-      640,
-      742,
-      285,
-      18
-    ],
-    [
-      27,
-      640,
-      764,
-      285,
-      23
-    ],
-    [
-      20,
       925,
-      742,
-      285,
-      45
-    ],
-    [
-      30,
-      925,
-      742,
-      285,
-      18
-    ],
-    [
-      30,
-      925,
-      764,
+      760,
       285,
       23
     ],
@@ -274,41 +232,40 @@
     ],
     "missing": [],
     "extra": [
-      "blur",
       "gradient"
     ]
   },
   "tokens": {
-    "input": 55888,
-    "output": 39193,
-    "cacheRead": 144073
+    "input": 45262,
+    "output": 27073,
+    "cacheRead": 169218
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 83332,
-      "output": 32233,
-      "cacheRead": 140989,
+      "billed": 61212,
+      "output": 20791,
+      "cacheRead": 166134,
       "toolCalls": 9,
       "tools": [
+        "Read components/SketchShape.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
         "Read src/main.tsx",
-        "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape2.tsx",
-        "Write src/App.tsx"
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx",
+        "Glob"
       ],
-      "ms": 364040
+      "ms": 228906
     }
   ],
-  "reading": "The sketch lays out a print-studio landing page: a dot-grain cream page with an indigo/Helvetica type system, a hero made of 3 overlapping multiply-blended filled circles behind a giant two-line misregistered \"INK/LAB\" wordmark, a space-between nav bar, a tilted dashed \"2 COLOURS ONLY\" badge circle, an italic serif tagline, a subheading placeholder, and a bottom info panel listing WHEN/WHERE/COST/BRING details.",
+  "reading": "This is a full hero-section design for a print-workshop landing page: a global cream/dot-grain page style, a space-between nav bar, a misregistered pink/blue \"INK LAB\" wordmark over three overlapping multiply-blended circles, a tagline, a tilted dashed \"2 COLOURS ONLY\" badge, an italic pull-quote, and a bottom WHEN/WHERE/COST/BRING info panel — all specified precisely by the typed notes.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -320,7 +277,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add 3 large overlapping solid filled circles behind the hero wordmark (not outlines, not a box, not a picture), each its own absolutely placed div with border-r"
+      "instruction": "Replace this square-drawn area with 3 big FILLED circles overlapping (not outlines, not a box, not a picture), each its own absolutely-placed div with border-ra"
     },
     {
       "kind": "add",
@@ -335,7 +292,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a nav bar: one line 1140px wide at 70,40 with three separate items pushed apart using display: flex; justify-content: space-between (never run together as o"
+      "instruction": "Nav bar: a 1140px wide row at 70,40 with 3 separate items pushed apart (display:flex; justify-content:space-between — never run together as one line): \"PRINT CL"
     },
     {
       "kind": "add",
@@ -358,7 +315,30 @@
         37
       ],
       "paths": [],
-      "instruction": "Add one giant 2-line wordmark, \"INK\" stacked over \"LAB\" (2 stacked lines with a <br> between them, lines sitting tight together, never spread apart down the pag"
+      "instruction": "One giant 2-line wordmark, \"INK\" stacked over \"LAB\" (2 lines via <br>, never side by side — never one line), printed twice overlapping and slightly offset like "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        78,
+        472,
+        289,
+        36
+      ],
+      "paths": [],
+      "instruction": "Short tagline/subheading text beneath the INK/LAB wordmark (this wavy line is a text placeholder, not decoration) — plausible copy for a print workshop page, e."
     },
     {
       "kind": "add",
@@ -373,7 +353,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a circular badge tilted 14° clockwise with a 4px dashed #ff4f9a outline (dashed, not solid), 200px across, with the words \"2 COLOURS ONLY\" centred inside, w"
+      "instruction": "A badge: tilted 14° clockwise, 4px dashed #ff4f9a outline circle (dashes, not a solid line), 200px across, with its words set in the same #ff4f9a as the outline"
     },
     {
       "kind": "add",
@@ -398,30 +378,7 @@
         62
       ],
       "paths": [],
-      "instruction": "Add italic serif text: \"Misregistration is not a bug. It is the whole point.\""
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s3"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s3"
-          ],
-          "lines": 1,
-          "fontPx": 30
-        }
-      ],
-      "region": [
-        78,
-        472,
-        289,
-        36
-      ],
-      "paths": [],
-      "instruction": "Add a short subheading/body line under the wordmark introducing the print studio, e.g. 'Risograph prints, hand-pulled screens, and zine workshops from a small s"
+      "instruction": "Italic serif text reading \"Misregistration is not a bug. It is the whole point.\""
     },
     {
       "kind": "add",
@@ -436,7 +393,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add one 1140x56px info panel at 70,720 with no fill, just a 4px #2e5bff rule along its top edge only (no other border). Inside it, place 8 real text parts, each"
+      "instruction": "One 1140x56px panel at 70,720, no fill, with a 4px #2e5bff rule along its top edge only (no other border); inside it 4 info items laid out so every one-line par"
     }
   ],
   "rejected": [

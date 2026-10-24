@@ -4645,6 +4645,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px
     // were drawn 24px apart, read as 16px type, built as one small line)
     if (k === 'text' && f.textLines >= 2 && f.textLines <= 8) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines }]
+    // n175: a one-line intro of 20px or more keeps its size (round 17 c5: 22px intro built 12px, pushing the bento down)
+    if (k === 'text' && f.textLines === 1 && f.font?.size >= 20) return [f.role, k, { fontPx: Math.round(f.font.size), lines: 1 }]
     return [f.role, k]
   })
   // thick-bordered boxes laid edge to edge are one ruled grid (round 6 c5: built as separate boxes with gaps)
