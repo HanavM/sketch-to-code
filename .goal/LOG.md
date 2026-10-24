@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T03:15Z | n158 text rings, overprint, contour rings, pale code | c1 81 to 95, c2 40 to 85; first c5 86, e5 45; round 15 at 81 over 5. ~279k.
 2026-10-24T02:40Z | n157 write round 15 + first builds | Round 15 written, dry 10/10; bank modal 95, text rings 81, misprint 27s 40; avg 72. ~261k.
 2026-10-24T02:00Z | n156 spread letters, rail, drawer, disc, bar rows | c4 86 to 88, e1 84 to 90, e3 78 to 86; e5 not kept; round 14 at 85. ~416k.
 2026-10-24T01:08Z | n155 r14 ring, tapes, chips; first builds | c3 61 to 86; first c1 69, c4 86, e1 84, e2 90, e3 78, e5 82; round 14 complete 84.
