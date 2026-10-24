@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T10:55Z | n170 padded code past the gutter, one-line tabs | e3 78 to 86 over two runs (tabs, gutter fixed); round 16 now 83. ~187k.
 2026-10-24T10:20Z | n169 header parts by x,y, grey title words, chart card place | header fixed; e1 80 to 78, e3 88 to 78 (tabs, diff slipped); round 16 now 82. ~186k.
 2026-10-24T09:20Z | n168 spreadsheet row numbers, selection outline, diff line numbers | e1 74 to 80, e3 84 to 88; round 16 now 83 over 10. ~165k.
 2026-10-24T08:22Z | n167 chart card, packed menu, day-column rules, popover shadow | e1 61 to 74, e2 68 to 85; round 16 now 82 over 10. ~187k.
