@@ -928,7 +928,7 @@ export function factsInPage() {
           return null
         }
         return { box: at(el), blobs: blobs.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), blur: Math.round(parseFloat((getComputedStyle(k).filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), op: Math.round(parseFloat(getComputedStyle(k).opacity) * 100) })),
-          cards: cards.map((k) => { const ks2 = getComputedStyle(k); return { ...at(k), fill: rgba(ks2.backgroundColor), border: rgba(ks2.borderTopColor), bw: parseFloat(ks2.borderTopWidth) || 0, radius: Math.round(parseFloat(ks2.borderTopLeftRadius) || 0), blur: Math.round(parseFloat(((ks2.backdropFilter || ks2.webkitBackdropFilter).match(/blur\(([\d.]+)px/) || [])[1]) || 0), shadow: ks2.boxShadow !== 'none', pad: Math.round(parseFloat(ks2.paddingLeft) || 0), parts: [...k.children].map(part).filter(Boolean) } }) }
+          cards: cards.map((k) => { const ks2 = getComputedStyle(k); const rot = (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null; return { ...(rot ? { x: Math.round(k.offsetLeft + (k.offsetParent === el ? o.left : 0)), y: Math.round(k.offsetTop + (k.offsetParent === el ? o.top : 0)), w: k.offsetWidth, h: k.offsetHeight } : at(k)), rot, fill: rgba(ks2.backgroundColor), border: rgba(ks2.borderTopColor), bw: parseFloat(ks2.borderTopWidth) || 0, radius: Math.round(parseFloat(ks2.borderTopLeftRadius) || 0), blur: Math.round(parseFloat(((ks2.backdropFilter || ks2.webkitBackdropFilter).match(/blur\(([\d.]+)px/) || [])[1]) || 0), shadow: ks2.boxShadow !== 'none', pad: Math.round(parseFloat(ks2.paddingLeft) || 0), parts: [...k.children].map(part).filter(Boolean) } }) }
       })(),
       // n131: a drawn map: a pale panel holding absolutely placed strips (streets), areas (water, park) and short-text
       // pills (price pins), one dark (round 9 e2: said only 'pale blue-grey', built a blank grey panel)
@@ -2126,6 +2126,11 @@ export function factsInPage() {
       if (same && rots.every((q) => q != null)) { const c = getComputedStyle(ak[0]); o.arcText = { letters: ak.map((k) => k.innerText.trim()), rots: rots.map(Number), cx: Math.round(r.left), cy: Math.round(r.top), radius: ak[0].offsetHeight, w: ak[0].offsetWidth, origin: c.transformOrigin, px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight) || 400, ink: rgba(c.color), family: c.fontFamily } }
       else if (spread >= 80) o.absKids = ak.map((k) => { const c = getComputedStyle(k); return { t: k.innerText.trim(), x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow, rot: (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null } })
     }
+    // n165: a zero-size wrapper of blurred, textless, absolutely placed blobs is a field of soft glows (round 16 c2: three
+    // glow blobs measured 0x0, got no note, built as nothing)
+    if (ak.length >= 2 && r.height < 10 && !el.querySelector('[data-r]') && ak.every((k) => getComputedStyle(k).position === 'absolute' && !(k.innerText || '').trim() && /blur\(/.test(getComputedStyle(k).filter))) {
+      o.blobField = ak.map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { x: Math.round(b.left), y: Math.round(b.top), w: k.offsetWidth, h: k.offsetHeight, c: rgba(c.backgroundColor), img: c.backgroundImage !== 'none' ? c.backgroundImage : null, blur: Math.round(parseFloat((c.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0), round: parseFloat(c.borderTopLeftRadius) >= k.offsetWidth * 0.4 || /50%/.test(c.borderTopLeftRadius), op: Math.round(parseFloat(c.opacity) * 100) } })
+    }
     return o
   }
   // unmarked blurred colour blobs and soft shadows lying on the page (round 11 c2: three 60px blobs had no words)
@@ -3001,6 +3006,11 @@ function decideRest(f, page, marked, said) {
   if (d?.kind === 'circle' && d.note && f.text && f.textLines >= 2 && !/lines/.test(d.note) && !f.circleText) {
     d.note += `, ${Math.round(f.layoutBox?.w ?? w0)}px across, the words centred in ${f.textLines} lines (wrapping inside the circle, ${Math.round(f.font.size)}px type)`
   }
+  // n165: a worded circle filled with the page colour is a sticker that covers what is under it, not a hollow ring
+  // (round 16 c3 'Est. 1962' badge: said 'outline circle', built hollow over the dark disc, its words lost)
+  if (d?.kind === 'circle' && d.note && f.text && f.text.length <= 40 && visible(f.bg) && f.bg.a > 0.9 && !d.note.includes(`${hexOf(f.bg)} fill`) && page.bg && dist(f.bg, page.bg) < 12) {
+    d.note += `; the circle is FILLED solid ${hexOf(f.bg)} (opaque, it covers whatever is under it, NOT hollow), its words ${f.font.style === 'italic' ? 'italic ' : ''}${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${hexOf(f.colour)} in ${f.font.family.split(',')[0].replace(/["']/g, '')}, clearly readable, centred`
+  }
   // a marked button with unmarked buttons beside it in the row: the note names the whole row, in order
   if (d.kind === 'button' && f.rowMates && d.note) {
     const all = [...f.rowMates.before, f.text, ...f.rowMates.after]
@@ -3077,7 +3087,7 @@ function decideOne(f, page, marked, said) {
       : p.avatars ? `${p.avatars.length} overlapping ${p.px}px round avatars (${p.avatars.map(hexOf).join(', ')})${p.ring?.a > 0.5 ? ` with ${hexOf(p.ring)} rings` : ''}`
       : `${p.weight >= 600 ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 28)}`
     const blobs = G.blobs.map((b) => `a ${b.w}x${b.h}px round ${hexOf(b.c)} blob at ${b.x},${b.y}${b.op < 100 ? ` (${b.op}% opacity)` : ''}`).join('; ')
-    const cards = G.cards.map((c, i) => `card ${i + 1} ${c.w}x${c.h}px at ${c.x},${c.y}: ${c.parts.map(part).join(', then ')}`).join('; ')
+    const cards = G.cards.map((c, i) => `card ${i + 1} ${c.w}x${c.h}px at ${c.x},${c.y}${c.rot ? ` (left/top before its turn), transform: rotate(${c.rot}deg) (TILTED ${Math.abs(c.rot)}deg ${c.rot < 0 ? 'anticlockwise' : 'clockwise'}, NOT straight)` : ''}: ${c.parts.map(part).join(', then ')}`).join('; ')
     const c0 = G.cards[0]
     return { kind: 'box', note: `a layered glass stack, ${G.box.w}x${G.box.h}px at ${G.box.x},${G.box.y} (all absolutely placed, page px; NOT a list, NOT empty): ${G.blobs.length ? `first ${G.blobs.length} soft colour blobs behind everything, each blurred hard (filter: blur(${G.blobs[0].blur}px)): ${blobs}; then ` : ''}${G.cards.length} overlapping frosted glass cards over them, each ${c0.radius}px rounded, see-through fill ${a(c0.fill)}, ${c0.bw}px ${a(c0.border)} border, backdrop-filter: blur(${c0.blur}px)${c0.shadow ? ', a big soft dark drop shadow' : ''}, ${c0.pad}px padding, later cards painted over earlier ones: ${cards}` }
   }
@@ -4424,6 +4434,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const A = f.arcText
     if (!A || !out.get(f.role)) return
     out.set(f.role, { kind: 'heading', note: `the word ${quote(A.letters.join(''), 30)} set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page ${A.cx},${A.cy} (position absolute) holding ${A.letters.length} letter spans, each position absolute at left ${-A.w / 2}px, top ${-A.radius}px, ${A.w}x${A.radius}px, text-align center, ${A.px}px ${A.weight >= 700 ? 'bold ' : ''}${hexOf(A.ink)}, transform-origin ${A.origin} (the anchor point, ${A.radius}px below the letter), each turned by its own transform: ${A.letters.map((l, i) => `"${l}" rotate(${A.rots[i]}deg)`).join(', ')}` })
+  })
+  // n165: a field of blurred glow blobs in a zero-size wrapper (round 16 c2: no note, built as nothing)
+  regions.forEach((f) => {
+    const B = f.blobField
+    if (!B || !out.has(f.role)) return
+    out.set(f.role, { kind: 'box', note: `${B.length} soft blurred colour GLOWS behind everything (NOT boxes, NOT circles with edges, NOT empty): each its own div, position absolute, z-index 0 under all content, no border, no text: ${B.map((q) => `${q.w}x${q.h}px at ${q.x},${q.y}${q.round ? ' circle (border-radius 50%)' : ''} ${q.img ? `background: ${cssHex(q.img)}` : `${hexOf(q.c)} fill`}${q.op < 98 ? `, opacity ${q.op / 100}` : ''}, filter: blur(${q.blur}px)`).join('; ')}; they melt into big glowing haze patches` })
   })
   // n163: a wrapper of separately placed floating cards (round 16 c5 chips: said as buttons, built inside the nav)
   regions.forEach((f) => {

@@ -1,0 +1,165 @@
+{
+  "id": "e2-week-calendar",
+  "at": "2026-10-24T07:16:31.348Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.3668715720223385,
+    "overallV2": 0.3668715720223385,
+    "overallV1": 0.28687850249333835,
+    "colour": 0.9631164949891731,
+    "structure": 0.7890442615389406,
+    "structureStrict": 0.6967336600142991,
+    "colourAligned": 0.9631164949891731,
+    "structureAligned": 0.7890442615389406,
+    "align": {
+      "scale": 1,
+      "dx": 128,
+      "dy": 64,
+      "r": 0.3678332184077895
+    },
+    "layout": 0.8246575057049608
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 42188,
+    "output": 24595,
+    "cacheRead": 184272
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46515,
+      "output": 15833,
+      "cacheRead": 173158,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 170196
+    }
+  ],
+  "reading": "A Google-Calendar-style week view: a left sidebar (squiggle s0) holding a '+ Create' button, a mini month calendar with day-letter and date pills, and a 'My calendars' list with colored checkboxes; a top day-header row (squiggle s1 + border s4) listing MON 8 through SUN 14; a narrow hourly time-label column (squiggle s2) from 8AM to 9PM; a large striped week-grid body (box s3) with a red current-time line (s5) and several labeled event chips/buttons; and one detailed event card (box s6) for 'Sprint planning' with a 'Join call' button and guest info.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        112,
+        4,
+        17,
+        892
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the left sidebar (where stroke s0 sits) as 23 live, real elements, nothing invented or omitted, exact sizes/positions in page px: 100x44 at 20,20 #c2e7ff "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        3,
+        1033,
+        64
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a row of 7 day-header stat cards above the week grid (where stroke s1 runs), one per day: 'MON 8', 'TUE 9', 'WED 10', 'THU 11', 'FRI 12', 'SAT 13', 'SUN 14'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        260,
+        66,
+        17,
+        832
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a narrow vertical column of 28 hour labels (where stroke s2 runs), one per line, 10px #70757a text, 60px line-height, left edge at x=240 and first line's to"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        73,
+        974,
+        824
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Fill the main week-grid background (box drawn by stroke s3) with big horizontal repeating stripes, NOT a smooth gradient: repeating-linear-gradient(0deg, #fffff"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Within the week-grid body, add a set of scheduled-event controls scattered across the day columns: button 'Standup 9 – 10am', button 'Design review', dropdown '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        584,
+        365,
+        132,
+        8
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a current-time indicator across the week grid: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot at its left end, no text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        743,
+        264,
+        334,
+        167
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add the 'Sprint planning' event panel as one 340x174px #f0f4f9-filled, 16px-rounded card at 740,260 inside the week grid, containing 6 real elements, nothing in"
+    }
+  ],
+  "rejected": []
+}

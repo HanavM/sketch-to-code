@@ -74,3 +74,22 @@ their style (double = two thin lines). Rounds 1-15 notes unchanged.
 Round 16 so far: **79%** over 6 pages. Vitest: same 2 env failures; typecheck clean.
 Next: c2's blurred glow blobs (wrapper measures 0x0) and tilted glass cards; c3 badge words and dotted ring; then first
 builds e2, e3, e4, e5 and e1's row height.
+
+## n165: glow field, tilted glass cards, filled worded badge; first e2, e3, e4 (2026-10-24, ~360k billed)
+
+Planner now says: a zero-size wrapper of blurred, textless, absolutely placed blobs as a field of soft GLOWS (each blob's
+size, place, colour, blur; behind everything); each glass card's turn (its unturned left/top, then rotate, TILTED);
+a worded circle filled with the page colour as FILLED solid (opaque, covers what is under it) with its words' style.
+Rounds 1-15 autoplan notes re-generated: unchanged.
+
+| page | likeness | what was off |
+|---|---|---|
+| c2 glass stack | 70 → **84%** | three blurred glows and tilted glass cards now right; hollow "3" outline too bright (target 25% white), a rule under the nav |
+| c3 arched sunburst | 86 → **73%** | "Est. 1962" badge now filled and readable; rays drawn longer and wider than the target, so the picture shifts (run variance on the rays) |
+| e2 week calendar (first) | **37%** | grid, mini month, popover kept; events in the wrong day columns/hours and pale fills; popover text wraps |
+| e3 code review (first) | **71%** | header, tabs, diff colours, comment thread kept; split diff columns cramped (right side overlaps), file tree as one line |
+| e4 chat thread (first) | **78%** | sidebar, messages, reactions, thread panel kept; emoji picker search field empty and unboxed; channel names wrap |
+
+e5 not run (per-run budget guard). Round 16 so far: **74%** over 9 pages. Vitest: same 2 env failures; typecheck clean.
+Next: calendar events placed by day column and hour (their fills, overlap), split diff columns at their widths, a hollow
+numeral's stroke alpha; then first e5 and c3's ray length.

@@ -134,6 +134,10 @@
     "whole page: near-black indigo (#0d0b1f) page, Helvetica type, white text"
    ],
    [
+    "glow-blobs",
+    "3 soft blurred colour GLOWS behind everything (NOT boxes, NOT circles with edges, NOT empty): each its own div, position absolute, z-index 0 under all content, no border, no text: 420x420px at 560,120 circle (border-radius 50%) #7b5cff fill, filter: blur(60px); 360x360px at 860,420 circle (border-radius 50%) #ff5cc8 fill, filter: blur(60px); 260x260px at 620,560 circle (border-radius 50%) #2fd8ff fill, filter: blur(60px); they melt into big glowing haze patches"
+   ],
+   [
     "outline-number",
     "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy hollow outlined white \"3\", 640px type, about 356px wide (no larger), absolutely placed: its box's top-left at 520,40 and its first letter's ink starting at x=520 (not further right)"
    ],
@@ -155,7 +159,7 @@
    ],
    [
     "glass-cards",
-    "a layered glass stack, 1280x0px at 0,0 (all absolutely placed, page px; NOT a list, NOT empty): 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 35% border, backdrop-filter: blur(18px), a big soft dark drop shadow, 24px padding, later cards painted over earlier ones: card 1 355x200px at 632,153: bold 22px #ffffff \"Spending\", then 14px #ffffff \"This month, all cards\", then bold 44px #ffffff \"$2,418\"; card 2 348x183px at 756,331: bold 22px #ffffff \"Savings\", then 14px #ffffff \"Goal: trip to Lisbon\", then bold 44px #ffffff \"68%\"; card 3 346x177px at 687,524: bold 22px #ffffff \"Budget\", then 14px #ffffff \"12 days left\", then bold 44px #ffffff \"$612\""
+    "a layered glass stack, 1280x0px at 0,0 (all absolutely placed, page px; NOT a list, NOT empty): 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 35% border, backdrop-filter: blur(18px), a big soft dark drop shadow, 24px padding, later cards painted over earlier ones: card 1 340x165px at 640,170 (left/top before its turn), transform: rotate(-6deg) (TILTED 6deg anticlockwise, NOT straight): bold 22px #ffffff \"Spending\", then 14px #ffffff \"This month, all cards\", then bold 44px #ffffff \"$2,418\"; card 2 340x165px at 760,340 (left/top before its turn), transform: rotate(3deg) (TILTED 3deg clockwise, NOT straight): bold 22px #ffffff \"Savings\", then 14px #ffffff \"Goal: trip to Lisbon\", then bold 44px #ffffff \"68%\"; card 3 340x165px at 690,530 (left/top before its turn), transform: rotate(-2deg) (TILTED 2deg anticlockwise, NOT straight): bold 22px #ffffff \"Budget\", then 14px #ffffff \"12 days left\", then bold 44px #ffffff \"$612\""
    ]
   ]
  },
@@ -217,7 +221,7 @@
    ],
    [
     "scalloped-badge",
-    "tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)"
+    "tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type); the circle is FILLED solid #f6d58e (opaque, it covers whatever is under it, NOT hollow), its words italic bold 24px #5a1e0e in Georgia, clearly readable, centred"
    ],
    [
     "tagline",
