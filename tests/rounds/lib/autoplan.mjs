@@ -70,6 +70,22 @@ export function factsInPage() {
       bgImageColours: colours(cs.backgroundImage),
       // n167: a ::before layer painting more stripes over the background (round 16 e2: the day-column rules lost)
       beforeImage: (() => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && /^repeating-linear-gradient/.test(b.backgroundImage) ? b.backgroundImage : null })(),
+      // n168: an empty bordered overlay drawn over a grid (round 16 e1: a spreadsheet's selected range said as "blue border",
+      // built running down to row 12); its place, size, border and the cells it covers, plus a ::after handle square
+      selBox: (() => {
+        if (cs.position !== 'absolute' || el.children.length || (el.innerText || '').trim()) return null
+        const bw = parseFloat(cs.borderTopWidth) || 0, bc = rgba(cs.borderTopColor)
+        if (bw < 1 || !(bc?.a > 0.5) || rgba(cs.backgroundColor)?.a > 0.3 || r.width < 30 || r.height < 30) return null
+        const cells = [...document.querySelectorAll('td, th')].filter((c) => { const b = c.getBoundingClientRect(); return b.left >= r.left - 3 && b.right <= r.right + 3 && b.top >= r.top - 3 && b.bottom <= r.bottom + 3 })
+        if (!cells.length) return null
+        const rowsOf = [...new Set(cells.map((c) => c.parentElement))], tr0 = rowsOf[0], trN = rowsOf[rowsOf.length - 1]
+        const num = (tr) => (tr.cells[0]?.innerText || '').trim()
+        const head = [...(tr0.closest('table')?.rows[0]?.cells ?? [])].map((c) => (c.innerText || '').trim())
+        const cols = [...new Set(cells.map((c) => head[c.cellIndex] ?? ''))].filter(Boolean)
+        const a = getComputedStyle(el, '::after'), aw = parseFloat(a.width)
+        return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), bw: Math.round(bw), bc,
+          rows: [num(tr0), num(trN)], nRows: rowsOf.length, cols, handle: a.content !== 'none' && aw >= 4 && aw <= 14 ? { px: Math.round(aw), fill: rgba(a.backgroundColor) } : null }
+      })(),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
@@ -1210,6 +1226,16 @@ export function factsInPage() {
           const bc = rgba(s[`border${['Top', 'Right', 'Bottom', 'Left'][bi]}Color`]) || rgba(s.borderTopColor)
           const ring = parseFloat(s.outlineWidth) >= 1 && s.outlineStyle !== 'none' ? { px: parseFloat(s.outlineWidth), c: rgba(s.outlineColor) } : null
           const inset = /inset/.test(s.boxShadow) ? s.boxShadow : null
+          // n168: a line number (or other short label) written by ::before from an attribute (round 16 e3 split diff:
+          // content: attr(data-n), the gutter numbers lost) is its own part at its own place
+          {
+            const pb = getComputedStyle(k, '::before'), cv = pb.content || ''
+            const am = cv.match(/^attr\(([\w-]+)\)$/), lab = am ? (k.getAttribute(am[1]) || '') : /^["']/.test(cv) ? cv.slice(1, -1) : ''
+            if (lab.trim() && lab.length <= 12 && pb.position === 'absolute') {
+              const pw = parseFloat(pb.width) || 0
+              out.push({ x: Math.round(b.left + (parseFloat(pb.left) || 0)), y: Math.round(b.top + (parseFloat(pb.top) || 0)), w: Math.round(pw || 20), h: Math.round(b.height), t: lab.trim(), px: Math.round(parseFloat(pb.fontSize)), bold: Number(pb.fontWeight) >= 600, wt: Number(pb.fontWeight), it: false, ink: rgba(pb.color), mono: /mono|courier|consolas/i.test(pb.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100, ra: pb.textAlign === 'right' || pb.textAlign === 'end' })
+            }
+          }
           if (!own && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset) continue
           // n143: a paragraph block three lines or taller keeps its whole copy (round 11 e3 mail body: cut at 70 letters, the
           // rest lost)
@@ -2837,9 +2863,10 @@ function partsNote(P, f) {
     const tk = p.t ? p.t.split(/\s+/) : []
     const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
+    if (p.ra) paint.push('text right-aligned in its box (a line number in the gutter)')
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
-  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
+  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 1.8) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart' : ''}): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -2858,7 +2885,7 @@ function sheetNote(G) {
   const rows = G.body.map((r, i) => { const cs = r.map(one).filter(Boolean); return cs.length ? `row ${i + 1}: ${cs.join(' | ')}` : null })
   const empty = G.body.map((r, i) => r.every((c) => !c.t && !c.fill && !c.ol) ? i + 1 : null).filter(Boolean)
   const litW = G.lit.map((l) => `"${G.letters[l.i]}" is the active column: its header cell ${hexOf(l.fill)} fill${l.ink ? `, ${hexOf(l.ink)}` : ''}${l.bold ? ' bold' : ''} letter`).join('; ')
-  return `a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) ${G.w}x${G.h}px at ${G.x},${G.y}: border-collapse, every cell bordered 1px ${hexOf(G.line)}, every row exactly ${G.rowH}px tall; a ${G.gutter}px row-number column on the left, then ${G.letters.length} equal columns about ${G.colW}px wide; the top header row has the column letters ${G.letters.map((t) => quote(t, 2)).join(' ')} centred, ${G.headPx}px ${hexOf(G.headInk)} regular on ${hexOf(G.headFill)}${litW ? `; ${litW}` : ''}; the left column has the row numbers 1 to ${G.body.length} centred, ${G.headPx}px ${hexOf(G.headInk)} on ${hexOf(G.numFill ?? G.headFill)}; cell text ${G.px}px ${hexOf(base)} with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): ${rows.filter(Boolean).join('; ')}${empty.length ? `; rows ${empty.join(', ')} are empty (cells drawn, nothing in them)` : ''}`
+  return `a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) ${G.w}x${G.h}px at ${G.x},${G.y}: border-collapse, every cell bordered 1px ${hexOf(G.line)}, every row exactly ${G.rowH}px tall; a ${G.gutter}px row-number column on the left, then ${G.letters.length} equal columns about ${G.colW}px wide; the top header row has the column letters ${G.letters.map((t) => quote(t, 2)).join(' ')} centred, ${G.headPx}px ${hexOf(G.headInk)} regular on ${hexOf(G.headFill)}${litW ? `; ${litW}` : ''}; the header row's left cell is EMPTY (no number); the left column has the row numbers 1 to ${G.body.length} centred, number 1 on the FIRST row UNDER the header row (the header row of letters + ${G.body.length} numbered rows = ${G.body.length + 1} rows in all), ${G.headPx}px ${hexOf(G.headInk)} on ${hexOf(G.numFill ?? G.headFill)}; cell text ${G.px}px ${hexOf(base)} with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): ${rows.filter(Boolean).join('; ')}${empty.length ? `; rows ${empty.join(', ')} are empty (cells drawn, nothing in them)` : ''}`
 }
 function decide(f, page, marked, said = new Set()) {
   const SG = f.sheetGrid
@@ -3066,6 +3093,11 @@ function decideOne(f, page, marked, said) {
   if (/^radial-gradient/.test(f.bgImage) && !f.clipText && (f.text ?? '').length <= 12 && !f.regionKids.length && w >= 120 && h >= 120) {
     const ps = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)%/g)].map((m) => +m[1])
     if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
+  }
+  // n168: a selection outline over grid cells, said with its exact box and the rows/columns it covers
+  if (f.selBox) {
+    const S = f.selBox
+    return { kind: 'box', note: `a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly ${S.w}x${S.h}px with its top-left at ${S.x},${S.y} (page px), a ${S.bw}px ${hexOf(S.bc)} border, no fill; it covers columns ${S.cols.join(' to ')} of rows ${S.rows[0]} to ${S.rows[1]} only (${S.nRows} rows, its bottom edge at y ${S.y + S.h}, NOT running further down)${S.handle ? `; a ${S.handle.px}x${S.handle.px}px ${hexOf(S.handle.fill)} square handle on its bottom-right corner, 1px white border` : ''}` }
   }
   const ruled = !bordered && f.border.bottom >= 2
   const round = f.radiusPct >= 40 || f.radius >= Math.min(w, h) / 2 - 1
@@ -4440,11 +4472,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n164: a wide row ruled above AND below says both rules and their style (round 16 c3 menu row: double rules lost)
     const twoRules = !panel && !leftRule && edge && f.border.bottom >= 1 && !(f.border.left >= 1) && R.w >= 300 ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)}, ruled above AND below (border-top and border-bottom ${Math.round(f.border.w)}px ${f.border.topStyle}${f.border.topStyle === 'double' ? ' (two thin parallel lines each)' : ''} ${hexOf(f.border.colour)}, no side borders${visible(f.bg) ? '' : ', no fill'}); in it ` : ''
     const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
+    const note1 = /nowrap/.test(panel) ? note.replace('; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart', '') : note
     const keep = `${panel}${leftRule}${twoRules}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
-    out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note}${fl}` })
+    out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note1}${fl}` })
     marked.add(f.role)
   })
   // n161: a short word on a many-pointed clip-path cut-out is a star badge, its polygon said verbatim (round 15 c4

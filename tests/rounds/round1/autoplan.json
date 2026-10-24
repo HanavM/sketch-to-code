@@ -41,7 +41,7 @@
    ],
    [
     "links",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 37x18 at 910,38 16px #ffffff \"Work\"; 45x18 at 983,38 16px #ffffff \"Studio\"; 52x18 at 1064,38 16px #ffffff \"Journal\"; 55x18 at 1153,38 16px #ffffff \"Contact\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart): 37x18 at 910,38 16px #ffffff \"Work\"; 45x18 at 983,38 16px #ffffff \"Studio\"; 52x18 at 1064,38 16px #ffffff \"Journal\"; 55x18 at 1153,38 16px #ffffff \"Contact\""
    ],
    [
     "headline",
@@ -459,15 +459,15 @@
    ],
    [
     "post-1",
-    "an invisible frame 960x140px at 160,186 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 491x26 at 408,215 22px bold #111827 \"How we cut our build times in half\"; 491x23 at 408,249 15px #6b7280 \"A look at caching, parallel jobs and the one config flag that mattered\"; 491x15 at 408,282 13px #9ca3af \"Oct 12 · 6 min read\""
+    "an invisible frame 960x140px at 160,186 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart): 491x26 at 408,215 22px bold #111827 \"How we cut our build times in half\"; 491x23 at 408,249 15px #6b7280 \"A look at caching, parallel jobs and the one config flag that mattered\"; 491x15 at 408,282 13px #9ca3af \"Oct 12 · 6 min read\""
    ],
    [
     "post-2",
-    "an invisible frame 960x140px at 160,354 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 581x26 at 408,383 22px bold #111827 \"Designing for slow networks\"; 581x23 at 408,417 15px #6b7280 \"What we learned shipping to users on 2G, and why it made the app bette\"; 581x15 at 408,450 13px #9ca3af \"Oct 3 · 8 min read\""
+    "an invisible frame 960x140px at 160,354 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart): 581x26 at 408,383 22px bold #111827 \"Designing for slow networks\"; 581x23 at 408,417 15px #6b7280 \"What we learned shipping to users on 2G, and why it made the app bette\"; 581x15 at 408,450 13px #9ca3af \"Oct 3 · 8 min read\""
    ],
    [
     "post-3",
-    "an invisible frame 960x140px at 160,522 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 407x26 at 408,551 22px bold #111827 \"A year of four-day weeks\"; 407x23 at 408,585 15px #6b7280 \"The numbers, the surprises and what we would do differently.\"; 407x15 at 408,618 13px #9ca3af \"Sep 21 · 5 min read\""
+    "an invisible frame 960x140px at 160,522 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart): 407x26 at 408,551 22px bold #111827 \"A year of four-day weeks\"; 407x23 at 408,585 15px #6b7280 \"The numbers, the surprises and what we would do differently.\"; 407x15 at 408,618 13px #9ca3af \"Sep 21 · 5 min read\""
    ]
   ]
  },

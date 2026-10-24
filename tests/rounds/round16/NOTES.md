@@ -128,3 +128,22 @@ nowrap/shadow clause reaches their part-by-part panels; no other change.
 Round 16 now **82%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 74, e2 85, e3 84, e4 78, e5 83).
 Vitest: same 2 env failures; typecheck clean.
 Next: e1 row numbering and selection box height; e3 diff line numbers and tab counts; c3 ray size; then round 17 (harder).
+
+## n168: spreadsheet row numbers and selection box, diff line numbers, one-line tab counts (2026-10-24, ~165k billed)
+
+Planner now says: a spreadsheet's header row has an EMPTY left cell and row 1 sits on the first row under it; an empty
+bordered box laid over grid cells is a SELECTION OUTLINE with its exact size and place, the columns and rows it covers
+(and where its bottom edge stops) and its corner handle; a short label written by `::before` from an attribute (a diff's
+line numbers) is its own part at its own place, right-aligned in the gutter; every part-by-part list keeps one-line parts
+on one line (a word and its count never wrap apart). Rounds 1-15 notes re-generated: the one-line clause reaches their
+part-by-part lists, round 13's spreadsheet gains the empty header cell line, round 15's email canvas gains its "Text"
+block tag; none re-run.
+
+| page | likeness | what was off |
+|---|---|---|
+| e1 spreadsheet | 74 → **80%** | row numbers 1-12 under the header, selection box on C-D rows 2-8 with its handle; chart card sits further right and higher than the target |
+| e3 code review | 84 → **88%** | diff line numbers back, tab counts on one line; tabs now overlap the "Open" pill (header parts placed by x only, not y); "#4182" not grey |
+
+Round 16 now **83%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 80, e2 85, e3 88, e4 78, e5 83).
+Vitest: same 2 env failures; typecheck clean.
+Next: header parts placed by their own top as well as x; a floating chart card's place; then write round 17 (harder).
