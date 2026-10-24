@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 16 at 76% over 4 pages: the split halftone poster is now 94% and the 3D-tilted phone 85%; next teaching the planner the sunburst rays, then the remaining six pages."
 round: 16
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 76]
-lock: null
+lock: {by: run-2026-10-24T0632, until: "2026-10-24T08:02Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
