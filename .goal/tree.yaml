@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 18 at 86%: the duotone photo now has its slanted dark edge and bright solid glows, though this run moved its logo. Next: the cream shape's straight bottom edge and the email page."
 round: 18
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 86]
-lock: null
+lock: {by: n189-run, until: "2026-10-25T00:05:39Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
