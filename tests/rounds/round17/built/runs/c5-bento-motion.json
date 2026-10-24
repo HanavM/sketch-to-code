@@ -1,24 +1,24 @@
 {
   "id": "c5-bento-motion",
-  "at": "2026-10-24T15:26:00.565Z",
+  "at": "2026-10-24T15:52:39.013Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9065542560552277,
-    "overallV2": 0.9065542560552277,
-    "overallV1": 0.8832128230462787,
-    "colour": 0.9939094539536186,
-    "structure": 0.9462696812770225,
-    "structureStrict": 0.8884429667656081,
-    "colourAligned": 0.9939094539536186,
-    "structureAligned": 0.9462696812770225,
+    "overall": 0.917787987695261,
+    "overallV2": 0.917787987695261,
+    "overallV1": 0.892434010628683,
+    "colour": 0.99504205473511,
+    "structure": 0.972050475036258,
+    "structureStrict": 0.9092378279723072,
+    "colourAligned": 0.99504205473511,
+    "structureAligned": 0.972050475036258,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9799524161291898
+      "r": 0.9793393876938666
     },
-    "layout": 0.7693223041099463,
-    "layoutV1": 0.7693223041099463,
+    "layout": 0.7704970472957159,
+    "layoutV1": 0.7704970472957159,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,7 +27,7 @@
       0,
       0,
       1280,
-      960
+      920
     ],
     [
       0,
@@ -40,42 +40,49 @@
       1,
       44,
       45,
-      328,
+      38,
       28
     ],
     [
-      2,
-      44,
-      45,
-      40,
-      28
-    ],
-    [
-      2,
-      124,
+      1,
+      449,
       49,
-      248,
+      289,
       20
     ],
     [
-      4,
-      124,
+      3,
+      449,
       49,
       48,
       20
     ],
     [
-      4,
-      204,
+      3,
+      522,
       49,
-      68,
+      96,
       20
     ],
     [
-      4,
-      304,
+      5,
+      522,
       49,
-      68,
+      5,
+      20
+    ],
+    [
+      3,
+      642,
+      49,
+      96,
+      20
+    ],
+    [
+      7,
+      642,
+      49,
+      5,
       20
     ],
     [
@@ -88,30 +95,9 @@
     [
       0,
       44,
-      97,
-      270,
-      20
-    ],
-    [
-      0,
-      43,
-      153,
-      1194,
-      694
-    ],
-    [
-      10,
-      43,
-      153,
-      1194,
-      694
-    ],
-    [
-      11,
-      44,
-      153,
-      1193,
-      693
+      92,
+      424,
+      33
     ],
     [
       0,
@@ -121,11 +107,39 @@
       461
     ],
     [
+      11,
+      66,
+      176,
+      542,
+      20
+    ],
+    [
+      11,
+      66,
+      341,
+      542,
+      128
+    ],
+    [
       0,
       648,
       150,
       288,
       223
+    ],
+    [
+      14,
+      674,
+      176,
+      238,
+      20
+    ],
+    [
+      14,
+      674,
+      200,
+      180,
+      108
     ],
     [
       0,
@@ -135,74 +149,46 @@
       223
     ],
     [
-      0,
-      65,
-      175,
-      542,
-      20
-    ],
-    [
-      0,
-      673,
-      175,
+      17,
+      978,
+      176,
       238,
       20
     ],
     [
-      0,
-      977,
-      175,
-      238,
-      20
-    ],
-    [
-      0,
-      673,
-      199,
-      180,
-      108
-    ],
-    [
-      0,
-      1125,
-      212,
+      17,
+      1126,
+      214,
       41,
-      98
+      97
     ],
     [
-      0,
-      1026,
-      248,
+      17,
+      1027,
+      252,
       41,
-      62
+      59
     ],
     [
-      0,
-      1174,
+      17,
+      1175,
       240,
       41,
-      71
+      72
     ],
     [
-      0,
-      1075,
-      254,
+      17,
+      1076,
+      257,
       41,
-      57
+      55
     ],
     [
-      0,
-      977,
-      292,
+      17,
+      978,
+      294,
       41,
-      18
-    ],
-    [
-      0,
-      65,
-      340,
-      542,
-      128
+      17
     ],
     [
       0,
@@ -212,30 +198,30 @@
       223
     ],
     [
-      0,
-      673,
-      414,
+      24,
+      674,
+      415,
       542,
       20
     ],
     [
-      0,
-      1119,
-      460,
+      24,
+      1120,
+      461,
       12,
       12
     ],
     [
-      0,
-      769,
-      480,
+      24,
+      770,
+      481,
       12,
       12
     ],
     [
-      0,
-      949,
-      520,
+      24,
+      950,
+      521,
       12,
       12
     ],
@@ -247,10 +233,10 @@
       223
     ],
     [
-      31,
-      -2,
+      29,
+      11,
       723,
-      1452,
+      1136,
       45
     ],
     [
@@ -261,58 +247,76 @@
       223
     ],
     [
-      0,
-      977,
-      692,
+      31,
+      978,
+      693,
       50,
       137
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 1,
+    "recall": 0.8333333333333334,
     "kept": [
-      "bleed",
       "gradient",
       "motion",
       "overlap",
       "stripes-or-layers",
       "vertical-type"
     ],
-    "missing": [],
+    "missing": [
+      "bleed"
+    ],
     "extra": []
   },
   "tokens": {
-    "input": 37681,
-    "output": 23517,
-    "cacheRead": 317341
+    "input": 40312,
+    "output": 25882,
+    "cacheRead": 329934
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 51190,
-      "output": 19679,
-      "cacheRead": 307282,
-      "toolCalls": 11,
+      "billed": 47871,
+      "output": 17040,
+      "cacheRead": 298730,
+      "toolCalls": 10,
       "tools": [
         "Glob",
         "Glob",
+        "Read src/main.tsx",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
         "Edit src/index.css",
         "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx"
+        "Edit src/App.tsx"
       ],
-      "ms": 209548
+      "ms": 180290
     }
   ],
-  "reading": "The sketch shows a top nav bar with a wavy text-placeholder line beneath it, and a large content panel below holding a detailed animated network-status dashboard.",
+  "reading": "A full landing-page hero sketch: a nav bar with a wavy placeholder line as lead text below it, and one large block below for a big live-metrics dashboard with 22 explicitly specified sub-parts, all per the typed notes.",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        1194,
+        804
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Whole page: black (#0b0b0f) page background, Helvetica typeface throughout, pale grey body text color as the page default."
+    },
     {
       "kind": "add",
       "textMarks": [],
@@ -326,7 +330,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build a top navigation bar: logo text \"orbit\" on the left, nav links \"Product · Customers · Changelog\", and on the right a FILLED pill button \"Book a demo\" (#f4"
+      "instruction": "Nav bar reading \"orbit\" as the logo/wordmark, nav links \"Product · Customers · Changelog\", and a \"Book a demo\" control that must be a FILLED pill button (#f4f4f"
     },
     {
       "kind": "add",
@@ -341,10 +345,10 @@
         9
       ],
       "paths": [],
-      "instruction": "Replace the wavy placeholder line with real subhead copy: \"Everything your edge network is doing, live.\" in grey text, color #a1a1aa (distinct from the page's d"
+      "instruction": "Grey lead line of copy reading \"Everything your edge network is doing, live.\" in color #a1a1aa (distinct from the page's default pale grey text), set large at 2"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -356,7 +360,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Build the large animated network-status dashboard panel exactly as specified, part by part, with all 22 live elements, nothing invented or omitted: a hero gradi"
+      "instruction": "Large live-metrics dashboard panel built from 22 exact sub-parts as specified (page px sizes/positions), each its own real element with live text/content, nothi"
     }
   ],
   "rejected": []

@@ -141,3 +141,21 @@ changed (mostly the sans-face words, inline runs in code lines, kept gradient st
 Round 17: **88%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
 Next: e1 gantt scores 79 though it looks near-identical (aligned colour 68): check the side-by-side crop/align before
 trusting it; c5 intro size drift; c3 synth horizon at 83. Round 17 holds at 86+: write round 18 (harder).
+
+## n177: gantt bars by exact px, large lead lines say their size (2026-10-24, ~139k billed)
+
+Checked first: r17 e1 really was off, not a crop or align fault. The colour grid (32x23) of target vs build differs only
+where the bars sit; the planner said bar ends in thirds of a week ("mid W14"), so the build snapped bars to week lines,
+~10px off each, and on a mostly white page that is a big share of the colour lift (raw 98.6% vs blank 96.2%: lift 68).
+Planner now says each bar end (and milestone, today line) as the day inside its week plus its exact px from the
+timeline's left edge ("2/7 into W14 Mar 30 (560px in)"), the column width, and that bars are absolutely placed, not
+snapped. A one-line lead text of 18px+ now says its size in words ("set at 22px, a large lead line"), since the drawn
+height alone did not carry it. Rounds 1-16 plans re-generated: r4 e5 and r12 e2 gantts, 9 lead lines in rounds 1-13.
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| e1 gantt timeline | 78 → **79%** (colour 98.6 → 99.1 raw) | bars land on their days; week heads built on one line and centred, the toolbar not matched as a region (layout 86 → 83) |
+| c5 bento motion | 91 → **92%** | intro line now 22px; nav links still spread apart (target one centred line) |
+
+Round 17: **88%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
+Next: write round 18 (harder: more layered, expressive, moving creative pages and denser apps).
