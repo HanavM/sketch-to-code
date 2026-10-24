@@ -38,3 +38,22 @@ Round 16 so far: **66%** over 3 pages. Vitest: same 2 env failures; typecheck cl
 Next (planner, free first): a hard-stop page split said as a hard stop; halftone dots under a radial mask verbatim;
 a 3D-turned device mockup (its rotate, tilt, shadow) and floating chips at their places, never in the nav;
 a conic sunburst never a checkerboard; a per-letter arched title; then first builds c2, c3, c4, e2, e3, e4, e5.
+
+## n163: hard split, halftone tile, 3D phone, floating chips, arched title (2026-10-24, ~213k billed)
+
+Planner now says: one hard stop between two colours as a HARD-SPLIT page (two flat halves, the gradient verbatim);
+a masked dot block's background-size (it repeats: a halftone, not one disc); a radial-glow page verbatim; a device body
+turned in 3D inside a perspective box (stage, body fill/border/rounding/shadow, the written transform, its screen parts
+in the body's own unturned layout); a zero-height wrapper of absolutely placed cards as separate floating cards (place,
+fill, shadow, turn; never in the nav); letters stacked on one spot each turned about a far origin as a title on an ARC.
+Rounds 1-15: only the radial-glow page line changes (r8, r11), none re-run.
+
+| page | likeness | what was off |
+|---|---|---|
+| c1 split halftone | 58 → **94%** | hard split, halftone dots under the soft mask, word, copy, buttons, index all right |
+| c5 tilted phone | 79 → **85%** | phone turned in 3D with tilt and shadow, three tilted chips in place, glow right; nav links spread wider, headline lines a little tight |
+| c3 arched sunburst (first) | **65%** | arched SUNDOWNER right; conic sunburst still built as a checkerboard; dotted ring badge built as a plain ring; menu double rules lost |
+
+Round 16 so far: **76%** over 4 pages. Vitest: same 2 env failures; typecheck clean.
+Next: the repeating-conic sunburst said verbatim (never a checkerboard), a dotted ring badge, a double-ruled menu row;
+then first builds c2, c4, e2, e3, e4, e5 and e1's row height.

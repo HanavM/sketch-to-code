@@ -1,0 +1,192 @@
+{
+  "id": "c3-arched-sunburst",
+  "at": "2026-10-24T06:20:30.102Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.646274898459891,
+    "overallV2": 0.646274898459891,
+    "overallV1": 0.5227949782187699,
+    "colour": 0.9457507488725538,
+    "structure": 0.6260932019257737,
+    "structureStrict": 0.40292662897657544,
+    "colourAligned": 0.9457507488725538,
+    "structureAligned": 0.6260932019257737,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8406744797834251
+    },
+    "layout": 0.6715749687377396
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48027,
+    "output": 28924,
+    "cacheRead": 273143
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 66209,
+      "output": 23307,
+      "cacheRead": 270059,
+      "toolCalls": 10,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Glob"
+      ],
+      "ms": 257035
+    }
+  ],
+  "reading": "A drive-in diner hero section: a checkerboard floor background behind a large solid dark-brown disc, with \"SUNDOWNER\" arced across it and a tilted \"Est. 1962\" badge circle, an italic tagline beneath, a 4-item nav menu (BURGERS/SHAKES/PIE/CAR HOP), and a \"See the menu\" button, all styled per the typed notes (soft yellow page, Georgia font, dark brown text).",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s6"
+      ],
+      "instruction": "Add a checkerboard floor background, 1000x1000px positioned at 140,-100: sharp 40px squares alternating bright orange (#f0a33a) and soft yellow (#f6d58e) like a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur, ce"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s6"
+      ],
+      "instruction": "Add the word \"SUNDOWNER\" set on an arc (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 640,400 (pos"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s6"
+      ],
+      "instruction": "Add a tilted 8° anticlockwise dark brown outline circle, with a 3px soft yellow outline ring 0px out from its edge, a white gap between (use outline + outline-o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 32
+        }
+      ],
+      "region": [
+        8,
+        1,
+        1152,
+        896
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add italic tagline text: \"Drive-in diner · Open till the last car leaves\", placed where the wavy line was drawn below the disc and title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "Add a 4-item navigation/menu bar, each its own real element with live text (page px: size, then top-left x,y): 96x17 at 240,735 15px bold #5a1e0e \"BURGERS\"; 81x"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        1,
+        994,
+        896
+      ],
+      "paths": [
+        "s0",
+        "s9"
+      ],
+      "instruction": "Add a dark-brown-filled, soft-yellow-text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); fill #5a1e0e, text #f6d58e (soft yell"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

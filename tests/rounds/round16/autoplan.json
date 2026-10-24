@@ -49,11 +49,11 @@
   "notes": [
    [
     "*",
-    "whole page: near-black #111111 (left) to cream #f2ede4 (right) gradient page, Helvetica type, cream text"
+    "whole page: HARD-SPLIT (two flat halves meeting in one sharp straight line at 50%, NO fade, NO blend: left near-black #111111, right cream #f2ede4; exactly background: linear-gradient(90deg, #111111 50%, #f2ede4 50%)) page, Helvetica type, cream text"
    ],
    [
     "halftone-disc",
-    "a 500x500px block at 390,150, border-radius 50%, filled with background: radial-gradient(circle, #ff3b1f 38%, transparent 40%); its edges fade out softly under a mask (mask-image: radial-gradient(circle, #000000 30%, transparent 70%); -webkit-mask-image the same), NOT a picture placeholder"
+    "a 500x500px block at 390,150, border-radius 50%, filled with background: radial-gradient(circle, #ff3b1f 38%, transparent 40%); background-size: 14px 14px (it REPEATS: a fine HALFTONE grid of small dots every 14px, NOT one solid disc); its edges fade out softly under a mask (mask-image: radial-gradient(circle, #000000 30%, transparent 70%); -webkit-mask-image the same), NOT a picture placeholder"
    ],
    [
     "nav",
@@ -171,7 +171,7 @@
    ],
    [
     "arched-title",
-    "text",
+    "heading",
     {
      "fontPx": 16,
      "lines": 4
@@ -213,7 +213,7 @@
    ],
    [
     "arched-title",
-    "links: S, U, N, D, O, W, N, E"
+    "the word \"SUNDOWNER\" set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 640,400 (position absolute) holding 9 letter spans, each position absolute at left -30px, top -300px, 60x300px, text-align center, 64px bold #5a1e0e, transform-origin 30px 300px (the anchor point, 300px below the letter), each turned by its own transform: \"S\" rotate(-60deg), \"U\" rotate(-45deg), \"N\" rotate(-30deg), \"D\" rotate(-15deg), \"O\" rotate(0deg), \"W\" rotate(15deg), \"N\" rotate(30deg), \"E\" rotate(45deg), \"R\" rotate(60deg)"
    ],
    [
     "scalloped-badge",
@@ -363,11 +363,7 @@
    ],
    [
     "tilted-phone",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 7
-    }
+    "box"
    ],
    [
     "floating-chips",
@@ -377,7 +373,7 @@
   "notes": [
    [
     "*",
-    "whole page: dark grey to near-black gradient page, Helvetica type, white text"
+    "whole page: dark grey to near-black gradient page (a soft radial GLOW; exactly background: radial-gradient(circle at 70% 45%, #2a3c70, #0a0f1e 60%)), Helvetica type, white text"
    ],
    [
     "nav",
@@ -401,11 +397,11 @@
    ],
    [
     "tilted-phone",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out): 255x23 at 788,135 60% opacity: 13px #ffffff \"Tuesday · Tempo run\"; 258x38 at 783,155 30px bold #ffffff \"Zone 3\"; 201x13 at 779,206 linear-gradient(90deg, #4ef0b0, #36a3ff), pill ends; 136x11 at 776,230 linear-gradient(90deg, #4ef0b0, #36a3ff), pill ends; 261x45 at 768,252 #1e2230 fill, 16px rounded: 14px #ffffff \"Heart rate\"; 57x16 at 957,266 14px bold #ffffff \"152 bpm\"; 262x50 at 761,303 #1e2230 fill, 16px rounded: 14px #ffffff \"Recovery\"; 29x17 at 978,322 14px bold #ffffff \"84%\"; 263x56 at 753,354 #1e2230 fill, 16px rounded: 14px #ffffff \"Distance\"; 44x18 at 956,377 14px bold #ffffff \"6.2 km\""
+    "a phone/device mockup TURNED IN 3D (NOT flat, NOT upright): ONE 340x700px stage div at 700,90 (position absolute) with perspective: 1200px; inside it ONE 340x700px device body, #111111 fill, a 10px #2b2f3a border, 48px rounded, overflow hidden, box-shadow: #00000099 40px 40px 80px 0px, transform: rotateY(-24deg) rotateX(10deg) rotateZ(4deg) exactly (so it leans and turns away; keep the transform on the body); its screen parts are children of the body and turn with it, placed in the body's own unturned layout (px from the body's top-left, size, then x,y): 13px #ffffff 60% opacity \"Tuesday · Tempo run\" at 28,34; bold 30px #ffffff \"Zone 3\" at 28,55; a 227x12px bar painted linear-gradient(90deg, #4ef0b0, #36a3ff), 6px rounded at 28,107; a 156x12px bar painted linear-gradient(90deg, #4ef0b0, #36a3ff), 6px rounded at 28,131; 14px #ffffff \"Heart rate\" on a 284x44px #1e2230 16px-rounded tile at 28,155; bold 14px #ffffff \"152 bpm\" (right-aligned in its row) at 241,169; 14px #ffffff \"Recovery\" on a 284x44px #1e2230 16px-rounded tile at 28,211; bold 14px #ffffff \"84%\" (right-aligned in its row) at 270,225; 14px #ffffff \"Distance\" on a 284x44px #1e2230 16px-rounded tile at 28,267; bold 14px #ffffff \"6.2 km\" (right-aligned in its row) at 254,281"
    ],
    [
     "floating-chips",
-    "buttons: \"❤ 152 bpm\", \"🔥 Zone 3 · 18 min\", \"✓ Recovered\""
+    "3 separate FLOATING cards scattered over the page (NOT in the nav, NOT in a row, NOT buttons in a group), each its own div, position absolute, above the other parts (z-index 2): \"❤ 152 bpm\" at 600,200 (116x43px, #ffffff fill, 16px rounded, bold 15px #0a0f1e text, box-shadow: #00000066 0px 14px 30px 0px); \"🔥 Zone 3 · 18 min\" at 1020,420 (168x42px, #ffffff fill, 16px rounded, bold 15px #0a0f1e text, box-shadow: #00000066 0px 14px 30px 0px, transform: rotate(6deg)); \"✓ Recovered\" at 620,620 (130x43px, #ffffff fill, 16px rounded, bold 15px #0a0f1e text, box-shadow: #00000066 0px 14px 30px 0px, transform: rotate(-4deg))"
    ]
   ]
  },

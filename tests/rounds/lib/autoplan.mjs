@@ -2099,6 +2099,33 @@ export function factsInPage() {
       const txt = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
       if (txt.length >= 12) o.copyBtn = { txt, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), bold: Number(c.fontWeight) >= 600, bpx: Math.round(parseFloat(c.fontSize)) }
     }
+    // n163: a device body turned in 3D inside a perspective box (round 16 c5 phone: built flat and upright). Its parts
+    // are read with the turn switched off, so they can be said in the body's own flat layout
+    const dev = el.children.length === 1 && cs.perspective !== 'none' ? el.children[0] : null
+    const dtf = dev ? ruleOf(dev, 'transform') : null
+    if (dev && dtf && /rotate[XY]/.test(dtf) && dev.offsetWidth >= 150 && dev.offsetHeight >= 250 && getComputedStyle(dev).transformStyle !== 'preserve-3d' && rgba(getComputedStyle(dev).backgroundColor)?.a > 0.5 && (dev.innerText || '').trim()) {
+      const dc = getComputedStyle(dev), keep = dev.style.transform
+      dev.style.transform = 'none'
+      const db = dev.getBoundingClientRect()
+      const parts = [...dev.querySelectorAll('*')].map((x) => { const c = getComputedStyle(x), b = x.getBoundingClientRect(); if (b.width < 2 || b.height < 2) return null
+        const own = [...x.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(' ')
+        const fill = rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, img = /gradient/.test(c.backgroundImage) ? c.backgroundImage : null
+        if (!own && !fill && !img) return null
+        return { t: own || null, x: Math.round(b.left - db.left), y: Math.round(b.top - db.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), op: +c.opacity, fill, img, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), right: c.cssFloat === 'right' } }).filter(Boolean)
+      dev.style.transform = keep
+      o.device3d = { persp: cs.perspective, tf: dtf, x: Math.round(r.left), y: Math.round(r.top), w: dev.offsetWidth, h: dev.offsetHeight, fill: rgba(dc.backgroundColor), bw: parseFloat(dc.borderTopWidth) || 0, bc: rgba(dc.borderTopColor), rad: Math.round(parseFloat(dc.borderTopLeftRadius) || 0), shadow: dc.boxShadow, parts }
+    }
+    // n163: a wrapper whose children are each placed on their own (position absolute) around the page (round 16 c5 floating
+    // chips: said as 'buttons', built as pills inside the nav)
+    const ak = [...el.children]
+    if (ak.length >= 2 && r.height < 10 && !el.querySelector('[data-r]') && ak.every((k) => getComputedStyle(k).position === 'absolute' && (k.innerText || '').trim() && !k.children.length)) {
+      const spread = Math.max(...ak.map((k) => k.getBoundingClientRect().top)) - Math.min(...ak.map((k) => k.getBoundingClientRect().top))
+      const same = ak.every((k) => k.offsetLeft === ak[0].offsetLeft && k.offsetTop === ak[0].offsetTop)
+      const rots = ak.map((k) => (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1])
+      // n163: letters stacked on one spot, each turned about a far origin, are a title set on an ARC (round 16 c3: said as links)
+      if (same && rots.every((q) => q != null)) { const c = getComputedStyle(ak[0]); o.arcText = { letters: ak.map((k) => k.innerText.trim()), rots: rots.map(Number), cx: Math.round(r.left), cy: Math.round(r.top), radius: ak[0].offsetHeight, w: ak[0].offsetWidth, origin: c.transformOrigin, px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight) || 400, ink: rgba(c.color), family: c.fontFamily } }
+      else if (spread >= 80) o.absKids = ak.map((k) => { const c = getComputedStyle(k); return { t: k.innerText.trim(), x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow, rot: (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null } })
+    }
     return o
   }
   // unmarked blurred colour blobs and soft shadows lying on the page (round 11 c2: three 60px blobs had no words)
@@ -2265,6 +2292,15 @@ function gradientWords(f) {
     const turns = L.slice(1, -1).filter((v, i) => (v - L[i]) * (L[i + 2] - v) < 0 && Math.abs(v - L[i]) > 60).length
     const deg = f.bgImage.match(/^linear-gradient\(\s*([\d.]+deg)/)?.[1] ?? '180deg'
     if (grey && turns >= 1) return `polished liquid-CHROME gradient, smooth bands of light and dark that blend into each other (NOT stripes, no hard edges; exactly: linear-gradient(${deg}, ${lsC.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
+  }
+  // n163: ONE hard stop between two colours is a split page, not a blend (round 16 c1: black/cream halves built as a fade)
+  const split = !hard && hardPairs === 1 && /^linear-gradient/.test(f.bgImage.trim()) && f.bgImageColours.length === 2
+  if (split) {
+    const deg = Math.round(parseFloat(f.bgImage.match(/^linear-gradient\(\s*([\d.]+)deg/)?.[1] ?? '180')) % 360
+    const at = f.bgImage.match(/([\d.]+)%\s*,/)?.[1] ?? '50'
+    const [a1, a2] = f.bgImageColours.map((c) => `${colourName(c)} ${hexOf(parse(c))}`)
+    const sides = deg === 90 ? ['left', 'right'] : deg === 270 ? ['right', 'left'] : deg === 0 ? ['bottom', 'top'] : ['top', 'bottom']
+    return `HARD-SPLIT (two flat halves meeting in one sharp straight line at ${at}%, NO fade, NO blend: ${sides[0]} ${a1}, ${sides[1]} ${a2}; exactly background: ${cssHex(f.bgImage)})`
   }
   if (hard) return `${names.join(', ')} stripes`
   // which end is which (round 4 c1 blue photo built flat navy, round 5 c4 dark end on the
@@ -2889,7 +2925,9 @@ function round11Note(f) {
   }
   const M = f.mask
   if (M && !f.clipText && !f.text && /radial-gradient/.test(M.img) && f.rect.w * f.rect.h < 0.3 * 1280 * 900) {
-    const fillW = /gradient/.test(f.bgImage) ? `filled with background: ${cssHex(f.bgImage)}` : visible(f.bg) ? `filled ${hexOf(f.bg)}` : 'no fill'
+    // n163: a small background tile is a dot screen (round 16 c1 halftone: built as one solid disc)
+    const tileM = (f.bgSize ?? '').match(/^([\d.]+)px/)
+    const fillW = /gradient/.test(f.bgImage) ? `filled with background: ${cssHex(f.bgImage)}${tileM && +tileM[1] <= 60 ? `; background-size: ${f.bgSize} (it REPEATS: a fine HALFTONE grid of small dots every ${Math.round(+tileM[1])}px, NOT one solid disc)` : ''}` : visible(f.bg) ? `filled ${hexOf(f.bg)}` : 'no fill'
     const arch = f.radius > 0 && f.radiusBottom < f.radius / 2
     return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${arch ? `, an ARCH: border-radius ${M.radius} (round top, nearly square bottom; NOT a circle)` : f.radius ? `, border-radius ${M.radius}` : ''}, ${fillW}; its edges fade out softly under a mask (mask-image: ${cssHex(M.img)}; -webkit-mask-image the same), NOT a picture placeholder` }
   }
@@ -3961,6 +3999,8 @@ function pageNote(b) {
   // soft glows over a dark page (a mesh: round 6 c4 said as a 3-stop page gradient, base colour lost)
   const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
   if (gl) w.push(`${gl.replace(/ block\b/, ` (${hexOf(b.bg)}) page`)} (big soft radial glows fading into the base colour)`)
+  // n163: a radial glow page said exactly (round 16 c5: the blue glow behind the phone lost)
+  else if (grad && /^radial-gradient/.test(b.bgImage ?? '') && !/^\d/.test(b.bgSize ?? '')) w.push(`${grad} page (a soft radial GLOW; exactly background: ${cssHex(b.bgImage)})`)
   else if (grad) w.push(`${grad} page`)
   // a warm off-white (#f4f1ea) said bare was built plain white (round 6 c2): its hex goes with it
   else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg) === 'off-white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : hexOf(b.bg) === '#ffffff' ? colourName(b.bg) : Math.min(parse(b.bg).r, parse(b.bg).g, parse(b.bg).b) >= 225 ? `${colourName(b.bg)} (${hexOf(b.bg)}, plainly not white)` : `${colourName(b.bg)} (${hexOf(b.bg)})`} page`)
@@ -4359,6 +4399,27 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (!d?.kind || !f.clipCss || f.clipPoints < 8 || !f.text || f.text.length > 16 || f.regionKids.length || !visible(f.bg)) return
     const R = f.rect
     out.set(f.role, { kind: 'box', note: `a ${Math.round(R.w)}x${Math.round(R.h)}px STAR badge at ${Math.round(R.x)},${Math.round(R.y)} (position absolute): one ${hexOf(f.bg)} fill cut by clip-path: ${f.clipCss} exactly (a ${Math.round(f.clipPoints / 2)}-pointed star, NOT a circle, NOT a rounded box, no border), ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : f.font.weight >= 600 ? 'bold ' : ''}${hexOf(f.colour)} ${quote(f.text, 16)} centred in it` })
+  })
+  // n163: a device turned in 3D (round 16 c5 phone: built flat and upright, the turn, tilt and floor shadow lost) is said
+  // as its body with the exact turn, its screen parts in the body's own flat layout
+  regions.forEach((f) => {
+    const D = f.device3d
+    if (!D || !out.get(f.role)?.kind) return
+    const part = (p) => p.t ? `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)}${p.op < 0.98 ? ` ${Math.round(p.op * 100)}% opacity` : ''} ${quote(p.t, 28)}${p.fill ? ` on a ${p.w}x${p.h}px ${hexOf(p.fill)} ${p.rad}px-rounded tile` : ''}${p.right ? ' (right-aligned in its row)' : ''} at ${p.x},${p.y}`
+      : p.img ? `a ${p.w}x${p.h}px bar painted ${cssHex(p.img)}${p.rad ? `, ${p.rad}px rounded` : ''} at ${p.x},${p.y}` : `a ${p.w}x${p.h}px ${hexOf(p.fill)} ${p.rad}px-rounded block at ${p.x},${p.y}`
+    out.set(f.role, { kind: 'box', note: `a phone/device mockup TURNED IN 3D (NOT flat, NOT upright): ONE ${D.w}x${D.h}px stage div at ${D.x},${D.y} (position absolute) with perspective: ${D.persp}; inside it ONE ${D.w}x${D.h}px device body, ${hexOf(D.fill)} fill${D.bw ? `, a ${Math.round(D.bw)}px ${hexOf(D.bc)} border` : ''}, ${D.rad}px rounded, overflow hidden, box-shadow: ${cssHex(D.shadow)}, transform: ${D.tf} exactly (so it leans and turns away; keep the transform on the body); its screen parts are children of the body and turn with it, placed in the body's own unturned layout (px from the body's top-left, size, then x,y): ${D.parts.map(part).join('; ')}` })
+  })
+  // n163: a title set on an arc, one turned letter at a time (round 16 c3 'SUNDOWNER': said as links)
+  regions.forEach((f) => {
+    const A = f.arcText
+    if (!A || !out.get(f.role)) return
+    out.set(f.role, { kind: 'heading', note: `the word ${quote(A.letters.join(''), 30)} set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page ${A.cx},${A.cy} (position absolute) holding ${A.letters.length} letter spans, each position absolute at left ${-A.w / 2}px, top ${-A.radius}px, ${A.w}x${A.radius}px, text-align center, ${A.px}px ${A.weight >= 700 ? 'bold ' : ''}${hexOf(A.ink)}, transform-origin ${A.origin} (the anchor point, ${A.radius}px below the letter), each turned by its own transform: ${A.letters.map((l, i) => `"${l}" rotate(${A.rots[i]}deg)`).join(', ')}` })
+  })
+  // n163: a wrapper of separately placed floating cards (round 16 c5 chips: said as buttons, built inside the nav)
+  regions.forEach((f) => {
+    const K = f.absKids
+    if (!K || !out.get(f.role)?.kind) return
+    out.set(f.role, { kind: 'box', note: `${K.length} separate FLOATING cards scattered over the page (NOT in the nav, NOT in a row, NOT buttons in a group), each its own div, position absolute, above the other parts (z-index 2): ${K.map((k) => `${quote(k.t, 24)} at ${k.x},${k.y} (${k.w}x${k.h}px, ${visible(k.fill) ? `${hexOf(k.fill)} fill, ` : 'no fill, '}${k.rad}px rounded, ${k.bold ? 'bold ' : ''}${k.px}px ${hexOf(k.ink)} text${k.shadow && k.shadow !== 'none' ? `, box-shadow: ${cssHex(k.shadow)}` : ''}${k.rot ? `, transform: rotate(${k.rot}deg)` : ''})`).join('; ')}` })
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {

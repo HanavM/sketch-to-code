@@ -1,66 +1,65 @@
 {
   "id": "c5-phone-3d",
-  "at": "2026-10-24T05:39:28.098Z",
+  "at": "2026-10-24T06:26:38.236Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7905829713240196,
-    "overallV2": 0.7905829713240196,
-    "overallV1": 0.7434904250337527,
-    "colour": 0.9324443685720853,
-    "structure": 0.7913391081703732,
-    "structureStrict": 0.6727336894312036,
-    "colourAligned": 0.9324443685720853,
-    "structureAligned": 0.7913391081703732,
+    "overall": 0.8486636758566408,
+    "overallV2": 0.8486636758566408,
+    "overallV1": 0.8046608302686336,
+    "colour": 0.9890229189548316,
+    "structure": 0.939545408059639,
+    "structureStrict": 0.8287215869285379,
+    "colourAligned": 0.9890229189548316,
+    "structureAligned": 0.939545408059639,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.5738884721442284
+      "r": 0.8742073374246482
     },
-    "layout": 0.669824618325752
+    "layout": 0.5904607606763514
   },
   "effects": {
-    "recall": 0.5714285714285714,
+    "recall": 1,
     "kept": [
+      "3d",
       "blur",
       "gradient",
       "gradient-text",
-      "overlap"
-    ],
-    "missing": [
-      "3d",
+      "overlap",
       "soft-shadow",
       "tilt"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 46877,
-    "output": 31812,
-    "cacheRead": 187242
+    "input": 34576,
+    "output": 26735,
+    "cacheRead": 198628
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46333,
-      "output": 17450,
-      "cacheRead": 175531,
+      "billed": 48847,
+      "output": 19328,
+      "cacheRead": 195544,
       "toolCalls": 8,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
         "Read src/index.css",
-        "Glob",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Glob"
       ],
-      "ms": 204290
+      "ms": 219086
     }
   ],
-  "reading": "This is a hero section for a fitness app called PULSE: a full-width nav, a huge 3-line gradient headline, a subheading, two store buttons, and a right-side dashboard/stats card with a soft shadow beneath it.",
+  "reading": "The sketch lays out a fitness-app hero section: a top nav row (PULSE + links), a tight 3-line gradient headline with a subheading and two app-store buttons on the left, and a 3D-tilted phone mockup with a blurred shadow on the right, plus three scattered floating stat cards and a radial-gradient dark page background — all specified precisely by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -75,22 +74,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a full-width top navigation bar, no box around the text, with a thin hairline rule along the top and another along the bottom of the bar: bold \"PULSE\" wordm"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        4,
-        1,
-        1272,
-        4
-      ],
-      "paths": [
-        "s15"
-      ],
-      "instruction": "Add three small pill/chip buttons with icon+label: \"❤ 152 bpm\", \"🔥 Zone 3 · 18 min\", \"✓ Recovered\"."
+      "instruction": "Top nav bar, no visible box/border around it: bold \"PULSE\" wordmark on the left, and \"Features · Coaches · Pricing · Log in\" links on the right, spanning the fu"
     },
     {
       "kind": "add",
@@ -117,7 +101,7 @@
         234
       ],
       "paths": [],
-      "instruction": "Add a huge Helvetica heavy headline set tight (line-height 1), in exactly 3 lines that each stay whole on one line (white-space: nowrap, no max-width narrower t"
+      "instruction": "Huge Helvetica heavy headline set tight (line-height 1), exactly 3 lines with these breaks kept as-is (white-space: nowrap, no max-width narrower than the longe"
     },
     {
       "kind": "add",
@@ -142,7 +126,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Add a subheading paragraph below the headline: \"Live zones, recovery scores and a coach that listens to your pulse.\" in white text."
+      "instruction": "Subheading paragraph beneath the headline: \"Live zones, recovery scores and a coach that listens to your pulse.\""
     },
     {
       "kind": "add",
@@ -157,7 +141,22 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add two call-to-action buttons side by side: \"App Store\" (text colour #0a0f1e) and \"Google Play\" (text colour #ffffff)."
+      "instruction": "Two call-to-action buttons side by side below the subheading: \"App Store\" and \"Google Play\", each word rendered in its own colour — \"App Store\" text #0a0f1e, \"G"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        94,
+        334,
+        693
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A phone/device mockup turned in 3D (not flat, not upright): one 340x700px stage div at 700,90 (position absolute) with perspective: 1200px; inside it one 340x70"
     },
     {
       "kind": "design",
@@ -172,43 +171,25 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a soft, blurred black drop-shadow/glow sitting beneath the dashboard stats card on the right."
+      "instruction": "Soft blurred black drop shadow beneath the phone mockup, matching the blob drawn under the device."
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s8",
-        "s9",
-        "s10",
-        "s11",
-        "s12",
-        "s13",
-        "s14"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s8",
-            "s9",
-            "s10",
-            "s11",
-            "s12",
-            "s13",
-            "s14"
-          ],
-          "lines": 7,
-          "fontPx": 91
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        704,
-        90,
-        332,
-        700
+        4,
+        1,
+        1272,
+        4
       ],
-      "paths": [],
-      "instruction": "Add a dashboard/stats mockup card made of these real, live-text parts (page px, size then top-left x,y; each its own element; all 10, nothing invented, nothing "
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Three separate floating cards scattered over the page (not in the nav, not in a row, not grouped buttons), each its own div, position absolute, above the other "
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }
