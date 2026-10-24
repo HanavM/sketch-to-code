@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Music player</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#000;font-family:Helvetica,Arial,sans-serif;color:#fff;font-size:13px}
+.side{position:absolute;left:8px;top:8px;width:280px;height:794px;background:#121212;border-radius:10px;padding:18px}
+.side .h{font-weight:700;font-size:15px;color:#b3b3b3;margin-bottom:16px}.pl{display:flex;gap:12px;align-items:center;margin-bottom:12px}.pl i{width:48px;height:48px;border-radius:6px}.pl small{display:block;color:#b3b3b3;margin-top:3px}
+.chips{display:flex;gap:8px;margin-bottom:18px}.chips span{padding:6px 12px;border-radius:16px;background:#2a2a2a}
+.main{position:absolute;left:296px;top:8px;width:660px;height:794px;border-radius:10px;background:linear-gradient(#a3442b 0,#521f14 300px,#121212 420px);overflow:hidden}
+.hdr{display:flex;gap:24px;align-items:flex-end;padding:60px 24px 24px}.cover{width:190px;height:190px;background:linear-gradient(135deg,#f6b26b,#cc4125);box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.hdr small{font-size:12px}.hdr h1{font-size:64px;font-weight:900;letter-spacing:-2px;line-height:1;margin:8px 0 12px}.hdr p{color:#ddd}
+.act{display:flex;gap:22px;align-items:center;padding:8px 24px 18px}.play{width:56px;height:56px;border-radius:50%;background:#1ed760;color:#000;text-align:center;line-height:56px;font-size:20px}
+.tr{display:grid;grid-template-columns:30px 1fr 140px 60px;align-items:center;height:52px;padding:0 24px;color:#b3b3b3}.tr b{display:block;color:#fff;font-weight:400;font-size:14px}.tr.h{height:36px;border-bottom:1px solid #333;font-size:12px}.tr.on{background:#2a2a2a}.tr.on b,.tr.on .n{color:#1ed760}
+.q{position:absolute;left:964px;top:8px;width:308px;height:794px;background:#121212;border-radius:10px;padding:18px}
+.q h3{font-size:16px;margin-bottom:16px}.q .big{width:272px;height:272px;border-radius:8px;background:linear-gradient(135deg,#f6b26b,#cc4125);margin-bottom:14px}.q h4{font-size:22px}.q .s{color:#b3b3b3;margin:4px 0 18px}
+.np{position:absolute;left:0;top:810px;width:1280px;height:90px;padding:0 16px;display:flex;align-items:center}
+.np .cur{display:flex;gap:12px;align-items:center;width:300px}.np .cur i{width:56px;height:56px;border-radius:4px;background:linear-gradient(135deg,#f6b26b,#cc4125)}.np .cur small{display:block;color:#b3b3b3;margin-top:3px}
+.ctl{flex:1;text-align:center}.ctl .bt{display:flex;gap:24px;justify-content:center;align-items:center;font-size:16px;color:#b3b3b3;margin-bottom:8px}.ctl .bt b{width:34px;height:34px;border-radius:50%;background:#fff;color:#000;line-height:34px}
+.prog{display:flex;align-items:center;gap:8px;justify-content:center;font-size:11px;color:#b3b3b3}.prog div{width:500px;height:4px;border-radius:2px;background:#4d4d4d}.prog div i{display:block;width:38%;height:4px;border-radius:2px;background:#fff}
+.vol{width:300px;display:flex;justify-content:flex-end;align-items:center;gap:8px;color:#b3b3b3}.vol div{width:100px;height:4px;border-radius:2px;background:#4d4d4d}.vol div i{display:block;width:70%;height:4px;background:#fff;border-radius:2px}
+</style></head><body>
+<div class="side" data-r="library" data-must><div class="h">Your Library</div><div class="chips"><span>Playlists</span><span>Artists</span><span>Albums</span></div>
+<div class="pl"><i style="background:linear-gradient(135deg,#450af5,#c4efd9)"></i><div>Liked Songs<small>Playlist · 812 songs</small></div></div>
+<div class="pl"><i style="background:#1e3264"></i><div>Deep Focus<small>Playlist · Spotless</small></div></div>
+<div class="pl"><i style="background:linear-gradient(135deg,#f6b26b,#cc4125)"></i><div>Golden Hour<small>Album · Mira Vale</small></div></div>
+<div class="pl"><i style="background:#8d67ab;border-radius:50%"></i><div>Okkervil Lane<small>Artist</small></div></div>
+<div class="pl"><i style="background:#e8115b"></i><div>Running 170bpm<small>Playlist · you</small></div></div>
+<div class="pl"><i style="background:#148a08"></i><div>Sunday Slow<small>Playlist · you</small></div></div></div>
+<div class="main" data-r="album" data-must><div class="hdr"><div class="cover"></div><div><small>Album</small><h1>Golden Hour</h1><p><b>Mira Vale</b> · 2026 · 10 songs, 38 min</p></div></div>
+<div class="act"><span class="play">▶</span><span style="font-size:24px;color:#b3b3b3">♡</span><span style="font-size:22px;color:#b3b3b3">⋯</span></div>
+<div class="tr h"><span>#</span><span>Title</span><span>Plays</span><span>⏱</span></div>
+<div class="tr"><span class="n">1</span><span><b>Paper Sun</b>Mira Vale</span><span>12,408,221</span><span>3:41</span></div>
+<div class="tr on"><span class="n">♫</span><span><b>Long Way Down</b>Mira Vale, Okkervil Lane</span><span>8,920,114</span><span>4:02</span></div>
+<div class="tr"><span class="n">3</span><span><b>Salt</b>Mira Vale</span><span>6,113,870</span><span>3:18</span></div>
+<div class="tr"><span class="n">4</span><span><b>Glasshouse</b>Mira Vale</span><span>5,402,996</span><span>3:55</span></div>
+<div class="tr"><span class="n">5</span><span><b>Night Bus</b>Mira Vale</span><span>4,877,310</span><span>2:59</span></div>
+<div class="tr"><span class="n">6</span><span><b>Ember</b>Mira Vale</span><span>3,990,045</span><span>4:20</span></div></div>
+<div class="q" data-r="now-playing-panel"><h3>Golden Hour</h3><div class="big"></div><h4>Long Way Down</h4><div class="s">Mira Vale, Okkervil Lane</div><h3 style="font-size:14px">Next in queue</h3><div class="pl"><i style="background:linear-gradient(135deg,#f6b26b,#cc4125)"></i><div>Salt<small>Mira Vale</small></div></div><div class="pl"><i style="background:linear-gradient(135deg,#f6b26b,#cc4125)"></i><div>Glasshouse<small>Mira Vale</small></div></div></div>
+<div class="np" data-r="player-bar" data-must><div class="cur"><i></i><div>Long Way Down<small>Mira Vale, Okkervil Lane</small></div></div><div class="ctl"><div class="bt"><span>⤨</span><span>⏮</span><b>⏸</b><span>⏭</span><span>↻</span></div><div class="prog"><span>1:32</span><div><i></i></div><span>4:02</span></div></div><div class="vol"><span>🔈</span><div><i></i></div></div></div>
+</body></html>

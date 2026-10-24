@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kinetic marquee</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e8ff3a;font-family:Helvetica,Arial,sans-serif;color:#111}
+@keyframes l{to{transform:translateX(-400px)}}@keyframes r{from{transform:translateX(-400px)}to{transform:translateX(0)}}@keyframes spin{to{transform:rotate(360deg)}}
+.band{position:absolute;left:-200px;width:1800px;white-space:nowrap;font-size:150px;font-weight:900;line-height:1;letter-spacing:-4px;transform:rotate(-8deg)}
+.band span{display:inline-block;animation:l 12s linear infinite}
+.b1{top:150px}.b2{top:330px;color:transparent;-webkit-text-stroke:3px #111}.b2 span{animation-name:r}
+.b3{top:520px;background:#111;color:#e8ff3a;padding:10px 0}
+.cut{position:absolute;left:760px;top:200px;width:380px;height:480px;background:linear-gradient(160deg,#ff4d8d,#5b2bff);clip-path:polygon(18% 0,100% 6%,86% 100%,0 88%)}
+.badge{position:absolute;left:1040px;top:600px;width:200px;height:200px;animation:spin 14s linear infinite}
+.badge circle{fill:#111}.badge text{fill:#e8ff3a;font:700 15px monospace;letter-spacing:5px}
+nav{position:absolute;left:48px;top:32px;width:1184px;display:flex;justify-content:space-between;font-weight:800;font-size:15px;text-transform:uppercase}
+.copy{position:absolute;left:48px;top:760px;width:440px;font-size:17px;line-height:1.45;font-weight:500}
+.cta{position:absolute;left:560px;top:770px;padding:18px 34px;border:3px solid #111;border-radius:999px;font-weight:900;font-size:18px;background:#fff;box-shadow:6px 6px 0 #111}
+</style></head><body>
+<nav data-r="nav"><span>Loud/Fest</span><span>Lineup · Tickets · Map · FAQ</span><span>Jul 18–20</span></nav>
+<div class="cut" data-r="cut-photo" data-must></div>
+<div class="band b1" data-r="marquee-1" data-must><span>NOISE NOISE NOISE NOISE NOISE</span></div>
+<div class="band b2" data-r="marquee-2"><span>MORE MORE MORE MORE MORE MORE</span></div>
+<div class="band b3" data-r="marquee-3" data-must><span>THREE DAYS · 40 ACTS · ONE FIELD ·</span></div>
+<svg class="badge" data-r="spinning-badge" viewBox="0 0 200 200"><circle cx="100" cy="100" r="100"/><path id="p" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" fill="none"/><text><textPath href="#p">TICKETS ON SALE • TICKETS ON SALE •</textPath></text></svg>
+<p class="copy" data-r="copy">Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.</p>
+<a class="cta" data-r="cta">Get a wristband →</a>
+</body></html>

@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Log explorer</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0f1117;font-family:Helvetica,Arial,sans-serif;color:#d4d4d8;font-size:12px}
+.nav{position:absolute;left:0;top:0;width:56px;height:900px;background:#16181f;border-right:1px solid #262833}.nav i{display:block;width:28px;height:28px;margin:16px auto;border-radius:8px;background:#262833}.nav i.on{background:#f97316}
+.q{position:absolute;left:76px;top:16px;width:820px;height:38px;border:1px solid #3f3f46;border-radius:8px;background:#16181f;font:13px/38px monospace;padding-left:14px;color:#e4e4e7}.q b{color:#f97316;font-weight:400}
+.rng{position:absolute;left:910px;top:16px;width:150px;height:38px;border:1px solid #3f3f46;border-radius:8px;line-height:38px;padding-left:12px}
+.run{position:absolute;left:1072px;top:16px;width:80px;height:38px;border-radius:8px;background:#f97316;color:#0f1117;font-weight:800;text-align:center;line-height:38px}
+.chips{position:absolute;left:76px;top:66px;display:flex;gap:8px}.chips span{padding:5px 10px;border-radius:12px;background:#262833}.chips .x{background:#3b2414;color:#fdba74}
+.hist{position:absolute;left:76px;top:104px;width:1180px;height:90px;border-bottom:1px solid #262833;display:flex;align-items:flex-end;gap:3px}.hist i{flex:1;background:#3f3f46}.hist i.e{background:#ef4444}
+.tbl{position:absolute;left:76px;top:206px;width:700px;font:12px monospace}
+.tr{display:flex;height:30px;align-items:center;border-bottom:1px solid #1d1f27;padding-left:8px;white-space:nowrap;overflow:hidden}.tr.h{color:#71717a;font-family:Helvetica,Arial,sans-serif;font-size:11px}.tr.sel{background:#1f2433;box-shadow:inset 3px 0 #f97316}
+.tr .ts{width:110px;color:#71717a}.tr .lv{width:60px}.tr .sv{width:110px;color:#a5b4fc}.inf{color:#38bdf8}.wrn{color:#facc15}.err{color:#ef4444}
+.drawer{position:absolute;left:790px;top:206px;width:470px;height:680px;background:#16181f;border:1px solid #262833;border-radius:10px;padding:18px}
+.drawer h3{font-size:15px;color:#fff;margin-bottom:4px}.drawer .m{color:#71717a;margin-bottom:14px}
+.dt{display:flex;gap:18px;border-bottom:1px solid #262833;margin-bottom:12px}.dt span{padding-bottom:8px}.dt .on{color:#fff;border-bottom:2px solid #f97316}
+pre{font:12px/1.7 monospace;background:#0f1117;border-radius:8px;padding:14px;color:#d4d4d8}pre b{color:#a5b4fc;font-weight:400}pre i{color:#86efac;font-style:normal}pre u{color:#fdba74;text-decoration:none}
+.cl{position:absolute;right:16px;top:16px;color:#71717a;font-size:16px}
+</style></head><body>
+<div class="nav" data-r="icon-rail"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+<div class="q" data-r="query-bar" data-must><b>service</b>:checkout <b>level</b>:(error OR warn) "timeout"</div>
+<div class="rng" data-r="time-range">Last 1 hour ▾</div><a class="run" data-r="run-button">Run</a>
+<div class="chips" data-r="filter-chips"><span class="x">service: checkout ✕</span><span class="x">level: error, warn ✕</span><span>+ Add filter</span><span style="background:none;color:#71717a">1,284 results</span></div>
+<div class="hist" data-r="histogram" data-must></div>
+<div class="tbl" data-r="log-table" data-must><div class="tr h"><span class="ts">TIME</span><span class="lv">LEVEL</span><span class="sv">SERVICE</span><span>MESSAGE</span></div></div>
+<div class="drawer" data-r="detail-drawer" data-must><span class="cl">✕</span><h3>upstream timeout after 3000ms</h3><div class="m">14:02:51.338 · checkout · pod checkout-7f9c-x2</div><div class="dt"><span class="on">JSON</span><span>Trace</span><span>Context</span></div>
+<pre>{
+  <b>"level"</b>: <u>"error"</u>,
+  <b>"service"</b>: <u>"checkout"</u>,
+  <b>"msg"</b>: <u>"upstream timeout after 3000ms"</u>,
+  <b>"upstream"</b>: <u>"payments.internal:8443"</u>,
+  <b>"attempt"</b>: <i>3</i>,
+  <b>"order_id"</b>: <u>"ord_8Fq2LmX"</u>,
+  <b>"duration_ms"</b>: <i>3004</i>,
+  <b>"trace_id"</b>: <u>"9b1e0c4a77d2"</u>,
+  <b>"region"</b>: <u>"eu-west-1"</u>
+}</pre></div>
+<script>
+const h=document.querySelector('.hist');const v=[30,42,38,55,47,60,52,48,70,66,58,44,40,62,75,90,88,64,50,46,52,58,61,49,44,39,47,53,68,72,59,41,37,45,50,56,63,70,54,48];v.forEach((x,i)=>{const b=document.createElement('i');b.style.height=x+'%';if(i>13&&i<18)b.className='e';h.appendChild(b)})
+const t=document.querySelector('.tbl');const rows=[['14:02:51.338','error','checkout','upstream timeout after 3000ms'],['14:02:50.912','warn','checkout','retrying payments call (attempt 2)'],['14:02:49.101','warn','checkout','slow response from payments: 2810ms'],['14:02:44.870','error','checkout','upstream timeout after 3000ms'],['14:02:40.006','warn','checkout','cart lock held for 1.2s'],['14:02:38.553','error','checkout','order ord_7Pd1 failed: timeout'],['14:02:31.219','warn','checkout','retrying payments call (attempt 1)'],['14:02:27.640','error','checkout','upstream timeout after 3000ms'],['14:02:20.488','warn','checkout','slow response from payments: 2950ms'],['14:02:12.073','warn','checkout','pool exhausted, queueing request'],['14:02:05.912','error','checkout','upstream timeout after 3000ms'],['14:01:59.307','warn','checkout','retrying payments call (attempt 3)'],['14:01:51.004','warn','checkout','slow response from payments: 2700ms'],['14:01:44.786','error','checkout','order ord_7Ma9 failed: timeout'],['14:01:38.112','warn','checkout','cart lock held for 1.4s'],['14:01:30.640','error','checkout','upstream timeout after 3000ms'],['14:01:22.335','warn','checkout','pool exhausted, queueing request'],['14:01:15.950','warn','checkout','retrying payments call (attempt 1)'],['14:01:09.417','error','checkout','upstream timeout after 3000ms'],['14:01:02.208','warn','checkout','slow response from payments: 2880ms'],['14:00:55.601','warn','checkout','cart lock held for 1.1s'],['14:00:49.093','error','checkout','upstream timeout after 3000ms']];rows.forEach((r,i)=>{const d=document.createElement('div');d.className='tr'+(i==0?' sel':'');d.innerHTML=`<span class="ts">${r[0]}</span><span class="lv ${r[1]=='error'?'err':'wrn'}">${r[1].toUpperCase()}</span><span class="sv">${r[2]}</span><span>${r[3]}</span>`;t.appendChild(d)})
+</script>
+</body></html>

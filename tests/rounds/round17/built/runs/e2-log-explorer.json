@@ -1,0 +1,183 @@
+{
+  "id": "e2-log-explorer",
+  "at": "2026-10-24T11:17:27.553Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7751474714352139,
+    "overallV2": 0.7751474714352139,
+    "overallV1": 0.740029240242545,
+    "colour": 0.9788910219138401,
+    "structure": 0.7577531497933031,
+    "structureStrict": 0.6670422848628719,
+    "colourAligned": 0.9788910219138401,
+    "structureAligned": 0.7577531497933031,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.5688911862625461
+    },
+    "layout": 0.5906255106826851
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "mono",
+      "overlap"
+    ],
+    "missing": [
+      "hard-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 43670,
+    "output": 29328,
+    "cacheRead": 160259
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 64759,
+      "output": 26428,
+      "cacheRead": 157175,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 300498
+    }
+  ],
+  "reading": "The sketch is a log-monitoring dashboard: a left icon sidebar, a top filter bar with service/level search syntax, a dropdown and orange Run button, a filter-pills row, a bar chart of log volume over time, a scrollable error/warn log list, and a right-hand docs-style detail panel with a JSON trace code block. All text content and exact styling come from the typed notes attached to each stroke group, which take precedence over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        4,
+        50,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build a vertical sidebar: near-black (#16181f) block with no picture, containing 5 small rounded squares (28px) stacked from its top, 16px apart. The first squa"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        79,
+        19,
+        813,
+        32
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build a near-black top bar, 38px tall, spanning the page width. It holds 4 separate live-text elements (none invented, none omitted), each staying on one line ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        912,
+        17,
+        146,
+        35
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a dropdown control in the top bar reading \"Last 1 hour\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1074,
+        18,
+        76,
+        35
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add an orange near-black text button labeled \"Run\": 80x38px, border-radius 8px (barely rounded, not a pill), fill #f97316, text color #0f1117 (near-black, not t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        80,
+        74,
+        430,
+        9
+      ],
+      "paths": [],
+      "instruction": "Build a row of 4 filter pills below the top bar, each its own live-text element, text kept on one line (nowrap, min-width): (1) 126x24px at 76,66, fill #3b2414,"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        79,
+        107,
+        1173,
+        84
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Build a bar chart with 40 dark grey bars, no axis labels underneath. Bar heights as percentages of the tallest bar (80px): 34,46,43,61,53,66,57,54,78,74,65,49,4"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        79,
+        209,
+        694,
+        684
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Build a log list panel with header row \"TIME LEVEL SERVICE\" and rows including: '14:02:51.338' ERROR, '14:02:50.912' WARN, '14:02:49.101' WARN, '14:02:44.870' E"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        793,
+        209,
+        464,
+        673
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Build a near-black docs-article panel (not a card, not just a table), top to bottom with exact offsets from the article's top: a 16px grey paragraph line '✕' at"
+    }
+  ],
+  "rejected": []
+}

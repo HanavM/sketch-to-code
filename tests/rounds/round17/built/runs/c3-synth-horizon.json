@@ -1,0 +1,212 @@
+{
+  "id": "c3-synth-horizon",
+  "at": "2026-10-24T11:10:59.593Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6953405340830457,
+    "overallV2": 0.6953405340830457,
+    "overallV1": 0.6631034115762817,
+    "colour": 0.9031041198188983,
+    "structure": 0.5675335456903788,
+    "structureStrict": 0.48389970829584605,
+    "colourAligned": 0.9031041198188983,
+    "structureAligned": 0.5675335456903788,
+    "align": {
+      "scale": 1.16,
+      "dx": -80,
+      "dy": -32,
+      "r": 0.7641647990385441
+    },
+    "layout": 0.6819255342595109
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "3d",
+      "clip-shape",
+      "glow",
+      "gradient",
+      "motion",
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 54772,
+    "output": 30092,
+    "cacheRead": 194534
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 64053,
+      "output": 20796,
+      "cacheRead": 183966,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/RetroSun.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/index.css",
+        "Write components/RetroSun.tsx",
+        "Write components/SketchShape.tsx",
+        "Write components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 228310
+    }
+  ],
+  "reading": "This is a full synthwave-style landing-page hero for a band 'NIGHTDRIVE': a gradient night-sky page background, a glowing yellow-to-pink sun circle, a jagged dark mountain silhouette cut-out, a huge tinted backdrop block, a cyan nav bar, a giant 3D-extruded 'OUTRUN' headline, a bold yellow 'NEW ALBUM · 11.11' line, and a cyan outline 'PRE-SAVE' button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 173
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        563
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Large glowing sun: soft vivid yellow #ffe259 at top fading to vivid pink #ff2e88 at bottom, circular, fading out into the page toward the top (solid until 50% o"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        563
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "A near-black jagged cut-out silhouette (mountain/skyline shape), ONE flat #1a0638 fill via clip-path polygon — no gradient, no shading, no texture; the drawn ou"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        563
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "A big empty product-photo backdrop block (20061x2264px) filled with a soft pale tinted gradient from #ff2e88 to #000000, left to right — no picture placeholder "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        552
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Site nav, no box around it: wide-letter-spaced 'NIGHTDRIVE' on the left, 'TRACKS · TOUR · MERCH' on the right, both in cyan #00e5ff text (not the page's default"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 173
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        552
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Giant Helvetica italic heavy, tight-set headline 'OUTRUN' at 170px, about 703px wide (no larger). Give it an extruded 3D look using 8 stacked hard (no blur) tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        563
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Monospace, wide letter-spaced line 'NEW ALBUM · 11.11' in soft yellow #ffe259 (not the page's default white), set bold (font-weight 700), not regular."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        531,
+        781,
+        217,
+        51
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Cyan outline button labeled 'PRE-SAVE', 220x54px, square corners (border-radius 0, not a pill), text in cyan #00e5ff (not the page's default white)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

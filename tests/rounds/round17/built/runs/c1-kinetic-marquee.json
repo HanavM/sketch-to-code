@@ -1,0 +1,229 @@
+{
+  "id": "c1-kinetic-marquee",
+  "at": "2026-10-24T11:04:30.045Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7707724001161588,
+    "overallV2": 0.7596399183553955,
+    "overallV1": 0.6304169148279885,
+    "colour": 0.9260205614127899,
+    "structure": 0.6839857084385021,
+    "structureStrict": 0.40569409442534043,
+    "colourAligned": 0.9260205614127899,
+    "structureAligned": 0.7079603587144327,
+    "align": {
+      "scale": 1,
+      "dx": 32,
+      "dy": 0,
+      "r": 0.7470137592062052
+    },
+    "layout": 0.8457765249026158
+  },
+  "effects": {
+    "recall": 0.7,
+    "kept": [
+      "bleed",
+      "hard-shadow",
+      "hollow-type",
+      "huge-type",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 49873,
+    "output": 28934,
+    "cacheRead": 164420
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 70061,
+      "output": 24952,
+      "cacheRead": 161336,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 275132
+    }
+  ],
+  "reading": "The sketch is a festival landing-page hero: a flex nav bar, a tilted pink-to-indigo gradient cut-out shape behind the content, three tilted scrolling marquee rows (solid \"NOISE...\", hollow-outline \"MORE...\", and a black band \"THREE DAYS...40 ACTS...\"), a spinning ring of small \"TICKETS ON SALE\" text around a circle, a body paragraph, and a white pill CTA button with a hard offset shadow — all specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        35,
+        1176,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the nav bar as a single 1184px-wide flex row (display:flex; justify-content:space-between) at 48,32 containing three separate items, never run together as"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        760,
+        200,
+        380,
+        480
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a flat angled cut-out shape painted with linear-gradient(160deg, #ff4d8d, #5b2bff) exactly (these hexes, no brighter/darker), no drop shadow, no border. Its"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 164
+        }
+      ],
+      "region": [
+        6,
+        172,
+        1268,
+        106
+      ],
+      "paths": [],
+      "instruction": "Add a tilted 8° anticlockwise scrolling marquee of giant Helvetica heavy, tight-set letters reading \"NOISE NOISE NOISE NOISE NOISE\", bleeding off the left and r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 164
+        }
+      ],
+      "region": [
+        6,
+        352,
+        1268,
+        106
+      ],
+      "paths": [],
+      "instruction": "Add a tilted 8° anticlockwise scrolling marquee of giant Helvetica heavy, tight-set letters reading \"MORE MORE MORE MORE MORE MORE\", bleeding off the left and r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 164
+        }
+      ],
+      "region": [
+        6,
+        507,
+        1268,
+        197
+      ],
+      "paths": [],
+      "instruction": "Add a tilted 8° anticlockwise scrolling marquee band, bleeding off the left and right page edges: a near-black (#111111) band 1800x170px before the tilt (only 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1044,
+        604,
+        192,
+        191
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a spinning ring of small spaced capital letters reading \"TICKETS ON SALE • TICKETS ON SALE •\" running around a 200px circle, with no outline and no fill on "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        52,
+        760,
+        432,
+        49
+      ],
+      "paths": [],
+      "instruction": "Add body copy text: \"Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        562,
+        771,
+        229,
+        60
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a white pill button labelled \"Get a wristband →\" with a hard solid opaque near-black shadow offset 6px down-right (no blur), exactly: #ffffff fill, #111111 "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
