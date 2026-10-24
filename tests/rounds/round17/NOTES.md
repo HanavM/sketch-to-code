@@ -74,3 +74,24 @@ re-generated: unchanged.
 Round 17 complete: **80%** over 10 pages (latest build each). Vitest: same 2 env failures; typecheck clean.
 Next: the layout check misses absolutely placed regions the picture shows are right (c2 circles/title, e1 toolbar):
 find out why before trusting those numbers; c5 glow, vertical stat, strip clipping; e2 message column; c4 wrap and drop cap.
+
+## n174: why the layout score missed regions the pictures showed right (2026-10-24, ~172k billed)
+
+Found: a target region whose wrapper holds only absolutely placed parts collapses to 0px high, so it was measured
+1280x0 and no build could ever match it. 8 regions in rounds 15-17 (r15 c2 numerals; r16 c2 blobs and glass cards,
+c3 arched title, c5 floating chips, e2 events; r17 c2 circles and offset title). Worse, the auto-sketch drew its marks
+from those same boxes, so those parts were drawn as flat lines at the page top. Fixed in both places (target measure
+and planner facts): a collapsed wrapper takes the box round what it shows, clipped to the screen. Rounds 1-17 plans
+re-generated: only r16 c2 changed (the glass stack's box, and a price tag now said "in front of" the heading).
+
+Also added: a region built as sibling parts with no wrapper (e1's toolbar said as 7 separate elements) can match as a
+group. Checked with `node tests/rounds/layoutcross.mjs` (each target's regions over every other target's page): unrelated
+pages rise only 32 → 34 on average over rounds 8-17 (letting any parts in the band count, not just siblings, was +11:
+dropped). Runs now save the built page's element boxes so layout can be re-scored later without rebuilding.
+
+| page | likeness | what changed / still off |
+|---|---|---|
+| c2 riso overprint | 86 → **82%** (layout now measured on real boxes: 85%) | circles and title drawn and built in place; circles carry a big blurred dark halo, an invented paragraph sits over LAB, stamp text blue (target pink) |
+| e1 gantt timeline | 59 → **78%** | toolbar built as one bar this time (single match, group rule not needed); layout 65 → 86 |
+
+Round 17: **82%** over 10 (latest build each). Vitest: same 2 env failures; typecheck clean.
