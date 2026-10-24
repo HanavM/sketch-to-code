@@ -1,23 +1,23 @@
 {
   "id": "c1-text-rings",
-  "at": "2026-10-24T02:20:44.734Z",
+  "at": "2026-10-24T02:50:12.238Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8075353414793234,
-    "overallV2": 0.8075353414793234,
-    "overallV1": 0.7650780611482086,
-    "colour": 0.981533143327497,
-    "structure": 0.798948755922046,
-    "structureStrict": 0.6924740647090876,
-    "colourAligned": 0.981533143327497,
-    "structureAligned": 0.798948755922046,
+    "overall": 0.95466272546056,
+    "overallV2": 0.95466272546056,
+    "overallV1": 0.9251248139314852,
+    "colour": 0.9947313419013626,
+    "structure": 0.9801493485158108,
+    "structureStrict": 0.9060739488527504,
+    "colourAligned": 0.9947313419013626,
+    "structureAligned": 0.9801493485158108,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8733011999847942
+      "r": 0.9209934120467378
     },
-    "layout": 0.6512413027532155
+    "layout": 0.882552220702481
   },
   "effects": {
     "recall": 0.8888888888888888,
@@ -34,41 +34,38 @@
     "missing": [
       "blur"
     ],
-    "extra": []
+    "extra": [
+      "soft-shadow"
+    ]
   },
   "tokens": {
-    "input": 57240,
-    "output": 33604,
-    "cacheRead": 369315
+    "input": 49279,
+    "output": 26088,
+    "cacheRead": 195449
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 64909,
-      "output": 22008,
-      "cacheRead": 327106,
-      "toolCalls": 14,
+      "billed": 52591,
+      "output": 16095,
+      "cacheRead": 156104,
+      "toolCalls": 9,
       "tools": [
-        "Read components/SpinningRing.tsx",
         "Glob",
         "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Glob",
         "Glob",
-        "Read s2c-bench-app/index.html",
         "Edit src/index.css",
-        "Edit components/SpinningRing.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Read src/main.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 245362
+      "ms": 178613
     }
   ],
-  "reading": "The sketch lays out a festival landing page: a thin top rule becomes a boxed-free nav, three wavy lines become a giant 3-line headline, concentric squares become an inset artwork panel holding a spinning conic-gradient ring, a circle becomes a tilted yellow CTA button, three short wavy lines on the right become a 3-row schedule list, and a bottom-left wavy line becomes a small date/location line, all styled per the typed notes (dark navy page, cream Helvetica type).",
+  "reading": "This is a festival landing-page hero: a top nav line, a 3-line giant headline 'Sound / in / circles', a big circular gradient ring with two rings of spinning rotated text around it, a tilted yellow 'GET A PASS' button, a 3-row schedule list on the right, and a small mono date/location line at the bottom — all on a dark navy page per the run-wide note.",
   "actions": [
     {
       "kind": "add",
@@ -83,7 +80,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Nav bar, no box around it: bold wide-spaced \"ORBIT FEST\" aligned left, \"Lineup · Map · Tickets · FAQ\" aligned right, following the thin horizontal rule drawn ac"
+      "instruction": "Top nav bar, no surrounding box: bold wide-letter-spaced 'ORBIT FEST' on the left, and 'Lineup · Map · Tickets · FAQ' on the right."
     },
     {
       "kind": "add",
@@ -110,7 +107,7 @@
         260
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.9), three lines exactly as broken: \"Sound\" / \"in\" / \"circles\" — keep these breaks, each line stays whole"
+      "instruction": "Giant Helvetica-heavy headline set tight (line-height 0.9), broken into exactly 3 lines that never rewrap (white-space: nowrap, min width ~304px): 'Sound' / 'in"
     },
     {
       "kind": "add",
@@ -126,7 +123,23 @@
         "s4",
         "s5"
       ],
-      "instruction": "An inset 600×600px panel positioned within the page content (top-left roughly at 380,150), NOT full-bleed/edge-to-edge — the page background shows around it on "
+      "instruction": "A 300px decorative ring painted with one smooth conic gradient (conic-gradient(from 200deg, #ff6b3d, #ffd23f, #3dd6c4, #5b5bff, #ff6b3d), border-radius 50%), 90"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        383,
+        153,
+        594,
+        594
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "Two rings of text curving round in circles on top of the gradient ring, inside a transparent 600x600px SVG positioned at 380,150 that slowly spins (0→360deg, 30"
     },
     {
       "kind": "add",
@@ -141,7 +154,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "A circular button tilted 14° anticlockwise, filled vivid yellow, labeled \"GET A PASS →\" in dark navy (#0d1b2a) text (not the page's cream text)."
+      "instruction": "A vivid yellow circular button tilted 14° anticlockwise reading 'GET A PASS →', with dark-navy (#0d1b2a) text (not the page's cream text)."
     },
     {
       "kind": "add",
@@ -168,7 +181,7 @@
         88
       ],
       "paths": [],
-      "instruction": "A 3-row schedule list, each row a day/stage label next to a bold mono accent number in orange (#ff6b3d): \"Friday, Shore stage\" / \"01\"; \"Saturday, Forest\" / \"02\""
+      "instruction": "A 3-row schedule list, each row a label plus a bold monospace orange (#ff6b3d) number: 'Friday, Shore stage' / '01'; 'Saturday, Forest' / '02'; 'Sunday, Dawn se"
     },
     {
       "kind": "add",
@@ -183,7 +196,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Small 15px mono line of text: \"14–16 AUG 2027 · LAKE BLED\"."
+      "instruction": "Small 15px monospace line of text: '14–16 AUG 2027 · LAKE BLED'."
     }
   ],
   "rejected": [

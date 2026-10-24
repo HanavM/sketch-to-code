@@ -1,104 +1,117 @@
 {
   "id": "c2-misregister",
-  "at": "2026-10-24T02:26:55.215Z",
+  "at": "2026-10-24T02:54:57.976Z",
   "likeness": {
     "version": 3,
-    "overall": 0.3955636796877568,
-    "overallV2": 0.3955636796877568,
-    "overallV1": 0.3604890589420007,
-    "colour": 0.8949612035421819,
-    "structure": 0.6600624831100682,
-    "structureStrict": 0.61100567186362,
-    "colourAligned": 0.8949612035421819,
-    "structureAligned": 0.6600624831100682,
+    "overall": 0.8480538683035893,
+    "overallV2": 0.8480538683035893,
+    "overallV1": 0.8340910638807812,
+    "colour": 0.994652065624183,
+    "structure": 0.9643214958102931,
+    "structureStrict": 0.9447925416412407,
+    "colourAligned": 0.994652065624183,
+    "structureAligned": 0.9643214958102931,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.2768948435556581
+      "r": 0.990515656315395
     },
-    "layout": 0.41390297542783216
+    "layout": 0.6100359805216538
   },
   "effects": {
-    "recall": 0.5714285714285714,
+    "recall": 0.8571428571428571,
     "kept": [
+      "blend",
+      "huge-type",
       "mono",
       "overlap",
       "serif",
       "tilt"
     ],
     "missing": [
-      "blend",
-      "huge-type",
       "stripes-or-layers"
     ],
-    "extra": []
+    "extra": [
+      "gradient"
+    ]
   },
   "tokens": {
-    "input": 49423,
-    "output": 26950,
-    "cacheRead": 217880
+    "input": 35231,
+    "output": 19842,
+    "cacheRead": 322865
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 51004,
-      "output": 15990,
-      "cacheRead": 206713,
-      "toolCalls": 8,
+      "billed": 33341,
+      "output": 8518,
+      "cacheRead": 146924,
+      "toolCalls": 6,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Edit components/SketchShape.tsx",
-        "Write src/App.tsx"
+        "Edit src/App.tsx"
       ],
-      "ms": 180085
+      "ms": 88451
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7979,
+      "output": 3100,
+      "cacheRead": 172857,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 31813
     }
   ],
-  "reading": "A sketch for a print-studio landing page: page-wide cream/Helvetica styling, a plain (borderless) nav with a title, nav links and three coloured \"27\" labels, a small icon square top-right, a pill-shaped empty input, a wrapped serif pull-quote, a tilted black badge with yellow text, a row of 8 colour-swatch blocks, and three small monospace caption texts in the footer.",
+  "reading": "A print-studio landing page: cream dot-grid background, a bare-text nav, a huge triple-overprinted \"27\" headline, a printer's registration-mark icon, a bordered serif pull-quote, a tilted \"OPEN STUDIO SAT\" block, and a footer strip of 8 colour swatches with 3 small print-run caption labels, all content taken verbatim from the typed notes.",
   "actions": [
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        4,
-        1,
-        1272,
-        52
+        64,
+        43,
+        1152,
+        10
       ],
       "paths": [
-        "s0",
-        "s2",
-        "s3",
-        "s4",
-        "s5",
-        "s6"
+        "s0"
       ],
-      "instruction": "Borderless top nav bar: site title \"PRESSWORK STUDIO\" on the left, nav links \"Risograph · Screen · Letterpress · Shop\" on the right; also include three small li"
+      "instruction": "Site nav bar at the very top, no box/border around it: \"PRESSWORK STUDIO\" on the left, \"Risograph · Screen · Letterpress · Shop\" on the right."
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        1184,
-        104,
-        33,
-        32
+        8,
+        1,
+        1152,
+        5
       ],
       "paths": [
-        "s1"
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
       ],
-      "instruction": "Small square icon/button in the top-right corner near the nav (e.g. menu or cart icon placeholder)."
+      "instruction": "One giant word \"27\" printed 3 times, overlapping and slightly offset like a misregistered print (this is display art, not links/nav, not small text): 3 separate"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [
         "s7"
       ],
@@ -121,7 +134,7 @@
         17
       ],
       "paths": [],
-      "instruction": "Pill-shaped input field, currently empty (no placeholder text)."
+      "instruction": "A 40px printer's registration mark, NOT an input or button, no text: an empty circle with a 2px #1a1a1a outline, crossed by a 2px #1a1a1a vertical line and a 2p"
     },
     {
       "kind": "add",
@@ -149,7 +162,7 @@
         109
       ],
       "paths": [],
-      "instruction": "Serif body paragraph, wrapped across three lines as sketched, reading: \"Twenty-seven colours, printed slightly wrong on purpose.\""
+      "instruction": "Serif pull-quote: \"Twenty-seven colours, printed slightly wrong on purpose.\" Set inside its own 300x184px box at 880,190 with a 2px #1a1a1a border on all four s"
     },
     {
       "kind": "add",
@@ -164,7 +177,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "A block/badge tilted 8° clockwise, filled near-black (#1a1a1a), containing yellow (#ffd500) text reading \"OPEN STUDIO SAT\" (text colour is yellow, not the page'"
+      "instruction": "A tilted (8° clockwise) near-black (#1a1a1a) block/button reading \"OPEN STUDIO SAT\"; its text should be #ffd500 (yellow), not the page's usual near-black text."
     },
     {
       "kind": "add",
@@ -179,7 +192,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Row of 8 colour-swatch blocks across the footer, each 145x40px, left-to-right with top-left positions and fills: 60,780 #00a8d6; 205,780 #e6007e; 350,780 #ffd50"
+      "instruction": "Row of 8 solid colour swatch blocks along the footer, each its own element, 145x40px: #00a8d6 at 60,780; #e6007e at 205,780; #ffd500 at 350,780; #1a1a1a at 495,"
     },
     {
       "kind": "add",
@@ -194,7 +207,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Three small monospace caption texts in #1a1a1a along the bottom: \"C 100 M 0 Y 0 K 0\" (133x15 at 60,840), \"Plate 3 of 4\" (94x15 at 581,840), \"Studio 9, Leith Wal"
+      "instruction": "3 small 13px monospace #1a1a1a text labels beneath the swatch row: \"C 100 M 0 Y 0 K 0\" (133x15 at 60,840); \"Plate 3 of 4\" (94x15 at 581,840); \"Studio 9, Leith W"
     }
   ],
   "rejected": [

@@ -2785,7 +2785,8 @@ function boxedLine(f, d) {
   if (!d || !/^(heading|text)$/.test(d.kind ?? '') || /border|outline|boxed|box around|band|block filled/i.test(d.note ?? '')) return d
   const B = f.border
   if (!(B.w >= 1 && B.bottom >= 1 && B.left >= 1 && visible(B.colour)) || f.text.length < 12 || f.rect.w < 120 || f.kidCount > 1) return d
-  return { ...d, note: `${d.note ?? ''}; set INSIDE its own ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with a ${Math.round(B.w)}px ${hexOf(B.colour)} border on all four sides${visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''} (keep the border)`.replace(/^; /, '') }
+  const px = !/\d+px type|\d+px "/.test(d.note ?? '') && f.font?.size ? `, ${Math.round(f.font.size)}px type${f.font.size >= 24 ? ' (large, not body size)' : ''}` : ''
+  return { ...d, note: `${d.note ?? ''}${px}; set INSIDE its own ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with a ${Math.round(B.w)}px ${hexOf(B.colour)} border on all four sides${visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''} (keep the border)`.replace(/^; /, '') }
 }
 // n158: round 15 creative parts said as what they are
 function round15Note(f) {

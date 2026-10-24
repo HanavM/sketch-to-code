@@ -1,0 +1,203 @@
+{
+  "id": "c5-contour-poster",
+  "at": "2026-10-24T03:01:57.360Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8616511084065449,
+    "overallV2": 0.8616511084065449,
+    "overallV1": 0.8487518222849946,
+    "colour": 0.9658266077821892,
+    "structure": 0.8180516068847324,
+    "structureStrict": 0.7838283355065264,
+    "colourAligned": 0.9658266077821892,
+    "structureAligned": 0.8180516068847324,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.46317960104920053
+    },
+    "layout": 0.8125415965713609
+  },
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 31139,
+    "output": 19814,
+    "cacheRead": 191066
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40611,
+      "output": 15059,
+      "cacheRead": 187982,
+      "toolCalls": 9,
+      "tools": [
+        "Read components/MapLocation.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/MapLocation.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 169833
+    }
+  ],
+  "reading": "The sketch builds a dark full-bleed hero/landing page: a giant vertical \"HIGH ROUTE\" sidebar heading, a small contents list (\"2,962 m\" + 4 links), a large contour-map textured panel with an orange tilted pin marker and \"PASSO GAVIA\" label, an italic nowrap headline over the map, a 10-bar lime elevation chart, and a striped decorative bar — all styled per the user's typed notes (colors, exact CSS patterns, fonts).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        385,
+        108,
+        83
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant vertical sidebar heading reading \"HIGH ROUTE\", set in writing-mode: vertical-rl rotated 180deg so it reads bottom-to-top, in a 120px-wide column at the fa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 7,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        224,
+        60,
+        172,
+        298
+      ],
+      "paths": [],
+      "instruction": "A contents list with no box or card background: a bold dark heading reading \"2,962 m\", followed by 4 small 13px cream (#e9f0d8) plain-text links (not buttons), "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        423,
+        63,
+        794,
+        774
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Large 800x780px panel rendered as a contour-map texture: many thin concentric lime ring lines on a see-through ground, spreading out to and cut off by the panel"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        831,
+        363,
+        140,
+        33
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "A small location-pin marker tilted 45° clockwise (diamond orientation) in vivid orange, placed on the contour map, paired with an adjacent vivid-orange label ba"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        643,
+        206,
+        113
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "An elevation profile bar chart with 10 lime-colored vertical bars, heights 17%, 28%, 43%, 40%, 58%, 77%, 100%, 80%, 53%, 33% of the tallest bar."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        224,
+        794,
+        173,
+        37
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Vertical repeating stripe pattern fill (not a smooth gradient) on this bar: repeating-linear-gradient(90deg, #e9f0d8 0px 2px, transparent 2px 5px, #e9f0d8 5px 9"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13"
+          ],
+          "lines": 1,
+          "fontPx": 58
+        }
+      ],
+      "region": [
+        468,
+        749,
+        403,
+        70
+      ],
+      "paths": [],
+      "instruction": "A big italic serif headline reading \"Climb the long way round.\" set on one line with white-space: nowrap (never wraps), about 448px wide, placed over the contou"
+    }
+  ],
+  "rejected": []
+}

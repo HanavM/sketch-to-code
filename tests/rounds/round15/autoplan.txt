@@ -14,7 +14,7 @@ c1-text-rings · marks 7 · words 428
     note sticker-cta: tilted 14° anticlockwise vivid yellow circle with "GET A PASS →"; its text #0d1b2a (dark navy, NOT the page's cream text)
     note index-list: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 202x29 at 1018,560 14px #f6efe1 "Friday, Shore stage"; 17x16 at 1018,566 14px bold mono #ff6b3d "01"; 202x29 at 1018,589 14px #f6efe1 "Saturday, Forest"; 17x16 at 1018,595 14px bold mono #ff6b3d "02"; 202x29 at 1018,619 14px #f6efe1 "Sunday, Dawn set"; 17x16 at 1018,625 14px bold mono #ff6b3d "03"
     note date-line: 15px mono "14–16 AUG 2027 · LAKE BLED"
-c2-misregister · marks 7 · words 391
+c2-misregister · marks 7 · words 397
     nav          box     
     reg-mark     circle  
     numerals     heading 
@@ -26,7 +26,7 @@ c2-misregister · marks 7 · words 391
     note nav: nav, no box around it: "PRESSWORK STUDIO" left, "Risograph · Screen · Letterpress · Shop" right
     note reg-mark: a 40px printer's REGISTRATION MARK at 1180,100 (NOT an input, NOT a button, no text): an empty circle with a 2px #1a1a1a outline, crossed by a 2px #1a1a1a vertical and a 2px horizontal line through its centre (a crosshair in a ring)
     note numerals: ONE GIANT WORD "27" PRINTED 3 TIMES, overlapping and slightly offset like a misregistered print (NOT links, NOT nav, NOT small): 3 separate absolutely placed divs, each the same 560px heavy (font-weight 900) "27" (line-height 1, letter-spacing -30px), each with mix-blend-mode: multiply so where they overlap the inks darken into each other; copy 1: #00a8d6 text, its box's top-left at 150,120 (position absolute; the glyphs' ink spans 150-713 across); copy 2: #e6007e text, its box's top-left at 172,136 (position absolute; the glyphs' ink spans 172-735 across); copy 3: #ffd500 text, its box's top-left at 136,148 (position absolute; the glyphs' ink spans 136-699 across); together they fill about 599x654px of the page's left side
-    note caption: serif "Twenty-seven colours, printed slightly wrong on purpose."; set INSIDE its own 300x184px box at 880,190 with a 2px #1a1a1a border on all four sides, #f4efe4 fill (keep the border)
+    note caption: serif "Twenty-seven colours, printed slightly wrong on purpose.", 30px type (large, not body size); set INSIDE its own 300x184px box at 880,190 with a 2px #1a1a1a border on all four sides, #f4efe4 fill (keep the border)
     note tag: tilted 8° clockwise near-black (exactly #1a1a1a) block, yellow text "OPEN STUDIO SAT"; its text #ffd500 (yellow, NOT the page's near-black text)
     note colour-bar: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out): 145x40 at 60,780 #00a8d6 fill; 145x40 at 205,780 #e6007e fill; 145x40 at 350,780 #ffd500 fill; 145x40 at 495,780 #1a1a1a fill; 145x40 at 640,780 #7fd3ea fill; 145x40 at 785,780 #f27fbe fill; 145x40 at 930,780 #ffea80 fill; 145x40 at 1075,780 #8c8c8c fill
     note footer: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 133x15 at 60,840 13px mono #1a1a1a "C 100 M 0 Y 0 K 0"; 94x15 at 581,840 13px mono #1a1a1a "Plate 3 of 4"; 157x15 at 1063,840 13px mono #1a1a1a "Studio 9, Leith Walk"

@@ -38,3 +38,21 @@ Next (planner, free first): text on a circular SVG path said as its words, ring 
 offset copies of one giant word with multiply blend said as overprinted layers (never links); a word spread across
 3D-turned panels; SVG clip-path shapes with a pattern fill; repeating-radial contour rings; a pale code block never
 "dark"; then first builds c3, c4, c5, e1, e2, e3, e5.
+
+## n158: planner says text rings, overprint, contour rings, pale code; live c1, c2, c5, e5 (2026-10-24, ~279k billed)
+
+Planner now says: words on circular SVG paths (each ring's radius, centre, size, opacity, spin); one giant word
+printed 2-4 times, absolutely placed and offset, with multiply blend (each copy's colour and place); a crosshair
+registration mark; a page dot grid; a line of text inside its own bordered box (with its type size);
+repeating-radial contour rings verbatim; a pale code block called pale. Rounds 1-14 notes unchanged.
+
+| page | likeness | what was off |
+|---|---|---|
+| c1 text rings | 81 -> **95%** | both rings built, spinning, right radius and words; index list lost its orange left rule |
+| c2 misregister | 40 -> **85%** | three offset multiply 27s, dot grid, crosshair, bordered caption all built; caption type built ~12px (30px; size now said); nav regular weight |
+| c5 contour poster | first **86%** | contour rings, peak, bars, barcode right; vertical title wrapped onto 2 columns; the three lime stats (2,962 m / 41 km / +1,880) built as one heading and small links |
+| e5 issue palette | first **45%** | page, palette and pale code block right; the white dim over the page not built (everything under the palette at full strength) |
+
+Round 15 so far: **81%** over 5 (c1 95, c2 85, c5 86, e4 95, e5 45). Vitest: same 2 env failures; typecheck clean.
+Next (free first): a white see-through dim layer said so it is built (e5); a vertical one-line title never wrapped
+(c5); stacked big-number stat items (c5); a list's coloured left rule (c1); then first builds c3, c4, e1, e2, e3; re-run c2, c5, e5.
