@@ -1,9 +1,9 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 18 holds at 87%: the kanban's finished cards are now struck through (87 to 91) and the duotone photo has its scan lines. Next: the photo's slanted dark edge and the email page."
+now: "Round 18 at 86%: the duotone photo now has its slanted dark edge and bright solid glows, though this run moved its logo. Next: the cream shape's straight bottom edge and the email page."
 round: 18
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 87]
-lock: {by: run-n188, until: "2026-10-24T23:48Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 86]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
@@ -610,4 +610,5 @@ nodes:
   - {id: n185, parent: n184, kind: step, title: "Free first, ~250k live: c2 grid margin and outer frame (say the 30px inset), headline capitals; e1 top bar wrapped; e4 rows tight, To chip; c4 scan lines. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Grid margin and frame said: c2 72 to 86; two-line copy kept whole, To chip: e4 71 to 73"}
   - {id: n186, parent: n185, kind: step, title: "Free first, ~250k live: c2 hollow 26 spills its cell (clip it), header bar inset; e1 top bar wrapped; e4 message rows tight; c4 scan lines. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "26 clipped by its cell: c2 86 to 87; bar said part by part with avatars: e1 73 to 87"}
   - {id: n187, parent: n186, kind: step, title: "Free first, ~250k live: e4 message rows tight, logo small; e1 Done cards struck-through titles built plain and wrapped; c4 scan lines over the photo; c2 header flush at top. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Struck titles and scan-line overlay said: e1 87 to 91, c4 82 held with scan lines; round 18 87"}
-  - {id: n188, parent: n187, kind: step, title: "Free first, ~250k live: c4 photo's own slanted left edge (dark wedge) lost, cream shape bottom kept wavy; e4 at 73 (rows, logo); e1 struck titles still wrap; c2 header flush at top. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n188, parent: n187, kind: step, title: "Free first, ~250k live: c4 photo's own slanted left edge (dark wedge) lost, cream shape bottom kept wavy; e4 at 73 (rows, logo); e1 struck titles still wrap; c2 header flush at top. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Slanted photo edge and solid glow cores said: c4 82 to 81, glows and dark wedge built; round 18 86"}
+  - {id: n189, parent: n188, kind: step, title: "Free first, ~250k live: c4 cream shape bottom kept wavy from the drawing, brand set low; e4 at 73 (rows tight, logo small); e1 struck titles wrap; c2 header flush at top. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}

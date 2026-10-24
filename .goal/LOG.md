@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T22:45Z | n188 slanted photo edge, solid glow cores | c4 82 to 81 (glows solid, dark wedge built; brand moved, noise); round 18 86. ~122k.
 2026-10-24T22:20Z | n187 struck titles, scan-line overlay | e1 87 to 91 (struck, faded); c4 82 held, scan lines built; round 18 87. ~208k.
 2026-10-24T22:10Z | n186 hollow word clipped, chip bar part by part, avatar stack | c2 86 to 87 (26 clipped); e1 73 to 87 (bar one line); round 18 87. ~209k.
 2026-10-24T21:50Z | n185 grid margin and frame, whole copy, To chip | c2 72 to 86 (margin, frame, capitals); e4 71 to 73 (words exact); round 18 85. ~265k.
