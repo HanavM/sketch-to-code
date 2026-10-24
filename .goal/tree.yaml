@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 15 at 74% over seven pages: the white dim behind the command palette now builds (45 to 81%) and the contour stats stack right (91%); next the folded-paper word and the striped blob, which came out wrong on their first builds."
 round: 15
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 74]
-lock: null
+lock: {by: n160-run, until: "2026-10-24T05:33Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
