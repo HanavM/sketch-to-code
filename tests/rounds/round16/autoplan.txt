@@ -31,8 +31,8 @@ c2-glass-stack · marks 7 · words 281
     note lede: text "Budget, savings and spending, each on its own pane, all visible at once."
     note cta: vivid indigo #7b5cff (left) to vivid light pink #ff5cc8 (right) gradient pill button "Start free"
     note glass-cards: a layered glass stack, 1280x0px at 0,0 (all absolutely placed, page px; NOT a list, NOT empty): 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 35% border, backdrop-filter: blur(18px), a big soft dark drop shadow, 24px padding, later cards painted over earlier ones: card 1 355x200px at 632,153: bold 22px #ffffff "Spending", then 14px #ffffff "This month, all cards", then bold 44px #ffffff "$2,418"; card 2 348x183px at 756,331: bold 22px #ffffff "Savings", then 14px #ffffff "Goal: trip to Lisbon", then bold 44px #ffffff "68%"; card 3 346x177px at 687,524: bold 22px #ffffff "Budget", then 14px #ffffff "12 days left", then bold 44px #ffffff "$612"
-c3-arched-sunburst · marks 7 · words 303
-    sunburst     box     
+c3-arched-sunburst · marks 7 · words 375
+    sunburst     circle  
     disc         circle  
     arched-title heading 
     scalloped-badge circle  
@@ -40,12 +40,12 @@ c3-arched-sunburst · marks 7 · words 303
     hours-row    box     
     cta          button  
     note *: whole page: soft yellow (#f6d58e) page, Georgia type, dark brown text
-    note sunburst: a checkerboard floor 1000x1000px at 140,-100: sharp 40px squares alternating bright orange #f0a33a and soft yellow #f6d58e like a chess board (background: repeating-conic-gradient(#f0a33a 0 25%, #f6d58e 0 50%) 0 0/80px 80px), NOT a gradient, NOT stripes, no blur
+    note sunburst: a SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide (like a starburst / pinwheel of thin pie slices), on ONE 1000x1000px block at 140,-100, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#f0a33a 0deg, #f0a33a 7.5deg, #f6d58e 7.5deg, #f6d58e 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur
     note disc: perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur
     note arched-title: the word "SUNDOWNER" set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 640,400 (position absolute) holding 9 letter spans, each position absolute at left -30px, top -300px, 60x300px, text-align center, 64px bold #5a1e0e, transform-origin 30px 300px (the anchor point, 300px below the letter), each turned by its own transform: "S" rotate(-60deg), "U" rotate(-45deg), "N" rotate(-30deg), "D" rotate(-15deg), "O" rotate(0deg), "W" rotate(15deg), "N" rotate(30deg), "E" rotate(45deg), "R" rotate(60deg)
-    note scalloped-badge: tilted 8° anticlockwise dark brown outline circle, with a 3px soft yellow outline ring 0px out from its edge, a white gap between (outline + outline-offset, the selected one) with "Est. 1962", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)
+    note scalloped-badge: tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with "Est. 1962", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)
     note tagline: italic "Drive-in diner · Open till the last car leaves"
-    note hours-row: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 96x17 at 240,735 15px bold #5a1e0e "BURGERS"; 81x17 at 503,735 15px bold #5a1e0e "SHAKES"; 33x17 at 750,735 15px bold #5a1e0e "PIE"; 90x17 at 950,735 15px bold #5a1e0e "CAR HOP"
+    note hours-row: the region is a 800x47px row at 240,720, ruled above AND below (border-top and border-bottom 3px double (two thin parallel lines each) #5a1e0e, no side borders, no fill); in it part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 96x17 at 240,735 15px bold #5a1e0e "BURGERS"; 81x17 at 503,735 15px bold #5a1e0e "SHAKES"; 33x17 at 750,735 15px bold #5a1e0e "PIE"; 90x17 at 950,735 15px bold #5a1e0e "CAR HOP"
     note cta: dark brown soft yellow text button "See the menu" (220x46px, barely rounded: border-radius 4px, NOT a pill); its text #f6d58e (soft yellow, NOT the page's dark brown text) (exactly: #5a1e0e fill, #f6d58e text, 220x46px, 4px rounded)
 c4-broken-editorial · marks 9 · words 393
     cropped-number heading 

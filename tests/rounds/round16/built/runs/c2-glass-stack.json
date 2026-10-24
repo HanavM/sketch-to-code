@@ -1,0 +1,178 @@
+{
+  "id": "c2-glass-stack",
+  "at": "2026-10-24T06:40:49.442Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7030574565592099,
+    "overallV2": 0.7030574565592099,
+    "overallV1": 0.6689138740140335,
+    "colour": 0.8668896674730646,
+    "structure": 0.6773361418756718,
+    "structureStrict": 0.5915332157531022,
+    "colourAligned": 0.8668896674730646,
+    "structureAligned": 0.6773361418756718,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6263545234982327
+    },
+    "layout": 0.6379737863665033
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "glass",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "blur",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36708,
+    "output": 17007,
+    "cacheRead": 136601
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42290,
+      "output": 12575,
+      "cacheRead": 126281,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 142714
+    }
+  ],
+  "reading": "This is a hero section for a product page called Prisma: a plain-text nav, a huge outlined decorative numeral \"3\" behind a layered glass card stack (Spending/Savings/Budget), a two-line headline, a body paragraph, and a gradient pill CTA button, all on a near-black indigo page with white Helvetica type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Simple nav bar with no surrounding box: bold \"PRISMA\" wordmark on the left, and \"Product · Pricing · Docs · Sign in\" links on the right, white text on the indig"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        528,
+        136,
+        320,
+        448
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Giant heavy hollow-outlined white numeral \"3\" as live text (Helvetica/Arial sans-serif, font-weight 900, round-bowled, not condensed/display), 640px type size, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 69
+        }
+      ],
+      "region": [
+        68,
+        200,
+        414,
+        152
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy headline set tight (line-height 1), broken into exactly two lines that must not rewrap: \"Three layers\" / \"of calm.\", about 448px wide, whit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        470,
+        392,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text: \"Budget, savings and spending, each on its own pane, all visible at once.\" White text below the headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        601,
+        126,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Pill-shaped button labeled \"Start free\", filled with a vivid gradient from indigo #7b5cff on the left to vivid light pink #ff5cc8 on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "A layered glass stack of 3 overlapping frosted-glass cards, absolutely placed in a 1280px-wide page area anchored at 0,0, each with 24px rounded corners, semi-t"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -69,7 +69,7 @@ export function factsInPage() {
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
-      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, leftStyle: cs.borderLeftStyle },
+      border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // n147: all four corners (a leaf: three round, one square; round 12 c5 built a circle) and the background tile size
@@ -249,7 +249,7 @@ export function factsInPage() {
       textShadows: cs.textShadow === 'none' ? [] : cs.textShadow.split(/,(?![^(]*\))/).map((p) => { const c = p.match(/rgba?\([^)]+\)/)?.[0]; const n = p.replace(/rgba?\([^)]+\)/, '').trim().split(/\s+/).map(parseFloat); return { c: c ? rgba(c) : null, x: n[0] || 0, y: n[1] || 0, blur: n[2] || 0 } }),
       textStroke: parseFloat(cs.webkitTextStrokeWidth) > 0 ? { px: parseFloat(cs.webkitTextStrokeWidth), c: rgba(cs.webkitTextStrokeColor) } : null,
       // n136: a checkerboard of repeating conic squares (round 10 c1: read as a gradient, built a grey band)
-      checker: /repeating-conic-gradient/.test(cs.backgroundImage) ? { cols: [...new Set([...cs.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => m[0].replace(/\s/g, '')))].map((m) => rgba(m)), size: cs.backgroundSize } : null,
+      checker: /repeating-conic-gradient/.test(cs.backgroundImage) ? { cols: [...new Set([...cs.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => m[0].replace(/\s/g, '')))].map((m) => rgba(m)), size: cs.backgroundSize, img: cs.backgroundImage } : null,
       // n136: a block cursor inside a glowing text line (round 10 c3: headline read as a picture)
       cursorKid: (() => { const k = [...el.children].find((q) => !(q.innerText || '').trim() && rgba(getComputedStyle(q).backgroundColor)?.a > 0.5); if (!k) return null; const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), c: rgba(c.backgroundColor), blink: c.animationName !== 'none' } })(),
       // n136: lines split by <br>, some ending in a filled chip (round 10 c3 log lines, built as invented paragraphs)
@@ -2715,6 +2715,14 @@ function round10Note(f) {
     for (let r = 0; r < T.rows; r++) rows.push(`row ${r + 1}: ${T.tiles.slice(r * T.cols, r * T.cols + T.cols).map(say).join(' | ')}`)
     return { kind: 'box', note: `a full-page grid of ${T.cols} columns x ${T.rows} rows of flat shape tiles (display grid, ${T.cellW}x${T.cellH}px cells, no gaps, no borders), ${T.w}x${T.h}px at ${T.x},${T.y}, behind everything else; each cell holds ONE flat-colour geometric shape (NOT one box, NOT a picture, NOT an SVG: ${T.tiles.length} real divs, each overflow hidden); every tile left to right, row by row: ${rows.join('; ')}` }
   }
+  // n164: a repeating conic gradient in degrees with no tile size is a SUNBURST of rays from one centre (round 16 c3:
+  // said as a checkerboard floor, built as chess squares)
+  if (f.checker && f.checker.cols.length >= 2 && /deg/.test(f.checker.img ?? '') && !/\d+px/.test(f.checker.size ?? '')) {
+    const [a, b] = f.checker.cols, stops = [...(f.checker.img ?? '').matchAll(/([\d.]+)deg/g)].map((m) => +m[1]).filter((v) => v > 0)
+    const step = stops.length ? Math.min(...stops) : 7.5, rays = Math.round(360 / (2 * step))
+    const css = f.checker.img.replace(/rgba?\([^)]+\)/g, (m) => hexOf(parse(m))).replace(/\s+/g, ' ')
+    return { kind: 'circle', note: `a SUNBURST: ${rays} sharp straight rays fanning out from one centre, alternating ${colourName(a)} ${hexOf(a)} and ${colourName(b)} ${hexOf(b)}, each ray ${step}deg wide (like a starburst / pinwheel of thin pie slices), on ONE ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= f.rect.w / 2 - 2 || f.radiusPct >= 49 ? ', border-radius 50% (a round disc of rays)' : ''}, painted with exactly background: ${css} (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur` }
+  }
   if (f.checker && f.checker.cols.length >= 2) {
     const sq = parseFloat(f.checker.size) / 2 || 40, [a, b] = f.checker.cols
     return { kind: 'box', note: `a checkerboard floor ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: sharp ${Math.round(sq)}px squares alternating ${colourName(a)} ${hexOf(a)} and ${colourName(b)} ${hexOf(b)} like a chess board (background: repeating-conic-gradient(${hexOf(a)} 0 25%, ${hexOf(b)} 0 50%) 0 0/${Math.round(sq * 2)}px ${Math.round(sq * 2)}px), NOT a gradient, NOT stripes, no blur` }
@@ -3558,7 +3566,7 @@ function decideOne(f, page, marked, said) {
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
     const words = f.text ? ` with ${quote(f.text)}` : ''
-    const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${lineCol(f.border.colour)} outline`
+    const paint = grad ? grad.replace(' gradient', '') : fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}` : `${/dotted|double/.test(f.border.topStyle) ? `${Math.round(f.border.w)}px ${f.border.topStyle.toUpperCase()} (border-style ${f.border.topStyle}: ${f.border.topStyle === 'dotted' ? 'a ring of round dots' : f.border.topStyle === 'dashed' ? 'a ring of dashes' : 'two thin rings'}, NOT a solid line) ${hexOf(f.border.colour)} ` : ''}${lineCol(f.border.colour)} outline`
     // size word: a small textless dot (round 5 c2: a 28px red dot said 'big' was built as a 190px red disc)
     const size = f.text ? '' : w >= 120 ? 'big ' : w < 60 ? `small ${Math.round(w)}px ` : ''
     // a flat textless disc >= 60px says its exact size and hex (round 6 c2: a 110px rose dot said 'vivid rose red
@@ -3576,7 +3584,7 @@ function decideOne(f, page, marked, said) {
     // a small textless dot says its exact box (round 7 c2: a 22px slider knob said 'small 22px dot' was built ~8px)
     const exactDot = !f.text && fill && w >= 12 && w < 60 ? ` (exactly ${Math.round(w)}x${Math.round(w)}px: w-[${Math.round(w)}px] h-[${Math.round(w)}px], border-radius 50%, not smaller)` : ''
     // a selected swatch says its ring (round 7 e4: the 2px outline 3px out round the picked colour was lost)
-    const dotRing = f.ring ? `, with a ${f.ring.w}px ${lineCol(f.ring.colour)} outline ring ${f.ring.off}px out from its edge, a white gap between (outline + outline-offset, the selected one)` : ''
+    const dotRing = f.ring ? (f.ring.off > 0 ? `, with a ${f.ring.w}px ${lineCol(f.ring.colour)} outline ring ${f.ring.off}px out from its edge, a white gap between (outline + outline-offset, the selected one)` : `, with a ${f.ring.w}px ${hexOf(f.ring.colour)} outline right against its edge (outline, no offset, no gap)`) : ''
     // a big flat disc holding a short word says its size, hex and the word's type (round 8 c2: built as a shaded
     // 3D ball with a small 'FM26')
     const kt = f.kidStyles?.[0]
@@ -4384,8 +4392,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
+    // n164: a wide row ruled above AND below says both rules and their style (round 16 c3 menu row: double rules lost)
+    const twoRules = !panel && !leftRule && edge && f.border.bottom >= 1 && !(f.border.left >= 1) && R.w >= 300 ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)}, ruled above AND below (border-top and border-bottom ${Math.round(f.border.w)}px ${f.border.topStyle}${f.border.topStyle === 'double' ? ' (two thin parallel lines each)' : ''} ${hexOf(f.border.colour)}, no side borders${visible(f.bg) ? '' : ', no fill'}); in it ` : ''
     const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
-    const keep = `${panel}${leftRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic ? `${d.note}; ` : ''}`
+    const keep = `${panel}${leftRule}${twoRules}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

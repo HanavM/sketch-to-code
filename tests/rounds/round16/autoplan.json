@@ -163,7 +163,7 @@
   "plan": [
    [
     "sunburst",
-    "box"
+    "circle"
    ],
    [
     "disc",
@@ -205,7 +205,7 @@
    ],
    [
     "sunburst",
-    "a checkerboard floor 1000x1000px at 140,-100: sharp 40px squares alternating bright orange #f0a33a and soft yellow #f6d58e like a chess board (background: repeating-conic-gradient(#f0a33a 0 25%, #f6d58e 0 50%) 0 0/80px 80px), NOT a gradient, NOT stripes, no blur"
+    "a SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide (like a starburst / pinwheel of thin pie slices), on ONE 1000x1000px block at 140,-100, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#f0a33a 0deg, #f0a33a 7.5deg, #f6d58e 7.5deg, #f6d58e 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur"
    ],
    [
     "disc",
@@ -217,7 +217,7 @@
    ],
    [
     "scalloped-badge",
-    "tilted 8° anticlockwise dark brown outline circle, with a 3px soft yellow outline ring 0px out from its edge, a white gap between (outline + outline-offset, the selected one) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)"
+    "tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)"
    ],
    [
     "tagline",
@@ -225,7 +225,7 @@
    ],
    [
     "hours-row",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 96x17 at 240,735 15px bold #5a1e0e \"BURGERS\"; 81x17 at 503,735 15px bold #5a1e0e \"SHAKES\"; 33x17 at 750,735 15px bold #5a1e0e \"PIE\"; 90x17 at 950,735 15px bold #5a1e0e \"CAR HOP\""
+    "the region is a 800x47px row at 240,720, ruled above AND below (border-top and border-bottom 3px double (two thin parallel lines each) #5a1e0e, no side borders, no fill); in it part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 96x17 at 240,735 15px bold #5a1e0e \"BURGERS\"; 81x17 at 503,735 15px bold #5a1e0e \"SHAKES\"; 33x17 at 750,735 15px bold #5a1e0e \"PIE\"; 90x17 at 950,735 15px bold #5a1e0e \"CAR HOP\""
    ],
    [
     "cta",

@@ -1,0 +1,247 @@
+{
+  "id": "c4-broken-editorial",
+  "at": "2026-10-24T06:49:31.976Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7892936816860698,
+    "overallV2": 0.7892936816860698,
+    "overallV1": 0.695530466144751,
+    "colour": 0.967325418631365,
+    "structure": 0.887975143636737,
+    "structureStrict": 0.750202420678708,
+    "colourAligned": 0.967325418631365,
+    "structureAligned": 0.887975143636737,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9406079527342524
+    },
+    "layout": 0.6970157724646344
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "blend",
+      "gradient",
+      "huge-type",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35809,
+    "output": 20892,
+    "cacheRead": 164067
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36036,
+      "output": 12774,
+      "cacheRead": 151035,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit src/App.tsx"
+      ],
+      "ms": 139862
+    }
+  ],
+  "reading": "This is a magazine-style hero/article page: a page-wide style note (light grey page, Georgia type), a nav row with three flexed items under a thick rule, a giant red '07' numeral bleeding off the left edge, two overlapping gradient panels (blue-to-black behind, a red-to-peach multiply panel overlapping its lower right), a two-line italic-accented headline, a 6-line body paragraph, a vertical bold byline, and (separately) an italic pull-quote with a monospace figure caption.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        33,
+        1192,
+        21
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a nav row with three separate items spread apart via flex justify-content:space-between, positioned at 40,30 and 1200px wide: 'THE LONG READ' at far left, '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        6,
+        106,
+        408,
+        364
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a giant heavy Helvetica (font-family Helvetica, Arial, sans-serif; weight 900, round-bowled, not condensed/display) red '07' heading as real live text, 520p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        123,
+        373,
+        474
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Add a large rectangular panel filled with a blue (#2f5d8a) at top to near-black (#171717) at bottom gradient; the X inside the square marks it as a solid filled"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        443,
+        253,
+        294
+      ],
+      "paths": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Add a second, smaller panel filled with an ink-like multiply-blend vivid red (#d7432e) at bottom to peach (#f0b49c) at top gradient (darkens what it overlaps ra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 60
+        }
+      ],
+      "region": [
+        728,
+        120,
+        450,
+        132
+      ],
+      "paths": [],
+      "instruction": "Add a huge Georgia serif regular-weight headline set tight (line-height 1), about 379px wide, broken into exactly two lines that must stay whole, never rewrappe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14",
+            "s15"
+          ],
+          "lines": 6,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        884,
+        420,
+        332,
+        121
+      ],
+      "paths": [],
+      "instruction": "Add a 13px Georgia near-black (#171717) body paragraph, 6 lines, 340px wide, top-left at 880,420, with this exact copy: \"At four in the morning the bakeries are"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1230,
+        124,
+        14,
+        260
+      ],
+      "paths": [
+        "s18"
+      ],
+      "instruction": "Add a wide-letter-spaced vertical (writing-mode: vertical-rl) bold (font-weight 700) 12px label, about 268px long: \"PHOTOGRAPHY — M. ANSELL\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s16",
+        "s17"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        44,
+        640,
+        492,
+        73
+      ],
+      "paths": [],
+      "instruction": "Add an italic pull-quote text: \"We don't close. We just change who's working.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s19"
+      ],
+      "textSize": [],
+      "region": [
+        304,
+        612,
+        144,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a monospace caption below the pull-quote: \"Fig. 1 — Harbour, 04:12\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

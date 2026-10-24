@@ -1,23 +1,23 @@
 {
   "id": "c3-arched-sunburst",
-  "at": "2026-10-24T06:20:30.102Z",
+  "at": "2026-10-24T06:44:46.328Z",
   "likeness": {
     "version": 3,
-    "overall": 0.646274898459891,
-    "overallV2": 0.646274898459891,
-    "overallV1": 0.5227949782187699,
-    "colour": 0.9457507488725538,
-    "structure": 0.6260932019257737,
-    "structureStrict": 0.40292662897657544,
-    "colourAligned": 0.9457507488725538,
-    "structureAligned": 0.6260932019257737,
+    "overall": 0.8628822425713398,
+    "overallV2": 0.8628822425713398,
+    "overallV1": 0.8468592536698691,
+    "colour": 0.9485151346896398,
+    "structure": 0.9304066792581615,
+    "structureStrict": 0.9014481610265191,
+    "colourAligned": 0.9485151346896398,
+    "structureAligned": 0.9304066792581615,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8406744797834251
+      "r": 0.8986041256924718
     },
-    "layout": 0.6715749687377396
+    "layout": 0.8241294153174344
   },
   "effects": {
     "recall": 1,
@@ -29,104 +29,100 @@
       "tilt"
     ],
     "missing": [],
-    "extra": []
+    "extra": [
+      "blend"
+    ]
   },
   "tokens": {
-    "input": 48027,
-    "output": 28924,
-    "cacheRead": 273143
+    "input": 27754,
+    "output": 18186,
+    "cacheRead": 297100
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 66209,
-      "output": 23307,
-      "cacheRead": 270059,
-      "toolCalls": 10,
+      "billed": 34244,
+      "output": 11744,
+      "cacheRead": 294016,
+      "toolCalls": 11,
       "tools": [
-        "Read components/SketchShape.tsx",
+        "Read components/Sunburst.tsx",
         "Glob",
         "Read src/App.tsx",
         "Glob",
+        "Read s2c-bench-app/package.json",
         "Read src/index.css",
-        "Glob",
-        "Glob",
-        "Edit components/SketchShape.tsx",
-        "Write src/App.tsx",
-        "Glob"
+        "Edit components/Sunburst.tsx",
+        "Read components/Sunburst.tsx",
+        "Edit components/Sunburst.tsx",
+        "Edit components/Sunburst.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 257035
+      "ms": 120494
     }
   ],
-  "reading": "A drive-in diner hero section: a checkerboard floor background behind a large solid dark-brown disc, with \"SUNDOWNER\" arced across it and a tilted \"Est. 1962\" badge circle, an italic tagline beneath, a 4-item nav menu (BURGERS/SHAKES/PIE/CAR HOP), and a \"See the menu\" button, all styled per the typed notes (soft yellow page, Georgia font, dark brown text).",
+  "reading": "The sketch builds a drive-in diner hero/logo block: a large circular sunburst behind a solid dark-brown disc, an arced \"SUNDOWNER\" title with a dotted \"Est. 1962\" badge over it, an italic tagline, a 4-item ruled nav row (Burgers/Shakes/Pie/Car Hop), and a \"See the menu\" button below, all on a soft-yellow Georgia-styled page per the typed notes.",
   "actions": [
     {
       "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
+        144,
         1,
-        994,
-        896
+        992,
+        895
       ],
       "paths": [
-        "s0",
-        "s1",
-        "s6"
+        "s0"
       ],
-      "instruction": "Add a checkerboard floor background, 1000x1000px positioned at 140,-100: sharp 40px squares alternating bright orange (#f0a33a) and soft yellow (#f6d58e) like a"
+      "instruction": "A SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide (like a starburs"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
-        1,
-        994,
-        896
+        444,
+        204,
+        391,
+        392
       ],
       "paths": [
-        "s0",
         "s1"
       ],
-      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur, ce"
+      "instruction": "Perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur, centred "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
-        1,
-        994,
-        896
+        555,
+        324,
+        173,
+        173
       ],
       "paths": [
-        "s0",
-        "s1",
         "s6"
       ],
-      "instruction": "Add the word \"SUNDOWNER\" set on an arc (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 640,400 (pos"
+      "instruction": "The word \"SUNDOWNER\" set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 640,400 (positio"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
-        1,
-        994,
-        896
+        555,
+        324,
+        173,
+        173
       ],
       "paths": [
-        "s0",
-        "s1",
         "s6"
       ],
-      "instruction": "Add a tilted 8° anticlockwise dark brown outline circle, with a 3px soft yellow outline ring 0px out from its edge, a white gap between (use outline + outline-o"
+      "instruction": "Tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline r"
     },
     {
       "kind": "add",
@@ -144,46 +140,42 @@
       ],
       "region": [
         8,
-        1,
+        638,
         1152,
-        896
+        38
       ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Add italic tagline text: \"Drive-in diner · Open till the last car leaves\", placed where the wavy line was drawn below the disc and title."
+      "paths": [],
+      "instruction": "Italic text \"Drive-in diner · Open till the last car leaves\" placed below the sunburst/badge logo block."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
-        1,
-        994,
-        896
+        244,
+        723,
+        792,
+        41
       ],
       "paths": [
-        "s0",
         "s8"
       ],
-      "instruction": "Add a 4-item navigation/menu bar, each its own real element with live text (page px: size, then top-left x,y): 96x17 at 240,735 15px bold #5a1e0e \"BURGERS\"; 81x"
+      "instruction": "A navigation row: 800x47px region at 240,720, ruled above AND below (border-top and border-bottom 3px double (two thin parallel lines each) #5a1e0e, no side bor"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        143,
-        1,
-        994,
-        896
+        532,
+        801,
+        216,
+        43
       ],
       "paths": [
-        "s0",
         "s9"
       ],
-      "instruction": "Add a dark-brown-filled, soft-yellow-text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); fill #5a1e0e, text #f6d58e (soft yell"
+      "instruction": "A dark-brown / soft-yellow text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); exactly: #5a1e0e fill, #f6d58e text, 220x46px, "
     }
   ],
   "rejected": [

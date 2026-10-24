@@ -57,3 +57,20 @@ Rounds 1-15: only the radial-glow page line changes (r8, r11), none re-run.
 Round 16 so far: **76%** over 4 pages. Vitest: same 2 env failures; typecheck clean.
 Next: the repeating-conic sunburst said verbatim (never a checkerboard), a dotted ring badge, a double-ruled menu row;
 then first builds c2, c4, e2, e3, e4, e5 and e1's row height.
+
+## n164: sunburst, dotted ring, double-ruled row; first c2, c4 (2026-10-24, ~156k billed)
+
+Planner now says: a repeating conic gradient in degrees with no tile size as a SUNBURST of rays from one centre (ray count,
+width, the gradient verbatim, round, never a checkerboard); a dotted or double outline circle as that border style; an
+outline with no offset as right against the edge (no "white gap"); a wide row ruled above AND below as both rules with
+their style (double = two thin lines). Rounds 1-15 notes unchanged.
+
+| page | likeness | what was off |
+|---|---|---|
+| c3 arched sunburst | 65 → **86%** | sunburst rays built (was a checkerboard), arched title, double-ruled menu row right; rays a little big, soft yellow rays shaded darker; badge built as a plain thin ring, "Est. 1962" lost |
+| c2 glass stack (first) | **70%** | glass cards, hollow "3", headline, pill button right; the three blurred glow blobs lost; cards not tilted |
+| c4 broken-grid editorial (first) | **79%** | cropped red 07, multiply photos, serif headline, columns, pull quote, vertical credit kept; caption lost |
+
+Round 16 so far: **79%** over 6 pages. Vitest: same 2 env failures; typecheck clean.
+Next: c2's blurred glow blobs (wrapper measures 0x0) and tilted glass cards; c3 badge words and dotted ring; then first
+builds e2, e3, e4, e5 and e1's row height.
