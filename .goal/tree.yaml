@@ -3,7 +3,7 @@ goal_state: working
 now: "Fixed a measuring bug that hid some page parts from both the drawing and the score; round 17 now averages 82%, next fixing the bento glow, the riso halo and the log explorer columns."
 round: 17
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 82]
-lock: null
+lock: {by: "run-n175-1352", until: "2026-10-24T15:22Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
