@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T00:22Z | n154 glyph tiles, gradient word, area chart, inline highlight | Neon tiles 77 to 89%, collage 43 to 86%, observability 83 to 87%; round 14 at 81%. ~330k.
 2026-10-23T23:44:18Z | n153 write round 14 + first builds | Round 14 written, dry 10/10; first c2 43, c3 61, c5 77, e4 83; avg 66.
 2026-10-23T22:56Z | n152 call tiles, centred headline, bare table, card colours | Video call 79 to 94%, card fan 84 to 89%; Swiss rerun not kept; round 13 at 84%. ~223k.
 2026-10-23T22:35Z | n151 big flat fields, outline rings, text on a field; first e4, e5 | Swiss 41 to 81%, video call 79, pricing 80; round 13 complete at 82%. ~290k.
