@@ -1,0 +1,217 @@
+{
+  "id": "c1-split-halftone",
+  "at": "2026-10-24T05:32:21.403Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5790318255748127,
+    "overallV2": 0.5790318255748127,
+    "overallV1": 0.550590205066401,
+    "colour": 0.8099281150709963,
+    "structure": 0.5756129046808512,
+    "structureStrict": 0.525195371222206,
+    "colourAligned": 0.8099281150709963,
+    "structureAligned": 0.5756129046808512,
+    "align": {
+      "scale": 1.04,
+      "dx": -16,
+      "dy": -32,
+      "r": 0.8542470835512601
+    },
+    "layout": 0.8321453922407848
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "overlap",
+      "serif",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35250,
+    "output": 14503,
+    "cacheRead": 140154
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35724,
+      "output": 9072,
+      "cacheRead": 129266,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 102703
+    }
+  ],
+  "reading": "A hero/landing section: a full-bleed near-black-to-cream page, a top nav line, a masked radial-gradient red circle with a giant inverted 'INVERT' wordmark crossing it, a body line and an italic quote, two buttons, and a vertical mono edition label.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        393,
+        153,
+        494,
+        494
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A 500x500px circular block positioned at (390,150) with border-radius 50%, filled with a radial gradient (circle, #ff3b1f 38%, transparent 40%); its edges fade "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Top navigation bar with no surrounding box: bold \"NEGATIVE/POSITIVE\" wordmark on the left, and \"Prints · Process · Shop · Bag (0)\" links on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 228
+        }
+      ],
+      "region": [
+        8,
+        268,
+        1152,
+        274
+      ],
+      "paths": [],
+      "instruction": "Giant live-text headline \"INVERT\" in heavy Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not condensed/display), set at 21"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        640,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body copy text: \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        808,
+        640,
+        378,
+        75
+      ],
+      "paths": [],
+      "instruction": "Italic serif near-black pull-quote text: “Half the picture is what you leave out.”"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        791,
+        177,
+        43
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Button \"Shop the edition\", 181x46px, filled #ff3b1f, square corners (border-radius 0, not a pill), text colour #111111 (near-black, not the page's cream text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        802,
+        791,
+        175,
+        43
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Button \"See the process\", 179x46px, near-black outline style, square corners (border-radius 0, not a pill), text colour #111111 (near-black, not the page's crea"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1140,
+        124,
+        14,
+        180
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Vertical mono text (writing-mode: vertical-rl), 12px letters, about 188px long, reading \"ED. 04 / 120 COPIES / 2027\"; text colour #111111 (near-black, not the p"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

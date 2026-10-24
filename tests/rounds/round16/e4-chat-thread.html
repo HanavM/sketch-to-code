@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Chat with thread</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1d1c1d;font-size:14px}
+.rail{position:absolute;left:0;top:0;width:70px;height:900px;background:#3f0e40;padding-top:16px}.rail i{display:block;width:40px;height:40px;border-radius:10px;margin:0 auto 14px;background:#fff3}.rail i:first-child{background:#e8a0ff}
+.chs{position:absolute;left:70px;top:0;width:240px;height:900px;background:#4a154b;color:#e7d9e8;padding:16px;line-height:2.1}.chs b{color:#fff;font-size:17px;display:block;margin-bottom:12px}.chs .on{background:#1164a3;color:#fff;margin:0 -10px;padding:0 10px;border-radius:6px}.chs .u{font-weight:700;color:#fff}
+.top{position:absolute;left:310px;top:0;width:560px;height:56px;border-bottom:1px solid #ddd;padding:16px 20px;font-weight:800;font-size:17px}
+.msgs{position:absolute;left:310px;top:56px;width:560px;padding:12px 20px}
+.m{display:flex;gap:10px;margin-bottom:16px}.m .av{width:36px;height:36px;border-radius:6px;flex:none}.m p{line-height:1.45;margin-top:2px}.m small{color:#616061;margin-left:6px}
+.re{display:inline-flex;gap:6px;margin-top:6px}.re span{border:1px solid #1d9bd1;background:#e8f5fa;border-radius:12px;padding:2px 8px;font-size:12px}.re span.o{border-color:#ddd;background:#f8f8f8}
+.tl{color:#1264a3;font-weight:700;font-size:13px;margin-top:6px}
+.cmp{position:absolute;left:330px;top:770px;width:520px;height:90px;border:1px solid #bbb;border-radius:8px;padding:10px;color:#868686}.cmp .tb{position:absolute;left:10px;bottom:8px;color:#555;letter-spacing:8px}.cmp .send{position:absolute;right:10px;bottom:8px;background:#007a5a;color:#fff;padding:4px 12px;border-radius:4px}
+.typing{position:absolute;left:332px;top:866px;font-size:12px;color:#616061}
+.thr{position:absolute;left:870px;top:0;width:410px;height:900px;border-left:1px solid #ddd}.thr .h{height:56px;border-bottom:1px solid #ddd;padding:16px 20px;font-weight:800;font-size:17px}.thr .b{padding:16px 20px}
+.emo{position:absolute;left:520px;top:400px;width:320px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.2);padding:12px}.emo input{width:100%;border:1px solid #1264a3;border-radius:6px;padding:7px;font-size:13px;margin-bottom:10px}.emo .g{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;font-size:22px;text-align:center}
+</style></head><body>
+<div class="rail" data-r="workspace-rail"><i></i><i></i><i></i></div>
+<div class="chs" data-r="channel-list"><b>Tidewater ▾</b># announcements<br><div class="on"># launch-week</div># design<br><span class="u"># engineering</span><br># random<br><br>Direct messages<br>● Priya Raman<br>● Tom Okafor</div>
+<div class="top" data-r="channel-header"># launch-week</div>
+<div class="msgs" data-r="messages" data-must>
+<div class="m"><div class="av" style="background:#e07a5f"></div><div><b>Priya Raman</b><small>9:41 AM</small><p>Landing page is live on staging — can everyone do a pass before 2pm?</p><div class="re"><span>👀 4</span><span class="o">🚀 2</span></div><div class="tl">3 replies · Last reply 10 min ago</div></div></div>
+<div class="m"><div class="av" style="background:#3d405b"></div><div><b>Tom Okafor</b><small>9:58 AM</small><p>Hero video stutters on Safari. Filing it now.</p></div></div>
+<div class="m"><div class="av" style="background:#81b29a"></div><div><b>Lena Vogt</b><small>10:12 AM</small><p>Pricing table copy is final, pushed to the CMS.</p><div class="re"><span class="o">✅ 5</span></div></div></div></div>
+<div class="emo" data-r="emoji-picker"><input value="party"><div class="g"><span>🎉</span><span>🥳</span><span>🎊</span><span>🪅</span><span>🍾</span><span>🎈</span><span>🙌</span><span>✨</span></div></div>
+<div class="cmp" data-r="composer">Message #launch-week<span class="tb">B I 🔗 @ ☺</span><span class="send">➤</span></div>
+<div class="typing" data-r="typing">Lena is typing…</div>
+<div class="thr" data-r="thread-panel" data-must><div class="h">Thread <span style="font-weight:400;color:#616061;font-size:13px"># launch-week</span></div><div class="b">
+<div class="m"><div class="av" style="background:#e07a5f"></div><div><b>Priya Raman</b><p>Landing page is live on staging — can everyone do a pass before 2pm?</p></div></div>
+<div style="border-top:1px solid #ddd;color:#616061;font-size:12px;padding:6px 0 14px">3 replies</div>
+<div class="m"><div class="av" style="background:#3d405b"></div><div><b>Tom Okafor</b><p>On it after standup.</p></div></div>
+<div class="m"><div class="av" style="background:#81b29a"></div><div><b>Lena Vogt</b><p>Mobile nav overlaps the logo below 360px.</p></div></div></div></div>
+</body></html>

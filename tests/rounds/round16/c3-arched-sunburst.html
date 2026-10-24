@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Arched sunburst</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6d58e;font-family:Georgia,serif;color:#5a1e0e}
+.rays{position:absolute;left:140px;top:-100px;width:1000px;height:1000px;border-radius:50%;background:repeating-conic-gradient(#f0a33a 0 7.5deg,#f6d58e 7.5deg 15deg)}
+.disc{position:absolute;left:440px;top:200px;width:400px;height:400px;border-radius:50%;background:#5a1e0e}
+.arc{position:absolute;left:640px;top:400px;width:0;height:0}
+.arc span{position:absolute;left:-30px;top:-300px;width:60px;height:300px;text-align:center;font-size:64px;font-weight:700;transform-origin:30px 300px;color:#5a1e0e}
+.scal{position:absolute;left:560px;top:330px;width:160px;height:160px;border-radius:50%;background:#f6d58e;border:6px dotted #5a1e0e;outline:3px solid #f6d58e;display:flex;align-items:center;justify-content:center;font:italic 700 24px Georgia,serif;text-align:center;transform:rotate(-8deg)}
+.sub{position:absolute;left:0;top:640px;width:1280px;text-align:center;font-size:30px;font-style:italic}
+.row{position:absolute;left:240px;top:720px;width:800px;display:flex;justify-content:space-between;font:700 15px Helvetica,Arial,sans-serif;letter-spacing:3px;border-top:3px double #5a1e0e;border-bottom:3px double #5a1e0e;padding:12px 0}
+.btn{position:absolute;left:530px;top:800px;width:220px;text-align:center;padding:14px 0;background:#5a1e0e;color:#f6d58e;font:700 16px Helvetica,Arial,sans-serif;border-radius:4px}
+</style></head><body>
+<div class="rays" data-r="sunburst" data-must></div>
+<div class="disc" data-r="disc"></div>
+<div class="arc" data-r="arched-title" data-must><span style="transform:rotate(-60deg)">S</span><span style="transform:rotate(-45deg)">U</span><span style="transform:rotate(-30deg)">N</span><span style="transform:rotate(-15deg)">D</span><span style="transform:rotate(0deg)">O</span><span style="transform:rotate(15deg)">W</span><span style="transform:rotate(30deg)">N</span><span style="transform:rotate(45deg)">E</span><span style="transform:rotate(60deg)">R</span></div>
+<div class="scal" data-r="scalloped-badge">Est.<br>1962</div>
+<p class="sub" data-r="tagline">Drive-in diner · Open till the last car leaves</p>
+<div class="row" data-r="hours-row"><span>BURGERS</span><span>SHAKES</span><span>PIE</span><span>CAR HOP</span></div>
+<a class="btn" data-r="cta">See the menu</a>
+</body></html>

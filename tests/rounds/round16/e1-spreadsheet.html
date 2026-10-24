@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Spreadsheet</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#202124;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#f9fbfd;border-bottom:1px solid #dadce0;padding:16px 20px;font-size:17px}
+.tb{position:absolute;left:0;top:56px;width:1280px;height:40px;background:#edf2fa;display:flex;gap:18px;align-items:center;padding:0 20px;color:#444}
+.fx{position:absolute;left:0;top:96px;width:1280px;height:32px;border-bottom:1px solid #dadce0;display:flex;align-items:center}.fx b{width:80px;border-right:1px solid #dadce0;padding:0 12px}.fx span{padding:0 12px;font-family:monospace}
+table{position:absolute;left:0;top:128px;border-collapse:collapse}td,th{border:1px solid #e2e3e3;width:120px;height:26px;padding:0 6px;text-align:right}th{background:#f8f9fa;color:#5f6368;font-weight:400;text-align:center}td:first-child,th:first-child{width:46px;text-align:center;background:#f8f9fa;color:#5f6368}
+td.l{text-align:left}tr.h td{font-weight:700;background:#f1f3f4}td.sel{background:#e8f0fe}
+.range{position:absolute;left:286px;top:180px;width:240px;height:182px;border:2px solid #1a73e8;pointer-events:none}.range::after{content:"";position:absolute;right:-5px;bottom:-5px;width:8px;height:8px;background:#1a73e8;border:1px solid #fff}
+.chart{position:absolute;left:820px;top:170px;width:400px;height:280px;background:#fff;border:1px solid #dadce0;box-shadow:0 2px 6px rgba(0,0,0,.15);padding:14px}.chart .bars{display:flex;align-items:flex-end;gap:22px;height:190px;margin-top:20px;border-bottom:1px solid #999;padding:0 20px}.chart .bars i{flex:1;background:#4285f4}
+.tabs{position:absolute;left:0;top:860px;width:1280px;height:40px;background:#f8f9fa;border-top:1px solid #dadce0;display:flex;gap:4px;padding:0 60px;align-items:center}.tabs span{padding:8px 18px}.tabs .on{background:#e1e9f7;color:#0b57d0;font-weight:700;border-radius:4px}
+.sum{position:absolute;right:20px;top:868px;background:#fff;border:1px solid #dadce0;padding:4px 10px;border-radius:4px}
+</style></head><body>
+<div class="top" data-r="title-bar"><b>Q3 regional sales</b> <span style="font-size:12px;color:#5f6368;margin-left:20px">File Edit View Insert Format Data</span></div>
+<div class="tb" data-r="toolbar"><span>↶ ↷</span><span>100%</span><span>$ % .0</span><span>Arial ▾</span><span>10 ▾</span><b>B</b><i>I</i><span>⊞</span></div>
+<div class="fx" data-r="formula-bar"><b>C3:D8</b><span>fx =SUM(C3:C8)</span></div>
+<table data-r="grid" data-must><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+<tr class="h"><td>1</td><td class="l">Region</td><td class="l">Lead</td><td>July</td><td>August</td><td>Sept</td><td>Total</td></tr>
+<tr><td>2</td><td class="l">North</td><td class="l">Ada</td><td>12,400</td><td>13,900</td><td>15,200</td><td>41,500</td></tr>
+<tr><td>3</td><td class="l">South</td><td class="l">Ben</td><td class="sel">9,800</td><td class="sel">10,100</td><td>11,700</td><td>31,600</td></tr>
+<tr><td>4</td><td class="l">East</td><td class="l">Cho</td><td class="sel">14,200</td><td class="sel">12,600</td><td>13,300</td><td>40,100</td></tr>
+<tr><td>5</td><td class="l">West</td><td class="l">Dev</td><td class="sel">7,300</td><td class="sel">8,800</td><td>9,900</td><td>26,000</td></tr>
+<tr><td>6</td><td class="l">Central</td><td class="l">Eli</td><td class="sel">10,900</td><td class="sel">11,400</td><td>12,000</td><td>34,300</td></tr>
+<tr><td>7</td><td class="l">Online</td><td class="l">Fay</td><td class="sel">18,600</td><td class="sel">21,200</td><td>24,900</td><td>64,700</td></tr>
+<tr><td>8</td><td class="l">Partners</td><td class="l">Gus</td><td class="sel">5,100</td><td class="sel">5,600</td><td>6,300</td><td>17,000</td></tr>
+<tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>11</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>12</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+<div class="range" data-r="selected-range"></div>
+<div class="chart" data-r="chart"><b>Total by region</b><div class="bars"><i style="height:64%"></i><i style="height:49%"></i><i style="height:62%"></i><i style="height:40%"></i><i style="height:53%"></i><i style="height:100%"></i><i style="height:26%"></i></div></div>
+<div class="tabs" data-r="sheet-tabs"><span>+</span><span class="on">Q3</span><span>Q2</span><span>Targets</span></div>
+<div class="sum" data-r="sum-chip">Sum: 136,500</div>
+</body></html>

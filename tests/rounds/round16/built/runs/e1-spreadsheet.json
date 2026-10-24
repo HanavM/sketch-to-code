@@ -1,0 +1,193 @@
+{
+  "id": "e1-spreadsheet",
+  "at": "2026-10-24T05:49:52.196Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.613632504823344,
+    "overallV2": 0.613632504823344,
+    "overallV1": 0.3996060374847431,
+    "colour": 0.9819170925533278,
+    "structure": 0.8902162765403789,
+    "structureStrict": 0.6966939884974821,
+    "colourAligned": 0.9819170925533278,
+    "structureAligned": 0.8902162765403789,
+    "align": {
+      "scale": 1.04,
+      "dx": 0,
+      "dy": 16,
+      "r": 0.8134329853828814
+    },
+    "layout": 0.9172101298855543
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "italic",
+      "overlap"
+    ],
+    "missing": [
+      "mono",
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 92312,
+    "output": 53908,
+    "cacheRead": 1245519
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 131683,
+      "output": 48050,
+      "cacheRead": 1234122,
+      "toolCalls": 28,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/BarChart.tsx",
+        "Read src/App.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Read components/BarChart.tsx",
+        "Edit components/BarChart.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read components/SketchShape4.tsx",
+        "Read components/BarChart.tsx"
+      ],
+      "ms": 502189
+    }
+  ],
+  "reading": "The sketch lays out a Google-Sheets-style page: a 56px white title bar, a 40px toolbar with left-aligned icon links, a 32px formula bar, a large bordered spreadsheet grid (with a blue-bordered selected range) on the left and a bar chart on the right, and a bottom-pinned tab bar with a 'Sum: 136,500' outline button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "White bar 56px tall spanning the full width across the very top of the page, with a thin dividing line under it. Bold 17px text \"Q3 regional sales\" aligned left"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        59,
+        1273,
+        66
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Pale blue-grey toolbar, 40px tall, spanning the page width, directly under the title bar. Icon links: undo (↶), redo (↷), 100%, $, %, .0, \"Arial\" dropdown, \"10\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        59,
+        1273,
+        405
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Formula bar, 32px tall, full width, with a thin dividing line underneath. Bold text \"C3:D8\" aligned left (cell reference box), and \"fx =SUM(C3:C8)\" aligned righ"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        131,
+        761,
+        333
+      ],
+      "paths": [
+        "s3",
+        "s4"
+      ],
+      "instruction": "A real spreadsheet grid table (not a plain list), 767x339px, positioned at the left below the formula bar. border-collapse with every cell bordered 1px #e2e3e3,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        173,
+        393,
+        274
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A blue bar chart titled \"Total by region\", with 7 blue vertical bars whose heights are 64%, 49%, 62%, 40%, 53%, 100% and 26% of the tallest bar, positioned to t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        863,
+        1272,
+        34
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Pale grey bar, 40px tall, spanning the page width, pinned to the very bottom of the page (position absolute/fixed, bottom 0, not placed directly under the conte"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1159,
+        869,
+        98,
+        23
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "An outline button reading \"Sum: 136,500\", 103x25px, #ffffff fill, #202124 text, 4px rounded corners, placed within the bottom tab bar at the right side."
+    }
+  ],
+  "rejected": []
+}

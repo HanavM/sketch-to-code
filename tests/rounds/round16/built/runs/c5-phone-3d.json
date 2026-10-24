@@ -1,0 +1,214 @@
+{
+  "id": "c5-phone-3d",
+  "at": "2026-10-24T05:39:28.098Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7905829713240196,
+    "overallV2": 0.7905829713240196,
+    "overallV1": 0.7434904250337527,
+    "colour": 0.9324443685720853,
+    "structure": 0.7913391081703732,
+    "structureStrict": 0.6727336894312036,
+    "colourAligned": 0.9324443685720853,
+    "structureAligned": 0.7913391081703732,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.5738884721442284
+    },
+    "layout": 0.669824618325752
+  },
+  "effects": {
+    "recall": 0.5714285714285714,
+    "kept": [
+      "blur",
+      "gradient",
+      "gradient-text",
+      "overlap"
+    ],
+    "missing": [
+      "3d",
+      "soft-shadow",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46877,
+    "output": 31812,
+    "cacheRead": 187242
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46333,
+      "output": 17450,
+      "cacheRead": 175531,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 204290
+    }
+  ],
+  "reading": "This is a hero section for a fitness app called PULSE: a full-width nav, a huge 3-line gradient headline, a subheading, two store buttons, and a right-side dashboard/stats card with a soft shadow beneath it.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a full-width top navigation bar, no box around the text, with a thin hairline rule along the top and another along the bottom of the bar: bold \"PULSE\" wordm"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Add three small pill/chip buttons with icon+label: \"❤ 152 bpm\", \"🔥 Zone 3 · 18 min\", \"✓ Recovered\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 71
+        }
+      ],
+      "region": [
+        68,
+        220,
+        504,
+        234
+      ],
+      "paths": [],
+      "instruction": "Add a huge Helvetica heavy headline set tight (line-height 1), in exactly 3 lines that each stay whole on one line (white-space: nowrap, no max-width narrower t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        64,
+        500,
+        452,
+        57
+      ],
+      "paths": [],
+      "instruction": "Add a subheading paragraph below the headline: \"Live zones, recovery scores and a coach that listens to your pulse.\" in white text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        623,
+        266,
+        42
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add two call-to-action buttons side by side: \"App Store\" (text colour #0a0f1e) and \"Google Play\" (text colour #ffffff)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        783,
+        413,
+        54
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a soft, blurred black drop-shadow/glow sitting beneath the dashboard stats card on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14"
+          ],
+          "lines": 7,
+          "fontPx": 91
+        }
+      ],
+      "region": [
+        704,
+        90,
+        332,
+        700
+      ],
+      "paths": [],
+      "instruction": "Add a dashboard/stats mockup card made of these real, live-text parts (page px, size then top-left x,y; each its own element; all 10, nothing invented, nothing "
+    }
+  ],
+  "rejected": []
+}

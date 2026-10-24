@@ -1,0 +1,750 @@
+{
+ "c1-split-halftone": {
+  "plan": [
+   [
+    "halftone-disc",
+    "box"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 210,
+     "lines": 1
+    }
+   ],
+   [
+    "left-copy",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "right-quote",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "cta-2",
+    "button"
+   ],
+   [
+    "side-index",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black #111111 (left) to cream #f2ede4 (right) gradient page, Helvetica type, cream text"
+   ],
+   [
+    "halftone-disc",
+    "a 500x500px block at 390,150, border-radius 50%, filled with background: radial-gradient(circle, #ff3b1f 38%, transparent 40%); its edges fade out softly under a mask (mask-image: radial-gradient(circle, #000000 30%, transparent 70%); -webkit-mask-image the same), NOT a picture placeholder"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold \"NEGATIVE/POSITIVE\" left, \"Prints · Process · Shop · Bag (0)\" right"
+   ],
+   [
+    "headline",
+    "colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"INVERT\", 210px type, about 734px wide (no larger)"
+   ],
+   [
+    "left-copy",
+    "text \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\""
+   ],
+   [
+    "right-quote",
+    "italic serif near-black \"“Half the picture is what you leave out.”\""
+   ],
+   [
+    "cta",
+    "red near-black text button \"Shop the edition\" (181x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text) (exactly: #ff3b1f fill, #111111 text, 181x46px, square corners: border-radius 0, NOT a pill)"
+   ],
+   [
+    "cta-2",
+    "near-black outline button \"See the process\" (179x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text)"
+   ],
+   [
+    "side-index",
+    "mono vertical (writing-mode: vertical-rl), 12px letters, the line about 188px long \"ED. 04 / 120 COPIES / 2027\"; its text #111111 (near-black, NOT the page's cream text)"
+   ]
+  ]
+ },
+ "c2-glass-stack": {
+  "plan": [
+   [
+    "glow-blobs",
+    "box"
+   ],
+   [
+    "outline-number",
+    "heading",
+    {
+     "fontPx": 640,
+     "lines": 1
+    }
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 76,
+     "lines": 2
+    }
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "glass-cards",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black indigo (#0d0b1f) page, Helvetica type, white text"
+   ],
+   [
+    "outline-number",
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy hollow outlined white \"3\", 640px type, about 356px wide (no larger), absolutely placed: its box's top-left at 520,40 and its first letter's ink starting at x=520 (not further right)"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold \"PRISMA\" left, \"Product · Pricing · Docs · Sign in\" right"
+   ],
+   [
+    "headline",
+    "huge Helvetica heavy lines set tight (line-height 1) \"Three layers of calm.\", set in exactly 2 lines: \"Three layers\" / \"of calm.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 448px wide)"
+   ],
+   [
+    "lede",
+    "text \"Budget, savings and spending, each on its own pane, all visible at once.\""
+   ],
+   [
+    "cta",
+    "vivid indigo #7b5cff (left) to vivid light pink #ff5cc8 (right) gradient pill button \"Start free\""
+   ],
+   [
+    "glass-cards",
+    "a layered glass stack, 1280x0px at 0,0 (all absolutely placed, page px; NOT a list, NOT empty): 3 overlapping frosted glass cards over them, each 24px rounded, see-through fill #ffffff at 12%, 1px #ffffff at 35% border, backdrop-filter: blur(18px), a big soft dark drop shadow, 24px padding, later cards painted over earlier ones: card 1 355x200px at 632,153: bold 22px #ffffff \"Spending\", then 14px #ffffff \"This month, all cards\", then bold 44px #ffffff \"$2,418\"; card 2 348x183px at 756,331: bold 22px #ffffff \"Savings\", then 14px #ffffff \"Goal: trip to Lisbon\", then bold 44px #ffffff \"68%\"; card 3 346x177px at 687,524: bold 22px #ffffff \"Budget\", then 14px #ffffff \"12 days left\", then bold 44px #ffffff \"$612\""
+   ]
+  ]
+ },
+ "c3-arched-sunburst": {
+  "plan": [
+   [
+    "sunburst",
+    "box"
+   ],
+   [
+    "disc",
+    "circle"
+   ],
+   [
+    "arched-title",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 4
+    }
+   ],
+   [
+    "scalloped-badge",
+    "circle"
+   ],
+   [
+    "tagline",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ],
+   [
+    "hours-row",
+    "box"
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: soft yellow (#f6d58e) page, Georgia type, dark brown text"
+   ],
+   [
+    "sunburst",
+    "a checkerboard floor 1000x1000px at 140,-100: sharp 40px squares alternating bright orange #f0a33a and soft yellow #f6d58e like a chess board (background: repeating-conic-gradient(#f0a33a 0 25%, #f6d58e 0 50%) 0 0/80px 80px), NOT a gradient, NOT stripes, no blur"
+   ],
+   [
+    "disc",
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur"
+   ],
+   [
+    "arched-title",
+    "links: S, U, N, D, O, W, N, E"
+   ],
+   [
+    "scalloped-badge",
+    "tilted 8° anticlockwise dark brown outline circle, with a 3px soft yellow outline ring 0px out from its edge, a white gap between (outline + outline-offset, the selected one) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type)"
+   ],
+   [
+    "tagline",
+    "italic \"Drive-in diner · Open till the last car leaves\""
+   ],
+   [
+    "hours-row",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 96x17 at 240,735 15px bold #5a1e0e \"BURGERS\"; 81x17 at 503,735 15px bold #5a1e0e \"SHAKES\"; 33x17 at 750,735 15px bold #5a1e0e \"PIE\"; 90x17 at 950,735 15px bold #5a1e0e \"CAR HOP\""
+   ],
+   [
+    "cta",
+    "dark brown soft yellow text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); its text #f6d58e (soft yellow, NOT the page's dark brown text) (exactly: #5a1e0e fill, #f6d58e text, 220x46px, 4px rounded)"
+   ]
+  ]
+ },
+ "c4-broken-editorial": {
+  "plan": [
+   [
+    "cropped-number",
+    "heading",
+    {
+     "fontPx": 520,
+     "lines": 1
+    }
+   ],
+   [
+    "photo-1",
+    "image"
+   ],
+   [
+    "photo-2",
+    "image"
+   ],
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 66,
+     "lines": 2
+    }
+   ],
+   [
+    "two-column-text",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 6
+    }
+   ],
+   [
+    "pull-quote",
+    "text",
+    {
+     "fontPx": 28,
+     "lines": 2
+    }
+   ],
+   [
+    "vertical-label",
+    "text"
+   ],
+   [
+    "caption",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: light grey (#ecebe6, plainly not white) page, Georgia type, near-black text"
+   ],
+   [
+    "cropped-number",
+    "bleeding off the left page edge (starts 60px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters red \"07\", 520px type, about 518px wide (no larger), absolutely placed: its box's top-left at -60,80 and its first letter's ink starting at x=-60 (not further right)"
+   ],
+   [
+    "photo-1",
+    "blue #2f5d8a (top) to near-black #171717 (bottom) gradient block, in front of the \"07\" heading"
+   ],
+   [
+    "photo-2",
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) vivid red #d7432e (bottom) to peach #f0b49c (top) gradient block, overlapping the lower right of the blue #2f5d8a (top) to near-black #171717 (bottom) gradient block and on top of it"
+   ],
+   [
+    "nav",
+    "thick rule under nav bar list: \"THE LONG READ\", \"ISSUE 07 — WINTER\", \"SUBSCRIBE\"; these are 3 SEPARATE items on one line 1200px wide at 40,30, pushed apart (display flex, justify-content: space-between; never run together as one line of text): \"THE LONG READ\" at the far left, \"ISSUE 07 — WINTER\" in the middle, \"SUBSCRIBE\" at the far right"
+   ],
+   [
+    "headline",
+    "huge Georgia serif regular weight (not bold) lines set tight (line-height 1) \"The city that forgot to sleep\", set in exactly 2 lines: \"The city that\" / \"forgot to sleep\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 379px wide); the word \"forgot\" is italic serif (font-family Georgia, serif) regular-weight red #d7432e (its own colour; the other words stay #171717)"
+   ],
+   [
+    "two-column-text",
+    "13px Georgia near-black (#171717) copy in 6 lines, 340px wide, top-left at 880,420, quoted whole (these exact words, nothing invented): \"At four in the morning the bakeries are already lit, the trams are running empty, and the night shift at the port is handing over to the day. Nobody here agrees on when the day starts. We spent a winter finding out why, riding every last tram and every first ferry, and asking the people who keep the lights on.\""
+   ],
+   [
+    "pull-quote",
+    "italic text \"“We don't close. We just change who's working.”\""
+   ],
+   [
+    "vertical-label",
+    "wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 268px long \"PHOTOGRAPHY — M. ANSELL\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "caption",
+    "mono \"Fig. 1 — Harbour, 04:12\""
+   ]
+  ]
+ },
+ "c5-phone-3d": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 78,
+     "lines": 3
+    }
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
+   ],
+   [
+    "store-buttons",
+    "box"
+   ],
+   [
+    "floor-shadow",
+    "box"
+   ],
+   [
+    "tilted-phone",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 7
+    }
+   ],
+   [
+    "floating-chips",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: dark grey to near-black gradient page, Helvetica type, white text"
+   ],
+   [
+    "nav",
+    "nav, no box around it: bold \"PULSE\" left, \"Features · Coaches · Pricing · Log in\" right"
+   ],
+   [
+    "headline",
+    "huge Helvetica heavy lines set tight (line-height 1) \"Train with your heart, not the clock.\", the words \"your heart\" filled with a vivid bright green #4ef0b0 (left) to vivid bright sky blue #36a3ff (right) gradient (gradient text), the rest plain, set in exactly 3 lines: \"Train with your\" / \"heart, not the\" / \"clock.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 555px wide)"
+   ],
+   [
+    "lede",
+    "text \"Live zones, recovery scores and a coach that listens to your pulse.\""
+   ],
+   [
+    "store-buttons",
+    "buttons: \"App Store\", \"Google Play\"; each word in its own colour: \"App Store\" #0a0f1e, \"Google Play\" #ffffff"
+   ],
+   [
+    "floor-shadow",
+    "soft blurred black"
+   ],
+   [
+    "tilted-phone",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out): 255x23 at 788,135 60% opacity: 13px #ffffff \"Tuesday · Tempo run\"; 258x38 at 783,155 30px bold #ffffff \"Zone 3\"; 201x13 at 779,206 linear-gradient(90deg, #4ef0b0, #36a3ff), pill ends; 136x11 at 776,230 linear-gradient(90deg, #4ef0b0, #36a3ff), pill ends; 261x45 at 768,252 #1e2230 fill, 16px rounded: 14px #ffffff \"Heart rate\"; 57x16 at 957,266 14px bold #ffffff \"152 bpm\"; 262x50 at 761,303 #1e2230 fill, 16px rounded: 14px #ffffff \"Recovery\"; 29x17 at 978,322 14px bold #ffffff \"84%\"; 263x56 at 753,354 #1e2230 fill, 16px rounded: 14px #ffffff \"Distance\"; 44x18 at 956,377 14px bold #ffffff \"6.2 km\""
+   ],
+   [
+    "floating-chips",
+    "buttons: \"❤ 152 bpm\", \"🔥 Zone 3 · 18 min\", \"✓ Recovered\""
+   ]
+  ]
+ },
+ "e1-spreadsheet": {
+  "plan": [
+   [
+    "title-bar",
+    "box"
+   ],
+   [
+    "toolbar",
+    "box"
+   ],
+   [
+    "formula-bar",
+    "box"
+   ],
+   [
+    "grid",
+    "box"
+   ],
+   [
+    "selected-range",
+    "box"
+   ],
+   [
+    "chart",
+    "box"
+   ],
+   [
+    "sheet-tabs",
+    "box"
+   ],
+   [
+    "sum-chip",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "title-bar",
+    "white bar 56px tall across the top, thin line under: bold 17px \"Q3 regional sales\" left, \"File Edit View Insert Format Data\" right"
+   ],
+   [
+    "toolbar",
+    "pale blue-grey bar 40px tall across the page, links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, ⊞; all of these sit together at the LEFT, one after another, ending 326px in (the right 75% of the bar is empty, nothing pushed right)"
+   ],
+   [
+    "formula-bar",
+    "bar 32px tall, thin line under: bold \"C3:D8\" left, \"fx =SUM(C3:C8)\" right"
+   ],
+   [
+    "grid",
+    "a SPREADSHEET GRID (NOT a plain table, NOT a list: a real <table> with every cell built and visible grid lines) 767x339px at 0,128: border-collapse, every cell bordered 1px #e2e3e3, every row exactly 26px tall; a 46px row-number column on the left, then 6 equal columns about 120px wide; the top header row has the column letters \"A\" \"B\" \"C\" \"D\" \"E\" \"F\" centred, 13px #5f6368 regular on #f8f9fa; the left column has the row numbers 1 to 12 centred, 13px #5f6368 on #f1f3f4; cell text 13px #202124 with 8px padding, numbers right-aligned. Filled cells by row (column letter, words, look; any cell not listed is empty white): row 1: A \"Region\" (bold, #f1f3f4 fill) | B \"Lead\" (bold, #f1f3f4 fill) | C \"July\" (bold, right-aligned, #f1f3f4 fill) | D \"August\" (bold, right-aligned, #f1f3f4 fill) | E \"Sept\" (bold, right-aligned, #f1f3f4 fill) | F \"Total\" (bold, right-aligned, #f1f3f4 fill); row 2: A \"North\" | B \"Ada\" | C \"12,400\" (right-aligned) | D \"13,900\" (right-aligned) | E \"15,200\" (right-aligned) | F \"41,500\" (right-aligned); row 3: A \"South\" | B \"Ben\" | C \"9,800\" (right-aligned, #e8f0fe fill) | D \"10,100\" (right-aligned, #e8f0fe fill) | E \"11,700\" (right-aligned) | F \"31,600\" (right-aligned); row 4: A \"East\" | B \"Cho\" | C \"14,200\" (right-aligned, #e8f0fe fill) | D \"12,600\" (right-aligned, #e8f0fe fill) | E \"13,300\" (right-aligned) | F \"40,100\" (right-aligned); row 5: A \"West\" | B \"Dev\" | C \"7,300\" (right-aligned, #e8f0fe fill) | D \"8,800\" (right-aligned, #e8f0fe fill) | E \"9,900\" (right-aligned) | F \"26,000\" (right-aligned); row 6: A \"Central\" | B \"Eli\" | C \"10,900\" (right-aligned, #e8f0fe fill) | D \"11,400\" (right-aligned, #e8f0fe fill) | E \"12,000\" (right-aligned) | F \"34,300\" (right-aligned); row 7: A \"Online\" | B \"Fay\" | C \"18,600\" (right-aligned, #e8f0fe fill) | D \"21,200\" (right-aligned, #e8f0fe fill) | E \"24,900\" (right-aligned) | F \"64,700\" (right-aligned); row 8: A \"Partners\" | B \"Gus\" | C \"5,100\" (right-aligned, #e8f0fe fill) | D \"5,600\" (right-aligned, #e8f0fe fill) | E \"6,300\" (right-aligned) | F \"17,000\" (right-aligned); rows 9, 10, 11, 12 are empty (cells drawn, nothing in them)"
+   ],
+   [
+    "selected-range",
+    "blue border"
+   ],
+   [
+    "chart",
+    "bar chart \"Total by region\", 7 blue bars, heights 64/49/62/40/53/100/26% of the tallest"
+   ],
+   [
+    "sheet-tabs",
+    "pale grey bar 40px tall across the page, links: +, Q3, Q2, Targets; \"Q3\" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 301px in (the right 76% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #202124, \"Q3\" #0b57d0, \"Q2\" #202124, \"Targets\" #202124"
+   ],
+   [
+    "sum-chip",
+    "outline button \"Sum: 136,500\" (exactly: #ffffff fill, #202124 text, 103x25px, 4px rounded)"
+   ]
+  ]
+ },
+ "e2-week-calendar": {
+  "plan": [
+   [
+    "sidebar",
+    "text",
+    {
+     "fontPx": 12,
+     "lines": 8
+    }
+   ],
+   [
+    "day-header",
+    "box"
+   ],
+   [
+    "hour-labels",
+    "text"
+   ],
+   [
+    "week-grid",
+    "box"
+   ],
+   [
+    "events",
+    "box"
+   ],
+   [
+    "now-line",
+    "box"
+   ],
+   [
+    "event-popover",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 23 of them, nothing invented, nothing left out): 100x44 at 20,20 #c2e7ff fill, 16px rounded: 14px bold #1f1f1f \"+ Create\"; 71x15 at 120,35 13px bold #1f1f1f \"March 2027\"; 25x22 at 20,94 pill ends: 12px #1f1f1f \"M\"; 25x22 at 49,94 pill ends: 12px #1f1f1f \"T\"; 25x22 at 78,94 pill ends: 12px #1f1f1f \"W\"; 25x22 at 107,94 pill ends: 12px #1f1f1f \"T\"; 25x22 at 136,94 pill ends: 12px #1f1f1f \"F\"; 25x22 at 165,94 pill ends: 12px #1f1f1f \"S\"; 25x22 at 194,94 pill ends: 12px #1f1f1f \"S\"; 25x22 at 20,120 pill ends: 12px #1f1f1f \"8\"; 25x22 at 49,120 pill ends: 12px #1f1f1f \"9\"; 25x22 at 78,120 #0b57d0 fill, pill ends: 12px #ffffff \"10\"; 25x22 at 107,120 pill ends: 12px #1f1f1f \"11\"; 25x22 at 136,120 pill ends: 12px #1f1f1f \"12\"; 25x22 at 165,120 pill ends: 12px #1f1f1f \"13\"; 25x22 at 194,120 pill ends: 12px #1f1f1f \"14\"; 199x15 at 20,166 13px bold #1f1f1f \"My calendars\"; 199x16 at 20,191 13px #1f1f1f \"Work\"; 14x14 at 20,193 #039be5 fill, 3px rounded; 199x16 at 20,217 13px #1f1f1f \"Personal\"; 14x14 at 20,218 #33b679 fill, 3px rounded; 199x16 at 20,242 13px #1f1f1f \"Team\"; 14x14 at 20,244 #7986cb fill, 3px rounded"
+   ],
+   [
+    "day-header",
+    "7 stat cards in a row: \"MON\" 8, \"TUE\" 9, \"WED\" 10, \"THU\" 11, \"FRI\" 12, \"SAT\" 13, \"SUN\" 14"
+   ],
+   [
+    "hour-labels",
+    "a narrow column of 28 10px #70757a letters, one per line, 8 AM 9 AM 10 AM 11 AM 12 PM 1 PM 2 PM 3 PM 4 PM 5 PM 6 PM 7 PM 8 PM 9 PM, line-height exactly 60px; its left edge at x 240, first letter's line top at y 62 (absolutely placed there, NOT tight against the grid)"
+   ],
+   [
+    "week-grid",
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #ffffff 0px 59px, #e3e3e3 59px 60px)): 59px white then 1px light grey, over and over block"
+   ],
+   [
+    "events",
+    "button \"Standup 9 – 10am\", button \"Design review\", dropdown \"1:1 Sam\", button \"Lunch\", button \"Sprint planning 2 – 4pm\", button \"Standup\", button \"Climbing\""
+   ],
+   [
+    "now-line",
+    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text"
+   ],
+   [
+    "event-popover",
+    "the region itself is ONE 340x174px panel at 740,260, #f0f4f9 fill, 16px rounded, with its parts inside it; pale blue-grey block \"Sprint planning\", then blue white text button \"Join call\"; each word in its own colour: \"Sprint planning\" #1f1f1f, \"Join call\" #ffffff; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 300x34 at 760,280 20px regular (NOT bold) #1f1f1f \"Sprint planning\"; 14x14 at 760,290 #7986cb fill, 4px rounded; 224x15 at 760,323 13px #1f1f1f \"Wednesday, March 10 · 2:00 – 4:00pm\"; 122x15 at 760,345 13px #1f1f1f \"Room 4B · Video call\"; 83x38 at 918,376 #0b57d0 fill, pill ends: 13px #ffffff \"Join call\"; 158x15 at 760,387 13px #1f1f1f \"6 guests · 4 yes, 2 awaiting\""
+   ]
+  ]
+ },
+ "e3-code-review": {
+  "plan": [
+   [
+    "pr-header",
+    "box"
+   ],
+   [
+    "tabs",
+    "text"
+   ],
+   [
+    "review-button",
+    "button"
+   ],
+   [
+    "file-tree",
+    "text",
+    {
+     "fontPx": 12,
+     "lines": 7
+    }
+   ],
+   [
+    "split-diff",
+    "box"
+   ],
+   [
+    "comment-thread",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "pr-header",
+    "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: 22px #1f2328 \"Cache resolved prices per session #4182\" at x 24; bold 13px #ffffff \"⤴ Open\" on a #1f883d 67x25px pill at x 24; 13px #6e7781 \"mira wants to merge 3 commits into main\" at x 103"
+   ],
+   [
+    "tabs",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 87x24 at 24,78 13px #1f2328 \"Conversation 4\"; 62x24 at 133,78 13px #1f2328 \"Commits 3\"; 54x24 at 218,78 13px #1f2328 \"Checks 6\"; 98x24 at 294,78 2px #fd8c73 border on the bottom only: 13px bold #1f2328 \"Files changed 2\""
+   ],
+   [
+    "review-button",
+    "green white text button \"Review changes ▾\" (143x31px, barely rounded: border-radius 6px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #1f883d fill, #ffffff text, 143x31px, 6px rounded)"
+   ],
+   [
+    "file-tree",
+    "250px wide at 0,110: 12px text exactly \"▾ src ▾ pricing resolve.ts ▾ tests cache.test.ts\" (this copy only, nothing invented), then under it a #f6f8fa 6px rounded button 237x24px at 6,196 with 12px bold #1f2328 \"cache.ts\""
+   ],
+   [
+    "split-diff",
+    "the region itself is ONE 990x405px panel at 270,130, no fill, a 1px #d0d7de border, 6px rounded, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 29 of them, nothing invented, nothing left out): 988x36 at 271,131 #f6f8fa fill, 1px #d0d7de border on the bottom only: 13px mono #1f2328 \"src/pricing/cache.ts\"; 16x15 at 449,141 13px bold mono #1a7f37 \"+9\"; 16x15 at 473,141 13px mono #cf222e \"−4\"; 494x20 at 271,167 #ddf4ff fill: 12px mono #57606a \"@@ -12,10 +12,15 @@\"; 494x180 at 765,167 1px #d0d7de border on the left only; 493x20 at 766,167 #ddf4ff fill; 494x20 at 271,187 12px mono #1f2328 \"export function getPrice(id) {\"; 493x20 at 766,187 12px mono #1f2328 \"export function getPrice(id) {\"; 494x20 at 271,207 #ffebe9 fill; 493x20 at 766,207 #e6ffec fill; 152x14 at 337,210 #ffcecb fill: 12px mono #1f2328 \"return fetchPrice(id)\"; 181x14 at 832,210 #abf2bc fill: 12px mono #1f2328 \"const hit = cache.get(id)\"; 494x20 at 271,227 #ffebe9 fill; 493x20 at 766,227 #e6ffec fill; 159x14 at 337,230 #ffcecb fill: 12px mono #1f2328 \".then(p => p.amount)\"; 137x14 at 832,230 #abf2bc fill: 12px mono #1f2328 \"if (hit) return hit\"; 494x20 at 271,247 12px mono #1f2328 \"}\"; 493x20 at 766,247 #e6ffec fill; 173x14 at 832,250 #abf2bc fill: 12px mono #1f2328 \"const p = fetchPrice(id)\"; 494x20 at 271,267 12px mono #1f2328 \"export function clear() {\"; 493x20 at 766,267 #e6ffec fill; 116x14 at 832,270 #abf2bc fill: 12px mono #1f2328 \"cache.set(id, p)\"; 494x20 at 271,287 #ffebe9 fill; 493x20 at 766,287 #e6ffec fill: 12px mono #1f2328 \"return p\"; 58x14 at 337,290 #ffcecb fill: 12px mono #1f2328 \"// no-op\"; 494x20 at 271,307 12px mono #1f2328 \"}\"; 493x20 at 766,307 12px mono #1f2328 \"}\"; 493x20 at 766,327 #e6ffec fill; 94x14 at 832,330 #abf2bc fill: 12px mono #1f2328 \"cache.clear()\""
+   ],
+   [
+    "comment-thread",
+    "the region itself is ONE 960x171px panel at 285,355, no fill, a 1px #d0d7de border, 6px rounded, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out): 958x61 at 286,356 1px #d0d7de border on the bottom only: 13px #1f2328 \"What happens when a rejected promise gets cached? We'd return the failure forever.\"; 20x20 at 298,367 #8250df fill, a circle; 34x15 at 324,368 13px bold #1f2328 \"jonas\"; 140x15 at 364,368 13px #6e7781 \"commented 2 hours ago\"; 958x61 at 286,417 1px #d0d7de border on the bottom only: 13px #1f2328 \"Good catch — I'll drop the entry on reject.\"; 20x20 at 298,428 #bf3989 fill, a circle; 27x15 at 324,429 13px bold #1f2328 \"mira\"; 62x15 at 357,429 13px #6e7781 \"1 hour ago\"; 958x47 at 286,478 #f6f8fa fill; 934x31 at 298,486 #ffffff fill, 1px #d0d7de border, 6px rounded: 13px #6e7781 \"Reply…\""
+   ]
+  ]
+ },
+ "e4-chat-thread": {
+  "plan": [
+   [
+    "workspace-rail",
+    "box"
+   ],
+   [
+    "channel-list",
+    "box"
+   ],
+   [
+    "channel-header",
+    "text"
+   ],
+   [
+    "messages",
+    "box"
+   ],
+   [
+    "emoji-picker",
+    "box"
+   ],
+   [
+    "composer",
+    "box"
+   ],
+   [
+    "typing",
+    "text"
+   ],
+   [
+    "thread-panel",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "workspace-rail",
+    "dark plum (#3f0e40) block (no picture), 3 small rounded squares (40px) stacked down from its top 14px apart: first lavender #e8a0ff, the rest faint white #ffffff"
+   ],
+   [
+    "channel-list",
+    "the region itself is ONE 240x900px panel at 70,0, #4a154b fill, with its parts inside it; dark plum block, light grey text \"Tidewater ▾\", lines a #1164a3 filled 228x29px button (6px rounded), #ffffff text \"# launch-week\", \"# engineering\", all at the top of the card, empty below; its text #e7d9e8 (light grey, NOT the page's near-black text); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 208x36 at 86,16 17px bold #ffffff \"Tidewater ▾\"; 111x16 at 86,70 14px #e7d9e8 \"# announcements\"; 228x29 at 76,93 #1164a3 fill, 6px rounded: 14px #ffffff \"# launch-week\"; 53x16 at 86,128 14px #e7d9e8 \"# design\"; 91x16 at 86,158 14px bold #ffffff \"# engineering\"; 59x16 at 86,187 14px #e7d9e8 \"# random\"; 104x16 at 86,246 14px #e7d9e8 \"Direct messages\"; 93x16 at 86,275 14px #e7d9e8 \"● Priya Raman\"; 84x16 at 86,305 14px #e7d9e8 \"● Tom Okafor\""
+   ],
+   [
+    "channel-header",
+    "17px \"# launch-week\"; set BOLD (font-weight 800), NOT regular"
+   ],
+   [
+    "messages",
+    "3 chat messages stacked top-down under it (no bubbles), each a 36px rounded square avatar left, name and time on one line, then its blocks in order: message 1: #e07a5f avatar, bold \"Priya Raman\", grey 9:41 AM: \"Landing page is live on staging — can everyone do a pass before 2pm?\"; then a row of 2 small reaction pills side by side under it: \"👀 4\" (#e8f5fa fill, 1px #1d9bd1 border, 12px rounded), \"🚀 2\" (#f8f8f8 fill, 1px #dddddd border, 12px rounded); then a 13px bold #1264a3 link line \"3 replies · Last reply 10 min ago\". message 2: #3d405b avatar, bold \"Tom Okafor\", grey 9:58 AM: \"Hero video stutters on Safari. Filing it now.\". message 3: #81b29a avatar, bold \"Lena Vogt\", grey 10:12 AM: \"Pricing table copy is final, pushed to the CMS.\"; then a row of 1 small reaction pills side by side under it: \"✅ 5\" (#f8f8f8 fill, 1px #dddddd border, 12px rounded)"
+   ],
+   [
+    "emoji-picker",
+    "label \"🎉 🥳 🎊 🪅 🍾 🎈 🙌 ✨\" above an empty field"
+   ],
+   [
+    "composer",
+    "a 520x90px message box at 330,770 (NOT a filled bar): white / no fill, a 1px #bbbbbb border all round, 8px rounded; placeholder 14px #868686 \"Message #launch-week\" at its top-left (10px padding); ONE solid #007a5a button 36x24px, 4px rounded, 14px #ffffff text \"➤\", in its bottom-right corner at 803,827"
+   ],
+   [
+    "typing",
+    "grey text \"Lena is typing…\"; its text #616061 (grey, NOT the page's near-black text)"
+   ],
+   [
+    "thread-panel",
+    "\"Thread # launch-week\" list of 3 items, each with a 36px coral square thumbnail left: \"Priya Raman\", Landing page is live on staging — can everyone do a pass before 2pm? right; \"Tom Okafor\", On it after standup. right; \"Lena Vogt\", Mobile nav overlaps the logo below 360px. right"
+   ]
+  ]
+ },
+ "e5-checkout-autocomplete": {
+  "plan": [
+   [
+    "header",
+    "box"
+   ],
+   [
+    "stepper",
+    "text"
+   ],
+   [
+    "shipping-form",
+    "box"
+   ],
+   [
+    "autocomplete",
+    "box"
+   ],
+   [
+    "tooltip",
+    "box"
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "order-summary",
+    "box"
+   ],
+   [
+    "toast",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f6f7f9, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "header",
+    "white card bold 19px \"◆ Northwind Outfitters\" logo text at the left (n156), then \"🔒 Secure checkout\""
+   ],
+   [
+    "stepper",
+    "progress steps in one row, each pair joined by a short 82px 2px-thin indigo line: \"✓ Cart\" (grey) — \"2 Shipping\" (bold dark navy, current step) — \"3 Payment\" (grey) — \"4 Review\" (grey); each word in its own colour: \"✓ Cart\" #697386, \"2 Shipping\" #1a1f36, \"3 Payment\" #697386, \"4 Review\" #697386"
+   ],
+   [
+    "shipping-form",
+    "the region itself is ONE 640x485px panel at 80,150, #ffffff fill, a 1px #e3e8ee border, 10px rounded, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out): 582x23 at 109,179 20px bold #1a1f36 \"Shipping address\"; 283x15 at 109,220 13px bold #3c4257 \"First name\"; 283x15 at 408,220 13px bold #3c4257 \"Last name\"; 283x40 at 109,241 1px #d5dbe1 border, 6px rounded: 14px #1a1f36 \"Jordan\"; 283x40 at 408,241 1px #d5dbe1 border, 6px rounded: 14px #1a1f36 \"Mills\"; 582x15 at 109,297 13px bold #3c4257 \"Address\"; 582x42 at 109,318 2px #635bff border, 6px rounded: 14px #1a1f36 \"14 Harbour\"; 283x15 at 109,526 13px bold #3c4257 \"Postcode\"; 283x18 at 408,526 13px bold #3c4257 \"Phone ⓘ\"; 283x40 at 109,547 1px #d5dbe1 border, 6px rounded: 14px #1a1f36 \"BS1 5TT\"; 283x40 at 408,550 1px #d5dbe1 border, 6px rounded: 14px #1a1f36 \"07700 900123\""
+   ],
+   [
+    "autocomplete",
+    "the region itself is ONE 584x164px panel at 108,338, #ffffff fill, a 1px #e3e8ee border, 8px rounded, with its parts inside it; white card list: \"14 Harbour\" side, Bristol, \"14 Harbour\" Road, Bristol, \"14 Harbour\" Way, Bath; \"14 Harbour\" highlighted (#f0efff square fill, #1a1f36 text); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out): 582x50 at 109,345 #f0efff fill: 14px #1a1f36 \"side, Bristol\"; 74x16 at 125,355 14px bold #1a1f36 \"14 Harbour\"; 550x14 at 125,371 12px #697386 \"BS1 5TT, United Kingdom\"; 582x50 at 109,395 14px #1a1f36 \"Road, Bristol\"; 74x16 at 125,405 14px bold #1a1f36 \"14 Harbour\"; 550x14 at 125,421 12px #697386 \"BS20 7DA, United Kingdom\"; 582x50 at 109,445 14px #1a1f36 \"Way, Bath\"; 74x16 at 125,455 14px bold #1a1f36 \"14 Harbour\"; 550x14 at 125,471 12px #697386 \"BA2 4AB, United Kingdom\""
+   ],
+   [
+    "tooltip",
+    "dark navy (exactly #1a1f36) bar, white text \"Only used if the courier can't find you.\"; its text #ffffff (white, NOT the page's dark navy text)"
+   ],
+   [
+    "cta",
+    "indigo full-width white text button \"Continue to payment\" (584x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #635bff fill, #ffffff text, 584x46px, 8px rounded)"
+   ],
+   [
+    "order-summary",
+    "the region itself is ONE 440x370px panel at 760,150, #ffffff fill, a 1px #e3e8ee border, 10px rounded, with its parts inside it; white card \"Order summary · 2 items\", lines \"Trail jacket Rust · M £148.00\", \"Wool beanie Moss £24.00\", \"Discount code Apply\", \"Subtotal £172.00\", \"Shipping Free\", \"Total £172.00\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 18 of them, nothing invented, nothing left out): 390x18 at 785,175 16px bold #1a1f36 \"Order summary · 2 items\"; 56x56 at 785,209 linear-gradient(135deg, #f4a259, #bc4b51), 8px rounded; 259x32 at 853,221 14px #1a1f36 \"Trail jacket\"; 51x16 at 1124,229 14px bold #1a1f36 \"£148.00\"; 44x13 at 853,239 12px #697386 \"Rust · M\"; 56x56 at 785,279 linear-gradient(135deg, #8cb369, #5b8e7d), 8px rounded; 267x32 at 853,291 14px #1a1f36 \"Wool beanie\"; 43x16 at 1132,299 14px bold #1a1f36 \"£24.00\"; 28x13 at 853,309 12px #697386 \"Moss\"; 315x36 at 785,351 1px DASHED #c1c9d2 border, 6px rounded: 14px #1a1f36 \"Discount code\"; 67x36 at 1108,351 #e3e8ee fill, 6px rounded: 14px bold #1a1f36 \"Apply\"; 51x16 at 785,403 14px #697386 \"Subtotal\"; 51x16 at 1124,403 14px #697386 \"£172.00\"; 55x16 at 785,429 14px #697386 \"Shipping\"; 29x16 at 1146,429 14px #697386 \"Free\"; 390x36 at 785,459 1px #e3e8ee border on the top only; 42x21 at 785,474 18px font-weight 800 #1a1f36 \"Total\"; 65x21 at 1110,474 18px font-weight 800 #1a1f36 \"£172.00\""
+   ],
+   [
+    "toast",
+    "deep green bar, white text \"✓ Saved address found\"; its text #ffffff (white, NOT the page's dark navy text)"
+   ]
+  ]
+ }
+}
