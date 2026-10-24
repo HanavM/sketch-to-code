@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T14:10Z | n174 collapsed target regions, group layout match | 8 flat regions fixed; c2 82 (real layout 85), e1 59 to 78; round 17 82. ~172k.
 2026-10-24T13:20Z | n173 gantt head, task table, riso grain, stacked wordmark; last 4 first builds | c2 60 to 86; c5 78, e3 88, e4 90, e5 90; round 17 80 over 10. ~459k.
 2026-10-24T12:30Z | n172 grid floor, striped sun, red bars, riso circles; first c4, e1 | c3 70 to 81, c2 33 to 60, c4 78, e1 64; round 17 73 over 6. ~574k.
 2026-10-24T11:25Z | n171 write round 17 + first builds | Round 17 written, dry 10/10; marquee 77, synth horizon 70, log explorer 78; avg 75. ~237k.
