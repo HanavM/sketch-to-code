@@ -165,3 +165,19 @@ Round 16 now **82%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 78, e2
 Vitest: same 2 env failures; typecheck clean.
 Next: the tabs region's own part list never says nowrap; diff gutter numbers need the code to start after the gutter;
 then write round 17 (harder).
+
+## n170: padded code rows past the gutter, one-line tab counts that never wrap (2026-10-24, ~187k billed)
+
+Planner now says: a text part padded in from its left says its padding and where its text starts, and when a gutter
+number sits in that space, that the text starts AFTER it (the diff code no longer laid over the line numbers); the
+one-line clause reaches part lists whose parts are a little taller than their type (tabs with bottom padding) and says a
+part's width is a minimum, never a fixed width that pushes a count onto a second line. Rounds 1-16 notes re-generated
+(padding and one-line clauses reach their part lists); only e3 re-run.
+
+| page | likeness | what was off |
+|---|---|---|
+| e3 code review | 78 → 85 → **86%** (two live runs) | first run: gutter fixed, reply back, tab counts still wrapped; second run (min-width clause): tabs on one line. Left: line numbers on the red/green rows with no plain text (13, 14, 16-19) dropped |
+
+Round 16 now **83%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 78, e2 85, e3 86, e4 78, e5 83).
+Vitest: same 2 env failures; typecheck clean.
+Next: round 16 has plateaued at 82-83 for four steps, so write round 17 (harder) and build it.

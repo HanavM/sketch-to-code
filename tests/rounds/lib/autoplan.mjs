@@ -1245,7 +1245,7 @@ export function factsInPage() {
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
-            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) })
+            border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0 })
           if (out.length > 120) break
         }
         return out
@@ -2866,9 +2866,15 @@ function partsNote(P, f) {
     const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${hx(p.ink)} "${p.t}"`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     if (p.ra) paint.push('text right-aligned in its box (a line number in the gutter)')
+    // n170: a text part padded in from its left (round 16 e3 diff rows: padding-left 52px past the gutter numbers, built
+    // with the code starting over the numbers)
+    if (p.t && p.padL >= 8 && !p.ra) {
+      const gut = P.some((q) => q.ra && q.t && q.x >= p.x - 1 && q.x < p.x + p.padL && Math.abs(q.y - p.y) <= 2)
+      paint.push(`padding-left ${p.padL}px (its text starts at x ${p.x + p.padL}${gut ? ', AFTER the gutter number, never over it' : ''})`)
+    }
     return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
-  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 1.8) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart' : ''}): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
+  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${[...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -4472,7 +4478,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n156: a wide row under a top rule only says its rule whatever its area (round 14 c1 axes row: 1160x29, rule lost)
     const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
     const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic)
-    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 1.8) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
+    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 2.2) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
     // n164: a wide row ruled above AND below says both rules and their style (round 16 c3 menu row: double rules lost)
