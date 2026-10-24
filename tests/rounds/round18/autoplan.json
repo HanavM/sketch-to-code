@@ -131,7 +131,7 @@
    ],
    [
     "grid",
-    "thick near-black border; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), same size and weight as the rest"
+    "thick near-black border; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, on its OWN line above the rest (display: block), the small words under it"
    ],
    [
     "header",
@@ -139,7 +139,7 @@
    ],
    [
     "hero-cell",
-    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), same size and weight as the rest"
+    "vivid red-orange block \"WE BUILD LOUD WEBSITES FOR QUIET BRANDS\", text \"26\"; the word \"26\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 4px #111111), set MUCH BIGGER than the rest: 300px upright (NOT italic) type, line-height 1, about 322x240px with its top-left at 46,504, on its OWN line above the rest (display: block), the small words under it"
    ],
    [
     "clients-stat",
@@ -379,11 +379,11 @@
    ],
    [
     "hollow-number",
-    "italic peach \"07 of twenty-four\"; its text #ffb37a (peach, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; the word \"07\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 1.5px #ffb37a), same size and weight as the rest"
+    "italic peach \"07 of twenty-four\"; its text #ffb37a (peach, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; the word \"07\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 1.5px #ffb37a), set MUCH BIGGER than the rest: 110px upright (NOT italic) type, line-height 1, about 110x110px with its top-left at 820,430, on its OWN line above the rest (display: block), the small words under it"
    ],
    [
     "progress-ring",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 1 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 60x33 at 1120,743 30px bold Helvetica/Arial sans-serif (NOT the page serif) #f5e9d7 \"29%\""
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 140x140px with its top-left at page 1080,690 (position absolute), copied verbatim: <svg width=\"140\" height=\"140\" viewBox=\"0 0 140 140\"><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#3a3040\" stroke-width=\"6\"></circle><circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#ff5a36\" stroke-width=\"6\" stroke-dasharray=\"377\" stroke-dashoffset=\"267\" transform=\"rotate(-90 70 70)\" style=\"animation:ring 4s ease-in-out infinite alternate\"></circle><text x=\"70\" y=\"80\" text-anchor=\"middle\" style=\"font: 700 30px Helvetica, Arial, sans-serif; fill: rgb(245, 233, 215)\">29%</text></svg><style>@keyframes ring { 100% { stroke-dashoffset: 60; } }</style>"
    ]
   ]
  },
@@ -395,11 +395,7 @@
    ],
    [
     "postage-stamp",
-    "heading",
-    {
-     "fontPx": 30,
-     "lines": 1
-    }
+    "box"
    ],
    [
     "torn-paper",
@@ -523,7 +519,7 @@
    ],
    [
     "polaroid",
-    "image"
+    "box"
    ],
    [
     "lede",
@@ -553,7 +549,7 @@
    ],
    [
     "postage-stamp",
-    "tilted 8° clockwise white \"26¢\"; set BOLD (font-weight 700), NOT regular"
+    "ONE 110x130px #4f7cac card (a separate piece of paper laid on the page), position absolute with its top-left at 1120,40 page px (before its turn), square corners, a 6px dotted #e8ddc8 border in the page colour (it bites into the card: a perforated stamp edge), outline: 3px solid #4f7cac round the outside of that border; transform: rotate(8deg) round its centre (tilted 8° clockwise, NOT level); padding 30px 0px; on it 30px bold Helvetica #ffffff text (its own ink, NOT the card's #4f7cac), centred, quoted whole (these exact words, nothing invented, nothing dropped): \"26¢\""
    ],
    [
     "torn-paper",
@@ -565,19 +561,19 @@
    ],
    [
     "polaroid",
-    "picture with \"Skye, June\""
+    "ONE 300x360px #ffffff card (a separate piece of paper laid on the page), position absolute with its top-left at 780,90 page px (before its turn), square corners, box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 30px 0px (it lifts off the page); transform: rotate(6deg) round its centre (tilted 6° clockwise, NOT level); inside it a picture 268x284px set in from the card's top, left and right edges by 16px (a #ffffff margin) with a deeper 60px margin under it, the picture painted with background-image: linear-gradient(#87b6d8 0px, #87b6d8 55%, #d8b27a 55%, #d8b27a 70%, #5f7f4f 70%) exactly (hard stops: flat bands of colour across it, no blur, no photo, no grey); in that bottom margin, centred, 20px Helvetica/Arial sans-serif #2b2118 \"Skye, June\""
    ],
    [
     "lede",
-    "cream 20px text \"Hand-bound journals, paper kits and Sunday workshops for people who think better with scissors.\""
+    "ONE 500x106px #f6efe0 card (a separate piece of paper laid on the page), position absolute with its top-left at 110,590 page px (before its turn), square corners, box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 14px 0px (it lifts off the page); transform: rotate(-1.5deg) round its centre (tilted 1.5° anticlockwise, NOT level); padding 22px 26px; on it 20px Georgia #2b2118 text (its own ink, NOT the card's #f6efe0), line-height 31px, quoted whole (these exact words, nothing invented, nothing dropped): \"Hand-bound journals, paper kits and Sunday workshops for people who think better with scissors.\" (it wraps onto 2 lines inside the card)"
    ],
    [
     "hand-arrow",
-    "drawn shapes, no picture, no box: 0 filled shapes: ; plus a 4px near-black smooth curving line (no fill, no loops, never crossing itself) passing in order through about 610,500 → 639,535 → 673,565 → 714,585 → 759,587 → 801,569 → 836,540 (page px), a 4px near-black line (no fill) from about 814,562 up and across to 838,536"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 250x150px with its top-left at page 600,470 (position absolute), copied verbatim: <svg width=\"250\" height=\"150\" viewBox=\"0 0 250 150\"><path d=\"M10 30 C 90 140, 170 140, 236 70\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M214 66 L238 68 L232 92\" fill=\"none\" stroke=\"#2b2118\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
    ],
    [
     "sticky-note",
-    "tilted 6° anticlockwise gently bobbing up and down soft yellow"
+    "ONE 280x250px #fff59a card (a separate piece of paper laid on the page), position absolute with its top-left at 860,520 page px (before its turn), square corners, box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px 0px (it lifts off the page); transform: rotate(-6deg) round its centre (tilted 6° anticlockwise, NOT level); animated: animation bob 4s ease-in-out infinite, keyframes exactly @keyframes bob { 0%, 100% { transform: rotate(-6deg) translateY(0px); } 50% { transform: rotate(-4deg) translateY(-8px); } } (the turn stays part of every keyframe); padding 26px 26px; on it 21px Comic Sans MS #2b2118 text (its own ink, NOT the card's #fff59a), line-height 29px, quoted whole (these exact words, nothing invented, nothing dropped), each of these 2 on its own line: \"Workshop this Sunday!\" / \"Bring old maps + one photo you love. ♡\""
    ],
    [
     "cta",

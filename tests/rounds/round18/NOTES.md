@@ -78,3 +78,15 @@ Rounds 1-17 plans re-generated: round 8's compose window now also says its top-l
 
 Round 18, latest build each: **81%** (c1 90, c2 73, c3 88, c4 72, c5 69, e1 73, e2 95, e3 87, e4 71, e5 90).
 Vitest: same 2 env failures; typecheck clean.
+
+## n182: paper pieces, a line drawing and a ring said whole, a hollow plate number at its own size (2026-10-24, ~183k billed)
+
+| page | likeness | what changed |
+|---|---|---|
+| c5 paper collage | 69% → **90%** | each piece of paper is now said as ONE card with its size, place, fill, edge, shadow, exact turn and motion, then what is on it word for word: the polaroid (white card, a three-band photo, caption in its deep bottom margin), the blue stamp with its perforated edge, the lede card (dark words on cream; had been said as cream words), the bobbing sticky note with its two lines (had been said empty). The hand-drawn arrow is copied as its own small line drawing (had been built as an empty rectangle). Left: the two tape strips and the lined paper (not tagged in the target) |
+| c4 duotone split | 72% → **83%** | the "29%" progress ring is copied as its own drawing with its text style and its filling animation (had been an empty square); the hollow "07" is said at its own 110px upright size on its own line above "of twenty-four" (had been said "same size as the rest", built 16px); glows soft. Left: vertical nav built at the top (target centred down the left edge), the scan lines over the photo |
+
+Rounds 1-17 plans re-generated: only round 14's hollow glyph tile picks up its own size; nothing else moved.
+
+Round 18, latest build each: **84%** (c1 90, c2 73, c3 88, c4 83, c5 90, e1 73, e2 95, e3 87, e4 71, e5 90).
+Vitest: same 2 env failures; typecheck clean.

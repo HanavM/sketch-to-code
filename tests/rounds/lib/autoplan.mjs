@@ -235,6 +235,16 @@ export function factsInPage() {
       })(),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
       blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
+      // n182: the turn to a tenth of a degree, the outline, and the block's own animation as written (round 18 c5 lede
+      // card turned -1.5deg read as -1; the stamp's solid outline round its perforated edge unsaid; the sticky note's bob)
+      turn: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 1800 / Math.PI) / 10 : 0 })(),
+      outline: parseFloat(cs.outlineWidth) >= 1 && cs.outlineStyle !== 'none' ? { w: parseFloat(cs.outlineWidth), style: cs.outlineStyle, c: rgba(cs.outlineColor) } : null,
+      ownAnim: (() => {
+        if (!cs.animationName || cs.animationName === 'none') return null
+        let kf = ''
+        for (const sh of document.styleSheets) for (const r of sh.cssRules) if (r.type === 7 && r.name === cs.animationName) kf = r.cssText
+        return { css: `${cs.animationName} ${cs.animationDuration} ${cs.animationTimingFunction} ${cs.animationIterationCount === 'infinite' ? 'infinite' : cs.animationIterationCount}`, kf: kf.replace(/\s+/g, ' ') }
+      })(),
       backdrop: /blur/.test(cs.backdropFilter || cs.webkitBackdropFilter || ''),
       // what moves, read off the keyframes of the block or anything inside it (a marquee's track)
       motion: (() => {
@@ -494,12 +504,31 @@ export function factsInPage() {
       // (preserveAspectRatio none) said verbatim: round 15 c4 clipped striped blob said as 0x0 shapes in a window,
       // the wave divider got no note at all
       svgSrc: (() => {
-        if (el.tagName.toLowerCase() !== 'svg' || el.querySelector('textPath, text')) return null
+        // n182: a small progress ring (dashed stroke arc) with its figure inside is said verbatim with its animation
+        // (round 18 c4 '29%' ring: built an empty square)
+        const ringArc = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && [...el.querySelectorAll('circle')].some((q) => q.getAttribute('stroke-dasharray')) && el.outerHTML.length <= 1400
+        if (el.tagName.toLowerCase() !== 'svg' || (el.querySelector('textPath, text') && !ringArc)) return null
         const c = el.cloneNode(true)
         for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
         const src = c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
-        if (src.length > 1800 || !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src)) return null
-        return { src, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
+        // n182: a short stroke-only drawing (round 18 c5 hand-drawn arrow: a curve and its head, built as an empty
+        // rectangle) is said verbatim too
+        let ringCss = ''
+        if (ringArc) {
+          // its text's look and the arc's animation live in the page's stylesheet: written onto the copy
+          const O = [el, ...el.querySelectorAll('*')], C = [c, ...c.querySelectorAll('*')]
+          const names = new Set()
+          O.forEach((o, i) => {
+            const st = getComputedStyle(o)
+            if (o.tagName.toLowerCase() === 'text') C[i].setAttribute('style', `font: ${st.fontWeight} ${st.fontSize} ${st.fontFamily.replace(/"/g, "'")}; fill: ${st.fill}`)
+            if (st.animationName && st.animationName !== 'none') names.add(st.animationName)
+          })
+          for (const sh of document.styleSheets) for (const q of sh.cssRules) if (q.type === 7 && names.has(q.name)) ringCss += ` ${q.cssText.replace(/\s+/g, ' ')}`
+        }
+        const src2 = ringArc ? c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><') + (ringCss ? `<style>${ringCss.trim()}</style>` : '') : src
+        const lineArt = src.length <= 900 && r.width * r.height < 0.25 * innerWidth * innerHeight && el.querySelectorAll('path, line, polyline, circle, ellipse, rect, polygon').length && [...el.querySelectorAll('path, line, polyline, circle, ellipse, rect, polygon')].every((q) => { const s = getComputedStyle(q); return (s.fill === 'none' || rgba(s.fill)?.a < 0.05) && s.stroke !== 'none' })
+        if (src.length > 1800 || (!lineArt && !ringArc && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
+        return { src: src2, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
       })(),
       // n179: a panel whose picture is one full-size inline SVG with labels laid over it (round 18 e5 map: water, parks,
       // roads said as 'pale blue-grey', the price pins and search pill lost)
@@ -1004,7 +1033,7 @@ export function factsInPage() {
       setLines: (el.innerText || '').split('\n').map((x) => x.replace(/ /g, ' ').replace(/\s+$/, '')),
       // the words on each line as rendered (a headline's own breaks: round 6 c3 built 3 lines, target 2)
       // a word inside the heading set hollow: transparent fill, stroked outline (round 8 c1 'depth': built solid white)
-      hollow: [...el.querySelectorAll('*')].filter((k) => { const s = getComputedStyle(k); return parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 && (k.innerText || '').trim() }).map((k) => { const s = getComputedStyle(k); return { t: (k.innerText || '').trim(), px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor) } }),
+      hollow: [...el.querySelectorAll('*')].filter((k) => { const s = getComputedStyle(k); return parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 && (k.innerText || '').trim() }).map((k) => { const s = getComputedStyle(k); const b = k.getBoundingClientRect(); return { t: (k.innerText || '').trim(), px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor), size: parseFloat(s.fontSize), it: s.fontStyle === 'italic', block: s.display === 'block', w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.left), y: Math.round(b.top) } }),
       // frosted glass cards over blurred colour blobs (round 9 c2: the whole stack read as 'a contents list, no box')
       glassStack: (() => {
         const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute')
@@ -4485,7 +4514,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role)
     if (!f.hollow?.length || !d.kind) return
-    d.note = `${d.note ? `${d.note}; ` : ''}${f.hollow.map((h) => `the word ${quote(h.t, 24)} is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: ${h.px}px ${hexOf(h.c)}), same size and weight as the rest`).join('; ')}`
+    // n182: a hollow word much bigger than its region's type says its own size and line (round 18 c4 plate '07' 110px
+    // over a 16px italic line, said 'same size as the rest', built 16px)
+    d.note = `${d.note ? `${d.note}; ` : ''}${f.hollow.map((h) => `the word ${quote(h.t, 24)} is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: ${h.px}px ${hexOf(h.c)}), ${h.size && f.font?.size && h.size >= 2 * f.font.size ? `set MUCH BIGGER than the rest: ${Math.round(h.size)}px ${h.it ? 'italic' : 'upright (NOT italic)'} type, line-height 1, about ${h.w}x${h.h}px with its top-left at ${h.x},${h.y}${h.block ? ', on its OWN line above the rest (display: block), the small words under it' : ''}` : 'same size and weight as the rest'}`).join('; ')}`
   })
   // two pictures that overlap: the later-painted one is on top (round 5 c4: the blue photo was built under
   // the orange one, hidden behind its shadow)
@@ -4688,6 +4719,42 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role), P = (f.parts ?? []).filter((p) => p.w * p.h < 0.97 * f.rect.w * f.rect.h)
     if (f.codeLines) return
+    // n182: a piece of paper laid on a collage (round 18 c5: the lede card said 'cream 20px text', built as cream words
+    // on the page; the sticky note said only 'tilted, bobbing, soft yellow', built empty; the stamp's blue card and
+    // perforated edge unsaid; the polaroid said 'picture with "Skye, June"', built a grey box) is said as ONE card: its
+    // size, place, fill, edge, shadow, exact turn and motion, then what is on it word for word
+    const tParts = P.filter((p) => p.t), own0 = d?.note ?? ''
+    const picPart = P.find((p) => !p.t && p.img && /gradient/.test(p.img) && p.w * p.h >= 0.4 * f.rect.w * f.rect.h)
+    const paper = f.el && f.layoutBox && !f.regionKids.length && !f.codeLines && visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8 && f.rect.w * f.rect.h < 0.15 * 1280 * 900 && f.text && tParts.length <= 2 &&
+      (Math.abs(f.turn ?? f.rotate) >= 1 || f.ownAnim || (f.border?.w >= 2 && /dotted|dashed/.test(f.border.topStyle))) &&
+      f.radius < 2 && f.layoutBox.w <= 0.6 * 1280 &&
+      (!own0.includes(f.text.replace(/\s+/g, ' ').slice(0, 24)) || (picPart && !/gradient/.test(own0)) || !/\b(block|card|box|bar|label|circle|pill|tile|panel|sheet|button|chip|badge)\b/.test(own0))
+    if (paper) {
+      const L = f.layoutBox, E = f.el, rot = f.turn ?? f.rotate, hx = (c) => hexOf(c)
+      const rgbaW = (s) => s.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? (c.a < 0.05 ? 'transparent' : c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : hx(c)) : m })
+      const edge = f.border?.w >= 1 && visible(f.border.colour) ? `, a ${f.border.w}px ${f.border.topStyle} ${hx(f.border.colour)} border${f.border.topStyle === 'dotted' && dist(f.border.colour, body.bg) < 8 ? ' in the page colour (it bites into the card: a perforated stamp edge)' : ''}` : ''
+      const ring = f.outline && visible(f.outline.c) ? `, outline: ${f.outline.w}px ${f.outline.style} ${hx(f.outline.c)} round the outside of that border` : ''
+      const sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${rgbaW(f.shadow)} (it lifts off the page)` : ''
+      const turnW = Math.abs(rot) >= 0.5 ? `; transform: rotate(${rot}deg) round its centre (tilted ${Math.abs(rot)}° ${rot > 0 ? 'clockwise' : 'anticlockwise'}, NOT level)` : ''
+      const mot = f.ownAnim ? `; animated: animation ${f.ownAnim.css}, keyframes exactly ${f.ownAnim.kf} (the turn stays part of every keyframe)` : ''
+      const face = (fam) => faceName(fam) ?? fam.split(',')[0].replace(/"/g, '')
+      const tx = (p) => `${p.px}px ${p.bold ? 'bold ' : ''}${p.it ? 'italic ' : ''}${p.face === 'sans' ? 'Helvetica/Arial sans-serif ' : ''}${hx(p.ink)} "${p.t}"`
+      let inside
+      if (picPart) {
+        const c = Math.cos(rot * Math.PI / 180), s0 = Math.abs(Math.sin(rot * Math.PI / 180)), k = c * c - s0 * s0
+        const pw = Math.round((picPart.w * c - picPart.h * s0) / k), ph = Math.round((picPart.h * c - picPart.w * s0) / k)
+        const ins = f.inset ?? { t: 0, l: 0 }, bot = Math.max(0, L.h - ins.t - ph)
+        const cap = tParts[0]
+        inside = `inside it a picture ${pw}x${ph}px set in from the card's top, left and right edges by ${ins.l}px (a ${hx(f.bg)} margin) with a deeper ${bot}px margin under it, the picture painted with background-image: ${rgbaW(picPart.img)} exactly (hard stops: flat bands of colour across it, no blur, no photo, no grey)${cap ? `; in that bottom margin, centred, ${tx(cap)}` : ''}`
+      } else {
+        const lines = f.brStack?.length >= 2 ? f.brStack.map((b) => b.t) : f.chipLines?.lines?.length >= 2 ? f.chipLines.lines.map((x) => x.t) : null
+        const ft = f.font, lh = ft.lineHeight ? `, line-height ${Math.round(ft.lineHeight)}px` : ''
+        inside = `padding ${f.inset?.t ?? 0}px ${f.inset?.l ?? 0}px; on it ${ft.size}px ${ft.weight >= 600 ? 'bold ' : ''}${face(ft.family)} ${hx(f.colour)} text${dist(f.colour, f.bg) > 60 ? ` (its own ink, NOT the card's ${hx(f.bg)})` : ''}${lh}${f.centred ? ', centred' : ''}, quoted whole (these exact words, nothing invented, nothing dropped)${lines ? `, each of these ${lines.length} on its own line: ${lines.map((t) => `"${t}"`).join(' / ')}` : `: "${f.text.replace(/\s+/g, ' ')}"${f.textLines >= 2 ? ` (it wraps onto ${f.textLines} lines inside the card)` : ''}`}`
+      }
+      out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} card (a separate piece of paper laid on the page), position absolute with its top-left at ${E.x},${E.y} page px (before its turn), square corners${edge}${ring}${sh}${turnW}${mot}; ${inside}` })
+      marked.add(f.role)
+      return
+    }
     // n181: a region left with no note at all is said part by part even with 1-2 parts (round 18 e1 collapsed lane
     // '▸ Growth 6 issues · collapsed': unsaid, an invented 'Load more issues' row built in its place)
     if ((P.length < 3 && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
