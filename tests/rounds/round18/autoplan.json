@@ -27,11 +27,7 @@
    ],
    [
     "cta",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 2
-    }
+    "box"
    ],
    [
     "glass-stack",
@@ -39,7 +35,7 @@
    ],
    [
     "side-ticker",
-    "text"
+    "box"
    ],
    [
     "footer-row",
@@ -53,7 +49,7 @@
    ],
    [
     "conic-blob",
-    "spinning a 620px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: conic-gradient(from 40deg, rgb(255, 61, 129), rgb(122, 92, 255), rgb(0, 224, 255), rgb(182, 255, 61), rgb(255, 61, 129)); border-radius 50%), ring 60px thick with a hollow black (#06060a) middle cut by a round inner disc (inset 60px); NOT a donut chart, no segments, no labels, no legend"
+    "spinning a 620px SOLID organic colour BLOB (border-radius: 42% 58% 63% 37% / 45% 38% 62% 55%, a lumpy rounded shape, NOT a perfect circle), filled edge to edge with ONE smooth conic gradient (exactly: background: conic-gradient(from 40deg, rgb(255, 61, 129), rgb(122, 92, 255), rgb(0, 224, 255), rgb(182, 255, 61), rgb(255, 61, 129))), filter: blur(2px), opacity 0.9; over its middle a SOFT DARK SHADE, NOT a hole: a ::after layer inset 60px, border-radius inherit, background #06060a, filter: blur(40px), opacity 0.55, so the colours still glow faintly through the middle and fade into it; NOT a ring, NOT a donut, no hard inner edge"
    ],
    [
     "nav",
@@ -68,8 +64,16 @@
     "lavender text \"A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.\"; its text #a8abbb (lavender, NOT the page's light grey text)"
    ],
    [
+    "cta",
+    "a row of 2 real buttons side by side (each its own element with live text, NOT plain text, NOT links): \"Start rendering\" 164x51px at 66,690, background: linear-gradient(90deg, #ff3d81, #7a5cff), pill ends, box-shadow: rgba(255, 61, 129, 0.6) 0px 0px 30px 0px (a coloured glow round it), 15px bold #ffffff text centred; \"Watch reel\" 133x51px at 244,690, no fill, 1px #3a3c4a border, pill ends, 15px bold #e9e9f2 text centred"
+   ],
+   [
     "glass-stack",
-    "a stack of 3 separate cards turned in 3D (NOT one picture, NOT flat): a 300x380px box at 820,300 with perspective: 900px, holding 3 absolutely placed cards each 360x340px, 22px rounded, each with transform: matrix3d(0.882948, 0, 0.469472, 0, -0.0976086, 0.978148, 0.183575, 0, -0.459212, -0.207912, 0.863653, 0, 0, 0, 0, 1) (turned away to the left, all the same turn), a big soft dark drop shadow; each card overlaps the one behind it, painted back to front: card 1 (back) at -60,40 in the box, 135deg gradient #ffffff to #ffffff, 50% opacity, 1px #ffffff at 35% border; card 2 at -30,20 in the box, 135deg gradient #ffffff to #ffffff, 75% opacity, 1px #ffffff at 35% border; card 3 (front) at 0,0 in the box, 135deg gradient #ffffff to #ffffff, fully opaque, 1px #ffffff at 35% border, bold 13px #c7c9d6 \"FRAME TIME\" at 28,30 inside it, bold 46px #e9e9f2 \"8.3ms\" at 28,46 inside it, bold 13px #c7c9d6 \"GPU · 4K · RAYMARCHED\" at 28,102 inside it"
+    "a stack of 3 separate cards turned in 3D (NOT one picture, NOT flat): a 300x380px box at 820,300 with perspective: 900px, holding 3 absolutely placed cards each 360x340px, 22px rounded, each with transform: matrix3d(0.882948, 0, 0.469472, 0, -0.0976086, 0.978148, 0.183575, 0, -0.459212, -0.207912, 0.863653, 0, 0, 0, 0, 1) (turned away to the left, all the same turn), a big soft dark drop shadow; each card overlaps the one behind it, painted back to front: card 1 (back) at -60,40 in the box, 135deg gradient #ffffff at 28% to #ffffff at 4% (see-through FROSTED GLASS: backdrop-filter: blur(14px); what is behind shows blurred through it, NOT an opaque white card), 50% opacity, 1px #ffffff at 35% border; card 2 at -30,20 in the box, 135deg gradient #ffffff at 28% to #ffffff at 4% (see-through FROSTED GLASS: backdrop-filter: blur(14px); what is behind shows blurred through it, NOT an opaque white card), 75% opacity, 1px #ffffff at 35% border; card 3 (front) at 0,0 in the box, 135deg gradient #ffffff at 28% to #ffffff at 4% (see-through FROSTED GLASS: backdrop-filter: blur(14px); what is behind shows blurred through it, NOT an opaque white card), fully opaque, 1px #ffffff at 35% border, 13px #c7c9d6 \"FRAME TIME\" at 28,30 inside it, bold 46px #e9e9f2 \"8.3ms\" at 28,46 inside it, 13px #c7c9d6 \"GPU · 4K · RAYMARCHED\" at 28,102 inside it"
+   ],
+   [
+    "side-ticker",
+    "a narrow 40x900px strip at 1220,0, no fill, a 1px #22232c rule down its LEFT edge only, overflow hidden, holding ONE line of VERTICAL text (writing-mode: vertical-rl; white-space nowrap; NOT a drawing, NOT a line or zigzag, real letters reading top to bottom), 13px bold monospace #5b5e70, letter-spacing 6px, centred across the strip: \"RENDERING · 120FPS · RENDERING · 120FPS · RENDERING · 120FPS · RENDERING · 120FPS ·\"; the line scrolls up for ever: animation up 14s linear infinite, defined exactly as @keyframes up { 100% { transform: translateY(-50%); } }"
    ],
    [
     "footer-row",
@@ -855,7 +859,7 @@
    ],
    [
     "map",
-    "pale blue-grey"
+    "a 580x764px panel at 700,136, #e8eef0 fill, overflow hidden, NOT a picture, NOT a flat colour: its back layer is exactly this inline SVG, 580x764px with its top-left at page 700,136 (position absolute, behind everything else in the panel), copied verbatim: <svg width=\"580\" height=\"764\" viewBox=\"0 0 580 764\"><path d=\"M0 560 C 120 520, 260 600, 380 560 S 560 500, 580 520 L580 764 L0 764 Z\" fill=\"#a9d3e6\"></path><rect x=\"60\" y=\"80\" width=\"140\" height=\"110\" rx=\"8\" fill=\"#cde8c6\"></rect><rect x=\"380\" y=\"230\" width=\"120\" height=\"90\" rx=\"8\" fill=\"#cde8c6\"></rect><g stroke=\"#fff\" stroke-width=\"10\" fill=\"none\"><path d=\"M0 300 L580 260\"></path><path d=\"M220 0 L260 560\"></path><path d=\"M0 120 C 200 160, 380 100, 580 140\"></path></g><g stroke=\"#fff\" stroke-width=\"4\" fill=\"none\"><path d=\"M100 0 L140 540\"></path><path d=\"M420 0 L380 520\"></path><path d=\"M0 420 L580 380\"></path><path d=\"M0 200 L580 210\"></path></g><path d=\"M220 0 L260 560\" stroke=\"#fdd663\" stroke-width=\"6\" fill=\"none\"></path></svg>; laid ON TOP of the SVG, 7 small labels, each its own absolutely placed element (page px, size then top-left): \"☑ Search as I move the map\" 211x35px at 885,156 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€142\" 49x27px at 780,386 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€188\" 49x27px at 1020,296 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€84\" 42x27px at 850,536 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€121\" 49x27px at 1160,486 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€230\" 49x27px at 1120,606 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; \"€99\" 42x27px at 760,636 #ffffff fill, pill ends, small soft drop shadow, 13px bold #222222 text centred; the other parts inside it are said on their own"
    ],
    [
     "selected-pin",
@@ -863,7 +867,7 @@
    ],
    [
     "map-popup",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 300x160 at 930,466 linear-gradient(135deg, #ffb199, #ff0844); 28x28 at 1192,476 a circle: 13px #222222 \"✕\"; 300x83 at 930,626 padding-left 14px (its text starts at x 944): 13px #222222 \"night ·\"; 76x20 at 1140,638 13px #222222 \"★ 4.97 (128)\"; 127x15 at 944,640 13px bold #222222 \"Townhouse in Graça\"; 204x15 at 944,660 13px #717171 \"Whole home · 3 bedrooms · 5 beds\"; 29x15 at 944,679 13px bold #222222 \"€196\"; 57x15 at 1016,679 13px #222222 \"€784 total\""
+    "the region itself is ONE 300x243px panel at 930,466, #ffffff fill, 14px rounded, box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 28px 0px (it floats over what is under it), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 300x160 at 930,466 linear-gradient(135deg, #ffb199, #ff0844); 28x28 at 1192,476 a circle: 13px #222222 \"✕\"; 300x83 at 930,626 padding-left 14px (its text starts at x 944): 13px #222222 \"night ·\"; 76x20 at 1140,638 13px #222222 \"★ 4.97 (128)\"; 127x15 at 944,640 13px bold #222222 \"Townhouse in Graça\"; 204x15 at 944,660 13px #717171 \"Whole home · 3 bedrooms · 5 beds\"; 29x15 at 944,679 13px bold #222222 \"€196\"; 57x15 at 1016,679 13px #222222 \"€784 total\""
    ],
    [
     "zoom",

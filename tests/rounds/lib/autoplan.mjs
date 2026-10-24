@@ -121,6 +121,22 @@ export function factsInPage() {
       textTop: (() => { const g = document.createRange(); g.selectNodeContents(el); const rs = [...g.getClientRects()].filter((x) => x.height > 0); return rs.length ? Math.min(...rs.map((x) => x.top)) : null })(),
       // a form field: a label plus an empty bordered box, or an input-like box with left text
       fieldKid: kids.some((k) => { const c = getComputedStyle(k); return !(k.innerText || '').trim() && parseFloat(c.borderTopWidth) >= 1 && k.getBoundingClientRect().height >= 30 }),
+      // n179: a narrow strip holding one vertical line of text that scrolls (round 18 c1 side ticker: built as a zigzag)
+      vertTicker: (() => {
+        if (kids.length !== 1 || el.querySelector('[data-r]') || r.height < 3 * r.width) return null
+        const k = kids[0], c = getComputedStyle(k)
+        if (!/vertical/.test(c.writingMode) || !(k.innerText || '').trim()) return null
+        const es = getComputedStyle(el)
+        const kf = (() => { const nm = c.animationName; if (!nm || nm === 'none') return null; for (const ss of document.styleSheets) { try { for (const rr of ss.cssRules) if (rr.type === 7 && rr.name === nm) return rr.cssText.replace(/\s+/g, ' ') } catch {} } return null })()
+        return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), clip: es.overflow === 'hidden', left: parseFloat(es.borderLeftWidth) >= 1 ? { w: parseFloat(es.borderLeftWidth), c: rgba(es.borderLeftColor) } : null, fill: rgba(es.backgroundColor), px: Math.round(parseFloat(c.fontSize)), bold: (Number(c.fontWeight) || 400) >= 600, mono: /mono|menlo|courier|consol/i.test(c.fontFamily), ls: parseFloat(c.letterSpacing) || 0, ink: rgba(c.color), mode: c.writingMode, anim: kf ? { kf, name: c.animationName, dur: c.animationDuration, timing: c.animationTimingFunction, iter: c.animationIterationCount } : null }
+      })(),
+      // n179: a row of 2-4 buttons where one is painted by a gradient (round 18 c1 CTAs: 'text', both lost)
+      gradButtons: (() => {
+        if (kids.length < 2 || kids.length > 4 || el.querySelector('[data-r]')) return null
+        const B = kids.map((k) => { const c = getComputedStyle(k), q = k.getBoundingClientRect(); return { t: (k.innerText || '').trim(), x: Math.round(q.left), y: Math.round(q.top), w: Math.round(q.width), h: Math.round(q.height), img: c.backgroundImage, fill: rgba(c.backgroundColor), bw: parseFloat(c.borderTopWidth) || 0, bc: rgba(c.borderTopColor), radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow, ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: (Number(c.fontWeight) || 400) >= 600, kids: k.children.length } })
+        if (B.some((b) => !b.t || b.t.length > 32 || b.kids || b.h > 80) || !B.some((b) => /gradient\(/.test(b.img))) return null
+        return B
+      })(),
       kidButtons: kids.filter((k) => { const c = getComputedStyle(k); const t = (k.innerText || '').trim(); return t && t.length <= 32 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).length,
       hasImg: !!el.querySelector('img,svg,picture,video,canvas') || /url\(/.test(cs.backgroundImage),
       // text of children that are not regions and hold none (a card title beside a marked picture)
@@ -472,6 +488,26 @@ export function factsInPage() {
         const src = c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
         if (src.length > 1800 || !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src)) return null
         return { src, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
+      })(),
+      // n179: a panel whose picture is one full-size inline SVG with labels laid over it (round 18 e5 map: water, parks,
+      // roads said as 'pale blue-grey', the price pins and search pill lost)
+      svgScene: (() => {
+        if (el.tagName.toLowerCase() === 'svg' || r.width * r.height < 60000) return null
+        const sv = el.firstElementChild
+        if (!sv || sv.tagName.toLowerCase() !== 'svg') return null
+        if ([...sv.querySelectorAll('path, rect, polygon, ellipse, circle')].filter((q) => getComputedStyle(q).fill !== 'none' && rgba(getComputedStyle(q).fill)?.a > 0.05).length < 2) return null
+        const b = sv.getBoundingClientRect()
+        if (b.width * b.height < 0.8 * r.width * r.height || sv.querySelector('text, textPath')) return null
+        const c = sv.cloneNode(true)
+        for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
+        c.removeAttribute('width'); c.removeAttribute('height')
+        const src = c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
+        if (src.length > 2600 || sv.querySelectorAll('*').length < 3) return null
+        const over = [...el.children].filter((k) => k !== sv && !k.dataset.r && !k.querySelector('[data-r]') && getComputedStyle(k).position === 'absolute' && (k.innerText || '').trim()).map((k) => {
+          const q = k.getBoundingClientRect(), ks = getComputedStyle(k)
+          return { t: (k.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 60), x: Math.round(q.left), y: Math.round(q.top), w: Math.round(q.width), h: Math.round(q.height), fill: rgba(ks.backgroundColor), ink: rgba(ks.color), px: Math.round(parseFloat(ks.fontSize)), bold: (Number(ks.fontWeight) || 400) >= 600, radius: Math.round(parseFloat(ks.borderTopLeftRadius) || 0), shadow: ks.boxShadow !== 'none' }
+        })
+        return { src, x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), over }
       })(),
       // SVG art (not a chart): filled shapes back to front and stroked paths (round 6 c3 hills: one bare box)
       svgArt: (() => {
@@ -836,7 +872,7 @@ export function factsInPage() {
         const hole = ['::after', '::before'].map((w) => getComputedStyle(k, w)).find((c) => c.content && c.content !== 'none' && parseFloat(c.width) > 0 && parseFloat(c.width) < b.width && rgba(c.backgroundColor)?.a > 0.5)
         const lg = [...el.querySelectorAll('*')].find((p) => p !== k && !k.contains(p) && p.children.length >= 2 && [...p.children].every((g) => !g.children.length && /\d%/.test(g.textContent || '') && (g.textContent || '').trim().length <= 24))
         const hd = el.querySelector('h1,h2,h3,h4')
-        const extra = { hole: hole ? { ring: Math.round((b.width - parseFloat(hole.width)) / 2), fill: rgba(hole.backgroundColor) } : null, legend: lg ? [...lg.children].map((g) => (g.textContent || '').trim()) : null, legendBelow: lg ? lg.getBoundingClientRect().top >= b.bottom - 2 : false, title: hd && !k.contains(hd) ? (hd.innerText || '').trim() : null }
+        const extra = { hole: hole ? { ring: Math.round((b.width - parseFloat(hole.width)) / 2), fill: rgba(hole.backgroundColor), blur: parseFloat((hole.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0, op: +hole.opacity } : null, shape: { rad: gs.borderRadius, blur: parseFloat((gs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0, op: +gs.opacity }, legend: lg ? [...lg.children].map((g) => (g.textContent || '').trim()) : null, legendBelow: lg ? lg.getBoundingClientRect().top >= b.bottom - 2 : false, title: hd && !k.contains(hd) ? (hd.innerText || '').trim() : null }
         // n149: a smooth conic blend (colours at single points, no hard stops) is a gradient ring, not chart segments
         const pts = [...gs.backgroundImage.matchAll(/(rgba?\([^)]+\))((?:\s+[\d.]+(?:%|deg))*)/g)].map((m) => [...m[2].matchAll(/[\d.]+/g)].map((x) => +x[0]))
         const at = pts.map((p) => p[0]).filter((x) => x !== undefined)
@@ -1178,7 +1214,7 @@ export function factsInPage() {
         const o = el.getBoundingClientRect()
         const tf = (k) => { const m = (document.styleSheets.length ? [...document.styleSheets].flatMap((ss) => { try { return [...ss.cssRules] } catch { return [] } }).filter((r) => r.selectorText && k.matches(r.selectorText) && r.style.transform).map((r) => r.style.transform).pop() : null); return m ?? getComputedStyle(k).transform }
         return { perspective: Math.round(parseFloat(cs.perspective)), box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) },
-          cards: ks.map((k) => { const s = getComputedStyle(k); return { left: Math.round(k.offsetLeft), top: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, radius: Math.round(parseFloat(s.borderTopLeftRadius) || 0), bg: s.backgroundImage !== 'none' ? s.backgroundImage : null, fill: rgba(s.backgroundColor), op: Math.round(parseFloat(s.opacity) * 100), transform: tf(k), border: parseFloat(s.borderTopWidth) ? { px: parseFloat(s.borderTopWidth), c: rgba(s.borderTopColor) } : null, shadow: s.boxShadow !== 'none' ? s.boxShadow : null,
+          cards: ks.map((k) => { const s = getComputedStyle(k); return { left: Math.round(k.offsetLeft), top: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, radius: Math.round(parseFloat(s.borderTopLeftRadius) || 0), bg: s.backgroundImage !== 'none' ? s.backgroundImage : null, fill: rgba(s.backgroundColor), op: Math.round(parseFloat(s.opacity) * 100), glass: s.backdropFilter && s.backdropFilter !== 'none' ? s.backdropFilter : null, transform: tf(k), border: parseFloat(s.borderTopWidth) ? { px: parseFloat(s.borderTopWidth), c: rgba(s.borderTopColor) } : null, shadow: s.boxShadow !== 'none' ? s.boxShadow : null,
             parts: [...k.children].map((g) => { const gs = getComputedStyle(g); return { t: (g.innerText || '').trim(), x: g.offsetLeft, y: g.offsetTop, w: g.offsetWidth, h: g.offsetHeight, px: Math.round(parseFloat(gs.fontSize)), weight: Number(gs.fontWeight), fill: rgba(gs.backgroundColor), round: parseFloat(gs.borderTopLeftRadius) >= g.offsetWidth * 0.4, ink: rgba(gs.color) } }) } }) }
       })(),
       shown: (() => {
@@ -3041,6 +3077,13 @@ function decide(f, page, marked, said = new Set()) {
     const one = (t, i) => `tile ${i + 1} (row ${Math.floor(i / VT.cols) + 1}, column ${(i % VT.cols) + 1}): ${hexOf(t.fill)} fill, a ${t.disc.px}px ${hexOf(t.disc.fill)} circle centred in it with ${t.disc.bold ? 'bold ' : ''}${t.disc.size}px ${hexOf(t.disc.ink)} "${t.disc.t}"${t.parts.map((p) => `, ${part(p)}`).join('')}${t.ring ? `, a ${t.ring.w}px ${hexOf(t.ring.c)} outline drawn INSIDE its edge (the speaker)` : ''}`
     return { kind: 'box', note: `a ${VT.cols}x${VT.rows} GRID of ${VT.tiles.length} big video tiles (display grid, ${VT.cols} equal columns, ${VT.rows} equal rows, ${VT.gap}px gaps; NOT a button, NOT a list), filling ${VT.w}x${VT.h}px at ${VT.x},${VT.y}; each tile ${VT.tw}x${VT.th}px, ${VT.radius}px rounded, its own fill, nothing else in it; tile by tile: ${VT.tiles.map(one).join('; ')}` }
   }
+  // n179: a scene panel: its full-size SVG copied verbatim, the labels over it placed one by one
+  const SS = f.svgScene
+  if (SS) {
+    const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : null)
+    const lab = (o) => `${quote(o.t, 40)} ${o.w}x${o.h}px at ${o.x},${o.y}${hx(o.fill) ? ` ${hx(o.fill)} fill` : ''}${o.radius >= o.h / 2 - 1 ? ', pill ends' : o.radius ? `, ${o.radius}px rounded` : ''}${o.shadow ? ', small soft drop shadow' : ''}, ${o.px}px ${o.bold ? 'bold ' : ''}${hexOf(o.ink)} text centred`
+    return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px panel at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''}, overflow hidden, NOT a picture, NOT a flat colour: its back layer is exactly this inline SVG, ${SS.w}x${SS.h}px with its top-left at page ${SS.x},${SS.y} (position absolute, behind everything else in the panel), copied verbatim: ${SS.src.replace(/<svg /, `<svg width="${SS.w}" height="${SS.h}" `)}${SS.over.length ? `; laid ON TOP of the SVG, ${SS.over.length} small labels, each its own absolutely placed element (page px, size then top-left): ${SS.over.map(lab).join('; ')}` : ''}${f.regionKids.length ? '; the other parts inside it are said on their own' : ''}` }
+  }
   // n144: a code view said line by line (round 11 e1: tokens placed one by one at their own x,y collided)
   const CL = f.codeLines
   if (CL) {
@@ -3262,6 +3305,17 @@ function decideOne(f, page, marked, said) {
     const ps = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)%/g)].map((m) => +m[1])
     if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
   }
+  // n179: a vertical scrolling ticker said as one rotated line of text in a clipped strip
+  if (f.vertTicker) {
+    const V = f.vertTicker
+    return { kind: 'box', note: `a narrow ${V.w}x${V.h}px strip at ${V.x},${V.y}${visible(V.fill) ? `, ${hexOf(V.fill)} fill` : ', no fill'}${V.left ? `, a ${V.left.w}px ${hexOf(V.left.c)} rule down its LEFT edge only` : ''}${V.clip ? ', overflow hidden' : ''}, holding ONE line of VERTICAL text (writing-mode: ${V.mode}; white-space nowrap; NOT a drawing, NOT a line or zigzag, real letters reading top to bottom), ${V.px}px ${V.bold ? 'bold ' : ''}${V.mono ? 'monospace ' : ''}${hexOf(V.ink)}${V.ls ? `, letter-spacing ${V.ls}px` : ''}, centred across the strip: ${quote(V.t, 120)}${V.anim ? `; the line scrolls up for ever: animation ${V.anim.name} ${V.anim.dur} ${V.anim.timing} ${V.anim.iter}, defined exactly as ${V.anim.kf}` : ''}` }
+  }
+  // n179: buttons said one by one with their gradient, edge and glow
+  if (f.gradButtons) {
+    const rgbHex = (x) => x.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? (c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : hexOf(c)) : m })
+    const one = (b) => `${quote(b.t, 30)} ${b.w}x${b.h}px at ${b.x},${b.y}, ${/gradient\(/.test(b.img) ? `background: ${rgbHex(b.img)}` : visible(b.fill) ? `${hexOf(b.fill)} fill` : 'no fill'}${b.bw >= 1 && visible(b.bc) ? `, ${b.bw}px ${hexOf(b.bc)} border` : ''}${b.radius >= b.h / 2 - 1 ? ', pill ends' : b.radius ? `, ${b.radius}px rounded` : ''}${b.shadow && b.shadow !== 'none' ? `, box-shadow: ${rgbHex(b.shadow)} (a coloured glow round it)` : ''}, ${b.px}px ${b.bold ? 'bold ' : ''}${hexOf(b.ink)} text centred`
+    return { kind: 'box', note: `a row of ${f.gradButtons.length} real buttons side by side (each its own element with live text, NOT plain text, NOT links): ${f.gradButtons.map(one).join('; ')}` }
+  }
   // n168: a selection outline over grid cells, said with its exact box and the rows/columns it covers
   if (f.selBox) {
     const S = f.selBox
@@ -3280,8 +3334,8 @@ function decideOne(f, page, marked, said) {
   // a 3D card stack: say every card, its turn, gradient, fade and what the front one holds
   if (f.cards3d) {
     const d = f.cards3d
-    const grad = (c) => c.bg && /linear-gradient/.test(c.bg) ? `${c.bg.match(/linear-gradient\(\s*([\d.]+deg)/)?.[1] ?? ''} gradient ${[...c.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}` : c.fill?.a > 0.05 ? `${hexOf(c.fill)} fill` : 'no fill'
-    const part = (g) => g.t ? `bold ${g.px}px ${hexOf(g.ink)} ${quote(g.t, 24)} at ${g.x},${g.y} inside it` : g.fill?.a > 0.05 ? `a ${g.w}x${g.h}px ${g.round ? 'round ' : ''}${hexOf(g.fill)} ${g.round ? 'dot' : 'block'} at ${g.x},${g.y} inside it` : null
+    const grad = (c) => c.bg && /linear-gradient/.test(c.bg) ? `${c.bg.match(/linear-gradient\(\s*([\d.]+deg)/)?.[1] ?? ''} gradient ${[...c.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => { const q = parse(m[0]); return q && q.a < 0.95 ? `${hexOf(q)} at ${Math.round(q.a * 100)}%` : hexOf(q) }).join(' to ')}${c.glass ? ` (see-through FROSTED GLASS: backdrop-filter: ${c.glass}; what is behind shows blurred through it, NOT an opaque white card)` : ''}` : c.fill?.a > 0.05 ? `${hexOf(c.fill)} fill` : 'no fill'
+    const part = (g) => g.t ? `${g.weight >= 600 ? 'bold ' : ''}${g.px}px ${hexOf(g.ink)} ${quote(g.t, 24)} at ${g.x},${g.y} inside it` : g.fill?.a > 0.05 ? `a ${g.w}x${g.h}px ${g.round ? 'round ' : ''}${hexOf(g.fill)} ${g.round ? 'dot' : 'block'} at ${g.x},${g.y} inside it` : null
     const cards = d.cards.map((c, i) => `card ${i + 1}${i === 0 ? ' (back)' : i === d.cards.length - 1 ? ' (front)' : ''} at ${c.left},${c.top} in the box, ${grad(c)}${c.op < 100 ? `, ${c.op}% opacity` : ', fully opaque'}${c.border ? `, ${c.border.px}px ${hexOf(c.border.c)}${c.border.c.a < 1 ? ` at ${Math.round(c.border.c.a * 100)}%` : ''} border` : ''}${c.parts.map(part).filter(Boolean).map((x) => `, ${x}`).join('')}`).join('; ')
     const c0 = d.cards[0]
     return { kind: 'box', note: `a stack of ${d.cards.length} separate cards turned in 3D (NOT one picture, NOT flat): a ${d.box.w}x${d.box.h}px box at ${d.box.x},${d.box.y} with perspective: ${d.perspective}px, holding ${d.cards.length} absolutely placed cards each ${c0.w}x${c0.h}px, ${c0.radius}px rounded, each with transform: ${c0.transform} (turned away to the left, all the same turn)${c0.shadow ? `, a big soft dark drop shadow` : ''}; each card overlaps the one behind it, painted back to front: ${cards}` }
@@ -3618,6 +3672,11 @@ function decideOne(f, page, marked, said) {
     const cr = f.conicRing, arc = cr.stops[0], track = cr.stops[cr.stops.length - 1]
     // several coloured segments: a donut chart, not one progress arc (round 6 e2: 3 segments said as 'indigo arc 46%')
     if (cr.smooth && cr.hole) {
+      // n179: a blurred, see-through middle is a soft shade, not a hole (round 18 c1 blob: built as a thin ring)
+      if (cr.hole.blur >= 10 || cr.hole.op < 0.9) {
+        const S = cr.shape
+        return { kind: 'box', note: withFx(`a ${cr.px}px SOLID organic colour BLOB${/%.*%|\//.test(S.rad) ? ` (border-radius: ${S.rad}, a lumpy rounded shape, NOT a perfect circle)` : ''}, filled edge to edge with ONE smooth conic gradient (exactly: background: ${cr.css})${S.blur ? `, filter: blur(${S.blur}px)` : ''}${S.op < 0.95 ? `, opacity ${S.op}` : ''}; over its middle a SOFT DARK SHADE, NOT a hole: a ::after layer inset ${cr.hole.ring}px, border-radius inherit, background ${hexOf(cr.hole.fill)}, filter: blur(${cr.hole.blur}px), opacity ${cr.hole.op}, so the colours still glow faintly through the middle and fade into it; NOT a ring, NOT a donut, no hard inner edge`) }
+      }
       return { kind: 'box', note: withFx(`a ${cr.px}px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: ${cr.css}; border-radius 50%), ring ${cr.hole.ring}px thick with a hollow ${colourName(cr.hole.fill)} (${hexOf(cr.hole.fill)}) middle cut by a round inner disc (inset ${cr.hole.ring}px); NOT a donut chart, no segments, no labels, no legend`) }
     }
     if (cr.stops.length >= 3) {
@@ -4653,7 +4712,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const R = f.rect, edge = f.border?.w >= 1 && visible(f.border.colour)
     // n156: a wide row under a top rule only says its rule whatever its area (round 14 c1 axes row: 1160x29, rule lost)
     const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
-    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic)
+    // n179: a page-coloured card lifted by a soft shadow is still a card (round 18 e5 map popup: white fill and shadow
+    // unsaid, built see-through over the map)
+    const shadowCard = visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && R.w * R.h >= 20000
+    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic || shadowCard)
     const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
