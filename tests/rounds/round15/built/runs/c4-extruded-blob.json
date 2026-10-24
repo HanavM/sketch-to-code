@@ -1,23 +1,23 @@
 {
   "id": "c4-extruded-blob",
-  "at": "2026-10-24T03:51:41.206Z",
+  "at": "2026-10-24T04:25:04.739Z",
   "likeness": {
     "version": 3,
-    "overall": 0.1393156352659685,
-    "overallV2": 0.1393156352659685,
-    "overallV1": 0.1393156352659685,
-    "colour": 0.7795064270824643,
-    "structure": 0.4095796554447158,
-    "structureStrict": 0.29732896354468424,
-    "colourAligned": 0.7795064270824643,
-    "structureAligned": 0.41328947314599895,
+    "overall": 0.6738559463156216,
+    "overallV2": 0.6738559463156216,
+    "overallV1": 0.6253313782427995,
+    "colour": 0.9636056385589705,
+    "structure": 0.7758795683455632,
+    "structureStrict": 0.7079629059221353,
+    "colourAligned": 0.9636056385589705,
+    "structureAligned": 0.7758795683455632,
     "align": {
-      "scale": 1.16,
-      "dx": -64,
-      "dy": 80,
-      "r": 0.34226416354913175
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8967058950807667
     },
-    "layout": 0.3845028486787506
+    "layout": 0.6259956177247303
   },
   "effects": {
     "recall": 0.75,
@@ -30,56 +30,45 @@
       "clip-shape"
     ],
     "extra": [
-      "soft-shadow",
-      "tilt",
-      "uppercase-display"
+      "tilt"
     ]
   },
   "tokens": {
-    "input": 64490,
-    "output": 47679,
-    "cacheRead": 584301
+    "input": 39199,
+    "output": 27337,
+    "cacheRead": 215700
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 60827,
-      "output": 24602,
-      "cacheRead": 326821,
-      "toolCalls": 12,
+      "billed": 46952,
+      "output": 18382,
+      "cacheRead": 121665,
+      "toolCalls": 5,
       "tools": [
-        "Read components/ColourShapes.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Read src/main.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Edit components/ColourShapes.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Glob",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 283832
+      "ms": 221450
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 31913,
-      "output": 14471,
-      "cacheRead": 247088,
-      "toolCalls": 3,
+      "billed": 10779,
+      "output": 4947,
+      "cacheRead": 90951,
+      "toolCalls": 1,
       "tools": [
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 174256
+      "ms": 57494
     }
   ],
-  "reading": "A candy-brand landing page: a border-less nav bar, a short kicker line, a huge 2-line 3D-extruded headline 'SQUISH IT.', a 600×600 inset window mockup (with a yellow 'NEW!' badge at its corner) holding three colour-filled shapes and a title bar with corner dots, a body paragraph, a 'Build a mix pack' CTA button, and a full-width footer bar — all on the page's cream/indigo/Helvetica theme per the run-wide note.",
+  "reading": "A marketing hero page: a boxless nav bar (JELLYBEAN / Flavours·Packs·Stores·Account), an eyebrow line, a giant 3D-extruded \"SQUISH IT.\" headline, a decorative clipped-pattern blob SVG with a yellow \"NEW!\" badge, body copy about the gummies, a pink-shadowed \"Build a mix pack\" button, and a wavy indigo footer band — all specified precisely via typed notes including exact inline SVG markup and styling.",
   "actions": [
     {
       "kind": "add",
@@ -94,7 +83,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a page-wide navigation row with no box/border around it: 'JELLYBEAN' on the left, 'Flavours · Packs · Stores · Account' on the right. Whole page uses a crea"
+      "instruction": "Full-width top navigation bar, no border/box around it: \"JELLYBEAN\" wordmark on the left, and \"Flavours · Packs · Stores · Account\" nav links on the right."
     },
     {
       "kind": "add",
@@ -118,7 +107,7 @@
         17
       ],
       "paths": [],
-      "instruction": "Add a short kicker/intro line of text sitting above the main headline (this squiggle has no dictated copy; use plausible short copy fitting a candy brand, e.g. "
+      "instruction": "Short intro/eyebrow line of copy above the main heading (plausible brand tagline, e.g. 'Meet the gummy that bites back.')."
     },
     {
       "kind": "add",
@@ -142,7 +131,7 @@
         16
       ],
       "paths": [],
-      "instruction": "Add a giant Helvetica Heavy headline set tight (line-height 0.92), cream (#ffe9d6) fill, reading 'SQUISH IT.' broken into exactly two lines: 'SQUISH' / 'IT.' — "
+      "instruction": "Giant Helvetica heavy headline, cream fill, set in exactly 2 tight lines (line-height 0.92): \"SQUISH\" / \"IT.\" — keep these exact line breaks, white-space: nowra"
     },
     {
       "kind": "add",
@@ -157,7 +146,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a 600×600px window mockup with its top-left at 640,110, INSET so the cream page shows around it on every side (not full-bleed/edge-to-edge). It contains: 3 "
+      "instruction": "Insert this exact inline SVG verbatim (no picture, no box, no window, nothing else inside), sized 600x600px positioned absolute with top-left at page coordinate"
     },
     {
       "kind": "add",
@@ -172,7 +161,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a vivid yellow 'NEW!' badge positioned at the top-right corner of the window above, overlapping its edge."
+      "instruction": "Vivid yellow \"NEW!\" badge/label positioned in the top-right corner, overlapping the blob SVG graphic."
     },
     {
       "kind": "add",
@@ -197,7 +186,7 @@
         58
       ],
       "paths": [],
-      "instruction": "Add a body paragraph reading: 'Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.' styled per the page's cream/Helvetica/deep-i"
+      "instruction": "Body paragraph text: \"Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.\""
     },
     {
       "kind": "add",
@@ -212,7 +201,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a 'Build a mix pack' button: deep indigo (#26113d) fill, cream (#ffe9d6) text (not the page's default indigo text), 186×50px, 14px corner radius, with a har"
+      "instruction": "Button labelled \"Build a mix pack\": exactly #26113d fill, #ffe9d6 cream text (not the page's default deep indigo text), 186x50px, 14px border radius, with a har"
     },
     {
       "kind": "add",
@@ -227,8 +216,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a full-width footer bar at the bottom of the page with plausible footer content (links/copyright), matching the page's cream background, Helvetica type, and"
+      "instruction": "Insert this exact inline SVG verbatim (no picture, no box, no window, nothing else inside) as a decorative footer wave band spanning the full page width, sized "
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

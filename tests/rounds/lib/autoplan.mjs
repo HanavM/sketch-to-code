@@ -424,6 +424,17 @@ export function factsInPage() {
         const b0 = bs[0].getBoundingClientRect(), b1 = bs[1].getBoundingClientRect()
         return { bars: bs.map((k) => { const b = k.getBoundingClientRect(); return { c: rgba(getComputedStyle(k).backgroundColor), pct: Math.round((b.width / bs.reduce((m, q) => Math.max(m, q.getBoundingClientRect().width), 0)) * 100) } }), h: Math.round(b0.height), gap: Math.round(b1.top - b0.bottom), top: Math.round(b0.top - r.top), radius: Math.round(parseFloat(getComputedStyle(bs[0]).borderTopLeftRadius)) }
       })(),
+      // n160: a short svg whose look lives in defs (a clipPath, a pattern, a mask) or that stretches to its box
+      // (preserveAspectRatio none) said verbatim: round 15 c4 clipped striped blob said as 0x0 shapes in a window,
+      // the wave divider got no note at all
+      svgSrc: (() => {
+        if (el.tagName.toLowerCase() !== 'svg' || el.querySelector('textPath, text')) return null
+        const c = el.cloneNode(true)
+        for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
+        const src = c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
+        if (src.length > 1800 || !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src)) return null
+        return { src, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
+      })(),
       // SVG art (not a chart): filled shapes back to front and stroked paths (round 6 c3 hills: one bare box)
       svgArt: (() => {
         // an <svg>, or a <g> group marked inside one (round 7 c4 cubes: three faces per group, said as bare boxes)
@@ -1055,6 +1066,20 @@ export function factsInPage() {
         for (let i = 0; i < cells.length; i += ncol) rows.push(cells.slice(i, i + ncol))
         const b0 = kids[0].getBoundingClientRect()
         return { x: Math.round(o.left), y: Math.round(o.top), ncol, colW: Math.round(b0.width), rowH: Math.round(b0.height), line: rgba(base.borderRightColor), lineW: parseFloat(base.borderRightWidth) || 0, pad: Math.round(parseFloat(base.paddingLeft) || 0), ink: rgba(base.color), rows }
+      })(),
+      // n160: one giant word running across side-by-side panels each turned in 3D (rotateY) with its own shading,
+      // each panel a window (overflow hidden) onto its slice of the word (round 15 c3: read as sliced 16px bands)
+      foldPanels: (() => {
+        if (kids.length < 3 || cs.perspective === 'none') return null
+        const t0 = (kids[0].innerText || '').trim()
+        if (!t0 || t0.length > 16) return null
+        const ok = kids.every((k) => { const s = getComputedStyle(k); return s.overflow === 'hidden' && (k.innerText || '').trim() === t0 && /matrix3d/.test(s.transform) })
+        if (!ok) return null
+        const o = el.getBoundingClientRect()
+        const turn = (k) => { const v = (getComputedStyle(k).transform.match(/matrix3d\(([^)]*)\)/) || [])[1]?.split(',').map(Number); return v ? Math.round(Math.atan2(-v[2], v[0]) * 180 / Math.PI) : 0 }
+        const panels = kids.map((k) => { const s = getComputedStyle(k), w = k.firstElementChild ?? k, ws = getComputedStyle(w); return { w: k.offsetWidth, h: k.offsetHeight, turn: turn(k), bg: s.backgroundImage !== 'none' ? s.backgroundImage : null, fill: rgba(s.backgroundColor), left: Math.round(parseFloat(ws.left) || 0), top: Math.round(parseFloat(ws.top) || 0) } })
+        const w0 = kids[0].firstElementChild ?? kids[0], ws = getComputedStyle(w0)
+        return { t: t0, px: Math.round(parseFloat(ws.fontSize)), weight: Number(ws.fontWeight) || 400, ink: rgba(ws.color), lh: ws.lineHeight, persp: Math.round(parseFloat(cs.perspective)), box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(el.offsetWidth), h: Math.round(el.offsetHeight) }, panels }
       })(),
       // one giant word cut into stacked horizontal bands, each band clipping a different slice of the word at its own
       // x offset (round 9 c1: built as three whole stacked words)
@@ -2696,7 +2721,7 @@ function round10Extra(f, d) {
   // n139: loose words laid over a textless shape (round 10 c1 star: 'JUN 12' dropped)
   const O = f.textOver
   if (O && !note.includes(O.t)) note += `; centred on top of it ${O.px}px ${O.weight >= 700 ? 'bold ' : ''}${colourName(O.c)} (${hexOf(O.c)}) live text ${quote(O.t)}${O.spins ? '' : ' that stays upright (the text does NOT spin with the shape: a separate element over it)'}`
-  const B = f.titleBar
+  const B = f.svgSrc ? null : f.titleBar
   if (B && d.kind === 'box') note += `; along its top edge a ${B.h}px title bar${B.rule ? ` with a ${B.rule}px ${hexOf(B.ruleC)} rule under it` : ''}: ${B.dots} ${B.ring ? `ring dots (${B.dot}px, 2px ${hexOf(B.dotC)} border, no fill)` : `${B.dot}px dots`} at its left${B.t ? ` and ${B.tpx}px widely spaced ${quote(B.t, 30)} at its right end` : ''}`
   // n137: a window inset from the page edges says its size and place (round 10 c3 built it full-page)
   if (B && d.kind === 'box' && f.rect.x >= 24 && f.rect.y >= 24 && f.rect.x + f.rect.w <= 1256) note += `; the window is ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded corners` : ''}${f.border?.w ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : ''}: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it`
@@ -3085,6 +3110,12 @@ function decideOne(f, page, marked, said) {
     const one = (m) => `${m.lines.map((l) => l.small ? `${l.bold ? 'bold ' : ''}${l.px}px ${quote(l.t.replace(l.small.t, '').trim(), 16)} with a small ${l.small.px}px ${hexOf(l.small.ink)} ${quote(l.small.t, 12)} after it` : `${l.bold ? 'bold ' : ''}${l.px}px ${hexOf(l.ink)} ${quote(l.t, 20)}`).join(', then ')}, then ${m.gap}px below a ${m.w}px-wide ${m.h}px ${hexOf(m.track)} rounded track filled ${m.pct}% from the left in ${hexOf(m.fill)}`
     return { kind: 'box', note: `usage meters in a ${M.box.w}x${M.box.h}px card${M.border ? ` (1px ${hexOf(M.border)} border` : ' ('}, ${M.radius}px rounded, ${M.pad}px padding), ${M.cols} columns ${M.gap}px apart (each a real meter bar, NOT a thin line): ${M.m.map(one).join('; ')}` }
   }
+  // n160: a word across 3D-turned shaded panels, every panel said with its turn, shading and the word's offset
+  if (f.foldPanels) {
+    const F = f.foldPanels
+    const one = (p, i) => `panel ${i + 1}: ${p.w}x${p.h}px, transform: rotateY(${p.turn}deg), background ${p.bg ? p.bg.replace(/rgba?\([^)]*\)/g, (m) => hexOf(parse(m))) : hexOf(p.fill)}, the word at left ${p.left}px, top ${p.top}px`
+    return { kind: 'box', note: `ONE giant ${F.px}px ${F.weight >= 800 ? 'black-weight ' : F.weight >= 600 ? 'bold ' : ''}${hexOf(F.ink)} word ${quote(F.t)} printed ACROSS ${F.panels.length} paper panels folded like a zig-zag screen (real CSS 3D, NOT flat bands, NOT a picture, NOT ${F.panels.length} separate words): a ${F.box.w}x${F.box.h}px flex row at ${F.box.x},${F.box.y} (position absolute) with perspective: ${F.persp}px, holding ${F.panels.length} panels side by side, no gaps, each flex: 1, overflow: hidden, position: relative; inside EVERY panel the same word ${quote(F.t)} as a span, position: absolute, ${F.px}px, line-height ${F.lh === 'normal' ? 'normal' : F.lh}, white-space: nowrap, its left shifted so the panels together read as one continuous word, each panel showing its own slice: ${F.panels.map(one).join('; ')}` }
+  }
   // a giant word cut into stacked bands, each band showing a different slice at its own x offset
   if (f.slicedWord) {
     const S = f.slicedWord
@@ -3214,6 +3245,11 @@ function decideOne(f, page, marked, said) {
     }
   }
   // ---- round 6 creative (n79)
+  // n160: an svg whose look is in its defs or that stretches to its box, said as its own markup
+  if (f.svgSrc && !f.regionKids.length) {
+    const V = f.svgSrc
+    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/<svg /, `<svg width="${V.w}" height="${V.h}" `)}` }
+  }
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
   if (f.svgArt && !f.regionKids.length) {
     const { fills, strokes } = f.svgArt

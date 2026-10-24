@@ -193,7 +193,7 @@
    ],
    [
     "folded-sheet",
-    "ONE giant word \"CREASE\" SLICED into 5 stacked horizontal bands (NOT 5 whole words, NOT outlines): each band is a full-width strip with overflow: hidden holding the same 16px \"CREASE\" (line-height 0px, so the word's line is 0px tall and each 450px band is a window onto one slice of it, one line, nowrap), shifted up so each band shows the next third of the letters, and shifted sideways so the slices do not line up: band 1: 208x450px at 134,225, no fill (page shows), letters #2b2622, the word in a span with position: relative; left: 22px; top: 113px (the top slice of the line shows); band 2: 181x450px at 351,225, no fill (page shows), letters #2b2622, the word in a span with position: relative; left: -150px; top: 96px (the top slice of the line shows); band 3: 190x450px at 543,225, no fill (page shows), letters #2b2622, the word in a span with position: relative; left: -413px; top: 102px (the top slice of the line shows); band 4: 199x450px at 743,225, no fill (page shows), letters #2b2622, the word in a span with position: relative; left: -491px; top: 108px (the top slice of the line shows); band 5: 173x450px at 952,225, no fill (page shows), letters #2b2622, the word in a span with position: relative; left: -854px; top: 88px (the top slice of the line shows); the bands touch, no gaps, together 1000x440px"
+    "ONE giant 230px black-weight #c43d2b word \"CREASE\" printed ACROSS 5 paper panels folded like a zig-zag screen (real CSS 3D, NOT flat bands, NOT a picture, NOT 5 separate words): a 1000x440px flex row at 140,230 (position absolute) with perspective: 1400px, holding 5 panels side by side, no gaps, each flex: 1, overflow: hidden, position: relative; inside EVERY panel the same word \"CREASE\" as a span, position: absolute, 230px, line-height 230px, white-space: nowrap, its left shifted so the panels together read as one continuous word, each panel showing its own slice: panel 1: 200x440px, transform: rotateY(18deg), background linear-gradient(90deg, #f7f0e3, #d9cdb8), the word at left 20px, top 110px; panel 2: 200x440px, transform: rotateY(-18deg), background linear-gradient(90deg, #c9bca5, #efe6d6), the word at left -180px, top 110px; panel 3: 200x440px, transform: rotateY(18deg), background linear-gradient(90deg, #f7f0e3, #d9cdb8), the word at left -380px, top 110px; panel 4: 200x440px, transform: rotateY(-18deg), background linear-gradient(90deg, #c9bca5, #efe6d6), the word at left -580px, top 110px; panel 5: 200x440px, transform: rotateY(18deg), background linear-gradient(90deg, #f7f0e3, #d9cdb8), the word at left -780px, top 110px"
    ],
    [
     "spec-row",
@@ -263,7 +263,7 @@
    ],
    [
     "striped-blob",
-    "drawn shapes, no picture, no box: 3 filled shapes: black 0x0px at 0,0, pink 0x0px at 0,0, purple 0x0px at 0,0; along its top edge a 0px title bar: 2 0px dots at its left; the window is 600x600px with its top-left at 640,110: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 600x600px with its top-left at page 640,110 (position absolute), copied verbatim: <svg width=\"600\" height=\"600\" viewBox=\"0 0 600 600\"><defs><clipPath id=\"b\"><path d=\"M430,80 C560,150 590,330 500,450 C410,570 220,590 120,480 C20,370 40,200 150,110 C250,30 340,40 430,80Z\"></path></clipPath><pattern id=\"s\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(30)\"><rect width=\"40\" height=\"40\" fill=\"#ff4f81\"></rect><rect width=\"20\" height=\"40\" fill=\"#8a5cff\"></rect></pattern></defs><g clip-path=\"url(#b)\"><rect width=\"600\" height=\"600\" fill=\"url(#s)\"></rect><circle cx=\"300\" cy=\"300\" r=\"120\" fill=\"#ffd23f\"></circle></g></svg>"
    ],
    [
     "star-badge",
@@ -276,6 +276,10 @@
    [
     "cta",
     "deep indigo cream text button \"Build a mix pack\", with a hard solid opaque pink shadow offset 0px down left, no blur; its text #ffe9d6 (cream, NOT the page's deep indigo text) (exactly: #26113d fill, #ffe9d6 text, 186x50px, 14px rounded)"
+   ],
+   [
+    "wave-divider",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x120px with its top-left at page 0,780 (position absolute), copied verbatim: <svg width=\"1280\" height=\"120\" viewBox=\"0 0 1280 120\" preserveAspectRatio=\"none\"><path d=\"M0,60 C160,0 320,120 480,60 C640,0 800,120 960,60 C1120,0 1200,80 1280,50 L1280,120 L0,120Z\" fill=\"#26113d\"></path></svg>"
    ]
   ]
  },

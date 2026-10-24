@@ -1,0 +1,104 @@
+{
+  "id": "e1-notebook",
+  "at": "2026-10-24T04:27:18.016Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.42420642531554853,
+    "overallV2": 0.42420642531554853,
+    "overallV1": 0.42420642531554853,
+    "colour": 0.9718177997954806,
+    "structure": 0.7782388655482797,
+    "structureStrict": 0.7060384960696697,
+    "colourAligned": 0.9718177997954806,
+    "structureAligned": 0.7782388655482797,
+    "align": {
+      "scale": 0.88,
+      "dx": -64,
+      "dy": 64,
+      "r": 0.1136441362144177
+    },
+    "layout": 0.9826900759656927
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "hard-shadow",
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 16889,
+    "output": 9489,
+    "cacheRead": 165312
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 17137,
+      "output": 5913,
+      "cacheRead": 148982,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 66487
+    }
+  ],
+  "reading": "The sketch lays out a Jupyter-notebook-style page: a full-width top bar, a left sidebar file list, and a large content table, matching the user's typed notes exactly for copy and styling.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar spanning the full page width, 48px tall, white background. Bold 15px near-black title \"sales_q3.ipynb\" on the left, followed by nav links: Fi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        214,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left sidebar panel below the top bar, styled as an off-white card containing a file list: \"data\" (folder), \"sales_q3.ipynb\" (notebook), \"cohorts.ipynb\" (noteboo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        71,
+        1014,
+        567
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Main content data table, 1020px wide, positioned at the sketch's location (roughly x:240,y:68), sitting directly on the page with no card wrapper: no fill, no o"
+    }
+  ],
+  "rejected": []
+}

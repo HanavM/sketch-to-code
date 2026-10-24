@@ -581,6 +581,9 @@ export async function runV2(
       try { now = readFileSync(join(ctx.root, sc.rel), 'utf8') } catch { continue } // deleted on purpose
       const lost = lostStrokes(sc.code, now)
       if (!lost.length) continue
+      // the user typed the whole SVG to build there (n160, round 15 c4 clipped striped blob): the drawn outline
+      // was only where it goes, and putting it back as a filled path painted a dark slab over the typed art
+      if (typedSvg(interp.actions[sc.actionIndex]?.notes) && /<svg\b/.test(now)) continue
       // put them back ourselves: a repair turn asked to restore one said it did and
       // didn't (round 4 c1), and the path is known exactly, so no model is needed
       const restored = restoreLostStrokes(sc.code, now, lost)
@@ -1168,4 +1171,9 @@ export function isDecoration(a: GroundedAction): boolean {
   // the instruction only: notes typed inside a big drawn ring also attach to
   // the ring (round-3 c3), so their quoted copy says nothing about the ring
   return !QUOTE.test(a.instruction) && !SINGLE_QUOTED.test(a.instruction)
+}
+
+/** True when the user's typed words for an action hold whole SVG markup to build verbatim (n160). */
+export function typedSvg(notes: readonly string[] | undefined): boolean {
+  return (notes ?? []).some((n) => /<svg\b[^>]*>[\s\S]*<\/svg>/i.test(n))
 }

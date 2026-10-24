@@ -1,63 +1,64 @@
 {
   "id": "c3-folded-paper",
-  "at": "2026-10-24T03:41:43.319Z",
+  "at": "2026-10-24T04:11:05.601Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5366043218894555,
-    "overallV2": 0.5366043218894555,
-    "overallV1": 0.5200197728929237,
-    "colour": 0.7657060300585609,
-    "structure": 0.5217606130070377,
-    "structureStrict": 0.4837054602707042,
-    "colourAligned": 0.7657060300585609,
-    "structureAligned": 0.5217606130070377,
+    "overall": 0.9013038901060828,
+    "overallV2": 0.9013038901060828,
+    "overallV1": 0.8855422262978976,
+    "colour": 0.997908517435672,
+    "structure": 0.9754903583837573,
+    "structureStrict": 0.93932341023674,
+    "colourAligned": 0.997908517435672,
+    "structureAligned": 0.9754903583837573,
     "align": {
-      "scale": 1.08,
-      "dx": -80,
-      "dy": -64,
-      "r": -0.07140992657201954
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9988093900777598
     },
-    "layout": 0.5913616938905307
+    "layout": 0.7105568046223917
   },
   "effects": {
-    "recall": 0.3333333333333333,
+    "recall": 1,
     "kept": [
-      "italic",
-      "serif"
-    ],
-    "missing": [
       "3d",
       "gradient",
       "huge-type",
-      "overlap"
+      "italic",
+      "overlap",
+      "serif"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 22977,
-    "output": 12940,
-    "cacheRead": 174535
+    "input": 35236,
+    "output": 15330,
+    "cacheRead": 174839
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 22719,
-      "output": 7493,
-      "cacheRead": 164318,
-      "toolCalls": 6,
+      "billed": 38622,
+      "output": 10617,
+      "cacheRead": 164570,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
         "Glob",
+        "Read s2c-bench-app/package.json",
         "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 84037
+      "ms": 109894
     }
   ],
-  "reading": "A hero section sketch: a top nav bar, an italic tagline, a giant word 'CREASE' sliced into five overlapping bands behind it, a bordered feature list, an outlined pill button, and four color swatches — all on a dark-navy page per the typed notes, which also fix exact copy, colors and CSS for each part.",
+  "reading": "The sketch lays out a page hero: a plain nav bar, an italic headline, a huge folded-paper 'CREASE' word treatment, a bordered spec list, a pill button, and four color-swatch circles — all per the typed notes which specify exact colors, text and CSS behavior.",
   "actions": [
     {
       "kind": "add",
@@ -72,7 +73,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a navigation bar with no surrounding box/border: bold 'FOLIO PAPER CO.' aligned left, and 'Stock · Samples · Mills · Cart (2)' aligned right. Nav text color"
+      "instruction": "Top navigation bar, no box/border around it: bold \"FOLIO PAPER CO.\" aligned left, \"Stock · Samples · Mills · Cart (2)\" aligned right; nav text color is #efe6d6 "
     },
     {
       "kind": "add",
@@ -95,7 +96,7 @@
         42
       ],
       "paths": [],
-      "instruction": "Add a large italic serif tagline reading \"Five folds, one sheet, no glue.\" in warm paper color (#efe6d6), 34px, kept on a single line (white-space: nowrap, neve"
+      "instruction": "Big italic serif headline reading \"Five folds, one sheet, no glue.\" in warm paper color #efe6d6, 34px, rendered on a single line (white-space: nowrap, never wra"
     },
     {
       "kind": "add",
@@ -110,7 +111,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add one giant word \"CREASE\" sliced into 5 stacked horizontal bands (not 5 whole words, not outlines): each band a full-width strip with overflow hidden holding "
+      "instruction": "One giant 230px black-weight #c43d2b word \"CREASE\" printed across 5 folded paper panels in a zig-zag screen, built with real CSS 3D (not a flat band, not an ima"
     },
     {
       "kind": "add",
@@ -125,7 +126,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a brown-bordered list of four items: '320 gsm cotton', 'Deckled edge', 'Made in Fabriano', 'From £4.20 a sheet'. List text color #efe6d6 (warm paper), not t"
+      "instruction": "Bordered (brown border) spec list with items: \"320 gsm cotton\", \"Deckled edge\", \"Made in Fabriano\", \"From £4.20 a sheet\"; list text color is #efe6d6 (warm paper"
     },
     {
       "kind": "add",
@@ -140,7 +141,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a warm-paper outline pill button labeled 'Order a sample pack'. Button text color #efe6d6 (warm paper), not the page's dark navy text."
+      "instruction": "Warm-paper outline pill button labeled \"Order a sample pack\"; button text color is #efe6d6 (warm paper), overriding the page's default dark navy text."
     },
     {
       "kind": "add",
@@ -155,7 +156,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add four 34x34px circular color swatches in a row, each with a 2px #efe6d6 border: circle 1 at (980,800) fill #efe6d6; circle 2 at (1024,800) fill #c43d2b; circ"
+      "instruction": "Row of four 34x34px circular swatches, each with a 2px #efe6d6 border: circle 1 at 980,800 filled #efe6d6; circle 2 at 1024,800 filled #c43d2b; circle 3 at 1068"
     }
   ],
   "rejected": [

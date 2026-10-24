@@ -1,0 +1,134 @@
+{
+  "id": "e2-email-builder",
+  "at": "2026-10-24T04:32:55.155Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5508651331621166,
+    "overallV2": 0.5508651331621166,
+    "overallV1": 0.4828701637630529,
+    "colour": 0.9254578626916651,
+    "structure": 0.7496695717726916,
+    "structureStrict": 0.6749861521957339,
+    "colourAligned": 0.9254578626916651,
+    "structureAligned": 0.7496695717726916,
+    "align": {
+      "scale": 1.12,
+      "dx": -128,
+      "dy": 0,
+      "r": 0.7319004482129319
+    },
+    "layout": 0.9598716965233544
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 45409,
+    "output": 28199,
+    "cacheRead": 263033
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37858,
+      "output": 13117,
+      "cacheRead": 128486,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 138604
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 29273,
+      "output": 12793,
+      "cacheRead": 131463,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 130318
+    }
+  ],
+  "reading": "The sketch lays out an email-builder page: a top header bar, a left blocks-list sidebar, a central hero preview card, and a right property-inspector panel, with all copy, colours and exact field layouts supplied by the attached typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top header bar: dark navy fill spanning full width. White text reading \"Autumn sale · Draft\". Two line labels \"Desktop\" and \"Mobile\". A filled #3ebd93 button, 9"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        59,
+        214,
+        837
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left sidebar panel, one 220x844px white-fill container positioned at 0,56, holding a small bold caps heading \"BLOCKS\" (11px #7b8794) and a 2x3 grid of six 90x72"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        99,
+        594,
+        774
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Central white hero/preview card with a bold heading \"Up to 40% off everything cosy\", body copy \"The nights are drawing in. Stock up on knitwear, candles and bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        983,
+        59,
+        294,
+        838
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right inspector panel, 300x844px white fill with a single 1px #d9e2ec rule down its left edge only (border-left, no other border), starting at x≈980,y=56. Conta"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

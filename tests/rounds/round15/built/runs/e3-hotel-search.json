@@ -1,0 +1,140 @@
+{
+  "id": "e3-hotel-search",
+  "at": "2026-10-24T04:37:33.789Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5782687015905941,
+    "overallV2": 0.5782687015905941,
+    "overallV1": 0.5492208503054211,
+    "colour": 0.9341014208058674,
+    "structure": 0.7607133135032809,
+    "structureStrict": 0.7236330326898498,
+    "colourAligned": 0.9341014208058674,
+    "structureAligned": 0.7607133135032809,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6935097844318033
+    },
+    "layout": 0.8113040708758975
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "gradient",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38004,
+    "output": 22981,
+    "cacheRead": 141991
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 45907,
+      "output": 16942,
+      "cacheRead": 130516,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 175550
+    }
+  ],
+  "reading": "This is a hotel search results page: a dark navy header bar containing a search control row (location, dates, guests, and a Search button), a left filter sidebar panel, a calendar popover panel, a center column of three result cards, and a right-hand panel of chat-style price bubbles, all sketched as boxes over the wireframe with full copy/content and styling supplied via typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        78
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Draw a full-width dark navy (blue) header bar with white text. Inside it, place a search bar containing: a button '📍 Porto, Portugal' (text colour #1d2433), a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        113,
+        243,
+        346
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a white (#ffffff) filter panel, 250x352px positioned at 40,110 on the page, 8px rounded corners, 16px padding (a real filter panel, not an inspector or fill"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        313,
+        113,
+        594,
+        576
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a column of 3 stacked result cards, each 600x180px, white (#ffffff) fill, 1px #e1e4ea border, 8px rounded corners, 14px apart. Card 1 at page y 110: bold 17"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        933,
+        113,
+        304,
+        754
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a light grey panel containing chat-style price bubbles: a left white bubble reading '€124' (text #1d2433), a left dark-blue bubble reading '€98' (text #ffff"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        79,
+        293,
+        133
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a single calendar panel, 300x140px at 240,76 on the page, white (#ffffff) fill, 8px rounded corners, containing: a 13px bold #1d2433 'March 2027' title (71x"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

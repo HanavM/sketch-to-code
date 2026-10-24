@@ -75,3 +75,26 @@ list's coloured rule down its left edge only. Rounds 5, 9, 11 notes gain true le
 Round 15 so far: **74%** over 7 (c1 96, c2 85, c3 54, c4 14, c5 91, e4 95, e5 81). Vitest: same 2 env failures; typecheck clean.
 Next (planner, free first): a word across 3D-turned shaded panels (c3); an SVG clip-path blob with a stripe pattern and a
 disc, never a window (c4); hard-shadow extruded headline at its place; wave divider; nothing invented; then first builds e1, e2, e3.
+
+## n160: folded panels, verbatim defs SVG, typed SVG kept; live c3, c4 x2, e1, e2, e3 (2026-10-24, ~338k billed)
+
+Planner now says: one word across side-by-side panels each turned in 3D (rotateY) with its own shading, every panel's
+turn, gradient and the word's offset (was read as sliced 16px bands); a short SVG whose look lives in its defs
+(clipPath, pattern, mask) or that stretches to its box (preserveAspectRatio none) as its own markup, verbatim
+(was "3 filled shapes 0x0" in a window; the wave divider had no note). Rounds 7 c3 skylines and 11 c5 hills now get
+the same verbatim SVG (not re-run). Pipeline: a drawn outline is no longer "put back" as a filled path when the
+user typed the whole SVG to build there (it painted a dark slab over the striped blob on the first c4 run).
+
+| page | likeness (v3) | what was off |
+|---|---|---|
+| c3 folded paper | 54 -> **90%** | five 3D panels and the red CREASE built right; spec row boxed (target a top rule), swatches region missed |
+| c4 extruded blob | 14 -> 45 -> **67%** | 1st run: blob put back as a dark slab (fixed); 2nd: striped clipped blob and wave right; invented kicker pushes headline down over the copy; star badge built as a circle |
+| e1 notebook | first **42%** | cells said only as a table: code cells, prompts, bar chart lost |
+| e2 email builder | first **55%** | gradient hero, selected text block with tab, column placeholders lost; palette tiles filled grey |
+| e3 hotel search | first **58%** | photos in result cards and the map (diagonal road) lost; search bar's yellow outline lost |
+
+Round 15 complete: **76%** over 10 (c1 96, c2 85, c3 90, c4 67, c5 91, e1 42, e2 55, e3 58, e4 95, e5 81).
+Vitest: same 2 env failures (+2 new tests pass); typecheck clean.
+Next (planner, free first): notebook cells part by part (prompt, code with colours, output table, bar chart);
+email canvas gradient hero + selected block outline/tab + column placeholders; result-card photos and map road;
+a star badge's clip-path polygon; nothing invented above a headline. Re-run e1, e2, e3, c4.
