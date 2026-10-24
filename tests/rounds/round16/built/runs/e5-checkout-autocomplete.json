@@ -1,0 +1,187 @@
+{
+  "id": "e5-checkout-autocomplete",
+  "at": "2026-10-24T07:58:44.535Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8281812528504817,
+    "overallV2": 0.8281812528504817,
+    "overallV1": 0.738487258718909,
+    "colour": 0.9874740630852192,
+    "structure": 0.9259767247647795,
+    "structureStrict": 0.8258148091764379,
+    "colourAligned": 0.9874740630852192,
+    "structureAligned": 0.9259767247647795,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9441945221197856
+    },
+    "layout": 0.8837018075272166
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 51067,
+    "output": 28686,
+    "cacheRead": 391810
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 69291,
+      "output": 24018,
+      "cacheRead": 388726,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 248879
+    }
+  ],
+  "reading": "The sketch is a checkout \"Shipping\" step: a header bar, a progress-step row, a shipping-address form panel containing a saved-addresses list, an info bar, a continue button, an order-summary card, and a separate \"saved address found\" status bar — all content and styling pulled directly from the typed notes rather than traced from the rough ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        58
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-width white header bar: bold 19px \"◆ Northwind Outfitters\" logo text at the left, then \"🔒 Secure checkout\" text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        105,
+        632,
+        9
+      ],
+      "paths": [],
+      "instruction": "Checkout progress-steps row, each pair joined by a short 82px 2px-thin indigo connector line: \"✓ Cart\" (grey #697386), \"2 Shipping\" (bold dark navy #1a1f36, cur"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        153,
+        634,
+        479
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "One 640x485px shipping-address panel at 80,150 with #ffffff fill, 1px #e3e8ee border, 10px rounded corners. Inside it, as real elements with live text (11 total"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        111,
+        341,
+        578,
+        158
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A saved-address list panel, 584x164px at 108,338, #ffffff fill, 1px #e3e8ee border, 8px rounded, nested inside the shipping panel. Contains a selectable list of"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        424,
+        603,
+        213,
+        44
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark navy (#1a1f36) info bar with white (#ffffff) text reading \"Only used if the courier can't find you.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        109,
+        761,
+        580,
+        44
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Full-width indigo button (584x46px, #635bff fill, 8px rounded corners — not a pill) with white (#ffffff) text \"Continue to payment\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        153,
+        434,
+        364
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Order summary panel, 440x370px at 760,150, #ffffff fill, 1px #e3e8ee border, 10px rounded. Parts as real elements with live text (18 total, nothing invented, no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        783,
+        312,
+        39
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Deep green bar with white (#ffffff) text reading \"✓ Saved address found\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

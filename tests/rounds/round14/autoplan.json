@@ -403,7 +403,7 @@
    ],
    [
     "marquee",
-    "scrolling giant Helvetica heavy hollow outlined off-white \"01 02 03 04 05 01 02 03 04 05\"; on the #1f5a50 block, no fill or bar of its own"
+    "scrolling giant Helvetica heavy hollow outlined off-white \"01 02 03 04 05 01 02 03 04 05\"; the outline is FAINT: -webkit-text-stroke: 1.5px rgba(233, 241, 238, 0.35) (only 35% opaque, a ghostly thin line, NOT bright), color: transparent; on the #1f5a50 block, no fill or bar of its own"
    ],
    [
     "progress-rail",

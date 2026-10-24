@@ -1,23 +1,23 @@
 {
   "id": "e3-code-review",
-  "at": "2026-10-24T07:22:24.909Z",
+  "at": "2026-10-24T07:52:53.449Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7128838221366292,
-    "overallV2": 0.7128838221366292,
-    "overallV1": 0.631118401926863,
-    "colour": 0.9951930169136354,
-    "structure": 0.9304161107086566,
-    "structureStrict": 0.8793595513342871,
-    "colourAligned": 0.9951930169136354,
-    "structureAligned": 0.9304161107086566,
+    "overall": 0.8403626082900869,
+    "overallV2": 0.8403626082900869,
+    "overallV1": 0.8024497302367893,
+    "colour": 0.9971133379485687,
+    "structure": 0.9619265275044286,
+    "structureStrict": 0.9382526919830622,
+    "colourAligned": 0.9971133379485687,
+    "structureAligned": 0.9619265275044286,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8577223108466279
+      "r": 0.9249364918330358
     },
-    "layout": 0.6445520921089581
+    "layout": 0.8093294257204661
   },
   "effects": {
     "recall": 1,
@@ -29,32 +29,30 @@
     "extra": []
   },
   "tokens": {
-    "input": 47861,
-    "output": 29982,
-    "cacheRead": 183613
+    "input": 50051,
+    "output": 32399,
+    "cacheRead": 154399
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 64615,
-      "output": 24835,
-      "cacheRead": 172292,
-      "toolCalls": 8,
+      "billed": 62558,
+      "output": 23636,
+      "cacheRead": 142972,
+      "toolCalls": 6,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 255407
+      "ms": 250092
     }
   ],
-  "reading": "This is a GitHub-style pull-request review page: a top bar with PR title, an 'Open' pill and merge status, a row of tabs (Conversation/Commits/Checks/Files changed), a green 'Review changes' button, a left file-tree sidebar, a large side-by-side diff panel for cache.ts, and a comment thread panel below the diff with two comments and a reply box.",
+  "reading": "The user sketched a GitHub-style pull-request review page: a top bar with title/merge-status/open-pill, a row of 4 nav tabs, a green 'Review changes' button, a left file-tree sidebar, a large code-diff panel, and a comments/reply thread below it. Six typed notes give exact pixel specs, colors and copy for each part, which take precedence over the rough ink.",
   "actions": [
     {
       "kind": "add",
@@ -69,7 +67,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a top bar, 110px tall, spanning the full page width at the very top: no fill (page colour), with a 1px #d0d7de border line under it. Inside, left to right, "
+      "instruction": "Add a top bar 110px tall spanning the full page width at the very top, no fill (page colour), with a 1px #d0d7de line under it. Only these parts, nothing else i"
     },
     {
       "kind": "add",
@@ -84,7 +82,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a row of 4 tab elements under the top bar, each its own real element with live text: 87x24 at 24,78 13px #1f2328 \"Conversation 4\"; 62x24 at 133,78 13px #1f2"
+      "instruction": "Below the top bar add a row of 4 separate tab elements with live text (page px, size then top-left x,y): 87x24 at 24,78 13px #1f2328 \"Conversation 4\"; 62x24 at "
     },
     {
       "kind": "add",
@@ -99,7 +97,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a green button labeled \"Review changes ▾\", 143x31px, with a barely-rounded 6px border-radius (not a pill), #1f883d fill and #ffffff white text (not the page"
+      "instruction": "Add a green button \"Review changes ▾\", 143x31px, barely rounded (border-radius 6px, NOT a pill), exactly #1f883d fill with #ffffff white text (not the page's da"
     },
     {
       "kind": "add",
@@ -114,7 +112,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a 250px wide file-tree sidebar at 0,110: 12px text reading exactly \"▾ src ▾ pricing resolve.ts ▾ tests cache.test.ts\" (this copy only, nothing invented), an"
+      "instruction": "Add a left sidebar column 250x790px at 0,110 with a 1px #d0d7de rule down its right edge and 14px padding, containing 7 separate stacked lines (12px text, 24px "
     },
     {
       "kind": "add",
@@ -129,7 +127,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add one diff-view panel, 990x405px at 270,130, no fill, 1px #d0d7de border, 6px rounded corners, containing: a 988x36 header bar at 271,131 with #f6f8fa fill an"
+      "instruction": "Add a code-diff panel, one 990x405px box at 270,130 with no fill, a 1px #d0d7de border, 6px rounded, containing these parts exactly (page px, size then top-left"
     },
     {
       "kind": "add",
@@ -144,7 +142,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add one comment-thread panel, 960x171px at 285,355, no fill, 1px #d0d7de border, 6px rounded, below the diff panel, containing: a first comment block (958x61, 1"
+      "instruction": "Add a comments/review-thread panel, one 960x171px box at 285,355 with no fill, 1px #d0d7de border, 6px rounded, containing these parts exactly (page px, size th"
     }
   ],
   "rejected": []

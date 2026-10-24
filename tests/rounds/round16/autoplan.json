@@ -139,7 +139,7 @@
    ],
    [
     "outline-number",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy hollow outlined white \"3\", 640px type, about 356px wide (no larger), absolutely placed: its box's top-left at 520,40 and its first letter's ink starting at x=520 (not further right)"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy hollow outlined white \"3\", 640px type, about 356px wide (no larger), absolutely placed: its box's top-left at 520,40 and its first letter's ink starting at x=520 (not further right); the outline is FAINT: -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25) (only 25% opaque, a ghostly thin line, NOT bright), color: transparent"
    ],
    [
     "nav",
@@ -533,7 +533,7 @@
    ],
    [
     "events",
-    "button \"Standup 9 – 10am\", button \"Design review\", dropdown \"1:1 Sam\", button \"Lunch\", button \"Sprint planning 2 – 4pm\", button \"Standup\", button \"Climbing\""
+    "7 solid coloured blocks each placed at its exact spot (like calendar events on a time grid: NOT a list, NOT a row, NOT buttons, NOT pale): each its own div, position absolute in page px, z-index 2 over the grid, opaque fill, padding 4px 6px, 12px text, line-height 15.6px, 6px rounded, text top-left (not centred), wrapping inside its block: 2 lines \"Standup\" / \"9 – 10am\": left 304, top 132, 130x56px, #039be5 fill, #ffffff text; \"Design review\": left 444, top 190, 64x110px, #039be5 fill, #ffffff text; \"1:1 Sam\": left 510, top 220, 64x80px, #7986cb fill, #ffffff text; \"Lunch\": left 584, top 310, 130x46px, #33b679 fill, #ffffff text; 2 lines \"Sprint planning\" / \"2 – 4pm\": left 724, top 400, 130x110px, #7986cb fill, #ffffff text; \"Standup\": left 864, top 132, 130x56px, #039be5 fill, #ffffff text; \"Climbing\": left 1004, top 500, 130x90px, #33b679 fill, #ffffff text"
    ],
    [
     "now-line",
@@ -591,7 +591,7 @@
    ],
    [
     "file-tree",
-    "250px wide at 0,110: 12px text exactly \"▾ src ▾ pricing resolve.ts ▾ tests cache.test.ts\" (this copy only, nothing invented), then under it a #f6f8fa 6px rounded button 237x24px at 6,196 with 12px bold #1f2328 \"cache.ts\""
+    "a 250x790px column at 0,110, a 1px #d0d7de rule down its right edge, 14px padding: 7 SEPARATE lines stacked top to bottom (one per line, NOT run together on one line), 12px text, line-height 24px, each line indented as shown: bold \"Files\", \"▾ src\", [indent 8px] \"▾ pricing\", [indent 16px] \"cache.ts\" (this line bold, on a #f6f8fa 6px rounded highlight spanning the column width: the selected item), [indent 16px] \"resolve.ts\", \"▾ tests\", [indent 16px] \"cache.test.ts\""
    ],
    [
     "split-diff",

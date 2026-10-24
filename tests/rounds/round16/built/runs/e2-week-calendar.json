@@ -1,59 +1,58 @@
 {
   "id": "e2-week-calendar",
-  "at": "2026-10-24T07:16:31.348Z",
+  "at": "2026-10-24T07:46:39.049Z",
   "likeness": {
     "version": 3,
-    "overall": 0.3668715720223385,
-    "overallV2": 0.3668715720223385,
-    "overallV1": 0.28687850249333835,
-    "colour": 0.9631164949891731,
-    "structure": 0.7890442615389406,
-    "structureStrict": 0.6967336600142991,
-    "colourAligned": 0.9631164949891731,
-    "structureAligned": 0.7890442615389406,
+    "overall": 0.681096244624606,
+    "overallV2": 0.681096244624606,
+    "overallV1": 0.6208699607285586,
+    "colour": 0.9944602510363476,
+    "structure": 0.9241735391174454,
+    "structureStrict": 0.8771188943648334,
+    "colourAligned": 0.9944602510363476,
+    "structureAligned": 0.9241735391174454,
     "align": {
       "scale": 1,
-      "dx": 128,
-      "dy": 64,
-      "r": 0.3678332184077895
+      "dx": 0,
+      "dy": 0,
+      "r": 0.953145214976514
     },
-    "layout": 0.8246575057049608
+    "layout": 0.4159561277178686
   },
   "effects": {
-    "recall": 1,
+    "recall": 0.6666666666666666,
     "kept": [
       "overlap",
-      "soft-shadow",
       "stripes-or-layers"
     ],
-    "missing": [],
+    "missing": [
+      "soft-shadow"
+    ],
     "extra": []
   },
   "tokens": {
-    "input": 42188,
-    "output": 24595,
-    "cacheRead": 184272
+    "input": 43789,
+    "output": 19836,
+    "cacheRead": 109129
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46515,
-      "output": 15833,
-      "cacheRead": 173158,
-      "toolCalls": 6,
+      "billed": 51114,
+      "output": 12618,
+      "cacheRead": 106045,
+      "toolCalls": 4,
       "tools": [
-        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 170196
+      "ms": 139963
     }
   ],
-  "reading": "A Google-Calendar-style week view: a left sidebar (squiggle s0) holding a '+ Create' button, a mini month calendar with day-letter and date pills, and a 'My calendars' list with colored checkboxes; a top day-header row (squiggle s1 + border s4) listing MON 8 through SUN 14; a narrow hourly time-label column (squiggle s2) from 8AM to 9PM; a large striped week-grid body (box s3) with a red current-time line (s5) and several labeled event chips/buttons; and one detailed event card (box s6) for 'Sprint planning' with a 'Join call' button and guest info.",
+  "reading": "The sketch, fully specified by typed notes, lays out a week-view calendar app: a left sidebar (Create button, mini month calendar, calendars list), a top day-of-week header row, a left hour-label column, a striped time grid, seven coloured event blocks placed on it, a red current-time line, and a detail popover panel for the \"Sprint planning\" event with a Join call button.",
   "actions": [
     {
       "kind": "add",
@@ -68,22 +67,23 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the left sidebar (where stroke s0 sits) as 23 live, real elements, nothing invented or omitted, exact sizes/positions in page px: 100x44 at 20,20 #c2e7ff "
+      "instruction": "Build the left sidebar panel: a \"+ Create\" button (100x44 at 20,20, #c2e7ff fill, 16px rounded, 14px bold #1f1f1f \"+ Create\"); a \"March 2027\" label (71x15 at 12"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        244,
-        3,
-        1033,
-        64
+        4,
+        1,
+        1273,
+        66
       ],
       "paths": [
-        "s1"
+        "s1",
+        "s4"
       ],
-      "instruction": "Add a row of 7 day-header stat cards above the week grid (where stroke s1 runs), one per day: 'MON 8', 'TUE 9', 'WED 10', 'THU 11', 'FRI 12', 'SAT 13', 'SUN 14'"
+      "instruction": "Build the main calendar's top header bar bounded by the full-width top line, containing a row of 7 day-of-week stat cards: \"MON\" 8, \"TUE\" 9, \"WED\" 10, \"THU\" 11,"
     },
     {
       "kind": "add",
@@ -98,10 +98,10 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a narrow vertical column of 28 hour labels (where stroke s2 runs), one per line, 10px #70757a text, 60px line-height, left edge at x=240 and first line's to"
+      "instruction": "Build a narrow left-aligned column of 28 hour-label lines, 10px #70757a text, one label per line, reading \"8 AM, 9 AM, 10 AM, 11 AM, 12 PM, 1 PM, 2 PM, 3 PM, 4 "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -113,7 +113,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Fill the main week-grid background (box drawn by stroke s3) with big horizontal repeating stripes, NOT a smooth gradient: repeating-linear-gradient(0deg, #fffff"
+      "instruction": "Build the week time-grid's background as big horizontal repeating stripes, NOT a smooth gradient: repeating-linear-gradient(0deg, #ffffff 0px 59px, #e3e3e3 59px"
     },
     {
       "kind": "add",
@@ -122,13 +122,14 @@
       "region": [
         4,
         1,
-        1272,
-        4
+        1273,
+        66
       ],
       "paths": [
+        "s1",
         "s4"
       ],
-      "instruction": "Within the week-grid body, add a set of scheduled-event controls scattered across the day columns: button 'Standup 9 – 10am', button 'Design review', dropdown '"
+      "instruction": "Add 7 solid-coloured calendar event blocks placed at exact spots on the time grid (position absolute in page px, z-index 2 above the grid, opaque fill, padding "
     },
     {
       "kind": "add",
@@ -143,7 +144,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a current-time indicator across the week grid: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot at its left end, no text."
+      "instruction": "Add a current-time indicator: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot on its left end, no text, overlaid on the time grid at t"
     },
     {
       "kind": "add",
@@ -158,7 +159,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add the 'Sprint planning' event panel as one 340x174px #f0f4f9-filled, 16px-rounded card at 740,260 inside the week grid, containing 6 real elements, nothing in"
+      "instruction": "Add an event-detail popover panel: one 340x174 panel at 740,260 with #f0f4f9 fill and 16px rounded corners, containing its parts: a 300x34 title at 760,280, 20p"
     }
   ],
   "rejected": []

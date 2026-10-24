@@ -2094,6 +2094,20 @@ export function factsInPage() {
     if (btn && midText && !el.querySelector('[data-r]')) {
       const c = getComputedStyle(btn)
       o.inlineMark = { full: (el.innerText || '').replace(/\s+/g, ' ').trim(), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), pad: Math.round(parseFloat(c.paddingLeft) || 0), px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), family: cs.fontFamily, w: Math.round(r.width), x: Math.round(r.x), y: Math.round(r.y) }
+    } else if (btn && !el.querySelector('[data-r]') && el.querySelectorAll(':scope > br').length >= 3 && getComputedStyle(btn).display === 'block') {
+      // n166: a column of lines broken by <br>, indented with spaces, one line a highlighted block (round 16 e3 file tree:
+      // said as one line of text plus a button under it, built as one run-on line)
+      const c = getComputedStyle(btn), lines = []
+      let cur = ''
+      const flush = (sel) => { if (cur.replace(/\u00a0/g, ' ').trim() || sel) lines.push({ t: cur.replace(/\u00a0/g, ' ').trimEnd(), sel: !!sel }); cur = '' }
+      for (const n of el.childNodes) {
+        if (n.nodeName === 'BR') flush()
+        else if (n === btn) { flush(); cur = btn.textContent; flush(true) }
+        else if (n.nodeType === 1 && /^(B|STRONG)$/.test(n.nodeName)) cur += `**${n.textContent}**`
+        else cur += n.textContent
+      }
+      flush()
+      o.lineList = { lines: lines.map((l) => ({ ...l, indent: (l.t.match(/^ */) || [''])[0].length, t: l.t.trim() })), px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), pad: Math.round(parseFloat(cs.paddingLeft) || 0), br: parseFloat(cs.borderRightWidth) >= 1 ? rgba(cs.borderRightColor) : null, w: Math.round(r.width), h: Math.round(r.height), x: Math.round(r.x), y: Math.round(r.y), fill: rgba(c.backgroundColor), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), bold: Number(c.fontWeight) >= 600 }
     } else if (btn && !el.querySelector('[data-r]')) {
       const c = getComputedStyle(btn), b = btn.getBoundingClientRect()
       const txt = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
@@ -2118,13 +2132,13 @@ export function factsInPage() {
     // n163: a wrapper whose children are each placed on their own (position absolute) around the page (round 16 c5 floating
     // chips: said as 'buttons', built as pills inside the nav)
     const ak = [...el.children]
-    if (ak.length >= 2 && r.height < 10 && !el.querySelector('[data-r]') && ak.every((k) => getComputedStyle(k).position === 'absolute' && (k.innerText || '').trim() && !k.children.length)) {
+    if (ak.length >= 2 && r.height < 10 && !el.querySelector('[data-r]') && ak.every((k) => getComputedStyle(k).position === 'absolute' && (k.innerText || '').trim() && [...k.children].every((q) => q.tagName === 'BR'))) {
       const spread = Math.max(...ak.map((k) => k.getBoundingClientRect().top)) - Math.min(...ak.map((k) => k.getBoundingClientRect().top))
       const same = ak.every((k) => k.offsetLeft === ak[0].offsetLeft && k.offsetTop === ak[0].offsetTop)
       const rots = ak.map((k) => (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1])
       // n163: letters stacked on one spot, each turned about a far origin, are a title set on an ARC (round 16 c3: said as links)
       if (same && rots.every((q) => q != null)) { const c = getComputedStyle(ak[0]); o.arcText = { letters: ak.map((k) => k.innerText.trim()), rots: rots.map(Number), cx: Math.round(r.left), cy: Math.round(r.top), radius: ak[0].offsetHeight, w: ak[0].offsetWidth, origin: c.transformOrigin, px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight) || 400, ink: rgba(c.color), family: c.fontFamily } }
-      else if (spread >= 80) o.absKids = ak.map((k) => { const c = getComputedStyle(k); return { t: k.innerText.trim(), x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow, rot: (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null } })
+      else if (spread >= 80) o.absKids = ak.map((k) => { const c = getComputedStyle(k); return { t: k.innerText.trim(), x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow, rot: (k.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1] ?? null, pad: `${Math.round(parseFloat(c.paddingTop) || 0)}px ${Math.round(parseFloat(c.paddingLeft) || 0)}px`, lh: c.lineHeight } })
     }
     // n165: a zero-size wrapper of blurred, textless, absolutely placed blobs is a field of soft glows (round 16 c2: three
     // glow blobs measured 0x0, got no note, built as nothing)
@@ -2756,6 +2770,9 @@ function round10Extra(f, d) {
     note += `; EXTRUDED in 3D: ${hard.length} stacked hard text-shadows (no blur) of solid ${hexOf(s0.c)}, stepping ${Math.round(s0.x)}px right and ${Math.round(s0.y)}px down each, out to ${Math.round(sN.x)}px ${Math.round(sN.y)}px (text-shadow: ${hard.map((s) => `${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${hexOf(s.c)}`).join(', ')}), so each letter sits on a deep dark block side; NOT flat letters`
   }
   if (f.textStroke && f.colour?.a > 0.05 && !/hollow|text-stroke|outline round every letter|outlined letters/i.test(note)) note += `; a ${f.textStroke.px}px ${hexOf(f.textStroke.c)} outline round every letter (-webkit-text-stroke: ${f.textStroke.px}px ${hexOf(f.textStroke.c)}) over the ${hexOf(f.colour)} fill`
+  // n166: a hollow letter's outline said with its width and see-through alpha (round 16 c2 '3': 2px white at 25% said only
+  // 'hollow outlined white', built as a bright full-white outline)
+  if (f.textStroke && (!f.colour || f.colour.a <= 0.05) && f.textStroke.c && f.textStroke.c.a < 0.9 && !/text-stroke:/.test(note)) note += `; the outline is FAINT: -webkit-text-stroke: ${f.textStroke.px}px rgba(${f.textStroke.c.r}, ${f.textStroke.c.g}, ${f.textStroke.c.b}, ${Math.round(f.textStroke.c.a * 100) / 100}) (only ${Math.round(f.textStroke.c.a * 100)}% opaque, a ghostly thin line, NOT bright), color: transparent`
   // n139: a vertical stepper said step by step (round 10 e5: checks, colours and connectors lost)
   const S = f.stepRail?.steps
   if (S && f.stepRail.radio) {
@@ -2969,6 +2986,8 @@ function round11Extra(f, d) {
   }
   const IM = f.inlineMark
   if (IM && !note) { const face = faceName(IM.family); note = `${IM.w}px wide at ${IM.x},${IM.y}: ONE paragraph of ${IM.px}px ${face ? `${face} ` : ''}text${IM.lh ? `, line-height ${IM.lh}px` : ''}, exactly "${IM.full}" (this copy only, nothing invented, no gap in the sentence); the words "${IM.t}" are HIGHLIGHTED IN PLACE inside the sentence, where they fall in the line: an inline <span> with a ${hexOf(IM.fill)} background${IM.pad ? `, padding 0 ${IM.pad}px` : ''}, same size, weight and face as the rest (NOT a button, NOT a separate block, NOT on its own line, nothing laid over the text)` }
+  const LL = f.lineList
+  if (LL && !note) note = `a ${LL.w}x${LL.h}px column at ${LL.x},${LL.y}${LL.br ? `, a 1px ${hexOf(LL.br)} rule down its right edge` : ''}, ${LL.pad}px padding: ${LL.lines.length} SEPARATE lines stacked top to bottom (one per line, NOT run together on one line), ${LL.px}px text, line-height ${LL.lh}px, each line indented as shown: ${LL.lines.map((l) => `${l.indent ? `[indent ${l.indent * Math.round(LL.px * 0.3)}px] ` : ''}${l.t.startsWith('**') ? `bold "${l.t.replace(/\*\*/g, '')}"` : `"${l.t}"`}${l.sel ? ` (this line ${LL.bold ? 'bold, ' : ''}on a ${hexOf(LL.fill)} ${LL.rad}px rounded highlight spanning the column width: the selected item)` : ''}`).join(', ')}`
   const B = f.copyBtn
   if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.px}px text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
   return note === (d.note ?? '') ? d : { ...d, kind: d.kind ?? 'text', note }
@@ -4445,6 +4464,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const K = f.absKids
     if (!K || !out.get(f.role)?.kind) return
+    // n166: textual blocks with visible fills, unturned and unshadowed, many of them, are placed blocks on a grid (round 16 e2
+    // calendar events: said as floating cards / buttons, built in the wrong day columns and hours with pale fills)
+    if (K.length >= 4 && K.every((k) => !k.rot && (!k.shadow || k.shadow === 'none') && visible(k.fill) && k.fill.a > 0.8)) {
+      out.set(f.role, { kind: 'box', note: `${K.length} solid coloured blocks each placed at its exact spot (like calendar events on a time grid: NOT a list, NOT a row, NOT buttons, NOT pale): each its own div, position absolute in page px, z-index 2 over the grid, opaque fill, padding ${K[0].pad}, ${K[0].bold ? 'bold ' : ''}${K[0].px}px text, line-height ${K[0].lh}, ${K[0].rad}px rounded, text top-left (not centred), wrapping inside its block: ${K.map((k) => `${k.t.includes('\n') ? `${k.t.split('\n').length} lines ${k.t.split('\n').map((l) => quote(l, 24)).join(' / ')}` : quote(k.t, 24)}: left ${k.x}, top ${k.y}, ${k.w}x${k.h}px, ${hexOf(k.fill)} fill, ${hexOf(k.ink)} text`).join('; ')}` })
+      return
+    }
     out.set(f.role, { kind: 'box', note: `${K.length} separate FLOATING cards scattered over the page (NOT in the nav, NOT in a row, NOT buttons in a group), each its own div, position absolute, above the other parts (z-index 2): ${K.map((k) => `${quote(k.t, 24)} at ${k.x},${k.y} (${k.w}x${k.h}px, ${visible(k.fill) ? `${hexOf(k.fill)} fill, ` : 'no fill, '}${k.rad}px rounded, ${k.bold ? 'bold ' : ''}${k.px}px ${hexOf(k.ink)} text${k.shadow && k.shadow !== 'none' ? `, box-shadow: ${cssHex(k.shadow)}` : ''}${k.rot ? `, transform: rotate(${k.rot}deg)` : ''})`).join('; ')}` })
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is

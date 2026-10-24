@@ -93,3 +93,21 @@ Rounds 1-15 autoplan notes re-generated: unchanged.
 e5 not run (per-run budget guard). Round 16 so far: **74%** over 9 pages. Vitest: same 2 env failures; typecheck clean.
 Next: calendar events placed by day column and hour (their fills, overlap), split diff columns at their widths, a hollow
 numeral's stroke alpha; then first e5 and c3's ray length.
+
+## n166: calendar events placed, file tree as lines, faint hollow numeral; first e5 (2026-10-24, ~226k billed)
+
+Planner now says: a zero-size wrapper of solid, unturned text blocks (lines split by line breaks) as coloured blocks each
+at its exact spot on the grid (left, top, size, fill, padding, text top-left; NOT a list or buttons); a column of lines
+broken by line breaks, indented with spaces, one line a highlighted block, as separate lines with their indents and the
+selected line (NOT one run-on line); a hollow letter's outline with its width and see-through alpha (FAINT, NOT bright).
+Rounds 13 and 14 notes gain the faint-outline line (their hollow numerals were also see-through); the rest unchanged.
+
+| page | likeness | what was off |
+|---|---|---|
+| e2 week calendar | 37 → **68%** | all seven events now in the right day and hour with solid fills; day columns unruled, popover text wraps and lost its shadow, sidebar edge missing |
+| e3 code review | 71 → **84%** | file tree now separate indented lines with the selected file; split diff at full width; line numbers lost, tabs wrap counts below |
+| e5 checkout autocomplete (first) | **83%** | form, open address suggestions, tooltip, order summary, toast right; step circles became plain text, toast squarer |
+
+Round 16 complete: **79%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 61, e2 68, e3 84, e4 78, e5 83).
+Vitest: same 2 env failures; typecheck clean.
+Next: e1 row height, calendar day-column rules and popover, diff line numbers; then round 17 (harder).
