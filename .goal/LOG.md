@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-24T06:05Z | n162 write round 16 + first builds | Round 16 written, dry 10/10; tilted phone 79, spreadsheet 61, split halftone 58; avg 66. ~275k.
 2026-10-24T05:10Z | n161 notebook cells, painted canvas parts, card photos, map road, star | e1 42 to 79, e2 55 to 90, e3 58 to 89, c4 67 to 69; round 15 complete 87. ~260k.
 2026-10-24T04:39Z | n160 folded panels, verbatim SVG, typed SVG kept; first e1-e3 | c3 54 to 90, c4 14 to 67; first e1 42, e2 55, e3 58; round 15 complete 76. ~338k.
 2026-10-24T04:12Z | n159 white dim, floating palette, stat stack, vertical title | e5 45 to 81, c5 86 to 91; first c3 54, c4 14; round 15 at 74 over 7. ~460k.
