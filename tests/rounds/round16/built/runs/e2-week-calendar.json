@@ -1,58 +1,75 @@
 {
   "id": "e2-week-calendar",
-  "at": "2026-10-24T07:46:39.049Z",
+  "at": "2026-10-24T08:18:13.118Z",
   "likeness": {
     "version": 3,
-    "overall": 0.681096244624606,
-    "overallV2": 0.681096244624606,
-    "overallV1": 0.6208699607285586,
-    "colour": 0.9944602510363476,
-    "structure": 0.9241735391174454,
-    "structureStrict": 0.8771188943648334,
-    "colourAligned": 0.9944602510363476,
-    "structureAligned": 0.9241735391174454,
+    "overall": 0.8489848211358613,
+    "overallV2": 0.8489848211358613,
+    "overallV1": 0.8167530284843587,
+    "colour": 0.9976586857551099,
+    "structure": 0.9710658221770846,
+    "structureStrict": 0.945883203312967,
+    "colourAligned": 0.9976586857551099,
+    "structureAligned": 0.9710658221770846,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.953145214976514
+      "r": 0.9926190299001307
     },
-    "layout": 0.4159561277178686
+    "layout": 0.685765403654964
   },
   "effects": {
     "recall": 0.6666666666666666,
     "kept": [
       "overlap",
-      "stripes-or-layers"
+      "soft-shadow"
     ],
     "missing": [
-      "soft-shadow"
+      "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 43789,
-    "output": 19836,
-    "cacheRead": 109129
+    "input": 59194,
+    "output": 37304,
+    "cacheRead": 459282
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 51114,
-      "output": 12618,
-      "cacheRead": 106045,
-      "toolCalls": 4,
+      "billed": 66985,
+      "output": 25503,
+      "cacheRead": 206290,
+      "toolCalls": 7,
       "tools": [
         "Glob",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/SketchShape.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 139963
+      "ms": 288075
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6815,
+      "output": 1949,
+      "cacheRead": 241356,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 18989
     }
   ],
-  "reading": "The sketch, fully specified by typed notes, lays out a week-view calendar app: a left sidebar (Create button, mini month calendar, calendars list), a top day-of-week header row, a left hour-label column, a striped time grid, seven coloured event blocks placed on it, a red current-time line, and a detail popover panel for the \"Sprint planning\" event with a Join call button.",
+  "reading": "This is a Google-Calendar-style week view: a left sidebar (create button, mini month calendar, 'My calendars' list) drawn with s0; a header row of 7 day/date cards (MON 8 – SUN 14) drawn with s1; a left-hand column of hourly time labels (8 AM–9 PM) drawn with s2; a large striped time grid background drawn with s3; 7 solid coloured event blocks positioned on that grid; a thin red current-time indicator line with a dot (s3+s5); and a floating event-detail popup panel for 'Sprint planning' with a Join call button (s3+s6).",
   "actions": [
     {
       "kind": "add",
@@ -67,23 +84,22 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the left sidebar panel: a \"+ Create\" button (100x44 at 20,20, #c2e7ff fill, 16px rounded, 14px bold #1f1f1f \"+ Create\"); a \"March 2027\" label (71x15 at 12"
+      "instruction": "Build a left sidebar with these exact live-text parts (page px, size then top-left x,y, nothing invented, nothing left out): 100x44 at 20,20 #c2e7ff fill, 16px "
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        4,
-        1,
-        1273,
-        66
+        244,
+        3,
+        1033,
+        64
       ],
       "paths": [
-        "s1",
-        "s4"
+        "s1"
       ],
-      "instruction": "Build the main calendar's top header bar bounded by the full-width top line, containing a row of 7 day-of-week stat cards: \"MON\" 8, \"TUE\" 9, \"WED\" 10, \"THU\" 11,"
+      "instruction": "Add a row of 7 day/date stat cards spanning the calendar header: MON 8, TUE 9, WED 10, THU 11, FRI 12, SAT 13, SUN 14."
     },
     {
       "kind": "add",
@@ -98,10 +114,10 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Build a narrow left-aligned column of 28 hour-label lines, 10px #70757a text, one label per line, reading \"8 AM, 9 AM, 10 AM, 11 AM, 12 PM, 1 PM, 2 PM, 3 PM, 4 "
+      "instruction": "Add a narrow column of 28 hourly time labels (one per line): 8 AM, 9 AM, 10 AM, 11 AM, 12 PM, 1 PM, 2 PM, 3 PM, 4 PM, 5 PM, 6 PM, 7 PM, 8 PM, 9 PM, each 10px #7"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -113,7 +129,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Build the week time-grid's background as big horizontal repeating stripes, NOT a smooth gradient: repeating-linear-gradient(0deg, #ffffff 0px 59px, #e3e3e3 59px"
+      "instruction": "Give the main calendar grid box a two-layer striped background (not a smooth gradient): layer 1 is horizontal repeating stripes repeating-linear-gradient(0deg, "
     },
     {
       "kind": "add",
@@ -122,14 +138,13 @@
       "region": [
         4,
         1,
-        1273,
-        66
+        1272,
+        4
       ],
       "paths": [
-        "s1",
         "s4"
       ],
-      "instruction": "Add 7 solid-coloured calendar event blocks placed at exact spots on the time grid (position absolute in page px, z-index 2 above the grid, opaque fill, padding "
+      "instruction": "Place 7 solid, opaque coloured calendar-event blocks absolutely positioned on the time grid (not a list, not a row, not buttons, not pale): each its own div, z-"
     },
     {
       "kind": "add",
@@ -144,7 +159,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a current-time indicator: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot on its left end, no text, overlaid on the time grid at t"
+      "instruction": "Add a current-time indicator on the grid: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot on its left end, no text."
     },
     {
       "kind": "add",
@@ -159,7 +174,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add an event-detail popover panel: one 340x174 panel at 740,260 with #f0f4f9 fill and 16px rounded corners, containing its parts: a 300x34 title at 760,280, 20p"
+      "instruction": "Add a floating event-detail popup panel over the grid: one 340x174px panel at 740,260, #f0f4f9 fill, 16px rounded corners, box-shadow rgba(0,0,0,0.3) 0px 8px 28"
     }
   ],
   "rejected": []

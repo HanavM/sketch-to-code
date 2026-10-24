@@ -111,3 +111,20 @@ Rounds 13 and 14 notes gain the faint-outline line (their hollow numerals were a
 Round 16 complete: **79%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 61, e2 68, e3 84, e4 78, e5 83).
 Vitest: same 2 env failures; typecheck clean.
 Next: e1 row height, calendar day-column rules and popover, diff line numbers; then round 17 (harder).
+
+## n167: chart card, packed bar words, a second stripe layer, floating panel shadow (2026-10-24, ~187k billed)
+
+Planner now says: a bar chart's card (its fill, border, shadow, size: NOT tinted) and each bar's width, gap and tallest
+height; a bar's second word sitting right after the first as "right after it, NOT pushed to the far right"; a `::before`
+layer of repeating stripes laid over the background stripes (the day-column rules) as a second layer; a part-by-part
+panel's own box-shadow, and every one-line text part kept on ONE line (nowrap). Rounds 3-15 notes re-generated: the
+nowrap/shadow clause reaches their part-by-part panels; no other change.
+
+| page | likeness | what was off |
+|---|---|---|
+| e1 spreadsheet | 61 → **74%** | menu right after the title, white shadowed chart card, formula bar packed left; row numbers start on the header row (off by one), selection border runs down to row 12 |
+| e2 week calendar | 68 → **85%** | day-column rules back, popover on one line per fact with its shadow; month title wraps, hour labels a few px high |
+
+Round 16 now **82%** over 10 pages (c1 94, c2 84, c3 73, c4 79, c5 85, e1 74, e2 85, e3 84, e4 78, e5 83).
+Vitest: same 2 env failures; typecheck clean.
+Next: e1 row numbering and selection box height; e3 diff line numbers and tab counts; c3 ray size; then round 17 (harder).

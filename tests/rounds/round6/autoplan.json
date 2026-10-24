@@ -566,7 +566,7 @@
    ],
    [
     "chart-bars",
-    "bar chart \"Signups by week\", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest; the card exactly 480x260px, its top-left at 252,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "a 480x260px chart card, white (#ffffff) fill (NOT tinted, NOT pale blue), 1px #e2e8f0 border, 12px rounded, holding: bar chart \"Signups by week\", 8 indigo bars, heights 40/55/48/70/62/85/100/78% of the tallest; each bar 42px wide, 14px apart, the tallest 170px, no labels under the bars; the card exactly 480x260px, its top-left at 252,616, its top 16px under the bottom of the card right above it (that card ends at y 600: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "table",

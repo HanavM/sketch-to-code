@@ -68,6 +68,8 @@ export function factsInPage() {
       bg: rgba(cs.backgroundColor),
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
+      // n167: a ::before layer painting more stripes over the background (round 16 e2: the day-column rules lost)
+      beforeImage: (() => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && /^repeating-linear-gradient/.test(b.backgroundImage) ? b.backgroundImage : null })(),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
@@ -1814,11 +1816,15 @@ export function factsInPage() {
     // bar chart: 4+ textless filled blocks side by side on one baseline, different heights
     const bars = [...el.querySelectorAll('*')].filter((k) => !txt(k) && !k.children.length && filled(k) && k.getBoundingClientRect().height >= 8)
     if (bars.length >= 4) {
+      const box0 = el.getBoundingClientRect()
       const r = bars.map((k) => k.getBoundingClientRect())
       const base = r.map((b) => Math.round(b.bottom)), hs = r.map((b) => Math.round(b.height))
       if (Math.max(...base) - Math.min(...base) <= 2 && new Set(hs).size >= 3 && r.every((b) => b.width < b.height * 2.5)) {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
-        return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && o.length <= 2 ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)) }
+        return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && o.length <= 2 ? { main: cs.find((c) => key(c) === main), o } : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
+          // n167: the card the chart sits on (round 16 e1: a white bordered shadowed card built as a pale blue panel) and the bars' own size
+          card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
+          barW: Math.round(r[0].width), barGap: r.length > 1 ? Math.round(r[1].left - r[0].right) : 0, tallest: Math.max(...hs) }
       }
     }
     // chat bubbles: rounded filled boxes, some hugging the left, some the right
@@ -2288,7 +2294,8 @@ function gradientWords(f) {
     xs.forEach((x) => { x.w = Math.round(x.end - x.start) })
     const deg = rp[1] ? Math.round(parseFloat(rp[1])) % 180 : 0
     const dir = deg === 0 ? 'horizontal' : deg === 90 ? 'vertical' : `diagonal (${deg}deg)`
-    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${x.c && x.c.a < 0.05 ? 'transparent' : hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${x.c && x.c.a < 0.05 ? 'clear (see-through)' : colourName(x.c)}`).join(' then ')}, over and over`
+    const over = f.beforeImage && !f.isBefore ? gradientWords({ bgImage: f.beforeImage, bgImageColours: (f.beforeImage.match(/rgba?\([^)]+\)/g) || []), isBefore: true }) : null
+    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${x.c && x.c.a < 0.05 ? 'transparent' : hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${x.c && x.c.a < 0.05 ? 'clear (see-through)' : colourName(x.c)}`).join(' then ')}, over and over${over ? `; AND laid over them (a second background layer on the same box, both showing): ${over}` : ''}`
   }
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
   if (names.length < 2) {
@@ -2468,6 +2475,15 @@ function monthEvents(list, cap = 10) {
 // a header row's tint: #e8f0fe is 'off-white' to the palette but reads pale blue (round 5 e5)
 const sheetFill = (c) => (c.b - c.r >= 12 && c.r >= 220 ? 'pale blue' : colourName(c))
 
+// n167: a bar chart's card (fill, border, shadow, size) and its bars' own size (round 16 e1: a white bordered shadowed
+// card built as a pale blue tinted panel, bars wider)
+const barCard = (d) => {
+  const c = d.card
+  if (!c || !(c.bg || c.bw >= 1 || c.shadow)) return ''
+  return `a ${c.w}x${c.h}px chart card, ${c.bg ? `${colourName(c.bg)} (${hexOf(c.bg)}) fill (NOT tinted, NOT pale blue)` : 'no fill'}${c.bw >= 1 ? `, ${Math.round(c.bw)}px ${hexOf(c.bc)} border` : ''}${c.shadow ? ', a soft drop shadow' : ''}${c.radius >= 2 ? `, ${c.radius}px rounded` : ', square corners'}, holding: `
+}
+const barSize = (d) => d.barW ? `; each bar ${d.barW}px wide, ${d.barGap}px apart, the tallest ${d.tallest}px, no labels under the bars` : ''
+
 /** Dense app UI -> words that carry its structure (columns, rows, weeks, bars, sides). */
 function denseNote(d) {
   if (!d) return null
@@ -2568,8 +2584,8 @@ function denseNote(d) {
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
-    case 'bars': if (d.odd) return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${d.odd.o.map(([i, c]) => `bar ${i + 1} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`
-      return `bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}`.replace(/\s+/g, ' ')
+    case 'bars': if (d.odd) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${d.odd.o.map(([i, c]) => `bar ${i + 1} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
+      return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
     case 'cards': return `column ${quote(d.head, 20)}, cards: ${d.items.slice(0, 3).map((c) => `${short(c.text.replace(c.tags.map((t) => t.text).join(' '), '').trim(), 26)}${c.tags.length ? ` tag ${chipList(c.tags, 1)}` : ''}`).join(', ')}${d.items.length > 3 ? `, ${d.items.length - 3} more` : ''}`
     case 'tiles': return `grid of ${d.items.length} ${d.bordered ? 'bordered rounded ' : ''}tiles, ${d.cols} per row, each a coloured picture block on top, then name, then small grey line: ${d.items.map((x) => `${x.grad ? `${colourName(x.grad[0])} to ${colourName(x.grad[x.grad.length - 1])} gradient` : colourName(x.pic)} ${quote(x.parts[0], 24)}${x.parts[1] ? ` ${x.parts[1]}` : ''}`).join(', ')}${d.sel ? `; ${quote(d.sel.t, 24)} selected (${colourName(d.sel.c)} ${d.sel.w}px border)` : ''}`
@@ -3716,7 +3732,7 @@ function decideOne(f, page, marked, said) {
     const isBar = fill || frosted || line || /^(nav|header)$/.test(f.tag)
     const barLook = uniq([...fx, fill && !frosted ? colourName(f.bg) : null, f.tag === 'nav' ? 'nav' : null]).join(' ')
     const drawnBar = fill || frosted || line
-    return { kind: isBar ? 'box' : 'text', note: `${!drawnBar && isBar ? 'nav, no box around it: ' : ''}${drawnBar ? `${barLook ? `${barLook} ` : ''}bar ${Math.round(h)}px tall${f.rect.y <= 60 ? ' across the top' : ''}${line}: ` : ''}${lk ? `${lk} ` : ''}${quote(kb[0].t)} left, ${quote(kb[1].t, 48)} right` }
+    return { kind: isBar ? 'box' : 'text', note: `${!drawnBar && isBar ? 'nav, no box around it: ' : ''}${drawnBar ? `${barLook ? `${barLook} ` : ''}bar ${Math.round(h)}px tall${f.rect.y <= 60 ? ' across the top' : ''}${line}: ` : ''}${lk ? `${lk} ` : ''}${kb[1].left != null && kb[0].right != null && kb[1].left - kb[0].right <= w * 0.25 ? `${quote(kb[0].t)} at the left, then ${quote(kb[1].t, 48)} right after it (its left edge ${Math.round(kb[1].left - kb[0].right)}px after the first; NOT pushed to the bar's far right end, the rest of the bar stays empty)` : `${quote(kb[0].t)} left, ${quote(kb[1].t, 48)} right`}` }
   }
   // a plain link underlined by a bottom rule (round 5 c4 'Shop summer →' was built as a dark pill button)
   if (f.tag === 'a' && ruled && !fill && !grad && !bordered && f.kidCount === 0 && short && h <= 60) {
@@ -4418,7 +4434,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n156: a wide row under a top rule only says its rule whatever its area (round 14 c1 axes row: 1160x29, rule lost)
     const topRule = edge && !(f.border.bottom >= 1) && !(f.border.left >= 1) && R.w >= 300
     const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic)
-    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, with its parts inside it; ` : ''
+    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 1.8) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
     // n164: a wide row ruled above AND below says both rules and their style (round 16 c3 menu row: double rules lost)

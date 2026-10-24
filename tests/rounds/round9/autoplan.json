@@ -379,7 +379,7 @@
    ],
    [
     "formula-bar",
-    "\"F4\" left, \"fx =SUM(B4:E4)\" right; each word in its own colour: \"F4\" #202124, \"fx =SUM(B4:E4)\" #5f6368"
+    "\"F4\" at the left, then \"fx =SUM(B4:E4)\" right after it (its left edge 0px after the first; NOT pushed to the bar's far right end, the rest of the bar stays empty); each word in its own colour: \"F4\" #202124, \"fx =SUM(B4:E4)\" #5f6368"
    ],
    [
     "column-headers",
