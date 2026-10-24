@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Liquid chrome</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#06060a;font-family:Helvetica,Arial,sans-serif;color:#e9e9f2}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes floaty{0%,100%{transform:translateY(0) rotateY(-28deg) rotateX(12deg)}50%{transform:translateY(-14px) rotateY(-28deg) rotateX(12deg)}}@keyframes up{to{transform:translateY(-50%)}}
+.blob{position:absolute;left:620px;top:120px;width:620px;height:620px;border-radius:42% 58% 63% 37%/45% 38% 62% 55%;background:conic-gradient(from 40deg,#ff3d81,#7a5cff,#00e0ff,#b6ff3d,#ff3d81);filter:blur(2px);animation:spin 24s linear infinite;opacity:.9}
+.blob::after{content:"";position:absolute;inset:60px;border-radius:inherit;background:#06060a;filter:blur(40px);opacity:.55}
+.title{position:absolute;left:60px;top:170px;font-size:208px;font-weight:900;line-height:.82;letter-spacing:-9px;background:linear-gradient(180deg,#ffffff 0%,#9aa0b4 38%,#2a2d3a 52%,#d7dbe8 70%,#ffffff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stack{position:absolute;left:820px;top:300px;width:300px;height:380px;perspective:900px}
+.card{position:absolute;inset:0;border-radius:22px;border:1px solid rgba(255,255,255,.35);background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.04));backdrop-filter:blur(14px);box-shadow:0 30px 60px rgba(0,0,0,.5);animation:floaty 5s ease-in-out infinite;padding:28px}
+.card:nth-child(1){left:-60px;top:40px;opacity:.5}.card:nth-child(2){left:-30px;top:20px;opacity:.75}
+.card b{display:block;font-size:46px;letter-spacing:-2px}.card small{font-size:13px;color:#c7c9d6;letter-spacing:2px}
+.side{position:absolute;left:1220px;top:0;width:40px;height:900px;overflow:hidden;border-left:1px solid #22232c}
+.side span{display:block;writing-mode:vertical-rl;font:700 13px/40px Menlo,monospace;letter-spacing:6px;color:#5b5e70;animation:up 14s linear infinite;white-space:nowrap}
+nav{position:absolute;left:60px;top:44px;width:1120px;display:flex;justify-content:space-between;align-items:center;font-size:14px;letter-spacing:1px}
+nav a{padding:10px 20px;border-radius:999px;border:1px solid #e9e9f2}
+.lede{position:absolute;left:66px;top:560px;width:430px;font-size:19px;line-height:1.5;color:#a8abbb}
+.cta{position:absolute;left:66px;top:690px;display:flex;gap:14px}.cta a{padding:16px 28px;border-radius:999px;font-weight:700;font-size:15px}
+.cta a:first-child{background:linear-gradient(90deg,#ff3d81,#7a5cff);color:#fff;box-shadow:0 0 30px rgba(255,61,129,.6)}.cta a+a{border:1px solid #3a3c4a}
+.foot{position:absolute;left:60px;top:820px;width:1120px;display:flex;gap:60px;font:12px Menlo,monospace;color:#5b5e70;border-top:1px solid #22232c;padding-top:18px}
+</style></head><body>
+<div class="blob" data-r="conic-blob"></div>
+<nav data-r="nav"><b style="font-size:18px">MERCURY/OS</b><span>Engine · Shaders · Pricing · Docs</span><a>Get access</a></nav>
+<h1 class="title" data-r="chrome-title" data-must>LIQUID<br>METAL</h1>
+<p class="lede" data-r="lede">A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.</p>
+<div class="cta" data-r="cta"><a>Start rendering</a><a>Watch reel</a></div>
+<div class="stack" data-r="glass-stack" data-must><div class="card"></div><div class="card"></div><div class="card"><small>FRAME TIME</small><b>8.3ms</b><small>GPU · 4K · RAYMARCHED</small></div></div>
+<div class="side" data-r="side-ticker"><span>RENDERING · 120FPS · RENDERING · 120FPS · RENDERING · 120FPS · RENDERING · 120FPS ·</span></div>
+<div class="foot" data-r="footer-row"><span>v4.2.0</span><span>WebGPU ready</span><span>MIT licensed core</span><span>© 2026 Mercury Labs</span></div>
+</body></html>

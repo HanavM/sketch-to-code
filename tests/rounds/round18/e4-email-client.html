@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Email client</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#202124;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;display:flex;align-items:center;padding:0 16px;gap:18px;border-bottom:1px solid #eceff1}.top b{font-size:20px;width:190px}
+.search{width:620px;height:44px;border-radius:22px;background:#eaf1fb;line-height:44px;padding-left:20px;color:#5f6368}
+.me{margin-left:auto;width:34px;height:34px;border-radius:50%;background:#7b1fa2;color:#fff;text-align:center;line-height:34px;font-weight:700}
+.nav{position:absolute;left:0;top:60px;width:230px;padding:10px 8px}.compose{display:inline-block;padding:16px 24px;border-radius:16px;background:#c2e7ff;font-weight:700;margin:4px 0 14px 4px;font-size:14px}
+.nav div{height:32px;line-height:32px;padding:0 16px;border-radius:0 16px 16px 0;display:flex;justify-content:space-between}.nav .on{background:#d3e3fd;font-weight:700}
+.nav .lab{font-size:13px;color:#444;margin-top:14px;font-weight:700}.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:10px}
+.list{position:absolute;left:230px;top:60px;width:430px;height:840px;border-right:1px solid #eceff1}
+.tabsr{display:flex;border-bottom:1px solid #eceff1}.tabsr span{flex:1;padding:14px 16px;color:#5f6368}.tabsr .on{color:#0b57d0;border-bottom:3px solid #0b57d0;font-weight:700}
+.m{padding:10px 16px;border-bottom:1px solid #f1f3f4;display:grid;grid-template-columns:1fr auto;gap:2px 8px}.m.u b,.m.u .sub{font-weight:700}.m.sel{background:#c2e7ff55}.m .t{color:#5f6368;font-size:12px}.m .sub{grid-column:1/3}.m .pv{grid-column:1/3;color:#5f6368;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chipl{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;background:#e6f4ea;color:#137333;margin-left:6px}
+.read{position:absolute;left:660px;top:60px;width:620px;height:840px;padding:20px 26px}
+.read h2{font-size:22px;font-weight:400;margin-bottom:16px}.read .from{display:flex;gap:12px;align-items:center;margin-bottom:18px}.av{width:40px;height:40px;border-radius:50%;background:#e8710a;color:#fff;text-align:center;line-height:40px;font-weight:700}
+.read p{line-height:1.6;margin-bottom:12px;font-size:14px}
+.att{display:flex;gap:10px;margin:14px 0}.att div{width:160px;height:56px;border:1px solid #dadce0;border-radius:8px;padding:10px;font-size:12px}.att i{display:inline-block;width:18px;height:22px;background:#d93025;border-radius:2px;margin-right:8px;vertical-align:middle}
+.cw{position:absolute;left:820px;top:430px;width:440px;height:470px;background:#fff;border-radius:10px 10px 0 0;box-shadow:0 8px 28px rgba(0,0,0,.28);z-index:3}
+.cw .h{height:40px;line-height:40px;padding:0 14px;background:#f2f6fc;border-radius:10px 10px 0 0;font-weight:700;display:flex;justify-content:space-between}
+.cw .r{border-bottom:1px solid #eceff1;padding:9px 14px;color:#5f6368}.cw .r b{display:inline-block;background:#e8eaed;color:#202124;border-radius:12px;padding:2px 10px;font-weight:400}
+.cw .bd{padding:12px 14px;line-height:1.6;height:250px}
+.cw .ft{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:16px;color:#5f6368}.send{padding:10px 22px;border-radius:18px;background:#0b57d0;color:#fff;font-weight:700}
+</style></head><body>
+<div class="top" data-r="topbar"><b>✉ Postbox</b><span class="search">🔍 Search mail</span><span class="me">H</span></div>
+<div class="nav" data-r="folders"><span class="compose">✎ Compose</span><div class="on"><span>Inbox</span><span>12</span></div><div><span>Starred</span></div><div><span>Snoozed</span></div><div><span>Sent</span></div><div><span>Drafts</span><span>3</span></div><div><span>Spam</span></div><div class="lab">Labels</div><div><span><i class="dot" style="background:#34a853"></i>Clients</span></div><div><span><i class="dot" style="background:#fbbc04"></i>Invoices</span></div><div><span><i class="dot" style="background:#ea4335"></i>Urgent</span></div></div>
+<div class="list" data-r="message-list" data-must><div class="tabsr"><span class="on">Primary</span><span>Updates 4</span><span>Promotions</span></div>
+<div class="m u sel"><b>Priya Raman</b><span class="t">10:42</span><span class="sub">Q4 venue contract — final draft<span class="chipl">Clients</span></span><span class="pv">Attached the redlined version, two clauses left to agree on before Friday…</span></div>
+<div class="m u"><b>Stripe</b><span class="t">09:15</span><span class="sub">Your payout of $4,210.00 is on its way</span><span class="pv">Expected to arrive Oct 27. View the breakdown in your dashboard.</span></div>
+<div class="m"><b>Marco, Lena (3)</b><span class="t">Yesterday</span><span class="sub">Re: Photo selects for the lookbook</span><span class="pv">Love 4, 9 and 17. Can we retouch the sky on 9?</span></div>
+<div class="m u"><b>Linear</b><span class="t">Yesterday</span><span class="sub">3 issues assigned to you</span><span class="pv">ATL-330 Checkout button double-charges on slow 3G and 2 more</span></div>
+<div class="m"><b>Dad</b><span class="t">Oct 22</span><span class="sub">Sunday lunch?</span><span class="pv">Mum is making the lamb. Bring the kids if they're free.</span></div>
+<div class="m"><b>Notion</b><span class="t">Oct 21</span><span class="sub">Weekly digest</span><span class="pv">5 pages were edited in Field Ops this week.</span></div>
+<div class="m"><b>Accounts</b><span class="t">Oct 20</span><span class="sub">Invoice #2231 overdue<span class="chipl" style="background:#fef7e0;color:#b06000">Invoices</span></span><span class="pv">A reminder that invoice #2231 for $1,800 was due on Oct 15.</span></div>
+<div class="m"><b>Ana Torres</b><span class="t">Oct 19</span><span class="sub">Intro: you two should meet</span><span class="pv">Hanav, meet Joel — he runs the design studio I mentioned.</span></div></div>
+<div class="read" data-r="reading-pane" data-must><h2>Q4 venue contract — final draft</h2><div class="from"><span class="av">P</span><div><b>Priya Raman</b> &lt;priya@harbourhall.co&gt;<br><span style="color:#5f6368">to me · 10:42 (2 hours ago)</span></div></div>
+<p>Hi Hanav,</p><p>Attached the redlined version. Two clauses are still open: the cancellation window (we suggested 60 days, they want 90) and who covers AV overtime past 11pm.</p><p>If you're happy with 75 days as a middle ground I can send it back today.</p><div class="att"><div><i></i>Venue_contract_v4.pdf<br><span style="color:#5f6368">412 KB</span></div><div><i style="background:#188038"></i>Budget_Q4.xlsx<br><span style="color:#5f6368">88 KB</span></div></div></div>
+<div class="cw" data-r="compose-window" data-must><div class="h"><span>Re: Q4 venue contract</span><span>– ⤢ ✕</span></div><div class="r">To <b>Priya Raman</b></div><div class="r">Re: Q4 venue contract — final draft</div><div class="bd">75 days works for us. On AV overtime, let's split it 50/50 after 11pm and cap it at three hours.<br><br>Thanks for pushing this through!<br>H</div><div class="ft"><span class="send">Send ▾</span><span>A</span><span>📎</span><span>🔗</span><span>😊</span><span style="margin-left:150px">🗑</span></div></div>
+</body></html>

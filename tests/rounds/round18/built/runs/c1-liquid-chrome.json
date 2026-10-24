@@ -1,0 +1,500 @@
+{
+  "id": "c1-liquid-chrome",
+  "at": "2026-10-24T16:22:38.718Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.824988295999922,
+    "overallV2": 0.824988295999922,
+    "overallV1": 0.774724394043792,
+    "colour": 0.9012331408043559,
+    "structure": 0.7687256099438726,
+    "structureStrict": 0.6366220996676762,
+    "colourAligned": 0.9012331408043559,
+    "structureAligned": 0.7687256099438726,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7617036113304995
+    },
+    "layout": 0.8521853464514494,
+    "layoutV1": 0.8521853464514494,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      64,
+      47,
+      1113,
+      32
+    ],
+    [
+      1,
+      64,
+      53,
+      122,
+      20
+    ],
+    [
+      1,
+      513,
+      53,
+      232,
+      20
+    ],
+    [
+      3,
+      513,
+      53,
+      44,
+      20
+    ],
+    [
+      3,
+      565,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      578,
+      53,
+      52,
+      20
+    ],
+    [
+      3,
+      638,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      651,
+      53,
+      43,
+      20
+    ],
+    [
+      3,
+      701,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      714,
+      53,
+      32,
+      20
+    ],
+    [
+      1,
+      1073,
+      46,
+      104,
+      34
+    ],
+    [
+      0,
+      68,
+      130,
+      313,
+      20
+    ],
+    [
+      0,
+      60,
+      170,
+      656,
+      341
+    ],
+    [
+      13,
+      60,
+      170,
+      656,
+      171
+    ],
+    [
+      13,
+      60,
+      341,
+      656,
+      171
+    ],
+    [
+      0,
+      70,
+      560,
+      422,
+      58
+    ],
+    [
+      0,
+      70,
+      690,
+      303,
+      52
+    ],
+    [
+      0,
+      507,
+      7,
+      847,
+      847
+    ],
+    [
+      18,
+      588,
+      88,
+      683,
+      683
+    ],
+    [
+      0,
+      820,
+      300,
+      300,
+      380
+    ],
+    [
+      20,
+      776,
+      335,
+      349,
+      369
+    ],
+    [
+      20,
+      804,
+      313,
+      352,
+      368
+    ],
+    [
+      20,
+      833,
+      292,
+      356,
+      366
+    ],
+    [
+      23,
+      887,
+      344,
+      66,
+      22
+    ],
+    [
+      23,
+      880,
+      355,
+      113,
+      69
+    ],
+    [
+      23,
+      879,
+      405,
+      135,
+      24
+    ],
+    [
+      0,
+      1232,
+      4,
+      17,
+      892
+    ],
+    [
+      27,
+      1232,
+      4,
+      17,
+      892
+    ],
+    [
+      0,
+      64,
+      823,
+      1112,
+      27
+    ],
+    [
+      29,
+      89,
+      828,
+      461,
+      18
+    ],
+    [
+      30,
+      89,
+      828,
+      43,
+      18
+    ],
+    [
+      30,
+      156,
+      828,
+      86,
+      18
+    ],
+    [
+      30,
+      267,
+      828,
+      122,
+      18
+    ],
+    [
+      30,
+      413,
+      828,
+      137,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "3d",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "blur",
+      "glass",
+      "glow",
+      "vertical-type"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 58730,
+    "output": 42303,
+    "cacheRead": 266288
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 81924,
+      "output": 28348,
+      "cacheRead": 263204,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Grep",
+        "Read tailwindcss/theme.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 329894
+    }
+  ],
+  "reading": "A hero landing page: top nav bar (\"MERCURY/OS\", nav links, \"Get access\" button), a kicker line, a giant two-line chrome-gradient \"LIQUID METAL\" headline, a lavender paragraph plus a second supporting text block, a spinning conic-gradient ring layered behind a 3D stack of three info cards, a jagged accent line down the right edge, and a footer with version/code info — styling taken from the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        1113,
+        32
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Top navigation bar: brand wordmark \"MERCURY/OS\" on the left, nav links \"Engine · Shaders · Pricing · Docs\" in the middle, and a \"Get access\" button on the right"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        68,
+        247,
+        590,
+        16
+      ],
+      "paths": [],
+      "instruction": "Short eyebrow/kicker text line sitting above the big headline (wavy placeholder line); no typed copy was given for it, so use plausible short copy fitting the r"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        68,
+        418,
+        366,
+        17
+      ],
+      "paths": [],
+      "instruction": "Giant two-line headline \"LIQUID\" / \"METAL\" (keep exactly these line breaks, nowrap). Live text, Helvetica/Arial, font-weight 900, round-bowled (not condensed/di"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        560,
+        422,
+        57
+      ],
+      "paths": [],
+      "instruction": "Lavender-colored paragraph (two lines of body copy): \"A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.\" Text c"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        70,
+        690,
+        303,
+        51
+      ],
+      "paths": [],
+      "instruction": "Additional short block of supporting body text below the lavender paragraph (two wavy placeholder lines, no typed copy given); use plausible copy continuing the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        123,
+        614,
+        614
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Spinning 620px ring painted with one smooth conic gradient that blends around the circle: background: conic-gradient(from 40deg, rgb(255,61,129), rgb(122,92,255"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        303,
+        294,
+        373
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A stack of 3 separate cards turned in 3D (not one flat picture): a 300x380px box at 820,300 with perspective:900px, holding 3 absolutely positioned cards each 3"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1232,
+        4,
+        17,
+        892
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Decorative jagged/zigzag vertical accent line running the full height of the page along the right edge, reproducing the drawn wobble as a decorative border acce"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        823,
+        1112,
+        27
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Footer bar with a dark navy border, containing monospace 12px code-style lines: \"v4.2.0\", \"WebGPU ready\", \"MIT licensed core\", \"© 2026 Mercury Labs\". Text color"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

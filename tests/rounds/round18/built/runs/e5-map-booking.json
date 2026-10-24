@@ -1,0 +1,695 @@
+{
+  "id": "e5-map-booking",
+  "at": "2026-10-24T16:37:44.851Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7316389722885032,
+    "overallV2": 0.7316389722885032,
+    "overallV1": 0.7080560850367893,
+    "colour": 0.9692910490453491,
+    "structure": 0.8586814378409303,
+    "structureStrict": 0.8262092523154259,
+    "colourAligned": 0.9692910490453491,
+    "structureAligned": 0.8586814378409303,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.889977878897487
+    },
+    "layout": 0.6914516477199627,
+    "layoutV1": 0.6914516477199627,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      72
+    ],
+    [
+      1,
+      24,
+      19,
+      106,
+      33
+    ],
+    [
+      2,
+      24,
+      22,
+      106,
+      26
+    ],
+    [
+      1,
+      448,
+      12,
+      327,
+      48
+    ],
+    [
+      4,
+      465,
+      26,
+      41,
+      20
+    ],
+    [
+      4,
+      558,
+      26,
+      82,
+      20
+    ],
+    [
+      4,
+      692,
+      26,
+      66,
+      20
+    ],
+    [
+      1,
+      1095,
+      24,
+      98,
+      24
+    ],
+    [
+      8,
+      1095,
+      29,
+      98,
+      16
+    ],
+    [
+      1,
+      1207,
+      19,
+      49,
+      33
+    ],
+    [
+      10,
+      1218,
+      26,
+      27,
+      20
+    ],
+    [
+      0,
+      0,
+      72,
+      1006,
+      61
+    ],
+    [
+      12,
+      24,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      166,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      308,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      450,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      592,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      734,
+      85,
+      130,
+      35
+    ],
+    [
+      12,
+      876,
+      85,
+      130,
+      35
+    ],
+    [
+      0,
+      24,
+      154,
+      139,
+      23
+    ],
+    [
+      0,
+      24,
+      185,
+      316,
+      200
+    ],
+    [
+      0,
+      36,
+      197,
+      108,
+      22
+    ],
+    [
+      0,
+      302,
+      197,
+      26,
+      26
+    ],
+    [
+      23,
+      308,
+      203,
+      14,
+      14
+    ],
+    [
+      24,
+      309,
+      205,
+      12,
+      10
+    ],
+    [
+      0,
+      24,
+      395,
+      141,
+      21
+    ],
+    [
+      0,
+      294,
+      395,
+      49,
+      21
+    ],
+    [
+      0,
+      24,
+      412,
+      145,
+      20
+    ],
+    [
+      0,
+      24,
+      436,
+      107,
+      22
+    ],
+    [
+      29,
+      24,
+      438,
+      30,
+      20
+    ],
+    [
+      29,
+      60,
+      436,
+      34,
+      21
+    ],
+    [
+      29,
+      100,
+      438,
+      31,
+      20
+    ],
+    [
+      0,
+      360,
+      185,
+      316,
+      200
+    ],
+    [
+      0,
+      638,
+      197,
+      26,
+      26
+    ],
+    [
+      34,
+      644,
+      203,
+      14,
+      14
+    ],
+    [
+      35,
+      645,
+      205,
+      12,
+      10
+    ],
+    [
+      0,
+      360,
+      395,
+      135,
+      21
+    ],
+    [
+      0,
+      630,
+      395,
+      49,
+      21
+    ],
+    [
+      0,
+      360,
+      412,
+      149,
+      20
+    ],
+    [
+      0,
+      360,
+      436,
+      71,
+      22
+    ],
+    [
+      40,
+      360,
+      436,
+      34,
+      21
+    ],
+    [
+      40,
+      400,
+      438,
+      31,
+      20
+    ],
+    [
+      0,
+      24,
+      477,
+      316,
+      200
+    ],
+    [
+      0,
+      36,
+      489,
+      79,
+      22
+    ],
+    [
+      0,
+      302,
+      489,
+      26,
+      26
+    ],
+    [
+      45,
+      308,
+      495,
+      14,
+      14
+    ],
+    [
+      46,
+      309,
+      497,
+      12,
+      10
+    ],
+    [
+      0,
+      24,
+      687,
+      130,
+      21
+    ],
+    [
+      0,
+      294,
+      687,
+      45,
+      21
+    ],
+    [
+      0,
+      24,
+      704,
+      152,
+      20
+    ],
+    [
+      0,
+      24,
+      728,
+      65,
+      22
+    ],
+    [
+      51,
+      24,
+      728,
+      28,
+      21
+    ],
+    [
+      51,
+      58,
+      730,
+      31,
+      20
+    ],
+    [
+      0,
+      360,
+      477,
+      316,
+      200
+    ],
+    [
+      0,
+      638,
+      489,
+      26,
+      26
+    ],
+    [
+      55,
+      644,
+      495,
+      14,
+      14
+    ],
+    [
+      56,
+      645,
+      497,
+      12,
+      10
+    ],
+    [
+      0,
+      360,
+      687,
+      139,
+      21
+    ],
+    [
+      0,
+      630,
+      687,
+      48,
+      21
+    ],
+    [
+      0,
+      360,
+      704,
+      162,
+      20
+    ],
+    [
+      0,
+      360,
+      728,
+      71,
+      22
+    ],
+    [
+      61,
+      360,
+      728,
+      34,
+      21
+    ],
+    [
+      61,
+      400,
+      730,
+      31,
+      20
+    ],
+    [
+      0,
+      703,
+      139,
+      574,
+      757
+    ],
+    [
+      64,
+      1220,
+      156,
+      40,
+      82
+    ],
+    [
+      65,
+      1220,
+      156,
+      40,
+      41
+    ],
+    [
+      65,
+      1220,
+      197,
+      40,
+      41
+    ],
+    [
+      64,
+      950,
+      428,
+      59,
+      32
+    ],
+    [
+      64,
+      930,
+      466,
+      300,
+      160
+    ],
+    [
+      64,
+      1192,
+      476,
+      28,
+      28
+    ],
+    [
+      70,
+      1201,
+      480,
+      11,
+      20
+    ],
+    [
+      64,
+      944,
+      626,
+      38,
+      20
+    ],
+    [
+      64,
+      1140,
+      638,
+      78,
+      20
+    ],
+    [
+      64,
+      944,
+      640,
+      129,
+      20
+    ],
+    [
+      64,
+      944,
+      660,
+      215,
+      20
+    ],
+    [
+      64,
+      944,
+      679,
+      31,
+      20
+    ],
+    [
+      64,
+      1016,
+      679,
+      63,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 45249,
+    "output": 38315,
+    "cacheRead": 136859
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 64127,
+      "output": 25612,
+      "cacheRead": 133775,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 277937
+    }
+  ],
+  "reading": "The sketch lays out a full search-results page: a 72px top bar with logo, search pill, host link and menu pill; a filters row of 7 rounded buttons/dropdown with one selected; a left results grid of Lisbon listings with gradient photo placeholders, favourite badges, titles, ratings and prices; and a right-hand pale blue-grey panel holding a zoom-style +/− stepper and a featured listing card (photo, close button, rating, title, subtitle and pricing) with a separate near-black price pill.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        66
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top navigation bar 72px tall spanning the full page width at the very top, no fill (page colour), with a 1px #ebebeb line underneath it. Only these parts "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        75,
+        1273,
+        58
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Below the top bar, add a filters row: a dropdown \"Price: €80–€200\", and buttons \"Type of place\", \"Free cancellation\", \"Wifi\", \"Kitchen\", \"Self check-in\", \"⚙ Fil"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        139,
+        694,
+        758
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add the main listings content area (left column) as a results grid for a Lisbon search, built from real live-text elements, nothing invented beyond what's liste"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 6,
+          "fontPx": 27
+        }
+      ],
+      "region": [
+        703,
+        139,
+        574,
+        757
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s11",
+        "s12"
+      ],
+      "instruction": "Add the right-column panel (a pale blue-grey background container) holding a map/zoom-style stepper and a featured listing card. Top-right of the panel: a two-p"
+    }
+  ],
+  "rejected": []
+}

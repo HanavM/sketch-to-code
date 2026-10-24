@@ -214,6 +214,10 @@ export function factsInPage() {
         if (!a) return null
         let kf = ''
         for (const sh of document.styleSheets) for (const r of sh.cssRules) if (r.type === 7 && r.name === a) kf = r.cssText
+        // n178: a there-and-back loop (0%, 100% the same, 50% apart) bobs or wobbles, it does not scroll or spin
+        // (round 18 c3 bobbing map pin said "scrolling", c2 wobbling sticker would be "spinning")
+        const back = /0%,\s*100%\s*\{/.test(kf) && /\b50%\s*\{/.test(kf)
+        if (back) return /translate/.test(kf) ? 'gently bobbing up and down' : /rotate/.test(kf) ? 'wobbling back and forth' : /scale/.test(kf) ? 'pulsing' : 'moving'
         return /rotate/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
       })(),
       vertical: /^vertical/.test(cs.writingMode),
@@ -2180,6 +2184,23 @@ export function factsInPage() {
         towers: [...g.children].map((k) => ({ x: k.offsetLeft, y: k.offsetTop, w: k.offsetWidth, h: k.offsetHeight, lift: liftOf(k.children[0]), fill: rgba(getComputedStyle(k.children[0]).backgroundColor) })) }
       delete o.cube
     }
+    // n178: an isometric scene of extruded blocks, each a preserve-3d div holding 2-3 faces lifted or folded up by
+    // translateZ/rotateX/rotateY (round 18 c3: said as "a 3D cube" of seven #000000 faces all at 0,0, the faces'
+    // own colours, places, heights and folds unsaid, the plane's grid and rim lost; built a bare tilted plane)
+    const resolveVar = (k, v) => v && v.replace(/var\((--[\w-]+)\)/g, (_, n) => getComputedStyle(k).getPropertyValue(n).trim())
+    const tfOf = (k) => resolveVar(k, k.style.transform || ruleOf(k, 'transform'))
+    if (g && !o.iso) {
+      const kids = [...g.children]
+      const blocks = kids.filter((k) => getComputedStyle(k).transformStyle === 'preserve-3d' && k.children.length >= 2 && [...k.children].some((q) => /translateZ|rotate[XY]/.test(tfOf(q) ?? '')))
+      if (blocks.length >= 2) {
+        const box = (k) => ({ x: k.offsetLeft, y: k.offsetTop, w: k.offsetWidth, h: k.offsetHeight })
+        const gs = getComputedStyle(g)
+        o.isoBlocks = { ...box(g), turn: tfOf(g), fill: rgba(gs.backgroundColor), persp: [el, ...el.querySelectorAll('*')].map((k) => getComputedStyle(k).perspective).find((v) => v && v !== 'none') ?? null,
+          flat: kids.filter((k) => !blocks.includes(k)).map((k) => { const c = getComputedStyle(k); return { ...box(k), fill: rgba(c.backgroundColor), img: c.backgroundImage, size: c.backgroundSize, shadow: c.boxShadow } }),
+          blocks: blocks.map((k) => ({ ...box(k), faces: [...k.children].map((q) => { const c = getComputedStyle(q); return { ...box(q), fill: rgba(c.backgroundColor), tf: tfOf(q), origin: ruleOf(q, 'transform-origin') ?? c.transformOrigin } }) })) }
+        delete o.cube
+      }
+    }
     // n146: a blurred conic-gradient glow (round 12 c3 aurora: said as a 900px donut chart, built a teal box)
     const au = [el, ...el.querySelectorAll('*')].find((k) => { const c = getComputedStyle(k); return /conic-gradient/.test(c.backgroundImage) && +(c.filter.match(/blur\(([\d.]+)px\)/)?.[1] ?? 0) >= 20 })
     if (au) {
@@ -3105,6 +3126,13 @@ function round11Note(f) {
     const one = (q, i) => `card ${i + 1}: ${q.w}x${q.h}px at ${q.x},${q.y}${q.tf ? ` in the same row as the others, then raised ${q.lift}px by transform: ${q.tf} (so its top ends at ${q.y - q.lift}; raise it once only)` : ''}, holding a ${q.npx}px ${q.nw <= 300 ? 'thin ' : q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`
     const q = G[0]
     return { kind: 'box', note: `${G.length} SEPARATE frosted glass cards side by side (NOT plain stats on the page): each ${q.rad}px rounded, ${q.pad}px padding, see-through fill ${cssHex(`rgba(${q.fill.r}, ${q.fill.g}, ${q.fill.b}, ${q.fill.a})`)}, a ${q.bw}px ${cssHex(`rgba(${q.bc.r}, ${q.bc.g}, ${q.bc.b}, ${q.bc.a})`)} border, backdrop-filter: ${q.blur}; ${G.map(one).join('; ')}` }
+  }
+  const IB = f.isoBlocks
+  if (IB) {
+    const flat = (q) => `${q.w}x${q.h}px at ${q.x},${q.y} filled ${hexOf(q.fill)}${/gradient/.test(q.img ?? '') ? ` with background-image: ${cssHex(q.img)}; background-size: ${q.size} (thin grid lines both ways)` : ''}${q.shadow && q.shadow !== 'none' ? `, box-shadow: ${cssHex(q.shadow)} (a solid rim round it)` : ''}`
+    const lift = (b) => Math.max(0, ...b.faces.map((q) => +((q.tf ?? '').match(/translateZ\((-?[\d.]+)px\)/)?.[1] ?? 0)))
+    const face = (q, b) => `${q.w}x${q.h}px at ${q.x},${q.y} in the block, ${hexOf(q.fill)}, transform-origin: ${q.origin}, transform: ${q.tf ?? 'none'}`
+    return { kind: 'box', note: `an ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty: ONE ${IB.w}x${IB.h}px plane div with its top-left at ${IB.x},${IB.y} (position absolute), transform: ${IB.turn}; transform-style: preserve-3d${IB.persp ? `; perspective ${IB.persp} on its parent` : '; NO perspective anywhere (flat isometric, parallel edges)'}. Inside the plane, all absolutely placed in plane px (left, top, width, height): first the flat ground layers in this order: ${IB.flat.map(flat).join('; ')}. Then exactly ${IB.blocks.length} blocks, each a div at its own left/top in the plane with transform-style: preserve-3d and NO fill of its own, holding ${IB.blocks[0].faces.length} absolutely placed face divs (backface visible) that build the box: ${IB.blocks.map((b, i) => `block ${i + 1} (${b.w}x${b.h}px footprint at ${b.x},${b.y}, standing ${lift(b)}px tall): ${b.faces.map((q) => face(q, b)).join('; ')}`).join('. ')}` }
   }
   const C = f.cube
   if (C) {
