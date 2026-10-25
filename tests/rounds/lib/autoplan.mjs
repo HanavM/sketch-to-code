@@ -2260,7 +2260,7 @@ export function factsInPage() {
         const inl = [...g.children].filter((x) => !x.children.length && txt(x) && filled(x) && getComputedStyle(x).display === 'inline')
         return { t: txt(g), inl: inl.map((x) => ({ t: txt(x), fill: filled(x), ink: rgba(getComputedStyle(x).color) })), ink: rgba(gc.color), bold: Number(gc.fontWeight) >= 600, px: Math.round(parseFloat(gc.fontSize)) }
       }) : null
-      return { av: filled(av), round: parseFloat(getComputedStyle(av).borderTopLeftRadius) >= ab.width * 0.4, px: Math.round(ab.width), name: txt(name), time: txt(time), body: body.replace(/\s+/g, ' ').trim(), extra: extra.map((g) => ({ t: txt(g), chip: !!filled(g), ink: rgba(getComputedStyle(g).color) })), blocks }
+      return { top: Math.round(k.getBoundingClientRect().top), av: filled(av), round: parseFloat(getComputedStyle(av).borderTopLeftRadius) >= ab.width * 0.4, px: Math.round(ab.width), name: txt(name), time: txt(time), body: body.replace(/\s+/g, ' ').trim(), extra: extra.map((g) => ({ t: txt(g), chip: !!filled(g), ink: rgba(getComputedStyle(g).color) })), blocks }
     }
     // (2+ is enough: a thread pane holds two replies under its title)
     const mk = kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]') && msgOf(k))
@@ -2328,7 +2328,7 @@ export function factsInPage() {
       const dotOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); const r = parseFloat(getComputedStyle(d).borderTopLeftRadius); return filled(d) && b.width >= 6 && b.width <= 32 && Math.abs(b.width - b.height) <= 2 && r >= b.width * 0.4 && b.left < k.getBoundingClientRect().left + 40 ? filled(d) : null }
       const dots = rep.map(dotOf)
       // a square picture leading each item (an order line's product thumbnail, round 4 e3: dropped)
-      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4 } : null }
+      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4, rad: Math.round(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) } : null }
       // a toggle switch on the right of each row (round 5 e4: on/off states unsaid)
       const switchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !txt(g) && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.height / 2 - 1 }); return d ? filled(d) : null }
       const switches = rep.map(switchOf)
@@ -2380,6 +2380,9 @@ export function factsInPage() {
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
       // a filled lead button over the list (round 8 e1 '✎ Compose', lavender, was built white)
       const headLook = head && filled(head) ? (() => { const c = getComputedStyle(head); return { fill: filled(head), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(head.getBoundingClientRect().width), h: Math.round(head.getBoundingClientRect().height), bold: Number(c.fontWeight) >= 600 } })() : null
+      // n207: a list head that is its own strip with a rule under it (round 20 e2 thread panel 'Thread ✕': built as a
+      // 48px bar with the ✕ pushed to the far right)
+      const headBar = head && !filled(head) ? (() => { const c = getComputedStyle(head), b = head.getBoundingClientRect(); return parseFloat(c.borderBottomWidth) >= 1 && b.height >= 36 && b.height <= 90 ? { w: Math.round(b.width), h: Math.round(b.height), rule: rgba(c.borderBottomColor), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, padX: Math.round(parseFloat(c.paddingLeft) || 0) } : null })() : null
       const onInk = odd.length === 1 ? rgba(getComputedStyle(odd[0]).color) : null
       const onRad = odd.length === 1 ? Math.round(parseFloat(getComputedStyle(odd[0]).borderTopLeftRadius) || 0) : 0
       // n144: extras that sit BETWEEN the list's items (a file tree: retry.ts under '▾ src'; round 11 e1 built the files
@@ -2424,7 +2427,7 @@ export function factsInPage() {
         const sm = [...heroEl.querySelectorAll('small,p,span')].filter((g) => txt(g) && !g.contains(h)).map((g) => ({ t: txt(g), px: Math.round(parseFloat(getComputedStyle(g).fontSize)), ink: rgba(getComputedStyle(g).color), bold: Number(getComputedStyle(g).fontWeight) >= 600, above: g.getBoundingClientRect().top < h.getBoundingClientRect().top }))
         return { h: txt(h), px: Math.round(parseFloat(hc.fontSize)), weight: Number(hc.fontWeight), ink: rgba(hc.color), x: Math.round(h.getBoundingClientRect().left - ob.left), y: Math.round(hb.top - ob.top), hH: Math.round(hb.height), cover: cb ? { w: Math.round(cb.width), h: Math.round(cb.height), x: Math.round(cb.left - ob.left), y: Math.round(cb.top - ob.top), bg: cc.backgroundImage !== 'none' ? cc.backgroundImage : cc.backgroundColor, rad: cc.borderTopLeftRadius } : null, small: sm }
       })() : null
-      return { type: 'list', order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      return { type: 'list', order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
@@ -3090,7 +3093,10 @@ function denseNote(d) {
         const row = (m) => `${hexOf(m.av)} avatar, bold ${quote(m.name, 24)}, grey ${m.time}: ${m.blocks && m.blocks.length ? m.blocks.map(blk).join('; ') : quote(m.body, 110)}`
         const C = d.composer
         const hs = d.headParts ? d.headParts.map((x) => `${x.px}px ${x.bold ? 'bold ' : ''}${hexOf(x.ink)} ${quote(x.t, 40)}`).join(' then ') : d.head ? quote(d.head, 40) : null
-        return `${hs ? `a ${d.headH}px header row at the very top: ${hs}${d.headRule ? ', a thin line under it' : ''}; then ` : ''}${d.items.length} chat messages stacked top-down under it (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, name and time on one line, then its blocks in order: ${d.items.map((m, i) => `message ${i + 1}: ${row(m)}${(d.seps ?? []).filter((x) => x.after === i + 1).map((x) => `. Then a small grey divider ${quote(x.t, 30)}${x.rule ? ' with a thin line above it' : ''}`).join('')}`).join('. ')}${C ? `. At the BOTTOM of the panel (absolutely placed, NOT at the top): a message composer ${C.w}x${C.h}px at ${C.x},${C.y} in the panel, 1px ${hexOf(C.border)} border, ${C.rad}px rounded${C.bar ? `, a ${C.bar.h}px ${C.bar.fill ? `${hexOf(C.bar.fill)} ` : ''}format bar along its top with bold grey ${C.bar.items.map((t) => quote(t)).join(' ')}` : ''}${C.ph ? `, grey placeholder ${quote(C.ph, 40)} under it` : ''}${C.send ? `, a ${C.send.w}x${C.send.h}px ${hexOf(C.send.fill)} send button in its bottom-right corner` : ''}` : ''}`
+        // n207: each message says its top, so the stack keeps its tight spacing (round 20 e2: a re-run spread the messages
+        // ~20px further apart each)
+        const tops = (ms) => ms.length >= 2 && ms.every((m) => m.top != null) ? `(tight: each message starts at the page y given, NOT spread out further) ` : ''
+        return `${hs ? `a ${d.headH}px header row at the very top: ${hs}${d.headRule ? ', a thin line under it' : ''}; then ` : ''}${d.items.length} chat messages stacked top-down under it (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, name and time on one line, then its blocks in order: ${tops(d.items)}${d.items.map((m, i) => `message ${i + 1}${m.top != null ? ` (its top at page y ${m.top})` : ''}: ${row(m)}${(d.seps ?? []).filter((x) => x.after === i + 1).map((x) => `. Then a small grey divider ${quote(x.t, 30)}${x.rule ? ' with a thin line above it' : ''}`).join('')}`).join('. ')}${C ? `. At the BOTTOM of the panel (absolutely placed, NOT at the top): a message composer ${C.w}x${C.h}px at ${C.x},${C.y} in the panel, 1px ${hexOf(C.border)} border, ${C.rad}px rounded${C.bar ? `, a ${C.bar.h}px ${C.bar.fill ? `${hexOf(C.bar.fill)} ` : ''}format bar along its top with bold grey ${C.bar.items.map((t) => quote(t)).join(' ')}` : ''}${C.ph ? `, grey placeholder ${quote(C.ph, 40)} under it` : ''}${C.send ? `, a ${C.send.w}x${C.send.h}px ${hexOf(C.send.fill)} send button in its bottom-right corner` : ''}` : ''}`
       }
       return `${d.head ? `header ${quote(d.head, 30)}${d.headRule ? ' with a thin line under it' : ''}, then ` : ''}${d.items.length} chat messages stacked top-down (no bubbles), each a ${m0.px}px ${m0.round ? 'round' : 'rounded square'} avatar left, bold name then small grey time on one line, message text under: ${d.items.map(row).join('; ')}`
     }
@@ -3141,8 +3147,12 @@ function denseNote(d) {
         // text set at the right, the '6 replies' rule lost)
         const many = d.thumbs.every((x) => x.fill) && new Set(d.thumbs.map((x) => hexOf(x.fill))).size >= 2
         const mid = (i) => d.mids?.[i] ? `then a small ${hexOf(d.mids[i].ink)} divider ${quote(d.mids[i].t, 30)}${d.mids[i].rule ? ' centred between two thin grey rules across the panel' : ''}; ` : ''
-        const item = (p, i) => `${mid(i)}${many ? `${hexOf(d.thumbs[i].fill)} ${t.round ? 'round' : 'square'} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
-        return `${d.head ? `${quote(d.head, 20)} ` : ''}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${t.round ? 'round' : 'square'} thumbnail left${many ? ' (each its own colour)' : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
+        // n207: a square thumb with rounded corners says its rounding (round 20 e2 thread avatars 9px: built sharp)
+        const shape = t.round ? 'round' : t.rad >= 3 ? `${t.rad}px rounded square` : 'square'
+        const hb = d.headBar
+        const headStrip = d.head && hb ? `a ${hb.w}x${hb.h}px header strip across the panel's top (its own element, a 1px ${hexOf(hb.rule)} rule under it) holding ${hb.px}px ${hb.bold ? 'bold ' : ''}${quote(d.head, 20)} at its left (${hb.padX}px in), vertically centred, ONE text: its last sign sits right after the word, NOT pushed to the far right; then under the strip a ` : ''
+        const item = (p, i) => `${mid(i)}${many ? `${hexOf(d.thumbs[i].fill)} ${shape} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
+        return `${headStrip || (d.head ? `${quote(d.head, 20)} ` : '')}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${shape} thumbnail left${many ? ' (each its own colour)' : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
       }
       // links each with a small grey line under (round 6 e1 mega-menu columns: sublines said for one item only)
       if (d.stacked && d.items.length >= 2 && d.items.length <= 8 && d.items.every((p, i) => p.length === 2 && d.smalls?.[i] === p[1])) {
@@ -3404,8 +3414,26 @@ function partsNote(P, f) {
     return `${head}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
   const kfs = new Set()
-  const order = [...P].sort((a, b) => a.y - b.y || a.x - b.x)
-  const listed = order.map(one).join('; ')
+  // n207: a filled block whose own words follow a bold title held inside it (round 20 e1 events: '<b>Standup</b>9:00 –
+  // 9:45' said as the block with the time plus a loose title part, built with the title under the time) is said as ONE
+  // block with its two lines in order
+  const overOf = new Map(), absorbed = new Set()
+  for (const q of P) {
+    if (!q.t || !(q.fill || q.border) || q.pre || q.tpath) continue
+    const b = P.find((r) => r !== q && !absorbed.has(r) && r.t && r.bold && !r.fill && !r.border && r.x >= q.x - 1 && r.y >= q.y - 1 && r.x + r.w <= q.x + q.w + 1 && r.y + r.h <= q.y + q.h + 1 && r.y <= q.y + 12)
+    if (b && !overOf.has(q)) { overOf.set(q, b); absorbed.add(b) }
+  }
+  const one1 = one
+  const oneM = (p) => {
+    const b = overOf.get(p)
+    if (!b) return one1(p)
+    const s0 = one1(p), i = s0.lastIndexOf(`"${p.t}"`)
+    const lead = `ONE block, its words on two lines top to bottom: FIRST ${b.px}px bold ${hx(b.ink)} "${b.t}" (its own display-block line, at the top), THEN under it`
+    const k = s0.lastIndexOf(': ', i)
+    return k >= 0 ? `${s0.slice(0, k)}: ${lead} ${s0.slice(k + 2)}` : `${s0} (${lead} the text)`
+  }
+  const order = [...P].filter((p) => !absorbed.has(p)).sort((a, b) => a.y - b.y || a.x - b.x)
+  const listed = order.map(oneM).join('; ')
   const keys = [...kfs].filter(Boolean)
   // n206: a wide one-band row of worded parts (a calendar's day heads, round 20 e1) is said as ONE header row, or the
   // parts were built loose and the header region was missed
@@ -3413,7 +3441,7 @@ function partsNote(P, f) {
   const cols = new Set(P.map((p) => Math.round((p.x + p.w / 2) / 12))).size
   const band = P.length >= 6 && P.every((p) => p.t && !p.tpath && !(Math.abs(p.rot ?? 0) >= 2)) && by1 - by0 <= 60 && bx1 - bx0 >= 600 && cols >= 4 && (() => { const ws = P.filter((p) => p.w > 40).map((p) => p.w); return ws.length >= P.length - 2 && Math.max(...ws) - Math.min(...ws) <= 4 })()
     ? `ONE header row: a single ${bx1 - bx0}x${by1 - by0}px band element at ${bx0},${by0} holding all ${P.length} parts (${cols} equal columns side by side, each column's parts stacked in it), NOT loose parts scattered over the page; ` : ''
-  return `${band}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
+  return `${band}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${order.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -5550,16 +5578,23 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const d = out.get(f.role), R = f.rect
     if (!d?.kind || !d.note || f.regionKids.length || f.codeLines) return
     const W = Math.round(R.w), H = Math.round(R.h), X = Math.round(R.x), Y = Math.round(R.y)
-    if (d.note.includes(`${W}x${H}`) || /^(the region (itself )?is|ONE |an invisible frame|a \d+x\d+px)/.test(d.note) || /top bar \d+px tall/.test(d.note)) return
-    const bar = W >= 0.9 * 1280 && H >= 40 && H <= 100 && Y <= 2
-    const column = H >= 300 && W >= 160 && W <= 0.6 * 1280 && Y >= 40 && ((Y + H >= 0.95 * 900 && Y <= 140) || X <= 2) && (f.parts ?? []).filter((p) => p.t).length >= 3
-    if (!bar && !column) return
+    if (d.note.includes(`${W}x${H}`) || /^(the region (itself )?is|ONE |an invisible frame|a \d+x\d+px(?! header strip))/.test(d.note) || /top bar \d+px tall/.test(d.note)) return
     const B = f.border ?? {}, filled = visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8
+    // n207: a pane's own header bar (not page-wide) with a rule under it only (round 20 e2 channel header 582x60: built
+    // 48px tall with its words at the very top)
+    const paneBar = W >= 300 && H >= 40 && H <= 100 && Y <= 2 && B.bottom >= 1 && visible(B.bottomColour) && !(B.right >= 1) && !(B.left >= 1)
+    const bar = (W >= 0.9 * 1280 || paneBar) && H >= 40 && H <= 100 && Y <= 2
+    // n207: a full-height column at the page's right or left edge from the very top (round 20 e2 thread panel: its left
+    // rule and tint lost)
+    const edgeCol = Y <= 2 && Y + H >= 0.95 * 900 && (X <= 2 || X + W >= 1278)
+    const column = H >= 300 && W >= 160 && W <= 0.6 * 1280 && (edgeCol || (Y >= 40 && ((Y + H >= 0.95 * 900 && Y <= 140) || X <= 2))) && ((f.parts ?? []).filter((p) => p.t).length >= 3 || (edgeCol && (f.text ?? '').length >= 20))
+    if (!bar && !column) return
+    const tint = !filled && visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 1
     if (B.w >= 1 && visible(B.colour)) return
     const rules = [['BOTTOM', B.bottom, B.bottomColour], ['RIGHT', B.right, B.rightColour], ['LEFT', B.left, B.leftColour]].filter(([, w, c]) => w >= 1 && visible(c))
     if (rules.length > 1) return
     const rule = rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, no other border)` : ''
-    d.note = `the region itself is ONE ${W}x${H}px ${bar ? 'top bar' : 'column'} element at ${X},${Y} (its own wrapper, ${filled ? `${hexOf(f.bg)} fill` : 'no fill'}${rule}${column && Y + H >= 895 ? ', running to the page bottom' : ''}) that holds all of these parts inside it, never laid loose on the page; ${d.note}`
+    d.note = `the region itself is ONE ${W}x${H}px ${bar ? 'top bar' : 'column'} element at ${X},${Y} (its own wrapper, ${filled ? `${hexOf(f.bg)} fill` : tint ? `${hexOf(f.bg)} fill (a barely-there off-white tint, exactly that hex)` : 'no fill'}${rule}${column && Y + H >= 895 ? ', running to the page bottom' : ''}${paneBar ? `, exactly ${H}px tall (its parts vertically centred in it: align-items center)` : ''}) that holds all of these parts inside it, never laid loose on the page; ${d.note}`
   })
   // n199: a region's own leading part (a button above its sub-regions) says its look, place and that it comes FIRST
   regions.forEach((f) => {
@@ -5572,7 +5607,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const B = f.border ?? {}
     const rules = [['RIGHT', B.right, B.rightColour], ['LEFT', B.left, B.leftColour]].filter(([, w, c]) => w >= 1 && visible(c))
     const col = H >= 300 && W >= 160 && W <= 0.6 * 1280 && (X <= 2 || X + W >= 1278) && Y + H >= 0.95 * 900 && !(B.w >= 1 && visible(B.colour)) && rules.length <= 1
-    const wrap = col ? `the region itself is ONE ${W}x${H}px side column element at ${X},${Y} (its own wrapper running to the page bottom, ${visible(f.bg) && f.bg.a > 0.9 ? `${hexOf(f.bg)} fill` : 'no fill'}${rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, full height)` : ''}) holding the button and ${f.regionKids.map((r) => `the ${r}`).join(' and ')} inside it, never laid loose on the page; ` : ''
+    const wrap = col ? `the region itself is ONE ${W}x${H}px side column element at ${X},${Y} (its own wrapper running to the page bottom, ${visible(f.bg) && f.bg.a > 0.9 ? `${hexOf(f.bg)} fill` : 'no fill'}${rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, full height)` : ''}) holding the button and ${f.regionKids.map((r) => `the ${r}`).join(' and ')} inside it, never laid loose on the page${(() => { const ks = f.regionKids.map((r) => regions.find((g) => g.role === r)).filter(Boolean); return ks.length ? `; inside it, top to bottom in the normal flow, each at its own height from the column's top (NOT pushed to the column's bottom, no margin-top auto, no justify-content space-between): ${ks.map((g) => `the ${g.role} starting at y ${Math.round(g.rect.y)}`).join(', then ')}, and empty column below the last one` : '' })()}; ` : ''
     d.note = `${wrap}FIRST, at the very top of this region (above ${f.regionKids.map((r) => `the ${r}`).join(' and ')}): ${fl ? `a ${hexOf(L.fill)} filled ` : 'a '}${L.w}x${L.h}px ${L.radius ? `${L.radius}px rounded ` : ''}button at ${L.x},${L.y}${L.shadow ? ' with a soft shadow' : ''}, ${L.px}px ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text ${quote(L.t)}; the other parts follow under it`
   })
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]

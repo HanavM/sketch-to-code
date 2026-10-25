@@ -217,7 +217,7 @@
    ],
    [
     "header",
-    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; frosted glass bar 68px tall across the top, thin line under: bold 18px \"Layer\" left, \"Product · Customers · Pricing · Log in\" right"
+    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border), exactly 68px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; frosted glass bar 68px tall across the top, thin line under: bold 18px \"Layer\" left, \"Product · Customers · Pricing · Log in\" right"
    ],
    [
     "headline",
@@ -517,7 +517,7 @@
   "notes": [
    [
     "sidebar",
-    "dark navy (exactly #111827) bar, light grey text \"Pulse\" list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" highlighted (#374151 rounded fill, #ffffff text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top; each word in its own colour: \"Pulse\" #ffffff, \"Usage\" #ffffff, \"Retention\" #d1d5db, \"Funnels\" #d1d5db, \"Users\" #d1d5db, \"Settings\" #d1d5db"
+    "the region itself is ONE 220x900px column element at 0,0 (its own wrapper, #111827 fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark navy (exactly #111827) bar, light grey text \"Pulse\" list: \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" highlighted (#374151 rounded fill, #ffffff text); list rows exactly 34px apart (34px tall, 14px type: tight, not roomier), first line 24px below the panel's top; each word in its own colour: \"Pulse\" #ffffff, \"Usage\" #ffffff, \"Retention\" #d1d5db, \"Funnels\" #d1d5db, \"Users\" #d1d5db, \"Settings\" #d1d5db"
    ],
    [
     "title",
@@ -583,7 +583,7 @@
    ],
    [
     "thread",
-    "pale grey, header \"Thread\" with a thin line under it, then 2 chat messages stacked top-down (no bubbles), each a 38px rounded square avatar left, bold name then small grey time on one line, message text under: green avatar, \"Tom Becker\" 10:05: \"Dark one reads better on mobile too.\"; amber avatar, \"Priya Shah\" 10:07: \"Agreed, shipping it Friday.\""
+    "the region itself is ONE 400x900px column element at 880,0 (its own wrapper, #f9fafb fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; pale grey, header \"Thread\" with a thin line under it, then 2 chat messages stacked top-down (no bubbles), each a 38px rounded square avatar left, bold name then small grey time on one line, message text under: green avatar, \"Tom Becker\" 10:05: \"Dark one reads better on mobile too.\"; amber avatar, \"Priya Shah\" 10:07: \"Agreed, shipping it Friday.\""
    ]
   ]
  },

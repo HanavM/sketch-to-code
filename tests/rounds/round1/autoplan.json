@@ -95,7 +95,7 @@
    ],
    [
     "nav",
-    "the region itself is ONE 1280x77px top bar element at 0,0 (its own wrapper, no fill, a 6px #000000 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; nav bar 77px tall across the top, thick line under: \"LOUD®\" left, \"INDEX — SHOP — ABOUT\" right"
+    "the region itself is ONE 1280x77px top bar element at 0,0 (its own wrapper, no fill, a 6px #000000 rule along its BOTTOM edge only (border-bottom, no other border), exactly 77px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; nav bar 77px tall across the top, thick line under: \"LOUD®\" left, \"INDEX — SHOP — ABOUT\" right"
    ],
    [
     "headline",
@@ -459,7 +459,7 @@
   "notes": [
    [
     "nav",
-    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
+    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border), exactly 68px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
    ],
    [
     "title",
@@ -579,7 +579,7 @@
    ],
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: \"Acme\" #ffffff, \"Overview\" #ffffff, \"Customers\" #cbd5e1, \"Invoices\" #cbd5e1, \"Settings\" #cbd5e1"
+    "the region itself is ONE 240x900px column element at 0,0 (its own wrapper, #0f172a fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: \"Acme\" #ffffff, \"Overview\" #ffffff, \"Customers\" #cbd5e1, \"Invoices\" #cbd5e1, \"Settings\" #cbd5e1"
    ],
    [
     "title",

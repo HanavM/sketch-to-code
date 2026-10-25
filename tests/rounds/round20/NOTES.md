@@ -200,3 +200,23 @@ small floating buttons in rounds 3-7, 11, 13, 16, 17). No marks changed.
 Round 20 stays **90%**. Vitest same 2 env failures (1456 tests); typecheck clean.
 Next: say where the calendar list sits inside the side column (its y, not flowing to the bottom) and that an event's
 title comes before its time; e2 team chat 84.
+
+## n207: a pane's own header bar and edge column, a list head strip, an event's title before its time, the calendar list's place (2026-10-25, ~238k billed)
+
+Planner (words only): a pane's top bar that is not page-wide but has a rule under it only (round 20 e2 channel header,
+582x60) now says it is ONE bar of that exact height with its parts vertically centred (built 48px with the words at the
+very top); a full-height column at the page's edge from the very top (e2 thread panel) says its own wrapper, its exact
+off-white tint and its left rule; a list head that is its own strip with a rule under it says that strip ("Thread ✕"
+built with the ✕ at the far right); a rounded-square thumbnail says its rounding (built sharp); a filled block whose own
+words follow a bold title inside it is said as ONE block with the title FIRST (e1 events built time-over-title); a side
+column holding sub-regions says each one's starting height (e1 calendar list fell to the column's bottom); chat messages
+say their own tops (a re-run spread them out). Re-planned all rounds: ~68 notes in rounds 1-20 gain these words; no marks
+changed.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e2 team chat | 84% | **85%** | header bar 60px with its rule, thread panel tinted with its strip and rounded avatars (layout 77 to 93); a first try at 82% spread the messages out, fixed by saying their tops |
+| e1 week calendar | 88% | **89%** | calendar list back under the mini-month, every event title above its time (layout 92) |
+
+Round 20: **91%** (was 90). Vitest same 2 env failures; typecheck clean.
+Next: round 20 sits at 91 with every page 85+; time for round 21 (harder pages), or e2's sketchy rail edges and tinted messages pane.

@@ -555,7 +555,7 @@
    ],
    [
     "chat-panel",
-    "white block, near-black text \"In-call messages\" list of 4 rows, name left and time right on one line, grey line under: \"Jon Kim\" 10:02 \"Can we see the mobile nav\"…, \"Priya Shah\" 10:04 \"Dropping the Figma link here\", \"Maya Alvarez\" 10:05 \"Sharing now, one sec\", \"Leo Tan\" 10:07 \"+1 to the darker footer\"; its text #18181b (near-black, NOT the page's white text)"
+    "the region itself is ONE 332x900px column element at 948,0 (its own wrapper, #ffffff fill, a 1px #e4e4e7 rule along its LEFT edge only (border-left, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white block, near-black text \"In-call messages\" list of 4 rows, name left and time right on one line, grey line under: \"Jon Kim\" 10:02 \"Can we see the mobile nav\"…, \"Priya Shah\" 10:04 \"Dropping the Figma link here\", \"Maya Alvarez\" 10:05 \"Sharing now, one sec\", \"Leo Tan\" 10:07 \"+1 to the darker footer\"; its text #18181b (near-black, NOT the page's white text)"
    ]
   ]
  },

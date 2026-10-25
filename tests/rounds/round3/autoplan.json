@@ -633,11 +633,11 @@
   "notes": [
    [
     "sidebar",
-    "dark navy (exactly #0f172a) sidebar, light grey text \"Messages\", then 5 links stacked, each a name with a small grey line under it: \"Design team\" / \"Mia: shipping the new icons\" (highlighted); \"Jonas Berg\" / \"See you at 3?\"; \"Support rota\" / \"Ali: I can cover Friday\"; \"Lena Ito\" / \"Thanks! 🙏\"; \"Releases\" / \"v4.2 is live\"; its text #e2e8f0 (light grey, NOT the page's dark navy text)"
+    "the region itself is ONE 320x900px column element at 0,0 (its own wrapper, #0f172a fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark navy (exactly #0f172a) sidebar, light grey text \"Messages\", then 5 links stacked, each a name with a small grey line under it: \"Design team\" / \"Mia: shipping the new icons\" (highlighted); \"Jonas Berg\" / \"See you at 3?\"; \"Support rota\" / \"Ali: I can cover Friday\"; \"Lena Ito\" / \"Thanks! 🙏\"; \"Releases\" / \"v4.2 is live\"; its text #e2e8f0 (light grey, NOT the page's dark navy text)"
    ],
    [
     "header",
-    "17px \"Design team\"; set BOLD (font-weight 700), NOT regular"
+    "the region itself is ONE 960x72px top bar element at 320,0 (its own wrapper, no fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border), exactly 72px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; 17px \"Design team\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "thread",

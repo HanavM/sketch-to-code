@@ -569,7 +569,7 @@
   "notes": [
    [
     "sidebar",
-    "white panel \"Fieldnote\" a tree list, these 10 lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"ACCOUNT\", \"Profile\", \"Notifications\", \"WORKSPACE\", \"General\", \"Members\" (row highlighted #ede9fe), \"Billing\", \"Integrations\", \"Security\", \"API keys\"; rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #fafafa fill from the very top to the very bottom of the page at the left edge, 240px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e4e4e7 line down its right side; the brand \"Fieldnote\" has a small 28x28px logo square right before it on the same line (at 20,20), 8px rounded, painted linear-gradient(135deg, #7c3aed, #db2777)"
+    "the region itself is ONE 240x900px column element at 0,0 (its own wrapper, #fafafa fill, a 1px #e4e4e7 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white panel \"Fieldnote\" a tree list, these 10 lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"ACCOUNT\", \"Profile\", \"Notifications\", \"WORKSPACE\", \"General\", \"Members\" (row highlighted #ede9fe), \"Billing\", \"Integrations\", \"Security\", \"API keys\"; rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #fafafa fill from the very top to the very bottom of the page at the left edge, 240px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e4e4e7 line down its right side; the brand \"Fieldnote\" has a small 28x28px logo square right before it on the same line (at 20,20), 8px rounded, painted linear-gradient(135deg, #7c3aed, #db2777)"
    ],
    [
     "main",
@@ -635,11 +635,11 @@
    ],
    [
     "sidebar",
-    "white panel \"☁ Stash\" \"＋ New\" list: \"Home\", \"My files\", \"Shared with me\", \"Recent\", \"Starred\", \"Trash\"; \"My files\" highlighted (#e8efff rounded fill, #2563eb text), dark navy (#1f2430) \"Storage 74 GB of 100 GB used\" (pinned to the card's bottom: its bottom edge 24px above the card's bottom edge, 188px wide, centred; empty space above it); list rows exactly 33px apart (33px tall, 13px type: tight, not roomier), first line 18px below the panel's top; this panel is FLAT: #ffffff fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e6e8ee line down its right side"
+    "the region itself is ONE 220x900px column element at 0,0 (its own wrapper, #ffffff fill, a 1px #e6e8ee rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white panel \"☁ Stash\" \"＋ New\" list: \"Home\", \"My files\", \"Shared with me\", \"Recent\", \"Starred\", \"Trash\"; \"My files\" highlighted (#e8efff rounded fill, #2563eb text), dark navy (#1f2430) \"Storage 74 GB of 100 GB used\" (pinned to the card's bottom: its bottom edge 24px above the card's bottom edge, 188px wide, centred; empty space above it); list rows exactly 33px apart (33px tall, 13px type: tight, not roomier), first line 18px below the panel's top; this panel is FLAT: #ffffff fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e6e8ee line down its right side"
    ],
    [
     "topbar",
-    "white card \"My files › Clients › Harbour Hall\", lines \"🔍 Search files\", \"▦ ☰\""
+    "the region itself is ONE 1060x64px top bar element at 220,0 (its own wrapper, #ffffff fill, a 1px #e6e8ee rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; white card \"My files › Clients › Harbour Hall\", lines \"🔍 Search files\", \"▦ ☰\""
    ],
    [
     "section-title",

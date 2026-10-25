@@ -723,7 +723,7 @@
    ],
    [
     "topbar",
-    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white (exactly #ffffff) bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill, a 36x29px fully rounded pill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Sprint 42\" at 24, \"Search cards…\" at 141, \"All\" at 437, \"Mine\" at 489, \"Bugs\" at 556, \"Blocked\" at 623; \"Search cards…\" is an outlined search field 280px wide, grey placeholder; each word in its own colour: \"Sprint 42\" #0f172a, \"Search cards…\" #94a3b8, \"All\" #ffffff, \"Mine\" #0f172a, \"Bugs\" #0f172a, \"Blocked\" #0f172a"
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border), exactly 56px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; white (exactly #ffffff) bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill, a 36x29px fully rounded pill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Sprint 42\" at 24, \"Search cards…\" at 141, \"All\" at 437, \"Mine\" at 489, \"Bugs\" at 556, \"Blocked\" at 623; \"Search cards…\" is an outlined search field 280px wide, grey placeholder; each word in its own colour: \"Sprint 42\" #0f172a, \"Search cards…\" #94a3b8, \"All\" #ffffff, \"Mine\" #0f172a, \"Bugs\" #0f172a, \"Blocked\" #0f172a"
    ],
    [
     "head-todo",
@@ -1053,7 +1053,7 @@
   "notes": [
    [
     "nav",
-    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; bar 60px tall across the top, thin line under: bold 20px wide-spaced \"NORDLY\" left, \"Women · Men · Sale · Bag (2)\" right"
+    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border), exactly 60px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; bar 60px tall across the top, thin line under: bold 20px wide-spaced \"NORDLY\" left, \"Women · Men · Sale · Bag (2)\" right"
    ],
    [
     "breadcrumb",
