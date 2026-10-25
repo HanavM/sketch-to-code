@@ -1,0 +1,392 @@
+{
+  "id": "c2-type-sculpture",
+  "at": "2026-10-24T23:17:39.581Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6315514992603789,
+    "overallV2": 0.6253431958270598,
+    "overallV1": 0.5473995407335864,
+    "colour": 0.907983476314298,
+    "structure": 0.7120659390851651,
+    "structureStrict": 0.5767991633730881,
+    "colourAligned": 0.907983476314298,
+    "structureAligned": 0.7228400962254762,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.6535587103798339
+    },
+    "layout": 0.6639401614854044,
+    "layoutV1": 0.6639401614854044,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      48,
+      14,
+      650,
+      276
+    ],
+    [
+      0,
+      308,
+      234,
+      563,
+      252
+    ],
+    [
+      0,
+      528,
+      434,
+      573,
+      276
+    ],
+    [
+      0,
+      1150,
+      90,
+      92,
+      541
+    ],
+    [
+      0,
+      -100,
+      543,
+      1497,
+      205
+    ],
+    [
+      5,
+      -435,
+      -11,
+      7109,
+      788
+    ],
+    [
+      6,
+      -435,
+      362,
+      3557,
+      415
+    ],
+    [
+      6,
+      3117,
+      -11,
+      3557,
+      415
+    ],
+    [
+      0,
+      94,
+      524,
+      170,
+      170
+    ],
+    [
+      9,
+      60,
+      490,
+      239,
+      239
+    ],
+    [
+      10,
+      54,
+      477,
+      252,
+      253
+    ],
+    [
+      11,
+      54,
+      477,
+      252,
+      253
+    ],
+    [
+      9,
+      161,
+      591,
+      36,
+      36
+    ],
+    [
+      0,
+      60,
+      830,
+      186,
+      20
+    ],
+    [
+      0,
+      601,
+      830,
+      186,
+      20
+    ],
+    [
+      0,
+      1142,
+      830,
+      78,
+      20
+    ],
+    [
+      0,
+      470,
+      150,
+      520,
+      520
+    ],
+    [
+      17,
+      471,
+      150,
+      519,
+      519
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8461538461538461,
+    "kept": [
+      "gradient-text",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display",
+      "vertical-type"
+    ],
+    "missing": [
+      "bleed",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48160,
+    "output": 33445,
+    "cacheRead": 597472
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49234,
+      "output": 19757,
+      "cacheRead": 337662,
+      "toolCalls": 12,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx"
+      ],
+      "ms": 203520
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 11275,
+      "output": 4582,
+      "cacheRead": 248717,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 48519
+    }
+  ],
+  "reading": "The sketch lays out a large type-foundry hero: a huge glossy sphere overlapping three giant text lines (\"FORM\", \"follows\", \"TYPE\"), a vertical sideways label on the right, a scrolling marquee strip with a small dot, a spinning badge-ring circle at bottom left, and a thin footer row of three text items, all on a warm paper page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        474,
+        154,
+        512,
+        513
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffb38a 0%, #ff4f2e 45%, #5a0f2a 100%) so it looks lit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 234
+        }
+      ],
+      "region": [
+        48,
+        11,
+        581,
+        281
+      ],
+      "paths": [],
+      "instruction": "Giant heavy uppercase tight-set live text \"FORM\": font-family Impact, Haettenschweiler, sans-serif; font-weight 900; round-bowled, NOT a squared/condensed/displ"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 224
+        }
+      ],
+      "region": [
+        308,
+        225,
+        509,
+        269
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif, thin hairline-weight, tight-set, hollow-outlined near-black live text \"follows\", 210px type, about 565px wide max."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 253
+        }
+      ],
+      "region": [
+        528,
+        420,
+        512,
+        304
+      ],
+      "paths": [],
+      "instruction": "Giant heavy uppercase tight-set live text \"TYPE\": font-family Impact, sans-serif; font-weight 900; round-bowled, NOT squared/condensed/display; vivid indigo #23"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1158,
+        328,
+        83,
+        64
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Vertical sideways live text, writing-mode vertical-rl turned 180deg so it reads bottom to top, 92px letters on one nowrap line, column 92px wide at x 1150, 541p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        625,
+        1277,
+        214
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A scrolling marquee strip: tilted 6° anticlockwise, bleeding off both page edges (1500px-wide line, position absolute, left -100px, top 700px before the tilt, s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        94,
+        524,
+        161,
+        161
+      ],
+      "paths": [
+        "s6",
+        "s7"
+      ],
+      "instruction": "A spinning ring badge: small spaced capital letters \"FOUNDRY ✦ NEW RELEASE ✦ 2026 ✦\" running around a 170px circle path, the circle itself has no outline and no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        161,
+        591,
+        28,
+        28
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A small 36x36px vivid red-orange dot (border-radius 50%, not smaller), sitting at the center of the spinning ring badge / along the marquee strip."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        833,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Footer row with three separate live-text elements, each kept on one line (white-space: nowrap, min-width not fixed): a 186x15 block at 60,830, 13px mono #141414"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

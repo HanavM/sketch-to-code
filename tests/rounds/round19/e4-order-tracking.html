@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Order tracking</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#191919;font-size:14px}
+@keyframes ping{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.2);opacity:0}}
+.map{position:absolute;left:0;top:0;width:760px;height:900px;background:#e8eee4;overflow:hidden}
+.map svg{position:absolute;left:0;top:0}
+.ping{position:absolute;left:378px;top:438px;width:44px;height:44px;border-radius:50%;background:rgba(0,170,110,.4);animation:ping 1.8s ease-out infinite}
+.rider{position:absolute;left:386px;top:446px;width:28px;height:28px;border-radius:50%;background:#00aa6e;border:4px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.pin{position:absolute;width:40px;height:40px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:4px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.eta{position:absolute;left:24px;top:24px;background:#fff;border-radius:14px;padding:14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.15)}.eta b{font-size:26px;display:block}
+.panel{position:absolute;left:760px;top:0;width:520px;height:900px;padding:28px 32px;border-left:1px solid #ececec}
+.st{color:#00aa6e;font-weight:700;font-size:13px;letter-spacing:1px}h1{font-size:28px;margin:6px 0 20px}
+.tl{position:relative;padding-left:30px;margin-bottom:24px}.tl::before{content:"";position:absolute;left:8px;top:6px;width:3px;height:170px;background:linear-gradient(#00aa6e 0 66%,#ddd 66%)}
+.tl div{position:relative;margin-bottom:20px}.tl div::before{content:"";position:absolute;left:-28px;top:2px;width:14px;height:14px;border-radius:50%;background:#00aa6e;border:3px solid #d8f5ea}.tl .n::before{background:#fff;border-color:#ddd}.tl small{display:block;color:#888;margin-top:2px}
+.rc{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid #ececec;border-radius:14px;margin-bottom:22px}.rc .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ffb36b,#e05a2a)}.rc .bt{margin-left:auto;display:flex;gap:8px}.rc .bt span{width:42px;height:42px;border-radius:50%;background:#f1f1f1;text-align:center;line-height:42px;font-size:18px}
+.it{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f3f3f3}.it span:first-child b{display:inline-block;width:26px;color:#00aa6e}
+.tot{display:flex;justify-content:space-between;font-weight:700;font-size:17px;margin-top:12px}
+.help{position:absolute;left:32px;bottom:28px;width:456px;display:flex;gap:10px}.help span{flex:1;height:48px;border-radius:12px;line-height:48px;text-align:center;font-weight:700;border:1px solid #191919}.help .p{background:#191919;color:#fff}
+</style></head><body>
+<div class="map" data-r="map" data-must><svg width="760" height="900" viewBox="0 0 760 900"><rect x="480" y="0" width="280" height="260" fill="#cfe3c4"/><path d="M0 640 C200 600 300 720 760 680 L760 900 L0 900 Z" fill="#b9d7ee"/><g stroke="#fff" stroke-width="18" fill="none"><path d="M0 300 H760"/><path d="M240 0 V900"/><path d="M560 0 V640"/><path d="M0 120 L760 520"/></g><g stroke="#fff" stroke-width="8" fill="none"><path d="M0 420 H760"/><path d="M400 0 V600"/><path d="M120 0 V640"/></g><path d="M240 160 V300 H400 V460 H560 V560" stroke="#00aa6e" stroke-width="7" fill="none" stroke-dasharray="2 0"/><path d="M400 460 H560 V560" stroke="#191919" stroke-width="7" fill="none" stroke-dasharray="10 8"/></svg>
+<div class="pin" style="left:220px;top:118px;background:#e05a2a" data-r="shop-pin"></div><div class="pin" style="left:540px;top:520px;background:#191919" data-r="home-pin"></div>
+<div class="ping"></div><div class="rider" data-r="rider-dot"></div>
+<div class="eta" data-r="eta-card"><span style="color:#888">Arriving in</span><b>12 min</b><span>by 19:42</span></div></div>
+<div class="panel" data-r="order-panel" data-must><div class="st">ON THE WAY</div><h1>Your order from Pho Saigon</h1>
+<div class="tl" data-r="status-timeline"><div><b>Order placed</b><small>19:05</small></div><div><b>Being prepared</b><small>19:09 · kitchen confirmed</small></div><div><b>Picked up</b><small>19:28 · Tuan is on his way</small></div><div class="n"><b>Delivered</b><small>expected 19:42</small></div></div>
+<div class="rc" data-r="rider-card"><div class="av"></div><div><b>Tuan</b> · ★ 4.9<br><span style="color:#888">Green e-bike · DX-41</span></div><div class="bt"><span>✆</span><span>✉</span></div></div>
+<b>Order #A-2231</b><div class="it"><span><b>2×</b>Beef pho, large</span><span>£25.00</span></div><div class="it"><span><b>1×</b>Summer rolls</span><span>£6.50</span></div><div class="it"><span><b>2×</b>Vietnamese iced coffee</span><span>£8.00</span></div><div class="it"><span>Delivery</span><span>£2.49</span></div><div class="tot"><span>Total</span><span>£41.99</span></div>
+<div class="help"><span>Get help</span><span class="p">Share live location</span></div></div>
+</body></html>

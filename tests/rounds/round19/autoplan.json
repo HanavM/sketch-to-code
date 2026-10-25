@@ -1,0 +1,766 @@
+{
+ "c1-stained-glass": {
+  "plan": [
+   [
+    "light-rays",
+    "circle"
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "glass-window",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 132,
+     "lines": 2
+    }
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "vertical-caption",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#0d0b14) page, Georgia type, cream text"
+   ],
+   [
+    "light-rays",
+    "a SUNBURST: 30 sharp straight rays fanning out from one centre, alternating soft yellow #ffd68c and null #000000, each ray 6deg wide (like a starburst / pinwheel of thin pie slices), on ONE 1100x1100px block at 340,-260, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#ffd68c 0deg, #ffd68c 6deg, #000000 6deg, #000000 18deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur"
+   ],
+   [
+    "nav",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 130x13 at 70,44 13px mono #cbb994 \"Lumen & Lead\"; 54x13 at 285,44 13px mono #cbb994 \"Works\"; 65x13 at 425,44 13px mono #cbb994 \"Studio\"; 54x13 at 576,44 13px mono #cbb994 \"Visit\""
+   ],
+   [
+    "glass-window",
+    "the region itself is ONE 460x760px panel at 700,70, #1a1426 fill, a 10px #2b2236 border, 230px rounded, box-shadow: rgba(255, 190, 110, 0.35) 0px 0px 120px 0px (it floats over what is under it), with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 460x250 at 710,80 radial-gradient(circle at 50% 100%, #ffd36b, #e8742a 60%, #7a1f3d), 5px #1a1426 border; 230x260 at 710,330 linear-gradient(160deg, #2e6be6, #123a8a), 5px #1a1426 border; 230x260 at 940,330 linear-gradient(200deg, #c2185b, #5b0f3a), 5px #1a1426 border; 160x160 at 860,380 conic-gradient(#ffd36b 0deg, #ffd36b 45deg, #e8742a 0deg, #e8742a 90deg, #c2185b 0deg, #c2185b 135deg, #2e6be6 0deg, #2e6be6 180deg, rgb(30,, 5px #1a1426 border, a circle, 55% opacity, animated: animation shimmer 4s ease-in-out infinite; 460x240 at 710,590 linear-gradient(90deg, #1e8f6a, #0f5a44 50%, #d9a42b), 5px #1a1426 border; the animations, defined exactly as: @keyframes shimmer { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.9; } }"
+   ],
+   [
+    "headline",
+    "light-like (screen blend: brightens what it overlaps) giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Light, cut into colour\", set in exactly 2 lines: \"Light, cut into\" / \"colour\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 699px wide); the word \"cut\" is serif (font-family Georgia, serif) bold null #000000 (its own colour; the other words stay #ffe9c2); the word \"cut\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #ffd36b), same size and weight as the rest"
+   ],
+   [
+    "lede",
+    "19px Georgia warm paper (#d9cdb5) copy in 3 lines, 420px wide, top-left at 70,560, quoted whole (these exact words, nothing invented): \"Hand-leaded glass for chapels, stairwells and the odd kitchen window. Every pane cut, painted and fired in our Bristol workshop.\""
+   ],
+   [
+    "cta",
+    "soft yellow outline pill glowing button \"BOOK A STUDIO VISIT →\"; its text #ffd36b (soft yellow, NOT the page's cream text)"
+   ],
+   [
+    "vertical-caption",
+    "mono wide-spaced letters vertical (writing-mode: vertical-rl), 12px letters, the line about 232px long \"EST. 1987 — BRISTOL\"; its text #8f7f6a (grey, NOT the page's cream text)"
+   ]
+  ]
+ },
+ "c2-type-sculpture": {
+  "plan": [
+   [
+    "gradient-orb",
+    "circle"
+   ],
+   [
+    "word-form",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "word-follows",
+    "heading",
+    {
+     "fontPx": 210,
+     "lines": 1
+    }
+   ],
+   [
+    "word-type",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 1
+    }
+   ],
+   [
+    "vertical-word",
+    "heading",
+    {
+     "fontPx": 92,
+     "lines": 1
+    }
+   ],
+   [
+    "diagonal-marquee",
+    "box"
+   ],
+   [
+    "circle-badge",
+    "circle"
+   ],
+   [
+    "badge-dot",
+    "circle"
+   ],
+   [
+    "footer-meta",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: warm paper (#e9e4da) page, Helvetica type, near-black text"
+   ],
+   [
+    "gradient-orb",
+    "a 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffb38a 0%, #ff4f2e 45%, #5a0f2a 100%) so it looks lit from the top left; absolutely placed, top-left at 470,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+   ],
+   [
+    "word-form",
+    "giant (font-family Impact, Haettenschweiler, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy uppercase tight-set letters \"FORM\", 230px type, about 645px wide (no larger)"
+   ],
+   [
+    "word-follows",
+    "giant Georgia italic serif thin hairline-weight tight-set letters hollow outlined near-black \"follows\", 210px type, about 565px wide (no larger)"
+   ],
+   [
+    "word-type",
+    "giant (font-family Impact, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy uppercase tight-set letters vivid indigo #2340ff (left) to vivid purple #b620e0 (right) gradient text \"TYPE\", 230px type, about 569px wide (no larger)"
+   ],
+   [
+    "vertical-word",
+    "vertical (writing-mode: vertical-rl, turned 180deg so it reads bottom to top), 92px letters on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column 92px wide at x 1150, 541px tall from top 90; the letters run from y 90 down to y 631 (541px long, no shorter) giant Helvetica tight-set letters red-orange \"Specimen 04\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "diagonal-marquee",
+    "tilted 6° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1500px-wide line, position absolute, left -100px, top 700px BEFORE the tilt, so it starts 100px off the LEFT edge and ends 120px past the right; no letter starts at x 0) near-black bold 28px \"VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦\" repeated along it, in front of the \"TYPE\" heading"
+   ],
+   [
+    "circle-badge",
+    "spinning ring of small spaced capital letters \"FOUNDRY ✦ NEW RELEASE ✦ 2026 ✦\" running round a 170px circle, no outline, no fill"
+   ],
+   [
+    "badge-dot",
+    "small 36px vivid red-orange dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
+   ],
+   [
+    "footer-meta",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 186x15 at 60,830 13px mono #141414 \"Grotto Type Foundry\"; 186x15 at 601,830 13px mono #141414 \"14 weights · 3 axes\"; 78x15 at 1142,830 13px mono #141414 \"Try it →\""
+   ]
+  ]
+ },
+ "c3-lantern-night": {
+  "plan": [
+   [
+    "moon",
+    "circle"
+   ],
+   [
+    "lantern-1",
+    "box"
+   ],
+   [
+    "lantern-2",
+    "box"
+   ],
+   [
+    "lantern-3",
+    "box"
+   ],
+   [
+    "lantern-4",
+    "box"
+   ],
+   [
+    "lantern-5",
+    "box"
+   ],
+   [
+    "far-hills",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.4
+      ],
+      [
+       0.15,
+       0.2
+      ],
+      [
+       0.32,
+       0.45
+      ],
+      [
+       0.5,
+       0.15
+      ],
+      [
+       0.68,
+       0.4
+      ],
+      [
+       0.84,
+       0.1
+      ],
+      [
+       1,
+       0.35
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "near-hills",
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.3
+      ],
+      [
+       0.2,
+       0.55
+      ],
+      [
+       0.4,
+       0.25
+      ],
+      [
+       0.62,
+       0.5
+      ],
+      [
+       0.8,
+       0.2
+      ],
+      [
+       1,
+       0.45
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "neon-sign",
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 2
+    }
+   ],
+   [
+    "sub",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 3
+    }
+   ],
+   [
+    "date-pills",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#0b1030) to deep indigo (#2a1645, its stop at 55% of the way along, fully opaque) to dark plum (#5a1f3f) gradient, top to bottom page, Helvetica type, white text"
+   ],
+   [
+    "moon",
+    "big glowing cream circle"
+   ],
+   [
+    "far-hills",
+    "near-black jagged cut-out shape, ONE flat #1d0f2e fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,696 ; 192,628 ; 410,713 ; 640,611 ; 870,696 ; 1075,594 ; 1280,679 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x306px with its top-left at 0,594, so on that box clip-path: polygon(0% 33%, 15% 11%, 32% 39%, 50% 6%, 68% 33%, 84% 0%, 100% 28%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it); it lies UNDER the cut-out painted after it (lower z-index)"
+   ],
+   [
+    "near-hills",
+    "near-black indigo jagged cut-out shape, ONE flat #0c0718 fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outline, never kept as visible lines; its corners at exactly these page points (px, left to right from the page's top-left): 0,732 ; 256,792 ; 512,720 ; 794,780 ; 1024,708 ; 1280,768 ; 1280,900 ; 0,900; the shape's box is the outline's bounds, 1280x192px with its top-left at 0,708, so on that box clip-path: polygon(0% 12%, 20% 44%, 40% 6%, 62% 37%, 80% 0%, 100% 31%, 100% 100%, 0% 100%) (percentages of THAT box, not of the page), so it covers the middle part and the rest shows what is under it (do not mirror it); it lies ON TOP of the #1d0f2e cut-out it overlaps (painted after it, higher z-index: where they overlap this one hides that one)"
+   ],
+   [
+    "nav",
+    "bold 18px \"NIGHT MARKET\" first, then links: Food, Music, Map"
+   ],
+   [
+    "neon-sign",
+    "moving giant heavy tight-set letters lines set tight (line-height 0.9) light pink \"OPEN LATE\""
+   ],
+   [
+    "sub",
+    "20px Helvetica pale lilac (#f2d9ff) copy in 3 lines, 480px wide, top-left at 84,540, quoted whole (these exact words, nothing invented): \"Forty stalls, two stages and a thousand paper lanterns over the old harbour. Every Friday until the first frost.\""
+   ],
+   [
+    "date-pills",
+    "a stepper: 3 filled pills in one row, each 43px tall (border-radius 999px), left to right: \"Fri 6pm – 2am\" #ffffff fill, #ffffff text; \"Pier 4\" #ffffff fill, #ffffff text; \"Get the map\" #ffb02e fill, bold #2a1645 text; each word in its own colour: \"Fri 6pm – 2am\" #ffffff, \"Pier 4\" #ffffff, \"Get the map\" #2a1645; on the #1d0f2e block, no fill or bar of its own"
+   ]
+  ]
+ },
+ "c4-vinyl-sleeve": {
+  "plan": [
+   [
+    "topline",
+    "text"
+   ],
+   [
+    "spinning-record",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 3
+    }
+   ],
+   [
+    "halftone-sleeve",
+    "box"
+   ],
+   [
+    "tonearm",
+    "image"
+   ],
+   [
+    "vertical-title",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 1
+    }
+   ],
+   [
+    "tracklist",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 4
+    }
+   ],
+   [
+    "eq-bars",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: warm paper (#f0e6d2) page, Helvetica type, near-black text"
+   ],
+   [
+    "topline",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 160x16 at 120,50 14px bold mono #1b1b1b \"SIDE A RECORDS\"; 148x16 at 604,50 14px bold mono #1b1b1b \"CATALOGUE 019\"; 103x16 at 1077,50 14px bold mono #1b1b1b \"PRE-ORDER\""
+   ],
+   [
+    "spinning-record",
+    "spinning \"LOW TIDE — 33⅓ —\"; ON it (inside the block, not under it) a small caption chip at 180,180 in the block: 14px sans-serif #1b1b1b \"LOW TIDE\n— 33⅓ —\" on a solid #ff5a36 160x160px label"
+   ],
+   [
+    "halftone-sleeve",
+    "a 598x598px block, NOT a picture or photo: its background is exactly radial-gradient(#f0e6d2 22%, rgba(0, 0, 0, 0) 24%) (a flat disc with a HARD edge on a flat field, not a soft fade); ON it (inside the block, not under it) a small caption chip at 58,427 in the block: 64px sans-serif #f0e6d2 \"LOW\nTIDE\" on a solid #1d3fbf 178x139px label"
+   ],
+   [
+    "tonearm",
+    "tilted 28° clockwise light grey (#bbbbbb) to off-white (#eeeeee, its stop at 50% of the way along, fully opaque) to grey (#999999) gradient, left to right block"
+   ],
+   [
+    "vertical-title",
+    "vertical (writing-mode: vertical-rl), 96px letters on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column 96px wide at x 1010, 431px tall from top 150; the letters run from y 150 down to y 581 (431px long, no shorter) giant Georgia italic serif regular weight (not bold) tight-set letters \"Mara Quell\""
+   ],
+   [
+    "tracklist",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 440x31 at 760,600 1px DASHED #1b1b1b border on the bottom only; 108x30 at 760,600 15px mono #1b1b1b \"A1 Saltwater\"; 36x30 at 1164,600 15px mono #1b1b1b \"4:12\"; 440x31 at 760,631 1px DASHED #1b1b1b border on the bottom only; 99x30 at 760,631 15px mono #1b1b1b \"A2 Fog Bell\"; 36x30 at 1164,631 15px mono #1b1b1b \"3:48\"; 440x31 at 760,662 1px DASHED #1b1b1b border on the bottom only; 99x30 at 760,662 15px mono #1b1b1b \"B1 Low Tide\"; 36x30 at 1164,662 15px mono #1b1b1b \"6:05\"; 440x31 at 760,693 1px DASHED #1b1b1b border on the bottom only; 153x30 at 760,693 15px mono #1b1b1b \"B2 Harbour Lights\"; 36x30 at 1164,693 15px mono #1b1b1b \"5:20\""
+   ],
+   [
+    "eq-bars",
+    "pulsing bar chart, 12 orange bars, heights 32/81/100/81/32/100/32/81/100/81/32/100% of the tallest; each bar 12px wide, 6px apart, the tallest 75px, no labels under the bars"
+   ]
+  ]
+ },
+ "c5-magazine-cover": {
+  "plan": [
+   [
+    "issue-list",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 4
+    }
+   ],
+   [
+    "cover",
+    "box"
+   ],
+   [
+    "side-copy",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 7
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: dark grey (#2b2b2b) page, Helvetica type, black text"
+   ],
+   [
+    "issue-list",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 177x16 at 40,128 14px mono #efe3cf \"ISSUE 41 — WINTER\"; 177x16 at 40,162 14px mono #efe3cf \"ISSUE 40 — AUTUMN\"; 177x16 at 40,195 14px mono #efe3cf \"ISSUE 39 — SUMMER\"; 94x16 at 40,229 14px mono #efe3cf \"ARCHIVE →\""
+   ],
+   [
+    "cover",
+    "a halftone picture made of plain CSS (no image), 600x840px at 340,30: a 600x840px disc at 340,30 filled with a grid of small #d9534f dots (background-image: radial-gradient(#d9534f 40%, transparent 42%); background-size: 140px 140px; border-radius: 50%), the page colour showing between the dots; over it a solid 140x170px round #e0a458 disc at 585,140; over it a solid 154x154px round #e0a458 disc at 768,578; the word \"ORBIT\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #b5241c), set MUCH BIGGER than the rest: 190px upright (NOT italic) type, line-height 1, about 572x190px with its top-left at 360,40, font-weight 900 Didot, on its OWN line above the rest (display: block), the small words under it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 572x190 at 360,40 190px font-weight 900 serif (NOT the page sans) #b5241c \"ORBIT\"; 572x190 at 360,40 190px font-weight 900 serif (NOT the page sans) #000000 at 0% \"ORBIT\"; 140x170 at 585,140 #e0a458 fill, pill ends; 330x620 at 490,180 linear-gradient(#3c6e71, #14303a), pill ends; 170x90 at 370,330 30px bold italic serif (NOT the page sans) #1b1b1b \"The quiet return of the hand-made\" set on exactly 3 lines (line-height 30px; it WRAPS, never forced onto one line); 160x69 at 760,410 22px font-weight 900 #1b1b1b \"48 pages of new Lisbon studios\" set on exactly 3 lines (line-height 23px; it WRAPS, never forced onto one line); 158x157 at 766,576 11px bold mono #000000 \"COLLECTOR EDITION ✦ WINTER 2026 ✦\"; 154x154 at 768,578 #e0a458 fill, a circle: 26px font-weight 900 #1b1b1b \"ONLY £9\"; 260x124 at 370,650 46px bold #b5241c \"CLAY IS THE NEW CODE\" set on exactly 3 lines (line-height 41px; it WRAPS, never forced onto one line); 110x56 at 810,790 repeating-linear-gradient(90deg, #1b1b1b 0px, #1b1b1b 2px, #ffffff 2px, #ffffff 4px, #1b1b1b 4px, #1b1b1b 7px, #ffffff 7px, #ffffff 9px), 6px #ffffff border"
+   ],
+   [
+    "side-copy",
+    "250px wide at 990,120: 15px text exactly \"Ceramicists, type designers and one very patient glassblower. Printed on 120gsm uncoated stock.\" (this copy only, nothing invented), then under it a #b5241c 0px rounded button 203x52px at 990,303 with 15px bold #ffffff \"Subscribe — 4 issues\""
+   ]
+  ]
+ },
+ "e1-seat-picker": {
+  "plan": [
+   [
+    "topbar",
+    "box"
+   ],
+   [
+    "passenger-tabs",
+    "box"
+   ],
+   [
+    "seat-map",
+    "box"
+   ],
+   [
+    "trip-summary",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f4f6fa, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "topbar",
+    "a top bar 64px tall across the whole page at the very top, #0f2a5c fill; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 20px #ffffff \"✈ Skyward\" at x 32; 14px #ffffff \"LHR → LIS · Fri 14 Nov\" at x 177; 13px #ffffff \"✓ Flights\" on a #2fb67c 81x32px pill at x 804; 13px #ffffff \"✓ Passengers\" on a #2fb67c 112x32px pill at x 896; bold 13px #0f2a5c \"3 Seats\" on a #ffffff 74x32px pill at x 1018; 13px #ffffff \"4 Extras\" on a #ffffff 76x32px pill at x 1101; 13px #ffffff \"5 Pay\" on a #ffffff 61x32px pill at x 1187 (pushed to the far right)"
+   ],
+   [
+    "passenger-tabs",
+    "buttons: \"Hanav M. Seat 12C · £18\", \"Priya R. Choose a seat\", \"Leo M. (child) Choose a seat\"; 3 equal 118x59px rounded outlined boxes in one row; \"Hanav M. Seat 12C · £18\" is the picked one (2px blue border, the others a thin light grey border)"
+   ],
+   [
+    "seat-map",
+    "the region itself is ONE 820x700px panel at 32,170, #ffffff fill, a 1px #d8dee9 border, 200px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card \"◀ EXIT EXIT ▶\" list: \"Free\", \"Extra legroom £32\", \"Selected\", \"Taken\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 88 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 45x15 at 283,195 12px #68738a \"Free\"; 118x15 at 344,195 12px #68738a \"Extra legroom £32\"; 67x15 at 478,195 12px #68738a \"Selected\"; 52x15 at 560,195 12px #68738a \"Taken\"; 14x14 at 283,196 #dbe6ff fill, 1px #9db7f0 border, 4px rounded; 14x14 at 344,196 #fff1d6 fill, 1px #f0b54a border, 4px rounded; 14x14 at 478,196 #2f6fed fill, 4px rounded; 14x14 at 560,196 #e3e6ec fill, 4px rounded; 40x40 at 223,251 12px #9aa3b5 \"A\"; 40x40 at 271,251 12px #9aa3b5 \"B\"; 40x40 at 319,251 12px #9aa3b5 \"C\"; 40x40 at 425,251 12px #9aa3b5 \"D\"; 40x40 at 473,251 12px #9aa3b5 \"E\"; 40x40 at 521,251 12px #9aa3b5 \"F\"; 40x40 at 223,299 #fff1d6 fill, 1px #f0b54a border, 8px rounded; 40x40 at 271,299 #fff1d6 fill, 1px #f0b54a border, 8px rounded; 40x40 at 319,299 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 50x40 at 367,299 12px #9aa3b5 \"10\"; 40x40 at 425,299 #fff1d6 fill, 1px #f0b54a border, 8px rounded; 40x40 at 473,299 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 521,299 #fff1d6 fill, 1px #f0b54a border, 8px rounded; 40x40 at 223,347 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 271,347 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 319,347 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 50x40 at 367,347 12px #9aa3b5 \"11\"; 40x40 at 425,347 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 473,347 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 521,347 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 220x82 at 553,351 #1c2333 fill, 10px rounded, padding-left 14px (its text starts at x 567): 14px #ffffff \"Standard seat, near the wing. £18 for this flight.\"; 192x18 at 567,365 16px bold #ffffff \"12C · Aisle\"; 40x40 at 223,395 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 271,395 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 319,395 #2f6fed fill, 1px #2f6fed border, 8px rounded; 50x40 at 367,395 12px #9aa3b5 \"12\"; 40x40 at 425,395 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 473,395 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 521,395 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 223,443 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 271,443 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 319,443 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 50x40 at 367,443 12px #9aa3b5 \"13\"; 40x40 at 425,443 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 473,443 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 521,443 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 223,491 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 271,491 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 319,491 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 50x40 at 367,491 12px #9aa3b5 \"14\"; 40x40 at 425,491 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 473,491 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 521,491 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 223,539 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 271,539 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 319,539 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 50x40 at 367,539 12px #9aa3b5 \"15\"; 40x40 at 425,539 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 473,539 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 521,539 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 38x14 at 183,541 11px bold #d64545 \"◀ EXIT\"; 38x14 at 665,541 11px bold #d64545 \"EXIT ▶\"; 40x40 at 223,587 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 271,587 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 319,587 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 50x40 at 367,587 12px #9aa3b5 \"16\"; 40x40 at 425,587 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 473,587 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 521,587 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 223,635 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 271,635 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 319,635 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 50x40 at 367,635 12px #9aa3b5 \"17\"; 40x40 at 425,635 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 473,635 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 521,635 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 223,683 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 271,683 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 319,683 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 50x40 at 367,683 12px #9aa3b5 \"18\"; 40x40 at 425,683 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 473,683 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 521,683 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 223,731 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 271,731 #e3e6ec fill, 1px #e3e6ec border, 8px rounded; 40x40 at 319,731 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 50x40 at 367,731 12px #9aa3b5 \"19\"; 40x40 at 425,731 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 473,731 #dbe6ff fill, 1px #9db7f0 border, 8px rounded; 40x40 at 521,731 #e3e6ec fill, 1px #e3e6ec border, 8px rounded"
+   ],
+   [
+    "trip-summary",
+    "the region itself is ONE 368x780px panel at 880,90, #ffffff fill, a 1px #d8dee9 border, 16px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 20 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 318x21 at 905,115 18px bold #1c2333 \"Your trip\"; 318x32 at 905,152 28px bold #1c2333 \"LHR LIS\"; 87x15 at 1028,161 13px #68738a \"2h 45m · direct\"; 318x16 at 905,188 14px #68738a \"Fri 14 Nov · 07:10 – 09:55\"; 318x41 at 905,218 1px #eef1f6 border on the bottom only; 86x16 at 905,230 14px #1c2333 \"3 × Basic fare\"; 51x16 at 1172,230 14px bold #1c2333 \"£276.00\"; 318x41 at 905,259 1px #eef1f6 border on the bottom only; 112x16 at 905,271 14px #1c2333 \"Seat 12C (Hanav)\" (ONE element, its words in this order; inside it \"(Hanav)\" in an inline span #68738a, IN PLACE in the line, NOT placed apart); 43x16 at 1180,271 14px bold #1c2333 \"£18.00\"; 318x41 at 905,300 1px #eef1f6 border on the bottom only; 123x16 at 905,312 14px #1c2333 \"Seats for Priya, Leo\"; 69x16 at 1155,312 14px #68738a \"not chosen\"; 318x41 at 905,341 1px #eef1f6 border on the bottom only; 80x16 at 905,353 14px #1c2333 \"Taxes & fees\"; 43x16 at 1180,353 14px bold #1c2333 \"£92.40\"; 51x26 at 905,402 22px bold #1c2333 \"Total\"; 80x26 at 1143,402 22px bold #1c2333 \"£386.40\"; 318x60 at 905,446 #fff6e5 fill, 10px rounded, padding-left 12px (its text starts at x 917): 13px #8a5a00 \"⚠ Leo is under 12. Choose a seat next to an adult so you can sit together.\"; 320x52 at 905,793 #2f6fed fill, 12px rounded: 16px bold #ffffff \"Continue to extras →\""
+   ]
+  ]
+ },
+ "e2-team-settings": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "tabs",
+    "text"
+   ],
+   [
+    "invite-row",
+    "box"
+   ],
+   [
+    "member-table",
+    "box"
+   ],
+   [
+    "permission-matrix",
+    "box"
+   ],
+   [
+    "row-menu",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "sidebar",
+    "white panel \"Fieldnote\" a tree list, these 10 lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"ACCOUNT\", \"Profile\", \"Notifications\", \"WORKSPACE\", \"General\", \"Members\" (row highlighted #ede9fe), \"Billing\", \"Integrations\", \"Security\", \"API keys\"; rows exactly 32px apart (32px tall, 14px type: tight, not roomier), first line 20px below the panel's top; this panel is FLAT: #fafafa fill from the very top to the very bottom of the page at the left edge, 240px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e4e4e7 line down its right side"
+   ],
+   [
+    "main",
+    "\"Members\" and text"
+   ],
+   [
+    "tabs",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 73x28 at 280,96 2px #18181b border on the bottom only: 14px bold #18181b \"Members 6\"; 63x28 at 377,96 14px #71717a \"Pending 1\"; 46x28 at 464,96 14px #71717a \"Groups\""
+   ],
+   [
+    "invite-row",
+    "input \"Invite by email…\", dropdown \"Editor\", button \"Send invite\"; \"Send invite\" selected (near-black fill); each word in its own colour: \"Invite by email…\" #a1a1aa, \"Editor ▾\" #18181b, \"Send invite\" #ffffff"
+   ],
+   [
+    "member-table",
+    "table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Name\" | grey \"Role\" | grey \"Status\" | grey \"Last active\" | grey \"2FA\" | (empty); then 5 body rows each 51px tall, cells in column order: row 1: purple round 30px avatar \"HM\" + bold \"Hanav M. you\" | \"Owner\" | green pill \"Active\" | \"Now\" | (empty) | \"⋯\"; row 2: teal round 30px avatar \"PR\" + \"Priya Raman\" | \"Admin ▾\" | green pill \"Active\" | \"2h ago\" | (empty) | \"⋯\"; row 3: orange round 30px avatar \"JO\" + \"Joel Okafor\" | \"Editor ▾\" | green pill \"Active\" | \"Yesterday\" | (empty) | bold \"⋯\"; row 4: green round 30px avatar \"LT\" + \"Lena Torres\" | \"Editor ▾\" | green pill \"Active\" | \"Oct 20\" | (empty) | \"⋯\"; row 5: grey round 30px avatar \"?\" + \"marco@studio.io\" | \"Viewer ▾\" | deep rust orange pill \"Invited\" | \"—\" | \"—\" | \"⋯\"; fixed column widths (table-layout: fixed, 960px): each column starts this far from the table's left edge: 1 0px, 2 315px, 3 497px, 4 633px, 5 788px, 6 895px"
+   ],
+   [
+    "permission-matrix",
+    "\"Role permissions\", table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Permission\" | grey \"Owner\" | grey \"Admin\" | grey \"Editor\" | grey \"Viewer\"; then 4 body rows each 39px tall, cells in column order: row 1: \"View notes\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\"; row 2: \"Edit notes\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\" | empty checkbox; row 3: \"Invite members\" | purple pill \"✓\" | purple pill \"✓\" | empty checkbox | empty checkbox; row 4: \"Manage billing\" | purple pill \"✓\" | empty checkbox | empty checkbox | empty checkbox; fixed column widths (table-layout: fixed, 958px): each column starts this far from the table's left edge: 1 0px, 2 333px, 3 492px, 4 648px, 5 795px"
+   ],
+   [
+    "row-menu",
+    "open dropdown menu, 200x143px white card, 8px rounded, thin light grey border, big soft shadow 12px down 32px blur 14% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 4 options stacked one per line, 32px apart: \"Change role\", \"Resend 2FA setup\", \"Transfer notes\", \"Remove from workspace\"; \"Change role\" highlighted (pale grey (#f4f4f5) rounded fill across the menu); each word in its own colour: \"Change role\" #18181b, \"Resend 2FA setup\" #18181b, \"Transfer notes\" #18181b, \"Remove from workspace\" #dc2626"
+   ]
+  ]
+ },
+ "e3-cloud-drive": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "topbar",
+    "box"
+   ],
+   [
+    "section-title",
+    "text"
+   ],
+   [
+    "file-grid",
+    "box"
+   ],
+   [
+    "context-menu",
+    "box"
+   ],
+   [
+    "details-panel",
+    "box"
+   ],
+   [
+    "upload-toast",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f7f8fa, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "sidebar",
+    "white panel \"☁ Stash\" \"＋ New\" list: \"Home\", \"My files\", \"Shared with me\", \"Recent\", \"Starred\", \"Trash\"; \"My files\" highlighted (#e8efff rounded fill, #2563eb text), dark navy (#1f2430) \"Storage 74 GB of 100 GB used\" (pinned to the card's bottom: its bottom edge 24px above the card's bottom edge, 188px wide, centred; empty space above it); list rows exactly 33px apart (33px tall, 13px type: tight, not roomier), first line 18px below the panel's top; this panel is FLAT: #ffffff fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin round it (NOT an inset or floating card), a 1px #e6e8ee line down its right side"
+   ],
+   [
+    "topbar",
+    "white card \"My files › Clients › Harbour Hall\", lines \"🔍 Search files\", \"▦ ☰\""
+   ],
+   [
+    "section-title",
+    "13px \"Files · 8\"; its text #4b5263 (dark grey, NOT the page's dark navy text); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "file-grid",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 32 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 160x170 at 244,120 #ffffff fill, 1px #e6e8ee border, 12px rounded; 160x170 at 420,120 #ffffff fill, 1px #e6e8ee border, 12px rounded; 160x170 at 596,120 #ffffff fill, 2px #2563eb border, 12px rounded; 160x170 at 772,120 #ffffff fill, 1px #e6e8ee border, 12px rounded; 158x110 at 245,121 #fbbf24 fill: 30px regular (NOT bold) #ffffff \"📁\"; 158x110 at 421,121 #fbbf24 fill: 30px regular (NOT bold) #ffffff \"📁\"; 158x110 at 773,121 #ef4444 fill: 30px regular (NOT bold) #ffffff \"PDF\"; 156x110 at 598,122 linear-gradient(135deg, #f97316, #db2777): 30px regular (NOT bold) #ffffff \"▶\"; 158x27 at 245,231 padding-left 12px (its text starts at x 257): 13px bold #1f2430 \"Contracts\"; 158x27 at 421,231 padding-left 12px (its text starts at x 433): 13px bold #1f2430 \"Photos\"; 158x27 at 773,231 padding-left 12px (its text starts at x 785): 13px bold #1f2430 \"Venue_contract_v4.pdf\"; 156x27 at 598,232 padding-left 12px (its text starts at x 610): 13px bold #1f2430 \"Venue_walkthrough.mp4\"; 58x12 at 245,260 padding-left 12px (its text starts at x 257): 11px #8a90a0 \"12 files\"; 64x12 at 421,260 padding-left 12px (its text starts at x 433): 11px #8a90a0 \"184 files\"; 60x12 at 773,260 padding-left 12px (its text starts at x 785): 11px #8a90a0 \"412 KB\"; 103x12 at 598,261 padding-left 12px (its text starts at x 610): 11px #8a90a0 \"412 MB · Oct 22\"; 160x170 at 244,306 #ffffff fill, 1px #e6e8ee border, 12px rounded; 160x170 at 420,306 #ffffff fill, 1px #e6e8ee border, 12px rounded; 160x170 at 596,306 #ffffff fill, 1px #e6e8ee border, 12px rounded; 160x170 at 772,306 #ffffff fill, 1px #e6e8ee border, 12px rounded; 158x110 at 245,307 #16a34a fill: 30px regular (NOT bold) #ffffff \"XLS\"; 158x110 at 421,307 #2563eb fill: 30px regular (NOT bold) #ffffff \"DOC\"; 158x110 at 597,307 #8b5cf6 fill: 30px regular (NOT bold) #ffffff \"◆\"; 158x110 at 773,307 #64748b fill: 30px regular (NOT bold) #ffffff \"ZIP\"; 158x27 at 245,417 padding-left 12px (its text starts at x 257): 13px bold #1f2430 \"Budget_Q4.xlsx\"; 158x27 at 421,417 padding-left 12px (its text starts at x 433): 13px bold #1f2430 \"Run_of_show.docx\"; 158x27 at 597,417 padding-left 12px (its text starts at x 609): 13px bold #1f2430 \"Floorplan.fig\"; 158x27 at 773,417 padding-left 12px (its text starts at x 785): 13px bold #1f2430 \"Logos.zip\"; 54x12 at 245,446 padding-left 12px (its text starts at x 257): 11px #8a90a0 \"88 KB\"; 54x12 at 421,446 padding-left 12px (its text starts at x 433): 11px #8a90a0 \"64 KB\"; 58x12 at 597,446 padding-left 12px (its text starts at x 609): 11px #8a90a0 \"2.1 MB\"; 55x12 at 773,446 padding-left 12px (its text starts at x 785): 11px #8a90a0 \"18 MB\""
+   ],
+   [
+    "context-menu",
+    "white card a grouped list of exactly 6 rows, each 33px tall, starting at the panel's very top, in EXACTLY this order top to bottom (group rows sit between their task rows; never gather the groups together): \"Open with\" (13px #1f2430, \"›\" at the row's right end: a column head row); \"Share\" (group row: #f1f3f7 fill across the whole row); \"Copy link\"; \"Move to…\"; \"Rename\" (13px #1f2430, \"F2\" at the row's right end: a column head row); \"Move to trash\"; empty below the last row; each word in its own colour: \"Open with ›\" #1f2430, \"Share ⌘S\" #1f2430, \"Copy link\" #1f2430, \"Move to…\" #1f2430, \"Rename F2\" #1f2430, \"Move to trash\" #dc2626"
+   ],
+   [
+    "details-panel",
+    "the region itself is ONE 316x836px panel at 964,64, #ffffff fill, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card; a 275x180px gradient (#f97316 to #db2777) poster picture 12px rounded at its top left (21px in, 52px down); \"Venue_walkthrough.mp\"… list: \"Type\", \"Size\", \"Owner\", \"Modified\", \"Location\"; then under the list, in this order: \"Shared with\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 16 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 188x17 at 985,84 16px bold #1f2430 \"Venue_walkthrough.mp4\"; 275x180 at 985,116 linear-gradient(135deg, #f97316, #db2777), 12px rounded; 100x15 at 985,310 13px #8a90a0 \"Type\"; 167x15 at 1093,310 13px #1f2430 \"MP4 video\"; 100x15 at 985,335 13px #8a90a0 \"Size\"; 167x15 at 1093,335 13px #1f2430 \"412 MB\"; 100x15 at 985,360 13px #8a90a0 \"Owner\"; 167x15 at 1093,360 13px #1f2430 \"Hanav M.\"; 100x15 at 985,385 13px #8a90a0 \"Modified\"; 167x15 at 1093,385 13px #1f2430 \"Oct 22, 2026\"; 100x15 at 985,410 13px #8a90a0 \"Location\"; 167x15 at 1093,410 13px #1f2430 \"Harbour Hall\"; 275x15 at 985,447 13px bold #1f2430 \"Shared with\"; 30x30 at 985,480 #0891b2 fill, 2px #ffffff border, a circle; 30x30 at 1007,480 #ea580c fill, 2px #ffffff border, a circle; 30x30 at 1029,480 #16a34a fill, 2px #ffffff border, a circle"
+   ],
+   [
+    "upload-toast",
+    "dark navy task card 340x59px, 12px rounded: semibold title \"Uploading 3 files\"; a thin 6px sky blue (#60a5fa) progress bar 64% full on a dark grey (#3b4252) track under the title; its text #ffffff (white, NOT the page's dark navy text)"
+   ]
+  ]
+ },
+ "e4-order-tracking": {
+  "plan": [
+   [
+    "map",
+    "box"
+   ],
+   [
+    "shop-pin",
+    "box"
+   ],
+   [
+    "home-pin",
+    "box"
+   ],
+   [
+    "rider-dot",
+    "circle"
+   ],
+   [
+    "eta-card",
+    "box"
+   ],
+   [
+    "order-panel",
+    "box"
+   ],
+   [
+    "status-timeline",
+    "text",
+    {
+     "fontPx": 14,
+     "lines": 8
+    }
+   ],
+   [
+    "rider-card",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "map",
+    "a 760x900px panel at 0,0, #e8eee4 fill, overflow hidden, NOT a picture, NOT a flat colour: its back layer is exactly this inline SVG, 760x900px with its top-left at page 0,0 (position absolute, behind everything else in the panel), copied verbatim: <svg width=\"760\" height=\"900\" viewBox=\"0 0 760 900\"><rect x=\"480\" y=\"0\" width=\"280\" height=\"260\" fill=\"#cfe3c4\"></rect><path d=\"M0 640 C200 600 300 720 760 680 L760 900 L0 900 Z\" fill=\"#b9d7ee\"></path><g stroke=\"#fff\" stroke-width=\"18\" fill=\"none\"><path d=\"M0 300 H760\"></path><path d=\"M240 0 V900\"></path><path d=\"M560 0 V640\"></path><path d=\"M0 120 L760 520\"></path></g><g stroke=\"#fff\" stroke-width=\"8\" fill=\"none\"><path d=\"M0 420 H760\"></path><path d=\"M400 0 V600\"></path><path d=\"M120 0 V640\"></path></g><path d=\"M240 160 V300 H400 V460 H560 V560\" stroke=\"#00aa6e\" stroke-width=\"7\" fill=\"none\" stroke-dasharray=\"2 0\"></path><path d=\"M400 460 H560 V560\" stroke=\"#191919\" stroke-width=\"7\" fill=\"none\" stroke-dasharray=\"10 8\"></path></svg>; the other parts inside it are said on their own"
+   ],
+   [
+    "shop-pin",
+    "tilted 45° anticlockwise a LEAF shape (NOT a circle): a 57x57px block at 212,110, flat #e05a2a fill, border-radius: 50% 50% 50% 0px (three corners fully round, the bottom-left corner a sharp square point), no border, no shadow"
+   ],
+   [
+    "home-pin",
+    "tilted 45° anticlockwise a LEAF shape (NOT a circle): a 57x57px block at 532,512, flat #191919 fill, border-radius: 50% 50% 50% 0px (three corners fully round, the bottom-left corner a sharp square point), no border, no shadow"
+   ],
+   [
+    "rider-dot",
+    "small 28px vivid teal dot (exactly 28x28px: w-[28px] h-[28px], border-radius 50%, not smaller)"
+   ],
+   [
+    "eta-card",
+    "open dropdown menu, 118x91px white card, 14px rounded, big soft shadow 6px down 20px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 3 options stacked one per line, 16px apart: \"Arriving in\", \"12 min\", \"by 19:42\"; each word in its own colour: \"Arriving in\" #888888, \"12 min\" #191919, \"by 19:42\" #191919"
+   ],
+   [
+    "order-panel",
+    "an invisible frame 520x900px at 760,0 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 22 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 455x15 at 793,28 13px bold #00aa6e \"ON THE WAY\"; 455x32 at 793,49 28px bold #191919 \"Your order from Pho Saigon\"; 96x16 at 793,417 14px bold #191919 \"Order #A-2231\"; 455x35 at 793,433 1px #f3f3f3 border on the bottom only; 121x16 at 793,442 14px #191919 \"Beef pho, large\"; 26x16 at 793,442 14px bold #00aa6e \"2×\"; 43x16 at 1205,442 14px #191919 \"£25.00\"; 455x35 at 793,468 1px #f3f3f3 border on the bottom only; 108x16 at 793,477 14px #191919 \"Summer rolls\"; 26x16 at 793,477 14px bold #00aa6e \"1×\"; 35x16 at 1213,477 14px #191919 \"£6.50\"; 455x35 at 793,503 1px #f3f3f3 border on the bottom only; 171x16 at 793,512 14px #191919 \"Vietnamese iced coffee\"; 26x16 at 793,512 14px bold #00aa6e \"2×\"; 35x16 at 1213,512 14px #191919 \"£8.00\"; 455x35 at 793,538 1px #f3f3f3 border on the bottom only; 51x16 at 793,547 14px #191919 \"Delivery\"; 35x16 at 1213,547 14px #191919 \"£2.49\"; 39x20 at 793,585 17px bold #191919 \"Total\"; 52x20 at 1196,585 17px bold #191919 \"£41.99\"; 223x48 at 793,824 1px #191919 border, 12px rounded: 14px bold #191919 \"Get help\"; 223x48 at 1026,824 #191919 fill, 1px #191919 border, 12px rounded: 14px bold #ffffff \"Share live location\""
+   ],
+   [
+    "status-timeline",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 86x16 at 823,101 14px bold #191919 \"Order placed\"; 425x13 at 823,119 12px #888888 \"19:05\"; 103x16 at 823,152 14px bold #191919 \"Being prepared\"; 425x13 at 823,170 12px #888888 \"19:09 · kitchen confirmed\"; 66x16 at 823,203 14px bold #191919 \"Picked up\"; 425x13 at 823,221 12px #888888 \"19:28 · Tuan is on his way\"; 63x16 at 823,254 14px bold #191919 \"Delivered\"; 425x13 at 823,272 12px #888888 \"expected 19:42\""
+   ],
+   [
+    "rider-card",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 52x52 at 810,326 linear-gradient(135deg, #ffb36b, #e05a2a), a circle; 42x42 at 1139,331 #f1f1f1 fill, a circle: 18px #191919 \"✆\"; 42x42 at 1189,331 #f1f1f1 fill, a circle: 18px #191919 \"✉\"; 133x33 at 876,336 14px #191919 \"· ★ 4.9\"; 32x16 at 876,337 14px bold #191919 \"Tuan\"; 133x16 at 876,353 14px #888888 \"Green e-bike · DX-41\""
+   ]
+  ]
+ },
+ "e5-invoice-editor": {
+  "plan": [
+   [
+    "topbar",
+    "box"
+   ],
+   [
+    "invoice-form",
+    "box"
+   ],
+   [
+    "client-dropdown",
+    "box"
+   ],
+   [
+    "line-items",
+    "box"
+   ],
+   [
+    "totals",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 8
+    }
+   ],
+   [
+    "pdf-preview",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#eef0f3, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "topbar",
+    "the region itself is ONE 1280x58px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #dfe3ea rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white card \"Ledgerly\", lines \"Invoices › INV-2231 · Draft\", \"Save draft Preview PDF Send invoice\""
+   ],
+   [
+    "invoice-form",
+    "white card"
+   ],
+   [
+    "client-dropdown",
+    "white card \"Harbour Hall Ltd priya@harbourhall.co\", lines \"Harbourside Events 3 invoices\", \"Harbinger Studio new\", blue \"＋ Add “Harb” as a new client\""
+   ],
+   [
+    "line-items",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 16 of them, nothing invented, nothing left out): 293x29 at 47,253 1px #dfe3ea border on the bottom only: 11px bold #7b8496 \"ITEM\"; 68x29 at 340,253 1px #dfe3ea border on the bottom only: 11px bold #7b8496 \"QTY\"; 104x29 at 409,253 1px #dfe3ea border on the bottom only: 11px bold #7b8496 \"RATE\"; 98x29 at 513,253 1px #dfe3ea border on the bottom only: 11px bold #7b8496 \"AMOUNT\"; 98x47 at 513,282 13px #1d2433 \"£1,200.00\"; 281x34 at 53,288 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 63): 13px #1d2433 \"Event photography — full day\"; 56x34 at 346,288 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 356): 13px #1d2433 \"1\"; 92x34 at 415,288 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 425): 13px #1d2433 \"£1,200\"; 98x46 at 513,328 13px #1d2433 \"£480.00\"; 281x34 at 53,334 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 63): 13px #1d2433 \"Photo editing (per image)\"; 56x34 at 346,334 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 356): 13px #1d2433 \"60\"; 92x34 at 415,334 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 425): 13px #1d2433 \"£8\"; 98x46 at 513,374 13px #1d2433 \"£120.00\"; 281x34 at 53,380 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 63): 13px #1d2433 \"Travel\"; 56x34 at 346,380 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 356): 13px #1d2433 \"1\"; 92x34 at 415,380 1px #cfd5df border, 8px rounded, padding-left 10px (its text starts at x 425): 13px #1d2433 \"£120\""
+   ],
+   [
+    "totals",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 48x15 at 341,469 13px #1d2433 \"Subtotal\"; 58x15 at 553,469 13px #1d2433 \"£1,800.00\"; 73x15 at 341,498 13px #1d2433 \"Discount 5%\"; 47x15 at 564,498 13px #1d2433 \"−£90.00\"; 53x15 at 341,527 13px #1d2433 \"VAT 20%\"; 47x15 at 564,527 13px #1d2433 \"£342.00\"; 270x40 at 341,555 2px #1d2433 border on the top only; 42x21 at 341,567 18px bold #1d2433 \"Total\"; 80x21 at 531,567 18px bold #1d2433 \"£2,052.00\""
+   ],
+   [
+    "pdf-preview",
+    "the region itself is ONE 596x796px panel at 660,82, #d9dde4 fill, 12px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); light grey, \"INVOICE\" as a small bold heading, then a table, every body row built and none invented, columns \"ITEM\", \"QTY\", \"AMOUNT\", 3 rows: \"Event photography\" | \"1\" | \"£1,200.00\"; \"Photo editing\" | \"60\" | \"£480.00\"; \"Travel\" | \"1\" | \"£120.00\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 23 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 500x720 at 708,112 #ffffff fill; 46x46 at 748,152 #0e9f6e fill, 10px rounded: 22px bold #ffffff \"L\"; 168x39 at 1000,152 34px font-weight 300 #0e9f6e \"INVOICE\"; 113x53 at 748,228 11px #1d2433 \"Hanav M. Photography 12 Quay St, Bristol\"; 88x53 at 1080,228 11px #1d2433 \"Harbour Hall Ltd INV-2231 · 24 Oct\"; 28x12 at 748,230 11px bold #1d2433 \"From\"; 31x12 at 1080,230 11px bold #1d2433 \"Bill to\"; 220x28 at 748,305 1px #dfe3ea border on the bottom only: 10px bold #7b8496 \"ITEM\"; 72x28 at 968,305 1px #dfe3ea border on the bottom only: 10px bold #7b8496 \"QTY\"; 128x28 at 1040,305 1px #dfe3ea border on the bottom only: 10px bold #7b8496 \"AMOUNT\"; 220x27 at 748,332 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"Event photography\"; 72x27 at 968,332 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"1\"; 128x27 at 1040,332 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"£1,200.00\"; 220x27 at 748,359 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"Photo editing\"; 72x27 at 968,359 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"60\"; 128x27 at 1040,359 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"£480.00\"; 220x27 at 748,386 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"Travel\"; 72x27 at 968,386 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"1\"; 128x27 at 1040,386 1px #f0f2f5 border on the bottom only: 11px #1d2433 \"£120.00\"; 135x77 at 1027,397 3px #dc2626 border, 75% opacity, padding-left 16px (its text starts at x 1043): 22px font-weight 900 #dc2626 \"DRAFT\"; 420x44 at 748,748 #ecfdf5 fill, 8px rounded; 82x16 at 762,762 14px bold #065f46 \"Amount due\"; 62x16 at 1092,762 14px bold #065f46 \"£2,052.00\""
+   ]
+  ]
+ }
+}

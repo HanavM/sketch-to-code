@@ -1,0 +1,329 @@
+{
+  "id": "c5-magazine-cover",
+  "at": "2026-10-24T23:43:49.521Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7554246843412803,
+    "overallV2": 0.7545202640440958,
+    "overallV1": 0.7228793477001595,
+    "colour": 0.8569423812907833,
+    "structure": 0.6183332925453475,
+    "structureStrict": 0.545568788437934,
+    "colourAligned": 0.8586377606764218,
+    "structureAligned": 0.6183332925453475,
+    "align": {
+      "scale": 1.12,
+      "dx": -96,
+      "dy": -80,
+      "r": 0.42123444863597387
+    },
+    "layout": 0.9893333333333333,
+    "layoutV1": 0.656,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      44,
+      120,
+      242,
+      134
+    ],
+    [
+      1,
+      40,
+      128,
+      177,
+      16
+    ],
+    [
+      1,
+      40,
+      162,
+      177,
+      16
+    ],
+    [
+      1,
+      40,
+      195,
+      177,
+      16
+    ],
+    [
+      1,
+      40,
+      229,
+      94,
+      16
+    ],
+    [
+      0,
+      340,
+      30,
+      600,
+      840
+    ],
+    [
+      0,
+      490,
+      180,
+      330,
+      620
+    ],
+    [
+      0,
+      585,
+      140,
+      140,
+      170
+    ],
+    [
+      0,
+      766,
+      576,
+      158,
+      157
+    ],
+    [
+      9,
+      763,
+      566,
+      155,
+      162
+    ],
+    [
+      10,
+      763,
+      566,
+      155,
+      162
+    ],
+    [
+      0,
+      768,
+      578,
+      154,
+      154
+    ],
+    [
+      12,
+      792,
+      636,
+      106,
+      39
+    ],
+    [
+      0,
+      370,
+      330,
+      170,
+      90
+    ],
+    [
+      0,
+      760,
+      410,
+      160,
+      69
+    ],
+    [
+      0,
+      370,
+      650,
+      260,
+      124
+    ],
+    [
+      0,
+      810,
+      790,
+      110,
+      56
+    ],
+    [
+      0,
+      360,
+      40,
+      572,
+      190
+    ],
+    [
+      0,
+      990,
+      120,
+      250,
+      68
+    ],
+    [
+      0,
+      990,
+      303,
+      203,
+      52
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "side-copy",
+      "iou": 1,
+      "parts": 2,
+      "rect": {
+        "x": 990,
+        "y": 120,
+        "w": 250,
+        "h": 235
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.7272727272727273,
+    "kept": [
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "motion",
+      "soft-shadow",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41385,
+    "output": 26856,
+    "cacheRead": 289756
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 43645,
+      "output": 17035,
+      "cacheRead": 145470,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 172148
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6327,
+      "output": 2310,
+      "cacheRead": 132829,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 21324
+    }
+  ],
+  "reading": "The sketch is a magazine-style hero: a tall center rectangle holding a full collage cover illustration (halftone dot portrait, gradient panel, hollow 'ORBIT' wordmark, headlines and a price badge), flanked by a left column of four one-line issue/archive links and a right column with a paragraph of body copy and a 'Subscribe' button, all on a dark page with Helvetica/black type per the run-level note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 4,
+          "fontPx": 22
+        }
+      ],
+      "region": [
+        44,
+        120,
+        242,
+        134
+      ],
+      "paths": [],
+      "instruction": "Add a vertical list of four one-line text rows as real elements with live text (each kept on a single line via white-space: nowrap so the word and its trailing "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        33,
+        594,
+        834
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Build a 600x840px CSS-only magazine-cover illustration at page position 340,30 (no raster image), composed of these real, live-content parts, nothing invented/n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 7,
+          "fontPx": 22
+        }
+      ],
+      "region": [
+        994,
+        120,
+        242,
+        235
+      ],
+      "paths": [],
+      "instruction": "Add a 250px-wide body-copy block at page position 990,120 with exactly this 15px text (this copy only, nothing invented): 'Ceramicists, type designers and one v"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

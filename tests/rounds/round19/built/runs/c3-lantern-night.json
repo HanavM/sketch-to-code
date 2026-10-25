@@ -1,0 +1,596 @@
+{
+  "id": "c3-lantern-night",
+  "at": "2026-10-24T23:31:31.265Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8120427040742452,
+    "overallV2": 0.8120427040742452,
+    "overallV1": 0.7785049448928881,
+    "colour": 0.9496339041987345,
+    "structure": 0.7842289623689089,
+    "structureStrict": 0.6992743555962431,
+    "colourAligned": 0.9496339041987345,
+    "structureAligned": 0.7842289623689089,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.614717839265267
+    },
+    "layout": 0.728624738401749,
+    "layoutV1": 0.728624738401749,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      594,
+      1280,
+      306
+    ],
+    [
+      1,
+      -1,
+      594,
+      1281,
+      306
+    ],
+    [
+      0,
+      0,
+      708,
+      1280,
+      192
+    ],
+    [
+      3,
+      0,
+      708,
+      1280,
+      192
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      5,
+      1025,
+      74,
+      111,
+      112
+    ],
+    [
+      6,
+      1025,
+      74,
+      111,
+      112
+    ],
+    [
+      5,
+      636,
+      145,
+      72,
+      86
+    ],
+    [
+      8,
+      636,
+      145,
+      72,
+      85
+    ],
+    [
+      9,
+      636,
+      145,
+      72,
+      85
+    ],
+    [
+      9,
+      679,
+      145,
+      29,
+      85
+    ],
+    [
+      9,
+      640,
+      154,
+      29,
+      19
+    ],
+    [
+      9,
+      636,
+      159,
+      72,
+      2
+    ],
+    [
+      9,
+      636,
+      215,
+      72,
+      2
+    ],
+    [
+      5,
+      770,
+      260,
+      94,
+      114
+    ],
+    [
+      15,
+      770,
+      260,
+      94,
+      114
+    ],
+    [
+      16,
+      770,
+      260,
+      94,
+      114
+    ],
+    [
+      16,
+      827,
+      260,
+      37,
+      114
+    ],
+    [
+      16,
+      776,
+      273,
+      37,
+      25
+    ],
+    [
+      16,
+      770,
+      278,
+      94,
+      2
+    ],
+    [
+      16,
+      770,
+      353,
+      94,
+      2
+    ],
+    [
+      5,
+      900,
+      202,
+      83,
+      98
+    ],
+    [
+      22,
+      900,
+      202,
+      83,
+      98
+    ],
+    [
+      23,
+      900,
+      202,
+      83,
+      98
+    ],
+    [
+      23,
+      949,
+      202,
+      33,
+      98
+    ],
+    [
+      23,
+      905,
+      212,
+      33,
+      22
+    ],
+    [
+      23,
+      900,
+      217,
+      83,
+      2
+    ],
+    [
+      23,
+      900,
+      282,
+      83,
+      2
+    ],
+    [
+      5,
+      1029,
+      332,
+      115,
+      134
+    ],
+    [
+      29,
+      1029,
+      332,
+      115,
+      134
+    ],
+    [
+      30,
+      1029,
+      332,
+      115,
+      134
+    ],
+    [
+      30,
+      1098,
+      332,
+      46,
+      134
+    ],
+    [
+      30,
+      1036,
+      347,
+      46,
+      30
+    ],
+    [
+      30,
+      1029,
+      354,
+      115,
+      2
+    ],
+    [
+      30,
+      1029,
+      442,
+      115,
+      2
+    ],
+    [
+      0,
+      88,
+      40,
+      326,
+      27
+    ],
+    [
+      36,
+      88,
+      40,
+      143,
+      27
+    ],
+    [
+      36,
+      263,
+      42,
+      151,
+      23
+    ],
+    [
+      38,
+      263,
+      42,
+      34,
+      23
+    ],
+    [
+      38,
+      322,
+      42,
+      39,
+      23
+    ],
+    [
+      38,
+      385,
+      42,
+      29,
+      23
+    ],
+    [
+      0,
+      88,
+      346,
+      737,
+      123
+    ],
+    [
+      0,
+      84,
+      540,
+      480,
+      90
+    ],
+    [
+      0,
+      88,
+      643,
+      375,
+      43
+    ],
+    [
+      44,
+      88,
+      643,
+      137,
+      43
+    ],
+    [
+      44,
+      241,
+      643,
+      79,
+      43
+    ],
+    [
+      44,
+      336,
+      643,
+      127,
+      43
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.42857142857142855,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "clip-shape",
+      "glass",
+      "glow",
+      "motion"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 103029,
+    "output": 70508,
+    "cacheRead": 1219963
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 92153,
+      "output": 34423,
+      "cacheRead": 758371,
+      "toolCalls": 25,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/GlowingCircle.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/GlowingCircle.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/GlowingCircle.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/GlowingCircle.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/GlowingCircle.tsx",
+        "Read components/SketchShape.tsx"
+      ],
+      "ms": 381057
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 53423,
+      "output": 23932,
+      "cacheRead": 449667,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 267409
+    }
+  ],
+  "reading": "A night-market landing-page hero: a jagged layered 'mountain' silhouette background (two flat-filled cut-out shapes), a nav bar with 'NIGHT MARKET' and links, a giant tight-set 'OPEN LATE' heading, a 3-line paragraph of event copy, a row of 3 pill buttons, plus a glowing circle and four floating rectangles read as paper lanterns drifting in the sky above it all, over a near-black-to-indigo-to-plum page gradient.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1025,
+        74,
+        111,
+        112
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Big glowing cream circle, like a glowing moon, sitting in the night sky area of the hero."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        637,
+        146,
+        505,
+        320
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Four floating rectangular shapes of varying sizes scattered in the night sky near the glowing circle, read as paper lanterns drifting above the market, echoing "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        594,
+        1270,
+        301
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Near-black jagged cut-out shape, ONE flat #1d0f2e fill (clip-path polygon, no gradient/shading/texture); drawn outline is not kept as a visible line. Box is 128"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        709,
+        1270,
+        186
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Near-black indigo jagged cut-out shape, ONE flat #0c0718 fill (clip-path polygon, no gradient/shading/texture); drawn outline is not kept as a visible line. Box"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        88,
+        46,
+        377,
+        8
+      ],
+      "paths": [],
+      "instruction": "Nav bar: bold 18px 'NIGHT MARKET' wordmark first, then nav links: Food, Music, Map."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 112
+        }
+      ],
+      "region": [
+        88,
+        346,
+        295,
+        124
+      ],
+      "paths": [],
+      "instruction": "Giant, heavy, tight-set hero heading 'OPEN LATE' in light pink, lines set tight with line-height 0.9."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 112
+        },
+        {
+          "strokes": [
+            "s11",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 55
+        }
+      ],
+      "region": [
+        88,
+        525,
+        472,
+        120
+      ],
+      "paths": [],
+      "instruction": "20px Helvetica pale-lilac (#f2d9ff) body copy, 3 lines, 480px wide, top-left around 84,540, exact quoted text: \"Forty stalls, two stages and a thousand paper la"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        88,
+        643,
+        370,
+        37
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "A stepper of 3 filled pills in one row, each 43px tall (border-radius 999px), sitting on the #1d0f2e block with no bar/fill of its own: \"Fri 6pm – 2am\" (white f"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

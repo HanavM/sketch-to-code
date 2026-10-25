@@ -1,0 +1,372 @@
+{
+  "id": "c1-stained-glass",
+  "at": "2026-10-24T23:11:04.573Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7447692329224568,
+    "overallV2": 0.7447692329224568,
+    "overallV1": 0.6776914639726184,
+    "colour": 0.9001792783540421,
+    "structure": 0.6199227679006183,
+    "structureStrict": 0.44815356861352645,
+    "colourAligned": 0.9001792783540421,
+    "structureAligned": 0.6199227679006183,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.48094899437101907
+    },
+    "layout": 0.7839353296195618,
+    "layoutV1": 0.7839353296195618,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      343,
+      1,
+      935,
+      835
+    ],
+    [
+      1,
+      343,
+      1,
+      935,
+      835
+    ],
+    [
+      2,
+      343,
+      1,
+      935,
+      835
+    ],
+    [
+      1,
+      343,
+      0,
+      936,
+      836
+    ],
+    [
+      0,
+      70,
+      44,
+      130,
+      20
+    ],
+    [
+      0,
+      285,
+      44,
+      54,
+      20
+    ],
+    [
+      0,
+      425,
+      44,
+      65,
+      20
+    ],
+    [
+      0,
+      576,
+      44,
+      54,
+      20
+    ],
+    [
+      0,
+      700,
+      70,
+      460,
+      760
+    ],
+    [
+      9,
+      720,
+      90,
+      460,
+      250
+    ],
+    [
+      9,
+      720,
+      340,
+      230,
+      260
+    ],
+    [
+      9,
+      950,
+      340,
+      230,
+      260
+    ],
+    [
+      9,
+      870,
+      390,
+      160,
+      160
+    ],
+    [
+      9,
+      720,
+      600,
+      460,
+      240
+    ],
+    [
+      0,
+      74,
+      200,
+      688,
+      244
+    ],
+    [
+      15,
+      74,
+      200,
+      688,
+      122
+    ],
+    [
+      16,
+      392,
+      187,
+      150,
+      147
+    ],
+    [
+      15,
+      74,
+      322,
+      688,
+      122
+    ],
+    [
+      0,
+      70,
+      560,
+      420,
+      87
+    ],
+    [
+      0,
+      72,
+      701,
+      299,
+      54
+    ],
+    [
+      0,
+      1190,
+      254,
+      14,
+      224
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blend",
+      "glow",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "vertical-type"
+    ],
+    "missing": [
+      "bleed",
+      "blur",
+      "clip-shape"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 66904,
+    "output": 36290,
+    "cacheRead": 630269
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 81384,
+      "output": 27014,
+      "cacheRead": 618554,
+      "toolCalls": 17,
+      "tools": [
+        "Read components/Sunburst.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/Sunburst.tsx",
+        "Glob",
+        "Glob",
+        "Edit components/Sunburst.tsx",
+        "Write src/App.tsx",
+        "Read components/Sunburst.tsx",
+        "Glob",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Read components/Sunburst.tsx"
+      ],
+      "ms": 300780
+    }
+  ],
+  "reading": "The sketch lays out a dark hero section: a huge sunburst disc behind a four-item text nav bar, a glowing gradient-block panel with five sub-parts, a tight two-line headline with one hollow word, a three-line body paragraph, a glowing outline pill CTA button, and a vertical side label — every piece's exact copy, size, position and CSS is spelled out in the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        935,
+        835
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a large decorative sunburst behind the hero content: a 1100x1100px disc at (340,-260), border-radius 50%, painted with exactly background: repeating-conic-g"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        46,
+        552,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a top navigation row with four separate one-line text elements, each white-space:nowrap with a min-width (not fixed width) so label and any count never wrap"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        73,
+        454,
+        753
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a hero panel: one 460x760px container at (700,70), #1a1426 fill, 10px #2b2236 border, 230px border-radius, box-shadow rgba(255,190,110,0.35) 0 0 120px 0 (it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 111
+        }
+      ],
+      "region": [
+        74,
+        200,
+        648,
+        243
+      ],
+      "paths": [],
+      "instruction": "Add a large Georgia italic regular-weight headline with tight-set letters (line-height 0.92), using a light-like screen blend so it brightens whatever it overla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        74,
+        560,
+        412,
+        88
+      ],
+      "paths": [],
+      "instruction": "Add a 3-line body paragraph, 19px Georgia, color #d9cdb5, 420px wide, top-left at (70,560), with this exact quoted copy: \"Hand-leaded glass for chapels, stairwe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        72,
+        701,
+        299,
+        55
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a soft-yellow outline pill button with a glow, labeled 'BOOK A STUDIO VISIT →'; its text color is #ffd36b (soft yellow, not the page's default cream)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1190,
+        254,
+        14,
+        224
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add vertical mono wide-spaced text (writing-mode: vertical-rl), 12px letters, the line about 232px long, reading 'EST. 1987 — BRISTOL'; its text color is #8f7f6"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

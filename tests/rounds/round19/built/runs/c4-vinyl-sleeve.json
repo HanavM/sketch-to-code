@@ -1,0 +1,462 @@
+{
+  "id": "c4-vinyl-sleeve",
+  "at": "2026-10-24T23:38:40.518Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.46976093849785727,
+    "overallV2": 0.46623945639211894,
+    "overallV1": 0.41534306135529525,
+    "colour": 0.7940650254295508,
+    "structure": 0.5374394380195666,
+    "structureStrict": 0.44936085714528323,
+    "colourAligned": 0.7977143463693268,
+    "structureAligned": 0.5374394380195666,
+    "align": {
+      "scale": 1.16,
+      "dx": 128,
+      "dy": -64,
+      "r": 0.6728781512063554
+    },
+    "layout": 0.7741731862347281,
+    "layoutV1": 0.6313160433775852,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      50,
+      160,
+      16
+    ],
+    [
+      0,
+      604,
+      50,
+      148,
+      16
+    ],
+    [
+      0,
+      1077,
+      50,
+      103,
+      16
+    ],
+    [
+      0,
+      104,
+      134,
+      598,
+      598
+    ],
+    [
+      4,
+      104,
+      134,
+      598,
+      598
+    ],
+    [
+      4,
+      162,
+      561,
+      308,
+      96
+    ],
+    [
+      4,
+      268,
+      298,
+      193,
+      193
+    ],
+    [
+      0,
+      700,
+      96,
+      306,
+      365
+    ],
+    [
+      0,
+      1010,
+      150,
+      96,
+      431
+    ],
+    [
+      0,
+      760,
+      600,
+      440,
+      124
+    ],
+    [
+      10,
+      760,
+      600,
+      440,
+      31
+    ],
+    [
+      11,
+      760,
+      604,
+      108,
+      23
+    ],
+    [
+      11,
+      1164,
+      604,
+      36,
+      23
+    ],
+    [
+      10,
+      760,
+      631,
+      440,
+      31
+    ],
+    [
+      14,
+      760,
+      635,
+      99,
+      23
+    ],
+    [
+      14,
+      1164,
+      635,
+      36,
+      23
+    ],
+    [
+      10,
+      760,
+      662,
+      440,
+      31
+    ],
+    [
+      17,
+      760,
+      666,
+      99,
+      23
+    ],
+    [
+      17,
+      1164,
+      666,
+      36,
+      23
+    ],
+    [
+      10,
+      760,
+      693,
+      440,
+      31
+    ],
+    [
+      20,
+      760,
+      697,
+      154,
+      23
+    ],
+    [
+      20,
+      1164,
+      697,
+      36,
+      23
+    ],
+    [
+      0,
+      124,
+      773,
+      203,
+      75
+    ],
+    [
+      23,
+      124,
+      824,
+      11,
+      24
+    ],
+    [
+      23,
+      141,
+      787,
+      11,
+      61
+    ],
+    [
+      23,
+      159,
+      774,
+      11,
+      74
+    ],
+    [
+      23,
+      176,
+      790,
+      11,
+      58
+    ],
+    [
+      23,
+      194,
+      826,
+      11,
+      22
+    ],
+    [
+      23,
+      211,
+      784,
+      11,
+      64
+    ],
+    [
+      23,
+      228,
+      828,
+      11,
+      20
+    ],
+    [
+      23,
+      246,
+      799,
+      11,
+      49
+    ],
+    [
+      23,
+      263,
+      788,
+      11,
+      60
+    ],
+    [
+      23,
+      281,
+      798,
+      11,
+      50
+    ],
+    [
+      23,
+      298,
+      827,
+      11,
+      21
+    ],
+    [
+      23,
+      316,
+      780,
+      11,
+      68
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "topline",
+      "iou": 1,
+      "parts": 3,
+      "rect": {
+        "x": 120,
+        "y": 50,
+        "w": 1060,
+        "h": 16
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.9166666666666666,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48633,
+    "output": 34257,
+    "cacheRead": 176610
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46764,
+      "output": 18405,
+      "cacheRead": 164146,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 204263
+    }
+  ],
+  "reading": "This is a vinyl-record product page: a top header bar with three labels, a large record-sleeve disc with a spinning center label, a tilted gradient panel, a vertical artist name, a 4-row track listing, and a small pulsing bar-chart audio visualizer, all on a warm-paper page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        54,
+        1052,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a top header bar with three separate live-text elements, each kept on one line (white-space: nowrap, min-width not fixed-width so label and any trailing num"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 158
+        }
+      ],
+      "region": [
+        104,
+        134,
+        882,
+        592
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a 598x598px square block that is NOT a photo/image: its background is exactly radial-gradient(#f0e6d2 22%, rgba(0,0,0,0) 24%), producing a flat disc with a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        765,
+        119,
+        177,
+        319
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Add a rectangular panel tilted 28° clockwise, filled with a left-to-right linear gradient: light grey #bbbbbb to off-white #eeeeee (stop at 50%, fully opaque) t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1018,
+        332,
+        86,
+        67
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add vertical text (writing-mode: vertical-rl) reading 'Mara Quell' in giant 96px Georgia italic, regular weight (not bold), tight-set serif letters, kept on a s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 4,
+          "fontPx": 21
+        }
+      ],
+      "region": [
+        764,
+        600,
+        432,
+        124
+      ],
+      "paths": [],
+      "instruction": "Add a 4-row track listing. Each row is 440x31 with a 1px dashed #1b1b1b border on the bottom edge only, a track title in 15px monospace #1b1b1b on the left, and"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        124,
+        773,
+        203,
+        74
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a pulsing bar-chart audio visualizer made of 12 orange bars, 12px wide each with 6px gaps, heights set to 32/81/100/81/32/100/32/81/100/81/32/100% of the ta"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

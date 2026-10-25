@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cloud drive</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f7f8fa;font-family:Helvetica,Arial,sans-serif;color:#1f2430;font-size:13px}
+.nav{position:absolute;left:0;top:0;width:220px;height:900px;background:#fff;border-right:1px solid #e6e8ee;padding:18px 12px}.nav b{display:block;font-size:18px;margin:0 8px 18px}
+.new{display:block;width:150px;padding:12px 16px;border-radius:12px;background:#2563eb;color:#fff;font-weight:700;margin:0 0 16px 4px;box-shadow:0 4px 12px rgba(37,99,235,.35)}
+.nav a{display:block;padding:9px 10px;border-radius:8px;color:#4b5263}.nav .on{background:#e8efff;color:#2563eb;font-weight:700}
+.store{position:absolute;left:16px;bottom:24px;width:188px}.store .bar{height:8px;border-radius:4px;background:#e6e8ee;margin:8px 0;display:flex;overflow:hidden}.store .bar i{display:block;height:8px}
+.top{position:absolute;left:220px;top:0;width:1060px;height:64px;display:flex;align-items:center;padding:0 24px;gap:16px;background:#fff;border-bottom:1px solid #e6e8ee}
+.crumb{font-size:16px}.crumb span{color:#8a90a0}.srch{margin-left:auto;width:320px;height:38px;border-radius:10px;background:#f1f3f7;padding:11px 14px;color:#8a90a0}
+.view{display:flex;border:1px solid #e6e8ee;border-radius:8px;overflow:hidden}.view span{padding:8px 12px}.view .on{background:#e8efff;color:#2563eb}
+.grid{position:absolute;left:244px;top:120px;width:700px;display:grid;grid-template-columns:repeat(4,160px);gap:16px}
+.h2{position:absolute;left:244px;top:86px;font-weight:700;color:#4b5263}
+.f{height:170px;background:#fff;border:1px solid #e6e8ee;border-radius:12px;overflow:hidden}.f .th{height:110px;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff}.f p{padding:10px 12px 2px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.f small{padding:0 12px;color:#8a90a0}
+.f.sel{border:2px solid #2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.ctx{position:absolute;left:600px;top:250px;width:210px;background:#fff;border-radius:10px;box-shadow:0 14px 36px rgba(16,24,40,.2);border:1px solid #e6e8ee;padding:6px;z-index:3}.ctx div{padding:9px 10px;border-radius:6px;display:flex;justify-content:space-between}.ctx .h{background:#f1f3f7}.ctx em{font-style:normal;color:#8a90a0}.ctx hr{border:0;border-top:1px solid #eef0f4;margin:4px 0}.ctx .d{color:#dc2626}
+.det{position:absolute;left:964px;top:64px;width:316px;height:836px;background:#fff;border-left:1px solid #e6e8ee;padding:20px}
+.det .pv{height:180px;border-radius:12px;background:linear-gradient(135deg,#f97316,#db2777);margin:14px 0}.det dl{display:grid;grid-template-columns:100px 1fr;gap:10px 8px}.det dt{color:#8a90a0}
+.who{display:flex;margin-top:18px}.who i{width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-8px}
+.up{position:absolute;left:600px;top:760px;width:340px;background:#1f2430;color:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 12px 30px rgba(0,0,0,.3)}.up .pb{height:6px;border-radius:3px;background:#3b4252;margin-top:10px}.up .pb i{display:block;width:64%;height:6px;border-radius:3px;background:#60a5fa}
+</style></head><body>
+<div class="nav" data-r="sidebar"><b>☁ Stash</b><span class="new">＋ New</span><a>Home</a><a class="on">My files</a><a>Shared with me</a><a>Recent</a><a>Starred</a><a>Trash</a>
+<div class="store"><b style="font-size:13px;margin:0">Storage</b><div class="bar"><i style="width:40%;background:#2563eb"></i><i style="width:22%;background:#f97316"></i><i style="width:12%;background:#16a34a"></i></div><span style="color:#8a90a0">74 GB of 100 GB used</span></div></div>
+<div class="top" data-r="topbar"><span class="crumb"><span>My files ›</span> <span>Clients ›</span> Harbour Hall</span><span class="srch">🔍 Search files</span><span class="view"><span class="on">▦</span><span>☰</span></span></div>
+<div class="h2" data-r="section-title">Files · 8</div>
+<div class="grid" data-r="file-grid" data-must>
+<div class="f"><div class="th" style="background:#fbbf24">📁</div><p>Contracts</p><small>12 files</small></div>
+<div class="f"><div class="th" style="background:#fbbf24">📁</div><p>Photos</p><small>184 files</small></div>
+<div class="f sel"><div class="th" style="background:linear-gradient(135deg,#f97316,#db2777)">▶</div><p>Venue_walkthrough.mp4</p><small>412 MB · Oct 22</small></div>
+<div class="f"><div class="th" style="background:#ef4444">PDF</div><p>Venue_contract_v4.pdf</p><small>412 KB</small></div>
+<div class="f"><div class="th" style="background:#16a34a">XLS</div><p>Budget_Q4.xlsx</p><small>88 KB</small></div>
+<div class="f"><div class="th" style="background:#2563eb">DOC</div><p>Run_of_show.docx</p><small>64 KB</small></div>
+<div class="f"><div class="th" style="background:#8b5cf6">◆</div><p>Floorplan.fig</p><small>2.1 MB</small></div>
+<div class="f"><div class="th" style="background:#64748b">ZIP</div><p>Logos.zip</p><small>18 MB</small></div></div>
+<div class="ctx" data-r="context-menu"><div>Open with <em>›</em></div><div class="h">Share <em>⌘S</em></div><div>Copy link</div><div>Move to… </div><div>Rename <em>F2</em></div><hr><div class="d">Move to trash</div></div>
+<div class="det" data-r="details-panel" data-must><b style="font-size:16px">Venue_walkthrough.mp4</b><div class="pv"></div><dl><dt>Type</dt><dd>MP4 video</dd><dt>Size</dt><dd>412 MB</dd><dt>Owner</dt><dd>Hanav M.</dd><dt>Modified</dt><dd>Oct 22, 2026</dd><dt>Location</dt><dd>Harbour Hall</dd></dl><div style="margin-top:22px;font-weight:700">Shared with</div><div class="who"><i style="background:#0891b2"></i><i style="background:#ea580c"></i><i style="background:#16a34a"></i></div></div>
+<div class="up" data-r="upload-toast"><b>Uploading 3 files</b> · 2 min left<div class="pb"><i></i></div></div>
+</body></html>

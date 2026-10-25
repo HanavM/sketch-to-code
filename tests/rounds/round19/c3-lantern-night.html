@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Lantern night</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#0b1030 0%,#2a1645 55%,#5a1f3f 100%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}@keyframes flick{0%,100%{opacity:1}45%{opacity:1}50%{opacity:.4}55%{opacity:1}}
+.moon{position:absolute;left:1020px;top:70px;width:120px;height:120px;border-radius:50%;background:#ffeccc;box-shadow:0 0 80px 20px rgba(255,236,204,.35)}
+.l{position:absolute;top:0;transform-origin:50% 0;animation:sway 5s ease-in-out infinite}
+.l::before{content:"";position:absolute;left:50%;top:0;width:2px;height:var(--s);background:#d8b98a}
+.l i{position:absolute;left:0;top:var(--s);width:var(--w);height:calc(var(--w)*1.2);border-radius:45%;background:radial-gradient(circle at 50% 40%,#fff2b0,#ff9a2e 45%,#d4361f 100%);box-shadow:0 0 50px 10px rgba(255,140,40,.55)}
+.hill1{position:absolute;left:0;top:560px;width:1280px;height:340px;background:#1d0f2e;clip-path:polygon(0 40%,15% 20%,32% 45%,50% 15%,68% 40%,84% 10%,100% 35%,100% 100%,0 100%)}
+.hill2{position:absolute;left:0;top:660px;width:1280px;height:240px;background:#0c0718;clip-path:polygon(0 30%,20% 55%,40% 25%,62% 50%,80% 20%,100% 45%,100% 100%,0 100%)}
+.sign{position:absolute;left:80px;top:300px;font:900 120px/0.9 "Arial Black",Impact,sans-serif;letter-spacing:-3px;color:#ff5fa2;text-shadow:0 0 10px #ff5fa2,0 0 40px #ff2d7a,0 0 80px #ff2d7a;animation:flick 3s linear infinite}
+.sub{position:absolute;left:84px;top:540px;width:480px;font-size:20px;line-height:1.5;color:#f2d9ff}
+.when{position:absolute;left:84px;top:640px;display:flex;gap:14px}.when span{padding:12px 20px;border:1px solid rgba(255,255,255,.5);border-radius:30px;font-size:15px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px)}
+.when .go{background:#ffb02e;color:#2a1645;font-weight:700;border-color:#ffb02e}
+.nav{position:absolute;left:84px;top:40px;display:flex;gap:40px;font-size:15px;letter-spacing:1px}.nav b{font-size:18px}
+</style></head><body>
+<div class="moon" data-r="moon"></div>
+<div class="l" style="left:620px;--s:150px;--w:70px" data-r="lantern-1"><i></i></div>
+<div class="l" style="left:760px;--s:260px;--w:96px;animation-delay:-1s" data-r="lantern-2" data-must><i></i></div>
+<div class="l" style="left:920px;--s:200px;--w:80px;animation-delay:-2s" data-r="lantern-3"><i></i></div>
+<div class="l" style="left:1060px;--s:330px;--w:110px;animation-delay:-3s" data-r="lantern-4"><i></i></div>
+<div class="l" style="left:540px;--s:380px;--w:60px;animation-delay:-4s" data-r="lantern-5"><i></i></div>
+<div class="hill1" data-r="far-hills"></div><div class="hill2" data-r="near-hills"></div>
+<div class="nav" data-r="nav"><b>NIGHT MARKET</b><span>Food</span><span>Music</span><span>Map</span></div>
+<div class="sign" data-r="neon-sign" data-must>OPEN<br>LATE</div>
+<p class="sub" data-r="sub">Forty stalls, two stages and a thousand paper lanterns over the old harbour. Every Friday until the first frost.</p>
+<div class="when" data-r="date-pills"><span>Fri 6pm – 2am</span><span>Pier 4</span><span class="go">Get the map</span></div>
+</body></html>

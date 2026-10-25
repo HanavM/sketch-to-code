@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Type sculpture</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e9e4da;font-family:Helvetica,Arial,sans-serif;color:#141414}
+@keyframes run{to{transform:translateX(-50%)}}@keyframes spin{to{transform:rotate(360deg)}}
+.orb{position:absolute;left:470px;top:150px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffb38a,#ff4f2e 45%,#5a0f2a 100%)}
+.w1{position:absolute;left:40px;top:60px;font:900 230px/0.8 Impact,Haettenschweiler,sans-serif;letter-spacing:-8px;text-transform:uppercase;color:#141414}
+.w2{position:absolute;left:300px;top:270px;font:italic 300 210px/0.85 Georgia,serif;letter-spacing:-6px;color:transparent;-webkit-text-stroke:2px #141414}
+.w3{position:absolute;left:520px;top:480px;font:900 230px/0.8 Impact,sans-serif;letter-spacing:-8px;text-transform:uppercase;background:linear-gradient(90deg,#2340ff,#b620e0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.w4{position:absolute;left:1150px;top:90px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 92px/1 Helvetica,sans-serif;letter-spacing:-2px;color:#ff4f2e}
+.ribbon{position:absolute;left:-100px;top:700px;width:1500px;height:64px;background:#141414;transform:rotate(-6deg);overflow:hidden}
+.ribbon div{display:flex;width:max-content;animation:run 16s linear infinite;font:700 28px/64px "Courier New",monospace;color:#e9e4da;white-space:nowrap}
+.badge{position:absolute;left:90px;top:520px;width:170px;height:170px;animation:spin 14s linear infinite}
+.badge text{font:700 15px "Courier New",monospace;letter-spacing:4px;fill:#141414}
+.dot{position:absolute;left:157px;top:587px;width:36px;height:36px;border-radius:50%;background:#ff4f2e}
+.meta{position:absolute;left:60px;top:830px;width:1160px;display:flex;justify-content:space-between;font:13px "Courier New",monospace;letter-spacing:2px;text-transform:uppercase}
+</style></head><body>
+<div class="orb" data-r="gradient-orb"></div>
+<div class="w1" data-r="word-form" data-must>FORM</div>
+<div class="w2" data-r="word-follows" data-must>follows</div>
+<div class="w3" data-r="word-type" data-must>TYPE</div>
+<div class="w4" data-r="vertical-word">Specimen 04</div>
+<div class="ribbon" data-r="diagonal-marquee"><div>VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦ VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦ VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦&nbsp;</div></div>
+<svg class="badge" viewBox="0 0 170 170" data-r="circle-badge"><defs><path id="c" d="M85,85 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs><text><textPath href="#c">FOUNDRY ✦ NEW RELEASE ✦ 2026 ✦</textPath></text></svg>
+<div class="dot" data-r="badge-dot"></div>
+<div class="meta" data-r="footer-meta"><span>Grotto Type Foundry</span><span>14 weights · 3 axes</span><span>Try it →</span></div>
+</body></html>
