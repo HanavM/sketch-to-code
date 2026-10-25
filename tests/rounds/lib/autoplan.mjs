@@ -1410,6 +1410,8 @@ export function factsInPage() {
             poly: /polygon\(/.test(s.clipPath) ? s.clipPath : null,
             fam: s.fontFamily.split(',')[0].replace(/["']/g, '').trim(), bgc: rgba(s.backgroundColor), outShadow: s.boxShadow !== 'none' && !/inset/.test(s.boxShadow) ? s.boxShadow : null,
             border: bw.some((x) => x >= 1) ? { w: bw, c: bc, style: s.borderTopStyle !== 'none' ? s.borderTopStyle : s.borderBottomStyle } : null, ring, inset, strike: own ? /line-through/.test(s.textDecorationLine) : false, op: Math.round(parseFloat(s.opacity) * 100) , padL: own ? Math.round(parseFloat(s.paddingLeft) || 0) : 0,
+            // n194: a part turned on the page (round 19 e5 DRAFT stamp: its turned bounds said as a level box, built level)
+            rot: (() => { const m = s.transform.match(/^matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(), lw: k.offsetWidth, lhh: k.offsetHeight,
             // n175: vertical type (round 17 c5 '99.99%' set vertical-rl turned 180deg, built horizontal), a line wider than the
             // tile that clips it (the logo strip built spilling out of its tile), and its CSS animation
             vert: own && /^vertical/.test(s.writingMode) ? (/^matrix\(-1,/.test(s.transform) ? 'up' : 'down') : null,
@@ -3157,14 +3159,20 @@ function partsNote(P, f) {
     if (p.ra) paint.push('text right-aligned in its box (a line number in the gutter)')
     // n170: a text part padded in from its left (round 16 e3 diff rows: padding-left 52px past the gutter numbers, built
     // with the code starting over the numbers)
-    if (p.t && p.padL >= 8 && !p.ra) {
+    if (p.t && p.padL >= 8 && !p.ra && Math.abs(p.rot ?? 0) >= 2 && Math.abs(p.rot) <= 60) paint.push(`padding ${p.padL}px at the sides`)
+    else if (p.t && p.padL >= 8 && !p.ra) {
       const gut = P.some((q) => q.ra && q.t && q.x >= p.x - 1 && q.x < p.x + p.padL && Math.abs(q.y - p.y) <= 2)
       paint.push(`padding-left ${p.padL}px (its text starts at x ${p.x + p.padL}${gut ? ', AFTER the gutter number, never over it' : ''})`)
     }
     if (p.vert) paint.push(`VERTICAL text (writing-mode: vertical-rl${p.vert === 'up' ? '; transform: rotate(180deg), so it reads bottom to top' : ', reading top to bottom'}; NOT horizontal, the box is tall and narrow)`)
     if (p.clip) paint.push(`a line ${p.w}px long inside a ${p.clip.w}px tile that CLIPS it (the tile has overflow: hidden and white-space: nowrap): only its first ${p.clip.shown}px show, cut off at the tile's edge, never spilling past the tile`)
     if (p.anim) { kfs.add(p.anim.kf); paint.push(`animated: animation ${p.anim.name} ${p.anim.dur} ${p.anim.timing}${p.anim.iter === 'infinite' ? ' infinite' : ''}${p.anim.delay && p.anim.delay !== '0s' ? ` delay ${p.anim.delay}` : ''}${/scale|rotate/.test(p.anim.kf ?? '') && p.anim.origin ? `, transform-origin ${p.anim.origin}` : ''}`) }
-    return `${p.w}x${p.h} at ${p.x},${p.y}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
+    // n194: a focus glow round a field (box-shadow 0 0 0 Npx, round 19 e5 'Harb|' input: built plain)
+    const glow = p.outShadow && /^rgba?\([^)]+\)\s+0px\s+0px\s+0px\s+([\d.]+)px/.exec(p.outShadow)
+    if (glow && p.border) paint.push(`a ${Math.round(+glow[1])}px ${hx(parse(p.outShadow.match(/rgba?\([^)]+\)/)[0]))} ${p.t && p.h <= 64 ? 'FOCUS GLOW' : 'SELECTION GLOW'} round the outside of its border (box-shadow: 0 0 0 ${Math.round(+glow[1])}px${p.t && p.h <= 64 ? '; the field is focused, being typed in' : '; this one is selected'})`)
+    const turn = Math.abs(p.rot ?? 0) >= 2 && Math.abs(p.rot) <= 60 && p.lw && p.lhh
+    const head = turn ? `${p.lw}x${p.lhh} (its own size BEFORE the turn) centred at ${Math.round(p.x + p.w / 2)},${Math.round(p.y + p.h / 2)}, TILTED: transform: rotate(${p.rot}deg) round its centre (set at a slant, ${Math.abs(p.rot)}° ${p.rot > 0 ? 'clockwise' : 'anticlockwise'}, NOT level), on top of what is under it,` : `${p.w}x${p.h} at ${p.x},${p.y}`
+    return `${head}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
   const kfs = new Set()
   const listed = [...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')
@@ -4897,6 +4905,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
     const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
     const frame = !d.kind && f.regionKids.length && P.filter((p) => p.t).length >= 3
+    // n194: a bare card note over a region holding nested regions AND its own worded parts (round 19 e5 invoice form
+    // 'white card': its Bill to label, focused input and date fields lost, the dropdown built over where they belong)
+    const cardLoose = d.kind && d.note && f.regionKids.length && !/\d+px|#[0-9a-f]{6}|part by part/i.test(d.note) && P.filter((p) => p.t && !d.note.includes(p.t)).length >= 3
     // a note that quotes under 60% of the region's own words leaves the rest to be invented or dropped (round 10 e3
     // track table: header and the playing row said, the other four tracks lost; side nav: 2 of 7 items)
     const T = uniq(P.map((p) => p.t).filter((t) => t && t.length >= 2))
@@ -4944,8 +4955,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       marked.add(f.role)
       return
     }
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic) return
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose) return
     let note = partsNote(P, f)
+    if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
     // n181: the region's own words outside its parts (a lane head's '▸ Growth' before its count span)
     const rest = d && !d.note && P.length < 3 && f.text ? P.reduce((t, p) => (p.t ? t.replace(p.t, '') : t), f.text.replace(/\s+/g, ' ')).trim() : ''
     if (rest) note = `one row starting at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: first bold ${hexOf(f.colour)} ${quote(rest, 40)}, then on the same line ${note}`
@@ -4972,6 +4984,39 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
     out.set(f.role, { kind: !d.kind || d.kind === 'image' ? 'box' : d.kind, note: `${keep}${note1}${fl}` })
     marked.add(f.role)
+  })
+  // n194: round 19 e2 team settings: a table inside a bordered rounded card under a titled header band (the card frame
+  // and band lost, the table built loose); a row of controls said as bare words (the 346px invite field built narrow);
+  // an open menu's long option wrapping onto two lines; a brand's small gradient square before its name (lost)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d?.note) return
+    const P = f.parts ?? [], R = f.rect, hx = (c) => hexOf(c)
+    const css = (v) => v.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? hexOf(c) : m })
+    if (/table \(a real <table>/.test(d.note) && !/^the region itself/.test(d.note) && f.border?.w >= 1 && visible(f.border.colour) && f.radius >= 4 && !f.regionKids.length) {
+      const band = P.find((p) => p.t && p.fill && p.border && p.border.w[2] >= 1 && p.w >= 0.9 * R.w && p.y <= R.y + 4 && d.note.includes(`"${p.t}"`))
+      const head = band ? `; its title ${quote(band.t, 40)} sits in a ${band.w}x${band.h}px ${hx(band.fill)} header band across the card's top (${band.px}px ${band.bold ? 'bold ' : ''}${hx(band.ink)}, a 1px ${hx(band.border.c)} rule under the band), the table right under that band` : ''
+      out.set(f.role, { ...d, note: `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px card at ${Math.round(R.x)},${Math.round(R.y)} (its own element holding everything below): ${visible(f.bg) && f.bg.a > 0.5 ? `${hx(f.bg)} fill` : 'no fill'}, a ${Math.round(f.border.w)}px ${hx(f.border.colour)} border all round, ${Math.round(f.radius)}px rounded, overflow hidden${head}; ${d.note}` })
+      return
+    }
+    if (/^input "/.test(d.note) && !/\d+x\d+/.test(d.note)) {
+      const C = P.filter((p) => p.t && (p.border || p.fill) && p.h >= 28 && p.h <= 56).sort((a, b) => a.x - b.x)
+      if (C.length >= 2) {
+        const say = C.map((p) => `${quote(p.t, 30)} ${p.w}x${p.h}px at ${p.x},${p.y}${p.fill ? ` ${hx(p.fill)} fill` : ''}${p.border ? `, ${Math.max(...p.border.w)}px ${hx(p.border.c)} border` : ''}${p.radius ? `, ${p.radius}px rounded` : ''}`)
+        out.set(f.role, { ...d, note: `${d.note}; ONE row of ${C.length} controls side by side, each exactly this size and place (the input is the WIDE one): ${say.join('; ')}` })
+      }
+      return
+    }
+    if (/^open dropdown menu/.test(d.note) && !/nowrap/.test(d.note)) {
+      out.set(f.role, { ...d, note: `${d.note}; every option stays on ONE line (white-space: nowrap), none wraps` })
+      return
+    }
+    const logo = P.find((p) => !p.t && p.img && /gradient/.test(p.img) && p.w >= 16 && p.w <= 48 && Math.abs(p.w - p.h) <= 2)
+    const name = logo && P.find((p) => p.t && Math.abs(p.y + p.h / 2 - (logo.y + logo.h / 2)) <= 8 && p.x + p.w > logo.x + logo.w && p.x <= logo.x + logo.w + 24)
+    const nm = name ? name.t.split(/\s+/)[0] : null
+    if (logo && nm && d.note.includes(nm) && !/gradient/.test(d.note)) {
+      out.set(f.role, { ...d, note: `${d.note}; the brand ${quote(nm, 24)} has a small ${logo.w}x${logo.h}px logo square right before it on the same line (at ${logo.x},${logo.y}), ${logo.radius}px rounded, painted ${css(logo.img)}` })
+    }
   })
   // n161: a short word on a many-pointed clip-path cut-out is a star badge, its polygon said verbatim (round 15 c4
   // 'vivid yellow "NEW!"': built as a yellow circle)

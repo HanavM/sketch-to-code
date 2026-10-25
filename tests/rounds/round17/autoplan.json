@@ -617,7 +617,7 @@
    ],
    [
     "library",
-    "near-black block \"Your Library\" list of 6 items, each with a 48px square thumbnail left: \"Liked Songs\" small grey \"Playlist · 812 songs\" under it; \"Deep Focus\" small grey \"Playlist · Spotless\" under it; \"Golden Hour\" small grey \"Album · Mira Vale\" under it; \"Okkervil Lane\" small grey \"Artist\" under it; \"Running 170bpm\" small grey \"Playlist · you\" under it; \"Sunday Slow\" small grey \"Playlist · you\" under it; then \"Playlists Artists Albums\""
+    "near-black block \"Your Library\" list of 6 items, each with a 48px square thumbnail left: \"Liked Songs\" small grey \"Playlist · 812 songs\" under it; \"Deep Focus\" small grey \"Playlist · Spotless\" under it; \"Golden Hour\" small grey \"Album · Mira Vale\" under it; \"Okkervil Lane\" small grey \"Artist\" under it; \"Running 170bpm\" small grey \"Playlist · you\" under it; \"Sunday Slow\" small grey \"Playlist · you\" under it; then \"Playlists Artists Albums\"; the brand \"Liked\" has a small 48x48px logo square right before it on the same line (at 26,104), 6px rounded, painted linear-gradient(135deg, #450af5, #c4efd9)"
    ],
    [
     "album",
@@ -683,7 +683,7 @@
    ],
    [
     "stage-dropdown",
-    "open dropdown menu, 280x180px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 5 options stacked one per line, 33px apart: \"Qualified\", \"Proposal ✓\", \"Negotiation\", \"Won\", \"Lost\"; \"Proposal ✓\" highlighted (off-white (#eef2ff) rounded fill across the menu, indigo text, semibold); each word in its own colour: \"Qualified\" #1f2937, \"Proposal ✓\" #4f46e5, \"Negotiation\" #1f2937, \"Won\" #1f2937, \"Lost\" #1f2937"
+    "open dropdown menu, 280x180px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON TOP of whatever is under it (covers it, pushes nothing down); 5 options stacked one per line, 33px apart: \"Qualified\", \"Proposal ✓\", \"Negotiation\", \"Won\", \"Lost\"; \"Proposal ✓\" highlighted (off-white (#eef2ff) rounded fill across the menu, indigo text, semibold); each word in its own colour: \"Qualified\" #1f2937, \"Proposal ✓\" #4f46e5, \"Negotiation\" #1f2937, \"Won\" #1f2937, \"Lost\" #1f2937; every option stays on ONE line (white-space: nowrap), none wraps"
    ],
    [
     "tasks",

@@ -87,3 +87,21 @@ with a line break between them (a run had dropped "TIDE"). Rounds 1-18 not re-pl
 | c4 vinyl sleeve | 77% | **90%** (run 1 86%: square record, TIDE lost) | thin tonearm with knob, label dead centre of a round record, LOW over TIDE; EQ bars pulse at mixed heights (target caught at full height) |
 
 Round 19: **83%** over 10 (was 81). Vitest: same 2 env failures; typecheck clean.
+
+## n194: a card's own fields beside the regions in it, focus glows, tilted parts, a titled table card, sized controls (2026-10-25, ~175k billed)
+
+The invoice form was said only as "white card": it holds three nested regions (dropdown, line items, totals), so its own
+Bill to label, focused input and date fields were never said and the dropdown was built over where they belong. A bare
+card note over a region with nested regions now also says its own parts part by part (the nested ones sit over them).
+A field with a 0 0 0 Npx box-shadow is said as a FOCUS GLOW (a selected card as a SELECTION GLOW). A part turned on the
+page (the DRAFT stamp) is said at its own unturned size, centred where it shows, with its rotate(); its turned bounds had
+been said as a level box. A table inside a bordered rounded card is said as that card with its titled header band; a row of
+controls said as bare words gets each control's size and place; an open menu's options stay on one line; a brand's small
+gradient logo square before its name is said. Rounds 1, 3, 7, 14, 16, 17 re-planned (one region each gains this wording).
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| e5 invoice editor | 71% | **83%** | Bill to label, focused input with glow, date fields, tilted DRAFT stamp, preview rows in place; Send button blue (target green), dropdown's last row clipped |
+| e2 team settings | 66% | **73%** | matrix card with its header band, wide invite field, logo square, menu on one line; the Invited pill built dark rust (target pale amber) |
+
+Round 19: **85%** over 10 (was 83). Vitest: same 2 env failures; typecheck clean.

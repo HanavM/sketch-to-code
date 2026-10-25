@@ -645,7 +645,7 @@
    ],
    [
     "composer",
-    "input \"Write a message…\", button \"Send\"; each word in its own colour: \"Write a message…\" #94a3b8, \"Send\" #ffffff"
+    "input \"Write a message…\", button \"Send\"; each word in its own colour: \"Write a message…\" #94a3b8, \"Send\" #ffffff; ONE row of 2 controls side by side, each exactly this size and place (the input is the WIDE one): \"Write a message…\" 811x47px at 348,825 #ffffff fill, 1px #cbd5e1 border, 12px rounded; \"Send\" 83x47px at 1169,825 #0ea5e9 fill, 12px rounded"
    ]
   ]
  },
