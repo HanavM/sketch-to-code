@@ -322,3 +322,23 @@ Round 21: **88%** over 10 (90, 93, 90, 89, 91, 88, 87, 79, 87, 89; 88.3, was 87.
 tests); typecheck clean.
 Next: e3 gantt (79): its today line is drawn right but is not a box of its own in the build, so the region match misses
 it; look at whether the build or the measure is at fault before changing either.
+
+## n223: the gantt's today line and milestones said to the exact px (2026-10-25, ~76k billed for one e3 run)
+
+Why e3 gantt sat at 79 (layout 74): the build was right to the eye, but the words were a pixel or four off. The today
+line was said at "614px in" (its left edge nudged 1px left as if it were a bar's start); the build put the 2px line at
+x 914 against the target's 915, and on a 2px line that one pixel is an overlap of a third, so the line counted as
+missed. Each milestone said the top of its turned box ("top 329px down"), so the builder put the square's own top
+there and both diamonds sat 4px high (overlap 0.68).
+
+Planner (words only): the today line says its left edge exactly; a milestone says the square's own top before the
+turn, its centre, and its centre's px with no nudge. Re-planned rounds 1-21: gantt notes in rounds 4, 12, 17 and 21
+change (1px and the milestone wording).
+
+| page | before | run a | what changed |
+|---|---|---|---|
+| e3 gantt | 79% | **94%** | today line and both diamonds land on their boxes (colour 100, structure 99, layout 97; all 6 regions matched) |
+
+Round 21: **90%** over 10 (90, 93, 90, 89, 91, 88, 87, 94, 87, 89; 89.8, was 88.3). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: round 21's weakest are now e1 mail client and e4 music player (87 each); or start round 22.
