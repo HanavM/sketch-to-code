@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Swiss orbit</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rule{position:absolute;background:#111}.v1{left:320px;top:0;width:1px;height:900px}.v2{left:960px;top:0;width:1px;height:900px}.h1{left:0;top:180px;width:1280px;height:1px}.h2{left:0;top:720px;width:1280px;height:1px}
+.num{position:absolute;left:-30px;top:160px;font:700 560px/0.8 Helvetica;letter-spacing:-30px;color:#111;transform:rotate(-90deg);transform-origin:300px 300px}
+.disc{position:absolute;left:520px;top:250px;width:400px;height:400px;border-radius:50%;background:#e30613}
+.orbit{position:absolute;left:470px;top:200px;width:500px;height:500px;border:1px solid #111;border-radius:50%;animation:spin 20s linear infinite}.orbit i{position:absolute;width:18px;height:18px;border-radius:50%;background:#111}.orbit i:nth-child(1){left:241px;top:-9px}.orbit i:nth-child(2){left:-9px;top:241px}.orbit i:nth-child(3){left:410px;top:420px;background:#e30613}
+.vert{position:absolute;left:1180px;top:200px;writing-mode:vertical-rl;font:700 13px Helvetica;letter-spacing:6px;text-transform:uppercase}
+.t{position:absolute;left:340px;top:40px;font:700 64px/1 Helvetica;letter-spacing:-2px}
+.meta{position:absolute;left:980px;top:40px;font:400 14px/1.5 Helvetica}
+.col{position:absolute;top:740px;width:300px;font:400 15px/1.5 Helvetica}.col b{display:block;font-size:12px;letter-spacing:2px;margin-bottom:6px}
+.c1{left:340px}.c2{left:660px}.c3{left:980px}
+.lines{position:absolute;left:24px;top:740px;width:270px}.lines i{display:block;height:6px;background:#111;margin-bottom:10px}
+</style></head><body>
+<div class="rule v1"></div><div class="rule v2"></div><div class="rule h1" data-r="rule-top"></div><div class="rule h2" data-r="rule-bottom"></div>
+<div class="t" data-r="title" data-must>Kreis und Raster</div><div class="meta" data-r="meta">Design Museum Basel<br>14.11 — 28.02<br>Mo–So 10–18 Uhr</div>
+<div class="num" data-r="giant-numeral">07</div>
+<div class="disc" data-r="red-disc" data-must></div><div class="orbit" data-r="orbit"><i></i><i></i><i></i></div>
+<div class="vert" data-r="vertical-label">Ausstellung · Exhibition</div>
+<div class="lines" data-r="bar-lines"><i style="width:100%"></i><i style="width:70%"></i><i style="width:85%"></i><i style="width:40%"></i></div>
+<div class="col c1" data-r="col-1"><b>01 — GRID</b>Seventy posters built on one modular grid, from 1955 to now.</div>
+<div class="col c2" data-r="col-2"><b>02 — CIRCLE</b>The single red disc that became a whole visual language.</div>
+<div class="col c3" data-r="col-3"><b>03 — TICKETS</b>CHF 18 / reduced 12. Under 16 free.</div>
+</body></html>

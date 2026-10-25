@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kinetic type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0e0e0e;font-family:Helvetica,Arial,sans-serif;color:#f2f2f2}
+@keyframes l{to{transform:translateX(-50%)}}@keyframes r{from{transform:translateX(-50%)}to{transform:translateX(0)}}@keyframes spin{to{transform:rotate(360deg)}}
+.nav{position:absolute;left:48px;top:32px;width:1184px;display:flex;justify-content:space-between;font:700 14px/1 Helvetica;letter-spacing:3px;text-transform:uppercase}
+.row{position:absolute;left:0;white-space:nowrap;font:900 150px/1 Impact,Haettenschweiler,sans-serif;text-transform:uppercase}
+.r1{top:110px;animation:l 14s linear infinite}.r2{top:270px;animation:r 18s linear infinite;color:transparent;-webkit-text-stroke:2px #f2f2f2}.r3{top:430px;animation:l 11s linear infinite;color:#c6ff00}
+.row span{padding-right:60px}
+.badge{position:absolute;left:1010px;top:560px;width:200px;height:200px;animation:spin 12s linear infinite}
+.dot{position:absolute;left:1090px;top:640px;width:40px;height:40px;border-radius:50%;background:#c6ff00}
+.lede{position:absolute;left:48px;top:640px;width:460px;font-size:20px;line-height:1.45;color:#bdbdbd}
+.cta{position:absolute;left:48px;top:780px;padding:18px 34px;background:#c6ff00;color:#0e0e0e;font:900 18px Helvetica;text-transform:uppercase;letter-spacing:2px;border-radius:999px}
+.cnt{position:absolute;left:600px;top:640px;font:700 14px/1.6 "Courier New",monospace;color:#8a8a8a}.cnt b{display:block;font:900 64px/1 Impact,sans-serif;color:#f2f2f2}
+</style></head><body>
+<div class="nav" data-r="nav"><span>Motion/Lab</span><span>Work</span><span>Studio</span><span>Contact</span></div>
+<div class="row r1" data-r="marquee-solid" data-must><span>Type that moves</span><span>Type that moves</span><span>Type that moves</span></div>
+<div class="row r2" data-r="marquee-outline" data-must><span>Never sits still</span><span>Never sits still</span><span>Never sits still</span></div>
+<div class="row r3" data-r="marquee-lime"><span>Kinetic · Loud</span><span>Kinetic · Loud</span><span>Kinetic · Loud</span></div>
+<p class="lede" data-r="lede">A type studio for brands that need to be read at speed. Variable fonts, scroll-bound motion, and posters that refuse to stay put.</p>
+<div class="cnt" data-r="counter"><b>214</b>animated identities shipped</div>
+<svg class="badge" viewBox="0 0 200 200" data-r="spin-badge"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text font-family="Courier New" font-weight="700" font-size="17" letter-spacing="6" fill="#f2f2f2"><textPath href="#c">BOOK A CALL · BOOK A CALL · </textPath></text></svg><div class="dot" data-r="badge-dot"></div>
+<div class="cta" data-r="cta">Start a project →</div>
+</body></html>

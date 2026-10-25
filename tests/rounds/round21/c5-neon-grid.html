@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Neon grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(#0b0221 0%,#2a0845 55%,#0b0221 56%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+@keyframes fl{0%,100%{opacity:1}52%{opacity:.6}54%{opacity:1}}
+.sun{position:absolute;left:440px;top:120px;width:400px;height:400px;border-radius:50%;background:linear-gradient(#ffe259,#ff4e8a 70%);-webkit-mask-image:repeating-linear-gradient(#000 0 26px,transparent 26px 36px);mask-image:linear-gradient(#000 45%,transparent 45%),repeating-linear-gradient(#000 0 22px,transparent 22px 32px);mask-composite:add}
+.floor{position:absolute;left:-400px;top:500px;width:2080px;height:700px;transform:perspective(400px) rotateX(62deg);transform-origin:top;background-image:linear-gradient(#ff2bd6 2px,transparent 2px),linear-gradient(90deg,#ff2bd6 2px,transparent 2px);background-size:80px 60px}
+.t{position:absolute;left:0;top:330px;width:1280px;text-align:center;font:italic 900 130px/1 Impact,sans-serif;text-transform:uppercase;background:linear-gradient(#e0f7ff 0%,#6ad4ff 48%,#1b1f6b 50%,#ff8ad8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px #ff2bd6)}
+.sub{position:absolute;left:0;top:480px;width:1280px;text-align:center;font:400 34px/1 "Brush Script MT",cursive;color:#37f3ff;text-shadow:0 0 6px #37f3ff,0 0 18px #37f3ff,0 0 36px #00a2ff;animation:fl 3s infinite}
+.nav{position:absolute;left:48px;top:30px;width:1184px;display:flex;gap:40px;font:700 14px "Courier New",monospace;letter-spacing:3px;color:#ff8ad8;text-transform:uppercase}.nav span:first-child{margin-right:auto;color:#37f3ff}
+.btn{position:absolute;left:530px;top:580px;width:220px;padding:16px 0;text-align:center;border:2px solid #37f3ff;color:#37f3ff;font:700 16px "Courier New",monospace;letter-spacing:3px;box-shadow:0 0 14px #37f3ff,inset 0 0 14px #37f3ff;background:#0b0221cc}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 3px,#0000004d 3px 4px);pointer-events:none}
+.score{position:absolute;left:48px;top:820px;font:700 18px "Courier New",monospace;color:#ffe259;text-shadow:0 0 8px #ffb800}.lives{position:absolute;left:1060px;top:820px;font:700 18px "Courier New",monospace;color:#ff4e8a}
+</style></head><body>
+<div class="nav" data-r="nav"><span>Outrun.fm</span><span>Tracks</span><span>Tour</span><span>Merch</span></div>
+<div class="sun" data-r="striped-sun" data-must></div><div class="floor" data-r="neon-floor" data-must></div>
+<div class="t" data-r="chrome-title" data-must>Nightdrive</div><div class="sub" data-r="neon-script">the new album</div>
+<div class="btn" data-r="cta">▶ PLAY NOW</div>
+<div class="score" data-r="score">HI-SCORE 0098430</div><div class="lives" data-r="lives">♥ ♥ ♥ 1UP</div>
+<div class="scan"></div>
+</body></html>

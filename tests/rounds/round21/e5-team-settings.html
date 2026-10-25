@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team settings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#18181b;font-size:14px}
+.side{position:absolute;left:0;top:0;width:240px;height:900px;background:#fff;border-right:1px solid #e4e4e7;padding:20px 12px}.side b{display:block;padding:0 10px 20px;font-size:17px}.side small{display:block;padding:14px 10px 6px;color:#71717a;font-size:11px;font-weight:700;letter-spacing:1px}.side div{padding:8px 10px;border-radius:6px;color:#52525b}.side .on{background:#f4f4f5;color:#18181b;font-weight:700}
+.main{position:absolute;left:240px;top:0;width:1040px;height:900px;padding:28px 40px}
+h1{font-size:26px}.desc{color:#71717a;margin:6px 0 18px}
+.tabs{display:flex;gap:26px;border-bottom:1px solid #e4e4e7;margin-bottom:22px}.tabs span{padding-bottom:12px;color:#71717a;font-weight:700}.tabs .on{color:#18181b;box-shadow:inset 0 -2px #18181b}
+.card{background:#fff;border:1px solid #e4e4e7;border-radius:10px;margin-bottom:18px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f4f4f5}.row:last-child{border:0}.row small{display:block;color:#71717a;margin-top:3px}
+.tg{width:40px;height:22px;border-radius:11px;background:#d4d4d8;position:relative}.tg:after{content:"";position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;background:#fff}.tg.on{background:#16a34a}.tg.on:after{left:20px}
+.sel{border:1px solid #d4d4d8;border-radius:6px;padding:7px 12px;width:170px;display:flex;justify-content:space-between}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #e4e4e7}.mh b{font-size:16px}.mh .inv{padding:8px 14px;border-radius:6px;background:#18181b;color:#fff;font-weight:700}.mh .s{border:1px solid #d4d4d8;border-radius:6px;padding:7px 12px;width:240px;color:#a1a1aa;margin-left:auto;margin-right:12px}
+.mem{display:grid;grid-template-columns:40px 1fr 200px 170px 30px;gap:12px;align-items:center;padding:11px 20px;border-bottom:1px solid #f4f4f5}.mem i{width:34px;height:34px;border-radius:50%}.mem small{display:block;color:#71717a;margin-top:2px}.pend{font-size:12px;padding:2px 8px;border-radius:999px;background:#fef3c7;color:#92400e;font-weight:700;justify-self:start}
+.dz{border-color:#fecaca}.dz .row b{color:#dc2626}.del{padding:8px 14px;border-radius:6px;background:#dc2626;color:#fff;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar"><b>▲ Acme Inc</b><div>Dashboard</div><div>Projects</div><div>Deployments</div><small>SETTINGS</small><div>General</div><div class="on">Team</div><div>Billing</div><div>Security</div><div>Integrations</div></div>
+<div class="main"><h1 data-r="title" data-must>Team settings</h1><p class="desc">Manage who can access Acme Inc and what they can do.</p>
+<div class="tabs" data-r="tabs"><span class="on">Members</span><span>Roles</span><span>Invites<em style="font-style:normal;margin-left:6px;background:#f4f4f5;padding:1px 7px;border-radius:9px">2</em></span><span>Audit log</span></div>
+<div class="card" data-r="members" data-must><div class="mh"><b>Members · 6</b><span class="s">Filter by name or email</span><span class="inv">+ Invite</span></div>
+<div class="mem"><i style="background:#f97316"></i><div><b>Hanav Modasiya</b><small>hanav@acme.dev</small></div><span>Owner</span><div class="sel">Owner<span>▾</span></div><span>⋯</span></div>
+<div class="mem"><i style="background:#0ea5e9"></i><div><b>Mira Tanaka</b><small>mira@acme.dev</small></div><span>Last active 2h ago</span><div class="sel">Admin<span>▾</span></div><span>⋯</span></div>
+<div class="mem"><i style="background:#8b5cf6"></i><div><b>Jonas Weber</b><small>jonas@acme.dev</small></div><span>Last active 3d ago</span><div class="sel">Developer<span>▾</span></div><span>⋯</span></div>
+<div class="mem"><i style="background:#10b981"></i><div><b>Priya Raman</b><small>priya@acme.dev</small></div><span class="pend">Invite pending</span><div class="sel">Viewer<span>▾</span></div><span>⋯</span></div></div>
+<div class="card" data-r="permissions"><div class="row"><div><b>Require two-factor authentication</b><small>Members without 2FA are signed out until they set it up.</small></div><div class="tg on"></div></div>
+<div class="row"><div><b>Allow members to invite others</b><small>Otherwise only owners and admins can send invites.</small></div><div class="tg"></div></div>
+<div class="row"><div><b>Default role for new members</b><small>Applied to every accepted invite.</small></div><div class="sel">Developer<span>▾</span></div></div></div>
+<div class="card dz" data-r="danger-zone"><div class="row"><div><b>Delete team</b><small>Permanently remove Acme Inc, its projects and deployments.</small></div><span class="del">Delete team</span></div></div></div>
+</body></html>

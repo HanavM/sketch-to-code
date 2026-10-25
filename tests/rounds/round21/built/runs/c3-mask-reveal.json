@@ -1,0 +1,356 @@
+{
+  "id": "c3-mask-reveal",
+  "at": "2026-10-25T12:25:34.204Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.4588811039669174,
+    "overallV2": 0.4588811039669174,
+    "overallV1": 0.38195086573283804,
+    "colour": 0.7673401086810185,
+    "structure": 0.7056730829741907,
+    "structureStrict": 0.5768922930943271,
+    "colourAligned": 0.7673401086810185,
+    "structureAligned": 0.7056730829741907,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.2607336641182548
+    },
+    "layout": 0.9490140688310252,
+    "layoutV1": 0.9490140688310252,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      980
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      980
+    ],
+    [
+      1,
+      40,
+      60,
+      722,
+      442
+    ],
+    [
+      1,
+      823,
+      93,
+      374,
+      374
+    ],
+    [
+      1,
+      703,
+      433,
+      294,
+      373
+    ],
+    [
+      4,
+      804,
+      489,
+      150,
+      150
+    ],
+    [
+      1,
+      3,
+      563,
+      640,
+      340
+    ],
+    [
+      6,
+      52,
+      520,
+      512,
+      64
+    ],
+    [
+      6,
+      51,
+      783,
+      183,
+      29
+    ],
+    [
+      8,
+      51,
+      783,
+      183,
+      20
+    ],
+    [
+      8,
+      51,
+      809,
+      150,
+      3
+    ],
+    [
+      1,
+      1030,
+      520,
+      196,
+      62
+    ],
+    [
+      11,
+      1030,
+      522,
+      79,
+      20
+    ],
+    [
+      11,
+      1030,
+      543,
+      132,
+      20
+    ],
+    [
+      11,
+      1030,
+      564,
+      150,
+      20
+    ],
+    [
+      1,
+      1033,
+      683,
+      173,
+      143
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.7272727272727273,
+    "kept": [
+      "blend",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "mono",
+      "serif",
+      "stripes-or-layers",
+      "uppercase-display"
+    ],
+    "missing": [
+      "clip-shape",
+      "mask",
+      "overlap"
+    ],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 51252,
+    "output": 35820,
+    "cacheRead": 407930
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44697,
+      "output": 17511,
+      "cacheRead": 209382,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 194790
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 11835,
+      "output": 4929,
+      "cacheRead": 186814,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 54957
+    }
+  ],
+  "reading": "This is a museum exhibition landing page: a giant two-line gradient heading 'SEE / THRU', a diagonally-striped decorative block, a blue duotone tile with an amber round accent, a large gradient product-photo backdrop carrying a serif pull-quote and a 'PLAN YOUR VISIT' button with a rule under it, and an info block listing Gallery 4 / dates / Free on Thursdays followed by a thick rule.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        48,
+        162,
+        650,
+        244
+      ],
+      "paths": [],
+      "instruction": "Add a giant heading: font-family Impact/Haettenschweiler, sans-serif, font-weight 900, round-bowled (not condensed/display), heavy uppercase, line-height 0.85, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        93,
+        374,
+        374
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a large square block filled with big diagonal (45deg) repeating stripes - NOT a smooth gradient: repeating-linear-gradient(45deg, #141414 0px 14px, #f7f3ea "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        434,
+        294,
+        373
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a flat duotone tile: ink-like (multiply blend so it darkens what it overlaps rather than covering it) vivid blue (#3d5afe) fill, no photo, with one hard-edg"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        563,
+        633,
+        334
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a big 640x340px block filled with a soft pale gradient from #141414 to #000000 (left to right): an empty product-photo backdrop block - no picture placehold"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 21
+        }
+      ],
+      "region": [
+        52,
+        520,
+        512,
+        64
+      ],
+      "paths": [],
+      "instruction": "Add serif body text reading: \"An exhibition of cut-outs, windows and holes: what you see depends on what we take away.\" positioned over the top portion of the g"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        1034,
+        520,
+        192,
+        62
+      ],
+      "paths": [],
+      "instruction": "Add three short live-text info parts, each its own element with real text, laid out stacked, each staying on one line (white-space: nowrap, min-width not a fixe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1033,
+        683,
+        173,
+        143
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a thick horizontal rule positioned directly under the Gallery 4 / dates / Free-on-Thursdays info block."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        783,
+        183,
+        28
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a button/label reading 'PLAN YOUR VISIT' with a thick rule underneath it, placed near the bottom-left area of the gradient backdrop block."
+    }
+  ],
+  "rejected": []
+}

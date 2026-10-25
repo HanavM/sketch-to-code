@@ -1,0 +1,849 @@
+{
+  "id": "e1-mail-client",
+  "at": "2026-10-25T12:46:05.413Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7622566644764877,
+    "overallV2": 0.7622566644764877,
+    "overallV1": 0.6892390342090275,
+    "colour": 0.9921143433236674,
+    "structure": 0.9194165092100696,
+    "structureStrict": 0.8483561422593531,
+    "colourAligned": 0.9921143433236674,
+    "structureAligned": 0.9194165092100696,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7479626625814257
+    },
+    "layout": 0.809518612132353,
+    "layoutV1": 0.809518612132353,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      220,
+      900
+    ],
+    [
+      1,
+      12,
+      16,
+      196,
+      30
+    ],
+    [
+      2,
+      28,
+      21,
+      12,
+      20
+    ],
+    [
+      1,
+      16,
+      62,
+      44,
+      15
+    ],
+    [
+      1,
+      8,
+      82,
+      204,
+      30
+    ],
+    [
+      5,
+      24,
+      87,
+      36,
+      20
+    ],
+    [
+      5,
+      179,
+      87,
+      17,
+      20
+    ],
+    [
+      1,
+      8,
+      112,
+      204,
+      30
+    ],
+    [
+      8,
+      24,
+      117,
+      49,
+      20
+    ],
+    [
+      1,
+      8,
+      142,
+      204,
+      30
+    ],
+    [
+      10,
+      24,
+      147,
+      58,
+      20
+    ],
+    [
+      1,
+      8,
+      172,
+      204,
+      30
+    ],
+    [
+      12,
+      24,
+      177,
+      30,
+      20
+    ],
+    [
+      1,
+      8,
+      202,
+      204,
+      30
+    ],
+    [
+      14,
+      24,
+      207,
+      40,
+      20
+    ],
+    [
+      14,
+      187,
+      207,
+      9,
+      20
+    ],
+    [
+      1,
+      8,
+      232,
+      204,
+      30
+    ],
+    [
+      17,
+      24,
+      237,
+      45,
+      20
+    ],
+    [
+      1,
+      8,
+      262,
+      204,
+      30
+    ],
+    [
+      19,
+      24,
+      267,
+      40,
+      20
+    ],
+    [
+      1,
+      8,
+      292,
+      204,
+      30
+    ],
+    [
+      21,
+      24,
+      297,
+      57,
+      20
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      23,
+      16,
+      9,
+      620,
+      46
+    ],
+    [
+      24,
+      32,
+      22,
+      77,
+      20
+    ],
+    [
+      23,
+      1010,
+      15,
+      34,
+      34
+    ],
+    [
+      0,
+      220,
+      64,
+      460,
+      836
+    ],
+    [
+      27,
+      220,
+      64,
+      459,
+      44
+    ],
+    [
+      27,
+      236,
+      78,
+      24,
+      20
+    ],
+    [
+      27,
+      277,
+      77,
+      13,
+      20
+    ],
+    [
+      27,
+      309,
+      78,
+      14,
+      20
+    ],
+    [
+      27,
+      590,
+      79,
+      75,
+      16
+    ],
+    [
+      27,
+      220,
+      108,
+      459,
+      45
+    ],
+    [
+      27,
+      220,
+      108,
+      153,
+      44
+    ],
+    [
+      27,
+      373,
+      108,
+      153,
+      44
+    ],
+    [
+      27,
+      526,
+      108,
+      153,
+      44
+    ],
+    [
+      27,
+      220,
+      153,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      163,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      163,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      163,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      183,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      210,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      220,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      220,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      220,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      240,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      267,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      277,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      277,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      277,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      297,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      324,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      334,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      334,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      334,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      354,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      381,
+      459,
+      73
+    ],
+    [
+      27,
+      236,
+      391,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      391,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      391,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      427,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      454,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      464,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      464,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      464,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      484,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      511,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      521,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      521,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      521,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      541,
+      205,
+      20
+    ],
+    [
+      27,
+      220,
+      568,
+      459,
+      57
+    ],
+    [
+      27,
+      236,
+      578,
+      150,
+      20
+    ],
+    [
+      27,
+      396,
+      578,
+      205,
+      20
+    ],
+    [
+      27,
+      611,
+      578,
+      52,
+      16
+    ],
+    [
+      27,
+      396,
+      598,
+      205,
+      20
+    ],
+    [
+      0,
+      680,
+      64,
+      600,
+      836
+    ],
+    [
+      77,
+      708,
+      84,
+      544,
+      33
+    ],
+    [
+      77,
+      930,
+      91,
+      45,
+      18
+    ],
+    [
+      77,
+      708,
+      126,
+      40,
+      40
+    ],
+    [
+      77,
+      760,
+      131,
+      213,
+      20
+    ],
+    [
+      81,
+      760,
+      131,
+      83,
+      20
+    ],
+    [
+      81,
+      851,
+      131,
+      122,
+      20
+    ],
+    [
+      77,
+      760,
+      147,
+      153,
+      16
+    ],
+    [
+      77,
+      708,
+      186,
+      544,
+      20
+    ],
+    [
+      77,
+      708,
+      220,
+      544,
+      40
+    ],
+    [
+      77,
+      708,
+      277,
+      544,
+      20
+    ],
+    [
+      77,
+      708,
+      312,
+      544,
+      20
+    ],
+    [
+      77,
+      711,
+      375,
+      456,
+      88
+    ],
+    [
+      89,
+      711,
+      375,
+      220,
+      88
+    ],
+    [
+      90,
+      712,
+      376,
+      218,
+      58
+    ],
+    [
+      90,
+      712,
+      434,
+      218,
+      28
+    ],
+    [
+      89,
+      947,
+      375,
+      220,
+      88
+    ],
+    [
+      93,
+      948,
+      376,
+      218,
+      58
+    ],
+    [
+      93,
+      948,
+      434,
+      218,
+      28
+    ],
+    [
+      77,
+      712,
+      501,
+      212,
+      34
+    ],
+    [
+      96,
+      712,
+      501,
+      91,
+      34
+    ],
+    [
+      96,
+      815,
+      501,
+      109,
+      34
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "hard-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 50061,
+    "output": 29309,
+    "cacheRead": 157911
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61908,
+      "output": 22531,
+      "cacheRead": 145464,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Write src/App.tsx"
+      ],
+      "ms": 231729
+    }
+  ],
+  "reading": "The sketch lays out a Gmail-style inbox: a full-height left navigation sidebar, a top search/avatar bar, a middle email-list column with tabs and message rows, and a right email-detail pane with subject/sender/body plus attachment and reply/forward button rows.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a full left navigation sidebar: ONE 220x900px column wrapper at 0,0 with its own #f6f8fc flat fill running from the very top to the very bottom of the page "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        224,
+        3,
+        1053,
+        58
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a top bar, 64px tall, spanning the full page width at the very top, no fill (page colour), positioned absolute at 0,0 so it overlays the page top without pu"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        67,
+        454,
+        830
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add an email-list column: ONE 460x836px wrapper at 220,64, no fill, a 1px #e0e0e0 rule along its right edge only, running to the page bottom. Inside, build each"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        683,
+        67,
+        594,
+        830
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add an email detail pane: an invisible 600x836px frame at 680,64 (no fill, no border, no shadow) holding: a 22px regular (not bold) #202124 subject heading 'Q4 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        711,
+        375,
+        537,
+        103
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add two attachment buttons inside the email detail pane, below the body text: 'Q4-review.pdf' and 'moodboard.png', laid out as a row of file-attachment chips/bu"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        712,
+        501,
+        536,
+        31
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add two action buttons below the attachment row in the email detail pane: '↩ Reply' and '↪ Forward', matching the sketched thin button bar."
+    }
+  ],
+  "rejected": []
+}

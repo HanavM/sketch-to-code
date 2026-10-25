@@ -1,0 +1,164 @@
+{
+ "c1-kinetic-type": {
+  "found": {
+   "motion": 4,
+   "huge-type": 9,
+   "uppercase-display": 9,
+   "bleed": 8,
+   "hollow-type": 3,
+   "mono": 2,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "uppercase-display"
+  ]
+ },
+ "c2-depth-stack": {
+  "found": {
+   "hard-shadow": 8,
+   "serif": 2,
+   "gradient": 2,
+   "3d": 5,
+   "motion": 1,
+   "soft-shadow": 1,
+   "overlap": 7
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "hard-shadow",
+   "motion",
+   "overlap",
+   "serif",
+   "soft-shadow"
+  ]
+ },
+ "c3-mask-reveal": {
+  "found": {
+   "gradient-text": 1,
+   "huge-type": 1,
+   "uppercase-display": 1,
+   "stripes-or-layers": 2,
+   "blend": 1,
+   "clip-shape": 1,
+   "gradient": 1,
+   "mask": 1,
+   "serif": 1,
+   "mono": 1,
+   "overlap": 2
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "mask",
+   "mono",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "uppercase-display"
+  ]
+ },
+ "c4-swiss-orbit": {
+  "found": {
+   "tilt": 1,
+   "huge-type": 1,
+   "bleed": 1,
+   "motion": 1,
+   "vertical-type": 1,
+   "overlap": 4
+  },
+  "names": [
+   "bleed",
+   "huge-type",
+   "motion",
+   "overlap",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c5-neon-grid": {
+  "found": {
+   "mono": 7,
+   "mask": 1,
+   "gradient": 1,
+   "3d": 1,
+   "stripes-or-layers": 2,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "italic": 1,
+   "uppercase-display": 1,
+   "motion": 1,
+   "overlap": 2
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "italic",
+   "mask",
+   "mono",
+   "motion",
+   "overlap",
+   "stripes-or-layers",
+   "uppercase-display"
+  ]
+ },
+ "e1-mail-client": {
+  "found": {
+   "hard-shadow": 1
+  },
+  "names": [
+   "hard-shadow"
+  ]
+ },
+ "e2-analytics": {
+  "found": {
+   "gradient": 1,
+   "overlap": 7
+  },
+  "names": [
+   "gradient",
+   "overlap"
+  ]
+ },
+ "e3-gantt": {
+  "found": {
+   "gradient": 1,
+   "tilt": 2,
+   "overlap": 30
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "e4-music-player": {
+  "found": {
+   "gradient": 5,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ },
+ "e5-team-settings": {
+  "found": {
+   "hard-shadow": 1
+  },
+  "names": [
+   "hard-shadow"
+  ]
+ }
+}

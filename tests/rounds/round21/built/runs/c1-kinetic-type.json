@@ -1,0 +1,594 @@
+{
+  "id": "c1-kinetic-type",
+  "at": "2026-10-25T12:15:50.656Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8942445333841479,
+    "overallV2": 0.8887353274186554,
+    "overallV1": 0.7852735018258323,
+    "colour": 0.9449998730849934,
+    "structure": 0.8740671824360292,
+    "structureStrict": 0.5913025142784851,
+    "colourAligned": 0.9585277536094072,
+    "structureAligned": 0.8740671824360292,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -16,
+      "r": 0.7357299623649599
+    },
+    "layout": 0.8573735509221544,
+    "layoutV1": 0.8573735509221544,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      48,
+      32,
+      1184,
+      14
+    ],
+    [
+      1,
+      48,
+      32,
+      119,
+      14
+    ],
+    [
+      1,
+      450,
+      32,
+      56,
+      14
+    ],
+    [
+      1,
+      790,
+      32,
+      71,
+      14
+    ],
+    [
+      1,
+      1144,
+      32,
+      88,
+      14
+    ],
+    [
+      0,
+      0,
+      132,
+      1280,
+      150
+    ],
+    [
+      6,
+      0,
+      132,
+      1280,
+      150
+    ],
+    [
+      7,
+      -367,
+      132,
+      8818,
+      150
+    ],
+    [
+      8,
+      -367,
+      132,
+      4409,
+      150
+    ],
+    [
+      9,
+      -367,
+      132,
+      1406,
+      150
+    ],
+    [
+      9,
+      1102,
+      132,
+      1406,
+      150
+    ],
+    [
+      9,
+      2572,
+      132,
+      1406,
+      150
+    ],
+    [
+      8,
+      4042,
+      132,
+      4409,
+      150
+    ],
+    [
+      13,
+      4042,
+      132,
+      1406,
+      150
+    ],
+    [
+      13,
+      5511,
+      132,
+      1406,
+      150
+    ],
+    [
+      13,
+      6981,
+      132,
+      1406,
+      150
+    ],
+    [
+      0,
+      0,
+      261,
+      1280,
+      150
+    ],
+    [
+      17,
+      0,
+      261,
+      1280,
+      150
+    ],
+    [
+      18,
+      -3971,
+      261,
+      8485,
+      150
+    ],
+    [
+      19,
+      -3971,
+      261,
+      4242,
+      150
+    ],
+    [
+      20,
+      -3971,
+      261,
+      1350,
+      150
+    ],
+    [
+      20,
+      -2556,
+      261,
+      1350,
+      150
+    ],
+    [
+      20,
+      -1142,
+      261,
+      1350,
+      150
+    ],
+    [
+      19,
+      272,
+      261,
+      4242,
+      150
+    ],
+    [
+      24,
+      272,
+      261,
+      1350,
+      150
+    ],
+    [
+      24,
+      1686,
+      261,
+      1350,
+      150
+    ],
+    [
+      24,
+      3100,
+      261,
+      1350,
+      150
+    ],
+    [
+      0,
+      0,
+      452,
+      1280,
+      150
+    ],
+    [
+      28,
+      0,
+      452,
+      1280,
+      150
+    ],
+    [
+      29,
+      -278,
+      452,
+      7334,
+      150
+    ],
+    [
+      30,
+      -278,
+      452,
+      3667,
+      150
+    ],
+    [
+      31,
+      -278,
+      452,
+      1158,
+      150
+    ],
+    [
+      31,
+      944,
+      452,
+      1158,
+      150
+    ],
+    [
+      31,
+      2167,
+      452,
+      1158,
+      150
+    ],
+    [
+      30,
+      3389,
+      452,
+      3667,
+      150
+    ],
+    [
+      35,
+      3389,
+      452,
+      1158,
+      150
+    ],
+    [
+      35,
+      4611,
+      452,
+      1158,
+      150
+    ],
+    [
+      35,
+      5834,
+      452,
+      1158,
+      150
+    ],
+    [
+      0,
+      48,
+      640,
+      460,
+      87
+    ],
+    [
+      0,
+      604,
+      640,
+      219,
+      129
+    ],
+    [
+      0,
+      1013,
+      563,
+      194,
+      194
+    ],
+    [
+      41,
+      973,
+      523,
+      273,
+      274
+    ],
+    [
+      42,
+      987,
+      535,
+      248,
+      248
+    ],
+    [
+      43,
+      987,
+      535,
+      248,
+      248
+    ],
+    [
+      41,
+      1090,
+      640,
+      40,
+      40
+    ],
+    [
+      0,
+      51,
+      783,
+      283,
+      50
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "hollow-type",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 63738,
+    "output": 33921,
+    "cacheRead": 540065
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57670,
+      "output": 17521,
+      "cacheRead": 435382,
+      "toolCalls": 15,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/index.css",
+        "Read src/App.tsx",
+        "Grep"
+      ],
+      "ms": 191589
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 16262,
+      "output": 7631,
+      "cacheRead": 95729,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 95828
+    }
+  ],
+  "reading": "The sketch lays out a dark hero page: a top navbar strip, three stacked full-width marquee text bands (one plain, one hollow-outline tripled for seamless loop, one in yellow), a short 3-line paragraph, a bold mono stat line, a circular \"spinning text + center dot\" badge, and a yellow CTA pill button. Typed notes give exact copy, colors, sizes and positions for every part, which take priority over the raw squiggle shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        35,
+        1176,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navbar built from 4 separate live-text elements, each its own element, nothing invented or left out, each kept on one line (white-space: nowrap, min-width n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 146
+        }
+      ],
+      "region": [
+        8,
+        132,
+        1152,
+        106
+      ],
+      "paths": [],
+      "instruction": "Scrolling marquee band bleeding off the right page edge (runs 3117px past it): giant, heavy, uppercase \"TYPE THAT MOVESTYPE THAT MOVESTYPE THAT MOVES\" repeated "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 146
+        }
+      ],
+      "region": [
+        8,
+        292,
+        1152,
+        105
+      ],
+      "paths": [],
+      "instruction": "Marquee band made of 3 live-text copies (each its own element, nothing invented or left out) tiled to loop seamlessly, 150px font-weight 900 HOLLOW letters (out"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 146
+        }
+      ],
+      "region": [
+        6,
+        452,
+        1268,
+        106
+      ],
+      "paths": [],
+      "instruction": "Scrolling marquee band bleeding off the right page edge (runs 2375px past it): giant, heavy, uppercase, yellow \"KINETIC · LOUDKINETIC · LOUDKINETIC · LOUD\" repe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        52,
+        640,
+        452,
+        87
+      ],
+      "paths": [],
+      "instruction": "3-line paragraph, 20px Helvetica, light grey (#bdbdbd), 460px wide, top-left at 48,640, exact copy: \"A type studio for brands that need to be read at speed. Var"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        604,
+        640,
+        219,
+        87
+      ],
+      "paths": [],
+      "instruction": "Mono-font stat line, text \"214 animated identities shipped\", color #8a8a8a (grey, not the page's off-white), bold (font-weight 700)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1013,
+        563,
+        194,
+        194
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "Circular CTA badge, ~200px: a spinning ring of small spaced capital letters \"BOOK A CALL · BOOK A CALL ·\" running round the circle with no outline and no fill, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        783,
+        283,
+        50
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Vivid yellow pill-shaped button with bold black label (#0e0e0e, not the page's off-white text): \"START A PROJECT →\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

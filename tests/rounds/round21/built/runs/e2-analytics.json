@@ -1,0 +1,965 @@
+{
+  "id": "e2-analytics",
+  "at": "2026-10-25T12:50:48.578Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8644865531545001,
+    "overallV2": 0.8644865531545001,
+    "overallV1": 0.7784668690684746,
+    "colour": 0.9917777074544007,
+    "structure": 0.930280900121603,
+    "structureStrict": 0.8189678375970846,
+    "colourAligned": 0.9917777074544007,
+    "structureAligned": 0.930280900121603,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9105798910260943
+    },
+    "layout": 0.9862745547832602,
+    "layoutV1": 0.9862745547832602,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
+      32,
+      20,
+      456,
+      24
+    ],
+    [
+      3,
+      32,
+      20,
+      64,
+      24
+    ],
+    [
+      3,
+      128,
+      20,
+      71,
+      24
+    ],
+    [
+      3,
+      231,
+      20,
+      67,
+      24
+    ],
+    [
+      3,
+      330,
+      20,
+      77,
+      24
+    ],
+    [
+      3,
+      439,
+      20,
+      49,
+      24
+    ],
+    [
+      2,
+      1088,
+      20,
+      160,
+      24
+    ],
+    [
+      1,
+      28,
+      84,
+      454,
+      29
+    ],
+    [
+      10,
+      28,
+      84,
+      93,
+      29
+    ],
+    [
+      10,
+      129,
+      84,
+      83,
+      29
+    ],
+    [
+      10,
+      220,
+      84,
+      62,
+      29
+    ],
+    [
+      10,
+      290,
+      84,
+      84,
+      29
+    ],
+    [
+      10,
+      382,
+      84,
+      101,
+      29
+    ],
+    [
+      1,
+      28,
+      130,
+      290,
+      120
+    ],
+    [
+      16,
+      49,
+      149,
+      86,
+      90
+    ],
+    [
+      17,
+      49,
+      149,
+      86,
+      20
+    ],
+    [
+      17,
+      49,
+      173,
+      86,
+      42
+    ],
+    [
+      17,
+      49,
+      219,
+      86,
+      20
+    ],
+    [
+      16,
+      190,
+      192,
+      110,
+      40
+    ],
+    [
+      21,
+      190,
+      200,
+      110,
+      26
+    ],
+    [
+      1,
+      336,
+      130,
+      290,
+      120
+    ],
+    [
+      23,
+      357,
+      149,
+      86,
+      90
+    ],
+    [
+      24,
+      357,
+      149,
+      86,
+      20
+    ],
+    [
+      24,
+      357,
+      173,
+      86,
+      42
+    ],
+    [
+      24,
+      357,
+      219,
+      86,
+      20
+    ],
+    [
+      23,
+      498,
+      192,
+      110,
+      40
+    ],
+    [
+      28,
+      498,
+      202,
+      110,
+      22
+    ],
+    [
+      1,
+      644,
+      130,
+      290,
+      120
+    ],
+    [
+      30,
+      665,
+      149,
+      79,
+      90
+    ],
+    [
+      31,
+      665,
+      149,
+      79,
+      20
+    ],
+    [
+      31,
+      665,
+      173,
+      79,
+      42
+    ],
+    [
+      31,
+      665,
+      219,
+      79,
+      20
+    ],
+    [
+      30,
+      806,
+      192,
+      110,
+      40
+    ],
+    [
+      35,
+      806,
+      202,
+      110,
+      22
+    ],
+    [
+      1,
+      952,
+      130,
+      300,
+      120
+    ],
+    [
+      37,
+      973,
+      149,
+      101,
+      90
+    ],
+    [
+      38,
+      973,
+      149,
+      101,
+      20
+    ],
+    [
+      38,
+      973,
+      173,
+      101,
+      42
+    ],
+    [
+      38,
+      973,
+      219,
+      101,
+      20
+    ],
+    [
+      37,
+      1124,
+      192,
+      110,
+      40
+    ],
+    [
+      42,
+      1124,
+      198,
+      110,
+      27
+    ],
+    [
+      1,
+      28,
+      270,
+      800,
+      330
+    ],
+    [
+      44,
+      53,
+      295,
+      752,
+      27
+    ],
+    [
+      45,
+      53,
+      295,
+      135,
+      27
+    ],
+    [
+      45,
+      633,
+      299,
+      172,
+      20
+    ],
+    [
+      47,
+      633,
+      299,
+      85,
+      20
+    ],
+    [
+      48,
+      633,
+      304,
+      10,
+      10
+    ],
+    [
+      47,
+      735,
+      299,
+      70,
+      20
+    ],
+    [
+      50,
+      735,
+      304,
+      10,
+      10
+    ],
+    [
+      44,
+      53,
+      339,
+      752,
+      238
+    ],
+    [
+      52,
+      53,
+      384,
+      752,
+      193
+    ],
+    [
+      52,
+      53,
+      458,
+      752,
+      64
+    ],
+    [
+      52,
+      53,
+      384,
+      752,
+      119
+    ],
+    [
+      1,
+      848,
+      270,
+      404,
+      330
+    ],
+    [
+      56,
+      866,
+      288,
+      105,
+      24
+    ],
+    [
+      56,
+      880,
+      342,
+      200,
+      200
+    ],
+    [
+      58,
+      880,
+      342,
+      200,
+      200
+    ],
+    [
+      59,
+      920,
+      382,
+      120,
+      120
+    ],
+    [
+      56,
+      1110,
+      362,
+      93,
+      20
+    ],
+    [
+      61,
+      1110,
+      367,
+      10,
+      10
+    ],
+    [
+      61,
+      1128,
+      362,
+      75,
+      20
+    ],
+    [
+      56,
+      1110,
+      391,
+      82,
+      20
+    ],
+    [
+      64,
+      1110,
+      396,
+      10,
+      10
+    ],
+    [
+      64,
+      1128,
+      391,
+      64,
+      20
+    ],
+    [
+      56,
+      1110,
+      419,
+      83,
+      20
+    ],
+    [
+      67,
+      1110,
+      424,
+      10,
+      10
+    ],
+    [
+      67,
+      1128,
+      419,
+      65,
+      20
+    ],
+    [
+      56,
+      1110,
+      448,
+      80,
+      20
+    ],
+    [
+      70,
+      1110,
+      453,
+      10,
+      10
+    ],
+    [
+      70,
+      1128,
+      448,
+      62,
+      20
+    ],
+    [
+      1,
+      28,
+      620,
+      1224,
+      260
+    ],
+    [
+      73,
+      30,
+      622,
+      1222,
+      37
+    ],
+    [
+      74,
+      46,
+      633,
+      420,
+      16
+    ],
+    [
+      74,
+      466,
+      633,
+      160,
+      16
+    ],
+    [
+      74,
+      626,
+      633,
+      160,
+      16
+    ],
+    [
+      74,
+      786,
+      633,
+      450,
+      16
+    ],
+    [
+      73,
+      30,
+      659,
+      1222,
+      39
+    ],
+    [
+      79,
+      46,
+      670,
+      420,
+      20
+    ],
+    [
+      79,
+      466,
+      670,
+      160,
+      20
+    ],
+    [
+      79,
+      626,
+      670,
+      160,
+      20
+    ],
+    [
+      79,
+      786,
+      674,
+      450,
+      8
+    ],
+    [
+      79,
+      786,
+      674,
+      369,
+      8
+    ],
+    [
+      73,
+      30,
+      698,
+      1222,
+      39
+    ],
+    [
+      85,
+      46,
+      709,
+      420,
+      20
+    ],
+    [
+      85,
+      466,
+      709,
+      160,
+      20
+    ],
+    [
+      85,
+      626,
+      709,
+      160,
+      20
+    ],
+    [
+      85,
+      786,
+      713,
+      450,
+      8
+    ],
+    [
+      85,
+      786,
+      713,
+      261,
+      8
+    ],
+    [
+      73,
+      30,
+      737,
+      1222,
+      39
+    ],
+    [
+      91,
+      46,
+      748,
+      420,
+      20
+    ],
+    [
+      91,
+      466,
+      748,
+      160,
+      20
+    ],
+    [
+      91,
+      626,
+      748,
+      160,
+      20
+    ],
+    [
+      91,
+      786,
+      752,
+      450,
+      8
+    ],
+    [
+      91,
+      786,
+      752,
+      185,
+      8
+    ],
+    [
+      73,
+      30,
+      776,
+      1222,
+      39
+    ],
+    [
+      97,
+      46,
+      787,
+      420,
+      20
+    ],
+    [
+      97,
+      466,
+      787,
+      160,
+      20
+    ],
+    [
+      97,
+      626,
+      787,
+      160,
+      20
+    ],
+    [
+      97,
+      786,
+      791,
+      450,
+      8
+    ],
+    [
+      97,
+      786,
+      791,
+      122,
+      8
+    ],
+    [
+      73,
+      30,
+      815,
+      1222,
+      39
+    ],
+    [
+      103,
+      46,
+      826,
+      420,
+      20
+    ],
+    [
+      103,
+      466,
+      826,
+      160,
+      20
+    ],
+    [
+      103,
+      626,
+      826,
+      160,
+      20
+    ],
+    [
+      103,
+      786,
+      830,
+      450,
+      8
+    ],
+    [
+      103,
+      786,
+      830,
+      59,
+      8
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 44896,
+    "output": 22487,
+    "cacheRead": 201258
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48540,
+      "output": 15486,
+      "cacheRead": 187057,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 153674
+    }
+  ],
+  "reading": "The sketch is a full analytics dashboard: a top nav bar, a filter-chip stepper, four stat cards, a line chart, a traffic-source ring panel, and a page-views table — all specified precisely by the typed notes attached to each stroke group.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        58
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Fixed top bar, exactly 1280x64px at top-left 0,0 (fit content, never grow or push content below down). White card containing a '◆ Pulse' brand mark plus nav lis"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        32,
+        87,
+        390,
+        22
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A filter stepper: 5 filled pills in one row, each 29px tall, border-radius 999px. Left to right: 'All traffic' (#eef0ff fill, bold #4f46e5 text, active), 'Organ"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        31,
+        134,
+        284,
+        113
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "White stat card, exactly 290x120px at top-left 28,130 (fixed size/place, fit content, never grow or push cards below down). Small grey label 'Active users' (#6b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        339,
+        133,
+        283,
+        114
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "White stat card, exactly 290x120px at top-left 336,130 (fixed size/place, fit content, never grow or push cards below down). Small grey label 'Sessions' (#6b738"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        647,
+        133,
+        283,
+        113
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White stat card, exactly 290x120px at top-left 644,130 (fixed size/place, fit content, never grow or push cards below down). Small grey label 'Bounce rate' (#6b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        956,
+        133,
+        293,
+        114
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "White stat card, exactly 300x120px at top-left 952,130 (fixed size/place, fit content, never grow or push cards below down). Small grey label 'Revenue' (#6b7385"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        31,
+        273,
+        794,
+        324
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "White card 'Users over time', exactly 800x330px at top-left 28,270 (top 20px under the card above, no wider gap; fixed size/place, fit content, never grow or pu"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        851,
+        273,
+        398,
+        324
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Panel exactly 404x330px at top-left 848,270 (top 20px under the card above, no wider gap; fixed size/place, fit content, never grow or push content below down),"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        31,
+        623,
+        1218,
+        254
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Panel exactly 1224x260px at top-left 28,620 (top 20px under the card above, no wider gap; fixed size/place, fit content, never grow or push content below down),"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

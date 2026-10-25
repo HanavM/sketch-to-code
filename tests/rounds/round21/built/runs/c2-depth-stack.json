@@ -1,0 +1,324 @@
+{
+  "id": "c2-depth-stack",
+  "at": "2026-10-25T12:18:13.865Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5084713054924834,
+    "overallV2": 0.3454679617650101,
+    "overallV1": 0.3283805072064807,
+    "colour": 0.9134695528840128,
+    "structure": 0.6547897046686757,
+    "structureStrict": 0.5493696836005741,
+    "colourAligned": 0.9419378152875341,
+    "structureAligned": 0.7795960042993593,
+    "align": {
+      "scale": 1.12,
+      "dx": 80,
+      "dy": 0,
+      "r": 0.7119395483004096
+    },
+    "layout": 0.35998687200791657,
+    "layoutV1": 0.35998687200791657,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      645
+    ],
+    [
+      1,
+      64,
+      112,
+      530,
+      152
+    ],
+    [
+      1,
+      64,
+      312,
+      432,
+      56
+    ],
+    [
+      1,
+      64,
+      408,
+      1152,
+      48
+    ],
+    [
+      4,
+      64,
+      408,
+      142,
+      48
+    ],
+    [
+      1,
+      64,
+      519,
+      1152,
+      30
+    ],
+    [
+      6,
+      64,
+      519,
+      87,
+      30
+    ],
+    [
+      6,
+      161,
+      519,
+      87,
+      30
+    ],
+    [
+      6,
+      259,
+      519,
+      69,
+      30
+    ],
+    [
+      1,
+      640,
+      110,
+      560,
+      640
+    ],
+    [
+      10,
+      543,
+      227,
+      819,
+      559
+    ],
+    [
+      11,
+      543,
+      274,
+      437,
+      270
+    ],
+    [
+      11,
+      530,
+      222,
+      453,
+      262
+    ],
+    [
+      11,
+      517,
+      167,
+      469,
+      253
+    ],
+    [
+      11,
+      502,
+      107,
+      486,
+      241
+    ],
+    [
+      15,
+      502,
+      107,
+      354,
+      116
+    ],
+    [
+      1,
+      1060,
+      75,
+      120,
+      120
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "hard-shadow",
+      "motion",
+      "overlap",
+      "serif",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "glass"
+    ]
+  },
+  "tokens": {
+    "input": 22658,
+    "output": 9895,
+    "cacheRead": 242001
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 17052,
+      "output": 3036,
+      "cacheRead": 177216,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 26603
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7877,
+      "output": 3575,
+      "cacheRead": 61701,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 40595
+    }
+  ],
+  "reading": "The user sketched a hero section: a two-line extruded 3D headline, a body paragraph, a dark 'Get the kit' button, three pill buttons (Elevation/Shadows/Depth), and on the right a large box with a circle that the typed notes specify as a real CSS 3D rotating cube with four stacked faces plus a separate glowing bobbing sphere overlapping it; a run-scoped note sets the whole page's gradient background and typography.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        72,
+        120,
+        504,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif, heavy weight, tight-set headline in white reading exactly 2 lines: \"Layers, all the\" / \"way down.\" (keep these line breaks, white-space: no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        470,
+        432,
+        57
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text reading exactly: \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        593,
+        135,
+        47
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A button-shaped block in dark brown (exactly #3a1a14) with white text \"Get the kit\" (text color #ffffff, not the page's default dark brown), with a hard, solid,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        703,
+        276,
+        26
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A row of three buttons labeled \"Elevation\", \"Shadows\", and \"Depth\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        553,
+        644
+      ],
+      "paths": [
+        "s6",
+        "s7"
+      ],
+      "instruction": "A real CSS 3D cube (not a flat drawing or SVG): a 560x640px scene positioned at 640,110 with perspective: 1200px; inside it one group div (position absolute, in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1063,
+        94,
+        112,
+        112
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A gently bobbing (up and down animation) solid 120px sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffffff 0%, #ffd0"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

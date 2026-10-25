@@ -1,0 +1,321 @@
+{
+  "id": "c5-neon-grid",
+  "at": "2026-10-25T12:40:09.429Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7688615088272991,
+    "overallV2": 0.7688615088272991,
+    "overallV1": 0.7504870959038272,
+    "colour": 0.9493059777278489,
+    "structure": 0.7910244827172577,
+    "structureStrict": 0.742176962746916,
+    "colourAligned": 0.9493059777278489,
+    "structureAligned": 0.7910244827172577,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8581127759993817
+    },
+    "layout": 0.5607723405384586,
+    "layoutV1": 0.5607723405384586,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -1268,
+      -103,
+      3815,
+      603
+    ],
+    [
+      0,
+      444,
+      124,
+      393,
+      392
+    ],
+    [
+      2,
+      444,
+      124,
+      393,
+      392
+    ],
+    [
+      3,
+      443,
+      124,
+      394,
+      393
+    ],
+    [
+      0,
+      48,
+      30,
+      103,
+      21
+    ],
+    [
+      0,
+      981,
+      30,
+      68,
+      21
+    ],
+    [
+      0,
+      1089,
+      30,
+      46,
+      21
+    ],
+    [
+      0,
+      1175,
+      30,
+      57,
+      21
+    ],
+    [
+      0,
+      8,
+      317,
+      1152,
+      156
+    ],
+    [
+      0,
+      0,
+      480,
+      221,
+      51
+    ],
+    [
+      0,
+      532,
+      581,
+      220,
+      56
+    ],
+    [
+      0,
+      52,
+      826,
+      173,
+      27
+    ],
+    [
+      0,
+      1064,
+      826,
+      97,
+      27
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9090909090909091,
+    "kept": [
+      "3d",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "uppercase-display"
+    ],
+    "missing": [
+      "mask"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 42986,
+    "output": 28981,
+    "cacheRead": 202788
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40990,
+      "output": 14781,
+      "cacheRead": 191744,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 160017
+    }
+  ],
+  "reading": "This is a synthwave-style hero section for a radio/music site: a top navbar with 4 words, a big gradient sun circle fading toward the bottom, a 3D perspective grid floor behind everything, a giant gradient 'NIGHTDRIVE' headline, a glowing cyan 'the new album' tagline, a square cyan-text 'PLAY NOW' button, and two bottom-left/right status texts ('HI-SCORE...' and '1UP'). All styling, colors, copy and exact specs come from the typed notes, which take precedence over the raw ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        34,
+        1176,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navbar row: cyan \"OUTRUN.FM\" sits at the left, then the links TRACKS, TOUR, MERCH are pushed to the far right (830px gap from OUTRUN.FM). Each word is its o"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        124,
+        393,
+        392
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Big circle: vivid soft yellow (#ffe259) at the top fading to vivid pink (#ff4e8a) at the bottom, drawn solid until 45% down and fully faded into the page backgr"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        1,
+        1277,
+        496
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A perspective grid floor behind the other hero content: one 2080x700px div (untransformed size) with top-left at -400,500 (runs off both page edges), tilted bac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 132
+        }
+      ],
+      "region": [
+        8,
+        316,
+        1152,
+        158
+      ],
+      "paths": [],
+      "instruction": "Giant italic heavy uppercase headline \"NIGHTDRIVE\", 130px, about 802px wide (no larger), with a top-to-bottom gradient: off-white (#e0f7ff) to sky blue (#6ad4ff"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 31
+        }
+      ],
+      "region": [
+        8,
+        478,
+        1152,
+        37
+      ],
+      "paths": [],
+      "instruction": "Neon-sign tagline \"the new album\", 34px letters, #37f3ff, one line, top-left at 0,480, glowing via text-shadow: 0px 0px 6px #37f3ff, 0px 0px 18px #37f3ff, 0px 0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        581,
+        216,
+        54
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Button \"▶ PLAY NOW\", near-black indigo background, 220x56px, square corners (border-radius 0, not a pill); its text is #37f3ff cyan (not the page's default whit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        826,
+        165,
+        9
+      ],
+      "paths": [],
+      "instruction": "Mono status text \"HI-SCORE 0098430\", color #ffe259 soft yellow (not the page's white text), 18px bold (font-weight 700), about 173px wide on one line, positione"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [],
+      "region": [
+        1064,
+        826,
+        89,
+        8
+      ],
+      "paths": [],
+      "instruction": "Mono status text \"♥ ♥ ♥ 1UP\", color #ff4e8a pink (not the page's white text), 18px bold (font-weight 700), about 97px wide on one line, positioned at the bottom"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
