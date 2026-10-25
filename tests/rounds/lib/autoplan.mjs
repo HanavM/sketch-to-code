@@ -97,15 +97,29 @@ export function factsInPage() {
         if (cs.position !== 'absolute' || el.children.length || (el.innerText || '').trim()) return null
         const bw = parseFloat(cs.borderTopWidth) || 0, bc = rgba(cs.borderTopColor)
         if (bw < 1 || !(bc?.a > 0.5) || rgba(cs.backgroundColor)?.a > 0.3 || r.width < 30 || r.height < 30) return null
-        const cells = [...document.querySelectorAll('td, th')].filter((c) => { const b = c.getBoundingClientRect(); return b.left >= r.left - 3 && b.right <= r.right + 3 && b.top >= r.top - 3 && b.bottom <= r.bottom + 3 })
-        if (!cells.length) return null
+        const inBox = (c) => { const b = c.getBoundingClientRect(); return b.left >= r.left - 3 && b.right <= r.right + 3 && b.top >= r.top - 3 && b.bottom <= r.bottom + 3 }
+        const a = getComputedStyle(el, '::after'), aw = parseFloat(a.width)
+        const fl = rgba(cs.backgroundColor)
+        const tail = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), bw: Math.round(bw), bc, fill: fl?.a > 0.03 ? fl : null,
+          handle: a.content !== 'none' && aw >= 4 && aw <= 14 ? { px: Math.round(aw), fill: rgba(a.backgroundColor), off: Math.round(-(parseFloat(a.right) || 0)) } : null }
+        const cells = [...document.querySelectorAll('td, th')].filter(inBox)
+        if (!cells.length) {
+          // n225: a CSS grid of div cells (round 22 e5: no td/th, so the range read as 'frosted glass', built blurred)
+          const grid = [...document.querySelectorAll('*')].find((g) => g !== el && getComputedStyle(g).display === 'grid' && g.children.length >= 40 && [...g.children].some(inBox))
+          if (!grid) return null
+          const ncol = getComputedStyle(grid).gridTemplateColumns.split(' ').length, ks = [...grid.children]
+          const inside = ks.map((k, i) => ({ k, i })).filter(({ k }) => inBox(k))
+          if (!inside.length) return null
+          const t = (k) => (k?.innerText || '').trim()
+          const cols = [...new Set(inside.map(({ i }) => t(ks[i % ncol])))].filter(Boolean)
+          const rws = [...new Set(inside.map(({ i }) => t(ks[i - (i % ncol)])))].filter(Boolean)
+          return { ...tail, rows: [rws[0], rws[rws.length - 1]], nRows: rws.length, cols: cols.length > 1 ? [cols[0], cols[cols.length - 1]] : cols }
+        }
         const rowsOf = [...new Set(cells.map((c) => c.parentElement))], tr0 = rowsOf[0], trN = rowsOf[rowsOf.length - 1]
         const num = (tr) => (tr.cells[0]?.innerText || '').trim()
         const head = [...(tr0.closest('table')?.rows[0]?.cells ?? [])].map((c) => (c.innerText || '').trim())
         const cols = [...new Set(cells.map((c) => head[c.cellIndex] ?? ''))].filter(Boolean)
-        const a = getComputedStyle(el, '::after'), aw = parseFloat(a.width)
-        return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), bw: Math.round(bw), bc,
-          rows: [num(tr0), num(trN)], nRows: rowsOf.length, cols, handle: a.content !== 'none' && aw >= 4 && aw <= 14 ? { px: Math.round(aw), fill: rgba(a.backgroundColor) } : null }
+        return { ...tail, rows: [num(tr0), num(trN)], nRows: rowsOf.length, cols }
       })(),
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle, right: parseFloat(cs.borderRightWidth) || 0, rightColour: rgba(cs.borderRightColor) },
@@ -1594,7 +1608,7 @@ export function factsInPage() {
       // a picture block painted by ::before/::after (round 6 e1 featured card's gradient square: unsaid)
       pseudoPic: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw >= 40 && ph >= 40) || pw > 200 || ph > 200 || pw >= r.width * 0.6) continue; const g = [...c.backgroundImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => rgba(m[0])).filter(Boolean); const fl = rgba(c.backgroundColor); if (!g.length && !(fl?.a > 0.05)) continue; return { w: Math.round(pw), h: Math.round(ph), grad: g.length >= 2 ? g : null, fill: fl?.a > 0.05 ? fl : null, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
       // a big solid shape painted by ::before/::after over a photo backdrop (round 7 e4 jacket: over 200px, unsaid)
-      pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0) } } return null })(),
+      pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; const mt = c.transform.match(/matrix\(([^)]*)\)/); const v = mt ? mt[1].split(',').map(Number) : null; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0), turn: v ? Math.round(Math.atan2(v[1], v[0]) * 180 / Math.PI) : 0, shadow: c.boxShadow !== 'none' ? c.boxShadow : null } } return null })(),
       // n187: a striped overlay painted by ::before/::after over the whole block (round 18 c4 photo: repeating-linear-gradient
       // scan lines, multiply-blended, never said)
       pseudoLines: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (!c.content || c.content === 'none' || !/repeating-(linear|radial)-gradient/.test(c.backgroundImage)) continue; if (!(parseFloat(c.width) >= r.width * 0.9 && parseFloat(c.height) >= r.height * 0.9)) continue; return { w, img: c.backgroundImage, blend: c.mixBlendMode !== 'normal' ? c.mixBlendMode : null } } return null })(),
@@ -1625,7 +1639,14 @@ export function factsInPage() {
         for (const t of [el, ...el.querySelectorAll('*')]) {
           const u = t.firstElementChild; if (!u || txt(t)) continue
           const a = t.getBoundingClientRect(), b = u.getBoundingClientRect()
-          if (a.height <= 14 && a.width >= 60 && b.height >= a.height - 2 && b.width < a.width * 0.98 && rgba(getComputedStyle(t).backgroundColor)?.a > 0.05 && rgba(getComputedStyle(u).backgroundColor)?.a > 0.05) return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean) }
+          if (a.height <= 14 && a.width >= 60 && b.height >= a.height - 2 && b.width < a.width * 0.98 && rgba(getComputedStyle(t).backgroundColor)?.a > 0.05 && rgba(getComputedStyle(u).backgroundColor)?.a > 0.05) {
+            // n225: several like bars stacked (round 22 e2 rating breakdown: five bars said as one)
+            const sibs = t.parentElement ? [...t.parentElement.children].filter((k) => k.firstElementChild && !txt(k) && Math.abs(k.getBoundingClientRect().height - a.height) <= 1 && Math.abs(k.getBoundingClientRect().width - a.width) <= 2) : [t]
+            const big = t.parentElement && [...t.parentElement.children].find((k) => txt(k) && parseFloat(getComputedStyle(k).fontSize) >= 28)
+            const many = sibs.length >= 3 ? { n: sibs.length, pcts: sibs.map((k) => Math.round(k.firstElementChild.getBoundingClientRect().width / k.getBoundingClientRect().width * 100)), h: Math.round(a.height), w: Math.round(a.width), gap: Math.round(sibs[1].getBoundingClientRect().top - sibs[0].getBoundingClientRect().bottom), x: Math.round(a.left), y: Math.round(sibs[0].getBoundingClientRect().top), rad: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius) || 0),
+              big: big ? { t: txt(big), px: Math.round(parseFloat(getComputedStyle(big).fontSize)), bold: Number(getComputedStyle(big).fontWeight) >= 600, x: Math.round(big.getBoundingClientRect().left), y: Math.round(big.getBoundingClientRect().top) } : null } : null
+            return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), many }
+          }
         }
         return null
       })(),
@@ -1648,7 +1669,9 @@ export function factsInPage() {
         const ok = kids.every((k, i) => !k.children.length && bs[i].width >= 80 && bs[i].height >= 80 && Math.abs(bs[i].width - bs[0].width) <= 4 && Math.abs(bs[i].height - bs[0].height) <= 4 && (rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 || parseFloat(getComputedStyle(k).borderTopWidth) >= 1))
         if (!ok) return null
         const vert = bs[1].top - bs[0].top > Math.abs(bs[1].left - bs[0].left)
-        return { n: kids.length, w: Math.round(bs[0].width), h: Math.round(bs[0].height), vert, gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right), fill: rgba(cs0.backgroundColor), bw: parseFloat(cs0.borderTopWidth) || 0, border: rgba(cs0.borderTopColor), radius: Math.round(parseFloat(cs0.borderTopLeftRadius) || 0) }
+        return { n: kids.length, w: Math.round(bs[0].width), h: Math.round(bs[0].height), vert, gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right), fill: rgba(cs0.backgroundColor), bw: parseFloat(cs0.borderTopWidth) || 0, border: rgba(cs0.borderTopColor), radius: Math.round(parseFloat(cs0.borderTopLeftRadius) || 0),
+          // n225: one card ringed by an outline (round 22 e2 gallery thumbnails: the chosen one lost)
+          ring: kids.map((k, i) => { const c = getComputedStyle(k); return parseFloat(c.outlineWidth) >= 1 && c.outlineStyle !== 'none' ? { i, w: parseFloat(c.outlineWidth), c: rgba(c.outlineColor), off: parseFloat(c.outlineOffset) || 0 } : null }).filter(Boolean) }
       })(),
       // a filled block holding only small textless icon tiles (round 5 e3 workspace rail: drawn as a
       // picture placeholder, built as a crossed-out X)
@@ -1935,10 +1958,33 @@ export function factsInPage() {
         const tint = (k) => { const c = filled(k); return c && Math.hypot(c.r - page.r, c.g - page.g, c.b - page.b) > 6 ? c : null }
         const rowLook = body.map((r) => ({ bold: r.filter(txt).length && r.filter(txt).every((k) => parseFloat(getComputedStyle(k).fontWeight) >= 600), fill: r.every((k) => tint(k)) ? tint(r[0]) : null }))
         let sel = null
-        body.forEach((r, i) => r.forEach((k, j) => { const c = getComputedStyle(k); const ow = parseFloat(c.outlineWidth) || 0; if ((ow >= 2 && c.outlineStyle !== 'none') || parseFloat(c.borderTopWidth) >= 2) sel = { at: `${top[j]}${left[i]}`, colour: rgba(ow >= 2 ? c.outlineColor : c.borderTopColor) } }))
+        // n225: a selected cell has an outline or a thick border on all four sides; a 2px rule on top alone is a total
+        // row (round 22 e5: the total row's last cell read as 'H8 selected')
+        const all4 = (c) => ['Top', 'Right', 'Bottom', 'Left'].every((sd) => parseFloat(c[`border${sd}Width`]) >= 2)
+        body.forEach((r, i) => r.forEach((k, j) => { const c = getComputedStyle(k); const ow = parseFloat(c.outlineWidth) || 0; if ((ow >= 2 && c.outlineStyle !== 'none') || all4(c)) sel = { at: `${top[j]}${left[i]}`, colour: rgba(ow >= 2 ? c.outlineColor : c.borderTopColor) } }))
         const ch = Math.round(cells[cols + 1].getBoundingClientRect().height)
         const cw = Math.round(cells[cols + 1].getBoundingClientRect().width)
-        return { type: 'sheet', top, rows: left.length, used, rowLook, sel, headFill: tint(rowsT[0][1]), rowPx: ch, colPx: cw, firstPx: Math.round(cells[0].getBoundingClientRect().width) }
+        // n225: every column's own width (round 22 e5: 'cells 220px wide' took column A for all, built 1760px wide), the
+        // cell fills one by one, alignment, the frozen rules, the total rule, and how tall the grid really is
+        const g = el.getBoundingClientRect()
+        const widths = rowsT[0].map((k) => Math.round(k.getBoundingClientRect().width))
+        const sheetBg = filled(el) ?? page
+        const away = (c, ref) => c && ref && Math.hypot(c.r - ref.r, c.g - ref.g, c.b - ref.b) > 10
+        const fills = []
+        body.forEach((r, i) => { if (rowLook[i].fill) return; r.forEach((k, j) => { const c = filled(k); if (away(c, sheetBg) && txt(k)) fills.push({ at: `${top[j]}${left[i]}`, c }) }) })
+        const right = top.map((_, j) => { const ks = body.slice(1).map((r) => r[j]).filter((k) => txt(k)); return ks.length >= 2 && ks.every((k) => /right|end/.test(getComputedStyle(k).textAlign)) })
+        const frozen = []
+        const r1 = rowsT[1].slice(1).map((k) => getComputedStyle(k))
+        if (r1.every((c) => parseFloat(c.borderBottomWidth) >= 2)) frozen.push({ px: Math.round(parseFloat(r1[0].borderBottomWidth)), c: rgba(r1[0].borderBottomColor), what: 'under row 1 (the frozen header row)' })
+        const cA = rowsT.slice(1).map((r) => getComputedStyle(r[1]))
+        if (cA.every((c) => parseFloat(c.borderRightWidth) >= 2)) frozen.push({ px: Math.round(parseFloat(cA[0].borderRightWidth)), c: rgba(cA[0].borderRightColor), what: `down the right edge of column ${top[0]} (the frozen first column)`, down: true })
+        const totI = body.findIndex((r) => r.every((k) => parseFloat(getComputedStyle(k).borderTopWidth) >= 2))
+        const tot = totI >= 0 ? { row: left[totI], px: Math.round(parseFloat(getComputedStyle(body[totI][0]).borderTopWidth)), c: rgba(getComputedStyle(body[totI][0]).borderTopColor) } : null
+        const hc = getComputedStyle(rowsT[0][1]), lc = getComputedStyle(rowsT[1][0])
+        const lead = top.map((_, j) => body.slice(1).map((r) => r[j]).filter(txt).every((k) => /left|start/.test(getComputedStyle(k).textAlign)))
+        const headLeft = body[0].filter(txt).every((k) => /left|start/.test(getComputedStyle(k).textAlign))
+        return { type: 'sheet', top, rows: left.length, used, rowLook, sel, headFill: tint(rowsT[0][1]), rowPx: ch, colPx: cw, firstPx: Math.round(cells[0].getBoundingClientRect().width),
+          box: { x: Math.round(g.left), y: Math.round(g.top), w: Math.round(g.width), h: Math.round(g.height) }, widths, fills, right, lead, frozen, tot, gridH: rowsT.length * ch, headPx: Math.round(parseFloat(hc.fontSize)), headInk: rgba(hc.color), numFill: filled(rowsT[1][0]), numInk: rgba(lc.color), bodyPx: Math.round(parseFloat(getComputedStyle(cells[cols + 2]).fontSize)), headH: Math.round(rowsT[0][0].getBoundingClientRect().height), sheetBg: filled(el), headLeft, headCell: filled(rowsT[0][1]) }
       }
     }
     // heatmap: a grid of 20+ textless filled cells in one hue at different strengths, with row labels
@@ -3147,7 +3193,14 @@ function denseNote(d) {
     case 'tiles': return `grid of ${d.items.length} ${d.bordered ? 'bordered rounded ' : ''}tiles, ${d.cols} per row, each a coloured picture block on top, then name, then small grey line: ${d.items.map((x) => `${x.grad ? `${colourName(x.grad[0])} to ${colourName(x.grad[x.grad.length - 1])} gradient` : colourName(x.pic)} ${quote(x.parts[0], 24)}${x.parts[1] ? ` ${x.parts[1]}` : ''}`).join(', ')}${d.sel ? `; ${quote(d.sel.t, 24)} selected (${colourName(d.sel.c)} ${d.sel.w}px border)` : ''}`
     case 'sheet': {
       const r = (row, i) => `row ${i + 1}: ${row.map((t) => (t ? quote(t, 16) : '(empty)')).join(' | ').replace(/( \| \(empty\))+$/, '')}${d.rowLook[i].bold ? ' (bold' + (d.rowLook[i].fill ? `, ${sheetFill(d.rowLook[i].fill)} row)` : ')') : d.rowLook[i].fill ? ` (${sheetFill(d.rowLook[i].fill)} row)` : ''}`
-      return `spreadsheet grid with thin grey cell lines: ${d.headFill ? `${colourName(d.headFill)} ` : ''}header row of column letters ${d.top[0]} to ${d.top[d.top.length - 1]}, row numbers 1 to ${d.rows} down a narrow ${d.firstPx}px left column, cells ${d.colPx}px wide and ${d.rowPx}px tall; ${d.used.map(r).join('; ')}; rows ${d.used.length + 1} to ${d.rows} empty${d.sel ? `; cell ${d.sel.at} selected (${colourName(d.sel.colour)} 2px outline)` : ''}`
+      if (!d.widths) return `spreadsheet grid with thin grey cell lines: ${d.headFill ? `${colourName(d.headFill)} ` : ''}header row of column letters ${d.top[0]} to ${d.top[d.top.length - 1]}, row numbers 1 to ${d.rows} down a narrow ${d.firstPx}px left column, cells ${d.colPx}px wide and ${d.rowPx}px tall; ${d.used.map(r).join('; ')}; rows ${d.used.length + 1} to ${d.rows} empty${d.sel ? `; cell ${d.sel.at} selected (${colourName(d.sel.colour)} 2px outline)` : ''}`
+      // n225: a dense sheet said to the px (round 22 e5: rows built ~50px, columns all 220px, fills lost, 47%)
+      const B = d.box, all = d.widths.reduce((a, b) => a + b, 0)
+      const wd = d.widths.slice(1), same = (i) => wd.slice(i).every((x) => Math.abs(x - wd[i]) <= 1)
+      const colSay = same(0) ? `every lettered column ${wd[0]}px wide` : same(1) ? `column ${d.top[0]} ${wd[0]}px wide, columns ${d.top[1]} to ${d.top[d.top.length - 1]} each ${wd[1]}px wide` : d.top.map((t, i) => `${t} ${wd[i]}px`).join(', ')
+      const align = d.top.map((t, j) => d.right[j] ? t : null).filter(Boolean), leftCols = d.top.filter((t, j) => d.lead[j] && !d.right[j] && d.used.some((u) => u[j]))
+      const rowsSay = d.used.map((row, i) => `row ${i + 1}: ${row.map((t) => (t ? quote(t, 16) : '·')).join(' | ')}${d.rowLook[i].bold ? ' (bold)' : ''}`).join('; ')
+      return `a SPREADSHEET GRID (a real CSS grid of cells, every cell a box with a 1px light grey right and bottom line; NOT a plain table, NOT cards) ${all}px wide at ${B.x},${B.y}${d.sheetBg ? ` on a ${hexOf(d.sheetBg)} sheet ${B.w}x${B.h}px` : ''}: ${d.top.length + 1} columns: a ${d.widths[0]}px row-number column, then ${colSay}; EVERY row exactly ${d.rowPx}px tall (grid-auto-rows: ${d.rowPx}px; NEVER stretched to fill the sheet), so the header row of letters + ${d.rows} numbered rows end at y ${B.y + d.gridH}${B.h > d.gridH + 20 ? ` and the sheet below them stays EMPTY ${d.sheetBg ? hexOf(d.sheetBg) : 'white'} down to y ${B.y + B.h} (no more rows drawn there)` : ''}; the header row has the letters ${d.top.join(' ')} centred, ${d.headPx}px ${hexOf(d.headInk)} on ${d.headCell ? hexOf(d.headCell) : d.headFill ? hexOf(d.headFill) : 'the sheet'}, its left cell empty; row numbers 1 to ${d.rows} centred in the left column, ${d.headPx}px ${hexOf(d.numInk)}${d.numFill ? ` on ${hexOf(d.numFill)}` : ''}; cell text ${d.bodyPx}px with 8px side padding${align.length ? `; under row 1, text RIGHT-aligned in column${align.length > 1 ? 's' : ''} ${align.join(', ')}` : ''}${d.headLeft && align.length ? '; every row-1 heading LEFT-aligned' : ''}${leftCols.length ? `; column${leftCols.length > 1 ? 's' : ''} ${leftCols.join(', ')} left-aligned` : ''}${d.frozen.map((z) => `; a ${z.px}px ${hexOf(z.c)} line ${z.what}`).join('')}${d.tot ? `; a ${d.tot.px}px ${hexOf(d.tot.c)} rule across the top of row ${d.tot.row} (the total row)` : ''}${d.fills.length ? `; conditional cell FILLS, each cell filled edge to edge in its own colour (keep every one, NOT plain white): ${d.fills.map((x) => `${x.at} ${hexOf(x.c)}`).join(', ')}` : ''}; cells by row (| between cells, · an empty cell): ${rowsSay}; rows ${d.used.length + 1} to ${d.rows} empty (cells drawn, nothing in them)${d.sel ? `; cell ${d.sel.at} selected (${hexOf(d.sel.colour)} 2px outline)` : ''}`
     }
     case 'messages': {
       const m0 = d.items[0]
@@ -3812,6 +3865,12 @@ function rodNote(K, f) {
   return `a THIN ROD with a round KNOB (a tonearm, NOT a block or slab): ONE ${K.lw}x${K.lh}px div (its untransformed size, only ${Math.min(K.lw, K.lh)}px thick) with its top-left at ${K.x},${K.y}${K.grad ? `, background: ${cssHex(K.grad)}` : visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''}, ${K.rad}px rounded${f.turn ? `, transform: rotate(${f.turn}deg) about its ${K.atTop ? 'top' : 'bottom'} end (transform-origin ${K.origin}; tilted ${Math.abs(f.turn)}° ${f.turn > 0 ? 'clockwise' : 'anticlockwise'})` : ''}, highest z-index (it lies OVER what it crosses); at its ${K.atTop ? 'top' : 'bottom'} end a ${K.d}px ROUND knob (a ::before disc, border-radius 50%)${K.fill?.a > 0.05 ? ` filled ${hexOf(K.fill)}` : ''}${K.ring ? ` with a ${K.ring.w}px ${hexOf(K.ring.c)} ring` : ''}, centred on the rod's end`
 }
 
+// n225: a product drawn by ::after inside a gradient tile (round 22 e2: the shoe was said as 'plain paint only', lost)
+function pseudoShapeWords(f) {
+  const ps = f.pseudoShape
+  const radial = /^radial-gradient/.test((f.bgImage ?? '').trim()) ? `; its paint is background: ${cssHex(f.bgImage.replace(/\s+/g, ' ').trim())} exactly (a warm glow in the middle fading to the plain grey toward the edges, NOT a flat tint, NOT a top-to-bottom fade)` : ''
+  return `and ONE solid ${hexOf(ps.fill)} SHAPE inside it (the product, drawn in CSS: a ::after or a div, position absolute, NOT a picture, NOT an icon): ${ps.w}x${ps.h}px, its top-left ${ps.x}px in from the tile's left and ${ps.y}px down from its top (page ${Math.round(f.rect.x + ps.x)},${Math.round(f.rect.y + ps.y)}), border-radius: ${ps.radius}${ps.turn ? `, turned ${ps.turn}° (transform: rotate(${ps.turn}deg))` : ''}${ps.shadow ? `, box-shadow: ${cssHex(ps.shadow)} (a soft shadow under it)` : ''}; nothing else inside (no X, no text)${radial}`
+}
 function decideOne(f, page, marked, said) {
   const { w, h } = f.rect
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
@@ -3879,7 +3938,7 @@ function decideOne(f, page, marked, said) {
   // n168: a selection outline over grid cells, said with its exact box and the rows/columns it covers
   if (f.selBox) {
     const S = f.selBox
-    return { kind: 'box', note: `a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly ${S.w}x${S.h}px with its top-left at ${S.x},${S.y} (page px), a ${S.bw}px ${hexOf(S.bc)} border, no fill; it covers columns ${S.cols.join(' to ')} of rows ${S.rows[0]} to ${S.rows[1]} only (${S.nRows} rows, its bottom edge at y ${S.y + S.h}, NOT running further down)${S.handle ? `; a ${S.handle.px}x${S.handle.px}px ${hexOf(S.handle.fill)} square handle on its bottom-right corner, 1px white border` : ''}` }
+    return { kind: 'box', note: `a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly ${S.w}x${S.h}px with its top-left at ${S.x},${S.y} (page px), a ${S.bw}px solid ${hexOf(S.bc)} border, ${S.fill ? `a PALE see-through fill rgba(${S.fill.r}, ${S.fill.g}, ${S.fill.b}, ${Math.round(S.fill.a * 100) / 100}) (a light tint, the cell numbers read clearly through it: NOT frosted glass, NO backdrop-filter, NO blur)` : 'no fill'}; it covers columns ${S.cols.join(' to ')} of rows ${S.rows[0]} to ${S.rows[1]} only (${S.nRows} rows, its bottom edge at y ${S.y + S.h}, NOT running further down)${S.handle ? `; a ${S.handle.px}x${S.handle.px}px ${hexOf(S.handle.fill)} square handle on its bottom-right corner${S.handle.off > 0 ? ` (overhanging it by ${S.handle.off}px)` : ''}, 1px white border` : ''}` }
   }
   const ruled = !bordered && f.border.bottom >= 2
   const round = f.radiusPct >= 40 || f.radius >= Math.min(w, h) / 2 - 1
@@ -4324,7 +4383,8 @@ function decideOne(f, page, marked, said) {
   if (!f.text && f.emptyCards && !f.regionKids.length) {
     const e = f.emptyCards
     const look = `${e.fill?.a > 0.05 ? `${colourName(e.fill)} ` : ''}cards`
-    return { kind: 'box', note: withFx(`${e.vert ? 'a column' : 'a row'} of ${e.n} separate empty ${look}, each ${e.w}x${e.h}px, ${e.gap}px apart${e.bw >= 1 && visible(e.border) ? `, thin ${colourName(e.border)} border` : ''}${e.radius ? `, ${e.radius}px rounded` : ''}, nothing inside them`) }
+    const ring = e.ring?.length === 1 ? `; card ${e.ring[0].i + 1} is the CHOSEN one: a ${e.ring[0].w}px ${hexOf(e.ring[0].c)} outline${e.ring[0].off ? ` ${e.ring[0].off}px outside it (outline-offset: ${e.ring[0].off}px)` : ''}` : ''
+    return { kind: 'box', note: withFx(`${e.vert ? 'a column' : 'a row'} of ${e.n} separate empty ${look}, each ${e.w}x${e.h}px, ${e.gap}px apart${e.bw >= 1 && visible(e.border) ? `, thin ${colourName(e.border)} border` : ''}${e.radius ? `, ${e.radius}px rounded` : ''}${e.fill?.a > 0.05 && dist(e.fill, page.bg ?? { r: 255, g: 255, b: 255 }) > 6 ? `, each filled exactly ${hexOf(e.fill)} (visible against the page)` : ''}, nothing inside them${ring}`) }
   }
   // a filled block holding only icon tiles is a block with icons, not a picture
   if (!f.text && fill && f.iconKids && !f.regionKids.length && w >= 30 && h >= 50) {
@@ -4381,7 +4441,7 @@ function decideOne(f, page, marked, said) {
     const sh = shadowWords(f)
     // a rounded flat colour/gradient tile is a plain tile, not a picture (round 8 c3: six masonry tiles read as
     // pictures, rounding unsaid): say its size and rounding and that nothing is inside
-    if (note && !shape && !sh && !f.tilt3d && f.radius >= 10 && !stripes && w <= 700 && h <= 700) return { kind: 'box', note: withFx(`${note.replace(/ block$/, '')}${fill && !grad ? ` (${hexOf(f.bg)})` : ''} tile, ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded corners, plain paint only: no picture, no X, no icon, no text`) }
+    if (note && !shape && !sh && !f.tilt3d && f.radius >= 10 && !stripes && w <= 700 && h <= 700) return { kind: 'box', note: withFx(`${note.replace(/ block$/, '')}${fill && !grad ? ` (${hexOf(f.bg)})` : ''} tile, ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded corners, ${f.pseudoShape ? pseudoShapeWords(f) : 'plain paint only: no picture, no X, no icon, no text'}`) }
     // a pale tinted thumbnail says its tint, and a selected one its ring (round 7 e4: thumbs built white, ring lost)
     const pale = !note && fill && !grad && hexOf(f.bg) !== '#ffffff' && w <= 200 && h <= 200 ? `pale ${hexOf(f.bg)} filled ${Math.round(w)}x${Math.round(h)}px${f.radius >= 4 ? ` ${Math.round(f.radius)}px rounded` : ''} block (no picture, no X)` : null
     const ringed = f.ring ? `${f.ring.w}px ${colourName(f.ring.colour)} outline ring ${f.ring.off}px out from its edge (the selected one)` : null
@@ -4511,6 +4571,7 @@ function decideOne(f, page, marked, said) {
   // a progress meter with its label lines
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
     const p = f.progress
+    if (p.many) { const m = p.many; return { kind: 'box', note: `${m.big ? `a big ${m.big.px}px ${m.big.bold ? 'bold ' : ''}${quote(m.big.t, 8)} at ${m.big.x},${m.big.y} on the left, and to its right ` : ''}${m.n} SEPARATE thin bars stacked (a rating breakdown, NOT one bar), each ${m.w}x${m.h}px, ${m.rad}px rounded, ${m.gap}px apart, the first at ${m.x},${m.y}: a ${hexOf(p.track)} track each, filled ${hexOf(p.fill)} from the left to ${m.pcts.map((x) => `${x}%`).join(', ')} top to bottom` } }
     return { kind: 'box', note: `${p.lines.length ? `${quote(p.lines[0], 30)}, ` : ''}thin progress bar ${p.pct}% filled ${colourName(p.fill)} on a ${colourName(p.track)} track${p.lines[1] ? `, small grey ${quote(p.lines[1], 40)} under` : ''}` }
   }
   // a breadcrumb trail: said, or the build drops it (round 4 e4)

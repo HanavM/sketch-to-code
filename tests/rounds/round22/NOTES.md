@@ -39,3 +39,20 @@ Round 22: **75%** over 10 (round 21 started at 71 untuned). Vitest: same 2 env f
 Worst gaps, next: e5 a dense grid keeps its exact row height and its cell fills, and a selection is a 2px outline with a
 pale fill (never glass); e2 shapes drawn by ::before/::after are said as shapes; c5 a halftone screen cut to a circle
 keeps its circle, misregistered type says its offset shadow.
+
+## n225: spreadsheet and product page (2026-10-25, ~216k billed)
+
+- e5 spreadsheet **47 → 88%** (colour 100, structure 94, layout 97, all 6 regions). The planner took column A's 220px
+  for every column and never said row height was fixed, so the build stretched rows to ~50px; the total row's 2px top
+  rule read as "H8 selected"; cell fills were only said for whole rows; the selection (an rgba-tinted bordered box)
+  read as "frosted glass". Now a div-grid sheet says each column's width, 26px rows that never stretch and where the
+  grid ends, header and row-number inks, right/left alignment, the frozen rules, the total rule and every filled cell;
+  a selected cell needs an outline or a thick border on all four sides; a selection box over a div grid says the cells
+  it covers and its pale fill (never glass) and the handle's overhang.
+- e2 product page **56 → 89%** (colour 99, structure 95, layout 89). The ::after shoe inside the gradient tile was
+  said as "plain paint only"; now the tile says the shape (size, place, radius, turn, shadow) and its radial paint.
+  Empty cards say their exact fill and the one with an outline; stacked like bars say each bar's fill (78/14/5/2/1%)
+  and the big score beside them. Gallery dots still missed as a region.
+- Re-planned rounds 1-21: r5 e5 (sheet words) and r16 e1 (selection handle overhang) change. Live r5 e5 86 (was 87:
+  run noise, structure 95 vs 97; old run kept).
+- Round 22: **83%** over 10 (82.8). Vitest same 2 env failures; typecheck clean.

@@ -593,11 +593,11 @@
    ],
    [
     "thumbnails",
-    "a column of 5 separate empty off-white cards, each 80x80px, 12px apart, 10px rounded, nothing inside them"
+    "a column of 5 separate empty off-white cards, each 80x80px, 12px apart, 10px rounded, each filled exactly #f2f2f2 (visible against the page), nothing inside them; card 1 is the CHOSEN one: a 2px #1d1d1f outline 2px outside it (outline-offset: 2px)"
    ],
    [
     "product-image",
-    "warm paper to off-white gradient tile, 560x620px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
+    "warm paper to off-white gradient tile, 560x620px, 16px rounded corners, and ONE solid #e4572e SHAPE inside it (the product, drawn in CSS: a ::after or a div, position absolute, NOT a picture, NOT an icon): 260x180px, its top-left 150px in from the tile's left and 200px down from its top (page 298,312), border-radius: 40px 120px 30px 30px, turned -12° (transform: rotate(-12deg)), box-shadow: #00000045 0px 40px 40px -20px (a soft shadow under it); nothing else inside (no X, no text); its paint is background: radial-gradient(circle at 50% 45%, #ffe0c7 0px, #f2f2f2 60%) exactly (a warm glow in the middle fading to the plain grey toward the edges, NOT a flat tint, NOT a top-to-bottom fade)"
    ],
    [
     "gallery-dots",
@@ -609,7 +609,7 @@
    ],
    [
     "rating-bars",
-    "\"4.6\", thin progress bar 78% filled amber on a light grey track"
+    "a big 48px bold \"4.6\" at 760,745 on the left, and to its right 5 SEPARATE thin bars stacked (a rating breakdown, NOT one bar), each 364x8px, 4px rounded, 6px apart, the first at 866,740: a #e5e5e5 track each, filled #f5a623 from the left to 78%, 14%, 5%, 2%, 1% top to bottom"
    ]
   ]
  },
@@ -773,7 +773,7 @@
    ],
    [
     "selection",
-    "image"
+    "box"
    ],
    [
     "sheet-tabs",
@@ -799,11 +799,11 @@
    ],
    [
     "grid",
-    "spreadsheet grid with thin grey cell lines: header row of column letters A to H, row numbers 1 to 14 down a narrow 46px left column, cells 220px wide and 26px tall; row 1: \"Category\" | \"Owner\" | \"Oct\" | \"Nov\" | \"Dec\" | \"Q4 total\" | \"Budget\" | \"Δ\" (bold, white row); row 2: \"Salaries\" | \"Ana\" | \"84,200\" | \"84,200\" | \"86,900\" | \"255,300\" | \"260,000\" | \"−4,700\"; row 3: \"Cloud hosting\" | \"Jonas\" | \"12,480\" | \"13,920\" | \"15,010\" | \"41,410\" | \"36,000\" | \"+5,410\"; row 4: \"Design tools\" | \"Mira\" | \"2,140\" | \"2,140\" | \"2,140\" | \"6,420\" | \"7,200\" | \"−780\"; row 5: \"Marketing\" | \"Lena\" | \"18,000\" | \"22,500\" | \"31,000\" | \"71,500\" | \"65,000\" | \"+6,500\"; row 6: \"Travel\" | \"Priya\" | \"4,300\" | \"6,800\" | \"2,100\" | \"13,200\" | \"18,000\" | \"−4,800\"; row 7: \"Office\" | \"Ana\" | \"3,900\" | \"3,900\" | \"4,250\" | \"12,050\" | \"12,000\" | \"+50\"; row 8: \"Total\" | (empty) | \"125,020\" | \"133,460\" | \"141,400\" | \"399,880\" | \"398,200\" | \"+1,680\" (bold); rows 9 to 14 empty; cell H8 selected (near-black 2px outline)"
+    "a SPREADSHEET GRID (a real CSS grid of cells, every cell a box with a 1px light grey right and bottom line; NOT a plain table, NOT cards) 1274px wide at 0,140 on a #ffffff sheet 1280x720px: 9 columns: a 46px row-number column, then column A 220px wide, columns B to H each 144px wide; EVERY row exactly 26px tall (grid-auto-rows: 26px; NEVER stretched to fill the sheet), so the header row of letters + 14 numbered rows end at y 530 and the sheet below them stays EMPTY #ffffff down to y 860 (no more rows drawn there); the header row has the letters A B C D E F G H centred, 11px #5f6368 on #f8f9fa, its left cell empty; row numbers 1 to 14 centred in the left column, 11px #5f6368 on #f8f9fa; cell text 13px with 8px side padding; under row 1, text RIGHT-aligned in columns B, C, D, E, F, G, H; every row-1 heading LEFT-aligned; column A left-aligned; a 2px #9aa0a6 line under row 1 (the frozen header row); a 2px #9aa0a6 line down the right edge of column A (the frozen first column); a 2px #202124 rule across the top of row 8 (the total row); conditional cell FILLS, each cell filled edge to edge in its own colour (keep every one, NOT plain white): H2 #ceead6, H3 #fad2cf, H4 #ceead6, H5 #fad2cf, H6 #9ad5a8, H8 #fad2cf; cells by row (| between cells, · an empty cell): row 1: \"Category\" | \"Owner\" | \"Oct\" | \"Nov\" | \"Dec\" | \"Q4 total\" | \"Budget\" | \"Δ\" (bold); row 2: \"Salaries\" | \"Ana\" | \"84,200\" | \"84,200\" | \"86,900\" | \"255,300\" | \"260,000\" | \"−4,700\"; row 3: \"Cloud hosting\" | \"Jonas\" | \"12,480\" | \"13,920\" | \"15,010\" | \"41,410\" | \"36,000\" | \"+5,410\"; row 4: \"Design tools\" | \"Mira\" | \"2,140\" | \"2,140\" | \"2,140\" | \"6,420\" | \"7,200\" | \"−780\"; row 5: \"Marketing\" | \"Lena\" | \"18,000\" | \"22,500\" | \"31,000\" | \"71,500\" | \"65,000\" | \"+6,500\"; row 6: \"Travel\" | \"Priya\" | \"4,300\" | \"6,800\" | \"2,100\" | \"13,200\" | \"18,000\" | \"−4,800\"; row 7: \"Office\" | \"Ana\" | \"3,900\" | \"3,900\" | \"4,250\" | \"12,050\" | \"12,000\" | \"+50\"; row 8: \"Total\" | · | \"125,020\" | \"133,460\" | \"141,400\" | \"399,880\" | \"398,200\" | \"+1,680\" (bold); rows 9 to 14 empty (cells drawn, nothing in them)"
    ],
    [
     "selection",
-    "frosted glass blue block"
+    "a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly 289x131px with its top-left at 410,192 (page px), a 2px solid #1a73e8 border, a PALE see-through fill rgba(26, 115, 232, 0.1) (a light tint, the cell numbers read clearly through it: NOT frosted glass, NO backdrop-filter, NO blur); it covers columns C to D of rows 2 to 6 only (5 rows, its bottom edge at y 323, NOT running further down); a 8x8px #1a73e8 square handle on its bottom-right corner (overhanging it by 5px), 1px white border"
    ],
    [
     "sheet-tabs",

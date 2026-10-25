@@ -463,7 +463,7 @@
    ],
    [
     "selected-range",
-    "a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly 240x182px with its top-left at 286,180 (page px), a 2px #1a73e8 border, no fill; it covers columns C to D of rows 2 to 8 only (7 rows, its bottom edge at y 362, NOT running further down); a 8x8px #1a73e8 square handle on its bottom-right corner, 1px white border"
+    "a SELECTION OUTLINE over the grid (an empty absolutely-placed box drawn ON TOP of the cells, pointer-events none, NOT a cell border, NOT a table row): exactly 240x182px with its top-left at 286,180 (page px), a 2px solid #1a73e8 border, no fill; it covers columns C to D of rows 2 to 8 only (7 rows, its bottom edge at y 362, NOT running further down); a 8x8px #1a73e8 square handle on its bottom-right corner (overhanging it by 5px), 1px white border"
    ],
    [
     "chart",
