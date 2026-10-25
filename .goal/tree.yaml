@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 21 is at 84%. The project timeline page went from 75 to 78; next is the mail client, now the weakest page."
+now: "Round 21 is at 85%. The mail client went from 76 to 87; next is the Swiss poster page and the project timeline's today line."
 round: 21
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 84]
-lock: {by: run-20261025T1819, until: "2026-10-25T19:49Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 85]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n219 (5b55aff on try/n3-vocabulary): r21 e1 top bar starts at x 220 but was said across the whole page at 0,0 (search pill built over the sidebar, Compose lost); now a bar right of a left column says its x and width. A small caps heading between list rows (LABELS after Drafts) is said in its place in exact order; 10px rounded label swatches before some rows said (not bordered checkboxes); a row of like bordered cards with a filled ::before preview says FILE TILES (was buttons:, built grey with invented PDF/PNG); flat-left rounded-right fills said, broken \"(, bold\" fixed. Re-planned rounds 1-21: r21 e1, r20 e2 (DIRECT MESSAGES in place), r10 e3 and r12 e5 (comma only) change. Live e1 76 (bar not yet fixed), 87 (kept). Round 21 85 (85.1). Vitest same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-25 n219 live r21 e1 ~105k + ~81k billed (no cap set)."
   - "n218 (fa0a801 on try/n3-vocabulary): r21 e3 gantt rows said text at x16 under a 22px dot; now a dot-led row says dot, gap, real text x and that dot and count are its children. Gantt week heads say left inset and two lines; progress fill says darker (black overlay) or lighter; a segmented control says its filled segment. Codegen rule (run2.ts): under a bar laid over the page top, no margin-top on the first flow child (it collapsed through the wrapper and pushed the page 60px down in 2 of 4 runs). Re-planned rounds 1-21: r21 e3, r4 e5, r12 e2, r17 e1, r18 e4 change. Live e3 66, 67, 69, 78 (kept 78). Node title said e2 analytics 76: wrong, e2 is 86, e1 mail is 76. Round 21 84 (84.1). Vitest same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-25 n218 live r21 e3 ~77k + ~62k + ~95k + ~82k billed (no cap set)."
   - "n217 (706133f on try/n3-vocabulary): the reading named the c2 card-stack mark a picture, so the pipeline handed the build an outline component with keep-these-paths, which beat the words (run a 59: flat bands). wordsGiveCss now also counts preserve-3d with translateZ faces, so no outline component below the trace rung; planner says translateZ-only like faces as a card pile, not a cube. Re-planned rounds 1-21: only r21 c2 changes. Live c2 59, 92, 92 (kept 92). Round 21 84 (83.7). Vitest same 2 env failures; typecheck clean."
@@ -699,4 +701,5 @@ nodes:
   - {id: n216, parent: n215, kind: step, title: "Free first, ~250k live: r21 c5 neon title pink drop-shadow glow and the purple horizon stop of the page gradient lost; c2 tags outlined not filled translucent pills; c4 giant 07 ~10px high. Fix, re-run c5, c2", status: done, branch: try/n3-vocabulary, result: "Title glow and purple horizon said; c5 neon 84 to 91. c2 tags filled but stack flattened (kept 91)."}
   - {id: n217, parent: n216, kind: step, title: "Free first, ~250k live: r21 c2 3D card stack built as one flat gradient slab in 2 of 4 runs (real CSS 3D faces lost); then e3 gantt (75), e2 analytics (76). Fix, re-run c2 twice", status: done, branch: try/n3-vocabulary, result: "3D words now skip the drawn-outline component; c2 stack built right twice, 91 to 92."}
   - {id: n218, parent: n217, kind: step, title: "Free first, ~200k live: r21 e3 gantt (75) and e2 analytics (76), the two weakest pages of round 21; find what they miss, fix, re-run", status: done, branch: try/n3-vocabulary, result: "Gantt 75 to 78: dots before names, week heads, darker progress, header kept on top; e2 was already 86."}
-  - {id: n219, parent: n218, kind: step, title: "Free first, ~200k live: r21 e1 mail client (76), now the weakest page of round 21; then e3 today line (missed by the region check every run). Find what they miss, fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n219, parent: n218, kind: step, title: "Free first, ~200k live: r21 e1 mail client (76), now the weakest page of round 21; then e3 today line (missed by the region check every run). Find what they miss, fix, re-run", status: done, branch: try/n3-vocabulary, result: "Mail client 76 to 87: bar right of sidebar, Compose kept, LABELS in place, swatches, pink file tiles."}
+  - {id: n220, parent: n219, kind: step, title: "Free first, ~200k live: r21 c4 swiss orbit (78) and e3 gantt today line (missed by the region check every run), then e4 music player (79). Find what they miss, fix, re-run", status: open, branch: try/n3-vocabulary, result: null}

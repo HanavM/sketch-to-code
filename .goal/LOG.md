@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T18:58Z | n219 mid-list LABELS heading, label swatches, file tiles, top bar right of the sidebar | e1 mail client 76 to 87 (runs 76, 87); round 21 85. ~186k.
 2026-10-25T18:18Z | n218 gantt dot rows, week heads, darker progress, no margin push under the top bar | e3 gantt 75 to 78 (runs 66, 67, 69, 78); round 21 84. ~316k.
 2026-10-25T17:45Z | n217 real CSS 3D words skip the drawn outline, card pile said as a pile | c2 depth stack 91 to 92 twice, 3D kept each run; round 21 84. ~169k.
 2026-10-25T17:20Z | n216 gradient title glow, page middle stop, filled pill tags | c5 neon grid 84 to 91; c2 run 55 stack flattened, kept 91; round 21 84. ~140k.
