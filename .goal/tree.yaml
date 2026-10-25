@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 19 is up to 88%: the magazine cover (89%), lantern night (91%) and team settings (82%) pages now keep their cream cover, hanging lanterns, neon glow and pale status pills. Next: parts that overlap keep their stacking order (the cover head behind the figure), then round 20."
+now: "Round 19 is up to 89%: the magazine cover reached 97% now that its head sits in front of the figure and its cover lines are in capitals; the invoice Send button is green. Next: round 20, ten harder pages."
 round: 19
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 88]
-lock: {by: run-n196, until: "2026-10-25T04:13Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n196 (e088dcb on try/n3-vocabulary): planner: a filled part overlapping one listed after it but earlier in the page says IN FRONT of it (z-index); text-transform uppercase said in capitals; right-aligned multi-line text said; a bar note whose 'lines' run boxed buttons together goes part by part; an absolute top bar says it is laid over the page top (first try built it in flow, e5 shifted 58px, 56%). Rounds 2, 3, 9, 10, 12, 13, 14, 16, 18 re-planned (words only). Live c5 89 to 97, e1 91 to 93, e5 83 to 81 (Send green; dropdown taller); round 19 89. Lantern balls already said 45% radius, left. Vitest same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-25 n196 live r19 c5+e5 (x2)+e1 ~294k (no cap set)."
   - "n195 (9d86b59 on try/n3-vocabulary): planner: 3+ scattered dot layers over a block's own fill = TERRAZZO (not halftone disc); circleText only when its svg is 40%+ of the region; parts say textPath rings (radius, centre, spin), HOLLOW words, clip-path inset copies over a solid twin (on top); a layered region (2+ such parts) goes part by part; copyBtn says a heading over the copy and the copy colour; lanterns (::before string + glowing radial ball, sway); NEON heading (lines, text-shadow, flicker); glowing textless disc says fill + box-shadow; stepper glass pills say alpha + outline; table pale pills say fill + ink. Rounds 7, 11, 13 re-planned (words only). Live c3 81 to 91, c5 76 to 89, e2 73 to 82; round 19 88. Vitest same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-25 n195 live r19 c3+c5+e2 ~261k (no cap set)."
   - "n193 (d5415d2 on try/n3-vocabulary): a round label inside a record is said ON THIS disc (child of this block, not of the block it sits behind) with its page centre; a turned thin rod (tonearm) is drawn as a thin outline along the rod, not a box round its turned bounds; a vinyl record is drawn as a circle (a box mark scaffolded a square record path); a chip's lines said \"LOW / TIDE\" with a <br>. Live c4 77 to 86 (record square, TIDE lost) to 90. Round 19 at 83. Rounds 1-18 not re-planned. Vitest: same 2 env failures; typecheck clean."
@@ -632,4 +634,5 @@ nodes:
   - {id: n194, parent: n193, kind: step, title: "Free first, ~250k live: e2 team settings 66 (matrix card frame and logo square lost, menu wraps), e5 invoice editor 71 (Bill to label and focused input lost under the dropdown, stamp not tilted), c5 cover 76. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Form fields beside nested regions, focus glow, tilted stamp, table card, sized controls: e5 71 to 83, e2 66 to 73; round 85"}
 
   - {id: n195, parent: n194, kind: step, title: "Free first, ~250k live: c5 magazine cover 76 (cream cover fill, masthead half hollow, circle-text ring), c3 lantern night 81 (lanterns on strings with glow, neon sign two lines); e2 Invited pill dark (target pale amber). Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Terrazzo cover, hollow masthead copy, ring letters, lanterns, neon, glass and pale pills said. c3 91, c5 89, e2 82; round 88."}
-  - {id: n196, parent: n195, kind: step, title: "Free first, ~200k live: parts that overlap keep DOM paint order (r19 c5 head built behind the figure), text-transform uppercase said (48 PAGES), lantern balls round; e5 Send button green. Fix, re-run, then start round 20", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n196, parent: n195, kind: step, title: "Free first, ~200k live: parts that overlap keep DOM paint order (r19 c5 head built behind the figure), text-transform uppercase said (48 PAGES), lantern balls round; e5 Send button green. Fix, re-run, then start round 20", status: done, branch: try/n3-vocabulary, result: "Overlap paint order, capitals, right-set lines, top bar buttons said. c5 89 to 97, e1 93, e5 81; round 89."}
+  - {id: n197, parent: n196, kind: step, title: "Round 20: ten harder pages (more layered, asymmetric, expressive type and motion; denser apps), first builds and scores; then fix the worst gaps", status: open, branch: try/n3-vocabulary, result: null}
