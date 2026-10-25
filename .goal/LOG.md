@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T23:15Z | n227 glass aurora blob blur kept on the element, not only in keyframes | c3 77 to 82; round 22 87. ~172k.
 2026-10-25T22:45Z | n226 riso dot circle, headline size and offset ink, star glyph, ruled rows; glass nav and blob blur | c5 riso 64 to 96; c3 71 twice (blur lost), 77 kept; round 22 86. ~165k.
 2026-10-25T22:20Z | n225 spreadsheet widths, rows, fills and selection; product shoe, thumbnails, rating bars | e5 47 to 88, e2 56 to 89; round 22 83. ~216k.
 2026-10-25T21:40Z | n224 round 22 written: ten harder pages, auto-planned and built live | first look 75 over 10; spreadsheet 47, product page 56 weakest. ~790k.
