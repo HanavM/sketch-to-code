@@ -701,7 +701,7 @@
    ],
    [
     "channel-list",
-    "deep indigo block, lavender text \"Harbour Labs ▾\" small grey spaced capitals \"CHANNELS\" small grey spaced capitals \"DIRECT MESSAGES\" list: \"# general\", \"# design-review\", \"# launches\" with a small #ef4444 pill count badge \"3\" (bold #ffffff text) at the row's right end, \"# random\", \"● Ada Okafor\", \"● Leo Brandt\", \"○ Mina Park\" with a small #ef4444 pill count badge \"1\" (bold #ffffff text) at the row's right end; \"# design-review\" highlighted (#5b54d6 square fill, #ffffff text); list rows exactly 28px apart (28px tall, 14px type: tight, not roomier), first line 18px below the panel's top; its text #c9c6ec (lavender, NOT the page's dark navy text)"
+    "deep indigo (exactly #2a2650) block, lavender text \"Harbour Labs ▾\" small grey spaced capitals \"CHANNELS\" small grey spaced capitals \"DIRECT MESSAGES\" list: \"# general\", \"# design-review\", \"# launches\" with a small #ef4444 pill count badge \"3\" (bold #ffffff text) at the row's right end, \"# random\", \"● Ada Okafor\", \"● Leo Brandt\", \"○ Mina Park\" with a small #ef4444 pill count badge \"1\" (bold #ffffff text) at the row's right end; \"# design-review\" highlighted (#5b54d6 square fill, #ffffff text); list rows exactly 28px apart (28px tall, 14px type: tight, not roomier), first line 18px below the panel's top; its text #c9c6ec (lavender, NOT the page's dark navy text)"
    ],
    [
     "channel-header",
@@ -713,7 +713,7 @@
    ],
    [
     "composer",
-    "\"B I S 🔗 • </> Message #design-review\""
+    "a message composer box exactly 542x100px at 338,770 (absolutely placed; its own box, NOT a one-line input), 1px #cfd4df border, 12px rounded, white inside: along its top a 36px format bar with a thin #eef0f4 line under it holding bold #7a8094 \"B\" \"I\" \"S\" \"🔗\" \"•\" \"</>\" spaced out in a row at its left; under the bar #9aa0b3 placeholder \"Message #design-review\" at the left; a textless 36x30px #16a34a send button (7px rounded, NO words) in its bottom-right corner, 11px from the right edge and 11px from the bottom. The line \"Ada is typing…\" sits BELOW this box (at y 876, under its bottom edge), NOT above it"
    ],
    [
     "typing",

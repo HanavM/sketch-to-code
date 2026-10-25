@@ -95,3 +95,18 @@ e1 (an id dropped from a note), e2 change.
 Round 20: **84%** (was 83). Vitest same 2 env failures; typecheck clean.
 Next: e2 composer (toolbar row, green send button, typing line under it) and channel pane fill; e3 toolbar look 76;
 c4 paper cutout 78 (structure 64); e4 stepper is right as built (the target's step dots are inline and small).
+
+## n201: the composer as its own box, the typing line under it, the channel pane's exact fill (2026-10-25, ~87k billed)
+
+Planner (words only): a bordered, rounded region holding a format bar, a placeholder and a textless filled block is a
+message composer, said with its size and place, the bar and its rule, the placeholder, and the send button's size,
+colour and corner; a short line just under it is said to sit below it (round 20 e2: built above). A big dark block with
+light text now gives its exact hex (round 20 e2 channel pane #2a2650 built as a bright indigo). Re-planned all rounds:
+rounds 1, 5, 9, 12, 16 only gain the exact hex of a dark panel; round 20 e2 changes.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e2 team chat | 77% | **84%** | composer 100px tall with its format bar, green send button, "Ada is typing…" under it; channel pane dark |
+
+Round 20: **85%** (was 84). Vitest same 2 env failures; typecheck clean.
+Next: e3 spreadsheet 76 (colour 65: toolbar and header fills), e4 checkout 77, e1 week calendar 77, c4 paper cutout 78 (structure 64).

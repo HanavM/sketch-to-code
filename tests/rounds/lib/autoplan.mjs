@@ -1682,6 +1682,23 @@ export function factsInPage() {
   }
   function dense(el) {
     const cs = getComputedStyle(el)
+    // n201: a message composer that is its own region (round 20 e2: said only as its words "B I S ... Message #design-review",
+    // built short, no format bar rule, no green send button, the typing line put above it)
+    if (parseFloat(cs.borderTopWidth) >= 1 && parseFloat(cs.borderTopLeftRadius) >= 6 && el.children.length >= 3 && el.children.length <= 4) {
+      const ks = [...el.children]
+      const bar = ks.find((g) => g.children.length >= 3 && [...g.children].every((x) => txt(x) && txt(x).length <= 4))
+      const ph = ks.find((g) => g !== bar && txt(g) && !g.children.length && txt(g).length <= 60)
+      const send = ks.find((g) => g !== bar && !txt(g) && filled(g))
+      if (bar && ph && send) {
+        const b = el.getBoundingClientRect(), bb = bar.getBoundingClientRect(), sb = send.getBoundingClientRect(), bc = getComputedStyle(bar)
+        // a short grey line right under it (an "is typing" line) is said in place, or the build puts it above
+        const sib = [...(el.parentElement?.children ?? [])].find((k) => k !== el && txt(k) && txt(k).length <= 40 && !k.children.length && k.getBoundingClientRect().top >= b.bottom - 1 && k.getBoundingClientRect().top <= b.bottom + 24 && Math.abs(k.getBoundingClientRect().left - b.left) <= 12)
+        return { type: 'composer', x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), border: rgba(cs.borderTopColor), rad: Math.round(parseFloat(cs.borderTopLeftRadius)),
+          bar: { items: [...bar.children].map(txt), h: Math.round(bb.height), rule: parseFloat(bc.borderBottomWidth) >= 1 ? rgba(bc.borderBottomColor) : null, ink: rgba(getComputedStyle(bar.children[0]).color), bold: Number(getComputedStyle(bar.children[0]).fontWeight) >= 600 },
+          ph: txt(ph), phInk: rgba(getComputedStyle(ph).color), send: { fill: filled(send), w: Math.round(sb.width), h: Math.round(sb.height), r: Math.round(b.right - sb.right), b: Math.round(b.bottom - sb.bottom), rad: Math.round(parseFloat(getComputedStyle(send).borderTopLeftRadius) || 0) },
+          under: sib ? { t: txt(sib), y: Math.round(sib.getBoundingClientRect().top) } : null }
+      }
+    }
     // round 8 e1: a compose window floating over the page (dark title bar, field rows, body, a send pill) was said as a run of
     // lines, its bar, shadow and float lost
     {
@@ -2879,6 +2896,10 @@ const barSize = (d) => d.barW ? `; each bar ${d.barW}px wide, ${d.barGap}px apar
 function denseNote(d) {
   if (!d) return null
   switch (d.type) {
+    case 'composer': {
+      const B = d.bar
+      return `a message composer box exactly ${d.w}x${d.h}px at ${d.x},${d.y} (absolutely placed; its own box, NOT a one-line input), 1px ${hexOf(d.border)} border, ${d.rad}px rounded, white inside: along its top a ${B.h}px format bar${B.rule ? ` with a thin ${hexOf(B.rule)} line under it` : ''} holding ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} ${B.items.map((t) => quote(t)).join(' ')} spaced out in a row at its left; under the bar ${hexOf(d.phInk)} placeholder ${quote(d.ph, 60)} at the left; a textless ${d.send.w}x${d.send.h}px ${hexOf(d.send.fill)} send button (${d.send.rad}px rounded, NO words) in its bottom-right corner, ${d.send.r}px from the right edge and ${d.send.b}px from the bottom${d.under ? `. The line ${quote(d.under.t, 40)} sits BELOW this box (at y ${d.under.y}, under its bottom edge), NOT above it` : ''}`
+    }
     case 'cellMap': {
       // the commonest kind is the plain one; a kind name comes from the legend words when the page has one
       const kd = d.kinds.map((k, i) => `${i + 1} = ${k.fill ? `${hexOf(k.fill)} fill` : 'no fill'}${k.border ? ` with a ${k.border.px}px ${hexOf(k.border.c)} border` : ''} (${k.n} cells)`).join('; ')
@@ -4472,7 +4493,7 @@ function decideOne(f, page, marked, said) {
   if (fill || grad || bordered || ruled || pane || /^(nav|header|aside|table|input|textarea|form)$/.test(f.tag) || f.regionKids.length) {
     look.push(...fx)
     // a strong opaque fill says 'vivid', or the build softens it (round 4 c5 #fde047 card built pale cream)
-    if (glowWords(f)) look.push(glowWords(f)); else if (grad) look.push(grad); else if (fill && !frosted) look.push(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}${textCol && dist(f.colour, f.bg) > 150 && f.bg.r + f.bg.g + f.bg.b < 120 ? ` (exactly ${hexOf(f.bg)})` : ''}`)
+    if (glowWords(f)) look.push(glowWords(f)); else if (grad) look.push(grad); else if (fill && !frosted) look.push(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)}${textCol && dist(f.colour, f.bg) > 150 && (f.bg.r + f.bg.g + f.bg.b < 120 || (Math.max(f.bg.r, f.bg.g, f.bg.b) <= 96 && h >= 300)) ? ` (exactly ${hexOf(f.bg)})` : ''}`)
     // light text on a dark filled block says so, or the block's colour reads as the text's
     // (round 3 c4: 'vertical near-black "INDEX OF THINGS"' built black text, no rail)
     const lightText = fill && !frosted && textCol && dist(f.colour, f.bg) > 150 ? `, ${textCol} text` : ''
