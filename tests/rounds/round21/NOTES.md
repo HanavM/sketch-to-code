@@ -41,3 +41,24 @@ Worst gaps, next: shapes made by clipping or masking (clip-path circle and polyg
 border triangles) are said as those shapes, never as plain boxes; a rotated giant numeral says its rotation; thin
 full-height grid rules are said (and stay 1px); parts placed down the page keep their own y instead of stacking under
 the headline; a centred title is said as centred.
+
+## n209: shapes made by cutting, a quarter-turned numeral, ring dots, the page's own hairlines (2026-10-25, ~265k billed)
+
+Planner (words only, one new pass that reads facts the main pass skipped): a block cut by clip-path circle() is said as a
+CIRCLE window with its paint; a textless block cut by clip-path polygon() says the polygon verbatim, its gradient, its
+blend and its ::after layer; a zero-size box drawn only by its borders is said as a solid TRIANGLE with its point, size
+and exact borders; a block whose background is two 1px gradients on a tile is said as a GRID OF THIN LINES with its mask
+fade; big words turned a quarter (rotate ±90deg) say the turn, the origin and the box before and after (no longer
+"diagonal"); a ring with small round children says its thin border and each dot; unmarked hairline rules straight on the
+page (round 21 c4 grid lines, round 4 c-page column rules) are said in the whole-page note. Notes already handling a cut,
+a tilt or a 3D plane are left alone (round 4, 7, 12, 14, 17 shapes and floors unchanged). Re-planned rounds 1-21: only
+round 4 (its page rules) and round 21 change.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c3 mask reveal | 46% | **86%** | striped circle window round, faded line grid right (layout 96); the shard still built un-clipped with no amber sun, the triangle a red box, an invented "NOW" kicker |
+| c4 swiss orbit | 48% | **66%** | "07" turned and bleeding off the left, both full-height hairlines, thin ring with its three dots; horizontal rules drawn thick and wavy (sketch line kept), disc given a dark outline, bar lines on a grey slab, meta and the two rules missed as regions (layout 71) |
+
+Round 21: **77%** (was 71). Vitest same 2 env failures (1456 tests); typecheck clean.
+Next: the shard and triangle are still built from the drawn shape component (clip and point lost): say the drawn strokes
+are only the outline; c4 rules said as 1px divs, never the drawn line; disc with no outline; c2 parts keep their own y.

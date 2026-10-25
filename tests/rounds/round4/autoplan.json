@@ -337,7 +337,7 @@
   "notes": [
    [
     "*",
-    "whole page: red (#ef4444) page, Helvetica type, near-black text"
+    "whole page: red (#ef4444) page, Helvetica type, near-black text; ALSO the page's own HAIRLINE grid rules (no mark is drawn for them; each its own div, position absolute, exactly 1px thick, never thicker): a vertical 1px #11111140 line at x 320 from y 0, 900px long; a vertical 1px #11111140 line at x 640 from y 0, 900px long; a vertical 1px #11111140 line at x 960 from y 0, 900px long"
    ],
    [
     "ring",

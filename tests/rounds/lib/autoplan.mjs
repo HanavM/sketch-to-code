@@ -4840,11 +4840,103 @@ function clipWords(poly, rect, w, h) {
   return `its corners at exactly these page points (px, left to right from the page's top-left): ${px}; the shape's box is the outline's bounds, ${bw}x${bh}px with its top-left at ${bx},${by}, so on that box clip-path: polygon(${rel}) (percentages of THAT box, not of the page)`
 }
 
+// n209: facts the main pass does not read: cut shapes, border triangles, line grids, quarter turns, ring dots, page rules
+function cutFacts() {
+  const hex = (c) => { const m = (c || '').match(/rgba?\(([^)]+)\)/); if (!m) return null; const v = m[1].split(',').map((x) => parseFloat(x)); const h = '#' + v.slice(0, 3).map((n) => Math.round(n).toString(16).padStart(2, '0')).join(''); return v.length > 3 && v[3] < 0.98 ? (v[3] < 0.02 ? null : `${h}${Math.round(v[3] * 255).toString(16).padStart(2, '0')}`) : h }
+  const css = (v) => v.replace(/rgba?\([^)]+\)/g, (m) => hex(m) ?? 'transparent')
+  const W = innerWidth, H = innerHeight
+  const regions = {}
+  for (const el of document.querySelectorAll('[data-r]')) {
+    const cs = getComputedStyle(el), r = el.getBoundingClientRect(), e = {}
+    e.box = { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight }
+    if (/^(circle|ellipse)\(/.test(cs.clipPath)) e.round = cs.clipPath
+    if (/^polygon\(/.test(cs.clipPath)) e.poly = cs.clipPath
+    if (cs.backgroundImage !== 'none') e.img = css(cs.backgroundImage)
+    if (cs.mixBlendMode !== 'normal') e.blend = cs.mixBlendMode
+    const m = cs.webkitMaskImage && cs.webkitMaskImage !== 'none' ? cs.webkitMaskImage : cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : null
+    if (m) e.mask = css(m)
+    for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (c.content && c.content !== 'none' && c.backgroundImage !== 'none') e.pseudo = { w, img: css(c.backgroundImage) } }
+    // a zero-size box drawn only by its borders is a triangle
+    const b = ['Top', 'Right', 'Bottom', 'Left'].map((s) => ({ s: s.toLowerCase(), w: parseFloat(cs[`border${s}Width`]) || 0, c: hex(cs[`border${s}Color`]) }))
+    if (el.clientWidth === 0 && el.clientHeight === 0 && !(el.innerText || '').trim()) {
+      const solid = b.filter((q) => q.w > 0 && q.c)
+      if (solid.length === 1 && b.filter((q) => q.w > 0).length >= 2) {
+        const point = { bottom: 'UP', top: 'DOWN', left: 'RIGHT', right: 'LEFT' }[solid[0].s]
+        e.tri = { point, c: solid[0].c, w: Math.round(r.width), h: Math.round(r.height), x: Math.round(r.left), y: Math.round(r.top), borders: b.filter((q) => q.w > 0).map((q) => `border-${q.s}: ${q.w}px solid ${q.c ?? 'transparent'}`).join('; ') }
+      }
+    }
+    // a grid of thin lines drawn by two 1px linear gradients on a tile size
+    const gs = [...cs.backgroundImage.matchAll(/linear-gradient\((?:[^()]|\([^()]*\))*\)/g)].map((q) => q[0])
+    if (gs.length >= 2 && gs.every((g) => /\b1px\b|\b2px\b/.test(g) && /transparent|rgba\([^)]*,\s*0\)/.test(g)) && /px/.test(cs.backgroundSize)) {
+      const c = hex((gs[0].match(/rgba?\([^)]+\)/) || [])[0])
+      e.lines = { c, size: cs.backgroundSize, lw: /\b2px\b/.test(gs[0]) ? 2 : 1 }
+    }
+    // a quarter turn on big words
+    const mt = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/)
+    const rot = mt ? Math.round(Math.atan2(+mt[2], +mt[1]) * 180 / Math.PI) : 0
+    if (Math.abs(Math.abs(rot) - 90) <= 3 && (el.innerText || '').trim() && parseFloat(cs.fontSize) >= 80) e.quarter = { rot, origin: cs.transformOrigin, x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, after: { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) } }
+    // small round dots hung on a ring (they spin with it)
+    const ringW = parseFloat(cs.borderTopWidth) || 0
+    if (ringW > 0 && (/50%/.test(cs.borderTopLeftRadius) || parseFloat(cs.borderTopLeftRadius) >= el.offsetWidth / 2 - 1)) {
+      const dots = [...el.children].filter((k) => { const kc = getComputedStyle(k); return k.offsetWidth <= 40 && Math.abs(k.offsetWidth - k.offsetHeight) <= 1 && hex(kc.backgroundColor) && (/50%/.test(kc.borderTopLeftRadius) || parseFloat(kc.borderTopLeftRadius) >= k.offsetWidth / 2 - 1) })
+      e.ring = { w: el.offsetWidth, x: el.offsetLeft, y: el.offsetTop, bw: ringW, bc: hex(cs.borderTopColor), dots: dots.map((k) => ({ x: k.offsetLeft, y: k.offsetTop, d: k.offsetWidth, c: hex(getComputedStyle(k).backgroundColor) })) }
+    }
+    regions[el.dataset.r] = e
+  }
+  // hairline rules straight on the page with no data-r (the target's own grid lines)
+  const rules = [...document.body.children].filter((k) => !k.dataset.r && !k.querySelector('[data-r]')).map((k) => { const b = k.getBoundingClientRect(), c = hex(getComputedStyle(k).backgroundColor); if (!c) return null; if (b.width <= 2 && b.height >= 0.6 * H) return { dir: 'vertical', x: Math.round(b.left), y: Math.round(b.top), len: Math.round(b.height), t: Math.round(b.width), c }; if (b.height <= 2 && b.width >= 0.6 * W) return { dir: 'horizontal', x: Math.round(b.left), y: Math.round(b.top), len: Math.round(b.width), t: Math.round(b.height), c }; return null }).filter(Boolean)
+  return { regions, rules }
+}
+
+function cutNotes(regions, out, X, pn) {
+  for (const f of regions) {
+    const d = out.get(f.role), e = X.regions[f.role]
+    if (!d || !e) continue
+    const B = e.box, at = `${B.w}x${B.h}px at ${B.x},${B.y} (position absolute)`
+    if (e.tri) {
+      const T = e.tri
+      d.note = `a solid ${T.c} TRIANGLE pointing ${T.point} (NOT a box, NOT a rule, NOT black): a CSS border triangle, ${T.w}px wide and ${T.h}px tall, its bounding box's top-left at ${T.x},${T.y} (position absolute); one zero-size div (width 0, height 0) with ${T.borders}`
+      d.kind = d.kind || 'box'
+      continue
+    }
+    const handled = (re) => re.test(d.note ?? '') || /tilted|rotate|PERSPECTIVE|ISOMETRIC|3D/.test(d.note ?? '')
+    if (e.round && !(f.text ?? '').trim() && !handled(/clip-path|circle\b|round/i)) {
+      const fill = e.img ? `background: ${e.img}` : 'its fill'
+      d.note = `a CIRCLE window (perfectly round, NOT a square, NOT a rounded box): one ${at} div cut by clip-path: ${e.round}, filled ${fill} (exactly; the paint shows only inside the circle, the page shows at the corners)`
+      continue
+    }
+    if (e.poly && !(f.text ?? '').trim() && !handled(/clip-path|cut-out|polygon/i)) {
+      const inner = e.pseudo ? `; inside it a ${e.pseudo.w} layer (position absolute, inset 0) painted ${e.pseudo.img}` : ''
+      d.note = `a slanted SHARD cut by clip-path: ${e.poly} (an uneven four-sided shape, NOT a rectangle): one ${at} div${e.img ? ` painted ${e.img}` : ''}${e.blend ? `, mix-blend-mode: ${e.blend} (it darkens what it overlaps)` : ''}${inner}; no picture, no border`
+      continue
+    }
+    if (e.lines && !handled(/grid|lines|background: /i)) {
+      const fade = e.mask ? `, FADING OUT toward the top by mask-image: ${e.mask} (and -webkit-mask-image the same), so it is clear at the top and only faintly visible lower down` : ''
+      d.note = `a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one ${at} div with no fill of its own, its background drawn as ${e.lines.lw}px ${e.lines.c} lines on a ${e.lines.size} tile (background-image: ${e.img}; background-size: ${e.lines.size})${fade}; nothing inside`
+      continue
+    }
+    if (e.quarter) {
+      const Q = e.quarter, A = Q.after
+      d.note = (d.note ?? '').replace(/^diagonal /, '').replace(/,? ?absolutely placed: [^;]*?\(not further right\)/, '')
+      d.note += `; TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(${Q.rot}deg) with transform-origin: ${Q.origin}, so the letters run ${Q.rot < 0 ? 'bottom to top' : 'top to bottom'}; before the turn its ${Q.w}x${Q.h}px box sits at left ${Q.x}px, top ${Q.y}px (position absolute); after the turn it covers the page from ${A.x},${A.y} to ${A.x + A.w},${A.y + A.h} (bleeding off the page edge there)`
+    }
+    if (e.ring && e.ring.dots.length && !/dots?\b/.test(d.note ?? '')) {
+      const R = e.ring
+      d.note = `${d.note ? `${d.note}; ` : ''}the ring is ONE ${R.w}x${R.w}px circle at ${R.x},${R.y} (position absolute, border-radius 50%) with only a THIN ${R.bw}px ${R.bc} border (no fill), and ${R.dots.length} small solid dots ON the ring line, each its own child (position absolute inside the ring, border-radius 50%): ${R.dots.map((q) => `${q.d}px ${q.c} at ${q.x},${q.y}`).join('; ')} (inside-the-ring px), so they turn with it`
+    }
+  }
+  if (X.rules.length) {
+    const words = X.rules.map((q) => `a ${q.dir} ${q.t}px ${q.c} line ${q.dir === 'vertical' ? `at x ${q.x} from y ${q.y}` : `at y ${q.y} from x ${q.x}`}, ${q.len}px long`).join('; ')
+    pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} ALSO the page's own HAIRLINE grid rules (no mark is drawn for them; each its own div, position absolute, exactly ${X.rules[0].t}px thick, never thicker): ${words}`
+  }
+  return pn
+}
 export async function autoPlan(browser, htmlPath, viewport = { width: 1280, height: 900 }) {
   const page = await browser.newPage({ viewport })
   await page.goto(`file://${htmlPath}`)
   await page.evaluate(() => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 0 }))
   const { body, regions } = await page.evaluate(factsInPage)
+  const x209 = await page.evaluate(cutFacts)
   await page.close()
   body.bg = visible(body.bg) ? body.bg : { r: 255, g: 255, b: 255, a: 1 }
   // decide leaves first, so a container knows whether its parts got marks
@@ -5610,6 +5702,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const wrap = col ? `the region itself is ONE ${W}x${H}px side column element at ${X},${Y} (its own wrapper running to the page bottom, ${visible(f.bg) && f.bg.a > 0.9 ? `${hexOf(f.bg)} fill` : 'no fill'}${rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, full height)` : ''}) holding the button and ${f.regionKids.map((r) => `the ${r}`).join(' and ')} inside it, never laid loose on the page${(() => { const ks = f.regionKids.map((r) => regions.find((g) => g.role === r)).filter(Boolean); return ks.length ? `; inside it, top to bottom in the normal flow, each at its own height from the column's top (NOT pushed to the column's bottom, no margin-top auto, no justify-content space-between): ${ks.map((g) => `the ${g.role} starting at y ${Math.round(g.rect.y)}`).join(', then ')}, and empty column below the last one` : '' })()}; ` : ''
     d.note = `${wrap}FIRST, at the very top of this region (above ${f.regionKids.map((r) => `the ${r}`).join(' and ')}): ${fl ? `a ${hexOf(L.fill)} filled ` : 'a '}${L.w}x${L.h}px ${L.radius ? `${L.radius}px rounded ` : ''}button at ${L.x},${L.y}${L.shadow ? ' with a soft shadow' : ''}, ${L.px}px ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text ${quote(L.t)}; the other parts follow under it`
   })
+  // n209: shapes made by cutting (clip-path circle/polygon, a CSS border triangle, a grid of thin lines faded by a mask),
+  // a giant word turned a quarter, a ring's dots, and the page's own unmarked hairline rules (round 21 c3/c4: circle
+  // window built square, shard unclipped, faded grid a black box, triangle a black box, '07' unturned, grid rules lost)
+  pn = cutNotes(regions, out, x209, pn)
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
 }

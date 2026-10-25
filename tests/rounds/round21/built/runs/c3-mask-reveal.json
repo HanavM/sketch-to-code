@@ -1,24 +1,24 @@
 {
   "id": "c3-mask-reveal",
-  "at": "2026-10-25T12:25:34.204Z",
+  "at": "2026-10-25T13:27:45.660Z",
   "likeness": {
     "version": 3,
-    "overall": 0.4588811039669174,
-    "overallV2": 0.4588811039669174,
-    "overallV1": 0.38195086573283804,
-    "colour": 0.7673401086810185,
-    "structure": 0.7056730829741907,
-    "structureStrict": 0.5768922930943271,
-    "colourAligned": 0.7673401086810185,
-    "structureAligned": 0.7056730829741907,
+    "overall": 0.861655929703919,
+    "overallV2": 0.861655929703919,
+    "overallV1": 0.8285084625646115,
+    "colour": 0.9528392447783592,
+    "structure": 0.9218047316783333,
+    "structureStrict": 0.8663160565005951,
+    "colourAligned": 0.9528392447783592,
+    "structureAligned": 0.9218047316783333,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.2607336641182548
+      "r": 0.9304151239779783
     },
-    "layout": 0.9490140688310252,
-    "layoutV1": 0.9490140688310252,
+    "layout": 0.9601434865444154,
+    "layoutV1": 0.9601434865444154,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,112 +27,119 @@
       0,
       0,
       1280,
-      980
+      960
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      980
+      48,
+      162,
+      130,
+      20
     ],
     [
-      1,
+      0,
       40,
       60,
       722,
       442
     ],
     [
-      1,
-      823,
-      93,
-      374,
-      374
+      0,
+      820,
+      90,
+      380,
+      380
     ],
     [
-      1,
-      703,
-      433,
-      294,
-      373
+      0,
+      700,
+      430,
+      300,
+      380
     ],
     [
       4,
-      804,
-      489,
-      150,
-      150
+      699,
+      430,
+      300,
+      381
     ],
     [
-      1,
-      3,
-      563,
+      0,
+      0,
+      560,
       640,
       340
     ],
     [
-      6,
+      0,
       52,
       520,
       512,
       64
     ],
     [
-      6,
-      51,
-      783,
-      183,
-      29
-    ],
-    [
-      8,
-      51,
-      783,
-      183,
-      20
-    ],
-    [
-      8,
-      51,
-      809,
-      150,
-      3
-    ],
-    [
-      1,
-      1030,
+      0,
+      1034,
       520,
-      196,
+      192,
       62
     ],
     [
-      11,
-      1030,
-      522,
-      79,
-      20
+      8,
+      1034,
+      520,
+      192,
+      13
     ],
     [
-      11,
-      1030,
-      543,
-      132,
-      20
+      8,
+      1034,
+      539,
+      192,
+      13
     ],
     [
-      11,
-      1030,
-      564,
-      150,
-      20
+      8,
+      1034,
+      558,
+      192,
+      13
     ],
     [
-      1,
-      1033,
-      683,
-      173,
-      143
+      0,
+      1030,
+      680,
+      180,
+      150
+    ],
+    [
+      12,
+      1030,
+      681,
+      180,
+      150
+    ],
+    [
+      0,
+      51,
+      783,
+      183,
+      26
+    ],
+    [
+      14,
+      51,
+      783,
+      183,
+      18
+    ],
+    [
+      14,
+      51,
+      805,
+      183,
+      4
     ]
   ],
   "groupMatched": [],
@@ -140,68 +147,87 @@
     "recall": 0.7272727272727273,
     "kept": [
       "blend",
-      "gradient",
       "gradient-text",
       "huge-type",
+      "mask",
       "mono",
+      "overlap",
       "serif",
-      "stripes-or-layers",
-      "uppercase-display"
+      "stripes-or-layers"
     ],
     "missing": [
       "clip-shape",
-      "mask",
-      "overlap"
+      "gradient",
+      "uppercase-display"
     ],
-    "extra": [
-      "soft-shadow"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 51252,
-    "output": 35820,
-    "cacheRead": 407930
+    "input": 72947,
+    "output": 43702,
+    "cacheRead": 751030
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44697,
-      "output": 17511,
-      "cacheRead": 209382,
-      "toolCalls": 7,
+      "billed": 85062,
+      "output": 30999,
+      "cacheRead": 548542,
+      "toolCalls": 15,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
         "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
         "Glob",
-        "Write src/App.tsx"
+        "Glob",
+        "Read s2c-bench-app/package.json"
       ],
-      "ms": 194790
+      "ms": 364509
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 11835,
-      "output": 4929,
-      "cacheRead": 186814,
-      "toolCalls": 3,
+      "billed": 8485,
+      "output": 3029,
+      "cacheRead": 190268,
+      "toolCalls": 2,
       "tools": [
-        "Read src/App.tsx",
         "Read src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 54957
+      "ms": 33283
     }
   ],
-  "reading": "This is a museum exhibition landing page: a giant two-line gradient heading 'SEE / THRU', a diagonally-striped decorative block, a blue duotone tile with an amber round accent, a large gradient product-photo backdrop carrying a serif pull-quote and a 'PLAN YOUR VISIT' button with a rule under it, and an info block listing Gallery 4 / dates / Free on Thursdays followed by a thick rule.",
+  "reading": "A full promotional page for an art exhibition: a short label line, a giant two-line gradient headline \"SEE THRU\", a circular striped-pattern cut-out window, an overlapping color-blend shard with a glow, a faint fading grid panel carrying a serif sentence about the show, three small metadata lines (gallery, dates, free day), an up-pointing solid triangle accent, and a heading with a thick rule reading \"PLAN YOUR VISIT\".",
   "actions": [
     {
       "kind": "add",
       "textMarks": [
-        "s0",
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        48,
+        162,
+        650,
+        17
+      ],
+      "paths": [],
+      "instruction": "Add a short eyebrow/label line of text above the big headline; no exact wording was given so use plausible short copy fitting an exhibition page (e.g. 'NOW ON V"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
         "s1"
       ],
       "textSize": [
@@ -215,15 +241,15 @@
       ],
       "region": [
         48,
-        162,
-        650,
-        244
+        376,
+        403,
+        30
       ],
       "paths": [],
-      "instruction": "Add a giant heading: font-family Impact/Haettenschweiler, sans-serif, font-weight 900, round-bowled (not condensed/display), heavy uppercase, line-height 0.85, "
+      "instruction": "Giant heavy uppercase headline, font-family Impact/Haettenschweiler-style sans-serif, weight 900, round-bowled (not condensed/squared/display), live text (real "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -237,10 +263,10 @@
         "s3",
         "s4"
       ],
-      "instruction": "Add a large square block filled with big diagonal (45deg) repeating stripes - NOT a smooth gradient: repeating-linear-gradient(45deg, #141414 0px 14px, #f7f3ea "
+      "instruction": "A perfectly round circular window (NOT a square, NOT a rounded box): 380x380px, position absolute at 820,90, clipped with clip-path: circle(50%), filled with ba"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -252,10 +278,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a flat duotone tile: ink-like (multiply blend so it darkens what it overlaps rather than covering it) vivid blue (#3d5afe) fill, no photo, with one hard-edg"
+      "instruction": "A slanted four-sided shard (NOT a rectangle), clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%): 300x380px, position absolute at 700,430, painted linear-gr"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -267,7 +293,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a big 640x340px block filled with a soft pale gradient from #141414 to #000000 (left to right): an empty product-photo backdrop block - no picture placehold"
+      "instruction": "A grid-of-thin-lines panel (NOT a filled box, NOT dark, NOT a photo): 640x340px, position absolute at 0,560, no fill of its own, background drawn as 1px #141414"
     },
     {
       "kind": "add",
@@ -292,7 +318,7 @@
         64
       ],
       "paths": [],
-      "instruction": "Add serif body text reading: \"An exhibition of cut-outs, windows and holes: what you see depends on what we take away.\" positioned over the top portion of the g"
+      "instruction": "Serif body text placed over the grid panel area: \"An exhibition of cut-outs, windows and holes: what you see depends on what we take away.\""
     },
     {
       "kind": "add",
@@ -319,10 +345,10 @@
         62
       ],
       "paths": [],
-      "instruction": "Add three short live-text info parts, each its own element with real text, laid out stacked, each staying on one line (white-space: nowrap, min-width not a fixe"
+      "instruction": "Three separate metadata text lines, each a real live-text element, each staying on one line (white-space: nowrap) with min-width (not fixed width) so the label "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -334,7 +360,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Add a thick horizontal rule positioned directly under the Gallery 4 / dates / Free-on-Thursdays info block."
+      "instruction": "A solid #ff3d00 triangle pointing up (NOT a box, NOT a rule, NOT black), built as a CSS border triangle: 180px wide, 150px tall, bounding box top-left at 1030,6"
     },
     {
       "kind": "add",
@@ -349,7 +375,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Add a button/label reading 'PLAN YOUR VISIT' with a thick rule underneath it, placed near the bottom-left area of the gradient backdrop block."
+      "instruction": "Add a heading reading 'PLAN YOUR VISIT' with a thick rule drawn directly underneath it, positioned near the bottom-left area over the grid panel."
     }
   ],
   "rejected": []

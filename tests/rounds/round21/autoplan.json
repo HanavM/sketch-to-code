@@ -229,15 +229,15 @@
    ],
    [
     "circle-window",
-    "big diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #141414 0px 14px, #f7f3ea 14px 28px)): 14px near-black then 14px off-white, over and over block"
+    "a CIRCLE window (perfectly round, NOT a square, NOT a rounded box): one 380x380px at 820,90 (position absolute) div cut by clip-path: circle(50%), filled background: repeating-linear-gradient(45deg, #141414 0px, #141414 14px, #f7f3ea 14px, #f7f3ea 28px) (exactly; the paint shows only inside the circle, the page shows at the corners)"
    ],
    [
     "duotone-shard",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) vivid blue (#3d5afe) flat duotone tile, no picture: 1 hard-edged round amber (#ffb300) shapes on it centred 60% across, 35% down"
+    "a slanted SHARD cut by clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%) (an uneven four-sided shape, NOT a rectangle): one 300x380px at 700,430 (position absolute) div painted linear-gradient(135deg, #3d5afe, #00b3a4), mix-blend-mode: multiply (it darkens what it overlaps); inside it a ::after layer (position absolute, inset 0) painted radial-gradient(circle at 60% 35%, #ffb300 0px, #ffb300 60px, transparent 62px); no picture, no border"
    ],
    [
     "faded-grid",
-    "a big 640x340px block filled with a soft pale tinted #141414 to #000000 (left to right) gradient: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one 640x340px at 0,560 (position absolute) div with no fill of its own, its background drawn as 1px #14141433 lines on a 40px 40px, 40px 40px tile (background-image: linear-gradient(#14141433 1px, transparent 1px), linear-gradient(90deg, #14141433 1px, transparent 1px); background-size: 40px 40px, 40px 40px), FADING OUT toward the top by mask-image: linear-gradient(to top, #000000, transparent) (and -webkit-mask-image the same), so it is clear at the top and only faintly visible lower down; nothing inside"
    ],
    [
     "caption",
@@ -249,7 +249,7 @@
    ],
    [
     "triangle",
-    "thick rule under"
+    "a solid #ff3d00 TRIANGLE pointing UP (NOT a box, NOT a rule, NOT black): a CSS border triangle, 180px wide and 150px tall, its bounding box's top-left at 1030,680 (position absolute); one zero-size div (width 0, height 0) with border-right: 90px solid transparent; border-bottom: 150px solid #ff3d00; border-left: 90px solid transparent"
    ],
    [
     "cta",
@@ -334,6 +334,10 @@
   ],
   "notes": [
    [
+    "*",
+    "whole page: ALSO the page's own HAIRLINE grid rules (no mark is drawn for them; each its own div, position absolute, exactly 1px thick, never thicker): a vertical 1px #111111 line at x 320 from y 0, 900px long; a vertical 1px #111111 line at x 960 from y 0, 900px long"
+   ],
+   [
     "rule-top",
     "solid near-black strip only 1px tall, 1280px wide, no text (a divider rule, not a bar or button; exactly 1px thick (height: 1px, Tailwind h-[1px], never h-1 which is 4px), thinner than the drawn pen line)"
    ],
@@ -351,7 +355,7 @@
    ],
    [
     "giant-numeral",
-    "diagonal bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica; font-weight 700; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) tight-set letters \"07\", 560px type, about 626px wide (no larger), absolutely placed: its box's top-left at -30,197 and its first letter's ink starting at x=-119 (not further right)"
+    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica; font-weight 700; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) tight-set letters \"07\", 560px type, about 626px wide (no larger); TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(-90deg) with transform-origin: 300px 300px, so the letters run bottom to top; before the turn its 563x448px box sits at left -30px, top 160px (position absolute); after the turn it covers the page from -30,197 to 418,760 (bleeding off the page edge there)"
    ],
    [
     "red-disc",
@@ -359,7 +363,7 @@
    ],
    [
     "orbit",
-    "spinning big near-black outline circle"
+    "spinning big near-black outline circle; the ring is ONE 500x500px circle at 470,200 (position absolute, border-radius 50%) with only a THIN 1px #111111 border (no fill), and 3 small solid dots ON the ring line, each its own child (position absolute inside the ring, border-radius 50%): 18px #111111 at 241,-9; 18px #111111 at -9,241; 18px #e30613 at 410,420 (inside-the-ring px), so they turn with it"
    ],
    [
     "vertical-label",
