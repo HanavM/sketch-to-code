@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T14:15Z | n210 exact CSS shapes skip the drawn outline (shard, triangle, 1px rules, bars) | c3 mask reveal 86 to 90, c4 swiss orbit 66 to 74; round 21 78. ~170k.
 2026-10-25T13:50Z | n209 cut shapes, quarter-turned numeral, ring dots, page hairlines | c3 mask reveal 46 to 86, c4 swiss orbit 48 to 66; round 21 77. ~265k.
 2026-10-25T13:35Z | n208 round 21: ten harder pages written and built live | Round 21 at 71 (c1 89, e2 86; c2 51, c3 46, c4 48). ~734k.
 2026-10-25T11:05Z | n207 pane header bar, edge column, event title before time, side list places, message tops | e2 team chat 84 to 85, e1 88 to 89; round 20 91. ~238k.
