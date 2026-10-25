@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T13:35Z | n208 round 21: ten harder pages written and built live | Round 21 at 71 (c1 89, e2 86; c2 51, c3 46, c4 48). ~734k.
 2026-10-25T11:05Z | n207 pane header bar, edge column, event title before time, side list places, message tops | e2 team chat 84 to 85, e1 88 to 89; round 20 91. ~238k.
 2026-10-25T10:30Z | n206 one header row, thin now-line, plain mini-month, sidebar column, placed Sum chip | Asked-for fixes built; e1 84/80, e3 88, kept 88/90; round 20 90. ~281k.
 2026-10-25T09:35Z | n205 chart axis lines, day names as their own line over the date | e3 spreadsheet 77 to 90; e1 re-run 79 (88 kept); round 20 90. ~196k.
