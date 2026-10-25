@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T10:30Z | n206 one header row, thin now-line, plain mini-month, sidebar column, placed Sum chip | Asked-for fixes built; e1 84/80, e3 88, kept 88/90; round 20 90. ~281k.
 2026-10-25T09:35Z | n205 chart axis lines, day names as their own line over the date | e3 spreadsheet 77 to 90; e1 re-run 79 (88 kept); round 20 90. ~196k.
 2026-10-25T09:00Z | n204 order summary whole, card lines and chip, centred day heads, word cells left | e4 checkout 77 to 92, e1 76 to 88, e3 77; round 20 89. ~346k.
 2026-10-25T08:20Z | n203 exact bar hex, toolbar item places and look, bottom-rounded tab | e3 spreadsheet 75 to 76 (layout 83 to 90); round 20 87. ~68k.
