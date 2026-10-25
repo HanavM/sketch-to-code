@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T01:35Z | n192 faint rays, arch window, cut panes, record under sleeve, tonearm rod | c1 74 to 91; c4 78 to 77 (label off-centre, arm slab); round 19 81. ~211k.
 2026-10-25T01:00Z | n191 halftone sleeve, record, orb behind words, app heading and checkboxes | c2 63 to 87, c4 47 to 78, e2 62 to 66; round 19 80. ~208k.
 2026-10-25T00:30Z | n190 round 19: ten harder pages, first builds | Written, dry 10/10; e1 91, e4 89, e3 85, c3 81, c5 76, c1 74, e5 71, c2 63, e2 62, c4 47; round 74. ~934k.
 2026-10-24T22:55Z | n189 app bar and side columns as panels | e4 73 to 89 (layout 68 to 100); round 18 89. ~84k.

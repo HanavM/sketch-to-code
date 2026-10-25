@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 19 is up to 80%: the record sleeve, the type sculpture and the team settings page are much closer. Next: the record sits over its sleeve, and the stained glass rays."
+now: "Round 19 is up to 81%: the stained glass window now matches closely (91%). Next: the record label and tonearm, and the invoice editor."
 round: 19
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 80]
-lock: {by: run-2026-10-25T0056Z, until: '2026-10-25T02:26Z'}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 81]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n192 (997ba34 on try/n3-vocabulary): planner says a FAINT sunburst with its alpha, transparent stops, blur and spin; arch tops (R R 0 0, overflow hidden); polygon clip-path on parts; a block BEHIND later solid blocks that cover it; a round label at a record's dead centre with its lines; a thin rod with a round knob (tonearm); alternating two-colour bars; hollow word no longer null colour. Live c1 74 to 91, c4 78 to 77 (record under sleeve, label round but off-centre, arm still a slab); round 19 at 81. Rounds 9, 16 re-planned. Vitest: same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-25 n192 live c1, c4 = ~211k billed (2026-10-25 so far ~919k)."
   - "n191 (eb3d995 on try/n3-vocabulary): planner says halftone dot screens (fill, tile, tilt, hard shadow), vinyl records (grooves, round label), a sphere BEHIND words crossing it, marquee ribbons with their letter colour, region heading + sub-line, solid checkboxes / switches / outlined chips in table cells (look said once). Live c2 63 to 87, c4 47 to 78, e2 62 to 66; round 19 at 80. Rounds 1-18 re-planned (6 gain ribbon/heading wording). Vitest: same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-25 n191 live c2, c4, e2 = ~208k billed (2026-10-25 so far ~708k)."
   - "n190 (bee7b26 on try/n3-vocabulary): round 19 written (c1 stained glass, c2 type sculpture, c3 lantern night, c4 vinyl sleeve, c5 magazine cover; e1 seat picker, e2 team settings, e3 cloud drive, e4 order tracking, e5 invoice editor), dry 10/10, first live builds c1 74, c2 63, c3 81, c4 47, c5 76, e1 91, e2 62, e3 85, e4 89, e5 71: round 19 at 74 over 10 (round 18 began at 76). Gaps: stacking behind words, halftone dot fills, faint blurred rays, round lanterns on strings, arch tops, app page headings, solid checkboxes/toggles. Vitest: same 2 env failures; typecheck clean."
@@ -419,7 +421,8 @@ nodes:
      result: "Menu 58 to 79%, week 55 to 75%, checkout 32 to 50%, dashboard 76%; tinted pages no longer built white. 7921c13."}
   - {id: n83, parent: n82, kind: step, title: "Free first, ~80k live: round-6 e4 reading fails with max structured output (2 of 4 tries), thumbnails built near-invisible, step connector lines missing; e1 blue strip on menu top; e5 Today/arrows placed right. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Failed readings salvaged; steps, thumbnails, split top bar fixed. e4 40% (page white, form taller), e5 69%."}
   - {id: n84, parent: n83, kind: step, title: "Free first, ~40k live: round-6 e4 page built plain white (target off-white) and form ~10% taller (say field heights, gaps, form bottom); e1 blue strip on menu top. Fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Form spacing now said in px; near-white page hex. Checkout 40% to 54%, best yet. cd15b06."}
-  - {id: n85, parent: n84, kind: step, title: "Low priority, ~40k live: e4 left page still built white beside a tinted panel, logo small, pay button full pill ~20px low; fix, re-run e4", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n85, parent: n84, kind: step, title: "Low priority, ~40k live: e4 left page still built white beside a tinted panel, logo small, pay button full pill ~20px low; fix, re-run e4", status: done, branch: try/n3-vocabulary, result: "Faint blurred rays, arch window, cut panes, record under sleeve: c1 74 to 91, c4 77; round 81"}
+  - {id: n193, parent: n192, kind: step, title: "Free first, ~250k live: c4 round label built off the record centre (on the sleeve), tonearm still a wide slab, LOW TIDE on one line; c1 rose half dark; e2 matrix card frame lost, e5 at 71 (Bill to and focused input lost). Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
   - {id: n79, parent: n77, kind: step, title: "Free first: round-6 creative misses (3D tilt cards, clip-split word, SVG hills, mesh glows and glass contents, duotone tile); then ~300k live first builds of all 10", status: done, branch: try/n3-vocabulary,
      result: "Creative effects now said; first builds: 3D cards 90%, hills 73%, glass 72%, zine 70%, split word 22%. 11cf6fd."}
   - {id: n86, parent: n79, kind: step, title: "~120k live: re-run round-6 c2 (halves now said to meet, columns said) and c3 (regular weight); free first: c3 sun built as pale blobs, c1 floor read as a CTA container, c5 price small line built huge", status: done, branch: try/n3-vocabulary, result: "Sliced word now one mark: split poster 22% to 47%; zine 84%, hills 79%; floor built but short. 74ff077."}
