@@ -779,7 +779,7 @@
    ],
    [
     "tabs",
-    "near-black \"Members\" first, then links: Roles, Invites2, Audit log; all of these sit together at the LEFT, one after another, ending 310px in (the right 68% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Members\" at 0, \"Roles\" at 87, \"Invites2\" at 152, \"Audit log\" at 250; each word in its own colour: \"Members\" #18181b, \"Roles\" #71717a, \"Invites2\" #71717a, \"Audit log\" #71717a"
+    "the region is a 960x29px row at 280,99 with a 1px #e4e4e7 rule along its BOTTOM edge only, its full width (border-bottom, no other border, no fill), its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 22x18 at 482,98 #f4f4f5 fill, pill ends: 14px bold #71717a \"2\"; 61x28 at 280,99 inset ring (box-shadow: #18181b 0px -2px 0px 0px inset): 14px bold #18181b \"Members\"; 38x28 at 367,99 14px bold #71717a \"Roles\"; 72x28 at 432,99 14px bold #71717a \"Invites\"; 61x28 at 530,99 14px bold #71717a \"Audit log\""
    ],
    [
     "members",
@@ -791,7 +791,7 @@
    ],
    [
     "danger-zone",
-    "white card"
+    "the region itself is ONE 960x62px panel at 280,661, #ffffff fill, a 1px #fecaca border, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 79x16 at 301,676 14px bold #dc2626 \"Delete team\"; 107x32 at 1112,676 #dc2626 fill, 6px rounded, padding-left 14px (its text starts at x 1126): 14px bold #ffffff \"Delete team\"; 316x13 at 301,695 12px #71717a \"Permanently remove Acme Inc, its projects and deployments.\""
    ]
   ]
  }

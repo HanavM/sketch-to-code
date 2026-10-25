@@ -684,7 +684,9 @@ export function factsInPage() {
       // a row of tabs with one picked out: underlined or filled where the others aren't (round 5 e4)
       kidOn: (() => {
         if (kids.length < 3) return null
-        const key = (k) => { const c = getComputedStyle(k); return `${parseFloat(c.borderBottomWidth) >= 2 ? 'u' : ''}|${rgba(c.backgroundColor)?.a > 0.05 ? c.backgroundColor : ''}` }
+        // n222: an underline drawn as an inset box-shadow (round 21 e5 Members tab: 'inset 0 -2px #18181b', built plain)
+        const insetU = (c) => { const m = /^(rgba?\([^)]+\)) 0px -([2-9])px 0px(?: 0px)? inset$/.exec(c.boxShadow); return m ? { c: rgba(m[1]), w: Number(m[2]) } : null }
+        const key = (k) => { const c = getComputedStyle(k); return `${parseFloat(c.borderBottomWidth) >= 2 || insetU(c) ? 'u' : ''}|${rgba(c.backgroundColor)?.a > 0.05 ? c.backgroundColor : ''}` }
         const ks = kids.map(key)
         const odd = kids.filter((k, i) => ks.filter((x) => x === ks[i]).length === 1 && ks[i] !== '|')
         if (odd.length !== 1) return null
@@ -692,7 +694,8 @@ export function factsInPage() {
         // its letter colour when the rest share another one (round 5 e5 green Q1 tab built black)
         const rest = kids.filter((k) => k !== odd[0]).map((k) => getComputedStyle(k).color)
         const ink = rest.every((x) => x === rest[0]) && rest[0] !== c.color ? rgba(c.color) : null
-        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink, box: (() => { const b = odd[0].getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), rad: c.borderRadius } })() }
+        const iu = insetU(c)
+        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : iu ? iu.c : null, underPx: parseFloat(c.borderBottomWidth) >= 2 ? Math.round(parseFloat(c.borderBottomWidth)) : iu ? iu.w : 0, underInset: !!iu, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink, box: (() => { const b = odd[0].getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), rad: c.borderRadius } })() }
       })(),
       // round 6 e5: a nested switch (Day/Week/Month) with one filled segment, outlined buttons beside it, and a
       // number in a filled round circle (today's date) were all said as plain links and built plain
@@ -4699,7 +4702,7 @@ function decideOne(f, page, marked, said) {
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
-    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null, f.kidOn.fill && f.kidOn.box ? `a ${f.kidOn.box.w}x${f.kidOn.box.h}px ${parseFloat(f.kidOn.box.rad) >= f.kidOn.box.h / 2 - 1 && !/ /.test(f.kidOn.box.rad) ? 'fully rounded pill' : `box${/^0px 0px [1-9]/.test(f.kidOn.box.rad) ? ` (a tab: only its BOTTOM corners rounded ${parseFloat(f.kidOn.box.rad.split(' ')[2])}px)` : parseFloat(f.kidOn.box.rad) >= 2 ? `, ${Math.round(parseFloat(f.kidOn.box.rad))}px rounded` : ', square'}`}` : null].filter(Boolean).join(', ')})` : ''
+    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? (f.kidOn.underInset ? `a ${f.kidOn.underPx}px ${hexOf(f.kidOn.under)} underline drawn as box-shadow: inset 0 -${f.kidOn.underPx}px ${hexOf(f.kidOn.under)} on the tab itself, sitting on the bar's bottom rule` : `${colourName(f.kidOn.under)} underline`) : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null, f.kidOn.fill && f.kidOn.box ? `a ${f.kidOn.box.w}x${f.kidOn.box.h}px ${parseFloat(f.kidOn.box.rad) >= f.kidOn.box.h / 2 - 1 && !/ /.test(f.kidOn.box.rad) ? 'fully rounded pill' : `box${/^0px 0px [1-9]/.test(f.kidOn.box.rad) ? ` (a tab: only its BOTTOM corners rounded ${parseFloat(f.kidOn.box.rad.split(' ')[2])}px)` : parseFloat(f.kidOn.box.rad) >= 2 ? `, ${Math.round(parseFloat(f.kidOn.box.rad))}px rounded` : ', square'}`}` : null].filter(Boolean).join(', ')})` : ''
     const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
     const items = L ? f.kidTexts.slice(1, 9) : f.kidTexts.slice(0, 8)
@@ -4720,7 +4723,9 @@ function decideOne(f, page, marked, said) {
     const R = f.rect, pill = fill && w >= 600 && f.radius >= Math.min(12, h / 2 - 2)
     const shape = pill ? `a ${f.radius >= h / 2 - 1 ? 'fully rounded' : `${Math.round(f.radius)}px-rounded`} ${hexOf(f.bg)} pill ${Math.round(w)}x${Math.round(h)}px at x ${Math.round(R.x)}, top ${Math.round(R.y)} (inset from the page sides, NOT a square full-width strip), ` : ''
     const foot = fill && w >= 600 && R.y + h >= 896 ? `; this bar is pinned to the very BOTTOM of the page (top ${Math.round(R.y)}, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above` : ''
-    return { kind: fill || bordered ? 'box' : 'text', note: `${shape || (fill && w >= 600 ? `${colourName(f.bg)} (exactly ${hexOf(f.bg)}) bar ${Math.round(h)}px tall across the page, ` : '')}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}${foot}` }
+    // n222: a tab row ruled along its bottom only (round 21 e5 tabs: the 1px rule under Members / Roles / ... lost)
+    const rule = !fill && !bordered && f.border.bottom >= 1 && f.border.w < 1 && visible(f.border.bottomColour) && f.kidOn?.under ? `; a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along the bar's bottom edge across its full ${Math.round(w)}px width (border-bottom), with ${Math.round(f.kidOn.box?.h ?? h)}px tall items whose text sits at their top (padding-bottom under the words), so the selected underline lies on that rule` : ''
+    return { kind: fill || bordered ? 'box' : 'text', note: `${shape || (fill && w >= 600 ? `${colourName(f.bg)} (exactly ${hexOf(f.bg)}) bar ${Math.round(h)}px tall across the page, ` : '')}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}${rule}${foot}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)
@@ -5534,9 +5539,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n195: a block whose parts include letters round a circle, a hollow word or a clipped copy (round 19 c5 cover: said
     // as 'spinning warm paper block' plus the whole masthead hollow; the solid masthead, cream fill and ring lost)
     const layered = d.kind && d.note && !f.regionKids.length && !/part by part/.test(d.note) && P.filter((p) => p.tpath || p.clipIn || p.stroke).length >= 2
+    // n222: a bare look note that quotes none of the region's own words (round 21 e5 danger zone said only 'white card':
+    // built as an empty card, its 'Delete team' title, warning line and red button lost)
+    const mute = d.kind && d.note && !f.regionKids.length && T.length >= 2 && P.filter((p) => p.t).length >= 3 && !T.some((t) => d.note.includes(t.slice(0, 20))) && !/\d+px|#[0-9a-f]{6}|part by part/i.test(d.note)
     // n198: a ruled grid background with blocks laid over it (round 20 e1 week grid: events and hour labels lost)
     const ruled = /^a ruled grid of thin lines/.test(d.note ?? '') && P.length >= 3
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered) return
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered && !mute) return
     let note = partsNote(P, f)
     if (ruled) { d.note = `the region itself is a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (its left edge EXACTLY at x=${Math.round(f.rect.x)}, its right edge at x=${Math.round(f.rect.x + f.rect.w)}; any label gutter beside it is no wider than its labels, so the grid is never pushed right) painted as ${d.note.split('; centred on top of it')[0].replace(/ block$/, '')}`; note = `laid over it (and beside it, where a part sits outside its box) ${note}` }
     if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
@@ -5561,7 +5569,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
     const note1 = /nowrap/.test(panel) ? note.replace('; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart', '') : note
     const terr = f.terrazzo && panel ? `over that fill, edge to edge, a TERRAZZO layer: one absolute div (inset 0, no text) with exactly background-image: ${f.terrazzo.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })}; background-size: ${f.terrazzo.size} (it REPEATS: small dots of ${f.terrazzo.n} colours scattered over the ${hexOf(f.bg)} fill, the fill showing between them; NOT big discs, NOT on the page colour); every part below sits over it, ` : ''
-    const keep = `${panel}${terr}${leftRule}${twoRules}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered ? `${d.note}; ` : ''}`
+    // n222: a row ruled along its bottom only (round 21 e5 tabs said part by part: the 1px rule under the tabs lost)
+    const underRule = P.some((p) => p.inset) && R.y > 2 && !panel && !leftRule && !twoRules && !(f.border?.w >= 1) && !(f.border?.left >= 1) && f.border?.bottom >= 1 && visible(f.border.bottomColour) && R.w >= 300 && R.h <= 80 && !(!weak && /bottom (edge|only)/.test(d.note ?? '')) ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)} with a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along its BOTTOM edge only, its full width (border-bottom, no other border${visible(f.bg) ? '' : ', no fill'}), its parts inside it; ` : ''
+    const keep = `${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

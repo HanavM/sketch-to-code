@@ -301,3 +301,24 @@ with an inline-block button among them says each glyph as its own part at its ow
 Round 21 re-scored over all 10 latest side-by-sides: **88%** (90, 93, 90, 89, 91, 88, 87, 79, 87, 82; 87.6, was 86.2;
 re-scoring moves the untouched pages by about 1 either way). Vitest same 2 env failures (1459 tests); typecheck clean.
 Next: e3 gantt (79, today line), e5 team settings (82).
+
+## n222: a card note that quotes none of its words is said part by part; tab underline drawn as an inset shadow and the rule under the tabs said (2026-10-25, ~68k billed for one e5 run)
+
+Why e5 team settings sat at 82: the danger zone was said only "white card" (three parts is under the old part-by-part
+bar and the note quoted none of its words), so it was built as an empty card: the red "Delete team" title, warning
+line and red button lost. The tabs were said as a plain link row: the Members underline is an inset box-shadow (the
+tab check only knew border-bottom), so neither the underline nor the 1px rule under the bar was said.
+
+Planner (words only): a bare look note that quotes none of a region's 2+ words (3+ worded parts) is said part by part
+with its panel; a selected tab underlined by an inset box-shadow is detected and said with that shadow; a row ruled
+along its bottom only, holding such a tab, says that rule. Re-planned rounds 1-21: only round 21 e5 (danger zone and
+tabs) changes.
+
+| page | before | run a | what changed |
+|---|---|---|---|
+| e5 team settings | 82% | **89%** | danger zone built with its red title, warning line and red button; Members underlined on the tab rule (colour 100, structure 96, layout 91; the Invites "2" pill set as a superscript) |
+
+Round 21: **88%** over 10 (90, 93, 90, 89, 91, 88, 87, 79, 87, 89; 88.3, was 87.6). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: e3 gantt (79): its today line is drawn right but is not a box of its own in the build, so the region match misses
+it; look at whether the build or the measure is at fault before changing either.
