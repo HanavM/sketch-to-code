@@ -73,7 +73,7 @@
    ],
    [
     "pink-disc",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 300px across, flat fully opaque vivid pink (#ff48b0) fill, hard edge, no blur"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 300px across with its top-left at page 820,340 (ONE plain div, position absolute, background #ff48b0; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque vivid pink (#ff48b0) fill, hard edge, no blur"
    ],
    [
     "headline",
@@ -265,7 +265,7 @@
    ],
    [
     "logos",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 78x23 at 60,800 20px bold #ffffff at 45% \"MONZA\"; 75x23 at 194,800 20px bold #ffffff at 45% \"Ferrum\"; 138x23 at 325,800 20px bold #ffffff at 45% \"NORTHBANK\"; 46x23 at 519,800 20px bold #ffffff at 45% \"quill\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 78x23 at 60,800 20px bold #ffffff at 45% \"MONZA\" with letter-spacing 1px (its letters spaced out, NOT set tight); 75x23 at 194,800 20px bold #ffffff at 45% \"Ferrum\" with letter-spacing 1px (its letters spaced out, NOT set tight); 138x23 at 325,800 20px bold #ffffff at 45% \"NORTHBANK\" with letter-spacing 1px (its letters spaced out, NOT set tight); 46x23 at 519,800 20px bold #ffffff at 45% \"quill\" with letter-spacing 1px (its letters spaced out, NOT set tight)"
    ]
   ]
  },
@@ -565,7 +565,7 @@
    ],
    [
     "rating",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 88x17 at 60,661 15px bold #ffb800 \"★★★★★\"; 143x17 at 148,661 15px #4a4675 \"4.9 from 18k reviews\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 88x17 at 60,661 15px bold #ffb800 \"★★★★★\" with letter-spacing 2px (its letters spaced out, NOT set tight); 143x17 at 148,661 15px #4a4675 \"4.9 from 18k reviews\""
    ],
    [
     "phone",

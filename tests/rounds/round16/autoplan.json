@@ -213,7 +213,7 @@
    ],
    [
     "disc",
-    "perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur"
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across with its top-left at page 440,200 (ONE plain div, position absolute, background #5a1e0e; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur"
    ],
    [
     "arched-title",
@@ -229,7 +229,7 @@
    ],
    [
     "hours-row",
-    "the region is a 800x47px row at 240,720, ruled above AND below (border-top and border-bottom 3px double (two thin parallel lines each) #5a1e0e, no side borders, no fill); in it part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 96x17 at 240,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"BURGERS\"; 81x17 at 503,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"SHAKES\"; 33x17 at 750,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"PIE\"; 90x17 at 950,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"CAR HOP\""
+    "the region is a 800x47px row at 240,720, ruled above AND below (border-top and border-bottom 3px double (two thin parallel lines each) #5a1e0e, no side borders, no fill); in it part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 96x17 at 240,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"BURGERS\" with letter-spacing 3px (its letters spaced out, NOT set tight); 81x17 at 503,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"SHAKES\" with letter-spacing 3px (its letters spaced out, NOT set tight); 33x17 at 750,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"PIE\" with letter-spacing 3px (its letters spaced out, NOT set tight); 90x17 at 950,735 15px bold Helvetica/Arial sans-serif (NOT the page serif) #5a1e0e \"CAR HOP\" with letter-spacing 3px (its letters spaced out, NOT set tight)"
    ],
    [
     "cta",

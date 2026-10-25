@@ -345,7 +345,7 @@
    ],
    [
     "disc",
-    "perfectly round solid disc (border-radius 50%, not traced from the ink), 560px across, flat fully opaque near-black (#111111) fill, hard edge, no blur"
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 560px across with its top-left at page 600,180 (ONE plain div, position absolute, background #111111; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque near-black (#111111) fill, hard edge, no blur"
    ],
    [
     "headline",

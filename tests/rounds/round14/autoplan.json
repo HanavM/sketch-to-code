@@ -203,7 +203,7 @@
    ],
    [
     "blend-disc",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 220px across, flat fully opaque vivid blue (#3b7dd8) fill, hard edge, no blur"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 220px across with its top-left at page 820,540 (ONE plain div, position absolute, background #3b7dd8; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque vivid blue (#3b7dd8) fill, hard edge, no blur"
    ],
    [
     "tape-1",

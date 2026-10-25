@@ -138,3 +138,21 @@ Round 21: **83%** over 10 (89, 91, 90, 74, 84, 76, 86, 75, 79, 81; was 80). Vite
 typecheck clean.
 Next: c4 swiss orbit (74) disc still from a drawn component, column heads' letter-spacing; c5 title glow and horizon band;
 c2 tags as filled translucent white pills.
+
+## n214: a big flat disc said as one plain div in its place, spaced letters said, a bar stack kept apart (2026-10-25, ~297k billed for two c4 runs)
+
+Planner (words only): a flat textless disc 200px or wider says its page top-left and that it is ONE plain div with that
+background (not an SVG, a drawn or shaded component, or a gradient); a part-by-part text part with letter-spacing of 1px
+or more says it (round 21 c4 column heads "01 — GRID" were built tight); a stack of 3+ textless thin bars with gaps says
+they are separate bars with the gap between (one c4 run built them as a solid block). Re-planned rounds 1-21: letter-
+spacing reaches 32 parts across rounds 2-21, the disc wording 8 discs, the bar wording only round 21 c4. No marks changed.
+
+| page | before | run a | run b | what changed |
+|---|---|---|---|---|
+| c4 swiss orbit | 74% | 73% | 70% | disc flat red in its own place and column heads spaced, both runs; run a merged the four bars into one block (fixed by the bar wording), run b kept the bars but dropped the two page-high hairlines at x 320 and 960 |
+
+Kept build stays the 74% one (n210); the two runs are saved as c4-swiss-orbit-n214-cmp.png and -n214b-cmp.png. The
+asked-for fixes show in both runs; the score is held down by run-to-run loss of other parts (bars, hairlines) and the
+giant numeral still sitting ~15px right and ~7px high. Round 21 unchanged at **83%**.
+Next: make the page hairlines survive (said once in the whole-page note, lost in 1 of 3 runs), then c5 title glow and
+horizon band, c2 tags as filled pills.

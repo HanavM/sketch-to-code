@@ -131,7 +131,7 @@
    ],
    [
     "red-disc",
-    "perfectly round solid disc (border-radius 50%, not traced from the ink), 560px across, flat fully opaque vivid red (#ff3b1f) fill, hard edge, no blur"
+    "perfectly round solid disc (border-radius 50%, not traced from the ink), 560px across with its top-left at page 640,90 (ONE plain div, position absolute, background #ff3b1f; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque vivid red (#ff3b1f) fill, hard edge, no blur"
    ],
    [
     "blue-bar",
