@@ -241,7 +241,7 @@
    ],
    [
     "app-chip",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 67x67 at 863,511 linear-gradient(135deg, #ff2fb3, #7b2ff7), 18px rounded; 95x22 at 942,519 16px bold #ffffff \"Focus mode\"; 97x22 at 943,537 16px #ffffff at 67% \"on until 14:30\""
+    "the region itself is ONE 286x134px panel at 837,473, no fill, a 1px #ffffff border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 67x67 at 863,511 linear-gradient(135deg, #ff2fb3, #7b2ff7), 18px rounded; 95x22 at 942,519 16px bold #ffffff \"Focus mode\"; 97x22 at 943,537 16px #ffffff at 67% \"on until 14:30\""
    ],
    [
     "logos",
@@ -319,7 +319,7 @@
    ],
    [
     "orange-block",
-    "ONE plain solid block, NOT a picture: 300x380px (only 380px thick) with its top-left at 400,420 before the turn, filled flat red-orange #ff3b00, fully opaque, then turned by transform: rotate(-4deg) round its centre; no text on it, no border, no shadow"
+    "ONE plain solid block, NOT a picture: 300x380px (only 380px thick) with its top-left at 400,420 before the turn, filled flat red-orange #ff3b00, with mix-blend-mode: multiply (where it crosses the picture or ink under it the two darken together like overprinted inks; NOT an opaque block covering it; set it AFTER that picture so it lies on top), then turned by transform: rotate(-4deg) round its centre; no text on it, no border, no shadow"
    ],
    [
     "masthead",
@@ -343,7 +343,7 @@
    ],
    [
     "issue-number",
-    "huge Helvetica heavy \"44\""
+    "huge Helvetica heavy \"44\"; exactly 64px type (font-size 64px, line-height 1, NOT larger), position absolute with its box's top-left at 600,812 of the page: its own element on the page, NEVER inside a block or picture it sits near"
    ]
   ]
  },
@@ -421,7 +421,7 @@
    ],
    [
     "yellow-bar",
-    "ONE plain solid block, NOT a picture: 380x60px (only 60px thick) with its top-left at 60,470 before the turn, filled flat yellow #ffe800, fully opaque, then turned by transform: rotate(-2deg) round its centre; no text on it, no border, no shadow"
+    "ONE plain solid block, NOT a picture: 380x60px (only 60px thick) with its top-left at 60,470 before the turn, filled flat yellow #ffe800, with mix-blend-mode: multiply (where it crosses the picture or ink under it the two darken together like overprinted inks; NOT an opaque block covering it; set it AFTER that picture so it lies on top), then turned by transform: rotate(-2deg) round its centre; no text on it, no border, no shadow"
    ],
    [
     "subtitle",
@@ -507,7 +507,7 @@
    ],
    [
     "board-bar",
-    "bold 20px \"Website relaunch\" first, then links: Filter, Group: Swimlane"
+    "bold 20px \"Website relaunch\" first, then links: Filter, Group: Swimlane; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 30x30 at 209,69 #ff7452 fill, 2px #f4f5f7 border, a circle; 30x30 at 233,69 #57d9a3 fill, 2px #f4f5f7 border, a circle; 30x30 at 257,69 #6554c0 fill, 2px #f4f5f7 border, a circle; 56x29 at 299,70 #dfe1e6 fill, 6px rounded, padding-left 12px (its text starts at x 311): 13px bold #172b4d \"Filter\"; 131x29 at 367,70 #dfe1e6 fill, 6px rounded, padding-left 12px (its text starts at x 379): 13px bold #172b4d \"Group: Swimlane\"; 165x23 at 20,73 20px bold #172b4d \"Website relaunch\""
    ],
    [
     "lane-design",
@@ -535,7 +535,7 @@
    ],
    [
     "dragged-card",
-    "tilted 4° clockwise white card \"Contact form validation WEB-121\"; the card exactly 281x100px, position: absolute at left 698px, top 290px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
+    "ONE 276x81px #ffffff card, 8px rounded, position absolute with its top-left at 700,300 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(9, 30, 66, 0.33) 0px 12px 24px 0px; transform: rotate(4deg) on THIS CARD ONLY (tilted 4° clockwise; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: a 40x11 #fca700 block, 13px #172b4d \"Contact form validation\", 12px #5e6c84 \"WEB-121\", a 26x26 #6554c0 circle; the card exactly 281x100px, position: absolute at left 698px, top 290px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
    ],
    [
     "col-eng-todo",
@@ -547,7 +547,7 @@
    ],
    [
     "col-eng-review",
-    "column \"REVIEW 1\", cards: \"Sitemap generator WEB-125\"; each word in its own colour: \"REVIEW 1\" #5e6c84, \"Sitemap generator WEB-125\" #172b4d; the card exactly 296x135px, its top-left at 644,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "the region itself is ONE 296x135px panel at 644,542, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); column \"REVIEW 1\", cards: \"Sitemap generator WEB-125\"; each word in its own colour: \"REVIEW 1\" #5e6c84, \"Sitemap generator WEB-125\" #172b4d; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 658,554 12px bold #5e6c84 \"REVIEW\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 902,554 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 910): 12px bold #5e6c84 \"1\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 654,578 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 666): 13px #172b4d \"Sitemap generator\"; 40x8 at 666,588 #579dff fill, pill ends; 24x24 at 894,625 #ff7452 fill, a circle; 51x14 at 666,630 12px #5e6c84 \"WEB-125\"; the card exactly 296x135px, its top-left at 644,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ]
   ]
  },

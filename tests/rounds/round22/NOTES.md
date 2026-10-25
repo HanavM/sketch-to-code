@@ -85,3 +85,21 @@ keeps its circle, misregistered type says its offset shadow.
 - Live c3 glass aurora **77 → 82%** (colour 94, structure 84, layout 72): blobs soft and in place. Still off: the
   focus-mode chip built without its tilted glass card, headline set on wider lines, nav items bunched right.
 - Round 22: **87%** over 10 (86.5). Vitest same 2 env failures; typecheck clean.
+
+## n228: kanban and brutal spread (2026-10-25, ~165k billed)
+
+- e1 kanban **79 → 87%** (colour 99, structure 97, layout 73). Three gaps closed in the planner: the board bar's three
+  overlapping avatar circles and filled Filter / Group chips were said as bare links (a words-only note over small
+  painted parts is now said part by part, even with 3-4 words); the dragged card quoted all its words so the turned-card
+  rule passed it by and its orange label and avatar were lost (now also said when its painted parts go unsaid); the
+  engineering review column (296x135 = 39960 px², just under the 40000 panel floor) lost its grey panel and its card's
+  label (floor now 36000). Still off: dragged card built a touch big (its note gives both the 276x81 card and its
+  281x100 turned bounds), search pill white.
+- c4 brutal spread **80 → 87%** (colour 97, structure 90, layout 88). The orange block was said "fully opaque" though
+  it is mix-blend-mode multiply over the photo; a tilted solid block now says its blend. The 64px issue number was said
+  only "huge" and built 200px inside the orange block; a short 52-99px absolutely placed figure now says its px and its
+  own page place. Still off: article built in one column (target two, with a float circle the text wraps round), ticker
+  in serif (target monospace).
+- Re-planned rounds 1-21: r6 e4 steps, r16 c3 hours row, r19 e4 rider card (panel floor), r10 c2 three 96px words
+  (place), r20 c1 blue square (blend) change.
+- Round 22: **88%** over 10 (88.0). Vitest same 2 env failures; typecheck clean.

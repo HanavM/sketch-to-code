@@ -69,7 +69,7 @@
    ],
    [
     "blue-square",
-    "ONE plain solid block, NOT a picture: 430x430px (only 430px thick) with its top-left at 590,250 before the turn, filled flat blue #2f5bff, fully opaque, then turned by transform: rotate(18deg) round its centre; no text on it, no border, no shadow"
+    "ONE plain solid block, NOT a picture: 430x430px (only 430px thick) with its top-left at 590,250 before the turn, filled flat blue #2f5bff, with mix-blend-mode: multiply (where it crosses the picture or ink under it the two darken together like overprinted inks; NOT an opaque block covering it; set it AFTER that picture so it lies on top), then turned by transform: rotate(18deg) round its centre; no text on it, no border, no shadow"
    ],
    [
     "pink-disc",

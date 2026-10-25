@@ -3489,6 +3489,9 @@ function round10Extra(f, d) {
   if (hard.length >= 1 && hard.length <= 2 && f.font.size >= 32 && hard[0].c && !/shadow/i.test(note)) note += `; MISREGISTERED two-ink print: a second copy of the letters in ${hexOf(hard[0].c)} printed offset ${Math.round(hard[0].x)}px right and ${Math.round(hard[0].y)}px down behind them, exactly text-shadow: ${hard.map((s) => `${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${hexOf(s.c)}`).join(', ')} (a solid hard copy, no blur; NOT dropped)`
   const fs = Math.round(f.font.size)
   if (fs >= 100 && fs < 200 && (f.text ?? '').trim().length >= 2 && !new RegExp(`\\b${fs}px`).test(note) && !f.vertical && f.box0?.abs && !f.motion && !f.bleeds) note += `; exactly ${fs}px type (font-size ${fs}px, NOT larger)${Math.abs(f.font.spacing) >= 1 ? `, letter-spacing ${Math.round(f.font.spacing)}px` : ''}, its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute)`
+  // n228: a short 52-99px absolutely placed figure (round 22 c4 issue number '44' at 600,812: said only 'huge Helvetica
+  // heavy', built 200px inside the turned orange block it sits under) says its px and its own page place
+  if (fs >= 52 && fs < 100 && [...(f.text ?? '').trim()].length >= 1 && [...(f.text ?? '').trim()].length <= 6 && !new RegExp(`\\b${fs}px`).test(note) && !f.vertical && f.box0?.abs && !f.motion && !f.bleeds) note += `; exactly ${fs}px type (font-size ${fs}px, line-height 1, NOT larger), position absolute with its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} of the page: its own element on the page, NEVER inside a block or picture it sits near`
   // n226: a lone symbol glyph (round 22 c5 star '✺' built as a drawn yellow squiggle)
   const g = (f.text ?? '').trim()
   if ([...g].length === 1 && /[^\p{L}\p{N}\s]/u.test(g) && g.codePointAt(0) > 0x2000 && f.font.size >= 48 && !/live text/.test(note)) note += `; the single character "${g}" (U+${g.codePointAt(0).toString(16).toUpperCase()}) typed as LIVE TEXT in a text element at ${fs}px, its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (NEVER an SVG, path or drawn squiggle)`
@@ -3702,7 +3705,7 @@ const cssHex = (s) => (s ?? '').replace(/rgba?\([^)]+\)/g, (m) => { const c = pa
 function tiltBlock(f) {
   if (!f.text && !f.kidCount && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.95 && !/gradient|url/.test(f.bgImage ?? '') && Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.w && f.el?.x != null) {
     const L = f.layoutBox, E = f.el
-    return { kind: 'box', note: `ONE plain solid block, NOT a picture: ${L.w}x${L.h}px (only ${L.h}px thick) with its top-left at ${E.x},${E.y} before the turn${E.x < 0 ? ` (it starts ${-E.x}px past the left page edge)` : ''}, filled flat ${colourName(f.bg)} ${hexOf(f.bg)}, fully opaque, then turned by transform: rotate(${f.rotate}deg) round its centre; no text on it, no border, no shadow` }
+    return { kind: 'box', note: `ONE plain solid block, NOT a picture: ${L.w}x${L.h}px (only ${L.h}px thick) with its top-left at ${E.x},${E.y} before the turn${E.x < 0 ? ` (it starts ${-E.x}px past the left page edge)` : ''}, filled flat ${colourName(f.bg)} ${hexOf(f.bg)}, ${f.blend ? `with mix-blend-mode: ${f.blend} (where it crosses the ${/multiply|darken|burn/.test(f.blend) ? 'picture or ink under it the two darken together like overprinted inks; NOT an opaque block covering it' : 'block under it the colours mix'}; set it AFTER that picture so it lies on top)` : 'fully opaque'}, then turned by transform: rotate(${f.rotate}deg) round its centre; no text on it, no border, no shadow` }
   }
   return null
 }
@@ -5594,7 +5597,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const bgPic = d.kind && !f.regionKids.length && /^linear-gradient/.test(f.bgImage ?? '') && !/gradient/.test(d.note ?? '') && P.filter((p) => p.t).length >= 3 && f.rect.w * f.rect.h >= 40000
     // n181: a small card turned on its own over the page (round 18 e1 dragged card: said only 'tilted 4° clockwise white
     // card', so the tilt went onto the first lane and the card itself was lost)
-    const turned = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h < 0.15 * 1280 * 900 && T.length >= 2 && T.filter((t) => (d.note ?? '').includes(t)).length < T.length
+    const turned = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h < 0.15 * 1280 * 900 && T.length >= 2 && (T.filter((t) => (d.note ?? '').includes(t)).length < T.length ||
+      // n228: words all quoted but its painted label pills and avatar circle unsaid (round 22 e1 dragged card: built bare)
+      (P.some((p) => !p.t && p.fill?.a > 0.5) && !/circle|pill|#[0-9a-f]{6}/i.test(d.note ?? '')))
     // n204: a turned card painted by a gradient with its own typed lines and a small chip block (round 20 e4 card visual:
     // said as 'tilted gradient "•••• 4242 H. MEHTA 09/28"', built squat with one run-on line and no chip)
     const gradCard = !turned && Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && f.layoutBox && !f.regionKids.length && /^linear-gradient/.test(f.bgImage ?? '') && f.ownLines && f.ownLook && f.rect.w * f.rect.h < 0.15 * 1280 * 900
@@ -5627,9 +5632,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n222: a bare look note that quotes none of the region's own words (round 21 e5 danger zone said only 'white card':
     // built as an empty card, its 'Delete team' title, warning line and red button lost)
     const mute = d.kind && d.note && !f.regionKids.length && T.length >= 2 && P.filter((p) => p.t).length >= 3 && !T.some((t) => d.note.includes(t.slice(0, 20))) && !/\d+px|#[0-9a-f]{6}|part by part/i.test(d.note)
+    // n228: a small card or bar note of words only over 2+ wordless painted parts (round 22 e1 board bar: its three
+    // avatar circles and the filled Filter / Group chips unsaid, built as plain links; engineering review column: only 4
+    // words, so 'vague' (5+) passed it by and its card's label pill was lost)
+    const unsaidDots = d.kind && d.note && !f.regionKids.length && !weak && !vague && P.filter((p) => !p.t && p.fill?.a > 0.5 && p.w * p.h <= 4000).length >= 1 && P.filter((p) => !p.t && (p.fill || p.img)).length >= 2 && P.filter((p) => p.t).length >= 3 && P.filter((p) => p.t).length < 5 &&
+      !/#[0-9a-f]{6}|circle|pill|chip|avatar|part by part/i.test(own) && P.filter((p) => !p.t && p.fill?.a > 0.5).every((p) => !own.includes(hexOf(p.fill)))
     // n198: a ruled grid background with blocks laid over it (round 20 e1 week grid: events and hour labels lost)
     const ruled = /^a ruled grid of thin lines/.test(d.note ?? '') && P.length >= 3
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered && !mute) return
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered && !mute && !unsaidDots) return
     let note = partsNote(P, f)
     if (ruled) { d.note = `the region itself is a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (its left edge EXACTLY at x=${Math.round(f.rect.x)}, its right edge at x=${Math.round(f.rect.x + f.rect.w)}; any label gutter beside it is no wider than its labels, so the grid is never pushed right) painted as ${d.note.split('; centred on top of it')[0].replace(/ block$/, '')}`; note = `laid over it (and beside it, where a part sits outside its box) ${note}` }
     if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
@@ -5645,7 +5655,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n179: a page-coloured card lifted by a soft shadow is still a card (round 18 e5 map popup: white fill and shadow
     // unsaid, built see-through over the map)
     const shadowCard = visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && R.w * R.h >= 20000
-    const panelPaint = !frame && ((R.w * R.h >= 40000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic || shadowCard)
+    // n228: 36000, not 40000 (round 22 e1 engineering review column 296x135: its grey panel lost, the card on the page)
+    const panelPaint = !frame && ((R.w * R.h >= 36000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic || shadowCard)
     const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}${visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.archTop ? `, border-radius ${Math.round(f.radius)}px ${Math.round(f.radius)}px 0 0 (an ARCH: ROUND TOP, straight sides, SQUARE bottom corners, NOT a pill)` : f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.archTop ? ', overflow hidden (the panes are clipped to the arch)' : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''

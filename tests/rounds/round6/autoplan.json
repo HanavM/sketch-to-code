@@ -658,7 +658,7 @@
    ],
    [
     "steps",
-    "progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: \"✓ Cart\" (green) — \"Shipping\" (bold near-black, current step) — \"Payment\" (grey) — \"Review\" (grey); each word in its own colour: \"✓ Cart\" #16a34a, \"Shipping\" #1c1917, \"Payment\" #a8a29e, \"Review\" #a8a29e"
+    "progress steps in one row, each pair joined by a short 40px 2px-thin light grey line: \"✓ Cart\" (green) — \"Shipping\" (bold near-black, current step) — \"Payment\" (grey) — \"Review\" (grey); each word in its own colour: \"✓ Cart\" #16a34a, \"Shipping\" #1c1917, \"Payment\" #a8a29e, \"Review\" #a8a29e; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 43x17 at 80,96 14px #16a34a \"✓ Cart\"; 60x16 at 187,97 14px bold #1c1917 \"Shipping\"; 55x16 at 311,97 14px #a8a29e \"Payment\"; 46x16 at 430,97 14px #a8a29e \"Review\"; 40x2 at 135,104 #d6d3d1 fill; 40x2 at 259,104 #d6d3d1 fill; 40x2 at 378,104 #d6d3d1 fill"
    ],
    [
     "form",
