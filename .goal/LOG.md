@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T22:20Z | n225 spreadsheet widths, rows, fills and selection; product shoe, thumbnails, rating bars | e5 47 to 88, e2 56 to 89; round 22 83. ~216k.
 2026-10-25T21:40Z | n224 round 22 written: ten harder pages, auto-planned and built live | first look 75 over 10; spreadsheet 47, product page 56 weakest. ~790k.
 2026-10-25T20:15Z | n223 gantt today line and milestones said to the exact px | e3 gantt 79 to 94; round 21 90. ~76k.
 2026-10-25T19:50Z | n222 danger zone said part by part, inset-shadow tab underline and tab rule | e5 team settings 82 to 89; round 21 88. ~68k.

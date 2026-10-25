@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 22 is written and built: ten harder pages at 75% on first try. Next I fix the spreadsheet grid, the weakest page."
+now: "Round 22 is up to 83%: the spreadsheet and product page now build almost right. Next I fix the risograph poster, the weakest page."
 round: 22
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 75]
-lock: {by: run-20261025T2148, until: "2026-10-25T23:18Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 83]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n225 (bef524e on try/n3-vocabulary): r22 e5 sheet said every column as A's 220px, rows unpinned (built ~50px), total row's 2px top rule read as 'H8 selected', cell fills lost, selection (rgba box over a div grid) read as frosted glass. Now a div-grid sheet says each column width, fixed 26px rows and where the grid ends, inks, alignment, frozen and total rules and every filled cell; a selection over a div grid says covered cells, pale fill (never glass), handle overhang. e2: ::after shoe in a gradient tile said with size, place, radius, turn, shadow and the radial paint; empty cards say fill and the outlined chosen one; stacked like bars say each fill. Re-planned rounds 1-21: r5 e5, r16 e1 change; live r5 e5 86 (was 87, noise; old kept). Live r22 e5 47 to 88, e2 56 to 89. Round 22 83 (82.8). Vitest same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-25 n225 live r22 e5 ~84k, e2 ~89k, r5 e5 ~43k billed (no cap set)."
   - "n224 (23f5948 on try/n3-vocabulary): round 22 written untuned (split blend, isometric town, glass aurora, brutal spread, riso halftone; kanban, product page, week calendar, code editor, spreadsheet). Live: c1 89, c2 87, c3 77, c4 80, c5 64, e1 79, e2 56, e3 89, e4 86, e5 47; round 22 75. e3 build threw SubText is not defined (picture still scored). Vitest same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-25 n224 live round 22 ~790k billed (no cap set)."
   - "n223 (3503fd8 on try/n3-vocabulary): r21 e3 gantt words were px off: today line said 614px in (1px left: a 2px line at IoU 0.33 counted missed), milestones said the turned box top (built 4px high, IoU 0.68). Now the today line says its exact left edge and a milestone its own square top and centre. Re-planned rounds 1-21: gantt notes in r4, r12, r17, r21 change. Live e3 79 to 94 (colour 100, structure 99, layout 97, all 6 regions). Round 21 90 (89.8). Vitest same 2 env failures; typecheck clean."
@@ -717,4 +719,5 @@ nodes:
   - {id: n222, parent: n221, kind: step, title: "Free first, ~200k live: r21 e3 gantt (79) today line (not a box of its own, missed every run) and e5 team settings (82); e4 Home and Search built side by side. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Team settings 82 to 89: danger zone card filled, tab underline and rule built; gantt untouched. Round 21 88."}
   - {id: n223, parent: n222, kind: step, title: "Free first, ~200k live: r21 e3 gantt (79), now the weakest page: its today line is drawn right but is not a box of its own in the build; check build vs measure, fix the real gap, re-run", status: done, branch: try/n3-vocabulary, result: "Gantt 79 to 94: today line and milestones said to the exact px; all regions matched."}
   - {id: n224, parent: n223, kind: step, title: "Free first, ~400k live: write round 22, ten pages harder than round 21 (5 creative, 5 everyday), measure, auto-plan and build them all live, score", status: done, branch: try/n3-vocabulary, result: 'Round 22 written and built live: 75 over 10; spreadsheet 47, product page 56, riso 64 weakest.'}
-  - {id: n225, parent: n224, kind: step, title: 'Free first, ~200k live: r22 e5 spreadsheet (47): rows built ~50px (26 target), selection said as glass, conditional fills lost; then e2 product page (56) ::after shoe, thumbnails, rating bars. Fix, re-run', status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n225, parent: n224, kind: step, title: 'Free first, ~200k live: r22 e5 spreadsheet (47): rows built ~50px (26 target), selection said as glass, conditional fills lost; then e2 product page (56) ::after shoe, thumbnails, rating bars. Fix, re-run', status: done, branch: try/n3-vocabulary, result: 'Spreadsheet 47 to 88, product page 56 to 89: widths, rows, fills, selection, shoe, bars said. Round 22 at 83.'}
+  - {id: n226, parent: n225, kind: step, title: 'Free first, ~200k live: r22 c5 riso halftone (64): circle dot screen built square, headline too big, pink misregistered offset and star lost; then c3 glass aurora (77) glass nav built solid. Fix, re-run', status: open, branch: try/n3-vocabulary, result: null}
