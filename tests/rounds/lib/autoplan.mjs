@@ -64,6 +64,9 @@ export function factsInPage() {
       rect: { x: r.x, y: r.y, w: r.width, h: r.height },
       text: (el.innerText || '').replace(/\s+/g, ' ').trim(),
       ownText,
+      // n204: a card's own lines as typed (line breaks kept: round 20 e4 card visual '•••• 4242' / '' / 'H. MEHTA 09/28')
+      ownLines: ownText && el.querySelector('br') ? (el.innerText || '').split('\n').map((x) => x.replace(/\s+/g, ' ').trim()) : null,
+      ownLook: ownText ? { pad: cs.padding, ink: cs.color, px: Math.round(parseFloat(cs.fontSize)), family: cs.fontFamily, bold: Number(cs.fontWeight) >= 600 } : null,
       kidTexts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
       kidCount: kids.length,
       regionKids,
@@ -1501,7 +1504,7 @@ export function factsInPage() {
           // rest lost)
           out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, b.height >= (s.whiteSpace === 'nowrap' ? 3 : 1.8) * parseFloat(s.fontSize) * 1.2 && own.length > 70 ? 1200 : runs ? 140 : 70), lh: Math.round(parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2), nl: own && !/^vertical/.test(s.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(k); const tops = [...rg.getClientRects()].filter((q) => q.width > 1).map((q) => q.top).sort((x, y) => x - y); const lh0 = parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2; return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > lh0 * 0.6 ? n + 1 : n), 0) })() : 0, runs, cap, wrap, face: own && gen(s.fontFamily) !== bodyGen && gen(s.fontFamily) !== 'mono' ? gen(s.fontFamily) : null,
             // n196: the part's place in page order (paint order where parts overlap), capitals by text-transform, right-set lines
-            di: out.length, caps: own && s.textTransform === 'uppercase' && own !== own.toUpperCase(), tar: own && s.textAlign === 'right',
+            di: out.length, caps: own && s.textTransform === 'uppercase' && own !== own.toUpperCase(), tar: own && s.textAlign === 'right', tac: own && s.textAlign === 'center',
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
@@ -2343,12 +2346,21 @@ export function factsInPage() {
           const c = getComputedStyle(k), leaves = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))
           const field = leaves.find((g) => parseFloat(getComputedStyle(g).borderTopWidth) >= 1 && g.getBoundingClientRect().height >= 30)
           const button = leaves.find((g) => g !== field && filled(g) && g.getBoundingClientRect().height >= 26)
-          return { t: txt(k), field: field ? txt(field) : null, button: button ? { t: txt(button), fill: filled(button) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700 }
+          // n204: the coupon field's own look (dashed green border, pale green fill, green ink), a row's amount in its own
+          // colour (the green discount), and a filled note box with its whole copy (round 20 e4: built plain, grey, cut off)
+          const fc = field ? getComputedStyle(field) : null
+          const amt = !field && leaves.length === 2 ? leaves[1] : null
+          const ai = amt ? rgba(getComputedStyle(amt).color) : null, ri = rgba(c.color)
+          const amtInk = ai && ri && Math.hypot(ai.r - ri.r, ai.g - ri.g, ai.b - ri.b) > 40 ? rgba(getComputedStyle(amt).color) : null
+          const note = !field && !k.children.length && filled(k) && txt(k).split(' ').length >= 5 ? { fill: filled(k), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), h: Math.round(k.getBoundingClientRect().height), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)) } : null
+          return { t: txt(k), field: field ? txt(field) : null, fieldLook: fc ? { style: fc.borderTopStyle, bc: rgba(fc.borderTopColor), fill: filled(field), ink: rgba(fc.color), bold: Number(fc.fontWeight) >= 700, h: Math.round(field.getBoundingClientRect().height) } : null, button: button ? { t: txt(button), fill: filled(button), ink: rgba(getComputedStyle(button).color) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700, amtInk, note }
         })
         // where the first row starts, and that nothing sits above it (round 6 e4: a heading was invented and rows began at the top)
         const top = Math.round(rep[0].getBoundingClientRect().top - el.getBoundingClientRect().top)
         const above = kids.some((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top)
-        return { type: 'order', items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, fill: badges[i].fill, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
+        const headEl = above ? kids.find((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top) : null
+        const heading = headEl ? { t: txt(headEl), px: Math.round(parseFloat(getComputedStyle(headEl).fontSize)), bold: Number(getComputedStyle(headEl).fontWeight) >= 600, gap: Math.round(rep[0].getBoundingClientRect().top - headEl.getBoundingClientRect().bottom) } : null
+        return { type: 'order', heading, items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, fill: badges[i].fill, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
@@ -2990,10 +3002,13 @@ function denseNote(d) {
       return `table, columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows${d.chips.length ? `; status pills ${chipList(d.chips)}` : ''}`
     case 'order': {
       const t = d.thumb
-      const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${x.button ? ` with a ${colourName(x.button.fill)} button ${quote(x.button.t)} right of it` : ''}` : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right)`)
+      const fl = (L) => L ? ` (${L.h}px tall, ${L.style === 'solid' ? '' : `${L.style.toUpperCase()} `}1px ${hexOf(L.bc)} border${L.fill ? `, ${hexOf(L.fill)} fill` : ''}, ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text)` : ''
+      const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${fl(x.fieldLook)}${x.button ? ` with a ${colourName(x.button.fill)} (${hexOf(x.button.fill)}) button ${quote(x.button.t)} right of it` : ''}`
+        : x.note ? `a ${hexOf(x.note.fill)} filled box${x.note.rad ? `, ${x.note.rad}px rounded` : ''}, about ${x.note.h}px tall, holding the whole note word for word in ${x.note.px}px ${colourName(x.note.ink)} (NOT a label/amount row): ${quote(x.t, 160)}`
+        : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right${x.amtInk ? `, the amount in ${colourName(x.amtInk)} ${hexOf(x.amtInk)}` : ''})`)
       // n148: pictures of different colours say each one (round 12 e4: green, sand, lilac all built green)
       const mixed = d.items.some((x) => x.fill && t.fill && dist(x.fill, t.fill) > 20)
-      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? mixed ? 'solid colour (each its own, given per row, plainly darker than the panel) ' : `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}${mixed && x.fill ? `, picture ${hexOf(x.fill)}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}${d.heading ? `, headed ${d.heading.px}px ${d.heading.bold ? 'bold ' : ''}${quote(d.heading.t, 32)} at its top (keep it), the first row ${d.heading.gap}px under it` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? mixed ? 'solid colour (each its own, given per row, plainly darker than the panel) ' : `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}${mixed && x.fill ? `, picture ${hexOf(x.fill)}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then ${/" and "/.test(d.att) ? 'side by side small bordered rounded attachment chips' : 'a bordered rounded attachment box'} ${quote(d.att, 80)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
@@ -3335,6 +3350,8 @@ function partsNote(P, f) {
     // n187: a struck title (round 18 e1 Done cards: <s> text built plain and wrapped)
     if (p.strike) paint.push(`STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap)`)
     if (p.ra) paint.push('text right-aligned in its box (a line number in the gutter)')
+    // n204: a plain word centred in a wide box (round 20 e1 day heads 'MON' over '19': built at the box's left)
+    else if (p.tac && p.t && !p.fill && !p.border && p.w >= 60 && p.t.length * p.px * 0.6 < 0.6 * p.w) paint.push('its text CENTRED in that box (text-align: center)')
     // n170: a text part padded in from its left (round 16 e3 diff rows: padding-left 52px past the gutter numbers, built
     // with the code starting over the numbers)
     if (p.t && p.padL >= 8 && !p.ra && Math.abs(p.rot ?? 0) >= 2 && Math.abs(p.rot) <= 60) paint.push(`padding ${p.padL}px at the sides`)
@@ -3387,6 +3404,8 @@ function sheetNote(G) {
     if (c.bold) bits.push('bold')
     if (c.ink && base && dist(c.ink, base) > 30) bits.push(hexOf(c.ink))
     if (c.right) bits.push('right-aligned')
+    // n204: a word cell in a column of right-aligned numbers stays left (round 20 e3 month heads 'Oct' 'Nov': built right)
+    else if (c.t && !/^[-−(]?[£$€]?[\d.,]+%?\)?$/.test(c.t) && (() => { const col = G.body.map((r) => r[j]).filter((x) => x?.t); return col.filter((x) => x.right).length >= Math.max(2, col.length / 2) })()) bits.push('LEFT-aligned (a word, NOT right like the numbers under it)')
     if (c.fill) bits.push(`${hexOf(c.fill)} fill`)
     if (c.ol) bits.push(`ACTIVE CELL: ${c.ol.w}px ${hexOf(c.ol.c)} outline drawn inside the cell`)
     return `${L} ${c.t ? quote(c.t, 24) : '(no words)'}${bits.length ? ` (${bits.join(', ')})` : ''}`
@@ -4141,7 +4160,7 @@ function decideOne(f, page, marked, said) {
     // a titled chart/table/form panel on a near-page card keeps 'card' (it was 'white card "Revenue by month"' before)
     const card = fill && (bordered || f.radius >= 8) && /^(r?table|donut|lines|form)$/.test(f.dense.type) && f.dense.title && bgName && /light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30 ? `${bgName} card` : null
     // an order summary on a faint tint keeps it: a full-height side panel, or a card (round 6 e4: said with no fill)
-    const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge, one flat colour, no gradient${f.border.left >= 1 && f.rect.x > 2 ? `, a thin ${colourName(f.border.leftColour)} line down its left edge` : ''})` : 'card'}` : null
+    const side = !card && fill && f.dense.type === 'order' ? `${bgName} ${f.rect.y <= 2 && f.rect.h >= 860 ? `full-height side panel (${Math.round(f.rect.w)}px wide, flush to the ${f.rect.x + f.rect.w >= 1270 ? 'right' : 'left'} edge, one flat colour, no gradient${f.border.left >= 1 && f.rect.x > 2 ? `, a thin ${colourName(f.border.leftColour)} line down its left edge` : ''})` : f.rect.h >= 400 ? `card, ONE ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px panel at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (${hexOf(f.bg)} fill${f.border?.w >= 1 ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : ''}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}; its full height kept even where the content ends early)` : 'card'}` : null
     const col = card ?? side ?? (bgName && !(/light grey|white/.test(bgName) && dist(f.bg, page.bg) < 30) ? bgName : null)
     const what = f.tag === 'aside' ? 'sidebar' : null
     return { kind: 'box', note: withFx(`${uniq([col, what]).join(' ')}${col || what ? ', ' : ''}${dn}`) }
@@ -5171,6 +5190,19 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n181: a small card turned on its own over the page (round 18 e1 dragged card: said only 'tilted 4° clockwise white
     // card', so the tilt went onto the first lane and the card itself was lost)
     const turned = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && !f.regionKids.length && visible(f.bg) && f.bg.a > 0.9 && f.rect.w * f.rect.h < 0.15 * 1280 * 900 && T.length >= 2 && T.filter((t) => (d.note ?? '').includes(t)).length < T.length
+    // n204: a turned card painted by a gradient with its own typed lines and a small chip block (round 20 e4 card visual:
+    // said as 'tilted gradient "•••• 4242 H. MEHTA 09/28"', built squat with one run-on line and no chip)
+    const gradCard = !turned && Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.el && f.layoutBox && !f.regionKids.length && /^linear-gradient/.test(f.bgImage ?? '') && f.ownLines && f.ownLook && f.rect.w * f.rect.h < 0.15 * 1280 * 900
+    if (gradCard) {
+      const L = f.layoutBox, K = f.ownLook, sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}` : ''
+      const blocks = P.filter((p) => !p.t && p.fill).map((q) => `a ${q.w}x${q.h}px ${hexOf(q.fill)} ${q.radius ? `${q.radius}px rounded ` : ''}block (its own empty element, display block)`)
+      const ls = []; let gap = 0
+      for (const t of f.ownLines) { if (!t) { gap++; continue } ls.push(`${gap ? `${gap} empty line${gap > 1 ? 's' : ''} (a <br>) then ` : ''}${quote(t, 40)}`); gap = 0 }
+      const fam = /mono|courier|consolas|menlo/i.test(K.family) ? 'monospace (Courier New)' : /georgia|serif/i.test(K.family) && !/sans/i.test(K.family) ? 'serif' : 'sans-serif'
+      out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px card (its untransformed size: keep BOTH, it is ${L.w > L.h ? 'wider than tall, NOT squat' : 'tall'}), position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, background: ${cssHex(f.bgImage)}${sh}; transform: rotate(${f.rotate}deg) on THIS CARD ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}); padding ${K.pad}; ${K.px}px ${K.bold ? 'bold ' : ''}${fam} ${hexOf(parse(K.ink))} text; inside it, top to bottom: ${[...blocks, ...ls].join(', then ')}` })
+      marked.add(f.role)
+      return
+    }
     if (turned) {
       const L = f.layoutBox, sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}` : ''
       const hx = (c) => hexOf(c)

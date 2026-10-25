@@ -143,3 +143,26 @@ and 20 gain these words on their top bars, toolbars, tab rows and status bars; n
 
 Round 20 holds at about **87%**. Vitest same 2 env failures; typecheck clean after build.
 Next: e4 checkout 77 (summary title lost, card visual squat), e1 week calendar 76; e3 header labels built right-aligned.
+
+## n204: the order summary whole, the card visual's own lines, centred day heads, word cells left (2026-10-25, ~346k billed)
+
+Planner (words only): an order summary now says its panel's size and place (a tall card keeps its full height), its
+heading, the coupon field's own look (dashed green border, pale green fill, green text), an amount in its own colour
+(the green discount) and a filled note box with its whole copy (it was said as a "label left, amount right" row and cut
+off); a turned card painted by a gradient says its size, place, padding, face, its chip block and its lines with the
+blank line between them (built squat with one run-on line and no chip); a plain word centred in a wide box says so
+(round 20 e1 and round 6, 11 calendars' day heads, built at the left); in a spreadsheet, a word cell in a column of
+right-aligned numbers is said LEFT-aligned (e3 month heads built right). Re-planned all rounds: rounds 6, 11-15, 17 and 20
+gain these words; no marks changed (round 11 e1 and 15 e1 "tab" read as "box" on this machine with the old code too).
+Pipeline: a component root that hard-codes `relative` beside the className it is handed now yields to a passed
+`absolute`/`fixed` (Tailwind puts `.relative` after `.absolute`, so the first e4 try built the card 60px low in the
+flow); unit-tested, it did not need to fire on the kept run.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e4 checkout | 77% | **92%** | "Order summary" heading, full-height panel, green dashed coupon, green discount, the returns note box whole, card with chip and two lines in place (a first try at 74% had the card 60px low) |
+| e1 week calendar | 76% | **88%** | day heads and dates centred over their columns (names now sit on the dates: next fix) |
+| e3 spreadsheet | 76% | **77%** | month heads left-aligned |
+
+Round 20: **89%** (was 87). Vitest same 2 env failures (1454 tests); build clean.
+Next: e3 spreadsheet 77 (chart axis, selected range tint), e1 day names to sit at the top of their head box, e2 team chat 84.

@@ -21,7 +21,7 @@ import { appPalette, deltaE, hexOf, parseCssColor, type PaletteEntry } from './p
 import type { DomSnapshot } from '@s2c/dom'
 
 export interface FinishEdit {
-  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped'
+  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped' | 'position-yields'
   detail: string
 }
 
@@ -98,6 +98,16 @@ export function finishSource(code: string, palette: PaletteEntry[], asked: Reado
     }
     edits.push({ kind: 'duplicate-path-dropped', detail: `d="${key.slice(0, 24)}…"` })
     return '\n'
+  })
+
+  // ④ a component root that hard-codes `relative` next to the className it is handed: in Tailwind's
+  // stylesheet `.relative` comes after `.absolute`, so a caller's `absolute left-[470px] top-[440px]` lost and
+  // the element sat in the flow under the header, its top/left now an offset from there (n204, round 20 e4:
+  // the card visual built 60px low over the form). The caller's position wins instead.
+  out = out.replace(/className=\{`([^`$]*?)\brelative\b([^`$]*?)\$\{className\}([^`]*)`\}/g, (whole, a: string, b: string, c: string) => {
+    if (/\b(absolute|fixed|sticky)\b/.test(a + b + c)) return whole
+    edits.push({ kind: 'position-yields', detail: 'a hard-coded relative now yields to an absolute/fixed className' })
+    return `className={\`${a}\${/\\b(absolute|fixed|sticky)\\b/.test(className) ? '' : 'relative'}${b}\${className}${c}\`}`
   })
 
   return { code: out, edits }
