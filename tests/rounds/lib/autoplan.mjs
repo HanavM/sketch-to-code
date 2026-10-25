@@ -2979,7 +2979,7 @@ function denseNote(d) {
     case 'datePicker': {
       const on = d.presets.find((p) => p.on)
       // n199: a plain month in a sidebar (round 20 e1: no presets, no shadow, in the flow) was said as a floating picker and built as one
-      if (!d.presets.length && !d.shadow && !d.abs && !d.btns.length) return `a small month calendar sitting IN the sidebar flow (part of the sidebar, NOT a floating picker, NOT a popup, no panel, no border, no shadow)${d.month ? `, headed ${quote(d.month)} in bold at its left` : ''}: 7 columns of ${d.cell}px round day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length === 1 ? `; today ${quote(d.ends[0])} a filled ${hexOf(d.endFill)} circle with a bold white number` : d.ends.length ? `; ${d.ends.map((t) => quote(t)).join(' and ')} filled ${hexOf(d.endFill)} circles with white numbers` : ''}${d.mid ? `, the rest of that week (${d.mid.from} to ${d.mid.to}) pale ${hexOf(d.mid.fill)} circles with grey numbers` : ''}`
+      if (!d.presets.length && !d.shadow && !d.abs && !d.btns.length) return `a small month calendar sitting IN the sidebar flow (part of the sidebar, NOT a floating picker, NOT a popup, no panel, NO background fill: transparent, the white page shows through it, NOT grey, no border, no shadow)${d.month ? `, headed ${quote(d.month)} in bold at its left` : ''}: 7 columns of ${d.cell}px round day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length === 1 ? `; today ${quote(d.ends[0])} a filled ${hexOf(d.endFill)} circle with a bold white number` : d.ends.length ? `; ${d.ends.map((t) => quote(t)).join(' and ')} filled ${hexOf(d.endFill)} circles with white numbers` : ''}${d.mid ? `, the rest of that week (${d.mid.from} to ${d.mid.to}) pale ${hexOf(d.mid.fill)} circles with grey numbers` : ''}`
       return `an OPEN date-range picker floating over the page (a ${d.fill ? hexOf(d.fill) : 'white'} panel${d.radius ? `, ${d.radius}px rounded corners` : ''}${d.shadow ? ', a big soft drop shadow so it sits above the cards under it' : ''}; NOT page numbers): ${d.presets.length ? `on the left a ${d.presetW}px column of preset lines ${d.presets.map((p) => quote(p.t, 16)).join(', ')}${on ? `, ${quote(on.t)} the chosen one in bold ${hexOf(on.ink)}, the rest grey` : ''}; ` : ''}beside it a month calendar${d.month ? ` headed ${quote(d.month)} (centred)` : ''}: 7 columns of ${d.cell}px day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length ? `; the range ends ${d.ends.map((t) => quote(t)).join(' and ')} are filled ${hexOf(d.endFill)} rounded cells with white numbers` : ''}${d.mid ? `, the days between (${d.mid.from} to ${d.mid.to}) a pale ${hexOf(d.mid.fill)} band with dark numbers` : ''}${d.btns.length ? `; bottom right the buttons ${d.btns.map((b) => `${quote(b.t)} (${b.fill ? `filled ${hexOf(b.fill)}, ${colourName(b.ink)} text` : 'outlined'})`).join(' and ')}` : ''}`
     }
     case 'kpi1': return `stat card: ${d.labelPx}px ${colourName(d.labelInk)} label ${quote(d.label, 24)} on top, under it big ${d.valuePx}px bold ${quote(d.value, 14)}${d.extra.map((x) => `, under that ${x.bold ? 'bold ' : ''}${hexOf(x.ink)} ${quote(x.t, 20)}`).join('')}`
@@ -3407,7 +3407,13 @@ function partsNote(P, f) {
   const order = [...P].sort((a, b) => a.y - b.y || a.x - b.x)
   const listed = order.map(one).join('; ')
   const keys = [...kfs].filter(Boolean)
-  return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
+  // n206: a wide one-band row of worded parts (a calendar's day heads, round 20 e1) is said as ONE header row, or the
+  // parts were built loose and the header region was missed
+  const bx0 = Math.min(...P.map((p) => p.x)), bx1 = Math.max(...P.map((p) => p.x + p.w)), by0 = Math.min(...P.map((p) => p.y)), by1 = Math.max(...P.map((p) => p.y + p.h))
+  const cols = new Set(P.map((p) => Math.round((p.x + p.w / 2) / 12))).size
+  const band = P.length >= 6 && P.every((p) => p.t && !p.tpath && !(Math.abs(p.rot ?? 0) >= 2)) && by1 - by0 <= 60 && bx1 - bx0 >= 600 && cols >= 4 && (() => { const ws = P.filter((p) => p.w > 40).map((p) => p.w); return ws.length >= P.length - 2 && Math.max(...ws) - Math.min(...ws) <= 4 })()
+    ? `ONE header row: a single ${bx1 - bx0}x${by1 - by0}px band element at ${bx0},${by0} holding all ${P.length} parts (${cols} equal columns side by side, each column's parts stacked in it), NOT loose parts scattered over the page; ` : ''
+  return `${band}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -3649,6 +3655,10 @@ function decideRest(f, page, marked, said) {
   // yellow panel, said 'button', was built as a pill in the page's colours)
   if (d?.kind === 'button' && d.note && f.bg?.a > 0.9 && !d.note.includes(hexOf(f.bg)) && f.text && f.text.length <= 32) {
     d.note += ` (exactly: ${hexOf(f.bg)} fill, ${hexOf(f.colour)} text, ${Math.round(w0)}x${Math.round(h0)}px, ${f.radius <= 1 ? 'square corners: border-radius 0, NOT a pill' : f.radius >= h0 / 2 - 2 ? 'pill ends' : `${Math.round(f.radius)}px rounded`})`
+  }
+  // n206: a small button placed absolutely over a bar (round 20 e3 'Sum: 13,797' over the sheet tabs: dropped) says its place
+  if (d?.kind === 'button' && d.note && f.box0?.abs && w0 <= 240 && h0 <= 48 && !/ at \d+,\d+/.test(d.note)) {
+    d.note += `; its own element at page ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)`
   }
   // n147: words inside a round sticker keep their line breaks (round 12 c4 'FREE COFFEE AFTER' built on one line)
   if (d?.kind === 'circle' && d.note && f.text && f.textLines >= 2 && !/lines/.test(d.note) && !f.circleText) {
@@ -4357,7 +4367,7 @@ function decideOne(f, page, marked, said) {
   // reads as a heading line (round 4 c5: built a site title)
   if (fill && !f.text && !f.kidCount && h <= 10 && w >= h * 8) {
     // with a round knob at one end it is a calendar's current-time line (round 6 e5: said 'a progress bar')
-    if (f.pseudoDot && h <= 4) return { kind: 'box', note: `thin solid ${colourName(f.bg)} line only ${Math.round(h)}px tall, ${Math.round(w)}px wide, with a ${f.pseudoDot.px}px round ${colourName(f.bg)} dot on its ${f.pseudoDot.at} end (the current-time line), no text` }
+    if (f.pseudoDot && h <= 4) return { kind: 'box', note: `thin solid ${colourName(f.bg)} line only ${Math.round(h)}px tall, ${Math.round(w)}px wide, with a ${f.pseudoDot.px}px round ${colourName(f.bg)} dot on its ${f.pseudoDot.at} end (the current-time line), no text; exactly ${Math.round(h)}px thick (height: ${Math.round(h)}px, Tailwind h-[${Math.round(h)}px], never h-${Math.round(h)} which is ${Math.round(h)*4}px), much thinner than the drawn pen line, the dot centred on it` }
     // round top corners and square bottom ones on a wide thin strip: a curved arc, a cinema screen (round 8 e4: 'a progress bar')
     if (f.radius >= h * 0.8 && (f.radiusBottom < 1 || f.radiusBottomFlat)) return { kind: 'box', note: `a thin solid ${hexOf(f.bg)} curved screen arc ${Math.round(w)}px wide, ${Math.round(h)}px tall at its middle, its top edge bowed up and its ends tapering (border-radius: 50% / 100% 100% 0 0), no text (NOT a progress bar)` }
     // a divider says its exact thickness and that the pen line is thicker than it: 'only 2px tall' alone
@@ -5556,7 +5566,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const d = out.get(f.role), L = f.leadKid
     if (!d?.note || !L || !f.regionKids.length || d.note.trim() !== quote(L.t)) return
     const fl = visible(L.fill) && L.fill.a > 0.5
-    d.note = `FIRST, at the very top of this region (above ${f.regionKids.map((r) => `the ${r}`).join(' and ')}): ${fl ? `a ${hexOf(L.fill)} filled ` : 'a '}${L.w}x${L.h}px ${L.radius ? `${L.radius}px rounded ` : ''}button at ${L.x},${L.y}${L.shadow ? ' with a soft shadow' : ''}, ${L.px}px ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text ${quote(L.t)}; the other parts follow under it`
+    // n206: a side column holding sub-regions says its own wrapper and edge rule (round 20 e1 sidebar: built loose, no
+    // right rule, region missed)
+    const R = f.rect, W = Math.round(R.w), H = Math.round(R.h), X = Math.round(R.x), Y = Math.round(R.y)
+    const B = f.border ?? {}
+    const rules = [['RIGHT', B.right, B.rightColour], ['LEFT', B.left, B.leftColour]].filter(([, w, c]) => w >= 1 && visible(c))
+    const col = H >= 300 && W >= 160 && W <= 0.6 * 1280 && (X <= 2 || X + W >= 1278) && Y + H >= 0.95 * 900 && !(B.w >= 1 && visible(B.colour)) && rules.length <= 1
+    const wrap = col ? `the region itself is ONE ${W}x${H}px side column element at ${X},${Y} (its own wrapper running to the page bottom, ${visible(f.bg) && f.bg.a > 0.9 ? `${hexOf(f.bg)} fill` : 'no fill'}${rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, full height)` : ''}) holding the button and ${f.regionKids.map((r) => `the ${r}`).join(' and ')} inside it, never laid loose on the page; ` : ''
+    d.note = `${wrap}FIRST, at the very top of this region (above ${f.regionKids.map((r) => `the ${r}`).join(' and ')}): ${fl ? `a ${hexOf(L.fill)} filled ` : 'a '}${L.w}x${L.h}px ${L.radius ? `${L.radius}px rounded ` : ''}button at ${L.x},${L.y}${L.shadow ? ' with a soft shadow' : ''}, ${L.px}px ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text ${quote(L.t)}; the other parts follow under it`
   })
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

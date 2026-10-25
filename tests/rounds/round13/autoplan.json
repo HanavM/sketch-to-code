@@ -159,15 +159,15 @@
    ],
    [
     "cta",
-    "light grey pill black text button \"Pre-order\"; its text #07070b (black, NOT the page's light grey text) (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill ends)"
+    "light grey pill black text button \"Pre-order\"; its text #07070b (black, NOT the page's light grey text) (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill ends); its own element at page 76,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "cta2",
-    "outline pill button \"Listen ▶\""
+    "outline pill button \"Listen ▶\"; its own element at page 250,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "glass-tag",
-    "white button \"● 38 Hz – 24 kHz\""
+    "white button \"● 38 Hz – 24 kHz\"; its own element at page 1000,690 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },
@@ -237,7 +237,7 @@
    ],
    [
     "cta",
-    "peach dark teal text button \"Shop decks\"; its text #1b3a2f (dark teal, NOT the page's cream text) (exactly: #f2c14e fill, #1b3a2f text, 160x48px, 10px rounded)"
+    "peach dark teal text button \"Shop decks\"; its text #1b3a2f (dark teal, NOT the page's cream text) (exactly: #f2c14e fill, #1b3a2f text, 160x48px, 10px rounded); its own element at page 560,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },
@@ -451,7 +451,7 @@
    ],
    [
     "cta",
-    "pale yellow pill button \"Book a sunrise\" (exactly: #fff3c4 fill, #2a1633 text, 163x46px, pill ends)"
+    "pale yellow pill button \"Book a sunrise\" (exactly: #fff3c4 fill, #2a1633 text, 163x46px, pill ends); its own element at page 56,810 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },

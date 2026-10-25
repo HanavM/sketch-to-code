@@ -351,15 +351,15 @@
    ],
    [
     "label-edge",
-    "white button \"Edge\" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded)"
+    "white button \"Edge\" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded); its own element at page 1110,210 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "label-compute",
-    "white button \"Compute\" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded)"
+    "white button \"Compute\" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded); its own element at page 540,455 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "label-storage",
-    "white button \"Storage\" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded)"
+    "white button \"Storage\" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded); its own element at page 1120,680 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },
@@ -1207,7 +1207,7 @@
    ],
    [
     "invite",
-    "blue white text button \"+ Invite\" (81x35px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 81x35px, 8px rounded)"
+    "blue white text button \"+ Invite\" (81x35px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 81x35px, 8px rounded); its own element at page 1159,30 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "toolbar",

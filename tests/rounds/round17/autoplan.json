@@ -171,7 +171,7 @@
    ],
    [
     "info-row",
-    "the region itself is ONE 1140x56px panel at 70,720, no fill, a 4px #2e5bff rule along its TOP edge only (no other border), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); thick blue border list: \"WHEN\", \"WHERE\", \"COST\" £12 a session, \"BRING\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 285x38 at 70,738 15px #1d3fbf \"Thursdays, 6–9pm\"; 285x17 at 70,738 12px bold #ff4f9a \"WHEN\"; 285x38 at 355,738 15px #1d3fbf \"Unit 4, Canal St.\"; 285x17 at 355,738 12px bold #ff4f9a \"WHERE\"; 285x38 at 640,738 15px #1d3fbf \"£12 a session\"; 285x17 at 640,738 12px bold #ff4f9a \"COST\"; 285x38 at 925,738 15px #1d3fbf \"Ideas, not paper\"; 285x17 at 925,738 12px bold #ff4f9a \"BRING\""
+    "the region itself is ONE 1140x56px panel at 70,720, no fill, a 4px #2e5bff rule along its TOP edge only (no other border), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); thick blue border list: \"WHEN\", \"WHERE\", \"COST\" £12 a session, \"BRING\"; ONE header row: a single 1140x38px band element at 70,738 holding all 8 parts (4 equal columns side by side, each column's parts stacked in it), NOT loose parts scattered over the page; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 285x38 at 70,738 15px #1d3fbf \"Thursdays, 6–9pm\"; 285x17 at 70,738 12px bold #ff4f9a \"WHEN\"; 285x38 at 355,738 15px #1d3fbf \"Unit 4, Canal St.\"; 285x17 at 355,738 12px bold #ff4f9a \"WHERE\"; 285x38 at 640,738 15px #1d3fbf \"£12 a session\"; 285x17 at 640,738 12px bold #ff4f9a \"COST\"; 285x38 at 925,738 15px #1d3fbf \"Ideas, not paper\"; 285x17 at 925,738 12px bold #ff4f9a \"BRING\""
    ]
   ]
  },
@@ -509,11 +509,11 @@
    ],
    [
     "time-range",
-    "dropdown \"Last 1 hour\""
+    "dropdown \"Last 1 hour\"; its own element at page 910,16 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "run-button",
-    "orange near-black text button \"Run\" (80x38px, barely rounded: border-radius 8px, NOT a pill); its text #0f1117 (near-black, NOT the page's light grey text) (exactly: #f97316 fill, #0f1117 text, 80x38px, 8px rounded)"
+    "orange near-black text button \"Run\" (80x38px, barely rounded: border-radius 8px, NOT a pill); its text #0f1117 (near-black, NOT the page's light grey text) (exactly: #f97316 fill, #0f1117 text, 80x38px, 8px rounded); its own element at page 1072,16 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "filter-chips",

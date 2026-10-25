@@ -182,3 +182,21 @@ whole box (round 20 e1 day heads "MON" over "19" were said as the 51px box and b
 
 Round 20: **90%** (was 89). Vitest same 2 env failures (1454 tests); typecheck clean.
 Next: e1 header grouping (the day heads as one header row) and plain sidebar, e2 team chat 84, e3 "Sum" chip.
+
+## n206: one header row, a thin now-line, a plain mini-month, the side column's own wrapper, a placed Sum chip (2026-10-25, ~281k billed)
+
+Planner (words only): a wide row of equal-width worded parts in one band (calendar day heads in round 20 e1 and round 6
+e5, the round 17 c2 info row) is now said as ONE header row element; the current-time line says its exact 2px height
+and that it is thinner than the drawn pen line; the sidebar mini-month says it has no background fill (the n205 try
+built it grey); a side column holding sub-regions (round 20 e1 sidebar) says its own full-height wrapper and its right
+edge rule; a small button placed absolutely says its page place (round 20 e3 "Sum: 13,797" over the sheet tabs, and
+small floating buttons in rounds 3-7, 11, 13, 16, 17). No marks changed.
+
+| page | kept | try | what the try showed |
+|---|---|---|---|
+| e3 spreadsheet | **90%** | 88% | the "Sum: 13,797" chip now built in place over the tabs; grid sat ~4px high, so the 90% build is kept (try saved as e3-spreadsheet-n206try-cmp.png) |
+| e1 week calendar | **88%** | 84%, then 80% | first try: thin now-line, plain mini-month, day names over the dates, all as asked, but sidebar and calendar list not grouped (layout 76); second try with the side-column wrapper: every region found (layout 83) but the calendar list fell to the bottom of the column and event titles went under their times. 88% kept (tries saved as n206try / n206try2) |
+
+Round 20 stays **90%**. Vitest same 2 env failures (1456 tests); typecheck clean.
+Next: say where the calendar list sits inside the side column (its y, not flowing to the bottom) and that an event's
+title comes before its time; e2 team chat 84.

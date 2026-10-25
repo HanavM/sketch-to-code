@@ -555,7 +555,7 @@
    ],
    [
     "now-line",
-    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text"
+    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), much thinner than the drawn pen line, the dot centred on it"
    ]
   ]
  }

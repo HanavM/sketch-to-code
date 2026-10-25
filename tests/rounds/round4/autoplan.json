@@ -287,7 +287,7 @@
    ],
    [
     "cta",
-    "button \"Shop the drop →\"; its text #fafafa (white, NOT the page's black text); on the #0a0a0a block, no fill or bar of its own"
+    "button \"Shop the drop →\"; its text #fafafa (white, NOT the page's black text); its own element at page 1119,830 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row); on the #0a0a0a block, no fill or bar of its own"
    ]
   ]
  },

@@ -73,11 +73,11 @@
    ],
    [
     "cta",
-    "red near-black text button \"Shop the edition\" (181x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text) (exactly: #ff3b1f fill, #111111 text, 181x46px, square corners: border-radius 0, NOT a pill)"
+    "red near-black text button \"Shop the edition\" (181x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text) (exactly: #ff3b1f fill, #111111 text, 181x46px, square corners: border-radius 0, NOT a pill); its own element at page 60,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "cta-2",
-    "near-black outline button \"See the process\" (179x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text)"
+    "near-black outline button \"See the process\" (179x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text); its own element at page 800,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "side-index",
@@ -233,7 +233,7 @@
    ],
    [
     "cta",
-    "dark brown soft yellow text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); its text #f6d58e (soft yellow, NOT the page's dark brown text) (exactly: #5a1e0e fill, #f6d58e text, 220x46px, 4px rounded)"
+    "dark brown soft yellow text button \"See the menu\" (220x46px, barely rounded: border-radius 4px, NOT a pill); its text #f6d58e (soft yellow, NOT the page's dark brown text) (exactly: #5a1e0e fill, #f6d58e text, 220x46px, 4px rounded); its own element at page 530,800 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },
@@ -475,7 +475,7 @@
    ],
    [
     "sum-chip",
-    "outline button \"Sum: 136,500\" (exactly: #ffffff fill, #202124 text, 103x25px, 4px rounded)"
+    "outline button \"Sum: 136,500\" (exactly: #ffffff fill, #202124 text, 103x25px, 4px rounded); its own element at page 1157,868 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },
@@ -537,7 +537,7 @@
    ],
    [
     "now-line",
-    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text"
+    "thin solid red line only 2px tall, 140px wide, with a 12px round red dot on its left end (the current-time line), no text; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), much thinner than the drawn pen line, the dot centred on it"
    ],
    [
     "event-popover",
@@ -587,7 +587,7 @@
    ],
    [
     "review-button",
-    "green white text button \"Review changes ▾\" (143x31px, barely rounded: border-radius 6px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #1f883d fill, #ffffff text, 143x31px, 6px rounded)"
+    "green white text button \"Review changes ▾\" (143x31px, barely rounded: border-radius 6px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #1f883d fill, #ffffff text, 143x31px, 6px rounded); its own element at page 1113,24 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "file-tree",
