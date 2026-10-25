@@ -285,7 +285,11 @@
    ],
    [
     "arched-title",
-    "circle"
+    "heading",
+    {
+     "fontPx": 92,
+     "lines": 1
+    }
    ],
    [
     "sub",
@@ -443,7 +447,7 @@
    ],
    [
     "sun",
-    "a 260px donut chart centred, segments clockwise from the top: coral 100%, then peach 0%, then coral 0%, then peach 0%, the rest a coral track 0%"
+    "a 260px SOLID round disc (border-radius 50%, filled right to its middle: NOT a ring, NOT a donut, NO hole, no segments, no labels), filled edge to edge with ONE smooth conic gradient (exactly: background: conic-gradient(#ff7a3d, #ffb347, #ff7a3d, #ffb347, #ff7a3d)); round it 2 soft flat halo bands (exactly: box-shadow: 0 0 0 22px #ffc98a, 0 0 0 44px #ffd09a), each a flat paler ring hugging the disc, no blur"
    ],
    [
     "bird",
@@ -451,7 +455,7 @@
    ],
    [
     "arched-title",
-    "ring of big bold letters \"Slow Valley\", 92px type, #2b1a12, set on a circle (SVG textPath) of radius 0px centred in a 700x700px box at 50,60: the words run ALL the way round the circle, end meeting start, never a partial arc; no ring outline, no disc behind the letters, in front of the \"〰\" heading"
+    "the title \"Slow Valley\" in big bold italic Georgia 92px letters, #2b1a12, ONE line of words CURVED along a gentle upward arch (like a rainbow: the middle words highest, both ends lower), about 660px end to end and 105px from the ends to the top of the bend; NOT a circle, NOT a ring, NOT straight: an inline <svg> 700x260px, position absolute with its top-left at page 50,60, viewBox \"0 0 700 260\", holding <path id=\"arch\" d=\"M20,230 Q350,20 680,230\" fill=\"none\"/> (invisible) and <text><textPath href=\"#arch\" startOffset=\"50%\" text-anchor=\"middle\">Slow Valley</textPath></text>; no outline, no disc, no box behind it"
    ],
    [
     "sub",
@@ -475,7 +479,7 @@
    ],
    [
     "ticket",
-    "ONE 380x170px #fff6e8 card, position absolute with its top-left at 820,640 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(43, 26, 18, 0.33) 6px 8px 0px 0px; transform: rotate(-6deg) on THIS CARD ONLY (tilted 6° anticlockwise; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: 16px bold #d9644a \"No. 00412\", 16px #2b1a12 \"ADMIT ONE Trailhead camp · £85\", 38px bold #2b1a12 \"14–16 May\""
+    "ONE 380x170px #fff6e8 admission TICKET, position absolute with its top-left at 820,640 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(43, 26, 18, 0.33) 6px 8px 0px 0px; transform: rotate(-6deg) on THIS TICKET ONLY (tilted 6° anticlockwise; nothing else is turned); display flex, two parts side by side: the MAIN part on the left (flex 1, padding 22px 28px) with, top to bottom on their own lines, 16px #2b1a12 \"ADMIT ONE\", then 38px bold #2b1a12 \"14–16 May\", then 16px #2b1a12 \"Trailhead camp · £85\"; then a 3px dashed #d9644a TEAR LINE down its right edge (border-right); then the STUB on the right, 110px wide, holding bold 16px monospace #d9644a \"No. 00412\" written SIDEWAYS (writing-mode: vertical-rl, letter-spacing 3px), centred in the stub; a round 16px notch bitten out of the middle of each short side, so the page shows through (-webkit-mask: radial-gradient(circle at 0 50%, transparent 16px, #000 17px) left/51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 16px, #000 17px) right/51% 100% no-repeat)"
    ]
   ]
  },

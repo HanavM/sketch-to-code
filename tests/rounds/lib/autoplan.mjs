@@ -944,7 +944,26 @@ export function factsInPage() {
         const pts = [...gs.backgroundImage.matchAll(/(rgba?\([^)]+\))((?:\s+[\d.]+(?:%|deg))*)/g)].map((m) => [...m[2].matchAll(/[\d.]+/g)].map((x) => +x[0]))
         const at = pts.map((p) => p[0]).filter((x) => x !== undefined)
         const smooth = pts.length >= 3 && pts.every((p) => p.length <= 1) && at.every((x, i) => !i || x !== at[i - 1])
-        return { ...extra, css: gs.backgroundImage, smooth, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
+        return { ...extra, halo: gs.boxShadow !== 'none' ? gs.boxShadow : null, self: k === el && kids.length === 0, css: gs.backgroundImage, smooth, px: Math.round(b.width), round: gs.borderTopLeftRadius.includes('%') ? parseFloat(gs.borderTopLeftRadius) >= 40 : parseFloat(gs.borderTopLeftRadius) >= b.width * 0.4, stops, label }
+      })(),
+      // n202: an admission ticket: notched sides (a radial-gradient mask), a main part with a dashed tear line and a
+      // stub of sideways text (round 20 c4: said as three lines top to bottom, the stub, tear line and notches lost)
+      ticket: (() => {
+        const m = cs.webkitMaskImage || cs.maskImage || ''
+        if (!/radial-gradient/.test(m)) return null
+        const stub = kids.find((k) => /vertical/.test(getComputedStyle(k).writingMode))
+        const main = kids.find((k) => k !== stub && /dashed|dotted/.test(getComputedStyle(k).borderRightStyle))
+        if (!stub || !main) return null
+        const mc = getComputedStyle(main), sc2 = getComputedStyle(stub)
+        const lines = []
+        for (const n of main.childNodes) {
+          const t = (n.textContent || '').replace(/\s+/g, ' ').trim(); if (!t) continue
+          const c = n.nodeType === 1 ? getComputedStyle(n) : mc
+          lines.push({ t, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color) })
+        }
+        const notch = +((m.match(/(?:transparent|rgba\(0, 0, 0, 0\))\s+([\d.]+)px/) || [])[1] || 0)
+        return { lines, pad: `${Math.round(parseFloat(mc.paddingTop))}px ${Math.round(parseFloat(mc.paddingLeft))}px`, tear: { w: Math.round(parseFloat(mc.borderRightWidth)), style: mc.borderRightStyle, c: rgba(mc.borderRightColor) },
+          stub: { t: (stub.innerText || '').trim(), w: stub.offsetWidth, px: Math.round(parseFloat(sc2.fontSize)), bold: Number(sc2.fontWeight) >= 600, ink: rgba(sc2.color), mono: /mono|courier/i.test(sc2.fontFamily), ls: Math.round(parseFloat(sc2.letterSpacing) || 0) }, notch }
       })(),
       // n152: a grid of big same-size filled tiles, each a round letter disc in the middle and a name tag in a corner
       // (round 13 e4 video call: the 2x2 tiles said as one filled button and a list, built as one tile and three rows)
@@ -998,7 +1017,17 @@ export function factsInPage() {
         const ink = cs ? (cs.fill && cs.fill !== 'none' ? cs.fill : cs.color) : null
         // n172: a filled disc behind the letters (round 17 c1 badge: black disc said 'no fill', built as bare text)
         const disc = [...el.querySelectorAll('circle')].map((c) => ({ c, f: getComputedStyle(c).fill })).find(({ f }) => f && f !== 'none' && !/rgba\([^)]*,\s*0\)/.test(f))
-        return { disc: disc ? { fill: disc.f, r: Math.round(+disc.c.getAttribute('r') * sc) } : null, text: (t.textContent || '').trim(), px: Math.round(r.width), size: cs ? Math.round(parseFloat(cs.fontSize) * sc) : 0, weight: cs ? Number(cs.fontWeight) : 400, spacing: cs ? Math.round((parseFloat(cs.letterSpacing) || 0) * sc) : 0, rad: Math.round(rad * sc), ink,
+        // n202: an open curve (a quadratic or cubic bend, no arc back round) is an ARCHED title, not a ring
+        // (round 20 c4: 'M20,230 Q350,20 680,230' said as a ring of radius 0, built as a full circle of letters)
+        const pd = path ? (path.getAttribute('d') || '') : ''
+        const arch = path && !rad && /[QqCc]/.test(pd) && !/[Zz]\s*$/.test(pd.trim()) ? (() => {
+          const sb = svg.getBoundingClientRect(), bb = path.getBBox(), n = (pd.match(/-?[\d.]+/g) || []).map(Number)
+          const up = n.length >= 6 ? n[3] < Math.min(n[1], n[n.length - 1]) : true
+          return { d: pd.replace(/\s+/g, ' ').trim(), vb: vb && vb.width ? `0 0 ${Math.round(vb.width)} ${Math.round(vb.height)}` : null, x: Math.round(sb.left), y: Math.round(sb.top), w: Math.round(sb.width), h: Math.round(sb.height), up,
+            italic: cs ? cs.fontStyle === 'italic' : false, family: cs ? cs.fontFamily.split(',')[0].replace(/"/g, '') : '', mid: (t.getAttribute('startOffset') || '') === '50%' || (t.getAttribute('text-anchor') || (cs && cs.textAnchor) || '') === 'middle',
+            rise: Math.round((Math.max(n[1] ?? 0, n[n.length - 1] ?? 0) - bb.y) * sc), span: Math.round(bb.width * sc) }
+        })() : null
+        return { arch, disc: disc ? { fill: disc.f, r: Math.round(+disc.c.getAttribute('r') * sc) } : null, text: (t.textContent || '').trim(), px: Math.round(r.width), size: cs ? Math.round(parseFloat(cs.fontSize) * sc) : 0, weight: cs ? Number(cs.fontWeight) : 400, spacing: cs ? Math.round((parseFloat(cs.letterSpacing) || 0) * sc) : 0, rad: Math.round(rad * sc), ink,
           dashed: dc ? { r: Math.round(+dc.getAttribute('r') * sc), w: +(getComputedStyle(dc).strokeWidth || '1').replace('px', ''), dash: getComputedStyle(dc).strokeDasharray, c: getComputedStyle(dc).stroke } : null }
       })(),
       // the text kids' boxes: a card's button, a bottom-set block of copy (round 5 c5 CTA said as 'cards')
@@ -4014,6 +4043,10 @@ function decideOne(f, page, marked, said) {
     const ct = f.circleText
     // big ring letters say their size and that they go all the way round, and a dashed ring says itself
     // (round 8 c2: letters built tiny, only part way round, the dashed circle lost)
+    if (ct.arch && ct.size >= 24) {
+      const A = ct.arch, ink = parse(ct.ink ?? '')
+      return { kind: 'heading', note: withFx(`the title ${quote(t, 80)} in big ${ct.weight >= 600 ? 'bold ' : ''}${A.italic ? 'italic ' : ''}${A.family ? `${A.family} ` : ''}${ct.size}px letters${ink ? `, ${hexOf(ink)}` : ''}, ONE line of words CURVED along a gentle ${A.up ? 'upward arch (like a rainbow: the middle words highest, both ends lower)' : 'downward sag (the middle lowest)'}, about ${A.span}px end to end and ${A.rise}px from the ends to the top of the bend; NOT a circle, NOT a ring, NOT straight: an inline <svg> ${A.w}x${A.h}px, position absolute with its top-left at page ${A.x},${A.y}${A.vb ? `, viewBox "${A.vb}"` : ''}, holding <path id="arch" d="${A.d}" fill="none"/> (invisible) and <text><textPath href="#arch"${A.mid ? ' startOffset="50%" text-anchor="middle"' : ''}>${t}</textPath></text>; no outline, no disc, no box behind it`) }
+    }
     if (ct.size >= 24) {
       const ink = parse(ct.ink ?? '')
       const dr = ct.dashed ? `; a separate thin dashed ${ct.dashed.w}px ${hexOf(parse(ct.dashed.c) ?? { r: 17, g: 17, b: 17, a: 1 })} circle (stroke-dasharray ${ct.dashed.dash.replace(/px/g, '')}, no fill) of radius ${ct.dashed.r}px round the same centre, just outside the letters` : '; no ring outline, no disc behind the letters'
@@ -4032,6 +4065,11 @@ function decideOne(f, page, marked, said) {
         return { kind: 'box', note: withFx(`a ${cr.px}px SOLID organic colour BLOB${/%.*%|\//.test(S.rad) ? ` (border-radius: ${S.rad}, a lumpy rounded shape, NOT a perfect circle)` : ''}, filled edge to edge with ONE smooth conic gradient (exactly: background: ${cr.css})${S.blur ? `, filter: blur(${S.blur}px)` : ''}${S.op < 0.95 ? `, opacity ${S.op}` : ''}; over its middle a SOFT DARK SHADE, NOT a hole: a ::after layer inset ${cr.hole.ring}px, border-radius inherit, background ${hexOf(cr.hole.fill)}, filter: blur(${cr.hole.blur}px), opacity ${cr.hole.op}, so the colours still glow faintly through the middle and fade into it; NOT a ring, NOT a donut, no hard inner edge`) }
       }
       return { kind: 'box', note: withFx(`a ${cr.px}px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: ${cr.css}; border-radius 50%), ring ${cr.hole.ring}px thick with a hollow ${colourName(cr.hole.fill)} (${hexOf(cr.hole.fill)}) middle cut by a round inner disc (inset ${cr.hole.ring}px); NOT a donut chart, no segments, no labels, no legend`) }
+    }
+    // n202: a smooth conic blend over a WHOLE disc (no hole) is a shaded sun, not a donut chart (round 20 c4: built a coral ring)
+    if (cr.self && cr.smooth && !cr.hole && cr.round && !cr.legend && !cr.label) {
+      const halos = cr.halo ? [...cr.halo.matchAll(/(rgba?\([^)]+\))\s+0px\s+0px\s+0px\s+([\d.]+)px/g)].map((m) => ({ c: parse(m[1]), px: Math.round(+m[2]) })) : []
+      return { kind: 'box', note: withFx(`a ${cr.px}px SOLID round disc (border-radius 50%, filled right to its middle: NOT a ring, NOT a donut, NO hole, no segments, no labels), filled edge to edge with ONE smooth conic gradient (exactly: background: ${cssHex(cr.css)})${halos.length ? `; round it ${halos.length} soft flat halo band${halos.length > 1 ? 's' : ''} (exactly: box-shadow: ${halos.map((q) => `0 0 0 ${q.px}px ${hexOf(q.c)}`).join(', ')}), each a flat paler ring hugging the disc, no blur` : ''}`) }
     }
     if (cr.stops.length >= 3) {
       const segs = cr.stops.slice(0, -1).map((g, i) => `${i ? 'then ' : ''}${colourName(g.c)} ${Math.round(g.to - g.from)}%`)
@@ -5131,6 +5169,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const L = f.layoutBox, sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}` : ''
       const hx = (c) => hexOf(c)
       const say = [...P].sort((a, b) => a.y - b.y || a.x - b.x).map((q) => q.t ? `${q.px}px ${q.bold ? 'bold ' : ''}${hx(q.ink)} ${quote(q.t, 60)}${q.fill ? ` on a ${hx(q.fill)} ${q.radius ? 'pill' : 'chip'}` : ''}` : `a ${q.w}x${q.h} ${q.fill ? `${hx(q.fill)} ` : ''}${q.radius >= Math.min(q.w, q.h) / 2 - 1 ? (Math.abs(q.w - q.h) <= 2 ? 'circle' : 'pill bar') : 'block'}`)
+      if (f.ticket) {
+        const K = f.ticket
+        const main = K.lines.map((q, i) => `${i ? 'then ' : ''}${q.px}px ${q.bold ? 'bold ' : ''}${hx(q.ink)} ${quote(q.t, 40)}`).join(', ')
+        out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} admission TICKET, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS TICKET ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else is turned); display flex, two parts side by side: the MAIN part on the left (flex 1, padding ${K.pad}) with, top to bottom on their own lines, ${main}; then a ${K.tear.w}px ${K.tear.style} ${hx(K.tear.c)} TEAR LINE down its right edge (border-right); then the STUB on the right, ${K.stub.w}px wide, holding ${K.stub.bold ? 'bold ' : ''}${K.stub.px}px ${K.stub.mono ? 'monospace ' : ''}${hx(K.stub.ink)} ${quote(K.stub.t, 30)} written SIDEWAYS (writing-mode: vertical-rl${K.stub.ls ? `, letter-spacing ${K.stub.ls}px` : ''}), centred in the stub${K.notch ? `; a round ${K.notch}px notch bitten out of the middle of each short side, so the page shows through (-webkit-mask: radial-gradient(circle at 0 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) left/51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) right/51% 100% no-repeat)` : ''}` })
+      } else
       out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} card${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS CARD ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: ${say.join(', ')}` })
       marked.add(f.role)
       return
@@ -5299,6 +5342,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (k === 'shape') return [f.role, k, { poly: out.get(f.role).poly }]
     // a letter-by-letter word is drawn as one line of its biggest letters, not a paragraph (round 7 c2: 16px x 7 lines)
     // n172: an overprinted word is sized by its copies, not the wrapper's 16px (round 17 c2: fontPx 16 lines 6)
+    if (k === 'heading' && f.circleText?.arch) return [f.role, k, { fontPx: f.circleText.size, lines: 1 }]
     if (k === 'heading' && f.overprint) return [f.role, k, { fontPx: f.overprint.px, lines: f.overprint.t.split('\n').length }]
     if (k === 'heading' && f.letterWave) return [f.role, k, { fontPx: Math.max(...f.letterWave.letters.map((l) => l.px)), lines: 1 }]
     if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]

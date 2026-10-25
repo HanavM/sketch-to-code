@@ -110,3 +110,20 @@ rounds 1, 5, 9, 12, 16 only gain the exact hex of a dark panel; round 20 e2 chan
 
 Round 20: **85%** (was 84). Vitest same 2 env failures; typecheck clean.
 Next: e3 spreadsheet 76 (colour 65: toolbar and header fills), e4 checkout 77, e1 week calendar 77, c4 paper cutout 78 (structure 64).
+
+## n202: an arched title, a shaded sun, a real ticket (2026-10-25, ~93k billed)
+
+Planner (words only): words on an open curve (an SVG textPath on a quadratic or cubic bend) are an ARCHED title, said
+with the exact svg box, viewBox and path, never a ring (round 20 c4: "M20,230 Q350,20 680,230" read as a ring of radius
+0, built as a full circle of huge letters); a smooth conic blend over a whole disc with no hole is a shaded sun with its
+flat box-shadow halo bands, not a donut chart (built as a coral ring); a card with notched ends (a radial-gradient mask),
+a dashed tear line and a sideways stub is said as a ticket: main part lines in order, tear line, vertical stub text,
+notches. Re-planned all rounds: only round 20 c4 changes (a first try also turned round 19's rose window panel into a
+disc; the sun rule now needs the disc to be the whole block).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c4 paper cutout | 78% | **96%** | title on its arch, conic sun with two halo rings, ticket with stub, tear line and notches, dark Book button |
+
+Round 20: **87%** (was 85). Vitest same 2 env failures; build clean.
+Next: e3 spreadsheet 76 (colour 65: toolbar, header row and tab bar fills built blue), e4 checkout 77, e1 week calendar 77.
