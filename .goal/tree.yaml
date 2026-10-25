@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 20 is at 87%: the spreadsheet's toolbar and sheet tabs now have the right grey and spacing (76%). Next: the checkout page's order summary and card picture, then the week calendar."
 round: 20
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 87]
-lock: null
+lock: {by: run-n204, until: "2026-10-25T09:44Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
