@@ -122,3 +122,19 @@ over the headline). A fresh run scored 41%: the same left-shifted stack plus an 
 c2-depth-stack-n212-cmp.png; the 65% run stays the kept build). Round 21 corrected: **80%** over 10 (89, 65, 90, 74,
 84, 76, 86, 75, 79, 81), not the 81 written after n211 (which used 86 for c2).
 Next for c2: the 3D stack's own page x (it is built ~170px left, over the headline) and no slab behind it.
+
+## n213: 3D faces keep their own place inside the group (2026-10-25, ~70k billed)
+
+Planner (words only): the faces of a CSS 3D object that sit at their own left/top inside the turned group (round 21 c2:
+four 340px cards at 110,150 in a 560x640 group) now say that place per face; before, every face was said "at the group's
+top-left (left 0, top 0, the group's own size)", which moved the whole stack about 170px left, over the headline (and
+once grew a dark slab). Faces at 0,0 keep the old wording. Re-planned rounds 1-21: only round 21 c2 changes.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c2 depth stack | 65% | **91%** | 3D stack in its own place right of the headline, no slab (colour 97, structure 97, layout 90); tags still outlined (target filled white pills), button a little small |
+
+Round 21: **83%** over 10 (89, 91, 90, 74, 84, 76, 86, 75, 79, 81; was 80). Vitest same 2 env failures (1459 tests);
+typecheck clean.
+Next: c4 swiss orbit (74) disc still from a drawn component, column heads' letter-spacing; c5 title glow and horizon band;
+c2 tags as filled translucent white pills.

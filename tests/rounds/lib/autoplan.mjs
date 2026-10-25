@@ -2469,7 +2469,7 @@ export function factsInPage() {
       o.cube = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), persp, turn: ruleOf(g, 'transform'), anim: anim(g),
         group: gInset ? { x: g.offsetLeft, y: g.offsetTop, w: g.offsetWidth, h: g.offsetHeight } : null,
         faces: [...g.children].map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); const sub = [...k.children].find((q) => q.innerText && Math.abs(parseFloat(getComputedStyle(q).fontSize) - parseFloat(c.fontSize)) >= 2); const sc = sub && getComputedStyle(sub)
-          return { w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform'),
+          return { x: k.offsetLeft, y: k.offsetTop, w: Math.round(k.offsetWidth), h: Math.round(k.offsetHeight), fill: rgba(c.backgroundColor), t: (k.innerText || '').trim(), px: Math.round(parseFloat(c.fontSize)), weight: Number(c.fontWeight), ink: rgba(c.color), bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tf: ruleOf(k, 'transform'),
             rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(c.paddingTop) || 0), align: c.textAlign, centred: c.display.includes('flex') && c.alignItems === 'center' || c.textAlign === 'center',
             sub: sub ? { t: sub.innerText.trim(), px: Math.round(parseFloat(sc.fontSize)), weight: Number(sc.fontWeight), op: +sc.opacity } : null, mask: maskOf(c) } }) }
     }
@@ -3594,7 +3594,12 @@ function round11Note(f) {
     const ringZ = C.faces.length >= 5 && C.faces.every((q) => /rotateY\(/.test(q.tf ?? '') && /translateZ\(/.test(q.tf ?? ''))
     const front = ringZ ? C.faces.find((q) => /rotateY\((0|0deg)\)/.test(q.tf)) : null
     const lines = (q) => q.sub ? `two live text lines: ${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}"${q.t.split('\n')[0]}" then below it ${q.sub.px}px ${q.sub.weight >= 700 ? 'bold' : 'regular'}${q.sub.op < 0.98 ? ` ${q.sub.op} opacity` : ''} "${q.sub.t}"` : `${q.px}px ${q.weight >= 700 ? 'heavy ' : ''}live text "${q.t}"`
-    const face = (q) => `${q.w}x${q.h}px ${hexOf(q.fill)} face, transform: ${q.tf ?? 'none'}${q.t ? `, holding ${q.centred ? 'centred' : `top-left (${q.pad}px padding, left-aligned)`} ${hexOf(q.ink)} ${lines(q)}` : ''}`
+    // n213: faces placed inside the group (round 21 c2: 340px cards at 110,150 in a 560x640 group) say their own
+    // left/top; 'at the group's top-left' had moved the whole stack ~170px left over the headline
+    const gw = C.group?.w ?? C.w, gh = C.group?.h ?? C.h
+    const own = C.faces.some((q) => (q.x ?? 0) !== 0 || (q.y ?? 0) !== 0)
+    const at = own ? `each absolutely placed at its OWN left/top inside the group (NOT at the group's top-left; the group stays ${gw}x${gh}px)` : "each absolutely placed at the group's top-left (left 0, top 0, the group's own size)"
+    const face = (q) => `${q.w}x${q.h}px ${hexOf(q.fill)} face${own ? ` at left ${q.x}px, top ${q.y}px` : ''}, transform: ${q.tf ?? 'none'}${q.t ? `, holding ${q.centred ? 'centred' : `top-left (${q.pad}px padding, left-aligned)`} ${hexOf(q.ink)} ${lines(q)}` : ''}`
     const G = C.group
     const grp = G ? `ONE ${G.w}x${G.h}px group div at ${G.x},${G.y} inside the scene (position absolute, left ${G.x}px, top ${G.y}px, i.e. page ${C.x + G.x},${C.y + G.y}; NOT inset 0, NOT at the scene's left edge), transform-style: preserve-3d, transform: ${C.turn ?? 'none'}` : `ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: ${C.turn ?? 'none'}`
     const q0 = C.faces[0]
@@ -3602,7 +3607,7 @@ function round11Note(f) {
     const mk = q0.mask && C.faces.every((q) => q.mask && q.mask.img === q0.mask.img) ? `; EVERY face is cut by the same mask (notches bitten out of both side edges, like a ticket stub), written exactly: -webkit-mask: ${cssHex(q0.mask.img).split(/,\s*(?=radial|linear|conic|repeating)/).map((l, i) => `${l} ${(q0.mask.pos ?? '').split(',')[i]?.trim() ?? ''}/${(q0.mask.size ?? '').split(',')[i]?.trim() ?? ''} ${(q0.mask.rep ?? '').split(',')[i]?.trim() ?? ''}`.replace(/\s+/g, ' ').trim()).join(', ')}` : ''
     const what = ringZ ? `a REAL CSS 3D RING (carousel) of ${C.faces.length} cards, NOT flat or projected rectangles, NOT a drawing or SVG` : 'a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG'
     const fr = front ? `; the ${hexOf(front.fill)} "${front.t.split('\n')[0]}" card (rotateY(0)) faces the viewer, centred in front at the middle of the scene, the others turned away round it (do NOT turn the group to another card)` : ''
-    return { kind: 'box', note: `${what}: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ${grp}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}${G ? '' : ')'} holding exactly ${C.faces.length} face divs, each absolutely placed at the group's top-left (left 0, top 0, the group's own size) with ${look}${mk}: ${C.faces.map(face).join('; ')}${fr}` }
+    return { kind: 'box', note: `${what}: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ${grp}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}${G ? '' : ')'} holding exactly ${C.faces.length} face divs, ${at} with ${look}${mk}: ${C.faces.map(face).join('; ')}${fr}` }
   }
   const T = f.tilt3d
   // n172: or a grid tiled by background-size (round 17 c3 synth floor: linear-gradient lines at 80px tiles, said as a

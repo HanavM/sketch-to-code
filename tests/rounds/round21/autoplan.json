@@ -167,7 +167,7 @@
    ],
    [
     "card-stack",
-    "a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a 560x640px scene at 640,110 with perspective: 1200px; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: rotateX(52deg) rotateZ(-32deg)) holding exactly 4 face divs, each absolutely placed at the group's top-left (left 0, top 0, the group's own size) with no border, 28px rounded corners, backface visible: 340x340px #3a1a14 face, transform: translateZ(0px); 340x340px #e0705a face, transform: translateZ(70px); 340x340px #ffb199 face, transform: translateZ(140px); 340x340px #ffffff face, transform: translateZ(210px), holding top-left (30px padding, left-aligned) #3a1a14 26px heavy live text \"z-index: 4\""
+    "a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG: a 560x640px scene at 640,110 with perspective: 1200px; inside it ONE group div (position absolute, inset 0, transform-style: preserve-3d, transform: rotateX(52deg) rotateZ(-32deg)) holding exactly 4 face divs, each absolutely placed at its OWN left/top inside the group (NOT at the group's top-left; the group stays 560x640px) with no border, 28px rounded corners, backface visible: 340x340px #3a1a14 face at left 110px, top 150px, transform: translateZ(0px); 340x340px #e0705a face at left 110px, top 150px, transform: translateZ(70px); 340x340px #ffb199 face at left 110px, top 150px, transform: translateZ(140px); 340x340px #ffffff face at left 110px, top 150px, transform: translateZ(210px), holding top-left (30px padding, left-aligned) #3a1a14 26px heavy live text \"z-index: 4\""
    ],
    [
     "orb",
