@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-26T00:10Z | n229 glass aurora: tilted glass chip, words-only glass hero card, nav spread | c3 82 to 91; r20 c3 88 unchanged; round 22 89. ~178k.
 2026-10-25T23:31Z | n228 kanban avatars, chips and dragged card labels; spread block multiplied, 44 placed | e1 79 to 87, c4 80 to 87; round 22 88. ~165k.
 2026-10-25T23:15Z | n227 glass aurora blob blur kept on the element, not only in keyframes | c3 77 to 82; round 22 87. ~172k.
 2026-10-25T22:45Z | n226 riso dot circle, headline size and offset ink, star glyph, ruled rows; glass nav and blob blur | c5 riso 64 to 96; c3 71 twice (blur lost), 77 kept; round 22 86. ~165k.
