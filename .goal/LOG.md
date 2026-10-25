@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T19:40Z | n221 thumbs one by one, chips before the list, two-line cells, playing row, transport glyphs | e4 music player 79 to 87; round 21 88. ~78k.
 2026-10-25T19:07Z | n220 turned giant numeral says line height and tracking, spaced letters say px | c4 swiss orbit 78 to 89 in one run; round 21 86. ~116k.
 2026-10-25T18:58Z | n219 mid-list LABELS heading, label swatches, file tiles, top bar right of the sidebar | e1 mail client 76 to 87 (runs 76, 87); round 21 85. ~186k.
 2026-10-25T18:18Z | n218 gantt dot rows, week heads, darker progress, no margin push under the top bar | e3 gantt 75 to 78 (runs 66, 67, 69, 78); round 21 84. ~316k.
