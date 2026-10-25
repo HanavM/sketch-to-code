@@ -617,7 +617,7 @@
    ],
    [
     "library",
-    "near-black block \"Your Library\" list of 6 items, each with a 48px 6px rounded square thumbnail left: \"Liked Songs\" small grey \"Playlist · 812 songs\" under it; \"Deep Focus\" small grey \"Playlist · Spotless\" under it; \"Golden Hour\" small grey \"Album · Mira Vale\" under it; \"Okkervil Lane\" small grey \"Artist\" under it; \"Running 170bpm\" small grey \"Playlist · you\" under it; \"Sunday Slow\" small grey \"Playlist · you\" under it; then \"Playlists Artists Albums\"; the brand \"Liked\" has a small 48x48px logo square right before it on the same line (at 26,104), 6px rounded, painted linear-gradient(135deg, #450af5, #c4efd9)"
+    "near-black block \"Your Library\" list of 6 items, each with a 48px 6px rounded square thumbnail left (each its own colour or gradient, painted exactly as said); first, between the heading and the items, 3 small pill-shaped (fully rounded ends) filled chips side by side, separate: \"Playlists\" (#2a2a2a fill, 13px #ffffff text), \"Artists\" (#2a2a2a fill, 13px #ffffff text), \"Albums\" (#2a2a2a fill, 13px #ffffff text): linear-gradient(135deg, #450af5, #c4efd9) 6px rounded square thumbnail, \"Liked Songs\" small grey \"Playlist · 812 songs\" under it; #1e3264 6px rounded square thumbnail, \"Deep Focus\" small grey \"Playlist · Spotless\" under it; linear-gradient(135deg, #f6b26b, #cc4125) 6px rounded square thumbnail, \"Golden Hour\" small grey \"Album · Mira Vale\" under it; #8d67ab ROUND (a circle) thumbnail, \"Okkervil Lane\" small grey \"Artist\" under it; #e8115b 6px rounded square thumbnail, \"Running 170bpm\" small grey \"Playlist · you\" under it; #148a08 6px rounded square thumbnail, \"Sunday Slow\" small grey \"Playlist · you\" under it"
    ],
    [
     "album",

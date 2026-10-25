@@ -276,3 +276,28 @@ tests); typecheck clean.
 Next: e4 music player (79): grey library thumbnails, filter pills moved to the bottom, title and artist merged on one
 line, transport buttons bunched, playing row highlight lost. Then e3's today line (built right, missed by the region
 match: it is not a box of its own in the build).
+
+## n221: thumbnails painted one by one, chips before the list, two-line table cells, the playing row, transport glyphs placed (2026-10-25, ~78k billed for one e4 run)
+
+Why e4 music player sat at 79: the library thumbnails were said as one "48px rounded square" (grey) because two are
+gradients and the check for "each its own colour" only knew flat fills; the Playlists / Artists / Albums pills (9
+letters, over the 8-letter chip limit) were said as plain words after the list and built at the bottom; each track
+cell holds a title over its artist but was said as one run ("Low Sun Nova Lake") and built merged; the header row
+(set off by a rule under it) was said as a body row; the playing row's fill was never said; the transport line
+("⤮ ⏮ ❚❚ ⏭ ↻", 22px letter-spacing round an inline pause circle) was said as one centred 640px line with the circle
+laid over it, built bunched with prev and next lost.
+
+Planner (words only): a thumbnail list says each thumb's fill or gradient, and ROUND for a circle among squares;
+chips up to 14 letters, pill ends said, and chips that sit before the items said before them; a table cell of a
+block title over more text says both lines and their colours; a header row marked by a rule under it is the header;
+a single filled body row is said HIGHLIGHTED with its rgba fill and rounding; a paint-less line of 1-2 letter glyphs
+with an inline-block button among them says each glyph as its own part at its own x. Re-planned rounds 1-21: round
+21 e4, round 20's music page (same transport, library chips and thumbs) and chip rows in rounds 13, 14, 16, 17 change.
+
+| page | before | run a | what changed |
+|---|---|---|---|
+| e4 music player | 79% | **87%** | six coloured / gradient thumbs with the artist circle, pills under the heading, title over artist in every row, playing row filled and green, transport spread with the pause circle in the middle (colour 96, structure 87, layout 78: Home and Search built side by side) |
+
+Round 21 re-scored over all 10 latest side-by-sides: **88%** (90, 93, 90, 89, 91, 88, 87, 79, 87, 82; 87.6, was 86.2;
+re-scoring moves the untouched pages by about 1 either way). Vitest same 2 env failures (1459 tests); typecheck clean.
+Next: e3 gantt (79, today line), e5 team settings (82).

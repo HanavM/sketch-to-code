@@ -1249,8 +1249,14 @@ export function factsInPage() {
         const lefts = kids.map((k) => [...k.children].map((c) => Math.round(c.getBoundingClientRect().left)))
         if (!lefts.every((l) => l.every((x, j) => Math.abs(x - lefts[0][j]) <= 3))) return null
         const o = el.getBoundingClientRect()
-        const cell = (c) => { const pill = [...c.querySelectorAll('*')].find((y) => (y.innerText || '').trim() && (rgba(getComputedStyle(y).backgroundColor)?.a ?? 0) > 0.05); const cc = getComputedStyle(pill ?? c); return { t: (c.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(cc.fontSize)), bold: Number(cc.fontWeight) >= 600, ink: rgba(cc.color), pill: pill ? { fill: rgba(cc.backgroundColor), rad: Math.round(parseFloat(cc.borderTopLeftRadius) || 0) } : null } }
-        const rows = kids.map((k) => { const kc = getComputedStyle(k), b = k.getBoundingClientRect(); return { h: Math.round(b.height), fill: (rgba(kc.backgroundColor)?.a ?? 0) > 0.05 ? rgba(kc.backgroundColor) : null, rule: parseFloat(kc.borderTopWidth) >= 1 ? rgba(kc.borderTopColor) : null, spaced: parseFloat(kc.letterSpacing) >= 0.5, cells: [...k.children].map(cell) } })
+        const cell = (c) => { const pill = [...c.querySelectorAll('*')].find((y) => (y.innerText || '').trim() && (rgba(getComputedStyle(y).backgroundColor)?.a ?? 0) > 0.05); const cc = getComputedStyle(pill ?? c)
+          // n221: a cell of two stacked lines, a block title over the rest (round 21 e4 'Low Sun' over 'Nova Lake': built
+          // merged on one line 'Low Sun — Nova Lake')
+          const ls2 = (c.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
+          const top = c.firstElementChild && /block|flex/.test(getComputedStyle(c.firstElementChild).display) && (c.firstElementChild.innerText || '').trim() === ls2[0] ? c.firstElementChild : null
+          const two = !pill && ls2.length === 2 && top ? { a: ls2[0], b: ls2[1], aInk: rgba(getComputedStyle(top).color), bInk: rgba(cc.color), aBold: Number(getComputedStyle(top).fontWeight) >= 600 } : null
+          return { t: (c.innerText || '').replace(/\s+/g, ' ').trim(), two, px: Math.round(parseFloat(cc.fontSize)), bold: Number(cc.fontWeight) >= 600, ink: rgba(cc.color), pill: pill ? { fill: rgba(cc.backgroundColor), rad: Math.round(parseFloat(cc.borderTopLeftRadius) || 0) } : null } }
+        const rows = kids.map((k) => { const kc = getComputedStyle(k), b = k.getBoundingClientRect(); return { h: Math.round(b.height), fill: (rgba(kc.backgroundColor)?.a ?? 0) > 0.05 ? rgba(kc.backgroundColor) : null, rule: parseFloat(kc.borderTopWidth) >= 1 ? rgba(kc.borderTopColor) : null, under: parseFloat(kc.borderBottomWidth) >= 1 ? rgba(kc.borderBottomColor) : null, rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), spaced: parseFloat(kc.letterSpacing) >= 0.5, cells: [...k.children].map(cell) } })
         return { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), cols: lefts[0].map((x) => Math.round(x - o.left)), pad: Math.round(parseFloat(getComputedStyle(kids[0]).paddingLeft) || 0), rows }
       })(),
       // n132: a flat full-height side panel (round 9 e5: built as an inset grey card with a heavy shadow)
@@ -1508,6 +1514,23 @@ export function factsInPage() {
               const pw = parseFloat(pb.width) || 0
               out.push({ x: Math.round(b.left + (parseFloat(pb.left) || 0)), y: Math.round(b.top + (parseFloat(pb.top) || 0)), w: Math.round(pw || 20), h: Math.round(b.height), t: lab.trim(), px: Math.round(parseFloat(pb.fontSize)), bold: Number(pb.fontWeight) >= 600, wt: Number(pb.fontWeight), it: false, ink: rgba(pb.color), mono: /mono|courier|consolas/i.test(pb.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100, ra: pb.textAlign === 'right' || pb.textAlign === 'end' })
             }
+          }
+          // n221: a paint-less line of spaced-out icon glyphs with a filled inline-block button set among them (round 21 e4
+          // transport '⤮ ⏮ (❚❚) ⏭ ↻', letter-spacing 22px: said as one centred 640px line plus the button laid over it, built
+          // bunched, prev and next lost) says each glyph as its own part at its own x
+          if (own && !runs && !hasFill && !img && !bw.some((x) => x >= 1) && [...k.children].some((c) => /inline-block/.test(getComputedStyle(c).display)) && [...k.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim()).length >= 2 && own.split(' ').every((w) => w.length <= 2)) {
+            for (const n of k.childNodes) {
+              if (n.nodeType !== 3) continue
+              const re = /\S+/g; let m
+              while ((m = re.exec(n.textContent))) {
+                const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length)
+                const q = [...rg.getClientRects()].find((r) => r.width > 1); if (!q) continue
+                // the box is the glyph's own advance (the letter-spacing after it is gap, not glyph)
+                const gw = Math.max(8, Math.round(q.width - (parseFloat(s.letterSpacing) || 0)))
+                out.push({ x: Math.round(q.left), y: Math.round(b.top), w: gw, h: Math.round(b.height), t: m[0], di: out.length, px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: false, ls: 0, ink: rgba(s.color), mono: false, fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100, tac: true, lh: Math.round(b.height), nl: 1 })
+              }
+            }
+            continue
           }
           if (!own && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset) continue
           // n185: a wrapped block two lines or taller keeps its whole copy too (round 18 e4 reading pane: a two-line
@@ -2332,7 +2355,8 @@ export function factsInPage() {
         const btn = b.height >= 28 && b.height <= 64 && (filled(k) || parseFloat(c.borderTopWidth) >= 1) && (/center/.test(c.textAlign) || (/flex/.test(c.display) && /center/.test(c.justifyContent)))
         // a row of filled chips (seat labels E4 E5, round 8 e4: run together as 'E4E5')
         const cs2 = [...k.children]
-        if (cs2.length >= 2 && cs2.every((g) => filled(g) && txt(g) && txt(g).length <= 8 && !g.children.length)) return { t: cs2.map(txt).join(' '), chips: cs2.map((g) => ({ t: txt(g), fill: filled(g), ink: rgba(getComputedStyle(g).color) })), btn: false, fill: null, big: false }
+        // n221: chip words up to 14 letters (round 21 e4 'Playlists' pills: said as plain words after the list)
+        if (cs2.length >= 2 && cs2.every((g) => filled(g) && txt(g) && txt(g).length <= 14 && !g.children.length)) return { t: cs2.map(txt).join(' '), chips: cs2.map((g) => ({ t: txt(g), fill: filled(g), ink: rgba(getComputedStyle(g).color), pill: parseFloat(getComputedStyle(g).borderTopLeftRadius) >= g.getBoundingClientRect().height / 2 - 1, px: Math.round(parseFloat(getComputedStyle(g).fontSize)) })), btn: false, fill: null, big: false, after: !!(rep[rep.length - 1].compareDocumentPosition(k) & 4) && !(k.compareDocumentPosition(rep[0]) & 4) }
         // n143: an extra that comes after the list in the page is said after it (round 11 e3: the LABELS group was said
         // before the folders and built above them)
         const after = !!(rep[rep.length - 1].compareDocumentPosition(k) & 4)
@@ -2361,7 +2385,7 @@ export function factsInPage() {
       const swatchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(), gc = getComputedStyle(d); const r = parseFloat(gc.borderTopLeftRadius) || 0; return filled(d) && b.width >= 6 && b.width <= 12 && Math.abs(b.width - b.height) <= 1 && !(parseFloat(gc.borderTopWidth) >= 1) && b.left < k.getBoundingClientRect().left + 40 ? { c: filled(d), px: Math.round(b.width), round: r >= b.width * 0.4, rad: Math.round(r) } : null }
       const swatches = rep.map(swatchOf)
       // a square picture leading each item (an order line's product thumbnail, round 4 e3: dropped)
-      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4, rad: Math.round(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) } : null }
+      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), bg: /gradient/.test(getComputedStyle(d).backgroundImage) ? getComputedStyle(d).backgroundImage : null, px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4, rad: Math.round(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) } : null }
       // a toggle switch on the right of each row (round 5 e4: on/off states unsaid)
       const switchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !txt(g) && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.height / 2 - 1 }); return d ? filled(d) : null }
       const switches = rep.map(switchOf)
@@ -3183,14 +3207,21 @@ function denseNote(d) {
         // n200: thumbs of different colours each say their own; a long last part is a line under the name, not a
         // value at the right; a divider between items is said in place (round 20 e2 thread: all amber, the reply
         // text set at the right, the '6 replies' rule lost)
-        const many = d.thumbs.every((x) => x.fill) && new Set(d.thumbs.map((x) => hexOf(x.fill))).size >= 2
+        // n221: a gradient thumb counts as its own look; a round one among squares says so (round 21 e4 library: six
+        // colours, gradients and an artist circle, all built grey squares)
+        const look = (x) => x.bg ? x.bg.replace(/\s+/g, '') : x.fill ? hexOf(x.fill) : null
+        const many = d.thumbs.every((x) => look(x)) && new Set(d.thumbs.map(look)).size >= 2
+        const lookSay = (x) => x.bg ? `${x.bg.replace(/rgba?\([^)]+\)/g, (m) => hexOf(parse(m)))}` : hexOf(x.fill)
+        const mixRound = d.thumbs.some((x) => x.round) && !d.thumbs.every((x) => x.round)
+        const chipSay = (x) => `${x.chips.length} small ${x.chips[0].pill ? 'pill-shaped (fully rounded ends) ' : ''}filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, ${c.px}px ${hexOf(c.ink)} text)`).join(', ')}`
+        const before = (d.extra ?? []).filter((x) => x.chips && x.after === false)
         const mid = (i) => d.mids?.[i] ? `then a small ${hexOf(d.mids[i].ink)} divider ${quote(d.mids[i].t, 30)}${d.mids[i].rule ? ' centred between two thin grey rules across the panel' : ''}; ` : ''
         // n207: a square thumb with rounded corners says its rounding (round 20 e2 thread avatars 9px: built sharp)
         const shape = t.round ? 'round' : t.rad >= 3 ? `${t.rad}px rounded square` : 'square'
         const hb = d.headBar
         const headStrip = d.head && hb ? `a ${hb.w}x${hb.h}px header strip across the panel's top (its own element, a 1px ${hexOf(hb.rule)} rule under it) holding ${hb.px}px ${hb.bold ? 'bold ' : ''}${quote(d.head, 20)} at its left (${hb.padX}px in), vertically centred, ONE text: its last sign sits right after the word, NOT pushed to the far right; then under the strip a ` : ''
-        const item = (p, i) => `${mid(i)}${many ? `${hexOf(d.thumbs[i].fill)} ${shape} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
-        return `${headStrip || (d.head ? `${quote(d.head, 20)} ` : '')}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${shape} thumbnail left${many ? ' (each its own colour)' : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn).map((x) => `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
+        const item = (p, i) => `${mid(i)}${many ? `${lookSay(d.thumbs[i])} ${mixRound && d.thumbs[i].round ? 'ROUND (a circle)' : shape} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
+        return `${headStrip || (d.head ? `${quote(d.head, 20)} ` : '')}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${shape} thumbnail left${many ? ' (each its own colour or gradient, painted exactly as said)' : ''}${before.length ? `; first, between the heading and the items, ${before.map(chipSay).join('; ')}` : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn && !before.includes(x)).map((x) => x.chips ? chipSay(x) : `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
       }
       // links each with a small grey line under (round 6 e1 mega-menu columns: sublines said for one item only)
       if (d.stacked && d.items.length >= 2 && d.items.length <= 8 && d.items.every((p, i) => p.length === 2 && d.smalls?.[i] === p[1])) {
@@ -3921,10 +3952,12 @@ function decideOne(f, page, marked, said) {
   // n132: a plain table of same-column rows (round 9 e5 invoices: said as a 2-column list)
   if (f.rowTable && !f.regionKids.length && f.weakNote) {
     const R = f.rowTable, H = R.rows[0], base = R.rows[1].cells[0]
-    const head = H.fill || H.cells.every((c) => c.t === c.t.toUpperCase()) ? H : null
-    const cell = (c) => !c.t ? '·' : c.pill ? `${quote(c.t, 20)} as a small ${hexOf(c.pill.fill)} ${c.pill.rad >= 8 ? 'pill' : 'tag'} with ${c.bold ? 'bold ' : ''}${c.px}px ${hexOf(c.ink)} text` : `${quote(c.t, 24)}${dist(c.ink, base.ink) > 30 ? ` (${hexOf(c.ink)})` : ''}${c.bold && !base.bold ? ' bold' : ''}`
+    // n221: a header row marked off by a rule under it (round 21 e4 '# | Title | Plays': said as a body row)
+    const head = H.fill || H.under || H.cells.every((c) => c.t === c.t.toUpperCase()) ? H : null
+    const cell = (c) => !c.t ? '·' : c.two ? `two lines in one cell: ${quote(c.two.a, 24)} (${c.two.aBold ? 'bold ' : ''}${hexOf(c.two.aInk)}) OVER ${quote(c.two.b, 30)} (${hexOf(c.two.bInk)}) on its own line under it (NOT joined on one line)` : c.pill ? `${quote(c.t, 20)} as a small ${hexOf(c.pill.fill)} ${c.pill.rad >= 8 ? 'pill' : 'tag'} with ${c.bold ? 'bold ' : ''}${c.px}px ${hexOf(c.ink)} text` : `${quote(c.t, 24)}${dist(c.ink, base.ink) > 30 ? ` (${hexOf(c.ink)})` : ''}${c.bold && !base.bold ? ' bold' : ''}`
     const body = R.rows.slice(head ? 1 : 0)
-    return { kind: 'box', note: `a plain table ${R.w}px wide at ${R.x},${R.y} (a real table, ${R.cols.length} columns, every column kept; NOT a list, NOT cards): columns start ${R.cols.join(', ')}px from its left; ${head ? `the header row ${head.h}px tall${head.fill ? `, ${hexOf(head.fill)} fill` : ''}, ${head.cells[0].px}px ${hexOf(head.cells[0].ink)} capitals${head.spaced ? ' with wide letter spacing' : ''}: ${head.cells.map((c) => (c.t ? quote(c.t, 16) : '·')).join(' | ')}; then ` : ''}${body.length} rows each ${body[0].h}px tall, ${base.px}px ${hexOf(base.ink)} text${body[0].rule ? `, a 1px ${hexOf(body[0].rule)} line across the top of each` : ''}; rows (| between cells): ${body.map((r) => r.cells.map(cell).join(' | ')).join(' / ')}` }
+    const hi = body.filter((r) => r.fill)
+    return { kind: 'box', note: `a plain table ${R.w}px wide at ${R.x},${R.y} (a real table, ${R.cols.length} columns, every column kept; NOT a list, NOT cards): columns start ${R.cols.join(', ')}px from its left; ${head ? `the header row ${head.h}px tall${head.fill ? `, ${hexOf(head.fill)} fill` : ''}, ${head.cells[0].px}px ${hexOf(head.cells[0].ink)} ${head.cells.every((c) => c.t === c.t.toUpperCase()) ? 'capitals' : 'text'}${head.spaced ? ' with wide letter spacing' : ''}${head.under ? `, a 1px ${hexOf(head.under)} line under it` : ''}: ${head.cells.map((c) => (c.t ? quote(c.t, 16) : '·')).join(' | ')}; then ` : ''}${body.length} rows each ${body[0].h}px tall, ${base.px}px ${hexOf(base.ink)} text${body[0].rule ? `, a 1px ${hexOf(body[0].rule)} line across the top of each` : ''}; rows (| between cells): ${body.map((r) => r.cells.map(cell).join(' | ')).join(' / ')}${hi.length === 1 ? `; row ${body.indexOf(hi[0]) + 1} is HIGHLIGHTED (the playing / selected row): the whole row filled ${hi[0].fill.a < 0.95 ? `rgba(${hi[0].fill.r}, ${hi[0].fill.g}, ${hi[0].fill.b}, ${Math.round(hi[0].fill.a * 100) / 100})` : hexOf(hi[0].fill)}${hi[0].rad ? `, ${hi[0].rad}px rounded` : ''}, its fill clearly visible` : ''}` }
   }
   // n131: a spreadsheet grid cell by cell
   const rightColsOf = (G) => G.rows[0].map((_, j) => G.rows.slice(1).every((r) => r[j].right || !r[j].t) && G.rows.slice(1).some((r) => r[j].t)).map((v, j) => (v ? j : -1)).filter((j) => j >= 0)
