@@ -103,3 +103,20 @@ keeps its circle, misregistered type says its offset shadow.
 - Re-planned rounds 1-21: r6 e4 steps, r16 c3 hours row, r19 e4 rider card (panel floor), r10 c2 three 96px words
   (place), r20 c1 blue square (blend) change.
 - Round 22: **88%** over 10 (88.0). Vitest same 2 env failures; typecheck clean.
+
+## n229: glass aurora cards and nav (2026-10-26, ~178k billed)
+
+- c3 glass aurora **82 → 91%** (colour 95, structure 95, layout 84). Three gaps closed in the planner:
+  - the Focus mode chip (rotate(-3deg), 8% white glass, see-through border) was said at its turned bounds as a panel
+    with "no fill" and a solid white border, and no turn, so it was built as bare parts. A turned panel now says its
+    untransformed size and top-left, the rotate() and its parts' places before the turn; a see-through panel says
+    FROSTED GLASS with its rgba fill, backdrop blur and rgba border.
+  - the hero card was said only by its words ("frosted glass" plus the lines), so the headline came out ~48px on wide
+    lines. A frosted glass card said by words only is now said as its glass panel and its parts (64px headline on 2
+    lines, copy width, button). A solid white button on a see-through white card now keeps its fill.
+  - nav links spread with space-around were built bunched right and thin: a glass pill nav now says the spread and
+    the links' size and weight.
+- Logos row missed as a region in this run (built in place, a few px off). Blend and stripe effects still unmatched.
+- Re-planned rounds 1-21: only r20 c3 glass card 1 changes (now said as a turned glass panel with its parts). Live
+  r20 c3 88 (87.8, was 88.1: same within noise; old run kept), ~63k billed.
+- Round 22: **89%** over 10 (88.9). Vitest same 2 env failures; typecheck clean.

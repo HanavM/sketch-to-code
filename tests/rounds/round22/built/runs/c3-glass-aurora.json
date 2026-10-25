@@ -1,24 +1,24 @@
 {
   "id": "c3-glass-aurora",
-  "at": "2026-10-25T23:09:39.684Z",
+  "at": "2026-10-25T23:46:48.062Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8216092983332265,
-    "overallV2": 0.8216092983332265,
-    "overallV1": 0.785925417070797,
-    "colour": 0.9404381907721084,
-    "structure": 0.8408530959409468,
-    "structureStrict": 0.7557193321798218,
-    "colourAligned": 0.9404381907721084,
-    "structureAligned": 0.8408530959409468,
+    "overall": 0.9057493232720306,
+    "overallV2": 0.9057493232720306,
+    "overallV1": 0.8812920349726645,
+    "colour": 0.9468972695619564,
+    "structure": 0.9485060106132943,
+    "structureStrict": 0.8901563880203005,
+    "colourAligned": 0.9468972695619564,
+    "structureAligned": 0.9485060106132943,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9089839910328095
+      "r": 0.9808849738741
     },
-    "layout": 0.7227854668392751,
-    "layoutV1": 0.7227854668392751,
+    "layout": 0.8425336130869503,
+    "layoutV1": 0.8425336130869503,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,54 +27,54 @@
       0,
       0,
       1280,
-      950
+      920
     ],
     [
       0,
       80,
       120,
-      460,
-      460
+      452,
+      453
     ],
     [
       1,
       80,
       120,
-      460,
-      460
+      452,
+      453
     ],
     [
       2,
-      81,
+      80,
       120,
-      459,
-      460
+      452,
+      453
     ],
     [
       0,
-      623,
-      43,
+      620,
+      40,
       513,
       414
     ],
     [
       4,
-      623,
-      43,
+      620,
+      40,
       513,
       414
     ],
     [
       5,
-      623,
-      44,
+      620,
+      41,
       514,
       413
     ],
     [
       5,
-      796,
-      213,
+      793,
+      210,
       327,
       215
     ],
@@ -82,22 +82,22 @@
       0,
       460,
       520,
-      480,
-      360
+      474,
+      354
     ],
     [
       8,
       460,
       520,
-      480,
-      360
+      474,
+      354
     ],
     [
       9,
       460,
       520,
-      480,
-      359
+      474,
+      354
     ],
     [
       0,
@@ -108,108 +108,108 @@
     ],
     [
       11,
-      377,
+      394,
       46,
-      48,
-      20
+      46,
+      21
     ],
     [
       11,
-      707,
+      538,
       46,
-      197,
-      20
+      58,
+      21
     ],
     [
-      13,
-      707,
+      11,
+      695,
       46,
-      55,
-      20
+      47,
+      21
     ],
     [
-      13,
-      790,
+      11,
+      840,
       46,
-      43,
-      20
-    ],
-    [
-      13,
-      861,
-      46,
-      43,
-      20
+      47,
+      21
     ],
     [
       0,
-      123,
-      183,
-      613,
-      454
+      120,
+      180,
+      620,
+      460
     ],
     [
-      17,
-      180,
-      268,
-      499,
-      120
+      16,
+      170,
+      230,
+      522,
+      131
     ],
     [
-      17,
-      180,
-      412,
-      448,
+      16,
+      170,
+      383,
+      460,
       56
     ],
     [
-      17,
-      180,
-      508,
-      167,
-      44
+      16,
+      170,
+      468,
+      186,
+      50
     ],
     [
       0,
-      789,
-      202,
+      786,
+      199,
       340,
       238
     ],
     [
-      21,
-      887,
-      264,
-      147,
-      82
+      20,
+      833,
+      256,
+      248,
+      89
     ],
     [
-      21,
-      869,
-      343,
-      175,
-      36
+      20,
+      831,
+      336,
+      245,
+      44
     ],
     [
       0,
-      863,
+      837,
+      473,
+      286,
+      134
+    ],
+    [
+      23,
+      862,
       511,
-      67,
-      67
+      70,
+      70
     ],
     [
-      0,
-      942,
-      519,
-      95,
-      24
-    ],
-    [
-      0,
+      23,
       943,
-      537,
-      97,
-      24
+      518,
+      96,
+      29
+    ],
+    [
+      23,
+      944,
+      536,
+      98,
+      29
     ],
     [
       0,
@@ -244,40 +244,40 @@
       0,
       0,
       1280,
-      950
+      920
     ]
   ],
   "groupMatched": [],
   "effects": {
     "recall": 0.7777777777777778,
     "kept": [
-      "blend",
       "blur",
       "glass",
       "gradient",
       "motion",
       "overlap",
+      "soft-shadow",
       "tilt"
     ],
     "missing": [
-      "soft-shadow",
+      "blend",
       "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 67931,
-    "output": 35626,
-    "cacheRead": 359844
+    "input": 72728,
+    "output": 42498,
+    "cacheRead": 345496
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 69412,
-      "output": 20823,
-      "cacheRead": 235518,
-      "toolCalls": 11,
+      "billed": 57998,
+      "output": 16049,
+      "cacheRead": 149115,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Read src/App.tsx",
@@ -285,31 +285,29 @@
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
         "Read components/SketchShape3.tsx",
-        "Glob",
-        "Glob",
         "Edit src/index.css",
-        "Write src/App.tsx",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 221630
+      "ms": 165849
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 16710,
-      "output": 7811,
-      "cacheRead": 112681,
-      "toolCalls": 1,
+      "billed": 30772,
+      "output": 13327,
+      "cacheRead": 155007,
+      "toolCalls": 2,
       "tools": [
+        "Read src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 94552
+      "ms": 160333
     }
   ],
-  "reading": "This is a landing-page hero mockup on a dark background: a frosted-glass pill nav at top, a hero panel with headline/paragraph/CTA sitting over a glowing purple blob, a tilted glass stat card over a cyan glow, a pink glow further down, a focus-mode status card, and a row of partner logos; typed notes specify exact colors, sizes, positions, animated blurred glow behavior and copy for every part.",
+  "reading": "A full hero page design: a page-wide indigo background with grain texture, three large blurred colour-shifting glow blobs (purple, cyan, pink) behind the content, a frosted-glass nav pill with 4 links, a frosted-glass hero panel with a headline, paragraph and CTA button over the purple glow, a tilted frosted-glass stat card (\"3.2×\" / \"longer deep-work blocks\") over the cyan glow, a tilted frosted-glass focus-mode card, and a row of four uppercase logo/brand labels at the bottom.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -321,23 +319,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a big round glow (border-radius 50%, never a square), box 460x460px with top-left at 80,120, vivid purple, filter: blur(70px) set directly on the element it"
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        623,
-        43,
-        513,
-        414
-      ],
-      "paths": [
-        "s1",
-        "s5"
-      ],
-      "instruction": "Add a round glow (border-radius 50%, never a square), box 520x420px with top-left at 620,40, vivid cyan, filter: blur(70px) set directly on the element (always "
+      "instruction": "A big vivid purple glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itsel"
     },
     {
       "kind": "add",
@@ -353,10 +335,10 @@
         "s1",
         "s5"
       ],
-      "instruction": "Add a frosted-glass card (tilted 4° clockwise) with a huge 72px bold title \"3.2×\" and text \"longer deep-work blocks\", positioned over the cyan glow area."
+      "instruction": "A vivid cyan glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itself so i"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -368,7 +350,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a round glow (border-radius 50%, never a square), box 480x360px with top-left at 460,520, vivid pink, filter: blur(70px) set directly on the element (always"
+      "instruction": "A vivid pink glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itself so i"
     },
     {
       "kind": "add",
@@ -383,7 +365,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a frosted-glass (not solid white) pill nav bar: see-through fill rgba(255,255,255,0.1), backdrop-filter: blur(18px), 1px see-through rgba(255,255,255,0.2) b"
+      "instruction": "A fully rounded frosted-glass nav pill (NOT a solid white pill, NOT a square full-width strip): see-through fill rgba(255,255,255,0.1), backdrop-filter: blur(18"
     },
     {
       "kind": "add",
@@ -398,7 +380,23 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a frosted-glass hero section containing headline \"Light you can work inside\", paragraph \"Aurora is a calm workspace that bends around your focus. No tabs, n"
+      "instruction": "ONE hero panel, frosted glass (a see-through card, not bare, not solid): fill rgba(255,255,255,0.08), backdrop-filter: blur(24px), colours underneath showing th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        513,
+        414
+      ],
+      "paths": [
+        "s1",
+        "s5"
+      ],
+      "instruction": "ONE stat card, tilted 4° clockwise, frosted glass (see-through fill rgba(255,255,255,0.08), backdrop-filter: blur(24px), colours underneath showing through, 1px"
     },
     {
       "kind": "add",
@@ -413,7 +411,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a focus-mode status widget made of three real elements (sizes/positions in page px): a 67x67 icon at 863,511 with linear-gradient(135deg, #ff2fb3, #7b2ff7) "
+      "instruction": "ONE focus-mode panel, 280x120px, position absolute with top-left at 840,480 (page px before rotation), transform: rotate(-3deg) so it is tilted 3° anticlockwise"
     },
     {
       "kind": "add",
@@ -428,7 +426,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a row of four partner/logo labels, each its own element, all-caps (text-transform: uppercase), 13px bold #ffffff at 60% opacity, letter-spacing 2px, white-s"
+      "instruction": "A row of 4 uppercase brand/logo labels (text-transform: uppercase), each 13px bold #ffffff at 60% opacity with letter-spacing 2px (spaced out, not tight), each "
     }
   ],
   "rejected": [

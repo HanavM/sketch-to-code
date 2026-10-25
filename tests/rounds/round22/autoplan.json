@@ -229,11 +229,11 @@
    ],
    [
     "glass-nav",
-    "FROSTED GLASS (NOT a solid white pill): see-through fill rgba(255, 255, 255, 0.1), backdrop-filter: blur(18px), a 1px see-through rgba(255, 255, 255, 0.2) border, the page showing through it; a fully rounded glass pill 600x56px at x 340, top 28 (inset from the page sides, NOT a square full-width strip), links: Aurora, Features, Pricing, Sign in"
+    "FROSTED GLASS (NOT a solid white pill): see-through fill rgba(255, 255, 255, 0.1), backdrop-filter: blur(18px), a 1px see-through rgba(255, 255, 255, 0.2) border, the page showing through it; a fully rounded glass pill 600x56px at x 340, top 28 (inset from the page sides, NOT a square full-width strip), links: Aurora, Features, Pricing, Sign in; the 4 links spread EVENLY along the whole pill (display flex, justify-content: space-around, NOT bunched at one end), each 14px bold #ffffff"
    ],
    [
     "glass-hero",
-    "frosted glass \"Light you can work inside\", lines \"Aurora is a calm workspace that bends around your focus. No tabs, no noise, just the next thing.\", \"Get early access\""
+    "the region itself is ONE 620x460px panel at 120,180, FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill rgba(255, 255, 255, 0.08), backdrop-filter: blur(24px), the colours under it showing through, a 1px see-through rgba(255, 255, 255, 0.23) border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 522x131 at 169,229 64px bold #ffffff \"Light you can work inside\" set on exactly 2 lines (line-height 65px; it WRAPS, never forced onto one line); 460x56 at 169,382 18px #ffffff at 80% \"Aurora is a calm workspace that bends around your focus. No tabs, no noise, just the next thing.\"; 186x50 at 169,467 #ffffff fill, pill ends, padding-left 30px (its text starts at x 199): 16px bold #0b0820 \"Get early access\""
    ],
    [
     "stat-card",
@@ -241,7 +241,7 @@
    ],
    [
     "app-chip",
-    "the region itself is ONE 286x134px panel at 837,473, no fill, a 1px #ffffff border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 67x67 at 863,511 linear-gradient(135deg, #ff2fb3, #7b2ff7), 18px rounded; 95x22 at 942,519 16px bold #ffffff \"Focus mode\"; 97x22 at 943,537 16px #ffffff at 67% \"on until 14:30\""
+    "the region itself is ONE 280x120px panel, position absolute with its top-left at 840,480 page px before its turn, transform: rotate(-3deg) on this panel (TILTED 3° anticlockwise, NOT straight; its parts turn WITH it, and the part places below are page px before the turn), FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill rgba(255, 255, 255, 0.08), backdrop-filter: blur(24px), the colours under it showing through, a 1px see-through rgba(255, 255, 255, 0.23) border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 67x67 at 863,507 linear-gradient(135deg, #ff2fb3, #7b2ff7), 18px rounded; 95x22 at 943,520 16px bold #ffffff \"Focus mode\"; 97x22 at 943,538 16px #ffffff at 67% \"on until 14:30\""
    ],
    [
     "logos",
