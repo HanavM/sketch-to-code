@@ -55,3 +55,20 @@ Rounds 1-18 re-planned: 6 rounds gain ribbon or heading wording (no other change
 | e2 team settings | 62% | **66%** | heading, sub-line, switches, chips, solid checkboxes all built; matrix card frame and logo square lost, menu wraps |
 
 Round 19: **80%** over 10 (was 74). Vitest: same 2 env failures; typecheck clean.
+
+## n192: faint blurred rays, an arch window with cut panes, a record under its sleeve, a tonearm rod, two-colour bars (2026-10-25, ~211k billed)
+
+Planner now says: a repeating conic sunburst keeps each stop's alpha (FAINT, "at only 16% opacity") and a clear stop as
+`transparent`, its blur and its slow spin; round top corners over square bottom ones as an ARCH (border-radius R R 0 0,
+overflow hidden), and a part cut by `clip-path: polygon(...)` with that polygon (a triangle, a slanted pane); a block that
+later solid blocks partly cover sits BEHIND them (set first, lower z-index); a big round label inside a record as a ROUND
+LABEL disc at its dead centre, and a multi-line chip's lines one by one; a thin rod with a round ::before knob as a THIN ROD
+(size, gradient, turn about its end, knob size and ring); bars whose two colours take turns said as alternating; a hollow
+word no longer "null #000000". Rounds 1-18 re-planned: round 9 (record label, round) and round 16 (sunburst behind its disc).
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c1 stained glass | 74% | **91%** | rays faint, blurred, turning, behind the arch; arch top, triangle and slanted panes all built; the rose half-dark |
+| c4 vinyl sleeve | 78% | **77%** | record now UNDER the sleeve, label round, EQ bars orange/blue; but the label sits on the sleeve (left of the record's centre), the tonearm still a wide slab, "LOW TIDE" on one line |
+
+Round 19: **81%** over 10 (was 80). Vitest: same 2 env failures; typecheck clean.

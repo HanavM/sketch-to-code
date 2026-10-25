@@ -177,7 +177,7 @@
    ],
    [
     "stripe-tile",
-    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over; ON it (inside the block, not under it) a small caption chip at 40,70 in the block: 22px bold sans-serif #1c1917 \"BETA\" on a solid #fafaf9 180x70px ROUND label (border-radius 50%: a disc, NOT a square), its text centred; the card exactly 260x210px, its top-left at 980,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "diagonal (45deg) repeating stripes, NOT a smooth gradient (repeating-linear-gradient(45deg, #1c1917 0px 14px, #fafaf9 14px 28px)): 14px near-black then 14px white, over and over; ON it (inside the block, not under it) a ROUND LABEL disc 180px across, dead CENTRE of the block (it turns with it), its top-left at 40,70 in the block, holding 22px bold sans-serif #1c1917 \"BETA\" on a solid #fafaf9 180x70px ROUND label (border-radius 50%: a disc, NOT a square), its text centred; the card exactly 260x210px, its top-left at 980,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "notch-tile",

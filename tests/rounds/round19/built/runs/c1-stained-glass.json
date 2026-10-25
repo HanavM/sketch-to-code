@@ -1,24 +1,24 @@
 {
   "id": "c1-stained-glass",
-  "at": "2026-10-24T23:11:04.573Z",
+  "at": "2026-10-25T01:12:16.802Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7447692329224568,
-    "overallV2": 0.7447692329224568,
-    "overallV1": 0.6776914639726184,
-    "colour": 0.9001792783540421,
-    "structure": 0.6199227679006183,
-    "structureStrict": 0.44815356861352645,
-    "colourAligned": 0.9001792783540421,
-    "structureAligned": 0.6199227679006183,
+    "overall": 0.909160817739025,
+    "overallV2": 0.909160817739025,
+    "overallV1": 0.8497512758163858,
+    "colour": 0.9745143010628583,
+    "structure": 0.9414656921369198,
+    "structureStrict": 0.7893328826259792,
+    "colourAligned": 0.9745143010628583,
+    "structureAligned": 0.9414656921369198,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.48094899437101907
+      "r": 0.8787236035549368
     },
-    "layout": 0.7839353296195618,
-    "layoutV1": 0.7839353296195618,
+    "layout": 0.809130042447176,
+    "layoutV1": 0.809130042447176,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,31 +31,73 @@
     ],
     [
       0,
-      343,
-      1,
-      935,
-      835
+      340,
+      -260,
+      1100,
+      1100
     ],
     [
       1,
-      343,
-      1,
-      935,
-      835
+      340,
+      -260,
+      1100,
+      1100
     ],
     [
       2,
-      343,
-      1,
-      935,
-      835
+      340,
+      -202,
+      1101,
+      983
     ],
     [
       1,
-      343,
+      276,
+      -324,
+      1228,
+      1228
+    ],
+    [
       0,
-      936,
-      836
+      700,
+      70,
+      460,
+      760
+    ],
+    [
+      5,
+      720,
+      90,
+      460,
+      250
+    ],
+    [
+      5,
+      720,
+      340,
+      230,
+      260
+    ],
+    [
+      5,
+      950,
+      340,
+      230,
+      260
+    ],
+    [
+      5,
+      870,
+      390,
+      160,
+      160
+    ],
+    [
+      5,
+      720,
+      600,
+      460,
+      240
     ],
     [
       0,
@@ -87,72 +129,30 @@
     ],
     [
       0,
-      700,
-      70,
-      460,
-      760
-    ],
-    [
-      9,
-      720,
-      90,
-      460,
-      250
-    ],
-    [
-      9,
-      720,
-      340,
-      230,
-      260
-    ],
-    [
-      9,
-      950,
-      340,
-      230,
-      260
-    ],
-    [
-      9,
-      870,
-      390,
-      160,
-      160
-    ],
-    [
-      9,
-      720,
-      600,
-      460,
-      240
-    ],
-    [
-      0,
       74,
       200,
-      688,
-      244
+      699,
+      245
     ],
     [
       15,
       74,
       200,
-      688,
+      699,
       122
     ],
     [
       16,
-      392,
+      393,
       187,
-      150,
-      147
+      165,
+      148
     ],
     [
       15,
       74,
       322,
-      688,
+      699,
       122
     ],
     [
@@ -167,21 +167,24 @@
       72,
       701,
       299,
-      54
+      55
     ],
     [
       0,
       1190,
       254,
-      14,
+      18,
       224
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.8,
+    "recall": 1,
     "kept": [
+      "bleed",
       "blend",
+      "blur",
+      "clip-shape",
       "glow",
       "gradient",
       "hollow-type",
@@ -194,49 +197,36 @@
       "stripes-or-layers",
       "vertical-type"
     ],
-    "missing": [
-      "bleed",
-      "blur",
-      "clip-shape"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 66904,
-    "output": 36290,
-    "cacheRead": 630269
+    "input": 55015,
+    "output": 30529,
+    "cacheRead": 244605
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 81384,
-      "output": 27014,
-      "cacheRead": 618554,
-      "toolCalls": 17,
+      "billed": 58829,
+      "output": 17599,
+      "cacheRead": 202555,
+      "toolCalls": 8,
       "tools": [
-        "Read components/Sunburst.tsx",
         "Glob",
         "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Glob",
         "Read src/main.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Edit components/Sunburst.tsx",
-        "Glob",
-        "Glob",
-        "Edit components/Sunburst.tsx",
-        "Write src/App.tsx",
-        "Read components/Sunburst.tsx",
-        "Glob",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Read components/Sunburst.tsx"
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 300780
+      "ms": 190178
     }
   ],
-  "reading": "The sketch lays out a dark hero section: a huge sunburst disc behind a four-item text nav bar, a glowing gradient-block panel with five sub-parts, a tight two-line headline with one hollow word, a three-line body paragraph, a glowing outline pill CTA button, and a vertical side label — every piece's exact copy, size, position and CSS is spelled out in the typed notes.",
+  "reading": "This is a dark hero/landing section: a faint rotating sunburst disc behind an arch-topped glass panel built from five colored gradient panes, with a nav bar, a large italic headline with a hollow 'cut', a three-line body paragraph, a glowing pill CTA button, and a small vertical label running down the right edge of the panel. All text content, colors and exact CSS behavior are given verbatim in the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -251,7 +241,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a large decorative sunburst behind the hero content: a 1100x1100px disc at (340,-260), border-radius 50%, painted with exactly background: repeating-conic-g"
+      "instruction": "A faint sunburst: 30 soft straight rays fanning out from one centre, alternating soft yellow #ffd68c at 16% opacity and transparent, each ray 6deg wide (pinwhee"
     },
     {
       "kind": "add",
@@ -266,7 +256,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a top navigation row with four separate one-line text elements, each white-space:nowrap with a min-width (not fixed width) so label and any count never wrap"
+      "instruction": "Nav bar with 4 real text parts, each on one line (white-space nowrap, min-width not fixed width): 130x13 at 70,44 13px mono #cbb994 'Lumen & Lead'; 54x13 at 285"
     },
     {
       "kind": "add",
@@ -281,7 +271,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a hero panel: one 460x760px container at (700,70), #1a1426 fill, 10px #2b2236 border, 230px border-radius, box-shadow rgba(255,190,110,0.35) 0 0 120px 0 (it"
+      "instruction": "An arch-topped panel, one 460x760px block at 700,70, #1a1426 fill, 10px #2b2236 border, border-radius 230px 230px 0 0 (rounded top, straight sides, square botto"
     },
     {
       "kind": "add",
@@ -306,7 +296,7 @@
         243
       ],
       "paths": [],
-      "instruction": "Add a large Georgia italic regular-weight headline with tight-set letters (line-height 0.92), using a light-like screen blend so it brightens whatever it overla"
+      "instruction": "A giant screen-blend (brightens what it overlaps) Georgia italic serif regular-weight headline, tight-set (line-height 0.92), reading 'Light, cut into colour', "
     },
     {
       "kind": "add",
@@ -333,7 +323,7 @@
         88
       ],
       "paths": [],
-      "instruction": "Add a 3-line body paragraph, 19px Georgia, color #d9cdb5, 420px wide, top-left at (70,560), with this exact quoted copy: \"Hand-leaded glass for chapels, stairwe"
+      "instruction": "A 3-line, 420px-wide body paragraph, 19px Georgia, warm paper color #d9cdb5, top-left at 70,560, with the exact copy: \"Hand-leaded glass for chapels, stairwells"
     },
     {
       "kind": "add",
@@ -348,7 +338,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a soft-yellow outline pill button with a glow, labeled 'BOOK A STUDIO VISIT →'; its text color is #ffd36b (soft yellow, not the page's default cream)."
+      "instruction": "A soft yellow outline pill button that glows, labeled 'BOOK A STUDIO VISIT →', with its text colored #ffd36b (soft yellow, not the page's cream text)."
     },
     {
       "kind": "add",
@@ -363,7 +353,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add vertical mono wide-spaced text (writing-mode: vertical-rl), 12px letters, the line about 232px long, reading 'EST. 1987 — BRISTOL'; its text color is #8f7f6"
+      "instruction": "A vertical mono wide-letter-spaced label (writing-mode: vertical-rl), 12px letters, about 232px long, reading 'EST. 1987 — BRISTOL', colored #8f7f6a (grey, not "
     }
   ],
   "rejected": [
