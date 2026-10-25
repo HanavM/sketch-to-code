@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 19 is up to 85%: the invoice editor (83%) and team settings (73%) pages now keep their form fields, tilted stamp and table card. Next: the magazine cover and lantern pages, now lowest."
 round: 19
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 85]
-lock: null
+lock: {by: run-2026-10-25-n195, until: "2026-10-25T03:38Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
