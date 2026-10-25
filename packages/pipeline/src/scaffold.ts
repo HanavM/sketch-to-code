@@ -191,6 +191,25 @@ export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number;
 }
 
 /**
+ * Do the words already give the shape as an exact CSS construction? A shard
+ * said as `clip-path: polygon(...)`, a triangle said as a zero-size border
+ * triangle, a rule said as exactly 1px thick, a disc or ring said as a sized
+ * box with border-radius 50%: the drawn outline adds only its wobble, and
+ * handed over as "the user's strokes, keep them" it wins over the words
+ * (round 21 c3: shard built as an unclipped box, the triangle a red box; c4:
+ * hairline rules built thick and wavy, the red disc given a dark outline, bar
+ * lines put on a grey slab). Below the trace rung those are built from the
+ * words alone.
+ */
+export function wordsGiveCss(said: string): boolean {
+  if (/\bclip-path:\s*(polygon|circle|ellipse|inset)\(/i.test(said)) return true
+  if (/\b(css )?border triangle\b|\bzero-size div\b/i.test(said)) return true
+  if (/\bexactly 1px thick\b|\bheight:\s*1px\b|\bwidth:\s*1px\b/i.test(said)) return true
+  if (/\b\d{2,4}x\d{2,4}px\b[^.;]{0,80}\bborder-radius:? 50%/i.test(said)) return true
+  return /\bnot strokes\b/i.test(said) && /\b\d{2,4}x\d{1,4}\b/.test(said)
+}
+
+/**
  * Build the component that already has the drawing in it.
  *
  * Returns null when there is nothing worth scaffolding: no geometry, or the
@@ -221,6 +240,8 @@ export function buildScaffold(
   if (action.fidelity !== 'recognized' && action.fidelity !== 'verbatim') return null
   // the trace rung asked for widgets as drawn too (above), so only below it
   if (rungFor(fidelity.resemblance) !== 'trace' && onlyPrimitives(paths, region, `${action.instruction} ${action.depicts ?? ''}`)) return null
+  // the words give the exact CSS shape (a clip-path, a border triangle, a 1px rule, a round sized box): no outline
+  if (rungFor(fidelity.resemblance) !== 'trace' && wordsGiveCss(`${action.instruction} ${action.depicts ?? ''}`)) return null
 
   let name = componentName(action.depicts)
   const taken = opts.taken ?? new Set<string>()

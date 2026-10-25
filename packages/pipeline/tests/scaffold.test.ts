@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, isPrimitivePath, lostStrokes, onlyPrimitives, pictureCrossIds, restoreLostStrokes, scaffoldDir } from '../src/scaffold.js'
+import { buildScaffold, componentName, isPrimitivePath, lostStrokes, onlyPrimitives, pictureCrossIds, restoreLostStrokes, scaffoldDir, wordsGiveCss } from '../src/scaffold.js'
 import { askedHexes, finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
@@ -363,5 +363,27 @@ describe('onlyPrimitives — a widget drawn as plain boxes is not a form (round 
     expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a big 520x620px block, 12px rounded, gradient backdrop')).toBe(true)
     expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a 520x620px photo tilted 4° clockwise')).toBe(false)
     expect(onlyPrimitives([line(0, 0, 400, 0, 'l')], { w: 402, h: 4 }, 'a 400x2px rule')).toBe(false)
+  })
+})
+
+describe('wordsGiveCss — words that give the exact CSS shape beat the drawn outline (round 21 c3, c4)', () => {
+  const tilted = { strokeId: 't', d: 'M0,30 L300,0 L276,380 L18,350 Z' }
+  it('reads a clip-path, a border triangle, a 1px rule, a sized round box and plain bars', () => {
+    expect(wordsGiveCss('A slanted four-sided shard (NOT a rectangle), clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%): 300x380px')).toBe(true)
+    expect(wordsGiveCss('A solid #ff3d00 triangle pointing up, built as a CSS border triangle: 180px wide')).toBe(true)
+    expect(wordsGiveCss('a near-black horizontal divider rule, full page width (1280px), exactly 1px thick (height:1px)')).toBe(true)
+    expect(wordsGiveCss('one big near-black outline ring, a 500x500px circle at 470,200 (position absolute, border-radius 50%) with a thin 1px border')).toBe(true)
+    expect(wordsGiveCss('four solid flat-filled near-black horizontal bars (not text, not strokes), each its own element: 270x6 at 28,744')).toBe(true)
+  })
+  it('leaves drawings the words only describe', () => {
+    expect(wordsGiveCss('a 520x620px photo tilted 4° clockwise')).toBe(false)
+    expect(wordsGiveCss('a hand-drawn cartoon crab doodle')).toBe(false)
+    expect(wordsGiveCss('a big vivid pink blurred circle behind the card')).toBe(false)
+  })
+  it('builds no outline component for them below the trace rung, keeps it at the trace rung', () => {
+    const shard = { region: { x: 700, y: 430, w: 300, h: 380 }, svgPaths: [tilted], depicts: 'shard', instruction: 'a slanted SHARD cut by clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%)' }
+    expect(buildScaffold(action(shard), 0, controls())).toBeNull()
+    expect(buildScaffold(action({ ...shard, instruction: 'a slanted blue shard' }), 0, controls())).not.toBeNull()
+    expect(buildScaffold(action({ ...shard, fidelity: 'verbatim' }), 0, controls({ resemblance: 0.95 }))).not.toBeNull()
   })
 })

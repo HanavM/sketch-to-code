@@ -88,7 +88,7 @@ export { STYLES, STYLE_IDS, normalizeStyle, renderTraits, styleFaults } from './
 export type { StyleId, StyleSpec, RenderTraits } from './style.js'
 export { planInstant, applyInstant, revertInstant, instantEligible, mountPoint } from './instant.js'
 export type { InstantPlan, InstantResult, InstantVerdict } from './instant.js'
-export { buildScaffold, componentName, scaffoldDir } from './scaffold.js'
+export { buildScaffold, componentName, scaffoldDir, wordsGiveCss } from './scaffold.js'
 export type { Scaffold } from './scaffold.js'
 export { finishSource, paletteFor } from './finish.js'
 export type { FinishEdit, FinishResult } from './finish.js'

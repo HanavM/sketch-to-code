@@ -62,3 +62,19 @@ round 4 (its page rules) and round 21 change.
 Round 21: **77%** (was 71). Vitest same 2 env failures (1456 tests); typecheck clean.
 Next: the shard and triangle are still built from the drawn shape component (clip and point lost): say the drawn strokes
 are only the outline; c4 rules said as 1px divs, never the drawn line; disc with no outline; c2 parts keep their own y.
+
+## n210: words that give the exact CSS shape beat the drawn outline (2026-10-25, ~170k billed)
+
+Pipeline (scaffold): below the trace rung, a drawn shape whose words already give it as an exact CSS construction
+(a `clip-path: polygon/circle(...)`, a CSS border triangle, a rule "exactly 1px thick", a sized box with
+border-radius 50%, plain bars "not strokes" with sizes) no longer gets a "the user's strokes, keep them" outline
+component: the build makes it from the words. Before, the outline won (the shard an unclipped box, the triangle a box,
+the rules thick and wavy, the disc outlined, bar lines on a grey slab). Unit tests added (scaffold.test.ts).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c3 mask reveal | 86% | **90%** | shard cut slanted with its amber sun, triangle a real triangle (effects 100%); an invented nav row, the CTA rule thick |
+| c4 swiss orbit | 66% | **74%** | rules 1px and straight, bars plain, ring and dots right; the disc still from a drawn component (slight shade), meta missed as a region |
+
+Round 21: **78%** (was 77). Vitest same 2 env failures (1459 tests); typecheck clean.
+Next: c2 depth stack (51) parts keep their own y; c4 disc still a drawn component; c3 invented nav row.
