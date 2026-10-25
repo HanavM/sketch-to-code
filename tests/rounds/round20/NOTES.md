@@ -166,3 +166,19 @@ flow); unit-tested, it did not need to fire on the kept run.
 
 Round 20: **89%** (was 87). Vitest same 2 env failures (1454 tests); build clean.
 Next: e3 spreadsheet 77 (chart axis, selected range tint), e1 day names to sit at the top of their head box, e2 team chat 84.
+
+## n205: a chart's axis lines, a word said as its own line over the text under it (2026-10-25, ~196k billed)
+
+Planner (words only): a bar chart whose bars stand in a box with a left and bottom border now says that plot box's size,
+place and its AXIS LINES (round 20 e3 chart built with bare bars; rounds 3 and 16 charts gain their bottom axis too); a
+box with no paint whose own words sit on its top line above a child holding more text is said as that one line, not the
+whole box (round 20 e1 day heads "MON" over "19" were said as the 51px box and built centred down onto the date; rounds 6,
+11, 12, 13, 17 name-over-subline rows tighten the same way). No marks changed.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e3 spreadsheet | 77% | **90%** | chart axis lines in place, layout and picture closer (the "Sum" chip was dropped this run) |
+| e1 week calendar | 88% | 88% (kept) | re-run put the day names above their dates as planned, but scored 79: the sidebar came out grey-filled, the day heads were not grouped into one header (region missed) and the now-line drew thick; the 88% build is kept, the try saved as e1-week-calendar-n205try-cmp.png |
+
+Round 20: **90%** (was 89). Vitest same 2 env failures (1454 tests); typecheck clean.
+Next: e1 header grouping (the day heads as one header row) and plain sidebar, e2 team chat 84, e3 "Sum" chip.

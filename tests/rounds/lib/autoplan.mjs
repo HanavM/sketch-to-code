@@ -1502,7 +1502,19 @@ export function factsInPage() {
           // paragraph cut at 70 letters, the rest invented in the build)
           // n143: a paragraph block three lines or taller keeps its whole copy (round 11 e3 mail body: cut at 70 letters, the
           // rest lost)
-          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, b.height >= (s.whiteSpace === 'nowrap' ? 3 : 1.8) * parseFloat(s.fontSize) * 1.2 && own.length > 70 ? 1200 : runs ? 140 : 70), lh: Math.round(parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2), nl: own && !/^vertical/.test(s.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(k); const tops = [...rg.getClientRects()].filter((q) => q.width > 1).map((q) => q.top).sort((x, y) => x - y); const lh0 = parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2; return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > lh0 * 0.6 ? n + 1 : n), 0) })() : 0, runs, cap, wrap, face: own && gen(s.fontFamily) !== bodyGen && gen(s.fontFamily) !== 'mono' ? gen(s.fontFamily) : null,
+          // n205: a paint-less box whose own words sit on its top line above a child that holds more text (round 20 e1 day
+          // heads: 'MON' over its date '19' in one 139x51 box, said as the whole box, built centred down onto the date) is said
+          // as that text line only
+          const tl = own && !runs && !hasFill && !img && !bw.some((x) => x >= 1) && !ring && !inset && [...k.children].some((c) => (c.textContent || '').trim() && !inlDone.has(c)) ? (() => {
+            const rs = [...k.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim()).flatMap((n) => { const rg = document.createRange(); rg.selectNodeContents(n); return [...rg.getClientRects()] }).filter((q) => q.width > 1)
+            if (!rs.length) return null
+            const top = Math.min(...rs.map((q) => q.top)), bot = Math.max(...rs.map((q) => q.bottom))
+            const kids = [...k.children].filter((c) => (c.textContent || '').trim())
+            // only when every child holding text sits BELOW the words (a file row with its '+8' count on the same line keeps its height)
+            return bot - top < 0.6 * b.height && top - b.top <= 0.25 * b.height && kids.every((c) => c.getBoundingClientRect().top >= bot - 2) ? { left: b.left, top, width: b.width, height: bot - top } : null
+          })() : null
+          const bb = tl || b
+          out.push({ x: Math.round(bb.left), y: Math.round(bb.top), w: Math.round(bb.width), h: Math.round(bb.height), t: own.slice(0, bb.height >= (s.whiteSpace === 'nowrap' ? 3 : 1.8) * parseFloat(s.fontSize) * 1.2 && own.length > 70 ? 1200 : runs ? 140 : 70), lh: Math.round(parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2), nl: own && !/^vertical/.test(s.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(k); const tops = [...rg.getClientRects()].filter((q) => q.width > 1).map((q) => q.top).sort((x, y) => x - y); const lh0 = parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2; return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > lh0 * 0.6 ? n + 1 : n), 0) })() : 0, runs, cap, wrap, face: own && gen(s.fontFamily) !== bodyGen && gen(s.fontFamily) !== 'mono' ? gen(s.fontFamily) : null,
             // n196: the part's place in page order (paint order where parts overlap), capitals by text-transform, right-set lines
             di: out.length, caps: own && s.textTransform === 'uppercase' && own !== own.toUpperCase(), tar: own && s.textAlign === 'right', tac: own && s.textAlign === 'center',
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
@@ -2195,7 +2207,9 @@ export function factsInPage() {
           alt: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const ks = [...new Set(cs.map(key))]; return ks.length === 2 && cs.every((c, i) => key(c) === key(cs[i % 2])) ? [cs[0], cs[1]] : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
           // n167: the card the chart sits on (round 16 e1: a white bordered shadowed card built as a pale blue panel) and the bars' own size
           card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), x: Math.round(box0.left + scrollX), y: Math.round(box0.top + scrollY), abs: /absolute|fixed/.test(cs.position), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
-          barW: Math.round(r[0].width), barGap: r.length > 1 ? Math.round(r[1].left - r[0].right) : 0, tallest: Math.max(...hs) }
+          barW: Math.round(r[0].width), barGap: r.length > 1 ? Math.round(r[1].left - r[0].right) : 0, tallest: Math.max(...hs),
+          // n205: the plot area's axis lines (round 20 e3: a left + bottom 1px #dadce0 border on the bars' box, built without)
+          axes: (() => { const pa = bars[0].parentElement; if (!pa || pa === el || !bars.every((k) => k.parentElement === pa)) return null; const cs = getComputedStyle(pa), L = parseFloat(cs.borderLeftWidth) || 0, B = parseFloat(cs.borderBottomWidth) || 0; if (L < 1 && B < 1) return null; const pb = pa.getBoundingClientRect(); return { w: Math.round(pb.width), h: Math.round(pb.height), x: Math.round(pb.left + scrollX), y: Math.round(pb.top + scrollY), sides: [L >= 1 ? 'left' : null, B >= 1 ? 'bottom' : null].filter(Boolean), px: Math.round(Math.max(L, B)), c: rgba(L >= 1 ? cs.borderLeftColor : cs.borderBottomColor), padL: Math.round(r[0].left - pb.left) } })() }
       }
     }
     // chat bubbles: rounded filled boxes, some hugging the left, some the right
@@ -2937,7 +2951,8 @@ const barCard = (d) => {
   if (!c || !(c.bg || c.bw >= 1 || c.shadow)) return ''
   return `a ${c.w}x${c.h}px chart card, ${c.bg ? `${colourName(c.bg)} (${hexOf(c.bg)}) fill (NOT tinted, NOT pale blue)` : 'no fill'}${c.bw >= 1 ? `, ${Math.round(c.bw)}px ${hexOf(c.bc)} border` : ''}${c.shadow ? ', a soft drop shadow' : ''}${c.radius >= 2 ? `, ${c.radius}px rounded` : ', square corners'}${c.abs ? ` (absolutely placed, its top-left EXACTLY at ${c.x},${c.y} page px, floating over what is under it, NOT further right or higher)` : ''}, holding: `
 }
-const barSize = (d) => d.barW ? `; each bar ${d.barW}px wide, ${d.barGap}px apart, the tallest ${d.tallest}px, no labels under the bars` : ''
+const barSize = (d) => (d.barW ? `; each bar ${d.barW}px wide, ${d.barGap}px apart, the tallest ${d.tallest}px, no labels under the bars` : '') +
+  (d.axes ? `; the bars stand in a ${d.axes.w}x${d.axes.h}px plot box at ${d.axes.x},${d.axes.y} page px with a ${d.axes.px}px ${hexOf(d.axes.c)} AXIS LINE along its ${d.axes.sides.join(' and ')} edge${d.axes.sides.length > 1 ? 's' : ''} (border-${d.axes.sides.join(' + border-')}; the bars sit on the bottom axis), the first bar ${d.axes.padL}px in from the left axis` : '')
 
 /** Dense app UI -> words that carry its structure (columns, rows, weeks, bars, sides). */
 function denseNote(d) {
