@@ -3389,7 +3389,7 @@ function decideRest(f, page, marked, said) {
   const d0 = decideOne(f, page, marked, said)
   const w0 = f.rect.w, h0 = f.rect.h
   const C = f.innerChip
-  const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ON it (inside the block, not under it) ${C.round && C.w >= 80 ? `a ROUND LABEL disc ${C.w}px across, ${Math.abs(C.x + C.w / 2 - w0 / 2) <= 4 && Math.abs(C.y + C.h / 2 - h0 / 2) <= 4 ? 'dead CENTRE of the block (it turns with it), ' : ''}its top-left at ${C.x},${C.y} in the block, holding` : `a small caption chip at ${C.x},${C.y} in the block:`} ${C.px}px ${C.bold ? 'bold ' : ''}${C.sans ? 'sans-serif ' : ''}${C.mono ? 'monospace ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t, 40)}${/\n/.test(C.t) ? ` (${C.t.split('\n').length} lines: ${C.t.split('\n').map((l) => quote(l, 20)).join(' over ')}, every line shown)` : ''} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px ${C.round ? 'ROUND label (border-radius 50%: a disc, NOT a square), its text centred' : 'label'}` } : d0
+  const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ${C.round && C.w >= 80 ? `ON THIS disc itself (a child of THIS ${Math.round(w0)}x${Math.round(h0)}px block, NOT of any other block it touches or sits behind) a ROUND LABEL disc ${C.w}px across, ${Math.abs(C.x + C.w / 2 - w0 / 2) <= 4 && Math.abs(C.y + C.h / 2 - h0 / 2) <= 4 ? 'dead CENTRE of this disc (it turns with it), ' : ''}its top-left at ${C.x},${C.y} inside this disc (its centre at page ${Math.round(f.rect.x + C.x + C.w / 2)},${Math.round(f.rect.y + C.y + C.h / 2)}), holding` : 'ON it (inside the block, not under it) '}${C.round && C.w >= 80 ? '' : `a small caption chip at ${C.x},${C.y} in the block:`} ${C.px}px ${C.bold ? 'bold ' : ''}${C.sans ? 'sans-serif ' : ''}${C.mono ? 'monospace ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t.replace(/\n/g, ' / '), 40)}${/\n/.test(C.t) ? ` (${C.t.split('\n').length} lines: ${C.t.split('\n').map((l) => quote(l, 20)).join(' over ')}, every line shown: a <br> between the lines, NEVER run together onto one line)` : ''} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px ${C.round ? 'ROUND label (border-radius 50%: a disc, NOT a square), its text centred' : 'label'}` } : d0
   // n147: its own ink when it is far from the page's (round 12 c4: the page note says white text; the subcopy and the
   // nav's left word are near-black on the yellow panel and were built white), each word's when the row mixes inks
   if (d?.note && f.text && f.colour?.a > 0.5 && page.colour && !/part by part/.test(d.note)) {
@@ -3429,6 +3429,11 @@ function decideRest(f, page, marked, said) {
   return d
 }
 
+// n192/n193: a tonearm said as a thin rod with its knob
+function rodNote(K, f) {
+  return `a THIN ROD with a round KNOB (a tonearm, NOT a block or slab): ONE ${K.lw}x${K.lh}px div (its untransformed size, only ${Math.min(K.lw, K.lh)}px thick) with its top-left at ${K.x},${K.y}${K.grad ? `, background: ${cssHex(K.grad)}` : visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''}, ${K.rad}px rounded${f.turn ? `, transform: rotate(${f.turn}deg) about its ${K.atTop ? 'top' : 'bottom'} end (transform-origin ${K.origin}; tilted ${Math.abs(f.turn)}° ${f.turn > 0 ? 'clockwise' : 'anticlockwise'})` : ''}, highest z-index (it lies OVER what it crosses); at its ${K.atTop ? 'top' : 'bottom'} end a ${K.d}px ROUND knob (a ::before disc, border-radius 50%)${K.fill?.a > 0.05 ? ` filled ${hexOf(K.fill)}` : ''}${K.ring ? ` with a ${K.ring.w}px ${hexOf(K.ring.c)} ring` : ''}, centred on the rod's end`
+}
+
 function decideOne(f, page, marked, said) {
   const { w, h } = f.rect
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
@@ -3437,13 +3442,28 @@ function decideOne(f, page, marked, said) {
   // n192: a thin rod with a round knob on one end (round 19 c4 tonearm: said as a 'tilted gradient block', built as a slab)
   if (f.rodKnob && !(f.text ?? '').trim()) {
     const K = f.rodKnob
-    return { kind: 'box', note: `a THIN ROD with a round KNOB (a tonearm, NOT a block or slab): ONE ${K.lw}x${K.lh}px div (its untransformed size, only ${Math.min(K.lw, K.lh)}px thick) with its top-left at ${K.x},${K.y}${K.grad ? `, background: ${cssHex(K.grad)}` : visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''}, ${K.rad}px rounded${f.turn ? `, transform: rotate(${f.turn}deg) about its ${K.atTop ? 'top' : 'bottom'} end (transform-origin ${K.origin}; tilted ${Math.abs(f.turn)}° ${f.turn > 0 ? 'clockwise' : 'anticlockwise'})` : ''}, highest z-index (it lies OVER what it crosses); at its ${K.atTop ? 'top' : 'bottom'} end a ${K.d}px ROUND knob (a ::before disc, border-radius 50%)${K.fill?.a > 0.05 ? ` filled ${hexOf(K.fill)}` : ''}${K.ring ? ` with a ${K.ring.w}px ${hexOf(K.ring.c)} ring` : ''}, centred on the rod's end` }
+    // n193: drawn as a thin stroke along the rod, not a box round its turned bounds (round 19 c4: the arm was
+    // built as wide as its 183x325 bounds, a slab)
+    let poly = null
+    if (f.turn && f.rect.w > 0 && f.rect.h > 0) {
+      const [ox, oy] = String(K.origin ?? '').split(/\s+/).map((v) => parseFloat(v))
+      const px = K.x + (Number.isFinite(ox) ? ox : K.lw / 2), py = K.y + (Number.isFinite(oy) ? oy : 0)
+      const a = (f.turn * Math.PI) / 180, len = K.atTop ? Math.max(K.lw, K.lh) : -Math.max(K.lw, K.lh)
+      const ex = px - Math.sin(a) * len, ey = py + Math.cos(a) * len
+      const hw = Math.max(6, Math.min(K.lw, K.lh) / 2), nx = Math.cos(a) * hw, ny = Math.sin(a) * hw
+      const fr = ([x, y]) => [Math.round(((x - f.rect.x) / f.rect.w) * 1000) / 1000, Math.round(((y - f.rect.y) / f.rect.h) * 1000) / 1000]
+      poly = [[px - nx, py - ny], [px + nx, py + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]].map(fr)
+      if (poly.some(([x, y]) => x < -0.2 || x > 1.2 || y < -0.2 || y > 1.2)) poly = null
+    }
+    if (poly) return { kind: 'shape', poly, note: rodNote(K, f) }
+    return { kind: 'box', note: rodNote(K, f) }
   }
   // n191: a round block of fine repeating rings is a vinyl RECORD (round 19 c4: said only as 'spinning' plus its label
   // words, so the grooves and the round edge were left to chance)
   if (/^repeating-radial-gradient/.test(f.bgImage ?? '') && (f.radiusPct >= 45 || f.radius >= Math.min(w, h) * 0.45) && w >= 120 && Math.abs(w - h) <= 4) {
     const cs2 = [...new Set((f.bgImage.match(/rgba?\([^)]+\)/g) || []).map((m) => hexOf(parse(m))))]
-    return { kind: 'box', note: `a VINYL RECORD: ONE ${Math.round(w)}x${Math.round(h)}px ROUND disc (border-radius 50%) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, filled with fine concentric GROOVES: exactly background: ${cssHex(f.bgImage)} (${cs2.join(' and ')} rings every few px, NOT a flat fill)${f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''}${/spinning/.test(f.motion ?? '') ? ', the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite)' : ''}${behindWords(f)}` }
+    // n193: drawn as a circle, not a box (a box mark was scaffolded as a square record path the build kept)
+    return { kind: 'circle', note: `a VINYL RECORD: ONE ${Math.round(w)}x${Math.round(h)}px ROUND disc (border-radius 50%) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, filled with fine concentric GROOVES: exactly background: ${cssHex(f.bgImage)} (${cs2.join(' and ')} rings every few px, NOT a flat fill)${f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''}${/spinning/.test(f.motion ?? '') ? ', the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite)' : ''}${behindWords(f)}` }
   }
   // n156: a radial gradient with a hard stop is a flat disc on a flat block (round 14 e3: 'warm paper to cream gradient',
   // the product disc lost)

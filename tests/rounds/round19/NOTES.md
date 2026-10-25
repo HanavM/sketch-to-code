@@ -72,3 +72,18 @@ word no longer "null #000000". Rounds 1-18 re-planned: round 9 (record label, ro
 | c4 vinyl sleeve | 78% | **77%** | record now UNDER the sleeve, label round, EQ bars orange/blue; but the label sits on the sleeve (left of the record's centre), the tonearm still a wide slab, "LOW TIDE" on one line |
 
 Round 19: **81%** over 10 (was 80). Vitest: same 2 env failures; typecheck clean.
+
+## n193: a tonearm drawn as a thin stroke, a record drawn as a circle with its label on it, two-line chips kept (2026-10-25, ~187k billed)
+
+The record's label was built on the sleeve: its note said "ON it (inside the block...)" right after naming the sleeve it
+sits behind, so "the block" read as the sleeve. Now a round label is said ON THIS disc (a child of this 520px block, not of
+any block it touches) with its centre in page px. The tonearm was drawn as a box round its turned bounds (183x325), and the
+build kept that width; it is now drawn as a thin four-point outline along the rod itself. The record was drawn as a box, so
+the build scaffolded a square record path and kept it; it is now drawn as a circle. A chip's two lines are said "LOW / TIDE"
+with a line break between them (a run had dropped "TIDE"). Rounds 1-18 not re-planned this step (only round 19 c4 changed).
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c4 vinyl sleeve | 77% | **90%** (run 1 86%: square record, TIDE lost) | thin tonearm with knob, label dead centre of a round record, LOW over TIDE; EQ bars pulse at mixed heights (target caught at full height) |
+
+Round 19: **83%** over 10 (was 81). Vitest: same 2 env failures; typecheck clean.

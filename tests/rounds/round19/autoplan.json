@@ -349,7 +349,7 @@
    ],
    [
     "spinning-record",
-    "box"
+    "circle"
    ],
    [
     "halftone-sleeve",
@@ -357,7 +357,27 @@
    ],
    [
     "tonearm",
-    "box"
+    "shape",
+    {
+     "poly": [
+      [
+       0.923,
+       0
+      ],
+      [
+       1,
+       0.023
+      ],
+      [
+       0.077,
+       1
+      ],
+      [
+       0,
+       0.977
+      ]
+     ]
+    }
    ],
    [
     "vertical-title",
@@ -391,11 +411,11 @@
    ],
    [
     "spinning-record",
-    "a VINYL RECORD: ONE 520x520px ROUND disc (border-radius 50%) at 470,180, filled with fine concentric GROOVES: exactly background: repeating-radial-gradient(circle, #161616 0px, #161616 2px, #262626 2px, #262626 4px) (#161616 and #262626 rings every few px, NOT a flat fill), box-shadow: #00000059 0px 20px 50px 0px, the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite); it sits BEHIND the 560x560px dotted indigo #1d3fbf block at 120,150: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it); ON it (inside the block, not under it) a ROUND LABEL disc 160px across, dead CENTRE of the block (it turns with it), its top-left at 180,180 in the block, holding 14px bold monospace #1b1b1b \"LOW TIDE\n— 33⅓ —\" (2 lines: \"LOW TIDE\" over \"— 33⅓ —\", every line shown) on a solid #ff5a36 160x160px ROUND label (border-radius 50%: a disc, NOT a square), its text centred"
+    "a VINYL RECORD: ONE 520x520px ROUND disc (border-radius 50%) at 470,180, filled with fine concentric GROOVES: exactly background: repeating-radial-gradient(circle, #161616 0px, #161616 2px, #262626 2px, #262626 4px) (#161616 and #262626 rings every few px, NOT a flat fill), box-shadow: #00000059 0px 20px 50px 0px, the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite); it sits BEHIND the 560x560px dotted indigo #1d3fbf block at 120,150: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it); ON THIS disc itself (a child of THIS 520x520px block, NOT of any other block it touches or sits behind) a ROUND LABEL disc 160px across, dead CENTRE of this disc (it turns with it), its top-left at 180,180 inside this disc (its centre at page 730,440), holding 14px bold monospace #1b1b1b \"LOW TIDE / — 33⅓ —\" (2 lines: \"LOW TIDE\" over \"— 33⅓ —\", every line shown: a <br> between the lines, NEVER run together onto one line) on a solid #ff5a36 160x160px ROUND label (border-radius 50%: a disc, NOT a square), its text centred"
    ],
    [
     "halftone-sleeve",
-    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 120,150, a SOLID indigo #1d3fbf fill covered edge to edge by a fine grid of small #f0e6d2 dots, exactly: background-color: #1d3fbf; background-image: radial-gradient(#f0e6d2 22%, transparent 24%); background-size: 18px 18px (it REPEATS every 18px: rows and rows of dots, NOT one big disc); transform: rotate(-4deg) (tilted 4deg anticlockwise), box-shadow: #1b1b1b 16px 16px 0px 0px (a HARD offset shadow, no blur, a solid slab behind one corner), square corners; ON it (inside the block, not under it) a small caption chip at 58,427 in the block: 64px bold sans-serif #f0e6d2 \"LOW\nTIDE\" (2 lines: \"LOW\" over \"TIDE\", every line shown) on a solid #1d3fbf 178x139px label"
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 120,150, a SOLID indigo #1d3fbf fill covered edge to edge by a fine grid of small #f0e6d2 dots, exactly: background-color: #1d3fbf; background-image: radial-gradient(#f0e6d2 22%, transparent 24%); background-size: 18px 18px (it REPEATS every 18px: rows and rows of dots, NOT one big disc); transform: rotate(-4deg) (tilted 4deg anticlockwise), box-shadow: #1b1b1b 16px 16px 0px 0px (a HARD offset shadow, no blur, a solid slab behind one corner), square corners; ON it (inside the block, not under it) a small caption chip at 58,427 in the block: 64px bold sans-serif #f0e6d2 \"LOW / TIDE\" (2 lines: \"LOW\" over \"TIDE\", every line shown: a <br> between the lines, NEVER run together onto one line) on a solid #1d3fbf 178x139px label"
    ],
    [
     "tonearm",
