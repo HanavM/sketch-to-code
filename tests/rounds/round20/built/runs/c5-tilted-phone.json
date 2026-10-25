@@ -1,24 +1,24 @@
 {
   "id": "c5-tilted-phone",
-  "at": "2026-10-25T04:15:16.012Z",
+  "at": "2026-10-25T05:23:28.807Z",
   "likeness": {
     "version": 3,
-    "overall": 0.657308775518894,
-    "overallV2": 0.583383176506188,
-    "overallV1": 0.5048443369282188,
-    "colour": 0.9105861390615256,
-    "structure": 0.718619746228716,
-    "structureStrict": 0.605747080199527,
-    "colourAligned": 0.942432912998746,
-    "structureAligned": 0.7578068438697216,
+    "overall": 0.8928607058094183,
+    "overallV2": 0.8928607058094183,
+    "overallV1": 0.8323720754596035,
+    "colour": 0.9908400775639176,
+    "structure": 0.9450048052113188,
+    "structureStrict": 0.8580731290021263,
+    "colourAligned": 0.9908400775639176,
+    "structureAligned": 0.9450048052113188,
     "align": {
       "scale": 1,
-      "dx": 112,
-      "dy": 16,
-      "r": 0.8460126003590553
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9831845287732284
     },
-    "layout": 0.70057441928476,
-    "layoutV1": 0.70057441928476,
+    "layout": 0.8151583349876634,
+    "layoutV1": 0.8151583349876634,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,17 +27,17 @@
       0,
       0,
       1280,
-      900
+      920
     ],
     [
       0,
-      560,
-      40,
-      356,
-      640
+      0,
+      700,
+      1280,
+      200
     ],
     [
-      0,
+      1,
       0,
       700,
       1280,
@@ -46,37 +46,44 @@
     [
       2,
       0,
-      700,
-      1280,
-      200
-    ],
-    [
-      3,
-      0,
       760,
       1280,
       140
     ],
     [
       0,
+      560,
+      40,
+      326,
+      640
+    ],
+    [
+      0,
       68,
       170,
-      395,
+      504,
       152
     ],
     [
       5,
       68,
       170,
-      395,
+      504,
       76
     ],
     [
       5,
       68,
       246,
-      395,
+      504,
       76
+    ],
+    [
+      7,
+      68,
+      241,
+      359,
+      85
     ],
     [
       0,
@@ -89,22 +96,22 @@
       0,
       64,
       573,
-      279,
-      50
+      258,
+      46
     ],
     [
-      9,
+      10,
       64,
-      574,
-      124,
-      48
+      573,
+      115,
+      46
     ],
     [
-      9,
-      200,
+      10,
+      191,
       573,
-      142,
-      50
+      131,
+      46
     ],
     [
       0,
@@ -124,139 +131,133 @@
       0,
       660,
       90,
-      320,
-      660
+      520,
+      720
     ],
     [
-      14,
-      640,
-      97,
+      15,
+      749,
+      117,
       370,
       685
     ],
     [
-      15,
-      653,
-      111,
+      16,
+      763,
+      131,
       341,
       653
     ],
     [
-      15,
-      740,
-      159,
-      75,
+      16,
+      850,
+      179,
+      76,
       19
     ],
     [
-      15,
-      733,
-      179,
-      208,
+      16,
+      842,
+      199,
+      209,
       59
     ],
     [
-      15,
-      720,
-      295,
-      233,
-      53
+      16,
+      835,
+      264,
+      235,
+      58
     ],
     [
-      19,
-      734,
-      304,
-      129,
-      29
+      16,
+      827,
+      325,
+      235,
+      63
+    ],
+    [
+      16,
+      819,
+      387,
+      236,
+      68
+    ],
+    [
+      16,
+      810,
+      450,
+      237,
+      74
     ],
     [
       0,
-      1063,
-      170,
-      85,
-      39
-    ],
-    [
-      21,
-      1079,
-      178,
-      52,
-      24
+      600,
+      242,
+      183,
+      48
     ],
     [
       0,
-      1023,
-      608,
-      133,
-      40
+      1060,
+      159,
+      92,
+      46
     ],
     [
-      23,
-      1039,
-      616,
-      101,
-      24
+      0,
+      1020,
+      599,
+      141,
+      47
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.75,
+    "recall": 1,
     "kept": [
       "3d",
       "gradient",
+      "hard-shadow",
       "hollow-type",
       "huge-type",
+      "motion",
       "overlap",
       "soft-shadow"
     ],
-    "missing": [
-      "hard-shadow",
-      "motion"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 52495,
-    "output": 37601,
-    "cacheRead": 381865
+    "input": 37018,
+    "output": 22213,
+    "cacheRead": 214639
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 39729,
-      "output": 15226,
-      "cacheRead": 148416,
-      "toolCalls": 6,
+      "billed": 47370,
+      "output": 16999,
+      "cacheRead": 211555,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
-        "Read src/main.tsx",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Write src/App.tsx"
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/index.css"
       ],
-      "ms": 160312
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 24401,
-      "output": 10547,
-      "cacheRead": 190796,
-      "toolCalls": 3,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 116511
+      "ms": 170603
     }
   ],
-  "reading": "A hero section is being sketched: a huge hollow outlined numeral \"3\" sits as a background graphic behind a 3D-tilted phone mockup, with a decorative wave band along the bottom, a two-line headline, a body paragraph, store-badge buttons, a star-rating line, and three small content cards (a paid confirmation, a \"4 ways\" split card, and a dark \"All settled\" card) layered inside the phone's screen.",
+  "reading": "The sketch is a marketing hero section: a giant outlined \"3\" behind the headline, a decorative wavy ribbon band across the bottom, a two-line bold headline with a highlighted phrase, a grey supporting paragraph, App Store/Google Play buttons, a star-rating line, a 3D-tilted phone mockup showing a bill-splitting screen, and three small floating notification cards overlapping the phone/numeral/headline — all specified precisely by the attached typed notes.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -268,10 +269,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Giant Arial Black (weight 900, round-bowled, not condensed/display) hollow-outlined lavender numeral \"3\" as live text (a real character in a text element, not a"
+      "instruction": "Add a giant standalone numeral \"3\" as live text (a real character in a text element, never an SVG path or drawn shape): Arial Black, font-weight 900, round-bowl"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -283,7 +284,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Decorative wave band reproduced verbatim as this inline SVG (no border, frame, box or background besides the SVG's own shapes), 1280x200px, position absolute to"
+      "instruction": "Add a decorative wavy ribbon band behind the page content, drawn as exactly this inline SVG (no picture, no box/frame/border, no background besides the SVG's ow"
     },
     {
       "kind": "add",
@@ -308,7 +309,7 @@
         152
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy, tight-set (line-height 1) two-line headline: \"Split bills in\" / \"three taps.\" Keep exactly these two line breaks, each line on one line (w"
+      "instruction": "Add a huge Helvetica heavy, tight-set (line-height 1) headline: \"Split bills in three taps.\" set in exactly 2 lines, \"Split bills in\" / \"three taps.\" — keep the"
     },
     {
       "kind": "add",
@@ -333,7 +334,7 @@
         59
       ],
       "paths": [],
-      "instruction": "Body paragraph in dark grey text #4a4675 (not the page's default dark navy): \"Snap the receipt, tag your friends, done. Tabby settles up while you're still argu"
+      "instruction": "Add a dark grey (#4a4675, not the page's dark navy text) body paragraph: \"Snap the receipt, tag your friends, done. Tabby settles up while you're still arguing "
     },
     {
       "kind": "add",
@@ -348,7 +349,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Two store-badge buttons side by side: \"App Store\" (word colour #ffffff) and \"Google Play\" (word colour #15123a)."
+      "instruction": "Add two store buttons side by side: \"App Store\" (its text colour #ffffff) and \"Google Play\" (its text colour #15123a), matching the sketched rounded button row."
     },
     {
       "kind": "add",
@@ -363,10 +364,10 @@
         9
       ],
       "paths": [],
-      "instruction": "Rating line made of two live-text parts, each kept on one line (white-space nowrap, min-width not fixed width): 88x17px at 60,661, 15px bold #ffb800 \"★★★★★\"; an"
+      "instruction": "Add a ratings line made of two live-text parts, each on one line (white-space nowrap, min-width not fixed so the number never wraps off): a bold #ffb800 15px \"★"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -378,7 +379,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A phone/device mockup turned in 3D (not flat, not upright): a 320x660px stage div at 660,90 (position absolute) with perspective:1400px; inside it a 320x660px d"
+      "instruction": "Add a 3D-turned phone/device mockup (not flat, not upright): a 520x720px stage div at page 660,90 (position absolute) with perspective: 1400px; inside it a 320x"
     },
     {
       "kind": "add",
@@ -393,7 +394,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "A scrolling white card inside the phone screen reading \"✓ Sam paid £24.50\"."
+      "instruction": "Add a gently bobbing (up-and-down animated) white card with text \"✓ Sam paid £24.50\", 183x48px, position absolute with top-left at page 600,250, a sibling of th"
     },
     {
       "kind": "add",
@@ -408,7 +409,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "A scrolling white card inside the phone screen reading \"4 ways\"."
+      "instruction": "Add a gently bobbing (up-and-down animated) white card with text \"4 ways\", 92x46px, position absolute with top-left at page 1060,167, a sibling of the other blo"
     },
     {
       "kind": "add",
@@ -423,7 +424,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "A scrolling dark navy (#15123a exactly) block inside the phone screen with white text (#ffffff, not the page's default dark navy text) reading \"All settled 🎉\"."
+      "instruction": "Add a gently bobbing (up-and-down animated) dark navy (#15123a) card with white (#ffffff) text \"All settled 🎉\", 141x47px, position absolute with top-left at pa"
     }
   ],
   "rejected": []

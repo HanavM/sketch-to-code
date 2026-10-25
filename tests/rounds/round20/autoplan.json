@@ -65,7 +65,7 @@
    ],
    [
     "halftone-sun",
-    "a 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ff48b0 0%, #ff48b0 0%, #000000 0%) so it looks lit from above; absolutely placed, top-left at 640,70, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a HALFTONE dot-screen disc, NOT a sphere, NOT shaded, NOT a solid fill: a 520x520px circle (border-radius 50%) at 640,70 with NO background colour, covered in an even grid of small flat pink (#ff48b0) dots, one 5.2px dot every 12px, the page showing between the dots: background: radial-gradient(circle, #ff48b0 0 2.6px, transparent 3px); background-size: 12px 12px"
    ],
    [
     "blue-square",
@@ -93,7 +93,7 @@
    ],
    [
     "sticker",
-    "tilted 12° anticlockwise spinning 3px dashed #1a1a1a outline (dashes, not a solid line), its words in the SAME #1a1a1a as the outline (NOT the page's text colour) vivid yellow circle with \"FREE ENTRY\", 3px solid near-black outline, flat, no shadow, 150px across, the words centred in 2 lines (wrapping inside the circle, 24px type)"
+    "tilted 12° anticlockwise gently bobbing up and down 3px dashed #1a1a1a outline (dashes, not a solid line), its words in the SAME #1a1a1a as the outline (NOT the page's text colour) vivid yellow circle with \"FREE ENTRY\", 3px solid near-black outline, flat, no shadow, 150px across, the words centred in 2 lines (wrapping inside the circle, 24px type); ONE 178x178px card, position absolute with its top-left at page 456,546 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the blue-square it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ],
    [
     "tape",
@@ -175,7 +175,7 @@
    ],
    [
     "copy",
-    "a 643x322px message box at 137,578 (NOT a filled bar): white / no fill, a 3px #000000 border all round, 0px rounded; placeholder 20px #000000 \"Studio of four. We like  , loud type\"… at its top-left (30px padding); ONE solid #c6ff00 button 120x23px, 20px #000000 text \"fast pages\", in its bottom-right corner at 458,610"
+    "ONE 643x322px block of running copy at 137,578, a 3px #000000 border all round, padding 26px 30px, 20px #000000 text, line-height 29px, quoted whole (these exact words in this order, nothing invented, nothing dropped): \"Studio of four. We like fast pages, loud type and clients who read the brief twice. Currently booking for spring\"; the words \"fast pages\" sit IN the running line as an inline <span> (display inline, NOT a block, NOT a button, NOT moved) with a flat #c6ff00 background behind just those words like a highlighter, the copy flowing on after them on the same line; the copy ends on a 14x24px #000000 BLINKING CARET right after the last word (an inline-block span, vertical-align middle, animation blink 1s steps(1) infinite with @keyframes blink { 50% { opacity: 0 } })"
    ],
    [
     "cta",
@@ -447,7 +447,7 @@
    ],
    [
     "bird",
-    "scrolling big serif \"〰\""
+    "gently bobbing up and down big serif \"〰\"; ONE 40x58px card, position absolute with its top-left at page 620,200 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the arched-title it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ],
    [
     "arched-title",
@@ -549,7 +549,7 @@
    ],
    [
     "headline",
-    "huge Helvetica heavy tight-set letters lines set tight (line-height 1) \"Split bills in three taps.\", set in exactly 2 lines: \"Split bills in\" / \"three taps.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 384px wide)"
+    "huge Helvetica heavy tight-set letters lines set tight (line-height 1) \"Split bills in three taps.\", set in exactly 2 lines: \"Split bills in\" / \"three taps.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 384px wide); the words \"three taps.\" get a MARKER stripe: an inline <span> with box-shadow: inset 0 -22px 0 #ffd84a (a 22px yellow band behind the LOWER part of those letters only, the text stays in place in the line)"
    ],
    [
     "sub",
@@ -565,19 +565,19 @@
    ],
    [
     "phone",
-    "a phone/device mockup TURNED IN 3D (NOT flat, NOT upright): ONE 320x660px stage div at 660,90 (position absolute) with perspective: 1400px; inside it ONE 320x660px device body, #15123a fill, 48px rounded, overflow hidden, box-shadow: #15123a59 -40px 50px 80px 0px, transform: rotateY(-24deg) rotateX(8deg) rotateZ(4deg) exactly (so it leans and turns away; keep the transform on the body); its screen parts are children of the body and turn with it, placed in the body's own unturned layout (px from the body's top-left, size, then x,y): a 292x632px bar painted linear-gradient(#6c4cff, #2b1a9a), 36px rounded at 14,14; 13px #ffffff 70% opacity \"Dinner at Lupa\" at 34,60; bold 40px #ffffff \"£24.50 each\" at 34,82"
+    "a phone/device mockup TURNED IN 3D (NOT flat, NOT upright): ONE 520x720px stage div at 660,90 (position absolute) with perspective: 1400px; inside it ONE 320x660px device body placed at left 110px, top 20px inside the stage (position absolute; so before the turn the body's top-left is at page 770,110, NOT at the stage's corner), #15123a fill, 48px rounded, overflow hidden, box-shadow: #15123a59 -40px 50px 80px 0px, transform: rotateY(-24deg) rotateX(8deg) rotateZ(4deg) exactly (so it leans and turns away; keep the transform on the body); its screen parts are children of the body and turn with it, placed in the body's own unturned layout (px from the body's top-left, size, then x,y): a 292x632px bar painted linear-gradient(#6c4cff, #2b1a9a), 36px rounded at 14,14; 13px #ffffff 70% opacity \"Dinner at Lupa\" at 34,60; bold 40px #ffffff \"£24.50 each\" at 34,82; a 252x54px #ffffff at 14% alpha (see-through: rgba(255, 255, 255, 0.14)) 14px-rounded block at 34,151; a 252x54px #ffffff at 14% alpha (see-through: rgba(255, 255, 255, 0.14)) 14px-rounded block at 34,217; a 252x54px #ffffff at 14% alpha (see-through: rgba(255, 255, 255, 0.14)) 14px-rounded block at 34,283; a 252x54px #ffffff at 14% alpha (see-through: rgba(255, 255, 255, 0.14)) 14px-rounded block at 34,349"
    ],
    [
     "chip-paid",
-    "scrolling white card \"✓ Sam paid £24.50\""
+    "gently bobbing up and down white card \"✓ Sam paid £24.50\"; ONE 183x48px card, position absolute with its top-left at page 600,250 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the outline-number and the headline and the phone it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ],
    [
     "chip-split",
-    "scrolling white card \"4 ways\""
+    "gently bobbing up and down white card \"4 ways\"; ONE 92x46px card, position absolute with its top-left at page 1060,167 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the phone it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ],
    [
     "chip-settled",
-    "scrolling dark navy (exactly #15123a) block, white text \"All settled 🎉\"; its text #ffffff (white, NOT the page's dark navy text)"
+    "gently bobbing up and down dark navy (exactly #15123a) block, white text \"All settled 🎉\"; its text #ffffff (white, NOT the page's dark navy text); ONE 141x47px card, position absolute with its top-left at page 1020,605 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the phone it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ]
   ]
  },
@@ -647,7 +647,7 @@
    ],
    [
     "week-grid",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #eef0f4 0px 1px, transparent 1px 64px, #eef0f4 64px 1px, transparent 1px 139px)): 1px pale grey then 63px clear (see-through) then -63px pale grey then 138px clear (see-through), over and over block; centred on top of it 12px bold dark navy (#202533) live text \"Sprint review\" that stays upright (the text does NOT spin with the shape: a separate element over it)"
+    "the region itself is a 970x780px box at 310,120 painted as a ruled grid of thin lines, NOT a smooth gradient and NOT a plain fill (horizontal 1px pale grey (#eef0f4) lines every 64px, AND vertical 1px pale grey (#eef0f4) lines every 138.5px; both layers on one box: background: repeating-linear-gradient(180deg, #eef0f4 0 1px, transparent 1px 64px), repeating-linear-gradient(90deg, #eef0f4 0 1px, transparent 1px 138.5px)), the lines starting at its top-left corner; laid over it (and beside it, where a part sits outside its box) part by part (page px: size, then top-left x,y; each part its own real element with live text, all 26 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 52x64 at 250,120 11px #9aa1b2 \"8 AM\"; 52x64 at 250,184 11px #9aa1b2 \"9 AM\"; 130x60 at 314,184 #eef0ff fill, 4px #4f46e5 border on the left only, 8px rounded, padding-left 8px (its text starts at x 322): 12px #202533 \"9:00 – 9:45\"; 68x124 at 591,184 #eef0ff fill, 4px #4f46e5 border on the left only, 8px rounded, padding-left 8px (its text starts at x 599): 12px #202533 \"9–11\"; 110x14 at 326,190 12px bold #202533 \"Standup\"; 48x28 at 603,190 12px bold #202533 \"Design crit\"; 66x92 at 660,216 #fff7ed fill, 4px #f59e0b border on the left only, 8px rounded, padding-left 8px (its text starts at x 668): 12px #202533 \"9:30\"; 46x14 at 672,222 12px bold #202533 \"1:1 Ada\"; 52x64 at 250,248 11px #9aa1b2 \"10 AM\"; 130x124 at 452,248 #ecfdf5 fill, 4px #10b981 border on the left only, 8px rounded, padding-left 8px (its text starts at x 460): 12px #202533 \"10:00 – 12:00\"; 130x60 at 1006,248 #ecfdf5 fill, 4px #10b981 border on the left only, 8px rounded, padding-left 8px (its text starts at x 1014): 12px #202533 \"10:00\"; 110x14 at 464,254 12px bold #202533 \"Dentist\"; 110x14 at 1018,254 12px bold #202533 \"Climbing\"; 52x64 at 250,312 11px #9aa1b2 \"11 AM\"; 52x64 at 250,376 11px #9aa1b2 \"12 PM\"; 52x64 at 250,440 11px #9aa1b2 \"1 PM\"; 134x60 at 591,440 #eef0ff fill, 4px #4f46e5 border on the left only, 8px rounded, padding-left 8px (its text starts at x 599): 12px #202533 \"2:00 – 3:00\"; 114x14 at 603,446 12px bold #202533 \"Sprint review\"; 52x64 at 250,504 11px #9aa1b2 \"2 PM\"; 52x64 at 250,568 11px #9aa1b2 \"3 PM\"; 130x92 at 868,568 #fff7ed fill, 4px #f59e0b border on the left only, 8px rounded, padding-left 8px (its text starts at x 876): 12px #202533 \"4:00 – 5:30\"; 110x14 at 880,574 12px bold #202533 \"Team drinks\"; 52x64 at 250,632 11px #9aa1b2 \"4 PM\"; 52x64 at 250,696 11px #9aa1b2 \"5 PM\"; 52x64 at 250,760 11px #9aa1b2 \"6 PM\"; 52x64 at 250,824 11px #9aa1b2 \"7 PM\""
    ],
    [
     "selected-event",

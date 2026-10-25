@@ -39,3 +39,25 @@ Next: a dot-screen disc (tiled small radial dots) is a halftone, never a shaded 
 placed events each said with their own colour, place and size, plus hour labels and grid rules; an inline highlight keeps
 the line flowing (span, not a block); a marker highlight under words (inset box-shadow); a giant type block keeps its size
 and top-left.
+
+## n198: grid lines, events laid over the grid, halftone dots, inline marks, the phone's place (2026-10-25, ~370k billed)
+
+Planner (words only, no hand plans): two stacked repeating line layers are said as a ruled grid (rows every 64px AND
+columns every 138.5px), not one merged stripe list; untagged absolutely placed blocks laid over a region from outside it
+(the week's events, the hour labels beside the grid) become that region's parts; a round block tiled with small radial
+dots is a halftone dot screen, never a lit sphere; words with their own fill inside running copy stay IN the line as an
+inline span, an inset box-shadow under words is a marker stripe, a blinking inline-block caret is said; a 3D phone's
+stage keeps its own size and the body its offset inside it, see-through screen rows are kept; a 50%-only keyframe bobs
+(not scrolls) and a small bobbing card says its own place and that it sits on top.
+Other rounds re-planned: only rounds 10 and 19 change ('fading' to 'blinking').
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c1 riso poster | 74% | **90%** | the sun is now a pink dot screen |
+| c5 tilted phone | 66% | **89%** | marker stripe, phone in place, screen rows, chips beside the phone |
+| e1 week calendar | 49% | **68%** | hour labels, grid lines and all eight events built; the mini month still floats as a picker, the selected event grey |
+| c2 brutal grid | 72% | 67% | highlight and caret now in the line; the year still built low and big, the manifesto copy invented |
+
+Round 20: **80%** (was 75). Vitest same 2 env failures; typecheck clean.
+Next: the giant year says its top-left; the manifesto paragraph quoted whole; the mini month is a plain sidebar calendar
+(not a floating picker); the selected event keeps its indigo fill and ring.

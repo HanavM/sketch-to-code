@@ -1,24 +1,24 @@
 {
   "id": "c1-riso-poster",
-  "at": "2026-10-25T03:42:15.491Z",
+  "at": "2026-10-25T05:09:56.311Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7366787041941512,
-    "overallV2": 0.7366787041941512,
-    "overallV1": 0.6916289227388279,
-    "colour": 0.9050728035407336,
-    "structure": 0.8047872377129425,
-    "structureStrict": 0.7186049572101277,
-    "colourAligned": 0.9050728035407336,
-    "structureAligned": 0.8047872377129425,
+    "overall": 0.8960163657393545,
+    "overallV2": 0.8960163657393545,
+    "overallV1": 0.8489280442415099,
+    "colour": 0.9636163730910005,
+    "structure": 0.9418257964722784,
+    "structureStrict": 0.8517436961682283,
+    "colourAligned": 0.9636163730910005,
+    "structureAligned": 0.9418257964722784,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8676841668907269
+      "r": 0.9901881295451905
     },
-    "layout": 0.8736684803349174,
-    "layoutV1": 0.8736684803349174,
+    "layout": 0.9123805212073004,
+    "layoutV1": 0.9123805212073004,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,63 +27,63 @@
       0,
       0,
       1280,
-      940
+      950
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      940
-    ],
-    [
-      1,
-      534,
-      194,
-      542,
-      542
-    ],
-    [
-      2,
-      534,
-      194,
-      542,
-      542
-    ],
-    [
-      3,
-      534,
-      194,
-      541,
-      541
-    ],
-    [
-      3,
-      778,
-      377,
-      294,
-      295
-    ],
-    [
-      1,
-      834,
-      344,
-      300,
-      300
-    ],
-    [
-      1,
       640,
       70,
       520,
       520
     ],
     [
-      7,
+      1,
       641,
       71,
       519,
       519
+    ],
+    [
+      0,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      3,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      4,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      0,
+      824,
+      344,
+      300,
+      300
+    ],
+    [
+      6,
+      824,
+      344,
+      300,
+      300
+    ],
+    [
+      7,
+      825,
+      344,
+      299,
+      300
     ],
     [
       0,
@@ -146,47 +146,33 @@
       64,
       553,
       436,
-      99
+      79
     ],
     [
       0,
       60,
       650,
       412,
-      78
+      77
     ],
     [
       0,
-      445,
-      536,
+      439,
+      527,
+      211,
+      211
+    ],
+    [
+      19,
+      455,
+      543,
       178,
       178
     ],
     [
-      19,
-      434,
-      525,
-      200,
-      200
-    ],
-    [
       20,
-      435,
-      526,
-      198,
-      198
-    ],
-    [
-      19,
-      458,
-      549,
-      152,
-      152
-    ],
-    [
-      22,
-      489,
-      590,
+      499,
+      597,
       90,
       71
     ],
@@ -205,24 +191,24 @@
       36
     ],
     [
-      25,
+      23,
       56,
       845,
-      168,
+      143,
       21
     ],
     [
-      25,
-      484,
+      23,
+      498,
       845,
-      414,
+      371,
       21
     ],
     [
-      25,
-      1159,
+      23,
+      1169,
       845,
-      67,
+      57,
       21
     ]
   ],
@@ -244,36 +230,41 @@
     "extra": []
   },
   "tokens": {
-    "input": 69902,
-    "output": 42520,
-    "cacheRead": 351453
+    "input": 65015,
+    "output": 36362,
+    "cacheRead": 493411
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 95269,
-      "output": 36085,
-      "cacheRead": 338535,
-      "toolCalls": 12,
+      "billed": 71547,
+      "output": 22545,
+      "cacheRead": 446011,
+      "toolCalls": 17,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
         "Read components/SketchShape3.tsx",
-        "Read components/SketchShape4.tsx",
+        "Read src/index.css",
         "Edit components/SketchShape.tsx",
         "Edit components/SketchShape2.tsx",
-        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape3.tsx",
         "Edit src/index.css",
-        "Write src/App.tsx"
+        "Write src/App.tsx",
+        "Grep",
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx"
       ],
-      "ms": 412205
+      "ms": 247358
     }
   ],
-  "reading": "This is a poster-style hero page build: a giant layered graphic (gradient sphere + rotated blue block + pink ink-blend disc) behind two giant stacked headline treatments of 'PRINT CLUB NIGHT', a bold mono date line, a body paragraph, a spinning dashed 'FREE ENTRY' badge, a yellow location button, and a bottom rule-topped credit row — all per the typed notes' exact specs.",
+  "reading": "The sketch is a riso-print flyer hero: a big duplicated 'PRINT CLUB NIGHT' headline (blue copy, pink copy slightly offset) over three overlapping decorative shapes (a halftone dot disc, a rotated flat blue block, and a solid pink ink-blot disc), with a bold mono date line, a short descriptive paragraph, a dashed yellow 'FREE ENTRY' circular badge, a yellow 'WAREHOUSE 3 · DOCK RD' button, and a rule-topped footer row with three spaced items; the whole page is cream with Helvetica type and near-black text.",
   "actions": [
     {
       "kind": "add",
@@ -288,7 +279,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "A 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ff48b0 0%, #ff48b0 0%, #000000 0%) so it looks lit fro"
+      "instruction": "Add a halftone dot-screen disc (not a sphere, not shaded, not a solid fill): a 520x520px circle with no background colour, covered in an even grid of small flat"
     },
     {
       "kind": "add",
@@ -297,30 +288,28 @@
       "region": [
         537,
         197,
-        579,
+        535,
         535
       ],
       "paths": [
-        "s1",
-        "s2"
+        "s1"
       ],
-      "instruction": "One plain solid block, NOT a picture: 430x430px (only 430px thick) with its top-left at 590,250 before the turn, filled flat blue #2f5bff, fully opaque, then tu"
+      "instruction": "Add one plain solid block, not a picture: 430x430px, flat opaque blue #2f5bff fill, no text, no border, no shadow. Its top-left is at 590,250 before rotating; t"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        537,
-        197,
-        579,
-        535
+        824,
+        344,
+        292,
+        292
       ],
       "paths": [
-        "s1",
         "s2"
       ],
-      "instruction": "Ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 300px across, flat"
+      "instruction": "Add an ink-like (multiply blend mode, so it darkens what it overlaps rather than covering it) perfectly round solid disc, 300px across, flat fully opaque vivid "
     },
     {
       "kind": "add",
@@ -359,7 +348,7 @@
         425
       ],
       "paths": [],
-      "instruction": "Ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) in blue, text 'PRINT CLUB NIGHT' s"
+      "instruction": "Add giant heavy uppercase headline text in blue, ink-like (multiply blend mode), set tight (line-height 0.82), reading exactly 3 lines: 'PRINT' / 'CLUB' / 'NIGH"
     },
     {
       "kind": "add",
@@ -398,7 +387,7 @@
         425
       ],
       "paths": [],
-      "instruction": "Ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) in pink, text 'PRINT CLUB NIGHT' s"
+      "instruction": "Add a second, slightly offset copy of the same giant heavy uppercase headline text, this one in pink, ink-like (multiply blend mode), tight line-height 0.82, sa"
     },
     {
       "kind": "add",
@@ -421,7 +410,7 @@
         79
       ],
       "paths": [],
-      "instruction": "Huge mono text '11.14 — 9PM', on one line (white-space: nowrap, never wrapped), about 422px wide, set bold (font-weight 700), not regular."
+      "instruction": "Add a huge bold (font-weight 700) monospace line of text reading '11.14 — 9PM' on one line, white-space nowrap, about 422px wide."
     },
     {
       "kind": "add",
@@ -446,7 +435,7 @@
         51
       ],
       "paths": [],
-      "instruction": "Body paragraph text: 'Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.'"
+      "instruction": "Add a short paragraph of body copy reading: \"Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.\""
     },
     {
       "kind": "add",
@@ -461,7 +450,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "A tilted 12° anticlockwise, spinning 3px dashed #1a1a1a outline (dashed, not solid) vivid yellow circle badge, 150px across, flat fill, 3px solid near-black out"
+      "instruction": "Add a circular 'FREE ENTRY' badge, tilted 12° anticlockwise and gently bobbing up/down 3px, with a dashed (not solid) 3px #1a1a1a outline and vivid yellow fill;"
     },
     {
       "kind": "add",
@@ -476,7 +465,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Yellow button labeled 'WAREHOUSE 3 · DOCK RD', 244x75px, square corners (border-radius 0, not a pill)."
+      "instruction": "Add a yellow button reading 'WAREHOUSE 3 · DOCK RD', 244x75px, square corners (border-radius 0, not a pill)."
     },
     {
       "kind": "add",
@@ -491,8 +480,10 @@
       "paths": [
         "s14"
       ],
-      "instruction": "A footer row 1170px wide positioned at 56,830 with only a 3px #1a1a1a rule along its top edge (no border on other sides, no fill); text sits 12px under the rule"
+      "instruction": "Add a footer row, 1170px wide, positioned at 56,830, with only a 3px #1a1a1a rule along its top edge (no border on other sides, no fill); text sits 12px below t"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

@@ -1,24 +1,24 @@
 {
   "id": "e1-week-calendar",
-  "at": "2026-10-25T04:23:40.470Z",
+  "at": "2026-10-25T05:32:13.912Z",
   "likeness": {
     "version": 3,
-    "overall": 0.48832381476313125,
-    "overallV2": 0.48832381476313125,
-    "overallV1": 0.4473394472364492,
-    "colour": 0.9795542272993556,
-    "structure": 0.8533087970704317,
-    "structureStrict": 0.8214152829589301,
-    "colourAligned": 0.9795542272993556,
-    "structureAligned": 0.8533087970704317,
+    "overall": 0.6819788177936166,
+    "overallV2": 0.6819788177936166,
+    "overallV1": 0.6530091335655203,
+    "colour": 0.9859597363545182,
+    "structure": 0.9255073479419827,
+    "structureStrict": 0.9029635077294182,
+    "colourAligned": 0.9859597363545182,
+    "structureAligned": 0.9255073479419827,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.6994038921782043
+      "r": 0.7205253716653962
     },
-    "layout": 0.7727109899121677,
-    "layoutV1": 0.5712043985750678,
+    "layout": 0.8426843101446573,
+    "layoutV1": 0.6411777188075575,
     "layoutVersion": 2
   },
   "boxes": [
@@ -26,407 +26,22 @@
       -1,
       0,
       0,
-      1280,
-      900
+      1300,
+      950
     ],
     [
       0,
       0,
       0,
-      254,
-      900
+      250,
+      950
     ],
     [
-      1,
-      20,
-      284,
-      209,
-      17
-    ],
-    [
-      1,
-      20,
-      311,
-      209,
-      29
-    ],
-    [
-      3,
-      20,
-      319,
-      14,
-      14
-    ],
-    [
-      3,
-      44,
-      316,
-      32,
-      20
-    ],
-    [
-      1,
-      20,
-      340,
-      209,
-      29
-    ],
-    [
+      0,
       6,
-      20,
-      348,
-      14,
-      14
-    ],
-    [
-      6,
-      44,
-      345,
-      54,
-      20
-    ],
-    [
-      1,
-      20,
-      369,
-      209,
-      29
-    ],
-    [
-      9,
-      20,
-      377,
-      14,
-      14
-    ],
-    [
-      9,
-      44,
-      374,
-      75,
-      20
-    ],
-    [
-      1,
-      20,
-      398,
-      209,
-      29
-    ],
-    [
-      12,
-      20,
-      406,
-      14,
-      14
-    ],
-    [
-      12,
-      44,
-      403,
-      53,
-      20
-    ],
-    [
-      1,
-      20,
-      443,
-      209,
-      36
-    ],
-    [
-      0,
-      254,
-      16,
-      1022,
-      32
-    ],
-    [
-      16,
-      254,
-      17,
-      269,
-      30
-    ],
-    [
-      17,
-      254,
-      17,
-      162,
-      30
-    ],
-    [
-      17,
-      432,
-      23,
-      34,
-      18
-    ],
-    [
-      19,
-      432,
-      23,
-      15,
-      18
-    ],
-    [
-      19,
-      451,
-      23,
-      15,
-      18
-    ],
-    [
-      17,
-      482,
-      22,
-      41,
-      20
-    ],
-    [
-      16,
-      1072,
-      15,
-      204,
-      34
-    ],
-    [
-      23,
-      1073,
-      16,
-      58,
-      32
-    ],
-    [
-      23,
-      1131,
-      16,
       70,
-      32
-    ],
-    [
-      23,
-      1201,
-      16,
-      74,
-      32
-    ],
-    [
-      0,
-      310,
-      72,
-      139,
-      51
-    ],
-    [
-      27,
-      363,
-      76,
-      33,
-      20
-    ],
-    [
-      0,
-      310,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      449,
-      72,
-      139,
-      51
-    ],
-    [
-      30,
-      505,
-      76,
-      27,
-      20
-    ],
-    [
-      0,
-      449,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      587,
-      72,
-      139,
-      51
-    ],
-    [
-      33,
-      641,
-      76,
-      31,
-      20
-    ],
-    [
-      0,
-      639,
-      89,
-      34,
-      34
-    ],
-    [
-      0,
-      726,
-      72,
-      139,
-      51
-    ],
-    [
-      36,
-      781,
-      76,
-      29,
-      20
-    ],
-    [
-      0,
-      726,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      864,
-      72,
-      139,
-      51
-    ],
-    [
-      39,
-      923,
-      76,
-      21,
-      20
-    ],
-    [
-      0,
-      864,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      1003,
-      72,
-      139,
-      51
-    ],
-    [
-      42,
-      1060,
-      76,
-      26,
-      20
-    ],
-    [
-      0,
-      1003,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      1141,
-      72,
-      139,
-      51
-    ],
-    [
-      45,
-      1196,
-      76,
-      29,
-      20
-    ],
-    [
-      0,
-      1141,
-      87,
-      139,
-      23
-    ],
-    [
-      0,
-      313,
-      123,
-      964,
-      774
-    ],
-    [
-      0,
-      313,
-      123,
-      964,
-      774
-    ],
-    [
-      49,
-      756,
-      501,
-      78,
-      18
-    ],
-    [
-      0,
-      732,
-      315,
-      132,
-      188
-    ],
-    [
-      51,
-      748,
-      325,
-      104,
-      16
-    ],
-    [
-      51,
-      748,
-      345,
-      104,
-      18
-    ],
-    [
-      0,
-      591,
-      397,
-      139,
-      12
-    ],
-    [
-      54,
-      591,
-      397,
-      12,
-      12
-    ],
-    [
-      54,
-      603,
-      402,
-      127,
-      2
-    ],
-    [
-      0,
-      4,
-      68,
-      241,
-      233
+      237,
+      229
     ],
     [
       0,
@@ -703,6 +318,559 @@
     ],
     [
       0,
+      20,
+      286,
+      209,
+      18
+    ],
+    [
+      0,
+      20,
+      311,
+      209,
+      29
+    ],
+    [
+      43,
+      20,
+      319,
+      14,
+      14
+    ],
+    [
+      43,
+      42,
+      316,
+      32,
+      20
+    ],
+    [
+      0,
+      20,
+      340,
+      209,
+      29
+    ],
+    [
+      46,
+      20,
+      348,
+      14,
+      14
+    ],
+    [
+      46,
+      42,
+      345,
+      54,
+      20
+    ],
+    [
+      0,
+      20,
+      369,
+      209,
+      29
+    ],
+    [
+      49,
+      20,
+      377,
+      14,
+      14
+    ],
+    [
+      49,
+      42,
+      374,
+      75,
+      20
+    ],
+    [
+      0,
+      20,
+      398,
+      209,
+      29
+    ],
+    [
+      52,
+      20,
+      406,
+      14,
+      14
+    ],
+    [
+      52,
+      42,
+      403,
+      53,
+      20
+    ],
+    [
+      0,
+      20,
+      432,
+      209,
+      34
+    ],
+    [
+      0,
+      254,
+      10,
+      1022,
+      34
+    ],
+    [
+      56,
+      254,
+      12,
+      255,
+      30
+    ],
+    [
+      57,
+      254,
+      12,
+      162,
+      30
+    ],
+    [
+      57,
+      428,
+      17,
+      31,
+      21
+    ],
+    [
+      59,
+      428,
+      17,
+      13,
+      21
+    ],
+    [
+      59,
+      446,
+      17,
+      13,
+      21
+    ],
+    [
+      57,
+      471,
+      17,
+      38,
+      20
+    ],
+    [
+      56,
+      1080,
+      10,
+      196,
+      34
+    ],
+    [
+      63,
+      1081,
+      11,
+      56,
+      32
+    ],
+    [
+      63,
+      1136,
+      11,
+      67,
+      32
+    ],
+    [
+      63,
+      1204,
+      11,
+      71,
+      32
+    ],
+    [
+      0,
+      310,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      310,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      449,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      449,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      587,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      640,
+      89,
+      34,
+      34
+    ],
+    [
+      0,
+      726,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      726,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      864,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      864,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      1003,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      1003,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      1141,
+      72,
+      139,
+      20
+    ],
+    [
+      0,
+      1141,
+      87,
+      139,
+      23
+    ],
+    [
+      0,
+      310,
+      120,
+      970,
+      780
+    ],
+    [
+      0,
+      250,
+      120,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      184,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      248,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      312,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      376,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      440,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      504,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      568,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      632,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      696,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      760,
+      52,
+      64
+    ],
+    [
+      0,
+      250,
+      824,
+      52,
+      64
+    ],
+    [
+      0,
+      314,
+      184,
+      130,
+      60
+    ],
+    [
+      0,
+      326,
+      190,
+      110,
+      18
+    ],
+    [
+      0,
+      322,
+      206,
+      65,
+      18
+    ],
+    [
+      0,
+      591,
+      184,
+      68,
+      124
+    ],
+    [
+      0,
+      603,
+      190,
+      48,
+      18
+    ],
+    [
+      0,
+      599,
+      220,
+      23,
+      18
+    ],
+    [
+      0,
+      660,
+      216,
+      66,
+      92
+    ],
+    [
+      0,
+      672,
+      222,
+      46,
+      18
+    ],
+    [
+      0,
+      668,
+      238,
+      26,
+      18
+    ],
+    [
+      0,
+      452,
+      248,
+      130,
+      124
+    ],
+    [
+      0,
+      464,
+      254,
+      110,
+      18
+    ],
+    [
+      0,
+      460,
+      270,
+      75,
+      18
+    ],
+    [
+      0,
+      1006,
+      248,
+      130,
+      60
+    ],
+    [
+      0,
+      1018,
+      254,
+      110,
+      18
+    ],
+    [
+      0,
+      1014,
+      270,
+      31,
+      18
+    ],
+    [
+      0,
+      591,
+      440,
+      134,
+      60
+    ],
+    [
+      0,
+      603,
+      446,
+      114,
+      18
+    ],
+    [
+      0,
+      599,
+      462,
+      65,
+      18
+    ],
+    [
+      0,
+      868,
+      568,
+      130,
+      92
+    ],
+    [
+      0,
+      880,
+      574,
+      110,
+      18
+    ],
+    [
+      0,
+      876,
+      590,
+      65,
+      18
+    ],
+    [
+      0,
+      731,
+      314,
+      132,
+      188
+    ],
+    [
+      115,
+      745,
+      324,
+      118,
+      21
+    ],
+    [
+      115,
+      745,
+      349,
+      118,
+      20
+    ],
+    [
+      0,
+      591,
+      397,
+      131,
+      7
+    ],
+    [
+      118,
+      591,
+      400,
+      131,
+      2
+    ],
+    [
+      118,
+      585,
+      395,
+      12,
+      12
+    ],
+    [
+      0,
       760,
       250,
       290,
@@ -712,15 +880,15 @@
       0,
       779,
       269,
-      124,
+      122,
       24
     ],
     [
       0,
       779,
       295,
-      395,
-      20
+      252,
+      39
     ],
     [
       0,
@@ -786,62 +954,58 @@
     "extra": []
   },
   "tokens": {
-    "input": 56188,
-    "output": 38189,
-    "cacheRead": 186482
+    "input": 70350,
+    "output": 41318,
+    "cacheRead": 408502
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 75707,
-      "output": 28803,
-      "cacheRead": 183398,
-      "toolCalls": 7,
+      "billed": 76131,
+      "output": 28446,
+      "cacheRead": 195397,
+      "toolCalls": 6,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 327711
+      "ms": 311343
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7605,
+      "output": 2840,
+      "cacheRead": 196388,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 33063
     }
   ],
-  "reading": "A calendar-app week view: a sidebar with a \"Calendars\" heading, a 4-item calendar toggle list (Work/Personal/Team rituals/Holidays), a \"+ New event\" button, and an open October 2026 date-range picker floating over the page; and a main panel with a date-range header + Day/Week/Month switch, a week-day/number header row, an hourly striped background grid labeled \"Sprint review\", an \"Offsite planning\" event card, a red current-time line, and a floating \"Offsite planning\" detail popup.",
+  "reading": "The sketch is a full calendar/scheduling app: a sidebar with an open date-range picker/month calendar, a 'My Calendars' list of categories and a 'New event' button, and a main week view with a header row, day-column headers, an hour-ruled schedule grid full of timed events, a highlighted 'Offsite planning' event, a live current-time indicator, and a floating event-detail popup for that event.",
   "actions": [
     {
       "kind": "add",
-      "textMarks": [
-        "s7",
-        "s8"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s1",
-            "s2",
-            "s3",
-            "s4",
-            "s5",
-            "s6",
-            "s7",
-            "s8"
-          ],
-          "lines": 8,
-          "fontPx": 10
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
         24,
-        401,
-        201,
-        23
+        87,
+        202,
+        194
       ],
-      "paths": [],
-      "instruction": "Sidebar button labeled \"+ New event\" (primary rounded action button) below the calendar list."
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Open date-range picker panel floating over the page (white panel, not page numbers). Beside/below the range controls, a month calendar headed 'October 2026' (ce"
     },
     {
       "kind": "add",
@@ -872,7 +1036,7 @@
         23
       ],
       "paths": [],
-      "instruction": "Sidebar section heading above the calendar list (e.g. \"Calendars\"), bold small text."
+      "instruction": "Sidebar section heading text, e.g. 'My Calendars', sitting above the category list."
     },
     {
       "kind": "add",
@@ -905,22 +1069,38 @@
         52
       ],
       "paths": [],
-      "instruction": "Calendar-toggle list in the sidebar, 4 rows each 209x29px: \"Work\" with a 14x14 #4f46e5-filled 4px-rounded checkbox; \"Personal\" with a 14x14 #10b981-filled 4px-r"
+      "instruction": "Calendar category list with 4 rows, each its own element pair (label + colored swatch), 13px #202533 text and a 14x14 4px-rounded swatch: 'Work' with #4f46e5 fi"
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 8,
+          "fontPx": 10
+        }
+      ],
       "region": [
         24,
-        87,
-        202,
-        194
+        401,
+        201,
+        23
       ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "An OPEN date-range picker floating over the page (a white panel, not page numbers): a month calendar headed \"October 2026\" (centred title 209x15 at 20,84, 13px "
+      "paths": [],
+      "instruction": "A '+ New event' button below the calendar list in the sidebar."
     },
     {
       "kind": "add",
@@ -947,7 +1127,7 @@
         33
       ],
       "paths": [],
-      "instruction": "Page header: bold 20px live text \"19 – 25 Oct 2026\" first, then \"‹ ›\" prev/next links, then \"Today\" link, grouped together at the left; far to the right (577px "
+      "instruction": "Main view header: bold 20px '19 – 25 Oct 2026' heading, then '‹ ›' prev/next links and 'Today' link grouped at the left; a 'Day / Week / Month' outlined segment"
     },
     {
       "kind": "add",
@@ -975,7 +1155,7 @@
         46
       ],
       "paths": [],
-      "instruction": "Week-view header row: 7 day-of-week labels (MON, TUE, WED, THU, FRI, SAT, SUN, 13px #6b7385) each 139x51, followed directly below by the day numbers 19,20,22,23"
+      "instruction": "Week day-column headers: 7 columns labelled MON, TUE, WED, THU, FRI, SAT, SUN (13px #6b7385) each with its date number below in bold 20px #202533 (19,20,22,23,2"
     },
     {
       "kind": "add",
@@ -990,7 +1170,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "The week-view hourly background grid: big horizontal repeating stripes, not a smooth gradient (repeating-linear-gradient(0deg, #eef0f4 0px 1px, transparent 1px "
+      "instruction": "Main schedule grid: a 970x780 region at 310,120 painted as a ruled grid (horizontal pale grey #eef0f4 lines every 64px for hours, vertical pale grey #eef0f4 lin"
     },
     {
       "kind": "add",
@@ -1005,7 +1185,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "An event card in the week grid: pale grey card, 132x188px, with a 4px grey left edge accent and 8px rounded corners; bold title \"Offsite planning\" then \"11:00 –"
+      "instruction": "An 'Offsite planning' event card inside the schedule grid: pale grey card, 132x188px, 4px grey left edge, 8px rounded corners, bold 'Offsite planning' title the"
     },
     {
       "kind": "add",
@@ -1020,7 +1200,7 @@
       "paths": [
         "s16"
       ],
-      "instruction": "A thin solid red current-time indicator line, 2px tall, 139px wide, with a 12px round red dot on its left end, no text, overlaid on the hourly grid."
+      "instruction": "Current-time indicator: a thin solid red line, 2px tall and 139px wide, with a 12px round red dot on its left end, overlaid across the schedule grid, no text."
     },
     {
       "kind": "add",
@@ -1035,7 +1215,7 @@
       "paths": [
         "s17"
       ],
-      "instruction": "A floating event-detail popup panel, 290x146px, #ffffff fill, 1px #e5e8ef border, 12px rounded corners, drop shadow (rgba(0,0,0,0.18) 0px 18px 44px) floating ab"
+      "instruction": "Floating event-detail popup for the 'Offsite planning' event: a 290x146 white panel, 1px #e5e8ef border, 12px rounded corners, drop shadow, floating above the s"
     }
   ],
   "rejected": []
