@@ -4992,6 +4992,17 @@ function cutNotes(regions, out, X, pn) {
   if (X.rules.length) {
     const words = X.rules.map((q) => `a ${q.dir} ${q.t}px ${q.c} line ${q.dir === 'vertical' ? `at x ${q.x} from y ${q.y}` : `at y ${q.y} from x ${q.x}`}, ${q.len}px long`).join('; ')
     pn = `${pn ?? 'whole page:'}${pn ? ';' : ''} ALSO the page's own HAIRLINE grid rules (no mark is drawn for them; each its own div, position absolute, exactly ${X.rules[0].t}px thick, never thicker): ${words}`
+    // n215: said only in the whole-page note, the unmarked rules were dropped in 1 of 3 live runs (round 21 c4 x 320/960);
+    // the drawn divider rules of the same grid now repeat them, as separate page-level divs, so the grid is said twice
+    const other = X.rules.filter((q) => q.dir === 'vertical')
+    if (other.length) {
+      for (const f of regions) {
+        const d = out.get(f.role)
+        if (!d || !/a divider rule/.test(d.note ?? '') || /the same grid also has/.test(d.note)) continue
+        d.note += `; the same grid also has ${other.length} page-high vertical line${other.length > 1 ? 's' : ''} with no mark of their own, build ${other.length > 1 ? 'them' : 'it'} too (each its OWN div straight on the page, NOT inside this strip, position absolute, ${other[0].t}px wide, ${other[0].c}): ${other.map((q) => `at x ${q.x} from y ${q.y}, ${q.len}px tall`).join('; ')}`
+        break
+      }
+    }
   }
   return pn
 }

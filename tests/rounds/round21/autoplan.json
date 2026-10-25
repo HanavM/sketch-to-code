@@ -343,7 +343,7 @@
    ],
    [
     "rule-top",
-    "solid near-black strip only 1px tall, 1280px wide, no text (a divider rule, not a bar or button; exactly 1px thick (height: 1px, Tailwind h-[1px], never h-1 which is 4px), thinner than the drawn pen line)"
+    "solid near-black strip only 1px tall, 1280px wide, no text (a divider rule, not a bar or button; exactly 1px thick (height: 1px, Tailwind h-[1px], never h-1 which is 4px), thinner than the drawn pen line); the same grid also has 2 page-high vertical lines with no mark of their own, build them too (each its OWN div straight on the page, NOT inside this strip, position absolute, 1px wide, #111111): at x 320 from y 0, 900px tall; at x 960 from y 0, 900px tall"
    ],
    [
     "rule-bottom",

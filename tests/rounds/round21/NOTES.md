@@ -156,3 +156,17 @@ asked-for fixes show in both runs; the score is held down by run-to-run loss of 
 giant numeral still sitting ~15px right and ~7px high. Round 21 unchanged at **83%**.
 Next: make the page hairlines survive (said once in the whole-page note, lost in 1 of 3 runs), then c5 title glow and
 horizon band, c2 tags as filled pills.
+
+## n215: the page's own grid lines said again on its drawn divider rule (2026-10-25, ~138k billed for one c4 run)
+
+Planner (words only): the page-high hairline rules that have no mark of their own were said only in the whole-page note,
+and one of three c4 runs dropped them. Now the first drawn divider rule of the same grid also says them, as their own
+page-level divs (not inside the strip), with x, length and colour. Re-planned rounds 1-21: only round 21 c4 changes.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c4 swiss orbit | 74% | **78%** | both page-high lines at x 320 and 960 built, four bars separate, disc flat red, column heads spaced (colour 95, structure 87, layout 87); the giant 07 still ~10px high, column copy wraps a word earlier, meta missed by the region check |
+
+Round 21: **83%** over 10 (89, 91, 90, 78, 84, 76, 86, 75, 79, 81; 82.9, was 82.5). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: c5 neon grid (84) title glow and the purple horizon band; c2 tags as filled pills; e3 gantt (75) and e2 (76).
