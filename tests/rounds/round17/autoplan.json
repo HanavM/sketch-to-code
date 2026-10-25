@@ -273,7 +273,7 @@
    ],
    [
     "striped-sun",
-    "cut into 4 hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade): mask-image: linear-gradient(#000000 0px, #000000 50%, transparent 50%, transparent 54%, #000000 54%, #000000 62%, transparent 62%, transparent 67%, #000000 67%, #000000 76%, transparent 76%, transparent 82%, #000000 82%, #000000 90%, transparent 90%, transparent 97%, #000000 97%); -webkit-mask-image the same, exactly; big vivid soft yellow #ffe259 (top) to vivid pink #ff2e88 (bottom) circle"
+    "cut into 4 hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade, NOT a plain gradient): mask-image: linear-gradient(#000000 0px, #000000 50%, transparent 50%, transparent 54%, #000000 54%, #000000 62%, transparent 62%, transparent 67%, #000000 67%, #000000 76%, transparent 76%, transparent 82%, #000000 82%, #000000 90%, transparent 90%, transparent 97%, #000000 97%); -webkit-mask-image the same, exactly; big vivid soft yellow #ffe259 (top) to vivid pink #ff2e88 (bottom) circle"
    ],
    [
     "mountains",
@@ -289,7 +289,7 @@
    ],
    [
     "headline",
-    "giant Helvetica italic heavy tight-set letters \"OUTRUN\", 170px type, about 703px wide (no larger); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #00e5ff, stepping 1px right and 1px down each, out to 8px 8px (text-shadow: 1px 1px 0 #00e5ff, 2px 2px 0 #00e5ff, 3px 3px 0 #00e5ff, 4px 4px 0 #00e5ff, 5px 5px 0 #00e5ff, 6px 6px 0 #00e5ff, 7px 7px 0 #00e5ff, 8px 8px 0 #00e5ff), so each letter sits on a deep dark block side; NOT flat letters"
+    "giant Helvetica italic heavy tight-set letters \"OUTRUN\", 170px type, about 703px wide (no larger), CENTRED on the page (text-align center; its text runs from x=288 to x=991, centre at x=640; NOT left-aligned); EXTRUDED in 3D: 8 stacked hard text-shadows (no blur) of solid #00e5ff, stepping 1px right and 1px down each, out to 8px 8px (text-shadow: 1px 1px 0 #00e5ff, 2px 2px 0 #00e5ff, 3px 3px 0 #00e5ff, 4px 4px 0 #00e5ff, 5px 5px 0 #00e5ff, 6px 6px 0 #00e5ff, 7px 7px 0 #00e5ff, 8px 8px 0 #00e5ff), so each letter sits on a deep dark block side; NOT flat letters"
    ],
    [
     "subtitle",
@@ -297,7 +297,7 @@
    ],
    [
     "cta",
-    "cyan outline button \"PRE-SAVE\" (220x54px, square corners: border-radius 0, NOT a pill); its text #00e5ff (cyan, NOT the page's white text)"
+    "cyan outline button \"PRE-SAVE\" (220x54px, square corners: border-radius 0, NOT a pill); GLOWING: exactly box-shadow: #00e5ff 0px 0px 18px 0px, #00e5ff7f 0px 0px 18px 0px inset (a coloured halo round it, inside and out)"
    ]
   ]
  },

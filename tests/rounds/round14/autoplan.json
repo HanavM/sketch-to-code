@@ -505,7 +505,7 @@
    ],
    [
     "cta",
-    "bright green outline button \"Download trial\"; its text #39ff9c (bright green, NOT the page's off-white text)"
+    "bright green outline button \"Download trial\"; GLOWING: exactly box-shadow: #39ff9c66 0px 0px 20px 0px, #39ff9c4d 0px 0px 12px 0px inset (a coloured halo round it, inside and out)"
    ],
    [
     "glyph-grid",

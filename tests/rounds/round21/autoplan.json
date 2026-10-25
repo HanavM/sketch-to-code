@@ -445,7 +445,7 @@
    ],
    [
     "striped-sun",
-    "fading out into the page toward the bottom (solid until 45%, gone at the bottom edge) big vivid soft yellow #ffe259 (top) to vivid pink #ff4e8a (bottom) circle"
+    "cut into 7 hard horizontal STRIPES across its lower 55% (solid above 45%) by a banded mask (gaps of the page showing through between the bands, NOT a fade, NOT a plain gradient): mask-image: linear-gradient(#000000 45%, transparent 45%), repeating-linear-gradient(#000000 0px, #000000 22px, transparent 22px, transparent 32px); -webkit-mask-image the same, exactly; mask-composite: add (the layers ADD: solid where either shows); big vivid soft yellow #ffe259 (top) to vivid pink #ff4e8a (bottom) circle"
    ],
    [
     "neon-floor",
@@ -453,15 +453,15 @@
    ],
    [
     "chrome-title",
-    "giant italic heavy uppercase off-white (#e0f7ff) to sky blue (#6ad4ff, its stop at 48% of the way along, fully opaque) to deep indigo (#1b1f6b, its stop at 50% of the way along, fully opaque) to light pink (#ff8ad8) gradient, top to bottom text \"NIGHTDRIVE\", 130px type, about 802px wide (no larger)"
+    "giant italic heavy uppercase off-white (#e0f7ff) to sky blue (#6ad4ff, its stop at 48% of the way along, fully opaque) to deep indigo (#1b1f6b, its stop at 50% of the way along, fully opaque) to light pink (#ff8ad8) gradient, top to bottom text \"NIGHTDRIVE\", 130px type, about 802px wide (no larger), CENTRED on the page (text-align center; its text runs from x=239 to x=1041, centre at x=640; NOT left-aligned)"
    ],
    [
     "neon-script",
-    "fading big cyan \"the new album\"; a NEON sign: 34px letters #37f3ff, set on 1 line \"the new album\", top-left at 0,480, GLOWING: exactly text-shadow: 0px 0px 6px #37f3ff, 0px 0px 18px #37f3ff, 0px 0px 36px #00a2ff (a bright halo round every letter); it FLICKERS: animation fl 3s ease infinite with @keyframes fl { 0%, 100% { opacity: 1; } 52% { opacity: 0.6; } 54% { opacity: 1; } }"
+    "fading big cyan \"the new album\"; a NEON sign: 34px letters #37f3ff, set on 1 line \"the new album\", CENTRED: a 1280px-wide box with its top-left at 0,480, text-align center, so the letters run from x=540 to x=740 (centre at x=640; NOT left-set at the box's left edge), GLOWING: exactly text-shadow: 0px 0px 6px #37f3ff, 0px 0px 18px #37f3ff, 0px 0px 36px #00a2ff (a bright halo round every letter); it FLICKERS: animation fl 3s ease infinite with @keyframes fl { 0%, 100% { opacity: 1; } 52% { opacity: 0.6; } 54% { opacity: 1; } }"
    ],
    [
     "cta",
-    "near-black indigo cyan text button \"▶ PLAY NOW\" (220x56px, square corners: border-radius 0, NOT a pill); its text #37f3ff (cyan, NOT the page's white text)"
+    "near-black indigo cyan text button \"▶ PLAY NOW\" (220x56px, square corners: border-radius 0, NOT a pill); a 2px solid #37f3ff border; GLOWING: exactly box-shadow: #37f3ff 0px 0px 14px 0px, #37f3ff 0px 0px 14px 0px inset (a coloured halo round it, inside and out)"
    ],
    [
     "score",

@@ -351,15 +351,15 @@
    ],
    [
     "label-edge",
-    "white button \"Edge\" (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded); its own element at page 1110,210 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
+    "white button \"Edge\"; a 1px solid #1e1b4b border (exactly: #ffffff fill, #1e1b4b text, 60x34px, 8px rounded); its own element at page 1110,210 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "label-compute",
-    "white button \"Compute\" (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded); its own element at page 540,455 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
+    "white button \"Compute\"; a 1px solid #1e1b4b border (exactly: #ffffff fill, #1e1b4b text, 87x34px, 8px rounded); its own element at page 540,455 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ],
    [
     "label-storage",
-    "white button \"Storage\" (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded); its own element at page 1120,680 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
+    "white button \"Storage\"; a 1px solid #1e1b4b border (exactly: #ffffff fill, #1e1b4b text, 78x34px, 8px rounded); its own element at page 1120,680 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
    ]
   ]
  },

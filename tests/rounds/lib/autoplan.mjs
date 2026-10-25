@@ -852,6 +852,14 @@ export function factsInPage() {
         // n172: a mask of many hard stops cuts the block into bands (round 17 c3 striped sun: said as a fade up)
         const flips = args.reduce((n, a, i) => n + (i && clear(a) !== clear(args[i - 1]) ? 1 : 0), 0)
         if (flips >= 4) return { bands: true, img: m, n: Math.ceil(flips / 2) }
+        // n212: a repeating stripe layer (round 21 c5 sun: a solid top layer plus repeating-linear-gradient bands,
+        // mask-composite add; the first layer's one flip read it as a fade and the stripes were lost)
+        const rep = m.match(/repeating-linear-gradient\((?:[^()]|\([^()]*\))*\)/)?.[0]
+        if (rep && /transparent|rgba\([^)]*,\s*0\)/.test(rep)) {
+          const sizes = [...rep.matchAll(/(\d+(?:\.\d+)?)px/g)].map((x) => +x[1]), period = sizes.length ? Math.max(...sizes) : 0
+          const solidTo = rep !== m ? parseFloat(m.replace(rep, '').match(/(\d+)%/)?.[1] ?? 'NaN') : NaN
+          return { bands: true, img: m, n: period ? Math.round(r.height * (Number.isFinite(solidTo) ? 1 - solidTo / 100 : 1) / period) : 6, comp: rep !== m ? (cs.maskComposite || cs.webkitMaskComposite || null) : null, solidTo: Number.isFinite(solidTo) ? solidTo : null }
+        }
         const toEnd = clear(args[args.length - 1])
         const ax = /180deg|to bottom/.test(dir) ? ['top', 'bottom'] : /0deg|to top/.test(dir) ? ['bottom', 'top'] : /90deg|to right/.test(dir) ? ['left', 'right'] : /270deg|to left/.test(dir) ? ['right', 'left'] : ['top', 'bottom']
         const at = parseFloat(m.match(/(\d+)%/)?.[1] ?? '50')
@@ -2870,7 +2878,7 @@ function effectWords(f) {
   if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)${f.text && f.colour && hexOf(f.colour) === hexOf(f.border.colour) ? `, its words in the SAME ${hexOf(f.colour)} as the outline (NOT the page's text colour)` : ''}`)
   // a faded block: built solid otherwise (round 5 c3 cards at 75/45/20%)
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
-  if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower half by a banded mask (gaps of the page showing through between the bands, NOT a fade): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly;`)
+  if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower ${f.maskFade.solidTo != null ? `${100 - f.maskFade.solidTo}% (solid above ${f.maskFade.solidTo}%)` : 'half'} by a banded mask (gaps of the page showing through between the bands, NOT a fade, NOT a plain gradient): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly${f.maskFade.comp ? `; mask-composite: ${f.maskFade.comp.split(',')[0].trim()} (the layers ADD: solid where either shows)` : ''};`)
   else if (f.maskFade) w.push(`fading out into the page toward the ${f.maskFade.toward} (solid until ${f.maskFade.fromPct}%, gone at the ${f.maskFade.toward} edge)`)
   if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
   // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
@@ -4318,12 +4326,15 @@ function decideOne(f, page, marked, said) {
     if (/[▾▼]$/.test(f.text)) return { kind: 'button', note: `dropdown ${quote(f.text.replace(/\s*[▾▼]$/, ''))}` }
     // n137: a bordered square-cornered button says so (round 10 c3 '[ RUN DEMO ]' built as pills)
     const sq = f.radius <= 1 ? ` (${Math.round(w)}x${Math.round(h)}px, square corners: border-radius 0, NOT a pill)` : ''
-    if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}${sq}` }
+    // n212: a filled button's own coloured edge and glow (round 21 c5 neon 'PLAY NOW': cyan border and halo lost)
+    const edge = fill && dist(f.border.colour, f.bg) > 60 ? `; a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border` : ''
+    const halo = glow ? `; GLOWING: exactly box-shadow: ${cssHex(f.shadow)} (a coloured halo round it${/inset/.test(f.shadow) ? ', inside and out' : ''})` : ''
+    if (fill && dist(f.bg, page.bg) >= 12 && f.radius < h / 2 - 2) return { kind: 'button', note: `${colourName(f.bg)}${textCol ? ` ${textCol} text` : ''} button ${quote(f.text)}${sq}${edge}${halo}` }
     // a one-glyph icon button names its icon and size (round 7 e4 '♡' wishlist: built as a refresh icon)
     const ICON = { '♡': 'an empty heart (wishlist) outline icon', '♥': 'a filled heart icon', '☆': 'an empty star icon', '★': 'a filled star icon', '✕': 'a close X icon', '×': 'a close X icon', '⋯': 'a three-dots icon', '☰': 'a three-line menu icon' }
     const icon = ICON[f.text.trim()]
     if (icon && (!fill || dist(f.bg, page.bg) < 12)) return { kind: 'button', note: `square ${Math.round(w)}x${Math.round(h)}px ${f.radius >= 4 ? `${Math.round(f.radius)}px rounded ` : ''}outline button holding only ${icon} ${quote(f.text.trim())}, centred` }
-    if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}${sq}`.trim() }
+    if (!fill || dist(f.bg, page.bg) < 12) return { kind: 'button', note: `${colourName(f.border.colour) === 'light grey' ? '' : `${colourName(f.border.colour)} `}outline ${f.radius >= h / 2 - 2 ? 'pill ' : ''}button ${quote(f.text)}${sq}${halo}`.trim() }
   }
   if (bordered && (!fill || placeholder) && f.text.length <= 40 && !f.centred && h <= 70 && f.kidCount === 0 && f.tag !== 'a' && f.tag !== 'button') {
     const label = f.labelAbove ? (said.add(f.labelAbove), `label ${quote(f.labelAbove)} above, `) : ''
@@ -4575,7 +4586,8 @@ function decideOne(f, page, marked, said) {
     const one = sl && sl.length === 1 && f.font.size >= 40 && f.font.size < 100 && /\s/.test(f.text.trim()) ? `, on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` :''
     // n152: a one-line headline centred on the page says so (round 13 e5 pricing headline built left-aligned)
     const midX = f.shown ? f.shown.x + f.shown.w / 2 : 0
-    const centreSay = one && f.centred && f.rect.w >= 900 && Math.abs(midX - 640) <= 12 && f.shown.x >= 120 ? `, CENTRED on the page (text-align center; its text runs from x=${f.shown.x} to x=${f.shown.x + f.shown.w}, centre at x=640; NOT left-aligned)` : ''
+    // n212: any one-line display word too (round 21 c5 130px 'NIGHTDRIVE', one word: built left-set)
+    const centreSay = (one || (sl && sl.length === 1 && f.font.size >= 100)) && f.centred && f.rect.w >= 900 && Math.abs(midX - 640) <= 12 && f.shown.x >= 120 ? `, CENTRED on the page (text-align center; its text runs from x=${f.shown.x} to x=${f.shown.x + f.shown.w}, centre at x=640; NOT left-aligned)` : ''
     // n137: a small label just above a giant word (round 10 c2 '01 /' mono numbers): no mark carries it
     const LA = f.labelAboveStyle && f.font.size >= 40 && f.labelAbove ? f.labelAboveStyle : null
     const lab = LA ? (said.add(f.labelAbove), `; plus a small separate ${LA.px}px ${isMono(LA.family) ? 'monospace (font-family Courier New, monospace) ' : ''}${hexOf(LA.colour)} label ${quote(f.labelAbove, 32)}${LA.ls >= 1 ? ` with ${Math.round(LA.ls)}px letter-spacing` : ''} at ${LA.x},${LA.y}, ${LA.gap}px above it and left-aligned with it (keep it, it is part of this heading)`) : ''
@@ -5555,7 +5567,13 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const glowT = (f.textShadows ?? []).filter((x) => x.blur >= 6)
     if (d.kind === 'heading' && glowT.length >= 2 && f.text && !/text-shadow/.test(d.note ?? '')) {
       const L = f.shown?.lines ?? [f.text], A = f.ownAnim
-      out.set(f.role, { ...d, note: `${d.note ? `${d.note}; ` : ''}a NEON sign: ${Math.round(f.font.size)}px letters ${hexOf(f.colour)}, set on ${L.length} line${L.length > 1 ? 's' : ''} ${L.map((l) => quote(l, 30)).join(' over ')}${L.length > 1 ? ' (a <br> between them, NOT one line)' : ''}, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, GLOWING: exactly text-shadow: ${f.textShadows.map((x) => `${x.x}px ${x.y}px ${x.blur}px ${x.c ? hexOf(x.c) : ''}`).join(', ')} (a bright halo round every letter)${A ? `; it FLICKERS: animation ${A.css} with ${A.kf}` : ''}` })
+      // n212: a sign centred in a wide box says where its letters really sit (round 21 c5 'the new album' in a
+      // 1280px centred box: said 'top-left at 0,480', built at the page's left edge)
+      const S = f.shown, mid = S ? S.x + S.w / 2 : 0
+      const at = f.centred && S && f.rect.w >= S.w + 200 && Math.abs(mid - (f.rect.x + f.rect.w / 2)) <= 12
+        ? `CENTRED: a ${Math.round(f.rect.w)}px-wide box with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, text-align center, so the letters run from x=${S.x} to x=${S.x + S.w} (centre at x=${Math.round(mid)}; NOT left-set at the box's left edge)`
+        : `top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}`
+      out.set(f.role, { ...d, note: `${d.note ? `${d.note}; ` : ''}a NEON sign: ${Math.round(f.font.size)}px letters ${hexOf(f.colour)}, set on ${L.length} line${L.length > 1 ? 's' : ''} ${L.map((l) => quote(l, 30)).join(' over ')}${L.length > 1 ? ' (a <br> between them, NOT one line)' : ''}, ${at}, GLOWING: exactly text-shadow: ${f.textShadows.map((x) => `${x.x}px ${x.y}px ${x.blur}px ${x.c ? hexOf(x.c) : ''}`).join(', ')} (a bright halo round every letter)${A ? `; it FLICKERS: animation ${A.css} with ${A.kf}` : ''}` })
       return
     }
     if (d.kind === 'circle' && !f.text && visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && !/box-shadow|#[0-9a-f]{6}/i.test(d.note ?? '') && (d.note ?? '').length < 80) {

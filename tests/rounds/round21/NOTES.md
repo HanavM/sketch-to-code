@@ -97,3 +97,28 @@ A first run scored 85% with the left column right but the 3D stack built as one 
 its notes are unchanged), kept as c2-depth-stack-n211a-cmp.png; the second run is kept.
 Round 21: **81%** (was 78). Vitest same 2 env failures (1459 tests); typecheck clean.
 Next: c4 swiss orbit (74) disc still a drawn component and meta missed; c5 neon grid (77) stripe-cut sun, centred title.
+
+## n212: a stripe-cut mask, centred display words and signs, a button's own edge and glow (2026-10-25, ~81k billed for c5)
+
+Planner (words only): a mask with a repeating-linear-gradient stripe layer is said as hard STRIPES (how many, below
+which %, the mask verbatim and its mask-composite) instead of a fade (round 21 c5's sun had a solid top layer plus a
+stripe layer; the top layer's single stop read it as "fading out"); a one-line display word of 100px or more centred on
+the page says CENTRED with where its letters run (c5 "NIGHTDRIVE" was only said for multi-word 40-99px lines); a neon
+sign centred in a wide box says CENTRED with its letters' x span, not the box's "top-left at 0,480"; a filled bordered
+button says its own coloured border and its glow verbatim (c5 "PLAY NOW": cyan edge and halo lost), and an outline
+button its glow. Re-planned rounds 1-21: centring reaches round 4 c2, 12 c3, 13 c4, 16 c1, 17 c3 headlines; glow round
+14 c5 and 17 c3 buttons; border round 7 c4 labels; stripe wording round 17 c3. No marks changed.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c5 neon grid | 77% | **84%** | sun cut into stripes below its middle, title and "the new album" centred, button edge and glow back (effects 100%, mask kept); the title's pink glow lost, the page's purple band at the horizon lost, title box a little right |
+
+Next: c5 title drop-shadow glow and the page gradient's middle stop; c4 disc still from a drawn component, column heads'
+letter-spacing; c2 tags filled pills.
+
+Check of c2 depth stack (notes unchanged since n211, ~87k billed): n211 recorded c2 at 86%, but its kept run record
+scores **65%** on the v3 measure (colour 93, structure 77, layout 88; the stack sits ~170px left of the target,
+over the headline). A fresh run scored 41%: the same left-shifted stack plus an invented dark slab behind it (kept as
+c2-depth-stack-n212-cmp.png; the 65% run stays the kept build). Round 21 corrected: **80%** over 10 (89, 65, 90, 74,
+84, 76, 86, 75, 79, 81), not the 81 written after n211 (which used 86 for c2).
+Next for c2: the 3D stack's own page x (it is built ~170px left, over the headline) and no slab behind it.
