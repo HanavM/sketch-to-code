@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T18:18Z | n218 gantt dot rows, week heads, darker progress, no margin push under the top bar | e3 gantt 75 to 78 (runs 66, 67, 69, 78); round 21 84. ~316k.
 2026-10-25T17:45Z | n217 real CSS 3D words skip the drawn outline, card pile said as a pile | c2 depth stack 91 to 92 twice, 3D kept each run; round 21 84. ~169k.
 2026-10-25T17:20Z | n216 gradient title glow, page middle stop, filled pill tags | c5 neon grid 84 to 91; c2 run 55 stack flattened, kept 91; round 21 84. ~140k.
 2026-10-25T16:44Z | n215 page grid lines said again on the drawn divider rule | c4 swiss orbit 74 to 78, hairlines and bars kept; round 21 83. ~138k.
