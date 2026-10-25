@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-25T03:20Z | n196 overlap paint order, capitals, top bar buttons one by one | c5 89 to 97, e1 91 to 93, e5 83 to 81; round 19 89. ~294k.
+2026-10-25T03:15Z | n196 overlap paint order, capitals, top bar buttons one by one | c5 89 to 97, e1 91 to 93, e5 83 to 81; round 19 89. ~294k.
 2026-10-25T02:43Z | n195 terrazzo cover, hollow masthead copy, ring letters, lanterns, neon, glass and pale pills | c3 81 to 91, c5 76 to 89, e2 73 to 82; round 19 88. ~261k.
 2026-10-25T02:07Z | n194 card fields beside nested regions, focus glow, tilted stamp, table card, sized controls | e5 71 to 83, e2 66 to 73; round 19 85. ~175k.
 2026-10-25T01:44Z | n193 thin tonearm stroke, round record, label on its own disc, two-line chip | c4 77 to 90; round 19 83. ~187k.
