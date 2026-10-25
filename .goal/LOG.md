@@ -1,6 +1,6 @@
 # Log (newest first)
 
-2026-10-25T06:40Z | n199 giant year place, quoted manifesto, sidebar month, selected event ring | c2 67 to 92, e1 68 to 76; round 20 83. ~302k.
+2026-10-25T06:20Z | n199 giant year place, quoted manifesto, sidebar month, selected event ring | c2 67 to 92, e1 68 to 76; round 20 83. ~302k.
 2026-10-25T05:40Z | n198 ruled grid, events over the grid, halftone sun, inline marks, phone place | c1 74 to 90, c5 66 to 89, e1 49 to 68, c2 72 to 67; round 20 80. ~370k.
 2026-10-25T04:58Z | n197 round 20: ten harder pages, first builds | Written, built 10/10; e5 95, c3 88, c4 78, e4 77, e3 75, c1 74, e2 74, c2 72, c5 66, e1 49; round 75. ~965k.
 2026-10-25T03:15Z | n196 overlap paint order, capitals, top bar buttons one by one | c5 89 to 97, e1 91 to 93, e5 83 to 81; round 19 89. ~294k.
