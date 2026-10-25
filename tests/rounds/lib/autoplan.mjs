@@ -2942,7 +2942,7 @@ function typeWords(f, page) {
   const em = f.font.spacing / f.font.size
   if (f.font.size >= 32 && em <= -0.02) w.push('tight-set letters')
   // display type spaced 0.1em is plainly spaced out (round 5 c2 'Slant' at 24px on 180px)
-  else if (em >= 0.15 || (f.font.size >= 32 && em >= 0.1)) w.push('wide-spaced letters')
+  else if (em >= 0.15 || (f.font.size >= 32 && em >= 0.1)) w.push(`wide-spaced letters (letter-spacing ${Math.round(f.font.spacing)}px)`)
   // stacked display lines set closer than the type is tall: the drawn pitch alone reads ~1.1 leading,
   // so a 150px headline at 0.9 was built 123px (round 4 c1)
   const lh = f.font.lineHeight / f.font.size
@@ -4960,7 +4960,7 @@ function cutFacts() {
     // a quarter turn on big words
     const mt = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/)
     const rot = mt ? Math.round(Math.atan2(+mt[2], +mt[1]) * 180 / Math.PI) : 0
-    if (Math.abs(Math.abs(rot) - 90) <= 3 && (el.innerText || '').trim() && parseFloat(cs.fontSize) >= 80) e.quarter = { rot, origin: cs.transformOrigin, x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, after: { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) } }
+    if (Math.abs(Math.abs(rot) - 90) <= 3 && (el.innerText || '').trim() && parseFloat(cs.fontSize) >= 80) e.quarter = { rot, origin: cs.transformOrigin, fs: Math.round(parseFloat(cs.fontSize)), lh: cs.lineHeight === 'normal' ? null : Math.round(parseFloat(cs.lineHeight)), ls: cs.letterSpacing === 'normal' ? null : Math.round(parseFloat(cs.letterSpacing)), x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, after: { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) } }
     // small round dots hung on a ring (they spin with it)
     const ringW = parseFloat(cs.borderTopWidth) || 0
     if (ringW > 0 && (/50%/.test(cs.borderTopLeftRadius) || parseFloat(cs.borderTopLeftRadius) >= el.offsetWidth / 2 - 1)) {
@@ -5044,7 +5044,7 @@ function cutNotes(regions, out, X, pn) {
     if (e.quarter) {
       const Q = e.quarter, A = Q.after
       d.note = (d.note ?? '').replace(/^diagonal /, '').replace(/,? ?absolutely placed: [^;]*?\(not further right\)/, '')
-      d.note += `; TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(${Q.rot}deg) with transform-origin: ${Q.origin}, so the letters run ${Q.rot < 0 ? 'bottom to top' : 'top to bottom'}; before the turn its ${Q.w}x${Q.h}px box sits at left ${Q.x}px, top ${Q.y}px (position absolute); after the turn it covers the page from ${A.x},${A.y} to ${A.x + A.w},${A.y + A.h} (bleeding off the page edge there)`
+      d.note += `; TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(${Q.rot}deg) with transform-origin: ${Q.origin}, so the letters run ${Q.rot < 0 ? 'bottom to top' : 'top to bottom'}${Q.lh ? `; set ${Q.fs}px with line-height ${Q.lh}px (${(Q.lh / Q.fs).toFixed(2).replace(/0$/, '')}, NOT normal: the line box is what turns, so a taller line pushes the letters ${Q.rot < 0 ? 'right' : 'left'}, off their place)` : ''}${Q.ls ? `, letter-spacing ${Q.ls}px (the two letters set that tight)` : ''}; before the turn its ${Q.w}x${Q.h}px box sits at left ${Q.x}px, top ${Q.y}px (position absolute); after the turn it covers the page from ${A.x},${A.y} to ${A.x + A.w},${A.y + A.h} (bleeding off the page edge there)`
     }
     if (e.ring && e.ring.dots.length && !/dots?\b/.test(d.note ?? '')) {
       const R = e.ring

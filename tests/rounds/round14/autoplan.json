@@ -53,7 +53,7 @@
    ],
    [
     "kicker",
-    "13px wide-spaced letters \"A VARIABLE TYPEFACE, 100 → 900\""
+    "13px wide-spaced letters (letter-spacing 4px) \"A VARIABLE TYPEFACE, 100 → 900\""
    ],
    [
     "headline",
@@ -227,7 +227,7 @@
    ],
    [
     "footer",
-    "wide-spaced letters \"HALL 4, DOCK ROAD FREE ENTRY @PAPERROOM\"; these are 3 SEPARATE items on one line 1160px wide at 60,850, pushed apart (display flex, justify-content: space-between; never run together as one line of text): \"HALL 4, DOCK ROAD\" at the far left, \"FREE ENTRY\" in the middle, \"@PAPERROOM\" at the far right"
+    "wide-spaced letters (letter-spacing 2px) \"HALL 4, DOCK ROAD FREE ENTRY @PAPERROOM\"; these are 3 SEPARATE items on one line 1160px wide at 60,850, pushed apart (display flex, justify-content: space-between; never run together as one line of text): \"HALL 4, DOCK ROAD\" at the far left, \"FREE ENTRY\" in the middle, \"@PAPERROOM\" at the far right"
    ]
   ]
  },
@@ -423,7 +423,7 @@
    ],
    [
     "chapter",
-    "14px mono wide-spaced letters mint green \"CHAPTER 01 / DAWN\"; its text #c9f27a (mint green, NOT the page's off-white text)"
+    "14px mono wide-spaced letters (letter-spacing 3px) mint green \"CHAPTER 01 / DAWN\"; its text #c9f27a (mint green, NOT the page's off-white text)"
    ],
    [
     "headline",
@@ -435,7 +435,7 @@
    ],
    [
     "scroll-cue",
-    "wide-spaced letters dark navy \"SCROLL\"; its text #0d1b1e (dark navy, NOT the page's off-white text); on the #c9f27a block, no fill or bar of its own"
+    "wide-spaced letters (letter-spacing 3px) dark navy \"SCROLL\"; its text #0d1b1e (dark navy, NOT the page's off-white text); on the #c9f27a block, no fill or bar of its own"
    ]
   ]
  },

@@ -254,3 +254,25 @@ said between the channel rows), round 10 e3 and round 12 e5 (comma only) change.
 Round 21: **85%** over 10 (89, 92, 90, 78, 91, 87, 86, 78, 79, 81; 85.1, was 84.1). Vitest same 2 env failures (1459
 tests); typecheck clean. Run a side-by-side saved as e1-mail-client-n219a-cmp.png.
 Next: c4 swiss orbit (78) and e3 gantt (78, its today line missed by the region check in every run), then e4 music player (79).
+
+## n220: a turned giant numeral says its line height and tracking; wide-spaced letters say their spacing (2026-10-25, ~116k billed for one c4 run)
+
+Why c4 swiss orbit sat at 78: the giant "07" is turned a quarter about a 300px origin, and what turns is its line box.
+The words gave the box, the origin and where it lands, but not the 0.8 line height or the -30px tracking, so it was
+built with a normal (taller) line: the letters sat ~80px right of their place (no longer bleeding off the left edge)
+and the whole page aligned 48px off. The vertical label said only "wide letter-spacing" and was built ~240px long
+instead of 327.
+
+Planner (words only): a quarter-turned giant word says its type size, line height in px and as a ratio (NOT normal,
+and why), and its letter-spacing; every "wide-spaced letters" now says its letter-spacing in px. Re-planned rounds
+1-21: 31 notes change across 16 rounds (only the added spacing px, plus round 21 c4's numeral).
+
+| page | before | run a | what changed |
+|---|---|---|---|
+| c4 swiss orbit | 78% | **89%** | "07" bleeds off the left edge in its place, label full length (colour 100, structure 96, layout 72: the two drawn rules and the meta block are just off their boxes) |
+
+Round 21: **86%** over 10 (89, 92, 90, 89, 91, 87, 86, 78, 79, 81; 86.2, was 85.1). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: e4 music player (79): grey library thumbnails, filter pills moved to the bottom, title and artist merged on one
+line, transport buttons bunched, playing row highlight lost. Then e3's today line (built right, missed by the region
+match: it is not a box of its own in the build).

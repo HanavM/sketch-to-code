@@ -359,7 +359,7 @@
    ],
    [
     "giant-numeral",
-    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica; font-weight 700; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) tight-set letters \"07\", 560px type, about 626px wide (no larger); TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(-90deg) with transform-origin: 300px 300px, so the letters run bottom to top; before the turn its 563x448px box sits at left -30px, top 160px (position absolute); after the turn it covers the page from -30,197 to 418,760 (bleeding off the page edge there)"
+    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica; font-weight 700; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) tight-set letters \"07\", 560px type, about 626px wide (no larger); TURNED A QUARTER (NOT upright, NOT diagonal): transform: rotate(-90deg) with transform-origin: 300px 300px, so the letters run bottom to top; set 560px with line-height 448px (0.8, NOT normal: the line box is what turns, so a taller line pushes the letters right, off their place), letter-spacing -30px (the two letters set that tight); before the turn its 563x448px box sits at left -30px, top 160px (position absolute); after the turn it covers the page from -30,197 to 418,760 (bleeding off the page edge there)"
    ],
    [
     "red-disc",
@@ -371,7 +371,7 @@
    ],
    [
     "vertical-label",
-    "uppercase wide-spaced letters vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; set BOLD (font-weight 700), NOT regular"
+    "uppercase wide-spaced letters (letter-spacing 6px) vertical (writing-mode: vertical-rl), 13px letters, the line about 327px long \"AUSSTELLUNG · EXHIBITION\"; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "bar-lines",

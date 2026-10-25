@@ -1,24 +1,24 @@
 {
   "id": "c4-swiss-orbit",
-  "at": "2026-10-25T16:42:47.020Z",
+  "at": "2026-10-25T19:05:56.724Z",
   "likeness": {
     "version": 3,
-    "overall": 0.778439900145941,
-    "overallV2": 0.7593295783653965,
-    "overallV1": 0.6970020693149244,
-    "colour": 0.9370083327451287,
-    "structure": 0.8656363511996163,
-    "structureStrict": 0.7652548690015915,
-    "colourAligned": 0.94726099358609,
-    "structureAligned": 0.8656363511996163,
+    "overall": 0.8868094428033058,
+    "overallV2": 0.8868094428033058,
+    "overallV1": 0.8649195708209505,
+    "colour": 0.9966327722485766,
+    "structure": 0.9622245138705198,
+    "structureStrict": 0.9269698112810989,
+    "colourAligned": 0.9966327722485766,
+    "structureAligned": 0.9622245138705198,
     "align": {
       "scale": 1,
-      "dx": -48,
+      "dx": 0,
       "dy": 0,
-      "r": 0.8819095100846599
+      "r": 0.9964377605612528
     },
-    "layout": 0.8672312712416154,
-    "layoutV1": 0.7925252920842775,
+    "layout": 0.7218026283725639,
+    "layoutV1": 0.6470966492152259,
     "layoutVersion": 2
   },
   "boxes": [
@@ -28,13 +28,6 @@
       0,
       1280,
       900
-    ],
-    [
-      0,
-      0,
-      180,
-      1280,
-      1
     ],
     [
       0,
@@ -53,22 +46,22 @@
     [
       0,
       0,
-      720,
+      176,
       1280,
       1
     ],
     [
       0,
-      -30,
-      197,
-      448,
-      563
+      0,
+      716,
+      1280,
+      1
     ],
     [
       0,
       348,
       34,
-      481,
+      480,
       77
     ],
     [
@@ -94,6 +87,13 @@
     ],
     [
       0,
+      -30,
+      197,
+      448,
+      563
+    ],
+    [
+      0,
       520,
       250,
       400,
@@ -101,38 +101,38 @@
     ],
     [
       0,
-      370,
-      100,
-      699,
-      699
+      395,
+      125,
+      651,
+      651
     ],
     [
       11,
-      908,
-      290,
-      25,
-      25
+      940,
+      346,
+      23,
+      23
     ],
     [
       11,
-      558,
-      238,
-      25,
-      25
+      614,
+      208,
+      23,
+      23
     ],
     [
       11,
-      664,
-      681,
-      25,
-      25
+      605,
+      663,
+      23,
+      23
     ],
     [
       0,
       1180,
       204,
-      20,
-      327
+      16,
+      326
     ],
     [
       0,
@@ -173,64 +173,64 @@
       0,
       340,
       740,
-      292,
-      68
+      300,
+      71
     ],
     [
       21,
       340,
       740,
       300,
-      12
+      18
     ],
     [
       21,
       340,
       766,
       281,
-      42
+      45
     ],
     [
       0,
       660,
       740,
-      292,
-      68
+      300,
+      71
     ],
     [
       24,
       660,
       740,
       300,
-      12
+      18
     ],
     [
       24,
       660,
       766,
       268,
-      42
+      45
     ],
     [
       0,
       980,
       740,
-      292,
-      68
+      300,
+      71
     ],
     [
       27,
       980,
       740,
       300,
-      12
+      18
     ],
     [
       27,
       980,
       766,
       243,
-      42
+      45
     ]
   ],
   "groupMatched": [
@@ -260,63 +260,63 @@
     "extra": []
   },
   "tokens": {
-    "input": 87608,
-    "output": 50844,
-    "cacheRead": 674633
+    "input": 71671,
+    "output": 44280,
+    "cacheRead": 515448
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44106,
-      "output": 10328,
-      "cacheRead": 165990,
-      "toolCalls": 7,
+      "billed": 44687,
+      "output": 11374,
+      "cacheRead": 201169,
+      "toolCalls": 10,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
         "Read src/index.css",
+        "Glob",
         "Read s2c-bench-app/package.json",
+        "Read src/index.css",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 105596
+      "ms": 124354
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 25947,
-      "output": 11126,
-      "cacheRead": 186894,
-      "toolCalls": 3,
+      "billed": 33010,
+      "output": 14821,
+      "cacheRead": 130757,
+      "toolCalls": 2,
       "tools": [
         "Read src/App.tsx",
-        "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 131701
+      "ms": 180794
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 37822,
-      "output": 16998,
-      "cacheRead": 307120,
-      "toolCalls": 4,
+      "billed": 19985,
+      "output": 8356,
+      "cacheRead": 180438,
+      "toolCalls": 2,
       "tools": [
         "Read src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 207644
+      "ms": 100867
     }
   ],
-  "reading": "A museum exhibition landing-page design: a page-wide hairline grid (top/bottom 1px dividers plus two 1px vertical rules), a big bold Helvetica headline, a small museum-info text block, a giant rotated \"07\" numeral, a flat red disc paired with a thin spinning ring that carries three dots, a vertical \"AUSSTELLUNG · EXHIBITION\" label, a 4-bar graphic mark, and three info cards (Grid / Circle / Tickets) each with a small bold label and a short paragraph.",
+  "reading": "A museum exhibition landing page: top and bottom 1px hairline dividers plus a 2-line vertical grid, a bold 'Kreis und Raster' title with three info lines, a giant rotated '07' numeral beside a solid red disc and a thin spinning outline ring with three dots, a vertical 'AUSSTELLUNG · EXHIBITION' label, and a footer row of four tick bars plus three numbered section blurbs (01 — GRID, 02 — CIRCLE, 03 — TICKETS) each with a short description.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -328,10 +328,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a solid near-black horizontal divider rule exactly 1px tall (height:1px / Tailwind h-[1px], never h-1), spanning the full 1280px page width, no text — just "
+      "instruction": "Add a solid near-black horizontal divider strip only 1px tall, 1280px wide, no text — a hairline divider rule, not a bar or button; exactly 1px thick (h-[1px], "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -343,7 +343,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a solid near-black horizontal divider rule exactly 1px tall (height:1px / h-[1px], never h-1), spanning the full 1280px page width, no text — a plain divide"
+      "instruction": "Add a solid near-black horizontal divider strip only 1px tall, 1280px wide, no text — a hairline divider rule, not a bar or button; exactly 1px thick (h-[1px], "
     },
     {
       "kind": "add",
@@ -366,7 +366,7 @@
         77
       ],
       "paths": [],
-      "instruction": "Add a huge tight-set Helvetica BOLD (font-weight 700) heading on one line (white-space: nowrap, never wrapped), about 480px wide, reading \"Kreis und Raster\", pl"
+      "instruction": "Add a huge Helvetica tight-set letters heading reading 'Kreis und Raster', on one line (white-space nowrap, never wrapped), about 480px wide; bold (font-weight "
     },
     {
       "kind": "add",
@@ -393,7 +393,7 @@
         63
       ],
       "paths": [],
-      "instruction": "Add three short one-line text elements stacked top-right of the page, each with min-width (not a fixed width) so the text never wraps: \"Design Museum Basel\" (14"
+      "instruction": "Add three stacked one-line info text elements, each real live text with min-width so a value never wraps from its label: 'Design Museum Basel' (14px #111111, 14"
     },
     {
       "kind": "add",
@@ -408,10 +408,10 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a giant live-text numeral \"07\" bleeding off the left page edge (starting 30px past it), set in Helvetica (font-weight 700, round-bowled, not condensed/displ"
+      "instruction": "Add a giant Helvetica bold (font-weight 700) live-text numeral '07' bleeding off the left page edge, round-bowled face, 560px type size, about 626px wide (no la"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -423,10 +423,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 400px across, top-left at page 520,250 (one plain div, position absolute, backgro"
+      "instruction": "Add a perfectly round solid disc: one plain div, position absolute, border-radius 50%, 400px across with top-left at page 520,250, background #e30613 (not SVG, "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -438,7 +438,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a spinning big near-black outline circle: a 500x500px ring at page 470,200 (position absolute, border-radius 50%) with only a thin 1px #111111 border (no fi"
+      "instruction": "Add a spinning big near-black outline ring: one 500x500px circle at 470,200 (position absolute, border-radius 50%) with only a thin 1px #111111 border, no fill;"
     },
     {
       "kind": "add",
@@ -453,10 +453,10 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add bold uppercase vertical text (writing-mode: vertical-rl, font-weight 700), 13px letters, wide letter-spacing, line about 327px long, reading \"AUSSTELLUNG · "
+      "instruction": "Add uppercase wide-spaced vertical text (writing-mode: vertical-rl, letter-spacing 6px), 13px letters, line about 327px long, reading 'AUSSTELLUNG · EXHIBITION'"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -468,7 +468,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Add 4 separate thin solid #111111 bars, each its own element with 10px of empty page between one bar and the next (never merged into one solid block), bottom-le"
+      "instruction": "Add 4 separate thin solid #111111 fill bars, each its own element, with 10px of empty page between one bar and the next (never merged into one block): 270x6 at "
     },
     {
       "kind": "add",
@@ -495,7 +495,7 @@
         69
       ],
       "paths": [],
-      "instruction": "Add a small bold label \"01 — GRID\" (12px bold #111111, letter-spacing 2px — letters spaced out, not tight, ~300x18 at page 340,740, one line) followed by a shor"
+      "instruction": "Add a section label and description, each its own element: '01 — GRID' (300x18 at 340,740, 12px bold #111111, letter-spacing 2px, one line/nowrap) and 'Seventy "
     },
     {
       "kind": "add",
@@ -522,7 +522,7 @@
         70
       ],
       "paths": [],
-      "instruction": "Add a small bold label \"02 — CIRCLE\" (12px bold #111111, letter-spacing 2px, ~300x18 at page 660,740, one line) followed by a short paragraph \"The single red di"
+      "instruction": "Add a section label and description, each its own element: '02 — CIRCLE' (300x18 at 660,740, 12px bold #111111, letter-spacing 2px, one line/nowrap) and 'The si"
     },
     {
       "kind": "add",
@@ -547,8 +547,10 @@
         47
       ],
       "paths": [],
-      "instruction": "Add a small bold label \"03 — TICKETS\" (12px bold #111111, letter-spacing 2px, ~300x18 at page 980,740, one line) followed by a short paragraph \"CHF 18 / reduced"
+      "instruction": "Add a section label and description, each its own element: '03 — TICKETS' (300x18 at 980,740, 12px bold #111111, letter-spacing 2px, one line/nowrap) and 'CHF 1"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "add action with neither container nor strokes"
+  ]
 }
