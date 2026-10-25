@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Riso halftone</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fbf6ea;font-family:Helvetica,Arial,sans-serif;color:#0078bf}
+@keyframes wob{50%{transform:translate(3px,-2px) rotate(1deg)}}
+.dots{position:absolute;left:640px;top:80px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,#ff48b0 38%,transparent 40%) 0 0/14px 14px;mix-blend-mode:multiply}
+.dots2{position:absolute;left:560px;top:260px;width:420px;height:420px;background:radial-gradient(circle,#0078bf 30%,transparent 32%) 0 0/10px 10px;mix-blend-mode:multiply;transform:rotate(15deg)}
+.h{position:absolute;left:60px;top:120px;font:900 150px/0.88 Helvetica;letter-spacing:-6px;text-transform:uppercase;color:#0078bf;text-shadow:7px 5px 0 #ff48b0;mix-blend-mode:multiply}
+.yel{position:absolute;left:60px;top:470px;width:380px;height:60px;background:#ffe800;mix-blend-mode:multiply;transform:rotate(-2deg)}
+.sub{position:absolute;left:70px;top:478px;font:700 32px/1.4 "Courier New",monospace;color:#0078bf}
+.p{position:absolute;left:70px;top:580px;width:420px;font:400 17px/1.55 Georgia,serif;color:#333}
+.btn{position:absolute;left:70px;top:740px;padding:16px 28px;background:#ff48b0;color:#fbf6ea;font:900 16px Helvetica;letter-spacing:2px;text-transform:uppercase;box-shadow:4px 4px 0 #0078bf;animation:wob 3s ease-in-out infinite}
+.list{position:absolute;left:760px;top:700px;width:440px;font:700 15px/2 "Courier New",monospace;color:#333;border-top:2px dashed #0078bf}
+.list div{display:flex;justify-content:space-between;border-bottom:2px dashed #0078bf}
+.star{position:absolute;left:1080px;top:40px;font:400 110px/1 Helvetica;color:#ffe800;mix-blend-mode:multiply;transform:rotate(12deg)}
+</style></head><body>
+<div class="dots" data-r="pink-halftone" data-must></div><div class="dots2" data-r="blue-halftone"></div>
+<h1 class="h" data-r="headline" data-must>Print<br>club</h1>
+<div class="yel" data-r="yellow-bar"></div><div class="sub" data-r="subtitle">two inks, no undo</div>
+<p class="p" data-r="lede">A risograph studio and open workshop. Bring a file, leave with a hundred slightly misregistered prints you will love more than perfect ones.</p>
+<div class="btn" data-r="cta">Book a press slot</div>
+<div class="list" data-r="schedule"><div><span>TUE</span><span>Zine night</span><span>18:00</span></div><div><span>THU</span><span>Poster lab</span><span>17:30</span></div><div><span>SAT</span><span>Open press</span><span>11:00</span></div></div>
+<div class="star" data-r="star">✺</div>
+</body></html>

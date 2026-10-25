@@ -1,0 +1,437 @@
+{
+  "id": "c5-riso-halftone",
+  "at": "2026-10-25T20:53:55.231Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6386667102196026,
+    "overallV2": 0.6386667102196026,
+    "overallV1": 0.5741824426073938,
+    "colour": 0.9417341080660269,
+    "structure": 0.7497689215752285,
+    "structureStrict": 0.6474940461506732,
+    "colourAligned": 0.9417341080660269,
+    "structureAligned": 0.7497689215752285,
+    "align": {
+      "scale": 0.88,
+      "dx": -16,
+      "dy": -48,
+      "r": 0.43719322453386134
+    },
+    "layout": 0.8429198378145375,
+    "layoutV1": 0.8429198378145375,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      640,
+      80,
+      560,
+      560
+    ],
+    [
+      0,
+      513,
+      213,
+      514,
+      514
+    ],
+    [
+      0,
+      68,
+      178,
+      593,
+      366
+    ],
+    [
+      3,
+      68,
+      178,
+      593,
+      183
+    ],
+    [
+      3,
+      68,
+      361,
+      593,
+      183
+    ],
+    [
+      0,
+      59,
+      463,
+      382,
+      73
+    ],
+    [
+      0,
+      78,
+      487,
+      328,
+      48
+    ],
+    [
+      0,
+      70,
+      580,
+      420,
+      78
+    ],
+    [
+      0,
+      70,
+      735,
+      259,
+      50
+    ],
+    [
+      0,
+      763,
+      703,
+      433,
+      91
+    ],
+    [
+      10,
+      781,
+      715,
+      397,
+      23
+    ],
+    [
+      11,
+      781,
+      715,
+      27,
+      23
+    ],
+    [
+      11,
+      925,
+      715,
+      90,
+      23
+    ],
+    [
+      11,
+      1133,
+      715,
+      45,
+      23
+    ],
+    [
+      10,
+      781,
+      738,
+      397,
+      23
+    ],
+    [
+      15,
+      781,
+      738,
+      27,
+      23
+    ],
+    [
+      15,
+      925,
+      738,
+      90,
+      23
+    ],
+    [
+      15,
+      1133,
+      738,
+      45,
+      23
+    ],
+    [
+      10,
+      781,
+      760,
+      397,
+      23
+    ],
+    [
+      19,
+      781,
+      760,
+      27,
+      23
+    ],
+    [
+      19,
+      925,
+      760,
+      90,
+      23
+    ],
+    [
+      19,
+      1133,
+      760,
+      45,
+      23
+    ],
+    [
+      0,
+      1071,
+      46,
+      125,
+      104
+    ],
+    [
+      23,
+      1071,
+      46,
+      125,
+      104
+    ],
+    [
+      24,
+      1071,
+      46,
+      125,
+      104
+    ],
+    [
+      24,
+      1071,
+      46,
+      125,
+      104
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 52990,
+    "output": 34789,
+    "cacheRead": 343117
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58120,
+      "output": 21621,
+      "cacheRead": 314072,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read components/SparkleAsterisk.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SparkleAsterisk.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 242555
+    }
+  ],
+  "reading": "This is a poster-style hero for a risograph/print-club site: two overlapping halftone-dot 'sleeve' squares (pink and blue, exact gradients specified in notes), a tight 2-line 'PRINT / CLUB' Helvetica headline, a rotated yellow color block with a bold mono tagline over it, three lines of body copy, a bobbing pink CTA button, a dashed-outline schedule card, and a small rotated yellow sparkle glyph — plus a run-wide note setting the page background, font and text color.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        83,
+        554,
+        553
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Halftone dot screen block (a print-style sleeve, NOT a photo or plain disc): one 560x560px div, untransformed top-left at 640,80, a solid fill covered edge-to-e"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        516,
+        216,
+        508,
+        508
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Halftone dot screen block (print-style sleeve, NOT a photo or plain disc), overlapping the pink square: one 420x420px div, top-left at 560,260, solid fill cover"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 166
+        }
+      ],
+      "region": [
+        68,
+        178,
+        378,
+        148
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy uppercase tight-set heading, ink-like (multiply blend: darkens what it overlaps, never covers it), line-height 0.88, set in exactly 2 line"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        466,
+        374,
+        67
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Plain solid flat-color block, NOT a picture: 380x60px, top-left at 60,470 before rotation, filled flat opaque yellow #ffe800, no text/border/shadow, then rotate"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 166
+        }
+      ],
+      "region": [
+        78,
+        487,
+        293,
+        28
+      ],
+      "paths": [],
+      "instruction": "Big bold mono tagline \"two inks, no undo\", 32px, font-weight 700 (not regular), on one line (white-space: nowrap, never wrapped), about 326px wide, sitting over"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        74,
+        580,
+        412,
+        79
+      ],
+      "paths": [],
+      "instruction": "17px Georgia dark-grey (#333333) body copy in 3 lines, 420px wide, top-left at 70,580, exact quoted copy (nothing invented): \"A risograph studio and open worksh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        743,
+        252,
+        43
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Gently bobbing (up/down) vivid pink button-card with off-white (#fbf6ea, not the page's usual blue) text \"BOOK A PRESS SLOT\", hard solid opaque blue shadow offs"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        703,
+        433,
+        91
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Schedule card with a 2px dashed #0078bf outline (dashed, not solid) and dark-grey (#333333, not the page's blue) 15px monospace lines listing: \"TUE\", \"Zine nigh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1078,
+        57,
+        102,
+        77
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Giant Helvetica regular-weight (not bold) yellow ✺ glyph, ink-like (multiply blend: darkens what it overlaps, never covers it), tilted 12° clockwise, 110px type"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

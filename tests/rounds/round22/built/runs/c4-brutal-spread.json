@@ -1,0 +1,494 @@
+{
+  "id": "c4-brutal-spread",
+  "at": "2026-10-25T20:47:01.916Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7973812791213755,
+    "overallV2": 0.7973812791213755,
+    "overallV1": 0.7331177032304945,
+    "colour": 0.9486673914904109,
+    "structure": 0.8572243397049455,
+    "structureStrict": 0.7485749564363275,
+    "colourAligned": 0.9486673914904109,
+    "structureAligned": 0.8572243397049455,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.923037340374346
+    },
+    "layout": 0.7637653330284373,
+    "layoutV1": 0.7637653330284373,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      950
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      44
+    ],
+    [
+      1,
+      -185,
+      10,
+      3926,
+      24
+    ],
+    [
+      2,
+      -185,
+      10,
+      1963,
+      24
+    ],
+    [
+      3,
+      -185,
+      10,
+      327,
+      24
+    ],
+    [
+      3,
+      142,
+      10,
+      327,
+      24
+    ],
+    [
+      3,
+      469,
+      10,
+      327,
+      24
+    ],
+    [
+      3,
+      796,
+      10,
+      327,
+      24
+    ],
+    [
+      3,
+      1123,
+      10,
+      327,
+      24
+    ],
+    [
+      3,
+      1450,
+      10,
+      327,
+      24
+    ],
+    [
+      2,
+      1778,
+      10,
+      1963,
+      24
+    ],
+    [
+      10,
+      1778,
+      10,
+      327,
+      24
+    ],
+    [
+      10,
+      2105,
+      10,
+      327,
+      24
+    ],
+    [
+      10,
+      2432,
+      10,
+      327,
+      24
+    ],
+    [
+      10,
+      2759,
+      10,
+      327,
+      24
+    ],
+    [
+      10,
+      3086,
+      10,
+      327,
+      24
+    ],
+    [
+      10,
+      3413,
+      10,
+      327,
+      24
+    ],
+    [
+      0,
+      43,
+      93,
+      513,
+      633
+    ],
+    [
+      17,
+      43,
+      93,
+      513,
+      633
+    ],
+    [
+      18,
+      43,
+      93,
+      513,
+      633
+    ],
+    [
+      18,
+      43,
+      93,
+      513,
+      633
+    ],
+    [
+      0,
+      387,
+      410,
+      326,
+      400
+    ],
+    [
+      21,
+      387,
+      410,
+      326,
+      400
+    ],
+    [
+      22,
+      387,
+      416,
+      325,
+      389
+    ],
+    [
+      21,
+      425,
+      492,
+      251,
+      236
+    ],
+    [
+      0,
+      608,
+      25,
+      381,
+      226
+    ],
+    [
+      25,
+      608,
+      36,
+      381,
+      204
+    ],
+    [
+      0,
+      748,
+      174,
+      313,
+      160
+    ],
+    [
+      27,
+      748,
+      182,
+      313,
+      144
+    ],
+    [
+      0,
+      764,
+      392,
+      470,
+      125
+    ],
+    [
+      0,
+      1040,
+      716,
+      189,
+      189
+    ],
+    [
+      30,
+      1100,
+      773,
+      69,
+      75
+    ],
+    [
+      31,
+      1100,
+      773,
+      56,
+      36
+    ],
+    [
+      31,
+      1106,
+      793,
+      56,
+      36
+    ],
+    [
+      31,
+      1113,
+      813,
+      56,
+      36
+    ],
+    [
+      0,
+      44,
+      748,
+      322,
+      36
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8181818181818182,
+    "kept": [
+      "bleed",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "blend",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 49678,
+    "output": 32385,
+    "cacheRead": 283124
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61168,
+      "output": 23731,
+      "cacheRead": 271677,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Grep",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 254043
+    }
+  ],
+  "reading": "A magazine-style editorial page: a scrolling red-orange-on-black marquee top bar, a large gradient-filled block overlapped by a rotated red-orange block showing a giant \"44\", a two-part huge title \"RAW matter\" in contrasting fonts, a drop-cap paragraph of brutalism copy, a tilted circular \"NEW ISSUE €12\" badge, and a monospace photo caption — all per the typed styling notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        38
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A single 1280x44px top-bar wrapper element at 0,0 with its own #111111 fill, holding a scrolling marquee of bold 16px red-orange (#ff3b00, not the page's near-b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        93,
+        513,
+        633
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "A large rectangular block (the crossed square, used only to mark its extent) filled with a dark grey (#3a3a3a) at the top fading to grey (#9a8f80) at the bottom"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        390,
+        413,
+        320,
+        393
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "One plain solid block, not a picture: 300x380px with top-left at 400,420 before rotation, filled flat opaque red-orange (#ff3b00), then rotated -4deg about its "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 188
+        }
+      ],
+      "region": [
+        608,
+        25,
+        330,
+        226
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy uppercase tight-set headline \"RAW\", 170px type, about 367px wide (no larger)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 133
+        }
+      ],
+      "region": [
+        748,
+        174,
+        282,
+        160
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif regular-weight red-orange word \"matter\", 120px type, about 313px wide (no larger), sitting beside/below the \"RAW\" headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        764,
+        392,
+        462,
+        48
+      ],
+      "paths": [],
+      "instruction": "A paragraph 470px wide, 16px text, line-height 25px, opening with a drop cap: first letter \"B\" at 86px bold red-orange (#ff3b00), floated left about 4 lines tal"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1044,
+        724,
+        181,
+        174
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A circular badge, tilted 18° anticlockwise, red-orange outline, 150px across, containing red-orange (#ff3b00) 18px text centred in 3 lines reading \"NEW ISSUE €1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 12
+        }
+      ],
+      "region": [
+        44,
+        748,
+        322,
+        36
+      ],
+      "paths": [],
+      "instruction": "Monospace caption text: \"FIG. 1 — Barbican estate, London, shot on expired film, 2026.\""
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,814 @@
+{
+ "c1-split-blend": {
+  "plan": [
+   [
+    "blue-half",
+    "box"
+   ],
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 230,
+     "lines": 2
+    }
+   ],
+   [
+    "blob",
+    "circle"
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 3
+    }
+   ],
+   [
+    "side-note",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "box"
+   ],
+   [
+    "index",
+    "heading",
+    {
+     "fontPx": 48,
+     "lines": 1
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f4efe6, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "blue-half",
+    "flat vivid indigo (#1a1aff) block 640x900px at 640,0 (the right half), behind what sits on it, no border"
+   ],
+   [
+    "nav",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 82x13 at 48,34 13px bold #ffffff \"HALVES®\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 55x13 at 443,34 13px bold #ffffff \"INDEX\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 61x13 at 810,34 13px bold #ffffff \"ABOUT\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 49x13 at 1183,34 13px bold #ffffff \"SHOP\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight)"
+   ],
+   [
+    "headline",
+    "colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy uppercase tight-set letters lines set tight (line-height 0.86) white \"TWO SIDES OF ONE\", set in exactly 2 lines: \"TWO SIDES\" / \"OF ONE\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 1183px wide), 230px type, the text box's top-left at 60,150 (top-[150px]; the first line starts there, not lower); the word \"ES\" is set in its own face, a span in place inside the line: italic thin (the other words keep the heading's face); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 154x198 (its own size BEFORE the turn) centred at 883,219, TILTED: transform: rotate(-6deg) round its centre (set at a slant, 6° anticlockwise, NOT level), on top of what is under it, 230px font-weight 900 #ffffff \"D\" (ALL CAPITALS: text-transform: uppercase); 500x198 at 60,150 230px font-weight 900 #ffffff \"TWO\" (ALL CAPITALS: text-transform: uppercase); 283x198 at 960,170 230px font-weight 300 italic #ffffff \"ES\" (ALL CAPITALS: text-transform: uppercase); 193x198 at 612,190 230px font-weight 900 #ffffff \"SI\" (ALL CAPITALS: text-transform: uppercase); 810x198 at 60,348 230px font-weight 900 #ffffff \"OF ONE\" (ALL CAPITALS: text-transform: uppercase)"
+   ],
+   [
+    "blob",
+    "gently bobbing up and down perfectly round solid disc (border-radius 50%, not traced from the ink), 220px across with its top-left at page 560,520 (ONE plain div, position absolute, background #ff4f2e; NOT an SVG, NOT a drawn or shaded component, NOT a gradient), flat fully opaque vivid red-orange (#ff4f2e) fill, hard edge, no blur"
+   ],
+   [
+    "lede",
+    "19px Georgia near-black (#111111) copy in 3 lines, 420px wide, top-left at 60,640, quoted whole (these exact words, nothing invented): \"A design studio split down the middle: one half strategy, one half pure colour. Every project lives on the seam.\""
+   ],
+   [
+    "side-note",
+    "one row starting at 880,640: first bold #ffffff \"nks only.\", then on the same line part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 340x14 at 880,640 12px bold #ffffff \"NOW SHOWING\" with letter-spacing 3px (its letters spaced out, NOT set tight); 300x41 at 880,665 15px #ffffff \"Spring identities for Kiosk, Nara and the Lyon opera, printed in two i\""
+   ],
+   [
+    "cta",
+    "pill label with a 2px near-black border, bold \"See the seam →\""
+   ],
+   [
+    "index",
+    "big mono white \"/02\"; on the #1a1aff block, no fill or bar of its own; set BOLD (font-weight 700), NOT regular"
+   ]
+  ]
+ },
+ "c2-isometric": {
+  "plan": [
+   [
+    "logo",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 1
+    }
+   ],
+   [
+    "cloud-1",
+    "box"
+   ],
+   [
+    "cloud-2",
+    "box"
+   ],
+   [
+    "iso-scene",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 76,
+     "lines": 3
+    }
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "box"
+   ],
+   [
+    "tag-1",
+    "text"
+   ],
+   [
+    "tag-2",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: light grey #bfe6ff (top) to pale yellow #fdf3e1 (bottom) gradient page, Helvetica type, dark navy text"
+   ],
+   [
+    "logo",
+    "\"▲ Blocktown\"; set at 20px (a large lead line, NOT small body text), about 126px wide on one line; set BOLD (font-weight 800), NOT regular"
+   ],
+   [
+    "iso-scene",
+    "an ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty; whatever wraps the scene has NO fill, NO border, NO shadow (transparent: the page shows all round the turned plane, never a dark or coloured box behind it): ONE 600x600px plane div with its top-left at 560,180 (position absolute), transform: rotateX(55deg) rotateZ(-45deg); transform-style: preserve-3d; NO perspective anywhere (flat isometric, parallel edges). Inside the plane, all absolutely placed in plane px (left, top, width, height): first the flat ground layers in this order: 600x600px at 0,0 filled #9ad17a, box-shadow: #6fa856 0px 0px 0px 24px (a solid rim round it); 40x600px at 270,0 filled #555555. Then exactly 3 blocks, each a div at its own left/top in the plane with transform-style: preserve-3d and NO fill of its own, holding 3 absolutely placed face divs (backface visible) that build the box: block 1 (160x160px footprint at 60,60, standing 180px tall): 160x160px at 0,0 in the block, #ffd166, transform-origin: 80px 80px, transform: translateZ(180px); 160x180px at 0,-20 in the block, #e0a93c, transform-origin: center bottom, transform: rotateX(-90deg); 180x160px at -20,0 in the block, #c78f22, transform-origin: right center, transform: rotateY(90deg). block 2 (200x120px footprint at 300,80, standing 90px tall): 200x120px at 0,0 in the block, #ef476f, transform-origin: 100px 60px, transform: translateZ(90px); 200x90px at 0,30 in the block, #c9375a, transform-origin: center bottom, transform: rotateX(-90deg); 90x120px at 110,0 in the block, #a82847, transform-origin: right center, transform: rotateY(90deg). block 3 (120x200px footprint at 120,340, standing 260px tall): 120x200px at 0,0 in the block, #118ab2, transform-origin: 60px 100px, transform: translateZ(260px); 120x260px at 0,-60 in the block, #0d6f8f, transform-origin: center bottom, transform: rotateX(-90deg); 260x200px at -140,0 in the block, #095670, transform-origin: right center, transform: rotateY(90deg)"
+   ],
+   [
+    "headline",
+    "huge Helvetica heavy tight-set letters lines set tight (line-height 0.98) \"Plan a city in blocks, not spreadsheets\", set in exactly 3 lines: \"Plan a city in\" / \"blocks, not\" / \"spreadsheets\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 454px wide); the word \"blocks\" is pink #ef476f (its own colour; the other words stay #22223b)"
+   ],
+   [
+    "lede",
+    "dark grey text \"Drag towers, roads and parks onto a live isometric map. Zoning rules check themselves as you build.\"; its text #4a4e69 (dark grey, NOT the page's dark navy text)"
+   ],
+   [
+    "cta",
+    "dark navy block, white text \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's dark navy text)"
+   ],
+   [
+    "tag-1",
+    "13px \"Library · 4 floors\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "tag-2",
+    "13px \"Tower B · 12 floors\"; set BOLD (font-weight 700), NOT regular"
+   ]
+  ]
+ },
+ "c3-glass-aurora": {
+  "plan": [
+   [
+    "blob-violet",
+    "circle"
+   ],
+   [
+    "blob-cyan",
+    "box"
+   ],
+   [
+    "blob-pink",
+    "box"
+   ],
+   [
+    "glass-nav",
+    "box"
+   ],
+   [
+    "glass-hero",
+    "box"
+   ],
+   [
+    "stat-card",
+    "box"
+   ],
+   [
+    "app-chip",
+    "box"
+   ],
+   [
+    "logos",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black indigo (#0b0820) page, Helvetica type, white text, fine grain texture over everything"
+   ],
+   [
+    "blob-violet",
+    "spinning soft blurred big vivid purple circle"
+   ],
+   [
+    "blob-cyan",
+    "spinning soft blurred vivid cyan"
+   ],
+   [
+    "blob-pink",
+    "spinning soft blurred vivid pink"
+   ],
+   [
+    "glass-nav",
+    "a fully rounded #ffffff pill 600x56px at x 340, top 28 (inset from the page sides, NOT a square full-width strip), links: Aurora, Features, Pricing, Sign in"
+   ],
+   [
+    "glass-hero",
+    "frosted glass \"Light you can work inside\", lines \"Aurora is a calm workspace that bends around your focus. No tabs, no noise, just the next thing.\", \"Get early access\""
+   ],
+   [
+    "stat-card",
+    "tilted 4° clockwise frosted glass; huge 72px bold title: \"3.2×\", text \"longer deep-work blocks\""
+   ],
+   [
+    "app-chip",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 67x67 at 863,511 linear-gradient(135deg, #ff2fb3, #7b2ff7), 18px rounded; 95x22 at 942,519 16px bold #ffffff \"Focus mode\"; 97x22 at 943,537 16px #ffffff at 67% \"on until 14:30\""
+   ],
+   [
+    "logos",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 60x15 at 120,720 13px bold #ffffff at 60% \"LINEAR\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 34x15 at 220,720 13px bold #ffffff at 60% \"ARC\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 76x15 at 295,720 13px bold #ffffff at 60% \"RAYCAST\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 65x15 at 410,720 13px bold #ffffff at 60% \"VERCEL\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight)"
+   ]
+  ]
+ },
+ "c4-brutal-spread": {
+  "plan": [
+   [
+    "ticker",
+    "box"
+   ],
+   [
+    "photo",
+    "image"
+   ],
+   [
+    "orange-block",
+    "box"
+   ],
+   [
+    "masthead",
+    "heading",
+    {
+     "fontPx": 170,
+     "lines": 1
+    }
+   ],
+   [
+    "masthead-italic",
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 1
+    }
+   ],
+   [
+    "article",
+    "text"
+   ],
+   [
+    "stamp",
+    "circle"
+   ],
+   [
+    "caption",
+    "text",
+    {
+     "fontPx": 13,
+     "lines": 2
+    }
+   ],
+   [
+    "issue-number",
+    "heading",
+    {
+     "fontPx": 64,
+     "lines": 1
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#ece9e2, plainly not white) page, Georgia type, near-black text"
+   ],
+   [
+    "ticker",
+    "the region itself is ONE 1280x44px top bar element at 0,0 (its own wrapper, #111111 fill) that holds all of these parts inside it, never laid loose on the page; scrolling near-black (exactly #111111) bar, red-orange text bold 16px \"ISSUE 44 — CONCRETE DREAMS —\" repeated along it; its text #ff3b00 (red-orange, NOT the page's near-black text)"
+   ],
+   [
+    "photo",
+    "dark grey #3a3a3a (top) to grey #9a8f80 (bottom) gradient block"
+   ],
+   [
+    "orange-block",
+    "ONE plain solid block, NOT a picture: 300x380px (only 380px thick) with its top-left at 400,420 before the turn, filled flat red-orange #ff3b00, fully opaque, then turned by transform: rotate(-4deg) round its centre; no text on it, no border, no shadow"
+   ],
+   [
+    "masthead",
+    "giant Helvetica heavy uppercase tight-set letters \"RAW\", 170px type, about 367px wide (no larger)"
+   ],
+   [
+    "masthead-italic",
+    "giant Georgia italic serif regular weight (not bold) red-orange \"matter\", 120px type, about 313px wide (no larger)"
+   ],
+   [
+    "article",
+    "paragraph 470px wide, 16px text, line-height 25px, opening on a drop cap: its first letter \"B\" 86px bold red-orange (#ff3b00), floated left about 4 lines tall (::first-letter), the text wrapping beside it: \"Brutalism was never about ugliness. It was about honesty: the board marks left in the concrete, the services carried on the outside, the building telling you exactly how it stands up. Sixty years on, a new generation of architects is learning to love the béton brut their parents tore down, and the city is changing again.\""
+   ],
+   [
+    "stamp",
+    "tilted 18° anticlockwise red-orange outline circle with \"NEW ISSUE €12\"; its text #ff3b00 (red-orange, NOT the page's near-black text), 150px across, the words centred in 3 lines (wrapping inside the circle, 18px type)"
+   ],
+   [
+    "caption",
+    "mono text \"FIG. 1 — Barbican estate, London, shot on expired film, 2026.\""
+   ],
+   [
+    "issue-number",
+    "huge Helvetica heavy \"44\""
+   ]
+  ]
+ },
+ "c5-riso-halftone": {
+  "plan": [
+   [
+    "pink-halftone",
+    "box"
+   ],
+   [
+    "blue-halftone",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 150,
+     "lines": 2
+    }
+   ],
+   [
+    "yellow-bar",
+    "box"
+   ],
+   [
+    "subtitle",
+    "heading",
+    {
+     "fontPx": 32,
+     "lines": 1
+    }
+   ],
+   [
+    "lede",
+    "text",
+    {
+     "fontPx": 17,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "box"
+   ],
+   [
+    "schedule",
+    "box"
+   ],
+   [
+    "star",
+    "heading",
+    {
+     "fontPx": 110,
+     "lines": 1
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#fbf6ea, plainly not white) page, Helvetica type, blue text"
+   ],
+   [
+    "pink-halftone",
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 640,80, a SOLID coloured fill covered edge to edge by a fine grid of small #ff48b0 dots, exactly: background-color: inherit; background-image: radial-gradient(circle, #ff48b0 38%, transparent 40%); background-size: 14px 14px (it REPEATS every 14px: rows and rows of dots, NOT one big disc), 50px rounded"
+   ],
+   [
+    "blue-halftone",
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 420x420px div (its untransformed size) with its top-left at 560,260, a SOLID coloured fill covered edge to edge by a fine grid of small #0078bf dots, exactly: background-color: inherit; background-image: radial-gradient(circle, #0078bf 30%, transparent 32%); background-size: 10px 10px (it REPEATS every 10px: rows and rows of dots, NOT one big disc); transform: rotate(15deg) (tilted 15deg clockwise), square corners"
+   ],
+   [
+    "headline",
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica heavy uppercase tight-set letters lines set tight (line-height 0.88) \"PRINT CLUB\", set in exactly 2 lines: \"PRINT\" / \"CLUB\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 420px wide)"
+   ],
+   [
+    "yellow-bar",
+    "ONE plain solid block, NOT a picture: 380x60px (only 60px thick) with its top-left at 60,470 before the turn, filled flat yellow #ffe800, fully opaque, then turned by transform: rotate(-2deg) round its centre; no text on it, no border, no shadow"
+   ],
+   [
+    "subtitle",
+    "big mono \"two inks, no undo\", 32px type on ONE line (white-space: nowrap, never wrapped), about 326px wide; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "lede",
+    "17px Georgia dark grey (#333333) copy in 3 lines, 420px wide, top-left at 70,580, quoted whole (these exact words, nothing invented): \"A risograph studio and open workshop. Bring a file, leave with a hundred slightly misregistered prints you will love more than perfect ones.\""
+   ],
+   [
+    "cta",
+    "gently bobbing up and down vivid pink bar, off-white text \"BOOK A PRESS SLOT\", with a hard solid opaque blue shadow offset 4px down right, no blur; its text #fbf6ea (off-white, NOT the page's blue text); ONE 259x50px card, position absolute with its top-left at page 70,740 (its own place on the page, a sibling of the other blocks, NOT inside any of them)"
+   ],
+   [
+    "schedule",
+    "2px dashed #0078bf outline (dashes, not a solid line) blue border mono 15px code lines: \"TUE\", \"Zine night\", \"18:00\", \"THU\", \"Poster lab\", \"17:30\", \"SAT\", \"Open press\", \"11:00\"; dark grey code; its text #333333 (dark grey, NOT the page's blue text)"
+   ],
+   [
+    "star",
+    "tilted 12° clockwise ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica regular weight (not bold) yellow \"✺\", 110px type, about 116px wide (no larger)"
+   ]
+  ]
+ },
+ "e1-kanban": {
+  "plan": [
+   [
+    "top-bar",
+    "box"
+   ],
+   [
+    "board-bar",
+    "text"
+   ],
+   [
+    "lane-design",
+    "text"
+   ],
+   [
+    "lane-eng",
+    "text"
+   ],
+   [
+    "col-todo",
+    "box"
+   ],
+   [
+    "col-progress",
+    "box"
+   ],
+   [
+    "col-review",
+    "box"
+   ],
+   [
+    "col-done",
+    "box"
+   ],
+   [
+    "dragged-card",
+    "box"
+   ],
+   [
+    "col-eng-todo",
+    "box"
+   ],
+   [
+    "col-eng-progress",
+    "box"
+   ],
+   [
+    "col-eng-review",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f4f5f7, plainly not white) page, Helvetica type, dark teal text"
+   ],
+   [
+    "top-bar",
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #0c66e4 fill) that holds all of these parts inside it, never laid loose on the page; blue (exactly #0c66e4) bar 56px tall across the page, links: ▦ Flowboard, Projects, Teams, Search; \"Search\" selected (white fill, a 260x32px box, 6px rounded); \"▦ Flowboard\", \"Projects\", \"Teams\" sit together at the left, \"Search\" pushed to the far right (767px gap); its text #ffffff (white, NOT the page's dark teal text)"
+   ],
+   [
+    "board-bar",
+    "bold 20px \"Website relaunch\" first, then links: Filter, Group: Swimlane"
+   ],
+   [
+    "lane-design",
+    "\"▾ DESIGN · 6 issues\"; its text #5e6c84 (grey, NOT the page's dark teal text); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "lane-eng",
+    "\"▾ ENGINEERING · 5 issues\"; its text #5e6c84 (grey, NOT the page's dark teal text); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "col-todo",
+    "the region itself is ONE 296x251px panel at 20,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); off-white card \"TO DO 3\", lines dark teal \"Hero illustration v2 WEB-112\", dark teal \"Pricing table states WEB-118\", \"+ Create issue\"; each word in its own colour: \"TO DO 3\" #5e6c84, \"Hero illustration v2 WEB-112\" #172b4d, \"Pricing table states WEB-118\" #172b4d, \"+ Create issue\" #5e6c84; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 34,154 12px bold #5e6c84 \"TO DO\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 278,154 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 286): 12px bold #5e6c84 \"3\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 30,178 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Hero illustration v2\"; 40x8 at 42,188 #4bce97 fill, pill ends; 24x24 at 270,225 #ff7452 fill, a circle; 50x14 at 42,230 12px #5e6c84 \"WEB-112\"; 276x81 at 30,267 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Pricing table states\"; 40x8 at 42,277 #f87168 fill, pill ends; 40x8 at 88,277 #9f8fef fill, pill ends; 24x24 at 270,314 #6554c0 fill, a circle; 50x14 at 42,319 12px #5e6c84 \"WEB-118\"; 276x27 at 30,356 padding-left 8px (its text starts at x 38): 13px #5e6c84 \"+ Create issue\"; the card exactly 296x251px, its top-left at 20,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "col-progress",
+    "the region itself is ONE 296x313px panel at 332,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); column \"IN PROGRESS 4 / 3\", cards: \"Nav mega-menu WEB-104\", \"Icon set refresh WEB-109\", \"Footer audit WEB-110\"; each word in its own colour: \"IN PROGRESS 4 / 3\" #5e6c84, \"Nav mega-menu WEB-104\" #172b4d, \"Icon set refresh WEB-109\" #172b4d, \"Footer audit WEB-110\" #172b4d; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 346,154 12px bold #5e6c84 \"IN PROGRESS\" with letter-spacing 1px (its letters spaced out, NOT set tight); 44x14 at 570,154 #ffd5d2 fill, pill ends, padding-left 8px (its text starts at x 578): 12px bold #ae2a19 \"4 / 3\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 342,178 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Nav mega-menu\"; 40x8 at 354,188 #9f8fef fill, pill ends; 24x24 at 582,225 #57d9a3 fill, a circle; 51x14 at 354,230 12px #5e6c84 \"WEB-104\"; 276x81 at 342,267 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Icon set refresh\"; 40x8 at 354,277 #4bce97 fill, pill ends; 24x24 at 582,314 #ff7452 fill, a circle; 51x14 at 354,319 12px #5e6c84 \"WEB-109\"; 276x81 at 342,356 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Footer audit\"; 40x8 at 354,366 #f87168 fill, pill ends; 24x24 at 582,403 #6554c0 fill, a circle; 50x14 at 354,408 12px #5e6c84 \"WEB-110\"; the card exactly 296x313px, its top-left at 332,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "col-review",
+    "the region itself is ONE 296x330px panel at 644,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 658,154 12px bold #5e6c84 \"REVIEW\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 902,154 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 910): 12px bold #5e6c84 \"1\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x84 at 654,178 #e9f2ff fill, 2px DASHED #0c66e4 border, 8px rounded; the card exactly 296x330px, its top-left at 644,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "col-done",
+    "the region itself is ONE 296x197px panel at 956,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); column \"DONE ✓ 2\", cards: \"Moodboard WEB-101\", \"Type scale WEB-102\"; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x15 at 970,154 12px bold #5e6c84 \"DONE ✓\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x15 at 1214,154 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 1222): 12px bold #5e6c84 \"2\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x67 at 966,179 #ffffff fill, 8px rounded; 66x15 at 978,189 STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap): 13px #5e6c84 \"Moodboard\"; 24x24 at 1206,212 #57d9a3 fill, a circle; 51x14 at 978,217 12px #5e6c84 \"WEB-101\"; 276x67 at 966,254 #ffffff fill, 8px rounded; 62x15 at 978,264 STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap): 13px #5e6c84 \"Type scale\"; 24x24 at 1206,287 #ff7452 fill, a circle; 51x14 at 978,292 12px #5e6c84 \"WEB-102\"; the card exactly 296x197px, its top-left at 956,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "dragged-card",
+    "tilted 4° clockwise white card \"Contact form validation WEB-121\"; the card exactly 281x100px, position: absolute at left 698px, top 290px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
+   ],
+   [
+    "col-eng-todo",
+    "the region itself is ONE 296x224px panel at 20,542, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); column \"TO DO 2\", cards: \"CMS webhooks WEB-130\", \"Image CDN WEB-131\"; each word in its own colour: \"TO DO 2\" #5e6c84, \"CMS webhooks WEB-130\" #172b4d, \"Image CDN WEB-131\" #172b4d; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 10 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 34,554 12px bold #5e6c84 \"TO DO\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 278,554 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 286): 12px bold #5e6c84 \"2\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 30,578 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"CMS webhooks\"; 40x8 at 42,588 #579dff fill, pill ends; 24x24 at 270,625 #57d9a3 fill, a circle; 51x14 at 42,630 12px #5e6c84 \"WEB-130\"; 276x81 at 30,667 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Image CDN\"; 40x8 at 42,677 #579dff fill, pill ends; 24x24 at 270,714 #ff7452 fill, a circle; 51x14 at 42,719 12px #5e6c84 \"WEB-131\"; the card exactly 296x224px, its top-left at 20,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "col-eng-progress",
+    "the region itself is ONE 296x224px panel at 332,542, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); column \"IN PROGRESS 2\", cards: \"Auth migration WEB-127\", \"Search index WEB-128\"; each word in its own colour: \"IN PROGRESS 2\" #5e6c84, \"Auth migration WEB-127\" #172b4d, \"Search index WEB-128\" #172b4d; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 346,554 12px bold #5e6c84 \"IN PROGRESS\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 590,554 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 598): 12px bold #5e6c84 \"2\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 342,578 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Auth migration\"; 40x8 at 354,588 #579dff fill, pill ends; 40x8 at 400,588 #f87168 fill, pill ends; 24x24 at 582,625 #6554c0 fill, a circle; 51x14 at 354,630 12px #5e6c84 \"WEB-127\"; 276x81 at 342,667 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Search index\"; 40x8 at 354,677 #579dff fill, pill ends; 24x24 at 582,714 #57d9a3 fill, a circle; 51x14 at 354,719 12px #5e6c84 \"WEB-128\"; the card exactly 296x224px, its top-left at 332,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ],
+   [
+    "col-eng-review",
+    "column \"REVIEW 1\", cards: \"Sitemap generator WEB-125\"; each word in its own colour: \"REVIEW 1\" #5e6c84, \"Sitemap generator WEB-125\" #172b4d; the card exactly 296x135px, its top-left at 644,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+   ]
+  ]
+ },
+ "e2-product-page": {
+  "plan": [
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "breadcrumb",
+    "text"
+   ],
+   [
+    "thumbnails",
+    "box"
+   ],
+   [
+    "product-image",
+    "box"
+   ],
+   [
+    "gallery-dots",
+    "box"
+   ],
+   [
+    "buy-box",
+    "box"
+   ],
+   [
+    "rating-bars",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "nav",
+    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e5e5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 60px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; 20px \"Stride\" first, then links: Men, Women, Sale, 🔍; a 1px #e5e5e5 rule along the bar's bottom edge across its full 1280px width (border-bottom), with 22px tall items whose text sits at their top (padding-bottom under the words), so the selected underline lies on that rule; set BOLD (font-weight 600), NOT regular"
+   ],
+   [
+    "breadcrumb",
+    "small grey breadcrumb \"Home / Running / Road shoes\"; its text #86868b (grey, NOT the page's near-black text)"
+   ],
+   [
+    "thumbnails",
+    "a column of 5 separate empty off-white cards, each 80x80px, 12px apart, 10px rounded, nothing inside them"
+   ],
+   [
+    "product-image",
+    "warm paper to off-white gradient tile, 560x620px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
+   ],
+   [
+    "gallery-dots",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 22x8 at 390,700 #1d1d1f fill, pill ends; 8x8 at 418,700 #c7c7c7 fill, a circle; 8x8 at 432,700 #c7c7c7 fill, a circle; 8x8 at 446,700 #c7c7c7 fill, a circle"
+   ],
+   [
+    "buy-box",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 24 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 470x39 at 760,112 34px bold #1d1d1f \"Tempo Glide 3\"; 470x17 at 760,161 14px #86868b \"★★★★☆ 4.6 · 1,284 reviews\" (ONE element, its words in this order; inside it \"★★★★☆\" in an inline span bold #f5a623, IN PLACE in the line, NOT placed apart); 470x31 at 760,194 26px bold #1d1d1f \"€119\"; 50x21 at 884,201 #e4002b fill, 4px rounded, padding-left 8px (its text starts at x 892): 13px bold #ffffff \"−25%\"; 40x20 at 834,202 STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap): 18px #86868b \"€160\"; 470x16 at 760,243 14px bold #1d1d1f \"Colour: Ember\"; 36x36 at 760,269 #e4572e fill, 3px #ffffff border, a circle, a 2px #1d1d1f SELECTION GLOW round the outside of its border (box-shadow: 0 0 0 2px; this one is selected); 36x36 at 808,269 #1d1d1f fill, 3px #ffffff border, a circle, a 1px #c7c7c7 SELECTION GLOW round the outside of its border (box-shadow: 0 0 0 1px; this one is selected); 36x36 at 856,269 #4a90d9 fill, 3px #ffffff border, a circle, a 1px #c7c7c7 SELECTION GLOW round the outside of its border (box-shadow: 0 0 0 1px; this one is selected); 36x36 at 904,269 #e8e3d9 fill, 3px #ffffff border, a circle, a 1px #c7c7c7 SELECTION GLOW round the outside of its border (box-shadow: 0 0 0 1px; this one is selected); 470x16 at 760,323 14px bold #1d1d1f \"Size (EU)\"; 88x44 at 760,349 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"39\"; 88x44 at 856,349 linear-gradient(to right top, transparent 49%, #d2d2d7 50%, transparent 51%), 1px #d2d2d7 border, 8px rounded: 14px #c7c7c7 \"40\"; 88x44 at 951,349 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"41\"; 88x44 at 1047,349 2px #1d1d1f border, 8px rounded: 14px bold #1d1d1f \"42\"; 88x44 at 1142,349 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"43\"; 88x42 at 760,401 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"44\"; 88x42 at 856,401 linear-gradient(to right top, transparent 49%, #d2d2d7 50%, transparent 51%), 1px #d2d2d7 border, 8px rounded: 14px #c7c7c7 \"45\"; 88x42 at 951,401 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"46\"; 88x42 at 1047,401 1px #d2d2d7 border, 8px rounded: 14px #1d1d1f \"47\"; 88x42 at 1142,401 linear-gradient(to right top, transparent 49%, #d2d2d7 50%, transparent 51%), 1px #d2d2d7 border, 8px rounded: 14px #c7c7c7 \"48\"; 402x58 at 760,467 #1d1d1f fill, pill ends, padding-left 18px (its text starts at x 778): 14px bold #ffffff \"Add to bag\"; 58x58 at 1172,467 1px #d2d2d7 border, a circle: 20px regular (NOT bold) #1d1d1f \"♡\"; 470x73 at 760,541 #f5f5f7 fill, 12px rounded, padding-left 14px (its text starts at x 774): 14px #424245 \"🚚 Free delivery by Thu 29 Oct ↩ 60-day free returns\""
+   ],
+   [
+    "rating-bars",
+    "\"4.6\", thin progress bar 78% filled amber on a light grey track"
+   ]
+  ]
+ },
+ "e3-week-calendar": {
+  "plan": [
+   [
+    "top-bar",
+    "text"
+   ],
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "mini-month",
+    "box"
+   ],
+   [
+    "week-grid",
+    "box"
+   ],
+   [
+    "day-heads",
+    "box"
+   ],
+   [
+    "all-day",
+    "text"
+   ],
+   [
+    "now-line",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "top-bar",
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #dadce0 rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 71x34 at 171,15 1px #dadce0 border, 4px rounded, padding-left 16px (its text starts at x 187): 14px #3c4043 \"Today\"; 80x34 at 1180,15 1px #dadce0 border, 4px rounded, padding-left 16px (its text starts at x 1196): 14px #3c4043 \"Week ▾\"; 115x26 at 20,19 22px regular (NOT bold) #3c4043 \"☰ Calendar\"; 133x26 at 286,19 22px regular (NOT bold) #3c4043 \"October 2026\"; 11x14 at 258,25 12px #3c4043 \"‹ ›\""
+   ],
+   [
+    "sidebar",
+    "an invisible frame 256x836px at 0,64 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 7 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 109x50 at 16,80 16px rounded, padding-left 24px (its text starts at x 40): 14px bold #3c4043 \"＋ Create\"; 224x143 at 16,351 13px #3c4043 \"Work Travel Personal Holidays\"; 82x15 at 16,357 13px bold #3c4043 \"My calendars\"; 14x14 at 16,387 #1a73e8 fill, 3px rounded; 14x14 at 16,416 #0b8043 fill, 3px rounded; 14x14 at 16,444 #8e24aa fill, 3px rounded; 14x14 at 16,473 #f4511e fill, 3px rounded"
+   ],
+   [
+    "mini-month",
+    "month calendar grid, 6 weeks of day boxes; event chips off-white \"19\" on 19, off-white \"20\" on 20, blue \"21\" on 21, off-white \"22\" on 22, off-white \"23\" on 23, off-white \"24\" on 24, off-white \"25\" on 25; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 43 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 224x15 at 16,150 13px bold #3c4043 \"October 2026\"; 29x22 at 16,175 pill ends: 11px #3c4043 \"M\"; 29x22 at 49,175 pill ends: 11px #3c4043 \"T\"; 29x22 at 81,175 pill ends: 11px #3c4043 \"W\"; 29x22 at 114,175 pill ends: 11px #3c4043 \"T\"; 29x22 at 146,175 pill ends: 11px #3c4043 \"F\"; 29x22 at 179,175 pill ends: 11px #3c4043 \"S\"; 29x22 at 211,175 pill ends: 11px #3c4043 \"S\"; 29x22 at 16,201 pill ends: 11px #3c4043 \"28\"; 29x22 at 49,201 pill ends: 11px #3c4043 \"29\"; 29x22 at 81,201 pill ends: 11px #3c4043 \"30\"; 29x22 at 114,201 pill ends: 11px #3c4043 \"1\"; 29x22 at 146,201 pill ends: 11px #3c4043 \"2\"; 29x22 at 179,201 pill ends: 11px #3c4043 \"3\"; 29x22 at 211,201 pill ends: 11px #3c4043 \"4\"; 29x22 at 16,227 pill ends: 11px #3c4043 \"5\"; 29x22 at 49,227 pill ends: 11px #3c4043 \"6\"; 29x22 at 81,227 pill ends: 11px #3c4043 \"7\"; 29x22 at 114,227 pill ends: 11px #3c4043 \"8\"; 29x22 at 146,227 pill ends: 11px #3c4043 \"9\"; 29x22 at 179,227 pill ends: 11px #3c4043 \"10\"; 29x22 at 211,227 pill ends: 11px #3c4043 \"11\"; 29x22 at 16,253 pill ends: 11px #3c4043 \"12\"; 29x22 at 49,253 pill ends: 11px #3c4043 \"13\"; 29x22 at 81,253 pill ends: 11px #3c4043 \"14\"; 29x22 at 114,253 pill ends: 11px #3c4043 \"15\"; 29x22 at 146,253 pill ends: 11px #3c4043 \"16\"; 29x22 at 179,253 pill ends: 11px #3c4043 \"17\"; 29x22 at 211,253 pill ends: 11px #3c4043 \"18\"; 29x22 at 16,279 #e8f0fe fill, pill ends: 11px #3c4043 \"19\"; 29x22 at 49,279 #e8f0fe fill, pill ends: 11px #3c4043 \"20\"; 29x22 at 81,279 #1a73e8 fill, pill ends: 11px #ffffff \"21\"; 29x22 at 114,279 #e8f0fe fill, pill ends: 11px #3c4043 \"22\"; 29x22 at 146,279 #e8f0fe fill, pill ends: 11px #3c4043 \"23\"; 29x22 at 179,279 #e8f0fe fill, pill ends: 11px #3c4043 \"24\"; 29x22 at 211,279 #e8f0fe fill, pill ends: 11px #3c4043 \"25\"; 29x22 at 16,305 pill ends: 11px #3c4043 \"26\"; 29x22 at 49,305 pill ends: 11px #3c4043 \"27\"; 29x22 at 81,305 pill ends: 11px #3c4043 \"28\"; 29x22 at 114,305 pill ends: 11px #3c4043 \"29\"; 29x22 at 146,305 pill ends: 11px #3c4043 \"30\"; 29x22 at 179,305 pill ends: 11px #3c4043 \"31\"; 29x22 at 211,305 pill ends: 11px #3c4043 \"1\""
+   ],
+   [
+    "week-grid",
+    "an invisible frame 1024x836px at 256,64 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 29 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 23x11 at 264,168 10px #70757a \"8 AM\"; 1024x726 at 256,174 repeating-linear-gradient(#dadce0 0px, #dadce0 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #dadce0 0px, #dadce0 1px, transparent 1p; 23x11 at 264,228 10px #70757a \"9 AM\"; 134x58 at 318,234 #1a73e8 fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 326): 12px bold #ffffff \"Standup\"; 68x118 at 594,234 #1a73e8 fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 602): 12px bold #ffffff \"Design crit\"; 116x17 at 327,256 12px #ffffff \"9 – 10am\"; 68x118 at 662,264 #039be5 fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 670): 12px bold #ffffff \"1:1 Mira\"; 50x17 at 603,273 12px #ffffff \"9 – 11am\"; 50x34 at 671,286 12px #ffffff \"9:30 – 11:30\"; 28x11 at 264,288 10px #70757a \"10 AM\"; 134x118 at 456,294 #8e24aa fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 464): 12px bold #ffffff \"Dentist\"; 116x17 at 465,316 12px #ffffff \"10am – 12pm\"; 28x11 at 264,348 10px #70757a \"11 AM\"; 134x178 at 732,354 #0b8043 fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 740): 12px bold #ffffff \"Flight FRA → LIS\"; 116x17 at 741,376 12px #ffffff \"11am – 2pm\"; 29x11 at 264,408 10px #70757a \"12 PM\"; 134x58 at 870,414 #f4511e fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 878): 12px bold #ffffff \"Lunch\"; 116x17 at 879,436 12px #ffffff \"12 – 1pm\"; 23x11 at 264,468 10px #70757a \"1 PM\"; 134x88 at 594,474 #1a73e8 fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 602): 12px bold #ffffff \"Sprint review\"; 116x17 at 603,496 12px #ffffff \"1 – 2:30pm\"; 23x11 at 264,528 10px #70757a \"2 PM\"; 23x11 at 264,588 10px #70757a \"3 PM\"; 134x178 at 1008,594 #8e24aa fill, 1px #ffffff border, 6px rounded, padding-left 8px (its text starts at x 1016): 12px bold #ffffff \"Climbing\"; 116x17 at 1017,616 12px #ffffff \"3 – 6pm\"; 23x11 at 264,648 10px #70757a \"4 PM\"; 23x11 at 264,708 10px #70757a \"5 PM\"; 23x11 at 264,768 10px #70757a \"6 PM\"; 23x11 at 264,828 10px #70757a \"7 PM\""
+   ],
+   [
+    "day-heads",
+    "7 stat cards in a row: \"MON\" 19, \"TUE\" 20, \"WED\" 21, \"THU\" 22, \"FRI\" 23, \"SAT\" 24, \"SUN\" 25"
+   ],
+   [
+    "all-day",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 1 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 270x22 at 729,148 #0b8043 fill, 4px rounded, padding-left 8px (its text starts at x 737): 12px bold #ffffff \"Lisbon offsite\""
+   ],
+   [
+    "now-line",
+    "thin solid red line only 2px tall, 138px wide, with a 12px round red dot on its left end (the current-time line), no text; exactly 2px thick (height: 2px, Tailwind h-[2px], never h-2 which is 8px), much thinner than the drawn pen line, the dot centred on it"
+   ]
+  ]
+ },
+ "e4-code-editor": {
+  "plan": [
+   [
+    "title-bar",
+    "box"
+   ],
+   [
+    "activity-bar",
+    "box"
+   ],
+   [
+    "file-tree",
+    "box"
+   ],
+   [
+    "tabs",
+    "box"
+   ],
+   [
+    "breadcrumbs",
+    "text"
+   ],
+   [
+    "code",
+    "text"
+   ],
+   [
+    "minimap",
+    "box"
+   ],
+   [
+    "terminal",
+    "text"
+   ],
+   [
+    "status-bar",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black (#1e1e1e) page, Helvetica type, light grey text"
+   ],
+   [
+    "title-bar",
+    "dark grey \"parser.ts — sketch-to-code\""
+   ],
+   [
+    "activity-bar",
+    "dark grey"
+   ],
+   [
+    "file-tree",
+    "near-black block side nav, no box: 2 groups, each a small bold heading over its own links, one link per line (every link said, none invented, none moved to another group): \"EXPLORER\": \"▾ sketch-to-code\", \"▾ src\", \"TS parser.ts\"; \"TS lexer.ts M\": \"TS index.ts\", \"TS ast.ts  U\", \"▸ tests\", \"▸ node_modules\", \"{} package.json\", \"ⓘ README.md\"; \"TS parser.ts\" highlighted (dark grey row, bold #ffffff text); rows exactly 22px apart (22px tall, tight; not roomier), first heading 8px below the nav's top; the nav column is 240px wide"
+   ],
+   [
+    "tabs",
+    "near-black (exactly #252526) bar 36px tall across the page, links: TS parser.ts ×, TS lexer.ts ●, {} package.json; \"TS parser.ts ×\" selected (white text, near-black fill, a 118x36px box, square); all of these sit together at the LEFT, one after another, ending 354px in (the right 64% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"TS parser.ts ×\" at 0, \"TS lexer.ts ●\" at 118, \"{} package.json\" at 228; each word in its own colour: \"TS parser.ts ×\" #ffffff, \"TS lexer.ts ●\" #969696, \"{} package.json\" #969696"
+   ],
+   [
+    "breadcrumbs",
+    "small grey breadcrumb \"src › parser.ts › parseBlock\"; its text #a9a9a9 (grey, NOT the page's light grey text)"
+   ],
+   [
+    "code",
+    "a box-drawing frame as live 14px mono #cccccc text in a <pre> (white-space: pre, line-height 21px) at 288,94, NOT a bordered div, NOT a picture; exactly these lines: \"1\" / \"2\" / \"3\" / \"4\" / \"5\" / \"6\" / \"7\" / \"8\" / \"9\" / \"10\" / \"11\" / \"12\" / \"13\" / \"14\" / \"15\" / \"16\" / \"17\" / \"18\" / \"19\" / \"20\" / \"21\" / \"22\" / \"23import { Token, lex } from './lexer'\" / \"import type { Block, Node } from './ast'\" / \"\" / \"// Parse one block: a heading line and its indented children.\" / \"export function parseBlock(src: string, depth = 0): Block {\" / \"  const tokens: Token[] = lex(src)\" / \"  const children: Node[] = []\" / \"  let i = 0\" / \"  while (i < tokens.length) {\" / \"    const t = tokens[i++]\" / \"    if (t.kind === 'indent' && t.level > depth) {\" / \"      children.push(parseBlock(t.body, depth + 1))\" / \"    } else if (t.kind === 'text') {\" / \"      children.push({ type: 'text', value: t.value })\" / \"    }\" / \"  }\" / \"  return { type: 'block', depth, children }\" / \"}\" / \"\" / \"export const MAX_DEPTH = 12\", its top 94px from the page top, 24px below the top of the \"src › parser.ts › parseBlock\" line above it (that line's text sits above this text, never on the same line or over it)"
+   ],
+   [
+    "terminal",
+    "a box-drawing frame as live 13px mono #cccccc text in a <pre> (white-space: pre, line-height 20px) at 288,600, NOT a bordered div, NOT a picture; exactly these lines: \"PROBLEMSOUTPUTTERMINALPORTS$ npm test\" / \" ✓ tests/lexer.test.ts (14)\" / \" ✓ tests/parser.test.ts (22)\" / \" ✗ tests/depth.test.ts (1 failed)\" / \"   expected depth 12, received 13\" / \"Tests  36 passed | 1 failed\" / \"$ ▌\""
+   ],
+   [
+    "status-bar",
+    "blue (exactly #007acc) bar 22px tall across the page, links: ⎇ main*, ⊗ 0 ⚠ 2, Ln 8, Col 12, Spaces: 2, UTF-8, TypeScript; this bar is pinned to the very BOTTOM of the page (top 878, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #ffffff (white, NOT the page's light grey text)"
+   ]
+  ]
+ },
+ "e5-spreadsheet": {
+  "plan": [
+   [
+    "title-bar",
+    "box"
+   ],
+   [
+    "toolbar",
+    "box"
+   ],
+   [
+    "formula-bar",
+    "box"
+   ],
+   [
+    "grid",
+    "box"
+   ],
+   [
+    "selection",
+    "image"
+   ],
+   [
+    "sheet-tabs",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#f9fbfd, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "title-bar",
+    "a top bar 64px tall across the whole page at the very top, no fill (page colour) (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): a 36x44px 4px-rounded solid #0f9d58 square icon (a plain block, no glyph, no picture) at x 16; regular-weight (NOT bold) 18px #202124 \"Q4 budget 2026\" at 66,14 (its top-left inside the bar); bold 13px #202124 \"Share\" on a #c2e7ff 84x35px pill at 1180,15 (its top-left inside the bar) (pushed to the far right); 11px #444444 \"File Edit View Insert Format Data Tools\" at 66,37 (its top-left inside the bar)"
+   ],
+   [
+    "toolbar",
+    "a fully rounded #edf2fa pill 1256x40px at x 12, top 64 (inset from the page sides, NOT a square full-width strip), links: ↶ ↷, 100% ▾, € % .0, Arial ▾, 10 ▾, B I S, A▾, ▦ ▾; all of these sit together at the LEFT, one after another, ending 391px in (the right 69% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"↶ ↷\" at 18, \"100% ▾\" at 63, \"€ % .0\" at 127, \"Arial ▾\" at 184, \"10 ▾\" at 240, \"B I S\" at 284, \"A▾\" at 333, \"▦ ▾\" at 369; every item 13px #444444"
+   ],
+   [
+    "formula-bar",
+    "white card \"C3:D7\", lines brown \"fx\", \"=SUM(C3:C7)*(1+$B$1)\"; each word in its own colour: \"C3:D7\" #202124, \"fx\" #5f6368, \"=SUM(C3:C7)*(1+$B$1)\" #202124"
+   ],
+   [
+    "grid",
+    "spreadsheet grid with thin grey cell lines: header row of column letters A to H, row numbers 1 to 14 down a narrow 46px left column, cells 220px wide and 26px tall; row 1: \"Category\" | \"Owner\" | \"Oct\" | \"Nov\" | \"Dec\" | \"Q4 total\" | \"Budget\" | \"Δ\" (bold, white row); row 2: \"Salaries\" | \"Ana\" | \"84,200\" | \"84,200\" | \"86,900\" | \"255,300\" | \"260,000\" | \"−4,700\"; row 3: \"Cloud hosting\" | \"Jonas\" | \"12,480\" | \"13,920\" | \"15,010\" | \"41,410\" | \"36,000\" | \"+5,410\"; row 4: \"Design tools\" | \"Mira\" | \"2,140\" | \"2,140\" | \"2,140\" | \"6,420\" | \"7,200\" | \"−780\"; row 5: \"Marketing\" | \"Lena\" | \"18,000\" | \"22,500\" | \"31,000\" | \"71,500\" | \"65,000\" | \"+6,500\"; row 6: \"Travel\" | \"Priya\" | \"4,300\" | \"6,800\" | \"2,100\" | \"13,200\" | \"18,000\" | \"−4,800\"; row 7: \"Office\" | \"Ana\" | \"3,900\" | \"3,900\" | \"4,250\" | \"12,050\" | \"12,000\" | \"+50\"; row 8: \"Total\" | (empty) | \"125,020\" | \"133,460\" | \"141,400\" | \"399,880\" | \"398,200\" | \"+1,680\" (bold); rows 9 to 14 empty; cell H8 selected (near-black 2px outline)"
+   ],
+   [
+    "selection",
+    "frosted glass blue block"
+   ],
+   [
+    "sheet-tabs",
+    "pale grey (exactly #f1f3f4) bar 40px tall across the page, links: ＋ ≡, Budget, Actuals, Headcount, Sum: 300,120; \"＋ ≡\", \"Budget\", \"Actuals\", \"Headcount\" sit together at the left, \"Sum: 300,120\" pushed to the far right (800px gap); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋ ≡\" #202124, \"Budget\" #0b57d0, \"Actuals\" #202124, \"Headcount\" #202124, \"Sum: 300,120\" #202124"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,178 @@
+{
+ "c1-split-blend": {
+  "found": {
+   "blend": 2,
+   "huge-type": 5,
+   "uppercase-display": 5,
+   "tilt": 1,
+   "italic": 1,
+   "motion": 1,
+   "serif": 1,
+   "mono": 1,
+   "overlap": 11
+  },
+  "names": [
+   "blend",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c2-isometric": {
+  "found": {
+   "motion": 2,
+   "3d": 13,
+   "hard-shadow": 1,
+   "soft-shadow": 2,
+   "overlap": 41
+  },
+  "names": [
+   "3d",
+   "hard-shadow",
+   "motion",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "c3-glass-aurora": {
+  "found": {
+   "blur": 3,
+   "motion": 3,
+   "blend": 1,
+   "stripes-or-layers": 1,
+   "glass": 4,
+   "soft-shadow": 3,
+   "tilt": 2,
+   "gradient": 1,
+   "overlap": 17
+  },
+  "names": [
+   "blend",
+   "blur",
+   "glass",
+   "gradient",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-brutal-spread": {
+  "found": {
+   "motion": 1,
+   "mono": 2,
+   "bleed": 1,
+   "gradient": 1,
+   "tilt": 2,
+   "blend": 1,
+   "huge-type": 2,
+   "uppercase-display": 1,
+   "serif": 2,
+   "italic": 1,
+   "overlap": 1
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c5-riso-halftone": {
+  "found": {
+   "blend": 5,
+   "gradient": 2,
+   "tilt": 3,
+   "hard-shadow": 2,
+   "huge-type": 2,
+   "uppercase-display": 1,
+   "mono": 10,
+   "serif": 1,
+   "motion": 1,
+   "overlap": 5
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "e1-kanban": {
+  "found": {
+   "tilt": 1,
+   "soft-shadow": 1,
+   "overlap": 5
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e2-product-page": {
+  "found": {
+   "gradient": 4,
+   "overlap": 4
+  },
+  "names": [
+   "gradient",
+   "overlap"
+  ]
+ },
+ "e3-week-calendar": {
+  "found": {
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "stripes-or-layers"
+  ]
+ },
+ "e4-code-editor": {
+  "found": {
+   "hard-shadow": 2,
+   "mono": 78,
+   "stripes-or-layers": 1,
+   "overlap": 4
+  },
+  "names": [
+   "hard-shadow",
+   "mono",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e5-spreadsheet": {
+  "found": {
+   "italic": 1,
+   "mono": 1,
+   "hard-shadow": 1,
+   "overlap": 10
+  },
+  "names": [
+   "hard-shadow",
+   "italic",
+   "mono",
+   "overlap"
+  ]
+ }
+}

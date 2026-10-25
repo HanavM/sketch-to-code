@@ -1,0 +1,408 @@
+{
+  "id": "c3-glass-aurora",
+  "at": "2026-10-25T20:40:24.864Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7745026142563257,
+    "overallV2": 0.7745026142563257,
+    "overallV1": 0.7400827563768081,
+    "colour": 0.9109270179322796,
+    "structure": 0.8211571514158185,
+    "structureStrict": 0.7390390648810006,
+    "colourAligned": 0.9109270179322796,
+    "structureAligned": 0.8211571514158185,
+    "align": {
+      "scale": 1.12,
+      "dx": -48,
+      "dy": -96,
+      "r": 0.8342301114023665
+    },
+    "layout": 0.6403842319704296,
+    "layoutV1": 0.6403842319704296,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      40,
+      82,
+      537,
+      538
+    ],
+    [
+      1,
+      41,
+      82,
+      537,
+      537
+    ],
+    [
+      0,
+      591,
+      1,
+      578,
+      498
+    ],
+    [
+      3,
+      591,
+      2,
+      578,
+      496
+    ],
+    [
+      0,
+      434,
+      481,
+      533,
+      438
+    ],
+    [
+      5,
+      434,
+      481,
+      533,
+      438
+    ],
+    [
+      0,
+      340,
+      28,
+      600,
+      56
+    ],
+    [
+      7,
+      364,
+      42,
+      59,
+      28
+    ],
+    [
+      7,
+      565,
+      46,
+      122,
+      20
+    ],
+    [
+      9,
+      565,
+      46,
+      55,
+      20
+    ],
+    [
+      9,
+      644,
+      46,
+      43,
+      20
+    ],
+    [
+      7,
+      829,
+      38,
+      87,
+      36
+    ],
+    [
+      0,
+      123,
+      183,
+      613,
+      454
+    ],
+    [
+      13,
+      172,
+      275,
+      515,
+      109
+    ],
+    [
+      13,
+      172,
+      409,
+      460,
+      56
+    ],
+    [
+      13,
+      172,
+      497,
+      182,
+      48
+    ],
+    [
+      0,
+      789,
+      201,
+      340,
+      238
+    ],
+    [
+      17,
+      828,
+      259,
+      264,
+      90
+    ],
+    [
+      17,
+      826,
+      339,
+      261,
+      42
+    ],
+    [
+      0,
+      863,
+      511,
+      67,
+      67
+    ],
+    [
+      20,
+      884,
+      532,
+      26,
+      26
+    ],
+    [
+      21,
+      886,
+      537,
+      16,
+      16
+    ],
+    [
+      0,
+      942,
+      519,
+      95,
+      22
+    ],
+    [
+      0,
+      943,
+      537,
+      97,
+      22
+    ],
+    [
+      0,
+      120,
+      720,
+      60,
+      20
+    ],
+    [
+      0,
+      220,
+      720,
+      34,
+      20
+    ],
+    [
+      0,
+      295,
+      720,
+      76,
+      20
+    ],
+    [
+      0,
+      410,
+      720,
+      65,
+      20
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.7777777777777778,
+    "kept": [
+      "blend",
+      "blur",
+      "glass",
+      "gradient",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35335,
+    "output": 18846,
+    "cacheRead": 179737
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40058,
+      "output": 13247,
+      "cacheRead": 168826,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 137274
+    }
+  ],
+  "reading": "This is a dark hero landing page: a blurred spinning purple circle and a blurred cyan/pink glow sit behind a rounded white nav pill, a frosted-glass hero text panel with headline/body/CTA button, a tilted frosted-glass stat card showing '3.2×' and a caption, a small focus-mode status widget with a gradient icon, and a row of four partner wordmarks replacing a wavy placeholder line.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        124,
+        452,
+        453
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large blurred circular glow in the background, spinning slowly, soft-edged and vivid purple in colour, sitting behind the hero content on the left side."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        513,
+        414
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Large blurred glow shape in the background behind the stat card, spinning slowly, soft-edged and vivid cyan in colour."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        796,
+        212,
+        326,
+        216
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Stat card tilted 4° clockwise with a frosted-glass effect; huge 72px bold title '3.2×' with caption text 'longer deep-work blocks' beneath it, positioned over t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        463,
+        523,
+        474,
+        354
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Blurred glow shape in the background, spinning slowly, soft-edged and vivid pink in colour, behind the focus-mode widget area."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        31,
+        593,
+        50
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Fully rounded navigation pill, white (#ffffff) background, 600x56px, positioned at x 340 top 28 (inset from the page sides, not a full-width strip), containing "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        123,
+        183,
+        613,
+        454
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Hero content panel with a frosted-glass effect: headline 'Light you can work inside', body copy 'Aurora is a calm workspace that bends around your focus. No tab"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        841,
+        476,
+        279,
+        128
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Focus-mode status widget made of three real elements, each with live text, exactly as specified (page px, size then top-left x,y): a 67x67 icon at 863,511 with "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        723,
+        347,
+        9
+      ],
+      "paths": [],
+      "instruction": "Replace this wavy placeholder line with a row of four partner wordmarks, each its own real text element with live text, nothing invented or left out (page px, s"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

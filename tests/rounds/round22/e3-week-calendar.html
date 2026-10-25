@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Week calendar</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#3c4043;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;border-bottom:1px solid #dadce0;display:flex;align-items:center;gap:16px;padding:0 20px}.top b{font-size:22px;font-weight:400;margin-right:20px}.top .t{padding:8px 16px;border:1px solid #dadce0;border-radius:4px;font-size:14px}.top h2{font-size:22px;font-weight:400}.top .v{margin-left:auto;padding:8px 16px;border:1px solid #dadce0;border-radius:4px;font-size:14px}
+.side{position:absolute;left:0;top:64px;width:256px;height:836px;padding:16px}
+.new{display:inline-block;padding:16px 24px;border-radius:16px;box-shadow:0 1px 3px #0004;font-size:14px;font-weight:700;margin-bottom:20px}
+.mini{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px}.mini b{font-size:13px;grid-column:1/8;text-align:left;margin-bottom:6px}.mini span{padding:5px 0;border-radius:50%}.mini .wk{background:#e8f0fe}.mini .td{background:#1a73e8;color:#fff}
+.cals{margin-top:24px;font-size:13px;line-height:2.2}.cals i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:10px}
+.grid{position:absolute;left:256px;top:64px;width:1024px;height:836px}
+.heads{position:absolute;left:60px;top:0;width:964px;height:80px;display:grid;grid-template-columns:repeat(7,1fr);text-align:center;border-bottom:1px solid #dadce0}.heads div{padding-top:10px;font-size:11px}.heads b{display:block;font-size:26px;font-weight:400;margin:4px auto 0;width:46px;height:46px;line-height:46px;border-radius:50%}.heads .td{color:#1a73e8}.heads .td b{background:#1a73e8;color:#fff}
+.allday{position:absolute;left:60px;top:80px;width:964px;height:30px;border-bottom:1px solid #dadce0}.allday div{position:absolute;top:4px;height:22px;border-radius:4px;background:#0b8043;color:#fff;padding:4px 8px;font-weight:700}
+.hrs{position:absolute;left:0;top:110px;width:1024px;height:726px;background:repeating-linear-gradient(#dadce0 0 1px,transparent 1px 60px) 60px 0/964px 100% no-repeat,repeating-linear-gradient(90deg,#dadce0 0 1px,transparent 1px 137.7px) 60px 0/964px 100% no-repeat}
+.hrs small{position:absolute;left:8px;font-size:10px;color:#70757a}
+.ev{position:absolute;border-radius:6px;padding:4px 8px;color:#fff;font-weight:700;line-height:1.4;border:1px solid #fff}.ev span{display:block;font-weight:400}
+.now{position:absolute;left:336px;top:420px;width:138px;height:2px;background:#ea4335}.now:before{content:"";position:absolute;left:-6px;top:-5px;width:12px;height:12px;border-radius:50%;background:#ea4335}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>☰ Calendar</b><span class="t">Today</span><span>‹ ›</span><h2>October 2026</h2><span class="v">Week ▾</span></div>
+<div class="side" data-r="sidebar"><div class="new">＋ Create</div>
+<div class="mini" data-r="mini-month"><b>October 2026</b><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span><span>28</span><span>29</span><span>30</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span class="wk">19</span><span class="wk">20</span><span class="wk td">21</span><span class="wk">22</span><span class="wk">23</span><span class="wk">24</span><span class="wk">25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>1</span></div>
+<div class="cals"><b>My calendars</b><br><i style="background:#1a73e8"></i>Work<br><i style="background:#0b8043"></i>Travel<br><i style="background:#8e24aa"></i>Personal<br><i style="background:#f4511e"></i>Holidays</div></div>
+<div class="grid" data-r="week-grid" data-must>
+<div class="heads" data-r="day-heads"><div>MON<b>19</b></div><div>TUE<b>20</b></div><div class="td">WED<b>21</b></div><div>THU<b>22</b></div><div>FRI<b>23</b></div><div>SAT<b>24</b></div><div>SUN<b>25</b></div></div>
+<div class="allday" data-r="all-day"><div style="left:413px;width:270px">Lisbon offsite</div></div>
+<div class="hrs"><small style="top:-6px">8 AM</small><small style="top:54px">9 AM</small><small style="top:114px">10 AM</small><small style="top:174px">11 AM</small><small style="top:234px">12 PM</small><small style="top:294px">1 PM</small><small style="top:354px">2 PM</small><small style="top:414px">3 PM</small><small style="top:474px">4 PM</small><small style="top:534px">5 PM</small><small style="top:594px">6 PM</small><small style="top:654px">7 PM</small>
+<div class="ev" style="left:62px;top:60px;width:134px;height:58px;background:#1a73e8">Standup<span>9 – 10am</span></div>
+<div class="ev" style="left:200px;top:120px;width:134px;height:118px;background:#8e24aa">Dentist<span>10am – 12pm</span></div>
+<div class="ev" style="left:338px;top:60px;width:68px;height:118px;background:#1a73e8">Design crit<span>9 – 11am</span></div>
+<div class="ev" style="left:406px;top:90px;width:68px;height:118px;background:#039be5">1:1 Mira<span>9:30 – 11:30</span></div>
+<div class="ev" style="left:338px;top:300px;width:134px;height:88px;background:#1a73e8">Sprint review<span>1 – 2:30pm</span></div>
+<div class="ev" style="left:476px;top:180px;width:134px;height:178px;background:#0b8043">Flight FRA → LIS<span>11am – 2pm</span></div>
+<div class="ev" style="left:614px;top:240px;width:134px;height:58px;background:#f4511e">Lunch<span>12 – 1pm</span></div>
+<div class="ev" style="left:752px;top:420px;width:134px;height:178px;background:#8e24aa">Climbing<span>3 – 6pm</span></div>
+<div class="now" data-r="now-line"></div></div></div>
+</body></html>

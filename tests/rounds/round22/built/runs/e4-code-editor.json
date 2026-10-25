@@ -1,0 +1,542 @@
+{
+  "id": "e4-code-editor",
+  "at": "2026-10-25T21:19:07.923Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8582472330756902,
+    "overallV2": 0.8452489299327512,
+    "overallV1": 0.7897161262909098,
+    "colour": 0.9880507916115157,
+    "structure": 0.8124931069652723,
+    "structureStrict": 0.6836900524256226,
+    "colourAligned": 0.9880507916115157,
+    "structureAligned": 0.8426414344194514,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -16,
+      "r": 0.781420086965577
+    },
+    "layout": 0.7699533082249667,
+    "layoutV1": 0.7699533082249667,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      28
+    ],
+    [
+      0,
+      0,
+      28,
+      1280,
+      735
+    ],
+    [
+      2,
+      0,
+      28,
+      42,
+      735
+    ],
+    [
+      2,
+      42,
+      28,
+      240,
+      735
+    ],
+    [
+      4,
+      42,
+      36,
+      240,
+      88
+    ],
+    [
+      5,
+      42,
+      36,
+      240,
+      22
+    ],
+    [
+      5,
+      42,
+      58,
+      240,
+      22
+    ],
+    [
+      5,
+      42,
+      80,
+      240,
+      22
+    ],
+    [
+      5,
+      42,
+      102,
+      240,
+      22
+    ],
+    [
+      4,
+      42,
+      124,
+      240,
+      154
+    ],
+    [
+      10,
+      42,
+      124,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      146,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      168,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      190,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      212,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      234,
+      240,
+      22
+    ],
+    [
+      10,
+      42,
+      256,
+      240,
+      22
+    ],
+    [
+      2,
+      282,
+      28,
+      998,
+      735
+    ],
+    [
+      18,
+      282,
+      28,
+      998,
+      36
+    ],
+    [
+      19,
+      282,
+      28,
+      118,
+      36
+    ],
+    [
+      19,
+      400,
+      28,
+      97,
+      36
+    ],
+    [
+      19,
+      497,
+      28,
+      113,
+      36
+    ],
+    [
+      18,
+      282,
+      64,
+      998,
+      36
+    ],
+    [
+      18,
+      282,
+      124,
+      998,
+      483
+    ],
+    [
+      24,
+      294,
+      124,
+      545,
+      483
+    ],
+    [
+      25,
+      294,
+      124,
+      33,
+      483
+    ],
+    [
+      25,
+      327,
+      124,
+      512,
+      483
+    ],
+    [
+      24,
+      1175,
+      124,
+      93,
+      483
+    ],
+    [
+      28,
+      1183,
+      132,
+      77,
+      17
+    ],
+    [
+      28,
+      1183,
+      156,
+      77,
+      17
+    ],
+    [
+      28,
+      1183,
+      177,
+      77,
+      17
+    ],
+    [
+      28,
+      1183,
+      197,
+      77,
+      17
+    ],
+    [
+      28,
+      1183,
+      218,
+      77,
+      17
+    ],
+    [
+      18,
+      282,
+      623,
+      998,
+      140
+    ],
+    [
+      0,
+      0,
+      878,
+      1280,
+      22
+    ],
+    [
+      35,
+      12,
+      880,
+      115,
+      18
+    ],
+    [
+      36,
+      12,
+      880,
+      46,
+      18
+    ],
+    [
+      36,
+      74,
+      880,
+      52,
+      18
+    ],
+    [
+      35,
+      1011,
+      880,
+      257,
+      18
+    ],
+    [
+      39,
+      1011,
+      880,
+      65,
+      18
+    ],
+    [
+      39,
+      1092,
+      880,
+      53,
+      18
+    ],
+    [
+      39,
+      1161,
+      880,
+      34,
+      18
+    ],
+    [
+      39,
+      1211,
+      880,
+      57,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.25,
+    "kept": [
+      "mono"
+    ],
+    "missing": [
+      "hard-shadow",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41737,
+    "output": 26565,
+    "cacheRead": 184933
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47997,
+      "output": 18117,
+      "cacheRead": 173049,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 198634
+    }
+  ],
+  "reading": "The sketch lays out a VS Code–style code-editor page: a top window-title strip, a tab bar, a breadcrumb line, a 240px explorer sidebar with file/folder rows, a thin dark activity-bar strip at the far left, a large main code area with a box-drawing code listing, an empty panel on the right, a terminal/output panel at the bottom of the content, and a blue status bar pinned to the very bottom — each piece's exact text and colors are given in the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        28
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Near-black page title strip reading \"parser.ts — sketch-to-code\" in dark grey text, spanning the full width at the very top of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        292,
+        37,
+        984,
+        30
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Near-black (#252526) tab bar, 36px tall, spanning the full page width. Tabs sit together at the left, ending 354px in (rest of bar empty): \"TS parser.ts ×\" at x"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        38,
+        42,
+        837
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Thin vertical activity-bar strip at the far left edge, full page height, rendered dark grey (icon rail, no icons specified so keep minimal/plain)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        37,
+        234,
+        837
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Near-black block side-nav (no bounding box), 240px wide, full page height. Two groups, each a small bold heading over its own links, one link per line, rows exa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        292,
+        78,
+        984,
+        35
+      ],
+      "paths": [],
+      "instruction": "Small grey breadcrumb line reading \"src › parser.ts › parseBlock\", text color #a9a9a9 (not the page's light grey body text), positioned just below the tab bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        292,
+        128,
+        528,
+        9
+      ],
+      "paths": [],
+      "instruction": "Main code panel: a live 14px monospace #cccccc text block in a <pre> (white-space: pre, line-height 21px), positioned at 288,94 — 24px below the top of the brea"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1171,
+        98,
+        93,
+        493
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Empty box beside the main column, right-side panel spanning most of the content height; give it short plausible placeholder content (e.g. an outline/minimap pan"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        292,
+        602,
+        984,
+        48
+      ],
+      "paths": [],
+      "instruction": "Terminal/output panel below the main code area: a live 13px monospace #cccccc text block in a <pre> (white-space: pre, line-height 20px) at 288,600, NOT a borde"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        881,
+        1272,
+        16
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Blue (#007acc) status bar, 22px tall, spanning the full page width, pinned to the very bottom of the page (position fixed/absolute, bottom 0 — not placed direct"
+    }
+  ],
+  "rejected": []
+}

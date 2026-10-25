@@ -1,0 +1,444 @@
+{
+  "id": "c2-isometric",
+  "at": "2026-10-25T20:36:23.899Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8658151066176178,
+    "overallV2": 0.8658151066176178,
+    "overallV1": 0.779512482402033,
+    "colour": 0.9914031489470496,
+    "structure": 0.9401625421266764,
+    "structureStrict": 0.8387260477647072,
+    "colourAligned": 0.9914031489470496,
+    "structureAligned": 0.9401625421266764,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9345916095264172
+    },
+    "layout": 0.7714587820767549,
+    "layoutV1": 0.7714587820767549,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      68,
+      47,
+      126,
+      30
+    ],
+    [
+      0,
+      623,
+      91,
+      175,
+      40
+    ],
+    [
+      0,
+      983,
+      153,
+      115,
+      40
+    ],
+    [
+      0,
+      72,
+      170,
+      454,
+      222
+    ],
+    [
+      4,
+      72,
+      170,
+      454,
+      222
+    ],
+    [
+      5,
+      72,
+      170,
+      454,
+      74
+    ],
+    [
+      5,
+      72,
+      244,
+      454,
+      74
+    ],
+    [
+      7,
+      72,
+      239,
+      226,
+      84
+    ],
+    [
+      5,
+      72,
+      318,
+      454,
+      74
+    ],
+    [
+      0,
+      68,
+      440,
+      392,
+      84
+    ],
+    [
+      0,
+      66,
+      564,
+      155,
+      44
+    ],
+    [
+      0,
+      439,
+      240,
+      839,
+      481
+    ],
+    [
+      12,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      13,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      13,
+      627,
+      354,
+      453,
+      260
+    ],
+    [
+      13,
+      521,
+      415,
+      226,
+      130
+    ],
+    [
+      16,
+      521,
+      268,
+      226,
+      130
+    ],
+    [
+      16,
+      634,
+      333,
+      113,
+      212
+    ],
+    [
+      16,
+      634,
+      268,
+      113,
+      212
+    ],
+    [
+      13,
+      704,
+      310,
+      226,
+      130
+    ],
+    [
+      20,
+      704,
+      236,
+      226,
+      130
+    ],
+    [
+      20,
+      789,
+      285,
+      141,
+      155
+    ],
+    [
+      20,
+      846,
+      236,
+      85,
+      122
+    ],
+    [
+      13,
+      761,
+      521,
+      226,
+      130
+    ],
+    [
+      24,
+      761,
+      308,
+      226,
+      130
+    ],
+    [
+      24,
+      902,
+      389,
+      85,
+      262
+    ],
+    [
+      24,
+      846,
+      308,
+      141,
+      294
+    ],
+    [
+      0,
+      724,
+      311,
+      103,
+      20
+    ],
+    [
+      0,
+      1014,
+      432,
+      116,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "3d",
+      "hard-shadow",
+      "overlap"
+    ],
+    "missing": [
+      "motion",
+      "soft-shadow"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 46845,
+    "output": 32199,
+    "cacheRead": 447934
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48682,
+      "output": 19821,
+      "cacheRead": 146801,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 210131
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 10926,
+      "output": 4400,
+      "cacheRead": 289311,
+      "toolCalls": 5,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 41316
+    }
+  ],
+  "reading": "This is a hero section for a city-planning product: a bold logo top-left, two small nav-style rectangle buttons, a huge isometric 3D city scene built from stacked blocks, a tight 3-line headline with one coloured word, a grey descriptive paragraph, a dark 'Start building' CTA button with a hard pink shadow, and two small bold labels ('Library · 4 floors' and 'Tower B · 12 floors') captioning two of the city buildings, all set on a page-wide sky-to-sand gradient background.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        47,
+        118,
+        8
+      ],
+      "paths": [],
+      "instruction": "Logo/lead text '▲ Blocktown' at the top-left, set large at 20px (a lead line, not small body text), about 126px wide on one line, font-weight 800 (bold)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        624,
+        93,
+        473,
+        98
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Two small rectangular nav/link button placeholders positioned above the hero image area. No wording was specified; add plausible short nav labels fitting a city"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        439,
+        240,
+        839,
+        481
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build an isometric city scene made of real CSS 3D (not a flat drawing, not an SVG), lit top faces and two darker side faces per block, the wrapping scene elemen"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        72,
+        170,
+        423,
+        223
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy headline, letters set tight (line-height 0.98), exactly 3 lines that must keep these breaks and never rewrap: 'Plan a city in' / 'blocks, n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        440,
+        392,
+        84
+      ],
+      "paths": [],
+      "instruction": "Descriptive paragraph in dark grey #4a4e69 (not the page's default dark navy text): 'Drag towers, roads and parks onto a live isometric map. Zoning rules check "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        564,
+        151,
+        43
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "CTA button: dark navy fill, white text 'Start building', with a hard solid opaque pink shadow offset 6px down-right, no blur."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        724,
+        311,
+        123,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small caption label near the first (yellow) block in the isometric city scene: 13px bold (font-weight 700) text 'Library · 4 floors'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12"
+      ],
+      "textSize": [],
+      "region": [
+        1014,
+        432,
+        136,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small caption label near another block in the isometric city scene: 13px bold (font-weight 700) text 'Tower B · 12 floors'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

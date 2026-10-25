@@ -1,0 +1,602 @@
+{
+  "id": "e2-product-page",
+  "at": "2026-10-25T21:07:28.466Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5609575462155594,
+    "overallV2": 0.5609575462155594,
+    "overallV1": 0.5288393698929551,
+    "colour": 0.9491510857477364,
+    "structure": 0.8432592569976166,
+    "structureStrict": 0.8124256064820315,
+    "colourAligned": 0.9491510857477364,
+    "structureAligned": 0.8432592569976166,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7440354349435546
+    },
+    "layout": 0.8915217172722867,
+    "layoutV1": 0.6226280901697043,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      860
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      60
+    ],
+    [
+      2,
+      40,
+      15,
+      281,
+      30
+    ],
+    [
+      3,
+      40,
+      15,
+      59,
+      30
+    ],
+    [
+      3,
+      139,
+      19,
+      182,
+      22
+    ],
+    [
+      5,
+      139,
+      19,
+      34,
+      22
+    ],
+    [
+      5,
+      201,
+      19,
+      59,
+      22
+    ],
+    [
+      5,
+      288,
+      19,
+      33,
+      22
+    ],
+    [
+      2,
+      1218,
+      19,
+      22,
+      22
+    ],
+    [
+      1,
+      52,
+      81,
+      182,
+      20
+    ],
+    [
+      1,
+      52,
+      115,
+      80,
+      80
+    ],
+    [
+      1,
+      52,
+      207,
+      80,
+      80
+    ],
+    [
+      1,
+      52,
+      299,
+      80,
+      80
+    ],
+    [
+      1,
+      52,
+      391,
+      80,
+      80
+    ],
+    [
+      1,
+      52,
+      483,
+      80,
+      80
+    ],
+    [
+      1,
+      150,
+      115,
+      560,
+      620
+    ],
+    [
+      1,
+      390,
+      700,
+      22,
+      8
+    ],
+    [
+      1,
+      418,
+      700,
+      8,
+      8
+    ],
+    [
+      1,
+      432,
+      700,
+      8,
+      8
+    ],
+    [
+      1,
+      446,
+      700,
+      8,
+      8
+    ],
+    [
+      1,
+      760,
+      112,
+      470,
+      496
+    ],
+    [
+      21,
+      760,
+      112,
+      470,
+      39
+    ],
+    [
+      21,
+      760,
+      161,
+      470,
+      21
+    ],
+    [
+      23,
+      760,
+      163,
+      73,
+      17
+    ],
+    [
+      21,
+      760,
+      194,
+      470,
+      39
+    ],
+    [
+      21,
+      884,
+      201,
+      50,
+      21
+    ],
+    [
+      26,
+      892,
+      202,
+      38,
+      20
+    ],
+    [
+      21,
+      834,
+      202,
+      40,
+      20
+    ],
+    [
+      21,
+      760,
+      243,
+      470,
+      21
+    ],
+    [
+      21,
+      760,
+      269,
+      36,
+      36
+    ],
+    [
+      21,
+      808,
+      269,
+      36,
+      36
+    ],
+    [
+      21,
+      856,
+      269,
+      36,
+      36
+    ],
+    [
+      21,
+      904,
+      269,
+      36,
+      36
+    ],
+    [
+      21,
+      760,
+      323,
+      470,
+      21
+    ],
+    [
+      21,
+      760,
+      349,
+      88,
+      44
+    ],
+    [
+      21,
+      856,
+      349,
+      88,
+      44
+    ],
+    [
+      21,
+      951,
+      349,
+      88,
+      44
+    ],
+    [
+      21,
+      1047,
+      349,
+      88,
+      44
+    ],
+    [
+      21,
+      1142,
+      349,
+      88,
+      44
+    ],
+    [
+      21,
+      760,
+      401,
+      88,
+      42
+    ],
+    [
+      21,
+      856,
+      401,
+      88,
+      42
+    ],
+    [
+      21,
+      951,
+      401,
+      88,
+      42
+    ],
+    [
+      21,
+      1047,
+      401,
+      88,
+      42
+    ],
+    [
+      21,
+      1142,
+      401,
+      88,
+      42
+    ],
+    [
+      21,
+      760,
+      467,
+      402,
+      58
+    ],
+    [
+      45,
+      778,
+      486,
+      74,
+      21
+    ],
+    [
+      21,
+      1172,
+      467,
+      58,
+      58
+    ],
+    [
+      47,
+      1191,
+      481,
+      20,
+      30
+    ],
+    [
+      21,
+      760,
+      541,
+      470,
+      73
+    ],
+    [
+      49,
+      774,
+      567,
+      358,
+      21
+    ],
+    [
+      1,
+      763,
+      743,
+      463,
+      58
+    ],
+    [
+      51,
+      763,
+      762,
+      22,
+      21
+    ],
+    [
+      51,
+      797,
+      769,
+      429,
+      6
+    ],
+    [
+      53,
+      797,
+      769,
+      335,
+      6
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "gallery-dots",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 390,
+        "y": 700,
+        "w": 64,
+        "h": 8
+      }
+    },
+    {
+      "role": "thumbnails",
+      "iou": 0.8822553897180763,
+      "parts": 5,
+      "rect": {
+        "x": 52,
+        "y": 115,
+        "w": 80,
+        "h": 448
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 51672,
+    "output": 34575,
+    "cacheRead": 401101
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48173,
+      "output": 17543,
+      "cacheRead": 164198,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 172792
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 15552,
+      "output": 6081,
+      "cacheRead": 199630,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 46566
+    }
+  ],
+  "reading": "This sketch lays out a product detail page: a top navigation bar, a small breadcrumb trail, a column of five thumbnail cards, a large hero image tile with pagination dots, a full product info panel (title, rating, price, colour/size pickers, add-to-bag, delivery note), and a rating progress bar below it.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Build the top bar as ONE 1280x60px wrapper element at 0,0, no fill, with a 1px #e5e5e5 border-bottom rule along its full width only (no other border), exactly 6"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        81,
+        166,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a small grey breadcrumb trail reading 'Home / Running / Road shoes', text colour #86868b (grey, not the page's near-black body text), placed just under the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        115,
+        74,
+        453
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a vertical column of 5 separate empty off-white thumbnail cards, each 80x80px, 12px apart, with 10px rounded corners, no content inside them, to the left of"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        151,
+        115,
+        554,
+        614
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add the hero image area as a warm-paper-to-off-white gradient tile, 560x620px, 16px rounded corners, plain paint fill only - no picture, no X mark, no icon, no "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        394,
+        704,
+        56,
+        1
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Overlay pagination controls near the bottom of the hero tile, built from 4 real elements (page px, top-left x,y): a 22x8 pill at 390,700, #1d1d1f fill, pill-sha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        115,
+        464,
+        496
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Build the product info panel to the right of the hero image, as 24 individual real elements with live text (page px, size then top-left x,y), nothing invented o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        743,
+        463,
+        58
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a rating indicator showing '4.6' next to a thin progress bar, 78% filled in amber on a light grey track."
+    }
+  ],
+  "rejected": []
+}

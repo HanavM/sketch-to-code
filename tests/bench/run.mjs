@@ -75,6 +75,7 @@ import round18auto from '../rounds/round18/auto.mjs'
 import round19auto from '../rounds/round19/auto.mjs'
 import round20auto from '../rounds/round20/auto.mjs'
 import round21auto from '../rounds/round21/auto.mjs'
+import round22auto from '../rounds/round22/auto.mjs'
 import { pictureLikeness, blend, LIKENESS_VERSION } from '../rounds/lib/likeness.mjs'
 import { effectsOf, effectRecall } from '../rounds/lib/effects.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
@@ -127,7 +128,7 @@ if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
-const SETS = { tidy, rough, round1, round1auto, round2auto, round3auto, round4auto, round5auto, round6auto, round7auto, round8auto, round9auto, round10auto, round11auto, round12auto, round13auto, round14auto, round15auto, round16auto, round17auto, round18auto, round19auto, round20auto, round21auto }
+const SETS = { tidy, rough, round1, round1auto, round2auto, round3auto, round4auto, round5auto, round6auto, round7auto, round8auto, round9auto, round10auto, round11auto, round12auto, round13auto, round14auto, round15auto, round16auto, round17auto, round18auto, round19auto, round20auto, round21auto, round22auto }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
 const specs = SETS[SET]
