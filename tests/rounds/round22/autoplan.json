@@ -217,19 +217,19 @@
    ],
    [
     "blob-violet",
-    "spinning soft blurred big vivid purple circle"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 460x460px with its top-left at 80,120 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: the hue keyframes keep it, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) big vivid purple circle"
    ],
    [
     "blob-cyan",
-    "spinning soft blurred vivid cyan"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 520x420px with its top-left at 620,40 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: the hue keyframes keep it, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) vivid cyan"
    ],
    [
     "blob-pink",
-    "spinning soft blurred vivid pink"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 480x360px with its top-left at 460,520 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: the hue keyframes keep it, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) vivid pink"
    ],
    [
     "glass-nav",
-    "a fully rounded #ffffff pill 600x56px at x 340, top 28 (inset from the page sides, NOT a square full-width strip), links: Aurora, Features, Pricing, Sign in"
+    "FROSTED GLASS (NOT a solid white pill): see-through fill rgba(255, 255, 255, 0.1), backdrop-filter: blur(18px), a 1px see-through rgba(255, 255, 255, 0.2) border, the page showing through it; a fully rounded glass pill 600x56px at x 340, top 28 (inset from the page sides, NOT a square full-width strip), links: Aurora, Features, Pricing, Sign in"
    ],
    [
     "glass-hero",
@@ -409,15 +409,15 @@
    ],
    [
     "pink-halftone",
-    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 640,80, a SOLID coloured fill covered edge to edge by a fine grid of small #ff48b0 dots, exactly: background-color: inherit; background-image: radial-gradient(circle, #ff48b0 38%, transparent 40%); background-size: 14px 14px (it REPEATS every 14px: rows and rows of dots, NOT one big disc), 50px rounded"
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 640,80, NO fill of its own (see-through between the dots) covered edge to edge by a fine grid of small #ff48b0 dots, exactly: background-color: transparent; background-image: radial-gradient(circle, #ff48b0 38%, transparent 40%); background-size: 14px 14px (it REPEATS every 14px: rows and rows of dots, NOT one big disc); border-radius: 50% (cut to a perfect CIRCLE 560px across: a round disc of dots, NOT a square, NOT a rounded square)"
    ],
    [
     "blue-halftone",
-    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 420x420px div (its untransformed size) with its top-left at 560,260, a SOLID coloured fill covered edge to edge by a fine grid of small #0078bf dots, exactly: background-color: inherit; background-image: radial-gradient(circle, #0078bf 30%, transparent 32%); background-size: 10px 10px (it REPEATS every 10px: rows and rows of dots, NOT one big disc); transform: rotate(15deg) (tilted 15deg clockwise), square corners"
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 420x420px div (its untransformed size) with its top-left at 560,260, NO fill of its own (see-through between the dots) covered edge to edge by a fine grid of small #0078bf dots, exactly: background-color: transparent; background-image: radial-gradient(circle, #0078bf 30%, transparent 32%); background-size: 10px 10px (it REPEATS every 10px: rows and rows of dots, NOT one big disc); transform: rotate(15deg) (tilted 15deg clockwise), square corners"
    ],
    [
     "headline",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica heavy uppercase tight-set letters lines set tight (line-height 0.88) \"PRINT CLUB\", set in exactly 2 lines: \"PRINT\" / \"CLUB\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 420px wide)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica heavy uppercase tight-set letters lines set tight (line-height 0.88) \"PRINT CLUB\", set in exactly 2 lines: \"PRINT\" / \"CLUB\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 420px wide); MISREGISTERED two-ink print: a second copy of the letters in #ff48b0 printed offset 7px right and 5px down behind them, exactly text-shadow: 7px 5px 0 #ff48b0 (a solid hard copy, no blur; NOT dropped); exactly 150px type (font-size 150px, NOT larger), letter-spacing -6px, its box's top-left at 60,120 (position absolute)"
    ],
    [
     "yellow-bar",
@@ -433,15 +433,15 @@
    ],
    [
     "cta",
-    "gently bobbing up and down vivid pink bar, off-white text \"BOOK A PRESS SLOT\", with a hard solid opaque blue shadow offset 4px down right, no blur; its text #fbf6ea (off-white, NOT the page's blue text); ONE 259x50px card, position absolute with its top-left at page 70,740 (its own place on the page, a sibling of the other blocks, NOT inside any of them)"
+    "gently bobbing up and down vivid pink bar, off-white text \"BOOK A PRESS SLOT\", with a hard solid opaque blue shadow offset 4px down right, no blur; its text #fbf6ea (off-white, NOT the page's blue text); square corners (border-radius 0, NOT a pill, NOT rounded); ONE 259x50px card, position absolute with its top-left at page 70,740 (its own place on the page, a sibling of the other blocks, NOT inside any of them)"
    ],
    [
     "schedule",
-    "2px dashed #0078bf outline (dashes, not a solid line) blue border mono 15px code lines: \"TUE\", \"Zine night\", \"18:00\", \"THU\", \"Poster lab\", \"17:30\", \"SAT\", \"Open press\", \"11:00\"; dark grey code; its text #333333 (dark grey, NOT the page's blue text)"
+    "NOT a box outline: ONE 2px dashed #0078bf rule along its TOP only (border-top only; no left, right or bottom border), and under EACH of its 3 rows its own 2px dashed #0078bf rule (each row 32px tall, border-bottom on every row, so the rows read as ruled lines); the block 440px wide, its top-left at 760,700 blue border mono 15px code lines: \"TUE\", \"Zine night\", \"18:00\", \"THU\", \"Poster lab\", \"17:30\", \"SAT\", \"Open press\", \"11:00\"; dark grey code; its text #333333 (dark grey, NOT the page's blue text)"
    ],
    [
     "star",
-    "tilted 12° clockwise ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica regular weight (not bold) yellow \"✺\", 110px type, about 116px wide (no larger)"
+    "tilted 12° clockwise ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica regular weight (not bold) yellow \"✺\", 110px type, about 116px wide (no larger); the single character \"✺\" (U+273A) typed as LIVE TEXT in a text element at 110px, its box's top-left at 1070,32 (NEVER an SVG, path or drawn squiggle)"
    ]
   ]
  },

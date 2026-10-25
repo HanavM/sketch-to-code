@@ -57,7 +57,7 @@
    ],
    [
     "headline",
-    "light-like (screen blend: brightens what it overlaps) giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Light, cut into colour\", set in exactly 2 lines: \"Light, cut into\" / \"colour\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 699px wide); the word \"cut\" is set in its own face, a span in place inside the line: serif (font-family Georgia, serif) bold (the other words keep the heading's face); the word \"cut\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #ffd36b), same size and weight as the rest"
+    "light-like (screen blend: brightens what it overlaps) giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Light, cut into colour\", set in exactly 2 lines: \"Light, cut into\" / \"colour\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 699px wide); exactly 132px type (font-size 132px, NOT larger), letter-spacing -4px, its box's top-left at 66,200 (position absolute); the word \"cut\" is set in its own face, a span in place inside the line: serif (font-family Georgia, serif) bold (the other words keep the heading's face); the word \"cut\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 2px #ffd36b), same size and weight as the rest"
    ],
    [
     "lede",

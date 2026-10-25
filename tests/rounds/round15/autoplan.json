@@ -135,7 +135,7 @@
    ],
    [
     "tag",
-    "tilted 8° clockwise near-black (exactly #1a1a1a) block, yellow text \"OPEN STUDIO SAT\"; its text #ffd500 (yellow, NOT the page's near-black text)"
+    "tilted 8° clockwise near-black (exactly #1a1a1a) block, yellow text \"OPEN STUDIO SAT\"; its text #ffd500 (yellow, NOT the page's near-black text); square corners (border-radius 0, NOT a pill, NOT rounded)"
    ],
    [
     "colour-bar",
@@ -259,7 +259,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy lines set tight (line-height 0.92) cream \"SQUISH IT.\", set in exactly 2 lines: \"SQUISH\" / \"IT.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 575px wide); EXTRUDED in 3D: 4 stacked hard text-shadows (no blur) of solid #ff4f81, stepping 4px right and 4px down each, out to 16px 16px (text-shadow: 4px 4px 0 #ff4f81, 8px 8px 0 #ff4f81, 12px 12px 0 #ff4f81, 16px 16px 0 #26113d), so each letter sits on a deep dark block side; NOT flat letters; a 3px #26113d outline round every letter (-webkit-text-stroke: 3px #26113d) over the #ffe9d6 fill"
+    "giant Helvetica heavy lines set tight (line-height 0.92) cream \"SQUISH IT.\", set in exactly 2 lines: \"SQUISH\" / \"IT.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 575px wide); EXTRUDED in 3D: 4 stacked hard text-shadows (no blur) of solid #ff4f81, stepping 4px right and 4px down each, out to 16px 16px (text-shadow: 4px 4px 0 #ff4f81, 8px 8px 0 #ff4f81, 12px 12px 0 #ff4f81, 16px 16px 0 #26113d), so each letter sits on a deep dark block side; NOT flat letters; a 3px #26113d outline round every letter (-webkit-text-stroke: 3px #26113d) over the #ffe9d6 fill; exactly 150px type (font-size 150px, NOT larger), its box's top-left at 60,200 (position absolute)"
    ],
    [
     "striped-blob",
@@ -353,7 +353,7 @@
    ],
    [
     "peak-label",
-    "vivid orange bar, near-black text \"PASSO GAVIA\"; its text #11140f (near-black, NOT the page's cream text)"
+    "vivid orange bar, near-black text \"PASSO GAVIA\"; its text #11140f (near-black, NOT the page's cream text); square corners (border-radius 0, NOT a pill, NOT rounded)"
    ],
    [
     "elevation-bars",

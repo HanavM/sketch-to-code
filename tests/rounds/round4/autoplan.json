@@ -141,7 +141,7 @@
    ],
    [
     "headline",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) \"Made by hand, on purpose.\", set in exactly 3 lines: \"Made by\" / \"hand, on\" / \"purpose.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 493px wide)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) \"Made by hand, on purpose.\", set in exactly 3 lines: \"Made by\" / \"hand, on\" / \"purpose.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 493px wide); exactly 150px type (font-size 150px, NOT larger), letter-spacing -4px, its box's top-left at 56,200 (position absolute)"
    ],
    [
     "lead",
@@ -423,11 +423,11 @@
    ],
    [
     "glow-cyan",
-    "soft blurred faded to 55% opacity (see-through) bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle"
+    "soft blurred (filter: blur(70px)), its box 520x520px with its top-left at -80,420 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) faded to 55% opacity (see-through) bleeding off the left page edge (starts 80px past it) big vivid bright sky blue circle"
    ],
    [
     "glow-pink",
-    "soft blurred faded to 50% opacity (see-through) bleeding off the right page edge (runs 100px past it) big vivid pink circle"
+    "soft blurred (filter: blur(70px)), its box 560x560px with its top-left at 820,-120 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) faded to 50% opacity (see-through) bleeding off the right page edge (runs 100px past it) big vivid pink circle"
    ],
    [
     "nav",
@@ -791,7 +791,7 @@
    ],
    [
     "today",
-    "vivid red \"Today\""
+    "vivid red \"Today\"; square corners (border-radius 0, NOT a pill, NOT rounded)"
    ]
   ]
  }

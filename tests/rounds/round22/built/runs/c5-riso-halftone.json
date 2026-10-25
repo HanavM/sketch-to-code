@@ -1,24 +1,24 @@
 {
   "id": "c5-riso-halftone",
-  "at": "2026-10-25T20:53:55.231Z",
+  "at": "2026-10-25T22:30:14.900Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6386667102196026,
-    "overallV2": 0.6386667102196026,
-    "overallV1": 0.5741824426073938,
-    "colour": 0.9417341080660269,
-    "structure": 0.7497689215752285,
-    "structureStrict": 0.6474940461506732,
-    "colourAligned": 0.9417341080660269,
-    "structureAligned": 0.7497689215752285,
+    "overall": 0.9562113405282318,
+    "overallV2": 0.9562113405282318,
+    "overallV1": 0.9525321637405655,
+    "colour": 0.9945353869459109,
+    "structure": 0.9930368006520254,
+    "structureStrict": 0.9872014649716022,
+    "colourAligned": 0.9945353869459109,
+    "structureAligned": 0.9930368006520254,
     "align": {
-      "scale": 0.88,
-      "dx": -16,
-      "dy": -48,
-      "r": 0.43719322453386134
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9969722278216191
     },
-    "layout": 0.8429198378145375,
-    "layoutV1": 0.8429198378145375,
+    "layout": 0.9175787548557679,
+    "layoutV1": 0.9175787548557679,
     "layoutVersion": 2
   },
   "boxes": [
@@ -45,27 +45,6 @@
     ],
     [
       0,
-      68,
-      178,
-      593,
-      366
-    ],
-    [
-      3,
-      68,
-      178,
-      593,
-      183
-    ],
-    [
-      3,
-      68,
-      361,
-      593,
-      183
-    ],
-    [
-      0,
       59,
       463,
       382,
@@ -73,9 +52,30 @@
     ],
     [
       0,
+      60,
+      120,
+      420,
+      264
+    ],
+    [
+      4,
+      60,
+      120,
+      420,
+      132
+    ],
+    [
+      4,
+      60,
+      252,
+      420,
+      132
+    ],
+    [
+      0,
       78,
-      487,
-      328,
+      481,
+      326,
       48
     ],
     [
@@ -88,128 +88,107 @@
     [
       0,
       70,
-      735,
+      737,
       259,
       50
     ],
     [
       0,
-      763,
-      703,
-      433,
-      91
+      760,
+      700,
+      440,
+      98
     ],
     [
       10,
-      781,
-      715,
-      397,
-      23
+      760,
+      702,
+      440,
+      32
     ],
     [
       11,
-      781,
-      715,
+      760,
+      706,
       27,
       23
     ],
     [
       11,
-      925,
-      715,
+      926,
+      706,
       90,
       23
     ],
     [
       11,
-      1133,
-      715,
+      1155,
+      706,
       45,
       23
     ],
     [
       10,
-      781,
-      738,
-      397,
-      23
+      760,
+      734,
+      440,
+      32
     ],
     [
       15,
-      781,
+      760,
       738,
       27,
       23
     ],
     [
       15,
-      925,
+      926,
       738,
       90,
       23
     ],
     [
       15,
-      1133,
+      1155,
       738,
       45,
       23
     ],
     [
       10,
-      781,
       760,
-      397,
-      23
+      766,
+      440,
+      32
     ],
     [
       19,
-      781,
       760,
+      770,
       27,
       23
     ],
     [
       19,
-      925,
-      760,
+      926,
+      770,
       90,
       23
     ],
     [
       19,
-      1133,
-      760,
+      1155,
+      770,
       45,
       23
     ],
     [
       0,
-      1071,
-      46,
-      125,
-      104
-    ],
-    [
-      23,
-      1071,
-      46,
-      125,
-      104
-    ],
-    [
+      1054,
       24,
-      1071,
-      46,
-      125,
-      104
-    ],
-    [
-      24,
-      1071,
-      46,
-      125,
-      104
+      124,
+      181
     ]
   ],
   "groupMatched": [],
@@ -231,36 +210,31 @@
     "extra": []
   },
   "tokens": {
-    "input": 52990,
-    "output": 34789,
-    "cacheRead": 343117
+    "input": 43262,
+    "output": 20020,
+    "cacheRead": 165446
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 58120,
-      "output": 21621,
-      "cacheRead": 314072,
-      "toolCalls": 12,
+      "billed": 41045,
+      "output": 10652,
+      "cacheRead": 153301,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Read components/SparkleAsterisk.tsx",
         "Read src/App.tsx",
-        "Glob",
         "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Read s2c-bench-app/index.html",
-        "Edit components/SparkleAsterisk.tsx",
         "Edit src/index.css",
-        "Write src/App.tsx",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 242555
+      "ms": 109898
     }
   ],
-  "reading": "This is a poster-style hero for a risograph/print-club site: two overlapping halftone-dot 'sleeve' squares (pink and blue, exact gradients specified in notes), a tight 2-line 'PRINT / CLUB' Helvetica headline, a rotated yellow color block with a bold mono tagline over it, three lines of body copy, a bobbing pink CTA button, a dashed-outline schedule card, and a small rotated yellow sparkle glyph — plus a run-wide note setting the page background, font and text color.",
+  "reading": "This is a riso-print/zine style promo block: two overlapping halftone-dot squares (pink dot-circle and a tilted blue dot-grid) sit behind a giant two-line \"PRINT CLUB\" headline with a misregistered pink shadow-copy, a rotated solid-yellow highlight bar, a bold mono tagline, three lines of body copy, a bobbing pink CTA button with a hard blue shadow, a dashed-rule 3-row event schedule, and a tilted yellow asterisk flourish — all on an off-white page set in Helvetica with blue body text.",
   "actions": [
     {
       "kind": "add",
@@ -275,7 +249,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Halftone dot screen block (a print-style sleeve, NOT a photo or plain disc): one 560x560px div, untransformed top-left at 640,80, a solid fill covered edge-to-e"
+      "instruction": "A halftone dot-screen block, not a photo: one 560x560px div, top-left at 640,80, transparent background covered edge-to-edge by a repeating fine grid of small #"
     },
     {
       "kind": "add",
@@ -290,7 +264,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Halftone dot screen block (print-style sleeve, NOT a photo or plain disc), overlapping the pink square: one 420x420px div, top-left at 560,260, solid fill cover"
+      "instruction": "A second halftone dot-screen block, not a photo: one 420x420px div, top-left at 560,260, transparent background covered edge-to-edge by a repeating fine grid of"
     },
     {
       "kind": "add",
@@ -316,7 +290,7 @@
         148
       ],
       "paths": [],
-      "instruction": "Giant Helvetica heavy uppercase tight-set heading, ink-like (multiply blend: darkens what it overlaps, never covers it), line-height 0.88, set in exactly 2 line"
+      "instruction": "Giant Helvetica heavy uppercase heading, ink-like (mix-blend-mode: multiply), tight-set across exactly 2 lines reading \"PRINT\" / \"CLUB\" (keep these line breaks,"
     },
     {
       "kind": "add",
@@ -331,7 +305,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Plain solid flat-color block, NOT a picture: 380x60px, top-left at 60,470 before rotation, filled flat opaque yellow #ffe800, no text/border/shadow, then rotate"
+      "instruction": "A plain solid flat-yellow (#ffe800) block, not a picture: 380x60px, top-left at 60,470 before rotation, fully opaque, no text/border/shadow, rotated -2deg about"
     },
     {
       "kind": "add",
@@ -356,7 +330,7 @@
         28
       ],
       "paths": [],
-      "instruction": "Big bold mono tagline \"two inks, no undo\", 32px, font-weight 700 (not regular), on one line (white-space: nowrap, never wrapped), about 326px wide, sitting over"
+      "instruction": "Bold mono tagline text, exactly \"two inks, no undo\", 32px, font-weight 700, single line (white-space: nowrap), about 326px wide, sitting over/near the yellow bl"
     },
     {
       "kind": "add",
@@ -383,7 +357,7 @@
         79
       ],
       "paths": [],
-      "instruction": "17px Georgia dark-grey (#333333) body copy in 3 lines, 420px wide, top-left at 70,580, exact quoted copy (nothing invented): \"A risograph studio and open worksh"
+      "instruction": "17px Georgia body copy in dark grey #333333, 3 lines, 420px wide, top-left at 70,580, exact text: \"A risograph studio and open workshop. Bring a file, leave wit"
     },
     {
       "kind": "add",
@@ -398,7 +372,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Gently bobbing (up/down) vivid pink button-card with off-white (#fbf6ea, not the page's usual blue) text \"BOOK A PRESS SLOT\", hard solid opaque blue shadow offs"
+      "instruction": "A CTA button, 259x50px, position absolute top-left at 70,740 (its own place on the page, not nested in other blocks), vivid pink fill that gently bobs up and do"
     },
     {
       "kind": "add",
@@ -413,7 +387,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Schedule card with a 2px dashed #0078bf outline (dashed, not solid) and dark-grey (#333333, not the page's blue) 15px monospace lines listing: \"TUE\", \"Zine nigh"
+      "instruction": "An event schedule block, 440px wide, top-left at 760,700, with no box outline: a 2px dashed #0078bf rule along the top only, and under each of its 3 rows (32px "
     },
     {
       "kind": "add",
@@ -428,7 +402,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Giant Helvetica regular-weight (not bold) yellow ✺ glyph, ink-like (multiply blend: darkens what it overlaps, never covers it), tilted 12° clockwise, 110px type"
+      "instruction": "A decorative flourish: the single character \"✺\" (U+273A) as live text, Helvetica regular weight, yellow, 110px, ink-like (mix-blend-mode: multiply), tilted 12de"
     }
   ],
   "rejected": [

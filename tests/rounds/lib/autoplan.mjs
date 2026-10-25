@@ -124,6 +124,9 @@ export function factsInPage() {
       clipText: /^text(,\s*text)*$/.test(cs.webkitBackgroundClip || cs.backgroundClip)  /* n154: layered backgrounds read 'text, text, text' */,
       border: { w: parseFloat(cs.borderTopWidth) || 0, colour: rgba(cs.borderTopColor), bottom: parseFloat(cs.borderBottomWidth) || 0, bottomColour: rgba(cs.borderBottomColor), left: parseFloat(cs.borderLeftWidth) || 0, leftColour: rgba(cs.borderLeftColor), topStyle: cs.borderTopStyle, bottomStyle: cs.borderBottomStyle, leftStyle: cs.borderLeftStyle, right: parseFloat(cs.borderRightWidth) || 0, rightColour: rgba(cs.borderRightColor) },
       radius: parseFloat(cs.borderTopLeftRadius) || 0,
+      // n226: rows each with a bottom rule (round 22 c5 schedule: border-top plus dashed rules under each row, said as a box
+      // outline and built as one dashed box)
+      rowRules: (() => { const k = [...el.children]; if (k.length < 2) return null; const rr = k.filter((c) => { const s = getComputedStyle(c); return parseFloat(s.borderBottomWidth) >= 1 && s.borderBottomStyle !== 'none' }); if (rr.length < 2 || rr.length < k.length) return null; const s = getComputedStyle(rr[0]); return { n: rr.length, w: parseFloat(s.borderBottomWidth), style: s.borderBottomStyle, c: rgba(s.borderBottomColor), rowH: Math.round(rr[0].getBoundingClientRect().height) } })(),
       radiusPct: cs.borderTopLeftRadius.includes('%') ? parseFloat(cs.borderTopLeftRadius) : null,
       // n192: round top corners over square bottom ones is an ARCH (round 19 c1 window built as a pill)
       archTop: parseFloat(cs.borderTopLeftRadius) >= 20 && parseFloat(cs.borderTopRightRadius) >= 20 && parseFloat(cs.borderBottomLeftRadius) < 1 && parseFloat(cs.borderBottomRightRadius) < 1,
@@ -284,7 +287,9 @@ export function factsInPage() {
         // n198: a 50%-only keyframe returns to the start too (round 20 c5 chips 'float{50%{translateY(-14px)}}' said scrolling)
         const back = (/0%,\s*100%\s*\{/.test(kf) && /\b50%\s*\{/.test(kf)) || (/\b50%\s*\{/.test(kf) && !/(\{|\})\s*(0%|from|100%|to)\s*[,{]/.test(kf))
         if (back) return /translate/.test(kf) ? 'gently bobbing up and down' : /rotate/.test(kf) ? 'wobbling back and forth' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'blinking' : 'moving'
-        return /rotate/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
+        // n226: a hue-rotate filter loop shifts colour, it does not spin (round 22 c3 aurora blobs said 'spinning')
+        if (/hue-rotate/.test(kf) && !/(?<!hue-)rotate\(/.test(kf)) return 'slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving)'
+        return /(?<!hue-)rotate\(/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
       })(),
       vertical: /^vertical/.test(cs.writingMode),
       // n133: the vertical words' own extent in the box (round 9 c5 title built short and low)
@@ -1407,7 +1412,7 @@ export function factsInPage() {
         return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo) } : null
       })(),
       // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
-      layoutBox: { w: el.offsetWidth, h: el.offsetHeight },
+      layoutBox: { w: el.offsetWidth, h: el.offsetHeight, x: el.offsetParent === document.body ? el.offsetLeft : undefined, y: el.offsetParent === document.body ? el.offsetTop : undefined },
       el: el.offsetParent === document.body || el.offsetParent === null ? { x: el.offsetLeft, y: el.offsetTop } : null,
       tokenInks: [...el.querySelectorAll('b,em,span,i,strong')].filter((k) => !k.children.length && txt(k)).map((k) => ({ t: txt(k), c: rgba(getComputedStyle(k).color) })),
       // a small textless pill: a toggle switch
@@ -2978,9 +2983,14 @@ function effectWords(f) {
   if (f.blend) w.push(/difference|exclusion/.test(f.blend) ? 'colour-inverting where it crosses what is under it'
     : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
     : /screen|lighten|color-dodge/.test(f.blend) ? 'light-like (screen blend: brightens what it overlaps)' : `${f.blend} blend over what is under it`)
-  if (f.blur >= 10) w.push('soft blurred')
+  // n226: a big textless blurred glow says its box and blur (round 22 c3 aurora blobs: pink built 300px right and low)
+  if (f.blur >= 30 && !(f.text ?? '').trim() && f.layoutBox?.w >= 150) w.push(`soft blurred (filter: blur(${Math.round(f.blur)}px)), its box ${f.layoutBox.w}x${f.layoutBox.h}px with its top-left at ${f.layoutBox.x ?? Math.round(f.rect.x)},${f.layoutBox.y ?? Math.round(f.rect.y)} before the blur (${f.radiusPct >= 45 ? 'a ROUND glow: border-radius 50%, never a square or a rounded square' : 'a square glow'}; the blur stays on ALWAYS${/hue-rotate/.test(f.motion ?? '') ? `: the hue keyframes keep it, e.g. to { filter: hue-rotate(60deg) blur(${Math.round(f.blur)}px) }, never a bare hue-rotate that drops the blur` : ''}; a soft cloud of colour with no hard edge)`)
+  else if (f.blur >= 10) w.push('soft blurred')
   // a dashed outline (round 9 c4 stamp: said 'outline circle', dashes lost)
-  if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)${f.text && f.colour && hexOf(f.colour) === hexOf(f.border.colour) ? `, its words in the SAME ${hexOf(f.colour)} as the outline (NOT the page's text colour)` : ''}`)
+  const RR = f.rowRules
+  const topOnly = f.border.w >= 1 && !f.border.bottom && !f.border.left && !f.border.right
+  if (f.border.topStyle === 'dashed' && topOnly && visible(f.border.colour)) w.push(`NOT a box outline: ONE ${f.border.w}px dashed ${hexOf(f.border.colour)} rule along its TOP only (border-top only; no left, right or bottom border)${RR ? `, and under EACH of its ${RR.n} rows its own ${RR.w}px ${RR.style} ${hexOf(RR.c)} rule (each row ${RR.rowH}px tall, border-bottom on every row, so the rows read as ruled lines)` : ''}; the block ${Math.round(f.rect.w)}px wide, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}`)
+  else if (f.border.topStyle === 'dashed' && f.border.w >= 1 && visible(f.border.colour)) w.push(`${f.border.w}px dashed ${hexOf(f.border.colour)} outline (dashes, not a solid line)${f.text && f.colour && hexOf(f.colour) === hexOf(f.border.colour) ? `, its words in the SAME ${hexOf(f.colour)} as the outline (NOT the page's text colour)` : ''}`)
   // a faded block: built solid otherwise (round 5 c3 cards at 75/45/20%)
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
   if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower ${f.maskFade.solidTo != null ? `${100 - f.maskFade.solidTo}% (solid above ${f.maskFade.solidTo}%)` : 'half'} by a banded mask (gaps of the page showing through between the bands, NOT a fade, NOT a plain gradient): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly${f.maskFade.comp ? `; mask-composite: ${f.maskFade.comp.split(',')[0].trim()} (the layers ADD: solid where either shows)` : ''};`)
@@ -3474,6 +3484,16 @@ function round10Extra(f, d) {
   if (B && d.kind === 'box') note += `; along its top edge a ${B.h}px title bar${B.rule ? ` with a ${B.rule}px ${hexOf(B.ruleC)} rule under it` : ''}: ${B.dots} ${B.ring ? `ring dots (${B.dot}px, 2px ${hexOf(B.dotC)} border, no fill)` : `${B.dot}px dots`} at its left${B.t ? ` and ${B.tpx}px widely spaced ${quote(B.t, 30)} at its right end` : ''}`
   // n137: a window inset from the page edges says its size and place (round 10 c3 built it full-page)
   if (B && d.kind === 'box' && f.rect.x >= 24 && f.rect.y >= 24 && f.rect.x + f.rect.w <= 1256) note += `; the window is ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded corners` : ''}${f.border?.w ? `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border` : ''}: INSET, the page shows round it on every side (NOT full-page, NOT edge to edge); the parts drawn inside it sit inside it`
+  // n226: round 22 c5 'PRINT CLUB': one hard offset text-shadow in a second ink (a misregistered riso print) went unsaid,
+  // and the 150px headline was said only as 'giant' (built ~200px, 580px wide over the dot screens)
+  if (hard.length >= 1 && hard.length <= 2 && f.font.size >= 32 && hard[0].c && !/shadow/i.test(note)) note += `; MISREGISTERED two-ink print: a second copy of the letters in ${hexOf(hard[0].c)} printed offset ${Math.round(hard[0].x)}px right and ${Math.round(hard[0].y)}px down behind them, exactly text-shadow: ${hard.map((s) => `${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${hexOf(s.c)}`).join(', ')} (a solid hard copy, no blur; NOT dropped)`
+  const fs = Math.round(f.font.size)
+  if (fs >= 100 && fs < 200 && (f.text ?? '').trim().length >= 2 && !new RegExp(`\\b${fs}px`).test(note) && !f.vertical && f.box0?.abs && !f.motion && !f.bleeds) note += `; exactly ${fs}px type (font-size ${fs}px, NOT larger)${Math.abs(f.font.spacing) >= 1 ? `, letter-spacing ${Math.round(f.font.spacing)}px` : ''}, its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute)`
+  // n226: a lone symbol glyph (round 22 c5 star '✺' built as a drawn yellow squiggle)
+  const g = (f.text ?? '').trim()
+  if ([...g].length === 1 && /[^\p{L}\p{N}\s]/u.test(g) && g.codePointAt(0) > 0x2000 && f.font.size >= 48 && !/live text/.test(note)) note += `; the single character "${g}" (U+${g.codePointAt(0).toString(16).toUpperCase()}) typed as LIVE TEXT in a text element at ${fs}px, its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (NEVER an SVG, path or drawn squiggle)`
+  // n226: a small filled button with square corners was built as a pill (round 22 c5 CTA)
+  if (visible(f.bg) && f.bg.a > 0.5 && f.radius < 1 && g && f.rect.h <= 80 && f.rect.w <= 400 && !/corner|rounded|pill|round|circle/i.test(note)) note += '; square corners (border-radius 0, NOT a pill, NOT rounded)'
   return note === d.note ? d : { ...d, note }
 }
 /** n138: a region said part by part, each part's page-px box, paint and text (nothing invented, nothing left out). */
@@ -3914,7 +3934,7 @@ function decideOne(f, page, marked, said) {
       const x0 = Math.round(f.rect.x + (w - lw) / 2), y0 = Math.round(f.rect.y + (h - lh) / 2)
       const dc = parse((f.bgImage.match(/rgba?\([^)]+\)|#[0-9a-f]{3,8}/i) || [''])[0])
       const hard = f.shadow && f.shadow !== 'none' && !/\d+px \d+px [1-9]\d*px/.test(f.shadow.replace(/rgba?\([^)]+\)/g, '')) ? `, box-shadow: ${cssHex(f.shadow)} (a HARD offset shadow, no blur, a solid slab behind one corner)` : f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''
-      return { kind: 'box', note: `a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE ${lw}x${lh}px div (its untransformed size) with its top-left at ${x0},${y0}, a SOLID ${fill ? `${colourName(f.bg)} ${hexOf(f.bg)}` : 'coloured'} fill covered edge to edge by a fine grid of small ${dc ? hexOf(dc) : ''} dots, exactly: background-color: ${fill ? hexOf(f.bg) : 'inherit'}; background-image: ${cssHex(f.bgImage)}; background-size: ${f.bgSize} (it REPEATS every ${Math.round(+dt[1])}px: rows and rows of dots, NOT one big disc)${f.turn ? `; transform: rotate(${f.turn}deg) (tilted ${Math.abs(f.turn)}deg ${f.turn < 0 ? 'anticlockwise' : 'clockwise'})` : ''}${hard}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ', square corners'}` }
+      return { kind: 'box', note: `a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE ${lw}x${lh}px div (its untransformed size) with its top-left at ${x0},${y0}, ${fill ? `a SOLID ${colourName(f.bg)} ${hexOf(f.bg)} fill` : 'NO fill of its own (see-through between the dots)'} covered edge to edge by a fine grid of small ${dc ? hexOf(dc) : ''} dots, exactly: background-color: ${fill ? hexOf(f.bg) : 'transparent'}; background-image: ${cssHex(f.bgImage)}; background-size: ${f.bgSize} (it REPEATS every ${Math.round(+dt[1])}px: rows and rows of dots, NOT one big disc)${f.turn ? `; transform: rotate(${f.turn}deg) (tilted ${Math.abs(f.turn)}deg ${f.turn < 0 ? 'anticlockwise' : 'clockwise'})` : ''}${hard}${f.radiusPct >= 45 ? `; border-radius: 50% (cut to a perfect CIRCLE ${lw}px across: a round disc of dots, NOT a square, NOT a rounded square)` : f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ', square corners'}` }
     }
     if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
   }
@@ -4784,7 +4804,9 @@ function decideOne(f, page, marked, said) {
     // n133: a filled bar's own shape and place: round 9 e1's toolbar (a 20px-round pale pill inset 12px) was
     // built as a square full-width strip, and its sheet tabs (pinned to the page bottom) built right under the grid
     const R = f.rect, pill = fill && w >= 600 && f.radius >= Math.min(12, h / 2 - 2)
-    const shape = pill ? `a ${f.radius >= h / 2 - 1 ? 'fully rounded' : `${Math.round(f.radius)}px-rounded`} ${hexOf(f.bg)} pill ${Math.round(w)}x${Math.round(h)}px at x ${Math.round(R.x)}, top ${Math.round(R.y)} (inset from the page sides, NOT a square full-width strip), ` : ''
+    // n226: a see-through glass pill (round 22 c3 nav: rgba white 10% with backdrop blur said '#ffffff pill', built solid white)
+    const glassFill = fill && (f.backdrop || f.bg.a < 0.5) ? `FROSTED GLASS (NOT a solid ${colourName(f.bg)} pill): see-through fill rgba(${f.bg.r}, ${f.bg.g}, ${f.bg.b}, ${Math.round(f.bg.a * 100) / 100})${f.backdrop ? ', backdrop-filter: blur(18px)' : ''}${bordered ? `, a 1px see-through rgba(${f.border.colour.r}, ${f.border.colour.g}, ${f.border.colour.b}, ${Math.round(f.border.colour.a * 100) / 100}) border` : ''}, the page showing through it; ` : ''
+    const shape = pill ? `${glassFill}a ${f.radius >= h / 2 - 1 ? 'fully rounded' : `${Math.round(f.radius)}px-rounded`} ${glassFill ? 'glass' : hexOf(f.bg)} pill ${Math.round(w)}x${Math.round(h)}px at x ${Math.round(R.x)}, top ${Math.round(R.y)} (inset from the page sides, NOT a square full-width strip), ` : ''
     const foot = fill && w >= 600 && R.y + h >= 896 ? `; this bar is pinned to the very BOTTOM of the page (top ${Math.round(R.y)}, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above` : ''
     // n222: a tab row ruled along its bottom only (round 21 e5 tabs: the 1px rule under Members / Roles / ... lost)
     const rule = !fill && !bordered && f.border.bottom >= 1 && f.border.w < 1 && visible(f.border.bottomColour) && f.kidOn?.under ? `; a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along the bar's bottom edge across its full ${Math.round(w)}px width (border-bottom), with ${Math.round(f.kidOn.box?.h ?? h)}px tall items whose text sits at their top (padding-bottom under the words), so the selected underline lies on that rule` : ''

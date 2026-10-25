@@ -301,7 +301,7 @@
    ],
    [
     "headline",
-    "giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Walk into the folds.\", set in exactly 2 lines: \"Walk into the\" / \"folds.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 577px wide); plus a small separate 13px #e63946 label \"SEASON 2027 · 14 ROUTES\" with 4px letter-spacing at 60,96, 9px above it and left-aligned with it (keep it, it is part of this heading)"
+    "giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Walk into the folds.\", set in exactly 2 lines: \"Walk into the\" / \"folds.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 577px wide); plus a small separate 13px #e63946 label \"SEASON 2027 · 14 ROUTES\" with 4px letter-spacing at 60,96, 9px above it and left-aligned with it (keep it, it is part of this heading); exactly 120px type (font-size 120px, NOT larger), letter-spacing -4px, its box's top-left at 56,120 (position absolute)"
    ],
    [
     "booking-card",

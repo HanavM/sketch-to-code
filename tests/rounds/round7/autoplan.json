@@ -233,7 +233,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow #fde68a (left) to light pink #f472b6 (right) gradient text \"The city after dark\", set in exactly 2 lines: \"The city\" / \"after dark\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.95) soft yellow #fde68a (left) to light pink #f472b6 (right) gradient text \"The city after dark\", set in exactly 2 lines: \"The city\" / \"after dark\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide); exactly 120px type (font-size 120px, NOT larger), letter-spacing -4px, its box's top-left at 80,170 (position absolute)"
    ],
    [
     "sub",
@@ -621,7 +621,7 @@
    ],
    [
     "headline",
-    "colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) white \"Salt & Stone\", set in exactly 2 lines: \"Salt &\" / \"Stone\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 364px wide)"
+    "colour-inverting where it crosses what is under it giant Georgia italic serif regular weight (not bold) tight-set letters lines set tight (line-height 0.9) white \"Salt & Stone\", set in exactly 2 lines: \"Salt &\" / \"Stone\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 364px wide); exactly 150px type (font-size 150px, NOT larger), letter-spacing -4px, its box's top-left at 150,300 (position absolute)"
    ],
    [
     "column",

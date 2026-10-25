@@ -65,7 +65,7 @@
    ],
    [
     "headline",
-    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Slow travel, fast friends\", set in exactly 2 lines: \"Slow travel, fast\" / \"friends\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 719px wide)"
+    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Slow travel, fast friends\", set in exactly 2 lines: \"Slow travel, fast\" / \"friends\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 719px wide); exactly 118px type (font-size 118px, NOT larger), letter-spacing -3px, its box's top-left at 56,210 (position absolute)"
    ],
    [
     "body",
@@ -185,11 +185,11 @@
    ],
    [
     "blob-pink",
-    "soft blurred big vivid pink circle"
+    "soft blurred (filter: blur(40px)), its box 420x420px with its top-left at 120,80 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) big vivid pink circle"
    ],
    [
     "blob-cyan",
-    "soft blurred big vivid cyan circle"
+    "soft blurred (filter: blur(40px)), its box 480x480px with its top-left at 760,380 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) big vivid cyan circle"
    ],
    [
     "card",
@@ -763,7 +763,7 @@
    ],
    [
     "m1",
-    "the region itself is ONE 379x71px top bar element at 200,0 (its own wrapper, #eff6ff fill, a 1px #f4f4f5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 71px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\"; each word in its own colour: \"Maya Chen\" #111111, \"Draft of the Q3 plan attached\" #71717a"
+    "the region itself is ONE 379x71px top bar element at 200,0 (its own wrapper, #eff6ff fill, a 1px #f4f4f5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 71px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\"; each word in its own colour: \"Maya Chen\" #111111, \"Draft of the Q3 plan attached\" #71717a; square corners (border-radius 0, NOT a pill, NOT rounded)"
    ],
    [
     "m2",

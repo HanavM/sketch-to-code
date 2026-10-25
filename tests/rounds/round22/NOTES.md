@@ -56,3 +56,20 @@ keeps its circle, misregistered type says its offset shadow.
 - Re-planned rounds 1-21: r5 e5 (sheet words) and r16 e1 (selection handle overhang) change. Live r5 e5 86 (was 87:
   run noise, structure 95 vs 97; old run kept).
 - Round 22: **83%** over 10 (82.8). Vitest same 2 env failures; typecheck clean.
+
+## n226: riso halftone and glass aurora (2026-10-25, ~165k billed)
+
+- c5 riso halftone **64 → 96%** (colour 99, structure 99, layout 92). The pink dot screen's border-radius 50% was said
+  as "50px rounded" (built square); the 150px headline was said only as "giant" (built ~200px over the dots) and its
+  one hard pink text-shadow (the misregistered second ink) went unsaid; the star glyph was drawn as a squiggle; the
+  schedule's border-top plus per-row dashed rules read as one dashed box; the square CTA was built as a pill. Now a
+  halftone cut round says CIRCLE, a 100-199px absolutely placed headline says its px, tracking and place, one or two hard
+  coloured text-shadows say MISREGISTERED with the exact shadow, a lone symbol glyph says live text, a top-only dashed
+  rule with ruled rows says so, and a small filled square-cornered button says square corners.
+- c3 glass aurora: the glass nav is now said as frosted glass (rgba fill, blur, see-through border) and built right;
+  blobs say box, place, round and 70px blur, and hue-rotate keyframes are no longer read as "spinning". Two live runs
+  71, 71: the build drops the blobs' blur both times (hard-edged colour discs), so the 77 build is kept; the try is
+  saved as c3-glass-aurora-n226try-cmp.png. Next: find where the blur is lost between words and code.
+- Re-planned rounds 1-21: absolutely placed 100-199px headlines in r2-4, r7-11, r13, r15, r19 gain px and place; small
+  square buttons in r2, r4, r8, r10, r15, r20 say square corners; blurred blobs in r2 c3 and r4 c4 say box and blur.
+- Round 22: **86%** over 10 (86.0). Vitest same 2 env failures; typecheck clean.
