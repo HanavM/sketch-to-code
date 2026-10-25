@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 19 is up to 88%: the magazine cover (89%), lantern night (91%) and team settings (82%) pages now keep their cream cover, hanging lanterns, neon glow and pale status pills. Next: parts that overlap keep their stacking order (the cover head behind the figure), then round 20."
 round: 19
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 88]
-lock: null
+lock: {by: run-n196, until: "2026-10-25T04:13Z"}
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
