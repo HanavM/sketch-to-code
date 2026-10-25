@@ -246,6 +246,8 @@ export function factsInPage() {
       })(),
       rotate: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0 })(),
       blur: parseFloat((cs.filter.match(/blur\(([\d.]+)px/) || [])[1]) || 0,
+      // n216: a coloured drop-shadow filter glow (round 21 c5 chrome title's pink glow, unsaid and lost)
+      dropGlow: (() => { const m = cs.filter.match(/drop-shadow\((rgba?\([^)]+\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px\)/); return m && +m[4] >= 6 ? { c: rgba(m[1]), x: +m[2], y: +m[3], blur: Math.round(+m[4]) } : null })(),
       // n182: the turn to a tenth of a degree, the outline, and the block's own animation as written (round 18 c5 lede
       // card turned -1.5deg read as -1; the stamp's solid outline round its perforated edge unsaid; the sticky note's bob)
       turn: (() => { const m = cs.transform.match(/matrix\(([^,]+),\s*([^,]+)/); return m ? Math.round(Math.atan2(+m[2], +m[1]) * 1800 / Math.PI) / 10 : 0 })(),
@@ -2804,7 +2806,9 @@ function gradientWords(f) {
   // which end is which (round 4 c1 blue photo built flat navy, round 5 c4 dark end on the
   // wrong side): a two-colour linear blend says where each colour sits and whether it is vivid
   const ends = linearEnds(f.bgImage)
-  if (ends && names.length === 2 && /^linear-gradient/.test(f.bgImage.trim())) {
+  // n216: not when a single blend has 3+ stops (round 21 c5 page: dark, purple 55%, dark 56% said 'dark to dark')
+  const st3 = linearStops(f.bgImage)
+  if (ends && names.length === 2 && /^linear-gradient/.test(f.bgImage.trim()) && !(st3 && st3.length >= 3 && dist(st3[0].c, st3[st3.length - 1].c) < 20)) {
     const cs = f.bgImageColours.filter((c) => (parse(c)?.a ?? 1) >= 0.3)
     const say = (c) => `${vivid(c) ? 'vivid ' : ''}${colourName(c)} ${hexOf(parse(c))}`
     return `${say(cs[0])} (${ends[0]}) to ${say(cs[cs.length - 1])} (${ends[1]}) gradient`
@@ -2813,7 +2817,8 @@ function gradientWords(f) {
   // (round 7 c3 sky #0f172a → #312e81 55% → #be185d said 'dark navy to dark grey to dark pink', built dark grey)
   const stops = linearStops(f.bgImage)
   // n141: two stops at the same place are a hard edge (round 11 c4 horizon: cream sky, dark ground from 55% down)
-  const cut = stops && stops.findIndex((x, i) => i && x.at === stops[i - 1].at && dist(x.c, stops[i - 1].c) > 60)
+  // n216: stops 1% apart are a hard edge too (round 21 c5 horizon: purple at 55%, near-black at 56%)
+  const cut = stops && stops.findIndex((x, i) => i && x.at - stops[i - 1].at <= 1 && dist(x.c, stops[i - 1].c) > 40)
   if (ends && stops && cut > 0) return `${stops.slice(0, cut).map((x) => `${colourName(x.c)} (${hexOf(x.c)})`).join(' to ')} gradient down to ${stops[cut].at}% (the edge at y ${Math.round(stops[cut].at / 100 * (f.rect?.h || 900))}px: the page is exactly ${Math.round(f.rect?.h || 900)}px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid ${colourName(stops[cut].c)} (${hexOf(stops[cut].c)}) below it to the ${ends[1]} (linear-gradient(${stops.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
   if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? `, its stop at ${x.at}% of the way along, fully opaque` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
   return `${names.join(' to ')} gradient`
@@ -4493,6 +4498,14 @@ function decideOne(f, page, marked, said) {
       const sep = (f.ownText ?? '').replace(/\s+/g, '')[0]
       return { kind: 'box', note: `a stepper: ${kl.length} filled pills in one row${sep ? `, a small grey "${sep}" between each pair` : ''}, each ${Math.round(kl[0].h)}px tall (border-radius 999px), left to right: ${kl.map((k) => `${quote(k.t)} ${k.fill.a < 0.5 ? `SEE-THROUGH glass fill (background: rgba(${k.fill.r}, ${k.fill.g}, ${k.fill.b}, ${Math.round(k.fill.a * 100) / 100}), only ${Math.round(k.fill.a * 100)}% strong, so the page shows through; NOT solid white)${k.bw >= 1 && k.bc ? `, a ${k.bw}px ${hexOf(k.bc)}${k.bc.a < 0.95 ? ` at ${Math.round(k.bc.a * 100)}%` : ''} outline` : ''}` : `${hexOf(k.fill)} fill`}, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}` }
     }
+    // n216: a row of like filled pills (tags) says the pill and its fill; round 21 c2's see-through white tags were
+    // built as outlined chips from 'buttons:'
+    const k0p = kl[0], pills = !mixed && !lead && !states && kl.length === f.kidCount && kl.length >= 2 && kl.every((k) => k.fill?.a > 0.05 && !(k.bw >= 1) && k.radius >= k.h / 2 - 2 && Math.abs(k.h - k0p.h) <= 2 && hexOf(k.fill) === hexOf(k0p.fill) && Math.abs(k.fill.a - k0p.fill.a) < 0.05)
+    if (pills) {
+      const gaps = kl.every((k) => k.left != null) ? kl.slice(1).map((k, i) => Math.round(k.left - kl[i].right)) : []
+      const fillSay = k0p.fill.a < 0.95 ? `a SEE-THROUGH ${colourName({ ...k0p.fill, a: 1 })} fill (background: rgba(${k0p.fill.r}, ${k0p.fill.g}, ${k0p.fill.b}, ${Math.round(k0p.fill.a * 100) / 100}), ${Math.round(k0p.fill.a * 100)}% strong, the page showing through)` : `a solid ${colourName(k0p.fill)} (${hexOf(k0p.fill)}) fill`
+      return { kind: 'box', note: `${kl.length} FILLED pill tags in one row${gaps.length && gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? `, ${gaps[0]}px apart` : ''}, each ${Math.round(k0p.h)}px tall, fully rounded (border-radius 999px), ${fillSay}, NO border (NOT outlined chips), ${k0p.bold ? 'bold ' : ''}${hexOf(k0p.ink)} text: ${f.kidTexts.map((t) => quote(t)).join(', ')}` + on }
+    }
         return { kind: 'box', note: (mixed ? items.join(', ') : `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}`) + on + states }
   }
   // a bar with one item at each end (a logo left, links right): round 5 c1 nav and c3 frosted header were unsaid
@@ -4600,7 +4613,10 @@ function decideOne(f, page, marked, said) {
     // n137: a small label just above a giant word (round 10 c2 '01 /' mono numbers): no mark carries it
     const LA = f.labelAboveStyle && f.font.size >= 40 && f.labelAbove ? f.labelAboveStyle : null
     const lab = LA ? (said.add(f.labelAbove), `; plus a small separate ${LA.px}px ${isMono(LA.family) ? 'monospace (font-family Courier New, monospace) ' : ''}${hexOf(LA.colour)} label ${quote(f.labelAbove, 32)}${LA.ls >= 1 ? ` with ${Math.round(LA.ls)}px letter-spacing` : ''} at ${LA.x},${LA.y}, ${LA.gap}px above it and left-aligned with it (keep it, it is part of this heading)`) : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${centreSay}${mid}${ttl}${under}${lab}`.trim()) }
+    // n216: gradient letters with a coloured drop-shadow glow round them (round 21 c5 title's pink glow lost)
+    const DG = f.dropGlow && f.clipText ? f.dropGlow : null
+    const dropSay = DG ? `, GLOWING: a ${colourName(DG.c)} halo round the letters, exactly filter: drop-shadow(${DG.x}px ${DG.y}px ${DG.blur}px ${hexOf(DG.c)}) on the heading itself (a filter, NOT a text-shadow, which gradient text would hide)` : ''
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${centreSay}${dropSay}${mid}${ttl}${under}${lab}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {

@@ -159,7 +159,7 @@
    ],
    [
     "tags",
-    "buttons: \"Elevation\", \"Shadows\", \"Depth\"; placed on its own: position absolute, its top-left at 64,700 of the page, 56px of empty space above it (under the cta); NOT stacked straight under the cta, it keeps its own y"
+    "3 FILLED pill tags in one row, 12px apart, each 32px tall, fully rounded (border-radius 999px), a SEE-THROUGH white fill (background: rgba(255, 255, 255, 0.55), 55% strong, the page showing through), NO border (NOT outlined chips), bold #3a1a14 text: \"Elevation\", \"Shadows\", \"Depth\"; placed on its own: position absolute, its top-left at 64,700 of the page, 56px of empty space above it (under the cta); NOT stacked straight under the cta, it keeps its own y"
    ],
    [
     "floor-shadow",
@@ -437,7 +437,7 @@
   "notes": [
    [
     "*",
-    "whole page: near-black indigo #0b0221 (top) to near-black indigo #0b0221 (bottom) gradient page, Helvetica type, white text, fine grain texture over everything"
+    "whole page: near-black indigo (#0b0221) to dark plum (#2a0845) gradient down to 56% (the edge at y 504px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid near-black indigo (#0b0221) below it to the bottom (linear-gradient(#0b0221 0%, #2a0845 55%, #0b0221 56%)) page, Helvetica type, white text, fine grain texture over everything"
    ],
    [
     "nav",
@@ -453,7 +453,7 @@
    ],
    [
     "chrome-title",
-    "giant italic heavy uppercase off-white (#e0f7ff) to sky blue (#6ad4ff, its stop at 48% of the way along, fully opaque) to deep indigo (#1b1f6b, its stop at 50% of the way along, fully opaque) to light pink (#ff8ad8) gradient, top to bottom text \"NIGHTDRIVE\", 130px type, about 802px wide (no larger), CENTRED on the page (text-align center; its text runs from x=239 to x=1041, centre at x=640; NOT left-aligned)"
+    "giant italic heavy uppercase off-white (#e0f7ff) to sky blue (#6ad4ff, its stop at 48% of the way along, fully opaque) to deep indigo (#1b1f6b, its stop at 50% of the way along, fully opaque) to light pink (#ff8ad8) gradient, top to bottom text \"NIGHTDRIVE\", 130px type, about 802px wide (no larger), CENTRED on the page (text-align center; its text runs from x=239 to x=1041, centre at x=640; NOT left-aligned), GLOWING: a pink halo round the letters, exactly filter: drop-shadow(0px 0px 18px #ff2bd6) on the heading itself (a filter, NOT a text-shadow, which gradient text would hide)"
    ],
    [
     "neon-script",

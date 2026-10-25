@@ -170,3 +170,20 @@ page-level divs (not inside the strip), with x, length and colour. Re-planned ro
 Round 21: **83%** over 10 (89, 91, 90, 78, 84, 76, 86, 75, 79, 81; 82.9, was 82.5). Vitest same 2 env failures (1459
 tests); typecheck clean.
 Next: c5 neon grid (84) title glow and the purple horizon band; c2 tags as filled pills; e3 gantt (75) and e2 (76).
+
+## n216: a gradient title's drop-shadow glow, a page blend's middle stop, filled pill tags (2026-10-25, ~140k billed for two runs)
+
+Planner (words only): gradient-filled letters with a coloured `filter: drop-shadow` now say the glow as that filter (a
+text-shadow would be hidden by the gradient text); a page blend with three or more stops whose two ends are the same
+colour is said stop by stop, not "dark to dark", and two stops 1% apart count as a hard edge (round 21 c5: purple band
+to 55%, then near-black); a row of like filled pills with no border says FILLED pills, their size, gap and see-through
+fill (round 21 c2 tags were built as outlined chips). Re-planned rounds 1-21: only round 21 c5 and c2 change.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c5 neon grid | 84% | **91%** | pink glow round the title and the purple band to the horizon both built (colour 98, structure 96, layout 78, effects 100%); the nav missed by the region check |
+| c2 depth stack | 91% | 55% (not kept) | tags now filled see-through pills, but this run built the 3D card stack as one flat gradient slab; kept build stays 91% (run saved as c2-depth-stack-n216-cmp.png) |
+
+Round 21: **84%** over 10 (89, 91, 90, 78, 91, 76, 86, 75, 79, 81; 83.6, was 82.9). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: c2's 3D stack is lost in 2 of 4 runs (flat slab); then e3 gantt (75) and e2 analytics (76).
