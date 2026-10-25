@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T17:20Z | n216 gradient title glow, page middle stop, filled pill tags | c5 neon grid 84 to 91; c2 run 55 stack flattened, kept 91; round 21 84. ~140k.
 2026-10-25T16:44Z | n215 page grid lines said again on the drawn divider rule | c4 swiss orbit 74 to 78, hairlines and bars kept; round 21 83. ~138k.
 2026-10-25T17:10Z | n214 big flat disc as one placed div, spaced letters, bar stack kept apart | c4 swiss orbit runs 73, 70 (kept 74): disc and heads fixed, other parts dropped. ~297k.
 2026-10-25T16:05Z | n213 3D faces keep their own place inside the turned group | c2 depth stack 65 to 91, stack right of headline; round 21 83. ~70k.
