@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T15:38Z | n212 stripe-cut sun, centred display words, glowing button said | c5 neon grid 77 to 84; c2 re-check 65 not 86; round 21 80. ~168k.
 2026-10-25T15:25Z | n211 small parts keep their own place, soft floor shadow said | c2 depth stack 51 to 86; round 21 81. ~130k.
 2026-10-25T14:15Z | n210 exact CSS shapes skip the drawn outline (shard, triangle, 1px rules, bars) | c3 mask reveal 86 to 90, c4 swiss orbit 66 to 74; round 21 78. ~170k.
 2026-10-25T13:50Z | n209 cut shapes, quarter-turned numeral, ring dots, page hairlines | c3 mask reveal 46 to 86, c4 swiss orbit 48 to 66; round 21 77. ~265k.
