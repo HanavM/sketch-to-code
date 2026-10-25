@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 20 is up to 84%: the team chat now has its red badges, boxed code and thread colours (77%). Next: the chat composer, spreadsheet toolbar and paper cutout."
+now: "Round 20 is up to 85%: the team chat now has its real message box with a green send button (84%). Next: the spreadsheet, checkout, calendar and paper cutout."
 round: 20
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 84]
-lock: {by: run-2026-10-25T07, until: '2026-10-25T08:40Z'}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 85]
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n201 (4176be1 on try/n3-vocabulary): planner: a bordered rounded region with a format bar, placeholder and textless filled block is a message composer (size, place, bar rule, placeholder, send button size/colour/corner); a short line just under it is said to sit below it; a big dark block with light text gives its exact hex. Re-planned all rounds: r1, r5, r9, r12, r16 gain a dark panel hex only; r20 e2 changes. Live e2 77 to 84; round 20 85. Vitest same 2 env failures; typecheck clean."
+  - "Token ledger: 2026-10-25 n201 live r20 e2 ~87k (no cap set)."
   - "n200 (953bf73 on try/n3-vocabulary): planner: list rows say a filled count pill and its colour at the right end; thumbnail lists with differing colours say each, a long last line goes under the name, a divider between items is said in place; a one-line monospace line with fill/border is a code box; dark body copy is not a link line. Re-planned all rounds: r12 e3, r16 e4, r20 e1 (id dropped), e2 change. Live e2 74 to 77; round 20 84. Vitest same 2 env failures; typecheck clean."
   - "Token ledger: 2026-10-25 n200 live r20 e2 ~60k (no cap set)."
   - "n199 (cfacc19 on try/n3-vocabulary): planner: a 200-299px one-line word in a padded box says its top-left, padding, tight line-height, letter-spacing; heading + own running copy quoted whole (r20 c2 manifesto, r1 c5 sidebar); a lone turned word is one part; a 7-column day grid in the flow (no presets/buttons/shadow) is a sidebar month, not a picker; dark-filled left-edge event keeps fill + selection ring; a region's leading button said first with look and place; a ruled grid says its left and right edges. Re-planned all rounds: only r1 c5 and r20 c2, e1 change. Live c2 67 to 92, e1 68 to 76 (first try 61, grid 24px right; fixed by the edge note); round 20 83. Vitest same 2 env failures; typecheck clean."
@@ -647,4 +649,5 @@ nodes:
   - {id: n198, parent: n197, kind: step, title: "Free first, ~250k live: r20 e1 calendar events, hour labels and grid rules lost (49), c5 marker highlight lost and phone shifted (66), c1 halftone sun built as a 3D sphere, c2 inline highlight broke the copy. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "c1 74 to 90, c5 66 to 89, e1 49 to 68 (events built); c2 72 to 67; round 20 at 80."}
   - {id: n199, parent: n198, kind: step, title: "Free first, ~250k live: r20 c2 giant year built low and big (say its top-left), manifesto copy invented; e1 mini month built as a floating picker, selected event grey; e2, e3 at 74-75. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Year placed, manifesto quoted, sidebar month, indigo selected event: c2 67 to 92, e1 68 to 76; round 83."}
   - {id: n200, parent: n199, kind: step, title: "Free first, ~300k live: r20 e2 team chat 74, e3 spreadsheet 75, e4 checkout 77 (stepper missed), c4 paper cutout 78; e1 day heads left-aligned (target centred). Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Team chat 74 to 77: red count badges, boxed code line, thread avatars own colours and divider; round 20 84."}
-  - {id: n201, parent: n200, kind: step, title: "Free first, ~250k live: r20 e2 composer (toolbar row, green send button, typing line under it) and channel pane fill; e3 spreadsheet toolbar 76; c4 paper cutout 78 (structure 64); e1 day heads centred. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n201, parent: n200, kind: step, title: "Free first, ~250k live: r20 e2 composer (toolbar row, green send button, typing line under it) and channel pane fill; e3 spreadsheet toolbar 76; c4 paper cutout 78 (structure 64); e1 day heads centred. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Team chat 77 to 84: composer box with format bar, green send button, typing line under it; dark channel pane."}
+  - {id: n202, parent: n201, kind: step, title: "Free first, ~250k live: r20 e3 spreadsheet 76 (colour 65: toolbar and header fills), e4 checkout 77, e1 week calendar 77, c4 paper cutout 78 (structure 64). Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
