@@ -983,6 +983,9 @@ export function factsInPage() {
       // text set round a circle (an SVG textPath badge)
       circleText: (() => {
         const t = el.querySelector('textPath'); if (!t) return null
+        // n195: a small ring inside a big block is one of its parts, not the block (round 19 c5 cover: the 160px ring made
+        // the whole 600x840 cover 'a circle')
+        { const sb = (t.closest('svg') || el).getBoundingClientRect(); if (sb.width * sb.height < 0.4 * r.width * r.height) return null }
         const tx = t.closest('text'), cs = tx ? getComputedStyle(tx) : null
         const path = document.getElementById((t.getAttribute('href') || t.getAttribute('xlink:href') || '').replace('#', ''))
         const rad = path ? +((path.getAttribute('d') || '').match(/a\s*([\d.]+)/)?.[1] || 0) : 0
@@ -1262,9 +1265,31 @@ export function factsInPage() {
         if (!kids.length || kids.some((k) => getComputedStyle(k).position !== 'absolute')) return null
         const dots = kids.find((k) => /radial-gradient/.test(getComputedStyle(k).backgroundImage) && getComputedStyle(k).backgroundSize !== 'auto')
         if (!dots) return null
+        // n195: several dot layers at scattered spots on the block's own fill is a terrazzo, not a dot-grid disc
+        // (round 19 c5 cream cover: said as a red dot disc on the page colour, built huge red dots, cream lost)
+        if ((getComputedStyle(dots).backgroundImage.match(/radial-gradient/g) || []).length >= 3) return null
         const o = el.getBoundingClientRect(), at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), round: (() => { const r = getComputedStyle(k).borderTopLeftRadius; return r.includes('%') ? parseFloat(r) >= 40 : parseFloat(r) >= b.width * 0.4 })() } }
         const ds = getComputedStyle(dots)
         return { box: { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height) }, dots: { ...at(dots), cell: Math.round(parseFloat(ds.backgroundSize)), c: rgba(ds.backgroundImage), dotPct: Math.round(parseFloat((ds.backgroundImage.match(/\)\s*([\d.]+)%/) || [])[1]) || 40) }, solids: kids.filter((k) => k !== dots && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05).map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor) })) }
+      })(),
+      // n195: a hanging lantern: a thin ::before string from the block's top and a glowing radial-gradient ball at its end
+      // (round 19 c3: no note at all, built as square boxes with no strings or glow)
+      lantern: (() => {
+        const pb = getComputedStyle(el, '::before'), sw = parseFloat(pb.width), sh = parseFloat(pb.height)
+        if (!pb.content || pb.content === 'none' || !(sw <= 4) || !(sh >= 40)) return null
+        const ball = kids.find((k) => /radial-gradient/.test(getComputedStyle(k).backgroundImage) && getComputedStyle(k).boxShadow !== 'none')
+        if (!ball) return null
+        const bs = getComputedStyle(ball), o = el.getBoundingClientRect()
+        // the ball's untransformed place (the block sways, so its box moves): offsets from the block's own left,top
+        return { x: Math.round(o.left === 0 && !el.offsetLeft ? 0 : el.offsetLeft), y: el.offsetTop, len: Math.round(sh), sw: Math.round(sw), sc: rgba(pb.backgroundColor), bx: ball.offsetLeft, by: ball.offsetTop, bw: ball.offsetWidth, bh: ball.offsetHeight, img: bs.backgroundImage, shadow: bs.boxShadow, rad: bs.borderTopLeftRadius, origin: cs.transformOrigin }
+      })(),
+      // n195: a full-cover layer of several scattered dot gradients tiled over the block's own fill (round 19 c5 terrazzo)
+      terrazzo: (() => {
+        const o = el.getBoundingClientRect()
+        const k = kids.find((y) => { const ys = getComputedStyle(y), b = y.getBoundingClientRect(); return !(y.innerText || '').trim() && (ys.backgroundImage.match(/radial-gradient/g) || []).length >= 3 && ys.backgroundSize !== 'auto' && b.width >= 0.9 * o.width && b.height >= 0.9 * o.height })
+        if (!k) return null
+        const ys = getComputedStyle(k)
+        return { img: ys.backgroundImage, size: ys.backgroundSize, n: (ys.backgroundImage.match(/radial-gradient/g) || []).length }
       })(),
       // a run of words in outline with some filled (round 9 c5 marquee: said '"FIRE" left, "FIRE" right')
       outlineRun: (() => {
@@ -1415,6 +1440,18 @@ export function factsInPage() {
             // n175: vertical type (round 17 c5 '99.99%' set vertical-rl turned 180deg, built horizontal), a line wider than the
             // tile that clips it (the logo strip built spilling out of its tile), and its CSS animation
             vert: own && /^vertical/.test(s.writingMode) ? (/^matrix\(-1,/.test(s.transform) ? 'up' : 'down') : null,
+            // n195: a word set HOLLOW (round 19 c5 masthead copy: said '#000000 at 0%'), a part cut by clip-path inset
+            // (its right half only over the figure), and letters set round a circle (the cover's spinning ring: said as a
+            // plain 158x157 text box)
+            stroke: own && parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 ? { px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor) } : null,
+            clipIn: /^inset\(/.test(s.clipPath) ? s.clipPath : null,
+            tpath: k.tagName === 'textPath' ? (() => {
+              const sv = k.closest('svg'), sb = sv.getBoundingClientRect(), vb = sv.viewBox?.baseVal, sc = vb && vb.width ? sb.width / vb.width : 1
+              const pa = document.getElementById((k.getAttribute('href') || k.getAttribute('xlink:href') || '').replace('#', ''))
+              const rad = pa ? +((pa.getAttribute('d') || '').match(/a\s*([\d.]+)/)?.[1] || 0) : 0
+              const ss = getComputedStyle(sv)
+              return { r: Math.round(rad * sc), cx: Math.round(sb.left + sb.width / 2), cy: Math.round(sb.top + sb.height / 2), box: Math.round(sb.width), ls: Math.round((parseFloat(s.letterSpacing) || 0) * sc), spin: ss.animationName !== 'none' ? ss.animationDuration : null }
+            })() : null,
             clip: own ? (() => { for (let q = k.parentElement; q && q !== document.body; q = q.parentElement) { const qs = getComputedStyle(q); if (/hidden|clip/.test(qs.overflowX)) { const qb = q.getBoundingClientRect(); return b.width > qb.width + 4 ? { w: Math.round(qb.width), x: Math.round(qb.left), shown: Math.round(Math.min(b.right, qb.right) - Math.max(b.left, qb.left)) } : null } } return null })() : null,
             anim: s.animationName && s.animationName !== 'none' ? (() => { const kf = [...document.styleSheets].flatMap((ss) => { try { return [...ss.cssRules] } catch { return [] } }).find((r) => r.type === 7 && r.name === s.animationName.split(',')[0].trim()); return { name: s.animationName, dur: s.animationDuration, timing: s.animationTimingFunction, iter: s.animationIterationCount, delay: s.animationDelay, origin: (() => { const o = s.transformOrigin.split(' ').map(parseFloat); return o[1] >= k.offsetHeight - 1 ? 'bottom' : o[1] <= 1 ? 'top' : 'center' })(), kf: kf ? kf.cssText.replace(/\s+/g, ' ').slice(0, 240) : null } })() : null })
           if (out.length > 120) break
@@ -2385,7 +2422,10 @@ export function factsInPage() {
     } else if (btn && !el.querySelector('[data-r]')) {
       const c = getComputedStyle(btn), b = btn.getBoundingClientRect()
       const txt = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
-      if (txt.length >= 12) o.copyBtn = { txt, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), bold: Number(c.fontWeight) >= 600, bpx: Math.round(parseFloat(c.fontSize)) }
+      // n195: a heading element over the copy (round 19 c5 side 'Issue 41 is out now' h3: lost)
+      const hk = [...el.children].find((k) => k !== btn && !k.contains(btn) && (k.innerText || '').trim() && k.getBoundingClientRect().bottom <= b.top)
+      const head = hk ? (() => { const hs = getComputedStyle(hk), hb = hk.getBoundingClientRect(); return { t: hk.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(hs.fontSize)), wt: Number(hs.fontWeight), it: hs.fontStyle === 'italic', fam: hs.fontFamily.split(',')[0].replace(/["']/g, '').trim(), ink: rgba(hs.color), x: Math.round(hb.left), y: Math.round(hb.top), w: Math.round(hb.width), h: Math.round(hb.height), mb: Math.round(parseFloat(hs.marginBottom) || 0) } })() : null
+      if (txt.length >= 12) o.copyBtn = { head, txt, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0), t: btn.innerText.trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), bold: Number(c.fontWeight) >= 600, bpx: Math.round(parseFloat(c.fontSize)) }
     }
     // n163: a device body turned in 3D inside a perspective box (round 16 c5 phone: built flat and upright). Its parts
     // are read with the turn switched off, so they can be said in the body's own flat layout
@@ -2804,7 +2844,8 @@ function denseNote(d) {
         : x.k === 'chip' ? (legend.set('chip', `every "chip" is an outlined chip ${x.h}px tall, 1px ${hexOf(x.bc)} border, ${x.rad}px rounded, no fill`), `chip ${quote(x.t)}`)
         : x.k === 'av' ? `${colourName(x.fill)} round ${x.px}px avatar${x.t ? ` ${quote(x.t)}` : ''}`
         : x.k === 'bar' ? `${x.px}px ${colourName(x.fill)} bar ${x.pct}% full`
-        : x.k === 'pill' ? `${chipColour(x)} pill ${quote(x.t)}`
+        // n195: a pale pill says both its fill and its ink (round 19 e2 'Invited' #fef3c7 / #92400e: built dark rust)
+        : x.k === 'pill' ? (x.fill && x.ink && x.fill.r + x.fill.g + x.fill.b > 600 ? `pale ${hexOf(x.fill)} pill with ${hexOf(x.ink)} text ${quote(x.t)}` : `${chipColour(x)} pill ${quote(x.t)}`)
         : `${x.bold ? 'bold ' : ''}${x.dim ? 'grey ' : ''}${quote(x.t, 24)}`
       const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
       const card = d.card ? `inside a ${colourName(d.card.fill)} (${hexOf(d.card.fill)}) card ${d.card.w}px wide${d.card.border ? `, ${d.card.border.px}px ${colourName(d.card.border.c)} (${hexOf(d.card.border.c)}) border` : ''}${d.card.rad ? `, ${d.card.rad}px rounded corners${d.card.clip ? ' (overflow hidden, so the header fill follows the corners)' : ''}` : ''}, the table filling the card edge to edge; ` : ''
@@ -3130,7 +3171,8 @@ function partsNote(P, f) {
   // n175: a clear stop said 'transparent' (round 17 c5 hero: '#000000 at 0%' built as black, the cyan glow under it lost);
   // the 'none' layer that the fill colour leaves in a layered background list dropped
   const imgW = (s) => s.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hx(c) }).replace(/(?:,\s*none)+$/, '')
-  const one = (p) => {
+  const one = (p0) => {
+    const p = p0.stroke ? { ...p0, ink: null } : p0
     const paint = []
     if (p.fill) paint.push(`${hx(p.fill)} fill`)
     if (p.img) paint.push(/gradient/.test(p.img) ? imgW(p.img) : 'a picture')
@@ -3170,6 +3212,18 @@ function partsNote(P, f) {
     // n194: a focus glow round a field (box-shadow 0 0 0 Npx, round 19 e5 'Harb|' input: built plain)
     const glow = p.outShadow && /^rgba?\([^)]+\)\s+0px\s+0px\s+0px\s+([\d.]+)px/.exec(p.outShadow)
     if (glow && p.border) paint.push(`a ${Math.round(+glow[1])}px ${hx(parse(p.outShadow.match(/rgba?\([^)]+\)/)[0]))} ${p.t && p.h <= 64 ? 'FOCUS GLOW' : 'SELECTION GLOW'} round the outside of its border (box-shadow: 0 0 0 ${Math.round(+glow[1])}px${p.t && p.h <= 64 ? '; the field is focused, being typed in' : '; this one is selected'})`)
+    // n195: letters round a circle, a hollow word, a copy cut to one side (round 19 c5 ring and masthead)
+    if (p.tpath) {
+      const T = p.tpath
+      return `${p.px}px ${wtSay}${p.mono ? 'mono ' : ''}${hx(p.ink)} capital letters "${p.t}" set ROUND A CIRCLE (an SVG <textPath> on a circle path of radius ${T.r}px, NOT a straight line, NOT a text box): a ${T.box}x${T.box}px <svg> centred at ${T.cx},${T.cy}, the letters running all the way round${T.ls ? `, letter-spacing ${T.ls}px` : ''}, no fill, no outline${T.spin ? `, the whole ring SPINNING slowly (animation: spin ${T.spin} linear infinite, rotate 360deg)` : ''}, on top of what is under it`
+    }
+    if (p.stroke) paint.push(`HOLLOW letters: outline only, transparent fill (color: transparent; -webkit-text-stroke: ${p.stroke.px}px ${hx(p.stroke.c)})`)
+    if (p.clipIn) {
+      const m = p.clipIn.match(/inset\(([^)]*)\)/)[1].split(/\s+/).map(parseFloat)
+      const [ct, cr, cb, cl] = m.length === 4 ? m : m.length === 2 ? [m[0], m[1], m[0], m[1]] : [m[0], m[0], m[0], m[0]]
+      const twin = P.find((q) => q !== p && q.t === p.t && Math.abs(q.x - p.x) <= 4 && Math.abs(q.y - p.y) <= 4 && !q.stroke)
+      paint.push(`CUT by clip-path: ${p.clipIn}${cl > 0 && !cr ? ` (only its RIGHT ${100 - cl}% shows, from x ${Math.round(p.x + p.w * cl / 100)})` : cr > 0 && !cl ? ` (only its LEFT ${100 - cr}% shows)` : ''}${twin ? `; it is a SECOND copy laid exactly over the solid "${p.t}" at the same spot and set ON TOP of every other part (z-index above them all), so its outline shows over the shapes that hide the solid copy` : ''}`)
+    }
     const turn = Math.abs(p.rot ?? 0) >= 2 && Math.abs(p.rot) <= 60 && p.lw && p.lhh
     const head = turn ? `${p.lw}x${p.lhh} (its own size BEFORE the turn) centred at ${Math.round(p.x + p.w / 2)},${Math.round(p.y + p.h / 2)}, TILTED: transform: rotate(${p.rot}deg) round its centre (set at a slant, ${Math.abs(p.rot)}° ${p.rot > 0 ? 'clockwise' : 'anticlockwise'}, NOT level), on top of what is under it,` : `${p.w}x${p.h} at ${p.x},${p.y}`
     return `${head}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
@@ -3376,7 +3430,7 @@ function round11Extra(f, d) {
   const LL = f.lineList
   if (LL && !note) note = `a ${LL.w}x${LL.h}px column at ${LL.x},${LL.y}${LL.br ? `, a 1px ${hexOf(LL.br)} rule down its right edge` : ''}, ${LL.pad}px padding: ${LL.lines.length} SEPARATE lines stacked top to bottom (one per line, NOT run together on one line), ${LL.px}px text, line-height ${LL.lh}px, each line indented as shown: ${LL.lines.map((l) => `${l.indent ? `[indent ${l.indent * Math.round(LL.px * 0.3)}px] ` : ''}${l.t.startsWith('**') ? `bold "${l.t.replace(/\*\*/g, '')}"` : `"${l.t}"`}${l.sel ? ` (this line ${LL.bold ? 'bold, ' : ''}on a ${hexOf(LL.fill)} ${LL.rad}px rounded highlight spanning the column width: the selected item)` : ''}`).join(', ')}`
   const B = f.copyBtn
-  if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.px}px text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
+  if (B && !note) note += `${note ? '; ' : ''}${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${B.head ? `first a heading ${quote(B.head.t, 60)}, ${B.head.px}px ${B.head.wt >= 600 ? 'bold ' : 'regular (NOT bold) '}${B.head.it ? 'italic ' : ''}${B.head.fam} ${hexOf(B.head.ink)}, ${B.head.w}x${B.head.h}px at ${B.head.x},${B.head.y}${B.head.h > B.head.px * 1.6 ? ' (it wraps onto 2 lines)' : ''}, ${B.head.mb}px gap under it; then ` : ''}${B.px}px ${f.colour ? `${hexOf(f.colour)} ` : ''}text exactly "${B.txt}" (this copy only, nothing invented), then under it a ${hexOf(B.fill)} ${B.rad >= B.h / 2 - 1 ? 'pill' : `${B.rad}px rounded`} button ${B.w}x${B.h}px at ${B.x},${B.y} with ${B.bpx}px ${B.bold ? 'bold ' : ''}${hexOf(B.ink)} "${B.t}"`
   return note === (d.note ?? '') ? d : { ...d, kind: d.kind ?? 'text', note }
 }
 // n192: a block that later solid blocks partly cover says it sits UNDER them (round 19 c4: the record half inside its
@@ -4176,7 +4230,7 @@ function decideOne(f, page, marked, said) {
     const fills = new Set(kl.map((k) => (k.fill?.a > 0.05 ? hexOf(k.fill) : 'none')))
     if (!mixed && !lead && kl.length === f.kidCount && kl.length >= 3 && kl.every((k) => k.fill?.a > 0.05 && k.radius >= k.h / 2 - 2) && fills.size >= 2) {
       const sep = (f.ownText ?? '').replace(/\s+/g, '')[0]
-      return { kind: 'box', note: `a stepper: ${kl.length} filled pills in one row${sep ? `, a small grey "${sep}" between each pair` : ''}, each ${Math.round(kl[0].h)}px tall (border-radius 999px), left to right: ${kl.map((k) => `${quote(k.t)} ${hexOf(k.fill)} fill, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}` }
+      return { kind: 'box', note: `a stepper: ${kl.length} filled pills in one row${sep ? `, a small grey "${sep}" between each pair` : ''}, each ${Math.round(kl[0].h)}px tall (border-radius 999px), left to right: ${kl.map((k) => `${quote(k.t)} ${k.fill.a < 0.5 ? `SEE-THROUGH glass fill (background: rgba(${k.fill.r}, ${k.fill.g}, ${k.fill.b}, ${Math.round(k.fill.a * 100) / 100}), only ${Math.round(k.fill.a * 100)}% strong, so the page shows through; NOT solid white)${k.bw >= 1 && k.bc ? `, a ${k.bw}px ${hexOf(k.bc)}${k.bc.a < 0.95 ? ` at ${Math.round(k.bc.a * 100)}%` : ''} outline` : ''}` : `${hexOf(k.fill)} fill`}, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}` }
     }
         return { kind: 'box', note: (mixed ? items.join(', ') : `${lead}${lead ? ghost : 'buttons: '}${f.kidTexts.map((t) => quote(t)).join(', ')}`) + on + states }
   }
@@ -4955,7 +5009,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       marked.add(f.role)
       return
     }
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose) return
+    // n195: a block whose parts include letters round a circle, a hollow word or a clipped copy (round 19 c5 cover: said
+    // as 'spinning warm paper block' plus the whole masthead hollow; the solid masthead, cream fill and ring lost)
+    const layered = d.kind && d.note && !f.regionKids.length && !/part by part/.test(d.note) && P.filter((p) => p.tpath || p.clipIn || p.stroke).length >= 2
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered) return
     let note = partsNote(P, f)
     if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
     // n181: the region's own words outside its parts (a lane head's '▸ Growth' before its count span)
@@ -4978,7 +5035,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const twoRules = !panel && !leftRule && edge && f.border.bottom >= 1 && !(f.border.left >= 1) && R.w >= 300 ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)}, ruled above AND below (border-top and border-bottom ${Math.round(f.border.w)}px ${f.border.topStyle}${f.border.topStyle === 'double' ? ' (two thin parallel lines each)' : ''} ${hexOf(f.border.colour)}, no side borders${visible(f.bg) ? '' : ', no fill'}); in it ` : ''
     const lift = floating ? `it FLOATS on top of the see-through dim (z-index above the dim, never dimmed or washed out itself, its own colours at full strength), ${Math.round(R.w)}x${Math.round(R.h)}px with its top-left at ${Math.round(R.x)},${Math.round(R.y)}, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })}; ` : ''
     const note1 = /nowrap/.test(panel) ? note.replace('; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart', '') : note
-    const keep = `${panel}${leftRule}${twoRules}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic ? `${d.note}; ` : ''}`
+    const terr = f.terrazzo && panel ? `over that fill, edge to edge, a TERRAZZO layer: one absolute div (inset 0, no text) with exactly background-image: ${f.terrazzo.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })}; background-size: ${f.terrazzo.size} (it REPEATS: small dots of ${f.terrazzo.n} colours scattered over the ${hexOf(f.bg)} fill, the fill showing between them; NOT big discs, NOT on the page colour); every part below sits over it, ` : ''
+    const keep = `${panel}${terr}${leftRule}${twoRules}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''
@@ -5058,6 +5116,27 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       return
     }
     out.set(f.role, { kind: 'box', note: `${K.length} separate FLOATING cards scattered over the page (NOT in the nav, NOT in a row, NOT buttons in a group), each its own div, position absolute, above the other parts (z-index 2): ${K.map((k) => `${quote(k.t, 24)} at ${k.x},${k.y} (${k.w}x${k.h}px, ${visible(k.fill) ? `${hexOf(k.fill)} fill, ` : 'no fill, '}${k.rad}px rounded, ${k.bold ? 'bold ' : ''}${k.px}px ${hexOf(k.ink)} text${k.shadow && k.shadow !== 'none' ? `, box-shadow: ${cssHex(k.shadow)}` : ''}${k.rot ? `, transform: rotate(${k.rot}deg)` : ''})`).join('; ')}` })
+  })
+  // n195 (round 19 c3 lantern night): a hanging lantern said whole; a glowing neon heading says its glow, its lines and
+  // its flicker; a textless glowing disc says its fill and halo (the moon built grey, the sign one line with no glow)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    const css = (v) => v.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? (c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : hexOf(c)) : m })
+    if (f.lantern && !f.text) {
+      const L = f.lantern, A = f.ownAnim
+      out.set(f.role, { kind: 'box', note: `a HANGING LANTERN (NOT a box, NOT a cylinder, no stripes): one div, position absolute, left ${L.x}px, top ${L.y}px, transform-origin ${L.origin} (its top, where the string hangs from); in it a ${L.sw}px wide ${hexOf(L.sc)} STRING at x ${L.x} running straight down from the very top of the page ${L.len}px long (a ::before line), and at the string's end a ${L.bw}x${L.bh}px glowing paper ball (its top-left ${L.bx},${L.by} inside the div, so on the page at ${L.x + L.bx},${L.y + L.by}), border-radius ${L.rad} (a soft round-oval, NOT square), exactly background: ${css(L.img)}; box-shadow: ${css(L.shadow)} (a warm orange GLOW round it)${A ? `; the whole lantern SWAYS: animation ${A.css} with ${A.kf}` : ''}` })
+      return
+    }
+    if (!d?.kind) return
+    const glowT = (f.textShadows ?? []).filter((x) => x.blur >= 6)
+    if (d.kind === 'heading' && glowT.length >= 2 && f.text && !/text-shadow/.test(d.note ?? '')) {
+      const L = f.shown?.lines ?? [f.text], A = f.ownAnim
+      out.set(f.role, { ...d, note: `${d.note ? `${d.note}; ` : ''}a NEON sign: ${Math.round(f.font.size)}px letters ${hexOf(f.colour)}, set on ${L.length} line${L.length > 1 ? 's' : ''} ${L.map((l) => quote(l, 30)).join(' over ')}${L.length > 1 ? ' (a <br> between them, NOT one line)' : ''}, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, GLOWING: exactly text-shadow: ${f.textShadows.map((x) => `${x.x}px ${x.y}px ${x.blur}px ${x.c ? hexOf(x.c) : ''}`).join(', ')} (a bright halo round every letter)${A ? `; it FLICKERS: animation ${A.css} with ${A.kf}` : ''}` })
+      return
+    }
+    if (d.kind === 'circle' && !f.text && visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && !/box-shadow|#[0-9a-f]{6}/i.test(d.note ?? '') && (d.note ?? '').length < 80) {
+      out.set(f.role, { ...d, note: `a ${Math.round(f.rect.w)}px perfectly round SOLID disc at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (border-radius 50%), flat fully opaque ${colourName(f.bg)} ${hexOf(f.bg)} fill (NOT grey, NOT see-through, no outline), with a soft glow halo round it: box-shadow: ${css(f.shadow)}` })
+    }
   })
   // a heading carries its set size and line count, so the bench draws it as tall as it is
   const plan = regions.filter((f) => out.get(f.role).kind).map((f) => {
