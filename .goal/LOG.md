@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T09:00Z | n204 order summary whole, card lines and chip, centred day heads, word cells left | e4 checkout 77 to 92, e1 76 to 88, e3 77; round 20 89. ~346k.
 2026-10-25T08:20Z | n203 exact bar hex, toolbar item places and look, bottom-rounded tab | e3 spreadsheet 75 to 76 (layout 83 to 90); round 20 87. ~68k.
 2026-10-25T07:45Z | n202 arched title, conic sun with halos, notched ticket with stub | c4 paper cutout 78 to 96; round 20 87. ~93k.
 2026-10-25T07:05Z | n201 composer box, send button, typing line under it, dark panel hex | e2 team chat 77 to 84; round 20 85. ~87k.
