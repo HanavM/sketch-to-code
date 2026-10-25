@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6f5f2;font-family:Helvetica,Arial,sans-serif;color:#1c1b19;font-size:14px}
+.hd{position:absolute;left:0;top:0;width:1280px;height:70px;background:#fff;border-bottom:1px solid #e6e3dc;display:flex;align-items:center;padding:0 60px}.hd b{font:700 24px Georgia,serif}.hd span{margin-left:auto;color:#6d6a63}
+.steps{position:absolute;left:60px;top:96px;width:700px;display:flex;align-items:center;gap:12px;font-weight:700}.steps i{width:28px;height:28px;border-radius:50%;background:#1c1b19;color:#fff;font:700 13px/28px Helvetica;text-align:center;font-style:normal}.steps .o i{background:#fff;border:2px solid #c9c5bc;color:#9a968d;line-height:24px}.steps .o{color:#9a968d}.steps hr{flex:1;border:0;height:2px;background:#c9c5bc}.steps .d i{background:#16a34a}
+.form{position:absolute;left:60px;top:150px;width:700px;height:720px;background:#fff;border-radius:14px;border:1px solid #e6e3dc;padding:26px 30px}
+.form h3{font-size:18px;margin-bottom:16px}.r{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}.f label{display:block;font-size:12px;font-weight:700;color:#6d6a63;margin-bottom:6px}.f div{height:44px;border:1px solid #d6d2c9;border-radius:9px;padding:13px}
+.f.err div{border:2px solid #dc2626;background:#fef2f2}.f.err small{display:block;color:#dc2626;font-size:12px;margin-top:5px}
+.pay{display:flex;gap:12px;margin:8px 0 18px}.pay span{flex:1;height:52px;border:1px solid #d6d2c9;border-radius:10px;padding:16px;font-weight:700}.pay .on{border:2px solid #1c1b19;background:#faf9f6}
+.card{position:absolute;left:470px;top:440px;width:250px;height:150px;border-radius:14px;background:linear-gradient(135deg,#1c1b19,#57534a);color:#fff;padding:18px;font:15px "Courier New",monospace;transform:rotate(-4deg);box-shadow:0 14px 30px rgba(0,0,0,.25)}.card i{display:block;width:40px;height:30px;border-radius:6px;background:#e9c46a;margin-bottom:26px}
+.btn{position:absolute;left:30px;bottom:26px;width:640px;height:54px;border-radius:12px;background:#1c1b19;color:#fff;font-weight:700;font-size:16px;text-align:center;line-height:54px}
+.sum{position:absolute;left:800px;top:96px;width:420px;height:774px;background:#fff;border-radius:14px;border:1px solid #e6e3dc;padding:26px}
+.it{display:flex;gap:14px;align-items:center;margin-bottom:16px}.it i{width:64px;height:64px;border-radius:10px;position:relative}.it i em{position:absolute;right:-7px;top:-7px;width:22px;height:22px;border-radius:50%;background:#6d6a63;color:#fff;font:700 11px/22px Helvetica;text-align:center;font-style:normal}.it div{flex:1}.it small{display:block;color:#6d6a63;margin-top:4px}
+.cp{display:flex;gap:8px;margin:20px 0}.cp div{flex:1;height:44px;border:1px dashed #16a34a;border-radius:9px;padding:13px;color:#16a34a;font-weight:700;background:#f0fdf4}.cp span{padding:13px 16px;border-radius:9px;background:#e6e3dc;font-weight:700}
+.ln{display:flex;justify-content:space-between;padding:8px 0;color:#4a4740}.ln.g{font-size:20px;font-weight:700;color:#1c1b19;border-top:1px solid #e6e3dc;margin-top:10px;padding-top:16px}.ln .s{color:#16a34a}
+.trust{margin-top:22px;padding:14px;border-radius:10px;background:#f6f5f2;color:#6d6a63;font-size:13px;line-height:1.5}
+</style></head><body>
+<div class="hd" data-r="header"><b>Oddment</b><span>🔒 Secure checkout</span></div>
+<div class="steps" data-r="stepper"><span class="d"><i>✓</i> Cart</span><hr><span><i>2</i> Details</span><hr><span class="o"><i>3</i> Review</span></div>
+<div class="form" data-r="details-form" data-must><h3>Shipping address</h3><div class="r"><div class="f"><label>First name</label><div>Hanav</div></div><div class="f"><label>Last name</label><div>Mehta</div></div></div>
+<div class="r" style="grid-template-columns:1fr"><div class="f err"><label>Street address</label><div>12 Quay</div><small>⚠ Add a house number and street name</small></div></div>
+<div class="r" style="grid-template-columns:2fr 1fr 1fr"><div class="f"><label>City</label><div>Bristol</div></div><div class="f"><label>Postcode</label><div>BS1 4DJ</div></div><div class="f"><label>Country</label><div>UK ▾</div></div></div>
+<h3 style="margin-top:22px">Payment</h3><div class="pay"><span class="on">◉ Card</span><span>○ PayPal</span><span>○ Klarna</span></div>
+<div class="r" style="grid-template-columns:260px 120px"><div class="f"><label>Card number</label><div>4242 4242 4242 4242</div></div><div class="f"><label>Expiry</label><div>09 / 28</div></div></div>
+<div class="r" style="grid-template-columns:120px"><div class="f"><label>CVC</label><div>•••</div></div></div>
+<div class="btn">Continue to review →</div></div>
+<div class="card" data-r="card-visual"><i></i>•••• 4242<br><br>H. MEHTA &nbsp; 09/28</div>
+<div class="sum" data-r="order-summary" data-must><h3 style="font-size:18px;margin-bottom:20px">Order summary</h3>
+<div class="it"><i style="background:#e9c46a"><em>2</em></i><div><b>Linen tea towel</b><small>Ochre · 50×70</small></div><b>£36.00</b></div>
+<div class="it"><i style="background:#9fb7a6"><em>1</em></i><div><b>Stoneware mug</b><small>Sage glaze</small></div><b>£24.00</b></div>
+<div class="it"><i style="background:#c08b6a"><em>1</em></i><div><b>Oak spoon set</b><small>Set of 3</small></div><b>£28.00</b></div>
+<div class="cp"><div>AUTUMN15 applied ✓</div><span>Remove</span></div>
+<div class="ln"><span>Subtotal</span><span>£88.00</span></div><div class="ln"><span>Discount</span><span class="s">−£13.20</span></div><div class="ln"><span>Shipping</span><span>£4.95</span></div><div class="ln g"><span>Total</span><span>£79.75</span></div>
+<div class="trust">Free returns within 30 days. Ships from our Bristol studio in 1–2 working days.</div></div>
+</body></html>

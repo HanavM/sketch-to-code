@@ -1,0 +1,841 @@
+{
+  "id": "e5-code-review",
+  "at": "2026-10-25T04:48:59.759Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9488426809690553,
+    "overallV2": 0.9488426809690553,
+    "overallV1": 0.9414988388092247,
+    "colour": 0.9790000762867099,
+    "structure": 0.9003837679968635,
+    "structureStrict": 0.8816835172946269,
+    "colourAligned": 0.9790000762867099,
+    "structureAligned": 0.9003837679968635,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9001672408155467
+    },
+    "layout": 0.9870386532680182,
+    "layoutV1": 0.6,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      960
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      96
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      95
+    ],
+    [
+      2,
+      0,
+      2,
+      1280,
+      90
+    ],
+    [
+      0,
+      24,
+      16,
+      281,
+      25
+    ],
+    [
+      4,
+      256,
+      20,
+      49,
+      25
+    ],
+    [
+      0,
+      1109,
+      30,
+      147,
+      33
+    ],
+    [
+      0,
+      24,
+      54,
+      66,
+      26
+    ],
+    [
+      0,
+      100,
+      59,
+      349,
+      15
+    ],
+    [
+      8,
+      305,
+      61,
+      28,
+      15
+    ],
+    [
+      8,
+      367,
+      61,
+      82,
+      15
+    ],
+    [
+      0,
+      349,
+      96,
+      112,
+      43
+    ],
+    [
+      0,
+      24,
+      110,
+      102,
+      15
+    ],
+    [
+      0,
+      152,
+      110,
+      76,
+      15
+    ],
+    [
+      0,
+      254,
+      110,
+      68,
+      15
+    ],
+    [
+      0,
+      440,
+      110,
+      20,
+      14
+    ],
+    [
+      0,
+      1204,
+      110,
+      22,
+      15
+    ],
+    [
+      0,
+      1234,
+      110,
+      22,
+      15
+    ],
+    [
+      0,
+      106,
+      111,
+      20,
+      14
+    ],
+    [
+      0,
+      208,
+      111,
+      20,
+      14
+    ],
+    [
+      0,
+      303,
+      111,
+      20,
+      14
+    ],
+    [
+      0,
+      128,
+      160,
+      17,
+      722
+    ],
+    [
+      21,
+      128,
+      160,
+      17,
+      722
+    ],
+    [
+      0,
+      16,
+      156,
+      240,
+      27
+    ],
+    [
+      0,
+      16,
+      183,
+      240,
+      27
+    ],
+    [
+      0,
+      16,
+      210,
+      240,
+      27
+    ],
+    [
+      0,
+      214,
+      216,
+      19,
+      12
+    ],
+    [
+      0,
+      235,
+      216,
+      13,
+      12
+    ],
+    [
+      0,
+      16,
+      237,
+      240,
+      27
+    ],
+    [
+      0,
+      220,
+      243,
+      13,
+      12
+    ],
+    [
+      0,
+      235,
+      243,
+      13,
+      12
+    ],
+    [
+      0,
+      16,
+      264,
+      240,
+      27
+    ],
+    [
+      0,
+      16,
+      291,
+      240,
+      27
+    ],
+    [
+      0,
+      235,
+      297,
+      13,
+      12
+    ],
+    [
+      0,
+      272,
+      156,
+      992,
+      730
+    ],
+    [
+      34,
+      273,
+      157,
+      990,
+      728
+    ],
+    [
+      35,
+      272,
+      157,
+      991,
+      727
+    ],
+    [
+      35,
+      385,
+      361,
+      863,
+      191
+    ],
+    [
+      0,
+      273,
+      157,
+      990,
+      40
+    ],
+    [
+      0,
+      1191,
+      166,
+      58,
+      21
+    ],
+    [
+      0,
+      273,
+      197,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      219,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      219,
+      48,
+      22
+    ],
+    [
+      0,
+      321,
+      219,
+      48,
+      22
+    ],
+    [
+      0,
+      369,
+      219,
+      36,
+      22
+    ],
+    [
+      0,
+      273,
+      241,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      241,
+      48,
+      22
+    ],
+    [
+      0,
+      273,
+      263,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      263,
+      48,
+      22
+    ],
+    [
+      0,
+      383,
+      263,
+      36,
+      22
+    ],
+    [
+      0,
+      513,
+      263,
+      79,
+      22
+    ],
+    [
+      0,
+      650,
+      263,
+      22,
+      22
+    ],
+    [
+      0,
+      273,
+      285,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      285,
+      48,
+      22
+    ],
+    [
+      0,
+      273,
+      307,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      307,
+      48,
+      22
+    ],
+    [
+      0,
+      398,
+      307,
+      36,
+      22
+    ],
+    [
+      0,
+      491,
+      307,
+      22,
+      22
+    ],
+    [
+      0,
+      513,
+      307,
+      108,
+      22
+    ],
+    [
+      0,
+      273,
+      329,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      329,
+      48,
+      22
+    ],
+    [
+      0,
+      398,
+      329,
+      86,
+      22
+    ],
+    [
+      0,
+      273,
+      564,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      564,
+      48,
+      22
+    ],
+    [
+      0,
+      398,
+      564,
+      43,
+      22
+    ],
+    [
+      0,
+      527,
+      564,
+      36,
+      22
+    ],
+    [
+      0,
+      273,
+      586,
+      990,
+      22
+    ],
+    [
+      0,
+      321,
+      586,
+      48,
+      22
+    ],
+    [
+      0,
+      273,
+      608,
+      48,
+      22
+    ],
+    [
+      0,
+      321,
+      608,
+      48,
+      22
+    ],
+    [
+      0,
+      273,
+      630,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      630,
+      48,
+      22
+    ],
+    [
+      0,
+      321,
+      630,
+      48,
+      22
+    ],
+    [
+      0,
+      369,
+      630,
+      43,
+      22
+    ],
+    [
+      0,
+      650,
+      630,
+      29,
+      22
+    ],
+    [
+      0,
+      273,
+      652,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      652,
+      48,
+      22
+    ],
+    [
+      0,
+      383,
+      652,
+      122,
+      22
+    ],
+    [
+      0,
+      273,
+      674,
+      990,
+      22
+    ],
+    [
+      0,
+      273,
+      674,
+      48,
+      22
+    ],
+    [
+      0,
+      321,
+      674,
+      48,
+      22
+    ],
+    [
+      0,
+      383,
+      359,
+      866,
+      197
+    ],
+    [
+      81,
+      273,
+      156,
+      986,
+      724
+    ],
+    [
+      82,
+      272,
+      155,
+      987,
+      724
+    ],
+    [
+      82,
+      385,
+      359,
+      860,
+      191
+    ],
+    [
+      0,
+      398,
+      374,
+      19,
+      15
+    ],
+    [
+      0,
+      425,
+      376,
+      58,
+      12
+    ],
+    [
+      0,
+      398,
+      398,
+      836,
+      20
+    ],
+    [
+      87,
+      594,
+      400,
+      70,
+      15
+    ],
+    [
+      0,
+      398,
+      427,
+      836,
+      72
+    ],
+    [
+      0,
+      399,
+      428,
+      834,
+      26
+    ],
+    [
+      0,
+      399,
+      454,
+      834,
+      22
+    ],
+    [
+      0,
+      399,
+      476,
+      834,
+      22
+    ],
+    [
+      0,
+      398,
+      509,
+      836,
+      34
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "tabs",
+      "iou": 0.9406727183948863,
+      "parts": 10,
+      "rect": {
+        "x": 24,
+        "y": 96,
+        "w": 1232.0625,
+        "h": 43
+      }
+    },
+    {
+      "role": "file-tree",
+      "iou": 0.9945205479452055,
+      "parts": 12,
+      "rect": {
+        "x": 16,
+        "y": 156,
+        "w": 240,
+        "h": 726
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 84667,
+    "output": 44846,
+    "cacheRead": 640233
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 112825,
+      "output": 38872,
+      "cacheRead": 626807,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Grep",
+        "Grep",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 419351
+    }
+  ],
+  "reading": "The sketch lays out a GitHub-style PR review page: a fixed top bar with title, action buttons and branch info; a tab row beneath it with counts and diff stats; a left file-tree sidebar; a large diff viewer panel; and a nested inline comment thread panel inside the diff view. Typed notes give exact copy, colors, sizes and positions for every part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        90
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A top bar 96px tall across the whole page at the very top, no fill (page colour), with a 1px #30363d line under it, positioned absolute at 0,0 so it overlays th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        4,
+        96,
+        1272,
+        44
+      ],
+      "paths": [],
+      "instruction": "A tab/stat row under the top bar, ten real elements, each one-line text nowrap: 112x43 at 349,96 with a 2px #f78166 bottom border, 13px bold #e6edf3 \"Files chan"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        128,
+        160,
+        17,
+        722
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A left file-tree sidebar, eleven real elements, each one-line text nowrap: 240x27 at 16,156 padding-left 8px, 13px #c9d1d9 \"▾ src\"; 240x27 at 16,183 padding-lef"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        275,
+        159,
+        986,
+        724
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "A diff viewer panel, 992x730px at 272,156, no fill, 1px #30363d border, 8px rounded, containing 43 real elements forming a code diff for src/search/useSearch.ts"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        275,
+        159,
+        986,
+        724
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "An inline review-comment thread panel nested inside the diff view, 866x197px at 383,359, #161b22 fill, 1px #30363d border, 8px rounded, containing: 'leo' bold u"
+    }
+  ],
+  "rejected": []
+}

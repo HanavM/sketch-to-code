@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Riso poster</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4efe4;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a}
+@keyframes wob{50%{transform:translate(3px,-2px) rotate(-8deg)}}
+.grain{position:absolute;inset:0;background:radial-gradient(#0000001a 1px,transparent 1.4px);background-size:5px 5px;pointer-events:none;z-index:9}
+.sun{position:absolute;left:640px;top:70px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#ff48b0 0 2.6px,transparent 3px);background-size:12px 12px}
+.blue{position:absolute;left:590px;top:250px;width:430px;height:430px;background:#2f5bff;mix-blend-mode:multiply;transform:rotate(18deg)}
+.pink{position:absolute;left:820px;top:340px;width:300px;height:300px;border-radius:50%;background:#ff48b0;mix-blend-mode:multiply}
+.h1{position:absolute;left:50px;top:90px;font:900 170px/0.82 Impact,Haettenschweiler,sans-serif;text-transform:uppercase;color:#2f5bff;mix-blend-mode:multiply}
+.h1b{position:absolute;left:58px;top:97px;font:900 170px/0.82 Impact,Haettenschweiler,sans-serif;text-transform:uppercase;color:#ff48b0;mix-blend-mode:multiply}
+.date{position:absolute;left:56px;top:560px;font:700 64px/1 "Courier New",monospace;color:#1a1a1a}
+.lede{position:absolute;left:56px;top:650px;width:420px;font-size:17px;line-height:1.5}
+.st{position:absolute;left:470px;top:560px;width:150px;height:150px;border-radius:50%;background:#ffd400;display:flex;align-items:center;justify-content:center;text-align:center;font:900 24px/1 Impact,sans-serif;transform:rotate(-12deg);animation:wob 3s ease-in-out infinite;border:3px dashed #1a1a1a}
+.tape{position:absolute;left:960px;top:690px;width:240px;height:46px;background:#ffd400cc;transform:rotate(7deg);font:700 15px/46px "Courier New",monospace;text-align:center}
+.foot{position:absolute;left:56px;top:830px;width:1170px;border-top:3px solid #1a1a1a;padding-top:12px;display:flex;justify-content:space-between;font:700 14px "Courier New",monospace;text-transform:uppercase;letter-spacing:2px}
+</style></head><body>
+<div class="sun" data-r="halftone-sun"></div><div class="blue" data-r="blue-square"></div><div class="pink" data-r="pink-disc"></div>
+<div class="h1" data-r="headline" data-must>Print<br>Club<br>Night</div><div class="h1b" data-r="headline-shadow">Print<br>Club<br>Night</div>
+<div class="date" data-r="date" data-must>11.14 — 9PM</div>
+<div class="lede" data-r="lede">Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.</div>
+<div class="st" data-r="sticker">FREE<br>ENTRY</div><div class="tape" data-r="tape">WAREHOUSE 3 · DOCK RD</div>
+<div class="foot" data-r="footer"><span>Riso collective</span><span>Inks: fluo pink / blue / yellow</span><span>RSVP →</span></div><div class="grain"></div>
+</body></html>

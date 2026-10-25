@@ -1,0 +1,968 @@
+{
+  "id": "e2-team-chat",
+  "at": "2026-10-25T04:29:32.546Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7419357361081627,
+    "overallV2": 0.7419357361081627,
+    "overallV1": 0.6222939823346543,
+    "colour": 0.9705686938076514,
+    "structure": 0.8354087875894493,
+    "structureStrict": 0.697707534024845,
+    "colourAligned": 0.9705686938076514,
+    "structureAligned": 0.8354087875894493,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9800755975443982
+    },
+    "layout": 0.777439141883932,
+    "layoutV1": 0.777439141883932,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      62,
+      894
+    ],
+    [
+      1,
+      0,
+      0,
+      62,
+      893
+    ],
+    [
+      2,
+      0,
+      -1,
+      62,
+      894
+    ],
+    [
+      1,
+      0,
+      0,
+      62,
+      168
+    ],
+    [
+      4,
+      9,
+      12,
+      44,
+      44
+    ],
+    [
+      4,
+      9,
+      68,
+      44,
+      44
+    ],
+    [
+      4,
+      9,
+      124,
+      44,
+      44
+    ],
+    [
+      0,
+      68,
+      0,
+      243,
+      894
+    ],
+    [
+      8,
+      68,
+      0,
+      243,
+      894
+    ],
+    [
+      9,
+      68,
+      -1,
+      244,
+      894
+    ],
+    [
+      8,
+      68,
+      0,
+      243,
+      302
+    ],
+    [
+      11,
+      68,
+      18,
+      243,
+      32
+    ],
+    [
+      11,
+      68,
+      50,
+      243,
+      28
+    ],
+    [
+      11,
+      68,
+      78,
+      243,
+      28
+    ],
+    [
+      14,
+      84,
+      85,
+      63,
+      14
+    ],
+    [
+      11,
+      68,
+      106,
+      243,
+      28
+    ],
+    [
+      16,
+      84,
+      113,
+      107,
+      14
+    ],
+    [
+      11,
+      68,
+      134,
+      243,
+      28
+    ],
+    [
+      18,
+      84,
+      141,
+      72,
+      14
+    ],
+    [
+      18,
+      277,
+      140,
+      18,
+      16
+    ],
+    [
+      11,
+      68,
+      162,
+      243,
+      28
+    ],
+    [
+      21,
+      84,
+      169,
+      63,
+      14
+    ],
+    [
+      11,
+      68,
+      190,
+      243,
+      28
+    ],
+    [
+      11,
+      68,
+      218,
+      243,
+      28
+    ],
+    [
+      24,
+      84,
+      225,
+      90,
+      14
+    ],
+    [
+      25,
+      84,
+      229,
+      7,
+      7
+    ],
+    [
+      11,
+      68,
+      246,
+      243,
+      28
+    ],
+    [
+      27,
+      84,
+      253,
+      87,
+      14
+    ],
+    [
+      28,
+      84,
+      257,
+      7,
+      7
+    ],
+    [
+      11,
+      68,
+      274,
+      243,
+      28
+    ],
+    [
+      30,
+      84,
+      281,
+      81,
+      14
+    ],
+    [
+      31,
+      84,
+      285,
+      7,
+      7
+    ],
+    [
+      30,
+      279,
+      280,
+      16,
+      16
+    ],
+    [
+      0,
+      317,
+      0,
+      583,
+      900
+    ],
+    [
+      34,
+      317,
+      0,
+      583,
+      48
+    ],
+    [
+      35,
+      333,
+      11,
+      135,
+      26
+    ],
+    [
+      35,
+      480,
+      14,
+      259,
+      21
+    ],
+    [
+      34,
+      317,
+      48,
+      583,
+      710
+    ],
+    [
+      38,
+      317,
+      48,
+      576,
+      694
+    ],
+    [
+      39,
+      317,
+      48,
+      576,
+      694
+    ],
+    [
+      38,
+      317,
+      48,
+      583,
+      361
+    ],
+    [
+      41,
+      337,
+      68,
+      543,
+      103
+    ],
+    [
+      42,
+      337,
+      68,
+      38,
+      38
+    ],
+    [
+      42,
+      387,
+      68,
+      493,
+      103
+    ],
+    [
+      44,
+      387,
+      68,
+      493,
+      20
+    ],
+    [
+      45,
+      387,
+      68,
+      77,
+      20
+    ],
+    [
+      45,
+      472,
+      71,
+      31,
+      16
+    ],
+    [
+      44,
+      387,
+      92,
+      493,
+      21
+    ],
+    [
+      44,
+      387,
+      121,
+      493,
+      22
+    ],
+    [
+      49,
+      387,
+      121,
+      44,
+      22
+    ],
+    [
+      49,
+      439,
+      121,
+      44,
+      22
+    ],
+    [
+      44,
+      387,
+      151,
+      493,
+      20
+    ],
+    [
+      41,
+      337,
+      191,
+      543,
+      16
+    ],
+    [
+      53,
+      337,
+      198,
+      242,
+      1
+    ],
+    [
+      53,
+      591,
+      191,
+      36,
+      16
+    ],
+    [
+      53,
+      638,
+      198,
+      242,
+      1
+    ],
+    [
+      41,
+      337,
+      227,
+      543,
+      67
+    ],
+    [
+      57,
+      337,
+      227,
+      38,
+      38
+    ],
+    [
+      57,
+      387,
+      227,
+      493,
+      67
+    ],
+    [
+      59,
+      387,
+      227,
+      493,
+      20
+    ],
+    [
+      60,
+      387,
+      227,
+      74,
+      20
+    ],
+    [
+      60,
+      469,
+      230,
+      29,
+      16
+    ],
+    [
+      59,
+      387,
+      251,
+      493,
+      21
+    ],
+    [
+      59,
+      387,
+      276,
+      493,
+      18
+    ],
+    [
+      41,
+      337,
+      314,
+      543,
+      75
+    ],
+    [
+      65,
+      337,
+      314,
+      38,
+      38
+    ],
+    [
+      65,
+      387,
+      314,
+      493,
+      75
+    ],
+    [
+      67,
+      387,
+      314,
+      493,
+      20
+    ],
+    [
+      68,
+      387,
+      314,
+      68,
+      20
+    ],
+    [
+      68,
+      463,
+      317,
+      28,
+      16
+    ],
+    [
+      67,
+      387,
+      338,
+      493,
+      21
+    ],
+    [
+      67,
+      387,
+      367,
+      493,
+      22
+    ],
+    [
+      72,
+      387,
+      367,
+      44,
+      22
+    ],
+    [
+      72,
+      439,
+      367,
+      41,
+      22
+    ],
+    [
+      34,
+      337,
+      774,
+      543,
+      114
+    ],
+    [
+      75,
+      337,
+      774,
+      543,
+      16
+    ],
+    [
+      75,
+      337,
+      794,
+      535,
+      94
+    ],
+    [
+      77,
+      337,
+      794,
+      535,
+      94
+    ],
+    [
+      78,
+      337,
+      794,
+      535,
+      94
+    ],
+    [
+      77,
+      337,
+      794,
+      535,
+      61
+    ],
+    [
+      80,
+      353,
+      806,
+      503,
+      20
+    ],
+    [
+      81,
+      353,
+      806,
+      9,
+      20
+    ],
+    [
+      81,
+      374,
+      806,
+      4,
+      20
+    ],
+    [
+      81,
+      390,
+      806,
+      9,
+      20
+    ],
+    [
+      81,
+      411,
+      806,
+      17,
+      20
+    ],
+    [
+      81,
+      440,
+      806,
+      8,
+      20
+    ],
+    [
+      81,
+      460,
+      806,
+      25,
+      20
+    ],
+    [
+      80,
+      353,
+      834,
+      503,
+      21
+    ],
+    [
+      0,
+      906,
+      0,
+      374,
+      894
+    ],
+    [
+      89,
+      906,
+      0,
+      374,
+      894
+    ],
+    [
+      90,
+      906,
+      0,
+      374,
+      894
+    ],
+    [
+      89,
+      906,
+      0,
+      374,
+      264
+    ],
+    [
+      92,
+      922,
+      16,
+      342,
+      20
+    ],
+    [
+      93,
+      922,
+      16,
+      49,
+      20
+    ],
+    [
+      93,
+      1252,
+      16,
+      12,
+      20
+    ],
+    [
+      92,
+      922,
+      52,
+      342,
+      196
+    ],
+    [
+      96,
+      922,
+      52,
+      342,
+      61
+    ],
+    [
+      97,
+      922,
+      52,
+      38,
+      38
+    ],
+    [
+      97,
+      972,
+      52,
+      292,
+      61
+    ],
+    [
+      99,
+      972,
+      52,
+      292,
+      20
+    ],
+    [
+      99,
+      972,
+      74,
+      292,
+      39
+    ],
+    [
+      96,
+      922,
+      129,
+      342,
+      61
+    ],
+    [
+      102,
+      922,
+      129,
+      38,
+      38
+    ],
+    [
+      102,
+      972,
+      129,
+      292,
+      61
+    ],
+    [
+      104,
+      972,
+      129,
+      292,
+      20
+    ],
+    [
+      104,
+      972,
+      151,
+      292,
+      39
+    ],
+    [
+      96,
+      922,
+      206,
+      342,
+      42
+    ],
+    [
+      107,
+      922,
+      206,
+      38,
+      38
+    ],
+    [
+      107,
+      972,
+      206,
+      74,
+      42
+    ],
+    [
+      109,
+      972,
+      206,
+      74,
+      20
+    ],
+    [
+      109,
+      972,
+      228,
+      74,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "italic"
+    ]
+  },
+  "tokens": {
+    "input": 54129,
+    "output": 29380,
+    "cacheRead": 697467
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 76523,
+      "output": 26933,
+      "cacheRead": 694383,
+      "toolCalls": 24,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Glob",
+        "Glob",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 271884
+    }
+  ],
+  "reading": "The sketch lays out a Slack-style messaging UI: an icon rail, a channel sidebar, a channel header, a central message thread with reactions, a message composer with a typing indicator, and a right-hand thread panel, each fully specified by the accompanying typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        4,
+        62,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Leftmost narrow rail: dark navy (#1e1b3a) block, no picture. Inside it, 3 small rounded squares (44px) stacked down from its top, 12px apart: the first filled o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        71,
+        3,
+        243,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Second column: deep indigo block (sidebar). Lavender text header 'Harbour Labs ▾'. Small grey spaced-capitals section label 'CHANNELS' followed by a list: '# ge"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        322,
+        2,
+        574,
+        48
+      ],
+      "paths": [],
+      "instruction": "Channel header bar above the message list, built as two real text elements with live text (no placeholders), each one-line and kept on a single line via white-s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        321,
+        63,
+        576,
+        694
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Main chat panel containing 3 stacked chat messages (no bubbles), each with a 38px rounded-square avatar on the left and a name/time line, followed by its conten"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        342,
+        773,
+        535,
+        94
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Bottom message composer bar below the chat: toolbar row with 'B I S 🔗 • </>' formatting icons followed by placeholder text 'Message #design-review'. Just above"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        903,
+        3,
+        374,
+        894
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Right-hand panel: a 'Thread ✕' header followed by a list of 3 items, each with a 38px amber square thumbnail on the left and text to its right: 'Ada Okafor' — '"
+    }
+  ],
+  "rejected": []
+}
