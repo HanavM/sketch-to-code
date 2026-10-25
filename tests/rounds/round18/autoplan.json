@@ -615,7 +615,7 @@
    ],
    [
     "topbar",
-    "a top bar 56px tall across the whole page at the very top, #ffffff fill, a 1px #dfe1e6 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 17px #172b4d \"Atlas · Sprint 42\" at x 20; 13px #7a869a \"Search cards…\" in a 260x32px 4px-rounded box with a 1px #dfe1e6 border, no fill at x 165; 4 overlapping 28px round avatars (circles filled #ff8b00, #36b37e, #6554c0, #00b8d9, each with a 2px #ffffff ring, each overlapping the one before by 6px) in one row at x 441; bold 13px #ffffff \"Only my issues\" on a #0052cc 115x25px 3px-rounded box at x 545; bold 13px #172b4d \"Recently updated\" on a #ebecf0 128x25px 3px-rounded box at x 677; bold 13px #172b4d \"Complete sprint\" on a #ebecf0 119x25px 3px-rounded box at x 1141 (pushed to the far right)"
+    "a top bar 56px tall across the whole page at the very top, #ffffff fill, a 1px #dfe1e6 line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 17px #172b4d \"Atlas · Sprint 42\" at x 20; 13px #7a869a \"Search cards…\" in a 260x32px 4px-rounded box with a 1px #dfe1e6 border, no fill at x 165; 4 overlapping 28px round avatars (circles filled #ff8b00, #36b37e, #6554c0, #00b8d9, each with a 2px #ffffff ring, each overlapping the one before by 6px) in one row at x 441; bold 13px #ffffff \"Only my issues\" on a #0052cc 115x25px 3px-rounded box at x 545; bold 13px #172b4d \"Recently updated\" on a #ebecf0 128x25px 3px-rounded box at x 677; bold 13px #172b4d \"Complete sprint\" on a #ebecf0 119x25px 3px-rounded box at x 1141 (pushed to the far right)"
    ],
    [
     "column-heads",
@@ -875,7 +875,7 @@
   "notes": [
    [
     "topbar",
-    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #ff385c \"⌂ staybnb\" at x 24; 13px #222222 \"Lisbon Nov 14 – 18 2 guests\" in a 327x48px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Nov 14 – 18\", \"2 guests\") at x 448; 13px #222222 \"Host your home\" at x 1095; 13px #222222 \"☰ ●\" in a 49x33px pill with a 1px #dddddd border, no fill at x 1207 (pushed to the far right)"
+    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #ff385c \"⌂ staybnb\" at x 24; 13px #222222 \"Lisbon Nov 14 – 18 2 guests\" in a 327x48px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Nov 14 – 18\", \"2 guests\") at x 448; 13px #222222 \"Host your home\" at x 1095; 13px #222222 \"☰ ●\" in a 49x33px pill with a 1px #dddddd border, no fill at x 1207 (pushed to the far right)"
    ],
    [
     "filters",

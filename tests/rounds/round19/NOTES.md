@@ -126,3 +126,21 @@ both fill and ink. Rounds 7, 11, 13 re-planned (pale pills, a copy colour, a glo
 | e2 team settings | 73% | **82%** | pale amber Invited pill, green Active pills; row menu a little right |
 
 Round 19: **88%** over 10 (was 85). Vitest: same 2 env failures; typecheck clean.
+
+## n196: overlapping parts keep their stacking order, capitals said, a top bar's buttons said one by one (2026-10-25, ~294k billed)
+
+The cover's head was listed before the figure it sits on (parts are said top to bottom), so it was built behind it. A
+filled part now says it is IN FRONT of any overlapping part listed after it that comes earlier in the page (z-index above
+it). Text set in capitals by text-transform is now said in capitals ("48 PAGES OF NEW LISBON STUDIOS"), and right-set
+lines say so. The invoice top bar ran its three buttons together as one line of words, so the green Send button was built
+blue: a bar note like that is now said part by part, each button with its own box and fill. That bar is laid over the page
+top in the target; it is now said so (it pushes nothing down), after a first try built it in the flow and shifted the whole
+page 58px (56%). Rounds 2, 3, 9, 10, 12, 13, 14, 16, 18 re-planned (words only).
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c5 magazine cover | 89% | **97%** | head in front of the figure, cover lines in capitals and right-set |
+| e1 seat picker | 91% | **93%** | tooltip said in front of the seat it points at; bar over the page top |
+| e5 invoice editor | 83% | **81%** | Send button green, buttons boxed; the client dropdown built taller (first row on two lines) and covers a line item |
+
+Round 19: **89%** over 10 (was 88). Vitest: same 2 env failures; typecheck clean.

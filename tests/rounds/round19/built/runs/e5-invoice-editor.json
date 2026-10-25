@@ -1,24 +1,24 @@
 {
   "id": "e5-invoice-editor",
-  "at": "2026-10-25T01:56:16.201Z",
+  "at": "2026-10-25T03:12:31.098Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8349407140916968,
-    "overallV2": 0.8349407140916968,
-    "overallV1": 0.8097734028308952,
-    "colour": 0.992805291214427,
-    "structure": 0.9432845771870488,
-    "structureStrict": 0.9097916228394345,
-    "colourAligned": 0.992805291214427,
-    "structureAligned": 0.9432845771870488,
+    "overall": 0.8108701465338181,
+    "overallV2": 0.8108701465338181,
+    "overallV1": 0.7928843926763264,
+    "colour": 0.9945900859989701,
+    "structure": 0.9074338365716599,
+    "structureStrict": 0.8834981834296163,
+    "colourAligned": 0.9945900859989701,
+    "structureAligned": 0.9074338365716599,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9371157271856538
+      "r": 0.9246813234591462
     },
-    "layout": 0.8136303503832957,
-    "layoutV1": 0.658303886925795,
+    "layout": 0.7681770205070588,
+    "layoutV1": 0.6128505570495583,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,556 +27,500 @@
       0,
       0,
       1280,
-      920
+      900
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      920
-    ],
-    [
-      1,
       0,
       0,
       1280,
       58
     ],
     [
-      2,
+      1,
       24,
-      15,
-      244,
-      27
+      16,
+      71,
+      26
     ],
     [
-      3,
-      24,
-      15,
-      75,
-      27
-    ],
-    [
-      3,
-      115,
+      1,
+      109,
       19,
       153,
       20
     ],
     [
-      2,
-      941,
-      12,
-      315,
-      34
-    ],
-    [
-      6,
-      941,
-      12,
-      85,
-      34
-    ],
-    [
-      6,
-      1038,
-      12,
-      102,
-      34
-    ],
-    [
-      6,
-      1152,
-      13,
-      104,
-      32
+      1,
+      912,
+      11,
+      97,
+      35
     ],
     [
       1,
+      1019,
+      11,
+      113,
+      35
+    ],
+    [
+      1,
+      1142,
+      11,
+      114,
+      35
+    ],
+    [
+      0,
       24,
       82,
       610,
       796
     ],
     [
-      10,
+      7,
       48,
       106,
-      564,
+      46,
       18
     ],
     [
-      10,
+      7,
       48,
       126,
       564,
       38
     ],
     [
+      7,
+      48,
+      168,
+      564,
+      221
+    ],
+    [
       10,
-      51,
+      49,
+      169,
+      562,
+      55
+    ],
+    [
+      11,
+      61,
+      177,
+      538,
+      20
+    ],
+    [
+      11,
+      61,
       197,
-      560,
-      144
-    ],
-    [
-      13,
-      52,
-      198,
-      558,
-      41
-    ],
-    [
-      14,
-      64,
-      208,
-      95,
-      20
-    ],
-    [
-      14,
-      484,
-      209,
-      114,
+      538,
       18
-    ],
-    [
-      13,
-      52,
-      239,
-      558,
-      41
-    ],
-    [
-      17,
-      64,
-      249,
-      114,
-      20
-    ],
-    [
-      17,
-      545,
-      249,
-      53,
-      18
-    ],
-    [
-      13,
-      52,
-      279,
-      558,
-      41
-    ],
-    [
-      20,
-      64,
-      289,
-      98,
-      20
-    ],
-    [
-      20,
-      576,
-      290,
-      22,
-      18
-    ],
-    [
-      13,
-      52,
-      320,
-      558,
-      40
     ],
     [
       10,
+      49,
+      224,
+      562,
+      37
+    ],
+    [
+      10,
+      49,
+      260,
+      562,
+      37
+    ],
+    [
+      10,
+      49,
+      297,
+      562,
+      36
+    ],
+    [
+      7,
       48,
       180,
-      275,
+      71,
       18
     ],
     [
-      10,
+      7,
       337,
       180,
-      275,
+      25,
       18
     ],
     [
-      10,
+      7,
       48,
       200,
       275,
       38
     ],
     [
-      10,
+      7,
       337,
       200,
       275,
       38
     ],
     [
-      10,
+      7,
       48,
       254,
       293,
       29
     ],
     [
-      10,
+      7,
       341,
       254,
       68,
       29
     ],
     [
-      10,
+      7,
       410,
       254,
       104,
       29
     ],
     [
-      10,
+      7,
       514,
       254,
       98,
       29
     ],
     [
-      10,
+      7,
       54,
       289,
       281,
       34
     ],
     [
-      10,
+      7,
       347,
       289,
       56,
       34
     ],
     [
-      10,
+      7,
       416,
       289,
       92,
       34
     ],
     [
-      10,
+      7,
       514,
       283,
       98,
       47
     ],
     [
-      10,
+      7,
       54,
       335,
       281,
       34
     ],
     [
-      10,
+      7,
       347,
       335,
       56,
       34
     ],
     [
-      10,
+      7,
       416,
       335,
       92,
       34
     ],
     [
-      10,
+      7,
       514,
       329,
       98,
       46
     ],
     [
-      10,
+      7,
       54,
       381,
       281,
       34
     ],
     [
-      10,
+      7,
       347,
       381,
       56,
       34
     ],
     [
-      10,
+      7,
       416,
       381,
       92,
       34
     ],
     [
-      10,
+      7,
       514,
       375,
       98,
       46
     ],
     [
-      10,
+      7,
       48,
       433,
-      564,
-      18
+      98,
+      20
     ],
     [
-      10,
+      7,
       342,
       470,
       48,
       20
     ],
     [
-      10,
+      7,
       554,
       470,
       58,
       20
     ],
     [
-      10,
+      7,
       342,
       499,
       73,
       20
     ],
     [
-      10,
+      7,
       565,
       499,
       47,
       20
     ],
     [
-      10,
+      7,
       342,
       528,
       53,
       20
     ],
     [
-      10,
+      7,
       565,
       528,
       47,
       20
     ],
     [
-      10,
+      7,
       342,
       556,
       270,
       2
     ],
     [
-      10,
+      7,
       342,
       568,
       42,
       27
     ],
     [
-      10,
+      7,
       532,
       568,
       80,
       27
     ],
     [
-      1,
+      0,
       660,
       82,
       596,
       796
     ],
     [
-      54,
+      47,
       708,
       112,
       500,
       720
     ],
     [
-      55,
+      48,
       748,
       152,
       46,
       46
     ],
     [
-      56,
-      764,
-      159,
-      13,
-      33
-    ],
-    [
-      55,
+      48,
       1000,
       152,
-      168,
-      39
+      140,
+      51
     ],
     [
-      55,
+      48,
       748,
       230,
-      113,
+      28,
       17
     ],
     [
-      55,
+      48,
       748,
       246,
       113,
       33
     ],
     [
-      55,
+      48,
       1080,
       230,
-      88,
+      31,
       17
     ],
     [
-      55,
+      48,
       1080,
       246,
       88,
       50
     ],
     [
-      55,
+      48,
       748,
       305,
       220,
       28
     ],
     [
-      55,
+      48,
       968,
       305,
       72,
       28
     ],
     [
-      55,
+      48,
       1040,
       305,
       128,
       28
     ],
     [
-      55,
+      48,
       748,
       332,
       220,
       27
     ],
     [
-      55,
+      48,
       968,
       332,
       72,
       27
     ],
     [
-      55,
+      48,
       1040,
       332,
       128,
       27
     ],
     [
-      55,
+      48,
       748,
       359,
       220,
       27
     ],
     [
-      55,
+      48,
       968,
       359,
       72,
       27
     ],
     [
-      55,
+      48,
       1040,
       359,
       128,
       27
     ],
     [
-      55,
+      48,
       748,
       386,
       220,
       27
     ],
     [
-      55,
+      48,
       968,
       386,
       72,
       27
     ],
     [
-      55,
+      48,
       1040,
       386,
       128,
       27
     ],
     [
-      55,
+      48,
       1027,
       397,
       136,
       78
     ],
     [
-      75,
+      67,
       1055,
       411,
       80,
       50
     ],
     [
-      55,
+      48,
       748,
       748,
       420,
       44
     ],
     [
-      77,
+      69,
       762,
       762,
       82,
       21
     ],
     [
-      77,
+      69,
       1092,
       762,
       62,
@@ -607,33 +551,31 @@
     "extra": []
   },
   "tokens": {
-    "input": 68137,
-    "output": 37615,
-    "cacheRead": 333331
+    "input": 51078,
+    "output": 25807,
+    "cacheRead": 293790
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 88473,
-      "output": 28279,
-      "cacheRead": 330247,
-      "toolCalls": 9,
+      "billed": 49620,
+      "output": 15108,
+      "cacheRead": 279475,
+      "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
         "Glob",
-        "Read src/index.css",
         "Read src/main.tsx",
+        "Read src/index.css",
         "Write src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Glob"
+        "Grep"
       ],
-      "ms": 260800
+      "ms": 142849
     }
   ],
-  "reading": "The sketch lays out a full invoice-editor page: a top bar; a left white-card form panel with a focused client field, a client-search dropdown, issue/due date fields, an editable line-items table, an \"add line item\" link, and a totals breakdown; and a right-side grey panel containing an \"INVOICE\" preview card with logo, from/bill-to blocks, a mirrored line-items table, a tilted DRAFT stamp, and an amount-due banner. Typed notes give exact element structure, sizes, colours and copy for every part, and a run-scope note sets page-wide pale-grey background, Helvetica type and navy text.",
+  "reading": "The sketch lays out a full invoice-editor page: a top app bar spanning the page, a white left-hand editor card (client field, issue/due dates, line items, totals) with an overlapping client-autocomplete dropdown and an item table drawn into the same space, and a grey invoice-preview panel on the right.",
   "actions": [
     {
       "kind": "add",
@@ -648,7 +590,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the top bar as one 1280x58 wrapper element at 0,0: #ffffff fill, a 1px #dfe3ea rule along its bottom edge only (border-bottom, no other border), holding i"
+      "instruction": "Build a 58px-tall top bar across the whole page at the very top, #ffffff fill with a 1px #dfe3ea line under it; position:absolute at 0,0, laid OVER the page top"
     },
     {
       "kind": "add",
@@ -663,7 +605,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Build the left form panel as one 610x796 wrapper at 24,82: #ffffff fill, 1px #dfe3ea border, 12px rounded corners, holding its parts inside it (every one-line t"
+      "instruction": "Build the left editor as ONE 610x796px white card at 24,82, 1px #dfe3ea border, 12px rounded. Inside it, as its own direct parts (other overlapping regions insi"
     },
     {
       "kind": "add",
@@ -673,12 +615,13 @@
         50,
         196,
         560,
-        144
+        221
       ],
       "paths": [
-        "s2"
+        "s2",
+        "s3"
       ],
-      "instruction": "Below the focused \"BILL TO\" input, add a client-search autocomplete dropdown card that overlays the panel content beneath it: a white card listing \"Harbour Hall"
+      "instruction": "Build a client-autocomplete dropdown that appears over the editor card, below the focused BILL TO field: a white card listing a top match \"Harbour Hall Ltd  pri"
     },
     {
       "kind": "add",
@@ -686,26 +629,23 @@
       "textSize": [],
       "region": [
         50,
-        256,
-        557,
-        161
+        196,
+        560,
+        221
       ],
       "paths": [
+        "s2",
         "s3"
       ],
-      "instruction": "Add the line-items table inside the left panel. Header row with bottom border only (1px #dfe3ea), 11px bold #7b8496: 293x29 at 47,253 \"ITEM\"; 68x29 at 340,253 \""
+      "instruction": "Build the line-items table inside the editor card: header row at y253 with bottom-border-only cells — 293x29 \"ITEM\" at 47,253, 68x29 \"QTY\" at 340,253, 104x29 \"R"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s4",
-        "s5",
         "s6",
         "s7",
         "s8",
-        "s9",
-        "s10",
-        "s11"
+        "s9"
       ],
       "textSize": [
         {
@@ -725,12 +665,12 @@
       ],
       "region": [
         345,
-        462,
+        499,
         262,
-        133
+        58
       ],
       "paths": [],
-      "instruction": "Add a totals breakdown block under the line items, right-aligned, 13px #1d2433 unless noted (every label+value stays on one line, min-width not fixed): \"Subtota"
+      "instruction": "Build the totals block under the line items, right-aligned: \"Subtotal\" / \"£1,800.00\"; \"Discount 5%\" / \"−£90.00\"; \"VAT 20%\" / \"£342.00\"; then a 270px-wide top-on"
     },
     {
       "kind": "add",
@@ -745,10 +685,8 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Build the right-side invoice preview as one 596x796 wrapper at 660,82: #d9dde4 fill, 12px rounded corners, holding an inner white 500x720 card at 708,112 with i"
+      "instruction": "Build the right-hand invoice preview as ONE 596x796px light-grey (#d9dde4) 12px-rounded panel at 660,82, containing a white 500x720 sheet at 708,112: a green ro"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

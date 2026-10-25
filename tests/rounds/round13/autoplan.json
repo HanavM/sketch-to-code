@@ -571,7 +571,7 @@
   "notes": [
    [
     "title-bar",
-    "a top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 13px #ffffff \"▦\" on a #16a34a 28x28px 6px-rounded box at x 16; bold 16px #1f2937 \"Q3 Budget\" at x 58; 13px #6b7280 \"File Edit View Insert Format Data\" at x 153; bold 13px #0b3d62 \"Share\" on a #c2e7ff 68x29px pill at x 1196 (pushed to the far right)"
+    "a top bar 52px tall across the whole page at the very top, no fill (page colour), a 1px #e5e7eb line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 13px #ffffff \"▦\" on a #16a34a 28x28px 6px-rounded box at x 16; bold 16px #1f2937 \"Q3 Budget\" at x 58; 13px #6b7280 \"File Edit View Insert Format Data\" at x 153; bold 13px #0b3d62 \"Share\" on a #c2e7ff 68x29px pill at x 1196 (pushed to the far right)"
    ],
    [
     "toolbar",
@@ -651,7 +651,7 @@
   "notes": [
    [
     "header",
-    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #ff385c \"⌂ nestly\" at x 28; 14px #222222 \"Lisbon Mar 12 – 16 2 guests ⌕\" in a 329x44px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Mar 12 – 16\", \"2 guests\", \"⌕\") at x 508; 14px #222222 \"👤\" at x 1235 (pushed to the far right)"
+    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #ff385c \"⌂ nestly\" at x 28; 14px #222222 \"Lisbon Mar 12 – 16 2 guests ⌕\" in a 329x44px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Mar 12 – 16\", \"2 guests\", \"⌕\") at x 508; 14px #222222 \"👤\" at x 1235 (pushed to the far right)"
    ],
    [
     "filters",

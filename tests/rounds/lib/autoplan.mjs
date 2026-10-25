@@ -1184,7 +1184,7 @@ export function factsInPage() {
         }
         parts.sort((a, b) => a.x - b.x)
         if (parts.length < 2 || parts.length > 10 || !parts.some((p) => p.t)) return null
-        return { h: Math.round(r.height), fill: filled(el), rule: parseFloat(cs.borderBottomWidth) >= 1 ? { px: Math.round(parseFloat(cs.borderBottomWidth)), c: rgba(cs.borderBottomColor) } : null, parts }
+        return { h: Math.round(r.height), abs: /absolute|fixed/.test(cs.position), fill: filled(el), rule: parseFloat(cs.borderBottomWidth) >= 1 ? { px: Math.round(parseFloat(cs.borderBottomWidth)), c: rgba(cs.borderBottomColor) } : null, parts }
       })(),
       // n132: a plain table of rows, each row the same columns (round 9 e5 invoices: said as a two-column list; amount,
       // status pills and PDF links lost)
@@ -1426,6 +1426,8 @@ export function factsInPage() {
           // n143: a paragraph block three lines or taller keeps its whole copy (round 11 e3 mail body: cut at 70 letters, the
           // rest lost)
           out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: own.slice(0, b.height >= (s.whiteSpace === 'nowrap' ? 3 : 1.8) * parseFloat(s.fontSize) * 1.2 && own.length > 70 ? 1200 : runs ? 140 : 70), lh: Math.round(parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2), nl: own && !/^vertical/.test(s.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(k); const tops = [...rg.getClientRects()].filter((q) => q.width > 1).map((q) => q.top).sort((x, y) => x - y); const lh0 = parseFloat(s.lineHeight) || parseFloat(s.fontSize) * 1.2; return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > lh0 * 0.6 ? n + 1 : n), 0) })() : 0, runs, cap, wrap, face: own && gen(s.fontFamily) !== bodyGen && gen(s.fontFamily) !== 'mono' ? gen(s.fontFamily) : null,
+            // n196: the part's place in page order (paint order where parts overlap), capitals by text-transform, right-set lines
+            di: out.length, caps: own && s.textTransform === 'uppercase' && own !== own.toUpperCase(), tar: own && s.textAlign === 'right',
             px: Math.round(parseFloat(s.fontSize)), bold: Number(s.fontWeight) >= 600, wt: Number(s.fontWeight), it: s.fontStyle === 'italic', ink: rgba(s.color), mono: /mono|courier|consolas/i.test(s.fontFamily),
             fill: hasFill ? fill : null, img: img && img.length < 220 ? img : img ? img.slice(0, 220) : null,
             radius: s.borderTopLeftRadius.includes('%') ? (parseFloat(s.borderTopLeftRadius) >= 40 ? 999 : 0) : Math.round(parseFloat(s.borderTopLeftRadius) || 0),
@@ -3194,7 +3196,7 @@ function partsNote(P, f) {
     // over the bars)
     const bar = p.t && p.h <= 2 * p.px && P.filter((q) => !q.t && q.fill && q.h <= 14 && q.w >= 0.3 * p.w && q.x > p.x + 4 && q.x + q.w <= p.x + p.w + 1 && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2).sort((a, b) => b.w - a.w)[0]
     const tk = p.t ? p.t.split(/\s+/) : []
-    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.t}"${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
+    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.caps ? p.t.toUpperCase() : p.t}"${p.caps ? ' (ALL CAPITALS: text-transform: uppercase)' : ''}${p.tar && p.nl >= 2 ? ' (its lines RIGHT-aligned: text-align: right)' : ''}${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     // n187: a struck title (round 18 e1 Done cards: <s> text built plain and wrapped)
     if (p.strike) paint.push(`STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap)`)
@@ -3224,12 +3226,20 @@ function partsNote(P, f) {
       const twin = P.find((q) => q !== p && q.t === p.t && Math.abs(q.x - p.x) <= 4 && Math.abs(q.y - p.y) <= 4 && !q.stroke)
       paint.push(`CUT by clip-path: ${p.clipIn}${cl > 0 && !cr ? ` (only its RIGHT ${100 - cl}% shows, from x ${Math.round(p.x + p.w * cl / 100)})` : cr > 0 && !cl ? ` (only its LEFT ${100 - cr}% shows)` : ''}${twin ? `; it is a SECOND copy laid exactly over the solid "${p.t}" at the same spot and set ON TOP of every other part (z-index above them all), so its outline shows over the shapes that hide the solid copy` : ''}`)
     }
+    // n196: a part that overlaps one said AFTER it but comes LATER in the page paints over it (round 19 c5 head listed
+    // before the figure it sits on, built behind it)
+    if (p.di != null && (p.fill || p.img) && !p.clipIn && !p.tpath) {
+      const ix = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y))
+      const under = order.filter((q) => q !== p && q.di != null && q.di < p.di && order.indexOf(q) > order.indexOf(p) && (q.fill || q.img) && ix(p, q) >= 0.15 * Math.min(p.w * p.h, q.w * q.h) && q.w * q.h < 0.9 * 1280 * 900)
+      if (under.length) paint.push(`IN FRONT of the ${under.map((q) => `${q.w}x${q.h} part at ${q.x},${q.y}`).join(' and the ')} listed after it (z-index above ${under.length > 1 ? 'them' : 'it'}: where they overlap THIS part shows, ${under.length > 1 ? 'they go' : 'it goes'} behind)`)
+    }
     const turn = Math.abs(p.rot ?? 0) >= 2 && Math.abs(p.rot) <= 60 && p.lw && p.lhh
     const head = turn ? `${p.lw}x${p.lhh} (its own size BEFORE the turn) centred at ${Math.round(p.x + p.w / 2)},${Math.round(p.y + p.h / 2)}, TILTED: transform: rotate(${p.rot}deg) round its centre (set at a slant, ${Math.abs(p.rot)}° ${p.rot > 0 ? 'clockwise' : 'anticlockwise'}, NOT level), on top of what is under it,` : `${p.w}x${p.h} at ${p.x},${p.y}`
     return `${head}${paint.length ? ` ${paint.join(', ')}` : ''}${text ? `${paint.length ? ':' : ''} ${text}` : ''}`
   }
   const kfs = new Set()
-  const listed = [...P].sort((a, b) => a.y - b.y || a.x - b.x).map(one).join('; ')
+  const order = [...P].sort((a, b) => a.y - b.y || a.x - b.x)
+  const listed = order.map(one).join('; ')
   const keys = [...kfs].filter(Boolean)
   return `part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${P.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
@@ -3636,7 +3646,7 @@ function decideOne(f, page, marked, said) {
     // built centred, over the tabs below the title)
     const stacked = T.parts.some((p) => T.parts.some((q) => q.y >= p.y + p.h - 2))
     const parts = stacked ? [...T.parts].sort((a, b) => (Math.abs(a.y - b.y) > 8 ? a.y - b.y : a.x - b.x)) : T.parts
-    return { kind: 'box', note: `a top bar ${T.h}px tall across the whole page at the very top, ${T.fill ? `${hexOf(T.fill)} fill` : 'no fill (page colour)'}${T.rule ? `, a ${T.rule.px}px ${hexOf(T.rule.c)} line under it` : ''}; only these parts in it, NO other heading or title invented: ${stacked ? 'on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): ' : 'left to right, each at its own x from the bar\'s left, all vertically centred in the bar: '}${parts.map(one).join('; ')}` }
+    return { kind: 'box', note: `a top bar ${T.h}px tall across the whole page at the very top, ${T.fill ? `${hexOf(T.fill)} fill` : 'no fill (page colour)'}${T.rule ? `, a ${T.rule.px}px ${hexOf(T.rule.c)} line under it` : ''}${T.abs ? ' (n196: position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y)'.replace('n196: ', '') : ''}; only these parts in it, NO other heading or title invented: ${stacked ? 'on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): ' : 'left to right, each at its own x from the bar\'s left, all vertically centred in the bar: '}${parts.map(one).join('; ')}` }
   }
   // n132: a plain table of same-column rows (round 9 e5 invoices: said as a 2-column list)
   if (f.rowTable && !f.regionKids.length && f.weakNote) {
@@ -4663,7 +4673,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role)
     // n155: a bar note that runs its boxed chips together as words is weak too (round 14 e4 filter chips unboxed, logo lost)
-    const chipBar = f.topBar && (/^bar \d+px tall/.test(d.note ?? '') || /\blist: /.test(d.note ?? '')) && f.topBar.parts.filter((p) => p.t && (p.border || p.fill)).length >= 2
+    // n196: or one whose 'lines' run its boxed buttons together as one quoted line (round 19 e5 'Save draft Preview PDF
+    // Send invoice': the green Send button built blue)
+    const runTogether = /\blines "/.test(d.note ?? '') && f.topBar?.parts.some((p) => p.t && (p.border || p.fill) && !(d.note ?? '').includes(`"${p.t}"`))
+    const chipBar = f.topBar && (/^bar \d+px tall/.test(d.note ?? '') || /\blist: /.test(d.note ?? '') || runTogether) && f.topBar.parts.filter((p) => p.t && (p.border || p.fill)).length >= 2
     if (!(f.topBar || f.rowTable) || (d.note && !chipBar && !/^(list:|[a-z ,-]*text list:)/.test(d.note))) return
     const e = decideOne({ ...f, weakNote: true }, body, marked, said)
     if (e?.note) { out.set(f.role, e); marked.add(f.role) }

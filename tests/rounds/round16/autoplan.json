@@ -579,7 +579,7 @@
   "notes": [
    [
     "pr-header",
-    "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it; only these parts in it, NO other heading or title invented: on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): regular-weight (NOT bold) 22px #1f2328 \"Cache resolved prices per session #4182\" (its words \"#4182\" in #6e7781, the rest #1f2328) at 24,18 (its top-left inside the bar); bold 13px #ffffff \"⤴ Open\" on a #1f883d 67x25px pill at 24,54 (its top-left inside the bar); 13px #6e7781 \"mira wants to merge 3 commits into main\" at 103,59 (its top-left inside the bar)"
+    "a top bar 110px tall across the whole page at the very top, no fill (page colour), a 1px #d0d7de line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: on more than one line, each absolutely placed at its own top-left x,y inside the bar (NOT all centred on one line, NOT pushed down): regular-weight (NOT bold) 22px #1f2328 \"Cache resolved prices per session #4182\" (its words \"#4182\" in #6e7781, the rest #1f2328) at 24,18 (its top-left inside the bar); bold 13px #ffffff \"⤴ Open\" on a #1f883d 67x25px pill at 24,54 (its top-left inside the bar); 13px #6e7781 \"mira wants to merge 3 commits into main\" at 103,59 (its top-left inside the bar)"
    ],
    [
     "tabs",

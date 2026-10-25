@@ -375,7 +375,7 @@
   "notes": [
    [
     "title-bar",
-    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #dadce0 line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: a 32x32px 6px-rounded solid #0f9d58 square icon (a plain block, no glyph, no picture) at x 20; regular-weight (NOT bold) 18px #202124 \"Regional sales 2026\" at x 66; 13px #5f6368 \"File Edit View Insert Format Data\" at x 243; bold 13px #202124 \"Share\" on a #c2e7ff 76x33px pill at x 1184 (pushed to the far right)"
+    "a top bar 56px tall across the whole page at the very top, no fill (page colour), a 1px #dadce0 line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: a 32x32px 6px-rounded solid #0f9d58 square icon (a plain block, no glyph, no picture) at x 20; regular-weight (NOT bold) 18px #202124 \"Regional sales 2026\" at x 66; 13px #5f6368 \"File Edit View Insert Format Data\" at x 243; bold 13px #202124 \"Share\" on a #c2e7ff 76x33px pill at x 1184 (pushed to the far right)"
    ],
    [
     "toolbar",
@@ -433,7 +433,7 @@
   "notes": [
    [
     "top-bar",
-    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #e11d48 \"nestly\" at x 32; 14px #222222 \"Lisbon Oct 30 – Nov 3 2 guests\" in a 460x48px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Oct 30 – Nov 3\", \"2 guests\") at x 240; 14px #222222 \"Host your home\" at x 1149 (pushed to the far right)"
+    "a top bar 72px tall across the whole page at the very top, no fill (page colour), a 1px #ebebeb line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 22px #e11d48 \"nestly\" at x 32; 14px #222222 \"Lisbon Oct 30 – Nov 3 2 guests\" in a 460x48px pill with a 1px #dddddd border, no fill (its parts spread inside it: \"Lisbon\", \"Oct 30 – Nov 3\", \"2 guests\") at x 240; 14px #222222 \"Host your home\" at x 1149 (pushed to the far right)"
    ],
    [
     "filters",
@@ -517,7 +517,7 @@
    ],
    [
     "search-bar",
-    "a top bar 96px tall across the whole page at the very top, #0c4a6e fill; only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 14px #0f172a \"London (LHR)\" on a #ffffff 129x40px 8px-rounded box at x 40; bold 14px #0f172a \"⇄\" on a #ffffff 48x40px 8px-rounded box at x 181; bold 14px #0f172a \"Tokyo (HND)\" on a #ffffff 120x40px 8px-rounded box at x 241; bold 14px #0f172a \"Thu 12 Nov – Sun 22 Nov\" on a #ffffff 203x40px 8px-rounded box at x 373; bold 14px #0f172a \"1 adult · Economy\" on a #ffffff 157x40px 8px-rounded box at x 588; bold 14px #0f172a \"Search\" on a #f59e0b 83x40px 8px-rounded box at x 757"
+    "a top bar 96px tall across the whole page at the very top, #0c4a6e fill (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: bold 14px #0f172a \"London (LHR)\" on a #ffffff 129x40px 8px-rounded box at x 40; bold 14px #0f172a \"⇄\" on a #ffffff 48x40px 8px-rounded box at x 181; bold 14px #0f172a \"Tokyo (HND)\" on a #ffffff 120x40px 8px-rounded box at x 241; bold 14px #0f172a \"Thu 12 Nov – Sun 22 Nov\" on a #ffffff 203x40px 8px-rounded box at x 373; bold 14px #0f172a \"1 adult · Economy\" on a #ffffff 157x40px 8px-rounded box at x 588; bold 14px #0f172a \"Search\" on a #f59e0b 83x40px 8px-rounded box at x 757"
    ],
    [
     "filters",
