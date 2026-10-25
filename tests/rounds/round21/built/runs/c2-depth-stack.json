@@ -1,24 +1,24 @@
 {
   "id": "c2-depth-stack",
-  "at": "2026-10-25T15:45:52.340Z",
+  "at": "2026-10-25T17:29:58.805Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9066796611978756,
-    "overallV2": 0.9066796611978756,
-    "overallV1": 0.8497244287914054,
-    "colour": 0.973929856909712,
-    "structure": 0.9733365003589807,
-    "structureStrict": 0.9142773484317713,
-    "colourAligned": 0.973929856909712,
-    "structureAligned": 0.9733365003589807,
+    "overall": 0.9247645818337699,
+    "overallV2": 0.9247645818337699,
+    "overallV1": 0.8711203175202807,
+    "colour": 0.9746442877147294,
+    "structure": 0.9761090750014426,
+    "structureStrict": 0.9204831979353381,
+    "colourAligned": 0.9746442877147294,
+    "structureAligned": 0.9761090750014426,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9625816609027922
+      "r": 0.9654559852969958
     },
-    "layout": 0.9048141689478012,
-    "layoutV1": 0.9048141689478012,
+    "layout": 0.9526173586966861,
+    "layoutV1": 0.9526173586966861,
     "layoutVersion": 2
   },
   "boxes": [
@@ -61,36 +61,36 @@
       0,
       64,
       590,
-      136,
-      47
+      139,
+      54
     ],
     [
       0,
       64,
       700,
-      279,
-      26
+      284,
+      32
     ],
     [
       6,
       64,
       700,
-      92,
-      26
+      94,
+      32
     ],
     [
       6,
-      168,
+      170,
       700,
-      92,
-      26
+      93,
+      32
     ],
     [
       6,
-      271,
+      275,
       700,
-      71,
-      26
+      73,
+      32
     ],
     [
       0,
@@ -144,14 +144,21 @@
     [
       0,
       1060,
-      77,
+      76,
       120,
       120
     ],
     [
       17,
+      1060,
+      76,
+      120,
+      120
+    ],
+    [
+      18,
       1061,
-      77,
+      76,
       119,
       120
     ]
@@ -172,36 +179,33 @@
     "extra": []
   },
   "tokens": {
-    "input": 45282,
-    "output": 24862,
-    "cacheRead": 283324
+    "input": 27606,
+    "output": 15389,
+    "cacheRead": 231847
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 51328,
-      "output": 16159,
-      "cacheRead": 260426,
-      "toolCalls": 12,
+      "billed": 33815,
+      "output": 11253,
+      "cacheRead": 228763,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Read components/Sphere.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Glob",
-        "Glob",
+        "Read components/Sphere.tsx",
         "Read s2c-bench-app/package.json",
+        "Glob",
         "Read src/index.css",
         "Edit components/Sphere.tsx",
-        "Edit components/Sphere.tsx",
         "Edit src/index.css",
-        "Edit src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 162126
+      "ms": 114985
     }
   ],
-  "reading": "A hero section is being built: a page-wide gradient background with a huge 3D-extruded heading, a sub-paragraph, a CTA button, a row of three pill buttons, a soft floor shadow, a literal CSS 3D cube scene, and a glowing bobbing sphere on top, all exactly specified by typed notes.",
+  "reading": "A hero section: a giant 3D-extruded serif headline, a subcopy paragraph, a dark 'Get the kit' button with hard drop shadow, a row of three translucent pill tags, a full-page gradient background, a soft radial floor shadow, a real CSS 3D stack of four tilted card faces, and a glowing bobbing sphere in the top right, all precisely specified by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -226,7 +230,7 @@
         175
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif, heavy, tightly tracked heading, line-height 0.95, white text reading exactly: \"Layers, all the\" / \"way down.\" in exactly these 2 lines (kee"
+      "instruction": "Giant Georgia serif heavy heading set tight (line-height 0.95), white, text exactly 2 lines: 'Layers, all the' / 'way down.' (keep these breaks, each line stays"
     },
     {
       "kind": "add",
@@ -251,7 +255,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Body paragraph text reading exactly: \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\" Position it absolute, top"
+      "instruction": "Body text: 'Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.' Positioned absolute, top-left at 64,470 of the page"
     },
     {
       "kind": "add",
@@ -266,7 +270,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "CTA button with dark brown (#3a1a14 exactly) background, white text (#ffffff, NOT the page's dark brown text) reading \"Get the kit\", with a hard solid, opaque, "
+      "instruction": "Dark brown (#3a1a14) button with white text 'Get the kit', with a hard solid opaque near-black shadow offset 12px straight down (0px sideways, no blur). Text co"
     },
     {
       "kind": "add",
@@ -281,10 +285,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Row of three buttons labeled \"Elevation\", \"Shadows\", \"Depth\". Position the row absolute, top-left at 64,700 on the page, 56px of empty space above it under the "
+      "instruction": "Row of 3 filled pill tags, 12px apart, each 32px tall, fully rounded (border-radius 999px), see-through white fill (background: rgba(255,255,255,0.55)), no bord"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -296,10 +300,10 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Soft floor shadow: a 460x60px ellipse at 700,700, position absolute, border-radius 50%, background: radial-gradient(#5a140a59, transparent 70%) — dark in the mi"
+      "instruction": "Soft floor shadow: one 460x60px ellipse positioned absolute at 700,700, border-radius 50%, background: radial-gradient(#5a140a59, transparent 70%) — dark in the"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -311,7 +315,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A REAL CSS 3D cube (not flat/projected rectangles, not a drawing or SVG): a 560x640px scene at 640,110 with perspective: 1200px. Inside it, one group div (posit"
+      "instruction": "A real CSS 3D stack of 4 separate flat cards piled like plates, each lifted higher via translateZ (not a cube, not side-by-side, not one box or gradient slab, n"
     },
     {
       "kind": "add",

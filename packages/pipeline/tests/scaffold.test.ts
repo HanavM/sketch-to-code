@@ -374,11 +374,13 @@ describe('wordsGiveCss — words that give the exact CSS shape beat the drawn ou
     expect(wordsGiveCss('a near-black horizontal divider rule, full page width (1280px), exactly 1px thick (height:1px)')).toBe(true)
     expect(wordsGiveCss('one big near-black outline ring, a 500x500px circle at 470,200 (position absolute, border-radius 50%) with a thin 1px border')).toBe(true)
     expect(wordsGiveCss('four solid flat-filled near-black horizontal bars (not text, not strokes), each its own element: 270x6 at 28,744')).toBe(true)
+    expect(wordsGiveCss('one group div (transform-style: preserve-3d, transform: rotateX(52deg)) holding 4 faces: #3a1a14 at translateZ(0px), #ffffff at translateZ(210px)')).toBe(true)
   })
   it('leaves drawings the words only describe', () => {
     expect(wordsGiveCss('a 520x620px photo tilted 4° clockwise')).toBe(false)
     expect(wordsGiveCss('a hand-drawn cartoon crab doodle')).toBe(false)
     expect(wordsGiveCss('a big vivid pink blurred circle behind the card')).toBe(false)
+    expect(wordsGiveCss('a 3D-looking stack of cards, tilted')).toBe(false)
   })
   it('builds no outline component for them below the trace rung, keeps it at the trace rung', () => {
     const shard = { region: { x: 700, y: 430, w: 300, h: 380 }, svgPaths: [tilted], depicts: 'shard', instruction: 'a slanted SHARD cut by clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%)' }

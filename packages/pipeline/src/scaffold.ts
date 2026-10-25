@@ -198,7 +198,8 @@ export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number;
  * handed over as "the user's strokes, keep them" it wins over the words
  * (round 21 c3: shard built as an unclipped box, the triangle a red box; c4:
  * hairline rules built thick and wavy, the red disc given a dark outline, bar
- * lines put on a grey slab). Below the trace rung those are built from the
+ * lines put on a grey slab; round 21 c2: a preserve-3d card stack built as flat
+ * bands in the drawn box). Below the trace rung those are built from the
  * words alone.
  */
 export function wordsGiveCss(said: string): boolean {
@@ -206,6 +207,9 @@ export function wordsGiveCss(said: string): boolean {
   if (/\b(css )?border triangle\b|\bzero-size div\b/i.test(said)) return true
   if (/\bexactly 1px thick\b|\bheight:\s*1px\b|\bwidth:\s*1px\b/i.test(said)) return true
   if (/\b\d{2,4}x\d{2,4}px\b[^.;]{0,80}\bborder-radius:? 50%/i.test(said)) return true
+  // n217: real CSS 3D (preserve-3d with translateZ faces): the drawn box handed over as "keep these paths" was filled
+  // with flat bands instead (round 21 c2 card stack, 2 of 5 runs)
+  if (/\btransform-style:\s*preserve-3d\b/i.test(said) && /\btranslateZ\(/i.test(said)) return true
   return /\bnot strokes\b/i.test(said) && /\b\d{2,4}x\d{1,4}\b/.test(said)
 }
 

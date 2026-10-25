@@ -3614,7 +3614,13 @@ function round11Note(f) {
     const q0 = C.faces[0]
     const look = [q0.bw ? `a ${q0.bw}px ${hexOf(q0.bc)} border` : 'no border', q0.rad ? `${q0.rad}px rounded corners` : null, 'backface visible'].filter(Boolean).join(', ')
     const mk = q0.mask && C.faces.every((q) => q.mask && q.mask.img === q0.mask.img) ? `; EVERY face is cut by the same mask (notches bitten out of both side edges, like a ticket stub), written exactly: -webkit-mask: ${cssHex(q0.mask.img).split(/,\s*(?=radial|linear|conic|repeating)/).map((l, i) => `${l} ${(q0.mask.pos ?? '').split(',')[i]?.trim() ?? ''}/${(q0.mask.size ?? '').split(',')[i]?.trim() ?? ''} ${(q0.mask.rep ?? '').split(',')[i]?.trim() ?? ''}`.replace(/\s+/g, ' ').trim()).join(', ')}` : ''
-    const what = ringZ ? `a REAL CSS 3D RING (carousel) of ${C.faces.length} cards, NOT flat or projected rectangles, NOT a drawing or SVG` : 'a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG'
+    // n217: faces that are only lifted by translateZ, all one size in one place, are a STACK of cards, not a cube
+    // (round 21 c2 was built as one flat gradient slab in 2 of 4 runs when called a cube); the build also says what
+    // flattens preserve-3d and how the result should read
+    const stackZ = !ringZ && C.faces.length >= 3 && C.faces.every((q) => /^\s*translateZ\([^)]*\)\s*$/.test(q.tf ?? '') && q.w === q0.w && q.h === q0.h && (q.x ?? 0) === (q0.x ?? 0) && (q.y ?? 0) === (q0.y ?? 0))
+    const what = ringZ ? `a REAL CSS 3D RING (carousel) of ${C.faces.length} cards, NOT flat or projected rectangles, NOT a drawing or SVG`
+      : stackZ ? `a REAL CSS 3D STACK of ${C.faces.length} SEPARATE flat cards in a pile like plates, each lifted higher than the one under it by its translateZ (NOT a cube, NOT cards side by side or in a column, NOT one box, NOT a gradient slab, NOT a drawing or SVG; it reads as ${C.faces.length} tilted rounded diamonds stacked up, the page showing round and between them; the scene and the group have NO fill, NO gradient, NO border, NO overflow hidden, NO filter and NO opacity, since those flatten the 3D; each face is its own div with its own flat colour)`
+      : 'a REAL CSS 3D cube, NOT flat or projected rectangles, NOT a drawing or SVG'
     const fr = front ? `; the ${hexOf(front.fill)} "${front.t.split('\n')[0]}" card (rotateY(0)) faces the viewer, centred in front at the middle of the scene, the others turned away round it (do NOT turn the group to another card)` : ''
     return { kind: 'box', note: `${what}: a ${C.w}x${C.h}px scene at ${C.x},${C.y} with perspective: ${C.persp ?? '900px'}; inside it ${grp}${A ? `, turning forever: animation ${A.dur} ${A.fn} infinite with @keyframes ${A.frames}` : ''}${G ? '' : ')'} holding exactly ${C.faces.length} face divs, ${at} with ${look}${mk}: ${C.faces.map(face).join('; ')}${fr}` }
   }

@@ -187,3 +187,21 @@ fill (round 21 c2 tags were built as outlined chips). Re-planned rounds 1-21: on
 Round 21: **84%** over 10 (89, 91, 90, 78, 91, 76, 86, 75, 79, 81; 83.6, was 82.9). Vitest same 2 env failures (1459
 tests); typecheck clean.
 Next: c2's 3D stack is lost in 2 of 4 runs (flat slab); then e3 gantt (75) and e2 analytics (76).
+
+## n217: a real CSS 3D build skips the drawn-outline scaffold; a card pile said as a pile (2026-10-25, ~168k billed for three c2 runs)
+
+Why c2's 3D stack was lost in 2 of 4 runs: the reading named the drawn box a picture ("stack of four layered 3D
+plates"), so the pipeline handed the build a ready component made from the drawn outline with "keep these paths", and
+that won over the words; the build filled the outline with four flat bands (run a, 59%). Now words that give a real
+CSS 3D build (preserve-3d with translateZ faces) count as an exact CSS shape, like a clip-path or a 1px rule, and get
+no outline component (pipeline, below the trace rung). Planner: four like faces lifted only by translateZ are said as
+a STACK of separate cards in a pile (NOT a cube, NOT side by side), with what flattens 3D (fill, overflow hidden,
+filter, opacity on the scene or group). Re-planned rounds 1-21: only round 21 c2 changes.
+
+| page | before | run a (plan only) | run b | run c | what changed |
+|---|---|---|---|---|---|
+| c2 depth stack | 91% | 59% | **92%** | 92% | run a: outline component kept, cards built as flat bands; with the scaffold skip both runs built the tilted pile of four cards, tags filled pills, 3D effect kept (colour 97, structure 98, layout 95) |
+
+Round 21: **84%** over 10 (89, 92, 90, 78, 91, 76, 86, 75, 79, 81; 83.7, was 83.6). Vitest same 2 env failures (1459
+tests); typecheck clean.
+Next: e3 gantt (75) and e2 analytics (76), then c4 swiss orbit (78).
