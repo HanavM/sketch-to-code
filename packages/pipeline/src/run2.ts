@@ -201,6 +201,10 @@ Rules:
   grey text (on a page whose text is white or black) → that softer grey, not the
     page's text colour;
   overlapping → absolute position or negative margin so the two boxes truly overlap;
+  a bar laid OVER the page top (absolute at 0,0) → what sits under it keeps its
+    page y by its own absolute top or padding-top on the page wrapper, never a
+    margin-top on the wrapper's first flow child: that margin collapses through a
+    wrapper with no padding or border and pushes the whole page, bar included, down;
   colour-inverting where it crosses what is under it → white text with
     mix-blend-mode: difference, and it must blend with the REAL page under it:
     never put the blending text inside an 'isolate' (isolation: isolate), z-index,

@@ -205,3 +205,28 @@ filter, opacity on the scene or group). Re-planned rounds 1-21: only round 21 c2
 Round 21: **84%** over 10 (89, 92, 90, 78, 91, 76, 86, 75, 79, 81; 83.7, was 83.6). Vitest same 2 env failures (1459
 tests); typecheck clean.
 Next: e3 gantt (75) and e2 analytics (76), then c4 swiss orbit (78).
+
+## n218: dot-led rows, gantt week heads and progress shade, a selected segment, and a top bar that pushes nothing down (2026-10-25, ~315k billed for four e3 runs)
+
+Why e3 gantt sat at 75: the task rows said "text starts at x 16" while a 22px dot sat at x 16 (built with the dot over
+the names); the week heads were said only as words (built centred, one line); the done part of each bar is the bar
+colour under 18% black (said "lighter", built paler); the selected "Weeks" segment was never said.
+
+Planner (words only): a row whose own words start after a small dot or icon says the dot first, the gap and the real
+text x, and that the dot and the count after it are the row's own children; gantt week heads say their alignment,
+inset and both lines (bold week over a normal-weight date); a progress fill says darker or lighter from its real
+colour; a segmented control's one filled segment is said as the selected one. Re-planned rounds 1-21: round 21 e3,
+round 4 e5, round 12 e2, round 17 e1 and round 18 e4 change (only the gantt and dot-row words).
+
+Codegen rule (product, all pages): a bar laid over the page top keeps what is under it in place by its own top or the
+wrapper's padding, never a margin-top on the first flow child. Runs a and c built the header absolute and gave the
+row below `margin-top: 60`, which collapsed through the page wrapper and moved the whole page, header included, 60px
+down (layout 47-49).
+
+| page | before | run a | run b | run c | run d (codegen rule) | what changed |
+|---|---|---|---|---|---|---|
+| e3 gantt | 75% | 66% | 67% | 69% | **78%** | dots before names, darker done parts, week heads left on two lines, "Weeks" selected: all four built in a, c, d; b lost the row children (fixed by the row-children words); a and c lost the header to margin collapse (fixed by the codegen rule) |
+
+Round 21: **84%** over 10 (89, 92, 90, 78, 91, 76, 86, 78, 79, 81; 84.1, was 83.7). Vitest same 2 env failures (1459
+tests); typecheck clean. Run a-c side-by-sides saved as e3-gantt-n218a/b/c-cmp.png.
+Next: e1 mail client (76), then c4 swiss orbit (78) and e3's today line (missed by the region check in every run).
