@@ -61,3 +61,20 @@ Other rounds re-planned: only rounds 10 and 19 change ('fading' to 'blinking').
 Round 20: **80%** (was 75). Vitest same 2 env failures; typecheck clean.
 Next: the giant year says its top-left; the manifesto paragraph quoted whole; the mini month is a plain sidebar calendar
 (not a floating picker); the selected event keeps its indigo fill and ring.
+
+## n199: the giant year's place, quoted manifesto, the sidebar month and selected event (2026-10-25, ~302k billed)
+
+Planner (words only): a 200-299px one-line word in a padded box now says its box's top-left, padding, tight line-height
+and letter-spacing (only round 20 c2 changes); a block with a heading and its own running copy quotes the copy whole
+(round 20 c2 manifesto, round 1 c5 sidebar); a turned word that is the box's only part is said as one part; a 7-column
+day grid in the flow with no presets, buttons or shadow is a sidebar month, not a floating picker; a dark-filled event
+card with a left edge keeps its fill and its selection ring; a region's own leading button is said first with its look
+and place; a ruled grid states its left and right edges so the label gutter can't push it right.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c2 brutal grid | 67% | **92%** | the year at its top-left, the manifesto copy word for word |
+| e1 week calendar | 68% | **76%** | sidebar month in place, selected event indigo with its ring, New event on top, grid at x 310 (a first try at 61% had the grid pushed 24px right; the edge note fixed it) |
+
+Round 20: **83%** (was 80). Vitest same 2 env failures; typecheck clean.
+Next: e2 team chat 74, e3 spreadsheet 75, e4 checkout 77, c4 paper cutout 78; e1 day heads left-aligned (target centred).

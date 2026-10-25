@@ -1,24 +1,24 @@
 {
   "id": "c2-brutal-grid",
-  "at": "2026-10-25T05:18:46.967Z",
+  "at": "2026-10-25T05:54:09.658Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6689296644436988,
-    "overallV2": 0.6689296644436988,
-    "overallV1": 0.6275692712578012,
-    "colour": 0.9022250896871353,
-    "structure": 0.6685147182430279,
-    "structureStrict": 0.5848593339949449,
-    "colourAligned": 0.9022250896871353,
-    "structureAligned": 0.6685147182430279,
+    "overall": 0.9173348931319789,
+    "overallV2": 0.9173348931319789,
+    "overallV1": 0.9016904070248895,
+    "colour": 0.9837066692372343,
+    "structure": 0.8946457975188565,
+    "structureStrict": 0.863003315524788,
+    "colourAligned": 0.9837066692372343,
+    "structureAligned": 0.8946457975188565,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7584468352699234
+      "r": 0.9886806565043808
     },
-    "layout": 0.8596079384199771,
-    "layoutV1": 0.8596079384199771,
+    "layout": 0.9675464315148962,
+    "layoutV1": 0.9675464315148962,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,7 +34,7 @@
       0,
       0,
       1280,
-      900
+      897
     ],
     [
       1,
@@ -116,338 +116,323 @@
     [
       1,
       0,
-      64,
-      1280,
-      836
+      61,
+      777,
+      520
     ],
     [
       13,
-      0,
+      3,
       64,
-      780,
-      836
+      771,
+      248
     ],
     [
       14,
-      0,
-      64,
-      780,
-      514
-    ],
-    [
-      15,
-      11,
-      159,
-      547,
-      312
-    ],
-    [
-      16,
-      148,
-      170,
-      137,
+      31,
+      43,
+      131,
       290
     ],
     [
       14,
-      0,
-      578,
-      780,
-      322
+      162,
+      43,
+      131,
+      290
     ],
     [
-      18,
-      0,
-      578,
-      137,
-      322
+      14,
+      292,
+      43,
+      131,
+      290
+    ],
+    [
+      14,
+      423,
+      43,
+      131,
+      290
+    ],
+    [
+      1,
+      774,
+      61,
+      506,
+      297
     ],
     [
       19,
-      32,
-      709,
-      30,
-      108
-    ],
-    [
-      18,
-      137,
-      578,
-      643,
-      322
-    ],
-    [
-      21,
-      167,
-      604,
-      583,
-      87
-    ],
-    [
-      22,
-      455,
-      607,
-      120,
-      23
-    ],
-    [
-      21,
-      167,
-      715,
-      240,
-      44
-    ],
-    [
-      13,
-      780,
-      64,
-      500,
-      836
-    ],
-    [
-      25,
-      780,
-      64,
-      500,
-      294
-    ],
-    [
-      26,
-      813,
+      807,
       90,
-      434,
+      440,
       54
     ],
     [
-      26,
-      813,
+      19,
+      807,
       160,
-      434,
-      51
+      440,
+      78
     ],
     [
-      25,
-      780,
-      358,
-      500,
+      1,
+      774,
+      355,
+      123,
       542
     ],
     [
-      29,
-      780,
-      358,
-      120,
-      542
-    ],
-    [
-      30,
-      812,
-      219,
+      22,
+      807,
+      -314,
       60,
       1600
     ],
     [
-      29,
-      900,
-      358,
-      380,
+      1,
+      894,
+      355,
+      386,
       542
     ],
     [
-      32,
-      903,
+      24,
+      897,
       358,
-      374,
+      380,
       54
     ],
     [
-      33,
-      923,
+      25,
+      917,
       372,
-      112,
+      113,
       26
     ],
     [
-      33,
-      1222,
+      25,
+      1216,
       372,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       412,
-      374,
+      380,
       54
     ],
     [
-      36,
-      923,
+      28,
+      917,
       426,
-      153,
+      154,
       26
     ],
     [
-      36,
-      1222,
+      28,
+      1216,
       426,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       466,
-      374,
+      380,
       54
     ],
     [
-      39,
-      923,
+      31,
+      917,
       480,
-      112,
+      113,
       26
     ],
     [
-      39,
-      1222,
+      31,
+      1216,
       480,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       520,
-      374,
+      380,
       54
     ],
     [
-      42,
-      923,
+      34,
+      917,
       534,
-      112,
+      113,
       26
     ],
     [
-      42,
-      1222,
+      34,
+      1216,
       534,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       574,
-      374,
+      380,
       54
     ],
     [
-      45,
-      923,
+      37,
+      917,
       588,
-      122,
+      123,
       26
     ],
     [
-      45,
-      1222,
+      37,
+      1216,
       588,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       628,
-      374,
+      380,
       54
     ],
     [
-      48,
-      923,
+      40,
+      917,
       642,
-      122,
+      123,
       26
     ],
     [
-      48,
-      1222,
+      40,
+      1216,
       642,
       41,
       26
     ],
     [
-      32,
-      903,
+      24,
+      897,
       682,
-      374,
+      380,
       54
     ],
     [
-      51,
-      923,
+      43,
+      917,
       696,
-      112,
+      113,
       26
     ],
     [
-      51,
-      1222,
+      43,
+      1216,
       696,
       41,
       26
+    ],
+    [
+      1,
+      0,
+      578,
+      137,
+      319
+    ],
+    [
+      46,
+      54,
+      683,
+      30,
+      108
+    ],
+    [
+      1,
+      134,
+      578,
+      643,
+      319
+    ],
+    [
+      48,
+      167,
+      607,
+      577,
+      87
+    ],
+    [
+      49,
+      455,
+      610,
+      120,
+      23
+    ],
+    [
+      48,
+      173,
+      826,
+      240,
+      44
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.8571428571428571,
+    "recall": 1,
     "kept": [
       "hard-shadow",
       "huge-type",
       "mono",
       "motion",
+      "overlap",
       "tilt",
       "vertical-type"
     ],
-    "missing": [
-      "overlap"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 56334,
-    "output": 41360,
-    "cacheRead": 252414
+    "input": 57699,
+    "output": 35763,
+    "cacheRead": 257888
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 88684,
-      "output": 37829,
-      "cacheRead": 249330,
+      "billed": 68277,
+      "output": 23625,
+      "cacheRead": 217921,
       "toolCalls": 9,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
-        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
         "Glob",
-        "Grep",
+        "Read src/main.tsx",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 433778
+      "ms": 267727
     }
   ],
-  "reading": "The sketch lays out a full page grid matching typed notes: a top nav bar with 5 labelled cells, a giant '2026' heading, a black 'RAW HTML.' panel, a vertical scrolling 'BOOKINGS OPEN' strip, a 7-row data table, an 'EST. 2019' rotated-text box, and a paragraph block with a highlighted phrase, blinking caret and a 'START A PROJECT' button, all built per the detailed typed notes rather than literal tracing of the ink.",
+  "reading": "This is a full-page layout sketch (ruled 7-box grid) with typed notes dictating exact content: a top nav bar, a giant '2026' headline, a 'RAW HTML.' intro block, a vertical scrolling 'BOOKINGS OPEN' strip, a 7-row project data table, a sideways 'EST. 2019' label, a running studio-bio copy block, and a 'START A PROJECT ↗' CTA button sitting in that bio block.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -459,7 +444,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the top nav as one 1280x64px panel at 0,0 with no fill and a 3px #000000 border, containing 5 real elements, each its own live text, left to right: a 423x"
+      "instruction": "Build a 1280x64px top navigation panel at 0,0: no fill, 3px #000000 border, containing 5 live-text parts side by side with right-side 3px #000000 borders betwee"
     },
     {
       "kind": "add",
@@ -482,10 +467,10 @@
         324
       ],
       "paths": [],
-      "instruction": "Giant heavy display heading reading '2026' in real live text (not a drawn shape), font-family Arial Black/Impact/sans-serif, font-weight 900, round-bowled not c"
+      "instruction": "Add a giant heavy headline reading \"2026\" in a round-bowled heavy sans (Arial Black/Impact, font-weight 900), live real text (not a drawn path), 260px size, abo"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -497,10 +482,10 @@
       "paths": [
         "s2"
       ],
-      "instruction": "A block with a thick black (#000000) border and white (#ffffff) body text, featuring big heading text 'RAW HTML.' set large at 54px font-weight 900 Arial Black/"
+      "instruction": "Build a thick black-bordered block with white text: a line reading \"RAW HTML.\" in big 54px font-weight 900 Arial Black/sans-serif, colour #c6ff00, filling about"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -512,10 +497,10 @@
       "paths": [
         "s3"
       ],
-      "instruction": "A narrow 120x542px vertical strip at 777,358 with #c6ff00 fill and a 3px #000000 rule down its left edge only, overflow hidden, containing one line of real vert"
+      "instruction": "Build a narrow 120x542px strip at 777,358 with #c6ff00 fill, a 3px #000000 rule down its left edge only, overflow hidden, containing one line of real vertical t"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -527,10 +512,10 @@
       "paths": [
         "s4"
       ],
-      "instruction": "A thick-black-bordered data table of exactly 7 rows (not tabs), each row 54px tall, 17px monospace #000000 text, 2 columns starting at 20px and 319px from each "
+      "instruction": "Build a thick black-bordered data table (rows, not tabs) with exactly 7 rows, each 54px tall, 17px monospace #000000 text, 2 columns with cells starting at x of"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -542,10 +527,10 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A thick-black-bordered box containing two parts: (1) a 20px heavy 'EST. 2019' label rotated on its side (rotate(-90deg), reading bottom to top) positioned 59px "
+      "instruction": "Build a thick black-bordered box containing only one part: 20px heavy text \"EST. 2019\" rotated -90deg (reading bottom to top), centred in the box, the whole tur"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -557,7 +542,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "One 643x322px block of running copy at 137,578 with a 3px #000000 border all round, padding 26px 30px, 20px #000000 text, line-height 29px, containing this exac"
+      "instruction": "Build a 643x322px block of running copy at 137,578 with a 3px #000000 border all round, padding 26px 30px, 20px #000000 text, line-height 29px, reading exactly:"
     },
     {
       "kind": "add",
@@ -572,7 +557,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A black (#000000) button/bar inside the running-copy block, with white (#ffffff) text 'START A PROJECT ↗' and a hard solid opaque red-orange shadow offset 8px d"
+      "instruction": "Add a black (#000000) bar button reading \"START A PROJECT ↗\" in white (#ffffff) text, positioned within the running-copy block's area, with a hard solid opaque "
     }
   ],
   "rejected": []

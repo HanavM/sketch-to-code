@@ -67,6 +67,9 @@ export function factsInPage() {
       kidTexts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
       kidCount: kids.length,
       regionKids,
+      // n199: the region's own first part, set before its sub-regions (round 20 e1 sidebar '＋ New event' button above the
+      // month: said only as its words, built under the calendar list)
+      leadKid: (() => { const k0 = kids[0]; if (!k0 || k0.dataset?.r || k0.querySelector('[data-r]') || !regionKids.length) return null; const t = (k0.innerText || '').replace(/\s+/g, ' ').trim(); if (!t || t.length > 30) return null; const c = getComputedStyle(k0), b = k0.getBoundingClientRect(); return { t, x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow !== 'none' } })(),
       // how many lines the text sets in (distinct line tops of its text): a giant one-word
       // heading is drawn as one tall zigzag, a two-line one as two stacked squiggles
       textLines: (() => {
@@ -1876,7 +1879,7 @@ export function factsInPage() {
       const presets = presetBox ? [...presetBox.children].map((k) => ({ t: txt(k), on: Number(getComputedStyle(k).fontWeight) >= 600 || rgba(getComputedStyle(k).color).b > 180 && rgba(getComputedStyle(k).color).r < 120, ink: rgba(getComputedStyle(k).color) })) : []
       const btns = [...el.querySelectorAll('button,span,a')].filter((k) => !dg.contains(k) && !k.children.length && txt(k) && txt(k).length <= 14 && (filled(k) || parseFloat(getComputedStyle(k).borderTopWidth) >= 1)).map((k) => ({ t: txt(k), fill: filled(k), ink: rgba(getComputedStyle(k).color) }))
       const cs = getComputedStyle(el)
-      return { type: 'datePicker', month, lead, last: txt(days[days.length - 1]), cell: Math.round(cb.width), presets, presetW: presetBox ? Math.round(presetBox.getBoundingClientRect().width) : 0, ends: ends.map(txt), endFill: ends[0] ? filled(ends[0]) : null, mid: mids.length ? { from: txt(mids[0]), to: txt(mids[mids.length - 1]), fill: filled(mids[0]) } : null, btns, shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius)), fill: filled(el) }
+      return { type: 'datePicker', month, lead, last: txt(days[days.length - 1]), cell: Math.round(cb.width), presets, presetW: presetBox ? Math.round(presetBox.getBoundingClientRect().width) : 0, ends: ends.map(txt), endFill: ends[0] ? filled(ends[0]) : null, mid: mids.length ? { from: txt(mids[0]), to: txt(mids[mids.length - 1]), fill: filled(mids[0]) } : null, btns, shadow: cs.boxShadow !== 'none', abs: /absolute|fixed/.test(cs.position), radius: Math.round(parseFloat(cs.borderTopLeftRadius)), fill: filled(el) }
     }
     // round 8 e2: one KPI card whose label is the card's own bare text before a big number (the label was dropped,
     // and the delta's colour unsaid): small grey label, big bold number, a coloured delta line under it
@@ -2889,6 +2892,8 @@ function denseNote(d) {
     case 'heatShades': return `${d.title ? `${quote(d.title, 48)} as a small bold heading, under it ` : ''}a heat grid (NOT a picture, NOT pills, no text in the cells): ${d.rows.length} rows of ${d.cols} textless ${d.px.w}x${d.px.h}px cells${d.radius ? ` with ${d.radius}px rounded corners` : ''}${d.gap ? `, ${d.gap}px apart` : ''}, each cell filled with one of ${d.shades.length} shades of the same colour, lightest 1 to darkest ${d.shades.length}: ${d.shades.map((c, i) => `${i + 1} ${hexOf(c)}`).join(', ')}; rows top to bottom (shade per cell): ${d.rows.join(' ')}`
     case 'datePicker': {
       const on = d.presets.find((p) => p.on)
+      // n199: a plain month in a sidebar (round 20 e1: no presets, no shadow, in the flow) was said as a floating picker and built as one
+      if (!d.presets.length && !d.shadow && !d.abs && !d.btns.length) return `a small month calendar sitting IN the sidebar flow (part of the sidebar, NOT a floating picker, NOT a popup, no panel, no border, no shadow)${d.month ? `, headed ${quote(d.month)} in bold at its left` : ''}: 7 columns of ${d.cell}px round day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length === 1 ? `; today ${quote(d.ends[0])} a filled ${hexOf(d.endFill)} circle with a bold white number` : d.ends.length ? `; ${d.ends.map((t) => quote(t)).join(' and ')} filled ${hexOf(d.endFill)} circles with white numbers` : ''}${d.mid ? `, the rest of that week (${d.mid.from} to ${d.mid.to}) pale ${hexOf(d.mid.fill)} circles with grey numbers` : ''}`
       return `an OPEN date-range picker floating over the page (a ${d.fill ? hexOf(d.fill) : 'white'} panel${d.radius ? `, ${d.radius}px rounded corners` : ''}${d.shadow ? ', a big soft drop shadow so it sits above the cards under it' : ''}; NOT page numbers): ${d.presets.length ? `on the left a ${d.presetW}px column of preset lines ${d.presets.map((p) => quote(p.t, 16)).join(', ')}${on ? `, ${quote(on.t)} the chosen one in bold ${hexOf(on.ink)}, the rest grey` : ''}; ` : ''}beside it a month calendar${d.month ? ` headed ${quote(d.month)} (centred)` : ''}: 7 columns of ${d.cell}px day cells, ${d.lead > 0 ? `${d.lead} empty cells then ` : ''}days 1 to ${d.last}${d.ends.length ? `; the range ends ${d.ends.map((t) => quote(t)).join(' and ')} are filled ${hexOf(d.endFill)} rounded cells with white numbers` : ''}${d.mid ? `, the days between (${d.mid.from} to ${d.mid.to}) a pale ${hexOf(d.mid.fill)} band with dark numbers` : ''}${d.btns.length ? `; bottom right the buttons ${d.btns.map((b) => `${quote(b.t)} (${b.fill ? `filled ${hexOf(b.fill)}, ${colourName(b.ink)} text` : 'outlined'})`).join(' and ')}` : ''}`
     }
     case 'kpi1': return `stat card: ${d.labelPx}px ${colourName(d.labelInk)} label ${quote(d.label, 24)} on top, under it big ${d.valuePx}px bold ${quote(d.value, 14)}${d.extra.map((x) => `, under that ${x.bold ? 'bold ' : ''}${hexOf(x.ink)} ${quote(x.t, 20)}`).join('')}`
@@ -4046,6 +4051,10 @@ function decideOne(f, page, marked, said) {
   // a filled card with a thick coloured left edge (a calendar event, round 6 e5 'Launch sync' said as an 'off-white card')
   if (f.text && fill && f.border.left >= 3 && f.border.w < 1 && visible(f.border.leftColour) && !f.regionKids.length && f.kidCount <= 3) {
     const edge = colourName(f.border.leftColour).replace(/^(dark|deep) /, '')
+    // n199: a dark-filled selected event with a ring (round 20 e1 'Offsite planning' #4f46e5 said as 'pale grey card', built grey)
+    const lumBg = 0.299 * f.bg.r + 0.587 * f.bg.g + 0.114 * f.bg.b
+    const ring = typeof f.shadow === 'string' && /(^|,)\s*rgba?\([^)]*\)\s+0px\s+0px\s+0px\s+\d/.test(f.shadow) ? f.shadow : null
+    if (lumBg < 170) return { kind: 'box', note: withFx(`SOLID ${hexOf(f.bg)} filled card (NOT pale, NOT grey; ${Math.round(w)}x${Math.round(h)}px) with a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} left edge, ${Math.round(f.radius)}px rounded, bold ${quote(f.kidTexts?.[0] ?? f.text, 40)} then ${quote(f.text.replace(f.kidTexts?.[0] ?? '', '').trim(), 40)} under it${ring ? `; it is the SELECTED one: a ring round it, box-shadow: ${ring}` : ''}`) }
     return { kind: 'box', note: withFx(`pale ${edge} card (${Math.round(w)}x${Math.round(h)}px) with a ${Math.round(f.border.left)}px ${edge} left edge, ${Math.round(f.radius)}px rounded, bold ${quote(f.kidTexts?.[0] ?? f.text, 40)} then ${quote(f.text.replace(f.kidTexts?.[0] ?? '', '').trim(), 40)} under it`) }
   }
   if (f.hasImg && f.text.length < 4) return { kind: 'image', note: withFx(null) }
@@ -4404,7 +4413,7 @@ function decideOne(f, page, marked, said) {
     const fadeSay = brk && ks && ks.some((k) => k.o < 0.95) ? `; each line its own block with its own opacity, top to bottom: ${ks.map((k) => `${Math.round(k.o * 100)}%`).join(', ')} (the lower lines fade out; never all solid)` : ''
     // a giant one-line word also says its type size: a width alone let the build take the drawn line
     // height (round 6 c2 'Tickets →' 110px type built ~127px, ~1.15x large)
-    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)${f.font.size >= 300 ? `, absolutely placed: its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} and its first letter's ink starting at x=${f.shown.x} (not further right)` : ''}` : ''
+    const wide = sl && sl.length === 1 && f.font.size >= 100 ? `, ${Math.round(f.font.size)}px type, about ${f.shown.w}px wide (no larger)${f.font.size >= 300 || (f.font.size >= 200 && (f.inset.t >= 8 || f.inset.l >= 8)) ? `, absolutely placed: its box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} and its first letter's ink starting at x=${f.shown.x} (not further right)${f.font.size < 300 ? `, padding ${Math.round(f.inset.t)}px ${Math.round(f.inset.l)}px, line-height ${f.font.lineHeight ? `${Math.round(f.font.lineHeight)}px (tight, about ${(f.font.lineHeight / f.font.size).toFixed(2)})` : 'tight'}, letter-spacing ${Math.round(f.font.spacing)}px, so the letters sit at the TOP of the box, not lower` : ''}` : ''}` : ''
     // n146: a giant multi-line block says its type size and where its box starts (round 12 c2 'LOUD/ROOM' 330px built ~100px low)
     const bigAt = brk && f.font.size >= 160 ? `, ${Math.round(f.font.size)}px type, the text box's top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (top-[${Math.round(f.rect.y)}px]; the first line starts there, not lower)` : ''
     // a display line of several words that fits on one line says so: the build wrapped it at the drawn width
@@ -4514,10 +4523,11 @@ function decideOne(f, page, marked, said) {
     const tk = f.turnedKid && !f.regionKids.length ? f.turnedKid : null
     // the turned word comes first and is counted as one of two parts: said after the copy as 'and a ...',
     // the build dropped it (round 6 c5 'LOUD', n88)
-    const turned = tk ? `two parts: (1) a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off; (2) text ${quote(f.text.replace(tk.t, '').trim(), 140)} at the top` : null
+    const tkRest = tk ? f.text.replace(tk.t, '').trim() : ''
+    const turned = tk && !tkRest ? `ONE part only (nothing else in the box): a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}), centred in the box, the whole turned word inside it, none of it cut off` : tk ? `two parts: (1) a ${tk.px}px ${tk.bold ? 'heavy ' : ''}${quote(tk.t)} turned on its side (rotate(${tk.deg}deg), reading ${tk.deg < 0 ? 'bottom to top' : 'top to bottom'}) along the left edge (${Math.max(0, tk.at.x)}px in from it), its end ${tk.at.bottom}px above the bottom, the whole turned word inside the box, none of it cut off; (2) text ${quote(f.text.replace(tk.t, '').trim(), 140)} at the top` : null
     // a big bold figure over a small line (round 6 c4 badge: said as one run of text)
     const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
-    const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? (f.ownText && f.ownText.length <= 24 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} logo text at the left (n156), then ${quote(head)}` : `${quote(head)} and text`) : '')
+    const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? (f.ownText && f.ownText.length > 24 && f.ownText.length <= 220 ? `${quote(head)} on its own line, then under it the copy quoted whole (these exact words, nothing invented): ${Math.round(f.font.size)}px ${quote(f.ownText, 220)}` : f.ownText && f.ownText.length <= 24 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} logo text at the left (n156), then ${quote(head)}` : `${quote(head)} and text`) : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
     return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
   }
@@ -5103,7 +5113,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const ruled = /^a ruled grid of thin lines/.test(d.note ?? '') && P.length >= 3
     if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered) return
     let note = partsNote(P, f)
-    if (ruled) { d.note = `the region itself is a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} painted as ${d.note.split('; centred on top of it')[0].replace(/ block$/, '')}`; note = `laid over it (and beside it, where a part sits outside its box) ${note}` }
+    if (ruled) { d.note = `the region itself is a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (its left edge EXACTLY at x=${Math.round(f.rect.x)}, its right edge at x=${Math.round(f.rect.x + f.rect.w)}; any label gutter beside it is no wider than its labels, so the grid is never pushed right) painted as ${d.note.split('; centred on top of it')[0].replace(/ block$/, '')}`; note = `laid over it (and beside it, where a part sits outside its box) ${note}` }
     if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
     // n181: the region's own words outside its parts (a lane head's '▸ Growth' before its count span)
     const rest = d && !d.note && P.length < 3 && f.text ? P.reduce((t, p) => (p.t ? t.replace(p.t, '') : t), f.text.replace(/\s+/g, ' ')).trim() : ''
@@ -5414,6 +5424,13 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (rules.length > 1) return
     const rule = rules.length ? `, a ${Math.round(rules[0][1])}px ${hexOf(rules[0][2])} rule along its ${rules[0][0]} edge only (border-${rules[0][0].toLowerCase()}, no other border)` : ''
     d.note = `the region itself is ONE ${W}x${H}px ${bar ? 'top bar' : 'column'} element at ${X},${Y} (its own wrapper, ${filled ? `${hexOf(f.bg)} fill` : 'no fill'}${rule}${column && Y + H >= 895 ? ', running to the page bottom' : ''}) that holds all of these parts inside it, never laid loose on the page; ${d.note}`
+  })
+  // n199: a region's own leading part (a button above its sub-regions) says its look, place and that it comes FIRST
+  regions.forEach((f) => {
+    const d = out.get(f.role), L = f.leadKid
+    if (!d?.note || !L || !f.regionKids.length || d.note.trim() !== quote(L.t)) return
+    const fl = visible(L.fill) && L.fill.a > 0.5
+    d.note = `FIRST, at the very top of this region (above ${f.regionKids.map((r) => `the ${r}`).join(' and ')}): ${fl ? `a ${hexOf(L.fill)} filled ` : 'a '}${L.w}x${L.h}px ${L.radius ? `${L.radius}px rounded ` : ''}button at ${L.x},${L.y}${L.shadow ? ' with a soft shadow' : ''}, ${L.px}px ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text ${quote(L.t)}; the other parts follow under it`
   })
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
