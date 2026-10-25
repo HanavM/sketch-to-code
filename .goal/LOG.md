@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T20:15Z | n223 gantt today line and milestones said to the exact px | e3 gantt 79 to 94; round 21 90. ~76k.
 2026-10-25T19:50Z | n222 danger zone said part by part, inset-shadow tab underline and tab rule | e5 team settings 82 to 89; round 21 88. ~68k.
 2026-10-25T19:40Z | n221 thumbs one by one, chips before the list, two-line cells, playing row, transport glyphs | e4 music player 79 to 87; round 21 88. ~78k.
 2026-10-25T19:07Z | n220 turned giant numeral says line height and tracking, spaced letters say px | c4 swiss orbit 78 to 89 in one run; round 21 86. ~116k.
