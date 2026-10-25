@@ -78,3 +78,20 @@ and place; a ruled grid states its left and right edges so the label gutter can'
 
 Round 20: **83%** (was 80). Vitest same 2 env failures; typecheck clean.
 Next: e2 team chat 74, e3 spreadsheet 75, e4 checkout 77, c4 paper cutout 78; e1 day heads left-aligned (target centred).
+
+## n200: count badges, thread avatars and divider, boxed code line (2026-10-25, ~60k billed)
+
+Planner (words only): a list row's small filled count pill is said with its colour at the row's right end (round 20 e2
+and round 12 e3 channel badges, built grey or as bare numbers); a thumbnail list whose thumbnails differ says each one's
+colour, a long last line sits under the name (not at the right), and a divider between items is said in place (round 20
+e2 and round 16 e4 thread panels); a one-line monospace line with its own fill or border is a code box; plain dark body
+copy in a message is no longer called a "link line". Re-planned all rounds: only round 12 e3, round 16 e4 and round 20
+e1 (an id dropped from a note), e2 change.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e2 team chat | 74% | **77%** | red count badges, the code snippet boxed, thread avatars in their own colours with the "6 replies" rule |
+
+Round 20: **84%** (was 83). Vitest same 2 env failures; typecheck clean.
+Next: e2 composer (toolbar row, green send button, typing line under it) and channel pane fill; e3 toolbar look 76;
+c4 paper cutout 78 (structure 64); e4 stepper is right as built (the target's step dots are inline and small).
