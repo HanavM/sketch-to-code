@@ -135,7 +135,7 @@
    ],
    [
     "gradient-orb",
-    "a 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffb38a 0%, #ff4f2e 45%, #5a0f2a 100%) so it looks lit from the top left; absolutely placed, top-left at 470,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a 520px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 30%, #ffb38a 0%, #ff4f2e 45%, #5a0f2a 100%) so it looks lit from the top left; absolutely placed, top-left at 470,150, BEHIND the words that cross it (z-index 0, set before them; the words \"FORM\", \"follows\", \"TYPE\", \"VARIABLE FONTS ✦ KINETIC\" paint OVER the sphere and stay fully visible, never hidden by it)"
    ],
    [
     "word-form",
@@ -155,7 +155,7 @@
    ],
    [
     "diagonal-marquee",
-    "tilted 6° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1500px-wide line, position absolute, left -100px, top 700px BEFORE the tilt, so it starts 100px off the LEFT edge and ends 120px past the right; no letter starts at x 0) near-black bold 28px \"VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦\" repeated along it, in front of the \"TYPE\" heading"
+    "tilted 6° anticlockwise scrolling marquee on a SOLID near-black #141414 ribbon (the band itself filled #141414 edge to edge, 64px thick, the words centred in it, its letters warm paper #e9e4da, NOT the band colour) bleeding off the left and right page edges (one 1500px-wide line, position absolute, left -100px, top 700px BEFORE the tilt, so it starts 100px off the LEFT edge and ends 120px past the right; no letter starts at x 0) bold 28px \"VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦\" repeated along it, in front of the \"TYPE\" heading"
    ],
    [
     "circle-badge",
@@ -349,11 +349,7 @@
    ],
    [
     "spinning-record",
-    "text",
-    {
-     "fontPx": 16,
-     "lines": 3
-    }
+    "box"
    ],
    [
     "halftone-sleeve",
@@ -395,11 +391,11 @@
    ],
    [
     "spinning-record",
-    "spinning \"LOW TIDE — 33⅓ —\"; ON it (inside the block, not under it) a small caption chip at 180,180 in the block: 14px sans-serif #1b1b1b \"LOW TIDE\n— 33⅓ —\" on a solid #ff5a36 160x160px label"
+    "a VINYL RECORD: ONE 520x520px ROUND disc (border-radius 50%) at 470,180, filled with fine concentric GROOVES: exactly background: repeating-radial-gradient(circle, #161616 0px, #161616 2px, #262626 2px, #262626 4px) (#161616 and #262626 rings every few px, NOT a flat fill), box-shadow: #00000059 0px 20px 50px 0px, the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite); ON it (inside the block, not under it) a small caption chip at 180,180 in the block: 14px bold monospace #1b1b1b \"LOW TIDE\n— 33⅓ —\" on a solid #ff5a36 160x160px ROUND label (border-radius 50%: a disc, NOT a square), its text centred"
    ],
    [
     "halftone-sleeve",
-    "a 598x598px block, NOT a picture or photo: its background is exactly radial-gradient(#f0e6d2 22%, rgba(0, 0, 0, 0) 24%) (a flat disc with a HARD edge on a flat field, not a soft fade); ON it (inside the block, not under it) a small caption chip at 58,427 in the block: 64px sans-serif #f0e6d2 \"LOW\nTIDE\" on a solid #1d3fbf 178x139px label"
+    "a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE 560x560px div (its untransformed size) with its top-left at 120,150, a SOLID indigo #1d3fbf fill covered edge to edge by a fine grid of small #f0e6d2 dots, exactly: background-color: #1d3fbf; background-image: radial-gradient(#f0e6d2 22%, transparent 24%); background-size: 18px 18px (it REPEATS every 18px: rows and rows of dots, NOT one big disc); transform: rotate(-4deg) (tilted 4deg anticlockwise), box-shadow: #1b1b1b 16px 16px 0px 0px (a HARD offset shadow, no blur, a solid slab behind one corner), square corners; ON it (inside the block, not under it) a small caption chip at 58,427 in the block: 64px bold sans-serif #f0e6d2 \"LOW\nTIDE\" on a solid #1d3fbf 178x139px label"
    ],
    [
     "tonearm",
@@ -537,7 +533,7 @@
    ],
    [
     "main",
-    "\"Members\" and text"
+    "its own heading lines ABOVE its parts (real elements, live text, none left out): page heading 24px bold #18181b \"Members\" with its top-left at 280,28; then 14px #71717a \"Manage who can see and edit this workspace. 7 of 10 seats used.\" with its top-left at 280,60"
    ],
    [
     "tabs",
@@ -549,11 +545,11 @@
    ],
    [
     "member-table",
-    "table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Name\" | grey \"Role\" | grey \"Status\" | grey \"Last active\" | grey \"2FA\" | (empty); then 5 body rows each 51px tall, cells in column order: row 1: purple round 30px avatar \"HM\" + bold \"Hanav M. you\" | \"Owner\" | green pill \"Active\" | \"Now\" | (empty) | \"⋯\"; row 2: teal round 30px avatar \"PR\" + \"Priya Raman\" | \"Admin ▾\" | green pill \"Active\" | \"2h ago\" | (empty) | \"⋯\"; row 3: orange round 30px avatar \"JO\" + \"Joel Okafor\" | \"Editor ▾\" | green pill \"Active\" | \"Yesterday\" | (empty) | bold \"⋯\"; row 4: green round 30px avatar \"LT\" + \"Lena Torres\" | \"Editor ▾\" | green pill \"Active\" | \"Oct 20\" | (empty) | \"⋯\"; row 5: grey round 30px avatar \"?\" + \"marco@studio.io\" | \"Viewer ▾\" | deep rust orange pill \"Invited\" | \"—\" | \"—\" | \"⋯\"; fixed column widths (table-layout: fixed, 960px): each column starts this far from the table's left edge: 1 0px, 2 315px, 3 497px, 4 633px, 5 788px, 6 895px"
+    "table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Name\" | grey \"Role\" | grey \"Status\" | grey \"Last active\" | grey \"2FA\" | (empty); then 5 body rows each 51px tall, cells in column order: row 1: purple round 30px avatar \"HM\" + bold \"Hanav M. you\" | chip \"Owner\" | green pill \"Active\" | \"Now\" | ON switch | \"⋯\"; row 2: teal round 30px avatar \"PR\" + \"Priya Raman\" | chip \"Admin ▾\" | green pill \"Active\" | \"2h ago\" | ON switch | \"⋯\"; row 3: orange round 30px avatar \"JO\" + \"Joel Okafor\" | chip \"Editor ▾\" | green pill \"Active\" | \"Yesterday\" | OFF switch | bold \"⋯\"; row 4: green round 30px avatar \"LT\" + \"Lena Torres\" | chip \"Editor ▾\" | green pill \"Active\" | \"Oct 20\" | ON switch | \"⋯\"; row 5: grey round 30px avatar \"?\" + \"marco@studio.io\" | chip \"Viewer ▾\" | deep rust orange pill \"Invited\" | \"—\" | \"—\" | \"⋯\"; fixed column widths (table-layout: fixed, 960px): each column starts this far from the table's left edge: 1 0px, 2 315px, 3 497px, 4 633px, 5 788px, 6 895px; every \"chip\" is an outlined chip 26px tall, 1px #d4d4d8 border, 6px rounded, no fill; every ON switch is a 36x20px fully rounded #7c3aed track with a round #ffffff knob at its RIGHT end; every OFF switch is a 36x20px fully rounded #d4d4d8 track with a round #ffffff knob at its LEFT end"
    ],
    [
     "permission-matrix",
-    "\"Role permissions\", table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Permission\" | grey \"Owner\" | grey \"Admin\" | grey \"Editor\" | grey \"Viewer\"; then 4 body rows each 39px tall, cells in column order: row 1: \"View notes\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\"; row 2: \"Edit notes\" | purple pill \"✓\" | purple pill \"✓\" | purple pill \"✓\" | empty checkbox; row 3: \"Invite members\" | purple pill \"✓\" | purple pill \"✓\" | empty checkbox | empty checkbox; row 4: \"Manage billing\" | purple pill \"✓\" | empty checkbox | empty checkbox | empty checkbox; fixed column widths (table-layout: fixed, 958px): each column starts this far from the table's left edge: 1 0px, 2 333px, 3 492px, 4 648px, 5 795px"
+    "\"Role permissions\", table (a real <table>, every row built, none left out): header row, 12px grey semibold: grey \"Permission\" | grey \"Owner\" | grey \"Admin\" | grey \"Editor\" | grey \"Viewer\"; then 4 body rows each 39px tall, cells in column order: row 1: \"View notes\" | ✓ box | ✓ box | ✓ box | ✓ box; row 2: \"Edit notes\" | ✓ box | ✓ box | ✓ box | empty box; row 3: \"Invite members\" | ✓ box | ✓ box | empty box | empty box; row 4: \"Manage billing\" | ✓ box | empty box | empty box | empty box; fixed column widths (table-layout: fixed, 958px): each column starts this far from the table's left edge: 1 0px, 2 333px, 3 492px, 4 648px, 5 795px; every \"✓ box\" is a ticked SOLID checkbox 18x18px, 4px rounded, filled #7c3aed edge to edge with a #ffffff ✓ centred (NOT pale, NOT a pill); every \"empty box\" is an unticked checkbox 18x18px, 4px rounded, 1px #d4d4d8 border, no fill"
    ],
    [
     "row-menu",

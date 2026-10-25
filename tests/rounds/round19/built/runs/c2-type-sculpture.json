@@ -1,24 +1,24 @@
 {
   "id": "c2-type-sculpture",
-  "at": "2026-10-24T23:17:39.581Z",
+  "at": "2026-10-25T00:42:04.299Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6315514992603789,
-    "overallV2": 0.6253431958270598,
-    "overallV1": 0.5473995407335864,
-    "colour": 0.907983476314298,
-    "structure": 0.7120659390851651,
-    "structureStrict": 0.5767991633730881,
-    "colourAligned": 0.907983476314298,
-    "structureAligned": 0.7228400962254762,
+    "overall": 0.8745199830410191,
+    "overallV2": 0.8665761476850005,
+    "overallV1": 0.7727147270380111,
+    "colour": 0.9802912605877645,
+    "structure": 0.9362257253611193,
+    "structureStrict": 0.7733345738049441,
+    "colourAligned": 0.9802912605877645,
+    "structureAligned": 0.9500117993411964,
     "align": {
       "scale": 1,
       "dx": -16,
       "dy": 0,
-      "r": 0.6535587103798339
+      "r": 0.9552319487882924
     },
-    "layout": 0.6639401614854044,
-    "layoutV1": 0.6639401614854044,
+    "layout": 0.7548013198686685,
+    "layoutV1": 0.7548013198686685,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,139 +27,148 @@
       0,
       0,
       1280,
-      920
+      900
     ],
     [
       0,
-      48,
-      14,
-      650,
-      276
-    ],
-    [
       0,
-      308,
-      234,
-      563,
-      252
-    ],
-    [
       0,
-      528,
-      434,
-      573,
-      276
+      1280,
+      900
     ],
     [
-      0,
-      1150,
-      90,
-      92,
-      541
-    ],
-    [
-      0,
-      -100,
-      543,
-      1497,
-      205
-    ],
-    [
-      5,
-      -435,
-      -11,
-      7109,
-      788
-    ],
-    [
-      6,
-      -435,
-      362,
-      3557,
-      415
-    ],
-    [
-      6,
-      3117,
-      -11,
-      3557,
-      415
-    ],
-    [
-      0,
-      94,
-      524,
-      170,
-      170
-    ],
-    [
-      9,
-      60,
-      490,
-      239,
-      239
-    ],
-    [
-      10,
-      54,
-      477,
-      252,
-      253
-    ],
-    [
-      11,
-      54,
-      477,
-      252,
-      253
-    ],
-    [
-      9,
-      161,
-      591,
-      36,
-      36
-    ],
-    [
-      0,
-      60,
-      830,
-      186,
-      20
-    ],
-    [
-      0,
-      601,
-      830,
-      186,
-      20
-    ],
-    [
-      0,
-      1142,
-      830,
-      78,
-      20
-    ],
-    [
-      0,
+      1,
       470,
       150,
       520,
       520
     ],
     [
-      17,
-      471,
-      150,
-      519,
-      519
+      1,
+      48,
+      14,
+      650,
+      276
+    ],
+    [
+      1,
+      308,
+      234,
+      563,
+      252
+    ],
+    [
+      1,
+      528,
+      434,
+      573,
+      276
+    ],
+    [
+      1,
+      65,
+      494,
+      230,
+      230
+    ],
+    [
+      6,
+      65,
+      494,
+      230,
+      230
+    ],
+    [
+      7,
+      85,
+      514,
+      190,
+      190
+    ],
+    [
+      7,
+      67,
+      484,
+      235,
+      233
+    ],
+    [
+      9,
+      67,
+      484,
+      235,
+      233
+    ],
+    [
+      1,
+      157,
+      587,
+      36,
+      36
+    ],
+    [
+      1,
+      1150,
+      90,
+      92,
+      541
+    ],
+    [
+      1,
+      -99,
+      622,
+      1498,
+      220
+    ],
+    [
+      13,
+      -179,
+      630,
+      1498,
+      220
+    ],
+    [
+      14,
+      -178,
+      425,
+      3557,
+      415
+    ],
+    [
+      14,
+      3374,
+      51,
+      3557,
+      415
+    ],
+    [
+      1,
+      60,
+      830,
+      186,
+      20
+    ],
+    [
+      1,
+      601,
+      830,
+      186,
+      20
+    ],
+    [
+      1,
+      1142,
+      830,
+      78,
+      20
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.8461538461538461,
+    "recall": 1,
     "kept": [
+      "bleed",
+      "gradient",
       "gradient-text",
       "hollow-type",
       "huge-type",
@@ -172,58 +181,35 @@
       "uppercase-display",
       "vertical-type"
     ],
-    "missing": [
-      "bleed",
-      "gradient"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 48160,
-    "output": 33445,
-    "cacheRead": 597472
+    "input": 39724,
+    "output": 18075,
+    "cacheRead": 135457
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49234,
-      "output": 19757,
-      "cacheRead": 337662,
-      "toolCalls": 12,
+      "billed": 45014,
+      "output": 12652,
+      "cacheRead": 124234,
+      "toolCalls": 7,
       "tools": [
-        "Read components/SketchShape.tsx",
+        "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Read s2c-bench-app/package.json",
         "Read src/index.css",
-        "Edit components/SketchShape.tsx",
+        "Read src/main.tsx",
         "Edit src/index.css",
-        "Write src/App.tsx",
-        "Read components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Read components/SketchShape.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 203520
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 11275,
-      "output": 4582,
-      "cacheRead": 248717,
-      "toolCalls": 4,
-      "tools": [
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 48519
+      "ms": 134592
     }
   ],
-  "reading": "The sketch lays out a large type-foundry hero: a huge glossy sphere overlapping three giant text lines (\"FORM\", \"follows\", \"TYPE\"), a vertical sideways label on the right, a scrolling marquee strip with a small dot, a spinning badge-ring circle at bottom left, and a thin footer row of three text items, all on a warm paper page.",
+  "reading": "The sketch is a hero section: a big circle acts as a lit sphere behind three giant words (FORM / follows / TYPE), a tiny ring with a dot stands for a spinning foundry badge, a long squiggly band across the bottom is a scrolling marquee ribbon with a dot accent, the jagged baseline under it is a 3-part footer credit line, and the small squiggle at far right is a vertical rotated 'Specimen 04' label — all spelled out precisely by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -261,7 +247,7 @@
         281
       ],
       "paths": [],
-      "instruction": "Giant heavy uppercase tight-set live text \"FORM\": font-family Impact, Haettenschweiler, sans-serif; font-weight 900; round-bowled, NOT a squared/condensed/displ"
+      "instruction": "Giant heading text 'FORM': font-family Impact/Haettenschweiler sans-serif, font-weight 900, round-bowled (not squared/condensed/display) uppercase tight-set let"
     },
     {
       "kind": "add",
@@ -284,7 +270,7 @@
         269
       ],
       "paths": [],
-      "instruction": "Giant Georgia italic serif, thin hairline-weight, tight-set, hollow-outlined near-black live text \"follows\", 210px type, about 565px wide max."
+      "instruction": "Giant heading text 'follows': Georgia italic serif, thin hairline weight, tight-set letters, hollow outlined near-black, 210px type size, about 565px wide max, "
     },
     {
       "kind": "add",
@@ -307,7 +293,7 @@
         304
       ],
       "paths": [],
-      "instruction": "Giant heavy uppercase tight-set live text \"TYPE\": font-family Impact, sans-serif; font-weight 900; round-bowled, NOT squared/condensed/display; vivid indigo #23"
+      "instruction": "Giant heading text 'TYPE': font-family Impact/sans-serif, font-weight 900, round-bowled (not squared/condensed/display) uppercase tight-set letters, vivid indig"
     },
     {
       "kind": "add",
@@ -322,7 +308,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Vertical sideways live text, writing-mode vertical-rl turned 180deg so it reads bottom to top, 92px letters on one nowrap line, column 92px wide at x 1150, 541p"
+      "instruction": "Vertical rotated label 'Specimen 04': writing-mode vertical-rl turned 180deg so it reads bottom to top, 92px letters on ONE line (white-space nowrap, never wrap"
     },
     {
       "kind": "add",
@@ -337,7 +323,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A scrolling marquee strip: tilted 6° anticlockwise, bleeding off both page edges (1500px-wide line, position absolute, left -100px, top 700px before the tilt, s"
+      "instruction": "Tilted 6° anticlockwise scrolling marquee on a solid near-black #141414 ribbon (band filled #141414 edge to edge, 64px thick, words centred, letters warm paper "
     },
     {
       "kind": "add",
@@ -353,7 +339,7 @@
         "s6",
         "s7"
       ],
-      "instruction": "A spinning ring badge: small spaced capital letters \"FOUNDRY ✦ NEW RELEASE ✦ 2026 ✦\" running around a 170px circle path, the circle itself has no outline and no"
+      "instruction": "Spinning ring badge: small spaced capital letters 'FOUNDRY ✦ NEW RELEASE ✦ 2026 ✦' running around a 170px circle path, no outline, no fill on the circle itself."
     },
     {
       "kind": "add",
@@ -368,7 +354,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A small 36x36px vivid red-orange dot (border-radius 50%, not smaller), sitting at the center of the spinning ring badge / along the marquee strip."
+      "instruction": "A small 36x36px vivid red-orange dot accent (border-radius 50%, exactly 36px, not smaller), placed near the ring badge and marquee ribbon."
     },
     {
       "kind": "add",
@@ -383,7 +369,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Footer row with three separate live-text elements, each kept on one line (white-space: nowrap, min-width not fixed): a 186x15 block at 60,830, 13px mono #141414"
+      "instruction": "Footer credit line in three separate live-text parts, each on one line (white-space nowrap, min-width not fixed width, so the word and count never wrap apart): "
     }
   ],
   "rejected": [

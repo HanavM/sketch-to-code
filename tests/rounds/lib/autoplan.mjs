@@ -153,6 +153,9 @@ export function factsInPage() {
       hasImg: !!el.querySelector('img,svg,picture,video,canvas') || /url\(/.test(cs.backgroundImage),
       // text of children that are not regions and hold none (a card title beside a marked picture)
       looseTexts: kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]')).map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
+      // n191: each loose text's size, weight, ink and place (round 19 e2: an app page's 'Members' heading and its sub-line
+      // said as '"Members" and text', both lost)
+      looseBoxes: kids.filter((k) => !k.dataset?.r && !k.querySelector('[data-r]') && (k.innerText || '').trim()).map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), x: Math.round(b.left), y: Math.round(b.top), h: Math.round(b.height) } }),
       // loose text beside a drawn part (a post's title, blurb and date right of its picture): which side, and its lines
       // (round 1 e3: the whole text block was one cut quote, built under the picture with invented copy)
       looseBeside: (() => {
@@ -265,7 +268,10 @@ export function factsInPage() {
       topRule: parseFloat(cs.borderTopWidth) >= 1 && !parseFloat(cs.borderBottomWidth) && !parseFloat(cs.borderLeftWidth) && !parseFloat(cs.borderRightWidth) ? { px: parseFloat(cs.borderTopWidth), c: rgba(cs.borderTopColor), pad: Math.round(parseFloat(cs.paddingTop) || 0) } : null,
       spreadEnds: /flex/.test(cs.display) && cs.justifyContent === 'space-between',
       // n133: a small filled caption chip sitting ON a picture block (round 9 c5 'FIG. 1' built as a line under it)
-      innerChip: (() => { const ks = [...el.children]; if (ks.length !== 1 || r.width < 200 || r.height < 200) return null; const k = ks[0], c = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim(), fl = rgba(c.backgroundColor); if (!t || t.length > 40 || !(fl?.a > 0.5) || b.width > r.width * 0.8) return null; return { t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), fill: fl, spaced: (parseFloat(c.letterSpacing) || 0) >= 1.5, sans: !/serif/i.test(c.fontFamily) || /sans/i.test(c.fontFamily) } })(),
+      // n191: the texts of later page blocks that overlap it and paint over it (round 19 c2: an orb set BEHIND three giant
+      // words was said 'on top of every tile', so it covered them)
+      coveredBy: (() => { if (el.parentElement !== document.body || (el.innerText || '').trim()) return []; const z = parseInt(cs.zIndex) || 0; const sib = [...document.body.children]; return sib.slice(sib.indexOf(el) + 1).filter((k) => { const kb = k.getBoundingClientRect(), kc = getComputedStyle(k); return (k.innerText || '').trim() && (parseInt(kc.zIndex) || 0) >= z && kb.left < r.right && kb.right > r.left && kb.top < r.bottom && kb.bottom > r.top }).map((k) => (k.innerText || '').trim().split('\n')[0].slice(0, 24)) })(),
+      innerChip: (() => { const ks = [...el.children]; if (ks.length !== 1 || r.width < 200 || r.height < 200) return null; const k = ks[0], c = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim(), fl = rgba(c.backgroundColor); if (!t || t.length > 40 || !(fl?.a > 0.5) || b.width > r.width * 0.8) return null; return { t, x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), fill: fl, spaced: (parseFloat(c.letterSpacing) || 0) >= 1.5, sans: !/serif|mono|courier/i.test(c.fontFamily) || /sans/i.test(c.fontFamily), mono: /mono|courier/i.test(c.fontFamily), bold: Number(c.fontWeight) >= 600, round: (c.borderTopLeftRadius.includes('%') ? parseFloat(c.borderTopLeftRadius) >= 45 : parseFloat(c.borderTopLeftRadius) >= b.width * 0.45) } })(),
       // n136: a grid of many text-free shape tiles (round 10 c4: 48 Bauhaus tiles said as one plain box, built as nothing)
       tileGrid: (() => {
         if (!/grid/.test(cs.display) || kids.length < 12 || (el.innerText || '').trim() || el.querySelector('[data-r]') || parseFloat(cs.columnGap) > 0 || parseFloat(cs.rowGap) > 0) return null
@@ -1533,13 +1539,21 @@ export function factsInPage() {
     for (const k of c.querySelectorAll('*')) {
       if ([...used].some((u) => u.contains(k))) continue
       const s = getComputedStyle(k), b = k.getBoundingClientRect(), t = txt(k), fl = filled(k), rad = parseFloat(s.borderTopLeftRadius) || 0
-      if (b.width >= 11 && b.width <= 22 && Math.abs(b.width - b.height) <= 2 && parseFloat(s.borderTopWidth) >= 1 && rad <= 6 && t.length <= 1) { out.push({ k: 'cb', fill: fl }); used.add(k); continue }
+      // n191: a solid ticked box with no border is a checkbox too (round 19 e2: the purple ticked boxes said 'pill', built pale)
+      if (b.width >= 11 && b.width <= 22 && Math.abs(b.width - b.height) <= 2 && (parseFloat(s.borderTopWidth) >= 1 || (fl && /^[✓✔x×]?$/.test(t))) && rad <= 6 && t.length <= 1) { out.push({ k: 'cb', fill: fl, px: Math.round(b.width), rad: Math.round(rad), tick: t ? rgba(s.color) : null, bc: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: parseFloat(s.borderTopWidth) || 0 }); used.add(k); continue }
+      // n191: a switch: a short pill with a round knob painted by ::after (round 19 e2: the 2FA toggles said '(empty)')
+      if (fl && !t && b.height >= 14 && b.height <= 30 && b.width >= b.height * 1.5 && b.width <= b.height * 2.6 && rad >= b.height / 2 - 1) {
+        const a = getComputedStyle(k, '::after'), aw = parseFloat(a.width) || 0
+        if (a.content && a.content !== 'none' && aw >= b.height * 0.5) { out.push({ k: 'tg', fill: fl, knob: rgba(a.backgroundColor), w: Math.round(b.width), h: Math.round(b.height), on: (parseFloat(a.left) || 0) > (b.width - aw) / 2 }); used.add(k); continue }
+      }
       if (fl && b.width >= 18 && b.width <= 48 && Math.abs(b.width - b.height) <= 2 && rad >= b.width / 2 - 1 && t.length <= 2) { out.push({ k: 'av', fill: fl, px: Math.round(b.width), t }); used.add(k); continue }
       if (b.height <= 10 && b.width >= 30 && fl && k.children.length === 1 && !t) {
         const i = k.children[0], ib = i.getBoundingClientRect(), f2 = filled(i)
         if (f2) { out.push({ k: 'bar', px: Math.round(b.width), fill: f2, track: fl, pct: Math.round(ib.width / b.width * 100) }); used.add(k); continue }
       }
       if (fl && t && t.length <= 18 && !k.children.length && b.height <= 30 && rad >= 3) { out.push({ k: 'pill', ink: rgba(s.color), fill: fl, t }); used.add(k); continue }
+      // n191: an outlined chip with no fill (round 19 e2: role chips 'Owner', 'Admin ▾' said as bare words)
+      if (!fl && t && t.length <= 18 && !k.children.length && b.height <= 34 && rad >= 3 && parseFloat(s.borderTopWidth) >= 1 && rgba(s.borderTopColor)?.a > 0.3) { out.push({ k: 'chip', bc: rgba(s.borderTopColor), rad: Math.round(rad), h: Math.round(b.height), t }); used.add(k); continue }
     }
     // the copy left once the parts are taken out
     const rest = !used.size ? txt(c) : [...c.childNodes].map((n) => n.nodeType === 3 ? n.textContent : used.has(n) ? '' : (n.innerText ?? '')).join(' ').replace(/\s+/g, ' ').trim()
@@ -2629,6 +2643,11 @@ function effectWords(f) {
   else if (turn >= 1.5 && turn <= 60) w.push(`tilted ${turn < 3 ? 'slightly ' : ''}${turn}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}`)
   else if (turn > 60 && turn < 170) w.push('diagonal')
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
+  // n191: a marquee's own solid band and its letters' colour (round 19 c2: the black ribbon lost, said 'near-black' text)
+  if (f.motion === 'scrolling' && f.bleeds && visible(f.bg) && f.bg.a > 0.5) {
+    const ink = (f.kidBoxes ?? []).find((k) => k.ink?.a > 0.5)?.ink
+    w.push(`on a SOLID ${colourName(f.bg)} ${hexOf(f.bg)} ribbon (the band itself filled ${hexOf(f.bg)} edge to edge${f.box0?.h ? `, ${f.box0.h}px thick` : ''}, the words centred in it${ink ? `, its letters ${colourName(ink)} ${hexOf(ink)}, NOT the band colour` : ''})`)
+  }
   // a slant (skewX) is not a turn: round 6 c2 'Tickets →' leaned like italics, unsaid
   if (Math.abs(f.skewX) >= 4) w.push(`slanted ${Math.abs(f.skewX)}° (skewX(${f.skewX}deg), leaning ${f.skewX < 0 ? 'right' : 'left'} like italics)`)
   // a clip that keeps one half: a word sliced across its middle (round 6 c2: said as two stacked lines)
@@ -2765,7 +2784,11 @@ function denseNote(d) {
     case 'heat': return `${d.title ? `${quote(d.title, 48)}, ` : ''}heatmap: ${d.rows.length} rows of ${d.rows[0].levels.length} ${d.round ? 'rounded ' : ''}${d.px}px cells, label left of each row, every cell ${colourName(d.fill)} at a strength 0-9 (opacity): ${d.rows.map((r) => `${r.label} ${r.levels}`).join(', ')}`
     case 'rtable': {
       const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
-      const part = (x) => x.k === 'cb' ? (x.fill ? `ticked ${colourName(x.fill)} checkbox` : 'empty checkbox')
+      // n191: a checkbox, switch or outlined chip said short in its cell, its look said ONCE after the rows
+      const legend = new Map()
+      const part = (x) => x.k === 'cb' ? (x.fill ? (x.px ? (legend.set('cbon', `every "✓ box" is a ticked SOLID checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, filled ${hexOf(x.fill)} edge to edge${x.tick ? ` with a ${hexOf(x.tick)} ✓ centred` : ''} (NOT pale, NOT a pill)`), '✓ box') : `ticked ${colourName(x.fill)} checkbox`) : (x.px ? (legend.set('cboff', `every "empty box" is an unticked checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, ${x.bw}px ${hexOf(x.bc)} border, no fill`), 'empty box') : 'empty checkbox'))
+        : x.k === 'tg' ? (legend.set(`tg${x.on}`, `every ${x.on ? 'ON' : 'OFF'} switch is a ${x.w}x${x.h}px fully rounded ${hexOf(x.fill)} track with a round ${hexOf(x.knob)} knob at its ${x.on ? 'RIGHT' : 'LEFT'} end`), `${x.on ? 'ON' : 'OFF'} switch`)
+        : x.k === 'chip' ? (legend.set('chip', `every "chip" is an outlined chip ${x.h}px tall, 1px ${hexOf(x.bc)} border, ${x.rad}px rounded, no fill`), `chip ${quote(x.t)}`)
         : x.k === 'av' ? `${colourName(x.fill)} round ${x.px}px avatar${x.t ? ` ${quote(x.t)}` : ''}`
         : x.k === 'bar' ? `${x.px}px ${colourName(x.fill)} bar ${x.pct}% full`
         : x.k === 'pill' ? `${chipColour(x)} pill ${quote(x.t)}`
@@ -2773,7 +2796,8 @@ function denseNote(d) {
       const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
       const card = d.card ? `inside a ${colourName(d.card.fill)} (${hexOf(d.card.fill)}) card ${d.card.w}px wide${d.card.border ? `, ${d.card.border.px}px ${colourName(d.card.border.c)} (${hexOf(d.card.border.c)}) border` : ''}${d.card.rad ? `, ${d.card.rad}px rounded corners${d.card.clip ? ' (overflow hidden, so the header fill follows the corners)' : ''}` : ''}, the table filling the card edge to edge; ` : ''
       const lefts = d.colLefts && d.colLefts.length >= 4 ? `; fixed column widths (table-layout: fixed, ${d.tableW}px): each column starts this far from the table's left edge: ${d.colLefts.map((x, i) => `${i + 1} ${x}px`).join(', ')}` : ''
-      return `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
+      const body = `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
+      return legend.size ? `${body}; ${[...legend.values()].join('; ')}` : body
     }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
       if (d.all) return `${d.title ? `${quote(d.title, 32)} as a small bold heading, then a ` : ''}table, every body row built and none invented, ${d.headLook ? `${d.headLook} row ` : ''}columns ${d.columns.map((t) => quote(t, 16)).join(', ')}, ${d.rows} rows: ${d.all.map((r) => r.map((t) => quote(t, 28)).join(' | ')).join('; ')}`
@@ -3340,7 +3364,7 @@ function decideRest(f, page, marked, said) {
   const d0 = decideOne(f, page, marked, said)
   const w0 = f.rect.w, h0 = f.rect.h
   const C = f.innerChip
-  const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ON it (inside the block, not under it) a small caption chip at ${C.x},${C.y} in the block: ${C.px}px ${C.sans ? 'sans-serif ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t, 40)} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px label` } : d0
+  const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ON it (inside the block, not under it) a small caption chip at ${C.x},${C.y} in the block: ${C.px}px ${C.bold ? 'bold ' : ''}${C.sans ? 'sans-serif ' : ''}${C.mono ? 'monospace ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t, 40)} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px ${C.round ? 'ROUND label (border-radius 50%: a disc, NOT a square), its text centred' : 'label'}` } : d0
   // n147: its own ink when it is far from the page's (round 12 c4: the page note says white text; the subcopy and the
   // nav's left word are near-black on the yellow panel and were built white), each word's when the row mixes inks
   if (d?.note && f.text && f.colour?.a > 0.5 && page.colour && !/part by part/.test(d.note)) {
@@ -3385,10 +3409,26 @@ function decideOne(f, page, marked, said) {
   const fill = visible(f.bg) && dist(f.bg, page.bg ?? { r: 255, g: 255, b: 255 }) > 6
   const grad = gradientWords(f)
   const bordered = f.border.w >= 1 && visible(f.border.colour)
+  // n191: a round block of fine repeating rings is a vinyl RECORD (round 19 c4: said only as 'spinning' plus its label
+  // words, so the grooves and the round edge were left to chance)
+  if (/^repeating-radial-gradient/.test(f.bgImage ?? '') && (f.radiusPct >= 45 || f.radius >= Math.min(w, h) * 0.45) && w >= 120 && Math.abs(w - h) <= 4) {
+    const cs2 = [...new Set((f.bgImage.match(/rgba?\([^)]+\)/g) || []).map((m) => hexOf(parse(m))))]
+    return { kind: 'box', note: `a VINYL RECORD: ONE ${Math.round(w)}x${Math.round(h)}px ROUND disc (border-radius 50%) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, filled with fine concentric GROOVES: exactly background: ${cssHex(f.bgImage)} (${cs2.join(' and ')} rings every few px, NOT a flat fill)${f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''}${/spinning/.test(f.motion ?? '') ? ', the whole disc spinning forever (animation: rotate 0 to 360deg, linear, infinite)' : ''}` }
+  }
   // n156: a radial gradient with a hard stop is a flat disc on a flat block (round 14 e3: 'warm paper to cream gradient',
   // the product disc lost)
   if (/^radial-gradient/.test(f.bgImage) && !f.clipText && (f.text ?? '').length <= 12 && !f.regionKids.length && w >= 120 && h >= 120) {
     const ps = [...f.bgImage.matchAll(/(\d+(?:\.\d+)?)%/g)].map((m) => +m[1])
+    // n191: the hard-stop disc TILED small on its own solid fill is a halftone dot screen (round 19 c4 sleeve: the blue
+    // fill, the 18px tile, the tilt and the hard shadow went unsaid, so the whole sleeve was lost)
+    const dt = (f.bgSize ?? '').split(',')[0].trim().match(/^([\d.]+)px/)
+    if (dt && +dt[1] <= 40 && ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) {
+      const lw = f.layoutBox?.w ?? Math.round(w), lh = f.layoutBox?.h ?? Math.round(h)
+      const x0 = Math.round(f.rect.x + (w - lw) / 2), y0 = Math.round(f.rect.y + (h - lh) / 2)
+      const dc = parse((f.bgImage.match(/rgba?\([^)]+\)|#[0-9a-f]{3,8}/i) || [''])[0])
+      const hard = f.shadow && f.shadow !== 'none' && !/\d+px \d+px [1-9]\d*px/.test(f.shadow.replace(/rgba?\([^)]+\)/g, '')) ? `, box-shadow: ${cssHex(f.shadow)} (a HARD offset shadow, no blur, a solid slab behind one corner)` : f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''
+      return { kind: 'box', note: `a HALFTONE DOT SCREEN block (a print-style sleeve, NOT a photo, NOT a plain disc): ONE ${lw}x${lh}px div (its untransformed size) with its top-left at ${x0},${y0}, a SOLID ${fill ? `${colourName(f.bg)} ${hexOf(f.bg)}` : 'coloured'} fill covered edge to edge by a fine grid of small ${dc ? hexOf(dc) : ''} dots, exactly: background-color: ${fill ? hexOf(f.bg) : 'inherit'}; background-image: ${cssHex(f.bgImage)}; background-size: ${f.bgSize} (it REPEATS every ${Math.round(+dt[1])}px: rows and rows of dots, NOT one big disc)${f.turn ? `; transform: rotate(${f.turn}deg) (tilted ${Math.abs(f.turn)}deg ${f.turn < 0 ? 'anticlockwise' : 'clockwise'})` : ''}${hard}${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ', square corners'}` }
+    }
     if (ps.some((v, i) => i && v > ps[i - 1] && v - ps[i - 1] <= 2)) return { kind: 'box', note: `a ${Math.round(w)}x${Math.round(h)}px block${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, NOT a picture or photo: its background is exactly ${f.bgImage.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b, a: 1 }))} (a flat disc with a HARD edge on a flat field, not a soft fade)` }
   }
   // n179: a speech bubble said with its fill, shadow and tail
@@ -3964,7 +4004,7 @@ function decideOne(f, page, marked, said) {
     const st0 = [...f.bgImage.matchAll(/(rgba?\([^)]+\))(?:\s*([\d.]+)(%|px))?/g)]
     const st = st0.map((m, i) => ({ c: parse(m[1]), at: m[2] != null ? (m[3] === '%' ? Math.round(+m[2]) : 0) : i === 0 ? 0 : i === st0.length - 1 ? 100 : Math.round(100 * i / (st0.length - 1)) }))
     const sg = f.shadows.find((x) => !x.clear && x.blur >= 10)
-    return { kind: 'circle', note: withFx(`a ${Math.round(w)}px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at ${at ? `${at[1]}% ${at[2]}%` : 'center'}, ${st.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}) so it looks lit from ${at && +at[1] < 50 ? 'the top left' : 'above'}${sg ? `, with a big soft ${colourName({ ...sg.c, a: 1 })} glow under it (box-shadow ${sg.x}px ${sg.y}px ${sg.blur}px, ${Math.round(sg.c.a * 100)}% opacity)` : ''}${f.floatIn ? `; NOT absolutely placed: it sits INSIDE the running paragraph as its first child, float: ${f.floatIn.side}${f.floatIn.shape ? `, shape-outside: ${f.floatIn.shape}` : ''}, margin ${f.floatIn.m.map((v) => `${v}px`).join(' ')}, so the paragraph's lines wrap round its curve (its top-left lands at ${Math.round(f.rect.x)},${Math.round(f.rect.y)})` : `; absolutely placed, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ON TOP of every tile it overlaps (highest z-index, nothing covers it)`}`) }
+    return { kind: 'circle', note: withFx(`a ${Math.round(w)}px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at ${at ? `${at[1]}% ${at[2]}%` : 'center'}, ${st.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}) so it looks lit from ${at && +at[1] < 50 ? 'the top left' : 'above'}${sg ? `, with a big soft ${colourName({ ...sg.c, a: 1 })} glow under it (box-shadow ${sg.x}px ${sg.y}px ${sg.blur}px, ${Math.round(sg.c.a * 100)}% opacity)` : ''}${f.floatIn ? `; NOT absolutely placed: it sits INSIDE the running paragraph as its first child, float: ${f.floatIn.side}${f.floatIn.shape ? `, shape-outside: ${f.floatIn.shape}` : ''}, margin ${f.floatIn.m.map((v) => `${v}px`).join(' ')}, so the paragraph's lines wrap round its curve (its top-left lands at ${Math.round(f.rect.x)},${Math.round(f.rect.y)})` : `; absolutely placed, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${f.coveredBy?.length ? `BEHIND the words that cross it (z-index 0, set before them; the words ${f.coveredBy.map((t) => quote(t, 24)).join(', ')} paint OVER the sphere and stay fully visible, never hidden by it)` : 'ON TOP of every tile it overlaps (highest z-index, nothing covers it)'}`}`) }
   }
   if (round && square && f.text.length <= 24 && (fill || grad || bordered)) {
     const glowy = glow || /radial/.test(f.bgImage)
@@ -4129,6 +4169,9 @@ function decideOne(f, page, marked, said) {
       const d = f.dense
       return { kind: null, note: `${d.head ? `${quote(d.head, 24)}, then ` : ''}stacked links: ${d.items.map((p) => quote(p[0]) + (p[0] === d.on ? ' (highlighted)' : '')).join(', ')}` }
     }
+    // n191: a heading and its sub-line over drawn parts, said with their sizes and places
+    const LB = (f.looseBoxes ?? []).filter((b) => loose.includes(b.t))
+    if (LB.length >= 2 && LB.length <= 3 && LB[0].px >= 20 && LB[0].px > LB[1].px && LB.every((b) => b.t.length <= 120)) return { kind: null, note: `its own heading lines ABOVE its parts (real elements, live text, none left out): ${LB.map((b, i) => `${i === 0 ? 'page heading ' : ''}${b.px}px ${b.bold ? 'bold ' : ''}${hexOf(b.ink)} ${quote(b.t, 120)} with its top-left at ${b.x},${b.y}`).join('; then ')}` }
     const own = loose.find((t) => t.length >= 4)
     return { kind: null, note: own && loose.join(' ').length <= 140 ? `${quote(own, 40)}${loose.length > 1 ? ' and text' : ''}` : null }
   }
@@ -4244,7 +4287,8 @@ function decideOne(f, page, marked, said) {
       const corner = f.inset ? `, in its top-left corner (${Math.round(f.inset.l)}px in, ${Math.round(f.inset.t)}px down), the rest of the tile empty` : ''
       return { kind: 'box', note: withFx(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) filled tile ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded corners, flat (no shadow); on it ${tt}${hexOf(f.colour)} text ${quote(f.text, 140)}${corner}`.replace(/ {2,}/g, ' ')) }
     }
-    const say = uniq([...look, noun, what]).join(' ') + lightText
+    // n191: a marquee ribbon already names its fill; the bare fill word read as the letters' colour
+    const say = uniq([...look, noun, what].filter((x) => !(look.some((y) => /ribbon \(the band itself/.test(y ?? '')) && x === colourName(f.bg)))).join(' ') + lightText
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
     const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null
     // a titled card: its title and one short line are copy a person types, or the build invents its own

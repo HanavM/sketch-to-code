@@ -38,3 +38,20 @@ Vitest: same 2 env failures; typecheck clean.
 Next: an element said to sit BEHIND others keeps its stacking (c2 orb); round lanterns on strings with glow; a halftone
 dot pattern fill (c4 sleeve, c5 terrazzo) said as a repeating dot background on its own block's fill; faint blurred rays
 keep their low alpha and blur; arch tops (round top only); a page heading and its sub-line in apps; solid checkboxes and toggles.
+
+## n191: halftone screens, records, an orb behind words, marquee ribbons, app headings, solid checkboxes and switches (2026-10-25, ~208k billed)
+
+Planner now says: a hard-stop dot gradient TILED small on its own solid fill as a halftone dot screen (fill, tile, tilt,
+hard shadow); a round block of fine repeating rings as a vinyl record (grooves, round, spin) with a ROUND label chip; a
+sphere that later words cross as sitting BEHIND them; a scrolling marquee's solid ribbon and its letters' own colour; a
+region's own heading and sub-line with size, ink and place; table cells holding a solid ticked checkbox, an ON/OFF switch
+(track plus ::after knob) or an outlined chip, said short per cell with their look said once after the rows.
+Rounds 1-18 re-planned: 6 rounds gain ribbon or heading wording (no other change).
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c2 type sculpture | 63% | **87%** | orb behind the words, black ribbon built |
+| c4 vinyl sleeve | 47% | **78%** | halftone sleeve tilted with its hard shadow, grooved record; record sits over the sleeve (target under), label fell out of the record, tonearm a slab, "TIDE" lost |
+| e2 team settings | 62% | **66%** | heading, sub-line, switches, chips, solid checkboxes all built; matrix card frame and logo square lost, menu wraps |
+
+Round 19: **80%** over 10 (was 74). Vitest: same 2 env failures; typecheck clean.

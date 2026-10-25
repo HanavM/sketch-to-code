@@ -125,7 +125,7 @@
    ],
    [
     "sun",
-    "a 260px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #fff7ed 0%, #fdba74 70%) so it looks lit from above, with a big soft cream glow under it (box-shadow 0px 0px 120px, 70% opacity); absolutely placed, top-left at 820,150, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a 260px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #fff7ed 0%, #fdba74 70%) so it looks lit from above, with a big soft cream glow under it (box-shadow 0px 0px 120px, 70% opacity); absolutely placed, top-left at 820,150, BEHIND the words that cross it (z-index 0, set before them; the words \"SUMMIT\" paint OVER the sphere and stay fully visible, never hidden by it)"
    ],
    [
     "headline",
@@ -211,11 +211,11 @@
    ],
    [
     "band-black",
-    "tilted 4° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1400px-wide line, position absolute, left -60px, top 150px BEFORE the tilt, so it starts 60px off the LEFT edge and ends 60px past the right; no letter starts at x 0) giant Helvetica heavy uppercase off-white on a near-black (#111111) band (the band itself 1400x150px before the tilt (height: 150px, only 150px thick; the tilt alone makes its outline 247px tall), filled near-black edge to edge) \"MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION\"…"
+    "tilted 4° anticlockwise scrolling marquee on a SOLID near-black #111111 ribbon (the band itself filled #111111 edge to edge, 150px thick, the words centred in it, its letters off-white #f4f4f0, NOT the band colour) bleeding off the left and right page edges (one 1400px-wide line, position absolute, left -60px, top 150px BEFORE the tilt, so it starts 60px off the LEFT edge and ends 60px past the right; no letter starts at x 0) giant Helvetica heavy uppercase off-white on a near-black (#111111) band (the band itself 1400x150px before the tilt (height: 150px, only 150px thick; the tilt alone makes its outline 247px tall), filled near-black edge to edge) \"MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION DESIGN ✶ MOTION\"…"
    ],
    [
     "band-orange",
-    "tilted 3° clockwise scrolling marquee bleeding off the left and right page edges (one 1400px-wide line, position absolute, left -60px, top 420px BEFORE the tilt, so it starts 60px off the LEFT edge and ends 60px past the right; no letter starts at x 0) giant Helvetica heavy uppercase near-black letters on a red-orange (#ff3d00) band (the band itself 1400x110px before the tilt (height: 110px, only 110px thick; the tilt alone makes its outline 183px tall), filled red-orange edge to edge) \"BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS\"…"
+    "tilted 3° clockwise scrolling marquee on a SOLID red-orange #ff3d00 ribbon (the band itself filled #ff3d00 edge to edge, 110px thick, the words centred in it, its letters near-black #111111, NOT the band colour) bleeding off the left and right page edges (one 1400px-wide line, position absolute, left -60px, top 420px BEFORE the tilt, so it starts 60px off the LEFT edge and ends 60px past the right; no letter starts at x 0) giant Helvetica heavy uppercase near-black letters on a red-orange (#ff3d00) band (the band itself 1400x110px before the tilt (height: 110px, only 110px thick; the tilt alone makes its outline 183px tall), filled red-orange edge to edge) \"BRAND FILMS — TITLES — LOOPS — BRAND FILMS — TITLES — LOOPS\"…"
    ],
    [
     "intro",
