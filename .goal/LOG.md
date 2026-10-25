@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T04:58Z | n197 round 20: ten harder pages, first builds | Written, built 10/10; e5 95, c3 88, c4 78, e4 77, e3 75, c1 74, e2 74, c2 72, c5 66, e1 49; round 75. ~965k.
 2026-10-25T03:15Z | n196 overlap paint order, capitals, top bar buttons one by one | c5 89 to 97, e1 91 to 93, e5 83 to 81; round 19 89. ~294k.
 2026-10-25T02:43Z | n195 terrazzo cover, hollow masthead copy, ring letters, lanterns, neon, glass and pale pills | c3 81 to 91, c5 76 to 89, e2 73 to 82; round 19 88. ~261k.
 2026-10-25T02:07Z | n194 card fields beside nested regions, focus glow, tilted stamp, table card, sized controls | e5 71 to 83, e2 66 to 73; round 19 85. ~175k.
