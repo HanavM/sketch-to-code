@@ -185,11 +185,11 @@
    ],
    [
     "blob-pink",
-    "soft blurred (filter: blur(40px)), its box 420x420px with its top-left at 120,80 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) big vivid pink circle"
+    "soft blurred (filter: blur(40px)), its box 420x420px with its top-left at 120,80 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(40px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge) big vivid pink circle"
    ],
    [
     "blob-cyan",
-    "soft blurred (filter: blur(40px)), its box 480x480px with its top-left at 760,380 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS; a soft cloud of colour with no hard edge) big vivid cyan circle"
+    "soft blurred (filter: blur(40px)), its box 480x480px with its top-left at 760,380 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(40px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge) big vivid cyan circle"
    ],
    [
     "card",

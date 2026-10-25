@@ -186,7 +186,11 @@ Rules:
     rotate(Ndeg), 'tilted N° anticlockwise' → rotate(-Ndeg), exactly N;
   frosted glass → translucent fill (white 10-20% alpha), backdrop-filter: blur(12px+),
     1px light border;
-  soft blurred blob/glow → filter: blur(40px+) on a solid shape;
+  soft blurred blob/glow → filter: blur(40px+) on a solid shape, set on the element's own
+    style (or class), never only inside @keyframes: with animations off (reduced motion,
+    a paused or first-frame render) a blur that lives only in the keyframes is gone and
+    the glow is a hard-edged disc. The same holds for any look an animation also
+    touches (filter, shadow, opacity): its resting value is on the element itself;
   hollow/outlined type → color: transparent with -webkit-text-stroke (2-3px);
   bleeding off the edge → the block extends past the viewport edge (wide type or
     negative margin), with overflow-x hidden on the page wrapper; "off the left

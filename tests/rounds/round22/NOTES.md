@@ -73,3 +73,15 @@ keeps its circle, misregistered type says its offset shadow.
 - Re-planned rounds 1-21: absolutely placed 100-199px headlines in r2-4, r7-11, r13, r15, r19 gain px and place; small
   square buttons in r2, r4, r8, r10, r15, r20 say square corners; blurred blobs in r2 c3 and r4 c4 say box and blur.
 - Round 22: **86%** over 10 (86.0). Vitest same 2 env failures; typecheck clean.
+
+## n227: glass aurora blob blur (2026-10-25, ~172k billed)
+
+- Root cause: the build put `filter: blur(70px)` only inside the hue keyframes, never on the blobs themselves. The
+  likeness shot (like the target's) is taken with animations off (first frame, as reduced-motion users see it), so the
+  blur vanished and the blobs were hard-edged discs. A first n227 run (before the fix) showed exactly this: 75.
+- Fix: the codegen rule now says a blurred glow keeps its blur on the element's own style, never only in keyframes,
+  and that any look an animation also touches (filter, shadow, opacity) keeps its resting value on the element. The
+  planner's blob words say the same. Re-planned rounds 1-21: only the r2 c3 and r4 c4 blob notes change.
+- Live c3 glass aurora **77 → 82%** (colour 94, structure 84, layout 72): blobs soft and in place. Still off: the
+  focus-mode chip built without its tilted glass card, headline set on wider lines, nav items bunched right.
+- Round 22: **87%** over 10 (86.5). Vitest same 2 env failures; typecheck clean.
