@@ -575,7 +575,7 @@
    ],
    [
     "toolbar",
-    "pale grey bar 40px tall across the page, links: ↶, ↷, 100%, $, %, .0, B, I; \"B\" selected (light grey fill); all of these sit together at the LEFT, one after another, ending 340px in (the right 73% of the bar is empty, nothing pushed right)"
+    "pale grey (exactly #f3f4f6) bar 40px tall across the page, links: ↶, ↷, 100%, $, %, .0, B, I; \"B\" selected (light grey fill, a 25x23px box, 4px rounded); all of these sit together at the LEFT, one after another, ending 340px in (the right 73% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"↶\" at 12, \"↷\" at 45, \"100%\" at 78, \"$\" at 133, \"%\" at 162, \".0\" at 196, \"B\" at 229, \"I\" at 259, \"S\" at 285, \"A\" at 316"
    ],
    [
     "formula-bar",
@@ -587,7 +587,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 40px tall across the page, links: +, Budget, Hiring, Notes; \"Budget\" selected (bold, blue text, blue underline, white fill); all of these sit together at the LEFT, one after another, ending 272px in (the right 79% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #374151, \"Budget\" #1a73e8, \"Hiring\" #374151, \"Notes\" #374151"
+    "pale grey (exactly #f3f4f6) bar 40px tall across the page, links: +, Budget, Hiring, Notes; \"Budget\" selected (bold, blue text, blue underline, white fill, a 77x34px box, 6px rounded); all of these sit together at the LEFT, one after another, ending 272px in (the right 79% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"+\" at 12, \"Budget\" at 56, \"Hiring\" at 136, \"Notes\" at 206; this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #374151, \"Budget\" #1a73e8, \"Hiring\" #374151, \"Notes\" #374151"
    ],
    [
     "sum-chip",

@@ -127,3 +127,19 @@ disc; the sun rule now needs the disc to be the whole block).
 
 Round 20: **87%** (was 85). Vitest same 2 env failures; build clean.
 Next: e3 spreadsheet 76 (colour 65: toolbar, header row and tab bar fills built blue), e4 checkout 77, e1 week calendar 77.
+
+## n203: full-width bars say their exact fill, toolbar items their own place and look (2026-10-25, ~68k billed)
+
+Planner (words only): a filled bar across the page now gives its exact hex next to the colour name (round 20 e3 toolbar
+and sheet-tab bar, said only "pale blue-grey", were built a bluer tint); a row of items packed at the left of a bar says
+where each item starts and, when they share one look, its weight, size and ink (toolbar built cramped and thin grey,
+target bold #444 about 22px apart); a selected item with a fill says its size and corners (the sheet tab is rounded
+only at the bottom; a round "Sign in" is a fully rounded pill). Re-planned all rounds: rounds 5, 6, 7, 9, 11-16, 18
+and 20 gain these words on their top bars, toolbars, tab rows and status bars; no marks changed.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e3 spreadsheet | 75% | **76%** | toolbar and tab bar the right grey, toolbar items bold and spaced, tab rounded at the bottom; layout 83 to 90 |
+
+Round 20 holds at about **87%**. Vitest same 2 env failures; typecheck clean after build.
+Next: e4 checkout 77 (summary title lost, card visual squat), e1 week calendar 76; e3 header labels built right-aligned.

@@ -723,7 +723,7 @@
    ],
    [
     "topbar",
-    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right); \"Search cards…\" is an outlined search field 280px wide, grey placeholder; each word in its own colour: \"Sprint 42\" #0f172a, \"Search cards…\" #94a3b8, \"All\" #ffffff, \"Mine\" #0f172a, \"Bugs\" #0f172a, \"Blocked\" #0f172a"
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white (exactly #ffffff) bar 56px tall across the page, bold 18px \"Sprint 42\" first, then links: Search cards…, All, Mine, Bugs, Blocked; \"All\" selected (indigo fill, a 36x29px fully rounded pill); \"Mine\", \"Bugs\", \"Blocked\" are each a small outlined pill chip (29px tall, fully rounded, 1px light grey border, white inside), never bare words; all of these sit together at the LEFT, one after another, ending 692px in (the right 46% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Sprint 42\" at 24, \"Search cards…\" at 141, \"All\" at 437, \"Mine\" at 489, \"Bugs\" at 556, \"Blocked\" at 623; \"Search cards…\" is an outlined search field 280px wide, grey placeholder; each word in its own colour: \"Sprint 42\" #0f172a, \"Search cards…\" #94a3b8, \"All\" #ffffff, \"Mine\" #0f172a, \"Bugs\" #0f172a, \"Blocked\" #0f172a"
    ],
    [
     "head-todo",
@@ -919,7 +919,7 @@
    ],
    [
     "tabs",
-    "near-black bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right); each word in its own colour: \"parse.ts\" #ffffff, \"score.ts\" #7f849c, \"main.ts ●\" #7f849c"
+    "near-black (exactly #181825) bar 38px tall across the page, links: parse.ts, score.ts, main.ts ●; \"parse.ts\" selected (white text, dark navy fill, a 83x38px box, square); all of these sit together at the LEFT, one after another, ending 256px in (the right 74% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"parse.ts\" at 0, \"score.ts\" at 83, \"main.ts ●\" at 166; each word in its own colour: \"parse.ts\" #ffffff, \"score.ts\" #7f849c, \"main.ts ●\" #7f849c"
    ],
    [
     "code",
@@ -935,7 +935,7 @@
    ],
    [
     "status-bar",
-    "sky blue bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #11111b (near-black, NOT the page's light grey text)"
+    "sky blue (exactly #89b4fa) bar 24px tall across the page, links: ⎇ main, ⚠ 1, Ln 6, Col 42, TypeScript; \"⎇ main\", \"⚠ 1\" sit together at the left, \"Ln 6, Col 42\", \"TypeScript\" pushed to the far right (1014px gap); this bar is pinned to the very BOTTOM of the page (top 876, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; its text #11111b (near-black, NOT the page's light grey text)"
    ]
   ]
  },

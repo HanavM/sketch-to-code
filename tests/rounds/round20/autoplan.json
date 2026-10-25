@@ -237,7 +237,7 @@
    ],
    [
     "nav",
-    "bold 22px white \"Lumen\" first, then links: Product, Pricing, Docs, Sign in; \"Sign in\" selected (white fill); each word in its own colour: \"Lumen\" #ffffff, \"Product\" #cfd6ff, \"Pricing\" #cfd6ff, \"Docs\" #cfd6ff, \"Sign in\" #ffffff"
+    "bold 22px white \"Lumen\" first, then links: Product, Pricing, Docs, Sign in; \"Sign in\" selected (white fill, a 88x39px fully rounded pill); each word in its own colour: \"Lumen\" #ffffff, \"Product\" #cfd6ff, \"Pricing\" #cfd6ff, \"Docs\" #cfd6ff, \"Sign in\" #ffffff"
    ],
    [
     "headline",
@@ -767,7 +767,7 @@
    ],
    [
     "toolbar",
-    "pale blue-grey bar 40px tall across the page, links: ↶ ↷, 100% ▾, £ % .0, Arial ▾, 10 ▾, B I S, A ▾, ⊞; all of these sit together at the LEFT, one after another, ending 430px in (the right 66% of the bar is empty, nothing pushed right)"
+    "pale blue-grey (exactly #f1f4f9) bar 40px tall across the page, links: ↶ ↷, 100% ▾, £ % .0, Arial ▾, 10 ▾, B I S, A ▾, ⊞; all of these sit together at the LEFT, one after another, ending 430px in (the right 66% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"↶ ↷\" at 18, \"100% ▾\" at 65, \"£ % .0\" at 131, \"Arial ▾\" at 190, \"10 ▾\" at 251, \"B I S\" at 297, \"A ▾\" at 348, \"⊞\" at 389, \"≡\" at 422; every item bold 13px #444444"
    ],
    [
     "formula-bar",
@@ -783,7 +783,7 @@
    ],
    [
     "sheet-tabs",
-    "pale blue-grey bar 40px tall across the page, links: ＋, Q4 budget, Invoices, Rates; \"Q4 budget\" selected (bold, blue text, white fill); all of these sit together at the LEFT, one after another, ending 365px in (the right 71% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋\" #5f6368, \"Q4 budget\" #0b57d0, \"Invoices\" #5f6368, \"Rates\" #5f6368"
+    "pale blue-grey (exactly #f1f4f9) bar 40px tall across the page, links: ＋, Q4 budget, Invoices, Rates; \"Q4 budget\" selected (bold, blue text, white fill, a 100x33px box (a tab: only its BOTTOM corners rounded 6px)); all of these sit together at the LEFT, one after another, ending 365px in (the right 71% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"＋\" at 50, \"Q4 budget\" at 103, \"Invoices\" at 207, \"Rates\" at 295; this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋\" #5f6368, \"Q4 budget\" #0b57d0, \"Invoices\" #5f6368, \"Rates\" #5f6368"
    ],
    [
     "selection-sum",

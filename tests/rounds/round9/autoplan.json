@@ -379,7 +379,7 @@
    ],
    [
     "toolbar",
-    "a fully rounded #edf2fa pill 1256x40px at x 12, top 64 (inset from the page sides, NOT a square full-width strip), links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, A̲; all of these sit together at the LEFT, one after another, ending 414px in (the right 67% of the bar is empty, nothing pushed right)"
+    "a fully rounded #edf2fa pill 1256x40px at x 12, top 64 (inset from the page sides, NOT a square full-width strip), links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, A̲; all of these sit together at the LEFT, one after another, ending 414px in (the right 67% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"↶ ↷\" at 20, \"100%\" at 67, \"$ % .0\" at 123, \"Arial ▾\" at 182, \"10 ▾\" at 240, \"B\" at 286, \"I\" at 318, \"A̲\" at 343, \"⊞\" at 374, \"≡\" at 407"
    ],
    [
     "formula-bar",
@@ -387,7 +387,7 @@
    ],
    [
     "column-headers",
-    "pale grey bar 24px tall across the page, links: A, B, C, D, E, F, G, H; \"F\" selected (bold, blue text, light grey fill)"
+    "pale grey (exactly #f8f9fa) bar 24px tall across the page, links: A, B, C, D, E, F, G, H; \"F\" selected (bold, blue text, light grey fill, a 148x25px box, square)"
    ],
    [
     "row-numbers",
@@ -399,7 +399,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 40px tall across the page, links: ＋, Sales, Targets, Notes; \"Sales\" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 346px in (the right 73% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋\" #444444, \"Sales\" #0b57d0, \"Targets\" #444444, \"Notes\" #444444"
+    "pale grey (exactly #f8f9fa) bar 40px tall across the page, links: ＋, Sales, Targets, Notes; \"Sales\" selected (bold, blue text, light grey fill, a 70x31px box, 6px rounded); all of these sit together at the LEFT, one after another, ending 346px in (the right 73% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"＋\" at 60, \"Sales\" at 115, \"Targets\" at 191, \"Notes\" at 276; this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋\" #444444, \"Sales\" #0b57d0, \"Targets\" #444444, \"Notes\" #444444"
    ]
   ]
  },

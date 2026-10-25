@@ -355,7 +355,7 @@
    ],
    [
     "editor-tabs",
-    "near-black bar 36px tall across the page, links: retry.ts ×, send.ts, retry.test.ts; \"retry.ts ×\" selected (white text, near-black fill); all of these sit together at the LEFT, one after another, ending 266px in (the right 73% of the bar is empty, nothing pushed right); each word in its own colour: \"retry.ts ×\" #ffffff, \"send.ts\" #888888, \"retry.test.ts\" #888888"
+    "near-black (exactly #252526) bar 36px tall across the page, links: retry.ts ×, send.ts, retry.test.ts; \"retry.ts ×\" selected (white text, near-black fill, a 87x36px tab, square); all of these sit together at the LEFT, one after another, ending 266px in (the right 73% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"retry.ts ×\" at 0, \"send.ts\" at 87, \"retry.test.ts\" at 166; each word in its own colour: \"retry.ts ×\" #ffffff, \"send.ts\" #888888, \"retry.test.ts\" #888888"
    ],
    [
     "code",

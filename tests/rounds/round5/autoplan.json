@@ -455,7 +455,7 @@
    ],
    [
     "topbar",
-    "white bar 60px tall across the page, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports; all of these sit together at the LEFT, one after another, ending 309px in (the right 76% of the bar is empty, nothing pushed right); the card exactly 1280x60px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white (exactly #ffffff) bar 60px tall across the page, bold 17px \"Sprint 42\" first, then links: Board, Backlog, Reports; all of these sit together at the LEFT, one after another, ending 309px in (the right 76% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Sprint 42\" at 28, \"Board\" at 125, \"Backlog\" at 186, \"Reports\" at 260; the card exactly 1280x60px, its top-left at 0,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "col-todo",
@@ -663,7 +663,7 @@
   "notes": [
    [
     "menu",
-    "the region itself is ONE 1280x52px top bar element at 0,0 (its own wrapper, #f1f3f4 fill) that holds all of these parts inside it, never laid loose on the page; pale grey bar 52px tall across the page, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data; all of these sit together at the LEFT, one after another, ending 362px in (the right 72% of the bar is empty, nothing pushed right); each word in its own colour: \"Budget 2027\" #188038, \"File\" #202124, \"Edit\" #202124, \"View\" #202124, \"Insert\" #202124, \"Data\" #202124"
+    "the region itself is ONE 1280x52px top bar element at 0,0 (its own wrapper, #f1f3f4 fill) that holds all of these parts inside it, never laid loose on the page; pale grey (exactly #f1f3f4) bar 52px tall across the page, bold 17px green \"Budget 2027\" first, then links: File, Edit, View, Insert, Data; all of these sit together at the LEFT, one after another, ending 362px in (the right 72% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Budget 2027\" at 20, \"File\" at 141, \"Edit\" at 184, \"View\" at 228, \"Insert\" at 278, \"Data\" at 333; each word in its own colour: \"Budget 2027\" #188038, \"File\" #202124, \"Edit\" #202124, \"View\" #202124, \"Insert\" #202124, \"Data\" #202124"
    ],
    [
     "formula",
@@ -675,7 +675,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 44px tall across the page, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill); all of these sit together at the LEFT, one after another, ending 351px in (the right 73% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 856, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"Q1\" #188038, \"Q2\" #202124, \"Q3\" #202124, \"Q4\" #202124, \"Summary\" #202124"
+    "pale grey (exactly #f1f3f4) bar 44px tall across the page, links: Q1, Q2, Q3, Q4, Summary; \"Q1\" selected (bold, green text, white fill, a 49x31px box, 4px rounded); all of these sit together at the LEFT, one after another, ending 351px in (the right 73% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Q1\" at 50, \"Q2\" at 103, \"Q3\" at 157, \"Q4\" at 210, \"Summary\" at 263; this bar is pinned to the very BOTTOM of the page (top 856, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"Q1\" #188038, \"Q2\" #202124, \"Q3\" #202124, \"Q4\" #202124, \"Summary\" #202124"
    ]
   ]
  }

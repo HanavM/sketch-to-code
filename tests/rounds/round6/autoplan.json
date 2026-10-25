@@ -448,7 +448,7 @@
    ],
    [
     "topbar",
-    "the region itself is ONE 1280x72px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white bar 72px tall across the page, bold 22px \"Northwind\" first, then links: Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline); each word in its own colour: \"Northwind\" #0f172a, \"Products\" #2563eb, \"Solutions\" #0f172a, \"Pricing\" #0f172a, \"Docs\" #0f172a, \"Search docs…\" #94a3b8"
+    "the region itself is ONE 1280x72px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e2e8f0 rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; white (exactly #ffffff) bar 72px tall across the page, bold 22px \"Northwind\" first, then links: Products, Solutions, Pricing, Docs, Search docs…; \"Products\" selected (bold, blue underline); each word in its own colour: \"Northwind\" #0f172a, \"Products\" #2563eb, \"Solutions\" #0f172a, \"Pricing\" #0f172a, \"Docs\" #0f172a, \"Search docs…\" #94a3b8"
    ],
    [
     "hero",

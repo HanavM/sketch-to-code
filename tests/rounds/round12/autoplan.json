@@ -521,7 +521,7 @@
   "notes": [
    [
     "header",
-    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e6e8ee rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; bold 18px \"Website relaunch\" first, then links: Filter ▾, Day Week Month, + Task; \"+ Task\" selected (white text, indigo fill); \"Website relaunch\" sit together at the left, \"Filter ▾\", \"Day Week Month\", \"+ Task\" pushed to the far right (763px gap); each word in its own colour: \"Website relaunch\" #1f2430, \"Filter ▾\" #1f2430, \"Day Week Month\" #1f2430, \"+ Task\" #ffffff"
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e6e8ee rule along its BOTTOM edge only (border-bottom, no other border)) that holds all of these parts inside it, never laid loose on the page; bold 18px \"Website relaunch\" first, then links: Filter ▾, Day Week Month, + Task; \"+ Task\" selected (white text, indigo fill, a 64x31px box, 8px rounded); \"Website relaunch\" sit together at the left, \"Filter ▾\", \"Day Week Month\", \"+ Task\" pushed to the far right (763px gap); each word in its own colour: \"Website relaunch\" #1f2430, \"Filter ▾\" #1f2430, \"Day Week Month\" #1f2430, \"+ Task\" #ffffff"
    ],
    [
     "task-list",
@@ -667,7 +667,7 @@
    ],
    [
     "bulk-bar",
-    "dark navy bar 44px tall across the page, bold \"2 selected\" first, then links: Change role, Move to team, Deactivate; \"2 selected\" sit together at the left, \"Change role\", \"Move to team\", \"Deactivate\" pushed to the far right (654px gap); each word in its own colour: \"2 selected\" #ffffff, \"Change role\" #ffffff, \"Move to team\" #ffffff, \"Deactivate\" #fca5a5"
+    "dark navy (exactly #1e293b) bar 44px tall across the page, bold \"2 selected\" first, then links: Change role, Move to team, Deactivate; \"2 selected\" sit together at the left, \"Change role\", \"Move to team\", \"Deactivate\" pushed to the far right (654px gap); each word in its own colour: \"2 selected\" #ffffff, \"Change role\" #ffffff, \"Move to team\" #ffffff, \"Deactivate\" #fca5a5"
    ],
    [
     "users-table",

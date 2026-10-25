@@ -451,7 +451,7 @@
    ],
    [
     "toolbar",
-    "pale blue-grey bar 40px tall across the page, links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, ⊞; all of these sit together at the LEFT, one after another, ending 326px in (the right 75% of the bar is empty, nothing pushed right)"
+    "pale blue-grey (exactly #edf2fa) bar 40px tall across the page, links: ↶ ↷, 100%, $ % .0, Arial ▾, 10 ▾, B, I, ⊞; all of these sit together at the LEFT, one after another, ending 326px in (the right 75% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"↶ ↷\" at 20, \"100%\" at 63, \"$ % .0\" at 115, \"Arial ▾\" at 170, \"10 ▾\" at 224, \"B\" at 266, \"I\" at 294, \"⊞\" at 315"
    ],
    [
     "formula-bar",
@@ -471,7 +471,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey bar 40px tall across the page, links: +, Q3, Q2, Targets; \"Q3\" selected (bold, blue text, light grey fill); all of these sit together at the LEFT, one after another, ending 301px in (the right 76% of the bar is empty, nothing pushed right); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #202124, \"Q3\" #0b57d0, \"Q2\" #202124, \"Targets\" #202124"
+    "pale grey (exactly #f8f9fa) bar 40px tall across the page, links: +, Q3, Q2, Targets; \"Q3\" selected (bold, blue text, light grey fill, a 53x31px box, 4px rounded); all of these sit together at the LEFT, one after another, ending 301px in (the right 76% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"+\" at 60, \"Q3\" at 108, \"Q2\" at 165, \"Targets\" at 222; this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"+\" #202124, \"Q3\" #0b57d0, \"Q2\" #202124, \"Targets\" #202124"
    ],
    [
     "sum-chip",

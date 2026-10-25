@@ -687,7 +687,7 @@ export function factsInPage() {
         // its letter colour when the rest share another one (round 5 e5 green Q1 tab built black)
         const rest = kids.filter((k) => k !== odd[0]).map((k) => getComputedStyle(k).color)
         const ink = rest.every((x) => x === rest[0]) && rest[0] !== c.color ? rgba(c.color) : null
-        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink }
+        return { t: (odd[0].innerText || '').trim(), under: parseFloat(c.borderBottomWidth) >= 2 ? rgba(c.borderBottomColor) : null, fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, ink, box: (() => { const b = odd[0].getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), rad: c.borderRadius } })() }
       })(),
       // round 6 e5: a nested switch (Day/Week/Month) with one filled segment, outlined buttons beside it, and a
       // number in a filled round circle (today's date) were all said as plain links and built plain
@@ -740,7 +740,13 @@ export function factsInPage() {
         if (end > 0.6 * pb.width) return null
         const t = (k) => (k.innerText || '').replace(/\s+/g, ' ').trim()
         const field = ks.find((k, i) => { const b = bs[i], cs = getComputedStyle(k); return b.width >= 150 && parseFloat(cs.borderTopWidth) >= 1 && !(rgba(cs.backgroundColor)?.a > 0.05 && rgba(cs.backgroundColor).r + rgba(cs.backgroundColor).g + rgba(cs.backgroundColor).b < 720) && t(k).length <= 24 })
-        return { end: Math.round(end), w: Math.round(pb.width), field: field ? { t: t(field), w: Math.round(field.getBoundingClientRect().width) } : null }
+        // n203: each item's own x and the row's one look (round 20 e3: toolbar items built cramped and thin grey,
+        // target bold #444 22px apart; sheet tabs 'Invoices Rates' run together)
+        const cs0 = ks.map((k) => getComputedStyle(k))
+        const same = cs0.every((c) => c.fontSize === cs0[0].fontSize && c.fontWeight === cs0[0].fontWeight && c.color === cs0[0].color)
+        const xs = ks.map((k, i) => ({ t: t(k), x: Math.round(bs[i].left - pb.left), w: Math.round(bs[i].width) }))
+        const look = same ? { px: Math.round(parseFloat(cs0[0].fontSize)), bold: Number(cs0[0].fontWeight) >= 600, ink: rgba(cs0[0].color) } : null
+        return { end: Math.round(end), w: Math.round(pb.width), xs: ks.length <= 12 ? xs : null, look, field: field ? { t: t(field), w: Math.round(field.getBoundingClientRect().width) } : null }
       })(),
       // progress steps (round 6 e4 '✓ Cart — Shipping — Payment — Review'): text items joined by short thin
       // textless rules, each step its own colour (done green, current bold dark, rest grey); said as plain
@@ -4502,7 +4508,7 @@ function decideOne(f, page, marked, said) {
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
-    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null].filter(Boolean).join(', ')})` : ''
+    const on = f.kidOn && f.kidTexts.includes(f.kidOn.t) ? `; ${quote(f.kidOn.t)} selected (${[f.kidOn.bold ? 'bold' : null, f.kidOn.ink ? `${colourName(f.kidOn.ink)} text` : null, f.kidOn.under ? `${colourName(f.kidOn.under)} underline` : null, f.kidOn.fill ? `${colourName(f.kidOn.fill)} fill` : null, f.kidOn.fill && f.kidOn.box ? `a ${f.kidOn.box.w}x${f.kidOn.box.h}px ${parseFloat(f.kidOn.box.rad) >= f.kidOn.box.h / 2 - 1 && !/ /.test(f.kidOn.box.rad) ? 'fully rounded pill' : `box${/^0px 0px [1-9]/.test(f.kidOn.box.rad) ? ` (a tab: only its BOTTOM corners rounded ${parseFloat(f.kidOn.box.rad.split(' ')[2])}px)` : parseFloat(f.kidOn.box.rad) >= 2 ? `, ${Math.round(parseFloat(f.kidOn.box.rad))}px rounded` : ', square'}`}` : null].filter(Boolean).join(', ')})` : ''
     const L = f.kidLead && f.kidLead.t === f.kidTexts[0] && f.kidLead.t !== f.kidOn?.t && f.kidLead.t.length <= 24 ? f.kidLead : null
     const lead = L ? `${[L.bold ? 'bold' : null, L.px ? `${L.px}px` : null, L.ink ? colourName(L.ink) : null].filter(Boolean).join(' ')} ${quote(L.t)} first, then ` : ''
     const items = L ? f.kidTexts.slice(1, 9) : f.kidTexts.slice(0, 8)
@@ -4517,13 +4523,13 @@ function decideOne(f, page, marked, said) {
       const said = S.items.map((x, i) => `${quote(x.t)} (${[[x.bold ? 'bold' : null, colourName(x.ink)].filter(Boolean).join(' '), i === cur ? 'current step' : null].filter(Boolean).join(', ')})`)
       return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row, each pair joined by a short ${S.line.w}px ${S.line.h}px-thin ${colourName(S.line.fill)} line: ${said.join(' — ')}` }
     }
-    const K = !Sp && f.kidPack, pack = K ? `; all of these sit together at the LEFT, one after another, ending ${K.end}px in (the right ${Math.round(100 - 100 * K.end / K.w)}% of the bar is empty, nothing pushed right)${K.field ? `; ${quote(K.field.t, 24)} is an outlined search field ${K.field.w}px wide, grey placeholder` : ''}` : ''
+    const K = !Sp && f.kidPack, pack = K ? `; all of these sit together at the LEFT, one after another, ending ${K.end}px in (the right ${Math.round(100 - 100 * K.end / K.w)}% of the bar is empty, nothing pushed right)${K.xs ? `, each starting at its own x from the bar's left (keep these gaps, none run together): ${K.xs.map((x) => `${quote(x.t, 20)} at ${x.x}`).join(', ')}` : ''}${K.look && !on ? `; every item ${K.look.bold ? 'bold ' : ''}${K.look.px}px ${hexOf(K.look.ink)}` : ''}${K.field ? `; ${quote(K.field.t, 24)} is an outlined search field ${K.field.w}px wide, grey placeholder` : ''}` : ''
     // n133: a filled bar's own shape and place: round 9 e1's toolbar (a 20px-round pale pill inset 12px) was
     // built as a square full-width strip, and its sheet tabs (pinned to the page bottom) built right under the grid
     const R = f.rect, pill = fill && w >= 600 && f.radius >= Math.min(12, h / 2 - 2)
     const shape = pill ? `a ${f.radius >= h / 2 - 1 ? 'fully rounded' : `${Math.round(f.radius)}px-rounded`} ${hexOf(f.bg)} pill ${Math.round(w)}x${Math.round(h)}px at x ${Math.round(R.x)}, top ${Math.round(R.y)} (inset from the page sides, NOT a square full-width strip), ` : ''
     const foot = fill && w >= 600 && R.y + h >= 896 ? `; this bar is pinned to the very BOTTOM of the page (top ${Math.round(R.y)}, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above` : ''
-    return { kind: fill || bordered ? 'box' : 'text', note: `${shape || (fill && w >= 600 ? `${colourName(f.bg)} bar ${Math.round(h)}px tall across the page, ` : '')}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}${foot}` }
+    return { kind: fill || bordered ? 'box' : 'text', note: `${shape || (fill && w >= 600 ? `${colourName(f.bg)} (exactly ${hexOf(f.bg)}) bar ${Math.round(h)}px tall across the page, ` : '')}${lead}links: ${items.join(', ')}${on}${picks}${split}${pack}${foot}` }
   }
   // a big pane with parts (a message list, a reading pane, a form column) is a box even unfilled:
   // as plain text it was left unsaid (round 4 e2 message list and reading pane, e4 sidebar)

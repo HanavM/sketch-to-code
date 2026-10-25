@@ -613,7 +613,7 @@
    ],
    [
     "result-tabs",
-    "dark grey bar 36px tall across the page, links: Result 1, Messages, Plan; \"Result 1\" selected (white text, blue underline); all of these sit together at the LEFT, one after another, ending 229px in (the right 69% of the bar is empty, nothing pushed right); each word in its own colour: \"Result 1\" #ffffff, \"Messages\" #cfd3da, \"Plan\" #cfd3da"
+    "dark grey (exactly #2b2d30) bar 36px tall across the page, links: Result 1, Messages, Plan; \"Result 1\" selected (white text, blue underline); all of these sit together at the LEFT, one after another, ending 229px in (the right 69% of the bar is empty, nothing pushed right), each starting at its own x from the bar's left (keep these gaps, none run together): \"Result 1\" at 0, \"Messages\" at 80, \"Plan\" at 171; each word in its own colour: \"Result 1\" #ffffff, \"Messages\" #cfd3da, \"Plan\" #cfd3da"
    ],
    [
     "result-grid",
