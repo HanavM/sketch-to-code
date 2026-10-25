@@ -230,3 +230,27 @@ down (layout 47-49).
 Round 21: **84%** over 10 (89, 92, 90, 78, 91, 76, 86, 78, 79, 81; 84.1, was 83.7). Vitest same 2 env failures (1459
 tests); typecheck clean. Run a-c side-by-sides saved as e3-gantt-n218a/b/c-cmp.png.
 Next: e1 mail client (76), then c4 swiss orbit (78) and e3's today line (missed by the region check in every run).
+
+## n219: a heading between list rows said in its place, label swatches, file tiles, a top bar that starts right of the sidebar (2026-10-25, ~186k billed for two e1 runs)
+
+Why e1 mail client sat at 76: the top bar starts at x 220 (right of the folder column) but was said "across the whole
+page at 0,0", so the search pill was built over the sidebar top and the Compose button lost under it; the small
+"LABELS" heading that sits after Drafts was said before the whole list and built at the top; the three label swatches
+(10px, 3px rounded) were never said; the attachment cards (a pink preview filling their top by ::before, the name at
+the bottom) were said as "buttons:" and built grey with an invented PDF / PNG label; the Compose and Inbox fills (flat
+left, rounded right ends) were said with a broken "(, bold" and as square.
+
+Planner (words only): a top bar that starts right of a left column says its x and width; a small caps heading that
+sits between list rows is said in its place in an exact order; a small swatch before some rows says its size, colour
+and rounding (not checkboxes: bordered, 16px); a row of like bordered cards with a filled ::before preview says FILE
+TILES, their size, border, preview fill and the name at the bottom-left; a head button or highlight with square left
+and rounded right corners says so. Re-planned rounds 1-21: round 21 e1 (four notes), round 20 e2 (DIRECT MESSAGES now
+said between the channel rows), round 10 e3 and round 12 e5 (comma only) change.
+
+| page | before | run a (top bar not yet fixed) | run b | what changed |
+|---|---|---|---|---|
+| e1 mail client | 76% | 76% | **87%** | a: labels heading in place, swatches and pink file tiles built, but Compose still lost under the full-width search bar; b: bar right of the sidebar, Compose and folders in place (colour 100, structure 95, layout 89) |
+
+Round 21: **85%** over 10 (89, 92, 90, 78, 91, 87, 86, 78, 79, 81; 85.1, was 84.1). Vitest same 2 env failures (1459
+tests); typecheck clean. Run a side-by-side saved as e1-mail-client-n219a-cmp.png.
+Next: c4 swiss orbit (78) and e3 gantt (78, its today line missed by the region check in every run), then e4 music player (79).
