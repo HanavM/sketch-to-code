@@ -105,3 +105,24 @@ gradient logo square before its name is said. Rounds 1, 3, 7, 14, 16, 17 re-plan
 | e2 team settings | 66% | **73%** | matrix card with its header band, wide invite field, logo square, menu on one line; the Invited pill built dark rust (target pale amber) |
 
 Round 19: **85%** over 10 (was 83). Vitest: same 2 env failures; typecheck clean.
+
+## n195: a terrazzo cover with a solid-and-hollow masthead, letters round a ring, hanging lanterns, a neon sign, glass pills (2026-10-25, ~261k billed)
+
+The cover was read as a "halftone disc": its terrazzo layer (five scattered dot gradients) matched the dot-grid rule, so
+the note said a red dot disc on the page colour and the cream fill was lost. Several scattered dot layers are now a
+TERRAZZO said over the block's own fill, and the cover is said as its panel (cream, deep shadow) then part by part. The
+masthead is a solid word with a hollow copy over it cut to its right half: the hollow copy is now said as such (outline
+only, clip-path inset, laid over the solid one and on top of everything). The small text ring no longer makes the whole
+cover "a circle"; it is said as letters set round a 70px circle that spin. The side column says its italic heading and its
+copy colour. Lanterns (a ::before string and a glowing radial ball, swaying) were never said: now each is said whole. A
+heading with a stacked glow says NEON: its lines, exact text-shadow and flicker. A textless glowing disc says its fill and
+halo (the moon built grey). See-through pills say their 8% white fill and 50% outline; pale status pills in a table say
+both fill and ink. Rounds 7, 11, 13 re-planned (pale pills, a copy colour, a glowing sun), no kinds changed.
+
+| page | before | after | what changed / still off |
+|---|---|---|---|
+| c3 lantern night | 81% | **91%** | strings, glowing lanterns, cream glowing moon, two-line pink neon with glow, glass pills; lantern balls a little square |
+| c5 magazine cover | 76% | **89%** | cream terrazzo cover, solid red masthead, side heading, ring of letters round the badge; the head sits behind the figure (target in front), "48 pages" not upper-case |
+| e2 team settings | 73% | **82%** | pale amber Invited pill, green Active pills; row menu a little right |
+
+Round 19: **88%** over 10 (was 85). Vitest: same 2 env failures; typecheck clean.
