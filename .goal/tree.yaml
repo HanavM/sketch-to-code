@@ -1,14 +1,16 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 20 is up to 87%: the paper cutout poster now has its arched title, glowing sun and torn ticket (96%). Next: the spreadsheet's grey toolbar and tabs, then checkout and calendar."
+now: "Round 20 is at 87%: the spreadsheet's toolbar and sheet tabs now have the right grey and spacing (76%). Next: the checkout page's order summary and card picture, then the week calendar."
 round: 20
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 87]
-lock: {by: run-2026-10-25T08, until: '2026-10-25T09:40Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n203 (77cc7fa on try/n3-vocabulary): planner: a full-width filled bar says its exact hex; a left-packed row says each item's x and its shared weight/size/ink; a selected filled item says its size and corners (bottom-only = tab, round = pill). Re-planned all rounds: top bars, toolbars, tab rows, status bars in r5-7, 9, 11-16, 18, 20 gain words; no marks changed. Live e3 75 to 76 (layout 83 to 90). Vitest same 2 env failures; typecheck clean after npm run build. Chromium here: S2C_CHROMIUM=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome."
+  - "Token ledger: 2026-10-25 n203 live r20 e3 ~68k (no cap set)."
   - "n202 (d98f401 on try/n3-vocabulary): planner: words on an open textPath curve are an arched title (exact svg box, viewBox, path), not a ring; a smooth conic blend over a whole childless disc is a shaded sun with its box-shadow halo bands, not a donut; a notched (radial mask) card with a dashed tear line and a vertical-rl stub is a ticket. Re-planned all rounds: only r20 c4 changes. Live c4 78 to 96; round 20 87. Vitest same 2 env failures; build clean."
   - "Token ledger: 2026-10-25 n202 live r20 c4 ~93k (a first attempt was cut off by the 10-min shell limit after Run; its reading may also be billed). Run bench in the background (nohup) and poll."
   - "n201 (4176be1 on try/n3-vocabulary): planner: a bordered rounded region with a format bar, placeholder and textless filled block is a message composer (size, place, bar rule, placeholder, send button size/colour/corner); a short line just under it is said to sit below it; a big dark block with light text gives its exact hex. Re-planned all rounds: r1, r5, r9, r12, r16 gain a dark panel hex only; r20 e2 changes. Live e2 77 to 84; round 20 85. Vitest same 2 env failures; typecheck clean."
@@ -653,4 +655,5 @@ nodes:
   - {id: n200, parent: n199, kind: step, title: "Free first, ~300k live: r20 e2 team chat 74, e3 spreadsheet 75, e4 checkout 77 (stepper missed), c4 paper cutout 78; e1 day heads left-aligned (target centred). Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Team chat 74 to 77: red count badges, boxed code line, thread avatars own colours and divider; round 20 84."}
   - {id: n201, parent: n200, kind: step, title: "Free first, ~250k live: r20 e2 composer (toolbar row, green send button, typing line under it) and channel pane fill; e3 spreadsheet toolbar 76; c4 paper cutout 78 (structure 64); e1 day heads centred. Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Team chat 77 to 84: composer box with format bar, green send button, typing line under it; dark channel pane."}
   - {id: n202, parent: n201, kind: step, title: "Free first, ~250k live: r20 e3 spreadsheet 76 (colour 65: toolbar and header fills), e4 checkout 77, e1 week calendar 77, c4 paper cutout 78 (structure 64). Fix, re-run", status: done, branch: try/n3-vocabulary, result: "Paper cutout 78 to 96: arched title, conic sun with halo bands, ticket stub and notches; round 20 87."}
-  - {id: n203, parent: n202, kind: step, title: "Free first, ~250k live: r20 e3 spreadsheet 76 (colour 65: toolbar, header row and sheet-tab bar built blue, target grey), e4 checkout 77 (summary title lost, card visual squat), e1 week calendar 77. Fix, re-run", status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n203, parent: n202, kind: step, title: "Free first, ~250k live: r20 e3 spreadsheet 76 (colour 65: toolbar, header row and sheet-tab bar built blue, target grey), e4 checkout 77 (summary title lost, card visual squat), e1 week calendar 77. Fix, re-run", status: done, branch: try/n3-vocabulary, result: 'Bars give exact hex, toolbar items placed and bold, tab rounded at bottom: e3 75 to 76, layout 83 to 90.'}
+  - {id: n204, parent: n203, kind: step, title: 'Free first, ~250k live: r20 e4 checkout 77 (summary title lost, card visual squat), e1 week calendar 76, e3 header labels built right-aligned. Fix, re-run', status: open, branch: try/n3-vocabulary, result: null}
