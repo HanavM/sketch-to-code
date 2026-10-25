@@ -65,7 +65,7 @@
    ],
    [
     "left-copy",
-    "text \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\""
+    "text \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 584px of empty space above it (under the nav); NOT stacked straight under the nav, it keeps its own y"
    ],
    [
     "right-quote",
@@ -73,7 +73,7 @@
    ],
    [
     "cta",
-    "red near-black text button \"Shop the edition\" (181x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text) (exactly: #ff3b1f fill, #111111 text, 181x46px, square corners: border-radius 0, NOT a pill); its own element at page 60,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)"
+    "red near-black text button \"Shop the edition\" (181x46px, square corners: border-radius 0, NOT a pill); its text #111111 (near-black, NOT the page's cream text) (exactly: #ff3b1f fill, #111111 text, 181x46px, square corners: border-radius 0, NOT a pill); its own element at page 60,790 (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row); placed on its own: position absolute, its top-left at 60,790 of the page, 96px of empty space above it (under the left-copy); NOT stacked straight under the left-copy, it keeps its own y"
    ],
    [
     "cta-2",

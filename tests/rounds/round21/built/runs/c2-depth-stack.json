@@ -1,24 +1,24 @@
 {
   "id": "c2-depth-stack",
-  "at": "2026-10-25T12:18:13.865Z",
+  "at": "2026-10-25T15:10:12.312Z",
   "likeness": {
     "version": 3,
-    "overall": 0.5084713054924834,
-    "overallV2": 0.3454679617650101,
-    "overallV1": 0.3283805072064807,
-    "colour": 0.9134695528840128,
-    "structure": 0.6547897046686757,
-    "structureStrict": 0.5493696836005741,
-    "colourAligned": 0.9419378152875341,
-    "structureAligned": 0.7795960042993593,
+    "overall": 0.653961744950605,
+    "overallV2": 0.635348542763074,
+    "overallV1": 0.5513848895465017,
+    "colour": 0.9267038540086598,
+    "structure": 0.7719487238594877,
+    "structureStrict": 0.6848834632651382,
+    "colourAligned": 0.939129898977213,
+    "structureAligned": 0.7719487238594877,
     "align": {
-      "scale": 1.12,
-      "dx": 80,
-      "dy": 0,
-      "r": 0.7119395483004096
+      "scale": 1.16,
+      "dx": 64,
+      "dy": -32,
+      "r": 0.7086857524440457
     },
-    "layout": 0.35998687200791657,
-    "layoutV1": 0.35998687200791657,
+    "layout": 0.8835579498247733,
+    "layoutV1": 0.8835579498247733,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,120 +31,127 @@
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      645
+      700,
+      700,
+      460,
+      60
     ],
     [
-      1,
-      64,
-      112,
+      0,
+      72,
+      120,
       530,
       152
     ],
     [
-      1,
+      2,
+      72,
+      120,
+      530,
+      76
+    ],
+    [
+      2,
+      72,
+      196,
+      530,
+      76
+    ],
+    [
+      0,
       64,
-      312,
+      470,
       432,
       56
     ],
     [
-      1,
+      0,
       64,
-      408,
-      1152,
-      48
+      590,
+      135,
+      47
     ],
     [
-      4,
+      0,
       64,
-      408,
-      142,
-      48
+      700,
+      249,
+      28
     ],
     [
-      1,
+      7,
       64,
-      519,
-      1152,
-      30
+      700,
+      83,
+      28
     ],
     [
-      6,
-      64,
-      519,
-      87,
-      30
+      7,
+      155,
+      700,
+      83,
+      28
     ],
     [
-      6,
-      161,
-      519,
-      87,
-      30
+      7,
+      247,
+      700,
+      66,
+      28
     ],
     [
-      6,
-      259,
-      519,
-      69,
-      30
-    ],
-    [
-      1,
+      0,
       640,
       110,
       560,
       640
     ],
     [
-      10,
+      11,
       543,
       227,
       819,
       559
     ],
     [
-      11,
+      12,
       543,
       274,
       437,
       270
     ],
     [
-      11,
+      12,
       530,
       222,
       453,
       262
     ],
     [
-      11,
+      12,
       517,
       167,
       469,
       253
     ],
     [
-      11,
+      12,
       502,
       107,
       486,
       241
     ],
     [
-      15,
+      16,
       502,
       107,
       354,
       116
     ],
     [
-      1,
+      0,
       1060,
-      75,
+      77,
       120,
       120
     ]
@@ -162,49 +169,34 @@
       "soft-shadow"
     ],
     "missing": [],
-    "extra": [
-      "glass"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 22658,
-    "output": 9895,
-    "cacheRead": 242001
+    "input": 28264,
+    "output": 15246,
+    "cacheRead": 168557
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 17052,
-      "output": 3036,
-      "cacheRead": 177216,
-      "toolCalls": 8,
+      "billed": 29921,
+      "output": 9796,
+      "cacheRead": 157665,
+      "toolCalls": 7,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Glob",
-        "Write src/App.tsx",
-        "Edit src/index.css"
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 26603
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 7877,
-      "output": 3575,
-      "cacheRead": 61701,
-      "toolCalls": 1,
-      "tools": [
-        "Edit src/App.tsx"
-      ],
-      "ms": 40595
+      "ms": 105309
     }
   ],
-  "reading": "The user sketched a hero section: a two-line extruded 3D headline, a body paragraph, a dark 'Get the kit' button, three pill buttons (Elevation/Shadows/Depth), and on the right a large box with a circle that the typed notes specify as a real CSS 3D rotating cube with four stacked faces plus a separate glowing bobbing sphere overlapping it; a run-scoped note sets the whole page's gradient background and typography.",
+  "reading": "A hero section: a huge 2-line serif headline, a body paragraph, a 'Get the kit' CTA button, a row of three pill buttons (Elevation/Shadows/Depth), a soft floor-shadow ellipse, a 3D rotating cube made of 4 stacked faces, and a glowing bobbing sphere on top of it all, over a full-page cream-to-pink-to-peach gradient background with Helvetica dark-brown body type.",
   "actions": [
     {
       "kind": "add",
@@ -229,7 +221,7 @@
         175
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif, heavy weight, tight-set headline in white reading exactly 2 lines: \"Layers, all the\" / \"way down.\" (keep these line breaks, white-space: no"
+      "instruction": "Giant Georgia serif, heavy weight, tightly tracked headline, line-height 0.95, white text, set in exactly two fixed lines that never rewrap: \"Layers, all the\" /"
     },
     {
       "kind": "add",
@@ -254,7 +246,7 @@
         57
       ],
       "paths": [],
-      "instruction": "Body paragraph text reading exactly: \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\""
+      "instruction": "Body paragraph: \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\" Positioned absolutely with its top-left at 64,"
     },
     {
       "kind": "add",
@@ -269,7 +261,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "A button-shaped block in dark brown (exactly #3a1a14) with white text \"Get the kit\" (text color #ffffff, not the page's default dark brown), with a hard, solid,"
+      "instruction": "CTA button labeled \"Get the kit\": dark brown (#3a1a14) fill, white (#ffffff) label text, with a hard solid near-black shadow offset 12px straight down (0 sidewa"
     },
     {
       "kind": "add",
@@ -284,7 +276,22 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A row of three buttons labeled \"Elevation\", \"Shadows\", and \"Depth\"."
+      "instruction": "Row of three buttons labeled \"Elevation\", \"Shadows\", \"Depth\". Positioned absolutely with its top-left at 64,700 on the page, keeping its own y (56px of empty sp"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        703,
+        453,
+        54
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Soft floor shadow beneath the cube/sphere group: a 460x60px ellipse positioned absolutely at 700,700, border-radius 50%, filled with radial-gradient(#5a140a59, "
     },
     {
       "kind": "add",
@@ -294,13 +301,12 @@
         643,
         113,
         553,
-        644
+        634
       ],
       "paths": [
-        "s6",
         "s7"
       ],
-      "instruction": "A real CSS 3D cube (not a flat drawing or SVG): a 560x640px scene positioned at 640,110 with perspective: 1200px; inside it one group div (position absolute, in"
+      "instruction": "A real CSS 3D cube (not a flat drawing/SVG): a 560x640px scene positioned at 640,110 with perspective:1200px. Inside it, one group div (inset 0, transform-style"
     },
     {
       "kind": "add",
@@ -315,7 +321,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A gently bobbing (up and down animation) solid 120px sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffffff 0%, #ffd0"
+      "instruction": "A gently bobbing 120px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffffff 0%, #ffd0c2 25%, #e0705a 70%, #9a"
     }
   ],
   "rejected": [

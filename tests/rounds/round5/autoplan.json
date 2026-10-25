@@ -343,11 +343,11 @@
    ],
    [
     "copy",
-    "text \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\""
+    "text \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 577px of empty space above it (under the logo); NOT stacked straight under the logo, it keeps its own y"
    ],
    [
     "buy",
-    "bold link \"Shop summer →\" with a 3px underline (no box, not a button)"
+    "bold link \"Shop summer →\" with a 3px underline (no box, not a button); placed on its own: position absolute, its top-left at 60,790 of the page, 99px of empty space above it (under the copy); NOT stacked straight under the copy, it keeps its own y"
    ]
   ]
  },

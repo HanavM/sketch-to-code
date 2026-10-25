@@ -445,11 +445,11 @@
    ],
    [
     "dek",
-    "text \"Four presses, two owners and a cat called Pantone keep ink on paper in a city that went digital.\"; set BOLD (font-weight 700), NOT regular"
+    "text \"Four presses, two owners and a cat called Pantone keep ink on paper in a city that went digital.\"; set BOLD (font-weight 700), NOT regular; placed on its own: position absolute, its top-left at 640,470 of the page, 136px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y"
    ],
    [
     "body-columns",
-    "2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 284px wide, 32px apart, 14px #1a1a1a type, 22px line height, at 640,580; the first column opens with a DROP CAP: its first letter 64px #ff3b1f, floated left, sinking 4 lines into the text (::first-letter, float: left): column 1 \"When Marta opened the shutter in 1987 the street had nine printers. Today the hum of the Heidelberg is the only one left, and it still runs before the cafés open.\"; column 2 \"Orders come from bands, poets and a ministry that never updated its forms. Nobody here is sentimental about it; the work simply pays.\""
+    "2 columns of running body text side by side (a magazine spread, NOT one paragraph, NOT cards), each 284px wide, 32px apart, 14px #1a1a1a type, 22px line height, at 640,580; the first column opens with a DROP CAP: its first letter 64px #ff3b1f, floated left, sinking 4 lines into the text (::first-letter, float: left): column 1 \"When Marta opened the shutter in 1987 the street had nine printers. Today the hum of the Heidelberg is the only one left, and it still runs before the cafés open.\"; column 2 \"Orders come from bands, poets and a ministry that never updated its forms. Nobody here is sentimental about it; the work simply pays.\"; placed on its own: position absolute, its top-left at 640,580 of the page, 52px of empty space above it (under the dek); NOT stacked straight under the dek, it keeps its own y"
    ],
    [
     "sticker",

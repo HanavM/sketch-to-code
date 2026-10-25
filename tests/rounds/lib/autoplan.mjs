@@ -3225,7 +3225,10 @@ function shadowWords(f) {
   const ink = s.c ? `${colourName({ ...s.c, a: 1 })}${s.c.a < 0.6 ? ` at ${Math.round(s.c.a * 100)}% opacity` : ''} ` : ''
   // an opaque one says so (round 5 c4: 'hard dark brown shadow' built see-through, the outline type showing through)
   const solid = s.c && s.c.a >= 0.95 ? 'solid opaque ' : ''
-  return `hard ${solid}${ink}shadow offset ${Math.abs(Math.round(s.x))}px ${side}, no blur`
+  // n211: offsets that differ say both (round 21 c2 button '0 12px 0' was said 'offset 0px down left')
+  const ax = Math.abs(Math.round(s.x)), ay = Math.abs(Math.round(s.y))
+  const off = ax === ay ? `${ax}px ${side}` : ax === 0 ? `${ay}px straight ${s.y > 0 ? 'down' : 'up'} (0px sideways)` : ay === 0 ? `${ax}px straight ${s.x > 0 ? 'right' : 'left'} (0px up or down)` : `${ax}px ${s.x > 0 ? 'right' : 'left'} and ${ay}px ${s.y > 0 ? 'down' : 'up'}`
+  return `hard ${solid}${ink}shadow offset ${off}, no blur`
 }
 /** The repeated unit of a marquee's copy ('Flex Grotesk — now variable ✦' x4). */
 function repeatUnit(t0) {
@@ -4881,11 +4884,51 @@ function cutFacts() {
       const dots = [...el.children].filter((k) => { const kc = getComputedStyle(k); return k.offsetWidth <= 40 && Math.abs(k.offsetWidth - k.offsetHeight) <= 1 && hex(kc.backgroundColor) && (/50%/.test(kc.borderTopLeftRadius) || parseFloat(kc.borderTopLeftRadius) >= k.offsetWidth / 2 - 1) })
       e.ring = { w: el.offsetWidth, x: el.offsetLeft, y: el.offsetTop, bw: ringW, bc: hex(cs.borderTopColor), dots: dots.map((k) => ({ x: k.offsetLeft, y: k.offsetTop, d: k.offsetWidth, c: hex(getComputedStyle(k).backgroundColor) })) }
     }
+    // n211: how the target places it (absolute parts straight on the page keep their own y) and its own text
+    e.pos = cs.position
+    e.top = !el.parentElement?.closest('[data-r]')
+    e.txt = !!(el.innerText || '').trim()
+    e.br = cs.borderTopLeftRadius
     regions[el.dataset.r] = e
   }
   // hairline rules straight on the page with no data-r (the target's own grid lines)
   const rules = [...document.body.children].filter((k) => !k.dataset.r && !k.querySelector('[data-r]')).map((k) => { const b = k.getBoundingClientRect(), c = hex(getComputedStyle(k).backgroundColor); if (!c) return null; if (b.width <= 2 && b.height >= 0.6 * H) return { dir: 'vertical', x: Math.round(b.left), y: Math.round(b.top), len: Math.round(b.height), t: Math.round(b.width), c }; if (b.height <= 2 && b.width >= 0.6 * W) return { dir: 'horizontal', x: Math.round(b.left), y: Math.round(b.top), len: Math.round(b.width), t: Math.round(b.height), c }; return null }).filter(Boolean)
   return { regions, rules }
+}
+
+// n211: a soft floor shadow (a textless ellipse painted by a radial gradient fading out) and absolute parts in one left
+// column that keep their own y across a big empty gap (round 21 c2: copy, button and tags pulled up under the headline,
+// the floor shadow lost because no note said it)
+function placeNotes(regions, out, X) {
+  for (const f of regions) {
+    const d = out.get(f.role), e = X.regions[f.role]
+    if (!d || !e || e.txt || d.note) continue
+    const B = e.box
+    if (/^radial-gradient\(/.test(e.img ?? '') && /transparent/.test(e.img) && B.w >= 2 * B.h && B.w >= 120 && !/,\s*(?:linear|radial|conic)-gradient/.test(e.img)) {
+      d.note = `a SOFT floor shadow: one ${B.w}x${B.h}px ellipse at ${B.x},${B.y} (position absolute, border-radius 50%, background: ${e.img}), dark in the middle fading to nothing at its edge; no hard edge, no border, NOT a solid shape, NOT a box; it sits under the parts above it`
+      d.kind = d.kind || 'box'
+    }
+  }
+  const col = regions.filter((f) => { const d = out.get(f.role), e = X.regions[f.role]; return d?.kind && e && e.pos === 'absolute' && e.top && !f.regionKids.length && e.txt })
+  const groups = []
+  for (const f of col.sort((a, b) => X.regions[a.role].box.y - X.regions[b.role].box.y)) {
+    const x = X.regions[f.role].box.x, g = groups.find((q) => Math.abs(q.x - x) <= 4)
+    if (g) g.list.push(f); else groups.push({ x, list: [f] })
+  }
+  for (const g of groups) {
+    if (g.list.length < 3) continue
+    const bx = g.list.map((f) => X.regions[f.role].box)
+    const gaps = bx.slice(1).map((b, i) => b.y - (bx[i].y + bx[i].h))
+    // only a short run of small parts (copy, a button, tags) under a lead, with ONE gap far bigger than the rest:
+    // panes, tables and lanes in app pages keep their flow (n211: re-planning rounds 1-20 showed those)
+    const rest = gaps.slice().sort((a, b) => b - a).slice(1)
+    if (g.list.length > 4 || gaps[0] < 100 || gaps.some((v) => v < 0) || Math.max(...rest) * 2 > gaps[0] || bx.slice(1).some((b) => b.h > 120 || b.w > 640)) continue
+    g.list.slice(1).forEach((f, i) => {
+      const d = out.get(f.role), b = bx[i + 1]
+      if (/top-left at \d+,\d+|at \d+,\d+ \(position absolute|position: absolute at left/.test(d.note ?? '')) return
+      d.note = `${d.note ? `${d.note}; ` : ''}placed on its own: position absolute, its top-left at ${b.x},${b.y} of the page, ${gaps[i]}px of empty space above it (under the ${g.list[i].role}); NOT stacked straight under the ${g.list[i].role}, it keeps its own y`
+    })
+  }
 }
 
 function cutNotes(regions, out, X, pn) {
@@ -5706,6 +5749,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // a giant word turned a quarter, a ring's dots, and the page's own unmarked hairline rules (round 21 c3/c4: circle
   // window built square, shard unclipped, faded grid a black box, triangle a black box, '07' unturned, grid rules lost)
   pn = cutNotes(regions, out, x209, pn)
+  placeNotes(regions, out, x209)
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
 }

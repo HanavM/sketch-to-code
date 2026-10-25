@@ -97,7 +97,7 @@
    ],
    [
     "cta",
-    "vivid yellow pill label, bold black \"START A PROJECT →\"; its text #0e0e0e (black, NOT the page's off-white text)"
+    "vivid yellow pill label, bold black \"START A PROJECT →\"; its text #0e0e0e (black, NOT the page's off-white text); placed on its own: position absolute, its top-left at 48,780 of the page, 53px of empty space above it (under the lede); NOT stacked straight under the lede, it keeps its own y"
    ]
   ]
  },
@@ -151,15 +151,19 @@
    ],
    [
     "sub",
-    "text \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\""
+    "text \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\"; placed on its own: position absolute, its top-left at 64,470 of the page, 175px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y"
    ],
    [
     "cta",
-    "dark brown (exactly #3a1a14) block, white text \"Get the kit\", with a hard solid opaque near-black shadow offset 0px down left, no blur; its text #ffffff (white, NOT the page's dark brown text)"
+    "dark brown (exactly #3a1a14) block, white text \"Get the kit\", with a hard solid opaque near-black shadow offset 12px straight down (0px sideways), no blur; its text #ffffff (white, NOT the page's dark brown text); placed on its own: position absolute, its top-left at 64,590 of the page, 63px of empty space above it (under the sub); NOT stacked straight under the sub, it keeps its own y"
    ],
    [
     "tags",
-    "buttons: \"Elevation\", \"Shadows\", \"Depth\""
+    "buttons: \"Elevation\", \"Shadows\", \"Depth\"; placed on its own: position absolute, its top-left at 64,700 of the page, 56px of empty space above it (under the cta); NOT stacked straight under the cta, it keeps its own y"
+   ],
+   [
+    "floor-shadow",
+    "a SOFT floor shadow: one 460x60px ellipse at 700,700 (position absolute, border-radius 50%, background: radial-gradient(#5a140a59, transparent 70%)), dark in the middle fading to nothing at its edge; no hard edge, no border, NOT a solid shape, NOT a box; it sits under the parts above it"
    ],
    [
     "card-stack",

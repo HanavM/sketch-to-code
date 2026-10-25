@@ -78,3 +78,22 @@ the rules thick and wavy, the disc outlined, bar lines on a grey slab). Unit tes
 
 Round 21: **78%** (was 77). Vitest same 2 env failures (1459 tests); typecheck clean.
 Next: c2 depth stack (51) parts keep their own y; c4 disc still a drawn component; c3 invented nav row.
+
+## n211: parts that keep their own y, the soft floor shadow, both shadow offsets (2026-10-25, ~130k billed)
+
+Planner (words only): a short run of small absolute parts in one left column (copy, a button, tags) under a lead, with
+one gap far bigger than the rest, says each part's exact page top-left and the empty space above it (round 21 c2: copy,
+button and tags had been pulled up under the headline); a textless ellipse painted by a radial gradient that fades to
+transparent is said as a SOFT floor shadow with its size, place and gradient (c2: no note had said it, so it was lost);
+a hard shadow whose two offsets differ says both (c2 button "0 12px 0" had been said "offset 0px down left").
+Re-planned rounds 1-21: the own-y words reach round 5 c4, 9 c1, 12 c5, 16 c1, 21 c1/c2 only (app panes, tables and lanes
+are left out by the rule); the shadow wording changes round 4 c1, 15 c4, 18 c3, 21 c2. No marks changed.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c2 depth stack | 51% | **86%** | copy, button and tags at their own y, floor shadow back, 3D stack right; tags outlined (target filled white pills) |
+
+A first run scored 85% with the left column right but the 3D stack built as one flat gradient panel (codegen variance;
+its notes are unchanged), kept as c2-depth-stack-n211a-cmp.png; the second run is kept.
+Round 21: **81%** (was 78). Vitest same 2 env failures (1459 tests); typecheck clean.
+Next: c4 swiss orbit (74) disc still a drawn component and meta missed; c5 neon grid (77) stripe-cut sun, centred title.
