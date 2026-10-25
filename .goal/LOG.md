@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-25T02:43Z | n195 terrazzo cover, hollow masthead copy, ring letters, lanterns, neon, glass and pale pills | c3 81 to 91, c5 76 to 89, e2 73 to 82; round 19 88. ~261k.
 2026-10-25T02:07Z | n194 card fields beside nested regions, focus glow, tilted stamp, table card, sized controls | e5 71 to 83, e2 66 to 73; round 19 85. ~175k.
 2026-10-25T01:44Z | n193 thin tonearm stroke, round record, label on its own disc, two-line chip | c4 77 to 90; round 19 83. ~187k.
 2026-10-25T01:35Z | n192 faint rays, arch window, cut panes, record under sleeve, tonearm rod | c1 74 to 91; c4 78 to 77 (label off-centre, arm slab); round 19 81. ~211k.
