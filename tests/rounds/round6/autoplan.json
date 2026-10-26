@@ -460,7 +460,7 @@
    ],
    [
     "mega",
-    "white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering all of what is drawn under it (absolutely placed over it, not pushing it down); the panel is a fixed 440px tall as drawn, so nothing under it peeks out round its edges"
+    "the region itself is ONE 1200x440px panel at 40,72 (position absolute, its FULL height kept: 440px tall, never shorter), background #ffffff, box-shadow: rgba(15, 23, 42, 0.18) 0px 24px 48px 0px (a big dark drop shadow under it); the parts drawn on their own (col-build, col-ship, col-watch, featured) all sit INSIDE this panel, within its edges; white card, an open dropdown panel hanging straight down from the bottom of the top bar (square top corners, 16px rounded bottom corners), with a big soft dark navy shadow 24px down, 48px blur, 18% opacity; it lies on top of the page below it, covering all of what is drawn under it (absolutely placed over it, not pushing it down); the panel is a fixed 440px tall as drawn, so nothing under it peeks out round its edges"
    ],
    [
     "col-build",

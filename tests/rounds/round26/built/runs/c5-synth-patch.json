@@ -1,24 +1,24 @@
 {
   "id": "c5-synth-patch",
-  "at": "2026-10-26T16:18:41.468Z",
+  "at": "2026-10-26T17:23:47.363Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7988284044334009,
-    "overallV2": 0.7988284044334009,
-    "overallV1": 0.7565201939692381,
-    "colour": 0.8716026427067415,
-    "structure": 0.7363565258561772,
-    "structureStrict": 0.6380886215622115,
-    "colourAligned": 0.8716026427067415,
-    "structureAligned": 0.7363565258561772,
+    "overall": 0.937887655774842,
+    "overallV2": 0.937887655774842,
+    "overallV1": 0.9079714104371737,
+    "colour": 0.9886367376471338,
+    "structure": 0.9595878764679091,
+    "structureStrict": 0.8901023865021503,
+    "colourAligned": 0.9886367376471338,
+    "structureAligned": 0.9595878764679091,
     "align": {
-      "scale": 1.08,
-      "dx": -64,
-      "dy": -16,
-      "r": 0.5285674809496613
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9882307709973429
     },
-    "layout": 0.9260760835903343,
-    "layoutV1": 0.8351669926812434,
+    "layout": 0.8702739519907877,
+    "layoutV1": 0.7793648610816969,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,146 +31,146 @@
     ],
     [
       0,
+      0,
+      0,
+      1280,
+      820
+    ],
+    [
+      1,
       74,
-      44,
+      40,
       1142,
       30
     ],
     [
-      1,
+      2,
       74,
-      44,
+      40,
       73,
       30
     ],
     [
-      1,
-      954,
-      48,
-      262,
+      2,
+      938,
+      44,
+      278,
       23
     ],
     [
-      3,
-      954,
-      48,
+      4,
+      938,
+      44,
       86,
       23
     ],
     [
-      3,
-      1072,
-      48,
+      4,
+      1064,
+      44,
       55,
       23
     ],
     [
-      3,
+      4,
       1159,
-      48,
+      44,
       58,
       23
     ],
     [
-      0,
-      523,
-      123,
-      694,
-      514
-    ],
-    [
-      7,
-      523,
-      122,
-      694,
-      514
-    ],
-    [
-      0,
+      1,
       78,
       140,
       282,
       144
     ],
     [
-      9,
+      8,
       78,
       140,
       282,
       72
     ],
     [
-      9,
+      8,
       78,
       212,
       282,
       72
     ],
     [
-      11,
+      10,
       78,
       203,
       164,
       88
     ],
     [
-      0,
+      1,
       70,
       420,
       380,
       81
     ],
     [
-      0,
+      1,
       70,
       540,
       380,
       90
     ],
     [
-      14,
+      13,
       70,
       563,
       380,
       45
     ],
     [
-      0,
-      0,
-      0,
-      1280,
-      900
+      1,
+      74,
+      703,
+      263,
+      49
     ],
     [
-      16,
-      563,
-      593,
-      220,
-      125
+      15,
+      74,
+      704,
+      153,
+      47
     ],
     [
-      16,
-      623,
-      593,
-      380,
-      163
+      15,
+      243,
+      703,
+      94,
+      49
     ],
     [
-      16,
-      683,
-      593,
-      160,
-      80
+      1,
+      520,
+      120,
+      700,
+      520
     ],
     [
-      0,
-      553,
-      173,
-      633,
-      222
+      18,
+      520,
+      120,
+      700,
+      520
     ],
     [
-      0,
+      19,
+      520,
+      119,
+      700,
+      520
+    ],
+    [
+      18,
       550,
       170,
       640,
@@ -457,151 +457,158 @@
       11
     ],
     [
-      0,
+      18,
       550,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       610,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       670,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       730,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       790,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       850,
       584,
       26,
       26
     ],
     [
-      0,
+      18,
       1058,
-      590,
+      593,
       132,
       12
     ],
     [
       68,
       1058,
-      590,
+      593,
       12,
       12
     ],
     [
       68,
       1082,
-      590,
+      593,
       12,
       12
     ],
     [
       68,
       1106,
-      590,
+      593,
       12,
       12
     ],
     [
       68,
       1130,
-      590,
+      593,
       12,
       12
     ],
     [
       68,
       1154,
-      590,
+      593,
       12,
       12
     ],
     [
       68,
       1178,
-      590,
+      593,
       12,
       12
     ],
     [
-      0,
-      74,
-      703,
-      279,
-      53
-    ],
-    [
-      75,
-      74,
-      704,
-      161,
-      51
-    ],
-    [
-      75,
-      251,
-      703,
-      102,
-      53
-    ],
-    [
-      0,
+      1,
       520,
       690,
       700,
-      30
+      36
     ],
     [
-      78,
+      75,
       520,
       706,
       117,
       20
     ],
     [
-      78,
+      75,
       756,
       706,
       39,
       20
     ],
     [
-      78,
+      75,
       914,
       706,
       94,
       20
     ],
     [
-      78,
+      75,
       1126,
       706,
       94,
       20
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      820
+    ],
+    [
+      80,
+      554,
+      584,
+      217,
+      123
+    ],
+    [
+      80,
+      613,
+      584,
+      374,
+      161
+    ],
+    [
+      80,
+      672,
+      584,
+      158,
+      79
     ]
   ],
   "groupMatched": [
@@ -618,84 +625,63 @@
     }
   ],
   "effects": {
-    "recall": 0.6,
+    "recall": 0.8,
     "kept": [
       "gradient",
       "hard-shadow",
-      "mono"
-    ],
-    "missing": [
-      "glow",
+      "mono",
       "soft-shadow"
     ],
+    "missing": [
+      "glow"
+    ],
     "extra": [
-      "blur",
       "overlap"
     ]
   },
   "tokens": {
-    "input": 78412,
-    "output": 42142,
-    "cacheRead": 1089658
+    "input": 95767,
+    "output": 54775,
+    "cacheRead": 550392
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 75847,
-      "output": 25734,
-      "cacheRead": 720457,
-      "toolCalls": 13,
+      "billed": 102426,
+      "output": 34964,
+      "cacheRead": 298919,
+      "toolCalls": 10,
       "tools": [
         "Glob",
         "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Write src/App.tsx",
-        "Edit components/SketchShape.tsx",
-        "Read components/SketchShape.tsx",
-        "Grep",
+        "Read src/main.tsx",
         "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
         "Read s2c-bench-app/package.json",
         "Edit components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Read components/SketchShape.tsx",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 290999
+      "ms": 399586
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 23949,
-      "output": 8970,
-      "cacheRead": 354510,
-      "toolCalls": 4,
+      "billed": 24402,
+      "output": 10835,
+      "cacheRead": 236490,
+      "toolCalls": 2,
       "tools": [
-        "Read src/App.tsx",
-        "Read src/App.tsx",
         "Read src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 112800
+      "ms": 133214
     }
   ],
-  "reading": "A full hero/landing section: near-black page with a top nav (MODUL + three right-aligned links), a big 'Patch it. Hear it.' headline with a sub-paragraph and a decorative wavy underline doodle, a gradient hero panel on the right containing a 5x2 grid of knob-style cards, a row of 6 round empty buttons, 3 colored squiggly accent lines over the headline area, a row of 6 small colored dots, two CTA buttons, and a thin spec strip along the bottom of the panel.",
+  "reading": "This is a hero/landing page sketch for a synth product called MODUL: a top nav bar, a big two-line headline with a decorative wavy divider under it, a paragraph of body copy, two CTA buttons, and on the right a large synth-panel mockup containing a 10-knob grid, 6 jack circles, 6 status LEDs, three colored patch-cable curves, plus a thin specs strip below the panel and the page border.",
   "actions": [
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        3,
-        1274,
-        894
-      ],
-      "paths": [
-        "s11"
-      ],
-      "instruction": "Whole page background near-black (#1b1c1f), set base typography to Helvetica, with text generally rendered in a warm paper tone, as the global look for this new"
-    },
     {
       "kind": "add",
       "textMarks": [
@@ -709,7 +695,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Top nav bar: 20px warm-paper 'MODUL' wordmark at the left, bold (font-weight 600, not regular); far right (816px gap from MODUL) three bold nav links 'Instrumen"
+      "instruction": "Top navigation bar: 20px warm paper 'MODUL' wordmark on the left, then links Instruments, Sounds, Support pushed to the far right (816px gap). Each word its own"
     },
     {
       "kind": "add",
@@ -734,7 +720,7 @@
         144
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy headline set tight (line-height 0.92), exactly two lines 'Patch it.' / 'Hear it.' with those exact line breaks kept (white-space nowrap per"
+      "instruction": "Huge Helvetica heavy, tight-set heading 'Patch it. Hear it.' set in exactly 2 lines ('Patch it.' / 'Hear it.'), line-height 0.92, each line kept whole with no w"
     },
     {
       "kind": "add",
@@ -761,7 +747,7 @@
         82
       ],
       "paths": [],
-      "instruction": "Body paragraph, 17px Helvetica, grey #a9a69d, 3 lines, ~380px wide, positioned top-left around 70,420. Exact copy: 'A semi-modular desktop synth with 32 patch p"
+      "instruction": "17px Helvetica grey (#a9a69d) body copy, 3 lines, 380px wide, top-left at 70,420, exact quoted words: 'A semi-modular desktop synth with 32 patch points, analog"
     },
     {
       "kind": "add",
@@ -776,67 +762,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Decorative inline SVG squiggle, 380x90px, top-left at page 70,540 (absolute), reproduced verbatim as the exact orange (#ff6a2a) smooth wavy path given, no borde"
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        553,
-        173,
-        633,
-        222
-      ],
-      "paths": [
-        "s8"
-      ],
-      "instruction": "Large hero visual panel (the right-hand box) filled with a gradient from warm paper #d9d4c6 at top to lavender #c8c2b2 at bottom, plus a hard white inset shadow"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        553,
-        173,
-        633,
-        222
-      ],
-      "paths": [
-        "s8"
-      ],
-      "instruction": "Inside the hero panel: a 5-column x 2-row grid of 10 identical knob cards (112x101px each, 20px gap across, 26px gap down, first card top-left at 550,170). Each"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        554,
-        587,
-        318,
-        19
-      ],
-      "paths": [
-        "s9"
-      ],
-      "instruction": "Row of 6 empty round transport-style buttons, each 26x26px, #111111 fill with a 5px #9a9a9a border, no icon/emoji/picture inside, positioned at x=550,610,670,73"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        1058,
-        593,
-        124,
-        5
-      ],
-      "paths": [
-        "s10"
-      ],
-      "instruction": "Row of 6 small round dots, 12px each, 12px apart, no surrounding box, colored in order: orange, dark brown, orange, dark brown, dark brown, orange."
+      "instruction": "Decorative inline SVG, copied verbatim, 380x90px, top-left at page 70,540 (position absolute), no border/outline/frame/background around it — only the SVG's own"
     },
     {
       "kind": "add",
@@ -851,7 +777,67 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Three decorative 7px smooth waveform-style curved lines layered in front of the 'Patch it. Hear it.' headline, no fill, never crossing themselves: an orange (#f"
+      "instruction": "Large synth-panel mockup: ONE 700x520px panel at 520,120 (position absolute, full 520px height kept), background linear-gradient(warm paper #d9d4c6 top to laven"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        553,
+        173,
+        633,
+        222
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Grid of 10 identical filled knob cards inside the synth panel (display grid, 5 columns x 2 rows, each card 112x101px, 20px gap across, 26px gap down, first card"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        554,
+        587,
+        318,
+        19
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Row of 6 empty jack-socket circles inside the synth panel, each 26x26px, #111111 fill with a 5px #9a9a9a border, no icon/emoji/picture inside: at page positions"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1058,
+        593,
+        124,
+        5
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Row of 6 small round 12px status LED dots, 12px apart, no surrounding box, colored in order: orange, dark brown, orange, dark brown, dark brown, orange."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        123,
+        694,
+        514
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Three 7px smooth curving patch-cable lines drawn in front of the 'Patch it. Hear it.' heading, no fill, never crossing themselves: an orange cable through ~563,"
     },
     {
       "kind": "add",
@@ -866,7 +852,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Two CTA buttons side by side: 'Pre-order €449' in #1b1c1f text, and 'Listen' in #e9e6dc text."
+      "instruction": "Two call-to-action buttons: 'Pre-order €449' in color #1b1c1f, and 'Listen' in color #e9e6dc."
     },
     {
       "kind": "add",
@@ -881,8 +867,10 @@
       "paths": [
         "s13"
       ],
-      "instruction": "A thin 700x30px spec strip at 520,690, no fill, with a 1px #444444 rule along its top edge only, holding 4 single-line (nowrap, min-width) 13px monospace #a9a69"
+      "instruction": "A thin specs strip: ONE 700x30px panel at 520,690, no fill, a 1px #444444 rule along its top edge only. Inside it, 4 inline, non-wrapping (nowrap, min-width not"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

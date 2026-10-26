@@ -447,7 +447,7 @@
    ],
    [
     "summary",
-    "white card sidebar"
+    "the region itself is ONE 400x520px panel at 800,48 (position absolute, its FULL height kept: 520px tall, never shorter), background #ffffff, 14px rounded; the parts drawn on their own (item-1, item-2, item-3, total) all sit INSIDE this panel, within its edges; white card sidebar"
    ],
    [
     "item-1",

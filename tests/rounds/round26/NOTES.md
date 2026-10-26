@@ -44,3 +44,23 @@ Round 26: **83%** over 10 (83.0; round 25 started at 71 untuned). Vitest: same 2
 
 Re-planned rounds 1-25: only r25 c5 sleeve changes (ring said). Next: e4 checkbox matrix (49), c5 panel height and
 jacks, c2 diamond badge and step-card shadows, c3 constellation; then live re-runs.
+
+## n248: checkbox matrix, panel, diamond, hard shadows (2026-10-26, ~357k billed)
+
+- A matrix of div rows on one grid template (header row, cells holding checkboxes) is now a rich table said cell by
+  cell: ticked, partly ticked (::after dash) and empty boxes told apart (a white box with no mark is EMPTY), tinted bold
+  group rows, centred columns, column lefts (e4 was said as a one-column list).
+- A big painted panel whose content is all regions of its own says its size, place, rounding, outer drop shadow (the
+  inset highlight no longer read as its shadow), its ::before/::after screw dots, and that its regions sit inside it (c5).
+- A worded block cut to a polygon says its clip-path (c2 diamond 'NEW' badge); a hard offset no-blur shadow on a card
+  part is said (c2 step cards).
+
+Re-planned rounds 1-25: panel lines added on r1, r2, r6, r10, r21 (not re-run live).
+
+| page | before | n248 | note |
+|---|---|---|---|
+| c5 synth patch | 80% | **94%** | panel full height, jacks and LEDs inside, screws |
+| c2 origami fold | 82% | **92%** | diamond badge, step-card shadows |
+| e4 permissions | 49% | **78%** | full 4-role matrix with ticks, dashes, group rows (first try hit the 14-min run cap; re-run 309s); brand row and subhead still lost |
+
+Round 26: **88%** (88.3; was 83). Vitest same 2 env failures; typecheck clean.

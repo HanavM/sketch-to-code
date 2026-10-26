@@ -663,7 +663,7 @@
    ],
    [
     "playlist-main",
-    "dark grey (#5b2a86) to deep indigo (#2a1540, its stop at 50% of the way along, fully opaque) to near-black (#121212) gradient, top to bottom"
+    "the region itself is ONE 1016x792px panel at 256,8 (position absolute, its FULL height kept: 792px tall, never shorter), background linear-gradient(rgb(91, 42, 134) 0px, rgb(42, 21, 64) 300px, rgb(18, 18, 18) 420px), 8px rounded; the parts drawn on their own (cover, playlist-meta, actions, track-table) all sit INSIDE this panel, within its edges; dark grey (#5b2a86) to deep indigo (#2a1540, its stop at 50% of the way along, fully opaque) to near-black (#121212) gradient, top to bottom"
    ],
    [
     "cover",

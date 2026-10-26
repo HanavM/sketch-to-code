@@ -2037,7 +2037,14 @@ export function factsInPage() {
       if ([...used].some((u) => u.contains(k))) continue
       const s = getComputedStyle(k), b = k.getBoundingClientRect(), t = txt(k), fl = filled(k), rad = parseFloat(s.borderTopLeftRadius) || 0
       // n191: a solid ticked box with no border is a checkbox too (round 19 e2: the purple ticked boxes said 'pill', built pale)
-      if (b.width >= 11 && b.width <= 22 && Math.abs(b.width - b.height) <= 2 && (parseFloat(s.borderTopWidth) >= 1 || (fl && /^[✓✔x×]?$/.test(t))) && rad <= 6 && t.length <= 1) { out.push({ k: 'cb', fill: fl, px: Math.round(b.width), rad: Math.round(rad), tick: t ? rgba(s.color) : null, bc: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: parseFloat(s.borderTopWidth) || 0 }); used.add(k); continue }
+      if (b.width >= 11 && b.width <= 22 && Math.abs(b.width - b.height) <= 2 && (parseFloat(s.borderTopWidth) >= 1 || (fl && /^[✓✔x×]?$/.test(t))) && rad <= 6 && t.length <= 1) { // n248: the mark may be painted by ::after: a turned L of borders is a tick, a flat filled bar a dash (partly checked)
+        const af = getComputedStyle(k, '::after'), afw = parseFloat(af.width) || 0, afh = parseFloat(af.height) || 0
+        const turned = af.content && af.content !== 'none' && af.transform && af.transform !== 'none' && (parseFloat(af.borderRightWidth) || 0) >= 1
+        const dash = af.content && af.content !== 'none' && !turned && afh > 0 && afw >= afh * 3 && rgba(af.backgroundColor)?.a > 0.5
+        const tk = t ? rgba(s.color) : turned ? rgba(af.borderRightColor) : null
+        // a white box with no mark is an EMPTY checkbox, not a ticked one (round 26 e4: every #fff box was said '✓')
+        const blank = !tk && !dash && fl && fl.r + fl.g + fl.b >= 735
+        out.push({ k: 'cb', fill: blank ? null : fl, px: Math.round(b.width), rad: Math.round(rad), tick: t ? rgba(s.color) : turned ? rgba(af.borderRightColor) : null, dash: dash ? rgba(af.backgroundColor) : null, bc: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: parseFloat(s.borderTopWidth) || 0 }); used.add(k); continue }
       // n191: a switch: a short pill with a round knob painted by ::after (round 19 e2: the 2FA toggles said '(empty)')
       if (fl && !t && b.height >= 14 && b.height <= 30 && b.width >= b.height * 1.5 && b.width <= b.height * 2.6 && rad >= b.height / 2 - 1) {
         const a = getComputedStyle(k, '::after'), aw = parseFloat(a.width) || 0
@@ -2100,6 +2107,36 @@ export function factsInPage() {
         if (!fl || (!bw && !rad)) return null
         return { fill: fl, w: Math.round(box.getBoundingClientRect().width), border: bw ? { px: Math.round(bw), c: rgba(bs.borderTopColor) } : null, rad: Math.round(rad), clip: bs.overflow === 'hidden' }
       })(),
+    }
+  }
+  // n248: div rows on one grid template, the first a header, cells holding checkboxes, avatars or bars (round 26 e4)
+  const richGrid = (el) => {
+    const rows = [...el.children].filter((k) => getComputedStyle(k).display !== 'none')
+    if (rows.length < 4 || rows.length > 13) return null
+    const gt = getComputedStyle(rows[0]).gridTemplateColumns
+    if (!rows.every((k) => getComputedStyle(k).display === 'grid' && k.children.length >= 3 && getComputedStyle(k).gridTemplateColumns === gt && k.children.length === rows[0].children.length)) return null
+    const body = rows.slice(1), ink0 = rgba(getComputedStyle(el).color)
+    const cells = body.map((r) => [...r.children].map((c) => cellParts(c, ink0)))
+    if (cells.flat(2).filter((x) => /^(cb|av|bar)$/.test(x.k)).length < body.length) return null
+    const hOf = (r) => Math.round(r.getBoundingClientRect().height)
+    const mode = (a) => { const m = new Map(); for (const v of a) m.set(v, (m.get(v) ?? 0) + 1); return [...m].sort((x, y) => y[1] - x[1])[0]?.[0] }
+    // group heading rows: a tinted, bold row among plain ones (here #fafafa 'Projects', 'Billing' with partial checks)
+    const grp = body.filter((r) => filled(r) && Number(getComputedStyle(r).fontWeight) >= 600)
+    const plain = body.filter((r) => !grp.includes(r))
+    if (!plain.length) return null
+    const rowPx = mode(plain.map(hOf)), g = grp.length ? mode(grp.map(hOf)) : null
+    const b0 = el.getBoundingClientRect(), es = getComputedStyle(el), fl = filled(el), bw = parseFloat(es.borderTopWidth) || 0, rad = parseFloat(es.borderTopLeftRadius) || 0
+    const rs = getComputedStyle(body[0])
+    return {
+      head: [...rows[0].children].map((c) => cellParts(c, ink0)), headFill: filled(rows[0]), headPx: Math.round(parseFloat(getComputedStyle(rows[0]).fontSize)),
+      rowPx, groupPx: g && Math.abs(g - rowPx) >= 3 ? g : null, headRowPx: hOf(rows[0]),
+      groups: grp.length ? { rows: grp.map((r) => body.indexOf(r) + 1), fill: filled(grp[0]), px: g, bold: true } : null,
+      ruled: parseFloat(rs.borderBottomWidth) >= 1 ? rgba(rs.borderBottomColor) : null,
+      cells, sel: null,
+      colLefts: [...rows[0].children].map((c) => Math.round(c.getBoundingClientRect().left - b0.left)),
+      tableW: Math.round(b0.width),
+      centred: [...body[0].children].slice(1).every((c) => /center/.test(getComputedStyle(c).justifyContent) || getComputedStyle(c).textAlign === 'center'),
+      card: fl && (bw || rad) ? { fill: fl, w: Math.round(b0.width), border: bw ? { px: Math.round(bw), c: rgba(es.borderTopColor) } : null, rad: Math.round(rad), clip: es.overflow === 'hidden' } : null,
     }
   }
   function dense(el) {
@@ -2355,6 +2392,12 @@ export function factsInPage() {
         const rest = [...el.children].filter((k) => k !== bigK && txt(k))
         return { type: 'kpi1', label: bare[0], labelInk: rgba(getComputedStyle(el).color), labelPx: Math.round(parseFloat(getComputedStyle(el).fontSize)), value: txt(bigK), valuePx: Math.round(parseFloat(getComputedStyle(bigK).fontSize)), extra: rest.map((k) => ({ t: txt(k), ink: rgba(getComputedStyle(k).color), bold: Number(getComputedStyle(k).fontWeight) >= 600 })) }
       }
+    }
+    // n248: a checkbox matrix built from div rows on one column grid (round 26 e4 permissions: role columns of checkboxes
+    // said as a one-column list, group rows as dots, built with only the Owner column); said as a rich table, cell by cell
+    {
+      const rich = richGrid(el)
+      if (rich) return { type: 'rtable', title: null, ...rich }
     }
     // a table built from div rows on one column grid, the first row its header (round 5 e2: said as a list)
     const gk = [...el.children]
@@ -3471,7 +3514,7 @@ function denseNote(d) {
       const ord = (n) => ['1st', '2nd', '3rd'][n - 1] ?? `${n}th`
       // n191: a checkbox, switch or outlined chip said short in its cell, its look said ONCE after the rows
       const legend = new Map()
-      const part = (x) => x.k === 'cb' ? (x.fill ? (x.px ? (legend.set('cbon', `every "✓ box" is a ticked SOLID checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, filled ${hexOf(x.fill)} edge to edge${x.tick ? ` with a ${hexOf(x.tick)} ✓ centred` : ''} (NOT pale, NOT a pill)`), '✓ box') : `ticked ${colourName(x.fill)} checkbox`) : (x.px ? (legend.set('cboff', `every "empty box" is an unticked checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, ${x.bw}px ${hexOf(x.bc)} border, no fill`), 'empty box') : 'empty checkbox'))
+      const part = (x) => x.k === 'cb' ? (x.fill && x.dash ? (legend.set('cbpart', `every "– box" is a PARTLY checked SOLID box ${x.px}x${x.px}px, ${x.rad}px rounded, filled ${hexOf(x.fill)} with a short ${hexOf(x.dash)} horizontal dash centred (NOT a tick)`), '– box') : x.fill ? (x.px ? (legend.set('cbon', `every "✓ box" is a ticked SOLID checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, filled ${hexOf(x.fill)} edge to edge${x.tick ? ` with a ${hexOf(x.tick)} ✓ centred` : ''} (NOT pale, NOT a pill)`), '✓ box') : `ticked ${colourName(x.fill)} checkbox`) : (x.px ? (legend.set('cboff', `every "empty box" is an unticked checkbox ${x.px}x${x.px}px, ${x.rad}px rounded, ${x.bw}px ${hexOf(x.bc)} border, no fill`), 'empty box') : 'empty checkbox'))
         : x.k === 'tg' ? (legend.set(`tg${x.on}`, `every ${x.on ? 'ON' : 'OFF'} switch is a ${x.w}x${x.h}px fully rounded ${hexOf(x.fill)} track with a round ${hexOf(x.knob)} knob at its ${x.on ? 'RIGHT' : 'LEFT'} end`), `${x.on ? 'ON' : 'OFF'} switch`)
         : x.k === 'chip' ? (legend.set('chip', `every "chip" is an outlined chip ${x.h}px tall, 1px ${hexOf(x.bc)} border, ${x.rad}px rounded, no fill`), `chip ${quote(x.t)}`)
         : x.k === 'av' ? (x.t ? `${colourName(x.fill)} round ${x.px}px avatar ${quote(x.t)}` : (legend.set('avbare', 'every avatar is a plain filled circle with NO letters or initials in it'), `${colourName(x.fill)} round ${x.px}px avatar`))
@@ -3483,7 +3526,7 @@ function denseNote(d) {
       const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
       const card = d.card ? `inside a ${colourName(d.card.fill)} (${hexOf(d.card.fill)}) card ${d.card.w}px wide${d.card.border ? `, ${d.card.border.px}px ${colourName(d.card.border.c)} (${hexOf(d.card.border.c)}) border` : ''}${d.card.rad ? `, ${d.card.rad}px rounded corners${d.card.clip ? ' (overflow hidden, so the header fill follows the corners)' : ''}` : ''}, the table filling the card edge to edge; ` : ''
       const lefts = d.colLefts && d.colLefts.length >= 4 ? `; fixed column widths (table-layout: fixed, ${d.tableW}px): each column starts this far from the table's left edge: ${d.colLefts.map((x, i) => `${i + 1} ${x}px`).join(', ')}` : ''
-      const body = `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.groupPx ? ` (exactly ${d.rowPx}px: NOT taller; only the group heading rows, the ones with one wide cell, are ${d.groupPx}px; the header row ${d.headRowPx}px)` : ''}${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
+      const body = `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.groupPx ? ` (exactly ${d.rowPx}px: NOT taller; only the group heading rows${d.groups ? '' : ', the ones with one wide cell,'} are ${d.groupPx}px; the header row ${d.headRowPx}px)` : ''}${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.groups ? `; rows ${d.groups.rows.join(' and ')} are GROUP heading rows: bold, the whole row tinted ${hexOf(d.groups.fill)}, ${d.groups.px}px tall, with their own boxes in every column` : ''}${d.centred ? '; every column after the first is centred: each box sits in the middle of its column' : ''}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
       return legend.size ? `${body}; ${[...legend.values()].join('; ')}` : body
     }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
@@ -3978,6 +4021,9 @@ function partsNote(P, f) {
     // n194: a focus glow round a field (box-shadow 0 0 0 Npx, round 19 e5 'Harb|' input: built plain)
     const glow = p.outShadow && /^rgba?\([^)]+\)\s+0px\s+0px\s+0px\s+([\d.]+)px/.exec(p.outShadow)
     if (glow && p.border) paint.push(`a ${Math.round(+glow[1])}px ${hx(parse(p.outShadow.match(/rgba?\([^)]+\)/)[0]))} ${p.t && p.h <= 64 ? 'FOCUS GLOW' : 'SELECTION GLOW'} round the outside of its border (box-shadow: 0 0 0 ${Math.round(+glow[1])}px${p.t && p.h <= 64 ? '; the field is focused, being typed in' : '; this one is selected'})`)
+    // n248: a hard offset shadow with no blur on a card part (round 26 c2 step cards: 6px 6px 0 #1d1d1b, lost)
+    const hard = !glow && p.outShadow && /^rgba?\([^)]+\)\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+0px/.exec(p.outShadow)
+    if (hard && (Math.abs(+hard[1]) >= 2 || Math.abs(+hard[2]) >= 2) && !p.outShadow.includes('),')) paint.push(`a HARD offset shadow ${Math.round(+hard[1])}px right, ${Math.round(+hard[2])}px down, NO blur (box-shadow: ${Math.round(+hard[1])}px ${Math.round(+hard[2])}px 0 ${hx(parse(p.outShadow.match(/rgba?\([^)]+\)/)[0]))})`)
     // n195: letters round a circle, a hollow word, a copy cut to one side (round 19 c5 ring and masthead)
     if (p.tpath) {
       const T = p.tpath
@@ -6718,6 +6764,31 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const d = out.get(f.role)
     if (!d.note || !f.circled) continue
     d.note += f.circled.map((c) => `; the word ${quote(c.word, 30)} is CIRCLED by hand: wrap it in its own span (display inline-block, position relative) and inside that span put exactly this SVG, copied verbatim, position absolute at left ${c.left}px, top ${c.top}px of the span, pointer-events none, its ring drawn OVER the letters (no fill): ${c.svg}`).join('')
+  }
+  // n248: a worded block cut to a polygon (round 26 c2 'NEW' diamond badge: said as a near-black block, built square)
+  for (const f of regions) {
+    const d = out.get(f.role), R = f.rect
+    if (!d?.note || !f.clipCss || /clip-path|polygon|CUT to/i.test(d.note) || f.plan?.[1] === 'shape') continue
+    if (!f.text || f.text.length > 40) continue
+    const diamond = /^polygon\(50% 0(px|%)?, 100% 50%, 50% 100%, 0(px|%)? 50%\)$/.test(f.clipCss)
+    d.note = `${d.note}; the block is ${Math.round(f.layoutBox?.w || R.w)}x${Math.round(f.layoutBox?.h || R.h)}px at ${Math.round(R.x)},${Math.round(R.y)}, CUT to a polygon with clip-path: ${f.clipCss}${diamond ? ' (a DIAMOND: a square standing on its corner, its four points top, right, bottom and left; NOT a square, NOT turned text)' : ' (NOT a plain rectangle)'}, its words centred in it and kept level`
+  }
+  // n248: a big painted panel whose content is all regions of its own (round 26 c5 synth: said only as its gradient and its
+  // INSET highlight read as its shadow; built short, the jacks and LEDs below it, its screws and drop shadow lost): say
+  // its size and place, rounding, outer shadow, ::before/::after dots, and that the regions inside it stay inside it
+  for (const f of regions) {
+    const d = out.get(f.role), R = f.rect
+    if (!d?.note || !f.regionKids?.length || f.regionKids.length < 2 || R.w * R.h < 120000) continue
+    if (d.note.includes(`${Math.round(R.w)}x${Math.round(R.h)}`) || /the region itself is/.test(d.note)) continue
+    const grad = /gradient/.test(f.bgImage ?? '') ? f.bgImage : null
+    if (!grad && !(visible(f.bg) && f.bg.a > 0.9)) continue
+    // ruled grids and line patterns say themselves (round 10, 21 week and timeline grids)
+    if (/repeating|\b1px\b/.test(f.bgImage ?? '')) continue
+    const layers = (f.shadow && f.shadow !== 'none' ? f.shadow.split(/,(?![^(]*\))/).map((q) => q.trim()) : [])
+    const outer = layers.filter((q) => !/inset/.test(q)), inner = layers.filter((q) => /inset/.test(q))
+    const dots = (f.pseudoAll ?? []).filter((q) => q.round && q.pw <= 24 && Math.abs(q.pw - q.ph) <= 1)
+    const kidNames = f.regionKids.map((k) => (typeof k === 'string' ? k : k.role)).filter(Boolean)
+    d.note = `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)} (position absolute, its FULL height kept: ${Math.round(R.h)}px tall, never shorter), background ${grad ?? hexOf(f.bg)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${layers.length ? `, box-shadow: ${[...outer, ...inner].join(', ')}${outer.length ? ' (a big dark drop shadow under it' : ' ('}${inner.length ? `${outer.length ? ', plus ' : ''}a thin inset highlight along its top edge` : ''})` : ''}${dots.length ? `; ${dots.length} small round ${dots[0].pw}px screw dots painted by its ::before/::after at ${dots.map((q) => `${q.l},${q.t}`).join(' and ')} inside it (${dots[0].img ?? hexOf(dots[0].fill)})` : ''}${kidNames.length ? `; the parts drawn on their own (${kidNames.join(', ')}) all sit INSIDE this panel, within its edges` : ''}; ${d.note}`
   }
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

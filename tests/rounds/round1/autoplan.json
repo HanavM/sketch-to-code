@@ -157,7 +157,7 @@
   "notes": [
    [
     "left-panel",
-    "deep green (exactly #14532d) block, cream text; its text #f5f0e6 (cream, NOT the page's black text)"
+    "the region itself is ONE 640x900px panel at 0,0 (position absolute, its FULL height kept: 900px tall, never shorter), background #14532d; the parts drawn on their own (logo, headline, body, cta) all sit INSIDE this panel, within its edges; deep green (exactly #14532d) block, cream text; its text #f5f0e6 (cream, NOT the page's black text)"
    ],
    [
     "logo",

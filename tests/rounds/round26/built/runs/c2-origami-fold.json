@@ -1,24 +1,24 @@
 {
   "id": "c2-origami-fold",
-  "at": "2026-10-26T15:49:56.781Z",
+  "at": "2026-10-26T17:48:38.786Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8168324059608743,
-    "overallV2": 0.8168324059608743,
-    "overallV1": 0.7652766235513189,
-    "colour": 0.9691675994748834,
-    "structure": 0.8746645574300566,
-    "structureStrict": 0.8085669895292028,
-    "colourAligned": 0.9691675994748834,
-    "structureAligned": 0.8746645574300566,
+    "overall": 0.9191625092168301,
+    "overallV2": 0.9191625092168301,
+    "overallV1": 0.8906333067730037,
+    "colour": 0.9955423532716116,
+    "structure": 0.9519513936205758,
+    "structureStrict": 0.915375265637335,
+    "colourAligned": 0.9955423532716116,
+    "structureAligned": 0.9519513936205758,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8869677224292545
+      "r": 0.9874073196636461
     },
-    "layout": 0.8677823777078856,
-    "layoutV1": 0.7844490443745523,
+    "layout": 0.8775110368365144,
+    "layoutV1": 0.7941777035031811,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,52 +31,52 @@
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      75
+      84,
+      44,
+      1112,
+      30
     ],
     [
       1,
       84,
-      45,
+      44,
       42,
       30
     ],
     [
       1,
-      890,
-      50,
-      306,
-      21
+      863,
+      47,
+      333,
+      24
     ],
     [
       3,
-      890,
-      50,
-      26,
-      21
+      863,
+      47,
+      30,
+      24
     ],
     [
       3,
-      956,
-      50,
-      56,
-      21
+      933,
+      47,
+      64,
+      24
     ],
     [
       3,
-      1052,
-      50,
-      76,
-      21
+      1037,
+      47,
+      87,
+      24
     ],
     [
       3,
-      1168,
-      50,
-      28,
-      21
+      1164,
+      47,
+      32,
+      24
     ],
     [
       0,
@@ -95,9 +95,9 @@
     [
       9,
       520,
-      366,
+      80,
       2,
-      189
+      762
     ],
     [
       0,
@@ -135,27 +135,6 @@
       620
     ],
     [
-      15,
-      560,
-      120,
-      560,
-      620
-    ],
-    [
-      16,
-      561,
-      120,
-      558,
-      620
-    ],
-    [
-      16,
-      564,
-      123,
-      553,
-      613
-    ],
-    [
       0,
       74,
       196,
@@ -163,21 +142,35 @@
       187
     ],
     [
-      19,
-      106,
-      223,
-      414,
-      193
+      16,
+      74,
+      196,
+      472,
+      187
     ],
     [
-      20,
+      17,
+      74,
+      196,
+      472,
+      188
+    ],
+    [
+      16,
+      74,
+      196,
+      478,
+      247
+    ],
+    [
+      19,
       106,
       223,
       406,
       117
     ],
     [
-      20,
+      19,
       114,
       299,
       406,
@@ -187,22 +180,8 @@
       0,
       88,
       380,
-      265,
+      387,
       92
-    ],
-    [
-      23,
-      88,
-      380,
-      265,
-      46
-    ],
-    [
-      23,
-      88,
-      426,
-      265,
-      46
     ],
     [
       0,
@@ -210,6 +189,27 @@
       520,
       392,
       50
+    ],
+    [
+      0,
+      83,
+      653,
+      381,
+      114
+    ],
+    [
+      24,
+      83,
+      653,
+      381,
+      114
+    ],
+    [
+      25,
+      83,
+      653,
+      381,
+      114
     ],
     [
       0,
@@ -223,12 +223,12 @@
       94,
       664,
       92,
-      39
+      51
     ],
     [
       27,
       94,
-      735,
+      737,
       92,
       20
     ],
@@ -244,12 +244,12 @@
       228,
       664,
       92,
-      39
+      51
     ],
     [
       30,
       228,
-      735,
+      737,
       92,
       20
     ],
@@ -265,33 +265,33 @@
       362,
       664,
       92,
-      39
+      51
     ],
     [
       33,
       362,
-      735,
+      737,
       92,
       20
     ],
     [
       0,
-      1064,
-      93,
-      102,
-      103
+      1060,
+      90,
+      110,
+      110
     ]
   ],
   "groupMatched": [
     {
-      "role": "step-cards",
+      "role": "crane-facet-light",
       "iou": 1,
-      "parts": 3,
+      "parts": 2,
       "rect": {
-        "x": 80,
-        "y": 650,
-        "w": 388,
-        "h": 120
+        "x": 560,
+        "y": 120,
+        "w": 560,
+        "h": 620
       }
     }
   ],
@@ -300,43 +300,49 @@
     "kept": [
       "clip-shape",
       "gradient",
+      "hard-shadow",
       "italic",
       "overlap",
       "serif",
-      "stripes-or-layers",
       "tilt"
     ],
     "missing": [
-      "hard-shadow"
+      "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 54091,
-    "output": 29758,
-    "cacheRead": 137075
+    "input": 64115,
+    "output": 34145,
+    "cacheRead": 333472
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 69583,
-      "output": 23278,
-      "cacheRead": 133991,
-      "toolCalls": 7,
+      "billed": 85293,
+      "output": 29219,
+      "cacheRead": 330388,
+      "toolCalls": 13,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
-        "Read src/index.css",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Read src/index.css",
         "Read src/main.tsx",
-        "Write src/App.tsx"
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 266293
+      "ms": 331526
     }
   ],
-  "reading": "The sketch lays out a page header/hero area: a navbar (logo + right-aligned bold links), a narrow decorative minimap strip, a layered trio of angled color cut-out shapes with a soft floor shadow and a diagonal highlight shard, a tilted dark 'PAPER ENGINE' card, an italic headline, a grey descriptive paragraph, a row of three numbered stat cards, and a small 'NEW' badge. Typed notes give exact colors, coordinates, clip-paths and copy for every piece, which are followed verbatim over the rough ink; the whole page should use a warm paper background with Helvetica type and near-black text.",
+  "reading": "The sketch is a product hero page: a bold navbar (\"fold.\" logo + right-aligned links), a decorative code-minimap strip, a layered faceted graphic built from three overlapping flat-color angled shapes plus a soft shadow and a glossy shard highlight, a tilted \"PAPER ENGINE\" headline card, an italic tagline, a body paragraph, a row of three stat cards (Valley/Squash/Petal fold), and a diamond \"NEW\" badge — all specified precisely by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -351,7 +357,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a navbar: 20px 'fold.' logotype at the far left, then nav links Kits, Patterns, Workshops, Cart pushed to the far right (805px gap from the logotype); set a"
+      "instruction": "Top navigation bar: 20px \"fold.\" logo text at far left, bold (font-weight 600, not regular), then nav links Kits, Patterns, Workshops, Cart pushed to the far ri"
     },
     {
       "kind": "design",
@@ -366,7 +372,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Add a textless vertical minimap strip: one div exactly 2x760px at (520,80), position absolute, no words, not a list or outline panel — painted only by fine hori"
+      "instruction": "A code MINIMAP strip: one textless div exactly 2x760px positioned absolute at 520,80. No words, not a list, not an outline panel — painted only with fine horizo"
     },
     {
       "kind": "design",
@@ -384,7 +390,7 @@
         "s4",
         "s6"
       ],
-      "instruction": "Add a soft floor shadow: a 460x40px ellipse at (600,700), position absolute, border-radius 50%, background radial-gradient(#00000044, transparent 70%) — dark in"
+      "instruction": "A soft floor shadow: one 460x40px ellipse positioned absolute at 600,700, border-radius 50%, background: radial-gradient(#00000044, transparent 70%) — dark in t"
     },
     {
       "kind": "design",
@@ -400,7 +406,7 @@
         "s3",
         "s6"
       ],
-      "instruction": "Add a vivid red-orange angled cut-out shape, flat #d94f30 fill via clip-path polygon, no gradient/shading/texture; box 560x620px at (560,120); clip-path: polygo"
+      "instruction": "Vivid red-orange angled cut-out shape, one flat #d94f30 fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Box is 5"
     },
     {
       "kind": "design",
@@ -416,7 +422,7 @@
         "s3",
         "s6"
       ],
-      "instruction": "Add a vivid deep rust-orange angled cut-out shape, flat #b83c22 fill via clip-path polygon, no gradient/shading/texture; box 252x434px at (560,306); clip-path: "
+      "instruction": "Vivid deep rust orange angled cut-out shape, one flat #b83c22 fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Bo"
     },
     {
       "kind": "design",
@@ -432,7 +438,7 @@
         "s3",
         "s6"
       ],
-      "instruction": "Add a coral angled cut-out shape, flat #f08a5d fill via clip-path polygon, no gradient/shading/texture; box 252x248px at (868,120); clip-path: polygon(0% 0%, 10"
+      "instruction": "Coral angled cut-out shape, one flat #f08a5d fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Box is 252x248px at"
     },
     {
       "kind": "design",
@@ -448,7 +454,7 @@
         "s3",
         "s6"
       ],
-      "instruction": "Add a slanted highlight shard: a 560x620px div at (560,120), position absolute, clipped with clip-path polygon(40% 55%, 62% 38%, 100% 40%, 45% 100%) (an uneven "
+      "instruction": "A slanted shard highlight cut by clip-path: polygon(40% 55%, 62% 38%, 100% 40%, 45% 100%), an uneven four-sided shape (not a rectangle): one 560x620px div at po"
     },
     {
       "kind": "add",
@@ -463,7 +469,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Add a standalone #1d1d1b card, 460x140px, position absolute with top-left at (80,220) before its turn, square corners, rotated -6deg about its centre (tilted 6°"
+      "instruction": "A separate 460x140px #1d1d1b card laid on the page, position absolute with top-left at 80,220 page px (before rotation), square corners, transform: rotate(-6deg"
     },
     {
       "kind": "add",
@@ -488,7 +494,7 @@
         92
       ],
       "paths": [],
-      "instruction": "Add a big italic serif headline, set on exactly 2 lines: 'One sheet, forty folds,' / 'no glue.' — keep these line breaks, each line stays whole on one line (whi"
+      "instruction": "Big italic serif tagline text, set in exactly two lines kept as written (no re-wrapping, white-space: nowrap, width enough for the longest line, about 387px wid"
     },
     {
       "kind": "add",
@@ -513,7 +519,7 @@
         51
       ],
       "paths": [],
-      "instruction": "Add a dark grey (#4a463f) body paragraph: 'Monthly kits of hand-dyed washi with step cards and a video for every crease. Beginners welcome.'"
+      "instruction": "Dark grey (#4a463f, not the page's near-black) body text paragraph: \"Monthly kits of hand-dyed washi with step cards and a video for every crease. Beginners wel"
     },
     {
       "kind": "add",
@@ -528,7 +534,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Add a row of 3 stat cards, each a real element with live text, nothing invented or left out: 120x120 #ffffff card at (80,650), padding-left 14px (text starts at"
+      "instruction": "A row of 3 stat cards, each 120x120 #ffffff fill with padding-left 14px and a hard offset box-shadow 6px right/6px down, no blur (box-shadow: 6px 6px 0 #1d1d1b)"
     },
     {
       "kind": "add",
@@ -543,8 +549,10 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Add a near-black (#1d1d1b) badge block with warm paper (#e9e4da) text reading 'NEW'."
+      "instruction": "A near-black (#1d1d1b) 110x110px block cut to a diamond via clip-path: polygon(50% 0px, 100% 50%, 50% 100%, 0px 50%) — a square standing on its corner with poin"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }
