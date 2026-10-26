@@ -42,3 +42,23 @@ Round 24: **75%** over 10 (74.8; round 23 started at 78 untuned). Vitest: same 2
 Worst gaps, next: c2 full-width SVG path layers (hills) must be said as built shapes with their fill and drop-shadow, and
 nothing invented below the button; e2 a map drawn from many thin street bars, blobs and an SVG river plus a route path;
 c3 a grid of mixed shape tiles said tile by tile (radius corners, clip-path, border rings, rotate, stripes, dots).
+
+## n239: paper hills and ride map (2026-10-26, ~213k billed)
+
+- c2: each hill is a full-width svg of ONE filled path with a CSS drop-shadow filter; no rule took it, so it got no note
+  and the build made a bare gradient (and invented a "Routes worth the climb" row). A wide svg of one filled or stroked
+  path is now said verbatim with its filter and its place in the paint order, nothing added under it.
+- c2 ticket: the admission-ticket rule needed a sideways stub; a plain upright price stub right of a dashed tear line now
+  takes it too: main part width (untransformed), tear line, stub, and the radial-gradient notch mask verbatim (was said
+  top to bottom with an invented 301x190 block).
+- e2: a big region of many absolutely placed parts (3+ long thin bars, round blocks, an svg, small labels) is now a MAP
+  said part by part in paint order: each street bar with its edge ring and turn, parks, the river svg verbatim, labels.
+  The full-page route svg (one stroked path) is said verbatim too.
+- Re-planned rounds 1-23: only r15 c4 and r20 c5 wave notes gain the paint-order line (not re-run).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c2 paper hills | 51% | **91%** | three hills with soft shadows, notched ticket with tear line, nothing invented; headline face built orange-ish and smaller, sun halo lost |
+| e2 ride map | 66% | **84%** | streets, turned avenue, parks, river, blue route built; search box gained invented Pickup/Destination labels, ride thumbnails got car icons |
+
+Round 24: **81%** over 10 (80.6). Vitest: same 2 env failures; typecheck clean.

@@ -1,24 +1,24 @@
 {
   "id": "e2-ride-map",
-  "at": "2026-10-26T07:59:52.797Z",
+  "at": "2026-10-26T09:18:01.960Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6597343971994372,
-    "overallV2": 0.6597343971994372,
-    "overallV1": 0.650497734725769,
-    "colour": 0.9722817750231103,
-    "structure": 0.7610027397766428,
-    "structureStrict": 0.7499623535904101,
-    "colourAligned": 0.9722817750231103,
-    "structureAligned": 0.7610027397766428,
+    "overall": 0.8357444568608403,
+    "overallV2": 0.8357444568608403,
+    "overallV1": 0.823789020508517,
+    "colour": 0.9821213004610435,
+    "structure": 0.9540463651910223,
+    "structureStrict": 0.9397562864173463,
+    "colourAligned": 0.9821213004610435,
+    "structureAligned": 0.9540463651910223,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8960259788561442
+      "r": 0.9697678894918168
     },
-    "layout": 0.8415679983597948,
-    "layoutV1": 0.8415679983597948,
+    "layout": 0.7801272780343135,
+    "layoutV1": 0.7801272780343135,
     "layoutVersion": 2
   },
   "boxes": [
@@ -38,265 +38,440 @@
     ],
     [
       1,
-      470,
-      148,
-      73,
-      17
-    ],
-    [
-      1,
-      640,
-      540,
-      85,
-      20
-    ],
-    [
-      1,
-      880,
-      600,
-      62,
-      20
-    ],
-    [
       0,
+      0,
+      1280,
+      900
+    ],
+    [
+      2,
+      3,
+      3,
+      1274,
+      894
+    ],
+    [
+      3,
+      3,
+      2,
+      1275,
+      894
+    ],
+    [
+      2,
+      560,
+      520,
+      300,
+      220
+    ],
+    [
+      2,
+      1020,
+      40,
+      200,
+      160
+    ],
+    [
+      2,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      7,
+      480,
+      536,
+      800,
+      364
+    ],
+    [
+      2,
+      0,
+      330,
+      1280,
+      16
+    ],
+    [
+      2,
+      520,
+      0,
+      14,
+      900
+    ],
+    [
+      2,
+      880,
+      0,
+      18,
+      900
+    ],
+    [
+      2,
+      0,
+      130,
+      1280,
+      10
+    ],
+    [
+      2,
+      297,
+      5,
+      698,
+      990
+    ],
+    [
+      2,
+      440,
+      470,
+      900,
+      10
+    ],
+    [
+      2,
+      640,
+      610,
+      83,
+      18
+    ],
+    [
+      2,
+      1060,
+      100,
+      60,
+      18
+    ],
+    [
+      2,
+      960,
+      312,
+      70,
+      18
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      18,
+      540,
+      138,
+      560,
+      200
+    ],
+    [
+      1,
       533,
       331,
       14,
       14
     ],
     [
-      0,
-      1090,
-      128,
-      20,
-      20
+      1,
+      1093,
+      131,
+      14,
+      14
     ],
     [
-      0,
-      757,
+      1,
+      758,
       243,
-      34,
+      35,
       33
     ],
     [
-      0,
-      904,
-      193,
-      88,
-      26
+      22,
+      758,
+      243,
+      35,
+      33
     ],
     [
-      0,
+      23,
+      758,
+      243,
+      35,
+      33
+    ],
+    [
+      23,
+      770,
+      252,
+      12,
+      11
+    ],
+    [
+      1,
+      904,
+      193,
+      96,
+      20
+    ],
+    [
+      1,
       27,
       27,
       393,
       114
     ],
     [
-      9,
-      43,
-      43,
-      361,
-      23
+      27,
+      27,
+      27,
+      393,
+      49
     ],
     [
-      10,
+      28,
       43,
-      47,
-      10,
-      10
+      55,
+      8,
+      8
     ],
     [
-      10,
-      65,
+      28,
+      63,
       43,
       152,
-      23
+      33
     ],
     [
-      9,
-      48,
-      74,
-      1,
-      20
-    ],
-    [
-      9,
+      30,
+      63,
       43,
-      102,
+      152,
+      14
+    ],
+    [
+      30,
+      63,
+      57,
+      152,
+      19
+    ],
+    [
+      27,
+      43,
+      86,
       361,
-      23
+      1
     ],
     [
-      14,
+      27,
+      27,
+      97,
+      393,
+      33
+    ],
+    [
+      34,
       43,
-      106,
-      10,
-      10
+      109,
+      8,
+      8
     ],
     [
-      14,
-      65,
-      102,
+      34,
+      63,
+      97,
       130,
-      23
+      33
     ],
     [
-      0,
+      36,
+      63,
+      97,
+      130,
+      14
+    ],
+    [
+      36,
+      63,
+      110,
+      130,
+      19
+    ],
+    [
+      1,
       1216,
       28,
       37,
       81
     ],
     [
-      17,
+      39,
       1216,
       28,
       37,
       41
     ],
     [
-      17,
+      39,
       1216,
       69,
       37,
       40
     ],
     [
-      0,
+      1,
       24,
       400,
       400,
       364
     ],
     [
-      20,
+      42,
       42,
       418,
       364,
-      30
+      23
     ],
     [
-      20,
+      42,
       42,
       453,
       364,
       60
     ],
     [
-      20,
+      42,
       54,
       465,
       56,
       36
     ],
     [
-      20,
+      45,
+      70,
+      473,
+      25,
+      20
+    ],
+    [
+      42,
       124,
       466,
       207,
-      24
+      18
     ],
     [
-      20,
+      42,
       199,
       469,
       55,
       14
     ],
     [
-      20,
+      42,
       345,
       474,
       49,
-      24
-    ],
-    [
-      20,
-      124,
-      486,
-      115,
       18
     ],
     [
-      20,
+      42,
+      124,
+      486,
+      115,
+      13
+    ],
+    [
+      42,
       54,
       531,
       56,
       36
     ],
     [
-      20,
+      51,
+      70,
+      539,
+      25,
+      20
+    ],
+    [
+      42,
       124,
       532,
       207,
-      24
-    ],
-    [
-      20,
-      345,
-      540,
-      49,
-      24
-    ],
-    [
-      20,
-      124,
-      552,
-      115,
       18
     ],
     [
-      20,
+      42,
+      345,
+      540,
+      49,
+      18
+    ],
+    [
+      42,
+      124,
+      552,
+      115,
+      13
+    ],
+    [
+      42,
       54,
       597,
       56,
       36
     ],
     [
-      20,
+      56,
+      70,
+      605,
+      25,
+      20
+    ],
+    [
+      42,
       124,
       598,
       216,
-      24
-    ],
-    [
-      20,
-      354,
-      606,
-      40,
-      24
-    ],
-    [
-      20,
-      124,
-      618,
-      115,
       18
     ],
     [
-      20,
+      42,
+      354,
+      606,
+      40,
+      18
+    ],
+    [
+      42,
+      124,
+      618,
+      115,
+      13
+    ],
+    [
+      42,
       42,
       653,
       364,
       29
     ],
     [
-      20,
+      42,
       42,
       666,
       103,
       16
     ],
     [
-      20,
+      42,
       356,
       666,
       50,
       16
     ],
     [
-      20,
+      42,
       42,
       694,
       364,
@@ -305,57 +480,68 @@
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.75,
+    "recall": 1,
     "kept": [
+      "bleed",
       "overlap",
       "soft-shadow",
       "tilt"
     ],
-    "missing": [
-      "bleed"
-    ],
-    "extra": []
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
   },
   "tokens": {
-    "input": 65159,
-    "output": 45225,
-    "cacheRead": 400313
+    "input": 86108,
+    "output": 52222,
+    "cacheRead": 1171881
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 28754,
-      "output": 8128,
-      "cacheRead": 133160,
-      "toolCalls": 6,
+      "billed": 93272,
+      "output": 31846,
+      "cacheRead": 737900,
+      "toolCalls": 16,
       "tools": [
         "Glob",
+        "Read components/StylisedCity.tsx",
+        "Read components/RouteLine.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/RouteLine.tsx",
+        "Write src/App.tsx",
+        "Edit components/StylisedCity.tsx",
+        "Edit components/StylisedCity.tsx",
+        "Read components/StylisedCity.tsx",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read src/main.tsx",
-        "Write src/App.tsx"
+        "Read components/RouteLine.tsx"
       ],
-      "ms": 78971
+      "ms": 356069
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 59604,
-      "output": 27467,
-      "cacheRead": 256000,
+      "billed": 23275,
+      "output": 10236,
+      "cacheRead": 421739,
       "toolCalls": 4,
       "tools": [
         "Read src/App.tsx",
         "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 341906
+      "ms": 119885
     }
   ],
-  "reading": "This is a ride-hailing map screen: a full-screen map background with street/park labels, several status markers/pins scattered on the map (a current-location dot, a blue-bordered location marker, a tilted directional marker, and a black 'ETA' badge reading '4 min away'), a top-left address card, a top-right zoom control, and a large bottom 'Choose a ride' panel listing three ride options (Standard/Comfort/Share) with prices, a payment row, and a confirm button, all fully specified by the typed notes.",
+  "reading": "The user sketched a full-screen ride-hailing map UI: a stylised map with a blue route line, several pin markers (a plain dot, a blue-bordered dot, a tilted marker), an ETA label, a location name card, a bottom ride-selection panel listing ride options and a confirm button, and a top-right zoom control — all precisely specified via typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -371,7 +557,23 @@
         "s0",
         "s1"
       ],
-      "instruction": "Full-screen map view as the page background. Whole page: cream (#eef0e9, plainly not white) background, Helvetica typeface, near-black body text throughout. Ove"
+      "instruction": "Add a 1280x900px MAP built from 12 separately absolutely-positioned parts (not a picture, not a flat colour; overflow hidden on the map so the long rotated bar "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Add the route line as a full-width 1280x900px layer with top-left at page 0,0 (position absolute), containing exactly this inline SVG and nothing else (no borde"
     },
     {
       "kind": "add",
@@ -386,7 +588,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a small solid near-black circular marker on the map, exactly 22x22px (w-[22px] h-[22px], border-radius 50%, not smaller), marking a point of interest or cur"
+      "instruction": "Add a small near-black circular map pin dot, exactly 22x22px (w-[22px] h-[22px], border-radius 50%, not smaller), placed over the map at the drawn spot."
     },
     {
       "kind": "add",
@@ -401,7 +603,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a small dot/marker on the map with a vivid blue fill and a thick white border, marking a location (e.g., current-position indicator) on the map."
+      "instruction": "Add a small circular map pin with a vivid blue fill and a thick white border, placed over the map at the drawn spot (top-right area)."
     },
     {
       "kind": "add",
@@ -416,7 +618,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add a small near-black square marker/icon on the map, tilted 30° clockwise, indicating a directional marker (e.g., a vehicle heading indicator)."
+      "instruction": "Add a near-black map marker tilted 30° clockwise, placed over the map at the drawn spot."
     },
     {
       "kind": "add",
@@ -431,7 +633,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a small pill/badge on the map with exact near-black (#111111) background fill and white (#ffffff) text reading '4 min away'."
+      "instruction": "Add a near-black (exactly #111111) pill/block label with white text (#ffffff) reading \"4 min away\", placed over the map near the route, at the drawn spot."
     },
     {
       "kind": "add",
@@ -446,7 +648,22 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Add a white rounded card near the top-left of the map containing address text: 'Ferry Terminal, Pier 3' and 'Elm Green Library' (e.g., pickup and destination lo"
+      "instruction": "Add a white rounded block near the top of the map showing the text \"Ferry Terminal, Pier 3\" with \"Elm Green Library\" as its label text, placed at the drawn spot"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        403,
+        394,
+        358
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add the ride-selection panel: one 400x364px panel at page position 24,400, #ffffff fill, 16px rounded corners, box-shadow rgba(0,0,0,0.13) 0px 8px 24px 0px, flo"
     },
     {
       "kind": "add",
@@ -461,23 +678,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a white rounded zoom control in the top-right corner of the map with a '+' button and a '−' button for zooming in/out."
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        27,
-        403,
-        394,
-        358
-      ],
-      "paths": [
-        "s7"
-      ],
-      "instruction": "Add a single floating 'Choose a ride' panel, 400x364px positioned at (24,400), #ffffff fill, 16px rounded corners, box-shadow: rgba(0,0,0,0.13) 0px 8px 24px 0px"
+      "instruction": "Add a white zoom control block at the top-right over the map with a \"+\" button and a \"−\" label/button stacked."
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

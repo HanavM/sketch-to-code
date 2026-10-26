@@ -279,7 +279,7 @@
    ],
    [
     "wave-divider",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x120px with its top-left at page 0,780 (position absolute), copied verbatim: <svg width=\"1280\" height=\"120\" viewBox=\"0 0 1280 120\" preserveAspectRatio=\"none\"><path d=\"M0,60 C160,0 320,120 480,60 C640,0 800,120 960,60 C1120,0 1200,80 1280,50 L1280,120 L0,120Z\" fill=\"#26113d\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x120px with its top-left at page 0,780 (position absolute), copied verbatim: <svg width=\"1280\" height=\"120\" viewBox=\"0 0 1280 120\" preserveAspectRatio=\"none\"><path d=\"M0,60 C160,0 320,120 480,60 C640,0 800,120 960,60 C1120,0 1200,80 1280,50 L1280,120 L0,120Z\" fill=\"#26113d\"></path></svg>; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
    ]
   ]
  },

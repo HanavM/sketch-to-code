@@ -671,8 +671,36 @@ export function factsInPage() {
         }
         const src2 = ringArc ? c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><') + (ringCss ? `<style>${ringCss.trim()}</style>` : '') : src
         const lineArt = src.length <= 900 && r.width * r.height < 0.25 * innerWidth * innerHeight && el.querySelectorAll('path, line, polyline, circle, ellipse, rect, polygon').length && [...el.querySelectorAll('path, line, polyline, circle, ellipse, rect, polygon')].every((q) => { const s = getComputedStyle(q); return (s.fill === 'none' || rgba(s.fill)?.a < 0.05) && s.stroke !== 'none' })
-        if (src.length > 1800 || (!lineArt && !ringArc && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
-        return { src: src2, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
+        // n239: a wide svg of ONE filled path (a hill layer, a wave band) with its own CSS drop-shadow filter is said
+        // verbatim too (round 24 c2: three such hill layers got no note at all, the page built a bare gradient)
+        const shapes = [...el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline')]
+        const lonePath = shapes.length === 1 && shapes[0].tagName.toLowerCase() === 'path' && (rgba(getComputedStyle(shapes[0]).fill)?.a > 0.05 || rgba(getComputedStyle(shapes[0]).stroke)?.a > 0.05) && src.length <= 700 && r.width >= 0.6 * innerWidth
+        if (src.length > 1800 || (!lineArt && !ringArc && !lonePath && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
+        return { src: lonePath ? src2.replace(/^<svg([^>]*)>/, (m, a) => `<svg${a.replace(/ (?:width|height)="[^"]*"/g, '')}>`) : src2, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), filter: lonePath && cs.filter && cs.filter !== 'none' ? cs.filter : null, lone: lonePath }
+      })(),
+      // n239: a big scene drawn from many absolutely placed parts (thin street bars, round parks, an svg river, small
+      // labels): round 24 e2 map said only as its three label words, built as a bare cream page
+      mapScene: (() => {
+        if (el.tagName.toLowerCase() === 'svg' || r.width * r.height < 0.4 * innerWidth * innerHeight || kids.length < 6 || kids.length > 40 || el.querySelector('[data-r]')) return null
+        const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute')
+        if (abs.length < 0.8 * kids.length) return null
+        const boxes = kids.filter((k) => k.tagName.toLowerCase() !== 'svg' && !(k.innerText || '').trim() && !k.children.length && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05)
+        if (boxes.length < 4 || boxes.filter((k) => { const w = k.offsetWidth, h = k.offsetHeight; return w >= 8 * h || h >= 8 * w }).length < 3) return null
+        const parts = kids.map((k) => {
+          const ks = getComputedStyle(k), tag = k.tagName.toLowerCase()
+          if (tag === 'svg') {
+            const c = k.cloneNode(true)
+            for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
+            const b = k.getBoundingClientRect()
+            return { svg: c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><'), x: Math.round(b.left), y: Math.round(b.top) }
+          }
+          const t = (k.innerText || '').replace(/\s+/g, ' ').trim()
+          const pr = el.getBoundingClientRect()
+          const x = Math.round(pr.left + k.offsetLeft), y = Math.round(pr.top + k.offsetTop)
+          return { t: t || null, x, y, w: k.offsetWidth, h: k.offsetHeight, fill: rgba(ks.backgroundColor), rad: Math.round(parseFloat(ks.borderTopLeftRadius) || 0), shadow: ks.boxShadow !== 'none' ? ks.boxShadow : null, turn: ks.transform !== 'none' ? (() => { const m = new DOMMatrix(ks.transform); return Math.round(Math.atan2(m.b, m.a) * 180 / Math.PI) })() : 0, px: Math.round(parseFloat(ks.fontSize)), weight: Number(ks.fontWeight) || 400, ink: rgba(ks.color) }
+        })
+        if (parts.some((q) => q.svg && q.svg.length > 1200)) return null
+        return { parts }
       })(),
       // n179: a panel whose picture is one full-size inline SVG with labels laid over it (round 18 e5 map: water, parks,
       // roads said as 'pale blue-grey', the price pins and search pill lost)
@@ -1097,8 +1125,10 @@ export function factsInPage() {
       ticket: (() => {
         const m = cs.webkitMaskImage || cs.maskImage || ''
         if (!/radial-gradient/.test(m)) return null
-        const stub = kids.find((k) => /vertical/.test(getComputedStyle(k).writingMode))
-        const main = kids.find((k) => k !== stub && /dashed|dotted/.test(getComputedStyle(k).borderRightStyle))
+        // n239: or a plain stub of upright words (a price) right of the tear line, notches cut top and bottom
+        // (round 24 c2: said top to bottom with an invented block, the notches and tear line lost)
+        const main = kids.find((k) => /dashed|dotted/.test(getComputedStyle(k).borderRightStyle))
+        const stub = kids.find((k) => k !== main && /vertical/.test(getComputedStyle(k).writingMode)) || (kids.length === 2 && main ? kids.find((k) => k !== main && (k.innerText || '').trim()) : null)
         if (!stub || !main) return null
         const mc = getComputedStyle(main), sc2 = getComputedStyle(stub)
         const lines = []
@@ -1108,7 +1138,9 @@ export function factsInPage() {
           lines.push({ t, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color) })
         }
         const notch = +((m.match(/(?:transparent|rgba\(0, 0, 0, 0\))\s+([\d.]+)px/) || [])[1] || 0)
-        return { lines, pad: `${Math.round(parseFloat(mc.paddingTop))}px ${Math.round(parseFloat(mc.paddingLeft))}px`, tear: { w: Math.round(parseFloat(mc.borderRightWidth)), style: mc.borderRightStyle, c: rgba(mc.borderRightColor) },
+        const upright = !/vertical/.test(getComputedStyle(stub).writingMode)
+        const mask = upright ? { img: m, pos: cs.webkitMaskPosition || cs.maskPosition, size: cs.webkitMaskSize || cs.maskSize, rep: cs.webkitMaskRepeat || cs.maskRepeat, mainW: main.offsetWidth } : null
+        return { upright, mask, lines, pad: `${Math.round(parseFloat(mc.paddingTop))}px ${Math.round(parseFloat(mc.paddingLeft))}px`, tear: { w: Math.round(parseFloat(mc.borderRightWidth)), style: mc.borderRightStyle, c: rgba(mc.borderRightColor) },
           stub: { t: (stub.innerText || '').trim(), w: stub.offsetWidth, px: Math.round(parseFloat(sc2.fontSize)), bold: Number(sc2.fontWeight) >= 600, ink: rgba(sc2.color), mono: /mono|courier/i.test(sc2.fontFamily), ls: Math.round(parseFloat(sc2.letterSpacing) || 0) }, notch }
       })(),
       // n152: a grid of big same-size filled tiles, each a round letter disc in the middle and a name tag in a corner
@@ -3839,6 +3871,16 @@ function decide(f, page, marked, said = new Set()) {
     const one = (t, i) => `tile ${i + 1} (row ${Math.floor(i / VT.cols) + 1}, column ${(i % VT.cols) + 1}): ${hexOf(t.fill)} fill, a ${t.disc.px}px ${hexOf(t.disc.fill)} circle centred in it with ${t.disc.bold ? 'bold ' : ''}${t.disc.size}px ${hexOf(t.disc.ink)} "${t.disc.t}"${t.parts.map((p) => `, ${part(p)}`).join('')}${t.ring ? `, a ${t.ring.w}px ${hexOf(t.ring.c)} outline drawn INSIDE its edge (the speaker)` : ''}`
     return { kind: 'box', note: `a ${VT.cols}x${VT.rows} GRID of ${VT.tiles.length} big video tiles (display grid, ${VT.cols} equal columns, ${VT.rows} equal rows, ${VT.gap}px gaps; NOT a button, NOT a list), filling ${VT.w}x${VT.h}px at ${VT.x},${VT.y}; each tile ${VT.tw}x${VT.th}px, ${VT.radius}px rounded, its own fill, nothing else in it; tile by tile: ${VT.tiles.map(one).join('; ')}` }
   }
+  // n239: a map scene drawn from many placed parts, said part by part in paint order
+  if (f.mapScene && !f.regionKids.length) {
+    const sayP = (q) => {
+      if (q.svg) return `an inline SVG laid with its top-left at page ${q.x},${q.y} (position absolute, no fill or border of its own), copied verbatim: ${q.svg}`
+      if (q.t) return `${q.weight >= 600 ? 'bold ' : ''}${q.px}px ${hexOf(q.ink)} label ${quote(q.t, 30)} at ${q.x},${q.y}`
+      const shd = q.shadow ? (/^rgba?\([^)]+\) 0px 0px 0px (\d+)px$/.test(q.shadow) ? `, a ${q.shadow.match(/(\d+)px$/)[1]}px ${hexOf(parse(q.shadow.match(/^rgba?\([^)]+\)/)[0]))} edge line round it (box-shadow: 0 0 0 ${q.shadow.match(/(\d+)px$/)[1]}px)` : `, box-shadow: ${cssHex(q.shadow)}`) : ''
+      return `${q.w}x${q.h}px ${hexOf(q.fill)} ${q.w >= 8 * q.h || q.h >= 8 * q.w ? 'street bar' : 'block'} at ${q.x},${q.y}${q.rad ? `, ${q.rad}px rounded` : ''}${shd}${q.turn ? `, transform: rotate(${q.turn}deg) about its centre` : ''}`
+    }
+    return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px MAP drawn as ${f.mapScene.parts.length} separate absolutely placed parts (page px, NOT a picture, NOT a flat colour, overflow hidden on the map so the long turned bars are clipped), painted in this order, later on top: ${f.mapScene.parts.map(sayP).join('; ')}` }
+  }
   // n179: a scene panel: its full-size SVG copied verbatim, the labels over it placed one by one
   const SS = f.svgScene
   if (SS) {
@@ -4470,7 +4512,7 @@ function decideOne(f, page, marked, said) {
   // n160: an svg whose look is in its defs or that stretches to its box, said as its own markup
   if (f.svgSrc && !f.regionKids.length) {
     const V = f.svgSrc
-    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/<svg /, `<svg width="${V.w}" height="${V.h}" `)}` }
+    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/^<svg/, `<svg width="${V.w}" height="${V.h}"`)}${V.filter ? `; on the <svg> itself the CSS filter: ${cssHex(V.filter)} (a soft shadow along its top edge, keep it)` : ''}${V.lone ? '; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)' : ''}` }
   }
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
   if (f.svgArt && !f.regionKids.length) {
@@ -5912,7 +5954,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       if (f.ticket) {
         const K = f.ticket
         const main = K.lines.map((q, i) => `${i ? 'then ' : ''}${q.px}px ${q.bold ? 'bold ' : ''}${hx(q.ink)} ${quote(q.t, 40)}`).join(', ')
-        out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} admission TICKET, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS TICKET ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else is turned); display flex, two parts side by side: the MAIN part on the left (flex 1, padding ${K.pad}) with, top to bottom on their own lines, ${main}; then a ${K.tear.w}px ${K.tear.style} ${hx(K.tear.c)} TEAR LINE down its right edge (border-right); then the STUB on the right, ${K.stub.w}px wide, holding ${K.stub.bold ? 'bold ' : ''}${K.stub.px}px ${K.stub.mono ? 'monospace ' : ''}${hx(K.stub.ink)} ${quote(K.stub.t, 30)} written SIDEWAYS (writing-mode: vertical-rl${K.stub.ls ? `, letter-spacing ${K.stub.ls}px` : ''}), centred in the stub${K.notch ? `; a round ${K.notch}px notch bitten out of the middle of each short side, so the page shows through (-webkit-mask: radial-gradient(circle at 0 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) left/51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) right/51% 100% no-repeat)` : ''}` })
+        out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} admission TICKET, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS TICKET ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else is turned); display flex, two parts side by side: the MAIN part on the left (${K.upright ? `${K.mask.mainW}px wide` : 'flex 1'}, padding ${K.pad}) with, top to bottom on their own lines, ${main}; then a ${K.tear.w}px ${K.tear.style} ${hx(K.tear.c)} TEAR LINE down its right edge (border-right); then the STUB on the right, ${K.stub.w}px wide, holding ${K.stub.bold ? 'bold ' : ''}${K.stub.px}px ${K.stub.mono ? 'monospace ' : ''}${hx(K.stub.ink)} ${quote(K.stub.t, 30)} ${K.upright ? 'upright on one line (NOT sideways)' : `written SIDEWAYS (writing-mode: vertical-rl${K.stub.ls ? `, letter-spacing ${K.stub.ls}px` : ''})`}, centred in the stub${K.upright ? `; ${Math.round(f.radius)}px rounded; the MAIN part is exactly ${K.mask.mainW}px wide (NOT flex 1: the stub takes the rest), and two round notches are bitten out of the long top and bottom edges right where the tear line runs, so the page shows through, by exactly this mask on the ticket: -webkit-mask-image: ${K.mask.img}; -webkit-mask-position: ${K.mask.pos}; -webkit-mask-size: ${K.mask.size}; -webkit-mask-repeat: ${K.mask.rep} (mask-* the same); nothing else inside, no other block` : ''}${!K.upright && K.notch ? `; a round ${K.notch}px notch bitten out of the middle of each short side, so the page shows through (-webkit-mask: radial-gradient(circle at 0 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) left/51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent ${K.notch}px, #000 ${K.notch + 1}px) right/51% 100% no-repeat)` : ''}` })
       } else
       out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} card${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${sh}; transform: rotate(${f.rotate}deg) on THIS CARD ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: ${say.join(', ')}` })
       marked.add(f.role)

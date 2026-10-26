@@ -174,6 +174,18 @@
     "a SUNBURST: 18 sharp straight rays fanning out from one centre, alternating pale yellow #fff3c4 and soft yellow #ffe08a, each ray 10deg wide (like a starburst / pinwheel of thin pie slices), on ONE 300x300px block at 820,90, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#fff3c4 0deg, #fff3c4 10deg, #ffe08a 10deg, #ffe08a 20deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur"
    ],
    [
+    "hill-back",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x520px with its top-left at page 0,380 (position absolute), copied verbatim: <svg width=\"1280\" height=\"520\" viewBox=\"0 0 1280 520\"><path d=\"M0 120 C180 20 340 60 480 110 S760 40 920 90 S1160 30 1280 70 V520 H0Z\" fill=\"#e8798a\"></path></svg>; on the <svg> itself the CSS filter: drop-shadow(#3a1f3d33 0px -8px 10px) (a soft shadow along its top edge, keep it); a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
+   ],
+   [
+    "hill-mid",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x400px with its top-left at page 0,500 (position absolute), copied verbatim: <svg width=\"1280\" height=\"400\" viewBox=\"0 0 1280 400\"><path d=\"M0 110 C200 40 380 140 560 90 S860 20 1040 100 S1220 60 1280 80 V400 H0Z\" fill=\"#a8476b\"></path></svg>; on the <svg> itself the CSS filter: drop-shadow(#3a1f3d40 0px -10px 12px) (a soft shadow along its top edge, keep it); a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
+   ],
+   [
+    "hill-front",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x260px with its top-left at page 0,640 (position absolute), copied verbatim: <svg width=\"1280\" height=\"260\" viewBox=\"0 0 1280 260\"><path d=\"M0 80 C160 20 300 100 470 60 S780 0 960 70 S1180 40 1280 30 V260 H0Z\" fill=\"#5b2a4f\"></path></svg>; on the <svg> itself the CSS filter: drop-shadow(#3a1f3d4d 0px -12px 14px) (a soft shadow along its top edge, keep it); a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
+   ],
+   [
     "nav",
     "22px \"foldaway\" first, then links: Trails, Huts, Journal, Plan a trip; \"Plan a trip\" selected (bold, soft yellow text, dark plum fill, a 113x37px fully rounded pill); each word in its own colour: \"foldaway\" #3a1f3d, \"Trails\" #3a1f3d, \"Huts\" #3a1f3d, \"Journal\" #3a1f3d, \"Plan a trip\" #ffd8a8"
    ],
@@ -195,7 +207,7 @@
    ],
    [
     "ticket",
-    "ONE 420x170px #fff6e8 card, 14px rounded, position absolute with its top-left at 760,640 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(58, 31, 61, 0.25) 0px 20px 40px 0px; transform: rotate(-4deg) on THIS CARD ONLY (tilted 4° anticlockwise; nothing else on the page is turned: the lanes, columns and cards under it stay perfectly straight); inside it, top to bottom, left to right, padded like the other cards: 44px bold #c2410c \"€189\", a 301x190 block, 12px bold #c2410c \"RIDGE PASS · 3 NIGHTS\", 30px bold #3a1f3d \"Valley Loop\", 14px #7c5a6f \"Departs Fri 07:30 · 42 km\""
+    "ONE 420x170px #fff6e8 admission TICKET, position absolute with its top-left at 760,640 page px (before its turn), FLOATING above everything under it (z-index on top), box-shadow: rgba(58, 31, 61, 0.25) 0px 20px 40px 0px; transform: rotate(-4deg) on THIS TICKET ONLY (tilted 4° anticlockwise; nothing else is turned); display flex, two parts side by side: the MAIN part on the left (290px wide, padding 22px 24px) with, top to bottom on their own lines, 12px bold #c2410c \"RIDGE PASS · 3 NIGHTS\", then 30px bold #3a1f3d \"Valley Loop\", then 14px #7c5a6f \"Departs Fri 07:30 · 42 km\"; then a 2px dashed #e7c9a9 TEAR LINE down its right edge (border-right); then the STUB on the right, 130px wide, holding bold 44px #c2410c \"€189\" upright on one line (NOT sideways), centred in the stub; 14px rounded; the MAIN part is exactly 290px wide (NOT flex 1: the stub takes the rest), and two round notches are bitten out of the long top and bottom edges right where the tear line runs, so the page shows through, by exactly this mask on the ticket: -webkit-mask-image: radial-gradient(18px at 290px 0px, rgba(0, 0, 0, 0) 98%, rgb(0, 0, 0)), radial-gradient(18px at 290px 100%, rgba(0, 0, 0, 0) 98%, rgb(0, 0, 0)); -webkit-mask-position: 50% 0%, 50% 100%; -webkit-mask-size: 100% 51%, 100% 51%; -webkit-mask-repeat: no-repeat, no-repeat (mask-* the same); nothing else inside, no other block"
    ]
   ]
  },
@@ -593,7 +605,11 @@
    ],
    [
     "map",
-    "\"Riverside Park Elm Green MARKET ST\""
+    "a 1280x900px MAP drawn as 12 separate absolutely placed parts (page px, NOT a picture, NOT a flat colour, overflow hidden on the map so the long turned bars are clipped), painted in this order, later on top: 300x220px #c9e7b8 block at 560,520, 40px rounded; 200x160px #c9e7b8 block at 1020,40, 40px rounded; an inline SVG laid with its top-left at page 0,0 (position absolute, no fill or border of its own), copied verbatim: <svg width=\"1280\" height=\"900\"><path d=\"M480 900 C560 760 700 760 780 640 S1000 520 1280 560 V640 C1040 610 900 680 820 740 S620 860 600 900Z\" fill=\"#a9d3f5\"></path></svg>; 1280x16px #ffffff street bar at 0,330, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px); 14x900px #ffffff street bar at 520,0, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px); 18x900px #ffffff street bar at 880,0, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px); 1280x10px #ffffff street bar at 0,130, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px); 12x1200px #ffffff street bar at 640,-100, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px), transform: rotate(35deg) about its centre; 900x10px #ffffff street bar at 440,470, a 1px #dcdfd6 edge line round it (box-shadow: 0 0 0 1px); bold 12px #5b6b52 label \"Riverside Park\" at 640,610; bold 12px #5b6b52 label \"Elm Green\" at 1060,100; bold 12px #5b6b52 label \"MARKET ST\" at 960,312"
+   ],
+   [
+    "route",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x900px with its top-left at page 0,0 (position absolute), copied verbatim: <svg width=\"1280\" height=\"900\"><path d=\"M540 338 H700 L889 138 H1100\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"7\" stroke-linejoin=\"round\" stroke-linecap=\"round\"></path></svg>; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
    ],
    [
     "pin-start",

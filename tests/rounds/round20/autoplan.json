@@ -549,7 +549,7 @@
    ],
    [
     "wave",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x200px with its top-left at page 0,700 (position absolute), copied verbatim: <svg width=\"1280\" height=\"200\" viewBox=\"0 0 1280 200\" preserveAspectRatio=\"none\"><path d=\"M0,80 C220,10 420,150 640,80 C860,10 1060,150 1280,80 L1280,200 L0,200 Z\" fill=\"#6c4cff\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 1280x200px with its top-left at page 0,700 (position absolute), copied verbatim: <svg width=\"1280\" height=\"200\" viewBox=\"0 0 1280 200\" preserveAspectRatio=\"none\"><path d=\"M0,80 C220,10 420,150 640,80 C860,10 1060,150 1280,80 L1280,200 L0,200 Z\" fill=\"#6c4cff\"></path></svg>; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)"
    ],
    [
     "headline",
