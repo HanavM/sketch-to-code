@@ -311,7 +311,7 @@
    ],
    [
     "ticker",
-    "the region itself is ONE 1280x44px top bar element at 0,0 (its own wrapper, #111111 fill) that holds all of these parts inside it, never laid loose on the page; scrolling near-black (exactly #111111) bar, red-orange text bold 16px \"ISSUE 44 — CONCRETE DREAMS —\" repeated along it; its text #ff3b00 (red-orange, NOT the page's near-black text)"
+    "the region itself is ONE 1280x44px top bar element at 0,0 (its own wrapper, #111111 fill) that holds all of these parts inside it, never laid loose on the page; scrolling near-black (exactly #111111) bar, red-orange text bold 16px MONOSPACE (Courier New, monospace; NOT the page font) \"ISSUE 44 — CONCRETE DREAMS —\" repeated along it; its text #ff3b00 (red-orange, NOT the page's near-black text)"
    ],
    [
     "photo",
@@ -331,7 +331,7 @@
    ],
    [
     "article",
-    "paragraph 470px wide, 16px text, line-height 25px, opening on a drop cap: its first letter \"B\" 86px bold red-orange (#ff3b00), floated left about 4 lines tall (::first-letter), the text wrapping beside it: \"Brutalism was never about ugliness. It was about honesty: the board marks left in the concrete, the services carried on the outside, the building telling you exactly how it stands up. Sixty years on, a new generation of architects is learning to love the béton brut their parents tore down, and the city is changing again.\""
+    "paragraph 470px wide, 16px text, line-height 25px, set in 2 COLUMNS inside that width (column-count: 2, column-gap: 24px; the text flows down column 1 then on into column 2, NOT one wide column), opening on a drop cap: its first letter \"B\" 86px bold red-orange (#ff3b00), floated left about 4 lines tall (::first-letter), the text wrapping beside it; INSIDE this text, as its first child before the words, a 120px ROUND disc (border-radius: 50%) filled near-black (#111111), float: right, shape-outside: circle(50%), margin 0px 0px 8px 10px, so it sits at the top right of the first column and the lines WRAP round it (shorter beside it), never under or over it: \"Brutalism was never about ugliness. It was about honesty: the board marks left in the concrete, the services carried on the outside, the building telling you exactly how it stands up. Sixty years on, a new generation of architects is learning to love the béton brut their parents tore down, and the city is changing again.\""
    ],
    [
     "stamp",

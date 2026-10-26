@@ -120,3 +120,17 @@ keeps its circle, misregistered type says its offset shadow.
 - Re-planned rounds 1-21: only r20 c3 glass card 1 changes (now said as a turned glass panel with its parts). Live
   r20 c3 88 (87.8, was 88.1: same within noise; old run kept), ~63k billed.
 - Round 22: **89%** over 10 (88.9). Vitest same 2 env failures; typecheck clean.
+
+## n230: brutal spread columns, float circle and mono ticker (2026-10-26, ~68k billed)
+
+- c4 brutal spread **87 → 91%** (colour 98, structure 93, layout 90; effects 91%, regions 9/9). Two gaps closed in the
+  planner:
+  - the article is one element with column-count 2 and a 120px black disc floated right inside it (shape-outside
+    circle), but its drop-cap note gave neither, so it was built as one wide column with no circle. A drop-cap
+    paragraph now says its own columns (count and gap) and any block floated inside it (size, round, fill, float side,
+    shape-outside, margin) that the lines wrap round. Built right: two columns, the disc at the top right of column 1.
+  - the ticker's Courier New was never said, so it was set in the page serif. A marquee in a monospace font now says
+    MONOSPACE. Built right.
+- Still off: drop cap set in the serif (target Helvetica heavy), photo gradient a little warm, stamp words thin.
+- Re-planned rounds 1-21: no note changes.
+- Round 22: **89%** over 10 (89.2). Vitest same 2 env failures; typecheck clean.

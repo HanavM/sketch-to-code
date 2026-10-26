@@ -520,7 +520,13 @@ export function factsInPage() {
         const fl = getComputedStyle(el, '::first-letter'), base = parseFloat(cs.fontSize)
         const px = parseFloat(fl.fontSize)
         if (!(px >= base * 2.5) || fl.cssFloat !== 'left' || !(el.innerText || '').trim()) return null
-        return { letter: (el.innerText || '').trim()[0], px: Math.round(px), weight: +fl.fontWeight, colour: rgba(fl.color), base: Math.round(base), lh: parseFloat(cs.lineHeight) || Math.round(base * 1.2) }
+        // n230: the paragraph's own columns and a block floated inside it (round 22 c4: two columns and a float circle
+        // the text wraps round, both unsaid, built as one plain column)
+        const cols = cs.columnCount !== 'auto' && +cs.columnCount >= 2 ? { n: +cs.columnCount, gap: Math.round(parseFloat(cs.columnGap) || 0) } : null
+        const fk = [...el.children].find((c) => getComputedStyle(c).float !== 'none' && c.getBoundingClientRect().width >= 40 && c.getBoundingClientRect().height >= 40)
+        const fs = fk ? getComputedStyle(fk) : null, fb = fk ? fk.getBoundingClientRect() : null
+        const flo = fk ? { side: fs.float, w: Math.round(fb.width), h: Math.round(fb.height), fill: rgba(fs.backgroundColor), round: /circle|ellipse/.test(fs.shapeOutside) || (fs.borderTopLeftRadius.includes('%') ? parseFloat(fs.borderTopLeftRadius) >= 45 : parseFloat(fs.borderTopLeftRadius) >= fb.width * 0.45), shape: fs.shapeOutside !== 'none' ? fs.shapeOutside : null, m: ['Top', 'Right', 'Bottom', 'Left'].map((d) => Math.round(parseFloat(fs[`margin${d}`]) || 0)) } : null
+        return { letter: (el.innerText || '').trim()[0], px: Math.round(px), weight: +fl.fontWeight, colour: rgba(fl.color), base: Math.round(base), lh: parseFloat(cs.lineHeight) || Math.round(base * 1.2), cols, flo }
       })(),
       // an SVG holding one unfilled stroked ellipse or circle: a hand-drawn ring round something (round 7 c5: bare box)
       ringSvg: (() => {
@@ -4230,7 +4236,10 @@ function decideOne(f, page, marked, said) {
   if (f.dropCap && !f.regionKids.length && f.text.length > 40) {
     const d = f.dropCap
     const lines = Math.max(2, Math.round((d.px * 0.8) / d.lh) + 1)
-    return { kind: 'text', note: `paragraph ${Math.round(w)}px wide, ${d.base}px text, line-height ${Math.round(d.lh)}px, opening on a drop cap: its first letter ${quote(d.letter)} ${d.px}px ${d.weight >= 600 ? 'bold ' : ''}${colourName(d.colour)} (${hexOf(d.colour)}), floated left about ${lines} lines tall (::first-letter), the text wrapping beside it: ${quote(f.text, 400)}` }
+    const colSay = d.cols ? `, set in ${d.cols.n} COLUMNS inside that width (column-count: ${d.cols.n}, column-gap: ${d.cols.gap}px; the text flows down column 1 then on into column ${d.cols.n}, NOT one wide column)` : ''
+    const fo = d.flo
+    const floSay = fo ? `; INSIDE this text, as its first child before the words, ${fo.round ? `a ${fo.w}px ROUND disc (border-radius: 50%)` : `a ${fo.w}x${fo.h}px block`}${visible(fo.fill) ? ` filled ${colourName(fo.fill)} (${hexOf(fo.fill)})` : ''}, float: ${fo.side}${fo.shape ? `, shape-outside: ${fo.shape}` : ''}, margin ${fo.m.join('px ')}px, so it sits at the top ${fo.side} of the first column and the lines WRAP round it (shorter beside it), never under or over it` : ''
+    return { kind: 'text', note: `paragraph ${Math.round(w)}px wide, ${d.base}px text, line-height ${Math.round(d.lh)}px${colSay}, opening on a drop cap: its first letter ${quote(d.letter)} ${d.px}px ${d.weight >= 600 ? 'bold ' : ''}${colourName(d.colour)} (${hexOf(d.colour)}), floated left about ${lines} lines tall (::first-letter), the text wrapping beside it${floSay}: ${quote(f.text, 400)}` }
   }
   // a strip of see-through tape laid over a photo's corner (round 7 c5: read as a picture, built as an X box)
   if (!f.text && !f.kidCount && fill && !grad && f.bg.a >= 0.3 && f.bg.a <= 0.9) {
@@ -4872,7 +4881,8 @@ function decideOne(f, page, marked, said) {
     const code = !f.regionKids.length ? codeNote(f) : null
     // a marquee says its repeated copy (round 5 c2: unquoted)
     const unit = f.motion && f.text.length > 40 ? repeatUnit(f.text) : null
-    const unitSay = unit ? `${kb[0]?.bold ? 'bold ' : ''}${kb[0]?.s ?? Math.round(f.font.size)}px ${quote(unit, 60)} repeated along it` : null
+    // n230: a monospace marquee says so (round 22 c4 ticker built in the page serif)
+    const unitSay = unit ? `${kb[0]?.bold ? 'bold ' : ''}${kb[0]?.s ?? Math.round(f.font.size)}px ${/mono|courier|consol/i.test(f.font.family) ? 'MONOSPACE (Courier New, monospace; NOT the page font) ' : ''}${quote(unit, 60)} repeated along it` : null
     // one block of copy with no parts (a pull quote on a yellow tile: round 5 c5, said with no copy)
     // ...in the top-left corner of a tall box when it sits there, or the build drops it low (round 6 c5 quote)
     const loneCorner = !f.centred && h >= 160 && f.inset && f.textTop != null && f.textTop - f.rect.y <= f.inset.t + 12 ? `, in the top-left corner (${Math.round(f.inset.l)}px in, ${Math.round(f.inset.t)}px down), the rest of the box empty` : ''
