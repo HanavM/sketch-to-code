@@ -101,7 +101,7 @@
    ],
    [
     "tilted-tag",
-    "near-black outline button \"OPENS 14.11\" (exactly: #f2efe8 fill, #111111 text, 132x52px, 20px rounded)"
+    "near-black outline button \"OPENS 14.11\" (exactly: #f2efe8 fill, #111111 text, 129x34px before its turn, pill ends); TILTED 8° anticlockwise (NOT level): ONE 129x34px element, position absolute with its top-left at 620,90 page px before the turn, then transform: rotate(-8deg) round its centre"
    ],
    [
     "vertical-label",
@@ -385,11 +385,15 @@
    ],
    [
     "planet-ring",
-    "tilted 14° anticlockwise an ELLIPSE RING (a flattened oval outline, border-radius 50%, NOT a rectangle, NO corners): 340x50px before its turn, a 6px solid #e8c39a border, NO fill, nothing inside"
+    "tilted 14° anticlockwise an ELLIPSE RING (a flattened oval outline, border-radius 50%, NOT a rectangle, NO corners): 340x50px before its turn, a 6px solid #e8c39a border, NO fill, nothing inside; build it as exactly ONE plain div with this CSS: width 340px; height 50px; border: 6px solid #e8c39a; border-radius: 50%; background: none; position: absolute; left: 740px; top: 465px; transform: rotate(-14deg) (NOT an SVG, NOT a component with corners)"
    ],
    [
     "moon",
     "small 36px glowing light grey dot (exactly 36x36px: w-[36px] h-[36px], border-radius 50%, not smaller)"
+   ],
+   [
+    "constellation",
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 220x160px with its top-left at page 1000,110 (position absolute), copied verbatim: <svg width=\"220\" height=\"160\"><polyline points=\"10,140 60,90 120,110 170,40 210,20\" fill=\"none\" stroke=\"#8a93c7\" stroke-width=\"1.5\"></polyline><g fill=\"#fff\"><circle cx=\"10\" cy=\"140\" r=\"4\"></circle><circle cx=\"60\" cy=\"90\" r=\"3\"></circle><circle cx=\"120\" cy=\"110\" r=\"4\"></circle><circle cx=\"170\" cy=\"40\" r=\"3\"></circle><circle cx=\"210\" cy=\"20\" r=\"5\"></circle></g></svg>"
    ],
    [
     "outlined-numeral",
@@ -661,7 +665,7 @@
    ],
    [
     "waveform",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 380x90px with its top-left at page 70,540 (position absolute), copied verbatim: <svg width=\"380\" height=\"90\" width=\"380\" height=\"90\"><path d=\"M0 45 Q20 0 40 45 T80 45 T120 45 Q140 90 160 45 T200 45 Q215 10 230 45 T260 45 T300 45 Q320 80 340 45 T380 45\" fill=\"none\" stroke=\"#ff6a2a\" stroke-width=\"3\"></path></svg>"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 380x90px with its top-left at page 70,540 (position absolute), copied verbatim: <svg width=\"380\" height=\"90\"><path d=\"M0 45 Q20 0 40 45 T80 45 T120 45 Q140 90 160 45 T200 45 Q215 10 230 45 T260 45 T300 45 Q320 80 340 45 T380 45\" fill=\"none\" stroke=\"#ff6a2a\" stroke-width=\"3\"></path></svg>"
    ],
    [
     "synth-panel",
@@ -705,7 +709,7 @@
    ],
    [
     "preview",
-    "image"
+    "box"
    ],
    [
     "transport",
@@ -743,7 +747,7 @@
    ],
    [
     "preview",
-    "picture with \"golden hour, day 3\""
+    "the region itself is ONE 700x394px panel at 276,64 (NOT a photo, NOT an <img>), painted exactly background: linear-gradient(#1b3a5c, #d97a3a 70%, #3b2216), 4px rounded, its parts placed inside it (position absolute); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 100x100 at 576,264 #ffd27a fill, a circle; 700x31 at 276,397 its text CENTRED in that box (text-align: center): 26px bold #ffffff \"golden hour, day 3\""
    ],
    [
     "transport",
@@ -751,7 +755,7 @@
    ],
    [
     "inspector",
-    "dark navy block \"Clip · sunset_wide\" list: \"Exposure\" +0.4, \"Contrast\" 12, \"Saturation\" 118%, \"Speed\" 1.0x, \"Opacity\" 100%; list rows exactly 45px apart (27px tall, 13px type: tight, not roomier), first line 16px below the panel's top; each word in its own colour: \"Clip · sunset_wide\" #ffffff, \"Exposure +0.4\" #d7d9e0, \"Contrast 12\" #d7d9e0, \"Saturation 118%\" #d7d9e0, \"Speed 1.0x\" #d7d9e0, \"Opacity 100%\" #d7d9e0"
+    "dark navy block \"Clip · sunset_wide\" list: \"Exposure\" +0.4, \"Contrast\" 12, \"Saturation\" 118%, \"Speed\" 1.0x, \"Opacity\" 100%; list rows exactly 45px apart (27px tall, 13px type: tight, not roomier), first line 16px below the panel's top; each word in its own colour: \"Clip · sunset_wide\" #ffffff, \"Exposure +0.4\" #d7d9e0, \"Contrast 12\" #d7d9e0, \"Saturation 118%\" #d7d9e0, \"Speed 1.0x\" #d7d9e0, \"Opacity 100%\" #d7d9e0; under each label row a SLIDER (5 in all, each its own track element, NOT a plain list row): 255x4px track at 1009,119 #2c2f37, 2px rounded, filled from its left 158px in #7c5cff, a 14px #ffffff round thumb centred at 1164,121; 255x4px track at 1009,164 #2c2f37, 2px rounded, filled from its left 102px in #7c5cff, a 14px #ffffff round thumb centred at 1108,166; 255x4px track at 1009,209 #2c2f37, 2px rounded, filled from its left 191px in #7c5cff, a 14px #ffffff round thumb centred at 1197,211; 255x4px track at 1009,254 #2c2f37, 2px rounded, filled from its left 128px in #7c5cff, a 14px #ffffff round thumb centred at 1133,256; 255x4px track at 1009,299 #2c2f37, 2px rounded, filled from its left 255px in #7c5cff, a 14px #ffffff round thumb centred at 1256,301"
    ],
    [
     "timeline",
@@ -759,7 +763,7 @@
    ],
    [
     "playhead",
-    "vivid pink"
+    "a THIN vertical line (a playhead), NOT a bar or block: ONE 2x382px div, position absolute with its top-left at 520,518 page px, background #ff4757, laid OVER everything it crosses (highest z-index); its head is a 16x16px ::before (position absolute, left -7px, top 0px), background #ff4757, clip-path: polygon(0px 0px, 100% 0px, 50% 100%) (a downward-pointing triangle, NOT a square)"
    ]
   ]
  },

@@ -1,24 +1,24 @@
 {
   "id": "c3-observatory",
-  "at": "2026-10-26T15:57:47.108Z",
+  "at": "2026-10-26T18:15:59.334Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8165297900148925,
-    "overallV2": 0.8165297900148925,
-    "overallV1": 0.7847653074399639,
-    "colour": 0.9146305614087838,
-    "structure": 0.724600276977071,
-    "structureStrict": 0.6415538528905008,
-    "colourAligned": 0.9146305614087838,
-    "structureAligned": 0.724600276977071,
+    "overall": 0.9390430603877971,
+    "overallV2": 0.9390430603877971,
+    "overallV1": 0.9117481062848671,
+    "colour": 0.9910325796412189,
+    "structure": 0.9137347712888496,
+    "structureStrict": 0.8423736739214243,
+    "colourAligned": 0.9910325796412189,
+    "structureAligned": 0.9137347712888496,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.5194649741362116
+      "r": 0.9225165322484765
     },
-    "layout": 0.8499781045198158,
-    "layoutV1": 0.8499781045198158,
+    "layout": 0.9183944155978865,
+    "layoutV1": 0.8528673500708209,
     "layoutVersion": 2
   },
   "boxes": [
@@ -45,107 +45,310 @@
     ],
     [
       0,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      3,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      3,
       600,
-      180,
-      620,
-      620
+      181,
+      612,
+      612
     ],
     [
       0,
-      703,
-      284,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      6,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      6,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      6,
+      700,
+      281,
       413,
       412
     ],
     [
       0,
-      690,
-      240,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      10,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      10,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      10,
+      700,
+      281,
+      413,
+      412
+    ],
+    [
+      10,
+      812,
+      391,
+      191,
+      191
+    ],
+    [
+      10,
+      729,
+      386,
+      356,
+      202
+    ],
+    [
+      0,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      16,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      16,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      16,
+      700,
+      281,
+      413,
+      412
+    ],
+    [
+      16,
+      812,
+      391,
+      191,
+      191
+    ],
+    [
+      16,
+      739,
+      425,
+      336,
+      125
+    ],
+    [
+      0,
+      686,
+      237,
       36,
       36
     ],
     [
       0,
-      60,
-      40,
-      1160,
-      27
+      0,
+      0,
+      1275,
+      894
     ],
     [
+      23,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      23,
+      561,
+      81,
+      716,
+      752
+    ],
+    [
+      23,
+      1000,
+      110,
+      214,
+      153
+    ],
+    [
+      23,
+      1006,
+      125,
+      209,
+      129
+    ],
+    [
+      27,
+      1010,
+      130,
+      200,
+      120
+    ],
+    [
+      27,
+      1006,
+      125,
+      209,
+      129
+    ],
+    [
+      29,
+      1006,
+      246,
+      8,
+      8
+    ],
+    [
+      29,
+      1057,
+      197,
       6,
+      6
+    ],
+    [
+      29,
+      1116,
+      216,
+      8,
+      8
+    ],
+    [
+      29,
+      1167,
+      147,
+      6,
+      6
+    ],
+    [
+      29,
+      1205,
+      125,
+      10,
+      10
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      63
+    ],
+    [
+      35,
       60,
-      40,
+      36,
       77,
       27
     ],
     [
-      6,
-      843,
-      40,
-      377,
-      27
+      35,
+      877,
+      38,
+      343,
+      23
     ],
     [
-      8,
-      843,
-      40,
-      59,
-      27
+      37,
+      877,
+      38,
+      48,
+      23
     ],
     [
-      8,
-      942,
-      40,
-      44,
-      27
+      37,
+      966,
+      38,
+      37,
+      23
     ],
     [
-      8,
-      1027,
-      40,
-      80,
-      27
+      37,
+      1042,
+      38,
+      75,
+      23
     ],
     [
-      8,
-      1147,
-      40,
-      73,
-      27
+      37,
+      1157,
+      38,
+      63,
+      23
     ],
     [
       0,
       60,
       150,
       300,
-      360
+      300
     ],
     [
       0,
       68,
       420,
-      500,
+      468,
       118
     ],
     [
-      14,
+      43,
       68,
       420,
-      500,
+      468,
       59
     ],
     [
-      15,
+      44,
       352,
       419,
       153,
       60
     ],
     [
-      14,
+      43,
       68,
       479,
-      500,
+      468,
       59
     ],
     [
@@ -163,155 +366,228 @@
       140
     ],
     [
-      19,
-      85,
-      711,
-      410,
-      55
+      48,
+      61,
+      691,
+      458,
+      76
     ],
     [
-      20,
-      85,
-      711,
+      49,
+      86,
+      712,
       130,
       55
     ],
     [
-      21,
-      85,
-      711,
+      50,
+      86,
+      712,
       130,
       34
     ],
     [
-      21,
-      85,
-      749,
+      50,
+      86,
+      750,
       130,
       17
     ],
     [
-      20,
-      225,
-      711,
+      49,
+      226,
+      712,
       130,
       55
     ],
     [
-      24,
-      225,
-      711,
+      53,
+      226,
+      712,
       130,
       34
     ],
     [
-      24,
-      225,
-      749,
+      53,
+      226,
+      750,
       130,
       17
     ],
     [
-      20,
-      365,
-      711,
+      49,
+      366,
+      712,
       130,
       55
     ],
     [
-      27,
-      365,
-      711,
+      56,
+      366,
+      712,
       130,
       34
     ],
     [
-      27,
-      365,
-      749,
+      56,
+      366,
+      750,
       130,
       17
-    ],
-    [
-      0,
-      810,
-      390,
-      200,
-      200
-    ],
-    [
-      0,
-      732,
-      389,
-      355,
-      202
-    ],
-    [
-      31,
-      732,
-      389,
-      355,
-      202
-    ],
-    [
-      32,
-      732,
-      389,
-      356,
-      202
     ]
   ],
-  "groupMatched": [],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.8518518518518519,
+      "parts": 2,
+      "rect": {
+        "x": 60,
+        "y": 36,
+        "w": 1160,
+        "h": 27
+      }
+    }
+  ],
   "effects": {
     "recall": 0.8333333333333334,
     "kept": [
       "bleed",
-      "glow",
+      "glass",
       "gradient",
       "hollow-type",
       "huge-type",
       "italic",
       "overlap",
       "serif",
-      "soft-shadow",
+      "stripes-or-layers",
       "tilt"
     ],
     "missing": [
-      "glass",
-      "stripes-or-layers"
+      "glow",
+      "soft-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 55072,
-    "output": 32965,
-    "cacheRead": 247440
+    "input": 133737,
+    "output": 52704,
+    "cacheRead": 1023009
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 56573,
-      "output": 19623,
-      "cacheRead": 233596,
-      "toolCalls": 10,
+      "billed": 160042,
+      "output": 41967,
+      "cacheRead": 1008343,
+      "toolCalls": 17,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
+        "Glob",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
         "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/GlowingPlanet.tsx",
+        "Read components/PlanetRing.tsx",
+        "Read components/ConstellationLine.tsx",
         "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
         "Edit components/SketchShape.tsx",
-        "Write src/App.tsx"
+        "Edit components/SketchShape2.tsx",
+        "Edit components/GlowingPlanet.tsx",
+        "Edit components/PlanetRing.tsx",
+        "Edit components/ConstellationLine.tsx",
+        "Write src/App.tsx",
+        "Glob"
       ],
-      "ms": 211813
+      "ms": 402829
     }
   ],
-  "reading": "A full-page hero mock-up: a black gradient backdrop with a huge dark sphere bleeding off the right edge behind a two-line Georgia headline and lavender body copy, a thin nav bar across the top, a giant outlined '06' numeral at left, two concentric decorative rings plus a small glowing dot over the big sphere, a smaller lit orange planet with a tilted peach frame, and a white stats card with three number/label pairs at the bottom.",
+  "reading": "This is a full dark-themed astronomy-event hero section: a starfield background, a soft purple glow, a top nav bar with ORRERY branding and right-aligned links, a big dashed/faint circle motif holding a glowing lit sphere (Saturn) wrapped in a tilted ring, a small glowing dot and a constellation-line SVG graphic near it, a huge outline '06' page/day number, a large two-line Georgia headline with 'Saturn' highlighted in peach italic, a lavender descriptive paragraph, and a frosted-glass stat strip with three number/label pairs (RISE, MAGNITUDE, SEATS LEFT).",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add a 1280x900px STARFIELD layer at 0,0, position absolute, behind everything, holding nothing, no fill of its own: scattered with two tiled layers of tiny dots"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add a SOFT GLOW (not a solid disc, no visible edge): a 760x760px see-through layer at 560,80, position absolute, behind the content, holding nothing, border-rad"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav bar: bold 18px Georgia serif white 'ORRERY' at the left, then links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed far right (737px gap from ORRERY)"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A round (border-radius 50%, true circle, 620px across, never a square) 1px dashed #8a93c7 outline circle, decorative frame behind the planet illustration."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4"
+      ],
+      "instruction": "A big faint grey outline circle, concentric with the dashed circle, as an additional decorative ring behind the planet illustration."
+    },
     {
       "kind": "add",
       "textMarks": [],
@@ -323,116 +599,66 @@
         894
       ],
       "paths": [
-        "s0"
-      ],
-      "instruction": "Whole-page backdrop: a 1280x900px block filled with a soft pale-tinted gradient from #ffffff to #000000 top to bottom; it is an empty product-photo backdrop wit"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s2"
-      ],
-      "textSize": [],
-      "region": [
-        64,
-        47,
-        1153,
-        220
-      ],
-      "paths": [
-        "s8"
-      ],
-      "instruction": "Top nav bar: bold 18px Georgia serif white 'ORRERY' at the left, then links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed to the far right with a 737px gap"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        564,
-        84,
-        714,
-        752
-      ],
-      "paths": [
-        "s1"
-      ],
-      "instruction": "A 760px solid sphere (border-radius 50%), fully opaque, radial-gradient(circle at center, #3a2b8f 0%, #070b1a 65%) so it looks lit from above; absolutely placed"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        604,
-        184,
-        612,
-        612
-      ],
-      "paths": [
-        "s3"
-      ],
-      "instruction": "A round (border-radius 50%, never a square) 620px circle outline, 1px dashed #8a93c7 outline (dashes, not a solid line)."
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        703,
-        284,
-        413,
-        412
-      ],
-      "paths": [
-        "s4"
-      ],
-      "instruction": "A second big faint grey outline circle, concentric with the dashed ring, same style but fainter/plain outline."
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        814,
-        394,
-        192,
-        191
-      ],
-      "paths": [
-        "s5"
-      ],
-      "instruction": "A 200px solid sphere (border-radius 50%), fully opaque, radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit from the top l"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        742,
-        428,
-        335,
-        125
-      ],
-      "paths": [
+        "s0",
+        "s3",
+        "s4",
+        "s5",
         "s6"
       ],
-      "instruction": "A thick peach border frame, tilted 14 degrees anticlockwise, framing the small lit sphere."
+      "instruction": "A 200px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit f"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        694,
-        244,
-        28,
-        28
+        3,
+        3,
+        1274,
+        894
       ],
       "paths": [
+        "s0",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Tilted 14° anticlockwise ellipse ring (flattened oval outline, border-radius 50%, not a rectangle, no corners): 340x50px before rotation, 6px solid #e8c39a bord"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
         "s7"
       ],
-      "instruction": "A small glowing light-grey dot, exactly 36x36px (w-[36px] h-[36px], border-radius 50%), not smaller."
+      "instruction": "Small 36px glowing light-grey dot (exactly 36x36px, border-radius 50%, not smaller), sitting on the dashed/outline circle as a marker point."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1275,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s8"
+      ],
+      "instruction": "Drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside, no border/outline/frame/background drawn round it), 220x160px with top-lef"
     },
     {
       "kind": "add",
@@ -449,13 +675,15 @@
         }
       ],
       "region": [
-        68,
-        88,
-        270,
-        364
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
-      "instruction": "Giant Georgia serif regular-weight (not bold) hollow outlined grey numeral '06', 300px type, about 300px wide (no larger); absolutely placed with its box top-le"
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Georgia serif regular-weight (not bold) hollow outlined grey '06', 300px type, about 300px wide (no larger), absolutely placed: box's top-left at 60,150, "
     },
     {
       "kind": "add",
@@ -474,13 +702,15 @@
         }
       ],
       "region": [
-        68,
-        420,
-        468,
-        118
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
-      "instruction": "Huge Georgia serif headline 'A night with Saturn, up close.', set in exactly 2 lines: 'A night with Saturn,' / 'up close.' (keep these breaks, white-space nowra"
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Huge Georgia serif headline 'A night with Saturn, up close.' set in exactly 2 lines: 'A night with Saturn,' / 'up close.' — keep these breaks, each line stays w"
     },
     {
       "kind": "add",
@@ -499,12 +729,14 @@
         }
       ],
       "region": [
-        64,
-        570,
-        432,
-        54
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
+      "paths": [
+        "s0"
+      ],
       "instruction": "Lavender body paragraph: 'Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.' Text colour #b6bde3 (lavender, not"
     },
     {
@@ -512,16 +744,19 @@
       "textMarks": [],
       "textSize": [],
       "region": [
-        63,
-        693,
-        453,
-        133
+        3,
+        3,
+        1274,
+        894
       ],
       "paths": [
+        "s0",
         "s14"
       ],
-      "instruction": "A #ffffff card, 460x140px at 60,690, 18px rounded corners, containing 3 stats side by side in one row (not separate cards), each a big number over a small label"
+      "instruction": "A see-through FROSTED GLASS card 460x140px at 60,690 (background rgba(255,255,255,0.08), 8% opaque, dark page shows through — never solid white; border 1px soli"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

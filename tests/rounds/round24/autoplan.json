@@ -375,7 +375,7 @@
    ],
    [
     "arrow",
-    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 240x140px with its top-left at page 440,600 (position absolute), copied verbatim: <svg width=\"240\" height=\"140\" width=\"240\" height=\"140\" viewBox=\"0 0 240 140\"><path d=\"M10 20 C80 0 150 40 200 110\" fill=\"none\" stroke=\"#2b2622\" stroke-width=\"3\" stroke-dasharray=\"8 8\"></path><path d=\"M182 106 L204 118 L206 92\" fill=\"none\" stroke=\"#2b2622\" stroke-width=\"3\"></path></svg>; the card exactly 240x140px, position: absolute at left 440px, top 600px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
+    "drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), 240x140px with its top-left at page 440,600 (position absolute), copied verbatim: <svg width=\"240\" height=\"140\" viewBox=\"0 0 240 140\"><path d=\"M10 20 C80 0 150 40 200 110\" fill=\"none\" stroke=\"#2b2622\" stroke-width=\"3\" stroke-dasharray=\"8 8\"></path><path d=\"M182 106 L204 118 L206 92\" fill=\"none\" stroke=\"#2b2622\" stroke-width=\"3\"></path></svg>; the card exactly 240x140px, position: absolute at left 440px, top 600px of the page, floating ABOVE the cards it overlaps (z-index on top): it takes NO room in the layout, nothing else moves for it"
    ],
    [
     "photo-beach",

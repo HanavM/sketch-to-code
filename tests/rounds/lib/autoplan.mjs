@@ -112,6 +112,30 @@ export function factsInPage() {
       bg: rgba(cs.backgroundColor),
       bgImage: cs.backgroundImage,
       bgImageColours: colours(cs.backgroundImage),
+      // n249: a thin playhead line (2-4px wide, tall, no text) with a pseudo head cut by clip-path (round 26 e1: said
+      // only 'vivid pink', built as a wide bar with no head)
+      thinHead: (() => {
+        const lw = el.offsetWidth, lh = el.offsetHeight, fc = rgba(cs.backgroundColor)
+        if (lw > 4 || lh < 120 || el.children.length || (el.innerText || '').trim() || !(fc?.a > 0.5)) return null
+        const hd = ['::before', '::after'].map((w) => getComputedStyle(el, w)).find((c) => c.content && c.content !== 'none' && parseFloat(c.width) >= 6)
+        const b = el.getBoundingClientRect()
+        return { w: lw, h: lh, x: Math.round(b.left), y: Math.round(b.top), fill: fc, head: hd ? { w: Math.round(parseFloat(hd.width)), h: Math.round(parseFloat(hd.height)), l: Math.round(parseFloat(hd.left) || 0), t: Math.round(parseFloat(hd.top) || 0), fill: rgba(hd.backgroundColor), clip: hd.clipPath && hd.clipPath !== 'none' ? hd.clipPath : null, round: parseFloat(hd.borderTopLeftRadius) >= parseFloat(hd.width) / 2 - 1 } : null }
+      })(),
+      // n249: slider tracks (a thin track with a fill bar from its left and a round thumb) inside a panel (round 26 e1
+      // inspector: five sliders lost, said as a plain list)
+      sliders: (() => {
+        const out = []
+        for (const k of el.querySelectorAll('*')) {
+          const kb = k.getBoundingClientRect()
+          if (kb.height > 8 || kb.height < 2 || kb.width < 60 || k.children.length < 1 || k.children.length > 2) continue
+          const ks = [...k.children].map((q) => ({ q, b: q.getBoundingClientRect(), c: getComputedStyle(q) }))
+          const bar = ks.find((o) => Math.abs(o.b.left - kb.left) <= 1 && Math.abs(o.b.height - kb.height) <= 1 && rgba(o.c.backgroundColor)?.a > 0.5)
+          const th = ks.find((o) => o !== bar && o.b.width >= 8 && Math.abs(o.b.width - o.b.height) <= 1 && parseFloat(o.c.borderTopLeftRadius) >= o.b.width / 2 - 1)
+          if (!th) continue
+          out.push({ x: Math.round(kb.left), y: Math.round(kb.top), w: Math.round(kb.width), h: Math.round(kb.height), bg: rgba(getComputedStyle(k).backgroundColor), fill: bar ? { w: Math.round(bar.b.width), c: rgba(bar.c.backgroundColor) } : null, thumb: th ? { d: Math.round(th.b.width), cx: Math.round(th.b.left + th.b.width / 2), cy: Math.round(th.b.top + th.b.height / 2), c: rgba(th.c.backgroundColor) } : null })
+        }
+        return out.length >= 2 && out.length <= 12 ? out : null
+      })(),
       // n167: a ::before layer painting more stripes over the background (round 16 e2: the day-column rules lost)
       beforeImage: (() => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && /^repeating-linear-gradient/.test(b.backgroundImage) ? b.backgroundImage : null })(),
       // n168: an empty bordered overlay drawn over a grid (round 16 e1: a spreadsheet's selected range said as "blue border",
@@ -720,7 +744,14 @@ export function factsInPage() {
         // verbatim too (round 24 c2: three such hill layers got no note at all, the page built a bare gradient)
         const shapes = [...el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline')]
         const lonePath = shapes.length === 1 && shapes[0].tagName.toLowerCase() === 'path' && (rgba(getComputedStyle(shapes[0]).fill)?.a > 0.05 || rgba(getComputedStyle(shapes[0]).stroke)?.a > 0.05) && src.length <= 700 && r.width >= 0.6 * innerWidth
-        if (src.length > 1800 || (!lineArt && !ringArc && !lonePath && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
+        // n249: a small dot-and-line drawing (a constellation, a route with stops: stroked lines plus 2+ filled
+        // dots) is said verbatim (round 26 c3 constellation: one polyline and five circles got no note at all)
+        const dotLine = src.length <= 900 && r.width * r.height < 0.25 * innerWidth * innerHeight && (() => {
+          const st = shapes.filter((q) => /^(polyline|line|path)$/i.test(q.tagName) && rgba(getComputedStyle(q).stroke)?.a > 0.05 && (getComputedStyle(q).fill === 'none' || rgba(getComputedStyle(q).fill)?.a < 0.05))
+          const dots = shapes.filter((q) => q.tagName.toLowerCase() === 'circle' && rgba(getComputedStyle(q).fill)?.a > 0.05)
+          return st.length >= 1 && dots.length >= 2 && st.length + dots.length === shapes.length
+        })()
+        if (src.length > 1800 || (!lineArt && !ringArc && !lonePath && !dotLine && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
         return { src: lonePath ? src2.replace(/^<svg([^>]*)>/, (m, a) => `<svg${a.replace(/ (?:width|height)="[^"]*"/g, '')}>`) : src2, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), filter: lonePath && cs.filter && cs.filter !== 'none' ? cs.filter : null, lone: lonePath }
       })(),
       // n239: a big scene drawn from many absolutely placed parts (thin street bars, round parks, an svg river, small
@@ -4377,6 +4408,25 @@ function decideRest(f, page, marked, said) {
   if (d?.kind === 'button' && d.note && f.bg?.a > 0.9 && !d.note.includes(hexOf(f.bg)) && f.text && f.text.length <= 32) {
     d.note += ` (exactly: ${hexOf(f.bg)} fill, ${hexOf(f.colour)} text, ${Math.round(w0)}x${Math.round(h0)}px, ${f.radius <= 1 ? 'square corners: border-radius 0, NOT a pill' : f.radius >= h0 / 2 - 2 ? 'pill ends' : `${Math.round(f.radius)}px rounded`})`
   }
+  // n249: a turned button (round 26 c1 'OPENS 14.11' tag, rotate -8deg) was said by its turned bounds and built level
+  // and too big: it says its own size before the turn, its place before the turn and the rotate()
+  if (d?.kind === 'button' && d.note && f.layoutBox?.w && Math.abs(f.turn ?? f.rotate ?? 0) >= 2 && !/rotate\(/.test(d.note)) {
+    const L = f.layoutBox, rot = f.turn ?? f.rotate
+    d.note = d.note.replace(`${Math.round(w0)}x${Math.round(h0)}px`, `${L.w}x${L.h}px before its turn`)
+    if (f.radius >= L.h / 2 - 2) d.note = d.note.replace(`${Math.round(f.radius)}px rounded`, 'pill ends')
+    d.note += `; TILTED ${Math.abs(rot)}° ${rot > 0 ? 'clockwise' : 'anticlockwise'} (NOT level): ONE ${L.w}x${L.h}px element${f.el ? `, position absolute with its top-left at ${f.el.x},${f.el.y} page px before the turn` : ''}, then transform: rotate(${rot}deg) round its centre`
+  }
+  // n249: slider tracks inside a panel are said one by one (round 26 e1 inspector)
+  if (d?.note && f.sliders && !/slider/i.test(d.note)) {
+    const S = f.sliders
+    d.note += `; under each label row a SLIDER (${S.length} in all, each its own track element, NOT a plain list row): ${S.map((q) => `${q.w}x${q.h}px track at ${q.x},${q.y}${q.bg?.a > 0.05 ? ` ${hexOf(q.bg)}` : ''}, ${Math.round(q.h / 2)}px rounded${q.fill ? `, filled from its left ${q.fill.w}px in ${hexOf(q.fill.c)}` : ''}${q.thumb ? `, a ${q.thumb.d}px ${hexOf(q.thumb.c)} round thumb centred at ${q.thumb.cx},${q.thumb.cy}` : ''}`).join('; ')}`
+  }
+  // n249: a thin playhead line says its exact box, place, fill and its head (round 26 e1 playhead: 'vivid pink' only)
+  if (d && f.thinHead && !f.regionKids?.length) {
+    const T = f.thinHead, H = T.head
+    d.kind = 'box'
+    d.note = `a THIN vertical line${H ? ' (a playhead)' : ''}, NOT a bar or block: ONE ${T.w}x${T.h}px div, position absolute with its top-left at ${T.x},${T.y} page px, background ${hexOf(T.fill)}, laid OVER everything it crosses (highest z-index)${H ? `; its head is a ${H.w}x${H.h}px ::before (position absolute, left ${H.l}px, top ${H.t}px), background ${hexOf(H.fill)}${H.clip ? `, clip-path: ${H.clip} (a ${/50% 100%/.test(H.clip) ? 'downward-pointing triangle' : 'cut shape'}, NOT a square)` : H.round ? ', a circle' : ''}` : ''}`
+  }
   // n206: a small button placed absolutely over a bar (round 20 e3 'Sum: 13,797' over the sheet tabs: dropped) says its place
   if (d?.kind === 'button' && d.note && f.box0?.abs && w0 <= 240 && h0 <= 48 && !/ at \d+,\d+/.test(d.note)) {
     d.note += `; its own element at page ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, on top of whatever is under it there, never dropped, NOT merged into another row)`
@@ -4795,7 +4845,7 @@ function decideOne(f, page, marked, said) {
   // n160: an svg whose look is in its defs or that stretches to its box, said as its own markup
   if (f.svgSrc && !f.regionKids.length) {
     const V = f.svgSrc
-    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/^<svg/, `<svg width="${V.w}" height="${V.h}"`)}${V.filter ? `; on the <svg> itself the CSS filter: ${cssHex(V.filter)} (a soft shadow along its top edge, keep it)` : ''}${V.lone ? '; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)' : ''}` }
+    return { kind: 'box', note: `drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside; NO border, outline, frame or square drawn round it, no background: only the SVG's own shapes show), ${V.w}x${V.h}px with its top-left at page ${V.x},${V.y} (position absolute), copied verbatim: ${V.src.replace(/^<svg([^>]*)>/, (m, a) => `<svg width="${V.w}" height="${V.h}"${a.replace(/ (?:width|height)="[^"]*"/g, '')}>`)}${V.filter ? `; on the <svg> itself the CSS filter: ${cssHex(V.filter)} (a soft shadow along its top edge, keep it)` : ''}${V.lone ? '; a full-width layer of the scene, painted in page order with the other parts: on top of what comes before it, under what comes after it (the words, nav, pins and buttons sit on top of it); nothing else is added under or below it (no extra rows, no headings, no cards)' : ''}` }
   }
   // SVG art: filled hills back to front and stroked paths (round 6 c3: one bare box)
   if (f.svgArt && !f.regionKids.length) {
@@ -5453,7 +5503,7 @@ function decideOne(f, page, marked, said) {
     // turned rectangle)
     if (bordered && !fill && !f.text && f.radiusPct >= 49 && Math.max(w, h) >= 2 * Math.min(w, h) && f.border.w >= 2) {
       const L0 = f.box0 ?? { w: Math.round(w), h: Math.round(h) }
-      look.push(`an ELLIPSE RING (a flattened oval outline, border-radius 50%, NOT a rectangle, NO corners): ${Math.round(L0.w ?? w)}x${Math.round(L0.h ?? h)}px before its turn, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, NO fill, nothing inside`)
+      look.push(`an ELLIPSE RING (a flattened oval outline, border-radius 50%, NOT a rectangle, NO corners): ${Math.round(L0.w ?? w)}x${Math.round(L0.h ?? h)}px before its turn, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, NO fill, nothing inside; build it as exactly ONE plain div with this CSS: width ${Math.round(L0.w ?? w)}px; height ${Math.round(L0.h ?? h)}px; border: ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)}; border-radius: 50%; background: none${f.el ? `; position: absolute; left: ${f.el.x}px; top: ${f.el.y}px` : ''}${Math.abs(f.turn ?? f.rotate ?? 0) >= 1 ? `; transform: rotate(${f.turn ?? f.rotate}deg)` : ''} (NOT an SVG, NOT a component with corners)`)
     } else
     if (bordered && f.border.w >= 3) look.push(`thick ${bc} border`)
     else if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
@@ -6248,7 +6298,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const faceP = (p) => p.t && p.t.length <= 3 && p.fill?.a > 0.5 && p.w >= 40 && Math.abs(p.w - p.h) <= 2 && p.radius >= p.w / 2 - 1
     const cornerChip = (p) => p.t && p.fill?.a > 0.2 && p.h <= 32 && p.x - R7.x <= 20 && R7.y + R7.h - (p.y + p.h) <= 20 && p.w < R7.w * 0.7
     const chipTile = d.kind && !f.regionKids.length && P.length >= 1 && P.length <= 5 && tileFill && R7.w * R7.h >= 20000 && R7.w * R7.h < 0.2 * 1280 * 900 && (P.some(faceP) || P.some(cornerChip)) && !/part by part/.test(d.note ?? '')
-    if ((P.length < 3 && !chipTile && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
+    // n249: a gradient-painted 'picture' holding just a disc and a caption (round 26 e1 video preview: sun and centred
+    // caption lost, said 'picture with ...') is said part by part too
+    const picTwo = /^picture with/.test(d?.note ?? '') && P.length === 2 && /gradient\(/.test(f.bgImage ?? '')
+    if ((P.length < 3 && !chipTile && !picTwo && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
     const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
     const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
     const frame = !d.kind && f.regionKids.length && P.filter((p) => p.t).length >= 3
@@ -6378,7 +6431,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const terr = f.terrazzo && panel ? `over that fill, edge to edge, a TERRAZZO layer: one absolute div (inset 0, no text) with exactly background-image: ${f.terrazzo.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })}; background-size: ${f.terrazzo.size} (it REPEATS: small dots of ${f.terrazzo.n} colours scattered over the ${hexOf(f.bg)} fill, the fill showing between them; NOT big discs, NOT on the page colour); every part below sits over it, ` : ''
     // n222: a row ruled along its bottom only (round 21 e5 tabs said part by part: the 1px rule under the tabs lost)
     const underRule = P.some((p) => p.inset) && R.y > 2 && !panel && !leftRule && !twoRules && !(f.border?.w >= 1) && !(f.border?.left >= 1) && f.border?.bottom >= 1 && visible(f.border.bottomColour) && R.w >= 300 && R.h <= 80 && !(!weak && /bottom (edge|only)/.test(d.note ?? '')) ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)} with a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along its BOTTOM edge only, its full width (border-bottom, no other border${visible(f.bg) ? '' : ', no fill'}), its parts inside it; ` : ''
-    const keep = `${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare && !chipTile && !markers ? `${d.note}; ` : ''}`
+    const keep = `${picTwo && !panel ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)} (NOT a photo, NOT an <img>), painted exactly background: ${cssHex(f.bgImage)}${f.radius >= 1 ? `, ${Math.round(f.radius)}px rounded` : ''}, its parts placed inside it (position absolute); ` : ''}${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare && !chipTile && !markers ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

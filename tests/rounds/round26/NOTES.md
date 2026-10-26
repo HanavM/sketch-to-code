@@ -64,3 +64,26 @@ Re-planned rounds 1-25: panel lines added on r1, r2, r6, r10, r21 (not re-run li
 | e4 permissions | 49% | **78%** | full 4-role matrix with ticks, dashes, group rows (first try hit the 14-min run cap; re-run 309s); brand row and subhead still lost |
 
 Round 26: **88%** (88.3; was 83). Vitest same 2 env failures; typecheck clean.
+
+## n249: constellation, turned tag, video preview, sliders, playhead, ellipse ring CSS (2026-10-26, ~360k billed)
+
+- A small dot-and-line SVG (stroked lines plus 2+ filled dots: a constellation, a route with stops) is said verbatim
+  (c3 constellation had no note at all). Verbatim SVG notes no longer repeat width/height.
+- A turned button says its size and place before the turn and its rotate() (c1 'OPENS 14.11' tag was said by its turned
+  bounds, built level).
+- A gradient-painted 'picture' holding just a disc and a caption is said as a panel with its exact background and both
+  parts placed (e1 preview: sun lost, caption under the frame).
+- Slider tracks (thin track, fill from the left, round thumb) inside a panel are said one by one (e1 inspector).
+- A thin tall line says its exact box, fill and its clip-path head (e1 playhead: 'vivid pink' only).
+- An ellipse ring also says its exact CSS (c3 ring was still built as a turned rectangle; not re-run yet).
+
+Re-planned rounds 1-25: r10 divider and r21 today line say their exact line; r20 turned button; r24, r25 SVG notes
+lose a repeated width/height (not re-run live).
+
+| page | before | n249 | note |
+|---|---|---|---|
+| c3 observatory | 82% | **94%** | starfield, soft nebula, glass card, constellation; ring still a turned rectangle |
+| c1 blend mesh | 82% | **88%** | tag turned, circles placed; vertical label and nav spacing missed |
+| e1 video editor | 86% | **98%** | sun, centred caption, five sliders, playhead with its head |
+
+Round 26: **91%** (91.3; was 88). Vitest same 2 env failures; typecheck clean.

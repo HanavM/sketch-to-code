@@ -97,7 +97,7 @@
    ],
    [
     "tape",
-    "yellow button \"WAREHOUSE 3 · DOCK RD\" (244x75px, square corners: border-radius 0, NOT a pill)"
+    "yellow button \"WAREHOUSE 3 · DOCK RD\" (240x46px before its turn, square corners: border-radius 0, NOT a pill); TILTED 7° clockwise (NOT level): ONE 240x46px element, position absolute with its top-left at 960,690 page px before the turn, then transform: rotate(7deg) round its centre"
    ],
    [
     "footer",
