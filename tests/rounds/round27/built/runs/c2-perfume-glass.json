@@ -1,0 +1,492 @@
+{
+  "id": "c2-perfume-glass",
+  "at": "2026-10-26T21:20:44.175Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7616805350497066,
+    "overallV2": 0.7616805350497066,
+    "overallV1": 0.677597257754647,
+    "colour": 0.9622436302848039,
+    "structure": 0.9093915060986068,
+    "structureStrict": 0.8301173057044072,
+    "colourAligned": 0.9622436302848039,
+    "structureAligned": 0.9093915060986068,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8443671259182518
+    },
+    "layout": 0.7627032114410532,
+    "layoutV1": 0.6377292380836158,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      760,
+      330,
+      300,
+      300
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      558
+    ],
+    [
+      0,
+      60,
+      40,
+      120,
+      26
+    ],
+    [
+      0,
+      884,
+      40,
+      111,
+      26
+    ],
+    [
+      0,
+      1036,
+      40,
+      89,
+      26
+    ],
+    [
+      0,
+      1165,
+      40,
+      55,
+      26
+    ],
+    [
+      0,
+      68,
+      128,
+      503,
+      180
+    ],
+    [
+      0,
+      938,
+      277,
+      233,
+      180
+    ],
+    [
+      0,
+      600,
+      268,
+      240,
+      290
+    ],
+    [
+      0,
+      604,
+      271,
+      233,
+      284
+    ],
+    [
+      10,
+      630,
+      294,
+      6,
+      233
+    ],
+    [
+      0,
+      698,
+      250,
+      44,
+      16
+    ],
+    [
+      0,
+      680,
+      153,
+      88,
+      96
+    ],
+    [
+      0,
+      660,
+      380,
+      120,
+      70
+    ],
+    [
+      0,
+      64,
+      620,
+      322,
+      78
+    ],
+    [
+      0,
+      960,
+      620,
+      260,
+      27
+    ],
+    [
+      0,
+      960,
+      620,
+      33,
+      26
+    ],
+    [
+      0,
+      1107,
+      620,
+      113,
+      26
+    ],
+    [
+      0,
+      960,
+      647,
+      260,
+      27
+    ],
+    [
+      0,
+      960,
+      647,
+      55,
+      26
+    ],
+    [
+      0,
+      1099,
+      647,
+      121,
+      26
+    ],
+    [
+      0,
+      960,
+      675,
+      260,
+      27
+    ],
+    [
+      0,
+      960,
+      675,
+      44,
+      26
+    ],
+    [
+      0,
+      1125,
+      675,
+      95,
+      26
+    ],
+    [
+      0,
+      60,
+      780,
+      260,
+      54
+    ],
+    [
+      0,
+      350,
+      794,
+      44,
+      33
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "notes-list",
+      "iou": 0.9998798221367624,
+      "parts": 9,
+      "rect": {
+        "x": 960,
+        "y": 620,
+        "w": 260.03125,
+        "h": 82
+      }
+    },
+    {
+      "role": "nav",
+      "iou": 0.9997037515822359,
+      "parts": 4,
+      "rect": {
+        "x": 60,
+        "y": 40,
+        "w": 1160.34375,
+        "h": 26
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blur",
+      "gradient",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 60437,
+    "output": 37291,
+    "cacheRead": 204241
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57277,
+      "output": 19859,
+      "cacheRead": 189310,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 222261
+    }
+  ],
+  "reading": "This is a perfume hero page: a top navbar (ROSÉE logo + FRAGRANCE/ATELIERS/GIFTS links), a giant two-part headline \"ROSE nuit\", a gradient-paneled product graphic with a buy button, a fragrance description and notes breakdown (TOP/HEART/BASE), an ADD TO BAG button and a price — all sitting on a cream-to-pink gradient page with a subtle grain texture overlay and a soft blurred glow, exactly per the detailed typed specs.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        552
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A fine grain texture layer over everything under it, sized 1280x558px, no fill of its own, pointer-events none, sitting on top of the colour fields but under th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        49,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navbar, 4 separate live-text elements, each on one line (nowrap, min-width not fixed width): \"ROSÉE\" at 120x26 top-left 60,40, 22px regular (not bold) serif"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 178
+        },
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 151
+        }
+      ],
+      "region": [
+        68,
+        165,
+        1080,
+        462
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Giant two-part hero headline: \"ROSE\" in giant Didot serif, regular weight (not bold), wide-spaced letters (letter-spacing 30px), 150px type, about 503px wide (n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        143,
+        414,
+        413
+      ],
+      "paths": [
+        "s1",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "instruction": "Product hero graphic built from plain-paint gradient tiles (no picture, no icon, no X, no text baked into the paint): (1) an 88x96px tile with 10px rounded corn"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        662,
+        381,
+        116,
+        67
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Off-white button labelled \"ROSÉE EAU DE PARFUM\", 120x70px, square corners (border-radius 0, not a pill), exactly #fbf2ee fill with #3a2420 text, sitting on the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13",
+            "s14"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        620,
+        322,
+        78
+      ],
+      "paths": [],
+      "instruction": "Serif body copy: \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s15",
+        "s16",
+        "s17"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15",
+            "s16",
+            "s17"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        964,
+        620,
+        252,
+        82
+      ],
+      "paths": [],
+      "instruction": "Fragrance notes list, 9 live-text parts, each on one line (nowrap, min-width not fixed): row 1 — 1px #3a2420 20%-opacity bottom border, 260x27 at 960,620; \"TOP\""
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s15",
+        "s16"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15",
+            "s16",
+            "s17"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        964,
+        630,
+        252,
+        36
+      ],
+      "paths": [],
+      "instruction": "A big soft peach glow: 300x300px box with top-left at 760,330 (before blur), round (border-radius 50%, never square), filter: blur(70px) set on the element's ow"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        782,
+        256,
+        51
+      ],
+      "paths": [
+        "s18"
+      ],
+      "instruction": "Dark brown button labelled \"ADD TO BAG\", 260x54px, square corners (border-radius 0, not a pill), exactly #3a2420 fill with #fbf2ee (off-white) text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        354,
+        803,
+        36,
+        8
+      ],
+      "paths": [
+        "s19"
+      ],
+      "instruction": "Serif price \"€145\" set at 22px as a large lead line (not small body text), about 44px wide on one line, top-left at 350,794."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

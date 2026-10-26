@@ -1,0 +1,747 @@
+{
+  "id": "e3-smart-home",
+  "at": "2026-10-26T22:06:47.869Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7427314911719656,
+    "overallV2": 0.7427314911719656,
+    "overallV1": 0.7042688585666753,
+    "colour": 0.9580997177760545,
+    "structure": 0.8539803193501225,
+    "structureStrict": 0.7955396078165079,
+    "colourAligned": 0.9580997177760545,
+    "structureAligned": 0.8539803193501225,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8910297014826001
+    },
+    "layout": 0.8785418046394763,
+    "layoutV1": 0.656550103394663,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      1,
+      44,
+      28,
+      1192,
+      40
+    ],
+    [
+      2,
+      44,
+      29,
+      72,
+      39
+    ],
+    [
+      2,
+      1022,
+      31,
+      214,
+      34
+    ],
+    [
+      4,
+      1022,
+      31,
+      119,
+      34
+    ],
+    [
+      4,
+      1153,
+      32,
+      83,
+      33
+    ],
+    [
+      1,
+      40,
+      90,
+      110,
+      35
+    ],
+    [
+      7,
+      58,
+      98,
+      74,
+      20
+    ],
+    [
+      1,
+      160,
+      90,
+      84,
+      35
+    ],
+    [
+      9,
+      178,
+      98,
+      48,
+      20
+    ],
+    [
+      1,
+      254,
+      90,
+      93,
+      35
+    ],
+    [
+      11,
+      272,
+      98,
+      57,
+      20
+    ],
+    [
+      1,
+      357,
+      90,
+      73,
+      35
+    ],
+    [
+      13,
+      375,
+      98,
+      37,
+      20
+    ],
+    [
+      1,
+      440,
+      90,
+      82,
+      35
+    ],
+    [
+      15,
+      458,
+      98,
+      46,
+      20
+    ],
+    [
+      1,
+      40,
+      150,
+      400,
+      420
+    ],
+    [
+      17,
+      64,
+      174,
+      352,
+      46
+    ],
+    [
+      18,
+      64,
+      174,
+      352,
+      24
+    ],
+    [
+      18,
+      64,
+      202,
+      352,
+      18
+    ],
+    [
+      17,
+      64,
+      220,
+      352,
+      290
+    ],
+    [
+      21,
+      110,
+      235,
+      260,
+      260
+    ],
+    [
+      22,
+      132,
+      257,
+      216,
+      216
+    ],
+    [
+      23,
+      198,
+      326,
+      84,
+      54
+    ],
+    [
+      23,
+      210,
+      384,
+      60,
+      20
+    ],
+    [
+      22,
+      349,
+      308,
+      26,
+      26
+    ],
+    [
+      17,
+      64,
+      510,
+      352,
+      36
+    ],
+    [
+      27,
+      64,
+      510,
+      82,
+      36
+    ],
+    [
+      27,
+      154,
+      510,
+      82,
+      36
+    ],
+    [
+      27,
+      244,
+      510,
+      82,
+      36
+    ],
+    [
+      27,
+      334,
+      510,
+      82,
+      36
+    ],
+    [
+      1,
+      464,
+      150,
+      242,
+      130
+    ],
+    [
+      1,
+      722,
+      150,
+      242,
+      130
+    ],
+    [
+      1,
+      482,
+      168,
+      36,
+      36
+    ],
+    [
+      1,
+      644,
+      168,
+      46,
+      26
+    ],
+    [
+      1,
+      740,
+      168,
+      36,
+      36
+    ],
+    [
+      1,
+      902,
+      168,
+      46,
+      26
+    ],
+    [
+      1,
+      482,
+      218,
+      206,
+      23
+    ],
+    [
+      1,
+      740,
+      218,
+      206,
+      23
+    ],
+    [
+      1,
+      482,
+      237,
+      59,
+      17
+    ],
+    [
+      1,
+      740,
+      237,
+      14,
+      17
+    ],
+    [
+      1,
+      464,
+      296,
+      242,
+      130
+    ],
+    [
+      1,
+      722,
+      296,
+      242,
+      130
+    ],
+    [
+      1,
+      482,
+      314,
+      36,
+      36
+    ],
+    [
+      1,
+      644,
+      314,
+      46,
+      26
+    ],
+    [
+      1,
+      740,
+      314,
+      36,
+      36
+    ],
+    [
+      1,
+      902,
+      314,
+      46,
+      26
+    ],
+    [
+      1,
+      482,
+      364,
+      206,
+      23
+    ],
+    [
+      1,
+      740,
+      364,
+      206,
+      23
+    ],
+    [
+      1,
+      482,
+      383,
+      99,
+      17
+    ],
+    [
+      1,
+      740,
+      383,
+      34,
+      17
+    ],
+    [
+      1,
+      988,
+      150,
+      252,
+      276
+    ],
+    [
+      1,
+      1002,
+      164,
+      224,
+      23
+    ],
+    [
+      1,
+      1002,
+      191,
+      224,
+      190
+    ],
+    [
+      54,
+      1012,
+      201,
+      47,
+      21
+    ],
+    [
+      1,
+      988,
+      450,
+      252,
+      120
+    ],
+    [
+      56,
+      1012,
+      478,
+      204,
+      24
+    ],
+    [
+      56,
+      1012,
+      512,
+      89,
+      30
+    ],
+    [
+      1,
+      40,
+      596,
+      1200,
+      276
+    ],
+    [
+      1,
+      62,
+      616,
+      95,
+      23
+    ],
+    [
+      1,
+      62,
+      666,
+      1156,
+      180
+    ],
+    [
+      61,
+      62,
+      689,
+      1156,
+      147
+    ],
+    [
+      61,
+      362,
+      735,
+      560,
+      101
+    ],
+    [
+      1,
+      933,
+      616,
+      281,
+      52
+    ],
+    [
+      64,
+      933,
+      616,
+      83,
+      52
+    ],
+    [
+      65,
+      933,
+      616,
+      83,
+      33
+    ],
+    [
+      65,
+      933,
+      651,
+      83,
+      17
+    ],
+    [
+      64,
+      1046,
+      616,
+      83,
+      52
+    ],
+    [
+      68,
+      1046,
+      616,
+      83,
+      33
+    ],
+    [
+      68,
+      1046,
+      651,
+      83,
+      17
+    ],
+    [
+      64,
+      1159,
+      616,
+      55,
+      52
+    ],
+    [
+      71,
+      1159,
+      616,
+      55,
+      33
+    ],
+    [
+      71,
+      1159,
+      651,
+      55,
+      17
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "room-tabs",
+      "iou": 0.9979253112033195,
+      "parts": 5,
+      "rect": {
+        "x": 40,
+        "y": 90,
+        "w": 482,
+        "h": 35
+      }
+    },
+    {
+      "role": "device-cards",
+      "iou": 1,
+      "parts": 20,
+      "rect": {
+        "x": 464,
+        "y": 150,
+        "w": 500,
+        "h": 276
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 56041,
+    "output": 29183,
+    "cacheRead": 354912
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 63554,
+      "output": 21067,
+      "cacheRead": 340373,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 233895
+    }
+  ],
+  "reading": "This sketches a smart-home dashboard: a header with a 'Home' title plus two pill buttons on the right, a row of 5 filled pill nav tabs (Living room selected), a climate card with a circular dial/donut gauge, a 2x2 grid of device toggle cards (ceiling light, floor lamp, speaker, blinds), a front-door camera card, a gradient 'Movie night' scene card, and a full-width 'Energy today' stacked-area chart card, all on a pale-grey page with navy Helvetica text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        44,
+        28,
+        1192,
+        40
+      ],
+      "paths": [],
+      "instruction": "Header row: 26px 'Home' heading sits at the far left. To its far right (857px gap) sit two FILLED pill buttons (not outlined, not plain text): '☀ 14° outside' ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        93,
+        474,
+        29
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of 5 nav/filter pill buttons, each its own element with live text: 'Living room' 110x35 at 40,90, #1d2433 fill, 12px rounded corners, padding-left 18px (tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        153,
+        394,
+        413
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Climate panel: one 400x420px white (#ffffff) card at 40,150, position absolute, full height kept at 420px, 24px rounded corners. Inside it: a 260px donut/gauge "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 6,
+          "fontPx": 31
+        }
+      ],
+      "region": [
+        468,
+        150,
+        492,
+        276
+      ],
+      "paths": [],
+      "instruction": "A 2x2 grid of device toggle cards. Top row: 242x130 card at 464,150, #1d2433 fill, 20px rounded, containing a 36x36 #ffb547 icon swatch (10px rounded, empty) at"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        991,
+        153,
+        246,
+        270
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Front door camera panel: one 252x276px #ffffff card at 988,150, 20px rounded, containing: 15px bold #1d2433 title 'Front door' at 1002,164 (nowrap); a 224x190 i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        992,
+        449,
+        245,
+        117
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Scene card with a vivid indigo #6a5cff (top-left) to vivid purple #b25cff (bottom-right) gradient background, titled 'Movie night' with a 'Run scene' action; al"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        597,
+        1193,
+        270
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Energy chart card: white (#ffffff) 1200x276px card, 24px rounded, with small bold title 'Energy today' top left. Contains a STACKED AREA chart (overlapping fill"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

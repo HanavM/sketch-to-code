@@ -1,0 +1,472 @@
+{
+  "id": "c1-tarot-fan",
+  "at": "2026-10-26T21:12:39.135Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.865442007384589,
+    "overallV2": 0.865442007384589,
+    "overallV1": 0.8345257970554241,
+    "colour": 0.9806060516394711,
+    "structure": 0.8333716341255715,
+    "structureStrict": 0.7594602839549648,
+    "colourAligned": 0.9806060516394711,
+    "structureAligned": 0.8333716341255715,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.4861255336414394
+    },
+    "layout": 0.8113931724652034,
+    "layoutV1": 0.8113931724652034,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      3,
+      3,
+      1274,
+      894
+    ],
+    [
+      0,
+      74,
+      42,
+      1132,
+      30
+    ],
+    [
+      2,
+      74,
+      42,
+      87,
+      30
+    ],
+    [
+      2,
+      913,
+      45,
+      293,
+      24
+    ],
+    [
+      4,
+      913,
+      45,
+      60,
+      24
+    ],
+    [
+      4,
+      1012,
+      45,
+      34,
+      24
+    ],
+    [
+      4,
+      1086,
+      45,
+      47,
+      24
+    ],
+    [
+      4,
+      1173,
+      45,
+      33,
+      24
+    ],
+    [
+      0,
+      643,
+      124,
+      554,
+      563
+    ],
+    [
+      9,
+      643,
+      129,
+      553,
+      553
+    ],
+    [
+      9,
+      810,
+      180,
+      220,
+      360
+    ],
+    [
+      9,
+      904,
+      201,
+      33,
+      20
+    ],
+    [
+      9,
+      628,
+      219,
+      301,
+      403
+    ],
+    [
+      9,
+      913,
+      219,
+      301,
+      403
+    ],
+    [
+      9,
+      715,
+      259,
+      51,
+      20
+    ],
+    [
+      9,
+      1077,
+      260,
+      44,
+      20
+    ],
+    [
+      9,
+      865,
+      305,
+      110,
+      110
+    ],
+    [
+      9,
+      717,
+      358,
+      121,
+      121
+    ],
+    [
+      9,
+      997,
+      375,
+      131,
+      87
+    ],
+    [
+      9,
+      881,
+      503,
+      78,
+      20
+    ],
+    [
+      9,
+      765,
+      546,
+      98,
+      20
+    ],
+    [
+      9,
+      981,
+      547,
+      90,
+      20
+    ],
+    [
+      0,
+      70,
+      210,
+      174,
+      30
+    ],
+    [
+      0,
+      78,
+      250,
+      550,
+      160
+    ],
+    [
+      24,
+      78,
+      250,
+      550,
+      80
+    ],
+    [
+      25,
+      465,
+      243,
+      163,
+      93
+    ],
+    [
+      24,
+      78,
+      330,
+      550,
+      80
+    ],
+    [
+      0,
+      74,
+      556,
+      422,
+      54
+    ],
+    [
+      0,
+      74,
+      683,
+      224,
+      43
+    ],
+    [
+      0,
+      70,
+      820,
+      1140,
+      27
+    ],
+    [
+      30,
+      70,
+      829,
+      154,
+      18
+    ],
+    [
+      30,
+      578,
+      829,
+      144,
+      18
+    ],
+    [
+      30,
+      1076,
+      829,
+      134,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "3d"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 78728,
+    "output": 44714,
+    "cacheRead": 568106
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 75952,
+      "output": 25673,
+      "cacheRead": 186679,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Write src/App.tsx"
+      ],
+      "ms": 290416
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 16329,
+      "output": 6817,
+      "cacheRead": 372044,
+      "toolCalls": 5,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 75670
+    }
+  ],
+  "reading": "The sketch builds a full dark tarot-shop landing page: a page-wide dark theme, a top nav (logo + links), a glowing hero collage of overlapping tarot cards with roman-numeral tags and sun/moon/star icon badges behind a faint outline circle, an italic lead line, a big two-line headline, a lavender sales paragraph, a pre-order pill button, and a bottom credits row with a top rule.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: near-black (#1a1033) background, Georgia typeface throughout, default body text set in a warm paper colour."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: bold 20px peach (#d9b56a) wordmark \"ARCANA\" at the left; far right (718px gap) a row of links \"Readings\", \"Deck\", \"Journal\", \"Shop\" each in "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        124,
+        554,
+        563
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Hero visual block: the block is lit by one big deep-indigo glow centred at 70% across / 40% down, about 1464px wide, filling most of the block; behind everythin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        218,
+        166,
+        8
+      ],
+      "paths": [],
+      "instruction": "Italic peach (#d9b56a) lead line \"a deck for the curious\", set large at 20px (a lead line, not small body text), about 174px wide on one line, sitting just abov"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        78,
+        250,
+        504,
+        160
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif, regular-weight, tight-set headline (line-height 0.95) in exactly two lines: \"Draw three. Read\" / \"the room.\" — keep these line breaks, each"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        74,
+        523,
+        422,
+        78
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Lavender (#c9b9e6) body paragraph: \"Seventy-eight cards, foil-edged, with a guide that skips the mystic fog and talks like a friend over tea.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        683,
+        224,
+        43
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Pill-shaped button with a 1px peach (#d9b56a) border and bold near-black (#1a1033) label text \"PRE-ORDER · €38\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        823,
+        1134,
+        23
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Footer info row, 1140px wide: a 1px #d9b56a rule along the TOP edge only (not a box — no border on the other sides, no fill), with 14px text underneath. Three i"
+    }
+  ],
+  "rejected": []
+}

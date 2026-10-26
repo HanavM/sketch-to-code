@@ -182,6 +182,15 @@ export function factsInPage() {
       radii: [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius],
       bgSize: cs.backgroundSize,
       bgPos: cs.backgroundPosition,
+      bgRepeat: cs.backgroundRepeat,
+      // n251: groups of small clip-path tiles (round 27 e5 hexagon pods per node) were lost under a meter list note
+      clipTiles: (() => {
+        const G = [...el.querySelectorAll('*')].filter((g) => g.children.length >= 6 && [...g.children].every((k) => { const s = getComputedStyle(k); return s.clipPath && s.clipPath !== 'none' && k.getBoundingClientRect().width <= 80 }))
+        if (!G.length) return null
+        return G.map((g) => { const gs = getComputedStyle(g), ks = [...g.children], k0 = ks[0].getBoundingClientRect(), b = g.getBoundingClientRect()
+          return { x: Math.round(b.left), y: Math.round(b.top), cols: gs.gridTemplateColumns, gap: gs.gap, w: Math.round(k0.width), h: Math.round(k0.height), clip: getComputedStyle(ks[0]).clipPath,
+            shift: ks.map((k, i) => [i, parseFloat(getComputedStyle(k).marginLeft) || 0]).filter((q) => q[1] > 0), colours: ks.map((k) => rgba(getComputedStyle(k).backgroundColor)) } })
+      })(),
       bgBlend: cs.mixBlendMode,
       // an arch: round top corners, square bottom ones (round 4 c1 arch said as a circle, built as a ball)
       radiusBottom: parseFloat(cs.borderBottomLeftRadius) || 0,
@@ -641,7 +650,7 @@ export function factsInPage() {
         const b = svg.getBoundingClientRect()
         const ls = [...svg.querySelectorAll('line')].map((l) => ({ x1: +l.getAttribute('x1'), y1: +l.getAttribute('y1'), x2: +l.getAttribute('x2'), y2: +l.getAttribute('y2'), c: rgba(getComputedStyle(l).stroke) }))
         const sw = [...el.querySelectorAll('i, span')].filter((k) => { const kb = k.getBoundingClientRect(); return !k.children.length && !(k.innerText || '').trim() && kb.width >= 6 && kb.width <= 16 && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 }).map((k) => ({ c: rgba(getComputedStyle(k).backgroundColor), t: (k.parentElement.innerText || '').trim() }))
-        return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), paths: ps.map((p) => ({ d: p.getAttribute('d'), fill: rgba(getComputedStyle(p).fill), op: +getComputedStyle(p).opacity })), lines: ls, legend: sw }
+        return { x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), paths: [...svg.querySelectorAll('path')].filter((p) => ps.includes(p) || (rgba(getComputedStyle(p).stroke)?.a > 0.05 && parseFloat(getComputedStyle(p).strokeWidth) >= 1)).map((p) => { const g = getComputedStyle(p); return { d: p.getAttribute('d'), fill: g.fill === 'none' ? null : rgba(g.fill), fop: +g.fillOpacity, op: +g.opacity, stroke: g.stroke && g.stroke !== 'none' ? rgba(g.stroke) : null, sw: parseFloat(g.strokeWidth) || 0 } }), lines: ls, legend: sw }
       })(),
       // one word whose letters each carry their own size and weight (round 7 c2 'VARIABLE' wave: no note, invented copy)
       // n156: lines broken by <br> and set far apart (round 14 c4 chapter list: 4 labels 150px apart, built as one vertical
@@ -720,7 +729,10 @@ export function factsInPage() {
         // n182: a small progress ring (dashed stroke arc) with its figure inside is said verbatim with its animation
         // (round 18 c4 '29%' ring: built an empty square)
         const ringArc = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && [...el.querySelectorAll('circle')].some((q) => q.getAttribute('stroke-dasharray')) && el.outerHTML.length <= 1400
-        if (el.tagName.toLowerCase() !== 'svg' || (el.querySelector('textPath, text') && !ringArc)) return null
+        // n251: a labelled drawing (round 27 c5 climate wheel: twelve wedge paths, rain dots and month letters; c4 laurel:
+        // leaves, stems and 'OFFICIAL SELECTION') was said as loose blobs and built as rounded lumps: said verbatim
+        const labelled = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && el.querySelectorAll('text').length >= 2 && el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline').length >= 6 && el.outerHTML.length <= 4200
+        if (el.tagName.toLowerCase() !== 'svg' || (el.querySelector('textPath, text') && !ringArc && !labelled)) return null
         const c = el.cloneNode(true)
         for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
         const src = c.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
@@ -751,6 +763,9 @@ export function factsInPage() {
           const dots = shapes.filter((q) => q.tagName.toLowerCase() === 'circle' && rgba(getComputedStyle(q).fill)?.a > 0.05)
           return st.length >= 1 && dots.length >= 2 && st.length + dots.length === shapes.length
         })()
+        // n251: a small filled area chart (round 27 e1 histogram: three see-through filled paths) said verbatim
+        const areaChart = shapes.length >= 2 && shapes.length <= 8 && shapes.every((q) => /^(path|polygon)$/i.test(q.tagName) && rgba(getComputedStyle(q).fill)?.a > 0.05) && src.length <= 1800 && r.width * r.height < 0.1 * innerWidth * innerHeight && new Set(shapes.map((q) => getComputedStyle(q).fill)).size >= 2
+        if (labelled || areaChart) return { src, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) }
         if (src.length > 1800 || (!lineArt && !ringArc && !lonePath && !dotLine && !/<clipPath|<pattern|<mask|preserveAspectRatio="none"/.test(src))) return null
         return { src: lonePath ? src2.replace(/^<svg([^>]*)>/, (m, a) => `<svg${a.replace(/ (?:width|height)="[^"]*"/g, '')}>`) : src2, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), filter: lonePath && cs.filter && cs.filter !== 'none' ? cs.filter : null, lone: lonePath }
       })(),
@@ -3336,7 +3351,9 @@ function gradientWords(f) {
   // n216: stops 1% apart are a hard edge too (round 21 c5 horizon: purple at 55%, near-black at 56%)
   const cut = stops && stops.findIndex((x, i) => i && x.at - stops[i - 1].at <= 1 && dist(x.c, stops[i - 1].c) > 40)
   if (ends && stops && cut > 0) return `${stops.slice(0, cut).map((x) => `${colourName(x.c)} (${hexOf(x.c)})`).join(' to ')} gradient down to ${stops[cut].at}% (the edge at y ${Math.round(stops[cut].at / 100 * (f.rect?.h || 900))}px: the page is exactly ${Math.round(f.rect?.h || 900)}px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid ${colourName(stops[cut].c)} (${hexOf(stops[cut].c)}) below it to the ${ends[1]} (linear-gradient(${stops.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}))`
-  if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? `, its stop at ${x.at}% of the way along, fully opaque` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
+  // n251: a stop is see-through when its alpha is under 1 (round 27 c2 glass bottle: #f7c6c0cc ... said 'fully opaque')
+  const seeA = (c) => c && c.a < 0.95 ? `at ${Math.round(c.a * 100)}% opacity, see-through` : 'fully opaque'
+  if (ends && stops && stops.length >= 3) return `${stops.map((x, i) => `${colourName(x.c)} (${hexOf(x.c)}${i && i < stops.length - 1 ? `, its stop at ${x.at}% of the way along, ${seeA(x.c)}` : x.c?.a < 0.95 ? `, ${seeA(x.c)}` : ''})`).join(' to ')} gradient, ${ends[0]} to ${ends[1]}`
   return `${names.join(' to ')} gradient`
 }
 /** Colour stops of a single linear-gradient: [{c, at%}], null when there is more than one layer or a stop is see-through. */
@@ -4784,7 +4801,10 @@ function decideOne(f, page, marked, said) {
     const A = f.areaSvg
     const head = f.kidTexts[0] ?? ''
     const lg = A.legend.length ? `; a legend at its top right, a small square colour swatch before each word: ${A.legend.map((l) => `${hexOf(l.c)} ${quote(l.t, 12)}`).join(', ')}` : ''
-    const path = (p) => `<path d="${p.d}" fill="${hexOf(p.fill)}"${p.op < 0.99 ? ` opacity="${+p.op.toFixed(2)}"` : ''}/>`
+    // n251: a see-through fill and a stroked edge are kept (round 27 e3 energy chart: #4f9dff22 fills said solid, the
+    // blue line on top dropped; built as two opaque hills)
+    const fa = (p) => (p.fill?.a ?? 1) * (p.fop ?? 1)
+    const path = (p) => `<path d="${p.d}" fill="${p.fill && p.fill.a > 0.004 ? hexOf(p.fill) : 'none'}"${p.fill && fa(p) < 0.97 ? ` fill-opacity="${+fa(p).toFixed(2)}"` : ''}${p.stroke && p.stroke.a > 0.05 && p.sw >= 1 ? ` stroke="${hexOf(p.stroke)}" stroke-width="${+p.sw.toFixed(1)}"` : ''}${p.op < 0.99 ? ` opacity="${+p.op.toFixed(2)}"` : ''}/>`
     const line = (l) => `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${hexOf(l.c)}"/>`
     return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) chart card ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${hexOf(f.border.colour)} border` : ''}; small bold title ${quote(head, 40)} top left${lg}; the chart is a STACKED AREA chart (overlapping filled hills, NOT bars, NOT a bar chart, NOT lines only): an inline <svg width="${A.w}" height="${A.h}"> placed ${A.x}px from the card's left and ${A.y}px from its top, holding exactly these shapes, back to front: ${A.paths.map(path).join(' ')}${A.lines.length ? ` ${A.lines.map(line).join(' ')}` : ''}`) }
   }
@@ -4938,6 +4958,12 @@ function decideOne(f, page, marked, said) {
       const halos = cr.halo ? [...cr.halo.matchAll(/(rgba?\([^)]+\))\s+0px\s+0px\s+0px\s+([\d.]+)px/g)].map((m) => ({ c: parse(m[1]), px: Math.round(+m[2]) })) : []
       return { kind: 'box', note: withFx(`a ${cr.px}px SOLID round disc (border-radius 50%, filled right to its middle: NOT a ring, NOT a donut, NO hole, no segments, no labels), filled edge to edge with ONE smooth conic gradient (exactly: background: ${cssHex(cr.css)})${halos.length ? `; round it ${halos.length} soft flat halo band${halos.length > 1 ? 's' : ''} (exactly: box-shadow: ${halos.map((q) => `0 0 0 ${q.px}px ${hexOf(q.c)}`).join(', ')}), each a flat paler ring hugging the disc, no blur` : ''}`) }
     }
+    // n251: a gauge arc painted by one conic gradient with a start angle and degree stops (round 27 e3 thermostat:
+    // 'from 225deg, blue 0, amber 160deg, red 200deg, grey to 270deg, clear after') was parsed as 0% segments and a
+    // -170% track, built as a plain grey ring
+    if (cr.hole && /from\s+-?[1-9][\d.]*deg|[\s(][1-9][\d.]*deg/.test(cr.css ?? '')) {
+      return { kind: 'box', note: withFx(`a ${cr.px}px GAUGE ring (NOT a donut chart, NOT plain grey): one round div painted exactly background: ${cssHex(cr.css)}; border-radius 50%; a ${colourName(cr.hole.fill)} (${hexOf(cr.hole.fill)}) inner disc inset ${cr.hole.ring}px covers its middle, so only a ${cr.hole.ring}px coloured arc shows, blending colour to colour round the circle, open (see-through) where the gradient is transparent`) }
+    }
     if (cr.stops.length >= 3) {
       const segs = cr.stops.slice(0, -1).map((g, i) => `${i ? 'then ' : ''}${colourName(g.c)} ${Math.round(g.to - g.from)}%`)
       const host = fill ? `${colourName(f.bg)} card, ` : ''
@@ -4981,7 +5007,10 @@ function decideOne(f, page, marked, said) {
   // a short pill label (not a link or button): its fill, border and bold copy (round 5 c4: 'pill input')
   if (f.radius >= h / 2 - 2 && f.kidCount === 0 && f.text && f.text.length <= 24 && h <= 84 && w <= 300 && !/^(a|button|input)$/.test(f.tag) && !f.centred && (bordered || fill) && !/…$|\.\.\.$|^search\b/i.test(f.text) && !f.regionKids.length) {
     const ink = textCol && fill && dist(f.colour, f.bg) > 150 ? `${textCol} ` : ''
-    return { kind: 'box', note: withFx(`${fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} ` : ''}pill label${bordered ? ` with a ${Math.round(f.border.w)}px ${colourName(f.border.colour)} border` : ''}, ${f.font.weight >= 600 ? 'bold ' : ''}${ink}${quote(f.text)}`) }
+    // n251: a pill painted by a gradient (round 27 c1 gold 'PRE-ORDER' button: transparent fill, gold-to-cream-to-gold
+    // background-image) was said with no fill at all and built as an empty outline with its words lost
+    const gpaint = !fill && /^linear-gradient/.test((f.bgImage ?? '').trim()) ? `${Math.round(w)}x${Math.round(h)}px pill FILLED with background: ${cssKeep(f.bgImage)} (a solid painted capsule, NOT an empty outline; its words sit on the paint, visible) ` : ''
+    return { kind: 'box', note: withFx(`${gpaint}${fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} ` : ''}pill label${bordered ? ` with a ${Math.round(f.border.w)}px ${colourName(f.border.colour)} border` : ''}, ${f.font.weight >= 600 ? 'bold ' : ''}${ink}${quote(f.text)}`) }
   }
 
   // a filled card with a thick coloured left edge (a calendar event, round 6 e5 'Launch sync' said as an 'off-white card')
@@ -6107,7 +6136,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   // a big textless gradient block given no words (round 7 e4 product photo: built as a blank crossed placeholder)
   regions.forEach((f) => {
     const d = out.get(f.role)
-    if (!d.kind || d.note || f.text || f.rect.w < 200 || f.rect.h < 200) return
+    // n251: a 'lit by one big glow' note on a block whose first layer is tiled dots is re-said as a starfield below
+    const litDots = /block lit by /.test(d.note ?? '') && /^radial-gradient/.test(f.bgImage ?? '') && /^\s*[\d.]+px/.test(f.bgSize ?? '') && ((f.bgImage ?? '').match(/radial-gradient\(/g)?.length ?? 0) === 2
+    if (!d.kind || (d.note && !litDots) || f.text || f.rect.w < 200 || f.rect.h < 200) return
     const cs = (f.bgImageColours || []).map(parse).filter(Boolean)
     // faint repeating stripes over the page are a grain texture, not a photo (round 8 c5: said as an empty
     // 'product-photo backdrop' with a black-to-black gradient)
@@ -6127,19 +6158,25 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // at 90px and 140px tiles were past the 60px dot-grid limit, said as a 'white to black product-photo backdrop' and lost)
     const tiles = (f.bgSize ?? '').split(',').map((t) => t.trim().match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/))
     const layers = (f.bgImage ?? '').match(/radial-gradient\(/g)?.length ?? 0
-    if (/^radial-gradient/.test(f.bgImage ?? '') && tiles[0] && layers >= 1 && tiles.every(Boolean) && (layers >= 2 || +tiles[0][1] > 60) && Math.max(...tiles.map((t) => +t[1])) <= 260 && cs.some((c) => c.a > 0.3)) {
+    // n251: a dot layer over one page-sized glow layer is a starfield too (round 27 c1 sky: 60px dots plus a 1280x900
+    // indigo glow, said 'block lit by one big glow' and the dots lost)
+    const bigGlow = layers === 2 && tiles.length === 2 && tiles[1] && +tiles[1][1] >= 600 && +tiles[0][1] <= 120
+    if (/^radial-gradient/.test(f.bgImage ?? '') && tiles[0] && layers >= 1 && tiles.every(Boolean) && (layers >= 2 || +tiles[0][1] > 60) && (Math.max(...tiles.map((t) => +t[1])) <= 260 || bigGlow) && cs.some((c) => c.a > 0.3)) {
       const flat = f.bg?.a > 0.05 ? f.bg : null
       d.kind = 'box'
-      d.note = `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px STARFIELD layer at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, behind everything, holding nothing): ${flat ? `a flat ${hexOf(flat)} fill` : 'NO fill of its own (the page colour shows all round the dots)'} scattered with ${layers} tiled layer${layers > 1 ? 's' : ''} of tiny dots, exactly: background-image: ${cssKeep(f.bgImage)}; background-size: ${f.bgSize}; background-position: ${f.bgPos ?? '0 0'}; tiny sharp dots spread over the WHOLE area, NOT a gradient wash, NOT a backdrop block, NOT a dark-to-light fade`
+      d.note = `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px STARFIELD layer at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, behind everything, holding nothing): ${flat ? `a flat ${hexOf(flat)} fill` : 'NO fill of its own (the page colour shows all round the dots)'} scattered with ${bigGlow ? 'one tiled layer of tiny dots over one big soft glow layer the size of the block' : `${layers} tiled layer${layers > 1 ? 's' : ''} of tiny dots`}, exactly: background-image: ${cssKeep(f.bgImage)}; background-size: ${f.bgSize}; background-position: ${f.bgPos ?? '0 0'}; tiny sharp dots spread over the WHOLE area, NOT a gradient wash, NOT a backdrop block, NOT a dark-to-light fade`
       return
     }
     const dotTile = (f.bgSize ?? '').split(',')[0].trim().match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/)
-    if (/^radial-gradient/.test(f.bgImage ?? '') && dotTile && +dotTile[1] <= 60 && cs.some((c) => c.a > 0.3)) {
-      const ink = cs.find((c) => c.a > 0.3), cell = Math.round(+dotTile[1]), cellY = Math.round(+(dotTile[2] ?? dotTile[1]))
+    // n251: a faint dot grid (round 27 c3: #24184f at 13% on 28px tiles) was past the 30% ink floor, said as a
+    // '#24184f to #000000' backdrop and built as a near-black page
+    const inkA = cs.some((c) => c.a > 0.3) ? 0.3 : cs.some((c) => c.a < 0.01) ? 0.05 : 0.3
+    if (/^radial-gradient/.test(f.bgImage ?? '') && dotTile && +dotTile[1] <= 60 && cs.some((c) => c.a > inkA)) {
+      const ink = cs.find((c) => c.a > inkA), cell = Math.round(+dotTile[1]), cellY = Math.round(+(dotTile[2] ?? dotTile[1]))
       const r = +(((f.bgImage.match(/\)\s*([\d.]+)px/) || [])[1]) || 1)
       const flat = f.bg?.a > 0.05 ? f.bg : null
       d.kind = 'box'
-      d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)`
+      d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots${ink.a < 0.95 ? ` at ${Math.round(ink.a * 100)}% opacity (faint)` : ''} (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${ink.a < 0.95 ? `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${Math.round(ink.a * 100) / 100})` : hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)`
       return
     }
     const g = gradientWords(f) ?? (cs.length >= 2 ? `pale tinted ${hexOf(cs[0])} to ${hexOf(cs[cs.length - 1])}${linearEnds(f.bgImage) ? ` (${linearEnds(f.bgImage).join(' to ')})` : ''}` : null)
@@ -6584,7 +6621,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       if (f.text && tg.length && !/text-shadow/.test(d.note ?? '')) d.note = `${d.note ? `${d.note}; ` : ''}its letters GLOW (neon): exactly text-shadow: ${f.textShadows.map((x) => `${x.x}px ${x.y}px ${x.blur}px ${x.c ? (x.c.a < 0.95 ? `rgba(${x.c.r}, ${x.c.g}, ${x.c.b}, ${Math.round(x.c.a * 100) / 100})` : hexOf(x.c)) : '#fff'}`).join(', ')}`
       const bs = f.shadow && f.shadow !== 'none' ? f.shadow : null
       const glowB = bs && [...bs.matchAll(/(rgba?\([^)]+\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/g)].some((m) => +m[4] >= 8 && hue(parse(m[1])))
-      if (glowB && !/box-shadow/.test(d.note ?? '')) d.note = `${d.note ? `${d.note}; ` : ''}a coloured GLOW round it (light spilling out, soft): exactly box-shadow: ${css(bs)}`
+      // n251: inset shading is not a glow (round 27 c2 bottle: a light inset left edge and a rose inset right edge said
+      // 'a coloured GLOW round it')
+      const insetOnly = glowB && [...bs.matchAll(/(rgba?\([^)]+\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px[^,]*/g)].filter((m) => +m[4] >= 8 && hue(parse(m[1]))).every((m) => /inset/.test(m[0]))
+      if (glowB && !/box-shadow/.test(d.note ?? '')) d.note = `${d.note ? `${d.note}; ` : ''}${insetOnly ? 'soft coloured SHADING on its inside edges (inset shadows, the look of curved glass; NOT a glow outside it)' : 'a coloured GLOW round it (light spilling out, soft)'}: exactly box-shadow: ${css(bs)}`
     }
     if (d.kind === 'circle' && !f.text && visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && !/box-shadow|#[0-9a-f]{6}/i.test(d.note ?? '') && (d.note ?? '').length < 80) {
       out.set(f.role, { ...d, note: `a ${Math.round(f.rect.w)}px perfectly round SOLID disc at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (border-radius 50%), flat fully opaque ${colourName(f.bg)} ${hexOf(f.bg)} fill (NOT grey, NOT see-through, no outline), with a soft glow halo round it: box-shadow: ${css(f.shadow)}` })
@@ -6857,6 +6897,42 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const dots = (f.pseudoAll ?? []).filter((q) => q.round && q.pw <= 24 && Math.abs(q.pw - q.ph) <= 1)
     const kidNames = f.regionKids.map((k) => (typeof k === 'string' ? k : k.role)).filter(Boolean)
     d.note = `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)} (position absolute, its FULL height kept: ${Math.round(R.h)}px tall, never shorter), background ${grad ?? hexOf(f.bg)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${layers.length ? `, box-shadow: ${[...outer, ...inner].join(', ')}${outer.length ? ' (a big dark drop shadow under it' : ' ('}${inner.length ? `${outer.length ? ', plus ' : ''}a thin inset highlight along its top edge` : ''})` : ''}${dots.length ? `; ${dots.length} small round ${dots[0].pw}px screw dots painted by its ::before/::after at ${dots.map((q) => `${q.l},${q.t}`).join(' and ')} inside it (${dots[0].img ?? hexOf(dots[0].fill)})` : ''}${kidNames.length ? `; the parts drawn on their own (${kidNames.join(', ')}) all sit INSIDE this panel, within its edges` : ''}; ${d.note}`
+  }
+  // n251 (round 27 c3 clay launch): an organic blob (four unequal elliptic % corners) was said 'circle' and built round;
+  // a clay block whose note was only its inset shading lost its own fill, size and rounding (built as nothing)
+  for (const f of regions) {
+    const d = out.get(f.role), R = f.rect
+    if (!d?.kind || (f.text ?? '').trim()) continue
+    const rr = f.radii ?? []
+    const paint = /gradient/.test(f.bgImage ?? '') ? `background: ${cssKeep(f.bgImage)}` : visible(f.bg) ? `background: ${cssKeep(`rgba(${f.bg.r}, ${f.bg.g}, ${f.bg.b}, ${f.bg.a})`)}` : null
+    if (rr.length === 4 && rr.every((x) => /%/.test(x)) && new Set(rr).size >= 3 && paint && R.w >= 120 && !/BLOB/.test(d.note ?? '')) {
+      // the old note keeps its motion and glow; only its circle words become blob
+      const rest = (d.note ?? '').replace(/perfectly round solid disc \(border-radius 50%, not traced from the ink\)|perfectly round|round \(border-radius 50%\)|\bcircle\b|\bdisc\b/g, 'blob')
+      d.note = `an organic BLOB shape (NOT a circle, NOT an ellipse: four unequal rounded corners): one ${Math.round(R.w)}x${Math.round(R.h)}px div at ${Math.round(R.x)},${Math.round(R.y)}, exactly border-radius: ${rr[0].split(' ')[0]} ${rr[1].split(' ')[0]} ${rr[2].split(' ')[0]} ${rr[3].split(' ')[0]} / ${rr.map((x) => x.split(' ')[1] ?? x.split(' ')[0]).join(' ')}; ${paint}${rest ? `; ${rest}` : ''}`
+      continue
+    }
+    // n251: hairlines painted by 2+ no-repeat gradient layers (round 27 e1 crop box: rule-of-thirds lines read as a
+    // white-to-white backdrop and built as a solid white block; c1 ornament rule: two lines and a dot, never said)
+    const gl = (f.bgImage ?? '').match(/gradient\(/g)?.length ?? 0
+    if (gl >= 2 && /no-repeat/.test(f.bgRepeat ?? '') && /(^|[\s,])1px\b/.test(f.bgSize ?? '') && !/BLOB|STARFIELD|DOT-GRID/.test(d.note ?? '')) {
+      const bd = f.border.w >= 1 && visible(f.border.colour) ? `, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border` : ', no border'
+      const sh = f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssKeep(f.shadow)}${/\b(\d{3,})px\b/.test(f.shadow) ? ' (a huge spread that dims everything OUTSIDE the box)' : ''}` : ''
+      d.note = `an EMPTY see-through ${Math.round(R.w)}x${Math.round(R.h)}px box at ${Math.round(R.x)},${Math.round(R.y)} (NO fill: what is under it shows through) whose only paint is thin lines and marks, exactly: background-image: ${cssKeep(f.bgImage)}; background-size: ${f.bgSize}; background-position: ${f.bgPos}; background-repeat: no-repeat${bd}${sh}; NOT a filled block, NOT a backdrop`
+      continue
+    }
+    if (/^soft coloured SHADING on its inside edges|^a coloured GLOW round it/.test(d.note ?? '') && paint && R.w >= 60) {
+      d.note = `a ${Math.round(R.w)}x${Math.round(R.h)}px solid block at ${Math.round(R.x)},${Math.round(R.y)}, ${f.radius >= Math.min(R.w, R.h) / 2 - 1 ? 'round (border-radius 50%)' : `${Math.round(f.radius)}px rounded corners`}, ${paint} (its own opaque fill, NOT see-through, NOT just an outline); ${d.note}`
+    }
+  }
+  for (const f of regions) {
+    const d = out.get(f.role), T = f.clipTiles
+    if (!d?.kind || !T?.length || /clip-path: polygon/.test(d.note ?? '')) continue
+    const pal = [...new Set(T.flatMap((t) => t.colours.map((c) => hexOf(c))))]
+    const L = 'ABCDEFGH'
+    const one = (t, i) => `group ${i + 1} at ${t.x},${t.y}: ${t.colours.map((c) => L[pal.indexOf(hexOf(c))]).join('')}`
+    const t0 = T[0]
+    const sh = t0.shift.length ? `; tiles ${t0.shift[0][0] + 1} to ${t0.shift[t0.shift.length - 1][0] + 1} (a middle row) ${t0.shift.length > 1 ? 'EACH have' : 'has'} margin-left ${t0.shift[0][1]}px (every one of them), so that row sits shifted right (a honeycomb)` : ''
+    d.note = `${d.note ? `${d.note}; ` : ''}PLUS ${T.length} groups of small shaped tiles (KEEP them, each tile its own div, never dropped): each group a grid (grid-template-columns: ${t0.cols}; gap: ${t0.gap}) of ${t0.colours.length} ${t0.w}x${t0.h}px tiles cut by clip-path: ${t0.clip}${sh}; tile colours by letter (${pal.map((c, i) => `${L[i]} = ${c}`).join(', ')}), in order: ${T.map(one).join('; ')}`
   }
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }
