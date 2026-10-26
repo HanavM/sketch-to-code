@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 25 is now at 90%: the email client, cloud drive, type specimen and botanical page all moved up after fixes (unread dots, cut-off previews, menus, leaders). Next: write round 26, ten harder pages."
 round: 25
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90]
-lock: {by: run-n247, until: "2026-10-26T16:54Z"}
+lock: {by: run-n247, until: "2026-10-26T18:17Z"}
 asks: []
 handled:
   - "2026-10-25 14:55 INBOX: agent is pushed every step again (tree, now, round, round_scores, LOG, lock released); n114-n225 LOG lines and nodes are on agent."
