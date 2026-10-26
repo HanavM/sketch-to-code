@@ -1,0 +1,442 @@
+{
+  "id": "c5-crt-terminal",
+  "at": "2026-10-26T02:33:37.078Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8371068735209675,
+    "overallV2": 0.8371068735209675,
+    "overallV1": 0.8169748744773386,
+    "colour": 0.9677211106095646,
+    "structure": 0.7608317752207759,
+    "structureStrict": 0.7070504731012784,
+    "colourAligned": 0.9677211106095646,
+    "structureAligned": 0.7608317752207759,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.4176907212087076
+    },
+    "layout": 0.7947707750157897,
+    "layoutV1": 0.6434944706722132,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      83,
+      63,
+      1114,
+      694
+    ],
+    [
+      1,
+      83,
+      63,
+      1114,
+      694
+    ],
+    [
+      2,
+      83,
+      63,
+      1114,
+      695
+    ],
+    [
+      1,
+      150,
+      120,
+      235,
+      60
+    ],
+    [
+      1,
+      150,
+      330,
+      620,
+      29
+    ],
+    [
+      1,
+      150,
+      359,
+      620,
+      29
+    ],
+    [
+      1,
+      150,
+      388,
+      620,
+      29
+    ],
+    [
+      1,
+      150,
+      417,
+      620,
+      29
+    ],
+    [
+      1,
+      150,
+      446,
+      620,
+      29
+    ],
+    [
+      1,
+      820,
+      130,
+      310,
+      380
+    ],
+    [
+      10,
+      840,
+      150,
+      270,
+      42
+    ],
+    [
+      10,
+      820,
+      486,
+      306,
+      20
+    ],
+    [
+      1,
+      150,
+      640,
+      70,
+      17
+    ],
+    [
+      1,
+      248,
+      640,
+      72,
+      17
+    ],
+    [
+      1,
+      348,
+      640,
+      63,
+      17
+    ],
+    [
+      1,
+      439,
+      640,
+      72,
+      17
+    ],
+    [
+      0,
+      84,
+      803,
+      1112,
+      21
+    ],
+    [
+      17,
+      84,
+      803,
+      218,
+      21
+    ],
+    [
+      17,
+      1137,
+      803,
+      59,
+      21
+    ],
+    [
+      0,
+      1043,
+      832,
+      37,
+      36
+    ],
+    [
+      0,
+      1114,
+      832,
+      36,
+      35
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "menu",
+      "iou": 0.36838329081632654,
+      "parts": 4,
+      "rect": {
+        "x": 150,
+        "y": 640,
+        "w": 361.015625,
+        "h": 17
+      }
+    },
+    {
+      "role": "terminal-output",
+      "iou": 0.993103448275862,
+      "parts": 5,
+      "rect": {
+        "x": 150,
+        "y": 330,
+        "w": 620,
+        "h": 145
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "gradient",
+      "mono",
+      "motion"
+    ],
+    "missing": [
+      "glow",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 57528,
+    "output": 32728,
+    "cacheRead": 370871
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58507,
+      "output": 19157,
+      "cacheRead": 357801,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 203530
+    }
+  ],
+  "reading": "The user sketched a full-screen retro terminal/dashboard mockup — a big outer panel, an ASCII-art logo block, five lines of terminal log text, a bordered status panel on the right, a repeating-stripe overlay, a row of function-key buttons, a header/footer caption line, and two small LED dots — and typed detailed notes pinning down exact colors, fonts, positions and copy for each piece.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        63,
+        1114,
+        694
+      ],
+      "paths": [
+        "s0",
+        "s12"
+      ],
+      "instruction": "Add a full-bleed rectangular dashboard panel/container matching the large outlined rectangle (drawn twice to confirm its bounds), filled with a dark navy-to-bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 4,
+          "fontPx": 10
+        }
+      ],
+      "region": [
+        83,
+        63,
+        1114,
+        694
+      ],
+      "paths": [
+        "s0",
+        "s12"
+      ],
+      "instruction": "Add a box-drawing ASCII-art frame as live 14px Courier New #39ff6a text in a <pre> element (white-space: pre, line-height 15px) positioned at page coordinates 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 5,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        154,
+        330,
+        612,
+        144
+      ],
+      "paths": [],
+      "instruction": "Build the terminal log block part by part as six real elements with live text (nothing invented, nothing left out), each one-line part kept on one line (white-s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        133,
+        303,
+        373
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add a 310x380px message/status box at 820,130 — NOT a filled bar: no fill, a 2px #39ff6a border all round, 0px border-radius. Inside, placeholder 14px #39ff6a t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        63,
+        1114,
+        694
+      ],
+      "paths": [
+        "s0",
+        "s12"
+      ],
+      "instruction": "Add big horizontal repeating stripes over the upper-left of the gradient panel, NOT a smooth gradient: repeating-linear-gradient(0deg, transparent 0px 2px, #000"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s11",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 145
+        }
+      ],
+      "region": [
+        154,
+        644,
+        972,
+        9
+      ],
+      "paths": [],
+      "instruction": "Build the function-key bar part by part as four real elements with live text (nothing invented, nothing left out), each kept on one line (white-space: nowrap, m"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s11",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 145
+        }
+      ],
+      "region": [
+        84,
+        803,
+        1112,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a header/caption row below the panel with \"NODE-1 TERMINAL · MODEL 84\" on the left and \"● POWER\" on the right; its text color is #6b6b55 (grey), NOT the pag"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1043,
+        832,
+        37,
+        36
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a small 44px glowing status LED dot, gradient from brown to near-black."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1114,
+        832,
+        36,
+        35
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Add a second small 44px glowing status LED dot, gradient from brown to near-black, next to the first."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

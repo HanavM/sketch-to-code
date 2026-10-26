@@ -1,0 +1,552 @@
+{
+  "id": "c2-fold-cube",
+  "at": "2026-10-26T02:13:24.733Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9134774309371017,
+    "overallV2": 0.9134774309371017,
+    "overallV1": 0.8460431921913597,
+    "colour": 0.9642880053058401,
+    "structure": 0.8938602611547708,
+    "structureStrict": 0.7271774059477407,
+    "colourAligned": 0.9642880053058401,
+    "structureAligned": 0.8938602611547708,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8566399778903159
+    },
+    "layout": 0.9046889814827435,
+    "layoutV1": 0.9046889814827435,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      644,
+      144,
+      472,
+      471
+    ],
+    [
+      1,
+      645,
+      144,
+      472,
+      471
+    ],
+    [
+      0,
+      84,
+      40,
+      1112,
+      34
+    ],
+    [
+      3,
+      84,
+      43,
+      65,
+      28
+    ],
+    [
+      3,
+      898,
+      40,
+      298,
+      34
+    ],
+    [
+      5,
+      898,
+      47,
+      48,
+      20
+    ],
+    [
+      5,
+      978,
+      47,
+      32,
+      20
+    ],
+    [
+      5,
+      1042,
+      47,
+      43,
+      20
+    ],
+    [
+      5,
+      1117,
+      40,
+      79,
+      34
+    ],
+    [
+      0,
+      84,
+      183,
+      223,
+      20
+    ],
+    [
+      0,
+      88,
+      220,
+      514,
+      251
+    ],
+    [
+      11,
+      88,
+      220,
+      514,
+      84
+    ],
+    [
+      11,
+      88,
+      304,
+      514,
+      84
+    ],
+    [
+      13,
+      290,
+      296,
+      192,
+      99
+    ],
+    [
+      11,
+      88,
+      387,
+      514,
+      84
+    ],
+    [
+      0,
+      84,
+      490,
+      452,
+      57
+    ],
+    [
+      0,
+      84,
+      603,
+      145,
+      43
+    ],
+    [
+      0,
+      261,
+      601,
+      144,
+      46
+    ],
+    [
+      0,
+      730,
+      640,
+      300,
+      60
+    ],
+    [
+      0,
+      700,
+      200,
+      360,
+      360
+    ],
+    [
+      20,
+      829,
+      232,
+      94,
+      310
+    ],
+    [
+      21,
+      952,
+      245,
+      83,
+      323
+    ],
+    [
+      21,
+      819,
+      219,
+      216,
+      236
+    ],
+    [
+      21,
+      708,
+      219,
+      327,
+      106
+    ],
+    [
+      21,
+      708,
+      219,
+      115,
+      299
+    ],
+    [
+      21,
+      708,
+      289,
+      251,
+      279
+    ],
+    [
+      21,
+      722,
+      420,
+      301,
+      148
+    ],
+    [
+      0,
+      710,
+      217,
+      349,
+      113
+    ],
+    [
+      0,
+      723,
+      416,
+      321,
+      159
+    ],
+    [
+      0,
+      84,
+      723,
+      1113,
+      97
+    ],
+    [
+      30,
+      84,
+      723,
+      260,
+      97
+    ],
+    [
+      31,
+      109,
+      745,
+      210,
+      32
+    ],
+    [
+      31,
+      109,
+      777,
+      210,
+      20
+    ],
+    [
+      30,
+      368,
+      723,
+      260,
+      97
+    ],
+    [
+      34,
+      393,
+      745,
+      210,
+      32
+    ],
+    [
+      34,
+      393,
+      777,
+      210,
+      20
+    ],
+    [
+      30,
+      652,
+      723,
+      260,
+      97
+    ],
+    [
+      37,
+      677,
+      745,
+      210,
+      32
+    ],
+    [
+      37,
+      677,
+      777,
+      210,
+      20
+    ],
+    [
+      30,
+      937,
+      723,
+      260,
+      97
+    ],
+    [
+      40,
+      962,
+      745,
+      210,
+      32
+    ],
+    [
+      40,
+      962,
+      777,
+      210,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "gradient-text",
+      "motion",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46697,
+    "output": 28739,
+    "cacheRead": 462973
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49135,
+      "output": 17388,
+      "cacheRead": 450366,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 184660
+    }
+  ],
+  "reading": "This is a dark-themed SaaS landing-page hero: a nav row, a cyan eyebrow label, a 3-line gradient headline, a lavender subhead paragraph, two CTA buttons, a dashed circle behind an animated 3D CSS cube (with two of its faces acting as buttons), a soft floor shadow under the cube, and a 4-up stats row at the bottom, all on a radial-gradient indigo-to-black background.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        53,
+        1112,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav row: bold 18px \"◆ hexa\" logo first, then links Product, Docs, Pricing, Sign in; \"Sign in\" is the selected link shown as a white-filled, fully rounded 79"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        183,
+        215,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small eyebrow label above the headline: 13px wide-spaced letters (letter-spacing 5px), bold (font-weight 700), text \"SIX SIDES · ONE API\", coloured cyan #29d3c2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 76
+        }
+      ],
+      "region": [
+        88,
+        220,
+        504,
+        251
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica-heavy headline, tight-set letters, line-height 0.95, set in exactly 3 lines that must keep these breaks (white-space: nowrap, no max-width narro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        84,
+        490,
+        452,
+        58
+      ],
+      "paths": [],
+      "instruction": "Subheading paragraph below the headline, lavender text #c9c3ee (not the page's default off-white): \"Hexa turns six sources into one live cube you can turn, slic"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        603,
+        145,
+        43
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Primary CTA button: off-white filled card/pill with black text #0b0a18 (not the page's off-white text) reading \"Start building\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        261,
+        601,
+        144,
+        46
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Secondary CTA button next to the primary one: off-white outline (ghost) button reading \"Watch it turn\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        644,
+        144,
+        472,
+        471
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Decorative backdrop ring behind the cube: a big, faint white outline circle with a 1px dashed #ffffff border (dashes, not a solid stroke), purely decorative, no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        203,
+        353,
+        354
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A real CSS 3D cube (not a flat/projected drawing or SVG): a 360x360px scene at page position 700,200 with perspective: 1200px; inside it one 240x240px group div"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        734,
+        643,
+        293,
+        54
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Soft floor shadow under the cube: one 300x60px ellipse at page 730,640, position absolute, border-radius 50%, background: radial-gradient(#000000aa, transparent"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        723,
+        1113,
+        97
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Row of 4 stat cards below the hero, each showing a stat: \"6 live sources\", \"40ms median query\", \"1.2B rows folded daily\", \"99.99% uptime\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

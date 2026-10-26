@@ -1,0 +1,773 @@
+{
+  "id": "e1-design-tool",
+  "at": "2026-10-26T02:41:00.279Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.28450352762049297,
+    "overallV2": 0.28450352762049297,
+    "overallV1": 0.22381427859238467,
+    "colour": 0.782157891242633,
+    "structure": 0.6788491521511685,
+    "structureStrict": 0.595954572802644,
+    "colourAligned": 0.782157891242633,
+    "structureAligned": 0.6788491521511685,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.4936828651418134
+    },
+    "layout": 0.746047595307949,
+    "layoutV1": 0.746047595307949,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      48
+    ],
+    [
+      2,
+      12,
+      12,
+      14,
+      24
+    ],
+    [
+      2,
+      48,
+      8,
+      32,
+      32
+    ],
+    [
+      2,
+      84,
+      12,
+      15,
+      24
+    ],
+    [
+      2,
+      120,
+      12,
+      13,
+      24
+    ],
+    [
+      2,
+      156,
+      12,
+      10,
+      24
+    ],
+    [
+      2,
+      192,
+      12,
+      22,
+      24
+    ],
+    [
+      2,
+      645,
+      14,
+      103,
+      20
+    ],
+    [
+      2,
+      1207,
+      9,
+      61,
+      30
+    ],
+    [
+      1,
+      0,
+      48,
+      1280,
+      852
+    ],
+    [
+      11,
+      0,
+      48,
+      240,
+      852
+    ],
+    [
+      12,
+      0,
+      48,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      76,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      104,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      132,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      160,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      188,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      216,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      244,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      272,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      300,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      328,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      356,
+      239,
+      28
+    ],
+    [
+      12,
+      0,
+      384,
+      239,
+      28
+    ],
+    [
+      11,
+      240,
+      48,
+      800,
+      852
+    ],
+    [
+      26,
+      344,
+      132,
+      55,
+      17
+    ],
+    [
+      26,
+      340,
+      150,
+      600,
+      420
+    ],
+    [
+      28,
+      388,
+      200,
+      270,
+      74
+    ],
+    [
+      28,
+      380,
+      300,
+      140,
+      40
+    ],
+    [
+      28,
+      724,
+      193,
+      180,
+      180
+    ],
+    [
+      28,
+      774,
+      382,
+      74,
+      26
+    ],
+    [
+      28,
+      560,
+      473,
+      9,
+      17
+    ],
+    [
+      28,
+      583,
+      470,
+      44,
+      18
+    ],
+    [
+      34,
+      591,
+      471,
+      28,
+      17
+    ],
+    [
+      26,
+      256,
+      866,
+      24,
+      18
+    ],
+    [
+      11,
+      1040,
+      48,
+      240,
+      852
+    ],
+    [
+      37,
+      1041,
+      48,
+      239,
+      117
+    ],
+    [
+      38,
+      1057,
+      60,
+      207,
+      17
+    ],
+    [
+      38,
+      1057,
+      87,
+      207,
+      28
+    ],
+    [
+      40,
+      1057,
+      87,
+      100,
+      28
+    ],
+    [
+      41,
+      1065,
+      92,
+      8,
+      18
+    ],
+    [
+      41,
+      1077,
+      92,
+      20,
+      18
+    ],
+    [
+      40,
+      1165,
+      87,
+      100,
+      28
+    ],
+    [
+      44,
+      1173,
+      92,
+      8,
+      18
+    ],
+    [
+      44,
+      1185,
+      92,
+      20,
+      18
+    ],
+    [
+      38,
+      1057,
+      123,
+      207,
+      28
+    ],
+    [
+      47,
+      1057,
+      123,
+      100,
+      28
+    ],
+    [
+      48,
+      1065,
+      128,
+      11,
+      18
+    ],
+    [
+      48,
+      1080,
+      128,
+      20,
+      18
+    ],
+    [
+      47,
+      1165,
+      123,
+      100,
+      28
+    ],
+    [
+      51,
+      1173,
+      128,
+      9,
+      18
+    ],
+    [
+      51,
+      1186,
+      128,
+      20,
+      18
+    ],
+    [
+      37,
+      1041,
+      165,
+      239,
+      81
+    ],
+    [
+      54,
+      1057,
+      177,
+      207,
+      17
+    ],
+    [
+      54,
+      1057,
+      203,
+      207,
+      28
+    ],
+    [
+      56,
+      1065,
+      208,
+      13,
+      18
+    ],
+    [
+      37,
+      1041,
+      245,
+      239,
+      81
+    ],
+    [
+      58,
+      1057,
+      257,
+      207,
+      17
+    ],
+    [
+      58,
+      1057,
+      284,
+      207,
+      28
+    ],
+    [
+      60,
+      1065,
+      291,
+      14,
+      14
+    ],
+    [
+      60,
+      1087,
+      289,
+      67,
+      18
+    ],
+    [
+      37,
+      1041,
+      326,
+      239,
+      81
+    ],
+    [
+      63,
+      1057,
+      338,
+      207,
+      17
+    ],
+    [
+      63,
+      1057,
+      364,
+      207,
+      28
+    ],
+    [
+      65,
+      1065,
+      369,
+      67,
+      18
+    ],
+    [
+      37,
+      1041,
+      406,
+      239,
+      81
+    ],
+    [
+      67,
+      1057,
+      418,
+      207,
+      17
+    ],
+    [
+      67,
+      1057,
+      445,
+      207,
+      28
+    ],
+    [
+      69,
+      1065,
+      452,
+      14,
+      14
+    ],
+    [
+      69,
+      1087,
+      450,
+      71,
+      18
+    ],
+    [
+      37,
+      1041,
+      487,
+      239,
+      81
+    ],
+    [
+      72,
+      1057,
+      499,
+      207,
+      17
+    ],
+    [
+      72,
+      1057,
+      525,
+      207,
+      28
+    ],
+    [
+      74,
+      1065,
+      530,
+      42,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 55226,
+    "output": 36340,
+    "cacheRead": 177543
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60159,
+      "output": 22851,
+      "cacheRead": 143770,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 251398
+    }
+  ],
+  "reading": "This sketch mocks up a Figma-style design tool screen: a dark top toolbar, a white Layers sidebar on the left, a white Properties sidebar on the right, and in the middle a large gradient canvas backdrop holding a white 'frame' panel that contains a headline, a decorative pill, a gradient color tile with its size badge, and a small 'Maya' presence chip.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Create a 1280x48px dark grey (#2c2c2c) top toolbar bar spanning the full page width at 0,0, white icons/text: hamburger icon (☰) at x12; a 32x32px #0d99ff fille"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Create a 240x852px white left sidebar panel at 0,48 with a 1px #e0e0e0 border on its right edge only, running to the page bottom. Inside: a 'Layers' section lis"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        51,
+        793,
+        846
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Create an 800x852px canvas backdrop area (within the middle column) filled with a soft gradient from pale #c8c8c8 at the top to black at the bottom — an empty p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Inside the canvas backdrop, add a plain #ffffff rectangular panel, 600x420px at 340,150, empty on its own (not a picture, no X) — it is the 'frame' container th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        344,
+        132,
+        47,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a small grey (#777777) text label reading 'Hero frame' just above the white frame panel."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        388,
+        200,
+        270,
+        75
+      ],
+      "paths": [],
+      "instruction": "Inside the white frame panel, add a big, heavy/bold headline reading 'Ship pages your team loves', placed where the two wavy placeholder lines were drawn."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        384,
+        304,
+        133,
+        32
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Inside the white frame panel, add a plain indigo (#7b61ff) pill-shaped div, 140x40px at 380,300, fully rounded ends (border-radius 999px), no text, no border, n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        723,
+        193,
+        173,
+        173
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Inside the white frame panel, add a 180x180px tile with a yellow-to-red-orange gradient fill (#ffcd29 top-left to #f24e1e bottom-right), 16px rounded corners, p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        774,
+        382,
+        48,
+        7
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Below the gradient tile, add a small vivid sky-blue badge/block with bold white text '180 × 180' showing the tile's dimensions."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        564,
+        475,
+        59,
+        8
+      ],
+      "paths": [],
+      "instruction": "Inside the white frame panel, add a 44x18px pill badge, #14ae5c fill, at 583,470, with 8px left padding, containing bold 11px white text 'Maya'; just to its lef"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1043,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Create a 240x852px white right properties panel at 1040,48 with sections separated by 1px #eeeeee bottom borders: 'Frame' section with X/Y number fields (720, 1"
+    }
+  ],
+  "rejected": []
+}

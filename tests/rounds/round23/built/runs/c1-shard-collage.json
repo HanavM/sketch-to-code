@@ -1,0 +1,405 @@
+{
+  "id": "c1-shard-collage",
+  "at": "2026-10-26T02:07:24.976Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8305140659776452,
+    "overallV2": 0.8305140659776452,
+    "overallV1": 0.8114471196063869,
+    "colour": 0.9761988291684037,
+    "structure": 0.9054618217740984,
+    "structureStrict": 0.8779432953108463,
+    "colourAligned": 0.9761988291684037,
+    "structureAligned": 0.9054618217740984,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9795221167932164
+    },
+    "layout": 0.7434214394105629,
+    "layoutV1": 0.7434214394105629,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      36,
+      156,
+      20
+    ],
+    [
+      0,
+      516,
+      36,
+      40,
+      20
+    ],
+    [
+      0,
+      796,
+      36,
+      62,
+      20
+    ],
+    [
+      0,
+      1098,
+      36,
+      62,
+      20
+    ],
+    [
+      0,
+      120,
+      90,
+      520,
+      560
+    ],
+    [
+      0,
+      520,
+      210,
+      420,
+      420
+    ],
+    [
+      0,
+      860,
+      60,
+      300,
+      380
+    ],
+    [
+      0,
+      52,
+      124,
+      18,
+      316
+    ],
+    [
+      0,
+      180,
+      300,
+      510,
+      253
+    ],
+    [
+      9,
+      180,
+      300,
+      510,
+      126
+    ],
+    [
+      9,
+      180,
+      426,
+      510,
+      127
+    ],
+    [
+      11,
+      180,
+      407,
+      473,
+      166
+    ],
+    [
+      0,
+      595,
+      134,
+      166,
+      92
+    ],
+    [
+      13,
+      595,
+      134,
+      166,
+      92
+    ],
+    [
+      14,
+      595,
+      134,
+      166,
+      93
+    ],
+    [
+      0,
+      900,
+      520,
+      300,
+      17
+    ],
+    [
+      0,
+      900,
+      545,
+      270,
+      72
+    ],
+    [
+      17,
+      900,
+      596,
+      147,
+      17
+    ],
+    [
+      0,
+      183,
+      764,
+      236,
+      45
+    ],
+    [
+      0,
+      958,
+      762,
+      122,
+      110
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9285714285714286,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "uppercase-display",
+      "vertical-type"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 62757,
+    "output": 29212,
+    "cacheRead": 279079
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 66325,
+      "output": 20073,
+      "cacheRead": 268773,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/StickyTape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Edit components/StickyTape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 219882
+    }
+  ],
+  "reading": "This is a magazine-style hero section: a top nav bar, three overlapping abstract gradient/striped cut-out shapes behind a giant two-line headline 'CUT UP & KEPT', a rotated sticky-tape strip on top, a vertical rotated caption on the left edge, a text block with a label/paragraph on the right, a dark CTA button, and a large hollow '09' numeral bottom-right, all on a warm-paper page in Helvetica.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        39,
+        1032,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav bar, part by part, each its own real element with live text, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        120,
+        90,
+        519,
+        560
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Dark blue #2b4c7e (top) to dark navy #0e1a2b (bottom) gradient angled cut-out shape, linear-gradient(160deg, #2b4c7e, #0e1a2b) exactly, lying flat, no drop shad"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        520,
+        220,
+        420,
+        419
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Gently bobbing, ink-like (multiply blend, darkens what's under it, never fully covers) big diagonal 45deg repeating stripes, NOT a smooth gradient: repeating-li"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        860,
+        60,
+        300,
+        380
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Soft yellow-to-amber gradient angled cut-out shape. Corners at exact page points: 860,60 ; 1160,136 ; 1100,440 ; 890,383. Box bounds 300x380 at top-left 860,60,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        601,
+        137,
+        157,
+        61
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "See-through pale yellow (#fffbe8 at 80% opacity) strip of sticky tape, 160x36px, top-left at 600,150 before the turn, then transform: rotate(-12deg) around its "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        124,
+        13,
+        308
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Uppercase wide-spaced vertical caption (letter-spacing 6px, writing-mode: vertical-rl), 12px letters, line about 316px long: 'ISSUE 23 — BROKEN THINGS'; bold (f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 115
+        }
+      ],
+      "region": [
+        188,
+        300,
+        681,
+        252
+      ],
+      "paths": [],
+      "instruction": "Colour-inverting where it crosses what's under it, giant Helvetica heavy uppercase tight-set headline (line-height 0.84), warm paper colour, 'CUT UP & KEPT' set"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 4,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        904,
+        520,
+        292,
+        96
+      ],
+      "paths": [],
+      "instruction": "One row starting at 900,520: first bold #141414 'gold of an old sign.', then on the same line, part by part, each its own real element with live text, nothing i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        183,
+        764,
+        236,
+        45
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Near-black (exactly #141414) bar/button, warm paper text 'VIEW THE SERIES →'; text colour #ece6da (warm paper, not the page's near-black text); square corners ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        968,
+        777,
+        110,
+        77
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Giant Helvetica heavy hollow outlined near-black numeral '09', 110px type, about 122px wide (no larger)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

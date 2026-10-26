@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Trading desk</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0b0e11;font-family:Helvetica,Arial,sans-serif;color:#eaecef;font-size:12px}
+.tk{position:absolute;left:0;top:0;width:1280px;height:36px;background:#181a20;display:flex;align-items:center;gap:28px;padding:0 16px;white-space:nowrap;font-size:12px}.tk b{margin-right:6px}.up{color:#0ecb81}.dn{color:#f6465d}
+.hd{position:absolute;left:0;top:36px;width:1280px;height:56px;border-bottom:1px solid #2b3139;display:flex;align-items:center;gap:28px;padding:0 16px}.hd .p{font-size:22px;font-weight:700}.hd small{display:block;color:#848e9c;font-size:11px}
+.chart{position:absolute;left:0;top:92px;width:880px;height:500px;border-right:1px solid #2b3139;background-image:linear-gradient(#2b313955 1px,#0000 1px),linear-gradient(90deg,#2b313955 1px,#0000 1px);background-size:80px 60px}
+.tf{position:absolute;left:16px;top:104px;display:flex;gap:4px}.tf span{padding:4px 8px;border-radius:4px;color:#848e9c}.tf span.on{background:#2b3139;color:#eaecef}
+.c{position:absolute;width:12px}.c i{position:absolute;left:5px;width:2px}.c b{position:absolute;left:0;width:12px}
+.axis{position:absolute;left:840px;top:130px;display:flex;flex-direction:column;gap:46px;color:#848e9c;font-size:11px}
+.last{position:absolute;left:0;top:286px;width:880px;border-top:1px dashed #0ecb81}.last b{position:absolute;right:0;top:-10px;padding:2px 6px;background:#0ecb81;color:#0b0e11;font-size:11px}
+.vol{position:absolute;left:0;top:520px;width:880px;height:70px;display:flex;align-items:flex-end;gap:8px;padding:0 24px}.vol i{flex:0 0 12px}
+.book{position:absolute;left:880px;top:92px;width:400px;height:500px;padding:12px 16px}.book h4{font-size:13px;margin-bottom:10px}.bh{display:flex;color:#848e9c;font-size:11px;margin-bottom:6px}.bh span,.br span{flex:1}.bh span:last-child,.br span:last-child{text-align:right}
+.br{display:flex;height:20px;align-items:center;position:relative;font-size:12px}.br::before{content:"";position:absolute;right:0;top:2px;height:16px;width:var(--w);background:var(--c)}.br span{position:relative}
+.mid{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:18px;font-weight:700}
+.bot{position:absolute;left:0;top:592px;width:880px;height:308px;border-top:1px solid #2b3139}.tabs{display:flex;gap:24px;padding:0 16px;height:40px;align-items:center;border-bottom:1px solid #2b3139;color:#848e9c;font-weight:700}.tabs .on{color:#eaecef;box-shadow:inset 0 -2px 0 #f0b90b;padding:12px 0}
+table{width:848px;margin:8px 16px;border-collapse:collapse}th{text-align:left;color:#848e9c;font-weight:400;font-size:11px;padding:6px 0}td{padding:9px 0;border-top:1px solid #1e2329}
+.ord{position:absolute;left:880px;top:592px;width:400px;height:308px;border-top:1px solid #2b3139;border-left:1px solid #2b3139;padding:14px 16px}
+.seg{display:flex;background:#2b3139;border-radius:6px;padding:3px;margin-bottom:12px}.seg span{flex:1;text-align:center;padding:7px;border-radius:4px;font-weight:700;color:#848e9c}.seg .b{background:#0ecb81;color:#0b0e11}
+.in{height:38px;border-radius:6px;background:#1e2329;border:1px solid #2b3139;display:flex;align-items:center;justify-content:space-between;padding:0 12px;margin-bottom:10px;color:#848e9c}.in b{color:#eaecef}
+.pc{display:flex;justify-content:space-between;margin-bottom:14px}.pc span{width:80px;height:4px;background:#2b3139;border-radius:2px}.pc span.on{background:#0ecb81}
+.go{height:42px;border-radius:6px;background:#0ecb81;color:#0b0e11;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+</style></head><body>
+<div class="tk" data-r="ticker"><span><b>BTC</b><span class="up">+2.41%</span></span><span><b>ETH</b><span class="dn">-0.87%</span></span><span><b>SOL</b><span class="up">+5.12%</span></span><span><b>XRP</b><span class="dn">-1.30%</span></span><span><b>ADA</b><span class="up">+0.44%</span></span><span><b>DOGE</b><span class="up">+8.90%</span></span><span><b>AVAX</b><span class="dn">-2.05%</span></span><span><b>LINK</b><span class="up">+1.18%</span></span></div>
+<div class="hd" data-r="pair-header" data-must><span class="p">ETH/USDT</span><span class="p dn">3,412.58</span><span><small>24h change</small><span class="dn">-29.81 -0.87%</span></span><span><small>24h high</small>3,488.20</span><span><small>24h low</small>3,371.04</span><span><small>24h volume</small>412,887 ETH</span></div>
+<div class="chart" data-r="candle-chart" data-must></div>
+<div class="tf" data-r="timeframes"><span>1m</span><span>15m</span><span class="on">1H</span><span>4H</span><span>1D</span><span>1W</span></div>
+<div id="candles"></div>
+<div class="last" data-r="last-price"><b>3,412.58</b></div>
+<div class="axis" data-r="price-axis"><span>3,480</span><span>3,450</span><span>3,420</span><span>3,390</span><span>3,360</span><span>3,330</span></div>
+<div class="vol" data-r="volume"></div>
+<div class="book" data-r="order-book" data-must><h4>Order book</h4><div class="bh"><span>Price</span><span>Amount</span><span>Total</span></div>
+<div class="br dn" style="--w:62%;--c:#f6465d22"><span>3,414.20</span><span>4.218</span><span>14,401</span></div><div class="br dn" style="--w:40%;--c:#f6465d22"><span>3,413.85</span><span>2.031</span><span>6,933</span></div><div class="br dn" style="--w:88%;--c:#f6465d22"><span>3,413.40</span><span>8.770</span><span>29,935</span></div><div class="br dn" style="--w:25%;--c:#f6465d22"><span>3,413.02</span><span>1.105</span><span>3,771</span></div><div class="br dn" style="--w:52%;--c:#f6465d22"><span>3,412.71</span><span>3.664</span><span>12,504</span></div>
+<div class="mid dn">3,412.58 ↓ <small style="color:#848e9c;font-size:12px;font-weight:400">$3,412.58</small></div>
+<div class="br up" style="--w:70%;--c:#0ecb8122"><span>3,412.40</span><span>5.002</span><span>17,069</span></div><div class="br up" style="--w:34%;--c:#0ecb8122"><span>3,412.11</span><span>1.880</span><span>6,415</span></div><div class="br up" style="--w:95%;--c:#0ecb8122"><span>3,411.76</span><span>9.410</span><span>32,104</span></div><div class="br up" style="--w:46%;--c:#0ecb8122"><span>3,411.30</span><span>2.744</span><span>9,360</span></div><div class="br up" style="--w:20%;--c:#0ecb8122"><span>3,410.95</span><span>0.912</span><span>3,111</span></div></div>
+<div class="bot" data-r="positions"><div class="tabs"><span class="on">Open orders (2)</span><span>Order history</span><span>Positions</span><span>Assets</span></div><table><tr><th>Time</th><th>Pair</th><th>Type</th><th>Side</th><th>Price</th><th>Amount</th><th>Filled</th></tr><tr><td>14:02:11</td><td>ETH/USDT</td><td>Limit</td><td class="up">Buy</td><td>3,380.00</td><td>1.500</td><td>0%</td></tr><tr><td>13:47:55</td><td>ETH/USDT</td><td>Stop-limit</td><td class="dn">Sell</td><td>3,350.00</td><td>0.800</td><td>0%</td></tr></table></div>
+<div class="ord" data-r="order-form" data-must><div class="seg"><span class="b">Buy</span><span>Sell</span></div><div class="in"><span>Price</span><b>3,412.58 USDT</b></div><div class="in"><span>Amount</span><b>0.500 ETH</b></div><div class="pc"><span class="on"></span><span class="on"></span><span></span><span></span></div><div class="in"><span>Total</span><b>1,706.29 USDT</b></div><div class="go">Buy ETH</div></div>
+<script>
+const o=[3440,3446,3430,3452,3462,3448,3470,3458,3436,3428,3442,3420,3426,3410,3404,3418,3432,3424,3406,3398,3412,3420,3414,3430,3422,3408,3416,3402,3410,3414,3404,3412];let h='',v='';
+const y=p=>130+(3480-p)*3;for(let i=0;i<o.length-1;i++){const a=o[i],b=o[i+1],up=b>=a,col=up?'#0ecb81':'#f6465d',hi=Math.max(a,b)+6,lo=Math.min(a,b)-6;
+h+=`<div class="c" style="left:${24+i*26}px;top:${y(hi)}px;height:${(hi-lo)*3}px"><i style="top:0;height:100%;background:${col}"></i><b style="top:${(hi-Math.max(a,b))*3}px;height:${Math.max(3,Math.abs(b-a)*3)}px;background:${col}"></b></div>`;
+v+=`<i style="height:${12+((i*37)%50)}px;background:${col}66"></i>`}
+document.getElementById('candles').innerHTML=h;document.querySelector('.vol').innerHTML=v;
+</script>
+</body></html>
