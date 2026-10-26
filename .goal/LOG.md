@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-26T22:35Z | n251 round 27 written and built live; ten planner fixes | Ten harder pages first look 75; clay launch 25, e3 smart home 74, e1 photo editor 75 weakest. ~1.00M.
 2026-10-26T20:05Z | n250 r26 brand row, sub-line, pushed-right Undo, one-line tabs | Permissions 78 to 89, poster 88 to 92, observatory 91, banking 88. Round 26 93. ~637k.
 2026-10-26T18:45Z | n249 r26 constellation, turned tag, video preview, sliders, playhead | Observatory 82 to 94, poster 82 to 88, video editor 86 to 98. Round 26 91. ~360k.
 2026-10-26T18:20Z | n248 r26 checkbox matrix, synth panel, diamond badge, step-card shadows | Permissions 49 to 78, synth 80 to 94, origami 82 to 92. Round 26 88. ~357k.
