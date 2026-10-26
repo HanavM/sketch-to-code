@@ -1,24 +1,24 @@
 {
   "id": "c5-crt-terminal",
-  "at": "2026-10-26T02:33:37.078Z",
+  "at": "2026-10-26T05:18:13.122Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8371068735209675,
-    "overallV2": 0.8371068735209675,
-    "overallV1": 0.8169748744773386,
-    "colour": 0.9677211106095646,
-    "structure": 0.7608317752207759,
-    "structureStrict": 0.7070504731012784,
-    "colourAligned": 0.9677211106095646,
-    "structureAligned": 0.7608317752207759,
+    "overall": 0.9315105032924904,
+    "overallV2": 0.9315105032924904,
+    "overallV1": 0.9297376656743457,
+    "colour": 0.9981091309005126,
+    "structure": 0.9806934078918009,
+    "structureStrict": 0.9759573896084887,
+    "colourAligned": 0.9981091309005126,
+    "structureAligned": 0.9806934078918009,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.4176907212087076
+      "r": 0.9757994682758709
     },
-    "layout": 0.7947707750157897,
-    "layoutV1": 0.6434944706722132,
+    "layout": 0.7980952464659509,
+    "layoutV1": 0.6467923689931226,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,111 +31,146 @@
     ],
     [
       0,
-      83,
-      63,
-      1114,
-      694
+      80,
+      60,
+      1120,
+      700
     ],
     [
-      1,
-      83,
-      63,
-      1114,
-      694
-    ],
-    [
-      2,
-      83,
-      63,
-      1114,
-      695
-    ],
-    [
-      1,
+      0,
       150,
       120,
       235,
       60
     ],
     [
-      1,
+      0,
       150,
       330,
       620,
       29
     ],
     [
-      1,
+      0,
       150,
       359,
       620,
       29
     ],
     [
-      1,
+      0,
       150,
       388,
       620,
       29
     ],
     [
-      1,
+      0,
       150,
       417,
       620,
       29
     ],
     [
-      1,
+      0,
       150,
       446,
       620,
       29
     ],
     [
-      1,
+      0,
       820,
       130,
       310,
       380
     ],
     [
-      10,
-      840,
-      150,
-      270,
-      42
-    ],
-    [
-      10,
-      820,
-      486,
+      8,
+      824,
+      134,
       306,
       20
     ],
     [
-      1,
+      0,
+      840,
+      170,
+      25,
+      21
+    ],
+    [
+      0,
+      840,
+      195,
+      194,
+      12
+    ],
+    [
+      0,
+      840,
+      221,
+      25,
+      21
+    ],
+    [
+      0,
+      840,
+      246,
+      122,
+      12
+    ],
+    [
+      0,
+      840,
+      272,
+      25,
+      21
+    ],
+    [
+      0,
+      840,
+      298,
+      238,
+      12
+    ],
+    [
+      0,
+      840,
+      324,
+      118,
+      21
+    ],
+    [
+      0,
+      840,
+      349,
+      76,
+      21
+    ],
+    [
+      0,
       150,
       640,
       70,
       17
     ],
     [
-      1,
+      0,
       248,
       640,
       72,
       17
     ],
     [
-      1,
+      0,
       348,
       640,
       63,
       17
     ],
     [
-      1,
+      0,
       439,
       640,
       72,
@@ -143,24 +178,31 @@
     ],
     [
       0,
-      84,
-      803,
-      1112,
-      21
+      80,
+      60,
+      1120,
+      700
     ],
     [
-      17,
-      84,
-      803,
-      218,
-      21
+      0,
+      80,
+      792,
+      1120,
+      20
     ],
     [
-      17,
-      1137,
-      803,
-      59,
-      21
+      23,
+      80,
+      792,
+      204,
+      20
+    ],
+    [
+      23,
+      1145,
+      792,
+      55,
+      20
     ],
     [
       0,
@@ -170,22 +212,36 @@
       36
     ],
     [
+      26,
+      1050,
+      836,
+      25,
+      25
+    ],
+    [
       0,
-      1114,
+      1113,
       832,
       36,
       35
+    ],
+    [
+      28,
+      1119,
+      837,
+      24,
+      24
     ]
   ],
   "groupMatched": [
     {
       "role": "menu",
-      "iou": 0.36838329081632654,
+      "iou": 0.36862244897959184,
       "parts": 4,
       "rect": {
         "x": 150,
         "y": 640,
-        "w": 361.015625,
+        "w": 361.25,
         "h": 17
       }
     },
@@ -202,55 +258,80 @@
     }
   ],
   "effects": {
-    "recall": 0.6,
+    "recall": 1,
     "kept": [
+      "glow",
       "gradient",
       "mono",
-      "motion"
-    ],
-    "missing": [
-      "glow",
+      "motion",
       "stripes-or-layers"
     ],
+    "missing": [],
     "extra": [
       "overlap"
     ]
   },
   "tokens": {
-    "input": 57528,
-    "output": 32728,
-    "cacheRead": 370871
+    "input": 56694,
+    "output": 24788,
+    "cacheRead": 560126
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 58507,
-      "output": 19157,
-      "cacheRead": 357801,
-      "toolCalls": 11,
+      "billed": 61232,
+      "output": 16243,
+      "cacheRead": 303719,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
         "Glob",
         "Read src/index.css",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
-        "Read s2c-bench-app/vite.config.ts",
-        "Edit components/SketchShape.tsx",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 203530
+      "ms": 160719
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6879,
+      "output": 2874,
+      "cacheRead": 253323,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 27890
     }
   ],
-  "reading": "The user sketched a full-screen retro terminal/dashboard mockup — a big outer panel, an ASCII-art logo block, five lines of terminal log text, a bordered status panel on the right, a repeating-stripe overlay, a row of function-key buttons, a header/footer caption line, and two small LED dots — and typed detailed notes pinning down exact colors, fonts, positions and copy for each piece.",
+  "reading": "The sketch is a retro-terminal dashboard: an outer rounded \"screen\" frame with a gradient/glass bezel and scanline overlay, an ASCII-art logo, a scrolling console log with a blinking cursor, a bordered SYS.STATUS side panel with segmented meter bars for CPU/MEM/NET plus uptime/temp readouts, a bottom row of function-key labels, header/footer text labels, and two small glowing power-indicator dots — all styled per the detailed typed notes (exact colors, gradients, box-shadows, fonts and copy).",
   "actions": [
     {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
+      "kind": "design",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 5,
+          "fontPx": 19
+        }
+      ],
       "region": [
         83,
         63,
@@ -261,7 +342,7 @@
         "s0",
         "s12"
       ],
-      "instruction": "Add a full-bleed rectangular dashboard panel/container matching the large outlined rectangle (drawn twice to confirm its bounds), filled with a dark navy-to-bla"
+      "instruction": "A framed SCREEN (NOT a picture, NOT a flat box): ONE 1120x700px div at 80,60, 40px rounded corners, background: radial-gradient(#0d2a12, #030803 75%) exactly (#"
     },
     {
       "kind": "add",
@@ -293,16 +374,12 @@
         "s0",
         "s12"
       ],
-      "instruction": "Add a box-drawing ASCII-art frame as live 14px Courier New #39ff6a text in a <pre> element (white-space: pre, line-height 15px) positioned at page coordinates 1"
+      "instruction": "A box-drawing frame as live 14px Courier New #39ff6a text in a <pre> (white-space: pre, line-height 15px) at 150,120, NOT a bordered div, NOT a picture; exactly"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9"
+        "s7"
       ],
       "textSize": [
         {
@@ -318,31 +395,19 @@
         }
       ],
       "region": [
-        154,
-        330,
-        612,
-        144
-      ],
-      "paths": [],
-      "instruction": "Build the terminal log block part by part as six real elements with live text (nothing invented, nothing left out), each one-line part kept on one line (white-s"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        823,
-        133,
-        303,
-        373
+        83,
+        63,
+        1114,
+        694
       ],
       "paths": [
-        "s10"
+        "s0",
+        "s12"
       ],
-      "instruction": "Add a 310x380px message/status box at 820,130 — NOT a filled bar: no fill, a 2px #39ff6a border all round, 0px border-radius. Inside, placeholder 14px #39ff6a t"
+      "instruction": "Part by part console log (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out; ev"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -353,14 +418,16 @@
       ],
       "paths": [
         "s0",
+        "s10",
         "s12"
       ],
-      "instruction": "Add big horizontal repeating stripes over the upper-left of the gradient panel, NOT a smooth gradient: repeating-linear-gradient(0deg, transparent 0px 2px, #000"
+      "instruction": "ONE 310x380px panel at 820,130: no fill, a 2px #39ff6a border all round, 0px rounded, box-shadow: #39ff6a54 0px 0px 12px 0px; across its TOP edge a filled TITLE"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s11"
+        "s11",
+        "s13"
       ],
       "textSize": [
         {
@@ -373,17 +440,52 @@
         }
       ],
       "region": [
-        154,
-        644,
-        972,
-        9
+        83,
+        63,
+        1114,
+        749
       ],
-      "paths": [],
-      "instruction": "Build the function-key bar part by part as four real elements with live text (nothing invented, nothing left out), each kept on one line (white-space: nowrap, m"
+      "paths": [
+        "s0",
+        "s12"
+      ],
+      "instruction": "Part by part function key bar (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left ou"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 5,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        83,
+        63,
+        1114,
+        694
+      ],
+      "paths": [
+        "s0",
+        "s12"
+      ],
+      "instruction": "A see-through SCANLINE veil laid OVER what it covers (on top of it, pointer-events none, no fill of its own): ONE 1120x700px div at 80,60, 40px rounded corners,"
     },
     {
       "kind": "add",
       "textMarks": [
+        "s11",
         "s13"
       ],
       "textSize": [
@@ -398,12 +500,12 @@
       ],
       "region": [
         84,
-        803,
+        569,
         1112,
-        9
+        318
       ],
       "paths": [],
-      "instruction": "Add a header/caption row below the panel with \"NODE-1 TERMINAL · MODEL 84\" on the left and \"● POWER\" on the right; its text color is #6b6b55 (grey), NOT the pag"
+      "instruction": "Header/footer labels: \"NODE-1 TERMINAL · MODEL 84\" at the left, \"● POWER\" at the right; its text #6b6b55 (grey, NOT the page's bright green text)."
     },
     {
       "kind": "add",
@@ -418,7 +520,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "Add a small 44px glowing status LED dot, gradient from brown to near-black."
+      "instruction": "A small 44px glowing brown to near-black dot (power indicator light)."
     },
     {
       "kind": "add",
@@ -433,7 +535,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Add a second small 44px glowing status LED dot, gradient from brown to near-black, next to the first."
+      "instruction": "A small 44px glowing brown to near-black dot (power indicator light)."
     }
   ],
   "rejected": [

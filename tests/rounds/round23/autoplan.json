@@ -489,7 +489,7 @@
    ],
    [
     "screen",
-    "dark navy to black gradient block"
+    "a framed SCREEN (NOT a picture, NOT a flat box): ONE 1120x700px div at 80,60, 40px rounded corners, background: radial-gradient(#0d2a12, #030803 75%) exactly (#0d2a12 in the middle fading to #030803 at the edges: keep these exact hexes, a tinted glass, never navy or blue unless the hex is); round it a bezel drawn by box-shadow spreads with no blur: a solid #1a1a14 ring out to 14px, then a solid #33332a ring out to 16px, AND a soft glow inside its edge (box-shadow inset: #39ff6a33 0px 0px 80px 0px inset); exactly box-shadow: #1a1a14 0px 0px 0px 14px, #33332a 0px 0px 0px 16px, #39ff6a33 0px 0px 80px 0px inset; nothing inside of its own (the other parts sit on top of it)"
    ],
    [
     "ascii-logo",
@@ -501,7 +501,7 @@
    ],
    [
     "status-panel",
-    "a 310x380px message box at 820,130 (NOT a filled bar): white / no fill, a 2px #39ff6a border all round, 0px rounded; placeholder 14px #39ff6a \"CPU MEM NET UPTIME 41d 06h TEMP 46°C\" at its top-left (18px padding); ONE solid #39ff6a button 306x20px, 14px #050805 text \"SYS.STATUS\", in its bottom-right corner at 822,132"
+    "ONE 310x380px panel at 820,130: no fill, a 2px #39ff6a border all round, 0px rounded, box-shadow: #39ff6a54 0px 0px 12px 0px; across its TOP edge a filled TITLE STRIP (NOT a button, NOT at the bottom): 306x20px at 822,132, #39ff6a fill, 14px bold #050805 \"SYS.STATUS\" at its left (8px in); then part by part, top to bottom, each its own element (page px, nothing invented, nothing left out): 14px mono #39ff6a \"CPU\" at 840,170; a 194x12px SEGMENTED meter bar at 840,195 (8px #39ff6a blocks with 2px gaps: background: repeating-linear-gradient(90deg, #39ff6a 0 8px, transparent 8px 10px)); 14px mono #39ff6a \"MEM\" at 840,221; a 122x12px SEGMENTED meter bar at 840,246 (8px #39ff6a blocks with 2px gaps: background: repeating-linear-gradient(90deg, #39ff6a 0 8px, transparent 8px 10px)); 14px mono #39ff6a \"NET\" at 840,272; a 238x12px SEGMENTED meter bar at 840,298 (8px #39ff6a blocks with 2px gaps: background: repeating-linear-gradient(90deg, #39ff6a 0 8px, transparent 8px 10px)); 14px mono #39ff6a \"UPTIME 41d 06h\" at 840,324; 14px mono #39ff6a \"TEMP 46°C\" at 840,349"
    ],
    [
     "menu",
@@ -509,7 +509,7 @@
    ],
    [
     "scanlines",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, transparent 0px 2px, #000000 2px 4px)): 2px clear (see-through) then 2px black, over and over block, overlapping the upper left of the dark navy to black gradient block and on top of it"
+    "a see-through SCANLINE veil laid OVER what it covers (on top of it, pointer-events none, no fill of its own): ONE 1120x700px div at 80,60, 40px rounded corners, painted with horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, transparent 0px 2px, rgba(0, 0, 0, 0.4) 2px 4px)): 2px clear (see-through) then 2px black at 40% opacity (see-through, it only darkens what is under it), over and over; the parts under it stay readable through it"
    ],
    [
     "footer",

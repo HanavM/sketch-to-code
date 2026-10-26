@@ -376,6 +376,12 @@ describe('wordsGiveCss — words that give the exact CSS shape beat the drawn ou
     expect(wordsGiveCss('four solid flat-filled near-black horizontal bars (not text, not strokes), each its own element: 270x6 at 28,744')).toBe(true)
     expect(wordsGiveCss('one group div (transform-style: preserve-3d, transform: rotateX(52deg)) holding 4 faces: #3a1a14 at translateZ(0px), #ffffff at translateZ(210px)')).toBe(true)
   })
+  it('reads a framed screen, a scanline veil and a titled meter panel (round 23 c5)', () => {
+    expect(wordsGiveCss('a framed SCREEN: ONE 1120x700px div at 80,60, 40px rounded corners; exactly box-shadow: #1a1a14 0px 0px 0px 14px')).toBe(true)
+    expect(wordsGiveCss('a see-through SCANLINE veil: ONE 1120x700px div at 80,60, painted with repeating-linear-gradient(0deg, transparent 0px 2px, rgba(0, 0, 0, 0.4) 2px 4px)')).toBe(true)
+    expect(wordsGiveCss('ONE 310x380px panel at 820,130; across its TOP edge a filled TITLE STRIP (NOT a button, NOT at the bottom); a 194x12px SEGMENTED meter bar at 840,195')).toBe(true)
+    expect(wordsGiveCss('ONE 400x300px panel at 20,20 with box-shadow: 0 4px 12px #0003')).toBe(false)
+  })
   it('leaves drawings the words only describe', () => {
     expect(wordsGiveCss('a 520x620px photo tilted 4° clockwise')).toBe(false)
     expect(wordsGiveCss('a hand-drawn cartoon crab doodle')).toBe(false)

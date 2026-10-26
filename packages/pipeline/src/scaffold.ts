@@ -210,6 +210,10 @@ export function wordsGiveCss(said: string): boolean {
   // n217: real CSS 3D (preserve-3d with translateZ faces): the drawn box handed over as "keep these paths" was filled
   // with flat bands instead (round 21 c2 card stack, 2 of 5 runs)
   if (/\btransform-style:\s*preserve-3d\b/i.test(said) && /\btranslateZ\(/i.test(said)) return true
+  // n235: one sized div said with its exact box-shadow or repeating stripes (round 23 c5 CRT screen bezel, scanline veil,
+  // status panel): the drawn outline was mounted as a visible extra frame (a green-tinted slab over the screen)
+  if (/\bONE \d{2,4}x\d{2,4}px div at \d+,\d+/i.test(said) && /\bexactly box-shadow:|\brepeating-linear-gradient\(/i.test(said)) return true
+  if (/\bTITLE STRIP \(NOT a button/.test(said) && /\bSEGMENTED meter bar\b/.test(said)) return true
   return /\bnot strokes\b/i.test(said) && /\b\d{2,4}x\d{1,4}\b/.test(said)
 }
 

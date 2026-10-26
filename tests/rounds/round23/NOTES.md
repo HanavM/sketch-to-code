@@ -81,3 +81,21 @@ empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeat
   - Still off: the top bar's Preview and Download PDF built as bare words (unbordered), Draft pill fill lost.
 - Re-planned rounds 1-22: only r9 e3 composer and r12 e3 rail change.
 - Round 23: **87%** over 10 (86.8). Vitest same 2 env failures (1459); typecheck clean.
+
+## n235: CRT screen bezel, scanline veil, status panel (2026-10-26, ~144k billed)
+
+- c5 CRT terminal **84 → 93%** (colour 100, structure 98, layout 80; regions 7/9). Planner:
+  - a big rounded radial-gradient block ringed by box-shadow spreads is a framed SCREEN said with its exact background
+    and box-shadow (bezel rings and the inset glow); it was "dark navy to black gradient block", built a flat navy box
+    with no bezel, rounding or glow.
+  - see-through stripes keep their alpha (rgba 0.4, was "#000000", built opaque), and a big veil of them is said with its
+    own box and rounding, laid over what it covers (was "overlapping the upper left of the screen").
+  - a bordered box whose filled child is a full-width strip at its TOP is no longer the "message box with a send button
+    in its bottom-right corner"; a panel topped by a title strip with segmented meter bars is said part by part (title
+    strip, each label and each bar with its 8px-on/2px-off stripes).
+- Pipeline (scaffold.ts wordsGiveCss): one sized div said with its exact box-shadow or repeating stripes, and a titled
+  meter panel, skip the drawn-outline component: in the first run (81) the scanline outline was mounted as a green slab
+  over the screen. Unit test added.
+- Re-planned rounds 1-22: only r10 c3 scanlines change; live r10 c3 92 → 95 (kept; round 10 stays 88).
+- Still off: knobs built small and orange (target 44px olive grey), footer ~10px high.
+- Round 23: **88%** over 10 (87.8). Vitest same 2 env failures (1460); typecheck clean.

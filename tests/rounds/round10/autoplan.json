@@ -345,7 +345,7 @@
    ],
    [
     "scanlines",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #000000 0px 2px, transparent 2px 4px)): 2px black then 2px clear (see-through), over and over block, in front of the \"BOOT_\" heading"
+    "a see-through SCANLINE veil laid OVER what it covers (on top of it, pointer-events none, no fill of its own): ONE 1280x900px div at 0,0, painted with horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0px 2px, transparent 2px 4px)): 2px black at 35% opacity (see-through, it only darkens what is under it) then 2px clear (see-through), over and over; the parts under it stay readable through it, in front of the \"BOOT_\" heading"
    ]
   ]
  },

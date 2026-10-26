@@ -1,24 +1,211 @@
 {
   "id": "c3-crt-terminal",
-  "at": "2026-10-23T11:55:21.336Z",
+  "at": "2026-10-26T05:22:13.171Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9210792556389722,
-    "overallV2": 0.9210792556389722,
-    "overallV1": 0.8938788555427126,
-    "colour": 0.9825157884115658,
-    "structure": 0.9030943024081395,
-    "structureStrict": 0.830509249783924,
-    "colourAligned": 0.9825157884115658,
-    "structureAligned": 0.9030943024081395,
+    "overall": 0.9493707921120604,
+    "overallV2": 0.9493707921120604,
+    "overallV1": 0.941403515314126,
+    "colour": 0.9938246064763593,
+    "structure": 0.933998838657569,
+    "structureStrict": 0.9127379305972757,
+    "colourAligned": 0.9938246064763593,
+    "structureAligned": 0.933998838657569,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8468281588801891
+      "r": 0.949163367071332
     },
-    "layout": 0.8795627858070975
+    "layout": 0.9213034055167928,
+    "layoutV1": 0.9213034055167928,
+    "layoutVersion": 2
   },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      90,
+      1040,
+      700
+    ],
+    [
+      1,
+      122,
+      92,
+      1036,
+      40
+    ],
+    [
+      2,
+      138,
+      105,
+      52,
+      12
+    ],
+    [
+      3,
+      138,
+      105,
+      12,
+      12
+    ],
+    [
+      3,
+      158,
+      105,
+      12,
+      12
+    ],
+    [
+      3,
+      178,
+      105,
+      12,
+      12
+    ],
+    [
+      2,
+      944,
+      101,
+      198,
+      20
+    ],
+    [
+      1,
+      184,
+      204,
+      424,
+      120
+    ],
+    [
+      8,
+      184,
+      204,
+      360,
+      120
+    ],
+    [
+      1,
+      184,
+      394,
+      348,
+      136
+    ],
+    [
+      10,
+      184,
+      394,
+      348,
+      34
+    ],
+    [
+      11,
+      184,
+      394,
+      292,
+      34
+    ],
+    [
+      11,
+      488,
+      394,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      428,
+      348,
+      34
+    ],
+    [
+      14,
+      184,
+      428,
+      302,
+      34
+    ],
+    [
+      14,
+      498,
+      428,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      462,
+      348,
+      34
+    ],
+    [
+      17,
+      184,
+      462,
+      292,
+      34
+    ],
+    [
+      17,
+      488,
+      462,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      496,
+      348,
+      34
+    ],
+    [
+      1,
+      764,
+      394,
+      230,
+      130
+    ],
+    [
+      1,
+      184,
+      652,
+      423,
+      52
+    ],
+    [
+      22,
+      184,
+      652,
+      210,
+      52
+    ],
+    [
+      22,
+      410,
+      652,
+      197,
+      52
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
   "effects": {
     "recall": 0.8,
     "kept": [
@@ -30,42 +217,71 @@
     "missing": [
       "glow"
     ],
-    "extra": [
-      "overlap"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 24850,
-    "output": 15915,
-    "cacheRead": 210684
+    "input": 47658,
+    "output": 15236,
+    "cacheRead": 329427
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 28546,
-      "output": 9530,
-      "cacheRead": 207600,
-      "toolCalls": 8,
+      "billed": 39655,
+      "output": 5546,
+      "cacheRead": 317256,
+      "toolCalls": 9,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
-        "Read s2c-bench-app/src",
         "Glob",
-        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
         "Read src/index.css",
-        "Edit src/index.css",
-        "Write src/App.tsx"
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
       ],
-      "ms": 100936
+      "ms": 55926
     }
   ],
-  "reading": "This is a retro CRT/terminal-style landing page: an inset bordered terminal window with a dotted title bar and \"tty1\" label, a glowing \"BOOT_\" heading with a blinking cursor and scanline stripes, two blocks of green terminal-style text (a 4-line boot log with OK chips on the left, and an ASCII box-drawing info card on the right), and two square-cornered buttons (\"RUN DEMO\" outline, \"BUY $49\" filled). All copy, colors, dimensions and effects come directly from the user's typed notes, which take priority over the squiggly placeholder strokes.",
+  "reading": "The sketch is a retro-terminal landing page: an inset bordered window with a title bar sits inside the page, holding a huge glowing 'BOOT_' heading with blinking cursor, a 4-line boot log with OK chips, an ASCII-art info card, two buttons, and a scanline overlay across it all; typed notes fully specify colors, fonts, sizes and exact copy.",
   "actions": [
     {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 4,
+          "fontPx": 23
+        }
+      ],
       "region": [
         3,
         3,
@@ -73,24 +289,10 @@
         894
       ],
       "paths": [
+        "s0",
         "s13"
       ],
-      "instruction": "Add a fading bright-green border around the page edge (the outer rectangle traced). This sits around the whole viewport, inset so the plain page background stil"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        123,
-        93,
-        1034,
-        694
-      ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Build a terminal-window container, 1040x700px with top-left at 120,90, 14px rounded corners and a 2px #39ff7a border, inset within the page (page shows around i"
+      "instruction": "Draw a terminal-style window container, 1040x700px with top-left at 120,90, 14px rounded corners, with a blinking 2px #39ff7a border; the window sits inset on t"
     },
     {
       "kind": "add",
@@ -107,21 +309,22 @@
         }
       ],
       "region": [
-        190,
-        190,
-        378,
-        146
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
-      "instruction": "Add a live-text heading \"BOOT_\" at 182,202, one line, 120px bold Courier New (Courier New, monospace), color #39ff7a, with a glow (text-shadow: 0 0 12px #39ff7a"
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add a large live-text heading 'BOOT_' at 182,202 on one line, 120px bold Courier New (monospace), color #39ff7a (NOT a picture). Give it a green glow via text-s"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s2",
         "s3",
-        "s4",
-        "s5"
+        "s4"
       ],
       "textSize": [
         {
@@ -136,17 +339,89 @@
         }
       ],
       "region": [
-        186,
-        392,
-        339,
-        137
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
-      "instruction": "Add exactly 4 lines of 18px Courier New #39ff7a terminal output (line-height 34px) at 182,392, nothing else invented: \"> loading modules .........\" followed by "
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add exactly 4 lines of 18px Courier New (monospace) #39ff7a text, line-height 34px, positioned at 182,392: '> loading modules .........' followed by an 'OK' chi"
     },
     {
       "kind": "add",
       "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add an ASCII box-drawing frame as live 16px Courier New (monospace) #39ff7a text inside a <pre> element (white-space: pre, line-height 26px) positioned at 762,3"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s11",
+        "s13"
+      ],
+      "instruction": "Add an outline button labeled '[ RUN DEMO ]': bright green (#39ff7a) 2px border, 210x52px, square corners (border-radius 0, NOT a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s12",
+        "s13"
+      ],
+      "instruction": "Add a filled button labeled '[ BUY $49 ]': #39ff7a (bright green) fill with #05140a (black) text, 197x52px, square corners (border-radius 0, NOT a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4",
         "s6",
         "s7",
         "s8",
@@ -164,46 +439,29 @@
           ],
           "lines": 5,
           "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 4,
+          "fontPx": 23
         }
       ],
       "region": [
-        766,
-        392,
-        332,
-        128
-      ],
-      "paths": [],
-      "instruction": "Add a box-drawing ASCII frame as live 16px Courier New #39ff7a text inside a <pre> (white-space: pre, line-height 26px) at 762,392 — not a bordered div, not a p"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        183,
-        653,
-        207,
-        50
+        3,
+        3,
+        1274,
+        894
       ],
       "paths": [
-        "s11"
+        "s0",
+        "s13"
       ],
-      "instruction": "Add a bright-green outline button labeled \"[ RUN DEMO ]\", 210x52px, square corners (border-radius 0, not a pill)."
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        424,
-        654,
-        194,
-        49
-      ],
-      "paths": [
-        "s12"
-      ],
-      "instruction": "Add a bright-green filled button with black text labeled \"[ BUY $49 ]\", 197x52px, square corners (border-radius 0, not a pill)."
+      "instruction": "Add a see-through scanline veil layered over everything below it: one 1280x900px div at 0,0 (pointer-events none, no own fill) painted with horizontal repeating"
     }
   ],
   "rejected": [

@@ -2986,7 +2986,7 @@ function gradientWords(f) {
     const deg = rp[1] ? Math.round(parseFloat(rp[1])) % 180 : 0
     const dir = deg === 0 ? 'horizontal' : deg === 90 ? 'vertical' : `diagonal (${deg}deg)`
     const over = f.beforeImage && !f.isBefore ? gradientWords({ bgImage: f.beforeImage, bgImageColours: (f.beforeImage.match(/rgba?\([^)]+\)/g) || []), isBefore: true }) : null
-    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${x.c && x.c.a < 0.05 ? 'transparent' : hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${x.c && x.c.a < 0.05 ? 'clear (see-through)' : colourName(x.c)}`).join(' then ')}, over and over${over ? `; AND laid over them (a second background layer on the same box, both showing): ${over}` : ''}`
+    if (xs.length >= 2) return `${dir} repeating stripes, NOT a smooth gradient (repeating-linear-gradient(${deg}deg, ${xs.map((x, i) => `${x.c && x.c.a < 0.05 ? 'transparent' : x.c && x.c.a < 0.95 ? `rgba(${x.c.r}, ${x.c.g}, ${x.c.b}, ${+x.c.a.toFixed(2)})` : hexOf(x.c)} ${xs.slice(0, i).reduce((s2, y) => s2 + y.w, 0)}px ${xs.slice(0, i + 1).reduce((s2, y) => s2 + y.w, 0)}px`).join(', ')})): ${xs.map((x) => `${x.w}px ${x.c && x.c.a < 0.05 ? 'clear (see-through)' : `${colourName({ ...x.c, a: 1 })}${x.c.a < 0.95 ? ` at ${Math.round(x.c.a * 100)}% opacity (see-through, it only darkens what is under it)` : ''}`}`).join(' then ')}, over and over${over ? `; AND laid over them (a second background layer on the same box, both showing): ${over}` : ''}`
   }
   if (/linear-gradient\([^)]*1px/.test(f.bgImage) || /background-size/.test(f.bgImage)) return null
   if (names.length < 2) {
@@ -4615,6 +4615,15 @@ function decideOne(f, page, marked, said) {
   if (!f.text && (fill || grad) && !f.regionKids.length && !round && w >= 60 && h >= 50) {
     // a see-through dim laid over the page (round 5 e1 backdrop said as a solid 'dark navy block')
     if (fill && !grad && f.bg.a >= 0.3 && f.bg.a <= 0.8 && w * h >= 0.3 * 1280 * 900) return { kind: 'image', note: withFx(`see-through ${colourName(f.bg)} layer (${Math.round(f.bg.a * 100)}% opaque) over what is under it: everything under it still shows, dimmed, not hidden`) }
+    // n235: a big rounded radial-gradient screen ringed by box-shadow spreads (a CRT bezel) with an inset glow (round 23
+    // c5: said 'dark navy to black gradient block', built a flat navy box with no bezel, no rounding, no glow)
+    const rings = (f.shadow ?? '').split(/,(?![^(]*\))/).map((q) => q.trim()).filter((q) => /^(rgba?\([^)]+\)|#\w+)\s+0px\s+0px\s+0px\s+[\d.]+px$/.test(q))
+    if (grad && /^radial-gradient/.test((f.bgImage ?? '').trim()) && (f.bgImage.match(/gradient\(/g) || []).length === 1 && w >= 300 && h >= 200 && rings.length >= 1) {
+      const rs = rings.map((q) => ({ c: parse(q.match(/^(rgba?\([^)]+\)|#\w+)/)[1]), px: parseFloat(q.match(/([\d.]+)px$/)[1]) })).sort((a, b) => a.px - b.px)
+      const glowIn = (f.shadow ?? '').split(/,(?![^(]*\))/).map((q) => q.trim()).find((q) => /inset/.test(q))
+      const stops = [...f.bgImage.matchAll(/(rgba?\([^)]+\))/g)].map((m) => parse(m[1])).filter(Boolean)
+      return { kind: 'box', note: `a framed SCREEN (NOT a picture, NOT a flat box): ONE ${Math.round(w)}x${Math.round(h)}px div at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${Math.round(f.radius)}px rounded corners, background: ${cssHex(f.bgImage.replace(/\s+/g, ' ').trim())} exactly (${stops.map((c) => hexOf(c)).join(' in the middle fading to ')} at the edges: keep these exact hexes, a tinted glass, never navy or blue unless the hex is); round it a bezel drawn by box-shadow spreads with no blur: ${rs.map((r, i) => `${i ? 'then ' : ''}a solid ${hexOf(r.c)} ring out to ${r.px}px`).join(', ')}${glowIn ? `, AND a soft glow inside its edge (box-shadow inset: ${cssHex(glowIn)})` : ''}; exactly box-shadow: ${cssHex(f.shadow)}; nothing inside of its own (the other parts sit on top of it)` }
+    }
     const glowy = glowWords(f)
     // a rounded tile lit by one glow keeps its base hex, the glow's hex, size and rounding (round 8 c3 violet tile)
     const lone = f.glows && f.glows.length === 1 && f.glows[0].inside && f.radius >= 10 && w <= 700 && h <= 700 && fill ? f.glows[0] : null
@@ -4625,6 +4634,10 @@ function decideOne(f, page, marked, said) {
     const col = grad ?? (fill && !/light grey|off-white|white/.test(colourName(f.bg)) ? colourName(f.bg) : null)
     const shape = f.clipPoints >= 6 ? 'jagged cut-out shape' : f.clipPoints >= 3 ? 'angled cut-out shape' : null
     const strong = !grad && fill && vivid(f.bg) ? 'vivid ' : ''
+    // n235: see-through scanlines laid over a rounded screen say their own box and rounding (round 23 c5: 'overlapping the
+    // upper left of the screen', built as an opaque black-striped slab)
+    const veil = stripes && /% opacity \(see-through/.test(stripes) && /clear \(see-through\)/.test(stripes) && w * h >= 100000
+    if (veil) return { kind: 'box', note: `a see-through SCANLINE veil laid OVER what it covers (on top of it, pointer-events none, no fill of its own): ONE ${Math.round(w)}x${Math.round(h)}px div at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius >= 4 ? `, ${Math.round(f.radius)}px rounded corners` : ''}, painted with ${stripes}; the parts under it stay readable through it` }
     const note = stripes ? `big ${stripes} block` : shape ? `${strong}${col ?? ''} ${shape}`.trim() : col ? `${strong}${col} block` : null
     // n151: a big flat coloured field says its exact size, place and hex (round 13 c5: 'vivid red block' for the red
     // right half was built as a small red square round the ring)
@@ -5701,10 +5714,26 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       out.set(f.role, { kind: d.kind, note: `${L.length} short ${px}px ${faceName(f.font.family) ?? (isMono(f.font.family) ? 'mono' : 'plain')} labels stacked straight down, each label ONE ordinary horizontal line of upright text (NOT vertical writing, NOT rotated, NOT turned), ${pitch}px apart (line-height ${pitch}px), all left-aligned at x ${L[0].x}: ${L.map((l) => `${quote(l.t, 30)} at y ${l.y} ${hexOf(l.c)}${l.w >= 600 ? ' bold' : ''}`).join('; ')}` })
       return
     }
+    // n235: a bordered panel topped by a filled full-width title strip, holding text lines and segmented meter bars
+    // (round 23 c5 SYS.STATUS: the strip was said as a send button in the bottom-right, the bars were lost)
+    const strip = (f.parts ?? []).find((p) => p.t && p.fill?.a > 0.5 && p.w >= 0.9 * R.w - 8 && p.y - R.y <= 8 && p.h <= 40)
+    const meters = (f.parts ?? []).filter((p) => !p.t && /^repeating-linear-gradient/.test(p.img ?? '') && p.h <= 24)
+    if (strip && meters.length >= 2 && f.border?.w >= 1 && f.border.left >= 1 && f.border.bottom >= 1 && visible(f.border.colour) && R.w >= 200 && R.h >= 150) {
+      const seg = (img) => { const m = [...img.matchAll(/(rgba?\([^)]+\))\s+([\d.]+)px/g)].map((q) => ({ c: parse(q[1]), at: +q[2] })); const ink = m.find((q) => q.c?.a > 0.5); const clear = m.find((q) => q.c && q.c.a < 0.05); return ink && clear ? { c: ink.c, on: Math.round(clear.at), off: Math.round(m[m.length - 1].at - clear.at) } : null }
+      const rows = (f.parts ?? []).filter((p) => p !== strip && (p.t || meters.includes(p))).sort((a, b) => a.y - b.y || a.x - b.x)
+      const said = rows.map((p) => {
+        if (!p.t) { const g = seg(p.img); return `a ${p.w}x${p.h}px SEGMENTED meter bar at ${p.x},${p.y}${g ? ` (${g.on}px ${hexOf(g.c)} blocks with ${g.off}px gaps: background: repeating-linear-gradient(90deg, ${hexOf(g.c)} 0 ${g.on}px, transparent ${g.on}px ${g.on + g.off}px))` : ''}` }
+        return `${p.px}px${p.bold ? ' bold' : ''}${p.mono ? ' mono' : ''} ${hexOf(p.ink)} ${quote(p.t, 40)} at ${p.x},${p.y}`
+      })
+      out.set(f.role, { kind: 'box', note: `ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}: ${visible(f.bg) && f.bg.a > 0.5 ? `${hexOf(f.bg)} fill` : 'no fill'}, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border all round, ${Math.round(f.radius)}px rounded${f.shadow && f.shadow !== 'none' ? `, box-shadow: ${cssHex(f.shadow)}` : ''}; across its TOP edge a filled TITLE STRIP (NOT a button, NOT at the bottom): ${strip.w}x${strip.h}px at ${strip.x},${strip.y}, ${hexOf(strip.fill)} fill, ${strip.px}px${strip.bold ? ' bold' : ''} ${hexOf(strip.ink)} ${quote(strip.t, 30)} at its left${strip.padL ? ` (${strip.padL}px in)` : ''}; then part by part, top to bottom, each its own element (page px, nothing invented, nothing left out): ${said.join('; ')}` })
+      return
+    }
     // n156: a bordered box of placeholder words with one filled button inside (round 14 e5 composer: built as a grey band
     // with a purple Send)
     const btn = (f.parts ?? []).filter((p) => p.t && p.fill?.a > 0.5 && p.t.length <= 16)
-    if (!f.regionKids.length && f.ownText && btn.length === 1 && f.border?.w >= 1 && f.border.left >= 1 && f.border.bottom >= 1 && visible(f.border.colour) && R.h >= 60 && R.w >= 200 && (!d.note || !/#[0-9a-f]{6} fill/i.test(d.note))) {
+    if (!f.regionKids.length && f.ownText && btn.length === 1 && f.border?.w >= 1 && f.border.left >= 1 && f.border.bottom >= 1 && visible(f.border.colour) && R.h >= 60 && R.w >= 200 && (!d.note || !/#[0-9a-f]{6} fill/i.test(d.note)) &&
+      // n235: the button sits low in the box (round 23 c5 status panel's full-width title strip on top was said as a send button 'in its bottom-right corner')
+      !(btn[0].y - R.y <= 8 && btn[0].w >= 0.9 * R.w - 8)) {
       const B = btn[0]
       out.set(f.role, { kind: 'box', note: `a ${Math.round(R.w)}x${Math.round(R.h)}px message box at ${Math.round(R.x)},${Math.round(R.y)} (NOT a filled bar): ${visible(f.bg) && f.bg.a > 0.5 ? `${hexOf(f.bg)}` : 'white / no'} fill, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border all round, ${Math.round(f.radius)}px rounded; placeholder ${px}px ${hexOf(f.colour)} ${quote(f.ownText, 40)} at its top-left (${Math.round(f.inset.l)}px padding); ONE solid ${hexOf(B.fill)} button ${B.w}x${B.h}px${B.radius ? `, ${B.radius}px rounded` : ''}, ${B.px}px ${hexOf(B.ink)} text "${B.t}", in its bottom-right corner at ${B.x},${B.y}` })
       return
