@@ -241,11 +241,11 @@
    ],
    [
     "sticker-new",
-    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 130px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW BOARDS\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 130px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"NEW\" / \"BOARDS\", 18px type"
    ],
    [
     "sticker-free",
-    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 110px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
+    "tilted 10° clockwise white circle with \"100% FREE\", 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down right, no blur, 110px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"100%\" / \"FREE\", 18px type"
    ]
   ]
  },

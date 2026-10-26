@@ -53,7 +53,7 @@
    ],
    [
     "badge",
-    "tilted 14° anticlockwise vivid red-orange circle with \"NEW REEL 26\"; its text #ffffff (white, NOT the page's near-black text), 130px across, the words centred in 2 lines (wrapping inside the circle, 15px type)"
+    "tilted 14° anticlockwise vivid red-orange circle with \"NEW REEL 26\"; its text #ffffff (white, NOT the page's near-black text), 130px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"NEW\" / \"REEL 26\", 15px type"
    ],
    [
     "copy",
@@ -251,7 +251,7 @@
    ],
    [
     "stamp",
-    "tilted 12° clockwise ROUND (border-radius 50%, a circle 200px across, NEVER a square) 3px dashed #ffffff outline (dashes, not a solid line), its words in the SAME #ffffff as the outline (NOT the page's text colour) white outline circle with \"SOLD OUT SOON ★\", 200px across, the words centred in 2 lines (wrapping inside the circle, 18px type)"
+    "tilted 12° clockwise ROUND (border-radius 50%, a circle 200px across, NEVER a square) 3px dashed #ffffff outline (dashes, not a solid line), its words in the SAME #ffffff as the outline (NOT the page's text colour) white outline circle with \"SOLD OUT SOON ★\", 200px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"SOLD OUT\" / \"SOON ★\", 18px type"
    ]
   ]
  },

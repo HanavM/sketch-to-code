@@ -363,7 +363,7 @@
    ],
    [
     "sticker",
-    "tilted 14° clockwise vivid yellow circle with \"FREE COFFEE AFTER\"; its text #111111 (near-black, NOT the page's white text), 150px across, the words centred in 3 lines (wrapping inside the circle, 18px type)"
+    "tilted 14° clockwise vivid yellow circle with \"FREE COFFEE AFTER\"; its text #111111 (near-black, NOT the page's white text), 150px across, the words centred in exactly these 3 lines, each its own line (a <br> between them, no other breaks): \"FREE\" / \"COFFEE\" / \"AFTER\", 18px type"
    ],
    [
     "scroll-hint",

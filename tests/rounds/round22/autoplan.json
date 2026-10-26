@@ -77,7 +77,7 @@
    ],
    [
     "side-note",
-    "one row starting at 880,640: first bold #ffffff \"nks only.\", then on the same line part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 340x14 at 880,640 12px bold #ffffff \"NOW SHOWING\" with letter-spacing 3px (its letters spaced out, NOT set tight); 300x41 at 880,665 15px #ffffff \"Spring identities for Kiosk, Nara and the Lyon opera, printed in two i\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 340x14 at 880,640 12px bold #ffffff \"NOW SHOWING\" with letter-spacing 3px (its letters spaced out, NOT set tight); 340x41 at 880,665 15px #ffffff \"Spring identities for Kiosk, Nara and the Lyon opera, printed in two inks only.\""
    ],
    [
     "cta",
@@ -343,7 +343,7 @@
    ],
    [
     "stamp",
-    "tilted 18° anticlockwise red-orange outline circle with \"NEW ISSUE €12\"; its text #ff3b00 (red-orange, NOT the page's near-black text), 150px across, the words centred in 3 lines (wrapping inside the circle, 18px type)"
+    "tilted 18° anticlockwise red-orange outline circle with \"NEW ISSUE €12\"; its text #ff3b00 (red-orange, NOT the page's near-black text), 150px across, the words centred in exactly these 3 lines, each its own line (a <br> between them, no other breaks): \"New\" / \"issue\" / \"€12\", 18px type"
    ],
    [
     "caption",
@@ -745,7 +745,7 @@
    ],
    [
     "breadcrumbs",
-    "small grey breadcrumb \"src › parser.ts › parseBlock\"; its text #a9a9a9 (grey, NOT the page's light grey text); set at 12px (small body text, font-size exactly 12px, NOT larger), one line, its words' top-left at 306,75"
+    "small grey breadcrumb \"src › parser.ts › parseBlock\"; its text #a9a9a9 (grey, NOT the page's light grey text); set at 12px (small body text, font-size exactly 12px, NOT larger), one line, its words' top-left at 306,75 (the region itself is ONE 992x24px block at 288,70 (its own element, no fill, no border) padded round the text: padding-top 0px, padding-left 18px, exactly 24px tall, so the text sits at that top-left)"
    ],
    [
     "code",

@@ -161,3 +161,24 @@ Round 24: **88%** over 10 (87.8). Vitest: same 2 env failures; typecheck clean.
 | c4 scrapbook | 86% | **92%** | ruled paper lines, tilted sticky note; stamp words still small |
 
 Round 24: **91%** over 10 (91.1). Vitest: same 2 env failures; typecheck clean.
+
+## n244: task database title block, letterpress info copy, seal and date (2026-10-26, ~236k billed)
+
+- e1 title and description: each sits in a full-width padded block (title 1040x73 at 240,44 with 28px top and 60px left
+  padding; description 1040x32 at 240,117), but the notes gave only the words' top-left and "the region's box is padded
+  round it", so the build set bare lines inside one big content wrapper (layout 80%). A one-line text in a block 40px+
+  wider than its words now says the block itself: its size, place, no fill, no border, and its padding.
+- c1 info copy: 17px Georgia on 1.55 lines measured 45px for two lines, under the "1.8 line heights" wrap test, so the
+  run was cut at 70 letters and its tail said as a garbled "first bold 'ters and leave…'" run. A loose run whose line
+  boxes sit at 2+ tops is now wrapped too and said whole.
+- c1 seal: "50<br>YEARS<br>OF INK" was said "3 lines" and built in 2. Words split by <br> inside a round sticker now say
+  exactly those lines. Date box: the big 64px "14—16" now stays on ONE line (it wrapped in its 260px box).
+- Re-planned rounds 1-23: round stickers and stamps on 13 pages now say their exact lines (r2, r8, r9, r10, r12, r14,
+  r16, r17, r18, r20, r22); padded title blocks r21 c4, r22 c1, r22 e4, r23 e3. Not re-run.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e1 task database | 83% | **89%** | title and description blocks right (layout 80 to 100%) |
+| c1 letterpress poster | 89% | **91%** | whole info copy, date on one line; first run 90 (seal in 2 lines, date wrapped) |
+
+Round 24: **91%** over 10 (91.5). Vitest: same 2 env failures; typecheck clean.

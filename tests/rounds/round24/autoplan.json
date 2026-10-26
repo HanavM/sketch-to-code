@@ -97,15 +97,15 @@
    ],
    [
     "info",
-    "one row starting at 60,690: first bold #1d1a16 \"ters and leave with ink on your hands.\", then on the same line part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 420x15 at 60,690 13px bold #e8442e \"THREE DAYS OF INK\" with letter-spacing 3px (its letters spaced out, NOT set tight); 399x45 at 60,718 17px #1d1a16 \"Pull your own poster on a 1912 Vandercook, sort lead type with the mas\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 420x15 at 60,690 13px bold #e8442e \"THREE DAYS OF INK\" with letter-spacing 3px (its letters spaced out, NOT set tight); 420x45 at 60,718 17px #1d1a16 \"Pull your own poster on a 1912 Vandercook, sort lead type with the masters and leave with ink on your hands.\""
    ],
    [
     "date-box",
-    "huge Helvetica heavy lines set tight (line-height 1) 64px \"14—16\", then on its own line under it a small 14px bold line \"NOVEMBER · FREE ENTRY\" (small, not part of the big type); set INSIDE its own 260x150px box at 640,680 with a 3px #1d1a16 border on all four sides (keep the border)"
+    "huge Helvetica heavy lines set tight (line-height 1) 64px \"14—16\", then on its own line under it a small 14px bold line \"NOVEMBER · FREE ENTRY\" (small, not part of the big type); the big 64px figure stays on ONE line (white-space: nowrap, never wrapped); set INSIDE its own 260x150px box at 640,680 with a 3px #1d1a16 border on all four sides (keep the border)"
    ],
    [
     "seal",
-    "tilted 12° clockwise vivid red circle with \"50 YEARS OF INK\"; its text #efe6d2 (warm paper, NOT the page's near-black text), 200px across, the words centred in 3 lines (wrapping inside the circle, 22px type); its inner ring(s) drawn exactly box-shadow: #efe6d2 0px 0px 0px 10px inset, #e8442e 0px 0px 0px 13px inset (rings inside the circle's edge, keep them)"
+    "tilted 12° clockwise vivid red circle with \"50 YEARS OF INK\"; its text #efe6d2 (warm paper, NOT the page's near-black text), 200px across, the words centred in exactly these 3 lines, each its own line (a <br> between them, no other breaks): \"50\" / \"YEARS\" / \"OF INK\", 22px type; its inner ring(s) drawn exactly box-shadow: #efe6d2 0px 0px 0px 10px inset, #e8442e 0px 0px 0px 13px inset (rings inside the circle's edge, keep them)"
    ]
   ]
  },
@@ -543,11 +543,11 @@
    ],
    [
     "title",
-    "big \"Sprint 42 tasks\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 242px wide, its text's top-left at 300,72 (the region's box is padded round it); set BOLD (font-weight 700), NOT regular"
+    "big \"Sprint 42 tasks\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 242px wide, its text's top-left at 300,72 (the region itself is ONE 1040x73px block at 240,44 (its own element, no fill, no border) padded round the text: padding-top 28px, padding-left 60px, exactly 73px tall, so the text sits at that top-left); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "description",
-    "grey text \"Everything the team ships before the Dec 1 release.\"; its text #787774 (grey, NOT the page's dark grey text); set at 14px (small body text, font-size exactly 14px, NOT larger), one line, its words' top-left at 300,117"
+    "grey text \"Everything the team ships before the Dec 1 release.\"; its text #787774 (grey, NOT the page's dark grey text); set at 14px (small body text, font-size exactly 14px, NOT larger), one line, its words' top-left at 300,117 (the region itself is ONE 1040x32px block at 240,117 (its own element, no fill, no border) padded round the text: padding-top 0px, padding-left 60px, exactly 32px tall, so the text sits at that top-left)"
    ],
    [
     "view-tabs",

@@ -221,7 +221,7 @@
    ],
    [
     "scalloped-badge",
-    "tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with \"Est. 1962\", 160px across, the words centred in 2 lines (wrapping inside the circle, 24px type); the circle is FILLED solid #f6d58e (opaque, it covers whatever is under it, NOT hollow), its words italic bold 24px #5a1e0e in Georgia, clearly readable, centred"
+    "tilted 8° anticlockwise 6px DOTTED (border-style dotted: a ring of round dots, NOT a solid line) #5a1e0e dark brown outline circle, with a 3px #f6d58e outline right against its edge (outline, no offset, no gap) with \"Est. 1962\", 160px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"Est.\" / \"1962\", 24px type; the circle is FILLED solid #f6d58e (opaque, it covers whatever is under it, NOT hollow), its words italic bold 24px #5a1e0e in Georgia, clearly readable, centred"
    ],
    [
     "tagline",

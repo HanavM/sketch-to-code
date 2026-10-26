@@ -19,6 +19,13 @@
  */
 
 /** Runs in the target page. Returns raw facts per [data-r] element + the body. */
+/** A one-line text set inside a wider padded block: say the block itself, so it is built as that box (n244). */
+function padBox(f) {
+  const R = f.rect
+  if (!R || !f.shown || R.w - f.shown.w < 40) return "the region's box is padded round it"
+  return `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px block at ${Math.round(R.x)},${Math.round(R.y)} (its own element, no fill, no border) padded round the text: padding-top ${Math.round(f.inset?.t ?? 0)}px, padding-left ${Math.round(f.inset?.l ?? 0)}px, exactly ${Math.round(R.h)}px tall, so the text sits at that top-left`
+}
+
 export function factsInPage() {
   const rgba = (s) => {
     const m = s.match(/rgba?\(([^)]+)\)/)
@@ -92,6 +99,8 @@ export function factsInPage() {
         const fs = parseFloat(cs.fontSize) || 16
         return tops.reduce((n, t, i) => (i === 0 || t - tops[i - 1] > fs * 0.5 ? n + 1 : n), 0)
       })(),
+      // n244: the region's own words split by <br> (round 24 c1 seal '50<br>YEARS<br>OF INK', said '3 lines', built in 2)
+      brLines: !kids.some((k) => k.tagName !== 'BR') && /<br/i.test(el.innerHTML) ? el.innerHTML.split(/<br\s*\/?>/i).map((h) => h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()).filter(Boolean) : null,
       font: { size: parseFloat(cs.fontSize), family: cs.fontFamily, weight: Number(cs.fontWeight) || 400, style: cs.fontStyle, transform: cs.textTransform, spacing: parseFloat(cs.letterSpacing) || 0, lineHeight: parseFloat(cs.lineHeight) || 0 },
       colour: rgba(cs.color),
       // n176: a block floated inside running text (round 17 c4 orb: float right + shape-outside circle, built absolutely
@@ -1651,7 +1660,9 @@ export function factsInPage() {
           if (b.width < 2) continue
           // n236: a wrapped loose run keeps its whole copy and wraps at the block's width (round 23 c1 caption: cut at 70
           // letters, the rest said as a 'first bold' run, built 270px wide and rewrapped)
-          const wrapped = b.height >= 1.8 * (parseFloat(es.lineHeight) || parseFloat(es.fontSize) * 1.2)
+          // n244: or its line boxes sit at 2+ tops (round 24 c1 info copy: 17px on 1.55 lines, two lines measured 45px < 1.8 x 26px,
+          // so it was cut at 70 letters and the tail said as a garbled 'first bold' run)
+          const wrapped = b.height >= 1.8 * (parseFloat(es.lineHeight) || parseFloat(es.fontSize) * 1.2) || new Set([...rg.getClientRects()].filter((q) => q.width > 1).map((q) => Math.round(q.top))).size >= 2
           const ew = wrapped ? Math.round(el.getBoundingClientRect().right - (parseFloat(es.paddingRight) || 0) - b.left) : Math.round(b.width)
           out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.max(Math.round(b.width), ew), h: Math.round(b.height), t: t.slice(0, wrapped ? 1200 : 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
         }
@@ -4012,7 +4023,7 @@ function boxedLine(f, d) {
   const B = f.border
   if (!(B.w >= 1 && B.bottom >= 1 && B.left >= 1 && visible(B.colour)) || f.text.length < 12 || f.rect.w < 120 || f.kidCount > 1) return d
   const px = !/\d+px type|\d+px "/.test(d.note ?? '') && f.font?.size ? `, ${Math.round(f.font.size)}px type${f.font.size >= 24 ? ' (large, not body size)' : ''}` : ''
-  return { ...d, note: `${d.note ?? ''}${px}; set INSIDE its own ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with a ${Math.round(B.w)}px ${hexOf(B.colour)} border on all four sides${visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''} (keep the border)`.replace(/^; /, '') }
+  return { ...d, note: `${d.note ?? ''}${px}; ${f.font?.size >= 40 && f.brLines == null && /\d/.test(f.text) && f.text.replace(/\s+/g,'').length <= 30 ? `; the big ${Math.round(f.font.size)}px figure stays on ONE line (white-space: nowrap, never wrapped)` : ''}; set INSIDE its own ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with a ${Math.round(B.w)}px ${hexOf(B.colour)} border on all four sides${visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ''} (keep the border)`.replace(/^; /, '').replace(/;\s*;/g, ';') }
 }
 // n158: round 15 creative parts said as what they are
 function round15Note(f) {
@@ -4196,7 +4207,7 @@ function decideRest(f, page, marked, said) {
   // squiggle height alone did not carry it)
   // n240: a one-line small text set inside a padded full-width box says its size and where its words start (round 24 e1
   // description 14px under the title, said as just 'grey text', built ~18px)
-  if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 11 && f.font.size <= 16 && !/\d+px/.test(d.note) && f.shown?.y != null && (f.inset?.l >= 16 || f.inset?.t >= 16)) d.note += `; set at ${Math.round(f.font.size)}px (small body text, font-size exactly ${Math.round(f.font.size)}px, NOT larger), one line, its words' top-left at ${f.shown.x},${f.shown.y}`
+  if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 11 && f.font.size <= 16 && !/\d+px/.test(d.note) && f.shown?.y != null && (f.inset?.l >= 16 || f.inset?.t >= 16)) d.note += `; set at ${Math.round(f.font.size)}px (small body text, font-size exactly ${Math.round(f.font.size)}px, NOT larger), one line, its words' top-left at ${f.shown.x},${f.shown.y} (${padBox(f)})`
   if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 18 && !/\d+px/.test(d.note)) d.note += `; set at ${Math.round(f.font.size)}px (a large lead line, NOT small body text), about ${Math.round(w0)}px wide on one line`
   // n152: a bare table on the page says it has no card (round 13 e5 comparison table built inside a white card)
   if (d?.note && /^(?:".*" as a small bold heading, then a )?table, every body row/.test(d.note) && !visible(f.bg) && !(f.border.w >= 1 && visible(f.border.colour)) && !f.radius && w0 >= 600) {
@@ -4213,7 +4224,7 @@ function decideRest(f, page, marked, said) {
   }
   // n147: words inside a round sticker keep their line breaks (round 12 c4 'FREE COFFEE AFTER' built on one line)
   if (d?.kind === 'circle' && d.note && f.text && f.textLines >= 2 && !/lines/.test(d.note) && !f.circleText) {
-    d.note += `, ${Math.round(f.layoutBox?.w ?? w0)}px across, the words centred in ${f.textLines} lines (wrapping inside the circle, ${Math.round(f.font.size)}px type)`
+    d.note += `, ${Math.round(f.layoutBox?.w ?? w0)}px across, the words centred in ${f.brLines?.length >= 2 ? `exactly these ${f.brLines.length} lines, each its own line (a <br> between them, no other breaks): ${f.brLines.map((l) => `"${l}"`).join(' / ')}, ${Math.round(f.font.size)}px type` : `${f.textLines} lines (wrapping inside the circle, ${Math.round(f.font.size)}px type)`}`
   }
   // n165: a worded circle filled with the page colour is a sticker that covers what is under it, not a hollow ring
   // (round 16 c3 'Est. 1962' badge: said 'outline circle', built hollow over the dark disc, its words lost)
@@ -5174,7 +5185,7 @@ function decideOne(f, page, marked, said) {
     // (round 6 c4 'Every screen, one glance.' 56px, one line, built on 2 lines over the subline)
     // a 20-39px multi-word line set on one line says its size and the one line: round 7 c5's 30px 'read this
     // first!' hand note was built on 2 lines (n103)
-    const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type (font-size exactly ${Math.round(f.font.size)}px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide${f.shown.y != null && (f.inset?.t >= 16 || f.inset?.l >= 16) ? `, its text's top-left at ${f.shown.x},${f.shown.y} (the region's box is padded round it)` : ''}` : ''
+    const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type (font-size exactly ${Math.round(f.font.size)}px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide${f.shown.y != null && (f.inset?.t >= 16 || f.inset?.l >= 16) ? `, its text's top-left at ${f.shown.x},${f.shown.y} (${padBox(f)})` : ''}` : ''
     // a one-word page title near the top says its size and top: 'Overview' (26px bold, top 28) was said as the
     // word alone and built ~10px high with everything under it drifting (round 6 e2)
     const ttl = !mid && !f.motion && !fill && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && !/\s/.test(f.text.trim()) && f.text.length <= 24 && f.rect.y <= 120 ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}type on one line, its box top ${Math.round(f.rect.y)}px from the page top and ${Math.round(f.rect.h)}px tall (top-[${Math.round(f.rect.y)}px] or the same margin, line-height ${Math.round(f.rect.h)}px; not higher)` : ''

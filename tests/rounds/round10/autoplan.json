@@ -513,7 +513,7 @@
    ],
    [
     "spin-badge",
-    "spinning dark navy outline circle with \"SCROLL · TO · WANDER\", 120px across, the words centred in 3 lines (wrapping inside the circle, 11px type)"
+    "spinning dark navy outline circle with \"SCROLL · TO · WANDER\", 120px across, the words centred in exactly these 3 lines, each its own line (a <br> between them, no other breaks): \"SCROLL\" / \"· TO ·\" / \"WANDER\", 11px type"
    ]
   ]
  },

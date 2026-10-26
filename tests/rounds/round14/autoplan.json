@@ -219,7 +219,7 @@
    ],
    [
     "stamp",
-    "tilted 14° anticlockwise pink outline circle with \"MAY 9–11 2027\"; its text #ef476f (pink, NOT the page's near-black text), 130px across, the words centred in 3 lines (wrapping inside the circle, 14px type)"
+    "tilted 14° anticlockwise pink outline circle with \"MAY 9–11 2027\"; its text #ef476f (pink, NOT the page's near-black text), 130px across, the words centred in exactly these 3 lines, each its own line (a <br> between them, no other breaks): \"MAY\" / \"9–11\" / \"2027\", 14px type"
    ],
    [
     "cta",
@@ -513,7 +513,7 @@
    ],
    [
     "sticker",
-    "tilted 16° clockwise vivid yellow circle with \"NEW v2.0\"; its text #09090c (black, NOT the page's off-white text), 130px across, the words centred in 3 lines (wrapping inside the circle, 14px type)"
+    "tilted 16° clockwise vivid yellow circle with \"NEW v2.0\"; its text #09090c (black, NOT the page's off-white text), 130px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"NEW\" / \"v2.0\", 14px type"
    ],
    [
     "ticker",

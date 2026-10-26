@@ -795,7 +795,7 @@
    ],
    [
     "day-divider",
-    "grey text \"Today\"; its text #9ca3af (grey, NOT the page's dark navy text); set at 12px (small body text, font-size exactly 12px, NOT larger), one line, its words' top-left at 636,250; a DAY DIVIDER across its 560px row at 372,250: the words centred, with a 1px #e5e7eb rule filling the space on EACH side of them (10px gap to the words; flex rules via ::before/::after)"
+    "grey text \"Today\"; its text #9ca3af (grey, NOT the page's dark navy text); set at 12px (small body text, font-size exactly 12px, NOT larger), one line, its words' top-left at 636,250 (the region itself is ONE 560x14px block at 372,250 (its own element, no fill, no border) padded round the text: padding-top 0px, padding-left 20px, exactly 14px tall, so the text sits at that top-left); a DAY DIVIDER across its 560px row at 372,250: the words centred, with a 1px #e5e7eb rule filling the space on EACH side of them (10px gap to the words; flex rules via ::before/::after)"
    ],
    [
     "message-2",
