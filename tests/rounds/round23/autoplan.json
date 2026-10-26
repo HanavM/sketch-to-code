@@ -591,11 +591,11 @@
    ],
    [
     "layers-panel",
-    "the region itself is ONE 240x852px column element at 0,48 (its own wrapper, #ffffff fill, a 1px #e0e0e0 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white block \"Layers\" \"T Headline\" \"▢ Button\" \"▣ Product shot\" \"▾ ⊞ Nav\" \"T Logo\" \"T Links\" \"Assets\" list: \"▾ ▦ Hero frame\", \"▸ ▦ Pricing frame\", \"▸ ▦ Footer frame\", \"◆\", \"◆\" Card / feature; list rows exactly 28px apart (28px tall, 12px type: tight, not roomier), first line 0px below the panel's top"
+    "a FILE TREE panel 240x852px at 0,48, filled #ffffff, a 1px #e0e0e0 rule along its RIGHT edge only (NOT grouped links), 12px type: a 11px bold \"Layers\" label at its top, 16px in (35px tall, a 1px #eeeeee rule under it across the panel), then 11 rows, one per line, each exactly 28px tall, #1e1e1e text unless said, each row's text indented by its own left padding (px from the panel's left): \"▾ ▦ Hero frame\" at 16px; \"T Headline\" at 32px; \"▢ Button\" at 32px; \"▣ Product shot\" at 32px in #0d99ff (SELECTED: a full-width #e5f4ff row, bold); \"▾ ⊞ Nav\" at 32px; \"T Logo\" at 48px; \"T Links\" at 48px; \"▸ ▦ Pricing frame\" at 16px; \"▸ ▦ Footer frame\" at 16px; then a 11px bold section heading \"Assets\" at 16px (35px tall, 16px space above it, a 1px #eeeeee rule under it across the panel), in its place between the rows; \"◆ Button / primary\" at 16px; \"◆ Card / feature\" at 16px"
    ],
    [
     "canvas",
-    "a big 800x852px block filled with a soft pale tinted #c8c8c8 to #000000 (top to bottom) gradient: an empty product-photo backdrop (no picture placeholder, no X, no icon, nothing inside)"
+    "a big 800x852px DOT-GRID canvas at 240,48: a FLAT #e5e5e5 fill (the same light colour top to bottom, NOT a gradient, never darkening) with tiny #c8c8c8 dots (2px across) in an even grid, one every 20px across and 20px down, exactly: background-color: #e5e5e5; background-image: radial-gradient(#c8c8c8 1px, transparent 1px); background-size: 20px 20px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)"
    ],
    [
     "frame-label",
@@ -615,7 +615,7 @@
    ],
    [
     "selected-shape",
-    "vivid yellow #ffcd29 (top left) to vivid red-orange #f24e1e (bottom right) gradient tile, 180x180px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text"
+    "vivid yellow #ffcd29 (top left) to vivid red-orange #f24e1e (bottom right) gradient tile, 180x180px, 16px rounded corners, plain paint only: no picture, no X, no icon, no text; it is the SELECTED layer: a 1px #0d99ff selection outline round it (outline: 1px solid #0d99ff), and 4 small 8x8px square #ffffff handles with a 1px #0d99ff border, one centred on each corner, each its own absolutely placed div with its top-left at 716,186; 896,186; 716,366; 896,366 (page px)"
    ],
    [
     "size-badge",
@@ -889,7 +889,7 @@
    ],
    [
     "candle-chart",
-    "a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one 880x500px at 0,92 (position absolute) div with no fill of its own, its background drawn as 1px #2b313955 lines on a 80px 60px, 80px 60px tile (background-image: linear-gradient(#2b313955 1px, transparent 1px), linear-gradient(90deg, #2b313955 1px, transparent 1px); background-size: 80px 60px, 80px 60px); nothing inside"
+    "a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one 880x500px at 0,92 (position absolute) div with no fill of its own, its background drawn as 1px #2b313955 lines on a 80px 60px, 80px 60px tile (background-image: linear-gradient(#2b313955 1px, transparent 1px), linear-gradient(90deg, #2b313955 1px, transparent 1px); background-size: 80px 60px, 80px 60px); ON it a CANDLESTICK chart of exactly 31 candles (real divs, NOT a picture, NOT a line chart, NOT bars from the bottom), left to right, the first at page x 24, one every 26px; each candle a 12px wide body with a 2px wick centred through it, coloured #0ecb81 (up) or #f6465d (down); per candle page y as wick top-bottom / body top-bottom and colour: 214-268/232-250 G, 214-298/232-280 R, 196-298/214-280 G, 166-232/184-214 G, 166-244/184-226 R, 142-244/160-226 G, 142-214/160-196 R, 178-280/196-262 R, 244-304/262-286 R, 226-304/244-286 G, 226-328/244-310 R, 274-328/292-310 G, 274-358/292-340 R, 322-376/340-358 R, 298-376/316-358 G, 256-334/274-316 G, 256-316/274-298 R, 280-370/298-352 R, 334-394/352-376 R, 316-394/334-376 G, 292-352/310-334 G, 292-346/310-328 R, 262-346/280-328 G, 262-322/280-304 R, 286-364/304-346 R, 304-364/322-346 G, 304-382/322-364 R, 322-382/340-364 G, 310-358/328-340 G, 310-376/328-358 R, 316-376/334-358 G (G #0ecb81, R #f6465d)"
    ],
    [
     "timeframes",

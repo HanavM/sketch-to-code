@@ -40,3 +40,23 @@ Round 23: **78%** over 10 (78.0; round 22 started at 75 untuned). Vitest: same 2
 Worst gaps, next: e1 a radial-gradient dot grid is a dot pattern on a flat fill (never a gradient wash); selection
 handles and the selected tree row; e4 candles drawn by script must be said as built parts (the reading only saw an
 empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeating-line scanlines; e3 a rail of tiles.
+
+## n233: design tool canvas, layers and selection; trading chart candles (2026-10-26, ~254k billed)
+
+- e1 design tool **28 → 90%** (colour 100, structure 98, layout 79; regions 11/12, zoom chip missed). Three gaps closed in
+  the planner:
+  - the canvas `radial-gradient(#c8c8c8 1px, #0000 1px)` tiled at 20px was said as a "#c8c8c8 to #000000" wash (the
+    see-through stop read as black) and built grey-to-black. A radial gradient tiled by a small px background-size is now
+    a DOT-GRID canvas: flat fill, dot colour and size, spacing and the exact CSS.
+  - the layers tree fell back to a loose word list (two section heads, Layers and Assets, and the flex "◆ name" rows
+    broke the tree check), so the order scrambled and the selected row was lost. A tree may now hold section heads
+    between its rows (said in place with their rule), and a leading glyph span is read on its row's line.
+  - a block with small square handles on its corners now says its selection outline and each handle's page place
+    (run after the whole-note passes, which used to overwrite it).
+  - the tree tail "a trailing letter (M, U) stays..." is said only when a row has one (it invented "Product shot M").
+- e4 trading desk **78 → 83%** (colour 96, structure 77, layout 78). The candles were drawn by a script into an untagged
+  layer, so the reading saw an empty grid. Script-drawn candlesticks over a chart block are now said candle by candle
+  (page x, pitch, wick and body y, up/down colour): all 31 built. Still off: volume bars all green and too bright,
+  timeframes and price axis missed as regions, order book depth bars and the positions tabs lost.
+- Re-planned rounds 1-22: only r11 e1 explorer changes (the M/U tail dropped, it had no such row).
+- Round 23: **85%** over 10 (84.6). Vitest same 2 env failures (1459); typecheck clean.
