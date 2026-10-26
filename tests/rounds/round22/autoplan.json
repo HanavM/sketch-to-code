@@ -433,7 +433,7 @@
    ],
    [
     "subtitle",
-    "big mono \"two inks, no undo\", 32px type on ONE line (white-space: nowrap, never wrapped), about 326px wide; set BOLD (font-weight 700), NOT regular"
+    "big mono \"two inks, no undo\", 32px type (font-size exactly 32px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 326px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "lede",
@@ -745,7 +745,7 @@
    ],
    [
     "breadcrumbs",
-    "small grey breadcrumb \"src › parser.ts › parseBlock\"; its text #a9a9a9 (grey, NOT the page's light grey text)"
+    "small grey breadcrumb \"src › parser.ts › parseBlock\"; its text #a9a9a9 (grey, NOT the page's light grey text); set at 12px (small body text, font-size exactly 12px, NOT larger), one line, its words' top-left at 306,75"
    ],
    [
     "code",

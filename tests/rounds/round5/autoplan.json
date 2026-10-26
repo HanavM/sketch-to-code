@@ -521,7 +521,7 @@
    ],
    [
     "title",
-    "\"Usage by hour\", 26px type on ONE line (white-space: nowrap, never wrapped), about 181px wide; set BOLD (font-weight 700), NOT regular"
+    "\"Usage by hour\", 26px type (font-size exactly 26px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 181px wide; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "filters",
@@ -625,7 +625,7 @@
    ],
    [
     "tabs",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 43x31 at 200,104 15px #71717a \"Profile\"; 40x31 at 271,104 15px #71717a \"Billing\"; 91x31 at 339,104 2px #18181b border on the bottom only: 15px bold #18181b \"Notifications\"; 54x31 at 457,104 15px #71717a \"Security\"; 59x31 at 540,104 15px #71717a \"API keys\""
+    "the 5 parts \"Profile\", \"Billing\", \"Notifications\", \"Security\", \"API keys\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 43x31 at 200,104 15px #71717a \"Profile\"; 40x31 at 271,104 15px #71717a \"Billing\"; 91x31 at 339,104 2px #18181b border on the bottom only: 15px bold #18181b \"Notifications\"; 54x31 at 457,104 15px #71717a \"Security\"; 59x31 at 540,104 15px #71717a \"API keys\""
    ],
    [
     "toggles",

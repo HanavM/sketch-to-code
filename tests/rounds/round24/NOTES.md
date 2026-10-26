@@ -62,3 +62,26 @@ c3 a grid of mixed shape tiles said tile by tile (radius corners, clip-path, bor
 | e2 ride map | 66% | **84%** | streets, turned avenue, parks, river, blue route built; search box gained invented Pickup/Destination labels, ride thumbnails got car icons |
 
 Round 24: **81%** over 10 (80.6). Vitest: same 2 env failures; typecheck clean.
+
+## n240: shape grid and task database (2026-10-26, ~134k billed)
+
+- c3: the tile-grid rule knew only plain squares, up-triangles, single quarter circles, domes and vertical stripes, so 8 of
+  20 tiles were said wrong: a corner clip-path and a diamond said as up-triangles, rings made by thick borders said as
+  plain circles, ::after shapes (a quarter circle over black, a turned diamond, a dome, a half bar, a ring) lost, a dot
+  pattern said empty, 45 degree stripes said vertical, two-corner radii said square. Every tile now also says its exact
+  CSS in brackets (fill or gradient with size, radius, clip-path, border, turn) plus each ::before/::after part with its
+  box and paint, and the build is told to copy those brackets, never a look-alike shape.
+- e1: the table said every body row 42px (the first body row is a taller group heading); the usual row height is now
+  said (37px), with the group rows and header row their own. The sidebar's first "heading" with a red square icon is a
+  BRAND row (icon + bold name, its links under it with no heading), and the real group headings say their size and ink
+  (was built as small grey capitals). A run of 3+ side-by-side worded parts with one even gap says that gap (view tabs
+  were built touching). A 20-39px one-line title says font-size exactly and, in a padded box, where its words start; a
+  one-line 11-16px text in a padded box says its size and start (the description was built ~18px).
+- Re-planned rounds 1-23: the even-gap line reaches tab and nav rows on ~40 pages, the exact title size ~16 (not re-run).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c3 shape grid | 68% | **92%** | all 20 tiles right: corner cuts, diamond, rings, ::after shapes, dots, diagonal stripes; one ring a little thick |
+| e1 task database | 60% | **78%** | brand row with icon, title and description at size, tabs spaced, rows 37px; sidebar rows tighter than target, status dots lost, avatars gained invented initials |
+
+Round 24: **85%** over 10 (84.7). Vitest: same 2 env failures; typecheck clean.

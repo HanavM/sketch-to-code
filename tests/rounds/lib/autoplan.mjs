@@ -363,7 +363,31 @@ export function factsInPage() {
           else if (filled && big[0] && big[1] && !big[2] && !big[3]) kind = 'half'
           else if (filled) kind = 'square'
           const corner = ['top-left', 'top-right', 'bottom-right', 'bottom-left'][big.findIndex(Boolean)]
-          return { kind, c: filled ? fl : stripe?.c, corner, stripe, x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), w: Math.round(b.width), h: Math.round(b.height) }
+          // n240: each tile's own paint verbatim (round 24 c3: a corner clip-path and a diamond said as up-triangles, rings by
+          // border said as plain circles, ::after shapes (quarter circles, a turned diamond, a dome, a half bar) and a dot
+          // pattern lost, 45deg stripes said vertical, two-corner radii said square: 8 of 20 tiles built wrong)
+          const hx = (v) => { const q = rgba(v); return q && q.a > 0.02 ? (q.a < 0.98 ? v.replace(/\s+/g, '') : '#' + [q.r, q.g, q.b].map((n) => Math.round(n).toString(16).padStart(2, '0')).join('')) : null }
+          const radOf = (cc) => { const v = ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((s) => cc[`border${s}Radius`].split(' ')[0]); return v.every((x) => parseFloat(x) === 0) ? null : v.join(' ') }
+          const gradOf = (cc) => cc.backgroundImage !== 'none' ? `${cc.backgroundImage.replace(/rgba?\([^)]+\)/g, (m) => hx(m) ?? 'transparent')}${cc.backgroundSize && cc.backgroundSize !== 'auto' ? ` 0 0 / ${cc.backgroundSize}` : ''}` : null
+          const paintOf = (cc) => {
+            const bits = []
+            const bg = hx(cc.backgroundColor), gi = gradOf(cc)
+            if (gi) bits.push(`background: ${gi}${bg ? `, ${bg}` : ''}`); else if (bg) bits.push(`background: ${bg}`)
+            const rr = radOf(cc); if (rr) bits.push(`border-radius: ${rr}`)
+            if (cc.clipPath && cc.clipPath !== 'none') bits.push(`clip-path: ${cc.clipPath}`)
+            const bw = parseFloat(cc.borderTopWidth) || 0; if (bw >= 1 && cc.borderTopStyle !== 'none') bits.push(`border: ${Math.round(bw)}px ${cc.borderTopStyle} ${hx(cc.borderTopColor) ?? 'transparent'} (box-sizing border-box)`)
+            const m = cc.transform.match(/matrix\(([^,]+),\s*([^,]+)/); if (m) { const d = Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI); if (d) bits.push(`transform: rotate(${d}deg)`) }
+            return bits.join('; ')
+          }
+          const parts = ['::before', '::after'].map((w) => { const pc = getComputedStyle(k, w); if (!pc.content || pc.content === 'none') return null; const paint = paintOf(pc); if (!paint) return null; return { w, x: Math.round(parseFloat(pc.left) || 0), y: Math.round(parseFloat(pc.top) || 0), pw: Math.round(parseFloat(pc.width) || 0), ph: Math.round(parseFloat(pc.height) || 0), paint } }).filter(Boolean)
+          const css = paintOf(c)
+          if (kind === 'empty' && (parts.length || css)) kind = 'square'
+          if (kind === 'triangle' && !/polygon\(0(px|%)? 100%,\s*50% 0(px|%)?,\s*100% 100%\)/.test(c.clipPath)) kind = 'clip'
+          if (kind === 'circle' && parseFloat(c.borderTopWidth) >= 4) kind = 'ring'
+          if (kind === 'square' && big.filter(Boolean).length >= 2) kind = 'rounded'
+          if (kind === 'square' && gi0(c)) kind = 'pattern'
+          function gi0(cc) { return cc.backgroundImage !== 'none' }
+          return { kind, c: filled ? fl : stripe?.c, corner, stripe, css, parts, x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), w: Math.round(b.width), h: Math.round(b.height) }
         })
         if (tiles.filter((t) => t.kind !== 'empty').length < kids.length / 2 || o.width / cols < 80 || o.height / rows < 80) return null
         return { x: Math.round(o.left), y: Math.round(o.top), w: Math.round(o.width), h: Math.round(o.height), cols, rows, cellW: Math.round(o.width / cols), cellH: Math.round(o.height / rows), tiles }
@@ -1552,7 +1576,7 @@ export function factsInPage() {
       })(),
       shown: (() => {
         const t = (el.innerText || '').trim(); if (!t || t.length > 120 || cs.writingMode !== 'horizontal-tb') return null
-        const out = [], lefts = []; let lastTop = null, lo = Infinity, hi = -Infinity, glued = false
+        const out = [], lefts = []; let lastTop = null, lo = Infinity, hi = -Infinity, glued = false, firstTop = null
         const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
         for (let n; (n = tw.nextNode());) {
           const s = n.textContent, re = /\S+/g; let m
@@ -1560,7 +1584,7 @@ export function factsInPage() {
             const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length)
             const rr = rg.getBoundingClientRect(); if (!rr.width) continue
             const newLine = lastTop === null || rr.top > lastTop + rr.height * 0.5
-            if (newLine) { out.push([]); lastTop = rr.top; lefts.push(rr.left) }
+            if (newLine) { out.push([]); lastTop = rr.top; lefts.push(rr.left); if (out.length === 1) firstTop = rr.top }
             // a word split across elements with no space between ('<em>depth</em>, not': round 8 c1 said 'depth , not')
             const line = out[out.length - 1]
             if (!newLine && glued && m.index === 0 && line.length) line[line.length - 1] += m[0]; else line.push(m[0])
@@ -1568,7 +1592,7 @@ export function factsInPage() {
           }
           glued = !!s && !/\s$/.test(s)
         }
-        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo), lefts: lefts.map(Math.round) } : null
+        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo), y: Math.round(firstTop), lefts: lefts.map(Math.round) } : null
       })(),
       // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
       layoutBox: { w: el.offsetWidth, h: el.offsetHeight, x: el.offsetParent === document.body ? el.offsetLeft : undefined, y: el.offsetParent === document.body ? el.offsetTop : undefined },
@@ -1960,7 +1984,10 @@ export function factsInPage() {
     const td = body[0].children[0]
     return {
       head: [...rows[0].children].map((c) => cellParts(c, ink0)), headFill: filled(th) ?? filled(rows[0]), headPx: Math.round(parseFloat(ths.fontSize)),
-      rowPx: Math.round(body[0].getBoundingClientRect().height), ruled: parseFloat(getComputedStyle(td).borderTopWidth) >= 1 ? rgba(getComputedStyle(td).borderTopColor) : null,
+      // n240: the usual body row height, not the first row's (round 24 e1: a 42px group heading row was said for all ten,
+      // so 37px task rows were built 42px and the table ran long); group heading rows and the header say their own
+      ...(() => { const hOf = (r) => Math.round(r.getBoundingClientRect().height); const mode = (a) => { const m = new Map(); for (const v of a) m.set(v, (m.get(v) ?? 0) + 1); return [...m].sort((x, y) => y[1] - x[1])[0]?.[0] }; const grp = body.filter((r) => [...r.children].some((c) => c.colSpan > 1)); const plain = body.filter((r) => !grp.includes(r)); const rowPx = mode((plain.length ? plain : body).map(hOf)); const g = grp.length ? mode(grp.map(hOf)) : null; return { rowPx, groupPx: g && Math.abs(g - rowPx) >= 3 ? g : null, headRowPx: hOf(rows[0]) } })(),
+      ruled: parseFloat(getComputedStyle(td).borderTopWidth) >= 1 ? rgba(getComputedStyle(td).borderTopColor) : null,
       cells, sel: sel.length && sel.length < body.length ? { rows: sel, fill: tints[sel[0] - 1] } : null,
       // each column's left edge from the table's left (round 7 e5: columns built unevenly spaced, Email wide)
       colLefts: [...rows[0].children].map((c) => Math.round(c.getBoundingClientRect().left - tb.getBoundingClientRect().left)),
@@ -2726,7 +2753,7 @@ export function factsInPage() {
       return { type: 'list', order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, onRadR, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, someDots: swatches.some(Boolean) && !swatches.every(Boolean) ? swatches : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
-        groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) gs.push({ h: txt(k), items: [] }) } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
+        groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) { const ic = [...k.children].find((q) => !txt(q) && q.getBoundingClientRect().width >= 10 && q.getBoundingClientRect().width <= 32 && rgba(getComputedStyle(q).backgroundColor)?.a > 0.5); const kc = getComputedStyle(k); gs.push({ h: txt(k), items: [], icon: ic ? { d: Math.round(ic.getBoundingClientRect().width), fill: rgba(getComputedStyle(ic).backgroundColor), rad: Math.round(parseFloat(getComputedStyle(ic).borderTopLeftRadius) || 0) } : null, px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, ink: rgba(kc.color) }) } } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
         // a side nav's row pitch, where its first line starts and its edge rule (round 8 e5: rows built ~34px apart for
         // 30, the nav started ~40px high, its right-hand rule was lost)
         navLook: (() => { const tops = rep.map((k) => k.getBoundingClientRect().top); const st = tops.slice(1).map((t, i) => t - tops[i]).filter((x) => x > 0 && x < 60).sort((a, b) => a - b); const eb = el.getBoundingClientRect(); const first = [...rep[0].parentElement.children].find((k) => txt(k)); const cs = getComputedStyle(el); const rw = parseFloat(cs.borderRightWidth) || 0; return { pitch: st.length ? Math.round(st[Math.floor(st.length / 2)]) : null, rowH: Math.round(rep[0].getBoundingClientRect().height), first: first ? Math.round(first.getBoundingClientRect().top - eb.top) : null, w: Math.round(eb.width), rule: rw >= 1 ? rgba(cs.borderRightColor) : null, onEdge: odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 1 ? { w: Math.round(parseFloat(getComputedStyle(odd[0]).borderLeftWidth)), c: rgba(getComputedStyle(odd[0]).borderLeftColor) } : null } })() }
@@ -3324,7 +3351,7 @@ function denseNote(d) {
       const cell = (ps) => ps.length ? ps.map(part).join(' + ') : '(empty)'
       const card = d.card ? `inside a ${colourName(d.card.fill)} (${hexOf(d.card.fill)}) card ${d.card.w}px wide${d.card.border ? `, ${d.card.border.px}px ${colourName(d.card.border.c)} (${hexOf(d.card.border.c)}) border` : ''}${d.card.rad ? `, ${d.card.rad}px rounded corners${d.card.clip ? ' (overflow hidden, so the header fill follows the corners)' : ''}` : ''}, the table filling the card edge to edge; ` : ''
       const lefts = d.colLefts && d.colLefts.length >= 4 ? `; fixed column widths (table-layout: fixed, ${d.tableW}px): each column starts this far from the table's left edge: ${d.colLefts.map((x, i) => `${i + 1} ${x}px`).join(', ')}` : ''
-      const body = `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
+      const body = `${d.title ? `${quote(d.title, 32)}, ` : ''}${card}table (a real <table>, every row built, none left out): ${d.headFill ? `${colourName(d.headFill)} (${hexOf(d.headFill)}) ` : ''}header row${d.headFill ? ` (bg-[${hexOf(d.headFill)}] on every header cell, visibly tinted against the card, not white)` : ''}, ${d.headPx}px grey semibold: ${d.head.map((ps, i) => i === 0 && ps.length === 1 && ps[0].k === 'cb' && !ps[0].fill ? 'an empty select-all checkbox (the same box as the rows\' checkboxes, drawn in the header cell, not left out)' : cell(ps)).join(' | ')}; then ${d.cells.length} body rows each ${d.rowPx}px tall${d.groupPx ? ` (exactly ${d.rowPx}px: NOT taller; only the group heading rows, the ones with one wide cell, are ${d.groupPx}px; the header row ${d.headRowPx}px)` : ''}${d.ruled ? `, a thin ${colourName(d.ruled)} line between rows` : ''}, cells in column order: ${d.cells.map((r, i) => `row ${i + 1}: ${r.map(cell).join(' | ')}`).join('; ')}${d.sel ? `; the ${d.sel.rows.map(ord).join(', ')} rows are selected: whole row tinted ${colourName(d.sel.fill)} (${hexOf(d.sel.fill)})` : ''}${lefts}`
       return legend.size ? `${body}; ${[...legend.values()].join('; ')}` : body
     }
     case 'table': if (d.headless) return `${d.title ? `${quote(d.title, 32)}, ` : ''}${d.all.length} rows, no header row${d.ruled ? ', thin lines between' : ''}${d.cols.map((c, i) => c.bold || c.right ? `, ${['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`} column${c.bold ? ' bold' : ''}${c.right ? ' right-aligned' : ''}` : '').join('')}: ${d.all.map((r) => r.map((t) => quote(t, 20)).join(' | ')).join('; ')}`
@@ -3427,7 +3454,13 @@ function denseNote(d) {
       // first four became invented links under the wrong headings)
       if (d.groups && d.stacked && d.items.every((p) => p.length === 1 && p[0].length <= 28)) {
         const caps = d.groups.every((g) => /^[A-Z0-9 &/-]+$/.test(g.h))
-        return `side nav, no box: ${d.groups.length} groups, each a ${caps ? 'small grey spaced-capitals ' : 'small bold '}heading over its own links, one link per line (every link said, none invented, none moved to another group): ${d.groups.map((g) => `${quote(g.h, 28)}: ${g.items.map((i) => quote(d.items[i][0], 28)).join(', ')}`).join('; ')}${d.on ? `; ${quote(d.on, 28)} highlighted${d.onFill ? ` (${sheetFill(d.onFill)} row${d.navLook?.onEdge ? `, a ${d.navLook.onEdge.w}px ${hexOf(d.navLook.onEdge.c)} left edge` : ''}${d.onInk ? `, bold ${hexOf(d.onInk)} text` : ''})` : ''}` : ''}${navWords(d.navLook)}`
+        // n240: a first 'heading' led by a small filled icon is the workspace BRAND row, not a group heading (round 24 e1:
+        // 'Northwind' with its red square was said as a heading, built as small grey capitals, icon lost)
+        const br = d.groups[0].icon && d.groups.length >= 3 ? d.groups[0] : null
+        const gl = br ? d.groups.slice(1) : d.groups
+        const hd = gl[0]
+        const brand = br ? `first a BRAND row (NOT a heading): a ${br.icon.d}x${br.icon.d}px ${hexOf(br.icon.fill)} square${br.icon.rad ? ` ${br.icon.rad}px rounded` : ''} icon, then ${br.bold ? 'bold ' : ''}${br.px}px ${br.ink ? `${hexOf(br.ink)} ` : ''}${quote(br.h, 28)} beside it on one line; under it ${br.items.map((i) => quote(d.items[i][0], 28)).join(', ')} as plain links with NO heading; then ` : ''
+        return `side nav, no box: ${brand}${gl.length} groups, each a ${caps && !br ? 'small grey spaced-capitals ' : `small ${hd.bold ? 'semibold ' : ''}${hd.px ? `${hd.px}px ` : ''}${hd.ink ? `${hexOf(hd.ink)} ` : ''}`}heading${br ? ' (as written, NOT capitals)' : ''} over its own links, one link per line (every link said, none invented, none moved to another group): ${gl.map((g) => `${quote(g.h, 28)}: ${g.items.map((i) => quote(d.items[i][0], 28)).join(', ')}`).join('; ')}${d.on ? `; ${quote(d.on, 28)} highlighted${d.onFill ? ` (${sheetFill(d.onFill)} row${d.navLook?.onEdge ? `, a ${d.navLook.onEdge.w}px ${hexOf(d.navLook.onEdge.c)} left edge` : ''}${d.onInk ? `, bold ${hexOf(d.onInk)} text` : ''})` : ''}` : ''}${navWords(d.navLook)}`
       }
       // mail rows that open on the sender: sender, time, subject, preview (round 8 e1: 'Ravi, me (3)' is longer than a
       // time, so the rows fell to a bare sender list and the build lost every subject and preview)
@@ -3606,7 +3639,7 @@ function codeNote(f) {
 function round10Note(f) {
   const T = f.tileGrid
   if (T) {
-    const say = (t) => {
+    const say0 = (t) => {
       const c = t.c ? `${colourName(t.c)} ${hexOf(t.c)}` : ''
       const inset = t.w < T.cellW - 2 || t.h < T.cellH - 2 ? ` ${t.w}x${t.h}px, ${t.x % T.cellW}px in from the cell's left and ${t.y % T.cellH}px down` : ''
       if (t.kind === 'empty') return 'empty (page shows)'
@@ -3614,12 +3647,23 @@ function round10Note(f) {
       if (t.kind === 'half') return `${c} half disc dome${inset} (flat bottom, rounded top: border-radius ${Math.round(t.w / 2)}px ${Math.round(t.w / 2)}px 0 0)`
       if (t.kind === 'circle') return `${c} circle${inset}`
       if (t.kind === 'triangle') return `${c} triangle pointing up (clip-path polygon(0 100%, 50% 0, 100% 100%))`
-      if (t.kind === 'stripes') return `${c} vertical stripes (${t.stripe?.band ?? 12}px bars every ${t.stripe?.pitch ?? 24}px, gaps show the page)`
+      if (t.kind === 'stripes') return `${c} ${/\b(?!90deg|0deg|180deg)\d+deg/.test(t.css ?? '') ? 'diagonal' : 'vertical'} stripes (${t.stripe?.band ?? 12}px bars every ${t.stripe?.pitch ?? 24}px, gaps show the page)`
+      if (t.kind === 'clip') return `${c} shape cut by clip-path`
+      if (t.kind === 'ring') return `${c} ring (a circle with a thick border, its middle the fill)`
+      if (t.kind === 'rounded') return `${c} shape with some corners rounded`
+      if (t.kind === 'pattern') return `${c ? `${c} ` : ''}${/radial/.test(t.css ?? '') ? 'dot-pattern' : 'patterned'} tile`
       return `${c} solid square`
     }
+    // n240: every tile also says its exact CSS and any ::before/::after part placed in it (the words above are only a hint)
+    const exact = (t) => {
+      const own = t.css ? `{${t.css}}` : '{no paint: the page shows}'
+      const ps = (t.parts ?? []).map((p) => ` + ${p.w} ${p.pw}x${p.ph}px at ${p.x},${p.y} in the tile {${p.paint}}`).join('')
+      return ` [exact CSS ${own}${ps}]`
+    }
+    const say = (t) => say0(t) + (T.tiles.some((q) => (q.parts ?? []).length || (q.css && /clip-path|border:|deg|radial|\//.test(q.css))) ? exact(t) : '')
     const rows = []
     for (let r = 0; r < T.rows; r++) rows.push(`row ${r + 1}: ${T.tiles.slice(r * T.cols, r * T.cols + T.cols).map(say).join(' | ')}`)
-    return { kind: 'box', note: `a full-page grid of ${T.cols} columns x ${T.rows} rows of flat shape tiles (display grid, ${T.cellW}x${T.cellH}px cells, no gaps, no borders), ${T.w}x${T.h}px at ${T.x},${T.y}, behind everything else; each cell holds ONE flat-colour geometric shape (NOT one box, NOT a picture, NOT an SVG: ${T.tiles.length} real divs, each overflow hidden); every tile left to right, row by row: ${rows.join('; ')}` }
+    return { kind: 'box', note: `a full-page grid of ${T.cols} columns x ${T.rows} rows of flat shape tiles (display grid, ${T.cellW}x${T.cellH}px cells, no gaps${T.tiles.some((q) => /border:/.test(q.css ?? '')) ? '' : ', no borders'}), ${T.w}x${T.h}px at ${T.x},${T.y}, behind everything else; each cell holds ${T.tiles.some((q) => (q.parts ?? []).length) ? 'its flat-colour geometric shape (a few tiles lay a second shape over their own fill with a ::before/::after part, placed as said)' : 'ONE flat-colour geometric shape'} (NOT one box, NOT a picture, NOT an SVG: ${T.tiles.length} real divs, each overflow hidden and position relative${T.tiles.some((q) => q.css && /\[|deg|clip-path|border:/.test(q.css)) ? '; give each tile EXACTLY the CSS in its [exact CSS] brackets, never a look-alike shape' : ''}); every tile left to right, row by row: ${rows.join('; ')}` }
   }
   // n164: a repeating conic gradient in degrees with no tile size is a SUNBURST of rays from one centre (round 16 c3:
   // said as a checkerboard floor, built as chess squares)
@@ -3823,7 +3867,11 @@ function partsNote(P, f) {
   const sb = [...P].sort((a2, b2) => a2.y - b2.y)
   const bars = P.length >= 3 && P.every((q) => !q.t && q.fill && q.h <= 12) && sb.every((q, i) => i === 0 || q.y - (sb[i - 1].y + sb[i - 1].h) >= 4)
     ? `${P.length} SEPARATE thin bars, each its own element, with ${sb[1].y - (sb[0].y + sb[0].h)}px of empty page between one bar and the next (NEVER merged into one solid block); ` : ''
-  return `${band}${bars}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${order.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
+  // n240: a run of 3+ side-by-side worded parts with one even gap says that gap (round 24 e1 view tabs placed 20px apart,
+  // built touching: 'TableBoardTimelineCalendar')
+  const rowRun = (() => { const tp = [...P].filter((q) => q.t && q.t.length <= 16 && !q.fill && !q.tpath).sort((a2, b2) => a2.x - b2.x); for (const q of tp) { const run = [q]; for (;;) { const last = run[run.length - 1]; const nx = tp.find((r) => Math.abs(r.y - q.y) <= 2 && Math.abs(r.h - q.h) <= 2 && r.x > last.x + last.w && r.x - (last.x + last.w) <= 40); if (!nx) break; run.push(nx) } if (run.length >= 3) { const gs = run.slice(1).map((r, i) => r.x - (run[i].x + run[i].w)); if (gs.every((g) => g >= 8 && Math.abs(g - gs[0]) <= 2)) return { run, gap: Math.round(gs.reduce((a2, b2) => a2 + b2, 0) / gs.length) } } } return null })()
+  const gapSay = rowRun ? `the ${rowRun.run.length} parts ${rowRun.run.map((q) => `"${q.t}"`).join(', ')} sit side by side in one row with exactly ${rowRun.gap}px of empty space between one and the next (flex gap ${rowRun.gap}px; NEVER touching, never run together); ` : ''
+  return `${band}${bars}${gapSay}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${order.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -4098,6 +4146,9 @@ function decideRest(f, page, marked, said) {
   }
   // n177: a one-line lead text of 18px+ says its size in words (round 17 c5: the 22px intro built 12px twice; the drawn
   // squiggle height alone did not carry it)
+  // n240: a one-line small text set inside a padded full-width box says its size and where its words start (round 24 e1
+  // description 14px under the title, said as just 'grey text', built ~18px)
+  if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 11 && f.font.size <= 16 && !/\d+px/.test(d.note) && f.shown?.y != null && (f.inset?.l >= 16 || f.inset?.t >= 16)) d.note += `; set at ${Math.round(f.font.size)}px (small body text, font-size exactly ${Math.round(f.font.size)}px, NOT larger), one line, its words' top-left at ${f.shown.x},${f.shown.y}`
   if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 18 && !/\d+px/.test(d.note)) d.note += `; set at ${Math.round(f.font.size)}px (a large lead line, NOT small body text), about ${Math.round(w0)}px wide on one line`
   // n152: a bare table on the page says it has no card (round 13 e5 comparison table built inside a white card)
   if (d?.note && /^(?:".*" as a small bold heading, then a )?table, every body row/.test(d.note) && !visible(f.bg) && !(f.border.w >= 1 && visible(f.border.colour)) && !f.radius && w0 >= 600) {
@@ -5068,7 +5119,7 @@ function decideOne(f, page, marked, said) {
     // (round 6 c4 'Every screen, one glance.' 56px, one line, built on 2 lines over the subline)
     // a 20-39px multi-word line set on one line says its size and the one line: round 7 c5's 30px 'read this
     // first!' hand note was built on 2 lines (n103)
-    const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide` : ''
+    const mid = !f.motion && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && /\s/.test(f.text.trim()) && f.text.length <= 40 ? `, ${Math.round(f.font.size)}px type (font-size exactly ${Math.round(f.font.size)}px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about ${f.shown.w}px wide${f.shown.y != null && (f.inset?.t >= 16 || f.inset?.l >= 16) ? `, its text's top-left at ${f.shown.x},${f.shown.y} (the region's box is padded round it)` : ''}` : ''
     // a one-word page title near the top says its size and top: 'Overview' (26px bold, top 28) was said as the
     // word alone and built ~10px high with everything under it drifting (round 6 e2)
     const ttl = !mid && !f.motion && !fill && f.shown && f.shown.lines.length === 1 && f.font.size >= 20 && f.font.size < 40 && !/\s/.test(f.text.trim()) && f.text.length <= 24 && f.rect.y <= 120 ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}type on one line, its box top ${Math.round(f.rect.y)}px from the page top and ${Math.round(f.rect.h)}px tall (top-[${Math.round(f.rect.y)}px] or the same margin, line-height ${Math.round(f.rect.h)}px; not higher)` : ''
