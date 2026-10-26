@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 24 is at 88% (up from 87%): the task database now has its status dots, plain avatars and sidebar spacing, and the scrapbook its yellow sticky note, circled word and round stamp. Working on the ride map and video call next."
 round: 24
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 88]
-lock: null
+lock: {by: "n243 run 2026-10-26T11:13Z", until: "2026-10-26T12:43Z"}
 asks: []
 handled:
   - "2026-10-25 14:55 INBOX: agent is pushed every step again (tree, now, round, round_scores, LOG, lock released); n114-n225 LOG lines and nodes are on agent."
