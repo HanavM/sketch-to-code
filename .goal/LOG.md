@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-26T05:40Z | n235 r23 CRT screen bezel, scanline veil, status panel | CRT terminal 84 to 93: bezel, glow, see-through scanlines, meter bars; r10 terminal 92 to 95. Round 23 88. ~280k.
 2026-10-26T04:17Z | n234 r23 chat rail, badges, composer; invoice settings cards | Chat 74 to 87, invoice 74 to 83: tiles, count pills, selects, toggles, timeline. Round 23 87. ~194k.
 2026-10-26T03:55Z | n233 r23 design tool canvas and trading chart candles | Design tool 28 to 90, trading desk 78 to 83: dot grid, layers, handles, 31 candles. ~254k.
 2026-10-26T03:12Z | n232 round 23 written: ten harder pages, auto-planned and built live | first look 78 over 10; design tool 28, chat and invoice 74 weakest. ~931k.
