@@ -99,3 +99,19 @@ empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeat
 - Re-planned rounds 1-22: only r10 c3 scanlines change; live r10 c3 92 → 95 (kept; round 10 stays 88).
 - Still off: knobs built small and orange (target 44px olive grey), footer ~10px high.
 - Round 23: **88%** over 10 (87.8). Vitest same 2 env failures (1460); typecheck clean.
+
+## n236: shard collage button, gold glow, shifted line; trading desk volume, order book, tabs (2026-10-26, ~204k billed)
+
+- c1 shard collage **83 → 91%** (colour 100, structure 97, layout 79; regions 9/10, nav missed). Planner:
+  - a short filled button cut by a 3-6 corner clip-path says its box, place and the polygon verbatim (built square);
+  - a single radial-gradient cut-out says its exact CSS (the gold shard was a vague 'soft yellow to amber', built as a pale linear fade);
+  - a left-aligned display line set further right than the first says where it starts ('& KEPT' 260px in, built flush);
+  - a small vertical label turned 180deg says so (read top-down); rounds 3, 4, 9, 16 labels gain it;
+  - a wrapped loose text run keeps its whole copy and wraps at its block's width (the caption was cut at 70 letters and its tail said as a 'first bold' run).
+- e4 trading desk **83 → 90%** (colour 98, structure 85, layout 89). Planner:
+  - bars in two colours in no fixed turn say each bar's colour and the see-through alpha (volume said as 31 bright green bars);
+    r10 e4 volume changes the same way (not re-run);
+  - a panel of price rows with right-anchored ::before depth bars is an ORDER BOOK said row by row (columns, inks, bar width and rgba fill), with its mid price line;
+  - a tab row above a table is said before it, with the active tab's inset underline.
+  - Still off: the pair header was built over the timeframes (run noise, its note unchanged); order form fields built as bare lines.
+- Round 23: **89%** over 10 (89.3). Vitest same 2 env failures; typecheck clean.

@@ -148,6 +148,30 @@ export function factsInPage() {
       radiusBottomFlat: /^\S+\s+0(px|%)?$/.test(cs.borderBottomLeftRadius.trim()),
       shadow: cs.boxShadow,
       centred: cs.textAlign === 'center' || cs.justifyContent === 'center',
+      alignEnd: /right|end/.test(cs.textAlign),
+      // n236: a panel of price rows each with a ::before depth bar anchored right (round 23 e4 order book: said as 'rows of
+      // tabs', the red/green depth bars and row inks lost)
+      book: (() => {
+        const rows = [...el.children].filter((k) => { const a = getComputedStyle(k, '::before'); const af = rgba(a.backgroundColor); return a.content !== 'none' && /absolute/.test(a.position) && (af?.a ?? 0) > 0.03 && af.a < 0.6 && a.right !== 'auto' && parseFloat(a.right) <= 2 && parseFloat(a.width) >= 20 && k.children.length >= 2 && (k.innerText || '').trim() })
+        if (rows.length < 4) return null
+        const r = el.getBoundingClientRect()
+        return { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height), kids: [...el.children].map((k) => {
+          const b = k.getBoundingClientRect(), c = getComputedStyle(k), a = getComputedStyle(k, '::before'), dep = rows.includes(k)
+          const cols = k.children.length >= 2 && [...k.children].every((q) => !q.children.length) ? [...k.children].map((q) => ({ t: (q.innerText || '').trim(), ink: rgba(getComputedStyle(q).color), right: /right|end/.test(getComputedStyle(q).textAlign) })) : null
+          return { t: (k.innerText || '').replace(/\s+/g, ' ').trim(), own: [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim(), x: Math.round(b.left - r.left), y: Math.round(b.top - r.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), cols,
+            sub: k.querySelector('small') ? { t: k.querySelector('small').innerText.trim(), px: Math.round(parseFloat(getComputedStyle(k.querySelector('small')).fontSize)), ink: rgba(getComputedStyle(k.querySelector('small')).color) } : null,
+            depth: dep ? { w: Math.round(parseFloat(a.width)), h: Math.round(parseFloat(a.height)), top: Math.round(parseFloat(a.top) || 0), right: a.right !== 'auto' && parseFloat(a.right) <= 2, fill: rgba(a.backgroundColor) } : null }
+        }) }
+      })(),
+      // n236: a tab row as the first child above a table (round 23 e4 positions: 'Open orders (2)' tabs lost, only the
+      // table said)
+      tabHead: (() => {
+        const k = el.children[0]; if (!k || !el.querySelector('table') || k.tagName === 'TABLE' || k.children.length < 2 || k.children.length > 8 || [...k.children].some((q) => q.children.length)) return null
+        const c = getComputedStyle(k), r = el.getBoundingClientRect(), b = k.getBoundingClientRect()
+        const ts = [...k.children].map((q) => { const s = getComputedStyle(q), qb = q.getBoundingClientRect(); const ul = s.boxShadow.match(/inset\s+0(px)?\s+-(\d+)px\s+0(px)?\s+(rgba?\([^)]+\))|(rgba?\([^)]+\))\s+0px\s+-(\d+)px\s+0px\s+0px\s+inset/); return { t: (q.innerText || '').trim(), x: Math.round(qb.left - r.left), ink: rgba(s.color), bold: Number(s.fontWeight) >= 600, px: Math.round(parseFloat(s.fontSize)), ul: ul ? { px: +(ul[2] || ul[6]), c: rgba(ul[4] || ul[5]) } : null } })
+        if (!ts.every((q) => q.t && q.t.length <= 24) || !ts.some((q) => q.ul)) return null
+        return { h: Math.round(b.height), y: Math.round(b.top - r.top), rule: parseFloat(c.borderBottomWidth) >= 1 ? rgba(c.borderBottomColor) : null, tabs: ts }
+      })(),
       inset: { t: parseFloat(cs.paddingTop) || 0, l: parseFloat(cs.paddingLeft) || 0 },
       // where its text starts (a lone quote in the top of a tall cell vs set low)
       textTop: (() => { const g = document.createRange(); g.selectNodeContents(el); const rs = [...g.getClientRects()].filter((x) => x.height > 0); return rs.length ? Math.min(...rs.map((x) => x.top)) : null })(),
@@ -1490,7 +1514,7 @@ export function factsInPage() {
       })(),
       shown: (() => {
         const t = (el.innerText || '').trim(); if (!t || t.length > 120 || cs.writingMode !== 'horizontal-tb') return null
-        const out = []; let lastTop = null, lo = Infinity, hi = -Infinity, glued = false
+        const out = [], lefts = []; let lastTop = null, lo = Infinity, hi = -Infinity, glued = false
         const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
         for (let n; (n = tw.nextNode());) {
           const s = n.textContent, re = /\S+/g; let m
@@ -1498,7 +1522,7 @@ export function factsInPage() {
             const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length)
             const rr = rg.getBoundingClientRect(); if (!rr.width) continue
             const newLine = lastTop === null || rr.top > lastTop + rr.height * 0.5
-            if (newLine) { out.push([]); lastTop = rr.top }
+            if (newLine) { out.push([]); lastTop = rr.top; lefts.push(rr.left) }
             // a word split across elements with no space between ('<em>depth</em>, not': round 8 c1 said 'depth , not')
             const line = out[out.length - 1]
             if (!newLine && glued && m.index === 0 && line.length) line[line.length - 1] += m[0]; else line.push(m[0])
@@ -1506,7 +1530,7 @@ export function factsInPage() {
           }
           glued = !!s && !/\s$/.test(s)
         }
-        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo) } : null
+        return out.length ? { lines: out.map((l) => l.join(' ')), w: Math.round(hi - lo), x: Math.round(lo), lefts: lefts.map(Math.round) } : null
       })(),
       // the untransformed box (a tilted floor shows shorter than it is built: round 6 c1)
       layoutBox: { w: el.offsetWidth, h: el.offsetHeight, x: el.offsetParent === document.body ? el.offsetLeft : undefined, y: el.offsetParent === document.body ? el.offsetTop : undefined },
@@ -1546,7 +1570,11 @@ export function factsInPage() {
           if (!t) continue
           const rg = document.createRange(); rg.selectNodeContents(n); const b = rg.getBoundingClientRect()
           if (b.width < 2) continue
-          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: t.slice(0, 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+          // n236: a wrapped loose run keeps its whole copy and wraps at the block's width (round 23 c1 caption: cut at 70
+          // letters, the rest said as a 'first bold' run, built 270px wide and rewrapped)
+          const wrapped = b.height >= 1.8 * (parseFloat(es.lineHeight) || parseFloat(es.fontSize) * 1.2)
+          const ew = wrapped ? Math.round(el.getBoundingClientRect().right - (parseFloat(es.paddingRight) || 0) - b.left) : Math.round(b.width)
+          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.max(Math.round(b.width), ew), h: Math.round(b.height), t: t.slice(0, wrapped ? 1200 : 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
         }
         // n198: an untagged absolutely placed block laid over a region from outside it (round 20 e1: the week's events are
         // siblings of the grid, the hour labels a column beside it; all lost, the grid built empty) is one of that
@@ -2422,6 +2450,9 @@ export function factsInPage() {
         const title = kids.map(txt).find((t) => t && t.length <= 40)
         return { type: 'bars', count: bars.length, colour: filled(bars[0]), odd: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const n = new Map(); cs.forEach((c) => n.set(key(c), (n.get(key(c)) ?? 0) + 1)); const main = [...n.entries()].sort((a, b) => b[1] - a[1])[0][0]; const o = cs.map((c, i) => [i, c]).filter(([, c]) => key(c) !== main); return o.length && (o.length <= 2 || (o.length <= 8 && o.length * 4 <= cs.length)) ? { main: cs.find((c) => key(c) === main), o } : null })(),
           // n192: two colours taking turns bar by bar (round 19 c4 EQ: orange and blue bars said '12 orange bars')
+          // n236: two colours in no fixed turn (round 23 e4 volume: each bar the colour of its candle, see-through; said as
+          // 31 bright green bars)
+          mix: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b},${c.a}`; const ks = [...new Set(cs.map(key))]; return ks.length === 2 && bars.length >= 6 && Math.min(...ks.map((q) => cs.filter((c) => key(c) === q).length)) >= 3 ? { pair: ks.map((q) => cs.find((c) => key(c) === q)), seq: cs.map((c) => ks.indexOf(key(c))) } : null })(),
           alt: (() => { const cs = bars.map((k) => filled(k)); const key = (c) => `${c.r},${c.g},${c.b}`; const ks = [...new Set(cs.map(key))]; return ks.length === 2 && cs.every((c, i) => key(c) === key(cs[i % 2])) ? [cs[0], cs[1]] : null })(), title, rising: hs[hs.length - 1] > hs[0], heights: hs.map((h) => Math.round(h / Math.max(...hs) * 100)),
           // n167: the card the chart sits on (round 16 e1: a white bordered shadowed card built as a pale blue panel) and the bars' own size
           card: (() => { const cs = getComputedStyle(el); const bg = rgba(cs.backgroundColor); return { w: Math.round(box0.width), h: Math.round(box0.height), x: Math.round(box0.left + scrollX), y: Math.round(box0.top + scrollY), abs: /absolute|fixed/.test(cs.position), bg: bg.a > 0.05 ? bg : null, bw: parseFloat(cs.borderTopWidth) || 0, bc: rgba(cs.borderTopColor), shadow: cs.boxShadow !== 'none', radius: Math.round(parseFloat(cs.borderTopLeftRadius) || 0) } })(),
@@ -3064,13 +3095,22 @@ function linearEnds(bgImage) {
   const to = Math.round((((deg % 360) + 360) % 360) / 45) % 8
   return [sides[(to + 4) % 8], sides[to]]
 }
+/** n236: a display line set further right than the first (round 23 c1 '& KEPT' line, margin-left 260px on its own
+ * block span: built flush under 'CUT UP') says where each shifted line starts. */
+function shiftSay(sh, sl) {
+  const L = sh?.lefts
+  if (!L || L.length !== sl.length) return ''
+  const moved = L.map((x, i) => ({ i, x, d: x - L[0] })).filter((q) => q.i && Math.abs(q.d) >= 40)
+  if (!moved.length) return ''
+  return `; the lines do NOT share one left edge: line 1 starts at x ${L[0]}, ${moved.map((q) => `line ${q.i + 1} (${quote(sl[q.i], 40)}) starts at x ${q.x}, ${Math.abs(q.d)}px further ${q.d > 0 ? 'right' : 'left'} (its own block line with margin-left ${q.d}px)`).join(', ')}`
+}
 /** Look words any block can carry: tilt, blur, glass, bleeding off the page. */
 function effectWords(f) {
   const w = []
   const turn = Math.abs(f.rotate)
   // a vertical label is often flipped 180deg to read bottom-up: that's not a tilt
   // a small vertical label says its type size: 'vertical' alone was built ~9px on a 15px target (round 6 c2)
-  if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long`
+  if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg (transform: rotate(180deg)) so it reads bottom to top, its first letter at the BOTTOM' : ''}), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long`
     // n133: a giant vertical title says its size, its turn and where its words run (round 9 c5 built short and low)
     : f.font.size >= 60 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
     : 'vertical')
@@ -3307,7 +3347,9 @@ function denseNote(d) {
       return `${d.title ? `${quote(d.title, 32)}${d.close ? `, ${quote(d.close)} close top right` : ''}, ` : ''}form, labels above fields: ${d.rows.map((r) => r.map(fld).join(' | ')).join('; ')}${d.buttons.length ? `; buttons${side}: ${d.buttons.map(btn).join(', ')}` : ''}${d.gap ? `, pinned to the bottom of the ${d.gap.h}px tall card with ${d.gap.px}px of empty space above them` : ''}`
     }
       return `${d.title ? `${quote(d.title, 32)}, ` : ''}form, labels above empty fields: ${d.rows.map((r) => r.length === 1 ? `${quote(r[0].label)}${r[0].wide ? ' full width' : ''}` : r.map((x) => quote(x.label)).join(' | ')).join('; ')}`
-    case 'bars': if (d.alt) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars in TWO colours taking turns bar by bar (NOT all one colour): bar 1 ${colourName(d.alt[0])} ${hexOf(d.alt[0])}, bar 2 ${colourName(d.alt[1])} ${hexOf(d.alt[1])}, bar 3 ${colourName(d.alt[0])} again, and so on${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
+    case 'bars': if (d.mix && !d.alt && !d.odd) { const say = (c) => `${colourName(c)} ${c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${+c.a.toFixed(2)}) (see-through, ${Math.round(c.a * 100)}%: dim, NOT bright)` : hexOf(c)}`
+      return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars in TWO colours (NOT all one colour): A = ${say(d.mix.pair[0])}, B = ${say(d.mix.pair[1])}; bar by bar from the left: ${d.mix.seq.map((i) => 'AB'[i]).join(' ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}` }
+      if (d.alt) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars in TWO colours taking turns bar by bar (NOT all one colour): bar 1 ${colourName(d.alt[0])} ${hexOf(d.alt[0])}, bar 2 ${colourName(d.alt[1])} ${hexOf(d.alt[1])}, bar 3 ${colourName(d.alt[0])} again, and so on${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
       if (d.odd) return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} bars, all ${colourName(d.odd.main)} (${hexOf(d.odd.main)}) except ${oddRuns(d.odd.o).map(([a, b, c]) => `${a === b ? `bar ${a + 1}` : `bars ${a + 1} to ${b + 1} (counting from the left)`} ${vivid(c) ? 'vivid ' : ''}${colourName(c)} (${hexOf(c)})`).join(' and ')}${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`
       return `${barCard(d)}bar chart${d.title ? ` ${quote(d.title, 32)}` : ''}, ${d.count} ${colourName(d.colour) ?? ''} bars${d.heights ? `, heights ${d.heights.join('/')}% of the tallest` : ''}${barSize(d)}`.replace(/\s+/g, ' ')
     case 'bubbles': return `chat bubbles: ${d.items.slice(0, 4).map((b) => `${b.side} ${colourName(b.fill) ?? ''} ${short(b.text, 40)}`.replace(/\s+/g, ' ')).join(', ')}${d.items.length > 4 ? `, ${d.items.length - 4} more` : ''}`
@@ -4653,7 +4695,8 @@ function decideOne(f, page, marked, said) {
     if (shape && f.clipPoly) {
       const hx = grad && /^linear-gradient/.test(f.bgImage.trim()) && (f.bgImage.match(/gradient\(/g) || []).length === 1 ? [...f.bgImage.matchAll(/rgba?\([^)]+\)/g)].map((m) => parse(m[0])).filter((c) => c && c.a >= 0.3) : null
       const dir = f.bgImage.match(/linear-gradient\(\s*(\d+deg)/)?.[1]
-      const exact = hx && hx.length === 2 ? `, painted linear-gradient(${dir ? `${dir}, ` : ''}${hexOf(hx[0])}, ${hexOf(hx[1])}) exactly (these hexes, no brighter or darker)` : ''
+      const rad1 = grad && /^radial-gradient/.test(f.bgImage.trim()) && (f.bgImage.match(/gradient\(/g) || []).length === 1 ? cssHex(f.bgImage.replace(/\s+/g, ' ').trim()) : null
+      const exact = rad1 ? `, painted ${rad1} exactly (a RADIAL glow, NOT a linear fade; these hexes, no paler or brighter)` : hx && hx.length === 2 ? `, painted linear-gradient(${dir ? `${dir}, ` : ''}${hexOf(hx[0])}, ${hexOf(hx[1])}) exactly (these hexes, no brighter or darker)` : ''
       const size = Math.abs(f.rotate) >= 2 && f.layoutBox?.w ? `, the shape itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt, its top-left at ${Math.round(f.rect.x + (w - f.layoutBox.w) / 2)},${Math.round(f.rect.y + (h - f.layoutBox.h) / 2)} before the tilt` : ''
       const flat = exact && !shadowWords(f) ? ', lying flat on the page: no drop shadow, no border' : ''
       // n137: a gradient cut-out says its corners and place too (round 10 c2: three full-height slanted gradient
@@ -4959,7 +5002,7 @@ function decideOne(f, page, marked, said) {
     // a display line's own breaks and a giant word's width: builds rewrapped a 2-line headline into 3
     // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
     const sl = f.shown && f.font.size >= 40 && !f.motion ? f.shown.lines.map((t) => (f.font.transform === 'uppercase' ? t.toUpperCase() : t)) : null
-    const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about ${f.shown.w}px wide)` : ''
+    const brk = sl && sl.length >= 2 && sl.length <= 4 ? `, set in exactly ${sl.length} lines: ${sl.map((t) => quote(t, 40)).join(' / ')} (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about ${f.shown.w}px wide)${f.centred || f.alignEnd ? '' : shiftSay(f.shown, sl)}` : ''
     // a word repeated line by line, each line fainter (round 8 c2: the four SOUNDs built all solid)
     const ks = f.kidStyles?.length === sl?.length ? f.kidStyles : null
     const fadeSay = brk && ks && ks.some((k) => k.o < 0.95) ? `; each line its own block with its own opacity, top to bottom: ${ks.map((k) => `${Math.round(k.o * 100)}%`).join(', ')} (the lower lines fade out; never all solid)` : ''
@@ -5985,6 +6028,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const R = f.rect
     out.set(f.role, { kind: 'box', note: `a ${Math.round(R.w)}x${Math.round(R.h)}px STAR badge at ${Math.round(R.x)},${Math.round(R.y)} (position absolute): one ${hexOf(f.bg)} fill cut by clip-path: ${f.clipCss} exactly (a ${Math.round(f.clipPoints / 2)}-pointed star, NOT a circle, NOT a rounded box, no border), ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'black-weight ' : f.font.weight >= 600 ? 'bold ' : ''}${hexOf(f.colour)} ${quote(f.text, 16)} centred in it` })
   })
+  // n236: a short filled button cut by a 3-6 corner clip-path (round 23 c1 'VIEW THE SERIES →': its right end slanted
+  // by polygon(0 0,100% 0,92% 100%,0 100%), built as a plain square bar)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d?.kind || !f.clipCss || f.clipPoints < 3 || f.clipPoints > 6 || !f.text || f.text.length > 30 || f.regionKids.length || !visible(f.bg) || f.rect.w > 420 || f.rect.h > 90 || /clip-path/.test(d.note ?? '')) return
+    const R = f.rect
+    out.set(f.role, { ...d, note: `${d.note ? `${d.note}; ` : ''}a ${Math.round(R.w)}x${Math.round(R.h)}px button at ${Math.round(R.x)},${Math.round(R.y)} (position absolute) whose fill is CUT to a slanted shape by clip-path: ${f.clipCss.replace(/\s+/g, ' ')} exactly on the button itself (NOT a plain rectangle; the page shows through the cut corner), the words keep their own padding inside it` })
+  })
   // n163: a device turned in 3D (round 16 c5 phone: built flat and upright, the turn, tilt and floor shadow lost) is said
   // as its body with the exact turn, its screen parts in the body's own flat layout
   regions.forEach((f) => {
@@ -6241,6 +6292,23 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const cols = [...new Set(C.map((k) => hexOf(k.c)))]
     const pitch = C.length > 1 ? Math.round((C[C.length - 1].x - C[0].x) / (C.length - 1)) : 0
     d.note = `${d.note.replace(/; nothing inside$/, '')}; ON it a CANDLESTICK chart of exactly ${C.length} candles (real divs, NOT a picture, NOT a line chart, NOT bars from the bottom), left to right, the first at page x ${C[0].x}, one every ${pitch}px; each candle a ${C[0].w}px wide body with a ${C[0].ww}px wick centred through it, coloured ${cols.join(' (up) or ')} (down); per candle page y as wick top-bottom / body top-bottom and colour: ${C.map((k) => `${k.wt}-${k.wb}/${k.bt}-${k.bb} ${cols.indexOf(hexOf(k.c)) === 0 ? 'G' : 'R'}`).join(', ')} (G ${cols[0]}, R ${cols[1] ?? cols[0]})`
+  })
+  // n236: an order book panel said row by row with its depth bars; a tab row above a table said before it
+  regions.forEach((f) => {
+    const d = out.get(f.role), B = f.book
+    if (!d.kind || !B) return
+    const rgbaSay = (c) => (c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${+c.a.toFixed(2)})` : hexOf(c))
+    const one = (k) => {
+      if (k.depth) return `a ${k.h}px price row at y ${k.y} (${k.cols ? `${k.cols.length} columns: ${k.cols.map((q, i) => `${quote(q.t, 16)} ${hexOf(q.ink)}${i === k.cols.length - 1 ? ' right-aligned' : i ? '' : ' at the left'}`).join(', ')}` : quote(k.t, 40)}), behind it a DEPTH bar: ${k.depth.w}px wide, ${k.depth.h}px tall, ${k.depth.top}px down, anchored to the row's ${k.depth.right ? 'RIGHT' : 'LEFT'} edge, filled ${rgbaSay(k.depth.fill)} (see-through, under the words)`
+      if (k.cols) return `a ${k.h}px header row at y ${k.y}: ${k.cols.map((q, i) => `${quote(q.t, 16)}${i === k.cols.length - 1 ? ' right-aligned' : ''}`).join(', ')} in ${k.px}px ${hexOf(k.cols[0].ink)}`
+      return `${k.bold ? 'bold ' : ''}${k.px}px ${hexOf(k.ink)} ${quote(k.own || k.t, 40)}${k.sub ? ` followed on the same line by ${k.sub.px}px ${hexOf(k.sub.ink)} ${quote(k.sub.t, 24)}` : ''} at y ${k.y} (${k.h}px tall)`
+    }
+    d.note = `an ORDER BOOK panel ${B.w}x${B.h}px at ${B.x},${B.y}, its parts top to bottom (y from the panel's top, each full width inside its padding): ${B.kids.map(one).join('; ')}`
+  })
+  regions.forEach((f) => {
+    const d = out.get(f.role), T = f.tabHead
+    if (!d.kind || !d.note || !T || /tab row/i.test(d.note)) return
+    d.note = `FIRST, at the top of the region, a ${T.h}px tab row${T.rule ? ` with a 1px ${hexOf(T.rule)} rule under it across the region` : ''}: ${T.tabs.map((q) => `${q.bold ? 'bold ' : ''}${q.px}px ${hexOf(q.ink)} ${quote(q.t, 24)} at x ${q.x}${q.ul ? ` (the ACTIVE tab: a ${q.ul.px}px ${hexOf(q.ul.c)} underline at the tab row's bottom under it)` : ''}`).join(', ')}; then under it ${d.note}`
   })
   // n233: a block with small square handles on its corners is the selected layer on a design canvas; say its outline and
   // each handle's page place (round 23 e1: gradient tile said as 'plain paint only', outline and handles lost)
