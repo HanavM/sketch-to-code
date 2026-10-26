@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Video editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#16171b;font-family:Helvetica,Arial,sans-serif;color:#d7d9e0;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:48px;background:#1e2026;border-bottom:1px solid #2c2f37;display:flex;align-items:center;padding:0 18px;gap:18px}.top b{color:#fff;font-size:15px}.top .exp{margin-left:auto;background:#7c5cff;color:#fff;padding:8px 18px;border-radius:8px;font-weight:700}.top span{color:#8b90a0}
+.media{position:absolute;left:0;top:48px;width:260px;height:470px;background:#1b1d22;border-right:1px solid #2c2f37;padding:14px}
+.media h4{font-size:12px;color:#8b90a0;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mg div{height:70px;border-radius:6px;position:relative}.mg small{position:absolute;right:5px;bottom:4px;background:#000a;padding:1px 5px;border-radius:3px;font-size:10px}
+.prev{position:absolute;left:276px;top:64px;width:700px;height:394px;background:linear-gradient(180deg,#1b3a5c,#d97a3a 70%,#3b2216);border-radius:4px}
+.prev .sun{position:absolute;left:300px;top:200px;width:100px;height:100px;border-radius:50%;background:#ffd27a}
+.prev .cap{position:absolute;left:0;bottom:30px;width:100%;text-align:center;font:700 26px Helvetica;color:#fff;text-shadow:0 2px 4px #000}
+.ctl{position:absolute;left:276px;top:470px;width:700px;display:flex;align-items:center;justify-content:center;gap:22px;color:#8b90a0}.ctl b{width:36px;height:36px;border-radius:50%;background:#fff;color:#16171b;display:flex;align-items:center;justify-content:center}
+.ctl .tc{position:absolute;left:0;font:500 13px "Courier New",monospace;color:#d7d9e0}
+.insp{position:absolute;left:992px;top:48px;width:288px;height:470px;background:#1b1d22;border-left:1px solid #2c2f37;padding:16px}
+.insp h4{font-size:14px;color:#fff;margin-bottom:16px}.sl{margin-bottom:18px}.sl div{display:flex;justify-content:space-between;margin-bottom:8px;color:#8b90a0}.sl i{display:block;height:4px;border-radius:2px;background:#2c2f37;position:relative}.sl i u{position:absolute;left:0;top:0;height:4px;border-radius:2px;background:#7c5cff}.sl i s{position:absolute;top:-5px;width:14px;height:14px;border-radius:50%;background:#fff}
+.tl{position:absolute;left:0;top:518px;width:1280px;height:382px;background:#141519;border-top:1px solid #2c2f37}
+.ruler{position:absolute;left:120px;top:0;width:1160px;height:28px;background:repeating-linear-gradient(90deg,#3a3d46 0 1px,#0000 1px 58px);border-bottom:1px solid #2c2f37}
+.ruler span{position:absolute;top:8px;font:400 10px "Courier New",monospace;color:#6b7080}
+.trk{position:absolute;left:0;width:1280px;height:62px;border-bottom:1px solid #22242a}.trk .nm{position:absolute;left:0;top:0;width:120px;height:62px;background:#1b1d22;padding:22px 14px;color:#8b90a0;font-weight:700}
+.clip{position:absolute;top:8px;height:46px;border-radius:5px;padding:6px 8px;font-size:11px;font-weight:700;color:#fff}
+.v{background:#3b5bdb}.a{background:#2f9e44;background-image:repeating-linear-gradient(90deg,#ffffff55 0 2px,#0000 2px 5px);background-size:100% 40%;background-repeat:no-repeat;background-position:0 28px}.t{background:#c2255c}.fx{background:#e8590c}
+.head{position:absolute;left:520px;top:518px;width:2px;height:382px;background:#ff4757}.head::before{content:"";position:absolute;left:-7px;top:0;width:16px;height:16px;background:#ff4757;clip-path:polygon(0 0,100% 0,50% 100%)}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>Cutline</b><span>File</span><span>Edit</span><span>View</span><span>sunset_reel_v3</span><span class="exp">Export</span></div>
+<div class="media" data-r="media-bin" data-must><h4>Media</h4><div class="mg"><div style="background:linear-gradient(135deg,#1b3a5c,#d97a3a)"><small>0:12</small></div><div style="background:linear-gradient(135deg,#2f9e44,#0b7285)"><small>0:08</small></div><div style="background:linear-gradient(135deg,#c2255c,#5f3dc4)"><small>0:21</small></div><div style="background:linear-gradient(135deg,#e8590c,#f59f00)"><small>0:05</small></div><div style="background:linear-gradient(135deg,#495057,#212529)"><small>1:02</small></div><div style="background:linear-gradient(135deg,#7c5cff,#15aabf)"><small>0:30</small></div></div></div>
+<div class="prev" data-r="preview" data-must><div class="sun"></div><div class="cap">golden hour, day 3</div></div>
+<div class="ctl" data-r="transport"><span class="tc">00:00:14:08</span><span>⏮</span><b>▶</b><span>⏭</span></div>
+<div class="insp" data-r="inspector" data-must><h4>Clip · sunset_wide</h4><div class="sl"><div><span>Exposure</span><span>+0.4</span></div><i><u style="width:62%"></u><s style="left:58%"></s></i></div><div class="sl"><div><span>Contrast</span><span>12</span></div><i><u style="width:40%"></u><s style="left:36%"></s></i></div><div class="sl"><div><span>Saturation</span><span>118%</span></div><i><u style="width:75%"></u><s style="left:71%"></s></i></div><div class="sl"><div><span>Speed</span><span>1.0x</span></div><i><u style="width:50%"></u><s style="left:46%"></s></i></div><div class="sl"><div><span>Opacity</span><span>100%</span></div><i><u style="width:100%"></u><s style="left:94%"></s></i></div></div>
+<div class="tl" data-r="timeline" data-must>
+<div class="ruler"><span style="left:4px">00:00</span><span style="left:236px">00:04</span><span style="left:468px">00:08</span><span style="left:700px">00:12</span><span style="left:932px">00:16</span></div>
+<div class="trk" style="top:28px"><div class="nm">T1</div><div class="clip t" style="left:300px;width:260px">Title: Day 3</div></div>
+<div class="trk" style="top:90px"><div class="nm">V2</div><div class="clip fx" style="left:480px;width:180px">Glow</div></div>
+<div class="trk" style="top:152px"><div class="nm">V1</div><div class="clip v" style="left:122px;width:300px">sunset_wide</div><div class="clip v" style="left:426px;width:220px">pier_walk</div><div class="clip v" style="left:650px;width:380px">waves_slowmo</div></div>
+<div class="trk" style="top:214px"><div class="nm">A1</div><div class="clip a" style="left:122px;width:908px">ambient_score.wav</div></div>
+<div class="trk" style="top:276px"><div class="nm">A2</div><div class="clip a" style="left:426px;width:300px">voiceover_02.wav</div></div>
+</div>
+<div class="head" data-r="playhead" data-must></div>
+</body></html>

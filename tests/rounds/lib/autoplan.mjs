@@ -157,6 +157,7 @@ export function factsInPage() {
       // (a halftone dot screen: round 12 c5 built a plain gradient)
       radii: [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius],
       bgSize: cs.backgroundSize,
+      bgPos: cs.backgroundPosition,
       bgBlend: cs.mixBlendMode,
       // an arch: round top corners, square bottom ones (round 4 c1 arch said as a circle, built as a ball)
       radiusBottom: parseFloat(cs.borderBottomLeftRadius) || 0,
@@ -1050,6 +1051,14 @@ export function factsInPage() {
         if (parseFloat(cs.borderTopWidth) < 1 || !/%|px/.test(cs.borderRadius)) return null
         return { w: Math.round(r.width), h: Math.round(r.height), bw: Math.round(parseFloat(cs.borderTopWidth)), bc: rgba(cs.borderTopColor), line: Math.round(parseFloat(sz)) || 2, c: rgba(bi) }
       })(),
+      // n247: an empty thick-bordered circle set inside a block (round 25 c5 sleeve ring: never said, built without)
+      emptyRings: [...el.children].map((k) => {
+        const kc = getComputedStyle(k), q = k.getBoundingClientRect()
+        if ((k.innerText || '').trim() || k.children.length || q.width < 40 || Math.abs(q.width - q.height) > 2) return null
+        const bw = parseFloat(kc.borderTopWidth) || 0, rad = /%/.test(kc.borderTopLeftRadius) ? (parseFloat(kc.borderTopLeftRadius) / 100) * q.width : parseFloat(kc.borderTopLeftRadius) || 0
+        if (bw < 4 || rad < q.width / 2 - 1 || (rgba(kc.backgroundColor)?.a ?? 0) > 0.05 || kc.backgroundImage !== 'none') return null
+        return { w: Math.round(q.width), x: Math.round(q.left), y: Math.round(q.top), bw: Math.round(bw), bc: rgba(kc.borderTopColor) }
+      }).filter(Boolean),
       kidReach: kids.length && r.height > 0 ? Math.max(...kids.map((k) => k.getBoundingClientRect().bottom)) - r.top > 0 ? (Math.max(...kids.map((k) => k.getBoundingClientRect().bottom)) - r.top) / r.height : null : null,
       // ---- round 5 creative facts (n61)
       // see-through blocks: a faded card (opacity .2) was built solid (round 5 c3)
@@ -4257,7 +4266,9 @@ function round11Extra(f, d) {
   if (OF?.length && d.kind === 'heading' && !OC?.some((w) => w.face) && !OF.every((w) => note.includes(`"${w.t}" is ${faceSay(w)}`))) note += `${note ? '; ' : ''}${OF.map((w) => `the word "${w.t}" is set in its own face, a span in place inside the line: ${faceSay(w).trim()}`).join(', ')} (the other words keep the heading's face)`
   const S = f.stats
   if (S && (!note || /stat cards|""/.test(note))) {
-    const card = visible(f.bg) ? `a ${hexOf(f.bg)} card ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' ? ', a big soft shadow' : ''}, ` : ''
+    // n247: a see-through glass stats card keeps its alpha, border and blur (round 26 c3: 8% white said '#ffffff card', built solid white)
+    const glassy = f.bg && f.bg.a < 0.6 && f.bg.a > 0.02
+    const card = glassy ? `a see-through FROSTED GLASS card ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (background rgba(${f.bg.r}, ${f.bg.g}, ${f.bg.b}, ${Math.round(f.bg.a * 100) / 100}): only ${Math.round(f.bg.a * 100)}% opaque, the dark page shows through, NEVER a solid white card${f.border?.w ? `; border ${Math.round(f.border.w)}px solid ${f.border.colour ? (f.border.colour.a < 0.95 ? `rgba(${f.border.colour.r}, ${f.border.colour.g}, ${f.border.colour.b}, ${Math.round(f.border.colour.a * 100) / 100})` : hexOf(f.border.colour)) : ''}` : ''}${f.backdropPx ? `; backdrop-filter: blur(${f.backdropPx}px)` : ''})${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}, ` : visible(f.bg) ? `a ${hexOf(f.bg)} card ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius ? `, ${Math.round(f.radius)}px rounded` : ''}${f.shadow && f.shadow !== 'none' ? ', a big soft shadow' : ''}, ` : ''
     const R = S.map((q) => q.row)
     if (R.every((r) => r?.side) && R.slice(1).every((r, i) => r.y >= R[i].y + R[i].h - 2 && Math.abs(r.x - R[0].x) <= 2)) {
       note = `${card}a LIST of ${S.length} rows STACKED top to bottom (one row under the next, NOT side by side, NOT one line), each row ${R[0].w}px wide and ${R[0].h}px tall (display flex, justify-content space-between, align-items baseline${R[0].rule ? `, a ${R[0].rule.w}px ${hexOf(R[0].rule.c)}${R[0].rule.c.a < 0.95 ? ` at ${Math.round(R[0].rule.c.a * 100)}%` : ''} rule under it (border-bottom)` : ''}), the first row's top-left at ${R[0].x},${R[0].y}; in each row the name at the LEFT and its value pushed to the RIGHT end${S[0].lmono ? ' in monospace (Courier New)' : ''}: ${S.map((q) => `${q.npx}px ${q.face.serif ? `${q.face.family} serif ` : ''}${q.face.italic ? 'ITALIC ' : ''}${q.nw >= 800 ? 'black-weight ' : q.nw >= 600 ? 'bold ' : q.nw <= 300 ? 'light ' : 'regular '}${hexOf(q.nc)} "${q.n}" … ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')} (each name shows its own weight or style: the list is a weight specimen)`
@@ -5074,6 +5085,12 @@ function decideOne(f, page, marked, said) {
     // n176: a stop with no position kept (round 17 c4 orb: the #fde68a highlight dropped); first 0%, last 100%
     const st0 = [...f.bgImage.matchAll(/(rgba?\([^)]+\))(?:\s*([\d.]+)(%|px))?/g)]
     const st = st0.map((m, i) => ({ c: parse(m[1]), at: m[2] != null ? (m[3] === '%' ? Math.round(+m[2]) : 0) : i === 0 ? 0 : i === st0.length - 1 ? 100 : Math.round(100 * i / (st0.length - 1)) }))
+    // n247: a radial gradient that fades to a see-through last stop is a soft GLOW, not an opaque sphere (round 26 c3
+    // nebula: #3a2b8f at 53% to transparent was said 'solid sphere, fully opaque', built as a hard-edged dark disc)
+    if (st.length >= 2 && (st[st.length - 1].c?.a ?? 1) < 0.05 && !f.text) {
+      const stop = (x) => x.c.a < 0.004 ? `transparent ${x.at}%` : `${x.c.a < 0.95 ? `rgba(${x.c.r}, ${x.c.g}, ${x.c.b}, ${Math.round(x.c.a * 100) / 100})` : hexOf(x.c)} ${x.at}%`
+      return { kind: 'circle', note: `a SOFT GLOW, NOT a solid disc, NO edge anywhere: a ${Math.round(w)}x${Math.round(h)}px see-through layer at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, behind the content, holding nothing), border-radius 50%, painted with exactly background: radial-gradient(circle${at ? ` at ${at[1]}% ${at[2]}%` : ''}, ${st.map(stop).join(', ')}): its middle a faint ${hexOf({ ...st[0].c, a: 1 })} haze fading out to nothing, the page colour showing through everywhere, no border, no shadow` }
+    }
     const sg = f.shadows.find((x) => !x.clear && x.blur >= 10)
     return { kind: 'circle', note: withFx(`a ${Math.round(w)}px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at ${at ? `${at[1]}% ${at[2]}%` : 'center'}, ${st.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}) so it looks lit from ${at && +at[1] < 50 ? 'the top left' : 'above'}${sg ? `, with a big soft ${colourName({ ...sg.c, a: 1 })} glow under it (box-shadow ${sg.x}px ${sg.y}px ${sg.blur}px, ${Math.round(sg.c.a * 100)}% opacity)` : ''}${f.floatIn ? `; NOT absolutely placed: it sits INSIDE the running paragraph as its first child, float: ${f.floatIn.side}${f.floatIn.shape ? `, shape-outside: ${f.floatIn.shape}` : ''}, margin ${f.floatIn.m.map((v) => `${v}px`).join(' ')}, so the paragraph's lines wrap round its curve (its top-left lands at ${Math.round(f.rect.x)},${Math.round(f.rect.y)})` : `; absolutely placed, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${f.coveredBy?.length ? `BEHIND the words that cross it (z-index 0, set before them; the words ${f.coveredBy.map((t) => quote(t, 24)).join(', ')} paint OVER the sphere and stay fully visible, never hidden by it)` : 'ON TOP of every tile it overlaps (highest z-index, nothing covers it)'}`}`) }
   }
@@ -5386,6 +5403,12 @@ function decideOne(f, page, marked, said) {
     // its own fill (round 1 e4's pale grey office card was built dark navy)
     if (fill && /light grey|white|pale grey/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 6) look.pop()
     else if (fill && /light grey|white|pale grey/.test(colourName(f.bg)) && dist(f.bg, page.bg) < 30 && !/card/.test(look.join(' '))) look.push('card')
+    // n247: an empty bordered ellipse (round 26 c3 planet ring, 340x50 at radius 50%: said 'thick peach border', built a
+    // turned rectangle)
+    if (bordered && !fill && !f.text && f.radiusPct >= 49 && Math.max(w, h) >= 2 * Math.min(w, h) && f.border.w >= 2) {
+      const L0 = f.box0 ?? { w: Math.round(w), h: Math.round(h) }
+      look.push(`an ELLIPSE RING (a flattened oval outline, border-radius 50%, NOT a rectangle, NO corners): ${Math.round(L0.w ?? w)}x${Math.round(L0.h ?? h)}px before its turn, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, NO fill, nothing inside`)
+    } else
     if (bordered && f.border.w >= 3) look.push(`thick ${bc} border`)
     else if (bordered && !fill && !/grey|white/.test(bc)) look.push(`${bc} border`)
     if (hardShadow && !shadowWords(f)) look.push('hard offset shadow')
@@ -5443,7 +5466,7 @@ function decideOne(f, page, marked, said) {
     const fig = !f.regionKids.length && kb.length === 1 && kb[0].bold && kb[0].s >= f.font.size * 1.5 && f.ownText && f.ownText.length <= 40 ? `big ${kb[0].s}px bold ${quote(kb[0].t)} over ${Math.round(f.font.size)}px ${quote(f.ownText)}` : null
     const copy = turned ?? fig ?? picSay ?? code ?? unitSay ?? ctaCard ?? lone ?? (titled ? titled : f.text && f.text.length <= 40 && !f.regionKids.length ? quote(f.text) : list ? list : head && !f.regionKids.length ? (f.ownText && f.ownText.length > 24 && f.ownText.length <= 220 ? `${quote(head)} on its own line, then under it the copy quoted whole (these exact words, nothing invented): ${Math.round(f.font.size)}px ${quote(f.ownText, 220)}` : f.ownText && f.ownText.length <= 24 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${quote(f.ownText)} logo text at the left (n156), then ${quote(head)}` : `${quote(head)} and text`) : '')
     const shadowTail = hardShadow && shadowWords(f) ? `, with a ${shadowWords(f)}` : ''
-    return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail : shadowTail ? shadowTail.slice(2) : null }
+    return { kind: 'box', note: say || copy ? `${say}${say && /^huge \d|^a \d+x\d+px /.test(copy) ? ';' : ''} ${copy}`.trim() + shadowTail + (titled ? ringWords(f) : '') : shadowTail ? shadowTail.slice(2) : null }
   }
   // columns of copy, each a small bold head over a line (round 6 c2: unsaid, so the build wrote its own)
   if (f.colKids && !f.regionKids.length && !fill && !bordered) {
@@ -5524,6 +5547,12 @@ function polyWords(fills) {
   const box = [Math.min(...xs), Math.min(...ys), Math.max(...fills.map((x) => x.right)), Math.max(...fills.map((x) => x.bottom))]
   const faces = fills.map((x, i) => `${cube ? ['top face', 'left face', 'right face'][i] ?? 'face' : `shape ${i + 1}`} ${ink(x)} corners ${P(x.pts)}`)
   return `${cube ? `an isometric cube (${box[2] - box[0]}x${box[3] - box[1]}px, top left at ${box[0]},${box[1]}) drawn as 3 flat filled SVG polygons, top face lightest, ${lum(fills[1].c) > lum(fills[2].c) ? 'left face mid, right face darkest' : 'right face mid, left face darkest'}` : `${fills.length} flat filled SVG polygons`}, no outlines, no gradient, no shadow, in one <svg> laid over the page at 0,0 (page px): ${faces.join('; ')}`
+}
+// n247: an empty thick-bordered circle inside a block says its ring (round 25 c5 sleeve: lost in every build)
+function ringWords(f) {
+  const R = (f.emptyRings ?? []).filter((q) => q.bc && q.bc.a > 0.3)
+  if (!R.length || R.length > 3) return ''
+  return R.map((q) => `; inside it a ${q.w}x${q.w}px RING (an empty circle: border ${q.bw}px solid ${hexOf(q.bc)}, border-radius 50%, NO fill, nothing in it) with its top-left at page ${q.x},${q.y} (position absolute, its own element, never dropped)`).join('')
 }
 function titleWords(kb, h) {
   if (kb.length !== 2 || kb[0].s < 40 || kb[0].s < kb[1].s * 2) return ''
@@ -5991,6 +6020,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n233: a radial gradient tiled by a small px background-size over a flat fill is a DOT GRID (round 23 e1 design-tool
     // canvas: radial-gradient(#c8c8c8 1px, #0000 1px) at 20px tiles was said as a '#c8c8c8 to #000000' wash and built as a
     // grey-to-black gradient, 28%); the see-through stop is not black
+    // n247: sparse tiled radial dots, often 2+ layers at different tile sizes, are a STARFIELD (round 26 c3: 1px white dots
+    // at 90px and 140px tiles were past the 60px dot-grid limit, said as a 'white to black product-photo backdrop' and lost)
+    const tiles = (f.bgSize ?? '').split(',').map((t) => t.trim().match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/))
+    const layers = (f.bgImage ?? '').match(/radial-gradient\(/g)?.length ?? 0
+    if (/^radial-gradient/.test(f.bgImage ?? '') && tiles[0] && layers >= 1 && tiles.every(Boolean) && (layers >= 2 || +tiles[0][1] > 60) && Math.max(...tiles.map((t) => +t[1])) <= 260 && cs.some((c) => c.a > 0.3)) {
+      const flat = f.bg?.a > 0.05 ? f.bg : null
+      d.kind = 'box'
+      d.note = `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px STARFIELD layer at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, behind everything, holding nothing): ${flat ? `a flat ${hexOf(flat)} fill` : 'NO fill of its own (the page colour shows all round the dots)'} scattered with ${layers} tiled layer${layers > 1 ? 's' : ''} of tiny dots, exactly: background-image: ${cssKeep(f.bgImage)}; background-size: ${f.bgSize}; background-position: ${f.bgPos ?? '0 0'}; tiny sharp dots spread over the WHOLE area, NOT a gradient wash, NOT a backdrop block, NOT a dark-to-light fade`
+      return
+    }
     const dotTile = (f.bgSize ?? '').split(',')[0].trim().match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/)
     if (/^radial-gradient/.test(f.bgImage ?? '') && dotTile && +dotTile[1] <= 60 && cs.some((c) => c.a > 0.3)) {
       const ink = cs.find((c) => c.a > 0.3), cell = Math.round(+dotTile[1]), cellY = Math.round(+(dotTile[2] ?? dotTile[1]))

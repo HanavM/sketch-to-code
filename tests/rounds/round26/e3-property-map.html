@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Property map</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;font-size:14px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 24px;gap:16px}.top b{font:800 20px Helvetica;color:#e11d48}.top .s{width:360px;height:40px;border:1px solid #d1d5db;border-radius:20px;padding:12px 18px;color:#6b7280}.top .r{margin-left:auto;display:flex;gap:18px;align-items:center}.top .r i{width:34px;height:34px;border-radius:50%;background:#a5b4fc}
+.chips{position:absolute;left:24px;top:80px;display:flex;gap:10px}.chips span{padding:8px 14px;border:1px solid #d1d5db;border-radius:18px;font-weight:600}.chips span.on{background:#111827;color:#fff;border-color:#111827}
+.list{position:absolute;left:24px;top:134px;width:560px}
+.cnt{display:flex;justify-content:space-between;margin-bottom:12px;color:#6b7280}.cnt b{color:#1f2937}
+.dd{position:absolute;left:400px;top:24px;width:180px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 24px #0002;padding:6px;z-index:2}.dd div{padding:9px 12px;border-radius:6px}.dd .on{background:#fff1f2;color:#e11d48;font-weight:700}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}.c{border-radius:14px;overflow:hidden;border:1px solid #e5e7eb;position:relative}.c .ph{height:150px}.c .in{padding:10px 12px}.c b{font-size:17px}.c small{display:block;color:#6b7280;margin-top:3px}.c .hrt{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;background:#fff;color:#e11d48;text-align:center;line-height:30px;font-size:16px}.c .new{position:absolute;left:10px;top:10px;background:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:800}
+.c.sel{outline:3px solid #e11d48}
+.map{position:absolute;left:608px;top:64px;width:672px;height:836px;background:#e8efe3;overflow:hidden}
+.road{position:absolute;background:#fff;box-shadow:0 0 0 1px #d6dccf}
+.water{position:absolute;left:420px;top:-40px;width:340px;height:420px;background:#bcd7f0;border-radius:45% 0 0 60%}
+.park{position:absolute;background:#c9e2b8;border-radius:18px}
+.pin{position:absolute;padding:6px 10px;border-radius:14px;background:#fff;font-weight:800;font-size:13px;box-shadow:0 2px 6px #0003}
+.pin::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid #0000;border-top-color:#fff;border-bottom:0}
+.pin.on{background:#e11d48;color:#fff}.pin.on::after{border-top-color:#e11d48}
+.zoom{position:absolute;right:20px;top:20px;width:40px;background:#fff;border-radius:10px;box-shadow:0 2px 6px #0003;text-align:center;font:700 20px/40px Helvetica}.zoom div+div{border-top:1px solid #e5e7eb}
+.pop{position:absolute;left:180px;top:250px;width:250px;background:#fff;border-radius:14px;box-shadow:0 14px 30px #0003;overflow:hidden}.pop .ph{height:110px;background:linear-gradient(135deg,#fda4af,#fde68a)}.pop div.in{padding:10px 12px}.pop b{font-size:16px}.pop small{display:block;color:#6b7280}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>nestly</b><div class="s">Amsterdam · Any price</div><div class="r"><span>Saved</span><span>Sell</span><i></i></div></div>
+<div class="chips" data-r="filter-chips" data-must><span class="on">For rent</span><span>€1,500–2,500</span><span>2+ beds</span><span>Balcony</span><span>Pets ok</span><span>More filters</span></div>
+<div class="list" data-r="listings" data-must>
+<div class="cnt"><span><b>214 homes</b> in this area</span><span>Sort: <b>Newest ▾</b></span></div>
+<div class="dd" data-r="sort-menu" data-must><div>Price low to high</div><div>Price high to low</div><div class="on">Newest</div><div>Largest</div></div>
+<div class="cards">
+<div class="c sel"><div class="ph" style="background:linear-gradient(135deg,#fda4af,#fde68a)"></div><span class="new">NEW</span><span class="hrt">♥</span><div class="in"><b>€2,150 /mo</b><small>Prinsengracht 412 · 2 bd · 78 m²</small></div></div>
+<div class="c"><div class="ph" style="background:linear-gradient(135deg,#93c5fd,#c4b5fd)"></div><span class="hrt">♡</span><div class="in"><b>€1,780 /mo</b><small>Jordaan · 1 bd · 54 m²</small></div></div>
+<div class="c"><div class="ph" style="background:linear-gradient(135deg,#86efac,#67e8f9)"></div><span class="hrt">♡</span><div class="in"><b>€2,400 /mo</b><small>De Pijp · 3 bd · 96 m²</small></div></div>
+<div class="c"><div class="ph" style="background:linear-gradient(135deg,#fcd34d,#fb923c)"></div><span class="new">NEW</span><span class="hrt">♡</span><div class="in"><b>€1,950 /mo</b><small>Oost · 2 bd · 70 m²</small></div></div>
+</div></div>
+<div class="map" data-r="map" data-must>
+<div class="water"></div><div class="park" style="left:60px;top:520px;width:200px;height:140px"></div><div class="park" style="left:440px;top:600px;width:150px;height:180px"></div>
+<div class="road" style="left:0;top:200px;width:672px;height:14px"></div><div class="road" style="left:0;top:470px;width:672px;height:10px;transform:rotate(-8deg)"></div><div class="road" style="left:300px;top:0;width:12px;height:836px"></div><div class="road" style="left:120px;top:0;width:8px;height:836px;transform:rotate(12deg)"></div><div class="road" style="left:0;top:720px;width:672px;height:8px"></div>
+<span class="pin on" style="left:270px;top:390px">€2,150</span><span class="pin" style="left:90px;top:150px">€1,780</span><span class="pin" style="left:380px;top:250px">€2,400</span><span class="pin" style="left:500px;top:440px">€1,950</span><span class="pin" style="left:160px;top:640px">€1,620</span><span class="pin" style="left:420px;top:760px">€2,900</span>
+<div class="pop" data-r="map-popup" data-must><div class="ph"></div><div class="in"><b>€2,150 /mo</b><small>Prinsengracht 412 · 2 bd</small></div></div>
+<div class="zoom" data-r="zoom"><div>+</div><div>−</div></div>
+</div>
+</body></html>

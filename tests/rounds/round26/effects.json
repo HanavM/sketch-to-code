@@ -1,0 +1,186 @@
+{
+ "c1-blend-mesh": {
+  "found": {
+   "stripes-or-layers": 1,
+   "blend": 4,
+   "huge-type": 2,
+   "hollow-type": 1,
+   "tilt": 1,
+   "vertical-type": 1,
+   "serif": 1,
+   "mono": 1,
+   "overlap": 6
+  },
+  "names": [
+   "blend",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c2-origami-fold": {
+  "found": {
+   "stripes-or-layers": 1,
+   "gradient": 2,
+   "clip-shape": 5,
+   "tilt": 1,
+   "serif": 1,
+   "italic": 1,
+   "hard-shadow": 3,
+   "overlap": 15
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c3-observatory": {
+  "found": {
+   "stripes-or-layers": 1,
+   "gradient": 2,
+   "bleed": 1,
+   "serif": 7,
+   "soft-shadow": 1,
+   "tilt": 1,
+   "glow": 1,
+   "hollow-type": 1,
+   "huge-type": 1,
+   "italic": 1,
+   "glass": 1,
+   "overlap": 3
+  },
+  "names": [
+   "bleed",
+   "glass",
+   "glow",
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-ransom-zine": {
+  "found": {
+   "gradient": 2,
+   "mono": 7,
+   "tilt": 14,
+   "hard-shadow": 12,
+   "huge-type": 10,
+   "serif": 5,
+   "italic": 2,
+   "soft-shadow": 1,
+   "clip-shape": 1,
+   "uppercase-display": 1,
+   "overlap": 20
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "mono",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c5-synth-patch": {
+  "found": {
+   "gradient": 21,
+   "soft-shadow": 11,
+   "hard-shadow": 1,
+   "glow": 3,
+   "mono": 4
+  },
+  "names": [
+   "glow",
+   "gradient",
+   "hard-shadow",
+   "mono",
+   "soft-shadow"
+  ]
+ },
+ "e1-video-editor": {
+  "found": {
+   "gradient": 7,
+   "mono": 6,
+   "stripes-or-layers": 3,
+   "overlap": 6
+  },
+  "names": [
+   "gradient",
+   "mono",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e2-banking": {
+  "found": {
+   "gradient": 6,
+   "soft-shadow": 1,
+   "mono": 1,
+   "overlap": 19
+  },
+  "names": [
+   "gradient",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e3-property-map": {
+  "found": {
+   "soft-shadow": 9,
+   "gradient": 5,
+   "bleed": 1,
+   "tilt": 2,
+   "overlap": 39
+  },
+  "names": [
+   "bleed",
+   "gradient",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e4-permissions": {
+  "found": {
+   "hard-shadow": 1
+  },
+  "names": [
+   "hard-shadow"
+  ]
+ },
+ "e5-phone-screens": {
+  "found": {
+   "soft-shadow": 5,
+   "gradient": 4,
+   "overlap": 6
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ }
+}

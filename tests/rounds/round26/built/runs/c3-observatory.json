@@ -1,0 +1,527 @@
+{
+  "id": "c3-observatory",
+  "at": "2026-10-26T15:57:47.108Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8165297900148925,
+    "overallV2": 0.8165297900148925,
+    "overallV1": 0.7847653074399639,
+    "colour": 0.9146305614087838,
+    "structure": 0.724600276977071,
+    "structureStrict": 0.6415538528905008,
+    "colourAligned": 0.9146305614087838,
+    "structureAligned": 0.724600276977071,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.5194649741362116
+    },
+    "layout": 0.8499781045198158,
+    "layoutV1": 0.8499781045198158,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      560,
+      80,
+      760,
+      760
+    ],
+    [
+      0,
+      600,
+      180,
+      620,
+      620
+    ],
+    [
+      0,
+      703,
+      284,
+      413,
+      412
+    ],
+    [
+      0,
+      690,
+      240,
+      36,
+      36
+    ],
+    [
+      0,
+      60,
+      40,
+      1160,
+      27
+    ],
+    [
+      6,
+      60,
+      40,
+      77,
+      27
+    ],
+    [
+      6,
+      843,
+      40,
+      377,
+      27
+    ],
+    [
+      8,
+      843,
+      40,
+      59,
+      27
+    ],
+    [
+      8,
+      942,
+      40,
+      44,
+      27
+    ],
+    [
+      8,
+      1027,
+      40,
+      80,
+      27
+    ],
+    [
+      8,
+      1147,
+      40,
+      73,
+      27
+    ],
+    [
+      0,
+      60,
+      150,
+      300,
+      360
+    ],
+    [
+      0,
+      68,
+      420,
+      500,
+      118
+    ],
+    [
+      14,
+      68,
+      420,
+      500,
+      59
+    ],
+    [
+      15,
+      352,
+      419,
+      153,
+      60
+    ],
+    [
+      14,
+      68,
+      479,
+      500,
+      59
+    ],
+    [
+      0,
+      64,
+      570,
+      432,
+      54
+    ],
+    [
+      0,
+      60,
+      690,
+      460,
+      140
+    ],
+    [
+      19,
+      85,
+      711,
+      410,
+      55
+    ],
+    [
+      20,
+      85,
+      711,
+      130,
+      55
+    ],
+    [
+      21,
+      85,
+      711,
+      130,
+      34
+    ],
+    [
+      21,
+      85,
+      749,
+      130,
+      17
+    ],
+    [
+      20,
+      225,
+      711,
+      130,
+      55
+    ],
+    [
+      24,
+      225,
+      711,
+      130,
+      34
+    ],
+    [
+      24,
+      225,
+      749,
+      130,
+      17
+    ],
+    [
+      20,
+      365,
+      711,
+      130,
+      55
+    ],
+    [
+      27,
+      365,
+      711,
+      130,
+      34
+    ],
+    [
+      27,
+      365,
+      749,
+      130,
+      17
+    ],
+    [
+      0,
+      810,
+      390,
+      200,
+      200
+    ],
+    [
+      0,
+      732,
+      389,
+      355,
+      202
+    ],
+    [
+      31,
+      732,
+      389,
+      355,
+      202
+    ],
+    [
+      32,
+      732,
+      389,
+      356,
+      202
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "bleed",
+      "glow",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "glass",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 55072,
+    "output": 32965,
+    "cacheRead": 247440
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 56573,
+      "output": 19623,
+      "cacheRead": 233596,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 211813
+    }
+  ],
+  "reading": "A full-page hero mock-up: a black gradient backdrop with a huge dark sphere bleeding off the right edge behind a two-line Georgia headline and lavender body copy, a thin nav bar across the top, a giant outlined '06' numeral at left, two concentric decorative rings plus a small glowing dot over the big sphere, a smaller lit orange planet with a tilted peach frame, and a white stats card with three number/label pairs at the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole-page backdrop: a 1280x900px block filled with a soft pale-tinted gradient from #ffffff to #000000 top to bottom; it is an empty product-photo backdrop wit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        1153,
+        220
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Top nav bar: bold 18px Georgia serif white 'ORRERY' at the left, then links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed to the far right with a 737px gap"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        564,
+        84,
+        714,
+        752
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 760px solid sphere (border-radius 50%), fully opaque, radial-gradient(circle at center, #3a2b8f 0%, #070b1a 65%) so it looks lit from above; absolutely placed"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        184,
+        612,
+        612
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A round (border-radius 50%, never a square) 620px circle outline, 1px dashed #8a93c7 outline (dashes, not a solid line)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        284,
+        413,
+        412
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A second big faint grey outline circle, concentric with the dashed ring, same style but fainter/plain outline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        814,
+        394,
+        192,
+        191
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A 200px solid sphere (border-radius 50%), fully opaque, radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit from the top l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        742,
+        428,
+        335,
+        125
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A thick peach border frame, tilted 14 degrees anticlockwise, framing the small lit sphere."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        694,
+        244,
+        28,
+        28
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A small glowing light-grey dot, exactly 36x36px (w-[36px] h-[36px], border-radius 50%), not smaller."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9"
+          ],
+          "lines": 1,
+          "fontPx": 303
+        }
+      ],
+      "region": [
+        68,
+        88,
+        270,
+        364
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif regular-weight (not bold) hollow outlined grey numeral '06', 300px type, about 300px wide (no larger); absolutely placed with its box top-le"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 54
+        }
+      ],
+      "region": [
+        68,
+        420,
+        468,
+        118
+      ],
+      "paths": [],
+      "instruction": "Huge Georgia serif headline 'A night with Saturn, up close.', set in exactly 2 lines: 'A night with Saturn,' / 'up close.' (keep these breaks, white-space nowra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        570,
+        432,
+        54
+      ],
+      "paths": [],
+      "instruction": "Lavender body paragraph: 'Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.' Text colour #b6bde3 (lavender, not"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        693,
+        453,
+        133
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "A #ffffff card, 460x140px at 60,690, 18px rounded corners, containing 3 stats side by side in one row (not separate cards), each a big number over a small label"
+    }
+  ],
+  "rejected": []
+}

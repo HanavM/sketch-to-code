@@ -1,0 +1,864 @@
+{
+  "id": "e1-video-editor",
+  "at": "2026-10-26T16:26:48.919Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8648153171253512,
+    "overallV2": 0.8648153171253512,
+    "overallV1": 0.8507407328018035,
+    "colour": 0.9467181268572342,
+    "structure": 0.8394887318416259,
+    "structureStrict": 0.8051648760190444,
+    "colourAligned": 0.9467181268572342,
+    "structureAligned": 0.8394887318416259,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8706377336669298
+    },
+    "layout": 0.8470840694002211,
+    "layoutV1": 0.8470840694002211,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      48
+    ],
+    [
+      1,
+      18,
+      14,
+      44,
+      20
+    ],
+    [
+      1,
+      87,
+      14,
+      21,
+      20
+    ],
+    [
+      1,
+      126,
+      14,
+      22,
+      20
+    ],
+    [
+      1,
+      166,
+      14,
+      28,
+      20
+    ],
+    [
+      1,
+      212,
+      14,
+      88,
+      20
+    ],
+    [
+      1,
+      1185,
+      8,
+      77,
+      31
+    ],
+    [
+      0,
+      0,
+      48,
+      260,
+      470
+    ],
+    [
+      8,
+      14,
+      62,
+      231,
+      14
+    ],
+    [
+      8,
+      14,
+      88,
+      111,
+      70
+    ],
+    [
+      8,
+      135,
+      88,
+      111,
+      70
+    ],
+    [
+      8,
+      90,
+      141,
+      29,
+      13
+    ],
+    [
+      12,
+      95,
+      140,
+      19,
+      15
+    ],
+    [
+      8,
+      211,
+      141,
+      29,
+      13
+    ],
+    [
+      14,
+      216,
+      140,
+      19,
+      15
+    ],
+    [
+      8,
+      14,
+      168,
+      111,
+      70
+    ],
+    [
+      8,
+      135,
+      168,
+      111,
+      70
+    ],
+    [
+      8,
+      90,
+      221,
+      29,
+      13
+    ],
+    [
+      18,
+      95,
+      220,
+      19,
+      15
+    ],
+    [
+      8,
+      211,
+      221,
+      29,
+      13
+    ],
+    [
+      20,
+      216,
+      220,
+      19,
+      15
+    ],
+    [
+      8,
+      14,
+      248,
+      111,
+      70
+    ],
+    [
+      8,
+      135,
+      248,
+      111,
+      70
+    ],
+    [
+      8,
+      90,
+      301,
+      29,
+      13
+    ],
+    [
+      24,
+      95,
+      300,
+      19,
+      15
+    ],
+    [
+      8,
+      211,
+      301,
+      29,
+      13
+    ],
+    [
+      26,
+      216,
+      300,
+      19,
+      15
+    ],
+    [
+      0,
+      279,
+      67,
+      694,
+      388
+    ],
+    [
+      28,
+      279,
+      67,
+      694,
+      388
+    ],
+    [
+      29,
+      278,
+      67,
+      695,
+      388
+    ],
+    [
+      0,
+      279,
+      463,
+      694,
+      21
+    ],
+    [
+      0,
+      280,
+      470,
+      692,
+      36
+    ],
+    [
+      32,
+      280,
+      478,
+      69,
+      20
+    ],
+    [
+      32,
+      875,
+      470,
+      97,
+      36
+    ],
+    [
+      34,
+      875,
+      476,
+      14,
+      24
+    ],
+    [
+      34,
+      906,
+      470,
+      36,
+      36
+    ],
+    [
+      34,
+      958,
+      476,
+      14,
+      24
+    ],
+    [
+      0,
+      995,
+      48,
+      281,
+      464
+    ],
+    [
+      38,
+      995,
+      48,
+      281,
+      464
+    ],
+    [
+      39,
+      995,
+      47,
+      281,
+      464
+    ],
+    [
+      38,
+      995,
+      48,
+      281,
+      280
+    ],
+    [
+      41,
+      1011,
+      64,
+      249,
+      21
+    ],
+    [
+      41,
+      1011,
+      105,
+      249,
+      207
+    ],
+    [
+      43,
+      1011,
+      105,
+      249,
+      27
+    ],
+    [
+      44,
+      1011,
+      109,
+      55,
+      20
+    ],
+    [
+      44,
+      1234,
+      109,
+      26,
+      20
+    ],
+    [
+      43,
+      1011,
+      150,
+      249,
+      27
+    ],
+    [
+      47,
+      1011,
+      154,
+      49,
+      20
+    ],
+    [
+      47,
+      1246,
+      154,
+      14,
+      20
+    ],
+    [
+      43,
+      1011,
+      195,
+      249,
+      27
+    ],
+    [
+      50,
+      1011,
+      199,
+      59,
+      20
+    ],
+    [
+      50,
+      1228,
+      199,
+      32,
+      20
+    ],
+    [
+      43,
+      1011,
+      240,
+      249,
+      27
+    ],
+    [
+      53,
+      1011,
+      244,
+      38,
+      20
+    ],
+    [
+      53,
+      1235,
+      244,
+      25,
+      20
+    ],
+    [
+      43,
+      1011,
+      285,
+      249,
+      27
+    ],
+    [
+      56,
+      1011,
+      289,
+      44,
+      20
+    ],
+    [
+      56,
+      1227,
+      289,
+      33,
+      20
+    ],
+    [
+      0,
+      0,
+      518,
+      1280,
+      382
+    ],
+    [
+      59,
+      0,
+      519,
+      1280,
+      381
+    ],
+    [
+      60,
+      1,
+      521,
+      1280,
+      378
+    ],
+    [
+      60,
+      517,
+      521,
+      8,
+      379
+    ],
+    [
+      59,
+      120,
+      520,
+      1160,
+      28
+    ],
+    [
+      59,
+      124,
+      528,
+      30,
+      11
+    ],
+    [
+      59,
+      356,
+      528,
+      30,
+      11
+    ],
+    [
+      59,
+      588,
+      528,
+      30,
+      11
+    ],
+    [
+      59,
+      820,
+      528,
+      30,
+      11
+    ],
+    [
+      59,
+      1052,
+      528,
+      30,
+      11
+    ],
+    [
+      59,
+      0,
+      548,
+      1280,
+      62
+    ],
+    [
+      59,
+      0,
+      548,
+      120,
+      62
+    ],
+    [
+      70,
+      14,
+      569,
+      15,
+      20
+    ],
+    [
+      59,
+      300,
+      556,
+      260,
+      46
+    ],
+    [
+      72,
+      308,
+      571,
+      59,
+      17
+    ],
+    [
+      59,
+      0,
+      610,
+      1280,
+      62
+    ],
+    [
+      59,
+      0,
+      610,
+      120,
+      62
+    ],
+    [
+      75,
+      14,
+      631,
+      16,
+      20
+    ],
+    [
+      59,
+      480,
+      618,
+      180,
+      46
+    ],
+    [
+      77,
+      488,
+      633,
+      27,
+      17
+    ],
+    [
+      59,
+      0,
+      672,
+      1280,
+      62
+    ],
+    [
+      59,
+      0,
+      672,
+      120,
+      62
+    ],
+    [
+      80,
+      14,
+      693,
+      16,
+      20
+    ],
+    [
+      59,
+      122,
+      680,
+      300,
+      46
+    ],
+    [
+      82,
+      130,
+      695,
+      66,
+      17
+    ],
+    [
+      59,
+      426,
+      680,
+      220,
+      46
+    ],
+    [
+      84,
+      434,
+      695,
+      50,
+      17
+    ],
+    [
+      59,
+      650,
+      680,
+      380,
+      46
+    ],
+    [
+      86,
+      658,
+      695,
+      80,
+      17
+    ],
+    [
+      59,
+      0,
+      734,
+      1280,
+      62
+    ],
+    [
+      59,
+      0,
+      734,
+      120,
+      62
+    ],
+    [
+      89,
+      14,
+      755,
+      17,
+      20
+    ],
+    [
+      59,
+      122,
+      742,
+      908,
+      46
+    ],
+    [
+      91,
+      130,
+      757,
+      102,
+      17
+    ],
+    [
+      59,
+      0,
+      796,
+      1280,
+      62
+    ],
+    [
+      59,
+      0,
+      796,
+      120,
+      62
+    ],
+    [
+      94,
+      14,
+      817,
+      17,
+      20
+    ],
+    [
+      59,
+      426,
+      804,
+      300,
+      46
+    ],
+    [
+      96,
+      434,
+      819,
+      94,
+      17
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "mono",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 67167,
+    "output": 38909,
+    "cacheRead": 487132
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 90261,
+      "output": 33571,
+      "cacheRead": 473811,
+      "toolCalls": 15,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/PicturePlaceholder.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit components/PicturePlaceholder.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx"
+      ],
+      "ms": 349922
+    }
+  ],
+  "reading": "This is a video-editing app layout (\"Cutline\"): a top menu bar, a left media-library panel with thumbnail clips, a central video preview with a placeholder image labeled \"golden hour, day 3\", playback/transport controls below it, a right-side clip properties panel, and a bottom multi-track timeline panel with a vertical playhead/divider line.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar: ONE 1280x48px wrapper at 0,0, #1e2026 fill, 1px #2c2f37 border-bottom only, parts vertically centered (align-items:center). Items left to right: \"Cutli"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        253,
+        464
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left media panel: ONE 260x470px panel at 0,48, #1b1d22 fill. Header \"MEDIA\" (12px bold #8b90a0, uppercase, letter-spacing 1px, nowrap) at 14,62 sized 231x14. Si"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        279,
+        67,
+        694,
+        388
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Central video preview box with a diagonal-cross placeholder meaning it is an image/picture area, captioned \"golden hour, day 3\" in light grey text beneath it on"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 12
+        }
+      ],
+      "region": [
+        280,
+        470,
+        692,
+        36
+      ],
+      "paths": [],
+      "instruction": "Transport control row beneath the preview: light grey timecode \"00:00:14:08\" (#d7d9e0) at the left; far right (212px gap) a row of playback links: ⏮ (#8b90a0), "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        995,
+        51,
+        281,
+        464
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Right properties panel: dark navy block titled \"Clip · sunset_wide\" (#ffffff), followed by a tight list of property rows spaced 45px apart (27px tall, 13px type"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        521,
+        1273,
+        376
+      ],
+      "paths": [
+        "s8",
+        "s9"
+      ],
+      "instruction": "Bottom timeline panel: ONE 1280x382px panel at 0,518, #141519 fill, 1px #2c2f37 top border only. A ruler strip (00:00, 00:04, 00:08, 00:12, 00:16 in 10px mono #"
+    }
+  ],
+  "rejected": []
+}

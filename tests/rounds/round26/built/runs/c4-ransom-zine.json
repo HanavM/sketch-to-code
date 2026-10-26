@@ -1,0 +1,639 @@
+{
+  "id": "c4-ransom-zine",
+  "at": "2026-10-26T16:09:11.305Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.881426993324993,
+    "overallV2": 0.881426993324993,
+    "overallV1": 0.8394153298561509,
+    "colour": 0.980813176347376,
+    "structure": 0.8833503178547443,
+    "structureStrict": 0.8132525616300623,
+    "colourAligned": 0.980813176347376,
+    "structureAligned": 0.8833503178547443,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9873087398873563
+    },
+    "layout": 0.9065955942131675,
+    "layoutV1": 0.7171703278578514,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      760,
+      0,
+      520,
+      900
+    ],
+    [
+      1,
+      759,
+      0,
+      515,
+      894
+    ],
+    [
+      1,
+      868,
+      130,
+      318,
+      374
+    ],
+    [
+      0,
+      70,
+      40,
+      143,
+      30
+    ],
+    [
+      4,
+      80,
+      39,
+      128,
+      33
+    ],
+    [
+      0,
+      1018,
+      40,
+      51,
+      30
+    ],
+    [
+      6,
+      1018,
+      45,
+      51,
+      21
+    ],
+    [
+      0,
+      1092,
+      40,
+      51,
+      30
+    ],
+    [
+      8,
+      1092,
+      45,
+      51,
+      21
+    ],
+    [
+      0,
+      1166,
+      40,
+      34,
+      30
+    ],
+    [
+      10,
+      1166,
+      45,
+      34,
+      21
+    ],
+    [
+      0,
+      383,
+      126,
+      95,
+      116
+    ],
+    [
+      12,
+      393,
+      133,
+      74,
+      102
+    ],
+    [
+      0,
+      66,
+      127,
+      86,
+      113
+    ],
+    [
+      14,
+      76,
+      134,
+      65,
+      100
+    ],
+    [
+      0,
+      296,
+      127,
+      88,
+      114
+    ],
+    [
+      16,
+      307,
+      134,
+      67,
+      101
+    ],
+    [
+      0,
+      607,
+      127,
+      86,
+      113
+    ],
+    [
+      18,
+      617,
+      134,
+      65,
+      100
+    ],
+    [
+      0,
+      154,
+      129,
+      53,
+      110
+    ],
+    [
+      20,
+      164,
+      135,
+      33,
+      97
+    ],
+    [
+      0,
+      209,
+      130,
+      86,
+      111
+    ],
+    [
+      22,
+      221,
+      136,
+      61,
+      98
+    ],
+    [
+      0,
+      477,
+      129,
+      53,
+      110
+    ],
+    [
+      0,
+      532,
+      129,
+      72,
+      110
+    ],
+    [
+      25,
+      542,
+      135,
+      51,
+      98
+    ],
+    [
+      0,
+      695,
+      130,
+      86,
+      111
+    ],
+    [
+      27,
+      707,
+      136,
+      61,
+      98
+    ],
+    [
+      0,
+      151,
+      243,
+      99,
+      113
+    ],
+    [
+      29,
+      164,
+      248,
+      74,
+      102
+    ],
+    [
+      0,
+      66,
+      243,
+      88,
+      110
+    ],
+    [
+      31,
+      77,
+      248,
+      67,
+      101
+    ],
+    [
+      0,
+      868,
+      130,
+      324,
+      380
+    ],
+    [
+      33,
+      885,
+      145,
+      292,
+      314
+    ],
+    [
+      33,
+      882,
+      440,
+      275,
+      69
+    ],
+    [
+      35,
+      968,
+      458,
+      103,
+      34
+    ],
+    [
+      0,
+      763,
+      3,
+      514,
+      894
+    ],
+    [
+      37,
+      763,
+      3,
+      514,
+      894
+    ],
+    [
+      38,
+      763,
+      3,
+      515,
+      894
+    ],
+    [
+      38,
+      871,
+      133,
+      317,
+      373
+    ],
+    [
+      38,
+      941,
+      108,
+      149,
+      61
+    ],
+    [
+      0,
+      0,
+      563,
+      1280,
+      337
+    ],
+    [
+      42,
+      0,
+      563,
+      1280,
+      337
+    ],
+    [
+      43,
+      0,
+      564,
+      1280,
+      335
+    ],
+    [
+      0,
+      88,
+      620,
+      504,
+      84
+    ],
+    [
+      45,
+      88,
+      620,
+      504,
+      42
+    ],
+    [
+      45,
+      88,
+      662,
+      504,
+      42
+    ],
+    [
+      0,
+      84,
+      740,
+      512,
+      50
+    ],
+    [
+      0,
+      820,
+      690,
+      300,
+      70
+    ],
+    [
+      0,
+      824,
+      794,
+      219,
+      21
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 70,
+        "y": 40,
+        "w": 1130,
+        "h": 30
+      }
+    },
+    {
+      "role": "ransom-headline",
+      "iou": 0.8942526635531608,
+      "parts": 11,
+      "rect": {
+        "x": 65.8293685913086,
+        "y": 125.90562438964844,
+        "w": 715.0302505493164,
+        "h": 229.46104431152344
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.7272727272727273,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "mono",
+      "uppercase-display"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 86687,
+    "output": 53217,
+    "cacheRead": 788053
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 127733,
+      "output": 49318,
+      "cacheRead": 784969,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 543599
+    }
+  ],
+  "reading": "A zine landing page: a dot-grid backdrop behind a tilted photo card with a sticky-tape accent and a stylized multi-letter title block, a 4-item nav row (logo + ISSUES/SUBMIT/SHOP), and a lower indigo jagged-edge band carrying a bold two-line headline, descriptive copy, a 'GET ISSUE 12' button, and an issue-details line — all content and exact styling specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        3,
+        514,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A big 520x900px dot-grid canvas positioned at 760,0: background-color transparent, background-image radial-gradient(#141414 2px, transparent 2px), background-si"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1122,
+        9
+      ],
+      "paths": [],
+      "instruction": "A header row with 4 parts side by side, 24px flex gap between them, never touching, each a separate live-text element on one line (white-space nowrap, min-width"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        133,
+        753,
+        214
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A stylized title built from 11 individually tilted letter-tile blocks (each its own coloured/bordered rectangle rotated a few degrees around its centre, stacked"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        3,
+        514,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A 300x360px white card (looks like a separate piece of paper), absolute top-left 880,140, square corners, soft drop shadow (0 8px 20px rgba(0,0,0,0.2)), rotated"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        3,
+        514,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4"
+      ],
+      "instruction": "A translucent soft-yellow (#f5e6a8 at 80% opacity) strip of sticky tape, 150x38px, top-left 940,120 before rotating -12deg around its centre, square corners, la"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        563,
+        1270,
+        332
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A vivid indigo (#1f3dff) jagged cut-out band, flat fill via clip-path polygon (no gradient/shading/texture), spanning the full width (1280x337px box at 0,563) w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        88,
+        620,
+        504,
+        84
+      ],
+      "paths": [],
+      "instruction": "Big heavy uppercase off-white heading text on the indigo band, set in exactly two fixed lines: \"PHOTOCOPIED, STAPLED,\" / \"MAILED WITH LOVE.\" (keep these breaks,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        84,
+        740,
+        512,
+        50
+      ],
+      "paths": [],
+      "instruction": "Monospace light-grey (#dfe4ff) body text on the indigo band: \"A quarterly zine of collage, comics and rants. 48 pages, risograph cover, open submissions.\" No fi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        3,
+        514,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s10"
+      ],
+      "instruction": "A yellow (#ffe14d) button labeled 'GET ISSUE 12', 300x70px, square corners (border-radius 0, not a pill), #141414 text, with a hard solid near-black shadow offs"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        824,
+        794,
+        262,
+        9
+      ],
+      "paths": [],
+      "instruction": "14px monospace off-white (#fbf7ee) text on the indigo band: \"NO.12 · 5 EUR · 300 COPIES\". No fill/bar of its own."
+    }
+  ],
+  "rejected": []
+}

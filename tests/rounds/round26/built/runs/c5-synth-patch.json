@@ -1,0 +1,888 @@
+{
+  "id": "c5-synth-patch",
+  "at": "2026-10-26T16:18:41.468Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7988284044334009,
+    "overallV2": 0.7988284044334009,
+    "overallV1": 0.7565201939692381,
+    "colour": 0.8716026427067415,
+    "structure": 0.7363565258561772,
+    "structureStrict": 0.6380886215622115,
+    "colourAligned": 0.8716026427067415,
+    "structureAligned": 0.7363565258561772,
+    "align": {
+      "scale": 1.08,
+      "dx": -64,
+      "dy": -16,
+      "r": 0.5285674809496613
+    },
+    "layout": 0.9260760835903343,
+    "layoutV1": 0.8351669926812434,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      74,
+      44,
+      1142,
+      30
+    ],
+    [
+      1,
+      74,
+      44,
+      73,
+      30
+    ],
+    [
+      1,
+      954,
+      48,
+      262,
+      23
+    ],
+    [
+      3,
+      954,
+      48,
+      86,
+      23
+    ],
+    [
+      3,
+      1072,
+      48,
+      55,
+      23
+    ],
+    [
+      3,
+      1159,
+      48,
+      58,
+      23
+    ],
+    [
+      0,
+      523,
+      123,
+      694,
+      514
+    ],
+    [
+      7,
+      523,
+      122,
+      694,
+      514
+    ],
+    [
+      0,
+      78,
+      140,
+      282,
+      144
+    ],
+    [
+      9,
+      78,
+      140,
+      282,
+      72
+    ],
+    [
+      9,
+      78,
+      212,
+      282,
+      72
+    ],
+    [
+      11,
+      78,
+      203,
+      164,
+      88
+    ],
+    [
+      0,
+      70,
+      420,
+      380,
+      81
+    ],
+    [
+      0,
+      70,
+      540,
+      380,
+      90
+    ],
+    [
+      14,
+      70,
+      563,
+      380,
+      45
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      16,
+      563,
+      593,
+      220,
+      125
+    ],
+    [
+      16,
+      623,
+      593,
+      380,
+      163
+    ],
+    [
+      16,
+      683,
+      593,
+      160,
+      80
+    ],
+    [
+      0,
+      553,
+      173,
+      633,
+      222
+    ],
+    [
+      0,
+      550,
+      170,
+      640,
+      228
+    ],
+    [
+      21,
+      550,
+      170,
+      112,
+      101
+    ],
+    [
+      22,
+      550,
+      170,
+      84,
+      84
+    ],
+    [
+      22,
+      561,
+      181,
+      62,
+      62
+    ],
+    [
+      22,
+      550,
+      260,
+      84,
+      11
+    ],
+    [
+      21,
+      682,
+      170,
+      112,
+      101
+    ],
+    [
+      26,
+      682,
+      170,
+      84,
+      84
+    ],
+    [
+      26,
+      693,
+      181,
+      62,
+      62
+    ],
+    [
+      26,
+      682,
+      260,
+      84,
+      11
+    ],
+    [
+      21,
+      814,
+      170,
+      112,
+      101
+    ],
+    [
+      30,
+      814,
+      170,
+      84,
+      84
+    ],
+    [
+      30,
+      825,
+      181,
+      62,
+      62
+    ],
+    [
+      30,
+      814,
+      260,
+      84,
+      11
+    ],
+    [
+      21,
+      946,
+      170,
+      112,
+      101
+    ],
+    [
+      34,
+      946,
+      170,
+      84,
+      84
+    ],
+    [
+      34,
+      957,
+      181,
+      62,
+      62
+    ],
+    [
+      34,
+      946,
+      260,
+      84,
+      11
+    ],
+    [
+      21,
+      1078,
+      170,
+      112,
+      101
+    ],
+    [
+      38,
+      1078,
+      170,
+      84,
+      84
+    ],
+    [
+      38,
+      1089,
+      181,
+      62,
+      62
+    ],
+    [
+      38,
+      1078,
+      260,
+      84,
+      11
+    ],
+    [
+      21,
+      550,
+      297,
+      112,
+      101
+    ],
+    [
+      42,
+      550,
+      297,
+      84,
+      84
+    ],
+    [
+      42,
+      561,
+      308,
+      62,
+      62
+    ],
+    [
+      42,
+      550,
+      387,
+      84,
+      11
+    ],
+    [
+      21,
+      682,
+      297,
+      112,
+      101
+    ],
+    [
+      46,
+      682,
+      297,
+      84,
+      84
+    ],
+    [
+      46,
+      693,
+      308,
+      62,
+      62
+    ],
+    [
+      46,
+      682,
+      387,
+      84,
+      11
+    ],
+    [
+      21,
+      814,
+      297,
+      112,
+      101
+    ],
+    [
+      50,
+      814,
+      297,
+      84,
+      84
+    ],
+    [
+      50,
+      825,
+      308,
+      62,
+      62
+    ],
+    [
+      50,
+      814,
+      387,
+      84,
+      11
+    ],
+    [
+      21,
+      946,
+      297,
+      112,
+      101
+    ],
+    [
+      54,
+      946,
+      297,
+      84,
+      84
+    ],
+    [
+      54,
+      957,
+      308,
+      62,
+      62
+    ],
+    [
+      54,
+      946,
+      387,
+      84,
+      11
+    ],
+    [
+      21,
+      1078,
+      297,
+      112,
+      101
+    ],
+    [
+      58,
+      1078,
+      297,
+      84,
+      84
+    ],
+    [
+      58,
+      1089,
+      308,
+      62,
+      62
+    ],
+    [
+      58,
+      1078,
+      387,
+      84,
+      11
+    ],
+    [
+      0,
+      550,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      610,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      670,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      730,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      790,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      850,
+      584,
+      26,
+      26
+    ],
+    [
+      0,
+      1058,
+      590,
+      132,
+      12
+    ],
+    [
+      68,
+      1058,
+      590,
+      12,
+      12
+    ],
+    [
+      68,
+      1082,
+      590,
+      12,
+      12
+    ],
+    [
+      68,
+      1106,
+      590,
+      12,
+      12
+    ],
+    [
+      68,
+      1130,
+      590,
+      12,
+      12
+    ],
+    [
+      68,
+      1154,
+      590,
+      12,
+      12
+    ],
+    [
+      68,
+      1178,
+      590,
+      12,
+      12
+    ],
+    [
+      0,
+      74,
+      703,
+      279,
+      53
+    ],
+    [
+      75,
+      74,
+      704,
+      161,
+      51
+    ],
+    [
+      75,
+      251,
+      703,
+      102,
+      53
+    ],
+    [
+      0,
+      520,
+      690,
+      700,
+      30
+    ],
+    [
+      78,
+      520,
+      706,
+      117,
+      20
+    ],
+    [
+      78,
+      756,
+      706,
+      39,
+      20
+    ],
+    [
+      78,
+      914,
+      706,
+      94,
+      20
+    ],
+    [
+      78,
+      1126,
+      706,
+      94,
+      20
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "jacks",
+      "iou": 1,
+      "parts": 6,
+      "rect": {
+        "x": 550,
+        "y": 584,
+        "w": 326,
+        "h": 26
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "mono"
+    ],
+    "missing": [
+      "glow",
+      "soft-shadow"
+    ],
+    "extra": [
+      "blur",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 78412,
+    "output": 42142,
+    "cacheRead": 1089658
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 75847,
+      "output": 25734,
+      "cacheRead": 720457,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Write src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Grep",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 290999
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 23949,
+      "output": 8970,
+      "cacheRead": 354510,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 112800
+    }
+  ],
+  "reading": "A full hero/landing section: near-black page with a top nav (MODUL + three right-aligned links), a big 'Patch it. Hear it.' headline with a sub-paragraph and a decorative wavy underline doodle, a gradient hero panel on the right containing a 5x2 grid of knob-style cards, a row of 6 round empty buttons, 3 colored squiggly accent lines over the headline area, a row of 6 small colored dots, two CTA buttons, and a thin spec strip along the bottom of the panel.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Whole page background near-black (#1b1c1f), set base typography to Helvetica, with text generally rendered in a warm paper tone, as the global look for this new"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1142,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav bar: 20px warm-paper 'MODUL' wordmark at the left, bold (font-weight 600, not regular); far right (816px gap from MODUL) three bold nav links 'Instrumen"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 66
+        }
+      ],
+      "region": [
+        78,
+        140,
+        378,
+        144
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy headline set tight (line-height 0.92), exactly two lines 'Patch it.' / 'Hear it.' with those exact line breaks kept (white-space nowrap per"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        74,
+        420,
+        372,
+        82
+      ],
+      "paths": [],
+      "instruction": "Body paragraph, 17px Helvetica, grey #a9a69d, 3 lines, ~380px wide, positioned top-left around 70,420. Exact copy: 'A semi-modular desktop synth with 32 patch p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        543,
+        373,
+        83
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Decorative inline SVG squiggle, 380x90px, top-left at page 70,540 (absolute), reproduced verbatim as the exact orange (#ff6a2a) smooth wavy path given, no borde"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        553,
+        173,
+        633,
+        222
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Large hero visual panel (the right-hand box) filled with a gradient from warm paper #d9d4c6 at top to lavender #c8c2b2 at bottom, plus a hard white inset shadow"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        553,
+        173,
+        633,
+        222
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Inside the hero panel: a 5-column x 2-row grid of 10 identical knob cards (112x101px each, 20px gap across, 26px gap down, first card top-left at 550,170). Each"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        554,
+        587,
+        318,
+        19
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Row of 6 empty round transport-style buttons, each 26x26px, #111111 fill with a 5px #9a9a9a border, no icon/emoji/picture inside, positioned at x=550,610,670,73"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1058,
+        593,
+        124,
+        5
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Row of 6 small round dots, 12px each, 12px apart, no surrounding box, colored in order: orange, dark brown, orange, dark brown, dark brown, orange."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        123,
+        694,
+        514
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Three decorative 7px smooth waveform-style curved lines layered in front of the 'Patch it. Hear it.' headline, no fill, never crossing themselves: an orange (#f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        703,
+        292,
+        51
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Two CTA buttons side by side: 'Pre-order €449' in #1b1c1f text, and 'Listen' in #e9e6dc text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        524,
+        693,
+        692,
+        24
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "A thin 700x30px spec strip at 520,690, no fill, with a 1px #444444 rule along its top edge only, holding 4 single-line (nowrap, min-width) 13px monospace #a9a69"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,46 @@
+# Round 26 (n247): harder than round 25, untuned first look
+
+Creative: c1 blend mesh (four radial colour glows, three multiply-blended circles overlapping, a 260px "COLOR" set in
+mix-blend-mode difference, an outlined 200px "THEORY", a turned pill tag, vertical label, mono meta), c2 origami fold (a
+crane of four clip-path facets on one box with a sheen, a soft ground shadow, a skewed black title band, an italic serif
+subhead, three step cards with hard shadows, a dashed fold line, a clip-path diamond badge), c3 observatory (a two-layer
+tiled starfield, a fading nebula glow, dashed and solid orbit circles, a radial-lit planet with an inset shadow and a
+turned ellipse ring, a glowing moon, an SVG constellation, an outlined serif "06", a frosted glass stats card), c4 ransom
+zine (a headline of eleven letters each in its own tilted box in its own face and colour, halftone dots, a taped polaroid,
+a torn clip-path blue band, a hard-shadow button), c5 synth patch (a cream panel with screw ::before/::after dots, ten
+conic-gradient knobs set by a CSS variable, jacks, glowing LEDs, three SVG patch cables, an SVG waveform).
+Everyday (denser tools): e1 video editor (top bar, media bin of gradient thumbs with durations, preview with caption,
+transport, inspector with five sliders, a five-track timeline with ruler, clips, waveform stripes and a playhead),
+e2 banking (navy sidebar, gradient credit card with chip, balance panel, stacked bars, transactions grouped by day,
+four conic budget rings), e3 property map (search bar, filter chips, listings grid with an open sort menu, a map with
+water, parks, roads, price pins with tails and a popup), e4 permissions (a role x permission checkbox matrix with group
+rows and partial checks, toggles, tabs, toast), e5 phone screens (three phone frames side by side: onboarding, feed,
+profile).
+
+## n247: first live builds of all ten (2026-10-26, ~1.00M billed, 67.7 min run time)
+
+| page | likeness | what was off |
+|---|---|---|
+| c1 blend mesh | 82% | blends, outline type, mesh right; circles a little large, tag not turned |
+| c2 origami fold | 82% | crane facets right; sheen built as a solid pale face, diamond badge built square, step-card hard shadows lost |
+| c3 observatory | 82% | starfield lost (said as a white-to-black backdrop), nebula a hard dark disc, planet ring built as a turned rectangle, glass card solid white, constellation lost |
+| c4 ransom zine | **88%** | letter boxes, torn band, polaroid right |
+| c5 synth patch | 80% | knobs, cables, LEDs right; panel built short (jacks and LEDs fell outside it), screws lost |
+| e1 video editor | **86%** | tracks, clips, inspector right; playhead lost |
+| e2 banking | **88%** | card, rings, bars, list right |
+| e3 property map | **96%** | near-identical |
+| e4 permissions | 49% | the checkbox matrix was said as a list: built with one column (Owner) and group rows as dots |
+| e5 phone screens | **97%** | near-identical |
+
+Round 26: **83%** over 10 (83.0; round 25 started at 71 untuned). Vitest: same 2 env failures (1460 tests); typecheck clean.
+
+## n247 fixes (planner, zero tokens, not yet re-run live)
+
+- Sparse tiled radial dots (or 2+ dot layers) are a STARFIELD with exact background-image, size and position (c3).
+- A radial gradient whose last stop is see-through is a SOFT GLOW with exact rgba stops, not an opaque sphere (c3 nebula).
+- An empty bordered ellipse (radius 50%, 2:1 or wider) is an ELLIPSE RING with its untransformed size (c3 planet ring).
+- A see-through stats card says FROSTED GLASS with its rgba fill, rgba border and blur (c3 glass stats).
+- An empty thick-bordered circle inside a titled block says its RING (r25 c5 sleeve ring, carried from n246).
+
+Re-planned rounds 1-25: only r25 c5 sleeve changes (ring said). Next: e4 checkbox matrix (49), c5 panel height and
+jacks, c2 diamond badge and step-card shadows, c3 constellation; then live re-runs.

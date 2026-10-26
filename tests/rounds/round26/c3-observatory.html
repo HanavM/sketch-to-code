@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Observatory</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#070b1a;font-family:Helvetica,Arial,sans-serif;color:#e8ecff}
+.stars{position:absolute;left:0;top:0;width:1280px;height:900px;background-image:radial-gradient(#fff 1px,#0000 1.5px),radial-gradient(#fff9 1px,#0000 1.5px);background-size:90px 90px,140px 140px;background-position:0 0,40px 60px}
+.glow{position:absolute;left:560px;top:80px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,#3a2b8f88,#070b1a00 65%)}
+.orbit1{position:absolute;left:600px;top:180px;width:620px;height:620px;border-radius:50%;border:1px dashed #8a93c7}
+.orbit2{position:absolute;left:700px;top:280px;width:420px;height:420px;border-radius:50%;border:1px solid #8a93c766}
+.planet{position:absolute;left:810px;top:390px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd29a,#e0763a 55%,#5a1d10);box-shadow:inset -30px -20px 40px #0009}
+.ring{position:absolute;left:740px;top:465px;width:340px;height:50px;border-radius:50%;border:6px solid #e8c39a;transform:rotate(-14deg)}
+.moon{position:absolute;left:690px;top:240px;width:36px;height:36px;border-radius:50%;background:#cfd6ff;box-shadow:0 0 18px #cfd6ff}
+.num{position:absolute;left:60px;top:150px;font:400 300px/0.8 Georgia,serif;color:transparent;-webkit-text-stroke:2px #8a93c7}
+.h{position:absolute;left:60px;top:420px;width:520px;font:700 58px/1.02 Georgia,serif}
+.h i{color:#ffb36b}
+.p{position:absolute;left:60px;top:570px;width:440px;font:400 17px/1.6 Helvetica;color:#b6bde3}
+.card{position:absolute;left:60px;top:690px;width:460px;height:140px;border-radius:18px;background:#ffffff14;border:1px solid #ffffff2e;backdrop-filter:blur(10px);padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card b{display:block;font:700 30px Georgia,serif}.card small{font:600 11px Helvetica;letter-spacing:2px;color:#8a93c7;text-transform:uppercase}
+.nav{position:absolute;left:60px;top:40px;width:1160px;display:flex;gap:30px;font:500 14px Helvetica;color:#b6bde3}.nav b{margin-right:auto;color:#fff;font:700 18px Georgia,serif;letter-spacing:3px}.nav span:last-child{border:1px solid #ffffff55;border-radius:16px;padding:6px 14px;margin-top:-7px;color:#fff}
+svg.con{position:absolute;left:1000px;top:110px}
+</style></head><body>
+<div class="stars" data-r="starfield"></div><div class="glow" data-r="nebula-glow"></div>
+<div class="nav" data-r="nav"><b>ORRERY</b><span>Tonight</span><span>Tours</span><span>Telescopes</span><span>Members</span></div>
+<div class="orbit1" data-r="orbit-outer" data-must></div><div class="orbit2" data-r="orbit-inner"></div>
+<div class="planet" data-r="planet" data-must></div><div class="ring" data-r="planet-ring" data-must></div><div class="moon" data-r="moon"></div>
+<svg class="con" data-r="constellation" width="220" height="160"><polyline points="10,140 60,90 120,110 170,40 210,20" fill="none" stroke="#8a93c7" stroke-width="1.5"/><g fill="#fff"><circle cx="10" cy="140" r="4"/><circle cx="60" cy="90" r="3"/><circle cx="120" cy="110" r="4"/><circle cx="170" cy="40" r="3"/><circle cx="210" cy="20" r="5"/></g></svg>
+<div class="num" data-r="outlined-numeral" data-must>06</div>
+<h1 class="h" data-r="serif-headline" data-must>A night with <i>Saturn</i>, up close.</h1>
+<p class="p" data-r="copy">Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.</p>
+<div class="card" data-r="glass-stats" data-must><div><b>21:40</b><small>Rise</small></div><div><b>0.7</b><small>Magnitude</small></div><div><b>12</b><small>Seats left</small></div></div>
+</body></html>

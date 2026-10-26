@@ -485,7 +485,7 @@
    ],
    [
     "sleeve",
-    "vivid blue #2b5bd7 (top left) to vivid purple #7a2bd7 (bottom right) gradient block; huge 64px bold title: \"Night Swim\", text \"LP · 2026 · SIDE A/B\", with a hard solid opaque near-black shadow offset 24px down right, no blur; its text #ffffff (white, NOT the page's near-black text)"
+    "vivid blue #2b5bd7 (top left) to vivid purple #7a2bd7 (bottom right) gradient block; huge 64px bold title: \"Night Swim\", text \"LP · 2026 · SIDE A/B\", with a hard solid opaque near-black shadow offset 24px down right, no blur; inside it a 120x120px RING (an empty circle: border 14px solid #f6c33a, border-radius 50%, NO fill, nothing in it) with its top-left at page 430,200 (position absolute, its own element, never dropped); its text #ffffff (white, NOT the page's near-black text)"
    ],
    [
     "record",
