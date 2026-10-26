@@ -116,7 +116,7 @@ empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeat
   - Still off: the pair header was built over the timeframes (run noise, its note unchanged); order form fields built as bare lines.
 - Round 23: **89%** over 10 (89.3). Vitest same 2 env failures; typecheck clean.
 
-## n237: top-bar buttons and pill, signup field button, nav lead face, faint grain (2026-10-26, ~357k billed)
+## n237: top-bar buttons and pill, signup field button, nav lead face, faint grain (2026-10-26, ~459k billed)
 
 - e5 invoice editor **83 → 84%** (colour 99, structure 91, layout 92). Planner:
   - a top bar whose note listed its boxed buttons and filled pill as bare `lines` ("Draft", "Preview", "Download PDF")
