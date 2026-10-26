@@ -1,24 +1,24 @@
 {
   "id": "c3-observatory",
-  "at": "2026-10-26T18:15:59.334Z",
+  "at": "2026-10-26T19:46:33.034Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9390430603877971,
-    "overallV2": 0.9390430603877971,
-    "overallV1": 0.9117481062848671,
-    "colour": 0.9910325796412189,
-    "structure": 0.9137347712888496,
-    "structureStrict": 0.8423736739214243,
-    "colourAligned": 0.9910325796412189,
-    "structureAligned": 0.9137347712888496,
+    "overall": 0.9129187177526836,
+    "overallV2": 0.9129187177526836,
+    "overallV1": 0.8880369491772857,
+    "colour": 0.986827445846302,
+    "structure": 0.8955500311571418,
+    "structureStrict": 0.8304980694177323,
+    "colourAligned": 0.986827445846302,
+    "structureAligned": 0.8955500311571418,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9225165322484765
+      "r": 0.9055406576903234
     },
-    "layout": 0.9183944155978865,
-    "layoutV1": 0.8528673500708209,
+    "layout": 0.8599372976576265,
+    "layoutV1": 0.8599372976576265,
     "layoutVersion": 2
   },
   "boxes": [
@@ -37,186 +37,186 @@
       900
     ],
     [
+      1,
       0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
       560,
       80,
       760,
       760
     ],
     [
+      1,
       0,
+      0,
+      1280,
+      91
+    ],
+    [
+      4,
+      60,
+      32,
+      77,
+      27
+    ],
+    [
+      4,
+      892,
+      35,
+      328,
+      21
+    ],
+    [
+      6,
+      892,
+      35,
+      45,
+      21
+    ],
+    [
+      6,
+      977,
+      35,
+      34,
+      21
+    ],
+    [
+      6,
+      1052,
+      35,
+      70,
+      21
+    ],
+    [
+      6,
+      1162,
+      35,
+      58,
+      21
+    ],
+    [
+      1,
       0,
       0,
       1274,
       894
     ],
     [
-      3,
+      11,
       0,
       -1,
       1275,
       894
     ],
     [
-      3,
+      11,
       600,
       181,
       612,
       612
     ],
     [
-      0,
+      1,
       0,
       0,
       1274,
       894
     ],
     [
-      6,
+      14,
       0,
       -1,
       1275,
       894
     ],
     [
-      6,
+      14,
       600,
       181,
       612,
       612
     ],
     [
-      6,
+      14,
       700,
       281,
       413,
       412
     ],
     [
-      0,
+      1,
       0,
       0,
       1274,
       894
     ],
     [
-      10,
+      18,
       0,
       -1,
       1275,
       894
     ],
     [
-      10,
+      18,
       600,
       181,
       612,
       612
     ],
     [
-      10,
+      18,
       700,
       281,
       413,
       412
     ],
     [
-      10,
+      18,
       812,
       391,
       191,
       191
     ],
     [
-      10,
-      729,
-      386,
-      356,
-      202
-    ],
-    [
-      0,
-      0,
-      0,
-      1274,
-      894
-    ],
-    [
-      16,
-      0,
-      -1,
-      1275,
-      894
-    ],
-    [
-      16,
-      600,
-      181,
-      612,
-      612
-    ],
-    [
-      16,
-      700,
-      281,
-      413,
-      412
-    ],
-    [
-      16,
-      812,
-      391,
-      191,
-      191
-    ],
-    [
-      16,
+      18,
       739,
       425,
       336,
       125
     ],
     [
-      0,
+      1,
+      739,
+      425,
+      342,
+      131
+    ],
+    [
+      1,
       686,
       237,
       36,
       36
     ],
     [
-      0,
-      0,
-      0,
-      1275,
-      894
-    ],
-    [
-      23,
-      0,
-      -1,
-      1275,
-      894
-    ],
-    [
-      23,
-      561,
-      81,
-      716,
-      752
-    ],
-    [
-      23,
+      1,
       1000,
       110,
-      214,
-      153
+      220,
+      160
     ],
     [
-      23,
-      1006,
-      125,
-      209,
-      129
+      26,
+      1000,
+      110,
+      220,
+      160
     ],
     [
       27,
@@ -268,192 +268,132 @@
       10
     ],
     [
-      0,
-      0,
-      0,
-      1280,
-      63
-    ],
-    [
-      35,
-      60,
-      36,
-      77,
-      27
-    ],
-    [
-      35,
-      877,
-      38,
-      343,
-      23
-    ],
-    [
-      37,
-      877,
-      38,
-      48,
-      23
-    ],
-    [
-      37,
-      966,
-      38,
-      37,
-      23
-    ],
-    [
-      37,
-      1042,
-      38,
-      75,
-      23
-    ],
-    [
-      37,
-      1157,
-      38,
-      63,
-      23
-    ],
-    [
-      0,
+      1,
       60,
       150,
       300,
       300
     ],
     [
-      0,
+      1,
       68,
       420,
-      468,
+      450,
       118
     ],
     [
-      43,
+      36,
       68,
-      420,
-      468,
-      59
+      419,
+      450,
+      60
     ],
     [
-      44,
+      37,
       352,
       419,
       153,
       60
     ],
     [
-      43,
+      36,
       68,
-      479,
-      468,
-      59
+      478,
+      192,
+      60
     ],
     [
-      0,
+      1,
       64,
       570,
       432,
       54
     ],
     [
-      0,
+      1,
       60,
       690,
       460,
       140
     ],
     [
-      48,
+      41,
       61,
       691,
       458,
-      76
+      138
     ],
     [
-      49,
+      42,
       86,
-      712,
-      130,
-      55
+      740,
+      70,
+      62
     ],
     [
-      50,
+      43,
       86,
-      712,
-      130,
-      34
+      740,
+      70,
+      45
     ],
     [
-      50,
+      43,
       86,
-      750,
-      130,
+      785,
+      70,
       17
     ],
     [
-      49,
-      226,
-      712,
-      130,
-      55
+      42,
+      166,
+      740,
+      85,
+      62
     ],
     [
-      53,
-      226,
-      712,
-      130,
-      34
+      46,
+      166,
+      740,
+      85,
+      45
     ],
     [
-      53,
-      226,
-      750,
-      130,
+      46,
+      166,
+      785,
+      85,
       17
     ],
     [
+      42,
+      261,
+      740,
+      86,
+      62
+    ],
+    [
       49,
-      366,
-      712,
-      130,
-      55
+      261,
+      740,
+      86,
+      45
     ],
     [
-      56,
-      366,
-      712,
-      130,
-      34
-    ],
-    [
-      56,
-      366,
-      750,
-      130,
+      49,
+      261,
+      785,
+      86,
       17
     ]
   ],
-  "groupMatched": [
-    {
-      "role": "nav",
-      "iou": 0.8518518518518519,
-      "parts": 2,
-      "rect": {
-        "x": 60,
-        "y": 36,
-        "w": 1160,
-        "h": 27
-      }
-    }
-  ],
+  "groupMatched": [],
   "effects": {
-    "recall": 0.8333333333333334,
+    "recall": 0.9166666666666666,
     "kept": [
       "bleed",
       "glass",
+      "glow",
       "gradient",
       "hollow-type",
       "huge-type",
@@ -464,47 +404,45 @@
       "tilt"
     ],
     "missing": [
-      "glow",
       "soft-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 133737,
-    "output": 52704,
-    "cacheRead": 1023009
+    "input": 129240,
+    "output": 57418,
+    "cacheRead": 534106
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 160042,
-      "output": 41967,
-      "cacheRead": 1008343,
-      "toolCalls": 17,
+      "billed": 157393,
+      "output": 44754,
+      "cacheRead": 500959,
+      "toolCalls": 16,
       "tools": [
-        "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read components/SketchShape.tsx",
         "Read components/SketchShape2.tsx",
-        "Read components/GlowingPlanet.tsx",
-        "Read components/PlanetRing.tsx",
-        "Read components/ConstellationLine.tsx",
-        "Read src/main.tsx",
-        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/Planet.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/LineChart.tsx",
         "Edit components/SketchShape2.tsx",
-        "Edit components/GlowingPlanet.tsx",
-        "Edit components/PlanetRing.tsx",
-        "Edit components/ConstellationLine.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/Planet.tsx",
         "Write src/App.tsx",
-        "Glob"
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
       ],
-      "ms": 402829
+      "ms": 481413
     }
   ],
-  "reading": "This is a full dark-themed astronomy-event hero section: a starfield background, a soft purple glow, a top nav bar with ORRERY branding and right-aligned links, a big dashed/faint circle motif holding a glowing lit sphere (Saturn) wrapped in a tilted ring, a small glowing dot and a constellation-line SVG graphic near it, a huge outline '06' page/day number, a large two-line Georgia headline with 'Saturn' highlighted in peach italic, a lavender descriptive paragraph, and a frosted-glass stat strip with three number/label pairs (RISE, MAGNITUDE, SEATS LEFT).",
+  "reading": "A dark hero/landing page for an observatory site ('ORRERY'): starfield and radial-glow backgrounds, a top nav, a big hollow '06' numeral, a two-line serif headline about Saturn, a lavender paragraph, a Saturn-like sphere with a tilted ring and orbit rings plus a small glow dot, a small line-chart SVG graphic, and a frosted-glass stat strip with three stats (RISE, MAGNITUDE, SEATS LEFT).",
   "actions": [
     {
       "kind": "design",
@@ -520,7 +458,7 @@
         "s0",
         "s3"
       ],
-      "instruction": "Add a 1280x900px STARFIELD layer at 0,0, position absolute, behind everything, holding nothing, no fill of its own: scattered with two tiled layers of tiny dots"
+      "instruction": "A 1280x900px STARFIELD layer at 0,0, position absolute, behind everything, holding nothing, no fill of its own (page colour shows around the dots): background-i"
     },
     {
       "kind": "design",
@@ -536,7 +474,7 @@
         "s0",
         "s3"
       ],
-      "instruction": "Add a SOFT GLOW (not a solid disc, no visible edge): a 760x760px see-through layer at 560,80, position absolute, behind the content, holding nothing, border-rad"
+      "instruction": "A soft glow, not a solid disc, no edge: a 760x760px see-through layer at 560,80, position absolute, behind the content, border-radius 50%, background: radial-gr"
     },
     {
       "kind": "add",
@@ -553,7 +491,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top nav bar: bold 18px Georgia serif white 'ORRERY' at the left, then links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed far right (737px gap from ORRERY)"
+      "instruction": "Top navigation bar: bold 18px Georgia serif white 'ORRERY' at the far left; nav links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed to the far right with a"
     },
     {
       "kind": "design",
@@ -569,7 +507,7 @@
         "s0",
         "s3"
       ],
-      "instruction": "A round (border-radius 50%, true circle, 620px across, never a square) 1px dashed #8a93c7 outline circle, decorative frame behind the planet illustration."
+      "instruction": "A round (border-radius 50%, true circle 620px across, never a square) 1px dashed #8a93c7 outline circle, faint grey dashed ring behind the hero graphic."
     },
     {
       "kind": "design",
@@ -586,7 +524,7 @@
         "s3",
         "s4"
       ],
-      "instruction": "A big faint grey outline circle, concentric with the dashed circle, as an additional decorative ring behind the planet illustration."
+      "instruction": "A second, smaller big faint grey outline circle nested inside the dashed ring, concentric with it."
     },
     {
       "kind": "add",
@@ -605,7 +543,7 @@
         "s5",
         "s6"
       ],
-      "instruction": "A 200px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit f"
+      "instruction": "A 200px solid sphere (border-radius 50%, fully opaque) painted with radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit fr"
     },
     {
       "kind": "add",
@@ -624,7 +562,7 @@
         "s5",
         "s6"
       ],
-      "instruction": "Tilted 14° anticlockwise ellipse ring (flattened oval outline, border-radius 50%, not a rectangle, no corners): 340x50px before rotation, 6px solid #e8c39a bord"
+      "instruction": "Saturn's ring: a flattened oval outline (border-radius 50%, not a rectangle, no corners), tilted 14 degrees anticlockwise, built as one plain div: width 340px; "
     },
     {
       "kind": "add",
@@ -641,7 +579,7 @@
         "s3",
         "s7"
       ],
-      "instruction": "Small 36px glowing light-grey dot (exactly 36x36px, border-radius 50%, not smaller), sitting on the dashed/outline circle as a marker point."
+      "instruction": "A small 36x36px glowing light grey dot (border-radius 50%, not smaller), a star-like accent sitting on the dashed ring."
     },
     {
       "kind": "add",
@@ -658,7 +596,7 @@
         "s1",
         "s8"
       ],
-      "instruction": "Drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside, no border/outline/frame/background drawn round it), 220x160px with top-lef"
+      "instruction": "An inline SVG, 220x160px, top-left at page 1000,110, position absolute, copied verbatim: a thin lavender polyline chart with white dot markers at points (10,140"
     },
     {
       "kind": "add",
@@ -683,7 +621,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Giant Georgia serif regular-weight (not bold) hollow outlined grey '06', 300px type, about 300px wide (no larger), absolutely placed: box's top-left at 60,150, "
+      "instruction": "A giant Georgia serif regular-weight hollow outlined grey '06', 300px type, about 300px wide (no larger), absolutely placed with its box top-left at 60,150 and "
     },
     {
       "kind": "add",
@@ -710,7 +648,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Huge Georgia serif headline 'A night with Saturn, up close.' set in exactly 2 lines: 'A night with Saturn,' / 'up close.' — keep these breaks, each line stays w"
+      "instruction": "Huge Georgia serif headline in exactly 2 lines, kept as written, never rewrapped: 'A night with Saturn,' / 'up close.' about 500px wide, white-space nowrap. The"
     },
     {
       "kind": "add",
@@ -737,7 +675,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Lavender body paragraph: 'Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.' Text colour #b6bde3 (lavender, not"
+      "instruction": "Lavender body paragraph, colour #b6bde3 (not the page's off-white): 'Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the ey"
     },
     {
       "kind": "add",
@@ -753,7 +691,7 @@
         "s0",
         "s14"
       ],
-      "instruction": "A see-through FROSTED GLASS card 460x140px at 60,690 (background rgba(255,255,255,0.08), 8% opaque, dark page shows through — never solid white; border 1px soli"
+      "instruction": "A see-through frosted-glass card, 460x140px at 60,690, background rgba(255,255,255,0.08) only (dark page shows through, never solid white), border 1px solid rgb"
     }
   ],
   "rejected": [

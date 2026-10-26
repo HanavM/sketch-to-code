@@ -1,24 +1,24 @@
 {
   "id": "e2-banking",
-  "at": "2026-10-26T16:33:51.702Z",
+  "at": "2026-10-26T19:06:33.857Z",
   "likeness": {
     "version": 3,
-    "overall": 0.875176654695908,
-    "overallV2": 0.875176654695908,
-    "overallV1": 0.8173153766681543,
-    "colour": 0.9820765604003009,
-    "structure": 0.882497350013176,
-    "structureStrict": 0.7911212383557694,
-    "colourAligned": 0.9820765604003009,
-    "structureAligned": 0.882497350013176,
+    "overall": 0.8774413489959316,
+    "overallV2": 0.8774413489959316,
+    "overallV1": 0.8020438198833573,
+    "colour": 0.9825890120772306,
+    "structure": 0.8947406327765774,
+    "structureStrict": 0.77567079412596,
+    "colourAligned": 0.9825890120772306,
+    "structureAligned": 0.8947406327765774,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.971757340613538
+      "r": 0.9686789592721772
     },
-    "layout": 0.9250077425736962,
-    "layoutV1": 0.9250077425736962,
+    "layout": 0.9040534435828815,
+    "layoutV1": 0.9040534435828815,
     "layoutVersion": 2
   },
   "boxes": [
@@ -39,9 +39,9 @@
     [
       1,
       20,
-      5,
-      79,
-      23
+      4,
+      80,
+      16
     ],
     [
       1,
@@ -51,46 +51,95 @@
       36
     ],
     [
+      3,
+      20,
+      37,
+      62,
+      14
+    ],
+    [
       1,
-      12,
+      0,
       66,
-      196,
+      220,
       36
     ],
     [
+      5,
+      20,
+      77,
+      58,
+      14
+    ],
+    [
       1,
-      12,
+      0,
       106,
-      196,
+      220,
       36
     ],
     [
+      7,
+      20,
+      117,
+      37,
+      14
+    ],
+    [
       1,
-      12,
+      0,
       146,
-      196,
+      220,
       36
     ],
     [
+      9,
+      20,
+      157,
+      62,
+      14
+    ],
+    [
       1,
-      12,
+      0,
       186,
-      196,
+      220,
       36
     ],
     [
+      11,
+      20,
+      197,
+      50,
+      14
+    ],
+    [
       1,
-      12,
+      0,
       226,
-      196,
+      220,
       36
+    ],
+    [
+      13,
+      20,
+      237,
+      51,
+      14
     ],
     [
       0,
-      256,
-      30,
+      252,
+      28,
       242,
-      31
+      39
+    ],
+    [
+      0,
+      252,
+      66,
+      194,
+      21
     ],
     [
       0,
@@ -121,35 +170,21 @@
       230
     ],
     [
-      13,
-      252,
-      110,
-      380,
-      230
-    ],
-    [
-      14,
-      252,
-      110,
-      380,
-      230
-    ],
-    [
-      13,
+      20,
       276,
       134,
       332,
-      24
+      21
     ],
     [
-      13,
+      20,
       276,
-      212,
+      211,
       332,
       30
     ],
     [
-      13,
+      20,
       276,
       297,
       332,
@@ -163,149 +198,156 @@
       230
     ],
     [
-      19,
-      684,
-      138,
-      536,
+      24,
+      685,
+      139,
+      534,
+      83
+    ],
+    [
+      25,
+      685,
+      139,
+      534,
       21
     ],
     [
-      19,
-      684,
-      167,
-      536,
-      51
+      25,
+      685,
+      168,
+      534,
+      54
     ],
     [
-      19,
-      684,
-      246,
-      536,
-      41
+      24,
+      685,
+      268,
+      534,
+      43
     ],
     [
-      22,
-      684,
-      246,
+      28,
+      685,
+      268,
       74,
-      41
+      43
     ],
     [
-      22,
-      770,
-      246,
-      63,
-      41
+      28,
+      771,
+      268,
+      97,
+      43
     ],
     [
-      22,
-      845,
-      246,
-      54,
-      41
+      28,
+      880,
+      268,
+      88,
+      43
     ],
     [
-      19,
+      0,
       1000,
       130,
       226,
       180
     ],
     [
-      26,
-      1102,
-      140,
+      32,
+      1103,
+      141,
       22,
       60
     ],
     [
-      26,
-      1204,
-      150,
+      32,
+      1205,
+      151,
       22,
       60
     ],
     [
-      26,
-      1034,
-      160,
+      32,
+      1035,
+      161,
       22,
       60
     ],
     [
-      26,
-      1136,
-      180,
+      32,
+      1137,
+      181,
       22,
       70
     ],
     [
-      26,
-      1000,
-      190,
+      32,
+      1001,
+      191,
       22,
       50
     ],
     [
-      26,
-      1102,
-      200,
+      32,
+      1103,
+      201,
       22,
       110
     ],
     [
-      26,
-      1170,
-      210,
+      32,
+      1171,
+      211,
       22,
       45
     ],
     [
-      26,
-      1204,
-      210,
+      32,
+      1205,
+      211,
       22,
       100
     ],
     [
-      26,
-      1034,
-      220,
+      32,
+      1035,
+      221,
       22,
       90
     ],
     [
-      26,
-      1068,
-      220,
+      32,
+      1069,
+      221,
       22,
       50
     ],
     [
-      26,
-      1000,
-      240,
+      32,
+      1001,
+      241,
       22,
       70
     ],
     [
-      26,
-      1136,
-      250,
+      32,
+      1137,
+      251,
       22,
       60
     ],
     [
-      26,
-      1170,
-      255,
+      32,
+      1171,
+      256,
       22,
       55
     ],
     [
-      26,
-      1068,
-      270,
+      32,
+      1069,
+      271,
       22,
       40
     ],
@@ -317,289 +359,303 @@
       510
     ],
     [
-      41,
-      276,
-      388,
-      592,
-      26
+      47,
+      277,
+      389,
+      590,
+      27
     ],
     [
-      41,
-      276,
-      430,
-      592,
-      209
+      47,
+      277,
+      432,
+      590,
+      185
     ],
     [
-      43,
-      276,
-      430,
-      592,
+      49,
+      277,
+      432,
+      590,
       18
     ],
     [
-      43,
-      276,
-      456,
-      592,
-      61
+      49,
+      277,
+      462,
+      590,
+      155
     ],
     [
-      45,
-      276,
-      468,
+      51,
+      277,
+      462,
+      590,
+      41
+    ],
+    [
+      52,
+      277,
+      465,
       36,
       36
     ],
     [
-      45,
-      324,
-      466,
-      493,
+      52,
+      325,
+      462,
+      94,
       41
     ],
     [
-      47,
-      324,
-      466,
-      493,
+      54,
+      325,
+      462,
+      94,
       21
     ],
     [
-      47,
-      324,
-      489,
-      493,
+      54,
+      325,
+      485,
+      94,
       18
     ],
     [
-      45,
-      817,
-      476,
+      52,
+      816,
+      472,
       51,
       21
     ],
     [
-      43,
-      276,
-      517,
-      592,
-      61
+      51,
+      277,
+      519,
+      590,
+      41
     ],
     [
-      51,
-      276,
+      58,
+      277,
+      522,
+      36,
+      36
+    ],
+    [
+      58,
+      325,
+      519,
+      123,
+      41
+    ],
+    [
+      60,
+      325,
+      519,
+      123,
+      21
+    ],
+    [
+      60,
+      325,
+      542,
+      123,
+      18
+    ],
+    [
+      58,
+      797,
       529,
-      36,
-      36
-    ],
-    [
-      51,
-      324,
-      527,
-      474,
-      41
-    ],
-    [
-      53,
-      324,
-      527,
-      474,
-      21
-    ],
-    [
-      53,
-      324,
-      550,
-      474,
-      18
-    ],
-    [
-      51,
-      798,
-      537,
       70,
       21
     ],
     [
-      43,
-      276,
-      578,
-      592,
-      61
-    ],
-    [
-      57,
-      276,
+      51,
+      277,
+      576,
       590,
+      41
+    ],
+    [
+      64,
+      277,
+      579,
       36,
       36
     ],
     [
-      57,
-      324,
-      588,
-      493,
+      64,
+      325,
+      576,
+      92,
       41
     ],
     [
-      59,
-      324,
-      588,
-      493,
+      66,
+      325,
+      576,
+      92,
       21
     ],
     [
-      59,
-      324,
-      611,
-      493,
+      66,
+      325,
+      599,
+      92,
       18
     ],
     [
-      57,
-      817,
-      598,
+      64,
+      816,
+      586,
       51,
       21
     ],
     [
-      41,
-      276,
-      655,
-      592,
-      209
+      47,
+      277,
+      637,
+      590,
+      185
     ],
     [
-      63,
-      276,
-      655,
-      592,
+      70,
+      277,
+      637,
+      590,
       18
     ],
     [
-      63,
-      276,
-      681,
-      592,
-      61
+      70,
+      277,
+      667,
+      590,
+      155
     ],
     [
-      65,
-      276,
-      693,
+      72,
+      277,
+      667,
+      590,
+      41
+    ],
+    [
+      73,
+      277,
+      670,
       36,
       36
     ],
     [
-      65,
-      324,
-      691,
-      501,
+      73,
+      325,
+      667,
+      68,
       41
     ],
     [
-      67,
-      324,
-      691,
-      501,
+      75,
+      325,
+      667,
+      68,
       21
     ],
     [
-      67,
-      324,
-      714,
-      501,
+      75,
+      325,
+      690,
+      68,
       18
     ],
     [
-      65,
-      825,
-      701,
+      73,
+      824,
+      677,
       43,
       21
     ],
     [
-      63,
-      276,
-      742,
-      592,
-      61
+      72,
+      277,
+      724,
+      590,
+      41
     ],
     [
-      71,
-      276,
-      754,
+      79,
+      277,
+      727,
       36,
       36
     ],
     [
-      71,
-      324,
-      752,
-      493,
+      79,
+      325,
+      724,
+      79,
       41
     ],
     [
-      73,
-      324,
-      752,
-      493,
+      81,
+      325,
+      724,
+      79,
       21
     ],
     [
-      73,
-      324,
-      775,
-      493,
+      81,
+      325,
+      747,
+      79,
       18
     ],
     [
-      71,
-      817,
-      762,
+      79,
+      816,
+      734,
       51,
       21
     ],
     [
-      63,
-      276,
-      803,
-      592,
-      61
+      72,
+      277,
+      781,
+      590,
+      41
     ],
     [
-      77,
-      276,
-      815,
+      85,
+      277,
+      784,
       36,
       36
     ],
     [
-      77,
-      324,
-      813,
-      493,
+      85,
+      325,
+      781,
+      75,
       41
     ],
     [
-      79,
-      324,
-      813,
-      493,
+      87,
+      325,
+      781,
+      75,
       21
     ],
     [
-      79,
-      324,
-      836,
-      493,
+      87,
+      325,
+      804,
+      75,
       18
     ],
     [
-      77,
-      817,
-      823,
+      85,
+      816,
+      791,
       51,
       21
     ],
@@ -611,147 +667,147 @@
       510
     ],
     [
-      83,
+      91,
       940,
       386,
       286,
       26
     ],
     [
-      83,
+      91,
       940,
       420,
       70,
       70
     ],
     [
-      85,
+      93,
       948,
       428,
       54,
       54
     ],
     [
-      83,
-      1026,
-      441,
-      65,
-      21
-    ],
-    [
-      83,
+      91,
       962,
       448,
-      26,
+      33,
       20
     ],
     [
-      83,
+      91,
+      1026,
+      441,
+      68,
+      21
+    ],
+    [
+      91,
       1026,
       457,
       70,
       18
     ],
     [
-      83,
+      91,
       940,
       512,
       70,
       70
     ],
     [
-      90,
+      98,
       948,
       520,
       54,
       54
     ],
     [
-      83,
+      91,
+      962,
+      540,
+      33,
+      20
+    ],
+    [
+      91,
       1026,
       533,
       68,
       21
     ],
     [
-      83,
-      962,
-      540,
-      26,
-      20
-    ],
-    [
-      83,
+      91,
       1026,
       549,
       70,
       18
     ],
     [
-      83,
+      91,
       940,
       604,
       70,
       70
     ],
     [
-      95,
+      103,
       948,
       612,
       54,
       54
     ],
     [
-      83,
-      1026,
-      625,
-      65,
-      21
-    ],
-    [
-      83,
+      91,
       962,
       632,
-      26,
+      33,
       20
     ],
     [
-      83,
+      91,
+      1026,
+      625,
+      68,
+      21
+    ],
+    [
+      91,
       1026,
       641,
       68,
       18
     ],
     [
-      83,
+      91,
       940,
       696,
       70,
       70
     ],
     [
-      100,
+      108,
       948,
       704,
       54,
       54
     ],
     [
-      83,
-      1026,
-      717,
-      65,
-      21
-    ],
-    [
-      83,
+      91,
       962,
       724,
       33,
       20
     ],
     [
-      83,
+      91,
+      1026,
+      717,
+      68,
+      21
+    ],
+    [
+      91,
       1026,
       733,
       70,
@@ -772,46 +828,31 @@
     "extra": []
   },
   "tokens": {
-    "input": 55926,
-    "output": 33467,
-    "cacheRead": 477701
+    "input": 52922,
+    "output": 24162,
+    "cacheRead": 188529
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 61336,
-      "output": 22519,
-      "cacheRead": 231405,
-      "toolCalls": 8,
+      "billed": 66397,
+      "output": 20424,
+      "cacheRead": 185445,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
-        "Read s2c-bench-app/vite.config.ts",
+        "Read s2c-bench-app/index.html",
         "Write src/App.tsx"
       ],
-      "ms": 240607
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 10819,
-      "output": 4543,
-      "cacheRead": 233251,
-      "toolCalls": 3,
-      "tools": [
-        "Read src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 49368
+      "ms": 211955
     }
   ],
-  "reading": "The sketch is a dashboard layout: a tall left sidebar nav, a bold greeting heading, top-right header controls (avatar + two buttons), a gradient bank card, a 'Total balance' card with a small bar chart in its corner, a transactions list card, and a budgets panel with four progress rings.",
+  "reading": "The sketch lays out a banking dashboard: a fixed dark navy sidebar nav, a header with a greeting/subtitle and right-side avatar/button controls, a gradient bank card and a totals card with action buttons, a small bar chart, a transactions list card, and a budgets card with conic-gradient progress rings. Typed notes give exact colours, sizes, positions and copy for every part, which take precedence over the rough ink shapes.",
   "actions": [
     {
       "kind": "add",
@@ -826,7 +867,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Fixed 220x900px panel at top-left (0,0) of the page: dark navy (#0b1f3a) bar containing lavender text \"Northbank\" and a nav list: Overview, Accounts, Cards, Pay"
+      "instruction": "Dark navy (#0b1f3a) fixed sidebar nav panel, exactly 220x900px, top-left at 0,0. Lavender \"Northbank\" wordmark at top, then nav list: \"Overview\", \"Accounts\", \"C"
     },
     {
       "kind": "add",
@@ -841,7 +882,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Large bold (font-weight 700) heading reading \"Good morning, Ana\", set at 26px, about 242px wide on one line, placed near the top of the main content area above "
+      "instruction": "Page heading \"Good morning, Ana\" set bold (font-weight 700) at 26px (large lead line, not small body text), about 242px wide on one line. Below it, a separate s"
     },
     {
       "kind": "add",
@@ -866,7 +907,7 @@
         38
       ],
       "paths": [],
-      "instruction": "Header controls in the top-right area, three separate elements: 1) a 38x38 circular avatar, #fdba74 fill, positioned at 1198,32, left empty with no icon/emoji/p"
+      "instruction": "Header-right controls, three parts: an empty 38x38 circular avatar at 1198,32 with #fdba74 fill (no icon/emoji/picture inside); a 109x36 white button at 1000,33"
     },
     {
       "kind": "add",
@@ -881,7 +922,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "A 380x230px card fixed at top-left 252,110 with a diagonal gradient from dark blue (#1e3a8a) through purple (#7c3aed, stop at 60%, fully opaque) to dark pink (#"
+      "instruction": "Bank card widget, exactly 380x230px, top-left at 252,110, fixed size/position (never grows or pushes content below). Background is a gradient from dark blue (#1"
     },
     {
       "kind": "add",
@@ -896,7 +937,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A white 592x230px card fixed at top-left 656,110, containing: \"Total balance\" label in #667085, a large balance figure \"€12,480.55\" in #101828, and an action ro"
+      "instruction": "White balance card, exactly 592x230px, top-left at 656,110, fixed size/position (never grows or pushes content below). Shows \"Total balance\" label in #667085, b"
     },
     {
       "kind": "add",
@@ -911,7 +952,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Inside the 'Total balance' card, a small 226x180px bar-chart widget fixed at top-left 1000,130, made of 14 vertical bars of varying heights (22px wide each), al"
+      "instruction": "Small bar-chart card, exactly 226x180px, top-left at 1000,130, fixed size/position (never grows or pushes content below), made of 14 vertical bars each its own "
     },
     {
       "kind": "add",
@@ -926,7 +967,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "A white 640x510px 'Transactions' card fixed at top-left 252,364 (24px below the card above it) containing a vertical list: 'TODAY' divider, then rows each with "
+      "instruction": "White \"Transactions\" card, exactly 640x510px, top-left at 252,364 (top 24px below the card ending at y 340, no wider gap; fixed size/position, never grows or pu"
     },
     {
       "kind": "add",
@@ -941,8 +982,10 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A white 332x510px 'Budgets' panel fixed at top-left 916,364 (24px below the card above it), 1px #eaecf0 border, 16px rounded corners, title 'Budgets' at 17px bo"
+      "instruction": "White \"Budgets\" panel, exactly 332x510px, top-left at 916,364 (top 24px below the card ending at y 340, no wider gap; fixed size/position, never grows or pushes"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

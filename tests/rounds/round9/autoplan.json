@@ -437,7 +437,7 @@
    ],
    [
     "filters",
-    "the 5 parts \"Price\", \"Type of place\", \"Rooms\", \"Instant book\", \"More filters\" sit side by side in one row with exactly 10px of empty space between one and the next (flex gap 10px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 70x36 at 32,88 2px #222222 border, pill ends, padding-left 16px (its text starts at x 48): 14px bold #222222 \"Price\"; 117x36 at 112,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 128): 14px #222222 \"Type of place\"; 78x36 at 240,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 256): 14px #222222 \"Rooms\"; 110x36 at 328,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 344): 14px #222222 \"Instant book\"; 103x36 at 448,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 464): 14px #222222 \"More filters\""
+    "the 5 parts \"Price\", \"Type of place\", \"Rooms\", \"Instant book\", \"More filters\" sit side by side in one row with exactly 10px of empty space between one and the next (flex gap 10px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out): 70x36 at 32,88 2px #222222 border, pill ends, padding-left 16px (its text starts at x 48): 14px bold #222222 \"Price\"; 117x36 at 112,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 128): 14px #222222 \"Type of place\"; 78x36 at 240,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 256): 14px #222222 \"Rooms\"; 110x36 at 328,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 344): 14px #222222 \"Instant book\"; 103x36 at 448,88 1px #dddddd border, pill ends, padding-left 16px (its text starts at x 464): 14px #222222 \"More filters\""
    ],
    [
     "listing-grid",
@@ -579,7 +579,7 @@
    ],
    [
     "tabs",
-    "the 4 parts \"Plan & usage\", \"Payment methods\", \"Invoices\", \"Tax\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 88x38 at 260,80 2px #4338ca border on the bottom only: 14px bold #4338ca \"Plan & usage\"; 113x38 at 376,80 14px #6b7280 \"Payment methods\"; 51x38 at 517,80 14px #6b7280 \"Invoices\"; 22x38 at 596,80 14px #6b7280 \"Tax\""
+    "the 4 parts \"Plan & usage\", \"Payment methods\", \"Invoices\", \"Tax\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 88x38 at 260,80 2px #4338ca border on the bottom only: 14px bold #4338ca \"Plan & usage\"; 113x38 at 376,80 14px #6b7280 \"Payment methods\"; 51x38 at 517,80 14px #6b7280 \"Invoices\"; 22x38 at 596,80 14px #6b7280 \"Tax\""
    ],
    [
     "plan-cards",

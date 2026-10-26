@@ -819,7 +819,7 @@
    ],
    [
     "sheet-tabs",
-    "pale grey (exactly #f1f3f4) bar 40px tall across the page, links: ＋ ≡, Budget, Actuals, Headcount, Sum: 300,120; \"＋ ≡\", \"Budget\", \"Actuals\", \"Headcount\" sit together at the left, \"Sum: 300,120\" pushed to the far right (800px gap); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋ ≡\" #202124, \"Budget\" #0b57d0, \"Actuals\" #202124, \"Headcount\" #202124, \"Sum: 300,120\" #202124"
+    "pale grey (exactly #f1f3f4) bar 40px tall across the page, links: ＋ ≡, Budget, Actuals, Headcount, Sum: 300,120; \"＋ ≡\", \"Budget\", \"Actuals\", \"Headcount\" sit together at the left, \"Sum: 300,120\" pushed to the far right (800px gap); this bar is pinned to the very BOTTOM of the page (top 860, its bottom edge on the page's bottom edge, position absolute/fixed bottom 0), never placed right under the content above; each word in its own colour: \"＋ ≡\" #202124, \"Budget\" #0b57d0, \"Actuals\" #202124, \"Headcount\" #202124, \"Sum: 300,120\" #202124; \"Sum: 300,120\" pushed to the far RIGHT end of the row (margin-left: auto, 16px in from the right edge), NOT right after \"Headcount\""
    ]
   ]
  }

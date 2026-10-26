@@ -87,3 +87,25 @@ lose a repeated width/height (not re-run live).
 | e1 video editor | 86% | **98%** | sun, centred caption, five sliders, playhead with its head |
 
 Round 26: **91%** (91.3; was 88). Vitest same 2 env failures; typecheck clean.
+
+## n250: brand row, sub-lines, pushed-right words, one-line tab runs (2026-10-26, ~533k billed)
+
+- A brand row (small filled icon + name) with no links of its own, straight over the first group heading, is now a BRAND
+  row (e4 'Hexa' was said as the panel's title and built with no logo at all).
+- A short untagged line straight on the page just under a worded region (same left edge, 0-40px below) rides on that
+  region's note with its size, ink, offset and nowrap (e4 sub-line under the title was never said, never built; e2 and
+  r18 e2 breadcrumb gain the same line).
+- In a mixed-ink row, the last word set 40px+ after the others at the far right end says it is pushed right (e4 toast
+  'Undo' was built right after the message); evenly spaced runs (steppers, navs) excluded.
+- A run of parts with one even gap also says each part stays on one line (e4 'Custom roles' tab wrapped twice).
+
+Re-planned rounds 1-25: one-line runs on ~45 notes, pushed-right words on r4, r12, r14, r22, sub-lines on r18 (not re-run).
+
+| page | before | n250 | note |
+|---|---|---|---|
+| e4 permissions | 78% | **89%** | logo, sub-line, Undo at the right, tabs on one line (first try 55: title and toast misplaced; second 81: sub-line wrapped) |
+| c1 blend mesh | 88% | **92%** | nav one line |
+| c3 observatory | 94% | 91% | planet ring now a real ellipse ring; a see-through box behind the planet and a lighter headline (run noise) |
+| e2 banking | 88% | 88% | sub-line built; rest unchanged |
+
+Round 26: **93%** (92.6; was 91). Vitest same 2 env failures; typecheck clean.

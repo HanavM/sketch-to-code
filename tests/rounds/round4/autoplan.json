@@ -733,7 +733,7 @@
    ],
    [
     "toolbar",
-    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; bright sky blue button \"Upload\" on the right; each word in its own colour: \"New folder Sort: Name ▾\" #1e293b, \"Upload\" #ffffff"
+    "toolbar (no box around it): outline button \"New folder\", outline button \"Sort: Name ▾\" on the left; bright sky blue button \"Upload\" on the right; each word in its own colour: \"New folder Sort: Name ▾\" #1e293b, \"Upload\" #ffffff; \"Upload\" pushed to the far RIGHT end of the row (margin-left: auto, 0px in from the right edge), NOT right after \"New folder Sort: Name ▾\""
    ],
    [
     "file-grid",

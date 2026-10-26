@@ -119,7 +119,7 @@
    ],
    [
     "nav",
-    "the 3 parts \"Index\", \"Shows\", \"Shop\" sit side by side in one row with exactly 36px of empty space between one and the next (flex gap 36px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 58x16 at 975,40 14px #fafafa \"INDEX\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 68x16 at 1068,40 14px #fafafa \"SHOWS\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 52x16 at 1172,40 14px #fafafa \"SHOP\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight)"
+    "the 3 parts \"Index\", \"Shows\", \"Shop\" sit side by side in one row with exactly 36px of empty space between one and the next (flex gap 36px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 58x16 at 975,40 14px #fafafa \"INDEX\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 68x16 at 1068,40 14px #fafafa \"SHOWS\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 52x16 at 1172,40 14px #fafafa \"SHOP\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight)"
    ],
    [
     "outline-word",
@@ -603,7 +603,7 @@
    ],
    [
     "tabs",
-    "the 4 parts \"Profile\", \"Notifications\", \"Billing\", \"Team\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 43x43 at 120,98 15px #64748b \"Profile\"; 82x43 at 191,98 2px #2563eb border on the bottom only: 15px #2563eb \"Notifications\"; 40x43 at 300,98 15px #64748b \"Billing\"; 37x43 at 368,98 15px #64748b \"Team\""
+    "the 4 parts \"Profile\", \"Notifications\", \"Billing\", \"Team\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 43x43 at 120,98 15px #64748b \"Profile\"; 82x43 at 191,98 2px #2563eb border on the bottom only: 15px #2563eb \"Notifications\"; 40x43 at 300,98 15px #64748b \"Billing\"; 37x43 at 368,98 15px #64748b \"Team\""
    ],
    [
     "row-1",

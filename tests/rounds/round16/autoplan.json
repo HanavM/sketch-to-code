@@ -583,7 +583,7 @@
    ],
    [
     "tabs",
-    "the 4 parts \"Conversation 4\", \"Commits 3\", \"Checks 6\", \"Files changed 2\" sit side by side in one row with exactly 22px of empty space between one and the next (flex gap 22px; NEVER touching, never run together); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 87x24 at 24,78 13px #1f2328 \"Conversation 4\"; 62x24 at 133,78 13px #1f2328 \"Commits 3\"; 54x24 at 218,78 13px #1f2328 \"Checks 6\"; 98x24 at 294,78 2px #fd8c73 border on the bottom only: 13px bold #1f2328 \"Files changed 2\""
+    "the 4 parts \"Conversation 4\", \"Commits 3\", \"Checks 6\", \"Files changed 2\" sit side by side in one row with exactly 22px of empty space between one and the next (flex gap 22px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 87x24 at 24,78 13px #1f2328 \"Conversation 4\"; 62x24 at 133,78 13px #1f2328 \"Commits 3\"; 54x24 at 218,78 13px #1f2328 \"Checks 6\"; 98x24 at 294,78 2px #fd8c73 border on the bottom only: 13px bold #1f2328 \"Files changed 2\""
    ],
    [
     "review-button",
