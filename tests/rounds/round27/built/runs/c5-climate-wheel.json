@@ -1,24 +1,24 @@
 {
   "id": "c5-climate-wheel",
-  "at": "2026-10-26T21:41:09.170Z",
+  "at": "2026-10-26T22:55:34.215Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8343448859460232,
-    "overallV2": 0.8343448859460232,
-    "overallV1": 0.797014898922032,
-    "colour": 0.9860457967781175,
-    "structure": 0.8853790295307963,
-    "structureStrict": 0.7930091496327673,
-    "colourAligned": 0.9860457967781175,
-    "structureAligned": 0.8853790295307963,
+    "overall": 0.935952691470566,
+    "overallV2": 0.935952691470566,
+    "overallV1": 0.8985348757499321,
+    "colour": 0.9934206213437804,
+    "structure": 0.9533056407279507,
+    "structureStrict": 0.8607184361853866,
+    "colourAligned": 0.9934206213437804,
+    "structureAligned": 0.9533056407279507,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8849119385857871
+      "r": 0.9396990083438993
     },
-    "layout": 0.6217879016879261,
-    "layoutV1": 0.5599182283924715,
+    "layout": 0.8586359885875757,
+    "layoutV1": 0.6957572007087878,
     "layoutVersion": 2
   },
   "boxes": [
@@ -45,171 +45,367 @@
     ],
     [
       1,
-      931,
-      53,
-      275,
-      21
-    ],
-    [
-      3,
-      931,
-      53,
-      38,
-      21
-    ],
-    [
-      3,
-      1001,
-      53,
-      61,
-      21
-    ],
-    [
-      3,
-      1094,
-      53,
+      929,
       50,
-      21
+      326,
+      27
     ],
     [
       3,
-      1176,
-      53,
-      30,
-      21
+      929,
+      50,
+      49,
+      27
+    ],
+    [
+      3,
+      1010,
+      50,
+      78,
+      27
+    ],
+    [
+      3,
+      1120,
+      50,
+      64,
+      27
+    ],
+    [
+      3,
+      1216,
+      50,
+      39,
+      27
     ],
     [
       0,
-      603,
-      133,
-      634,
-      634
+      684,
+      214,
+      472,
+      472
     ],
     [
       8,
-      603,
-      133,
-      634,
-      634
+      684,
+      214,
+      472,
+      472
     ],
     [
       9,
-      603,
-      133,
-      634,
-      634
+      684,
+      214,
+      472,
+      472
     ],
     [
       0,
+      600,
+      130,
+      640,
+      640
+    ],
+    [
+      11,
+      773,
+      303,
+      294,
+      294
+    ],
+    [
+      11,
+      600,
+      130,
+      640,
+      640
+    ],
+    [
+      11,
+      600,
+      130,
+      640,
+      640
+    ],
+    [
+      14,
+      600,
+      130,
+      640,
+      640
+    ],
+    [
+      15,
       926,
       319,
       54,
       33
     ],
     [
-      0,
+      15,
+      939,
+      359,
+      9,
+      9
+    ],
+    [
+      15,
+      992,
+      160,
+      8,
+      16
+    ],
+    [
+      15,
       980,
       334,
       56,
       56
     ],
     [
-      0,
+      15,
+      980,
+      383,
+      7,
+      7
+    ],
+    [
+      15,
+      1122,
+      236,
+      9,
+      16
+    ],
+    [
+      15,
       1018,
       375,
       68,
-      69
+      70
     ],
     [
-      0,
+      15,
+      1003,
+      423,
+      7,
+      7
+    ],
+    [
+      15,
+      1196,
+      366,
+      12,
+      16
+    ],
+    [
+      15,
       1018,
       456,
       96,
       82
     ],
     [
-      0,
+      15,
+      1004,
+      470,
+      6,
+      6
+    ],
+    [
+      15,
+      1197,
+      518,
+      10,
+      16
+    ],
+    [
+      15,
       980,
       510,
       126,
       126
     ],
     [
-      0,
+      15,
+      980,
+      510,
+      8,
+      8
+    ],
+    [
+      15,
+      1121,
+      649,
+      12,
+      16
+    ],
+    [
+      15,
       926,
       548,
       108,
       152
     ],
     [
-      0,
+      15,
+      938,
+      532,
+      10,
+      10
+    ],
+    [
+      15,
+      992,
+      724,
+      8,
+      16
+    ],
+    [
+      15,
       797,
       548,
       117,
       173
     ],
     [
-      0,
-      699,
-      510,
-      161,
-      161
+      15,
+      892,
+      533,
+      9,
+      9
     ],
     [
-      0,
+      15,
+      841,
+      724,
+      8,
+      16
+    ],
+    [
+      15,
+      699,
+      510,
+      162,
+      162
+    ],
+    [
+      15,
+      852,
+      509,
+      9,
+      9
+    ],
+    [
+      15,
+      708,
+      649,
+      10,
+      16
+    ],
+    [
+      15,
       684,
       456,
       138,
       101
     ],
     [
-      0,
+      15,
+      828,
+      468,
+      11,
+      11
+    ],
+    [
+      15,
+      633,
+      518,
+      9,
+      16
+    ],
+    [
+      15,
       719,
       359,
       103,
-      85
+      86
     ],
     [
-      0,
+      15,
+      827,
+      420,
+      13,
+      13
+    ],
+    [
+      15,
+      632,
+      366,
+      11,
+      16
+    ],
+    [
+      15,
       787,
       317,
       73,
       73
     ],
     [
-      0,
+      15,
+      850,
+      380,
+      13,
+      13
+    ],
+    [
+      15,
+      708,
+      236,
+      10,
+      16
+    ],
+    [
+      15,
       857,
       312,
       57,
       40
     ],
     [
+      15,
+      891,
+      357,
+      11,
+      11
+    ],
+    [
+      15,
+      839,
+      160,
+      10,
+      16
+    ],
+    [
       0,
-      843,
-      374,
-      153,
-      152
+      840,
+      370,
+      160,
+      160
     ],
     [
-      23,
-      871,
-      426,
-      96,
-      48
+      52,
+      901,
+      430,
+      38,
+      20
     ],
     [
-      24,
-      871,
-      426,
-      96,
-      24
-    ],
-    [
-      24,
-      871,
+      52,
+      872,
       450,
       96,
-      24
+      20
     ],
     [
       0,
@@ -223,35 +419,35 @@
       78,
       196,
       468,
-      182
+      206
     ],
     [
-      28,
+      56,
       78,
       196,
       468,
-      61
-    ],
-    [
-      28,
-      78,
-      257,
-      468,
-      61
-    ],
-    [
-      30,
-      78,
-      252,
-      220,
       69
     ],
     [
-      28,
+      56,
       78,
-      318,
+      265,
       468,
-      61
+      69
+    ],
+    [
+      58,
+      78,
+      260,
+      253,
+      78
+    ],
+    [
+      56,
+      78,
+      333,
+      468,
+      69
     ],
     [
       0,
@@ -264,85 +460,57 @@
       0,
       70,
       560,
-      124,
-      15
-    ],
-    [
-      34,
-      70,
-      563,
-      30,
-      10
-    ],
-    [
-      34,
-      108,
-      558,
-      86,
+      210,
       20
     ],
     [
       0,
       300,
       560,
-      77,
-      15
+      210,
+      20
     ],
     [
-      37,
+      0,
+      70,
+      563,
+      30,
+      10
+    ],
+    [
+      0,
       300,
       563,
       10,
       10
     ],
     [
-      37,
-      318,
-      558,
-      59,
-      20
-    ],
-    [
       0,
       70,
       589,
-      97,
-      15
-    ],
-    [
-      40,
-      70,
-      592,
-      30,
-      10
-    ],
-    [
-      40,
-      108,
-      587,
-      59,
+      210,
       20
     ],
     [
       0,
       300,
       589,
-      97,
-      15
+      210,
+      20
     ],
     [
-      43,
-      300,
+      0,
+      70,
       592,
       30,
       10
     ],
     [
-      43,
-      338,
-      587,
-      59,
-      20
+      0,
+      300,
+      592,
+      30,
+      10
     ],
     [
       0,
@@ -352,46 +520,60 @@
       6
     ],
     [
+      70,
+      74,
+      683,
+      432,
+      6
+    ],
+    [
+      71,
+      74,
+      683,
+      435,
+      7
+    ],
+    [
       0,
       70,
       700,
       14,
-      18
+      14
     ],
     [
       0,
       149,
       700,
       14,
-      18
+      14
     ],
     [
       0,
       229,
       700,
       22,
-      18
+      14
     ],
     [
       0,
       315,
       700,
       22,
-      18
+      14
     ],
     [
       0,
       402,
       700,
       22,
-      18
+      14
     ],
     [
       0,
       488,
       700,
       22,
-      18
+      14
     ],
     [
       0,
@@ -401,28 +583,28 @@
       35
     ],
     [
-      53,
+      79,
       70,
       790,
       77,
       35
     ],
     [
-      53,
+      79,
       157,
       790,
       63,
       35
     ],
     [
-      53,
+      79,
       230,
       790,
       67,
       35
     ],
     [
-      53,
+      79,
       307,
       790,
       64,
@@ -431,14 +613,25 @@
   ],
   "groupMatched": [
     {
+      "role": "scale-ticks",
+      "iou": 1,
+      "parts": 6,
+      "rect": {
+        "x": 70,
+        "y": 700,
+        "w": 440,
+        "h": 14
+      }
+    },
+    {
       "role": "legend",
-      "iou": 0.7424360795454545,
-      "parts": 4,
+      "iou": 0.9545454545454546,
+      "parts": 6,
       "rect": {
         "x": 70,
         "y": 560,
-        "w": 326.671875,
-        "h": 44
+        "w": 440,
+        "h": 42
       }
     }
   ],
@@ -452,38 +645,45 @@
       "overlap"
     ],
     "missing": [],
-    "extra": [
-      "soft-shadow"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 54497,
-    "output": 35880,
-    "cacheRead": 270727
+    "input": 91218,
+    "output": 52291,
+    "cacheRead": 960942
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 68123,
-      "output": 27426,
-      "cacheRead": 256290,
-      "toolCalls": 9,
+      "billed": 103605,
+      "output": 34958,
+      "cacheRead": 944101,
+      "toolCalls": 18,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Read src/main.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/MonthlyClimate.tsx",
+        "Read components/SketchShape2.tsx",
         "Read src/index.css",
         "Edit components/SketchShape.tsx",
-        "Write src/App.tsx"
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob"
       ],
-      "ms": 312344
+      "ms": 395086
     }
   ],
-  "reading": "This is a hero section for a weather/climate site: a navbar, a big radial \"clock\" chart (dashed outer ring, a 12-wedge gradient donut representing months, and a glowing center stat), a headline, body copy, a legend, a colour-scale bar with tick labels, and a row of city-selector pills, all set on a dark gradient page background.",
+  "reading": "This sketch lays out a climate-data landing page for a city (\"Lisbon · 1991–2020\"): a top nav bar, a big circular monthly weather wheel chart (given as exact SVG) with a dashed halo circle and a glowing center readout (\"13.4° YEAR MEAN\"), a large heading, an explanatory paragraph, a color-coded legend, a gradient temperature scale with tick labels, and a row of city-selector pill buttons (Lisbon/Oslo/Cairo/Lima), all over a dark teal-to-black gradient page background.",
   "actions": [
     {
       "kind": "add",
@@ -498,22 +698,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Navbar: 18px bold (font-weight 600) cream \"ISOTHERM\" at the left; far right (760px gap) a row of bold links \"Cities\", \"Compare\", \"Method\", \"Data\", each in colou"
-    },
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        603,
-        133,
-        634,
-        634
-      ],
-      "paths": [
-        "s3"
-      ],
-      "instruction": "Large faint decorative circle behind the chart: perfectly round (border-radius 50%, never a square), 480px across, 1px dashed #f5efe2 outline."
+      "instruction": "Top navigation bar: 'ISOTHERM' logo text on the left in cream (#f5efe2), and nav links 'Cities', 'Compare', 'Method', 'Data' each in lavender (#b9c3dc), pushed "
     },
     {
       "kind": "add",
@@ -526,10 +711,25 @@
         472
       ],
       "paths": [
-        "s1",
-        "s2"
+        "s1"
       ],
-      "instruction": "Radial \"clock\" chart: a donut ring built from 12 filled wedge shapes (one per month) going clockwise in this exact gradient left-to-right mapped around the ring"
+      "instruction": "Large faint decorative circle (round, border-radius 50%, never a square) 480px across, with a 1px dashed cream (#f5efe2) outline, sitting behind the weather whe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        133,
+        634,
+        634
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Insert this exact inline SVG monthly weather wheel chart, 640x640px, top-left at page position 600,130 (position absolute): <svg width=\"640\" height=\"640\" viewBo"
     },
     {
       "kind": "add",
@@ -544,7 +744,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Glowing near-black circle at the center of the chart, 160px across, 2px solid peach outline, containing centred 2-line 16px wrapped text \"13.4°\" (colour #f5efe2"
+      "instruction": "Add a glowing near-black circle, 160px across, with a 2px solid peach outline, centered inside the wheel; show centered 16px two-line text wrapping inside the c"
     },
     {
       "kind": "add",
@@ -559,7 +759,7 @@
         8
       ],
       "paths": [],
-      "instruction": "13px mono, letter-spacing 4px, bold (font-weight 700) peach (#f2c14e) label reading \"LISBON · 1991–2020\"."
+      "instruction": "Add small 13px monospace, wide-letter-spaced (4px) bold text 'LISBON · 1991–2020' in peach (#f2c14e), near the top of the chart area."
     },
     {
       "kind": "add",
@@ -586,7 +786,7 @@
         206
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy headline, tight line-height 0.98, about 460px wide, set in exactly 3 fixed lines that never rewrap (white-space nowrap): \"A year of\" / \"wea"
+      "instruction": "Add a huge Helvetica heavy heading, tight line-height (0.98), set in exactly 3 lines that keep these breaks (never rewrapped, white-space nowrap, ~460px wide): "
     },
     {
       "kind": "add",
@@ -611,7 +811,7 @@
         54
       ],
       "paths": [],
-      "instruction": "17px Helvetica lavender (#b9c3dc) body copy, 2 lines, 440px wide, positioned top-left at 70,430, exact wording: \"Each wedge is a month: its length is the mean h"
+      "instruction": "Add 17px Helvetica lavender (#b9c3dc) body copy in 2 lines, 440px wide, top-left at 70,430, with this exact text: \"Each wedge is a month: its length is the mean"
     },
     {
       "kind": "add",
@@ -636,7 +836,7 @@
         44
       ],
       "paths": [],
-      "instruction": "Legend built from 8 real elements, page px (size then top-left x,y), each a single-line nowrap element with min-width so label and value never wrap apart: 210x1"
+      "instruction": "Add a chart legend with 8 live-text/swatch parts, each its own element, nowrap labels with min-width (never pushing a count to a new line): 210x15 at 70,560 13p"
     },
     {
       "kind": "add",
@@ -651,7 +851,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Colour-scale bar, left to right gradient: blue #3b6fd8 → sky blue #7fb0d8 (stop 20%, opaque) → lime #b6d36b (stop 40%, opaque) → peach #f2c14e (stop 60%, opaque"
+      "instruction": "Add a horizontal color scale bar filled with a left-to-right gradient: blue (#3b6fd8) → sky blue (#7fb0d8 at 20%, fully opaque) → lime (#b6d36b at 40%, fully op"
     },
     {
       "kind": "add",
@@ -666,7 +866,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Tick labels under the colour-scale bar, 6 real elements, 12px mono colour #9aa6c4, page px (size then top-left x,y): 14x14 at 70,700 \"0°\"; 14x14 at 149,700 \"5°\""
+      "instruction": "Add 6 tick-label parts below the gradient bar, each its own element with live text, 12px mono color #9aa6c4, nowrap (number and ° sign never split): 14x14 at 70"
     },
     {
       "kind": "add",
@@ -681,7 +881,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "Row of 4 city-selector pills with 10px gap between them (flex gap, never touching), each single-line nowrap, 13px bold text, page px (size then top-left x,y): 7"
+      "instruction": "Add a row of 4 city-selector pill buttons side by side with exactly 10px gap between them (flex gap 10px, never touching), each on one line (nowrap): 77x35 at 7"
     }
   ],
   "rejected": [

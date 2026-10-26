@@ -349,7 +349,7 @@
    ],
    [
     "clay-torus",
-    "tilted 20° clockwise big glowing indigo outline circle; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(255, 255, 255, 0.4) 4px 6px 8px 0px inset, rgba(59, 40, 168, 0.33) 8px 12px 20px 0px"
+    "a THICK DONUT ring (NOT a thin outline): one 110x110px div, border-radius 50%, its top-left at 1060,560, border: 26px solid #6d53f0, no fill (the page shows through its 58px hole); exactly box-shadow: #ffffff66 4px 6px 8px 0px inset, #3b28a854 8px 12px 20px 0px; transform: rotate(20deg)"
    ],
    [
     "badge",
@@ -373,7 +373,7 @@
    ],
    [
     "stat-cards",
-    "3 stats side by side in it (NOT separate cards), each a big number over a small label: 30px heavy #24184f \"4.9★\" over 13px #7b70a8 \"App Store\"; 30px heavy #24184f \"210k\" over 13px #7b70a8 \"daily puffers\"; 30px heavy #24184f \"0 ms\" over 13px #7b70a8 \"to sync, felt\""
+    "3 SEPARATE #ffffff stat CARDS side by side (each its own filled card, NOT bare words on the page), each 170x96px, 24px rounded, padding 16px 20px, exactly box-shadow: #e3dcff -4px -6px 10px 0px inset, #6d53f021 0px 10px 24px 0px, 16px apart, the first card's top-left at 70,740; in each card a big number over a small label: 30px heavy #24184f \"4.9★\" over 13px #7b70a8 \"App Store\"; 30px heavy #24184f \"210k\" over 13px #7b70a8 \"daily puffers\"; 30px heavy #24184f \"0 ms\" over 13px #7b70a8 \"to sync, felt\""
    ]
   ]
  },
@@ -719,7 +719,7 @@
    ],
    [
     "crop-handles",
-    "input \"\""
+    "4 CORNER BRACKETS (L-shaped crop handles, each its own empty div, position absolute, NO fill, NOT inputs or boxes): 16x16px at 356,146 with a 4px solid #ffffff border on its top and left sides only; 16x16px at 828,146 with a 4px solid #ffffff border on its top and right sides only; 16x16px at 356,478 with a 4px solid #ffffff border on its bottom and left sides only; 16x16px at 828,478 with a 4px solid #ffffff border on its right and bottom sides only"
    ],
    [
     "ratio-chips",
@@ -727,7 +727,7 @@
    ],
    [
     "adjust-panel",
-    "near-black; under each label row a SLIDER (7 in all, each its own track element, NOT a plain list row): 247x4px track at 1017,253 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1167,255; 247x4px track at 1017,295 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1162,297; 247x4px track at 1017,337 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1098,339; 247x4px track at 1017,379 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1182,381; 247x4px track at 1017,421, 2px rounded, a 14px #ffffff round thumb centred at 1177,423; 247x4px track at 1017,463, 2px rounded, a 14px #ffffff round thumb centred at 1155,465; 247x4px track at 1017,505 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1172,507; the card exactly 280x732px, its top-left at 1000,48 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "near-black; under each label row a SLIDER (7 in all, each its own track element, NOT a plain list row, labelled exactly as said, top to bottom, no other names): \"Exposure\" (with \"+0.35\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,253 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1167,255; \"Contrast\" (with \"+12\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,295 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1162,297; \"Highlights\" (with \"−40\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,337 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1098,339; \"Shadows\" (with \"+28\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,379 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1182,381; \"Temperature\" (with \"5600K\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,421 painted exactly background: linear-gradient(90deg, #4c8dff, #ffd25a), 2px rounded, a 14px #ffffff round thumb centred at 1177,423; \"Tint\" (with \"+6\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,463 painted exactly background: linear-gradient(90deg, #4cd964, #e05ae0), 2px rounded, a 14px #ffffff round thumb centred at 1155,465; \"Vibrance\" (with \"+20\" #ffffff at the RIGHT end of the label row) over a 247x4px track at 1017,505 #3a3b42, 2px rounded, a 14px #ffffff round thumb centred at 1172,507; the card exactly 280x732px, its top-left at 1000,48 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "histogram",

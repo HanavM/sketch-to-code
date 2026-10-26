@@ -52,3 +52,27 @@ Round 27: **75%** over 10 (75.4; round 26 started at 83 untuned).
 
 Re-planned rounds 1-26: only r13 c2 and r22 c5 change (blob). Vitest: same 2 env failures (1460 tests); typecheck clean.
 Next: live re-runs of c3, c5, e5, e1, e3, c2, c1 on the new notes.
+
+## n252: live re-runs on the n251 notes, plus three more planner fixes (2026-10-26, ~647k billed)
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c3 clay launch | 25% | **86%**, then **91%** | page light again, blob and clay squircle right; second run (new rules below) got the three white stat cards and the thick donut |
+| c5 climate wheel | 83% | **94%** | twelve SVG wedges, rain dots and month letters drawn verbatim; core figure small, legend swatches overlap labels |
+| e1 photo editor | 75% | **91%** | crop box see-through with thirds and dimming, histogram right; slider names invented and corner handles lost (fixed below, not re-run) |
+| e5 cluster map | 86% | **95%** | the hexagon pods built tile by tile |
+
+Round 27: **86%** over 10 (85.6; first look was 75).
+
+Fixes (planner):
+- Stat cells that are each their own filled card say SEPARATE cards with size, rounding, padding, exact box-shadow, gap and
+  place (c3 said 'NOT separate cards' and built bare words). Re-run c3: cards built.
+- A thick textless ring (border a fifth of its size or more) is a DONUT said by its untransformed box, border, shadow and
+  rotate() (c3 torus was 'glowing outline circle', built as a thin wide ring). Re-run c3: right.
+- Slider tracks say their label row (name, and the value at its right end) and a gradient track's exact background (e1
+  built Whites/Blacks/Saturation in place of Temperature/Tint/Vibrance; values and coloured tracks lost). Not re-run.
+- Small textless corner brackets (border on two touching sides) are said one by one with their like siblings (e1 crop
+  handles were 'input ""'). Not re-run.
+
+Re-planned rounds 1-26: only r26 e1 inspector sliders gain their labels. Vitest same 2 env failures (1460); typecheck clean.
+Still weakest: e3 smart home 74, c2 perfume glass 76, c4 film festival 79 (their n251 fixes not yet run live).

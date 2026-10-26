@@ -132,9 +132,24 @@ export function factsInPage() {
           const bar = ks.find((o) => Math.abs(o.b.left - kb.left) <= 1 && Math.abs(o.b.height - kb.height) <= 1 && rgba(o.c.backgroundColor)?.a > 0.5)
           const th = ks.find((o) => o !== bar && o.b.width >= 8 && Math.abs(o.b.width - o.b.height) <= 1 && parseFloat(o.c.borderTopLeftRadius) >= o.b.width / 2 - 1)
           if (!th) continue
-          out.push({ x: Math.round(kb.left), y: Math.round(kb.top), w: Math.round(kb.width), h: Math.round(kb.height), bg: rgba(getComputedStyle(k).backgroundColor), fill: bar ? { w: Math.round(bar.b.width), c: rgba(bar.c.backgroundColor) } : null, thumb: th ? { d: Math.round(th.b.width), cx: Math.round(th.b.left + th.b.width / 2), cy: Math.round(th.b.top + th.b.height / 2), c: rgba(th.c.backgroundColor) } : null })
+          // n252: the label row over it (name left, value right) and a gradient track (round 27 e1: Temperature, Tint,
+          // Vibrance built as invented Whites, Blacks, Saturation; values and the coloured tracks lost)
+          const lr = k.previousElementSibling, lrb = lr?.getBoundingClientRect(), lv = lr?.lastElementChild
+          const lab = lr && lrb.bottom <= kb.top + 2 && kb.top - lrb.bottom <= 30 && (lr.innerText || '').trim().length <= 40 ? { name: [...lr.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim() || (lr.children.length >= 2 ? (lr.firstElementChild.innerText || '').trim() : (lr.innerText || '').trim()), value: lv && lr.children.length <= 2 && lv !== lr.firstElementChild || (lv && [...lr.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) ? (lv.innerText || '').trim() : '', valueRight: !!lv && lv.getBoundingClientRect().right >= lrb.right - 4, px: Math.round(parseFloat(getComputedStyle(lr).fontSize)), ink: rgba(getComputedStyle(lr).color), vInk: lv ? rgba(getComputedStyle(lv).color) : null } : null
+          const gi = getComputedStyle(k).backgroundImage
+          out.push({ lab, grad: /gradient\(/.test(gi) ? gi : null, x: Math.round(kb.left), y: Math.round(kb.top), w: Math.round(kb.width), h: Math.round(kb.height), bg: rgba(getComputedStyle(k).backgroundColor), fill: bar ? { w: Math.round(bar.b.width), c: rgba(bar.c.backgroundColor) } : null, thumb: th ? { d: Math.round(th.b.width), cx: Math.round(th.b.left + th.b.width / 2), cy: Math.round(th.b.top + th.b.height / 2), c: rgba(th.c.backgroundColor) } : null })
         }
         return out.length >= 2 && out.length <= 12 ? out : null
+      })(),
+      // n252: small textless corner brackets (a border on two touching sides only), the marked one and its unmarked
+      // like siblings (round 27 e1 crop handles: said 'input ""', lost)
+      cornerMarks: (() => {
+        const sides = (c) => ['Top', 'Right', 'Bottom', 'Left'].filter((sd) => parseFloat(c[`border${sd}Width`]) >= 2 && rgba(c[`border${sd}Color`])?.a > 0.3)
+        const one = (k) => { const b = k.getBoundingClientRect(), c = getComputedStyle(k), sd = sides(c); if ((k.textContent || '').trim() || b.width > 40 || b.height > 40 || sd.length !== 2 || ['Top,Bottom', 'Right,Left'].includes(sd.join(','))) return null; return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), sides: sd.map((q) => q.toLowerCase()), bw: Math.round(parseFloat(c[`border${sd[0]}Width`])), c: rgba(c[`border${sd[0]}Color`]) } }
+        const me = one(el); if (!me) return null
+        const cls = (el.getAttribute('class') || '').split(/\s+/)[0]
+        const sib = [...(el.parentElement?.children ?? [])].filter((k) => k !== el && !k.dataset?.r && cls && (k.getAttribute('class') || '').split(/\s+/)[0] === cls).map(one).filter(Boolean)
+        return [me, ...sib]
       })(),
       // n167: a ::before layer painting more stripes over the background (round 16 e2: the day-column rules lost)
       beforeImage: (() => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && /^repeating-linear-gradient/.test(b.backgroundImage) ? b.backgroundImage : null })(),
@@ -3057,7 +3072,7 @@ export function factsInPage() {
           n: a.innerText.trim(), npx: Math.round(parseFloat(ca.fontSize)), nw: Number(ca.fontWeight), nc: rgba(ca.color), l: l.innerText.trim(), lpx: Math.round(parseFloat(cl.fontSize)), lc: rgba(cl.color) } })
       o.stats = cells.map((k) => { const [a, b] = k.children, ca = getComputedStyle(a), cb = getComputedStyle(b); return { n: a.innerText.trim(), npx: Math.round(parseFloat(ca.fontSize)), nw: Number(ca.fontWeight), nc: rgba(ca.color), l: b.innerText.trim(), lpx: Math.round(parseFloat(cb.fontSize)), lc: rgba(cb.color),
         // n245: a name-left, value-right row (round 25 c1 weight list said as stats side by side, built on one line)
-        row: (() => { const kb = k.getBoundingClientRect(), ab = a.getBoundingClientRect(), bb = b.getBoundingClientRect(), kc = getComputedStyle(k); return { x: Math.round(kb.x), y: Math.round(kb.y), w: Math.round(kb.width), h: Math.round(kb.height), side: bb.left >= ab.right - 2 && bb.right >= kb.right - 4, rule: parseFloat(kc.borderBottomWidth) >= 1 ? { w: parseFloat(kc.borderBottomWidth), c: rgba(kc.borderBottomColor) } : null } })(),
+        row: (() => { const kb = k.getBoundingClientRect(), ab = a.getBoundingClientRect(), bb = b.getBoundingClientRect(), kc = getComputedStyle(k); return { x: Math.round(kb.x), y: Math.round(kb.y), w: Math.round(kb.width), h: Math.round(kb.height), side: bb.left >= ab.right - 2 && bb.right >= kb.right - 4, fill: rgba(kc.backgroundColor), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), shadow: kc.boxShadow, pad: kc.padding, rule: parseFloat(kc.borderBottomWidth) >= 1 ? { w: parseFloat(kc.borderBottomWidth), c: rgba(kc.borderBottomColor) } : null } })(),
         face: { family: ca.fontFamily.split(',')[0].replace(/"/g, ''), serif: /georgia|times|serif/i.test(ca.fontFamily) && !/^\s*"?(helvetica|arial)/i.test(ca.fontFamily), italic: ca.fontStyle === 'italic', ls: Math.round(parseFloat(ca.letterSpacing) || 0) }, lmono: /mono|courier/i.test(cb.fontFamily) } })
     }
     // a paragraph with a button at its end (round 11 c2 copy: no note, the copy invented and the button lost)
@@ -4368,6 +4383,10 @@ function round11Extra(f, d) {
     const R = S.map((q) => q.row)
     if (R.every((r) => r?.side) && R.slice(1).every((r, i) => r.y >= R[i].y + R[i].h - 2 && Math.abs(r.x - R[0].x) <= 2)) {
       note = `${card}a LIST of ${S.length} rows STACKED top to bottom (one row under the next, NOT side by side, NOT one line), each row ${R[0].w}px wide and ${R[0].h}px tall (display flex, justify-content space-between, align-items baseline${R[0].rule ? `, a ${R[0].rule.w}px ${hexOf(R[0].rule.c)}${R[0].rule.c.a < 0.95 ? ` at ${Math.round(R[0].rule.c.a * 100)}%` : ''} rule under it (border-bottom)` : ''}), the first row's top-left at ${R[0].x},${R[0].y}; in each row the name at the LEFT and its value pushed to the RIGHT end${S[0].lmono ? ' in monospace (Courier New)' : ''}: ${S.map((q) => `${q.npx}px ${q.face.serif ? `${q.face.family} serif ` : ''}${q.face.italic ? 'ITALIC ' : ''}${q.nw >= 800 ? 'black-weight ' : q.nw >= 600 ? 'bold ' : q.nw <= 300 ? 'light ' : 'regular '}${hexOf(q.nc)} "${q.n}" … ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')} (each name shows its own weight or style: the list is a weight specimen)`
+    } else if (!glassy && R.every((r) => r && r.fill?.a > 0.5 && !r.side) && R.slice(1).every((r) => Math.abs(r.y - R[0].y) <= 2)) {
+      // n252: each stat is its own filled card (round 27 c3 clay stat cards said 'NOT separate cards', built as bare words)
+      const gap = R.length > 1 ? R[1].x - (R[0].x + R[0].w) : 0
+      note = `${card}${S.length} SEPARATE ${hexOf(R[0].fill)} stat CARDS side by side (each its own filled card, NOT bare words on the page), each ${R[0].w}x${R[0].h}px${R[0].rad ? `, ${R[0].rad}px rounded` : ''}, padding ${R[0].pad}${R[0].shadow && R[0].shadow !== 'none' ? `, exactly box-shadow: ${cssHex(R[0].shadow)}` : ''}, ${gap}px apart, the first card's top-left at ${R[0].x},${R[0].y}; in each card a big number over a small label: ${S.map((q) => `${q.npx}px ${q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')}`
     } else
     note = `${card}${S.length} stats side by side in it (NOT separate cards), each a big number over a small label: ${S.map((q) => `${q.npx}px ${q.nw >= 700 ? 'heavy ' : ''}${hexOf(q.nc)} "${q.n}" over ${q.lpx}px ${hexOf(q.lc)} "${q.l}"`).join('; ')}`
   }
@@ -4402,6 +4421,11 @@ function decideRest(f, page, marked, said) {
   }
   const d0 = decideOne(f, page, marked, said)
   const w0 = f.rect.w, h0 = f.rect.h
+  // n252: corner brackets said one by one (round 27 e1 crop handles)
+  if (f.cornerMarks && (!d0?.note || d0.note.length < 40)) {
+    const K = f.cornerMarks
+    return { kind: 'box', note: `${K.length} CORNER BRACKETS (L-shaped crop handles, each its own empty div, position absolute, NO fill, NOT inputs or boxes): ${K.map((q) => `${q.w}x${q.h}px at ${q.x},${q.y} with a ${q.bw}px solid ${hexOf(q.c)} border on its ${q.sides.join(' and ')} sides only`).join('; ')}` }
+  }
   const C = f.innerChip
   const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ${C.round && C.w >= 80 ? `ON THIS disc itself (a child of THIS ${Math.round(w0)}x${Math.round(h0)}px block, NOT of any other block it touches or sits behind) a ROUND LABEL disc ${C.w}px across, ${Math.abs(C.x + C.w / 2 - w0 / 2) <= 4 && Math.abs(C.y + C.h / 2 - h0 / 2) <= 4 ? 'dead CENTRE of this disc (it turns with it), ' : ''}its top-left at ${C.x},${C.y} inside this disc (its centre at page ${Math.round(f.rect.x + C.x + C.w / 2)},${Math.round(f.rect.y + C.y + C.h / 2)}), holding` : 'ON it (inside the block, not under it) '}${C.round && C.w >= 80 ? '' : `a small caption chip at ${C.x},${C.y} in the block:`} ${C.px}px ${C.bold ? 'bold ' : ''}${C.sans ? 'sans-serif ' : ''}${C.mono ? 'monospace ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t.replace(/\n/g, ' / '), 40)}${/\n/.test(C.t) ? ` (${C.t.split('\n').length} lines: ${C.t.split('\n').map((l) => quote(l, 20)).join(' over ')}, every line shown: a <br> between the lines, NEVER run together onto one line)` : ''} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px ${C.round ? 'ROUND label (border-radius 50%: a disc, NOT a square), its text centred' : 'label'}` } : d0
   // n147: its own ink when it is far from the page's (round 12 c4: the page note says white text; the subcopy and the
@@ -4441,7 +4465,7 @@ function decideRest(f, page, marked, said) {
   // n249: slider tracks inside a panel are said one by one (round 26 e1 inspector)
   if (d?.note && f.sliders && !/slider/i.test(d.note)) {
     const S = f.sliders
-    d.note += `; under each label row a SLIDER (${S.length} in all, each its own track element, NOT a plain list row): ${S.map((q) => `${q.w}x${q.h}px track at ${q.x},${q.y}${q.bg?.a > 0.05 ? ` ${hexOf(q.bg)}` : ''}, ${Math.round(q.h / 2)}px rounded${q.fill ? `, filled from its left ${q.fill.w}px in ${hexOf(q.fill.c)}` : ''}${q.thumb ? `, a ${q.thumb.d}px ${hexOf(q.thumb.c)} round thumb centred at ${q.thumb.cx},${q.thumb.cy}` : ''}`).join('; ')}`
+    d.note += `; under each label row a SLIDER (${S.length} in all, each its own track element, NOT a plain list row${S.every((q) => q.lab) ? ', labelled exactly as said, top to bottom, no other names' : ''}): ${S.map((q) => `${q.lab ? `${quote(q.lab.name)}${q.lab.value ? ` (with ${quote(q.lab.value)}${q.lab.vInk ? ` ${hexOf(q.lab.vInk)}` : ''} at the RIGHT end of the label row)` : ''} over a ` : ''}${q.w}x${q.h}px track at ${q.x},${q.y}${q.grad ? ` painted exactly background: ${cssHex(q.grad)}` : q.bg?.a > 0.05 ? ` ${hexOf(q.bg)}` : ''}, ${Math.round(q.h / 2)}px rounded${q.fill ? `, filled from its left ${q.fill.w}px in ${hexOf(q.fill.c)}` : ''}${q.thumb ? `, a ${q.thumb.d}px ${hexOf(q.thumb.c)} round thumb centred at ${q.thumb.cx},${q.thumb.cy}` : ''}`).join('; ')}`
   }
   // n249: a thin playhead line says its exact box, place, fill and its head (round 26 e1 playhead: 'vivid pink' only)
   if (d && f.thinHead && !f.regionKids?.length) {
@@ -5235,6 +5259,15 @@ function decideOne(f, page, marked, said) {
     // a big flat textless disc (round 6 c3 sun: 'big vivid bright orange circle' built as two pale blobs traced from the ink)
     // n151: a big textless outline ring says its size, place and stroke (round 13 c5: 'big white outline circle' built
     // ~100px with a hairline stroke)
+    // n252: a thick textless ring (border a fifth of its size or more) is a DONUT said by its untransformed box, border,
+    // shadow and turn (round 27 c3 clay torus: 'glowing indigo outline circle', built as a thin 130px hairline ring)
+    if (!f.text && !fill && !grad && bordered && f.border.w >= 8) {
+      const a = Math.abs((f.rotate ?? 0) * Math.PI / 180), k = Math.abs(Math.cos(a)) + Math.abs(Math.sin(a)), w0 = Math.round(w / k)
+      if (f.border.w >= 0.18 * w0) {
+        const cx = f.rect.x + f.rect.w / 2, cy = f.rect.y + f.rect.h / 2
+        return { kind: 'circle', note: `a THICK DONUT ring (NOT a thin outline): one ${w0}x${w0}px div, border-radius 50%, its top-left at ${Math.round(cx - w0 / 2)},${Math.round(cy - w0 / 2)}, border: ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)}, no fill (the page shows through its ${w0 - 2 * Math.round(f.border.w)}px hole)${f.shadow && f.shadow !== 'none' ? `; exactly box-shadow: ${cssHex(f.shadow)}` : ''}${f.rotate ? `; transform: rotate(${f.rotate}deg)` : ''}` }
+      }
+    }
     if (!f.text && !fill && !grad && !glowy && bordered && w >= 120 && f.border.w >= 2 && !fx.length) return { kind: 'circle', note: `outline ring ${Math.round(w)}px across at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, no fill (see-through middle)` }
     if (!f.text && fill && !grad && !glowy && w >= 60 && !fx.some((x) => /blur|opacity|fade/.test(x))) return { kind: 'circle', note: withFx(`perfectly round solid disc (border-radius 50%, not traced from the ink), ${Math.round(w)}px across${w >= 200 ? ` with its top-left at page ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (ONE plain div, position absolute, background ${hexOf(f.bg)}; NOT an SVG, NOT a drawn or shaded component, NOT a gradient)` : ''}, flat fully opaque ${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) fill, hard edge, no blur`) }
     // a filled sticker with a bold outline says the outline and that it casts no shadow: on a brutalist page the
