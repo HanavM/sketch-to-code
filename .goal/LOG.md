@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-26T15:30Z | n246 r25 unread dots, ellipsis previews, inline chips, leaders, menu, meter, toast | Specimen 82 to 89, botanical 85 to 94, email 79 to 88, drive 81 to 86. Round 25 90. ~526k.
 2026-10-26T14:22Z | n245 round 25 written and built live; floors, glows, bands, records, card grids fixed | Ten harder pages first 71; neon diner 49 to 91, Swiss 44 to 90, vinyl 51 to 90, drive 51 to 81. Round 25 87. ~1.37M.
 2026-10-26T12:14Z | n244 r24 task database title block; letterpress info copy, seal lines, date | Task database 83 to 89, letterpress 89 to 91: padded title block, whole info copy, one-line date. Round 24 91. ~236k.
 2026-10-26T11:45Z | n243 r24 video call tiles and controls; ride map trip box; scrapbook ruled lines and note tilt | Video call 84 to 100, ride map 84 to 93, scrapbook 86 to 92. Round 24 91. ~290k.
